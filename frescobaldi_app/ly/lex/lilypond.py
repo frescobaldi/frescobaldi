@@ -29,7 +29,7 @@ from . import _token
 from . import Parser, FallthroughParser
 
 
-re_articulation = r"[-_^][_.>|+^-]"
+re_articulation = r"[-_^][_.>|!+^-]"
 re_dynamic = (
     r"\\[<!>]|"
     r"\\(f{1,5}|p{1,5}"
@@ -238,7 +238,7 @@ class Direction(Articulation):
 
 
 class ScriptAbbreviation(Articulation, _token.Leaver):
-    rx = r"[+|>._^-]"
+    rx = r"[+|!>._^-]"
 
 
 class Fingering(Articulation, _token.Leaver):
