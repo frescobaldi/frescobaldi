@@ -32,7 +32,7 @@ from PyQt4.QtGui import *
 import app
 import resultfiles
 
-from . import svgscene
+from . import view
 
 
 class SvgView(QWidget):
@@ -41,7 +41,7 @@ class SvgView(QWidget):
         
         self._currentFiles = None
         
-        self.scene = svgscene.SvgScene(self)
+        self.view = view.View(self)
         
         self.pageLabel = QLabel()
         self.pageCombo = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
@@ -54,8 +54,7 @@ class SvgView(QWidget):
         hbox.addWidget(self.pageCombo)
         hbox.addStretch(1)
         layout.addLayout(hbox)
-        layout.addWidget(self.scene.view)
-        self.scene.view.show()
+        layout.addWidget(self.view)
         
         app.jobFinished.connect(self.initSvg)
         self.pageCombo.currentIndexChanged.connect(self.changePage)
@@ -77,7 +76,7 @@ class SvgView(QWidget):
         svg_pages = resultfiles.results(doc).files('.svg')
         if svg_pages:
             svg = QtCore.QUrl(svg_pages[0])
-            self.scene.webview.load(svg)       
+            self.view.load(svg)       
             self._currentFiles = svg_pages
             self.setPageCombo()
 			
@@ -89,11 +88,11 @@ class SvgView(QWidget):
     def changePage(self, page_index):
         """change page of score"""
         svg = QtCore.QUrl(self._currentFiles[page_index])
-        self.scene.webview.load(svg)
+        self.view.load(svg)
 		
     def clear(self):
         """Empties the view."""
         self._currentFiles = None
         nosvg = QtCore.QUrl("")
-        self.scene.webview.load(nosvg)
+        self.view.load(nosvg)
 
