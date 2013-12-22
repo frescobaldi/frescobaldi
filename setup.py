@@ -24,10 +24,11 @@ package_data = {
         'TangoExt/index.theme',
         'TangoExt/scalable/*.svg',
     ],
+    'frescobaldi_app.layoutcontrol': ['*.ly', '*.ily'],
     'frescobaldi_app.po': ['*.mo'],
-    'frescobaldi_app.preview_mode': ['*.ly', '*.ily'],
     'frescobaldi_app.scorewiz': ['*.png'],
     'frescobaldi_app.splashscreen': ['*.png'],
+    'frescobaldi_app.svgview': ['*.js'],
     'frescobaldi_app.symbols': ['*.svg'],
     'frescobaldi_app.userguide': ['*.md', '*.png'],
 }

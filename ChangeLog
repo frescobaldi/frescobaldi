@@ -8,6 +8,7 @@ Changes in 2.0.12 --
   - updated: cs, nl, fr, es
 * New features:
   - Edit->Select Block has finally been implemented
+  - A viewer for LilyPond-generated SVG files has been added by Peter Bjuhr
 * Improvements:
   - Besides the good old Preview and Publish modes a new mode has been added:
     Layout Control. This mode uses the settings on the preview mode panel, which
