@@ -59,8 +59,10 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("layoutcontrol.LayoutControlOptions")
         
         self.createActions()
+        
         # make some default arrangements
         mainwindow.tabifyDockWidget(self.musicview, self.docbrowser)
+        mainwindow.tabifyDockWidget(self.musicview, self.svgview)
     
     def loadPanel(self, name):
         """Loads the named Panel.
