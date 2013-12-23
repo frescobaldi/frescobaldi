@@ -50,12 +50,15 @@ def getJsScript(filename):
 class View(QtWebKit.QWebView):
     def __init__(self, parent):
         super(View, self).__init__(parent)
+        self.jslink = JSLink(self)
         self.loadFinished.connect(self.svgLoaded)
-        
+    
+    def mainwindow(self):
+        return self.parent().mainwindow()
+    
     def svgLoaded(self):
         frame = self.page().mainFrame()
-        self.links = JSLink(self.parent().mainwindow())
-        frame.addToJavaScriptWindowObject("pyLinks", self.links)
+        frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
         frame.evaluateJavaScript(getJsScript('pointandclick.js'))
 
 
@@ -65,10 +68,13 @@ class JSLink(QtCore.QObject):
     using addToJavaScriptWindowObject
     
     """
-    def __init__(self, mainwindow):
-        self.mainwindow = mainwindow
+    def __init__(self, view):
+        self.view = view
         super(JSLink, self).__init__()
-        
+    
+    def mainwindow(self):
+        return self.view.mainwindow()
+    
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
         """set cursor in source by clicked textedit link""" 
@@ -78,7 +84,7 @@ class JSLink(QtCore.QObject):
         b = doc.findBlockByNumber(t.line - 1)
         p = b.position() + t.column
         cursor.setPosition(p)
-        self.mainwindow.setTextCursor(cursor)
+        self.mainwindow().setTextCursor(cursor)
 	
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
