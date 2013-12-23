@@ -19,19 +19,22 @@
 * See http://www.gnu.org/licenses/ for more information.
 */
 
+function hover(){
+    var url = this.getAttribute('xlink:href');
+    pyLinks.hover(url);	
+};
+
+function click(){
+    var url = this.getAttribute('xlink:href');
+    pyLinks.setCursor(url);
+};
+
 var a = document.getElementsByTagName('a');
 //loop through all links
 for (var i= 0; i < a.length; ++i){
 
-	a[i].onmouseover = function(){
-		var url = this.getAttribute('xlink:href');
-		pyLinks.hover(url);	
-	};
-	
-	a[i].onclick = function(){
-		var url = this.getAttribute('xlink:href');
-		pyLinks.setCursor(url);
-	};
+	a[i].onmouseover = hover;
+	a[i].onclick = click;
 }
 	
 
