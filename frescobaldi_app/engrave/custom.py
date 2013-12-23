@@ -112,6 +112,9 @@ class Dialog(QDialog):
         self.deleteCheck.setChecked(
             s.value("delete_intermediate_files", True, bool))
         
+        if s.value("default_output_target", "pdf", type("")) == "svg":
+            self.outputCombo.setCurrentIndex(3)
+        
         self.loadLilyPondVersions()
         self.selectLilyPondInfo(lilypondinfo.preferred())
         app.settingsChanged.connect(self.loadLilyPondVersions)

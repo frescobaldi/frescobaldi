@@ -68,7 +68,11 @@ def defaultJob(document, args=None):
     else:
         command.append('-dno-point-and-click')
     
-    command.append('--pdf')
+    if s.value("default_output_target", "pdf", type("")) == "svg":
+        command.append('-dbackend=svg')
+    else:
+        command.append('--pdf')
+        
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)
     command.append(filename)

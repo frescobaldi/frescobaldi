@@ -53,6 +53,7 @@ class LilyPondPrefs(preferences.GroupsPage):
         self.setLayout(layout)
 
         layout.addWidget(Versions(self))
+        layout.addWidget(Target(self))
         layout.addWidget(Running(self))
 
 
@@ -328,5 +329,48 @@ class Running(preferences.Group):
         s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
         s.setValue("no_translation", self.noTranslation.isChecked())
         s.setValue("include_path", self.include.value())
+
+
+class Target(preferences.Group):
+    def __init__(self, page):
+        super(Target, self).__init__(page)
+        
+        layout = QHBoxLayout()
+        self.setLayout(layout)
+        
+        self.targetPDF = QRadioButton(toggled=page.changed)
+        self.targetSVG = QRadioButton(toggled=page.changed)
+        
+        layout.addWidget(self.targetPDF)
+        layout.addWidget(self.targetSVG)
+        layout.addStretch()
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Default output format"))
+        self.targetPDF.setText(_("PDF"))
+        self.targetPDF.setToolTip(_(
+            "Create PDF (Portable Document Format) documents by default."))
+        self.targetSVG.setText(_("SVG"))
+        self.targetSVG.setToolTip(_(
+            "Create SVG (Standard Vector Graphics) documents by default."))
+    
+    def loadSettings(self):
+        s = settings()
+        target = s.value("default_output_target", "pdf", type(""))
+        if target == "svg":
+            self.targetSVG.setChecked(True)
+            self.targetPDF.setChecked(False)
+        else:
+            self.targetSVG.setChecked(False)
+            self.targetPDF.setChecked(True)
+        
+    def saveSettings(self):
+        s = settings()
+        if self.targetSVG.isChecked():
+            target = "svg"
+        else:
+            target = "pdf"
+        s.setValue("default_output_target", target)
 
 
