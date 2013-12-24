@@ -36,9 +36,11 @@ from PyQt4 import QtGui
 from PyQt4 import QtWebKit
 
 import app
+import util
 import textedit
 import textformats
 import pointandclick
+import scratchdir
 
 
 from . import __path__
@@ -88,13 +90,28 @@ class JSLink(QtCore.QObject):
         color = textformats.formatData('editor').baseColors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
+    
+    def document(self, filename, load=False):
+        """Get the document with the specified filename.
+        
+        If load is True, the document is loaded if it wasn't already.
+        Also takes scratchdir into account for unnamed or non-local documents.
+        
+        """
+        for d in app.documents:
+            s = scratchdir.scratchdir(d)
+            if (s.directory() and util.equal_paths(filename, s.path())
+                or d.url().toLocalFile() == filename):
+                return d
+        if load:
+            return app.openUrl(QtCore.QUrl.fromLocalFile(t.filename))
         
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
         """set cursor in source by clicked textedit link""" 
         t = textedit.link(url)
         if t:
-            doc = app.openUrl(QtCore.QUrl.fromLocalFile(t.filename))
+            doc = self.document(t.filename, True)
             cursor = QtGui.QTextCursor(doc)
             b = doc.findBlockByNumber(t.line - 1)
             p = b.position() + t.column
@@ -114,7 +131,7 @@ class JSLink(QtCore.QObject):
         """actions when user set mouse over link"""
         t = textedit.link(url)
         if t:
-            doc = app.findDocument(QtCore.QUrl.fromLocalFile(t.filename))
+            doc = self.document(t.filename)
             if doc and doc == self.mainwindow().currentDocument():
                 cursor = QtGui.QTextCursor(doc)
                 b = doc.findBlockByNumber(t.line - 1)
