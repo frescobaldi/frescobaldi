@@ -104,7 +104,7 @@ class JSLink(QtCore.QObject):
                 or d.url().toLocalFile() == filename):
                 return d
         if load:
-            return app.openUrl(QtCore.QUrl.fromLocalFile(t.filename))
+            return app.openUrl(QtCore.QUrl.fromLocalFile(filename))
         
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
