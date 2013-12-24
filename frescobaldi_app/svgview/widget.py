@@ -40,6 +40,7 @@ class SvgView(QWidget):
         super(SvgView, self).__init__(dockwidget)
         
         self._currentFiles = None
+        self._setting_zoom = False
         
         self.view = view.View(self)
         
@@ -56,11 +57,13 @@ class SvgView(QWidget):
         self.zoomInButton = QToolButton(autoRaise=True)
         self.zoomOutButton = QToolButton(autoRaise=True)
         self.zoomOriginalButton = QToolButton(autoRaise=True)
+        self.zoomNumber = QSpinBox(minimum=10, maximum=1000, suffix='%', value=100)
         ac = dockwidget.actionCollection
         self.zoomInButton.setDefaultAction(ac.svg_zoom_in)
         self.zoomOutButton.setDefaultAction(ac.svg_zoom_out)
         self.zoomOriginalButton.setDefaultAction(ac.svg_zoom_original)
         hbox.addWidget(self.zoomInButton)
+        hbox.addWidget(self.zoomNumber)
         hbox.addWidget(self.zoomOutButton)
         hbox.addWidget(self.zoomOriginalButton)
         
@@ -70,6 +73,8 @@ class SvgView(QWidget):
         
         app.jobFinished.connect(self.initSvg)
         self.pageCombo.currentIndexChanged.connect(self.changePage)
+        self.zoomNumber.valueChanged.connect(self.slotZoomNumberChanged)
+        self.view.zoomFactorChanged.connect(self.slotViewZoomChanged)
         dockwidget.mainwindow().currentDocumentChanged.connect(self.initSvg)
         doc = dockwidget.mainwindow().currentDocument()
         if doc:
@@ -92,6 +97,15 @@ class SvgView(QWidget):
             self._currentFiles = svg_pages
             self.setPageCombo()
 			
+    def slotZoomNumberChanged(self, value):
+        self._setting_zoom = True
+        self.view.setZoomFactor(value / 100.0)
+        self._setting_zoom = False
+    
+    def slotViewZoomChanged(self):
+        if not self._setting_zoom:
+            self.zoomNumber.setValue(int(self.view.zoomFactor() * 100))
+    
     def setPageCombo(self):
         """Fill combobox with page numbers"""
         self.pageCombo.clear()

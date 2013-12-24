@@ -55,7 +55,7 @@ def getJsScript(filename):
 
 
 class View(QtWebKit.QWebView):
-    zoomFactorChanged = QtCore.pyqtSignal()
+    zoomFactorChanged = QtCore.pyqtSignal(float)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -83,7 +83,7 @@ class View(QtWebKit.QWebView):
         changed = self.zoomFactor() != value
         super(View, self).setZoomFactor(value)
         if changed:
-            self.zoomFactorChanged.emit()
+            self.zoomFactorChanged.emit(self.zoomFactor())
 
 
 class JSLink(QtCore.QObject):
