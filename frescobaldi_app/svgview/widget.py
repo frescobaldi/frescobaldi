@@ -46,12 +46,24 @@ class SvgView(QWidget):
         self.pageLabel = QLabel()
         self.pageCombo = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
 		
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(spacing=0)
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-        hbox = QHBoxLayout(margin=0)
+        hbox = QHBoxLayout(spacing=0)
         hbox.addWidget(self.pageLabel)
         hbox.addWidget(self.pageCombo)
+        
+        self.zoomInButton = QToolButton(autoRaise=True)
+        self.zoomOutButton = QToolButton(autoRaise=True)
+        self.zoomOriginalButton = QToolButton(autoRaise=True)
+        ac = dockwidget.actionCollection
+        self.zoomInButton.setDefaultAction(ac.svg_zoom_in)
+        self.zoomOutButton.setDefaultAction(ac.svg_zoom_out)
+        self.zoomOriginalButton.setDefaultAction(ac.svg_zoom_original)
+        hbox.addWidget(self.zoomInButton)
+        hbox.addWidget(self.zoomOutButton)
+        hbox.addWidget(self.zoomOriginalButton)
+        
         hbox.addStretch(1)
         layout.addLayout(hbox)
         layout.addWidget(self.view)

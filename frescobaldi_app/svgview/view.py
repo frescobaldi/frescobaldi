@@ -55,6 +55,8 @@ def getJsScript(filename):
 
 
 class View(QtWebKit.QWebView):
+    zoomFactorChanged = QtCore.pyqtSignal()
+    
     def __init__(self, parent):
         super(View, self).__init__(parent)
         self.jslink = JSLink(self)
@@ -67,6 +69,21 @@ class View(QtWebKit.QWebView):
         frame = self.page().mainFrame()
         frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
         frame.evaluateJavaScript(getJsScript('pointandclick.js'))
+    
+    def zoomIn(self):
+        self.setZoomFactor(self.zoomFactor() * 1.1)
+        
+    def zoomOut(self):
+        self.setZoomFactor(self.zoomFactor() / 1.1)
+        
+    def zoomOriginal(self):
+        self.setZoomFactor(1.0)
+    
+    def setZoomFactor(self, value):
+        changed = self.zoomFactor() != value
+        super(View, self).setZoomFactor(value)
+        if changed:
+            self.zoomFactorChanged.emit()
 
 
 class JSLink(QtCore.QObject):
