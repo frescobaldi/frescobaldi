@@ -25,6 +25,9 @@ that runs inside the displayed SVG file.
 
 """
 
+from __future__ import unicode_literals
+from __future__ import absolute_import
+
 import os
 import sys
 
@@ -34,6 +37,8 @@ from PyQt4 import QtWebKit
 
 import app
 import textedit
+import textformats
+import pointandclick
 
 
 from . import __path__
@@ -69,12 +74,21 @@ class JSLink(QtCore.QObject):
     
     """
     def __init__(self, view):
-        self.view = view
         super(JSLink, self).__init__()
-    
+        self.view = view
+        self._highlightFormat = QtGui.QTextCharFormat()
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
+        
     def mainwindow(self):
         return self.view.mainwindow()
     
+    def readSettings(self):
+        """Reads the settings from the user's preferences."""
+        color = textformats.formatData('editor').baseColors['selectionbackground']
+        color.setAlpha(128)
+        self._highlightFormat.setBackground(color)
+        
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
         """set cursor in source by clicked textedit link""" 
@@ -84,18 +98,40 @@ class JSLink(QtCore.QObject):
         b = doc.findBlockByNumber(t.line - 1)
         p = b.position() + t.column
         cursor.setPosition(p)
-        self.mainwindow().setTextCursor(cursor)
+        mainwindow = self.mainwindow()
+        mainwindow.setTextCursor(cursor)
+        import widgets.blink
+        widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
+        mainwindow.activateWindow()
+        mainwindow.currentView().setFocus()
 	
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
-	    """actions when user set mouse over link"""
-	    #TODO: implement highlighting in code when user hovers a link
-	    pass
-	    
+        """actions when user set mouse over link"""
+        t = textedit.link(url)
+        doc = app.findDocument(QtCore.QUrl.fromLocalFile(t.filename))
+        if doc and doc == self.mainwindow().currentDocument():
+            cursor = QtGui.QTextCursor(doc)
+            b = doc.findBlockByNumber(t.line - 1)
+            p = b.position() + t.column
+            cursor.setPosition(p)
+            cursors = pointandclick.positions(cursor)
+            if cursors:
+                import viewhighlighter
+                view = self.mainwindow().currentView()
+                viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
+    
+    @QtCore.pyqtSlot(str)	    
+    def leave(self, url):
+        """actions when user moves mouse off link"""
+        import viewhighlighter
+        view = self.mainwindow().currentView()
+        viewhighlighter.highlighter(view).clear(self._highlightFormat)
+        
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
-	    """Temporary function. Print to Python console."""
-	    print txt
+        """Temporary function. Print to Python console."""
+        print txt
 		
     
     

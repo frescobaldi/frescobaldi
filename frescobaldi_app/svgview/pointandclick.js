@@ -24,6 +24,11 @@ function hover(){
     pyLinks.hover(url);	
 };
 
+function leave(){
+    var url = this.getAttribute('xlink:href');
+    pyLinks.leave(url);	
+};
+
 function click(){
     var url = this.getAttribute('xlink:href');
     pyLinks.setCursor(url);
@@ -34,6 +39,7 @@ var a = document.getElementsByTagName('a');
 for (var i= 0; i < a.length; ++i){
 
 	a[i].onmouseover = hover;
+    a[i].onmouseout = leave;
 	a[i].onclick = click;
 }
 	
