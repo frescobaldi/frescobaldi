@@ -353,7 +353,7 @@ class Target(preferences.Group):
             "Create PDF (Portable Document Format) documents by default."))
         self.targetSVG.setText(_("SVG"))
         self.targetSVG.setToolTip(_(
-            "Create SVG (Standard Vector Graphics) documents by default."))
+            "Create SVG (Scalable Vector Graphics) documents by default."))
     
     def loadSettings(self):
         s = settings()
