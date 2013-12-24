@@ -62,3 +62,8 @@ def link(page):
     from . import util
     return util.format_link(page)
 
+def html(name):
+    """Return the HTML body for the named help page."""
+    from . import page
+    return page.Page(name).body()
+

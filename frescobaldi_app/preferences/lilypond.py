@@ -85,21 +85,7 @@ class Versions(preferences.Group):
         self.auto.setToolTip(_(
             "If checked, the document's version determines the LilyPond version to use.\n"
             "See \"What's This\" for more information."))
-        self.auto.setWhatsThis(_(
-            "<p>If this setting is enabled, the document is searched for a "
-            "LilyPond <code>\\version</code> command or a <code>version</code> "
-            "document variable.</p>\n"
-            "<p>The LilyPond version command looks like:</p>\n"
-            "<pre>\\version \"2.14.0\"</pre>\n"
-            "<p>The document variable looks like:</p>\n"
-            "<pre>-*- version: 2.14.0;</pre>\n"
-            "<p>somewhere (in a comments section) in the first or last 5 lines "
-            "of the document. "
-            "This way the LilyPond version to use can also be specified in non-LilyPond "
-            "documents like HTML, LaTeX, etc.</p>\n"
-            "<p>If the document specifies a version, the oldest suitable LilyPond version "
-            "is chosen. Otherwise, the default version is chosen.</p>\n"
-            ) +
+        self.auto.setWhatsThis(userguide.html("prefs_lilypond_autoversion") +
             _("See also {link}.").format(link=userguide.link("prefs_lilypond")))
 
     def loadSettings(self):
