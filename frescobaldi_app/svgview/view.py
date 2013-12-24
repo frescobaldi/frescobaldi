@@ -93,33 +93,38 @@ class JSLink(QtCore.QObject):
     def setCursor(self, url):
         """set cursor in source by clicked textedit link""" 
         t = textedit.link(url)
-        doc = app.openUrl(QtCore.QUrl.fromLocalFile(t.filename))
-        cursor = QtGui.QTextCursor(doc)
-        b = doc.findBlockByNumber(t.line - 1)
-        p = b.position() + t.column
-        cursor.setPosition(p)
-        mainwindow = self.mainwindow()
-        mainwindow.setTextCursor(cursor)
-        import widgets.blink
-        widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
-        mainwindow.activateWindow()
-        mainwindow.currentView().setFocus()
+        if t:
+            doc = app.openUrl(QtCore.QUrl.fromLocalFile(t.filename))
+            cursor = QtGui.QTextCursor(doc)
+            b = doc.findBlockByNumber(t.line - 1)
+            p = b.position() + t.column
+            cursor.setPosition(p)
+            mainwindow = self.mainwindow()
+            mainwindow.setTextCursor(cursor)
+            import widgets.blink
+            widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
+            mainwindow.activateWindow()
+            mainwindow.currentView().setFocus()
+        else:
+            import helpers
+            helpers.openUrl(QtCore.QUrl(url))
 	
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
         """actions when user set mouse over link"""
         t = textedit.link(url)
-        doc = app.findDocument(QtCore.QUrl.fromLocalFile(t.filename))
-        if doc and doc == self.mainwindow().currentDocument():
-            cursor = QtGui.QTextCursor(doc)
-            b = doc.findBlockByNumber(t.line - 1)
-            p = b.position() + t.column
-            cursor.setPosition(p)
-            cursors = pointandclick.positions(cursor)
-            if cursors:
-                import viewhighlighter
-                view = self.mainwindow().currentView()
-                viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
+        if t:
+            doc = app.findDocument(QtCore.QUrl.fromLocalFile(t.filename))
+            if doc and doc == self.mainwindow().currentDocument():
+                cursor = QtGui.QTextCursor(doc)
+                b = doc.findBlockByNumber(t.line - 1)
+                p = b.position() + t.column
+                cursor.setPosition(p)
+                cursors = pointandclick.positions(cursor)
+                if cursors:
+                    import viewhighlighter
+                    view = self.mainwindow().currentView()
+                    viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
     
     @QtCore.pyqtSlot(str)	    
     def leave(self, url):
