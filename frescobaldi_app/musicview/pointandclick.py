@@ -78,3 +78,7 @@ class Links(pointandclick.Links):
         if t:
             return super(Links, self).cursor(t.filename, t.line, t.column, load)
 
+
+positions = pointandclick.positions
+
+
