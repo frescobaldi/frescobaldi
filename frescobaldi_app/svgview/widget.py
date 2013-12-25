@@ -102,7 +102,7 @@ class SvgView(QWidget):
                 with qutil.signalsBlocked(self.pageCombo):
                     self.pageCombo.setModel(model)
                     self.pageCombo.setCurrentIndex(files.current)
-                self.view.loadSvg(files.url(files.current))
+                self.view.load(files.url(files.current))
 			
     def slotZoomNumberChanged(self, value):
         self._setting_zoom = True
@@ -121,7 +121,7 @@ class SvgView(QWidget):
             if files:
                 files.current = page_index
                 svg = files.url(page_index)
-                self.view.loadSvg(svg)
+                self.view.load(svg)
 		
     def slotDocumentClosed(self, doc):
         if doc == self._document:
