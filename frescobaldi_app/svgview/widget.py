@@ -33,13 +33,14 @@ import app
 import resultfiles
 
 from . import view
+from . import svgfiles
 
 
 class SvgView(QWidget):
     def __init__(self, dockwidget):
         super(SvgView, self).__init__(dockwidget)
         
-        self._currentFiles = None
+        self._document = None
         self._setting_zoom = False
         
         self.view = view.View(self)
@@ -72,6 +73,8 @@ class SvgView(QWidget):
         layout.addWidget(self.view)
         
         app.jobFinished.connect(self.initSvg)
+        app.documentClosed.connect(self.slotDocumentClosed)
+        app.documentLoaded.connect(self.initSvg)
         self.pageCombo.currentIndexChanged.connect(self.changePage)
         self.zoomNumber.valueChanged.connect(self.slotZoomNumberChanged)
         self.view.zoomFactorChanged.connect(self.slotViewZoomChanged)
@@ -83,19 +86,20 @@ class SvgView(QWidget):
     
     def translateUI(self):
         self.pageLabel.setText(_("Page:"))
-
         
     def mainwindow(self):
         return self.parent().mainwindow()       
         
     def initSvg(self, doc):
         """Opens first page of score after compilation"""
-        svg_pages = resultfiles.results(doc).files('.svg')
-        if svg_pages:
-            svg = QtCore.QUrl(svg_pages[0])
-            self.view.load(svg)       
-            self._currentFiles = svg_pages
-            self.setPageCombo()
+        if doc == self.mainwindow().currentDocument():
+            files = svgfiles.SvgFiles.instance(doc)
+            model = files.model() # forces update
+            if files:
+                self._document = doc
+                self.pageCombo.setModel(model)
+                self.pageCombo.setCurrentIndex(files.current)
+                self.view.load(files.url(files.current))
 			
     def slotZoomNumberChanged(self, value):
         self._setting_zoom = True
@@ -106,19 +110,23 @@ class SvgView(QWidget):
         if not self._setting_zoom:
             self.zoomNumber.setValue(int(self.view.zoomFactor() * 100))
     
-    def setPageCombo(self):
-        """Fill combobox with page numbers"""
-        self.pageCombo.clear()
-        self.pageCombo.addItems(map(os.path.basename, self._currentFiles))
-        
     def changePage(self, page_index):
         """change page of score"""
-        svg = QtCore.QUrl(self._currentFiles[page_index])
-        self.view.load(svg)
+        doc = self._document
+        if doc:
+            files = svgfiles.SvgFiles.instance(doc)
+            if files:
+                files.current = page_index
+                svg = files.url(page_index)
+                self.view.load(svg)
 		
-    def clear(self):
-        """Empties the view."""
-        self._currentFiles = None
-        nosvg = QtCore.QUrl("")
-        self.view.load(nosvg)
+    def slotDocumentClosed(self, doc):
+        if doc == self._document:
+            self._document = None
+            if self.pageCombo.model():
+                self.pageCombo.model().deleteLater()
+            self.pageCombo.clear()
+            self.pageCombo.update() # otherwise it doesn't redraw
+            nosvg = QtCore.QUrl("")
+            self.view.load(nosvg)
 
