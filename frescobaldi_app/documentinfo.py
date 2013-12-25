@@ -42,7 +42,7 @@ import plugin
 import variables
 
 
-__all__ = ['info', 'mode']
+__all__ = ['docinfo', 'info', 'mode']
 
 
 def info(document):
