@@ -30,6 +30,7 @@ from PyQt4 import QtCore
 from PyQt4.QtGui import *
 
 import app
+import qutil
 import resultfiles
 
 from . import view
@@ -98,9 +99,10 @@ class SvgView(QWidget):
             model = files.model() # forces update
             if files:
                 self._document = doc
-                self.pageCombo.setModel(model)
-                self.pageCombo.setCurrentIndex(files.current)
-                self.view.load(files.url(files.current))
+                with qutil.signalsBlocked(self.pageCombo):
+                    self.pageCombo.setModel(model)
+                    self.pageCombo.setCurrentIndex(files.current)
+                self.view.loadSvg(files.url(files.current))
 			
     def slotZoomNumberChanged(self, value):
         self._setting_zoom = True
@@ -119,7 +121,7 @@ class SvgView(QWidget):
             if files:
                 files.current = page_index
                 svg = files.url(page_index)
-                self.view.load(svg)
+                self.view.loadSvg(svg)
 		
     def slotDocumentClosed(self, doc):
         if doc == self._document:
@@ -128,6 +130,5 @@ class SvgView(QWidget):
                 self.pageCombo.model().deleteLater()
             self.pageCombo.clear()
             self.pageCombo.update() # otherwise it doesn't redraw
-            nosvg = QtCore.QUrl("")
-            self.view.load(nosvg)
+            self.view.clear()
 

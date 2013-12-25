@@ -60,16 +60,21 @@ class View(QtWebKit.QWebView):
     def __init__(self, parent):
         super(View, self).__init__(parent)
         self.jslink = JSLink(self)
-        self.loadFinished.connect(self.svgLoaded)
     
     def mainwindow(self):
         return self.parent().mainwindow()
     
-    def svgLoaded(self):
+    def loadSvg(self, url):
+        """Load the SVG from the specified QUrl."""
+        self.load(url)
         frame = self.page().mainFrame()
         frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
         frame.evaluateJavaScript(getJsScript('pointandclick.js'))
     
+    def clear(self):
+        """Empty the View."""
+        self.load(QtCore.QUrl())
+        
     def zoomIn(self):
         self.setZoomFactor(self.zoomFactor() * 1.1)
         
