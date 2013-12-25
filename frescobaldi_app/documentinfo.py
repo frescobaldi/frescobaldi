@@ -65,6 +65,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     def _reset(self):
         """Called when the document is changed."""
         del self._lydocinfo
+        self.document().closed.disconnect(self._reset)
         self.document().contentsChanged.disconnect(self._reset)
     
     def lydocinfo(self):
@@ -76,6 +77,7 @@ class DocumentInfo(plugin.DocumentPlugin):
             v = variables.manager(self.document()).variables()
             info = self._lydocinfo = lydocinfo.DocInfo(doc, v)
             self.document().contentsChanged.connect(self._reset)
+            self.document().closed.connect(self._reset)
             return info
     
     def mode(self, guess=True):
