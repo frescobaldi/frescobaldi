@@ -58,7 +58,7 @@ class SvgView(QWidget):
         self.zoomInButton = QToolButton(autoRaise=True)
         self.zoomOutButton = QToolButton(autoRaise=True)
         self.zoomOriginalButton = QToolButton(autoRaise=True)
-        self.zoomNumber = QSpinBox(minimum=10, maximum=1000, suffix='%', value=100)
+        self.zoomNumber = QSpinBox(minimum=10, maximum=1000, suffix='%')
         ac = dockwidget.actionCollection
         self.zoomInButton.setDefaultAction(ac.svg_zoom_in)
         self.zoomOutButton.setDefaultAction(ac.svg_zoom_out)
@@ -79,6 +79,7 @@ class SvgView(QWidget):
         self.zoomNumber.valueChanged.connect(self.slotZoomNumberChanged)
         self.view.zoomFactorChanged.connect(self.slotViewZoomChanged)
         dockwidget.mainwindow().currentDocumentChanged.connect(self.initSvg)
+        self.zoomNumber.setValue(100)
         doc = dockwidget.mainwindow().currentDocument()
         if doc:
             self.initSvg(doc)
