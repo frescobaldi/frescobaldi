@@ -25,7 +25,9 @@ Changes in 2.0.12 --
     enabled. Fixes #248.
 * Removed feature:
   - The 'master' variable is no longer supported, it's goal has been superseded
-    by the 'Always Engrave' option, which is also saved in the session.
+    by the 'Always Engrave' option, which is also saved in the session. This
+    decision was taken to simplify the handling of created files on behalf of
+    a document.
 
 
 Changes in 2.0.11 -- October 16th, 2013
