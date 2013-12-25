@@ -8,11 +8,17 @@ Changes in 2.0.12 --
   - updated: cs, nl, fr, es
 * New features:
   - Edit->Select Block has finally been implemented
-  - A viewer for LilyPond-generated SVG files has been added by Peter Bjuhr
+  - A viewer for LilyPond-generated SVG files has been added by Peter Bjuhr. 
+    This viewer (accessible via Tools->SVG Viewer) currently has one-way point 
+    and click. This only works with recent development versions of LilyPond, 
+    that add the point and click information to SVG files. In the future, the
+    SVG view may become a fully fledged graphical music editor.
+  - The default output format can be set in the LilyPond preferences (the 
+    current options are PDF or SVG, the default is PDF)
 * Improvements:
   - Besides the good old Preview and Publish modes a new mode has been added:
     Layout Control. This mode uses the settings on the preview mode panel, which
-    has been renamed Layout Control Options. The layout of the panel has been
+    has been renamed to Layout Control Options. The layout of the panel has been
     improved. The Preview mode is reverted back to enabling only point and click
     links. In the Engrave (custom) dialog the run mode can be chosen and the
     commandline edited directly.
@@ -20,6 +26,16 @@ Changes in 2.0.12 --
     entered; better support French keyboards (contributed by Nicolas Malarmey)
   - On Mac OS X, you can drag the window icon to other applications
   - Better Mac OS X icons (contributed by Davide Liessi)
+  - The internal handling of manipulations like transpose, translate, and the
+    various rhythm commands has become less dependent on Frescobaldi code.
+    These functionality now resides in the ly module and could be used by 
+    other applications. The commands now can work on any ly.document, which 
+    need not be a Frescobaldi document.
+  - The internal help system has seen a massive overhaul: help files are now
+    very easy to write in a simplified markdown-like syntax. Adding help pages
+    is very easy by dropping a *.md file in the userguide/ directory. Every
+    paragraph in a help file is automatically added to the POT file and can be
+    translated by editing the language's PO file.
 * Bug fixes:
   - Music View: horizontal scrolling using trackpad now works with kinetic mode
     enabled. Fixes #248.
