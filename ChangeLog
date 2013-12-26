@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.12 -- 
+Changes in 2.0.12 -- December 26th, 2013
 
 * Translations:
   - updated: cs, nl, fr, es
@@ -16,6 +16,10 @@ Changes in 2.0.12 --
   - The default output format can be set in the LilyPond preferences (the 
     current options are PDF or SVG, the default is PDF)
 * Improvements:
+  - The indenter's handling of tabs and spaces has been improved. A tab always
+    starts a new indent level, and aligning is now always done with spaces.
+    The default is still using 2 spaces for indent, but it is now configurable
+    in a new settings panel Editor Preferences.
   - Besides the good old Preview and Publish modes a new mode has been added:
     Layout Control. This mode uses the settings on the preview mode panel, which
     has been renamed to Layout Control Options. The layout of the panel has been
