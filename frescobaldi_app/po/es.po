@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-18 23:04+0100\n"
+"POT-Creation-Date: 2013-12-26 09:05+0100\n"
 "PO-Revision-Date: 2013-10-02 11:36+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -985,7 +985,7 @@ msgid "Special Charac&ters"
 msgstr "Carac&teres especiales"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:126
+#: ../preferences/documentation.py:118
 msgid "Documentation Browser"
 msgstr "Navegador de documentación"
 
@@ -1130,81 +1130,81 @@ msgstr "Pro&cesar (personalizado)..."
 msgid "Abort Engraving &Job"
 msgstr "A&bortar el procesado"
 
-#: ../engrave/custom.py:127
+#: ../engrave/custom.py:130
 msgid "Engrave custom"
 msgstr "Procesar personalizado"
 
-#: ../engrave/custom.py:128
+#: ../engrave/custom.py:131
 msgid "LilyPond Version:"
 msgstr "Versión de LilyPond:"
 
-#: ../engrave/custom.py:129
+#: ../engrave/custom.py:132
 msgid "Output Format:"
 msgstr "Formato de salida:"
 
-#: ../engrave/custom.py:130 ../preferences/helpers.py:167
+#: ../engrave/custom.py:133 ../preferences/helpers.py:167
 msgid "Resolution:"
 msgstr "Resolución:"
 
-#: ../engrave/custom.py:131
+#: ../engrave/custom.py:134
 #, fuzzy
 msgid "Engraving mode:"
 msgstr "A&bortar el procesado"
 
-#: ../engrave/custom.py:132 ../scorewiz/dialog.py:84
+#: ../engrave/custom.py:135 ../scorewiz/dialog.py:84
 msgid "Preview"
 msgstr "Vista previa"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:136
 msgid "Publish"
 msgstr ""
 
-#: ../engrave/custom.py:134
+#: ../engrave/custom.py:137
 #, fuzzy
 msgid "Layout Control"
 msgstr "Contribuciones diversas"
 
-#: ../engrave/custom.py:135 ../preferences/lilypond.py:308
+#: ../engrave/custom.py:138 ../preferences/lilypond.py:295
 msgid "Run LilyPond with English messages"
 msgstr "Ejecutar LilyPond con mensajes en inglés"
 
-#: ../engrave/custom.py:136 ../preferences/lilypond.py:305
+#: ../engrave/custom.py:139 ../preferences/lilypond.py:292
 msgid "Delete intermediate output files"
 msgstr "Borrar los archivos de salida intermedios"
 
-#: ../engrave/custom.py:137 ../file_import/musicxml.py:162
+#: ../engrave/custom.py:140 ../file_import/musicxml.py:162
 msgid "Command line:"
 msgstr "Línea de órdenes:"
 
-#: ../engrave/custom.py:138
+#: ../engrave/custom.py:141
 msgid "Run LilyPond"
 msgstr "Ejecutar LilyPond"
 
-#: ../engrave/custom.py:224
+#: ../engrave/custom.py:226 ../preferences/lilypond.py:337
 msgid "PDF"
 msgstr "PDF"
 
-#: ../engrave/custom.py:230
+#: ../engrave/custom.py:232
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../engrave/custom.py:236
+#: ../engrave/custom.py:238
 msgid "PNG"
 msgstr "PNG"
 
-#: ../engrave/custom.py:242
+#: ../engrave/custom.py:244 ../preferences/lilypond.py:340
 msgid "SVG"
 msgstr "SVG"
 
-#: ../engrave/custom.py:248
+#: ../engrave/custom.py:250
 msgid "PDF (EPS Backend)"
 msgstr "PDF (backend EPS)"
 
-#: ../engrave/custom.py:254
+#: ../engrave/custom.py:256
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "PostScript encapsulado (backend EPS)"
 
-#: ../engrave/custom.py:260
+#: ../engrave/custom.py:262
 msgid "PNG (EPS Backend)"
 msgstr "PNG (backend EPS)"
 
@@ -1392,7 +1392,7 @@ msgstr ""
 msgid "Language for pitch names"
 msgstr ""
 
-#: ../file_import/musicxml.py:165 ../preferences/documentation.py:128
+#: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
 #: ../preferences/general.py:133 ../preferences/tools.py:296
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
@@ -2233,49 +2233,29 @@ msgstr "Tipografías y colores"
 msgid "Tools"
 msgstr "Herramientas"
 
-#: ../preferences/documentation.py:66
+#: ../preferences/documentation.py:67
 msgid "Paths to LilyPond Documentation"
 msgstr "Rutas a la documentación de LilyPond"
 
-#: ../preferences/documentation.py:68
+#: ../preferences/documentation.py:69
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
 "Añadir rutas o URLs. Consulte \"Qué es esto\" para ver más información."
 
-#: ../preferences/documentation.py:70
-msgid ""
-"<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
-"<p>If those can't be found, documentation is looked for in all "
-"subdirectories of the given path, one level deep. This makes it possible to "
-"put multiple versions of LilyPond documentation in different subdirectories "
-"and have Frescobaldi automatically find them.</p>"
-msgstr ""
-"<p>Aquí puede añadir rutas o URLs locales que apunten a la documentación de "
-"LilyPond. Una ruta local debe apuntar a la carpeta en que reside el "
-"directorio \"{documentation}\", o la ruta completa \"share/doc/lilypond/html/"
-"offline-root\".</p>\n"
-"<p>Si no se encuentran, se busca la documentación en todas las subcarpetas "
-"de la ruta especificada, a un nivel de profundidad. Ello permite colocar "
-"varias versiones de la documentación de LilyPond en distintas subcarpetas y "
-"hacer que Frescobaldi las encuentre automáticamente.</p>"
-
-#: ../preferences/documentation.py:127
+#: ../preferences/documentation.py:119
 msgid "Preferred Language:"
 msgstr "Idioma preferido:"
 
-#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:121 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Inglés (sin traducir)"
 
-#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:122 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:96 ../preferences/tools.py:231
 msgid "Font:"
 msgstr "Tipografía:"
 
-#: ../preferences/documentation.py:166
+#: ../preferences/documentation.py:158
 msgid "Please enter a local path or a URL:"
 msgstr "Introduzca una ruta o URL local:"
 
@@ -2474,7 +2454,7 @@ msgstr "Escape"
 msgid "Comment"
 msgstr "Comentario"
 
-#: ../preferences/fontscolors.py:501 ../preferences/lilypond.py:246
+#: ../preferences/fontscolors.py:501 ../preferences/lilypond.py:233
 #: ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -2836,15 +2816,15 @@ msgstr "No se ha encontrado ningún fragmento de código."
 msgid "No shortcuts found."
 msgstr "No se encontró ninguna salida"
 
-#: ../preferences/lilypond.py:82
+#: ../preferences/lilypond.py:83
 msgid "LilyPond versions to use"
 msgstr "Versiones de LilyPond que usar"
 
-#: ../preferences/lilypond.py:83 ../userguide/prefs_lilypond_autoversion.md:1
+#: ../preferences/lilypond.py:84 ../userguide/prefs_lilypond_autoversion.md:1
 msgid "Automatically choose LilyPond version from document"
 msgstr "Elegir automáticamente la versión de LilyPond a partir del documento"
 
-#: ../preferences/lilypond.py:85
+#: ../preferences/lilypond.py:86
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -2853,84 +2833,55 @@ msgstr ""
 "LilyPond que utilizar.\n"
 "Consulte \"Qué es esto\" para ver más información."
 
-#: ../preferences/lilypond.py:88
-msgid ""
-"<p>If this setting is enabled, the document is searched for a LilyPond <code>"
-"\\version</code> command or a <code>version</code> document variable.</p>\n"
-"<p>The LilyPond version command looks like:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>The document variable looks like:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>somewhere (in a comments section) in the first or last 5 lines of the "
-"document. This way the LilyPond version to use can also be specified in non-"
-"LilyPond documents like HTML, LaTeX, etc.</p>\n"
-"<p>If the document specifies a version, the oldest suitable LilyPond version "
-"is chosen. Otherwise, the default version is chosen.</p>\n"
-msgstr ""
-"<p>Si este ajuste está activado, se busca en el documento una instrucción "
-"<code>\\version</code> de LilyPond o una variable del documento "
-"<code>version</code>.</p>\n"
-"<p>El aspecto de la instrucción de versión de LilyPond es el siguiente:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>La variable del documento se parece a esto:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>en algún lugar (dentro de una sección de comentarios) de la primera o las "
-"últimas cinco líneas del documento. De esta forma, la versión de LilyPond "
-"que usar se puede especificar también en documentos que no son de LilyPond "
-"como HTML, LaTeX, etc.</p>\n"
-"<p>Si el documento especifica una versión, se elige la versión de LilyPond "
-"más antigua que sea adecuada. En caso contrario, se elige la versión "
-"predeterminada.</p>\n"
-
-#: ../preferences/lilypond.py:102
+#: ../preferences/lilypond.py:89
 msgid "See also {link}."
 msgstr "Véase también {link}."
 
-#: ../preferences/lilypond.py:150
+#: ../preferences/lilypond.py:137
 msgid "Set as &Default"
 msgstr "Establecer como pre&determinados"
 
-#: ../preferences/lilypond.py:191
+#: ../preferences/lilypond.py:178
 msgid "default"
 msgstr "predeterminado"
 
-#: ../preferences/lilypond.py:247
+#: ../preferences/lilypond.py:234
 msgid "Label:"
 msgstr ""
 
-#: ../preferences/lilypond.py:248
+#: ../preferences/lilypond.py:235
 msgid "How this version of LilyPond will be displayed."
 msgstr ""
 
-#: ../preferences/lilypond.py:249
+#: ../preferences/lilypond.py:236
 msgid "LilyPond Command:"
 msgstr "Instrucción de LilyPond:"
 
-#: ../preferences/lilypond.py:250
+#: ../preferences/lilypond.py:237
 msgid "Name or full path of the LilyPond program."
 msgstr "El nombre o la ruta completa del programa LilyPond."
 
-#: ../preferences/lilypond.py:251
+#: ../preferences/lilypond.py:238
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../preferences/lilypond.py:252
+#: ../preferences/lilypond.py:239
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../preferences/lilypond.py:253
+#: ../preferences/lilypond.py:240
 msgid "Include in automatic version selection"
 msgstr "Incluir en la selección automática de la versión"
 
-#: ../preferences/lilypond.py:300
+#: ../preferences/lilypond.py:287
 msgid "Running LilyPond"
 msgstr "Ejecutar LilyPond"
 
-#: ../preferences/lilypond.py:301
+#: ../preferences/lilypond.py:288
 msgid "Save document if possible"
 msgstr "Guardar el documento si es posible"
 
-#: ../preferences/lilypond.py:303
+#: ../preferences/lilypond.py:290
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -2939,12 +2890,12 @@ msgstr ""
 "sido modificado.\n"
 "En caso contrario, se usa un archivo temporal para ejecutar LilyPond."
 
-#: ../preferences/lilypond.py:307
+#: ../preferences/lilypond.py:294
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
 "Si está activado, LilyPond borrará los archivos PostScript intermedios."
 
-#: ../preferences/lilypond.py:310
+#: ../preferences/lilypond.py:297
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -2952,9 +2903,22 @@ msgstr ""
 "Si está activado, los mensajes de salida de LilyPond estarán en inglés.\n"
 "Puede ser útil para enviar informes de fallo."
 
-#: ../preferences/lilypond.py:312
+#: ../preferences/lilypond.py:299
 msgid "LilyPond include path:"
 msgstr "Ruta de inclusión para LilyPond:"
+
+#: ../preferences/lilypond.py:336
+#, fuzzy
+msgid "Default output format"
+msgstr "Formato de salida:"
+
+#: ../preferences/lilypond.py:339
+msgid "Create PDF (Portable Document Format) documents by default."
+msgstr ""
+
+#: ../preferences/lilypond.py:342
+msgid "Create SVG (Scalable Vector Graphics) documents by default."
+msgstr ""
 
 #: ../preferences/midi.py:82
 msgid "MIDI Ports"
@@ -3199,201 +3163,201 @@ msgstr "Inserción rápida"
 msgid "Quick &Insert"
 msgstr "&Inserción rápida"
 
-#: ../quickinsert/articulations.py:95
+#: ../quickinsert/articulations.py:96
 msgid "Allow shorthands"
 msgstr "Permitir abreviaturas"
 
-#: ../quickinsert/articulations.py:97
+#: ../quickinsert/articulations.py:98
 msgid "Use short notation for some articulations like staccato."
 msgstr "Utilizar notación corta para ciertas articulaciones como el picado."
 
-#: ../quickinsert/articulations.py:99
+#: ../quickinsert/articulations.py:100
 msgid "Remove articulations etc."
 msgstr "Quitar articulaciones, etc."
 
-#: ../quickinsert/articulations.py:107 ../quickinsert/articulations.py:139
+#: ../quickinsert/articulations.py:108 ../quickinsert/articulations.py:146
 #: ../userguide/quickinsert.md:16
 msgid "Articulations"
 msgstr "Articulaciones"
 
-#: ../quickinsert/articulations.py:111
+#: ../quickinsert/articulations.py:112
 msgid "Different kinds of articulations and other signs."
 msgstr "Distintos tipos de articulaciones y otros símbolos."
 
-#: ../quickinsert/articulations.py:142
+#: ../quickinsert/articulations.py:149
 msgid "Accent"
 msgstr "Acento"
 
-#: ../quickinsert/articulations.py:143
+#: ../quickinsert/articulations.py:150
 msgid "Marcato"
 msgstr "Marcato"
 
-#: ../quickinsert/articulations.py:144
+#: ../quickinsert/articulations.py:151
 msgid "Staccatissimo"
 msgstr "Staccatissimo"
 
-#: ../quickinsert/articulations.py:145
+#: ../quickinsert/articulations.py:152
 msgid "Staccato"
 msgstr "Picado"
 
-#: ../quickinsert/articulations.py:146
+#: ../quickinsert/articulations.py:153
 msgid "Portato"
 msgstr "Portato"
 
-#: ../quickinsert/articulations.py:147
+#: ../quickinsert/articulations.py:154
 msgid "Tenuto"
 msgstr "Tenuto"
 
-#: ../quickinsert/articulations.py:148
+#: ../quickinsert/articulations.py:155
 msgid "Espressivo"
 msgstr "Espressivo"
 
-#: ../quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:160
 msgid "Ornaments"
 msgstr "Adornos"
 
-#: ../quickinsert/articulations.py:156 ../quickinsert/spanners.py:173
+#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:173
 msgid "Trill"
 msgstr "Trino"
 
-#: ../quickinsert/articulations.py:157
+#: ../quickinsert/articulations.py:164
 msgid "Prall"
 msgstr "Semitrino"
 
-#: ../quickinsert/articulations.py:158
+#: ../quickinsert/articulations.py:165
 msgid "Mordent"
 msgstr "Mordente"
 
-#: ../quickinsert/articulations.py:159
+#: ../quickinsert/articulations.py:166
 msgid "Turn"
 msgstr "Grupeto"
 
-#: ../quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:167
 msgid "Prall prall"
 msgstr "Semitrino largo"
 
-#: ../quickinsert/articulations.py:161
+#: ../quickinsert/articulations.py:168
 msgid "Prall mordent"
 msgstr "Semitrino con resolución"
 
-#: ../quickinsert/articulations.py:162
+#: ../quickinsert/articulations.py:169
 msgid "Up prall"
 msgstr "Semitrino ascendente"
 
-#: ../quickinsert/articulations.py:163
+#: ../quickinsert/articulations.py:170
 msgid "Down prall"
 msgstr "Semitrino descendente"
 
-#: ../quickinsert/articulations.py:164
+#: ../quickinsert/articulations.py:171
 msgid "Up mordent"
 msgstr "Mordente ascendente"
 
-#: ../quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:172
 msgid "Down mordent"
 msgstr "Mordente descendente"
 
-#: ../quickinsert/articulations.py:166
+#: ../quickinsert/articulations.py:173
 msgid "Prall up"
 msgstr "Semitrino con final ascendente"
 
-#: ../quickinsert/articulations.py:167
+#: ../quickinsert/articulations.py:174
 msgid "Prall down"
 msgstr "Semitrino con final descendente"
 
-#: ../quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:175
 msgid "Line prall"
 msgstr "Semitrino lineal"
 
-#: ../quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:176
 msgid "Reverse turn"
 msgstr "Grupeto invertido"
 
 #. L10N: dynamic signs
-#: ../quickinsert/articulations.py:174 ../quickinsert/dynamics.py:141
+#: ../quickinsert/articulations.py:181 ../quickinsert/dynamics.py:141
 msgid "Signs"
 msgstr "Símbolos"
 
-#: ../quickinsert/articulations.py:177
+#: ../quickinsert/articulations.py:184
 msgid "Fermata"
 msgstr "Calderón"
 
-#: ../quickinsert/articulations.py:178
+#: ../quickinsert/articulations.py:185
 msgid "Short fermata"
 msgstr "Calderón corto"
 
-#: ../quickinsert/articulations.py:179
+#: ../quickinsert/articulations.py:186
 msgid "Long fermata"
 msgstr "Calderón largo"
 
-#: ../quickinsert/articulations.py:180
+#: ../quickinsert/articulations.py:187
 msgid "Very long fermata"
 msgstr "Calderón muy largo"
 
-#: ../quickinsert/articulations.py:181
+#: ../quickinsert/articulations.py:188
 msgid "Segno"
 msgstr "Segno"
 
-#: ../quickinsert/articulations.py:182
+#: ../quickinsert/articulations.py:189
 msgid "Coda"
 msgstr "Coda"
 
-#: ../quickinsert/articulations.py:183
+#: ../quickinsert/articulations.py:190
 msgid "Varcoda"
 msgstr "Varcoda"
 
-#: ../quickinsert/articulations.py:184
+#: ../quickinsert/articulations.py:191
 msgid "Signumcongruentiae"
 msgstr "Signumcongruentiae"
 
-#: ../quickinsert/articulations.py:189
+#: ../quickinsert/articulations.py:196
 msgid "Other"
 msgstr "Otros"
 
-#: ../quickinsert/articulations.py:192
+#: ../quickinsert/articulations.py:199
 msgid "Upbow"
 msgstr "Arco arriba"
 
-#: ../quickinsert/articulations.py:193
+#: ../quickinsert/articulations.py:200
 msgid "Downbow"
 msgstr "Arco abajo"
 
-#: ../quickinsert/articulations.py:194
+#: ../quickinsert/articulations.py:201
 msgid "Snappizzicato"
 msgstr "Snappizzicato"
 
-#: ../quickinsert/articulations.py:195
+#: ../quickinsert/articulations.py:202
 msgid "Open (e.g. brass)"
 msgstr "Abierto (p.ej. metales)"
 
-#: ../quickinsert/articulations.py:196
+#: ../quickinsert/articulations.py:203
 msgid "Stopped (e.g. brass)"
 msgstr "Tapada (p.ej. metales)"
 
-#: ../quickinsert/articulations.py:197
+#: ../quickinsert/articulations.py:204
 msgid "Flageolet"
 msgstr "Flageolet (armónico)"
 
-#: ../quickinsert/articulations.py:198
+#: ../quickinsert/articulations.py:205
 msgid "Thumb"
 msgstr "Pulgar"
 
-#: ../quickinsert/articulations.py:199
+#: ../quickinsert/articulations.py:206
 msgid "Left heel"
 msgstr "Tacón izquierdo"
 
-#: ../quickinsert/articulations.py:200
+#: ../quickinsert/articulations.py:207
 msgid "Right heel"
 msgstr "Tacón derecho"
 
-#: ../quickinsert/articulations.py:201
+#: ../quickinsert/articulations.py:208
 msgid "Left toe"
 msgstr "Punta izquierda"
 
-#: ../quickinsert/articulations.py:202
+#: ../quickinsert/articulations.py:209
 msgid "Right toe"
 msgstr "Punta derecha"
 
-#: ../quickinsert/articulations.py:203
+#: ../quickinsert/articulations.py:210
 msgid "Half open (e.g. hi-hat)"
 msgstr "Semi-abierto (p.ej. hi-hat)"
 
@@ -5726,6 +5690,22 @@ msgid_plural "Export {num} Snippets"
 msgstr[0] "Exportar {num} fragmento"
 msgstr[1] "Exportar {num} fragmentos"
 
+#: ../svgview/__init__.py:55
+#, fuzzy
+msgctxt "window title"
+msgid "SVG View"
+msgstr "Ver"
+
+#: ../svgview/__init__.py:56
+#, fuzzy
+msgid "SV&G View"
+msgstr "&Vista"
+
+#: ../svgview/widget.py:90
+#, fuzzy
+msgid "Page:"
+msgstr "Imagen:"
+
 #: ../userguide/browser.py:79
 msgid "Toolbar"
 msgstr "Barra de herramientas"
@@ -7675,19 +7655,11 @@ msgstr ""
 "Predeterminado: reconocimiento automático del modo."
 
 #: ../userguide/docvars.md:16
-msgid "filename"
-msgstr "nombre de archivo"
-
-#: ../userguide/docvars.md:17
-msgid "Compiles another LilyPond document instead of the current."
-msgstr "Compila otro documento de LilyPond en lugar del actual."
-
-#: ../userguide/docvars.md:19
 msgid "name"
 msgstr "nombre"
 
 #. NOTE: markdown formatting
-#: ../userguide/docvars.md:20
+#: ../userguide/docvars.md:17
 #, fuzzy
 msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
@@ -7696,46 +7668,46 @@ msgstr ""
 "Busca documentos de salida (PDF, MIDI, etc.) empezando con el nombre "
 "especificado o la lista especificada de nombres separados por comas."
 
-#: ../userguide/docvars.md:24
+#: ../userguide/docvars.md:21
 msgid "encoding"
 msgstr "codificación"
 
-#: ../userguide/docvars.md:25
+#: ../userguide/docvars.md:22
 msgid "Use another encoding than the default UTF-8."
 msgstr "Usar una codificación distinta de la predeterminada UTF-8."
 
-#: ../userguide/docvars.md:27
+#: ../userguide/docvars.md:24
 msgid "version"
 msgstr "versión"
 
-#: ../userguide/docvars.md:28
+#: ../userguide/docvars.md:25
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Seleccionar la versión de LilyPond que usar, se puede utilizar para "
 "documentos que no sean de LilyPond."
 
-#: ../userguide/docvars.md:30
+#: ../userguide/docvars.md:27
 #, fuzzy
 msgid "Indentation variables"
 msgstr "Variables del documento"
 
-#: ../userguide/docvars.md:32 ../userguide/docvars.md:38
-#: ../userguide/docvars.md:45
+#: ../userguide/docvars.md:29 ../userguide/docvars.md:35
+#: ../userguide/docvars.md:42
 msgid "number"
 msgstr "número"
 
-#: ../userguide/docvars.md:33
+#: ../userguide/docvars.md:30
 #, fuzzy
 msgid "The visible width of a tab character in the editor, by default 8."
 msgstr "Ancho de la tabulación, por defecto es 8."
 
-#: ../userguide/docvars.md:36
+#: ../userguide/docvars.md:33
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Si usar tabulaciones en el sangrado, de forma predeterminada {no}."
 
 #. NOTE: markdown formatting
-#: ../userguide/docvars.md:39
+#: ../userguide/docvars.md:36
 #, fuzzy
 msgid ""
 "The number of spaces each indent level uses, by default 2. This value is "
@@ -7743,7 +7715,7 @@ msgid ""
 msgstr ""
 "Número de espacios que usa cada nivel de sangrado, de forma predeterminada 2."
 
-#: ../userguide/docvars.md:43
+#: ../userguide/docvars.md:40
 #, fuzzy
 msgid "Whether to use tabs elsewhere in the document, by default {no}."
 msgstr ""
@@ -7751,7 +7723,7 @@ msgstr ""
 "{yes}."
 
 #. NOTE: markdown formatting
-#: ../userguide/docvars.md:46
+#: ../userguide/docvars.md:43
 msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
@@ -8556,6 +8528,62 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr "Aquí puede editar los ajustes de varias herramientas."
 
+#~ msgid ""
+#~ "<p>Here you can add local paths or URLs pointing to LilyPond "
+#~ "documentation. A local path should point to the directory where either "
+#~ "the \"{documentation}\" directory lives, or the whole \"share/doc/"
+#~ "lilypond/html/offline-root\" path.</p>\n"
+#~ "<p>If those can't be found, documentation is looked for in all "
+#~ "subdirectories of the given path, one level deep. This makes it possible "
+#~ "to put multiple versions of LilyPond documentation in different "
+#~ "subdirectories and have Frescobaldi automatically find them.</p>"
+#~ msgstr ""
+#~ "<p>Aquí puede añadir rutas o URLs locales que apunten a la documentación "
+#~ "de LilyPond. Una ruta local debe apuntar a la carpeta en que reside el "
+#~ "directorio \"{documentation}\", o la ruta completa \"share/doc/lilypond/"
+#~ "html/offline-root\".</p>\n"
+#~ "<p>Si no se encuentran, se busca la documentación en todas las "
+#~ "subcarpetas de la ruta especificada, a un nivel de profundidad. Ello "
+#~ "permite colocar varias versiones de la documentación de LilyPond en "
+#~ "distintas subcarpetas y hacer que Frescobaldi las encuentre "
+#~ "automáticamente.</p>"
+
+#~ msgid ""
+#~ "<p>If this setting is enabled, the document is searched for a LilyPond "
+#~ "<code>\\version</code> command or a <code>version</code> document "
+#~ "variable.</p>\n"
+#~ "<p>The LilyPond version command looks like:</p>\n"
+#~ "<pre>\\version \"2.14.0\"</pre>\n"
+#~ "<p>The document variable looks like:</p>\n"
+#~ "<pre>-*- version: 2.14.0;</pre>\n"
+#~ "<p>somewhere (in a comments section) in the first or last 5 lines of the "
+#~ "document. This way the LilyPond version to use can also be specified in "
+#~ "non-LilyPond documents like HTML, LaTeX, etc.</p>\n"
+#~ "<p>If the document specifies a version, the oldest suitable LilyPond "
+#~ "version is chosen. Otherwise, the default version is chosen.</p>\n"
+#~ msgstr ""
+#~ "<p>Si este ajuste está activado, se busca en el documento una instrucción "
+#~ "<code>\\version</code> de LilyPond o una variable del documento "
+#~ "<code>version</code>.</p>\n"
+#~ "<p>El aspecto de la instrucción de versión de LilyPond es el siguiente:</"
+#~ "p>\n"
+#~ "<pre>\\version \"2.14.0\"</pre>\n"
+#~ "<p>La variable del documento se parece a esto:</p>\n"
+#~ "<pre>-*- version: 2.14.0;</pre>\n"
+#~ "<p>en algún lugar (dentro de una sección de comentarios) de la primera o "
+#~ "las últimas cinco líneas del documento. De esta forma, la versión de "
+#~ "LilyPond que usar se puede especificar también en documentos que no son "
+#~ "de LilyPond como HTML, LaTeX, etc.</p>\n"
+#~ "<p>Si el documento especifica una versión, se elige la versión de "
+#~ "LilyPond más antigua que sea adecuada. En caso contrario, se elige la "
+#~ "versión predeterminada.</p>\n"
+
+#~ msgid "filename"
+#~ msgstr "nombre de archivo"
+
+#~ msgid "Compiles another LilyPond document instead of the current."
+#~ msgstr "Compila otro documento de LilyPond en lugar del actual."
+
 #, fuzzy
 #~ msgid ""
 #~ "Finally, you can specify a list of paths where the LilyPond `\\include` "
@@ -8830,10 +8858,6 @@ msgstr "Aquí puede editar los ajustes de varias herramientas."
 
 #~ msgid "Engrave (publish)"
 #~ msgstr "Procesar (publicación)"
-
-#~ msgctxt "menu title"
-#~ msgid "View"
-#~ msgstr "Ver"
 
 #~ msgid "Clear Error Marks"
 #~ msgstr "Borrar marcas de error"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-18 23:04+0100\n"
+"POT-Creation-Date: 2013-12-26 09:05+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -991,7 +991,7 @@ msgid "Special Charac&ters"
 msgstr "Zvláš&tní znaky"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:126
+#: ../preferences/documentation.py:118
 msgid "Documentation Browser"
 msgstr "Prohlížeč dokumentace"
 
@@ -1136,82 +1136,82 @@ msgstr "Vyrýt (vlas&tní)..."
 msgid "Abort Engraving &Job"
 msgstr "Zrušit ryteckou &práci"
 
-#: ../engrave/custom.py:127
+#: ../engrave/custom.py:130
 msgid "Engrave custom"
 msgstr "Vyrýt vlastní"
 
-#: ../engrave/custom.py:128
+#: ../engrave/custom.py:131
 msgid "LilyPond Version:"
 msgstr "Verze LilyPondu:"
 
-#: ../engrave/custom.py:129
+#: ../engrave/custom.py:132
 msgid "Output Format:"
 msgstr "Výstupní formát:"
 
-#: ../engrave/custom.py:130 ../preferences/helpers.py:167
+#: ../engrave/custom.py:133 ../preferences/helpers.py:167
 msgid "Resolution:"
 msgstr "Rozlišení:"
 
-#: ../engrave/custom.py:131
+#: ../engrave/custom.py:134
 #, fuzzy
 msgid "Engraving mode:"
 msgstr "Rytí notových zápisů"
 
-#: ../engrave/custom.py:132 ../scorewiz/dialog.py:84
+#: ../engrave/custom.py:135 ../scorewiz/dialog.py:84
 msgid "Preview"
 msgstr "Náhled"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:136
 #, fuzzy
 msgid "Publish"
 msgstr "Režim vydávání"
 
-#: ../engrave/custom.py:134
+#: ../engrave/custom.py:137
 #, fuzzy
 msgid "Layout Control"
 msgstr "Zobrazit kontrolní body"
 
-#: ../engrave/custom.py:135 ../preferences/lilypond.py:308
+#: ../engrave/custom.py:138 ../preferences/lilypond.py:295
 msgid "Run LilyPond with English messages"
 msgstr "Spustit LilyPond s anglickými zprávami"
 
-#: ../engrave/custom.py:136 ../preferences/lilypond.py:305
+#: ../engrave/custom.py:139 ../preferences/lilypond.py:292
 msgid "Delete intermediate output files"
 msgstr "Smazat mezi výstupní soubory"
 
-#: ../engrave/custom.py:137 ../file_import/musicxml.py:162
+#: ../engrave/custom.py:140 ../file_import/musicxml.py:162
 msgid "Command line:"
 msgstr "Příkazový řádek:"
 
-#: ../engrave/custom.py:138
+#: ../engrave/custom.py:141
 msgid "Run LilyPond"
 msgstr "Spustit LilyPond"
 
-#: ../engrave/custom.py:224
+#: ../engrave/custom.py:226 ../preferences/lilypond.py:337
 msgid "PDF"
 msgstr "PDF"
 
-#: ../engrave/custom.py:230
+#: ../engrave/custom.py:232
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../engrave/custom.py:236
+#: ../engrave/custom.py:238
 msgid "PNG"
 msgstr "PNG"
 
-#: ../engrave/custom.py:242
+#: ../engrave/custom.py:244 ../preferences/lilypond.py:340
 msgid "SVG"
 msgstr "SVG"
 
-#: ../engrave/custom.py:248
+#: ../engrave/custom.py:250
 msgid "PDF (EPS Backend)"
 msgstr "PDF (jádro EPS)"
 
-#: ../engrave/custom.py:254
+#: ../engrave/custom.py:256
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "Encapsulated PostScript (jádro EPS)"
 
-#: ../engrave/custom.py:260
+#: ../engrave/custom.py:262
 msgid "PNG (EPS Backend)"
 msgstr "PNG (jádro EPS)"
 
@@ -1395,7 +1395,7 @@ msgstr ""
 msgid "Language for pitch names"
 msgstr ""
 
-#: ../file_import/musicxml.py:165 ../preferences/documentation.py:128
+#: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
 #: ../preferences/general.py:133 ../preferences/tools.py:296
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
@@ -2243,50 +2243,30 @@ msgstr "Písma a barvy"
 msgid "Tools"
 msgstr "Nástroje"
 
-#: ../preferences/documentation.py:66
+#: ../preferences/documentation.py:67
 msgid "Paths to LilyPond Documentation"
 msgstr "Cesty k dokumentaci k LilyPondu"
 
-#: ../preferences/documentation.py:68
+#: ../preferences/documentation.py:69
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr ""
 "Přidat cesty nebo adresy (URL). Podívejte se na \"Co je toto\" pro další "
 "informace."
 
-#: ../preferences/documentation.py:70
-msgid ""
-"<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
-"<p>If those can't be found, documentation is looked for in all "
-"subdirectories of the given path, one level deep. This makes it possible to "
-"put multiple versions of LilyPond documentation in different subdirectories "
-"and have Frescobaldi automatically find them.</p>"
-msgstr ""
-"<p>Zde můžete přidat místní cesty nebo adresy (URL) ukazující na dokumentaci "
-"k LilyPondu. Místní cesta by měla ukazovat na adresář, kde je buď adresář "
-"\"{documentation}\", nebo celou cestu \"share/doc/lilypond/html/offline-root"
-"\".</p>\n"
-"<p>Pokud tyto nelze najít, dokumentace se hledá ve všech podadresářích "
-"zadané cesty, o jednu úroveň hlouběji. Tímto je možné dát více verzí "
-"dokumentace k LilyPondu do různých podadresářů a nechat Frescobaldi, aby je "
-"automaticky našel.</p>"
-
-#: ../preferences/documentation.py:127
+#: ../preferences/documentation.py:119
 msgid "Preferred Language:"
 msgstr "Upřednostňovaný jazyk:"
 
-#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:121 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
-#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
+#: ../preferences/documentation.py:122 ../preferences/fontscolors.py:122
 #: ../preferences/tools.py:96 ../preferences/tools.py:231
 msgid "Font:"
 msgstr "Písmo:"
 
-#: ../preferences/documentation.py:166
+#: ../preferences/documentation.py:158
 msgid "Please enter a local path or a URL:"
 msgstr "Zadejte, prosím, místní cestu nebo adresu (URL):"
 
@@ -2485,7 +2465,7 @@ msgstr "Únik"
 msgid "Comment"
 msgstr "Poznámka"
 
-#: ../preferences/fontscolors.py:501 ../preferences/lilypond.py:246
+#: ../preferences/fontscolors.py:501 ../preferences/lilypond.py:233
 #: ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -2854,15 +2834,15 @@ msgstr "Nenalezen žádný motiv."
 msgid "No shortcuts found."
 msgstr "Nenalezeny žádné klávesové zkratky."
 
-#: ../preferences/lilypond.py:82
+#: ../preferences/lilypond.py:83
 msgid "LilyPond versions to use"
 msgstr "Verze LilyPondu k použití"
 
-#: ../preferences/lilypond.py:83 ../userguide/prefs_lilypond_autoversion.md:1
+#: ../preferences/lilypond.py:84 ../userguide/prefs_lilypond_autoversion.md:1
 msgid "Automatically choose LilyPond version from document"
 msgstr "Automaticky vybrat verzi LilyPondu z dokumentu."
 
-#: ../preferences/lilypond.py:85
+#: ../preferences/lilypond.py:86
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -2870,81 +2850,55 @@ msgstr ""
 "Je-li zaškrtnuto, verze dokumentu určuje, která verze LilyPondu se použije.\n"
 "Pro další informace se podívejte na \"Co je toto\"."
 
-#: ../preferences/lilypond.py:88
-msgid ""
-"<p>If this setting is enabled, the document is searched for a LilyPond <code>"
-"\\version</code> command or a <code>version</code> document variable.</p>\n"
-"<p>The LilyPond version command looks like:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>The document variable looks like:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>somewhere (in a comments section) in the first or last 5 lines of the "
-"document. This way the LilyPond version to use can also be specified in non-"
-"LilyPond documents like HTML, LaTeX, etc.</p>\n"
-"<p>If the document specifies a version, the oldest suitable LilyPond version "
-"is chosen. Otherwise, the default version is chosen.</p>\n"
-msgstr ""
-"<p>Je-li povoleno toto nastavení, dokument se prohledává na příkaz LilyPondu "
-"<code>\\version<code> nebo proměnnou dokumentu <code>version</code>.</p>\n"
-"<p>Příkaz pro verzi LilyPondu vypadá takto:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>Proměnná dokumentu vypadá takto:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>někde (v části s poznámkami) na prvních pěti nebo posledních pěti řádcích "
-"dokumentu. Tímto způsobem se dá verze LilyPondu, která se má použít, taktéž "
-"zadat v dokumentech,které nejsou LilyPond, jako jsou HTML, LaTeX, atd.</p>\n"
-"<p>Pokud dokument stanoví verzi, je vybrána nejstarší vhodná verze "
-"LilyPondu. Jinak je zvolena výchozí verze.</p>\n"
-
-#: ../preferences/lilypond.py:102
+#: ../preferences/lilypond.py:89
 msgid "See also {link}."
 msgstr "Podívejte se také na {link}."
 
-#: ../preferences/lilypond.py:150
+#: ../preferences/lilypond.py:137
 msgid "Set as &Default"
 msgstr "Nastavit jako &výchozí"
 
-#: ../preferences/lilypond.py:191
+#: ../preferences/lilypond.py:178
 msgid "default"
 msgstr "Výchozí"
 
-#: ../preferences/lilypond.py:247
+#: ../preferences/lilypond.py:234
 msgid "Label:"
 msgstr ""
 
-#: ../preferences/lilypond.py:248
+#: ../preferences/lilypond.py:235
 msgid "How this version of LilyPond will be displayed."
 msgstr ""
 
-#: ../preferences/lilypond.py:249
+#: ../preferences/lilypond.py:236
 msgid "LilyPond Command:"
 msgstr "Příkaz pro LilyPond:"
 
-#: ../preferences/lilypond.py:250
+#: ../preferences/lilypond.py:237
 msgid "Name or full path of the LilyPond program."
 msgstr "Název nebo úplná cesta k programu LilyPond."
 
-#: ../preferences/lilypond.py:251
+#: ../preferences/lilypond.py:238
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../preferences/lilypond.py:252
+#: ../preferences/lilypond.py:239
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../preferences/lilypond.py:253
+#: ../preferences/lilypond.py:240
 msgid "Include in automatic version selection"
 msgstr "Zahrnout do automatického výběru verze"
 
-#: ../preferences/lilypond.py:300
+#: ../preferences/lilypond.py:287
 msgid "Running LilyPond"
 msgstr "Spuštění LilyPondu"
 
-#: ../preferences/lilypond.py:301
+#: ../preferences/lilypond.py:288
 msgid "Save document if possible"
 msgstr "Uložit dokument, je-li to možné"
 
-#: ../preferences/lilypond.py:303
+#: ../preferences/lilypond.py:290
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -2952,11 +2906,11 @@ msgstr ""
 "Je-li zaškrtnuto, dokument je uložen, když je místní nebo upravený.\n"
 "Jinak je pro běh LilyPondu použit dočasný soubor."
 
-#: ../preferences/lilypond.py:307
+#: ../preferences/lilypond.py:294
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
-#: ../preferences/lilypond.py:310
+#: ../preferences/lilypond.py:297
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -2964,9 +2918,22 @@ msgstr ""
 "Je-li zaškrtnuto, výstupní zprávy LilyPondu budou v anglickém jazyce.\n"
 "To může být užitečné pro hlášení o chybách."
 
-#: ../preferences/lilypond.py:312
+#: ../preferences/lilypond.py:299
 msgid "LilyPond include path:"
 msgstr "Cesta obsahující LilyPond:"
+
+#: ../preferences/lilypond.py:336
+#, fuzzy
+msgid "Default output format"
+msgstr "Výstupní formát:"
+
+#: ../preferences/lilypond.py:339
+msgid "Create PDF (Portable Document Format) documents by default."
+msgstr ""
+
+#: ../preferences/lilypond.py:342
+msgid "Create SVG (Scalable Vector Graphics) documents by default."
+msgstr ""
 
 #: ../preferences/midi.py:82
 msgid "MIDI Ports"
@@ -3206,201 +3173,201 @@ msgstr "Rychlé vložení"
 msgid "Quick &Insert"
 msgstr "Rychlé v&ložení"
 
-#: ../quickinsert/articulations.py:95
+#: ../quickinsert/articulations.py:96
 msgid "Allow shorthands"
 msgstr "Povolit zkrácený zápis"
 
-#: ../quickinsert/articulations.py:97
+#: ../quickinsert/articulations.py:98
 msgid "Use short notation for some articulations like staccato."
 msgstr "Použít krátký zápis pro některé artikulace jako je staccato."
 
-#: ../quickinsert/articulations.py:99
+#: ../quickinsert/articulations.py:100
 msgid "Remove articulations etc."
 msgstr "Odstranit artikulace atd."
 
-#: ../quickinsert/articulations.py:107 ../quickinsert/articulations.py:139
+#: ../quickinsert/articulations.py:108 ../quickinsert/articulations.py:146
 #: ../userguide/quickinsert.md:16
 msgid "Articulations"
 msgstr "Artikulace"
 
-#: ../quickinsert/articulations.py:111
+#: ../quickinsert/articulations.py:112
 msgid "Different kinds of articulations and other signs."
 msgstr "Různé druhy artikulací a dalších značek."
 
-#: ../quickinsert/articulations.py:142
+#: ../quickinsert/articulations.py:149
 msgid "Accent"
 msgstr "Akcent (důraz)"
 
-#: ../quickinsert/articulations.py:143
+#: ../quickinsert/articulations.py:150
 msgid "Marcato"
 msgstr "Marcato (důrazně)"
 
-#: ../quickinsert/articulations.py:144
+#: ../quickinsert/articulations.py:151
 msgid "Staccatissimo"
 msgstr "Staccatissimo (nejkratčeji)"
 
-#: ../quickinsert/articulations.py:145
+#: ../quickinsert/articulations.py:152
 msgid "Staccato"
 msgstr "Staccato (krátce)"
 
-#: ../quickinsert/articulations.py:146
+#: ../quickinsert/articulations.py:153
 msgid "Portato"
 msgstr "Portato"
 
-#: ../quickinsert/articulations.py:147
+#: ../quickinsert/articulations.py:154
 msgid "Tenuto"
 msgstr "Tenuto (drženě)"
 
-#: ../quickinsert/articulations.py:148
+#: ../quickinsert/articulations.py:155
 msgid "Espressivo"
 msgstr "Espressivo (výrazně)"
 
-#: ../quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:160
 msgid "Ornaments"
 msgstr "Ozdoby"
 
-#: ../quickinsert/articulations.py:156 ../quickinsert/spanners.py:173
+#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:173
 msgid "Trill"
 msgstr "Trylek"
 
-#: ../quickinsert/articulations.py:157
+#: ../quickinsert/articulations.py:164
 msgid "Prall"
 msgstr "Nátryl"
 
-#: ../quickinsert/articulations.py:158
+#: ../quickinsert/articulations.py:165
 msgid "Mordent"
 msgstr "Mordent"
 
-#: ../quickinsert/articulations.py:159
+#: ../quickinsert/articulations.py:166
 msgid "Turn"
 msgstr "Obal"
 
-#: ../quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:167
 msgid "Prall prall"
 msgstr "Nátryl nátrylu"
 
-#: ../quickinsert/articulations.py:161
+#: ../quickinsert/articulations.py:168
 msgid "Prall mordent"
 msgstr "Mordent nátrylu"
 
-#: ../quickinsert/articulations.py:162
+#: ../quickinsert/articulations.py:169
 msgid "Up prall"
 msgstr "Nátryl nahoru"
 
-#: ../quickinsert/articulations.py:163
+#: ../quickinsert/articulations.py:170
 msgid "Down prall"
 msgstr "Nátryl dolů"
 
-#: ../quickinsert/articulations.py:164
+#: ../quickinsert/articulations.py:171
 msgid "Up mordent"
 msgstr "Mordent nahoru"
 
-#: ../quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:172
 msgid "Down mordent"
 msgstr "Mordent dolů"
 
-#: ../quickinsert/articulations.py:166
+#: ../quickinsert/articulations.py:173
 msgid "Prall up"
 msgstr "Nátryl nahoru"
 
-#: ../quickinsert/articulations.py:167
+#: ../quickinsert/articulations.py:174
 msgid "Prall down"
 msgstr "Nátryl dolů"
 
-#: ../quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:175
 msgid "Line prall"
 msgstr "Nátryl na lince notové osnovy"
 
-#: ../quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:176
 msgid "Reverse turn"
 msgstr "Obrátit obal"
 
 #. L10N: dynamic signs
-#: ../quickinsert/articulations.py:174 ../quickinsert/dynamics.py:141
+#: ../quickinsert/articulations.py:181 ../quickinsert/dynamics.py:141
 msgid "Signs"
 msgstr "Předznamenání"
 
-#: ../quickinsert/articulations.py:177
+#: ../quickinsert/articulations.py:184
 msgid "Fermata"
 msgstr "Koruna (fermata)"
 
-#: ../quickinsert/articulations.py:178
+#: ../quickinsert/articulations.py:185
 msgid "Short fermata"
 msgstr "Krátká koruna (~ fermata)"
 
-#: ../quickinsert/articulations.py:179
+#: ../quickinsert/articulations.py:186
 msgid "Long fermata"
 msgstr "Dlouhá koruna (~ fermata)"
 
-#: ../quickinsert/articulations.py:180
+#: ../quickinsert/articulations.py:187
 msgid "Very long fermata"
 msgstr "Velmi dlouhá koruna (~ fermata)"
 
-#: ../quickinsert/articulations.py:181
+#: ../quickinsert/articulations.py:188
 msgid "Segno"
 msgstr "Segno"
 
-#: ../quickinsert/articulations.py:182
+#: ../quickinsert/articulations.py:189
 msgid "Coda"
 msgstr "Coda"
 
-#: ../quickinsert/articulations.py:183
+#: ../quickinsert/articulations.py:190
 msgid "Varcoda"
 msgstr "Varcoda"
 
-#: ../quickinsert/articulations.py:184
+#: ../quickinsert/articulations.py:191
 msgid "Signumcongruentiae"
 msgstr "Signum congruentiae (značka pro shodu)"
 
-#: ../quickinsert/articulations.py:189
+#: ../quickinsert/articulations.py:196
 msgid "Other"
 msgstr "Jiné"
 
-#: ../quickinsert/articulations.py:192
+#: ../quickinsert/articulations.py:199
 msgid "Upbow"
 msgstr "Tah smyčcem nahoru"
 
-#: ../quickinsert/articulations.py:193
+#: ../quickinsert/articulations.py:200
 msgid "Downbow"
 msgstr "Tah smyčcem dolů"
 
-#: ../quickinsert/articulations.py:194
+#: ../quickinsert/articulations.py:201
 msgid "Snappizzicato"
 msgstr "Kvapné pizzicato"
 
-#: ../quickinsert/articulations.py:195
+#: ../quickinsert/articulations.py:202
 msgid "Open (e.g. brass)"
 msgstr "Otevřeno (např. žestě)"
 
-#: ../quickinsert/articulations.py:196
+#: ../quickinsert/articulations.py:203
 msgid "Stopped (e.g. brass)"
 msgstr "Zastaveno (např. žestě)"
 
-#: ../quickinsert/articulations.py:197
+#: ../quickinsert/articulations.py:204
 msgid "Flageolet"
 msgstr "Flažolet"
 
-#: ../quickinsert/articulations.py:198
+#: ../quickinsert/articulations.py:205
 msgid "Thumb"
 msgstr "Palec"
 
-#: ../quickinsert/articulations.py:199
+#: ../quickinsert/articulations.py:206
 msgid "Left heel"
 msgstr "Levá pata"
 
-#: ../quickinsert/articulations.py:200
+#: ../quickinsert/articulations.py:207
 msgid "Right heel"
 msgstr "Pravá pata"
 
-#: ../quickinsert/articulations.py:201
+#: ../quickinsert/articulations.py:208
 msgid "Left toe"
 msgstr "Levý prst"
 
-#: ../quickinsert/articulations.py:202
+#: ../quickinsert/articulations.py:209
 msgid "Right toe"
 msgstr "Pravý prst"
 
-#: ../quickinsert/articulations.py:203
+#: ../quickinsert/articulations.py:210
 msgid "Half open (e.g. hi-hat)"
 msgstr "Napůl otevřeno (např. hajtka)"
 
@@ -5710,6 +5677,22 @@ msgstr[0] "Vyvést {num} úryvek"
 msgstr[1] "Vyvést {num}kousky"
 msgstr[2] "Vyvést {num}kousků"
 
+#: ../svgview/__init__.py:55
+#, fuzzy
+msgctxt "window title"
+msgid "SVG View"
+msgstr "Pohled"
+
+#: ../svgview/__init__.py:56
+#, fuzzy
+msgid "SV&G View"
+msgstr "&Pohled"
+
+#: ../svgview/widget.py:90
+#, fuzzy
+msgid "Page:"
+msgstr "Obrázek:"
+
 #: ../userguide/browser.py:79
 msgid "Toolbar"
 msgstr "Nástrojový pruh"
@@ -7652,19 +7635,11 @@ msgstr ""
 "scheme. Výchozí: automatické rozpoznání režimu."
 
 #: ../userguide/docvars.md:16
-msgid "filename"
-msgstr "Souborový název"
-
-#: ../userguide/docvars.md:17
-msgid "Compiles another LilyPond document instead of the current."
-msgstr "Sestaví jiný dokument LilyPond namísto nynějšího."
-
-#: ../userguide/docvars.md:19
 msgid "name"
 msgstr "název"
 
 #. NOTE: markdown formatting
-#: ../userguide/docvars.md:20
+#: ../userguide/docvars.md:17
 #, fuzzy
 msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
@@ -7673,46 +7648,46 @@ msgstr ""
 "Hledá výstupní dokumenty (PDF, MIDI, atd.) počínaje zadaným názvem nebo "
 "čárkami odděleným seznamem názvů."
 
-#: ../userguide/docvars.md:24
+#: ../userguide/docvars.md:21
 msgid "encoding"
 msgstr "Kódování"
 
-#: ../userguide/docvars.md:25
+#: ../userguide/docvars.md:22
 msgid "Use another encoding than the default UTF-8."
 msgstr "Použít jiné kódování než výchozí UTF-8."
 
-#: ../userguide/docvars.md:27
+#: ../userguide/docvars.md:24
 msgid "version"
 msgstr "Verze"
 
-#: ../userguide/docvars.md:28
+#: ../userguide/docvars.md:25
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "Nastavit verzi LilyPondu, která se bude používat. Lze ji používat pro "
 "dokumenty, které nejsou v LilyPondu."
 
-#: ../userguide/docvars.md:30
+#: ../userguide/docvars.md:27
 #, fuzzy
 msgid "Indentation variables"
 msgstr "Proměnné pro dokument"
 
-#: ../userguide/docvars.md:32 ../userguide/docvars.md:38
-#: ../userguide/docvars.md:45
+#: ../userguide/docvars.md:29 ../userguide/docvars.md:35
+#: ../userguide/docvars.md:42
 msgid "number"
 msgstr "Číslo"
 
-#: ../userguide/docvars.md:33
+#: ../userguide/docvars.md:30
 #, fuzzy
 msgid "The visible width of a tab character in the editor, by default 8."
 msgstr "Šířka znaku pro zarážku; ve výchozím nastavení je to 8."
 
-#: ../userguide/docvars.md:36
+#: ../userguide/docvars.md:33
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Zda používat pro odsazování zarážek; ve výchozím nastavení {no}."
 
 #. NOTE: markdown formatting
-#: ../userguide/docvars.md:39
+#: ../userguide/docvars.md:36
 #, fuzzy
 msgid ""
 "The number of spaces each indent level uses, by default 2. This value is "
@@ -7720,14 +7695,14 @@ msgid ""
 msgstr ""
 "Počet mezer, který používá každá úroveň odsazení; ve výchozím nastavení 2."
 
-#: ../userguide/docvars.md:43
+#: ../userguide/docvars.md:40
 #, fuzzy
 msgid "Whether to use tabs elsewhere in the document, by default {no}."
 msgstr ""
 "Zda používat zarážky někde jinde v dokumentu; ve výchozím nastavení {yes}."
 
 #. NOTE: markdown formatting
-#: ../userguide/docvars.md:46
+#: ../userguide/docvars.md:43
 msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
@@ -8622,6 +8597,59 @@ msgstr ""
 msgid "Here you can change the settings for various tools."
 msgstr "Zde můžete změnit nastavení různých nástrojů."
 
+#~ msgid ""
+#~ "<p>Here you can add local paths or URLs pointing to LilyPond "
+#~ "documentation. A local path should point to the directory where either "
+#~ "the \"{documentation}\" directory lives, or the whole \"share/doc/"
+#~ "lilypond/html/offline-root\" path.</p>\n"
+#~ "<p>If those can't be found, documentation is looked for in all "
+#~ "subdirectories of the given path, one level deep. This makes it possible "
+#~ "to put multiple versions of LilyPond documentation in different "
+#~ "subdirectories and have Frescobaldi automatically find them.</p>"
+#~ msgstr ""
+#~ "<p>Zde můžete přidat místní cesty nebo adresy (URL) ukazující na "
+#~ "dokumentaci k LilyPondu. Místní cesta by měla ukazovat na adresář, kde je "
+#~ "buď adresář \"{documentation}\", nebo celou cestu \"share/doc/lilypond/"
+#~ "html/offline-root\".</p>\n"
+#~ "<p>Pokud tyto nelze najít, dokumentace se hledá ve všech podadresářích "
+#~ "zadané cesty, o jednu úroveň hlouběji. Tímto je možné dát více verzí "
+#~ "dokumentace k LilyPondu do různých podadresářů a nechat Frescobaldi, aby "
+#~ "je automaticky našel.</p>"
+
+#~ msgid ""
+#~ "<p>If this setting is enabled, the document is searched for a LilyPond "
+#~ "<code>\\version</code> command or a <code>version</code> document "
+#~ "variable.</p>\n"
+#~ "<p>The LilyPond version command looks like:</p>\n"
+#~ "<pre>\\version \"2.14.0\"</pre>\n"
+#~ "<p>The document variable looks like:</p>\n"
+#~ "<pre>-*- version: 2.14.0;</pre>\n"
+#~ "<p>somewhere (in a comments section) in the first or last 5 lines of the "
+#~ "document. This way the LilyPond version to use can also be specified in "
+#~ "non-LilyPond documents like HTML, LaTeX, etc.</p>\n"
+#~ "<p>If the document specifies a version, the oldest suitable LilyPond "
+#~ "version is chosen. Otherwise, the default version is chosen.</p>\n"
+#~ msgstr ""
+#~ "<p>Je-li povoleno toto nastavení, dokument se prohledává na příkaz "
+#~ "LilyPondu <code>\\version<code> nebo proměnnou dokumentu <code>version</"
+#~ "code>.</p>\n"
+#~ "<p>Příkaz pro verzi LilyPondu vypadá takto:</p>\n"
+#~ "<pre>\\version \"2.14.0\"</pre>\n"
+#~ "<p>Proměnná dokumentu vypadá takto:</p>\n"
+#~ "<pre>-*- version: 2.14.0;</pre>\n"
+#~ "<p>někde (v části s poznámkami) na prvních pěti nebo posledních pěti "
+#~ "řádcích dokumentu. Tímto způsobem se dá verze LilyPondu, která se má "
+#~ "použít, taktéž zadat v dokumentech,které nejsou LilyPond, jako jsou HTML, "
+#~ "LaTeX, atd.</p>\n"
+#~ "<p>Pokud dokument stanoví verzi, je vybrána nejstarší vhodná verze "
+#~ "LilyPondu. Jinak je zvolena výchozí verze.</p>\n"
+
+#~ msgid "filename"
+#~ msgstr "Souborový název"
+
+#~ msgid "Compiles another LilyPond document instead of the current."
+#~ msgstr "Sestaví jiný dokument LilyPond namísto nynějšího."
+
 #, fuzzy
 #~ msgid ""
 #~ "Finally, you can specify a list of paths where the LilyPond `\\include` "
@@ -9209,10 +9237,6 @@ msgstr "Zde můžete změnit nastavení různých nástrojů."
 
 #~ msgid "Engrave (publish)"
 #~ msgstr "Vyrýt (vydat)"
-
-#~ msgctxt "menu title"
-#~ msgid "View"
-#~ msgstr "Pohled"
 
 #~ msgid "Clear Error Marks"
 #~ msgstr "Vymazat značky chyb"
