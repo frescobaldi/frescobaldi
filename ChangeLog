@@ -22,9 +22,10 @@ Changes in 2.0.12 --
     improved. The Preview mode is reverted back to enabling only point and click
     links. In the Engrave (custom) dialog the run mode can be chosen and the
     commandline edited directly.
+  - Entering staccatissimo writes -! when the document specifies a LilyPond
+    version >= 2.17.25, otherwise -|
   - When editing keyboard shortcuts, conflicts are directly shown as they are
     entered; better support French keyboards (contributed by Nicolas Malarmey)
-  - On Mac OS X, you can drag the window icon to other applications
   - Better Mac OS X icons (contributed by Davide Liessi)
   - The internal handling of manipulations like transpose, translate, and the
     various rhythm commands has become less dependent on Frescobaldi code.
@@ -42,7 +43,7 @@ Changes in 2.0.12 --
 * Removed feature:
   - The 'master' variable is no longer supported, it's goal has been superseded
     by the 'Always Engrave' option, which is also saved in the session. This
-    decision was taken to simplify the handling of created files on behalf of
+    decision was taken to simplify the handling of files created on behalf of
     a document.
 
 
