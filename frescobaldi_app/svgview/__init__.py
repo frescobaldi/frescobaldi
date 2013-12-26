@@ -84,3 +84,9 @@ class Actions(actioncollection.ActionCollection):
         self.svg_zoom_out.setIcon(icons.get('zoom-out'))
         self.svg_zoom_original.setIcon(icons.get('zoom-original'))
         
+    def translateUI(self):
+        self.svg_zoom_in.setText(_("Zoom &In"))
+        self.svg_zoom_out.setText(_("Zoom &Out"))
+        self.svg_zoom_original.setText(_("Original &Size"))
+
+
