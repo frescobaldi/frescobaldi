@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-26 09:05+0100\n"
+"POT-Creation-Date: 2013-12-26 09:33+0100\n"
 "PO-Revision-Date: 2011-12-30 18:12+0100\n"
 "Last-Translator: Urs Liska <git@ursliska.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -1732,15 +1732,15 @@ msgstr "Wähle Dokument für Notenansicht"
 msgid "&Print Music..."
 msgstr "Noten &drucken ..."
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr "Ver&größern"
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr "Ver&kleinern"
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr "&Originalgröße"
 

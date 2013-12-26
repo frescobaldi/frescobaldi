@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-26 09:05+0100\n"
+"POT-Creation-Date: 2013-12-26 09:33+0100\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -1737,15 +1737,15 @@ msgstr "Выберите документ для предпросмотра"
 msgid "&Print Music..."
 msgstr "Напечатать музыку..."
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr "Увеличить"
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr "Уменьшить"
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr "Первоначальный размер"
 

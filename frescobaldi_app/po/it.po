@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-26 09:05+0100\n"
+"POT-Creation-Date: 2013-12-26 09:33+0100\n"
 "PO-Revision-Date: 2013-04-30 21:59+0200\n"
 "Last-Translator: Gianluca D'Orazio <gianluca.dorazio@gmail.com>\n"
 "Language-Team: Italian <>\n"
@@ -1738,15 +1738,15 @@ msgstr "Scegliere un documento per l'Anteprima spartito"
 msgid "&Print Music..."
 msgstr "&Stampa la musica..."
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr "&Aumenta zoom"
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr "&Diminuisci zoom"
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr "&Dimensione originale"
 

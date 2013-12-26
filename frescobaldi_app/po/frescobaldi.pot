@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.12\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-26 09:25+0100\n"
+"POT-Creation-Date: 2013-12-26 09:33+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1650,15 +1650,15 @@ msgstr ""
 msgid "&Print Music..."
 msgstr ""
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr ""
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr ""
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr ""
 

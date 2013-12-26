@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-26 09:05+0100\n"
+"POT-Creation-Date: 2013-12-26 09:33+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -1818,15 +1818,15 @@ msgstr "&Código fonte do documento"
 msgid "&Print Music..."
 msgstr "Imprimir música..."
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr ""
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr ""
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr ""
 

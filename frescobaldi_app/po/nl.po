@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-26 09:05+0100\n"
+"POT-Creation-Date: 2013-12-26 09:33+0100\n"
 "PO-Revision-Date: 2013-12-26 09:21+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
@@ -1724,15 +1724,15 @@ msgstr "Weer te geven document selecteren"
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr "&Inzoomen"
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr "&Uitzoomen"
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr "&Werkelijke grootte"
 

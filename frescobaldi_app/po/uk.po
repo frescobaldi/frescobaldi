@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-26 09:05+0100\n"
+"POT-Creation-Date: 2013-12-26 09:33+0100\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -1741,15 +1741,15 @@ msgstr ""
 msgid "&Print Music..."
 msgstr "&Друкувати твір"
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr "Збіль&шити"
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr "Зменш&ити"
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr "По&чатковий розмір"
 
