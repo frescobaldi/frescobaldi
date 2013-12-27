@@ -2289,7 +2289,7 @@ msgstr "Caractère apparié :"
 
 #: ../preferences/editor.py:87 ../userguide/prefs_editor.md:3
 msgid "Highlighting Options"
-msgstr "Options de surlignement"
+msgstr "Options de surbrillance"
 
 #: ../preferences/editor.py:89
 msgid ""
@@ -5922,6 +5922,10 @@ msgid ""
 "select the language. Click OK or press Enter to have the hyphenation take "
 "place."
 msgstr ""
+"Pour utiliser cette fonction, vous devez d'abord sélectionner le texte à "
+"traiter. Ensuite, appuyer {key_hyphen} ou choisissez {menu_hyphen}. Dans le "
+"dialogue qui suit, sélectionnez la langue du texte. Cliquez OK ou appuyer "
+"Enter pour procéder à la césure."
 
 #: ../userguide/lyrics.md:12
 msgid ""
@@ -5930,6 +5934,11 @@ msgid ""
 "because that does not look nice in word processor texts. So it can happen "
 "that you have to add some hyphens after the first letter of such lyrics."
 msgstr ""
+"Une légère limitation est que les dictionnaires de césure des traitements de "
+"texte refusent généralement de couper un mot juste après la première lettre "
+"(p. ex. '{example}'), parce que ce n'est pas beau dans les documents de "
+"traitement de texte. Il peut donc arriver que vous deviez ajouter quelques "
+"césures après la première lettre dans de tels cas."
 
 #: ../userguide/lyrics.md:17
 msgid ""
@@ -5938,20 +5947,22 @@ msgid ""
 "music. Under {menu_settings} you can enter a list of directories to search "
 "for hyphenation pattern files."
 msgstr ""
+"Il existe également une commande pour supprimer la césure. Elle peut -être "
+"utile si vous avez une strophe de paroles que vous voulez seulement afficher "
+"comme markup sous la partition. Dans {menu_settings}, vous pouvez entrer une "
+"liste de dossiers dans lesquels chercher les fichiers de césure."
 
 #: ../userguide/quickinsert.md:1
 msgid "The Quick Insert Panel"
 msgstr "Le panneau d'insertion rapide"
 
 #: ../userguide/quickinsert.md:3
-#, fuzzy
 msgid ""
 "With the tools in the Quick Insert Panel you can add various music elements "
 "to the current note or selected music."
 msgstr ""
-"<p>Avec le panneau d'insertion rapide, vous pouvez ajouter divers éléments "
-"musicaux à la note actuelle ou à la musique sélectionnée.</p>\n"
-"<p>Voir {link} pour plus d'informations.</p>"
+"Avec le panneau d'insertion rapide, vous pouvez ajouter divers éléments "
+"musicaux à la note actuelle ou à la musique sélectionnée."
 
 #. NOTE: markdown formatting
 #: ../userguide/quickinsert.md:6
@@ -5960,6 +5971,10 @@ msgid ""
 "in a neutral position (e.g. determined by stem direction), or above or below "
 "the staff by prepending a `-`, `^` or `_` character."
 msgstr ""
+"Le menu déroulant *Orientation* spécifie si les articulations, dynamiques ou "
+"liaisons apparaissent dans une position neutre (p. ex. déterminée par la "
+"direction de la hampe de note), ou au-dessous ou en-dessous de la portée en "
+"la précédant d'une caractère `-`, `^` ou `_`."
 
 #: ../userguide/quickinsert.md:10
 msgid ""
@@ -5968,34 +5983,23 @@ msgid ""
 "have configurable keyboard shortcuts; you can change them by right-clicking "
 "a button."
 msgstr ""
+"Cliquez sur un onglet pour choisir un outil. Vous pouvez naviguer parmi les "
+"outils avec la touche Ctrl (ou {command}) et la molette de la souris.Tous "
+"les bouttons du panneau d'insertion rapide ont des raccourcis clavier "
+"configurables; vous pouvez les modifier en cliquant droit sur un de ces "
+"boutons."
 
 #: ../userguide/quickinsert.md:18
-#, fuzzy
 msgid ""
 "These musical symbols can be added to a note or rest or a selected range of "
 "music. If you add them to a selection, rests will be skipped. If there is no "
 "text selected, the cursor will automatically move to the next pitch, rest, "
 "skip or chord."
 msgstr ""
-"<h3>Articulations</h3>\n"
-"\n"
-"<p>\n"
 "Ces symboles musicaux peuvent être ajoutés à une note, un silence ou une "
-"sélection\n"
-"musicale.\n"
-"Si vous les appliquez à une sélection, les silences ne seront pas pris en "
-"compte.\n"
-"Si aucun texte n'est sélectionné, le curseur ira automatiquement au prochain "
-"son,\n"
-"silence, espace ou accord.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Si <em>Autoriser les raccourcis</em> est coché, Frescobaldi utilisera les "
-"signes abrégés\n"
-"pour les articulations s'ils existent\n"
-"(p. ex. <code>-.</code> au lieu de <code>-\\staccato</code>).\n"
-"</p>\n"
+"sélection musicale. Si vous les appliquez à une sélection, les silences ne "
+"seront pas pris en compte. Si aucun texte n'est sélectionné, le curseur ira "
+"automatiquement au prochain son, silence, espace ou accord."
 
 #. NOTE: markdown formatting
 #: ../userguide/quickinsert.md:24
@@ -6003,76 +6007,57 @@ msgid ""
 "If *Allow shorthands* is checked, Frescobaldi will use short signs for "
 "articulations if they exist (e.g. `-.` instead of `-\\staccato`)."
 msgstr ""
+"Si *Autoriser les raccourcis* est coché, Frescobaldi utilisera les signes "
+"abrégés pour les articulations s'ils existent (p. ex. `-.` au lieu de "
+"`-\\staccato`)."
 
 #: ../userguide/quickinsert.md:31
-#, fuzzy
 msgid ""
 "Dynamics can also be added to a note or rest. If you select a range of "
 "music, you can add spanners which will automatically terminate at the last "
 "note, rest or chord in the selection. If you then click a sign, it will "
 "replace the terminator."
 msgstr ""
-"<h3>Nuances</h3>\n"
-"\n"
-"<p>\n"
-"Les nuances peuvent être ajoutées à une note ou un silence.\n"
-"Si vous sélectionnez une région musicale, vous pouvez ajouter une indication "
-"continue qui s'arrêtera automatiquement\n"
-"à la derrière note, silence ou accord de la sélection.\n"
-"Si vous choisissez ensuite un signe, il remplacera la terminaison.\n"
-"</p>\n"
+"Les nuances peuvent être ajoutées à une note ou un silence. Si vous "
+"sélectionnez une région musicale, vous pouvez ajouter une indication "
+"continue qui s'arrêtera automatiquement à la derrière note, silence ou "
+"accord de la sélection. Si vous choisissez ensuite un signe, il remplacera "
+"la terminaison."
 
 #: ../userguide/quickinsert.md:39
 msgid ""
 "This tool lets you add arpeggio, glissandos and other spanners like slurs, "
 "phrasing slurs, manual beams or trills."
 msgstr ""
+"Cet outil permet d'ajouter des arpeggios, glissandos et d'autres indications "
+"étendues, telles que des liaisons, liaisons de phrasé, ligatures manuelles "
+"ou trilles."
 
 #: ../userguide/quickinsert.md:42
-#, fuzzy
 msgid ""
 "Arpeggios and glissandos apply to the current note; they need no music to be "
 "selected. The slurs, beams or trill apply to the current note and the next "
 "one if no music is selected, or to the first and the last note or chord in "
 "the selection."
 msgstr ""
-"<h3>Indications étendues</h3>\n"
-"\n"
-"<p>\n"
-"Cet outil permet d'ajouter des arpeggios, glissandos et d'autres indications "
-"étendues,\n"
-"telles que des liaisons, liaisons de phrasé, ligatures manuelles ou "
-"trilles.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Les arpeggios et glissandos s'appliquent à la note courante;\n"
-"aucune musique ne peut être sélectionnée.\n"
-"Les liaisons, ligatures ou trilles s'appliquent à la note courante et à la "
-"suivante\n"
-"si aucune musique n'est sélectionnée,\n"
-"ou à la première et dernière note ou accord de la sélection.\n"
-"</p>\n"
+"Les arpeggios et glissandos s'appliquent à la note courante; aucune musique "
+"ne peut être sélectionnée. Les liaisons, ligatures ou trilles s'appliquent à "
+"la note courante et à la suivante si aucune musique n'est sélectionnée, ou à "
+"la première et dernière note ou accord de la sélection."
 
 #: ../userguide/quickinsert.md:51
-#, fuzzy
 msgid "Here you can insert bar lines or various breathing signs."
 msgstr ""
-"<h3>Barres de mesures</h3>\n"
-"\n"
-"<p>\n"
-"Vous pouvez insérer des barres de mesures ou divers signes de respirations.\n"
-"</p>\n"
+"Vous pouvez insérer des barres de mesures ou divers signes de respirations."
 
 #: ../userguide/prefs_editor.md:5
-#, fuzzy
 msgid ""
 "Here you can define how long \"matching\" items like matching brackets or "
 "the items linked through Point-and-Click are highlighted."
 msgstr ""
 "Ci-dessous, vous pouvez définir le temps pendant lequel les caractères "
-"appariés tels que des crochets ou les objets liés via Point and Click sont "
-"en surbrillance."
+"\"appariés\" tels que des crochets ou les objets liés via Point and Click "
+"sont en surbrillance."
 
 #: ../userguide/prefs_editor.md:8
 msgid "Use the value 0 for infinite."
@@ -6081,6 +6066,7 @@ msgstr "Utilisez la valeur 0 pour \"infini\"."
 #: ../userguide/prefs_editor.md:13
 msgid "Here you can specify how you want to handle Tabs and indenting."
 msgstr ""
+"Vous pouvez spécifier ici la façon de gérer les tabulations et l'indentation."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:15
@@ -6088,6 +6074,9 @@ msgid ""
 "The entry *Tab Width* specifies the visual distance between tab stops. It "
 "does not change the indenting behaviour or the document contents."
 msgstr ""
+"L'entrée *Largeur de tabulation* détermine la distance visuelle entre les "
+"tabulations. Cela ne change pas le comportement de l'indentation ou le "
+"contenu du document."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:18
@@ -6097,12 +6086,19 @@ msgid ""
 "press enter after a character that starts a new level of indent (and "
 "{menu_autoindent} is enabled)."
 msgstr ""
+"Via l'entrée *Indenter avec*, vous pouvez définir le nombre d'espaces qui "
+"seront insérés lorsque vous enfoncez Tabulation une fois en début de ligne, "
+"ou lorsque vous enfoncez Entrée après un caractère qui débute un nouveau "
+"niveau d'indentation (et que {menu_autoindent} est activé)."
 
 #: ../userguide/prefs_editor.md:23
 msgid ""
 "By default 2 spaces are inserted, but you can move the number to zero to use "
 "a literal Tab character for every level of indent."
 msgstr ""
+"Par défaut, 2 espaces sont insérés, mais vous pouvez régler ce nombre sur 0 "
+"pour utiliser le caractère Tabulation littéralement pour chaque niveau "
+"d'indentation."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:26
@@ -6111,12 +6107,18 @@ msgid ""
 "Tab while in the middle of a line of text. Also here you can choose to "
 "insert a real Tab by moving the number to zero."
 msgstr ""
+"L'entrée *Une tabulation hors de l'indentation insère* détermine ce qui se "
+"passe lorsque vous enfoncez Tabulation dans le cours d'une ligne de texte. "
+"De plus, vous pouvez choisir d'insérer une tabulation réelle en réglant ce "
+"nombre sur 0."
 
 #: ../userguide/prefs_editor.md:30
 msgid ""
 "You can also set indentation preferences per-document, see "
 "{document_variables}."
 msgstr ""
+"Vous pouvez également définir les préférences d'indentation par document, "
+"voir {document_variables}."
 
 #: ../userguide/preferences.md:3
 msgid ""
@@ -6132,6 +6134,10 @@ msgid ""
 "distance to transpose over. The pitches may include octave marks. The "
 "pitches must be entered in the pitch name language used in the document."
 msgstr ""
+"Pour transposer des notes, deux hauteurs de note absolues doivent être "
+"entrées pour spécifier l'intervalle de transposition. Ces hauteurs peuvent "
+"onclure des marques d'octaviation. Les hauteurs doivent être entrées dans la "
+"langue utilisées dans le document."
 
 #. NOTE: markdown formatting
 #: ../userguide/transpose.md:7
@@ -6139,19 +6145,21 @@ msgid ""
 "The music will then be transposed from the first pitch to the second, just "
 "as the `\\transpose` LilyPond command would do."
 msgstr ""
+"La musique sera alors transposée depuis la première hauteur vers la seconde, "
+"tout comme la commande LilyPond `\\transpose`le ferait."
 
 #: ../userguide/transpose.md:10
 msgid "E.g. when transposing a minor third upwards, you would enter:"
 msgstr ""
+"P. ex. pour transposer une tierce mineure vers le haut, il faudrait entrer :"
 
 #: ../userguide/transpose.md:16
 msgid "To transpose down a major second, you can enter:"
-msgstr ""
+msgstr "Pour transposer une seconde majeure vers le bas, vous pouvez entrer :"
 
 #: ../userguide/transpose.md:22
-#, fuzzy
 msgid "or:"
-msgstr "vers :"
+msgstr "ou :"
 
 #: ../userguide/transpose.md:28
 msgid ""
@@ -6159,12 +6167,18 @@ msgid ""
 "from C-sharp to D-flat, or to specify quarter tones if supported in the "
 "pitch name language that is used."
 msgstr ""
+"Il est également possible d'utiliser la fonction de transposition pour "
+"changer une pièce de do dièse vers ré bémol, ou définir des quarts de ton si "
+"cela est supporté dans le langage de noms de notes utilisé."
 
 #: ../userguide/transpose.md:32
 msgid ""
 "The transpose function can transpose both relative and absolute music, "
 "correctly handling key signatures, chordmode and octave checks."
 msgstr ""
+"La fonction de transposition peut transposer des notes en hauteur absolue ou "
+"relative, en gérant correctement les armures, mode d'accord et vérifications "
+"d'octave."
 
 #: ../userguide/musicview.md:1
 msgid "The Music View"
@@ -6175,15 +6189,14 @@ msgid "The Music View displays the PDF document created by LilyPond."
 msgstr "La fenêtre d'aperçu affiche le document PDF créé par LilyPond."
 
 #: ../userguide/musicview.md:5
-#, fuzzy
 msgid ""
 "When LilyPond was run in preview mode (i.e. with Point & Click turned on), "
 "the PDF contains a clickable link for every music object, pointing to its "
 "definition in the text document."
 msgstr ""
-"Lorsque  LilyPond est lancé en mode Aperçu (avec le mode « Point &amp; "
-"Click » activé), le document PDF contient des liens actifs pour chaque "
-"élément musical, renvoyant vers leur définition dans le document source."
+"Lorsque LilyPond est lancé en mode Aperçu (avec le mode Point & Click "
+"activé), le document PDF contient des liens actifs pour chaque élément "
+"musical, renvoyant vers leur définition dans le document source."
 
 #: ../userguide/musicview.md:9
 msgid ""
@@ -6204,21 +6217,20 @@ msgid "Click an object to move the text cursor to that object"
 msgstr "Cliquer sur un objet pour déplacer le curseur de texte sur cet objet"
 
 #: ../userguide/musicview.md:14
-#, fuzzy
 msgid ""
 "Shift-click an object to edit its text in a small window (see "
 "{musicview_editinplace})"
 msgstr ""
-"Utilisez Maj-clic sur un objet pour l'éditer dans une fenêtre (voir {link})"
+"Utilisez Maj-clic sur un objet pour l'éditer dans une fenêtre (voir "
+"{musicview_editinplace})"
 
 #: ../userguide/musicview.md:16
-#, fuzzy
 msgid ""
 "Move the text cursor to highlight them in the music view, press "
 "{key_music_jump_to_cursor} to scroll them into view."
 msgstr ""
 "Déplacez le curseur de texte pour les surligner dans l'Aperçu, appuyez sur "
-"{key} pour les afficher."
+"{key_music_jump_to_cursor} pour les afficher."
 
 #: ../userguide/musicview.md:19
 msgid "You can also adjust the view:"
@@ -6237,12 +6249,10 @@ msgstr ""
 "Appuyez sur Ctrl ou Command + clic de gauche pour faire apparaître une loupe"
 
 #: ../userguide/musicview.md:23
-#, fuzzy
 msgid "Configure the background color under {settings_preview_background}"
-msgstr "Configurer la couleur de fond sous {menu}"
+msgstr "Configurer la couleur de fond sous {settings_preview_background}"
 
 #: ../userguide/musicview.md:25
-#, fuzzy
 msgid ""
 "You can copy music right from the PDF view to a raster image: Hold Shift and "
 "drag a rectangular selection (or use the right mouse button) and then press "
@@ -6251,10 +6261,11 @@ msgid ""
 "application."
 msgstr ""
 "Il est possible de copier de la musique directement depuis l'Aperçu vers une "
-"image: Appuyez sur Maj et sélectionnez un rectangle (alternativement, "
-"utilisez le clic droit) et appuyez sur {key} ou sélectionnez {menu} pour "
-"copier la musique sélectionnée comme une image dans le presse-papier, un "
-"fichier ou une autre application."
+"image: Maintenez enfoncé la touche Maj et sélectionnez un rectangle "
+"(alternativement, utilisez le clic droit) et appuyez sur "
+"{key_music_copy_image} ou sélectionnez {menu_music_copy_image} pour copier "
+"la musique sélectionnée comme une image dans le presse-papier, un fichier ou "
+"une autre application."
 
 #: ../userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
@@ -6318,25 +6329,22 @@ msgstr "Fragments Python"
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:3
-#, fuzzy
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
 "`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
-"<p>Les fragments Python peuvent lire et définir la variable {text}. La "
-"variable {text} contient le texte actuellement sélectionné (qui peut être "
-"une chaîne vide).</p>\n"
-"<p>Vous pouvez définir {text} comme chaîne ou liste de chaînes.</p>\n"
-"<p>Autres variables qui peuvent être référencées :</p>"
+"Les fragments Python peuvent lire et définir la variable `text`. La variable "
+"`text` contient le texte actuellement sélectionné (qui peut être une chaîne "
+"vide)."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:7
 msgid "You may set `text` to a string or a list of strings."
-msgstr ""
+msgstr "Vous pouvez définir `text` comme chaîne ou liste de chaînes."
 
 #: ../userguide/snippet_python.md:9
 msgid "Other variables that may be referenced:"
-msgstr ""
+msgstr "Autres variables qui peuvent être référencées :"
 
 #: ../userguide/snippet_python.md:12
 msgid "A list of strings describing the type of text the cursor is at."
@@ -6354,38 +6362,35 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:19
-#, fuzzy
 msgid ""
 "When setting `text` to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
-"En définissant {text} comme une liste plutôt qu'une chaîne, vous pouvez "
+"En définissant `text` comme une liste plutôt qu'une chaîne, vous pouvez "
 "utiliser cette valeur pour spécifier la place que le curseur de texte "
 "occupera après l'insertion du fragment."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:23
-#, fuzzy
 msgid ""
 "When setting `text` to a list instead of a string, this value can be used "
 "together with `CURSOR` to select text when inserting the string parts of the "
 "list."
 msgstr ""
-"En définissant {text} comme une liste plutôt qu'une chaîne, cette valeur "
-"peut être utilisée conjointement au {cursor} pour sélectionner du texte lors "
+"En définissant `text` comme une liste plutôt qu'une chaîne, cette valeur "
+"peut être utilisée conjointement au `CURSOR` pour sélectionner du texte lors "
 "de l'insertion des morceaux de chaînes de la liste."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:28
-#, fuzzy
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the `text` variable. In this case you may "
 "alter the document through the `cursor`."
 msgstr ""
 "Lorsque vous définissez une fonction de ce nom, elle est appelée sans "
-"arguments, au lieu d’insérer le texte depuis la variable {text}. Dans ce cas "
-"vous pouvez changer le document via le {cursor}."
+"arguments, au lieu d’insérer le texte depuis la variable `text`. Dans ce cas "
+"vous pouvez changer le document via le `cursor`."
 
 #: ../userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
@@ -6393,21 +6398,17 @@ msgstr "Après compilation d'une partition, l'Aperçu n'affiche pas le résultat
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:3
-#, fuzzy
 msgid "Does the `\\score` block have a layout section?"
-msgstr ""
-"Est-ce que le bloc <code>\\score</code> contient une section de mise en "
-"forme (layout) ?"
+msgstr "Le bloc `\\score` contient-il une section de mise en forme (layout) ?"
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:5
-#, fuzzy
 msgid ""
 "If a `\\score` block has a `\\midi` section but no `\\layout` section, no "
 "PDF output is generated."
 msgstr ""
-"Si un bloc <code>\\score</code> comporte une section <code>\\midi</code> "
-"mais pas de section <code>\\layout</code>, aucune sortie PDF ne sera générée."
+"Si un bloc `\\score` comporte une section `\\midi` mais pas de section "
+"`\\layout`, aucune sortie PDF ne sera générée."
 
 #: ../userguide/nomusic.md:8
 msgid "Do you use an exotic way to specify the output filename?"
