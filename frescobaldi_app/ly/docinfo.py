@@ -295,7 +295,7 @@ class DocInfo(object):
                 if t in languages:
                     return t
         for n in self.include_args():
-            lang = t.rsplit('.', 1)[0]
+            lang = n.rsplit('.', 1)[0]
             if lang in languages:
                 return lang
     
