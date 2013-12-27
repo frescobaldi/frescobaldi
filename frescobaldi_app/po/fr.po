@@ -236,11 +236,11 @@ msgstr "Ré-&indenter"
 
 #: ../documentactions.py:187
 msgid "&Format"
-msgstr "&Format"
+msgstr "&Formater"
 
 #: ../documentactions.py:188
 msgid "Remove Trailing &Whitespace"
-msgstr ""
+msgstr "Supprimer les espaces de &fin"
 
 #: ../documentactions.py:189
 msgid "&Update with convert-ly..."
@@ -270,8 +270,7 @@ msgstr "Supprimer les &nuances"
 msgid "Remove Text &Markup (from music)"
 msgstr "Supprimer le &markup de texte (de la musique)"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1040
-#: ../sessions/manager.py:127
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1040 ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Enregistrer"
 
@@ -324,10 +323,10 @@ msgstr "Polices globales"
 
 #: ../globalfontdialog.py:71
 msgid ""
-"Please select the three global fonts to use for <code>\\roman</code>, <code>"
-"\\sans</code>, and <code>\\typewriter</code> respectively. You should also "
-"set the staff size to the global staff size you use in the document (20 by "
-"default)."
+"Please select the three global fonts to use for <code>\\roman</code>, "
+"<code>\\sans</code>, and <code>\\typewriter</code> respectively. You should "
+"also set the staff size to the global staff size you use in the document (20 "
+"by default)."
 msgstr ""
 "Veuillez sélectionner les trois polices globales à utiliser respectivement "
 "pour <code>\\roman</code>, <code>\\sans</code> et <code>\\typewriter</code>. "
@@ -1180,9 +1179,8 @@ msgid "Publish"
 msgstr "Publication"
 
 #: ../engrave/custom.py:137
-#, fuzzy
 msgid "Layout Control"
-msgstr "Options de contrôle de mise en page"
+msgstr "Contrôle de mise en page"
 
 #: ../engrave/custom.py:138 ../preferences/lilypond.py:295
 msgid "Run LilyPond with English messages"
@@ -1390,32 +1388,28 @@ msgid "Import Music XML"
 msgstr "Importer MusicXML"
 
 #: ../file_import/musicxml.py:157 ../userguide/musicxml_import.md:16
-#, fuzzy
 msgid "Import articulation directions"
-msgstr "Pas de directions d'articulation"
+msgstr "Importer les orientations d'articulation"
 
 #: ../file_import/musicxml.py:158 ../userguide/musicxml_import.md:17
-#, fuzzy
 msgid "Import rest positions"
-msgstr "Pas de positions de silence"
+msgstr "Importer les positions de silence"
 
 #: ../file_import/musicxml.py:159 ../userguide/musicxml_import.md:18
-#, fuzzy
 msgid "Import page layout"
-msgstr "Pas de mise en page"
+msgstr "Importer la mise en page"
 
 #: ../file_import/musicxml.py:160 ../userguide/musicxml_import.md:19
-#, fuzzy
 msgid "Import beaming"
-msgstr "Ligatures automatiques"
+msgstr "Importer les ligatures"
 
 #: ../file_import/musicxml.py:161 ../userguide/musicxml_import.md:20
 msgid "Pitches in absolute mode"
-msgstr ""
+msgstr "Hauteurs de notes en mode absolu"
 
 #: ../file_import/musicxml.py:164 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
-msgstr ""
+msgstr "Langage du nom des notes"
 
 #: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
 #: ../preferences/general.py:133 ../preferences/tools.py:296
@@ -1427,22 +1421,19 @@ msgstr "Par défaut"
 
 #: ../file_import/musicxml.py:166
 msgid "Reformat source"
-msgstr ""
+msgstr "Reformater la source"
 
 #: ../file_import/musicxml.py:167
-#, fuzzy
 msgid "Trim durations (Make implicit per line)"
 msgstr "Durées implicites (&ligne par ligne)"
 
 #: ../file_import/musicxml.py:168
-#, fuzzy
 msgid "Remove fraction duration scaling"
-msgstr "Enleve&r les durées"
+msgstr "Supprimer les multiplicateurs des durées"
 
 #: ../file_import/musicxml.py:169
-#, fuzzy
 msgid "Engrave directly"
-msgstr "Graver (personnalisé)"
+msgstr "Graver directement"
 
 #: ../file_import/musicxml.py:171
 msgid "Run musicxml2ly"
@@ -1588,54 +1579,50 @@ msgid "Click to edit this file"
 msgstr "Cliquer pour éditer ce fichier"
 
 #: ../midiinput/tool.py:29
-#, fuzzy
 msgid "MIDI Input"
-msgstr "Entrée MIDI :"
+msgstr "Entrée MIDI"
 
 #: ../midiinput/tool.py:30
-#, fuzzy
 msgid "MIDI I&nput"
-msgstr "Entrée MIDI :"
+msgstr "E&ntrée MIDI"
 
 #: ../midiinput/tool.py:52 ../midiinput/tool.py:53
 msgctxt "midi input"
 msgid "Start MIDI capturing"
-msgstr ""
+msgstr "Démarrer la capture MIDI"
 
 #: ../midiinput/tool.py:54 ../midiinput/tool.py:55
 msgctxt "midi input"
 msgid "Stop MIDI capturing"
-msgstr ""
+msgstr "Arrêter la capture MIDI"
 
 #: ../midiinput/widget.py:98
 msgid "MIDI channel"
-msgstr ""
+msgstr "Canal MIDI"
 
 #: ../midiinput/widget.py:99
 msgid "Accidentals"
-msgstr ""
+msgstr "Altérations"
 
 #: ../midiinput/widget.py:100
 msgid "sharps"
-msgstr ""
+msgstr "dièses"
 
 #: ../midiinput/widget.py:100
 msgid "flats"
-msgstr ""
+msgstr "bémols"
 
 #: ../midiinput/widget.py:101
-#, fuzzy
 msgid "Chord mode"
 msgstr "Chiffrages d'accords"
 
 #: ../midiinput/widget.py:103
-#, fuzzy
 msgid ""
 "Enter simultaneously played notes as chords. See \"What's This\" for more "
 "information."
 msgstr ""
-"Saisissez le texte à rechercher dans la liste des fragments.\n"
-"Voir « Qu'est-ce que c'est ? » pour plus d'information."
+"Entrez simultanément les notes jouées comme des accords. Voir « Qu'est-ce "
+"que c'est ? » pour plus d'information."
 
 #: ../midiinput/widget.py:106
 msgid ""
@@ -1643,18 +1630,21 @@ msgid ""
 "consequence they are not written before the last key is lifted. Of course "
 "single can also be entered."
 msgstr ""
+"Les notes jouées simultanément sont écrites comme accords. En conséquence, "
+"rien n'est écrit tant que la dernière touche n'est pas relevée. Évidemment, "
+"des notes seules peuvent également être entrées."
 
 #: ../midiinput/widget.py:110
 msgid "Damper pedal"
-msgstr ""
+msgstr "Pédale"
 
 #: ../midiinput/widget.py:111
 msgid "Sostenuto pedal"
-msgstr ""
+msgstr "Pédale sostenuto"
 
 #: ../midiinput/widget.py:112
 msgid "Soft pedal"
-msgstr ""
+msgstr "Pédale \"una corda\""
 
 #: ../miditool/__init__.py:51
 msgid "MIDI"
@@ -2299,7 +2289,7 @@ msgstr "Caractère apparié :"
 
 #: ../preferences/editor.py:87 ../userguide/prefs_editor.md:3
 msgid "Highlighting Options"
-msgstr "Coloration syntaxique"
+msgstr "Options de surlignement"
 
 #: ../preferences/editor.py:89
 msgid ""
@@ -2320,38 +2310,37 @@ msgid "Infinite"
 msgstr "Infini"
 
 #: ../preferences/editor.py:145 ../userguide/prefs_editor.md:11
-#, fuzzy
 msgid "Indenting Preferences"
-msgstr "Préférences d'éditeur"
+msgstr "Préférences d'indentation"
 
 #: ../preferences/editor.py:146
 msgid "Visible Tab Width:"
-msgstr ""
+msgstr "Largeur de tabulation visible :"
 
 #: ../preferences/editor.py:148
-#, fuzzy
 msgid "The visible width of a Tab character in the editor."
-msgstr "La largeur d'une tabulation, par défaut 8 espaces."
+msgstr "La largeur visible d'une tabulation dans l'éditeur."
 
 #: ../preferences/editor.py:149
 msgid "Indent text with:"
-msgstr ""
+msgstr "Indenter le texte avec :"
 
 #: ../preferences/editor.py:151
 msgid ""
 "How many spaces to use for indenting one level.\n"
 "Move to zero to use a Tab character for indenting."
 msgstr ""
+"Le nombre d'espaces à utiliser pour indenter d'un niveau.\n"
+"Régler sur zéro pout utiliser un caractère de tabulation pour l'indentation."
 
 #: ../preferences/editor.py:153 ../preferences/editor.py:159
 #: ../preferences/editor.py:160
-#, fuzzy
 msgid "Tab"
-msgstr "Balise"
+msgstr "Tabulation"
 
 #: ../preferences/editor.py:154
 msgid "Tab ouside indent inserts:"
-msgstr ""
+msgstr "Une tabulation hors de l'indentation insère :"
 
 #: ../preferences/editor.py:156
 msgid ""
@@ -2359,12 +2348,15 @@ msgid ""
 "in the document.\n"
 "Move to zero to insert a literal Tab character in this case."
 msgstr ""
+"Le nombre d'espaces à insérer quand une tabulation est entrée hors de "
+"l'indentation, n'importe où dans le document.\n"
+"Régler sur zéro pour insérer la valeur nominale du caractère de tabulation "
+"dans ce cas."
 
 #. L10N: abbreviation for "n spaces" in spinbox, n >= 1, no plural forms
 #: ../preferences/editor.py:162
-#, fuzzy
 msgid "{num} spaces"
-msgstr "{num} seconde(s)"
+msgstr "{num} espace(s)"
 
 #: ../preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
@@ -2783,9 +2775,9 @@ msgid ""
 "empty to use the operating system default application."
 msgstr ""
 "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-"fichiers. <code>$f</code> est remplacé par le nom du fichier, <code>$u</"
-"code> par l'URL. Laissez un champ vide pour utiliser l'application défaut du "
-"système d'exploitation."
+"fichiers. <code>$f</code> est remplacé par le nom du fichier, "
+"<code>$u</code> par l'URL. Laissez un champ vide pour utiliser l'application "
+"défaut du système d'exploitation."
 
 #: ../preferences/helpers.py:101
 msgid "Command that should accept a mailto: URL."
@@ -2824,16 +2816,16 @@ msgid ""
 "avoid that PDF documents are being printed using raster images, which is "
 "less optimal.\n"
 "<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
-"<code>$ps</code> is replaced with the PostScript filename. <code>$printer</"
-"code> is replaced with the printer's name to use."
+"<code>$ps</code> is replaced with the PostScript filename. "
+"<code>$printer</code> is replaced with the printer's name to use."
 msgstr ""
 "La command d'impression est utilisée pour imprimer un fichier Postscript ou "
 "PDF. Sous Linux, ce n'est pas nécessaire, mais sous Windows et Mac OS X, "
 "vous pouvez définir une commande pour éviter que les documents ne soient "
-"imprimées comme images rastérisées, ce qui n'est pas optimal. <code>$pdf</"
-"code> est alors remplacé par le nom de fichier du PDF, ou <code>$ps</code> "
-"par celui du fichier Postscript. <code>$printer</code> est remplacé par le "
-"nom de l'imprimante à utiliser."
+"imprimées comme images rastérisées, ce qui n'est pas optimal. "
+"<code>$pdf</code> est alors remplacé par le nom de fichier du PDF, ou "
+"<code>$ps</code> par celui du fichier Postscript. <code>$printer</code> est "
+"remplacé par le nom de l'imprimante à utiliser."
 
 #: ../preferences/helpers.py:161
 msgid "Use Frescobaldi's print dialog"
@@ -2897,7 +2889,7 @@ msgstr ""
 
 #: ../preferences/lilypond.py:235
 msgid "How this version of LilyPond will be displayed."
-msgstr ""
+msgstr "La façon dont cette version de LilyPond sera affichée."
 
 #: ../preferences/lilypond.py:236
 msgid "LilyPond Command:"
@@ -2952,17 +2944,16 @@ msgid "LilyPond include path:"
 msgstr "Emplacement d'inclusion LilyPond :"
 
 #: ../preferences/lilypond.py:336
-#, fuzzy
 msgid "Default output format"
-msgstr "Format de sortie :"
+msgstr "Format de sortie par défaut"
 
 #: ../preferences/lilypond.py:339
 msgid "Create PDF (Portable Document Format) documents by default."
-msgstr ""
+msgstr "Créer des documents PDF (Portable Document Format) par défaut."
 
 #: ../preferences/lilypond.py:342
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
-msgstr ""
+msgstr "Créer des documents SVG (Scalable Vector Graphics) par défaut."
 
 #: ../preferences/midi.py:82
 msgid "MIDI Ports"
@@ -2990,7 +2981,6 @@ msgstr ""
 "Voir « Qu'est-ce que c'est ? » pour plus d'information."
 
 #: ../preferences/midi.py:92
-#, fuzzy
 msgid ""
 "<p>This dropdown menu lists the available MIDI output ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -2998,7 +2988,7 @@ msgid ""
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
-"<p>Ce menu déroulant liste les ports MIDI disponibles sur voter système. "
+"<p>Ce menu déroulant liste les ports MIDI disponibles sur votre système. "
 "Vous pouvez en sélectionner un, ou simplement saisir une partie de nom. Dans "
 "ce cas, le premier nom de port disponible commençant par ces caractères est "
 "utilisé.</p>\n"
@@ -3006,21 +2996,18 @@ msgstr ""
 "un périphérique MIDI ou démarrez un synthétiseur logiciel.</p>"
 
 #: ../preferences/midi.py:101
-#, fuzzy
 msgid "Input port:"
-msgstr "Format de sortie :"
+msgstr "Port d'entrée :"
 
 #: ../preferences/midi.py:103
-#, fuzzy
 msgid ""
 "The MIDI port to get input from to write notes  See \"What's This\" for more "
 "information."
 msgstr ""
-"Le port MIDI pour faire jouer la musique.\n"
-"Voir « Qu'est-ce que c'est ? » pour plus d'information."
+"Le port MIDI pour entrer des notes. Voir « Qu'est-ce que c'est ? » pour plus "
+"d'information."
 
 #: ../preferences/midi.py:106
-#, fuzzy
 msgid ""
 "<p>This dropdown menu lists the available MIDI input ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -3028,7 +3015,7 @@ msgid ""
 "<p>Click the button to refresh the list, e.g. when you connect a MIDI device "
 "or start a software synthesizer.</p>"
 msgstr ""
-"<p>Ce menu déroulant liste les ports MIDI disponibles sur voter système. "
+"<p>Ce menu déroulant liste les ports MIDI disponibles sur votre système. "
 "Vous pouvez en sélectionner un, ou simplement saisir une partie de nom. Dans "
 "ce cas, le premier nom de port disponible commençant par ces caractères est "
 "utilisé.</p>\n"
@@ -3072,14 +3059,13 @@ msgstr ""
 
 #: ../preferences/midi.py:183
 msgid "Polling time for input:"
-msgstr ""
+msgstr "Temps d'attente pour l'entrée :"
 
 #: ../preferences/midi.py:185
-#, fuzzy
 msgid "Polling time for MIDI input. See \"What's This\" for more information."
 msgstr ""
-"Ajouter les emplacements ou URLs.\n"
-"Voir « Qu'est-ce que c'est ? » pour plus d'information."
+"Temps d'attente pour l'entrée MIDI. Voir « Qu'est-ce que c'est ? » pour plus "
+"d'information."
 
 #: ../preferences/midi.py:188
 msgid ""
@@ -3087,6 +3073,10 @@ msgid ""
 "Small values lead to faster recognition of incoming MIDI events, but stress "
 "the CPU. 10 ms should be a goot value."
 msgstr ""
+"Définit le temps d'attente du port d'entrée MIDI en millisecondes. Des "
+"valeurs courtes permettent une reconnaissance plus rapide des événements "
+"MIDI entrants, mais surchargent le CPU. 10 ms devrait être une valeur "
+"adéquate."
 
 #: ../preferences/paths.py:59
 msgid "Folders containing hyphenation dictionaries"
@@ -3694,23 +3684,21 @@ msgid "Remove &scaling"
 msgstr "Supprimer les multiplicateur&s"
 
 #: ../rhythm/__init__.py:167
-#, fuzzy
 msgid "Remove all scaling (*n, *n/m) from the durations in the selection."
 msgstr ""
 "Supprimer tous les multiplicateurs (*n/m) des durées dans la sélection."
 
 #: ../rhythm/__init__.py:168
-#, fuzzy
 msgid "Remove scaling with &fractions"
 msgstr "Supprimer les multiplicateur&s"
 
 #: ../rhythm/__init__.py:170
-#, fuzzy
 msgid ""
 "Remove only scaling containing fractions (*n/m) from the durations in the "
 "selection."
 msgstr ""
-"Supprimer tous les multiplicateurs (*n/m) des durées dans la sélection."
+"Supprimer seulement les multiplicateurs contenant des fractions (*n/m) des "
+"durées dans la sélection."
 
 #: ../rhythm/__init__.py:171
 msgid "&Remove durations"
@@ -4434,8 +4422,7 @@ msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Bat."
 
-#: ../scorewiz/parts/percussion.py:186
-#: ../scorewiz/parts/plucked_strings.py:258
+#: ../scorewiz/parts/percussion.py:186 ../scorewiz/parts/plucked_strings.py:258
 msgid "Voices:"
 msgstr "Voix :"
 
@@ -4875,14 +4862,13 @@ msgid "Pic."
 msgstr "Pic."
 
 #: ../scorewiz/parts/woodwind.py:64
-#, fuzzy
 msgid "Alto Flute"
-msgstr "Flûte"
+msgstr "Flûte alto"
 
 #: ../scorewiz/parts/woodwind.py:68
 msgctxt "abbreviation Alto flute"
 msgid "Afl."
-msgstr ""
+msgstr "Fl. a."
 
 #: ../scorewiz/parts/woodwind.py:77
 msgid "Bass flute"
@@ -4949,32 +4935,30 @@ msgstr "Cl."
 
 #: ../scorewiz/parts/woodwind.py:170
 msgid "E-flat clarinet "
-msgstr ""
+msgstr "Clarinette en mi bémol"
 
 #: ../scorewiz/parts/woodwind.py:174
 msgctxt "abbreviation for E-flat Clarinet"
 msgid "Cl. in Eb"
-msgstr ""
+msgstr "Cl. en mib"
 
 #: ../scorewiz/parts/woodwind.py:183
-#, fuzzy
 msgid "A clarinet "
-msgstr "Clarinette"
+msgstr "Clarinette en la"
 
 #: ../scorewiz/parts/woodwind.py:187
 msgctxt "abbreviation for A Clarinet"
 msgid "Cl. in A"
-msgstr ""
+msgstr "Cl. en la"
 
 #: ../scorewiz/parts/woodwind.py:196
-#, fuzzy
 msgid "Bass clarinet"
-msgstr "Clarinette"
+msgstr "Clarinette basse"
 
 #: ../scorewiz/parts/woodwind.py:200
 msgctxt "abbreviation for Bass clarinet"
 msgid "BCl."
-msgstr ""
+msgstr "B. cl."
 
 #: ../scorewiz/parts/woodwind.py:209
 msgid "Sopranino Sax"
@@ -5031,15 +5015,13 @@ msgid "BsSx."
 msgstr "Sax. Bas."
 
 #: ../scorewiz/parts/woodwind.py:287
-#, fuzzy
 msgid "Sopranino recorder"
-msgstr "Flûte à bec Soprano"
+msgstr "Flûte à bec Sopranino"
 
 #: ../scorewiz/parts/woodwind.py:291
-#, fuzzy
 msgctxt "abbreviation for Sopranino recorder"
 msgid "Si.rec."
-msgstr "Fl. S."
+msgstr "Fl. Si."
 
 #: ../scorewiz/parts/woodwind.py:299
 msgid "Soprano recorder"
@@ -5078,26 +5060,22 @@ msgid "B.rec."
 msgstr "Fl. B."
 
 #: ../scorewiz/parts/woodwind.py:351
-#, fuzzy
 msgid "Contra Bass recorder"
-msgstr "Flûte à bec Basse"
+msgstr "Flûte à bec Contrebasse"
 
 #: ../scorewiz/parts/woodwind.py:355
-#, fuzzy
 msgctxt "abbreviation for Contra Bass recorder"
 msgid "Cb.rec."
-msgstr "Fl. S."
+msgstr "Fl. Cb."
 
 #: ../scorewiz/parts/woodwind.py:365
-#, fuzzy
 msgid "Subcontra Bass recorder"
-msgstr "Flûte à bec Basse"
+msgstr "Flûte à bec Subcontrebasse"
 
 #: ../scorewiz/parts/woodwind.py:369
-#, fuzzy
 msgctxt "abbreviation for Subcontra Bass recorder"
 msgid "Scb.rec."
-msgstr "Fl. S."
+msgstr "Fl. Scb."
 
 #: ../scorewiz/parts/woodwind.py:378
 msgid "Woodwinds"
@@ -5452,8 +5430,8 @@ msgid ""
 "Selects text from here to the position given using the <code>$CURSOR</code> "
 "variable"
 msgstr ""
-"Sélectionne le texte d'ici jusqu'à la position donnée par la variable <code>"
-"$CURSOR</code>"
+"Sélectionne le texte d'ici jusqu'à la position donnée par la variable "
+"<code>$CURSOR</code>"
 
 #: ../snippet/expand.py:108
 msgid "The selected text if available. If not, the text cursor is moved here."
@@ -5507,15 +5485,14 @@ msgstr ""
 "sélectionner ou les désélectionner un par un, ou tous ensemble en utilisant "
 "la case à cocher du groupe. Cliquez OK pour importer tous les fragments "
 "sélectionnés.</p>\n"
-"<p>Les fragments existants ou non modifiés ne peuvent pas être importés.</"
-"p>\n"
+"<p>Les fragments existants ou non modifiés ne peuvent pas être "
+"importés.</p>\n"
 
 #: ../snippet/insert.py:217
 msgid "Snippet error"
 msgstr "Erreur de fragment"
 
 #: ../snippet/menu.py:118
-#, fuzzy
 msgctxt "menu title"
 msgid "&Insert"
 msgstr "&Insérer"
@@ -5722,20 +5699,17 @@ msgstr[0] "Exporter {num} fragment"
 msgstr[1] "Exporter {num} fragments"
 
 #: ../svgview/__init__.py:55
-#, fuzzy
 msgctxt "window title"
 msgid "SVG View"
-msgstr "Affichage"
+msgstr "Aperçu SVG"
 
 #: ../svgview/__init__.py:56
-#, fuzzy
 msgid "SV&G View"
-msgstr "&Affichage"
+msgstr "Aperçu SV&G"
 
 #: ../svgview/widget.py:90
-#, fuzzy
 msgid "Page:"
-msgstr "Image : "
+msgstr "Page :"
 
 #: ../userguide/browser.py:79
 msgid "Toolbar"
@@ -5759,7 +5733,7 @@ msgstr "Haut :"
 
 #: ../userguide/util.py:61
 msgid "In this chapter:"
-msgstr ""
+msgstr "Dans ce chapitre :"
 
 #: ../userguide/util.py:71
 msgid "Next:"
@@ -5937,6 +5911,9 @@ msgid ""
 "those texts usable as lyrics. It can use hyphenation dictionaries of "
 "OpenOffice.org, Scribus, etc."
 msgstr ""
+"Frescobaldi peut placer automatiquement des césures '{hyphen}' dans les "
+"textes pour les rendre utilisables comme paroles. Il peut utiliser les "
+"dictionnaires de césure de OpenOffice.org, Scribus, etc."
 
 #: ../userguide/lyrics.md:7
 msgid ""
@@ -6099,7 +6076,7 @@ msgstr ""
 
 #: ../userguide/prefs_editor.md:8
 msgid "Use the value 0 for infinite."
-msgstr ""
+msgstr "Utilisez la valeur 0 pour \"infini\"."
 
 #: ../userguide/prefs_editor.md:13
 msgid "Here you can specify how you want to handle Tabs and indenting."
@@ -6142,13 +6119,12 @@ msgid ""
 msgstr ""
 
 #: ../userguide/preferences.md:3
-#, fuzzy
 msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
 "many aspects of Frescobaldi and LilyPond."
 msgstr ""
-"Dans le dialogue Préférences (sous {menu}) vous pouvez configurer de "
-"nombreux aspects de Frescobaldi et LilyPond."
+"Dans le dialogue Préférences (sous {menu_edit_preferences}) vous pouvez "
+"configurer de nombreux aspects de Frescobaldi et LilyPond."
 
 #: ../userguide/transpose.md:3
 msgid ""
@@ -6286,30 +6262,27 @@ msgstr ""
 "Dans ce dialogue vous pouvez éditer une ligne unique du document texte."
 
 #: ../userguide/musicview_editinplace.md:5
-#, fuzzy
 msgid ""
 "Click OK or press {key_editinplace} to place the modified text in the "
 "document."
 msgstr ""
-"Cliquez sur OK ou appuyez sur la touche {key} pour insérer le texte modifié "
-"dans le document."
+"Cliquez sur OK ou appuyez sur la touche {key_editinplace} pour insérer le "
+"texte modifié dans le document."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicview_editinplace.md:7
-#, fuzzy
 msgid ""
 "You can open the *Edit in Place* dialog by Shift-clicking a clickable object "
 "in the Music View or by right-clicking the object and selecting "
 "{menu_editinplace}."
 msgstr ""
-"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant Maj-"
-"Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit sur "
-"cet objet et en sélectionnant {menu}."
+"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant "
+"Maj-Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit "
+"sur cet objet et en sélectionnant {menu_editinplace}."
 
 #: ../userguide/creating.md:1
-#, fuzzy
 msgid "Creating new files"
-msgstr "Respirations"
+msgstr "Créer de nouveaux fichiers"
 
 #: ../userguide/create_midi.md:1
 msgid "How to generate a MIDI file?"
@@ -6317,7 +6290,6 @@ msgstr "Comment générer un fichier MIDI ?"
 
 #. NOTE: markdown formatting
 #: ../userguide/create_midi.md:3
-#, fuzzy
 msgid ""
 "By default, LilyPond creates only a PDF file of the music. To create a MIDI "
 "file, you must wrap the music in a `\\score` block and add a `\\midi` block "
@@ -6325,8 +6297,7 @@ msgid ""
 msgstr ""
 "Par défaut, LilyPond ne crée que le fichier PDF représentant la musique. "
 "Pour créer aussi un fichier MIDI, la musique doit être inclue dans un bloc "
-"de type <code>\\score</code> dans lequel vous devez inclure un bloc de type "
-"<code>\\midi</code>."
+"de type `\\score` dans lequel vous devez inclure un bloc de type `\\midi`."
 
 #: ../userguide/create_midi.md:7 ../userguide/var_output.md:12
 msgid "For example:"
@@ -6334,13 +6305,12 @@ msgstr "Par exemple :"
 
 #. NOTE: markdown formatting
 #: ../userguide/create_midi.md:23
-#, fuzzy
 msgid ""
 "If you omit the `\\layout` block, no PDF file will be generated, only a MIDI "
 "file."
 msgstr ""
-"Si vous omettez le bloc de type <code>\\layout</code>, aucun fichier PDF ne "
-"sera généré, seul un fichier MIDI le sera."
+"Si vous omettez le bloc de type `\\layout`, aucun fichier PDF ne sera "
+"généré, seul un fichier MIDI le sera."
 
 #: ../userguide/snippet_python.md:1
 msgid "Python Snippets"
@@ -6456,9 +6426,9 @@ msgstr ""
 "Frescobaldi est capable de déterminer le nom des fichiers de sortie en "
 "analysant le nom de fichier du document et les différentes commandes de "
 "LilyPond qui spécifient le fichier de sortie ou l'option -suffix. "
-"Frescobaldi cherche également les fichiers inclus par la directive <code>"
-"\\include</code> pour les commandes comme <code>\\bookOutputName</code> et "
-"<code>\\bookOutputSuffix</code>."
+"Frescobaldi cherche également les fichiers inclus par la directive "
+"<code>\\include</code> pour les commandes comme "
+"<code>\\bookOutputName</code> et <code>\\bookOutputSuffix</code>."
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:16
@@ -6558,8 +6528,8 @@ msgid ""
 msgstr ""
 "Définit pour quels grobs le nom sera affiché. Par défaut, tous les grobs "
 "sont analysés, mais vous pouvez définir une liste de grobs, comme par "
-"exemple : <code>#(define debug-grob-names-grob-list '(Script NoteHead))</"
-"code>"
+"exemple : <code>#(define debug-grob-names-grob-list '(Script "
+"NoteHead))</code>"
 
 #: ../userguide/engrave_layout_configure.md:82
 msgid ""
@@ -6598,12 +6568,12 @@ msgid ""
 "information about the source code structure in the file `README-development`."
 msgstr ""
 "<p>\n"
-"Frescobaldi est un <a href=\"http://www.gnu.org/philosophy/free-sw.html"
-"\">Logiciel\n"
+"Frescobaldi est un <a "
+"href=\"http://www.gnu.org/philosophy/free-sw.html\">Logiciel\n"
 "Libre</a> visant à développer un éditeur de partitions LilyPond facile "
 "d'accès.\n"
-"Le but est de rendre Frescobaldi accessible sur les principales plate-"
-"formes.\n"
+"Le but est de rendre Frescobaldi accessible sur les principales "
+"plate-formes.\n"
 "</p>\n"
 "\n"
 "<p>\n"
@@ -6663,9 +6633,8 @@ msgid "which will then, repetitively, be applied to a selection of notes."
 msgstr ""
 
 #: ../userguide/git.md:1
-#, fuzzy
 msgid "Git"
-msgstr "Git :"
+msgstr "Git"
 
 #: ../userguide/troubleshooting.md:1
 msgid "Troubleshooting"
@@ -6891,14 +6860,13 @@ msgstr ""
 "Vous pouvez positionner cette variable au cas où la détermination "
 "automatique du nom de fichier de sortie serait trop gourmande en temps de "
 "calcul (Frescobaldi analyse le document et tous les documents qu'il inclut, "
-"à la recherche de commande spécifiant le fichier de sortie comme <code>"
-"\\bookOutputName</code>, etc); ou quand la détermination automatique échoue "
-"à cause de code LilyPond trop complexes."
+"à la recherche de commande spécifiant le fichier de sortie comme "
+"<code>\\bookOutputName</code>, etc); ou quand la détermination automatique "
+"échoue à cause de code LilyPond trop complexes."
 
 #: ../userguide/managing.md:1
-#, fuzzy
 msgid "Managing Files"
-msgstr "Fichiers XML"
+msgstr "Gérer les fichiers"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilydoc.md:3
@@ -7019,17 +6987,17 @@ msgstr "À propos de Frescobaldi"
 #. NOTE: markdown formatting
 #: ../userguide/about.md:3
 msgid ""
-"Frescobaldi is named after [http://en.wikipedia.org/wiki/"
-"Girolamo_Frescobaldi Girolamo Frescobaldi (1583-1643)], an Italian organist "
-"and composer."
+"Frescobaldi is named after "
+"[http://en.wikipedia.org/wiki/Girolamo_Frescobaldi Girolamo Frescobaldi "
+"(1583-1643)], an Italian organist and composer."
 msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/about.md:8
 msgid ""
 "Frescobaldi's homepage is at [http://www.frescobaldi.org/] and there is a "
-"mailinglist at [frescobaldi@googlegroups.com] ([http://groups.google.com/"
-"group/frescobaldi more info])."
+"mailinglist at [frescobaldi@googlegroups.com] "
+"([http://groups.google.com/group/frescobaldi more info])."
 msgstr ""
 
 #: ../userguide/intro.md:1
@@ -7063,9 +7031,8 @@ msgid ""
 msgstr ""
 
 #: ../userguide/export.md:1
-#, fuzzy
 msgid "Exporting files"
-msgstr "Éditer en ligne"
+msgstr "Exporter les fichiers"
 
 #: ../userguide/snippets.md:3
 msgid ""
@@ -7107,8 +7074,8 @@ msgstr ""
 msgid ""
 "Under *General Preferences*, you can choose in which language Frescobaldi's "
 "user interface is translated, which user interface style you want to use, "
-"and whether you want to use the built-in Tango iconset or to use the system-"
-"wide configured icon set."
+"and whether you want to use the built-in Tango iconset or to use the "
+"system-wide configured icon set."
 msgstr ""
 "Sous <em>{general_preferences}</em>, vous pouvez choisir dans quelle langue "
 "l'interface utilisateur de Frescobaldi est traduite, quel style d'interface "
@@ -7209,8 +7176,8 @@ msgid ""
 "To export snippets, either select them in the snippet manager, or filter the "
 "snippets using the search bar and select none, so that all the snippets "
 "visible in the snippet manager are exported. Export the snippets by "
-"selecting {menu_export}, and then choose a file name, preferably ending in `."
-"xml`."
+"selecting {menu_export}, and then choose a file name, preferably ending in "
+"`.xml`."
 msgstr ""
 "Pour exporter des fragments, vous pouvez soit les sélectionner dans le "
 "gestionnaire de fragments, ou filtrer les fragments grâce à la barre de "
@@ -7272,26 +7239,25 @@ msgstr ""
 
 #: ../userguide/credits.md:21
 msgid "Layout control modes and various other contributions"
-msgstr ""
+msgstr "Modes de contrôle de mise en page et nombre d'autres contributions"
 
 #: ../userguide/credits.md:24
 msgid "Modal Transpose"
 msgstr "Transposition Modale"
 
 #: ../userguide/credits.md:27
-#, fuzzy
 msgid "Quick Insert buttons for grace notes, and MusicXML im- and export"
-msgstr "Boutons d'insertion rapide pour les appoggiatures"
+msgstr ""
+"Boutons d'insertion rapide pour les appoggiatures, ainsi qu'import et export "
+"MusicXML"
 
 #: ../userguide/credits.md:30
-#, fuzzy
 msgid "MIDI capturing"
-msgstr "Réglages MIDI"
+msgstr "Capture MIDI"
 
 #: ../userguide/credits.md:33
-#, fuzzy
 msgid "Finding lots of bugs"
-msgstr "Encodage à utiliser"
+msgstr ""
 
 #: ../userguide/credits.md:36
 msgid "{appname} is translated into the following languages:"
@@ -7451,9 +7417,8 @@ msgid ""
 msgstr ""
 
 #: ../userguide/404.md:1
-#, fuzzy
 msgid "Not Found"
-msgstr "Aucun thème trouvé"
+msgstr "Aucun manuel trouvé"
 
 #: ../userguide/404.md:3
 msgid "Cannot load the requested userguide resource {userguide_page}."
@@ -7521,18 +7486,18 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../userguide/search_replace.md:37
 msgid ""
-"A full discussion on regular expressions can be found in the [http://docs."
-"python.org/library/re.html#regular-expression-syntax Python documentation]."
+"A full discussion on regular expressions can be found in the "
+"[http://docs.python.org/library/re.html#regular-expression-syntax Python "
+"documentation]."
 msgstr ""
 
 #: ../userguide/indent_format.md:1
 msgid "Indentation and Formatting"
-msgstr ""
+msgstr "Indentation et formatage"
 
 #: ../userguide/externalchanges.md:1
-#, fuzzy
 msgid "Monitoring external changes"
-msgstr "Contrôler les modifications externes..."
+msgstr "Contrôler les modifications externes"
 
 #: ../userguide/externalchanges.md:3
 msgid ""
@@ -7556,14 +7521,13 @@ msgstr ""
 "tenir compte des modifications effectuées par l'autre application."
 
 #: ../userguide/externalchanges.md:10
-#, fuzzy
 msgid ""
 "When a document is reloaded, you can still press {key_undo} to get back the "
 "document as it was in memory before reloading it from disk."
 msgstr ""
 "Quand un document est rechargé, vous pouvez toujours presser la touche "
-"{undokey} pour retourner au document tel qu'il était en mémoire avant d'être "
-"rechargé depuis le disque dur."
+"{key_undo} pour retourner au document tel qu'il était en mémoire avant "
+"d'être rechargé depuis le disque dur."
 
 #. NOTE: markdown formatting
 #: ../userguide/externalchanges.md:13
@@ -7604,7 +7568,7 @@ msgstr ""
 
 #: ../userguide/index.md:8
 msgid "How to get help inside Frescobaldi"
-msgstr ""
+msgstr "Comment obtenir de l'aide dans Frescobaldi"
 
 #: ../userguide/index.md:10
 #, fuzzy
@@ -7625,9 +7589,8 @@ msgstr ""
 "</p>\n"
 
 #: ../userguide/engrave_preview.md:1
-#, fuzzy
 msgid "Preview mode"
-msgstr "Modes d'aperçu"
+msgstr "Mode aperçu"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_preview.md:3
@@ -7690,7 +7653,6 @@ msgstr ""
 "pour les partager avec d'autres utilisateurs."
 
 #: ../userguide/docvars.md:1
-#, fuzzy
 msgid "Document Variables"
 msgstr "Variables de document"
 
@@ -7716,9 +7678,8 @@ msgid "The following variables are recognized:"
 msgstr "Les variables suivantes sont reconnues :"
 
 #: ../userguide/docvars.md:10
-#, fuzzy
 msgid "General variables"
-msgstr "Variables de document"
+msgstr "Variables générales"
 
 #: ../userguide/docvars.md:12
 msgid "mode"
@@ -7766,9 +7727,8 @@ msgstr ""
 "documents non-LilyPond."
 
 #: ../userguide/docvars.md:27
-#, fuzzy
 msgid "Indentation variables"
-msgstr "Variables de document"
+msgstr "Variables d'indentation"
 
 #: ../userguide/docvars.md:29 ../userguide/docvars.md:35
 #: ../userguide/docvars.md:42
@@ -7842,9 +7802,9 @@ msgstr ""
 
 #: ../userguide/musicxml_import.md:23
 msgid ""
-"The first four options are score elements you can retrieve from the musicXML-"
-"file if they are present and if you prefer not to use LilyPond's automatic "
-"handling of these elements."
+"The first four options are score elements you can retrieve from the "
+"musicXML-file if they are present and if you prefer not to use LilyPond's "
+"automatic handling of these elements."
 msgstr ""
 
 #: ../userguide/musicxml_import.md:27
@@ -7909,9 +7869,8 @@ msgid ""
 msgstr ""
 
 #: ../userguide/musicxml_import.md:56
-#, fuzzy
 msgid "Engrave directly:"
-msgstr "Dossier de base :"
+msgstr "Graver directement :"
 
 #: ../userguide/musicxml_import.md:57
 msgid ""
@@ -7960,7 +7919,7 @@ msgstr ""
 
 #: ../userguide/scorewiz.md:23
 msgid "Multiple pieces or movements"
-msgstr ""
+msgstr "Pièces ou mouvements multiples"
 
 #. NOTE: markdown formatting
 #: ../userguide/scorewiz.md:25
@@ -8090,9 +8049,9 @@ msgid ""
 "the operating system default application."
 msgstr ""
 "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-"fichiers. <code>$f</code> est remplacé par le nom du fichier, <code>$u</"
-"code> par l'URL. Laissez un champ vide pour utiliser l'application défaut du "
-"système d'exploitation."
+"fichiers. <code>$f</code> est remplacé par le nom du fichier, "
+"<code>$u</code> par l'URL. Laissez un champ vide pour utiliser l'application "
+"défaut du système d'exploitation."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_helpers.md:8
@@ -8123,10 +8082,10 @@ msgstr ""
 "La command d'impression est utilisée pour imprimer un fichier Postscript ou "
 "PDF. Sous Linux, ce n'est pas nécessaire, mais sous Windows et Mac OS X, "
 "vous pouvez définir une commande pour éviter que les documents ne soient "
-"imprimées comme images rastérisées, ce qui n'est pas optimal. <code>$pdf</"
-"code> est alors remplacé par le nom de fichier du PDF, ou <code>$ps</code> "
-"par celui du fichier Postscript. <code>$printer</code> est remplacé par le "
-"nom de l'imprimante à utiliser."
+"imprimées comme images rastérisées, ce qui n'est pas optimal. "
+"<code>$pdf</code> est alors remplacé par le nom de fichier du PDF, ou "
+"<code>$ps</code> par celui du fichier Postscript. <code>$printer</code> est "
+"remplacé par le nom de l'imprimante à utiliser."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_helpers.md:21
@@ -8161,9 +8120,8 @@ msgstr ""
 "spécifier la résolution (en dpi) ici."
 
 #: ../userguide/engrave_custom.md:1
-#, fuzzy
 msgid "Custom mode"
-msgstr "Portée personnalisée"
+msgstr "Mode personnalisé"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_custom.md:3
@@ -8234,9 +8192,8 @@ msgid "The filename of the document"
 msgstr "Le nom du document."
 
 #: ../userguide/engrave_layout.md:1
-#, fuzzy
 msgid "Layout control mode"
-msgstr "Options de contrôle de mise en page"
+msgstr "Mode contrôle de mise en page"
 
 #: ../userguide/engrave_layout.md:3
 msgid ""
@@ -8252,12 +8209,12 @@ msgid ""
 msgstr ""
 
 #: ../userguide/engrave_layout.md:9
-#, fuzzy
 msgid "The following Layout Control options are currently implemented:"
-msgstr "Les Modes de Débogage suivants sont actuellement implémentés :"
+msgstr ""
+"Les Modes de contrôle de mise en page suivants sont actuellement implémentés "
+":"
 
 #: ../userguide/engrave_layout.md:11
-#, fuzzy
 msgid "Verbose Output"
 msgstr "Sortie en mode verbeux"
 
@@ -8278,9 +8235,9 @@ msgstr ""
 #, fuzzy
 msgid ""
 "Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
-"Bezier curves, which means that their shape is controlled by four \"control-"
-"points\" (first and last ones tell where the curve ends are placed, and the "
-"middle ones affect the curvature)."
+"Bezier curves, which means that their shape is controlled by four "
+"\"control-points\" (first and last ones tell where the curve ends are "
+"placed, and the middle ones affect the curvature)."
 msgstr ""
 "Les liaisons de phrasés, liaisons rythmiques et objets similaires sont "
 "dessinés par LilyPond comme courbes de Bézier de troisième ordre, ce qui "
@@ -8308,16 +8265,15 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:31
-#, fuzzy
 msgid "Color `\\voiceXXX`"
-msgstr "Colorer \\voiceXXX"
+msgstr "Colorer `\\voiceXXX`"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:32
 #, fuzzy
 msgid ""
-"This mode highlights voices that have been explicitly set with one of the `"
-"\\voiceXXX` commands. This is useful when dealing with polyphony issues."
+"This mode highlights voices that have been explicitly set with one of the "
+"`\\voiceXXX` commands. This is useful when dealing with polyphony issues."
 msgstr ""
 "Ce mode colore les voix qui ont été explicitement crée avec une des "
 "commandes <code>\\voiceXXX</code>. C'est utile lorsqu'il faut gérer des "
@@ -8381,8 +8337,9 @@ msgstr ""
 "la position de l'objet. Pensez à la géométrie: si vous définissez l'endroit "
 "où une figure se trouve sur un plan, vous direz généralement quelque chose "
 "comme \"le coin inférieur gauche de ce carré a des coordonnées (0, 2)\" ou "
-"\"le centre de ce cercle se trouve en (-1, 3)\". \"Le coin inférieur gauche"
-"\" et \"centre\" sont des points de référence pour le carré et le cercle."
+"\"le centre de ce cercle se trouve en (-1, 3)\". \"Le coin inférieur "
+"gauche\" et \"centre\" sont des points de référence pour le carré et le "
+"cercle."
 
 #: ../userguide/engrave_layout.md:60
 msgid ""
@@ -8497,8 +8454,9 @@ msgid ""
 "The given string will be literally included in an `\\include` directive, so "
 "you are responsible yourself that LilyPond can find it."
 msgstr ""
-"La chaîne de caractères sera incluse telle quelle dans une directive <code>"
-"\\include</code>; vous êtes donc responsable si LilyPond ne trouve rien."
+"La chaîne de caractères sera incluse telle quelle dans une directive "
+"<code>\\include</code>; vous êtes donc responsable si LilyPond ne trouve "
+"rien."
 
 #: ../userguide/prefs_lilypond.md:3
 msgid ""
@@ -8560,8 +8518,8 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilypond_autoversion.md:3
 msgid ""
-"If this setting is enabled, the document is searched for a LilyPond `"
-"\\version` command or a `version` document variable."
+"If this setting is enabled, the document is searched for a LilyPond "
+"`\\version` command or a `version` document variable."
 msgstr ""
 
 #: ../userguide/prefs_lilypond_autoversion.md:6
@@ -8577,8 +8535,8 @@ msgstr "Variables de document"
 #: ../userguide/prefs_lilypond_autoversion.md:18
 msgid ""
 "somewhere (in a comments section) in the first or last 5 lines of the "
-"document. This way the LilyPond version to use can also be specified in non-"
-"LilyPond documents like HTML, LaTeX, etc."
+"document. This way the LilyPond version to use can also be specified in "
+"non-LilyPond documents like HTML, LaTeX, etc."
 msgstr ""
 
 #: ../userguide/prefs_lilypond_autoversion.md:22
@@ -8588,9 +8546,8 @@ msgid ""
 msgstr ""
 
 #: ../userguide/editing.md:1
-#, fuzzy
 msgid "Editing Files"
-msgstr "Éditer en ligne"
+msgstr "Éditer les fichiers"
 
 #: ../userguide/editing.md:3
 #, fuzzy
@@ -8647,17 +8604,14 @@ msgid ""
 msgstr ""
 
 #: ../userguide/modal_transpose.md:1
-#, fuzzy
 msgid "Modal transpose"
-msgstr "Transposition Modale"
+msgstr "Transposition modale"
 
 #: ../userguide/import.md:1
-#, fuzzy
 msgid "Importing files"
-msgstr "Importer des fragments"
+msgstr "Importer des fichiers"
 
 #: ../userguide/pitch.md:1
-#, fuzzy
 msgid "Pitch Manipulation"
 msgstr "Manipulation des hauteurs"
 
@@ -8668,7 +8622,6 @@ msgid ""
 msgstr ""
 
 #: ../userguide/pitch.md:7
-#, fuzzy
 msgid "Pitch language"
 msgstr "Langue du nom des notes :"
 
@@ -8678,9 +8631,8 @@ msgid "This translates pitch names in the whole document or a selection."
 msgstr "Transpose toutes les notes du document ou de la sélection."
 
 #: ../userguide/pitch.md:10
-#, fuzzy
 msgid "Convert relative music to absolute"
-msgstr "Convertir du mode relatif au mode &absolu"
+msgstr "Convertir du mode relatif au mode absolu"
 
 #. NOTE: markdown formatting
 #: ../userguide/pitch.md:11
@@ -8690,16 +8642,15 @@ msgid ""
 msgstr ""
 
 #: ../userguide/pitch.md:14
-#, fuzzy
 msgid "Convert absolute music to relative"
-msgstr "Convertir du mode absolu au mode &relatif"
+msgstr "Convertir du mode absolu au mode relatif"
 
 #. NOTE: markdown formatting
 #: ../userguide/pitch.md:15
 msgid ""
 "Checks all toplevel music expressions, changing them into `\\relative` mode "
-"as soon as the expression contains a pitch. If you want to make separate sub-"
-"expressions relative, it may be necessary to select music from the first "
+"as soon as the expression contains a pitch. If you want to make separate "
+"sub-expressions relative, it may be necessary to select music from the first "
 "expression, leaving out higher-level opening braces."
 msgstr ""
 
@@ -8710,8 +8661,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid ""
 #~ "<p>Here you can add local paths or URLs pointing to LilyPond "
 #~ "documentation. A local path should point to the directory where either "
-#~ "the \"{documentation}\" directory lives, or the whole \"share/doc/"
-#~ "lilypond/html/offline-root\" path.</p>\n"
+#~ "the \"{documentation}\" directory lives, or the whole "
+#~ "\"share/doc/lilypond/html/offline-root\" path.</p>\n"
 #~ "<p>If those can't be found, documentation is looked for in all "
 #~ "subdirectories of the given path, one level deep. This makes it possible "
 #~ "to put multiple versions of LilyPond documentation in different "
@@ -8753,8 +8704,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "utiliser peut également être spécifiée dans des fichiers non-LilyPond "
 #~ "comme HTML, LaTeX, etc.</p>\n"
 #~ "<p>Si le document spécifie une version, la plus ancienne version LilyPond "
-#~ "utilisable est choisie. Autrement, la version par défaut est choisie.</"
-#~ "p>\n"
+#~ "utilisable est choisie. Autrement, la version par défaut est "
+#~ "choisie.</p>\n"
 
 #~ msgid "filename"
 #~ msgstr "Nom de fichier"
@@ -8762,7 +8713,6 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Compiles another LilyPond document instead of the current."
 #~ msgstr "Compile un autre document LilyPond au lieu du document en cours."
 
-#, fuzzy
 #~ msgid ""
 #~ "Finally, you can specify a list of paths where the LilyPond `\\include` "
 #~ "command looks for files."
@@ -8792,30 +8742,25 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "The following replacements will be made in the command line:"
 #~ msgstr "Les modifications suivantes seront faits en ligne de commande :"
 
-#, fuzzy
 #~ msgid "Whether to use tabs in indent, by default `no`."
 #~ msgstr "Utilisation de tabulations pour l'indentation. Par défaut : {no}."
 
-#, fuzzy
 #~ msgid "Whether to use tabs elsewhere in the document, by default `yes`."
 #~ msgstr ""
 #~ "Utilisation de tabulations n'importe où dans le document. Par défaut : "
 #~ "{yes}."
 
-#, fuzzy
 #~ msgid ""
 #~ "The Music View is powered by the [http://poppler.freedesktop.org/ "
 #~ "Poppler] library by {authors} and others."
 #~ msgstr ""
 #~ "L'aperçu est géré par la bibliothèque {poppler} de {authors} et d'autres."
 
-#, fuzzy
 #~ msgid ""
 #~ "Most of the bundled icons are created by [http://tango.freedesktop.org/ "
 #~ "The Tango Desktop Project]."
 #~ msgstr "La plupart des icônes embarquées sont créées par {tango}."
 
-#, fuzzy
 #~ msgid ""
 #~ "{appname} is written in [http://www.python.org/ Python] and uses the "
 #~ "[http://qt-project.org/ Qt] toolkit."
@@ -8932,11 +8877,11 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "Il est même possible d'éditer la ligne de commande elle-même.\n"
 
 #~ msgid ""
-#~ "There are three modes Frescobaldi can compile scores in: <em>Preview</"
-#~ "em>, <em>Publication</em> and <em>Custom</em>."
+#~ "There are three modes Frescobaldi can compile scores in: "
+#~ "<em>Preview</em>, <em>Publication</em> and <em>Custom</em>."
 #~ msgstr ""
-#~ "Frescobaldi peut compiler les partitions selon trois modes: <em>Aperçu</"
-#~ "em>, <em>Publication</em> et <em>Personnalisé</em>."
+#~ "Frescobaldi peut compiler les partitions selon trois modes: "
+#~ "<em>Aperçu</em>, <em>Publication</em> et <em>Personnalisé</em>."
 
 #~ msgid ""
 #~ "<em>Preview</em> mode is useful while working on a score because it "
@@ -8978,10 +8923,10 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "layout aspects and will help you fine-tuning your scores."
 #~ msgstr ""
 #~ "En travaillant sur une partition, vous utiliserez en général le mode "
-#~ "<em>Aperçu</em> ({preview_shortcut}). Ceci active l'option point-and-"
-#~ "click et donne accès à certains Modes de débogage. Ceux-ci afficheront ou "
-#~ "surligneront divers aspects de la mise en page et vous aideront à régler "
-#~ "précisément vos partitions."
+#~ "<em>Aperçu</em> ({preview_shortcut}). Ceci active l'option "
+#~ "point-and-click et donne accès à certains Modes de débogage. Ceux-ci "
+#~ "afficheront ou surligneront divers aspects de la mise en page et vous "
+#~ "aideront à régler précisément vos partitions."
 
 #~ msgid ""
 #~ "The Debug Modes are accessible through the \"Preview Options\" dockable "
@@ -8989,10 +8934,10 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "initially disabled but remember their state throughout Frescobaldi "
 #~ "sessions."
 #~ msgstr ""
-#~ "Les Modes de Débogage sont accessibles via le panneau \"Options d'aperçu"
-#~ "\", accessible depuis le menu {menu_panel}. Les cases à cocher de ce "
-#~ "panneau sont décochées au départ, mais retiennent leur état d'une session "
-#~ "à l'autre."
+#~ "Les Modes de Débogage sont accessibles via le panneau \"Options "
+#~ "d'aperçu\", accessible depuis le menu {menu_panel}. Les cases à cocher de "
+#~ "ce panneau sont décochées au départ, mais retiennent leur état d'une "
+#~ "session à l'autre."
 
 #~ msgid "Preview Options"
 #~ msgstr "Options d'aperçu"
@@ -9030,18 +8975,18 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgstr "Les Modes de Débogage suivants sont actuellement implémentés :"
 
 #~ msgid ""
-#~ "Slurs, Ties and other similar objects are drawn in LilyPond as third-"
-#~ "order Bezier curves, which means that their shape is controlled by four "
-#~ "\"control-points\" (first and last ones tell where the curve ends are "
-#~ "placed, and the middle ones affect the curvature). Changing the shape of "
-#~ "these objects involves moving these control-points around, and it's "
+#~ "Slurs, Ties and other similar objects are drawn in LilyPond as "
+#~ "third-order Bezier curves, which means that their shape is controlled by "
+#~ "four \"control-points\" (first and last ones tell where the curve ends "
+#~ "are placed, and the middle ones affect the curvature). Changing the shape "
+#~ "of these objects involves moving these control-points around, and it's "
 #~ "helpful to see where they actually are."
 #~ msgstr ""
 #~ "Les liaisons de phrasés, liaisons rythmiques et objets similaires sont "
 #~ "dessinés par LilyPond comme courbes de Bézier de troisième ordre, ce qui "
-#~ "signifie que leur forme est contrôlée par quatre \"points de contrôle"
-#~ "\" (les premier et dernier où la courbe commence et termine, les deux "
-#~ "autres affectant la courbure). Changer la forme de ces objets implique le "
+#~ "signifie que leur forme est contrôlée par quatre \"points de contrôle\" "
+#~ "(les premier et dernier où la courbe commence et termine, les deux autres "
+#~ "affectant la courbure). Changer la forme de ces objets implique le "
 #~ "déplacement de ces points de contrôle, et il est utile de voir où ils se "
 #~ "trouvent."
 
@@ -9072,16 +9017,16 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "opérateurs d'orientation <code>^</code> et <code>_</code>."
 
 #~ msgid ""
-#~ "When the condition for one of the the modes is reverted using <code>"
-#~ "\\oneVoice</code> or <code>\\stemNeutral</code> colors are reverted to "
-#~ "black and will also revert the highlighting of the other Debug Mode with "
-#~ "LilyPond versions up to 2.17.5."
+#~ "When the condition for one of the the modes is reverted using "
+#~ "<code>\\oneVoice</code> or <code>\\stemNeutral</code> colors are reverted "
+#~ "to black and will also revert the highlighting of the other Debug Mode "
+#~ "with LilyPond versions up to 2.17.5."
 #~ msgstr ""
 #~ "Lorsque la condition pour un de ces modes est remise à zéro en utilisant "
-#~ "des commandes telles que <code>\\oneVoice</code> ou <code>\\xxxNeutral</"
-#~ "code>, les couleurs sont remises au noir et peuvent aussi supprimer le "
-#~ "colorisation d'autres modes de débogage avec des version de LilyPond "
-#~ "jusqu'à 2.17.5."
+#~ "des commandes telles que <code>\\oneVoice</code> ou "
+#~ "<code>\\xxxNeutral</code>, les couleurs sont remises au noir et peuvent "
+#~ "aussi supprimer le colorisation d'autres modes de débogage avec des "
+#~ "version de LilyPond jusqu'à 2.17.5."
 
 #~ msgid ""
 #~ "In LilyPond, all graphical objects have an anchor (a reference point). "
@@ -9185,13 +9130,13 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid ""
 #~ "Defines for which grobs the explicit direction through operators is "
 #~ "monitored. By default all grobs are watched, but alternatively one can "
-#~ "provide a list of grobs such as e.g. <code>#(define debug-direction-grob-"
-#~ "list '(DynamicText Script))</code>"
+#~ "provide a list of grobs such as e.g. <code>#(define "
+#~ "debug-direction-grob-list '(DynamicText Script))</code>"
 #~ msgstr ""
 #~ "Définit pour quels grobs la direction explicite via opérateurs est "
 #~ "analysée. Par défaut, tous les grobs sont analysés, mais vous pouvez "
-#~ "définir une liste de grobs, comme par exemple: <code>#(define debug-"
-#~ "direction-grob-list '(DynamicText Script))</code>"
+#~ "définir une liste de grobs, comme par exemple: <code>#(define "
+#~ "debug-direction-grob-list '(DynamicText Script))</code>"
 
 #~ msgid ""
 #~ "Defines for which grobs the anchor points will be displayed. By default "
@@ -9206,13 +9151,13 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 
 #~ msgid ""
 #~ "Defines for which grobs the names will be displayed. By default all grobs "
-#~ "are watched, but alternatively one can provide a list of grobs such as e."
-#~ "g. <code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>"
+#~ "are watched, but alternatively one can provide a list of grobs such as "
+#~ "e.g. <code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>"
 #~ msgstr ""
 #~ "Définit pour quels grobs le nom sera affiché. Par défaut, tous les grobs "
 #~ "sont analysés, mais vous pouvez définir une liste de grobs, comme par "
-#~ "exemple : <code>#(define debug-grob-names-grob-list '(Script NoteHead))</"
-#~ "code>"
+#~ "exemple : <code>#(define debug-grob-names-grob-list '(Script "
+#~ "NoteHead))</code>"
 
 #~ msgid "Engrave (Publication)"
 #~ msgstr "Graver (publication)"
@@ -9387,8 +9332,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "\n"
 #~ "<p>\n"
 #~ "Then click the Lily toolbar button or press {key_engrave}.\n"
-#~ "LilyPond will start to processes your file and the PDF will be "
-#~ "displayed \n"
+#~ "LilyPond will start to processes your file and the PDF will be displayed "
+#~ "\n"
 #~ "in the Music View on the right. If LilyPond encounters any errors or \n"
 #~ "warnings they will be displayed in the LilyPond Log at the bottom of the "
 #~ "screen.\n"
@@ -9457,8 +9402,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "show up in the \n"
 #~ "LilyPond Log window at the bottom of the screen. Frescobaldi will then "
 #~ "highlight \n"
-#~ "these lines in the text view where the errors are. Clicking the error "
-#~ "in \n"
+#~ "these lines in the text view where the errors are. Clicking the error in "
+#~ "\n"
 #~ "the Log Window or pressing {key_error} immediately brings the text cursor "
 #~ "to the \n"
 #~ "offending line in your text view. Pressing {key_error} again will move to "
@@ -9623,8 +9568,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "Frescobaldi's homepage is at\n"
 #~ "<a href=\"http://www.frescobaldi.org/\">www.frescobaldi.org</a>\n"
 #~ "and there is a mailinglist at\n"
-#~ "<a href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups."
-#~ "com</a>\n"
+#~ "<a "
+#~ "href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups.com</a>\n"
 #~ "(<a href=\"http://groups.google.com/group/frescobaldi\">more info</a>).\n"
 #~ "</p>\n"
 #~ msgstr ""
@@ -9639,10 +9584,10 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "La page d'accueil de Frescobaldi est\n"
 #~ "<a href=\"http://www.frescobaldi.org/\">www.frescobaldi.org</a>\n"
 #~ "et une liste de diffusion est disponible sur\n"
-#~ "<a href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups."
-#~ "com</a>\n"
-#~ "(<a href=\"http://groups.google.com/group/frescobaldi\">plus d'infos</"
-#~ "a>).\n"
+#~ "<a "
+#~ "href=\"mailto:frescobaldi@googlegroups.com\">frescobaldi@googlegroups.com</a>\n"
+#~ "(<a href=\"http://groups.google.com/group/frescobaldi\">plus "
+#~ "d'infos</a>).\n"
 #~ "</p>\n"
 
 #~ msgid "Frescobaldi's main author is {author}."
@@ -9650,8 +9595,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 
 #~ msgid ""
 #~ "<p>\n"
-#~ "Frescobaldi is a <a href=\"http://www.gnu.org/philosophy/free-sw.html"
-#~ "\">Free\n"
+#~ "Frescobaldi is a <a "
+#~ "href=\"http://www.gnu.org/philosophy/free-sw.html\">Free\n"
 #~ "Software</a> project to create a user friendly LilyPond music score "
 #~ "editor.\n"
 #~ "The goal is to make Frescobaldi available on all major platforms.\n"
@@ -9676,12 +9621,12 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "</p>\n"
 #~ msgstr ""
 #~ "<p>\n"
-#~ "Frescobaldi est un <a href=\"http://www.gnu.org/philosophy/free-sw.html"
-#~ "\">Logiciel\n"
+#~ "Frescobaldi est un <a "
+#~ "href=\"http://www.gnu.org/philosophy/free-sw.html\">Logiciel\n"
 #~ "Libre</a> visant à développer un éditeur de partitions LilyPond facile "
 #~ "d'accès.\n"
-#~ "Le but est de rendre Frescobaldi accessible sur les principales plate-"
-#~ "formes.\n"
+#~ "Le but est de rendre Frescobaldi accessible sur les principales "
+#~ "plate-formes.\n"
 #~ "</p>\n"
 #~ "\n"
 #~ "<p>\n"
@@ -9809,8 +9754,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "<dd>matches one of the contained characters</dd>\n"
 #~ "<dt><code>( )</code></dt>\n"
 #~ "<dd>group characters. This also saves the matched text in the group.\n"
-#~ "When replacing, you can use characters like <code>\\1</code>, <code>\\2</"
-#~ "code>\n"
+#~ "When replacing, you can use characters like <code>\\1</code>, "
+#~ "<code>\\2</code>\n"
 #~ "etcetera, to write the text of the corresponding group in the replacement "
 #~ "text.\n"
 #~ "</dd>\n"
@@ -9821,8 +9766,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "\n"
 #~ "<p>\n"
 #~ "A full discussion on regular expressions can be found in the\n"
-#~ "<a href=\"http://docs.python.org/library/re.html#regular-expression-syntax"
-#~ "\">Python\n"
+#~ "<a "
+#~ "href=\"http://docs.python.org/library/re.html#regular-expression-syntax\">Python\n"
 #~ "documentation</a>.\n"
 #~ "</p>\n"
 #~ msgstr ""
@@ -9853,8 +9798,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "<dd>correspond au précédent caractère ou groupe, aucune ou plusieurs "
 #~ "fois</dd>\n"
 #~ "<dt><code>+</code></dt>\n"
-#~ "<dd>correspond au précédent caractère ou groupe, une ou plusieurs fois</"
-#~ "dd>\n"
+#~ "<dd>correspond au précédent caractère ou groupe, une ou plusieurs "
+#~ "fois</dd>\n"
 #~ "<dt><code>?</code></dt>\n"
 #~ "<dd>correspond au précédent caractère ou groupe, aucune ou une fois</dd>\n"
 #~ "<dt><code>[ ]</code></dt>\n"
@@ -9862,8 +9807,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "<dt><code>( )</code></dt>\n"
 #~ "<dd>groupe caractères. Ceci enregistre également les textes "
 #~ "correspondants dans le groupe.\n"
-#~ "En remplaçant, vous pouvez utiliser des caractères comme <code>\\1</"
-#~ "code>, <code>\\2</code>\n"
+#~ "En remplaçant, vous pouvez utiliser des caractères comme "
+#~ "<code>\\1</code>, <code>\\2</code>\n"
 #~ "etc., pour écrire le texte du groupe de texte de remplacement "
 #~ "correspondant.</dd>\n"
 #~ "<dt><code>\\\\ \\n \\t \\s \\d \\w</code></dt>\n"
@@ -9875,8 +9820,9 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "<p>\n"
 #~ "Des informations plus complètes concernant les expressions régulières se "
 #~ "trouvent dans\n"
-#~ "<a href=\"http://docs.python.org/library/re.html#regular-expression-syntax"
-#~ "\">la documentation\n"
+#~ "<a "
+#~ "href=\"http://docs.python.org/library/re.html#regular-expression-syntax\">la "
+#~ "documentation\n"
 #~ "Python</a>.\n"
 #~ "</p>\n"
 
@@ -9957,16 +9903,16 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid ""
 #~ "Frescobaldi is able to determine the output file names by looking at the "
 #~ "document's filename and the various LilyPond commands that specify the "
-#~ "output filename or -suffix. Frescobaldi even searches <code>\\include</"
-#~ "code> files for commands like <code>\\bookOutputName</code> and <code>"
-#~ "\\bookOutputSuffix</code>."
+#~ "output filename or -suffix. Frescobaldi even searches "
+#~ "<code>\\include</code> files for commands like "
+#~ "<code>\\bookOutputName</code> and <code>\\bookOutputSuffix</code>."
 #~ msgstr ""
 #~ "Frescobaldi est capable de déterminer le nom des fichiers de sortie en "
 #~ "analysant le nom de fichier du document et les différentes commandes de "
 #~ "LilyPond qui spécifient le fichier de sortie ou l'option -suffix. "
-#~ "Frescobaldi cherche également les fichiers inclus par la directive <code>"
-#~ "\\include</code> pour les commandes comme <code>\\bookOutputName</code> "
-#~ "et <code>\\bookOutputSuffix</code>."
+#~ "Frescobaldi cherche également les fichiers inclus par la directive "
+#~ "<code>\\include</code> pour les commandes comme "
+#~ "<code>\\bookOutputName</code> et <code>\\bookOutputSuffix</code>."
 
 #~ msgid ""
 #~ "But if you use more complicated Scheme code in your document to specify "
@@ -10150,8 +10096,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "</p>\n"
 #~ "\n"
 #~ "<p>\n"
-#~ "Pour transposer d'une seconde majeure vers le bas, vous pouvez saisir :"
-#~ "<br />\n"
+#~ "Pour transposer d'une seconde majeure vers le bas, vous pouvez "
+#~ "saisir :<br />\n"
 #~ "<code>do sib,</code>\n"
 #~ "</p>\n"
 #~ "\n"
@@ -10246,8 +10192,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "sont dans le même répertoire que l'exécutable LilyPond."
 
 #~ msgid ""
-#~ "Finally, you can specify a list of paths where the LilyPond <code>"
-#~ "\\include</code> command looks for files."
+#~ "Finally, you can specify a list of paths where the LilyPond "
+#~ "<code>\\include</code> command looks for files."
 #~ msgstr ""
 #~ "Enfin, vous pouvez définir une liste de chemins d'accès où la commande "
 #~ "LilyPond <code>\\include</code> cherchera des fichiers."
@@ -10282,14 +10228,14 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "recommandé d'activer l'option <em>{close_unused}</em>."
 
 #~ msgid ""
-#~ "In this page you can enter commands to open different file types. <code>"
-#~ "$f</code> is replaced with the filename, <code>$u</code> with the URL. "
-#~ "Leave a field empty to use the operating system default application."
+#~ "In this page you can enter commands to open different file types. "
+#~ "<code>$f</code> is replaced with the filename, <code>$u</code> with the "
+#~ "URL. Leave a field empty to use the operating system default application."
 #~ msgstr ""
 #~ "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-#~ "fichiers. <code>$f</code> est remplacé par le nom du fichier, <code>$u</"
-#~ "code> par l'URL. Laissez un champ vide pour utiliser l'application défaut "
-#~ "du système d'exploitation."
+#~ "fichiers. <code>$f</code> est remplacé par le nom du fichier, "
+#~ "<code>$u</code> par l'URL. Laissez un champ vide pour utiliser "
+#~ "l'application défaut du système d'exploitation."
 
 #~ msgid ""
 #~ "For the e-mail setting, the command should accept a <code>mailto:</code> "
@@ -10306,15 +10252,15 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "Uncheck the \"Use Frescobaldi's print dialog\" option when the printing "
 #~ "command opens a print dialog itself, in which you can select e.g. the "
 #~ "page range to print and the printer to use. If you don't use "
-#~ "Frescobaldi's print dialog, you don't need to put the <code>$printer</"
-#~ "code> variable in your command line."
+#~ "Frescobaldi's print dialog, you don't need to put the "
+#~ "<code>$printer</code> variable in your command line."
 #~ msgstr ""
 #~ "Décochez l'option \"Utiliser le dialogue d'impression de Frescobaldi\" "
 #~ "lorsque la commande d'impression ouvre un dialogue elle-même, dans lequel "
 #~ "vous pouvez sélectionner entre autres les pages à imprimer et "
 #~ "l'imprimante à utiliser. Si vous n'utilisez pas le dialogue d'impression "
-#~ "de Frescobaldi, il n'est pas nécessaire d'inclure la variable <code>"
-#~ "$printer</code> dans votre ligne de commande."
+#~ "de Frescobaldi, il n'est pas nécessaire d'inclure la variable "
+#~ "<code>$printer</code> dans votre ligne de commande."
 
 #~ msgid ""
 #~ "Here, directories can be added that contain <code>hyph_*.dic</code> "
@@ -10397,8 +10343,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "dynamiques ou liaisons\n"
 #~ "apparaissent en position neutre (p. ex. déterminée par la direction de la "
 #~ "hampe de note),\n"
-#~ "au-dessus ou en-dessous de la portée en insérant un caractère <code>-</"
-#~ "code>, <code>^</code> ou\n"
+#~ "au-dessus ou en-dessous de la portée en insérant un caractère "
+#~ "<code>-</code>, <code>^</code> ou\n"
 #~ "<code>_</code>.\n"
 #~ "</p>\n"
 #~ "\n"
@@ -10547,8 +10493,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "</p>\n"
 #~ "\n"
 #~ "<p>\n"
-#~ "In the \"Apply Rhythm\" dialog you can enter a series of durations, e."
-#~ "g.:\n"
+#~ "In the \"Apply Rhythm\" dialog you can enter a series of durations, "
+#~ "e.g.:\n"
 #~ "</p>\n"
 #~ "\n"
 #~ "<p>\n"
@@ -10643,8 +10589,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "<h3>Multiple pieces or movements</h3>\n"
 #~ "\n"
 #~ "<p>\n"
-#~ "A special and powerful feature of the <em>Parts</em> tab is hidden in "
-#~ "the \n"
+#~ "A special and powerful feature of the <em>Parts</em> tab is hidden in the "
+#~ "\n"
 #~ "\"Containers\" category in the part types list.\n"
 #~ "</p>\n"
 #~ "\n"
@@ -10935,37 +10881,31 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "others."
 #~ msgstr ""
 #~ "Ensuite dans le gestionnaire de fragments, vous pouvez facilement "
-#~ "sélectionner tout les fragments de la bibliothèque en entrant <code>:"
-#~ "{set} nom</code> dans la barre de recherche de fragments, ou « nom » est "
-#~ "le nom que vous voulez utiliser. Vous pouvez alors les exporter vers un "
-#~ "fichier XML pour les partager avec d'autres utilisateurs."
+#~ "sélectionner tout les fragments de la bibliothèque en entrant "
+#~ "<code>:{set} nom</code> dans la barre de recherche de fragments, ou "
+#~ "« nom » est le nom que vous voulez utiliser. Vous pouvez alors les "
+#~ "exporter vers un fichier XML pour les partager avec d'autres utilisateurs."
 
-#, fuzzy
 #~ msgid "Engrave (layout control mode)"
 #~ msgstr "Graver (contrô&le de mise en page)"
 
-#, fuzzy
 #~ msgid "Engraving: (custom mode)"
 #~ msgstr "Mode de gravure :"
 
-#, fuzzy
 #~ msgid "Engraving: Preview mode"
 #~ msgstr "Mode de gravure :"
 
-#, fuzzy
 #~ msgid "Engraving: Publish mode"
 #~ msgstr "Mode de gravure :"
 
 #~ msgid "Preview options to use"
 #~ msgstr "Options d'aperçu à utiliser"
 
-#, fuzzy
 #~ msgid ""
 #~ "For more information about regular expressions, see [search_replace]."
 #~ msgstr ""
 #~ "Pour plus d'informations au sujet des expressions régulières, voir {link}."
 
-#, fuzzy
 #~ msgid ""
 #~ "If you have multiple versions of LilyPond installed you can specify them "
 #~ "here, and configure Frescobaldi to automatically choose the right one, "
@@ -11018,28 +10958,28 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "either the predefined commands <code>\\xxxUp</code> etc. or the "
 #~ "directional operators <code>^</code> and <code>_</code>.<br />Please note "
 #~ "how this mode and the previous are related:<br />When the condition for "
-#~ "one of the the modes is reverted using commands like <code>\\oneVoice</"
-#~ "code> or <code>\\xxxNeutral</code> colors are reverted to black and may "
-#~ "also revert the highlighting of the other Debug Mode.<br />In <code>c "
-#~ "\\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> the 'd' may "
-#~ "already be reverted.<br />If the score is engraved with LilyPond version "
-#~ "2.17.6 or later the situation is somewhat improved through the use of the "
-#~ "<code>\\temporary</code> directive.<br />In short: If you use both Modes "
-#~ "at the same time please expect inconsistencies."
+#~ "one of the the modes is reverted using commands like "
+#~ "<code>\\oneVoice</code> or <code>\\xxxNeutral</code> colors are reverted "
+#~ "to black and may also revert the highlighting of the other Debug Mode.<br "
+#~ "/>In <code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code> "
+#~ "the 'd' may already be reverted.<br />If the score is engraved with "
+#~ "LilyPond version 2.17.6 or later the situation is somewhat improved "
+#~ "through the use of the <code>\\temporary</code> directive.<br />In short: "
+#~ "If you use both Modes at the same time please expect inconsistencies."
 #~ msgstr ""
 #~ "Ce mode colore les objets dont la direction a été explicitement définie "
 #~ "avec les commandes <code>\\xxxUp</code> etc. ou les opérateurs "
 #~ "directionnels <code>^</code> et <code>_</code>.<br />Voici comment ce "
 #~ "mode et le précédent sont liés :lorsque la condition pour l'un des modes "
-#~ "est inversée avec une commande comme <code>\\oneVoice</code> ou <code>"
-#~ "\\xxxNeutral</code>, les couleurs sont rétablies en noir et risquent "
-#~ "également de rétablir la couleur des autres Modes de Débogage.<br />Dans "
-#~ "<code>c \\voiceTwo d \\stemUp e \\stemNeutral d \\oneVoice</code>, le 'd' "
-#~ "peut déjà est rétabli <br />Si la partition est gravée avec LilyPond "
-#~ "version 2.17.6 ou ultérieure, la situation est améliorée par "
-#~ "l'utilisation de la directive <code>\\temporary</code>.<br />En résumé : "
-#~ "si vous utilisez les deux modes en même temps, attendez-vous à des "
-#~ "incohérences."
+#~ "est inversée avec une commande comme <code>\\oneVoice</code> ou "
+#~ "<code>\\xxxNeutral</code>, les couleurs sont rétablies en noir et "
+#~ "risquent également de rétablir la couleur des autres Modes de "
+#~ "Débogage.<br />Dans <code>c \\voiceTwo d \\stemUp e \\stemNeutral d "
+#~ "\\oneVoice</code>, le 'd' peut déjà est rétabli <br />Si la partition est "
+#~ "gravée avec LilyPond version 2.17.6 ou ultérieure, la situation est "
+#~ "améliorée par l'utilisation de la directive <code>\\temporary</code>.<br "
+#~ "/>En résumé : si vous utilisez les deux modes en même temps, "
+#~ "attendez-vous à des incohérences."
 
 #~ msgid "More documentation to come ..."
 #~ msgstr "Plus de documentation à venir..."
@@ -11184,6 +11124,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Manage Sessions..."
 #~ msgstr "Gérer les sessions..."
 
+#, qt-format
 #~ msgid ""
 #~ "Could not find the XMLGUI container \"%1\".\n"
 #~ "\n"
@@ -11204,6 +11145,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Please select some text first."
 #~ msgstr "Sélectionnez d'abord du texte."
 
+#, qt-format
 #~ msgid "Line: %1 Col: %2"
 #~ msgstr "Ligne : %1 Col. : %2"
 
@@ -11225,6 +11167,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Undock"
 #~ msgstr "Détacher"
 
+#, qt-format
 #~ msgid "Please install %1"
 #~ msgstr "Veuillez installer %1"
 
@@ -11234,15 +11177,18 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Properties of this session"
 #~ msgstr "Propriétés de cette session"
 
+#, qt-format
 #~ msgid "Edit session: %1"
 #~ msgstr "Modifier la session %1"
 
+#, qt-format
 #~ msgid "Please do not use the name '%1'."
 #~ msgstr "N'utilisez pas le nom « %1 »."
 
 #~ msgid "Please do not use the ampersand (&) character in a session name."
 #~ msgstr "N'utilisez pas l'esperluette (&) dans un nom de session."
 
+#, qt-format
 #~ msgid ""
 #~ "Another session with the name %1 exists already.\n"
 #~ "\n"
@@ -11252,6 +11198,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "\n"
 #~ "Voulez-vous l'écraser ?"
 
+#, qt-format
 #~ msgid "Open %1 in external viewer"
 #~ msgstr "Ouvrir %1 dans l'afficheur externe"
 
@@ -11334,6 +11281,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "Voici les fichiers à jour (c'est-à-dire plus récents que le code source "
 #~ "LilyPond). Vérifiez les documents que vous voulez envoyer à l'imprimante."
 
+#, qt-format
 #~ msgid "Print %1"
 #~ msgstr "Imprimer %1"
 
@@ -11348,9 +11296,11 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "Impossible de trouver une commande d'impression (telle que « lpr » ou "
 #~ "« lp ») sur votre système."
 
+#, qt-format
 #~ msgid "The command '%1' could not be found on your system."
 #~ msgstr "Impossible de trouver la commande « %1 » sur votre système."
 
+#, qt-format
 #~ msgid ""
 #~ "The command below has been run, but exited with a return code %1.\n"
 #~ "\n"
@@ -11445,8 +11395,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "B: bass clef\n"
 #~ "\n"
 #~ "So when you want to create music paper for a four-part mixed choir score, "
-#~ "first set the number of staves per system to 4. Then enter \"SATB"
-#~ "\" (without the quotes) here."
+#~ "first set the number of staves per system to 4. Then enter \"SATB\" "
+#~ "(without the quotes) here."
 #~ msgstr ""
 #~ "Pour configurer les clés, saisissez le nombre de portées par système. "
 #~ "Ensuite saisissez autant de lettres (S, A, T ou B) qu'il y a de portées.\n"
@@ -11468,6 +11418,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Square Bracket"
 #~ msgstr "Crochet carré"
 
+#, qt-format
 #~ msgid "Open %1"
 #~ msgstr "Ouvrir %1"
 
@@ -11535,21 +11486,26 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "No packages found. You can browse to a package manually."
 #~ msgstr "Aucun paquetage trouvé. Veuillez choisir un paquetage manuellement."
 
+#, qt-format
 #~ msgid "Latest Development Version (%1)"
 #~ msgstr "Dernière version de développement (%1)"
 
+#, qt-format
 #~ msgid "Latest Stable Version (%1)"
 #~ msgstr "Dernière version stable (%1)"
 
+#, qt-format
 #~ msgid "Downloading %1..."
 #~ msgstr "Téléchargement de %1..."
 
 #~ msgid "Download cancelled."
 #~ msgstr "Téléchargement annulé."
 
+#, qt-format
 #~ msgid "Download failed: %1"
 #~ msgstr "Le téléchargement a échoué : %1"
 
+#, qt-format
 #~ msgid ""
 #~ "LilyPond %1 seems already to be installed in %2.\n"
 #~ "\n"
@@ -11565,6 +11521,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Remove and re-install"
 #~ msgstr "Enlever et réinstaller"
 
+#, qt-format
 #~ msgid "Unpacking %1..."
 #~ msgstr "Décompression de %1..."
 
@@ -11574,6 +11531,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Unpacking failed."
 #~ msgstr "La décompression a échoué."
 
+#, qt-format
 #~ msgid ""
 #~ "An error occurred:\n"
 #~ "\n"
@@ -11602,8 +11560,8 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgstr ""
 #~ "Voici la liste des abréviations définies.\n"
 #~ "\n"
-#~ "Cliquez sur une ligne pour voir ou changer le texte associé. Double-"
-#~ "cliquez sur une abréviation ou sa description pour la modifier, ou "
+#~ "Cliquez sur une ligne pour voir ou changer le texte associé. "
+#~ "Double-cliquez sur une abréviation ou sa description pour la modifier, ou "
 #~ "appuyez sur F2 pour éditer l'abréviation sélectionnée.\n"
 #~ "\n"
 #~ "Utilisez les boutons ci-dessous pour ajouter ou enlever des "
@@ -11684,9 +11642,11 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Internals Reference"
 #~ msgstr "Référence internes"
 
+#, qt-format
 #~ msgid "The %1 context"
 #~ msgstr "Le contexte %1"
 
+#, qt-format
 #~ msgid "The %1 layout object"
 #~ msgstr "Le %1 objet de disposition"
 
@@ -11860,17 +11820,17 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "You want to run LilyPond in preview mode (with point and click enabled), "
 #~ "but your document contains a command to turn point and click off."
 #~ msgstr ""
-#~ "Vous souhaitez lancer LilyPond en mode aperçu (avec l'option point-and-"
-#~ "click), mais votre document contient une commande qui désactive le point-"
-#~ "and-click."
+#~ "Vous souhaitez lancer LilyPond en mode aperçu (avec l'option "
+#~ "point-and-click), mais votre document contient une commande qui désactive "
+#~ "le point-and-click."
 
 #~ msgid ""
 #~ "You want to run LilyPond in publish mode (with point and click disabled), "
 #~ "but your document contains a command to turn point and click on."
 #~ msgstr ""
-#~ "Vous souhaitez lancer LilyPond en mode publication (sans l'option point-"
-#~ "and-click), mais votre document contient une commande qui active le point-"
-#~ "and-click."
+#~ "Vous souhaitez lancer LilyPond en mode publication (sans l'option "
+#~ "point-and-click), mais votre document contient une commande qui active le "
+#~ "point-and-click."
 
 #~ msgid "Abort the running LilyPond process"
 #~ msgstr "Mettre fin au processus Lilypond en cours d'exécution"
@@ -11878,9 +11838,11 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Run LilyPond in preview mode (Shift-click for custom dialog)"
 #~ msgstr "Lancer LilyPond en mode aperçu (Maj-clic pour personnaliser)"
 
+#, qt-format
 #~ msgid "LilyPond has successfully compiled %1."
 #~ msgstr "LilyPond a correctement compilé %1."
 
+#, qt-format
 #~ msgid "LilyPond exited with an error compiling %1."
 #~ msgstr "La compilation de %1 s'est arrêtée avec une erreur."
 
@@ -11961,9 +11923,11 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Set these settings as default."
 #~ msgstr "Enregistrer ces réglages en tant que défaut."
 
+#, qt-format
 #~ msgid "Found rumor version %1."
 #~ msgstr "Trouvé Rumor version %1."
 
+#, qt-format
 #~ msgid "Could not find Rumor: %1"
 #~ msgstr "Impossible de trouver Rumor : %1"
 
@@ -11991,6 +11955,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Rumor Settings"
 #~ msgstr "Réglages de Rumor"
 
+#, qt-format
 #~ msgid "OSS device %1"
 #~ msgstr "Périphérique OSS %1"
 
@@ -12056,6 +12021,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "Sélectionnez ici des scripts Guile que vous voulez charger dans Rumor. "
 #~ "Voir « Qu'est-ce que c'est » pour plus d'informations."
 
+#, qt-format
 #~ msgid ""
 #~ "Here you can select which Guile scripts you want Rumor to load. You can "
 #~ "add your own scripts by putting them in %1. If the first line of your "
@@ -12066,18 +12032,23 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "votre script commence par un point-virgule (;), cette ligne sera affichée "
 #~ "comme description."
 
+#, qt-format
 #~ msgid "LilyPond %1 [%2] starting (%3)..."
 #~ msgstr "LilyPond %1 [%2] : lancement (%3)..."
 
+#, qt-format
 #~ msgid "LilyPond [%1] starting (%2)..."
 #~ msgstr "LilyPond [%1] : lancement (%2)..."
 
+#, qt-format
 #~ msgid "LilyPond [%1] exited with return code %2."
 #~ msgstr "LilyPond [%1] : interruption avec le code %2."
 
+#, qt-format
 #~ msgid "LilyPond [%1] exited with exit status %2."
 #~ msgstr "LilyPond [%1] : interruption avec le code %2."
 
+#, qt-format
 #~ msgid "LilyPond [%1] finished (%2)."
 #~ msgstr "LilyPond [%1] : traitement achevé (%2)."
 
@@ -12092,9 +12063,11 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Select which LilyPond version you want to run:"
 #~ msgstr "Choisissez la version de LilyPond que vous voulez utiliser :"
 
+#, qt-format
 #~ msgid "LilyPond %1"
 #~ msgstr "LilyPond %1"
 
+#, qt-format
 #~ msgid "Use LilyPond version %1"
 #~ msgstr "Utiliser la version %1 de LilyPond"
 
@@ -12104,12 +12077,14 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Automatic LilyPond Version (determined from document)."
 #~ msgstr "Version automatique de LilyPond (d'après le document)."
 
+#, qt-format
 #~ msgid "Path: %1"
 #~ msgstr "Emplacement : %1"
 
 #~ msgid "LilyPond (version unknown)"
 #~ msgstr "LilyPond (version inconnue)"
 
+#, qt-format
 #~ msgid ""
 #~ "Use LilyPond (version unknown)\n"
 #~ "Path: %1"
@@ -12120,6 +12095,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "Save LilyPond Log as"
 #~ msgstr "Enregistrer les messages de LilyPond sous..."
 
+#, qt-format
 #~ msgid ""
 #~ "Could not save LilyPond log:\n"
 #~ "\n"
@@ -12258,10 +12234,10 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "KOffice, etc, one per line. If you leave out the starting slash, the "
 #~ "prefixes from the KDEDIRS environment variable are prepended."
 #~ msgstr ""
-#~ "Emplacements à parcourir pour les dictionnaires de césure d'OpenOffice."
-#~ "org, Scribus, KOffice, … (un seul par ligne). Tout emplacement ne "
-#~ "commençant pas par une barre oblique sera parcouru à partir de la "
-#~ "variable d'environnement KDEDIRS."
+#~ "Emplacements à parcourir pour les dictionnaires de césure "
+#~ "d'OpenOffice.org, Scribus, KOffice, … (un seul par ligne). Tout "
+#~ "emplacement ne commençant pas par une barre oblique sera parcouru à "
+#~ "partir de la variable d'environnement KDEDIRS."
 
 #~ msgid "Commands used by the Rumor MIDI input module"
 #~ msgstr "Commandes utilisées par le module de saisie MIDI Rumor"
@@ -12348,6 +12324,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ "messages de convert-ly, en commentaire. Certains endroits peuvent "
 #~ "nécessiter des modifications manuelles."
 
+#, qt-format
 #~ msgid ""
 #~ "The document has been processed with convert-ly, but remained unchanged. "
 #~ "This is the message given by convert-ly: %1"
@@ -12421,6 +12398,7 @@ msgstr "Vous pouvez modifier les réglages pour différents outils."
 #~ msgid "LilyPond documentation:"
 #~ msgstr "Documentation LilyPond :"
 
+#, qt-format
 #~ msgid ""
 #~ "Printing failed: %1\n"
 #~ "\n"
