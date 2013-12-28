@@ -11,6 +11,10 @@ Changes in 2.0.13 -- December 31rd, 2013
     in 2.0.12, I just forgot to write it in the ChangeLog!)
   - basic MusicXML export, contributed by Peter Bjuhr (this was also already
     added in Frescobaldi 2.0.12)
+  - The "master" variable is back, allbeit in a slightly different
+    implementation: the redirected filename is not directly given to a LilyPond
+    process running on behalf of the current document, but the other document
+    is loaded (if it wasn't already) and LilyPond is run on that document.
 * Bug fixes:
   - Fix UnboundLocalError in ly.docinfo e.g. when showing the Tools->Pitch->
     Language menu

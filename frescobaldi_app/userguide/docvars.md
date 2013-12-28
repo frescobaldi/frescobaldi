@@ -13,6 +13,9 @@ The following variables are recognized:
 : Force mode to be one of lilypond, html, texinfo, latex,
   docbook or scheme. Default: automatic mode recognition.
   
+!`master: _(filename)_;`
+: Compiles another LilyPond document instead of the current.
+
 !`output: _(name)_;`
 : Looks for output documents (PDF, MIDI, etc.) starting with
   the specified name or comma-separated list of names.

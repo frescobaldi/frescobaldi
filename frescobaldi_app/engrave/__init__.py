@@ -35,6 +35,8 @@ import plugin
 import icons
 import signals
 import panelmanager
+import variables
+
 
 def engraver(mainwindow):
     return Engraver.instance(mainwindow)
@@ -64,9 +66,21 @@ class Engraver(plugin.MainWindowPlugin):
         app.languageChanged.connect(self.updateStickyActionText)
         self.updateStickyActionText()
         
+    def document(self):
+        """Return the Document that should be engraved."""
+        doc = self.stickyDocument()
+        if not doc:
+            doc = self.mainwindow().currentDocument()
+            if not doc.url().isEmpty():
+                master = variables.get(doc, "master")
+                if master:
+                    url = doc.url().resolved(QUrl(master))
+                    doc = app.openUrl(url)
+        return doc
+                
     def runningJob(self):
         """Returns a Job for the sticky or current document if that is running."""
-        doc = self.stickyDocument() or self.mainwindow().currentDocument()
+        doc = self.document()
         job = jobmanager.job(doc)
         if job and job.isRunning():
             return job
@@ -110,7 +124,7 @@ class Engraver(plugin.MainWindowPlugin):
             dlg = self._customDialog = custom.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
-        doc = self.stickyDocument() or self.mainwindow().currentDocument()
+        doc = self.document()
         dlg.setDocument(doc)
         if dlg.exec_():
             self.saveDocumentIfDesired()
@@ -138,7 +152,7 @@ class Engraver(plugin.MainWindowPlugin):
         elif mode == 'layout-control':
             args = panelmanager.manager(
                     self.mainwindow()).layoutcontrol.widget().preview_options()
-        doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
+        doc = document or self.document()
         if may_save:
             self.saveDocumentIfDesired()
         from . import command
