@@ -2289,7 +2289,7 @@ msgstr "Caractère apparié :"
 
 #: ../preferences/editor.py:87 ../userguide/prefs_editor.md:3
 msgid "Highlighting Options"
-msgstr "Options de surlignement"
+msgstr "Options de surbrillance"
 
 #: ../preferences/editor.py:89
 msgid ""
@@ -2885,7 +2885,7 @@ msgstr "par défaut"
 
 #: ../preferences/lilypond.py:234
 msgid "Label:"
-msgstr ""
+msgstr "Nom personnalisé :"
 
 #: ../preferences/lilypond.py:235
 msgid "How this version of LilyPond will be displayed."
@@ -5922,6 +5922,10 @@ msgid ""
 "select the language. Click OK or press Enter to have the hyphenation take "
 "place."
 msgstr ""
+"Pour utiliser cette fonction, vous devez d'abord sélectionner le texte à "
+"traiter. Ensuite, appuyer {key_hyphen} ou choisissez {menu_hyphen}. Dans le "
+"dialogue qui suit, sélectionnez la langue du texte. Cliquez OK ou appuyer "
+"Enter pour procéder à la césure."
 
 #: ../userguide/lyrics.md:12
 msgid ""
@@ -5930,6 +5934,11 @@ msgid ""
 "because that does not look nice in word processor texts. So it can happen "
 "that you have to add some hyphens after the first letter of such lyrics."
 msgstr ""
+"Une légère limitation est que les dictionnaires de césure des traitements de "
+"texte refusent généralement de couper un mot juste après la première lettre "
+"(p. ex. '{example}'), parce que ce n'est pas beau dans les documents de "
+"traitement de texte. Il peut donc arriver que vous deviez ajouter quelques "
+"césures après la première lettre dans de tels cas."
 
 #: ../userguide/lyrics.md:17
 msgid ""
@@ -5938,20 +5947,22 @@ msgid ""
 "music. Under {menu_settings} you can enter a list of directories to search "
 "for hyphenation pattern files."
 msgstr ""
+"Il existe également une commande pour supprimer la césure. Elle peut -être "
+"utile si vous avez une strophe de paroles que vous voulez seulement afficher "
+"comme markup sous la partition. Dans {menu_settings}, vous pouvez entrer une "
+"liste de dossiers dans lesquels chercher les fichiers de césure."
 
 #: ../userguide/quickinsert.md:1
 msgid "The Quick Insert Panel"
 msgstr "Le panneau d'insertion rapide"
 
 #: ../userguide/quickinsert.md:3
-#, fuzzy
 msgid ""
 "With the tools in the Quick Insert Panel you can add various music elements "
 "to the current note or selected music."
 msgstr ""
-"<p>Avec le panneau d'insertion rapide, vous pouvez ajouter divers éléments "
-"musicaux à la note actuelle ou à la musique sélectionnée.</p>\n"
-"<p>Voir {link} pour plus d'informations.</p>"
+"Avec le panneau d'insertion rapide, vous pouvez ajouter divers éléments "
+"musicaux à la note actuelle ou à la musique sélectionnée."
 
 #. NOTE: markdown formatting
 #: ../userguide/quickinsert.md:6
@@ -5960,6 +5971,10 @@ msgid ""
 "in a neutral position (e.g. determined by stem direction), or above or below "
 "the staff by prepending a `-`, `^` or `_` character."
 msgstr ""
+"Le menu déroulant *Orientation* spécifie si les articulations, dynamiques ou "
+"liaisons apparaissent dans une position neutre (p. ex. déterminée par la "
+"direction de la hampe de note), ou au-dessous ou en-dessous de la portée en "
+"la précédant d'une caractère `-`, `^` ou `_`."
 
 #: ../userguide/quickinsert.md:10
 msgid ""
@@ -5968,34 +5983,23 @@ msgid ""
 "have configurable keyboard shortcuts; you can change them by right-clicking "
 "a button."
 msgstr ""
+"Cliquez sur un onglet pour choisir un outil. Vous pouvez naviguer parmi les "
+"outils avec la touche Ctrl (ou {command}) et la molette de la souris.Tous "
+"les bouttons du panneau d'insertion rapide ont des raccourcis clavier "
+"configurables; vous pouvez les modifier en cliquant droit sur un de ces "
+"boutons."
 
 #: ../userguide/quickinsert.md:18
-#, fuzzy
 msgid ""
 "These musical symbols can be added to a note or rest or a selected range of "
 "music. If you add them to a selection, rests will be skipped. If there is no "
 "text selected, the cursor will automatically move to the next pitch, rest, "
 "skip or chord."
 msgstr ""
-"<h3>Articulations</h3>\n"
-"\n"
-"<p>\n"
 "Ces symboles musicaux peuvent être ajoutés à une note, un silence ou une "
-"sélection\n"
-"musicale.\n"
-"Si vous les appliquez à une sélection, les silences ne seront pas pris en "
-"compte.\n"
-"Si aucun texte n'est sélectionné, le curseur ira automatiquement au prochain "
-"son,\n"
-"silence, espace ou accord.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Si <em>Autoriser les raccourcis</em> est coché, Frescobaldi utilisera les "
-"signes abrégés\n"
-"pour les articulations s'ils existent\n"
-"(p. ex. <code>-.</code> au lieu de <code>-\\staccato</code>).\n"
-"</p>\n"
+"sélection musicale. Si vous les appliquez à une sélection, les silences ne "
+"seront pas pris en compte. Si aucun texte n'est sélectionné, le curseur ira "
+"automatiquement au prochain son, silence, espace ou accord."
 
 #. NOTE: markdown formatting
 #: ../userguide/quickinsert.md:24
@@ -6003,76 +6007,57 @@ msgid ""
 "If *Allow shorthands* is checked, Frescobaldi will use short signs for "
 "articulations if they exist (e.g. `-.` instead of `-\\staccato`)."
 msgstr ""
+"Si *Autoriser les raccourcis* est coché, Frescobaldi utilisera les signes "
+"abrégés pour les articulations s'ils existent (p. ex. `-.` au lieu de "
+"`-\\staccato`)."
 
 #: ../userguide/quickinsert.md:31
-#, fuzzy
 msgid ""
 "Dynamics can also be added to a note or rest. If you select a range of "
 "music, you can add spanners which will automatically terminate at the last "
 "note, rest or chord in the selection. If you then click a sign, it will "
 "replace the terminator."
 msgstr ""
-"<h3>Nuances</h3>\n"
-"\n"
-"<p>\n"
-"Les nuances peuvent être ajoutées à une note ou un silence.\n"
-"Si vous sélectionnez une région musicale, vous pouvez ajouter une indication "
-"continue qui s'arrêtera automatiquement\n"
-"à la derrière note, silence ou accord de la sélection.\n"
-"Si vous choisissez ensuite un signe, il remplacera la terminaison.\n"
-"</p>\n"
+"Les nuances peuvent être ajoutées à une note ou un silence. Si vous "
+"sélectionnez une région musicale, vous pouvez ajouter une indication "
+"continue qui s'arrêtera automatiquement à la derrière note, silence ou "
+"accord de la sélection. Si vous choisissez ensuite un signe, il remplacera "
+"la terminaison."
 
 #: ../userguide/quickinsert.md:39
 msgid ""
 "This tool lets you add arpeggio, glissandos and other spanners like slurs, "
 "phrasing slurs, manual beams or trills."
 msgstr ""
+"Cet outil permet d'ajouter des arpeggios, glissandos et d'autres indications "
+"étendues, telles que des liaisons, liaisons de phrasé, ligatures manuelles "
+"ou trilles."
 
 #: ../userguide/quickinsert.md:42
-#, fuzzy
 msgid ""
 "Arpeggios and glissandos apply to the current note; they need no music to be "
 "selected. The slurs, beams or trill apply to the current note and the next "
 "one if no music is selected, or to the first and the last note or chord in "
 "the selection."
 msgstr ""
-"<h3>Indications étendues</h3>\n"
-"\n"
-"<p>\n"
-"Cet outil permet d'ajouter des arpeggios, glissandos et d'autres indications "
-"étendues,\n"
-"telles que des liaisons, liaisons de phrasé, ligatures manuelles ou "
-"trilles.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Les arpeggios et glissandos s'appliquent à la note courante;\n"
-"aucune musique ne peut être sélectionnée.\n"
-"Les liaisons, ligatures ou trilles s'appliquent à la note courante et à la "
-"suivante\n"
-"si aucune musique n'est sélectionnée,\n"
-"ou à la première et dernière note ou accord de la sélection.\n"
-"</p>\n"
+"Les arpeggios et glissandos s'appliquent à la note courante; aucune musique "
+"ne peut être sélectionnée. Les liaisons, ligatures ou trilles s'appliquent à "
+"la note courante et à la suivante si aucune musique n'est sélectionnée, ou à "
+"la première et dernière note ou accord de la sélection."
 
 #: ../userguide/quickinsert.md:51
-#, fuzzy
 msgid "Here you can insert bar lines or various breathing signs."
 msgstr ""
-"<h3>Barres de mesures</h3>\n"
-"\n"
-"<p>\n"
-"Vous pouvez insérer des barres de mesures ou divers signes de respirations.\n"
-"</p>\n"
+"Vous pouvez insérer des barres de mesures ou divers signes de respirations."
 
 #: ../userguide/prefs_editor.md:5
-#, fuzzy
 msgid ""
 "Here you can define how long \"matching\" items like matching brackets or "
 "the items linked through Point-and-Click are highlighted."
 msgstr ""
 "Ci-dessous, vous pouvez définir le temps pendant lequel les caractères "
-"appariés tels que des crochets ou les objets liés via Point and Click sont "
-"en surbrillance."
+"\"appariés\" tels que des crochets ou les objets liés via Point and Click "
+"sont en surbrillance."
 
 #: ../userguide/prefs_editor.md:8
 msgid "Use the value 0 for infinite."
@@ -6081,6 +6066,7 @@ msgstr "Utilisez la valeur 0 pour \"infini\"."
 #: ../userguide/prefs_editor.md:13
 msgid "Here you can specify how you want to handle Tabs and indenting."
 msgstr ""
+"Vous pouvez spécifier ici la façon de gérer les tabulations et l'indentation."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:15
@@ -6088,6 +6074,9 @@ msgid ""
 "The entry *Tab Width* specifies the visual distance between tab stops. It "
 "does not change the indenting behaviour or the document contents."
 msgstr ""
+"L'entrée *Largeur de tabulation* détermine la distance visuelle entre les "
+"tabulations. Cela ne change pas le comportement de l'indentation ou le "
+"contenu du document."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:18
@@ -6097,12 +6086,19 @@ msgid ""
 "press enter after a character that starts a new level of indent (and "
 "{menu_autoindent} is enabled)."
 msgstr ""
+"Via l'entrée *Indenter avec*, vous pouvez définir le nombre d'espaces qui "
+"seront insérés lorsque vous enfoncez Tabulation une fois en début de ligne, "
+"ou lorsque vous enfoncez Entrée après un caractère qui débute un nouveau "
+"niveau d'indentation (et que {menu_autoindent} est activé)."
 
 #: ../userguide/prefs_editor.md:23
 msgid ""
 "By default 2 spaces are inserted, but you can move the number to zero to use "
 "a literal Tab character for every level of indent."
 msgstr ""
+"Par défaut, 2 espaces sont insérés, mais vous pouvez régler ce nombre sur 0 "
+"pour utiliser le caractère Tabulation littéralement pour chaque niveau "
+"d'indentation."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:26
@@ -6111,12 +6107,18 @@ msgid ""
 "Tab while in the middle of a line of text. Also here you can choose to "
 "insert a real Tab by moving the number to zero."
 msgstr ""
+"L'entrée *Une tabulation hors de l'indentation insère* détermine ce qui se "
+"passe lorsque vous enfoncez Tabulation dans le cours d'une ligne de texte. "
+"De plus, vous pouvez choisir d'insérer une tabulation réelle en réglant ce "
+"nombre sur 0."
 
 #: ../userguide/prefs_editor.md:30
 msgid ""
 "You can also set indentation preferences per-document, see "
 "{document_variables}."
 msgstr ""
+"Vous pouvez également définir les préférences d'indentation par document, "
+"voir {document_variables}."
 
 #: ../userguide/preferences.md:3
 msgid ""
@@ -6132,6 +6134,10 @@ msgid ""
 "distance to transpose over. The pitches may include octave marks. The "
 "pitches must be entered in the pitch name language used in the document."
 msgstr ""
+"Pour transposer des notes, deux hauteurs de note absolues doivent être "
+"entrées pour spécifier l'intervalle de transposition. Ces hauteurs peuvent "
+"onclure des marques d'octaviation. Les hauteurs doivent être entrées dans la "
+"langue utilisées dans le document."
 
 #. NOTE: markdown formatting
 #: ../userguide/transpose.md:7
@@ -6139,19 +6145,21 @@ msgid ""
 "The music will then be transposed from the first pitch to the second, just "
 "as the `\\transpose` LilyPond command would do."
 msgstr ""
+"La musique sera alors transposée depuis la première hauteur vers la seconde, "
+"tout comme la commande LilyPond `\\transpose`le ferait."
 
 #: ../userguide/transpose.md:10
 msgid "E.g. when transposing a minor third upwards, you would enter:"
 msgstr ""
+"P. ex. pour transposer une tierce mineure vers le haut, il faudrait entrer :"
 
 #: ../userguide/transpose.md:16
 msgid "To transpose down a major second, you can enter:"
-msgstr ""
+msgstr "Pour transposer une seconde majeure vers le bas, vous pouvez entrer :"
 
 #: ../userguide/transpose.md:22
-#, fuzzy
 msgid "or:"
-msgstr "vers :"
+msgstr "ou :"
 
 #: ../userguide/transpose.md:28
 msgid ""
@@ -6159,12 +6167,18 @@ msgid ""
 "from C-sharp to D-flat, or to specify quarter tones if supported in the "
 "pitch name language that is used."
 msgstr ""
+"Il est également possible d'utiliser la fonction de transposition pour "
+"changer une pièce de do dièse vers ré bémol, ou définir des quarts de ton si "
+"cela est supporté dans le langage de noms de notes utilisé."
 
 #: ../userguide/transpose.md:32
 msgid ""
 "The transpose function can transpose both relative and absolute music, "
 "correctly handling key signatures, chordmode and octave checks."
 msgstr ""
+"La fonction de transposition peut transposer des notes en hauteur absolue ou "
+"relative, en gérant correctement les armures, mode d'accord et vérifications "
+"d'octave."
 
 #: ../userguide/musicview.md:1
 msgid "The Music View"
@@ -6175,15 +6189,14 @@ msgid "The Music View displays the PDF document created by LilyPond."
 msgstr "La fenêtre d'aperçu affiche le document PDF créé par LilyPond."
 
 #: ../userguide/musicview.md:5
-#, fuzzy
 msgid ""
 "When LilyPond was run in preview mode (i.e. with Point & Click turned on), "
 "the PDF contains a clickable link for every music object, pointing to its "
 "definition in the text document."
 msgstr ""
-"Lorsque  LilyPond est lancé en mode Aperçu (avec le mode « Point &amp; "
-"Click » activé), le document PDF contient des liens actifs pour chaque "
-"élément musical, renvoyant vers leur définition dans le document source."
+"Lorsque LilyPond est lancé en mode Aperçu (avec le mode Point & Click "
+"activé), le document PDF contient des liens actifs pour chaque élément "
+"musical, renvoyant vers leur définition dans le document source."
 
 #: ../userguide/musicview.md:9
 msgid ""
@@ -6204,21 +6217,20 @@ msgid "Click an object to move the text cursor to that object"
 msgstr "Cliquer sur un objet pour déplacer le curseur de texte sur cet objet"
 
 #: ../userguide/musicview.md:14
-#, fuzzy
 msgid ""
 "Shift-click an object to edit its text in a small window (see "
 "{musicview_editinplace})"
 msgstr ""
-"Utilisez Maj-clic sur un objet pour l'éditer dans une fenêtre (voir {link})"
+"Utilisez Maj-clic sur un objet pour l'éditer dans une fenêtre (voir "
+"{musicview_editinplace})"
 
 #: ../userguide/musicview.md:16
-#, fuzzy
 msgid ""
 "Move the text cursor to highlight them in the music view, press "
 "{key_music_jump_to_cursor} to scroll them into view."
 msgstr ""
 "Déplacez le curseur de texte pour les surligner dans l'Aperçu, appuyez sur "
-"{key} pour les afficher."
+"{key_music_jump_to_cursor} pour les afficher."
 
 #: ../userguide/musicview.md:19
 msgid "You can also adjust the view:"
@@ -6237,12 +6249,10 @@ msgstr ""
 "Appuyez sur Ctrl ou Command + clic de gauche pour faire apparaître une loupe"
 
 #: ../userguide/musicview.md:23
-#, fuzzy
 msgid "Configure the background color under {settings_preview_background}"
-msgstr "Configurer la couleur de fond sous {menu}"
+msgstr "Configurer la couleur de fond sous {settings_preview_background}"
 
 #: ../userguide/musicview.md:25
-#, fuzzy
 msgid ""
 "You can copy music right from the PDF view to a raster image: Hold Shift and "
 "drag a rectangular selection (or use the right mouse button) and then press "
@@ -6251,10 +6261,11 @@ msgid ""
 "application."
 msgstr ""
 "Il est possible de copier de la musique directement depuis l'Aperçu vers une "
-"image: Appuyez sur Maj et sélectionnez un rectangle (alternativement, "
-"utilisez le clic droit) et appuyez sur {key} ou sélectionnez {menu} pour "
-"copier la musique sélectionnée comme une image dans le presse-papier, un "
-"fichier ou une autre application."
+"image: Maintenez enfoncé la touche Maj et sélectionnez un rectangle "
+"(alternativement, utilisez le clic droit) et appuyez sur "
+"{key_music_copy_image} ou sélectionnez {menu_music_copy_image} pour copier "
+"la musique sélectionnée comme une image dans le presse-papier, un fichier ou "
+"une autre application."
 
 #: ../userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
@@ -6318,25 +6329,22 @@ msgstr "Fragments Python"
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:3
-#, fuzzy
 msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
 "`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
-"<p>Les fragments Python peuvent lire et définir la variable {text}. La "
-"variable {text} contient le texte actuellement sélectionné (qui peut être "
-"une chaîne vide).</p>\n"
-"<p>Vous pouvez définir {text} comme chaîne ou liste de chaînes.</p>\n"
-"<p>Autres variables qui peuvent être référencées :</p>"
+"Les fragments Python peuvent lire et définir la variable `text`. La variable "
+"`text` contient le texte actuellement sélectionné (qui peut être une chaîne "
+"vide)."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:7
 msgid "You may set `text` to a string or a list of strings."
-msgstr ""
+msgstr "Vous pouvez définir `text` comme chaîne ou liste de chaînes."
 
 #: ../userguide/snippet_python.md:9
 msgid "Other variables that may be referenced:"
-msgstr ""
+msgstr "Autres variables qui peuvent être référencées :"
 
 #: ../userguide/snippet_python.md:12
 msgid "A list of strings describing the type of text the cursor is at."
@@ -6354,38 +6362,35 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:19
-#, fuzzy
 msgid ""
 "When setting `text` to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
-"En définissant {text} comme une liste plutôt qu'une chaîne, vous pouvez "
+"En définissant `text` comme une liste plutôt qu'une chaîne, vous pouvez "
 "utiliser cette valeur pour spécifier la place que le curseur de texte "
 "occupera après l'insertion du fragment."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:23
-#, fuzzy
 msgid ""
 "When setting `text` to a list instead of a string, this value can be used "
 "together with `CURSOR` to select text when inserting the string parts of the "
 "list."
 msgstr ""
-"En définissant {text} comme une liste plutôt qu'une chaîne, cette valeur "
-"peut être utilisée conjointement au {cursor} pour sélectionner du texte lors "
+"En définissant `text` comme une liste plutôt qu'une chaîne, cette valeur "
+"peut être utilisée conjointement au `CURSOR` pour sélectionner du texte lors "
 "de l'insertion des morceaux de chaînes de la liste."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:28
-#, fuzzy
 msgid ""
 "When you define a function with this name, it is called without arguments, "
 "instead of inserting the text from the `text` variable. In this case you may "
 "alter the document through the `cursor`."
 msgstr ""
 "Lorsque vous définissez une fonction de ce nom, elle est appelée sans "
-"arguments, au lieu d’insérer le texte depuis la variable {text}. Dans ce cas "
-"vous pouvez changer le document via le {cursor}."
+"arguments, au lieu d’insérer le texte depuis la variable `text`. Dans ce cas "
+"vous pouvez changer le document via le `cursor`."
 
 #: ../userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
@@ -6393,21 +6398,17 @@ msgstr "Après compilation d'une partition, l'Aperçu n'affiche pas le résultat
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:3
-#, fuzzy
 msgid "Does the `\\score` block have a layout section?"
-msgstr ""
-"Est-ce que le bloc <code>\\score</code> contient une section de mise en "
-"forme (layout) ?"
+msgstr "Le bloc `\\score` contient-il une section de mise en forme (layout) ?"
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:5
-#, fuzzy
 msgid ""
 "If a `\\score` block has a `\\midi` section but no `\\layout` section, no "
 "PDF output is generated."
 msgstr ""
-"Si un bloc <code>\\score</code> comporte une section <code>\\midi</code> "
-"mais pas de section <code>\\layout</code>, aucune sortie PDF ne sera générée."
+"Si un bloc `\\score` comporte une section `\\midi` mais pas de section "
+"`\\layout`, aucune sortie PDF ne sera générée."
 
 #: ../userguide/nomusic.md:8
 msgid "Do you use an exotic way to specify the output filename?"
@@ -6416,7 +6417,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:10
-#, fuzzy
 msgid ""
 "Frescobaldi is able to determine the output file names by looking at the "
 "document's filename and the various LilyPond commands that specify the "
@@ -6427,12 +6427,11 @@ msgstr ""
 "analysant le nom de fichier du document et les différentes commandes de "
 "LilyPond qui spécifient le fichier de sortie ou l'option -suffix. "
 "Frescobaldi cherche également les fichiers inclus par la directive "
-"<code>\\include</code> pour les commandes comme "
-"<code>\\bookOutputName</code> et <code>\\bookOutputSuffix</code>."
+"`\\include` pour les commandes comme `\\bookOutputName` et "
+"`\\bookOutputSuffix`."
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:16
-#, fuzzy
 msgid ""
 "But if you use more complicated Scheme code in your document to specify the "
 "output filenames, Frescobaldi may not be able to correctly determine those "
@@ -6441,41 +6440,41 @@ msgid ""
 msgstr ""
 "Mais si vous utilisez du code Scheme complexe dans votre document pour "
 "spécifier les noms des fichiers de sortie, Frescobaldi peut ne pas réussir à "
-"déterminer correctement ces noms."
+"déterminer correctement ces noms. Dans ce cas, vous pouvez modifier les noms "
+"de base avec la variable de document [var_output `output`]."
 
 #: ../userguide/engrave_layout_configure.md:1
-#, fuzzy
 msgid "Configuring the Layout Control options"
-msgstr "Options de contrôle de mise en page"
+msgstr "Configurer les options de contrôle de mise en page"
 
 #: ../userguide/engrave_layout_configure.md:3
 msgid ""
 "The appearance of the individual Layout Control modes is defined through the "
 "use of configuration variables."
 msgstr ""
+"L'apparence de chaque mode de débogage est définie par l'utilisation de "
+"variables de configuration."
 
 #: ../userguide/engrave_layout_configure.md:6
 msgid ""
 "Depending on the implementation the mode you may modify its appearance by "
 "redefining these variables in your input files."
 msgstr ""
+"Selon l'implémentation du mode, vous pouvez modifier son apparence en "
+"redéfinissant ces variables dans votre code."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout_configure.md:9
-#, fuzzy
 msgid ""
 "But if you are interested in a more general solution you can make use of the "
 "\"Custom file\" mode. As this custom file is read in before the different "
 "layout control modes you can use it to define any of the variables *before* "
 "the layout control modes are parsed."
 msgstr ""
-"L'apparence de chaque mode de débogage est définie par l'utilisation de "
-"variables de configuration. Selon l'implémentation du mode, vous pouvez "
-"modifier son apparence en redéfinissant ces variables dans votre code. Mais "
-"si vous préférez une solution plus générale,vous pouvez utiliser un "
-"<code>custom-file</code> pour les mode de débogages. Comme ce fichier sera "
+"Mais si vous préférez une solution plus générale,vous pouvez utiliser un "
+"\"fichier personnalisé\" pour les mode de débogages. Comme ce fichier sera "
 "lu avant les modes, vous pouvez l'utiliser pour définir n'importe quelle "
-"variable <em>before</em> que les modes de débogages ne soient analysés."
+"variable *avant* que les modes de débogages ne soient analysés."
 
 #: ../userguide/engrave_layout_configure.md:15
 msgid "The modes use the following configuration variables:"
@@ -6485,19 +6484,17 @@ msgstr "Les modes utilisent les variables de configuration suivantes : "
 #: ../userguide/engrave_layout_configure.md:37
 #: ../userguide/engrave_layout_configure.md:54
 #: ../userguide/engrave_layout_configure.md:69
-#, fuzzy
 msgid "These variables can be redefined in input files:"
-msgstr "Ces variables peuvent être redéfinies dans les fichiers d'entrée."
+msgstr "Ces variables peuvent être redéfinies dans les fichiers d'entrée :"
 
 #: ../userguide/engrave_layout_configure.md:28
-#, fuzzy
 msgid "These variables currently can't be redefined in input files."
 msgstr ""
 "Ces variables ne peuvent actuellement pas être redéfinies dans les fichiers "
 "d'entrée."
 
+# Reste du texte original: : <code>#(define debug-direction-grob-list '(DynamicText Script))</code>
 #: ../userguide/engrave_layout_configure.md:43
-#, fuzzy
 msgid ""
 "Defines for which grobs the explicit direction through operators is "
 "monitored. By default all grobs are watched, but alternatively one can "
@@ -6505,11 +6502,10 @@ msgid ""
 msgstr ""
 "Définit pour quels grobs la direction explicite via opérateurs est analysée. "
 "Par défaut, tous les grobs sont analysés, mais vous pouvez définir une liste "
-"de grobs, comme par exemple: <code>#(define debug-direction-grob-list "
-"'(DynamicText Script))</code>"
+"de grobs, comme par exemple "
 
+# Reste du texte original : <code>#(define debug-grob-anchors-grob-list '(Script NoteHead))</code>
 #: ../userguide/engrave_layout_configure.md:59
-#, fuzzy
 msgid ""
 "Defines for which grobs the anchor points will be displayed. By default all "
 "grobs are watched, but alternatively one can provide a list of grobs such as "
@@ -6517,19 +6513,17 @@ msgid ""
 msgstr ""
 "Définit pour quels grobs les points d'ancrage seront affichés. Par défaut, "
 "tous les grobs sont analysés, mais vous pouvez définir une liste de grobs, "
-"comme par exemple : <code>#(define debug-grob-anchors-grob-list '(Script "
-"NoteHead))</code>"
+"comme par exemple "
 
+# Reste du texte original: : <code>#(define debug-grob-names-grob-list '(Script NoteHead))</code>
 #: ../userguide/engrave_layout_configure.md:74
-#, fuzzy
 msgid ""
 "Defines for which grobs the names will be displayed. By default all grobs "
 "are watched, but alternatively one can provide a list of grobs such as e.g."
 msgstr ""
 "Définit pour quels grobs le nom sera affiché. Par défaut, tous les grobs "
 "sont analysés, mais vous pouvez définir une liste de grobs, comme par "
-"exemple : <code>#(define debug-grob-names-grob-list '(Script "
-"NoteHead))</code>"
+"exemple "
 
 #: ../userguide/engrave_layout_configure.md:82
 msgid ""
@@ -6550,16 +6544,22 @@ msgid ""
 "project to create a user friendly LilyPond music score editor. The goal is "
 "to make Frescobaldi available on all major platforms."
 msgstr ""
+"Frescobaldi est un Frescobaldi est un "
+"[http://www.gnu.org/philosophy/free-sw.html Logiciel Libre] visant à "
+"développer un éditeur de partitions LilyPond facile d'accès. Le but est de "
+"rendre Frescobaldi accessible sur les principales plate-formes."
 
 #: ../userguide/contributing.md:7
 msgid ""
 "Frescobaldi is developed in a public GitHub repository at {url}. There you "
 "can browse or checkout the source code and report bugs and wishes."
 msgstr ""
+"Frescobaldi est développé sur un dépôt public GitHub : {url}. Vous pouvez "
+"parcourir le code source et rendre compte de bogues et de vos remarques et "
+"souhaits."
 
 #. NOTE: markdown formatting
 #: ../userguide/contributing.md:10
-#, fuzzy
 msgid ""
 "You can contribute by simply using Frescobaldi and reporting bugs and "
 "suggestions. Translations are also very welcome. How to create new "
@@ -6567,31 +6567,12 @@ msgid ""
 "distribution of Frescobaldi. If you want to add functionality you can find "
 "information about the source code structure in the file `README-development`."
 msgstr ""
-"<p>\n"
-"Frescobaldi est un <a "
-"href=\"http://www.gnu.org/philosophy/free-sw.html\">Logiciel\n"
-"Libre</a> visant à développer un éditeur de partitions LilyPond facile "
-"d'accès.\n"
-"Le but est de rendre Frescobaldi accessible sur les principales "
-"plate-formes.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"Frescobaldi est développé sur un dépôt public GitHub : {url}.\n"
-"Vous pouvez parcourir le code source et rendre compte de bogues et de vos "
-"remarques et souhaits.\n"
-"</p>\n"
-"\n"
-"<p>\n"
 "Vous pouvez contribuer simplement en utilisant Frescobaldi et en rendant "
-"compte de bogues et suggestions.\n"
-"Les traductions sont bienvenues. La création de nouvelles traductions est "
-"expliquée\n"
-"dans le fichier README-translations dans la source de Frescobaldi.\n"
-"Si vous désirez ajouter des fonctionnalités, vous trouverez les informations "
-"concernant la structure\n"
-"du code source dans le fichier README-development.\n"
-"</p>\n"
+"compte de bogues et suggestions. Les traductions sont bienvenues. La "
+"création de nouvelles traductions est expliquée dans le fichier "
+"`README-translations` dans la source de Frescobaldi. Si vous désirez ajouter "
+"des fonctionnalités, vous trouverez les informations concernant la structure "
+"du code source dans le fichier `README-development`."
 
 #: ../userguide/toc.md:1
 msgid "Table of Contents"
@@ -6608,6 +6589,11 @@ msgid ""
 "possible to double or halve the length of notes, to add or remove dots and "
 "to remove scaling factors."
 msgstr ""
+"Les fonctions de rythme de Frescobaldi modifient  les durées écrites après "
+"les notes, accords, silences, etc. En utilisant ces fonctions, toutes "
+"situées dans le menu {menu}, il est possible de doubler ou diviser en deux "
+"la longueur des notes, ajouter ou supprimer les points et supprimer les "
+"multiplicateurs."
 
 #: ../userguide/rhythm.md:8
 msgid ""
@@ -6616,21 +6602,31 @@ msgid ""
 "prefer the option implicit per line, which always specifies the duration for "
 "the first note, chord or rest on a line."
 msgstr ""
+"Il est également possible de changer la façon dont le rythme est spécifié: "
+"pour chaque note (explicite), ou seulement lorsque la durée change "
+"(implicite). Certains utilisateurs préfèrent l'option implicite par ligne, "
+"qui spécifie toujours la durée du premier accord, silence ou note d'une "
+"ligne."
 
 #: ../userguide/rhythm.md:13
 msgid ""
 "The last three menu commands can copy, paste or apply a rhythm that is "
 "entered in a dialog."
 msgstr ""
+"Les trois dernières commandes permettent de copier, coller ou appliquer un "
+"rythme entré dans la fenêtre de dialogue."
 
 #: ../userguide/rhythm.md:16
 msgid ""
 "In the \"Apply Rhythm\" dialog you can enter a series of durations, e.g.:"
 msgstr ""
+"Dans la fenêtre \"Appliquer un rythme\", vous pouvez entrer une série de "
+"durées, p. ex :"
 
 #: ../userguide/rhythm.md:22
 msgid "which will then, repetitively, be applied to a selection of notes."
 msgstr ""
+"qui sera ensuite, de façon répétitive, appliquée à une sélection de notes."
 
 #: ../userguide/git.md:1
 msgid "Git"
@@ -6690,18 +6686,16 @@ msgstr "Vous pouvez également définir un dossier par défaut pour la session."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_shortcuts.md:3
-#, fuzzy
 msgid ""
 "Here you can add keyboard shortcuts to all commands available. Also the "
 "[snippets Snippets] or [quickinsert Quick-Insert] buttons that have keyboard "
 "shortcuts are listed here."
 msgstr ""
 "Ici, vous pouvez ajouter des raccourcis clavier pour toutes les commandes "
-"disponibles. Les {snippets} d'{quickinsert} qui ont un raccourci clavier "
-"sont listés ici."
+"disponibles. Les [snippets Snippets] ou boutons d'[quickinsert Quick-Insert] "
+"qui ont un raccourci clavier sont listés ici."
 
 #: ../userguide/prefs_shortcuts.md:7
-#, fuzzy
 msgid ""
 "To change a keyboard shortcut, highlight an action in the list and click the "
 "Edit button, or double-click an action. In the dialog that appears, you can "
@@ -6718,33 +6712,27 @@ msgid "You can define a new scheme by using the New button."
 msgstr "Vous pouvez définir un nouveau profil en utilisant le bouton Nouveau."
 
 #: ../userguide/snippet_editor.md:1
-#, fuzzy
 msgid "Snippet Editor"
 msgstr "Éditeur de fragments"
 
 #: ../userguide/snippet_editor.md:3
-#, fuzzy
 msgid "Here you can edit the text of the snippet."
-msgstr "Vous pouvez éditer les raccourcis pour {name}"
+msgstr "Ici, vous pouvez éditer le texte du fragment."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_editor.md:5
-#, fuzzy
 msgid ""
 "If you start the first line(s) with '`-*- `' (note the space), the remainder "
 "of that line(s) defines variables like `name: value;` or simply `name;` "
 "which influence the behaviour of the snippet."
 msgstr ""
-"<p>Vous pouvez ici éditer le texte du fragment.</p><p>Si vous commencez la "
-"(les) première(s) ligne(s) avec '<code>-*- </code>' (notez les espaces), le "
-"rappel de cette ligne définit des variables comme <code>name: value;</code> "
-"ou simplement <code>name;</code>, ce qui influence le comportement du "
-"fragment. Les variables suivantes peuvent être utilisées : </p>"
+"Si vous commencez la (les) première(s) ligne(s) avec '`-*- `' (notez les "
+"espaces), le rappel de cette ligne définit des variables comme `name: "
+"value;` ou simplement `name;`, ce qui influence le comportement du fragment."
 
 #: ../userguide/snippet_editor.md:9
-#, fuzzy
 msgid "The following variables can be used:"
-msgstr "Les variables suivantes sont reconnues :"
+msgstr "Les variables suivantes peuvent être utilisées :"
 
 #: ../userguide/snippet_editor.md:12
 msgid "Place the snippet in the insert menu, grouped by the (optional) value."
@@ -6806,22 +6794,20 @@ msgstr "Sélectionne tout le texte inséré."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_editor.md:42
-#, fuzzy
 msgid ""
 "The other lines of the snippet define the text to be inserted in the editor. "
 "Here, you can insert variables prefixed with a `$`. A double `$` will be "
 "replaced with a single one. The following variables are recognized:"
 msgstr ""
-"<p>Les autres lignes du fragment définissent le texte à insérer dans "
-"l'éditeur. Ici, vous pouvez insérer des variables précédées d'un caractère "
-"$. Un double $ sera remplacé par un simple. Les variables suivantes sont "
-"reconnues : </p>"
+"Les autres lignes du fragment définissent le texte à insérer dans l'éditeur. "
+"Ici, vous pouvez insérer des variables précédées d'un caractère `$`. Un "
+"double `$` sera remplacé par un simple. Les variables suivantes sont "
+"reconnues :"
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:1
-#, fuzzy
 msgid "The `output` document variable"
-msgstr "La variable « {output} » du document"
+msgstr "La variable `output` du document"
 
 #: ../userguide/var_output.md:3
 msgid ""
@@ -6835,7 +6821,6 @@ msgstr ""
 "virgules."
 
 #: ../userguide/var_output.md:7
-#, fuzzy
 msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory."
@@ -6849,7 +6834,6 @@ msgstr "Tous les noms sont déduits du nom de fichier du document."
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:27
-#, fuzzy
 msgid ""
 "You can set this variable if the automatic output file name determination "
 "would be time-consuming (as Frescobaldi parses the document and all the "
@@ -6861,8 +6845,8 @@ msgstr ""
 "automatique du nom de fichier de sortie serait trop gourmande en temps de "
 "calcul (Frescobaldi analyse le document et tous les documents qu'il inclut, "
 "à la recherche de commande spécifiant le fichier de sortie comme "
-"<code>\\bookOutputName</code>, etc); ou quand la détermination automatique "
-"échoue à cause de code LilyPond trop complexes."
+"`\\bookOutputName`, etc); ou quand la détermination automatique échoue à "
+"cause de code LilyPond trop complexes."
 
 #: ../userguide/managing.md:1
 msgid "Managing Files"
@@ -6870,37 +6854,27 @@ msgstr "Gérer les fichiers"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilydoc.md:3
-#, fuzzy
 msgid ""
 "Here you can add local paths or URLs pointing to LilyPond documentation. A "
 "local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
 msgstr ""
-"<p>Vous pouvez ici ajouter les emplacements locaux ou URLs pointant vers la "
+"Vous pouvez ici ajouter les emplacements locaux ou URLs pointant vers la "
 "documentation de LilyPond. Un emplacement local doit pointer vers le dossier "
-"où se trouve soit le dossier « {documentation} », soit l'emplacement complet "
-"« share/doc/lilypond/html/offline-root ».</p>\n"
-"<p>Si ceux-ci ne sont pas trouvés, la documentation est cherchée dans tous "
-"les sous-dossiers de l'emplacement donné, un niveau plus loin. Il est alors "
-"possible de placer plusieurs versions de la documentation de LilyPond dans "
-"différents sous-dossiers et demander à Frescobaldi de les trouver.</p>"
+"où se trouve soit le dossier `Documentation`, soit l'emplacement complet "
+"`share/doc/lilypond/html/offline-root`."
 
 #: ../userguide/prefs_lilydoc.md:7
-#, fuzzy
 msgid ""
 "If those can't be found, documentation is looked for in all subdirectories "
 "of the given path, one level deep. This makes it possible to put multiple "
 "versions of LilyPond documentation in different subdirectories and have "
 "Frescobaldi automatically find them."
 msgstr ""
-"<p>Vous pouvez ici ajouter les emplacements locaux ou URLs pointant vers la "
-"documentation de LilyPond. Un emplacement local doit pointer vers le dossier "
-"où se trouve soit le dossier « {documentation} », soit l'emplacement complet "
-"« share/doc/lilypond/html/offline-root ».</p>\n"
-"<p>Si ceux-ci ne sont pas trouvés, la documentation est cherchée dans tous "
-"les sous-dossiers de l'emplacement donné, un niveau plus loin. Il est alors "
+"Si ceux-ci ne sont pas trouvés, la documentation est cherchée dans tous les "
+"sous-dossiers de l'emplacement donné, un niveau plus loin. Il est alors "
 "possible de placer plusieurs versions de la documentation de LilyPond dans "
-"différents sous-dossiers et demander à Frescobaldi de les trouver.</p>"
+"différents sous-dossiers et demander à Frescobaldi de les trouver."
 
 #: ../userguide/outline_configure.md:1
 msgid "Configuring the Outline View"
@@ -6923,13 +6897,12 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/outline_configure.md:8
-#, fuzzy
 msgid ""
 "In those expressions, `^` matches at the beginning of every line, and `$` "
 "matches at the end of a line."
 msgstr ""
-"Dans ces expressions, <code>^</code> correspond au début de chaque ligne, et "
-"<code>$</code> à la fin d'une ligne."
+"Dans ces expressions, `^` correspond au début de chaque ligne, et `$` à la "
+"fin d'une ligne."
 
 #: ../userguide/outline_configure.md:11
 msgid ""
@@ -6947,14 +6920,14 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/outline_configure.md:16
-#, fuzzy
 msgid ""
 "You can use the name `text` or `title`. In that case, only the named part of "
 "a match is displayed. If the `title` name is used, it is displayed in a bold "
 "font."
 msgstr ""
-"Dans ce cas, seule la partie nommée de la correspondance est affichée. Si le "
-"nom de {title} est utilisé, il est affiché en caractères gras."
+"Vous pouvez utiliser le nom `text` ou `title`. Dans ce cas, seule la partie "
+"nommée de la correspondance est affichée. Si le nom de `title` est utilisé, "
+"il est affiché en caractères gras."
 
 #: ../userguide/outline_configure.md:20
 msgid "For more information about regular expressions, see {link}."
@@ -6963,14 +6936,12 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_paths.md:3
-#, fuzzy
 msgid ""
 "Here, directories can be added that contain `hyph_*.dic` files, where the "
 "`*` stands for different language codes."
 msgstr ""
 "Ici, il est possible d'ajouter des dossiers qui contiennent des fichiers "
-"<code>hyph_*.dic</code> où le caractère <code>*</code> sert pour les codes "
-"de différentes langues."
+"`hyph_*.dic` où le caractère `*` sert pour les codes de différentes langues."
 
 #: ../userguide/prefs_paths.md:6
 msgid ""
@@ -6991,6 +6962,9 @@ msgid ""
 "[http://en.wikipedia.org/wiki/Girolamo_Frescobaldi Girolamo Frescobaldi "
 "(1583-1643)], an Italian organist and composer."
 msgstr ""
+"Frescobaldi est nommé d'après "
+"[http://fr.wikipedia.org/wiki/Girolamo_Frescobaldi Girolamo Frescobaldi "
+"(1583-1643)], un organiste et compositeur italien."
 
 #. NOTE: markdown formatting
 #: ../userguide/about.md:8
@@ -6999,6 +6973,9 @@ msgid ""
 "mailinglist at [frescobaldi@googlegroups.com] "
 "([http://groups.google.com/group/frescobaldi more info])."
 msgstr ""
+"La page web de Frescobaldi est [http://www.frescobaldi.org/] et il y a "
+"également une liste de diffusion: [frescobaldi@googlegroups.com] "
+"([http://groups.google.com/group/frescobaldi pour plus d'informations])."
 
 #: ../userguide/intro.md:1
 msgid "Introduction"
@@ -7013,6 +6990,12 @@ msgid ""
 "which LilyPond can then compile and output beautiful engraving, by default "
 "but not restricted to, PDF."
 msgstr ""
+"[http://lilypond.org LilyPond] est un logiciel open source de gravure de "
+"partitions musicales, produisant des partitions de très haute qualité à "
+"partir de simples fichiers texte. Les fichiers peuvent être créés par "
+"n'importe quel éditeur de texte; LilyPond peut ensuite les compiler et "
+"produire une magnifique gravure, par défaut (mais sans limitation) au format "
+"PDF."
 
 #: ../userguide/intro.md:10
 msgid ""
@@ -7021,6 +7004,10 @@ msgid ""
 "you read the {getting_started} section of this User Guide, you'll pickup "
 "some LilyPond basics to get you started."
 msgstr ""
+"Frescobaldi est une application destinée à rendre l'édition des partitions "
+"LilyPond plus rapide et plus facile. Vous devrez toujours apprendre le "
+"langage de LilyPond, mais si vous lisez la section {getting_started} de ce "
+"manuel, vous y apprendrez quelques bases de LilyPond avec lesquelles débuter."
 
 #. NOTE: markdown formatting
 #: ../userguide/intro.md:15
@@ -7029,22 +7016,30 @@ msgid ""
 "Learning Manual from [http://lilypond.org/doc/ LilyPond's excellent online "
 "documentation]."
 msgstr ""
+"Une fois les bases acquises, l'étape suivante consistera à utiliser le "
+"manuel d'initiation de [http://lilypond.org/doc/ l'excellente documentation "
+"en ligne de LilyPond]."
 
 #: ../userguide/export.md:1
 msgid "Exporting files"
-msgstr "Exporter les fichiers"
+msgstr "Exporter des fichiers"
 
 #: ../userguide/snippets.md:3
 msgid ""
 "With the snippets manager you can store often used pieces of text called "
 "\"snippets\", and easily paste them into the text editor."
 msgstr ""
+"Avec le gestionnaire de fragments, vous pouvez stocker des extraits de texte "
+"souvent utilisés et appelés \"fragments\", et les coller dans l'éditeur de "
+"texte."
 
 #: ../userguide/snippets.md:6
 msgid ""
 "The snippets manager can be activated via the menu {menu_snippets} or by "
 "pressing {key_snippets}."
 msgstr ""
+"Le gestionnaire de fragments peut être activé via le menu {menu_snippets} ou "
+"en pressant {key_snippets}."
 
 #: ../userguide/snippets.md:9
 msgid ""
@@ -7054,12 +7049,21 @@ msgid ""
 "type in the search entry to select the snippet. Pressing the Return key will "
 "then apply the snippet to the text editor and hide the snippets manager."
 msgstr ""
+"Il est possible d'effectuer une recherche dans les fragments en navigant "
+"dans la liste, ou en tapant quelques lettres dans le champ de recherche. Les "
+"fragments peuvent aussi se voir attribuer un raccourci clavier. Certains "
+"fragments ont un nom abrégé qui peut également être entré dans le champ de "
+"recherche. Appuyer la touche Entrée appliquera le fragment dans l'éditeur de "
+"texte et masquera le gestionnaire de fragments."
 
 #: ../userguide/snippets.md:16
 msgid ""
 "Add new snippets using {key_add}. Edit the selected snippet with {key_edit}. "
 "Remove selected snippets using {key_delete}. Warning: this cannot be undone!"
 msgstr ""
+"Ajoutez de nouveaux fragments avec {key_add}. Éditez le fragment sélectionné "
+"avec {key_edit}. Supprimer les fragments sélectionnés avec {key_delete}. "
+"Attention: ceci ne peut pas être annulé!"
 
 #: ../userguide/snippets.md:19
 msgid ""
@@ -7067,20 +7071,23 @@ msgid ""
 "snippets which can include or alter selected text. Some snippets do this by "
 "using special variables, while others are small scripts written in Python."
 msgstr ""
+"Les fragments peuvent également être placés dans le menu (see {link}). Et, "
+"enfin, certains fragments peuvent inclure ou modifier le texte sélectionné. "
+"Certains le font en utilisant des variables spéciales, d'autres sont de "
+"petits scripts écrits en Python."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_general.md:3
-#, fuzzy
 msgid ""
 "Under *General Preferences*, you can choose in which language Frescobaldi's "
 "user interface is translated, which user interface style you want to use, "
 "and whether you want to use the built-in Tango iconset or to use the "
 "system-wide configured icon set."
 msgstr ""
-"Sous <em>{general_preferences}</em>, vous pouvez choisir dans quelle langue "
+"Sous *Préférences générales*, vous pouvez choisir dans quelle langue "
 "l'interface utilisateur de Frescobaldi est traduite, quel style d'interface "
 "vous désirez utiliser, et si vous préférez utiliser les icônes Tango "
-"incluses ou les par défaut pour votre système."
+"incluses ou les icones par défaut pour votre système."
 
 #: ../userguide/prefs_general.md:8
 msgid ""
@@ -7092,7 +7099,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_general.md:11
-#, fuzzy
 msgid ""
 "Under *Session to load if Frescobaldi is started without arguments* you can "
 "configure which session to load if Frescobaldi is started without a "
@@ -7101,38 +7107,37 @@ msgid ""
 "works when you have explicitly created a session and set it to automatically "
 "add files on save to it. See also {sessions}."
 msgstr ""
-"Sous <em>{startup}</em> vous pouvez définir quelle session est chargée si "
-"Frescobaldi est lancé sans nom de fichier. Vous pouvez choisir de démarrer "
-"avec un document vide, avec la dernière session utilisée, ou avec une "
-"session définie. Veuillez noter que ceci ne fonctionne que quand vous avez "
-"explicitement créé un session et l'avez configurée pour y enregistrer "
-"automatiquement les fichiers. Voir aussi {link}."
+"Sous *Session à charger si Frescobaldi est lancé dans arguments*, vous "
+"pouvez définir quelle session est chargée si Frescobaldi est lancé sans nom "
+"de fichier. Vous pouvez choisir de démarrer avec un document vide, avec la "
+"dernière session utilisée, ou avec une session définie. Veuillez noter que "
+"ceci ne fonctionne que quand vous avez explicitement créé un session et "
+"l'avez configurée pour y enregistrer automatiquement les fichiers. Voir "
+"aussi {sessions}."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_general.md:18
-#, fuzzy
 msgid ""
 "Under *When saving documents*, you can choose what to do when a document is "
 "saved, such as remembering the cursor position and marked lines, or leaving "
 "a backup copy of the document (with a `~` appended)."
 msgstr ""
-"Sous <em>{saving}</em>, vous pouvez choisir que faire lorsqu'un document est "
-"enregistrée, comme se souvenir de la position du curseur, des lignes "
-"repérées, ou laisser une copie de sauvegarde du document (avec une extension "
-"~). Vous pouvez également définir un dossier par défaut dans lequel vous "
-"rangez vos documents LilyPond."
+"Sous *Lors de l'enregistrement de documents*, vous pouvez choisir que faire "
+"lorsqu'un document est enregistrée, comme se souvenir de la position du "
+"curseur, des lignes repérées, ou laisser une copie de sauvegarde du document "
+"(avec une extension `~`)."
 
 #: ../userguide/prefs_general.md:22
-#, fuzzy
 msgid ""
 "Also, you can specify a default folder in which you keep your LilyPond "
 "documents."
-msgstr "Le dossier par défaut pour vos documents LilyPond (optionnel)."
+msgstr ""
+"Vous pouvez également définir un dossier par défaut dans lequel vous rangez "
+"vos documents LilyPond."
 
 #: ../userguide/engrave_publish.md:1
-#, fuzzy
 msgid "Publish mode"
-msgstr "Publication"
+msgstr "Mode Publication"
 
 #: ../userguide/engrave_publish.md:3
 msgid ""
@@ -7156,9 +7161,8 @@ msgstr ""
 "être considéré comme un problème de sécurité."
 
 #: ../userguide/outline.md:1
-#, fuzzy
 msgid "Document Outline"
-msgstr "Documentation"
+msgstr "Structure de document"
 
 #: ../userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
@@ -7171,7 +7175,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_import_export.md:5
-#, fuzzy
 msgid ""
 "To export snippets, either select them in the snippet manager, or filter the "
 "snippets using the search bar and select none, so that all the snippets "
@@ -7183,20 +7186,19 @@ msgstr ""
 "gestionnaire de fragments, ou filtrer les fragments grâce à la barre de "
 "recherche sans en sélectionner, de manière à ce que tous les fragments "
 "visibles dans le gestionnaire de fragments soient exportés. Vous pouvez "
-"alors les exportez en sélectionnant {menu}, en choisissant un nom de fichier "
-"de préférence avec l'extension <code>.xml</code>."
+"alors les exportez en sélectionnant {menu_export}, en choisissant un nom de "
+"fichier de préférence avec l'extension `.xml`."
 
 #: ../userguide/snippet_import_export.md:11
-#, fuzzy
 msgid ""
 "To import snippets, select {menu_import} and choose the file you want to "
 "import. You may also drop an XML file on the snippet manager. A dialog will "
 "be displayed where you can select which snippets you want to import."
 msgstr ""
-"Pour importer des fragments, sélectionnez {menu} et choisissez le fichier à "
-"importer. Il est aussi possible de faire glisser une fichier XML sur le "
-"gestionnaire de fragments. Une boite de dialogue s’ouvrira alors pour vous "
-"permettre de sélectionner les fragments à importer."
+"Pour importer des fragments, sélectionnez {menu_import} et choisissez le "
+"fichier à importer. Il est aussi possible de faire glisser une fichier XML "
+"sur le gestionnaire de fragments. Une boite de dialogue s’ouvrira alors pour "
+"vous permettre de sélectionner les fragments à importer."
 
 #: ../userguide/snippet_import_export.md:15
 msgid ""
@@ -7257,7 +7259,7 @@ msgstr "Capture MIDI"
 
 #: ../userguide/credits.md:33
 msgid "Finding lots of bugs"
-msgstr ""
+msgstr "Recherche de nombreux bogues"
 
 #: ../userguide/credits.md:36
 msgid "{appname} is translated into the following languages:"
@@ -7268,16 +7270,16 @@ msgid "Here you can configure Frescobaldi's MIDI settings."
 msgstr "Ici, vous pouvez configurer les réglages MIDI de Frescobaldi."
 
 #: ../userguide/prefs_midi.md:5
-#, fuzzy
 msgid ""
 "You can specify the MIDI port name to play to. If there are no port names "
 "visible in the drop-down box, it may be necessary to connect a hardware MIDI "
 "synthesizer to your computer, or to start a software synthesizer program "
 "such as TiMidity or Fluidsynth."
 msgstr ""
-"S'il n'y a aucun nom de port visible dans le menu déroulant, il peut être "
-"nécessaire de connecter un synthétiseur MIDI matériel à votre ordinateur, ou "
-"de démarrer un synthétiseur logiciel tel que TiMidity ou Fluidsynth."
+"Vous pouvez définir le port MIDI pour jouer. S'il n'y a aucun nom de port "
+"visible dans le menu déroulant, il peut être nécessaire de connecter un "
+"synthétiseur MIDI matériel à votre ordinateur, ou de démarrer un "
+"synthétiseur logiciel tel que TiMidity ou Fluidsynth."
 
 #: ../userguide/prefs_midi.md:10
 msgid "On Linux, the synthesizer should be available as an ALSA MIDI device."
@@ -7296,16 +7298,14 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_midi.md:15
-#, fuzzy
 msgid ""
 "And finally, when using a software synthesizer it is recommended to enable "
 "the option *Close unused MIDI output*."
 msgstr ""
-"Et finalement, lorsque vous utilisez un synthétiseur logiciel, il est "
-"recommandé d'activer l'option <em>{close_unused}</em>."
+"Et enfin, lorsque vous utilisez un synthétiseur logiciel, il est recommandé "
+"d'activer l'option *Fermer les sorties MIDI non utilisées*."
 
 #: ../userguide/prefs_midi.md:18
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will close MIDI output ports that are not used for "
 "one minute. This could free up system resources that a software MIDI "
@@ -7314,14 +7314,13 @@ msgid ""
 "default piano (instrument 0). In that case, playing the file from the "
 "beginning sets up the instruments again."
 msgstr ""
-"<p>Si coché, Frescobaldi fermera les ports de sortie MIDI inutilisés depuis "
-"une minute.</p>\n"
-"<p>Cela permet de libérer des ressources système qu'un synthétiseur logiciel "
-"MIDI pour utiliser, économisant ainsi de l'énergie.</p>\n"
-"<p>Une conséquence est que si vous interrompez un fichier MIDI pendant un "
-"certain temps, les instruments sont réinitialisés au piano par défaut "
-"(instrument 0). Dans ce cas, rejouer le fichier depuis le début redéfinit "
-"correctement les instruments.</p>\n"
+"Si coché, Frescobaldi fermera les ports de sortie MIDI inutilisés depuis une "
+"minute. Cela permet de libérer des ressources système qu'un synthétiseur "
+"logiciel MIDI pour utiliser, économisant ainsi de l'énergie. Une conséquence "
+"est que si vous interrompez un fichier MIDI pendant un certain temps, les "
+"instruments sont réinitialisés au piano par défaut (instrument 0). Dans ce "
+"cas, rejouer le fichier depuis le début redéfinit correctement les "
+"instruments."
 
 #: ../userguide/getstarted.md:1
 msgid "Getting Started"
@@ -7332,10 +7331,14 @@ msgid ""
 "The default screen of Frescobaldi shows a text document on the left and an "
 "empty Music View window on the right."
 msgstr ""
+"L'écran par défaut de Frescobaldi affiche un document texte à gauche et une "
+"fenêtre d'aperçu à droite."
 
 #: ../userguide/getstarted.md:6
 msgid "Now, in the text view, enter some LilyPond code, like this:"
 msgstr ""
+"Maintenant, dans l'éditeur de texte, entrez du code LilyPond, comme celui-ci "
+":"
 
 #: ../userguide/getstarted.md:18
 msgid ""
@@ -7344,10 +7347,15 @@ msgid ""
 "on the right. If LilyPond encounters any errors or warnings they will be "
 "displayed in the LilyPond Log at the bottom of the screen."
 msgstr ""
+"Cliquez ensuite le bouton LilyPond de la barre d'outils ou appuyez "
+"{key_engrave}. LilyPond démarre la compilation du fichier et un PDF est "
+"affiché dans l'aperçu à droite. Si LilyPond rencontre des erreurs ou "
+"avertissements, ils seront affichés dans le journal de LilyPond en bas de "
+"l'écran."
 
 #: ../userguide/getstarted.md:25
 msgid "The Music View has many possibilities:"
-msgstr ""
+msgstr "L'aperçu offre de nombreuses possibilités :"
 
 #: ../userguide/getstarted.md:27
 msgid ""
@@ -7355,18 +7363,25 @@ msgid ""
 "on the left window; clicking on them will place a cursor to the left of the "
 "object also in the left window."
 msgstr ""
+"Survoler les notes et autres objets musicaux les surlignera dans l'éditeur "
+"de texte à gauche; cliquer dessus placer la curseur à gauche de l'objet dans "
+"la fenêtre de gauche."
 
 #: ../userguide/getstarted.md:31
 msgid ""
 "Use the Ctrl key and your mouse wheel to zoom in and out. Zooming will "
 "center around the mouse pointer."
 msgstr ""
+"Utilisez la touche Ctrl et la molette de la souris pour zoomer en avant ou "
+"arrière. Zoomer centre la vue autour du curseur de la souris."
 
 #: ../userguide/getstarted.md:34
 msgid ""
 "Ctrl-left-click-and-hold the mouse to magnify a small section of the Music "
 "View without zooming in the whole view."
 msgstr ""
+"Ctrl clic gauche et déplacez pour agrandir une petite section de l'aperçu "
+"sans zoomer dans tout l'aperçu."
 
 #: ../userguide/getstarted.md:37
 msgid ""
@@ -7374,19 +7389,20 @@ msgid ""
 "the Music View; press {key_jump} to explicitly center and highlight a note "
 "or other objects in the Music View."
 msgstr ""
+"Sélectionner du texte dans la fenêtre de l'éditeur surlignera les notes "
+"correspondantes dans l'aperçu. Pressez {key_jump}  pour centrer "
+"explicitement et surligner une note ou d'autres objets dans l'aperçu."
 
 #: ../userguide/getstarted.md:41
-#, fuzzy
 msgid ""
 "Shift-drag a selection and then press {key_copy_image} or {menu_copy_image} "
 "to copy the selected music as a raster image to the clipboard, a file or "
 "another application."
 msgstr ""
-"Il est possible de copier de la musique directement depuis l'Aperçu vers une "
-"image: Appuyez sur Maj et sélectionnez un rectangle (alternativement, "
-"utilisez le clic droit) et appuyez sur {key} ou sélectionnez {menu} pour "
-"copier la musique sélectionnée comme une image dans le presse-papier, un "
-"fichier ou une autre application."
+"Appuyez sur Maj et sélectionnez un rectangle (alternativement, utilisez le "
+"clic droit) et appuyez sur {key_copy_image} ou sélectionnez "
+"{menu_copy_image} pour copier la musique sélectionnée comme une image dans "
+"le presse-papier, un fichier ou une autre application."
 
 #: ../userguide/getstarted.md:45
 msgid ""
@@ -7394,6 +7410,9 @@ msgid ""
 "notes turned off: menu {menu_engrave}. This significantly reduces the size "
 "of the PDF."
 msgstr ""
+"Lorsque votre partition est terminée, démarrer LilyPond une dernière fois, "
+"avec les notes cliquables désactivées: menu {menu_engrave}. Ceci diminue "
+"significativement la taille du fichier PDF."
 
 #: ../userguide/getstarted.md:49
 msgid ""
@@ -7402,6 +7421,10 @@ msgid ""
 "variable. If needed, provide the exact path to your LilyPond executable "
 "under {menu_preferences_lilypond}."
 msgstr ""
+"Si LilyPond ne démarre pas du tout, vérifiez si LilyPond est installé "
+"correctement et que la commande lilypond est bien configuré dans le PATH de "
+"votre système. Si nécessaire, précisez le chemin exact de votre exécutable "
+"LilyPond dans {menu_preferences_lilypond}."
 
 #: ../userguide/getstarted.md:54
 msgid ""
@@ -7415,6 +7438,15 @@ msgid ""
 "you can also remove any error line markings manually with the option "
 "{menu_clear_error_marks}."
 msgstr ""
+"Si LilyPond rencontre des avertissements ou erreurs dans votre document, ils "
+"seront affichés dans le journal de LilyPond dans le bas de l'écran. "
+"Frescobaldi surlignera alors ces lignes dans l'éditeur de texte. Cliquez sur "
+"l'erreur dans le journal ou appuyez {key_error} placera le curseur "
+"immédiatement à la ligne en question dans l'éditeur de texte. Appuyez "
+"{key_error} à nouveau pour aller à l'erreur suivante, et ainsi de suite. "
+"LilyPond supprime les surlignements d'erreurs précédentes lors de la "
+"compilation suivante, mais vous pouvez également les supprimer manuellement "
+"avec l'option {menu_clear_error_marks}."
 
 #: ../userguide/404.md:1
 msgid "Not Found"
@@ -7423,6 +7455,8 @@ msgstr "Aucun manuel trouvé"
 #: ../userguide/404.md:3
 msgid "Cannot load the requested userguide resource {userguide_page}."
 msgstr ""
+"Impossible de charger la resource de manuel utilisateur demandée "
+"{userguide_page}."
 
 #: ../userguide/search_replace.md:1
 msgid "Search and replace"
@@ -7434,6 +7468,10 @@ msgid ""
 "({key_replace}) can be found, which open a small window at the bottom of the "
 "view. It is possible to search for plain text or regular expressions."
 msgstr ""
+"Dans le menu {menu_edit}, vous trouverez les commandes Rechercher "
+"({key_search}) et Remplacer ({key_replace}); elles ouvrent une petite "
+"fenêtre dans le bas de l'éditeur de texte. Il est possible de rechercher du "
+"texte ou des expressions régulières."
 
 #: ../userguide/search_replace.md:8
 msgid ""
@@ -7441,34 +7479,39 @@ msgid ""
 "can match multiple characters in the document. When replacing text, it is "
 "also possible to refer to parenthesized parts of the search text."
 msgstr ""
+"Les expressions régulières sont des recherches de texte avancées contenant "
+"des caractères qui peuvent correspondre à plusieurs caractères dans votre "
+"document. En remplaçant du texte, il est également possible de faire "
+"référence à des parties entre parenthèses dans le texte recherché."
 
 #: ../userguide/search_replace.md:13
-#, fuzzy
 msgid ""
 "In regular expression search mode, some characters have a special meaning:"
 msgstr ""
-"Ceci est le texte associé à l'abréviation sélectionnée. Certains caractères "
-"ont un sens particulier :"
+"Dans un recherche en expression régulière, certains caractères ont une "
+"signification particulière :"
 
 #: ../userguide/search_replace.md:16
 msgid "matches the preceding character or group zero or more times"
-msgstr ""
+msgstr "correspond au caractère ou groupe précédent zéro fois ou plus"
 
 #: ../userguide/search_replace.md:19
 msgid "matches the preceding character or group one or more times"
-msgstr ""
+msgstr "correspond au caractère ou groupe précédent une ou plusieurs fois"
 
 #: ../userguide/search_replace.md:22
 msgid "matches the preceding character or group zero or one time"
-msgstr ""
+msgstr "correspond au  caractère ou groupe précédent zéro ou une fois"
 
 #: ../userguide/search_replace.md:25
 msgid "matches one of the contained characters"
-msgstr ""
+msgstr "correspond à un des caractères contenus"
 
 #: ../userguide/search_replace.md:28
 msgid "group characters. This also saves the matched text in the group."
 msgstr ""
+"groupe de caractères. Ceci sauvegarde également le texte correspondant dans "
+"un groupe."
 
 #. NOTE: markdown formatting
 #: ../userguide/search_replace.md:30
@@ -7476,12 +7519,17 @@ msgid ""
 "When replacing, you can use characters like `\\1`, `\\2` etcetera, to write "
 "the text of the corresponding group in the replacement text."
 msgstr ""
+"Lors d'un remplacement, vous pouvez utiliser des caractères tels que `\\1`, "
+"`\\2` etc., pour écrire le texte du groupe correspondant dans le texte de "
+"remplacement."
 
 #: ../userguide/search_replace.md:34
 msgid ""
 "match, respectively, a backslash, a newline, a tab, any whitespace "
 "character, a digit, a generic word-like character."
 msgstr ""
+"correspondent, respectivement, à un antislash, une nouvelle ligne, une "
+"tabulation, un espace, un nombre, un caractère générique de type \"mot\"."
 
 #. NOTE: markdown formatting
 #: ../userguide/search_replace.md:37
@@ -7490,6 +7538,9 @@ msgid ""
 "[http://docs.python.org/library/re.html#regular-expression-syntax Python "
 "documentation]."
 msgstr ""
+"Une référence complète sur les expressions régulières peut être trouvée dans "
+"[http://docs.python.org/library/re.html#regular-expression-syntax la "
+"documentation Python]."
 
 #: ../userguide/indent_format.md:1
 msgid "Indentation and Formatting"
@@ -7531,62 +7582,51 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/externalchanges.md:13
-#, fuzzy
 msgid ""
 "Press the *Show Difference...* button to see the difference between the "
 "current document and its version on disk."
 msgstr ""
-"Cliquer sur le bouton <em>{showdiff}</em> pour afficher les différences "
-"entre le document courant et sa version sur le disque dur."
+"Cliquer sur le bouton *Afficher les différences…* pour afficher les "
+"différences entre le document courant et sa version sur le disque dur."
 
 #. NOTE: markdown formatting
 #: ../userguide/externalchanges.md:16
-#, fuzzy
 msgid ""
 "If you don't want to be warned when a document is changed or deleted by "
 "another application, uncheck the *Enable watching documents for external "
 "changes* checkbox."
 msgstr ""
 "Si vous ne souhaitez pas être averti quand un document est modifié ou "
-"supprimé par une autre application, décochez la case <em>{action}</em>."
+"supprimé par une autre application, décochez la case *Active l'examen des "
+"modifications externes de document*."
 
 #: ../userguide/index.md:1
 msgid "Frescobaldi Manual"
 msgstr "Manuel de Frescobaldi"
 
 #: ../userguide/index.md:3
-#, fuzzy
 msgid ""
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music files. "
 "This manual is written by {author} and documents {appname} version {version}."
 msgstr ""
-"<p>\n"
 "Frescobaldi est un éditeur léger et puissant pour les\n"
-" partitions musicales LilyPond.\n"
-"Ce manuel est écrit par {author} et documente {appname} version {version}.\n"
-"</p>\n"
+" partitions musicales LilyPond. Ce manuel est écrit par {author} et "
+"documente {appname} version {version}."
 
 #: ../userguide/index.md:8
 msgid "How to get help inside Frescobaldi"
 msgstr "Comment obtenir de l'aide dans Frescobaldi"
 
 #: ../userguide/index.md:10
-#, fuzzy
 msgid ""
 "In many dialogs there are Help buttons or you can press the {key_help} key. "
 "Many user interface items also have \"What's This\" information which can be "
 "revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}."
 msgstr ""
-"<h3>Comment obtenir de l'aide dans Frescobaldi</h3>\n"
-"\n"
-"<p>\n"
-"Dans la plupart des fenêtres de dialogue, vous pouvez cliquer sur\n"
-"un bouton Aide ou appuyer la touche {key_help}.\n"
-"La plupart des éléments d'interface ont aussi une information « Qu'est-ce "
-"que c'est ? »\n"
-"qui peut être affichée en appuyant {key_whatsthis} ou en sélectionnant "
-"{menu_whatsthis}.\n"
-"</p>\n"
+"Dans la plupart des fenêtres de dialogue, vous pouvez cliquer sur un bouton "
+"Aide ou appuyer la touche {key_help}. La plupart des éléments d'interface "
+"ont aussi une information « Qu'est-ce que c'est ? » qui peut être affichée "
+"en appuyant {key_whatsthis} ou en sélectionnant {menu_whatsthis}."
 
 #: ../userguide/engrave_preview.md:1
 msgid "Preview mode"
@@ -7598,12 +7638,16 @@ msgid ""
 "This mode runs LilyPond with the `-dpoint-and-click` commandline option. "
 "This enables the clickable notes and other objects in the PDF."
 msgstr ""
+"Ce mode lance LilyPond avec l'option `-dpoint-and-click. Ceci active les "
+"notes et objets cliquables dans le PDF."
 
 #: ../userguide/engrave_preview.md:6
 msgid ""
 "Using these links, the Music View is able to provide smart two-way "
 "navigation between the Music View and the LilyPond source."
 msgstr ""
+"En utilisant ces liens, l'aperçu permet une navigation bidirectionnelle "
+"entre l'aperçu et le code source LilyPond."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_preview.md:9
@@ -7612,6 +7656,9 @@ msgid ""
 "you want to share the rendered PDF with others, it is better to use the "
 "[engrave_publish publish mode]."
 msgstr ""
+"Ce lien augmente significativement la taille du PDF; ainsi, si vous voulez "
+"partager ce PDF avec d'autres pesonnes, il est préférable d'utiliser le "
+"[engrave_publish mode Publication]."
 
 #: ../userguide/snippet_lib.md:1
 msgid "Maintaining a library of snippets"
@@ -7629,17 +7676,15 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_lib.md:7
-#, fuzzy
 msgid ""
 "It is suggested to use the `{set}` variable, and set it to the name of the "
 "library you want the snippet to belong to."
 msgstr ""
-"Il est recommandé d'utiliser la variable « {set} », et de la positionner sur "
+"Il est recommandé d'utiliser la variable `{set}`, et de la positionner sur "
 "le nom de la bibliothèque à laquelle le fragment doit appartenir."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_lib.md:10
-#, fuzzy
 msgid ""
 "Then in the snippet manager, you can easily select all the snippets "
 "belonging to the library by entering `:{set} name` in the snippet search "
@@ -7647,10 +7692,10 @@ msgid ""
 "snippets to an XML file for sharing the snippets with others."
 msgstr ""
 "Ensuite dans le gestionnaire de fragments, vous pouvez facilement "
-"sélectionner tout les fragments de la bibliothèque en entrant <code>:{set} "
-"nom</code> dans la barre de recherche de fragments, ou « nom » est le nom "
-"que vous voulez utiliser. Vous pouvez alors les exporter vers un fichier XML "
-"pour les partager avec d'autres utilisateurs."
+"sélectionner tout les fragments de la bibliothèque en entrant `:{set} nom` "
+"dans la barre de recherche de fragments, ou `nom` est le nom que vous voulez "
+"utiliser. Vous pouvez alors les exporter vers un fichier XML pour les "
+"partager avec d'autres utilisateurs."
 
 #: ../userguide/docvars.md:1
 msgid "Document Variables"
@@ -7658,7 +7703,6 @@ msgstr "Variables de document"
 
 #. NOTE: markdown formatting
 #: ../userguide/docvars.md:3
-#, fuzzy
 msgid ""
 "Document variables are variables that influence the behaviour of "
 "Frescobaldi. They can be written in the first five or last five lines of a "
@@ -7666,12 +7710,10 @@ msgid ""
 "lines for variable definitions like `name: value;`."
 msgstr ""
 "Les variables de document sont des variables qui influencent le comportement "
-"de Frescobaldi.\n"
-"Elles peuvent être écrites dans les cinq premières ou derrières lignes d'un "
-"document.\n"
-"Si une ligne contient « <b><code>-*-</code></b> », Frescobaldi recherche le "
-"reste des\n"
-"lignes de définitions de variable comme <code>name: value;</code>.\n"
+"de Frescobaldi. Elles peuvent être écrites dans les cinq premières ou "
+"derrières lignes d'un document. Si une ligne contient '`-*-`', Frescobaldi "
+"recherche le reste des\n"
+"lignes de définitions de variable comme `name: value;`."
 
 #: ../userguide/docvars.md:8
 msgid "The following variables are recognized:"
@@ -7699,13 +7741,13 @@ msgstr "nom"
 
 #. NOTE: markdown formatting
 #: ../userguide/docvars.md:17
-#, fuzzy
 msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
 "name or comma-separated list of names. [var_output More information]."
 msgstr ""
-"Cherche les documents de sortie (PDF, MIDI, etc.) commençant par le nom "
-"spécifié ou par une liste de noms séparés par des virgules."
+"Cherche les documents de sortie (PDF, MIDI, etc.) en commençant par le nom "
+"spécifié ou par une liste de noms séparés par des virgules. [var_output Plus "
+"d'information]."
 
 #: ../userguide/docvars.md:21
 msgid "encoding"
@@ -7736,9 +7778,8 @@ msgid "number"
 msgstr "Nombre"
 
 #: ../userguide/docvars.md:30
-#, fuzzy
 msgid "The visible width of a tab character in the editor, by default 8."
-msgstr "La largeur d'une tabulation, par défaut 8 espaces."
+msgstr "La largeur d'une tabulation dans l'éditeur, par défaut 8 espaces."
 
 #: ../userguide/docvars.md:33
 msgid "Whether to use tabs in indent, by default {no}."
@@ -7746,18 +7787,17 @@ msgstr "Utilisation de tabulations pour l'indentation. Par défaut : {no}."
 
 #. NOTE: markdown formatting
 #: ../userguide/docvars.md:36
-#, fuzzy
 msgid ""
 "The number of spaces each indent level uses, by default 2. This value is "
 "ignored when `indent-tabs` is set to {yes}."
 msgstr ""
-"Nombre d'espaces utilisé par chaque niveau d'indentation. Par défaut : 2."
+"Nombre d'espaces utilisé par chaque niveau d'indentation. Par défaut : 2. "
+"Cette valeur est ignorée quand `indent-tabs` est réglé sur {yes}."
 
 #: ../userguide/docvars.md:40
-#, fuzzy
 msgid "Whether to use tabs elsewhere in the document, by default {no}."
 msgstr ""
-"Utilisation de tabulations n'importe où dans le document. Par défaut : {yes}."
+"Utilisation de tabulations n'importe où dans le document. Par défaut : {no}."
 
 #. NOTE: markdown formatting
 #: ../userguide/docvars.md:43
@@ -7765,40 +7805,44 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+"Le nomre d'espaces à insérer quand une tabulation est entrée au milieu du "
+"texte, par défaut 8. Cette valeur est ignorée quand `document-tabs` est "
+"réglé sur {yes}."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import a Music XML file using the command line "
 "tool `musicxml2ly` from the LilyPond package."
-msgstr "Importer un fichier MusicXML à l'aide de musicxml2ly."
+msgstr ""
+"En utilisant {menu_import}, vous pouvez importer un fichier MusicXML à "
+"l'aide de musicxml2ly, inclus dans LilyPond."
 
 #: ../userguide/musicxml_import.md:6
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the musicxml2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
-"Vous pouvez régler certains paramètres pour l'import musicxml2ly dans cette "
-"fenêtre. Actuellement, quatre paramètres peuvent être réglés via des cases à "
-"cocher :"
+"Dans cette boîte de dialogue, il y a deux onglets. Dans le premier, vous "
+"pouvez régler certains paramètres pour l'import musicxml2ly. Dans le second, "
+"vous pouvez définir certaines actions à appliquer au code source importé."
 
 #: ../userguide/musicxml_import.md:10
 msgid ""
 "Your settings in both tabs are remembered until the next time you use this "
 "dialog."
 msgstr ""
+"Vos réglages dans les deux onglets sont retenus jusqu'à l'utilisation "
+"suivante de cette boîte de dialogue."
 
 #: ../userguide/musicxml_import.md:12
-#, fuzzy
 msgid "The musicxml2ly tab"
-msgstr "L'exécutable musicxml2ly"
+msgstr "L'onglet musicxml2ly"
 
 #: ../userguide/musicxml_import.md:14
 msgid "In this tab you have the following options:"
-msgstr ""
+msgstr "Dans cet onglet, vous disposez des options suivantes :"
 
 #: ../userguide/musicxml_import.md:23
 msgid ""
@@ -7806,6 +7850,9 @@ msgid ""
 "musicXML-file if they are present and if you prefer not to use LilyPond's "
 "automatic handling of these elements."
 msgstr ""
+"Les quatre premières options sont des éléments de la partition que vous "
+"pouvez extraire du fichier musicXML s'ils y sont présent et que vous "
+"préférez ne pas utiliser les réglages de LilyPond pour ces éléments."
 
 #: ../userguide/musicxml_import.md:27
 msgid ""
@@ -7813,6 +7860,9 @@ msgid ""
 "absolute mode or if you prefer a different pitch name language than the "
 "default."
 msgstr ""
+"Les deux options suivantes peuvent être utilisées si vous voulez générer un "
+"code en mode absolu, ou si vous préférez une langue de noms de note "
+"différente de celle par défaut."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:31
@@ -7822,11 +7872,15 @@ msgid ""
 "and musicxml2ly in particular you can edit this text directly, otherwise you "
 "can just ignore this."
 msgstr ""
+"En bas se trouve une zone de texte qui indique la ligne de commande utilisée "
+"pour lancer `musicxml2ly`. Si vous avez l'habitude de la ligne de commande "
+"en général, et musicxml2ly  en particulier, vous pouvez éditer ce texte "
+"directement; sinon, vous pouvez simplement l'ignorer."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:37
 msgid "The *after import* tab"
-msgstr ""
+msgstr "L'onglet *Après l'import*"
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:39
@@ -7834,31 +7888,34 @@ msgid ""
 "After `musicxml2ly` is run and the new ly-file is created you can set "
 "Frescobaldi to automatically do some adjustments on the new file."
 msgstr ""
+"Après le lancement de `musicxml2ly` et la création d'un nouveau fichier, "
+"vous pouvez demander à Frescobaldi de faire quelques ajustements sur ce "
+"fichier."
 
 #: ../userguide/musicxml_import.md:42
 msgid "Reformat source:"
-msgstr ""
+msgstr "Reformater la source :"
 
 #: ../userguide/musicxml_import.md:43
 msgid ""
 "the code is reformatted. (This is identical to running Tools -> Format.)"
-msgstr ""
+msgstr "le code est reformaté. (Ceci revient à utiliser Outils -> Formater)"
 
 #: ../userguide/musicxml_import.md:46
-#, fuzzy
 msgid "Trim durations (Make implicit per line):"
-msgstr "Durées implicites (&ligne par ligne)"
+msgstr "Durées implicites (ligne par ligne) :"
 
 #: ../userguide/musicxml_import.md:47
 msgid ""
 "repeated time duration on the same line are deleted. (This is identical to "
 "running Tools -> Rhythm -> Make implicit per line.)"
 msgstr ""
+"les indications de durée répétées sur une même ligne sont supprimées. (Ceci "
+"revient à utiliser Outils -> Rythme -> Durées implicites (ligne par ligne).)"
 
 #: ../userguide/musicxml_import.md:50
-#, fuzzy
 msgid "Remove fraction duration scaling:"
-msgstr "Enleve&r les durées"
+msgstr "Enlever les multiplicateurs :"
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:51
@@ -7867,6 +7924,10 @@ msgid ""
 "appending `*N/M` this scaling is removed. (This can be useful to prevent "
 "unwanted scaling to emerge from ill-formatted musicXML-files.)"
 msgstr ""
+"si des notes seules, silences ou accords sont multipliés par une fraction "
+"`N/M` avec `*N/M`, cette fraction est supprimée. (Ceci peut être utile pour "
+"empêcher des modifications indésirables dans un document musicXML mal "
+"formatté.)"
 
 #: ../userguide/musicxml_import.md:56
 msgid "Engrave directly:"
@@ -7877,6 +7938,8 @@ msgid ""
 "LilyPond runs directly. (This is identical to running LilyPond -> Engrave "
 "(preview).)"
 msgstr ""
+"LilyPond est lancé directement (Ceci revient à lancer LilyPond -> Graver "
+"(aperçu).)"
 
 #: ../userguide/scorewiz.md:1
 msgid "The Score Wizard"
@@ -7887,12 +7950,16 @@ msgid ""
 "The Score Setup Wizard ({key}) in {menu} is designed to quickly setup a "
 "LilyPond music score."
 msgstr ""
+"L'assistant de création de partition ({key}) dans {menu} est destiné à la "
+"création rapide d'une partition LilyPond."
 
 #. NOTE: markdown formatting
 #: ../userguide/scorewiz.md:6
 msgid ""
 "In the first tab, *Titles and Headers*, you can enter titling information."
 msgstr ""
+"Dans le premier onglet, *Titres et en-têtes*, vous pouvez entre les "
+"informations de titrage."
 
 #. NOTE: markdown formatting
 #: ../userguide/scorewiz.md:9
@@ -7903,6 +7970,12 @@ msgid ""
 "part, if desired. Many parts, especially Choir, have powerful options to set "
 "up the score the way you want it."
 msgstr ""
+"Dans le deuxième onglet, *Parties*, vous pouvez définir les instruments de "
+"votre partition. Double-cliquez un type d'instrument pour l'ajouter à la "
+"partition (ou cliquez Ajouter). Sélectionner l'instrument dans la liste de "
+"la partition pour modifier certains réglages pour cette partie, si "
+"nécessaire. De nombreux parties, particulièrement dans les Chœurs, disposent "
+"d'options puissantes pour paramétrer la partition comme vous le désirez."
 
 #. NOTE: markdown formatting
 #: ../userguide/scorewiz.md:17
@@ -7910,12 +7983,16 @@ msgid ""
 "In the third tab, *Score settings*, global score properties and preferences "
 "can be set."
 msgstr ""
+"Dans le troisième onglet, *Réglages de la partition*, les propriétés "
+"générales et préférences peuvent être définies."
 
 #: ../userguide/scorewiz.md:20
 msgid ""
 "Click the Preview button to get a preview with some example music filled in. "
 "Click OK to copy the generated LilyPond source text to the editor."
 msgstr ""
+"Cliquez sur le bouton Aperçu pour obtenir une prévisualisation avec quelques "
+"notes. Cliquez OK pour copier le code LilyPond généré dans l'éditeur."
 
 #: ../userguide/scorewiz.md:23
 msgid "Multiple pieces or movements"
@@ -7927,6 +8004,8 @@ msgid ""
 "A special and powerful feature of the *Parts* tab is hidden in the "
 "\"Containers\" category in the part types list."
 msgstr ""
+"Une fonction puissante de l'onglet *Parties* est cachée dans la catégorie "
+"\"Contenants\" située dans la liste des parties disponibles."
 
 #: ../userguide/scorewiz.md:28
 msgid ""
@@ -7936,6 +8015,13 @@ msgid ""
 "nested: a Score can be added to a Bookpart or Book but you can't add a Book "
 "to a Bookpart or a Score."
 msgstr ""
+"Cette catégorie contien les types Partition (Score), Livre (Book) et Partie "
+"de livre (Bookpart), avec lesquls vous pouvez définir un document LilyPond "
+"contenant plusieurs partitions ou même livres. Vous pouvez ajouter les "
+"entrées Partition, Livre et Partie de livre dans la vue de partition. Ils "
+"peuvent être inclus l'un dans l'autre: une Partition peut-être ajoutée dans "
+"une Partie de livre ou un Livre,mais vous ne pouvez pas placer un Livre dans "
+"une Partie de Livre ou une Partition."
 
 #: ../userguide/scorewiz.md:34
 msgid ""
@@ -7944,6 +8030,10 @@ msgid ""
 "score view, and then the scores, without adding musical parts to the scores. "
 "The scores will then use the parts in the top level of the score."
 msgstr ""
+"Ensuite, vous pouvez ajouter les instruments. Si vous désirez créer "
+"plusieurs partitions avec les mêmes instruments, vous pouvez ajouter les "
+"parties en haut de la vue de partition, puis les partitions sans y placer "
+"d'instruments. Les partitions utiliseront les instruments définis au-dessus."
 
 #: ../userguide/history.md:1
 msgid "History of Frescobaldi"
@@ -7954,9 +8044,11 @@ msgid ""
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
 "Kate. LilyKDE was written in Python and released in 2007 on Christmas."
 msgstr ""
+"Frescobaldi puise ses racines dans LilyKDE, qui était un module externe pour "
+"Kate, l'éditeur de KDE3. LilyKDE était écrit en Python et a été publié à "
+"Noël 2007"
 
 #: ../userguide/history.md:6
-#, fuzzy
 msgid ""
 "When KDE developed version 4, it was not immediately possible to make Kate "
 "plugins in Python. So LilyKDE became a standalone application, wrapping the "
@@ -7965,32 +8057,13 @@ msgid ""
 "public release, on Christmas 2008. On Christmas 2009 version 1.0.0 was "
 "released and on Christmas 2010 version 1.2.0."
 msgstr ""
-"<p>\n"
-"Frescobaldi puise ses racines dans LilyKDE, qui était un module externe pour "
-"Kate, l'éditeur de KDE3.\n"
-"LilyKDE était écrit en Python et a été publié à Noël 2007.\n"
-"</p>\n"
-"\n"
-"<p>\n"
 "Lorsque KDE a développé la version 4, il n'était pas possible de développer "
-"directement\n"
-"des modules externes pour Kate en Python. LilyKDE est alors devenu une "
-"application indépendante, incluant\n"
-"la partie éditeur de texte de Kate, et a été renommé Frescobaldi. "
-"Frescobaldi utilisait encore Okular,\n"
-"partie de KDE, pour afficher les fichiers PDF.\n"
-"Frescobaldi 0.7 fut publié à Noël 2008.\n"
-"À Noël 2009, la version 1.0.0 fut publiée, et à Noël 2010 la version 1.2.0.\n"
-"</p>\n"
-"\n"
-"<p>\n"
-"À ce moment, il fut décidé d'abandonner les librairies KDE4 et de n'utiliser "
-"que\n"
-"Python et Qt4 qui sont disponibles sur les plates-formes informatiques les "
-"plus courantes.\n"
-"Frescobaldi 2.0 est une ré-écriture complète. Sa publication est\n"
-"prévue pour Noël 2011.\n"
-"</p>\n"
+"directement des modules externes pour Kate en Python. LilyKDE est alors "
+"devenu une application indépendante, incluant la partie éditeur de texte de "
+"Kate, et a été renommé Frescobaldi. Frescobaldi utilisait encore Okular, "
+"partie de KDE, pour afficher les fichiers PDF. Frescobaldi 0.7 fut publié à "
+"Noël 2008. À Noël 2009, la version 1.0.0 fut publiée, et à Noël 2010 la "
+"version 1.2.0."
 
 #: ../userguide/history.md:13
 msgid ""
@@ -7999,6 +8072,10 @@ msgid ""
 "platforms. Frescobaldi 2.0 is a complete rewrite from scratch. Its release "
 "date is targeted at Christmas 2011."
 msgstr ""
+"À ce moment, il fut décidé d'abandonner les librairies KDE4 et de n'utiliser "
+"que Python et Qt4 qui sont disponibles sur les plates-formes informatiques "
+"les plus courantes. Frescobaldi 2.0 est une ré-écriture complète. Sa "
+"publication est prévue pour Noël 2011"
 
 #: ../userguide/prefs_fontscolors.md:3
 msgid ""
@@ -8042,50 +8119,42 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_helpers.md:3
-#, fuzzy
 msgid ""
 "In this page you can enter commands to open different file types. `$f` is "
 "replaced with the filename, `$u` with the URL. Leave a field empty to use "
 "the operating system default application."
 msgstr ""
 "Vous pouvez saisir ci-dessous les commandes pour ouvrir divers types de "
-"fichiers. <code>$f</code> est remplacé par le nom du fichier, "
-"<code>$u</code> par l'URL. Laissez un champ vide pour utiliser l'application "
-"défaut du système d'exploitation."
+"fichiers. `$f` est remplacé par le nom du fichier, `$u` par l'URL. Laissez "
+"un champ vide pour utiliser l'application défaut du système d'exploitation."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_helpers.md:8
-#, fuzzy
 msgid "For the e-mail setting, the command should accept a `mailto:` url."
-msgstr "Commande qui accepte un URL mailto:."
+msgstr ""
+"Pour les réglages de courriel, la commande doit accepter une adresse "
+"`mailto:`."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_helpers.md:11
-#, fuzzy
 msgid ""
 "For the command prompt, the command should open a console window. A `$f` "
 "value is replaced with the directory of the current document."
 msgstr ""
-"Pour les réglages de courriel, la commande doit accepter une adresse "
-"<code>mailto:</code>. Pour la ligne de commande, la commande doit ouvrir une "
-"fenêtre de console. Une valeur <code>$f</code> sera remplacée par le dossier "
-"du document en cours."
+"Pour la ligne de commande, la commande doit ouvrir une fenêtre de console. "
+"Une valeur `$f` sera remplacée par le dossier du document en cours."
 
 #: ../userguide/prefs_helpers.md:16
-#, fuzzy
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
 "don't need this, but on Windows and Mac OS X you can provide a command to "
 "avoid that PDF documents are being printed using raster images, which is "
 "less optimal."
 msgstr ""
-"La command d'impression est utilisée pour imprimer un fichier Postscript ou "
+"La commande d'impression est utilisée pour imprimer un fichier Postscript ou "
 "PDF. Sous Linux, ce n'est pas nécessaire, mais sous Windows et Mac OS X, "
 "vous pouvez définir une commande pour éviter que les documents ne soient "
-"imprimées comme images rastérisées, ce qui n'est pas optimal. "
-"<code>$pdf</code> est alors remplacé par le nom de fichier du PDF, ou "
-"<code>$ps</code> par celui du fichier Postscript. <code>$printer</code> est "
-"remplacé par le nom de l'imprimante à utiliser."
+"imprimées comme images rastérisées, ce qui n'est pas optimal."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_helpers.md:21
@@ -8094,22 +8163,24 @@ msgid ""
 "replaced with the PostScript filename. `$printer` is replaced with the "
 "printer's name to use."
 msgstr ""
+"`$pdf` est alors remplacé par le nom de fichier du PDF,  `$ps` par celui du "
+"fichier Postscript. `$printer` est remplacé par le nom de l'imprimante à "
+"utiliser."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_helpers.md:25
-#, fuzzy
 msgid ""
 "Uncheck the *Use Frescobaldi's print dialog* option when the printing "
 "command opens a print dialog itself, in which you can select e.g. the page "
 "range to print and the printer to use. If you don't use Frescobaldi's print "
 "dialog, you don't need to put the `$printer` variable in your command line."
 msgstr ""
-"Décochez l'option \"Utiliser le dialogue d'impression de Frescobaldi\" "
-"lorsque la commande d'impression ouvre un dialogue elle-même, dans lequel "
-"vous pouvez sélectionner entre autres les pages à imprimer et l'imprimante à "
+"Décochez l'option *Utiliser le dialogue d'impression de Frescobaldi* lorsque "
+"la commande d'impression ouvre un dialogue elle-même, dans lequel vous "
+"pouvez sélectionner entre autres les pages à imprimer et l'imprimante à "
 "utiliser. Si vous n'utilisez pas le dialogue d'impression de Frescobaldi, il "
-"n'est pas nécessaire d'inclure la variable <code>$printer</code> dans votre "
-"ligne de commande."
+"n'est pas nécessaire d'inclure la variable `$printer` dans votre ligne de "
+"commande."
 
 #: ../userguide/prefs_helpers.md:31
 msgid ""
@@ -8125,12 +8196,11 @@ msgstr "Mode personnalisé"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_custom.md:3
-#, fuzzy
 msgid ""
 "The *Engrave (Custom)* dialog ({key_engrave_custom}) gives you detailed "
 "access to all aspects of the LilyPond command."
 msgstr ""
-"Le dialogue <em>Graver (personnalisé)</em> ({custom_shortcut}) vous donne un "
+"Le dialogue *Graver (personnalisé)* ({key_engrave_custom}) vous donne un "
 "accès détaillé à tous les aspects de la commande LilyPond."
 
 #: ../userguide/engrave_custom.md:6
@@ -8143,32 +8213,29 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_custom.md:9
-#, fuzzy
 msgid ""
 "You can select from the LilyPond versions defined in the [prefs_lilypond "
 "Preferences] dialog, from the output formats available to LilyPond and (for "
 "PNG output) from a number of image resolutions."
 msgstr ""
 "Vous pouvez sélectionner la version de LilyPond (parmi celles définies dans "
-"le dialogue de {pref}, les formats de sorties disponibles et (pour une "
-"sortie en PNG) parmi plusieurs résolutions d'image."
+"le dialogue de [prefs_lilypond Préférences], les formats de sorties "
+"disponibles et (pour une sortie en PNG) parmi plusieurs résolutions d'image."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_custom.md:13
-#, fuzzy
 msgid ""
 "The options *Verbose Output* and *English Messages* may be relevant if you "
 "want to send information to a mailing list, and *Delete Intermediate Output "
 "Files* makes sure that LilyPond deletes e.g. PostScript files after they "
 "have been converted to PDF."
 msgstr ""
-"La sortie en « mode verbeux » et les messages en anglais sont intéressants "
-"si vous voulez envoyer des information à la liste de diffusion. Effacer les "
-"fichiers de sortie intermédiaires peut être utilisé pour <em>désactiver</em> "
-"le comportement par défaut."
+"La sortie en *mode verbeux* et les *messages en anglais* sont intéressants "
+"si vous voulez envoyer des information à la liste de diffusion. *Effacer les "
+"fichiers de sortie intermédiaires* s'assure que LilyPond efface, p. ex., les "
+"fichiers Postscript après leur conversion en PDF."
 
 #: ../userguide/engrave_custom.md:18
-#, fuzzy
 msgid ""
 "Most of these settings are reflected in the Command Line text edit field."
 msgstr ""
@@ -8200,6 +8267,8 @@ msgid ""
 "The Layout Control options display or highlight various layout aspects and "
 "will help you fine-tuning your scores."
 msgstr ""
+"Les options de contrôle de mise en page affichent ou mettent en évidence "
+"divers aspects de mise en page et vous aideront à peaufiner vos partitions."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:6
@@ -8207,6 +8276,8 @@ msgid ""
 "The options are accessible through the *Layout Control options* dockable "
 "panel ({menu_layout_control})."
 msgstr ""
+"Les options sont accessibles via le panneau *Options de contrôle de mise en "
+"page* ({menu_layout_control})."
 
 #: ../userguide/engrave_layout.md:9
 msgid "The following Layout Control options are currently implemented:"
@@ -8224,15 +8295,18 @@ msgid ""
 "Adds the `--verbose` option to the LilyPond commandline, causing LilyPond to "
 "print lots of information in the log window."
 msgstr ""
+"Ajoute l'option `--verbose`  à la commande LilyPond, permettant d'afficher "
+"de nombreuses informations dans le journal."
 
 #: ../userguide/engrave_layout.md:16
 msgid ""
 "Enables the point and click navigation links in the Music View. Enabled by "
 "default."
 msgstr ""
+"Active les liens de navigation Point and Click dans l'aperçu. Activé par "
+"défaut."
 
 #: ../userguide/engrave_layout.md:20
-#, fuzzy
 msgid ""
 "Slurs, Ties and other similar objects are drawn in LilyPond as third-order "
 "Bezier curves, which means that their shape is controlled by four "
@@ -8243,18 +8317,17 @@ msgstr ""
 "dessinés par LilyPond comme courbes de Bézier de troisième ordre, ce qui "
 "signifie que leur forme est contrôlée par quatre \"points de contrôle\" (les "
 "premier et dernier où la courbe commence et termine, les deux autres "
-"affectant la courbure). Changer la forme de ces objets implique le "
-"déplacement de ces points de contrôle, et il est utile de voir où ils se "
-"trouvent."
+"affectant la courbure)."
 
 #: ../userguide/engrave_layout.md:25
 msgid ""
 "Changing the shape of these objects involves moving these control-points "
 "around, and it's helpful to see where they actually are."
 msgstr ""
+"Changer la forme de ces objets implique le déplacement de ces points de "
+"contrôle, et il est utile de voir où ils se trouvent."
 
 #: ../userguide/engrave_layout.md:28
-#, fuzzy
 msgid ""
 "This option will display the inner control-points as red crosses and "
 "connects them to the outer (starting) points with thin lines."
@@ -8270,26 +8343,24 @@ msgstr "Colorer `\\voiceXXX`"
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:32
-#, fuzzy
 msgid ""
 "This mode highlights voices that have been explicitly set with one of the "
 "`\\voiceXXX` commands. This is useful when dealing with polyphony issues."
 msgstr ""
 "Ce mode colore les voix qui ont été explicitement crée avec une des "
-"commandes <code>\\voiceXXX</code>. C'est utile lorsqu'il faut gérer des "
-"problèmes de polyphonie."
+"commandes `\\voiceXXX`. C'est utile lorsqu'il faut gérer des problèmes de "
+"polyphonie."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:36
-#, fuzzy
 msgid ""
 "This mode colors items whose directions have been explicitly set with either "
 "the predefined commands `\\xxxUp` etc. or the directional operators `^` and "
 "`_`."
 msgstr ""
 "Ce mode colore les objets dont l'orientation a été explicitement définie "
-"soit par une commande prédéfinie <code>\\xxxUp</code>  etc., soit par des "
-"opérateurs d'orientation <code>^</code> et <code>_</code>."
+"soit par une commande prédéfinie `\\xxxUp`  etc., soit par des opérateurs "
+"d'orientation `^` et `_`."
 
 #: ../userguide/engrave_layout.md:40
 msgid "Please note how this mode and the previous are related:"
@@ -8297,7 +8368,6 @@ msgstr "Notez la façon dont ce mode et le précédent sont liés : "
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:42
-#, fuzzy
 msgid ""
 "When the condition for one of the the modes is reverted using `\\oneVoice` "
 "or `\\stemNeutral`, colors are reverted to black and will also revert the "
@@ -8305,9 +8375,9 @@ msgid ""
 "2.17.5.\""
 msgstr ""
 "Lorsque la condition pour un de ces modes est remise à zéro en utilisant des "
-"commandes telles que <code>\\oneVoice</code> ou <code>\\xxxNeutral</code>, "
-"les couleurs sont remises au noir et peuvent aussi supprimer le colorisation "
-"d'autres modes de débogage avec des version de LilyPond jusqu'à 2.17.5."
+"commandes telles que `\\oneVoice` ou `\\xxxNeutral`, les couleurs sont "
+"remises au noir et peuvent aussi supprimer le colorisation d'autres modes de "
+"contrôle de  mise en page avec des version de LilyPond jusqu'à 2.17.5."
 
 #: ../userguide/engrave_layout.md:47
 msgid ""
@@ -8323,29 +8393,29 @@ msgid ""
 "is a reference point?  It's a special point that defines the object's "
 "position."
 msgstr ""
+"Dans LilyPond, tous les objets graphiques ont un point d'ancrage (point de "
+"référence). Qu'est-ce qu'un point de référence ? C'est un point qui définit "
+"la position de l'objet."
 
 #: ../userguide/engrave_layout.md:55
-#, fuzzy
 msgid ""
 "Think about geometry: if you have to define where a figure is placed on a "
 "plane, you'll usually say something like \"the lower left corner of this "
 "square has coordinates (0, 2)\" or \"the center of this circle is at (-1, "
 "3)\"."
 msgstr ""
-"Dans LilyPond, tous les objets graphiques ont un point d'ancrage (point de "
-"référence). Qu'est-ce qu'un point de référence ? C'est un point qui définit "
-"la position de l'objet. Pensez à la géométrie: si vous définissez l'endroit "
-"où une figure se trouve sur un plan, vous direz généralement quelque chose "
-"comme \"le coin inférieur gauche de ce carré a des coordonnées (0, 2)\" ou "
-"\"le centre de ce cercle se trouve en (-1, 3)\". \"Le coin inférieur "
-"gauche\" et \"centre\" sont des points de référence pour le carré et le "
-"cercle."
+"Pensez à la géométrie: si vous définissez l'endroit où une figure se trouve "
+"sur un plan, vous direz généralement quelque chose comme \"le coin inférieur "
+"gauche de ce carré a des coordonnées (0, 2)\" ou \"le centre de ce cercle se "
+"trouve en (-1, 3)\"."
 
 #: ../userguide/engrave_layout.md:60
 msgid ""
 "\"Lower left corner\" and \"center\" would be the reference points for "
 "square and circle."
 msgstr ""
+"\"Le coin inférieur gauche\" et \"centre\" sont des points de référence pour "
+"le carré et le cercle."
 
 #: ../userguide/engrave_layout.md:63
 msgid "This Mode displays a red dot for each grob's anchor point."
@@ -8357,38 +8427,34 @@ msgid "This mode prints a grob's name next to it."
 msgstr "Ce mode affiche le nom d'un grob."
 
 #: ../userguide/engrave_layout.md:68
-#, fuzzy
 msgid ""
 "The main purpose of this layout control option is to retrieve information "
 "about Grob names, which may come in handy if you don't know where to look up "
 "available properties."
 msgstr ""
-"Le principal objectif de ce Mode de Débogage est d'obtenir une l'information "
-"ç propos des noms de \"grob\", ce qui peut s'avérer utile si on ne sait pas "
-"où chercher les propriétés disponibles."
+"Le principal objectif de ce Mode de contrôle de mise en page est d'obtenir "
+"une l'information à propos des noms de grob, ce qui peut s'avérer utile si "
+"on ne sait pas où chercher les propriétés disponibles."
 
 #: ../userguide/engrave_layout.md:72
-#, fuzzy
 msgid ""
 "Please note that displaying grob anchors and displaying grob names is "
 "mutually exclusive because both functions override the grob's stencil."
 msgstr ""
 "Notez que l'affichage des ancrages grob et celui des noms de grob s'excluent "
-"mutuellement, parce que les deux fonctions changement l'affichage du grob. "
-"Lorsque les deux modes sont actifs, seul les ancrages de grob seront "
-"affichés."
+"mutuellement, parce que les deux fonctions changement l'affichage du grob."
 
 #: ../userguide/engrave_layout.md:75
-#, fuzzy
 msgid ""
 "When both modes are active, only the grob anchors are displayed. Please also "
 "note that this mode is quite intrusive and may affect the layout. It is "
 "mainly useful for learning about grob names and will especially become "
 "usable once it can be activated for single grobs."
 msgstr ""
-"Notez que ce mode est assez intrusif et peut affecter la mise en page. Il "
-"sera surtout utile pour apprendre les noms de grob, et particulièrement "
-"quand il peut être activer pour un seul type de \"grob\"."
+" Lorsque les deux modes sont actifs, seul les ancrages de grob seront "
+"affichés. Notez que ce mode est assez intrusif et peut affecter la mise en "
+"page. Il sera surtout utile pour apprendre les noms de grob, et "
+"particulièrement quand il peut être activé pour un seul type de grob."
 
 #: ../userguide/engrave_layout.md:81
 msgid ""
@@ -8428,7 +8494,6 @@ msgid "Include Custom File"
 msgstr "Insérer un fichier personnalisé"
 
 #: ../userguide/engrave_layout.md:95
-#, fuzzy
 msgid ""
 "This mode offers the opportunity to add one's own Debug Modes by including a "
 "custom file. This file will be included at program startup and may contain "
@@ -8438,25 +8503,24 @@ msgstr ""
 "Ce mode offre l'opportunité d'ajouter votre propre mode de débogage en "
 "incluant un fichier personnalisé. Ce fichier sera inclus au départ du "
 "logiciel et devra contenir le code LilyPond que vous voulez voir exécuté "
-"lorsque vous utiliser le mode Aperçu. Ce fichier sera analysé avant tous les "
-"autres modes; vous pouvez donc l'utiliser pour configurer ceux-ci."
+"lorsque vous utiliser le mode de contrôle de mise en page."
 
 #: ../userguide/engrave_layout.md:100
 msgid ""
 "This file will be parsed before any of the other Layout Control Modes so you "
 "may use it to configure them."
 msgstr ""
+" Ce fichier sera analysé avant tous les autres modes de contrôle de mise en "
+"page; vous pouvez donc l'utiliser pour configurer ceux-ci."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_layout.md:103
-#, fuzzy
 msgid ""
 "The given string will be literally included in an `\\include` directive, so "
 "you are responsible yourself that LilyPond can find it."
 msgstr ""
 "La chaîne de caractères sera incluse telle quelle dans une directive "
-"<code>\\include</code>; vous êtes donc responsable si LilyPond ne trouve "
-"rien."
+"`\\include`; vous êtes donc responsable si LilyPond ne trouve rien."
 
 #: ../userguide/prefs_lilypond.md:3
 msgid ""
@@ -8466,7 +8530,6 @@ msgstr ""
 "compilez votre document."
 
 #: ../userguide/prefs_lilypond.md:5
-#, fuzzy
 msgid ""
 "If you have multiple versions of LilyPond installed you can specify them "
 "here, and configure Frescobaldi to automatically choose the right one, based "
@@ -8474,22 +8537,20 @@ msgid ""
 msgstr ""
 "Si vous avez plusieurs versions de LilyPond installés, vous les pouvez "
 "spécifier ici, et configurer Frescobaldi pour automatiquement choisir la "
-"bonne, en fonction du numéro de version défini dans le document "
-"({more_info})."
+"bonne, en fonction du numéro de version défini dans le document. Voir {link}."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilypond.md:9
-#, fuzzy
 msgid ""
 "If the LilyPond executable is not in your system's PATH you can specify the "
 "full path here so Frescobaldi can run it. For the helper applications like "
 "`convert-ly` and `lilypond-book` you don't need to specify the full path if "
 "they are in the same directory as the LilyPond executable itself."
 msgstr ""
-"Si l'exécutable LilyPond n'est pas dans le « PATH x de votre système, vous "
+"Si l'exécutable LilyPond n'est pas dans le PATH de votre système, vous "
 "pouvez spécifier ici son chemin d'accès complet de sorte que Frescobaldi "
 "puisse fonctionner. Il n'est pas nécessaire de spécifier des applications "
-"auxiliaires telles que convert-ly et lilypond-book si elles sont dans le "
+"auxiliaires telles que `convert-ly` et `lilypond-book` si elles sont dans le "
 "même répertoire que l'exécutable LilyPond."
 
 #: ../userguide/prefs_lilypond.md:14
@@ -8497,6 +8558,9 @@ msgid ""
 "You may enter a custom label to easily recognize a specific LilyPond "
 "instance. I you do not enter a label, \"LilyPond\" is used."
 msgstr ""
+"Vous pouvez entrer un nom personnalisé pour reconnaitre chaque instance "
+"spécifique de LilyPond. Si vous n'en entrez aucune, \"LilyPond\" sera "
+"utilisé."
 
 #: ../userguide/prefs_lilypond.md:17
 msgid ""
@@ -8514,6 +8578,10 @@ msgid ""
 "dragging them inside the list. This influences the order in which LilyPond "
 "searches for files."
 msgstr ""
+"Enfin, vous pouvez définir une liste d'emplacements où LilyPond recherchera "
+"des fichiers pour la commande `\\include`. Vous pouvez en modifier l'ordre "
+"en les glissant dans la liste. Ceci influence l'ordre dans lequel LilyPond "
+"recherche les fichiers."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilypond_autoversion.md:3
@@ -8521,16 +8589,16 @@ msgid ""
 "If this setting is enabled, the document is searched for a LilyPond "
 "`\\version` command or a `version` document variable."
 msgstr ""
+"Si ce réglage est activé, une commande LilyPond `\\version` ou une variable "
+"de document `version` est recherchée dans le document."
 
 #: ../userguide/prefs_lilypond_autoversion.md:6
-#, fuzzy
 msgid "The LilyPond version command looks like:"
-msgstr "Version de LilyPond à utiliser :"
+msgstr "La commande de version de LilyPond ressemble à ceci :"
 
 #: ../userguide/prefs_lilypond_autoversion.md:12
-#, fuzzy
 msgid "The document variable looks like:"
-msgstr "Variables de document"
+msgstr "Les variables de document ressemblent à ceci :"
 
 #: ../userguide/prefs_lilypond_autoversion.md:18
 msgid ""
@@ -8538,29 +8606,31 @@ msgid ""
 "document. This way the LilyPond version to use can also be specified in "
 "non-LilyPond documents like HTML, LaTeX, etc."
 msgstr ""
+"quelque part (dans une section de commentaire) dans les 5 premières ou "
+"dernières lignes du document. De cette façon, la version de LilyPond à "
+"utiliser peut également être spécifiée pour des documents non-LilyPond, "
+"comme HTML, LaTeX, etc."
 
 #: ../userguide/prefs_lilypond_autoversion.md:22
 msgid ""
 "If the document specifies a version, the oldest suitable LilyPond version is "
 "chosen. Otherwise, the default version is chosen."
 msgstr ""
+"Si le document spécifie une version, la version compatible la plus ancienne "
+"de LilyPond est choisie. Sinon, la version par défaut est choisie."
 
 #: ../userguide/editing.md:1
 msgid "Editing Files"
 msgstr "Éditer les fichiers"
 
 #: ../userguide/editing.md:3
-#, fuzzy
 msgid ""
 "In this part the features of the editor are discussed, e.g. how to control "
 "auto-indenting, how to use search and replace, etcetera."
 msgstr ""
-"<p>\n"
-"Dans cette partie sont présentées les fonctionnalités de l'éditeur,\n"
-"parmi lesquelles le contrôle de l'indentation automatique, l'utilisation de "
-"la recherche\n"
-"et remplacement etc.\n"
-"</p>\n"
+"Dans cette partie sont présentées les fonctionnalités de l'éditeur, parmi "
+"lesquelles le contrôle de l'indentation automatique, l'utilisation de la "
+"recherche et remplacement etc."
 
 #: ../userguide/engraving.md:1
 msgid "Engraving Scores"
@@ -8573,6 +8643,10 @@ msgid ""
 "options. There are four modes Frescobaldi can compile scores in: *Preview*, "
 "*Publish*, *Layout Control* and *Custom*."
 msgstr ""
+"Pour graver une partition, Frescobaldi lance LilyPond avec les options de "
+"lignes de commande correctes. Il y a quatre modes de compilation dans "
+"Frescobaldi: *Aperçu*, *Publication*, *Contrôle de mise en page* et "
+"*Personnalisé*."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:7
@@ -8581,12 +8655,15 @@ msgid ""
 "so that there is two-way navigation between the music view and the LilyPond "
 "source."
 msgstr ""
+"Le mode *Aperçu* génère un PDF avec les informations Point and Click "
+"activées, de façon à pouvoir naviguer entre l'aperçu et le code source "
+"LilyPond."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:10
 msgid ""
 "The *Publish mode* is used to produce the final PDF intented to be shared."
-msgstr ""
+msgstr "Le mode *Publication* sert à générer un PDF destiné à être partagé."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:12
@@ -8594,6 +8671,9 @@ msgid ""
 "The *Layout Control mode* can be used to enable specific features that can "
 "help in controlling and fine-tuning the layout of a score."
 msgstr ""
+"Le mode *Contrôle de mise en page* peut être utilisé pour activer des "
+"fonctions spéciales aidant au contrôle et réglage précis de la mise en page "
+"de la partition."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:15
@@ -8602,6 +8682,10 @@ msgid ""
 "command in detail. This dialog also has options to let LilyPond engrave a "
 "score to PostScript, SVG or PNG images, or to a PDF using the EPS backend."
 msgstr ""
+"Le mode *Personnalisé* ouvre une boîte de dialogue permettant de spécifier "
+"la commande LilyPond en détail. Ce dialogue propose également des options "
+"pour graver la partition comme image Postscript, SVG ou PNG, ou vers un "
+"fichier PDF avec backend EPS."
 
 #: ../userguide/modal_transpose.md:1
 msgid "Modal transpose"
@@ -8620,13 +8704,14 @@ msgid ""
 "Frescobaldi offers the following pitch-manipulating functions, all in the "
 "menu {menu}:"
 msgstr ""
+"Frescobaldi propose les fonctions de manipulation des hauteurs de notes "
+"suivantes, toutes dans le menu {menu} :"
 
 #: ../userguide/pitch.md:7
 msgid "Pitch language"
 msgstr "Langue du nom des notes :"
 
 #: ../userguide/pitch.md:8
-#, fuzzy
 msgid "This translates pitch names in the whole document or a selection."
 msgstr "Transpose toutes les notes du document ou de la sélection."
 
@@ -8640,6 +8725,8 @@ msgid ""
 "This converts all `\\relative` music parts to absolute pitch names. It "
 "removes, but honours, octave checks."
 msgstr ""
+"Ceci convertit toutes les parties de musique `\\relative` en noms de notes "
+"absolus. Cela supprime, mais respecte, les vérifications d'octave."
 
 #: ../userguide/pitch.md:14
 msgid "Convert absolute music to relative"
@@ -8653,6 +8740,11 @@ msgid ""
 "sub-expressions relative, it may be necessary to select music from the first "
 "expression, leaving out higher-level opening braces."
 msgstr ""
+"Vérifie toutes les expressions musicales de haut niveau, en les changeant en "
+"mode `\\relative` du moment que l'expression contient une hauteur de note. "
+"Si vous voulez rendre les sous-expressions séparées relatives, il peut être "
+"nécessaire de sélectionner la musique de la première expression, en laissant "
+"les accolades d'ouverture du niveau supérieur."
 
 #: ../userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
