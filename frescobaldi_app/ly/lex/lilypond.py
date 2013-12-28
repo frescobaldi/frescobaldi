@@ -954,7 +954,7 @@ class ParseLayout(ParseLilyPond):
         EqualSign,
         DecimalValue,
         Unit,
-    )
+    ) + command_items
 
 
 class ExpectLayout(ExpectOpenBracket):
@@ -970,7 +970,7 @@ class ParseMidi(ParseLilyPond):
         EqualSign,
         DecimalValue,
         Unit,
-    )
+    ) + command_items
 
 
 class ExpectMidi(ExpectOpenBracket):
