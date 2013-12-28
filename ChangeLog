@@ -2,6 +2,20 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.13 -- December 31rd, 2013
+
+* Translations:
+  - updated: nl, fr
+* New features:
+  - real-time Midi capturing, contributed by Manuel Mchalwat (this was actually
+    in 2.0.12, I just forgot to write it in the ChangeLog!)
+  - basic MusicXML export, contributed by Peter Bjuhr (this was also already
+    added in Frescobaldi 2.0.12)
+* Bug fixes:
+  - Fix UnboundLocalError in ly.docinfo e.g. when showing the Tools->Pitch->
+    Language menu
+
+
 Changes in 2.0.12 -- December 26th, 2013
 
 * Translations:
