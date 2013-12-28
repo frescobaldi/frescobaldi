@@ -46,7 +46,7 @@ class SvgFiles(plugin.DocumentPlugin):
         self._files = None
         
     def update(self):
-        files = resultfiles.results(self.document()).files('.svg')
+        files = resultfiles.results(self.document()).files('.svg*')
         self._files = files
         if files and self.current >= len(files):
             self.current = len(files) - 1
