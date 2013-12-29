@@ -121,6 +121,6 @@ class AutoCompileManager(plugin.DocumentPlugin):
     def slotDocumentSaved(self):
         """Called when the document is saved. Forces auto-compile once."""
         self._dirty = True
-        self._tokens = None
+        self._hash = None
 
 
