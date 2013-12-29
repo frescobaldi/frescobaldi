@@ -29,8 +29,6 @@ a certain time, if the document looks complete
 
 The log is not displayed.
 
-To be implemented.
-
 """
 
 from __future__ import unicode_literals
@@ -42,7 +40,6 @@ import resultfiles
 import jobattributes
 import jobmanager
 import plugin
-import ly.lex.lilypond
 
 from . import engraver
 from . import command
@@ -107,9 +104,7 @@ class AutoCompileManager(plugin.DocumentPlugin):
         """Return True if we could need to compile the document."""
         if self._dirty:
             dinfo = documentinfo.docinfo(self.document())
-            if (dinfo.mode() == "lilypond"
-                and dinfo.complete()
-                and dinfo.find(cls=ly.lex.lilypond.Note) != -1):
+            if (dinfo.mode() == "lilypond" and dinfo.complete()):
                 h = self.token_hash()
                 if h != self._hash:
                     self._hash = h
