@@ -40,6 +40,7 @@ import resultfiles
 import jobattributes
 import jobmanager
 import plugin
+import ly.lex
 
 from . import engraver
 from . import command
