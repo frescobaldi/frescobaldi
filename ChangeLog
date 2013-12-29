@@ -7,6 +7,8 @@ Changes in 2.0.13 -- December 31rd, 2013
 * Translations:
   - updated: nl, fr
 * New features:
+  - a new option LilyPond->Continuous Auto-compile, that runs the engraver in
+    preview mode everytime the document changes
   - real-time Midi capturing, contributed by Manuel Mchalwat (this was actually
     in 2.0.12, I just forgot to write it in the ChangeLog!)
   - basic MusicXML export, contributed by Peter Bjuhr (this was also already

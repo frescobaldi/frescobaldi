@@ -35,3 +35,91 @@ To be implemented.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import QTimer
+
+import documentinfo
+import resultfiles
+import jobattributes
+import jobmanager
+import plugin
+import ly.lex.lilypond
+
+from . import engraver
+from . import command
+
+
+class AutoCompiler(plugin.MainWindowPlugin):
+    
+    def setEnabled(self, enabled):
+        try:
+            timer = self._autocompile_timer
+        except AttributeError:
+            timer = self._autocompile_timer = QTimer()
+            timer.timeout.connect(self.autocompileTimeout)
+            timer.setSingleShot(False)
+        if enabled:
+            timer.start(1000)
+        else:
+            timer.stop()
+    
+    def autocompileTimeout(self):
+        """Called when the autocompile timer expires."""
+        eng = engraver(self.mainwindow())
+        doc = eng.document()
+        rjob = jobmanager.job(doc)
+        if rjob and rjob.isRunning() and not jobattributes.get(rjob).hidden:
+            return
+        
+        mgr = AutoCompileManager.instance(doc)
+        may_compile = mgr.may_compile()
+        if not may_compile:
+            cur = self.mainwindow().currentDocument()
+            if doc is not cur:
+                may_compile = AutoCompileManager.instance(cur).may_compile()
+        if may_compile:
+            job = command.defaultJob(doc, ['-dpoint-and-click'])
+            jobattributes.get(job).hidden = True
+            eng.runJob(job, doc)
+            mgr._dirty = False
+
+
+class AutoCompileManager(plugin.DocumentPlugin):
+    def __init__(self, document):
+        document.contentsChanged.connect(self.slotDocumentContentsChanged)
+        document.saved.connect(self.slotDocumentSaved)
+        self._dirty = document.isModified() or not resultfiles.results(document).files('.pdf')
+        self._hash = None if self._dirty else self.token_hash()
+    
+    def token_hash(self):
+        """Return a hash for all non-whitespace tokens.
+        
+        Used to determine non-whitespace changes.
+        
+        """
+        dinfo = documentinfo.docinfo(self.document())
+        return hash(tuple(t for t in dinfo.tokens
+                  if not isinstance(t, (ly.lex.Space, ly.lex.Comment))))
+    
+    def may_compile(self):
+        """Return True if we could need to compile the document."""
+        if self._dirty:
+            dinfo = documentinfo.docinfo(self.document())
+            if (dinfo.mode() == "lilypond"
+                and dinfo.complete()
+                and dinfo.find(cls=ly.lex.lilypond.Note) != -1):
+                h = self.token_hash()
+                if h != self._hash:
+                    self._hash = h
+                    return True
+            self._dirty = False
+    
+    def slotDocumentContentsChanged(self):
+        """Called when the user modifies the document."""
+        self._dirty = True
+
+    def slotDocumentSaved(self):
+        """Called when the document is saved. Forces auto-compile once."""
+        self._dirty = True
+        self._tokens = None
+
+

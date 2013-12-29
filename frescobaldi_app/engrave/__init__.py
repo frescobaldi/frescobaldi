@@ -57,12 +57,15 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_debug.triggered.connect(self.engraveLayoutControl)
         ac.engrave_custom.triggered.connect(self.engraveCustom)
         ac.engrave_abort.triggered.connect(self.engraveAbort)
+        ac.engrave_autocompile.toggled.connect(self.engraveAutoCompileToggled)
         mainwindow.currentDocumentChanged.connect(self.updateActions)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
         app.jobFinished.connect(self.checkLilyPondInstalled)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
+        mainwindow.aboutToClose.connect(self.saveSettings)
+        self.loadSettings()
         app.languageChanged.connect(self.updateStickyActionText)
         self.updateStickyActionText()
         
@@ -82,7 +85,7 @@ class Engraver(plugin.MainWindowPlugin):
         """Returns a Job for the sticky or current document if that is running."""
         doc = self.document()
         job = jobmanager.job(doc)
-        if job and job.isRunning():
+        if job and job.isRunning() and not jobattributes.get(job).hidden:
             return job
     
     def updateActions(self):
@@ -177,6 +180,10 @@ class Engraver(plugin.MainWindowPlugin):
     def runJob(self, job, document):
         """Runs the engraving job on behalf of document."""
         jobattributes.get(job).mainwindow = self.mainwindow()
+        # cancel running job, that would be an autocompile job
+        rjob = jobmanager.job(document)
+        if rjob and rjob.isRunning():
+            rjob.abort()
         jobmanager.manager(document).startJob(job)
     
     def stickyToggled(self):
@@ -218,6 +225,11 @@ class Engraver(plugin.MainWindowPlugin):
             text = _("&Always Engrave This Document")
         self.actionCollection.engrave_sticky.setText(text)
     
+    def engraveAutoCompileToggled(self, enabled):
+        """Called when the user toggles autocompile on/off."""
+        from . import autocompile
+        autocompile.AutoCompiler.instance(self.mainwindow()).setEnabled(enabled)
+    
     def slotSessionChanged(self):
         """Called when the session is changed."""
         import sessions
@@ -239,6 +251,20 @@ class Engraver(plugin.MainWindowPlugin):
                 g.setValue("sticky_url", d.url())
             else:
                 g.remove("sticky_url")
+    
+    def saveSettings(self):
+        """Save the state of some actions."""
+        ac = self.actionCollection
+        s = QSettings()
+        s.beginGroup("engraving")
+        s.setValue("autocompile", ac.engrave_autocompile.isChecked())
+        
+    def loadSettings(self):
+        """Load the state of some actions."""
+        ac = self.actionCollection
+        s = QSettings()
+        s.beginGroup("engraving")
+        ac.engrave_autocompile.setChecked(s.value("autocompile", False, bool))
     
     def checkLilyPondInstalled(self, document, job, success):
         """Called when LilyPond is run for the first time.
@@ -270,6 +296,8 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_debug = QAction(parent)
         self.engrave_custom = QAction(parent)
         self.engrave_abort = QAction(parent)
+        self.engrave_autocompile = QAction(parent)
+        self.engrave_autocompile.setCheckable(True)
         
         self.engrave_preview.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_M))
         self.engrave_publish.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_P))
@@ -291,5 +319,6 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_debug.setText(_("Engrave (&layout control)"))
         self.engrave_custom.setText(_("Engrave (&custom)..."))
         self.engrave_abort.setText(_("Abort Engraving &Job"))
+        self.engrave_autocompile.setText(_("Co&ntinuous Auto-compile"))
         
         

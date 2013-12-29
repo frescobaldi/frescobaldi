@@ -243,6 +243,7 @@ def menu_lilypond(mainwindow):
     ac = engrave.engraver(mainwindow).actionCollection
     
     m.addAction(ac.engrave_sticky)
+    m.addAction(ac.engrave_autocompile)
     m.addSeparator()
     m.addAction(ac.engrave_preview)
     m.addAction(ac.engrave_publish)
