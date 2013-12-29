@@ -172,11 +172,13 @@ lilypond_paper_variables = listmodel.ListModel(
     sorted(ly.words.papervariables), edit = util.variable)
 
 lilypond_layout_variables = listmodel.ListModel(
-    ['\\context {',] + sorted(ly.words.layoutvariables),
+    ['\\context {', '\\override', '\\set'] +
+    sorted(ly.words.layoutvariables),
     edit = util.cmd_or_var)
 
 lilypond_midi_variables = listmodel.ListModel(
-    ['\\context {',] + sorted(ly.words.midivariables),
+    ['\\context {', '\\override', '\\set', '\\tempo',] +
+    sorted(ly.words.midivariables),
     edit = util.cmd_or_var)
 
 lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
