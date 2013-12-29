@@ -29,6 +29,7 @@ from PyQt4.QtGui import QProgressBar
 import app
 import plugin
 import jobmanager
+import jobattributes
 import metainfo
 import widgets.progressbar
 
@@ -59,12 +60,12 @@ class ProgressBar(plugin.ViewSpacePlugin):
         else:
             self._bar.stop(False)
     
-    def jobStarted(self, document):
-        if document == self.viewSpace().document():
+    def jobStarted(self, document, job):
+        if document == self.viewSpace().document() and not jobattributes.get(job).hidden:
             self.showProgress(document)
     
     def jobFinished(self, document, job, success):
-        if document == self.viewSpace().document():
+        if document == self.viewSpace().document() and not jobattributes.get(job).hidden:
             self._bar.stop(success)
             if success:
                 metainfo.info(document).buildtime = job.elapsed()

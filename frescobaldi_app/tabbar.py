@@ -31,6 +31,7 @@ import icons
 import document
 import documentcontextmenu
 import jobmanager
+import jobattributes
 import util
 
 
@@ -96,7 +97,8 @@ class TabBar(QTabBar):
                 tooltip = None
             self.setTabToolTip(index, tooltip)
             # icon
-            if jobmanager.isRunning(doc):
+            job = jobmanager.job(doc)
+            if job and job.isRunning() and not jobattributes.get(job).hidden:
                 icon = 'lilypond-run'
             elif doc.isModified():
                 icon = 'document-save'
