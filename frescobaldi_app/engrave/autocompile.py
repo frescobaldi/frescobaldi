@@ -72,7 +72,7 @@ class AutoCompiler(plugin.MainWindowPlugin):
         may_compile = mgr.may_compile()
         if not may_compile:
             cur = self.mainwindow().currentDocument()
-            if doc is not cur:
+            if doc is not cur and not cur.isModified():
                 mgr = AutoCompileManager.instance(cur)
                 may_compile = mgr.may_compile()
                 if may_compile:
