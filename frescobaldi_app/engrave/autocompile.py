@@ -75,7 +75,8 @@ class AutoCompiler(plugin.MainWindowPlugin):
         if not may_compile:
             cur = self.mainwindow().currentDocument()
             if doc is not cur:
-                may_compile = AutoCompileManager.instance(cur).may_compile()
+                mgr = AutoCompileManager.instance(cur)
+                may_compile = mgr.may_compile()
         if may_compile:
             job = command.defaultJob(doc, ['-dpoint-and-click'])
             jobattributes.get(job).hidden = True
