@@ -72,7 +72,7 @@ class AutoCompiler(plugin.MainWindowPlugin):
         may_compile = mgr.may_compile()
         if not may_compile:
             cur = self.mainwindow().currentDocument()
-            if doc is not cur and not cur.isModified():
+            if doc is not cur and not cur.isModified() and not cur.url().isEmpty():
                 mgr = AutoCompileManager.instance(cur)
                 may_compile = mgr.may_compile()
                 if may_compile:
@@ -109,7 +109,8 @@ class AutoCompileManager(plugin.DocumentPlugin):
                 h = self.token_hash()
                 if h != self._hash:
                     self._hash = h
-                    return True
+                    if h != hash(tuple()):
+                        return True
             self._dirty = False
     
     def slotDocumentContentsChanged(self):
