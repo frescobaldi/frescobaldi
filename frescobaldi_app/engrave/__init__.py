@@ -319,6 +319,6 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_debug.setText(_("Engrave (&layout control)"))
         self.engrave_custom.setText(_("Engrave (&custom)..."))
         self.engrave_abort.setText(_("Abort Engraving &Job"))
-        self.engrave_autocompile.setText(_("Co&ntinuous Auto-compile"))
+        self.engrave_autocompile.setText(_("Auto-e&ngrave"))
         
         
