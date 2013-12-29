@@ -77,11 +77,12 @@ class AutoCompiler(plugin.MainWindowPlugin):
             if doc is not cur:
                 mgr = AutoCompileManager.instance(cur)
                 may_compile = mgr.may_compile()
+                if may_compile:
+                    mgr.slotJobStarted()
         if may_compile:
             job = command.defaultJob(doc, ['-dpoint-and-click'])
             jobattributes.get(job).hidden = True
             eng.runJob(job, doc)
-            mgr._dirty = False
 
 
 class AutoCompileManager(plugin.DocumentPlugin):
@@ -90,6 +91,7 @@ class AutoCompileManager(plugin.DocumentPlugin):
         document.saved.connect(self.slotDocumentSaved)
         self._dirty = document.isModified() or not resultfiles.results(document).files('.pdf')
         self._hash = None if self._dirty else self.token_hash()
+        jobmanager.manager(document).started.connect(self.slotJobStarted)
     
     def token_hash(self):
         """Return a hash for all non-whitespace tokens.
@@ -122,5 +124,11 @@ class AutoCompileManager(plugin.DocumentPlugin):
         """Called when the document is saved. Forces auto-compile once."""
         self._dirty = True
         self._hash = None
+    
+    def slotJobStarted(self):
+        """Called when an engraving job is started on this document."""
+        if self._dirty:
+            self._dirty = False
+            self._hash = self.token_hash()
 
 
