@@ -71,7 +71,7 @@ class LogWidget(log.Log):
         job = jobmanager.job(doc)
         if job:
             # do not show the messages for auto-engrave jobs if the user has disabled it
-            if QSettings().value("log/hide_auto_engrave", False, bool) and jobattributes.get(job).hidden:
+            if jobattributes.get(job).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
                 return
             prevDoc = self._document()
             if prevDoc and prevDoc != doc:

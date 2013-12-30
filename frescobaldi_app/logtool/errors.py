@@ -66,7 +66,7 @@ class Errors(plugin.DocumentPlugin):
         
         """
         # do not collect errors for auto-engrave jobs if the user has disabled it
-        if QSettings().value("log/hide_auto_engrave", False, bool) and jobattributes.get(job).hidden:
+        if jobattributes.get(job).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
             return
         # clear earlier set error marks
         docs = set([self.document()])
