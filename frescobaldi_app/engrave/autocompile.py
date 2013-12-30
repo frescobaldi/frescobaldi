@@ -35,6 +35,7 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QTimer
 
+import app
 import documentinfo
 import resultfiles
 import jobattributes
@@ -47,20 +48,46 @@ from . import command
 
 
 class AutoCompiler(plugin.MainWindowPlugin):
+    def __init__(self, mainwindow):
+        self._enabled = False
+        self._timer = QTimer(singleShot=True)
+        self._timer.timeout.connect(self.slotTimeout)
     
     def setEnabled(self, enabled):
-        try:
-            timer = self._autocompile_timer
-        except AttributeError:
-            timer = self._autocompile_timer = QTimer()
-            timer.timeout.connect(self.autocompileTimeout)
-            timer.setSingleShot(False)
+        """Switch the autocompiler on or off."""
+        enabled = bool(enabled)
+        if enabled == self._enabled:
+            return
+        self._enabled = enabled
+
+        doc = self.mainwindow().currentDocument()
         if enabled:
-            timer.start(1000)
+            self.mainwindow().currentDocumentChanged.connect(self.slotDocumentChanged)
+            app.documentSaved.connect(self.startTimer)
+            if doc:
+                self.slotDocumentChanged(doc, None)
         else:
-            timer.stop()
+            self.mainwindow().currentDocumentChanged.disconnect(self.slotDocumentChanged)
+            app.documentSaved.disconnect(self.startTimer)
+            if doc:
+                self.slotDocumentChanged(None, doc)
     
-    def autocompileTimeout(self):
+    def slotDocumentChanged(self, new=None, old=None):
+        """Called when the mainwindow changes the current document."""
+        if old:
+            old.contentsChanged.disconnect(self.startTimer)
+            old.loaded.disconnect(self.startTimer)
+        if new:
+            new.contentsChanged.connect(self.startTimer)
+            new.loaded.connect(self.startTimer)
+            if self._enabled:
+                self.startTimer()
+    
+    def startTimer(self):
+        """Called to trigger a soon auto-compile try."""
+        self._timer.start(750)
+    
+    def slotTimeout(self):
         """Called when the autocompile timer expires."""
         eng = engraver(self.mainwindow())
         doc = eng.document()
