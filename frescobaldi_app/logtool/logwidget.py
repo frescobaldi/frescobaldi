@@ -70,7 +70,7 @@ class LogWidget(log.Log):
         """Called when the document is changed."""
         job = jobmanager.job(doc)
         if job:
-            # do show the messages for auto-engrave jobs if the user has disabled it
+            # do not show the messages for auto-engrave jobs if the user has disabled it
             if QSettings().value("log/hide_auto_engrave", False, bool) and jobattributes.get(job).hidden:
                 return
             prevDoc = self._document()
