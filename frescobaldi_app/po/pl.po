@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-29 14:15+0100\n"
+"POT-Creation-Date: 2013-12-30 07:39+0100\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -197,7 +197,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Proszę wprowadzić nazwę dla zmniennej przyporządkowanej do wybranego tekstu:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:171
+#: ../document.py:158 ../doclist/widget.py:134 ../snippet/edit.py:171
 msgid "Untitled"
 msgstr "Bez tytułu"
 
@@ -1000,7 +1000,7 @@ msgstr "Automatyczne &uzupełnianie"
 msgid "Show C&ompletions Popup"
 msgstr "Pokaż okno podręczne uzupełniania"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:230
+#: ../charmap/__init__.py:40 ../preferences/tools.py:239
 msgid "Special Characters"
 msgstr "Znaki specjalne"
 
@@ -1075,7 +1075,7 @@ msgstr "Otwórz Dokument w &Nowym Oknie"
 msgid "LilyPond Source"
 msgstr "Dokument źródłowy LilyPond "
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:263
+#: ../doclist/__init__.py:39 ../preferences/tools.py:272
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -1083,31 +1083,31 @@ msgstr "Dokumenty"
 msgid "Docum&ents"
 msgstr "Dokum&enty"
 
-#: ../doclist/widget.py:187
+#: ../doclist/widget.py:189
 #, fuzzy
 msgid "Save selected documents"
 msgstr "Zapisz zaznaczenie"
 
-#: ../doclist/widget.py:188
+#: ../doclist/widget.py:190
 #, fuzzy
 msgid "Close selected documents"
 msgstr "Zamknij inne dokumenty"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:196
 #, fuzzy
 msgid "Save documents in this folder"
 msgstr "Zapisz dokument jeśli to możliwe"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:197
 msgid "Close documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:198
+#: ../doclist/widget.py:200
 #, fuzzy
 msgid "Save all untitled documents"
 msgstr "Wyślij dokumenty e-mailem"
 
-#: ../doclist/widget.py:199
+#: ../doclist/widget.py:201
 #, fuzzy
 msgid "Close all untitled documents"
 msgstr "Zamknij wszystkie dokumenty"
@@ -1427,7 +1427,7 @@ msgid "Language for pitch names"
 msgstr ""
 
 #: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
-#: ../preferences/general.py:133 ../preferences/tools.py:296
+#: ../preferences/general.py:133 ../preferences/tools.py:305
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:196
@@ -1577,7 +1577,7 @@ msgstr ""
 msgid "Filename to be included"
 msgstr ""
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:95
+#: ../logtool/__init__.py:50 ../preferences/tools.py:98
 msgid "LilyPond Log"
 msgstr "LilyPond Log"
 
@@ -1593,7 +1593,7 @@ msgstr "Następny komunikat błędu"
 msgid "Previous Error Message"
 msgstr "Poprzedni komunikat błędu"
 
-#: ../logtool/logwidget.py:118
+#: ../logtool/logwidget.py:122
 msgid "Click to edit this file"
 msgstr "Kliknij by rozpocząć edycję pliku"
 
@@ -1924,7 +1924,7 @@ msgstr "Zapisz obraz jako"
 msgid "Could not save the image."
 msgstr "Nie można zapisać obrazu."
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:295
+#: ../outline/__init__.py:40 ../preferences/tools.py:304
 msgid "Outline"
 msgstr ""
 
@@ -2282,7 +2282,7 @@ msgid "English (untranslated)"
 msgstr "Angielski (bez tłumaczenia)"
 
 #: ../preferences/documentation.py:122 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:96 ../preferences/tools.py:231
+#: ../preferences/tools.py:99 ../preferences/tools.py:240
 msgid "Font:"
 msgstr "Czcionka:"
 
@@ -3073,82 +3073,92 @@ msgstr "(brak skrótu)"
 msgid "(default)"
 msgstr "(domyślny)"
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:100
 msgid "Show log when a job is started"
 msgstr "Pokazuj raport przy rozpoczęciu zadania"
 
-#: ../preferences/tools.py:98
+#: ../preferences/tools.py:101
 msgid "Display plain log output"
 msgstr "Wyświetlaj zwykły raport"
 
-#: ../preferences/tools.py:100
+#: ../preferences/tools.py:103
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr "Po zaznaczeniu Frescobaldi nie będzie skracał nazw plików w raporcie."
 
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:104
+msgid "Hide automatic engraving jobs"
+msgstr ""
+
+#: ../preferences/tools.py:106
+msgid ""
+"If checked, Frescobaldi will not show the log for automatically\n"
+"started engraving jobs (LilyPond->Auto-engrave)."
+msgstr ""
+
+#: ../preferences/tools.py:172
 msgid "Music View"
 msgstr "Okno partytury"
 
-#: ../preferences/tools.py:164
+#: ../preferences/tools.py:173
 #, fuzzy
 msgid "Only load updated PDF documents"
 msgstr "Zamknij wszystkie dokumenty"
 
-#: ../preferences/tools.py:166
+#: ../preferences/tools.py:175
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
 
-#: ../preferences/tools.py:168
+#: ../preferences/tools.py:177
 msgid "Magnifier Size:"
 msgstr "Wielkość powiększenia:"
 
-#: ../preferences/tools.py:170
+#: ../preferences/tools.py:179
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Wielkość szkła powiększającego (Ctrl+klik w oknie partytury)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:181
 msgid " pixels"
 msgstr "piksele"
 
-#: ../preferences/tools.py:173
+#: ../preferences/tools.py:182
 msgid "Magnifier Scale:"
 msgstr "Skala powiększenia:"
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:184
 msgid "Magnification of the magnifier."
 msgstr "Skala powiększenie lupy "
 
-#: ../preferences/tools.py:176
+#: ../preferences/tools.py:185
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:187
 msgid "Kinetic Scrolling"
 msgstr ""
 
-#: ../preferences/tools.py:179
+#: ../preferences/tools.py:188
 msgid "Show Scrollbars"
 msgstr ""
 
-#: ../preferences/tools.py:264
+#: ../preferences/tools.py:273
 msgid "Group documents by directory"
 msgstr "Grupuj dokumenty wg katalogów"
 
-#: ../preferences/tools.py:297
+#: ../preferences/tools.py:306
 #, fuzzy
 msgid "Restores the built-in outline patterns."
 msgstr "Wstawki Pythona"
 
-#: ../preferences/tools.py:298
+#: ../preferences/tools.py:307
 msgid "Patterns to match in text that are shown in outline:"
 msgstr ""
 
-#: ../preferences/tools.py:324
+#: ../preferences/tools.py:333
 msgid "Enter a regular expression to match:"
 msgstr ""
 

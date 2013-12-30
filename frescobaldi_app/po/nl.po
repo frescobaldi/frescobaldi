@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-29 14:15+0100\n"
-"PO-Revision-Date: 2013-12-29 14:16+0100\n"
+"POT-Creation-Date: 2013-12-30 07:39+0100\n"
+"PO-Revision-Date: 2013-12-30 07:41+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -191,7 +191,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Geef de naam van de variabele om de geselecteerde tekst aan toe te wijzen:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:171
+#: ../document.py:158 ../doclist/widget.py:134 ../snippet/edit.py:171
 msgid "Untitled"
 msgstr "Naamloos"
 
@@ -977,7 +977,7 @@ msgstr "Automatisch &aanvullen"
 msgid "Show C&ompletions Popup"
 msgstr "Aanvullingen &weergeven"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:230
+#: ../charmap/__init__.py:40 ../preferences/tools.py:239
 msgid "Special Characters"
 msgstr "Speciale tekens"
 
@@ -1052,7 +1052,7 @@ msgstr "Document in &nieuw venster openen"
 msgid "LilyPond Source"
 msgstr "LilyPond-bron"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:263
+#: ../doclist/__init__.py:39 ../preferences/tools.py:272
 msgid "Documents"
 msgstr "Documenten"
 
@@ -1060,27 +1060,27 @@ msgstr "Documenten"
 msgid "Docum&ents"
 msgstr "Docum&enten"
 
-#: ../doclist/widget.py:187
+#: ../doclist/widget.py:189
 msgid "Save selected documents"
 msgstr "Geselecteerde documenten opslaan"
 
-#: ../doclist/widget.py:188
+#: ../doclist/widget.py:190
 msgid "Close selected documents"
 msgstr "Geselecteerde documenten sluiten"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:196
 msgid "Save documents in this folder"
 msgstr "Documenten in deze map opslaan"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:197
 msgid "Close documents in this folder"
 msgstr "Documenten in deze map sluiten"
 
-#: ../doclist/widget.py:198
+#: ../doclist/widget.py:200
 msgid "Save all untitled documents"
 msgstr "Alle naamloze documenten opslaan"
 
-#: ../doclist/widget.py:199
+#: ../doclist/widget.py:201
 msgid "Close all untitled documents"
 msgstr "Alle naamloze documenten sluiten"
 
@@ -1393,7 +1393,7 @@ msgid "Language for pitch names"
 msgstr "Taal voor nootnamen"
 
 #: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
-#: ../preferences/general.py:133 ../preferences/tools.py:296
+#: ../preferences/general.py:133 ../preferences/tools.py:305
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:196
@@ -1537,7 +1537,7 @@ msgstr ""
 msgid "Filename to be included"
 msgstr "In te voegen bestand"
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:95
+#: ../logtool/__init__.py:50 ../preferences/tools.py:98
 msgid "LilyPond Log"
 msgstr "LilyPond-uitvoer"
 
@@ -1553,7 +1553,7 @@ msgstr "Volgende foutmelding"
 msgid "Previous Error Message"
 msgstr "Vorige foutmelding"
 
-#: ../logtool/logwidget.py:118
+#: ../logtool/logwidget.py:122
 msgid "Click to edit this file"
 msgstr "Klik om dit bestand te bewerken"
 
@@ -1897,7 +1897,7 @@ msgstr "Afbeelding opslaan als"
 msgid "Could not save the image."
 msgstr "Kan de afbeelding niet opslaan."
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:295
+#: ../outline/__init__.py:40 ../preferences/tools.py:304
 msgid "Outline"
 msgstr "Structuur"
 
@@ -2249,7 +2249,7 @@ msgid "English (untranslated)"
 msgstr "Engels (onvertaald)"
 
 #: ../preferences/documentation.py:122 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:96 ../preferences/tools.py:231
+#: ../preferences/tools.py:99 ../preferences/tools.py:240
 msgid "Font:"
 msgstr "Lettertype:"
 
@@ -3083,29 +3083,41 @@ msgstr "(geen sneltoets)"
 msgid "(default)"
 msgstr "(standaard)"
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:100
 msgid "Show log when a job is started"
 msgstr "Log weergeven als een taak wordt gestart"
 
-#: ../preferences/tools.py:98
+#: ../preferences/tools.py:101
 msgid "Display plain log output"
 msgstr "Ruwe loguitvoer weergeven"
 
-#: ../preferences/tools.py:100
+#: ../preferences/tools.py:103
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Indien ingeschakeld, zal Frescobaldi lange bestandsnamen in de loguitvoer "
 "niet inkorten."
 
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:104
+msgid "Hide automatic engraving jobs"
+msgstr "Automatische graveertaken verbergen"
+
+#: ../preferences/tools.py:106
+msgid ""
+"If checked, Frescobaldi will not show the log for automatically\n"
+"started engraving jobs (LilyPond->Auto-engrave)."
+msgstr ""
+"Indien ingeschakeld zal Frescobaldi de log-uitvoer voor automatisch\n"
+"gestarte graveertaken (LilyPond->Automatisch graveren) niet weergeven."
+
+#: ../preferences/tools.py:172
 msgid "Music View"
 msgstr "Muziekweergave"
 
-#: ../preferences/tools.py:164
+#: ../preferences/tools.py:173
 msgid "Only load updated PDF documents"
 msgstr "Alleen bijgewerkte PDF-documenten tonen"
 
-#: ../preferences/tools.py:166
+#: ../preferences/tools.py:175
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
@@ -3113,54 +3125,54 @@ msgstr ""
 "Indien ingeschakeld, zal Frescobaldi PDF-bestanden die ouder zijn dan het "
 "brondocument, niet weergeven."
 
-#: ../preferences/tools.py:168
+#: ../preferences/tools.py:177
 msgid "Magnifier Size:"
 msgstr "Grootte van vergrootglas:"
 
-#: ../preferences/tools.py:170
+#: ../preferences/tools.py:179
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Grootte van het vergrootglas (Control+klik in muziekweergave)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:181
 msgid " pixels"
 msgstr " pixels"
 
-#: ../preferences/tools.py:173
+#: ../preferences/tools.py:182
 msgid "Magnifier Scale:"
 msgstr "Schaal van vergrootglas:"
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:184
 msgid "Magnification of the magnifier."
 msgstr "Vergroting van het vergrootglas."
 
-#: ../preferences/tools.py:176
+#: ../preferences/tools.py:185
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:187
 msgid "Kinetic Scrolling"
 msgstr "Kinetisch schuiven"
 
-#: ../preferences/tools.py:179
+#: ../preferences/tools.py:188
 msgid "Show Scrollbars"
 msgstr "Schuifbalken weergeven"
 
-#: ../preferences/tools.py:264
+#: ../preferences/tools.py:273
 msgid "Group documents by directory"
 msgstr "Documenten per map groeperen"
 
-#: ../preferences/tools.py:297
+#: ../preferences/tools.py:306
 msgid "Restores the built-in outline patterns."
 msgstr "Zet de ingebouwde structuur-patronen terug."
 
-#: ../preferences/tools.py:298
+#: ../preferences/tools.py:307
 msgid "Patterns to match in text that are shown in outline:"
 msgstr "Patronen die in de documentstructuur worden weergeven:"
 
-#: ../preferences/tools.py:324
+#: ../preferences/tools.py:333
 msgid "Enter a regular expression to match:"
 msgstr "Voer een reguliere expressie in:"
 

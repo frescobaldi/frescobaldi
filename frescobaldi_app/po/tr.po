@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-29 14:15+0100\n"
+"POT-Creation-Date: 2013-12-30 07:39+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -211,7 +211,7 @@ msgstr "Kes ve Ata:"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Lütfen, metne atamak üzere değişkene bir ad veriniz:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:171
+#: ../document.py:158 ../doclist/widget.py:134 ../snippet/edit.py:171
 msgid "Untitled"
 msgstr "Başlıksız"
 
@@ -1047,7 +1047,7 @@ msgstr ""
 msgid "Show C&ompletions Popup"
 msgstr ""
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:230
+#: ../charmap/__init__.py:40 ../preferences/tools.py:239
 #, fuzzy
 msgid "Special Characters"
 msgstr "Özel Karakterler..."
@@ -1133,7 +1133,7 @@ msgstr "Belgeyi Aç &Yeni Pencerede"
 msgid "LilyPond Source"
 msgstr "LilyPond Günlüğü"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:263
+#: ../doclist/__init__.py:39 ../preferences/tools.py:272
 #, fuzzy
 msgid "Documents"
 msgstr "&Belge"
@@ -1143,30 +1143,30 @@ msgstr "&Belge"
 msgid "Docum&ents"
 msgstr "&Belge"
 
-#: ../doclist/widget.py:187
+#: ../doclist/widget.py:189
 #, fuzzy
 msgid "Save selected documents"
 msgstr "Partisyon ayarları"
 
-#: ../doclist/widget.py:188
+#: ../doclist/widget.py:190
 #, fuzzy
 msgid "Close selected documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:196
 msgid "Save documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:197
 msgid "Close documents in this folder"
 msgstr ""
 
-#: ../doclist/widget.py:198
+#: ../doclist/widget.py:200
 #, fuzzy
 msgid "Save all untitled documents"
 msgstr "E-posta belgeleri"
 
-#: ../doclist/widget.py:199
+#: ../doclist/widget.py:201
 #, fuzzy
 msgid "Close all untitled documents"
 msgstr "Diğer Belgeleri Kapat"
@@ -1487,7 +1487,7 @@ msgid "Language for pitch names"
 msgstr ""
 
 #: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
-#: ../preferences/general.py:133 ../preferences/tools.py:296
+#: ../preferences/general.py:133 ../preferences/tools.py:305
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:196
@@ -1635,7 +1635,7 @@ msgstr ""
 msgid "Filename to be included"
 msgstr ""
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:95
+#: ../logtool/__init__.py:50 ../preferences/tools.py:98
 msgid "LilyPond Log"
 msgstr "LilyPond Günlüğü"
 
@@ -1652,7 +1652,7 @@ msgstr ""
 msgid "Previous Error Message"
 msgstr ""
 
-#: ../logtool/logwidget.py:118
+#: ../logtool/logwidget.py:122
 msgid "Click to edit this file"
 msgstr "Bu dosyayı düzenlemek için tıklayınız."
 
@@ -2002,7 +2002,7 @@ msgstr ""
 msgid "Could not save the image."
 msgstr "Yüklenemedi %s"
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:295
+#: ../outline/__init__.py:40 ../preferences/tools.py:304
 msgid "Outline"
 msgstr ""
 
@@ -2386,7 +2386,7 @@ msgid "English (untranslated)"
 msgstr ""
 
 #: ../preferences/documentation.py:122 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:96 ../preferences/tools.py:231
+#: ../preferences/tools.py:99 ../preferences/tools.py:240
 msgid "Font:"
 msgstr ""
 
@@ -3217,84 +3217,94 @@ msgstr "Kısayol"
 msgid "(default)"
 msgstr "öntanımlı"
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:100
 msgid "Show log when a job is started"
 msgstr ""
 
-#: ../preferences/tools.py:98
+#: ../preferences/tools.py:101
 msgid "Display plain log output"
 msgstr ""
 
-#: ../preferences/tools.py:100
+#: ../preferences/tools.py:103
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:104
+msgid "Hide automatic engraving jobs"
+msgstr ""
+
+#: ../preferences/tools.py:106
+msgid ""
+"If checked, Frescobaldi will not show the log for automatically\n"
+"started engraving jobs (LilyPond->Auto-engrave)."
+msgstr ""
+
+#: ../preferences/tools.py:172
 msgid "Music View"
 msgstr ""
 
-#: ../preferences/tools.py:164
+#: ../preferences/tools.py:173
 #, fuzzy
 msgid "Only load updated PDF documents"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../preferences/tools.py:166
+#: ../preferences/tools.py:175
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
 
-#: ../preferences/tools.py:168
+#: ../preferences/tools.py:177
 #, fuzzy
 msgid "Magnifier Size:"
 msgstr "Sayfa ebadı:"
 
-#: ../preferences/tools.py:170
+#: ../preferences/tools.py:179
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:181
 msgid " pixels"
 msgstr ""
 
-#: ../preferences/tools.py:173
+#: ../preferences/tools.py:182
 msgid "Magnifier Scale:"
 msgstr ""
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:184
 msgid "Magnification of the magnifier."
 msgstr ""
 
-#: ../preferences/tools.py:176
+#: ../preferences/tools.py:185
 msgctxt "percent unit sign"
 msgid "%"
 msgstr ""
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:187
 msgid "Kinetic Scrolling"
 msgstr ""
 
-#: ../preferences/tools.py:179
+#: ../preferences/tools.py:188
 msgid "Show Scrollbars"
 msgstr ""
 
-#: ../preferences/tools.py:264
+#: ../preferences/tools.py:273
 #, fuzzy
 msgid "Group documents by directory"
 msgstr "Yürürlükteki Dosyayı Aç"
 
-#: ../preferences/tools.py:297
+#: ../preferences/tools.py:306
 #, fuzzy
 msgid "Restores the built-in outline patterns."
 msgstr "Susları çıkar"
 
-#: ../preferences/tools.py:298
+#: ../preferences/tools.py:307
 msgid "Patterns to match in text that are shown in outline:"
 msgstr ""
 
-#: ../preferences/tools.py:324
+#: ../preferences/tools.py:333
 msgid "Enter a regular expression to match:"
 msgstr ""
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-29 14:15+0100\n"
+"POT-Creation-Date: 2013-12-30 07:39+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -195,7 +195,7 @@ msgstr "Vyjmout a přiřadit"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Zadejte, prosím, název proměnné, které má být vybraný text přiřazen:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:171
+#: ../document.py:158 ../doclist/widget.py:134 ../snippet/edit.py:171
 msgid "Untitled"
 msgstr "Bez názvu"
 
@@ -982,7 +982,7 @@ msgstr "Automati&cké dokončení"
 msgid "Show C&ompletions Popup"
 msgstr "Ukázat vyskakovací do&končení"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:230
+#: ../charmap/__init__.py:40 ../preferences/tools.py:239
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
@@ -1057,7 +1057,7 @@ msgstr "Otevřít dokument v &novém okně"
 msgid "LilyPond Source"
 msgstr "Zdroj LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:263
+#: ../doclist/__init__.py:39 ../preferences/tools.py:272
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -1065,27 +1065,27 @@ msgstr "Dokumenty"
 msgid "Docum&ents"
 msgstr "&Dokumenty"
 
-#: ../doclist/widget.py:187
+#: ../doclist/widget.py:189
 msgid "Save selected documents"
 msgstr "Uložit vybrané dokumenty"
 
-#: ../doclist/widget.py:188
+#: ../doclist/widget.py:190
 msgid "Close selected documents"
 msgstr "Zavřít vybrané dokumenty"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:196
 msgid "Save documents in this folder"
 msgstr "Uložit dokumenty do této složky"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:197
 msgid "Close documents in this folder"
 msgstr "Zavřít dokumenty do této složky"
 
-#: ../doclist/widget.py:198
+#: ../doclist/widget.py:200
 msgid "Save all untitled documents"
 msgstr "Uložit všechny nepojmenované dokumenty"
 
-#: ../doclist/widget.py:199
+#: ../doclist/widget.py:201
 msgid "Close all untitled documents"
 msgstr "Zavřít všechny nepojmenované dokumenty"
 
@@ -1401,7 +1401,7 @@ msgid "Language for pitch names"
 msgstr ""
 
 #: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
-#: ../preferences/general.py:133 ../preferences/tools.py:296
+#: ../preferences/general.py:133 ../preferences/tools.py:305
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:196
@@ -1555,7 +1555,7 @@ msgstr ""
 msgid "Filename to be included"
 msgstr "Soubor k zahrnutí"
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:95
+#: ../logtool/__init__.py:50 ../preferences/tools.py:98
 msgid "LilyPond Log"
 msgstr "Záznam o průběhu činnosti od LilyPondu"
 
@@ -1571,7 +1571,7 @@ msgstr "Další chybové hlášení"
 msgid "Previous Error Message"
 msgstr "Předchozí chybové hlášení"
 
-#: ../logtool/logwidget.py:118
+#: ../logtool/logwidget.py:122
 msgid "Click to edit this file"
 msgstr "Klepněte, abyste mohl upravovat tento soubor"
 
@@ -1915,7 +1915,7 @@ msgstr "Uložit obrázek jako"
 msgid "Could not save the image."
 msgstr "Obrázek se nepodařilo uložit."
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:295
+#: ../outline/__init__.py:40 ../preferences/tools.py:304
 msgid "Outline"
 msgstr "Osnova"
 
@@ -2267,7 +2267,7 @@ msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
 #: ../preferences/documentation.py:122 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:96 ../preferences/tools.py:231
+#: ../preferences/tools.py:99 ../preferences/tools.py:240
 msgid "Font:"
 msgstr "Písmo:"
 
@@ -3089,29 +3089,39 @@ msgstr "(žádná zkratka)"
 msgid "(default)"
 msgstr "(výchozí)"
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:100
 msgid "Show log when a job is started"
 msgstr "Ukázat zápis při započetí s prací"
 
-#: ../preferences/tools.py:98
+#: ../preferences/tools.py:101
 msgid "Display plain log output"
 msgstr "Zobrazit prostý výstup zápisu"
 
-#: ../preferences/tools.py:100
+#: ../preferences/tools.py:103
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude zkracovat názvy souborů ve výstupu se "
 "zápisem."
 
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:104
+msgid "Hide automatic engraving jobs"
+msgstr ""
+
+#: ../preferences/tools.py:106
+msgid ""
+"If checked, Frescobaldi will not show the log for automatically\n"
+"started engraving jobs (LilyPond->Auto-engrave)."
+msgstr ""
+
+#: ../preferences/tools.py:172
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../preferences/tools.py:164
+#: ../preferences/tools.py:173
 msgid "Only load updated PDF documents"
 msgstr "Nahrát pouze aktualizované dokumenty PDF"
 
-#: ../preferences/tools.py:166
+#: ../preferences/tools.py:175
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
@@ -3119,54 +3129,54 @@ msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude otevírat dokumenty PDF,\n"
 "jež nejsou nejnovější (to jest, že zdrojový soubor byl později změněn)."
 
-#: ../preferences/tools.py:168
+#: ../preferences/tools.py:177
 msgid "Magnifier Size:"
 msgstr "Velikost lupy:"
 
-#: ../preferences/tools.py:170
+#: ../preferences/tools.py:179
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Velikost zvětšovacího skla (Ctrl+klepnutí v pohledu na noty)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:181
 msgid " pixels"
 msgstr " pixelů"
 
-#: ../preferences/tools.py:173
+#: ../preferences/tools.py:182
 msgid "Magnifier Scale:"
 msgstr "Měřítko lupy:"
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:184
 msgid "Magnification of the magnifier."
 msgstr "Zvětšení lupy."
 
-#: ../preferences/tools.py:176
+#: ../preferences/tools.py:185
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:187
 msgid "Kinetic Scrolling"
 msgstr "Pohybové projíždění"
 
-#: ../preferences/tools.py:179
+#: ../preferences/tools.py:188
 msgid "Show Scrollbars"
 msgstr "Ukázat posuvníky"
 
-#: ../preferences/tools.py:264
+#: ../preferences/tools.py:273
 msgid "Group documents by directory"
 msgstr "Seskupit dokumenty podle adresáře"
 
-#: ../preferences/tools.py:297
+#: ../preferences/tools.py:306
 msgid "Restores the built-in outline patterns."
 msgstr "Obnoví vestavěné vzory osnovy."
 
-#: ../preferences/tools.py:298
+#: ../preferences/tools.py:307
 msgid "Patterns to match in text that are shown in outline:"
 msgstr "Vzory k porovnání v textu, které jsou ukázány v osnově:"
 
-#: ../preferences/tools.py:324
+#: ../preferences/tools.py:333
 msgid "Enter a regular expression to match:"
 msgstr "Zadat regulární výraz k porovnání:"
 
