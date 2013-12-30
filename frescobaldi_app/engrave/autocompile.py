@@ -93,6 +93,8 @@ class AutoCompiler(plugin.MainWindowPlugin):
         doc = eng.document()
         rjob = jobmanager.job(doc)
         if rjob and rjob.isRunning() and not jobattributes.get(rjob).hidden:
+            # a real job is running, come back when that is done
+            rjob.done.connect(self.startTimer)
             return
         
         mgr = AutoCompileManager.instance(doc)
