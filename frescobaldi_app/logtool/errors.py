@@ -27,7 +27,7 @@ import os
 import re
 import sys
 
-from PyQt4.QtCore import QUrl
+from PyQt4.QtCore import QSettings, QUrl
 from PyQt4.QtGui import QTextCursor
 
 import app
@@ -35,6 +35,7 @@ import bookmarks
 import plugin
 import job
 import jobmanager
+import jobattributes
 import scratchdir
 import util
 
@@ -64,6 +65,9 @@ class Errors(plugin.DocumentPlugin):
         listening for new output.
         
         """
+        # do not collect errors for auto-engrave jobs if the user has disabled it
+        if QSettings().value("log/hide_auto_engrave", False, bool) and jobattributes.get(job).hidden:
+            return
         # clear earlier set error marks
         docs = set([self.document()])
         for ref in self._refs.values():

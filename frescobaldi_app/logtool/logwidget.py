@@ -37,6 +37,7 @@ import app
 import log
 import job
 import jobmanager
+import jobattributes
 import qutil
 
 from . import errors
@@ -69,6 +70,9 @@ class LogWidget(log.Log):
         """Called when the document is changed."""
         job = jobmanager.job(doc)
         if job:
+            # do show the messages for auto-engrave jobs if the user has disabled it
+            if QSettings().value("log/hide_auto_engrave", False, bool) and jobattributes.get(job).hidden:
+                return
             prevDoc = self._document()
             if prevDoc and prevDoc != doc:
                 prevJob = jobmanager.job(prevDoc)

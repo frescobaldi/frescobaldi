@@ -89,6 +89,9 @@ class LogTool(preferences.Group):
         self.rawview = QCheckBox(toggled=self.changed)
         layout.addWidget(self.rawview)
         
+        self.hideauto = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.hideauto)
+        
         app.translateUI(self)
         
     def translateUI(self):
@@ -98,6 +101,10 @@ class LogTool(preferences.Group):
         self.rawview.setText(_("Display plain log output"))
         self.rawview.setToolTip(_(
             "If checked, Frescobaldi will not shorten filenames in the log output."""))
+        self.hideauto.setText(_("Hide automatic engraving jobs"))
+        self.hideauto.setToolTip(_(
+            "If checked, Frescobaldi will not show the log for automatically\n"
+            "started engraving jobs (LilyPond->Auto-engrave)."))
     
     def loadSettings(self):
         s = QSettings()
@@ -109,6 +116,7 @@ class LogTool(preferences.Group):
             self.fontSize.setValue(font.pointSizeF())
         self.showlog.setChecked(s.value("show_on_start", True, bool))
         self.rawview.setChecked(s.value("rawview", True, bool))
+        self.hideauto.setChecked(s.value("hide_auto_engrave", False, bool))
 
     def saveSettings(self):
         s = QSettings()
@@ -117,6 +125,7 @@ class LogTool(preferences.Group):
         s.setValue("fontsize", self.fontSize.value())
         s.setValue("show_on_start", self.showlog.isChecked())
         s.setValue("rawview", self.rawview.isChecked())
+        s.setValue("hide_auto_engrave", self.hideauto.isChecked())
 
 
 class MusicView(preferences.Group):
