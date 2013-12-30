@@ -28,8 +28,8 @@ import re
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
     QAbstractItemView, QCheckBox, QDoubleSpinBox, QFont, QFontComboBox,
-    QGridLayout, QHBoxLayout, QLabel, QPushButton, QScrollArea, QSlider,
-    QSpinBox, QVBoxLayout, QWidget)
+    QGridLayout, QHBoxLayout, QLabel, QPushButton, QSlider, QSpinBox,
+    QVBoxLayout, QWidget)
 
 import app
 import userguide
@@ -41,19 +41,12 @@ import widgets.listedit
 import documentstructure
 
 
-class Tools(preferences.GroupsPage):
+class Tools(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(Tools, self).__init__(dialog)
 
-        layout = QVBoxLayout(margin=0, spacing=0)
-        self.setLayout(layout)
-        scrollarea = QScrollArea(frameWidth=0, frameShape=QScrollArea.NoFrame)
-        layout.addWidget(scrollarea)
-        widget = QWidget(scrollarea)
         layout = QVBoxLayout()
-        widget.setLayout(layout)
-        scrollarea.setWidget(widget)
-        scrollarea.setWidgetResizable(True)
+        self.scrolledWidget.setLayout(layout)
         
         layout.addWidget(LogTool(self))
         layout.addWidget(MusicView(self))

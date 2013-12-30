@@ -45,12 +45,12 @@ def settings():
     return s
 
 
-class LilyPondPrefs(preferences.GroupsPage):
+class LilyPondPrefs(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(LilyPondPrefs, self).__init__(dialog)
 
         layout = QVBoxLayout()
-        self.setLayout(layout)
+        self.scrolledWidget.setLayout(layout)
 
         layout.addWidget(Versions(self))
         layout.addWidget(Target(self))
