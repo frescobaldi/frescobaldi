@@ -83,9 +83,9 @@ class Errors(plugin.DocumentPlugin):
         job.output.connect(self.slotJobOutput)
     
     def slotJobOutput(self, message, type):
-        """Called wheneven the job has output.
+        """Called whenever the job has output.
         
-        The output is checked for errormessages that contain
+        The output is checked for error messages that contain
         a filename:line:column expression.
         
         """
