@@ -7,12 +7,12 @@ Changes in 2.0.13 -- December 31st, 2013
 * Translations:
   - updated: nl, fr
 * New features:
-  - a new option LilyPond->Auto-engrave, that runs the engraver in preview mode
+  - A new option LilyPond->Auto-engrave, that runs the engraver in preview mode
     everytime the document changes
-  - an option to hide log display for automatically started engraving jobs
-  - real-time Midi capturing, contributed by Manuel Mchalwat (this was actually
+  - An option to hide log display for automatically started engraving jobs
+  - Real-time Midi capturing, contributed by Manuel Mchalwat (this was actually
     in 2.0.12, I just forgot to write it in the ChangeLog!)
-  - basic MusicXML export, contributed by Peter Bjuhr (this was also already
+  - Basic MusicXML export, contributed by Peter Bjuhr (this was also already
     added in Frescobaldi 2.0.12)
   - The "master" variable is back, allbeit in a slightly different
     implementation: the redirected filename is not directly given to a LilyPond
@@ -21,6 +21,9 @@ Changes in 2.0.13 -- December 31st, 2013
 * Bug fixes:
   - Fix UnboundLocalError in ly.docinfo e.g. when showing the Tools->Pitch->
     Language menu
+  - Fix issue 332: Cursor didn't move on undo/redo
+  - Fix issue 315: chords: \include "predefined-guitar-fretboards.ly"
+    (the file was added, but the include files weren't written in the document)
 
 
 Changes in 2.0.12 -- December 26th, 2013
