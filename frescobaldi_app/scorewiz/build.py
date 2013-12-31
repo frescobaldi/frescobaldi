@@ -272,6 +272,12 @@ class Builder(object):
             # make the parts
             partData = self.makeParts(group.parts, _PartData)
             
+            # record the include files a part wants to add
+            for p in partData:
+                for i in p.includes:
+                    if i not in self._includeFiles:
+                        self._includeFiles.append(i)
+            
             # collect all 'prefixable' assignments for this group
             assignments = []
             for p in partData:
