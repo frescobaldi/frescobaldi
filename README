@@ -13,12 +13,14 @@ Features:
 - Powerful text editor with syntax highlighting and automatic completion
 - Music view with advanced two-way Point & Click
 - Midi player to proof-listen LilyPond-generated MIDI files
+- Midi capturing to enter music
 - Powerful Score Wizard to quickly setup a music score
 - Snippet Manager to store and apply text snippets, templates or scripts
 - Use multiple versions of LilyPond, automatically selects the correct version
 - Built-in LilyPond documentation browser and built-in help
 - Configurable document outline view to navigate large LilyPond scores easily
 - Smart layout-control functions like coloring specific objects in the PDF
+- MusicXML import
 - Modern user iterface with configurable colors, fonts and keyboard shortcuts
 - Translated into: Dutch, English, French, German, Italian, Czech, Russian,
   Spanish, Galician, Turkish, Polish, Brazillian and Ukrainian.
