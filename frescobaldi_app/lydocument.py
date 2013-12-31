@@ -182,6 +182,8 @@ class Document(ly.document.DocumentBase):
     def apply_changes(self):
         """Apply the changes and update the tokens."""
         c = QTextCursor(self._d)
+        # record a sensible position for undo
+        c.setPosition(self._changes_list[-1][0])
         c.joinPreviousEditBlock() if self.combine_undo else c.beginEditBlock()
         try:
             for start, end, text in self._changes_list:

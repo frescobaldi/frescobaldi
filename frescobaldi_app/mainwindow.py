@@ -661,10 +661,10 @@ class MainWindow(QMainWindow):
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
         
     def undo(self):
-        self.currentDocument().undo()
+        self.currentView().undo()
         
     def redo(self):
-        self.currentDocument().redo()
+        self.currentView().redo()
     
     def cut(self):
         self.currentView().cut()
