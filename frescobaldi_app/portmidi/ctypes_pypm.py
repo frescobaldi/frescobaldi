@@ -2,7 +2,7 @@
 # This module provides the same api via ctypes as John Harrison's pyrex-based
 # PortMIDI binding. 
 # Don't use this module directly but via the toplevel API of this package.
-# Copyright (c) 2011 - 2012 by Wilbert Berendsen, placed in the public domain.
+# Copyright (c) 2011 - 2014 by Wilbert Berendsen, placed in the public domain.
 
 from ctypes import byref, create_string_buffer
 
