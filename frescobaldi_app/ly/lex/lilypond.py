@@ -525,6 +525,11 @@ class DotSetOverride(Delimiter):
     rx = r"\."
 
 
+class DotOverride(DotSetOverride):
+    def update_state(self, state):
+        state.enter(ParseOverrideAfterDot())
+
+
 class Unset(Keyword):
     rx = r"\\unset\b"
     def update_state(self, state):
@@ -1074,21 +1079,27 @@ class ParseOverride(ParseLilyPond):
     argcount = 0
     items = (
         ContextName,
-        DotSetOverride,
+        DotOverride,
+        GrobName,
+        EqualSignSetOverride,
+    ) + base_items
+
+
+class ParseOverrideAfterDot(FallthroughParser):
+    items = space_items + (
         GrobName,
         GrobProperty,
-        EqualSignSetOverride,
-        Name,
-    ) + base_items
-    
+    )
+    def update_state(self, state, token):
+        if isinstance(token, (GrobName, GrobProperty)):
+            state.leave()
+
 
 class ParseRevert(FallthroughParser):
     items = space_items + (
         ContextName,
-        DotSetOverride,
+        DotOverride,
         GrobName,
-        GrobProperty,
-        Name,
         SchemeStart,
     )
 
