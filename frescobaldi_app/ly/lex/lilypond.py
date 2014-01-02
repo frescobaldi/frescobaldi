@@ -1074,7 +1074,7 @@ class ParseOverride(ParseLilyPond):
     ) + base_items
     def update_state(self, state, token):
         if isinstance(token, EqualSign):
-            state.leave()
+            state.replace(ParseDecimalValue())
 
 
 class ParseRevert(FallthroughParser):
@@ -1125,7 +1125,7 @@ class ParseSet(ParseLilyPond):
     ) + base_items
     def update_state(self, state, token):
         if isinstance(token, EqualSign):
-            state.leave()
+            state.replace(ParseDecimalValue())
 
     
 class ParseUnset(FallthroughParser):
@@ -1334,6 +1334,13 @@ class ParseChordItems(FallthroughParser):
         ChordStepNumber,
         ChordDot,
         Note,
+    )
+
+
+class ParseDecimalValue(FallthroughParser):
+    """Parses a decimal value without a # before it (if present)."""
+    items = space_items + (
+        DecimalValue,
     )
 
 
