@@ -698,6 +698,7 @@ contexts = (
     'MensuralStaff',
     'MensuralVoice',
     'NoteNames',
+    'NullVoice',     # since 2.18
     'PetrucciStaff', # since 2.16
     'PetrucciVoice', # since 2.16
     'PianoStaff',
