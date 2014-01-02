@@ -1101,13 +1101,8 @@ class ParseRevert(FallthroughParser):
         ContextName,
         DotOverride,
         GrobName,
-        GrobProperty,
         SchemeStart,
     )
-    def update_state(self, state, token):
-        if isinstance(token, GrobProperty):
-            # a grob property without dot
-            state.leave()
 
     
 class ParseSet(ParseLilyPond):
