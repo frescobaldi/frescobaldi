@@ -741,13 +741,6 @@ class EqualSign(_token.Token):
     rx = r"="
     
 
-class EqualSignSetOverride(EqualSign):
-    """An equal sign in a set/override construct."""
-    def update_state(self, state):
-        state.leave()
-
-
-
 # Parsers
 class ParseLilyPond(Parser):
     mode = 'lilypond'
@@ -1077,8 +1070,11 @@ class ParseOverride(ParseLilyPond):
         DotSetOverride,
         GrobName,
         GrobProperty,
-        EqualSignSetOverride,
+        EqualSign,
     ) + base_items
+    def update_state(self, state, token):
+        if isinstance(token, EqualSign):
+            state.leave()
 
 
 class ParseRevert(FallthroughParser):
@@ -1124,10 +1120,13 @@ class ParseSet(ParseLilyPond):
         ContextName,
         DotSetOverride,
         ContextProperty,
-        EqualSignSetOverride,
+        EqualSign,
         Name,
     ) + base_items
-    
+    def update_state(self, state, token):
+        if isinstance(token, EqualSign):
+            state.leave()
+
     
 class ParseUnset(FallthroughParser):
     items = space_items + (
