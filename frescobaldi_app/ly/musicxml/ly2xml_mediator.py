@@ -66,7 +66,7 @@ class mediator():
         initime = [4,4]
         iniclef = ['G',2]
         if not part.barlist[0][0].time:
-            part.barlist[0][0].set_time(initime)
+            part.barlist[0][0].set_time(initime, false)
         if not part.barlist[0][0].clef:
             part.barlist[0][0].set_clef(iniclef)
         part.barlist[0][0].divs = self.divisions
