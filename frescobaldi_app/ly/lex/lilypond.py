@@ -525,11 +525,6 @@ class DotSetOverride(Delimiter):
     rx = r"\."
 
 
-class DotOverride(DotSetOverride):
-    def update_state(self, state):
-        state.enter(ParseOverrideAfterDot())
-
-
 class Unset(Keyword):
     rx = r"\\unset\b"
     def update_state(self, state):
@@ -1079,32 +1074,50 @@ class ParseOverride(ParseLilyPond):
     argcount = 0
     items = (
         ContextName,
-        DotOverride,
+        DotSetOverride,
         GrobName,
         GrobProperty,
         EqualSignSetOverride,
     ) + base_items
 
 
-class ParseOverrideAfterDot(FallthroughParser):
+class ParseRevert(FallthroughParser):
+    # parse the arguments of \revert
+    # allow both the old scheme syntax but also the dotted 2.18+ syntax
+    # allow either a dot between the GrobName and the property path or not
+    # correctly fall through when one property path has been parsed
+    # (uses ParseGrobPropertyPath and ExpectGrobProperty)
+    # (When the old scheme syntax is used this parser also falls through,
+    # assuming that the previous parser will handle it)
     items = space_items + (
+        ContextName,
+        DotSetOverride,
         GrobName,
         GrobProperty,
     )
     def update_state(self, state, token):
-        if isinstance(token, (GrobName, GrobProperty)):
+        if isinstance(token, GrobProperty):
+            state.replace(ParseGrobPropertyPath())
+
+    
+class ParseGrobPropertyPath(FallthroughParser):
+    items = space_items + (
+        DotSetOverride,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, DotSetOverride):
+            state.enter(ExpectGrobProperty())
+
+
+class ExpectGrobProperty(FallthroughParser):
+    items = space_items + (
+        GrobProperty,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobProperty):
             state.leave()
 
 
-class ParseRevert(FallthroughParser):
-    items = space_items + (
-        ContextName,
-        DotOverride,
-        GrobName,
-        SchemeStart,
-    )
-
-    
 class ParseSet(ParseLilyPond):
     argcount = 0
     items = (
