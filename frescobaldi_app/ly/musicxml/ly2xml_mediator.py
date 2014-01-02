@@ -52,6 +52,7 @@ class mediator():
         self.bar = None
 
     def fetch_variable(self, varname):
+        """ TODO: variables that not include full bars """
         for n in self.sections:
             if n.name == varname:
                 self.insert_into.barlist.extend(n.barlist)
@@ -63,10 +64,10 @@ class mediator():
                 self.part.barlist.extend(n.barlist)
 
     def set_first_bar(self, part):
-        initime = [4,4]
+        initime = '4/4'
         iniclef = ['G',2]
         if not part.barlist[0][0].time:
-            part.barlist[0][0].set_time(initime, false)
+            part.barlist[0][0].set_time(initime, False)
         if not part.barlist[0][0].clef:
             part.barlist[0][0].set_clef(iniclef)
         part.barlist[0][0].divs = self.divisions
