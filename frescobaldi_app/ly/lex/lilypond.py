@@ -531,6 +531,12 @@ class Unset(Keyword):
         state.enter(ParseUnset())
 
 
+class Tweak(Keyword):
+    rx = r"\\tweak\b"
+    def update_state(self, state):
+        state.enter(ParseTweak())
+
+
 class Translator(Command):
     def update_state(self, state):
         state.enter(ParseTranslator())
@@ -765,6 +771,7 @@ command_items = (
     PitchCommand,
     Override, Revert,
     Set, Unset,
+    Tweak,
     New, Context, Change,
     With,
     Clef,
@@ -1137,6 +1144,29 @@ class ParseUnset(FallthroughParser):
     )
     def update_state(self, state, token):
         if isinstance(token, ContextProperty) or token[:1].islower():
+            state.leave()
+
+
+class ParseTweak(FallthroughParser):
+    items = space_items + (
+        GrobName,
+        DotSetOverride,
+        GrobProperty,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobProperty):
+            state.replace(ParseTweakGrobProperty())
+
+
+class ParseTweakGrobProperty(FallthroughParser):
+    items = space_items + (
+        DotSetOverride,
+        DecimalValue,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, DotSetOverride):
+            state.enter(ExpectGrobProperty())
+        elif isinstance(token, DecimalValue):
             state.leave()
 
 
