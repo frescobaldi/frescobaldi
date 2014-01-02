@@ -665,6 +665,10 @@ class GrobName(_token.Token):
         return r"\b({0})\b".format("|".join(data.grobs()))
 
 
+class GrobProperty(Variable):
+    rx = r"[a-z]+(-[a-z]+)*(?![\w])"
+
+
 class ContextProperty(_token.Token):
     @_token.patternproperty
     def rx():
@@ -1072,6 +1076,7 @@ class ParseOverride(ParseLilyPond):
         ContextName,
         DotSetOverride,
         GrobName,
+        GrobProperty,
         EqualSignSetOverride,
         Name,
     ) + base_items
@@ -1082,6 +1087,7 @@ class ParseRevert(FallthroughParser):
         ContextName,
         DotSetOverride,
         GrobName,
+        GrobProperty,
         Name,
         SchemeStart,
     )
