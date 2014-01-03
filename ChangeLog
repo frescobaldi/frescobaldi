@@ -12,6 +12,8 @@ Changes in 2.0.14 --
     \accidentalStyle, etc.
 * Buf fixes:
   - Fixed issue 336: TypeError on MusicXml export
+  - Fixed error message when exporting keyboard shortcuts on platforms that do
+    not have the HOME environment variable set
 
 
 Changes in 2.0.13 -- December 31st, 2013
