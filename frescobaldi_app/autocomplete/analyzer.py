@@ -463,6 +463,7 @@ class Analyzer(object):
             paper,
         ),
         lp.ParseLayout: (
+            accidental_style,
             layout,
         ),
         lp.ParseMidi: (
