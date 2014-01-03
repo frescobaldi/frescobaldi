@@ -73,6 +73,7 @@ lilypond_music_commands = (
     'aikenHeads',
     'aikenHeadsMinor',
     'allowPageTurn',
+    'alterBroken', # since 2.18 (?)
     'alternative',
     #'AncientRemoveEmptyStaffContext',
     'appendToTag', # since 2.16

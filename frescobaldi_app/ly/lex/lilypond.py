@@ -567,6 +567,12 @@ class AccidentalStyleSpecifier(Specifier):
         return r"\b({0})\b".format("|".join(words.accidentalstyles))
 
         
+class AlterBroken(Command):
+    rx = r"\\alterBroken\b"
+    def update_state(self, state):
+        state.enter(ParseAlterBroken())
+
+
 class Clef(Command):
     rx = r"\\clef\b"
     def update_state(self, state):
@@ -789,6 +795,7 @@ command_items = (
     With,
     Clef,
     AccidentalStyle,
+    AlterBroken,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
     Markup, MarkupLines, MarkupList,
     Keyword,
@@ -1231,6 +1238,15 @@ class ParseAccidentalStyle(FallthroughParser):
         DotSetOverride,
         AccidentalStyleSpecifier,
     )
+
+
+class ParseAlterBroken(FallthroughParser):
+    items = space_items + (
+        GrobProperty,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobProperty):
+            state.replace(ParseGrobPropertyPath())
 
 
 class ParseScriptAbbreviationOrFingering(FallthroughParser):
