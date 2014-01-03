@@ -420,7 +420,25 @@ class Analyzer(object):
             return completiondata.lilypond_accidental_styles
         return completiondata.lilypond_accidental_styles_contexts
 
-            
+    def hide_omit(self):
+        """test for \omit and \hide"""
+        indices = []
+        for t in "\\omit", "\\hide":
+            try:
+                indices.append(self.tokens.index(t))
+            except ValueError:
+                pass
+        if not indices:
+            return
+        self.backuntil(lx.Space, lp.DotSetOverride)
+        i = max(indices)
+        tokens = self.tokens[i+1:]
+        tokenclasses = self.tokenclasses()[i+1:]
+        if lp.ContextName in tokenclasses:
+            return completiondata.lilypond_grobs
+        return completiondata.lilypond_contexts_and_grobs
+
+
     # Mapping from Parsers to the lists of functions to run.
     tests = {
         lp.ParseGlobal: (
@@ -443,6 +461,7 @@ class Analyzer(object):
             clef,
             repeat,
             accidental_style,
+            hide_omit,
             general_music,
         ),
         lp.ParseNoteMode: (
@@ -464,6 +483,7 @@ class Analyzer(object):
         ),
         lp.ParseLayout: (
             accidental_style,
+            hide_omit,
             layout,
         ),
         lp.ParseMidi: (
