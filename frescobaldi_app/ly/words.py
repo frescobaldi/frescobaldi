@@ -43,6 +43,7 @@ lilypond_keywords = (
     'override',
     'revert',
     'remove',
+    'temporary', # since 2.18
     #'sequential',
     #'simultaneous',
     #'type',
@@ -60,6 +61,7 @@ lilypond_keywords = (
 
 
 lilypond_music_commands = (
+    'absolute', # since 2.18
     'acciaccatura',
     'accidentalStyle', # since 2.16
     'addChordShape', # since 2.16
@@ -148,6 +150,7 @@ lilypond_music_commands = (
     'default',
     'defaultNoteHeads',  # since 2.16
     'defaultTimeSignature',
+    'defineBarLine', # since 2.18
     'deminutum',
     'denies',
     'descendens',
@@ -209,6 +212,7 @@ lilypond_music_commands = (
     'grace',
     'graceSettings',
     'harmonic',
+    'hide', # since 2.18
     'hideNotes',
     'hideStaffSwitch',
     'huge',
@@ -244,6 +248,8 @@ lilypond_music_commands = (
     'majorSevenSymbol',
     'makeClusters',
     'mark',
+    'markLengthOff', # since 2.18
+    'markLengthOn',  # since 2.18
     'markup',
     'markuplines', # deprecated, till 2.14
     'markuplist', # from 2.16
@@ -270,6 +276,7 @@ lilypond_music_commands = (
     'numericTimeSignature',
     'octaveCheck',
     'oldaddlyrics',
+    'omit', # since 2.18
     'oneVoice',
     'oriscus',
     'ottava',
@@ -340,6 +347,7 @@ lilypond_music_commands = (
     'shiftOnn',
     'shiftOnnn',
     'showStaffSwitch',
+    'single', # since 2.18
     'skip',
     'skipTypesetting',
     'slurDashed',
@@ -403,6 +411,7 @@ lilypond_music_commands = (
     'transposedCueDuring',
     'transposition',
     'treCorde',
+    'tuplet', # since 2.18
     'tupletDown',
     'tupletNeutral',
     'tupletUp',
@@ -543,6 +552,8 @@ markupcommands_nargs = (
     'column',
     'concat',
     'dir-column',
+    'draw-dashed-line', # since 2.18
+    'draw-dotted-line', # since 2.18
     'draw-line',
     'dynamic',
     'fill-line',
