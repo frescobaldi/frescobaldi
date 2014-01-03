@@ -32,11 +32,13 @@ lilypond_keywords = (
     'denies',
     #'description',
     #'grobdescriptions',
+    'hide', # since 2.18
     'include',
     #'invalid',
     'language',
     'name',
     #'objectid',
+    'omit', # since 2.18
     'once',
     'set',
     'unset',
@@ -47,6 +49,7 @@ lilypond_keywords = (
     #'sequential',
     #'simultaneous',
     #'type',
+    'undo', # since 2.18 (not mentioned in the command index)
     'version',
     'score',
     'book',
@@ -213,7 +216,6 @@ lilypond_music_commands = (
     'grace',
     'graceSettings',
     'harmonic',
-    'hide', # since 2.18
     'hideNotes',
     'hideStaffSwitch',
     'huge',
@@ -277,7 +279,6 @@ lilypond_music_commands = (
     'numericTimeSignature',
     'octaveCheck',
     'oldaddlyrics',
-    'omit', # since 2.18
     'oneVoice',
     'oriscus',
     'ottava',
