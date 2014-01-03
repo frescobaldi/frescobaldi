@@ -596,6 +596,18 @@ class PitchCommand(Command):
         state.enter(ParsePitchCommand(argcount))
 
 
+class Hide(Keyword):
+    rx = r"\\hide\b"
+    def update_state(self, state):
+        state.enter(ParseHideOmit())
+
+
+class Omit(Keyword):
+    rx = r"\\omit\b"
+    def update_state(self, state):
+        state.enter(ParseHideOmit())
+
+
 class Unit(Command):
     rx = r"\\(mm|cm|in|pt)\b"
     
@@ -790,6 +802,7 @@ command_items = (
     PitchCommand,
     Override, Revert,
     Set, Unset,
+    Hide, Omit,
     Tweak,
     New, Context, Change,
     With,
@@ -1240,6 +1253,17 @@ class ParseClef(FallthroughParser):
         ClefSpecifier,
         StringQuotedStart,
     )
+
+
+class ParseHideOmit(FallthroughParser):
+    items = space_items + (
+        ContextName,
+        DotSetOverride,
+        GrobName,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobName):
+            state.leave()
 
 
 class ParseAccidentalStyle(FallthroughParser):

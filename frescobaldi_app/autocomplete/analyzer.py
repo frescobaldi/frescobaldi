@@ -470,6 +470,8 @@ class Analyzer(object):
             key,
             clef,
             repeat,
+            accidental_style,
+            hide_omit,
             general_music,
         ),
         lp.ParseMarkup: (
@@ -556,6 +558,9 @@ class Analyzer(object):
         ),
         lp.ParseScriptAbbreviationOrFingering: (
             accidental_style,
+        ),
+        lp.ParseHideOmit: (
+            hide_omit,
         ),
     }
 
