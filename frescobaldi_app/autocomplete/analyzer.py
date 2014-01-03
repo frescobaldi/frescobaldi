@@ -425,7 +425,7 @@ class Analyzer(object):
         indices = []
         for t in "\\omit", "\\hide":
             try:
-                indices.append(self.tokens.index(t))
+                indices.append(self.tokens.index(t, -6))
             except ValueError:
                 pass
         if not indices:
@@ -434,9 +434,10 @@ class Analyzer(object):
         i = max(indices)
         tokens = self.tokens[i+1:]
         tokenclasses = self.tokenclasses()[i+1:]
-        if lp.ContextName in tokenclasses:
-            return completiondata.lilypond_grobs
-        return completiondata.lilypond_contexts_and_grobs
+        if lp.GrobName not in tokenclasses[:-1]:
+            if lp.ContextName in tokenclasses:
+                return completiondata.lilypond_grobs
+            return completiondata.lilypond_contexts_and_grobs
 
 
     # Mapping from Parsers to the lists of functions to run.
