@@ -2,6 +2,18 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.14 -- 
+
+* Translations:
+  - updated: nl
+* New features:
+  - highlighting and auto-completion for commands that are new or have changed
+    syntax in LilyPond 2.18, such as \hide, \omit, \undo, \override, \tweak,
+    \accidentalStyle, etc.
+* Buf fixes:
+  - Fixed issue 336: TypeError on MusicXml export
+
+
 Changes in 2.0.13 -- December 31st, 2013
 
 * Translations:
