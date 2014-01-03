@@ -983,6 +983,8 @@ class ParseLayout(ParseLilyPond):
         EqualSign,
         DecimalValue,
         Unit,
+        ContextName,
+        GrobName,
     ) + command_items
 
 
@@ -999,6 +1001,8 @@ class ParseMidi(ParseLilyPond):
         EqualSign,
         DecimalValue,
         Unit,
+        ContextName,
+        GrobName,
     ) + command_items
 
 
@@ -1010,6 +1014,8 @@ class ParseWith(ParseLilyPond):
     """Parses the expression after \with {, leaving at } """
     items = (
         CloseBracket,
+        ContextName,
+        GrobName,
         ContextProperty,
         EqualSign,
     ) + toplevel_base_items
