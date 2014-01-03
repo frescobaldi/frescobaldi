@@ -237,6 +237,11 @@ lilypond_modes = listmodel.ListModel(ly.words.modes, display = util.command)
 
 lilypond_clefs = listmodel.ListModel(ly.words.clefs_plain)
 
+lilypond_accidental_styles = listmodel.ListModel(ly.words.accidentalstyles)
+
+lilypond_accidental_styles_contexts = listmodel.ListModel(
+    ly.words.contexts + ly.words.accidentalstyles)
+
 lilypond_repeat_types = listmodel.ListModel(ly.words.repeat_types)
 
 music_glyphs = listmodel.ListModel(ly.data.music_glyphs())

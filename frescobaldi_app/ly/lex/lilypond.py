@@ -564,7 +564,7 @@ class AccidentalStyleSpecifier(Specifier):
     @_token.patternproperty
     def rx():
         from .. import words
-        return r"\b({0})\b".format("|".join(words.accidentalstyles))
+        return r"\b({0})(?!-?\w)".format("|".join(words.accidentalstyles))
 
         
 class AlterBroken(Command):
@@ -1248,6 +1248,9 @@ class ParseAccidentalStyle(FallthroughParser):
         DotSetOverride,
         AccidentalStyleSpecifier,
     )
+    def update_state(self, state, token):
+        if isinstance(token, AccidentalStyleSpecifier):
+            state.leave()
 
 
 class ParseAlterBroken(FallthroughParser):

@@ -400,6 +400,27 @@ class Analyzer(object):
             cursor = self.document_cursor()
             return documentdata.doc(cursor.document()).schemewords()
     
+    def accidental_style(self):
+        """test for \accidentalStyle"""
+        try:
+            i = self.tokens.index("\\accidentalStyle")
+        except ValueError:
+            return
+        self.backuntil(lx.Space, lp.DotSetOverride)
+        tokens = self.tokens[i+1:]
+        tokenclasses = self.tokenclasses()[i+1:]
+        try:
+            i = tokenclasses.index(lp.AccidentalStyleSpecifier)
+        except ValueError:
+            pass
+        else:
+            if lx.Space in tokenclasses[i+1:]:
+                return
+        if lp.ContextName in tokenclasses:
+            return completiondata.lilypond_accidental_styles
+        return completiondata.lilypond_accidental_styles_contexts
+
+            
     # Mapping from Parsers to the lists of functions to run.
     tests = {
         lp.ParseGlobal: (
@@ -421,6 +442,7 @@ class Analyzer(object):
             key,
             clef,
             repeat,
+            accidental_style,
             general_music,
         ),
         lp.ParseNoteMode: (
@@ -507,6 +529,12 @@ class Analyzer(object):
         ),
         lp.ParseLyricMode: (
             lyricmode,
-        )
+        ),
+        lp.ParseAccidentalStyle: (
+            accidental_style,
+        ),
+        lp.ParseScriptAbbreviationOrFingering: (
+            accidental_style,
+        ),
     }
 
