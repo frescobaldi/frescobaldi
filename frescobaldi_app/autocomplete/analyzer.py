@@ -363,6 +363,8 @@ class Analyzer(object):
         test = [lx.Space, lp.SchemeStart, scm.Quote, scm.Word]
         if tokenclasses[i+1:] == test[:count]:
             return completiondata.lilypond_grob_properties(self.tokens[i])
+        self.backuntil(lp.DotSetOverride, lx.Space)
+        return completiondata.lilypond_grob_properties(self.tokens[i], False)
 
     def set_unset(self):
         """\\set and \\unset"""

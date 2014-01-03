@@ -223,9 +223,10 @@ lilypond_score = listmodel.ListModel(score, display = util.command)
 
 lilypond_engravers = listmodel.ListModel(ly.data.engravers())
     
-def lilypond_grob_properties(grob):
+def lilypond_grob_properties(grob, hash_quote=True):
+    display = (lambda item: "#'" + item) if hash_quote else (lambda item: item)
     return listmodel.ListModel(ly.data.grob_properties(grob),
-        display = lambda item: "#'" + item)
+        display = display)
 
 lilypond_all_grob_properties = listmodel.ListModel(ly.data.all_grob_properties(),
     display = lambda item: "#'" + item)
