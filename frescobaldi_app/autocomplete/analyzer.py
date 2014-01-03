@@ -369,7 +369,7 @@ class Analyzer(object):
     def revert(self):
         """test for \\revert in general music expressions
         
-        (because the revert parser drops out on invalid constructs, which happen
+        (because the revert parser drops out of invalid constructs, which happen
         during typing).
         
         """
