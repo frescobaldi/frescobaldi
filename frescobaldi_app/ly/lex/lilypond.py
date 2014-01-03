@@ -554,6 +554,19 @@ class Change(Translator):
     rx = r"\\change\b"
 
 
+class AccidentalStyle(Command):
+    rx = r"\\accidentalStyle\b"
+    def update_state(self, state):
+        state.enter(ParseAccidentalStyle())
+
+
+class AccidentalStyleSpecifier(Specifier):
+    @_token.patternproperty
+    def rx():
+        from .. import words
+        return r"\b({0})\b".format("|".join(words.accidentalstyles))
+
+        
 class Clef(Command):
     rx = r"\\clef\b"
     def update_state(self, state):
@@ -775,6 +788,7 @@ command_items = (
     New, Context, Change,
     With,
     Clef,
+    AccidentalStyle,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
     Markup, MarkupLines, MarkupList,
     Keyword,
@@ -1208,6 +1222,14 @@ class ParseClef(FallthroughParser):
     items = space_items + (
         ClefSpecifier,
         StringQuotedStart,
+    )
+
+
+class ParseAccidentalStyle(FallthroughParser):
+    items = space_items + (
+        ContextName,
+        DotSetOverride,
+        AccidentalStyleSpecifier,
     )
 
 
