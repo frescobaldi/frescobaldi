@@ -703,7 +703,7 @@ class GrobName(_token.Token):
 
 
 class GrobProperty(Variable):
-    rx = r"[a-z]+(-[a-z]+)*(?![\w])"
+    rx = r"([a-z]+|[XY])(-([a-z]+|[XY]))*(?![\w])"
 
 
 class ContextProperty(_token.Token):
