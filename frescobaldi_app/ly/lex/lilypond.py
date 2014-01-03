@@ -808,8 +808,12 @@ command_items = (
 # no Leave-tokens!
 toplevel_base_items = base_items + (
     Fraction,
+    DecimalValue,
+    Direction,
     SequentialStart,
     SimultaneousStart,
+    Articulation,
+    StringNumber,
 ) + command_items
 
 
