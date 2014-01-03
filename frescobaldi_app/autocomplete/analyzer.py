@@ -158,6 +158,13 @@ class Analyzer(object):
         elif tokenclasses[:-1] == [lx.Space, lp.SchemeStart, scm.Quote]:
             self.column = self.lastpos - 2
             return completiondata.lilypond_all_grob_properties
+        # 2.18-style [GrobName.]propertyname tweak
+        if lp.GrobName in tokenclasses:
+            self.backuntil(lx.Space, lp.DotSetOverride)
+            return completiondata.lilypond_grob_properties(tokens[1], False)
+        if tokens:
+            self.backuntil(lx.Space)
+            return completiondata.lilypond_all_grob_properties_and_grob_names
 
     def key(self):
         """complete mode argument of '\\key'"""
@@ -538,6 +545,9 @@ class Analyzer(object):
             set_unset,
         ),
         lp.ParseTweak: (
+            tweak,
+        ),
+        lp.ParseTweakGrobProperty: (
             tweak,
         ),
         lp.ParseString: (

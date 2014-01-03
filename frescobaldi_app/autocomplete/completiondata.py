@@ -231,6 +231,9 @@ def lilypond_grob_properties(grob, hash_quote=True):
 lilypond_all_grob_properties = listmodel.ListModel(ly.data.all_grob_properties(),
     display = lambda item: "#'" + item)
 
+lilypond_all_grob_properties_and_grob_names = listmodel.ListModel(
+    ly.data.all_grob_properties() + ly.data.grobs())
+
 lilypond_markup_properties = listmodel.ListModel(
     sorted(set(sum(map(ly.data.grob_interface_properties, (
         # see lilypond docs about \markup \override
