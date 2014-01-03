@@ -365,7 +365,17 @@ class Analyzer(object):
             return completiondata.lilypond_grob_properties(self.tokens[i])
         self.backuntil(lp.DotSetOverride, lx.Space)
         return completiondata.lilypond_grob_properties(self.tokens[i], False)
-
+    
+    def revert(self):
+        """test for \\revert in general music expressions
+        
+        (because the revert parser drops out on invalid constructs, which happen
+        during typing).
+        
+        """
+        if '\\revert' in self.tokens:
+            return self.override()
+    
     def set_unset(self):
         """\\set and \\unset"""
         tokenclasses = self.tokenclasses()
@@ -465,6 +475,7 @@ class Analyzer(object):
             repeat,
             accidental_style,
             hide_omit,
+            revert,
             general_music,
         ),
         lp.ParseNoteMode: (
@@ -475,6 +486,7 @@ class Analyzer(object):
             repeat,
             accidental_style,
             hide_omit,
+            revert,
             general_music,
         ),
         lp.ParseMarkup: (
@@ -564,6 +576,9 @@ class Analyzer(object):
         ),
         lp.ParseHideOmit: (
             hide_omit,
+        ),
+        lp.ParseGrobPropertyPath: (
+            revert,
         ),
     }
 
