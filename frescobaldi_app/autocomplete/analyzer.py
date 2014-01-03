@@ -143,18 +143,21 @@ class Analyzer(object):
 
     def tweak(self):
         """complete property after \\tweak"""
-        if '\\tweak' in self.tokens:
-            tokenclasses = self.tokenclasses()
-            test = [lp.Command, lx.Space, lp.SchemeStart, scm.Quote, scm.Word]
-            if tokenclasses[-3:] == test[:-2] and self.tokens[-3] == '\\tweak':
-                self.column -= 1
-                return completiondata.lilypond_all_grob_properties
-            elif tokenclasses[-4:] == test[:-1] and self.tokens[-4] == '\\tweak':
-                self.column -= 2
-                return completiondata.lilypond_all_grob_properties
-            elif tokenclasses[-5:] == test and self.tokens[-5] == '\\tweak':
-                self.column = self.lastpos - 2
-                return completiondata.lilypond_all_grob_properties
+        try:
+            i = self.tokens.index('\\tweak')
+        except ValueError:
+            return
+        tokens = self.tokens[i+1:]
+        tokenclasses = self.tokenclasses()[i+1:]
+        if tokenclasses == [lx.Space, lp.SchemeStart]:
+            self.column -= 1
+            return completiondata.lilypond_all_grob_properties
+        elif tokenclasses == [lx.Space, lp.SchemeStart, scm.Quote]:
+            self.column -= 2
+            return completiondata.lilypond_all_grob_properties
+        elif tokenclasses[:-1] == [lx.Space, lp.SchemeStart, scm.Quote]:
+            self.column = self.lastpos - 2
+            return completiondata.lilypond_all_grob_properties
 
     def key(self):
         """complete mode argument of '\\key'"""
@@ -533,6 +536,9 @@ class Analyzer(object):
         ),
         lp.ParseUnset: (
             set_unset,
+        ),
+        lp.ParseTweak: (
+            tweak,
         ),
         lp.ParseString: (
             engraver,
