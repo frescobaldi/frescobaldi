@@ -23,9 +23,47 @@ The contextmenu of the editor.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import QUrl
+from PyQt4.QtGui import QAction
+
+import icons
+import util
+import app
+
+
 def contextmenu(view):
     cursor = view.textCursor()
     menu = view.createStandardContextMenu()
-    # TODO: add interesting actions
+    mainwindow = view.window()
+    
+    # create the actions in the actions list
+    actions = []
+    
+    actions.extend(open_files(cursor, menu, mainwindow))
+    
+    # now add the actions to the standard menu
+    if actions:
+        first_action = menu.actions()[0] if menu.actions() else None
+        if first_action:
+            first_action = menu.insertSeparator(first_action)
+            menu.insertActions(first_action, actions)
+        else:
+            menu.addActions(actions)
     return menu
+
+
+def open_files(cursor, menu, mainwindow):
+    """Return a list of actions (maybe empty) for files at the cursor to open."""
+    def action(filename):
+        url = QUrl.fromLocalFile(filename)
+        a = QAction(menu)
+        a.setText(_("Open \"{url}\"").format(url=util.homify(filename)))
+        a.setIcon(icons.get('document-open'))
+        @a.triggered.connect
+        def open_doc():
+            d = mainwindow.openUrl(url)
+            mainwindow.setCurrentDocument(d)
+        return a
+    import open_file_at_cursor
+    return list(map(action, open_file_at_cursor.filenames_at_cursor(cursor)))
 
