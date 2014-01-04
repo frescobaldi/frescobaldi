@@ -30,7 +30,8 @@ import weakref
 
 from PyQt4.QtCore import QEvent, QSettings, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QKeySequence, QPainter, QPlainTextEdit, QTextCursor)
+    QApplication, QContextMenuEvent, QKeySequence, QPainter, QPlainTextEdit,
+    QTextCursor)
 
 import app
 import homekey
@@ -197,5 +198,24 @@ class View(QPlainTextEdit):
         tabwidth = QSettings().value("indent/tab_width", 8, int)
         tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', tabwidth)
         self.setTabStopWidth(tabwidth)
+    
+    def contextMenuEvent(self, ev):
+        """Called when the user requests the context menu."""
+        cursor = self.textCursor()
+        if ev.reason() == QContextMenuEvent.Mouse:
+            # if clicked inside the selection, retain it, otherwise de-select
+            # and move the cursor to the clicked position
+            pos = self.mapToGlobal(ev.pos())
+            clicked = self.cursorForPosition(ev.pos())
+            if not cursor.selectionStart() <= clicked.position() < cursor.selectionEnd():
+                self.setTextCursor(clicked)
+        else:
+            pos = self.viewport().mapToGlobal(self.cursorRect().center())
+        import contextmenu
+        menu = contextmenu.contextmenu(self)
+        menu.popup(pos)
+        menu.setFocus() # so we get a FocusOut event and the grey cursor gets painted
+        menu.exec_()
+        menu.deleteLater()
 
 
