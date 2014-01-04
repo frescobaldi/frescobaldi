@@ -36,7 +36,8 @@ py_modules = [
 #]
 
 classifiers = [
-    'Development Status :: 5 - Production/Stable',
+    'Development Status :: 3 - Alpha',
+    #'Development Status :: 5 - Production/Stable',
     'License :: OSI Approved :: GNU General Public License (GPL)',
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: Microsoft :: Windows',
