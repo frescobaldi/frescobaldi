@@ -218,9 +218,16 @@ def load(filename, encoding, mode):
     return doc
 
 
+exit_code = 0
 for filename in files:
-    doc = load(filename, opts.encoding, opts.mode)
+    try:
+        doc = load(filename, opts.encoding, opts.mode)
+    except IOError as err:
+        sys.stderr.write('warning: Skipping file "{0}":\n  {1}\n'.format(filename, err))
+        exit_code = 1
+        continue
     cursor = ly.document.Cursor(doc)
     for c in commands:
         c.run(opts, cursor)
 
+sys.exit(exit_code)
