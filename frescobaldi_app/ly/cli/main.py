@@ -48,12 +48,19 @@ Options:
   -d variable=value     set a variable
   --                    consider the remaining arguments to be file names
 
-The command is one string with semicolon-separated commands.
+The command is one argument with semicolon-separated commands. In most cases
+you'll quote the command so that it is seen as one argument.
+
 Available commands are:
   variable=value        set a variable, can be used between other commands
+  
+Informative commands that write information to standard output and do not
+change the file:
   mode                  print the mode (guessing if not given) of the document
   version               print the LilyPond version, if set in the document
   language              print the pitch name language, if set in the document
+  
+Commands that change the file:
   indent                re-indent the file
   reformat              reformat the file
   translate language    translate the pitch names to the language

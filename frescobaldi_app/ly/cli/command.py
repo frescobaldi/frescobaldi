@@ -67,7 +67,11 @@ class _info_command(_command):
             sys.stdout.write(text + '\n')
     
     def get_info(self, info):
-        """Should return the desired information from the docinfo object."""
+        """Should return the desired information from the docinfo object.
+        
+        If it returns None or an empty string, nothing is printed.
+        
+        """
         raise NotImplementedError()
 
 
