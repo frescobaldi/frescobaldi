@@ -109,11 +109,7 @@ class Options(object):
         self.indent_tabs = False
         self.tab_width = 8
     
-    def set_variable(self, s):
-        try:
-            name, value = s.split('=', 1)
-        except ValueError:
-            die("missing '=' in variable set")
+    def set_variable(self, name, value):
         name = name.replace('-', '_')
         if value.lower() in ('yes', 'on', 'true'):
             value = True
@@ -155,8 +151,12 @@ def parse_command_line():
         elif arg in ('-o', '--output'):
             opts.output = next_arg("missing output filename")
         elif arg == '-d':
-            varset = next_arg("missing variable=value")
-            opts.set_variable(varset)
+            s = next_arg("missing variable=value")
+            try:
+                name, value = s.split('=', 1)
+            except ValueError:
+                die("missing '=' in variable set")
+            opts.set_variable(name, value)
         elif arg in ('-e', '--encoding'):
             opts.encoding = next_arg("missing encoding name")
         elif arg == '--output-encoding':
