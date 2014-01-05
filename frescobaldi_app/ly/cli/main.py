@@ -70,6 +70,11 @@ The following variables can be set to influence the behaviour of commands:
   indent-width          number [2], how many spaces for each indent level
   tab-width             number [8], used when converting tabs to spaces
 
+These variables influence the output of information commands
+  with-filename         [unset] prints the filename next to information like
+                        version, etc. This is True by default if there is more
+                        than one file specified.
+
 Example:
   ly "reformat; transpose c d" -o output.ly file.ly
 
@@ -105,6 +110,7 @@ class Options(object):
         self.output_encoding = None
         self.output = None
         self.backup_suffix = '~'
+        self.with_filename = None
         
         self.indent_width = 2
         self.indent_tabs = False
@@ -181,6 +187,8 @@ def parse_command_line():
         die('no commands given, nothing to do')
     if not files:
         files.append('-')
+    if opts.with_filename is None:
+        opts.with_filename = len(files) > 1
     return opts, commands, files
 
 def parse_command(arg):

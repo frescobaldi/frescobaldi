@@ -28,7 +28,7 @@ import sys
 import ly.docinfo
 
 
-class command(object):
+class _command(object):
     """Base class for commands.
     
     If the __init__() fails with TypeError or ValueError, the command is
@@ -47,7 +47,7 @@ class command(object):
         pass
 
 
-class set_variable(command):
+class set_variable(_command):
     """set a variable to a value"""
     def __init__(self, arg):
         self.name, self.value = arg.split('=', 1)
@@ -56,33 +56,40 @@ class set_variable(command):
         opts.set_variable(self.name, self.value)
     
 
-class mode(command):
+class _info_command(_command):
+    """base class for commands that print some output to stdout."""
+    def run(self, opts, cursor):
+        info = ly.docinfo.DocInfo(cursor.document)
+        text = self.get_info(info)
+        if text:
+            if opts.with_filename:
+                text = cursor.document.filename + ":" + text
+            sys.stdout.write(text + '\n')
+    
+    def get_info(self, info):
+        """Should return the desired information from the docinfo object."""
+        raise NotImplementedError()
+
+
+class mode(_info_command):
     """print mode to stdout"""
-    def run(self, opts, cursor):
-        info = ly.docinfo.DocInfo(cursor.document)
-        mode = info.mode()
-        sys.stdout.write(mode + '\n')
+    def get_info(self, info):
+        return info.mode()
 
 
-class version(command):
+class version(_info_command):
     """print version to stdout"""
-    def run(self, opts, cursor):
-        info = ly.docinfo.DocInfo(cursor.document)
-        version = info.version_string()
-        if version:
-            sys.stdout.write(version + '\n')
+    def get_info(self, info):
+        return info.version_string()
 
 
-class language(command):
+class language(_info_command):
     """print language to stdout"""
-    def run(self, opts, cursor):
-        info = ly.docinfo.DocInfo(cursor.document)
-        language = info.language()
-        if language:
-            sys.stdout.write(language + '\n')
+    def get_info(self, info):
+        return info.language()
 
 
-class indent(command):
+class indent(_command):
     """run the indenter"""
     pass
 
