@@ -67,7 +67,7 @@ The following variables can be set to influence the behaviour of commands:
   tab-width             number [8], used when converting tabs to spaces
 
 Example:
-  ly "reformat; transpose c d" file.ly
+  ly "reformat; transpose c d" -o output.ly file.ly
 
 """)
 
@@ -102,9 +102,6 @@ class Options(object):
         self.output = None
         self.backup_suffix = '~'
         
-        self.command = []
-        self.files = []
-        
         self.indent_width = 2
         self.indent_tabs = False
         self.tab_width = 8
@@ -120,7 +117,11 @@ class Options(object):
         setattr(self, name, value)
 
 def parse_command_line():
-    """Return an Options instance with all the information from the commandline.
+    """Return a three-tuple(options, commands, files).
+    
+    options is an Options instance with all the command-line options
+    commands is a list of command.command instances
+    files is the list of filename arguments
     
     Also performs error handling and may exit on certain circumstances.
     
@@ -130,7 +131,10 @@ def parse_command_line():
         sys.exit(2)
 
     args = iter(sys.argv[1:])
+    
     opts = Options()
+    commands = []
+    files = []
     
     def next_arg(message):
         """Get the next argument, if missing, die with message."""
@@ -162,18 +166,19 @@ def parse_command_line():
         elif arg == '--output-encoding':
             opts.output_encoding = next_arg("missing output encoding name")
         elif arg == '--':
-            opts.files.extend(args)
+            files.extend(args)
         elif arg.startswith('-'):
             die('unknown option: ' + arg)
-        elif not opts.command:
-            opts.command = parse_command(arg)
+        elif not commands:
+            commands = parse_command(arg)
         else:
-            opts.files.append(arg)
-    if not opts.command and opts.output_encoding is None:
+            files.append(arg)
+    if not commands and opts.output_encoding is None:
         die('no commands given, nothing to do')
-    if not opts.files:
-        opts.files.append('-')
-    return opts
+    if not files:
+        files.append('-')
+    return opts, commands, files
+
 
 def parse_command(arg):
     """Parse the command string, returning a list of command.command instances.
@@ -190,13 +195,13 @@ def parse_command(arg):
                 args = ['set_variable', c]
             cmd = args.pop(0)
             try:
-                result.append(getattr(command, cmd)(*args))
+                result.append(getattr(command, cmd.replace('-', '_'))(*args))
             except AttributeError:
                 die("unknown command: " + cmd)
             except (TypeError, ValueError):
                 die("invalid arguments: " + c)
     return result
 
-opts = parse_command_line()
+opts, commands, files = parse_command_line()
 print vars(opts)
 
