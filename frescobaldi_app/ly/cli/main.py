@@ -21,9 +21,13 @@
 The entry point for the 'ly' command.
 """
 
+from __future__ import unicode_literals
+
 import sys
 
 import ly.pkginfo
+
+from . import command
 
 
 def usage():
@@ -162,14 +166,36 @@ def parse_command_line():
         elif arg.startswith('-'):
             die('unknown option: ' + arg)
         elif not opts.command:
-            opts.command = arg.split(';')
+            opts.command = parse_command(arg)
         else:
             opts.files.append(arg)
-    if not opts.command:
+    if not opts.command and opts.output_encoding is None:
         die('no commands given, nothing to do')
     if not opts.files:
         opts.files.append('-')
     return opts
+
+def parse_command(arg):
+    """Parse the command string, returning a list of command.command instances.
+    
+    Exits when a command is invalid.
+    
+    """
+    result = []
+    
+    for c in arg.split(';'):
+        args = c.split(None, 1)
+        if args:
+            if '=' in args[0]:
+                args = ['set_variable', c]
+            cmd = args.pop(0)
+            try:
+                result.append(getattr(command, cmd)(*args))
+            except AttributeError:
+                die("unknown command: " + cmd)
+            except (TypeError, ValueError):
+                die("invalid arguments: " + c)
+    return result
 
 opts = parse_command_line()
 print vars(opts)
