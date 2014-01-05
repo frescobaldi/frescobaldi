@@ -329,11 +329,14 @@ class DocumentBase(object):
 
 
 class Document(DocumentBase):
-    """A plain text LilyPond source document
+    """A plain text LilyPond source document that auto-updates the tokens.
     
-    that auto-updates the tokens.
+    The modified attribute is set to True as soon as the document is changed,
+    but the setplaintext() method sets it to False.
     
     """
+    modified = False
+    
     def __init__(self, text='', mode=None):
         super(Document, self).__init__()
         self._fridge = ly.lex.Fridge()
@@ -374,6 +377,7 @@ class Document(DocumentBase):
         return self._mode
     
     def setplaintext(self, text):
+        """Set the text of the document, sets modified to False."""
         text = text.replace('\r', '')
         lines = text.split('\n')
         self._blocks = [_Block(t, n) for n, t in enumerate(lines)]
@@ -384,6 +388,7 @@ class Document(DocumentBase):
         if not self._mode:
             self._guessed_mode = ly.lex.guessMode(text)
         self._update_all_tokens()
+        self.modified = False
     
     def _update_all_tokens(self):
         state = self.initial_state()
@@ -460,6 +465,8 @@ class Document(DocumentBase):
             b.index = i
             b.position = pos
             pos += len(b.text) + 1
+        
+        self.modified = True
         
         # if the initial state has changed, reparse everything
         if not self._mode:
