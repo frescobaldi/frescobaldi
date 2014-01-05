@@ -44,7 +44,7 @@ class command(object):
 
 
 class set_variable(command):
-    """sets a variable to a value"""
+    """set a variable to a value"""
     def __init__(self, arg):
         self.name, self.value = arg.split('=', 1)
 
@@ -53,7 +53,7 @@ class set_variable(command):
     
 
 class indent(command):
-    """runs the indenter"""
+    """run the indenter"""
     pass
 
 
