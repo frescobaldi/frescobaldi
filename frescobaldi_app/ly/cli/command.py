@@ -73,6 +73,15 @@ class version(command):
             sys.stdout.write(version + '\n')
 
 
+class language(command):
+    """print language to stdout"""
+    def run(self, opts, cursor):
+        info = ly.docinfo.DocInfo(cursor.document)
+        language = info.language()
+        if language:
+            sys.stdout.write(language + '\n')
+
+
 class indent(command):
     """run the indenter"""
     pass

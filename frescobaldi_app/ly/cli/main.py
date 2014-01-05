@@ -53,6 +53,7 @@ Available commands are:
   variable=value        set a variable, can be used between other commands
   mode                  print the mode (guessing if not given) of the document
   version               print the LilyPond version, if set in the document
+  language              print the pitch name language, if set in the document
   indent                re-indent the file
   reformat              reformat the file
   translate language    translate the pitch names to the language
