@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 import sys
 
 import ly.pkginfo
+import ly.document
 
 from . import command
 
@@ -50,6 +51,8 @@ Options:
 The command is one string with semicolon-separated commands.
 Available commands are:
   variable=value        set a variable, can be used between other commands
+  mode                  print the mode (guessing if not given) of the document
+  version               print the LilyPond version, if set in the document
   indent                re-indent the file
   reformat              reformat the file
   translate language    translate the pitch names to the language
@@ -179,7 +182,6 @@ def parse_command_line():
         files.append('-')
     return opts, commands, files
 
-
 def parse_command(arg):
     """Parse the command string, returning a list of command.command instances.
     
@@ -202,6 +204,23 @@ def parse_command(arg):
                 die("invalid arguments: " + c)
     return result
 
+
 opts, commands, files = parse_command_line()
-print vars(opts)
+
+
+def load(filename, encoding, mode):
+    """Load a file, returning a ly.document.Document"""
+    with open(filename, 'r') as f:
+        text = f.read().decode(encoding)
+    doc = ly.document.Document(text, mode)
+    doc.filename = filename
+    doc.encoding = encoding
+    return doc
+
+
+for filename in files:
+    doc = load(filename, opts.encoding, opts.mode)
+    cursor = ly.document.Cursor(doc)
+    for c in commands:
+        c.run(opts, cursor)
 

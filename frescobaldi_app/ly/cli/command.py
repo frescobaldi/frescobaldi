@@ -23,6 +23,10 @@ The commands that are available to the command line.
 
 from __future__ import unicode_literals
 
+import sys
+
+import ly.docinfo
+
 
 class command(object):
     """Base class for commands.
@@ -51,6 +55,23 @@ class set_variable(command):
     def run(self, opts, cursor):
         opts.set_variable(self.name, self.value)
     
+
+class mode(command):
+    """print mode to stdout"""
+    def run(self, opts, cursor):
+        info = ly.docinfo.DocInfo(cursor.document)
+        mode = info.mode()
+        sys.stdout.write(mode + '\n')
+
+
+class version(command):
+    """print version to stdout"""
+    def run(self, opts, cursor):
+        info = ly.docinfo.DocInfo(cursor.document)
+        version = info.version_string()
+        if version:
+            sys.stdout.write(version + '\n')
+
 
 class indent(command):
     """run the indenter"""
