@@ -205,10 +205,6 @@ def parse_command(arg):
                 die("invalid arguments: " + c)
     return result
 
-
-opts, commands, files = parse_command_line()
-
-
 def load(filename, encoding, mode):
     """Load a file, returning a ly.document.Document"""
     with open(filename, 'r') as f:
@@ -218,17 +214,20 @@ def load(filename, encoding, mode):
     doc.encoding = encoding
     return doc
 
+def main():
+    opts, commands, files = parse_command_line()
 
-exit_code = 0
-for filename in files:
-    try:
-        doc = load(filename, opts.encoding, opts.mode)
-    except IOError as err:
-        sys.stderr.write('warning: Skipping file "{0}":\n  {1}\n'.format(filename, err))
-        exit_code = 1
-        continue
-    cursor = ly.document.Cursor(doc)
-    for c in commands:
-        c.run(opts, cursor)
+    exit_code = 0
+    for filename in files:
+        try:
+            doc = load(filename, opts.encoding, opts.mode)
+        except IOError as err:
+            sys.stderr.write('warning: Skipping file "{0}":\n  {1}\n'.format(filename, err))
+            exit_code = 1
+            continue
+        cursor = ly.document.Cursor(doc)
+        for c in commands:
+            c.run(opts, cursor)
+    return exit_code
 
-sys.exit(exit_code)
+sys.exit(main())
