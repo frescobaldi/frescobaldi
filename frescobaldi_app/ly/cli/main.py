@@ -207,8 +207,11 @@ def parse_command(arg):
 
 def load(filename, encoding, mode):
     """Load a file, returning a ly.document.Document"""
-    with open(filename, 'r') as f:
-        text = f.read().decode(encoding)
+    if filename == '-':
+        text = sys.stdin.read().decode(encoding)
+    else:
+        with open(filename, 'r') as f:
+            text = f.read().decode(encoding)
     doc = ly.document.Document(text, mode)
     doc.filename = filename
     doc.encoding = encoding
