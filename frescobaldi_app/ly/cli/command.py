@@ -95,6 +95,22 @@ class language(_info_command):
 
 class indent(_command):
     """run the indenter"""
-    pass
+    def indenter(self, opts):
+        """Get a ly.indent.Indenter initialized with our options."""
+        import ly.indent
+        i = ly.indent.Indenter()
+        i.indent_tabs = opts.indent_tabs
+        i.indent_width = opts.indent_width
+        return i
+    
+    def run(self, opts, cursor):
+        self.indenter(opts).indent(cursor)
+
+
+class reformat(indent):
+    """reformat the document"""
+    def run(self, opts, cursor):
+        import ly.reformat
+        ly.reformat.reformat(cursor, self.indenter(opts))
 
 
