@@ -148,13 +148,15 @@ class write(_command):
     
     def run(self, opts, cursor, output):
         # determine the real output filename to use
+        encoding = opts.output_encoding or opts.encoding
         if self.output:
             filename = self.output
         elif opts.in_place:
+            if not cursor.document.modified and encoding == opts.encoding:
+                return
             filename = cursor.document.filename
         else:
             filename = output.get_filename(opts, cursor.document.filename)
-        encoding = opts.output_encoding or opts.encoding
         with output.file(opts, filename) as f:
             f.write(cursor.document.plaintext().encode(encoding))
 
