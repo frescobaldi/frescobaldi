@@ -27,6 +27,9 @@ import re
 import sys
 
 import ly.docinfo
+import ly.indent
+import ly.pitch
+import ly.reformat
 
 
 class _command(object):
@@ -103,7 +106,6 @@ class indent(_edit_command):
     """run the indenter"""
     def indenter(self, opts):
         """Get a ly.indent.Indenter initialized with our options."""
-        import ly.indent
         i = ly.indent.Indenter()
         i.indent_tabs = opts.indent_tabs
         i.indent_width = opts.indent_width
@@ -116,14 +118,12 @@ class indent(_edit_command):
 class reformat(indent):
     """reformat the document"""
     def run(self, opts, cursor, output):
-        import ly.reformat
         ly.reformat.reformat(cursor, self.indenter(opts))
 
 
 class translate(_edit_command):
     """translate pitch names"""
     def __init__(self, language):
-        import ly.pitch
         if language not in ly.pitch.pitchInfo:
             raise ValueError()
         self.language = language
@@ -145,7 +145,6 @@ class translate(_edit_command):
 class transpose(_edit_command):
     """transpose music"""
     def __init__(self, arg):
-        import ly.pitch
         result = []
         for pitch, octave in re.findall(r"([a-z]+)([,']*)", arg):
             r = ly.pitch.pitchReader("nederlands")(pitch)
