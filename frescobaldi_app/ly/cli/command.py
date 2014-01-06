@@ -23,6 +23,7 @@ The commands that are available to the command line.
 
 from __future__ import unicode_literals
 
+import re
 import sys
 
 import ly.docinfo
@@ -139,6 +140,29 @@ class translate(_edit_command):
         if not changed:
             version = ly.docinfo.DocInfo(cursor.document).version()
             ly.pitch.translate.insert_language(cursor.document, self.language, version)
+
+
+class transpose(_edit_command):
+    """transpose music"""
+    def __init__(self, arg):
+        import ly.pitch
+        result = []
+        for pitch, octave in re.findall(r"([a-z]+)([,']*)", arg):
+            r = ly.pitch.pitchReader("nederlands")(pitch)
+            if r:
+                result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
+        self.from_pitch, self.to_pitch = result
+    
+    def run(self, opts, cursor, output):
+        import ly.pitch.transpose
+        transposer = ly.pitch.transpose.Transposer(self.from_pitch, self.to_pitch)
+        try:
+            ly.pitch.transpose.transpose(cursor, transposer)
+        except ly.pitch.PitchNameNotAvailable:
+            language = ly.docinfo.DocInfo(cursor.document).language() or "nederlands"
+            sys.stderr.write(
+                "warning: transpose: pitch names not available in \"{0}\"\n"
+                "  skipping file: {1}\n".format(language, cursor.document.filename))
 
 
 class write(_command):
