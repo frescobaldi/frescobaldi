@@ -43,7 +43,7 @@ class _command(object):
     def __init__(self):
         pass
 
-    def run(self, opts, cursor):
+    def run(self, opts, cursor, output):
         pass
 
 
@@ -52,13 +52,13 @@ class set_variable(_command):
     def __init__(self, arg):
         self.name, self.value = arg.split('=', 1)
 
-    def run(self, opts, cursor):
+    def run(self, opts, cursor, output):
         opts.set_variable(self.name, self.value)
     
 
 class _info_command(_command):
     """base class for commands that print some output to stdout."""
-    def run(self, opts, cursor):
+    def run(self, opts, cursor, output):
         info = ly.docinfo.DocInfo(cursor.document)
         text = self.get_info(info)
         if text:
@@ -93,7 +93,12 @@ class language(_info_command):
         return info.language()
 
 
-class indent(_command):
+class _edit_command(_command):
+    """a command that edits the source file"""
+    pass
+
+
+class indent(_edit_command):
     """run the indenter"""
     def indenter(self, opts):
         """Get a ly.indent.Indenter initialized with our options."""
@@ -103,14 +108,32 @@ class indent(_command):
         i.indent_width = opts.indent_width
         return i
     
-    def run(self, opts, cursor):
+    def run(self, opts, cursor, output):
         self.indenter(opts).indent(cursor)
 
 
 class reformat(indent):
     """reformat the document"""
-    def run(self, opts, cursor):
+    def run(self, opts, cursor, output):
         import ly.reformat
         ly.reformat.reformat(cursor, self.indenter(opts))
+
+
+class write(_command):
+    """write the source file."""
+    def __init__(self, output=None):
+        self.output = output
+    
+    def run(self, opts, cursor, output):
+        # determine the real output filename to use
+        if self.output:
+            filename = self.output
+        elif opts.in_place:
+            filename = cursor.document.filename
+        else:
+            filename = output.get_filename(opts, cursor.document.filename)
+        encoding = opts.output_encoding or opts.encoding
+        with output.file(opts, filename) as f:
+            f.write(cursor.document.plaintext().encode(encoding))
 
 

@@ -23,7 +23,10 @@ The entry point for the 'ly' command.
 
 from __future__ import unicode_literals
 
+import contextlib
 import copy
+import os
+import shutil
 import sys
 
 import ly.pkginfo
@@ -67,6 +70,9 @@ Commands that change the file:
   translate language    translate the pitch names to the language
   transpose from to     transpose the file like LilyPond would do, pitches
                         are given in the 'nederlands' language
+  write [filename]      write the file to the given filename or the output
+                        variable. If the last command was an editing command,
+                        write is automatically called.
 
 The following variables can be set to influence the behaviour of commands:
   mode                  [empty] mode of the file to read (default automatic)
@@ -117,6 +123,7 @@ class Options(object):
         self.encoding = 'UTF-8'
         self.output_encoding = None
         self.output = None
+        self.replace_pattern = True
         self.backup_suffix = '~'
         self.with_filename = None
         
@@ -133,7 +140,7 @@ class Options(object):
         elif value.isdigit():
             value = int(value)
         setattr(self, name, value)
-
+    
 def parse_command_line():
     """Return a three-tuple(options, commands, files).
     
@@ -193,6 +200,8 @@ def parse_command_line():
             files.append(arg)
     if not commands and opts.output_encoding is None:
         die('no commands given, nothing to do')
+    if commands and isinstance(commands[-1], command._edit_command):
+        commands.append(command.write())
     if not files:
         files.append('-')
     if opts.with_filename is None:
@@ -233,21 +242,69 @@ def load(filename, encoding, mode):
     doc.encoding = encoding
     return doc
 
+class Output(object):
+    """Object living for a whole file/command operation, handling the output.
+    
+    When opening a file it has already opened earlier, the file is appended to
+    (like awk).
+    
+    """
+    def __init__(self):
+        self._seen_filenames = set()
+    
+    def get_filename(self, opts, filename):
+        """Queries the output attribute from the Options and returns it.
+        
+        If replace_pattern is True (by default) and the attribute contains a 
+        '*', it is replaced with the full path of the specified filename, 
+        but without extension. It the attribute contains a '?', it is 
+        replaced with the filename without path and extension.
+        
+        If '-' is returned, it denotes standard output.
+        
+        """
+        if not opts.output:
+            return '-'
+        elif opts.replace_pattern:
+            path, ext = os.path.splitext(filename)
+            directory, name = os.path.split(path)
+            return opts.output.replace('?', name).replace('*', path)
+        else:
+            return opts.output
+    
+    @contextlib.contextmanager
+    def file(self, opts, filename):
+        """Return a context manager for writing to."""
+        if not filename or filename == '-':
+            yield sys.stdout
+        else:
+            if filename not in self._seen_filenames:
+                self._seen_filenames.add(filename)
+                if opts.backup_suffix and os.path.exists(filename):
+                    shutil.copy(filename, filename + opts.backup_suffix)
+                h = open(filename, 'w')
+            else:
+                h = open(filename, 'a')
+            try:
+                yield h
+            finally:
+                h.close()
+
 def main():
     opts, commands, files = parse_command_line()
-
+    output = Output()
     exit_code = 0
     for filename in files:
         options = copy.deepcopy(opts)
         try:
             doc = load(filename, options.encoding, options.mode)
         except IOError as err:
-            sys.stderr.write('warning: Skipping file "{0}":\n  {1}\n'.format(filename, err))
+            sys.stderr.write('warning: skipping file "{0}":\n  {1}\n'.format(filename, err))
             exit_code = 1
             continue
         cursor = ly.document.Cursor(doc)
         for c in commands:
-            c.run(options, cursor)
+            c.run(options, cursor, output)
     return exit_code
 
 sys.exit(main())
