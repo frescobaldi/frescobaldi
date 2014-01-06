@@ -39,7 +39,8 @@ Usage: ly [options] commands file, ...
 
 A tool for manipulating LilyPond source files
 
-Options:
+OPTIONS
+
   -v, --version         show version number and exit
   -h, --help            show this help text and exit
   -i, --in-place        overwrite input files
@@ -49,19 +50,34 @@ Options:
   -d variable=value     set a variable
   --                    consider the remaining arguments to be file names
 
+ARGUMENTS
+
 The command is one argument with semicolon-separated commands. In most cases
 you'll quote the command so that it is seen as one argument.
 
-Available commands are:
-  variable=value        set a variable, can be used between other commands
+You can specify more than one LilyPond file. If you want to process many 
+files and write the results of the operations on each file to a separate 
+output file, you can use two special characters in the output filename: a 
+'*' will be replaced with the full path name of the current input file 
+(without extension), and a '?' will be replaced with the input filename 
+(without path and extension). If you don't want to have '*' or '?' replaced 
+in the output filename, you can set -d replace-pattern=false.
+
+If you don't specify input or output filenames, standard input is read and
+standard output is written to.
+
+
+COMMANDS
   
 Informative commands that write information to standard output and do not
 change the file:
+
   mode                  print the mode (guessing if not given) of the document
   version               print the LilyPond version, if set in the document
   language              print the pitch name language, if set in the document
   
 Commands that change the file:
+
   indent                re-indent the file
   reformat              reformat the file
   translate language    translate the pitch names to the language
@@ -71,23 +87,47 @@ Commands that change the file:
                         variable. If the last command was an editing command,
                         write is automatically called.
 
-The following variables can be set to influence the behaviour of commands:
-  mode                  [empty] mode of the file to read (default automatic)
-                        can be one of: lilypond, scheme, latex, html, docbook,
-                        texinfo.
-  backup-suffix         string [~], to use when editing files in-place, if set,
-                        backs up the original file before overwriting it
-  indent-tabs           true/false [false], whether to use tabs for indent
-  indent-width          number [2], how many spaces for each indent level
-  tab-width             number [8], used when converting tabs to spaces
+Between commands, you can set or unset a variable using:
 
-These variables influence the output of information commands
-  with-filename         [unset] prints the filename next to information like
-                        version, etc. This is True by default if there is more
-                        than one file specified.
+  variable=value        set a variable to value. Special values are true, false,
+                        which are interpreted as boolean values, or digits,
+                        which will be interpreted as integer values.
+  variable=             unset a variable
+
+
+VARIABLES
+
+The following variables can be set to influence the behaviour of commands.
+If there is a default value, it is written between brackets:
+
+  mode                  mode of the file to read (default automatic) can be one
+                        of: lilypond, scheme, latex, html, docbook, texinfo.
+  output [-]            the output filename (also set by -o argument)
+  encoding [UTF-8]      encoding to read (also set by -e argument)
+  output-encoding       encoding to write (defaults to encoding, also
+                        set by --output-encoding argument)
+  in-place [false]      whether to overwrite input files (same as -i)
+  backup-suffix [~]     suffix to use when editing files in-place, if set,
+                        backs up the original file before overwriting it
+  replace-pattern [true] whether to replace '*' and '?' in the output filename.
+  indent-tabs [false]   whether to use tabs for indent
+  indent-width [2]      how many spaces for each indent level (if not using
+                        tabs)
+
+These variables influence the output of information commands:
+
+  with-filename         prints the filename next to information like version,
+                        etc. This is true by default if there is more than one
+                        file specified.
 
 Example:
+
   ly "reformat; transpose c d" -o output.ly file.ly
+
+Example using the '*' in the output file name:
+
+  ly "transpose c d" *.ly -o '*-transposed.ly'
+
 
 """)
 
