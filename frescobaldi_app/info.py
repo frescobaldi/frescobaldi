@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 
 # these variables are also used by the distutils setup
 name = "frescobaldi"
-version = "2.0.12-dev"
+version = "2.0.14-dev"
 description = "LilyPond Music Editor"
 long_description = \
     "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. " \

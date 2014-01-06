@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -35,6 +35,8 @@ import plugin
 import icons
 import signals
 import panelmanager
+import variables
+
 
 def engraver(mainwindow):
     return Engraver.instance(mainwindow)
@@ -55,20 +57,35 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_debug.triggered.connect(self.engraveLayoutControl)
         ac.engrave_custom.triggered.connect(self.engraveCustom)
         ac.engrave_abort.triggered.connect(self.engraveAbort)
+        ac.engrave_autocompile.toggled.connect(self.engraveAutoCompileToggled)
         mainwindow.currentDocumentChanged.connect(self.updateActions)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
         app.jobFinished.connect(self.checkLilyPondInstalled)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
+        mainwindow.aboutToClose.connect(self.saveSettings)
+        self.loadSettings()
         app.languageChanged.connect(self.updateStickyActionText)
         self.updateStickyActionText()
         
+    def document(self):
+        """Return the Document that should be engraved."""
+        doc = self.stickyDocument()
+        if not doc:
+            doc = self.mainwindow().currentDocument()
+            if not doc.url().isEmpty():
+                master = variables.get(doc, "master")
+                if master:
+                    url = doc.url().resolved(QUrl(master))
+                    doc = app.openUrl(url)
+        return doc
+                
     def runningJob(self):
         """Returns a Job for the sticky or current document if that is running."""
-        doc = self.stickyDocument() or self.mainwindow().currentDocument()
+        doc = self.document()
         job = jobmanager.job(doc)
-        if job and job.isRunning():
+        if job and job.isRunning() and not jobattributes.get(job).hidden:
             return job
     
     def updateActions(self):
@@ -110,7 +127,7 @@ class Engraver(plugin.MainWindowPlugin):
             dlg = self._customDialog = custom.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
-        doc = self.stickyDocument() or self.mainwindow().currentDocument()
+        doc = self.document()
         dlg.setDocument(doc)
         if dlg.exec_():
             self.saveDocumentIfDesired()
@@ -119,8 +136,8 @@ class Engraver(plugin.MainWindowPlugin):
     def engrave(self, mode='preview', document=None, may_save=True):
         """Starts an engraving job.
         
-        The mode can be 'preview', 'publish', or 'debug'. The last one uses
-        the settings in the Layout Control Options panel. The
+        The mode can be 'preview', 'publish', or 'layout-control'. The last 
+        one uses the settings in the Layout Control Options panel. The 
         default mode is 'preview'.
         
         If document is not specified, it is either the sticky or current
@@ -138,7 +155,7 @@ class Engraver(plugin.MainWindowPlugin):
         elif mode == 'layout-control':
             args = panelmanager.manager(
                     self.mainwindow()).layoutcontrol.widget().preview_options()
-        doc = document or self.stickyDocument() or self.mainwindow().currentDocument()
+        doc = document or self.document()
         if may_save:
             self.saveDocumentIfDesired()
         from . import command
@@ -163,6 +180,10 @@ class Engraver(plugin.MainWindowPlugin):
     def runJob(self, job, document):
         """Runs the engraving job on behalf of document."""
         jobattributes.get(job).mainwindow = self.mainwindow()
+        # cancel running job, that would be an autocompile job
+        rjob = jobmanager.job(document)
+        if rjob and rjob.isRunning():
+            rjob.abort()
         jobmanager.manager(document).startJob(job)
     
     def stickyToggled(self):
@@ -204,6 +225,11 @@ class Engraver(plugin.MainWindowPlugin):
             text = _("&Always Engrave This Document")
         self.actionCollection.engrave_sticky.setText(text)
     
+    def engraveAutoCompileToggled(self, enabled):
+        """Called when the user toggles autocompile on/off."""
+        from . import autocompile
+        autocompile.AutoCompiler.instance(self.mainwindow()).setEnabled(enabled)
+    
     def slotSessionChanged(self):
         """Called when the session is changed."""
         import sessions
@@ -225,6 +251,20 @@ class Engraver(plugin.MainWindowPlugin):
                 g.setValue("sticky_url", d.url())
             else:
                 g.remove("sticky_url")
+    
+    def saveSettings(self):
+        """Save the state of some actions."""
+        ac = self.actionCollection
+        s = QSettings()
+        s.beginGroup("engraving")
+        s.setValue("autocompile", ac.engrave_autocompile.isChecked())
+        
+    def loadSettings(self):
+        """Load the state of some actions."""
+        ac = self.actionCollection
+        s = QSettings()
+        s.beginGroup("engraving")
+        ac.engrave_autocompile.setChecked(s.value("autocompile", False, bool))
     
     def checkLilyPondInstalled(self, document, job, success):
         """Called when LilyPond is run for the first time.
@@ -256,6 +296,8 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_debug = QAction(parent)
         self.engrave_custom = QAction(parent)
         self.engrave_abort = QAction(parent)
+        self.engrave_autocompile = QAction(parent)
+        self.engrave_autocompile.setCheckable(True)
         
         self.engrave_preview.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_M))
         self.engrave_publish.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_P))
@@ -277,5 +319,6 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_debug.setText(_("Engrave (&layout control)"))
         self.engrave_custom.setText(_("Engrave (&custom)..."))
         self.engrave_abort.setText(_("Abort Engraving &Job"))
+        self.engrave_autocompile.setText(_("Automatic E&ngrave"))
         
         

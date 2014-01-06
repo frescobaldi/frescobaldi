@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2011 - 2013 by Wilbert Berendsen
+# Copyright (c) 2011 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -112,9 +112,7 @@ def duration_tokens_pos(source, *classes):
 
 def preceding_duration(cursor):
     """Return a preceding duration before the cursor, or an empty list."""
-    runner = ly.document.Runner(cursor.document)
-    runner.set_position(cursor.position)
-    tokens = runner.backward()
+    tokens = ly.document.Runner.at(cursor).backward()
     for t in tokens:
         if isinstance(t, ly.lex.lilypond.Duration):
             l = [t]

@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -27,7 +27,8 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import QSettings, QSize, Qt, pyqtSignal
 from PyQt4.QtGui import (
     QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QKeySequence,
-    QListWidget, QListWidgetItem, QStackedWidget, QVBoxLayout, QWidget)
+    QListWidget, QListWidgetItem, QScrollArea, QStackedWidget, QVBoxLayout,
+    QWidget)
 
 import app
 import qutil
@@ -291,6 +292,24 @@ class Page(QWidget):
         """Should write settings from our widget to config."""
 
     
+class ScrolledPage(Page):
+    """Base class for settings pages that are scrollable.
+    
+    Te scrolledWidget attribute has the widget the other components
+    can be added to.
+    
+    """
+    def __init__(self, dialog):
+        super(ScrolledPage, self).__init__(dialog)
+        layout = QVBoxLayout(margin=0, spacing=0)
+        self.setLayout(layout)
+        scrollarea = QScrollArea(frameWidth=0, frameShape=QScrollArea.NoFrame)
+        layout.addWidget(scrollarea)
+        self.scrolledWidget = QWidget(scrollarea)
+        scrollarea.setWidget(self.scrolledWidget)
+        scrollarea.setWidgetResizable(True)
+
+    
 class GroupsPage(Page):
     """Base class for a Page with SettingsGroups.
     
@@ -309,6 +328,12 @@ class GroupsPage(Page):
         for group in self.groups:
             group.saveSettings()
             
+
+class ScrolledGroupsPage(GroupsPage, ScrolledPage):
+    def __init__(self, dialog):
+        ScrolledPage.__init__(self, dialog)
+        self.groups = []
+
 
 class Group(QGroupBox):
     """This is a QGroupBox that auto-adds itself to a Page."""

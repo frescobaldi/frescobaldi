@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -122,10 +122,9 @@ class ScoreWizardDialog(QDialog):
         from . import build
         builder = build.Builder(self)
         cursor = self.parent().currentView().textCursor()
-        with cursortools.compress_undo(cursor):
-            cursortools.insert_select(cursor, builder.text())
+        cursortools.insert_select(cursor, builder.text())
+        with cursortools.compress_undo(cursor, True):
             indent.re_indent(cursor)
-    
     
     def showPreview(self):
         """Shows a preview."""

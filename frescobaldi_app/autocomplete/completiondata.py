@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2011 - 2012 by Wilbert Berendsen
+# Copyright (c) 2011 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -171,12 +171,19 @@ lilypond_header_variables = listmodel.ListModel(
 lilypond_paper_variables = listmodel.ListModel(
     sorted(ly.words.papervariables), edit = util.variable)
 
-lilypond_layout_variables = listmodel.ListModel(
-    ['\\context {',] + sorted(ly.words.layoutvariables),
+lilypond_layout_variables = listmodel.ListModel([
+        '\\context {',
+        '\\override',
+        '\\set',
+        '\\hide',
+        '\\omit',
+        '\\accidentalStyle',
+        ] + sorted(ly.words.layoutvariables),
     edit = util.cmd_or_var)
 
 lilypond_midi_variables = listmodel.ListModel(
-    ['\\context {',] + sorted(ly.words.midivariables),
+    ['\\context {', '\\override', '\\set', '\\tempo',] +
+    sorted(ly.words.midivariables),
     edit = util.cmd_or_var)
 
 lilypond_contexts = listmodel.ListModel(sorted(ly.words.contexts))
@@ -216,12 +223,16 @@ lilypond_score = listmodel.ListModel(score, display = util.command)
 
 lilypond_engravers = listmodel.ListModel(ly.data.engravers())
     
-def lilypond_grob_properties(grob):
+def lilypond_grob_properties(grob, hash_quote=True):
+    display = (lambda item: "#'" + item) if hash_quote else (lambda item: item)
     return listmodel.ListModel(ly.data.grob_properties(grob),
-        display = lambda item: "#'" + item)
+        display = display)
 
 lilypond_all_grob_properties = listmodel.ListModel(ly.data.all_grob_properties(),
     display = lambda item: "#'" + item)
+
+lilypond_all_grob_properties_and_grob_names = listmodel.ListModel(
+    ly.data.all_grob_properties() + ly.data.grobs())
 
 lilypond_markup_properties = listmodel.ListModel(
     sorted(set(sum(map(ly.data.grob_interface_properties, (
@@ -234,6 +245,11 @@ lilypond_markup_properties = listmodel.ListModel(
 lilypond_modes = listmodel.ListModel(ly.words.modes, display = util.command)
 
 lilypond_clefs = listmodel.ListModel(ly.words.clefs_plain)
+
+lilypond_accidental_styles = listmodel.ListModel(ly.words.accidentalstyles)
+
+lilypond_accidental_styles_contexts = listmodel.ListModel(
+    ly.words.contexts + ly.words.accidentalstyles)
 
 lilypond_repeat_types = listmodel.ListModel(ly.words.repeat_types)
 

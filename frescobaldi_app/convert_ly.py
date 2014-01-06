@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -161,7 +161,7 @@ class Dialog(QDialog):
         return self._convertedtext or ''
     
     def setDocument(self, doc):
-        v = documentinfo.info(doc).versionString()
+        v = documentinfo.docinfo(doc).version_string()
         if v:
             self.fromVersion.setText(v)
             self.reason.setText(_("(set in document)"))

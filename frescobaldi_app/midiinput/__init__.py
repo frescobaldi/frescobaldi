@@ -65,7 +65,7 @@ class MidiIn(object):
         if not self._portmidiinput:
             self.open()
         doc = self.widget().mainwindow().currentDocument()
-        self._language = documentinfo.info(doc).pitchLanguage() or 'nederlands'
+        self._language = documentinfo.docinfo(doc).language() or 'nederlands'
         self._activenotes = 0
         self._listener.start()
     

@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -129,14 +129,10 @@ class Results(plugin.DocumentPlugin):
     def currentDirectory(self):
         """Returns the directory the document resides in.
         
-        Returns the temporary directory if that was used last and there is no master document set.
+        Returns the temporary directory if that was used last.
         
         """
-        if documentinfo.info(self.document()).master():
-            filename = self.document().url().toLocalFile()
-        else:
-            filename = self.jobfile()
-        directory = os.path.dirname(filename)
+        directory = os.path.dirname(self.jobfile())
         if os.path.isdir(directory):
             return directory
 

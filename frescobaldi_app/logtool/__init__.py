@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -57,13 +57,16 @@ class LogTool(panel.Panel):
     def slotJobStarted(self, doc, job):
         """Called whenever job starts, decides whether to follow it and show the log."""
         import jobattributes
-        if doc == self.mainwindow().currentDocument() or self.mainwindow() == jobattributes.get(job).mainwindow:
+        jattrs = jobattributes.get(job)
+        if doc == self.mainwindow().currentDocument() or self.mainwindow() == jattrs.mainwindow:
             self.widget().switchDocument(doc)
-            if QSettings().value("log/show_on_start", True, bool):
+            if not jattrs.hidden and QSettings().value("log/show_on_start", True, bool):
                 self.show()
 
     def slotJobFinished(self, document, job, success):
+        import jobattributes
         if (not success and not job.isAborted()
+                and not jobattributes.get(job).hidden
                 and document == self.mainwindow().currentDocument()):
             self.show()
     

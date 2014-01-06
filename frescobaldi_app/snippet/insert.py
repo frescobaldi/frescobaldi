@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -27,8 +27,8 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QTextCursor, QMessageBox
 
 import cursortools
-import indent
 import tokeniter
+import indent
 
 from . import snippets
 from . import expand
@@ -46,7 +46,6 @@ def insert(name, view):
         cursortools.strip_selection(cursor)
     
     pos = cursor.selectionStart()
-    line = cursor.document().findBlock(pos).blockNumber()
     with cursortools.compress_undo(cursor):
         
         # insert the snippet, might return a new cursor
@@ -55,19 +54,16 @@ def insert(name, view):
         else:
             new = insert_snippet(text, cursor, variables)
         
-        # QTextBlocks the snippet starts and ends
-        block = cursor.document().findBlockByNumber(line)
-        last = cursor.block()
-        
-        # re-indent if not explicitly suppressed by a 'indent: no' variable
-        if last != block and 'no' not in variables.get('indent', ''):
-            tokeniter.update(block) # tokenize inserted lines
-            while True:
-                block = block.next()
-                if indent.set_indent(block, indent.compute_indent(block)):
-                    tokeniter.update(block)
-                if block == last:
-                    break
+    # QTextBlocks the snippet starts and ends
+    block = cursor.document().findBlock(pos)
+    last = cursor.block()
+    
+    # re-indent if not explicitly suppressed by a 'indent: no' variable
+    if last != block and 'no' not in variables.get('indent', ''):
+        c = QTextCursor(last)
+        c.setPosition(block.position(), QTextCursor.KeepAnchor)
+        with cursortools.compress_undo(c, True):
+            indent.re_indent(c, True)
     
     if not new and 'keep' in selection:
         end = cursor.position()

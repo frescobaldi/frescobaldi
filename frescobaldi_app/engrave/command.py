@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -30,12 +30,11 @@ from PyQt4.QtCore import QSettings
 import job
 import documentinfo
 import lilypondinfo
-import layoutcontrol
 
 
 def info(document):
     """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
-    version = documentinfo.info(document).version()
+    version = documentinfo.docinfo(document).version()
     if version and QSettings().value("lilypond_settings/autoversion", False, bool):
         return lilypondinfo.suitable(version)
     return lilypondinfo.preferred()
@@ -51,8 +50,8 @@ def defaultJob(document, args=None):
     with point and click turned off.
     
     """
-    filename, mode, includepath = documentinfo.info(document).jobinfo(True)
-    includepath.extend(documentinfo.info(document).includepath())
+    filename, includepath = documentinfo.info(document).jobinfo(True)
+    
     i = info(document)
     j = job.Job()
     
@@ -69,7 +68,11 @@ def defaultJob(document, args=None):
     else:
         command.append('-dno-point-and-click')
     
-    command.append('--pdf')
+    if s.value("default_output_target", "pdf", type("")) == "svg":
+        command.append('-dbackend=svg')
+    else:
+        command.append('--pdf')
+        
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)
     command.append(filename)

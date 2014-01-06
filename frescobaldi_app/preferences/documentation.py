@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -34,6 +34,7 @@ import preferences
 import widgets.listedit
 import widgets.dialog
 import lilydoc
+import userguide
 import language_names
 
 
@@ -66,16 +67,7 @@ class Paths(preferences.Group):
         self.setTitle(_("Paths to LilyPond Documentation"))
         self.paths.setToolTip(_(
             "Add paths or URLs. See \"What's This\" for more information."))
-        self.paths.setWhatsThis(_(
-            "<p>Here you can add local paths or URLs pointing to LilyPond "
-            "documentation. A local path should point to the directory where "
-            "either the \"{documentation}\" directory lives, or the whole "
-            "\"share/doc/lilypond/html/offline-root\" path.</p>\n"
-            "<p>If those can't be found, documentation is looked for in all "
-            "subdirectories of the given path, one level deep. This makes it "
-            "possible to put multiple versions of LilyPond documentation in "
-            "different subdirectories and have Frescobaldi automatically find "
-            "them.</p>").format(documentation="Documentation"))
+        self.paths.setWhatsThis(userguide.html("prefs_lilydoc"))
     
     def loadSettings(self):
         try:

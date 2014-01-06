@@ -90,3 +90,13 @@ Frescobaldi depend on a package that installs hyphenation dictionaries in
 /usr/share/hyphen/ (or another dictionary listed by default in frescobaldi_app/
 hyphendialog.py).
 
+
+The ly module:
+==============
+
+Frescobaldi provides a Python module (ly) that can be installed separately,
+without requiring the rest of Frescobaldi. This can be done using the setup.py
+script in the python-ly directory. This folder also contains the command line
+tool "ly" that makes the functionality of the ly module accessible via the
+command line.
+

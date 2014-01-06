@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -30,9 +30,11 @@ from PyQt4.QtGui import QCheckBox, QHBoxLayout, QToolButton
 import app
 import symbols
 import cursortools
-import tokeniter
-import music
+import lydocument
+import ly.document
+import documentinfo
 import ly.lex.lilypond
+import ly.rhythm
 import icons
 import documentactions
 
@@ -45,7 +47,7 @@ shorthands = {
     'marcato': '^',
     'stopped': '+',
     'tenuto': '-',
-    'staccatissimo': '|',
+    'staccatissimo': '|', # in Lily >= 2.17.25 this changed to '!', handled below
     'accent': '>',
     'staccato': '.',
     'portato': '_',
@@ -117,7 +119,13 @@ class Group(buttongroup.ButtonGroup):
 
     def actionTriggered(self, name):
         if self.tool().shorthands.isChecked() and name in shorthands:
-            text = '_-^'[self.direction()+1] + shorthands[name]
+            short = shorthands[name]
+            # LilyPond >= 2.17.25 changed -| to -!
+            if name == 'staccatissimo':
+                version = documentinfo.docinfo(self.mainwindow().currentDocument()).version()
+                if version >= (2, 17, 25):
+                    short = '!'
+            text = '_-^'[self.direction()+1] + short
         else:
             text = ('_', '', '^')[self.direction()+1] + '\\' + name
         cursor = self.mainwindow().textCursor()
@@ -209,17 +217,19 @@ def articulation_positions(cursor):
     If the cursor has a selection, all positions in the selection are returned.
     
     """
-    if cursor.hasSelection():
-        source = tokeniter.Source.selection(cursor, True)
-        tokens = None
-        rests = False
-    else:
-        source = tokeniter.Source.from_cursor(cursor, True, -1)
-        tokens = source.tokens # only current line
+    c = lydocument.cursor(cursor)
+    if not cursor.hasSelection():
+        # just select til the end of the current line
+        c.select_end_of_block()
         rests = True
+        partial = ly.document.OUTSIDE
+    else:
+        rests = False
+        partial = ly.document.INSIDE
+    source = lydocument.Source(c, True, partial, True)
     
     positions = []
-    for p in music.music_items(source, tokens=tokens):
+    for p in ly.rhythm.music_tokens(source):
         if not rests and isinstance(p[0], ly.lex.lilypond.Rest):
             continue
         positions.append(source.cursor(p[-1], start=len(p[-1])))

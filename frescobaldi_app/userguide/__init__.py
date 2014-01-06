@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2013 - 2013 by Wilbert Berendsen
+# Copyright (c) 2013 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -61,4 +61,9 @@ def link(page):
     """Return a HTML link to the page."""
     from . import util
     return util.format_link(page)
+
+def html(name):
+    """Return the HTML body for the named help page."""
+    from . import page
+    return page.Page(name).body()
 

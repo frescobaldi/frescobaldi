@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -32,8 +32,9 @@ from PyQt4.QtGui import QTextCursor
 import app
 import util
 import scratchdir
-import ly.lex
-import tokeniter
+import ly.lex.lilypond
+import ly.document
+import lydocument
 
 
 class Links(object):
@@ -213,7 +214,8 @@ class BoundLinks(object):
                 prevcol = cur2.position() - cur2.block().position()
             col = cursor.position() - cursor.block().position()
             found = False
-            tokens = tokeniter.Runner(cursor.block(), True)
+            tokens = ly.document.Runner(lydocument.Document(cursor.document()))
+            tokens.move_to_block(cursor.block(), True)
             for token in tokens.backward_line():
                 if token.pos <= prevcol:
                     break
@@ -240,3 +242,61 @@ class BoundLinks(object):
                 return False
         # highlight it!
         return slice(index, index+1)
+
+
+def positions(cursor):
+    """Return a list of QTextCursors describing the grob the cursor points at.
+    
+    When the cursor point at e.g. a slur, the returned cursors describe both
+    ends of the slur.
+    
+    The returned list may contain zero to two cursors.
+    
+    """
+    c = lydocument.cursor(cursor)
+    c.end = None
+    source = lydocument.Source(c, True)
+    for token in source.tokens:
+        break
+    else:
+        return []
+    
+    cur = source.cursor(token, end=0)
+    cursors = [cur]
+    
+    # some heuristic to find the relevant range(s) the linked grob represents
+    if isinstance(token, ly.lex.lilypond.Direction):
+        # a _, - or ^ is found; find the next token
+        for token in source:
+            if not isinstance(token, (ly.lex.Space, ly.lex.Comment)):
+                break
+    end = token.end + source.block.position()
+    if token == '\\markup':
+        # find the end of the markup expression
+        depth = source.state.depth()
+        for token in source:
+            if source.state.depth() < depth:
+                end = token.end + source.block.position()
+                break
+    elif token == '"':
+        # find the end of the string
+        for token in source:
+            if isinstance(token, ly.lex.StringEnd):
+                end = token.end + source.block.position()
+                break
+    elif isinstance(token, ly.lex.MatchStart):
+        # find the end of slur, beam. ligature, phrasing slur, etc.
+        name = token.matchname
+        nest = 1
+        for token in source:
+            if isinstance(token, ly.lex.MatchEnd) and token.matchname == name:
+                nest -= 1
+                if nest == 0:
+                    cursors.append(source.cursor(token))
+                    break
+            elif isinstance(token, ly.lex.MatchStart) and token.matchname == name:
+                nest += 1
+                
+    cur.setPosition(end, QTextCursor.KeepAnchor)
+    return cursors
+

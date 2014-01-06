@@ -2,26 +2,91 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.12 -- 
+Changes in 2.0.14 -- 
+
+* Translations:
+  - updated: nl
+* New features:
+  - highlighting and auto-completion for commands that are new or have changed
+    syntax in LilyPond 2.18, such as \hide, \omit, \undo, \override, \tweak,
+    \accidentalStyle, etc.
+* Buf fixes:
+  - Fixed issue 336: TypeError on MusicXml export
+  - Fixed error message when exporting keyboard shortcuts on platforms that do
+    not have the HOME environment variable set
+
+
+Changes in 2.0.13 -- December 31st, 2013
+
+* Translations:
+  - updated: nl, fr
+* New features:
+  - A new option LilyPond->Auto-engrave, that runs the engraver in preview mode
+    everytime the document changes
+  - An option to hide log display for automatically started engraving jobs
+  - Real-time Midi capturing, contributed by Manuel Mchalwat (this was actually
+    in 2.0.12, I just forgot to write it in the ChangeLog!)
+  - Basic MusicXML export, contributed by Peter Bjuhr (this was also already
+    added in Frescobaldi 2.0.12)
+  - The "master" variable is back, allbeit in a slightly different
+    implementation: the redirected filename is not directly given to a LilyPond
+    process running on behalf of the current document, but the other document
+    is loaded (if it wasn't already) and LilyPond is run on that document.
+* Bug fixes:
+  - Fix UnboundLocalError in ly.docinfo e.g. when showing the Tools->Pitch->
+    Language menu
+  - Fix issue 332: Cursor didn't move on undo/redo
+  - Fix issue 315: chords: \include "predefined-guitar-fretboards.ly"
+    (the file was added, but the include files weren't written in the document)
+
+
+Changes in 2.0.12 -- December 26th, 2013
 
 * Translations:
   - updated: cs, nl, fr, es
 * New features:
   - Edit->Select Block has finally been implemented
+  - A viewer for LilyPond-generated SVG files has been added by Peter Bjuhr. 
+    This viewer (accessible via Tools->SVG Viewer) currently has one-way point 
+    and click. This only works with recent development versions of LilyPond, 
+    that add the point and click information to SVG files. In the future, the
+    SVG view may become a fully fledged graphical music editor.
+  - The default output format can be set in the LilyPond preferences (the 
+    current options are PDF or SVG, the default is PDF)
 * Improvements:
+  - The indenter's handling of tabs and spaces has been improved. A tab always
+    starts a new indent level, and aligning is now always done with spaces.
+    The default is still using 2 spaces for indent, but it is now configurable
+    in a new settings panel Editor Preferences.
   - Besides the good old Preview and Publish modes a new mode has been added:
     Layout Control. This mode uses the settings on the preview mode panel, which
-    has been renamed Layout Control Options. The layout of the panel has been
+    has been renamed to Layout Control Options. The layout of the panel has been
     improved. The Preview mode is reverted back to enabling only point and click
     links. In the Engrave (custom) dialog the run mode can be chosen and the
     commandline edited directly.
+  - Entering staccatissimo writes -! when the document specifies a LilyPond
+    version >= 2.17.25, otherwise -|
   - When editing keyboard shortcuts, conflicts are directly shown as they are
     entered; better support French keyboards (contributed by Nicolas Malarmey)
-  - On Mac OS X, you can drag the window icon to other applications
   - Better Mac OS X icons (contributed by Davide Liessi)
+  - The internal handling of manipulations like transpose, translate, and the
+    various rhythm commands has become less dependent on Frescobaldi code.
+    These functionality now resides in the ly module and could be used by 
+    other applications. The commands now can work on any ly.document, which 
+    need not be a Frescobaldi document.
+  - The internal help system has seen a massive overhaul: help files are now
+    very easy to write in a simplified markdown-like syntax. Adding help pages
+    is very easy by dropping a *.md file in the userguide/ directory. Every
+    paragraph in a help file is automatically added to the POT file and can be
+    translated by editing the language's PO file.
 * Bug fixes:
   - Music View: horizontal scrolling using trackpad now works with kinetic mode
     enabled. Fixes #248.
+* Removed feature:
+  - The 'master' variable is no longer supported, it's goal has been superseded
+    by the 'Always Engrave' option, which is also saved in the session. This
+    decision was taken to simplify the handling of files created on behalf of
+    a document.
 
 
 Changes in 2.0.11 -- October 16th, 2013

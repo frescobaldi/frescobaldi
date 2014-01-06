@@ -1,7 +1,7 @@
 #!python
 # SimpleMarkdown -- a basic markdown-like parser.
 #
-# Copyright (c) 2013 - 2013 by Wilbert Berendsen
+# Copyright (c) 2013 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License

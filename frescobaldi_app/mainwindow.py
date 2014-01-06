@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -661,10 +661,10 @@ class MainWindow(QMainWindow):
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
         
     def undo(self):
-        self.currentDocument().undo()
+        self.currentView().undo()
         
     def redo(self):
-        self.currentDocument().redo()
+        self.currentView().redo()
     
     def cut(self):
         self.currentView().cut()
@@ -696,10 +696,11 @@ class MainWindow(QMainWindow):
         self.currentView().selectAll()
         
     def selectBlock(self):
-        import select_block
-        cursor = self.currentView().textCursor()
-        if select_block.select_block(cursor):
-            self.currentView().setTextCursor(cursor)
+        import lydocument
+        import ly.cursortools
+        cursor = lydocument.cursor(self.textCursor())
+        if ly.cursortools.select_block(cursor):
+            self.currentView().setTextCursor(cursor.cursor())
         
     def find(self):
         import search

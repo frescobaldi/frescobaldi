@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -37,6 +37,7 @@ import app
 import log
 import job
 import jobmanager
+import jobattributes
 import qutil
 
 from . import errors
@@ -69,6 +70,9 @@ class LogWidget(log.Log):
         """Called when the document is changed."""
         job = jobmanager.job(doc)
         if job:
+            # do not show the messages for auto-engrave jobs if the user has disabled it
+            if jobattributes.get(job).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
+                return
             prevDoc = self._document()
             if prevDoc and prevDoc != doc:
                 prevJob = jobmanager.job(prevDoc)

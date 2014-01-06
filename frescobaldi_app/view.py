@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -28,9 +28,10 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import QEvent, Qt, QTimer, pyqtSignal
+from PyQt4.QtCore import QEvent, QSettings, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
-    QApplication, QKeySequence, QPainter, QPlainTextEdit, QTextCursor)
+    QApplication, QContextMenuEvent, QKeySequence, QPainter, QPlainTextEdit,
+    QTextCursor)
 
 import app
 import homekey
@@ -126,13 +127,9 @@ class View(QPlainTextEdit):
             import indent
             cursor = self.textCursor()
             if ev.text() == '\r' or (ev.text() in ('}', '#', '>') and indent.indentable(cursor)):
-                with cursortools.compress_undo(cursor, True):
-                    indent.auto_indent_block(cursor.block())
-                # keep the cursor at the indent position on vertical move
-                cursor = self.textCursor()
-                pos = cursor.position()
-                cursor.setPosition(cursor.block().position()) # move horizontal
-                cursor.setPosition(pos) # move back to position
+                indent.auto_indent_block(cursor.block())
+                # fix subsequent vertical moves
+                cursor.setPosition(cursor.position())
                 self.setTextCursor(cursor)
             
     def focusOutEvent(self, ev):
@@ -198,7 +195,27 @@ class View(QPlainTextEdit):
 
     def setTabWidth(self):
         """(Internal) Reads the tab-width variable and the font settings to set the tabStopWidth."""
-        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', 8)
+        tabwidth = QSettings().value("indent/tab_width", 8, int)
+        tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', tabwidth)
         self.setTabStopWidth(tabwidth)
+    
+    def contextMenuEvent(self, ev):
+        """Called when the user requests the context menu."""
+        cursor = self.textCursor()
+        if ev.reason() == QContextMenuEvent.Mouse:
+            # if clicked inside the selection, retain it, otherwise de-select
+            # and move the cursor to the clicked position
+            pos = self.mapToGlobal(ev.pos())
+            clicked = self.cursorForPosition(ev.pos())
+            if not cursor.selectionStart() <= clicked.position() < cursor.selectionEnd():
+                self.setTextCursor(clicked)
+        else:
+            pos = self.viewport().mapToGlobal(self.cursorRect().center())
+        import contextmenu
+        menu = contextmenu.contextmenu(self)
+        menu.popup(pos)
+        menu.setFocus() # so we get a FocusOut event and the grey cursor gets painted
+        menu.exec_()
+        menu.deleteLater()
 
 

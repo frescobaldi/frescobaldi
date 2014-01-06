@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -31,6 +31,7 @@ import icons
 import document
 import documentcontextmenu
 import jobmanager
+import jobattributes
 import util
 
 
@@ -96,7 +97,8 @@ class TabBar(QTabBar):
                 tooltip = None
             self.setTabToolTip(index, tooltip)
             # icon
-            if jobmanager.isRunning(doc):
+            job = jobmanager.job(doc)
+            if job and job.isRunning() and not jobattributes.get(job).hidden:
                 icon = 'lilypond-run'
             elif doc.isModified():
                 icon = 'document-save'

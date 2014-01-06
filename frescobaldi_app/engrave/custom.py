@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -112,6 +112,9 @@ class Dialog(QDialog):
         self.deleteCheck.setChecked(
             s.value("delete_intermediate_files", True, bool))
         
+        if s.value("default_output_target", "pdf", type("")) == "svg":
+            self.outputCombo.setCurrentIndex(3)
+        
         self.loadLilyPondVersions()
         self.selectLilyPondInfo(lilypondinfo.preferred())
         app.settingsChanged.connect(self.loadLilyPondVersions)
@@ -193,8 +196,7 @@ class Dialog(QDialog):
     
     def getJob(self, document):
         """Returns a Job to start."""
-        filename, mode, includepath = documentinfo.info(document).jobinfo(True)
-        includepath.extend(documentinfo.info(document).includepath())
+        filename, includepath = documentinfo.info(document).jobinfo(True)
         i = self._infos[self.versionCombo.currentIndex()]
         cmd = []
         for t in self.commandLine.toPlainText().split():

@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QScrollArea,
-    QVBoxLayout, QWidget)
+    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QVBoxLayout,
+    QWidget)
 
 import app
 import util
@@ -36,19 +36,12 @@ import preferences
 import widgets.urlrequester
 
 
-class Helpers(preferences.GroupsPage):
+class Helpers(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(Helpers, self).__init__(dialog)
         
-        layout = QVBoxLayout(margin=0, spacing=0)
-        self.setLayout(layout)
-        scrollarea = QScrollArea(frameWidth=0, frameShape=QScrollArea.NoFrame)
-        layout.addWidget(scrollarea)
-        widget = QWidget(scrollarea)
         layout = QVBoxLayout()
-        widget.setLayout(layout)
-        scrollarea.setWidget(widget)
-        scrollarea.setWidgetResizable(True)
+        self.scrolledWidget.setLayout(layout)
         
         layout.addWidget(Apps(self))
         layout.addWidget(Printing(self))

@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -47,6 +47,7 @@ class PanelManager(plugin.MainWindowPlugin):
         # add the the panel stubs here
         self.loadPanel("quickinsert.QuickInsertPanel")
         self.loadPanel("musicview.MusicViewPanel")
+        self.loadPanel("svgview.SvgViewPanel")
         self.loadPanel("logtool.LogTool")
         self.loadPanel("docbrowser.HelpBrowser")
         self.loadPanel("snippet.tool.SnippetTool")
@@ -58,8 +59,10 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("layoutcontrol.LayoutControlOptions")
         
         self.createActions()
+        
         # make some default arrangements
         mainwindow.tabifyDockWidget(self.musicview, self.docbrowser)
+        mainwindow.tabifyDockWidget(self.musicview, self.svgview)
     
     def loadPanel(self, name):
         """Loads the named Panel.

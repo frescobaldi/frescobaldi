@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -134,10 +134,10 @@ class Dialog(widgets.dialog.Dialog):
         """Called to perform the edits in the document."""
         cursor = QTextCursor(self._range)
         start = cursor.selectionStart()
-        with cursortools.compress_undo(cursor):
-            # use cursordiff; dont destroy point and click positions
-            cursordiff.insert_text(cursor, self.view.toPlainText())
-            cursor.setPosition(start, QTextCursor.KeepAnchor)
+        # use cursordiff; dont destroy point and click positions
+        cursordiff.insert_text(cursor, self.view.toPlainText())
+        cursor.setPosition(start, QTextCursor.KeepAnchor)
+        with cursortools.compress_undo(cursor, True):
             # re-indent the inserted line(s)
             indent.re_indent(cursor)
         

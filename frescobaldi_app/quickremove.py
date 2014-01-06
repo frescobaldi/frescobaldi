@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2013 - 2013 by Wilbert Berendsen
+# Copyright (c) 2013 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -28,26 +28,28 @@ from __future__ import unicode_literals
 
 import functools
 
-from PyQt4.QtGui import QTextCursor
-
-import tokeniter
-import cursortools
+import lydocument
+import ly.document
 import ly.words
 import ly.lex.lilypond
 
 
 def remove(func):
-    """Decorator turning a function yielding ranges into removing the ranges."""
+    """Decorator turning a function yielding ranges into removing the ranges.
+    
+    Note that you should call the function with a QTextCursor as the first 
+    argument. The returned decorator converts the QTextCursor to a 
+    ly.document.Cursor, calls the function and removes the ranges returned 
+    by the function.
+    
+    """
     @functools.wraps(func)
     def decorator(cursor, *args):
-        remove = list(func(cursor, *args))
-        if remove:
-            c = QTextCursor(cursor)
-            with cursortools.compress_undo(c):
-                for start, end in sorted(remove, reverse=True):
-                    c.setPosition(start)
-                    c.setPosition(end, QTextCursor.KeepAnchor)
-                    c.removeSelectedText()
+        c = lydocument.cursor(cursor)
+        remove = func(c, *args)
+        with c.document as d:
+            for start, end in remove:
+                del d[start:end]
     return decorator
 
 
@@ -80,19 +82,18 @@ def find_positions(cursor, predicate, predicate_dir=None):
     """
     if predicate_dir is None:
         predicate_dir = predicate
-    for block, tokens in tokeniter.selection(cursor, None, False):
-        position = block.position()
-        for t in tokens:
-            if isinstance(t, ly.lex.lilypond.Direction):
-                start = position + t.pos
-                for t in tokens:
-                    if isinstance(t, ly.lex.Space):
-                        continue
-                    elif predicate_dir(t):
-                        yield start, position + t.end
-                    break
-            elif predicate(t):
-                yield position + t.pos, position + t.end
+    source = ly.document.Source(cursor, None, ly.document.PARTIAL, True)
+    for t in source:
+        if isinstance(t, ly.lex.lilypond.Direction):
+            start = t.pos
+            for t in source.tokens:
+                if isinstance(t, ly.lex.Space):
+                    continue
+                elif predicate_dir(t):
+                    yield start, t.end
+                break
+        elif predicate(t):
+            yield t.pos, t.end
 
 
 @remove
@@ -129,29 +130,26 @@ def dynamics(cursor):
 @remove
 def markup(cursor):
     """Remove (postfix) markup texts from the cursor's selection."""
-    source = tokeniter.Source.selection(cursor, True, False)
+    source = ly.document.Source(cursor, True, tokens_with_position=True)
     for token in source:
         if isinstance(token, ly.lex.lilypond.Direction):
-            start = source.position(token)
+            start = token.pos
             for token in source:
                 if token == '\\markup':
                     # find the end of the markup expression
                     depth = source.state.depth()
                     for token in source:
                         if source.state.depth() < depth:
-                            end = token.end + source.block.position()
-                            yield start, end
+                            yield start, token.end
                             break
                 elif token == '"':
                     # find the end of the string
                     for token in source:
                         if isinstance(token, ly.lex.StringEnd):
-                            end = token.end + source.block.position()
-                            yield start, end
+                            yield start, token.end
                             break
                 elif token.isalpha():
-                    end = token.end + source.block.position()
-                    yield start, end
+                    yield start, token.end
                 elif isinstance(token, ly.lex.Space):
                     continue
                 break

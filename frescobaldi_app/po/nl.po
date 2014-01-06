@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2013-12-01 00:33+0100\n"
-"PO-Revision-Date: 2013-12-01 00:34+0100\n"
+"POT-Creation-Date: 2013-12-31 14:59+0100\n"
+"PO-Revision-Date: 2013-12-31 15:01+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -191,7 +191,7 @@ msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 "Geef de naam van de variabele om de geselecteerde tekst aan toe te wijzen:"
 
-#: ../document.py:158 ../doclist/widget.py:132 ../snippet/edit.py:171
+#: ../document.py:158 ../doclist/widget.py:134 ../snippet/edit.py:171
 msgid "Untitled"
 msgstr "Naamloos"
 
@@ -225,7 +225,7 @@ msgstr "&Formatteren"
 
 #: ../documentactions.py:188
 msgid "Remove Trailing &Whitespace"
-msgstr ""
+msgstr "&Witruimte aan regeleinden verwijderen"
 
 #: ../documentactions.py:189
 msgid "&Update with convert-ly..."
@@ -255,20 +255,20 @@ msgstr "&Dynamiek verwijderen"
 msgid "Remove Text &Markup (from music)"
 msgstr "&Markup verwijderen (uit muziek)"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1039
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1040
 #: ../sessions/manager.py:127
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1040
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1041
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1050
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1051
 msgid "&Close"
 msgstr "&Sluiten"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1051
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1052
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
@@ -431,15 +431,15 @@ msgstr "Succesvol beëindigd in {time}."
 msgid "Running LilyPond, this can take some time..."
 msgstr "LilyPond wordt gestart, dit kan even duren..."
 
-#: ../lyrics.py:132
+#: ../lyrics.py:126
 msgid "&Hyphenate Lyrics Text..."
 msgstr "&Liedteksten afbreken..."
 
-#: ../lyrics.py:133
+#: ../lyrics.py:127
 msgid "&Remove hyphenation"
 msgstr "Liedtekst-afbreking ver&wijderen"
 
-#: ../lyrics.py:134
+#: ../lyrics.py:128
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 
@@ -617,7 +617,7 @@ msgstr "Brontekst afdrukken"
 msgid "Export as HTML"
 msgstr "Exporteren als HTML"
 
-#: ../mainwindow.py:776
+#: ../mainwindow.py:777
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -629,60 +629,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:888
+#: ../mainwindow.py:889
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#: ../mainwindow.py:889
+#: ../mainwindow.py:890
 msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
-#: ../mainwindow.py:1033
+#: ../mainwindow.py:1034
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nieuw"
 
-#: ../mainwindow.py:1034
+#: ../mainwindow.py:1035
 msgid "&Open..."
 msgstr "&Openen..."
 
-#: ../mainwindow.py:1035
+#: ../mainwindow.py:1036
 msgid "Open &Recent"
 msgstr "&Recent geopend"
 
-#: ../mainwindow.py:1036
+#: ../mainwindow.py:1037
 msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
-#: ../mainwindow.py:1037
+#: ../mainwindow.py:1038
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: ../mainwindow.py:1038
+#: ../mainwindow.py:1039
 msgid "Open Command Prompt"
 msgstr "Commandoregel openen"
 
-#: ../mainwindow.py:1041
+#: ../mainwindow.py:1042
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: ../mainwindow.py:1042 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1043 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: ../mainwindow.py:1043
+#: ../mainwindow.py:1044
 msgid "Re&load"
 msgstr "Her&laden"
 
-#: ../mainwindow.py:1044 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1045 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alles herladen"
 
-#: ../mainwindow.py:1045
+#: ../mainwindow.py:1046
 msgid "Check for External Changes..."
 msgstr "Controleren op externe wijzigingen..."
 
-#: ../mainwindow.py:1047
+#: ../mainwindow.py:1048
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -690,131 +690,131 @@ msgstr ""
 "Opent een venster om te controleren of open documenten werden gewijzigd of "
 "verwijderd door andere programma's."
 
-#: ../mainwindow.py:1049
+#: ../mainwindow.py:1050
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: ../mainwindow.py:1052
+#: ../mainwindow.py:1053
 msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
-#: ../mainwindow.py:1053
+#: ../mainwindow.py:1054
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: ../mainwindow.py:1054
+#: ../mainwindow.py:1055
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: ../mainwindow.py:1055
+#: ../mainwindow.py:1056
 msgid "Restart {appname}"
 msgstr "{appname} herstarten"
 
-#: ../mainwindow.py:1057
+#: ../mainwindow.py:1058
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: ../mainwindow.py:1059
+#: ../mainwindow.py:1060
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: ../mainwindow.py:1060
+#: ../mainwindow.py:1061
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: ../mainwindow.py:1061
+#: ../mainwindow.py:1062
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: ../mainwindow.py:1062 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1063 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1064
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1065
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: ../mainwindow.py:1065
+#: ../mainwindow.py:1066
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: ../mainwindow.py:1066
+#: ../mainwindow.py:1067
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: ../mainwindow.py:1067
+#: ../mainwindow.py:1068
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: ../mainwindow.py:1068
+#: ../mainwindow.py:1069
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: ../mainwindow.py:1069
+#: ../mainwindow.py:1070
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: ../mainwindow.py:1070
+#: ../mainwindow.py:1071
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: ../mainwindow.py:1071
+#: ../mainwindow.py:1072
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: ../mainwindow.py:1072
+#: ../mainwindow.py:1073
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: ../mainwindow.py:1073
+#: ../mainwindow.py:1074
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: ../mainwindow.py:1074
+#: ../mainwindow.py:1075
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: ../mainwindow.py:1076
+#: ../mainwindow.py:1077
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: ../mainwindow.py:1077
+#: ../mainwindow.py:1078
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: ../mainwindow.py:1078
+#: ../mainwindow.py:1079
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: ../mainwindow.py:1079
+#: ../mainwindow.py:1080
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: ../mainwindow.py:1081
+#: ../mainwindow.py:1082
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: ../mainwindow.py:1082
+#: ../mainwindow.py:1083
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: ../mainwindow.py:1084
+#: ../mainwindow.py:1085
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: ../mainwindow.py:1085
+#: ../mainwindow.py:1086
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: ../mainwindow.py:1086
+#: ../mainwindow.py:1087
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: ../mainwindow.py:1087
+#: ../mainwindow.py:1088
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
@@ -866,37 +866,37 @@ msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:262
+#: ../menu.py:263
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:291
+#: ../menu.py:292
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:303
+#: ../menu.py:304
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:318
+#: ../menu.py:319
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:342
+#: ../menu.py:343
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Snel verwijderen"
 
-#: ../menu.py:360
+#: ../menu.py:361
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:380
+#: ../menu.py:381
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -977,7 +977,7 @@ msgstr "Automatisch &aanvullen"
 msgid "Show C&ompletions Popup"
 msgstr "Aanvullingen &weergeven"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:230
+#: ../charmap/__init__.py:40 ../preferences/tools.py:232
 msgid "Special Characters"
 msgstr "Speciale tekens"
 
@@ -986,7 +986,7 @@ msgid "Special Charac&ters"
 msgstr "Speciale &tekens"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
-#: ../preferences/documentation.py:126
+#: ../preferences/documentation.py:118
 msgid "Documentation Browser"
 msgstr "Documentatie-browser"
 
@@ -1052,7 +1052,7 @@ msgstr "Document in &nieuw venster openen"
 msgid "LilyPond Source"
 msgstr "LilyPond-bron"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:263
+#: ../doclist/__init__.py:39 ../preferences/tools.py:265
 msgid "Documents"
 msgstr "Documenten"
 
@@ -1060,43 +1060,43 @@ msgstr "Documenten"
 msgid "Docum&ents"
 msgstr "Docum&enten"
 
-#: ../doclist/widget.py:187
+#: ../doclist/widget.py:189
 msgid "Save selected documents"
 msgstr "Geselecteerde documenten opslaan"
 
-#: ../doclist/widget.py:188
+#: ../doclist/widget.py:190
 msgid "Close selected documents"
 msgstr "Geselecteerde documenten sluiten"
 
-#: ../doclist/widget.py:194
+#: ../doclist/widget.py:196
 msgid "Save documents in this folder"
 msgstr "Documenten in deze map opslaan"
 
-#: ../doclist/widget.py:195
+#: ../doclist/widget.py:197
 msgid "Close documents in this folder"
 msgstr "Documenten in deze map sluiten"
 
-#: ../doclist/widget.py:198
+#: ../doclist/widget.py:200
 msgid "Save all untitled documents"
 msgstr "Alle naamloze documenten opslaan"
 
-#: ../doclist/widget.py:199
+#: ../doclist/widget.py:201
 msgid "Close all untitled documents"
 msgstr "Alle naamloze documenten sluiten"
 
-#: ../engrave/__init__.py:202
+#: ../engrave/__init__.py:223
 msgid "&Always Engrave [{docname}]"
 msgstr "&Altijd graveren [{docname}]"
 
-#: ../engrave/__init__.py:204
+#: ../engrave/__init__.py:225
 msgid "&Always Engrave This Document"
 msgstr "Dit document &altijd graveren"
 
-#: ../engrave/__init__.py:238
+#: ../engrave/__init__.py:278
 msgid "No LilyPond installation found"
 msgstr "Geen LilyPond-installatie gevonden"
 
-#: ../engrave/__init__.py:239
+#: ../engrave/__init__.py:279
 msgid ""
 "Frescobaldi uses LilyPond to engrave music, but LilyPond is not installed in "
 "the default locations and it cannot be found in your PATH.\n"
@@ -1109,103 +1109,107 @@ msgstr ""
 "\n"
 "Installeer LilyPond en voeg het, indien nodig, toe in de LilyPond-voorkeuren."
 
-#: ../engrave/__init__.py:274
+#: ../engrave/__init__.py:316
 msgid "Engrave"
 msgstr "Graveren"
 
-#: ../engrave/__init__.py:275
+#: ../engrave/__init__.py:317
 msgid "&Engrave (preview)"
 msgstr "&Graveren (vooruitblik)"
 
-#: ../engrave/__init__.py:276
+#: ../engrave/__init__.py:318
 msgid "Engrave (&publish)"
 msgstr "Graveren (&publicatie)"
 
-#: ../engrave/__init__.py:277
+#: ../engrave/__init__.py:319
 msgid "Engrave (&layout control)"
 msgstr "Graveren (&layoutcontrole)"
 
-#: ../engrave/__init__.py:278
+#: ../engrave/__init__.py:320
 msgid "Engrave (&custom)..."
 msgstr "Gra&veren (aangepast)..."
 
-#: ../engrave/__init__.py:279
+#: ../engrave/__init__.py:321
 msgid "Abort Engraving &Job"
 msgstr "Graveertaak af&breken"
 
-#: ../engrave/custom.py:127
+#: ../engrave/__init__.py:322
+msgid "Automatic E&ngrave"
+msgstr "A&utomatisch graveren"
+
+#: ../engrave/custom.py:130
 msgid "Engrave custom"
 msgstr "Aangepast graveren"
 
-#: ../engrave/custom.py:128
+#: ../engrave/custom.py:131
 msgid "LilyPond Version:"
 msgstr "LilyPond-versie:"
 
-#: ../engrave/custom.py:129
+#: ../engrave/custom.py:132
 msgid "Output Format:"
 msgstr "Uitvoerformaat:"
 
-#: ../engrave/custom.py:130 ../preferences/helpers.py:167
+#: ../engrave/custom.py:133 ../preferences/helpers.py:160
 msgid "Resolution:"
 msgstr "Resolutie:"
 
-#: ../engrave/custom.py:131
+#: ../engrave/custom.py:134
 msgid "Engraving mode:"
 msgstr "Graveermodus:"
 
-#: ../engrave/custom.py:132 ../scorewiz/dialog.py:84
+#: ../engrave/custom.py:135 ../scorewiz/dialog.py:84
 msgid "Preview"
 msgstr "Vooruitblik"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:136
 msgid "Publish"
 msgstr "Publiceren"
 
-#: ../engrave/custom.py:134
+#: ../engrave/custom.py:137
 msgid "Layout Control"
 msgstr "Layoutcontrole"
 
-#: ../engrave/custom.py:135 ../preferences/lilypond.py:308
+#: ../engrave/custom.py:138 ../preferences/lilypond.py:295
 msgid "Run LilyPond with English messages"
 msgstr "LilyPond starten met Engelstalige uitvoerberichten"
 
-#: ../engrave/custom.py:136 ../preferences/lilypond.py:305
+#: ../engrave/custom.py:139 ../preferences/lilypond.py:292
 msgid "Delete intermediate output files"
 msgstr "Tussentijdse uitvoerbestanden verwijderen"
 
-#: ../engrave/custom.py:137 ../file_import/musicxml.py:162
+#: ../engrave/custom.py:140 ../file_import/musicxml.py:162
 msgid "Command line:"
 msgstr "Commandoregel:"
 
-#: ../engrave/custom.py:138
+#: ../engrave/custom.py:141
 msgid "Run LilyPond"
 msgstr "LilyPond starten"
 
-#: ../engrave/custom.py:224
+#: ../engrave/custom.py:226 ../preferences/lilypond.py:337
 msgid "PDF"
 msgstr "PDF"
 
-#: ../engrave/custom.py:230
+#: ../engrave/custom.py:232
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../engrave/custom.py:236
+#: ../engrave/custom.py:238
 msgid "PNG"
 msgstr "PNG"
 
-#: ../engrave/custom.py:242
+#: ../engrave/custom.py:244 ../preferences/lilypond.py:340
 msgid "SVG"
 msgstr "SVG"
 
-#: ../engrave/custom.py:248
+#: ../engrave/custom.py:250
 msgid "PDF (EPS Backend)"
 msgstr "PDF (EPS-backend)"
 
-#: ../engrave/custom.py:254
+#: ../engrave/custom.py:256
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "Encapsulated PostScript (EPS-backend)"
 
-#: ../engrave/custom.py:260
+#: ../engrave/custom.py:262
 msgid "PNG (EPS Backend)"
 msgstr "PNG (EPS-backend)"
 
@@ -1365,35 +1369,31 @@ msgid "Import Music XML"
 msgstr "MusicXML importeren"
 
 #: ../file_import/musicxml.py:157 ../userguide/musicxml_import.md:16
-#, fuzzy
 msgid "Import articulation directions"
-msgstr "Geen expliciete richting voor articulaties"
+msgstr "Richting voor articulaties importeren"
 
 #: ../file_import/musicxml.py:158 ../userguide/musicxml_import.md:17
-#, fuzzy
 msgid "Import rest positions"
-msgstr "Geen expliciete positie voor rusten"
+msgstr "Positie voor rusten importeren"
 
 #: ../file_import/musicxml.py:159 ../userguide/musicxml_import.md:18
-#, fuzzy
 msgid "Import page layout"
-msgstr "Geen pagina-layout"
+msgstr "Pagina-layout importeren"
 
 #: ../file_import/musicxml.py:160 ../userguide/musicxml_import.md:19
-#, fuzzy
 msgid "Import beaming"
-msgstr "Automatische waardestrepen"
+msgstr "Waardestrepen importeren"
 
 #: ../file_import/musicxml.py:161 ../userguide/musicxml_import.md:20
 msgid "Pitches in absolute mode"
-msgstr ""
+msgstr "Toonhoogtes in absolute modus"
 
 #: ../file_import/musicxml.py:164 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
-msgstr ""
+msgstr "Taal voor nootnamen"
 
-#: ../file_import/musicxml.py:165 ../preferences/documentation.py:128
-#: ../preferences/general.py:133 ../preferences/tools.py:296
+#: ../file_import/musicxml.py:165 ../preferences/documentation.py:120
+#: ../preferences/general.py:133 ../preferences/tools.py:298
 #: ../scorewiz/settings.py:138 ../scorewiz/settings.py:204
 #: ../scorewiz/settings.py:299 ../scorewiz/parts/_base.py:214
 #: ../scorewiz/parts/plucked_strings.py:65 ../widgets/schemeselector.py:196
@@ -1402,22 +1402,19 @@ msgstr "Standaard"
 
 #: ../file_import/musicxml.py:166
 msgid "Reformat source"
-msgstr ""
+msgstr "Broncode herformatteren"
 
 #: ../file_import/musicxml.py:167
-#, fuzzy
 msgid "Trim durations (Make implicit per line)"
-msgstr "Imp&liciet maken (per regel)"
+msgstr "Tijdsduren impliciet maken (per regel)"
 
 #: ../file_import/musicxml.py:168
-#, fuzzy
 msgid "Remove fraction duration scaling"
-msgstr "Tijdsduu&r verwijderen"
+msgstr "Fracties van tijdsduur-schaling verwijderen"
 
 #: ../file_import/musicxml.py:169
-#, fuzzy
 msgid "Engrave directly"
-msgstr "Aangepast graveren"
+msgstr "Direct graveren"
 
 #: ../file_import/musicxml.py:171
 msgid "Run musicxml2ly"
@@ -1540,7 +1537,7 @@ msgstr ""
 msgid "Filename to be included"
 msgstr "In te voegen bestand"
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:95
+#: ../logtool/__init__.py:50 ../preferences/tools.py:91
 msgid "LilyPond Log"
 msgstr "LilyPond-uitvoer"
 
@@ -1548,15 +1545,15 @@ msgstr "LilyPond-uitvoer"
 msgid "LilyPond &Log"
 msgstr "&LilyPond-uitvoer"
 
-#: ../logtool/__init__.py:91
+#: ../logtool/__init__.py:94
 msgid "Next Error Message"
 msgstr "Volgende foutmelding"
 
-#: ../logtool/__init__.py:92
+#: ../logtool/__init__.py:95
 msgid "Previous Error Message"
 msgstr "Vorige foutmelding"
 
-#: ../logtool/logwidget.py:118
+#: ../logtool/logwidget.py:122
 msgid "Click to edit this file"
 msgstr "Klik om dit bestand te bewerken"
 
@@ -1731,15 +1728,15 @@ msgstr "Weer te geven document selecteren"
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
-#: ../musicview/__init__.py:309
+#: ../musicview/__init__.py:309 ../svgview/__init__.py:88
 msgid "Zoom &In"
 msgstr "&Inzoomen"
 
-#: ../musicview/__init__.py:310
+#: ../musicview/__init__.py:310 ../svgview/__init__.py:89
 msgid "Zoom &Out"
 msgstr "&Uitzoomen"
 
-#: ../musicview/__init__.py:311
+#: ../musicview/__init__.py:311 ../svgview/__init__.py:90
 msgid "Original &Size"
 msgstr "&Werkelijke grootte"
 
@@ -1900,7 +1897,7 @@ msgstr "Afbeelding opslaan als"
 msgid "Could not save the image."
 msgstr "Kan de afbeelding niet opslaan."
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:295
+#: ../outline/__init__.py:40 ../preferences/tools.py:297
 msgid "Outline"
 msgstr "Structuur"
 
@@ -1961,11 +1958,11 @@ msgid "Transposes all notes in the document or selection within a given mode."
 msgstr ""
 "Transponeert alle noten in de selectie of het document in een bepaalde modus."
 
-#: ../pitch/pitch.py:82 ../pitch/pitch.py:95
+#: ../pitch/pitch.py:53 ../pitch/pitch.py:68
 msgid "Pitch Name Language"
 msgstr "Taal voor nootnamen"
 
-#: ../pitch/pitch.py:83
+#: ../pitch/pitch.py:54
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -1977,7 +1974,7 @@ msgstr ""
 "De muziek bevat kwarttonen, maar deze zijn niet beschikbaar in de taal "
 "\"{name}\"."
 
-#: ../pitch/pitch.py:99
+#: ../pitch/pitch.py:72
 msgid ""
 "The pitch language of the selected text has been updated, but you need to "
 "manually add the following command to your document:"
@@ -1985,20 +1982,20 @@ msgstr ""
 "De taal van de nootnamen in de geselecteerde tekst is aangepast, maar u "
 "dient handmatig het volgende commando aan uw document toe te voegen:"
 
-#: ../pitch/pitch.py:103
+#: ../pitch/pitch.py:76
 msgid "(for LilyPond below 2.14), or"
 msgstr "(voor LilyPond lager dan 2.14), of"
 
-#: ../pitch/pitch.py:104
+#: ../pitch/pitch.py:77
 msgid "(for LilyPond 2.14 and higher.)"
 msgstr "(voor LilyPond 2.14 en hoger.)"
 
-#: ../pitch/pitch.py:403 ../pitch/pitch.py:442 ../pitch/pitch.py:626
+#: ../pitch/pitch.py:115 ../pitch/pitch.py:154 ../pitch/pitch.py:170
 #: ../userguide/transpose.md:1
 msgid "Transpose"
 msgstr "Transponeren"
 
-#: ../pitch/pitch.py:404
+#: ../pitch/pitch.py:116
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -2006,7 +2003,7 @@ msgstr ""
 "Voer twee absolute nootnamen in met een spatie ertussen, gebruikmakend van "
 "nootnamen in de taal \"{language}\"."
 
-#: ../pitch/pitch.py:443
+#: ../pitch/pitch.py:155
 msgid ""
 "Please enter the number of steps to alter by, followed by a key signature. "
 "(i.e. \"5 F\")"
@@ -2014,7 +2011,7 @@ msgstr ""
 "Voer het aantal stappen in om te transponeren, gevolgd door een toonsoort "
 "(bijv. \"5 F\"):"
 
-#: ../pitch/pitch.py:627
+#: ../pitch/pitch.py:171
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -2188,107 +2185,87 @@ msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: ../preferences/__init__.py:105 ../preferences/midi.py:169
+#: ../preferences/__init__.py:106 ../preferences/midi.py:169
 #: ../userguide/preferences.md:1
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: ../preferences/__init__.py:172 ../preferences/general.py:128
+#: ../preferences/__init__.py:173 ../preferences/general.py:128
 #: ../userguide/prefs_general.md:1
 msgid "General Preferences"
 msgstr "Algemene voorkeuren"
 
-#: ../preferences/__init__.py:183 ../userguide/prefs_lilypond.md:1
+#: ../preferences/__init__.py:184 ../userguide/prefs_lilypond.md:1
 msgid "LilyPond Preferences"
 msgstr "LilyPond-voorkeuren"
 
-#: ../preferences/__init__.py:194 ../userguide/prefs_midi.md:1
+#: ../preferences/__init__.py:195 ../userguide/prefs_midi.md:1
 msgid "MIDI Settings"
 msgstr "MIDI-instellingen"
 
-#: ../preferences/__init__.py:205 ../preferences/helpers.py:91
+#: ../preferences/__init__.py:206 ../preferences/helpers.py:84
 #: ../userguide/prefs_helpers.md:1
 msgid "Helper Applications"
 msgstr "Hulpprogramma's"
 
-#: ../preferences/__init__.py:216 ../userguide/prefs_paths.md:1
+#: ../preferences/__init__.py:217 ../userguide/prefs_paths.md:1
 msgid "Paths"
 msgstr "Paden"
 
-#: ../preferences/__init__.py:227 ../userguide/prefs_lilydoc.md:1
+#: ../preferences/__init__.py:228 ../userguide/prefs_lilydoc.md:1
 msgid "LilyPond Documentation"
 msgstr "LilyPond-documentatie"
 
-#: ../preferences/__init__.py:238 ../userguide/prefs_shortcuts.md:1
+#: ../preferences/__init__.py:239 ../userguide/prefs_shortcuts.md:1
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: ../preferences/__init__.py:249 ../userguide/prefs_editor.md:1
+#: ../preferences/__init__.py:250 ../userguide/prefs_editor.md:1
 msgid "Editor Preferences"
 msgstr "Editor-voorkeuren"
 
-#: ../preferences/__init__.py:260 ../userguide/prefs_fontscolors.md:1
+#: ../preferences/__init__.py:261 ../userguide/prefs_fontscolors.md:1
 msgid "Fonts & Colors"
 msgstr "Tekst & kleur"
 
-#: ../preferences/__init__.py:271 ../userguide/prefs_tools.md:1
+#: ../preferences/__init__.py:272 ../userguide/prefs_tools.md:1
 msgid "Tools"
 msgstr "Gereedschap"
 
-#: ../preferences/documentation.py:66
+#: ../preferences/documentation.py:67
 msgid "Paths to LilyPond Documentation"
 msgstr "Paden naar LilyPond-documentatie"
 
-#: ../preferences/documentation.py:68
+#: ../preferences/documentation.py:69
 msgid "Add paths or URLs. See \"What's This\" for more information."
 msgstr "Voeg paden of URLs toe. Zie \"Wat is dit\" voor meer informatie."
 
-#: ../preferences/documentation.py:70
-msgid ""
-"<p>Here you can add local paths or URLs pointing to LilyPond documentation. "
-"A local path should point to the directory where either the "
-"\"{documentation}\" directory lives, or the whole \"share/doc/lilypond/html/"
-"offline-root\" path.</p>\n"
-"<p>If those can't be found, documentation is looked for in all "
-"subdirectories of the given path, one level deep. This makes it possible to "
-"put multiple versions of LilyPond documentation in different subdirectories "
-"and have Frescobaldi automatically find them.</p>"
-msgstr ""
-"<p>Hier kunt u lokale bestandspaden of URLs voor LilyPond-documentatie "
-"toevoegen. Een lokaal pad moet naar een directorie wijzen waar de "
-"{documentation} map is, of het hele \"share/doc/lilypond/html/offline-root\" "
-"pad.</p>\n"
-"<p>Als deze niet gevonden worden, wordt een niveau diep gezocht in "
-"submappen. Zodoende is het mogelijk om verschillende versies van de LilyPond-"
-"documentatie in verschillende submappen te plaatsen, en dat Frescobaldi ze "
-"automatisch vindt.</p>"
-
-#: ../preferences/documentation.py:127
+#: ../preferences/documentation.py:119
 msgid "Preferred Language:"
 msgstr "Voorkeurstaal:"
 
-#: ../preferences/documentation.py:129 ../scorewiz/settings.py:202
+#: ../preferences/documentation.py:121 ../scorewiz/settings.py:202
 msgid "English (untranslated)"
 msgstr "Engels (onvertaald)"
 
-#: ../preferences/documentation.py:130 ../preferences/fontscolors.py:122
-#: ../preferences/tools.py:96 ../preferences/tools.py:231
+#: ../preferences/documentation.py:122 ../preferences/fontscolors.py:122
+#: ../preferences/tools.py:92 ../preferences/tools.py:233
 msgid "Font:"
 msgstr "Lettertype:"
 
-#: ../preferences/documentation.py:166
+#: ../preferences/documentation.py:158
 msgid "Please enter a local path or a URL:"
 msgstr "Voer een lokaal pad in of een URL:"
 
-#: ../preferences/editor.py:83
+#: ../preferences/editor.py:77
 msgid "Matching Item:"
 msgstr "Overeenkomend item:"
 
-#: ../preferences/editor.py:86
+#: ../preferences/editor.py:80 ../userguide/prefs_editor.md:3
 msgid "Highlighting Options"
 msgstr "Accentuerings-opties"
 
-#: ../preferences/editor.py:88
+#: ../preferences/editor.py:82
 msgid ""
 "Below you can define how long \"matching\" items like matching brackets or "
 "the items linked through Point-and-Click are highlighted."
@@ -2297,13 +2274,62 @@ msgstr ""
 "boogjes, of items gekoppeld aan Point-and-Click worden geaccentueerd."
 
 #. L10N: abbreviation for "n seconds" in spinbox, n >= 1, no plural forms
-#: ../preferences/editor.py:92
+#: ../preferences/editor.py:86
 msgid "{num} sec"
 msgstr "{num} sec"
 
-#: ../preferences/editor.py:94
+#: ../preferences/editor.py:88
 msgid "Infinite"
 msgstr "Altijd"
+
+#: ../preferences/editor.py:138 ../userguide/prefs_editor.md:11
+msgid "Indenting Preferences"
+msgstr "Inspring-voorkeuren"
+
+#: ../preferences/editor.py:139
+msgid "Visible Tab Width:"
+msgstr "Zichtbare tabbreedte:"
+
+#: ../preferences/editor.py:141
+msgid "The visible width of a Tab character in the editor."
+msgstr "De zichtbare breedte van een tab-teken in de editor."
+
+#: ../preferences/editor.py:142
+msgid "Indent text with:"
+msgstr "Tekst inspringen met:"
+
+#: ../preferences/editor.py:144
+msgid ""
+"How many spaces to use for indenting one level.\n"
+"Move to zero to use a Tab character for indenting."
+msgstr ""
+"Hoeveel spaties er moeten worden gebruikt voor het inspringen van een "
+"niveau.\n"
+"Schuif naar 0 om een Tab-karakter te gebruiken voor het inspringen."
+
+#: ../preferences/editor.py:146 ../preferences/editor.py:152
+#: ../preferences/editor.py:153
+msgid "Tab"
+msgstr "Tab"
+
+#: ../preferences/editor.py:147
+msgid "Tab ouside indent inserts:"
+msgstr "Tab buiten inspringruimte voegt in:"
+
+#: ../preferences/editor.py:149
+msgid ""
+"How many spaces to insert when Tab is pressed outside the indent, elsewhere "
+"in the document.\n"
+"Move to zero to insert a literal Tab character in this case."
+msgstr ""
+"Hoeveel spaties er moeten worden ingevoegd als Tab wordt ingedrukt buiten de "
+"inspringruimte, elders in het document.\n"
+"Schuif naar 0 om een Tab-karakter te gebruiken in dit geval."
+
+#. L10N: abbreviation for "n spaces" in spinbox, n >= 1, no plural forms
+#: ../preferences/editor.py:155
+msgid "{num} spaces"
+msgstr "{num} spaties"
 
 #: ../preferences/fontscolors.py:121
 msgid "Use this scheme for printing"
@@ -2429,7 +2455,7 @@ msgstr "Escape"
 msgid "Comment"
 msgstr "Commentaar"
 
-#: ../preferences/fontscolors.py:501 ../preferences/lilypond.py:246
+#: ../preferences/fontscolors.py:501 ../preferences/lilypond.py:233
 #: ../scorewiz/settings.py:295
 msgid "LilyPond"
 msgstr "LilyPond"
@@ -2459,7 +2485,7 @@ msgstr "Vingerzetting"
 msgid "String Number"
 msgstr "Snaar"
 
-#: ../preferences/fontscolors.py:509 ../quickinsert/spanners.py:164
+#: ../preferences/fontscolors.py:509 ../quickinsert/spanners.py:170
 msgid "Slur"
 msgstr "Boogje"
 
@@ -2475,7 +2501,7 @@ msgstr "Articulatie"
 msgid "Chord"
 msgstr "Akkoord"
 
-#: ../preferences/fontscolors.py:513 ../quickinsert/spanners.py:166
+#: ../preferences/fontscolors.py:513 ../quickinsert/spanners.py:172
 msgid "Beam"
 msgstr "Waardestreep"
 
@@ -2678,43 +2704,43 @@ msgstr "Standaardmap:"
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "De standaardmap voor uw LilyPond documenten (optioneel)."
 
-#: ../preferences/helpers.py:80
+#: ../preferences/helpers.py:73
 msgid "PDF:"
 msgstr "PDF:"
 
-#: ../preferences/helpers.py:81
+#: ../preferences/helpers.py:74
 msgid "MIDI:"
 msgstr "MIDI:"
 
-#: ../preferences/helpers.py:82
+#: ../preferences/helpers.py:75
 msgid "SVG:"
 msgstr "SVG:"
 
-#: ../preferences/helpers.py:83
+#: ../preferences/helpers.py:76
 msgid "Image:"
 msgstr "Afbeelding:"
 
-#: ../preferences/helpers.py:84
+#: ../preferences/helpers.py:77
 msgid "Browser:"
 msgstr "Browser:"
 
-#: ../preferences/helpers.py:85
+#: ../preferences/helpers.py:78
 msgid "E-Mail:"
 msgstr "E-mail:"
 
-#: ../preferences/helpers.py:86
+#: ../preferences/helpers.py:79
 msgid "File Manager:"
 msgstr "Bestandsbeheer:"
 
-#: ../preferences/helpers.py:87
+#: ../preferences/helpers.py:80
 msgid "Shell:"
 msgstr "Shell:"
 
-#: ../preferences/helpers.py:88
+#: ../preferences/helpers.py:81
 msgid "Git:"
 msgstr "Git:"
 
-#: ../preferences/helpers.py:93
+#: ../preferences/helpers.py:86
 msgid ""
 "Below you can enter commands to open different file types. <code>$f</code> "
 "is replaced with the filename, <code>$u</code> with the URL. Leave a field "
@@ -2725,23 +2751,23 @@ msgstr ""
 "code> door de URL. Laat een veld leeg om de standaardinstelling van het "
 "besturingssysteem te gebruiken."
 
-#: ../preferences/helpers.py:101
+#: ../preferences/helpers.py:94
 msgid "Command that should accept a mailto: URL."
 msgstr "Commando dat een mailto: URL accepteert."
 
-#: ../preferences/helpers.py:103
+#: ../preferences/helpers.py:96
 msgid "Command to open a Terminal or Command window."
 msgstr "Commando dat een terminal of commandovenster opent."
 
-#: ../preferences/helpers.py:105
+#: ../preferences/helpers.py:98
 msgid "Command (base) to run Git versioning actions."
 msgstr "Basis-commando om Git-acties uit te voeren."
 
-#: ../preferences/helpers.py:148 ../userguide/prefs_helpers.md:14
+#: ../preferences/helpers.py:141 ../userguide/prefs_helpers.md:14
 msgid "Printing Music"
 msgstr "Muziek afdrukken"
 
-#: ../preferences/helpers.py:150
+#: ../preferences/helpers.py:143
 msgid ""
 "Here you can enter a command to print a PDF or PostScript file. See the Help "
 "page for more information about printing music."
@@ -2750,11 +2776,11 @@ msgstr ""
 "drukken. Zie de helppagina voor meer informatie over het afdrukken van "
 "muziek."
 
-#: ../preferences/helpers.py:152
+#: ../preferences/helpers.py:145
 msgid "Printing command:"
 msgstr "Printcommando:"
 
-#: ../preferences/helpers.py:154
+#: ../preferences/helpers.py:147
 msgid ""
 "The printing command is used to print a PostScript or PDF file. On Linux you "
 "don't need this, but on Windows and Mac OS X you can provide a command to "
@@ -2772,11 +2798,11 @@ msgstr ""
 "code> wordt vervangen door de PostScript bestandsnaam. <code>$printer</code> "
 "wordt vervangen door de naam van de te gebruiken printer."
 
-#: ../preferences/helpers.py:161
+#: ../preferences/helpers.py:154
 msgid "Use Frescobaldi's print dialog"
 msgstr "Frescobaldi's printdialoog gebruiken"
 
-#: ../preferences/helpers.py:163
+#: ../preferences/helpers.py:156
 msgid ""
 "If enabled, Frescobaldi will show the print dialog and create a PDF or "
 "PostScript document containing only the selected pages to print. Otherwise, "
@@ -2787,7 +2813,7 @@ msgstr ""
 "uitgeschakeld zal het commando direct worden aangeroepen, in de verwachting "
 "dat dat commando een printdialoog afbeeldt."
 
-#: ../preferences/helpers.py:169
+#: ../preferences/helpers.py:162
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr ""
 "De resolutie instellen als Frescobaldi bij het afdrukken gebruik maakt van "
@@ -2801,15 +2827,15 @@ msgstr "Geen thema gevonden."
 msgid "No shortcuts found."
 msgstr "Geen sneltoetsen gevonden."
 
-#: ../preferences/lilypond.py:82
+#: ../preferences/lilypond.py:83
 msgid "LilyPond versions to use"
 msgstr "De te gebruiken LilyPond-versies"
 
-#: ../preferences/lilypond.py:83 ../userguide/prefs_lilypond_autoversion.md:1
+#: ../preferences/lilypond.py:84 ../userguide/prefs_lilypond_autoversion.md:1
 msgid "Automatically choose LilyPond version from document"
 msgstr "Kies LilyPond-versie op basis van document"
 
-#: ../preferences/lilypond.py:85
+#: ../preferences/lilypond.py:86
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -2818,84 +2844,55 @@ msgstr ""
 "versie wordt gekozen.\n"
 "Zie \"Wat is dit\" voor meer informatie."
 
-#: ../preferences/lilypond.py:88
-msgid ""
-"<p>If this setting is enabled, the document is searched for a LilyPond <code>"
-"\\version</code> command or a <code>version</code> document variable.</p>\n"
-"<p>The LilyPond version command looks like:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>The document variable looks like:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>somewhere (in a comments section) in the first or last 5 lines of the "
-"document. This way the LilyPond version to use can also be specified in non-"
-"LilyPond documents like HTML, LaTeX, etc.</p>\n"
-"<p>If the document specifies a version, the oldest suitable LilyPond version "
-"is chosen. Otherwise, the default version is chosen.</p>\n"
-msgstr ""
-"<p>Als deze optie is ingeschakeld, wordt gezocht naar een LilyPond <code>"
-"\\version</code> commando of een <code>version</code> document variabele.</"
-"p>\n"
-"<p>Het LilyPond versie-commando ziet er aldus uit:</p>\n"
-"<pre>\\version \"2.14.0\"</pre>\n"
-"<p>De document variabele ziet er zo uit:</p>\n"
-"<pre>-*- version: 2.14.0;</pre>\n"
-"<p>ergens (in een commentaarsectie) in de eerste of laatste 5 regels van het "
-"document.\n"
-"Op deze wijze kan de LilyPond-versie ook worden aangegeven in niet-LilyPond "
-"documenten zoals HTML, LaTeX, etc.</p>\n"
-"<p>Als het document een versie aangeeft, wordt de oudst bruikbare LilyPond-"
-"versie gekozen.\n"
-"Zo niet, wordt de als standaard ingestelde versie gekozen.</p>\n"
-
-#: ../preferences/lilypond.py:102
+#: ../preferences/lilypond.py:89
 msgid "See also {link}."
 msgstr "Zie ook {link}."
 
-#: ../preferences/lilypond.py:150
+#: ../preferences/lilypond.py:137
 msgid "Set as &Default"
 msgstr "Als standaar&d instellen"
 
-#: ../preferences/lilypond.py:191
+#: ../preferences/lilypond.py:178
 msgid "default"
 msgstr "standaard"
 
-#: ../preferences/lilypond.py:247
+#: ../preferences/lilypond.py:234
 msgid "Label:"
-msgstr ""
+msgstr "Label:"
 
-#: ../preferences/lilypond.py:248
+#: ../preferences/lilypond.py:235
 msgid "How this version of LilyPond will be displayed."
-msgstr ""
+msgstr "Hoe deze versie van LilyPond wordt afgebeeld."
 
-#: ../preferences/lilypond.py:249
+#: ../preferences/lilypond.py:236
 msgid "LilyPond Command:"
 msgstr "LilyPond-commando:"
 
-#: ../preferences/lilypond.py:250
+#: ../preferences/lilypond.py:237
 msgid "Name or full path of the LilyPond program."
 msgstr "Naam of pad van het LilyPond programma."
 
-#: ../preferences/lilypond.py:251
+#: ../preferences/lilypond.py:238
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../preferences/lilypond.py:252
+#: ../preferences/lilypond.py:239
 msgid "LilyPond-book:"
 msgstr "Lilypond-book:"
 
-#: ../preferences/lilypond.py:253
+#: ../preferences/lilypond.py:240
 msgid "Include in automatic version selection"
 msgstr "Meenemen in automatische versie-selectie"
 
-#: ../preferences/lilypond.py:300
+#: ../preferences/lilypond.py:287
 msgid "Running LilyPond"
 msgstr "Bij het starten van LilyPond"
 
-#: ../preferences/lilypond.py:301
+#: ../preferences/lilypond.py:288
 msgid "Save document if possible"
 msgstr "Document opslaan indien mogelijk"
 
-#: ../preferences/lilypond.py:303
+#: ../preferences/lilypond.py:290
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -2905,13 +2902,13 @@ msgstr ""
 "Indien het document niet wordt opgeslagen, wordt een tijdelijk bestand "
 "gebruikt om LilyPond te starten."
 
-#: ../preferences/lilypond.py:307
+#: ../preferences/lilypond.py:294
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
 "Indien ingeschakeld, zal LilyPond tussentijdse PostScript-uitvoerbestanden "
 "verwijderen."
 
-#: ../preferences/lilypond.py:310
+#: ../preferences/lilypond.py:297
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -2919,9 +2916,21 @@ msgstr ""
 "Indien ingeschakeld, zullen LilyPond's uitvoerberichten in het Engels zijn.\n"
 "Dit kan handig zijn voor bug-rapportages."
 
-#: ../preferences/lilypond.py:312
+#: ../preferences/lilypond.py:299
 msgid "LilyPond include path:"
 msgstr "LilyPond include-pad:"
+
+#: ../preferences/lilypond.py:336
+msgid "Default output format"
+msgstr "Standaard uitvoerformaat"
+
+#: ../preferences/lilypond.py:339
+msgid "Create PDF (Portable Document Format) documents by default."
+msgstr "Standaard PDF (Portable Document Format) documenten aanmaken."
+
+#: ../preferences/lilypond.py:342
+msgid "Create SVG (Scalable Vector Graphics) documents by default."
+msgstr "Standaard SVG (Scalable Vector Graphics) documenten aanmaken."
 
 #: ../preferences/midi.py:82
 msgid "MIDI Ports"
@@ -3074,29 +3083,41 @@ msgstr "(geen sneltoets)"
 msgid "(default)"
 msgstr "(standaard)"
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:93
 msgid "Show log when a job is started"
 msgstr "Log weergeven als een taak wordt gestart"
 
-#: ../preferences/tools.py:98
+#: ../preferences/tools.py:94
 msgid "Display plain log output"
 msgstr "Ruwe loguitvoer weergeven"
 
-#: ../preferences/tools.py:100
+#: ../preferences/tools.py:96
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Indien ingeschakeld, zal Frescobaldi lange bestandsnamen in de loguitvoer "
 "niet inkorten."
 
-#: ../preferences/tools.py:163
+#: ../preferences/tools.py:97
+msgid "Hide automatic engraving jobs"
+msgstr "Automatische graveertaken verbergen"
+
+#: ../preferences/tools.py:99
+msgid ""
+"If checked, Frescobaldi will not show the log for automatically\n"
+"started engraving jobs (LilyPond->Auto-engrave)."
+msgstr ""
+"Indien ingeschakeld zal Frescobaldi de log-uitvoer voor automatisch\n"
+"gestarte graveertaken (LilyPond->Automatisch graveren) niet weergeven."
+
+#: ../preferences/tools.py:165
 msgid "Music View"
 msgstr "Muziekweergave"
 
-#: ../preferences/tools.py:164
+#: ../preferences/tools.py:166
 msgid "Only load updated PDF documents"
 msgstr "Alleen bijgewerkte PDF-documenten tonen"
 
-#: ../preferences/tools.py:166
+#: ../preferences/tools.py:168
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
@@ -3104,54 +3125,54 @@ msgstr ""
 "Indien ingeschakeld, zal Frescobaldi PDF-bestanden die ouder zijn dan het "
 "brondocument, niet weergeven."
 
-#: ../preferences/tools.py:168
+#: ../preferences/tools.py:170
 msgid "Magnifier Size:"
 msgstr "Grootte van vergrootglas:"
 
-#: ../preferences/tools.py:170
+#: ../preferences/tools.py:172
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Grootte van het vergrootglas (Control+klik in muziekweergave)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:174
 msgid " pixels"
 msgstr " pixels"
 
-#: ../preferences/tools.py:173
+#: ../preferences/tools.py:175
 msgid "Magnifier Scale:"
 msgstr "Schaal van vergrootglas:"
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:177
 msgid "Magnification of the magnifier."
 msgstr "Vergroting van het vergrootglas."
 
-#: ../preferences/tools.py:176
+#: ../preferences/tools.py:178
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:180
 msgid "Kinetic Scrolling"
 msgstr "Kinetisch schuiven"
 
-#: ../preferences/tools.py:179
+#: ../preferences/tools.py:181
 msgid "Show Scrollbars"
 msgstr "Schuifbalken weergeven"
 
-#: ../preferences/tools.py:264
+#: ../preferences/tools.py:266
 msgid "Group documents by directory"
 msgstr "Documenten per map groeperen"
 
-#: ../preferences/tools.py:297
+#: ../preferences/tools.py:299
 msgid "Restores the built-in outline patterns."
 msgstr "Zet de ingebouwde structuur-patronen terug."
 
-#: ../preferences/tools.py:298
+#: ../preferences/tools.py:300
 msgid "Patterns to match in text that are shown in outline:"
 msgstr "Patronen die in de documentstructuur worden weergeven:"
 
-#: ../preferences/tools.py:324
+#: ../preferences/tools.py:326
 msgid "Enter a regular expression to match:"
 msgstr "Voer een reguliere expressie in:"
 
@@ -3163,201 +3184,201 @@ msgstr "Quick Insert"
 msgid "Quick &Insert"
 msgstr "Quick &Insert"
 
-#: ../quickinsert/articulations.py:94
+#: ../quickinsert/articulations.py:96
 msgid "Allow shorthands"
 msgstr "Korte notatie"
 
-#: ../quickinsert/articulations.py:96
+#: ../quickinsert/articulations.py:98
 msgid "Use short notation for some articulations like staccato."
 msgstr "Korte notatie toestaan voor sommige articulaties zoals staccato."
 
-#: ../quickinsert/articulations.py:98
+#: ../quickinsert/articulations.py:100
 msgid "Remove articulations etc."
 msgstr "Articulaties etc. verwijderen"
 
-#: ../quickinsert/articulations.py:106 ../quickinsert/articulations.py:138
+#: ../quickinsert/articulations.py:108 ../quickinsert/articulations.py:146
 #: ../userguide/quickinsert.md:16
 msgid "Articulations"
 msgstr "Articulaties"
 
-#: ../quickinsert/articulations.py:110
+#: ../quickinsert/articulations.py:112
 msgid "Different kinds of articulations and other signs."
 msgstr "Verschillende soorten articulatie en andere tekens."
 
-#: ../quickinsert/articulations.py:141
+#: ../quickinsert/articulations.py:149
 msgid "Accent"
 msgstr "Accent"
 
-#: ../quickinsert/articulations.py:142
+#: ../quickinsert/articulations.py:150
 msgid "Marcato"
 msgstr "Marcato"
 
-#: ../quickinsert/articulations.py:143
+#: ../quickinsert/articulations.py:151
 msgid "Staccatissimo"
 msgstr "Staccatissimo"
 
-#: ../quickinsert/articulations.py:144
+#: ../quickinsert/articulations.py:152
 msgid "Staccato"
 msgstr "Staccato"
 
-#: ../quickinsert/articulations.py:145
+#: ../quickinsert/articulations.py:153
 msgid "Portato"
 msgstr "Portato"
 
-#: ../quickinsert/articulations.py:146
+#: ../quickinsert/articulations.py:154
 msgid "Tenuto"
 msgstr "Tenuto"
 
-#: ../quickinsert/articulations.py:147
+#: ../quickinsert/articulations.py:155
 msgid "Espressivo"
 msgstr "Espressivo"
 
-#: ../quickinsert/articulations.py:152
+#: ../quickinsert/articulations.py:160
 msgid "Ornaments"
 msgstr "Versieringen"
 
-#: ../quickinsert/articulations.py:155 ../quickinsert/spanners.py:167
+#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:173
 msgid "Trill"
 msgstr "Triller"
 
-#: ../quickinsert/articulations.py:156
+#: ../quickinsert/articulations.py:164
 msgid "Prall"
 msgstr "Praller"
 
-#: ../quickinsert/articulations.py:157
+#: ../quickinsert/articulations.py:165
 msgid "Mordent"
 msgstr "Mordent"
 
-#: ../quickinsert/articulations.py:158
+#: ../quickinsert/articulations.py:166
 msgid "Turn"
 msgstr "Dubbelslag"
 
-#: ../quickinsert/articulations.py:159
+#: ../quickinsert/articulations.py:167
 msgid "Prall prall"
 msgstr "Lange praller"
 
-#: ../quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:168
 msgid "Prall mordent"
 msgstr "Praller met mordent"
 
-#: ../quickinsert/articulations.py:161
+#: ../quickinsert/articulations.py:169
 msgid "Up prall"
 msgstr "Praller naar boven"
 
-#: ../quickinsert/articulations.py:162
+#: ../quickinsert/articulations.py:170
 msgid "Down prall"
 msgstr "Praller naar beneden"
 
-#: ../quickinsert/articulations.py:163
+#: ../quickinsert/articulations.py:171
 msgid "Up mordent"
 msgstr "Mordent naar boven"
 
-#: ../quickinsert/articulations.py:164
+#: ../quickinsert/articulations.py:172
 msgid "Down mordent"
 msgstr "Mordent naar beneden"
 
-#: ../quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:173
 msgid "Prall up"
 msgstr "Praller naar boven"
 
-#: ../quickinsert/articulations.py:166
+#: ../quickinsert/articulations.py:174
 msgid "Prall down"
 msgstr "Praller naar onder"
 
-#: ../quickinsert/articulations.py:167
+#: ../quickinsert/articulations.py:175
 msgid "Line prall"
 msgstr "Praller met lijn"
 
-#: ../quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:176
 msgid "Reverse turn"
 msgstr "Omgekeerde dubbelslag"
 
 #. L10N: dynamic signs
-#: ../quickinsert/articulations.py:173 ../quickinsert/dynamics.py:136
+#: ../quickinsert/articulations.py:181 ../quickinsert/dynamics.py:141
 msgid "Signs"
 msgstr "Tekens"
 
-#: ../quickinsert/articulations.py:176
+#: ../quickinsert/articulations.py:184
 msgid "Fermata"
 msgstr "Fermate"
 
-#: ../quickinsert/articulations.py:177
+#: ../quickinsert/articulations.py:185
 msgid "Short fermata"
 msgstr "Korte fermate"
 
-#: ../quickinsert/articulations.py:178
+#: ../quickinsert/articulations.py:186
 msgid "Long fermata"
 msgstr "Lange fermate"
 
-#: ../quickinsert/articulations.py:179
+#: ../quickinsert/articulations.py:187
 msgid "Very long fermata"
 msgstr "Zeer lange fermate"
 
-#: ../quickinsert/articulations.py:180
+#: ../quickinsert/articulations.py:188
 msgid "Segno"
 msgstr "Teken"
 
-#: ../quickinsert/articulations.py:181
+#: ../quickinsert/articulations.py:189
 msgid "Coda"
 msgstr "Coda"
 
-#: ../quickinsert/articulations.py:182
+#: ../quickinsert/articulations.py:190
 msgid "Varcoda"
 msgstr "Varcoda"
 
-#: ../quickinsert/articulations.py:183
+#: ../quickinsert/articulations.py:191
 msgid "Signumcongruentiae"
 msgstr "Signumcongruentiae"
 
-#: ../quickinsert/articulations.py:188
+#: ../quickinsert/articulations.py:196
 msgid "Other"
 msgstr "Overig"
 
-#: ../quickinsert/articulations.py:191
+#: ../quickinsert/articulations.py:199
 msgid "Upbow"
 msgstr "Opstreek"
 
-#: ../quickinsert/articulations.py:192
+#: ../quickinsert/articulations.py:200
 msgid "Downbow"
 msgstr "Afstreek"
 
-#: ../quickinsert/articulations.py:193
+#: ../quickinsert/articulations.py:201
 msgid "Snappizzicato"
 msgstr "Bartók pizzicato"
 
-#: ../quickinsert/articulations.py:194
+#: ../quickinsert/articulations.py:202
 msgid "Open (e.g. brass)"
 msgstr "Open (koper)"
 
-#: ../quickinsert/articulations.py:195
+#: ../quickinsert/articulations.py:203
 msgid "Stopped (e.g. brass)"
 msgstr "Gestopt (koper)"
 
-#: ../quickinsert/articulations.py:196
+#: ../quickinsert/articulations.py:204
 msgid "Flageolet"
 msgstr "Flageolet"
 
-#: ../quickinsert/articulations.py:197
+#: ../quickinsert/articulations.py:205
 msgid "Thumb"
 msgstr "Duim"
 
-#: ../quickinsert/articulations.py:198
+#: ../quickinsert/articulations.py:206
 msgid "Left heel"
 msgstr "Linker hak"
 
-#: ../quickinsert/articulations.py:199
+#: ../quickinsert/articulations.py:207
 msgid "Right heel"
 msgstr "Rechter hak"
 
-#: ../quickinsert/articulations.py:200
+#: ../quickinsert/articulations.py:208
 msgid "Left toe"
 msgstr "Linker teen"
 
-#: ../quickinsert/articulations.py:201
+#: ../quickinsert/articulations.py:209
 msgid "Right toe"
 msgstr "Rechter teen"
 
-#: ../quickinsert/articulations.py:202
+#: ../quickinsert/articulations.py:210
 msgid "Half open (e.g. hi-hat)"
 msgstr "Halfopen (bijv. hi-hat)"
 
@@ -3454,137 +3475,137 @@ msgstr "Gebogen cesuur"
 msgid "Straight Caesura"
 msgstr "Rechte cesuur"
 
-#: ../quickinsert/buttongroup.py:175
+#: ../quickinsert/buttongroup.py:177
 msgid "{name} ({key})"
 msgstr "{name} ({key})"
 
-#: ../quickinsert/buttongroup.py:182
+#: ../quickinsert/buttongroup.py:184
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Sneltoets instellen ({key})"
 
-#: ../quickinsert/buttongroup.py:182 ../scorewiz/scoreproperties.py:171
+#: ../quickinsert/buttongroup.py:184 ../scorewiz/scoreproperties.py:171
 #: ../scorewiz/settings.py:195 ../snippet/edit.py:221
 msgid "None"
 msgstr "Geen"
 
-#: ../quickinsert/dynamics.py:72 ../userguide/quickinsert.md:29
+#: ../quickinsert/dynamics.py:74 ../userguide/quickinsert.md:29
 msgid "Dynamics"
 msgstr "Dynamiek"
 
-#: ../quickinsert/dynamics.py:76
+#: ../quickinsert/dynamics.py:78
 msgid "Dynamic symbols."
 msgstr "Dynamische tekens."
 
-#: ../quickinsert/dynamics.py:149
+#: ../quickinsert/dynamics.py:154
 msgid "Dynamic sign {name}"
 msgstr "Dynamisch teken {name}"
 
-#: ../quickinsert/dynamics.py:154 ../quickinsert/spanners.py:73
-#: ../quickinsert/spanners.py:157 ../userguide/quickinsert.md:37
+#: ../quickinsert/dynamics.py:159 ../quickinsert/spanners.py:75
+#: ../quickinsert/spanners.py:163 ../userguide/quickinsert.md:37
 msgid "Spanners"
 msgstr "Spanners"
 
-#: ../quickinsert/dynamics.py:163
+#: ../quickinsert/dynamics.py:168
 msgid "Hairpin crescendo"
 msgstr "Crescendo (lijnen)"
 
-#: ../quickinsert/dynamics.py:164
+#: ../quickinsert/dynamics.py:169
 msgid "Crescendo"
 msgstr "Crescendo"
 
-#: ../quickinsert/dynamics.py:165
+#: ../quickinsert/dynamics.py:170
 msgid "Hairpin diminuendo"
 msgstr "Diminuendo (lijnen)"
 
-#: ../quickinsert/dynamics.py:166
+#: ../quickinsert/dynamics.py:171
 msgid "Diminuendo"
 msgstr "Diminuendo"
 
-#: ../quickinsert/dynamics.py:167
+#: ../quickinsert/dynamics.py:172
 msgid "Decrescendo"
 msgstr "Decrescendo"
 
-#: ../quickinsert/spanners.py:77
+#: ../quickinsert/spanners.py:79
 msgid "Slurs, spanners, etcetera."
 msgstr "Bogen, spanners, etc."
 
-#: ../quickinsert/spanners.py:82
+#: ../quickinsert/spanners.py:84
 msgid "Arpeggios"
 msgstr "Arpeggio's"
 
-#: ../quickinsert/spanners.py:91
+#: ../quickinsert/spanners.py:93
 msgid "Arpeggio"
 msgstr "Arpeggio"
 
-#: ../quickinsert/spanners.py:92
+#: ../quickinsert/spanners.py:94
 msgid "Arpeggio with Up Arrow"
 msgstr "Arpeggio met pijl omhoog"
 
-#: ../quickinsert/spanners.py:93
+#: ../quickinsert/spanners.py:95
 msgid "Arpeggio with Down Arrow"
 msgstr "Arpeggio met pijl naar beneden"
 
-#: ../quickinsert/spanners.py:94
+#: ../quickinsert/spanners.py:96
 msgid "Bracket Arpeggio"
 msgstr "Vierkante haak-arpeggio"
 
-#: ../quickinsert/spanners.py:95
+#: ../quickinsert/spanners.py:97
 msgid "Parenthesis Arpeggio"
 msgstr "Ronde haak-arpeggio"
 
-#: ../quickinsert/spanners.py:127
+#: ../quickinsert/spanners.py:131
 msgid "Glissandos"
 msgstr "Glissando's"
 
-#: ../quickinsert/spanners.py:136
+#: ../quickinsert/spanners.py:140
 msgid "Glissando"
 msgstr "Glissando"
 
-#: ../quickinsert/spanners.py:137
+#: ../quickinsert/spanners.py:141
 msgid "Dashed Glissando"
 msgstr "Gestreept glissando"
 
-#: ../quickinsert/spanners.py:138
+#: ../quickinsert/spanners.py:142
 msgid "Dotted Glissando"
 msgstr "Gestippeld glissando"
 
-#: ../quickinsert/spanners.py:139
+#: ../quickinsert/spanners.py:143
 msgid "Zigzag Glissando"
 msgstr "Zig-zag glissando"
 
-#: ../quickinsert/spanners.py:140
+#: ../quickinsert/spanners.py:144
 msgid "Trill Glissando"
 msgstr "Triller-glissando"
 
-#: ../quickinsert/spanners.py:165
+#: ../quickinsert/spanners.py:171
 msgid "Phrasing Slur"
 msgstr "Fraseringsboog"
 
-#: ../quickinsert/spanners.py:168
+#: ../quickinsert/spanners.py:174
 msgid "Melisma"
 msgstr "Melisma"
 
-#: ../quickinsert/spanners.py:190 ../quickinsert/spanners.py:197
+#: ../quickinsert/spanners.py:196 ../quickinsert/spanners.py:203
 msgid "Grace Notes"
 msgstr "Voorslagen"
 
-#: ../quickinsert/spanners.py:198
+#: ../quickinsert/spanners.py:204
 msgid "Grace Notes w. beaming"
 msgstr "Voorslag met waardestreep"
 
-#: ../quickinsert/spanners.py:199
+#: ../quickinsert/spanners.py:205
 msgid "Acciaccatura"
 msgstr "Acciaccatura"
 
-#: ../quickinsert/spanners.py:200
+#: ../quickinsert/spanners.py:206
 msgid "Appoggiatura"
 msgstr "Appoggiatura"
 
-#: ../quickinsert/spanners.py:201
+#: ../quickinsert/spanners.py:207
 msgid "Slashed no slur"
 msgstr "Voorslag zonder boogje"
 
-#: ../quickinsert/spanners.py:202
+#: ../quickinsert/spanners.py:208
 msgid "After grace"
 msgstr "Voorslag na noot"
 
@@ -3614,67 +3635,80 @@ msgstr "Neutraal"
 msgid "Down"
 msgstr "Onder"
 
-#: ../rhythm/__init__.py:146
+#: ../rhythm/__init__.py:153
 msgid "&Double durations"
 msgstr "Tijdsduur ver&dubbelen"
 
-#: ../rhythm/__init__.py:148
+#: ../rhythm/__init__.py:155
 msgid "Double all the durations in the selection."
 msgstr "Alle nootlengtes in de selectie verdubbelen."
 
-#: ../rhythm/__init__.py:149
+#: ../rhythm/__init__.py:156
 msgid "&Halve durations"
 msgstr "Tijdsduur &halveren"
 
-#: ../rhythm/__init__.py:151
+#: ../rhythm/__init__.py:158
 msgid "Halve all the durations in the selection."
 msgstr "Alle nootlengtes in de selectie halveren."
 
-#: ../rhythm/__init__.py:152
+#: ../rhythm/__init__.py:159
 msgid "Do&t durations"
 msgstr "Pun&t toevoegen"
 
-#: ../rhythm/__init__.py:154
+#: ../rhythm/__init__.py:161
 msgid "Add a dot to all the durations in the selection."
 msgstr "Een punt toevoegen aan alle noten in de selectie."
 
-#: ../rhythm/__init__.py:155
+#: ../rhythm/__init__.py:162
 msgid "&Undot durations"
 msgstr "P&unt verwijderen"
 
-#: ../rhythm/__init__.py:157
+#: ../rhythm/__init__.py:164
 msgid "Remove one dot from all the durations in the selection."
 msgstr "Een punt verwijderen van alle noten in de selectie."
 
-#: ../rhythm/__init__.py:158
+#: ../rhythm/__init__.py:165
 msgid "Remove &scaling"
 msgstr "&Schaling verwijderen"
 
-#: ../rhythm/__init__.py:160
-msgid "Remove all scaling (*n/m) from the durations in the selection."
-msgstr "Alle schaling (*n/m) verwijderen van de nootlengtes in de selectie."
+#: ../rhythm/__init__.py:167
+msgid "Remove all scaling (*n, *n/m) from the durations in the selection."
+msgstr ""
+"Alle schaling (*n, *n/m) verwijderen van de nootlengtes in de selectie."
 
-#: ../rhythm/__init__.py:161
+#: ../rhythm/__init__.py:168
+msgid "Remove scaling with &fractions"
+msgstr "Schaling met &fracties verwijderen"
+
+#: ../rhythm/__init__.py:170
+msgid ""
+"Remove only scaling containing fractions (*n/m) from the durations in the "
+"selection."
+msgstr ""
+"Alleen schaling met fracties (*n/m) verwijderen van de nootlengtes in de "
+"selectie."
+
+#: ../rhythm/__init__.py:171
 msgid "&Remove durations"
 msgstr "Tijdsduu&r verwijderen"
 
-#: ../rhythm/__init__.py:163
+#: ../rhythm/__init__.py:173
 msgid "Remove all durations from the selection."
 msgstr "De volledige tijdsduur-informatie verwijderen uit de selectie."
 
-#: ../rhythm/__init__.py:164
+#: ../rhythm/__init__.py:174
 msgid "Make &implicit"
 msgstr "&Impliciet maken"
 
-#: ../rhythm/__init__.py:166
+#: ../rhythm/__init__.py:176
 msgid "Make durations implicit (remove repeated durations)."
 msgstr "Tijdsduren impliciet maken (herhaalde lengtes verwijderen)."
 
-#: ../rhythm/__init__.py:167
+#: ../rhythm/__init__.py:177
 msgid "Make implicit (per &line)"
 msgstr "Imp&liciet maken (per regel)"
 
-#: ../rhythm/__init__.py:169
+#: ../rhythm/__init__.py:179
 msgid ""
 "Make durations implicit (remove repeated durations), except for the first "
 "duration in a line."
@@ -3682,11 +3716,11 @@ msgstr ""
 "Tijdsduren impliciet maken (herhaalde lengtes verwijderen), behalve de "
 "eerste tijdsduur in een regel."
 
-#: ../rhythm/__init__.py:171
+#: ../rhythm/__init__.py:181
 msgid "Make &explicit"
 msgstr "&Expliciet maken"
 
-#: ../rhythm/__init__.py:173
+#: ../rhythm/__init__.py:183
 msgid ""
 "Make durations explicit (add duration to every note, even if it is the same "
 "as the preceding note)."
@@ -3694,35 +3728,35 @@ msgstr ""
 "De toonduur na elke noot weergeven, ook als deze hetzelfde is als de vorige "
 "noot."
 
-#: ../rhythm/__init__.py:175
+#: ../rhythm/__init__.py:185
 msgid "&Apply rhythm..."
 msgstr "Ritme toep&assen..."
 
-#: ../rhythm/__init__.py:177
+#: ../rhythm/__init__.py:187
 msgid "Apply an entered rhythm to the selected music."
 msgstr "Een ingevoerd ritme op de geselecteerde muziek toepassen."
 
-#: ../rhythm/__init__.py:178
+#: ../rhythm/__init__.py:188
 msgid "&Copy rhythm"
 msgstr "Ritme &kopiëren"
 
-#: ../rhythm/__init__.py:180
+#: ../rhythm/__init__.py:190
 msgid "Copy the rhythm of the selected music."
 msgstr "Het ritme van de geselecteerde muziek kopiëren."
 
-#: ../rhythm/__init__.py:181
+#: ../rhythm/__init__.py:191
 msgid "&Paste rhythm"
 msgstr "Ritme &plakken"
 
-#: ../rhythm/__init__.py:182
+#: ../rhythm/__init__.py:192
 msgid "Paste a rhythm to the selected music."
 msgstr "Een ritme in de geselecteerde muziek plakken."
 
-#: ../rhythm/rhythm.py:151
+#: ../rhythm/rhythm.py:73
 msgid "Apply Rhythm"
 msgstr "Ritme toepassen"
 
-#: ../rhythm/rhythm.py:151
+#: ../rhythm/rhythm.py:73
 msgid "Enter a rhythm:"
 msgstr "Voer een ritme in:"
 
@@ -3738,7 +3772,7 @@ msgstr "Nieuwe &partituur opzetten..."
 msgid "Music follows here."
 msgstr "Muziek volgt hier."
 
-#: ../scorewiz/build.py:403
+#: ../scorewiz/build.py:409
 msgid "Remove default LilyPond tagline"
 msgstr "Standaard LilyPond-tagline verwijderen"
 
@@ -3754,19 +3788,19 @@ msgstr "Leegmaken"
 msgid "Clears the current page of the Score Wizard."
 msgstr "Maakt de huidige pagina van de Score Wizard leeg."
 
-#: ../scorewiz/dialog.py:140
+#: ../scorewiz/dialog.py:139
 msgid "Score Preview"
 msgstr "Vooruitblik van de partituur"
 
-#: ../scorewiz/dialog.py:174
+#: ../scorewiz/dialog.py:173
 msgid "&Titles and Headers"
 msgstr "&Titels en koppen"
 
-#: ../scorewiz/dialog.py:183
+#: ../scorewiz/dialog.py:182
 msgid "&Parts"
 msgstr "&Partijen"
 
-#: ../scorewiz/dialog.py:192
+#: ../scorewiz/dialog.py:191
 msgid "&Score settings"
 msgstr "Partituur-in&stellingen"
 
@@ -4817,159 +4851,222 @@ msgid "Pic."
 msgstr "Pic."
 
 #: ../scorewiz/parts/woodwind.py:64
+msgid "Alto Flute"
+msgstr "Altfluit"
+
+#: ../scorewiz/parts/woodwind.py:68
+msgctxt "abbreviation Alto flute"
+msgid "Afl."
+msgstr "Afl."
+
+#: ../scorewiz/parts/woodwind.py:77
 msgid "Bass flute"
 msgstr "Basfluit"
 
-#: ../scorewiz/parts/woodwind.py:68
+#: ../scorewiz/parts/woodwind.py:81
 msgctxt "abbreviation for Bass flute"
 msgid "Bfl."
 msgstr "Bfl."
 
-#: ../scorewiz/parts/woodwind.py:77
+#: ../scorewiz/parts/woodwind.py:90
 msgid "Oboe"
 msgstr "Hobo"
 
-#: ../scorewiz/parts/woodwind.py:81
+#: ../scorewiz/parts/woodwind.py:94
 msgctxt "abbreviation for Oboe"
 msgid "Ob."
 msgstr "Hb."
 
-#: ../scorewiz/parts/woodwind.py:89
+#: ../scorewiz/parts/woodwind.py:102
 msgid "Oboe d'amore"
 msgstr "Liefdeshobo"
 
-#: ../scorewiz/parts/woodwind.py:93
+#: ../scorewiz/parts/woodwind.py:106
 msgctxt "abbreviation for Oboe d'amore"
 msgid "Ob.d'am."
 msgstr "Lhb."
 
-#: ../scorewiz/parts/woodwind.py:102
+#: ../scorewiz/parts/woodwind.py:115
 msgid "English horn"
 msgstr "Althobo"
 
-#: ../scorewiz/parts/woodwind.py:106
+#: ../scorewiz/parts/woodwind.py:119
 msgctxt "abbreviation for English horn"
 msgid "Eng.h."
 msgstr "Ahb."
 
-#: ../scorewiz/parts/woodwind.py:115
+#: ../scorewiz/parts/woodwind.py:128
 msgid "Bassoon"
 msgstr "Fagot"
 
-#: ../scorewiz/parts/woodwind.py:119
+#: ../scorewiz/parts/woodwind.py:132
 msgctxt "abbreviation for Bassoon"
 msgid "Bn."
 msgstr "Fag."
 
-#: ../scorewiz/parts/woodwind.py:129
+#: ../scorewiz/parts/woodwind.py:142
 msgid "Contrabassoon"
 msgstr "Contrafagot"
 
-#: ../scorewiz/parts/woodwind.py:133
+#: ../scorewiz/parts/woodwind.py:146
 msgctxt "abbreviation for Contrabassoon"
 msgid "C.Bn."
 msgstr "Cfag."
 
-#: ../scorewiz/parts/woodwind.py:144
+#: ../scorewiz/parts/woodwind.py:157
 msgid "Clarinet"
 msgstr "Klarinet"
 
-#: ../scorewiz/parts/woodwind.py:148
+#: ../scorewiz/parts/woodwind.py:161
 msgctxt "abbreviation for Clarinet"
 msgid "Cl."
 msgstr "Klar."
 
-#: ../scorewiz/parts/woodwind.py:157
+#: ../scorewiz/parts/woodwind.py:170
+msgid "E-flat clarinet "
+msgstr "Es-klarinet"
+
+#: ../scorewiz/parts/woodwind.py:174
+msgctxt "abbreviation for E-flat Clarinet"
+msgid "Cl. in Eb"
+msgstr "Cl. in Eb"
+
+#: ../scorewiz/parts/woodwind.py:183
+msgid "A clarinet "
+msgstr "A-klarinet"
+
+#: ../scorewiz/parts/woodwind.py:187
+msgctxt "abbreviation for A Clarinet"
+msgid "Cl. in A"
+msgstr "Cl. in A"
+
+#: ../scorewiz/parts/woodwind.py:196
+msgid "Bass clarinet"
+msgstr "Basklarinet"
+
+#: ../scorewiz/parts/woodwind.py:200
+msgctxt "abbreviation for Bass clarinet"
+msgid "BCl."
+msgstr "BCl."
+
+#: ../scorewiz/parts/woodwind.py:209
 msgid "Sopranino Sax"
 msgstr "Sopraninosax"
 
-#: ../scorewiz/parts/woodwind.py:161
+#: ../scorewiz/parts/woodwind.py:213
 msgctxt "abbreviation for Sopranino Sax"
 msgid "SiSx."
 msgstr "Sisx."
 
-#: ../scorewiz/parts/woodwind.py:170
+#: ../scorewiz/parts/woodwind.py:222
 msgid "Soprano Sax"
 msgstr "Sopraansax"
 
-#: ../scorewiz/parts/woodwind.py:174
+#: ../scorewiz/parts/woodwind.py:226
 msgctxt "abbreviation for Soprano Sax"
 msgid "SoSx."
 msgstr "Sosx."
 
-#: ../scorewiz/parts/woodwind.py:183
+#: ../scorewiz/parts/woodwind.py:235
 msgid "Alto Sax"
 msgstr "Altsax"
 
-#: ../scorewiz/parts/woodwind.py:187
+#: ../scorewiz/parts/woodwind.py:239
 msgctxt "abbreviation for Alto Sax"
 msgid "ASx."
 msgstr "Asx."
 
-#: ../scorewiz/parts/woodwind.py:196
+#: ../scorewiz/parts/woodwind.py:248
 msgid "Tenor Sax"
 msgstr "Tenorsax"
 
-#: ../scorewiz/parts/woodwind.py:200
+#: ../scorewiz/parts/woodwind.py:252
 msgctxt "abbreviation for Tenor Sax"
 msgid "TSx."
 msgstr "Tsx."
 
-#: ../scorewiz/parts/woodwind.py:209
+#: ../scorewiz/parts/woodwind.py:261
 msgid "Baritone Sax"
 msgstr "Baritonsax"
 
-#: ../scorewiz/parts/woodwind.py:213
+#: ../scorewiz/parts/woodwind.py:265
 msgctxt "abbreviation for Baritone Sax"
 msgid "BSx."
 msgstr "Bsx."
 
-#: ../scorewiz/parts/woodwind.py:222
+#: ../scorewiz/parts/woodwind.py:274
 msgid "Bass Sax"
 msgstr "Bassax"
 
-#: ../scorewiz/parts/woodwind.py:226
+#: ../scorewiz/parts/woodwind.py:278
 msgctxt "abbreviation for Bass Sax"
 msgid "BsSx."
 msgstr "Bssx."
 
-#: ../scorewiz/parts/woodwind.py:235
+#: ../scorewiz/parts/woodwind.py:287
+msgid "Sopranino recorder"
+msgstr "Sopraninoblokfluit"
+
+#: ../scorewiz/parts/woodwind.py:291
+msgctxt "abbreviation for Sopranino recorder"
+msgid "Si.rec."
+msgstr "Sibfl."
+
+#: ../scorewiz/parts/woodwind.py:299
 msgid "Soprano recorder"
 msgstr "Sopraanblokfluit"
 
-#: ../scorewiz/parts/woodwind.py:239
+#: ../scorewiz/parts/woodwind.py:303
 msgctxt "abbreviation for Soprano recorder"
 msgid "S.rec."
 msgstr "Sbfl."
 
-#: ../scorewiz/parts/woodwind.py:248
+#: ../scorewiz/parts/woodwind.py:312
 msgid "Alto recorder"
 msgstr "Altblokfluit"
 
-#: ../scorewiz/parts/woodwind.py:252
+#: ../scorewiz/parts/woodwind.py:316
 msgctxt "abbreviation for Alto recorder"
 msgid "A.rec."
 msgstr "Ablf."
 
-#: ../scorewiz/parts/woodwind.py:260
+#: ../scorewiz/parts/woodwind.py:324
 msgid "Tenor recorder"
 msgstr "Tenorblokfluit"
 
-#: ../scorewiz/parts/woodwind.py:264
+#: ../scorewiz/parts/woodwind.py:328
 msgctxt "abbreviation for Tenor recorder"
 msgid "T.rec."
 msgstr "Tblf."
 
-#: ../scorewiz/parts/woodwind.py:272
+#: ../scorewiz/parts/woodwind.py:336
 msgid "Bass recorder"
 msgstr "Basblokfluit"
 
-#: ../scorewiz/parts/woodwind.py:276
+#: ../scorewiz/parts/woodwind.py:340
 msgctxt "abbreviation for Bass recorder"
 msgid "B.rec."
 msgstr "Bblf."
 
-#: ../scorewiz/parts/woodwind.py:285
+#: ../scorewiz/parts/woodwind.py:351
+msgid "Contra Bass recorder"
+msgstr "Contrabasblokfluit"
+
+#: ../scorewiz/parts/woodwind.py:355
+msgctxt "abbreviation for Contra Bass recorder"
+msgid "Cb.rec."
+msgstr "Cbbfl."
+
+#: ../scorewiz/parts/woodwind.py:365
+msgid "Subcontra Bass recorder"
+msgstr "Subcontrabasblokfluit"
+
+#: ../scorewiz/parts/woodwind.py:369
+msgctxt "abbreviation for Subcontra Bass recorder"
+msgid "Scb.rec."
+msgstr "Scbbfl."
+
+#: ../scorewiz/parts/woodwind.py:378
 msgid "Woodwinds"
 msgstr "Houtblazers"
 
@@ -5231,23 +5328,23 @@ msgstr "A5-papier"
 msgid "Document Fonts..."
 msgstr "Document-lettertypen..."
 
-#: ../snippet/builtin.py:491
+#: ../snippet/builtin.py:494
 msgid "Last note or chord"
 msgstr "Laatste noot of akkoord"
 
-#: ../snippet/builtin.py:572
+#: ../snippet/builtin.py:564
 msgid "Color"
 msgstr "Kleur"
 
-#: ../snippet/builtin.py:609
+#: ../snippet/builtin.py:601
 msgid "Basic Leadsheet"
 msgstr "Eenvoudig Lead-sheet"
 
-#: ../snippet/builtin.py:653
+#: ../snippet/builtin.py:645
 msgid "Choir Hymn"
 msgstr "Koorhymne"
 
-#: ../snippet/edit.py:123 ../snippet/insert.py:223
+#: ../snippet/edit.py:123 ../snippet/insert.py:219
 msgid "Edit Snippet"
 msgstr "Knipsel bewerken"
 
@@ -5376,7 +5473,7 @@ msgstr ""
 "Klik dan op OK om de aangevinkte knipsels te importeren.</p>\n"
 "<p>Bestaande, ongewijzigde knipsels kunnen niet worden geïmporteerd.</p>\n"
 
-#: ../snippet/insert.py:221
+#: ../snippet/insert.py:217
 msgid "Snippet error"
 msgstr "Knipsel-fout"
 
@@ -5585,6 +5682,19 @@ msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
 msgstr[0] "{num} Knipsel exporteren"
 msgstr[1] "{num} Knipsels exporteren"
+
+#: ../svgview/__init__.py:55
+msgctxt "window title"
+msgid "SVG View"
+msgstr "SVG-weergave"
+
+#: ../svgview/__init__.py:56
+msgid "SV&G View"
+msgstr "SV&G-weergave"
+
+#: ../svgview/widget.py:90
+msgid "Page:"
+msgstr "Pagina:"
 
 #: ../userguide/browser.py:79
 msgid "Toolbar"
@@ -5887,6 +5997,18 @@ msgstr ""
 "De *Aangepaste modus* opent een dialoogvenster waar het LilyPond-commando "
 "tot in detail kan worden aangegeven. Hier zijn ook opties voor graveren naar "
 "PostScript, SVG of PNG-afbeeldingen, of om het EPS-backend te gebruiken."
+
+#. NOTE: markdown formatting
+#: ../userguide/engraving.md:19
+msgid ""
+"All commands to run LilyPond can be found in the *LilyPond* menu. And if you "
+"enable the *Automatic engrave* option, Frescobaldi will run LilyPond "
+"automatically everytime the document is modified (in preview mode)."
+msgstr ""
+"Alle commando's om LilyPond te starten zijn te vinden in het *LilyPond* menu. "
+"En als u de optie *Automatisch graveren* inschakelt, zal Frescobaldi LilyPond "
+"automatisch starten (in vooruitblik-modus) telkens als het document wordt "
+"gewijzigd."
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:1
@@ -6223,6 +6345,9 @@ msgid ""
 "You may enter a custom label to easily recognize a specific LilyPond "
 "instance. I you do not enter a label, \"LilyPond\" is used."
 msgstr ""
+"U kunt een eigen label invoeren om een bepaalde versie van LilyPond "
+"gemakkelijk te herkennen. Als u geen label invoert, wordt \"LilyPond\" "
+"gebruikt."
 
 #: ../userguide/prefs_lilypond.md:17
 msgid ""
@@ -6236,10 +6361,14 @@ msgstr ""
 #: ../userguide/prefs_lilypond.md:20
 msgid ""
 "Finally, you can specify a list of paths where the LilyPond `\\include` "
-"command looks for files."
+"command looks for files. You can change the order of the includes by "
+"dragging them inside the list. This influences the order in which LilyPond "
+"searches for files."
 msgstr ""
 "Tenslotte kunt u een lijst van directories opgeven waar het LilyPond `"
-"\\include`-commando bestanden moet zoeken."
+"\\include`-commando zoekt naar bestanden. U kunt de volgorde aanpassen door "
+"mappen in de lijst te verslepen. Dit beïnvloedt de volgorde waarin LilyPond "
+"de directories doorzoekt."
 
 #: ../userguide/toc.md:1
 msgid "Table of Contents"
@@ -7371,29 +7500,28 @@ msgstr ""
 "gereedschap `musicxml2ly` uit het LilyPond pakket."
 
 #: ../userguide/musicxml_import.md:6
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the musicxml2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
-"In deze dialoog kunt u enige parameters voor de musicxml2ly-import "
-"instellen. Momenteel kunnen vier parameters ingesteld worden:"
+"In deze dialoog zijn twee tabs. In de eerste kunt u enige parameters voor de "
+"musicxml2ly-import instellen. In de tweede kunnen acties worden aangegeven "
+"om te doen met de geïmporteerde LilyPond-tekst."
 
 #: ../userguide/musicxml_import.md:10
 msgid ""
 "Your settings in both tabs are remembered until the next time you use this "
 "dialog."
-msgstr ""
+msgstr "De instellingen in beide tabs worden bewaard."
 
 #: ../userguide/musicxml_import.md:12
-#, fuzzy
 msgid "The musicxml2ly tab"
-msgstr "Het musicxml2ly-programma"
+msgstr "De musicxml2ly-tab"
 
 #: ../userguide/musicxml_import.md:14
 msgid "In this tab you have the following options:"
-msgstr ""
+msgstr "In deze tab heeft u de volgende opties:"
 
 #: ../userguide/musicxml_import.md:23
 msgid ""
@@ -7401,6 +7529,9 @@ msgid ""
 "file if they are present and if you prefer not to use LilyPond's automatic "
 "handling of these elements."
 msgstr ""
+"De eerste vier opties zijn partituur-elementen die uit het MusicXML-bestand "
+"kunnen worden verkregen als zijn aanwezig zijn, en als u niet LilyPond's "
+"automatische behandeling van deze elementen wilt gebruiken."
 
 #: ../userguide/musicxml_import.md:27
 msgid ""
@@ -7408,6 +7539,9 @@ msgid ""
 "absolute mode or if you prefer a different pitch name language than the "
 "default."
 msgstr ""
+"De volgende twee opties kunnen worden gebruikt als u de muzieknoten absoluut "
+"wilt in plaats van relatief, of als u een andere taal voor nootnamen wilt "
+"gebruiken dan de standaardtaal."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:31
@@ -7417,11 +7551,14 @@ msgid ""
 "and musicxml2ly in particular you can edit this text directly, otherwise you "
 "can just ignore this."
 msgstr ""
+"Onderaan is een tekstvak dat de commandoregel laat zien waarmee "
+"`musicxml2ly` wordt gestart. U kunt deze tekst rechtstreeks aanpassen als u "
+"wilt."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:37
 msgid "The *after import* tab"
-msgstr ""
+msgstr "De tab *Na het importeren*"
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:39
@@ -7429,31 +7566,35 @@ msgid ""
 "After `musicxml2ly` is run and the new ly-file is created you can set "
 "Frescobaldi to automatically do some adjustments on the new file."
 msgstr ""
+"Nadat `musicxml2ly` heeft gedraaid en het nieuwe ly-bestand is aangemaakt "
+"kan Frescobaldi nog enige aanpassingen aan het bestand doen."
 
 #: ../userguide/musicxml_import.md:42
 msgid "Reformat source:"
-msgstr ""
+msgstr "Bron herformatteren:"
 
 #: ../userguide/musicxml_import.md:43
 msgid ""
 "the code is reformatted. (This is identical to running Tools -> Format.)"
 msgstr ""
+"de broncode wordt opnieuw geformatteerd (Gelijk aan Gereedschap-"
+">Herformatteren)"
 
 #: ../userguide/musicxml_import.md:46
-#, fuzzy
 msgid "Trim durations (Make implicit per line):"
-msgstr "Imp&liciet maken (per regel)"
+msgstr "Tijdsduren impliciet maken (per regel):"
 
 #: ../userguide/musicxml_import.md:47
 msgid ""
 "repeated time duration on the same line are deleted. (This is identical to "
 "running Tools -> Rhythm -> Make implicit per line.)"
 msgstr ""
+"herhaalde tijdsduren op dezelfde regel worden weggelaten (Gelijk aan "
+"Gereedschap->Ritme->Impliciet maken (per regel)."
 
 #: ../userguide/musicxml_import.md:50
-#, fuzzy
 msgid "Remove fraction duration scaling:"
-msgstr "Tijdsduu&r verwijderen"
+msgstr "Fracties van tijdsduur-schaling verwijderen:"
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:51
@@ -7462,17 +7603,20 @@ msgid ""
 "appending `*N/M` this scaling is removed. (This can be useful to prevent "
 "unwanted scaling to emerge from ill-formatted musicXML-files.)"
 msgstr ""
+"als losse noten, rusten of akkoorden zijn vermenigvuldigd met een fractie "
+"`*N/M` dan wordt deze fractie verwijderd. Dit kan handig zijn bij ongewenste "
+"schaling door slecht gevormde MusicXML-bestanden."
 
 #: ../userguide/musicxml_import.md:56
-#, fuzzy
 msgid "Engrave directly:"
-msgstr "Basismap:"
+msgstr "Direct graveren:"
 
 #: ../userguide/musicxml_import.md:57
 msgid ""
 "LilyPond runs directly. (This is identical to running LilyPond -> Engrave "
 "(preview).)"
 msgstr ""
+"LilyPond wordt gelijk gestart (Gelijk aan LilyPond->Graveren (vooruitblik).)"
 
 #: ../userguide/import.md:1
 msgid "Importing files"
@@ -8118,6 +8262,71 @@ msgstr "Alle include-paden"
 msgid "The filename of the document"
 msgstr "De naam van het document"
 
+#: ../userguide/prefs_editor.md:5
+msgid ""
+"Here you can define how long \"matching\" items like matching brackets or "
+"the items linked through Point-and-Click are highlighted."
+msgstr ""
+"Hieronder kunt u aangeven hoe lang overeenkomende items zoals accolades of "
+"boogjes, of items gekoppeld aan Point-and-Click worden geaccentueerd."
+
+#: ../userguide/prefs_editor.md:8
+msgid "Use the value 0 for infinite."
+msgstr "Gebruik de waarde 0 voor oneindig."
+
+#: ../userguide/prefs_editor.md:13
+msgid "Here you can specify how you want to handle Tabs and indenting."
+msgstr "Hier kunt u instellen hoe u Tab en inspringen wilt afhandelen."
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_editor.md:15
+msgid ""
+"The entry *Tab Width* specifies the visual distance between tab stops. It "
+"does not change the indenting behaviour or the document contents."
+msgstr ""
+"De waarde *Tabbreedte* geeft de visuele breedte aan van tabstops. Het "
+"beïnvloedt niet het inspringgedrag of de inhoud van het document."
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_editor.md:18
+msgid ""
+"Using the entry *Indent with* you can specify how many spaces will be "
+"inserted it you press Tab once at the beginning of the line, or when you "
+"press enter after a character that starts a new level of indent (and "
+"{menu_autoindent} is enabled)."
+msgstr ""
+"Met de waarde *Inspringen met* kunt u aangeven hoeveel spaties er worden "
+"ingevoegd als u Tab indrukt aan het begin van een regel, of wanneer u Return "
+"indrukt na een karakter dat een nieuw inspringniveau start (en "
+"{menu_autoindent} is ingeschakeld)."
+
+#: ../userguide/prefs_editor.md:23
+msgid ""
+"By default 2 spaces are inserted, but you can move the number to zero to use "
+"a literal Tab character for every level of indent."
+msgstr ""
+"Standaard worden 2 spaties ingevoegd maar u kunt de waarde aanpassen of op 0 "
+"zetten om een Tabteken in te voegen voor elk inspringniveau."
+
+#. NOTE: markdown formatting
+#: ../userguide/prefs_editor.md:26
+msgid ""
+"The entry *Tab outside indent inserts* specifies what happens when you press "
+"Tab while in the middle of a line of text. Also here you can choose to "
+"insert a real Tab by moving the number to zero."
+msgstr ""
+"De waarde *Tab buiten inspringgebied voegt in* geeft aan wat er gebeurt als "
+"u Tab indrukt terwijl u midden in een regel tekst staat. Ook hier kan een "
+"werkelijke Tab worden ingevoegd als u het aantal spaties op 0 instelt."
+
+#: ../userguide/prefs_editor.md:30
+msgid ""
+"You can also set indentation preferences per-document, see "
+"{document_variables}."
+msgstr ""
+"U kunt het inspringgedrag ook per-document instellen, zie "
+"{document_variables}."
+
 #: ../userguide/preferences.md:3
 msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
@@ -8133,13 +8342,15 @@ msgstr "Vooruitblik-modus"
 #. NOTE: markdown formatting
 #: ../userguide/engrave_preview.md:3
 msgid ""
-"This mode runs LilyPond with the `-dpoint-and-click` commandline option. "
-"This enables the clickable notes and other objects in the PDF."
+"This mode ({key_engrave_preview}) runs LilyPond with the `-dpoint-and-click` "
+"commandline option. This enables the clickable notes and other objects in "
+"the PDF."
 msgstr ""
-"Deze modus start LilyPond met de `-dpoint-and-click` optie. Hierdoor worden "
+"Deze modus ({key_engrave_preview}) start LilyPond met de `-dpoint-and-click` "
+"optie. Hierdoor worden "
 "noten en andere objecten in de PDF aanklikbaar."
 
-#: ../userguide/engrave_preview.md:6
+#: ../userguide/engrave_preview.md:7
 msgid ""
 "Using these links, the Music View is able to provide smart two-way "
 "navigation between the Music View and the LilyPond source."
@@ -8149,7 +8360,7 @@ msgstr ""
 "brontekst."
 
 #. NOTE: markdown formatting
-#: ../userguide/engrave_preview.md:9
+#: ../userguide/engrave_preview.md:10
 msgid ""
 "The links also increase the size of the rendered PDF significantly, so when "
 "you want to share the rendered PDF with others, it is better to use the "
@@ -8164,9 +8375,8 @@ msgid "Not Found"
 msgstr "Niet gevonden"
 
 #: ../userguide/404.md:3
-#, fuzzy
 msgid "Cannot load the requested userguide resource {userguide_page}."
-msgstr "Kan de gevraagde bron niet weergeven."
+msgstr "Kan de gevraagde bron {userguide_page} niet weergeven."
 
 #: ../userguide/sessions.md:1
 msgid "Sessions"
@@ -8344,12 +8554,13 @@ msgstr "Publicatie-modus"
 
 #: ../userguide/engrave_publish.md:3
 msgid ""
-"When engraving a score in Publication mode the point-and-click information "
-"isn't generated. This will prevent a reader of the resulting PDF document "
-"from navigating to the corresponding line in the input file, but it will "
-"also significantly decrease the file size."
+"When engraving a score in Publication mode ({key_engrave_publish}), the "
+"point-and-click information isn't generated. This will prevent a reader of "
+"the resulting PDF document from navigating to the corresponding line in the "
+"input file, but it will also significantly decrease the file size."
 msgstr ""
-"Als u een partituur graveert in publicatie-modus wordt de point & click-"
+"Als u een partituur graveert in publicatie-modus ({key_engrave_publish}), "
+"wordt de point & click-"
 "informatie niet gegenereerd. Hierdoor kan met niet van aanklikbare objecten "
 "naar het brondocument navigeren, maar de resulterende PDF zal wel veel "
 "kleiner zijn."
@@ -8384,10 +8595,14 @@ msgid "The following variables are recognized:"
 msgstr "De volgende variabelen worden herkend:"
 
 #: ../userguide/docvars.md:10
+msgid "General variables"
+msgstr "Algemene variabelen"
+
+#: ../userguide/docvars.md:12
 msgid "mode"
 msgstr "modus"
 
-#: ../userguide/docvars.md:11
+#: ../userguide/docvars.md:13
 msgid ""
 "Force mode to be one of lilypond, html, texinfo, latex, docbook or scheme. "
 "Default: automatic mode recognition."
@@ -8395,20 +8610,20 @@ msgstr ""
 "Forceert de modus, één van lilypond, html, texinfo, latex, docbook of "
 "scheme. Standaard automatische modus-herkenning."
 
-#: ../userguide/docvars.md:14
+#: ../userguide/docvars.md:16
 msgid "filename"
-msgstr "Bestandsnaam"
+msgstr "bestandsnaam"
 
-#: ../userguide/docvars.md:15
+#: ../userguide/docvars.md:17
 msgid "Compiles another LilyPond document instead of the current."
 msgstr "Compileert een ander LilyPond document in plaats van het huidige."
 
-#: ../userguide/docvars.md:17
+#: ../userguide/docvars.md:19
 msgid "name"
 msgstr "naam"
 
 #. NOTE: markdown formatting
-#: ../userguide/docvars.md:18
+#: ../userguide/docvars.md:20
 msgid ""
 "Looks for output documents (PDF, MIDI, etc.) starting with the specified "
 "name or comma-separated list of names. [var_output More information]."
@@ -8416,44 +8631,119 @@ msgstr ""
 "Zoekt naar uitvoerdocumenten (PDF, MIDI, etc) die met de opgegeven naam (of "
 "lijst van namen met komma's ertussen) beginnen. [var_output Meer informatie]."
 
-#: ../userguide/docvars.md:22
+#: ../userguide/docvars.md:24
 msgid "encoding"
 msgstr "tekenset"
 
-#: ../userguide/docvars.md:23
+#: ../userguide/docvars.md:25
 msgid "Use another encoding than the default UTF-8."
 msgstr "Een andere tekenset gebruiken dan standaard UTF-8."
 
-#: ../userguide/docvars.md:25
+#: ../userguide/docvars.md:27
 msgid "version"
 msgstr "versie"
 
-#: ../userguide/docvars.md:26
+#: ../userguide/docvars.md:28
 msgid ""
 "Set the LilyPond version to use, can be used for non-LilyPond documents."
 msgstr ""
 "De LilyPond-versie die u wilt gebruiken, kan worden gebruikt voor niet-"
 "LilyPond documenten."
 
-#: ../userguide/docvars.md:28 ../userguide/docvars.md:37
+#: ../userguide/docvars.md:30
+msgid "Indentation variables"
+msgstr "Inspring-variabelen"
+
+#: ../userguide/docvars.md:32 ../userguide/docvars.md:38
+#: ../userguide/docvars.md:45
 msgid "number"
 msgstr "nummer"
 
-#: ../userguide/docvars.md:29
-msgid "The width of a tab character, by default 8."
-msgstr "De breedte van een tab-teken, standaard 8."
+#: ../userguide/docvars.md:33
+msgid "The visible width of a tab character in the editor, by default 8."
+msgstr "De visuele breedte van een tab-teken, standaard 8."
 
-#: ../userguide/docvars.md:32
+#: ../userguide/docvars.md:36
 msgid "Whether to use tabs in indent, by default {no}."
 msgstr "Wel of geen tabs in het inspringen gebruiken, standaard {no}."
 
-#: ../userguide/docvars.md:35
-msgid "Whether to use tabs elsewhere in the document, by default {yes}."
-msgstr "Wel of geen tabs elders in het document gebruiken, standaard {yes}."
+#. NOTE: markdown formatting
+#: ../userguide/docvars.md:39
+msgid ""
+"The number of spaces each indent level uses, by default 2. This value is "
+"ignored when `indent-tabs` is set to {yes}."
+msgstr ""
+"Het aantal spaties voor elk inspring-niveau, standaard 2. Deze waarde wordt "
+"genegeerd als `indent-tabs` is ingesteld op {yes}."
 
-#: ../userguide/docvars.md:38
-msgid "The number of spaces each indent level uses, by default 2."
-msgstr "Het aantal spaties voor elk inspring-niveau, standaard 2."
+#: ../userguide/docvars.md:43
+msgid "Whether to use tabs elsewhere in the document, by default {no}."
+msgstr "Wel of geen tabs elders in het document gebruiken, standaard {no}."
+
+#. NOTE: markdown formatting
+#: ../userguide/docvars.md:46
+msgid ""
+"How many spaces to insert when Tab is pressed in the middle of text, by "
+"default 8. This value is ignored when `document-tabs` is set to {yes}."
+msgstr ""
+"Hoeveel spaties in te voegen als Tab wordt ingedrukt middenin een regel "
+"tekst, standaard 8. Deze waarde wordt genegeerd als `document-tabs` is "
+"ingesteld op {yes}."
+
+#~ msgid ""
+#~ "<p>Here you can add local paths or URLs pointing to LilyPond "
+#~ "documentation. A local path should point to the directory where either "
+#~ "the \"{documentation}\" directory lives, or the whole \"share/doc/"
+#~ "lilypond/html/offline-root\" path.</p>\n"
+#~ "<p>If those can't be found, documentation is looked for in all "
+#~ "subdirectories of the given path, one level deep. This makes it possible "
+#~ "to put multiple versions of LilyPond documentation in different "
+#~ "subdirectories and have Frescobaldi automatically find them.</p>"
+#~ msgstr ""
+#~ "<p>Hier kunt u lokale bestandspaden of URLs voor LilyPond-documentatie "
+#~ "toevoegen. Een lokaal pad moet naar een directorie wijzen waar de "
+#~ "{documentation} map is, of het hele \"share/doc/lilypond/html/offline-root"
+#~ "\" pad.</p>\n"
+#~ "<p>Als deze niet gevonden worden, wordt een niveau diep gezocht in "
+#~ "submappen. Zodoende is het mogelijk om verschillende versies van de "
+#~ "LilyPond-documentatie in verschillende submappen te plaatsen, en dat "
+#~ "Frescobaldi ze automatisch vindt.</p>"
+
+#~ msgid ""
+#~ "<p>If this setting is enabled, the document is searched for a LilyPond "
+#~ "<code>\\version</code> command or a <code>version</code> document "
+#~ "variable.</p>\n"
+#~ "<p>The LilyPond version command looks like:</p>\n"
+#~ "<pre>\\version \"2.14.0\"</pre>\n"
+#~ "<p>The document variable looks like:</p>\n"
+#~ "<pre>-*- version: 2.14.0;</pre>\n"
+#~ "<p>somewhere (in a comments section) in the first or last 5 lines of the "
+#~ "document. This way the LilyPond version to use can also be specified in "
+#~ "non-LilyPond documents like HTML, LaTeX, etc.</p>\n"
+#~ "<p>If the document specifies a version, the oldest suitable LilyPond "
+#~ "version is chosen. Otherwise, the default version is chosen.</p>\n"
+#~ msgstr ""
+#~ "<p>Als deze optie is ingeschakeld, wordt gezocht naar een LilyPond <code>"
+#~ "\\version</code> commando of een <code>version</code> document variabele."
+#~ "</p>\n"
+#~ "<p>Het LilyPond versie-commando ziet er aldus uit:</p>\n"
+#~ "<pre>\\version \"2.14.0\"</pre>\n"
+#~ "<p>De document variabele ziet er zo uit:</p>\n"
+#~ "<pre>-*- version: 2.14.0;</pre>\n"
+#~ "<p>ergens (in een commentaarsectie) in de eerste of laatste 5 regels van "
+#~ "het document.\n"
+#~ "Op deze wijze kan de LilyPond-versie ook worden aangegeven in niet-"
+#~ "LilyPond documenten zoals HTML, LaTeX, etc.</p>\n"
+#~ "<p>Als het document een versie aangeeft, wordt de oudst bruikbare "
+#~ "LilyPond-versie gekozen.\n"
+#~ "Zo niet, wordt de als standaard ingestelde versie gekozen.</p>\n"
+
+#~ msgid ""
+#~ "Finally, you can specify a list of paths where the LilyPond `\\include` "
+#~ "command looks for files."
+#~ msgstr ""
+#~ "Tenslotte kunt u een lijst van directories opgeven waar het LilyPond `"
+#~ "\\include`-commando bestanden moet zoeken."
 
 #~ msgid ""
 #~ "do not convert directions (^, _ or -) for articulations, dynamics, etc."
@@ -9027,10 +9317,6 @@ msgstr "Het aantal spaties voor elk inspring-niveau, standaard 2."
 #~ msgid "Engrave (publish)"
 #~ msgstr "Graveren (publicatie)"
 
-#~ msgctxt "menu title"
-#~ msgid "View"
-#~ msgstr "Beeld"
-
 #~ msgid "Clear Error Marks"
 #~ msgstr "Foutmarkeringen verwijderen"
 
@@ -9523,9 +9809,6 @@ msgstr "Het aantal spaties voor elk inspring-niveau, standaard 2."
 #~ "<a href=\"http://docs.python.org/library/re.html#regular-expression-syntax"
 #~ "\">Python documentatie</a>.\n"
 #~ "</p>\n"
-
-#~ msgid "Document variables"
-#~ msgstr "Document-variabelen"
 
 #~ msgid ""
 #~ "Document variables are variables that influence the behaviour of "

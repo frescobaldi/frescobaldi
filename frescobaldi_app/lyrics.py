@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -33,7 +33,7 @@ import actioncollection
 import actioncollectionmanager
 import plugin
 import cursortools
-import tokeniter
+import lydocument
 
 
 # regexp to match a lyric word
@@ -63,16 +63,15 @@ class Lyrics(plugin.MainWindowPlugin):
         view = self.mainwindow().currentView()
         cursor = view.textCursor()
         found = []
+        c = lydocument.cursor(cursor, select_all=True)
         # find text to hyphenate
-        if cursor.hasSelection():
-            source = tokeniter.Source.selection(cursor)
-        else:
-            source = tokeniter.Source.document(cursor)
+        source = lydocument.Source(c)
         for token in source:
             if isinstance(token, ly.lex.lilypond.LyricText):
                 # a word found
+                pos = source.position(token)
                 for m in _word_re.finditer(token):
-                    found.append((source.cursor(token, m.start(), m.end()), m.group()))
+                    found.append((pos + m.start(), pos + m.end(), m.group()))
         if not found and cursor.hasSelection():
             # no tokens were found, then tokenize the text again as if in lyricmode
             start = cursor.selectionStart()
@@ -80,27 +79,22 @@ class Lyrics(plugin.MainWindowPlugin):
             for token in state.tokens(cursor.selection().toPlainText()):
                 if isinstance(token, ly.lex.lilypond.LyricText):
                     # a word found
+                    pos = start + token.pos
                     for m in _word_re.finditer(token):
-                        cur = QTextCursor(cursor)
-                        cur.setPosition(start + token.pos + m.start())
-                        cur.setPosition(start + token.pos + m.end(), QTextCursor.KeepAnchor)
-                        found.append((cur, m.group()))
+                        found.append((pos + m.start(), pos + m.end(), m.group()))
         if not found and cursor.hasSelection():
             # still not succeeded, then try flat text
             for m in _word_re.finditer(cursor.selection().toPlainText()):
-                cur = QTextCursor(cursor)
-                cur.setPosition(start + m.start())
-                cur.setPosition(start + m.end(), QTextCursor.KeepAnchor)
-                found.append((cur, m.group()))
+                found.append((start + m.start(), start + m.end(), m.group()))
         if found:
             import hyphendialog
             h = hyphendialog.HyphenDialog(self.mainwindow()).hyphenator()
             if h:
-                with cursortools.compress_undo(cursor):
-                    for cur, word in found:
+                with c.document as d:
+                    for start, end, word in found:
                         hyph_word = h.inserted(word, ' -- ')
                         if word != hyph_word:
-                            cur.insertText(hyph_word)
+                            d[start:end] = hyph_word
             
     def dehyphenate(self):
         """De-hyphenates selected Lyrics text."""

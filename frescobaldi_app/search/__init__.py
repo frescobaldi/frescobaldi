@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -169,21 +169,22 @@ class Search(QWidget, plugin.MainWindowPlugin):
         else:
             self.adjustSize()
         cursor = self.currentView().textCursor()
-        if not visible and self.currentView():
-            if cursor.hasSelection() or not self.searchEntry.text():
-                if not cursor.hasSelection():
-                    # pick current word
-                    wordboundary.handler.select(cursor, QTextCursor.WordUnderCursor)
-                word = cursor.selection().toPlainText()
-                if not re.search(r'\w', word):
-                    word = ""
-                elif self.regexCheck.isChecked():
-                    word = re.escape(word)
-                with qutil.signalsBlocked(self.searchEntry):
-                    self.searchEntry.setText(word)
-                self.slotSearchChanged()
-            else:
-                self.highlightingOn()
+        #if not visible and self.currentView():
+        if cursor.hasSelection() or not self.searchEntry.text():
+            if not cursor.hasSelection():
+                # pick current word
+                wordboundary.handler.select(cursor, QTextCursor.WordUnderCursor)
+            word = cursor.selection().toPlainText()
+            if not re.search(r'\w', word):
+                word = ""
+            elif self.regexCheck.isChecked():
+                word = re.escape(word)
+            with qutil.signalsBlocked(self.searchEntry):
+                self.searchEntry.setText(word)
+            self.slotSearchChanged()
+        else:
+            self.searchEntry.selectAll()
+            self.highlightingOn()
         self.searchEntry.setFocus()
         
     def replace(self):

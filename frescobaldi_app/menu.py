@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -243,6 +243,7 @@ def menu_lilypond(mainwindow):
     ac = engrave.engraver(mainwindow).actionCollection
     
     m.addAction(ac.engrave_sticky)
+    m.addAction(ac.engrave_autocompile)
     m.addSeparator()
     m.addAction(ac.engrave_preview)
     m.addAction(ac.engrave_publish)

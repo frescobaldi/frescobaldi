@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -45,14 +45,15 @@ def settings():
     return s
 
 
-class LilyPondPrefs(preferences.GroupsPage):
+class LilyPondPrefs(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(LilyPondPrefs, self).__init__(dialog)
 
         layout = QVBoxLayout()
-        self.setLayout(layout)
+        self.scrolledWidget.setLayout(layout)
 
         layout.addWidget(Versions(self))
+        layout.addWidget(Target(self))
         layout.addWidget(Running(self))
 
 
@@ -84,21 +85,7 @@ class Versions(preferences.Group):
         self.auto.setToolTip(_(
             "If checked, the document's version determines the LilyPond version to use.\n"
             "See \"What's This\" for more information."))
-        self.auto.setWhatsThis(_(
-            "<p>If this setting is enabled, the document is searched for a "
-            "LilyPond <code>\\version</code> command or a <code>version</code> "
-            "document variable.</p>\n"
-            "<p>The LilyPond version command looks like:</p>\n"
-            "<pre>\\version \"2.14.0\"</pre>\n"
-            "<p>The document variable looks like:</p>\n"
-            "<pre>-*- version: 2.14.0;</pre>\n"
-            "<p>somewhere (in a comments section) in the first or last 5 lines "
-            "of the document. "
-            "This way the LilyPond version to use can also be specified in non-LilyPond "
-            "documents like HTML, LaTeX, etc.</p>\n"
-            "<p>If the document specifies a version, the oldest suitable LilyPond version "
-            "is chosen. Otherwise, the default version is chosen.</p>\n"
-            ) +
+        self.auto.setWhatsThis(userguide.html("prefs_lilypond_autoversion") +
             _("See also {link}.").format(link=userguide.link("prefs_lilypond")))
 
     def loadSettings(self):
@@ -328,5 +315,48 @@ class Running(preferences.Group):
         s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
         s.setValue("no_translation", self.noTranslation.isChecked())
         s.setValue("include_path", self.include.value())
+
+
+class Target(preferences.Group):
+    def __init__(self, page):
+        super(Target, self).__init__(page)
+        
+        layout = QHBoxLayout()
+        self.setLayout(layout)
+        
+        self.targetPDF = QRadioButton(toggled=page.changed)
+        self.targetSVG = QRadioButton(toggled=page.changed)
+        
+        layout.addWidget(self.targetPDF)
+        layout.addWidget(self.targetSVG)
+        layout.addStretch()
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Default output format"))
+        self.targetPDF.setText(_("PDF"))
+        self.targetPDF.setToolTip(_(
+            "Create PDF (Portable Document Format) documents by default."))
+        self.targetSVG.setText(_("SVG"))
+        self.targetSVG.setToolTip(_(
+            "Create SVG (Scalable Vector Graphics) documents by default."))
+    
+    def loadSettings(self):
+        s = settings()
+        target = s.value("default_output_target", "pdf", type(""))
+        if target == "svg":
+            self.targetSVG.setChecked(True)
+            self.targetPDF.setChecked(False)
+        else:
+            self.targetSVG.setChecked(False)
+            self.targetPDF.setChecked(True)
+        
+    def saveSettings(self):
+        s = settings()
+        if self.targetSVG.isChecked():
+            target = "svg"
+        else:
+            target = "pdf"
+        s.setValue("default_output_target", target)
 
 

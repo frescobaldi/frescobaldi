@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -29,7 +29,7 @@ from . import _token
 from . import Parser, FallthroughParser
 
 
-re_articulation = r"[-_^][_.>|+^-]"
+re_articulation = r"[-_^][_.>|!+^-]"
 re_dynamic = (
     r"\\[<!>]|"
     r"\\(f{1,5}|p{1,5}"
@@ -238,7 +238,7 @@ class Direction(Articulation):
 
 
 class ScriptAbbreviation(Articulation, _token.Leaver):
-    rx = r"[+|>._^-]"
+    rx = r"[+|!>._^-]"
 
 
 class Fingering(Articulation, _token.Leaver):
@@ -439,7 +439,7 @@ class MarkupList(Markup):
 
 
 class MarkupCommand(Markup):
-    rx = r"\\[A-Za-z]+(-[A-Za-z]+)*(?![A-Za-z])"
+    rx = r"\\[^\W\d_]+(-[^\W\d_]+)*(?![A-Za-z])"
     def update_state(self, state):
         import ly.words
         command = self[1:]
@@ -531,6 +531,12 @@ class Unset(Keyword):
         state.enter(ParseUnset())
 
 
+class Tweak(Keyword):
+    rx = r"\\tweak\b"
+    def update_state(self, state):
+        state.enter(ParseTweak())
+
+
 class Translator(Command):
     def update_state(self, state):
         state.enter(ParseTranslator())
@@ -546,6 +552,25 @@ class Context(Translator):
 
 class Change(Translator):
     rx = r"\\change\b"
+
+
+class AccidentalStyle(Command):
+    rx = r"\\accidentalStyle\b"
+    def update_state(self, state):
+        state.enter(ParseAccidentalStyle())
+
+
+class AccidentalStyleSpecifier(Specifier):
+    @_token.patternproperty
+    def rx():
+        from .. import words
+        return r"\b({0})(?!-?\w)".format("|".join(words.accidentalstyles))
+
+        
+class AlterBroken(Command):
+    rx = r"\\alterBroken\b"
+    def update_state(self, state):
+        state.enter(ParseAlterBroken())
 
 
 class Clef(Command):
@@ -569,6 +594,18 @@ class PitchCommand(Command):
     def update_state(self, state):
         argcount = 2 if self == '\\transpose' else 1
         state.enter(ParsePitchCommand(argcount))
+
+
+class Hide(Keyword):
+    rx = r"\\hide\b"
+    def update_state(self, state):
+        state.enter(ParseHideOmit())
+
+
+class Omit(Keyword):
+    rx = r"\\omit\b"
+    def update_state(self, state):
+        state.enter(ParseHideOmit())
 
 
 class Unit(Command):
@@ -634,7 +671,7 @@ class FigureMode(InputMode):
 
 
 class UserCommand(_token.Token):
-    rx = r"\\[A-Za-z]+(?![A-Za-z])"
+    rx = r"\\[^\W\d_]+(?![^\W\d_])"
     
     
 class SchemeStart(_token.Item):
@@ -663,6 +700,10 @@ class GrobName(_token.Token):
     def rx():
         from .. import data
         return r"\b({0})\b".format("|".join(data.grobs()))
+
+
+class GrobProperty(Variable):
+    rx = r"([a-z]+|[XY])(-([a-z]+|[XY]))*(?![\w])"
 
 
 class ContextProperty(_token.Token):
@@ -720,7 +761,7 @@ class ErrorInChord(Error):
 
 class Name(UserVariable):
     """A variable name without \\ prefix."""
-    rx = r"[a-zA-Z]+(?![a-zA-Z])"
+    rx = r"[^\W\d_]+(?![^\W\d_])"
     
 
 class NameLower(Name):
@@ -736,13 +777,6 @@ class NameHyphenLower(Name):
 class EqualSign(_token.Token):
     rx = r"="
     
-
-class EqualSignSetOverride(EqualSign):
-    """An equal sign in a set/override construct."""
-    def update_state(self, state):
-        state.leave()
-
-
 
 # Parsers
 class ParseLilyPond(Parser):
@@ -768,9 +802,13 @@ command_items = (
     PitchCommand,
     Override, Revert,
     Set, Unset,
+    Hide, Omit,
+    Tweak,
     New, Context, Change,
     With,
     Clef,
+    AccidentalStyle,
+    AlterBroken,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
     Markup, MarkupLines, MarkupList,
     Keyword,
@@ -783,8 +821,12 @@ command_items = (
 # no Leave-tokens!
 toplevel_base_items = base_items + (
     Fraction,
+    DecimalValue,
+    Direction,
     SequentialStart,
     SimultaneousStart,
+    Articulation,
+    StringNumber,
 ) + command_items
 
 
@@ -954,7 +996,9 @@ class ParseLayout(ParseLilyPond):
         EqualSign,
         DecimalValue,
         Unit,
-    )
+        ContextName,
+        GrobName,
+    ) + command_items
 
 
 class ExpectLayout(ExpectOpenBracket):
@@ -970,7 +1014,9 @@ class ParseMidi(ParseLilyPond):
         EqualSign,
         DecimalValue,
         Unit,
-    )
+        ContextName,
+        GrobName,
+    ) + command_items
 
 
 class ExpectMidi(ExpectOpenBracket):
@@ -981,6 +1027,8 @@ class ParseWith(ParseLilyPond):
     """Parses the expression after \with {, leaving at } """
     items = (
         CloseBracket,
+        ContextName,
+        GrobName,
         ContextProperty,
         EqualSign,
     ) + toplevel_base_items
@@ -1072,31 +1120,64 @@ class ParseOverride(ParseLilyPond):
         ContextName,
         DotSetOverride,
         GrobName,
-        EqualSignSetOverride,
-        Name,
+        GrobProperty,
+        EqualSign,
     ) + base_items
-    
+    def update_state(self, state, token):
+        if isinstance(token, EqualSign):
+            state.replace(ParseDecimalValue())
+
 
 class ParseRevert(FallthroughParser):
+    # parse the arguments of \revert
+    # allow both the old scheme syntax but also the dotted 2.18+ syntax
+    # allow either a dot between the GrobName and the property path or not
+    # correctly fall through when one property path has been parsed
+    # (uses ParseGrobPropertyPath and ExpectGrobProperty)
+    # (When the old scheme syntax is used this parser also falls through,
+    # assuming that the previous parser will handle it)
     items = space_items + (
         ContextName,
         DotSetOverride,
         GrobName,
-        Name,
-        SchemeStart,
+        GrobProperty,
     )
+    def update_state(self, state, token):
+        if isinstance(token, GrobProperty):
+            state.replace(ParseGrobPropertyPath())
 
     
+class ParseGrobPropertyPath(FallthroughParser):
+    items = space_items + (
+        DotSetOverride,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, DotSetOverride):
+            state.enter(ExpectGrobProperty())
+
+
+class ExpectGrobProperty(FallthroughParser):
+    items = space_items + (
+        GrobProperty,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobProperty):
+            state.leave()
+
+
 class ParseSet(ParseLilyPond):
     argcount = 0
     items = (
         ContextName,
         DotSetOverride,
         ContextProperty,
-        EqualSignSetOverride,
+        EqualSign,
         Name,
     ) + base_items
-    
+    def update_state(self, state, token):
+        if isinstance(token, EqualSign):
+            state.replace(ParseDecimalValue())
+
     
 class ParseUnset(FallthroughParser):
     items = space_items + (
@@ -1107,6 +1188,29 @@ class ParseUnset(FallthroughParser):
     )
     def update_state(self, state, token):
         if isinstance(token, ContextProperty) or token[:1].islower():
+            state.leave()
+
+
+class ParseTweak(FallthroughParser):
+    items = space_items + (
+        GrobName,
+        DotSetOverride,
+        GrobProperty,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobProperty):
+            state.replace(ParseTweakGrobProperty())
+
+
+class ParseTweakGrobProperty(FallthroughParser):
+    items = space_items + (
+        DotSetOverride,
+        DecimalValue,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, DotSetOverride):
+            state.enter(ExpectGrobProperty())
+        elif isinstance(token, DecimalValue):
             state.leave()
 
 
@@ -1149,6 +1253,37 @@ class ParseClef(FallthroughParser):
         ClefSpecifier,
         StringQuotedStart,
     )
+
+
+class ParseHideOmit(FallthroughParser):
+    items = space_items + (
+        ContextName,
+        DotSetOverride,
+        GrobName,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobName):
+            state.leave()
+
+
+class ParseAccidentalStyle(FallthroughParser):
+    items = space_items + (
+        ContextName,
+        DotSetOverride,
+        AccidentalStyleSpecifier,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, AccidentalStyleSpecifier):
+            state.leave()
+
+
+class ParseAlterBroken(FallthroughParser):
+    items = space_items + (
+        GrobProperty,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, GrobProperty):
+            state.replace(ParseGrobPropertyPath())
 
 
 class ParseScriptAbbreviationOrFingering(FallthroughParser):
@@ -1304,6 +1439,13 @@ class ParseChordItems(FallthroughParser):
         ChordStepNumber,
         ChordDot,
         Note,
+    )
+
+
+class ParseDecimalValue(FallthroughParser):
+    """Parses a decimal value without a # before it (if present)."""
+    items = space_items + (
+        DecimalValue,
     )
 
 

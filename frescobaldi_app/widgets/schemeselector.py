@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -23,7 +23,7 @@ A widget that provides a scheme selector, with New and Remove buttons.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, pyqtSignal, Qt
+from PyQt4.QtCore import QDir, QSettings, pyqtSignal, Qt
 from PyQt4.QtGui import (
     QComboBox, QHBoxLayout, QInputDialog, QLabel, QPushButton, QWidget, 
     QAction, QMenu, QFileDialog)
@@ -174,7 +174,7 @@ class SchemeSelector(QWidget):
         filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
         caption = app.caption(_("dialog title",
             "Export {name}").format(name=name))
-        path = os.path.join(os.environ['HOME'], name+'.xml')
+        path = os.path.join(QDir.homePath(), name+'.xml')
         filename = QFileDialog.getSaveFileName(self, caption, path, filetypes)
         if filename:
             if os.path.splitext(filename)[1] != '.xml':

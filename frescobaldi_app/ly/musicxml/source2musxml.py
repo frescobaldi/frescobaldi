@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -42,6 +42,7 @@ class parse_source():
         self.can_create_sect = True
         self.can_create_part = False
         self.tuplet = False
+        self.grace_seq = False
 
     def parse_text(self, text, mode=None):
         state = ly.lex.state(mode) if mode else ly.lex.guessState(text)
@@ -89,11 +90,10 @@ class parse_source():
         if self.tuplet:
             self.mediator.change_to_tuplet(self.fraction, "stop")
             self.tuplet = False
-        if self.grace_seq:
+        elif self.grace_seq:
             self.grace_seq = False
-        if self.prev_command:
-            self.prev_command = ''
         else:
+            self.prev_command = ''
             self.can_create_sect = True
 
     def New(self, token):
@@ -207,7 +207,7 @@ class parse_source():
             self.prev_command = ''
         else:
             self.mediator.fetch_variable(token[1:])
-            print "UserCommand:"+token
+            print "Fetch variable:"+token
 
     def String(self, token):
         if self.prev_command == 'clef':

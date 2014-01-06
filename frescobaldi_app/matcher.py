@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2012 by Wilbert Berendsen
+# Copyright (c) 2008 - 2014 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -30,7 +30,7 @@ from PyQt4.QtGui import QAction
 import app
 import plugin
 import ly.lex
-import tokeniter
+import lydocument
 import viewhighlighter
 import actioncollection
 import actioncollectionmanager
@@ -146,7 +146,8 @@ def matches(cursor, view=None):
     """
     block = cursor.block()
     column = cursor.position() - block.position()
-    tokens = tokeniter.Runner(block)
+    tokens = lydocument.Runner(lydocument.Document(cursor.document()))
+    tokens.move_to_block(block)
     
     if view is not None:
         first_block = view.firstVisibleBlock()
@@ -163,19 +164,21 @@ def matches(cursor, view=None):
             if isinstance(token, ly.lex.MatchStart):
                 match, other = ly.lex.MatchStart, ly.lex.MatchEnd
                 def source_gen():
-                    while tokens.valid() and pred_forward():
+                    while pred_forward():
                         for t in tokens.forward_line():
                             yield t
-                        tokens.next_block()
+                        if not tokens.next_block():
+                            break
                 source = source_gen()
                 break
             elif isinstance(token, ly.lex.MatchEnd):
                 match, other = ly.lex.MatchEnd, ly.lex.MatchStart
                 def source_gen():
-                    while tokens.valid() and pred_backward():
+                    while pred_backward():
                         for t in tokens.backward_line():
                             yield t
-                        tokens.previous_block()
+                        if not tokens.previous_block():
+                            break
                 source = source_gen()
                 break
         elif token.pos > column:
