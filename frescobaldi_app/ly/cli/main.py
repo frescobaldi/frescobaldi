@@ -23,6 +23,7 @@ The entry point for the 'ly' command.
 
 from __future__ import unicode_literals
 
+import copy
 import sys
 
 import ly.pkginfo
@@ -237,15 +238,16 @@ def main():
 
     exit_code = 0
     for filename in files:
+        options = copy.deepcopy(opts)
         try:
-            doc = load(filename, opts.encoding, opts.mode)
+            doc = load(filename, options.encoding, options.mode)
         except IOError as err:
             sys.stderr.write('warning: Skipping file "{0}":\n  {1}\n'.format(filename, err))
             exit_code = 1
             continue
         cursor = ly.document.Cursor(doc)
         for c in commands:
-            c.run(opts, cursor)
+            c.run(options, cursor)
     return exit_code
 
 sys.exit(main())
