@@ -119,6 +119,28 @@ class reformat(indent):
         ly.reformat.reformat(cursor, self.indenter(opts))
 
 
+class translate(_edit_command):
+    """translate pitch names"""
+    def __init__(self, language):
+        import ly.pitch
+        if language not in ly.pitch.pitchInfo:
+            raise ValueError()
+        self.language = language
+    
+    def run(self, opts, cursor, output):
+        import ly.pitch.translate
+        try:
+            changed = ly.pitch.translate.translate(cursor, self.language)
+        except ly.pitch.PitchNameNotAvailable:
+            sys.stderr.write(
+                "warning: pitch names not available in \"{0}\"\n"
+                "  skipping file: {1}\n".format(self.language, cursor.document.filename))
+            return
+        if not changed:
+            version = ly.docinfo.DocInfo(cursor.document).version()
+            ly.pitch.translate.insert_language(cursor.document, self.language, version)
+
+
 class write(_command):
     """write the source file."""
     def __init__(self, output=None):
