@@ -133,7 +133,7 @@ class translate(_edit_command):
             changed = ly.pitch.translate.translate(cursor, self.language)
         except ly.pitch.PitchNameNotAvailable:
             sys.stderr.write(
-                "warning: pitch names not available in \"{0}\"\n"
+                "warning: transate: pitch names not available in \"{0}\"\n"
                 "  skipping file: {1}\n".format(self.language, cursor.document.filename))
             return
         if not changed:
