@@ -83,6 +83,8 @@ Commands that change the file:
   translate language    translate the pitch names to the language
   transpose from to     transpose the file like LilyPond would do, pitches
                         are given in the 'nederlands' language
+  abs2rel               convert absolute music to relative
+  rel2abs               convert relative music to absolute
   write [filename]      write the file to the given filename or the output
                         variable. If the last command was an editing command,
                         write is automatically called.

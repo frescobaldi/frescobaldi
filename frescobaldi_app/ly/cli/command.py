@@ -164,6 +164,20 @@ class transpose(_edit_command):
                 "  skipping file: {1}\n".format(language, cursor.document.filename))
 
 
+class rel2abs(_edit_command):
+    """convert relative music to absolute"""
+    def run(self, opts, cursor, output):
+        import ly.pitch.rel2abs
+        ly.pitch.rel2abs.rel2abs(cursor)
+
+
+class abs2rel(_edit_command):
+    """convert absolute music to relative"""
+    def run(self, opts, cursor, output):
+        import ly.pitch.abs2rel
+        ly.pitch.rel2abs.abs2rel(cursor)
+
+
 class write(_command):
     """write the source file."""
     def __init__(self, output=None):
