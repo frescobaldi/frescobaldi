@@ -25,7 +25,7 @@ Information about the LY package.
 from __future__ import unicode_literals
 
 name = "python-ly"
-version = "0.1"
+version = "0.2"
 description = "Tool and library for manipulating LilyPond files"
 long_description = \
     "The python-ly package provides a Python library and a commandline tool " \
