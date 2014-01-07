@@ -212,22 +212,23 @@ class Output(object):
             return opts.output
     
     @contextlib.contextmanager
-    def file(self, opts, filename):
+    def file(self, opts, filename, encoding):
         """Return a context manager for writing to."""
         if not filename or filename == '-':
-            yield sys.stdout
+            filename, mode = sys.stdout.fileno(), 'w'
         else:
             if filename not in self._seen_filenames:
                 self._seen_filenames.add(filename)
                 if opts.backup_suffix and os.path.exists(filename):
                     shutil.copy(filename, filename + opts.backup_suffix)
-                h = open(filename, 'w')
+                mode = 'w'
             else:
-                h = open(filename, 'a')
-            try:
-                yield h
-            finally:
-                h.close()
+                mode = 'a'
+        f = io.open(filename, mode, encoding=encoding)
+        try:
+            yield f
+        finally:
+            f.close()
 
 def parse_command_line():
     """Return a three-tuple(options, commands, files).

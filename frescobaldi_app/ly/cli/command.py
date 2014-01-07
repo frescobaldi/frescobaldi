@@ -194,7 +194,7 @@ class write(_command):
             filename = cursor.document.filename
         else:
             filename = output.get_filename(opts, cursor.document.filename)
-        with output.file(opts, filename) as f:
-            f.write(cursor.document.plaintext().encode(encoding))
+        with output.file(opts, filename, encoding) as f:
+            f.write(cursor.document.plaintext())
 
 
