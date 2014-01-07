@@ -31,6 +31,9 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 
+import ly.pkginfo
+
+
 class create_musicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
 
@@ -44,7 +47,7 @@ class create_musicXML():
         identification = etree.SubElement(self.root, "identification")
         encoding = etree.SubElement(identification, "encoding")
         software = etree.SubElement(encoding, "software")
-        software.text = "python-ly"
+        software.text = ly.pkginfo.name + " " + ly.pkginfo.version
         encoding_date = etree.SubElement(encoding, "encoding-date")
         import datetime
         encoding_date.text = str(datetime.date.today())
