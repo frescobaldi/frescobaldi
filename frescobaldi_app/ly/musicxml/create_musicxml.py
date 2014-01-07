@@ -307,8 +307,8 @@ class MusicXML(object):
 
     def indent(self, indent="  "):
         """ add indent and linebreaks to the created XML tree """
-        import etreeutil
-        etreeutil.indent(self.root, indent)
+        import ly.etreeutil
+        ly.etreeutil.indent(self.root, indent)
 
     def tostring(self, encoding='UTF-8'):
         """ output etree as a XML document """
