@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import contextlib
 import copy
+import io
 import os
 import shutil
 import sys
@@ -325,18 +326,18 @@ def load(filename, encoding, mode):
     """Load a file, returning a ly.document.Document"""
     import ly.document
     if filename == '-':
-        text = sys.stdin.read().decode(encoding)
+        text = io.open(sys.stdin.fileno(), encoding=encoding).read()
     else:
-        with open(filename, 'r') as f:
-            text = f.read().decode(encoding)
+        with io.open(filename, encoding=encoding) as f:
+            text = f.read()
     doc = ly.document.Document(text, mode)
     doc.filename = filename
     doc.encoding = encoding
     return doc
 
 def main():
-    import ly.document
     opts, commands, files = parse_command_line()
+    import ly.document
     output = Output()
     exit_code = 0
     for filename in files:
