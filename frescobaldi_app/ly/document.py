@@ -496,7 +496,7 @@ class _Block(object):
     
     """
     
-    position = sys.maxint  # prevent picking those blocks before updating pos
+    position = sys.maxsize  # prevent picking those blocks before updating pos
     state    = None
     tokens   = None
     
