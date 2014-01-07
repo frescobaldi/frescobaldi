@@ -441,13 +441,13 @@ class MarkupList(Markup):
 class MarkupCommand(Markup):
     rx = r"\\[^\W\d_]+(-[^\W\d_]+)*(?![A-Za-z])"
     def update_state(self, state):
-        import ly.words
+        from .. import words
         command = self[1:]
-        if command in ly.words.markupcommands_nargs[0]:
+        if command in words.markupcommands_nargs[0]:
             state.endArgument()
         else:
             for argcount in 2, 3, 4, 5:
-                if command in ly.words.markupcommands_nargs[argcount]:
+                if command in words.markupcommands_nargs[argcount]:
                     break
             else:
                 argcount = 1
@@ -677,7 +677,7 @@ class UserCommand(_token.Token):
 class SchemeStart(_token.Item):
     rx = "[#$](?![{}])"
     def update_state(self, state):
-        import scheme
+        from . import scheme
         state.enter(scheme.ParseScheme(1))
 
 

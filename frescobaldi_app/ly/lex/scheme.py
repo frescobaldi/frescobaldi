@@ -221,7 +221,7 @@ class ParseBlockComment(Parser):
     )
 
 
-import lilypond
+from . import lilypond
 
 class ParseLilyPond(lilypond.ParseMusic):
     items = (LilyPondEnd,) + lilypond.ParseMusic.items
