@@ -243,8 +243,12 @@ def parse_command_line():
     if len(sys.argv) < 2:
         usage_short()
         sys.exit(2)
-
-    args = iter(sys.argv[1:])
+    
+    # are the arguments unicode? python2 leaves them encoded...
+    if type(sys.argv[0]) != type(''):
+        args = (a.decode(sys.stdin.encoding) for a in sys.argv[1:])
+    else:
+        args = iter(sys.argv[1:])
     
     opts = Options()
     commands = []
