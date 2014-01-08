@@ -291,12 +291,9 @@ def parse_command_line():
             commands = parse_command(arg)
         else:
             files.append(arg)
-    if not commands and opts.output_encoding is None:
-        die('no commands given, nothing to do')
-    if commands:
-        from . import command
-        if isinstance(commands[-1], command._edit_command):
-            commands.append(command.write())
+    from . import command
+    if not commands or isinstance(commands[-1], command._edit_command):
+        commands.append(command.write())
     if not files:
         files.append('-')
     if opts.with_filename is None:
