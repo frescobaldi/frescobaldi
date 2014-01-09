@@ -70,17 +70,17 @@ class Comment(_token.Comment):
     pass
 
 
-class BlockCommentStart(Comment, _token.BlockCommentStart, _token.Indent):
+class BlockCommentStart(Comment, _token.BlockCommentStart):
     rx = r"%{"
     def update_state(self, state):
         state.enter(ParseBlockComment())
 
 
-class BlockCommentEnd(Comment, _token.BlockCommentEnd, _token.Leaver, _token.Dedent):
+class BlockCommentEnd(Comment, _token.BlockCommentEnd, _token.Leaver):
     rx = r"%}"
 
 
-class BlockCommentSpace(Comment, _token.BlockComment, _token.Space):
+class BlockComment(Comment, _token.BlockComment):
     pass
 
 
@@ -1073,9 +1073,8 @@ class ParseString(Parser):
     
 
 class ParseBlockComment(Parser):
-    default = Comment
+    default = BlockComment
     items = (
-        BlockCommentSpace,
         BlockCommentEnd,
     )
 
