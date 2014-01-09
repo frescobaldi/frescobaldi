@@ -60,7 +60,7 @@ def break_indenters(cursor):
                         # add newline before t
                         pos = d.position(b) + t.pos
                         d[pos:pos] = '\n'
-                elif not isinstance(t, ly.lex.Space):
+                if not isinstance(t, ly.lex.Space):
                     nonspace_index = i
             for i in denters:
                 if i < nonspace_index:
