@@ -199,7 +199,7 @@ class parse_source():
         elif self.prev_command != '\\numericTimeSignature':
             self.prev_command = token
         else:
-            print "Command:"+token
+            print ("Command:"+token)
 
     def UserCommand(self, token):
         if self.prev_command == 'key':
@@ -207,7 +207,7 @@ class parse_source():
             self.prev_command = ''
         else:
             self.mediator.fetch_variable(token[1:])
-            print "Fetch variable:"+token
+            print ("Fetch variable:"+token)
 
     def String(self, token):
         if self.prev_command == 'clef':

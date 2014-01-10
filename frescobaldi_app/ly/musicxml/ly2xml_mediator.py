@@ -176,7 +176,7 @@ class mediator():
         self.current_note.set_octave(octave, relative, self.prev_pitch)
 
     def new_from_command(self, command):
-        print command
+        print (command)
 
     def check_divs(self, org_len, tfraction):
         """ The new duration is checked against current divisions """

@@ -186,16 +186,17 @@ class _export_command(_command):
 
 class musicxml(_export_command):
     def run(self, opts, cursor, output):
-        encoding = opts.output_encoding or 'UTF-8'
         import ly.musicxml
         writer = ly.musicxml.writer()
         writer.parse_tokens(ly.docinfo.DocInfo(cursor.document).tokens)
         xml = writer.musicxml()
-        if opts.output in (None, '-'):
-            f = sys.stdout
+        if self.output:
+            filename = self.output
         else:
-            f = opts.output
-        xml.write(f, encoding)
+            filename = output.get_filename(opts, cursor.document.filename)
+        encoding = opts.output_encoding or "utf-8"
+        with output.file(opts, filename, "binary") as f:
+            xml.write(f, encoding)
 
 
 class write(_command):
