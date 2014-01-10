@@ -14,6 +14,11 @@ Changes in 2.0.14 --
   - Fixed issue 336: TypeError on MusicXml export
   - Fixed error message when exporting keyboard shortcuts on platforms that do
     not have the HOME environment variable set
+* Temporarily removed feature:
+  - MusicXML export has been temporarily removed from the File->Export menu. 
+    It is still visible in the git checkout. It is also available in the ly 
+    command (in the python-ly package, and also in Frescobaldi's git checkout) 
+    but it needs more testing and robustness before it is usable in Frescobaldi.
 
 
 Changes in 2.0.13 -- December 31st, 2013
