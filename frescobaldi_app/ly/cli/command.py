@@ -178,6 +178,26 @@ class abs2rel(_edit_command):
         ly.pitch.rel2abs.abs2rel(cursor)
 
 
+class _export_command(_command):
+    """Command that exports to a file."""
+    def __init__(self, output=None):
+        self.output = output
+
+
+class musicxml(_export_command):
+    def run(self, opts, cursor, output):
+        encoding = opts.output_encoding or 'UTF-8'
+        import ly.musicxml
+        writer = ly.musicxml.writer()
+        writer.parse_tokens(ly.docinfo.DocInfo(cursor.document).tokens)
+        xml = writer.musicxml()
+        if opts.output in (None, '-'):
+            f = sys.stdout
+        else:
+            f = opts.output
+        xml.write(f, encoding)
+
+
 class write(_command):
     """write the source file."""
     def __init__(self, output=None):

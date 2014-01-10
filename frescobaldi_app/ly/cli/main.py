@@ -90,6 +90,10 @@ Commands that change the file:
                         variable. If the last command was an editing command,
                         write is automatically called.
 
+Commands that export the file to another format:
+
+  musicxml              exports to MusicXML (in development, far from complete)
+
 Between commands, you can set or unset a variable using:
 
   variable=value        set a variable to value. Special values are true, false,
