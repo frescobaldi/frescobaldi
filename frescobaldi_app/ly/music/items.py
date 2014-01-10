@@ -59,7 +59,7 @@ class Duration(Item):
     """A duration"""
     
     
-class Durable(Item)
+class Durable(Item):
     """An Item that has a Duration attribute."""
     duration = None
     
