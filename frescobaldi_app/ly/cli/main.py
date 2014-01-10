@@ -217,7 +217,12 @@ class Output(object):
     
     @contextlib.contextmanager
     def file(self, opts, filename, encoding):
-        """Return a context manager for writing to."""
+        """Return a context manager for writing to.
+        
+        If you set encoding to "binary" or False, the file is opened in binary
+        mode and you should encode the data you write yourself.
+        
+        """
         if not filename or filename == '-':
             filename, mode = sys.stdout.fileno(), 'w'
         else:
@@ -228,7 +233,10 @@ class Output(object):
                 mode = 'w'
             else:
                 mode = 'a'
-        f = io.open(filename, mode, encoding=encoding)
+        if encoding in (False, "binary"):
+            f = io.open(filename, mode + 'b')
+        else:
+            f = io.open(filename, mode, encoding=encoding)
         try:
             yield f
         finally:
