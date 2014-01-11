@@ -130,13 +130,13 @@ class Reader(object):
             self.language = lang
             return True
 
-    def consume(self):
+    def consume(self, source=None):
         """Yield the tokens until a parser is exit."""
-        depth = self.source.state.depth()
-        for t in self.source:
-            print 'consuming', t
+        source = source or self.source
+        depth = source.state.depth()
+        for t in source:
             yield t
-            if self.source.state.depth() < depth:
+            if source.state.depth() < depth:
                 break
 
     def read(self, source=None):
@@ -146,10 +146,11 @@ class Reader(object):
             item = cls()
             item.token = token
             if consume:
-                item.tokens = tuple(self.consume())
+                item.tokens = tuple(self.consume(source))
             return item
         
-        for t in source or self.source:
+        source = source or self.source
+        for t in source:
             while isinstance(t, ly.lex.lilypond.MusicItem):
                 item = None
                 if t.__class__ == ly.lex.lilypond.Note:
@@ -158,7 +159,7 @@ class Reader(object):
                         item = factory(Note, t, False)
                         p = item.pitch = ly.pitch.Pitch(*r)
                         t = None # prevent hang in this loop
-                        for t in self.source:
+                        for t in source:
                             if isinstance(t, ly.lex.lilypond.Octave):
                                 p.octave = ly.pitch.octaveToNum(t)
                                 item.octave_token = t
@@ -170,14 +171,14 @@ class Reader(object):
                                 break
                             elif not isinstance(t, ly.lex.Space):
                                 break
-                elif t.__class__ == ly.lex.lilypond.Rest:
-                    item = factory(Rest, t, False)
-                    t = None
-                elif t.__class__ in (ly.lex.lilypond.Skip, ly.lex.lilypond.Spacer):
-                    item = factory(Skip, t, False)
-                    t = None
-                else: # t.__class__ == ly.lex.lilypond.Q
-                    item = factory(Q, t, False)
+                else:
+                    cls = {
+                        ly.lex.lilypond.Rest: Rest,
+                        ly.lex.lilypond.Skip: Skip,
+                        ly.lex.lilypond.Spacer: Skip,
+                        ly.lex.lilypond.Q: Q,
+                    }[t.__class__]
+                    item = factory(cls, t, False)
                     t = None
                 if item:
                     # wait for a duration
@@ -186,7 +187,7 @@ class Reader(object):
                     if not t or isinstance(t, ly.lex.lilypond.Duration):
                         if t:
                             d.tokens.append(t)
-                        for t in self.source:
+                        for t in source:
                             if isinstance(t, ly.lex.lilypond.Duration):
                                 d.tokens.append(t)
                             elif not isinstance(t, ly.lex.Space):
