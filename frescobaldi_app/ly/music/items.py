@@ -26,9 +26,11 @@ Whitespace is left out, but comments are retained.
 
 from __future__ import unicode_literals
 
+from fractions import Fraction
 
 import node
 
+import ly.duration
 import ly.pitch
 import ly.lex.lilypond
 
@@ -60,21 +62,22 @@ class Container(Item):
 
 class Duration(Item):
     """A duration"""
-    
+    base_scaling = None, None   # two Fractions
     
 class Durable(Item):
     """An Item that has a Duration attribute."""
     duration = None
     
-    def fraction(self):
+    def length(self):
         """Return the duration or None (not set)."""
-        if self.duration and self.duration.tokens:
-            return ly.duration.fraction(self.duration.tokens)
+        if self.duration:
+            base, scaling = self.duration.base_scaling
+            return base * scaling
 
     def base_scaling(self):
         """Return the base and scaling fractions (if set, else None)."""
-        if self.duration and self.duration.tokens:
-            return ly.duration.base_scaling(self.duration.tokens)
+        if self.duration:
+            return self.duration.base_scaling
 
 
 class Chord(Durable, Container):
@@ -99,8 +102,12 @@ class Q(Durable):
 
 
 class Music(Container):
-    simultaneous = False
     """A music expression, either << >> or { }."""
+    simultaneous = False
+    
+    def length(self):
+        gen = (c.length() for c in self if isinstance(c, (Music, Durable)))
+        return max(gen) if self.simultaneous else sum(gen)
 
 
 class SchemeValue(Item):
@@ -126,6 +133,8 @@ class Reader(object):
         """
         self.source = source
         self.language = "nederlands"
+        self.in_chord = False
+        self.prev_duration = Fraction(1, 4), 1
     
     def set_language(self, lang):
         """Changes the pitch name language to use.
@@ -140,13 +149,36 @@ class Reader(object):
             self.language = lang
             return True
 
+    def add_duration(self, item, token=None, source=None):
+        """Add a duration attribute to the item.
+        
+        Returns the last token if there were more read from the source.
+        
+        """
+        source = source or self.source
+        d = item.duration = Duration()
+        d.tokens = []
+        if not token or isinstance(token, ly.lex.lilypond.Duration):
+            if token:
+                d.tokens.append(token)
+            for token in source:
+                if isinstance(token, ly.lex.lilypond.Duration):
+                    d.tokens.append(token)
+                elif not isinstance(token, ly.lex.Space):
+                    break
+        if d.tokens:
+            d.base_scaling = self.prev_duration = ly.duration.base_scaling(d.tokens)
+        else:
+            d.base_scaling = self.prev_duration
+        return token
+    
     def consume(self, source=None):
         """Yield the tokens until a parser is exit."""
         source = source or self.source
-        depth = source.state.depth()
+        depth = self.source.state.depth()
         for t in source:
             yield t
-            if source.state.depth() < depth:
+            if self.source.state.depth() < depth:
                 break
 
     def read(self, source=None):
@@ -158,23 +190,6 @@ class Reader(object):
             if consume:
                 item.tokens = tuple(self.consume(source))
             return item
-        
-        def add_duration(item, token):
-            """Add a duration attribute to the token.
-            
-            Returns the last token if there were more read from the source.
-            
-            """
-            d = item.duration = Duration()
-            d.tokens = []
-            if not token or isinstance(token, ly.lex.lilypond.Duration):
-                if token:
-                    d.tokens.append(token)
-                for token in source:
-                    if isinstance(token, ly.lex.lilypond.Duration):
-                        d.tokens.append(token)
-                    elif not isinstance(token, ly.lex.Space):
-                        return token
         
         source = source or self.source
         for t in source:
@@ -208,9 +223,22 @@ class Reader(object):
                     item = factory(cls, t, False)
                     t = None
                 if item:
-                    t = add_duration(item, t)
+                    if not self.in_chord:
+                        t = self.add_duration(item, t, source)
                     yield item
-            if isinstance(t, ly.lex.lilypond.SchemeStart):
+            if not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
+                self.in_chord = True
+                chord = factory(Chord, t, False)
+                chord.extend(self.read(self.consume(source)))
+                self.in_chord = False
+                t = self.add_duration(chord, None, source)
+                yield chord
+            if isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
+                music = factory(Music, t, False)
+                music.extend(self.read(self.consume(source)))
+                music.simultaneous = t == '<<'  # TODO: support \simultaneous { ... }
+                yield music
+            elif isinstance(t, ly.lex.lilypond.SchemeStart):
                 yield factory(SchemeValue, t)
             elif isinstance(t, ly.lex.BlockCommentStart):
                 yield factory(Comment, t)
@@ -222,4 +250,5 @@ class Reader(object):
                     t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
                     for t in item.tokens[:-1])
                 yield item
-            
+
+
