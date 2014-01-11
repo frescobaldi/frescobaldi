@@ -45,4 +45,8 @@ def duration(dur, dots=0, factor=1):
     return s
 
 
-
+def compute(tokens):
+    """Return a numerical duration for the list of tokens."""
+    num = 8
+    den = 1 << durations.index(tokens[0])
+    
