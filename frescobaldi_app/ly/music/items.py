@@ -149,6 +149,23 @@ class Reader(object):
                 item.tokens = tuple(self.consume(source))
             return item
         
+        def add_duration(item, token):
+            """Add a duration attribute to the token.
+            
+            Returns the last token if there were more read from the source.
+            
+            """
+            d = item.duration = Duration()
+            d.tokens = []
+            if not token or isinstance(token, ly.lex.lilypond.Duration):
+                if token:
+                    d.tokens.append(token)
+                for token in source:
+                    if isinstance(token, ly.lex.lilypond.Duration):
+                        d.tokens.append(token)
+                    elif not isinstance(token, ly.lex.Space):
+                        return token
+        
         source = source or self.source
         for t in source:
             while isinstance(t, ly.lex.lilypond.MusicItem):
@@ -181,17 +198,7 @@ class Reader(object):
                     item = factory(cls, t, False)
                     t = None
                 if item:
-                    # wait for a duration
-                    d = item.duration = Duration()
-                    d.tokens = []
-                    if not t or isinstance(t, ly.lex.lilypond.Duration):
-                        if t:
-                            d.tokens.append(t)
-                        for t in source:
-                            if isinstance(t, ly.lex.lilypond.Duration):
-                                d.tokens.append(t)
-                            elif not isinstance(t, ly.lex.Space):
-                                break
+                    t = add_duration(item, t)
                     yield item
             if isinstance(t, ly.lex.lilypond.SchemeStart):
                 yield factory(SchemeValue, t)
