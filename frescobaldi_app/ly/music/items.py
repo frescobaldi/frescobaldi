@@ -66,6 +66,16 @@ class Durable(Item):
     """An Item that has a Duration attribute."""
     duration = None
     
+    def fraction(self):
+        """Return the duration or None (not set)."""
+        if self.duration and self.duration.tokens:
+            return ly.duration.fraction(self.duration.tokens)
+
+    def base_scaling(self):
+        """Return the base and scaling fractions (if set, else None)."""
+        if self.duration and self.duration.tokens:
+            return ly.duration.base_scaling(self.duration.tokens)
+
 
 class Chord(Durable, Container):
     pass
