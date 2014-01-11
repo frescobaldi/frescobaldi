@@ -77,13 +77,13 @@ def base_scaling_string(duration):
     return base, scaling
 
 
-def duration(tokens):
+def fraction(tokens):
     """Return the duration of the Duration tokens as a Fraction."""
     base, scaling = base_scaling(tokens)
     return base * scaling
 
 
-def duration_string(duration):
+def fraction_string(duration):
     """Return the duration of the specified string as a Fraction."""
     base, scaling = base_scaling_string(duration)
     return base * scaling
