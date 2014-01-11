@@ -109,17 +109,29 @@ class StringQuoteEscape(_token.Character):
     rx = r'\\[\\"]'
 
 
-class Skip(_token.Token):
+class MusicItem(_token.Token):
+    """A note, rest, spacer, \skip or q."""
+
+    
+class Skip(MusicItem):
+    rx = r"\\skip(?![A-Za-z])"
+
+
+class Spacer(MusicItem):
     rx = r"s(?![A-Za-z])"
     
     
-class Rest(_token.Token):
+class Rest(MusicItem):
     rx = r"[Rr](?![A-Za-z])"
     
     
-class Note(_token.Token):
+class Note(MusicItem):
     rx = r"[a-x]+(?![A-Za-z])"
-    
+
+
+class Q(MusicItem):
+    rx = r"q(?![A-Za-z])"
+
 
 class Octave(_token.Token):
     rx = r",+|'+"
@@ -834,6 +846,8 @@ toplevel_base_items = base_items + (
 music_items = base_items + (
     Dynamic,
     Skip,
+    Spacer,
+    Q,
     Rest,
     Note,
     Fraction,
