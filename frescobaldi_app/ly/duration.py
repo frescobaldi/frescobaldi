@@ -24,6 +24,9 @@ LilyPond information and logic concerning durations
 from __future__ import unicode_literals
 
 
+from fractions import Fraction
+
+
 durations = [
     '\\maxima', '\\longa', '\\breve',
     '1', '2', '4', '8', '16', '32', '64', '128', '256', '512', '1024', '2048'
@@ -47,6 +50,14 @@ def duration(dur, dots=0, factor=1):
 
 def compute(tokens):
     """Return a numerical duration for the list of tokens."""
-    num = 8
-    den = 1 << durations.index(tokens[0])
-    
+    base = Fraction(8, 1 << durations.index(tokens[0]))
+    half = base / 2
+    for t in tokens[1:]:
+        if t == '.':
+            base += half
+            half /= 2
+        elif t.startswith('*'):
+            base *= Fraction(t[1:])
+    return base
+
+
