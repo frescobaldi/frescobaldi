@@ -39,7 +39,7 @@ class Item(node.WeakNode):
     """Represents any item in the music of a document.
     
     This can be just a token, or an interpreted construct such as a note,
-    rest or sequential or simultanuous construct , etc.
+    rest or sequential or simultaneous construct , etc.
     
     Some Item instances just have one responsible token, but others have a
     list or tuple to tokens.
@@ -64,6 +64,7 @@ class Duration(Item):
     """A duration"""
     base_scaling = None, None   # two Fractions
     
+
 class Durable(Item):
     """An Item that has a Duration attribute."""
     duration = None
@@ -106,8 +107,18 @@ class Music(Container):
     simultaneous = False
     
     def length(self):
-        gen = (c.length() for c in self if isinstance(c, (Music, Durable)))
+        gen = (c.length() or 0 for c in self if isinstance(c, (Music, Durable)))
         return max(gen) if self.simultaneous else sum(gen)
+
+
+class Relative(Music):
+    """A \\relative music expression. Has one or two children (Note, Music)."""
+    pass
+
+
+class Absolute(Music):
+    """An \\absolute music expression. Has one child (normally Music)."""
+    pass
 
 
 class SchemeValue(Item):
@@ -195,11 +206,10 @@ class Reader(object):
         for t in source:
             while isinstance(t, ly.lex.lilypond.MusicItem):
                 item = None
-                in_pitch_command = False
+                in_pitch_command = isinstance(self.source.state.parser(), ly.lex.lilypond.ParsePitchCommand)
                 if t.__class__ == ly.lex.lilypond.Note:
                     r = ly.pitch.pitchReader(self.language)(t)
                     if r:
-                        in_pitch_command = isinstance(self.source.state.parser(), ly.lex.lilypond.ParsePitchCommand)
                         item = factory(Note, t, False)
                         p = item.pitch = ly.pitch.Pitch(*r)
                         t = None # prevent hang in this loop
@@ -252,5 +262,36 @@ class Reader(object):
                     t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
                     for t in item.tokens[:-1])
                 yield item
+            elif isinstance(t, ly.lex.lilypond.Command):
+                if t == '\\relative':
+                    music = factory(Relative, t, False)
+                    items = self.read(source)
+                    # get one pitch and exit on a non-comment
+                    pitch_found = False
+                    for i in items:
+                        music.append(i)
+                        if not pitch_found and isinstance(i, Note):
+                            pitch_found = True
+                        elif not isinstance(i, Comment):
+                            break
+                    yield music
+                elif t == '\\absolute':
+                    music = factory(Absolute, t, False)
+                    for i in self.read(source):
+                        music.append(i)
+                        break
+                    yield music
+            elif isinstance(t, ly.lex.lilypond.UserCommand):
+                if t in ('\\simultaneous', '\\sequential'):
+                    # these obscure commands are not even highlighted by ly.lex,
+                    # but they exist in LilyPond...
+                    # \simultaneous { ... } is like << ... >>>
+                    # but \sequential << ... >> just behaves like << ... >>
+                    for i in self.read(source):
+                        if isinstance(i, Music):
+                            i.tokens = (t,) + (i.tokens or (i.token,))
+                            i.simultaneous = i.simultaneous or t == '\\simultaneous'
+                        yield i
+                        break
 
 
