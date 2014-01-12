@@ -322,6 +322,7 @@ class Reader(object):
                         for t in source:
                             if isinstance(t, ly.lex.lilypond.Fraction):
                                 item.scaling = Fraction(t)
+                                t = None
                                 break
                             elif not isinstance(t, ly.lex.Space):
                                 break
