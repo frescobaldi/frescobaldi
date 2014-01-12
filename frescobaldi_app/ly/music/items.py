@@ -217,15 +217,16 @@ class Reader(object):
             if self.source.state.depth() < depth:
                 break
 
+    def factory(self, cls, token, source=None):
+        """Create Item instance for token, consuming(source) if given into item.tokens."""
+        item = cls()
+        item.token = token
+        if source:
+            item.tokens = tuple(self.consume(source))
+        return item
+    
     def read(self, source=None):
         """Yield Item instances reading from source."""
-        
-        def factory(cls, token, consume=True):
-            item = cls()
-            item.token = token
-            if consume:
-                item.tokens = tuple(self.consume(source))
-            return item
         
         source = source or self.source
         for t in source:
@@ -235,7 +236,7 @@ class Reader(object):
                 if t.__class__ == ly.lex.lilypond.Note:
                     r = ly.pitch.pitchReader(self.language)(t)
                     if r:
-                        item = factory(Note, t, False)
+                        item = self.factory(Note, t)
                         p = item.pitch = ly.pitch.Pitch(*r)
                         t = None # prevent hang in this loop
                         for t in source:
@@ -259,7 +260,7 @@ class Reader(object):
                         ly.lex.lilypond.Spacer: Skip,
                         ly.lex.lilypond.Q: Q,
                     }[t.__class__]
-                    item = factory(cls, t, False)
+                    item = self.factory(cls, t)
                     t = None
                 if item:
                     if not self.in_chord and not in_pitch_command:
@@ -267,24 +268,23 @@ class Reader(object):
                     yield item
             if not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
                 self.in_chord = True
-                chord = factory(Chord, t, False)
+                chord = self.factory(Chord, t)
                 chord.extend(self.read(self.consume(source)))
                 self.in_chord = False
                 t = self.add_duration(chord, None, source)
                 yield chord
             if isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
-                music = factory(Music, t, False)
+                music = self.factory(Music, t)
                 music.extend(self.read(self.consume(source)))
                 music.simultaneous = t == '<<'
                 yield music
             elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                yield factory(SchemeValue, t)
+                yield self.factory(SchemeValue, t, source)
             elif isinstance(t, ly.lex.StringStart):
-                item = factory(StringValue, t)
-                yield item
+                yield self.factory(StringValue, t, source)
             elif isinstance(t, ly.lex.lilypond.Command):
                 if t == '\\relative':
-                    music = factory(Relative, t, False)
+                    music = self.factory(Relative, t)
                     # get one pitch and exit on a non-comment
                     pitch_found = False
                     for i in self.read(source):
@@ -294,13 +294,13 @@ class Reader(object):
                         break
                     yield music
                 elif t == '\\absolute':
-                    music = factory(Absolute, t, False)
+                    music = self.factory(Absolute, t)
                     for i in self.read(source):
                         music.append(i)
                         break
                     yield music
                 elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
-                    item = factory(Scaler, t, False)
+                    item = self.factory(Scaler, t)
                     item.scaling = 1
                     if t == '\\scaleDurations':
                         t = None
@@ -337,7 +337,7 @@ class Reader(object):
                     yield item
             elif isinstance(t, ly.lex.lilypond.Keyword):
                 if t == '\\language':
-                    item = factory(Language, t, False)
+                    item = self.factory(Language, t)
                     for name in self.read(source):
                         item.append(name)
                         if isinstance(name, StringValue):
@@ -353,12 +353,12 @@ class Reader(object):
                         if isinstance(name, StringValue):
                             value = name.value()
                             if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
-                                item = factory(Language, t, False)
+                                item = self.factory(Language, t)
                                 item.language = self.language = value[:-3]
                                 item.append(name)
                         break
                     if not item:
-                        item = factory(Include, t, False)
+                        item = self.factory(Include, t)
                         if name:
                             item.append(name)
                     yield item
