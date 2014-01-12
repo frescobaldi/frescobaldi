@@ -240,6 +240,8 @@ class Reader(object):
                                 break
                             elif not isinstance(t, ly.lex.Space):
                                 break
+                    else:
+                        break # an unknown Note
                 else:
                     cls = {
                         ly.lex.lilypond.Rest: Rest,
