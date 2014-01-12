@@ -147,10 +147,6 @@ class StringValue(Item):
             for t in self.tokens[:-1])
 
 
-class Comment(Item):
-    """A comment."""
-
-
 class Include(Item):
     """An \\include command (not changing the language)."""
 
@@ -283,10 +279,6 @@ class Reader(object):
                 yield music
             elif isinstance(t, ly.lex.lilypond.SchemeStart):
                 yield factory(SchemeValue, t)
-            elif isinstance(t, ly.lex.BlockCommentStart):
-                yield factory(Comment, t)
-            elif isinstance(t, ly.lex.Comment):
-                yield factory(Comment, t, False)
             elif isinstance(t, ly.lex.StringStart):
                 item = factory(StringValue, t)
                 yield item
@@ -299,8 +291,7 @@ class Reader(object):
                         music.append(i)
                         if not pitch_found and isinstance(i, Note):
                             pitch_found = True
-                        elif not isinstance(i, Comment):
-                            break
+                        break
                     yield music
                 elif t == '\\absolute':
                     music = factory(Absolute, t, False)
@@ -342,8 +333,7 @@ class Reader(object):
                     # stick the last token back if needed
                     for i in self.read(itertools.chain((t,), source) if t else source):
                         item.append(i)
-                        if not isinstance(i, Comment):
-                            break
+                        break
                     yield item
             elif isinstance(t, ly.lex.lilypond.Keyword):
                 if t == '\\language':
@@ -351,10 +341,10 @@ class Reader(object):
                     for name in self.read(source):
                         item.append(name)
                         if isinstance(name, StringValue):
-                            item.language = self.language = name.value()
-                            break
-                        elif not isinstance(name, Comment):
-                            break
+                            value = item.language = name.value()
+                            if value in ly.pitch.pitchInfo:
+                                self.language = value
+                        break
                     yield item
                 elif t == '\\include':
                     item = None
