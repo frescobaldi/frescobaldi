@@ -111,6 +111,14 @@ class Music(Container):
         return max(gen) if self.simultaneous else sum(gen)
 
 
+class Scaler(Music):
+    """A music construct that scales the duration of its contents."""
+    scaling = 1
+    
+    def length(self):
+        return super(Scaler, self).length() * self.scaling
+
+
 class Relative(Music):
     """A \\relative music expression. Has one or two children (Note, Music)."""
     pass
@@ -123,7 +131,12 @@ class Absolute(Music):
 
 class SchemeValue(Item):
     """The full list of tokens after a #."""
-    
+    def get_pair_ints(self):
+        """Very basic way to get two integers specified as a pair."""
+        result = [int(t) for t in self.tokens if t.isdigit()]
+        if len(result) >= 2:
+            return tuple(result[:2])
+
 
 class StringValue(Item):
     """A double-quoted string."""
@@ -177,6 +190,8 @@ class Reader(object):
                     d.tokens.append(token)
                 elif not isinstance(token, ly.lex.Space):
                     break
+            else:
+                token = None
         if d.tokens:
             d.base_scaling = self.prev_duration = ly.duration.base_scaling(d.tokens)
         else:
@@ -248,7 +263,7 @@ class Reader(object):
             if isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
                 music = factory(Music, t, False)
                 music.extend(self.read(self.consume(source)))
-                music.simultaneous = t == '<<'  # TODO: support \simultaneous { ... }
+                music.simultaneous = t == '<<'
                 yield music
             elif isinstance(t, ly.lex.lilypond.SchemeStart):
                 yield factory(SchemeValue, t)
@@ -280,6 +295,42 @@ class Reader(object):
                         music.append(i)
                         break
                     yield music
+                elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
+                    item = factory(Scaler, t, False)
+                    item.scaling = 1
+                    if t == '\\scaleDurations':
+                        t = None
+                        for i in self.read(source):
+                            item.append(i)
+                            if isinstance(i, SchemeValue):
+                                pair = i.get_pair_ints()
+                                if pair:
+                                    item.scaling = Fraction(*pair)
+                            break
+                    elif t == '\\tuplet':
+                        t = None
+                        for t in source:
+                            if isinstance(t, ly.lex.lilypond.Fraction):
+                                item.scaling = 1 / Fraction(t)
+                            elif isinstance(t, ly.lex.lilypond.Duration):
+                                t = self.add_duration(item, t, source)
+                                break
+                            elif not isinstance(t, ly.lex.Space):
+                                break
+                    else: # t == '\\times'
+                        t = None
+                        for t in source:
+                            if isinstance(t, ly.lex.lilypond.Fraction):
+                                item.scaling = Fraction(t)
+                                break
+                            elif not isinstance(t, ly.lex.Space):
+                                break
+                    # stick the last token back if needed
+                    for i in self.read(itertools.chain((t,), source) if t else source):
+                        item.append(i)
+                        if not isinstance(i, Comment):
+                            break
+                    yield item
             elif isinstance(t, ly.lex.lilypond.UserCommand):
                 if t in ('\\simultaneous', '\\sequential'):
                     # these obscure commands are not even highlighted by ly.lex,
