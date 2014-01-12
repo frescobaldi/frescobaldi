@@ -140,11 +140,25 @@ class SchemeValue(Item):
 
 class StringValue(Item):
     """A double-quoted string."""
+    
+    def value(self):
+        return ''.join(
+            t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
+            for t in self.tokens[:-1])
 
 
 class Comment(Item):
     """A comment."""
-    
+
+
+class Include(Item):
+    """An \\include command (not changing the language)."""
+
+
+class Language(Item):
+    """A command (\\language or certain \\include commands) that changes the pitch language."""
+    language = None
+
 
 
 class Reader(object):
@@ -275,9 +289,6 @@ class Reader(object):
                 yield factory(Comment, t, False)
             elif isinstance(t, ly.lex.StringStart):
                 item = factory(StringValue, t)
-                item.value = ''.join(
-                    t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
-                    for t in item.tokens[:-1])
                 yield item
             elif isinstance(t, ly.lex.lilypond.Command):
                 if t == '\\relative':
@@ -333,6 +344,32 @@ class Reader(object):
                         item.append(i)
                         if not isinstance(i, Comment):
                             break
+                    yield item
+                elif t == '\\language':
+                    item = factory(Language, t, False)
+                    for name in self.read(source):
+                        item.append(name)
+                        if isinstance(name, StringValue):
+                            item.language = self.language = name.value()
+                            break
+                        elif not isinstance(name, Comment):
+                            break
+                    yield item
+                elif t == '\\include':
+                    item = None
+                    name = None
+                    for name in self.read(source):
+                        if isinstance(name, StringValue):
+                            value = name.value()
+                            if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
+                                item = factory(Language, t, False)
+                                item.language = self.language = value
+                                item.append(name)
+                        break
+                    if not item:
+                        item = factory(Include, t, False)
+                        if name:
+                            item.append(name)
                     yield item
             elif isinstance(t, ly.lex.lilypond.UserCommand):
                 if t in ('\\simultaneous', '\\sequential'):
