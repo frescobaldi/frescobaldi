@@ -172,6 +172,9 @@ class mediator():
     def new_grace(self, slash):
         self.current_note.set_grace(slash)
 
+    def new_tremolo(self, duration):
+        self.current_note.set_tremolo(duration)
+
     def new_octave(self, octave, relative=False):
         self.current_note.set_octave(octave, relative, self.prev_pitch)
 
@@ -220,6 +223,7 @@ class bar_note():
         self.dot = 0
         self.tie = 0
         self.grace = [0,0]
+        self.tremolo = 0
 
     def set_duration(self, durval):
         self.duration = durval
@@ -244,6 +248,9 @@ class bar_note():
 
     def set_grace(self, slash):
         self.grace = [1,slash]
+
+    def set_tremolo(self, duration):
+        self.tremolo = dur2lines(duration)
 
 class bar_rest():
     """ object to keep track of different rests and skips """
@@ -359,6 +366,14 @@ def durval2type(durval):
         return "16th"
     elif durval == "32":
         return "32nd"
+
+def dur2lines(dur):
+    if dur == "8":
+        return 1
+    if dur == "16":
+        return 2
+    if dur == "32":
+        return 3
 
 def octmark2oct(octmark):
     if octmark == ",,,":
