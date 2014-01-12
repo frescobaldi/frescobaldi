@@ -237,9 +237,9 @@ class Node(object):
             node = node.next()
 
     def is_descendant(self, node):
-        """Return True if node is somewhere in our ancestors(), else False."""
-        for n in self.ancestors():
-            if n is node:
+        """Return True if the node is a descendant of ourselves, else False."""
+        for n in node.ancestors():
+            if n is self:
                 return True
         return False
 
