@@ -163,6 +163,7 @@ class create_musicXML():
         """ create new note """
         self.current_note = etree.SubElement(self.current_bar, "note")
         self.current_notation = None
+        self.current_ornaments = None
 
     def add_pitch(self, step, alter, octave):
         """ create new pitch """
@@ -252,6 +253,16 @@ class create_musicXML():
     def add_tuplet_type(self, ttype):
         """ create tuplet with type attribute """
         etree.SubElement(self.current_notation, "tuplet", type=ttype)
+
+    def add_ornaments(self):
+        if not self.current_ornaments:
+            self.add_notations()
+            self.current_ornament = etree.SubElement(self.current_notation, "ornaments")
+
+    def add_tremolo(self, trem_type, lines):
+        self.add_ornaments()
+        trem_node = etree.SubElement(self.current_ornament, "tremolo", type=trem_type)
+        trem_node.text = str(lines)
 
     def create_bar_attr(self):
         """ create node attributes """
