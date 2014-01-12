@@ -345,7 +345,8 @@ class Reader(object):
                         if not isinstance(i, Comment):
                             break
                     yield item
-                elif t == '\\language':
+            elif isinstance(t, ly.lex.lilypond.Keyword):
+                if t == '\\language':
                     item = factory(Language, t, False)
                     for name in self.read(source):
                         item.append(name)
@@ -363,7 +364,7 @@ class Reader(object):
                             value = name.value()
                             if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
                                 item = factory(Language, t, False)
-                                item.language = self.language = value
+                                item.language = self.language = value[:-3]
                                 item.append(name)
                         break
                     if not item:
