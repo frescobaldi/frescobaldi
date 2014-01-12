@@ -69,7 +69,7 @@ class Durable(Item):
     duration = None
     
     def length(self):
-        """Return the duration or None (not set)."""
+        """Return the duration or None (no duration)."""
         if self.duration:
             base, scaling = self.duration.base_scaling
             return base * scaling
@@ -195,9 +195,11 @@ class Reader(object):
         for t in source:
             while isinstance(t, ly.lex.lilypond.MusicItem):
                 item = None
+                in_pitch_command = False
                 if t.__class__ == ly.lex.lilypond.Note:
                     r = ly.pitch.pitchReader(self.language)(t)
                     if r:
+                        in_pitch_command = isinstance(self.source.state.parser(), ly.lex.lilypond.ParsePitchCommand)
                         item = factory(Note, t, False)
                         p = item.pitch = ly.pitch.Pitch(*r)
                         t = None # prevent hang in this loop
@@ -223,7 +225,7 @@ class Reader(object):
                     item = factory(cls, t, False)
                     t = None
                 if item:
-                    if not self.in_chord:
+                    if not self.in_chord and not in_pitch_command:
                         t = self.add_duration(item, t, source)
                     yield item
             if not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
