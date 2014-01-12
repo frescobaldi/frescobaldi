@@ -231,41 +231,11 @@ class Reader(object):
         source = source or self.source
         for t in source:
             while isinstance(t, ly.lex.lilypond.MusicItem):
-                item = None
-                in_pitch_command = isinstance(self.source.state.parser(), ly.lex.lilypond.ParsePitchCommand)
-                if t.__class__ == ly.lex.lilypond.Note:
-                    r = ly.pitch.pitchReader(self.language)(t)
-                    if r:
-                        item = self.factory(Note, t)
-                        p = item.pitch = ly.pitch.Pitch(*r)
-                        t = None # prevent hang in this loop
-                        for t in source:
-                            if isinstance(t, ly.lex.lilypond.Octave):
-                                p.octave = ly.pitch.octaveToNum(t)
-                                item.octave_token = t
-                            elif isinstance(t, ly.lex.lilypond.Accidental):
-                                item.accidental_token = p.accidental = t
-                            elif isinstance(t, ly.lex.lilypond.OctaveCheck):
-                                p.octavecheck = ly.pitch.octaveToNum(t)
-                                item.octavecheck_token = t
-                                break
-                            elif not isinstance(t, ly.lex.Space):
-                                break
-                    else:
-                        break # an unknown Note
-                else:
-                    cls = {
-                        ly.lex.lilypond.Rest: Rest,
-                        ly.lex.lilypond.Skip: Skip,
-                        ly.lex.lilypond.Spacer: Skip,
-                        ly.lex.lilypond.Q: Q,
-                    }[t.__class__]
-                    item = self.factory(cls, t)
-                    t = None
+                t, item = self.read_music_item(t, source)
                 if item:
-                    if not self.in_chord and not in_pitch_command:
-                        t = self.add_duration(item, t, source)
                     yield item
+                else:
+                    break   # t is an unknown note
             if not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
                 self.in_chord = True
                 chord = self.factory(Chord, t)
@@ -274,94 +244,18 @@ class Reader(object):
                 t = self.add_duration(chord, None, source)
                 yield chord
             if isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
-                music = self.factory(Music, t)
-                music.extend(self.read(self.consume(source)))
-                music.simultaneous = t == '<<'
-                yield music
+                item = self.factory(Music, t)
+                item.extend(self.read(self.consume(source)))
+                item.simultaneous = t == '<<'
+                yield item
             elif isinstance(t, ly.lex.lilypond.SchemeStart):
                 yield self.factory(SchemeValue, t, source)
             elif isinstance(t, ly.lex.StringStart):
                 yield self.factory(StringValue, t, source)
             elif isinstance(t, ly.lex.lilypond.Command):
-                if t == '\\relative':
-                    music = self.factory(Relative, t)
-                    # get one pitch and exit on a non-comment
-                    pitch_found = False
-                    for i in self.read(source):
-                        music.append(i)
-                        if not pitch_found and isinstance(i, Note):
-                            pitch_found = True
-                        break
-                    yield music
-                elif t == '\\absolute':
-                    music = self.factory(Absolute, t)
-                    for i in self.read(source):
-                        music.append(i)
-                        break
-                    yield music
-                elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
-                    item = self.factory(Scaler, t)
-                    item.scaling = 1
-                    if t == '\\scaleDurations':
-                        t = None
-                        for i in self.read(source):
-                            item.append(i)
-                            if isinstance(i, SchemeValue):
-                                pair = i.get_pair_ints()
-                                if pair:
-                                    item.scaling = Fraction(*pair)
-                            break
-                    elif t == '\\tuplet':
-                        t = None
-                        for t in source:
-                            if isinstance(t, ly.lex.lilypond.Fraction):
-                                item.scaling = 1 / Fraction(t)
-                            elif isinstance(t, ly.lex.lilypond.Duration):
-                                t = self.add_duration(item, t, source)
-                                break
-                            elif not isinstance(t, ly.lex.Space):
-                                break
-                    else: # t == '\\times'
-                        t = None
-                        for t in source:
-                            if isinstance(t, ly.lex.lilypond.Fraction):
-                                item.scaling = Fraction(t)
-                                t = None
-                                break
-                            elif not isinstance(t, ly.lex.Space):
-                                break
-                    # stick the last token back if needed
-                    for i in self.read(itertools.chain((t,), source) if t else source):
-                        item.append(i)
-                        break
-                    yield item
+                yield self.read_command(t, source)
             elif isinstance(t, ly.lex.lilypond.Keyword):
-                if t == '\\language':
-                    item = self.factory(Language, t)
-                    for name in self.read(source):
-                        item.append(name)
-                        if isinstance(name, StringValue):
-                            value = item.language = name.value()
-                            if value in ly.pitch.pitchInfo:
-                                self.language = value
-                        break
-                    yield item
-                elif t == '\\include':
-                    item = None
-                    name = None
-                    for name in self.read(source):
-                        if isinstance(name, StringValue):
-                            value = name.value()
-                            if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
-                                item = self.factory(Language, t)
-                                item.language = self.language = value[:-3]
-                                item.append(name)
-                        break
-                    if not item:
-                        item = self.factory(Include, t)
-                        if name:
-                            item.append(name)
-                    yield item
+                yield self.read_keyword(t, source)
             elif isinstance(t, ly.lex.lilypond.UserCommand):
                 if t in ('\\simultaneous', '\\sequential'):
                     # these obscure commands are not even highlighted by ly.lex,
@@ -375,4 +269,121 @@ class Reader(object):
                         yield i
                         break
 
+    def read_music_item(self, t, source):
+        """Read one music item (note, rest, s, \skip, or q) from t and source."""
+        item = None
+        in_pitch_command = isinstance(self.source.state.parser(), ly.lex.lilypond.ParsePitchCommand)
+        if t.__class__ == ly.lex.lilypond.Note:
+            r = ly.pitch.pitchReader(self.language)(t)
+            if r:
+                item = self.factory(Note, t)
+                p = item.pitch = ly.pitch.Pitch(*r)
+                t = None # prevent hang in this loop
+                for t in source:
+                    if isinstance(t, ly.lex.lilypond.Octave):
+                        p.octave = ly.pitch.octaveToNum(t)
+                        item.octave_token = t
+                    elif isinstance(t, ly.lex.lilypond.Accidental):
+                        item.accidental_token = p.accidental = t
+                    elif isinstance(t, ly.lex.lilypond.OctaveCheck):
+                        p.octavecheck = ly.pitch.octaveToNum(t)
+                        item.octavecheck_token = t
+                        break
+                    elif not isinstance(t, ly.lex.Space):
+                        break
+        else:
+            cls = {
+                ly.lex.lilypond.Rest: Rest,
+                ly.lex.lilypond.Skip: Skip,
+                ly.lex.lilypond.Spacer: Skip,
+                ly.lex.lilypond.Q: Q,
+            }[t.__class__]
+            item = self.factory(cls, t)
+            t = None
+        if item:
+            if not self.in_chord and not in_pitch_command:
+                t = self.add_duration(item, t, source)
+        return t, item
+
+    def read_command(self, t, source):
+        """Read the rest of a command given in t from the source."""
+        if t == '\\relative':
+            item = self.factory(Relative, t)
+            # get one pitch and exit on a non-comment
+            pitch_found = False
+            for i in self.read(source):
+                item.append(i)
+                if not pitch_found and isinstance(i, Note):
+                    pitch_found = True
+                    continue
+                break
+        elif t == '\\absolute':
+            item = self.factory(Absolute, t)
+            for i in self.read(source):
+                item.append(i)
+                break
+        elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
+            item = self.factory(Scaler, t)
+            item.scaling = 1
+            if t == '\\scaleDurations':
+                t = None
+                for i in self.read(source):
+                    item.append(i)
+                    if isinstance(i, SchemeValue):
+                        pair = i.get_pair_ints()
+                        if pair:
+                            item.scaling = Fraction(*pair)
+                    break
+            elif t == '\\tuplet':
+                t = None
+                for t in source:
+                    if isinstance(t, ly.lex.lilypond.Fraction):
+                        item.scaling = 1 / Fraction(t)
+                    elif isinstance(t, ly.lex.lilypond.Duration):
+                        t = self.add_duration(item, t, source)
+                        break
+                    elif not isinstance(t, ly.lex.Space):
+                        break
+            else: # t == '\\times'
+                t = None
+                for t in source:
+                    if isinstance(t, ly.lex.lilypond.Fraction):
+                        item.scaling = Fraction(t)
+                        t = None
+                        break
+                    elif not isinstance(t, ly.lex.Space):
+                        break
+            # stick the last token back if needed
+            for i in self.read(itertools.chain((t,), source) if t else source):
+                item.append(i)
+                break
+        return item
+
+    def read_keyword(self, t, source):
+        """Read the rest of a keyword given in t from the source."""
+        if t == '\\language':
+            item = self.factory(Language, t)
+            for name in self.read(source):
+                item.append(name)
+                if isinstance(name, StringValue):
+                    value = item.language = name.value()
+                    if value in ly.pitch.pitchInfo:
+                        self.language = value
+                break
+        elif t == '\\include':
+            item = None
+            name = None
+            for name in self.read(source):
+                if isinstance(name, StringValue):
+                    value = name.value()
+                    if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
+                        item = self.factory(Language, t)
+                        item.language = self.language = value[:-3]
+                        item.append(name)
+                break
+            if not item:
+                item = self.factory(Include, t)
+                if name:
+                    item.append(name)
+        return item
 
