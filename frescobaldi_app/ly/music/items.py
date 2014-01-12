@@ -265,10 +265,9 @@ class Reader(object):
             elif isinstance(t, ly.lex.lilypond.Command):
                 if t == '\\relative':
                     music = factory(Relative, t, False)
-                    items = self.read(source)
                     # get one pitch and exit on a non-comment
                     pitch_found = False
-                    for i in items:
+                    for i in self.read(source):
                         music.append(i)
                         if not pitch_found and isinstance(i, Note):
                             pitch_found = True
@@ -285,7 +284,7 @@ class Reader(object):
                 if t in ('\\simultaneous', '\\sequential'):
                     # these obscure commands are not even highlighted by ly.lex,
                     # but they exist in LilyPond...
-                    # \simultaneous { ... } is like << ... >>>
+                    # \simultaneous { ... } is like << ... >>
                     # but \sequential << ... >> just behaves like << ... >>
                     for i in self.read(source):
                         if isinstance(i, Music):
