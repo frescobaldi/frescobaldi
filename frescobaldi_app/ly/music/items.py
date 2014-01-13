@@ -228,13 +228,20 @@ class Reader(object):
             d.base_scaling = self.prev_duration
         return token
     
-    def consume(self, source=None):
-        """Yield the tokens until a parser is exit."""
+    def consume(self, source=None, last_token=None):
+        """Yield the tokens until a parser is exit.
+        
+        If source is given, tokens are read from it, else from self.source.
+        If last_token is given, it is called with the last token that is read.
+        
+        """
         source = source or self.source
         depth = self.source.state.depth()
         for t in source:
             yield t
             if self.source.state.depth() < depth:
+                if last_token:
+                    last_token(t)
                 break
 
     def factory(self, cls, token, source=None):
@@ -262,13 +269,15 @@ class Reader(object):
                 elif not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
                     self.in_chord = True
                     chord = self.factory(Chord, t)
-                    chord.extend(self.read(self.consume(source)))
+                    def last(t): chord.tokens += (t,)
+                    chord.extend(self.read(self.consume(source, last)))
                     self.in_chord = False
                     t = self.add_duration(chord, None, source)
                     yield chord
                 elif isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
                     item = self.factory(Music, t)
-                    item.extend(self.read(self.consume(source)))
+                    def last(t): item.tokens += (t,)
+                    item.extend(self.read(self.consume(source, last)))
                     item.simultaneous = t == '<<'
                     yield item
                     break
@@ -457,7 +466,7 @@ class Reader(object):
             t, i = self.read_markup(t, source)
             if i:
                 item.append(i)
-            elif isinstance(t, ly.lex.lilypond.CloseBracketMarkup):
+            elif isinstance(item, MarkupList) and isinstance(t, ly.lex.lilypond.CloseBracketMarkup):
                 item.tokens = (t,)
         return t, item
 
