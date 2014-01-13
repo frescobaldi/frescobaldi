@@ -230,45 +230,56 @@ class Reader(object):
         
         source = source or self.source
         for t in source:
-            while isinstance(t, ly.lex.lilypond.MusicItem):
-                t, item = self.read_music_item(t, source)
-                if item:
+            while t:
+                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    break
+                elif isinstance(t, ly.lex.lilypond.MusicItem):
+                    t, item = self.read_music_item(t, source)
+                    if item:
+                        yield item
+                    else:
+                        break   # t is an unknown note
+                elif not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
+                    self.in_chord = True
+                    chord = self.factory(Chord, t)
+                    chord.extend(self.read(self.consume(source)))
+                    self.in_chord = False
+                    t = self.add_duration(chord, None, source)
+                    yield chord
+                elif isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
+                    item = self.factory(Music, t)
+                    item.extend(self.read(self.consume(source)))
+                    item.simultaneous = t == '<<'
                     yield item
+                    break
+                elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                    yield self.factory(SchemeValue, t, source)
+                    break
+                elif isinstance(t, ly.lex.StringStart):
+                    yield self.factory(StringValue, t, source)
+                    break
+                elif isinstance(t, ly.lex.lilypond.Command):
+                    yield self.read_command(t, source)
+                    break
+                elif isinstance(t, ly.lex.lilypond.Keyword):
+                    yield self.read_keyword(t, source)
+                    break
+                elif isinstance(t, ly.lex.lilypond.UserCommand):
+                    if t in ('\\simultaneous', '\\sequential'):
+                        # these obscure commands are not even highlighted by ly.lex,
+                        # but they exist in LilyPond...
+                        # \simultaneous { ... } is like << ... >>
+                        # but \sequential << ... >> just behaves like << ... >>
+                        for i in self.read(source):
+                            if isinstance(i, Music):
+                                i.tokens = (t,) + (i.tokens or (i.token,))
+                                i.simultaneous = i.simultaneous or t == '\\simultaneous'
+                            yield i
+                            break
+                    break
                 else:
-                    break   # t is an unknown note
-            if not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
-                self.in_chord = True
-                chord = self.factory(Chord, t)
-                chord.extend(self.read(self.consume(source)))
-                self.in_chord = False
-                t = self.add_duration(chord, None, source)
-                yield chord
-            if isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
-                item = self.factory(Music, t)
-                item.extend(self.read(self.consume(source)))
-                item.simultaneous = t == '<<'
-                yield item
-            elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                yield self.factory(SchemeValue, t, source)
-            elif isinstance(t, ly.lex.StringStart):
-                yield self.factory(StringValue, t, source)
-            elif isinstance(t, ly.lex.lilypond.Command):
-                yield self.read_command(t, source)
-            elif isinstance(t, ly.lex.lilypond.Keyword):
-                yield self.read_keyword(t, source)
-            elif isinstance(t, ly.lex.lilypond.UserCommand):
-                if t in ('\\simultaneous', '\\sequential'):
-                    # these obscure commands are not even highlighted by ly.lex,
-                    # but they exist in LilyPond...
-                    # \simultaneous { ... } is like << ... >>
-                    # but \sequential << ... >> just behaves like << ... >>
-                    for i in self.read(source):
-                        if isinstance(i, Music):
-                            i.tokens = (t,) + (i.tokens or (i.token,))
-                            i.simultaneous = i.simultaneous or t == '\\simultaneous'
-                        yield i
-                        break
-
+                    break
+                
     def read_music_item(self, t, source):
         """Read one music item (note, rest, s, \skip, or q) from t and source."""
         item = None
