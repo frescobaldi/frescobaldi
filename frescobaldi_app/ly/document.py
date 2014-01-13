@@ -701,6 +701,13 @@ class Runner(object):
             self._index = len(self._tokens) if at_end else -1
             return True
     
+    def _newline(self):
+        """(Internal) Create a Newline token at the end of the current block."""
+        pos = len(self._doc.text(self.block))
+        if self._wp:
+            pos += self._doc.position(self.block)
+        return ly.lex.Newline('\n', pos)
+        
     def forward_line(self):
         """Yields tokens in forward direction in the current block."""
         end = len(self._tokens)
@@ -716,9 +723,11 @@ class Runner(object):
         while True:
             for t in self.forward_line():
                 yield t
+            newline = self._newline()
             if not self.next_block():
                 break
-    
+            yield newline
+
     def backward_line(self):
         """Yields tokens in backward direction in the current block."""
         if self._index >= 0:
@@ -735,6 +744,7 @@ class Runner(object):
                 yield t
             if not self.previous_block():
                 break
+            yield self._newline()
     
     def previous_block(self, at_end=True):
         """Go to the previous block, positioning the cursor at the end by default.
@@ -897,6 +907,10 @@ class Source(object):
                     source = token_source
         gen = generator()
         
+        def newline():
+            pos = document.position(self.block) + len(document.text(self.block))
+            return ly.lex.Newline('\n', pos)
+        
         # initialize block and tokens
         for self.block, self.tokens in gen:
             break
@@ -904,9 +918,11 @@ class Source(object):
         def g():
             for t in self.tokens:
                 yield t
+            yield newline()
             for self.block, self.tokens in gen:
                 for t in self.tokens:
                     yield t
+                yield newline()
         self._gen = g()
     
     def __iter__(self):
