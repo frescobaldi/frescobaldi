@@ -224,6 +224,18 @@ class MarkupWord(Item):
     """A MarkupWord token."""
 
 
+class Book(Container):
+    """A \book { ... } construct."""
+
+
+class BookPart(Container):
+    """A \bookpart { ... } construct."""
+
+
+class Score(Container):
+    """A \score { ... } construct."""
+
+
 
 class Reader(object):
     
@@ -343,8 +355,8 @@ class Reader(object):
                     yield self.read_command(t, source)
                     break
                 elif isinstance(t, ly.lex.lilypond.Keyword):
-                    yield self.read_keyword(t, source)
-                    break
+                    t, item = self.read_keyword(t, source)
+                    yield item
                 elif isinstance(t, ly.lex.lilypond.UserCommand):
                     yield self.read_user_command(t, source)
                     break
@@ -454,6 +466,7 @@ class Reader(object):
                     if value in ly.pitch.pitchInfo:
                         self.language = value
                 break
+            return None, item
         elif t == '\\include':
             item = None
             name = None
@@ -469,9 +482,26 @@ class Reader(object):
                 item = self.factory(Include, t)
                 if name:
                     item.append(name)
+            return None, item
+        elif t in ('\\score', '\\bookpart', '\\book'):
+            cls = {
+                '\\score': Score,
+                '\\bookpart': BookPart,
+                '\\book': Book,
+            }[t]
+            item = self.factory(cls, t)
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.OpenBracket):
+                    tokens = [t]
+                    item.extend(self.read(self.consume(source, tokens.append)))
+                    item.tokens = tuple(tokens)
+                    return None, item
+                elif not isinstance(t, ly.lex.Space):
+                    return t, item
+            return None, item
         else:
             item = self.factory(Keyword, t)
-        return item
+            return None, item
 
     def read_user_command(self, t, source):
         """Read a user command, this can be a variable reference."""
