@@ -136,6 +136,10 @@ class Absolute(Music):
     pass
 
 
+class Transpose(Music):
+    """A \\transpose music expression. Has normally three children (Note, Note, Music)."""
+
+
 class String(Item):
     """A double-quoted string."""
     
@@ -425,6 +429,16 @@ class Reader(object):
             item = self.factory(Absolute, t)
             for i in self.read(source):
                 item.append(i)
+                break
+        elif t == '\\transpose':
+            item = self.factory(Transpose, t)
+            # get two pitches
+            pitches_found = 0
+            for i in self.read(source):
+                item.append(i)
+                if pitches_found < 2 and isinstance(i, Note):
+                    pitches_found += 1
+                    continue
                 break
         elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
             item = self.factory(Scaler, t)
