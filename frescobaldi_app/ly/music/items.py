@@ -169,6 +169,25 @@ class StringValue(Item):
             for t in self.tokens[:-1])
 
 
+class Keyword(Item):
+    """A LilyPond keyword."""
+
+
+class Command(Item):
+    """A LilyPond command."""
+
+
+class UserCommand(Music):
+    """A user command, most probably referring to music.
+    
+    You can append other music items to it.
+    
+    """
+    def name(self):
+        """Return the name of this user command (without the \\)."""
+        return self.token[1:]
+
+
 class Include(Item):
     """An \\include command (not changing the language)."""
     def filename(self):
@@ -327,18 +346,7 @@ class Reader(object):
                     yield self.read_keyword(t, source)
                     break
                 elif isinstance(t, ly.lex.lilypond.UserCommand):
-                    if t in ('\\simultaneous', '\\sequential'):
-                        # these obscure commands are not even highlighted by ly.lex,
-                        # but they exist in LilyPond...
-                        # \simultaneous { ... } is like << ... >>
-                        # but \sequential << ... >> just behaves like << ... >>
-                        for i in self.read(source):
-                            if isinstance(i, MusicList):
-                                i.tokens = (i.token,) + i.tokens
-                                i.token = t
-                                i.simultaneous = i.simultaneous or t == '\\simultaneous'
-                            yield i
-                            break
+                    yield self.read_user_command(t, source)
                     break
                 else:
                     break
@@ -431,6 +439,8 @@ class Reader(object):
             for i in self.read(itertools.chain((t,), source) if t else source):
                 item.append(i)
                 break
+        else:
+            item = self.factory(Command, t)
         return item
 
     def read_keyword(self, t, source):
@@ -459,8 +469,25 @@ class Reader(object):
                 item = self.factory(Include, t)
                 if name:
                     item.append(name)
+        else:
+            item = self.factory(Keyword, t)
         return item
 
+    def read_user_command(self, t, source):
+        """Read a user command, this can be a variable reference."""
+        if t in ('\\simultaneous', '\\sequential'):
+            # these obscure commands are not even highlighted by ly.lex,
+            # but they exist in LilyPond...
+            # \simultaneous { ... } is like << ... >>
+            # but \sequential << ... >> just behaves like << ... >>
+            for i in self.read(source):
+                if isinstance(i, MusicList):
+                    i.tokens = (i.token,) + i.tokens
+                    i.token = t
+                    i.simultaneous = i.simultaneous or t == '\\simultaneous'
+                return i
+        return self.factory(UserCommand, t)
+    
     def read_markup(self, t, source):
         """Read LilyPond markup (recursively).
         
