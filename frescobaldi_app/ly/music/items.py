@@ -156,6 +156,26 @@ class Language(Item):
     language = None
 
 
+class Markup(Item):
+    """A command starting markup (\markup, -lines and -list)."""
+
+
+class MarkupCommand(Item):
+    """A markup command, such as \italic etc."""
+
+
+class MarkupScore(Item):
+    """A \sore inside Markup."""
+
+
+class MarkupList(Item):
+    """The group of markup items inside { and }. NOTE: *not* a \markuplist."""
+
+
+class MarkupWord(Item):
+    """A MarkupWord token."""
+
+
 
 class Reader(object):
     
@@ -258,6 +278,9 @@ class Reader(object):
                 elif isinstance(t, ly.lex.StringStart):
                     yield self.factory(StringValue, t, source)
                     break
+                elif isinstance(t, ly.lex.lilypond.Markup):
+                    t, item = self.read_markup(t, source)
+                    yield item
                 elif isinstance(t, ly.lex.lilypond.Command):
                     yield self.read_command(t, source)
                     break
@@ -397,4 +420,45 @@ class Reader(object):
                 if name:
                     item.append(name)
         return item
+
+    def read_markup(self, t, source):
+        """Read LilyPond markup (recursively).
+        
+        Returns a two-tuple(token, item). Return t unmodified if item is None,
+        else t can be the token that is read while a markup expression ended.
+        
+        """
+        source = self.consume(source)
+        if t in ('\\markup', '\\markuplist', '\\markuplines'):
+            item = self.factory(Markup, t)
+        elif isinstance(t, ly.lex.lilypond.MarkupScore):
+            item = self.factory(MarkupScore, t)
+            t = None
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.OpenBracket):
+                    item.extend(self.read(self.consume(source)))
+                    return None, item
+            return t, item
+        elif isinstance(t, ly.lex.lilypond.MarkupCommand):
+            item = self.factory(MarkupCommand, t)
+        elif isinstance(t, ly.lex.lilypond.OpenBracketMarkup):
+            item = self.factory(MarkupList, t)
+        elif isinstance(t, ly.lex.lilypond.MarkupWord):
+            return None, self.factory(MarkupWord, t)
+        elif isinstance(t, ly.lex.lilypond.SchemeStart):
+            return None, self.factory(SchemeValue, t, source)
+        elif isinstance(t, ly.lex.StringStart):
+            return None, self.factory(StringValue, t, source)
+        else:
+            return t, None
+        # add arguments
+        t = None
+        for t in source:
+            t, i = self.read_markup(t, source)
+            if i:
+                item.append(i)
+            elif isinstance(t, ly.lex.lilypond.CloseBracketMarkup):
+                item.tokens = (t,)
+        return t, item
+
 
