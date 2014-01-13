@@ -188,6 +188,10 @@ class UserCommand(Music):
         return self.token[1:]
 
 
+class Version(Item):
+    """A \\version command."""
+
+
 class Include(Item):
     """An \\include command (not changing the language)."""
     def filename(self):
@@ -499,6 +503,12 @@ class Reader(object):
                     return None, item
                 elif not isinstance(t, ly.lex.Space):
                     return t, item
+            return None, item
+        elif t == '\\version':
+            item = self.factory(Version, t)
+            for arg in self.read(source):
+                item.append(arg)
+                break
             return None, item
         else:
             item = self.factory(Keyword, t)
