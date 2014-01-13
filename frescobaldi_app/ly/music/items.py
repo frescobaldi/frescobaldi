@@ -308,6 +308,7 @@ class Reader(object):
     def factory(self, cls, token, source=None):
         """Create Item instance for token, consuming(source) if given into item.tokens."""
         item = cls()
+        item.document = self.source.document
         item.token = token
         if source:
             item.tokens = tuple(self.consume(source))
