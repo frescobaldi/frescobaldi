@@ -454,7 +454,9 @@ class Reader(object):
             t = None
             for t in source:
                 if isinstance(t, ly.lex.lilypond.OpenBracket):
-                    item.extend(self.read(self.consume(source)))
+                    item.tokens = (t,)
+                    def last(t): item.tokens += (t,)
+                    item.extend(self.read(self.consume(source, last)))
                     return None, item
             return t, item
         elif isinstance(t, ly.lex.lilypond.MarkupCommand):
