@@ -144,6 +144,21 @@ class SchemeValue(Item):
         if len(result) >= 2:
             return tuple(result[:2])
 
+    def get_string(self):
+        """A basic way to get a quoted string value (without the quotes)."""
+        source = iter(self.tokens)
+        result = []
+        for t in source:
+            if isinstance(t, ly.lex.StringStart):
+                for t in source:
+                    if isinstance(t, ly.lex.Character) and t.startswith('\\'):
+                        result.append(t[1:])
+                    elif isinstance(t, ly.lex.StringEnd):
+                        break
+                    else:
+                        result.append(t)
+        return ''.join(result)
+
 
 class StringValue(Item):
     """A double-quoted string."""
@@ -156,6 +171,13 @@ class StringValue(Item):
 
 class Include(Item):
     """An \\include command (not changing the language)."""
+    def filename(self):
+        """Returns the filename."""
+        for i in self:
+            if isinstance(i, StringValue):
+                return i.value()
+            elif isinstance(i, SchemeValue):
+                return i.get_string()
 
 
 class Language(Item):
