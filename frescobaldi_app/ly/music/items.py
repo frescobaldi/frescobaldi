@@ -103,6 +103,13 @@ class Q(Durable):
 
 
 class Music(Container):
+    """Any music expression, to be inherited of."""
+    def length(self):
+        gen = (c.length() or 0 for c in self if isinstance(c, (Music, Durable)))
+        return sum(gen)
+
+
+class MusicList(Music):
     """A music expression, either << >> or { }."""
     simultaneous = False
     
@@ -211,19 +218,20 @@ class Reader(object):
         """
         source = source or self.source
         d = item.duration = Duration()
-        d.tokens = []
+        tokens = []
         if not token or isinstance(token, ly.lex.lilypond.Duration):
             if token:
-                d.tokens.append(token)
+                tokens.append(token)
             for token in source:
                 if isinstance(token, ly.lex.lilypond.Duration):
-                    d.tokens.append(token)
+                    tokens.append(token)
                 elif not isinstance(token, ly.lex.Space):
                     break
             else:
                 token = None
-        if d.tokens:
-            d.base_scaling = self.prev_duration = ly.duration.base_scaling(d.tokens)
+        if tokens:
+            d.tokens = tuple(tokens)
+            d.base_scaling = self.prev_duration = ly.duration.base_scaling(tokens)
         else:
             d.base_scaling = self.prev_duration
         return token
@@ -275,7 +283,7 @@ class Reader(object):
                     t = self.add_duration(chord, None, source)
                     yield chord
                 elif isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
-                    item = self.factory(Music, t)
+                    item = self.factory(MusicList, t)
                     def last(t): item.tokens += (t,)
                     item.extend(self.read(self.consume(source, last)))
                     item.simultaneous = t == '<<'
@@ -303,8 +311,9 @@ class Reader(object):
                         # \simultaneous { ... } is like << ... >>
                         # but \sequential << ... >> just behaves like << ... >>
                         for i in self.read(source):
-                            if isinstance(i, Music):
-                                i.tokens = (t,) + (i.tokens or (i.token,))
+                            if isinstance(i, MusicList):
+                                i.tokens = (i.token,) + i.tokens
+                                i.token = t
                                 i.simultaneous = i.simultaneous or t == '\\simultaneous'
                             yield i
                             break
