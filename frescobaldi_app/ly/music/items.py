@@ -136,30 +136,6 @@ class Absolute(Music):
     pass
 
 
-class SchemeValue(Item):
-    """The full list of tokens after a #."""
-    def get_pair_ints(self):
-        """Very basic way to get two integers specified as a pair."""
-        result = [int(t) for t in self.tokens if t.isdigit()]
-        if len(result) >= 2:
-            return tuple(result[:2])
-
-    def get_string(self):
-        """A basic way to get a quoted string value (without the quotes)."""
-        source = iter(self.tokens)
-        result = []
-        for t in source:
-            if isinstance(t, ly.lex.StringStart):
-                for t in source:
-                    if isinstance(t, ly.lex.Character) and t.startswith('\\'):
-                        result.append(t[1:])
-                    elif isinstance(t, ly.lex.StringEnd):
-                        break
-                    else:
-                        result.append(t)
-        return ''.join(result)
-
-
 class StringValue(Item):
     """A double-quoted string."""
     
@@ -239,6 +215,34 @@ class BookPart(Container):
 class Score(Container):
     """A \score { ... } construct."""
 
+
+class SchemeValue(Item):
+    """The full list of tokens after a #."""
+    def get_pair_ints(self):
+        """Very basic way to get two integers specified as a pair."""
+        result = [int(i.token) for i in self.find(SchemeItem) if i.token.isdigit()]
+        if len(result) >= 2:
+            return tuple(result[:2])
+
+    def get_string(self):
+        """A basic way to get a quoted string value (without the quotes)."""
+        return ''.join(i.value() for i in self.find(StringValue))
+
+
+class SchemeItem(Item):
+    """Any scheme token."""
+
+
+class SchemeList(Container):
+    """A ( ... ) expressions."""
+
+
+class SchemeQuote(Item):
+    """A ' in scheme."""
+
+
+class SchemeLily(Container):
+    """A music expression inside #{ and #}."""
 
 
 class Reader(object):
@@ -348,7 +352,7 @@ class Reader(object):
                     yield item
                     break
                 elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                    yield self.factory(SchemeValue, t, source)
+                    yield self.read_scheme_item(t, source)
                     break
                 elif isinstance(t, ly.lex.StringStart):
                     yield self.factory(StringValue, t, source)
@@ -556,7 +560,7 @@ class Reader(object):
         elif isinstance(t, ly.lex.lilypond.MarkupWord):
             return None, self.factory(MarkupWord, t)
         elif isinstance(t, ly.lex.lilypond.SchemeStart):
-            return None, self.factory(SchemeValue, t, source)
+            return None, self.read_scheme_item(t, source)
         elif isinstance(t, ly.lex.StringStart):
             return None, self.factory(StringValue, t, source)
         else:
@@ -570,5 +574,56 @@ class Reader(object):
             elif isinstance(item, MarkupList) and isinstance(t, ly.lex.lilypond.CloseBracketMarkup):
                 item.tokens = (t,)
         return t, item
+    
+    def read_scheme_item(self, t, source):
+        """Reads a Scheme expression (just after the # in LilyPond mode)."""
+        item = self.factory(SchemeValue, t)
+        source = self.consume(source)
+        for t in source:
+            if not isinstance(t, ly.lex.Space):
+                i = self.read_scheme(t, source)
+                if i:
+                    item.append(i)
+                    break
+        return item
+
+    def read_scheme(self, t, source):
+        """Return a Scheme item from the token t."""
+        if isinstance(t, ly.lex.scheme.Quote):
+            item = self.factory(SchemeQuote, t)
+            source = self.consume(source)
+            for t in source:
+                if not isinstance(t, ly.lex.Space):
+                    i = self.read_scheme(t, source)
+                    if i:
+                        item.append(i)
+                        break
+            return item
+        elif isinstance(t, ly.lex.scheme.OpenParen):
+            item = self.factory(SchemeList, t)
+            def last(t): item.tokens = (t,)
+            source = self.consume(source, last)
+            for t in source:
+                if not isinstance(t, ly.lex.Space):
+                    i = self.read_scheme(t, source)
+                    if i:
+                        item.append(i)
+            return item
+        elif isinstance(t, ly.lex.StringStart):
+            return self.factory(StringValue, t, source)
+        elif isinstance(t, (
+            ly.lex.scheme.Bool,
+            ly.lex.scheme.Char,
+            ly.lex.scheme.Word,
+            ly.lex.scheme.Number,
+            ly.lex.scheme.Fraction,
+            ly.lex.scheme.Float,
+            )):
+            return self.factory(SchemeItem, t)
+        elif isinstance(t, ly.lex.scheme.LilyPondStart):
+            item = self.factory(SchemeLily, t)
+            def last(t): item.tokens = (t,)
+            item.extend(self.read(self.consume(source, last)))
+            return item
 
 
