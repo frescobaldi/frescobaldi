@@ -136,7 +136,7 @@ class Absolute(Music):
     pass
 
 
-class StringValue(Item):
+class String(Item):
     """A double-quoted string."""
     
     def value(self):
@@ -173,9 +173,9 @@ class Include(Item):
     def filename(self):
         """Returns the filename."""
         for i in self:
-            if isinstance(i, StringValue):
+            if isinstance(i, String):
                 return i.value()
-            elif isinstance(i, SchemeValue):
+            elif isinstance(i, Scheme):
                 return i.get_string()
 
 
@@ -216,8 +216,8 @@ class Score(Container):
     """A \score { ... } construct."""
 
 
-class SchemeValue(Item):
-    """The full list of tokens after a #."""
+class Scheme(Item):
+    """A Scheme expression inside LilyPond."""
     def get_pair_ints(self):
         """Very basic way to get two integers specified as a pair."""
         result = [int(i.token) for i in self.find(SchemeItem) if i.token.isdigit()]
@@ -226,7 +226,7 @@ class SchemeValue(Item):
 
     def get_string(self):
         """A basic way to get a quoted string value (without the quotes)."""
-        return ''.join(i.value() for i in self.find(StringValue))
+        return ''.join(i.value() for i in self.find(String))
 
 
 class SchemeItem(Item):
@@ -234,7 +234,7 @@ class SchemeItem(Item):
 
 
 class SchemeList(Container):
-    """A ( ... ) expressions."""
+    """A ( ... ) expression."""
 
 
 class SchemeQuote(Item):
@@ -243,6 +243,7 @@ class SchemeQuote(Item):
 
 class SchemeLily(Container):
     """A music expression inside #{ and #}."""
+
 
 
 class Reader(object):
@@ -355,7 +356,7 @@ class Reader(object):
                     yield self.read_scheme_item(t, source)
                     break
                 elif isinstance(t, ly.lex.StringStart):
-                    yield self.factory(StringValue, t, source)
+                    yield self.factory(String, t, source)
                     break
                 elif isinstance(t, ly.lex.lilypond.Markup):
                     t, item = self.read_markup(t, source)
@@ -432,7 +433,7 @@ class Reader(object):
                 t = None
                 for i in self.read(source):
                     item.append(i)
-                    if isinstance(i, SchemeValue):
+                    if isinstance(i, Scheme):
                         pair = i.get_pair_ints()
                         if pair:
                             item.scaling = Fraction(*pair)
@@ -470,7 +471,7 @@ class Reader(object):
             item = self.factory(Language, t)
             for name in self.read(source):
                 item.append(name)
-                if isinstance(name, StringValue):
+                if isinstance(name, String):
                     value = item.language = name.value()
                     if value in ly.pitch.pitchInfo:
                         self.language = value
@@ -480,7 +481,7 @@ class Reader(object):
             item = None
             name = None
             for name in self.read(source):
-                if isinstance(name, StringValue):
+                if isinstance(name, String):
                     value = name.value()
                     if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
                         item = self.factory(Language, t)
@@ -562,7 +563,7 @@ class Reader(object):
         elif isinstance(t, ly.lex.lilypond.SchemeStart):
             return None, self.read_scheme_item(t, source)
         elif isinstance(t, ly.lex.StringStart):
-            return None, self.factory(StringValue, t, source)
+            return None, self.factory(String, t, source)
         else:
             return t, None
         # add arguments
@@ -577,7 +578,7 @@ class Reader(object):
     
     def read_scheme_item(self, t, source):
         """Reads a Scheme expression (just after the # in LilyPond mode)."""
-        item = self.factory(SchemeValue, t)
+        item = self.factory(Scheme, t)
         source = self.consume(source)
         for t in source:
             if not isinstance(t, ly.lex.Space):
@@ -610,7 +611,7 @@ class Reader(object):
                         item.append(i)
             return item
         elif isinstance(t, ly.lex.StringStart):
-            return self.factory(StringValue, t, source)
+            return self.factory(String, t, source)
         elif isinstance(t, (
             ly.lex.scheme.Bool,
             ly.lex.scheme.Char,
