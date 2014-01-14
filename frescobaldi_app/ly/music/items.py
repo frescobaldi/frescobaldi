@@ -294,7 +294,20 @@ class Partial(Item):
             base, scaling = self.duration.base_scaling
             return base * scaling
 
-            
+
+class KeySignature(Item):
+    """A \\key pitch \\mode command."""
+    def pitch(self):
+        """The ly.pitch.Pitch that denotes the pitch."""
+        for i in self.find(Note):
+            return i.pitch
+    
+    def mode(self):
+        """The mode, e.g. "major", "minor", etc."""
+        for i in self.find(Command):
+            return i.token[1:]
+
+
 class Keyword(Item):
     """A LilyPond keyword."""
 
@@ -633,6 +646,10 @@ class Reader(object):
                     pitches_found += 1
                     continue
                 break
+            return None, item
+        elif t == '\\key':
+            item = self.factory(KeySignature, t)
+            item.extend(itertools.islice(self.read(source), 2))
             return None, item
         elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
             item = self.factory(Scaler, t)
