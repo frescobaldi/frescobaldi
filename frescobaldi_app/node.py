@@ -198,7 +198,7 @@ class Node(object):
             yield node
             node = node.parent()
 
-    def previous(self):
+    def previous_sibling(self):
         """Return the sibling object just before us in our parents list.
         
         Returns None if this is the first child, or if we have no parent.
@@ -210,7 +210,7 @@ class Node(object):
             if i > 0:
                 return parent[i-1]
 
-    def next(self):
+    def next_sibling(self):
         """Return the sibling object just after us in our parents list.
         
         Returns None if this is the last child, or if we have no parent.
