@@ -323,6 +323,16 @@ class Node(object):
         for node in self.ancestors():
             if isinstance(node, cls):
                 return node
+    
+    def dump(self):
+        """Return a string representation of the tree."""
+        def line(obj, indent):
+            yield indent * "  " + repr(obj)
+            for c in obj:
+                for l in line(c, indent + 1):
+                    yield l
+        return '\n'.join(line(self, 0))
+
 
 
 class WeakNode(Node):
