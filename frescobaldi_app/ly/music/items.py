@@ -303,11 +303,7 @@ class Command(Item):
 
 
 class UserCommand(Music):
-    """A user command, most probably referring to music.
-    
-    You can append other music items to it.
-    
-    """
+    """A user command, most probably referring to music."""
     def name(self):
         """Return the name of this user command (without the \\)."""
         return self.token[1:]
