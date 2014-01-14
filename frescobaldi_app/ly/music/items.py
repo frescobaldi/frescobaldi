@@ -501,6 +501,17 @@ class SchemeLily(Container):
 
 
 
+def skip(source, what=(ly.lex.Space, ly.lex.Comment)):
+    """Yield tokens from source, skipping items of classes specified in what.
+    
+    By default, comments and whitespace are skipped.
+    
+    """
+    for t in source:
+        if not isinstance(t, what):
+            yield t
+
+
 class Reader(object):
     
     def __init__(self, source):
@@ -751,7 +762,7 @@ class Reader(object):
             item = self.factory(Repeat, t)
             item._specifier = None
             item._repeat_count = None
-            for t in source:
+            for t in skip(source):
                 if isinstance(t, ly.lex.lilypond.RepeatSpecifier):
                     item._specifier = t
                 elif not item.specifier and isinstance(t, ly.lex.StringStart):
@@ -768,7 +779,7 @@ class Reader(object):
                         item._repeat_count = s
                     else:
                         item._specifier = s
-                elif not isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                else:
                     for i in self.read(itertools.chain((t,), source)):
                         item.append(i)
                         break
@@ -812,10 +823,8 @@ class Reader(object):
             return None, item
         elif t == '\\time':
             item = self.factory(TimeSignature, t)
-            for t in source:
-                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
-                    continue
-                elif isinstance(t, ly.lex.lilypond.Fraction):
+            for t in skip(source):
+                if isinstance(t, ly.lex.lilypond.Fraction):
                     item._num, den = map(int, t.split('/'))
                     item._fraction = Fraction(1, den)
                 break
@@ -829,7 +838,7 @@ class Reader(object):
             item = self.factory(cls, t)
             isource = self.consume(source)
             t = None
-            for t in isource:
+            for t in skip(isource):
                 if isinstance(t, (ly.lex.lilypond.ContextName, ly.lex.lilypond.Name)):
                     item._context = t
                     t = None
@@ -850,7 +859,7 @@ class Reader(object):
                         elif not isinstance(t, ly.lex.Space):
                             break
                     break
-                elif not isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                else:
                     break
             if cls is not Change:
                 for i in self.read(itertools.chain((t,), source) if t else source):
@@ -934,9 +943,7 @@ class Reader(object):
             item = self.factory(Set, t)
             tokens = []
             t = None
-            for t in source:
-                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
-                    continue
+            for t in skip(source):
                 tokens.append(t)
                 if isinstance(t, ly.lex.lilypond.EqualSign):
                     item.tokens = tuple(tokens)
@@ -950,10 +957,8 @@ class Reader(object):
             item = self.factory(Unset, t)
             tokens = []
             t = None
-            for t in self.consume(source):
-                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
-                    continue
-                elif type(t) not in ly.lex.lilypond.ParseUnset.items:
+            for t in skip(self.consume(source)):
+                if type(t) not in ly.lex.lilypond.ParseUnset.items:
                     break
                 tokens.append(t)
             else:
