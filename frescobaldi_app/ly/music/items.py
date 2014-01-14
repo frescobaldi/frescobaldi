@@ -53,6 +53,14 @@ class Item(node.WeakNode):
     token = None
 
 
+class Root(Item):
+    """The root node of a tree of Items.
+    
+    This is returned by the tree() method.
+    
+    """
+
+
 class Token(Item):
     """Any token that is not otherwise recognized""" 
 
@@ -353,6 +361,12 @@ class Reader(object):
             item.tokens = tuple(self.consume(source))
         return item
     
+    def tree(self):
+        """Return a Root node with all the Item instances, read from the source."""
+        root = self.factory(Root, None)
+        root.extend(i for i in self.read())
+        return root
+
     def read(self, source=None):
         """Yield Item instances reading from source."""
         
