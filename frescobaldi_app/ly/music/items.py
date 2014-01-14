@@ -485,8 +485,8 @@ class Reader(object):
                     t, item = self.read_keyword(t, source)
                     yield item
                 elif isinstance(t, ly.lex.lilypond.UserCommand):
-                    yield self.read_user_command(t, source)
-                    break
+                    t, item = self.read_user_command(t, source)
+                    yield item
                 else:
                     break
                 
@@ -757,8 +757,8 @@ class Reader(object):
                     i.tokens = (i.token,) + i.tokens
                     i.token = t
                     i.simultaneous = i.simultaneous or t == '\\simultaneous'
-                return i
-        return self.factory(UserCommand, t)
+                return None, i
+        return None, self.factory(UserCommand, t)
     
     def read_markup(self, t, source):
         """Read LilyPond markup (recursively).
