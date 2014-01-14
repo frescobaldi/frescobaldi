@@ -161,12 +161,58 @@ class Repeat(Music):
     
     def repeat_count(self):
         if isinstance(self._repeat_count, Scheme):
-            return self._repeat_count.get_int()
-        return self._repeat_count
+            return self._repeat_count.get_int() or 1
+        return int(self._repeat_count or '1') or 1
+
+    def length(self):
+        """Return the length of this music expression.
+        
+        If the specifier is "unfold", the length is multiplied by the
+        repeat_count value.
+        
+        If the next sibling is an Alternative item, it's contents are taken
+        into account.
+        
+        """
+        unfold = self.specifier() in ("unfold", "tremolo")
+        count = self.repeat_count()
+        length = super(Repeat, self).length()
+        if unfold:
+            length *= count
+        alt = self.next()
+        if isinstance(alt, Alternative):
+            alt_lengths = alt.lengths()
+            if alt_lengths:
+                if unfold:
+                    alt_lengths[0:0] = [alt_lengths[0]] * (count - len(alt_lengths))
+                length += sum(alt_lengths[:count])
+            print 'alt_lengths', alt_lengths
+        return length
 
 
 class Alternative(Music):
     """An \\alternative expression."""
+    def length(self):
+        """Return the maximum length of the child music lists.
+        
+        If the previous sibling of this item is a Repeat, returns 0.
+        
+        """
+        prev = self.previous()
+        if isinstance(prev, Repeat):
+            return 0
+        return max(self.lengths() or [0])
+        
+    def lengths(self):
+        """A list of length Fractions for every child music item."""
+        result = []
+        for item in self:
+            if isinstance(item, MusicList):
+                for i in item:
+                    if isinstance(i, (Music, Durable)):
+                        result.append(i.length())
+                break
+        return result
 
 
 class Tempo(Item):
