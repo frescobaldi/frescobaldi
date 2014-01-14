@@ -508,6 +508,16 @@ class RepeatCount(IntegerValue, _token.Leaver):
     pass
 
 
+class Tempo(Command):
+    rx = r"\\tempo\b"
+    def update_state(self, state):
+        state.enter(ParseTempo())
+
+
+class TempoSeparator(Delimiter):
+    rx = r"[-~](?=\s*\d)"
+
+
 class Override(Keyword):
     rx = r"\\override\b"
     def update_state(self, state):
@@ -812,6 +822,7 @@ command_items = (
     New, Context, Change,
     With,
     Clef,
+    Tempo,
     AccidentalStyle,
     AlterBroken,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
@@ -1101,6 +1112,26 @@ class ParseRepeat(FallthroughParser):
         RepeatSpecifier,
         StringQuotedStart,
         RepeatCount,
+    )
+
+
+class ParseTempo(FallthroughParser):
+    items = space_items + (
+        Markup,
+        StringQuotedStart,
+        SchemeStart,
+        Length,
+        EqualSign,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, EqualSign):
+            state.replace(ParseTempoAfterEqualSign())
+
+
+class ParseTempoAfterEqualSign(FallthroughParser):
+    items = space_items + (
+        IntegerValue,
+        TempoSeparator,
     )
 
 
