@@ -611,6 +611,13 @@ class PitchCommand(Command):
         state.enter(ParsePitchCommand(argcount))
 
 
+class KeySignatureMode(Command):
+    @_token.patternproperty
+    def rx():
+        from .. import words
+        return r"\\({0})(?![A-Za-z])".format("|".join(words.modes))
+
+    
 class Hide(Keyword):
     rx = r"\\hide\b"
     def update_state(self, state):
@@ -823,6 +830,7 @@ command_items = (
     With,
     Clef,
     Tempo,
+    KeySignatureMode,
     AccidentalStyle,
     AlterBroken,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
