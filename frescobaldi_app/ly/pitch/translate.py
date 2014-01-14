@@ -30,7 +30,7 @@ import ly.pitch
 def translate(cursor, language):
     """Changes the language of the pitch names.
     
-    May raise ly.raise.PitchNameNotAvailable if the current pitch language
+    May raise ly.pitch.PitchNameNotAvailable if the current pitch language
     has no quarter tones.
     
     Returns True if there also was a \language or \include language command 
@@ -64,9 +64,10 @@ def translate(cursor, language):
                     n = writer(*p)
                     if n != t:
                         d[t.pos:t.end] = n
-            elif isinstance(t, ly.pitch.LanguageName) and t != language:
-                # change the language name in a command
-                d[t.pos:t.end] = language
+            elif isinstance(t, ly.pitch.LanguageName):
+                if t != language:
+                    # change the language name in a command
+                    d[t.pos:t.end] = language
                 changed = True
     return changed
 

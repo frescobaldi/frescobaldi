@@ -136,7 +136,8 @@ def menu_file_export(mainwindow):
     ac = mainwindow.actionCollection
     acfe = file_export.FileExport.instance(mainwindow).actionCollection
     
-    m.addAction(acfe.export_musicxml)
+    if vcs.app_is_git_controlled():
+        m.addAction(acfe.export_musicxml)
     m.addAction(ac.export_colored_html)
     return m
     

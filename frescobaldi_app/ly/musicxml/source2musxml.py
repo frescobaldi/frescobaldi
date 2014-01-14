@@ -155,6 +155,10 @@ class parse_source():
         self.duration = token
         self.mediator.new_duration(token)
 
+    def TremoloDuration(self, token):
+        """ duration of tremolo notes for tremolo marking """
+        self.mediator.new_tremolo(token)
+
     def Dot(self, token):
         """ dot, . """
         self.mediator.new_dot()
@@ -199,7 +203,7 @@ class parse_source():
         elif self.prev_command != '\\numericTimeSignature':
             self.prev_command = token
         else:
-            print "Command:"+token
+            print ("Command:"+token)
 
     def UserCommand(self, token):
         if self.prev_command == 'key':
@@ -207,7 +211,7 @@ class parse_source():
             self.prev_command = ''
         else:
             self.mediator.fetch_variable(token[1:])
-            print "Fetch variable:"+token
+            print ("Fetch variable:"+token)
 
     def String(self, token):
         if self.prev_command == 'clef':
@@ -240,6 +244,8 @@ class parse_source():
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:
                             self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
+                        if obj.tremolo:
+                            self.musxml.add_tremolo("single", obj.tremolo)
                     elif isinstance(obj, ly2xml_mediator.bar_rest):
                         if obj.skip:
                             self.musxml.new_skip(obj.duration, self.mediator.divisions)

@@ -25,14 +25,12 @@ from __future__ import unicode_literals
 
 import contextlib
 import copy
+import io
 import os
 import shutil
 import sys
 
 import ly.pkginfo
-import ly.document
-
-from . import command
 
 
 def usage():
@@ -42,7 +40,8 @@ Usage: ly [options] commands file, ...
 
 A tool for manipulating LilyPond source files
 
-Options:
+OPTIONS
+
   -v, --version         show version number and exit
   -h, --help            show this help text and exit
   -i, --in-place        overwrite input files
@@ -52,45 +51,90 @@ Options:
   -d variable=value     set a variable
   --                    consider the remaining arguments to be file names
 
+ARGUMENTS
+
 The command is one argument with semicolon-separated commands. In most cases
 you'll quote the command so that it is seen as one argument.
 
-Available commands are:
-  variable=value        set a variable, can be used between other commands
+You can specify more than one LilyPond file. If you want to process many 
+files and write the results of the operations on each file to a separate 
+output file, you can use two special characters in the output filename: a 
+'*' will be replaced with the full path name of the current input file 
+(without extension), and a '?' will be replaced with the input filename 
+(without path and extension). If you don't want to have '*' or '?' replaced 
+in the output filename, you can set -d replace-pattern=false.
+
+If you don't specify input or output filenames, standard input is read and
+standard output is written to.
+
+
+COMMANDS
   
 Informative commands that write information to standard output and do not
 change the file:
+
   mode                  print the mode (guessing if not given) of the document
   version               print the LilyPond version, if set in the document
   language              print the pitch name language, if set in the document
   
 Commands that change the file:
+
   indent                re-indent the file
   reformat              reformat the file
   translate language    translate the pitch names to the language
   transpose from to     transpose the file like LilyPond would do, pitches
                         are given in the 'nederlands' language
+  abs2rel               convert absolute music to relative
+  rel2abs               convert relative music to absolute
   write [filename]      write the file to the given filename or the output
                         variable. If the last command was an editing command,
                         write is automatically called.
 
-The following variables can be set to influence the behaviour of commands:
-  mode                  [empty] mode of the file to read (default automatic)
-                        can be one of: lilypond, scheme, latex, html, docbook,
-                        texinfo.
-  backup-suffix         string [~], to use when editing files in-place, if set,
-                        backs up the original file before overwriting it
-  indent-tabs           true/false [false], whether to use tabs for indent
-  indent-width          number [2], how many spaces for each indent level
-  tab-width             number [8], used when converting tabs to spaces
+Commands that export the file to another format:
 
-These variables influence the output of information commands
-  with-filename         [unset] prints the filename next to information like
-                        version, etc. This is True by default if there is more
-                        than one file specified.
+  musicxml              exports to MusicXML (in development, far from complete)
+
+Between commands, you can set or unset a variable using:
+
+  variable=value        set a variable to value. Special values are true, false,
+                        which are interpreted as boolean values, or digits,
+                        which will be interpreted as integer values.
+  variable=             unset a variable
+
+
+VARIABLES
+
+The following variables can be set to influence the behaviour of commands.
+If there is a default value, it is written between brackets:
+
+  mode                  mode of the file to read (default automatic) can be one
+                        of: lilypond, scheme, latex, html, docbook, texinfo.
+  output [-]            the output filename (also set by -o argument)
+  encoding [UTF-8]      encoding to read (also set by -e argument)
+  output-encoding       encoding to write (defaults to encoding, also
+                        set by --output-encoding argument)
+  in-place [false]      whether to overwrite input files (same as -i)
+  backup-suffix [~]     suffix to use when editing files in-place, if set,
+                        backs up the original file before overwriting it
+  replace-pattern [true] whether to replace '*' and '?' in the output filename.
+  indent-tabs [false]   whether to use tabs for indent
+  indent-width [2]      how many spaces for each indent level (if not using
+                        tabs)
+
+These variables influence the output of information commands:
+
+  with-filename         prints the filename next to information like version,
+                        etc. This is true by default if there is more than one
+                        file specified.
 
 Example:
+
   ly "reformat; transpose c d" -o output.ly file.ly
+
+Example using the '*' in the output file name:
+
+  ly "transpose c d" *.ly -o '*-transposed.ly'
+
 
 """)
 
@@ -141,6 +185,63 @@ class Options(object):
             value = int(value)
         setattr(self, name, value)
     
+class Output(object):
+    """Object living for a whole file/command operation, handling the output.
+    
+    When opening a file it has already opened earlier, the file is appended to
+    (like awk).
+    
+    """
+    def __init__(self):
+        self._seen_filenames = set()
+    
+    def get_filename(self, opts, filename):
+        """Queries the output attribute from the Options and returns it.
+        
+        If replace_pattern is True (by default) and the attribute contains a 
+        '*', it is replaced with the full path of the specified filename, 
+        but without extension. It the attribute contains a '?', it is 
+        replaced with the filename without path and extension.
+        
+        If '-' is returned, it denotes standard output.
+        
+        """
+        if not opts.output:
+            return '-'
+        elif opts.replace_pattern:
+            path, ext = os.path.splitext(filename)
+            directory, name = os.path.split(path)
+            return opts.output.replace('?', name).replace('*', path)
+        else:
+            return opts.output
+    
+    @contextlib.contextmanager
+    def file(self, opts, filename, encoding):
+        """Return a context manager for writing to.
+        
+        If you set encoding to "binary" or False, the file is opened in binary
+        mode and you should encode the data you write yourself.
+        
+        """
+        if not filename or filename == '-':
+            filename, mode = sys.stdout.fileno(), 'w'
+        else:
+            if filename not in self._seen_filenames:
+                self._seen_filenames.add(filename)
+                if opts.backup_suffix and os.path.exists(filename):
+                    shutil.copy(filename, filename + opts.backup_suffix)
+                mode = 'w'
+            else:
+                mode = 'a'
+        if encoding in (False, "binary"):
+            f = io.open(filename, mode + 'b')
+        else:
+            f = io.open(filename, mode, encoding=encoding)
+        try:
+            yield f
+        finally:
+            f.close()
+
 def parse_command_line():
     """Return a three-tuple(options, commands, files).
     
@@ -154,8 +255,12 @@ def parse_command_line():
     if len(sys.argv) < 2:
         usage_short()
         sys.exit(2)
-
-    args = iter(sys.argv[1:])
+    
+    # are the arguments unicode? python2 leaves them encoded...
+    if type(sys.argv[0]) != type(''):
+        args = (a.decode(sys.stdin.encoding) for a in sys.argv[1:])
+    else:
+        args = iter(sys.argv[1:])
     
     opts = Options()
     commands = []
@@ -198,9 +303,8 @@ def parse_command_line():
             commands = parse_command(arg)
         else:
             files.append(arg)
-    if not commands and opts.output_encoding is None:
-        die('no commands given, nothing to do')
-    if commands and isinstance(commands[-1], command._edit_command):
+    from . import command
+    if not commands or isinstance(commands[-1], command._edit_command):
         commands.append(command.write())
     if not files:
         files.append('-')
@@ -214,6 +318,8 @@ def parse_command(arg):
     Exits when a command is invalid.
     
     """
+    from . import command
+
     result = []
     
     for c in arg.split(';'):
@@ -232,66 +338,20 @@ def parse_command(arg):
 
 def load(filename, encoding, mode):
     """Load a file, returning a ly.document.Document"""
+    import ly.document
     if filename == '-':
-        text = sys.stdin.read().decode(encoding)
+        text = io.open(sys.stdin.fileno(), encoding=encoding).read()
     else:
-        with open(filename, 'r') as f:
-            text = f.read().decode(encoding)
+        with io.open(filename, encoding=encoding) as f:
+            text = f.read()
     doc = ly.document.Document(text, mode)
     doc.filename = filename
     doc.encoding = encoding
     return doc
 
-class Output(object):
-    """Object living for a whole file/command operation, handling the output.
-    
-    When opening a file it has already opened earlier, the file is appended to
-    (like awk).
-    
-    """
-    def __init__(self):
-        self._seen_filenames = set()
-    
-    def get_filename(self, opts, filename):
-        """Queries the output attribute from the Options and returns it.
-        
-        If replace_pattern is True (by default) and the attribute contains a 
-        '*', it is replaced with the full path of the specified filename, 
-        but without extension. It the attribute contains a '?', it is 
-        replaced with the filename without path and extension.
-        
-        If '-' is returned, it denotes standard output.
-        
-        """
-        if not opts.output:
-            return '-'
-        elif opts.replace_pattern:
-            path, ext = os.path.splitext(filename)
-            directory, name = os.path.split(path)
-            return opts.output.replace('?', name).replace('*', path)
-        else:
-            return opts.output
-    
-    @contextlib.contextmanager
-    def file(self, opts, filename):
-        """Return a context manager for writing to."""
-        if not filename or filename == '-':
-            yield sys.stdout
-        else:
-            if filename not in self._seen_filenames:
-                self._seen_filenames.add(filename)
-                if opts.backup_suffix and os.path.exists(filename):
-                    shutil.copy(filename, filename + opts.backup_suffix)
-                h = open(filename, 'w')
-            else:
-                h = open(filename, 'a')
-            try:
-                yield h
-            finally:
-                h.close()
-
 def main():
     opts, commands, files = parse_command_line()
+    import ly.document
     output = Output()
     exit_code = 0
     for filename in files:

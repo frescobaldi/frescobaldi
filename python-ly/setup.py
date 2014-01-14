@@ -4,12 +4,13 @@ from distutils.core import setup
 
 ### python-ly
 ###
-### This setup script packages and/or installs the ly module from the
-### frescobaldi_app directory in the Frescobaldi source separately.
-###
-### 
+### This setup script packages and/or installs:
+### - the ly package
+### - the slexer module
+### - the ly script
 
-sys.path.insert(0, '../frescobaldi_app')
+
+sys.path.insert(0, 'src')
 from ly import pkginfo
 del sys.path[0]
 
@@ -36,7 +37,7 @@ py_modules = [
 #]
 
 classifiers = [
-    'Development Status :: 3 - Alpha',
+    'Development Status :: 4 - Beta',
     #'Development Status :: 5 - Production/Stable',
     'License :: OSI Approved :: GNU General Public License (GPL)',
     'Operating System :: MacOS :: MacOS X',
@@ -44,6 +45,7 @@ classifiers = [
     'Operating System :: POSIX',
     'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3',
     'Topic :: Multimedia :: Sound/Audio',
     'Topic :: Text Editors',
 ]
@@ -63,5 +65,7 @@ setup(
     packages = packages,
     py_modules = py_modules,
     classifiers = classifiers,
+    #data_files = data_files,
+    
 )
 

@@ -761,7 +761,7 @@ class Duration(Leaf):
         self.factor = fractions.Fraction(factor)
 
     def ly(self, printer):
-        return ly.duration.duration(self.dur, self.dots, self.factor)
+        return ly.duration.tostring(self.dur, self.dots, self.factor)
 
 
 class Chord(Container):

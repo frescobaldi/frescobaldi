@@ -54,27 +54,27 @@ def _modes():
     """
     
     def lilypond():
-        import lilypond
+        from . import lilypond
         return lilypond.ParseGlobal
     
     def scheme():
-        import scheme
+        from . import scheme
         return scheme.ParseScheme
         
     def docbook():
-        import docbook
+        from . import docbook
         return docbook.ParseDocBook
         
     def latex():
-        import latex
+        from . import latex
         return latex.ParseLaTeX
         
     def texinfo():
-        import texinfo
+        from . import texinfo
         return texinfo.ParseTexinfo
         
     def html():
-        import html
+        from . import html
         return html.ParseHTML
         
     # more modes can be added here

@@ -31,6 +31,9 @@ except ImportError:
     import xml.etree.ElementTree as etree
 
 
+import ly.pkginfo
+
+
 class create_musicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
 
@@ -44,7 +47,7 @@ class create_musicXML():
         identification = etree.SubElement(self.root, "identification")
         encoding = etree.SubElement(identification, "encoding")
         software = etree.SubElement(encoding, "software")
-        software.text = "python-ly"
+        software.text = ly.pkginfo.name + " " + ly.pkginfo.version
         encoding_date = etree.SubElement(encoding, "encoding-date")
         import datetime
         encoding_date.text = str(datetime.date.today())
@@ -160,6 +163,7 @@ class create_musicXML():
         """ create new note """
         self.current_note = etree.SubElement(self.current_bar, "note")
         self.current_notation = None
+        self.current_ornaments = None
 
     def add_pitch(self, step, alter, octave):
         """ create new pitch """
@@ -250,6 +254,16 @@ class create_musicXML():
         """ create tuplet with type attribute """
         etree.SubElement(self.current_notation, "tuplet", type=ttype)
 
+    def add_ornaments(self):
+        if not self.current_ornaments:
+            self.add_notations()
+            self.current_ornament = etree.SubElement(self.current_notation, "ornaments")
+
+    def add_tremolo(self, trem_type, lines):
+        self.add_ornaments()
+        trem_node = etree.SubElement(self.current_ornament, "tremolo", type=trem_type)
+        trem_node.text = str(lines)
+
     def create_bar_attr(self):
         """ create node attributes """
         self.bar_attr = etree.SubElement(self.current_bar, "attributes")
@@ -307,8 +321,8 @@ class MusicXML(object):
 
     def indent(self, indent="  "):
         """ add indent and linebreaks to the created XML tree """
-        import etreeutil
-        etreeutil.indent(self.root, indent)
+        import ly.etreeutil
+        ly.etreeutil.indent(self.root, indent)
 
     def tostring(self, encoding='UTF-8'):
         """ output etree as a XML document """

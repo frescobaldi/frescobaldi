@@ -82,7 +82,7 @@ def indentable(cursor):
     pos = cursor.position() - block.position()
     for token in tokeniter.tokens(block):
         if token.end >= pos:
-            return isinstance(token, ly.lex.Dedent)
+            return isinstance(token, (ly.lex.Dedent, ly.lex.BlockCommentEnd))
         elif not isinstance(token, (ly.lex.Space, ly.lex.Dedent)):
             return
 

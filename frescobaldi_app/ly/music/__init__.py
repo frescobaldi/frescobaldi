@@ -18,20 +18,17 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Information about the LY package.
+An api to read music from the tokens of a ly.document.Document.
+
+This is meant to quickly read music from a document, to perform 
+modifications on the document, and to interpret music and markup and to 
+convert or export it to other formats.
+
+This package is not intended to construct documents entirely from scratch. 
+(This can be done using the ly.dom module.)
+
+Some item types can have a list of child items, but the tree structure is as 
+linear as possible.
 
 """
-
-from __future__ import unicode_literals
-
-name = "python-ly"
-version = "0.2"
-description = "Tool and library for manipulating LilyPond files"
-long_description = \
-    "The python-ly package provides a Python library and a commandline tool " \
-    "that can be used to parse and manipulate LilyPond source files."
-maintainer = "Wilbert Berendsen"
-maintainer_email = "info@frescobaldi.org"
-url = "http://www.frescobaldi.org/"
-license = "GPL"
 

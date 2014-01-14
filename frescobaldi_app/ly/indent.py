@@ -242,6 +242,23 @@ class Line(object):
             )):
             self.indent = False
             self.isblank = False
+        # or a multi-line comment?
+        elif isinstance(state.parser(), (
+            ly.lex.lilypond.ParseBlockComment,
+            ly.lex.scheme.ParseBlockComment,
+            )):
+            # do allow indent the last line of a block comment if it only
+            # contains space
+            if tokens and isinstance(tokens[0], ly.lex.BlockCommentEnd):
+                self.indent = ""
+            elif (len(tokens) > 1
+                  and isinstance(tokens[0], ly.lex.BlockComment)
+                  and isinstance(tokens[1], ly.lex.BlockCommentEnd)
+                  and tokens[0].isspace()):
+                self.indent = tokens[0]
+            else:
+                self.indent = False
+            self.isblank = False
         elif tokens and isinstance(tokens[0], ly.lex.Space):
             self.indent = tokens[0]
             self.isblank = len(tokens) == 1

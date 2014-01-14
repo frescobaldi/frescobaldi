@@ -237,9 +237,9 @@ class Node(object):
             node = node.next()
 
     def is_descendant(self, node):
-        """Return True if node is somewhere in our ancestors(), else False."""
-        for n in self.ancestors():
-            if n is node:
+        """Return True if the node is a descendant of ourselves, else False."""
+        for n in node.ancestors():
+            if n is self:
                 return True
         return False
 
@@ -251,7 +251,11 @@ class Node(object):
             node = parent
             parent = node.parent()
         return node
-
+    
+    def descendants(self, depth = -1):
+        """Yield all the descendants, in tree order. Same as iter_depth()."""
+        return self.iter_depth(depth)
+    
     def iter_depth(self, depth = -1):
         """Iterate over all the children, and their children, etc.
         
@@ -267,6 +271,7 @@ class Node(object):
     def iter_rings(self, depth = -1):
         """Iterate over the children in rings, depth last.
         
+        This method returns the closest descendants first.
         Set depth to restrict the search to a certain depth, -1 is unrestricted.
         
         """
@@ -279,20 +284,42 @@ class Node(object):
                 newchildren.extend(i.children())
             children = newchildren
 
+    def find(self, cls, depth = -1):
+        """Yield all descendants if they are an instance of cls.
+        
+        cls may also be a tuple of classes. This method uses iter_depth().
+        
+        """
+        for node in self.iter_depth(depth):
+            if isinstance(node, cls):
+                yield node
+        
     def find_children(self, cls, depth = -1):
-        """Yield all descendants if they are an instance of cls."""
+        """Yield all descendants if they are an instance of cls.
+        
+        cls may also be a tuple of classes. This method uses iter_rings().
+        
+        """
         for node in self.iter_rings(depth):
             if isinstance(node, cls):
                 yield node
 
     def find_child(self, cls, depth = -1):
-        """Return the first descendant that's an instance of cls."""
+        """Return the first descendant that's an instance of cls.
+        
+        cls may also be a tuple of classes. This method uses iter_rings().
+        
+        """
         for node in self.iter_rings(depth):
             if isinstance(node, cls):
                 return node
     
     def find_parent(self, cls):
-        """Find an ancestor of the given class."""
+        """Find an ancestor of the given class.
+        
+        cls may also be a tuple of classes.
+        
+        """
         for node in self.ancestors():
             if isinstance(node, cls):
                 return node

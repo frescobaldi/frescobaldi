@@ -23,9 +23,13 @@ The commands that are available to the command line.
 
 from __future__ import unicode_literals
 
+import re
 import sys
 
 import ly.docinfo
+import ly.indent
+import ly.pitch
+import ly.reformat
 
 
 class _command(object):
@@ -102,7 +106,6 @@ class indent(_edit_command):
     """run the indenter"""
     def indenter(self, opts):
         """Get a ly.indent.Indenter initialized with our options."""
-        import ly.indent
         i = ly.indent.Indenter()
         i.indent_tabs = opts.indent_tabs
         i.indent_width = opts.indent_width
@@ -115,14 +118,12 @@ class indent(_edit_command):
 class reformat(indent):
     """reformat the document"""
     def run(self, opts, cursor, output):
-        import ly.reformat
         ly.reformat.reformat(cursor, self.indenter(opts))
 
 
 class translate(_edit_command):
     """translate pitch names"""
     def __init__(self, language):
-        import ly.pitch
         if language not in ly.pitch.pitchInfo:
             raise ValueError()
         self.language = language
@@ -141,6 +142,63 @@ class translate(_edit_command):
             ly.pitch.translate.insert_language(cursor.document, self.language, version)
 
 
+class transpose(_edit_command):
+    """transpose music"""
+    def __init__(self, arg):
+        result = []
+        for pitch, octave in re.findall(r"([a-z]+)([,']*)", arg):
+            r = ly.pitch.pitchReader("nederlands")(pitch)
+            if r:
+                result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
+        self.from_pitch, self.to_pitch = result
+    
+    def run(self, opts, cursor, output):
+        import ly.pitch.transpose
+        transposer = ly.pitch.transpose.Transposer(self.from_pitch, self.to_pitch)
+        try:
+            ly.pitch.transpose.transpose(cursor, transposer)
+        except ly.pitch.PitchNameNotAvailable:
+            language = ly.docinfo.DocInfo(cursor.document).language() or "nederlands"
+            sys.stderr.write(
+                "warning: transpose: pitch names not available in \"{0}\"\n"
+                "  skipping file: {1}\n".format(language, cursor.document.filename))
+
+
+class rel2abs(_edit_command):
+    """convert relative music to absolute"""
+    def run(self, opts, cursor, output):
+        import ly.pitch.rel2abs
+        ly.pitch.rel2abs.rel2abs(cursor)
+
+
+class abs2rel(_edit_command):
+    """convert absolute music to relative"""
+    def run(self, opts, cursor, output):
+        import ly.pitch.abs2rel
+        ly.pitch.rel2abs.abs2rel(cursor)
+
+
+class _export_command(_command):
+    """Command that exports to a file."""
+    def __init__(self, output=None):
+        self.output = output
+
+
+class musicxml(_export_command):
+    def run(self, opts, cursor, output):
+        import ly.musicxml
+        writer = ly.musicxml.writer()
+        writer.parse_tokens(ly.docinfo.DocInfo(cursor.document).tokens)
+        xml = writer.musicxml()
+        if self.output:
+            filename = self.output
+        else:
+            filename = output.get_filename(opts, cursor.document.filename)
+        encoding = opts.output_encoding or "utf-8"
+        with output.file(opts, filename, "binary") as f:
+            xml.write(f, encoding)
+
+
 class write(_command):
     """write the source file."""
     def __init__(self, output=None):
@@ -148,14 +206,16 @@ class write(_command):
     
     def run(self, opts, cursor, output):
         # determine the real output filename to use
+        encoding = opts.output_encoding or opts.encoding
         if self.output:
             filename = self.output
         elif opts.in_place:
+            if not cursor.document.modified and encoding == opts.encoding:
+                return
             filename = cursor.document.filename
         else:
             filename = output.get_filename(opts, cursor.document.filename)
-        encoding = opts.output_encoding or opts.encoding
-        with output.file(opts, filename) as f:
-            f.write(cursor.document.plaintext().encode(encoding))
+        with output.file(opts, filename, encoding) as f:
+            f.write(cursor.document.plaintext())
 
 

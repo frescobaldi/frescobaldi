@@ -70,17 +70,17 @@ class Comment(_token.Comment):
     pass
 
 
-class BlockCommentStart(Comment, _token.BlockCommentStart, _token.Indent):
+class BlockCommentStart(Comment, _token.BlockCommentStart):
     rx = r"%{"
     def update_state(self, state):
         state.enter(ParseBlockComment())
 
 
-class BlockCommentEnd(Comment, _token.BlockCommentEnd, _token.Leaver, _token.Dedent):
+class BlockCommentEnd(Comment, _token.BlockCommentEnd, _token.Leaver):
     rx = r"%}"
 
 
-class BlockCommentSpace(Comment, _token.BlockComment, _token.Space):
+class BlockComment(Comment, _token.BlockComment):
     pass
 
 
@@ -109,17 +109,29 @@ class StringQuoteEscape(_token.Character):
     rx = r'\\[\\"]'
 
 
-class Skip(_token.Token):
+class MusicItem(_token.Token):
+    """A note, rest, spacer, \skip or q."""
+
+    
+class Skip(MusicItem):
+    rx = r"\\skip(?![A-Za-z])"
+
+
+class Spacer(MusicItem):
     rx = r"s(?![A-Za-z])"
     
     
-class Rest(_token.Token):
+class Rest(MusicItem):
     rx = r"[Rr](?![A-Za-z])"
     
     
-class Note(_token.Token):
+class Note(MusicItem):
     rx = r"[a-x]+(?![A-Za-z])"
-    
+
+
+class Q(MusicItem):
+    rx = r"q(?![A-Za-z])"
+
 
 class Octave(_token.Token):
     rx = r",+|'+"
@@ -441,13 +453,13 @@ class MarkupList(Markup):
 class MarkupCommand(Markup):
     rx = r"\\[^\W\d_]+(-[^\W\d_]+)*(?![A-Za-z])"
     def update_state(self, state):
-        import ly.words
+        from .. import words
         command = self[1:]
-        if command in ly.words.markupcommands_nargs[0]:
+        if command in words.markupcommands_nargs[0]:
             state.endArgument()
         else:
             for argcount in 2, 3, 4, 5:
-                if command in ly.words.markupcommands_nargs[argcount]:
+                if command in words.markupcommands_nargs[argcount]:
                     break
             else:
                 argcount = 1
@@ -490,13 +502,6 @@ class RepeatSpecifier(Specifier):
     def rx():
         from .. import words
         return r"\b({0})(?![A-Za-z])".format("|".join(words.repeat_types))
-    
-
-class RepeatStringSpecifier(String, Specifier):
-    @_token.patternproperty
-    def rx():
-        from .. import words
-        return r'"({0})"'.format("|".join(words.repeat_types))
     
 
 class RepeatCount(IntegerValue, _token.Leaver):
@@ -677,7 +682,7 @@ class UserCommand(_token.Token):
 class SchemeStart(_token.Item):
     rx = "[#$](?![{}])"
     def update_state(self, state):
-        import scheme
+        from . import scheme
         state.enter(scheme.ParseScheme(1))
 
 
@@ -834,6 +839,8 @@ toplevel_base_items = base_items + (
 music_items = base_items + (
     Dynamic,
     Skip,
+    Spacer,
+    Q,
     Rest,
     Note,
     Fraction,
@@ -1073,9 +1080,8 @@ class ParseString(Parser):
     
 
 class ParseBlockComment(Parser):
-    default = Comment
+    default = BlockComment
     items = (
-        BlockCommentSpace,
         BlockCommentEnd,
     )
 
@@ -1093,7 +1099,7 @@ class ParseMarkup(Parser):
 class ParseRepeat(FallthroughParser):
     items = space_items + (
         RepeatSpecifier,
-        RepeatStringSpecifier,
+        StringQuotedStart,
         RepeatCount,
     )
 
