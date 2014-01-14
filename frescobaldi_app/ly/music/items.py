@@ -28,6 +28,7 @@ from __future__ import unicode_literals
 
 import itertools
 from fractions import Fraction
+import re
 
 import node
 
@@ -311,6 +312,18 @@ class UserCommand(Music):
 
 class Version(Item):
     """A \\version command."""
+    def version_string(self):
+        """The version as a string."""
+        for i in self:
+            if isinstance(i, String):
+                return i.value()
+            elif isinstance(i, Scheme):
+                return i.get_string()
+        return ''
+
+    def version(self):
+        """The version as a tuple of ints."""
+        return tuple(map(int, re.findall(r'\d+', self.version_string())))
 
 
 class Include(Item):
