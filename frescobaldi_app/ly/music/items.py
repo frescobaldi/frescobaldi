@@ -169,15 +169,33 @@ class Alternative(Music):
     """An \\alternative expression."""
 
 
-class String(Item):
-    """A double-quoted string."""
+class Tempo(Item):
+    duration = None
+    _text = None
+    _tempo = ()
     
-    def value(self):
-        return ''.join(
-            t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
-            for t in self.tokens[:-1])
+    def fraction(self):
+        """Return the note value as a fraction given before the equal sign."""
+        if self.duration:
+            return self.duration.base_scaling[0]
+            
+    def text(self):
+        """Return the text, if set. Can be Markup, Scheme, or String."""
+        return self._text
+    
+    def tempo(self):
+        """Return a list of integer values describing the tempo or range."""
+        result = []
+        for i in self._tempo:
+            if isinstance(i, Scheme):
+                v = i.get_int()
+                if v is not None:
+                    result.append(v)
+            else:
+                result.append(int(i))
+        return result
 
-
+        
 class Keyword(Item):
     """A LilyPond keyword."""
 
@@ -264,6 +282,14 @@ class Midi(Container):
 class With(Container):
     """A \\with ... construct."""
 
+
+class String(Item):
+    """A double-quoted string."""
+    
+    def value(self):
+        return ''.join(
+            t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
+            for t in self.tokens[:-1])
 
 
 class Scheme(Item):
@@ -565,6 +591,35 @@ class Reader(object):
             for i in self.read(source):
                 item.append(i)
                 break
+        elif t == '\\tempo':
+            item = self.factory(Tempo, t)
+            item._text = None
+            item._tempo = []
+            source = self.consume(source)
+            equal_sign_seen = False
+            for t in source:
+                while t:
+                    if not equal_sign_seen:
+                        if not item._text:
+                            if isinstance(t, ly.lex.lilypond.SchemeStart):
+                                item._text = self.read_scheme_item(t, source)
+                            elif isinstance(t, ly.lex.StringStart):
+                                item._text = self.factory(String, t, source)
+                            elif isinstance(t, ly.lex.lilypond.Markup):
+                                t, i = self.read_markup(t, source)
+                                if i:
+                                    item._text = i
+                                    continue
+                        elif isinstance(t, ly.lex.lilypond.Length):
+                            t = self.add_duration(item, t, source)
+                            continue
+                        elif isinstance(t, ly.lex.lilypond.EqualSign):
+                            equal_sign_seen = True
+                    elif isinstance(t, ly.lex.lilypond.IntegerValue):
+                        item._tempo.append(t)
+                    elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                        item._tempo.append(self.read_scheme_item(t, source))
+                    break
         else:
             item = self.factory(Command, t)
         return item
