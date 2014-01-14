@@ -26,6 +26,7 @@ Whitespace is left out, but comments are retained.
 
 from __future__ import unicode_literals
 
+import itertools
 from fractions import Fraction
 
 import node
@@ -140,6 +141,25 @@ class Transpose(Music):
     """A \\transpose music expression. Has normally three children (Note, Note, Music)."""
 
 
+class Repeat(Music):
+    """A \\repeat expression."""
+    def specifier(self):
+        if isinstance(self._specifier, Scheme):
+            return self._specifier.get_string()
+        elif isinstance(self._specifier, String):
+            return self._specifier.value()
+        return self._specifier
+    
+    def repeat_count(self):
+        if isinstance(self._repeat_count, Scheme):
+            return self._repeat_count.get_int()
+        return self._repeat_count
+
+
+class Alternative(Music):
+    """An \\alternative expression."""
+
+
 class String(Item):
     """A double-quoted string."""
     
@@ -227,6 +247,12 @@ class Scheme(Item):
         result = [int(i.token) for i in self.find(SchemeItem) if i.token.isdigit()]
         if len(result) >= 2:
             return tuple(result[:2])
+    
+    def get_int(self):
+        """A basic way to get one integer value."""
+        for i in self.find(SchemeItem):
+            if i.token.isdigit():
+                return int(i.token)
 
     def get_string(self):
         """A basic way to get a quoted string value (without the quotes)."""
@@ -473,6 +499,38 @@ class Reader(object):
                         break
             # stick the last token back if needed
             for i in self.read(itertools.chain((t,), source) if t else source):
+                item.append(i)
+                break
+        elif t == '\\repeat':
+            item = self.factory(Repeat, t)
+            item._specifier = None
+            item._repeat_count = None
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.RepeatSpecifier):
+                    item._specifier = t
+                elif not item.specifier and isinstance(t, ly.lex.StringStart):
+                    item._specifier = self.factory(String, t, source)
+                elif isinstance(t, ly.lex.lilypond.RepeatCount):
+                    item._repeat_count = t
+                elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                    # the specifier or count may be specified using scheme
+                    s = self.read_scheme_item(t, source)
+                    if item._specifier:
+                        if item._repeat_count:
+                            item.append(s)
+                            break
+                        item._repeat_count = s
+                    else:
+                        item._specifier = s
+                elif not isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    for i in self.read(itertools.chain((t,), source)):
+                        item.append(i)
+                        break
+                    break
+            return item
+        elif t == '\\alternative':
+            item = self.factory(Alternative, t)
+            for i in self.read(source):
                 item.append(i)
                 break
         else:

@@ -504,13 +504,6 @@ class RepeatSpecifier(Specifier):
         return r"\b({0})(?![A-Za-z])".format("|".join(words.repeat_types))
     
 
-class RepeatStringSpecifier(String, Specifier):
-    @_token.patternproperty
-    def rx():
-        from .. import words
-        return r'"({0})"'.format("|".join(words.repeat_types))
-    
-
 class RepeatCount(IntegerValue, _token.Leaver):
     pass
 
@@ -1106,7 +1099,7 @@ class ParseMarkup(Parser):
 class ParseRepeat(FallthroughParser):
     items = space_items + (
         RepeatSpecifier,
-        RepeatStringSpecifier,
+        StringQuotedStart,
         RepeatCount,
     )
 
