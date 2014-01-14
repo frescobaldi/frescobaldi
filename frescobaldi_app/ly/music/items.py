@@ -402,6 +402,47 @@ class With(Container):
     """A \\with ... construct."""
 
 
+class Set(Item):
+    """A \\set command."""
+    def context(self):
+        """The context, if specified."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextName):
+                return t
+    
+    def property(self):
+        """The property."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextProperty):
+                return t
+        for t in self.tokens[::-1]:
+            if isinstance(t, ly.lex.lilypond.Name):
+                return t
+        
+    def value(self):
+        """The value, given as argument. This is simply the child element."""
+        for i in self:
+            return i
+
+
+class Unset(Item):
+    """An \\unset command."""
+    def context(self):
+        """The context, if specified."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextName):
+                return t
+    
+    def property(self):
+        """The property."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextProperty):
+                return t
+        for t in self.tokens[::-1]:
+            if isinstance(t, ly.lex.lilypond.Name):
+                return t
+
+
 class String(Item):
     """A double-quoted string."""
     
@@ -409,6 +450,19 @@ class String(Item):
         return ''.join(
             t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
             for t in self.tokens[:-1])
+
+
+class Number(Item):
+    """A numerical value, directly entered."""
+    def value(self):
+        if isinstance(self.token, ly.lex.lilypond.IntegerValue):
+            return int(self.token)
+        elif isinstance(self.token, ly.lex.lilypond.DecimalValue):
+            return float(self.token)
+        elif isinstance(self.token, ly.lex.lilypond.Fraction):
+            return Fraction(self.token)
+        elif self.token.isdigit():
+            return int(self.token)
 
 
 class Scheme(Item):
@@ -577,6 +631,13 @@ class Reader(object):
                 elif isinstance(t, ly.lex.lilypond.UserCommand):
                     t, item = self.read_user_command(t, source)
                     yield item
+                elif isinstance(t, (
+                        ly.lex.lilypond.DecimalValue,
+                        ly.lex.lilypond.IntegerValue,
+                        ly.lex.lilypond.Fraction,
+                    )):
+                    yield self.factory(Number, t)
+                    break
                 else:
                     break
                 
@@ -869,6 +930,36 @@ class Reader(object):
                     item.append(i)
                     break
             return None, item
+        elif t == '\\set':
+            item = self.factory(Set, t)
+            tokens = []
+            t = None
+            for t in source:
+                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    continue
+                tokens.append(t)
+                if isinstance(t, ly.lex.lilypond.EqualSign):
+                    item.tokens = tuple(tokens)
+                    for i in self.read(source):
+                        item.append(i)
+                        break
+                    t = None
+                    break
+            return t, item
+        elif t == '\\unset':
+            item = self.factory(Unset, t)
+            tokens = []
+            t = None
+            for t in self.consume(source):
+                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    continue
+                elif type(t) not in ly.lex.lilypond.ParseUnset.items:
+                    break
+                tokens.append(t)
+            else:
+                t = None
+            item.tokens = tuple(tokens)
+            return t, item
         else:
             item = self.factory(Keyword, t)
             return None, item
