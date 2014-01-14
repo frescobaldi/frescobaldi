@@ -20,7 +20,7 @@
 """
 The items a read music expression is constructed with.
 
-Whitespace is left out, but comments are retained.
+Whitespace and comments are left out.
 
 """
 
@@ -168,8 +168,8 @@ class Repeat(Music):
     def length(self):
         """Return the length of this music expression.
         
-        If the specifier is "unfold", the length is multiplied by the
-        repeat_count value.
+        If the specifier is "unfold" or "tremolo", the length is multiplied 
+        by the repeat_count value.
         
         If the next sibling is an Alternative item, it's contents are taken
         into account.
@@ -180,14 +180,13 @@ class Repeat(Music):
         length = super(Repeat, self).length()
         if unfold:
             length *= count
-        alt = self.next()
+        alt = self.next_sibling()
         if isinstance(alt, Alternative):
             alt_lengths = alt.lengths()
             if alt_lengths:
                 if unfold:
                     alt_lengths[0:0] = [alt_lengths[0]] * (count - len(alt_lengths))
                 length += sum(alt_lengths[:count])
-            print 'alt_lengths', alt_lengths
         return length
 
 
@@ -199,7 +198,7 @@ class Alternative(Music):
         If the previous sibling of this item is a Repeat, returns 0.
         
         """
-        prev = self.previous()
+        prev = self.previous_sibling()
         if isinstance(prev, Repeat):
             return 0
         return max(self.lengths() or [0])
