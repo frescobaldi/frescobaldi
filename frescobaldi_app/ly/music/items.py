@@ -214,6 +214,17 @@ class TimeSignature(Item):
         return self._fraction
 
 
+class Partial(Item):
+    """A \\partial command."""
+    duration = None
+
+    def length(self):
+        """Return the duration given as argument as a Fraction."""
+        if self.duration:
+            base, scaling = self.duration.base_scaling
+            return base * scaling
+
+            
 class Keyword(Item):
     """A LilyPond keyword."""
 
@@ -468,8 +479,8 @@ class Reader(object):
                     t, item = self.read_markup(t, source)
                     yield item
                 elif isinstance(t, ly.lex.lilypond.Command):
-                    yield self.read_command(t, source)
-                    break
+                    t, item = self.read_command(t, source)
+                    yield item
                 elif isinstance(t, ly.lex.lilypond.Keyword):
                     t, item = self.read_keyword(t, source)
                     yield item
@@ -527,11 +538,13 @@ class Reader(object):
                     pitch_found = True
                     continue
                 break
+            return None, item
         elif t == '\\absolute':
             item = self.factory(Absolute, t)
             for i in self.read(source):
                 item.append(i)
                 break
+            return None, item
         elif t == '\\transpose':
             item = self.factory(Transpose, t)
             # get two pitches
@@ -542,6 +555,7 @@ class Reader(object):
                     pitches_found += 1
                     continue
                 break
+            return None, item
         elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
             item = self.factory(Scaler, t)
             item.scaling = 1
@@ -577,6 +591,7 @@ class Reader(object):
             for i in self.read(itertools.chain((t,), source) if t else source):
                 item.append(i)
                 break
+            return None, item
         elif t == '\\repeat':
             item = self.factory(Repeat, t)
             item._specifier = None
@@ -603,12 +618,13 @@ class Reader(object):
                         item.append(i)
                         break
                     break
-            return item
+            return None, item
         elif t == '\\alternative':
             item = self.factory(Alternative, t)
             for i in self.read(source):
                 item.append(i)
                 break
+            return None, item
         elif t == '\\tempo':
             item = self.factory(Tempo, t)
             item._text = None
@@ -638,6 +654,7 @@ class Reader(object):
                     elif isinstance(t, ly.lex.lilypond.SchemeStart):
                         item._tempo.append(self.read_scheme_item(t, source))
                     break
+            return None, item
         elif t == '\\time':
             item = self.factory(TimeSignature, t)
             for t in source:
@@ -647,9 +664,14 @@ class Reader(object):
                     item._num, den = map(int, t.split('/'))
                     item._fraction = Fraction(1, den)
                 break
+            return None, item
+        elif t == '\\partial':
+            item = self.factory(Partial, t)
+            t = self.add_duration(item, None, source)
+            return t, item
         else:
             item = self.factory(Command, t)
-        return item
+        return None, item
 
     def read_keyword(self, t, source):
         """Read the rest of a keyword given in t from the source."""
