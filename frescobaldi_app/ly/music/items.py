@@ -215,6 +215,29 @@ class Alternative(Music):
         return result
 
 
+class Translator(Item):
+    """Base class for a \\change, \\new, or \\context music expression."""
+    _context = None
+    _context_id = None
+    
+    def context(self):
+        return self._context
+    
+    def context_id(self):
+        """The context id, if specified after an equal sign."""
+        if isinstance(self._context_id, String):
+            return self._context_id.value()
+        return self._context_id
+
+
+class Context(Translator, Music):
+    """A \\new or \\context music expression."""
+
+
+class Change(Translator):
+    """A \\change music expression."""
+
+
 class Tempo(Item):
     duration = None
     _text = None
@@ -714,6 +737,40 @@ class Reader(object):
         elif t == '\\partial':
             item = self.factory(Partial, t)
             t = self.add_duration(item, None, source)
+            return t, item
+        elif t in ('\\new', '\\context', '\\change'):
+            cls = Change if t == '\\change' else Context 
+            item = self.factory(cls, t)
+            isource = self.consume(source)
+            t = None
+            for t in isource:
+                if isinstance(t, (ly.lex.lilypond.ContextName, ly.lex.lilypond.Name)):
+                    item._context = t
+                    t = None
+                    for t in isource:
+                        if isinstance(t, ly.lex.lilypond.EqualSign):
+                            t = None
+                            for t in isource:
+                                if isinstance(t, ly.lex.StringStart):
+                                    item._context_id = self.factory(String, t, isource)
+                                    t = None
+                                    break
+                                elif isinstance(t, ly.lex.lilypond.Name):
+                                    item._context_id = t
+                                    t = None
+                                    break
+                                elif not isinstance(t, ly.lex.Space):
+                                    break
+                        elif not isinstance(t, ly.lex.Space):
+                            break
+                    break
+                elif not isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    break
+            if cls is not Change:
+                for i in self.read(itertools.chain((t,), source) if t else source):
+                    item.append(i)
+                    break
+                return None, item
             return t, item
         else:
             item = self.factory(Command, t)
