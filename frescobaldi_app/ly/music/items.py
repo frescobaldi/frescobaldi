@@ -774,7 +774,7 @@ class Reader(object):
             return t, item
         else:
             item = self.factory(Command, t)
-        return None, item
+            return None, item
 
     def read_keyword(self, t, source):
         """Read the rest of a keyword given in t from the source."""
