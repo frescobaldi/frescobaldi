@@ -34,6 +34,7 @@ import node
 import ly.duration
 import ly.pitch
 import ly.lex.lilypond
+import ly.lex.scheme
 
 
 class Item(node.WeakNode):
