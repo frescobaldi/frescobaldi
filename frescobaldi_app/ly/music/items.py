@@ -195,7 +195,25 @@ class Tempo(Item):
                 result.append(int(i))
         return result
 
-        
+
+class TimeSignature(Item):
+    """A \\time command."""
+    _num = 4
+    _fraction = Fraction(1, 4)
+
+    def length(self):
+        """The length of one measure in this time signature as a Fraction."""
+        return self._num * self._fraction
+    
+    def numerator(self):
+        """The upper number (e.g. for 3/2 it returns 3)."""
+        return self._num
+    
+    def fraction(self):
+        """The lower number as a Fraction (e.g. for 3/2 it returns 1/2)."""
+        return self._fraction
+
+
 class Keyword(Item):
     """A LilyPond keyword."""
 
@@ -620,6 +638,15 @@ class Reader(object):
                     elif isinstance(t, ly.lex.lilypond.SchemeStart):
                         item._tempo.append(self.read_scheme_item(t, source))
                     break
+        elif t == '\\time':
+            item = self.factory(TimeSignature, t)
+            for t in source:
+                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
+                    continue
+                elif isinstance(t, ly.lex.lilypond.Fraction):
+                    item._num, den = map(int, t.split('/'))
+                    item._fraction = Fraction(1, den)
+                break
         else:
             item = self.factory(Command, t)
         return item
