@@ -238,15 +238,32 @@ class MarkupWord(Item):
 
 
 class Book(Container):
-    """A \book { ... } construct."""
+    """A \\book { ... } construct."""
 
 
 class BookPart(Container):
-    """A \bookpart { ... } construct."""
+    """A \\bookpart { ... } construct."""
 
 
 class Score(Container):
-    """A \score { ... } construct."""
+    """A \\score { ... } construct."""
+
+
+class Paper(Container):
+    """A \\paper { ... } construct."""
+
+
+class Layout(Container):
+    """A \\layout { ... } construct."""
+
+
+class Midi(Container):
+    """A \\midi { ... } construct."""
+
+
+class With(Container):
+    """A \\with ... construct."""
+
 
 
 class Scheme(Item):
@@ -554,6 +571,19 @@ class Reader(object):
 
     def read_keyword(self, t, source):
         """Read the rest of a keyword given in t from the source."""
+        
+        def bracketed(item):
+            """Helper to return item with a bracketed expression."""
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.OpenBracket):
+                    tokens = [t]
+                    item.extend(self.read(self.consume(source, tokens.append)))
+                    item.tokens = tuple(tokens)
+                    return None, item
+                elif not isinstance(t, ly.lex.Space):
+                    return t, item
+            return None, item
+        
         if t == '\\language':
             item = self.factory(Language, t)
             for name in self.read(source):
@@ -586,21 +616,26 @@ class Reader(object):
                 '\\bookpart': BookPart,
                 '\\book': Book,
             }[t]
-            item = self.factory(cls, t)
-            for t in source:
-                if isinstance(t, ly.lex.lilypond.OpenBracket):
-                    tokens = [t]
-                    item.extend(self.read(self.consume(source, tokens.append)))
-                    item.tokens = tuple(tokens)
-                    return None, item
-                elif not isinstance(t, ly.lex.Space):
-                    return t, item
-            return None, item
+            return bracketed(self.factory(cls, t))
         elif t == '\\version':
             item = self.factory(Version, t)
             for arg in self.read(source):
                 item.append(arg)
                 break
+            return None, item
+        elif t == '\\paper':
+            return bracketed(self.factory(Paper, t))
+        elif t == '\\layout':
+            return bracketed(self.factory(Layout, t))
+        elif t == '\\midi':
+            return bracketed(self.factory(Midi, t))
+        elif t == '\\with':
+            # \with also supports one other argument instead of { ... }
+            t, item = bracketed(self.factory(With, t))
+            if t:
+                for i in self.read(itertools.chain((t,), source)):
+                    item.append(i)
+                    break
             return None, item
         else:
             item = self.factory(Keyword, t)
