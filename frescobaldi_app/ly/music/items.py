@@ -137,6 +137,24 @@ class Scaler(Music):
         return super(Scaler, self).length() * self.scaling
 
 
+class Grace(Music):
+    """Music that has grace timing, i.e. 0 as far as computation is concerned."""
+    def length(self):
+        return 0
+
+
+class AfterGrace(Music):
+    """The \afterGrace function with its two arguments.
+    
+    Only the duration of the first is counted.
+    
+    """
+    def length(self):
+        for i in self:
+            if isinstance(i, (Music, Durable)):
+                return i.length()
+
+
 class Relative(Music):
     """A \\relative music expression. Has one or two children (Note, Music)."""
     pass
@@ -819,6 +837,21 @@ class Reader(object):
         for i in self.read(itertools.chain((t,), source) if t else source):
             item.append(i)
             break
+        return None, item
+    
+    @command('\\grace', '\\acciaccatura', '\\appoggiatura', '\\slashedGrace')
+    def handle_grace(self, t, source):
+        item = self.factory(Grace, t)
+        for i in self.read(source):
+            item.append(i)
+            break
+        return None, item
+    
+    @command('\\afterGrace')
+    def handle_after_grace(self, t, source):
+        item = self.factory(AfterGrace, t)
+        for i in itertools.islice(self.read(source), 2):
+            item.append(i)
         return None, item
     
     @command('\\repeat')
