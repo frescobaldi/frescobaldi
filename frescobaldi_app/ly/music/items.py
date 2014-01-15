@@ -307,6 +307,10 @@ class KeySignature(Item):
             return i.token[1:]
 
 
+class StringTuning(Item):
+    """A \\stringTuning command (with a chord as argument)."""
+
+
 class Keyword(Item):
     """A LilyPond keyword."""
 
@@ -937,7 +941,15 @@ class Reader(object):
                 break
             return None, item
         return t, item
-
+    
+    @command('\\stringTuning')
+    def handle_string_tuning(self, t, source):
+        item = self.factory(StringTuning, t)
+        for arg in self.read(source):
+            item.append(arg)
+            break
+        return None, item
+    
     @keyword('\\language')
     def handle_language(self, t, source):
         item = self.factory(Language, t)
