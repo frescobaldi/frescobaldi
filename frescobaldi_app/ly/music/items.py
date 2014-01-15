@@ -987,17 +987,6 @@ class Reader(object):
                 item.append(name)
         return item
     
-    @keyword('\\score', '\\bookpart', '\\book')
-    def handle_score_bookpart_book(self, t, source):
-        cls = {
-            '\\score': Score,
-            '\\bookpart': BookPart,
-            '\\book': Book,
-        }[t]
-        item = self.factory(cls, t)
-        self.add_bracketed(item, source)
-        return item
-    
     @keyword('\\version')
     def handle_version(self, t, source):
         item = self.factory(Version, t)
@@ -1006,29 +995,21 @@ class Reader(object):
             break
         return item
     
-    @keyword('\\paper')
-    def handle_paper(self, t, source):
-        item = self.factory(Paper, t)
-        self.add_bracketed(item, source)
-        return item
-    
-    @keyword('\\layout')
-    def handle_layout(self, t, source):
-        item = self.factory(Layout, t)
-        self.add_bracketed(item, source)
-        return item
-    
-    @keyword('\\midi')
-    def handle_midi(self, t, source):
-        item = self.factory(Midi, t)
-        self.add_bracketed(item, source)
-        return item
-    
-    @keyword('\\with')
-    def handle_with(self, t, source):
-        # \with also supports one other argument instead of { ... }
-        item = self.factory(With, t)
-        if not self.add_bracketed(item, source):
+    _bracketed_keywords = {
+        '\\score': Score,
+        '\\bookpart': BookPart,
+        '\\book': Book,
+        '\\paper': Paper,
+        '\\layout': Layout,
+        '\\midi': Midi,
+        '\\with': With,
+    }
+    @keyword(*_bracketed_keywords)
+    def handle_bracketed(self, t, source):
+        cls = self._bracketed_keywords[t]
+        item = self.factory(cls, t)
+        if not self.add_bracketed(item, source) and t == '\\with':
+            # \with also supports one other argument instead of { ... }
             for i in self.read(source):
                 item.append(i)
                 break
