@@ -408,6 +408,10 @@ class Score(Container):
     """A \\score { ... } construct."""
 
 
+class Header(Container):
+    """A \\header { ... } construct."""
+
+
 class Paper(Container):
     """A \\paper { ... } construct."""
 
@@ -814,7 +818,6 @@ class Reader(object):
                 elif not isinstance(t, ly.lex.Space):
                     self.source.pushback()
                     break
-        # stick the last token back if needed
         for i in self.read(source):
             item.append(i)
             break
@@ -996,6 +999,7 @@ class Reader(object):
         return item
     
     _bracketed_keywords = {
+        '\\header': Header,
         '\\score': Score,
         '\\bookpart': BookPart,
         '\\book': Book,
