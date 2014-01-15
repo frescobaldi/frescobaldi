@@ -504,15 +504,18 @@ class RepeatSpecifier(Specifier):
         return r"\b({0})(?![A-Za-z])".format("|".join(words.repeat_types))
     
 
-class RepeatStringSpecifier(String, Specifier):
-    @_token.patternproperty
-    def rx():
-        from .. import words
-        return r'"({0})"'.format("|".join(words.repeat_types))
-    
-
 class RepeatCount(IntegerValue, _token.Leaver):
     pass
+
+
+class Tempo(Command):
+    rx = r"\\tempo\b"
+    def update_state(self, state):
+        state.enter(ParseTempo())
+
+
+class TempoSeparator(Delimiter):
+    rx = r"[-~](?=\s*\d)"
 
 
 class Override(Keyword):
@@ -608,6 +611,13 @@ class PitchCommand(Command):
         state.enter(ParsePitchCommand(argcount))
 
 
+class KeySignatureMode(Command):
+    @_token.patternproperty
+    def rx():
+        from .. import words
+        return r"\\({0})(?![A-Za-z])".format("|".join(words.modes))
+
+    
 class Hide(Keyword):
     rx = r"\\hide\b"
     def update_state(self, state):
@@ -718,7 +728,7 @@ class GrobProperty(Variable):
     rx = r"([a-z]+|[XY])(-([a-z]+|[XY]))*(?![\w])"
 
 
-class ContextProperty(_token.Token):
+class ContextProperty(Variable):
     @_token.patternproperty
     def rx():
         from .. import data
@@ -819,6 +829,8 @@ command_items = (
     New, Context, Change,
     With,
     Clef,
+    Tempo,
+    KeySignatureMode,
     AccidentalStyle,
     AlterBroken,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
@@ -1106,8 +1118,28 @@ class ParseMarkup(Parser):
 class ParseRepeat(FallthroughParser):
     items = space_items + (
         RepeatSpecifier,
-        RepeatStringSpecifier,
+        StringQuotedStart,
         RepeatCount,
+    )
+
+
+class ParseTempo(FallthroughParser):
+    items = space_items + (
+        Markup,
+        StringQuotedStart,
+        SchemeStart,
+        Length,
+        EqualSign,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, EqualSign):
+            state.replace(ParseTempoAfterEqualSign())
+
+
+class ParseTempoAfterEqualSign(FallthroughParser):
+    items = space_items + (
+        IntegerValue,
+        TempoSeparator,
     )
 
 

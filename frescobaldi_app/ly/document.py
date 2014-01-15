@@ -829,6 +829,8 @@ class Source(object):
         used.
         
         """
+        self._pushback = False
+        self._last = None
         self._doc = document = cursor.document
         start_block = document.block(cursor.start)
         self._wp = tokens_with_position
@@ -926,12 +928,30 @@ class Source(object):
         self._gen = g()
     
     def __iter__(self):
-        return self._gen
+        return self
     
     def __next__(self):
-        return self._gen.next()
+        if self._pushback:
+            self._pushback = False
+            return self._last
+        i = self._last = next(self._gen)
+        return i
     
     next = __next__
+    
+    def pushback(self, pushback=True):
+        """Yields the last yielded token again on the next request.
+        
+        This can be called multiple times, but only the last token will be 
+        yielded again. You can also undo a call to pushback() using 
+        pushback(False).
+        
+        """
+        self._pushback = pushback
+    
+    def token(self):
+        """Re-returns the last yielded token."""
+        return self._last
     
     @property
     def document(self):

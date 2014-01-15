@@ -20,19 +20,22 @@
 """
 The items a read music expression is constructed with.
 
-Whitespace is left out, but comments are retained.
+Whitespace and comments are left out.
 
 """
 
 from __future__ import unicode_literals
 
+import itertools
 from fractions import Fraction
+import re
 
 import node
 
 import ly.duration
 import ly.pitch
 import ly.lex.lilypond
+import ly.lex.scheme
 
 
 class Item(node.WeakNode):
@@ -50,6 +53,14 @@ class Item(node.WeakNode):
     document = None
     tokens = ()
     token = None
+
+
+class Root(Item):
+    """The root node of a tree of Items.
+    
+    This is returned by the tree() method.
+    
+    """
 
 
 class Token(Item):
@@ -126,6 +137,24 @@ class Scaler(Music):
         return super(Scaler, self).length() * self.scaling
 
 
+class Grace(Music):
+    """Music that has grace timing, i.e. 0 as far as computation is concerned."""
+    def length(self):
+        return 0
+
+
+class AfterGrace(Music):
+    """The \afterGrace function with its two arguments.
+    
+    Only the duration of the first is counted.
+    
+    """
+    def length(self):
+        for i in self:
+            if isinstance(i, (Music, Durable)):
+                return i.length()
+
+
 class Relative(Music):
     """A \\relative music expression. Has one or two children (Note, Music)."""
     pass
@@ -136,37 +165,168 @@ class Absolute(Music):
     pass
 
 
-class SchemeValue(Item):
-    """The full list of tokens after a #."""
-    def get_pair_ints(self):
-        """Very basic way to get two integers specified as a pair."""
-        result = [int(t) for t in self.tokens if t.isdigit()]
-        if len(result) >= 2:
-            return tuple(result[:2])
-
-    def get_string(self):
-        """A basic way to get a quoted string value (without the quotes)."""
-        source = iter(self.tokens)
-        result = []
-        for t in source:
-            if isinstance(t, ly.lex.StringStart):
-                for t in source:
-                    if isinstance(t, ly.lex.Character) and t.startswith('\\'):
-                        result.append(t[1:])
-                    elif isinstance(t, ly.lex.StringEnd):
-                        break
-                    else:
-                        result.append(t)
-        return ''.join(result)
+class Transpose(Music):
+    """A \\transpose music expression. Has normally three children (Note, Note, Music)."""
 
 
-class StringValue(Item):
-    """A double-quoted string."""
+class Repeat(Music):
+    """A \\repeat expression."""
+    def specifier(self):
+        if isinstance(self._specifier, Scheme):
+            return self._specifier.get_string()
+        elif isinstance(self._specifier, String):
+            return self._specifier.value()
+        return self._specifier
     
-    def value(self):
-        return ''.join(
-            t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
-            for t in self.tokens[:-1])
+    def repeat_count(self):
+        if isinstance(self._repeat_count, Scheme):
+            return self._repeat_count.get_int() or 1
+        return int(self._repeat_count or '1') or 1
+
+    def length(self):
+        """Return the length of this music expression.
+        
+        If the specifier is "unfold" or "tremolo", the length is multiplied 
+        by the repeat_count value.
+        
+        If the next sibling is an Alternative item, it's contents are taken
+        into account.
+        
+        """
+        unfold = self.specifier() in ("unfold", "tremolo")
+        count = self.repeat_count()
+        length = super(Repeat, self).length()
+        if unfold:
+            length *= count
+        alt = self.next_sibling()
+        if isinstance(alt, Alternative):
+            alt_lengths = alt.lengths()
+            if alt_lengths:
+                if unfold:
+                    alt_lengths[0:0] = [alt_lengths[0]] * (count - len(alt_lengths))
+                length += sum(alt_lengths[:count])
+        return length
+
+
+class Alternative(Music):
+    """An \\alternative expression."""
+    def length(self):
+        """Return the maximum length of the child music lists.
+        
+        If the previous sibling of this item is a Repeat, returns 0.
+        
+        """
+        prev = self.previous_sibling()
+        if isinstance(prev, Repeat):
+            return 0
+        return max(self.lengths() or [0])
+        
+    def lengths(self):
+        """A list of length Fractions for every child music item."""
+        result = []
+        for item in self:
+            if isinstance(item, MusicList):
+                for i in item:
+                    if isinstance(i, (Music, Durable)):
+                        result.append(i.length())
+                break
+        return result
+
+
+class Translator(Item):
+    """Base class for a \\change, \\new, or \\context music expression."""
+    _context = None
+    _context_id = None
+    
+    def context(self):
+        return self._context
+    
+    def context_id(self):
+        """The context id, if specified after an equal sign."""
+        if isinstance(self._context_id, String):
+            return self._context_id.value()
+        return self._context_id
+
+
+class Context(Translator, Music):
+    """A \\new or \\context music expression."""
+
+
+class Change(Translator):
+    """A \\change music expression."""
+
+
+class Tempo(Item):
+    duration = None
+    _text = None
+    _tempo = ()
+    
+    def fraction(self):
+        """Return the note value as a fraction given before the equal sign."""
+        if self.duration:
+            return self.duration.base_scaling[0]
+            
+    def text(self):
+        """Return the text, if set. Can be Markup, Scheme, or String."""
+        return self._text
+    
+    def tempo(self):
+        """Return a list of integer values describing the tempo or range."""
+        result = []
+        for i in self._tempo:
+            if isinstance(i, Scheme):
+                v = i.get_int()
+                if v is not None:
+                    result.append(v)
+            else:
+                result.append(int(i))
+        return result
+
+
+class TimeSignature(Item):
+    """A \\time command."""
+    _num = 4
+    _fraction = Fraction(1, 4)
+
+    def length(self):
+        """The length of one measure in this time signature as a Fraction."""
+        return self._num * self._fraction
+    
+    def numerator(self):
+        """The upper number (e.g. for 3/2 it returns 3)."""
+        return self._num
+    
+    def fraction(self):
+        """The lower number as a Fraction (e.g. for 3/2 it returns 1/2)."""
+        return self._fraction
+
+
+class Partial(Item):
+    """A \\partial command."""
+    duration = None
+
+    def length(self):
+        """Return the duration given as argument as a Fraction."""
+        if self.duration:
+            base, scaling = self.duration.base_scaling
+            return base * scaling
+
+
+class KeySignature(Item):
+    """A \\key pitch \\mode command."""
+    def pitch(self):
+        """The ly.pitch.Pitch that denotes the pitch."""
+        for i in self.find(Note):
+            return i.pitch
+    
+    def mode(self):
+        """The mode, e.g. "major", "minor", etc."""
+        for i in self.find(Command):
+            return i.token[1:]
+
+
+class StringTuning(Item):
+    """A \\stringTuning command (with a chord as argument)."""
 
 
 class Keyword(Item):
@@ -178,14 +338,26 @@ class Command(Item):
 
 
 class UserCommand(Music):
-    """A user command, most probably referring to music.
-    
-    You can append other music items to it.
-    
-    """
+    """A user command, most probably referring to music."""
     def name(self):
         """Return the name of this user command (without the \\)."""
         return self.token[1:]
+
+
+class Version(Item):
+    """A \\version command."""
+    def version_string(self):
+        """The version as a string."""
+        for i in self:
+            if isinstance(i, String):
+                return i.value()
+            elif isinstance(i, Scheme):
+                return i.get_string()
+        return ''
+
+    def version(self):
+        """The version as a tuple of ints."""
+        return tuple(map(int, re.findall(r'\d+', self.version_string())))
 
 
 class Include(Item):
@@ -193,9 +365,9 @@ class Include(Item):
     def filename(self):
         """Returns the filename."""
         for i in self:
-            if isinstance(i, StringValue):
+            if isinstance(i, String):
                 return i.value()
-            elif isinstance(i, SchemeValue):
+            elif isinstance(i, Scheme):
                 return i.get_string()
 
 
@@ -225,19 +397,169 @@ class MarkupWord(Item):
 
 
 class Book(Container):
-    """A \book { ... } construct."""
+    """A \\book { ... } construct."""
 
 
 class BookPart(Container):
-    """A \bookpart { ... } construct."""
+    """A \\bookpart { ... } construct."""
 
 
 class Score(Container):
-    """A \score { ... } construct."""
+    """A \\score { ... } construct."""
 
+
+class Header(Container):
+    """A \\header { ... } construct."""
+
+
+class Paper(Container):
+    """A \\paper { ... } construct."""
+
+
+class Layout(Container):
+    """A \\layout { ... } construct."""
+
+
+class Midi(Container):
+    """A \\midi { ... } construct."""
+
+
+class With(Container):
+    """A \\with ... construct."""
+
+
+class Set(Item):
+    """A \\set command."""
+    def context(self):
+        """The context, if specified."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextName):
+                return t
+    
+    def property(self):
+        """The property."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextProperty):
+                return t
+        for t in self.tokens[::-1]:
+            if isinstance(t, ly.lex.lilypond.Name):
+                return t
+        
+    def value(self):
+        """The value, given as argument. This is simply the child element."""
+        for i in self:
+            return i
+
+
+class Unset(Item):
+    """An \\unset command."""
+    def context(self):
+        """The context, if specified."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextName):
+                return t
+    
+    def property(self):
+        """The property."""
+        for t in self.tokens:
+            if isinstance(t, ly.lex.lilypond.ContextProperty):
+                return t
+        for t in self.tokens[::-1]:
+            if isinstance(t, ly.lex.lilypond.Name):
+                return t
+
+
+class String(Item):
+    """A double-quoted string."""
+    
+    def value(self):
+        return ''.join(
+            t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
+            for t in self.tokens[:-1])
+
+
+class Number(Item):
+    """A numerical value, directly entered."""
+    def value(self):
+        if isinstance(self.token, ly.lex.lilypond.IntegerValue):
+            return int(self.token)
+        elif isinstance(self.token, ly.lex.lilypond.DecimalValue):
+            return float(self.token)
+        elif isinstance(self.token, ly.lex.lilypond.Fraction):
+            return Fraction(self.token)
+        elif self.token.isdigit():
+            return int(self.token)
+
+
+class Scheme(Item):
+    """A Scheme expression inside LilyPond."""
+    def get_pair_ints(self):
+        """Very basic way to get two integers specified as a pair."""
+        result = [int(i.token) for i in self.find(SchemeItem) if i.token.isdigit()]
+        if len(result) >= 2:
+            return tuple(result[:2])
+    
+    def get_int(self):
+        """A basic way to get one integer value."""
+        for i in self.find(SchemeItem):
+            if i.token.isdigit():
+                return int(i.token)
+
+    def get_string(self):
+        """A basic way to get a quoted string value (without the quotes)."""
+        return ''.join(i.value() for i in self.find(String))
+
+
+class SchemeItem(Item):
+    """Any scheme token."""
+
+
+class SchemeList(Container):
+    """A ( ... ) expression."""
+
+
+class SchemeQuote(Item):
+    """A ' in scheme."""
+
+
+class SchemeLily(Container):
+    """A music expression inside #{ and #}."""
+
+
+
+def skip(source, what=(ly.lex.Space, ly.lex.Comment)):
+    """Yield tokens from source, skipping items of classes specified in what.
+    
+    By default, comments and whitespace are skipped.
+    
+    """
+    for t in source:
+        if not isinstance(t, what):
+            yield t
+
+
+### These help with dispatching the commands and keywords
+_commands = {}
+_keywords = {}
+def dispatch(what, names):
+    def wrapper(func):
+        for n in names:
+            what[n] = func
+        if not func.__doc__:
+            func.__doc__ = "handle " + ", ".join(names)
+        return func
+    return wrapper
+def command(*names): return dispatch(_commands, names)
+def keyword(*names): return dispatch(_keywords, names)
+### (these are deleted at the end of this file.)
 
 
 class Reader(object):
+    """Reads tokens from a Source and builds a meaningful tree stucture."""
+    
+    # refer to the dispatch dictionaries in our own space
+    _commands = _commands
+    _keywords = _keywords
     
     def __init__(self, source):
         """Initialize with a ly.document.Source.
@@ -264,11 +586,7 @@ class Reader(object):
             return True
 
     def add_duration(self, item, token=None, source=None):
-        """Add a duration attribute to the item.
-        
-        Returns the last token if there were more read from the source.
-        
-        """
+        """Add a duration attribute to the item."""
         source = source or self.source
         d = item.duration = Duration()
         tokens = []
@@ -279,15 +597,13 @@ class Reader(object):
                 if isinstance(token, ly.lex.lilypond.Duration):
                     tokens.append(token)
                 elif not isinstance(token, ly.lex.Space):
+                    self.source.pushback()
                     break
-            else:
-                token = None
         if tokens:
             d.tokens = tuple(tokens)
             d.base_scaling = self.prev_duration = ly.duration.base_scaling(tokens)
         else:
             d.base_scaling = self.prev_duration
-        return token
     
     def consume(self, source=None, last_token=None):
         """Yield the tokens until a parser is exit.
@@ -314,55 +630,70 @@ class Reader(object):
             item.tokens = tuple(self.consume(source))
         return item
     
+    def add_bracketed(self, item, source):
+        """Append the arguments between brackets to the item.
+        
+        Returns True if that succeeded, else False.
+        
+        """
+        for t in source:
+            if isinstance(t, ly.lex.lilypond.OpenBracket):
+                tokens = [t]
+                item.extend(self.read(self.consume(source, tokens.append)))
+                item.tokens = tuple(tokens)
+                return True
+            elif not isinstance(t, ly.lex.Space):
+                self.source.pushback()
+                break
+        return False
+        
+    def tree(self):
+        """Return a Root node with all the Item instances, read from the source."""
+        root = self.factory(Root, None)
+        root.extend(i for i in self.read())
+        return root
+
     def read(self, source=None):
         """Yield Item instances reading from source."""
         
         source = source or self.source
-        for t in source:
-            while t:
-                if isinstance(t, (ly.lex.Space, ly.lex.Comment)):
-                    break
-                elif isinstance(t, ly.lex.lilypond.MusicItem):
-                    t, item = self.read_music_item(t, source)
-                    if item:
-                        yield item
-                    else:
-                        break   # t is an unknown note
-                elif not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
-                    self.in_chord = True
-                    chord = self.factory(Chord, t)
-                    def last(t): chord.tokens += (t,)
-                    chord.extend(self.read(self.consume(source, last)))
-                    self.in_chord = False
-                    t = self.add_duration(chord, None, source)
-                    yield chord
-                elif isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
-                    item = self.factory(MusicList, t)
-                    def last(t): item.tokens += (t,)
-                    item.extend(self.read(self.consume(source, last)))
-                    item.simultaneous = t == '<<'
+        for t in skip(source):
+            if isinstance(t, ly.lex.lilypond.MusicItem):
+                item = self.read_music_item(t, source)
+                if item:
                     yield item
-                    break
-                elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                    yield self.factory(SchemeValue, t, source)
-                    break
-                elif isinstance(t, ly.lex.StringStart):
-                    yield self.factory(StringValue, t, source)
-                    break
-                elif isinstance(t, ly.lex.lilypond.Markup):
-                    t, item = self.read_markup(t, source)
-                    yield item
-                elif isinstance(t, ly.lex.lilypond.Command):
-                    yield self.read_command(t, source)
-                    break
-                elif isinstance(t, ly.lex.lilypond.Keyword):
-                    t, item = self.read_keyword(t, source)
-                    yield item
-                elif isinstance(t, ly.lex.lilypond.UserCommand):
-                    yield self.read_user_command(t, source)
-                    break
-                else:
-                    break
+            elif not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
+                self.in_chord = True
+                chord = self.factory(Chord, t)
+                def last(t): chord.tokens += (t,)
+                chord.extend(self.read(self.consume(source, last)))
+                self.in_chord = False
+                self.add_duration(chord, None, source)
+                yield chord
+            elif isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
+                item = self.factory(MusicList, t)
+                def last(t): item.tokens += (t,)
+                item.extend(self.read(self.consume(source, last)))
+                item.simultaneous = t == '<<'
+                yield item
+            elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                yield self.read_scheme_item(t, source)
+            elif isinstance(t, ly.lex.StringStart):
+                yield self.factory(String, t, source)
+            elif isinstance(t, ly.lex.lilypond.Markup):
+                yield self.read_markup(t, source)
+            elif isinstance(t, ly.lex.lilypond.Command):
+                yield self.read_command(t, source)
+            elif isinstance(t, ly.lex.lilypond.Keyword):
+                yield self.read_keyword(t, source)
+            elif isinstance(t, ly.lex.lilypond.UserCommand):
+                yield self.read_user_command(t, source)
+            elif isinstance(t, (
+                    ly.lex.lilypond.DecimalValue,
+                    ly.lex.lilypond.IntegerValue,
+                    ly.lex.lilypond.Fraction,
+                )):
+                yield self.factory(Number, t)
                 
     def read_music_item(self, t, source):
         """Read one music item (note, rest, s, \skip, or q) from t and source."""
@@ -373,7 +704,6 @@ class Reader(object):
             if r:
                 item = self.factory(Note, t)
                 p = item.pitch = ly.pitch.Pitch(*r)
-                t = None # prevent hang in this loop
                 for t in source:
                     if isinstance(t, ly.lex.lilypond.Octave):
                         p.octave = ly.pitch.octaveToNum(t)
@@ -385,6 +715,7 @@ class Reader(object):
                         item.octavecheck_token = t
                         break
                     elif not isinstance(t, ly.lex.Space):
+                        self.source.pushback()
                         break
         else:
             cls = {
@@ -394,115 +725,325 @@ class Reader(object):
                 ly.lex.lilypond.Q: Q,
             }[t.__class__]
             item = self.factory(cls, t)
-            t = None
         if item:
             if not self.in_chord and not in_pitch_command:
-                t = self.add_duration(item, t, source)
-        return t, item
-
+                self.add_duration(item, None, source)
+        return item
+        
     def read_command(self, t, source):
         """Read the rest of a command given in t from the source."""
-        if t == '\\relative':
-            item = self.factory(Relative, t)
-            # get one pitch and exit on a non-comment
-            pitch_found = False
-            for i in self.read(source):
-                item.append(i)
-                if not pitch_found and isinstance(i, Note):
-                    pitch_found = True
-                    continue
-                break
-        elif t == '\\absolute':
-            item = self.factory(Absolute, t)
-            for i in self.read(source):
-                item.append(i)
-                break
-        elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
-            item = self.factory(Scaler, t)
-            item.scaling = 1
-            if t == '\\scaleDurations':
-                t = None
-                for i in self.read(source):
-                    item.append(i)
-                    if isinstance(i, SchemeValue):
-                        pair = i.get_pair_ints()
-                        if pair:
-                            item.scaling = Fraction(*pair)
-                    break
-            elif t == '\\tuplet':
-                t = None
-                for t in source:
-                    if isinstance(t, ly.lex.lilypond.Fraction):
-                        item.scaling = 1 / Fraction(t)
-                    elif isinstance(t, ly.lex.lilypond.Duration):
-                        t = self.add_duration(item, t, source)
-                        break
-                    elif not isinstance(t, ly.lex.Space):
-                        break
-            else: # t == '\\times'
-                t = None
-                for t in source:
-                    if isinstance(t, ly.lex.lilypond.Fraction):
-                        item.scaling = Fraction(t)
-                        t = None
-                        break
-                    elif not isinstance(t, ly.lex.Space):
-                        break
-            # stick the last token back if needed
-            for i in self.read(itertools.chain((t,), source) if t else source):
-                item.append(i)
-                break
-        else:
+        try:
+            meth = self._commands[t]
+        except KeyError:
             item = self.factory(Command, t)
-        return item
-
+            return item
+        return meth(self, t, source)
+    
     def read_keyword(self, t, source):
         """Read the rest of a keyword given in t from the source."""
-        if t == '\\language':
-            item = self.factory(Language, t)
-            for name in self.read(source):
-                item.append(name)
-                if isinstance(name, StringValue):
-                    value = item.language = name.value()
-                    if value in ly.pitch.pitchInfo:
-                        self.language = value
-                break
-            return None, item
-        elif t == '\\include':
-            item = None
-            name = None
-            for name in self.read(source):
-                if isinstance(name, StringValue):
-                    value = name.value()
-                    if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
-                        item = self.factory(Language, t)
-                        item.language = self.language = value[:-3]
-                        item.append(name)
-                break
-            if not item:
-                item = self.factory(Include, t)
-                if name:
-                    item.append(name)
-            return None, item
-        elif t in ('\\score', '\\bookpart', '\\book'):
-            cls = {
-                '\\score': Score,
-                '\\bookpart': BookPart,
-                '\\book': Book,
-            }[t]
-            item = self.factory(cls, t)
-            for t in source:
-                if isinstance(t, ly.lex.lilypond.OpenBracket):
-                    tokens = [t]
-                    item.extend(self.read(self.consume(source, tokens.append)))
-                    item.tokens = tuple(tokens)
-                    return None, item
-                elif not isinstance(t, ly.lex.Space):
-                    return t, item
-            return None, item
-        else:
+        try:
+            meth = self._keywords[t]
+        except KeyError:
             item = self.factory(Keyword, t)
-            return None, item
+            return item
+        return meth(self, t, source)
+    
+    @command('\\relative')
+    def handle_relative(self, t, source):
+        item = self.factory(Relative, t)
+        # get one pitch and exit on a non-comment
+        pitch_found = False
+        for i in self.read(source):
+            item.append(i)
+            if not pitch_found and isinstance(i, Note):
+                pitch_found = True
+                continue
+            break
+        return item
+    
+    @command('\\absolute')
+    def handle_absolute(self, t, source):
+        item = self.factory(Absolute, t)
+        for i in self.read(source):
+            item.append(i)
+            break
+        return item
+    
+    @command('\\transpose')
+    def handle_transpose(self, t, source):
+        item = self.factory(Transpose, t)
+        # get two pitches
+        pitches_found = 0
+        for i in self.read(source):
+            item.append(i)
+            if pitches_found < 2 and isinstance(i, Note):
+                pitches_found += 1
+                continue
+            break
+        return item
+    
+    @command('\\key')
+    def handle_key(self, t, source):
+        item = self.factory(KeySignature, t)
+        item.extend(itertools.islice(self.read(source), 2))
+        return item
+    
+    @command('\\times', '\\tuplet', '\\scaleDurations')
+    def handle_scaler(self, t, source):
+        item = self.factory(Scaler, t)
+        item.scaling = 1
+        if t == '\\scaleDurations':
+            for i in self.read(source):
+                item.append(i)
+                if isinstance(i, Scheme):
+                    pair = i.get_pair_ints()
+                    if pair:
+                        item.scaling = Fraction(*pair)
+                break
+        elif t == '\\tuplet':
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.Fraction):
+                    item.scaling = 1 / Fraction(t)
+                elif isinstance(t, ly.lex.lilypond.Duration):
+                    self.add_duration(item, t, source)
+                    break
+                elif not isinstance(t, ly.lex.Space):
+                    self.source.pushback()
+                    break
+        else: # t == '\\times'
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.Fraction):
+                    item.scaling = Fraction(t)
+                    break
+                elif not isinstance(t, ly.lex.Space):
+                    self.source.pushback()
+                    break
+        for i in self.read(source):
+            item.append(i)
+            break
+        return item
+    
+    @command('\\grace', '\\acciaccatura', '\\appoggiatura', '\\slashedGrace')
+    def handle_grace(self, t, source):
+        item = self.factory(Grace, t)
+        for i in self.read(source):
+            item.append(i)
+            break
+        return item
+    
+    @command('\\afterGrace')
+    def handle_after_grace(self, t, source):
+        item = self.factory(AfterGrace, t)
+        for i in itertools.islice(self.read(source), 2):
+            item.append(i)
+        return item
+    
+    @command('\\repeat')
+    def handle_repeat(self, t, source):
+        item = self.factory(Repeat, t)
+        item._specifier = None
+        item._repeat_count = None
+        for t in skip(source):
+            if isinstance(t, ly.lex.lilypond.RepeatSpecifier):
+                item._specifier = t
+            elif not item.specifier and isinstance(t, ly.lex.StringStart):
+                item._specifier = self.factory(String, t, source)
+            elif isinstance(t, ly.lex.lilypond.RepeatCount):
+                item._repeat_count = t
+            elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                # the specifier or count may be specified using scheme
+                s = self.read_scheme_item(t, source)
+                if item._specifier:
+                    if item._repeat_count:
+                        item.append(s)
+                        break
+                    item._repeat_count = s
+                else:
+                    item._specifier = s
+            else:
+                self.source.pushback()
+                for i in self.read(source):
+                    item.append(i)
+                    break
+                break
+        return item
+    
+    @command('\\alternative')
+    def handle_alternative(self, t, source):
+        item = self.factory(Alternative, t)
+        for i in self.read(source):
+            item.append(i)
+            break
+        return item
+    
+    @command('\\tempo')
+    def handle_tempo(self, t, source):
+        item = self.factory(Tempo, t)
+        item._text = None
+        item._tempo = []
+        source = self.consume(source)
+        equal_sign_seen = False
+        for t in source:
+            if not equal_sign_seen:
+                if not item._text:
+                    if isinstance(t, ly.lex.lilypond.SchemeStart):
+                        item._text = self.read_scheme_item(t, source)
+                    elif isinstance(t, ly.lex.StringStart):
+                        item._text = self.factory(String, t, source)
+                    elif isinstance(t, ly.lex.lilypond.Markup):
+                        item._text = self.read_markup(t, source)
+                elif isinstance(t, ly.lex.lilypond.Length):
+                    self.add_duration(item, t, source)
+                elif isinstance(t, ly.lex.lilypond.EqualSign):
+                    equal_sign_seen = True
+            elif isinstance(t, ly.lex.lilypond.IntegerValue):
+                item._tempo.append(t)
+            elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                item._tempo.append(self.read_scheme_item(t, source))
+        return item
+    
+    @command('\\time')
+    def handle_time(self, t, source):
+        item = self.factory(TimeSignature, t)
+        for t in skip(source):
+            if isinstance(t, ly.lex.lilypond.Fraction):
+                item._num, den = map(int, t.split('/'))
+                item._fraction = Fraction(1, den)
+            else:
+                self.source.pushback()
+            break
+        return item
+    
+    @command('\\partial')
+    def handle_partial(self, t, source):
+        item = self.factory(Partial, t)
+        self.add_duration(item, None, source)
+        return item
+    
+    @command('\\new', '\\context', '\\change')
+    def handle_translator(self, t, source):
+        cls = Change if t == '\\change' else Context 
+        item = self.factory(cls, t)
+        isource = self.consume(source)
+        for t in skip(isource):
+            if isinstance(t, (ly.lex.lilypond.ContextName, ly.lex.lilypond.Name)):
+                item._context = t
+                for t in isource:
+                    if isinstance(t, ly.lex.lilypond.EqualSign):
+                        for t in isource:
+                            if isinstance(t, ly.lex.StringStart):
+                                item._context_id = self.factory(String, t, isource)
+                                break
+                            elif isinstance(t, ly.lex.lilypond.Name):
+                                item._context_id = t
+                                break
+                            elif not isinstance(t, ly.lex.Space):
+                                self.source.pushback()
+                                break
+                    elif not isinstance(t, ly.lex.Space):
+                        self.source.pushback()
+                        break
+            else:
+                self.source.pushback()
+            break
+        if cls is not Change:
+            for i in self.read(source):
+                item.append(i)
+                break
+        return item
+    
+    @command('\\stringTuning')
+    def handle_string_tuning(self, t, source):
+        item = self.factory(StringTuning, t)
+        for arg in self.read(source):
+            item.append(arg)
+            break
+        return item
+    
+    @keyword('\\language')
+    def handle_language(self, t, source):
+        item = self.factory(Language, t)
+        for name in self.read(source):
+            item.append(name)
+            if isinstance(name, String):
+                value = item.language = name.value()
+                if value in ly.pitch.pitchInfo:
+                    self.language = value
+            break
+        return item
+    
+    @keyword('\\include')
+    def handle_include(self, t, source):
+        item = None
+        name = None
+        for name in self.read(source):
+            if isinstance(name, String):
+                value = name.value()
+                if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
+                    item = self.factory(Language, t)
+                    item.language = self.language = value[:-3]
+                    item.append(name)
+            break
+        if not item:
+            item = self.factory(Include, t)
+            if name:
+                item.append(name)
+        return item
+    
+    @keyword('\\version')
+    def handle_version(self, t, source):
+        item = self.factory(Version, t)
+        for arg in self.read(source):
+            item.append(arg)
+            break
+        return item
+    
+    _bracketed_keywords = {
+        '\\header': Header,
+        '\\score': Score,
+        '\\bookpart': BookPart,
+        '\\book': Book,
+        '\\paper': Paper,
+        '\\layout': Layout,
+        '\\midi': Midi,
+        '\\with': With,
+    }
+    @keyword(*_bracketed_keywords)
+    def handle_bracketed(self, t, source):
+        cls = self._bracketed_keywords[t]
+        item = self.factory(cls, t)
+        if not self.add_bracketed(item, source) and t == '\\with':
+            # \with also supports one other argument instead of { ... }
+            for i in self.read(source):
+                item.append(i)
+                break
+        return item
+    
+    @keyword('\\set')
+    def handle_set(self, t, source):
+        item = self.factory(Set, t)
+        tokens = []
+        for t in skip(source):
+            tokens.append(t)
+            if isinstance(t, ly.lex.lilypond.EqualSign):
+                item.tokens = tuple(tokens)
+                for i in self.read(source):
+                    item.append(i)
+                    break
+                break
+        return item
+    
+    @keyword('\\unset')
+    def handle_unset(self, t, source):
+        item = self.factory(Unset, t)
+        tokens = []
+        for t in skip(self.consume(source)):
+            if type(t) not in ly.lex.lilypond.ParseUnset.items:
+                self.source.pushback()
+                break
+            tokens.append(t)
+        item.tokens = tuple(tokens)
+        return item
 
     def read_user_command(self, t, source):
         """Read a user command, this can be a variable reference."""
@@ -520,45 +1061,98 @@ class Reader(object):
         return self.factory(UserCommand, t)
     
     def read_markup(self, t, source):
-        """Read LilyPond markup (recursively).
-        
-        Returns a two-tuple(token, item). Return t unmodified if item is None,
-        else t can be the token that is read while a markup expression ended.
-        
-        """
+        """Read LilyPond markup (recursively)."""
         source = self.consume(source)
         if t in ('\\markup', '\\markuplist', '\\markuplines'):
             item = self.factory(Markup, t)
         elif isinstance(t, ly.lex.lilypond.MarkupScore):
             item = self.factory(MarkupScore, t)
-            t = None
             for t in source:
                 if isinstance(t, ly.lex.lilypond.OpenBracket):
                     item.tokens = (t,)
                     def last(t): item.tokens += (t,)
                     item.extend(self.read(self.consume(source, last)))
-                    return None, item
-            return t, item
+                    return item
+                elif not isinstance(t, ly.lex.Space):
+                    self.source.pushback()
+                    break
+            return item
         elif isinstance(t, ly.lex.lilypond.MarkupCommand):
             item = self.factory(MarkupCommand, t)
         elif isinstance(t, ly.lex.lilypond.OpenBracketMarkup):
             item = self.factory(MarkupList, t)
         elif isinstance(t, ly.lex.lilypond.MarkupWord):
-            return None, self.factory(MarkupWord, t)
+            return self.factory(MarkupWord, t)
         elif isinstance(t, ly.lex.lilypond.SchemeStart):
-            return None, self.factory(SchemeValue, t, source)
+            return self.read_scheme_item(t, source)
         elif isinstance(t, ly.lex.StringStart):
-            return None, self.factory(StringValue, t, source)
+            return self.factory(String, t, source)
         else:
-            return t, None
+            return None
         # add arguments
-        t = None
         for t in source:
-            t, i = self.read_markup(t, source)
+            i = self.read_markup(t, source)
             if i:
                 item.append(i)
             elif isinstance(item, MarkupList) and isinstance(t, ly.lex.lilypond.CloseBracketMarkup):
                 item.tokens = (t,)
-        return t, item
+        return item
+    
+    def read_scheme_item(self, t, source):
+        """Reads a Scheme expression (just after the # in LilyPond mode)."""
+        item = self.factory(Scheme, t)
+        source = self.consume(source)
+        for t in source:
+            if not isinstance(t, ly.lex.Space):
+                i = self.read_scheme(t, source)
+                if i:
+                    item.append(i)
+                    break
+        return item
+
+    def read_scheme(self, t, source):
+        """Return a Scheme item from the token t."""
+        if isinstance(t, ly.lex.scheme.Quote):
+            item = self.factory(SchemeQuote, t)
+            source = self.consume(source)
+            for t in source:
+                if not isinstance(t, ly.lex.Space):
+                    i = self.read_scheme(t, source)
+                    if i:
+                        item.append(i)
+                        break
+            return item
+        elif isinstance(t, ly.lex.scheme.OpenParen):
+            item = self.factory(SchemeList, t)
+            def last(t): item.tokens = (t,)
+            source = self.consume(source, last)
+            for t in source:
+                if not isinstance(t, ly.lex.Space):
+                    i = self.read_scheme(t, source)
+                    if i:
+                        item.append(i)
+            return item
+        elif isinstance(t, ly.lex.StringStart):
+            return self.factory(String, t, source)
+        elif isinstance(t, (
+            ly.lex.scheme.Bool,
+            ly.lex.scheme.Char,
+            ly.lex.scheme.Word,
+            ly.lex.scheme.Number,
+            ly.lex.scheme.Fraction,
+            ly.lex.scheme.Float,
+            )):
+            return self.factory(SchemeItem, t)
+        elif isinstance(t, ly.lex.scheme.LilyPondStart):
+            item = self.factory(SchemeLily, t)
+            def last(t): item.tokens = (t,)
+            item.extend(self.read(self.consume(source, last)))
+            return item
+
+
+# remove the decorators and dispatch stuff
+del keyword, command, dispatch, _keywords, _commands
+
+
 
 
