@@ -512,7 +512,28 @@ def skip(source, what=(ly.lex.Space, ly.lex.Comment)):
             yield t
 
 
+### These help with dispatching the commands and keywords
+_commands = {}
+_keywords = {}
+def dispatch(what, names):
+    def wrapper(func):
+        for n in names:
+            what[n] = func
+        if not func.__doc__:
+            func.__doc__ = "handle " + ", ".join(names)
+        return func
+    return wrapper
+def command(*names): return dispatch(_commands, names)
+def keyword(*names): return dispatch(_keywords, names)
+### (these are deleted at the end of this file.)
+
+
 class Reader(object):
+    """Reads tokens from a Source and builds a meaningful tree stucture."""
+    
+    # refer to the dispatch dictionaries in our own space
+    _commands = _commands
+    _keywords = _keywords
     
     def __init__(self, source):
         """Initialize with a ly.document.Source.
@@ -589,6 +610,18 @@ class Reader(object):
             item.tokens = tuple(self.consume(source))
         return item
     
+    def bracketed(self, item, source):
+        """Return item with a bracketed expression."""
+        for t in source:
+            if isinstance(t, ly.lex.lilypond.OpenBracket):
+                tokens = [t]
+                item.extend(self.read(self.consume(source, tokens.append)))
+                item.tokens = tuple(tokens)
+                return None, item
+            elif not isinstance(t, ly.lex.Space):
+                return t, item
+        return None, item
+        
     def tree(self):
         """Return a Root node with all the Item instances, read from the source."""
         root = self.factory(Root, None)
@@ -687,287 +720,322 @@ class Reader(object):
             if not self.in_chord and not in_pitch_command:
                 t = self.add_duration(item, t, source)
         return t, item
-
+        
     def read_command(self, t, source):
         """Read the rest of a command given in t from the source."""
-        if t == '\\relative':
-            item = self.factory(Relative, t)
-            # get one pitch and exit on a non-comment
-            pitch_found = False
+        try:
+            meth = self._commands[t]
+        except KeyError:
+            item = self.factory(Command, t)
+            return None, item
+        return meth(self, t, source)
+    
+    def read_keyword(self, t, source):
+        """Read the rest of a keyword given in t from the source."""
+        try:
+            meth = self._keywords[t]
+        except KeyError:
+            item = self.factory(Keyword, t)
+            return None, item
+        return meth(self, t, source)
+    
+    @command('\\relative')
+    def handle_relative(self, t, source):
+        item = self.factory(Relative, t)
+        # get one pitch and exit on a non-comment
+        pitch_found = False
+        for i in self.read(source):
+            item.append(i)
+            if not pitch_found and isinstance(i, Note):
+                pitch_found = True
+                continue
+            break
+        return None, item
+    
+    @command('\\absolute')
+    def handle_absolute(self, t, source):
+        item = self.factory(Absolute, t)
+        for i in self.read(source):
+            item.append(i)
+            break
+        return None, item
+    
+    @command('\\transpose')
+    def handle_transpose(self, t, source):
+        item = self.factory(Transpose, t)
+        # get two pitches
+        pitches_found = 0
+        for i in self.read(source):
+            item.append(i)
+            if pitches_found < 2 and isinstance(i, Note):
+                pitches_found += 1
+                continue
+            break
+        return None, item
+    
+    @command('\\key')
+    def handle_key(self, t, source):
+        item = self.factory(KeySignature, t)
+        item.extend(itertools.islice(self.read(source), 2))
+        return None, item
+    
+    @command('\\times', '\\tuplet', '\\scaleDurations')
+    def handle_scaler(self, t, source):
+        item = self.factory(Scaler, t)
+        item.scaling = 1
+        if t == '\\scaleDurations':
+            t = None
             for i in self.read(source):
                 item.append(i)
-                if not pitch_found and isinstance(i, Note):
-                    pitch_found = True
-                    continue
+                if isinstance(i, Scheme):
+                    pair = i.get_pair_ints()
+                    if pair:
+                        item.scaling = Fraction(*pair)
                 break
-            return None, item
-        elif t == '\\absolute':
-            item = self.factory(Absolute, t)
-            for i in self.read(source):
-                item.append(i)
-                break
-            return None, item
-        elif t == '\\transpose':
-            item = self.factory(Transpose, t)
-            # get two pitches
-            pitches_found = 0
-            for i in self.read(source):
-                item.append(i)
-                if pitches_found < 2 and isinstance(i, Note):
-                    pitches_found += 1
-                    continue
-                break
-            return None, item
-        elif t == '\\key':
-            item = self.factory(KeySignature, t)
-            item.extend(itertools.islice(self.read(source), 2))
-            return None, item
-        elif t in ('\\times', '\\tuplet', '\\scaleDurations'):
-            item = self.factory(Scaler, t)
-            item.scaling = 1
-            if t == '\\scaleDurations':
-                t = None
-                for i in self.read(source):
-                    item.append(i)
-                    if isinstance(i, Scheme):
-                        pair = i.get_pair_ints()
-                        if pair:
-                            item.scaling = Fraction(*pair)
+        elif t == '\\tuplet':
+            t = None
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.Fraction):
+                    item.scaling = 1 / Fraction(t)
+                elif isinstance(t, ly.lex.lilypond.Duration):
+                    t = self.add_duration(item, t, source)
                     break
-            elif t == '\\tuplet':
-                t = None
-                for t in source:
-                    if isinstance(t, ly.lex.lilypond.Fraction):
-                        item.scaling = 1 / Fraction(t)
-                    elif isinstance(t, ly.lex.lilypond.Duration):
+                elif not isinstance(t, ly.lex.Space):
+                    break
+        else: # t == '\\times'
+            t = None
+            for t in source:
+                if isinstance(t, ly.lex.lilypond.Fraction):
+                    item.scaling = Fraction(t)
+                    t = None
+                    break
+                elif not isinstance(t, ly.lex.Space):
+                    break
+        # stick the last token back if needed
+        for i in self.read(itertools.chain((t,), source) if t else source):
+            item.append(i)
+            break
+        return None, item
+    
+    @command('\\repeat')
+    def handle_repeat(self, t, source):
+        item = self.factory(Repeat, t)
+        item._specifier = None
+        item._repeat_count = None
+        for t in skip(source):
+            if isinstance(t, ly.lex.lilypond.RepeatSpecifier):
+                item._specifier = t
+            elif not item.specifier and isinstance(t, ly.lex.StringStart):
+                item._specifier = self.factory(String, t, source)
+            elif isinstance(t, ly.lex.lilypond.RepeatCount):
+                item._repeat_count = t
+            elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                # the specifier or count may be specified using scheme
+                s = self.read_scheme_item(t, source)
+                if item._specifier:
+                    if item._repeat_count:
+                        item.append(s)
+                        break
+                    item._repeat_count = s
+                else:
+                    item._specifier = s
+            else:
+                for i in self.read(itertools.chain((t,), source)):
+                    item.append(i)
+                    break
+                break
+        return None, item
+    
+    @command('\\alternative')
+    def handle_alternative(self, t, source):
+        item = self.factory(Alternative, t)
+        for i in self.read(source):
+            item.append(i)
+            break
+        return None, item
+    
+    @command('\\tempo')
+    def handle_tempo(self, t, source):
+        item = self.factory(Tempo, t)
+        item._text = None
+        item._tempo = []
+        source = self.consume(source)
+        equal_sign_seen = False
+        for t in source:
+            while t:
+                if not equal_sign_seen:
+                    if not item._text:
+                        if isinstance(t, ly.lex.lilypond.SchemeStart):
+                            item._text = self.read_scheme_item(t, source)
+                        elif isinstance(t, ly.lex.StringStart):
+                            item._text = self.factory(String, t, source)
+                        elif isinstance(t, ly.lex.lilypond.Markup):
+                            t, i = self.read_markup(t, source)
+                            if i:
+                                item._text = i
+                                continue
+                    elif isinstance(t, ly.lex.lilypond.Length):
                         t = self.add_duration(item, t, source)
-                        break
-                    elif not isinstance(t, ly.lex.Space):
-                        break
-            else: # t == '\\times'
+                        continue
+                    elif isinstance(t, ly.lex.lilypond.EqualSign):
+                        equal_sign_seen = True
+                elif isinstance(t, ly.lex.lilypond.IntegerValue):
+                    item._tempo.append(t)
+                elif isinstance(t, ly.lex.lilypond.SchemeStart):
+                    item._tempo.append(self.read_scheme_item(t, source))
+                break
+        return None, item
+    
+    @command('\\time')
+    def handle_time(self, t, source):
+        item = self.factory(TimeSignature, t)
+        for t in skip(source):
+            if isinstance(t, ly.lex.lilypond.Fraction):
+                item._num, den = map(int, t.split('/'))
+                item._fraction = Fraction(1, den)
+            break
+        return None, item
+    
+    @command('\\partial')
+    def handle_partial(self, t, source):
+        item = self.factory(Partial, t)
+        t = self.add_duration(item, None, source)
+        return t, item
+    
+    @command('\\new', '\\context', '\\change')
+    def handle_translator(self, t, source):
+        cls = Change if t == '\\change' else Context 
+        item = self.factory(cls, t)
+        isource = self.consume(source)
+        t = None
+        for t in skip(isource):
+            if isinstance(t, (ly.lex.lilypond.ContextName, ly.lex.lilypond.Name)):
+                item._context = t
                 t = None
-                for t in source:
-                    if isinstance(t, ly.lex.lilypond.Fraction):
-                        item.scaling = Fraction(t)
+                for t in isource:
+                    if isinstance(t, ly.lex.lilypond.EqualSign):
                         t = None
-                        break
+                        for t in isource:
+                            if isinstance(t, ly.lex.StringStart):
+                                item._context_id = self.factory(String, t, isource)
+                                t = None
+                                break
+                            elif isinstance(t, ly.lex.lilypond.Name):
+                                item._context_id = t
+                                t = None
+                                break
+                            elif not isinstance(t, ly.lex.Space):
+                                break
                     elif not isinstance(t, ly.lex.Space):
                         break
-            # stick the last token back if needed
+                break
+            else:
+                break
+        if cls is not Change:
             for i in self.read(itertools.chain((t,), source) if t else source):
                 item.append(i)
                 break
             return None, item
-        elif t == '\\repeat':
-            item = self.factory(Repeat, t)
-            item._specifier = None
-            item._repeat_count = None
-            for t in skip(source):
-                if isinstance(t, ly.lex.lilypond.RepeatSpecifier):
-                    item._specifier = t
-                elif not item.specifier and isinstance(t, ly.lex.StringStart):
-                    item._specifier = self.factory(String, t, source)
-                elif isinstance(t, ly.lex.lilypond.RepeatCount):
-                    item._repeat_count = t
-                elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                    # the specifier or count may be specified using scheme
-                    s = self.read_scheme_item(t, source)
-                    if item._specifier:
-                        if item._repeat_count:
-                            item.append(s)
-                            break
-                        item._repeat_count = s
-                    else:
-                        item._specifier = s
-                else:
-                    for i in self.read(itertools.chain((t,), source)):
-                        item.append(i)
-                        break
-                    break
-            return None, item
-        elif t == '\\alternative':
-            item = self.factory(Alternative, t)
-            for i in self.read(source):
+        return t, item
+
+    @keyword('\\language')
+    def handle_language(self, t, source):
+        item = self.factory(Language, t)
+        for name in self.read(source):
+            item.append(name)
+            if isinstance(name, String):
+                value = item.language = name.value()
+                if value in ly.pitch.pitchInfo:
+                    self.language = value
+            break
+        return None, item
+    
+    @keyword('\\include')
+    def handle_include(self, t, source):
+        item = None
+        name = None
+        for name in self.read(source):
+            if isinstance(name, String):
+                value = name.value()
+                if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
+                    item = self.factory(Language, t)
+                    item.language = self.language = value[:-3]
+                    item.append(name)
+            break
+        if not item:
+            item = self.factory(Include, t)
+            if name:
+                item.append(name)
+        return None, item
+    
+    @keyword('\\score', '\\bookpart', '\\book')
+    def handle_score_bookpart_book(self, t, source):
+        cls = {
+            '\\score': Score,
+            '\\bookpart': BookPart,
+            '\\book': Book,
+        }[t]
+        return self.bracketed(self.factory(cls, t), source)
+    
+    @keyword('\\version')
+    def handle_version(self, t, source):
+        item = self.factory(Version, t)
+        for arg in self.read(source):
+            item.append(arg)
+            break
+        return None, item
+    
+    @keyword('\\paper')
+    def handle_paper(self, t, source):
+        return self.bracketed(self.factory(Paper, t), source)
+    
+    @keyword('\\layout')
+    def handle_layout(self, t, source):
+        return self.bracketed(self.factory(Layout, t), source)
+    
+    @keyword('\\midi')
+    def handle_midi(self, t, source):
+        return bracketed(self.factory(Midi, t), source)
+    
+    @keyword('\\with')
+    def handle_with(self, t, source):
+        # \with also supports one other argument instead of { ... }
+        t, item = self.bracketed(self.factory(With, t), source)
+        if t:
+            for i in self.read(itertools.chain((t,), source)):
                 item.append(i)
                 break
-            return None, item
-        elif t == '\\tempo':
-            item = self.factory(Tempo, t)
-            item._text = None
-            item._tempo = []
-            source = self.consume(source)
-            equal_sign_seen = False
-            for t in source:
-                while t:
-                    if not equal_sign_seen:
-                        if not item._text:
-                            if isinstance(t, ly.lex.lilypond.SchemeStart):
-                                item._text = self.read_scheme_item(t, source)
-                            elif isinstance(t, ly.lex.StringStart):
-                                item._text = self.factory(String, t, source)
-                            elif isinstance(t, ly.lex.lilypond.Markup):
-                                t, i = self.read_markup(t, source)
-                                if i:
-                                    item._text = i
-                                    continue
-                        elif isinstance(t, ly.lex.lilypond.Length):
-                            t = self.add_duration(item, t, source)
-                            continue
-                        elif isinstance(t, ly.lex.lilypond.EqualSign):
-                            equal_sign_seen = True
-                    elif isinstance(t, ly.lex.lilypond.IntegerValue):
-                        item._tempo.append(t)
-                    elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                        item._tempo.append(self.read_scheme_item(t, source))
-                    break
-            return None, item
-        elif t == '\\time':
-            item = self.factory(TimeSignature, t)
-            for t in skip(source):
-                if isinstance(t, ly.lex.lilypond.Fraction):
-                    item._num, den = map(int, t.split('/'))
-                    item._fraction = Fraction(1, den)
-                break
-            return None, item
-        elif t == '\\partial':
-            item = self.factory(Partial, t)
-            t = self.add_duration(item, None, source)
-            return t, item
-        elif t in ('\\new', '\\context', '\\change'):
-            cls = Change if t == '\\change' else Context 
-            item = self.factory(cls, t)
-            isource = self.consume(source)
-            t = None
-            for t in skip(isource):
-                if isinstance(t, (ly.lex.lilypond.ContextName, ly.lex.lilypond.Name)):
-                    item._context = t
-                    t = None
-                    for t in isource:
-                        if isinstance(t, ly.lex.lilypond.EqualSign):
-                            t = None
-                            for t in isource:
-                                if isinstance(t, ly.lex.StringStart):
-                                    item._context_id = self.factory(String, t, isource)
-                                    t = None
-                                    break
-                                elif isinstance(t, ly.lex.lilypond.Name):
-                                    item._context_id = t
-                                    t = None
-                                    break
-                                elif not isinstance(t, ly.lex.Space):
-                                    break
-                        elif not isinstance(t, ly.lex.Space):
-                            break
-                    break
-                else:
-                    break
-            if cls is not Change:
-                for i in self.read(itertools.chain((t,), source) if t else source):
+        return None, item
+    
+    @keyword('\\set')
+    def handle_set(self, t, source):
+        item = self.factory(Set, t)
+        tokens = []
+        t = None
+        for t in skip(source):
+            tokens.append(t)
+            if isinstance(t, ly.lex.lilypond.EqualSign):
+                item.tokens = tuple(tokens)
+                for i in self.read(source):
                     item.append(i)
                     break
-                return None, item
-            return t, item
-        else:
-            item = self.factory(Command, t)
-            return None, item
-
-    def read_keyword(self, t, source):
-        """Read the rest of a keyword given in t from the source."""
-        
-        def bracketed(item):
-            """Helper to return item with a bracketed expression."""
-            for t in source:
-                if isinstance(t, ly.lex.lilypond.OpenBracket):
-                    tokens = [t]
-                    item.extend(self.read(self.consume(source, tokens.append)))
-                    item.tokens = tuple(tokens)
-                    return None, item
-                elif not isinstance(t, ly.lex.Space):
-                    return t, item
-            return None, item
-        
-        if t == '\\language':
-            item = self.factory(Language, t)
-            for name in self.read(source):
-                item.append(name)
-                if isinstance(name, String):
-                    value = item.language = name.value()
-                    if value in ly.pitch.pitchInfo:
-                        self.language = value
-                break
-            return None, item
-        elif t == '\\include':
-            item = None
-            name = None
-            for name in self.read(source):
-                if isinstance(name, String):
-                    value = name.value()
-                    if value.endswith('.ly') and value[:-3] in ly.pitch.pitchInfo:
-                        item = self.factory(Language, t)
-                        item.language = self.language = value[:-3]
-                        item.append(name)
-                break
-            if not item:
-                item = self.factory(Include, t)
-                if name:
-                    item.append(name)
-            return None, item
-        elif t in ('\\score', '\\bookpart', '\\book'):
-            cls = {
-                '\\score': Score,
-                '\\bookpart': BookPart,
-                '\\book': Book,
-            }[t]
-            return bracketed(self.factory(cls, t))
-        elif t == '\\version':
-            item = self.factory(Version, t)
-            for arg in self.read(source):
-                item.append(arg)
-                break
-            return None, item
-        elif t == '\\paper':
-            return bracketed(self.factory(Paper, t))
-        elif t == '\\layout':
-            return bracketed(self.factory(Layout, t))
-        elif t == '\\midi':
-            return bracketed(self.factory(Midi, t))
-        elif t == '\\with':
-            # \with also supports one other argument instead of { ... }
-            t, item = bracketed(self.factory(With, t))
-            if t:
-                for i in self.read(itertools.chain((t,), source)):
-                    item.append(i)
-                    break
-            return None, item
-        elif t == '\\set':
-            item = self.factory(Set, t)
-            tokens = []
-            t = None
-            for t in skip(source):
-                tokens.append(t)
-                if isinstance(t, ly.lex.lilypond.EqualSign):
-                    item.tokens = tuple(tokens)
-                    for i in self.read(source):
-                        item.append(i)
-                        break
-                    t = None
-                    break
-            return t, item
-        elif t == '\\unset':
-            item = self.factory(Unset, t)
-            tokens = []
-            t = None
-            for t in skip(self.consume(source)):
-                if type(t) not in ly.lex.lilypond.ParseUnset.items:
-                    break
-                tokens.append(t)
-            else:
                 t = None
-            item.tokens = tuple(tokens)
-            return t, item
+                break
+        return t, item
+    
+    @keyword('\\unset')
+    def handle_unset(self, t, source):
+        item = self.factory(Unset, t)
+        tokens = []
+        t = None
+        for t in skip(self.consume(source)):
+            if type(t) not in ly.lex.lilypond.ParseUnset.items:
+                break
+            tokens.append(t)
         else:
-            item = self.factory(Keyword, t)
-            return None, item
+            t = None
+        item.tokens = tuple(tokens)
+        return t, item
 
     def read_user_command(self, t, source):
         """Read a user command, this can be a variable reference."""
@@ -1076,5 +1144,11 @@ class Reader(object):
             def last(t): item.tokens = (t,)
             item.extend(self.read(self.consume(source, last)))
             return item
+
+
+# remove the decorators and dispatch stuff
+del keyword, command, dispatch, _keywords, _commands
+
+
 
 
