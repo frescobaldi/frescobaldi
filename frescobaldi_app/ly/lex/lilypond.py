@@ -728,7 +728,7 @@ class GrobProperty(Variable):
     rx = r"([a-z]+|[XY])(-([a-z]+|[XY]))*(?![\w])"
 
 
-class ContextProperty(_token.Token):
+class ContextProperty(Variable):
     @_token.patternproperty
     def rx():
         from .. import data
