@@ -33,7 +33,17 @@ the mode modules.
 from __future__ import unicode_literals
 
 
-from slexer import Token
+import slexer
+
+
+class Token(slexer.Token):
+    def __repr__(self):
+        c = self.__class__
+        module = c.__module__.rsplit('.', 1)[-1]
+        name = c.__name__
+        contents = slexer.Token.__repr__(self)
+        where = self.pos
+        return '<{0}.{1} {2} at {3}>'.format(module, name, contents, where)
 
 
 class patternproperty(object):
