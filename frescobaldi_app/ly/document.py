@@ -830,6 +830,7 @@ class Source(object):
         
         """
         self._pushback = False
+        self._last = None
         self._doc = document = cursor.document
         start_block = document.block(cursor.start)
         self._wp = tokens_with_position
@@ -947,6 +948,10 @@ class Source(object):
         
         """
         self._pushback = pushback
+    
+    def token(self):
+        """Re-returns the last yielded token."""
+        return self._last
     
     @property
     def document(self):
