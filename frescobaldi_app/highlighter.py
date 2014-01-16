@@ -64,6 +64,7 @@ def mapping(data):
         ly.lex.lilypond.Octave: data.textFormat('lilypond', 'octave'),
         ly.lex.lilypond.Duration: data.textFormat('lilypond', 'duration'),
         ly.lex.lilypond.OctaveCheck: data.textFormat('lilypond', 'check'),
+        ly.lex.lilypond.Direction: data.textFormat('lilypond', 'articulation'),
         ly.lex.lilypond.Fingering: data.textFormat('lilypond', 'fingering'),
         ly.lex.lilypond.StringNumber: data.textFormat('lilypond', 'stringnumber'),
         ly.lex.lilypond.Articulation: data.textFormat('lilypond', 'articulation'),

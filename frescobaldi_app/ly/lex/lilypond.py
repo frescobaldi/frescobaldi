@@ -41,12 +41,27 @@ re_duration = r"(\\(maxima|longa|breve)\b|(1|2|4|8|16|32|64|128|256|512|1024|204
 re_dot = r"\."
 re_scaling = r"\*[\t ]*\d+(/\d+)?"
 
+# an identifier allowing letters and single hyphens inbetween
+re_identifier = r"[^\W\d_]+(-[^\W\d_]+)*"
 
-class Variable(_token.Token):
+# the lookahead pattern for the end of an identifier (ref)
+re_identifier_end = r"(?!-?[^\W\d])"
+
+class Identifier(_token.Token):
+    """A variable name, like "some-variable"."""
+    rx = r"(?<![^\W\d])" + re_identifier + re_identifier_end
+
+
+class IdentifierRef(_token.Token):
+    """A reference to an identifier, e.g. \some-variable."""
+    rx = r"\\" + re_identifier + re_identifier_end
+
+
+class Variable(Identifier):
     pass
 
 
-class UserVariable(_token.Token):
+class UserVariable(Identifier):
     pass
 
 
@@ -56,6 +71,10 @@ class Value(_token.Item, _token.Numeric):
 
 class DecimalValue(Value):
     rx = r"-?\d+(\.\d+)?"
+
+
+class IntegerValue(DecimalValue):
+    rx = r"\d+"
 
 
 class Fraction(Value):
@@ -114,7 +133,7 @@ class MusicItem(_token.Token):
 
     
 class Skip(MusicItem):
-    rx = r"\\skip(?![A-Za-z])"
+    rx = r"\\skip" + re_identifier_end
 
 
 class Spacer(MusicItem):
@@ -225,25 +244,30 @@ class PipeSymbol(Delimiter):
     rx = r"\|"
 
 
-class IntegerValue(Value):
-    rx = r"\d+"
-
-
 class Articulation(_token.Token):
-    @_token.patternproperty
-    def rx():
-        from .. import words
-        return r"\\({0})(?![A-Za-z])".format("|".join(itertools.chain(
-            words.articulations,
-            words.ornaments,
-            words.fermatas,
-            words.instrument_scripts,
-            words.repeat_scripts,
-            words.ancient_scripts,
-        )))
+    """Base class for articulation things."""
+
+
+class ArticulationCommand(Articulation, IdentifierRef):
+    @classmethod
+    def test_match(cls, match):
+        s = match.group()[1:]
+        if '-' not in s:
+            from .. import words
+            for l in (
+                words.articulations,
+                words.ornaments,
+                words.fermatas,
+                words.instrument_scripts,
+                words.repeat_scripts,
+                words.ancient_scripts,
+            ):
+                if s in l:
+                    return True
+        return False
     
     
-class Direction(Articulation):
+class Direction(_token.Token):
     rx = r"[-_^]"
     def update_state(self, state):
         state.enter(ParseScriptAbbreviationOrFingering())
@@ -351,13 +375,6 @@ class ChordDot(ChordItem):
     rx = r"\."
 
 
-class Keyword(_token.Item):
-    @_token.patternproperty
-    def rx():
-        from .. import words
-        return r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_keywords))
-
-
 class VoiceSeparator(Delimiter):
     rx = r"\\\\"
     
@@ -366,12 +383,26 @@ class Dynamic(_token.Token):
     rx = re_dynamic
 
 
-class Command(_token.Item):
-    @_token.patternproperty
-    def rx():
-        from .. import words
-        return r"\\({0})(?![A-Za-z])".format("|".join(words.lilypond_music_commands))
+class Command(_token.Item, IdentifierRef):
+    @classmethod
+    def test_match(cls, match):
+        s = match.group()[1:]
+        if '-' not in s:
+            from .. import words
+            return s in words.lilypond_music_commands
+        return False
     
+
+class Keyword(_token.Item, IdentifierRef):
+    @classmethod
+    def test_match(cls, match):
+        s = match.group()[1:]
+        print s
+        if '-' not in s:
+            from .. import words
+            return s in words.lilypond_keywords
+        return False
+
 
 class Specifier(_token.Token):
     # a specifier of a command e.g. the name of clef or repeat style.
@@ -432,26 +463,30 @@ class LayoutContext(Keyword):
         state.enter(ExpectContext())
 
 
-class Markup(Command):
-    rx = r"\\markup(?![A-Za-z])"
+class Markup(_token.Item):
+    """Base class for all markup commands."""
+
+
+class MarkupStart(Markup, Command):
+    rx = r"\\markup" + re_identifier_end
     def update_state(self, state):
         state.enter(ParseMarkup(1))
 
 
 class MarkupLines(Markup):
-    rx = r"\\markuplines(?![A-Za-z])"
+    rx = r"\\markuplines" + re_identifier_end
     def update_state(self, state):
         state.enter(ParseMarkup(1))
 
 
 class MarkupList(Markup):
-    rx = r"\\markuplist(?![A-Za-z])"
+    rx = r"\\markuplist" + re_identifier_end
     def update_state(self, state):
         state.enter(ParseMarkup(1))
 
 
-class MarkupCommand(Markup):
-    rx = r"\\[^\W\d_]+(-[^\W\d_]+)*(?![A-Za-z])"
+class MarkupCommand(Markup, IdentifierRef):
+    """Any markup command."""
     def update_state(self, state):
         from .. import words
         command = self[1:]
@@ -692,8 +727,8 @@ class FigureMode(InputMode):
         state.enter(ExpectFigureMode())
 
 
-class UserCommand(_token.Token):
-    rx = r"\\[^\W\d_]+(?![^\W\d_])"
+class UserCommand(IdentifierRef):
+    pass
     
     
 class SchemeStart(_token.Item):
@@ -783,17 +818,6 @@ class ErrorInChord(Error):
 
 class Name(UserVariable):
     """A variable name without \\ prefix."""
-    rx = r"[^\W\d_]+(?![^\W\d_])"
-    
-
-class NameLower(Name):
-    """A lowercase name."""
-    rx = r"[a-z]+(?![a-zA-Z])"
-    
-    
-class NameHyphenLower(Name):
-    """A lowercase name that may contain hyphens."""
-    rx = r"[a-z]+(-[a-z]+)*(!?[-a-zA-Z])"
     
 
 class EqualSign(_token.Token):
@@ -834,7 +858,8 @@ command_items = (
     AccidentalStyle,
     AlterBroken,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
-    Markup, MarkupLines, MarkupList,
+    MarkupStart, MarkupLines, MarkupList,
+    ArticulationCommand,
     Keyword,
     Command,
     UserCommand,
@@ -881,7 +906,6 @@ music_items = base_items + (
     BeamStart, BeamEnd,
     LigatureStart, LigatureEnd,
     Direction,
-    Articulation,
     StringNumber,
     IntegerValue,
 ) + command_items
@@ -902,7 +926,7 @@ class ParseGlobal(ParseLilyPond):
         Book,
         BookPart,
         Score,
-        Markup, MarkupLines, MarkupList,
+        MarkupStart, MarkupLines, MarkupList,
         Paper, Header, Layout,
     ) + toplevel_base_items + (
         Name,
@@ -957,7 +981,7 @@ class ParseBook(ParseLilyPond):
     """Parses the expression after \book {, leaving at } """
     items = (
         CloseBracket,
-        Markup, MarkupLines, MarkupList,
+        MarkupStart, MarkupLines, MarkupList,
         BookPart,
         Score,
         Paper, Header, Layout,
@@ -973,7 +997,7 @@ class ParseBookPart(ParseLilyPond):
     """Parses the expression after \bookpart {, leaving at } """
     items = (
         CloseBracket,
-        Markup, MarkupLines, MarkupList,
+        MarkupStart, MarkupLines, MarkupList,
         Score,
         Paper, Header, Layout,
     ) + toplevel_base_items
@@ -987,7 +1011,7 @@ class ParsePaper(ParseLilyPond):
     """Parses the expression after \paper {, leaving at } """
     items = base_items + (
         CloseBracket,
-        Markup, MarkupLines, MarkupList,
+        MarkupStart, MarkupLines, MarkupList,
         PaperVariable,
         EqualSign,
         DecimalValue,
@@ -1003,7 +1027,7 @@ class ParseHeader(ParseLilyPond):
     """Parses the expression after \header {, leaving at } """
     items = (
         CloseBracket,
-        Markup, MarkupLines, MarkupList,
+        MarkupStart, MarkupLines, MarkupList,
         HeaderVariable,
         EqualSign,
     ) + toplevel_base_items
@@ -1125,7 +1149,7 @@ class ParseRepeat(FallthroughParser):
 
 class ParseTempo(FallthroughParser):
     items = space_items + (
-        Markup,
+        MarkupStart,
         StringQuotedStart,
         SchemeStart,
         Length,
@@ -1373,7 +1397,7 @@ class ParseLyricMode(ParseInputMode):
         Dynamic,
         Skip,
         Length,
-        Markup, MarkupLines, MarkupList,
+        MarkupStart, MarkupLines, MarkupList,
     ) + command_items
     
     def update_state(self, state, token):
