@@ -604,29 +604,29 @@ class Reader(object):
         else:
             d.base_scaling = self.prev_duration
     
-    def consume(self, source=None, last_token=None):
-        """Yield the tokens until a parser is exit.
+    def consume(self, last_token=None):
+        """Yield the tokens from our source until a parser is exit.
         
-        If source is given, tokens are read from it, else from self.source.
         If last_token is given, it is called with the last token that is read.
         
         """
-        source = source or self.source
-        depth = self.source.state.depth()
-        for t in source:
+        t = None
+        for t in self.source.until_parser_end():
             yield t
-            if self.source.state.depth() < depth and not self.source._pushback:
-                if last_token:
-                    last_token(t)
-                break
+        if last_token and t is not None:
+            last_token(t)
 
-    def factory(self, cls, token, source=None):
-        """Create Item instance for token, consuming(source) if given into item.tokens."""
+    def factory(self, cls, token, consume=False):
+        """Create Item instance for token.
+        
+        If consume is True, consume()s the source into item.tokens.
+        
+        """
         item = cls()
         item.document = self.source.document
         item.token = token
-        if source:
-            item.tokens = tuple(self.consume(source))
+        if consume:
+            item.tokens = tuple(self.consume())
         return item
     
     def add_bracketed(self, item, source):
@@ -638,7 +638,7 @@ class Reader(object):
         for t in source:
             if isinstance(t, ly.lex.lilypond.OpenBracket):
                 tokens = [t]
-                item.extend(self.read(self.consume(source, tokens.append)))
+                item.extend(self.read(self.consume(tokens.append)))
                 item.tokens = tuple(tokens)
                 return True
             elif not isinstance(t, ly.lex.Space):
@@ -665,22 +665,22 @@ class Reader(object):
                 self.in_chord = True
                 chord = self.factory(Chord, t)
                 def last(t): chord.tokens += (t,)
-                chord.extend(self.read(self.consume(source, last)))
+                chord.extend(self.read(self.consume(last)))
                 self.in_chord = False
                 self.add_duration(chord, None, source)
                 yield chord
             elif isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
                 item = self.factory(MusicList, t)
                 def last(t): item.tokens += (t,)
-                item.extend(self.read(self.consume(source, last)))
+                item.extend(self.read(self.consume(last)))
                 item.simultaneous = t == '<<'
                 yield item
             elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                yield self.read_scheme_item(t, source)
+                yield self.read_scheme_item(t)
             elif isinstance(t, ly.lex.StringStart):
-                yield self.factory(String, t, source)
+                yield self.factory(String, t, True)
             elif isinstance(t, ly.lex.lilypond.Markup):
-                yield self.read_markup(t, source)
+                yield self.read_markup(t)
             elif isinstance(t, ly.lex.lilypond.Command):
                 yield self.read_command(t, source)
             elif isinstance(t, ly.lex.lilypond.Keyword):
@@ -846,12 +846,12 @@ class Reader(object):
             if isinstance(t, ly.lex.lilypond.RepeatSpecifier):
                 item._specifier = t
             elif not item.specifier and isinstance(t, ly.lex.StringStart):
-                item._specifier = self.factory(String, t, source)
+                item._specifier = self.factory(String, t, True)
             elif isinstance(t, ly.lex.lilypond.RepeatCount):
                 item._repeat_count = t
             elif isinstance(t, ly.lex.lilypond.SchemeStart):
                 # the specifier or count may be specified using scheme
-                s = self.read_scheme_item(t, source)
+                s = self.read_scheme_item(t)
                 if item._specifier:
                     if item._repeat_count:
                         item.append(s)
@@ -886,17 +886,17 @@ class Reader(object):
         item = self.factory(Tempo, t)
         item._text = None
         item._tempo = []
-        source = self.consume(source)
+        source = self.consume()
         equal_sign_seen = False
         for t in source:
             if not equal_sign_seen:
                 if not item._text:
                     if isinstance(t, ly.lex.lilypond.SchemeStart):
-                        item._text = self.read_scheme_item(t, source)
+                        item._text = self.read_scheme_item(t)
                     elif isinstance(t, ly.lex.StringStart):
-                        item._text = self.factory(String, t, source)
+                        item._text = self.factory(String, t, True)
                     elif isinstance(t, ly.lex.lilypond.Markup):
-                        item._text = self.read_markup(t, source)
+                        item._text = self.read_markup(t)
                 elif isinstance(t, ly.lex.lilypond.Length):
                     self.add_duration(item, t, source)
                 elif isinstance(t, ly.lex.lilypond.EqualSign):
@@ -904,7 +904,7 @@ class Reader(object):
             elif isinstance(t, ly.lex.lilypond.IntegerValue):
                 item._tempo.append(t)
             elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                item._tempo.append(self.read_scheme_item(t, source))
+                item._tempo.append(self.read_scheme_item(t))
         return item
     
     @command('\\time')
@@ -929,7 +929,7 @@ class Reader(object):
     def handle_translator(self, t, source):
         cls = Change if t == '\\change' else Context 
         item = self.factory(cls, t)
-        isource = self.consume(source)
+        isource = self.consume()
         for t in skip(isource):
             if isinstance(t, (ly.lex.lilypond.ContextName, ly.lex.lilypond.Name)):
                 item._context = t
@@ -937,7 +937,7 @@ class Reader(object):
                     if isinstance(t, ly.lex.lilypond.EqualSign):
                         for t in isource:
                             if isinstance(t, ly.lex.StringStart):
-                                item._context_id = self.factory(String, t, isource)
+                                item._context_id = self.factory(String, t, True)
                                 break
                             elif isinstance(t, ly.lex.lilypond.Name):
                                 item._context_id = t
@@ -1042,7 +1042,7 @@ class Reader(object):
     def handle_unset(self, t, source):
         item = self.factory(Unset, t)
         tokens = []
-        for t in skip(self.consume(source)):
+        for t in skip(self.consume()):
             if type(t) not in ly.lex.lilypond.ParseUnset.items:
                 self.source.pushback()
                 break
@@ -1065,18 +1065,17 @@ class Reader(object):
                 return i
         return self.factory(UserCommand, t)
     
-    def read_markup(self, t, source):
+    def read_markup(self, t):
         """Read LilyPond markup (recursively)."""
-        source = self.consume(source)
         if t in ('\\markup', '\\markuplist', '\\markuplines'):
             item = self.factory(Markup, t)
         elif isinstance(t, ly.lex.lilypond.MarkupScore):
             item = self.factory(MarkupScore, t)
-            for t in source:
+            for t in self.consume():
                 if isinstance(t, ly.lex.lilypond.OpenBracket):
                     item.tokens = (t,)
                     def last(t): item.tokens += (t,)
-                    item.extend(self.read(self.consume(source, last)))
+                    item.extend(self.read(self.consume(last)))
                     return item
                 elif not isinstance(t, ly.lex.Space):
                     self.source.pushback()
@@ -1089,40 +1088,38 @@ class Reader(object):
         elif isinstance(t, ly.lex.lilypond.MarkupWord):
             return self.factory(MarkupWord, t)
         elif isinstance(t, ly.lex.lilypond.SchemeStart):
-            return self.read_scheme_item(t, source)
+            return self.read_scheme_item(t)
         elif isinstance(t, ly.lex.StringStart):
-            return self.factory(String, t, source)
+            return self.factory(String, t, True)
         else:
             return None
         # add arguments
-        for t in source:
-            i = self.read_markup(t, source)
+        for t in self.consume():
+            i = self.read_markup(t)
             if i:
                 item.append(i)
             elif isinstance(item, MarkupList) and isinstance(t, ly.lex.lilypond.CloseBracketMarkup):
                 item.tokens = (t,)
         return item
     
-    def read_scheme_item(self, t, source):
+    def read_scheme_item(self, t):
         """Reads a Scheme expression (just after the # in LilyPond mode)."""
         item = self.factory(Scheme, t)
-        source = self.consume(source)
-        for t in source:
+        for t in self.consume():
             if not isinstance(t, ly.lex.Space):
-                i = self.read_scheme(t, source)
+                i = self.read_scheme(t)
                 if i:
                     item.append(i)
                     break
         return item
 
-    def read_scheme(self, t, source):
+    def read_scheme(self, t):
         """Return a Scheme item from the token t."""
         if isinstance(t, ly.lex.scheme.Quote):
             item = self.factory(SchemeQuote, t)
-            source = self.consume(source)
-            for t in source:
+            for t in self.consume():
                 if not isinstance(t, ly.lex.Space):
-                    i = self.read_scheme(t, source)
+                    i = self.read_scheme(t)
                     if i:
                         item.append(i)
                         break
@@ -1130,15 +1127,14 @@ class Reader(object):
         elif isinstance(t, ly.lex.scheme.OpenParen):
             item = self.factory(SchemeList, t)
             def last(t): item.tokens = (t,)
-            source = self.consume(source, last)
-            for t in source:
+            for t in self.consume(last):
                 if not isinstance(t, ly.lex.Space):
-                    i = self.read_scheme(t, source)
+                    i = self.read_scheme(t)
                     if i:
                         item.append(i)
             return item
         elif isinstance(t, ly.lex.StringStart):
-            return self.factory(String, t, source)
+            return self.factory(String, t, True)
         elif isinstance(t, (
             ly.lex.scheme.Bool,
             ly.lex.scheme.Char,
@@ -1151,7 +1147,7 @@ class Reader(object):
         elif isinstance(t, ly.lex.scheme.LilyPondStart):
             item = self.factory(SchemeLily, t)
             def last(t): item.tokens = (t,)
-            item.extend(self.read(self.consume(source, last)))
+            item.extend(self.read(self.consume(last)))
             return item
 
 
