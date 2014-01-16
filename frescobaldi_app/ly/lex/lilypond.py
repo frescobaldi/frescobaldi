@@ -47,13 +47,14 @@ re_identifier = r"[^\W\d_]+(-[^\W\d_]+)*"
 # the lookahead pattern for the end of an identifier (ref)
 re_identifier_end = r"(?!-?[^\W\d])"
 
+
 class Identifier(_token.Token):
     """A variable name, like "some-variable"."""
     rx = r"(?<![^\W\d])" + re_identifier + re_identifier_end
 
 
 class IdentifierRef(_token.Token):
-    """A reference to an identifier, e.g. \some-variable."""
+    """A reference to an identifier, e.g. "\some-variable"."""
     rx = r"\\" + re_identifier + re_identifier_end
 
 
@@ -81,6 +82,15 @@ class Fraction(Value):
     rx = r"\d+/\d+"
     
     
+class Delimiter(_token.Token):
+    pass
+
+
+class DotPath(Delimiter):
+    """A dot in dotted path notation."""
+    rx = r"\."
+
+
 class Error(_token.Error):
     pass
 
@@ -190,10 +200,6 @@ class Scaling(Duration):
     rx = re_scaling
     
     
-class Delimiter(_token.Token):
-    pass
-
-
 class OpenBracket(Delimiter, _token.MatchStart, _token.Indent):
     """An open bracket, does not enter different parser, subclass or reimplement Parser.update_state()."""
     rx = r"\{"
@@ -371,7 +377,7 @@ class ChordStepNumber(ChordItem):
     rx = r"\d+[-+]?"
 
 
-class ChordDot(ChordItem):
+class DotChord(ChordItem):
     rx = r"\."
 
 
@@ -397,7 +403,6 @@ class Keyword(_token.Item, IdentifierRef):
     @classmethod
     def test_match(cls, match):
         s = match.group()[1:]
-        print s
         if '-' not in s:
             from .. import words
             return s in words.lilypond_keywords
@@ -570,10 +575,6 @@ class Revert(Override):
     def update_state(self, state):
         state.enter(ParseRevert())
     
-
-class DotSetOverride(Delimiter):
-    rx = r"\."
-
 
 class Unset(Keyword):
     rx = r"\\unset\b"
@@ -760,7 +761,7 @@ class GrobName(_token.Token):
 
 
 class GrobProperty(Variable):
-    rx = r"([a-z]+|[XY])(-([a-z]+|[XY]))*(?![\w])"
+    rx = r"\b([a-z]+|[XY])(-([a-z]+|[XY]))*(?![\w])"
 
 
 class ContextProperty(Variable):
@@ -771,24 +772,27 @@ class ContextProperty(Variable):
 
 
 class PaperVariable(Variable):
-    @_token.patternproperty
-    def rx():
+    """A variable inside Paper. Always follow this one by UserVariable."""
+    @classmethod
+    def test_match(cls, match):
         from .. import words
-        return r"\b({0})\b".format("|".join(words.papervariables))
+        return match.group() in words.papervariables
 
 
 class HeaderVariable(Variable):
-    @_token.patternproperty
-    def rx():
+    """A variable inside Header. Always follow this one by UserVariable."""
+    @classmethod
+    def test_match(cls, match):
         from .. import words
-        return r"\b({0})\b".format("|".join(words.headervariables))
+        return match.group() in words.headervariables
 
 
 class LayoutVariable(Variable):
-    @_token.patternproperty
-    def rx():
+    """A variable inside Header. Always follow this one by UserVariable."""
+    @classmethod
+    def test_match(cls, match):
         from .. import words
-        return r"\b({0})\b".format("|".join(words.layoutvariables))
+        return match.group() in words.layoutvariables
 
 
 class Chord(_token.Token):
@@ -874,7 +878,6 @@ toplevel_base_items = base_items + (
     Direction,
     SequentialStart,
     SimultaneousStart,
-    Articulation,
     StringNumber,
 ) + command_items
 
@@ -930,6 +933,7 @@ class ParseGlobal(ParseLilyPond):
         Paper, Header, Layout,
     ) + toplevel_base_items + (
         Name,
+        DotPath,
         EqualSign,
     )
 
@@ -1013,7 +1017,9 @@ class ParsePaper(ParseLilyPond):
         CloseBracket,
         MarkupStart, MarkupLines, MarkupList,
         PaperVariable,
+        UserVariable,
         EqualSign,
+        DotPath,
         DecimalValue,
         Unit,
     )
@@ -1029,7 +1035,9 @@ class ParseHeader(ParseLilyPond):
         CloseBracket,
         MarkupStart, MarkupLines, MarkupList,
         HeaderVariable,
+        UserVariable,
         EqualSign,
+        DotPath,
     ) + toplevel_base_items
 
 
@@ -1043,7 +1051,9 @@ class ParseLayout(ParseLilyPond):
         CloseBracket,
         LayoutContext,
         LayoutVariable,
+        UserVariable,
         EqualSign,
+        DotPath,
         DecimalValue,
         Unit,
         ContextName,
@@ -1061,7 +1071,9 @@ class ParseMidi(ParseLilyPond):
         CloseBracket,
         LayoutContext,
         LayoutVariable,
+        UserVariable,
         EqualSign,
+        DotPath,
         DecimalValue,
         Unit,
         ContextName,
@@ -1081,6 +1093,7 @@ class ParseWith(ParseLilyPond):
         GrobName,
         ContextProperty,
         EqualSign,
+        DotPath,
     ) + toplevel_base_items
 
 
@@ -1095,6 +1108,7 @@ class ParseContext(ParseLilyPond):
         BackSlashedContextName,
         ContextProperty,
         EqualSign,
+        DotPath,
     ) + toplevel_base_items
 
 
@@ -1187,7 +1201,7 @@ class ParseOverride(ParseLilyPond):
     argcount = 0
     items = (
         ContextName,
-        DotSetOverride,
+        DotPath,
         GrobName,
         GrobProperty,
         EqualSign,
@@ -1207,7 +1221,7 @@ class ParseRevert(FallthroughParser):
     # assuming that the previous parser will handle it)
     items = space_items + (
         ContextName,
-        DotSetOverride,
+        DotPath,
         GrobName,
         GrobProperty,
     )
@@ -1218,10 +1232,10 @@ class ParseRevert(FallthroughParser):
     
 class ParseGrobPropertyPath(FallthroughParser):
     items = space_items + (
-        DotSetOverride,
+        DotPath,
     )
     def update_state(self, state, token):
-        if isinstance(token, DotSetOverride):
+        if isinstance(token, DotPath):
             state.enter(ExpectGrobProperty())
 
 
@@ -1238,7 +1252,7 @@ class ParseSet(ParseLilyPond):
     argcount = 0
     items = (
         ContextName,
-        DotSetOverride,
+        DotPath,
         ContextProperty,
         EqualSign,
         Name,
@@ -1251,7 +1265,7 @@ class ParseSet(ParseLilyPond):
 class ParseUnset(FallthroughParser):
     items = space_items + (
         ContextName,
-        DotSetOverride,
+        DotPath,
         ContextProperty,
         Name,
     )
@@ -1263,7 +1277,7 @@ class ParseUnset(FallthroughParser):
 class ParseTweak(FallthroughParser):
     items = space_items + (
         GrobName,
-        DotSetOverride,
+        DotPath,
         GrobProperty,
     )
     def update_state(self, state, token):
@@ -1273,11 +1287,11 @@ class ParseTweak(FallthroughParser):
 
 class ParseTweakGrobProperty(FallthroughParser):
     items = space_items + (
-        DotSetOverride,
+        DotPath,
         DecimalValue,
     )
     def update_state(self, state, token):
-        if isinstance(token, DotSetOverride):
+        if isinstance(token, DotPath):
             state.enter(ExpectGrobProperty())
         elif isinstance(token, DecimalValue):
             state.leave()
@@ -1327,7 +1341,7 @@ class ParseClef(FallthroughParser):
 class ParseHideOmit(FallthroughParser):
     items = space_items + (
         ContextName,
-        DotSetOverride,
+        DotPath,
         GrobName,
     )
     def update_state(self, state, token):
@@ -1338,7 +1352,7 @@ class ParseHideOmit(FallthroughParser):
 class ParseAccidentalStyle(FallthroughParser):
     items = space_items + (
         ContextName,
-        DotSetOverride,
+        DotPath,
         AccidentalStyleSpecifier,
     )
     def update_state(self, state, token):
@@ -1506,7 +1520,7 @@ class ParseChordItems(FallthroughParser):
         ChordSeparator,
         ChordModifier,
         ChordStepNumber,
-        ChordDot,
+        DotChord,
         Note,
     )
 
