@@ -972,6 +972,18 @@ class Source(object):
             pos += self._doc.position(self.block)
         return pos
     
+    def until_parser_end(self):
+        """Yield the tokens until the current parser is quit.
+        
+        You can only use this method if you have a State enabled.
+        
+        """
+        depth = self.state.depth()
+        for t in self:
+            yield t
+            if self.state.depth() < depth and not self._pushback:
+                break
+        
     def consume(self, iterable, position):
         """Consumes iterable (supposed to be reading from us) until position.
         
