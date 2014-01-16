@@ -115,9 +115,16 @@ class Q(Durable):
 
 class Music(Container):
     """Any music expression, to be inherited of."""
+    def child_length_iter(self, children=None):
+        """Yield the length() of all the children, if Music or Durable.
+        
+        If children is not given, self is iterated over.
+        
+        """
+        return (c.length() or 0 for c in children or self if isinstance(c, (Music, Durable)))
+        
     def length(self):
-        gen = (c.length() or 0 for c in self if isinstance(c, (Music, Durable)))
-        return sum(gen)
+        return sum(self.child_length_iter())
 
 
 class MusicList(Music):
@@ -125,7 +132,7 @@ class MusicList(Music):
     simultaneous = False
     
     def length(self):
-        gen = (c.length() or 0 for c in self if isinstance(c, (Music, Durable)))
+        gen = self.child_length_iter()
         return max(gen) if self.simultaneous else sum(gen)
 
 
@@ -150,9 +157,8 @@ class AfterGrace(Music):
     
     """
     def length(self):
-        for i in self:
-            if isinstance(i, (Music, Durable)):
-                return i.length()
+        for length in self.child_length_iter():
+            return length
 
 
 class Relative(Music):
@@ -189,48 +195,41 @@ class Repeat(Music):
         If the specifier is "unfold" or "tremolo", the length is multiplied 
         by the repeat_count value.
         
-        If the next sibling is an Alternative item, it's contents are taken
+        If the last child is an Alternative item, its contents are taken
         into account.
         
         """
         unfold = self.specifier() in ("unfold", "tremolo")
         count = self.repeat_count()
-        length = super(Repeat, self).length()
+        own_length_iter = self
+        alt_length = 0
+        if len(self) > 0:
+            alt = self[-1]
+            if isinstance(alt, Alternative):
+                own_length_iter = self[:-1]
+                alt_lengths = alt.lengths()
+                if alt_lengths:
+                    if unfold:
+                        alt_lengths[0:0] = [alt_lengths[0]] * (count - len(alt_lengths))
+                    alt_length = sum(alt_lengths[:count])
+        own_length = sum(self.child_length_iter(own_length_iter))
         if unfold:
             length *= count
-        alt = self.next_sibling()
-        if isinstance(alt, Alternative):
-            alt_lengths = alt.lengths()
-            if alt_lengths:
-                if unfold:
-                    alt_lengths[0:0] = [alt_lengths[0]] * (count - len(alt_lengths))
-                length += sum(alt_lengths[:count])
-        return length
+        return own_length + alt_length
 
 
 class Alternative(Music):
     """An \\alternative expression."""
     def length(self):
-        """Return the maximum length of the child music lists.
-        
-        If the previous sibling of this item is a Repeat, returns 0.
-        
-        """
-        prev = self.previous_sibling()
-        if isinstance(prev, Repeat):
-            return 0
+        """Return the maximum length of the child music lists."""
         return max(self.lengths() or [0])
-        
+    
     def lengths(self):
         """A list of length Fractions for every child music item."""
-        result = []
         for item in self:
             if isinstance(item, MusicList):
-                for i in item:
-                    if isinstance(i, (Music, Durable)):
-                        result.append(i.length())
-                break
-        return result
+                return list(item.child_length_iter())
+        return []
 
 
 class Translator(Item):
@@ -616,7 +615,7 @@ class Reader(object):
         depth = self.source.state.depth()
         for t in source:
             yield t
-            if self.source.state.depth() < depth:
+            if self.source.state.depth() < depth and not self.source._pushback:
                 if last_token:
                     last_token(t)
                 break
@@ -864,6 +863,12 @@ class Reader(object):
                 self.source.pushback()
                 for i in self.read(source):
                     item.append(i)
+                    break
+                for t in skip(source):
+                    if t == '\\alternative' and isinstance(t, ly.lex.lilypond.Command):
+                        item.append(self.handle_alternative(t, source))
+                    else:
+                        self.source.pushback()
                     break
                 break
         return item
