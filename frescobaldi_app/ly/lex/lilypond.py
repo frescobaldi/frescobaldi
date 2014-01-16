@@ -873,12 +873,8 @@ command_items = (
 # items that occur in toplevel, book, bookpart or score
 # no Leave-tokens!
 toplevel_base_items = base_items + (
-    Fraction,
-    DecimalValue,
-    Direction,
     SequentialStart,
     SimultaneousStart,
-    StringNumber,
 ) + command_items
 
 
@@ -924,7 +920,6 @@ music_chord_items = (
 
 class ParseGlobal(ParseLilyPond):
     """Parses LilyPond from the toplevel of a file."""
-    # TODO: implement assignments
     items = (
         Book,
         BookPart,
@@ -935,6 +930,25 @@ class ParseGlobal(ParseLilyPond):
         Name,
         DotPath,
         EqualSign,
+    )
+    def update_state(self, state, token):
+        if isinstance(token, EqualSign):
+            state.enter(ParseGlobalAssignment())
+
+
+class ParseGlobalAssignment(FallthroughParser, ParseLilyPond):
+    items = space_items + (
+        Skip,
+        Spacer,
+        Q,
+        Rest,
+        Note,
+        Length,
+        Fraction,
+        DecimalValue,
+        Direction,
+        StringNumber,
+        Dynamic,
     )
 
 
