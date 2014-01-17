@@ -423,6 +423,10 @@ class Midi(Container):
     """A \\midi { ... } construct."""
 
 
+class LayoutContext(Container):
+    """A \\context { ... } construct within Layout or Midi."""
+
+
 class With(Container):
     """A \\with ... construct."""
 
@@ -1012,6 +1016,7 @@ class Reader(object):
         '\\layout': Layout,
         '\\midi': Midi,
         '\\with': With,
+        '\\context': LayoutContext,
     }
     @keyword(*_bracketed_keywords)
     def handle_bracketed(self, t, source):
