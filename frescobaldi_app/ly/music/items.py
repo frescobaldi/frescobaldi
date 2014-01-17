@@ -268,6 +268,14 @@ class LyricsTo(InputMode):
         return self._context_id
 
 
+class LyricText(Durable):
+    """A lyric text (word, markup or string), with a Duration."""
+
+
+class LyricItem(Item):
+    """Another lyric item (skip, extender, hyphen or tie)."""
+
+    
 class Translator(Item):
     """Base class for a \\change, \\new, or \\context music expression."""
     _context = None
@@ -1000,8 +1008,6 @@ class Reader(object):
         return item
     
     _inputmode_commands = {
-        '\\lyricmode': LyricMode,
-        '\\lyrics': LyricMode,
         '\\notemode': NoteMode,
         '\\notes': NoteMode,
         '\\chordmode': ChordMode,
@@ -1010,13 +1016,26 @@ class Reader(object):
         '\\figures': FigureMode,
         '\\drummode': DrumMode,
         '\\drums': DrumMode,
-        '\\oldaddlyrics': LyricMode,
-        '\\addlyrics': LyricMode,
-        '\\lyricsto': LyricsTo,
     }
     @command(*_inputmode_commands)
     def handle_inputmode(self, t, source):
         cls = self._inputmode_commands[t]
+        item = self.factory(cls, t)
+        for i in self.read():
+            item.append(i)
+            break
+        return item
+    
+    _lyricmode_commands = {
+        '\\lyricmode': LyricMode,
+        '\\lyrics': LyricMode,
+        '\\oldaddlyrics': LyricMode,
+        '\\addlyrics': LyricMode,
+        '\\lyricsto': LyricsTo,
+    }
+    @command(*_lyricmode_commands)
+    def handle_lyricmode(self, t, source):
+        cls = self._lyricmode_commands[t]
         item = self.factory(cls, t)
         if cls is LyricsTo:
             for t in skip(source):
@@ -1027,10 +1046,42 @@ class Reader(object):
                 else:
                     self.source.pushback()
                 break
-        for i in self.read():
+        for t in skip(self.consume()):
+            i = self.read_lyric_item(t) or self.read_item(t)
             item.append(i)
             break
         return item
+    
+    def read_lyric_item(self, t):
+        """Read one lyric item. Returns None for tokens it does not handle."""
+        if isinstance(t, (ly.lex.StringStart, ly.lex.lilypond.MarkupStart)):
+            item = self.factory(LyricText, None)
+            item.append(self.read_item(t))
+            self.add_duration(item)
+            return item
+        elif isinstance(t, ly.lex.lilypond.LyricText):
+            item = self.factory(LyricText, t)
+            tokens = []
+            for t in self.source:
+                if isinstance(t, (ly.lex.lilypond.LyricTie, ly.lex.lilypond.LyricText)):
+                    tokens.append(t)
+                else:
+                    self.source.pushback()
+                    break
+            item.tokens = tuple(tokens)
+            self.add_duration(item)
+            return item
+        elif isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
+            item = self.factory(MusicList, t)
+            def last(t): item.tokens += (t,)
+            for t in skip(self.consume(last)):
+                i = self.read_lyric_item(t) or self.read_item(t)
+                if i:
+                    item.append(i)
+            item.simultaneous = t == '<<'
+            return item
+        elif isinstance(t, ly.lex.lilypond.Lyric):
+            return self.factory(LyricItem, t)
     
     @command('\\stringTuning')
     def handle_string_tuning(self, t, source):
