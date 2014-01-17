@@ -733,9 +733,9 @@ class Reader(object):
             return chord
         elif isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
             item = self.factory(MusicList, t)
+            item.simultaneous = t == '<<'
             def last(t): item.tokens += (t,)
             item.extend(self.read(self.consume(last)))
-            item.simultaneous = t == '<<'
             return item
         elif isinstance(t, ly.lex.lilypond.Command):
             return self.read_command(t, source)
@@ -1061,24 +1061,16 @@ class Reader(object):
             return item
         elif isinstance(t, ly.lex.lilypond.LyricText):
             item = self.factory(LyricText, t)
-            tokens = []
-            for t in self.source:
-                if isinstance(t, (ly.lex.lilypond.LyricTie, ly.lex.lilypond.LyricText)):
-                    tokens.append(t)
-                else:
-                    self.source.pushback()
-                    break
-            item.tokens = tuple(tokens)
             self.add_duration(item)
             return item
         elif isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
             item = self.factory(MusicList, t)
+            item.simultaneous = t == '<<'
             def last(t): item.tokens += (t,)
             for t in skip(self.consume(last)):
                 i = self.read_lyric_item(t) or self.read_item(t)
                 if i:
                     item.append(i)
-            item.simultaneous = t == '<<'
             return item
         elif isinstance(t, ly.lex.lilypond.Lyric):
             return self.factory(LyricItem, t)

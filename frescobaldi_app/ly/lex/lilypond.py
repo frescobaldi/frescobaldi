@@ -685,7 +685,7 @@ class Lyric(_token.Item):
 
 
 class LyricText(Lyric):
-    rx = r"[^\\\s\d~\"]+"
+    rx = r"[^\\\s\d\"]+"
 
 
 class LyricHyphen(Lyric):
@@ -699,10 +699,6 @@ class LyricExtender(Lyric):
 class LyricSkip(Lyric):
     rx = r"_"
     
-
-class LyricTie(Lyric):
-    rx = r"~"
-
 
 class NoteMode(InputMode):
     rx = r"\\(notes|notemode)\b"
@@ -1420,7 +1416,6 @@ class ParseLyricMode(ParseInputMode):
         LyricHyphen,
         LyricExtender,
         LyricSkip,
-        LyricTie,
         LyricText,
         Dynamic,
         Skip,

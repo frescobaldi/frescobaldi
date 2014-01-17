@@ -75,7 +75,6 @@ def mapping(data):
         ly.lex.lilypond.Markup: data.textFormat('lilypond', 'markup'),
         ly.lex.lilypond.LyricMode: data.textFormat('lilypond', 'lyricmode'),
         ly.lex.lilypond.Lyric: data.textFormat('lilypond', 'lyrictext'),
-        ly.lex.lilypond.LyricTie: data.textFormat('lilypond', 'slur'),
         ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
         ly.lex.lilypond.Specifier: data.textFormat('lilypond', 'specifier'),
         ly.lex.lilypond.UserCommand: data.textFormat('lilypond', 'usercommand'),
