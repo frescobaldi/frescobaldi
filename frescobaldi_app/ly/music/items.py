@@ -232,6 +232,42 @@ class Alternative(Music):
         return []
 
 
+class InputMode(Music):
+    """Base class for inputmode-changing commands."""
+
+
+class NoteMode(InputMode):
+    """A \\notemode or \\notes expression."""
+
+
+class ChordMode(InputMode):
+    """A \\chordmode or \\chords expression."""
+
+
+class DrumMode(InputMode):
+    """A \\drummode or \\drums expression."""
+
+
+class FigureMode(InputMode):
+    """A \\figuremode or \\figures expression."""
+
+
+class LyricMode(InputMode):
+    """A \\lyricmode, \\lyrics or \\addlyrics expression."""
+
+
+class LyricsTo(InputMode):
+    """A \\lyricsto expression."""
+    _context_id = None
+    
+    def context_id(self):
+        if isinstance(self._context_id, String):
+            return self._context_id.value()
+        elif isinstance(self._context_id, Scheme):
+            return self._context_id.get_string()
+        return self._context_id
+
+
 class Translator(Item):
     """Base class for a \\change, \\new, or \\context music expression."""
     _context = None
@@ -658,46 +694,48 @@ class Reader(object):
 
     def read(self, source=None):
         """Yield Item instances reading from source."""
-        
         source = source or self.source
         for t in skip(source):
-            if isinstance(t, ly.lex.lilypond.MusicItem):
-                item = self.read_music_item(t, source)
-                if item:
-                    yield item
-            elif not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
-                self.in_chord = True
-                chord = self.factory(Chord, t)
-                def last(t): chord.tokens += (t,)
-                chord.extend(self.read(self.consume(last)))
-                self.in_chord = False
-                self.add_duration(chord, None, source)
-                yield chord
-            elif isinstance(t, (ly.lex.lilypond.SequentialStart, ly.lex.lilypond.SimultaneousStart)):
-                item = self.factory(MusicList, t)
-                def last(t): item.tokens += (t,)
-                item.extend(self.read(self.consume(last)))
-                item.simultaneous = t == '<<'
+            item = self.read_item(t, source)
+            if item:
                 yield item
-            elif isinstance(t, ly.lex.lilypond.SchemeStart):
-                yield self.read_scheme_item(t)
-            elif isinstance(t, ly.lex.StringStart):
-                yield self.factory(String, t, True)
-            elif isinstance(t, ly.lex.lilypond.Markup):
-                yield self.read_markup(t)
-            elif isinstance(t, ly.lex.lilypond.Command):
-                yield self.read_command(t, source)
-            elif isinstance(t, ly.lex.lilypond.Keyword):
-                yield self.read_keyword(t, source)
-            elif isinstance(t, ly.lex.lilypond.UserCommand):
-                yield self.read_user_command(t, source)
-            elif isinstance(t, (
-                    ly.lex.lilypond.DecimalValue,
-                    ly.lex.lilypond.IntegerValue,
-                    ly.lex.lilypond.Fraction,
-                )):
-                yield self.factory(Number, t)
-                
+    
+    def read_item(self, t, source=None):
+        """Return one Item that starts with token t. May return None."""
+        source = source or self.source
+        if isinstance(t, ly.lex.lilypond.SchemeStart):
+            return self.read_scheme_item(t)
+        elif isinstance(t, ly.lex.StringStart):
+            return self.factory(String, t, True)
+        elif isinstance(t, (
+                ly.lex.lilypond.DecimalValue,
+                ly.lex.lilypond.IntegerValue,
+                ly.lex.lilypond.Fraction,
+            )):
+            return self.factory(Number, t)
+        elif isinstance(t, ly.lex.lilypond.MusicItem):
+            return self.read_music_item(t, source)
+        elif not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
+            self.in_chord = True
+            chord = self.factory(Chord, t)
+            def last(t): chord.tokens += (t,)
+            chord.extend(self.read(self.consume(last)))
+            self.in_chord = False
+            self.add_duration(chord, None, source)
+            return chord
+        elif isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
+            item = self.factory(MusicList, t)
+            def last(t): item.tokens += (t,)
+            item.extend(self.read(self.consume(last)))
+            item.simultaneous = t == '<<'
+            return item
+        elif isinstance(t, ly.lex.lilypond.Command):
+            return self.read_command(t, source)
+        elif isinstance(t, ly.lex.lilypond.Keyword):
+            return self.read_keyword(t, source)
+        elif isinstance(t, ly.lex.lilypond.UserCommand):
+            return self.read_user_command(t, source)
+    
     def read_music_item(self, t, source):
         """Read one music item (note, rest, s, \skip, or q) from t and source."""
         item = None
@@ -900,7 +938,7 @@ class Reader(object):
                     elif isinstance(t, ly.lex.StringStart):
                         item._text = self.factory(String, t, True)
                     elif isinstance(t, ly.lex.lilypond.Markup):
-                        item._text = self.read_markup(t)
+                        item._text = self.handle_markup(t)
                 elif isinstance(t, ly.lex.lilypond.Length):
                     self.add_duration(item, t, source)
                 elif isinstance(t, ly.lex.lilypond.EqualSign):
@@ -959,6 +997,39 @@ class Reader(object):
             for i in self.read(source):
                 item.append(i)
                 break
+        return item
+    
+    _inputmode_commands = {
+        '\\lyricmode': LyricMode,
+        '\\lyrics': LyricMode,
+        '\\notemode': NoteMode,
+        '\\notes': NoteMode,
+        '\\chordmode': ChordMode,
+        '\\chords': ChordMode,
+        '\\figuremode': FigureMode,
+        '\\figures': FigureMode,
+        '\\drummode': DrumMode,
+        '\\drums': DrumMode,
+        '\\oldaddlyrics': LyricMode,
+        '\\addlyrics': LyricMode,
+        '\\lyricsto': LyricsTo,
+    }
+    @command(*_inputmode_commands)
+    def handle_inputmode(self, t, source):
+        cls = self._inputmode_commands[t]
+        item = self.factory(cls, t)
+        if cls is LyricsTo:
+            for t in skip(source):
+                if isinstance(t, ly.lex.lilypond.Name):
+                    item._context_id = t
+                elif isinstance(t, (ly.lex.String, ly.lex.lilypond.SchemeStart)):
+                    item._context_id = self.read_item(t)
+                else:
+                    self.source.pushback()
+                break
+        for i in self.read():
+            item.append(i)
+            break
         return item
     
     @command('\\stringTuning')
@@ -1070,11 +1141,15 @@ class Reader(object):
                 return i
         return self.factory(UserCommand, t)
     
+    @command('\\markup', '\\markuplist', '\\markuplines')
+    def handle_markup(self, t, source=None):
+        item = self.factory(Markup, t)
+        self.add_markup_arguments(item)
+        return item
+        
     def read_markup(self, t):
         """Read LilyPond markup (recursively)."""
-        if t in ('\\markup', '\\markuplist', '\\markuplines'):
-            item = self.factory(Markup, t)
-        elif isinstance(t, ly.lex.lilypond.MarkupScore):
+        if isinstance(t, ly.lex.lilypond.MarkupScore):
             item = self.factory(MarkupScore, t)
             for t in self.consume():
                 if isinstance(t, ly.lex.lilypond.OpenBracket):
@@ -1098,7 +1173,11 @@ class Reader(object):
             return self.factory(String, t, True)
         else:
             return None
-        # add arguments
+        self.add_markup_arguments(item)
+        return item
+    
+    def add_markup_arguments(self, item):
+        """Add markup arguments to the item."""
         for t in self.consume():
             i = self.read_markup(t)
             if i:
