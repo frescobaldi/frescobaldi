@@ -728,7 +728,7 @@ class UserCommand(IdentifierRef):
     pass
     
 
-class SimultaneousOrSequentialCommand(UserCommand):
+class SimultaneousOrSequentialCommand(Keyword):
     rx = r"\\(simultaneous|sequential)\b"
 
 
@@ -861,6 +861,7 @@ command_items = (
     KeySignatureMode,
     AccidentalStyle,
     AlterBroken,
+    SimultaneousOrSequentialCommand,
     ChordMode, DrumMode, FigureMode, LyricMode, NoteMode,
     MarkupStart, MarkupLines, MarkupList,
     ArticulationCommand,

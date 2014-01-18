@@ -830,13 +830,13 @@ class Reader(object):
             
         if isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
             return make_music_list(t, t == '<<')
-        elif isinstance(t, (ly.lex.lilypond.UserCommand)) and t in ('\\simultaneous', '\\sequential'):
+        elif isinstance(t, ly.lex.lilypond.SimultaneousOrSequentialCommand):
             for t1 in skip(self.source):
                 if isinstance(t1, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
                     return make_music_list(t, t == '\\simultaneous' or t1 == '<<', (t1,))
                 else:
                     self.source.pushback()
-                    return self.factory(UserCommand, t), None
+                    return self.factory(Keyword, t), None
         return None, None
                     
     def read_music_item(self, t, source):
