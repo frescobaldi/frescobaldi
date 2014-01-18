@@ -968,16 +968,16 @@ class ExpectOpenBracket(FallthroughParser, ParseLilyPond):
             state.replace(self.replace())
         
 
-class ExpectOpenBracketOrSimultaneous(ParseLilyPond):
+class ExpectMusicList(FallthroughParser, ParseLilyPond):
     """Waits for an OpenBracket or << and then replaces the parser with the class set in the replace attribute.
     
     Subclass this to set the destination for the OpenBracket.
     
     """
-    default = Error
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
+        SimultaneousOrSequentialCommand,
     )
     def update_state(self, state, token):
         if isinstance(token, (OpenBracket, OpenSimultaneous)):
@@ -1394,23 +1394,12 @@ class ParseScriptAbbreviationOrFingering(FallthroughParser):
 
 class ParseInputMode(ParseLilyPond):
     """Base class for parser for mode-changing music commands."""
+    @classmethod
+    def update_state(cls, state, token):
+        if isinstance(token, (OpenSimultaneous, OpenBracket)):
+            state.enter(cls())
     
     
-class ExpectLyricMode(FallthroughParser):
-    items = space_items + (
-        OpenBracket,
-        OpenSimultaneous,
-        SchemeStart,
-        StringQuotedStart,
-        Name,
-        SimultaneousOrSequentialCommand,
-    )
-    
-    def update_state(self, state, token):
-        if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.replace(ParseLyricMode())
-        
-
 class ParseLyricMode(ParseInputMode):
     """Parser for \\lyrics, \\lyricmode, \\addlyrics, etc."""
     items = base_items + (
@@ -1428,23 +1417,19 @@ class ParseLyricMode(ParseInputMode):
         Length,
         MarkupStart, MarkupLines, MarkupList,
     ) + command_items
-    
-    def update_state(self, state, token):
-        if isinstance(token, (OpenSimultaneous, OpenBracket)):
-            state.enter(ParseLyricMode())
 
 
-class ExpectChordMode(FallthroughParser):
+class ExpectLyricMode(ExpectMusicList):
+    replace = ParseLyricMode
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
+        SchemeStart,
+        StringQuotedStart,
+        Name,
         SimultaneousOrSequentialCommand,
     )
-    
-    def update_state(self, state, token):
-        if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.replace(ParseChordMode())
-        
+
 
 class ParseChordMode(ParseInputMode, ParseMusic):
     """Parser for \\chords and \\chordmode."""
@@ -1457,65 +1442,39 @@ class ParseChordMode(ParseInputMode, ParseMusic):
     def update_state(self, state, token):
         if isinstance(token, ChordSeparator):
             state.enter(ParseChordItems())
-        elif isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseChordMode())
+        else:
+            super(ParseChordMode, self).update_state(state, token)
 
 
-class ExpectNoteMode(FallthroughParser):
-    items = space_items + (
-        OpenBracket,
-        OpenSimultaneous,
-        SimultaneousOrSequentialCommand,
-    )
-    
-    def update_state(self, state, token):
-        if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.replace(ParseNoteMode())
+class ExpectChordMode(ExpectMusicList):
+    replace = ParseChordMode
         
 
-class ParseNoteMode(ParseInputMode, ParseMusic):
+class ParseNoteMode(ParseMusic):
     """Parser for \\notes and \\notemode. Same as Music itself."""
 
 
-class ExpectDrumMode(FallthroughParser):
-    items = space_items + (
-        OpenBracket,
-        OpenSimultaneous,
-        SimultaneousOrSequentialCommand,
-    )
-    
-    def update_state(self, state, token):
-        if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.replace(ParseDrumMode())
+class ExpectNoteMode(ExpectMusicList):
+    replace = ParseNoteMode
         
 
 class ParseDrumMode(ParseInputMode, ParseMusic):
     """Parser for \\drums and \\drummode."""
     # TODO: implement items (see ParseChordMode)
-    def update_state(self, state, token):
-        if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseDrumMode())
 
 
-class ExpectFigureMode(FallthroughParser):
-    items = space_items + (
-        OpenBracket,
-        OpenSimultaneous,
-        SimultaneousOrSequentialCommand,
-    )
-    
-    def update_state(self, state, token):
-        if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.replace(ParseFigureMode())
+class ExpectDrumMode(ExpectMusicList):
+    replace = ParseDrumMode
         
 
 class ParseFigureMode(ParseInputMode, ParseMusic):
     """Parser for \\figures and \\figuremode."""
     # TODO: implement items (see ParseChordMode)
-    def update_state(self, state, token):
-        if isinstance(token, (OpenBracket, OpenSimultaneous)):
-            state.enter(ParseFigureMode())
 
+
+class ExpectFigureMode(ExpectMusicList):
+    replace = ParseFigureMode
+        
 
 class ParsePitchCommand(FallthroughParser):
     argcount = 1
