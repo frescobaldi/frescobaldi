@@ -275,7 +275,19 @@ class LyricText(Durable):
 class LyricItem(Item):
     """Another lyric item (skip, extender, hyphen or tie)."""
 
+
+class ChordSpecifier(Item):
+    """Chord specifications after a note in chord mode.
     
+    Has children of Note or ChordItem class.
+    
+    """
+
+
+class ChordItem(Item):
+    """An item inside a ChordSpecifier, e.g. a number or modifier."""
+
+
 class Translator(Item):
     """Base class for a \\change, \\new, or \\context music expression."""
     _context = None
@@ -743,6 +755,8 @@ class Reader(object):
                 return self.read_keyword(t, source)
             elif isinstance(t, ly.lex.lilypond.UserCommand):
                 return self.read_user_command(t, source)
+            elif isinstance(t, ly.lex.lilypond.ChordSeparator):
+                return self.read_chord_specifier(t)
     
     def test_music_list(self, t):
         """Test whether a music list ({ ... }, << ... >>, starts here.
@@ -817,7 +831,22 @@ class Reader(object):
             if not self.in_chord and not in_pitch_command:
                 self.add_duration(item, None, source)
         return item
-        
+    
+    def read_chord_specifier(self, t):
+        """Read stuff behind notes in chordmode."""
+        item = self.factory(ChordSpecifier, None)
+        item.append(self.factory(ChordItem, t))
+        for t in self.consume():
+            if isinstance(t, ly.lex.lilypond.ChordItem):
+                item.append(self.factory(ChordItem, t))
+            elif isinstance(t, ly.lex.lilypond.Note):
+                r = ly.pitch.pitchReader(self.language)(t)
+                if r:
+                    note = self.factory(Note, t)
+                    note.pitch = ly.pitch.Pitch(*r)
+                    item.append(note)
+        return item
+
     def read_command(self, t, source):
         """Read the rest of a command given in t from the source."""
         try:
