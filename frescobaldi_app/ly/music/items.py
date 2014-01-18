@@ -731,19 +731,58 @@ class Reader(object):
             self.in_chord = False
             self.add_duration(chord, None, source)
             return chord
-        elif isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
-            item = self.factory(MusicList, t)
-            item.simultaneous = t == '<<'
-            def last(t): item.tokens += (t,)
-            item.extend(self.read(self.consume(last)))
-            return item
-        elif isinstance(t, ly.lex.lilypond.Command):
-            return self.read_command(t, source)
-        elif isinstance(t, ly.lex.lilypond.Keyword):
-            return self.read_keyword(t, source)
-        elif isinstance(t, ly.lex.lilypond.UserCommand):
-            return self.read_user_command(t, source)
+        else:
+            item, it = self.test_music_list(t)
+            if item:
+                if it:
+                    item.extend(self.read(it))
+                return item
+            elif isinstance(t, ly.lex.lilypond.Command):
+                return self.read_command(t, source)
+            elif isinstance(t, ly.lex.lilypond.Keyword):
+                return self.read_keyword(t, source)
+            elif isinstance(t, ly.lex.lilypond.UserCommand):
+                return self.read_user_command(t, source)
     
+    def test_music_list(self, t):
+        """Test whether a music list ({ ... }, << ... >>, starts here.
+        
+        Also handles \\simultaneous { ... } and \\sequential { ... } 
+        correctly. These obscure commands are not even highlighted by 
+        ly.lex, but they exist in LilyPond... \\\simultaneous { ... } is 
+        like << ... >> but \\sequential << ... >> just behaves like << ... >>
+
+        Returns a two-tuple(item; iterable), both may be None. If 
+        item is not None, it can be either a UserCommand or a MusicList.  If 
+        iterable is None, the item is a UserCommand (namely \\simultaneous 
+        or \\sequential, but not followed by a { or <<); else the item is a 
+        MusicList, and the iterable should be read fully to get all the 
+        tokens inside the MusicList. If item is None, there is no MusicList 
+        and no token is read.
+        
+        This way you can handle the { ... } and << ... >> transparently in every
+        input mode.
+        
+        """
+        def make_music_list(t, simultaneous, tokens=()):
+            """Make the MusicList item."""
+            item = self.factory(MusicList, t)
+            item.simultaneous = simultaneous
+            item.tokens = tokens
+            def last(t): item.tokens += (t,)
+            return item, self.consume(last)
+            
+        if isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
+            return make_music_list(t, t == '<<')
+        elif isinstance(t, (ly.lex.lilypond.UserCommand)) and t in ('\\simultaneous', '\\sequential'):
+            for t1 in skip(self.source):
+                if isinstance(t1, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
+                    return make_music_list(t, t == '\\simultaneous' or t1 == '<<', (t1,))
+                else:
+                    self.source.pushback()
+                    return self.factory(UserCommand, t), None
+        return None, None
+                    
     def read_music_item(self, t, source):
         """Read one music item (note, rest, s, \skip, or q) from t and source."""
         item = None
@@ -1063,17 +1102,17 @@ class Reader(object):
             item = self.factory(LyricText, t)
             self.add_duration(item)
             return item
-        elif isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
-            item = self.factory(MusicList, t)
-            item.simultaneous = t == '<<'
-            def last(t): item.tokens += (t,)
-            for t in skip(self.consume(last)):
-                i = self.read_lyric_item(t) or self.read_item(t)
-                if i:
-                    item.append(i)
-            return item
         elif isinstance(t, ly.lex.lilypond.Lyric):
             return self.factory(LyricItem, t)
+        else:
+            item, source = self.test_music_list(t)
+            if item:
+                if source:
+                    for t in skip(source):
+                        i = self.read_lyric_item(t) or self.read_item(t)
+                        if i:
+                            item.append(i)
+                return item
     
     @command('\\stringTuning')
     def handle_string_tuning(self, t, source):
@@ -1171,17 +1210,6 @@ class Reader(object):
 
     def read_user_command(self, t, source):
         """Read a user command, this can be a variable reference."""
-        if t in ('\\simultaneous', '\\sequential'):
-            # these obscure commands are not even highlighted by ly.lex,
-            # but they exist in LilyPond...
-            # \simultaneous { ... } is like << ... >>
-            # but \sequential << ... >> just behaves like << ... >>
-            for i in self.read(source):
-                if isinstance(i, MusicList):
-                    i.tokens = (i.token,) + i.tokens
-                    i.token = t
-                    i.simultaneous = i.simultaneous or t == '\\simultaneous'
-                return i
         return self.factory(UserCommand, t)
     
     @command('\\markup', '\\markuplist', '\\markuplines')
