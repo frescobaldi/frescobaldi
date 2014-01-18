@@ -657,7 +657,7 @@ class Reader(object):
     def add_duration(self, item, token=None, source=None):
         """Add a duration attribute to the item."""
         source = source or self.source
-        d = item.duration = Duration()
+        d = item.duration = self.factory(Duration)
         tokens = []
         if not token or isinstance(token, ly.lex.lilypond.Duration):
             if token:
@@ -686,7 +686,7 @@ class Reader(object):
         if last_token and t is not None:
             last_token(t)
 
-    def factory(self, cls, token, consume=False):
+    def factory(self, cls, token=None, consume=False):
         """Create Item instance for token.
         
         If consume is True, consume()s the source into item.tokens.
@@ -718,7 +718,7 @@ class Reader(object):
         
     def tree(self):
         """Return a Root node with all the Item instances, read from the source."""
-        root = self.factory(Root, None)
+        root = self.factory(Root)
         root.extend(i for i in self.read())
         return root
 
@@ -846,7 +846,7 @@ class Reader(object):
     
     def read_chord_specifier(self, t):
         """Read stuff behind notes in chordmode."""
-        item = self.factory(ChordSpecifier, None)
+        item = self.factory(ChordSpecifier)
         item.append(self.factory(ChordItem, t))
         for t in self.consume():
             if isinstance(t, ly.lex.lilypond.ChordItem):
@@ -864,7 +864,7 @@ class Reader(object):
         item = self.factory(Tremolo, t)
         for t in self.source:
             if isinstance(t, ly.lex.lilypond.TremoloDuration):
-                item.duration = Duration()
+                item.duration = self.factory(Duration)
                 item.duration.token = t
                 item.duration.base_scaling = ly.duration.base_scaling_string(t)
             else:
@@ -1148,7 +1148,7 @@ class Reader(object):
     def read_lyric_item(self, t):
         """Read one lyric item. Returns None for tokens it does not handle."""
         if isinstance(t, (ly.lex.StringStart, ly.lex.lilypond.MarkupStart)):
-            item = self.factory(LyricText, None)
+            item = self.factory(LyricText)
             item.append(self.read_item(t))
             self.add_duration(item)
             return item
