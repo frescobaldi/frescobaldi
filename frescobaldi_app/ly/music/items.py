@@ -538,6 +538,36 @@ class Unset(Item):
                 return t
 
 
+class Override(Item):
+    """An \\override command."""
+    def context(self):
+        for i in self:
+            if isinstance(i.token, ly.lex.lilypond.ContextName):
+                return i.token
+    
+    def grob(self):
+        for i in self:
+            if isinstance(i.token, ly.lex.lilypond.GrobName):
+                return i.token
+
+
+class Revert(Item):
+    """A \\revert command."""
+    def context(self):
+        for i in self:
+            if isinstance(i.token, ly.lex.lilypond.ContextName):
+                return i.token
+    
+    def grob(self):
+        for i in self:
+            if isinstance(i.token, ly.lex.lilypond.GrobName):
+                return i.token
+
+
+class PathItem(Item):
+    """An item in the path of an \\override or \\revert command."""
+
+
 class String(Item):
     """A double-quoted string."""
     
@@ -1261,7 +1291,39 @@ class Reader(object):
             tokens.append(t)
         item.tokens = tuple(tokens)
         return item
-
+    
+    @keyword('\\override')
+    def handle_override(self, t, source):
+        item = self.factory(Override, t)
+        for t in skip(self.consume()):
+            if isinstance(t, (ly.lex.StringStart, ly.lex.lilypond.SchemeStart)):
+                item.append(self.read_item(t))
+            elif isinstance(t, ly.lex.lilypond.EqualSign):
+                item.tokens = (t,)
+                for i in self.read():
+                    item.append(i)
+                    break
+                break
+            else:
+                item.append(self.factory(PathItem, t))
+        return item
+    
+    @keyword('\\revert')
+    def handle_revert(self, t, source):
+        item = self.factory(Revert, t)
+        t = None
+        for t in skip(self.consume()):
+            if type(t) in ly.lex.lilypond.ParseRevert.items:
+                item.append(self.factory(PathItem, t))
+            else:
+                break
+        if isinstance(t, ly.lex.lilypond.SchemeStart) and not any(
+                isinstance(i.token, ly.lex.lilypond.GrobProperty) for i in item):
+            item.append(self.read_scheme_item(t))
+        else:
+            self.source.pushback()
+        return item
+    
     def read_user_command(self, t, source):
         """Read a user command, this can be a variable reference."""
         return self.factory(UserCommand, t)
