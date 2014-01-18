@@ -75,6 +75,11 @@ class Duration(Item):
     """A duration"""
     base_scaling = None, None   # two Fractions
     
+    def fraction(self):
+        """Returns base and scaling multiplied, as one Fraction."""
+        base, scaling = self.base_scaling
+        return base * scaling
+
 
 class Durable(Item):
     """An Item that has a Duration attribute."""
@@ -288,6 +293,11 @@ class ChordItem(Item):
     """An item inside a ChordSpecifier, e.g. a number or modifier."""
 
 
+class Tremolo(Item):
+    """A tremolo item ":". The duration attribute may be a Duration or None."""
+    duration = None
+
+
 class Translator(Item):
     """Base class for a \\change, \\new, or \\context music expression."""
     _context = None
@@ -343,7 +353,7 @@ class TimeSignature(Item):
     _num = 4
     _fraction = Fraction(1, 4)
 
-    def length(self):
+    def measure_length(self):
         """The length of one measure in this time signature as a Fraction."""
         return self._num * self._fraction
     
@@ -757,6 +767,8 @@ class Reader(object):
                 return self.read_user_command(t, source)
             elif isinstance(t, ly.lex.lilypond.ChordSeparator):
                 return self.read_chord_specifier(t)
+            elif isinstance(t, ly.lex.lilypond.TremoloColon):
+                return self.read_tremolo(t)
     
     def test_music_list(self, t):
         """Test whether a music list ({ ... }, << ... >>, starts here.
@@ -847,6 +859,19 @@ class Reader(object):
                     item.append(note)
         return item
 
+    def read_tremolo(self, t):
+        """Read a tremolo."""
+        item = self.factory(Tremolo, t)
+        for t in self.source:
+            if isinstance(t, ly.lex.lilypond.TremoloDuration):
+                item.duration = Duration()
+                item.duration.token = t
+                item.duration.base_scaling = ly.duration.base_scaling_string(t)
+            else:
+                self.source.pushback()
+            break
+        return item
+    
     def read_command(self, t, source):
         """Read the rest of a command given in t from the source."""
         try:
