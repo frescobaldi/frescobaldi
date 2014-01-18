@@ -727,7 +727,11 @@ class FigureMode(InputMode):
 class UserCommand(IdentifierRef):
     pass
     
-    
+
+class SimultaneousOrSequentialCommand(UserCommand):
+    rx = r"\\(simultaneous|sequential)\b"
+
+
 class SchemeStart(_token.Item):
     rx = "[#$](?![{}])"
     def update_state(self, state):
@@ -862,6 +866,7 @@ command_items = (
     ArticulationCommand,
     Keyword,
     Command,
+    SimultaneousOrSequentialCommand,
     UserCommand,
 )
 
@@ -1398,6 +1403,7 @@ class ExpectLyricMode(FallthroughParser):
         SchemeStart,
         StringQuotedStart,
         Name,
+        SimultaneousOrSequentialCommand,
     )
     
     def update_state(self, state, token):
@@ -1432,6 +1438,7 @@ class ExpectChordMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
+        SimultaneousOrSequentialCommand,
     )
     
     def update_state(self, state, token):
@@ -1458,6 +1465,7 @@ class ExpectNoteMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
+        SimultaneousOrSequentialCommand,
     )
     
     def update_state(self, state, token):
@@ -1473,6 +1481,7 @@ class ExpectDrumMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
+        SimultaneousOrSequentialCommand,
     )
     
     def update_state(self, state, token):
@@ -1492,6 +1501,7 @@ class ExpectFigureMode(FallthroughParser):
     items = space_items + (
         OpenBracket,
         OpenSimultaneous,
+        SimultaneousOrSequentialCommand,
     )
     
     def update_state(self, state, token):
