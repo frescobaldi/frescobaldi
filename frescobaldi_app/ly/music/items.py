@@ -1169,7 +1169,8 @@ class Reader(object):
         if cls is not Change:
             for i in self.read(source):
                 item.append(i)
-                break
+                if not isinstance(i, With):
+                    break
         return item
     
     _inputmode_commands = {
