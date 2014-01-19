@@ -377,6 +377,16 @@ class Partial(Item):
             return base * scaling
 
 
+class Clef(Item):
+    """A \\clef item."""
+    _specifier = None
+    
+    def specifier(self):
+        if isinstance(self._specifier, String):
+            return self._specifier.value()
+        return self._specifier
+
+        
 class KeySignature(Item):
     """A \\key pitch \\mode command."""
     def pitch(self):
@@ -993,6 +1003,17 @@ class Reader(object):
             if pitches_found < 2 and isinstance(i, Note):
                 pitches_found += 1
                 continue
+            break
+        return item
+    
+    @command('\\clef')
+    def handle_clef(self, t, source):
+        item = self.factory(Clef, t)
+        for t in skip(source):
+            if isinstance(t, ly.lex.lilypond.ClefSpecifier):
+                item._specifier = t
+            elif isinstance(t, ly.lex.StringStart):
+                item._specifier = self.factory(String, t, True)
             break
         return item
     
