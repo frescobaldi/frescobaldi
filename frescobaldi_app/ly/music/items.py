@@ -197,14 +197,14 @@ class Repeat(Music):
     def length(self):
         """Return the length of this music expression.
         
-        If the specifier is "unfold" or "tremolo", the length is multiplied 
+        If the specifier is not "volta", the length is multiplied 
         by the repeat_count value.
         
         If the last child is an Alternative item, its contents are taken
         into account.
         
         """
-        unfold = self.specifier() in ("unfold", "tremolo")
+        unfold = self.specifier() != "volta"
         count = self.repeat_count()
         own_length_iter = self
         alt_length = 0
@@ -671,6 +671,16 @@ def dispatch(what, names):
     return wrapper
 def command(*names): return dispatch(_commands, names)
 def keyword(*names): return dispatch(_keywords, names)
+def dispatch_class(what, classes):
+    def wrapper(func):
+        for c in classes:
+            what[c] = func
+        if not func.__doc__:
+            func.__doc__ = "handle " + ", ".join(c.__name__ for c in classes)
+        return func
+    return wrapper
+_token_classes = {}
+def token_class(*classes): return dispatch_class(_token_classes, classes)
 ### (these are deleted at the end of this file.)
 
 
@@ -680,6 +690,7 @@ class Reader(object):
     # refer to the dispatch dictionaries in our own space
     _commands = _commands
     _keywords = _keywords
+    _token_classes = _token_classes
     
     def __init__(self, source):
         """Initialize with a ly.document.Source.
@@ -783,20 +794,38 @@ class Reader(object):
     
     def read_item(self, t, source=None):
         """Return one Item that starts with token t. May return None."""
-        source = source or self.source
-        if isinstance(t, ly.lex.lilypond.SchemeStart):
-            return self.read_scheme_item(t)
-        elif isinstance(t, ly.lex.StringStart):
-            return self.factory(String, t, True)
-        elif isinstance(t, (
-                ly.lex.lilypond.DecimalValue,
-                ly.lex.lilypond.IntegerValue,
-                ly.lex.lilypond.Fraction,
-            )):
-            return self.factory(Number, t)
-        elif isinstance(t, ly.lex.lilypond.MusicItem):
-            return self.read_music_item(t, source)
-        elif not self.in_chord and isinstance(t, ly.lex.lilypond.ChordStart):
+        for c in t.__class__.__mro__:
+            try:
+                meth = self._token_classes[c]
+            except KeyError:
+                if c == ly.lex.Token:
+                    break
+                continue
+            return meth(self, t, source or self.source)
+    
+    @token_class(ly.lex.lilypond.SchemeStart)
+    def handle_scheme_start(self, t, source):
+        return self.read_scheme_item(t)
+    
+    @token_class(ly.lex.StringStart)
+    def handle_string_start(self, t, source):
+        return self.factory(String, t, True)
+    
+    @token_class(
+        ly.lex.lilypond.DecimalValue,
+        ly.lex.lilypond.IntegerValue,
+        ly.lex.lilypond.Fraction,
+    )
+    def handle_number_class(self, t, source):
+        return self.factory(Number, t)
+    
+    @token_class(ly.lex.lilypond.MusicItem)
+    def handle_music_item(self, t, source):
+        return self.read_music_item(t, source)
+    
+    @token_class(ly.lex.lilypond.ChordStart)
+    def handle_chord_start(self, t, source):
+        if not self.in_chord:
             self.in_chord = True
             chord = self.factory(Chord, t)
             def last(t): chord.tokens += (t,)
@@ -804,40 +833,73 @@ class Reader(object):
             self.in_chord = False
             self.add_duration(chord, None, source)
             return chord
-        else:
-            item, it = self.test_music_list(t)
-            if item:
-                if it:
-                    item.extend(self.read(it))
-                return item
-            elif isinstance(t, ly.lex.lilypond.Command):
-                return self.read_command(t, source)
-            elif isinstance(t, ly.lex.lilypond.Keyword):
-                return self.read_keyword(t, source)
-            elif isinstance(t, ly.lex.lilypond.UserCommand):
-                return self.read_user_command(t, source)
-            elif isinstance(t, ly.lex.lilypond.ChordSeparator):
-                return self.read_chord_specifier(t)
-            elif isinstance(t, ly.lex.lilypond.TremoloColon):
-                return self.read_tremolo(t)
-            elif isinstance(t, ly.lex.lilypond.Name) and self.source.state.depth() < 2:
-                return self.read_assignment(t)
-            elif isinstance(t, (
-                ly.lex.lilypond.PaperVariable,
-                ly.lex.lilypond.LayoutVariable,
-                ly.lex.lilypond.HeaderVariable,
-                ly.lex.lilypond.UserVariable,
-                )):
-                item = self.read_assignment(t)
-                if item:
-                    # handle \pt, \in etc.
-                    for t in skip(self.source):
-                        if isinstance(t, ly.lex.lilypond.Unit):
-                            item.append(self.factory(Command, t))
-                        else:
-                            self.source.pushback()
-                        break
-                    return item
+    
+    @token_class(
+        ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous,
+        ly.lex.lilypond.SimultaneousOrSequentialCommand,
+    )
+    def handle_music_list(self, t, source):
+        item, it = self.test_music_list(t)
+        if item:
+            if it:
+                item.extend(self.read(it))
+            return item
+    
+    @token_class(ly.lex.lilypond.Command)
+    def read_command(self, t, source):
+        """Read the rest of a command given in t from the source."""
+        try:
+            meth = self._commands[t]
+        except KeyError:
+            item = self.factory(Command, t)
+            return item
+        return meth(self, t, source)
+    
+    @token_class(ly.lex.lilypond.Keyword)
+    def read_keyword(self, t, source):
+        """Read the rest of a keyword given in t from the source."""
+        try:
+            meth = self._keywords[t]
+        except KeyError:
+            item = self.factory(Keyword, t)
+            return item
+        return meth(self, t, source)
+    
+    @token_class(ly.lex.lilypond.UserCommand)
+    def read_user_command(self, t, source):
+        """Read a user command, this can be a variable reference."""
+        return self.factory(UserCommand, t)
+    
+    @token_class(ly.lex.lilypond.ChordSeparator)
+    def handle_chord_separator(self, t, source):
+        return self.read_chord_specifier(t)
+    
+    @token_class(ly.lex.lilypond.TremoloColon)
+    def handle_tremolo_colon(self, t, source):
+        return self.read_tremolo(t)
+    
+    @token_class(ly.lex.lilypond.Name)
+    def handle_name(self, t, source):
+        if self.source.state.depth() < 2:
+            return self.read_assignment(t)
+    
+    @token_class(
+        ly.lex.lilypond.PaperVariable,
+        ly.lex.lilypond.LayoutVariable,
+        ly.lex.lilypond.HeaderVariable,
+        ly.lex.lilypond.UserVariable,
+    )
+    def handle_variable_assignment(self, t, source):
+        item = self.read_assignment(t)
+        if item:
+            # handle \pt, \in etc.
+            for t in skip(self.source):
+                if isinstance(t, ly.lex.lilypond.Unit):
+                    item.append(self.factory(Command, t))
+                else:
+                    self.source.pushback()
+                break
+            return item
                 
     def read_assignment(self, t):
         """Read an assignment from the variable name. May return None."""
@@ -953,24 +1015,6 @@ class Reader(object):
                 self.source.pushback()
             break
         return item
-    
-    def read_command(self, t, source):
-        """Read the rest of a command given in t from the source."""
-        try:
-            meth = self._commands[t]
-        except KeyError:
-            item = self.factory(Command, t)
-            return item
-        return meth(self, t, source)
-    
-    def read_keyword(self, t, source):
-        """Read the rest of a keyword given in t from the source."""
-        try:
-            meth = self._keywords[t]
-        except KeyError:
-            item = self.factory(Keyword, t)
-            return item
-        return meth(self, t, source)
     
     @command('\\relative')
     def handle_relative(self, t, source):
@@ -1388,10 +1432,6 @@ class Reader(object):
             self.source.pushback()
         return item
     
-    def read_user_command(self, t, source):
-        """Read a user command, this can be a variable reference."""
-        return self.factory(UserCommand, t)
-    
     @command('\\markup', '\\markuplist', '\\markuplines')
     def handle_markup(self, t, source=None):
         item = self.factory(Markup, t)
@@ -1487,7 +1527,7 @@ class Reader(object):
 
 
 # remove the decorators and dispatch stuff
-del keyword, command, dispatch, _keywords, _commands
+del keyword, command, token_class, dispatch, _keywords, _commands, _token_classes
 
 
 
