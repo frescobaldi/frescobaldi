@@ -920,11 +920,10 @@ class Source(object):
         def g():
             for t in self.tokens:
                 yield t
-            yield newline()
             for self.block, self.tokens in gen:
+                yield newline()
                 for t in self.tokens:
                     yield t
-                yield newline()
         self._gen = g()
     
     def __iter__(self):
