@@ -661,26 +661,18 @@ def skip(source, what=(ly.lex.Space, ly.lex.Comment)):
 ### These help with dispatching the commands and keywords
 _commands = {}
 _keywords = {}
-def dispatch(what, names):
+_token_classes = {}
+def dispatch(what, args, read_arg=None):
     def wrapper(func):
-        for n in names:
-            what[n] = func
+        for a in args:
+            what[a] = func
         if not func.__doc__:
-            func.__doc__ = "handle " + ", ".join(names)
+            func.__doc__ = "handle " + ", ".join(map(read_arg, args))
         return func
     return wrapper
 def command(*names): return dispatch(_commands, names)
 def keyword(*names): return dispatch(_keywords, names)
-def dispatch_class(what, classes):
-    def wrapper(func):
-        for c in classes:
-            what[c] = func
-        if not func.__doc__:
-            func.__doc__ = "handle " + ", ".join(c.__name__ for c in classes)
-        return func
-    return wrapper
-_token_classes = {}
-def token_class(*classes): return dispatch_class(_token_classes, classes)
+def token_class(*classes): return dispatch(_token_classes, classes, lambda a: a.__name__)
 ### (these are deleted at the end of this file.)
 
 
