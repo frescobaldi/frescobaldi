@@ -461,6 +461,17 @@ class MarkupWord(Item):
     """A MarkupWord token."""
 
 
+class Assignment(Item):
+    """A variable = value construct."""
+    def name(self):
+        """The variable name."""
+        return self.token
+    
+    def value(self):
+        """The assigned value."""
+        return self[-1]
+
+
 class Book(Container):
     """A \\book { ... } construct."""
 
@@ -799,6 +810,37 @@ class Reader(object):
                 return self.read_chord_specifier(t)
             elif isinstance(t, ly.lex.lilypond.TremoloColon):
                 return self.read_tremolo(t)
+            elif isinstance(t, ly.lex.lilypond.Name) and self.source.state.depth() < 2:
+                return self.read_assignment(t)
+            elif isinstance(t, (
+                ly.lex.lilypond.PaperVariable,
+                ly.lex.lilypond.LayoutVariable,
+                ly.lex.lilypond.HeaderVariable,
+                ly.lex.lilypond.UserVariable,
+                )):
+                item = self.read_assignment(t)
+                if item:
+                    # handle \pt, \in etc.
+                    for t in skip(self.source):
+                        if isinstance(t, ly.lex.lilypond.Unit):
+                            item.append(self.factory(Command, t))
+                        else:
+                            self.source.pushback()
+                        break
+                    return item
+                
+    def read_assignment(self, t):
+        """Read an assignment from the variable name. May return None."""
+        for t1 in skip(self.source):
+            if isinstance(t1, ly.lex.lilypond.EqualSign):
+                item = self.factory(Assignment, t)
+                item.tokens = (t1,)
+                for i in self.read():
+                    item.append(i)
+                    return item
+            else:
+                self.source.pushback()
+            break
     
     def test_music_list(self, t):
         """Test whether a music list ({ ... }, << ... >>, starts here.
