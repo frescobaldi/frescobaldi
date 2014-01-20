@@ -664,8 +664,8 @@ def dispatch(what, *args):
     def wrapper(func):
         for a in args:
             what[a] = func
-        if not func.__doc__:
-            func.__doc__ = "handle " + ", ".join(map(read_arg, args))
+        doc = "handle " + ", ".join(map(read_arg, args))
+        func.__doc__ = doc if not func.__doc__ else func.__doc__ + '\n\n' + doc
         return func
     return wrapper
 
@@ -779,14 +779,19 @@ class Reader(object):
     
     def read_item(self, t, source=None):
         """Return one Item that starts with token t. May return None."""
-        for c in t.__class__.__mro__:
-            try:
-                meth = self._tokencls[c]
-            except KeyError:
-                if c == ly.lex.Token:
-                    break
-                continue
-            return meth(self, t, source or self.source)
+        cls = t.__class__
+        try:
+            meth = self._tokencls[cls]
+        except KeyError:
+            for c in cls.__mro__[1:]:
+                try:
+                    meth = self._tokencls[cls] = self._tokencls[c]
+                except KeyError:
+                    if c is not ly.lex.Token:
+                        continue
+                    meth = self._tokencls[cls] = None
+                break
+        return meth(self, t, source or self.source) if meth else None
     
     @dispatch(_tokencls, ly.lex.lilypond.SchemeStart)
     def handle_scheme_start(self, t, source):
