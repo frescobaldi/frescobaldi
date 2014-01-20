@@ -658,11 +658,9 @@ def skip(source, what=(ly.lex.Space, ly.lex.Comment)):
             yield t
 
 
-### These help with dispatching the commands and keywords
-_commands = {}
-_keywords = {}
-_token_classes = {}
-def dispatch(what, args, read_arg=None):
+def dispatch(what, *args):
+    """Decorator to dispatch commands, keywords, classes, etc."""
+    read_arg = (lambda c: c.__name__) if isinstance(args[0], type) else None
     def wrapper(func):
         for a in args:
             what[a] = func
@@ -670,19 +668,14 @@ def dispatch(what, args, read_arg=None):
             func.__doc__ = "handle " + ", ".join(map(read_arg, args))
         return func
     return wrapper
-def command(*names): return dispatch(_commands, names)
-def keyword(*names): return dispatch(_keywords, names)
-def token_class(*classes): return dispatch(_token_classes, classes, lambda a: a.__name__)
-### (these are deleted at the end of this file.)
 
 
 class Reader(object):
     """Reads tokens from a Source and builds a meaningful tree stucture."""
     
-    # refer to the dispatch dictionaries in our own space
-    _commands = _commands
-    _keywords = _keywords
-    _token_classes = _token_classes
+    _commands = {}
+    _keywords = {}
+    _tokencls = {}
     
     def __init__(self, source):
         """Initialize with a ly.document.Source.
@@ -788,22 +781,22 @@ class Reader(object):
         """Return one Item that starts with token t. May return None."""
         for c in t.__class__.__mro__:
             try:
-                meth = self._token_classes[c]
+                meth = self._tokencls[c]
             except KeyError:
                 if c == ly.lex.Token:
                     break
                 continue
             return meth(self, t, source or self.source)
     
-    @token_class(ly.lex.lilypond.SchemeStart)
+    @dispatch(_tokencls, ly.lex.lilypond.SchemeStart)
     def handle_scheme_start(self, t, source):
         return self.read_scheme_item(t)
     
-    @token_class(ly.lex.StringStart)
+    @dispatch(_tokencls, ly.lex.StringStart)
     def handle_string_start(self, t, source):
         return self.factory(String, t, True)
     
-    @token_class(
+    @dispatch(_tokencls, 
         ly.lex.lilypond.DecimalValue,
         ly.lex.lilypond.IntegerValue,
         ly.lex.lilypond.Fraction,
@@ -811,11 +804,11 @@ class Reader(object):
     def handle_number_class(self, t, source):
         return self.factory(Number, t)
     
-    @token_class(ly.lex.lilypond.MusicItem)
+    @dispatch(_tokencls, ly.lex.lilypond.MusicItem)
     def handle_music_item(self, t, source):
         return self.read_music_item(t, source)
     
-    @token_class(ly.lex.lilypond.ChordStart)
+    @dispatch(_tokencls, ly.lex.lilypond.ChordStart)
     def handle_chord_start(self, t, source):
         if not self.in_chord:
             self.in_chord = True
@@ -826,7 +819,7 @@ class Reader(object):
             self.add_duration(chord, None, source)
             return chord
     
-    @token_class(
+    @dispatch(_tokencls, 
         ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous,
         ly.lex.lilypond.SimultaneousOrSequentialCommand,
     )
@@ -837,7 +830,7 @@ class Reader(object):
                 item.extend(self.read(it))
             return item
     
-    @token_class(ly.lex.lilypond.Command)
+    @dispatch(_tokencls, ly.lex.lilypond.Command)
     def read_command(self, t, source):
         """Read the rest of a command given in t from the source."""
         try:
@@ -847,7 +840,7 @@ class Reader(object):
             return item
         return meth(self, t, source)
     
-    @token_class(ly.lex.lilypond.Keyword)
+    @dispatch(_tokencls, ly.lex.lilypond.Keyword)
     def read_keyword(self, t, source):
         """Read the rest of a keyword given in t from the source."""
         try:
@@ -857,25 +850,25 @@ class Reader(object):
             return item
         return meth(self, t, source)
     
-    @token_class(ly.lex.lilypond.UserCommand)
+    @dispatch(_tokencls, ly.lex.lilypond.UserCommand)
     def read_user_command(self, t, source):
         """Read a user command, this can be a variable reference."""
         return self.factory(UserCommand, t)
     
-    @token_class(ly.lex.lilypond.ChordSeparator)
+    @dispatch(_tokencls, ly.lex.lilypond.ChordSeparator)
     def handle_chord_separator(self, t, source):
         return self.read_chord_specifier(t)
     
-    @token_class(ly.lex.lilypond.TremoloColon)
+    @dispatch(_tokencls, ly.lex.lilypond.TremoloColon)
     def handle_tremolo_colon(self, t, source):
         return self.read_tremolo(t)
     
-    @token_class(ly.lex.lilypond.Name)
+    @dispatch(_tokencls, ly.lex.lilypond.Name)
     def handle_name(self, t, source):
         if self.source.state.depth() < 2:
             return self.read_assignment(t)
     
-    @token_class(
+    @dispatch(_tokencls, 
         ly.lex.lilypond.PaperVariable,
         ly.lex.lilypond.LayoutVariable,
         ly.lex.lilypond.HeaderVariable,
@@ -1008,7 +1001,7 @@ class Reader(object):
             break
         return item
     
-    @command('\\relative')
+    @dispatch(_commands, '\\relative')
     def handle_relative(self, t, source):
         item = self.factory(Relative, t)
         # get one pitch and exit on a non-comment
@@ -1021,7 +1014,7 @@ class Reader(object):
             break
         return item
     
-    @command('\\absolute')
+    @dispatch(_commands, '\\absolute')
     def handle_absolute(self, t, source):
         item = self.factory(Absolute, t)
         for i in self.read(source):
@@ -1029,7 +1022,7 @@ class Reader(object):
             break
         return item
     
-    @command('\\transpose')
+    @dispatch(_commands, '\\transpose')
     def handle_transpose(self, t, source):
         item = self.factory(Transpose, t)
         # get two pitches
@@ -1042,7 +1035,7 @@ class Reader(object):
             break
         return item
     
-    @command('\\clef')
+    @dispatch(_commands, '\\clef')
     def handle_clef(self, t, source):
         item = self.factory(Clef, t)
         for t in skip(source):
@@ -1053,13 +1046,13 @@ class Reader(object):
             break
         return item
     
-    @command('\\key')
+    @dispatch(_commands, '\\key')
     def handle_key(self, t, source):
         item = self.factory(KeySignature, t)
         item.extend(itertools.islice(self.read(source), 2))
         return item
     
-    @command('\\times', '\\tuplet', '\\scaleDurations')
+    @dispatch(_commands, '\\times', '\\tuplet', '\\scaleDurations')
     def handle_scaler(self, t, source):
         item = self.factory(Scaler, t)
         item.scaling = 1
@@ -1094,7 +1087,7 @@ class Reader(object):
             break
         return item
     
-    @command('\\grace', '\\acciaccatura', '\\appoggiatura', '\\slashedGrace')
+    @dispatch(_commands, '\\grace', '\\acciaccatura', '\\appoggiatura', '\\slashedGrace')
     def handle_grace(self, t, source):
         item = self.factory(Grace, t)
         for i in self.read(source):
@@ -1102,14 +1095,14 @@ class Reader(object):
             break
         return item
     
-    @command('\\afterGrace')
+    @dispatch(_commands, '\\afterGrace')
     def handle_after_grace(self, t, source):
         item = self.factory(AfterGrace, t)
         for i in itertools.islice(self.read(source), 2):
             item.append(i)
         return item
     
-    @command('\\repeat')
+    @dispatch(_commands, '\\repeat')
     def handle_repeat(self, t, source):
         item = self.factory(Repeat, t)
         item._specifier = None
@@ -1145,7 +1138,7 @@ class Reader(object):
                 break
         return item
     
-    @command('\\alternative')
+    @dispatch(_commands, '\\alternative')
     def handle_alternative(self, t, source):
         item = self.factory(Alternative, t)
         for i in self.read(source):
@@ -1153,7 +1146,7 @@ class Reader(object):
             break
         return item
     
-    @command('\\tempo')
+    @dispatch(_commands, '\\tempo')
     def handle_tempo(self, t, source):
         item = self.factory(Tempo, t)
         item._text = None
@@ -1179,7 +1172,7 @@ class Reader(object):
                 item._tempo.append(self.read_scheme_item(t))
         return item
     
-    @command('\\time')
+    @dispatch(_commands, '\\time')
     def handle_time(self, t, source):
         item = self.factory(TimeSignature, t)
         for t in skip(source):
@@ -1191,13 +1184,13 @@ class Reader(object):
             break
         return item
     
-    @command('\\partial')
+    @dispatch(_commands, '\\partial')
     def handle_partial(self, t, source):
         item = self.factory(Partial, t)
         self.add_duration(item, None, source)
         return item
     
-    @command('\\new', '\\context', '\\change')
+    @dispatch(_commands, '\\new', '\\context', '\\change')
     def handle_translator(self, t, source):
         cls = Change if t == '\\change' else Context 
         item = self.factory(cls, t)
@@ -1240,7 +1233,7 @@ class Reader(object):
         '\\drummode': DrumMode,
         '\\drums': DrumMode,
     }
-    @command(*_inputmode_commands)
+    @dispatch(_commands, *_inputmode_commands)
     def handle_inputmode(self, t, source):
         cls = self._inputmode_commands[t]
         item = self.factory(cls, t)
@@ -1256,7 +1249,7 @@ class Reader(object):
         '\\addlyrics': LyricMode,
         '\\lyricsto': LyricsTo,
     }
-    @command(*_lyricmode_commands)
+    @dispatch(_commands, *_lyricmode_commands)
     def handle_lyricmode(self, t, source):
         cls = self._lyricmode_commands[t]
         item = self.factory(cls, t)
@@ -1298,7 +1291,7 @@ class Reader(object):
                             item.append(i)
                 return item
     
-    @command('\\stringTuning')
+    @dispatch(_commands, '\\stringTuning')
     def handle_string_tuning(self, t, source):
         item = self.factory(StringTuning, t)
         for arg in self.read(source):
@@ -1306,7 +1299,7 @@ class Reader(object):
             break
         return item
     
-    @keyword('\\language')
+    @dispatch(_keywords, '\\language')
     def handle_language(self, t, source):
         item = self.factory(Language, t)
         for name in self.read(source):
@@ -1318,7 +1311,7 @@ class Reader(object):
             break
         return item
     
-    @keyword('\\include')
+    @dispatch(_keywords, '\\include')
     def handle_include(self, t, source):
         item = None
         name = None
@@ -1336,7 +1329,7 @@ class Reader(object):
                 item.append(name)
         return item
     
-    @keyword('\\version')
+    @dispatch(_keywords, '\\version')
     def handle_version(self, t, source):
         item = self.factory(Version, t)
         for arg in self.read(source):
@@ -1355,7 +1348,7 @@ class Reader(object):
         '\\with': With,
         '\\context': LayoutContext,
     }
-    @keyword(*_bracketed_keywords)
+    @dispatch(_keywords, *_bracketed_keywords)
     def handle_bracketed(self, t, source):
         cls = self._bracketed_keywords[t]
         item = self.factory(cls, t)
@@ -1366,7 +1359,7 @@ class Reader(object):
                 break
         return item
     
-    @keyword('\\set')
+    @dispatch(_keywords, '\\set')
     def handle_set(self, t, source):
         item = self.factory(Set, t)
         tokens = []
@@ -1380,7 +1373,7 @@ class Reader(object):
                 break
         return item
     
-    @keyword('\\unset')
+    @dispatch(_keywords, '\\unset')
     def handle_unset(self, t, source):
         item = self.factory(Unset, t)
         tokens = []
@@ -1392,7 +1385,7 @@ class Reader(object):
         item.tokens = tuple(tokens)
         return item
     
-    @keyword('\\override')
+    @dispatch(_keywords, '\\override')
     def handle_override(self, t, source):
         item = self.factory(Override, t)
         for t in skip(self.consume()):
@@ -1408,7 +1401,7 @@ class Reader(object):
                 item.append(self.factory(PathItem, t))
         return item
     
-    @keyword('\\revert')
+    @dispatch(_keywords, '\\revert')
     def handle_revert(self, t, source):
         item = self.factory(Revert, t)
         t = None
@@ -1424,7 +1417,7 @@ class Reader(object):
             self.source.pushback()
         return item
     
-    @command('\\markup', '\\markuplist', '\\markuplines')
+    @dispatch(_commands, '\\markup', '\\markuplist', '\\markuplines')
     def handle_markup(self, t, source=None):
         item = self.factory(Markup, t)
         self.add_markup_arguments(item)
@@ -1516,11 +1509,5 @@ class Reader(object):
             def last(t): item.tokens = (t,)
             item.extend(self.read(self.consume(last)))
             return item
-
-
-# remove the decorators and dispatch stuff
-del keyword, command, token_class, dispatch, _keywords, _commands, _token_classes
-
-
 
 
