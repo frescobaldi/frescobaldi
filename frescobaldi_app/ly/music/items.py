@@ -861,12 +861,34 @@ class Reader(object):
         return self.factory(UserCommand, t)
     
     @dispatch(_tokencls, ly.lex.lilypond.ChordSeparator)
-    def handle_chord_separator(self, t, source):
-        return self.read_chord_specifier(t)
+    def read_chord_specifier(self, t, source):
+        """Read stuff behind notes in chordmode."""
+        item = self.factory(ChordSpecifier)
+        item.append(self.factory(ChordItem, t))
+        for t in self.consume():
+            if isinstance(t, ly.lex.lilypond.ChordItem):
+                item.append(self.factory(ChordItem, t))
+            elif isinstance(t, ly.lex.lilypond.Note):
+                r = ly.pitch.pitchReader(self.language)(t)
+                if r:
+                    note = self.factory(Note, t)
+                    note.pitch = ly.pitch.Pitch(*r)
+                    item.append(note)
+        return item
     
     @dispatch(_tokencls, ly.lex.lilypond.TremoloColon)
-    def handle_tremolo_colon(self, t, source):
-        return self.read_tremolo(t)
+    def read_tremolo(self, t):
+        """Read a tremolo."""
+        item = self.factory(Tremolo, t)
+        for t in self.source:
+            if isinstance(t, ly.lex.lilypond.TremoloDuration):
+                item.duration = self.factory(Duration)
+                item.duration.token = t
+                item.duration.base_scaling = ly.duration.base_scaling_string(t)
+            else:
+                self.source.pushback()
+            break
+        return item
     
     @dispatch(_tokencls, ly.lex.lilypond.Name)
     def handle_name(self, t, source):
@@ -976,34 +998,6 @@ class Reader(object):
         if item:
             if not self.in_chord and not in_pitch_command:
                 self.add_duration(item, None, source)
-        return item
-    
-    def read_chord_specifier(self, t):
-        """Read stuff behind notes in chordmode."""
-        item = self.factory(ChordSpecifier)
-        item.append(self.factory(ChordItem, t))
-        for t in self.consume():
-            if isinstance(t, ly.lex.lilypond.ChordItem):
-                item.append(self.factory(ChordItem, t))
-            elif isinstance(t, ly.lex.lilypond.Note):
-                r = ly.pitch.pitchReader(self.language)(t)
-                if r:
-                    note = self.factory(Note, t)
-                    note.pitch = ly.pitch.Pitch(*r)
-                    item.append(note)
-        return item
-
-    def read_tremolo(self, t):
-        """Read a tremolo."""
-        item = self.factory(Tremolo, t)
-        for t in self.source:
-            if isinstance(t, ly.lex.lilypond.TremoloDuration):
-                item.duration = self.factory(Duration)
-                item.duration.token = t
-                item.duration.base_scaling = ly.duration.base_scaling_string(t)
-            else:
-                self.source.pushback()
-            break
         return item
     
     @dispatch(_commands, '\\relative')
