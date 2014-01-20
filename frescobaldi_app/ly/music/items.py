@@ -400,6 +400,45 @@ class KeySignature(Item):
             return i.token[1:]
 
 
+class PipeSymbol(Item):
+    """A |."""
+
+
+class VoiceSeparator(Item):
+    """A \\\\."""
+
+
+class Postfix(Item):
+    """Any item that is prefixed with a _, - or ^ direction token."""
+
+
+class Tie(Item):
+    """A tie."""
+
+
+class Slur(Item):
+    """A ( or )."""
+    event = None
+
+
+class PhrasingSlur(Item):
+    """A \\( or \\)."""
+    event = None
+
+
+class Beam(Item):
+    """A [ or ]."""
+    event = None
+
+
+class Dynamic(Item):
+    """Any dynamic symbol."""
+
+
+class Articulation(Item):
+    """An articulation, fingering, string number, or other symbol."""
+
+
 class StringTuning(Item):
     """A \\stringTuning command (with a chord as argument)."""
 
@@ -869,6 +908,7 @@ class Reader(object):
         meth = self._commands.method(t)
         if meth:
             return meth(self, t, source)
+        return self.factory(Command, t)
     
     @_tokencls(ly.lex.lilypond.Keyword)
     def read_keyword(self, t, source):
@@ -876,6 +916,7 @@ class Reader(object):
         meth = self._keywords.method(t)
         if meth:
             return meth(self, t, source)
+        return self.factory(Keyword, t)
     
     @_tokencls(ly.lex.lilypond.UserCommand)
     def read_user_command(self, t, source):
@@ -934,7 +975,55 @@ class Reader(object):
                     self.source.pushback()
                 break
             return item
-                
+    
+    _direct_items = {
+        ly.lex.lilypond.VoiceSeparator: VoiceSeparator,
+        ly.lex.lilypond.PipeSymbol: PipeSymbol,
+        ly.lex.lilypond.Dynamic: Dynamic,
+        ly.lex.lilypond.Tie: Tie,
+    }
+    @_tokencls(*_direct_items)
+    def handle_direct_items(self, t, source):
+        """Tokens that directly translate to an Item."""
+        return self.factory(self._direct_items[t.__class__], t)
+    
+    @_tokencls(ly.lex.lilypond.Direction)
+    def handle_direction(self, t, source):
+        item = self.factory(Postfix, t)
+        item.direction = '_-^'.index(t) - 1
+        for t in skip(source):
+            if isinstance(t, (
+                ly.lex.StringStart,
+                ly.lex.lilypond.MarkupStart,
+                ly.lex.lilypond.Articulation,
+                ly.lex.lilypond.Slur,
+                ly.lex.lilypond.Beam,
+                ly.lex.lilypond.Dynamic,
+                # TODO: tweak
+                )):
+                item.append(self.read_item(t))
+            else:
+                self.source.pushback()
+            break
+        return item
+    
+    @_tokencls(ly.lex.lilypond.Slur)
+    def handle_slurs(self, t, source=None):
+        cls = PhrasingSlur if t.startswith('\\') else Slur
+        item = self.factory(cls, t)
+        item.event = 'start' if t.endswith('(') else 'stop'
+        return item
+    
+    @_tokencls(ly.lex.lilypond.Beam)
+    def handle_beam(self, t, source=None):
+        item = self.factory(Beam, t)
+        item.event = 'start' if t == '[' else 'stop'
+        return item
+    
+    @_tokencls(ly.lex.lilypond.Articulation)
+    def handle_beam(self, t, source=None):
+        return self.factory(Articulation, t)
+    
     def read_assignment(self, t):
         """Read an assignment from the variable name. May return None."""
         for t1 in skip(self.source):
