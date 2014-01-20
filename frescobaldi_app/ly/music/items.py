@@ -676,6 +676,8 @@ class Reader(object):
     _commands = {}
     _keywords = {}
     _tokencls = {}
+    _markup = {}
+    _scheme = {}
     
     def __init__(self, source):
         """Initialize with a ly.document.Source.
@@ -794,11 +796,14 @@ class Reader(object):
         return meth(self, t, source or self.source) if meth else None
     
     @dispatch(_tokencls, ly.lex.lilypond.SchemeStart)
-    def handle_scheme_start(self, t, source):
+    @dispatch(_markup, ly.lex.lilypond.SchemeStart)
+    def handle_scheme_start(self, t, source=None):
         return self.read_scheme_item(t)
     
     @dispatch(_tokencls, ly.lex.StringStart)
-    def handle_string_start(self, t, source):
+    @dispatch(_markup, ly.lex.StringStart)
+    @dispatch(_scheme, ly.lex.StringStart)
+    def handle_string_start(self, t, source=None):
         return self.factory(String, t, True)
     
     @dispatch(_tokencls, 
@@ -806,7 +811,7 @@ class Reader(object):
         ly.lex.lilypond.IntegerValue,
         ly.lex.lilypond.Fraction,
     )
-    def handle_number_class(self, t, source):
+    def handle_number_class(self, t, source=None):
         return self.factory(Number, t)
     
     @dispatch(_tokencls, ly.lex.lilypond.MusicItem)
@@ -861,7 +866,7 @@ class Reader(object):
         return self.factory(UserCommand, t)
     
     @dispatch(_tokencls, ly.lex.lilypond.ChordSeparator)
-    def read_chord_specifier(self, t, source):
+    def read_chord_specifier(self, t, source=None):
         """Read stuff behind notes in chordmode."""
         item = self.factory(ChordSpecifier)
         item.append(self.factory(ChordItem, t))
@@ -877,7 +882,7 @@ class Reader(object):
         return item
     
     @dispatch(_tokencls, ly.lex.lilypond.TremoloColon)
-    def read_tremolo(self, t):
+    def read_tremolo(self, t, source=None):
         """Read a tremolo."""
         item = self.factory(Tremolo, t)
         for t in self.source:
@@ -1424,32 +1429,44 @@ class Reader(object):
         
     def read_markup(self, t):
         """Read LilyPond markup (recursively)."""
-        if isinstance(t, ly.lex.lilypond.MarkupScore):
-            item = self.factory(MarkupScore, t)
-            for t in self.consume():
-                if isinstance(t, ly.lex.lilypond.OpenBracket):
-                    item.tokens = (t,)
-                    def last(t): item.tokens += (t,)
-                    item.extend(self.read(self.consume(last)))
-                    return item
-                elif not isinstance(t, ly.lex.Space):
-                    self.source.pushback()
-                    break
-            return item
-        elif isinstance(t, ly.lex.lilypond.MarkupCommand):
-            item = self.factory(MarkupCommand, t)
-        elif isinstance(t, ly.lex.lilypond.OpenBracketMarkup):
-            item = self.factory(MarkupList, t)
-        elif isinstance(t, ly.lex.lilypond.MarkupWord):
-            return self.factory(MarkupWord, t)
-        elif isinstance(t, ly.lex.lilypond.SchemeStart):
-            return self.read_scheme_item(t)
-        elif isinstance(t, ly.lex.StringStart):
-            return self.factory(String, t, True)
-        else:
-            return None
+        for cls in t.__class__.__mro__:
+            try:
+                meth = self._markup[cls]
+            except KeyError:
+                if cls is not ly.lex.Token:
+                    continue
+                return
+            return meth(self, t)
+    
+    @dispatch(_markup, ly.lex.lilypond.MarkupScore)
+    def handle_markup_score(self, t):
+        item = self.factory(MarkupScore, t)
+        for t in self.consume():
+            if isinstance(t, ly.lex.lilypond.OpenBracket):
+                item.tokens = (t,)
+                def last(t): item.tokens += (t,)
+                item.extend(self.read(self.consume(last)))
+                return item
+            elif not isinstance(t, ly.lex.Space):
+                self.source.pushback()
+                break
+        return item
+    
+    @dispatch(_markup, ly.lex.lilypond.MarkupCommand)
+    def handle_markup_command(self, t):
+        item = self.factory(MarkupCommand, t)
         self.add_markup_arguments(item)
         return item
+    
+    @dispatch(_markup, ly.lex.lilypond.OpenBracketMarkup)
+    def handle_markup_open_bracket(self, t):
+        item = self.factory(MarkupList, t)
+        self.add_markup_arguments(item)
+        return item
+    
+    @dispatch(_markup, ly.lex.lilypond.MarkupWord)
+    def handle_markup_word(self, t):
+        return self.factory(MarkupWord, t)
     
     def add_markup_arguments(self, item):
         """Add markup arguments to the item."""
@@ -1474,39 +1491,53 @@ class Reader(object):
 
     def read_scheme(self, t):
         """Return a Scheme item from the token t."""
-        if isinstance(t, ly.lex.scheme.Quote):
-            item = self.factory(SchemeQuote, t)
-            for t in self.consume():
-                if not isinstance(t, ly.lex.Space):
-                    i = self.read_scheme(t)
-                    if i:
-                        item.append(i)
-                        break
-            return item
-        elif isinstance(t, ly.lex.scheme.OpenParen):
-            item = self.factory(SchemeList, t)
-            def last(t): item.tokens = (t,)
-            for t in self.consume(last):
-                if not isinstance(t, ly.lex.Space):
-                    i = self.read_scheme(t)
-                    if i:
-                        item.append(i)
-            return item
-        elif isinstance(t, ly.lex.StringStart):
-            return self.factory(String, t, True)
-        elif isinstance(t, (
-            ly.lex.scheme.Bool,
-            ly.lex.scheme.Char,
-            ly.lex.scheme.Word,
-            ly.lex.scheme.Number,
-            ly.lex.scheme.Fraction,
-            ly.lex.scheme.Float,
-            )):
-            return self.factory(SchemeItem, t)
-        elif isinstance(t, ly.lex.scheme.LilyPondStart):
-            item = self.factory(SchemeLily, t)
-            def last(t): item.tokens = (t,)
-            item.extend(self.read(self.consume(last)))
-            return item
+        for cls in t.__class__.__mro__:
+            try:
+                meth = self._scheme[cls]
+            except KeyError:
+                if cls is not ly.lex.Token:
+                    continue
+                return
+            return meth(self, t)
+        
+    @dispatch(_scheme, ly.lex.scheme.Quote)
+    def handle_scheme_quote(self, t):
+        item = self.factory(SchemeQuote, t)
+        for t in self.consume():
+            if not isinstance(t, ly.lex.Space):
+                i = self.read_scheme(t)
+                if i:
+                    item.append(i)
+                    break
+        return item
+    
+    @dispatch(_scheme, ly.lex.scheme.OpenParen)
+    def handle_scheme_open_parenthesis(self, t):
+        item = self.factory(SchemeList, t)
+        def last(t): item.tokens = (t,)
+        for t in self.consume(last):
+            if not isinstance(t, ly.lex.Space):
+                i = self.read_scheme(t)
+                if i:
+                    item.append(i)
+        return item
+    
+    @dispatch(_scheme,
+        ly.lex.scheme.Bool,
+        ly.lex.scheme.Char,
+        ly.lex.scheme.Word,
+        ly.lex.scheme.Number,
+        ly.lex.scheme.Fraction,
+        ly.lex.scheme.Float,
+    )
+    def handle_scheme_token(self, t):
+        return self.factory(SchemeItem, t)
+    
+    @dispatch(_scheme, ly.lex.scheme.LilyPondStart)
+    def handle_scheme_lilypond_start(self, t):
+        item = self.factory(SchemeLily, t)
+        def last(t): item.tokens = (t,)
+        item.extend(self.read(self.consume(last)))
+        return item
 
 
