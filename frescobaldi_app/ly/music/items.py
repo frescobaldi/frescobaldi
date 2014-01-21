@@ -54,6 +54,10 @@ class Item(node.WeakNode):
     tokens = ()
     token = None
 
+    def __repr__(self):
+        s = ' ' + repr(self.token[:]) if self.token else ''
+        return '<{0}{1}>'.format(self.__class__.__name__, s)
+
 
 class Root(Item):
     """The root node of a tree of Items.
