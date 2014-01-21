@@ -1046,16 +1046,27 @@ class Reader(object):
     
     def read_assignment(self, t):
         """Read an assignment from the variable name. May return None."""
-        for t1 in skip(self.source):
-            if isinstance(t1, lilypond.EqualSign):
-                item = self.factory(Assignment, t)
-                item.tokens = (t1,)
+        item = self.factory(Assignment, t)
+        for t in skip(self.source):
+            if isinstance(t, (lilypond.Variable, lilypond.UserVariable, lilypond.DotPath)):
+                item.append(self.factory(PathItem, t))
+            elif isinstance(t, lilypond.EqualSign):
+                item.tokens = (t,)
                 for i in self.read():
                     item.append(i)
-                    return item
+                    break
+                return item
+            elif isinstance(t, lilypond.SchemeStart):
+                # accept only one scheme item, if another one is found,
+                # return the first, and discard the Assignment item
+                # (should not normally happen)
+                for s in item.find(Scheme):
+                    self.source.pushback()
+                    return s
+                item.append(self.read_scheme_item(t))
             else:
                 self.source.pushback()
-            break
+                return
     
     def test_music_list(self, t):
         """Test whether a music list ({ ... }, << ... >>, starts here.
