@@ -145,6 +145,13 @@ class MusicList(Music):
         return max(gen) if self.simultaneous else sum(gen)
 
 
+class Tag(Music):
+    """A \\tag, \\keepWithTag or \\removeWithTag command."""
+    def length(self):
+        for l in self.child_length_iter(self[::-1]):
+            return l
+
+
 class Scaler(Music):
     """A music construct that scales the duration of its contents."""
     scaling = 1
@@ -1006,6 +1013,8 @@ class Reader(object):
                 # TODO: tweak
                 )):
                 item.append(self.read_item(t))
+            elif t == '\\tag' and isinstance(t, ly.lex.lilypond.Command):
+                item.append(self.read_item(t))
             else:
                 self.source.pushback()
             break
@@ -1199,6 +1208,13 @@ class Reader(object):
         for i in self.read(source):
             item.append(i)
             break
+        return item
+    
+    @_commands('\\tag', '\\keepWithTag', '\\removeWithTag', '\\appendToTag', '\\pushToTag')
+    def handle_tag(self, t, source):
+        item = self.factory(Tag, t)
+        argcount = 3 if t in ('\\appendToTag', '\\pushToTag') else 2
+        item.extend(itertools.islice(self.read(), argcount))
         return item
     
     @_commands('\\grace', '\\acciaccatura', '\\appoggiatura', '\\slashedGrace')
