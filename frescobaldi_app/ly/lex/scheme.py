@@ -91,11 +91,13 @@ class CloseParen(Scheme, _token.MatchEnd, _token.Dedent):
         
 
 class Quote(Scheme):
-    rx = r"'"
-    def update_state(self, state):
-        state.enter(ParseSchemeSymbol())
+    rx = r"['`,]"
     
     
+class Dot(Scheme):
+    rx = r".(?!\S)"
+
+
 class Bool(Scheme, _token.Item):
     rx = r"#[tf]\b"
     
@@ -135,13 +137,6 @@ class Constant(Word):
         from .. import data
         return match.group() in data.scheme_constants()
 
-
-class Symbol(Word):
-    rx = r"[a-zA-Z-]+(?![a-zA-Z])"
-    def update_state(self, state):
-        state.leave()
-        state.endArgument()
-    
 
 class Number(_token.Item, _token.Numeric):
     rx = (r"("
@@ -186,6 +181,7 @@ class ParseScheme(Parser):
         LineComment,
         BlockCommentStart,
         LilyPondStart,
+        Dot,
         Bool,
         Char,
         Quote,
@@ -201,10 +197,6 @@ class ParseScheme(Parser):
     )
     
 
-class ParseSchemeSymbol(FallthroughParser):
-    mode = 'scheme'
-    items = (Symbol,)
-   
 class ParseString(Parser):
     default = String
     items = (

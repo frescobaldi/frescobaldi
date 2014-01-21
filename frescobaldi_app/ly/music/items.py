@@ -1619,6 +1619,7 @@ class Reader(object):
         return item
     
     @_scheme(
+        ly.lex.scheme.Dot,
         ly.lex.scheme.Bool,
         ly.lex.scheme.Char,
         ly.lex.scheme.Word,

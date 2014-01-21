@@ -104,7 +104,6 @@ def mapping(data):
         ly.lex.scheme.Function: data.textFormat('scheme', 'function'),
         ly.lex.scheme.Variable: data.textFormat('scheme', 'variable'),
         ly.lex.scheme.Constant: data.textFormat('scheme', 'constant'),
-        ly.lex.scheme.Symbol: data.textFormat('scheme', 'symbol'),
         ly.lex.scheme.OpenParen: data.textFormat('scheme', 'delimiter'),
         ly.lex.scheme.CloseParen: data.textFormat('scheme', 'delimiter'),
         
