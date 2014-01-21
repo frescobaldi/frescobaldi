@@ -160,7 +160,7 @@ class Analyzer(object):
             return completiondata.lilypond_all_grob_properties
         # 2.18-style [GrobName.]propertyname tweak
         if lp.GrobName in tokenclasses:
-            self.backuntil(lx.Space, lp.DotSetOverride)
+            self.backuntil(lx.Space, lp.DotPath)
             return completiondata.lilypond_grob_properties(tokens[1], False)
         if tokens:
             self.backuntil(lx.Space)
@@ -354,12 +354,12 @@ class Analyzer(object):
             # (only if we are in the override parser and there's no "=")
             if isinstance(self.state.parser(), (scm.ParseScheme, scm.ParseSchemeSymbol)):
                 return
-            self.backuntil(lp.DotSetOverride, lx.Space)
+            self.backuntil(lp.DotPath, lx.Space)
             if (isinstance(self.state.parsers()[1], (
                     lp.ParseWith,
                     lp.ParseContext,
                     ))
-                or lp.DotSetOverride in tokenclasses):
+                or lp.DotPath in tokenclasses):
                 return completiondata.lilypond_grobs
             return completiondata.lilypond_contexts_and_grobs
         # yes, there is a GrobName at i
@@ -373,7 +373,7 @@ class Analyzer(object):
         test = [lx.Space, lp.SchemeStart, scm.Quote, scm.Word]
         if tokenclasses[i+1:] == test[:count]:
             return completiondata.lilypond_grob_properties(self.tokens[i])
-        self.backuntil(lp.DotSetOverride, lx.Space)
+        self.backuntil(lp.DotPath, lx.Space)
         return completiondata.lilypond_grob_properties(self.tokens[i], False)
     
     def revert(self):
@@ -389,10 +389,10 @@ class Analyzer(object):
     def set_unset(self):
         """\\set and \\unset"""
         tokenclasses = self.tokenclasses()
-        self.backuntil(lx.Space, lp.DotSetOverride)
+        self.backuntil(lx.Space, lp.DotPath)
         if lp.ContextProperty in tokenclasses and isinstance(self.last, lx.Space):
             return # fall back to music?
-        elif lp.DotSetOverride in tokenclasses:
+        elif lp.DotPath in tokenclasses:
             return completiondata.lilypond_context_properties
         return completiondata.lilypond_contexts_and_properties
 
@@ -428,7 +428,7 @@ class Analyzer(object):
             i = self.tokens.index("\\accidentalStyle")
         except ValueError:
             return
-        self.backuntil(lx.Space, lp.DotSetOverride)
+        self.backuntil(lx.Space, lp.DotPath)
         tokens = self.tokens[i+1:]
         tokenclasses = self.tokenclasses()[i+1:]
         try:
@@ -452,7 +452,7 @@ class Analyzer(object):
                 pass
         if not indices:
             return
-        self.backuntil(lx.Space, lp.DotSetOverride)
+        self.backuntil(lx.Space, lp.DotPath)
         i = max(indices)
         tokens = self.tokens[i+1:]
         tokenclasses = self.tokenclasses()[i+1:]
