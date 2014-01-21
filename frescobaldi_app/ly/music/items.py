@@ -635,6 +635,10 @@ class Revert(Item):
                 return i.token
 
 
+class Tweak(Item):
+    """A \\tweak command."""
+
+
 class PathItem(Item):
     """An item in the path of an \\override or \\revert command."""
 
@@ -1010,10 +1014,11 @@ class Reader(object):
                 ly.lex.lilypond.Slur,
                 ly.lex.lilypond.Beam,
                 ly.lex.lilypond.Dynamic,
-                # TODO: tweak
                 )):
                 item.append(self.read_item(t))
-            elif t == '\\tag' and isinstance(t, ly.lex.lilypond.Command):
+            elif isinstance(t, ly.lex.lilypond.Command) and t in ('\\tag'):
+                item.append(self.read_item(t))
+            elif isinstance(t, ly.lex.lilypond.Keyword) and t in ('\\tweak'):
                 item.append(self.read_item(t))
             else:
                 self.source.pushback()
@@ -1545,6 +1550,23 @@ class Reader(object):
             item.append(self.read_scheme_item(t))
         else:
             self.source.pushback()
+        return item
+    
+    @_keywords('\\tweak')
+    def handle_tweak(self, t, source):
+        item = self.factory(Tweak, t)
+        t = None
+        for t in skip(self.consume()):
+            if type(t) in ly.lex.lilypond.ParseTweak.items:
+                item.append(self.factory(PathItem, t))
+            else:
+                self.source.pushback()
+                break
+        if len(item) == 0 and isinstance(t, ly.lex.lilypond.SchemeStart):
+            item.append(self.read_scheme_item(t))
+        for i in self.read():
+            item.append(i)
+            break
         return item
     
     @_commands('\\markup', '\\markuplist', '\\markuplines')
