@@ -179,6 +179,12 @@ class AfterGrace(Music):
             return length
 
 
+class PartCombine(Music):
+    """The \\partcombine command with 2 music arguments."""
+    def length(self):
+        return max(self.child_length_iter())
+
+
 class Relative(Music):
     """A \\relative music expression. Has one or two children (Note, Music)."""
     pass
@@ -1445,6 +1451,12 @@ class Reader(object):
         for arg in self.read(source):
             item.append(arg)
             break
+        return item
+    
+    @_commands('\\partcombine')
+    def handle_partcombine(self, t, source=None):
+        item = self.factory(PartCombine, t)
+        item.extend(itertools.islice(self.read(), 2))
         return item
     
     @_keywords('\\language')
