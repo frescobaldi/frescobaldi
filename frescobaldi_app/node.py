@@ -198,7 +198,7 @@ class Node(object):
             yield node
             node = node.parent()
 
-    def previous(self):
+    def previous_sibling(self):
         """Return the sibling object just before us in our parents list.
         
         Returns None if this is the first child, or if we have no parent.
@@ -210,7 +210,7 @@ class Node(object):
             if i > 0:
                 return parent[i-1]
 
-    def next(self):
+    def next_sibling(self):
         """Return the sibling object just after us in our parents list.
         
         Returns None if this is the last child, or if we have no parent.
@@ -323,6 +323,16 @@ class Node(object):
         for node in self.ancestors():
             if isinstance(node, cls):
                 return node
+    
+    def dump(self):
+        """Return a string representation of the tree."""
+        def line(obj, indent):
+            yield indent * "  " + repr(obj)
+            for c in obj:
+                for l in line(c, indent + 1):
+                    yield l
+        return '\n'.join(line(self, 0))
+
 
 
 class WeakNode(Node):

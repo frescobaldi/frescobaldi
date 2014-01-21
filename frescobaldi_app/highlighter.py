@@ -64,6 +64,7 @@ def mapping(data):
         ly.lex.lilypond.Octave: data.textFormat('lilypond', 'octave'),
         ly.lex.lilypond.Duration: data.textFormat('lilypond', 'duration'),
         ly.lex.lilypond.OctaveCheck: data.textFormat('lilypond', 'check'),
+        ly.lex.lilypond.Direction: data.textFormat('lilypond', 'articulation'),
         ly.lex.lilypond.Fingering: data.textFormat('lilypond', 'fingering'),
         ly.lex.lilypond.StringNumber: data.textFormat('lilypond', 'stringnumber'),
         ly.lex.lilypond.Articulation: data.textFormat('lilypond', 'articulation'),
@@ -74,7 +75,6 @@ def mapping(data):
         ly.lex.lilypond.Markup: data.textFormat('lilypond', 'markup'),
         ly.lex.lilypond.LyricMode: data.textFormat('lilypond', 'lyricmode'),
         ly.lex.lilypond.Lyric: data.textFormat('lilypond', 'lyrictext'),
-        ly.lex.lilypond.LyricTie: data.textFormat('lilypond', 'slur'),
         ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
         ly.lex.lilypond.Specifier: data.textFormat('lilypond', 'specifier'),
         ly.lex.lilypond.UserCommand: data.textFormat('lilypond', 'usercommand'),
@@ -104,7 +104,6 @@ def mapping(data):
         ly.lex.scheme.Function: data.textFormat('scheme', 'function'),
         ly.lex.scheme.Variable: data.textFormat('scheme', 'variable'),
         ly.lex.scheme.Constant: data.textFormat('scheme', 'constant'),
-        ly.lex.scheme.Symbol: data.textFormat('scheme', 'symbol'),
         ly.lex.scheme.OpenParen: data.textFormat('scheme', 'delimiter'),
         ly.lex.scheme.CloseParen: data.textFormat('scheme', 'delimiter'),
         
