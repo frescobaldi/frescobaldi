@@ -34,8 +34,10 @@ import node
 
 import ly.duration
 import ly.pitch
-import ly.lex.lilypond
-import ly.lex.scheme
+
+from ly import lex
+from ly.lex import lilypond
+from ly.lex import scheme
 
 
 class Item(node.WeakNode):
@@ -175,6 +177,12 @@ class AfterGrace(Music):
     def length(self):
         for length in self.child_length_iter():
             return length
+
+
+class PartCombine(Music):
+    """The \\partcombine command with 2 music arguments."""
+    def length(self):
+        return max(self.child_length_iter())
 
 
 class Relative(Music):
@@ -573,16 +581,16 @@ class Set(Item):
     def context(self):
         """The context, if specified."""
         for t in self.tokens:
-            if isinstance(t, ly.lex.lilypond.ContextName):
+            if isinstance(t, lilypond.ContextName):
                 return t
     
     def property(self):
         """The property."""
         for t in self.tokens:
-            if isinstance(t, ly.lex.lilypond.ContextProperty):
+            if isinstance(t, lilypond.ContextProperty):
                 return t
         for t in self.tokens[::-1]:
-            if isinstance(t, ly.lex.lilypond.Name):
+            if isinstance(t, lilypond.Name):
                 return t
         
     def value(self):
@@ -596,16 +604,16 @@ class Unset(Item):
     def context(self):
         """The context, if specified."""
         for t in self.tokens:
-            if isinstance(t, ly.lex.lilypond.ContextName):
+            if isinstance(t, lilypond.ContextName):
                 return t
     
     def property(self):
         """The property."""
         for t in self.tokens:
-            if isinstance(t, ly.lex.lilypond.ContextProperty):
+            if isinstance(t, lilypond.ContextProperty):
                 return t
         for t in self.tokens[::-1]:
-            if isinstance(t, ly.lex.lilypond.Name):
+            if isinstance(t, lilypond.Name):
                 return t
 
 
@@ -613,12 +621,12 @@ class Override(Item):
     """An \\override command."""
     def context(self):
         for i in self:
-            if isinstance(i.token, ly.lex.lilypond.ContextName):
+            if isinstance(i.token, lilypond.ContextName):
                 return i.token
     
     def grob(self):
         for i in self:
-            if isinstance(i.token, ly.lex.lilypond.GrobName):
+            if isinstance(i.token, lilypond.GrobName):
                 return i.token
 
 
@@ -626,13 +634,17 @@ class Revert(Item):
     """A \\revert command."""
     def context(self):
         for i in self:
-            if isinstance(i.token, ly.lex.lilypond.ContextName):
+            if isinstance(i.token, lilypond.ContextName):
                 return i.token
     
     def grob(self):
         for i in self:
-            if isinstance(i.token, ly.lex.lilypond.GrobName):
+            if isinstance(i.token, lilypond.GrobName):
                 return i.token
+
+
+class Tweak(Item):
+    """A \\tweak command."""
 
 
 class PathItem(Item):
@@ -644,18 +656,18 @@ class String(Item):
     
     def value(self):
         return ''.join(
-            t[1:] if isinstance(t, ly.lex.Character) and t.startswith('\\') else t
+            t[1:] if isinstance(t, lex.Character) and t.startswith('\\') else t
             for t in self.tokens[:-1])
 
 
 class Number(Item):
     """A numerical value, directly entered."""
     def value(self):
-        if isinstance(self.token, ly.lex.lilypond.IntegerValue):
+        if isinstance(self.token, lilypond.IntegerValue):
             return int(self.token)
-        elif isinstance(self.token, ly.lex.lilypond.DecimalValue):
+        elif isinstance(self.token, lilypond.DecimalValue):
             return float(self.token)
-        elif isinstance(self.token, ly.lex.lilypond.Fraction):
+        elif isinstance(self.token, lilypond.Fraction):
             return Fraction(self.token)
         elif self.token.isdigit():
             return int(self.token)
@@ -697,7 +709,7 @@ class SchemeLily(Container):
 
 
 
-def skip(source, what=(ly.lex.Space, ly.lex.Comment)):
+def skip(source, what=(lex.Space, lex.Comment)):
     """Yield tokens from source, skipping items of classes specified in what.
     
     By default, comments and whitespace are skipped.
@@ -747,7 +759,7 @@ class dispatcher_class(dispatcher):
                 try:
                     meth = d[cls] = d[c]
                 except KeyError:
-                    if c is not ly.lex.Token:
+                    if c is not lex.Token:
                         continue
                     meth = d[cls] = None
                 return meth
@@ -791,13 +803,13 @@ class Reader(object):
         source = source or self.source
         d = item.duration = self.factory(Duration)
         tokens = []
-        if not token or isinstance(token, ly.lex.lilypond.Duration):
+        if not token or isinstance(token, lilypond.Duration):
             if token:
                 tokens.append(token)
             for token in source:
-                if isinstance(token, ly.lex.lilypond.Duration):
+                if isinstance(token, lilypond.Duration):
                     tokens.append(token)
-                elif not isinstance(token, ly.lex.Space):
+                elif not isinstance(token, lex.Space):
                     self.source.pushback()
                     break
         if tokens:
@@ -838,12 +850,12 @@ class Reader(object):
         
         """
         for t in source:
-            if isinstance(t, ly.lex.lilypond.OpenBracket):
+            if isinstance(t, lilypond.OpenBracket):
                 tokens = [t]
                 item.extend(self.read(self.consume(tokens.append)))
                 item.tokens = tuple(tokens)
                 return True
-            elif not isinstance(t, ly.lex.Space):
+            elif not isinstance(t, lex.Space):
                 self.source.pushback()
                 break
         return False
@@ -868,30 +880,30 @@ class Reader(object):
         if meth:
             return meth(self, t, source or self.source)
     
-    @_tokencls(ly.lex.lilypond.SchemeStart)
-    @_markup(ly.lex.lilypond.SchemeStart)
+    @_tokencls(lilypond.SchemeStart)
+    @_markup(lilypond.SchemeStart)
     def handle_scheme_start(self, t, source=None):
         return self.read_scheme_item(t)
     
-    @_tokencls(ly.lex.StringStart)
-    @_markup(ly.lex.StringStart)
-    @_scheme(ly.lex.StringStart)
+    @_tokencls(lex.StringStart)
+    @_markup(lex.StringStart)
+    @_scheme(lex.StringStart)
     def handle_string_start(self, t, source=None):
         return self.factory(String, t, True)
     
     @_tokencls(
-        ly.lex.lilypond.DecimalValue,
-        ly.lex.lilypond.IntegerValue,
-        ly.lex.lilypond.Fraction,
+        lilypond.DecimalValue,
+        lilypond.IntegerValue,
+        lilypond.Fraction,
     )
     def handle_number_class(self, t, source=None):
         return self.factory(Number, t)
     
-    @_tokencls(ly.lex.lilypond.MusicItem)
+    @_tokencls(lilypond.MusicItem)
     def handle_music_item(self, t, source):
         return self.read_music_item(t, source)
     
-    @_tokencls(ly.lex.lilypond.ChordStart)
+    @_tokencls(lilypond.ChordStart)
     def handle_chord_start(self, t, source):
         if not self.in_chord:
             self.in_chord = True
@@ -903,8 +915,8 @@ class Reader(object):
             return chord
     
     @_tokencls(
-        ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous,
-        ly.lex.lilypond.SimultaneousOrSequentialCommand,
+        lilypond.OpenBracket, lilypond.OpenSimultaneous,
+        lilypond.SimultaneousOrSequentialCommand,
     )
     def handle_music_list(self, t, source):
         item, it = self.test_music_list(t)
@@ -913,7 +925,7 @@ class Reader(object):
                 item.extend(self.read(it))
             return item
     
-    @_tokencls(ly.lex.lilypond.Command)
+    @_tokencls(lilypond.Command)
     def read_command(self, t, source):
         """Read the rest of a command given in t from the source."""
         meth = self._commands.method(t)
@@ -921,7 +933,7 @@ class Reader(object):
             return meth(self, t, source)
         return self.factory(Command, t)
     
-    @_tokencls(ly.lex.lilypond.Keyword)
+    @_tokencls(lilypond.Keyword)
     def read_keyword(self, t, source):
         """Read the rest of a keyword given in t from the source."""
         meth = self._keywords.method(t)
@@ -929,20 +941,20 @@ class Reader(object):
             return meth(self, t, source)
         return self.factory(Keyword, t)
     
-    @_tokencls(ly.lex.lilypond.UserCommand)
+    @_tokencls(lilypond.UserCommand)
     def read_user_command(self, t, source):
         """Read a user command, this can be a variable reference."""
         return self.factory(UserCommand, t)
     
-    @_tokencls(ly.lex.lilypond.ChordSeparator)
+    @_tokencls(lilypond.ChordSeparator)
     def read_chord_specifier(self, t, source=None):
         """Read stuff behind notes in chordmode."""
         item = self.factory(ChordSpecifier)
         item.append(self.factory(ChordItem, t))
         for t in self.consume():
-            if isinstance(t, ly.lex.lilypond.ChordItem):
+            if isinstance(t, lilypond.ChordItem):
                 item.append(self.factory(ChordItem, t))
-            elif isinstance(t, ly.lex.lilypond.Note):
+            elif isinstance(t, lilypond.Note):
                 r = ly.pitch.pitchReader(self.language)(t)
                 if r:
                     note = self.factory(Note, t)
@@ -950,12 +962,12 @@ class Reader(object):
                     item.append(note)
         return item
     
-    @_tokencls(ly.lex.lilypond.TremoloColon)
+    @_tokencls(lilypond.TremoloColon)
     def read_tremolo(self, t, source=None):
         """Read a tremolo."""
         item = self.factory(Tremolo, t)
         for t in self.source:
-            if isinstance(t, ly.lex.lilypond.TremoloDuration):
+            if isinstance(t, lilypond.TremoloDuration):
                 item.duration = self.factory(Duration)
                 item.duration.token = t
                 item.duration.base_scaling = ly.duration.base_scaling_string(t)
@@ -964,23 +976,23 @@ class Reader(object):
             break
         return item
     
-    @_tokencls(ly.lex.lilypond.Name)
+    @_tokencls(lilypond.Name)
     def handle_name(self, t, source):
         if self.source.state.depth() < 2:
             return self.read_assignment(t)
     
     @_tokencls(
-        ly.lex.lilypond.PaperVariable,
-        ly.lex.lilypond.LayoutVariable,
-        ly.lex.lilypond.HeaderVariable,
-        ly.lex.lilypond.UserVariable,
+        lilypond.PaperVariable,
+        lilypond.LayoutVariable,
+        lilypond.HeaderVariable,
+        lilypond.UserVariable,
     )
     def handle_variable_assignment(self, t, source):
         item = self.read_assignment(t)
         if item:
             # handle \pt, \in etc.
             for t in skip(self.source):
-                if isinstance(t, ly.lex.lilypond.Unit):
+                if isinstance(t, lilypond.Unit):
                     item.append(self.factory(Command, t))
                 else:
                     self.source.pushback()
@@ -988,74 +1000,86 @@ class Reader(object):
             return item
     
     _direct_items = {
-        ly.lex.lilypond.VoiceSeparator: VoiceSeparator,
-        ly.lex.lilypond.PipeSymbol: PipeSymbol,
-        ly.lex.lilypond.Dynamic: Dynamic,
-        ly.lex.lilypond.Tie: Tie,
+        lilypond.VoiceSeparator: VoiceSeparator,
+        lilypond.PipeSymbol: PipeSymbol,
+        lilypond.Dynamic: Dynamic,
+        lilypond.Tie: Tie,
     }
     @_tokencls(*_direct_items)
     def handle_direct_items(self, t, source):
         """Tokens that directly translate to an Item."""
         return self.factory(self._direct_items[t.__class__], t)
     
-    @_tokencls(ly.lex.lilypond.Direction)
+    @_tokencls(lilypond.Direction)
     def handle_direction(self, t, source):
         item = self.factory(Postfix, t)
         item.direction = '_-^'.index(t) - 1
         for t in skip(source):
             if isinstance(t, (
-                ly.lex.StringStart,
-                ly.lex.lilypond.MarkupStart,
-                ly.lex.lilypond.Articulation,
-                ly.lex.lilypond.Slur,
-                ly.lex.lilypond.Beam,
-                ly.lex.lilypond.Dynamic,
-                # TODO: tweak
+                lex.StringStart,
+                lilypond.MarkupStart,
+                lilypond.Articulation,
+                lilypond.Slur,
+                lilypond.Beam,
+                lilypond.Dynamic,
                 )):
                 item.append(self.read_item(t))
-            elif t == '\\tag' and isinstance(t, ly.lex.lilypond.Command):
+            elif isinstance(t, lilypond.Command) and t in ('\\tag'):
+                item.append(self.read_item(t))
+            elif isinstance(t, lilypond.Keyword) and t in ('\\tweak'):
                 item.append(self.read_item(t))
             else:
                 self.source.pushback()
             break
         return item
     
-    @_tokencls(ly.lex.lilypond.Slur)
+    @_tokencls(lilypond.Slur)
     def handle_slurs(self, t, source=None):
         cls = PhrasingSlur if t.startswith('\\') else Slur
         item = self.factory(cls, t)
         item.event = 'start' if t.endswith('(') else 'stop'
         return item
     
-    @_tokencls(ly.lex.lilypond.Beam)
+    @_tokencls(lilypond.Beam)
     def handle_beam(self, t, source=None):
         item = self.factory(Beam, t)
         item.event = 'start' if t == '[' else 'stop'
         return item
     
-    @_tokencls(ly.lex.lilypond.Articulation)
+    @_tokencls(lilypond.Articulation)
     def handle_beam(self, t, source=None):
         return self.factory(Articulation, t)
     
     def read_assignment(self, t):
         """Read an assignment from the variable name. May return None."""
-        for t1 in skip(self.source):
-            if isinstance(t1, ly.lex.lilypond.EqualSign):
-                item = self.factory(Assignment, t)
-                item.tokens = (t1,)
+        item = self.factory(Assignment, t)
+        for t in skip(self.source):
+            if isinstance(t, (lilypond.Variable, lilypond.UserVariable, lilypond.DotPath)):
+                item.append(self.factory(PathItem, t))
+            elif isinstance(t, lilypond.EqualSign):
+                item.tokens = (t,)
                 for i in self.read():
                     item.append(i)
-                    return item
+                    break
+                return item
+            elif isinstance(t, lilypond.SchemeStart):
+                # accept only one scheme item, if another one is found,
+                # return the first, and discard the Assignment item
+                # (should not normally happen)
+                for s in item.find(Scheme):
+                    self.source.pushback()
+                    return s
+                item.append(self.read_scheme_item(t))
             else:
                 self.source.pushback()
-            break
+                return
     
     def test_music_list(self, t):
         """Test whether a music list ({ ... }, << ... >>, starts here.
         
         Also handles \\simultaneous { ... } and \\sequential { ... } 
         correctly. These obscure commands are not even highlighted by 
-        ly.lex, but they exist in LilyPond... \\\simultaneous { ... } is 
+        lex, but they exist in LilyPond... \\\simultaneous { ... } is 
         like << ... >> but \\sequential << ... >> just behaves like << ... >>
 
         Returns a two-tuple(item; iterable), both may be None. If 
@@ -1078,11 +1102,11 @@ class Reader(object):
             def last(t): item.tokens += (t,)
             return item, self.consume(last)
             
-        if isinstance(t, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
+        if isinstance(t, (lilypond.OpenBracket, lilypond.OpenSimultaneous)):
             return make_music_list(t, t == '<<')
-        elif isinstance(t, ly.lex.lilypond.SimultaneousOrSequentialCommand):
+        elif isinstance(t, lilypond.SimultaneousOrSequentialCommand):
             for t1 in skip(self.source):
-                if isinstance(t1, (ly.lex.lilypond.OpenBracket, ly.lex.lilypond.OpenSimultaneous)):
+                if isinstance(t1, (lilypond.OpenBracket, lilypond.OpenSimultaneous)):
                     return make_music_list(t, t == '\\simultaneous' or t1 == '<<', (t1,))
                 else:
                     self.source.pushback()
@@ -1092,31 +1116,31 @@ class Reader(object):
     def read_music_item(self, t, source):
         """Read one music item (note, rest, s, \skip, or q) from t and source."""
         item = None
-        in_pitch_command = isinstance(self.source.state.parser(), ly.lex.lilypond.ParsePitchCommand)
-        if t.__class__ == ly.lex.lilypond.Note:
+        in_pitch_command = isinstance(self.source.state.parser(), lilypond.ParsePitchCommand)
+        if t.__class__ == lilypond.Note:
             r = ly.pitch.pitchReader(self.language)(t)
             if r:
                 item = self.factory(Note, t)
                 p = item.pitch = ly.pitch.Pitch(*r)
                 for t in source:
-                    if isinstance(t, ly.lex.lilypond.Octave):
+                    if isinstance(t, lilypond.Octave):
                         p.octave = ly.pitch.octaveToNum(t)
                         item.octave_token = t
-                    elif isinstance(t, ly.lex.lilypond.Accidental):
+                    elif isinstance(t, lilypond.Accidental):
                         item.accidental_token = p.accidental = t
-                    elif isinstance(t, ly.lex.lilypond.OctaveCheck):
+                    elif isinstance(t, lilypond.OctaveCheck):
                         p.octavecheck = ly.pitch.octaveToNum(t)
                         item.octavecheck_token = t
                         break
-                    elif not isinstance(t, ly.lex.Space):
+                    elif not isinstance(t, lex.Space):
                         self.source.pushback()
                         break
         else:
             cls = {
-                ly.lex.lilypond.Rest: Rest,
-                ly.lex.lilypond.Skip: Skip,
-                ly.lex.lilypond.Spacer: Skip,
-                ly.lex.lilypond.Q: Q,
+                lilypond.Rest: Rest,
+                lilypond.Skip: Skip,
+                lilypond.Spacer: Skip,
+                lilypond.Q: Q,
             }[t.__class__]
             item = self.factory(cls, t)
         if item:
@@ -1162,9 +1186,9 @@ class Reader(object):
     def handle_clef(self, t, source):
         item = self.factory(Clef, t)
         for t in skip(source):
-            if isinstance(t, ly.lex.lilypond.ClefSpecifier):
+            if isinstance(t, lilypond.ClefSpecifier):
                 item._specifier = t
-            elif isinstance(t, ly.lex.StringStart):
+            elif isinstance(t, lex.StringStart):
                 item._specifier = self.factory(String, t, True)
             break
         return item
@@ -1189,20 +1213,20 @@ class Reader(object):
                 break
         elif t == '\\tuplet':
             for t in source:
-                if isinstance(t, ly.lex.lilypond.Fraction):
+                if isinstance(t, lilypond.Fraction):
                     item.scaling = 1 / Fraction(t)
-                elif isinstance(t, ly.lex.lilypond.Duration):
+                elif isinstance(t, lilypond.Duration):
                     self.add_duration(item, t, source)
                     break
-                elif not isinstance(t, ly.lex.Space):
+                elif not isinstance(t, lex.Space):
                     self.source.pushback()
                     break
         else: # t == '\\times'
             for t in source:
-                if isinstance(t, ly.lex.lilypond.Fraction):
+                if isinstance(t, lilypond.Fraction):
                     item.scaling = Fraction(t)
                     break
-                elif not isinstance(t, ly.lex.Space):
+                elif not isinstance(t, lex.Space):
                     self.source.pushback()
                     break
         for i in self.read(source):
@@ -1238,13 +1262,13 @@ class Reader(object):
         item._specifier = None
         item._repeat_count = None
         for t in skip(source):
-            if isinstance(t, ly.lex.lilypond.RepeatSpecifier):
+            if isinstance(t, lilypond.RepeatSpecifier):
                 item._specifier = t
-            elif not item.specifier and isinstance(t, ly.lex.StringStart):
+            elif not item.specifier and isinstance(t, lex.StringStart):
                 item._specifier = self.factory(String, t, True)
-            elif isinstance(t, ly.lex.lilypond.RepeatCount):
+            elif isinstance(t, lilypond.RepeatCount):
                 item._repeat_count = t
-            elif isinstance(t, ly.lex.lilypond.SchemeStart):
+            elif isinstance(t, lilypond.SchemeStart):
                 # the specifier or count may be specified using scheme
                 s = self.read_scheme_item(t)
                 if item._specifier:
@@ -1260,7 +1284,7 @@ class Reader(object):
                     item.append(i)
                     break
                 for t in skip(source):
-                    if t == '\\alternative' and isinstance(t, ly.lex.lilypond.Command):
+                    if t == '\\alternative' and isinstance(t, lilypond.Command):
                         item.append(self.handle_alternative(t, source))
                     else:
                         self.source.pushback()
@@ -1286,19 +1310,19 @@ class Reader(object):
         for t in source:
             if not equal_sign_seen:
                 if not item._text:
-                    if isinstance(t, ly.lex.lilypond.SchemeStart):
+                    if isinstance(t, lilypond.SchemeStart):
                         item._text = self.read_scheme_item(t)
-                    elif isinstance(t, ly.lex.StringStart):
+                    elif isinstance(t, lex.StringStart):
                         item._text = self.factory(String, t, True)
-                    elif isinstance(t, ly.lex.lilypond.Markup):
+                    elif isinstance(t, lilypond.Markup):
                         item._text = self.handle_markup(t)
-                elif isinstance(t, ly.lex.lilypond.Length):
+                elif isinstance(t, lilypond.Length):
                     self.add_duration(item, t, source)
-                elif isinstance(t, ly.lex.lilypond.EqualSign):
+                elif isinstance(t, lilypond.EqualSign):
                     equal_sign_seen = True
-            elif isinstance(t, ly.lex.lilypond.IntegerValue):
+            elif isinstance(t, lilypond.IntegerValue):
                 item._tempo.append(t)
-            elif isinstance(t, ly.lex.lilypond.SchemeStart):
+            elif isinstance(t, lilypond.SchemeStart):
                 item._tempo.append(self.read_scheme_item(t))
         return item
     
@@ -1306,7 +1330,7 @@ class Reader(object):
     def handle_time(self, t, source):
         item = self.factory(TimeSignature, t)
         for t in skip(source):
-            if isinstance(t, ly.lex.lilypond.Fraction):
+            if isinstance(t, lilypond.Fraction):
                 item._num, den = map(int, t.split('/'))
                 item._fraction = Fraction(1, den)
             else:
@@ -1326,21 +1350,21 @@ class Reader(object):
         item = self.factory(cls, t)
         isource = self.consume()
         for t in skip(isource):
-            if isinstance(t, (ly.lex.lilypond.ContextName, ly.lex.lilypond.Name)):
+            if isinstance(t, (lilypond.ContextName, lilypond.Name)):
                 item._context = t
                 for t in isource:
-                    if isinstance(t, ly.lex.lilypond.EqualSign):
+                    if isinstance(t, lilypond.EqualSign):
                         for t in isource:
-                            if isinstance(t, ly.lex.StringStart):
+                            if isinstance(t, lex.StringStart):
                                 item._context_id = self.factory(String, t, True)
                                 break
-                            elif isinstance(t, ly.lex.lilypond.Name):
+                            elif isinstance(t, lilypond.Name):
                                 item._context_id = t
                                 break
-                            elif not isinstance(t, ly.lex.Space):
+                            elif not isinstance(t, lex.Space):
                                 self.source.pushback()
                                 break
-                    elif not isinstance(t, ly.lex.Space):
+                    elif not isinstance(t, lex.Space):
                         self.source.pushback()
                         break
             else:
@@ -1385,9 +1409,9 @@ class Reader(object):
         item = self.factory(cls, t)
         if cls is LyricsTo:
             for t in skip(source):
-                if isinstance(t, ly.lex.lilypond.Name):
+                if isinstance(t, lilypond.Name):
                     item._context_id = t
-                elif isinstance(t, (ly.lex.String, ly.lex.lilypond.SchemeStart)):
+                elif isinstance(t, (lex.String, lilypond.SchemeStart)):
                     item._context_id = self.read_item(t)
                 else:
                     self.source.pushback()
@@ -1400,16 +1424,16 @@ class Reader(object):
     
     def read_lyric_item(self, t):
         """Read one lyric item. Returns None for tokens it does not handle."""
-        if isinstance(t, (ly.lex.StringStart, ly.lex.lilypond.MarkupStart)):
+        if isinstance(t, (lex.StringStart, lilypond.MarkupStart)):
             item = self.factory(LyricText)
             item.append(self.read_item(t))
             self.add_duration(item)
             return item
-        elif isinstance(t, ly.lex.lilypond.LyricText):
+        elif isinstance(t, lilypond.LyricText):
             item = self.factory(LyricText, t)
             self.add_duration(item)
             return item
-        elif isinstance(t, ly.lex.lilypond.Lyric):
+        elif isinstance(t, lilypond.Lyric):
             return self.factory(LyricItem, t)
         else:
             item, source = self.test_music_list(t)
@@ -1427,6 +1451,12 @@ class Reader(object):
         for arg in self.read(source):
             item.append(arg)
             break
+        return item
+    
+    @_commands('\\partcombine')
+    def handle_partcombine(self, t, source=None):
+        item = self.factory(PartCombine, t)
+        item.extend(itertools.islice(self.read(), 2))
         return item
     
     @_keywords('\\language')
@@ -1495,7 +1525,7 @@ class Reader(object):
         tokens = []
         for t in skip(source):
             tokens.append(t)
-            if isinstance(t, ly.lex.lilypond.EqualSign):
+            if isinstance(t, lilypond.EqualSign):
                 item.tokens = tuple(tokens)
                 for i in self.read(source):
                     item.append(i)
@@ -1508,7 +1538,7 @@ class Reader(object):
         item = self.factory(Unset, t)
         tokens = []
         for t in skip(self.consume()):
-            if type(t) not in ly.lex.lilypond.ParseUnset.items:
+            if type(t) not in lilypond.ParseUnset.items:
                 self.source.pushback()
                 break
             tokens.append(t)
@@ -1519,9 +1549,9 @@ class Reader(object):
     def handle_override(self, t, source):
         item = self.factory(Override, t)
         for t in skip(self.consume()):
-            if isinstance(t, (ly.lex.StringStart, ly.lex.lilypond.SchemeStart)):
+            if isinstance(t, (lex.StringStart, lilypond.SchemeStart)):
                 item.append(self.read_item(t))
-            elif isinstance(t, ly.lex.lilypond.EqualSign):
+            elif isinstance(t, lilypond.EqualSign):
                 item.tokens = (t,)
                 for i in self.read():
                     item.append(i)
@@ -1536,15 +1566,32 @@ class Reader(object):
         item = self.factory(Revert, t)
         t = None
         for t in skip(self.consume()):
-            if type(t) in ly.lex.lilypond.ParseRevert.items:
+            if type(t) in lilypond.ParseRevert.items:
                 item.append(self.factory(PathItem, t))
             else:
                 break
-        if isinstance(t, ly.lex.lilypond.SchemeStart) and not any(
-                isinstance(i.token, ly.lex.lilypond.GrobProperty) for i in item):
+        if isinstance(t, lilypond.SchemeStart) and not any(
+                isinstance(i.token, lilypond.GrobProperty) for i in item):
             item.append(self.read_scheme_item(t))
         else:
             self.source.pushback()
+        return item
+    
+    @_keywords('\\tweak')
+    def handle_tweak(self, t, source):
+        item = self.factory(Tweak, t)
+        t = None
+        for t in skip(self.consume()):
+            if type(t) in lilypond.ParseTweak.items:
+                item.append(self.factory(PathItem, t))
+            else:
+                self.source.pushback()
+                break
+        if len(item) == 0 and isinstance(t, lilypond.SchemeStart):
+            item.append(self.read_scheme_item(t))
+        for i in self.read():
+            item.append(i)
+            break
         return item
     
     @_commands('\\markup', '\\markuplist', '\\markuplines')
@@ -1559,33 +1606,33 @@ class Reader(object):
         if meth:
             return meth(self, t)
     
-    @_markup(ly.lex.lilypond.MarkupScore)
+    @_markup(lilypond.MarkupScore)
     def handle_markup_score(self, t):
         item = self.factory(MarkupScore, t)
         for t in self.consume():
-            if isinstance(t, ly.lex.lilypond.OpenBracket):
+            if isinstance(t, lilypond.OpenBracket):
                 item.tokens = (t,)
                 def last(t): item.tokens += (t,)
                 item.extend(self.read(self.consume(last)))
                 return item
-            elif not isinstance(t, ly.lex.Space):
+            elif not isinstance(t, lex.Space):
                 self.source.pushback()
                 break
         return item
     
-    @_markup(ly.lex.lilypond.MarkupCommand)
+    @_markup(lilypond.MarkupCommand)
     def handle_markup_command(self, t):
         item = self.factory(MarkupCommand, t)
         self.add_markup_arguments(item)
         return item
     
-    @_markup(ly.lex.lilypond.OpenBracketMarkup)
+    @_markup(lilypond.OpenBracketMarkup)
     def handle_markup_open_bracket(self, t):
         item = self.factory(MarkupList, t)
         self.add_markup_arguments(item)
         return item
     
-    @_markup(ly.lex.lilypond.MarkupWord)
+    @_markup(lilypond.MarkupWord)
     def handle_markup_word(self, t):
         return self.factory(MarkupWord, t)
     
@@ -1595,7 +1642,7 @@ class Reader(object):
             i = self.read_markup(t)
             if i:
                 item.append(i)
-            elif isinstance(item, MarkupList) and isinstance(t, ly.lex.lilypond.CloseBracketMarkup):
+            elif isinstance(item, MarkupList) and isinstance(t, lilypond.CloseBracketMarkup):
                 item.tokens = (t,)
         return item
     
@@ -1603,7 +1650,7 @@ class Reader(object):
         """Reads a Scheme expression (just after the # in LilyPond mode)."""
         item = self.factory(Scheme, t)
         for t in self.consume():
-            if not isinstance(t, ly.lex.Space):
+            if not isinstance(t, lex.Space):
                 i = self.read_scheme(t)
                 if i:
                     item.append(i)
@@ -1616,41 +1663,41 @@ class Reader(object):
         if meth:
             return meth(self, t)
         
-    @_scheme(ly.lex.scheme.Quote)
+    @_scheme(scheme.Quote)
     def handle_scheme_quote(self, t):
         item = self.factory(SchemeQuote, t)
         for t in self.consume():
-            if not isinstance(t, ly.lex.Space):
+            if not isinstance(t, lex.Space):
                 i = self.read_scheme(t)
                 if i:
                     item.append(i)
                     break
         return item
     
-    @_scheme(ly.lex.scheme.OpenParen)
+    @_scheme(scheme.OpenParen)
     def handle_scheme_open_parenthesis(self, t):
         item = self.factory(SchemeList, t)
         def last(t): item.tokens = (t,)
         for t in self.consume(last):
-            if not isinstance(t, ly.lex.Space):
+            if not isinstance(t, lex.Space):
                 i = self.read_scheme(t)
                 if i:
                     item.append(i)
         return item
     
     @_scheme(
-        ly.lex.scheme.Dot,
-        ly.lex.scheme.Bool,
-        ly.lex.scheme.Char,
-        ly.lex.scheme.Word,
-        ly.lex.scheme.Number,
-        ly.lex.scheme.Fraction,
-        ly.lex.scheme.Float,
+        scheme.Dot,
+        scheme.Bool,
+        scheme.Char,
+        scheme.Word,
+        scheme.Number,
+        scheme.Fraction,
+        scheme.Float,
     )
     def handle_scheme_token(self, t):
         return self.factory(SchemeItem, t)
     
-    @_scheme(ly.lex.scheme.LilyPondStart)
+    @_scheme(scheme.LilyPondStart)
     def handle_scheme_lilypond_start(self, t):
         item = self.factory(SchemeLily, t)
         def last(t): item.tokens = (t,)
