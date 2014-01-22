@@ -71,6 +71,17 @@ class Root(Item):
 
 class Document(Item):
     """A music item representing a ly.document.Document."""
+    include_node = None
+    include_path = []
+    
+    def __init__(self, doc):
+        super(Document, self).__init__()
+        self.document = doc
+        import ly.document
+        c = ly.document.Cursor(doc)
+        s = ly.document.Source(c, True, tokens_with_position=True)
+        r = Reader(s)
+        self.extend(r.read())
     
     def iter_music(self, node=None):
         """Iter over the music, following references to other assignments."""
@@ -81,8 +92,54 @@ class Document(Item):
             for n in self.iter_music(n):
                 yield n
     
-    def get_included_document(self, node):
+    def get_included_document_node(self, node):
         """Return a Document for the Include node."""
+        try:
+            return node._document
+        except AttributeError:
+            node._document = None
+            filename = node.filename()
+            if filename:
+                resolved = self.resolve_filename(filename)
+                if resolved:
+                    doc = self.get_document(resolved)
+                    docnode = type(self)(doc)
+                    docnode.include_node = node
+                    docnode.include_path = self.include_path
+                    node._document = docnode
+            return node._document
+    
+    def resolve_filename(self, filename):
+        """Resolve filename against our document and include_path."""
+        import os
+        path = list(self.include_path)
+        if self.document.filename:
+            basedir = os.path.dirname(self.document.filename)
+            try:
+                path.remove(basedir)
+            except ValueError:
+                pass
+            path.insert(0, basedir)
+        for p in path:
+            fullpath = os.path.join(p, filename)
+            if os.path.exists(fullpath):
+                return fullpath
+        
+    def get_document(self, filename):
+        """Return the ly.document.DocumentBase instance for filename.
+        
+        This implementation loads the document using utf8 encoding.
+        Inherit from this class to implement other loading mechanisms
+        or caching.
+        
+        """
+        import io
+        with io.open(filename, encoding='utf-8') as f:
+            text = f.read()
+        import ly.document
+        doc = ly.document.Document(text)
+        doc.filename = filename
+        return doc
 
 
 class Token(Item):
@@ -494,28 +551,36 @@ class UserCommand(Music):
     
     def value(self):
         """Find the value assigned to this variable."""
-        for p in self.ancestors():
-            if isinstance(p, Document):
+        for doc in self.ancestors():
+            if isinstance(doc, Document):
                 break
-            node = p
+            node = doc
         else:
             return
         
-        def find_value(doc, it):
+        def find_value(docnode, it):
             for n in it:
                 if isinstance(n, Assignment) and n.name() == self.name():
                     return n.value()
                 elif isinstance(n, Include):
-                    d = doc.get_included_document(n)
+                    d = docnode.get_included_document_node(n)
                     if d:
                         v = find_value(d, d[::-1])
                         if v:
                             return v
-        v = find_value(p, node.backward())
+        v = find_value(doc, node.backward())
         if v:
             return v
-        # TODO look in parent Document before the place we were included
-        
+        # look in parent Document before the place we were included
+        while doc.include_node:
+            p = doc.include_node.parent()
+            if isinstance(p, Document):
+                v = find_value(p, doc.include_node.backward())
+                if v:
+                    return v
+                doc = p
+            else:
+                break
     
     def child_length_iter(self):
         v = self.value()

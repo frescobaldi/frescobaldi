@@ -615,7 +615,8 @@ class Choir(VocalPart):
                 # Append voice to the rehearsalMidi function
                 name = voice2id[voice] + str(num or '')
                 seq = ly.dom.Seq(ly.dom.Voice(name, parent=ly.dom.Staff(name, parent=choir)))
-                ly.dom.Text('s1*0\\f', seq) # add one dynamic
+                if builder.lyVersion < (2, 18, 0):
+                    ly.dom.Text('<>\\f', seq) # add one dynamic
                 ly.dom.Identifier(ref, seq) # add the reference to the voice
                 
                 book = ly.dom.Book()

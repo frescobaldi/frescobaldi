@@ -352,7 +352,7 @@ class Analyzer(object):
         except ValueError:
             # not found, then complete Contexts and or Grobs
             # (only if we are in the override parser and there's no "=")
-            if isinstance(self.state.parser(), (scm.ParseScheme, scm.ParseSchemeSymbol)):
+            if isinstance(self.state.parser(), scm.ParseScheme):
                 return
             self.backuntil(lp.DotPath, lx.Space)
             if (isinstance(self.state.parsers()[1], (
@@ -565,12 +565,6 @@ class Analyzer(object):
             repeat,
         ),
         scm.ParseScheme: (
-            override,
-            tweak,
-            markup_override,
-            scheme_other,
-        ),
-        scm.ParseSchemeSymbol: (
             override,
             tweak,
             markup_override,
