@@ -71,6 +71,7 @@ class Root(Item):
 
 class Document(Item):
     """A music item representing a ly.document.Document."""
+    include_node = None
     
     def iter_music(self, node=None):
         """Iter over the music, following references to other assignments."""
@@ -494,28 +495,36 @@ class UserCommand(Music):
     
     def value(self):
         """Find the value assigned to this variable."""
-        for p in self.ancestors():
-            if isinstance(p, Document):
+        for doc in self.ancestors():
+            if isinstance(doc, Document):
                 break
-            node = p
+            node = doc
         else:
             return
         
-        def find_value(doc, it):
+        def find_value(docnode, it):
             for n in it:
                 if isinstance(n, Assignment) and n.name() == self.name():
                     return n.value()
                 elif isinstance(n, Include):
-                    d = doc.get_included_document(n)
+                    d = docnode.get_included_document(n)
                     if d:
                         v = find_value(d, d[::-1])
                         if v:
                             return v
-        v = find_value(p, node.backward())
+        v = find_value(doc, node.backward())
         if v:
             return v
-        # TODO look in parent Document before the place we were included
-        
+        # look in parent Document before the place we were included
+        while doc.include_node:
+            p = doc.include_node.parent()
+            if isinstance(p, Document):
+                v = find_value(p, doc.include_node.backward())
+                if v:
+                    return v
+                doc = p
+            else:
+                break
     
     def child_length_iter(self):
         v = self.value()
