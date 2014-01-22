@@ -224,17 +224,17 @@ class Node(object):
 
     def backward(self):
         """Iterate (backwards) over the preceding siblings."""
-        node = self.previous()
+        node = self.previous_sibling()
         while node:
             yield node
-            node = node.previous()
+            node = node.previous_sibling()
 
     def forward(self):
         """Iterate over the following siblings."""
-        node = self.next()
+        node = self.next_sibling()
         while node:
             yield node
-            node = node.next()
+            node = node.next_sibling()
 
     def is_descendant(self, node):
         """Return True if the node is a descendant of ourselves, else False."""

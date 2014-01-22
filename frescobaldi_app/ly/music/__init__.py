@@ -32,3 +32,17 @@ linear as possible.
 
 """
 
+import ly.document
+
+
+def document(doc):
+    """Return a music.items.Document instance for the ly.document.Document."""
+    from . import items
+    c = ly.document.Cursor(doc)
+    s = ly.document.Source(c, True, tokens_with_position=True)
+    r = items.Reader(s)
+    d = r.factory(items.Document)
+    d.extend(r.read())
+    return d
+
+
