@@ -34,22 +34,32 @@ import util
 import variables
 
 
-_docinfo_cache = filecache.FileCache()
+_document_cache = filecache.FileCache()
 
 
-def docinfo(filename):
-    """Return a (cached) LyDocInfo instance for the specified file."""
+def document(filename):
+    """Return a (cached) ly.document.Document for the filename."""
     filename = os.path.realpath(filename)
     try:
-        return _docinfo_cache[filename]
+        return _document_cache[filename]
     except KeyError:
         pass
     with open(filename) as f:
         text = util.decode(f.read())
     v = variables.variables(text)
-    doc = ly.document.Document(text, v.get("mode"))
+    doc = _document_cache[filename] = ly.document.Document(text, v.get("mode"))
     doc.filename = filename
-    info = _docinfo_cache[filename] = lydocinfo.DocInfo(doc, v)
+    doc._variables = v  # little HACK, save it here, it can be picked up later
+    return doc
+
+
+def docinfo(filename):
+    """Return a (cached) LyDocInfo instance for the specified file."""
+    doc = document(filename)
+    try:
+        info = doc._docinfo
+    except AttributeError:
+        info = doc._docinfo = lydocinfo.DocInfo(doc, doc._variables)
     return info
 
 
