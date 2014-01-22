@@ -74,6 +74,15 @@ class Document(Item):
     include_node = None
     include_path = []
     
+    def __init__(self, doc):
+        super(Document, self).__init__()
+        self.document = doc
+        import ly.document
+        c = ly.document.Cursor(doc)
+        s = ly.document.Source(c, True, tokens_with_position=True)
+        r = Reader(s)
+        self.extend(r.read())
+    
     def iter_music(self, node=None):
         """Iter over the music, following references to other assignments."""
         for n in node or self:
@@ -94,8 +103,7 @@ class Document(Item):
                 resolved = self.resolve_filename(filename)
                 if resolved:
                     doc = self.get_document(resolved)
-                    import ly.music
-                    docnode = ly.music.document(doc)
+                    docnode = type(self)(doc)
                     docnode.include_node = node
                     docnode.include_path = self.include_path
                     node._document = docnode
