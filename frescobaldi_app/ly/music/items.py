@@ -64,9 +64,25 @@ class Item(node.WeakNode):
 class Root(Item):
     """The root node of a tree of Items.
     
-    This is returned by the tree() method.
+    This is returned by the Reader.tree() method.
     
     """
+
+
+class Document(Item):
+    """A music item representing a ly.document.Document."""
+    
+    def iter_music(self, node=None):
+        """Iter over the music, following references to other assignments."""
+        for n in node or self:
+            if isinstance(n, UserCommand):
+                n = n.value() or n
+            yield n
+            for n in self.iter_music(n):
+                yield n
+    
+    def get_included_document(self, node):
+        """Return a Document for the Include node."""
 
 
 class Token(Item):
@@ -475,6 +491,36 @@ class UserCommand(Music):
     def name(self):
         """Return the name of this user command (without the \\)."""
         return self.token[1:]
+    
+    def value(self):
+        """Find the value assigned to this variable."""
+        for p in self.ancestors():
+            if isinstance(p, Document):
+                break
+            node = p
+        else:
+            return
+        
+        def find_value(doc, it):
+            for n in it:
+                if isinstance(n, Assignment) and n.name() == self.name():
+                    return n.value()
+                elif isinstance(n, Include):
+                    d = doc.get_included_document(n)
+                    if d:
+                        v = find_value(d, d[::-1])
+                        if v:
+                            return v
+        v = find_value(p, node.backward())
+        if v:
+            return v
+        # TODO look in parent Document before the place we were included
+        
+    
+    def child_length_iter(self):
+        v = self.value()
+        if isinstance(v, (Music, Durable)):
+            yield v.length()
 
 
 class Version(Item):
