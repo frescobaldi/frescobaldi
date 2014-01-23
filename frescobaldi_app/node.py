@@ -315,7 +315,7 @@ class Node(object):
                 return node
     
     def find_parent(self, cls):
-        """Find an ancestor of the given class.
+        """Find an ancestor that's an instance of the given class.
         
         cls may also be a tuple of classes.
         
