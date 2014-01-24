@@ -349,7 +349,7 @@ class Repeat(Music):
                     alt_length = sum(alt_lengths[:count])
         own_length = sum(self.child_length_iter(own_length_iter))
         if unfold:
-            length *= count
+            own_length *= count
         return own_length + alt_length
 
 
