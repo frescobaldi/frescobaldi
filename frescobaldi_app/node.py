@@ -119,6 +119,8 @@ class Node(object):
         """We are always true."""
         return True
     
+    __bool__ = __nonzero__
+    
     def __len__(self):
         """Return the number of children."""
         return len(self._children)
