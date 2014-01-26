@@ -41,6 +41,11 @@ def contextmenu(view):
     
     actions.extend(open_files(cursor, menu, mainwindow))
     
+    if cursor.hasSelection():
+        import panelmanager
+        actions.append(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
+        actions.append(mainwindow.actionCollection.edit_copy_colored_html)
+    
     # now add the actions to the standard menu
     if actions:
         first_action = menu.actions()[0] if menu.actions() else None
