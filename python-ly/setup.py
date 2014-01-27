@@ -28,6 +28,7 @@ package_dir = {
 scripts = ['ly']
 packages = packagelist('src/ly')
 py_modules = [
+    'node',
     'slexer',
 ]
 

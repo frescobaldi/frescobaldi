@@ -31,6 +31,19 @@ A Node has children with list-like access methods and keeps also a reference to
 its parent. A Node can have one parent; appending a Node to another Node causes
 it to be removed from its parent node (if any).
 
+To iterate over the children of a Node:
+
+    for n in node:
+        do_something(n)
+
+To get the list of children of a Node:
+
+    children = list(node)
+
+Of course you can get the children directly using:
+
+    child = node[3]
+
 You should inherit from Node to make meaningful tree node types, e.g. to add
 custom attributes or multiple sub-types.
 
@@ -66,10 +79,6 @@ class Node(object):
     def parent(self):
         """The parent, or None if the node has no parent."""
         return self._parent
-
-    def children(self):
-        """Our children, may be an empty list."""
-        return list(self._children)
 
     def index(self, node):
         """Return the index of the given child node."""
@@ -109,6 +118,8 @@ class Node(object):
     def __nonzero__(self):
         """We are always true."""
         return True
+    
+    __bool__ = __nonzero__
     
     def __len__(self):
         """Return the number of children."""
@@ -224,17 +235,17 @@ class Node(object):
 
     def backward(self):
         """Iterate (backwards) over the preceding siblings."""
-        node = self.previous()
+        node = self.previous_sibling()
         while node:
             yield node
-            node = node.previous()
+            node = node.previous_sibling()
 
     def forward(self):
         """Iterate over the following siblings."""
-        node = self.next()
+        node = self.next_sibling()
         while node:
             yield node
-            node = node.next()
+            node = node.next_sibling()
 
     def is_descendant(self, node):
         """Return True if the node is a descendant of ourselves, else False."""
@@ -275,13 +286,13 @@ class Node(object):
         Set depth to restrict the search to a certain depth, -1 is unrestricted.
         
         """
-        children = self.children()
+        children = list(self)
         while children and depth:
             depth -= 1
             newchildren = []
             for i in children:
                 yield i
-                newchildren.extend(i.children())
+                newchildren.extend(i)
             children = newchildren
 
     def find(self, cls, depth = -1):
@@ -315,7 +326,7 @@ class Node(object):
                 return node
     
     def find_parent(self, cls):
-        """Find an ancestor of the given class.
+        """Find an ancestor that's an instance of the given class.
         
         cls may also be a tuple of classes.
         

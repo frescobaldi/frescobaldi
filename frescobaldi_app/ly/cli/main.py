@@ -340,13 +340,10 @@ def load(filename, encoding, mode):
     """Load a file, returning a ly.document.Document"""
     import ly.document
     if filename == '-':
-        text = io.open(sys.stdin.fileno(), encoding=encoding).read()
+        doc = ly.document.Document.load(sys.stdin.fileno(), encoding, mode)
+        doc.filename = '-'
     else:
-        with io.open(filename, encoding=encoding) as f:
-            text = f.read()
-    doc = ly.document.Document(text, mode)
-    doc.filename = filename
-    doc.encoding = encoding
+        doc = ly.document.Document.load(filename, encoding, mode)
     return doc
 
 def main():

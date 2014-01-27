@@ -95,7 +95,7 @@ class Quote(Scheme):
     
     
 class Dot(Scheme):
-    rx = r".(?!\S)"
+    rx = r"\.(?!\S)"
 
 
 class Bool(Scheme, _token.Item):

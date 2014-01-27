@@ -34,23 +34,43 @@ import util
 import variables
 
 
-_docinfo_cache = filecache.FileCache()
+_document_cache = filecache.FileCache()
+
+
+class _CachedDocument(object):
+    """Contains a document and related items."""
+    filename = None
+    document = None
+    variables = None
+    docinfo = None
+
+
+def _cached(filename):
+    """Return a _CachedDocument instance for the filename, else creates one."""
+    filename = os.path.realpath(filename)
+    try:
+        c = _document_cache[filename]
+    except KeyError:
+        with open(filename) as f:
+            text = util.decode(f.read())
+        c = _document_cache[filename] = _CachedDocument()
+        c.filename = filename
+        c.variables = v = variables.variables(text)
+        c.document = ly.document.Document(text, v.get("mode"))
+    return c
+
+
+def document(filename):
+    """Return a (cached) ly.document.Document for the filename."""
+    return _cached(filename).document
 
 
 def docinfo(filename):
     """Return a (cached) LyDocInfo instance for the specified file."""
-    filename = os.path.realpath(filename)
-    try:
-        return _docinfo_cache[filename]
-    except KeyError:
-        pass
-    with open(filename) as f:
-        text = util.decode(f.read())
-    v = variables.variables(text)
-    doc = ly.document.Document(text, v.get("mode"))
-    doc.filename = filename
-    info = _docinfo_cache[filename] = lydocinfo.DocInfo(doc, v)
-    return info
+    c = _cached(filename)
+    if c.docinfo is None:
+        c.docinfo = lydocinfo.DocInfo(c.document, c.variables)
+    return c.docinfo
 
 
 def textmode(text, guess=True):
