@@ -60,6 +60,23 @@ class Item(node.WeakNode):
         s = ' ' + repr(self.token[:]) if self.token else ''
         return '<{0}{1}>'.format(self.__class__.__name__, s)
     
+    def find_trees(self, cls, depth=-1):
+        """Yield all descendants (like Node.iter_depth()) that are of cls.
+        
+        cls may also be a tuple of classes. If a node is yielded, it is not
+        further descended into.
+        
+        """
+        def find(node, depth):
+            if depth != 0:
+                for n in node:
+                    if isinstance(n, cls):
+                        yield n
+                    else:
+                        for n in find(n, depth - 1):
+                            yield n
+        return find(self, depth)
+        
     def iter_toplevel_items(self):
         """Yield the toplevel items of our Document node in backward direction.
         
@@ -126,11 +143,29 @@ class Document(Item):
         r = Reader(s)
         self.extend(r.read())
     
+    def substitute_for_node(self, node):
+        """Returns a node that replaces the specified node (e.g. in music).
+        
+        For example: a variable reference returns its value.
+        Returns nothing if the node is not substitutable.
+        Returns the node itself if it was substitutable, but the substitution
+        failed.
+        
+        """
+        if isinstance(node, UserCommand):
+            value = node.value()
+            if value:
+                return self.substitute_for_node(value) or value
+            return node
+        elif isinstance(node, Include):
+            return self.get_included_document_node(node) or node
+        
+        # maybe other substitutions
+    
     def iter_music(self, node=None):
         """Iter over the music, following references to other assignments."""
         for n in node or self:
-            if isinstance(n, UserCommand):
-                n = n.value() or n
+            n = self.substitute_for_node(n) or n
             yield n
             for n in self.iter_music(n):
                 yield n
@@ -155,6 +190,8 @@ class Document(Item):
     def resolve_filename(self, filename):
         """Resolve filename against our document and include_path."""
         import os
+        if os.path.isabs(filename):
+            return filename
         path = list(self.include_path)
         if self.document.filename:
             basedir = os.path.dirname(self.document.filename)
