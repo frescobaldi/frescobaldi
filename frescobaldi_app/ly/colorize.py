@@ -157,8 +157,8 @@ def get_tokens(cursor):
             t = tokens[0]
             tokens[0] = type(t)(t[cursor.start - t.pos:], cursor.start)
     return tokens
-    
-            
+
+
 def map_tokens(cursor, mapping):
     """Yield a two-tuple(token, style) for every token.
     
@@ -180,7 +180,7 @@ def map_tokens(cursor, mapping):
 
 
 def melt_mapped_tokens(mapped_tokens):
-    """Melts two adjacent tokens with the same mapping together."""
+    """Melt adjacent tokens with the same mapping together."""
     prev_tokens = []
     prev_style = None
     for t, s in mapped_tokens:
@@ -196,27 +196,27 @@ def melt_mapped_tokens(mapped_tokens):
 
 
 def css_mapping(groups=default_mapping):
-    """Returns a Mapping instance, mapping token classes to CSS classes."""
+    """Return a Mapping instance, mapping token classes to two CSS classes."""
     return Mapping((cls, (mode, style)) for mode, classes in groups.items()
                                         for cls, style in classes)
 
 
 def html_escape(text):
-    """Escapes &, < and >."""
+    """Escape &, < and >."""
     return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
 
 
-def html(cursor, css_mapping, span=lambda s: 'class="{0} {1}"'.format(*s)):
+def html(cursor, mapping, span=lambda s: 'class="{0} {1}"'.format(*s)):
     """Return a HTML string with the tokens wrapped in <span class=> elements.
     
-    The span argument is a lambda function, returning an attribute for the 
-    <span> tag for the specified style. By default, it returns a 
-    'class="group style"' string. You'll want to wrap the HTML inside <pre> 
-    tokens and add a CSS stylesheet.
+    The span argument is a function returning an attribute for the <span> 
+    tag for the specified style. By default, it returns a 'class="group 
+    style"' string. You'll want to wrap the HTML inside <pre> tokens and add 
+    a CSS stylesheet.
     
     """
     result = []
-    for t, style in melt_mapped_tokens(map_tokens(cursor, css_mapping)):
+    for t, style in melt_mapped_tokens(map_tokens(cursor, mapping)):
         if style:
             result.append('<span {0}>'.format(span(style)))
             result.append(html_escape(t))
