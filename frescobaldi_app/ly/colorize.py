@@ -156,7 +156,7 @@ default_css_styles = {
             'color': '#808000',
         },
         'string': {
-            'color': '#c0c000',
+            'color': '#c00000',
         },
         'escape': {
             'color': '#008080',
@@ -313,9 +313,11 @@ def format_stylesheet(css_styles=default_css_styles):
         if styles:
             sheet.append('/* {0} */'.format(
                 "mode: " + mode if mode else "base styles"))
-        for selector, d in sorted(styles.items()):
+        for css_class, d in sorted(styles.items()):
             if mode:
-                selector = 'span.{0}-{1}'.format(mode, selector)
+                selector = 'span.{0}-{1}'.format(mode, css_class)
+            else:
+                selector = '.' + css_class
             sheet.append(css_group(selector, map(css_item, sorted(d.items()))))
     return '\n'.join(sheet)
 
@@ -323,6 +325,11 @@ def format_stylesheet(css_styles=default_css_styles):
 def html_escape(text):
     """Escape &, < and >."""
     return text.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+
+def html_escape_attr(text):
+    """Escape &, ", < and >."""
+    return html_escape(text).replace('"', '&quot;')
 
 
 def html(cursor, mapping, span=format_css_span_class):
@@ -344,5 +351,35 @@ def html(cursor, mapping, span=format_css_span_class):
         else:
             result.append(html_escape(t))
     return ''.join(result)
+
+
+def format_html_document(body, title, stylesheet=None, stylesheet_ref=None, encoding='UTF-8'):
+    """Return a complete HTML document.
+    
+    The body is put inside body tags unchanged.  The title is html-escaped.
+    If stylesheet_ref is given, it is put as a reference in the HTML, else if
+    stylesheet is given, it is put verbatim in a <style> section in the HTML.
+    The encoding is set in the meta http-equiv field, but the returned HTML is
+    in normal Python unicode (python2) or str (python3) format.
+    
+    """
+    if stylesheet_ref:
+        css = '<link rel="stylesheet" type="text/css" href="{0}"/>'.format(html_escape_attr(stylesheet_ref))
+    elif stylesheet:
+        css = '<style type="text/css">\n{0}\n</style>\n'.format(stylesheet)
+    else:
+        css = ''
+    return (
+        '<html><head>\n'
+        '<title>{title}</title>\n'
+        '<meta http-equiv="Content-Type" content="text/html; charset={encoding}" />\n'
+        '{css}'
+        '</head>\n'
+        '<body>\n{body}</body>\n</html>\n').format(
+            title = html_escape(title),
+            encoding = encoding,
+            body = body,
+            css = css,
+        )
 
 

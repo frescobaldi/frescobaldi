@@ -93,6 +93,7 @@ Commands that change the file:
 Commands that export the file to another format:
 
   musicxml              exports to MusicXML (in development, far from complete)
+  hilite                exports the document as syntax colored HTML
 
 Between commands, you can set or unset a variable using:
 
@@ -174,6 +175,9 @@ class Options(object):
         self.indent_width = 2
         self.indent_tabs = False
         self.tab_width = 8
+        
+        self.inline_style = False
+        self.stylesheet = None
     
     def set_variable(self, name, value):
         name = name.replace('-', '_')
