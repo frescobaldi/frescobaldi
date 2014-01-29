@@ -139,6 +139,85 @@ default_mapping = {
 } # end of mapping
 
 
+default_css_styles = {
+    # the base styles
+    None: {
+        'keyword': {
+            'font-weight': 'bold',
+        },
+        'function': {
+            'font-weight': 'bold',
+            'color': '#0000c0',
+        },
+        'variable': {
+            'color': '#0000ff',
+        },
+        'value': {
+            'color': '#808000',
+        },
+        'string': {
+            'color': '#c0c000',
+        },
+        'escape': {
+            'color': '#008080',
+        },
+        'comment': {
+            'color': '#808080',
+            'font-style': 'italic',
+        },
+        'error': {
+            'color': '#ff0000',
+            'text-decoration': 'underline',
+            'text-decoration-color': '#ff0000',
+        },
+    },
+    'lilypond': {
+        'duration': {
+            'color': '#008080',
+        },
+        'markup': {
+            'color': '#008000',
+            'font-weight': 'normal',
+        },
+        'lyricmode': {
+            'color': '#006000',
+        },
+        'lyrictext': {
+            'color': '#006000',
+        },
+        'grob': {
+            'color': '#c000c0',
+        },
+        'context': {
+            'font-weight': 'bold',
+        },
+        'slur': {
+            'font-weight': 'bold',
+        },
+        'articulation': {
+            'font-weight': 'bold',
+            'color': '#ff8000',
+        },
+        'dynamic': {
+            'font-weight': 'bold',
+            'color': '#ff8000',
+        },
+        'fingering': {
+            'color': '#ff8000',
+        },
+        'stringnumber': {
+            'color': '#ff8000',
+        },
+    },
+    'scheme': {
+    },
+    'html': {
+    },
+    'texinfo': {
+    },
+} # end of default_css_styles
+
+
 def get_tokens(cursor):
     """Return the list of tokens for the cursor.
     
@@ -208,6 +287,20 @@ def format_css_span_class(style):
     if base:
         c += ' ' + base
     return 'class="{0}"'.format(c)
+
+
+def format_stylesheet(css_styles=default_css_styles):
+    """Return a formatted stylesheet for the stylesheet styles dictionary."""
+    sheet = []
+    for mode, styles in css_styles.items():
+        for style, d in styles.items():
+            if mode:
+                selector = 'span.{0}-{1}'.format(mode, style)
+            else:
+                selector = style
+            sheet.append('{0} {{\n  {1}\n}}\n'.format(selector,
+                            '\n  '.join('{0}: {1};'.format(k, v) for k, v in d.items())))
+    return '\n'.join(sheet)
 
 
 def html_escape(text):
