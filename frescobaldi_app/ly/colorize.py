@@ -292,14 +292,17 @@ def format_css_span_class(style):
 def format_stylesheet(css_styles=default_css_styles):
     """Return a formatted stylesheet for the stylesheet styles dictionary."""
     sheet = []
-    for mode, styles in css_styles.items():
-        for style, d in styles.items():
+    css_group = lambda s, g: '{0} {{\n  {1}\n}}\n'.format(s, '\n  '.join(g))
+    css_item = lambda a: '{0}: {1};'.format(*a)
+    key = lambda i: '' if i[0] is None else i[0]
+    for mode, styles in sorted(css_styles.items(), key=key):
+        if styles:
+            sheet.append('/* {0} */'.format(
+                "mode: " + mode if mode else "base styles"))
+        for selector, d in sorted(styles.items()):
             if mode:
-                selector = 'span.{0}-{1}'.format(mode, style)
-            else:
-                selector = style
-            sheet.append('{0} {{\n  {1}\n}}\n'.format(selector,
-                            '\n  '.join('{0}: {1};'.format(k, v) for k, v in d.items())))
+                selector = 'span.{0}-{1}'.format(mode, selector)
+            sheet.append(css_group(selector, map(css_item, sorted(d.items()))))
     return '\n'.join(sheet)
 
 
