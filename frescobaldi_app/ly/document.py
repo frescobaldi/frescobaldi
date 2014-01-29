@@ -918,9 +918,14 @@ class Source(object):
                     source = token_source
         gen = generator()
         
-        def newline():
-            pos = document.position(self.block) - 1
-            return ly.lex.Newline('\n', pos)
+        if tokens_with_position:
+            def newline():
+                pos = document.position(self.block) - 1
+                return ly.lex.Newline('\n', pos)
+        else:
+            def newline():
+                pos = len(document.text(document.previous_block(self.block)))
+                return ly.lex.Newline('\n', pos)
         
         # initialize block and tokens
         for self.block, self.tokens in gen:
