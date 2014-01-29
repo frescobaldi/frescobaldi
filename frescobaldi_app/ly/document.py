@@ -919,7 +919,7 @@ class Source(object):
         gen = generator()
         
         def newline():
-            pos = document.position(self.block) + len(document.text(self.block))
+            pos = document.position(self.block) - 1
             return ly.lex.Newline('\n', pos)
         
         # initialize block and tokens
