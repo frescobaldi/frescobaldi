@@ -91,7 +91,7 @@ default_mapping = {
         (ly.lex.lilypond.Repeat, 'repeat', 'function'),
         (ly.lex.lilypond.Specifier, 'specifier', 'variable'),
         (ly.lex.lilypond.UserCommand, 'usercommand', 'variable'),
-        (ly.lex.lilypond.Delimiter, 'delimiter', None),
+        (ly.lex.lilypond.Delimiter, 'delimiter', 'keyword'),
         (ly.lex.lilypond.ContextName, 'context', None),
         (ly.lex.lilypond.GrobName, 'grob', None),
         (ly.lex.lilypond.ContextProperty, 'property', 'variable'),
@@ -290,7 +290,7 @@ def format_css_span_class(style):
 
 
 class css_style_attribute_formatter(object):
-    """Return the style attribute for a specified style."""
+    """Return the inline style attribute for a specified style."""
     def __init__(self, css_styles=default_css_styles):
         self.styles = css_styles
     
@@ -298,8 +298,9 @@ class css_style_attribute_formatter(object):
         mode, style, base = style
         d = (self.styles[None].get(base) if base else None) or {}
         d.update((self.styles.get(mode) or {}).get(style) or {})
-        css_item = lambda a: '{0}: {1};'.format(*a)
-        return 'style="{0}"'.format(' '.join(map(css_item, sorted(d.items()))))
+        if d:
+            css_item = lambda a: '{0}: {1};'.format(*a)
+            return 'style="{0}"'.format(' '.join(map(css_item, sorted(d.items()))))
 
 
 def format_stylesheet(css_styles=default_css_styles):
@@ -335,8 +336,9 @@ def html(cursor, mapping, span=format_css_span_class):
     """
     result = []
     for t, style in melt_mapped_tokens(map_tokens(cursor, mapping)):
-        if style:
-            result.append('<span {0}>'.format(span(style)))
+        arg = span(style) if style else None
+        if arg:
+            result.append('<span {0}>'.format(arg))
             result.append(html_escape(t))
             result.append('</span>')
         else:
