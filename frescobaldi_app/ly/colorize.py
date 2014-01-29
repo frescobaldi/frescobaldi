@@ -289,6 +289,19 @@ def format_css_span_class(style):
     return 'class="{0}"'.format(c)
 
 
+class css_style_attribute_formatter(object):
+    """Return the style attribute for a specified style."""
+    def __init__(self, css_styles=default_css_styles):
+        self.styles = css_styles
+    
+    def __call__(self, style):
+        mode, style, base = style
+        d = (self.styles[None].get(base) if base else None) or {}
+        d.update((self.styles.get(mode) or {}).get(style) or {})
+        css_item = lambda a: '{0}: {1};'.format(*a)
+        return 'style="{0}"'.format(' '.join(map(css_item, sorted(d.items()))))
+
+
 def format_stylesheet(css_styles=default_css_styles):
     """Return a formatted stylesheet for the stylesheet styles dictionary."""
     sheet = []
