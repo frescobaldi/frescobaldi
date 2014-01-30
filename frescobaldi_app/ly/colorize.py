@@ -19,10 +19,31 @@
 
 """
 Classes and functions to colorize (syntax-highlight) parsed source.
+
+Highlighting is based on CSS properties and their values, although the Mapping
+object can map a token's class to any object or value.
+
+The Mapping object normally maps a token's class basically to a CSS class and
+possibly a base CSS class. This way you can define base styles (e.g. string,
+comment, etc) and have specific classes (e.g. LilyPond string, Scheme 
+comment) inherit from that base style. This css class is described by the 
+css_class named tuple, with its three fields: mode, ccscls, base. E.g. 
+('lilypond', 'articulation', 'keyword'). The base field may be None.
+
+The css classes are mapped to dictionaries of css properties, like
+{'font-weight': 'bold', 'color': '#4800ff'}, etc.
+
+A scheme (a collection of styles) is simply a dictionary mapping the mode to
+a dictionary of CSS dictionaries. The base styles are in the [None] item of the
+scheme dictionary.
+
+
 """
 
 from __future__ import unicode_literals
 from __future__ import absolute_import
+
+import collections
 
 import ly.lex.lilypond
 import ly.lex.scheme
@@ -35,6 +56,9 @@ import ly.lex.texinfo
 
 # don't test all the Token base classes
 _token_mro_slice = slice(1, -len(ly.lex.Token.__mro__))
+
+
+css_class = collections.namedtuple("css_class", "mode cls base")
 
 
 class Mapping(dict):
@@ -140,7 +164,7 @@ default_mapping = {
 } # end of mapping
 
 
-default_css_styles = {
+default_scheme = {
     # the base styles
     None: {
         'keyword': {
@@ -277,40 +301,56 @@ def melt_mapped_tokens(mapped_tokens):
 
 def css_mapping(groups=default_mapping):
     """Return a Mapping instance, mapping token classes to two CSS classes."""
-    return Mapping((cls, (mode, style, base)) for mode, classes in groups.items()
-                                        for cls, style, base in classes)
+    return Mapping((cls, css_class(mode, style, base))
+                        for mode, classes in groups.items()
+                            for cls, style, base in classes)
 
 
 def format_css_span_class(style):
     """Return a string like 'class="mode style base"' for the specified style."""
-    mode, style, base = style
-    c = mode + '-' + style
-    if base:
-        c += ' ' + base
+    c = style.mode + '-' + style.cls
+    if style.base:
+        c += ' ' + style.base
     return 'class="{0}"'.format(c)
+
+
+def css_dict(style, scheme=default_scheme):
+    """Return the css properties dict for the style, taken from the scheme.
+    
+    This can be used for inline style attributes.
+    
+    """
+    d = {}
+    try:
+        d.update(scheme[None][style.base])
+    except KeyError:
+        pass
+    try:
+        d.update(scheme[style.mode][style.cls])
+    except KeyError:
+        pass
+    return d
 
 
 class css_style_attribute_formatter(object):
     """Return the inline style attribute for a specified style."""
-    def __init__(self, css_styles=default_css_styles):
-        self.styles = css_styles
+    def __init__(self, scheme=default_scheme):
+        self.scheme = scheme
     
     def __call__(self, style):
-        mode, style, base = style
-        d = (self.styles[None].get(base) if base else None) or {}
-        d.update((self.styles.get(mode) or {}).get(style) or {})
+        d = css_dict(style)
         if d:
             css_item = lambda a: '{0}: {1};'.format(*a)
             return 'style="{0}"'.format(' '.join(map(css_item, sorted(d.items()))))
 
 
-def format_stylesheet(css_styles=default_css_styles):
-    """Return a formatted stylesheet for the stylesheet styles dictionary."""
+def format_stylesheet(scheme=default_scheme):
+    """Return a formatted stylesheet for the stylesheet scheme dictionary."""
     sheet = []
     css_group = lambda s, g: '{0} {{\n  {1}\n}}\n'.format(s, '\n  '.join(g))
     css_item = lambda a: '{0}: {1};'.format(*a)
     key = lambda i: '' if i[0] is None else i[0]
-    for mode, styles in sorted(css_styles.items(), key=key):
+    for mode, styles in sorted(scheme.items(), key=key):
         if styles:
             sheet.append('/* {0} */'.format(
                 "mode: " + mode if mode else "base styles"))
