@@ -307,7 +307,7 @@ def css_mapping(groups=default_mapping):
 
 
 def format_css_span_class(style):
-    """Return a string like 'class="mode style base"' for the specified style."""
+    """Return a string like 'class="mode-style base"' for the specified style."""
     c = style.mode + '-' + style.cls
     if style.base:
         c += ' ' + style.base
