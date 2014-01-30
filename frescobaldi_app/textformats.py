@@ -200,24 +200,29 @@ def css2fmt(d, f=None):
     """Convert a css dictionary to a QTextCharFormat."""
     if f is None:
         f = QTextCharFormat()
-    for k, v in d.items():
-        if k == 'font-style':
-            f.setFontItalic(v in ('oblique', 'italic'))
-        elif k == 'font-weight':
-            if v == 'bold':
-                f.setFontWeight(QFont.Bold)
-            elif v == 'normal':
-                f.setFontWeight(QFont.Normal)
-            elif v.isdigit():
-                f.setFontWeight(int(v) / 10)
-        elif k == 'color':
-            f.setForeground(QColor(v))
-        elif k == 'background':
-            f.setBackground(QColor(v))
-        elif k == 'text-decoration':
-            f.setFontUnderline(v == 'underline')
-        elif k == 'text-decoration-color':
-            f.setUnderlineColor(QColor(v))
+    v = d.get('font-style')
+    if v:
+        f.setFontItalic(v in ('oblique', 'italic'))
+    v = d.get('font-weight')
+    if v:
+        if v == 'bold':
+            f.setFontWeight(QFont.Bold)
+        elif v == 'normal':
+            f.setFontWeight(QFont.Normal)
+        elif v.isdigit():
+            f.setFontWeight(int(v) / 10)
+    v = d.get('color')
+    if v:
+        f.setForeground(QColor(v))
+    v = d.get('background')
+    if v:
+        f.setBackground(QColor(v))
+    v = d.get('text-decoration')
+    if v:
+        f.setFontUnderline(v == 'underline')
+    v = d.get('text-decoration-color')
+    if v:
+        f.setUnderlineColor(QColor(v))
     return f
 
 def fmt2css(f, d=None):
