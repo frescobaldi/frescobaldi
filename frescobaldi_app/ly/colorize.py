@@ -66,7 +66,8 @@ class Mapping(dict):
             return value
 
 
-# A dictionary with default mapping from token class to style and default style, per group.
+# A dictionary with a good default mapping from token class to style and default
+# style, per group.
 default_mapping = {
     'lilypond': (
         (ly.lex.lilypond.Keyword, 'keyword', 'keyword'),
@@ -336,9 +337,9 @@ def html(cursor, mapping, span=format_css_span_class):
     """Return a HTML string with the tokens wrapped in <span class=> elements.
     
     The span argument is a function returning an attribute for the <span> 
-    tag for the specified style. By default, it returns a 'class="group 
-    style base"' string. You'll want to wrap the HTML inside <pre> tokens 
-    and add a CSS stylesheet.
+    tag for the specified style. By default the format_css_span_class() 
+    function is used, that returns a 'class="group style base"' string. 
+    You'll want to wrap the HTML inside <pre> tokens and add a CSS stylesheet.
     
     """
     result = []
@@ -356,20 +357,22 @@ def html(cursor, mapping, span=format_css_span_class):
 def format_html_document(body, title, stylesheet=None, stylesheet_ref=None, encoding='UTF-8'):
     """Return a complete HTML document.
     
-    The body is put inside body tags unchanged.  The title is html-escaped.
-    If stylesheet_ref is given, it is put as a reference in the HTML, else if
-    stylesheet is given, it is put verbatim in a <style> section in the HTML.
-    The encoding is set in the meta http-equiv field, but the returned HTML is
-    in normal Python unicode (python2) or str (python3) format.
+    The body is put inside body tags unchanged.  The title is html-escaped. 
+    If stylesheet_ref is given, it is put as a <link> reference in the HTML; 
+    if stylesheet is given, it is put verbatim in a <style> section in the 
+    HTML. The encoding is set in the meta http-equiv field, but the returned 
+    HTML is in normal Python unicode (python2) or str (python3) format, you 
+    should encode it yourself in the same encoding (by default utf-8) when 
+    writing it to a file.
     
     """
+    css = ""
     if stylesheet_ref:
-        css = '<link rel="stylesheet" type="text/css" href="{0}"/>'.format(html_escape_attr(stylesheet_ref))
-    elif stylesheet:
-        css = '<style type="text/css">\n{0}\n</style>\n'.format(stylesheet)
-    else:
-        css = ''
+        css += '<link rel="stylesheet" type="text/css" href="{0}"/>\n'.format(html_escape_attr(stylesheet_ref))
+    if stylesheet:
+        css += '<style type="text/css">\n{0}\n</style>\n'.format(stylesheet)
     return (
+        '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">\n'
         '<html><head>\n'
         '<title>{title}</title>\n'
         '<meta http-equiv="Content-Type" content="text/html; charset={encoding}" />\n'
