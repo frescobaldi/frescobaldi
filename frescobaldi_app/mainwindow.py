@@ -1021,7 +1021,9 @@ class ActionCollection(actioncollection.ActionCollection):
         
         # roles
         if sys.platform.startswith('darwin'):
-            if '.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0])):
+            frozen = getattr(sys, 'frozen', '')
+            if (frozen == 'macosx_app') \
+            or ('.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0]))):
                 self.file_quit.setMenuRole(QAction.QuitRole)
                 self.edit_preferences.setMenuRole(QAction.PreferencesRole)
                 self.help_about.setMenuRole(QAction.AboutRole)
