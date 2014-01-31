@@ -144,6 +144,24 @@ class TextFormatData(object):
         f.merge(self.allStyles[group][name])
         return f
     
+    def css_scheme(self):
+        """Return a dictionary of css dictionaries representing this scheme.
+        
+        This can be fed to the ly.colorize.format_stylesheet() function.
+        
+        """
+        scheme = {}
+        # base/default styles
+        d = scheme[None] = {}
+        for name, fmt in self.defaultStyles.items():
+            d[name] = fmt2css(fmt)
+        # mode/group styles
+        for mode, styles in self.allStyles.items():
+            d = scheme[mode] = {}
+            for name, fmt in styles.items():
+                d[name] = fmt2css(fmt)
+        return scheme
+    
     def palette(self):
         """Return a basic palette with text, background, selection and selection background filled in."""
         p = QApplication.palette()
