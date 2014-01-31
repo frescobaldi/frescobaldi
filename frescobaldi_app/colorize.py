@@ -18,36 +18,26 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Colorize a string as HTML using a ly.lex State and highlightformats.
+Colorize a string as HTML.
 """
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QTextFormat
-
-import ly.lex
-import highlight2html
-import textformats
-
-
 __all__ = ['colorize']
 
 
-def colorize(text, state=None):
-    """Converts the text to HTML using the specified or guessed state."""
-    if state is None:
-        state = ly.lex.guessState(text)
-    data = textformats.formatData('editor')
-    h = highlight2html.HtmlHighlighter(data, inline_style=True)
-    
-    result = [
-        '<pre style="color: {0}; background: {1}; font-family: {2}">'.format(
+def colorize(text, mode=None):
+    """Converts the text to HTML using the specified or guessed mode."""
+    import textformats
+    import ly.document
+    import ly.colorize
+    c = ly.document.Cursor(ly.document.Document(text, mode))
+    data = textformats.formatData('editor')     # the current highlighting scheme
+    mapping = ly.colorize.css_mapping()         # map the token class to hl class
+    formatter = ly.colorize.css_style_attribute_formatter(data.css_scheme()) # inline html
+    body = '<pre style="color: {0}; background: {1}">{2}</pre>\n'.format(
         data.baseColors['text'].name(),
         data.baseColors['background'].name(),
-        data.font.family())]
-    
-    result.extend(map(h.html_for_token, state.tokens(text)))
-    result.append('</pre>')
-    return ''.join(result)
-
+        ly.colorize.html(c, mapping, formatter))
+    return ly.colorize.format_html_document(body)
 

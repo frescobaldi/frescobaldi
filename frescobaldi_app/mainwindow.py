@@ -652,7 +652,7 @@ class MainWindow(QMainWindow):
         if not filename:
             return #cancelled
         import highlight2html
-        html = highlight2html.HtmlHighlighter().html_document(doc)
+        html = highlight2html.html_document(doc)
         try:
             with open(filename, "wb") as f:
                 f.write(html.encode('utf-8'))
@@ -676,12 +676,11 @@ class MainWindow(QMainWindow):
         self.currentView().paste()
         
     def copyColoredHtml(self):
-        cursor = self.currentView().textCursor()
+        cursor = self.textCursor()
         if not cursor.hasSelection():
             return
         import highlight2html
-        h = highlight2html.HtmlHighlighter(inline_style=True)
-        html = h.html_selection(cursor)
+        html = highlight2html.html_inline(cursor)
         data = QMimeData()
         data.setHtml(html)
         #data.setText(html)

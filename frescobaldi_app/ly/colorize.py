@@ -394,7 +394,7 @@ def html(cursor, mapping, span=format_css_span_class):
     return ''.join(result)
 
 
-def format_html_document(body, title, stylesheet=None, stylesheet_ref=None, encoding='UTF-8'):
+def format_html_document(body, title="", stylesheet=None, stylesheet_ref=None, encoding='UTF-8'):
     """Return a complete HTML document.
     
     The body is put inside body tags unchanged.  The title is html-escaped. 
