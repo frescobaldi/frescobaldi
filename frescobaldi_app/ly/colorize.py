@@ -52,7 +52,8 @@ import ly.lex
 _token_mro_slice = slice(1, -len(ly.lex.Token.__mro__))
 
 
-css_class = collections.namedtuple("css_class", "mode cls base")
+style = collections.namedtuple("style", "name base classes")
+css_class = collections.namedtuple("css_class", "mode name base")
 
 
 class Mapper(dict):
@@ -95,65 +96,65 @@ def default_mapping():
     
     return (
         ('lilypond', (
-            ('keyword', 'keyword', (lilypond.Keyword,)),
-            ('command', 'function', (lilypond.Command, lilypond.Skip)),
-            ('pitch', None, (lilypond.MusicItem,)),
-            ('octave', None, (lilypond.Octave,)),
-            ('duration', None, (lilypond.Duration,)),
-            ('dynamic', None, (lilypond.Dynamic,)),
-            ('check', None, (lilypond.OctaveCheck, lilypond.PipeSymbol)),
-            ('articulation', None, (lilypond.Direction, lilypond.Articulation)),
-            ('fingering', None, (lilypond.Fingering,)),
-            ('stringnumber', None, (lilypond.StringNumber,)),
-            ('slur', None, (lilypond.Slur,)),
-            ('chord', None, (lilypond.Chord, lilypond.ChordItem)),
-            ('markup', 'function', (lilypond.Markup,)),
-            ('lyricmode', 'function', (lilypond.LyricMode,)),
-            ('lyrictext', None, (lilypond.Lyric,)),
-            ('repeat', 'function', (lilypond.Repeat,)),
-            ('specifier', 'variable', (lilypond.Specifier,)),
-            ('usercommand', 'variable', (lilypond.UserCommand,)),
-            ('delimiter', 'keyword', (lilypond.Delimiter,)),
-            ('context', None, (lilypond.ContextName,)),
-            ('grob', None, (lilypond.GrobName,)),
-            ('property', 'variable', (lilypond.ContextProperty,)),
-            ('variable', 'variable', (lilypond.Variable,)),
-            ('uservariable', None, (lilypond.UserVariable,)),
-            ('value', 'value', (lilypond.Value,)),
-            ('string', 'string', (lilypond.String,)),
-            ('stringescape', 'escape', (lilypond.StringQuoteEscape,)),
-            ('comment', 'comment', (lilypond.Comment,)),
-            ('error', 'error', (lilypond.Error,)),
-            ('repeat', None, (lilypond.Repeat, lilypond.Tremolo,)),
+            style('keyword', 'keyword', (lilypond.Keyword,)),
+            style('command', 'function', (lilypond.Command, lilypond.Skip)),
+            style('pitch', None, (lilypond.MusicItem,)),
+            style('octave', None, (lilypond.Octave,)),
+            style('duration', None, (lilypond.Duration,)),
+            style('dynamic', None, (lilypond.Dynamic,)),
+            style('check', None, (lilypond.OctaveCheck, lilypond.PipeSymbol)),
+            style('articulation', None, (lilypond.Direction, lilypond.Articulation)),
+            style('fingering', None, (lilypond.Fingering,)),
+            style('stringnumber', None, (lilypond.StringNumber,)),
+            style('slur', None, (lilypond.Slur,)),
+            style('chord', None, (lilypond.Chord, lilypond.ChordItem)),
+            style('markup', 'function', (lilypond.Markup,)),
+            style('lyricmode', 'function', (lilypond.LyricMode,)),
+            style('lyrictext', None, (lilypond.Lyric,)),
+            style('repeat', 'function', (lilypond.Repeat,)),
+            style('specifier', 'variable', (lilypond.Specifier,)),
+            style('usercommand', 'variable', (lilypond.UserCommand,)),
+            style('delimiter', 'keyword', (lilypond.Delimiter,)),
+            style('context', None, (lilypond.ContextName,)),
+            style('grob', None, (lilypond.GrobName,)),
+            style('property', 'variable', (lilypond.ContextProperty,)),
+            style('variable', 'variable', (lilypond.Variable,)),
+            style('uservariable', None, (lilypond.UserVariable,)),
+            style('value', 'value', (lilypond.Value,)),
+            style('string', 'string', (lilypond.String,)),
+            style('stringescape', 'escape', (lilypond.StringQuoteEscape,)),
+            style('comment', 'comment', (lilypond.Comment,)),
+            style('error', 'error', (lilypond.Error,)),
+            style('repeat', None, (lilypond.Repeat, lilypond.Tremolo,)),
         )),
         ('scheme', (
-            ('scheme', None, (lilypond.SchemeStart, scheme.Scheme,)),
-            ('string', 'string', (scheme.String,)),
-            ('comment', 'comment', (scheme.Comment,)),
-            ('number', 'value', (scheme.Number,)),
-            ('lilypond', None, (scheme.LilyPond,)),
-            ('keyword', 'keyword', (scheme.Keyword,)),
-            ('function', 'function', (scheme.Function,)),
-            ('variable', 'variable', (scheme.Variable,)),
-            ('constant', 'variable', (scheme.Constant,)),
-            ('delimiter', None, (scheme.OpenParen, scheme.CloseParen,)),
+            style('scheme', None, (lilypond.SchemeStart, scheme.Scheme,)),
+            style('string', 'string', (scheme.String,)),
+            style('comment', 'comment', (scheme.Comment,)),
+            style('number', 'value', (scheme.Number,)),
+            style('lilypond', None, (scheme.LilyPond,)),
+            style('keyword', 'keyword', (scheme.Keyword,)),
+            style('function', 'function', (scheme.Function,)),
+            style('variable', 'variable', (scheme.Variable,)),
+            style('constant', 'variable', (scheme.Constant,)),
+            style('delimiter', None, (scheme.OpenParen, scheme.CloseParen,)),
         )),
         ('html', (
-            ('tag', 'keyword', (html.Tag,)),
-            ('attribute', 'variable', (html.AttrName,)),
-            ('value', 'value', (html.Value,)),
-            ('string', 'string', (html.String,)),
-            ('entityref', 'escape', (html.EntityRef,)),
-            ('comment', 'comment', (html.Comment,)),
-            ('lilypondtag', 'function', (html.LilyPondTag,)),
+            style('tag', 'keyword', (html.Tag,)),
+            style('attribute', 'variable', (html.AttrName,)),
+            style('value', 'value', (html.Value,)),
+            style('string', 'string', (html.String,)),
+            style('entityref', 'escape', (html.EntityRef,)),
+            style('comment', 'comment', (html.Comment,)),
+            style('lilypondtag', 'function', (html.LilyPondTag,)),
         )),
         ('texinfo', (
-            ('keyword', 'keyword', (texinfo.Keyword,)),
-            ('block', 'function', (texinfo.Block,)),
-            ('attribute', 'variable', (texinfo.Attribute,)),
-            ('escapechar', 'escape', (texinfo.EscapeChar,)),
-            ('verbatim', 'string', (texinfo.Verbatim,)),
-            ('comment', 'comment', (texinfo.Comment,)),
+            style('keyword', 'keyword', (texinfo.Keyword,)),
+            style('block', 'function', (texinfo.Block,)),
+            style('attribute', 'variable', (texinfo.Attribute,)),
+            style('escapechar', 'escape', (texinfo.EscapeChar,)),
+            style('verbatim', 'string', (texinfo.Verbatim,)),
+            style('comment', 'comment', (texinfo.Comment,)),
         )),
     ) # end of mapping
 
@@ -303,19 +304,19 @@ def css_mapper(mapping=None):
         mapping = default_mapping()
     return Mapper((cls, css_class(mode, style, base))
                         for mode, styles in mapping
-                            for style, base, clss in styles
-                                for cls in clss)
+                            for style in styles
+                                for cls in style.classes)
 
 
-def format_css_span_class(style):
+def format_css_span_class(css_style):
     """Return a string like 'class="mode-style base"' for the specified style."""
-    c = style.mode + '-' + style.cls
-    if style.base:
-        c += ' ' + style.base
+    c = css_style.mode + '-' + css_style.name
+    if css_style.base:
+        c += ' ' + css_style.base
     return 'class="{0}"'.format(c)
 
 
-def css_dict(style, scheme=default_scheme):
+def css_dict(css_style, scheme=default_scheme):
     """Return the css properties dict for the style, taken from the scheme.
     
     This can be used for inline style attributes.
@@ -323,11 +324,11 @@ def css_dict(style, scheme=default_scheme):
     """
     d = {}
     try:
-        d.update(scheme[None][style.base])
+        d.update(scheme[None][css_style.base])
     except KeyError:
         pass
     try:
-        d.update(scheme[style.mode][style.cls])
+        d.update(scheme[css_style.mode][css_style.name])
     except KeyError:
         pass
     return d
@@ -338,8 +339,8 @@ class css_style_attribute_formatter(object):
     def __init__(self, scheme=default_scheme):
         self.scheme = scheme
     
-    def __call__(self, style):
-        d = css_dict(style)
+    def __call__(self, css_style):
+        d = css_dict(css_style)
         if d:
             css_item = lambda a: '{0}: {1};'.format(*a)
             return 'style="{0}"'.format(' '.join(map(css_item, sorted(d.items()))))
