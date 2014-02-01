@@ -29,6 +29,7 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QApplication, QColor, QFont, QPalette, QTextCharFormat, QTextFormat
 
 import app
+import ly.colorize
 
 
 # When formatData() is requested for the first time, it is loaded from the config
@@ -61,6 +62,7 @@ class TextFormatData(object):
         self.baseColors = {}
         self.defaultStyles = {}
         self.allStyles = {}
+        self._inherits = {}
         self.load(scheme)
         
     def load(self, scheme):
@@ -82,10 +84,25 @@ class TextFormatData(object):
                 self.baseColors[name] = baseColorDefaults[name]()
         s.endGroup()
         
+        # get the list of supported styles from ly.colorize
+        all_styles = ly.colorize.default_mapping()
+        default_styles = set()
+        for group, styles in all_styles:
+            d = self._inherits[group] = {}
+            for name, base, clss in styles:
+                if base:
+                    default_styles.add(base)
+                    d[name] = base
+        
+        default_scheme = ly.colorize.default_scheme
+        
         # load default styles
         s.beginGroup("defaultstyles")
-        for name in defaultStyles:
-            self.defaultStyles[name] = f = QTextCharFormat(defaultStyleDefaults[name])
+        for name in default_styles:
+            self.defaultStyles[name] = f = QTextCharFormat()
+            css = default_scheme[None].get(name)
+            if css:
+                css2fmt(css, f)
             s.beginGroup(name)
             self.loadTextFormat(f, s)
             s.endGroup()
@@ -93,12 +110,14 @@ class TextFormatData(object):
         
         # load specific styles
         s.beginGroup("allstyles")
-        for group, styles in allStyles:
+        for group, styles in all_styles:
             self.allStyles[group]= {}
             s.beginGroup(group)
-            for name in styles:
-                default = allStyleDefaults[group].get(name)
-                self.allStyles[group][name] = f = QTextCharFormat(default) if default else QTextCharFormat()
+            for name, inherits, clss in styles:
+                self.allStyles[group][name] = f = QTextCharFormat()
+                css = default_scheme[group].get(name)
+                if css:
+                    css2fmt(css, f)
                 s.beginGroup(name)
                 self.loadTextFormat(f, s)
                 s.endGroup()
@@ -139,7 +158,7 @@ class TextFormatData(object):
 
     def textFormat(self, group, name):
         """Return a QTextCharFormat() for the specified group and name."""
-        inherit = inherits[group].get(name)
+        inherit = self._inherits[group].get(name)
         f = QTextCharFormat(self.defaultStyles[inherit]) if inherit else QTextCharFormat()
         f.merge(self.allStyles[group][name])
         return f

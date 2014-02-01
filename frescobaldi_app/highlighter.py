@@ -55,8 +55,8 @@ def mapping(data):
     The returned dictionary is a ly.colorize.Mapping instance.
     
     """
-    return ly.colorize.Mapping((cls, data.textFormat(mode, style))
-                        for mode, styles in ly.colorize.default_mapping
+    return ly.colorize.Mapper((cls, data.textFormat(mode, style))
+                        for mode, styles in ly.colorize.default_mapping()
                             for style, base, clss in styles
                                 for cls in clss)
 
