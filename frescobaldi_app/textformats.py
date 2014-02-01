@@ -89,10 +89,10 @@ class TextFormatData(object):
         default_styles = set()
         for group, styles in all_styles:
             d = self._inherits[group] = {}
-            for name, base, clss in styles:
-                if base:
-                    default_styles.add(base)
-                    d[name] = base
+            for style in styles:
+                if style.base:
+                    default_styles.add(style.base)
+                    d[style.name] = style.base
         
         default_scheme = ly.colorize.default_scheme
         
@@ -113,12 +113,12 @@ class TextFormatData(object):
         for group, styles in all_styles:
             self.allStyles[group]= {}
             s.beginGroup(group)
-            for name, inherits, clss in styles:
-                self.allStyles[group][name] = f = QTextCharFormat()
-                css = default_scheme[group].get(name)
+            for style in styles:
+                self.allStyles[group][style.name] = f = QTextCharFormat()
+                css = default_scheme[group].get(style.name)
                 if css:
                     css2fmt(css, f)
-                s.beginGroup(name)
+                s.beginGroup(style.name)
                 self.loadTextFormat(f, s)
                 s.endGroup()
             s.endGroup()
@@ -147,11 +147,11 @@ class TextFormatData(object):
         
         # save all specific styles
         s.beginGroup("allstyles")
-        for group, styles in allStyles:
+        for group, styles in ly.colorize.default_mapping():
             s.beginGroup(group)
-            for name in styles:
+            for style in styles:
                 s.beginGroup(name)
-                self.saveTextFormat(self.allStyles[group][name], s)
+                self.saveTextFormat(self.allStyles[group][style.name], s)
                 s.endGroup()
             s.endGroup()
         s.endGroup()
@@ -319,228 +319,4 @@ defaultStyles = (
     'comment',
     'error',
 )
-
-
-# decorator that executes the function and returns the result
-_result = lambda f: f()
-
-@_result
-def defaultStyleDefaults():
-    keyword = QTextCharFormat()
-    keyword.setFontWeight(QFont.Bold)
-    
-    function = QTextCharFormat(keyword)
-    function.setForeground(QColor(0, 0, 192))
-    
-    variable = QTextCharFormat()
-    variable.setForeground(QColor(0, 0, 255))
-    
-    value = QTextCharFormat()
-    value.setForeground(QColor(128, 128, 0))
-    
-    string = QTextCharFormat()
-    string.setForeground(QColor(192, 0, 0))
-    
-    escape = QTextCharFormat()
-    escape.setForeground(QColor(0, 128, 128))
-    
-    comment = QTextCharFormat()
-    comment.setForeground(QColor(128, 128, 128))
-    comment.setFontItalic(True)
-    
-    error = QTextCharFormat()
-    error.setForeground(QColor(255, 0, 0))
-    error.setFontUnderline(True)
-    
-    return locals()
-
-
-@_result
-def allStyleDefaults():
-    
-    # LilyPond
-    lilypond = {}
-    
-    lilypond['duration'] = f = QTextCharFormat()
-    f.setForeground(QColor(0, 128, 128))
-    
-    lilypond['markup'] = f = QTextCharFormat()
-    f.setForeground(QColor(0, 128, 0))
-    f.setFontWeight(QFont.Normal)
-    
-    lilypond['lyricmode'] = f = QTextCharFormat()
-    f.setForeground(QColor(0, 96, 0))
-    
-    lilypond['lyrictext'] = QTextCharFormat(f)
-    
-    lilypond['grob'] = f = QTextCharFormat()
-    f.setForeground(QColor(192, 0, 192))
-    
-    lilypond['context'] = f = QTextCharFormat(f)
-    f.setFontWeight(QFont.Bold)
-    
-    lilypond['slur'] = QTextCharFormat(f)
-    
-    lilypond['articulation'] = f = QTextCharFormat()
-    f.setForeground(QColor(255, 128, 0))
-    f.setFontWeight(QFont.Bold)
-    
-    lilypond['dynamic'] = QTextCharFormat(f)
-    
-    lilypond['fingering'] = f = QTextCharFormat()
-    f.setForeground(QColor(255, 128, 0))
-    
-    lilypond['stringnumber'] = QTextCharFormat(f)
-    
-    # HTML
-    html = {}
-    
-    # Scheme
-    scheme = {}
-    
-    scheme['scheme'] = f = QTextCharFormat()
-    f.setForeground(QColor(80, 40, 0))
-    
-    scheme['lilypond'] = f = QTextCharFormat(f)
-    f.setFontWeight(QFont.Bold)
-    
-    scheme['delimiter'] = f = QTextCharFormat(f)
-    f.setForeground(QColor(160, 0, 150))
-    f.setFontWeight(QFont.Bold)
-    
-    scheme['keyword'] = f = QTextCharFormat()
-    f.setForeground(QColor(0, 130, 150))
-    f.setFontWeight(QFont.Bold)
-    
-    scheme['function'] = f = QTextCharFormat()
-    f.setForeground(QColor(150, 0, 222))
-    
-    scheme['variable'] = QTextCharFormat(f)
-    
-    scheme['constant'] = QTextCharFormat(f)
-    
-    scheme['symbol'] = QTextCharFormat(f)
-    
-    # LaTeX
-    latex = {}
-    
-    # DocBook
-    docbook = {}
-    
-    # Texinfo
-    texinfo = {}
-    
-    del f
-    return locals()
-
-
-allStyles = (
-    ('lilypond', (
-        'pitch',
-        'octave',
-        'duration',
-        'fingering',
-        'stringnumber',
-        'slur',
-        'dynamic',
-        'articulation',
-        'chord',
-        'beam',
-        'check',
-        'repeat',
-        'keyword',
-        'command',
-        'specifier',
-        'usercommand',
-        'markup',
-        'lyricmode',
-        'lyrictext',
-        'delimiter',
-        'context',
-        'grob',
-        'property',
-        'variable',
-        'uservariable',
-        'value',
-        'string',
-        'stringescape',
-        'comment',
-        'error',
-        )),
-    ('html', (
-        'tag',
-        'lilypondtag',
-        'attribute',
-        'value',
-        'entityref',
-        'string',
-        'comment',
-        )),
-    ('scheme', (
-        'scheme',
-        'number',
-        'lilypond',
-        'string',
-        'comment',
-        'keyword',
-        'function',
-        'variable',
-        'constant',
-        'symbol',
-        'delimiter',
-        )),
-    ('texinfo', (
-        'keyword',
-        'block',
-        'attribute',
-        'escapechar',
-        'verbatim',
-        'comment',
-    ))
-)
-
-
-inherits = {
-    'lilypond': {
-        'keyword': 'keyword',
-        'command': 'function',
-        'markup': 'function',
-        'lyricmode': 'function',
-        'repeat': 'function',
-        'specifier': 'variable',
-        'usercommand': 'variable',
-        'delimiter': 'keyword',
-        'property': 'variable',
-        'variable': 'variable',
-        'value': 'value',
-        'string': 'string',
-        'stringescape': 'escape',
-        'comment': 'comment',
-        'error': 'error',
-    },
-    'html': {
-        'tag': 'keyword',
-        'lilypondtag': 'function',
-        'attribute': 'variable',
-        'value': 'value',
-        'entityref': 'escape',
-        'string': 'string',
-        'comment': 'comment',
-    },
-    'scheme': {
-        'number': 'value',
-        'string': 'string',
-        'comment': 'comment',
-    },
-    'texinfo': {
-        'keyword': 'keyword',
-        'block': 'function',
-        'attribute': 'variable',
-        'escapechar': 'escape',
-        'verbatim': 'string',
-        'comment': 'comment',
-    }
-        
-}
-
 
