@@ -92,8 +92,9 @@ Commands that change the file:
 
 Commands that export the file to another format:
 
-  musicxml              exports to MusicXML (in development, far from complete)
-  hilite                exports the document as syntax colored HTML
+  musicxml [filename]   exports to MusicXML (in development, far from complete)
+  highlight [filename]  exports the document as syntax colored HTML
+  hl [filename]         alias for highlight
 
 Between commands, you can set or unset a variable using:
 
@@ -121,6 +122,12 @@ If there is a default value, it is written between brackets:
   indent-tabs [false]   whether to use tabs for indent
   indent-width [2]      how many spaces for each indent level (if not using
                         tabs)
+  stylesheet            filename to reference as an external stylesheet for
+                        syntax-highlighted HTML. This filename is literally used
+                        in the <link rel="stylesheet"> tag.
+  inline-style [false]  whether to use inline style attributes for syntax-
+                        highlighted HTML. By default a css shylesheet is embed-
+                        ded.
 
 These variables influence the output of information commands:
 
@@ -135,6 +142,7 @@ Example:
 Example using the '*' in the output file name:
 
   ly "transpose c d" *.ly -o '*-transposed.ly'
+  ly highlight *.ly -o 'html/?.html'
 
 
 """)

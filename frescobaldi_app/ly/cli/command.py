@@ -219,7 +219,7 @@ class write(_command):
             f.write(cursor.document.plaintext())
 
 
-class hilite(_export_command):
+class highlight(_export_command):
     """write syntax colored HTML."""
     def run(self, opts, cursor, output):
         import ly.colorize
@@ -245,4 +245,6 @@ class hilite(_export_command):
         with output.file(opts, filename, encoding) as f:
             f.write(doc)
 
+
+hl = highlight
 
