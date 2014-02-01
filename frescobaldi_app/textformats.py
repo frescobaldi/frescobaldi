@@ -150,7 +150,7 @@ class TextFormatData(object):
         for group, styles in ly.colorize.default_mapping():
             s.beginGroup(group)
             for style in styles:
-                s.beginGroup(name)
+                s.beginGroup(style.name)
                 self.saveTextFormat(self.allStyles[group][style.name], s)
                 s.endGroup()
             s.endGroup()
