@@ -45,13 +45,7 @@ from __future__ import absolute_import
 
 import collections
 
-import ly.lex.lilypond
-import ly.lex.scheme
-import ly.lex.html
-import ly.lex.texinfo
-#import ly.lex.latex
-#import ly.lex.docbook
-
+import ly.lex
 
 
 # don't test all the Token base classes
@@ -61,10 +55,10 @@ _token_mro_slice = slice(1, -len(ly.lex.Token.__mro__))
 css_class = collections.namedtuple("css_class", "mode cls base")
 
 
-class Mapping(dict):
+class Mapper(dict):
     """Maps token classes to arbitrary values, which can be highlighting styles.
     
-    Mapping behaves like a dict, you set items with a token class as key to an
+    Mapper behaves like a dict, you set items with a token class as key to an
     arbitrary value.
     
     But getting items can be done using a token. The token class's method 
@@ -90,70 +84,78 @@ class Mapping(dict):
             return value
 
 
-# A good default mapping from token class(es) to style and default style, per group.
-default_mapping = (
-    ('lilypond', (
-        ('keyword', 'keyword', (ly.lex.lilypond.Keyword,)),
-        ('command', 'function', (ly.lex.lilypond.Command, ly.lex.lilypond.Skip)),
-        ('pitch', None, (ly.lex.lilypond.MusicItem,)),
-        ('octave', None, (ly.lex.lilypond.Octave,)),
-        ('duration', None, (ly.lex.lilypond.Duration,)),
-        ('dynamic', None, (ly.lex.lilypond.Dynamic,)),
-        ('check', None, (ly.lex.lilypond.OctaveCheck, ly.lex.lilypond.PipeSymbol)),
-        ('articulation', None, (ly.lex.lilypond.Direction, ly.lex.lilypond.Articulation)),
-        ('fingering', None, (ly.lex.lilypond.Fingering,)),
-        ('stringnumber', None, (ly.lex.lilypond.StringNumber,)),
-        ('slur', None, (ly.lex.lilypond.Slur,)),
-        ('chord', None, (ly.lex.lilypond.Chord, ly.lex.lilypond.ChordItem)),
-        ('markup', 'function', (ly.lex.lilypond.Markup,)),
-        ('lyricmode', 'function', (ly.lex.lilypond.LyricMode,)),
-        ('lyrictext', None, (ly.lex.lilypond.Lyric,)),
-        ('repeat', 'function', (ly.lex.lilypond.Repeat,)),
-        ('specifier', 'variable', (ly.lex.lilypond.Specifier,)),
-        ('usercommand', 'variable', (ly.lex.lilypond.UserCommand,)),
-        ('delimiter', 'keyword', (ly.lex.lilypond.Delimiter,)),
-        ('context', None, (ly.lex.lilypond.ContextName,)),
-        ('grob', None, (ly.lex.lilypond.GrobName,)),
-        ('property', 'variable', (ly.lex.lilypond.ContextProperty,)),
-        ('variable', 'variable', (ly.lex.lilypond.Variable,)),
-        ('uservariable', None, (ly.lex.lilypond.UserVariable,)),
-        ('value', 'value', (ly.lex.lilypond.Value,)),
-        ('string', 'string', (ly.lex.lilypond.String,)),
-        ('stringescape', 'escape', (ly.lex.lilypond.StringQuoteEscape,)),
-        ('comment', 'comment', (ly.lex.lilypond.Comment,)),
-        ('error', 'error', (ly.lex.lilypond.Error,)),
-        ('repeat', None, (ly.lex.lilypond.Repeat, ly.lex.lilypond.Tremolo,)),
-    )),
-    ('scheme', (
-        ('scheme', None, (ly.lex.lilypond.SchemeStart, ly.lex.scheme.Scheme,)),
-        ('string', 'string', (ly.lex.scheme.String,)),
-        ('comment', 'comment', (ly.lex.scheme.Comment,)),
-        ('number', 'value', (ly.lex.scheme.Number,)),
-        ('lilypond', None, (ly.lex.scheme.LilyPond,)),
-        ('keyword', 'keyword', (ly.lex.scheme.Keyword,)),
-        ('function', 'function', (ly.lex.scheme.Function,)),
-        ('variable', 'variable', (ly.lex.scheme.Variable,)),
-        ('constant', 'variable', (ly.lex.scheme.Constant,)),
-        ('delimiter', None, (ly.lex.scheme.OpenParen, ly.lex.scheme.CloseParen,)),
-    )),
-    ('html', (
-        ('tag', 'keyword', (ly.lex.html.Tag,)),
-        ('attribute', 'variable', (ly.lex.html.AttrName,)),
-        ('value', 'value', (ly.lex.html.Value,)),
-        ('string', 'string', (ly.lex.html.String,)),
-        ('entityref', 'escape', (ly.lex.html.EntityRef,)),
-        ('comment', 'comment', (ly.lex.html.Comment,)),
-        ('lilypondtag', 'function', (ly.lex.html.LilyPondTag,)),
-    )),
-    ('texinfo', (
-        ('keyword', 'keyword', (ly.lex.texinfo.Keyword,)),
-        ('block', 'function', (ly.lex.texinfo.Block,)),
-        ('attribute', 'variable', (ly.lex.texinfo.Attribute,)),
-        ('escapechar', 'escape', (ly.lex.texinfo.EscapeChar,)),
-        ('verbatim', 'string', (ly.lex.texinfo.Verbatim,)),
-        ('comment', 'comment', (ly.lex.texinfo.Comment,)),
-    )),
-) # end of mapping
+def default_mapping():
+    """Return a good default mapping from token class(es) to style and default style, per group."""
+    from ly.lex import lilypond
+    from ly.lex import scheme
+    from ly.lex import html
+    from ly.lex import texinfo
+    #from ly.lex import latex
+    #from ly.lex import docbook
+    
+    return (
+        ('lilypond', (
+            ('keyword', 'keyword', (lilypond.Keyword,)),
+            ('command', 'function', (lilypond.Command, lilypond.Skip)),
+            ('pitch', None, (lilypond.MusicItem,)),
+            ('octave', None, (lilypond.Octave,)),
+            ('duration', None, (lilypond.Duration,)),
+            ('dynamic', None, (lilypond.Dynamic,)),
+            ('check', None, (lilypond.OctaveCheck, lilypond.PipeSymbol)),
+            ('articulation', None, (lilypond.Direction, lilypond.Articulation)),
+            ('fingering', None, (lilypond.Fingering,)),
+            ('stringnumber', None, (lilypond.StringNumber,)),
+            ('slur', None, (lilypond.Slur,)),
+            ('chord', None, (lilypond.Chord, lilypond.ChordItem)),
+            ('markup', 'function', (lilypond.Markup,)),
+            ('lyricmode', 'function', (lilypond.LyricMode,)),
+            ('lyrictext', None, (lilypond.Lyric,)),
+            ('repeat', 'function', (lilypond.Repeat,)),
+            ('specifier', 'variable', (lilypond.Specifier,)),
+            ('usercommand', 'variable', (lilypond.UserCommand,)),
+            ('delimiter', 'keyword', (lilypond.Delimiter,)),
+            ('context', None, (lilypond.ContextName,)),
+            ('grob', None, (lilypond.GrobName,)),
+            ('property', 'variable', (lilypond.ContextProperty,)),
+            ('variable', 'variable', (lilypond.Variable,)),
+            ('uservariable', None, (lilypond.UserVariable,)),
+            ('value', 'value', (lilypond.Value,)),
+            ('string', 'string', (lilypond.String,)),
+            ('stringescape', 'escape', (lilypond.StringQuoteEscape,)),
+            ('comment', 'comment', (lilypond.Comment,)),
+            ('error', 'error', (lilypond.Error,)),
+            ('repeat', None, (lilypond.Repeat, lilypond.Tremolo,)),
+        )),
+        ('scheme', (
+            ('scheme', None, (lilypond.SchemeStart, scheme.Scheme,)),
+            ('string', 'string', (scheme.String,)),
+            ('comment', 'comment', (scheme.Comment,)),
+            ('number', 'value', (scheme.Number,)),
+            ('lilypond', None, (scheme.LilyPond,)),
+            ('keyword', 'keyword', (scheme.Keyword,)),
+            ('function', 'function', (scheme.Function,)),
+            ('variable', 'variable', (scheme.Variable,)),
+            ('constant', 'variable', (scheme.Constant,)),
+            ('delimiter', None, (scheme.OpenParen, scheme.CloseParen,)),
+        )),
+        ('html', (
+            ('tag', 'keyword', (html.Tag,)),
+            ('attribute', 'variable', (html.AttrName,)),
+            ('value', 'value', (html.Value,)),
+            ('string', 'string', (html.String,)),
+            ('entityref', 'escape', (html.EntityRef,)),
+            ('comment', 'comment', (html.Comment,)),
+            ('lilypondtag', 'function', (html.LilyPondTag,)),
+        )),
+        ('texinfo', (
+            ('keyword', 'keyword', (texinfo.Keyword,)),
+            ('block', 'function', (texinfo.Block,)),
+            ('attribute', 'variable', (texinfo.Attribute,)),
+            ('escapechar', 'escape', (texinfo.EscapeChar,)),
+            ('verbatim', 'string', (texinfo.Verbatim,)),
+            ('comment', 'comment', (texinfo.Comment,)),
+        )),
+    ) # end of mapping
 
 
 default_scheme = {
@@ -255,10 +257,10 @@ def get_tokens(cursor):
     return tokens
 
 
-def map_tokens(cursor, mapping):
+def map_tokens(cursor, mapper):
     """Yield a two-tuple(token, style) for every token.
     
-    The style is what mapping[token] returns.
+    The style is what mapper[token] returns.
     Style may be None, which also happens with unparsed (not-tokenized) text.
     
     """
@@ -269,7 +271,7 @@ def map_tokens(cursor, mapping):
     for t in tokens:
         if t.pos > start:
             yield text[start:t.pos], None
-        yield t, mapping[t]
+        yield t, mapper[t]
         start = t.end
     if t and cursor.end is not None and cursor.end > t.end:
         yield text[t.end:cursor.end]
@@ -291,10 +293,16 @@ def melt_mapped_tokens(mapped_tokens):
         yield ''.join(prev_tokens), prev_style
 
 
-def css_mapping(groups=default_mapping):
-    """Return a Mapping instance, mapping token classes to two CSS classes."""
-    return Mapping((cls, css_class(mode, style, base))
-                        for mode, styles in groups
+def css_mapper(mapping=None):
+    """Return a Mapper dict, mapping token classes to two CSS classes.
+    
+    By default the mapping returned by default_mapping() is used.
+    
+    """
+    if mapping is None:
+        mapping = default_mapping()
+    return Mapper((cls, css_class(mode, style, base))
+                        for mode, styles in mapping
                             for style, base, clss in styles
                                 for cls in clss)
 
@@ -366,7 +374,7 @@ def html_escape_attr(text):
     return html_escape(text).replace('"', '&quot;')
 
 
-def html(cursor, mapping, span=format_css_span_class):
+def html(cursor, mapper, span=format_css_span_class):
     """Return a HTML string with the tokens wrapped in <span class=> elements.
     
     The span argument is a function returning an attribute for the <span> 
@@ -376,7 +384,7 @@ def html(cursor, mapping, span=format_css_span_class):
     
     """
     result = []
-    for t, style in melt_mapped_tokens(map_tokens(cursor, mapping)):
+    for t, style in melt_mapped_tokens(map_tokens(cursor, mapper)):
         arg = span(style) if style else None
         if arg:
             result.append('<span {0}>'.format(arg))

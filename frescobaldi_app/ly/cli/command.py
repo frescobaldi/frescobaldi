@@ -233,7 +233,7 @@ class highlight(_export_command):
                 stylesheet_ref = opts.stylesheet
             else:
                 stylesheet = ly.colorize.format_stylesheet()
-        html = ly.colorize.html(cursor, ly.colorize.css_mapping(), formatter)
+        html = ly.colorize.html(cursor, ly.colorize.css_mapper(), formatter)
         body = '<pre>' + html + '</pre>'
         title = cursor.document.filename
         encoding = opts.output_encoding or "utf-8"
