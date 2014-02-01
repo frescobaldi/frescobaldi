@@ -40,6 +40,16 @@ class Chord:
 
 
 class NoteMappings:
+    def to_sharp(self, note, alteration):
+        if alteration==0.5:
+            return (note, alteration)
+        return (note-1 if note > 0 else 6, 0.5)
+
+    def to_flat(self, note, alteration):
+        if alteration==-0.5:
+            return (note, alteration)
+        return (note+1 if note <6 else 0, -0.5)
+
     def __init__(self):
         self.key_order_sharp = [6, 1, 8, 3, 10, 5, 0]
         self.key_order_flat = [10, 3, 8, 1, 6, 11, 4]
@@ -71,38 +81,37 @@ class NoteMappings:
                       (6, 0)]     # b
         # Construct all possible mappings using some replacement logic
 
-        # keysignature with sharps and flat accidentals
-        self.flat_mappings = [self.flats]
-        for i in range(len(self.key_order_sharp)):
-            mapping = list(self.flats) # copy existing list
-            for k in self.key_order_sharp[:i+1]:
-                n = mapping[k][0]
-                mapping[k] = (n-1 if k > 0 else 11, 0.5)
-            self.flat_mappings.append(mapping)
-
-        # keysignature with flatss and sharp accidentals
         self.sharp_mappings = []
-        for i in range(len(self.key_order_flat)):
-            mapping = list(self.sharps) # copy existing list
+        self.flat_mappings = []
+        for i in xrange(len(self.key_order_flat)-1, -1, -1):
+            flatmap = list(self.flats) # copy existing list
+            sharpmap = list(self.sharps) # copy existing list
             for k in self.key_order_flat[:i+1]:
-                n = mapping[k][0]
-                mapping[k] = (n+1 if k < 11 else 0, -0.5)
-            self.sharp_mappings.append(mapping)
+                flatmap[k] = self.to_flat(*flatmap[k])
+                sharpmap[k] = self.to_flat(*sharpmap[k])
+            self.flat_mappings.append(flatmap)
+            self.sharp_mappings.append(sharpmap)
+    
+        self.sharp_mappings.append(self.sharps) # Append C major signature -> no key alteration
+        self.flat_mappings.append(self.flats) # Append C major signature -> no key alteration
+
+        for i in xrange(len(self.key_order_sharp)):
+            flatmap = list(self.flats) # copy existing list
+            sharpmap = list(self.sharps) # copy existing list
+            for k in self.key_order_sharp[:i+1]:
+                flatmap[k] = self.to_sharp(*flatmap[k])
+                sharpmap[k] = self.to_sharp(*sharpmap[k])
+            self.flat_mappings.append(flatmap)
+            self.sharp_mappings.append(sharpmap)
 
 class NoteMapping:
     mappings = NoteMappings()
 
     def __init__(self, keysignature, sharps=True):
-        if keysignature >= 0:
-            if sharps:
-                self.mapping = NoteMapping.mappings.sharps
-            else:
-                self.mapping = NoteMapping.mappings.flat_mappings[keysignature]
+        if sharps:
+            self.mapping = NoteMapping.mappings.sharp_mappings[keysignature]
         else:
-            if sharps:
-                self.mapping = NoteMapping.mappings.sharp_mappings[-keysignature-1]
-            else:
-                self.mapping = NoteMapping.mappings.flats
+            self.mapping = NoteMapping.mappings.flat_mappings[keysignature]
 
     def __len__(self):
         return len(self.mapping)
