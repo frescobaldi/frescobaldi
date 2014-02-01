@@ -80,7 +80,7 @@ class Widget(QWidget):
         return self._midichannel.currentIndex()
     
     def keysignature(self):
-        return self._keysignature.currentIndex()-7
+        return self._keysignature.currentIndex()
     
     def accidentals(self):
         return self._accidentals.currentIndex()
