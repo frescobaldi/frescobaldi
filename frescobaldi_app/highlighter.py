@@ -56,8 +56,9 @@ def mapping(data):
     
     """
     return ly.colorize.Mapping((cls, data.textFormat(mode, style))
-                        for mode, classes in ly.colorize.default_mapping.items()
-                            for cls, style, base in classes)
+                        for mode, styles in ly.colorize.default_mapping
+                            for style, base, clss in styles
+                                for cls in clss)
 
 
 def highlighter(document):

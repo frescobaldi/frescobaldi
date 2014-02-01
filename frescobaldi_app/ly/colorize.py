@@ -90,78 +90,70 @@ class Mapping(dict):
             return value
 
 
-# A dictionary with a good default mapping from token class to style and default
-# style, per group.
-default_mapping = {
-    'lilypond': (
-        (ly.lex.lilypond.Keyword, 'keyword', 'keyword'),
-        (ly.lex.lilypond.Command, 'command', 'function'),
-        (ly.lex.lilypond.Dynamic, 'dynamic', None),
-        (ly.lex.lilypond.MusicItem, 'pitch', None),
-        (ly.lex.lilypond.Skip, 'command', 'function'),
-        (ly.lex.lilypond.Octave, 'octave', None),
-        (ly.lex.lilypond.Duration, 'duration', None),
-        (ly.lex.lilypond.OctaveCheck, 'check', None),
-        (ly.lex.lilypond.Direction, 'articulation', None),
-        (ly.lex.lilypond.Fingering, 'fingering', None),
-        (ly.lex.lilypond.StringNumber, 'stringnumber', None),
-        (ly.lex.lilypond.Articulation, 'articulation', None),
-        (ly.lex.lilypond.Slur, 'slur', None),
-        (ly.lex.lilypond.Chord, 'chord', None),
-        (ly.lex.lilypond.ChordItem, 'chord', None),
-        (ly.lex.lilypond.PipeSymbol, 'check', None),
-        (ly.lex.lilypond.Markup, 'markup', 'function'),
-        (ly.lex.lilypond.LyricMode, 'lyricmode', 'function'),
-        (ly.lex.lilypond.Lyric, 'lyrictext', None),
-        (ly.lex.lilypond.Repeat, 'repeat', 'function'),
-        (ly.lex.lilypond.Specifier, 'specifier', 'variable'),
-        (ly.lex.lilypond.UserCommand, 'usercommand', 'variable'),
-        (ly.lex.lilypond.Delimiter, 'delimiter', 'keyword'),
-        (ly.lex.lilypond.ContextName, 'context', None),
-        (ly.lex.lilypond.GrobName, 'grob', None),
-        (ly.lex.lilypond.ContextProperty, 'property', 'variable'),
-        (ly.lex.lilypond.Variable, 'variable', 'variable'),
-        (ly.lex.lilypond.UserVariable, 'uservariable', None),
-        (ly.lex.lilypond.Value, 'value', 'value'),
-        (ly.lex.lilypond.String, 'string', 'string'),
-        (ly.lex.lilypond.StringQuoteEscape, 'stringescape', 'escape'),
-        (ly.lex.lilypond.Comment, 'comment', 'comment'),
-        (ly.lex.lilypond.Error, 'error', 'error'),
-        (ly.lex.lilypond.Repeat, 'repeat', None),
-        (ly.lex.lilypond.Tremolo, 'repeat', None),
-    ),
-    'scheme': (
-        (ly.lex.lilypond.SchemeStart, 'scheme', None),
-        (ly.lex.scheme.Scheme, 'scheme', None),
-        (ly.lex.scheme.String, 'string', 'string'),
-        (ly.lex.scheme.Comment, 'comment', 'comment'),
-        (ly.lex.scheme.Number, 'number', 'value'),
-        (ly.lex.scheme.LilyPond, 'lilypond', None),
-        (ly.lex.scheme.Keyword, 'keyword', 'keyword'),
-        (ly.lex.scheme.Function, 'function', 'function'),
-        (ly.lex.scheme.Variable, 'variable', 'variable'),
-        (ly.lex.scheme.Constant, 'constant', 'variable'),
-        (ly.lex.scheme.OpenParen, 'delimiter', None),
-        (ly.lex.scheme.CloseParen, 'delimiter', None),
-    ),
-    'html': (
-        (ly.lex.html.Tag, 'tag', 'keyword'),
-        (ly.lex.html.AttrName, 'attribute', 'variable'),
-        (ly.lex.html.Value, 'value', 'value'),
-        (ly.lex.html.String, 'string', 'string'),
-        (ly.lex.html.EntityRef, 'entityref', 'escape'),
-        (ly.lex.html.Comment, 'comment', 'comment'),
-        (ly.lex.html.LilyPondTag, 'lilypondtag', 'function'),
-    ),
-    'texinfo': (
-        (ly.lex.texinfo.Keyword, 'keyword', 'keyword'),
-        (ly.lex.texinfo.Block, 'block', 'function'),
-        (ly.lex.texinfo.Attribute, 'attribute', 'variable'),
-        (ly.lex.texinfo.EscapeChar, 'escapechar', 'escape'),
-        (ly.lex.texinfo.Verbatim, 'verbatim', 'string'),
-        (ly.lex.texinfo.Comment, 'comment', 'comment'),
-    ),
-} # end of mapping
+# A good default mapping from token class(es) to style and default style, per group.
+default_mapping = (
+    ('lilypond', (
+        ('keyword', 'keyword', (ly.lex.lilypond.Keyword,)),
+        ('command', 'function', (ly.lex.lilypond.Command, ly.lex.lilypond.Skip)),
+        ('pitch', None, (ly.lex.lilypond.MusicItem,)),
+        ('octave', None, (ly.lex.lilypond.Octave,)),
+        ('duration', None, (ly.lex.lilypond.Duration,)),
+        ('dynamic', None, (ly.lex.lilypond.Dynamic,)),
+        ('check', None, (ly.lex.lilypond.OctaveCheck, ly.lex.lilypond.PipeSymbol)),
+        ('articulation', None, (ly.lex.lilypond.Direction, ly.lex.lilypond.Articulation)),
+        ('fingering', None, (ly.lex.lilypond.Fingering,)),
+        ('stringnumber', None, (ly.lex.lilypond.StringNumber,)),
+        ('slur', None, (ly.lex.lilypond.Slur,)),
+        ('chord', None, (ly.lex.lilypond.Chord, ly.lex.lilypond.ChordItem)),
+        ('markup', 'function', (ly.lex.lilypond.Markup,)),
+        ('lyricmode', 'function', (ly.lex.lilypond.LyricMode,)),
+        ('lyrictext', None, (ly.lex.lilypond.Lyric,)),
+        ('repeat', 'function', (ly.lex.lilypond.Repeat,)),
+        ('specifier', 'variable', (ly.lex.lilypond.Specifier,)),
+        ('usercommand', 'variable', (ly.lex.lilypond.UserCommand,)),
+        ('delimiter', 'keyword', (ly.lex.lilypond.Delimiter,)),
+        ('context', None, (ly.lex.lilypond.ContextName,)),
+        ('grob', None, (ly.lex.lilypond.GrobName,)),
+        ('property', 'variable', (ly.lex.lilypond.ContextProperty,)),
+        ('variable', 'variable', (ly.lex.lilypond.Variable,)),
+        ('uservariable', None, (ly.lex.lilypond.UserVariable,)),
+        ('value', 'value', (ly.lex.lilypond.Value,)),
+        ('string', 'string', (ly.lex.lilypond.String,)),
+        ('stringescape', 'escape', (ly.lex.lilypond.StringQuoteEscape,)),
+        ('comment', 'comment', (ly.lex.lilypond.Comment,)),
+        ('error', 'error', (ly.lex.lilypond.Error,)),
+        ('repeat', None, (ly.lex.lilypond.Repeat, ly.lex.lilypond.Tremolo,)),
+    )),
+    ('scheme', (
+        ('scheme', None, (ly.lex.lilypond.SchemeStart, ly.lex.scheme.Scheme,)),
+        ('string', 'string', (ly.lex.scheme.String,)),
+        ('comment', 'comment', (ly.lex.scheme.Comment,)),
+        ('number', 'value', (ly.lex.scheme.Number,)),
+        ('lilypond', None, (ly.lex.scheme.LilyPond,)),
+        ('keyword', 'keyword', (ly.lex.scheme.Keyword,)),
+        ('function', 'function', (ly.lex.scheme.Function,)),
+        ('variable', 'variable', (ly.lex.scheme.Variable,)),
+        ('constant', 'variable', (ly.lex.scheme.Constant,)),
+        ('delimiter', None, (ly.lex.scheme.OpenParen, ly.lex.scheme.CloseParen,)),
+    )),
+    ('html', (
+        ('tag', 'keyword', (ly.lex.html.Tag,)),
+        ('attribute', 'variable', (ly.lex.html.AttrName,)),
+        ('value', 'value', (ly.lex.html.Value,)),
+        ('string', 'string', (ly.lex.html.String,)),
+        ('entityref', 'escape', (ly.lex.html.EntityRef,)),
+        ('comment', 'comment', (ly.lex.html.Comment,)),
+        ('lilypondtag', 'function', (ly.lex.html.LilyPondTag,)),
+    )),
+    ('texinfo', (
+        ('keyword', 'keyword', (ly.lex.texinfo.Keyword,)),
+        ('block', 'function', (ly.lex.texinfo.Block,)),
+        ('attribute', 'variable', (ly.lex.texinfo.Attribute,)),
+        ('escapechar', 'escape', (ly.lex.texinfo.EscapeChar,)),
+        ('verbatim', 'string', (ly.lex.texinfo.Verbatim,)),
+        ('comment', 'comment', (ly.lex.texinfo.Comment,)),
+    )),
+) # end of mapping
 
 
 default_scheme = {
@@ -302,8 +294,9 @@ def melt_mapped_tokens(mapped_tokens):
 def css_mapping(groups=default_mapping):
     """Return a Mapping instance, mapping token classes to two CSS classes."""
     return Mapping((cls, css_class(mode, style, base))
-                        for mode, classes in groups.items()
-                            for cls, style, base in classes)
+                        for mode, styles in groups
+                            for style, base, clss in styles
+                                for cls in clss)
 
 
 def format_css_span_class(style):
