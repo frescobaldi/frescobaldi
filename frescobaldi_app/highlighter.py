@@ -34,6 +34,7 @@ import ly.lex.lilypond
 import ly.lex.scheme
 import ly.lex.html
 import ly.lex.texinfo
+import ly.colorize
 
 import app
 import cursortools
@@ -53,79 +54,9 @@ def mapping(data):
     The QTextFormats are queried from the specified TextFormatData instance.
     
     """
-    return {
-    
-        # LilyPond
-        ly.lex.lilypond.Keyword: data.textFormat('lilypond', 'keyword'),
-        ly.lex.lilypond.Command: data.textFormat('lilypond', 'command'),
-        ly.lex.lilypond.Dynamic: data.textFormat('lilypond', 'dynamic'),
-        ly.lex.lilypond.MusicItem: data.textFormat('lilypond', 'pitch'),
-        ly.lex.lilypond.Skip: data.textFormat('lilypond', 'command'),
-        ly.lex.lilypond.Octave: data.textFormat('lilypond', 'octave'),
-        ly.lex.lilypond.Duration: data.textFormat('lilypond', 'duration'),
-        ly.lex.lilypond.OctaveCheck: data.textFormat('lilypond', 'check'),
-        ly.lex.lilypond.Direction: data.textFormat('lilypond', 'articulation'),
-        ly.lex.lilypond.Fingering: data.textFormat('lilypond', 'fingering'),
-        ly.lex.lilypond.StringNumber: data.textFormat('lilypond', 'stringnumber'),
-        ly.lex.lilypond.Articulation: data.textFormat('lilypond', 'articulation'),
-        ly.lex.lilypond.Slur: data.textFormat('lilypond', 'slur'),
-        ly.lex.lilypond.Chord: data.textFormat('lilypond', 'chord'),
-        ly.lex.lilypond.ChordItem: data.textFormat('lilypond', 'chord'),
-        ly.lex.lilypond.PipeSymbol: data.textFormat('lilypond', 'check'),
-        ly.lex.lilypond.Markup: data.textFormat('lilypond', 'markup'),
-        ly.lex.lilypond.LyricMode: data.textFormat('lilypond', 'lyricmode'),
-        ly.lex.lilypond.Lyric: data.textFormat('lilypond', 'lyrictext'),
-        ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
-        ly.lex.lilypond.Specifier: data.textFormat('lilypond', 'specifier'),
-        ly.lex.lilypond.UserCommand: data.textFormat('lilypond', 'usercommand'),
-        ly.lex.lilypond.Delimiter: data.textFormat('lilypond', 'delimiter'),
-        ly.lex.lilypond.ContextName: data.textFormat('lilypond', 'context'),
-        ly.lex.lilypond.GrobName: data.textFormat('lilypond', 'grob'),
-        ly.lex.lilypond.ContextProperty: data.textFormat('lilypond', 'property'),
-        ly.lex.lilypond.Variable: data.textFormat('lilypond', 'variable'),
-        ly.lex.lilypond.UserVariable: data.textFormat('lilypond', 'uservariable'),
-        ly.lex.lilypond.Value: data.textFormat('lilypond', 'value'),
-        ly.lex.lilypond.String: data.textFormat('lilypond', 'string'),
-        ly.lex.lilypond.StringQuoteEscape: data.textFormat('lilypond', 'stringescape'),
-        ly.lex.lilypond.Comment: data.textFormat('lilypond', 'comment'),
-        ly.lex.lilypond.Error: data.textFormat('lilypond', 'error'),
-        ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
-        ly.lex.lilypond.Tremolo: data.textFormat('lilypond', 'repeat'),
-        
-
-        # Scheme
-        ly.lex.lilypond.SchemeStart: data.textFormat('scheme', 'scheme'),
-        ly.lex.scheme.Scheme: data.textFormat('scheme', 'scheme'),
-        ly.lex.scheme.String: data.textFormat('scheme', 'string'),
-        ly.lex.scheme.Comment: data.textFormat('scheme', 'comment'),
-        ly.lex.scheme.Number: data.textFormat('scheme', 'number'),
-        ly.lex.scheme.LilyPond: data.textFormat('scheme', 'lilypond'),
-        ly.lex.scheme.Keyword: data.textFormat('scheme', 'keyword'),
-        ly.lex.scheme.Function: data.textFormat('scheme', 'function'),
-        ly.lex.scheme.Variable: data.textFormat('scheme', 'variable'),
-        ly.lex.scheme.Constant: data.textFormat('scheme', 'constant'),
-        ly.lex.scheme.OpenParen: data.textFormat('scheme', 'delimiter'),
-        ly.lex.scheme.CloseParen: data.textFormat('scheme', 'delimiter'),
-        
-        # HTML
-        ly.lex.html.Tag: data.textFormat('html', 'tag'),
-        ly.lex.html.AttrName: data.textFormat('html', 'attribute'),
-        ly.lex.html.Value: data.textFormat('html', 'value'),
-        ly.lex.html.String: data.textFormat('html', 'string'),
-        ly.lex.html.EntityRef: data.textFormat('html', 'entityref'),
-        ly.lex.html.Comment: data.textFormat('html', 'comment'),
-        ly.lex.html.LilyPondTag: data.textFormat('html', 'lilypondtag'),
-        
-        # Texinfo
-        ly.lex.texinfo.Keyword: data.textFormat('texinfo', 'keyword'),
-        ly.lex.texinfo.Block: data.textFormat('texinfo', 'block'),
-        ly.lex.texinfo.Attribute: data.textFormat('texinfo', 'attribute'),
-        ly.lex.texinfo.EscapeChar: data.textFormat('texinfo', 'escapechar'),
-        ly.lex.texinfo.Verbatim: data.textFormat('texinfo', 'verbatim'),
-        ly.lex.texinfo.Comment: data.textFormat('texinfo', 'comment'),
-        
-        
-    } # end of mapping dict
+    return ly.colorize.Mapping((cls, data.textFormat(mode, style))
+                        for mode, classes in ly.colorize.default_mapping.items()
+                            for cls, style, base in classes)
 
 
 def highlighter(document):
@@ -154,10 +85,6 @@ def _resetHighlightFormats():
 app.settingsChanged.connect(_resetHighlightFormats, -100) # before all others
 
 
-# when highlighting, don't test all the Token base classes
-_token_mro_slice = slice(1, -len(ly.lex.Token.__mro__))
-
-
 class HighlightFormats(object):
     """Manages a dictionary with all highlightformats coupled to token types."""
     def __init__(self, data):
@@ -171,21 +98,7 @@ class HighlightFormats(object):
         Returned values are cached to improve the lookup speed.
         
         """
-        d = self._formats
-        cls = token.__class__
-        try:
-            return d[cls]
-        except KeyError:
-            for c in cls.__mro__[_token_mro_slice]:
-                try:
-                    f = d[c]
-                    break
-                except KeyError:
-                    pass
-            else:
-                f = None
-            d[cls] = f
-            return f
+        return self._formats[token]
 
         
 class Highlighter(QSyntaxHighlighter, plugin.Plugin):
