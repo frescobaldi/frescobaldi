@@ -302,7 +302,7 @@ def css_mapper(mapping=None):
     """
     if mapping is None:
         mapping = default_mapping()
-    return Mapper((cls, css_class(mode, style, base))
+    return Mapper((cls, css_class(mode, style.name, style.base))
                         for mode, styles in mapping
                             for style in styles
                                 for cls in style.classes)
