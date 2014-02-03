@@ -23,30 +23,44 @@ Export syntax-highlighted text as HTML.
 
 from __future__ import unicode_literals
 
-import textformats
 import lydocument
+import textformats
+import ly.document
 import ly.colorize
 
-def html_inline(cursor, scheme='editor'):
-    c = lydocument.cursor(cursor)
+
+def colorize(text, mode=None, scheme='editor'):
+    """Converts the text to HTML using the specified or guessed mode."""
+    c = ly.document.Cursor(ly.document.Document(text, mode))
     data = textformats.formatData(scheme)       # the current highlighting scheme
-    mapping = ly.colorize.css_mapping()         # map the token class to hl class
+    mapper = ly.colorize.css_mapper()           # map the token class to hl class
     formatter = ly.colorize.css_style_attribute_formatter(data.css_scheme()) # inline html
     body = '<pre style="color: {0}; background: {1}">{2}</pre>\n'.format(
         data.baseColors['text'].name(),
         data.baseColors['background'].name(),
-        ly.colorize.html(c, mapping, formatter))
+        ly.colorize.html(c, mapper, formatter))
+    return ly.colorize.format_html_document(body)
+
+def html_inline(cursor, scheme='editor'):
+    c = lydocument.cursor(cursor)
+    data = textformats.formatData(scheme)       # the current highlighting scheme
+    mapper = ly.colorize.css_mapper()           # map the token class to hl class
+    formatter = ly.colorize.css_style_attribute_formatter(data.css_scheme()) # inline html
+    body = '<pre style="color: {0}; background: {1}">{2}</pre>\n'.format(
+        data.baseColors['text'].name(),
+        data.baseColors['background'].name(),
+        ly.colorize.html(c, mapper, formatter))
     return ly.colorize.format_html_document(body)
 
 def html_document(document, scheme='editor'):
     c = lydocument.Cursor(lydocument.Document(document))
     data = textformats.formatData(scheme)       # the current highlighting scheme
-    mapping = ly.colorize.css_mapping()         # map the token class to hl class
+    mapper = ly.colorize.css_mapper()           # map the token class to hl class
     formatter = ly.colorize.format_css_span_class # css-styled html
     css = 'pre {{\n  color: {0};\n  background: {1}\n}}\n\n{2}'.format(
         data.baseColors['text'].name(),
         data.baseColors['background'].name(),
         ly.colorize.format_stylesheet(data.css_scheme()))
-    body = '<pre>{0}</pre>\n'.format(ly.colorize.html(c, mapping, formatter))
+    body = '<pre>{0}</pre>\n'.format(ly.colorize.html(c, mapper, formatter))
     return ly.colorize.format_html_document(body, stylesheet=css)
 

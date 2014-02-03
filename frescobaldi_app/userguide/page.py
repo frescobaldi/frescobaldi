@@ -107,8 +107,8 @@ class HtmlOutput(simplemarkdown.HtmlOutput):
     
     def code_start(self, code, specifier=None):
         if specifier == "lilypond":
-            import colorize
-            self._html.append(colorize.colorize(code))
+            import highlight2html
+            self._html.append(highlight2html.colorize(code))
         else:
             self.tag('code')
             self.tag('pre')
