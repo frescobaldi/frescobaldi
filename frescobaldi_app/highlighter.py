@@ -195,14 +195,29 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         return self._fridge.thaw(self._initialState)
 
 
-def htmlCopy(document, type='editor'):
-    """Return a new QTextDocument with highlighting set as HTML textcharformats."""
-    data = textformats.formatData(type)
+def html_copy(cursor, scheme='editor'):
+    """Return a new QTextDocument with highlighting set as HTML textcharformats.
+    
+    The cursor is a cursor of a document.Document instance. If the cursor 
+    has a selection, only the selection is put in the new document.
+    
+    """
+    data = textformats.formatData(scheme)
     doc = QTextDocument()
     doc.setDefaultFont(data.font)
-    doc.setPlainText(document.toPlainText())
-    if metainfo.info(document).highlighting:
-        highlight(doc, mapping(data), ly.lex.state(documentinfo.mode(document)))
+    doc.setPlainText(cursor.document().toPlainText())
+    if metainfo.info(cursor.document()).highlighting:
+        highlight(doc, mapping(data), ly.lex.state(documentinfo.mode(cursor.document())))
+    if cursor.hasSelection():
+        # cut out not selected text
+        start, end = cursor.selectionStart(), cursor.selectionEnd()
+        cur1 = QTextCursor(doc)
+        cur1.setPosition(start, QTextCursor.KeepAnchor)
+        cur2 = QTextCursor(doc)
+        cur2.setPosition(end)
+        cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
+        cur2.removeSelectedText()
+        cur1.removeSelectedText()
     return doc
 
 

@@ -611,7 +611,7 @@ class MainWindow(QMainWindow):
         helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "shell")
     
     def printSource(self):
-        cursor = self.currentView().textCursor()
+        cursor = self.textCursor()
         printer = QPrinter()
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
@@ -620,21 +620,13 @@ class MainWindow(QMainWindow):
             options |= QAbstractPrintDialog.PrintSelection
         dlg.setOptions(options)
         if dlg.exec_():
-            doc = highlighter.htmlCopy(self.currentDocument(), 'printer')
+            if not dlg.testOption(QAbstractPrintDialog.PrintSelection):
+                cursor.removeSelection()
+            doc = highlighter.html_copy(cursor, 'printer')
             doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
             font = doc.defaultFont()
             font.setPointSizeF(font.pointSizeF() * 0.8)
             doc.setDefaultFont(font)
-            if dlg.testOption(QAbstractPrintDialog.PrintSelection):
-                # cut out not selected text
-                start, end = cursor.selectionStart(), cursor.selectionEnd()
-                cur1 = QTextCursor(doc)
-                cur1.setPosition(start, QTextCursor.KeepAnchor)
-                cur2 = QTextCursor(doc)
-                cur2.setPosition(end)
-                cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
-                cur2.removeSelectedText()
-                cur1.removeSelectedText()
             doc.print_(printer)
     
     def exportColoredHtml(self):
