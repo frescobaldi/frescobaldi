@@ -35,10 +35,12 @@ def html_text(text, mode=None, scheme='editor'):
     return html(c, scheme, True)
 
 def html_inline(cursor, scheme='editor'):
+    """Return an inline-styled HTML document for the cursor's selection."""
     c = lydocument.cursor(cursor)
     return html(c, scheme, True)
 
 def html_document(document, scheme='editor'):
+    """Return a css-styled HTML document for the full document."""
     c = lydocument.Cursor(lydocument.Document(document))
     return html(c, scheme)
 
