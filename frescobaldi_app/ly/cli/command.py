@@ -234,7 +234,21 @@ class highlight(_export_command):
             else:
                 stylesheet = ly.colorize.format_stylesheet()
         html = ly.colorize.html(cursor, ly.colorize.css_mapper(), formatter)
-        body = '<pre>' + html + '</pre>'
+        
+        body = '<pre style="margin: 0px;">' + html + '</pre>'
+        if opts.number_lines:
+            first = cursor.document.index(cursor.start_block()) + 1
+            last = cursor.document.index(cursor.end_block()) + 1
+            numbers = '\n'.join(format(i) for i in range(first, last))
+            body = (
+                '<table style="border-collapse: collapse;">'
+                '<tbody>'
+                '<tr style="padding: 0;">\n'
+                '<td id="linenumbers" style="vertical-align: top; text-align: right; padding: 0px 10px 0px 10px; background: #eee;">'
+                '<pre style="margin: 0px;">{0}</pre>'
+                '</td>\n'
+                '<td id="document" style="vertical-align: top;">{1}</td>\n'
+                '</tr></tbody></table>\n').format(numbers, body)
         title = cursor.document.filename
         encoding = opts.output_encoding or "utf-8"
         doc = ly.colorize.format_html_document(body, title, stylesheet, stylesheet_ref, encoding)

@@ -128,6 +128,8 @@ If there is a default value, it is written between brackets:
   inline-style [false]  whether to use inline style attributes for syntax-
                         highlighted HTML. By default a css shylesheet is embed-
                         ded.
+  number-lines [false]  whether to add line numbers when creating syntax-
+                        highlighted HTML.
 
 These variables influence the output of information commands:
 
@@ -186,6 +188,7 @@ class Options(object):
         
         self.inline_style = False
         self.stylesheet = None
+        self.number_lines = False
     
     def set_variable(self, name, value):
         name = name.replace('-', '_')
