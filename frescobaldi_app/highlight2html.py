@@ -42,7 +42,7 @@ def html_inline(cursor, scheme='editor', number_lines=False):
 def html_document(document, scheme='editor', number_lines=False):
     """Return a css-styled HTML document for the full document."""
     c = lydocument.Cursor(lydocument.Document(document))
-    return html(c, scheme, number_lines)
+    return html(c, scheme, False, number_lines)
 
 def html(cursor, scheme='editor', inline=False, number_lines=False):
     """Return a HTML document with the syntax-highlighted region.
