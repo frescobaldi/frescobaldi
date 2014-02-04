@@ -643,8 +643,10 @@ class MainWindow(QMainWindow):
             name, "{0} (*.html)".format("HTML Files"))
         if not filename:
             return #cancelled
+        import sidebar
+        number_lines = sidebar.SideBarManager.instance(self).actionCollection.view_linenumbers.isChecked()
         import highlight2html
-        html = highlight2html.html_document(doc)
+        html = highlight2html.html_document(doc, number_lines=number_lines)
         try:
             with open(filename, "wb") as f:
                 f.write(html.encode('utf-8'))
@@ -671,8 +673,10 @@ class MainWindow(QMainWindow):
         cursor = self.textCursor()
         if not cursor.hasSelection():
             return
+        import sidebar
+        number_lines = sidebar.SideBarManager.instance(self).actionCollection.view_linenumbers.isChecked()
         import highlight2html
-        html = highlight2html.html_inline(cursor)
+        html = highlight2html.html_inline(cursor, number_lines=number_lines)
         data = QMimeData()
         data.setHtml(html)
         #data.setText(html)

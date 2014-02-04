@@ -29,22 +29,22 @@ import ly.document
 import ly.colorize
 
 
-def html_text(text, mode=None, scheme='editor'):
+def html_text(text, mode=None, scheme='editor', number_lines=False):
     """Converts the text to HTML using the specified or guessed mode."""
     c = ly.document.Cursor(ly.document.Document(text, mode))
-    return html(c, scheme, True)
+    return html(c, scheme, True, number_lines)
 
-def html_inline(cursor, scheme='editor'):
+def html_inline(cursor, scheme='editor', number_lines=False):
     """Return an inline-styled HTML document for the cursor's selection."""
     c = lydocument.cursor(cursor)
-    return html(c, scheme, True)
+    return html(c, scheme, True, number_lines)
 
-def html_document(document, scheme='editor'):
+def html_document(document, scheme='editor', number_lines=False):
     """Return a css-styled HTML document for the full document."""
     c = lydocument.Cursor(lydocument.Document(document))
-    return html(c, scheme)
+    return html(c, scheme, number_lines)
 
-def html(cursor, scheme='editor', inline=False):
+def html(cursor, scheme='editor', inline=False, number_lines=False):
     """Return a HTML document with the syntax-highlighted region.
     
     The tokens are marked with <span> tags. The cursor is a 
@@ -52,6 +52,8 @@ def html(cursor, scheme='editor', inline=False):
     (by default 'editor'). If inline is True, the span tags have inline 
     style attributes. If inline is False, the span tags have class 
     attributes and a stylesheet is included.
+    
+    Set number_lines to True to add line numbers.
     
     """
     data = textformats.formatData(scheme)       # the current highlighting scheme
@@ -61,13 +63,26 @@ def html(cursor, scheme='editor', inline=False):
     if inline:
         formatter = ly.colorize.css_style_attribute_formatter(data.css_scheme())
         css = None
-        body = '<pre style="color: {0}; background: {1}">{2}</pre>\n'.format(
+        body = '<pre style="color: {0}; background: {1}">{2}</pre>'.format(
             fgcolor, bgcolor, ly.colorize.html(cursor, mapper, formatter))
     else:
         formatter = ly.colorize.format_css_span_class # css-styled html
         css = 'pre {{\n  color: {0};\n  background: {1}\n}}\n\n{2}'.format(
             fgcolor, bgcolor, ly.colorize.format_stylesheet(data.css_scheme()))
-        body = '<pre>{0}</pre>\n'.format(ly.colorize.html(cursor, mapper, formatter))
+        body = '<pre>{0}</pre>'.format(ly.colorize.html(cursor, mapper, formatter))
+    if number_lines:
+        start_num = cursor.document.index(cursor.start_block()) + 1
+        end_num = start_num + body.count('\n')
+        line_numbers = range(start_num, end_num + 1)
+        body = (
+            '<table border="0" cellpadding="3" cellspacing="0">'
+            '<tbody><tr>'
+            '<td id="linenumbers" valign="top" style="vertical-align: top; text-align: right; background: #eee;">'
+            '<pre>{0}</pre>\n'
+            '</td>\n'
+            '<td id="document" valign="top" style="vertical-align: top;">{1}</td>\n'
+            '</tr></tbody></table>\n').format(
+                '\n'.join(map('&nbsp;{0}&nbsp;'.format, line_numbers)), body)
     return ly.colorize.format_html_document(body, stylesheet=css)
 
 
