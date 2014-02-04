@@ -63,26 +63,17 @@ def html(cursor, scheme='editor', inline=False, number_lines=False):
     if inline:
         formatter = ly.colorize.css_style_attribute_formatter(data.css_scheme())
         css = None
-        body = '<pre style="color: {0}; background: {1}">{2}</pre>'.format(
-            fgcolor, bgcolor, ly.colorize.html(cursor, mapper, formatter))
+        body_attrs = {'style': "color: {0}; background: {1};".format(fgcolor, bgcolor)}
     else:
-        formatter = ly.colorize.format_css_span_class # css-styled html
-        css = 'pre {{\n  color: {0};\n  background: {1}\n}}\n\n{2}'.format(
+        formatter = ly.colorize.format_css_span_class
+        css = '#document {{\n  color: {0};\n  background: {1};\n}}\n\n{2}'.format(
             fgcolor, bgcolor, ly.colorize.format_stylesheet(data.css_scheme()))
-        body = '<pre>{0}</pre>'.format(ly.colorize.html(cursor, mapper, formatter))
+        body_attrs = {'id': 'document'}
+    body = ly.colorize.html(cursor, mapper, formatter)
     if number_lines:
-        start_num = cursor.document.index(cursor.start_block()) + 1
-        end_num = start_num + body.count('\n')
-        line_numbers = range(start_num, end_num + 1)
-        body = (
-            '<table border="0" cellpadding="3" cellspacing="0">'
-            '<tbody><tr>'
-            '<td id="linenumbers" valign="top" style="vertical-align: top; text-align: right; background: #eee;">'
-            '<pre>{0}</pre>\n'
-            '</td>\n'
-            '<td id="document" valign="top" style="vertical-align: top;">{1}</td>\n'
-            '</tr></tbody></table>\n').format(
-                '\n'.join(map('&nbsp;{0}&nbsp;'.format, line_numbers)), body)
+        body = ly.colorize.add_line_numbers(cursor, body, document_attrs=body_attrs)
+    else:
+        body = '<pre{0}>{1}</pre>'.format(ly.colorize.html_format_attrs(body_attrs), body)
     return ly.colorize.format_html_document(body, stylesheet=css)
 
 

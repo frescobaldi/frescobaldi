@@ -375,6 +375,17 @@ def html_escape_attr(text):
     return html_escape(text).replace('"', '&quot;')
 
 
+def html_format_attrs(d):
+    """Format the attributes dict as a string.
+    
+    The attributes are escaped correctly. A space is prepended for every 
+    assignment.
+    
+    """
+    return ''.join(' {0}="{1}"'.format(
+            k, html_escape_attr(format(v))) for k, v in d.items())
+
+
 def html(cursor, mapper, span=format_css_span_class):
     """Return a HTML string with the tokens wrapped in <span class=> elements.
     
@@ -394,6 +405,44 @@ def html(cursor, mapper, span=format_css_span_class):
         else:
             result.append(html_escape(t))
     return ''.join(result)
+
+
+def add_line_numbers(cursor, html, linenum_attrs=None, document_attrs=None):
+    """Combines the html (returned by html()) with the line numbers in a HTML table.
+    
+    The linenum_attrs are put in the <td> tag for the line numbers. The 
+    default value is: {"style": "background: #eeeeee;"}. The document_attrs 
+    are put in the <td> tag for the document. The default is empty.
+    
+    By default, the id for the linenumbers <td> is set to "linenumbers", 
+    and the id for the document <td> is set to "document".
+    
+    """
+    linenum_attrs = dict(linenum_attrs) if linenum_attrs else {"style": "background: #eeeeee;"}
+    document_attrs = dict(document_attrs) if document_attrs else {}
+    linenum_attrs.setdefault('id', 'linenumbers')
+    document_attrs.setdefault('id', 'document')
+    linenum_attrs['valign'] = 'top'
+    linenum_attrs['align'] = 'right'
+    linenum_attrs['style'] = linenum_attrs.get('style', '') + 'vertical-align: top; text-align: right;'
+    document_attrs['valign'] = 'top'
+    document_attrs['style'] = document_attrs.get('style', '') + 'vertical-align: top;'
+    
+    start_num = cursor.document.index(cursor.start_block()) + 1
+    end_num = cursor.document.index(cursor.end_block()) + 1
+    linenumbers = '<pre>{0}</pre>'.format('\n'.join(map(format, range(start_num, end_num))))
+    body = '<pre>{0}</pre>'.format(html)
+    return (
+        '<table border="0" cellpadding="4" cellspacing="0">'
+        '<tbody><tr>'
+        '<td{0}>'
+        '\n{1}\n'
+        '</td>'
+        '<td{2}>'
+        '\n{3}\n'
+        '</td></tr></tbody></table>\n').format(
+            html_format_attrs(linenum_attrs), linenumbers,
+            html_format_attrs(document_attrs), body)
 
 
 def format_html_document(body, title="", stylesheet=None, stylesheet_ref=None, encoding='UTF-8'):
