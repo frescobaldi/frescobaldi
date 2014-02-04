@@ -219,3 +219,46 @@ class write(_command):
             f.write(cursor.document.plaintext())
 
 
+class highlight(_export_command):
+    """write syntax colored HTML."""
+    def run(self, opts, cursor, output):
+        import ly.colorize
+        stylesheet = None
+        stylesheet_ref = None
+        if opts.inline_style:
+            formatter = ly.colorize.css_style_attribute_formatter()
+        else:
+            formatter = ly.colorize.format_css_span_class
+            if opts.stylesheet:
+                stylesheet_ref = opts.stylesheet
+            else:
+                stylesheet = ly.colorize.format_stylesheet()
+        html = ly.colorize.html(cursor, ly.colorize.css_mapper(), formatter)
+        
+        body = '<pre style="margin: 0px;">' + html + '</pre>'
+        if opts.number_lines:
+            first = cursor.document.index(cursor.start_block()) + 1
+            last = cursor.document.index(cursor.end_block()) + 1
+            numbers = '\n'.join(format(i) for i in range(first, last))
+            body = (
+                '<table style="border-collapse: collapse;">'
+                '<tbody>'
+                '<tr style="padding: 0;">\n'
+                '<td id="linenumbers" style="vertical-align: top; text-align: right; padding: 0px 10px 0px 10px; background: #eee;">'
+                '<pre style="margin: 0px;">{0}</pre>'
+                '</td>\n'
+                '<td id="document" style="vertical-align: top;">{1}</td>\n'
+                '</tr></tbody></table>\n').format(numbers, body)
+        title = cursor.document.filename
+        encoding = opts.output_encoding or "utf-8"
+        doc = ly.colorize.format_html_document(body, title, stylesheet, stylesheet_ref, encoding)
+        if self.output:
+            filename = self.output
+        else:
+            filename = output.get_filename(opts, cursor.document.filename)
+        with output.file(opts, filename, encoding) as f:
+            f.write(doc)
+
+
+hl = highlight
+

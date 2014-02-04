@@ -10,6 +10,10 @@ Changes in 2.0.14 --
   - highlighting and auto-completion for commands that are new or have changed
     syntax in LilyPond 2.18, such as \hide, \omit, \undo, \override, \tweak,
     \accidentalStyle, etc.
+* Improvements:
+  - Copy colored HTML and Export source as colored HTML: add line numbers if
+    they are enabled in the view.
+  - MIDI input: add key signature alterations mapping, by Olivier Samyn
 * Bug fixes:
   - Fixed issue 336: TypeError on MusicXml export
   - Fixed error message when exporting keyboard shortcuts on platforms that do

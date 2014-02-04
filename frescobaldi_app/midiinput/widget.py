@@ -27,6 +27,9 @@ class Widget(QWidget):
         self._midichannel = QComboBox()
         signals.append(self._midichannel.currentIndexChanged)
         
+        self._labelkeysignature = QLabel()
+        self._keysignature = QComboBox()
+        
         self._labelaccidentals = QLabel()
         self._accidentalssharps = QRadioButton()
         signals.append(self._accidentalssharps.clicked)
@@ -67,16 +70,18 @@ class Widget(QWidget):
                
         grid.addWidget(self._labelmidichannel, 0, 0)
         grid.addWidget(self._midichannel, 0, 1)
-        grid.addWidget(self._labelaccidentals, 1, 0)
-        grid.addWidget(self._groupaccidentals, 1, 1)
-        grid.addWidget(self._labelchordmode, 2, 0)
-        grid.addWidget(self._chordmode, 2, 1)
-        grid.addWidget(self._labeldamper, 3, 0)
-        grid.addWidget(self._damper, 3, 1)
-        grid.addWidget(self._labelsostenuto, 4, 0)
-        grid.addWidget(self._sostenuto, 4, 1)
-        grid.addWidget(self._labelsoft, 5, 0)
-        grid.addWidget(self._soft, 5, 1)
+        grid.addWidget(self._labelkeysignature, 1, 0)
+        grid.addWidget(self._keysignature, 1, 1)
+        grid.addWidget(self._labelaccidentals, 2, 0)
+        grid.addWidget(self._groupaccidentals, 2, 1)
+        grid.addWidget(self._labelchordmode, 3, 0)
+        grid.addWidget(self._chordmode, 3, 1)
+        grid.addWidget(self._labeldamper, 4, 0)
+        grid.addWidget(self._damper, 4, 1)
+        grid.addWidget(self._labelsostenuto, 5, 0)
+        grid.addWidget(self._sostenuto, 5, 1)
+        grid.addWidget(self._labelsoft, 6, 0)
+        grid.addWidget(self._soft, 6, 1)
         
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
@@ -96,6 +101,9 @@ class Widget(QWidget):
     
     def channel(self):
         return self._midichannel.currentIndex()
+    
+    def keysignature(self):
+        return self._keysignature.currentIndex()
     
     def accidentals(self):
         if self._accidentalsflats.isChecked():
@@ -143,6 +151,25 @@ class Widget(QWidget):
     def translateUI(self):
         self._labelmidichannel.setText(_("MIDI channel"))
         self._midichannel.addItems([_("all")]+[str(i) for i in range(1,17)])
+        self._labelkeysignature.setText(_("Key signature"))
+        self._keysignature.addItems([
+            _("Ces major (7 flats)"),
+            _("Ges major (6 flats)"),
+            _("Des major (5 flats)"),
+            _("Aes major (4 flats)"),
+            _("Ees major (3 flats)"),
+            _("Bes major (2 flats)"),
+            _("F major (1 flat)"),
+            _("no key"),
+            _("G major (1 sharp)"),
+            _("D major (2 sharps)"),
+            _("A major (3 sharps)"),
+            _("E major (4 sharps)"),
+            _("B major (5 sharps)"),
+            _("Fis major (6 sharps)"),
+            _("Cis major (7 sharps)")
+            ])
+        self._keysignature.setCurrentIndex(7)
         self._labelaccidentals.setText(_("Accidentals"))
         self._accidentalssharps.setText(_("sharps"))
         self._accidentalsflats.setText(_("flats"))

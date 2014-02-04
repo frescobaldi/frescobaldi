@@ -611,7 +611,7 @@ class MainWindow(QMainWindow):
         helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "shell")
     
     def printSource(self):
-        cursor = self.currentView().textCursor()
+        cursor = self.textCursor()
         printer = QPrinter()
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
@@ -620,21 +620,13 @@ class MainWindow(QMainWindow):
             options |= QAbstractPrintDialog.PrintSelection
         dlg.setOptions(options)
         if dlg.exec_():
-            doc = highlighter.htmlCopy(self.currentDocument(), 'printer')
+            if not dlg.testOption(QAbstractPrintDialog.PrintSelection):
+                cursor.removeSelection()
+            doc = highlighter.html_copy(cursor, 'printer')
             doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
             font = doc.defaultFont()
             font.setPointSizeF(font.pointSizeF() * 0.8)
             doc.setDefaultFont(font)
-            if dlg.testOption(QAbstractPrintDialog.PrintSelection):
-                # cut out not selected text
-                start, end = cursor.selectionStart(), cursor.selectionEnd()
-                cur1 = QTextCursor(doc)
-                cur1.setPosition(start, QTextCursor.KeepAnchor)
-                cur2 = QTextCursor(doc)
-                cur2.setPosition(end)
-                cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
-                cur2.removeSelectedText()
-                cur1.removeSelectedText()
             doc.print_(printer)
     
     def exportColoredHtml(self):
@@ -651,8 +643,10 @@ class MainWindow(QMainWindow):
             name, "{0} (*.html)".format("HTML Files"))
         if not filename:
             return #cancelled
+        import sidebar
+        number_lines = sidebar.SideBarManager.instance(self).actionCollection.view_linenumbers.isChecked()
         import highlight2html
-        html = highlight2html.HtmlHighlighter().html_document(doc)
+        html = highlight2html.html_document(doc, number_lines=number_lines)
         try:
             with open(filename, "wb") as f:
                 f.write(html.encode('utf-8'))
@@ -676,12 +670,13 @@ class MainWindow(QMainWindow):
         self.currentView().paste()
         
     def copyColoredHtml(self):
-        cursor = self.currentView().textCursor()
+        cursor = self.textCursor()
         if not cursor.hasSelection():
             return
+        import sidebar
+        number_lines = sidebar.SideBarManager.instance(self).actionCollection.view_linenumbers.isChecked()
         import highlight2html
-        h = highlight2html.HtmlHighlighter(inline_style=True)
-        html = h.html_selection(cursor)
+        html = highlight2html.html_inline(cursor, number_lines=number_lines)
         data = QMimeData()
         data.setHtml(html)
         #data.setText(html)
@@ -1021,7 +1016,9 @@ class ActionCollection(actioncollection.ActionCollection):
         
         # roles
         if sys.platform.startswith('darwin'):
-            if '.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0])):
+            frozen = getattr(sys, 'frozen', '')
+            if (frozen == 'macosx_app') \
+            or ('.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0]))):
                 self.file_quit.setMenuRole(QAction.QuitRole)
                 self.edit_preferences.setMenuRole(QAction.PreferencesRole)
                 self.help_about.setMenuRole(QAction.AboutRole)
