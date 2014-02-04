@@ -223,30 +223,20 @@ class highlight(_export_command):
     """write syntax colored HTML."""
     def run(self, opts, cursor, output):
         import ly.colorize
-        stylesheet = None
-        stylesheet_ref = None
-        if opts.inline_style:
-            formatter = ly.colorize.css_style_attribute_formatter()
-        else:
-            formatter = ly.colorize.format_css_span_class
-            if opts.stylesheet:
-                stylesheet_ref = opts.stylesheet
-            else:
-                stylesheet = ly.colorize.format_stylesheet()
-        html = ly.colorize.html(cursor, ly.colorize.css_mapper(), formatter)
+        w = ly.colorize.HtmlWriter()
         
-        if opts.number_lines:
-            body = ly.colorize.add_line_numbers(cursor, html)
-        else:
-            body = '<pre>' + html + '</pre>'
-        title = cursor.document.filename
-        encoding = opts.output_encoding or "utf-8"
-        doc = ly.colorize.format_html_document(body, title, stylesheet, stylesheet_ref, encoding)
+        w.inline_style = opts.inline_style
+        w.stylesheet_ref = opts.stylesheet
+        w.number_lines = opts.number_lines
+        w.title = cursor.document.filename
+        w.encoding = opts.output_encoding or "utf-8"
+        
+        doc = w.html(cursor)
         if self.output:
             filename = self.output
         else:
             filename = output.get_filename(opts, cursor.document.filename)
-        with output.file(opts, filename, encoding) as f:
+        with output.file(opts, filename, w.encoding) as f:
             f.write(doc)
 
 

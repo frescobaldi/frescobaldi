@@ -57,23 +57,12 @@ def html(cursor, scheme='editor', inline=False, number_lines=False):
     
     """
     data = textformats.formatData(scheme)       # the current highlighting scheme
-    fgcolor = data.baseColors['text'].name()
-    bgcolor = data.baseColors['background'].name()
-    mapper = ly.colorize.css_mapper()           # map the token class to hl class
-    if inline:
-        formatter = ly.colorize.css_style_attribute_formatter(data.css_scheme())
-        css = None
-        body_attrs = {'style': "color: {0}; background: {1};".format(fgcolor, bgcolor)}
-    else:
-        formatter = ly.colorize.format_css_span_class
-        css = '#document {{\n  color: {0};\n  background: {1};\n}}\n\n{2}'.format(
-            fgcolor, bgcolor, ly.colorize.format_stylesheet(data.css_scheme()))
-        body_attrs = {'id': 'document'}
-    body = ly.colorize.html(cursor, mapper, formatter)
-    if number_lines:
-        body = ly.colorize.add_line_numbers(cursor, body, document_attrs=body_attrs)
-    else:
-        body = '<pre{0}>{1}</pre>'.format(ly.colorize.html_format_attrs(body_attrs), body)
-    return ly.colorize.format_html_document(body, stylesheet=css)
+    w = ly.colorize.HtmlWriter()
+    w.inline_style = inline
+    w.number_lines = number_lines
+    w.fgcolor = data.baseColors['text'].name()
+    w.bgcolor = data.baseColors['background'].name()
+    w.scheme = data.css_scheme()
+    return w.html(cursor)
 
 

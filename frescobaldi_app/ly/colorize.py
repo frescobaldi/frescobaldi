@@ -477,3 +477,78 @@ def format_html_document(body, title="", stylesheet=None, stylesheet_ref=None, e
         )
 
 
+class HtmlWriter(object):
+    """A do-it-all object to create syntax highlighted HTML.
+    
+    You can set the instance attributes to configure the behaviour in all
+    details. Then call the html(cursor) method to get the HTML.
+    
+    """
+    
+    fgcolor = None
+    bgcolor = None
+    
+    linenumbers_fgcolor = None
+    linenumbers_bgcolor = "#eeeeee"
+    
+    inline_style = False
+    number_lines = False
+    
+    document_id = "document"
+    linenumbers_id = "linenumbers"
+    
+    title = ""
+    css_scheme = default_scheme
+    css_mapper = None
+    encoding = 'UTF-8'
+    
+    stylesheet_ref = None
+    
+    
+    def html(self, cursor):
+        """Return the output HTML."""
+        doc_style = {}
+        if self.fgcolor:
+            doc_style['color'] = self.fgcolor
+        if self.bgcolor:
+            doc_style['background'] = self.bgcolor
+        
+        num_style = {}
+        if self.linenumbers_fgcolor:
+            num_style['color'] = self.linenumbers_fgcolor
+        if self.linenumbers_bgcolor:
+            num_style['background'] = self.linenumbers_bgcolor
+        
+        css_item = lambda i: '{0}: {1};'.format(*i)
+        css_attr = lambda d: {'style': ' '.join(map(css_item, d.items()))} if d else {}
+        css_group = lambda selector, d: '{0} {{\n  {1}\n}}\n'.format(selector, '\n  '.join(map(css_item, d.items())))
+        
+        num_attrs = {'id': self.linenumbers_id}
+        doc_attrs = {'id': self.document_id}
+        
+        css = []
+        if self.inline_style:
+            formatter = css_style_attribute_formatter(self.css_scheme)
+            num_attrs.update(css_attr(num_style))
+            doc_attrs.update(css_attr(doc_style))
+        else:
+            formatter = format_css_span_class
+            css.append(css_group('#' + self.document_id, doc_style))
+            if self.number_lines:
+                css.append(css_group('#' + self.linenumbers_id, num_style))
+            css.append(format_stylesheet(self.css_scheme))
+        
+        body = html(cursor, self.css_mapper or css_mapper(), formatter)
+        
+        if self.number_lines:
+            body = add_line_numbers(cursor, body, num_attrs, doc_attrs)
+        else:
+            body = '<pre{0}>{1}</pre>'.format(html_format_attrs(doc_attrs), body)
+        
+        if self.stylesheet_ref:
+            css = None
+        else:
+            css = '\n'.join(css)
+        return format_html_document(body, self.title, css, self.stylesheet_ref, self.encoding)
+
+
