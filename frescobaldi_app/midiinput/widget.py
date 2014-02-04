@@ -81,6 +81,7 @@ class Widget(QWidget):
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
         hbox.addWidget(self._capture)
+        hbox.addStretch()
         hbox.addWidget(self._notemode)
         self._notemode.setText('absolute')
         
