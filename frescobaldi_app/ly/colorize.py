@@ -308,14 +308,6 @@ def css_mapper(mapping=None):
                                 for cls in style.classes)
 
 
-def format_css_span_class(css_style):
-    """Return a string like 'class="mode-style base"' for the specified style."""
-    c = css_style.mode + '-' + css_style.name
-    if css_style.base:
-        c += ' ' + css_style.base
-    return 'class="{0}"'.format(c)
-
-
 def css_dict(css_style, scheme=default_scheme):
     """Return the css properties dict for the style, taken from the scheme.
     
@@ -334,23 +326,51 @@ def css_dict(css_style, scheme=default_scheme):
     return d
 
 
+def css_item(i):
+    """Return "name: value;" where i = (name, value)."""
+    return '{0}: {1};'.format(*i)
+
+
+def css_attr(d):
+    """Return a dictionary with a 'style' key.
+    
+    The value is the style items in d formatted with css_item() joined with 
+    spaces. If d is empty, an empty dictionary is returned.
+    
+    """
+    if d:
+        return {'style': ' '.join(map(css_item, sorted(d.items())))}
+    return {}
+
+
+def css_group(selector, d):
+    """Return a "selector { items...}" part of a CSS stylesheet."""
+    return '{0} {{\n  {1}\n}}\n'.format(
+        selector, '\n  '.join(map(css_item, sorted(d.items()))))
+
+
+def format_css_span_class(css_style):
+    """Return a string like 'class="mode-style base"' for the specified style."""
+    c = css_style.mode + '-' + css_style.name
+    if css_style.base:
+        c += ' ' + css_style.base
+    return 'class="{0}"'.format(c)
+
+
 class css_style_attribute_formatter(object):
     """Return the inline style attribute for a specified style."""
     def __init__(self, scheme=default_scheme):
         self.scheme = scheme
     
     def __call__(self, css_style):
-        d = css_dict(css_style)
+        d = css_dict(css_style, self.scheme)
         if d:
-            css_item = lambda a: '{0}: {1};'.format(*a)
             return 'style="{0}"'.format(' '.join(map(css_item, sorted(d.items()))))
 
 
 def format_stylesheet(scheme=default_scheme):
     """Return a formatted stylesheet for the stylesheet scheme dictionary."""
     sheet = []
-    css_group = lambda s, g: '{0} {{\n  {1}\n}}\n'.format(s, '\n  '.join(g))
-    css_item = lambda a: '{0}: {1};'.format(*a)
     key = lambda i: '' if i[0] is None else i[0]
     for mode, styles in sorted(scheme.items(), key=key):
         if styles:
@@ -361,7 +381,7 @@ def format_stylesheet(scheme=default_scheme):
                 selector = 'span.{0}-{1}'.format(mode, css_class)
             else:
                 selector = '.' + css_class
-            sheet.append(css_group(selector, map(css_item, sorted(d.items()))))
+            sheet.append(css_group(selector, d))
     return '\n'.join(sheet)
 
 
@@ -518,10 +538,6 @@ class HtmlWriter(object):
             num_style['color'] = self.linenumbers_fgcolor
         if self.linenumbers_bgcolor:
             num_style['background'] = self.linenumbers_bgcolor
-        
-        css_item = lambda i: '{0}: {1};'.format(*i)
-        css_attr = lambda d: {'style': ' '.join(map(css_item, d.items()))} if d else {}
-        css_group = lambda selector, d: '{0} {{\n  {1}\n}}\n'.format(selector, '\n  '.join(map(css_item, d.items())))
         
         num_attrs = {'id': self.linenumbers_id}
         doc_attrs = {'id': self.document_id}
