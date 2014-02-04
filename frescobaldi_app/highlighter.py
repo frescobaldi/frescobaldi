@@ -26,14 +26,11 @@ from __future__ import unicode_literals
 
 
 from PyQt4.QtGui import (
-    QSyntaxHighlighter, QTextBlockUserData, QTextCursor, QTextDocument)
+    QColor, QSyntaxHighlighter, QTextBlockUserData, QTextCharFormat,
+    QTextCursor, QTextDocument)
 
 
 import ly.lex
-import ly.lex.lilypond
-import ly.lex.scheme
-import ly.lex.html
-import ly.lex.texinfo
 import ly.colorize
 
 import app
@@ -195,11 +192,13 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         return self._fridge.thaw(self._initialState)
 
 
-def html_copy(cursor, scheme='editor'):
+def html_copy(cursor, scheme='editor', number_lines=False):
     """Return a new QTextDocument with highlighting set as HTML textcharformats.
     
     The cursor is a cursor of a document.Document instance. If the cursor 
     has a selection, only the selection is put in the new document.
+    
+    If number_lines is True, line numbers are added.
     
     """
     data = textformats.formatData(scheme)
@@ -218,6 +217,25 @@ def html_copy(cursor, scheme='editor'):
         cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
         cur2.removeSelectedText()
         cur1.removeSelectedText()
+    if number_lines:
+        c = QTextCursor(doc)
+        f = QTextCharFormat()
+        f.setBackground(QColor('#eeeeee'))
+        if cursor.hasSelection():
+            num = cursor.document().findBlock(cursor.selectionStart()).blockNumber() + 1
+            last = cursor.document().findBlock(cursor.selectionEnd())
+        else:
+            num = 1
+            last = cursor.document().lastBlock()
+        lastnum = last.blockNumber() + 1
+        padding = len(format(lastnum))
+        block = doc.firstBlock()
+        while block.isValid():
+            c.setPosition(block.position())
+            c.setCharFormat(f)
+            c.insertText('{0:>{1}d} '.format(num, padding))
+            block = block.next()
+            num += 1
     return doc
 
 

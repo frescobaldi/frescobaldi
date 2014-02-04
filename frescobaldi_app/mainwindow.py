@@ -622,7 +622,9 @@ class MainWindow(QMainWindow):
         if dlg.exec_():
             if not dlg.testOption(QAbstractPrintDialog.PrintSelection):
                 cursor.removeSelection()
-            doc = highlighter.html_copy(cursor, 'printer')
+            import sidebar
+            number_lines = sidebar.SideBarManager.instance(self).actionCollection.view_linenumbers.isChecked()
+            doc = highlighter.html_copy(cursor, 'printer', number_lines)
             doc.setMetaInformation(QTextDocument.DocumentTitle, self.currentDocument().url().toString())
             font = doc.defaultFont()
             font.setPointSizeF(font.pointSizeF() * 0.8)
