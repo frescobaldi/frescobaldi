@@ -620,8 +620,8 @@ class MainWindow(QMainWindow):
             options |= QAbstractPrintDialog.PrintSelection
         dlg.setOptions(options)
         if dlg.exec_():
-            if not dlg.testOption(QAbstractPrintDialog.PrintSelection):
-                cursor.removeSelection()
+            if dlg.printRange() != QAbstractPrintDialog.Selection:
+                cursor.clearSelection()
             import sidebar
             number_lines = sidebar.SideBarManager.instance(self).actionCollection.view_linenumbers.isChecked()
             doc = highlighter.html_copy(cursor, 'printer', number_lines)
