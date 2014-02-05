@@ -1,16 +1,16 @@
 Changes for python-ly
 =====================
 
-python-ly 0.3
-- new command highlight (hl) to create syntax-highlighted HTML files of LilyPond
-  source
-- new experimental command musicxml to export music to MusicXML  
+2014-02-05: python-ly 0.3
+- new command 'highlight' ('hl') to create syntax-highlighted HTML files of
+  LilyPond source files (or any file that is understood by ly.lex)
+- new, very experimental, command 'musicxml' to export music to MusicXML  
 
 
 2014-01-08: python-ly 0.2
-- new commands abs2rel and rel2abs that convert \relative music to
+- new commands 'abs2rel' and 'rel2abs' that convert \relative music to
   absolute and vice versa
-- support for python 3. Not all of the ly python module has already been
+- support for Python 3. Not all of the ly python module has already been
   tested, but installing and running the various ly commands works well.
 
 
