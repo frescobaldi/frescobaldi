@@ -308,14 +308,6 @@ def css_mapper(mapping=None):
                                 for cls in style.classes)
 
 
-def format_css_span_class(css_style):
-    """Return a string like 'class="mode-style base"' for the specified style."""
-    c = css_style.mode + '-' + css_style.name
-    if css_style.base:
-        c += ' ' + css_style.base
-    return 'class="{0}"'.format(c)
-
-
 def css_dict(css_style, scheme=default_scheme):
     """Return the css properties dict for the style, taken from the scheme.
     
@@ -334,23 +326,51 @@ def css_dict(css_style, scheme=default_scheme):
     return d
 
 
+def css_item(i):
+    """Return "name: value;" where i = (name, value)."""
+    return '{0}: {1};'.format(*i)
+
+
+def css_attr(d):
+    """Return a dictionary with a 'style' key.
+    
+    The value is the style items in d formatted with css_item() joined with 
+    spaces. If d is empty, an empty dictionary is returned.
+    
+    """
+    if d:
+        return {'style': ' '.join(map(css_item, sorted(d.items())))}
+    return {}
+
+
+def css_group(selector, d):
+    """Return a "selector { items...}" part of a CSS stylesheet."""
+    return '{0} {{\n  {1}\n}}\n'.format(
+        selector, '\n  '.join(map(css_item, sorted(d.items()))))
+
+
+def format_css_span_class(css_style):
+    """Return a string like 'class="mode-style base"' for the specified style."""
+    c = css_style.mode + '-' + css_style.name
+    if css_style.base:
+        c += ' ' + css_style.base
+    return 'class="{0}"'.format(c)
+
+
 class css_style_attribute_formatter(object):
     """Return the inline style attribute for a specified style."""
     def __init__(self, scheme=default_scheme):
         self.scheme = scheme
     
     def __call__(self, css_style):
-        d = css_dict(css_style)
+        d = css_dict(css_style, self.scheme)
         if d:
-            css_item = lambda a: '{0}: {1};'.format(*a)
             return 'style="{0}"'.format(' '.join(map(css_item, sorted(d.items()))))
 
 
 def format_stylesheet(scheme=default_scheme):
     """Return a formatted stylesheet for the stylesheet scheme dictionary."""
     sheet = []
-    css_group = lambda s, g: '{0} {{\n  {1}\n}}\n'.format(s, '\n  '.join(g))
-    css_item = lambda a: '{0}: {1};'.format(*a)
     key = lambda i: '' if i[0] is None else i[0]
     for mode, styles in sorted(scheme.items(), key=key):
         if styles:
@@ -361,7 +381,7 @@ def format_stylesheet(scheme=default_scheme):
                 selector = 'span.{0}-{1}'.format(mode, css_class)
             else:
                 selector = '.' + css_class
-            sheet.append(css_group(selector, map(css_item, sorted(d.items()))))
+            sheet.append(css_group(selector, d))
     return '\n'.join(sheet)
 
 
@@ -373,6 +393,17 @@ def html_escape(text):
 def html_escape_attr(text):
     """Escape &, ", < and >."""
     return html_escape(text).replace('"', '&quot;')
+
+
+def html_format_attrs(d):
+    """Format the attributes dict as a string.
+    
+    The attributes are escaped correctly. A space is prepended for every 
+    assignment.
+    
+    """
+    return ''.join(' {0}="{1}"'.format(
+            k, html_escape_attr(format(v))) for k, v in d.items())
 
 
 def html(cursor, mapper, span=format_css_span_class):
@@ -394,6 +425,44 @@ def html(cursor, mapper, span=format_css_span_class):
         else:
             result.append(html_escape(t))
     return ''.join(result)
+
+
+def add_line_numbers(cursor, html, linenum_attrs=None, document_attrs=None):
+    """Combines the html (returned by html()) with the line numbers in a HTML table.
+    
+    The linenum_attrs are put in the <td> tag for the line numbers. The 
+    default value is: {"style": "background: #eeeeee;"}. The document_attrs 
+    are put in the <td> tag for the document. The default is empty.
+    
+    By default, the id for the linenumbers <td> is set to "linenumbers", 
+    and the id for the document <td> is set to "document".
+    
+    """
+    linenum_attrs = dict(linenum_attrs) if linenum_attrs else {"style": "background: #eeeeee;"}
+    document_attrs = dict(document_attrs) if document_attrs else {}
+    linenum_attrs.setdefault('id', 'linenumbers')
+    document_attrs.setdefault('id', 'document')
+    linenum_attrs['valign'] = 'top'
+    linenum_attrs['align'] = 'right'
+    linenum_attrs['style'] = linenum_attrs.get('style', '') + 'vertical-align: top; text-align: right;'
+    document_attrs['valign'] = 'top'
+    document_attrs['style'] = document_attrs.get('style', '') + 'vertical-align: top;'
+    
+    start_num = cursor.document.index(cursor.start_block()) + 1
+    end_num = cursor.document.index(cursor.end_block()) + 1
+    linenumbers = '<pre>{0}</pre>'.format('\n'.join(map(format, range(start_num, end_num))))
+    body = '<pre>{0}</pre>'.format(html)
+    return (
+        '<table border="0" cellpadding="4" cellspacing="0">'
+        '<tbody><tr>'
+        '<td{0}>'
+        '\n{1}\n'
+        '</td>'
+        '<td{2}>'
+        '\n{3}\n'
+        '</td></tr></tbody></table>\n').format(
+            html_format_attrs(linenum_attrs), linenumbers,
+            html_format_attrs(document_attrs), body)
 
 
 def format_html_document(body, title="", stylesheet=None, stylesheet_ref=None, encoding='UTF-8'):
@@ -426,5 +495,76 @@ def format_html_document(body, title="", stylesheet=None, stylesheet_ref=None, e
             body = body,
             css = css,
         )
+
+
+class HtmlWriter(object):
+    """A do-it-all object to create syntax highlighted HTML.
+    
+    You can set the instance attributes to configure the behaviour in all
+    details. Then call the html(cursor) method to get the HTML.
+    
+    """
+    
+    fgcolor = None
+    bgcolor = None
+    
+    linenumbers_fgcolor = None
+    linenumbers_bgcolor = "#eeeeee"
+    
+    inline_style = False
+    number_lines = False
+    
+    document_id = "document"
+    linenumbers_id = "linenumbers"
+    
+    title = ""
+    css_scheme = default_scheme
+    css_mapper = None
+    encoding = 'UTF-8'
+    
+    stylesheet_ref = None
+    
+    
+    def html(self, cursor):
+        """Return the output HTML."""
+        doc_style = {}
+        if self.fgcolor:
+            doc_style['color'] = self.fgcolor
+        if self.bgcolor:
+            doc_style['background'] = self.bgcolor
+        
+        num_style = {}
+        if self.linenumbers_fgcolor:
+            num_style['color'] = self.linenumbers_fgcolor
+        if self.linenumbers_bgcolor:
+            num_style['background'] = self.linenumbers_bgcolor
+        
+        num_attrs = {'id': self.linenumbers_id}
+        doc_attrs = {'id': self.document_id}
+        
+        css = []
+        if self.inline_style:
+            formatter = css_style_attribute_formatter(self.css_scheme)
+            num_attrs.update(css_attr(num_style))
+            doc_attrs.update(css_attr(doc_style))
+        else:
+            formatter = format_css_span_class
+            css.append(css_group('#' + self.document_id, doc_style))
+            if self.number_lines:
+                css.append(css_group('#' + self.linenumbers_id, num_style))
+            css.append(format_stylesheet(self.css_scheme))
+        
+        body = html(cursor, self.css_mapper or css_mapper(), formatter)
+        
+        if self.number_lines:
+            body = add_line_numbers(cursor, body, num_attrs, doc_attrs)
+        else:
+            body = '<pre{0}>{1}</pre>'.format(html_format_attrs(doc_attrs), body)
+        
+        if self.stylesheet_ref:
+            css = None
+        else:
+            css = '\n'.join(css)
+        return format_html_document(body, self.title, css, self.stylesheet_ref, self.encoding)
 
 

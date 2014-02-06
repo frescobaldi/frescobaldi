@@ -5,14 +5,18 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.14 -- 
 
 * Translations:
-  - updated: nl
+  - updated: nl, fr
 * New features:
   - highlighting and auto-completion for commands that are new or have changed
     syntax in LilyPond 2.18, such as \hide, \omit, \undo, \override, \tweak,
     \accidentalStyle, etc.
 * Improvements:
-  - Copy colored HTML and Export source as colored HTML: add line numbers if
-    they are enabled in the view.
+  - Print source, Copy colored HTML and Export source as colored HTML: add line
+    numbers if enabled in the preferences.
+  - In the Editor preferences, it is adjustable whether HTML export or copy use
+    a stylesheet or inline style attributes.
+  - It is now possible to copy syntax-highlighted HTML as plain text to the
+    clipboard, by enabling the preference setting.
   - MIDI input: add key signature alterations mapping, by Olivier Samyn
 * Bug fixes:
   - Fixed issue 336: TypeError on MusicXml export
