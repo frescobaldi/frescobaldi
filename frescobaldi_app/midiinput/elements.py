@@ -21,7 +21,7 @@ class Note:
         return self._midinote
 
 
-class Chord:
+class Chord(object):
     def __init__(self):
         self._notes = list()
         
