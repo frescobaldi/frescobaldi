@@ -29,6 +29,7 @@ class Widget(QWidget):
         
         self._labelkeysignature = QLabel()
         self._keysignature = QComboBox()
+        signals.append(self._keysignature.currentIndexChanged)
         
         self._labelaccidentals = QLabel()
         self._accidentalssharps = QRadioButton()
@@ -132,6 +133,7 @@ class Widget(QWidget):
         s = QSettings()
         s.beginGroup("midiinputdock")
         s.setValue("midichannel", self._midichannel.currentIndex())
+        s.setValue("keysignature", self._keysignature.currentIndex())
         if self._accidentalsflats.isChecked():
             s.setValue("accidentals", 'flats')
         else:
@@ -142,6 +144,7 @@ class Widget(QWidget):
         s = QSettings()
         s.beginGroup("midiinputdock")
         self._midichannel.setCurrentIndex(s.value("midichannel", 0, int))
+        self._keysignature.setCurrentIndex(s.value("keysignature", 7, int))
         if s.value("accidentals", 'sharps', str) == 'flats':
             self._accidentalsflats.setChecked(True)
         else:
@@ -153,12 +156,12 @@ class Widget(QWidget):
         self._midichannel.addItems([_("all")]+[str(i) for i in range(1,17)])
         self._labelkeysignature.setText(_("Key signature"))
         self._keysignature.addItems([
-            _("Ces major (7 flats)"),
-            _("Ges major (6 flats)"),
-            _("Des major (5 flats)"),
-            _("Aes major (4 flats)"),
-            _("Ees major (3 flats)"),
-            _("Bes major (2 flats)"),
+            _("C flat major (7 flats)"),
+            _("G flat major (6 flats)"),
+            _("D flat major (5 flats)"),
+            _("A flat major (4 flats)"),
+            _("E flat major (3 flats)"),
+            _("B flat major (2 flats)"),
             _("F major (1 flat)"),
             _("no key"),
             _("G major (1 sharp)"),
@@ -166,8 +169,8 @@ class Widget(QWidget):
             _("A major (3 sharps)"),
             _("E major (4 sharps)"),
             _("B major (5 sharps)"),
-            _("Fis major (6 sharps)"),
-            _("Cis major (7 sharps)")
+            _("F sharp major (6 sharps)"),
+            _("C sharp major (7 sharps)")
             ])
         self._keysignature.setCurrentIndex(7)
         self._labelaccidentals.setText(_("Accidentals"))
