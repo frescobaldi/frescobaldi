@@ -29,20 +29,20 @@ import ly.document
 import ly.colorize
 
 
-def html_text(text, mode=None, scheme='editor', number_lines=False):
+def html_text(text, mode=None, scheme='editor', inline=True, number_lines=False):
     """Converts the text to HTML using the specified or guessed mode."""
     c = ly.document.Cursor(ly.document.Document(text, mode))
-    return html(c, scheme, True, number_lines)
+    return html(c, scheme, inline, number_lines)
 
-def html_inline(cursor, scheme='editor', number_lines=False):
-    """Return an inline-styled HTML document for the cursor's selection."""
+def html_inline(cursor, scheme='editor', inline=True, number_lines=False):
+    """Return an (by default) inline-styled HTML document for the cursor's selection."""
     c = lydocument.cursor(cursor)
-    return html(c, scheme, True, number_lines)
+    return html(c, scheme, inline, number_lines)
 
-def html_document(document, scheme='editor', number_lines=False):
-    """Return a css-styled HTML document for the full document."""
+def html_document(document, scheme='editor', inline=False, number_lines=False):
+    """Return a (by default) css-styled HTML document for the full document."""
     c = lydocument.Cursor(lydocument.Document(document))
-    return html(c, scheme, False, number_lines)
+    return html(c, scheme, inline, number_lines)
 
 def html(cursor, scheme='editor', inline=False, number_lines=False):
     """Return a HTML document with the syntax-highlighted region.
