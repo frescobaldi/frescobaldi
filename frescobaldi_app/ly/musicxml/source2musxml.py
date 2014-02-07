@@ -42,6 +42,7 @@ class parse_source():
         self.can_create_sect = True
         self.can_create_part = False
         self.tuplet = False
+        self.scale = ''
         self.grace_seq = False
 
     def parse_text(self, text, mode=None):
@@ -178,9 +179,12 @@ class parse_source():
         self.mediator.new_rest('s')
 
     def Scaling(self, token):
-        """ scaling, e.g. *3 """
+        """ scaling, e.g. *3 or *2/3"""
         if self.scale == 'R':
             self.mediator.scale_rest(token[1:])
+            self.scale = ''
+        else:
+            self.mediator.scale_duration(token)
 
     def Fraction(self, token):
         """ fraction, e.g. 3/4
