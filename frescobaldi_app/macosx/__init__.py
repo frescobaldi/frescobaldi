@@ -37,10 +37,10 @@ import app
 # are opened on startup (I don't know whether that really could happen),
 # they are not made the current document, as that slows down loading
 # multiple documents drastically.
-import file_open_eventhandler
+from . import file_open_eventhandler
 
 # handle window icon drag events
-import icon_drag_eventhandler
+from . import icon_drag_eventhandler
 
 # on mac os, the app should remain running, even if there is no main window 
 # anymore. In this case, we setup a basic global menu.
