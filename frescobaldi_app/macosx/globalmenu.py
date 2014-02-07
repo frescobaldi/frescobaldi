@@ -28,6 +28,9 @@ from the MainWindow.
 
 from __future__ import unicode_literals
 
+import sys
+import os
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -51,31 +54,51 @@ def menubar():
     """Return a newly created parent-less menu bar that's used when there is no main window."""
     m = QMenuBar()
     
-    m.addMenu(menu_file(m))
-    m.addMenu(menu_edit(m))
-    m.addMenu(menu_help(m))
+    if sys.platform.startswith('darwin'):
+        frozen = getattr(sys, 'frozen', '')
+        if (frozen == 'macosx_app') \
+            or ('.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0]))):
+            use_role = True
+        else:
+            use_role = False
+    
+    m.addMenu(menu_file(m, use_role))
+    m.addMenu(menu_edit(m, use_role))
+    m.addMenu(menu_help(m, use_role))
 
     return m
 
-def menu_file(parent):
+def menu_file(parent, use_role):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&File"))
     m.addAction(icons.get('document-new'), _("action: new document", "&New"), file_new)
     m.addAction(icons.get('document-open'), _("&Open..."), file_open)
     m.addSeparator()
-    m.addAction(icons.get('application-exit'), _("&Quit"), app.qApp.quit).setMenuRole(QAction.QuitRole)
+    if (use_role == True):
+        role = QAction.QuitRole
+    else:
+        role = QAction.NoRole
+    m.addAction(icons.get('application-exit'), _("&Quit"), app.qApp.quit).setMenuRole(role)
     return m
 
-def menu_edit(parent):
+def menu_edit(parent, use_role):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&Edit"))
-    m.addAction(icons.get('preferences-system'), _("Pr&eferences..."), edit_preferences).setMenuRole(QAction.PreferencesRole)
+    if (use_role == True):
+        role = QAction.PreferencesRole
+    else:
+        role = QAction.NoRole
+    m.addAction(icons.get('preferences-system'), _("Pr&eferences..."), edit_preferences).setMenuRole(role)
     return m
 
-def menu_help(parent):
+def menu_help(parent, use_role):
     m = QMenu(parent)
     m.setTitle(_('menu title', '&Help'))
-    m.addAction(icons.get('help-about'), _("&About {appname}...").format(appname=info.appname), help_about).setMenuRole(QAction.AboutRole)
+    if (use_role == True):
+        role = QAction.AboutRole
+    else:
+        role = QAction.NoRole
+    m.addAction(icons.get('help-about'), _("&About {appname}...").format(appname=info.appname), help_about).setMenuRole(role)
     return m
 
 def mainwindow():
