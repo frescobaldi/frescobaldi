@@ -581,6 +581,7 @@ class MainWindow(QMainWindow):
             if window is not self:
                 window.close()
         self.close()
+        app.qApp.quit()
     
     def restart(self):
         """Closes all MainWindows and restart Frescobaldi."""
