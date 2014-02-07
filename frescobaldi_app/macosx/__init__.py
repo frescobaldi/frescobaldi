@@ -26,6 +26,8 @@ It initializes various stuff that's only relevant on Mac OS X.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import QTimer
+
 import app
 
 
