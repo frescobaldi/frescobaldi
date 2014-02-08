@@ -103,6 +103,9 @@ class Incoming(object):
         
         win = QApplication.activeWindow()
         if win not in app.windows:
+            if not app.windows:
+                import mainwindow
+                mainwindow.MainWindow().show()
             win = app.windows[0]
         
         if cmd == b'open':
