@@ -99,14 +99,14 @@ class Container(LyNode):
     
     @property
     def before(self):
-        if self.children():
+        if len(self):
             return self[0].before
         else:
             return 0
 
     @property
     def after(self):
-        if self.children():
+        if len(self):
             return self[-1].after
         else:
             return 0

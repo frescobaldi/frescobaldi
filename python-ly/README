@@ -4,6 +4,7 @@ README for python-ly
 This package provides a Python library for manipulating files, consisting of:
 
 modules:
+    node    -- provides Node and WeakNode, to build tree structures with
     slexer  -- Stateful Lexer, used to make parsers for parsing text
 
 package:

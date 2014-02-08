@@ -37,30 +37,40 @@ import variables
 _document_cache = filecache.FileCache()
 
 
-def document(filename):
-    """Return a (cached) ly.document.Document for the filename."""
+class _CachedDocument(object):
+    """Contains a document and related items."""
+    filename = None
+    document = None
+    variables = None
+    docinfo = None
+
+
+def _cached(filename):
+    """Return a _CachedDocument instance for the filename, else creates one."""
     filename = os.path.realpath(filename)
     try:
-        return _document_cache[filename]
+        c = _document_cache[filename]
     except KeyError:
-        pass
-    with open(filename) as f:
-        text = util.decode(f.read())
-    v = variables.variables(text)
-    doc = _document_cache[filename] = ly.document.Document(text, v.get("mode"))
-    doc.filename = filename
-    doc._variables = v  # little HACK, save it here, it can be picked up later
-    return doc
+        with open(filename) as f:
+            text = util.decode(f.read())
+        c = _document_cache[filename] = _CachedDocument()
+        c.filename = filename
+        c.variables = v = variables.variables(text)
+        c.document = ly.document.Document(text, v.get("mode"))
+    return c
+
+
+def document(filename):
+    """Return a (cached) ly.document.Document for the filename."""
+    return _cached(filename).document
 
 
 def docinfo(filename):
     """Return a (cached) LyDocInfo instance for the specified file."""
-    doc = document(filename)
-    try:
-        info = doc._docinfo
-    except AttributeError:
-        info = doc._docinfo = lydocinfo.DocInfo(doc, doc._variables)
-    return info
+    c = _cached(filename)
+    if c.docinfo is None:
+        c.docinfo = lydocinfo.DocInfo(c.document, c.variables)
+    return c.docinfo
 
 
 def textmode(text, guess=True):

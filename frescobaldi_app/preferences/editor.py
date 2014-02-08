@@ -45,6 +45,7 @@ class Editor(preferences.GroupsPage):
         
         layout.addWidget(Highlighting(self))
         layout.addWidget(Indenting(self))
+        layout.addWidget(SourceExport(self))
         layout.addStretch()
 
 
@@ -171,5 +172,64 @@ class Indenting(preferences.Group):
         s.setValue("tab_width", self.tabwidthBox.value())
         s.setValue("indent_spaces", self.nspacesBox.value())
         s.setValue("document_spaces", self.dspacesBox.value())
+
+
+class SourceExport(preferences.Group):
+    def __init__(self, page):
+        super(SourceExport, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.numberLines = QCheckBox(toggled=self.changed)
+        self.inlineStyleCopy = QCheckBox(toggled=self.changed)
+        self.copyHtmlAsPlainText = QCheckBox(toggled=self.changed)
+        self.inlineStyleExport = QCheckBox(toggled=self.changed)
+        
+        layout.addWidget(self.numberLines)
+        layout.addWidget(self.inlineStyleCopy)
+        layout.addWidget(self.inlineStyleExport)
+        layout.addWidget(self.copyHtmlAsPlainText)
+        
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setTitle(_("Source Export Preferences"))
+        self.numberLines.setText(_("Show line numbers"))
+        self.numberLines.setToolTip('<qt>' + _(
+            "If enabled, line numbers are shown in exported HTML or printed "
+            "source."))
+        self.inlineStyleCopy.setText(_("Use inline style when copying colored HTML"))
+        self.inlineStyleCopy.setToolTip('<qt>' + _(
+            "If enabled, inline style attributes are used when copying "
+            "colored HTML to the clipboard. "
+            "Otherwise, a CSS stylesheet is embedded."))
+        
+        self.inlineStyleExport.setText(_("Use inline style when exporting colored HTML"))
+        self.inlineStyleExport.setToolTip('<qt>' + _(
+            "If enabled, inline style attributes are used when exporing "
+            "colored HTML to a file. "
+            "Otherwise, a CSS stylesheet is embedded."))
+        self.copyHtmlAsPlainText.setText(_("Copy HTML as plain text"))
+        self.copyHtmlAsPlainText.setToolTip('<qt>' + _(
+            "If enabled, HTML is copied to the clipboard as plain text. "
+            "Use this when you want to type HTML formatted code in a "
+            "plain text editing environment."))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("source_export")
+        self.numberLines.setChecked(s.value("number_lines", False, bool))
+        self.inlineStyleCopy.setChecked(s.value("inline_copy", True, bool))
+        self.inlineStyleExport.setChecked(s.value("inline_export", False, bool))
+        self.copyHtmlAsPlainText.setChecked(s.value("copy_html_as_plain_text", False, bool))
+    
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("source_export")
+        s.setValue("number_lines", self.numberLines.isChecked())
+        s.setValue("inline_copy", self.inlineStyleCopy.isChecked())
+        s.setValue("inline_export", self.inlineStyleExport.isChecked())
+        s.setValue("copy_html_as_plain_text", self.copyHtmlAsPlainText.isChecked())
 
 

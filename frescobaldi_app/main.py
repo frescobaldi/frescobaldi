@@ -143,15 +143,8 @@ def main():
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
     
-    # on Mac OS X, handle FileOpen requests (e.g. double-clicking a file in the
-    # Finder), these events also can occur right on application start.
-    # We do this just before creating the window, so that when multiple files
-    # are opened on startup (I don't know whether that really could happen),
-    # they are not made the current document, as that slows down loading
-    # multiple documents drastically.
     if sys.platform.startswith('darwin'):
-        import file_open_eventhandler
-        import icon_drag_eventhandler   # handle window icon drag events
+        import macosx
     
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager

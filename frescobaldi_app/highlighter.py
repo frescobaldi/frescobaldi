@@ -26,14 +26,12 @@ from __future__ import unicode_literals
 
 
 from PyQt4.QtGui import (
-    QSyntaxHighlighter, QTextBlockUserData, QTextCursor, QTextDocument)
+    QColor, QSyntaxHighlighter, QTextBlockUserData, QTextCharFormat,
+    QTextCursor, QTextDocument)
 
 
 import ly.lex
-import ly.lex.lilypond
-import ly.lex.scheme
-import ly.lex.html
-import ly.lex.texinfo
+import ly.colorize
 
 import app
 import cursortools
@@ -48,84 +46,16 @@ metainfo.define('highlighting', True)
 
 
 def mapping(data):
-    """Return a dictionary mapping token classes from ly.lex to QTextFormats.
+    """Return a dictionary mapping token classes from ly.lex to QTextCharFormats.
     
     The QTextFormats are queried from the specified TextFormatData instance.
+    The returned dictionary is a ly.colorize.Mapping instance.
     
     """
-    return {
-    
-        # LilyPond
-        ly.lex.lilypond.Keyword: data.textFormat('lilypond', 'keyword'),
-        ly.lex.lilypond.Command: data.textFormat('lilypond', 'command'),
-        ly.lex.lilypond.Dynamic: data.textFormat('lilypond', 'dynamic'),
-        ly.lex.lilypond.MusicItem: data.textFormat('lilypond', 'pitch'),
-        ly.lex.lilypond.Skip: data.textFormat('lilypond', 'command'),
-        ly.lex.lilypond.Octave: data.textFormat('lilypond', 'octave'),
-        ly.lex.lilypond.Duration: data.textFormat('lilypond', 'duration'),
-        ly.lex.lilypond.OctaveCheck: data.textFormat('lilypond', 'check'),
-        ly.lex.lilypond.Direction: data.textFormat('lilypond', 'articulation'),
-        ly.lex.lilypond.Fingering: data.textFormat('lilypond', 'fingering'),
-        ly.lex.lilypond.StringNumber: data.textFormat('lilypond', 'stringnumber'),
-        ly.lex.lilypond.Articulation: data.textFormat('lilypond', 'articulation'),
-        ly.lex.lilypond.Slur: data.textFormat('lilypond', 'slur'),
-        ly.lex.lilypond.Chord: data.textFormat('lilypond', 'chord'),
-        ly.lex.lilypond.ChordItem: data.textFormat('lilypond', 'chord'),
-        ly.lex.lilypond.PipeSymbol: data.textFormat('lilypond', 'check'),
-        ly.lex.lilypond.Markup: data.textFormat('lilypond', 'markup'),
-        ly.lex.lilypond.LyricMode: data.textFormat('lilypond', 'lyricmode'),
-        ly.lex.lilypond.Lyric: data.textFormat('lilypond', 'lyrictext'),
-        ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
-        ly.lex.lilypond.Specifier: data.textFormat('lilypond', 'specifier'),
-        ly.lex.lilypond.UserCommand: data.textFormat('lilypond', 'usercommand'),
-        ly.lex.lilypond.Delimiter: data.textFormat('lilypond', 'delimiter'),
-        ly.lex.lilypond.ContextName: data.textFormat('lilypond', 'context'),
-        ly.lex.lilypond.GrobName: data.textFormat('lilypond', 'grob'),
-        ly.lex.lilypond.ContextProperty: data.textFormat('lilypond', 'property'),
-        ly.lex.lilypond.Variable: data.textFormat('lilypond', 'variable'),
-        ly.lex.lilypond.UserVariable: data.textFormat('lilypond', 'uservariable'),
-        ly.lex.lilypond.Value: data.textFormat('lilypond', 'value'),
-        ly.lex.lilypond.String: data.textFormat('lilypond', 'string'),
-        ly.lex.lilypond.StringQuoteEscape: data.textFormat('lilypond', 'stringescape'),
-        ly.lex.lilypond.Comment: data.textFormat('lilypond', 'comment'),
-        ly.lex.lilypond.Error: data.textFormat('lilypond', 'error'),
-        ly.lex.lilypond.Repeat: data.textFormat('lilypond', 'repeat'),
-        ly.lex.lilypond.Tremolo: data.textFormat('lilypond', 'repeat'),
-        
-
-        # Scheme
-        ly.lex.lilypond.SchemeStart: data.textFormat('scheme', 'scheme'),
-        ly.lex.scheme.Scheme: data.textFormat('scheme', 'scheme'),
-        ly.lex.scheme.String: data.textFormat('scheme', 'string'),
-        ly.lex.scheme.Comment: data.textFormat('scheme', 'comment'),
-        ly.lex.scheme.Number: data.textFormat('scheme', 'number'),
-        ly.lex.scheme.LilyPond: data.textFormat('scheme', 'lilypond'),
-        ly.lex.scheme.Keyword: data.textFormat('scheme', 'keyword'),
-        ly.lex.scheme.Function: data.textFormat('scheme', 'function'),
-        ly.lex.scheme.Variable: data.textFormat('scheme', 'variable'),
-        ly.lex.scheme.Constant: data.textFormat('scheme', 'constant'),
-        ly.lex.scheme.OpenParen: data.textFormat('scheme', 'delimiter'),
-        ly.lex.scheme.CloseParen: data.textFormat('scheme', 'delimiter'),
-        
-        # HTML
-        ly.lex.html.Tag: data.textFormat('html', 'tag'),
-        ly.lex.html.AttrName: data.textFormat('html', 'attribute'),
-        ly.lex.html.Value: data.textFormat('html', 'value'),
-        ly.lex.html.String: data.textFormat('html', 'string'),
-        ly.lex.html.EntityRef: data.textFormat('html', 'entityref'),
-        ly.lex.html.Comment: data.textFormat('html', 'comment'),
-        ly.lex.html.LilyPondTag: data.textFormat('html', 'lilypondtag'),
-        
-        # Texinfo
-        ly.lex.texinfo.Keyword: data.textFormat('texinfo', 'keyword'),
-        ly.lex.texinfo.Block: data.textFormat('texinfo', 'block'),
-        ly.lex.texinfo.Attribute: data.textFormat('texinfo', 'attribute'),
-        ly.lex.texinfo.EscapeChar: data.textFormat('texinfo', 'escapechar'),
-        ly.lex.texinfo.Verbatim: data.textFormat('texinfo', 'verbatim'),
-        ly.lex.texinfo.Comment: data.textFormat('texinfo', 'comment'),
-        
-        
-    } # end of mapping dict
+    return ly.colorize.Mapper((cls, data.textFormat(mode, style.name))
+                        for mode, styles in ly.colorize.default_mapping()
+                            for style in styles
+                                for cls in style.classes)
 
 
 def highlighter(document):
@@ -133,61 +63,27 @@ def highlighter(document):
     return Highlighter.instance(document)
 
 
-def highlightFormats():
-    """Return the global HighlightFormats instance."""
-    global _highlightFormats
+def highlight_mapping():
+    """Return the global Mapping instance that maps token class to QTextCharFormat."""
+    global _highlight_mapping
     try:
-        return _highlightFormats
+        return _highlight_mapping
     except NameError:
-        _highlightFormats = HighlightFormats(textformats.formatData('editor'))
-        return _highlightFormats
+        _highlight_mapping = mapping(textformats.formatData('editor'))
+        return _highlight_mapping
 
 
-def _resetHighlightFormats():
+def _reset_highlight_mapping():
     """Remove the global HighlightFormats instance, so it's recreated next time."""
-    global _highlightFormats
+    global _highlight_mapping
     try:
-        del _highlightFormats
+        del _highlight_mapping
     except NameError:
         pass
 
-app.settingsChanged.connect(_resetHighlightFormats, -100) # before all others
+app.settingsChanged.connect(_reset_highlight_mapping, -100) # before all others
 
 
-# when highlighting, don't test all the Token base classes
-_token_mro_slice = slice(1, -len(ly.lex.Token.__mro__))
-
-
-class HighlightFormats(object):
-    """Manages a dictionary with all highlightformats coupled to token types."""
-    def __init__(self, data):
-        """Initialize ourselves with a TextFormatData instance."""
-        self._formats = mapping(data)
-    
-    def format(self, token):
-        """Return the format defined in the formats dictionary for the token class.
-        
-        Returns None if no format is defined.
-        Returned values are cached to improve the lookup speed.
-        
-        """
-        d = self._formats
-        cls = token.__class__
-        try:
-            return d[cls]
-        except KeyError:
-            for c in cls.__mro__[_token_mro_slice]:
-                try:
-                    f = d[c]
-                    break
-                except KeyError:
-                    pass
-            else:
-                f = None
-            d[cls] = f
-            return f
-
-        
 class Highlighter(QSyntaxHighlighter, plugin.Plugin):
     """A QSyntaxHighlighter that can highlight a QTextDocument.
     
@@ -257,9 +153,9 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         # apply highlighting if desired
         if self._highlighting:
             setFormat = lambda f: self.setFormat(token.pos, len(token), f)
-            formats = highlightFormats()
+            mapping = highlight_mapping()
             for token in tokens:
-                f = formats.format(token)
+                f = mapping[token]
                 if f:
                     setFormat(f)
         
@@ -296,35 +192,71 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         return self._fridge.thaw(self._initialState)
 
 
-def htmlCopy(document, type='editor'):
-    """Return a new QTextDocument with highlighting set as HTML textcharformats."""
-    data = textformats.formatData(type)
+def html_copy(cursor, scheme='editor', number_lines=False):
+    """Return a new QTextDocument with highlighting set as HTML textcharformats.
+    
+    The cursor is a cursor of a document.Document instance. If the cursor 
+    has a selection, only the selection is put in the new document.
+    
+    If number_lines is True, line numbers are added.
+    
+    """
+    data = textformats.formatData(scheme)
     doc = QTextDocument()
     doc.setDefaultFont(data.font)
-    doc.setPlainText(document.toPlainText())
-    if metainfo.info(document).highlighting:
-        highlight(doc, HighlightFormats(data), ly.lex.state(documentinfo.mode(document)))
+    doc.setPlainText(cursor.document().toPlainText())
+    if metainfo.info(cursor.document()).highlighting:
+        highlight(doc, mapping(data), ly.lex.state(documentinfo.mode(cursor.document())))
+    if cursor.hasSelection():
+        # cut out not selected text
+        start, end = cursor.selectionStart(), cursor.selectionEnd()
+        cur1 = QTextCursor(doc)
+        cur1.setPosition(start, QTextCursor.KeepAnchor)
+        cur2 = QTextCursor(doc)
+        cur2.setPosition(end)
+        cur2.movePosition(QTextCursor.End, QTextCursor.KeepAnchor)
+        cur2.removeSelectedText()
+        cur1.removeSelectedText()
+    if number_lines:
+        c = QTextCursor(doc)
+        f = QTextCharFormat()
+        f.setBackground(QColor('#eeeeee'))
+        if cursor.hasSelection():
+            num = cursor.document().findBlock(cursor.selectionStart()).blockNumber() + 1
+            last = cursor.document().findBlock(cursor.selectionEnd())
+        else:
+            num = 1
+            last = cursor.document().lastBlock()
+        lastnum = last.blockNumber() + 1
+        padding = len(format(lastnum))
+        block = doc.firstBlock()
+        while block.isValid():
+            c.setPosition(block.position())
+            c.setCharFormat(f)
+            c.insertText('{0:>{1}d} '.format(num, padding))
+            block = block.next()
+            num += 1
     return doc
 
 
-def highlight(document, formats=None, state=None):
+def highlight(document, mapping=None, state=None):
     """Highlight a generic QTextDocument once.
     
-    formats is an optional HighlightFormats instance, defaulting to the current
-    configured editor highlighting formats.
-    state is an optional ly.lex.State instance. By default the text type
-    is guessed.
+    mapping is an optional Mapping instance, defaulting to the current 
+    configured editor highlighting formats (returned by highlight_mapping()).
+    state is an optional ly.lex.State instance. By default the text type is 
+    guessed.
     
     """
-    if formats is None:
-        formats = highlightFormats()
+    if mapping is None:
+        mapping = highlight_mapping()
     if state is None:
         state = ly.lex.guessState(document.toPlainText())
     cursor = QTextCursor(document)
     block = document.firstBlock()
     while block.isValid():
         for token in state.tokens(block.text()):
-            f = formats.format(token)
+            f = mapping[token]
             if f:
                 cursor.setPosition(block.position() + token.pos)
                 cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)

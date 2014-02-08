@@ -59,6 +59,65 @@ class Item(node.WeakNode):
     def __repr__(self):
         s = ' ' + repr(self.token[:]) if self.token else ''
         return '<{0}{1}>'.format(self.__class__.__name__, s)
+    
+    def find_trees(self, cls, depth=-1):
+        """Yield all descendants (like Node.iter_depth()) that are of cls.
+        
+        cls may also be a tuple of classes. If a node is yielded, it is not
+        further descended into.
+        
+        """
+        def find(node, depth):
+            if depth != 0:
+                for n in node:
+                    if isinstance(n, cls):
+                        yield n
+                    else:
+                        for n in find(n, depth - 1):
+                            yield n
+        return find(self, depth)
+        
+    def iter_toplevel_items(self):
+        """Yield the toplevel items of our Document node in backward direction.
+        
+        Iteration starts with the node just before the node "self" is a 
+        descendant of.
+        
+        """
+        for doc in self.ancestors():
+            if isinstance(doc, Document):
+                break
+            node = doc
+        else:
+            return
+        
+        # now, doc is the Document node, and node is the child of the Document
+        # node we are a (far) descendant of
+        for i in node.backward():
+            yield i
+        
+        # look in parent Document before the place we were included
+        while doc.include_node:
+            p = doc.include_node.parent()
+            if isinstance(p, Document):
+                for i in doc.include_node.backward():
+                    yield i
+                doc = p
+            else:
+                break
+                
+    def iter_toplevel_items_include(self):
+        """Same as iter_toplevel_items(), but follows \\include commands."""
+        def follow(it):
+            for i in it:
+                if isinstance(i, Include):
+                    doc = i.parent().get_included_document_node(i)
+                    if doc:
+                        for i in follow(doc[::-1]):
+                            yield i
+                else:
+                    yield i
+        return follow(self.iter_toplevel_items())
 
 
 class Root(Item):
@@ -70,24 +129,43 @@ class Root(Item):
 
 
 class Document(Item):
-    """A music item representing a ly.document.Document."""
-    include_node = None
-    include_path = []
+    """A toplevel item representing a ly.document.Document."""
     
     def __init__(self, doc):
         super(Document, self).__init__()
         self.document = doc
+        self.include_node = None
+        self.include_path = []
+        self.relative_includes = True
         import ly.document
         c = ly.document.Cursor(doc)
         s = ly.document.Source(c, True, tokens_with_position=True)
         r = Reader(s)
         self.extend(r.read())
     
+    def substitute_for_node(self, node):
+        """Returns a node that replaces the specified node (e.g. in music).
+        
+        For example: a variable reference returns its value.
+        Returns nothing if the node is not substitutable.
+        Returns the node itself if it was substitutable, but the substitution
+        failed.
+        
+        """
+        if isinstance(node, UserCommand):
+            value = node.value()
+            if value:
+                return self.substitute_for_node(value) or value
+            return node
+        elif isinstance(node, Include):
+            return self.get_included_document_node(node) or node
+        
+        # maybe other substitutions
+    
     def iter_music(self, node=None):
         """Iter over the music, following references to other assignments."""
         for n in node or self:
-            if isinstance(n, UserCommand):
-                n = n.value() or n
+            n = self.substitute_for_node(n) or n
             yield n
             for n in self.iter_music(n):
                 yield n
@@ -112,6 +190,8 @@ class Document(Item):
     def resolve_filename(self, filename):
         """Resolve filename against our document and include_path."""
         import os
+        if os.path.isabs(filename):
+            return filename
         path = list(self.include_path)
         if self.document.filename:
             basedir = os.path.dirname(self.document.filename)
@@ -128,18 +208,13 @@ class Document(Item):
     def get_document(self, filename):
         """Return the ly.document.DocumentBase instance for filename.
         
-        This implementation loads the document using utf8 encoding.
+        This implementation loads the document using utf-8 encoding.
         Inherit from this class to implement other loading mechanisms
         or caching.
         
         """
-        import io
-        with io.open(filename, encoding='utf-8') as f:
-            text = f.read()
         import ly.document
-        doc = ly.document.Document(text)
-        doc.filename = filename
-        return doc
+        return ly.document.Document.load(filename)
 
 
 class Token(Item):
@@ -311,7 +386,7 @@ class Repeat(Music):
                     alt_length = sum(alt_lengths[:count])
         own_length = sum(self.child_length_iter(own_length_iter))
         if unfold:
-            length *= count
+            own_length *= count
         return own_length + alt_length
 
 
@@ -551,36 +626,9 @@ class UserCommand(Music):
     
     def value(self):
         """Find the value assigned to this variable."""
-        for doc in self.ancestors():
-            if isinstance(doc, Document):
-                break
-            node = doc
-        else:
-            return
-        
-        def find_value(docnode, it):
-            for n in it:
-                if isinstance(n, Assignment) and n.name() == self.name():
-                    return n.value()
-                elif isinstance(n, Include):
-                    d = docnode.get_included_document_node(n)
-                    if d:
-                        v = find_value(d, d[::-1])
-                        if v:
-                            return v
-        v = find_value(doc, node.backward())
-        if v:
-            return v
-        # look in parent Document before the place we were included
-        while doc.include_node:
-            p = doc.include_node.parent()
-            if isinstance(p, Document):
-                v = find_value(p, doc.include_node.backward())
-                if v:
-                    return v
-                doc = p
-            else:
-                break
+        for i in self.iter_toplevel_items_include():
+            if isinstance(i, Assignment) and i.name() == self.name():
+                return i.value()
     
     def child_length_iter(self):
         v = self.value()

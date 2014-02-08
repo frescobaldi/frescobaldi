@@ -219,3 +219,26 @@ class write(_command):
             f.write(cursor.document.plaintext())
 
 
+class highlight(_export_command):
+    """write syntax colored HTML."""
+    def run(self, opts, cursor, output):
+        import ly.colorize
+        w = ly.colorize.HtmlWriter()
+        
+        w.inline_style = opts.inline_style
+        w.stylesheet_ref = opts.stylesheet
+        w.number_lines = opts.number_lines
+        w.title = cursor.document.filename
+        w.encoding = opts.output_encoding or "utf-8"
+        
+        doc = w.html(cursor)
+        if self.output:
+            filename = self.output
+        else:
+            filename = output.get_filename(opts, cursor.document.filename)
+        with output.file(opts, filename, w.encoding) as f:
+            f.write(doc)
+
+
+hl = highlight
+

@@ -28,11 +28,16 @@ import documentinfo
 from . import elements
 
 
-class MidiIn:
+class MidiIn(object):
     def __init__(self, widget):
         self._widget = weakref.ref(widget)
         self._portmidiinput = None
+        self._listener = None
         self._chord = None
+    
+    def __del__(self):
+        if isinstance(self._listener, Listener):
+            self.capturestop()
     
     def widget(self):
         return self._widget()
@@ -54,7 +59,7 @@ class MidiIn:
         # so discard any reference to a pypm.Input instance
         self._portmidiinput._input = None
         self._portmidiinput = None
-        del self._listener
+        self._listener = None
     
     def capture(self):
         if not self._portmidiinput:
@@ -79,7 +84,8 @@ class MidiIn:
         targetchannel = self.widget().channel()
         if channel == targetchannel or targetchannel == 0:    # '0' captures all
             if notetype == 9 and value > 0:    # note on with velocity > 0
-                note = elements.Note(notenumber, self.widget().accidentals()==0)
+                notemapping = elements.NoteMapping(self.widget().keysignature(), self.widget().accidentals()=='sharps')
+                note = elements.Note(notenumber, notemapping)
                 if self.widget().chordmode():
                     if not self._chord:    # no Chord instance?
                         self._chord = elements.Chord()

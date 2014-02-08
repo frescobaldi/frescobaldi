@@ -67,6 +67,7 @@ Iterate over tokens in a (part of a) Document, with or without state.
 from __future__ import unicode_literals
 from __future__ import absolute_import
 
+import io
 import sys
 import operator
 import collections
@@ -343,6 +344,14 @@ class Document(DocumentBase):
         self._mode = mode
         self._guessed_mode = None
         self.setplaintext(text)
+    
+    @classmethod
+    def load(cls, filename, encoding='utf-8', mode=None):
+        """Load the document from a file, using the specified encoding and mode."""
+        with io.open(filename, encoding=encoding) as f:
+            doc = cls(f.read(), mode)
+        doc.filename = filename
+        return doc
     
     def __len__(self):
         """Return the number of blocks"""
@@ -909,9 +918,14 @@ class Source(object):
                     source = token_source
         gen = generator()
         
-        def newline():
-            pos = document.position(self.block) + len(document.text(self.block))
-            return ly.lex.Newline('\n', pos)
+        if tokens_with_position:
+            def newline():
+                pos = document.position(self.block) - 1
+                return ly.lex.Newline('\n', pos)
+        else:
+            def newline():
+                pos = len(document.text(document.previous_block(self.block)))
+                return ly.lex.Newline('\n', pos)
         
         # initialize block and tokens
         for self.block, self.tokens in gen:
