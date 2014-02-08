@@ -35,6 +35,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import util
+import qutil
 import icons
 import info
 
@@ -67,10 +69,25 @@ def menu_file(parent):
     m.addAction(icons.get('document-new'), _("action: new document", "&New"), file_new)
     m.addAction(icons.get('document-open'), _("&Open..."), file_open)
     m.addSeparator()
+    m.addMenu(menu_file_open_recent(m))
+    m.addSeparator()
     role = QAction.QuitRole if use_osx_menu_roles() else QAction.NoRole
     m.addAction(icons.get('application-exit'), _("&Quit"), app.qApp.quit).setMenuRole(role)
     return m
 
+def menu_file_open_recent(parent):
+    m = QMenu(parent)
+    m.setTitle(_("Open &Recent"))
+    m.triggered.connect(slot_file_open_recent_action, Qt.QueuedConnection)
+    import recentfiles
+    for url in recentfiles.urls():
+        f = url.toLocalFile()
+        dirname, basename = os.path.split(f)
+        text = "{0}  ({1})".format(basename, util.homify(dirname))
+        m.addAction(text).url = url
+    qutil.addAccelerators(m.actions())
+    return m
+    
 def menu_edit(parent):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&Edit"))
@@ -105,6 +122,11 @@ def file_open():
         docs = [win.openUrl(QUrl.fromLocalFile(f)) for f in files]
         if docs:
             win.setCurrentDocument(docs[-1])
+
+def slot_file_open_recent_action(action):
+    url = action.url
+    w = mainwindow()
+    w.setCurrentDocument(w.openUrl(url))
 
 def edit_preferences():
     import preferences

@@ -42,7 +42,7 @@ def use_osx_menu_roles():
     try:
         return _use_roles
     except NameError:
-        _use_roles = (getattr(sys, 'frozen') == 'macosx_app'
+        _use_roles = (getattr(sys, 'frozen', '') == 'macosx_app'
             or ('.app/Contents/MacOS' in os.path.abspath(sys.argv[0])))
     return _use_roles
 
