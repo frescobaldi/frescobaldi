@@ -1016,11 +1016,10 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
         
-        # roles
+        # Mac OS X-specific roles?
         if sys.platform.startswith('darwin'):
-            frozen = getattr(sys, 'frozen', '')
-            if (frozen == 'macosx_app') \
-            or ('.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0]))):
+            import macosx
+            if macosx.use_osx_menu_roles():
                 self.file_quit.setMenuRole(QAction.QuitRole)
                 self.edit_preferences.setMenuRole(QAction.PreferencesRole)
                 self.help_about.setMenuRole(QAction.AboutRole)

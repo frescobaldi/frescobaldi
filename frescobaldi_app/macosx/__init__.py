@@ -18,38 +18,31 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-This is only imported on Mac OS X, from main.py.
+Functions that have to do with Mac OS X-specific behaviour.
 
-It initializes various stuff that's only relevant on Mac OS X.
+Importing this package does nothing; the macosx.setup module sets up
+the Mac OS X-specific behaviour, such as the global menu and the file open event
+handler, etc.
 
 """
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QTimer
+import os
+import sys
 
-import app
 
+def is_osx():
+    """Return True if we are running on Mac OS X."""
+    return sys.platform.startswith('darwin')
 
-# on Mac OS X, handle FileOpen requests (e.g. double-clicking a file in the
-# Finder), these events also can occur right on application start.
-# We do this just before creating the window, so that when multiple files
-# are opened on startup (I don't know whether that really could happen),
-# they are not made the current document, as that slows down loading
-# multiple documents drastically.
-from . import file_open_eventhandler
-
-# handle window icon drag events
-from . import icon_drag_eventhandler
-
-# on mac os, the app should remain running, even if there is no main window 
-# anymore. In this case, we setup a basic global menu.
-app.qApp.setQuitOnLastWindowClosed(False)
-
-@app.mainwindowClosed.connect
-def check_open_window():
-    if not app.windows:
-        from . import globalmenu
-        QTimer.singleShot(0, globalmenu.setup)
-
+def use_osx_menu_roles():
+    """Return True if Mac OS X-specific menu roles are to be used."""
+    global _use_roles
+    try:
+        return _use_roles
+    except NameError:
+        _use_roles = (getattr(sys, 'frozen') == 'macosx_app'
+            or ('.app/Contents/MacOS' in os.path.abspath(sys.argv[0])))
+    return _use_roles
 

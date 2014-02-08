@@ -38,6 +38,8 @@ import app
 import icons
 import info
 
+from . import use_osx_menu_roles
+
 
 def setup():
     """Create the global menu bar."""
@@ -53,51 +55,33 @@ def delete():
 def menubar():
     """Return a newly created parent-less menu bar that's used when there is no main window."""
     m = QMenuBar()
-    
-    if sys.platform.startswith('darwin'):
-        frozen = getattr(sys, 'frozen', '')
-        if (frozen == 'macosx_app') \
-            or ('.app/Contents/MacOS' in os.path.abspath(os.path.dirname(sys.argv[0]))):
-            use_role = True
-        else:
-            use_role = False
-    
-    m.addMenu(menu_file(m, use_role))
-    m.addMenu(menu_edit(m, use_role))
-    m.addMenu(menu_help(m, use_role))
+    m.addMenu(menu_file(m))
+    m.addMenu(menu_edit(m))
+    m.addMenu(menu_help(m))
 
     return m
 
-def menu_file(parent, use_role):
+def menu_file(parent):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&File"))
     m.addAction(icons.get('document-new'), _("action: new document", "&New"), file_new)
     m.addAction(icons.get('document-open'), _("&Open..."), file_open)
     m.addSeparator()
-    if (use_role == True):
-        role = QAction.QuitRole
-    else:
-        role = QAction.NoRole
+    role = QAction.QuitRole if use_osx_menu_roles() else QAction.NoRole
     m.addAction(icons.get('application-exit'), _("&Quit"), app.qApp.quit).setMenuRole(role)
     return m
 
-def menu_edit(parent, use_role):
+def menu_edit(parent):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&Edit"))
-    if (use_role == True):
-        role = QAction.PreferencesRole
-    else:
-        role = QAction.NoRole
+    role = QAction.PreferencesRole if use_osx_menu_roles() else QAction.NoRole
     m.addAction(icons.get('preferences-system'), _("Pr&eferences..."), edit_preferences).setMenuRole(role)
     return m
 
-def menu_help(parent, use_role):
+def menu_help(parent):
     m = QMenu(parent)
     m.setTitle(_('menu title', '&Help'))
-    if (use_role == True):
-        role = QAction.AboutRole
-    else:
-        role = QAction.NoRole
+    role = QAction.AboutRole if use_osx_menu_roles() else QAction.NoRole
     m.addAction(icons.get('help-about'), _("&About {appname}...").format(appname=info.appname), help_about).setMenuRole(role)
     return m
 
