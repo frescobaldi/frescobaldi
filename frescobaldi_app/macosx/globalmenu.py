@@ -75,6 +75,8 @@ def menu_file(parent):
     m.addAction(icons.get('document-open'), _("&Open..."), file_open)
     m.addMenu(menu_file_open_recent(m))
     m.addSeparator()
+    m.addMenu(menu_file_import(m))
+    m.addSeparator()
     role = QAction.QuitRole if use_osx_menu_roles() else QAction.NoRole
     m.addAction(icons.get('application-exit'), _("&Quit"), app.qApp.quit).setMenuRole(role)
     return m
@@ -110,6 +112,12 @@ def menu_file_open_recent(parent):
         text = "{0}  ({1})".format(basename, util.homify(dirname))
         m.addAction(text).url = url
     qutil.addAccelerators(m.actions())
+    return m
+
+def menu_file_import(parent):
+    m = QMenu(parent)
+    m.setTitle(_("submenu title", "&Import"))
+    m.addAction(_("Import MusicXML..."), file_import_musicxml)
     return m
     
 def menu_edit(parent):
@@ -173,6 +181,12 @@ def slot_file_open_recent_action(action):
     url = action.url
     w = mainwindow()
     w.setCurrentDocument(w.openUrl(url))
+
+def file_import_musicxml():
+    w = mainwindow()
+    w.newDocument()
+    import file_import
+    QTimer.singleShot(0, file_import.FileImport.instance(w).importMusicXML)
 
 def edit_preferences():
     import preferences
