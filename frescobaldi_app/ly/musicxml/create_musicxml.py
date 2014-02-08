@@ -127,7 +127,7 @@ class create_musicXML():
         scaling = base_scaling[1]
         self.create_note()
         self.add_rest(pos)
-        duration = (divs*4/base)*scaling
+        duration = (divs*4*base)*scaling
         self.add_div_duration(duration)
         if durtype:
             self.add_duration_type(durtype)
