@@ -60,8 +60,8 @@ def menubar():
     m = QMenuBar()
     m.addMenu(menu_file(m))
     m.addMenu(menu_edit(m))
+    m.addMenu(menu_window(m))
     m.addMenu(menu_help(m))
-
     return m
 
 def menu_file(parent):
@@ -124,6 +124,12 @@ def menu_edit(parent):
     m.setTitle(_("menu title", "&Edit"))
     role = QAction.PreferencesRole if use_osx_menu_roles() else QAction.NoRole
     m.addAction(icons.get('preferences-system'), _("Pr&eferences..."), edit_preferences).setMenuRole(role)
+    return m
+
+def menu_window(parent):
+    m = QMenu(parent)
+    m.setTitle(_('menu title', '&Window'))
+    m.addAction(icons.get('window-new'), _("New &Window"), file_new)
     return m
 
 def menu_help(parent):
