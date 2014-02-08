@@ -51,8 +51,10 @@ def setup():
 @app.mainwindowCreated.connect
 def delete():
     """Delete the global menu bar."""
-    global _menubar
-    _menubar = None
+    def do_delete():
+        global _menubar
+        _menubar = None
+    QTimer.singleShot(0, do_delete)
 
 def menubar():
     """Return a newly created parent-less menu bar that's used when there is no main window."""
@@ -67,7 +69,7 @@ def menu_file(parent):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&File"))
     m.addAction(icons.get('document-new'), _("action: new document", "&New"), file_new)
-    #TODO new from template here
+    m.addMenu(menu_file_new_from_template(m))
     m.addAction(icons.get('tools-score-wizard'), _("New Score with &Wizard..."), file_new_with_wizard)
     m.addSeparator()
     m.addAction(icons.get('document-open'), _("&Open..."), file_open)
@@ -77,10 +79,30 @@ def menu_file(parent):
     m.addAction(icons.get('application-exit'), _("&Quit"), app.qApp.quit).setMenuRole(role)
     return m
 
+def menu_file_new_from_template(parent):
+    m = QMenu(parent)
+    m.setTitle(_("New from &Template"))
+    m.triggered.connect(slot_file_new_from_template_action)
+    from snippet import model, actions, snippets
+    groups = {}
+    for name in sorted(model.model().names()):
+        variables = snippets.get(name).variables
+        group = variables.get('template')
+        if group:
+            action = actions.action(name, m)
+            if action:
+                groups.setdefault(group, []).append(action)
+    for group in sorted(groups):
+        for action in groups[group]:
+            m.addAction(action)
+        m.addSeparator()
+    qutil.addAccelerators(m.actions())
+    return m
+
 def menu_file_open_recent(parent):
     m = QMenu(parent)
     m.setTitle(_("Open &Recent"))
-    m.triggered.connect(slot_file_open_recent_action, Qt.QueuedConnection)
+    m.triggered.connect(slot_file_open_recent_action)
     import recentfiles
     for url in recentfiles.urls():
         f = url.toLocalFile()
@@ -130,6 +152,22 @@ def file_open():
         docs = [w.openUrl(QUrl.fromLocalFile(f)) for f in files]
         if docs:
             w.setCurrentDocument(docs[-1])
+
+def slot_file_new_from_template_action(action):
+    name = action.objectName()
+    d = app.openUrl(QUrl())
+    win = mainwindow()
+    win.setCurrentDocument(d)
+    from snippet import insert, snippets
+    view = win.currentView()
+    view.setFocus()
+    insert.insert(name, view)
+    d.setUndoRedoEnabled(False)
+    d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
+    d.setModified(False)
+    if 'template-run' in snippets.get(name).variables:
+        import engrave
+        engrave.engraver(win).engrave('preview', d)
 
 def slot_file_open_recent_action(action):
     url = action.url
