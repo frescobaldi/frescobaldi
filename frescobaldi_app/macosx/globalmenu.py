@@ -44,9 +44,11 @@ from . import use_osx_menu_roles
 
 
 def setup():
-    """Create the global menu bar."""
+    """Create the global menu bar, and switch to no-session."""
     global _menubar
     _menubar = menubar()
+    import sessions
+    sessions.setCurrentSession(None)
 
 @app.mainwindowCreated.connect
 def delete():
