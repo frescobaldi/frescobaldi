@@ -108,7 +108,10 @@ def file_open():
 
 def edit_preferences():
     import preferences
-    preferences.PreferencesDialog(None).exec_()
+    # TODO: make it possible to run Preferences without a Main Window.
+    # Currently the Keyboard Shortcuts section needs the mainwindow to get
+    # the current shortcuts.
+    preferences.PreferencesDialog(mainwindow()).exec_()
 
 def help_about():
     import about
