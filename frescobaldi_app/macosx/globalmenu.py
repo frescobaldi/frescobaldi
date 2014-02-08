@@ -51,10 +51,9 @@ def setup():
 @app.mainwindowCreated.connect
 def delete():
     """Delete the global menu bar."""
-    def do_delete():
-        global _menubar
-        _menubar = None
-    QTimer.singleShot(0, do_delete)
+    global _menubar
+    _menubar.deleteLater()
+    _menubar = None
 
 def menubar():
     """Return a newly created parent-less menu bar that's used when there is no main window."""
@@ -186,7 +185,7 @@ def file_import_musicxml():
     w = mainwindow()
     w.newDocument()
     import file_import
-    QTimer.singleShot(0, file_import.FileImport.instance(w).importMusicXML)
+    file_import.FileImport.instance(w).importMusicXML()
 
 def edit_preferences():
     import preferences
