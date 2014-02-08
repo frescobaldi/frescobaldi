@@ -61,6 +61,7 @@ def menubar():
     m.addMenu(menu_file(m))
     m.addMenu(menu_edit(m))
     m.addMenu(menu_window(m))
+    m.addMenu(menu_sessions(m))
     m.addMenu(menu_help(m))
     return m
 
@@ -132,6 +133,17 @@ def menu_window(parent):
     m.addAction(icons.get('window-new'), _("New &Window"), file_new)
     return m
 
+def menu_sessions(parent):
+    m = QMenu(parent)
+    m.setTitle(_('menu title', '&Session'))
+    m.triggered.connect(slot_session_action)
+    import sessions
+    for name in sessions.sessionNames():
+        a = m.addAction(name.replace('&', '&&'))
+        a.setObjectName(name)
+    qutil.addAccelerators(m.actions())
+    return m    
+    
 def menu_help(parent):
     m = QMenu(parent)
     m.setTitle(_('menu title', '&Help'))
@@ -201,6 +213,13 @@ def edit_preferences():
     w = mainwindow()
     w.newDocument()
     preferences.PreferencesDialog(w).exec_()
+
+def slot_session_action(action):
+    name = action.objectName()
+    import sessions
+    doc = sessions.loadSession(name) or app.openUrl(QUrl())
+    w = mainwindow()
+    w.setCurrentDocument(doc)
 
 def help_about():
     import about
