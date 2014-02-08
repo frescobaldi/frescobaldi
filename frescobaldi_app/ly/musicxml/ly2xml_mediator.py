@@ -141,10 +141,10 @@ class mediator():
         self.bar.pop()
         self.bar.append(self.current_note)
 
-    def scale_rest(self, multp, new_bar=True):
+    def scale_rest(self, multp, new_bar=False):
         """ create multiple whole bar rests """
         for i in range(1, int(multp)):
-            self.part.append(self.bar)
+            self.insert_into.barlist.append(self.bar)
         if new_bar:
             self.new_bar()
 
