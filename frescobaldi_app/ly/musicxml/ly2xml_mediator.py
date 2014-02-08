@@ -105,14 +105,13 @@ class mediator():
 
     def set_relative(self, note_name):
         self.current_note = bar_note(note_name, self.base_scaling, self.duration)
-        self.prev_pitch = None
+        self.set_prev_pitch()
+
+    def set_prev_pitch(self):
+        p = self.current_note.pitch
+        self.prev_pitch = ly.pitch.Pitch(p.note, p.alter, p.octave)
 
     def new_note(self, note_name, pitch_mode):
-        if hasattr(self.current_note, 'pitch'):
-            p = self.current_note.pitch
-            self.prev_pitch = ly.pitch.Pitch(p.note, p.alter, p.octave)
-        else:
-            self.prev_pitch = None
         self.current_note = bar_note(note_name, self.base_scaling, self.duration)
         if pitch_mode == 'rel':
             self.current_note.set_octave("", True, self.prev_pitch)
@@ -123,6 +122,7 @@ class mediator():
             self.new_bar()
         self.bar.append(self.current_note)
         self.current_attr = bar_attr()
+        self.set_prev_pitch()
 
     def new_rest(self, rtype, pos=0):
         if rtype == 'r':
@@ -193,6 +193,7 @@ class mediator():
 
     def new_octave(self, octave, relative=False):
         self.current_note.set_octave(octave, relative, self.prev_pitch)
+        self.set_prev_pitch()
 
     def new_from_command(self, command):
         print (command)
@@ -249,11 +250,11 @@ class bar_note():
             self.type = durval2type(durval)
 
     def set_octave(self, octmark, relative, prev_pitch):
+        self.pitch.octave = ly.pitch.octaveToNum(octmark)
         if relative:
-            self.pitch.octave = ly.pitch.octaveToNum(octmark)
             self.pitch.makeAbsolute(prev_pitch)
         else:
-            self.pitch.octave = octmark2oct(octmark)
+            self.pitch.octave += 3; #adjusting to scientific pitch notation
 
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
@@ -390,22 +391,6 @@ def dur2lines(dur):
         return 2
     if dur == "32":
         return 3
-
-def octmark2oct(octmark):
-    if octmark == ",,,":
-        return 0
-    elif octmark == ",,":
-        return 1
-    elif octmark == ",":
-        return 2
-    elif octmark == "'":
-        return 4
-    elif octmark == "''":
-        return 5
-    elif octmark == "'''":
-        return 6
-    elif octmark == "''''":
-        return 7
 
 def get_mult(num, den):
     from fractions import Fraction
