@@ -67,8 +67,10 @@ def menu_file(parent):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&File"))
     m.addAction(icons.get('document-new'), _("action: new document", "&New"), file_new)
-    m.addAction(icons.get('document-open'), _("&Open..."), file_open)
+    #TODO new from template here
+    m.addAction(icons.get('tools-score-wizard'), _("New Score with &Wizard..."), file_new_with_wizard)
     m.addSeparator()
+    m.addAction(icons.get('document-open'), _("&Open..."), file_open)
     m.addMenu(menu_file_open_recent(m))
     m.addSeparator()
     role = QAction.QuitRole if use_osx_menu_roles() else QAction.NoRole
@@ -111,6 +113,12 @@ def mainwindow():
 
 def file_new():
     mainwindow().newDocument()
+
+def file_new_with_wizard():
+    w = mainwindow()
+    w.newDocument()
+    import scorewiz
+    scorewiz.ScoreWizard.instance(w).showInsertDialog()
 
 def file_open():
     filetypes = app.filetypes('.ly')
