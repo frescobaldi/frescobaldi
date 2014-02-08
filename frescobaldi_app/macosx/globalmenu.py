@@ -118,10 +118,10 @@ def file_open():
     directory = app.basedir()
     files = QFileDialog.getOpenFileNames(None, caption, directory, filetypes)
     if files:
-        win = mainwindow()
-        docs = [win.openUrl(QUrl.fromLocalFile(f)) for f in files]
+        w = mainwindow()
+        docs = [w.openUrl(QUrl.fromLocalFile(f)) for f in files]
         if docs:
-            win.setCurrentDocument(docs[-1])
+            w.setCurrentDocument(docs[-1])
 
 def slot_file_open_recent_action(action):
     url = action.url
@@ -133,7 +133,9 @@ def edit_preferences():
     # TODO: make it possible to run Preferences without a Main Window.
     # Currently the Keyboard Shortcuts section needs the mainwindow to get
     # the current shortcuts.
-    preferences.PreferencesDialog(mainwindow()).exec_()
+    w = mainwindow()
+    w.newDocument()
+    preferences.PreferencesDialog(w).exec_()
 
 def help_about():
     import about
