@@ -263,6 +263,9 @@ class Unpitched(Durable):
 class Note(Durable):
     """A Note that has a ly.pitch.Pitch"""
     pitch = None
+    octave_token = None
+    accidental_token = None
+    octavecheck_token = None
 
 
 class Skip(Durable):
