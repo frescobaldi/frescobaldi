@@ -212,6 +212,7 @@ class MainWindow(QMainWindow):
             self.updateDocActions()
             self.updateWindowTitle()
         self.updateSelection()
+        self.updateActions()
         self.currentViewChanged.emit(view, curv)
         if curd is not doc:
             self.currentDocumentChanged.emit(doc, curd)
@@ -227,6 +228,11 @@ class MainWindow(QMainWindow):
             ac.edit_cut.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
     
+    def updateActions(self):
+        view = self.currentView()
+        action = self.actionCollection.view_wrap_lines
+        action.setChecked(view.lineWrapMode() == QPlainTextEdit.WidgetWidth)
+        
     def updateDocActions(self):
         doc = self.currentDocument()
         ac = self.actionCollection
@@ -727,6 +733,11 @@ class MainWindow(QMainWindow):
         self.writeSettings()
         MainWindow(self).show()
 
+    def toggleWrapLines(self, enable):
+        """Called when the user toggles View->Line Wrap"""
+        wrap = QPlainTextEdit.WidgetWidth if enable else QPlainTextEdit.NoWrap
+        self.currentView().setLineWrapMode(wrap)
+    
     def scrollUp(self):
         """Scroll up without moving the cursor"""
         sb = self.currentView().verticalScrollBar()
@@ -819,6 +830,7 @@ class MainWindow(QMainWindow):
         ac.edit_preferences.triggered.connect(self.showPreferences)
         ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
         ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
+        ac.view_wrap_lines.triggered.connect(self.toggleWrapLines)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
         ac.window_new.triggered.connect(self.newWindow)
@@ -931,6 +943,7 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document = QAction(parent)
         self.view_previous_document = QAction(parent)
+        self.view_wrap_lines = QAction(parent, checkable=True)
         self.view_scroll_up = QAction(parent)
         self.view_scroll_down = QAction(parent)
         
@@ -1074,6 +1087,7 @@ class ActionCollection(actioncollection.ActionCollection):
         
         self.view_next_document.setText(_("&Next Document"))
         self.view_previous_document.setText(_("&Previous Document"))
+        self.view_wrap_lines.setText(_("Wrap &Lines"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
         

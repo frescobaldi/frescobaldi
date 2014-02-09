@@ -64,11 +64,12 @@ class ViewSettings(preferences.Group):
     
     def translateUI(self):
         self.setTitle(_("View Preferences"))
-        self.wrapLines.setText(_("Wrap long lines"))
+        self.wrapLines.setText(_("Wrap long lines by default"))
         self.wrapLines.setToolTip('<qt>' + _(
-            "If enabled, lines that don't fit in the editor width are wrapped. "
-            "Note that this may look strange if you have the same document in "
-            "multiple views."))
+            "If enabled, lines that don't fit in the editor width are wrapped "
+            "by default. "
+            "Note: when the document is displayed by multiple views, they all "
+            "share the same line wrapping width, which might look strange."))
 
     def loadSettings(self):
         s = QSettings()

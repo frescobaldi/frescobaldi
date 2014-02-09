@@ -176,6 +176,7 @@ def menu_view(mainwindow):
     m.addAction(ac.view_next_document)
     m.addAction(ac.view_previous_document)
     m.addSeparator()
+    m.addAction(ac.view_wrap_lines)
     m.addAction(documentactions.get(mainwindow).actionCollection.view_highlighting)
     m.addAction(sidebar.SideBarManager.instance(mainwindow).actionCollection.view_linenumbers)
     m.addMenu(menu_view_folding(mainwindow))
