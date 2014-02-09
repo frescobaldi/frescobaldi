@@ -177,6 +177,8 @@ class View(QPlainTextEdit):
         self.setFont(data.font)
         self.setPalette(data.palette())
         self.setTabWidth()
+        wrap = QSettings().value("view_preferences/wrap_lines", False, bool)
+        self.setLineWrapMode(QPlainTextEdit.WidgetWidth if wrap else QPlainTextEdit.NoWrap)
         
     def slotDocumentClosed(self):
         if self.hasFocus():

@@ -43,10 +43,42 @@ class Editor(preferences.GroupsPage):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
+        layout.addWidget(ViewSettings(self))
         layout.addWidget(Highlighting(self))
         layout.addWidget(Indenting(self))
         layout.addWidget(SourceExport(self))
         layout.addStretch()
+
+
+class ViewSettings(preferences.Group):
+    def __init__(self, page):
+        super(ViewSettings, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.wrapLines = QCheckBox(toggled=self.changed)
+        
+        layout.addWidget(self.wrapLines)
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setTitle(_("View Preferences"))
+        self.wrapLines.setText(_("Wrap long lines"))
+        self.wrapLines.setToolTip('<qt>' + _(
+            "If enabled, lines that don't fit in the editor width are wrapped. "
+            "Note that this may look strange if you have the same document in "
+            "multiple views."))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("view_preferences")
+        self.wrapLines.setChecked(s.value("wrap_lines", False, bool))
+    
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("view_preferences")
+        s.setValue("wrap_lines", self.wrapLines.isChecked())
 
 
 class Highlighting(preferences.Group):
