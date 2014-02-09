@@ -11,7 +11,8 @@ Changes in 2.0.14 --
     syntax in LilyPond 2.18, such as \hide, \omit, \undo, \override, \tweak,
     \accidentalStyle, etc.
   - New editor option to wrap lines in the editor view to avoid horizontal
-    scrolling
+    scrolling (wish #45)
+  - Custom engrave: the anti-alias-factor can be set in the dialog (wish #361)
   - on Mac OS X the applications remains running when all main windows are
     closed. This is expected behaviour on Mac OS X.
 * Improvements:

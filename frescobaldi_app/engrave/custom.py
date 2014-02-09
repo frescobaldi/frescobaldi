@@ -26,9 +26,9 @@ from __future__ import unicode_literals
 import os
 import collections
 
-from PyQt4.QtCore import QSettings, QSize
+from PyQt4.QtCore import QSettings, QSize, Qt
 from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
-    QGridLayout, QLabel, QTextEdit)
+    QGridLayout, QLabel, QSpinBox, QTextEdit)
 
 import app
 import documentinfo
@@ -63,6 +63,9 @@ class Dialog(QDialog):
         self.resolutionLabel = QLabel()
         self.resolutionCombo = QComboBox(editable=True)
         
+        self.antialiasLabel = QLabel()
+        self.antialiasSpin = QSpinBox(minimum=1, maximum=128, value=1)
+        
         self.modeLabel = QLabel()
         self.modeCombo = QComboBox()
         
@@ -82,19 +85,21 @@ class Dialog(QDialog):
         
         self.modeCombo.addItems(['preview', 'publish', 'debug'])
         layout.addWidget(self.versionLabel, 0, 0)
-        layout.addWidget(self.versionCombo, 0, 1)
+        layout.addWidget(self.versionCombo, 0, 1, 1, 3)
         layout.addWidget(self.outputLabel, 1, 0)
-        layout.addWidget(self.outputCombo, 1, 1)
+        layout.addWidget(self.outputCombo, 1, 1, 1, 3)
         layout.addWidget(self.resolutionLabel, 2, 0)
         layout.addWidget(self.resolutionCombo, 2, 1)
+        layout.addWidget(self.antialiasLabel, 2, 2, Qt.AlignRight)
+        layout.addWidget(self.antialiasSpin, 2, 3)
         layout.addWidget(self.modeLabel, 3, 0)
-        layout.addWidget(self.modeCombo, 3, 1)
-        layout.addWidget(self.englishCheck, 4, 0, 1, 2)
-        layout.addWidget(self.deleteCheck, 5, 0, 1, 2)
-        layout.addWidget(self.commandLineLabel, 6, 0, 1, 2)
-        layout.addWidget(self.commandLine, 7, 0, 1, 2)
-        layout.addWidget(widgets.Separator(), 8, 0, 1, 2)
-        layout.addWidget(self.buttons, 9, 0, 1, 2)
+        layout.addWidget(self.modeCombo, 3, 1, 1, 3)
+        layout.addWidget(self.englishCheck, 4, 0, 1, 4)
+        layout.addWidget(self.deleteCheck, 5, 0, 1, 4)
+        layout.addWidget(self.commandLineLabel, 6, 0, 1, 4)
+        layout.addWidget(self.commandLine, 7, 0, 1, 4)
+        layout.addWidget(widgets.Separator(), 8, 0, 1, 4)
+        layout.addWidget(self.buttons, 9, 0, 1, 4)
         
         app.translateUI(self)
         qutil.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
@@ -123,6 +128,7 @@ class Dialog(QDialog):
         self.modeCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.deleteCheck.toggled.connect(self.makeCommandLine)
         self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
+        self.antialiasSpin.valueChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
         panelmanager.manager(mainwindow).layoutcontrol.widget().optionsChanged.connect(self.makeCommandLine)
     
@@ -131,6 +137,7 @@ class Dialog(QDialog):
         self.versionLabel.setText(_("LilyPond Version:"))
         self.outputLabel.setText(_("Output Format:"))
         self.resolutionLabel.setText(_("Resolution:"))
+        self.antialiasLabel.setText(_("Antialias Factor:"))
         self.modeLabel.setText(_("Engraving mode:"))
         self.modeCombo.setItemText(0, _("Preview"))
         self.modeCombo.setItemText(1, _("Publish"))
@@ -171,6 +178,7 @@ class Dialog(QDialog):
         """Reads the widgets and builds a command line."""
         f = formats[self.outputCombo.currentIndex()]
         self.resolutionCombo.setEnabled('resolution' in f.widgets)
+        self.antialiasSpin.setEnabled('antialias' in f.widgets)
         cmd = ["$lilypond"]
         
         if self.modeCombo.currentIndex() == 0:   # preview mode
@@ -188,6 +196,7 @@ class Dialog(QDialog):
         d = {
             'version': self._infos[self.versionCombo.currentIndex()].version,
             'resolution': self.resolutionCombo.currentText(),
+            'antialias': self.antialiasSpin.value(),
         }
         cmd.append("$include")
         cmd.extend(f.options(d))
@@ -236,8 +245,12 @@ formats = [
     Format(
         "png",
         lambda: _("PNG"),
-        lambda d: ['--png', '-dresolution={resolution}'.format(**d)],
-        ('resolution',),
+        lambda d: [
+            '--png',
+            '-dresolution={resolution}'.format(**d),
+            '-danti-alias-factor={antialias}'.format(**d),
+        ],
+        ('resolution', 'antialias'),
     ),
     Format(
         "svg",
@@ -260,8 +273,13 @@ formats = [
     Format(
         "png",
         lambda: _("PNG (EPS Backend)"),
-        lambda d: ['--png', '-dbackend=eps', '-dresolution={resolution}'.format(**d)],
-        ('resolution',),
+        lambda d: [
+            '--png',
+            '-dbackend=eps',
+            '-dresolution={resolution}'.format(**d),
+            '-danti-alias-factor={antialias}'.format(**d),
+        ],
+        ('resolution', 'antialias'),
     ),
 ]
 
