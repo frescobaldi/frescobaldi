@@ -174,8 +174,12 @@ class parse_source():
             self.scale = token
         self.mediator.new_rest(token)
 
+    def Spacer(self, token):
+        """ invisible rest/spacer rest (s) """
+        self.mediator.new_rest(token)
+
     def Skip(self, token):
-        """ invisible rest (s) or command \skip """
+        """ command \skip """
         self.mediator.new_rest('s')
 
     def Scaling(self, token):
@@ -254,6 +258,6 @@ class parse_source():
                         if obj.skip:
                             self.musxml.new_skip(obj.duration, self.mediator.divisions)
                         else:
-                            self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos)
+                            self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot)
 
 

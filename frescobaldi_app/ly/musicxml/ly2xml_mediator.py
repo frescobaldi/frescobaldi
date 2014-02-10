@@ -126,25 +126,28 @@ class mediator():
 
     def new_rest(self, rtype, pos=0):
         if rtype == 'r':
-            self.current_note = bar_rest(self.duration, pos)
+            self.current_note = bar_rest(self.base_scaling, self.duration, pos)
         elif rtype == 'R':
-            self.current_note = bar_rest(self.duration, pos, show_type=False)
+            self.current_note = bar_rest(self.base_scaling, self.duration, pos, show_type=False)
         elif rtype == 's':
-            self.current_note = bar_rest(self.duration, pos, skip=True)
+            self.current_note = bar_rest(self.base_scaling, self.duration, pos, skip=True)
         self.bar.append(self.current_note)
         self.current_attr = bar_attr()
 
     def note2rest(self):
         """ note used as rest position transformed to rest"""
         temp_note = self.current_note
-        self.current_note = bar_rest(temp_note.duration, [temp_note.step, str(temp_note.octave)])
+        self.current_note = bar_rest(temp_note.duration, self.duration, [temp_note.base_note, temp_note.pitch.octave])
         self.bar.pop()
         self.bar.append(self.current_note)
 
     def scale_rest(self, multp, new_bar=False):
         """ create multiple whole bar rests """
+        import copy
+        bar_copy = copy.deepcopy(self.bar)
+        bar_copy[0] = bar_attr()
         for i in range(1, int(multp)):
-            self.insert_into.barlist.append(self.bar)
+            self.insert_into.barlist.append(bar_copy)
         if new_bar:
             self.new_bar()
 
@@ -274,8 +277,8 @@ class bar_note():
 
 class bar_rest():
     """ object to keep track of different rests and skips """
-    def __init__(self, durval, pos, show_type=True, skip=False):
-        self.duration = durval
+    def __init__(self, base_scaling, durval, pos, show_type=True, skip=False):
+        self.duration = base_scaling
         self.show_type = show_type
         if self.show_type:
             self.type = durval2type(durval)
@@ -283,15 +286,19 @@ class bar_rest():
             self.type = None
         self.skip = skip
         self.tuplet = 0
+        self.dot = 0
         self.pos = pos
 
-    def set_duration(self, base_scaling, durval=0):
+    def set_duration(self, base_scaling, durval=0, durtype=None):
         self.duration = base_scaling
         if durval:
             if self.show_type:
                 self.type = durval2type(durval)
             else:
                 self.type = None
+
+    def add_dot(self):
+        self.dot = self.dot + 1
 
 
 class bar_attr():
