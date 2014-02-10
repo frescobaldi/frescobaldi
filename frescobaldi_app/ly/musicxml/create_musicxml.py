@@ -76,8 +76,10 @@ class create_musicXML():
     # High-level node creation
     ##
 
-    def new_note(self, grace, pitch, org_len, durtype, divs, dot):
+    def new_note(self, grace, pitch, base_scaling, durtype, divs, dot):
         """ create all nodes needed for a note. """
+        base = base_scaling[0]
+        scaling = base_scaling[1]
         self.create_note()
         if grace[0]:
             self.add_grace(grace[1])
@@ -88,10 +90,11 @@ class create_musicXML():
                 den = int(math.pow(2,dot))
                 num = int(math.pow(2,dot+1)-1)
                 a = divs*4*num
-                b = int(org_len)*den
+                b = (1/base)*den
                 duration = a/b
             else:
-                duration = divs*4/int(org_len)
+                duration = divs*4*base
+            duration = duration * scaling
             self.add_div_duration(duration)
         self.add_duration_type(durtype)
         if dot:
@@ -100,11 +103,13 @@ class create_musicXML():
         if pitch[1]:
             self.add_accidental(pitch[1])
 
-    def tuplet_note(self, fraction, org_len, ttype, divs):
+    def tuplet_note(self, fraction, base_scaling, ttype, divs):
         """ convert current note to tuplet """
-        a = divs*4*int(fraction[1])
-        b = int(org_len)*int(fraction[0])
-        duration = a/b
+        base = base_scaling[0]
+        scaling = base_scaling[1]
+        a = divs*4*fraction.denominator
+        b = (1/base)*fraction.numerator
+        duration = (a/b)*scaling
         self.change_div_duration(duration)
         self.add_time_modify(fraction)
         if ttype:
@@ -116,17 +121,33 @@ class create_musicXML():
         self.add_notations()
         self.add_tied(tie_type)
 
-    def new_rest(self, org_len, durtype, divs, pos):
+    def new_rest(self, base_scaling, durtype, divs, pos, dot):
         """ create all nodes needed for a rest. """
+        base = base_scaling[0]
+        scaling = base_scaling[1]
         self.create_note()
         self.add_rest(pos)
-        duration = divs*4/int(org_len)
+        if dot:
+            import math
+            den = int(math.pow(2,dot))
+            num = int(math.pow(2,dot+1)-1)
+            a = divs*4*num
+            b = (1/base)*den
+            duration = a/b
+        else:
+            duration = divs*4*base
+        duration = duration * scaling
         self.add_div_duration(duration)
         if durtype:
             self.add_duration_type(durtype)
+        if dot:
+            for i in range(dot):
+                self.add_dot()
 
-    def new_skip(self, org_len, divs):
-        duration = divs*4/int(org_len)
+    def new_skip(self, base_scaling, divs):
+        base = base_scaling[0]
+        scaling = base_scaling[1]
+        duration = divs*4*base*scaling
         self.add_skip(duration)
 
     def new_bar_attr(self, clef, mustime, key, mode, divs):
@@ -194,8 +215,8 @@ class create_musicXML():
         if pos:
             step = etree.SubElement(restnode, "display-step")
             octave = etree.SubElement(restnode, "display-octave")
-            step.text = pos[0]
-            octave.text = pos[1]
+            step.text = str(pos[0])
+            octave.text = str(pos[1])
 
     def add_skip(self, duration, forward=True):
         if forward:
@@ -246,9 +267,9 @@ class create_musicXML():
         """ create time modification """
         timemod_node = etree.SubElement(self.current_note, "time-modification")
         actual_notes = etree.SubElement(timemod_node, "actual-notes")
-        actual_notes.text = fraction[0]
+        actual_notes.text = str(fraction.numerator)
         norm_notes = etree.SubElement(timemod_node, "normal-notes")
-        norm_notes.text = fraction[1]
+        norm_notes.text = str(fraction.denominator)
 
     def add_tuplet_type(self, ttype):
         """ create tuplet with type attribute """

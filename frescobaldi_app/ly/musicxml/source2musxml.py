@@ -42,6 +42,7 @@ class parse_source():
         self.can_create_sect = True
         self.can_create_part = False
         self.tuplet = False
+        self.scale = ''
         self.grace_seq = False
 
     def parse_text(self, text, mode=None):
@@ -173,14 +174,21 @@ class parse_source():
             self.scale = token
         self.mediator.new_rest(token)
 
+    def Spacer(self, token):
+        """ invisible rest/spacer rest (s) """
+        self.mediator.new_rest(token)
+
     def Skip(self, token):
-        """ invisible rest (s) or command \skip """
+        """ command \skip """
         self.mediator.new_rest('s')
 
     def Scaling(self, token):
-        """ scaling, e.g. *3 """
+        """ scaling, e.g. *3 or *2/3"""
         if self.scale == 'R':
             self.mediator.scale_rest(token[1:])
+            self.scale = ''
+        else:
+            self.mediator.scale_duration(token)
 
     def Fraction(self, token):
         """ fraction, e.g. 3/4
@@ -250,6 +258,6 @@ class parse_source():
                         if obj.skip:
                             self.musxml.new_skip(obj.duration, self.mediator.divisions)
                         else:
-                            self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos)
+                            self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot)
 
 
