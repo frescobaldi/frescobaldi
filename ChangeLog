@@ -10,6 +10,11 @@ Changes in 2.0.14 --
   - highlighting and auto-completion for commands that are new or have changed
     syntax in LilyPond 2.18, such as \hide, \omit, \undo, \override, \tweak,
     \accidentalStyle, etc.
+  - New editor option to wrap lines in the editor view to avoid horizontal
+    scrolling (wish #45)
+  - Custom engrave: the anti-alias-factor can be set in the dialog (wish #361)
+  - on Mac OS X the applications remains running when all main windows are
+    closed. This is expected behaviour on Mac OS X.
 * Improvements:
   - Print source, Copy colored HTML and Export source as colored HTML: add line
     numbers if enabled in the preferences.

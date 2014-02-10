@@ -255,9 +255,17 @@ class Chord(Durable, Container):
     pass
 
 
+class Unpitched(Durable):
+    """A "note" without pitch, just a standalone duration."""
+    pitch = None
+
+
 class Note(Durable):
     """A Note that has a ly.pitch.Pitch"""
     pitch = None
+    octave_token = None
+    accidental_token = None
+    octavecheck_token = None
 
 
 class Skip(Durable):
@@ -967,6 +975,9 @@ class Reader(object):
                 tokens.append(token)
             for token in source:
                 if isinstance(token, lilypond.Duration):
+                    if tokens and isinstance(token, lilypond.Length):
+                        self.source.pushback()
+                        break
                     tokens.append(token)
                 elif not isinstance(token, lex.Space):
                     self.source.pushback()
@@ -1061,6 +1072,12 @@ class Reader(object):
     @_tokencls(lilypond.MusicItem)
     def handle_music_item(self, t, source):
         return self.read_music_item(t, source)
+    
+    @_tokencls(lilypond.Length)
+    def handle_length(self, t, source):
+        item = self.factory(Unpitched, None)
+        self.add_duration(item, t, source)
+        return item
     
     @_tokencls(lilypond.ChordStart)
     def handle_chord_start(self, t, source):

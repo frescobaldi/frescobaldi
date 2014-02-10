@@ -144,7 +144,7 @@ def main():
     import wordboundary     # better wordboundary behaviour for the editor
     
     if sys.platform.startswith('darwin'):
-        import macosx
+        import macosx.setup
     
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager

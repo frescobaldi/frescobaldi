@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Acessing the snippets data.
+Accessing the snippets data.
 """
 
 from __future__ import unicode_literals
