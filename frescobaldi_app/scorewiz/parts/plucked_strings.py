@@ -25,7 +25,10 @@ from __future__ import unicode_literals
 
 import __builtin__
 
-from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
+from PyQt4.QtGui import (
+    QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel,
+    QLineEdit, QSpinBox,
+)
 
 import listmodel
 import ly.dom
@@ -64,13 +67,17 @@ class TablaturePart(_base.Part):
         self.tuningLabel.setBuddy(self.tuning)
         tunings = [('', lambda: _("Default"))]
         tunings.extend(self.tunings)
+        tunings.append(('', lambda: _("Custom")))
         self.tuning.setModel(listmodel.ListModel(tunings, self.tuning,
             display=listmodel.translate_index(1)))
         self.tuning.setCurrentIndex(1)
+        self.customTuning = QLineEdit(enabled=False)
+        self.tuning.currentIndexChanged.connect(self.slotCustomTuningEnable)
         box = QHBoxLayout()
         layout.addLayout(box)
         box.addWidget(self.tuningLabel)
         box.addWidget(self.tuning)
+        layout.addWidget(self.customTuning)
     
     def translateWidgets(self):
         self.staffTypeLabel.setText(_("Staff type:"))
@@ -80,6 +87,15 @@ class TablaturePart(_base.Part):
     
     def translateTuningWidgets(self):
         self.tuningLabel.setText(_("Tuning:"))
+        self.customTuning.setToolTip('<qt>' + _(
+            "Select custom tuning in the combobox and "
+            "enter a custom tuning here, e.g. <code>e, a d g b e'</code>. "
+            "Use the same language for note names as you want to use in your "
+            "document (by default: \"nederlands\")."))
+        try:
+            self.customTuning.setPlaceholderText(_("Custom tuning..."))
+        except AttributeError:
+            pass # only in Qt 4.7+
         self.tuning.model().update()
     
     def slotTabEnable(self, enable):
@@ -89,6 +105,13 @@ class TablaturePart(_base.Part):
         
         """
         self.tuning.setEnabled(bool(enable))
+        if enable:
+            self.slotCustomTuningEnable(self.tuning.currentIndex())
+        else:
+            self.customTuning.setEnabled(False)
+    
+    def slotCustomTuningEnable(self, index):
+        self.customTuning.setEnabled(index > len(self.tunings))
     
     def voiceCount(self):
         """Returns the number of voices.
@@ -163,9 +186,16 @@ class TablaturePart(_base.Part):
         data.nodes.append(p)
 
     def setTunings(self, tab):
-        if self.tunings and self.tuning.currentIndex() > 0:
-            tuning = self.tunings[self.tuning.currentIndex() - 1][0]
-            tab.getWith()['stringTunings'] = ly.dom.Scheme(tuning)
+        if self.tunings:
+            i = self.tuning.currentIndex()
+            if i == 0:
+                return
+            elif i > len(self.tunings):
+                value = ly.dom.Text("\\stringTuning <{0}>".format(self.customTuning.text()))
+            else:
+                tuning = self.tunings[self.tuning.currentIndex() - 1][0]
+                value = ly.dom.Scheme(tuning)
+            tab.getWith()['stringTunings'] = value
 
 
 tablatureStaffTypes = (
