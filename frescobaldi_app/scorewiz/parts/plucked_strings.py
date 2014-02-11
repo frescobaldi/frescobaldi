@@ -191,6 +191,24 @@ class Mandolin(TablaturePart):
     )
     
 
+class Ukulele(TablaturePart):
+    @staticmethod
+    def title(_=__builtin__._):
+        return _("Ukulele")
+    
+    @staticmethod
+    def short(_=__builtin__._):
+        return _("abbreviation for Ukulele", "Uk.")
+    
+    midiInstrument = 'acoustic guitar (steel)'
+    tunings = (
+        ('ukulele-tuning', lambda: _("Ukulele tuning")),
+        ('ukulele-d-tuning', lambda: _("Ukulele D-tuning")),
+        ('tenor-ukulele-tuning', lambda: _("Tenor Ukulele tuning")),
+        ('baritone-ukulele-tuning', lambda: _("Baritone Ukulele tuning")),
+    )
+
+
 class Banjo(TablaturePart):
     @staticmethod
     def title(_=__builtin__._):
@@ -241,9 +259,15 @@ class ClassicalGuitar(TablaturePart):
     clef = "treble_8"
     tunings = (
         ('guitar-tuning', lambda: _("Guitar tuning")),
+        ('guitar-seven-string-tuning', lambda: _("Guitar seven-string tuning")),
+        ('guitar-drop-d-tuning', lambda: _("Guitar drop-D tuning")),
+        ('guitar-drop-c-tuning', lambda: _("Guitar drop-C tuning")),
         ('guitar-open-g-tuning', lambda: _("Open G-tuning")),
+        ('guitar-open-d-tuning', lambda: _("Guitar open D tuning")),
+        ('guitar-dadgad-tuning', lambda: _("Guitar d-a-d-g-a-d tuning")),
+        ('guitar-lute-tuning', lambda: _("Lute tuning")),
+        ('guitar-asus4-tuning', lambda: _("Guitar A-sus4 tuning")),
     )
-
     def createWidgets(self, layout):
         super(ClassicalGuitar, self).createWidgets(layout)
         self.voicesLabel = QLabel()
@@ -287,6 +311,10 @@ class Bass(TablaturePart):
     octave = -2
     tunings = (
         ('bass-tuning', lambda: _("Bass tuning")),
+        ('bass-four-string-tuning', lambda: _("Four-string bass tuning")),
+        ('bass-drop-d-tuning', lambda: _("Bass drop-D tuning")),
+        ('bass-five-string-tuning', lambda: _("Five-string bass tuning")),
+        ('bass-six-string-tuning', lambda: _("Six-string bass tuning")),
     )
 
 
@@ -336,6 +364,7 @@ register(
     [
         Mandolin,
         Banjo,
+        Ukulele,
         ClassicalGuitar,
         JazzGuitar,
         Bass,
