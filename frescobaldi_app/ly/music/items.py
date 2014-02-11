@@ -527,6 +527,7 @@ class TimeSignature(Item):
     """A \\time command."""
     _num = 4
     _fraction = Fraction(1, 4)
+    _beatstructure = None
 
     def measure_length(self):
         """The length of one measure in this time signature as a Fraction."""
@@ -539,6 +540,10 @@ class TimeSignature(Item):
     def fraction(self):
         """The lower number as a Fraction (e.g. for 3/2 it returns 1/2)."""
         return self._fraction
+    
+    def beatstructure(self):
+        """The scheme expressions denoting the beat structure, if specified."""
+        return self._beatstructure
 
 
 class Partial(Item):
@@ -847,6 +852,10 @@ class Scheme(Item):
         result = [int(i.token) for i in self.find(SchemeItem) if i.token.isdigit()]
         if len(result) >= 2:
             return tuple(result[:2])
+    
+    def get_list_ints(self):
+        """A basic way to get a list of integer values."""
+        return [int(i.token) for i in self.find(SchemeItem) if i.token.isdigit()]
     
     def get_int(self):
         """A basic way to get one integer value."""
@@ -1506,7 +1515,10 @@ class Reader(object):
     def handle_time(self, t, source):
         item = self.factory(TimeSignature, t)
         for t in skip(source):
-            if isinstance(t, lilypond.Fraction):
+            if isinstance(t, lilypond.SchemeStart):
+                item._beatstructure = self.read_scheme_item(t)
+                continue
+            elif isinstance(t, lilypond.Fraction):
                 item._num, den = map(int, t.split('/'))
                 item._fraction = Fraction(1, den)
             else:
