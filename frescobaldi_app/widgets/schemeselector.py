@@ -165,7 +165,7 @@ class SchemeSelector(QWidget):
     def slotImport(self):
         filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import color theme"))
-        filename = QFileDialog.getOpenFileName(self, caption, os.environ['HOME'], filetypes)
+        filename = QFileDialog.getOpenFileName(self, caption, QDir.homePath(), filetypes)
         if filename:
             self.parent().import_(filename)
     
