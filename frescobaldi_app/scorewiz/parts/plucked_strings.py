@@ -26,11 +26,12 @@ from __future__ import unicode_literals
 import __builtin__
 
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel,
+    QCheckBox, QComboBox, QCompleter, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QSpinBox,
 )
 
 import listmodel
+import completionmodel
 import ly.dom
 
 from . import _base
@@ -72,6 +73,10 @@ class TablaturePart(_base.Part):
             display=listmodel.translate_index(1)))
         self.tuning.setCurrentIndex(1)
         self.customTuning = QLineEdit(enabled=False)
+        c = QCompleter(completionmodel.model(
+            "scorewiz/completion/plucked_strings/custom_tuning"), self.customTuning)
+        self.customTuning.setCompleter(c)
+        layout.parentWidget().window().accepted.connect(self.saveCompletion)
         self.tuning.currentIndexChanged.connect(self.slotCustomTuningEnable)
         box = QHBoxLayout()
         layout.addLayout(box)
@@ -112,6 +117,13 @@ class TablaturePart(_base.Part):
     
     def slotCustomTuningEnable(self, index):
         self.customTuning.setEnabled(index > len(self.tunings))
+    
+    def saveCompletion(self):
+        """Called when the scorewizard dialog is accepted."""
+        if self.customTuning.isEnabled():
+            text = self.customTuning.text().strip()
+            if text:
+                self.customTuning.completer().model().addString(text)
     
     def voiceCount(self):
         """Returns the number of voices.
