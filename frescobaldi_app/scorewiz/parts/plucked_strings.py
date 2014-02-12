@@ -67,7 +67,7 @@ class TablaturePart(_base.Part):
         self.tuningLabel.setBuddy(self.tuning)
         tunings = [('', lambda: _("Default"))]
         tunings.extend(self.tunings)
-        tunings.append(('', lambda: _("Custom")))
+        tunings.append(('', lambda: _("Custom tuning")))
         self.tuning.setModel(listmodel.ListModel(tunings, self.tuning,
             display=listmodel.translate_index(1)))
         self.tuning.setCurrentIndex(1)
@@ -268,13 +268,18 @@ class Banjo(TablaturePart):
         self.fourStrings.setText(_("Four strings (instead of five)"))
     
     def setTunings(self, tab):
-        if not self.fourStrings.isChecked():
+        i = self.tuning.currentIndex()
+        if i > len(self.tunings) or not self.fourStrings.isChecked():
             super(Banjo, self).setTunings(tab)
         else:
             tab.getWith()['stringTunings'] = ly.dom.Scheme(
                 '(four-string-banjo {0})'.format(
-                    self.tunings[self.tuning.currentIndex()][0]))
+                    self.tunings[i][0]))
 
+    def slotCustomTuningEnable(self, index):
+        super(Banjo, self).slotCustomTuningEnable(index)
+        self.fourStrings.setEnabled(index <= len(self.tunings))
+    
 
 class ClassicalGuitar(TablaturePart):
     @staticmethod
