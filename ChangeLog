@@ -13,9 +13,11 @@ Changes in 2.0.14 --
   - New editor option to wrap lines in the editor view to avoid horizontal
     scrolling (wish #45)
   - Custom engrave: the anti-alias-factor can be set in the dialog (wish #361)
-  - on Mac OS X the applications remains running when all main windows are
+  - on Mac OS X the applications remains active when all main windows are
     closed. This is expected behaviour on Mac OS X.
 * Improvements:
+  - In the score wizard it is possible to enter a custom string tuning for the
+    plucked string instruments, and the Ukulele is added (issue #342)
   - Print source, Copy colored HTML and Export source as colored HTML: add line
     numbers if enabled in the preferences.
   - In the Editor preferences, it is adjustable whether HTML export or copy use
