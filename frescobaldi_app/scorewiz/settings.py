@@ -72,7 +72,6 @@ class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
         scorewiz = self.window()
         scorewiz.pitchLanguageChanged.connect(self.setPitchLanguage)
         self.setPitchLanguage(scorewiz.pitchLanguage())
-        scorewiz.accepted.connect(self.saveCompletions)
         
     def translateUI(self):
         self.translateWidgets()

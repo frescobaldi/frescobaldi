@@ -231,9 +231,8 @@ class ScoreProperties(object):
     def createTempoWidget(self):
         self.tempoLabel = QLabel()
         self.tempo = widgets.lineedit.LineEdit()
-        c = QCompleter(completionmodel.model("scorewiz/completion/scoreproperties/tempo"), self.tempo)
-        c.setCaseSensitivity(Qt.CaseInsensitive)
-        self.tempo.setCompleter(c)
+        completionmodel.complete(self.tempo, "scorewiz/completion/scoreproperties/tempo")
+        self.tempo.completer().setCaseSensitivity(Qt.CaseInsensitive)
         self.tempoLabel.setBuddy(self.tempo)
 
     def layoutTempoWidget(self, layout):
@@ -244,12 +243,6 @@ class ScoreProperties(object):
 
     def translateTempoWidget(self):
         self.tempoLabel.setText(_("Tempo indication:"))
-
-    def saveCompletions(self):
-        """Saves the completions in the tempo line edit."""
-        text = self.tempo.text().strip()
-        if text:
-            self.tempo.completer().model().addString(text)
 
     def lyTempo(self, node, builder):
         """Returns an appropriate tempo indication."""

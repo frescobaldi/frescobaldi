@@ -74,11 +74,9 @@ class HeaderWidget(QWidget):
             grid.addWidget(e, row, 1)
             self.labels[name] = l
             self.edits[name] = e
-            c = QCompleter(completionmodel.model("scorewiz/completion/header/"+name), e)
-            c.setCaseSensitivity(Qt.CaseInsensitive)
-            e.setCompleter(c)
+            completionmodel.complete(e, "scorewiz/completion/header/"+name)
+            e.completer().setCaseSensitivity(Qt.CaseInsensitive)
         
-        self.window().accepted.connect(self.saveCompletions)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         app.translateUI(self)
@@ -99,12 +97,6 @@ class HeaderWidget(QWidget):
                              for i in range(tabwidget.count())))
         qutil.addAccelerators([self.labels[name] for name, desc in headers()], used)
 
-    def saveCompletions(self):
-        for edit in self.edits.values():
-            text = edit.text().strip()
-            if text:
-                edit.completer().model().addString(text)
-            
     def readSettings(self):
         p = self.htmlView.palette()
         p.setColor(QPalette.Base, textformats.formatData('editor').baseColors['paper'])

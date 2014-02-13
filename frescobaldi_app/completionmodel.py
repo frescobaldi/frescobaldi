@@ -22,9 +22,10 @@ A simple persistent completion model (e.g. for QLineEdits).
 """
 
 import atexit
+import weakref
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QStringListModel
+from PyQt4.QtCore import QSettings, QTimer
+from PyQt4.QtGui import QCompleter, QStringListModel
 
 _models = {}
 
@@ -43,6 +44,52 @@ def model(key):
         m = _models[key] = Model(key)
         atexit.register(m.save)
         return m
+
+
+def complete(lineedit, key):
+    """A convenience function that installs a completer on the QLineEdit.
+    
+    The key is the QSettings key used to store the completions persistently.
+    By default, the function tries to add the text in the line edit to 
+    the stored completions when the window() of the lineedit is a Dialog
+    and its accepted signal is fired.
+    
+    Returned is a callable a signal can be connected to, that stores the text
+    in the line edit in the completions. (You don't have to use that if your
+    widget is in a QDialog that has an accepted() signal.)
+    
+    """
+    m = model(key)
+    c = QCompleter(m, lineedit)
+    lineedit.setCompleter(c)
+    def store(completer = weakref.ref(c)):
+        """Stores the contents of the line edit in the completer's model.
+        
+        Does not keep a reference to any object.
+        
+        """
+        c = completer()
+        if c:
+            model = c.model()
+            lineedit = c.parent()
+            if model and lineedit:
+                text = lineedit.text().strip()
+                if text:
+                    model.addString(text)
+    def connect():
+        """Try to connect the store() function to the accepted() signal of the parent QDialog.
+        
+        Return True if that succeeds, else False.
+        
+        """
+        dlg = lineedit.window()
+        try:
+            dlg.accepted.connect(store)
+        except AttributeError:
+            return False
+        return True
+    connect() or QTimer.singleShot(0, connect)
+    return store
 
 
 class Model(QStringListModel):

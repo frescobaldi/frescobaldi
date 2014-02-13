@@ -73,10 +73,8 @@ class TablaturePart(_base.Part):
             display=listmodel.translate_index(1)))
         self.tuning.setCurrentIndex(1)
         self.customTuning = QLineEdit(enabled=False)
-        c = QCompleter(completionmodel.model(
-            "scorewiz/completion/plucked_strings/custom_tuning"), self.customTuning)
-        self.customTuning.setCompleter(c)
-        layout.parentWidget().window().accepted.connect(self.saveCompletion)
+        completionmodel.complete(self.customTuning,
+            "scorewiz/completion/plucked_strings/custom_tuning")
         self.tuning.currentIndexChanged.connect(self.slotCustomTuningEnable)
         box = QHBoxLayout()
         layout.addLayout(box)
@@ -117,13 +115,6 @@ class TablaturePart(_base.Part):
     
     def slotCustomTuningEnable(self, index):
         self.customTuning.setEnabled(index > len(self.tunings))
-    
-    def saveCompletion(self):
-        """Called when the scorewizard dialog is accepted."""
-        if self.customTuning.isEnabled():
-            text = self.customTuning.text().strip()
-            if text:
-                self.customTuning.completer().model().addString(text)
     
     def voiceCount(self):
         """Returns the number of voices.
