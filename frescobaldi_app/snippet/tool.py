@@ -131,6 +131,7 @@ class SnippetActions(actioncollection.ShortcutCollection):
         self.setDefaultShortcuts('uppercase', [QKeySequence('Ctrl+U')])
         self.setDefaultShortcuts('lowercase', [QKeySequence('Ctrl+Shift+U')])
         self.setDefaultShortcuts('last_note', [QKeySequence('Ctrl+;')])
+        self.setDefaultShortcuts('double', [QKeySequence('Ctrl+D')])
         
     def realAction(self, name):
         from . import actions, model

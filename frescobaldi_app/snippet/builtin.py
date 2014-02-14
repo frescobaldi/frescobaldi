@@ -371,6 +371,28 @@ else:
 """),
 
 
+'double': T(_("Double selection or current line"),
+r"""-*- python; indent: no;
+-*- python;
+def main():
+    if not cursor.hasSelection():
+        cursor.movePosition(cursor.StartOfBlock)
+        if not cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor):
+            cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
+            t = '\n' + cursor.selection().toPlainText() + '\n'
+        else:
+            t = cursor.selection().toPlainText()
+    else:
+        t = cursor.selection().toPlainText()
+    cursor.movePosition(cursor.selectionEnd())
+    cursor.clearSelection()
+    cursor.insertText(t)
+    if t.endswith('\n'):
+        cursor.movePosition(cursor.Left)
+    return cursor
+"""),
+
+
 'comment': T(_("Comment"),
 r"""-*- python; indent: no;
 # determine state
