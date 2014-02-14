@@ -373,9 +373,11 @@ else:
 
 'double': T(_("Double selection or current line"),
 r"""-*- python; indent: no;
--*- python;
 def main():
     if not cursor.hasSelection():
+        while not cursor.block().text() or cursor.block().text().isspace():
+            if not cursor.movePosition(cursor.PreviousBlock):
+                break
         cursor.movePosition(cursor.StartOfBlock)
         if not cursor.movePosition(cursor.NextBlock, cursor.KeepAnchor):
             cursor.movePosition(cursor.EndOfBlock, cursor.KeepAnchor)
