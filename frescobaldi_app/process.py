@@ -24,7 +24,7 @@ one process at a time.
 
 __all__ = ['Process', 'Scheduler']
 
-from PyQt4.QtCore import QObject, QProcess, pyqtSignal
+from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
 
 class Process(QObject):

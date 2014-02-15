@@ -23,8 +23,8 @@ Fonts and Colors preferences page.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import icons
@@ -275,7 +275,7 @@ class FontsColors(preferences.Page):
     
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
-        self._printScheme = QSettings().value("printer_scheme", "default", type(""))
+        self._printScheme = QSettings().value("printer_scheme", "default", str)
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
         
     def saveSettings(self):

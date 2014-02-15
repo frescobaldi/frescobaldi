@@ -25,9 +25,9 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from PyQt4.QtWebKit import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
+from PyQt5.QtWebKit import *
 
 import app
 import icons
@@ -96,7 +96,7 @@ class Browser(QWidget):
         s = QSettings()
         s.beginGroup("documentation")
         ws = self.webview.page().settings()
-        family = s.value("fontfamily", self.font().family(), type(""))
+        family = s.value("fontfamily", self.font().family(), str)
         size = s.value("fontsize", 16, int)
         ws.setFontFamily(QWebSettings.StandardFont, family)
         ws.setFontSize(QWebSettings.DefaultFontSize, size)

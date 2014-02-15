@@ -23,7 +23,7 @@ Functions to compose a bugreport via e-mail and to get version information.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QUrl
+from PyQt5.QtCore import QUrl
 
 import helpers
 import info
@@ -38,13 +38,13 @@ def versionInfo():
         sip_version = "unknown"
     
     try:
-        import PyQt4.QtCore
-        pyqt_version = PyQt4.QtCore.PYQT_VERSION_STR
+        import PyQt5.QtCore
+        pyqt_version = PyQt5.QtCore.PYQT_VERSION_STR
     except (ImportError, NameError):
         pyqt_version = "unknown"
     
     try:
-        qt_version = PyQt4.QtCore.QT_VERSION_STR
+        qt_version = PyQt5.QtCore.QT_VERSION_STR
     except NameError:
         qt_version = "unknown"
     
@@ -64,7 +64,7 @@ def versionInfoString():
     return (
         "Python: {python_version} -- "
         "Qt: {qt_version} -- "
-        "PyQt4: {pyqt_version} -- "
+        "PyQt5: {pyqt_version} -- "
         "sip: {sip_version}\n"
         "OS: {osname}".format(**versionInfo()))
     

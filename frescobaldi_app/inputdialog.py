@@ -23,8 +23,8 @@ Simple dialogs to ask input from the user.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import QCompleter, QColor, QColorDialog, QWidget
+from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtGui import QCompleter, QColor, QColorDialog, QWidget
 
 import app
 import widgets.dialog

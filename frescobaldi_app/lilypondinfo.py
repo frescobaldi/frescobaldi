@@ -28,8 +28,8 @@ import os
 import sys
 import re
 
-from PyQt4.QtCore import QEventLoop, QSettings, QTimer
-from PyQt4.QtGui import QProgressDialog
+from PyQt5.QtCore import QEventLoop, QSettings, QTimer
+from PyQt5.QtGui import QProgressDialog
 
 import app
 import cachedproperty
@@ -102,7 +102,7 @@ def preferred():
     s.beginGroup("lilypond_settings")
     # find default version
     defaultCommand = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
-    userDefault = s.value("default", defaultCommand, type(""))
+    userDefault = s.value("default", defaultCommand, str)
     if userDefault != defaultCommand:
         for info in infos_:
             if info.command == userDefault:
@@ -311,17 +311,17 @@ class LilyPondInfo(object):
         May return None, if the command is not existing.
         
         """
-        cmd = settings.value("command", "", type(""))
+        cmd = settings.value("command", "", str)
         if cmd:
             info = cls(cmd)
             if info.abscommand.wait():
                 info.auto = settings.value("auto", True, bool)
-                info.name = settings.value("name", "LilyPond", type(""))
-                info.lilypond_book = settings.value("lilypond-book", "lilypond-book", type(""))
-                info.convert_ly = settings.value("convert-ly", "convert-ly", type(""))
+                info.name = settings.value("name", "LilyPond", str)
+                info.lilypond_book = settings.value("lilypond-book", "lilypond-book", str)
+                info.convert_ly = settings.value("convert-ly", "convert-ly", str)
                 if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
-                    info.versionString = settings.value("version", "", type(""))
-                    datadir = settings.value("datadir", "", type(""))
+                    info.versionString = settings.value("version", "", str)
+                    datadir = settings.value("datadir", "", str)
                     if datadir and os.path.isdir(datadir):
                         info.datadir = datadir
                 return info

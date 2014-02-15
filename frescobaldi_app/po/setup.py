@@ -27,7 +27,7 @@ system.
 
 import locale
 
-from PyQt4.QtCore import QLocale, QSettings, QTimer
+from PyQt5.QtCore import QLocale, QSettings, QTimer
 
 import app
 
@@ -81,7 +81,7 @@ def current():
     is desired.
     
     """
-    return QSettings().value("language", "", type("")) or default() or "C"
+    return QSettings().value("language", "", str) or default() or "C"
 
 def _setup():
     """Set application language according to settings."""

@@ -33,8 +33,8 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4.QtCore import QObject, QSettings, Qt, SIGNAL
-from PyQt4.QtGui import QApplication, QSessionManager
+from PyQt5.QtCore import QObject, QSettings, Qt, SIGNAL
+from PyQt5.QtGui import QApplication, QSessionManager
 
 import info
 import app
@@ -99,6 +99,6 @@ def restoreSession():
         settings.endGroup()
     settings.endGroup()
 
-# the new-style way of connecting fails on PyQt4 4.8.x...
+# the new-style way of connecting fails on PyQt5 4.8.x...
 QObject.connect(app.qApp, SIGNAL("saveStateRequest(QSessionManager&)"), saveState)
 QObject.connect(app.qApp, SIGNAL("commitDataRequest(QSessionManager&)"), commitData)

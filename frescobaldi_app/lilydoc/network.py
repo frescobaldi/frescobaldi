@@ -21,8 +21,8 @@
 Network-related utility functions for LilyPond Documentation.
 """
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtNetwork import QNetworkReply, QNetworkRequest
+from PyQt5.QtCore import QSettings
+from PyQt5.QtNetwork import QNetworkReply, QNetworkRequest
 
 import app
 import po
@@ -55,10 +55,10 @@ def langs():
     """
     s = QSettings()
     langs = []
-    lang = s.value("documentation/language", "default", type(""))
+    lang = s.value("documentation/language", "default", str)
 
     if lang == "default":
-        lang = s.value("language", "", type(""))
+        lang = s.value("language", "", str)
     if lang and lang != "C":
         langs.append(lang)
     langs.extend(po.setup.preferred())

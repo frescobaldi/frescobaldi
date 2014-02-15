@@ -30,8 +30,8 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import info

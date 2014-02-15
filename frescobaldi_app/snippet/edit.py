@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import actioncollectionmanager
 import app
@@ -94,7 +94,7 @@ class Edit(QDialog):
             b.setStandardButtons(buttons)
         userguide.addButton(b, "snippet_editor")
         
-        # PyQt4.10 en sip4.14.5 delete the Highlighter, even though it is
+        # PyQt5.10 en sip4.14.5 delete the Highlighter, even though it is
         # constructed with a parent, that's why we save it in an unused attribute.
         self._highlighter = highlight.Highlighter(self.text.document())
         Matcher(self.text)

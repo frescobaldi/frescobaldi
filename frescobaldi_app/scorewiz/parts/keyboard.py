@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import __builtin__
 
-from PyQt4.QtGui import QGridLayout, QLabel, QSpinBox
+from PyQt5.QtGui import QGridLayout, QLabel, QSpinBox
 
 import ly.dom
 import ly.util

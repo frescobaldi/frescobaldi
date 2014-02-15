@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import __builtin__
 import keyword
 
-from PyQt4.QtGui import QSyntaxHighlighter
+from PyQt5.QtGui import QSyntaxHighlighter
 
 import slexer
 

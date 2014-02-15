@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import QSettings, QUrl
+from PyQt5.QtCore import QSettings, QUrl
 
 import app
 import util
@@ -118,7 +118,7 @@ def urls():
     
     """
     try:
-        user_paths = QSettings().value("documentation/paths", [], type(""))
+        user_paths = QSettings().value("documentation/paths", [], str)
     except TypeError:
         user_paths = []
     system_prefixes = [p for p in (

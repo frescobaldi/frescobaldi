@@ -29,7 +29,7 @@ import os
 import re
 import weakref
 
-from PyQt4.QtCore import QSettings, QUrl
+from PyQt5.QtCore import QSettings, QUrl
 
 import ly.lex
 import lydocinfo
@@ -101,7 +101,7 @@ class DocumentInfo(plugin.DocumentPlugin):
     def includepath(self):
         """Returns the configured include path. Currently the document does not matter."""
         try:
-            include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
+            include_path = QSettings().value("lilypond_settings/include_path", [], str)
         except TypeError:
             include_path = []
         return include_path

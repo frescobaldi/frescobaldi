@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import collections
 
-from PyQt4.QtCore import QSettings, QSize, Qt
-from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
+from PyQt5.QtCore import QSettings, QSize, Qt
+from PyQt5.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QSpinBox, QTextEdit)
 
 import app
@@ -117,7 +117,7 @@ class Dialog(QDialog):
         self.deleteCheck.setChecked(
             s.value("delete_intermediate_files", True, bool))
         
-        if s.value("default_output_target", "pdf", type("")) == "svg":
+        if s.value("default_output_target", "pdf", str) == "svg":
             self.outputCombo.setCurrentIndex(3)
         
         self.loadLilyPondVersions()

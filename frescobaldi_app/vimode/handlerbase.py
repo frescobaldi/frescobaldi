@@ -23,8 +23,8 @@ Base class for mode handlers.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 
 from . import NORMAL, VISUAL, INSERT, REPLACE

@@ -47,7 +47,7 @@ def app_is_git_controlled():
                 _app_is_git_controlled = True
                 return _app_is_git_controlled
             except:
-                from PyQt4.QtGui import QMessageBox
+                from PyQt5.QtGui import QMessageBox
                 QMessageBox.warning(None, 
                                     _("No Git installation found"), 
                                     _("Frescobaldi is run from within a Git repository "

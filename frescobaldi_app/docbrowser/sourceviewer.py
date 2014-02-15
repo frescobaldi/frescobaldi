@@ -24,8 +24,8 @@ A dialog to view LilyPond source.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import QSettings, QSize, Qt
-from PyQt4.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
+from PyQt5.QtCore import QSettings, QSize, Qt
+from PyQt5.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
 
 
 import app

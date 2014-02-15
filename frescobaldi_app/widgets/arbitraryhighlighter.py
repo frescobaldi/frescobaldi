@@ -24,8 +24,8 @@ using QTextEdit.ExtraSelections.
 
 import weakref
 
-from PyQt4.QtCore import QObject, QTimer
-from PyQt4.QtGui import QTextCharFormat, QTextEdit, QTextFormat
+from PyQt5.QtCore import QObject, QTimer
+from PyQt5.QtGui import QTextCharFormat, QTextEdit, QTextFormat
 
 
 class ArbitraryHighlighter(QObject):

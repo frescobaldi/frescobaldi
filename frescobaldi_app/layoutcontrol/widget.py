@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import sys
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import icons
@@ -115,7 +115,7 @@ class Widget(QWidget):
         self.CBverbose.setChecked(s.value('verbose', False, bool))
         self.CBpointandclick.setChecked(s.value('point-and-click', True, bool))
         self.CBcustomfile.setChecked(s.value('custom-file', False, bool))
-        self.LEcustomfile.setText(s.value('custom-filename', '', type("")))
+        self.LEcustomfile.setText(s.value('custom-filename', '', str))
         
     def saveSettings(self):
         """Called on close. Save settings and checkboxes state."""

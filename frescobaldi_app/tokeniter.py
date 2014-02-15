@@ -34,7 +34,7 @@ from __future__ import unicode_literals
 
 import collections
 
-from PyQt4.QtGui import QTextBlock, QTextCursor
+from PyQt5.QtGui import QTextBlock, QTextCursor
 
 import cursortools
 import highlighter

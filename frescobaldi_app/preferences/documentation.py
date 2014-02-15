@@ -23,8 +23,8 @@ Documentation preferences.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import (QComboBox, QCompleter, QFontComboBox,
+from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtGui import (QComboBox, QCompleter, QFontComboBox,
     QGridLayout, QLabel, QSpinBox, QVBoxLayout)
 
 import app
@@ -71,7 +71,7 @@ class Paths(preferences.Group):
     
     def loadSettings(self):
         try:
-            paths = QSettings().value("documentation/paths", [], type(""))
+            paths = QSettings().value("documentation/paths", [], str)
         except TypeError:
             paths = []
         self.paths.setValue(paths)
@@ -124,7 +124,7 @@ class Browser(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("documentation")
-        lang = s.value("language", "default", type(""))
+        lang = s.value("language", "default", str)
         if lang in lilydoc.translations:
             i = lilydoc.translations.index(lang) + 2
         elif lang == "C":
@@ -134,7 +134,7 @@ class Browser(preferences.Group):
         self.languages.setCurrentIndex(i)
         
         font = self.font()
-        family = s.value("fontfamily", "", type(""))
+        family = s.value("fontfamily", "", str)
         if family:
             font.setFamily(family)
         size = s.value("fontsize", 16, int)

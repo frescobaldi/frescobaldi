@@ -23,8 +23,8 @@ Actions to engrave the music in the documents.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, Qt, QUrl
-from PyQt4.QtGui import QAction, QApplication, QKeySequence, QMessageBox
+from PyQt5.QtCore import QSettings, Qt, QUrl
+from PyQt5.QtGui import QAction, QApplication, QKeySequence, QMessageBox
 
 import app
 import actioncollection

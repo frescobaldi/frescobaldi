@@ -27,8 +27,8 @@ import textwrap
 import os
 import subprocess
 
-from PyQt4.QtCore import QSettings, QSize
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtGui import (
     QCheckBox, QDialog, QDialogButtonBox, QHBoxLayout, QLabel, QLineEdit,
     QTabWidget, QTextBrowser, QVBoxLayout)
 

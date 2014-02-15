@@ -27,8 +27,8 @@ import collections
 import os
 import tempfile
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import util
@@ -147,7 +147,7 @@ class Dialog(QDialog):
     def readSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
-        self.dpiCombo.setEditText(s.value("dpi", "100", type("")))
+        self.dpiCombo.setEditText(s.value("dpi", "100", str))
         self.colorButton.setColor(s.value("papercolor", QColor(Qt.white), QColor))
         self.crop.setChecked(s.value("autocrop", False, bool))
         self.antialias.setChecked(s.value("antialias", True, bool))

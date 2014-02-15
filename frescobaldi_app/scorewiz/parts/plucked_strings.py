@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import __builtin__
 
-from PyQt4.QtGui import (
+from PyQt5.QtGui import (
     QCheckBox, QComboBox, QCompleter, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QSpinBox,
 )

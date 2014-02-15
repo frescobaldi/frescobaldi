@@ -28,8 +28,8 @@ import os
 import sys
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import backup
@@ -353,7 +353,7 @@ class MainWindow(QMainWindow):
         preserve stacking order, etc.
         
         """
-        name = settings.value('name', '', type(""))
+        name = settings.value('name', '', str)
         if name:
             self.setObjectName(name)
         self.restoreGeometry(settings.value('geometry', QByteArray(), QByteArray))

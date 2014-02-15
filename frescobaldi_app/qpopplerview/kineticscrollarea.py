@@ -23,8 +23,8 @@ KineticScrollArea widget to provide kinetic scrolling moves.
 """
 
 
-from PyQt4.QtCore import QPoint, QBasicTimer, QEvent, Qt, pyqtSignal
-from PyQt4.QtGui import QScrollArea, QApplication, QCursor, QMouseEvent
+from PyQt5.QtCore import QPoint, QBasicTimer, QEvent, Qt, pyqtSignal
+from PyQt5.QtGui import QScrollArea, QApplication, QCursor, QMouseEvent
 
 from math import sqrt
 import copy

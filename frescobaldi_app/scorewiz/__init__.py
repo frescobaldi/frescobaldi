@@ -23,7 +23,7 @@ The Score Wizard.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QAction, QKeySequence
+from PyQt5.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager

@@ -33,7 +33,7 @@ The log is not displayed.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, QTimer
+from PyQt5.QtCore import QSettings, QTimer
 
 import app
 import documentinfo
@@ -122,7 +122,7 @@ class AutoCompileManager(plugin.DocumentPlugin):
             # look for existing result files in the default output format
             s = QSettings()
             s.beginGroup("lilypond_settings")
-            if s.value("default_output_target", "pdf", type("")) == "svg":
+            if s.value("default_output_target", "pdf", str) == "svg":
                 ext = '.svg*'
             else:
                 ext = '.pdf'

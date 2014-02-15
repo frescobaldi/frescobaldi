@@ -23,8 +23,8 @@ A widget that provides a scheme selector, with New and Remove buttons.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QDir, QSettings, pyqtSignal, Qt
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QDir, QSettings, pyqtSignal, Qt
+from PyQt5.QtGui import (
     QComboBox, QHBoxLayout, QInputDialog, QLabel, QPushButton, QWidget, 
     QAction, QMenu, QFileDialog)
 
@@ -187,14 +187,14 @@ class SchemeSelector(QWidget):
         self._schemesToRemove = set()
         
         s = QSettings()
-        cur = s.value(currentKey, "default", type(""))
+        cur = s.value(currentKey, "default", str)
         
         # load the names for the shortcut schemes
         s.beginGroup(namesGroup)
         block = self.scheme.blockSignals(True)
         self.scheme.clear()
         self.scheme.addItem(_("Default"), "default")
-        lst = [(s.value(key, key, type("")), key) for key in s.childKeys()]
+        lst = [(s.value(key, key, str), key) for key in s.childKeys()]
         for name, key in sorted(lst, key=lambda f: f[0].lower()):
             self.scheme.addItem(name, key)
         

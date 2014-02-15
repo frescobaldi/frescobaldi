@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4 import QtCore
-from PyQt4.QtGui import *
+from PyQt5 import QtCore
+from PyQt5.QtGui import *
 
 import app
 import qutil

@@ -21,7 +21,7 @@
 Manages widgets in the borders of a QScrollArea.
 """
 
-from PyQt4.QtCore import QEvent, QObject, QPoint, QRect, QSize
+from PyQt5.QtCore import QEvent, QObject, QPoint, QRect, QSize
 
 
 LEFT, TOP, RIGHT, BOTTOM = 0, 1, 2, 3

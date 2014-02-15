@@ -27,9 +27,9 @@ newline. Arguments are separated with spaces.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QApplication
-from PyQt4.QtNetwork import QLocalSocket
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QApplication
+from PyQt5.QtNetwork import QLocalSocket
 
 import app
 

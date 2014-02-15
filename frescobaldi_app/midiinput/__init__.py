@@ -17,8 +17,8 @@ TODO:
 import time
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import midihub
 import midifile.event
@@ -44,7 +44,7 @@ class MidiIn(object):
     
     def open(self):
         s = QSettings()
-        self._portname = s.value("midi/input_port", midihub.default_input(), type(""))
+        self._portname = s.value("midi/input_port", midihub.default_input(), str)
         self._pollingtime = s.value("midi/polling_time", 10, int)
         self._portmidiinput = midihub.input_by_name(self._portname)
         

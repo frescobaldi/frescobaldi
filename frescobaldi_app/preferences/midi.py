@@ -23,8 +23,8 @@ MIDI preferences.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 
 import app
@@ -132,8 +132,8 @@ class MidiPorts(preferences.Group):
         input_port = midihub.default_input()
         s = QSettings()
         s.beginGroup("midi")
-        self._playerPort.setEditText(s.value("player/output_port", output_port, type("")))
-        self._inputPort.setEditText(s.value("midi/input_port", input_port, type("")))
+        self._playerPort.setEditText(s.value("player/output_port", output_port, str))
+        self._inputPort.setEditText(s.value("midi/input_port", input_port, str))
         
     def saveSettings(self):
         s = QSettings()

@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import contextlib
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import job
 import qutil
@@ -114,7 +114,7 @@ class Log(QTextBrowser):
         
         s = QSettings()
         s.beginGroup("log")
-        outputFont = QFont(s.value("fontfamily", "monospace", type("")))
+        outputFont = QFont(s.value("fontfamily", "monospace", str))
         outputFont.setPointSizeF(s.value("fontsize", 9.0, float))
         
         output = QTextCharFormat()

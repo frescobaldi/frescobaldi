@@ -24,8 +24,8 @@ Sets the user interface style.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QStyleFactory
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QStyleFactory
 
 import app
 
@@ -37,7 +37,7 @@ def keys():
 
 
 def setStyle():
-    style = QSettings().value("guistyle", "", type("")).lower()
+    style = QSettings().value("guistyle", "", str).lower()
     if style not in keys():
         style = _system_default
     if style != app.qApp.style().objectName():

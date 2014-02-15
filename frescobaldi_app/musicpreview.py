@@ -28,8 +28,8 @@ import os
 import glob
 import shutil
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import ly.document
 import ly.docinfo

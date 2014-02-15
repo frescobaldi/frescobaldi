@@ -23,8 +23,8 @@ The contextmenu of the editor.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QAction
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QAction
 
 import icons
 import util

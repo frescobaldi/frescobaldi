@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 
 import contextlib
 
-from PyQt4.QtCore import QEvent, QObject, Qt
-from PyQt4.QtGui import QTextCursor
+from PyQt5.QtCore import QEvent, QObject, Qt
+from PyQt5.QtGui import QTextCursor
 
 
 class Indenter(QObject):

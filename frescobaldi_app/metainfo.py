@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import time
 
-from PyQt4.QtCore import QSettings, QUrl
+from PyQt5.QtCore import QSettings, QUrl
 
 import app
 import plugin

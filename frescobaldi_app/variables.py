@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import QTimer
+from PyQt5.QtCore import QTimer
 
 import signals
 import plugin

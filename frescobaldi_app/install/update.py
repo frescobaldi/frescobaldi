@@ -23,7 +23,7 @@ Performs upgrades in the settings structure.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings
+from PyQt5.QtCore import QSettings
 
 import info
 

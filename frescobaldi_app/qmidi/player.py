@@ -18,14 +18,14 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A MIDI player for PyQt4.
+A MIDI player for PyQt5.
 """
 
 
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import pyqtSignal, Qt, QThread, QTimer
+from PyQt5.QtCore import pyqtSignal, Qt, QThread, QTimer
 
 import midifile.player
 

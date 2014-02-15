@@ -31,9 +31,9 @@ from __future__ import absolute_import
 import os
 import sys
 
-from PyQt4 import QtCore
-from PyQt4 import QtGui
-from PyQt4 import QtWebKit
+from PyQt5 import QtCore
+from PyQt5 import QtGui
+from PyQt5 import QtWebKit
 
 import app
 import util

@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import __builtin__
 
-from PyQt4.QtGui import QMenu
+from PyQt5.QtGui import QMenu
 
 import app
 import icons

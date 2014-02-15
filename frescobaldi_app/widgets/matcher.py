@@ -23,8 +23,8 @@ A basic parenthesis/brace character matcher for a textedit widget.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QObject, QRegExp, Qt, QTimer
-from PyQt4.QtGui import QTextCharFormat, QTextCursor, QTextDocument, QTextEdit
+from PyQt5.QtCore import QObject, QRegExp, Qt, QTimer
+from PyQt5.QtGui import QTextCharFormat, QTextCursor, QTextDocument, QTextEdit
 
 
 class Matcher(QObject):

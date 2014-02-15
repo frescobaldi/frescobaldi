@@ -22,7 +22,7 @@
 Highlight rectangular areas inside a Surface.
 """
 
-from PyQt4.QtGui import QApplication, QPainter, QPen
+from PyQt5.QtGui import QApplication, QPainter, QPen
 
 
 class Highlighter(object):

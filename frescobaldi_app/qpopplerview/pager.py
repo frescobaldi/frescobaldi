@@ -23,7 +23,7 @@ Provides an interface for paging in a View by page number.
 """
 
 
-from PyQt4.QtCore import pyqtSignal, QEvent, QTimer, QObject
+from PyQt5.QtCore import pyqtSignal, QEvent, QTimer, QObject
 
 
 class Pager(QObject):

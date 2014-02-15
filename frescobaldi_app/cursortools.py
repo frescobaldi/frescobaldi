@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import contextlib
 import operator
 
-from PyQt4.QtGui import QTextBlock, QTextBlockUserData, QTextCursor
+from PyQt5.QtGui import QTextBlock, QTextBlockUserData, QTextCursor
 
 
 def block(cursor):

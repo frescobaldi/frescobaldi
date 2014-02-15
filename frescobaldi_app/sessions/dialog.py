@@ -24,8 +24,8 @@ Session dialog for named session stuff.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import (
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import (
     QCheckBox, QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit,
     QMessageBox, QVBoxLayout)
 
@@ -119,7 +119,7 @@ class SessionEditor(QDialog):
     def load(self, name):
         settings = sessions.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True, bool))
-        self.basedir.setPath(settings.value("basedir", "", type("")))
+        self.basedir.setPath(settings.value("basedir", "", str))
         # more settings here
         
     def save(self, name):

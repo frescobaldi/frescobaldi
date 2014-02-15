@@ -23,8 +23,8 @@ Keyboard shortcuts settings page.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import info
@@ -96,13 +96,13 @@ class General(preferences.Group):
     
     def loadSettings(self):
         s = QSettings()
-        lang = s.value("language", "", type(""))
+        lang = s.value("language", "", str)
         try:
             index = self._langs.index(lang)
         except ValueError:
             index = 1
         self.lang.setCurrentIndex(index)
-        style = s.value("guistyle", "", type("")).lower()
+        style = s.value("guistyle", "", str).lower()
         styles = [name.lower() for name in QStyleFactory.keys()]
         try:
             index = styles.index(style) + 1
@@ -175,7 +175,7 @@ class StartSession(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("session")
-        startup = s.value("startup", "none", type(""))
+        startup = s.value("startup", "none", str)
         if startup ==  "lastused":
             self.lastused.setChecked(True)
         elif startup == "custom":
@@ -185,7 +185,7 @@ class StartSession(preferences.Group):
         sessionNames = sessions.sessionNames()
         self.combo.clear()
         self.combo.addItems(sessionNames)
-        custom = s.value("custom", "", type(""))
+        custom = s.value("custom", "", str)
         if custom in sessionNames:
             self.combo.setCurrentIndex(sessionNames.index(custom))
 
@@ -239,7 +239,7 @@ class SavingDocument(preferences.Group):
         s = QSettings()
         self.backup.setChecked(s.value("backup_keep", False, bool))
         self.metainfo.setChecked(s.value("metainfo", True, bool))
-        self.basedir.setPath(s.value("basedir", "", type("")))
+        self.basedir.setPath(s.value("basedir", "", str))
         
     def saveSettings(self):
         s = QSettings()

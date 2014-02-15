@@ -24,8 +24,8 @@ The Preferences Dialog.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import QSettings, QSize, Qt, pyqtSignal
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QSettings, QSize, Qt, pyqtSignal
+from PyQt5.QtGui import (
     QDialog, QDialogButtonBox, QGroupBox, QHBoxLayout, QKeySequence,
     QListWidget, QListWidgetItem, QScrollArea, QStackedWidget, QVBoxLayout,
     QWidget)

@@ -28,8 +28,8 @@ import re
 import subprocess
 import sys
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QDesktopServices, QMessageBox
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QDesktopServices, QMessageBox
 
 def shell_split(cmd):
     """Split a string like the UNIX shell, returning a list.

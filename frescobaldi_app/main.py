@@ -23,16 +23,12 @@ Entry point of Frescobaldi.
 
 from __future__ import unicode_literals
 
-import sip
-sip.setapi("QString", 2)
-sip.setapi("QVariant", 2)
-
 import os
 import re
 import sys
 
-from PyQt4.QtCore import QSettings, QTimer, QUrl
-from PyQt4.QtGui import QApplication, QTextCursor
+from PyQt5.QtCore import QSettings, QTimer, QUrl
+from PyQt5.QtGui import QApplication, QTextCursor
 
 from . import toplevel  # Find all modules and packages as toplevel
 import info             # Information about our application

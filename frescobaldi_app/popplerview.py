@@ -26,7 +26,7 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings
+from PyQt5.QtCore import QSettings
 
 import app
 import textformats

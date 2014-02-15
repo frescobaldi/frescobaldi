@@ -34,7 +34,7 @@ from __future__ import unicode_literals
 import contextlib
 import os
 
-from PyQt4.QtCore import QFileSystemWatcher, QUrl
+from PyQt5.QtCore import QFileSystemWatcher, QUrl
 
 import app
 import plugin

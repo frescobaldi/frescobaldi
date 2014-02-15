@@ -24,8 +24,8 @@ A simple persistent completion model (e.g. for QLineEdits).
 import atexit
 import weakref
 
-from PyQt4.QtCore import QSettings, QTimer
-from PyQt4.QtGui import QCompleter, QStringListModel
+from PyQt5.QtCore import QSettings, QTimer
+from PyQt5.QtGui import QCompleter, QStringListModel
 
 _models = {}
 
@@ -107,7 +107,7 @@ class Model(QStringListModel):
         
     def load(self):
         try:
-            strings = QSettings().value(self.key, [], type(""))
+            strings = QSettings().value(self.key, [], str)
         except TypeError:
             strings = []
         self.setStringList(sorted(strings))

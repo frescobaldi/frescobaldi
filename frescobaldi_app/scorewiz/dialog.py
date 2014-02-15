@@ -23,8 +23,8 @@ The Score Wizard dialog.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import cursortools
@@ -35,7 +35,7 @@ import userguide
 
 class ScoreWizardDialog(QDialog):
     
-    pitchLanguageChanged = pyqtSignal(type(""))
+    pitchLanguageChanged = pyqtSignal(str)
     
     def __init__(self, mainwindow):
         super(ScoreWizardDialog, self).__init__(mainwindow)
@@ -98,7 +98,7 @@ class ScoreWizardDialog(QDialog):
     def pitchLanguage(self):
         if self._pitchLanguage is None:
             # load setting; saving occurs in .settings.py
-            lang = QSettings().value('scorewiz/lilypond/pitch_language', '', type(""))
+            lang = QSettings().value('scorewiz/lilypond/pitch_language', '', str)
             from .scoreproperties import keyNames
             if lang not in keyNames:
                 lang = ''

@@ -23,8 +23,8 @@ Insert snippets into a Document.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QTextCursor, QMessageBox
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QTextCursor, QMessageBox
 
 import cursortools
 import tokeniter

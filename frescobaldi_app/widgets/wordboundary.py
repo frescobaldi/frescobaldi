@@ -43,8 +43,8 @@ import operator
 import re
 import time
 
-from PyQt4.QtCore import QEvent, QObject, Qt
-from PyQt4.QtGui import QApplication, QKeySequence, QTextCursor
+from PyQt5.QtCore import QEvent, QObject, Qt
+from PyQt5.QtGui import QApplication, QKeySequence, QTextCursor
 
 
 _move_operations = (

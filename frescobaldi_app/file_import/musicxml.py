@@ -29,8 +29,8 @@ import os
 import subprocess
 import collections
 
-from PyQt4.QtCore import QSettings, QSize
-from PyQt4.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
+from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
 import app
@@ -237,7 +237,7 @@ class Dialog(QDialog):
             i.setChecked(s.value(i.text(), d, bool))
         for p, f in zip(self.postChecks, post_default):
             p.setChecked(s.value(p.text(), f, bool))
-        lang = s.value("language", "default", type(""))
+        lang = s.value("language", "default", str)
         try:
             index = _langlist.index(lang)
         except ValueError:

@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import userguide.util
@@ -85,7 +85,7 @@ class QuickInsert(QWidget):
         userguide.openWhatsThis(self)
         
         # restore remembered current page
-        name = QSettings().value("quickinsert/current_tool", "", type(""))
+        name = QSettings().value("quickinsert/current_tool", "", str)
         if name:
             for i in range(self.toolbox.count()):
                 if name == self.toolbox.widget(i).__class__.__name__.lower():

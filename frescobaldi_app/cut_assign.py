@@ -23,7 +23,7 @@ Cut selected text and assign it to a LilyPond variable.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor
 
 import cursortools
 import tokeniter

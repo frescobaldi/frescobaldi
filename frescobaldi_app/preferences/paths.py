@@ -23,8 +23,8 @@ Paths preferences page
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import widgets.listedit
@@ -62,7 +62,7 @@ class HyphenPaths(preferences.Group):
         s = QSettings()
         s.beginGroup("hyphenation")
         try:
-            paths = s.value("paths", [], type(""))
+            paths = s.value("paths", [], str)
         except TypeError:
             paths = []
         self.listedit.setValue(paths)

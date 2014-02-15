@@ -17,8 +17,8 @@ try:
 except (ImportError, ValueError):
     pass # this was a reload()
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import document

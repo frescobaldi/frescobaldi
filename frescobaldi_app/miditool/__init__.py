@@ -23,8 +23,8 @@ The MIDI tool.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAction, QKeySequence
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QAction, QKeySequence
 
 import actioncollection
 import actioncollectionmanager
@@ -83,7 +83,7 @@ class Actions(actioncollection.ActionCollection):
         try:
             self.midi_pause.setShortcut(QKeySequence(Qt.Key_MediaPause))
         except AttributeError:
-            pass # No Qt.Key_MediaPause in some PyQt4 versions
+            pass # No Qt.Key_MediaPause in some PyQt5 versions
         self.midi_play.setShortcut(QKeySequence(Qt.Key_MediaPlay))
         self.midi_stop.setShortcut(QKeySequence(Qt.Key_MediaStop))
         self.midi_restart.setShortcut(QKeySequence(Qt.Key_MediaPrevious))

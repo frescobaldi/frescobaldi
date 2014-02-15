@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtNetwork import QLocalServer, QLocalSocket
+from PyQt5.QtCore import QSettings
+from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 
 import app
 import info
@@ -145,7 +145,7 @@ def ensure_bytes(s):
     If s is a unicode string, it is encoded using the filesystem encoding.
     
     """
-    if type(s) is type(""):
+    if type(s) is str:
         s = s.encode(sys.getfilesystemencoding() or 'utf-8', 'ignore')
     return s
 

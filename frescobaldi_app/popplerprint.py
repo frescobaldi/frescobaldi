@@ -34,8 +34,8 @@ import os
 import sys
 import subprocess
 
-from PyQt4.QtCore import pyqtSignal, QSettings, QTemporaryFile, Qt, QThread
-from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
+from PyQt5.QtCore import pyqtSignal, QSettings, QTemporaryFile, Qt, QThread
+from PyQt5.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
 
 import app
 import helpers
@@ -56,7 +56,7 @@ def print_(doc, filename=None, widget=None):
     # we'll use raster printing
     s = QSettings()
     s.beginGroup("helper_applications")
-    cmd = s.value("printcommand", "", type(""))
+    cmd = s.value("printcommand", "", str)
     use_dialog = s.value("printcommand/dialog", False, bool)
     resolution = s.value("printcommand/dpi", 300, int)
     linux_lpr = False

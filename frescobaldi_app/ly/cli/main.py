@@ -272,7 +272,7 @@ def parse_command_line():
         sys.exit(2)
     
     # are the arguments unicode? python2 leaves them encoded...
-    if type(sys.argv[0]) != type(''):
+    if type(sys.argv[0]) != str:
         args = (a.decode(sys.stdin.encoding) for a in sys.argv[1:])
     else:
         args = iter(sys.argv[1:])

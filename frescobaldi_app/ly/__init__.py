@@ -20,7 +20,7 @@
 """
 A package of modules dealing with LilyPond and the LilyPond format.
 
-This package does not depend on PyQt4.
+This package does not depend on PyQt5.
 Some modules however expect the _ (underscore) builtin to translate strings.
 
 """

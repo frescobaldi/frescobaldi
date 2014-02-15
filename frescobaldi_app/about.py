@@ -24,8 +24,8 @@ About dialog.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, QSize, Qt, QUrl
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QSettings, QSize, Qt, QUrl
+from PyQt5.QtGui import (
     QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser,
     QVBoxLayout, QWidget)
 
@@ -105,7 +105,7 @@ class Version(QTextBrowser):
             "<p>{app_name}: {app_version}</p>\n"
             "<p>Python: {python_version}<br />"
             "Qt: {qt_version}<br />\n"
-            "PyQt4: {pyqt_version}<br />\n"
+            "PyQt5: {pyqt_version}<br />\n"
             "sip: {sip_version}</p>\n"
             "<p>{operating_system}:<br />\n"
             "{osname}</p>".format(

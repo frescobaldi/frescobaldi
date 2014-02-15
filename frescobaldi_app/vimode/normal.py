@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 from . import handlerbase
 

@@ -23,8 +23,8 @@ The Music View's Edit in Place dialog.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import actioncollectionmanager

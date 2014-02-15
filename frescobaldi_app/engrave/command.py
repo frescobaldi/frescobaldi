@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import os, sys
 
-from PyQt4.QtCore import QSettings
+from PyQt5.QtCore import QSettings
 
 import job
 import documentinfo
@@ -68,7 +68,7 @@ def defaultJob(document, args=None):
     else:
         command.append('-dno-point-and-click')
     
-    if s.value("default_output_target", "pdf", type("")) == "svg":
+    if s.value("default_output_target", "pdf", str) == "svg":
         command.append('-dbackend=svg')
     else:
         command.append('--pdf')

@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import QSettings
+from PyQt5.QtCore import QSettings
 
 import app
 import plugin
@@ -68,7 +68,7 @@ def create_outline_re():
     """Create and return the expression to look for document outline items."""
     try:
         rx = QSettings().value("documentstructure/outline_patterns",
-                               default_outline_patterns, type(""))
+                               default_outline_patterns, str)
     except TypeError:
         rx = []
     # suffix duplicate named groups with a number

@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 import app
 import userguide
@@ -91,7 +91,7 @@ class Versions(preferences.Group):
     def loadSettings(self):
         s = settings()
         default = lilypondinfo.default()
-        self._defaultCommand = s.value("default", default.command, type(""))
+        self._defaultCommand = s.value("default", default.command, str)
         self.auto.setChecked(s.value("autoversion", False, bool))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version())
         if not infos:
@@ -304,7 +304,7 @@ class Running(preferences.Group):
         self.deleteFiles.setChecked(s.value("delete_intermediate_files", True, bool))
         self.noTranslation.setChecked(s.value("no_translation", False, bool))
         try:
-            include_path = s.value("include_path", [], type(""))
+            include_path = s.value("include_path", [], str)
         except TypeError:
             include_path = []
         self.include.setValue(include_path)
@@ -343,7 +343,7 @@ class Target(preferences.Group):
     
     def loadSettings(self):
         s = settings()
-        target = s.value("default_output_target", "pdf", type(""))
+        target = s.value("default_output_target", "pdf", str)
         if target == "svg":
             self.targetSVG.setChecked(True)
             self.targetPDF.setChecked(False)

@@ -28,10 +28,10 @@ import codecs
 import os
 import time
 
-from PyQt4.QtCore import QCoreApplication, QProcess
+from PyQt5.QtCore import QCoreApplication, QProcess
 
 try:
-    from PyQt4.QtCore import QProcessEnvironment # only in Qt >= 4.6
+    from PyQt5.QtCore import QProcessEnvironment # only in Qt >= 4.6
 except ImportError:
     QProcessEnvironment = None
 

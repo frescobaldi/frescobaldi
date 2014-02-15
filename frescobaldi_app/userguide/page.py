@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QKeySequence
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QKeySequence
 
 import simplemarkdown
 

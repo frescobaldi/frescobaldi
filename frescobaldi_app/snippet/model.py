@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 
 import bisect
 
-from PyQt4.QtCore import QAbstractItemModel, QModelIndex, Qt
-from PyQt4.QtGui import QKeySequence
+from PyQt5.QtCore import QAbstractItemModel, QModelIndex, Qt
+from PyQt5.QtGui import QKeySequence
 
 import app
 import actioncollection

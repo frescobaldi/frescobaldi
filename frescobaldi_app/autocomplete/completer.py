@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor
 
 import app
 import textformats
