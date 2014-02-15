@@ -27,6 +27,9 @@ Changes in 2.0.14 --
   - It is now possible to copy syntax-highlighted HTML as plain text to the
     clipboard, by enabling the preference setting.
   - MIDI input: add key signature alterations mapping, by Olivier Samyn
+  - New barline types in the Quick Insert panel, the barlines are written
+    in the correct style, depending on the LilyPond version set in the document
+    (issue #365).
 * Bug fixes:
   - Fixed issue 336: TypeError on MusicXml export
   - Fixed error message when exporting keyboard shortcuts on platforms that do

@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import app
 import symbols
+import documentinfo
 
 from . import tool
 from . import buttongroup
@@ -58,35 +59,47 @@ class BarlinesGroup(buttongroup.ButtonGroup):
         self.setTitle(_("Bar Lines"))
         
     def barlines(self):
-        yield "bar_double", "||", _("Double bar line")
-        yield "bar_end", "|.", _("Ending bar line")
-        yield "bar_dotted", ":", _("Dotted bar line")
-        yield "bar_dashed", "dashed", _("Dashed bar line")
-        yield "bar_invisible", "", _("Invisible bar line")
-        yield "bar_repeat_start", "|:", _("Repeat start")
-        yield "bar_repeat_double", ":|:", _("Repeat both")
-        yield "bar_repeat_end", ":|", _("Repeat end")
-        yield "bar_cswc", ":|.:", _("Repeat both (old)")
-        yield "bar_cswsc", ":|.|:", _("Repeat both (classic)")
-        yield "bar_tick", "'", _("Tick bar line")
-        yield "bar_single", "|", _("Single bar line")
-        yield "bar_sws", "|.|", _("Small-Wide-Small bar line")
-        yield "bar_ws", ".|", _("Wide-Small bar line")
-        yield "bar_ww", ".|.", _("Double wide bar line")
-        yield "bar_segno", "S", _("Segno bar line")
-        
+        yield "bar_double", "||", "||", _("Double bar line")
+        yield "bar_end", "|.", "|.", _("Ending bar line")
+        yield "bar_dotted", ":", ";", _("Dotted bar line")
+        yield "bar_dashed", "dashed", "!", _("Dashed bar line")
+        yield "bar_invisible", "", "", _("Invisible bar line")
+        yield "bar_repeat_start", "|:", ".|:", _("Repeat start")
+        yield "bar_repeat_double", ":|:", ":..:", _("Repeat both")
+        yield "bar_repeat_end", ":|", ":|.", _("Repeat end")
+        yield "bar_cswc", ":|.:", ":|.:", _("Repeat both (old)")
+        yield "bar_cswsc", ":|.|:", ":|.|:", _("Repeat both (classic)")
+        yield "bar_tick", "'", "'", _("Tick bar line")
+        yield "bar_single", "|", "|", _("Single bar line")
+        yield "bar_sws", "|.|", "|.|", _("Small-Wide-Small bar line")
+        yield "bar_ws", ".|", ".|", _("Wide-Small bar line")
+        yield "bar_ww", ".|.", "..", _("Double wide bar line")
+        yield "bar_segno", "S", "S", _("Segno bar line")
+        yield "bar_w", ".", ".", _("Single wide bar line")
+        # 2.18+
+        yield "bar_repeat_angled_start", None, "[|:", _("Angled repeat start")
+        yield "bar_repeat_angled_end", None, ":|]", _("Angled repeat end")
+        yield "bar_repeat_angled_double", None, ":|][|:", _("Angled repeat both")
+        yield "bar_kievan", None, "k", _("Kievan bar line")
+    
     def actionData(self):
         self._barlines = {}
-        for name, ly_text, title in self.barlines():
+        for name, ly_text, ly_text_2_18, title in self.barlines():
             yield name, symbols.icon(name), None
-            self._barlines[name] = ly_text
+            self._barlines[name] = ly_text, ly_text_2_18
         
     def actionTexts(self):
-        for name, ly_text, title in self.barlines():
+        for name, ly_text, ly_text_2_18, title in self.barlines():
             yield name, title
     
     def actionTriggered(self, name):
-        text = '\\bar "{0}"'.format(self._barlines[name])
+        version = documentinfo.docinfo(self.mainwindow().currentDocument()).version()
+        glyphs = self._barlines[name]
+        if version and version < (2, 18):
+            glyph = glyphs[0] or glyphs[1]
+        else:
+            glyph = glyphs[1]
+        text = '\\bar "{0}"'.format(glyph)
         self.insertText(text)
 
 
