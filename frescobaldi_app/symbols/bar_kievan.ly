@@ -9,7 +9,19 @@
 \layout {
   \context {
     \Staff
-    \override StaffSymbol #'width = #4.35
+    \override StaffSymbol #'width = #1.44
   }
 }
-{ \makeBar "k" }
+
+staffmarkup = \markup {
+  \score {
+    s
+    \layout { }
+  }
+}
+  
+\markup \concat {
+  \staffmarkup
+  \musicglyph #"scripts.barline.kievan"
+  \staffmarkup
+}
