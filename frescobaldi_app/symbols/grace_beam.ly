@@ -1,6 +1,8 @@
-\version "2.14.0"
+\version "2.18.0"
 \include "spanner_defaults.ily"
 
 {
-  \grace { f'8 [ g' ] } a'4
+  \grace { f'8 [ g' ] }
+  \tweak Stem.length 5.5
+  a'4
 }
