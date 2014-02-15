@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="11.95mm" height="11.95mm" viewBox="0 0 6.8000 6.8000">
+<!-- Page: 1/1 -->
+<line transform="translate(0.6000, 5.3680)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="5.4400" y2="-0.0000"/>
+<line transform="translate(0.6000, 4.3680)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="5.4400" y2="-0.0000"/>
+<line transform="translate(0.6000, 3.3680)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="5.4400" y2="-0.0000"/>
+<line transform="translate(0.6000, 2.3680)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="5.4400" y2="-0.0000"/>
+<line transform="translate(0.6000, 1.3680)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="5.4400" y2="-0.0000"/>
+<path transform="translate(2.4300, 2.8680) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
+<path transform="translate(2.4300, 3.8680) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
+<g transform="scale(-1.0000, 1.0000)">
+<rect transform="translate(-4.2700, 3.3680)" x="0.0000" y="-2.0000" width="0.6000" height="4.0000" ry="0.0000" fill="currentColor"/>
+<path transform="translate(-4.2700, 1.3680) scale(0.0040, -0.0040)" d="M450 333c9 0 16 -8 16 -16c0 -3 -1 -6 -3 -9c-99 -144 -215 -364 -388 -364h-75v87c0 14 11 25 25 25h50c159 0 271 136 362 270c3 4 8 7 13 7z" fill="currentColor"/>
+<path transform="translate(-4.2700, 5.3680) scale(0.0040, -0.0040)" d="M466 -317c0 -8 -7 -16 -16 -16c-5 0 -10 3 -13 7c-91 134 -203 270 -362 270h-50c-14 0 -25 11 -25 25v87h75c173 0 289 -220 388 -364c2 -3 3 -6 3 -9z" fill="currentColor"/>
+</g>
+<rect transform="translate(3.1800, 3.3680)" x="0.0000" y="-2.0000" width="0.1900" height="4.0000" ry="0.0000" fill="currentColor"/>
+</svg>
