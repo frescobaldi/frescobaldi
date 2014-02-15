@@ -589,6 +589,7 @@ markupcommands_nargs = (
     'normal-size-super',
     'normal-text',
     'number',
+    'oval', # since 2.18
     'postscript',
     'right-align',
     'right-brace',
