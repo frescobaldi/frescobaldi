@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
 <!-- Page: 1/1 -->
-<path transform="translate(3.2500, 2.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
-<path transform="translate(3.2500, 1.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
-<rect transform="translate(2.3500, 2.3000)" x="0.0000" y="-2.0600" width="0.6000" height="4.1200" ry="0.0000" fill="currentColor"/>
-<path transform="translate(0.7000, 2.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
-<path transform="translate(0.7000, 1.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
-<rect transform="translate(1.4500, 2.3000)" x="0.0000" y="-2.0600" width="0.6000" height="4.1200" ry="0.0000" fill="currentColor"/>
 <line transform="translate(0.2000, 4.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 3.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 2.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 1.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 0.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
+<path transform="translate(0.7000, 1.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
+<path transform="translate(0.7000, 2.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
+<path transform="translate(3.2500, 1.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
+<path transform="translate(3.2500, 2.8000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
+<rect transform="translate(2.3500, 2.3000)" x="0.0000" y="-2.0000" width="0.6000" height="4.0000" ry="0.0000" fill="currentColor"/>
+<rect transform="translate(1.4500, 2.3000)" x="0.0000" y="-2.0000" width="0.6000" height="4.0000" ry="0.0000" fill="currentColor"/>
 </svg>

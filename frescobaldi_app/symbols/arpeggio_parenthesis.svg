@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="8.44mm" height="8.44mm" viewBox="0 0 4.8000 4.8000">
 <!-- Page: 1/1 -->
-<path transform="translate(2.7570, 4.4000)" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" stroke-width="0.1000" d="M0.0000 -4.0000C-0.8519 -3.0977 -0.8519 -0.9023 0.0000 -0.0000L0.0000 -0.0000C-0.9519 -0.9023 -0.9519 -3.0977 0.0000 -4.0000z"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/arpeggio_parenthesis.ly:6:9:10">
+<path transform="translate(2.7570, 4.4000)" stroke-width="0.1000" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.0 -0.0C-0.951947263095571 -0.902255639097744 -0.951947263095571 -3.09774436090226 2.44929359829471e-16 -4.0C-0.851947263095571 -3.09774436090226 -0.851947263095571 -0.902255639097744 0.0 -0.0z"/>
+</a>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/arpeggio_parenthesis.ly:6:3:4">
+</a>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/arpeggio_parenthesis.ly:6:5:6">
+</a>
 </svg>

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="5.62mm" height="5.62mm" viewBox="0 0 3.2000 3.2000">
 <!-- Page: 1/1 -->
-<path transform="translate(2.5507, 2.6000) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
-<path transform="translate(1.6007, 0.2000) scale(0.0040, -0.0040)" d="M0 -250h-16v250h16c0 -198 209 -335 209 -533c0 -71 -16 -141 -42 -207c-5 -8 -12 -12 -19 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 104 -95 208 -167 283z" fill="currentColor"/>
-<rect transform="translate(0.2845, 2.6000)" x="1.1862" y="-2.4000" width="0.1300" height="2.2122" ry="0.0217" fill="currentColor"/>
-<path transform="translate(0.2845, 2.6000) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
+<path transform="translate(2.5507, 2.5497) scale(0.0040, -0.0040)" d="M0 0c0 31 25 56 56 56s56 -25 56 -56s-25 -56 -56 -56s-56 25 -56 56z" fill="currentColor"/>
+<path transform="translate(1.6007, 0.1497) scale(0.0040, -0.0040)" d="M0 0c0 -198 209 -335 209 -533c0 -71 -16 -141 -42 -207c-5 -8 -12 -12 -19 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 104 -95 208 -167 283h-16v250h16z" fill="currentColor"/>
+<rect transform="translate(0.2845, 2.5497)" x="1.1862" y="-2.4000" width="0.1300" height="2.2122" ry="0.0217" fill="currentColor"/>
+<path transform="translate(0.2845, 2.5497) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
 </svg>

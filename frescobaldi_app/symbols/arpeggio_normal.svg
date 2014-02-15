@@ -1,5 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="8.44mm" height="8.44mm" viewBox="0 0 4.8000 4.8000">
 <!-- Page: 1/1 -->
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/arpeggio_normal.ly:5:9:10">
 <path transform="translate(2.0000, 1.4000) scale(0.0040, -0.0040)" d="M42 278c-4 3 -6 8 -6 12c0 8 7 16 16 16c3 0 7 -1 10 -4l128 -107c8 -6 11 -13 11 -20c0 -24 -39 -51 -68 -78c-15 -14 -23 -34 -23 -53c0 -17 5 -33 17 -47l31 -25c4 -3 6 -8 6 -12c0 -8 -7 -16 -16 -16c-3 0 -7 1 -10 4l-128 107c-8 6 -11 13 -11 20c0 24 39 51 68 78
 c15 14 23 34 23 53c0 17 -5 33 -17 47z" fill="currentColor"/>
 <path transform="translate(2.0000, 2.4000) scale(0.0040, -0.0040)" d="M42 278c-4 3 -6 8 -6 12c0 8 7 16 16 16c3 0 7 -1 10 -4l128 -107c8 -6 11 -13 11 -20c0 -24 -39 -51 -68 -78c-15 -14 -23 -34 -23 -53c0 -17 5 -33 17 -47l31 -25c4 -3 6 -8 6 -12c0 -8 -7 -16 -16 -16c-3 0 -7 1 -10 4l-128 107c-8 6 -11 13 -11 20c0 24 39 51 68 78
@@ -8,4 +9,9 @@ c15 14 23 34 23 53c0 17 -5 33 -17 47z" fill="currentColor"/>
 c15 14 23 34 23 53c0 17 -5 33 -17 47z" fill="currentColor"/>
 <path transform="translate(2.0000, 4.4000) scale(0.0040, -0.0040)" d="M42 278c-4 3 -6 8 -6 12c0 8 7 16 16 16c3 0 7 -1 10 -4l128 -107c8 -6 11 -13 11 -20c0 -24 -39 -51 -68 -78c-15 -14 -23 -34 -23 -53c0 -17 5 -33 17 -47l31 -25c4 -3 6 -8 6 -12c0 -8 -7 -16 -16 -16c-3 0 -7 1 -10 4l-128 107c-8 6 -11 13 -11 20c0 24 39 51 68 78
 c15 14 23 34 23 53c0 17 -5 33 -17 47z" fill="currentColor"/>
+</a>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/arpeggio_normal.ly:5:3:4">
+</a>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/arpeggio_normal.ly:5:5:6">
+</a>
 </svg>

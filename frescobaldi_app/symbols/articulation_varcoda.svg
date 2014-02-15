@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="5.62mm" height="5.62mm" viewBox="0 0 3.2000 3.2000">
 <!-- Page: 1/1 -->
 <path transform="translate(1.6000, 1.6000) scale(0.0040, -0.0040)" d="M15 -338c0 -8 -7 -15 -15 -15s-15 7 -15 15v88h-142c-6 0 -10 4 -10 10v225h-87c-8 0 -15 7 -15 15s7 15 15 15h87v225c0 6 4 10 10 10h142v88c0 8 7 15 15 15s15 -7 15 -15v-88h142c6 0 10 -4 10 -10v-225h87c8 0 15 -7 15 -15s-7 -15 -15 -15h-87v-225
-c0 -6 -4 -10 -10 -10h-142v-88zM15 15h64v205h-64v-205zM15 -15v-205h64v205h-64zM-15 15v205h-64v-205h64zM-15 -15h-64v-205h64v205z" fill="currentColor"/>
+c0 -6 -4 -10 -10 -10h-142v-88zM15 -15v-205h64v205h-64zM15 15h64v205h-64v-205zM-15 -15h-64v-205h64v205zM-15 15v205h-64v-205h64z" fill="currentColor"/>
 </svg>

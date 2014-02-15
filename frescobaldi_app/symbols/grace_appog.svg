@@ -1,92 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.2"
-   width="7.73mm"
-   height="7.73mm"
-   viewBox="0 0 4.4000 4.4000"
-   id="svg3135"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="grace_appog.svg">
-  <metadata
-     id="metadata3155">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <defs
-     id="defs3153" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1535"
-     inkscape:window-height="876"
-     id="namedview3151"
-     showgrid="false"
-     inkscape:zoom="8.6163573"
-     inkscape:cx="13.694882"
-     inkscape:cy="13.694882"
-     inkscape:window-x="65"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg3135" />
-  <!-- Page: 1/1 -->
-  <path
-     d="M 0.90286604,3.6253239 C 1.3493749,4.1454074 2.1388725,4.2028419 2.6486565,3.752327 2.1454164,4.1024618 1.3559189,4.0450273 0.90286604,3.6253239 z"
-     id="path3137"
-     inkscape:connector-curvature="0"
-     style="fill:currentColor;stroke:currentColor;stroke-width:0.06526446;stroke-linecap:round;stroke-linejoin:round" />
-  <path
-     d="m 3.1762267,0.23178477 c 0,0.66407776 0.6635688,1.12356593 0.6635688,1.78764373 0,0.2381289 -0.0508,0.4729039 -0.1333488,0.6942631 -0.015875,0.026832 -0.0381,0.040247 -0.060324,0.040247 -0.041275,0 -0.082549,-0.036893 -0.073024,-0.090556 0.082549,-0.2045896 0.1333487,-0.4225949 0.1333487,-0.6439542 0,-0.3488085 -0.3016222,-0.6976171 -0.53022,-0.9491617 h -0.0508 V 0.23178477 h 0.050799 z"
-     id="path3139"
-     inkscape:connector-curvature="0"
-     style="fill:currentColor" />
-  <rect
-     x="3.07304"
-     y="0.19824551"
-     width="0.10318653"
-     height="2.7772202"
-     ry="0.03353928"
-     id="rect3141"
-     style="fill:currentColor" />
-  <path
-     d="m 2.8299962,2.6700906 c 0.1777983,0 0.3460717,0.097264 0.3460717,0.3052075 0,0.2414828 -0.1777983,0.4058253 -0.3270219,0.4997353 -0.1142989,0.070432 -0.2412978,0.1207414 -0.3714715,0.1207414 -0.1777984,0 -0.3460718,-0.097264 -0.3460718,-0.3052075 0,-0.2414828 0.1777983,-0.4058253 0.3270219,-0.4997353 0.114299,-0.070432 0.2412978,-0.1207414 0.3714716,-0.1207414 z"
-     id="path3143"
-     inkscape:connector-curvature="0"
-     style="fill:currentColor" />
-  <path
-     d="m 1.2694983,0.81872223 c 0,0.46250667 0.4644981,0.78180067 0.4644981,1.24430737 0,0.1666902 -0.033337,0.3286849 -0.091122,0.4836364 -0.011112,0.023478 -0.031115,0.030521 -0.051117,0.030521 -0.031115,0 -0.062229,-0.023477 -0.062229,-0.061041 V 2.504407 c 0.060007,-0.1385172 0.095567,-0.2887732 0.095567,-0.4413769 0,-0.2394705 -0.2022456,-0.4812887 -0.3555966,-0.65737 H 1.2228262 V 0.81872223 h 0.046672 z"
-     id="path3145"
-     inkscape:connector-curvature="0"
-     style="fill:currentColor" />
-  <rect
-     x="1.1663117"
-     y="0.78518295"
-     width="0.10318653"
-     height="2.2507374"
-     ry="0.03353928"
-     id="rect3147"
-     style="fill:currentColor" />
-  <path
-     d="m 1.0015308,2.8019 c 0.1355712,0 0.26003,0.077476 0.26003,0.2347749 0,0.1666903 -0.1155689,0.2840778 -0.2200254,0.3498148 -0.075564,0.046955 -0.16224103,0.077476 -0.24891773,0.077476 -0.1355712,0 -0.2600301,-0.077476 -0.2600301,-0.234775 0,-0.1666902 0.115569,-0.2840777 0.2200255,-0.3498147 C 0.82817707,2.832421 0.91485407,2.8019 1.0015308,2.8019 z"
-     id="path3149"
-     inkscape:connector-curvature="0"
-     style="fill:currentColor" />
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
+<!-- Page: 1/1 -->
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/lilypond_bin/2.18.0-1/lilypond/usr/share/lilypond/current/ly/grace-init.ly:15:6:7">
+<path transform="translate(0.2334, 1.6140)" stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.443008066529829 2.23853818380998C0.998082204419668 2.85328793122721 2.00834389578053 2.92286110839175 2.64244955256378 2.390006C2.01658834772233 2.80314465583748 1.00632665636147 2.73357147867294 0.443008066529829 2.23853818380998z"/>
+</a>
+<path transform="translate(3.5640, 0.0900) scale(0.0040, -0.0040)" d="M0 0c0 -198 209 -335 209 -533c0 -71 -16 -141 -42 -207c-5 -8 -12 -12 -19 -12c-13 0 -26 11 -23 27c26 61 42 126 42 192c0 104 -95 208 -167 283h-16v250h16z" fill="currentColor"/>
+<rect transform="translate(3.4990, 1.8900)" x="-0.0650" y="-1.8400" width="0.1300" height="3.0322" ry="0.0400" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_appog.ly:7:20:21">
+<path transform="translate(2.2478, 3.2700) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
+</a>
+<path transform="translate(1.1618, 0.7340) scale(0.0028, -0.0028)" d="M0 0c0 -197 209 -333 209 -530c0 -71 -15 -140 -41 -206c-5 -10 -14 -13 -23 -13c-14 0 -28 10 -28 26v5c27 59 43 123 43 188c0 102 -91 205 -160 280h-21v250h21z" fill="currentColor"/>
+<rect transform="translate(1.0968, 1.8900)" x="-0.0650" y="-1.1960" width="0.1300" height="2.4603" ry="0.0400" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_appog.ly:7:16:17">
+<path transform="translate(0.2334, 3.2700) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
+</a>
 </svg>

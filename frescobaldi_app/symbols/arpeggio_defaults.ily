@@ -1,4 +1,4 @@
-\version "2.14.0"
+\version "2.18.0"
 
 \include "icon_defaults.ily"
 
@@ -32,5 +32,5 @@
 }
 
 centerArpeggio = {
-  \alignGrob #"Staff.Arpeggio" #'StaffSymbol #0 #0
+  \alignGrob #'(Staff Arpeggio) #'StaffSymbol #0 #0
 }

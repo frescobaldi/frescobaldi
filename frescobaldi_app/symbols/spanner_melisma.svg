@@ -1,14 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
 <!-- Page: 1/1 -->
-<rect transform="translate(0.8634, 3.0000)" x="-0.0650" y="-2.5000" width="0.1300" height="1.3843" ry="0.0400" fill="currentColor"/>
-<rect transform="translate(1.9920, 4.0036)" x="0.0000" y="-0.0800" width="2.3656" height="0.0800" ry="0.0320" fill="currentColor"/>
-<text transform="translate(0.0000, 4.0036)" font-family="Century Schoolbook L" font-size="1.7455" text-anchor="start" fill="currentColor">
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_melisma.ly:17:5:6">
+<rect transform="translate(1.9920, 4.1193)" x="0.0000" y="-0.0800" width="2.2184" height="0.0800" ry="0.0320" fill="currentColor"/>
+</a>
+<rect transform="translate(4.1454, 3.1157)" x="-0.0650" y="-2.1157" width="0.1300" height="1.5000" ry="0.0400" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_melisma.ly:8:19:20">
+<path transform="translate(3.2820, 2.6157) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
+</a>
+<rect transform="translate(2.6294, 3.1157)" x="-0.0650" y="-3.1157" width="0.1300" height="1.5000" ry="0.0400" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_melisma.ly:8:15:16">
+<path transform="translate(1.7660, 1.6157) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
+</a>
+<rect transform="translate(0.8634, 3.1157)" x="-0.0650" y="-2.6157" width="0.1300" height="1.5000" ry="0.0400" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_melisma.ly:17:2:3">
+<text transform="translate(0.0000, 4.1193)" font-family="Century Schoolbook L" font-size="1.7461" text-anchor="start" fill="currentColor">
 <tspan>
 aa</tspan>
 </text>
-<path transform="translate(0.0000, 2.0000) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
-<rect transform="translate(2.5454, 3.0000)" x="-0.0650" y="-3.0000" width="0.1300" height="1.3843" ry="0.0400" fill="currentColor"/>
-<path transform="translate(1.6820, 1.5000) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
-<rect transform="translate(4.2927, 3.0000)" x="-0.0650" y="-2.0000" width="0.1300" height="1.3843" ry="0.0400" fill="currentColor"/>
-<path transform="translate(3.4293, 2.5000) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
+</a>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_melisma.ly:8:2:3">
+<path transform="translate(0.0000, 2.1157) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
+</a>
 </svg>

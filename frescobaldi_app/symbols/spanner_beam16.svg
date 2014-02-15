@@ -1,9 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
 <!-- Page: 1/1 -->
-<rect transform="translate(1.3154, 2.2442)" x="-0.0650" y="-1.8100" width="0.1300" height="3.1222" ry="0.0400" fill="currentColor"/>
-<rect transform="translate(4.2316, 2.2442)" x="-0.0650" y="-2.0000" width="0.1300" height="2.8122" ry="0.0400" fill="currentColor"/>
-<path transform="translate(2.9804, 3.2442) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
-<polygon transform="translate(1.2504, 0.4385)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="3.0062 -0.3985 3.0062 0.0015 0.0400 0.2000 0.0400 -0.2000"/>
-<polygon transform="translate(1.2504, 1.2485)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="3.0062 -0.3985 3.0062 0.0015 0.0400 0.2000 0.0400 -0.2000"/>
-<path transform="translate(0.0642, 3.7442) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_beam16.ly:6:6:7">
+<polygon transform="translate(1.2504, 0.4299)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="3.0062 -0.3900 3.0062 0.0100 0.0400 0.2000 0.0400 -0.2000"/>
+<polygon transform="translate(1.2504, 1.2399)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="3.0062 -0.3900 3.0062 0.0100 0.0400 0.2000 0.0400 -0.2000"/>
+</a>
+<rect transform="translate(4.2316, 2.2399)" x="-0.0650" y="-1.9959" width="0.1300" height="2.8081" ry="0.0400" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_beam16.ly:6:8:9">
+<path transform="translate(2.9804, 3.2399) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
+</a>
+<rect transform="translate(1.3154, 2.2399)" x="-0.0650" y="-1.8141" width="0.1300" height="3.1262" ry="0.0400" fill="currentColor"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_beam16.ly:6:2:3">
+<path transform="translate(0.0642, 3.7399) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
+</a>
 </svg>

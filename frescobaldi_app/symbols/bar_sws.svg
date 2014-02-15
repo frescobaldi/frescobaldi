@@ -5,7 +5,7 @@
 <line transform="translate(0.2000, 2.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 1.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 0.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
-<rect transform="translate(2.8000, 2.3000)" x="0.0000" y="-2.0600" width="0.1900" height="4.1200" ry="0.0000" fill="currentColor"/>
-<rect transform="translate(1.4100, 2.3000)" x="0.0000" y="-2.0600" width="0.1900" height="4.1200" ry="0.0000" fill="currentColor"/>
-<rect transform="translate(1.9000, 2.3000)" x="0.0000" y="-2.0600" width="0.6000" height="4.1200" ry="0.0000" fill="currentColor"/>
+<rect transform="translate(2.8000, 2.3000)" x="0.0000" y="-2.0000" width="0.1900" height="4.0000" ry="0.0000" fill="currentColor"/>
+<rect transform="translate(1.9000, 2.3000)" x="0.0000" y="-2.0000" width="0.6000" height="4.0000" ry="0.0000" fill="currentColor"/>
+<rect transform="translate(1.4100, 2.3000)" x="0.0000" y="-2.0000" width="0.1900" height="4.0000" ry="0.0000" fill="currentColor"/>
 </svg>

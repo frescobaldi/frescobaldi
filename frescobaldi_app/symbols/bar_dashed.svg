@@ -5,5 +5,9 @@
 <line transform="translate(0.2000, 2.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 1.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
 <line transform="translate(0.2000, 0.3000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1200" stroke="currentColor" x1="0.0600" y1="-0.0000" x2="3.9400" y2="-0.0000"/>
-<line transform="translate(2.2000, 4.3600)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1900" stroke="currentColor" x1="0" y1="0" x2="0.0000" y2="-4.1200" stroke-dasharray="0.4223,0.6077"/>
+<rect transform="translate(2.1050, 2.3000)" x="0.0000" y="-2.0500" width="0.1900" height="0.3500" ry="0.0400" fill="currentColor"/>
+<rect transform="translate(2.1050, 2.3000)" x="0.0000" y="-1.3000" width="0.1900" height="0.6000" ry="0.0400" fill="currentColor"/>
+<rect transform="translate(2.1050, 2.3000)" x="0.0000" y="-0.3000" width="0.1900" height="0.6000" ry="0.0400" fill="currentColor"/>
+<rect transform="translate(2.1050, 2.3000)" x="0.0000" y="0.7000" width="0.1900" height="0.6000" ry="0.0400" fill="currentColor"/>
+<rect transform="translate(2.1050, 2.3000)" x="0.0000" y="1.7000" width="0.1900" height="0.3500" ry="0.0400" fill="currentColor"/>
 </svg>

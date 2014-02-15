@@ -1,6 +1,6 @@
-\version "2.14.0"
+\version "2.18.0"
 \include "spanner_defaults.ily"
 
-{
-  \afterGrace f'2 { g'16 [ a' ] }
+\new Staff {
+  \afterGrace g'2 { f'16 [ g' ] }
 }

@@ -33,9 +33,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 alignGrob =
-#(define-music-function (parser location grob-to-align reference-grob dir corr) (string? symbol? integer? number?)
+#(define-music-function (parser location grob-to-align reference-grob dir corr) (list? symbol? integer? number?)
   #{
-     \overrideProperty  $grob-to-align #'after-line-breaking
+     \overrideProperty #(append grob-to-align (list 'after-line-breaking))
      #(lambda (grob)
         (let* ((sys (ly:grob-system grob))
                (array (ly:grob-object sys 'all-elements))
@@ -49,7 +49,7 @@ alignGrob =
           (let lp ((x 0))
             (if (< x len)
                 (begin
-                 (if (eq? $reference-grob (current-grob-in-search x))
+                 (if (eq? reference-grob (current-grob-in-search x))
                      (set! lst
                            (cons (ly:grob-array-ref array x) lst)))
                  (lp (1+ x)))))
@@ -68,14 +68,14 @@ alignGrob =
             (closest lst)
             ;; calculate offset to X based on choice of alignment
             (ly:grob-set-property! grob 'extra-offset
-              `(,(cond ((eq? $dir -1) (- (ly:grob-relative-coordinate ref sys X)
+              `(,(cond ((eq? dir -1) (- (ly:grob-relative-coordinate ref sys X)
                                         default-coord))
-                   ((eq? $dir 0)  (- (interval-center (ly:grob-extent ref sys X))
+                   ((eq? dir 0)  (- (interval-center (ly:grob-extent ref sys X))
                                     (interval-center (ly:grob-extent grob sys X))))
-                   ((eq? $dir 1)  (- (cdr (ly:grob-extent ref sys X))
+                   ((eq? dir 1)  (- (cdr (ly:grob-extent ref sys X))
                                     (cdr (ly:grob-extent grob sys X)))))
                  
-                 . ,$corr)))))
+                 . ,corr)))))
    #}
    )
 

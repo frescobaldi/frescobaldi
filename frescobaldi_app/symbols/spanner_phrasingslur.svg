@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
 <!-- Page: 1/1 -->
-<path transform="translate(0.0000, 2.4000)" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" stroke-width="0.0800" d="M4.2000 -0.2229C3.4157 -0.8390 0.9843 -0.8390 0.2000 -0.2229L0.2000 -0.2229C0.9843 -1.0390 3.4157 -1.0390 4.2000 -0.2229z"/>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_phrasingslur.ly:19:4:5">
+<path transform="translate(0.0000, 2.4000)" stroke-width="0.0800" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" fill="currentColor" d="M0.2 -0.222852623244318C0.984313725490196 -1.03901784030929 3.4156862745098 -1.03901784030929 4.2 -0.222852623244318C3.4156862745098 -0.83901784030929 0.984313725490196 -0.83901784030929 0.2 -0.222852623244318z"/>
+</a>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_phrasingslur.ly:19:6:7">
+</a>
+<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/spanner_phrasingslur.ly:19:2:3">
+</a>
 </svg>

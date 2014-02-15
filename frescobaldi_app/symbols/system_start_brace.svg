@@ -10,7 +10,7 @@
 <line transform="translate(3.0000, 11.9000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1657" stroke="currentColor" x1="0.0829" y1="-0.0000" x2="10.9171" y2="-0.0000"/>
 <line transform="translate(3.0000, 10.9000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1657" stroke="currentColor" x1="0.0829" y1="-0.0000" x2="10.9171" y2="-0.0000"/>
 <line transform="translate(3.0000, 9.9000)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.1657" stroke="currentColor" x1="0.0829" y1="-0.0000" x2="10.9171" y2="-0.0000"/>
-<path transform="translate(2.5349, 7.9000) scale(0.0040, -0.0040)" d="M-35 -515c0 -215 -60 -420 -60 -625c0 -130 25 -255 110 -360c5 -5 5 -10 5 -15c0 -10 -10 -20 -20 -20c-5 0 -10 5 -15 10c-115 145 -155 330 -155 515c0 225 65 440 65 650c0 130 -30 245 -110 350v10v10c80 105 110 220 110 350c0 210 -65 425 -65 650
-c0 185 40 370 155 515c5 5 10 10 15 10c10 0 20 -10 20 -20c0 -5 0 -10 -5 -15c-85 -105 -110 -230 -110 -360c0 -205 60 -410 60 -625c0 -185 -35 -370 -150 -515c115 -145 150 -330 150 -515z" fill="currentColor"/>
+<path transform="translate(2.5349, 7.9000) scale(0.0040, -0.0040)" d="M-18 -465c0 -243 -93 -477 -93 -705c0 -126 30 -246 123 -336c3 -3 3 -6 3 -9c0 -9 -6 -18 -15 -18c-3 0 -9 3 -12 6c-126 123 -168 288 -168 465c0 246 99 489 99 723c0 126 -30 243 -123 333c-3 3 -3 3 -3 6s0 3 3 6c93 90 123 207 123 333c0 234 -99 477 -99 723
+c0 177 42 342 168 465c3 3 9 6 12 6c9 0 15 -9 15 -18c0 -3 0 -6 -3 -9c-93 -90 -123 -210 -123 -336c0 -228 93 -462 93 -705c0 -174 -42 -342 -162 -465c120 -123 162 -291 162 -465z" fill="currentColor"/>
 <rect transform="translate(2.8349, 7.9000)" x="0.0000" y="-6.0829" width="0.2651" height="12.1657" ry="0.0829" fill="currentColor"/>
 </svg>
