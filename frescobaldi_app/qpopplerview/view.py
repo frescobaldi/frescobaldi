@@ -150,7 +150,7 @@ class View(KineticScrollArea):
         """Yields the visible pages."""
         rect = self.viewport().rect()
         rect.translate(-self.surface().pos())
-        rect.intersect(self.surface().rect())
+        rect &= self.surface().rect()
         return self.surface().pageLayout().pagesAt(rect)
 
     def redraw(self):
