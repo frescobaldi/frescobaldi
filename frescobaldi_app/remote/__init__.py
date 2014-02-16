@@ -31,7 +31,6 @@ from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 
 import app
 import info
-import percentcoding
 
 
 _server = None
@@ -41,8 +40,6 @@ def get():
     """Return a remote Frescobaldi, or None if not available."""
     socket = QLocalSocket()
     name = os.environ.get("FRESCOBALDI_SOCKET")
-    if name:
-		name = ensure_unicode(name)
     for name in (name,) if name else ids():
         socket.connectToServer(name)
         if socket.waitForConnected(5000):
@@ -78,7 +75,7 @@ def init():
             return
     app.aboutToQuit.connect(server.close)
     server.newConnection.connect(slot_new_connection)
-    os.environ["FRESCOBALDI_SOCKET"] = ensure_bytes(name)
+    os.environ["FRESCOBALDI_SOCKET"] = name
     _server = server
 
 
@@ -107,47 +104,22 @@ def ids(count=3):
 def generate_id():
     """Generate a name for the IPC socket.
     
-    The name is unique for the application, the username and the DISPLAY
+    The name is unique for the application, the user id and the DISPLAY
     on X11.
     
     """
     name = [info.name]
     
-    for variable in ('LOGNAME', 'USER', 'LNAME', 'USERNAME'):
-        user = os.environ.get(variable)
-        if user:
-            # avoid non-ascii characters in socket name
-            user = percentcoding.encode(ensure_bytes(user))
-            name.append(ensure_unicode(user))
-            break
+    try:
+        name.append(format(os.getuid()))
+    except AttributeError:
+        pass
     
     display = os.environ.get("DISPLAY")
     if display:
-        name.append(ensure_unicode(display))
+        name.append(display.replace(':', '_').replace('/', '_'))
     
     return '-'.join(name)
-
-
-def ensure_unicode(s):
-	"""Return string s in unicode.
-	
-	If s is not an unicode string, decode it using the filesystem encoding.
-	
-	"""
-	if type(s) in (bytearray, type(b'')):
-		s = s.decode(sys.getfilesystemencoding() or'utf-8', 'ignore')
-	return s
-
-
-def ensure_bytes(s):
-    """Return string s in bytes, suitable for os.environ.
-    
-    If s is a unicode string, it is encoded using the filesystem encoding.
-    
-    """
-    if type(s) is type(""):
-        s = s.encode(sys.getfilesystemencoding() or 'utf-8', 'ignore')
-    return s
 
 
 def enabled():
