@@ -32,7 +32,7 @@ from PyQt5.QtCore import QLocale, QSettings, QTimer
 import app
 
 from . import find, install, available
-from . import qtranslator
+#from . import qtranslator
 
 __all__ = ['preferred', 'current', 'default']
 

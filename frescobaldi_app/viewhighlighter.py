@@ -35,13 +35,18 @@ import widgets.arbitraryhighlighter
 
 
 def highlighter(view):
-    return ViewHighlighter.instance(view)
+    return ViewHighlighterPlugin.instance(view).highlighter
 
 
 app.viewCreated.connect(highlighter)
 
 
-class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.Plugin):
+class ViewHighlighterPlugin(plugin.ViewPlugin):
+    def __init__(self, view):
+        self.highlighter = ViewHighlighter(view)
+
+
+class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):
     def __init__(self, view):
         super(ViewHighlighter, self).__init__(view)
         self._cursorFormat = QTextCharFormat()

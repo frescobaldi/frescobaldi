@@ -133,7 +133,7 @@ def addAccelerators(actions, used=[]):
         # other actions.
         todo = []
         used.update(accels)
-        for action_list in accels.itervalues():
+        for action_list in accels.values():
             action_list.sort(key=lambda i: i[:2])
             pos, a = action_list[0][1:3]
             a.setText(a.text()[:pos] + '&' + a.text()[pos:])

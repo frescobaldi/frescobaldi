@@ -24,14 +24,15 @@ A dialog to edit the keyboard shortcuts for an action.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
-    QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QKeySequence, QLabel,
+    QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QLabel,
     QRadioButton, QVBoxLayout)
 
 
 import app
 from . import Separator
-from keysequencewidget import KeySequenceWidget
+from .keysequencewidget import KeySequenceWidget
 
 
 class ShortcutEditDialog(QDialog):

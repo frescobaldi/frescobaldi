@@ -212,8 +212,8 @@ if __name__ == '__main__':
             for t in tracks:
                 list(parse_midi_events(t))
         except Exception as e:
-            print 'error in:', f
-            print e
+            print ('error in:', f)
+            print (e)
 
 
 
