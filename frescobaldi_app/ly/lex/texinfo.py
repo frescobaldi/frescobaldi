@@ -208,7 +208,7 @@ class ParseLilyPondFile(Parser):
     )
 
 
-import lilypond
+from . import lilypond
 
 class ParseLilyPondBlock(lilypond.ParseGlobal):
     items = (
