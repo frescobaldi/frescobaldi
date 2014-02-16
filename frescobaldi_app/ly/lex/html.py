@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 from . import _token
 from . import Parser, FallthroughParser
 
-import lilypond
+from . import lilypond
 
 
 class Comment(_token.Comment):
