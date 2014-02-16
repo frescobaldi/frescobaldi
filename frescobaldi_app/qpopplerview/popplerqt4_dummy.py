@@ -36,7 +36,7 @@ __all__ = ["Poppler"]
 class _noinst(object):
     """A class that can't be instantiated."""
     def __new__(cls, *args, **kwargs):
-        raise TypeError, "can't instantiate %s" % cls.__name__
+        raise TypeError("can't instantiate %s" % cls.__name__)
         
 
 class Poppler(_noinst):
