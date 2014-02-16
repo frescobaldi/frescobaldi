@@ -23,7 +23,7 @@ Per-MainWindow session manager
 
 from __future__ import unicode_literals
 
-from PyQt5.QtGui import QAction, QActionGroup
+from PyQt5.QtWidgets import QAction, QActionGroup
 
 import actioncollection
 import actioncollectionmanager

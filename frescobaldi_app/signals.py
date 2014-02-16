@@ -249,7 +249,7 @@ class SignalContext(Signal):
                 except:
                     exc = sys.exc_info()
             if exc != (None, None, None):
-                raise exc[0], exc[1], exc[2]
+                raise
 
 
 class ListenerBase(object):

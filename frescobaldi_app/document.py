@@ -26,7 +26,8 @@ from __future__ import unicode_literals
 import os
 
 from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QPlainTextDocumentLayout, QTextCursor, QTextDocument
+from PyQt5.QtGui import QTextCursor, QTextDocument
+from PyQt5.QtWidgets import QPlainTextDocumentLayout
 
 import app
 import util

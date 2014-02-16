@@ -21,7 +21,7 @@
 Internationalization of Frescobaldi.
 """
 
-import __builtin__
+import builtins
 import os
 
 from . import mofile
@@ -70,5 +70,5 @@ def install(filename):
     If filename is None, installs a dummy translator.
     
     """
-    __builtin__._ = translator(mofile.MoFile(filename) if filename else None)
+    builtins._ = translator(mofile.MoFile(filename) if filename else None)
 

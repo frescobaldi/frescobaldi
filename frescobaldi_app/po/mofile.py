@@ -27,8 +27,8 @@ that iterate over the contents of a MO file in different ways.
 There are no functions to locate MO files, or to install a MoFile object
 as a global translator. You can do this easily yourself e.g.:
 
-import __builtin__
-__builtin__._ = lambda *args: translation[len(args)](*args)
+import builtins
+builtins._ = lambda *args: translation[len(args)](*args)
 
 mo_instance = MoFile('/path/to/file.mo')
 
@@ -54,8 +54,8 @@ __all__ = [
 import re
 from struct import unpack
 
-LE_MAGIC = 0x950412deL
-BE_MAGIC = 0xde120495L
+LE_MAGIC = 0x950412de
+BE_MAGIC = 0xde120495
 
 
 class NullMoFile(object):

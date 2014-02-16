@@ -23,7 +23,7 @@ Brass part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
+import builtins
 
 from . import _base
 from . import register
@@ -35,11 +35,11 @@ class BrassPart(_base.SingleVoicePart):
     
 class HornF(BrassPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Horn in F")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Horn in F", "Hn.F.")
 
     midiInstrument = 'french horn'
@@ -48,11 +48,11 @@ class HornF(BrassPart):
 
 class TrumpetC(BrassPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Trumpet in C")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Trumpet in C", "Tr.C.")
 
     midiInstrument = 'trumpet'
@@ -60,11 +60,11 @@ class TrumpetC(BrassPart):
     
 class TrumpetBb(TrumpetC):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Trumpet in Bb")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Trumpet in Bb", "Tr.Bb.")
 
     transposition = (-1, 6, -1)
@@ -72,11 +72,11 @@ class TrumpetBb(TrumpetC):
 
 class Trombone(BrassPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Trombone")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Trombone", "Trb.")
 
     midiInstrument = 'trombone'
@@ -86,11 +86,11 @@ class Trombone(BrassPart):
     
 class Tuba(BrassPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Tuba")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Tuba", "Tb.")
 
     midiInstrument = 'tuba'
@@ -99,11 +99,11 @@ class Tuba(BrassPart):
 
 class BassTuba(BrassPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Bass Tuba")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Bass Tuba", "B.Tb.")
     
     midiInstrument = 'tuba'

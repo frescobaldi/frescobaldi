@@ -23,7 +23,7 @@ Vocal part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
+import builtins
 import collections
 import itertools
 import re
@@ -122,31 +122,31 @@ class VocalSoloPart(VocalPart, _base.SingleVoicePart):
 
 class SopranoVoice(VocalSoloPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Soprano")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Soprano", "S.")
 
 
 class MezzoSopranoVoice(VocalSoloPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Mezzo-soprano")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Mezzo-soprano", "Ms.")
 
 
 class AltoVoice(VocalSoloPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Alto")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Alto", "A.")
     
     octave = 0
@@ -154,11 +154,11 @@ class AltoVoice(VocalSoloPart):
 
 class TenorVoice(VocalSoloPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Tenor")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Tenor", "T.")
 
     octave = 0
@@ -167,11 +167,11 @@ class TenorVoice(VocalSoloPart):
 
 class BassVoice(VocalSoloPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Bass")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Bass", "B.")
 
     octave = -1
@@ -180,7 +180,7 @@ class BassVoice(VocalSoloPart):
 
 class LeadSheet(VocalPart, _base.ChordNames):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Lead sheet")
     
     def createWidgets(self, layout):
@@ -269,7 +269,7 @@ class LeadSheet(VocalPart, _base.ChordNames):
 
 class Choir(VocalPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Choir")
 
     def createWidgets(self, layout):

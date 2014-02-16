@@ -28,7 +28,8 @@ import re
 import sys
 
 from PyQt5.QtCore import QSettings, QTimer, QUrl
-from PyQt5.QtGui import QApplication, QTextCursor
+from PyQt5.QtGui import QTextCursor
+from PyQt5.QtWidgets import QApplication
 
 from . import toplevel  # Find all modules and packages as toplevel
 import info             # Information about our application

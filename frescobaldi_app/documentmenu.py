@@ -23,7 +23,8 @@ The Documents menu.
 
 from __future__ import unicode_literals
 
-from PyQt5.QtGui import QAction, QActionGroup, QIcon, QMenu
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QAction, QActionGroup, QMenu
 
 import app
 import icons

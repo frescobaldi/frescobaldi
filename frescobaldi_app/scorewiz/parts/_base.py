@@ -23,7 +23,7 @@ Base types for parts.
 
 from __future__ import unicode_literals
 
-import __builtin__
+import builtins
 import collections
 
 from PyQt5.QtCore import *
@@ -39,7 +39,7 @@ Category = collections.namedtuple("Category", "title items icon")
 class Base(object):
     """Base class for both Part and Container."""
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         """Should return a title.
         
         If a translator is given, it is used instead of the builtin.
@@ -47,7 +47,7 @@ class Base(object):
         """
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         """Should return an abbreviated title.
         
         If a translator is given, it is used instead of the builtin.

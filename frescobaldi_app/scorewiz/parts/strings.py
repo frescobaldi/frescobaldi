@@ -23,7 +23,7 @@ String part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
+import builtins
 
 import ly.dom
 
@@ -37,11 +37,11 @@ class StringPart(_base.SingleVoicePart):
 
 class Violin(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Violin")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Violin", "Vl.")
 
     midiInstrument = 'violin'
@@ -49,11 +49,11 @@ class Violin(StringPart):
 
 class Viola(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Viola")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Viola", "Vla.")
     
     midiInstrument = 'viola'
@@ -63,11 +63,11 @@ class Viola(StringPart):
 
 class Cello(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Cello")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Cello", "Cl.")
     
     midiInstrument = 'cello'
@@ -77,11 +77,11 @@ class Cello(StringPart):
 
 class Contrabass(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Contrabass")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Contrabass", "Cb.")
     
     midiInstrument = 'contrabass'
@@ -91,11 +91,11 @@ class Contrabass(StringPart):
 
 class BassoContinuo(Cello):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=builtins._):
         return _("Basso Continuo")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=builtins._):
         return _("abbreviation for Basso Continuo", "B.c.")
     
     def build(self, data, builder):

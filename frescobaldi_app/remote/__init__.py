@@ -42,7 +42,7 @@ def get():
     socket = QLocalSocket()
     name = os.environ.get("FRESCOBALDI_SOCKET")
     if name:
-		name = ensure_unicode(name)
+        name = ensure_unicode(name)
     for name in (name,) if name else ids():
         socket.connectToServer(name)
         if socket.waitForConnected(5000):
@@ -129,14 +129,14 @@ def generate_id():
 
 
 def ensure_unicode(s):
-	"""Return string s in unicode.
-	
-	If s is not an unicode string, decode it using the filesystem encoding.
-	
-	"""
-	if type(s) in (bytearray, type(b'')):
-		s = s.decode(sys.getfilesystemencoding() or'utf-8', 'ignore')
-	return s
+    """Return string s in unicode.
+    
+    If s is not an unicode string, decode it using the filesystem encoding.
+    
+    """
+    if type(s) in (bytearray, type(b'')):
+        s = s.decode(sys.getfilesystemencoding() or'utf-8', 'ignore')
+    return s
 
 
 def ensure_bytes(s):

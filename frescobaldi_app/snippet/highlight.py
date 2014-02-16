@@ -23,7 +23,7 @@ Highlighter for the snippet editor and view.
 
 from __future__ import unicode_literals
 
-import __builtin__
+import builtins
 import keyword
 
 from PyQt5.QtGui import QSyntaxHighlighter
@@ -134,7 +134,7 @@ class PyKeyword(Keyword):
     rx = r"\b({0})\b".format('|'.join(keyword.kwlist))
 
 class PyBuiltin(Function):
-    rx = r"\b({0})\b".format('|'.join(__builtin__.__dict__.keys()))
+    rx = r"\b({0})\b".format('|'.join(builtins.__dict__.keys()))
 
 class PyStringStartDQ1(String):
     rx = '[uUbB]?"'

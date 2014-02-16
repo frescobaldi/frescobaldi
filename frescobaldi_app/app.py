@@ -27,7 +27,7 @@ import os
 import sys
 
 from PyQt5.QtCore import QSettings, QThread
-from PyQt5.QtGui import QApplication
+from PyQt5.QtWidgets import QApplication
 
 import info
 
@@ -184,7 +184,7 @@ def excepthook(exctype, excvalue, exctb):
             exception.ExceptionDialog(exctype, excvalue, exctb)
 
 def displayhook(obj):
-    """Prevent normal displayhook from overwriting __builtin__._"""
+    """Prevent normal displayhook from overwriting builtins._"""
     if obj is not None:
-        print repr(obj)
+        print(repr(obj))
 
