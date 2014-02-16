@@ -29,7 +29,7 @@ In the panelmanager module, the Panels are instantiated.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QDockWidget, QLabel
+from PyQt5.QtWidgets import QDockWidget, QLabel
 
 import app
 

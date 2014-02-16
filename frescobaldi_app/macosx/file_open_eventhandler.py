@@ -27,7 +27,7 @@ Currently this makes only sense on Mac OS X.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QObject
-from PyQt5.QtGui import QApplication
+from PyQt5.QtWidgets import QApplication
 
 import app
 

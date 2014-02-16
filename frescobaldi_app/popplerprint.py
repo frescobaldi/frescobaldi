@@ -35,7 +35,8 @@ import sys
 import subprocess
 
 from PyQt5.QtCore import pyqtSignal, QSettings, QTemporaryFile, Qt, QThread
-from PyQt5.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
+from PyQt5.QtWidgets import QMessageBox, QProgressDialog
+from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 
 import app
 import helpers

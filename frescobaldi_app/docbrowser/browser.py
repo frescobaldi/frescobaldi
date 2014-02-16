@@ -28,6 +28,7 @@ import os
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebKit import *
+from PyQt5.QtWebKitWidgets import *
 
 import app
 import icons

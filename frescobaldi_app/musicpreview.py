@@ -30,6 +30,7 @@ import shutil
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from PyQt5.QtWidgets import *
 
 import ly.document
 import ly.docinfo

@@ -24,7 +24,7 @@ The contextmenu of the editor.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QAction
+from PyQt5.QtWidgets import QAction
 
 import icons
 import util

@@ -34,7 +34,8 @@ import os
 import sys
 
 from PyQt5.QtCore import QObject, QSettings, Qt, SIGNAL
-from PyQt5.QtGui import QApplication, QSessionManager
+from PyQt5.QtGui import QSessionManager
+from PyQt5.QtWidgets import QApplication
 
 import info
 import app

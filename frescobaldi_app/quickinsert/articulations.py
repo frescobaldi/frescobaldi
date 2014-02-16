@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt5.QtGui import QCheckBox, QHBoxLayout, QToolButton
+from PyQt5.QtWidgets import QCheckBox, QHBoxLayout, QToolButton
 
 import app
 import symbols

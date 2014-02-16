@@ -28,9 +28,10 @@ import re
 import weakref
 
 from PyQt5.QtCore import QEvent, Qt
-from PyQt5.QtGui import (
-    QAction, QApplication, QCheckBox, QGridLayout, QKeySequence, QLabel,
-    QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
+from PyQt5.QtGui import QKeySequence, QTextCursor
+from PyQt5.QtWidgets import (
+    QAction, QApplication, QCheckBox, QGridLayout, QLabel, QLineEdit,
+    QPalette, QPushButton, QStyle, QToolButton, QWidget)
 
 import app
 import qutil

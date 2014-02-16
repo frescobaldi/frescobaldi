@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import builtins
 
-from PyQt5.QtGui import QCheckBox
+from PyQt5.QtWidgets import QCheckBox
 
 import ly.dom
 

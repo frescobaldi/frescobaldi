@@ -31,9 +31,10 @@ from __future__ import absolute_import
 import os
 import sys
 
-from PyQt5 import QtCore
-from PyQt5 import QtGui
-from PyQt5 import QtWebKit
+from PyQt5.QtCore import QObject, QUrl
+from PyQt5.QtGui import QTextCharFormat, QTextCursor
+from PyQt5.QtWebKitWidgets import QWebView
+
 
 import app
 import util
@@ -54,8 +55,8 @@ def getJsScript(filename):
 	return jsValue
 
 
-class View(QtWebKit.QWebView):
-    zoomFactorChanged = QtCore.pyqtSignal(float)
+class View(QWebView):
+    zoomFactorChanged = pyqtSignal(float)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -73,7 +74,7 @@ class View(QtWebKit.QWebView):
     
     def clear(self):
         """Empty the View."""
-        self.load(QtCore.QUrl())
+        self.load(QUrl())
     
     def zoomIn(self):
         self.setZoomFactor(self.zoomFactor() * 1.1)
@@ -91,7 +92,7 @@ class View(QtWebKit.QWebView):
             self.zoomFactorChanged.emit(self.zoomFactor())
 
 
-class JSLink(QtCore.QObject):
+class JSLink(QObject):
     """functions to be called from JavaScript
     
     using addToJavaScriptWindowObject
@@ -100,7 +101,7 @@ class JSLink(QtCore.QObject):
     def __init__(self, view):
         super(JSLink, self).__init__()
         self.view = view
-        self._highlightFormat = QtGui.QTextCharFormat()
+        self._highlightFormat = QTextCharFormat()
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         
@@ -126,15 +127,15 @@ class JSLink(QtCore.QObject):
                 or d.url().toLocalFile() == filename):
                 return d
         if load:
-            return app.openUrl(QtCore.QUrl.fromLocalFile(filename))
+            return app.openUrl(QUrl.fromLocalFile(filename))
         
-    @QtCore.pyqtSlot(str)
+    @pyqtSlot(str)
     def setCursor(self, url):
         """set cursor in source by clicked textedit link""" 
         t = textedit.link(url)
         if t:
             doc = self.document(t.filename, True)
-            cursor = QtGui.QTextCursor(doc)
+            cursor = QTextCursor(doc)
             b = doc.findBlockByNumber(t.line - 1)
             p = b.position() + t.column
             cursor.setPosition(p)
@@ -146,16 +147,16 @@ class JSLink(QtCore.QObject):
             mainwindow.currentView().setFocus()
         else:
             import helpers
-            helpers.openUrl(QtCore.QUrl(url))
+            helpers.openUrl(QUrl(url))
 	
-    @QtCore.pyqtSlot(str)	    
+    @pyqtSlot(str)	    
     def hover(self, url):
         """actions when user set mouse over link"""
         t = textedit.link(url)
         if t:
             doc = self.document(t.filename)
             if doc and doc == self.mainwindow().currentDocument():
-                cursor = QtGui.QTextCursor(doc)
+                cursor = QTextCursor(doc)
                 b = doc.findBlockByNumber(t.line - 1)
                 p = b.position() + t.column
                 cursor.setPosition(p)
@@ -165,14 +166,14 @@ class JSLink(QtCore.QObject):
                     view = self.mainwindow().currentView()
                     viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
     
-    @QtCore.pyqtSlot(str)	    
+    @pyqtSlot(str)	    
     def leave(self, url):
         """actions when user moves mouse off link"""
         import viewhighlighter
         view = self.mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
         
-    @QtCore.pyqtSlot(str)	    
+    @pyqtSlot(str)	    
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
         print txt

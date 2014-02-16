@@ -27,7 +27,7 @@ import os
 import collections
 
 from PyQt5.QtCore import QSettings, QSize, Qt
-from PyQt5.QtGui import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QSpinBox, QTextEdit)
 
 import app

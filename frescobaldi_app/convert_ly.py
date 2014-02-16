@@ -28,7 +28,7 @@ import os
 import subprocess
 
 from PyQt5.QtCore import QSettings, QSize
-from PyQt5.QtGui import (
+from PyQt5.QtWidgets import (
     QCheckBox, QDialog, QDialogButtonBox, QHBoxLayout, QLabel, QLineEdit,
     QTabWidget, QTextBrowser, QVBoxLayout)
 

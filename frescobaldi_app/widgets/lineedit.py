@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 
 from PyQt5.QtCore import QEvent, QSize, Qt
-from PyQt5.QtGui import QLineEdit, QStyle, QToolButton
+from PyQt5.QtWidgets import QLineEdit, QStyle, QToolButton
 
 import icons
 

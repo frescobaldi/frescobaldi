@@ -31,7 +31,8 @@ import weakref
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtGui import (
-    QColor, QTextCharFormat, QTextCursor, QTextEdit, QTextFormat)
+    QColor, QTextCharFormat, QTextCursor, QTextFormat)
+from PyQt5.QtWidgets import QTextEdit
 
 import app
 import log

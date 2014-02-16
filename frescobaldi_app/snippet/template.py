@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import documentinfo
 import inputdialog
 
-from PyQt5.QtGui import QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 
 from . import model
 from . import snippets

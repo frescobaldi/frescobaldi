@@ -23,7 +23,7 @@ The Quick Insert panel dynamics Tool.
 
 from __future__ import unicode_literals
 
-from PyQt5.QtGui import QHBoxLayout, QToolButton
+from PyQt5.QtWidgets import QHBoxLayout, QToolButton
 
 import app
 import icons

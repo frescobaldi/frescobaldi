@@ -25,7 +25,7 @@ import atexit
 import weakref
 
 from PyQt5.QtCore import QSettings, QTimer
-from PyQt5.QtGui import QCompleter, QStringListModel
+from PyQt5.QtWidgets import QCompleter, QStringListModel
 
 _models = {}
 

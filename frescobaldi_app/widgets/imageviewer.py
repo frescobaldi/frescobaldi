@@ -24,9 +24,8 @@ A simple scrollarea that can display an image.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import pyqtSignal, QMimeData, QSize, QRect, Qt
-from PyQt5.QtGui import (
-    QApplication, QColor, QDrag, QImage, QPainter, QPalette, QPixmap,
-    QScrollArea, QSizePolicy, QWidget)
+from PyQt5.QtGui import QColor, QDrag, QImage, QPainter, QPalette, QPixmap
+from PyQt5.QtWidgets import QApplication, QScrollArea, QSizePolicy, QWidget
 
 
 __all__ = ['ImageViewer']
