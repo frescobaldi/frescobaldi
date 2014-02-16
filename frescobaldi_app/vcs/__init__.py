@@ -34,6 +34,8 @@ def app_is_git_controlled():
     first call.
         
     """
+    ###TEMP
+    return False
     global _app_is_git_controlled
     try:
         return _app_is_git_controlled
