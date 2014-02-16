@@ -110,9 +110,9 @@ class MainWindow(QMainWindow):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
         mainwidget.setLayout(layout)
-        self.tabBar = tabbar.TabBar(self)
+        #self.tabBar = tabbar.TabBar(self)
         self.viewManager = viewmanager.ViewManager(self)
-        layout.addWidget(self.tabBar)
+        #layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
         self.createActions()
@@ -126,7 +126,7 @@ class MainWindow(QMainWindow):
         
         self.historyManager = historymanager.HistoryManager(self, other.historyManager if other else None)
         self.viewManager.viewChanged.connect(self.slotViewChanged)
-        self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
+        #self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
         self.setAcceptDrops(True)
         
         # keep track of all ActionCollections for the keyboard settings dialog
@@ -320,8 +320,8 @@ class MainWindow(QMainWindow):
         menu.addSeparator()
         a = menu.addAction(_("Tab Bar"))
         a.setCheckable(True)
-        a.setChecked(self.tabBar.isVisible())
-        a.toggled.connect(self.tabBar.setVisible)
+        #a.setChecked(self.tabBar.isVisible())
+        #a.toggled.connect(self.tabBar.setVisible)
         return menu
         
     def readSettings(self):
@@ -331,7 +331,7 @@ class MainWindow(QMainWindow):
         defaultSize = QApplication.desktop().screen().size() * 2 / 3
         self.resize(settings.value("size", defaultSize, QSize))
         self.restoreState(settings.value('state', QByteArray(), QByteArray))
-        self.tabBar.setVisible(settings.value('tabbar', True, bool))
+        #self.tabBar.setVisible(settings.value('tabbar', True, bool))
         if os.name != "posix" and settings.value('maximized', False, bool):
             self.showMaximized()
         
@@ -829,8 +829,8 @@ class MainWindow(QMainWindow):
         ac.edit_find.triggered.connect(self.find)
         ac.edit_replace.triggered.connect(self.replace)
         ac.edit_preferences.triggered.connect(self.showPreferences)
-        ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
-        ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
+        #ac.view_next_document.triggered.connect(self.tabBar.nextDocument)
+        #ac.view_previous_document.triggered.connect(self.tabBar.previousDocument)
         ac.view_wrap_lines.triggered.connect(self.toggleWrapLines)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
