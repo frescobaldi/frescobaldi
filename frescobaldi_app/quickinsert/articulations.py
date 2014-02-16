@@ -108,8 +108,8 @@ class Articulations(tool.Tool):
         return _("Articulations")
   
     def tooltip(self):
-	"""Returns a tooltip"""
-	return _("Different kinds of articulations and other signs.")
+        """Returns a tooltip"""
+        return _("Different kinds of articulations and other signs.")
 
 
 class Group(buttongroup.ButtonGroup):

@@ -48,7 +48,7 @@ class QuickInsertPanel(panel.Panel):
         self.toggleViewAction().setText(_("Quick &Insert"))
         
     def createWidget(self):
-        import widget
+        from . import widget
         return widget.QuickInsert(self)
 
 
