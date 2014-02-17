@@ -71,6 +71,19 @@ of Python, PyQt4, popplerqt4 and pypm (from pygame) when used on MS Windows.
 To use the script you need cx_Freeze and Inno Setup.
 
 
+Mac OS X application bundle:
+============================
+
+The macosx/mac-app.py script can build an application bundle on Mac OS X.
+To see the usage notes, run:
+
+  python macosx/mac-app.py -h
+
+The application bundle will be created inside a 'dist' folder in the current
+working directory. The application bundle is NOT self-contained.
+To use the script you need argparse (included in Python >= 2.7) and py2app.
+
+
 For Linux distribution packagers:
 =================================
 
