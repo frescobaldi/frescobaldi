@@ -48,7 +48,7 @@ plist = dict(
     CFBundleExecutable            = info.appname,
     CFBundleIdentifier            = 'org.{0}.{0}'.format(info.name),
     CFBundleIconFile              = '{0}.icns'.format(info.name),
-    NSHumanReadableCopyright      = u'Copyright © 2008-2012 Wilbert Berendsen.',
+    NSHumanReadableCopyright      = u'Copyright © 2008-2014 Wilbert Berendsen.',
     CFBundleDocumentTypes         = [
         {
             'CFBundleTypeExtensions': ['ly', 'lyi', 'ily'],
