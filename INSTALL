@@ -54,7 +54,7 @@ Required:
     Poppler:
         http://poppler.freedesktop.org/
     python-poppler-qt4:
-        http://python-poppler-qt4.googlecode.com/
+        https://github.com/wbsoft/python-poppler-qt4
 
 Optional:
     PortMidi:
