@@ -31,6 +31,7 @@ import simplemarkdown
 
 
 _string_formatter_parse = string.Formatter().parse
+_document_split_re = re.compile(r'^#([A-Z]\w+)\s*$', re.MULTILINE)
 
 
 def split_document(s):
@@ -41,7 +42,7 @@ def split_document(s):
     with a list of lines for every block.
     
     """
-    l = re.split(r'^#([A-Z]\w+)\s*$', s, flags = re.MULTILINE)
+    l = _document_split_re.split(s)
     i = iter(l[1:])
     return l[0], dict((name, split_lines(value)) for name, value in zip(i, i))
 
