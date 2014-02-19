@@ -89,6 +89,7 @@ class GeneralPreferences(QGroupBox):
         self.typq = QCheckBox()
         self.tagl = QCheckBox()
         self.barnum = QCheckBox()
+        self.neutdir = QCheckBox()
         self.midi = QCheckBox()
         self.metro = QCheckBox()
         self.paperSizeLabel = QLabel()
@@ -100,6 +101,7 @@ class GeneralPreferences(QGroupBox):
         layout.addWidget(self.typq)
         layout.addWidget(self.tagl)
         layout.addWidget(self.barnum)
+        layout.addWidget(self.neutdir)
         layout.addWidget(self.midi)
         layout.addWidget(self.metro)
         
@@ -125,6 +127,10 @@ class GeneralPreferences(QGroupBox):
         self.barnum.setToolTip(_(
             "Suppress the display of measure numbers at the beginning of "
             "every system."))
+        self.neutdir.setText(_("Smart neutral stem direction"))
+        self.neutdir.setToolTip(_(
+            "Use a logical direction (up or down) for stems on the middle "
+            "line of a staff."))
         self.midi.setText(_("Create MIDI output"))
         self.midi.setToolTip(_(
             "Create a MIDI file in addition to the PDF file."))
@@ -150,6 +156,7 @@ class GeneralPreferences(QGroupBox):
         self.typq.setChecked(s.value('typographical_quotes', True, bool))
         self.tagl.setChecked(s.value('remove_tagline', False, bool))
         self.barnum.setChecked(s.value('remove_barnumbers', False, bool))
+        self.neutdir.setChecked(s.value('smart_neutral_direction', False, bool))
         self.midi.setChecked(s.value('midi', True, bool))
         self.metro.setChecked(s.value('metronome_mark', False, bool))
         psize = s.value('paper_size', '', type(""))
@@ -164,6 +171,7 @@ class GeneralPreferences(QGroupBox):
         s.setValue('typographical_quotes', self.typq.isChecked())
         s.setValue('remove_tagline', self.tagl.isChecked())
         s.setValue('remove_barnumbers', self.barnum.isChecked())
+        s.setValue('smart_neutral_direction', self.neutdir.isChecked())
         s.setValue('midi', self.midi.isChecked())
         s.setValue('metronome_mark', self.metro.isChecked())
         s.setValue('paper_size', paperSizes[self.paper.currentIndex()])

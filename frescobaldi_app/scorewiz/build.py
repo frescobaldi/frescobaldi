@@ -172,6 +172,7 @@ class Builder(object):
         self.pitchLanguage = dialog.pitchLanguage()
         self.suppressTagLine = generalPreferences.tagl.isChecked()
         self.removeBarNumbers = generalPreferences.barnum.isChecked()
+        self.smartNeutralDirection = generalPreferences.neutdir.isChecked()
         self.showMetronomeMark = generalPreferences.metro.isChecked()
         self.paperSize = generalPreferences.getPaperSize()
         self.paperLandscape = generalPreferences.paperLandscape.isChecked()
@@ -421,11 +422,21 @@ class Builder(object):
             ).after = 1
             ly.dom.BlankLine(doc)
 
+        layout = ly.dom.Layout()
+        
         # remove bar numbers
         if self.removeBarNumbers:
             ly.dom.Line('\\remove "Bar_number_engraver"',
-                ly.dom.Context('Score',
-                    ly.dom.Layout(doc)))
+                ly.dom.Context('Score', layout))
+        
+        # smart neutral direction
+        if self.smartNeutralDirection:
+            ctxt_voice = ly.dom.Context('Voice', layout)
+            ly.dom.Line('\\consists "Melody_engraver"', ctxt_voice)
+            ly.dom.Line("\\override Stem #'neutral-direction = #'()", ctxt_voice)
+        
+        if len(layout):
+            doc.append(layout)
             ly.dom.BlankLine(doc)
 
         # global section

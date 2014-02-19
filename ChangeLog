@@ -20,6 +20,9 @@ Changes in 2.0.14 --
 * Improvements:
   - In the score wizard it is possible to enter a custom string tuning for the
     plucked string instruments, and the Ukulele is added (issue #342)
+  - In the score wizard you can enable Smart neutral stem direction, which adds
+    the Melody_engraver to the Voice context, resulting in a logical direction
+    for notes on the middle staff line (issue #371)
   - Print source, Copy colored HTML and Export source as colored HTML: add line
     numbers if enabled in the preferences.
   - In the Editor preferences, it is adjustable whether HTML export or copy use
