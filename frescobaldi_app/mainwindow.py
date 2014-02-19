@@ -412,9 +412,6 @@ class MainWindow(QMainWindow):
                 d.setUndoRedoEnabled(False)
                 d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
                 d.setModified(False)
-                if 'template-run' in snippets.get(template).variables:
-                    import engrave
-                    engrave.engraver(self).engrave('preview', d)
         elif ndoc == "version":
             import lilypondinfo
             d.setPlainText('\\version "{0}"\n\n'.format(lilypondinfo.preferred().versionString()))
