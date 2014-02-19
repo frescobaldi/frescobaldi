@@ -406,7 +406,7 @@ class MainWindow(QMainWindow):
         template = s.value("new_document_template", "", type(""))
         if ndoc == "template" and template:
             from snippet import snippets, insert
-            if snippets.text(template)
+            if snippets.text(template):
                 insert.insert(template, self.currentView())
                 d.setUndoRedoEnabled(False)
                 d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
