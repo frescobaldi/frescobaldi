@@ -172,7 +172,10 @@ def main():
             # no docs, load default session
             doc = sessions.loadDefaultSession()
     
-    win.setCurrentDocument(doc or document.Document())
+    if doc:
+        win.setCurrentDocument(doc)
+    else:
+        win.newDocument()
     
     if urls and options.line is not None:
         # set the last loaded document active and apply navigation if requested

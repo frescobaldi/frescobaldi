@@ -39,18 +39,17 @@ import language_names
 from widgets.urlrequester import UrlRequester
 
 
-class GeneralPrefs(preferences.GroupsPage):
+class GeneralPrefs(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(GeneralPrefs, self).__init__(dialog)
 
         layout = QVBoxLayout()
-        self.setLayout(layout)
+        self.scrolledWidget.setLayout(layout)
         
         layout.addWidget(General(self))
-        layout.addStretch(0)
-        layout.addWidget(StartSession(self))
-        layout.addStretch(0)
         layout.addWidget(SavingDocument(self))
+        layout.addWidget(NewDocument(self))
+        layout.addWidget(StartSession(self))
 
 
 class General(preferences.Group):
@@ -247,4 +246,66 @@ class SavingDocument(preferences.Group):
         s.setValue("metainfo", self.metainfo.isChecked())
         s.setValue("basedir", self.basedir.path())
 
+
+class NewDocument(preferences.Group):
+    def __init__(self, page):
+        super(NewDocument, self).__init__(page)
+        
+        grid = QGridLayout()
+        self.setLayout(grid)
+        
+        def changed():
+            self.changed.emit()
+            self.combo.setEnabled(self.template.isChecked())
+        
+        self.emptyDocument = QRadioButton(toggled=changed)
+        self.lilyVersion = QRadioButton(toggled=changed)
+        self.template = QRadioButton(toggled=changed)
+        self.combo = QComboBox(currentIndexChanged=changed)
+        
+        grid.addWidget(self.emptyDocument, 0, 0, 1, 2)
+        grid.addWidget(self.lilyVersion, 1, 0, 1, 2)
+        grid.addWidget(self.template, 2, 0, 1, 1)
+        grid.addWidget(self.combo, 2, 1, 1, 1)
+        self.loadCombo()
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Creating New Documents"))
+        self.emptyDocument.setText(_("Create a new document empty"))
+        self.lilyVersion.setText(_("Write the LilyPond version in a new document"))
+        self.template.setText(_("Use a default template:"))
+        from snippet import snippets
+        for i, name in enumerate(self._names):
+            self.combo.setItemText(i, snippets.title(name))
+    
+    def loadCombo(self):
+        from snippet import snippets
+        self._names = [name for name in snippets.names()
+                        if snippets.get(name).variables.get('template')]
+        self.combo.clear()
+        self.combo.addItems([''] * len(self._names))
+        
+    def loadSettings(self):
+        s = QSettings()
+        ndoc = s.value("new_document", "empty", type(""))
+        template = s.value("new_document_template", "", type(""))
+        if template in self._names:
+            self.combo.setCurrentIndex(self._names.index(template))
+        if ndoc == "template":
+            self.template.setChecked(True)
+        elif ndoc == "version":
+            self.lilyVersion.setChecked(True)
+        else:
+            self.emptyDocument.setChecked(True)
+
+    def saveSettings(self):
+        s = QSettings()
+        if self._names and self.template.isChecked():
+            s.setValue("new_document", "template")
+            s.setValue("new_document_template", self._names[self.combo.currentIndex()])
+        elif self.lilyVersion.isChecked():
+            s.setValue("new_document", "version")
+        else:
+            s.setValue("new_document", "empty")
 

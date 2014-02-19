@@ -399,8 +399,27 @@ class MainWindow(QMainWindow):
     
     def newDocument(self):
         """ Creates a new, empty document. """
-        self.setCurrentDocument(document.Document())
-        
+        d = document.Document()
+        self.setCurrentDocument(d)
+        s = QSettings()
+        ndoc = s.value("new_document", "empty", type(""))
+        template = s.value("new_document_template", "", type(""))
+        if ndoc == "template" and template:
+            from snippet import snippets, insert
+            snip = snippets.get(template)
+            if snip:
+                insert.insert(template, self.currentView())
+                d.setUndoRedoEnabled(False)
+                d.setUndoRedoEnabled(True) # d.clearUndoRedoStacks() only in Qt >= 4.7
+                d.setModified(False)
+                if 'template-run' in snippets.get(template).variables:
+                    import engrave
+                    engrave.engraver(self).engrave('preview', d)
+        elif ndoc == "version":
+            import lilypondinfo
+            d.setPlainText('\\version "{0}"\n\n'.format(lilypondinfo.preferred().versionString()))
+            d.setModified(False)
+    
     def openDocument(self):
         """ Displays an open dialog to open one or more documents. """
         ext = os.path.splitext(self.currentDocument().url().path())[1]
@@ -474,7 +493,7 @@ class MainWindow(QMainWindow):
             doc.close()
             # keep one document
             if not app.documents:
-                self.setCurrentDocument(document.Document())
+                self.newDocument()
         return close
         
     def saveCurrentDocument(self):
