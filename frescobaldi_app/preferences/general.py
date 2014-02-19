@@ -271,7 +271,7 @@ class NewDocument(preferences.Group):
         app.translateUI(self)
         
     def translateUI(self):
-        self.setTitle(_("Creating New Documents"))
+        self.setTitle(_("When creating new documents"))
         self.emptyDocument.setText(_("Create a new document empty"))
         self.lilyVersion.setText(_("Write the LilyPond version in a new document"))
         self.template.setText(_("Use a default template:"))
