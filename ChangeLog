@@ -17,6 +17,9 @@ Changes in 2.0.14 --
     closed. This is expected behaviour on Mac OS X.
   - New builtin snippet, linked to Ctrl+D by default, to double the current
     line or selection (issue #340)
+  - A new preference for new documents: whether a new document is created empty,
+    with the preferred LilyPond version in it, or using a template from the
+    snippets list
 * Improvements:
   - In the score wizard it is possible to enter a custom string tuning for the
     plucked string instruments, and the Ukulele is added (issue #342)
