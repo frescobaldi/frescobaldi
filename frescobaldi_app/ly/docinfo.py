@@ -314,6 +314,24 @@ class DocInfo(object):
         """Return whether the document is probably complete and could be compilable."""
         return self._d.state_end(self._d[len(self._d)-1]).depth() == 1
     
+    @_cache
+    def has_output(self):
+        """Return True when the document probably generates output.
+        
+        I.e. has notes, rests, markup or other output-generating commands.
+        
+        """
+        for t, c in (
+                (None, ly.lex.lilypond.MarkupStart),
+                (None, ly.lex.lilypond.Note),
+                (None, ly.lex.lilypond.Rest),
+                ('\\include', ly.lex.lilypond.Keyword),
+                (None, ly.lex.lilypond.LyricMode),
+            ):
+            for i in self.find_all(t, c):
+                return True
+        return False
+    
     def count_tokens(self, cls):
         """Return the number of tokens that are (a subclass) of the specified class.
         

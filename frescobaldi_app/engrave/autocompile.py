@@ -144,7 +144,7 @@ class AutoCompileManager(plugin.DocumentPlugin):
         """Return True if we could need to compile the document."""
         if self._dirty:
             dinfo = documentinfo.docinfo(self.document())
-            if (dinfo.mode() == "lilypond" and dinfo.complete()):
+            if (dinfo.mode() == "lilypond" and dinfo.complete() and dinfo.has_output()):
                 h = self.token_hash()
                 if h != self._hash:
                     self._hash = h
