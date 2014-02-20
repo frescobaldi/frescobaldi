@@ -76,7 +76,9 @@ def save(mainwindow):
     # add header line, if it is lilypond, enable autorun
     headerline = '-*- template; indent: no;'
     if documentinfo.mode(cursor.document()) == 'lilypond':
-        headerline += ' template-run;'
+        dinfo = documentinfo.docinfo(cursor.document())
+        if dinfo.complete() and dinfo.has_output():
+            headerline += ' template-run;'
     text = headerline + '\n' + text
     
     # save the new snippet
