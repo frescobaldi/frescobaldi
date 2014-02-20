@@ -36,6 +36,9 @@ Changes in 2.0.14 --
   - New barline types in the Quick Insert panel, the barlines are written
     in the correct style, depending on the LilyPond version set in the document
     (issue #365).
+  - In the output-suffix (the scheme output-suffix variable or 
+    \bookOutputSuffix), non-alphanumeric characters (except '-' and '_') are 
+    replaced with '_', just like LilyPond itself does it (issue #373).
 * Bug fixes:
   - Fixed issue 336: TypeError on MusicXml export
   - Fixed error message when exporting keyboard shortcuts on platforms that do
