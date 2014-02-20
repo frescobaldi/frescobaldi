@@ -329,6 +329,6 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_custom.setText(_("Engrave (&custom)..."))
         self.engrave_abort.setText(_("Abort Engraving &Job"))
         self.engrave_autocompile.setText(_("Automatic E&ngrave"))
-        self.engrave_show_available_fonts.setText(_("Show Availble &Fonts..."))
+        self.engrave_show_available_fonts.setText(_("Show Available &Fonts..."))
         
         
