@@ -58,6 +58,7 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_custom.triggered.connect(self.engraveCustom)
         ac.engrave_abort.triggered.connect(self.engraveAbort)
         ac.engrave_autocompile.toggled.connect(self.engraveAutoCompileToggled)
+        ac.engrave_show_available_fonts.triggered.connect(self.showAvailableFonts)
         mainwindow.currentDocumentChanged.connect(self.updateActions)
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
@@ -230,6 +231,13 @@ class Engraver(plugin.MainWindowPlugin):
         from . import autocompile
         autocompile.AutoCompiler.instance(self.mainwindow()).setEnabled(enabled)
     
+    def showAvailableFonts(self):
+        """Menu action Show Available Fonts."""
+        from . import command
+        info = command.info(self.mainwindow().currentDocument())
+        from . import lytools
+        lytools.show_available_fonts(self.mainwindow(), info)
+        
     def slotSessionChanged(self):
         """Called when the session is changed."""
         import sessions
@@ -298,6 +306,7 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_abort = QAction(parent)
         self.engrave_autocompile = QAction(parent)
         self.engrave_autocompile.setCheckable(True)
+        self.engrave_show_available_fonts = QAction(parent)
         
         self.engrave_preview.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_M))
         self.engrave_publish.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_P))
@@ -320,5 +329,6 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_custom.setText(_("Engrave (&custom)..."))
         self.engrave_abort.setText(_("Abort Engraving &Job"))
         self.engrave_autocompile.setText(_("Automatic E&ngrave"))
+        self.engrave_show_available_fonts.setText(_("Show Availble &Fonts..."))
         
         

@@ -254,6 +254,8 @@ def menu_lilypond(mainwindow):
     m.addAction(ac.engrave_abort)
     m.addSeparator()
     m.addMenu(menu_lilypond_generated_files(mainwindow))
+    m.addSeparator()
+    m.addAction(ac.engrave_show_available_fonts)
     return m
 
 

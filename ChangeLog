@@ -20,6 +20,7 @@ Changes in 2.0.14 --
   - A new preference for new documents: whether a new document is created empty,
     with the preferred LilyPond version in it, or using a template from the
     snippets list
+  - New menu command: LilyPond->Show available fonts (wish #341)
 * Improvements:
   - In the score wizard it is possible to enter a custom string tuning for the
     plucked string instruments, and the Ukulele is added (issue #342)
