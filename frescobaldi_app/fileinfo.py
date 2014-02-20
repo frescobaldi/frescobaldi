@@ -24,6 +24,7 @@ Computes and caches various information about files.
 from __future__ import unicode_literals
 
 import itertools
+import re
 import os
 
 import ly.document
@@ -35,6 +36,7 @@ import variables
 
 
 _document_cache = filecache.FileCache()
+_suffix_chars_re = re.compile(r'[^-\w]', re.UNICODE)
 
 
 class _CachedDocument(object):
@@ -125,7 +127,7 @@ def includefiles(dinfo, include_path=()):
     return files
 
 
-def basenames(dinfo, includefiles=(), filename=None):
+def basenames(dinfo, includefiles=(), filename=None, replace_suffix=True):
     """Returns the list of basenames a document is expected to create.
     
     The list is created based on includefiles and the define output-suffix and
@@ -134,6 +136,10 @@ def basenames(dinfo, includefiles=(), filename=None):
     
     If filename is given, it is regarded as the filename LilyPond is run on. 
     Otherwise, the filename of the info's document is read.
+    
+    If replace_suffix is True (the default), special characters and spaces 
+    in the suffix are replaced with underscores (in the same way as LilyPond 
+    does it), using the replace_suffix_chars() function.
     
     """
     basenames = []
@@ -150,10 +156,23 @@ def basenames(dinfo, includefiles=(), filename=None):
                 
     for type, arg in itertools.chain.from_iterable(args()):
         if type == "suffix":
+            if replace_suffix:
+                # LilyPond (lily-library.scm:223) does this, too
+                arg = replace_suffix_chars(arg)
             arg = basename + '-' + arg
         path = os.path.normpath(os.path.join(dirname, arg))
         if path not in basenames:
             basenames.append(path)
     return basenames
+
+
+def replace_suffix_chars(s):
+    """Replace spaces and most non-alphanumeric characters with underscores.
+    
+    This is used to mimic the behaviour of LilyPond, which also does this,
+    for the output-suffix. (See scm/lily-library.scm:223.)
+    
+    """
+    return _suffix_chars_re.sub('_', s)
 
 
