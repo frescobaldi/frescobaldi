@@ -23,8 +23,6 @@ Wood wind part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
-
 from . import _base
 from . import register
 
@@ -35,11 +33,11 @@ class WoodWindPart(_base.SingleVoicePart):
     
 class Flute(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Flute")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Flute", "Fl.")
 
     midiInstrument = 'flute'
@@ -47,11 +45,11 @@ class Flute(WoodWindPart):
     
 class Piccolo(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Piccolo")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Piccolo", "Pic.")
 
     midiInstrument = 'piccolo'
@@ -60,11 +58,11 @@ class Piccolo(WoodWindPart):
     
 class AltoFlute(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Alto Flute")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation Alto flute", "Afl.")
 
     midiInstrument = 'flute'
@@ -73,11 +71,11 @@ class AltoFlute(WoodWindPart):
 
 class BassFlute(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Bass flute")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Bass flute", "Bfl.")
 
     midiInstrument = 'flute'
@@ -86,11 +84,11 @@ class BassFlute(WoodWindPart):
 
 class Oboe(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Oboe")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Oboe", "Ob.")
 
     midiInstrument = 'oboe'
@@ -98,11 +96,11 @@ class Oboe(WoodWindPart):
 
 class OboeDAmore(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Oboe d'amore")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Oboe d'amore", "Ob.d'am.")
 
     midiInstrument = 'oboe'
@@ -111,11 +109,11 @@ class OboeDAmore(WoodWindPart):
 
 class EnglishHorn(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("English horn")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for English horn", "Eng.h.")
 
     midiInstrument = 'english horn'
@@ -124,11 +122,11 @@ class EnglishHorn(WoodWindPart):
 
 class Bassoon(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Bassoon")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Bassoon", "Bn.")
 
     midiInstrument = 'bassoon'
@@ -138,11 +136,11 @@ class Bassoon(WoodWindPart):
 
 class ContraBassoon(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Contrabassoon")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Contrabassoon", "C.Bn.")
 
     midiInstrument = 'bassoon'
@@ -153,11 +151,11 @@ class ContraBassoon(WoodWindPart):
 
 class Clarinet(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Clarinet")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Clarinet", "Cl.")
 
     midiInstrument = 'clarinet'
@@ -166,11 +164,11 @@ class Clarinet(WoodWindPart):
     
 class EflatClarinet(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("E-flat clarinet ")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for E-flat Clarinet", "Cl. in Eb")
 
     midiInstrument = 'clarinet'
@@ -179,11 +177,11 @@ class EflatClarinet(WoodWindPart):
     
 class AClarinet(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("A clarinet ")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for A Clarinet", "Cl. in A")
 
     midiInstrument = 'clarinet'
@@ -192,11 +190,11 @@ class AClarinet(WoodWindPart):
 
 class BassClarinet(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Bass clarinet")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Bass clarinet", "BCl.")
 
     midiInstrument = 'clarinet'
@@ -205,11 +203,11 @@ class BassClarinet(WoodWindPart):
 
 class SopraninoSax(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Sopranino Sax")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Sopranino Sax", "SiSx.")
     
     midiInstrument = 'soprano sax'
@@ -218,11 +216,11 @@ class SopraninoSax(WoodWindPart):
 
 class SopranoSax(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Soprano Sax")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Soprano Sax", "SoSx.")
     
     midiInstrument = 'soprano sax'
@@ -231,11 +229,11 @@ class SopranoSax(WoodWindPart):
 
 class AltoSax(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Alto Sax")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Alto Sax", "ASx.")
     
     midiInstrument = 'alto sax'
@@ -244,11 +242,11 @@ class AltoSax(WoodWindPart):
 
 class TenorSax(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Tenor Sax")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Tenor Sax", "TSx.")
     
     midiInstrument = 'tenor sax'
@@ -257,11 +255,11 @@ class TenorSax(WoodWindPart):
 
 class BaritoneSax(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Baritone Sax")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Baritone Sax", "BSx.")
     
     midiInstrument = 'baritone sax'
@@ -270,11 +268,11 @@ class BaritoneSax(WoodWindPart):
 
 class BassSax(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Bass Sax")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Bass Sax", "BsSx.")
     
     midiInstrument = 'baritone sax'
@@ -283,11 +281,11 @@ class BassSax(WoodWindPart):
 
 class SopraninoRecorder(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Sopranino recorder")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Sopranino recorder", "Si.rec.")
     
     midiInstrument = 'recorder'
@@ -295,11 +293,11 @@ class SopraninoRecorder(WoodWindPart):
 
 class SopranoRecorder(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Soprano recorder")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Soprano recorder", "S.rec.")
     
     midiInstrument = 'recorder'
@@ -308,11 +306,11 @@ class SopranoRecorder(WoodWindPart):
 
 class AltoRecorder(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Alto recorder")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Alto recorder", "A.rec.")
     
     midiInstrument = 'recorder'
@@ -320,11 +318,11 @@ class AltoRecorder(WoodWindPart):
 
 class TenorRecorder(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Tenor recorder")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Tenor recorder", "T.rec.")
     
     midiInstrument = 'recorder'
@@ -332,11 +330,11 @@ class TenorRecorder(WoodWindPart):
 
 class BassRecorder(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Bass recorder")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Bass recorder", "B.rec.")
     
     midiInstrument = 'recorder'
@@ -347,11 +345,11 @@ class BassRecorder(WoodWindPart):
     
 class ContraBassRecorder(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Contra Bass recorder")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Contra Bass recorder", "Cb.rec.")
     
     midiInstrument = 'recorder'
@@ -361,11 +359,11 @@ class ContraBassRecorder(WoodWindPart):
     
 class SubContraBassRecorder(WoodWindPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Subcontra Bass recorder")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Subcontra Bass recorder", "Scb.rec.")
     
     midiInstrument = 'recorder'

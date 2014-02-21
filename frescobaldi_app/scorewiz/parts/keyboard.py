@@ -23,8 +23,6 @@ Keyboard part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
-
 from PyQt4.QtGui import QGridLayout, QLabel, QSpinBox
 
 import ly.dom
@@ -40,11 +38,11 @@ class KeyboardPart(_base.PianoStaffPart):
 
 class Piano(KeyboardPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Piano")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Piano", "Pno.")
     
     midiInstrument = 'acoustic grand'
@@ -52,11 +50,11 @@ class Piano(KeyboardPart):
 
 class Harpsichord(KeyboardPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Harpsichord")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Harpsichord", "Hs.")
     
     midiInstrument = 'harpsichord'
@@ -64,11 +62,11 @@ class Harpsichord(KeyboardPart):
 
 class Clavichord(KeyboardPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Clavichord")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Clavichord", "Clv.")
     
     midiInstrument = 'clav'
@@ -76,11 +74,11 @@ class Clavichord(KeyboardPart):
 
 class Organ(KeyboardPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Organ")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Organ", "Org.")
     
     midiInstrument = 'church organ'
@@ -110,11 +108,11 @@ class Organ(KeyboardPart):
 
 class Celesta(KeyboardPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Celesta")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Celesta", "Cel.")
     
     midiInstrument = 'celesta'

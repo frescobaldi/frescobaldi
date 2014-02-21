@@ -23,8 +23,6 @@ String part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
-
 import ly.dom
 
 from . import _base
@@ -37,11 +35,11 @@ class StringPart(_base.SingleVoicePart):
 
 class Violin(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Violin")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Violin", "Vl.")
 
     midiInstrument = 'violin'
@@ -49,11 +47,11 @@ class Violin(StringPart):
 
 class Viola(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Viola")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Viola", "Vla.")
     
     midiInstrument = 'viola'
@@ -63,11 +61,11 @@ class Viola(StringPart):
 
 class Cello(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Cello")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Cello", "Cl.")
     
     midiInstrument = 'cello'
@@ -77,11 +75,11 @@ class Cello(StringPart):
 
 class Contrabass(StringPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Contrabass")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Contrabass", "Cb.")
     
     midiInstrument = 'contrabass'
@@ -91,11 +89,11 @@ class Contrabass(StringPart):
 
 class BassoContinuo(Cello):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Basso Continuo")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Basso Continuo", "B.c.")
     
     def build(self, data, builder):

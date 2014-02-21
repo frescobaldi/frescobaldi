@@ -23,8 +23,6 @@ Plucked string part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
-
 from PyQt4.QtGui import (
     QCheckBox, QComboBox, QCompleter, QGridLayout, QHBoxLayout, QLabel,
     QLineEdit, QSpinBox,
@@ -211,11 +209,11 @@ tablatureStaffTypes = (
 
 class Mandolin(TablaturePart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Mandolin")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Mandolin", "Mdl.")
     
     midiInstrument = 'acoustic guitar (steel)'
@@ -226,11 +224,11 @@ class Mandolin(TablaturePart):
 
 class Ukulele(TablaturePart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Ukulele")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Ukulele", "Uk.")
     
     midiInstrument = 'acoustic guitar (steel)'
@@ -244,11 +242,11 @@ class Ukulele(TablaturePart):
 
 class Banjo(TablaturePart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Banjo")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Banjo", "Bj.")
     
     midiInstrument = 'banjo'
@@ -286,11 +284,11 @@ class Banjo(TablaturePart):
 
 class ClassicalGuitar(TablaturePart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Classical guitar")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Classical guitar", "Gt.")
     
     midiInstrument = 'acoustic guitar (nylon)'
@@ -325,11 +323,11 @@ class ClassicalGuitar(TablaturePart):
 
 class JazzGuitar(ClassicalGuitar):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Jazz guitar")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Jazz guitar", "J.Gt.")
     
     midiInstrument = 'electric guitar (jazz)'
@@ -337,11 +335,11 @@ class JazzGuitar(ClassicalGuitar):
 
 class Bass(TablaturePart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Bass")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Bass", "Bs.") #FIXME
 
     midiInstrument = 'acoustic bass'
@@ -358,11 +356,11 @@ class Bass(TablaturePart):
 
 class ElectricBass(Bass):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Electric bass")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Electric bass", "E.Bs.")
 
     midiInstrument = 'electric bass (finger)'
@@ -370,11 +368,11 @@ class ElectricBass(Bass):
 
 class Harp(_base.PianoStaffPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Harp")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Harp", "Hp.")
 
     midiInstrument = 'orchestral harp'

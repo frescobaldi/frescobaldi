@@ -23,8 +23,6 @@ Container part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -39,7 +37,7 @@ from . import register
 
 class StaffGroup(_base.Container):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Staff Group")
 
     def accepts(self):
@@ -90,7 +88,7 @@ class StaffGroup(_base.Container):
 
 class Score(_base.Group, scoreproperties.ScoreProperties):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Score")
 
     def createWidgets(self, layout):
@@ -148,7 +146,7 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
 
 class BookPart(_base.Group):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Book Part")
 
     def accepts(self):
@@ -161,7 +159,7 @@ class BookPart(_base.Group):
 
 class Book(_base.Group):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Book")
 
     def accepts(self):

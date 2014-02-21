@@ -23,8 +23,6 @@ Percussion part types.
 
 from __future__ import unicode_literals
 
-import __builtin__
-
 from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
 
 import listmodel
@@ -41,11 +39,11 @@ class PitchedPercussionPart(_base.SingleVoicePart):
     
 class Timpani(PitchedPercussionPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Timpani")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Timpani", "Tmp.")
         
     midiInstrument = 'timpani'
@@ -55,11 +53,11 @@ class Timpani(PitchedPercussionPart):
 
 class Xylophone(PitchedPercussionPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Xylophone")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Xylophone", "Xyl.")
         
     midiInstrument = 'xylophone'
@@ -67,11 +65,11 @@ class Xylophone(PitchedPercussionPart):
 
 class Marimba(_base.PianoStaffPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Marimba")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Marimba", "Mar.")
     
     midiInstrument = 'marimba'
@@ -95,11 +93,11 @@ class Marimba(_base.PianoStaffPart):
 
 class Vibraphone(Marimba):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Vibraphone")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Vibraphone", "Vib.")
         
     midiInstrument = 'vibraphone'
@@ -107,11 +105,11 @@ class Vibraphone(Marimba):
 
 class TubularBells(PitchedPercussionPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Tubular bells")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Tubular bells", "Tub.")
         
     midiInstrument = 'tubular bells'
@@ -119,11 +117,11 @@ class TubularBells(PitchedPercussionPart):
 
 class Glockenspiel(PitchedPercussionPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Glockenspiel")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Glockenspiel", "Gls.")
         
     midiInstrument = 'glockenspiel'
@@ -131,11 +129,11 @@ class Glockenspiel(PitchedPercussionPart):
 
 class Carillon(_base.PianoStaffPart):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Carillon")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Carillon", "Car.")
     
     midiInstrument = 'tubular bells' # anyone knows better?
@@ -157,11 +155,11 @@ class Carillon(_base.PianoStaffPart):
 
 class Drums(_base.Part):
     @staticmethod
-    def title(_=__builtin__._):
+    def title(_=_base.translate):
         return _("Drums")
     
     @staticmethod
-    def short(_=__builtin__._):
+    def short(_=_base.translate):
         return _("abbreviation for Drums", "Dr.")
         
     def createWidgets(self, layout):
