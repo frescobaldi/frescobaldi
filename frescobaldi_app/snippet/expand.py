@@ -23,7 +23,11 @@ Expand variables like $DATE, $LILYPOND_VERSION etc. in snippets.
 
 from __future__ import unicode_literals
 
-import __builtin__
+try:
+    import builtins # py3
+except ImportError:
+    import __builtin__ as builtins # py2
+
 import time
 
 import info
@@ -36,7 +40,7 @@ def _(docstring):
     The decorator gives a function a doc() method, returning the translated docstring.
     The untranslated docstring will be added as __doc__ to the function.
     
-    __builtin__._ is expected to be the translation function.
+    builtins._ is expected to be the translation function.
     
     We use the underscore as function name so xgettext picks up the strings
     to be translated.
@@ -44,7 +48,7 @@ def _(docstring):
     """
     def deco(f):
         f.__doc__ = docstring
-        f.doc = lambda: __builtin__._(docstring)
+        f.doc = lambda: builtins._(docstring)
         return f
     return deco
     

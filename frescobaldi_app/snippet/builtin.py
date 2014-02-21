@@ -23,11 +23,15 @@ Builtin snippets.
 
 from __future__ import unicode_literals
 
-import __builtin__
+try:
+    import builtins # py3
+except ImportError:
+    import __builtin__ as builtins # py2
+
 import collections
 
 # postpone translation
-_ = lambda *args: lambda: __builtin__._(*args)
+_ = lambda *args: lambda: builtins._(*args)
 
 
 T = collections.namedtuple("Template", "title text")

@@ -23,7 +23,10 @@ Frescobaldi main menu.
 
 from __future__ import unicode_literals
 
-import __builtin__
+try:
+    import builtins # py3
+except ImportError:
+    import __builtin__ as builtins # py2
 
 from PyQt4.QtGui import QMenu
 
@@ -49,7 +52,7 @@ import vcs
 
 
 # postpone translation
-_ = lambda *args: lambda: __builtin__._(*args)
+_ = lambda *args: lambda: builtins._(*args)
 
 
 def createMenus(mainwindow):
