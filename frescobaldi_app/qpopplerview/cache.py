@@ -30,7 +30,7 @@ try:
 except ImportError:
     from . import popplerqt4_dummy as popplerqt4
 
-from PyQt4.QtCore import QThread
+from PyQt4.QtCore import Qt, QThread
 
 from . import render
 from . import rectangles
@@ -285,10 +285,16 @@ class Runner(QThread):
             pageSize.transpose()
         xres = 72.0 * self.job.width / pageSize.width()
         yres = 72.0 * self.job.height / pageSize.height()
+        if xres < 96:
+            multiplier = int(96 / xres) + 1
+        else:
+            multiplier = 1
         with lock(self.document):
             options().write(self.document)
             options(self.document).write(self.document)
-            self.image = page.renderToImage(xres, yres, 0, 0, self.job.width, self.job.height, self.job.rotation)
+            self.image = page.renderToImage(xres * multiplier, yres * multiplier, 0, 0, self.job.width * multiplier, self.job.height * multiplier, self.job.rotation)
+        if multiplier > 1:
+            self.image = self.image.scaledToWidth(self.job.width, Qt.SmoothTransformation)
         
     def slotFinished(self):
         """Called when the thread has completed."""
