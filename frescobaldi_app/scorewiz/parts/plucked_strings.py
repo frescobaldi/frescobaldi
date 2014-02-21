@@ -93,8 +93,8 @@ class TablaturePart(_base.Part):
         self.customTuning.setToolTip('<qt>' + _(
             "Select custom tuning in the combobox and "
             "enter a custom tuning here, e.g. <code>e, a d g b e'</code>. "
-            "Use the same language for note names as you want to use in your "
-            "document (by default: \"nederlands\")."))
+            "Use absolute note names in the same language as you want to use "
+            "in your document (by default: \"nederlands\")."))
         try:
             self.customTuning.setPlaceholderText(_("Custom tuning..."))
         except AttributeError:
