@@ -285,15 +285,12 @@ class Runner(QThread):
             pageSize.transpose()
         xres = 72.0 * self.job.width / pageSize.width()
         yres = 72.0 * self.job.height / pageSize.height()
-        if xres < 96:
-            multiplier = int(96 / xres) + 1
-        else:
-            multiplier = 1
+        multiplier = 2 if xres < 96 else 1
         with lock(self.document):
             options().write(self.document)
             options(self.document).write(self.document)
             self.image = page.renderToImage(xres * multiplier, yres * multiplier, 0, 0, self.job.width * multiplier, self.job.height * multiplier, self.job.rotation)
-        if multiplier > 1:
+        if multiplier == 2:
             self.image = self.image.scaledToWidth(self.job.width, Qt.SmoothTransformation)
         
     def slotFinished(self):
