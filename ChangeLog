@@ -21,6 +21,7 @@ Changes in 2.0.14 --
     with the preferred LilyPond version in it, or using a template from the
     snippets list
   - New menu command: LilyPond->Show available fonts (wish #341)
+  - Music View: rendering in small sizes slightly improved
 * Improvements:
   - In the score wizard it is possible to enter a custom string tuning for the
     plucked string instruments, and the Ukulele is added (issue #342)
