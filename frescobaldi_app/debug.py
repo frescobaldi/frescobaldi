@@ -45,7 +45,7 @@ def f(doc):
 @app.jobStarted.connect
 def f(doc, job):
     print('job started:', doc)
-    print job.command
+    print(job.command)
 
 @app.jobFinished.connect
 def f(doc, job, success):
