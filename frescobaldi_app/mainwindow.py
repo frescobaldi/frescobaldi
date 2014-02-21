@@ -393,6 +393,14 @@ class MainWindow(QMainWindow):
         return (resultfiles.results(self.currentDocument()).currentDirectory()
                 or app.basedir() or QDir.homePath() or os.getcwdu())
     
+    def cleanStart(self):
+        """Called when the previous action left no document open.
+        
+        Currently simply calls newDocument().
+        
+        """
+        self.newDocument()
+    
     ##
     # Implementations of menu actions
     ##
@@ -489,7 +497,7 @@ class MainWindow(QMainWindow):
             doc.close()
             # keep one document
             if not app.documents:
-                self.newDocument()
+                self.cleanStart()
         return close
         
     def saveCurrentDocument(self):
@@ -594,7 +602,7 @@ class MainWindow(QMainWindow):
         sessions.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
             sessions.setCurrentSession(None)
-            self.setCurrentDocument(document.Document())
+            self.cleanStart()
     
     def quit(self):
         """Closes all MainWindows."""

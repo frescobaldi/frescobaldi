@@ -175,7 +175,7 @@ def main():
     if doc:
         win.setCurrentDocument(doc)
     else:
-        win.newDocument()
+        win.cleanStart()
     
     if urls and options.line is not None:
         # set the last loaded document active and apply navigation if requested
