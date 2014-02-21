@@ -32,25 +32,25 @@ document.Document.__repr__ = doc_repr
     
 @app.documentCreated.connect
 def f(doc): 
-    print "created:", doc
+    print("created:", doc)
 
 @app.documentLoaded.connect
 def f(doc):
-    print "loaded:", doc
+    print("loaded:", doc)
 
 @app.documentClosed.connect
 def f(doc):
-    print "closed:", doc
+    print("closed:", doc)
 
 @app.jobStarted.connect
 def f(doc, job):
-    print 'job started:', doc
+    print('job started:', doc)
     print job.command
 
 @app.jobFinished.connect
 def f(doc, job, success):
-    print 'job finished', doc
-    print 'success:', success
+    print('job finished', doc)
+    print('success:', success)
 
 
 # more to add...
@@ -61,5 +61,5 @@ del f, doc_repr
 
 def modules():
     """Print the list of loaded modules."""
-    print '\n'.join(v.__name__ for k, v in sorted(sys.modules.items()) if v is not None)
+    print('\n'.join(v.__name__ for k, v in sorted(sys.modules.items()) if v is not None))
 

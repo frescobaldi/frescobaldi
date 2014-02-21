@@ -124,7 +124,7 @@ class ButtonGroup(QGroupBox):
     
     def actionTriggered(self, name):
         """Called by default when a button is activated."""
-        print "Action triggered:", name # DEBUG
+        print (("Action triggered: {0}").format(name)) # DEBUG
     
     def insertText(self, text, indent=True, blankline=False):
         """Insert text in the current document and focuses the document again.

@@ -58,5 +58,5 @@ def _debug(context, sourceText):
     l = len(_debugmessages)
     _debugmessages.add((context, sourceText))
     if len(_debugmessages) > l:
-        print context, sourceText
+        print("{0}:{1}".format(context, sourceText))
 

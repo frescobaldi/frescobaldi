@@ -175,7 +175,7 @@ class JSLink(QtCore.QObject):
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
-        print txt
+        print(txt)
 		
     
     

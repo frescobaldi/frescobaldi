@@ -263,5 +263,5 @@ if __name__ == "__main__":
     h = Hyphenator(dict_file, left=1, right=1)
 
     for i in h(word):
-        print i
+        print(i)
 

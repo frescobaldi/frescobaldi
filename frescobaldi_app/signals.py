@@ -63,7 +63,7 @@ class Signal(object):
             self.somethingChanged("Hi there!")     # emit the signal
     
     def receiver(arg):
-        print "Received message:", arg
+        print("Received message:", arg)
     
     
     >>> o = MyObject()

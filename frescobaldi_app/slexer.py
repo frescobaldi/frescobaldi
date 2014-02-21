@@ -95,7 +95,7 @@ for t in s.tokens(
     'een tekst met 7 woorden, '
     'een "tekst met 2 aanhalingstekens" '
     'en 2 of 3 nummers'):
-    print t.__class__, t
+    print(t.__class__, t)
 
 # results in:
 <class '__main__.Word'> een

@@ -112,7 +112,7 @@ if __name__ == "__main__":
     """
     s = ly.lex.guessState(text)
     list(s.tokens(text))
-    print state(s)
+    print(state(s))
 
 
 

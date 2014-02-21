@@ -186,5 +186,5 @@ def excepthook(exctype, excvalue, exctb):
 def displayhook(obj):
     """Prevent normal displayhook from overwriting __builtin__._"""
     if obj is not None:
-        print repr(obj)
+        print(repr(obj))
 
