@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-02-19 22:22+0100\n"
+"POT-Creation-Date: 2014-02-21 08:04+0100\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -286,22 +286,22 @@ msgstr "Indicacións dinámicas"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1066
-#: ../sessions/manager.py:127
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1074
+#: ../sessions/manager.py:130
 #, fuzzy
 msgid "&Save"
 msgstr "Gardar"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1067
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1075
 #, fuzzy
 msgid "Save &As..."
 msgstr "Gardar PDF como..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1077
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1085
 msgid "&Close"
 msgstr ""
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1078
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1086
 msgid "Close Other Documents"
 msgstr "Pechar outros documentos"
 
@@ -367,9 +367,9 @@ msgid "Staff Size:"
 msgstr "Tamaño do pentagrama"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:107 ../mainwindow.py:442 ../mainwindow.py:448
-#: ../mainwindow.py:473 ../mainwindow.py:524 ../mainwindow.py:622
-#: ../mainwindow.py:677 ../externalchanges/widget.py:243
+#: ../helpers.py:107 ../mainwindow.py:450 ../mainwindow.py:456
+#: ../mainwindow.py:481 ../mainwindow.py:532 ../mainwindow.py:630
+#: ../mainwindow.py:685 ../externalchanges/widget.py:243
 #: ../file_export/__init__.py:65 ../file_import/__init__.py:73
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:272
 #: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:534
@@ -564,38 +564,38 @@ msgid ""
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:423 ../macosx/globalmenu.py:174
+#: ../mainwindow.py:431 ../macosx/globalmenu.py:174
 #, fuzzy
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Abrir ficheiro"
 
-#: ../mainwindow.py:443 ../mainwindow.py:449 ../mainwindow.py:474
+#: ../mainwindow.py:451 ../mainwindow.py:457 ../mainwindow.py:482
 msgid ""
 "Can't write to destination:\n"
 "\n"
 "{url}"
 msgstr ""
 
-#: ../mainwindow.py:468
+#: ../mainwindow.py:476
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Gardar PDF"
 
-#: ../mainwindow.py:508
+#: ../mainwindow.py:516
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Gardar"
 
-#: ../mainwindow.py:514
+#: ../mainwindow.py:522
 #, fuzzy
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Modo de selección de liñas"
 
-#: ../mainwindow.py:525 ../mainwindow.py:678 ../file_export/__init__.py:66
+#: ../mainwindow.py:533 ../mainwindow.py:686 ../file_export/__init__.py:66
 #: ../preferences/fontscolors.py:273 ../preferences/shortcuts.py:207
 #: ../snippet/widget.py:325
 msgid ""
@@ -606,12 +606,12 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:539 ../mainwindow.py:553 ../externalchanges/widget.py:103
+#: ../mainwindow.py:547 ../mainwindow.py:561 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:540
+#: ../mainwindow.py:548
 #, fuzzy
 msgid ""
 "Could not reload the document:\n"
@@ -619,20 +619,20 @@ msgid ""
 "{url}"
 msgstr "Non se puido cargar %1"
 
-#: ../mainwindow.py:550
+#: ../mainwindow.py:558
 msgid "Some documents could not be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:552
+#: ../mainwindow.py:560
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:615
+#: ../mainwindow.py:623
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr ""
 
-#: ../mainwindow.py:623 ../preferences/import_export.py:92
+#: ../mainwindow.py:631 ../preferences/import_export.py:92
 #: ../preferences/import_export.py:175 ../snippet/import_export.py:106
 msgid ""
 "Can't read from source:\n"
@@ -642,17 +642,17 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../mainwindow.py:639
+#: ../mainwindow.py:647
 #, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Imprimir código fonte..."
 
-#: ../mainwindow.py:665
+#: ../mainwindow.py:673
 msgid "Export as HTML"
 msgstr ""
 
-#: ../mainwindow.py:800
+#: ../mainwindow.py:808
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -660,214 +660,214 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.py:913
+#: ../mainwindow.py:921
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:914
+#: ../mainwindow.py:922
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:1060 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1068 ../macosx/globalmenu.py:73
 #, fuzzy
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Novo..."
 
-#: ../mainwindow.py:1061 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1069 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr ""
 
-#: ../mainwindow.py:1062 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1070 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr ""
 
-#: ../mainwindow.py:1063
+#: ../mainwindow.py:1071
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../mainwindow.py:1064
+#: ../mainwindow.py:1072
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Abrir o cartafol actual"
 
-#: ../mainwindow.py:1065
+#: ../mainwindow.py:1073
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:1068
+#: ../mainwindow.py:1076
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../mainwindow.py:1069 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1077 ../externalchanges/widget.py:117
 #, fuzzy
 msgid "Save All"
 msgstr "Gardar"
 
-#: ../mainwindow.py:1070
+#: ../mainwindow.py:1078
 #, fuzzy
 msgid "Re&load"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:1071 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1079 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Cargar de novo"
 
-#: ../mainwindow.py:1072
+#: ../mainwindow.py:1080
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1074
+#: ../mainwindow.py:1082
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1076
+#: ../mainwindow.py:1084
 msgid "Print Source..."
 msgstr "Imprimir código fonte..."
 
-#: ../mainwindow.py:1079
+#: ../mainwindow.py:1087
 #, fuzzy
 msgid "Close All Documents"
 msgstr "Pechar outros documentos"
 
-#: ../mainwindow.py:1080
+#: ../mainwindow.py:1088
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Transporta todas as notas do documento ou da selección."
 
-#: ../mainwindow.py:1081 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1089 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr ""
 
-#: ../mainwindow.py:1082
+#: ../mainwindow.py:1090
 msgid "Restart {appname}"
 msgstr ""
 
-#: ../mainwindow.py:1084
+#: ../mainwindow.py:1092
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../mainwindow.py:1086
+#: ../mainwindow.py:1094
 #, fuzzy
 msgid "&Undo"
 msgstr "Desacoplar"
 
-#: ../mainwindow.py:1087
+#: ../mainwindow.py:1095
 msgid "Re&do"
 msgstr ""
 
-#: ../mainwindow.py:1088
+#: ../mainwindow.py:1096
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:1089 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1097 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copiar"
 
-#: ../mainwindow.py:1090
-msgid "Copy as Colored &HTML"
-msgstr ""
-
-#: ../mainwindow.py:1091
-#, fuzzy
-msgid "&Paste"
-msgstr "Pausa"
-
-#: ../mainwindow.py:1092
-#, fuzzy
-msgid "Select &All"
-msgstr "Seleccionar todo"
-
-#: ../mainwindow.py:1093
-#, fuzzy
-msgid "Select &Block"
-msgstr "Seleccionar todo"
-
-#: ../mainwindow.py:1094
-#, fuzzy
-msgid "Select &None"
-msgstr "Seleccionar todo"
-
-#: ../mainwindow.py:1095
-msgid "Select Whole Lines Up"
-msgstr ""
-
-#: ../mainwindow.py:1096
-msgid "Select Whole Lines Down"
-msgstr ""
-
-#: ../mainwindow.py:1097
-#, fuzzy
-msgid "&Find..."
-msgstr "Imprimir..."
-
 #: ../mainwindow.py:1098
-msgid "Find Ne&xt"
+msgid "Copy as Colored &HTML"
 msgstr ""
 
 #: ../mainwindow.py:1099
 #, fuzzy
-msgid "Find Pre&vious"
-msgstr "Anterior"
+msgid "&Paste"
+msgstr "Pausa"
 
 #: ../mainwindow.py:1100
 #, fuzzy
-msgid "&Replace..."
-msgstr "Busca..."
+msgid "Select &All"
+msgstr "Seleccionar todo"
 
-#: ../mainwindow.py:1101 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1101
 #, fuzzy
-msgid "Pr&eferences..."
-msgstr "Preferencias xerais"
+msgid "Select &Block"
+msgstr "Seleccionar todo"
+
+#: ../mainwindow.py:1102
+#, fuzzy
+msgid "Select &None"
+msgstr "Seleccionar todo"
 
 #: ../mainwindow.py:1103
-#, fuzzy
-msgid "&Next Document"
-msgstr "&Documento"
+msgid "Select Whole Lines Up"
+msgstr ""
 
 #: ../mainwindow.py:1104
-#, fuzzy
-msgid "&Previous Document"
-msgstr "&Código fonte do documento"
+msgid "Select Whole Lines Down"
+msgstr ""
 
 #: ../mainwindow.py:1105
 #, fuzzy
-msgid "Wrap &Lines"
-msgstr "Barras de compás"
+msgid "&Find..."
+msgstr "Imprimir..."
 
 #: ../mainwindow.py:1106
-msgid "Scroll Up"
+msgid "Find Ne&xt"
 msgstr ""
 
 #: ../mainwindow.py:1107
 #, fuzzy
+msgid "Find Pre&vious"
+msgstr "Anterior"
+
+#: ../mainwindow.py:1108
+#, fuzzy
+msgid "&Replace..."
+msgstr "Busca..."
+
+#: ../mainwindow.py:1109 ../macosx/globalmenu.py:129
+#, fuzzy
+msgid "Pr&eferences..."
+msgstr "Preferencias xerais"
+
+#: ../mainwindow.py:1111
+#, fuzzy
+msgid "&Next Document"
+msgstr "&Documento"
+
+#: ../mainwindow.py:1112
+#, fuzzy
+msgid "&Previous Document"
+msgstr "&Código fonte do documento"
+
+#: ../mainwindow.py:1113
+#, fuzzy
+msgid "Wrap &Lines"
+msgstr "Barras de compás"
+
+#: ../mainwindow.py:1114
+msgid "Scroll Up"
+msgstr ""
+
+#: ../mainwindow.py:1115
+#, fuzzy
 msgid "Scroll Down"
 msgstr "Semitrino con final descendente"
 
-#: ../mainwindow.py:1109 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1117 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr ""
 
-#: ../mainwindow.py:1110
+#: ../mainwindow.py:1118
 msgid "&Fullscreen"
 msgstr ""
 
-#: ../mainwindow.py:1112
+#: ../mainwindow.py:1120
 msgid "&User Guide"
 msgstr ""
 
-#: ../mainwindow.py:1113
+#: ../mainwindow.py:1121
 msgid "&What's This?"
 msgstr ""
 
-#: ../mainwindow.py:1114
+#: ../mainwindow.py:1122
 msgid "Report a &Bug..."
 msgstr ""
 
-#: ../mainwindow.py:1115 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1123 ../macosx/globalmenu.py:153
 msgid "&About {appname}..."
 msgstr ""
 
@@ -925,42 +925,42 @@ msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:265
+#: ../menu.py:267
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Vistas de ferramen&tas"
 
-#: ../menu.py:294
+#: ../menu.py:296
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:306
+#: ../menu.py:308
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:321
+#: ../menu.py:323
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&racións"
 
-#: ../menu.py:345
+#: ../menu.py:347
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Eliminar as plicas"
 
-#: ../menu.py:363 ../macosx/globalmenu.py:134
+#: ../menu.py:365 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:383 ../macosx/globalmenu.py:151
+#: ../menu.py:385 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1176,20 +1176,20 @@ msgstr "Documentos por correo electrónico"
 msgid "Close all untitled documents"
 msgstr "Pechar outros documentos"
 
-#: ../engrave/__init__.py:223
+#: ../engrave/__init__.py:224
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
-#: ../engrave/__init__.py:225
+#: ../engrave/__init__.py:226
 msgid "&Always Engrave This Document"
 msgstr ""
 
-#: ../engrave/__init__.py:278
+#: ../engrave/__init__.py:286
 #, fuzzy
 msgid "No LilyPond installation found"
 msgstr "Documentación de LilyPond:"
 
-#: ../engrave/__init__.py:279
+#: ../engrave/__init__.py:287
 msgid ""
 "Frescobaldi uses LilyPond to engrave music, but LilyPond is not installed in "
 "the default locations and it cannot be found in your PATH.\n"
@@ -1198,34 +1198,39 @@ msgid ""
 "Preferences dialog."
 msgstr ""
 
-#: ../engrave/__init__.py:316
+#: ../engrave/__init__.py:325
 msgid "Engrave"
 msgstr ""
 
-#: ../engrave/__init__.py:317
+#: ../engrave/__init__.py:326
 msgid "&Engrave (preview)"
 msgstr ""
 
-#: ../engrave/__init__.py:318
+#: ../engrave/__init__.py:327
 msgid "Engrave (&publish)"
 msgstr ""
 
-#: ../engrave/__init__.py:319
+#: ../engrave/__init__.py:328
 msgid "Engrave (&layout control)"
 msgstr ""
 
-#: ../engrave/__init__.py:320
+#: ../engrave/__init__.py:329
 msgid "Engrave (&custom)..."
 msgstr ""
 
-#: ../engrave/__init__.py:321
+#: ../engrave/__init__.py:330
 msgid "Abort Engraving &Job"
 msgstr ""
 
-#: ../engrave/__init__.py:322
+#: ../engrave/__init__.py:331
 #, fuzzy
 msgid "Automatic E&ngrave"
 msgstr "automática"
+
+#: ../engrave/__init__.py:332
+#, fuzzy
+msgid "Show Available &Fonts..."
+msgstr "Partes dispoñibles:"
 
 #: ../engrave/custom.py:136
 msgid "Engrave custom"
@@ -1314,6 +1319,15 @@ msgstr ""
 
 #: ../engrave/custom.py:275
 msgid "PNG (EPS Backend)"
+msgstr ""
+
+#: ../engrave/lytools.py:41
+#, fuzzy
+msgid "Available Fonts"
+msgstr "Partes dispoñibles:"
+
+#: ../engrave/lytools.py:43
+msgid "List of fonts detected by {version}"
 msgstr ""
 
 #: ../engrave/result_menu.py:46
@@ -5667,18 +5681,18 @@ msgstr ""
 msgid "Overwrite"
 msgstr "&Sobreescribir"
 
-#: ../sessions/manager.py:126
+#: ../sessions/manager.py:129
 #, fuzzy
 msgctxt "New Session"
 msgid "&New..."
 msgstr "Novo..."
 
-#: ../sessions/manager.py:128
+#: ../sessions/manager.py:131
 #, fuzzy
 msgid "&Manage..."
 msgstr "Xestionar sesións..."
 
-#: ../sessions/manager.py:129
+#: ../sessions/manager.py:132
 msgid "No Session"
 msgstr "Sen sesión"
 
