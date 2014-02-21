@@ -260,11 +260,12 @@ def parse_mo_split(buf):
     
     """
     for msg, tmsg in parse_mo(buf):
+        print (msg,tmsg)
         try:
-            context, msg = msg.split('\x04')
+            context, msg = msg.split(b'\x04')
         except ValueError:
             context = None
-        yield context, msg.split('\x00'), tmsg.split('\x00')
+        yield context, msg.split(b'\x00'), tmsg.split(b'\x00')
 
 
 def parse_mo_decode(buf, default_charset="UTF-8"):
