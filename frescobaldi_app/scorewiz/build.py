@@ -23,7 +23,6 @@ Builds the LilyPond score from the settings in the Score Wizard.
 
 from __future__ import unicode_literals
 
-import __builtin__
 import collections
 import fractions
 import re
@@ -182,7 +181,7 @@ class Builder(object):
         self.otherInstrumentName = names[instrumentNames.otherSystems.currentIndex()]
         
         # translator for instrument names
-        self._ = __builtin__._
+        self._ = _
         if instrumentNames.isChecked():
             lang = instrumentNames.getLanguage()
             if lang == 'C':
