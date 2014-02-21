@@ -88,8 +88,11 @@ class SessionManager(plugin.MainWindowPlugin):
         if name == sessions.currentSession():
             return
         if self.mainwindow().queryClose():
-            active = sessions.loadSession(name) or document.Document()
-            self.mainwindow().setCurrentDocument(active)
+            active = sessions.loadSession(name)
+            if active:
+                self.mainwindow().setCurrentDocument(active)
+            else:
+                self.mainwindow().cleanStart()
         
     def saveCurrentSessionIfDesired(self):
         """Saves the current session if it is configured to save itself on exit."""
