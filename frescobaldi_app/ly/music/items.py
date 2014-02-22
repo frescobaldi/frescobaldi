@@ -144,6 +144,87 @@ class Document(Item):
         r = Reader(s)
         self.extend(r.read())
     
+    def node(self, position):
+        """Return the node at or just before the specified position."""
+        def bisect(n):
+            end = len(n)
+            if end == 0:
+                return n
+            pos = 0
+            while pos < end:
+                mid = (pos + end) // 2
+                if position < n[mid].position:
+                    end = mid
+                else:
+                    pos = mid + 1
+            pos -= 1
+            if n[pos].position == position:
+                return n[pos]
+            elif n[pos].position > position:
+                return n
+            return bisect(n[pos])
+        return bisect(self)
+    
+    def time_position(self, position):
+        """Return a two-tuple (fraction, node).
+        
+        The fraction is the music time position, the node is the top node
+        where the counting stopped.
+        
+        If the fraction is 0 and node is None, the time position makes
+        no sense.
+        
+        You can compute the length of an expression if two time positions
+        have the same top node.
+        
+        """
+        # don't pick the current note if the cursor is on it's first position
+        n = self.node(position - 1 if position else 0)
+        # find a music list
+        length = 0
+        topnode = n if isinstance(n, Music) else None
+        parent = n.parent()
+        while parent:
+            # add length of current note, chord or user command
+            if isinstance(n, Durable):
+                length += n.length()
+            elif isinstance(n, UserCommand):
+                i = self.substitute_for_node(n)
+                if isinstance(i, (Music, Durable)):
+                    length += i.length()
+            # look back in the parent music list if possible
+            if isinstance(parent, Music):
+                topnode = parent
+                if not (isinstance(parent, MusicList) and parent.simultaneous):
+                    for i in n.backward():
+                        if isinstance(i, UserCommand):
+                            i = self.substitute_for_node(i)
+                        if isinstance(i, (Music, Durable)):
+                            length += i.length()
+                    # adjust the current length if it is a scaling item
+                    if isinstance(parent, Scaler):
+                        length *= parent.scaling
+            # stop in \score or assignment, etc
+            elif isinstance(parent, (MarkupScore, Score, Book, BookPart, Assignment, SchemeLily)):
+                break
+            n = parent
+            parent = n.parent()
+        return length, topnode
+    
+    def time_length(self, start, end):
+        """Return the length of the music between start and end positions.
+        
+        Returns None if start and end are not in the same expression.
+        
+        """
+        if start > end:
+            start, end = end, start
+        start, n = self.time_position(start)
+        if n:
+            end, m = self.time_position(end)
+            if n is m:
+                return end - start
+        
     def substitute_for_node(self, node):
         """Returns a node that replaces the specified node (e.g. in music).
         
