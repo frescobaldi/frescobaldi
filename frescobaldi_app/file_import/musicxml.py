@@ -155,16 +155,16 @@ class Dialog(QDialog):
         self.loadSettings()
         
     def setChecksObjectNames(self):
-        self.noartCheck.setObjectName(_("articulation-directions"))
-        self.norestCheck.setObjectName(_("rest-positions"))
-        self.nolayoutCheck.setObjectName(_("page-layout"))
-        self.nobeamCheck.setObjectName(_("import-beaming"))
-        self.useAbsCheck.setObjectName(_("absolute-mode"))
+        self.noartCheck.setObjectName("articulation-directions")
+        self.norestCheck.setObjectName("rest-positions")
+        self.nolayoutCheck.setObjectName("page-layout")
+        self.nobeamCheck.setObjectName("import-beaming")
+        self.useAbsCheck.setObjectName("absolute-mode")
         
-        self.formatCheck.setObjectName(_("reformat"))
-        self.trimDurCheck.setObjectName(_("trim-durations"))
-        self.removeScalesCheck.setObjectName(_("remove-scaling"))
-        self.runEngraverCheck.setObjectName(_("engrave-directly"))
+        self.formatCheck.setObjectName("reformat")
+        self.trimDurCheck.setObjectName("trim-durations")
+        self.removeScalesCheck.setObjectName("remove-scaling")
+        self.runEngraverCheck.setObjectName("engrave-directly")
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Import Music XML")))
