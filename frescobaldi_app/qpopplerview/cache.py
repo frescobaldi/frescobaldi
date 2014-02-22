@@ -285,7 +285,8 @@ class Runner(QThread):
             pageSize.transpose()
         xres = 72.0 * self.job.width / pageSize.width()
         yres = 72.0 * self.job.height / pageSize.height()
-        multiplier = 2 if xres < 96 else 1
+        threshold = options().oversampleThreshold() or options(self.document).oversampleThreshold()
+        multiplier = 2 if xres < threshold else 1
         with lock(self.document):
             options().write(self.document)
             options(self.document).write(self.document)
