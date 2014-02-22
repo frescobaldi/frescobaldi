@@ -41,7 +41,12 @@ def document(doc):
 
 class Document(ly.music.items.Document):
     """music.Document type that caches music trees using fileinfo."""
-    def get_music(self, filename):
-        return fileinfo.docinfo(filename).music()
+    def get_included_document_node(self, node):
+        """Return a Document for the Include node."""
+            filename = node.filename()
+            if filename:
+                resolved = self.resolve_filename(filename)
+                if resolved:
+                    return fileinfo.docinfo(resolved).music()
 
 
