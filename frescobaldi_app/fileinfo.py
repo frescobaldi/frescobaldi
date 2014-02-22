@@ -56,9 +56,9 @@ def _cached(filename):
         with open(filename) as f:
             text = util.decode(f.read())
         c = _document_cache[filename] = _CachedDocument()
-        c.filename = filename
         c.variables = v = variables.variables(text)
         c.document = ly.document.Document(text, v.get("mode"))
+        c.filename = c.document.filename = filename
     return c
 
 

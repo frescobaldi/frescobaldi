@@ -180,8 +180,7 @@ class Document(Item):
             if filename:
                 resolved = self.resolve_filename(filename)
                 if resolved:
-                    doc = self.get_document(resolved)
-                    docnode = type(self)(doc)
+                    docnode = self.get_music(resolved)
                     docnode.include_node = node
                     docnode.include_path = self.include_path
                     node._document = docnode
@@ -204,17 +203,17 @@ class Document(Item):
             fullpath = os.path.join(p, filename)
             if os.path.exists(fullpath):
                 return fullpath
+    
+    def get_music(self, filename):
+        """Return the music Document for the specified filename.
         
-    def get_document(self, filename):
-        """Return the ly.document.DocumentBase instance for filename.
-        
-        This implementation loads the document using utf-8 encoding.
-        Inherit from this class to implement other loading mechanisms
-        or caching.
+        This implementation loads a ly.document.Document using utf-8 
+        encoding. Inherit from this class to implement other loading 
+        mechanisms or caching.
         
         """
         import ly.document
-        return ly.document.Document.load(filename)
+        return type(self)(ly.document.Document.load(filename))
 
 
 class Token(Item):
