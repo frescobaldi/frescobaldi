@@ -771,7 +771,7 @@ class MarkupCommand(Item):
 
 
 class MarkupScore(Item):
-    """A \sore inside Markup."""
+    """A \\score inside Markup."""
 
 
 class MarkupList(Item):
