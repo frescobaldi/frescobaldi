@@ -110,6 +110,8 @@ class Dialog(QDialog):
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
         
+        self.setChecksObjectNames()
+        
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         userguide.addButton(self.buttons, "musicxml_import")
@@ -151,6 +153,18 @@ class Dialog(QDialog):
         self.makeCommandLine()
         
         self.loadSettings()
+        
+    def setChecksObjectNames(self):
+        self.noartCheck.setObjectName(_("articulation-directions"))
+        self.norestCheck.setObjectName(_("rest-positions"))
+        self.nolayoutCheck.setObjectName(_("page-layout"))
+        self.nobeamCheck.setObjectName(_("import-beaming"))
+        self.useAbsCheck.setObjectName(_("absolute-mode"))
+        
+        self.formatCheck.setObjectName(_("reformat"))
+        self.trimDurCheck.setObjectName(_("trim-durations"))
+        self.removeScalesCheck.setObjectName(_("remove-scaling"))
+        self.runEngraverCheck.setObjectName(_("engrave-directly"))
     
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Import Music XML")))
@@ -234,9 +248,9 @@ class Dialog(QDialog):
         s = QSettings()
         s.beginGroup('xml_import')
         for i, d in zip(self.impChecks, imp_default):
-            i.setChecked(s.value(i.text(), d, bool))
+            i.setChecked(s.value(i.objectName(), d, bool))
         for p, f in zip(self.postChecks, post_default):
-            p.setChecked(s.value(p.text(), f, bool))
+            p.setChecked(s.value(p.objectName(), f, bool))
         lang = s.value("language", "default", type(""))
         try:
             index = _langlist.index(lang)
@@ -249,9 +263,9 @@ class Dialog(QDialog):
         s = QSettings()
         s.beginGroup('xml_import')
         for i in self.impChecks:
-            s.setValue(i.text(), i.isChecked())
+            s.setValue(i.objectName(), i.isChecked())
         for p in self.postChecks:
-            s.setValue(p.text(), p.isChecked())
+            s.setValue(p.objectName(), p.isChecked())
         index = self.langCombo.currentIndex()
         s.setValue('language', 'default' if index == 0 else _langlist[index-1])
 
