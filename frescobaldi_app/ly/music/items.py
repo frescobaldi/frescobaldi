@@ -55,6 +55,7 @@ class Item(node.WeakNode):
     document = None
     tokens = ()
     token = None
+    position = -1
 
     def __repr__(self):
         s = ' ' + repr(self.token[:]) if self.token else ''
@@ -143,6 +144,87 @@ class Document(Item):
         r = Reader(s)
         self.extend(r.read())
     
+    def node(self, position):
+        """Return the node at or just before the specified position."""
+        def bisect(n):
+            end = len(n)
+            if end == 0:
+                return n
+            pos = 0
+            while pos < end:
+                mid = (pos + end) // 2
+                if position < n[mid].position:
+                    end = mid
+                else:
+                    pos = mid + 1
+            pos -= 1
+            if n[pos].position == position:
+                return n[pos]
+            elif n[pos].position > position:
+                return n
+            return bisect(n[pos])
+        return bisect(self)
+    
+    def time_position(self, position):
+        """Return a two-tuple (fraction, node).
+        
+        The fraction is the music time position, the node is the top node
+        where the counting stopped.
+        
+        If the fraction is 0 and node is None, the time position makes
+        no sense.
+        
+        You can compute the length of an expression if two time positions
+        have the same top node.
+        
+        """
+        # don't pick the current note if the cursor is on it's first position
+        n = self.node(position - 1 if position else 0)
+        # find a music list
+        length = 0
+        topnode = n if isinstance(n, Music) else None
+        parent = n.parent()
+        while parent:
+            # add length of current note, chord or user command
+            if isinstance(n, Durable):
+                length += n.length()
+            elif isinstance(n, UserCommand):
+                i = self.substitute_for_node(n)
+                if isinstance(i, (Music, Durable)):
+                    length += i.length()
+            # look back in the parent music list if possible
+            if isinstance(parent, Music):
+                topnode = parent
+                if not (isinstance(parent, MusicList) and parent.simultaneous):
+                    for i in n.backward():
+                        if isinstance(i, UserCommand):
+                            i = self.substitute_for_node(i)
+                        if isinstance(i, (Music, Durable)):
+                            length += i.length()
+                    # adjust the current length if it is a scaling item
+                    if isinstance(parent, Scaler):
+                        length *= parent.scaling
+            # stop in \score or assignment, etc
+            elif isinstance(parent, (MarkupScore, Score, Book, BookPart, Assignment, SchemeLily)):
+                break
+            n = parent
+            parent = n.parent()
+        return length, topnode
+    
+    def time_length(self, start, end):
+        """Return the length of the music between start and end positions.
+        
+        Returns None if start and end are not in the same expression.
+        
+        """
+        if start > end:
+            start, end = end, start
+        start, n = self.time_position(start)
+        if n:
+            end, m = self.time_position(end)
+            if n is m:
+                return end - start
+        
     def substitute_for_node(self, node):
         """Returns a node that replaces the specified node (e.g. in music).
         
@@ -180,8 +262,7 @@ class Document(Item):
             if filename:
                 resolved = self.resolve_filename(filename)
                 if resolved:
-                    doc = self.get_document(resolved)
-                    docnode = type(self)(doc)
+                    docnode = self.get_music(resolved)
                     docnode.include_node = node
                     docnode.include_path = self.include_path
                     node._document = docnode
@@ -204,17 +285,17 @@ class Document(Item):
             fullpath = os.path.join(p, filename)
             if os.path.exists(fullpath):
                 return fullpath
+    
+    def get_music(self, filename):
+        """Return the music Document for the specified filename.
         
-    def get_document(self, filename):
-        """Return the ly.document.DocumentBase instance for filename.
-        
-        This implementation loads the document using utf-8 encoding.
-        Inherit from this class to implement other loading mechanisms
-        or caching.
+        This implementation loads a ly.document.Document using utf-8 
+        encoding. Inherit from this class to implement other loading 
+        mechanisms or caching.
         
         """
         import ly.document
-        return ly.document.Document.load(filename)
+        return type(self)(ly.document.Document.load(filename))
 
 
 class Token(Item):
@@ -690,7 +771,7 @@ class MarkupCommand(Item):
 
 
 class MarkupScore(Item):
-    """A \sore inside Markup."""
+    """A \\score inside Markup."""
 
 
 class MarkupList(Item):
@@ -977,7 +1058,7 @@ class Reader(object):
     def add_duration(self, item, token=None, source=None):
         """Add a duration attribute to the item."""
         source = source or self.source
-        d = item.duration = self.factory(Duration)
+        d = item.duration = self.factory(Duration, position=0)
         tokens = []
         if not token or isinstance(token, lilypond.Duration):
             if token:
@@ -993,6 +1074,7 @@ class Reader(object):
                     break
         if tokens:
             d.tokens = tuple(tokens)
+            d.position = tokens[0].pos
             d.base_scaling = self.prev_duration = ly.duration.base_scaling(tokens)
         else:
             d.base_scaling = self.prev_duration
@@ -1009,17 +1091,26 @@ class Reader(object):
         if last_token and t is not None:
             last_token(t)
 
-    def factory(self, cls, token=None, consume=False):
+    def factory(self, cls, token=None, consume=False, position=None):
         """Create Item instance for token.
         
         If consume is True, consume()s the source into item.tokens.
+        If you don't specify a token, you must specify the position (>= 0).
         
         """
         item = cls()
         item.document = self.source.document
-        item.token = token
+        if token:
+            item.token = token
+            item.position = token.pos
+        elif position is None:
+            raise ValueError("position must be specified if no token")
+        else:
+            item.position = position
         if consume:
             item.tokens = tuple(self.consume())
+            if not token and item.tokens:
+                item.position = item.tokens[0].pos
         return item
     
     def add_bracketed(self, item, source):
@@ -1041,7 +1132,7 @@ class Reader(object):
         
     def tree(self):
         """Return a Root node with all the Item instances, read from the source."""
-        root = self.factory(Root)
+        root = self.factory(Root, position=0)
         root.extend(i for i in self.read())
         return root
 
@@ -1084,7 +1175,7 @@ class Reader(object):
     
     @_tokencls(lilypond.Length)
     def handle_length(self, t, source):
-        item = self.factory(Unpitched, None)
+        item = self.factory(Unpitched, position=t.pos)
         self.add_duration(item, t, source)
         return item
     
@@ -1135,6 +1226,7 @@ class Reader(object):
     def read_chord_specifier(self, t, source=None):
         """Read stuff behind notes in chordmode."""
         item = self.factory(ChordSpecifier)
+        item.position = t.pos
         item.append(self.factory(ChordItem, t))
         for t in self.consume():
             if isinstance(t, lilypond.ChordItem):
@@ -1153,8 +1245,7 @@ class Reader(object):
         item = self.factory(Tremolo, t)
         for t in self.source:
             if isinstance(t, lilypond.TremoloDuration):
-                item.duration = self.factory(Duration)
-                item.duration.token = t
+                item.duration = self.factory(Duration, t)
                 item.duration.base_scaling = ly.duration.base_scaling_string(t)
             else:
                 self.source.pushback()
@@ -1613,7 +1704,7 @@ class Reader(object):
     def read_lyric_item(self, t):
         """Read one lyric item. Returns None for tokens it does not handle."""
         if isinstance(t, (lex.StringStart, lilypond.MarkupStart)):
-            item = self.factory(LyricText)
+            item = self.factory(LyricText, position=t.pos)
             item.append(self.read_item(t))
             self.add_duration(item)
             return item
