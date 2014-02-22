@@ -38,8 +38,13 @@ def _setbackground():
     colors = textformats.formatData('editor').baseColors
     qpopplerview.cache.options().setPaperColor(colors['paper'])
     qpopplerview.cache.clear()
+
 app.settingsChanged.connect(_setbackground, -1)
 _setbackground()
+
+
+# make small sizes smoother
+qpopplerview.cache.options().setOversampleThreshold(96)
 
 
 class View(qpopplerview.View):
