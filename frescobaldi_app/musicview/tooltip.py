@@ -35,6 +35,9 @@ def text(cursor):
     definition = get_definition(cursor)
     if definition:
         text += '\n' + definition
+    time_pos = time_position(cursor)
+    if time_pos:
+        text += '\n' + _("Position: {pos}").format(pos=time_pos)
     return text
 
 def get_definition(cursor):
@@ -48,5 +51,12 @@ def get_definition(cursor):
                 elif isinstance(t, ly.lex.lilypond.Keyword) and t == '\\score':
                     return '\\score'
         block = block.previous()
+
+def time_position(cursor):
+    import music
+    pos, node = music.document(cursor.document()).time_position(cursor.position())
+    if node:
+        import ly.duration
+        return ly.duration.format_fraction(pos)
 
 
