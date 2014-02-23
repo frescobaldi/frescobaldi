@@ -324,11 +324,13 @@ class Durable(Item):
     duration = None
     
     def length(self):
-        """Return the duration or None (no duration)."""
-        if self.duration:
-            base, scaling = self.duration.base_scaling
-            return base * scaling
-
+        """Return the duration.
+        
+        Returns 0 if no duration attribute was set.
+        
+        """
+        return self.duration.fraction() if self.duration else 0
+    
     def base_scaling(self):
         """Return the base and scaling fractions (if set, else None)."""
         if self.duration:
