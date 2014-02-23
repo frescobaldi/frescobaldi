@@ -30,13 +30,17 @@ import fileinfo
 
 
 def document(doc):
-    """Return a Document music tree for the specified document.
+    """Return a Document music tree for the specified Frescobaldi document.
     
-    This is equivalent to documentinfo.docinfo(doc).music(),
-    and thus uses caching (you should not alter the music tree).
+    Use this instead of documentinfo.docinfo(doc).music(),
+    as this one sets the include_path correctly.
+    
+    This function uses caching (you should not alter the music tree).
     
     """
-    return documentinfo.docinfo(doc).music()
+    m = documentinfo.docinfo(doc).music()
+    m.include_path = documentinfo.info(doc).includepath()
+    return m
 
 
 class Document(ly.music.items.Document):
@@ -47,6 +51,9 @@ class Document(ly.music.items.Document):
         if filename:
             resolved = self.resolve_filename(filename)
             if resolved:
-                return fileinfo.docinfo(resolved).music()
+                d = fileinfo.docinfo(resolved).music()
+                d.include_node = node
+                d.include_path = self.include_path
+                return d
 
 

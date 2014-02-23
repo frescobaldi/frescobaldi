@@ -83,8 +83,8 @@ class MusicPosition(plugin.ViewSpacePlugin):
         if view:
             d = view.document()
             c = view.textCursor()
-            import documentinfo
-            m = documentinfo.docinfo(d).music()
+            import music
+            m = music.document(d)
             import ly.duration
             if c.hasSelection():
                 length = m.time_length(c.selectionStart(), c.selectionEnd())
