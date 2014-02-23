@@ -197,7 +197,7 @@ class Document(Item):
                 topnode = parent
                 if not (
                         (isinstance(parent, MusicList) and parent.simultaneous)
-                        or isinstance(parent, (Relative, Transpose))
+                        or isinstance(parent, (Relative, Transpose, Alternative))
                     ):
                     for i in n.backward():
                         if isinstance(i, UserCommand):
