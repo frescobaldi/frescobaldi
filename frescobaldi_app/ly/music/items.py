@@ -186,7 +186,7 @@ class Document(Item):
         parent = n.parent()
         while parent:
             # add length of current note, chord or user command
-            if isinstance(n, Durable):
+            if isinstance(n, Durable) and not isinstance(parent, Chord):
                 length += n.length()
             elif isinstance(n, UserCommand):
                 i = self.substitute_for_node(n)
