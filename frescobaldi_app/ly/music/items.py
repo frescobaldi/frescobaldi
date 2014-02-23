@@ -195,7 +195,10 @@ class Document(Item):
             # look back in the parent music list if possible
             if isinstance(parent, Music):
                 topnode = parent
-                if not (isinstance(parent, MusicList) and parent.simultaneous):
+                if not (
+                        (isinstance(parent, MusicList) and parent.simultaneous)
+                        or isinstance(parent, (Relative, Transpose))
+                    ):
                     for i in n.backward():
                         if isinstance(i, UserCommand):
                             i = self.substitute_for_node(i)
