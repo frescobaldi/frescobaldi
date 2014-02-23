@@ -208,7 +208,7 @@ class Document(Item):
                     if isinstance(parent, Scaler):
                         length *= parent.scaling
             # stop in \score or assignment, etc
-            else:
+            elif isinstance(parent, (MarkupScore, Score, Book, BookPart, Assignment, SchemeLily)):
                 break
             n = parent
             parent = n.parent()
