@@ -45,6 +45,7 @@ class _CachedDocument(object):
     document = None
     variables = None
     docinfo = None
+    music = None
 
 
 def _cached(filename):
@@ -74,6 +75,15 @@ def docinfo(filename):
         c.docinfo = lydocinfo.DocInfo(c.document, c.variables)
     return c.docinfo
 
+
+def music(filename):
+    """Return a (cached) music.Document instance for the specified file."""
+    c = _cached(filename)
+    if c.music is None:
+        import music
+        c.music = music.Document(c.document)
+    return c.music
+    
 
 def textmode(text, guess=True):
     """Returns the type of the given text ('lilypond, 'html', etc.).

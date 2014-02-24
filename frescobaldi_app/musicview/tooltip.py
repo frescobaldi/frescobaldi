@@ -53,8 +53,8 @@ def get_definition(cursor):
         block = block.previous()
 
 def time_position(cursor):
-    import music
-    pos, node = music.document(cursor.document()).time_position(cursor.position())
+    import documentinfo
+    pos, node = documentinfo.music(cursor.document()).time_position(cursor.position())
     if node:
         import ly.duration
         return ly.duration.format_fraction(pos)

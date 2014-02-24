@@ -332,12 +332,6 @@ class DocInfo(object):
                 return True
         return False
     
-    @_cache
-    def music(self):
-        """Return the ly.music.items.Document tree for this document."""
-        import ly.music
-        return ly.music.document(self.document)
-    
     def count_tokens(self, cls):
         """Return the number of tokens that are (a subclass) of the specified class.
         
