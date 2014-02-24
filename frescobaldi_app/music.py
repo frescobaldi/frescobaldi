@@ -25,7 +25,6 @@ from __future__ import unicode_literals
 
 
 import ly.music.items
-import documentinfo
 import fileinfo
 
 
