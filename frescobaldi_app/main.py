@@ -135,7 +135,6 @@ def main():
     import mainwindow       # contains MainWindow class
     import session          # Initialize QSessionManager support
     import sessions         # Initialize our own named session support
-    import document         # contains Document class
 
     # boot Frescobaldi-specific stuff that should be running on startup
     import viewhighlighter  # highlight arbitrary ranges in text

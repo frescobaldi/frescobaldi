@@ -79,6 +79,7 @@ class MusicPosition(plugin.ViewSpacePlugin):
             self._timer.start(100)
     
     def slotTimeout(self):
+        """Called when one of the timers fires."""
         view = self._view()
         if view:
             d = view.document()
