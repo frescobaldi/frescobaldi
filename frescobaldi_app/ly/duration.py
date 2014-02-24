@@ -89,4 +89,13 @@ def fraction_string(duration):
     return base * scaling
 
 
+def format_fraction(value):
+    """Format the value as "5/1" etc."""
+    if value == 0:
+        return "0"
+    elif isinstance(value, Fraction):
+        return "{0}/{1}".format(value.numerator, value.denominator)
+    else:
+        return "{0}/1".format(value)
+
 

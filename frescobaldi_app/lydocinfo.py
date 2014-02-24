@@ -58,9 +58,4 @@ class DocInfo(ly.docinfo.DocInfo):
         if m:
             return m.group(1)
 
-    @ly.docinfo._cache
-    def music(self):
-        import music
-        return music.Document(self.document)
-
 

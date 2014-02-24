@@ -55,6 +55,11 @@ def docinfo(document):
     return info(document).lydocinfo()
 
 
+def music(document):
+    """Return a music.Document instance for the document."""
+    return info(document).music()
+
+
 def mode(document, guess=True):
     """Returns the type of the given document. See DocumentInfo.mode()."""
     return info(document).mode(guess)
@@ -62,23 +67,32 @@ def mode(document, guess=True):
     
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
+    def __init__(self, document):
+        document.contentsChanged.connect(self._reset)
+        document.closed.connect(self._reset)
+        self._reset()
+        
     def _reset(self):
         """Called when the document is changed."""
-        del self._lydocinfo
-        self.document().closed.disconnect(self._reset)
-        self.document().contentsChanged.disconnect(self._reset)
+        self._lydocinfo = None
+        self._music = None
     
     def lydocinfo(self):
         """Return the lydocinfo instance for our document."""
-        try:
-            return self._lydocinfo
-        except AttributeError:
+        if self._lydocinfo is None:
             doc = lydocument.Document(self.document())
             v = variables.manager(self.document()).variables()
-            info = self._lydocinfo = lydocinfo.DocInfo(doc, v)
-            self.document().contentsChanged.connect(self._reset)
-            self.document().closed.connect(self._reset)
-            return info
+            self._lydocinfo = lydocinfo.DocInfo(doc, v)
+        return self._lydocinfo
+    
+    def music(self):
+        """Return the music.Document instance for our document."""
+        if self._music is None:
+            import music
+            doc = lydocument.Document(self.document())
+            self._music = music.Document(doc)
+        self._music.include_path = self.includepath()
+        return self._music
     
     def mode(self, guess=True):
         """Returns the type of document ('lilypond, 'html', etc.).

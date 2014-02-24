@@ -25,28 +25,20 @@ from __future__ import unicode_literals
 
 
 import ly.music.items
-import documentinfo
 import fileinfo
-
-
-def document(doc):
-    """Return a Document music tree for the specified document.
-    
-    This is equivalent to documentinfo.docinfo(doc).music(),
-    and thus uses caching (you should not alter the music tree).
-    
-    """
-    return documentinfo.docinfo(doc).music()
 
 
 class Document(ly.music.items.Document):
     """music.Document type that caches music trees using fileinfo."""
     def get_included_document_node(self, node):
         """Return a Document for the Include node."""
-            filename = node.filename()
-            if filename:
-                resolved = self.resolve_filename(filename)
-                if resolved:
-                    return fileinfo.docinfo(resolved).music()
+        filename = node.filename()
+        if filename:
+            resolved = self.resolve_filename(filename)
+            if resolved:
+                d = fileinfo.music(resolved)
+                d.include_node = node
+                d.include_path = self.include_path
+                return d
 
 

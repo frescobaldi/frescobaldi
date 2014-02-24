@@ -85,6 +85,7 @@ class Item(node.WeakNode):
         descendant of.
         
         """
+        node = self
         for doc in self.ancestors():
             if isinstance(doc, Document):
                 break
@@ -186,7 +187,7 @@ class Document(Item):
         parent = n.parent()
         while parent:
             # add length of current note, chord or user command
-            if isinstance(n, Durable):
+            if isinstance(n, Durable) and not isinstance(parent, Chord):
                 length += n.length()
             elif isinstance(n, UserCommand):
                 i = self.substitute_for_node(n)
@@ -195,7 +196,10 @@ class Document(Item):
             # look back in the parent music list if possible
             if isinstance(parent, Music):
                 topnode = parent
-                if not (isinstance(parent, MusicList) and parent.simultaneous):
+                if not (
+                        (isinstance(parent, MusicList) and parent.simultaneous)
+                        or isinstance(parent, (Relative, Transpose, Alternative))
+                    ):
                     for i in n.backward():
                         if isinstance(i, UserCommand):
                             i = self.substitute_for_node(i)
@@ -204,8 +208,8 @@ class Document(Item):
                     # adjust the current length if it is a scaling item
                     if isinstance(parent, Scaler):
                         length *= parent.scaling
-            # stop in \score or assignment, etc
-            elif isinstance(parent, (MarkupScore, Score, Book, BookPart, Assignment, SchemeLily)):
+            # stop outside music (in \score or assignment, etc)
+            elif topnode:
                 break
             n = parent
             parent = n.parent()
@@ -321,11 +325,13 @@ class Durable(Item):
     duration = None
     
     def length(self):
-        """Return the duration or None (no duration)."""
-        if self.duration:
-            base, scaling = self.duration.base_scaling
-            return base * scaling
-
+        """Return the duration.
+        
+        Returns 0 if no duration attribute was set.
+        
+        """
+        return self.duration.fraction() if self.duration else 0
+    
     def base_scaling(self):
         """Return the base and scaling fractions (if set, else None)."""
         if self.duration:

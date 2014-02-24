@@ -135,11 +135,11 @@ def main():
     import mainwindow       # contains MainWindow class
     import session          # Initialize QSessionManager support
     import sessions         # Initialize our own named session support
-    import document         # contains Document class
 
     # boot Frescobaldi-specific stuff that should be running on startup
     import viewhighlighter  # highlight arbitrary ranges in text
     import progress         # creates progress bar in view space
+    import musicpos         # shows music time in statusbar
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
     
