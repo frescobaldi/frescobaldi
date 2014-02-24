@@ -85,6 +85,7 @@ class Item(node.WeakNode):
         descendant of.
         
         """
+        node = self
         for doc in self.ancestors():
             if isinstance(doc, Document):
                 break
