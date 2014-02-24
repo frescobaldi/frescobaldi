@@ -131,6 +131,8 @@ class mediator():
             self.current_note = bar_rest(self.base_scaling, self.duration, pos, show_type=False)
         elif rtype == 's':
             self.current_note = bar_rest(self.base_scaling, self.duration, pos, skip=True)
+        if self.bar is None:
+            self.new_bar()
         self.bar.append(self.current_note)
         self.current_attr = bar_attr()
 
