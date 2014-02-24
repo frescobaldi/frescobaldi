@@ -208,8 +208,8 @@ class Document(Item):
                     # adjust the current length if it is a scaling item
                     if isinstance(parent, Scaler):
                         length *= parent.scaling
-            # stop in \score or assignment, etc
-            elif isinstance(parent, (MarkupScore, Score, Book, BookPart, Assignment, SchemeLily)):
+            # stop outside music (in \score or assignment, etc)
+            elif topnode:
                 break
             n = parent
             parent = n.parent()
