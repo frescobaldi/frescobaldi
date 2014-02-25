@@ -172,11 +172,11 @@ class Document(Item):
         r = Reader(s)
         self.extend(r.read())
     
-    def node(self, position):
+    def node(self, position, maxdepth=-1):
         """Return the node at or just before the specified position."""
-        def bisect(n):
+        def bisect(n, depth):
             end = len(n)
-            if end == 0:
+            if depth == 0 or end == 0:
                 return n
             pos = 0
             while pos < end:
@@ -190,8 +190,8 @@ class Document(Item):
                 return n[pos]
             elif n[pos].position > position:
                 return n
-            return bisect(n[pos])
-        return bisect(self)
+            return bisect(n[pos], depth - 1)
+        return bisect(self, maxdepth)
     
     def time_position(self, position):
         """Return a two-tuple (fraction, node).

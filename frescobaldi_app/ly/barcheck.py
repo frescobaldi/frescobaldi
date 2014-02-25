@@ -23,6 +23,7 @@ Add, check or remove bar checks in selected music.
 
 from __future__ import unicode_literals
 
+import collections
 import itertools
 
 import ly.document
@@ -51,5 +52,84 @@ def remove(cursor):
                     # replace "|" with a space
                     d[cur.pos:cur.end] = " "
             prv, cur = cur, nxt
+
+
+def insert(cursor, music=None):
+    """Insert bar checks within the selected range."""
+    if music is None:
+        import ly.music
+        music = ly.music.document(cursor.document)
+    
+    if len(music) == 0:
+        return
+    
+    if cursor.start:
+        n = music.node(cursor.start, 1)
+        nodes = itertools.chain((n,), n.forward())
+    else:
+        nodes = music
+    if cursor.end is None:
+        iter_nodes = iter
+    else:
+        predicate = lambda node: node.position < cursor.end
+        def iter_nodes(it):
+            return itertools.takewhile(predicate, it)
+    
+    # make time-based lists of events
+    event_lists = []
+    
+    def do_topnode(node):
+        if not isinstance(node, ly.music.items.Music):
+            for n in node:
+                do_topnode(n)
+            return
+        
+        def do_node(node, time, scaling):
+            if isinstance(node, (ly.music.items.Durable, ly.music.items.UserCommand)):
+                if node.position >= cursor.start:
+                    events[time].append(node)
+                time += node.length() * scaling
+            elif isinstance(node, (
+                    ly.music.items.TimeSignature,
+                    ly.music.items.Partial,
+                )):
+                events[time].append(node)
+            elif isinstance(node, ly.music.items.PipeSymbol):
+                events[time].append('pipeSymbol')
+            elif isinstance(node, ly.music.items.Command) and node.token in (
+                    'cadenzaOn', 'cadenzaOff'):
+                events[time].append(node.token)
+            elif isinstance(node, ly.music.items.Grace):
+                pass
+            elif isinstance(node, ly.music.items.LyricMode):
+                pass
+            elif isinstance(node, ly.music.items.MusicList) and node.simultaneous:
+                time = max(do_node(n, time, scaling) for n in iter_nodes(node))
+            elif isinstance(node, ly.music.items.Music):
+                if isinstance(node, ly.music.items.Scaler):
+                    scaling *= node.scaling
+                for n in iter_nodes(node):
+                    time = do_node(n, time, scaling)
+            else:
+                do_topnode(node)
+            return time
+        
+        events = collections.defaultdict(list)
+        do_node(node, 0, 1)
+        event_lists.append(sorted(events.items()))
+    
+    do_topnode(nodes)
+    
+    for event_list in event_lists:
+        
+        # default to 4/4 without pickup
+        measure_length = 1
+        measure_pos = 0
+        
+        for time, evts in event_list:
+            if 'pipeSymbol' in evts:
+                measure_pos = 0
+
+
 
 
