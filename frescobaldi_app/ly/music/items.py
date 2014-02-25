@@ -206,20 +206,24 @@ class Document(Item):
         have the same top node.
         
         """
-        # don't pick the current note if the cursor is on it's first position
-        n = self.node(position - 1 if position else 0)
-        # find a music list
+        n = self.node(position)
+        # be nice and allow including an assignment
+        if (isinstance(n, Assignment) and n.parent() is self
+            and isinstance(n.value(), Music)):
+            return 0, n.value()
+        
         length = 0
         topnode = n if isinstance(n, Music) else None
         parent = n.parent()
         while parent:
-            # add length of current note, chord or user command
-            if isinstance(n, Durable) and not isinstance(parent, Chord):
-                length += n.length()
-            elif isinstance(n, UserCommand):
-                i = self.substitute_for_node(n)
-                if isinstance(i, (Music, Durable)):
-                    length += i.length()
+            if n.position < position:
+                # add length of current note, chord or user command
+                if isinstance(n, Durable) and not isinstance(parent, Chord):
+                    length += n.length()
+                elif isinstance(n, UserCommand):
+                    i = self.substitute_for_node(n)
+                    if isinstance(i, (Music, Durable)):
+                        length += i.length()
             # look back in the parent music list if possible
             if isinstance(parent, Music):
                 topnode = parent
