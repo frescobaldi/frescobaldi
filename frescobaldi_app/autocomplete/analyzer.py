@@ -576,6 +576,7 @@ class Analyzer(object):
             font_name,
         ),
         lp.ParseLyricMode: (
+            repeat,
             lyricmode,
         ),
         lp.ParseAccidentalStyle: (

@@ -110,7 +110,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
     @util.keep
     def lyriccommands(self, cursor):
         return listmodel.ListModel(sorted(set(itertools.chain(
-            ('set stanza = ', 'set', 'override', 'markup', 'notemode'),
+            ('set stanza = ', 'set', 'override', 'markup', 'notemode', 'repeat'),
             harvest.include_identifiers(cursor),
             harvest.names(cursor)))), display = util.command)
 
