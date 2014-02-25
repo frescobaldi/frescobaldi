@@ -237,6 +237,8 @@ class Document(Item):
                         length *= parent.scaling
             # stop outside music (in \score or assignment, etc)
             elif topnode:
+                if position > topnode.end_position():
+                    return 0, None
                 break
             n = parent
             parent = n.parent()
