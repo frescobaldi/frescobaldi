@@ -18,9 +18,18 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The items a read music expression is constructed with.
+The items a music expression is constructed with in a tree structure.
 
 Whitespace and comments are left out.
+
+All nodes (instances of Item) have a 'position' attribute that indicates 
+where the item starts in the source text. Almost all items have the token 
+that starts the expression in the 'token' attribute and possibly other 
+tokens in the 'tokens' attribute, as a tuple. 
+
+The 'end_position()' method returns the position where the node (including 
+its child nodes) ends.
+
 
 """
 
@@ -61,6 +70,24 @@ class Item(node.WeakNode):
         s = ' ' + repr(self.token[:]) if self.token else ''
         return '<{0}{1}>'.format(self.__class__.__name__, s)
     
+    def end_position(self):
+        """Return the end position of this node."""
+        def ends():
+            if self.tokens:
+                yield self.tokens[-1].end
+            elif self.token:
+                yield self.token.end
+            else:
+                yield self.position
+            if len(self):
+                # end pos of the last child
+                yield self[-1].end_position()
+            # end pos of Item instances in attributes, such as duration etc
+            for i in vars(self).values():
+                if isinstance(i, Item):
+                    yield i.end_position()
+        return max(ends())
+        
     def find_trees(self, cls, depth=-1):
         """Yield all descendants (like Node.iter_depth()) that are of cls.
         
