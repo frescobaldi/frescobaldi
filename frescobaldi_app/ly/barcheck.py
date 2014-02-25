@@ -54,6 +54,33 @@ def remove(cursor):
             prv, cur = cur, nxt
 
 
+class event(object):
+    """A limited event type at a certain time."""
+    def __init__(self):
+        self._nodes = []
+        self.cadenza = None
+        self.barcheck = False
+        self.timesig = None
+        self.partial = None
+    
+    def append(self, node):
+        self._nodes.append(node)
+
+    def __repr__(self):
+        s = []
+        if self.cadenza is not None:
+            s.append('cadenza' + ('On' if self.cadenza else 'Off'))
+        if self.barcheck:
+            s.append('bar')
+        if self.timesig is not None:
+            s.append('T{0}'.format(self.timesig))
+        if self.partial is not None:
+            s.append('P{0}'.format(self.partial))
+        if self._nodes:
+            s.append(repr(self._nodes))
+        return '<event {0}>'.format(' '.join(s))
+
+
 def insert(cursor, music=None):
     """Insert bar checks within the selected range."""
     if music is None:
@@ -89,16 +116,15 @@ def insert(cursor, music=None):
                 if node.position >= cursor.start:
                     events[time].append(node)
                 time += node.length() * scaling
-            elif isinstance(node, (
-                    ly.music.items.TimeSignature,
-                    ly.music.items.Partial,
-                )):
-                events[time].append(node)
+            elif isinstance(node, ly.music.items.TimeSignature):
+                events[time].timesig = node.measure_length()
+            elif isinstance(node, ly.music.items.Partial):
+                events[time].partial = node.length()
             elif isinstance(node, ly.music.items.PipeSymbol):
-                events[time].append('pipeSymbol')
+                events[time].barcheck = True
             elif isinstance(node, ly.music.items.Command) and node.token in (
                     'cadenzaOn', 'cadenzaOff'):
-                events[time].append(node.token)
+                events[time].cadenza = node.token == 'cadenzaOn'
             elif isinstance(node, ly.music.items.Grace):
                 pass
             elif isinstance(node, ly.music.items.LyricMode):
@@ -114,7 +140,7 @@ def insert(cursor, music=None):
                 do_topnode(node)
             return time
         
-        events = collections.defaultdict(list)
+        events = collections.defaultdict(event)
         do_node(node, 0, 1)
         event_lists.append(sorted(events.items()))
     
@@ -126,10 +152,7 @@ def insert(cursor, music=None):
         measure_length = 1
         measure_pos = 0
         
-        for time, evts in event_list:
-            if 'pipeSymbol' in evts:
-                measure_pos = 0
-
-
+        for time, evt in event_list:
+            print time, evt
 
 
