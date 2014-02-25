@@ -30,6 +30,7 @@ import weakref
 
 import app
 import plugin
+import cursortools
 
 
 class MusicPosition(plugin.ViewSpacePlugin):
@@ -88,6 +89,7 @@ class MusicPosition(plugin.ViewSpacePlugin):
             m = documentinfo.music(d)
             import ly.duration
             if c.hasSelection():
+                cursortools.strip_selection(c)
                 length = m.time_length(c.selectionStart(), c.selectionEnd())
                 text = _("Length: {length}").format(
                     length=ly.duration.format_fraction(length)) if length is not None else ''
