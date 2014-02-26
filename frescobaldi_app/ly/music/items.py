@@ -82,10 +82,12 @@ class Item(node.WeakNode):
             if len(self):
                 # end pos of the last child
                 yield self[-1].end_position()
-            # end pos of Item instances in attributes, such as duration etc
+            # end pos of Item or Token instances in attributes, such as duration etc
             for i in vars(self).values():
                 if isinstance(i, Item):
                     yield i.end_position()
+                elif isinstance(i, lex.Token):
+                    yield i.end
         return max(ends())
         
     def find_trees(self, cls, depth=-1):
@@ -201,7 +203,7 @@ class Document(Item):
         r = Reader(s)
         self.extend(r.read())
     
-    def node(self, position, maxdepth=-1):
+    def node(self, position, depth=-1):
         """Return the node at or just before the specified position."""
         def bisect(n, depth):
             end = len(n)
@@ -220,7 +222,7 @@ class Document(Item):
             elif n[pos].position > position:
                 return n
             return bisect(n[pos], depth - 1)
-        return bisect(self, maxdepth)
+        return bisect(self, depth)
     
     def time_position(self, position):
         """Return a two-tuple (fraction, node).
