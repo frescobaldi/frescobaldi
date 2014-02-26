@@ -169,14 +169,6 @@ class Item(node.WeakNode):
             n = m
 
 
-class Root(Item):
-    """The root node of a tree of Items.
-    
-    This is returned by the Reader.tree() method.
-    
-    """
-
-
 class Document(Item):
     """A toplevel item representing a ly.document.Document."""
     
@@ -1189,12 +1181,6 @@ class Reader(object):
                 break
         return False
         
-    def tree(self):
-        """Return a Root node with all the Item instances, read from the source."""
-        root = self.factory(Root, position=0)
-        root.extend(i for i in self.read())
-        return root
-
     def read(self, source=None):
         """Yield Item instances reading from source."""
         source = source or self.source
