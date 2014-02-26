@@ -243,41 +243,39 @@ class Document(Item):
             and isinstance(n.value(), Music)):
             return 0, n.value()
         
-        length = 0
-        topnode = n if isinstance(n, Music) else None
-        parent = n.parent()
-        while parent:
-            if n.position < position:
-                # add length of current note, chord or user command
-                if isinstance(n, Durable) and not isinstance(parent, Chord):
-                    length += n.length()
-                elif isinstance(n, UserCommand):
-                    i = self.substitute_for_node(n)
-                    if isinstance(i, (Music, Durable)):
-                        length += i.length()
-            # look back in the parent music list if possible
-            if isinstance(parent, Music):
-                topnode = parent
-                if not (
-                        (isinstance(parent, MusicList) and parent.simultaneous)
-                        or isinstance(parent, (Relative, Transpose, Alternative))
-                    ):
-                    for i in n.backward():
-                        if isinstance(i, UserCommand):
-                            i = self.substitute_for_node(i)
-                        if isinstance(i, (Music, Durable)):
-                            length += i.length()
-                    # adjust the current length if it is a scaling item
-                    if isinstance(parent, Scaler):
-                        length *= parent.scaling
-            # stop outside music (in \score or assignment, etc)
-            elif topnode:
-                if position > topnode.end_position():
-                    return 0, None
-                break
-            n = parent
-            parent = n.parent()
-        return length, topnode
+        m = n.music_parent()
+        if not m or m.end_position() < position:
+            return 0, None
+        
+        time = 0
+        if isinstance(n.parent(), Chord):
+            n = n.parent()
+        
+        # add length of current note, chord or user command
+        if n.end_position() <= position and isinstance(n, (Durable, UserCommand)):
+            time = n.length()
+        
+        current_node = n
+        found = []
+        
+        predicate = lambda node: not found
+        it = lambda node: itertools.takewhile(predicate, node)
+        
+        def count(node, time, scaling):
+            if node is current_node or node.position > position:
+                found.append(time)
+            elif isinstance(node, (Durable, UserCommand)):
+                time += node.length() * scaling
+            elif isinstance(node, MusicList) and node.simultaneous:
+                time = max(count(n, time, scaling) for n in it(node))
+            elif isinstance(node, Music):
+                if isinstance(node, Scaler):
+                    scaling *= node.scaling
+                for n in it(node):
+                    time = count(n, time, scaling)
+            return time
+        time = count(m, time, 1)
+        return (found[0], m) if found else (time, m)
     
     def time_length(self, start, end):
         """Return the length of the music between start and end positions.
