@@ -147,6 +147,26 @@ class Item(node.WeakNode):
                 else:
                     yield i
         return follow(self.iter_toplevel_items())
+    
+    def music(self):
+        """Walk up the parent tree until Music is found; return the outermost Music node.
+        
+        Returns None is the node does not belong to any music expression (e.g.
+        a toplevel Markup or Scheme object).
+        
+        """
+        it = self.ancestors()
+        n = self
+        if not isinstance(self, Music):
+            for n in it:
+                if isinstance(n, Music):
+                    break
+            else:
+                return
+        for m in it:
+            if not isinstance(m, Music):
+                return n
+            n = m
 
 
 class Root(Item):
