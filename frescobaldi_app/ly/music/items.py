@@ -148,25 +148,42 @@ class Item(node.WeakNode):
                     yield i
         return follow(self.iter_toplevel_items())
     
-    def music(self):
+    def music_parent(self):
         """Walk up the parent tree until Music is found; return the outermost Music node.
         
         Returns None is the node does not belong to any music expression (e.g.
         a toplevel Markup or Scheme object).
         
         """
-        it = self.ancestors()
-        n = self
-        if not isinstance(self, Music):
-            for n in it:
-                if isinstance(n, Music):
-                    break
-            else:
-                return
-        for m in it:
-            if not isinstance(m, Music):
-                return n
-            n = m
+        node = self
+        mus = isinstance(node, Music)
+        for p in self.ancestors():
+            pmus = isinstance(p, Music)
+            if mus and not pmus:
+                return node
+            mus = pmus
+            node = p
+    
+    def music_children(self, depth=-1):
+        """Yield all the children that are new music expressions
+        
+        (i.e. that are inside other constructions).
+        
+        """
+        def find(node, depth):
+            if depth != 0:
+                if isinstance(node, Music):
+                    for i in node:
+                        for i in find(i, depth-1):
+                            yield i
+                else:
+                    for i in node:
+                        if isinstance(i, Music):
+                            yield i
+                        else:
+                            for i in find(i, depth-1):
+                                yield i
+        return find(self, depth)
 
 
 class Document(Item):
