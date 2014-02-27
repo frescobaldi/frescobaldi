@@ -1562,6 +1562,11 @@ class Reader(object):
         item = self.factory(AfterGrace, t)
         for i in itertools.islice(self.read(source), 2):
             item.append(i)
+        # put the grace music in a Grace item
+        if len(item) > 1:
+            i = self.factory(Grace, position=item[-1].position)
+            i.append(item[-1])
+            item.append(i)
         return item
     
     @_commands('\\repeat')
