@@ -247,10 +247,10 @@ class Document(Item):
         if not m or m.end_position() < position:
             return 0, None
         
-        time = 0
         if isinstance(n.parent(), Chord):
             n = n.parent()
         
+        time = 0
         # add length of current note, chord or user command
         if n.end_position() <= position and isinstance(n, (Durable, UserCommand)):
             time = n.length()
