@@ -31,6 +31,8 @@ from . import items
 
 class Events(object):
     """Traverses a music tree and records music events from it."""
+    unfold_repeats = False
+    
     def __init__(self, quit_predicate=None):
         self.keep_going = True
         self.time = None
@@ -78,6 +80,8 @@ class Events(object):
                         time = self.handle_user_command(node, time, scaling)
                     elif isinstance(node, items.MusicList) and node.simultaneous:
                         time = max(self.traverse(n, time, scaling) for n in self.iter(node))
+                    elif isinstance(node, items.Repeat):
+                        time = self.handle_repeat(node, time, scaling)
                     elif isinstance(node, items.Music):
                         if isinstance(node, items.Grace):
                             scaling = 0
@@ -92,5 +96,39 @@ class Events(object):
     def handle_user_command(self, node, time, scaling):
         """Handle a UserCommand; by default just adds the length."""
         return time + node.length() * scaling
+
+    def handle_repeat(self, node, time, scaling):
+        """Handles a Repeat.
+        
+        A "volta" Repeat is not unfolded and repeated, unless the
+        unfold_repeats instance attribute is set to True.
+        
+        """
+        if len(node) and isinstance(node[-1], items.Alternative):
+            alt = node[-1]
+            children = node[:-1]
+        else:
+            alt = None
+            children = node[:]
+        
+        if self.unfold_repeats or node.specifier() != "volta":
+            count = node.repeat_count()
+            if alt and len(alt):
+                alts = list(alt[0])[:count+1]
+                alts[0:0] = [alts[0]] * (count - len(alts))
+                for a in alts:
+                    for n in self.iter(children):
+                        time = self.traverse(n, time, scaling)
+                    time = self.traverse(a, time, scaling)
+            else:
+                for i in range(count):
+                    for n in self.iter(children):
+                        time = self.traverse(n, time, scaling)
+        else:
+            for n in self.iter(children):
+                time = self.traverse(n, time, scaling)
+            if alt:
+                time = self.traverse(alt, time, scaling)
+        return time
 
 
