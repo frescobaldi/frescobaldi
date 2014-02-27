@@ -90,23 +90,6 @@ class Item(node.WeakNode):
                     yield i.end
         return max(ends())
         
-    def find_trees(self, cls, depth=-1):
-        """Yield all descendants (like Node.iter_depth()) that are of cls.
-        
-        cls may also be a tuple of classes. If a node is yielded, it is not
-        further descended into.
-        
-        """
-        def find(node, depth):
-            if depth != 0:
-                for n in node:
-                    if isinstance(n, cls):
-                        yield n
-                    else:
-                        for n in find(n, depth - 1):
-                            yield n
-        return find(self, depth)
-        
     def iter_toplevel_items(self):
         """Yield the toplevel items of our Document node in backward direction.
         
