@@ -48,7 +48,16 @@ class Events(object):
         return time if self.time is None else self.time
     
     def event(self, node, time, scaling):
-        """Called for every event."""
+        """Called for every node.
+        
+        By default this method does nothing. If you reimplement it and
+        return a time value, the normal event processing is not done (it is
+        expected that you traverse the child nodes yourself then).
+        
+        If you use a quit_predicate, this method is not called when that
+        returns True. (quit() is then called.)
+        
+        """
     
     def quit(self, node, time, scaling):
         """Called when the quit_predicate returned True."""
@@ -56,22 +65,28 @@ class Events(object):
     def traverse(self, node, time, scaling):
         """Traverse node and call event handlers; record and return the time."""
         if self.keep_going:
-            self.event(node, time, scaling)
             if self.quit_predicate(node):
                 self.keep_going = False
                 self.time = time
                 self.quit(node, time, scaling)
-            elif isinstance(node, items.Durable):
-                time += node.length() * scaling
-            elif isinstance(node, items.UserCommand):
-                time = self.handle_user_command(node, time, scaling)
-            elif isinstance(node, items.MusicList) and node.simultaneous:
-                time = max(self.traverse(n, time, scaling) for n in self.iter(node))
-            elif isinstance(node, items.Music):
-                if isinstance(node, items.Scaler):
-                    scaling *= node.scaling
-                for n in self.iter(node):
-                    time = self.traverse(n, time, scaling)
+            else:
+                res = self.event(node, time, scaling)
+                if res is None:
+                    if isinstance(node, items.Durable):
+                        time += node.length() * scaling
+                    elif isinstance(node, items.UserCommand):
+                        time = self.handle_user_command(node, time, scaling)
+                    elif isinstance(node, items.MusicList) and node.simultaneous:
+                        time = max(self.traverse(n, time, scaling) for n in self.iter(node))
+                    elif isinstance(node, items.Music):
+                        if isinstance(node, items.Grace):
+                            scaling = 0
+                        elif isinstance(node, items.Scaler):
+                            scaling *= node.scaling
+                        for n in self.iter(node):
+                            time = self.traverse(n, time, scaling)
+                else:
+                    time += res
         return time
 
     def handle_user_command(self, node, time, scaling):

@@ -239,7 +239,12 @@ class Document(Item):
         
         # add length of current note, chord or user command
         if n.end_position() <= position and isinstance(n, (Durable, UserCommand)):
-            time += n.length()
+            for p in n.ancestors():
+                if not isinstance(p, Music):
+                    time += n.length()
+                    break
+                elif isinstance(p, Grace):
+                    break
         return time, m
     
     def time_length(self, start, end):
