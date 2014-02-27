@@ -233,32 +233,14 @@ class Document(Item):
         if isinstance(n.parent(), Chord):
             n = n.parent()
         
-        time = 0
+        from . import event
+        e = event.Events(lambda node: node is n or node.position > position)
+        time = e.read(m)
+        
         # add length of current note, chord or user command
         if n.end_position() <= position and isinstance(n, (Durable, UserCommand)):
-            time = n.length()
-        
-        current_node = n
-        found = []
-        
-        predicate = lambda node: not found
-        it = lambda node: itertools.takewhile(predicate, node)
-        
-        def count(node, time, scaling):
-            if node is current_node or node.position > position:
-                found.append(time)
-            elif isinstance(node, (Durable, UserCommand)):
-                time += node.length() * scaling
-            elif isinstance(node, MusicList) and node.simultaneous:
-                time = max(count(n, time, scaling) for n in it(node))
-            elif isinstance(node, Music):
-                if isinstance(node, Scaler):
-                    scaling *= node.scaling
-                for n in it(node):
-                    time = count(n, time, scaling)
-            return time
-        time = count(m, time, 1)
-        return (found[0], m) if found else (time, m)
+            time += n.length()
+        return time, m
     
     def time_length(self, start, end):
         """Return the length of the music between start and end positions.
