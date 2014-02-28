@@ -49,7 +49,7 @@ class Events(object):
         time = self.traverse(node, time, scaling)
         return time if self.time is None else self.time
     
-    def event(self, node, time, scaling):
+    def events(self, node, time, scaling):
         """Called for every node.
         
         By default this method does nothing. If you reimplement it and
@@ -72,63 +72,10 @@ class Events(object):
                 self.time = time
                 self.quit(node, time, scaling)
             else:
-                res = self.event(node, time, scaling)
+                res = self.events(node, time, scaling)
                 if res is None:
-                    if isinstance(node, items.Durable):
-                        time += node.length() * scaling
-                    elif isinstance(node, items.UserCommand):
-                        time = self.handle_user_command(node, time, scaling)
-                    elif isinstance(node, items.MusicList) and node.simultaneous:
-                        time = max(self.traverse(n, time, scaling) for n in self.iter(node))
-                    elif isinstance(node, items.Repeat):
-                        time = self.handle_repeat(node, time, scaling)
-                    elif isinstance(node, items.Music):
-                        if isinstance(node, items.Grace):
-                            scaling = 0
-                        elif isinstance(node, items.Scaler):
-                            scaling *= node.scaling
-                        for n in self.iter(node):
-                            time = self.traverse(n, time, scaling)
+                    time = node.events(self, time, scaling)
                 else:
                     time += res
         return time
-
-    def handle_user_command(self, node, time, scaling):
-        """Handle a UserCommand; by default just adds the length."""
-        return time + node.length() * scaling
-
-    def handle_repeat(self, node, time, scaling):
-        """Handles a Repeat.
-        
-        A "volta" Repeat is not unfolded and repeated, unless the
-        unfold_repeats instance attribute is set to True.
-        
-        """
-        if len(node) and isinstance(node[-1], items.Alternative):
-            alt = node[-1]
-            children = node[:-1]
-        else:
-            alt = None
-            children = node[:]
-        
-        if self.unfold_repeats or node.specifier() != "volta":
-            count = node.repeat_count()
-            if alt and len(alt):
-                alts = list(alt[0])[:count+1]
-                alts[0:0] = [alts[0]] * (count - len(alts))
-                for a in alts:
-                    for n in self.iter(children):
-                        time = self.traverse(n, time, scaling)
-                    time = self.traverse(a, time, scaling)
-            else:
-                for i in range(count):
-                    for n in self.iter(children):
-                        time = self.traverse(n, time, scaling)
-        else:
-            for n in self.iter(children):
-                time = self.traverse(n, time, scaling)
-            if alt:
-                time = self.traverse(alt, time, scaling)
-        return time
-
 

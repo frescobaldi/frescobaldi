@@ -89,7 +89,11 @@ class Item(node.WeakNode):
                 elif isinstance(i, lex.Token):
                     yield i.end
         return max(ends())
-        
+    
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        return time
+    
     def iter_toplevel_items(self):
         """Yield the toplevel items of our Document node in backward direction.
         
@@ -356,6 +360,12 @@ class Durable(Item):
     """An Item that has a Duration attribute."""
     duration = None
     
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        if self.duration:
+            time += self.duration.fraction() * scaling
+        return time
+    
     def length(self):
         """Return the duration.
         
@@ -401,6 +411,12 @@ class Q(Durable):
 
 class Music(Container):
     """Any music expression, to be inherited of."""
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        for node in e.iter(self):
+            time = e.traverse(node, time, scaling)
+        return time
+    
     def child_length_iter(self, children=None):
         """Yield the length() of all the children, if Music or Durable.
         
@@ -417,6 +433,14 @@ class MusicList(Music):
     """A music expression, either << >> or { }."""
     simultaneous = False
     
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        if self.simultaneous:
+            time = max(e.traverse(node, time, scaling) for node in e.iter(self))
+        else:
+            time = super(MusicList, self).events(e, time, scaling)
+        return time
+    
     def length(self):
         gen = self.child_length_iter()
         return max(gen) if self.simultaneous else sum(gen)
@@ -424,6 +448,13 @@ class MusicList(Music):
 
 class Tag(Music):
     """A \\tag, \\keepWithTag or \\removeWithTag command."""
+    
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        for node in e.iter(self[-1:]):
+            time = e.traverse(node, time, scaling)
+        return time
+    
     def length(self):
         for l in self.child_length_iter(self[::-1]):
             return l
@@ -433,12 +464,21 @@ class Scaler(Music):
     """A music construct that scales the duration of its contents."""
     scaling = 1
     
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        return super(Scaler, self).events(e, time, scaling * self.scaling)
+    
     def length(self):
         return super(Scaler, self).length() * self.scaling
 
 
 class Grace(Music):
     """Music that has grace timing, i.e. 0 as far as computation is concerned."""
+    
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        return super(Grace, self).events(e, time, 0)
+    
     def length(self):
         return 0
 
@@ -456,6 +496,10 @@ class AfterGrace(Music):
 
 class PartCombine(Music):
     """The \\partcombine command with 2 music arguments."""
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        return max(e.traverse(node, time, scaling) for node in e.iter(self))
+    
     def length(self):
         return max(self.child_length_iter())
 
@@ -488,6 +532,35 @@ class Repeat(Music):
             return self._repeat_count.get_int() or 1
         return int(self._repeat_count or '1') or 1
 
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        if len(self) and isinstance(self[-1], items.Alternative):
+            alt = self[-1]
+            children = self[:-1]
+        else:
+            alt = None
+            children = self[:]
+        
+        if e.unfold_repeats or self.specifier() != "volta":
+            count = self.repeat_count()
+            if alt and len(alt):
+                alts = list(alt[0])[:count+1]
+                alts[0:0] = [alts[0]] * (count - len(alts))
+                for a in alts:
+                    for n in e.iter(children):
+                        time = e.traverse(n, time, scaling)
+                    time = e.traverse(a, time, scaling)
+            else:
+                for i in range(count):
+                    for n in e.iter(children):
+                        time = e.traverse(n, time, scaling)
+        else:
+            for n in e.iter(children):
+                time = e.traverse(n, time, scaling)
+            if alt:
+                time = e.traverse(alt, time, scaling)
+        return time
+        
     def length(self):
         """Return the length of this music expression.
         
@@ -761,6 +834,13 @@ class UserCommand(Music):
         for i in self.iter_toplevel_items_include():
             if isinstance(i, Assignment) and i.name() == self.name():
                 return i.value()
+    
+    def events(self, e, time, scaling):
+        """Let the event.Events instance e handle the events. Return the time."""
+        value = self.value()
+        if value:
+            time = e.traverse(value, time, scaling)
+        return time
     
     def child_length_iter(self):
         v = self.value()
