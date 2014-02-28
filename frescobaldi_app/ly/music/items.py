@@ -240,19 +240,15 @@ class Document(Item):
         
         if isinstance(n.parent(), Chord):
             n = n.parent()
+        document = n.document
+        if n.end_position() <= position:
+            quit_predicate = lambda node: node.document is document and node.position >= position
+        else:
+            quit_predicate = lambda node: node is n or (node.document is document and node.position >= position)
         
         from . import event
-        e = event.Events(lambda node: node is n or node.position > position)
+        e = event.Events(quit_predicate)
         time = e.read(m)
-        
-        # add length of current note, chord or user command
-        if n.end_position() <= position and isinstance(n, (Durable, UserCommand)):
-            for p in n.ancestors():
-                if not isinstance(p, Music):
-                    time += n.length()
-                    break
-                elif isinstance(p, Grace):
-                    break
         return time, m
     
     def time_length(self, start, end):
