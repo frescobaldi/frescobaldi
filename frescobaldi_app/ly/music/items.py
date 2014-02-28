@@ -94,6 +94,10 @@ class Item(node.WeakNode):
         """Let the event.Events instance e handle the events. Return the time."""
         return time
     
+    def length(self):
+        """Return the musical duration."""
+        return 0
+    
     def iter_toplevel_items(self):
         """Yield the toplevel items of our Document node in backward direction.
         
@@ -417,16 +421,10 @@ class Music(Container):
             time = e.traverse(node, time, scaling)
         return time
     
-    def child_length_iter(self, children=None):
-        """Yield the length() of all the children, if Music or Durable.
-        
-        If children is not given, self is iterated over.
-        
-        """
-        return (c.length() or 0 for c in children or self if isinstance(c, (Music, Durable)))
-        
     def length(self):
-        return sum(self.child_length_iter())
+        """Return the musical duration."""
+        from . import event
+        return event.Events().read(self)
 
 
 class MusicList(Music):
@@ -440,10 +438,6 @@ class MusicList(Music):
         else:
             time = super(MusicList, self).events(e, time, scaling)
         return time
-    
-    def length(self):
-        gen = self.child_length_iter()
-        return max(gen) if self.simultaneous else sum(gen)
 
 
 class Tag(Music):
@@ -454,10 +448,6 @@ class Tag(Music):
         for node in e.iter(self[-1:]):
             time = e.traverse(node, time, scaling)
         return time
-    
-    def length(self):
-        for l in self.child_length_iter(self[::-1]):
-            return l
 
 
 class Scaler(Music):
@@ -467,9 +457,6 @@ class Scaler(Music):
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
         return super(Scaler, self).events(e, time, scaling * self.scaling)
-    
-    def length(self):
-        return super(Scaler, self).length() * self.scaling
 
 
 class Grace(Music):
@@ -478,9 +465,6 @@ class Grace(Music):
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
         return super(Grace, self).events(e, time, 0)
-    
-    def length(self):
-        return 0
 
 
 class AfterGrace(Music):
@@ -489,9 +473,6 @@ class AfterGrace(Music):
     Only the duration of the first is counted.
     
     """
-    def length(self):
-        for length in self.child_length_iter():
-            return length
 
 
 class PartCombine(Music):
@@ -499,9 +480,6 @@ class PartCombine(Music):
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
         return max(e.traverse(node, time, scaling) for node in e.iter(self))
-    
-    def length(self):
-        return max(self.child_length_iter())
 
 
 class Relative(Music):
@@ -534,7 +512,7 @@ class Repeat(Music):
 
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
-        if len(self) and isinstance(self[-1], items.Alternative):
+        if len(self) and isinstance(self[-1], Alternative):
             alt = self[-1]
             children = self[:-1]
         else:
@@ -560,48 +538,10 @@ class Repeat(Music):
             if alt:
                 time = e.traverse(alt, time, scaling)
         return time
-        
-    def length(self):
-        """Return the length of this music expression.
-        
-        If the specifier is not "volta", the length is multiplied 
-        by the repeat_count value.
-        
-        If the last child is an Alternative item, its contents are taken
-        into account.
-        
-        """
-        unfold = self.specifier() != "volta"
-        count = self.repeat_count()
-        own_length_iter = self
-        alt_length = 0
-        if len(self) > 0:
-            alt = self[-1]
-            if isinstance(alt, Alternative):
-                own_length_iter = self[:-1]
-                alt_lengths = alt.lengths()
-                if alt_lengths:
-                    if unfold:
-                        alt_lengths[0:0] = [alt_lengths[0]] * (count - len(alt_lengths))
-                    alt_length = sum(alt_lengths[:count])
-        own_length = sum(self.child_length_iter(own_length_iter))
-        if unfold:
-            own_length *= count
-        return own_length + alt_length
 
 
 class Alternative(Music):
     """An \\alternative expression."""
-    def length(self):
-        """Return the maximum length of the child music lists."""
-        return max(self.lengths() or [0])
-    
-    def lengths(self):
-        """A list of length Fractions for every child music item."""
-        for item in self:
-            if isinstance(item, MusicList):
-                return list(item.child_length_iter())
-        return []
 
 
 class InputMode(Music):
@@ -742,7 +682,7 @@ class Partial(Item):
     """A \\partial command."""
     duration = None
 
-    def length(self):
+    def partial_length(self):
         """Return the duration given as argument as a Fraction."""
         if self.duration:
             base, scaling = self.duration.base_scaling
@@ -841,11 +781,6 @@ class UserCommand(Music):
         if value:
             time = e.traverse(value, time, scaling)
         return time
-    
-    def child_length_iter(self):
-        v = self.value()
-        if isinstance(v, (Music, Durable)):
-            yield v.length()
 
 
 class Version(Item):
