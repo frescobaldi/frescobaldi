@@ -247,7 +247,7 @@ class Document(Item):
             quit_predicate = lambda node: node is n or (node.document is document and node.position >= position)
         
         from . import event
-        e = event.Events(quit_predicate)
+        e = event.TimePosition(quit_predicate)
         time = e.read(m)
         return time, m
     

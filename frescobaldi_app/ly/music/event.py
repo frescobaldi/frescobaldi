@@ -33,6 +33,24 @@ class Events(object):
     """Traverses a music tree and records music events from it."""
     unfold_repeats = False
     
+    def __init__(self):
+        self.iter = iter
+    
+    def read(self, node, time=0, scaling=1):
+        """Read events from the node and all its child nodes; return time."""
+        return self.traverse(node, time, scaling)
+    
+    def traverse(self, node, time, scaling):
+        """Traverse node and call event handlers; record and return the time."""
+        return node.events(self, time, scaling)
+
+
+class TimePosition(Events):
+    """Traverses a music tree and records music events from it.
+    
+    This class can stop at a certain condition, which is tested with every node.
+    
+    """
     def __init__(self, quit_predicate=None):
         self.keep_going = True
         self.time = None
@@ -49,33 +67,14 @@ class Events(object):
         time = self.traverse(node, time, scaling)
         return time if self.time is None else self.time
     
-    def events(self, node, time, scaling):
-        """Called for every node.
-        
-        By default this method does nothing. If you reimplement it and
-        return a time value, the normal event processing is not done (it is
-        expected that you traverse the child nodes yourself then).
-        
-        If you use a quit_predicate, this method is not called when that
-        returns True. (quit() is then called.)
-        
-        """
-    
-    def quit(self, node, time, scaling):
-        """Called when the quit_predicate returned True."""
-    
     def traverse(self, node, time, scaling):
         """Traverse node and call event handlers; record and return the time."""
         if self.keep_going:
             if self.quit_predicate(node):
                 self.keep_going = False
                 self.time = time
-                self.quit(node, time, scaling)
             else:
-                res = self.events(node, time, scaling)
-                if res is None:
-                    time = node.events(self, time, scaling)
-                else:
-                    time += res
+                time = node.events(self, time, scaling)
         return time
+
 
