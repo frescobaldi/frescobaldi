@@ -247,10 +247,10 @@ class Node(object):
             yield node
             node = node.next_sibling()
 
-    def is_descendant(self, node):
-        """Return True if the node is a descendant of ourselves, else False."""
-        for n in node.ancestors():
-            if n is self:
+    def is_descendant_of(self, parent):
+        """Return True if self is a descendant of parent, else False."""
+        for n in self.ancestors():
+            if n is parent:
                 return True
         return False
 
