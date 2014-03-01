@@ -430,6 +430,16 @@ class Music(Container):
     def time_position_of_child(self, node, time=0):
         """Return the time position of the node (which must be a child!)."""
         return time + sum(n.length() for n in node.backward())
+    
+    def preceding(self, node):
+        """Return a two-tuple (nodes, scaling).
+        
+        The nodes are the nodes in time before the node (which must be a
+        child), and the scaling is the scaling this node applies (normally 1).
+        
+        """
+        i = self.index(node)
+        return self[:i:], 1
 
 
 class MusicList(Music):
@@ -450,6 +460,17 @@ class MusicList(Music):
             return time
         return super(MusicList, self).time_position_of_child(node, time)
 
+    def preceding(self, node):
+        """Return a two-tuple (nodes, scaling).
+        
+        The nodes are the nodes in time before the node (which must be a
+        child), and the scaling is the scaling this node applies (normally 1).
+        
+        """
+        if self.simultaneous:
+            return (), 1
+        return super(MusicList, self).preceding(node)
+
 
 class Tag(Music):
     """A \\tag, \\keepWithTag or \\removeWithTag command."""
@@ -459,6 +480,15 @@ class Tag(Music):
         for node in self[-1:]:
             time = e.traverse(node, time, scaling)
         return time
+        
+    def preceding(self, node):
+        """Return a two-tuple (nodes, scaling).
+        
+        The nodes are the nodes in time before the node (which must be a
+        child), and the scaling is the scaling this node applies (normally 1).
+        
+        """
+        return (), 1
 
 
 class Scaler(Music):
@@ -472,6 +502,16 @@ class Scaler(Music):
     def time_position_of_child(self, node, time=0):
         """Return the time position of the node (which must be a child!)."""
         return super(Scaler, self).time_position_of_child(node, time) * self.scaling
+        
+    def preceding(self, node):
+        """Return a two-tuple (nodes, scaling).
+        
+        The nodes are the nodes in time before the node (which must be a
+        child), and the scaling is the scaling this node applies.
+        
+        """
+        i = self.index(node)
+        return self[:i:], self.scaling
 
 
 class Grace(Music):
@@ -484,6 +524,16 @@ class Grace(Music):
     def time_position_of_child(self, node, time=0):
         """Return the time position of the node (which must be a child!)."""
         return 0
+
+    def preceding(self, node):
+        """Return a two-tuple (nodes, scaling).
+        
+        The nodes are the nodes in time before the node (which must be a
+        child), and the scaling is 0 for (because we have grace notes).
+        
+        """
+        i = self.index(node)
+        return self[:i:], 0
 
 
 class AfterGrace(Music):
@@ -503,6 +553,15 @@ class PartCombine(Music):
     def time_position_of_child(self, node, time=0):
         """Return the time position of the node (which must be a child!)."""
         return time
+
+    def preceding(self, node):
+        """Return a two-tuple (nodes, scaling).
+        
+        The nodes are the nodes in time before the node (which must be a
+        child), and the scaling is the scaling this node applies (normally 1).
+        
+        """
+        return (), 1
 
 
 class Relative(Music):
