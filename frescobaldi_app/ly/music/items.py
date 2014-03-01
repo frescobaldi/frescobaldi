@@ -234,22 +234,21 @@ class Document(Item):
         if isinstance(node.parent(), Chord):
             node = node.parent()
         
-        n = node
         l = []
-        mus = isinstance(n, (Music, Durable))
+        mus = isinstance(node, (Music, Durable))
         for p in node.ancestors():
             pmus = isinstance(p, Music)
             if pmus:
-                if position >= n.end_position():
+                if position >= node.end_position():
                     l = [p.preceding()]
                 else:
-                    l.append(p.preceding(n))
+                    l.append(p.preceding(node))
             elif mus:
                 # we are at the musical top
-                if position > n.end_position():
+                if position > node.end_position():
                     return 0, None
                 break
-            n = p
+            node = p
             mus = pmus
         from . import event
         e = event.Events()
@@ -259,7 +258,7 @@ class Document(Item):
             scaling *= s
             for n in nodes:
                 time = e.traverse(n, time, scaling)
-        return time, n
+        return time, node
     
     def time_length(self, start, end):
         """Return the length of the music between start and end positions.
