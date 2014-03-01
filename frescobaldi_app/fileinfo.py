@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 import itertools
 import re
 import os
+import atexit
 
 import ly.document
 import lydocinfo
@@ -37,6 +38,12 @@ import variables
 
 _document_cache = filecache.FileCache()
 _suffix_chars_re = re.compile(r'[^-\w]', re.UNICODE)
+
+
+### XXX otherwise I get a segfault on shutdown when very large music trees
+### are made (and every node references the document).
+### (The segfault is preceded by a "corrupted double-linked list" message.)
+atexit.register(_document_cache.clear)
 
 
 class _CachedDocument(object):
