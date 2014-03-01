@@ -418,7 +418,7 @@ class Music(Container):
     """Any music expression, to be inherited of."""
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
-        for node in e.iter(self):
+        for node in self:
             time = e.traverse(node, time, scaling)
         return time
     
@@ -439,7 +439,7 @@ class MusicList(Music):
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
         if self.simultaneous:
-            time = max(e.traverse(node, time, scaling) for node in e.iter(self))
+            time = max(e.traverse(node, time, scaling) for node in self)
         else:
             time = super(MusicList, self).events(e, time, scaling)
         return time
@@ -456,7 +456,7 @@ class Tag(Music):
     
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
-        for node in e.iter(self[-1:]):
+        for node in self[-1:]:
             time = e.traverse(node, time, scaling)
         return time
 
@@ -498,7 +498,7 @@ class PartCombine(Music):
     """The \\partcombine command with 2 music arguments."""
     def events(self, e, time, scaling):
         """Let the event.Events instance e handle the events. Return the time."""
-        return max(e.traverse(node, time, scaling) for node in e.iter(self))
+        return max(e.traverse(node, time, scaling) for node in self)
     
     def time_position_of_child(self, node, time=0):
         """Return the time position of the node (which must be a child!)."""
@@ -548,15 +548,15 @@ class Repeat(Music):
                 alts = list(alt[0])[:count+1]
                 alts[0:0] = [alts[0]] * (count - len(alts))
                 for a in alts:
-                    for n in e.iter(children):
+                    for n in children:
                         time = e.traverse(n, time, scaling)
                     time = e.traverse(a, time, scaling)
             else:
                 for i in range(count):
-                    for n in e.iter(children):
+                    for n in children:
                         time = e.traverse(n, time, scaling)
         else:
-            for n in e.iter(children):
+            for n in children:
                 time = e.traverse(n, time, scaling)
             if alt:
                 time = e.traverse(alt, time, scaling)
