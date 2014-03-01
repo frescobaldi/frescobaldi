@@ -215,11 +215,8 @@ class Node(object):
         Returns None if this is the first child, or if we have no parent.
         
         """
-        parent = self.parent()
-        if parent:
-            i = parent.index(self)
-            if i > 0:
-                return parent[i-1]
+        for i in self.backward():
+            return i
 
     def next_sibling(self):
         """Return the sibling object just after us in our parents list.
@@ -227,25 +224,22 @@ class Node(object):
         Returns None if this is the last child, or if we have no parent.
         
         """
-        parent = self.parent()
-        if parent:
-            i = parent.index(self)
-            if i < len(parent) - 1:
-                return parent[i+1]
+        for i in self.forward():
+            return i
 
     def backward(self):
         """Iterate (backwards) over the preceding siblings."""
-        node = self.previous_sibling()
-        while node:
-            yield node
-            node = node.previous_sibling()
+        parent = self.parent()
+        if parent:
+            i = parent.index(self)
+            return iter(parent[i-1::-1])
 
     def forward(self):
         """Iterate over the following siblings."""
-        node = self.next_sibling()
-        while node:
-            yield node
-            node = node.next_sibling()
+        parent = self.parent()
+        if parent:
+            i = parent.index(self)
+            return iter(parent[i+1::])
 
     def is_descendant_of(self, parent):
         """Return True if self is a descendant of parent, else False."""
