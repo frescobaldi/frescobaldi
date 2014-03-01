@@ -237,11 +237,13 @@ class Document(Item):
         n = node
         l = []
         mus = isinstance(n, (Music, Durable))
-        add_current = mus and position >= n.end_position()
         for p in node.ancestors():
             pmus = isinstance(p, Music)
             if pmus:
-                l.append(p.preceding(n))
+                if position >= n.end_position():
+                    l = [p.preceding()]
+                else:
+                    l.append(p.preceding(n))
             elif mus:
                 # we are at the musical top
                 if position > n.end_position():
@@ -257,8 +259,6 @@ class Document(Item):
             scaling *= s
             for n in nodes:
                 time = e.traverse(n, time, scaling)
-        if add_current:
-            time = e.traverse(node, time, scaling)
         return time, n
     
     def time_length(self, start, end):
@@ -432,14 +432,17 @@ class Music(Container):
         from . import event
         return event.Events().read(self)
     
-    def preceding(self, node):
+    def preceding(self, node=None):
         """Return a two-tuple (nodes, scaling).
         
         The nodes are the nodes in time before the node (which must be a
         child), and the scaling is the scaling this node applies (normally 1).
         
+        If node is None, all nodes that would precede a fictive node at the
+        end are returned.
+        
         """
-        i = self.index(node)
+        i = self.index(node) if node else None
         return self[:i:], 1
 
 
@@ -455,15 +458,18 @@ class MusicList(Music):
             time = super(MusicList, self).events(e, time, scaling)
         return time
 
-    def preceding(self, node):
+    def preceding(self, node=None):
         """Return a two-tuple (nodes, scaling).
         
         The nodes are the nodes in time before the node (which must be a
         child), and the scaling is the scaling this node applies (normally 1).
         
+        If node is None, all nodes that would precede a fictive node at the
+        end are returned.
+        
         """
         if self.simultaneous:
-            return (), 1
+            return [], 1
         return super(MusicList, self).preceding(node)
 
 
@@ -476,14 +482,17 @@ class Tag(Music):
             time = e.traverse(node, time, scaling)
         return time
         
-    def preceding(self, node):
+    def preceding(self, node=None):
         """Return a two-tuple (nodes, scaling).
         
         The nodes are the nodes in time before the node (which must be a
         child), and the scaling is the scaling this node applies (normally 1).
         
+        If node is None, all nodes that would precede a fictive node at the
+        end are returned.
+        
         """
-        return (), 1
+        return [], 1
 
 
 class Scaler(Music):
@@ -494,14 +503,17 @@ class Scaler(Music):
         """Let the event.Events instance handle the events. Return the time."""
         return super(Scaler, self).events(e, time, scaling * self.scaling)
     
-    def preceding(self, node):
+    def preceding(self, node=None):
         """Return a two-tuple (nodes, scaling).
         
         The nodes are the nodes in time before the node (which must be a
         child), and the scaling is the scaling this node applies.
         
+        If node is None, all nodes that would precede a fictive node at the
+        end are returned.
+        
         """
-        i = self.index(node)
+        i = self.index(node) if node else None
         return self[:i:], self.scaling
 
 
@@ -512,14 +524,17 @@ class Grace(Music):
         """Let the event.Events instance handle the events. Return the time."""
         return super(Grace, self).events(e, time, 0)
     
-    def preceding(self, node):
+    def preceding(self, node=None):
         """Return a two-tuple (nodes, scaling).
         
         The nodes are the nodes in time before the node (which must be a
         child), and the scaling is 0 for (because we have grace notes).
         
+        If node is None, all nodes that would precede a fictive node at the
+        end are returned.
+        
         """
-        i = self.index(node)
+        i = self.index(node) if node else None
         return self[:i:], 0
 
 
@@ -537,14 +552,17 @@ class PartCombine(Music):
         """Let the event.Events instance handle the events. Return the time."""
         return max(e.traverse(node, time, scaling) for node in self)
     
-    def preceding(self, node):
+    def preceding(self, node=None):
         """Return a two-tuple (nodes, scaling).
         
         The nodes are the nodes in time before the node (which must be a
         child), and the scaling is the scaling this node applies (normally 1).
         
+        If node is None, all nodes that would precede a fictive node at the
+        end are returned.
+        
         """
-        return (), 1
+        return [], 1
 
 
 class Relative(Music):
