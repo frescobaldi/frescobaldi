@@ -429,7 +429,7 @@ class Music(Container):
     
     def time_position_of_child(self, node, time=0):
         """Return the time position of the node (which must be a child!)."""
-        return (time + sum(n.length() for n in node.backward()))
+        return time + sum(n.length() for n in node.backward())
 
 
 class MusicList(Music):
