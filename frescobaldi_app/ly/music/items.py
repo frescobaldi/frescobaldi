@@ -137,10 +137,6 @@ class Item(node.WeakNode):
                     yield i
         return follow(self.iter_toplevel_items())
     
-    def time_position_of_child(self, node, time=0):
-        """Return the time position of the node (which must be a child!)."""
-        return time
-    
     def music_parent(self):
         """Walk up the parent tree until Music is found; return the outermost Music node.
         
@@ -229,32 +225,41 @@ class Document(Item):
         have the same top node.
         
         """
-        n = self.node(position)
+        node = self.node(position)
         # be nice and allow including an assignment
-        if (isinstance(n, Assignment) and n.parent() is self
-            and isinstance(n.value(), Music)):
-            return 0, n.value()
+        if (isinstance(node, Assignment) and node.parent() is self
+            and isinstance(node.value(), Music)):
+            return 0, node.value()
         
-        if isinstance(n.parent(), Chord):
-            n = n.parent()
+        if isinstance(node.parent(), Chord):
+            node = node.parent()
         
+        n = node
+        l = []
         mus = isinstance(n, (Music, Durable))
-        if mus and position >= n.end_position():
-            time = n.length()
-        else:
-            time = 0
-        node = n
-        for p in n.ancestors():
+        add_current = mus and position >= n.end_position()
+        for p in node.ancestors():
             pmus = isinstance(p, Music)
-            if mus and not pmus:
+            if pmus:
+                l.append(p.preceding(n))
+            elif mus:
                 # we are at the musical top
-                if position > node.end_position():
-                    break
-                return time, node
-            time = p.time_position_of_child(node, time)
+                if position > n.end_position():
+                    return 0, None
+                break
+            n = p
             mus = pmus
-            node = p
-        return 0, None
+        from . import event
+        e = event.Events()
+        time = 0
+        scaling = 1
+        for nodes, s in reversed(l):
+            scaling *= s
+            for n in nodes:
+                time = e.traverse(n, time, scaling)
+        if add_current:
+            time = e.traverse(node, time, scaling)
+        return time, n
     
     def time_length(self, start, end):
         """Return the length of the music between start and end positions.
@@ -427,10 +432,6 @@ class Music(Container):
         from . import event
         return event.Events().read(self)
     
-    def time_position_of_child(self, node, time=0):
-        """Return the time position of the node (which must be a child!)."""
-        return time + sum(n.length() for n in node.backward())
-    
     def preceding(self, node):
         """Return a two-tuple (nodes, scaling).
         
@@ -453,12 +454,6 @@ class MusicList(Music):
         else:
             time = super(MusicList, self).events(e, time, scaling)
         return time
-
-    def time_position_of_child(self, node, time=0):
-        """Return the time position of the node (which must be a child!)."""
-        if self.simultaneous:
-            return time
-        return super(MusicList, self).time_position_of_child(node, time)
 
     def preceding(self, node):
         """Return a two-tuple (nodes, scaling).
@@ -499,10 +494,6 @@ class Scaler(Music):
         """Let the event.Events instance handle the events. Return the time."""
         return super(Scaler, self).events(e, time, scaling * self.scaling)
     
-    def time_position_of_child(self, node, time=0):
-        """Return the time position of the node (which must be a child!)."""
-        return super(Scaler, self).time_position_of_child(node, time) * self.scaling
-        
     def preceding(self, node):
         """Return a two-tuple (nodes, scaling).
         
@@ -521,10 +512,6 @@ class Grace(Music):
         """Let the event.Events instance handle the events. Return the time."""
         return super(Grace, self).events(e, time, 0)
     
-    def time_position_of_child(self, node, time=0):
-        """Return the time position of the node (which must be a child!)."""
-        return 0
-
     def preceding(self, node):
         """Return a two-tuple (nodes, scaling).
         
@@ -550,10 +537,6 @@ class PartCombine(Music):
         """Let the event.Events instance handle the events. Return the time."""
         return max(e.traverse(node, time, scaling) for node in self)
     
-    def time_position_of_child(self, node, time=0):
-        """Return the time position of the node (which must be a child!)."""
-        return time
-
     def preceding(self, node):
         """Return a two-tuple (nodes, scaling).
         
