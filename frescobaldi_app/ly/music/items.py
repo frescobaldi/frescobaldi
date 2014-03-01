@@ -87,7 +87,7 @@ class Item(node.WeakNode):
         return max(ends())
     
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         return time
     
     def length(self):
@@ -366,7 +366,7 @@ class Durable(Item):
     duration = None
     
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         if self.duration:
             time += self.duration.fraction() * scaling
         return time
@@ -417,7 +417,7 @@ class Q(Durable):
 class Music(Container):
     """Any music expression, to be inherited of."""
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         for node in self:
             time = e.traverse(node, time, scaling)
         return time
@@ -437,7 +437,7 @@ class MusicList(Music):
     simultaneous = False
     
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         if self.simultaneous:
             time = max(e.traverse(node, time, scaling) for node in self)
         else:
@@ -455,7 +455,7 @@ class Tag(Music):
     """A \\tag, \\keepWithTag or \\removeWithTag command."""
     
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         for node in self[-1:]:
             time = e.traverse(node, time, scaling)
         return time
@@ -466,7 +466,7 @@ class Scaler(Music):
     scaling = 1
     
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         return super(Scaler, self).events(e, time, scaling * self.scaling)
     
     def time_position_of_child(self, node, time=0):
@@ -478,7 +478,7 @@ class Grace(Music):
     """Music that has grace timing, i.e. 0 as far as computation is concerned."""
     
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         return super(Grace, self).events(e, time, 0)
     
     def time_position_of_child(self, node, time=0):
@@ -497,7 +497,7 @@ class AfterGrace(Music):
 class PartCombine(Music):
     """The \\partcombine command with 2 music arguments."""
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         return max(e.traverse(node, time, scaling) for node in self)
     
     def time_position_of_child(self, node, time=0):
@@ -534,7 +534,7 @@ class Repeat(Music):
         return int(self._repeat_count or '1') or 1
 
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         if len(self) and isinstance(self[-1], Alternative):
             alt = self[-1]
             children = self[:-1]
@@ -799,7 +799,7 @@ class UserCommand(Music):
                 return i.value()
     
     def events(self, e, time, scaling):
-        """Let the event.Events instance e handle the events. Return the time."""
+        """Let the event.Events instance handle the events. Return the time."""
         value = self.value()
         if value:
             time = e.traverse(value, time, scaling)
