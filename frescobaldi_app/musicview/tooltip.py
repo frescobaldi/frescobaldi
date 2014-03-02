@@ -54,8 +54,8 @@ def get_definition(cursor):
 
 def time_position(cursor):
     import documentinfo
-    pos, node = documentinfo.music(cursor.document()).time_position(cursor.position())
-    if node:
+    pos = documentinfo.music(cursor.document()).time_position(cursor.position())
+    if pos is not None:
         import ly.duration
         return ly.duration.format_fraction(pos)
 
