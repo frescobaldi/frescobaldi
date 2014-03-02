@@ -305,8 +305,8 @@ class Document(Item):
                 time = 0
                 i = 0
                 # traverse the common events only once
-                for i, (evt, s) in enumerate(start_evts):
-                    if evt is end_evts[i][0]:
+                for i, ((evt, s), (end_evt, end_s)) in enumerate(zip(start_evts, end_evts)):
+                    if evt is end_evt:
                         time = e.traverse(evt, time, s)
                     else:
                         break
