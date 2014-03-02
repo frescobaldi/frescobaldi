@@ -256,13 +256,10 @@ class Document(Item):
         return l
     
     def time_position(self, position):
-        """Return a two-tuple (fraction, node).
+        """Return the time position in the music at the specified cursor position.
         
-        The fraction is the music time position, the node is the top node
-        where the counting stopped.
-        
-        If the fraction is 0 and node is None, the time position makes
-        no sense.
+        The value is a fraction. If None is returned, we are not in a music 
+        expression.
         
         """
         events = self.music_events_til_position(position)
@@ -275,8 +272,7 @@ class Document(Item):
                 scaling *= s
                 for n in nodes:
                     time = e.traverse(n, time, scaling)
-            return time, events[0][0]
-        return 0, None
+            return time
     
     def time_length(self, start, end):
         """Return the length of the music between start and end positions.

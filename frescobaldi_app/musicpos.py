@@ -94,9 +94,9 @@ class MusicPosition(plugin.ViewSpacePlugin):
                 text = _("Length: {length}").format(
                     length=ly.duration.format_fraction(length)) if length is not None else ''
             else:
-                pos, node = m.time_position(c.position())
+                pos = m.time_position(c.position())
                 text = _("Pos: {pos}").format(
-                    pos=ly.duration.format_fraction(pos)) if node else ''
+                    pos=ly.duration.format_fraction(pos)) if pos is not None else ''
             self._label.setText(text)
 
 
