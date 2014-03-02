@@ -238,14 +238,18 @@ class Document(Item):
         mus = isinstance(node, (Music, Durable))
         for p in node.ancestors():
             pmus = isinstance(p, Music)
+            end = node.end_position()
             if pmus:
-                if position >= node.end_position():
+                if position > end:
                     l = [p.preceding()]
+                elif position == end:
+                    preceding, s = p.preceding(node)
+                    l = [(preceding + [node], s)]
                 else:
                     l.append(p.preceding(node))
             elif mus:
                 # we are at the musical top
-                if position > node.end_position():
+                if position > end:
                     return 0, None
                 break
             node = p
