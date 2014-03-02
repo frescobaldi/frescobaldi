@@ -223,7 +223,7 @@ class Document(Item):
         # be nice and allow including an assignment
         if (isinstance(node, Assignment) and node.parent() is self
             and isinstance(node.value(), Music)):
-            return [(node, [], 1)]
+            return [(node.value(), [], 1)]
         
         if isinstance(node.parent(), Chord):
             node = node.parent()
