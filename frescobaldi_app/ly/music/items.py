@@ -213,10 +213,10 @@ class Document(Item):
         return bisect(self, depth)
     
     def music_events_til_position(self, position):
-        """Return a list of tuples or None.
+        """Return a list of tuples.
         
-        Every tuple is a (parent, nodes, scaling). If None or the empty list 
-        is returned, there is no music expression at this position.
+        Every tuple is a (parent, nodes, scaling). If an empty list is 
+        returned, there is no music expression at this position.
         
         """
         node = self.node(position)
@@ -230,6 +230,8 @@ class Document(Item):
         
         l = []
         mus = isinstance(node, (Music, Durable))
+        if mus:
+            l.append((node, [], 1))
         for p in node.ancestors():
             pmus = isinstance(p, Music)
             end = node.end_position()
@@ -246,7 +248,7 @@ class Document(Item):
             elif mus:
                 # we are at the musical top
                 if position > end:
-                    return
+                    return []
                 break
             node = p
             mus = pmus
@@ -282,13 +284,44 @@ class Document(Item):
         Returns None if start and end are not in the same expression.
         
         """
+        def mk_list(evts):
+            """Make a flat list of all the events."""
+            l = []
+            scaling = 1
+            for p, nodes, s in evts:
+                scaling *= s
+                for n in nodes:
+                    l.append((n, scaling))
+            return l
+        
         if start > end:
             start, end = end, start
-        start, n = self.time_position(start)
-        if n:
-            end, m = self.time_position(end)
-            if n is m:
-                return end - start
+        
+        start_evts = self.music_events_til_position(start)
+        if start_evts:
+            end_evts = self.music_events_til_position(end)
+            if end_evts and start_evts[0][0] is end_evts[0][0]:
+                # yes, we have the same toplevel expression.
+                start_evts = mk_list(start_evts)
+                end_evts = mk_list(end_evts)
+                from . import event
+                e = event.Events()
+                time = 0
+                i = 0
+                # traverse the common events only once
+                for i, (evt, s) in enumerate(start_evts):
+                    if evt is end_evts[i][0]:
+                        time = e.traverse(evt, time, s)
+                    else:
+                        break
+                end_time = time
+                # handle the remaining events for the start position
+                for evt, s in start_evts[i::]:
+                    time = e.traverse(evt, time, s)
+                # handle the remaining events for the end position
+                for evt, s in end_evts[i::]:
+                    end_time = e.traverse(evt, end_time, s)
+                return end_time - time
         
     def substitute_for_node(self, node):
         """Returns a node that replaces the specified node (e.g. in music).
