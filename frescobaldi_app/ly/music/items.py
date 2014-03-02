@@ -212,24 +212,18 @@ class Document(Item):
             return bisect(n[pos], depth - 1)
         return bisect(self, depth)
     
-    def time_position(self, position):
-        """Return a two-tuple (fraction, node).
+    def music_events_til_position(self, position):
+        """Return a list of tuples or None.
         
-        The fraction is the music time position, the node is the top node
-        where the counting stopped.
-        
-        If the fraction is 0 and node is None, the time position makes
-        no sense.
-        
-        You can compute the length of an expression if two time positions
-        have the same top node.
+        Every tuple is a (parent, nodes, scaling). If None or the empty list 
+        is returned, there is no music expression at this position.
         
         """
         node = self.node(position)
         # be nice and allow including an assignment
         if (isinstance(node, Assignment) and node.parent() is self
             and isinstance(node.value(), Music)):
-            return 0, node.value()
+            return [(node, [], 1)]
         
         if isinstance(node.parent(), Chord):
             node = node.parent()
@@ -241,28 +235,46 @@ class Document(Item):
             end = node.end_position()
             if pmus:
                 if position > end:
-                    l = [p.preceding(node.next_sibling())]
+                    preceding, s = p.preceding(node.next_sibling())
+                    l = [(p, preceding, s)]
                 elif position == end:
                     preceding, s = p.preceding(node)
-                    l = [(preceding + [node], s)]
+                    l = [(p, preceding + [node], s)]
                 else:
-                    l.append(p.preceding(node))
+                    preceding, s = p.preceding(node)
+                    l.append((p, preceding, s))
             elif mus:
                 # we are at the musical top
                 if position > end:
-                    return 0, None
+                    return
                 break
             node = p
             mus = pmus
-        from . import event
-        e = event.Events()
-        time = 0
-        scaling = 1
-        for nodes, s in reversed(l):
-            scaling *= s
-            for n in nodes:
-                time = e.traverse(n, time, scaling)
-        return time, node
+        l.reverse()
+        return l
+    
+    def time_position(self, position):
+        """Return a two-tuple (fraction, node).
+        
+        The fraction is the music time position, the node is the top node
+        where the counting stopped.
+        
+        If the fraction is 0 and node is None, the time position makes
+        no sense.
+        
+        """
+        events = self.music_events_til_position(position)
+        if events:
+            from . import event
+            e = event.Events()
+            time = 0
+            scaling = 1
+            for parent, nodes, s in events:
+                scaling *= s
+                for n in nodes:
+                    time = e.traverse(n, time, scaling)
+            return time, events[0][0]
+        return 0, None
     
     def time_length(self, start, end):
         """Return the length of the music between start and end positions.
