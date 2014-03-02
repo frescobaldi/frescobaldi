@@ -241,7 +241,7 @@ class Document(Item):
             end = node.end_position()
             if pmus:
                 if position > end:
-                    l = [p.preceding()]
+                    l = [p.preceding(node.next_sibling())]
                 elif position == end:
                     preceding, s = p.preceding(node)
                     l = [(preceding + [node], s)]
