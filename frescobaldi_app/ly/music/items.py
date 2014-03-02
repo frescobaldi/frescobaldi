@@ -250,7 +250,7 @@ class Document(Item):
                 if position > end:
                     return []
                 elif position == end:
-                    l.append((p, [node], 1))
+                    l = [(p, [node], 1)]
                 else:
                     l.append((p, [], 1))
                 break
