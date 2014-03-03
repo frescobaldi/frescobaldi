@@ -56,7 +56,7 @@ def indent_variables(document=None):
     }
     return variables.update(document, prefs) if document else prefs
     
-def indenter(document):
+def indenter(document=None):
     """Return a ly.indent.Indenter, setup for the document."""
     indent_vars = indent_variables(document)
     i = ly.indent.Indenter()
