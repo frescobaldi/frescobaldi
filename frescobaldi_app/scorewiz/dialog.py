@@ -27,10 +27,10 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import cursortools
 import indent
 import qutil
 import userguide
+import ly.document
 
 
 class ScoreWizardDialog(QDialog):
@@ -41,7 +41,6 @@ class ScoreWizardDialog(QDialog):
         super(ScoreWizardDialog, self).__init__(mainwindow)
         self.addAction(mainwindow.actionCollection.help_whatsthis)
         self._pitchLanguage = None
-        self._createNewDocument = False
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -105,26 +104,18 @@ class ScoreWizardDialog(QDialog):
             self._pitchLanguage = lang
         return self._pitchLanguage
 
-    def show(self, create_new_document=False):
-        """Display ourselves.
-        
-        If create_new_document is True, clicking OK will write the
-        generated template into a newly created Document.
-        
-        """
-        self._createNewDocument = create_new_document
-        super(ScoreWizardDialog, self).show()
-        
     def slotAccepted(self):
         """Makes the score and puts it in the editor."""
-        if self._createNewDocument:
-            self.parent().setCurrentDocument(app.openUrl(QUrl()))
         from . import build
-        builder = build.Builder(self)
-        cursor = self.parent().currentView().textCursor()
-        cursortools.insert_select(cursor, builder.text())
-        with cursortools.compress_undo(cursor, True):
-            indent.re_indent(cursor)
+        builder = build.Builder(self)       # get the builder
+        text = builder.text()               # get the source text
+        lydoc = ly.document.Document(text)  # temporarily store it in a lydoc
+        cursor = ly.document.Cursor(lydoc)  # make a cursor selecting it
+        indent.indenter().indent(cursor)    # indent it according to user prefs
+        doc = app.openUrl(QUrl())           # get a new Frescobaldi document
+        doc.setPlainText(lydoc.plaintext()) # write the text in it
+        doc.setModified(False)              # make it "not modified"
+        self.parent().setCurrentDocument(doc)
     
     def showPreview(self):
         """Shows a preview."""
