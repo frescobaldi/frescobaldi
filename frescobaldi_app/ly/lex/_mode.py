@@ -94,21 +94,24 @@ def guessMode(text):
     
     """
     text = text.lstrip()
-    if text.startswith(('%', '\\')) and ("\\documentclass" in text or "\\section" in text):
-        return "latex"
-    elif text.startswith("<<"):
+    if text.startswith(('%', '\\')):
+        if '\\version' in text or '\\relative' in text or '\\score' in text:
+            return "lilypond"
+        if "\\documentclass" in text or "\\begin{document}" in text:
+            return "latex"
         return "lilypond"
-    elif text.startswith("<"):
+    if text.startswith("<<"):
+        return "lilypond"
+    if text.startswith("<"):
         if 'DOCTYPE book' in text or "<programlisting" in text:
             return "docbook"
         else:
             return "html"
-    elif text.startswith(("#!", ";", "(")):
+    if text.startswith(("#!", ";", "(")):
         return "scheme"
-    elif text.startswith('@'):
+    if text.startswith('@'):
         return "texinfo"
-    else:
-        return "lilypond"
+    return "lilypond"
 
 
 
