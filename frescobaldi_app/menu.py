@@ -92,8 +92,8 @@ def menu_file(mainwindow):
     ac = mainwindow.actionCollection
     
     m.addAction(ac.file_new)
-    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
     m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.scorewiz)
+    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)
@@ -269,8 +269,6 @@ def menu_lilypond_generated_files(mainwindow):
 def menu_tools(mainwindow):
     m = Menu(_('menu title', '&Tools'), mainwindow)
     
-    m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.scorewiz)
-    m.addSeparator()
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_indent_auto)
     m.addAction(ac.tools_indent_indent)
