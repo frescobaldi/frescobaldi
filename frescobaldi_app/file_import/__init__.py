@@ -71,7 +71,7 @@ class FileImport(plugin.MainWindowPlugin):
                 self.mainwindow().saveDocument(doc)
             else: #failure to convert
                 QMessageBox.critical(None, _("Error"),
-                    _("The file couldn't be converted. Error message:\n") + stderr)
+                    _("The file couldn't be converted. Error message:\n") + stderr.decode('utf-8'))
 
     def createDocument(self, filename, contents):
         """Create a new document using the specified filename and contents.
