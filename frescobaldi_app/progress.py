@@ -40,8 +40,7 @@ class ProgressBar(plugin.ViewSpacePlugin):
     """A Simple progress bar to show a Job is running."""
     def __init__(self, viewSpace):
         bar = self._bar = widgets.progressbar.TimedProgressBar()
-        bar.setMaximumHeight(14)
-        viewSpace.status.layout().addWidget(bar, 1)
+        viewSpace.status.layout().addWidget(bar, 1, Qt.AlignCenter)
         bar.hide()
         viewSpace.viewChanged.connect(self.viewChanged)
         app.jobStarted.connect(self.jobStarted)
@@ -57,16 +56,24 @@ class ProgressBar(plugin.ViewSpacePlugin):
             if not buildtime:
                 buildtime = 3.0 + document.blockCount() / 20 # very arbitrary estimate...
             self._bar.start(buildtime, job.elapsed())
+            if jobattributes.get(job).hidden:
+                self._bar.setEnabled(False)
+                self._bar.setMaximumHeight(8)
+                self._bar.setTextVisible(False)
+            else:
+                self._bar.setEnabled(True)
+                self._bar.setMaximumHeight(14)
+                self._bar.setTextVisible(True)
         else:
             self._bar.stop(False)
     
     def jobStarted(self, document, job):
-        if document == self.viewSpace().document() and not jobattributes.get(job).hidden:
+        if document == self.viewSpace().document():
             self.showProgress(document)
     
     def jobFinished(self, document, job, success):
-        if document == self.viewSpace().document() and not jobattributes.get(job).hidden:
-            self._bar.stop(success)
+        if document == self.viewSpace().document():
+            self._bar.stop(success and not jobattributes.get(job).hidden)
             if success:
                 metainfo.info(document).buildtime = job.elapsed()
 
