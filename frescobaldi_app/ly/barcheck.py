@@ -153,6 +153,6 @@ def insert(cursor, music=None):
         measure_pos = 0
         
         for time, evt in event_list:
-            print time, evt
+            print(time, evt)
 
 
