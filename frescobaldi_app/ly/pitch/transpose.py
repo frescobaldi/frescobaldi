@@ -57,6 +57,17 @@ class Transposer(object):
         pitch.alter += self.alter - doct * 6 - self.scale[note] + self.scale[pitch.note]
         pitch.octave += self.octave + doct
         pitch.note = note
+        # change the step if alterations fall outside -1 .. 1
+        while pitch.alter > 1:
+            doct, note = divmod(pitch.note + 1, 7)
+            pitch.alter -= doct * 6 + self.scale[note] - self.scale[pitch.note]
+            pitch.octave += doct
+            pitch.note = note
+        while pitch.alter < -1:
+            doct, note = divmod(pitch.note - 1, 7)
+            pitch.alter += doct * -6 + self.scale[pitch.note] - self.scale[note]
+            pitch.octave += doct
+            pitch.note = note
 
 
 class ModalTransposer(object):
