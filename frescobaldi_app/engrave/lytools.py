@@ -60,6 +60,7 @@ class Dialog(widgets.dialog.Dialog):
     def run_command(self, info, args, title=None):
         """Run lilypond from info with the args list, and a job title."""
         j = self.job = job.Job()
+        j.errors = 'replace'
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
         j.command = [info.abscommand() or info.command] + list(args)
         if title:

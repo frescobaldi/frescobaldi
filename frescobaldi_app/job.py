@@ -102,6 +102,7 @@ class Job(object):
         self._elapsed = 0.0
         self.decoder_stdout = self.createDecoder(STDOUT)
         self.decoder_stderr = self.createDecoder(STDERR)
+        self.errors = 'strict'  # codecs error handling
     
     def createDecoder(self, channel):
         """Should return a decoder for the given channel (STDOUT/STDERR).
@@ -255,12 +256,12 @@ class Job(object):
     def _readstderr(self):
         """Called when STDERR can be read."""
         output = self._process.readAllStandardError()
-        self.message(self.decoder_stderr(output)[0], STDERR)
+        self.message(self.decoder_stderr(output, self.errors)[0], STDERR)
         
     def _readstdout(self):
         """Called when STDOUT can be read."""
         output = self._process.readAllStandardOutput()
-        self.message(self.decoder_stdout(output)[0], STDOUT)
+        self.message(self.decoder_stdout(output, self.errors)[0], STDOUT)
 
     def startMessage(self):
         """Outputs a message the process has started."""
