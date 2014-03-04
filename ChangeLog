@@ -47,6 +47,9 @@ Changes in 2.0.14 -- March 7th, 2014
   - Fixed issue 336: TypeError on MusicXml export
   - Fixed error message when exporting keyboard shortcuts on platforms that do
     not have the HOME environment variable set
+  - Fixed IndexError when transposed notes would get unexisting alterations,
+    e.g. when a cis is transposed from c to cisis. The note is then altered,
+    just like LilyPond handles this.
 * Temporarily removed feature:
   - MusicXML export has been temporarily removed from the File->Export menu. 
     It is still visible in the git checkout. It is also available in the ly 
