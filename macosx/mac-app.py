@@ -33,6 +33,8 @@ parser.add_argument('-s', '--script', \
   help = 'path of {0}\'s main script; you should use an absolute path, \
   so that the application bundle can be moved to another \
   directory'.format(info.appname), default = '{0}/{1}'.format(root, info.name))
+parser.add_argument('-a', '--standalone', action = 'store_true', \
+  help = 'build a standalone application bundle (experimental, partially working)')
 args = parser.parse_args()
 
 if not (os.path.isfile(args.script) or args.force):
@@ -98,10 +100,18 @@ plist = dict(
 
 options = {
     'argv_emulation': True,
-    'semi_standalone': True,
-    'alias': True,
     'plist': plist
 }
+
+if args.standalone:
+    options.update({
+        'packages': ['frescobaldi_app']
+    })
+else:
+    options.update({
+        'semi_standalone': True,
+        'alias': True
+    })
 
 setup(
     app = [args.script],
