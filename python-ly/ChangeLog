@@ -1,6 +1,14 @@
 Changes for python-ly
 =====================
 
+2014-03-05: python-ly 0.4
+- fix transposing when alterations would be more than a double sharp or double
+  flat; handle it by moving the note, just like LilyPond does it
+- Python3 installation fixes
+- small MusicXML export improvements, contributed by Peter Bjuhr (MusicXML
+  export is still very experimental)
+
+
 2014-02-05: python-ly 0.3
 - new command 'highlight' ('hl') to create syntax-highlighted HTML files of
   LilyPond source files (or any file that is understood by ly.lex)
