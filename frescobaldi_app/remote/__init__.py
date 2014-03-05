@@ -125,11 +125,10 @@ def generate_id():
 def enabled():
     """Return whether remote support is enabled.
     
-    By default it is enabled, except on Windows.
+    By default it is enabled.
     
     """
-    default = os.name != 'nt'
-    return QSettings().value('allow_remote', default, bool)
+    return QSettings().value('allow_remote', True, bool)
 
 
 def setup():
