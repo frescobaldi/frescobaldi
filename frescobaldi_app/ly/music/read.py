@@ -301,8 +301,7 @@ class Reader(object):
     @_tokencls(lilypond.ChordSeparator)
     def read_chord_specifier(self, t, source=None):
         """Read stuff behind notes in chordmode."""
-        item = self.factory(ChordSpecifier)
-        item.position = t.pos
+        item = self.factory(ChordSpecifier, position=t.pos)
         item.append(self.factory(ChordItem, t))
         for t in self.consume():
             if isinstance(t, lilypond.ChordItem):
