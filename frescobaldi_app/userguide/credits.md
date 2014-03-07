@@ -11,20 +11,23 @@ The following people contributed to {appname}:
 !Wilbert Berendsen:
 : Main author and core developer
 
-!Richard Cognot:
-: Kinetic Scrolling for the Music View
-
-!Nicolas Malarmey:
-: Improved highlighting and auto-completion of Scheme code
-
-!Urs Liska:
-: Layout control modes and various other contributions
-
 !Christopher Bryan:
 : Modal Transpose
 
 !Peter Bjuhr:
 : Quick Insert buttons for grace notes, and MusicXML im- and export
+
+!Richard Cognot:
+: Kinetic Scrolling for the Music View
+
+!Davide Liessi:
+: Mac OS X packaging and various other improvements
+
+!Urs Liska:
+: Layout control modes and various other contributions
+
+!Nicolas Malarmey:
+: Improved highlighting and auto-completion of Scheme code
 
 !Manuel Mchalwat:
 : MIDI capturing
