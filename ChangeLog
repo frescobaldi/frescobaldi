@@ -2,6 +2,14 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.0.15 -- 
+
+* Translations:
+  - updated: fr
+* Bugfixes:
+  - fix ValueError message when typing << >> or \partcombine
+
+
 Changes in 2.0.14 -- March 7th, 2014
 
 * Translations:
