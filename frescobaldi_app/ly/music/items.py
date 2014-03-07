@@ -501,7 +501,8 @@ class MusicList(Music):
     def events(self, e, time, scaling):
         """Let the event.Events instance handle the events. Return the time."""
         if self.simultaneous:
-            time = max(e.traverse(node, time, scaling) for node in self)
+            if len(self):
+                time = max(e.traverse(node, time, scaling) for node in self)
         else:
             time = super(MusicList, self).events(e, time, scaling)
         return time
