@@ -599,7 +599,9 @@ class PartCombine(Music):
     """The \\partcombine command with 2 music arguments."""
     def events(self, e, time, scaling):
         """Let the event.Events instance handle the events. Return the time."""
-        return max(e.traverse(node, time, scaling) for node in self)
+        if len(self):
+            time = max(e.traverse(node, time, scaling) for node in self)
+        return time
     
     def preceding(self, node=None):
         """Return a two-tuple (nodes, scaling).
