@@ -20,9 +20,7 @@
 """
 The SVG preview panel.
 
-For now this previews a SVG-file.
-The plan is that it later in devolpment also will be
-possible to edit both the SVG-file and the LilyPond source by this panel. 
+This previews a SVG-file with initial editing abilities. 
 
 """
 

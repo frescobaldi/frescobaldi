@@ -70,6 +70,7 @@ class View(QtWebKit.QWebView):
             frame = self.page().mainFrame()
             frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
+            frame.evaluateJavaScript(getJsScript('editsvg.js')) #remove this for stable releases
     
     def clear(self):
         """Empty the View."""
