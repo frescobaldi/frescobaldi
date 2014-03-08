@@ -85,32 +85,23 @@ def open_files(cursor, menu, mainwindow):
 
 
 def jump_to_definition(node, cursor, menu, mainwindow):
-    """Return a list of actions jumping to the definition."""
-    if isinstance(node, (
-                ly.music.items.UserCommand,
-                ly.music.items.MarkupUserCommand,
-            )) and node.end_position() >= cursor.selectionEnd():
+    """Return a list of context menu actions jumping to the definition."""
+    import definition
+    node = definition.refnode(cursor)
+    if node:
         a = QAction(menu)
         def complete():
-            value = node.value()
-            if value:
-                target = value.parent()
-                if isinstance(target, ly.music.items.Document):
-                    target = value # happens with #(define-markup-command ...)
-                filename = target.document.filename
-                if target.document is node.document:
+            t = definition.target(node)
+            if t:
+                if t.document is node.document:
                     a.setText(_("&Jump to definition (line {num})").format(
-                        num = node.document.index(node.document.block(target.position)) + 1))
+                        num = node.document.index(node.document.block(t.position)) + 1))
                 else:
                     a.setText(_("&Jump to definition (in {filename})").format(
-                        filename=util.homify(filename)))
+                        filename=util.homify(t.document.filename)))
+                @a.triggered.connect
                 def activate():
-                    doc = app.openUrl(QUrl.fromLocalFile(filename))
-                    cursor = QTextCursor(doc)
-                    cursor.setPosition(target.position)
-                    mainwindow.setTextCursor(cursor)
-                    mainwindow.currentView().centerCursor()
-                a.triggered.connect(activate)
+                    definition.goto_target(mainwindow, t)
             else:
                 a.setText(_("&Jump to definition (unknown)"))
                 a.setEnabled(False)

@@ -70,16 +70,17 @@ def filenames_at_cursor(cursor, existing=True):
                 filenames.append(name)
     return filenames
 
-def open_file_at_cursor(cursor, mainwin):
-    """Open the filename(s) mentioned at the text cursor.
+def open_file_at_cursor(mainwindow):
+    """Open the filename(s) mentioned at the mainwindow's text cursor.
     
-    Return True if there were filenames that were opened.
+    Return True if there were one or more filenames that were opened.
     
     """
+    cursor = mainwindow.textCursor()
     d = None
     for name in filenames_at_cursor(cursor):
-        d = mainwin.openUrl(QUrl.fromLocalFile(name))
+        d = mainwindow.openUrl(QUrl.fromLocalFile(name))
     if d:
-        mainwin.setCurrentDocument(d, True)
+        mainwindow.setCurrentDocument(d, True)
         return True
 
