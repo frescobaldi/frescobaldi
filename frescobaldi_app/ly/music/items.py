@@ -957,6 +957,10 @@ class MarkupCommand(Item):
     """A markup command, such as \italic etc."""
 
 
+class MarkupUserCommand(Item):
+    """A user-defined markup command"""
+
+
 class MarkupScore(Item):
     """A \\score inside Markup."""
 
