@@ -1004,7 +1004,8 @@ class Assignment(Item):
     
     def value(self):
         """The assigned value."""
-        return self[-1]
+        if len(self):
+            return self[-1]
 
 
 class Book(Container):
