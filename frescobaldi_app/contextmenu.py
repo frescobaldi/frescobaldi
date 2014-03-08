@@ -49,7 +49,7 @@ def contextmenu(view):
     
     actions.extend(open_files(cursor, menu, mainwindow))
     
-    actions.extend(jump_to_definition(node, menu, mainwindow))
+    actions.extend(jump_to_definition(node, cursor, menu, mainwindow))
     
     
     if cursor.hasSelection():
@@ -84,9 +84,9 @@ def open_files(cursor, menu, mainwindow):
     return list(map(action, open_file_at_cursor.filenames_at_cursor(cursor)))
 
 
-def jump_to_definition(node, menu, mainwindow):
+def jump_to_definition(node, cursor, menu, mainwindow):
     """Return a list of actions jumping to the definition."""
-    if isinstance(node, ly.music.items.UserCommand):
+    if isinstance(node, ly.music.items.UserCommand) and node.end_position() >= cursor.selectionEnd():
         a = QAction(menu)
         def complete():
             value = node.value()
