@@ -86,23 +86,28 @@ def open_files(cursor, menu, mainwindow):
 
 def jump_to_definition(node, cursor, menu, mainwindow):
     """Return a list of actions jumping to the definition."""
-    if isinstance(node, ly.music.items.UserCommand) and node.end_position() >= cursor.selectionEnd():
+    if isinstance(node, (
+                ly.music.items.UserCommand,
+                ly.music.items.MarkupUserCommand,
+            )) and node.end_position() >= cursor.selectionEnd():
         a = QAction(menu)
         def complete():
             value = node.value()
             if value:
-                assignment = value.parent()
-                filename = assignment.document.filename
-                if assignment.document is node.document:
+                target = value.parent()
+                if isinstance(target, ly.music.items.Document):
+                    target = value # happens with #(define-markup-command ...)
+                filename = target.document.filename
+                if target.document is node.document:
                     a.setText(_("&Jump to definition (line {num})").format(
-                            num = node.document.index(node.document.block(assignment.position)) + 1))
+                        num = node.document.index(node.document.block(target.position)) + 1))
                 else:
                     a.setText(_("&Jump to definition (in {filename})").format(
-                            filename=util.homify(filename)))
+                        filename=util.homify(filename)))
                 def activate():
                     doc = app.openUrl(QUrl.fromLocalFile(filename))
                     cursor = QTextCursor(doc)
-                    cursor.setPosition(assignment.position)
+                    cursor.setPosition(target.position)
                     mainwindow.setTextCursor(cursor)
                     mainwindow.currentView().centerCursor()
                 a.triggered.connect(activate)
