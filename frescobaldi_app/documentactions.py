@@ -183,7 +183,7 @@ class Actions(actioncollection.ActionCollection):
     def translateUI(self):
         self.edit_cut_assign.setText(_("Cut and Assign..."))
         self.view_highlighting.setText(_("Syntax &Highlighting"))
-        self.view_goto_file_or_definition.setText(_("Open File or Definition at &Cursor"))
+        self.view_goto_file_or_definition.setText(_("View File or Definition at &Cursor"))
         self.tools_indent_auto.setText(_("&Automatic Indent"))
         self.tools_indent_indent.setText(_("Re-&Indent"))
         self.tools_reformat.setText(_("&Format"))
