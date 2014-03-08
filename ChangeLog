@@ -6,6 +6,8 @@ Changes in 2.0.15 --
 
 * Translations:
   - updated: fr
+* New features:
+  - in context menu: Jump to definition (wish #123)
 * Bugfixes:
   - fix ValueError message when typing << >> or \partcombine
 

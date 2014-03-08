@@ -19,27 +19,38 @@
 
 """
 The contextmenu of the editor.
+
+This module is imported when a contextmenu event occurs in the View (view.py).
+
 """
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QAction
+from PyQt4.QtCore import QTimer, QUrl
+from PyQt4.QtGui import QAction, QTextCursor
 
 import icons
 import util
 import app
+import documentinfo
+import ly.music.items
 
 
 def contextmenu(view):
     cursor = view.textCursor()
     menu = view.createStandardContextMenu()
     mainwindow = view.window()
+
+    # the current item as music
+    node = documentinfo.music(cursor.document()).node(cursor.position())
     
     # create the actions in the actions list
     actions = []
     
     actions.extend(open_files(cursor, menu, mainwindow))
+    
+    actions.extend(jump_to_definition(node, menu, mainwindow))
+    
     
     if cursor.hasSelection():
         import panelmanager
@@ -71,4 +82,34 @@ def open_files(cursor, menu, mainwindow):
         return a
     import open_file_at_cursor
     return list(map(action, open_file_at_cursor.filenames_at_cursor(cursor)))
+
+
+def jump_to_definition(node, menu, mainwindow):
+    """Return a list of actions jumping to the definition."""
+    if isinstance(node, ly.music.items.UserCommand):
+        a = QAction(menu)
+        def complete():
+            value = node.value()
+            if value:
+                assignment = value.parent()
+                filename = assignment.document.filename
+                if assignment.document is node.document:
+                    a.setText(_("&Jump to definition (line {num})").format(
+                            num = node.document.index(node.document.block(assignment.position)) + 1))
+                else:
+                    a.setText(_("&Jump to definition (in {filename})").format(
+                            filename=util.homify(filename)))
+                def activate():
+                    doc = app.openUrl(QUrl.fromLocalFile(filename))
+                    cursor = QTextCursor(doc)
+                    cursor.setPosition(assignment.position)
+                    mainwindow.setTextCursor(cursor)
+                    mainwindow.currentView().centerCursor()
+                a.triggered.connect(activate)
+            else:
+                a.setText(_("&Jump to definition (unknown)"))
+                a.setEnabled(False)
+        QTimer.singleShot(0, complete)
+        return [a]
+    return []
 
