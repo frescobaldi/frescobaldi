@@ -711,6 +711,33 @@ class LyricSkip(Lyric):
     rx = r"_"
     
 
+class Figure(_token.Token):
+    """Base class for Figure items."""
+
+
+class FigureStart(Figure):
+    rx = r"<"
+    def update_state(self, state):
+        state.enter(ParseFigure())
+
+
+class FigureEnd(Figure, _token.Leaver):
+    rx = r">"
+
+
+class FigureBracket(_token.Token):
+    rx = r"[][]"
+
+
+class FigureStep(IntegerValue):
+    """A step figure number."""
+
+
+class FigureModifier(Figure):
+    """A figure modifier."""
+    rx = r"\\[\\!+]|[-+!/]"
+
+
 class NoteMode(InputMode):
     rx = r"\\(notes|notemode)\b"
     def update_state(self, state):
@@ -1482,7 +1509,26 @@ class ExpectDrumMode(ExpectMusicList):
 
 class ParseFigureMode(ParseInputMode, ParseMusic):
     """Parser for \\figures and \\figuremode."""
-    # TODO: implement items (see ParseChordMode)
+    items = base_items + (
+        CloseBracket,
+        CloseSimultaneous,
+        OpenBracket,
+        OpenSimultaneous,
+        PipeSymbol,
+        FigureStart,
+        Length,
+    ) + command_items
+
+
+class ParseFigure(Parser):
+    """Parse inside < > in figure mode."""
+    items = base_items + (
+        FigureEnd,
+        FigureBracket,
+        FigureStep,
+        FigureModifier,
+        MarkupStart, MarkupLines, MarkupList,
+    )
 
 
 class ExpectFigureMode(ExpectMusicList):
