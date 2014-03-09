@@ -20,39 +20,70 @@
 */
 window.addEventListener('error', error, false); 
 
-var cord={}, last_m, drag = null;
+var cords={}, last_m, drag = null;
 var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
 var maxX = svg.offsetWidth-1;
 var maxY = svg.offsetHeight-1;
 var txt = document.getElementsByTagName('text');
 
+//remove this
+onmouseup = function(){ 
+	drag = null;
+	pyLinks.pyLog("drag stopped externally!");
+	 
+};
+
+//listen for drag events on all text elements
+//and get their initial position
 for (var t= 0; t < txt.length; ++t){
 
 	txt[t].onmousedown = txt[t].onmousemove = txt[t].onmouseup = Drag;
+	
+	
 }
+
 //write error message
 function error(e){
 	pyLinks.pyLog(e.message);
 }
 
-
 //moving objects with mouse
 function Drag(e){
 	
-	pyLinks.pyLog('drag activated by '+this+e.type);			
+	//pyLinks.pyLog('drag activated by '+this+e.type);			
 	
 	e.stopPropagation();
-	var ct = e.target, id = ct.id, et = e.type, m = mousePos(e);
+	var ct = e.target, et = e.type, m = mousePos(e);
+	
+	var tr = this.transform.baseVal.getItem(0);
+	if (tr.type == SVGTransform.SVG_TRANSFORM_TRANSLATE){
+		var e = tr.matrix.e, f = tr.matrix.f;
+	}
 
 	//start drag
 	if (!drag && (et == "mousedown")){
-		pyLinks.pyLog('dragging started');		
+		//pyLinks.pyLog('dragging started');
+		drag = ct;
+		last_m = m;	
+		
+		x = mm2pix(e);
+		y = mm2pix(f);
+		
+		pyLinks.pyLog(x+':'+y);		
 	}
 	
 	//drag
 	if (drag && (et == "mousemove")){
-		pyLinks.pyLog('dragging ongoing');	
+		//pyLinks.pyLog('dragging ongoing');
+		x += m.x - last_m.x;
+		y += m.y - last_m.y;
+		last_m = m;	
+		tr.setTranslate(pix2mm(x),pix2mm(y));
+		
+		pyLinks.pyLog(m.x+':'+m.y);
+		pyLinks.pyLog(x+':'+y);
+		
 	}
 	
 	//stop drag
@@ -69,6 +100,14 @@ function mousePos(event) {
 		x: Math.max(0, Math.min(maxX, event.pageX)),
 		y: Math.max(0, Math.min(maxY, event.pageY))
 	}
+}
+
+//we need to convert between pixels and millimeters
+function pix2mm(pixval){
+	return (pixval*25.4)/96;
+}
+function mm2pix(mmval){
+	return (mmval*96)/25.4;
 }
 	
 
