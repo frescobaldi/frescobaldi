@@ -1522,6 +1522,7 @@ class ParseFigureMode(ParseInputMode, ParseMusic):
         OpenSimultaneous,
         PipeSymbol,
         FigureStart,
+        Skip, Spacer, Rest,
         Length,
     ) + command_items
 
