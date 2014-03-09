@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-08 23:49+0100\n"
+"POT-Creation-Date: 2014-03-09 22:30+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -386,7 +386,7 @@ msgstr "Dizek Boyutu:"
 #: ../mainwindow.py:685 ../externalchanges/widget.py:243
 #: ../file_export/__init__.py:65 ../file_import/__init__.py:73
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:272
-#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:538
 #: ../preferences/import_export.py:91 ../preferences/import_export.py:174
 #: ../preferences/shortcuts.py:206 ../snippet/import_export.py:105
 #: ../snippet/widget.py:324
@@ -2767,34 +2767,34 @@ msgid "Preview Highlight"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:482 ../preferences/fontscolors.py:517
-#: ../preferences/fontscolors.py:551 ../preferences/fontscolors.py:559
+#: ../preferences/fontscolors.py:482 ../preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:555 ../preferences/fontscolors.py:563
 #, fuzzy
 msgid "Keyword"
 msgstr "Klavye"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:484 ../preferences/fontscolors.py:552
+#: ../preferences/fontscolors.py:484 ../preferences/fontscolors.py:556
 #, fuzzy
 msgid "Function"
 msgstr "Eylem:"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:486 ../preferences/fontscolors.py:528
-#: ../preferences/fontscolors.py:553
+#: ../preferences/fontscolors.py:486 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:557
 msgid "Variable"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:488 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:488 ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:544
 #, fuzzy
 msgid "Value"
 msgstr "Ses Yüksekliği"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:490 ../preferences/fontscolors.py:531
-#: ../preferences/fontscolors.py:543 ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:490 ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:547 ../preferences/fontscolors.py:553
 #, fuzzy
 msgid "String"
 msgstr "Yaylılar"
@@ -2806,9 +2806,9 @@ msgid "Escape"
 msgstr "Yatay"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:533
-#: ../preferences/fontscolors.py:542 ../preferences/fontscolors.py:550
-#: ../preferences/fontscolors.py:564 ../snippet/builtin.py:402
+#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:546 ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:568 ../snippet/builtin.py:402
 #, fuzzy
 msgid "Comment"
 msgstr "Komut"
@@ -2834,161 +2834,179 @@ msgid "Duration"
 msgstr "Noktalı süreler"
 
 #: ../preferences/fontscolors.py:506
-msgid "Octave Check"
+msgid "Accidental"
 msgstr ""
 
 #: ../preferences/fontscolors.py:507
+msgid "Octave Check"
+msgstr ""
+
+#: ../preferences/fontscolors.py:508
 msgid "Fingering"
 msgstr ""
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:510
 #, fuzzy
 msgid "String Number"
 msgstr "Sayfa Numaralarını Göster"
 
-#: ../preferences/fontscolors.py:510 ../quickinsert/spanners.py:170
+#: ../preferences/fontscolors.py:511 ../quickinsert/spanners.py:170
 msgid "Slur"
 msgstr "Deyim Bağı"
 
-#: ../preferences/fontscolors.py:511
+#: ../preferences/fontscolors.py:512
 #, fuzzy
 msgid "Dynamic"
 msgstr "Gürlükler"
 
-#: ../preferences/fontscolors.py:512
+#: ../preferences/fontscolors.py:513
 msgid "Articulation"
 msgstr "Artükülasyon"
 
-#: ../preferences/fontscolors.py:513
+#: ../preferences/fontscolors.py:514
 #, fuzzy
 msgid "Chord"
 msgstr "Koro"
 
-#: ../preferences/fontscolors.py:514 ../quickinsert/spanners.py:172
+#: ../preferences/fontscolors.py:515 ../quickinsert/spanners.py:172
 msgid "Beam"
 msgstr "Kuyruk Birleştiricisi"
 
-#: ../preferences/fontscolors.py:515
+#: ../preferences/fontscolors.py:516
 msgid "Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:516 ../snippet/builtin.py:248
+#: ../preferences/fontscolors.py:517 ../snippet/builtin.py:248
 #, fuzzy
 msgid "Repeat"
 msgstr "Tekrar sonu"
 
-#: ../preferences/fontscolors.py:518 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:519 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr "Komut"
 
-#: ../preferences/fontscolors.py:519
+#: ../preferences/fontscolors.py:520
 #, fuzzy
 msgid "Specifier"
 msgstr "Özel"
 
-#: ../preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:521
 #, fuzzy
 msgid "User Command"
 msgstr "Komut"
 
-#: ../preferences/fontscolors.py:521 ../snippet/builtin.py:288
+#: ../preferences/fontscolors.py:522 ../snippet/builtin.py:288
 #, fuzzy
 msgid "Markup"
 msgstr "Harp"
 
-#: ../preferences/fontscolors.py:522
+#: ../preferences/fontscolors.py:523
 msgid "Lyric Mode"
 msgstr ""
 
-#: ../preferences/fontscolors.py:523
+#: ../preferences/fontscolors.py:524
 #, fuzzy
 msgid "Lyric Text"
 msgstr "Şarkı Sözleri Metnini Tirele"
 
-#: ../preferences/fontscolors.py:524 ../preferences/fontscolors.py:556
+#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:560
 msgid "Delimiter"
 msgstr ""
 
-#: ../preferences/fontscolors.py:525
+#: ../preferences/fontscolors.py:526 ../scorewiz/parts/special.py:43
+msgid "Figured Bass"
+msgstr "Şifreli Bas"
+
+#: ../preferences/fontscolors.py:527
+#, fuzzy
+msgid "Figured Bass Step"
+msgstr "Şifreli Bas"
+
+#: ../preferences/fontscolors.py:528
+#, fuzzy
+msgid "Figured Bass Modifier"
+msgstr "Şifreli Bas"
+
+#: ../preferences/fontscolors.py:529
 msgid "Context"
 msgstr ""
 
-#: ../preferences/fontscolors.py:526
+#: ../preferences/fontscolors.py:530
 #, fuzzy
 msgid "Layout Object"
 msgstr "Dil Seçimi"
 
-#: ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:531
 #, fuzzy
 msgid "Property"
 msgstr "Şair"
 
-#: ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:533
 msgid "User Variable"
 msgstr ""
 
-#: ../preferences/fontscolors.py:532 ../preferences/fontscolors.py:561
+#: ../preferences/fontscolors.py:536 ../preferences/fontscolors.py:565
 #, fuzzy
 msgid "Escaped Character"
 msgstr "Özel Karakterler"
 
-#: ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:540
 msgid "HTML"
-msgstr ""
-
-#: ../preferences/fontscolors.py:537
-#, fuzzy
-msgid "Tag"
-msgstr "Tıkla"
-
-#: ../preferences/fontscolors.py:538
-#, fuzzy
-msgid "LilyPond Tag"
-msgstr "LilyPond Günlüğü"
-
-#: ../preferences/fontscolors.py:539 ../preferences/fontscolors.py:562
-msgid "Attribute"
 msgstr ""
 
 #: ../preferences/fontscolors.py:541
 #, fuzzy
+msgid "Tag"
+msgstr "Tıkla"
+
+#: ../preferences/fontscolors.py:542
+#, fuzzy
+msgid "LilyPond Tag"
+msgstr "LilyPond Günlüğü"
+
+#: ../preferences/fontscolors.py:543 ../preferences/fontscolors.py:566
+msgid "Attribute"
+msgstr ""
+
+#: ../preferences/fontscolors.py:545
+#, fuzzy
 msgid "Entity Reference"
 msgstr "Notasyon Referansı"
 
-#: ../preferences/fontscolors.py:545 ../preferences/fontscolors.py:546
+#: ../preferences/fontscolors.py:549 ../preferences/fontscolors.py:550
 msgid "Scheme"
 msgstr ""
 
-#: ../preferences/fontscolors.py:547
+#: ../preferences/fontscolors.py:551
 #, fuzzy
 msgid "Number"
 msgstr "İsim"
 
-#: ../preferences/fontscolors.py:548
+#: ../preferences/fontscolors.py:552
 #, fuzzy
 msgid "LilyPond Environment"
 msgstr "LilyPond Belgelendirmesi"
 
-#: ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:558
 msgid "Constant"
 msgstr ""
 
-#: ../preferences/fontscolors.py:555
+#: ../preferences/fontscolors.py:559
 msgid "Symbol"
 msgstr ""
 
-#: ../preferences/fontscolors.py:558
+#: ../preferences/fontscolors.py:562
 #, fuzzy
 msgid "Texinfo"
 msgstr "Tenor"
 
-#: ../preferences/fontscolors.py:560
+#: ../preferences/fontscolors.py:564
 #, fuzzy
 msgid "Block"
 msgstr "Kısalt"
 
-#: ../preferences/fontscolors.py:563
+#: ../preferences/fontscolors.py:567
 msgid "Verbatim"
 msgstr ""
 
@@ -3081,17 +3099,19 @@ msgid "When creating new documents"
 msgstr "Belgeleri saklarken"
 
 #: ../preferences/general.py:275
-msgid "Create a new document empty"
-msgstr ""
+#, fuzzy
+msgid "Create an empty document"
+msgstr "&Belge"
 
 #: ../preferences/general.py:276
 #, fuzzy
-msgid "Write the LilyPond version in a new document"
-msgstr "Bu belge için kullanacak olduğunuz Lilypond sürüm numarası:"
+msgid "Create a document that contains the LilyPond version statement"
+msgstr "Belgenizde zaten Lilypond sürüm bildirimi var."
 
 #: ../preferences/general.py:277
-msgid "Use a default template:"
-msgstr ""
+#, fuzzy
+msgid "Create a document from a template:"
+msgstr "Lütfen bir oturum adı giriniz."
 
 #: ../preferences/helpers.py:73
 msgid "PDF:"
@@ -5104,10 +5124,6 @@ msgstr "Telli çalgılar"
 #: ../scorewiz/parts/special.py:37 ../scorewiz/parts/vocal.py:203
 msgid "Chord names"
 msgstr "Akor adları"
-
-#: ../scorewiz/parts/special.py:43
-msgid "Figured Bass"
-msgstr "Şifreli Bas"
 
 #: ../scorewiz/parts/special.py:50
 msgid "Use extender lines"
@@ -8678,6 +8694,10 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+#~ msgid "Write the LilyPond version in a new document"
+#~ msgstr "Bu belge için kullanacak olduğunuz Lilypond sürüm numarası:"
+
+#, fuzzy
 #~ msgid "Open File at C&ursor"
 #~ msgstr "Dosya Aç"
 
@@ -9842,9 +9862,6 @@ msgstr ""
 
 #~ msgid "Choose..."
 #~ msgstr "Seç..."
-
-#~ msgid "Your document has already a LilyPond version statement."
-#~ msgstr "Belgenizde zaten Lilypond sürüm bildirimi var."
 
 #~ msgid "Version already set"
 #~ msgstr "Sürüm numarası ayarlanmış durumda"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-08 23:49+0100\n"
+"POT-Creation-Date: 2014-03-09 22:30+0100\n"
 "PO-Revision-Date: 2012-01-17 19:44-0200\n"
 "Last-Translator: Édio Mazera\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
@@ -367,7 +367,7 @@ msgstr "Tamanho da Pauta:"
 #: ../mainwindow.py:685 ../externalchanges/widget.py:243
 #: ../file_export/__init__.py:65 ../file_import/__init__.py:73
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:272
-#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:538
 #: ../preferences/import_export.py:91 ../preferences/import_export.py:174
 #: ../preferences/shortcuts.py:206 ../snippet/import_export.py:105
 #: ../snippet/widget.py:324
@@ -2616,31 +2616,31 @@ msgid "Preview Highlight"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:482 ../preferences/fontscolors.py:517
-#: ../preferences/fontscolors.py:551 ../preferences/fontscolors.py:559
+#: ../preferences/fontscolors.py:482 ../preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:555 ../preferences/fontscolors.py:563
 msgid "Keyword"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:484 ../preferences/fontscolors.py:552
+#: ../preferences/fontscolors.py:484 ../preferences/fontscolors.py:556
 msgid "Function"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:486 ../preferences/fontscolors.py:528
-#: ../preferences/fontscolors.py:553
+#: ../preferences/fontscolors.py:486 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:557
 msgid "Variable"
 msgstr "Variável"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:488 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:488 ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:544
 msgid "Value"
 msgstr "Valor"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:490 ../preferences/fontscolors.py:531
-#: ../preferences/fontscolors.py:543 ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:490 ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:547 ../preferences/fontscolors.py:553
 msgid "String"
 msgstr "Corda"
 
@@ -2650,9 +2650,9 @@ msgid "Escape"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:533
-#: ../preferences/fontscolors.py:542 ../preferences/fontscolors.py:550
-#: ../preferences/fontscolors.py:564 ../snippet/builtin.py:402
+#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:546 ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:568 ../snippet/builtin.py:402
 msgid "Comment"
 msgstr ""
 
@@ -2674,143 +2674,159 @@ msgid "Duration"
 msgstr ""
 
 #: ../preferences/fontscolors.py:506
-msgid "Octave Check"
+msgid "Accidental"
 msgstr ""
 
 #: ../preferences/fontscolors.py:507
+msgid "Octave Check"
+msgstr ""
+
+#: ../preferences/fontscolors.py:508
 msgid "Fingering"
 msgstr ""
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:510
 msgid "String Number"
 msgstr "Número de Cordas"
 
-#: ../preferences/fontscolors.py:510 ../quickinsert/spanners.py:170
+#: ../preferences/fontscolors.py:511 ../quickinsert/spanners.py:170
 msgid "Slur"
 msgstr "Ligadura"
 
-#: ../preferences/fontscolors.py:511
+#: ../preferences/fontscolors.py:512
 msgid "Dynamic"
 msgstr ""
 
-#: ../preferences/fontscolors.py:512
+#: ../preferences/fontscolors.py:513
 msgid "Articulation"
 msgstr ""
 
-#: ../preferences/fontscolors.py:513
+#: ../preferences/fontscolors.py:514
 msgid "Chord"
 msgstr ""
 
-#: ../preferences/fontscolors.py:514 ../quickinsert/spanners.py:172
+#: ../preferences/fontscolors.py:515 ../quickinsert/spanners.py:172
 msgid "Beam"
 msgstr ""
 
-#: ../preferences/fontscolors.py:515
+#: ../preferences/fontscolors.py:516
 msgid "Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:516 ../snippet/builtin.py:248
+#: ../preferences/fontscolors.py:517 ../snippet/builtin.py:248
 msgid "Repeat"
 msgstr "Repetir"
 
-#: ../preferences/fontscolors.py:518 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:519 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr ""
 
-#: ../preferences/fontscolors.py:519
+#: ../preferences/fontscolors.py:520
 msgid "Specifier"
 msgstr "Especificar"
 
-#: ../preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:521
 msgid "User Command"
 msgstr "Usar Comando"
 
-#: ../preferences/fontscolors.py:521 ../snippet/builtin.py:288
+#: ../preferences/fontscolors.py:522 ../snippet/builtin.py:288
 msgid "Markup"
 msgstr ""
 
-#: ../preferences/fontscolors.py:522
+#: ../preferences/fontscolors.py:523
 msgid "Lyric Mode"
 msgstr "Modo Letra"
 
-#: ../preferences/fontscolors.py:523
+#: ../preferences/fontscolors.py:524
 msgid "Lyric Text"
 msgstr ""
 
-#: ../preferences/fontscolors.py:524 ../preferences/fontscolors.py:556
+#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:560
 msgid "Delimiter"
 msgstr ""
 
-#: ../preferences/fontscolors.py:525
-msgid "Context"
-msgstr ""
-
-#: ../preferences/fontscolors.py:526
-msgid "Layout Object"
+#: ../preferences/fontscolors.py:526 ../scorewiz/parts/special.py:43
+msgid "Figured Bass"
 msgstr ""
 
 #: ../preferences/fontscolors.py:527
-msgid "Property"
+msgid "Figured Bass Step"
+msgstr ""
+
+#: ../preferences/fontscolors.py:528
+msgid "Figured Bass Modifier"
 msgstr ""
 
 #: ../preferences/fontscolors.py:529
+msgid "Context"
+msgstr ""
+
+#: ../preferences/fontscolors.py:530
+msgid "Layout Object"
+msgstr ""
+
+#: ../preferences/fontscolors.py:531
+msgid "Property"
+msgstr ""
+
+#: ../preferences/fontscolors.py:533
 msgid "User Variable"
 msgstr "Usar Variáveis"
 
-#: ../preferences/fontscolors.py:532 ../preferences/fontscolors.py:561
+#: ../preferences/fontscolors.py:536 ../preferences/fontscolors.py:565
 msgid "Escaped Character"
 msgstr ""
 
-#: ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:540
 msgid "HTML"
 msgstr ""
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:541
 msgid "Tag"
 msgstr "Tag"
 
-#: ../preferences/fontscolors.py:538
+#: ../preferences/fontscolors.py:542
 msgid "LilyPond Tag"
 msgstr ""
 
-#: ../preferences/fontscolors.py:539 ../preferences/fontscolors.py:562
+#: ../preferences/fontscolors.py:543 ../preferences/fontscolors.py:566
 msgid "Attribute"
 msgstr "Atributo"
 
-#: ../preferences/fontscolors.py:541
+#: ../preferences/fontscolors.py:545
 msgid "Entity Reference"
 msgstr ""
 
-#: ../preferences/fontscolors.py:545 ../preferences/fontscolors.py:546
+#: ../preferences/fontscolors.py:549 ../preferences/fontscolors.py:550
 msgid "Scheme"
 msgstr ""
 
-#: ../preferences/fontscolors.py:547
+#: ../preferences/fontscolors.py:551
 msgid "Number"
 msgstr ""
 
-#: ../preferences/fontscolors.py:548
+#: ../preferences/fontscolors.py:552
 msgid "LilyPond Environment"
 msgstr ""
 
-#: ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:558
 msgid "Constant"
 msgstr ""
 
-#: ../preferences/fontscolors.py:555
+#: ../preferences/fontscolors.py:559
 msgid "Symbol"
 msgstr ""
 
-#: ../preferences/fontscolors.py:558
+#: ../preferences/fontscolors.py:562
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: ../preferences/fontscolors.py:560
+#: ../preferences/fontscolors.py:564
 msgid "Block"
 msgstr ""
 
-#: ../preferences/fontscolors.py:563
+#: ../preferences/fontscolors.py:567
 msgid "Verbatim"
 msgstr "Textual"
 
@@ -2903,17 +2919,17 @@ msgid "When creating new documents"
 msgstr "Quando salvar documentos"
 
 #: ../preferences/general.py:275
-msgid "Create a new document empty"
-msgstr ""
+#, fuzzy
+msgid "Create an empty document"
+msgstr "Documento Atual"
 
 #: ../preferences/general.py:276
-#, fuzzy
-msgid "Write the LilyPond version in a new document"
-msgstr "A versão LilyPond que você estará usando para este documento."
+msgid "Create a document that contains the LilyPond version statement"
+msgstr ""
 
 #: ../preferences/general.py:277
 #, fuzzy
-msgid "Use a default template:"
+msgid "Create a document from a template:"
 msgstr "Modelo de Cabeçalho"
 
 #: ../preferences/helpers.py:73
@@ -4848,10 +4864,6 @@ msgstr "Cordas dedilhadas"
 
 #: ../scorewiz/parts/special.py:37 ../scorewiz/parts/vocal.py:203
 msgid "Chord names"
-msgstr ""
-
-#: ../scorewiz/parts/special.py:43
-msgid "Figured Bass"
 msgstr ""
 
 #: ../scorewiz/parts/special.py:50
@@ -8340,6 +8352,10 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Write the LilyPond version in a new document"
+#~ msgstr "A versão LilyPond que você estará usando para este documento."
 
 #, fuzzy
 #~ msgid "Open File at C&ursor"

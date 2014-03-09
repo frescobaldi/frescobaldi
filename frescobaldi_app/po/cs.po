@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-08 23:49+0100\n"
+"POT-Creation-Date: 2014-03-09 22:30+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -361,7 +361,7 @@ msgstr "Velikost osnovy:"
 #: ../mainwindow.py:685 ../externalchanges/widget.py:243
 #: ../file_export/__init__.py:65 ../file_import/__init__.py:73
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:272
-#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:538
 #: ../preferences/import_export.py:91 ../preferences/import_export.py:174
 #: ../preferences/shortcuts.py:206 ../snippet/import_export.py:105
 #: ../snippet/widget.py:324
@@ -2638,31 +2638,31 @@ msgid "Preview Highlight"
 msgstr "Zvýraznění náhledu"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:482 ../preferences/fontscolors.py:517
-#: ../preferences/fontscolors.py:551 ../preferences/fontscolors.py:559
+#: ../preferences/fontscolors.py:482 ../preferences/fontscolors.py:518
+#: ../preferences/fontscolors.py:555 ../preferences/fontscolors.py:563
 msgid "Keyword"
 msgstr "Klíčové slovo"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:484 ../preferences/fontscolors.py:552
+#: ../preferences/fontscolors.py:484 ../preferences/fontscolors.py:556
 msgid "Function"
 msgstr "Funkce"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:486 ../preferences/fontscolors.py:528
-#: ../preferences/fontscolors.py:553
+#: ../preferences/fontscolors.py:486 ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:557
 msgid "Variable"
 msgstr "Proměnná"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:488 ../preferences/fontscolors.py:530
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:488 ../preferences/fontscolors.py:534
+#: ../preferences/fontscolors.py:544
 msgid "Value"
 msgstr "Hodnota"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:490 ../preferences/fontscolors.py:531
-#: ../preferences/fontscolors.py:543 ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:490 ../preferences/fontscolors.py:535
+#: ../preferences/fontscolors.py:547 ../preferences/fontscolors.py:553
 msgid "String"
 msgstr "Řetězec"
 
@@ -2672,9 +2672,9 @@ msgid "Escape"
 msgstr "Únik"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:533
-#: ../preferences/fontscolors.py:542 ../preferences/fontscolors.py:550
-#: ../preferences/fontscolors.py:564 ../snippet/builtin.py:402
+#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:546 ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:568 ../snippet/builtin.py:402
 msgid "Comment"
 msgstr "Poznámka"
 
@@ -2696,143 +2696,161 @@ msgid "Duration"
 msgstr "Doba trvání"
 
 #: ../preferences/fontscolors.py:506
+msgid "Accidental"
+msgstr ""
+
+#: ../preferences/fontscolors.py:507
 msgid "Octave Check"
 msgstr "Zastavení oktávy"
 
-#: ../preferences/fontscolors.py:507
+#: ../preferences/fontscolors.py:508
 msgid "Fingering"
 msgstr "Prstoklad"
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:509
+#: ../preferences/fontscolors.py:510
 msgid "String Number"
 msgstr "Číslo struny"
 
-#: ../preferences/fontscolors.py:510 ../quickinsert/spanners.py:170
+#: ../preferences/fontscolors.py:511 ../quickinsert/spanners.py:170
 msgid "Slur"
 msgstr "Legatový oblouček"
 
-#: ../preferences/fontscolors.py:511
+#: ../preferences/fontscolors.py:512
 msgid "Dynamic"
 msgstr "Dynamika"
 
-#: ../preferences/fontscolors.py:512
+#: ../preferences/fontscolors.py:513
 msgid "Articulation"
 msgstr "Artikulace"
 
-#: ../preferences/fontscolors.py:513
+#: ../preferences/fontscolors.py:514
 msgid "Chord"
 msgstr "Akord"
 
-#: ../preferences/fontscolors.py:514 ../quickinsert/spanners.py:172
+#: ../preferences/fontscolors.py:515 ../quickinsert/spanners.py:172
 msgid "Beam"
 msgstr "Trámec"
 
-#: ../preferences/fontscolors.py:515
+#: ../preferences/fontscolors.py:516
 msgid "Check"
 msgstr "Zastavení"
 
-#: ../preferences/fontscolors.py:516 ../snippet/builtin.py:248
+#: ../preferences/fontscolors.py:517 ../snippet/builtin.py:248
 msgid "Repeat"
 msgstr "Opakování"
 
-#: ../preferences/fontscolors.py:518 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:519 ../preferences/shortcuts.py:56
 msgid "Command"
 msgstr "Příkaz"
 
-#: ../preferences/fontscolors.py:519
+#: ../preferences/fontscolors.py:520
 msgid "Specifier"
 msgstr "Vymezovač"
 
-#: ../preferences/fontscolors.py:520
+#: ../preferences/fontscolors.py:521
 msgid "User Command"
 msgstr "Uživatelský příkaz"
 
-#: ../preferences/fontscolors.py:521 ../snippet/builtin.py:288
+#: ../preferences/fontscolors.py:522 ../snippet/builtin.py:288
 msgid "Markup"
 msgstr "Značení"
 
-#: ../preferences/fontscolors.py:522
+#: ../preferences/fontscolors.py:523
 msgid "Lyric Mode"
 msgstr "Režim slov písně"
 
-#: ../preferences/fontscolors.py:523
+#: ../preferences/fontscolors.py:524
 msgid "Lyric Text"
 msgstr "Text slov písně"
 
-#: ../preferences/fontscolors.py:524 ../preferences/fontscolors.py:556
+#: ../preferences/fontscolors.py:525 ../preferences/fontscolors.py:560
 msgid "Delimiter"
 msgstr "Oddělovač"
 
-#: ../preferences/fontscolors.py:525
+#: ../preferences/fontscolors.py:526 ../scorewiz/parts/special.py:43
+msgid "Figured Bass"
+msgstr "Číslovaný bas (generální bas, basso continuo)"
+
+#: ../preferences/fontscolors.py:527
+#, fuzzy
+msgid "Figured Bass Step"
+msgstr "Číslovaný bas (generální bas, basso continuo)"
+
+#: ../preferences/fontscolors.py:528
+#, fuzzy
+msgid "Figured Bass Modifier"
+msgstr "Číslovaný bas (generální bas, basso continuo)"
+
+#: ../preferences/fontscolors.py:529
 msgid "Context"
 msgstr "Prostředí"
 
-#: ../preferences/fontscolors.py:526
+#: ../preferences/fontscolors.py:530
 msgid "Layout Object"
 msgstr "Předmět rozvržení"
 
-#: ../preferences/fontscolors.py:527
+#: ../preferences/fontscolors.py:531
 msgid "Property"
 msgstr "Vlastnictví"
 
-#: ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:533
 msgid "User Variable"
 msgstr "Uživatelská proměnná"
 
-#: ../preferences/fontscolors.py:532 ../preferences/fontscolors.py:561
+#: ../preferences/fontscolors.py:536 ../preferences/fontscolors.py:565
 msgid "Escaped Character"
 msgstr "Uprchlý znak"
 
-#: ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:540
 msgid "HTML"
 msgstr "HTML"
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:541
 msgid "Tag"
 msgstr "Značka"
 
-#: ../preferences/fontscolors.py:538
+#: ../preferences/fontscolors.py:542
 msgid "LilyPond Tag"
 msgstr "Značka LilyPondu"
 
-#: ../preferences/fontscolors.py:539 ../preferences/fontscolors.py:562
+#: ../preferences/fontscolors.py:543 ../preferences/fontscolors.py:566
 msgid "Attribute"
 msgstr "Vlastnost"
 
-#: ../preferences/fontscolors.py:541
+#: ../preferences/fontscolors.py:545
 msgid "Entity Reference"
 msgstr "Odkaz na entitu"
 
-#: ../preferences/fontscolors.py:545 ../preferences/fontscolors.py:546
+#: ../preferences/fontscolors.py:549 ../preferences/fontscolors.py:550
 msgid "Scheme"
 msgstr "Scheme"
 
-#: ../preferences/fontscolors.py:547
+#: ../preferences/fontscolors.py:551
 msgid "Number"
 msgstr "Číslo"
 
-#: ../preferences/fontscolors.py:548
+#: ../preferences/fontscolors.py:552
 msgid "LilyPond Environment"
 msgstr "Prostředí LilyPondu"
 
-#: ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:558
 msgid "Constant"
 msgstr "Stálý"
 
-#: ../preferences/fontscolors.py:555
+#: ../preferences/fontscolors.py:559
 msgid "Symbol"
 msgstr "Symbol"
 
-#: ../preferences/fontscolors.py:558
+#: ../preferences/fontscolors.py:562
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: ../preferences/fontscolors.py:560
+#: ../preferences/fontscolors.py:564
 msgid "Block"
 msgstr "Blok"
 
-#: ../preferences/fontscolors.py:563
+#: ../preferences/fontscolors.py:567
 msgid "Verbatim"
 msgstr "Podrobný"
 
@@ -2932,18 +2950,19 @@ msgid "When creating new documents"
 msgstr "Při ukládání dokumentů"
 
 #: ../preferences/general.py:275
-msgid "Create a new document empty"
-msgstr ""
+#, fuzzy
+msgid "Create an empty document"
+msgstr "Nynější dokument"
 
 #: ../preferences/general.py:276
 #, fuzzy
-msgid "Write the LilyPond version in a new document"
-msgstr "Verze programu LilyPond, která se bude používat v nových dokumentech"
+msgid "Create a document that contains the LilyPond version statement"
+msgstr "Váš dokument má již uvedenu verzi programu LilyPond."
 
 #: ../preferences/general.py:277
 #, fuzzy
-msgid "Use a default template:"
-msgstr "Předloha hlavičky"
+msgid "Create a document from a template:"
+msgstr "Zadejte, prosím, název předlohy:"
 
 #: ../preferences/helpers.py:73
 msgid "PDF:"
@@ -4940,10 +4959,6 @@ msgstr "Drnkací smyčcové nástroje"
 #: ../scorewiz/parts/special.py:37 ../scorewiz/parts/vocal.py:203
 msgid "Chord names"
 msgstr "Názvy akordů"
-
-#: ../scorewiz/parts/special.py:43
-msgid "Figured Bass"
-msgstr "Číslovaný bas (generální bas, basso continuo)"
 
 #: ../scorewiz/parts/special.py:50
 msgid "Use extender lines"
@@ -8984,6 +8999,15 @@ msgid ""
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
 
+#, fuzzy
+#~ msgid "Write the LilyPond version in a new document"
+#~ msgstr ""
+#~ "Verze programu LilyPond, která se bude používat v nových dokumentech"
+
+#, fuzzy
+#~ msgid "Use a default template:"
+#~ msgstr "Předloha hlavičky"
+
 #~ msgid "Open File at C&ursor"
 #~ msgstr "Otevřít soubor na &ukazateli"
 
@@ -12315,9 +12339,6 @@ msgstr ""
 
 #~ msgid "Choose..."
 #~ msgstr "Vybrat..."
-
-#~ msgid "Your document has already a LilyPond version statement."
-#~ msgstr "Váš dokument má již uvedenu verzi programu LilyPond."
 
 #~ msgid "Version already set"
 #~ msgstr "Verze je již nastavena"
