@@ -20,7 +20,7 @@
 */
 window.addEventListener('error', error, false); 
 
-var cords={}, last_m, drag = null;
+var last_m, drag = null;
 var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
 var maxX = svg.offsetWidth-1;
@@ -38,8 +38,7 @@ onmouseup = function(){
 //and get their initial position
 for (var t= 0; t < txt.length; ++t){
 
-	txt[t].onmousedown = txt[t].onmousemove = txt[t].onmouseup = Drag;
-	
+	txt[t].onmousedown = txt[t].onmousemove = txt[t].onmouseup = Drag;	
 	
 }
 
@@ -70,7 +69,7 @@ function Drag(e){
 		x = mm2pix(e);
 		y = mm2pix(f);
 		
-		pyLinks.pyLog(x+':'+y);		
+		//pyLinks.pyLog(x+':'+y);		
 	}
 	
 	//drag
@@ -81,15 +80,15 @@ function Drag(e){
 		last_m = m;	
 		tr.setTranslate(pix2mm(x),pix2mm(y));
 		
-		pyLinks.pyLog(m.x+':'+m.y);
-		pyLinks.pyLog(x+':'+y);
+		//pyLinks.pyLog(m.x+':'+m.y);
+		//pyLinks.pyLog(x+':'+y);
 		
 	}
 	
 	//stop drag
 	if (drag && (et == "mouseup")){
 		drag = null;
-		pyLinks.pyLog('dragging stopped');	
+		//pyLinks.pyLog('dragging stopped');	
 	}
 
 }
@@ -110,5 +109,11 @@ function mm2pix(mmval){
 	return (mmval*96)/25.4;
 }
 	
-
+function getSVG(){
+	
+	if (typeof(XMLSerializer) !== 'undefined') {
+		var serializer = new XMLSerializer();
+		pyLinks.saveSVG(serializer.serializeToString(svg));
+   }	
+}
 

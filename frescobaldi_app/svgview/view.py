@@ -178,5 +178,9 @@ class JSLink(QtCore.QObject):
         """Temporary function. Print to Python console."""
         print(txt)
 		
-    
+    @QtCore.pyqtSlot(str)	    
+    def saveSVG(self, svg_string):
+		"""Pass string from JavaScript."""
+		pass
+		
     
