@@ -725,17 +725,23 @@ class FigureEnd(Figure, _token.Leaver):
     rx = r">"
 
 
-class FigureBracket(_token.Token):
+class FigureBracket(Figure):
     rx = r"[][]"
 
 
-class FigureStep(IntegerValue):
-    """A step figure number."""
+class FigureStep(Figure):
+    """A step figure number or the underscore."""
+    rx = r"_|\d+"
+
+
+class FigureAccidental(Figure):
+    """A figure accidental."""
+    rx = r"[-+!]+"
 
 
 class FigureModifier(Figure):
     """A figure modifier."""
-    rx = r"\\[\\!+]|[-+!/]"
+    rx = r"\\[\\!+]|/"
 
 
 class NoteMode(InputMode):
@@ -1526,6 +1532,7 @@ class ParseFigure(Parser):
         FigureEnd,
         FigureBracket,
         FigureStep,
+        FigureAccidental,
         FigureModifier,
         MarkupStart, MarkupLines, MarkupList,
     )
