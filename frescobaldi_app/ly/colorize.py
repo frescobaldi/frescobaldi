@@ -111,7 +111,7 @@ def default_mapping():
             style('markup', 'function', (lilypond.Markup,)),
             style('lyricmode', 'function', (lilypond.LyricMode,)),
             style('lyrictext', None, (lilypond.Lyric,)),
-            style('repeat', 'function', (lilypond.Repeat,)),
+            style('repeat', 'function', (lilypond.Repeat, lilypond.Tremolo,)),
             style('specifier', 'variable', (lilypond.Specifier,)),
             style('usercommand', 'variable', (lilypond.UserCommand,)),
             style('delimiter', 'keyword', (lilypond.Delimiter,)),
@@ -125,7 +125,6 @@ def default_mapping():
             style('stringescape', 'escape', (lilypond.StringQuoteEscape,)),
             style('comment', 'comment', (lilypond.Comment,)),
             style('error', 'error', (lilypond.Error,)),
-            style('repeat', None, (lilypond.Repeat, lilypond.Tremolo,)),
         )),
         ('scheme', (
             style('scheme', None, (lilypond.SchemeStart, scheme.Scheme,)),
