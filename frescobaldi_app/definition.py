@@ -52,13 +52,14 @@ def target(node):
         return target
 
 
-def goto_definition(mainwindow):
+def goto_definition(mainwindow, cursor=None):
     """Go to the definition of the item the mainwindow's cursor is at.
     
     Return True if there was a definition.
     
     """
-    cursor = mainwindow.textCursor()
+    if cursor is None:
+        cursor = mainwindow.textCursor()
     node = refnode(cursor)
     if node:
         t = target(node)
