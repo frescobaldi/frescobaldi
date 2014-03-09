@@ -272,9 +272,9 @@ class NewDocument(preferences.Group):
         
     def translateUI(self):
         self.setTitle(_("When creating new documents"))
-        self.emptyDocument.setText(_("Create a new document empty"))
-        self.lilyVersion.setText(_("Write the LilyPond version in a new document"))
-        self.template.setText(_("Use a default template:"))
+        self.emptyDocument.setText(_("Create an empty document"))
+        self.lilyVersion.setText(_("Create a document that contains the LilyPond version statement"))
+        self.template.setText(_("Create a document from a template:"))
         from snippet import snippets
         for i, name in enumerate(self._names):
             self.combo.setItemText(i, snippets.title(name))
