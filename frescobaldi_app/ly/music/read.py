@@ -985,12 +985,6 @@ class Reader(object):
         self.add_markup_arguments(item)
         return item
     
-    @_markup(lilypond.MarkupUserCommand)
-    def handle_markup_user_command(self, t):
-        item = self.factory(MarkupUserCommand, t)
-        self.add_markup_arguments(item)
-        return item
-    
     @_markup(lilypond.OpenBracketMarkup)
     def handle_markup_open_bracket(self, t):
         item = self.factory(MarkupList, t)

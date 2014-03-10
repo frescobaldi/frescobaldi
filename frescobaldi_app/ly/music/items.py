@@ -957,33 +957,6 @@ class MarkupCommand(Item):
     """A markup command, such as \italic etc."""
 
 
-class MarkupUserCommand(Item):
-    """A user-defined markup command"""
-    def name(self):
-        """Return the name of this user command (without the \\)."""
-        return self.token[1:]
-    
-    def value(self):
-        """Find the value assigned to this variable."""
-        for i in self.iter_toplevel_items_include():
-            if isinstance(i, Assignment) and i.name() == self.name():
-                return i.value()
-            elif isinstance(i, Scheme):
-                for j in i:
-                    if isinstance(j, SchemeList):
-                        for k in j:
-                            if isinstance(k, SchemeItem) and k.token == 'define-markup-command':
-                                for l in j[1::]:
-                                    if isinstance(l, SchemeList):
-                                        for m in l:
-                                            if isinstance(m, SchemeItem) and m.token == self.name():
-                                                return i
-                                            break
-                                    break
-                            break
-                    break
-
-
 class MarkupScore(Item):
     """A \\score inside Markup."""
 
@@ -1004,8 +977,7 @@ class Assignment(Item):
     
     def value(self):
         """The assigned value."""
-        if len(self):
-            return self[-1]
+        return self[-1]
 
 
 class Book(Container):

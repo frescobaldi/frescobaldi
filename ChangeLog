@@ -2,21 +2,6 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.15 -- 
-
-* Translations:
-  - updated: fr
-* New features:
-  - in context menu: Jump to definition (wish #123)
-  - in View menu: view file or definition at cursor, combines the old
-    File->Open File at Cursor action with the new Jump to definition action
-* Improvements:
-  - better highlighting of figuremode
-* Bugfixes:
-  - fix ValueError message when typing << >> or \partcombine
-  - fix IndexError when typing 'variable ='
-
-
 Changes in 2.0.14 -- March 7th, 2014
 
 * Translations:

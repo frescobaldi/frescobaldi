@@ -221,22 +221,4 @@ class View(QPlainTextEdit):
         menu.exec_()
         menu.deleteLater()
 
-    def mousePressEvent(self, ev):
-        """Called when a mouse button is clicked."""
-        # implements ctrl-click
-        if ev.button() == Qt.LeftButton and ev.modifiers() == Qt.ControlModifier:
-            cursor = self.textCursor()
-            clicked = self.cursorForPosition(ev.pos())
-            if cursor.selectionStart() <= clicked.position() < cursor.selectionEnd():
-                clicked = cursor
-            # include files?
-            import open_file_at_cursor
-            if open_file_at_cursor.open_file_at_cursor(self.window(), clicked):
-                return
-            # go to definition?
-            import definition
-            if definition.goto_definition(self.window(), clicked):
-                return
-        super(View, self).mousePressEvent(ev)
-
 

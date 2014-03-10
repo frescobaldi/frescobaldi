@@ -98,6 +98,7 @@ def menu_file(mainwindow):
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)
     m.addAction(ac.file_insert_file)
+    m.addAction(documentactions.get(mainwindow).actionCollection.file_open_file_at_cursor)
     m.addSeparator()
     m.addAction(ac.file_save)
     m.addAction(ac.file_save_as)
@@ -183,7 +184,6 @@ def menu_view(mainwindow):
     m.addAction(sidebar.SideBarManager.instance(mainwindow).actionCollection.view_linenumbers)
     m.addMenu(menu_view_folding(mainwindow))
     m.addSeparator()
-    m.addAction(documentactions.get(mainwindow).actionCollection.view_goto_file_or_definition)
     ac = matcher.Matcher.instance(mainwindow).actionCollection
     m.addAction(ac.view_matching_pair)
     m.addAction(ac.view_matching_pair_select)
