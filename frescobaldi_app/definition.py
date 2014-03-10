@@ -29,6 +29,7 @@ from PyQt4.QtGui import QTextCursor
 import app
 import documentinfo
 import ly.music.items
+import browseriface
 
 
 def refnode(cursor):
@@ -74,7 +75,7 @@ def goto_target(mainwindow, target):
     doc = app.openUrl(QUrl.fromLocalFile(filename))
     cursor = QTextCursor(doc)
     cursor.setPosition(target.position)
-    mainwindow.setTextCursor(cursor)
+    browseriface.get(mainwindow).setTextCursor(cursor)
     mainwindow.currentView().centerCursor()
 
 

@@ -53,6 +53,7 @@ import panelmanager
 import engrave
 import scorewiz
 import externalchanges
+import browseriface
 import vcs
 
 
@@ -891,11 +892,12 @@ class MainWindow(QMainWindow):
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
         t.addAction(ac.file_open)
-        t.addSeparator()
         t.addAction(ac.file_save)
         t.addAction(ac.file_save_as)
-        t.addSeparator()
         t.addAction(ac.file_close)
+        t.addSeparator()
+        t.addAction(browseriface.get(self).actionCollection.go_back)
+        t.addAction(browseriface.get(self).actionCollection.go_forward)
         t.addSeparator()
         t.addAction(ac.edit_undo)
         t.addAction(ac.edit_redo)

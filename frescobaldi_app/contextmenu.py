@@ -31,6 +31,7 @@ from PyQt4.QtGui import QAction
 
 import icons
 import util
+import browseriface
 
 
 def contextmenu(view):
@@ -72,7 +73,7 @@ def open_files(cursor, menu, mainwindow):
         @a.triggered.connect
         def open_doc():
             d = mainwindow.openUrl(url)
-            mainwindow.setCurrentDocument(d)
+            browseriface.get(mainwindow).setCurrentDocument(d)
         return a
     import open_file_at_cursor
     return list(map(action, open_file_at_cursor.filenames_at_cursor(cursor)))

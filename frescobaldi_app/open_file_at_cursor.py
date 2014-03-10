@@ -28,6 +28,7 @@ import os
 from PyQt4.QtCore import QUrl
 
 import documentinfo
+import browseriface
 
 
 def filenames_at_cursor(cursor, existing=True):
@@ -82,6 +83,6 @@ def open_file_at_cursor(mainwindow, cursor=None):
     for name in filenames_at_cursor(cursor):
         d = mainwindow.openUrl(QUrl.fromLocalFile(name))
     if d:
-        mainwindow.setCurrentDocument(d, True)
+        browseriface.get(mainwindow).setCurrentDocument(d, True)
         return True
 

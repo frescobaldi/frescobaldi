@@ -10,6 +10,7 @@ Changes in 2.0.15 --
   - in context menu: Jump to definition (wish #123)
   - in View menu: view file or definition at cursor, combines the old
     File->Open File at Cursor action with the new Jump to definition action
+  - new toolbar buttons to browse back after a jump to definition
 * Improvements:
   - better highlighting of figuremode
 * Bugfixes:
