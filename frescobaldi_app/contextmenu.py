@@ -19,27 +19,32 @@
 
 """
 The contextmenu of the editor.
+
+This module is imported when a contextmenu event occurs in the View (view.py).
+
 """
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QUrl
+from PyQt4.QtCore import QTimer, QUrl
 from PyQt4.QtGui import QAction
 
 import icons
 import util
-import app
 
 
 def contextmenu(view):
     cursor = view.textCursor()
     menu = view.createStandardContextMenu()
     mainwindow = view.window()
-    
+
     # create the actions in the actions list
     actions = []
     
     actions.extend(open_files(cursor, menu, mainwindow))
+    
+    actions.extend(jump_to_definition(cursor, menu, mainwindow))
+    
     
     if cursor.hasSelection():
         import panelmanager
@@ -71,4 +76,30 @@ def open_files(cursor, menu, mainwindow):
         return a
     import open_file_at_cursor
     return list(map(action, open_file_at_cursor.filenames_at_cursor(cursor)))
+
+
+def jump_to_definition(cursor, menu, mainwindow):
+    """Return a list of context menu actions jumping to the definition."""
+    import definition
+    node = definition.refnode(cursor)
+    if node:
+        a = QAction(menu)
+        def complete():
+            target = definition.target(node)
+            if target:
+                if target.document is node.document:
+                    a.setText(_("&Jump to definition (line {num})").format(
+                        num = node.document.index(node.document.block(target.position)) + 1))
+                else:
+                    a.setText(_("&Jump to definition (in {filename})").format(
+                        filename=util.homify(target.document.filename)))
+                @a.triggered.connect
+                def activate():
+                    definition.goto_target(mainwindow, target)
+            else:
+                a.setText(_("&Jump to definition (unknown)"))
+                a.setEnabled(False)
+        QTimer.singleShot(0, complete)
+        return [a]
+    return []
 

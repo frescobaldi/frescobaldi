@@ -491,7 +491,12 @@ class MarkupList(Markup):
 
 
 class MarkupCommand(Markup, IdentifierRef):
-    """Any markup command."""
+    """A markup command."""
+    @classmethod
+    def test_match(cls, match):
+        from .. import words
+        return match.group()[1:] in words.markupcommands
+    
     def update_state(self, state):
         from .. import words
         command = self[1:]
@@ -510,6 +515,12 @@ class MarkupScore(Markup):
     rx = r"\\score\b"
     def update_state(self, state):
         state.enter(ExpectScore())
+
+
+class MarkupUserCommand(Markup, IdentifierRef):
+    """A user-defined markup (i.e. not in the words markupcommands list)."""
+    def update_state(self, state):
+        state.enter(ParseMarkup(1))
 
 
 class MarkupWord(_token.Item):
@@ -699,6 +710,33 @@ class LyricExtender(Lyric):
 class LyricSkip(Lyric):
     rx = r"_"
     
+
+class Figure(_token.Token):
+    """Base class for Figure items."""
+
+
+class FigureStart(Figure):
+    rx = r"<"
+    def update_state(self, state):
+        state.enter(ParseFigure())
+
+
+class FigureEnd(Figure, _token.Leaver):
+    rx = r">"
+
+
+class FigureBracket(_token.Token):
+    rx = r"[][]"
+
+
+class FigureStep(IntegerValue):
+    """A step figure number."""
+
+
+class FigureModifier(Figure):
+    """A figure modifier."""
+    rx = r"\\[\\!+]|[-+!/]"
+
 
 class NoteMode(InputMode):
     rx = r"\\(notes|notemode)\b"
@@ -1163,6 +1201,7 @@ class ParseMarkup(Parser):
     items =  (
         MarkupScore,
         MarkupCommand,
+        MarkupUserCommand,
         OpenBracketMarkup,
         CloseBracketMarkup,
         MarkupWord,
@@ -1470,7 +1509,26 @@ class ExpectDrumMode(ExpectMusicList):
 
 class ParseFigureMode(ParseInputMode, ParseMusic):
     """Parser for \\figures and \\figuremode."""
-    # TODO: implement items (see ParseChordMode)
+    items = base_items + (
+        CloseBracket,
+        CloseSimultaneous,
+        OpenBracket,
+        OpenSimultaneous,
+        PipeSymbol,
+        FigureStart,
+        Length,
+    ) + command_items
+
+
+class ParseFigure(Parser):
+    """Parse inside < > in figure mode."""
+    items = base_items + (
+        FigureEnd,
+        FigureBracket,
+        FigureStep,
+        FigureModifier,
+        MarkupStart, MarkupLines, MarkupList,
+    )
 
 
 class ExpectFigureMode(ExpectMusicList):

@@ -30,7 +30,7 @@ var txt = document.getElementsByTagName('text');
 //remove this
 onmouseup = function(){ 
 	drag = null;
-	pyLinks.pyLog("drag stopped externally!");
+	//pyLinks.pyLog("drag stopped externally!");
 	 
 };
 

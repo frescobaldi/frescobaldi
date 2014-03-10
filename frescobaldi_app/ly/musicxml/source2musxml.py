@@ -85,6 +85,7 @@ class parse_source():
             if self.can_create_sect:
                 self.mediator.new_section(self.varname)
                 self.can_create_sect = False
+                self.varname = ''
 
     def SequentialEnd(self, token):
         """ SequentialEnd = } """
@@ -219,7 +220,6 @@ class parse_source():
             self.prev_command = ''
         else:
             self.mediator.fetch_variable(token[1:])
-            print ("Fetch variable:"+token)
 
     def String(self, token):
         if self.prev_command == 'clef':
