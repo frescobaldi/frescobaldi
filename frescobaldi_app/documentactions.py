@@ -177,7 +177,7 @@ class Actions(actioncollection.ActionCollection):
         
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
 
-        self.view_goto_file_or_definition.setShortcut(QKeySequence("Alt+Ctrl+O"))
+        self.view_goto_file_or_definition.setShortcut(QKeySequence(Qt.ALT + Qt.Key_Return))
         self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
     
     def translateUI(self):

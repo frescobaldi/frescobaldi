@@ -48,6 +48,7 @@ import sidebar
 import matcher
 import file_import
 import file_export
+import browseriface
 import vcs
 
 
@@ -184,6 +185,10 @@ def menu_view(mainwindow):
     m.addMenu(menu_view_folding(mainwindow))
     m.addSeparator()
     m.addAction(documentactions.get(mainwindow).actionCollection.view_goto_file_or_definition)
+    ac = browseriface.get(mainwindow).actionCollection
+    m.addAction(ac.go_back)
+    m.addAction(ac.go_forward)
+    m.addSeparator()
     ac = matcher.Matcher.instance(mainwindow).actionCollection
     m.addAction(ac.view_matching_pair)
     m.addAction(ac.view_matching_pair_select)

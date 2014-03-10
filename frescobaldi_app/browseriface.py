@@ -127,8 +127,13 @@ class Actions(actioncollection.ActionCollection):
         
         self.go_back.setIcon(icons.get('go-previous'))
         self.go_forward.setIcon(icons.get('go-next'))
+        
+        self.go_back.setShortcut(QKeySequence(Qt.ALT + Qt.Key_Backspace))
+        self.go_forward.setShortcut(QKeySequence(Qt.ALT + Qt.Key_End))
     
     def translateUI(self):
         self.go_back.setText(_("Go to previous position"))
+        self.go_back.setIconText(_("Back"))
         self.go_forward.setText(_("Go to next position"))
+        self.go_forward.setIconText(_("Forward"))
 
