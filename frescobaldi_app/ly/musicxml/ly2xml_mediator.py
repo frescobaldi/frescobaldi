@@ -56,25 +56,59 @@ class mediator():
         self.bar = None
 
     def fetch_variable(self, varname):
-        """ TODO: variables that not include full bars """
+        """ Fetches stored data for variable. """
         for n in self.sections:
             if n.name == varname:
-                self.insert_into.barlist.extend(n.barlist)
+                if n.barlist:
+                    if self.check_var(n.barlist):
+                        self.insert_into.barlist.extend(n.barlist)
+                    elif isinstance(n.barlist[0][0], bar_attr):
+                        if self.bar is None:
+                            self.new_bar()
+                        self.current_attr = n.barlist[0][0]
+                        self.bar.append(self.current_attr)
+
+    def check_var(self, barlist):
+        """ Check variable for music."""
+        for bar in barlist:
+            for obj in bar:
+                if isinstance(obj, bar_note):
+                    return True
+        return False
 
     def check_score(self):
         if not self.score:
             self.new_part()
             for n in self.sections:
-                self.part.barlist.extend(n.barlist)
+                if self.check_var(n.barlist):
+                    self.part.barlist.extend(n.barlist)
 
     def set_first_bar(self, part):
         initime = '4/4'
         iniclef = ['G',2]
-        if not part.barlist[0][0].time:
+        if not self.check_time(part.barlist[0]):
             part.barlist[0][0].set_time(initime, False)
-        if not part.barlist[0][0].clef:
+        if not self.check_clef(part.barlist[0]):
             part.barlist[0][0].set_clef(iniclef)
         part.barlist[0][0].divs = self.divisions
+
+    def check_time(self, bar):
+        """ For now used to check first bar """
+        for obj in bar:
+            if isinstance(obj, bar_attr):
+                if obj.time:
+                    return True
+            if isinstance(obj, bar_note):
+                return False
+
+    def check_clef(self, bar):
+        """ For now used to check first bar """
+        for obj in bar:
+            if isinstance(obj, bar_attr):
+                if obj.clef:
+                    return True
+            if isinstance(obj, bar_note):
+                return False
 
     def new_bar(self):
         self.current_attr = bar_attr()
@@ -201,7 +235,8 @@ class mediator():
         self.set_prev_pitch()
 
     def new_from_command(self, command):
-        print (command)
+        #print (command)
+        pass
 
     def check_divs(self, base, scaling, tfraction):
         """ The new duration is checked against current divisions """
