@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-10 19:21+0100\n"
+"POT-Creation-Date: 2014-03-10 23:08+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -125,13 +125,24 @@ msgstr "Sonraki"
 msgid "Previous Mark"
 msgstr "Önceki"
 
-#: ../browseriface.py:132
+#: ../browseriface.py:135
 #, fuzzy
 msgid "Go to previous position"
 msgstr "Önceki boş satıra git."
 
-#: ../browseriface.py:133
+#: ../browseriface.py:136 ../docbrowser/__init__.py:82
+#: ../userguide/browser.py:80
+#, fuzzy
+msgid "Back"
+msgstr "Kalın parantez"
+
+#: ../browseriface.py:137
 msgid "Go to next position"
+msgstr ""
+
+#: ../browseriface.py:138 ../docbrowser/__init__.py:83
+#: ../userguide/browser.py:81
+msgid "Forward"
 msgstr ""
 
 #: ../contextmenu.py:71
@@ -904,87 +915,87 @@ msgstr "Özel Karakterler"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:91 ../macosx/globalmenu.py:72
+#: ../menu.py:92 ../macosx/globalmenu.py:72
 #, fuzzy
 msgctxt "menu title"
 msgid "&File"
 msgstr "Başlık"
 
-#: ../menu.py:129 ../macosx/globalmenu.py:121
+#: ../menu.py:130 ../macosx/globalmenu.py:121
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "Yazdır..."
 
-#: ../menu.py:137
+#: ../menu.py:138
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:148 ../macosx/globalmenu.py:127
+#: ../menu.py:149 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:175
+#: ../menu.py:176
 #, fuzzy
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:205
+#: ../menu.py:210
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../menu.py:220
+#: ../menu.py:225
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:247
+#: ../menu.py:252
 #, fuzzy
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:270
+#: ../menu.py:275
 #, fuzzy
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../menu.py:297
+#: ../menu.py:302
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Şarkı &Sözleri"
 
-#: ../menu.py:309
+#: ../menu.py:314
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Ses noktası"
 
-#: ../menu.py:324
+#: ../menu.py:329
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritm"
 
-#: ../menu.py:348
+#: ../menu.py:353
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Kuyrukları kaldır"
 
-#: ../menu.py:366 ../macosx/globalmenu.py:134
+#: ../menu.py:371 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:386 ../macosx/globalmenu.py:151
+#: ../menu.py:391 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -1104,15 +1115,6 @@ msgstr "LilyPond Belgelendirmesi"
 #, fuzzy
 msgid "&Documentation Browser"
 msgstr "LilyPond Belgelendirmesi"
-
-#: ../docbrowser/__init__.py:82 ../userguide/browser.py:80
-#, fuzzy
-msgid "Back"
-msgstr "Kalın parantez"
-
-#: ../docbrowser/__init__.py:83 ../userguide/browser.py:81
-msgid "Forward"
-msgstr ""
 
 #. L10N: Home page of the LilyPond manual
 #: ../docbrowser/__init__.py:85

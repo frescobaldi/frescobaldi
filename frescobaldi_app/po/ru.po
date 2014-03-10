@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-10 19:21+0100\n"
+"POT-Creation-Date: 2014-03-10 23:08+0100\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -118,15 +118,25 @@ msgstr "Следующая отметка"
 msgid "Previous Mark"
 msgstr "Предыдущая отметка"
 
-#: ../browseriface.py:132
+#: ../browseriface.py:135
 #, fuzzy
 msgid "Go to previous position"
 msgstr "Перейти к позиции курсора"
 
-#: ../browseriface.py:133
+#: ../browseriface.py:136 ../docbrowser/__init__.py:82
+#: ../userguide/browser.py:80
+msgid "Back"
+msgstr "Назад"
+
+#: ../browseriface.py:137
 #, fuzzy
 msgid "Go to next position"
 msgstr "Перейти к позиции курсора"
+
+#: ../browseriface.py:138 ../docbrowser/__init__.py:83
+#: ../userguide/browser.py:81
+msgid "Forward"
+msgstr "Вперед"
 
 #: ../contextmenu.py:71
 msgid "Open \"{url}\""
@@ -866,79 +876,79 @@ msgstr "Совпадающий символ"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:91 ../macosx/globalmenu.py:72
+#: ../menu.py:92 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr "Файл"
 
-#: ../menu.py:129 ../macosx/globalmenu.py:121
+#: ../menu.py:130 ../macosx/globalmenu.py:121
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "Импорт"
 
-#: ../menu.py:137
+#: ../menu.py:138
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "Экспорт"
 
-#: ../menu.py:148 ../macosx/globalmenu.py:127
+#: ../menu.py:149 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Правка"
 
-#: ../menu.py:175
+#: ../menu.py:176
 msgctxt "menu title"
 msgid "&View"
 msgstr "Вид"
 
-#: ../menu.py:205
+#: ../menu.py:210
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Сворачивание"
 
-#: ../menu.py:220
+#: ../menu.py:225
 msgctxt "menu title"
 msgid "&Music"
 msgstr "Просмотр"
 
-#: ../menu.py:247
+#: ../menu.py:252
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "LilyPond"
 
-#: ../menu.py:270
+#: ../menu.py:275
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Инструменты"
 
-#: ../menu.py:297
+#: ../menu.py:302
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Текст"
 
-#: ../menu.py:309
+#: ../menu.py:314
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Тон"
 
-#: ../menu.py:324
+#: ../menu.py:329
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Ритм"
 
-#: ../menu.py:348
+#: ../menu.py:353
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Удалить"
 
-#: ../menu.py:366 ../macosx/globalmenu.py:134
+#: ../menu.py:371 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr "Окно"
 
-#: ../menu.py:386 ../macosx/globalmenu.py:151
+#: ../menu.py:391 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Справка"
@@ -1043,14 +1053,6 @@ msgstr "Документация LilyPond"
 #: ../docbrowser/__init__.py:47
 msgid "&Documentation Browser"
 msgstr "Документация LilyPond"
-
-#: ../docbrowser/__init__.py:82 ../userguide/browser.py:80
-msgid "Back"
-msgstr "Назад"
-
-#: ../docbrowser/__init__.py:83 ../userguide/browser.py:81
-msgid "Forward"
-msgstr "Вперед"
 
 #. L10N: Home page of the LilyPond manual
 #: ../docbrowser/__init__.py:85

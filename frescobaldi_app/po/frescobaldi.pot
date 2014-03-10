@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.15\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-10 19:21+0100\n"
+"POT-Creation-Date: 2014-03-10 23:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,12 +113,22 @@ msgstr ""
 msgid "Previous Mark"
 msgstr ""
 
-#: ../browseriface.py:132
+#: ../browseriface.py:135
 msgid "Go to previous position"
 msgstr ""
 
-#: ../browseriface.py:133
+#: ../browseriface.py:136 ../docbrowser/__init__.py:82
+#: ../userguide/browser.py:80
+msgid "Back"
+msgstr ""
+
+#: ../browseriface.py:137
 msgid "Go to next position"
+msgstr ""
+
+#: ../browseriface.py:138 ../docbrowser/__init__.py:83
+#: ../userguide/browser.py:81
+msgid "Forward"
 msgstr ""
 
 #: ../contextmenu.py:71
@@ -817,77 +827,77 @@ msgstr ""
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:91 ../macosx/globalmenu.py:72
+#: ../menu.py:92 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr ""
 
-#: ../menu.py:129 ../macosx/globalmenu.py:121
+#: ../menu.py:130 ../macosx/globalmenu.py:121
 msgctxt "submenu title"
 msgid "&Import"
 msgstr ""
 
-#: ../menu.py:137
+#: ../menu.py:138
 msgctxt "submenu title"
 msgid "&Export"
 msgstr ""
 
-#: ../menu.py:148 ../macosx/globalmenu.py:127
+#: ../menu.py:149 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr ""
 
-#: ../menu.py:175
+#: ../menu.py:176
 msgctxt "menu title"
 msgid "&View"
 msgstr ""
 
-#: ../menu.py:205
+#: ../menu.py:210
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr ""
 
-#: ../menu.py:220
+#: ../menu.py:225
 msgctxt "menu title"
 msgid "&Music"
 msgstr ""
 
-#: ../menu.py:247
+#: ../menu.py:252
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr ""
 
-#: ../menu.py:270
+#: ../menu.py:275
 msgctxt "menu title"
 msgid "&Tools"
 msgstr ""
 
-#: ../menu.py:297
+#: ../menu.py:302
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr ""
 
-#: ../menu.py:309
+#: ../menu.py:314
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr ""
 
-#: ../menu.py:324
+#: ../menu.py:329
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr ""
 
-#: ../menu.py:348
+#: ../menu.py:353
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr ""
 
-#: ../menu.py:366 ../macosx/globalmenu.py:134
+#: ../menu.py:371 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr ""
 
-#: ../menu.py:386 ../macosx/globalmenu.py:151
+#: ../menu.py:391 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr ""
@@ -991,14 +1001,6 @@ msgstr ""
 
 #: ../docbrowser/__init__.py:47
 msgid "&Documentation Browser"
-msgstr ""
-
-#: ../docbrowser/__init__.py:82 ../userguide/browser.py:80
-msgid "Back"
-msgstr ""
-
-#: ../docbrowser/__init__.py:83 ../userguide/browser.py:81
-msgid "Forward"
 msgstr ""
 
 #. L10N: Home page of the LilyPond manual
