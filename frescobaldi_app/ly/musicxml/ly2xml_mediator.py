@@ -61,6 +61,10 @@ class mediator():
             if n.name == varname:
                 if n.barlist:
                     if self.check_var(n.barlist):
+                        if self.bar:
+                            if not self.check_bar(self.bar):
+                                n.barlist[0] = self.bar + n.barlist[0]
+                                self.insert_into.barlist.pop()
                         self.insert_into.barlist.extend(n.barlist)
                     elif isinstance(n.barlist[0][0], bar_attr):
                         if self.bar is None:
@@ -69,11 +73,21 @@ class mediator():
                         self.bar.append(self.current_attr)
 
     def check_var(self, barlist):
-        """ Check variable for music."""
+        """ Check if barlist in variable is suitable for insert.
+        For now if variable contains notes full bars are assumed."""
         for bar in barlist:
             for obj in bar:
                 if isinstance(obj, bar_note):
                     return True
+        return False
+
+    def check_bar(self, bar):
+        """ For variable handling.
+        Idealy the function should check if the bar is incomplete.
+        For now it only checks if the bar contains notes. """
+        for obj in bar:
+            if isinstance(obj, bar_note):
+                return True
         return False
 
     def check_score(self):
