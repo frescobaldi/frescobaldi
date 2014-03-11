@@ -2,10 +2,10 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.0.15 -- 
+Changes in 2.0.15 -- March 11th, 2014
 
 * Translations:
-  - updated: fr
+  - updated: nl, fr
 * New features:
   - in context menu: Jump to definition (wish #123)
   - in View menu: view file or definition at cursor, combines the old
