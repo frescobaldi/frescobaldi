@@ -20,6 +20,9 @@ The following people contributed to {appname}:
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
 
+!Marnen Laibow-Koser:
+: Homebrew formula for Mac OS X
+
 !Davide Liessi:
 : Mac OS X packaging and various other improvements
 
