@@ -252,6 +252,9 @@ class mediator():
         #print (command)
         pass
 
+    def set_partname(self, name):
+        self.part.name = name
+
     def check_divs(self, base, scaling, tfraction):
         """ The new duration is checked against current divisions """
         divs = self.divisions
@@ -275,7 +278,7 @@ class mediator():
 class score_part():
     """ object to keep track of part """
     def __init__(self):
-        self.name = "test"
+        self.name = "unnamed"
         self.barlist = []
 
 class score_section():

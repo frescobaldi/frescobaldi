@@ -110,6 +110,10 @@ class parse_source():
                 self.can_create_sect = False
                 self.can_create_part = False
 
+    def ContextProperty(self, token):
+        """ instrumentName, midiInstrument, etc """
+        self.prev_command = token
+
     def PipeSymbol(self, token):
         """ PipeSymbol = | """
         self.mediator.new_bar()
@@ -224,8 +228,13 @@ class parse_source():
     def String(self, token):
         if self.prev_command == 'clef':
             self.mediator.new_clef(token)
+            self.prev_command = ''
         elif self.prev_command == '\\bar':
             self.mediator.create_barline(token)
+            self.prev_command = ''
+        elif self.prev_command == 'instrumentName':
+            self.mediator.set_partname(token)
+            self.prev_command = ''
 
 
     ##
