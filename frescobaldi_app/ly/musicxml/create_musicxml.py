@@ -76,26 +76,15 @@ class create_musicXML():
     # High-level node creation
     ##
 
-    def new_note(self, grace, pitch, base_scaling, durtype, divs, dot):
+    def new_note(self, grace, pitch, base_scaling, voice, durtype, divs, dot):
         """ create all nodes needed for a note. """
-        base = base_scaling[0]
-        scaling = base_scaling[1]
         self.create_note()
         if grace[0]:
             self.add_grace(grace[1])
         self.add_pitch(pitch[0], pitch[1], pitch[2])
         if not grace[0]:
-            if dot:
-                import math
-                den = int(math.pow(2,dot))
-                num = int(math.pow(2,dot+1)-1)
-                a = divs*4*num
-                b = (1/base)*den
-                duration = a/b
-            else:
-                duration = divs*4*base
-            duration = duration * scaling
-            self.add_div_duration(duration)
+            self.add_div_duration(self.count_duration(base_scaling, divs, dot))
+        self.add_voice(voice)
         self.add_duration_type(durtype)
         if dot:
             for i in range(dot):
@@ -121,7 +110,7 @@ class create_musicXML():
         self.add_notations()
         self.add_tied(tie_type)
 
-    def new_rest(self, base_scaling, durtype, divs, pos, dot):
+    def new_rest(self, base_scaling, durtype, divs, pos, dot, voice):
         """ create all nodes needed for a rest. """
         base = base_scaling[0]
         scaling = base_scaling[1]
@@ -138,6 +127,7 @@ class create_musicXML():
             duration = divs*4*base
         duration = duration * scaling
         self.add_div_duration(duration)
+        self.add_voice(voice)
         if durtype:
             self.add_duration_type(durtype)
         if dot:
@@ -162,6 +152,9 @@ class create_musicXML():
         if clef:
             self.add_clef(clef[0], clef[1])
 
+    def new_backup(self, base_scaling, divs):
+        self.add_backup(self.count_duration(base_scaling, divs, 0))
+
     def create_new_node(self, parentnode, nodename, txt):
         """ The Music XML language is extensive.
         This function can be used to create
@@ -174,6 +167,20 @@ class create_musicXML():
     ##
     # Help functions
     ##
+
+    def count_duration(self, base_scaling, divs, dot):
+        base = base_scaling[0]
+        scaling = base_scaling[1]
+        if dot:
+            import math
+            den = int(math.pow(2,dot))
+            num = int(math.pow(2,dot+1)-1)
+            a = divs*4*num
+            b = (1/base)*den
+            duration = a/b
+        else:
+            duration = divs*4*base
+        return duration * scaling
 
 
     ##
@@ -321,6 +328,15 @@ class create_musicXML():
         barnode = etree.SubElement(self.current_bar, "barline", location="right")
         barstyle = etree.SubElement(barnode, "bar-style")
         barstyle.text = bl_type
+
+    def add_backup(self, duration):
+        backupnode = etree.SubElement(self.current_bar, "backup")
+        durnode = etree.SubElement(backupnode, "duration")
+        durnode.text = str(duration)
+
+    def add_voice(self, voice):
+        voicenode = etree.SubElement(self.current_note, "voice")
+        voicenode.text = str(voice)
 
 
     ##

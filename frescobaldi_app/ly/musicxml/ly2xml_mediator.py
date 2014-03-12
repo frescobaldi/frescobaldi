@@ -42,6 +42,7 @@ class mediator():
         self.duration = "4"
         self.base_scaling = [Fraction(1, 4), Fraction(1, 1)]
         self.tied = False
+        self.voice = 1
 
     def new_section(self, name):
         section = score_section(name)
@@ -54,6 +55,51 @@ class mediator():
         self.score.append(self.part)
         self.insert_into = self.part
         self.bar = None
+
+    def new_voice(self, command):
+        self.voice = get_voice(command)
+        return self.voice
+
+    def merge_variable(self, voice, varname):
+        """ Fetches variable as new voice """
+        for n in self.sections:
+            if n.name == varname:
+                varlen = len(n.barlist)
+                if voice:
+                    self.change_voice(n.barlist, voice)
+                for i, bar in enumerate(self.insert_into.barlist):
+                    if i < varlen:
+                        backup = self.create_backup(bar)
+                        self.insert_into.barlist[i] = bar + [backup] + n.barlist[i]
+
+    def change_voice(self, barlist, newvoice, del_barattr=True):
+        for bar in barlist:
+            orig = list(bar)
+            for obj in orig:
+                if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
+                    obj.voice = newvoice
+                elif isinstance(obj, bar_attr):
+                    if del_barattr:
+                        bar.remove(obj)
+
+    def create_backup(self, bar):
+        b = 0
+        s = 1
+        for obj in bar:
+            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
+                if obj.dot:
+                    import math
+                    den = int(math.pow(2,obj.dot))
+                    num = int(math.pow(2,obj.dot+1)-1)
+                    b += Fraction(num, den)*obj.duration[0]
+                else:
+                    b += obj.duration[0]
+                s *= obj.duration[1]
+            elif isinstance(obj, bar_backup):
+                self.check_divs(b, s)
+                return bar_backup([b,s])
+        self.check_divs(b, s)
+        return bar_backup((b,s))
 
     def fetch_variable(self, varname):
         """ Fetches stored data for variable. """
@@ -152,7 +198,7 @@ class mediator():
         self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note_name):
-        self.current_note = bar_note(note_name, self.base_scaling, self.duration)
+        self.current_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
         self.set_prev_pitch()
 
     def set_prev_pitch(self):
@@ -160,7 +206,7 @@ class mediator():
         self.prev_pitch = ly.pitch.Pitch(p.note, p.alter, p.octave)
 
     def new_note(self, note_name, pitch_mode):
-        self.current_note = bar_note(note_name, self.base_scaling, self.duration)
+        self.current_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
         if pitch_mode == 'rel':
             self.current_note.set_octave("", True, self.prev_pitch)
         if self.tied:
@@ -174,11 +220,11 @@ class mediator():
 
     def new_rest(self, rtype, pos=0):
         if rtype == 'r':
-            self.current_note = bar_rest(self.base_scaling, self.duration, pos)
+            self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice)
         elif rtype == 'R':
-            self.current_note = bar_rest(self.base_scaling, self.duration, pos, show_type=False)
+            self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice, show_type=False)
         elif rtype == 's':
-            self.current_note = bar_rest(self.base_scaling, self.duration, pos, skip=True)
+            self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice, skip=True)
         if self.bar is None:
             self.new_bar()
         self.bar.append(self.current_note)
@@ -187,7 +233,7 @@ class mediator():
     def note2rest(self):
         """ note used as rest position transformed to rest"""
         temp_note = self.current_note
-        self.current_note = bar_rest(temp_note.duration, self.duration, [temp_note.base_note, temp_note.pitch.octave])
+        self.current_note = bar_rest(temp_note.duration, self.duration, [temp_note.base_note, temp_note.pitch.octave], self.voice)
         self.bar.pop()
         self.bar.append(self.current_note)
 
@@ -255,7 +301,7 @@ class mediator():
     def set_partname(self, name):
         self.part.name = name
 
-    def check_divs(self, base, scaling, tfraction):
+    def check_divs(self, base, scaling, tfraction=0):
         """ The new duration is checked against current divisions """
         divs = self.divisions
         if scaling != 1:
@@ -289,7 +335,7 @@ class score_section():
 
 class bar_note():
     """ object to keep track of note parameters """
-    def __init__(self, note_name, base_scaling, durval):
+    def __init__(self, note_name, base_scaling, durval, voice):
         plist = notename2step(note_name)
         self.base_note = plist[0]
         self.pitch = ly.pitch.Pitch(plist[2], plist[1], 3)
@@ -300,6 +346,7 @@ class bar_note():
         self.tie = 0
         self.grace = [0,0]
         self.tremolo = 0
+        self.voice = voice
 
     def set_duration(self, base_scaling, durval=0):
         self.duration = base_scaling
@@ -331,7 +378,7 @@ class bar_note():
 
 class bar_rest():
     """ object to keep track of different rests and skips """
-    def __init__(self, base_scaling, durval, pos, show_type=True, skip=False):
+    def __init__(self, base_scaling, durval, pos, voice, show_type=True, skip=False):
         self.duration = base_scaling
         self.show_type = show_type
         if self.show_type:
@@ -342,6 +389,7 @@ class bar_rest():
         self.tuplet = 0
         self.dot = 0
         self.pos = pos
+        self.voice = voice
 
     def set_duration(self, base_scaling, durval=0, durtype=None):
         self.duration = base_scaling
@@ -393,6 +441,13 @@ class bar_attr():
             check = True
         return check
 
+
+class bar_backup():
+    """ Object that stores duration for backup """
+    def __init__(self, duration):
+        self.duration = duration
+
+
 ##
 # translation functions
 ##
@@ -442,7 +497,6 @@ def durval2type(durval):
         "16th", "32nd", "64th",
         "128th", "256th", "512th", "1024th", "2048th"
     ] # Note: 2048 is supported by ly but not by MusicXML!
-    #print durval
     return xml_types[ly.duration.durations.index(durval)]
 
 def dur2lines(dur):
@@ -478,7 +532,9 @@ def convert_barl(bl):
     elif bl == "'":
         return 'tick'
 
-
+def get_voice(c):
+    voices = ["voiceOne", "voiceTwo", "voiceThree", "voiceFour"]
+    return voices.index(c)+1
 
 
 
