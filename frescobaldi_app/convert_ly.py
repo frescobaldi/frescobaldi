@@ -39,7 +39,7 @@ import icons
 import widgets
 import htmldiff
 import cursordiff
-import lilypondinfo
+import lilychooser
 import documentinfo
 import textformats
 
@@ -48,7 +48,6 @@ def convert(mainwindow):
     """Shows the dialog."""
     dlg = Dialog(mainwindow)
     dlg.addAction(mainwindow.actionCollection.help_whatsthis)
-    dlg.setLilyPondInfo(lilypondinfo.preferred())
     dlg.setDocument(mainwindow.currentDocument())
     dlg.setModal(True)
     dlg.show()
@@ -78,7 +77,7 @@ class Dialog(QDialog):
         self.reason = QLabel()
         self.toVersionLabel = QLabel()
         self.toVersion = QLineEdit()
-        self.versionCombo = QComboBox()
+        self.lilyChooser = lilychooser.LilyChooser()
         self.messages = QTextBrowser()
         self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
         self.copyCheck = QCheckBox(checked=
@@ -104,7 +103,7 @@ class Dialog(QDialog):
         grid.addWidget(self.reason, 0, 2, 1, 3)
         grid.addWidget(self.toVersionLabel, 1, 0)
         grid.addWidget(self.toVersion, 1, 1)
-        grid.addWidget(self.versionCombo, 1, 3, 1, 2)
+        grid.addWidget(self.lilyChooser, 1, 3, 1, 2)
         
         layout.addLayout(grid)
         layout.addWidget(self.tabw)
@@ -117,7 +116,8 @@ class Dialog(QDialog):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.finished.connect(self.saveCopyCheckSetting)
-        self.versionCombo.currentIndexChanged.connect(self.slotLilyPondVersionChanged)
+        self.lilyChooser.currentIndexChanged.connect(self.slotLilyPondVersionChanged)
+        self.slotLilyPondVersionChanged()
         
     def translateUI(self):
         self.fromVersionLabel.setText(_("From version:"))
@@ -137,19 +137,9 @@ class Dialog(QDialog):
     def readSettings(self):
         font = textformats.formatData('editor').font
         self.diff.setFont(font)
-        infos = lilypondinfo.infos() or [lilypondinfo.default()]
-        infos.sort(key = lambda i: i.version() or (999,))
-        self._infos = infos
-        self.versionCombo.clear()
-        for i in infos:
-            icon = 'lilypond-run' if i.version() else 'dialog-error'
-            self.versionCombo.addItem(icons.get(icon), i.prettyName())
-        info = lilypondinfo.preferred()
-        if info in self._infos:
-            self.versionCombo.setCurrentIndex(self._infos.index(info))
     
-    def slotLilyPondVersionChanged(self, index):
-        self.setLilyPondInfo(self._infos[index])
+    def slotLilyPondVersionChanged(self):
+        self.setLilyPondInfo(self.lilyChooser.lilyPondInfo())
     
     def setCaption(self):
         version = self._info and self._info.versionString() or _("<unknown>")
