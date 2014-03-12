@@ -268,6 +268,12 @@ class ScoreProperties(object):
         base, mul = midiDurations[self.metronomeNote.currentIndex()]
         val = int(self.metronomeValue.currentText()) * mul
         return "(ly:make-moment {0} {1})".format(val, base)
+    
+    def lySimpleMidiTempo(self, node):
+        """Return a simple \tempo x=y node for the currently set tempo."""
+        dur = durations[self.metronomeNote.currentIndex()]
+        val = self.metronomeValue.currentText()
+        return ly.dom.Tempo(dur, val, node)
         
 
 def metronomeValues():

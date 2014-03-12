@@ -260,7 +260,11 @@ class Builder(object):
                 midi = ly.dom.Midi(score)
                 # set MIDI tempo if necessary
                 if not self.showMetronomeMark:
-                    scoreProperties.lyMidiTempo(ly.dom.Context('Score', midi))
+                    if self.lyVersion >= (2, 16, 0):
+                        scoreProperties.lySimpleMidiTempo(midi)
+                        midi[0].after = 1
+                    else:
+                        scoreProperties.lyMidiTempo(ly.dom.Context('Score', midi))
             music = ly.dom.Simr()
             score.insert(0, music)
             

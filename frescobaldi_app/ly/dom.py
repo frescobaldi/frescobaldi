@@ -845,6 +845,8 @@ class Tempo(Container):
     A tempo setting, like: \\tempo 4 = 100
     May have a child markup or quoted string.
     """
+    before, after = 1, 1
+    
     def __init__(self, duration, value, parent=None):
         super(Tempo, self).__init__(parent)
         self.duration = duration
