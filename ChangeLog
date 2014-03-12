@@ -8,6 +8,8 @@ Changes in 2.0.16 --
   - updated: nl
 * Improvements:
   - LilyPond instance can be selected in convert-ly dialog (wish #311)
+  - Score Wizard: In the midi section the \tempo x=y syntax is now used when
+    LilyPond version >= 2.16 is used (issue #337)
 
 
 Changes in 2.0.15 -- March 11th, 2014
