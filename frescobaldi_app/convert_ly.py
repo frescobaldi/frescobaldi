@@ -29,12 +29,13 @@ import subprocess
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (
-    QCheckBox, QDialog, QDialogButtonBox, QHBoxLayout, QLabel, QLineEdit,
-    QTabWidget, QTextBrowser, QVBoxLayout)
+    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QGridLayout, QLabel,
+    QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
 import util
 import qutil
+import icons
 import widgets
 import htmldiff
 import cursordiff
@@ -77,6 +78,7 @@ class Dialog(QDialog):
         self.reason = QLabel()
         self.toVersionLabel = QLabel()
         self.toVersion = QLineEdit()
+        self.versionCombo = QComboBox()
         self.messages = QTextBrowser()
         self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
         self.copyCheck = QCheckBox(checked=
@@ -96,15 +98,15 @@ class Dialog(QDialog):
         layout = QVBoxLayout()
         self.setLayout(layout)
         
-        top = QHBoxLayout()
-        top.addWidget(self.fromVersionLabel)
-        top.addWidget(self.fromVersion)
-        top.addWidget(self.reason)
-        top.addStretch()
-        top.addWidget(self.toVersionLabel)
-        top.addWidget(self.toVersion)
+        grid = QGridLayout()
+        grid.addWidget(self.fromVersionLabel, 0, 0)
+        grid.addWidget(self.fromVersion, 0, 1)
+        grid.addWidget(self.reason, 0, 2, 1, 3)
+        grid.addWidget(self.toVersionLabel, 1, 0)
+        grid.addWidget(self.toVersion, 1, 1)
+        grid.addWidget(self.versionCombo, 1, 3, 1, 2)
         
-        layout.addLayout(top)
+        layout.addLayout(grid)
         layout.addWidget(self.tabw)
         layout.addWidget(self.copyCheck)
         layout.addWidget(widgets.Separator())
@@ -115,6 +117,7 @@ class Dialog(QDialog):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.finished.connect(self.saveCopyCheckSetting)
+        self.versionCombo.currentIndexChanged.connect(self.slotLilyPondVersionChanged)
         
     def translateUI(self):
         self.fromVersionLabel.setText(_("From version:"))
@@ -134,7 +137,20 @@ class Dialog(QDialog):
     def readSettings(self):
         font = textformats.formatData('editor').font
         self.diff.setFont(font)
-        
+        infos = lilypondinfo.infos() or [lilypondinfo.default()]
+        infos.sort(key = lambda i: i.version() or (999,))
+        self._infos = infos
+        self.versionCombo.clear()
+        for i in infos:
+            icon = 'lilypond-run' if i.version() else 'dialog-error'
+            self.versionCombo.addItem(icons.get(icon), i.prettyName())
+        info = lilypondinfo.preferred()
+        if info in self._infos:
+            self.versionCombo.setCurrentIndex(self._infos.index(info))
+    
+    def slotLilyPondVersionChanged(self, index):
+        self.setLilyPondInfo(self._infos[index])
+    
     def setCaption(self):
         version = self._info and self._info.versionString() or _("<unknown>")
         title = _("Convert-ly from LilyPond {version}").format(version=version)
@@ -145,6 +161,7 @@ class Dialog(QDialog):
         self.setCaption()
         self.toVersion.setText(info.versionString())
         self.setConvertedText()
+        self.messages.clear()
     
     def setConvertedText(self, text=''):
         self._convertedtext = text
