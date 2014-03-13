@@ -6,6 +6,8 @@ Changes in 2.0.16 --
 
 * Translations:
   - updated: nl
+* New features
+  - preference to automatically strip trailing whitespace on save (issue #274)
 * Improvements:
   - LilyPond instance can be selected in convert-ly dialog (wish #311)
   - Score Wizard: In the midi section the \tempo x=y syntax is now used when
