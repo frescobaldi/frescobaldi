@@ -70,6 +70,7 @@ class View(QtWebKit.QWebView):
             frame = self.page().mainFrame()
             frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
+            frame.evaluateJavaScript(getJsScript('editsvg.js')) #remove this for stable releases
     
     def clear(self):
         """Empty the View."""
@@ -177,5 +178,9 @@ class JSLink(QtCore.QObject):
         """Temporary function. Print to Python console."""
         print(txt)
 		
-    
+    @QtCore.pyqtSlot(str)	    
+    def saveSVG(self, svg_string):
+		"""Pass string from JavaScript."""
+		pass
+		
     
