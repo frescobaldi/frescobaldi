@@ -173,6 +173,30 @@ class Item(node.WeakNode):
                             for i in find(i, depth-1):
                                 yield i
         return find(self, depth)
+    
+    def has_output(self, _seen_docs=None):
+        """Return True if this node has toplevel music, markup, book etc.
+        
+        I.e. returns True when LilyPond would likely generate output. Usually
+        you'll call this method on a Document, Score, BookPart or Book node.
+        
+        You should not supply the _seen_docs argument; it is used internally 
+        to avoid traversing recursively nested include files.
+        
+        """
+        if _seen_docs is None:
+            _seen_docs = set()
+        _seen_docs.add(self)
+        for n in self:
+            if isinstance(n, (Music, Markup)):
+                return True
+            elif isinstance(n, (Book, BookPart, Score)):
+                if n.has_output(_seen_docs):
+                    return True
+            elif isinstance(n, Include):
+                doc = self.toplevel().get_included_document_node(n)
+                if doc and doc not in _seen_docs and doc.has_output(_seen_docs):
+                    return True
 
 
 class Document(Item):
