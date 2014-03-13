@@ -777,7 +777,8 @@ class Reader(object):
                 break
         for t in skip(self.consume()):
             i = self.read_lyric_item(t) or self.read_item(t)
-            item.append(i)
+            if i:
+                item.append(i)
             break
         return item
     
