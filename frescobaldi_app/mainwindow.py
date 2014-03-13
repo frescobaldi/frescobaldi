@@ -451,6 +451,9 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, app.caption(_("Error")),
                 _("Can't write to destination:\n\n{url}").format(url=dest))
             return False
+        if QSettings().value("strip_trailing_whitespace", False, bool):
+            import reformat
+            reformat.remove_trailing_whitespace(QTextCursor(doc))
         b = backup.backup(filename)
         success = doc.save()
         if not success:
