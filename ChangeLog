@@ -9,6 +9,7 @@ Changes in 2.0.16 --
 * New features
   - preference to automatically strip trailing whitespace on save (issue #274)
 * Improvements:
+  - autocompile does only happen when a document has toplevel markup or music
   - LilyPond instance can be selected in convert-ly dialog (wish #311)
   - Score Wizard: In the midi section the \tempo x=y syntax is now used when
     LilyPond version >= 2.16 is used (issue #337)
