@@ -41,12 +41,15 @@ class parse_source():
         self.varname = ''
         self.can_create_sect = True
         self.can_create_part = False
-        self.ongoing_part = False
         self.tuplet = False
         self.scale = ''
         self.grace_seq = False
         self.voicenr = None
         self.voicecontext = False
+        self.piano_staff = -1
+        self.sim_list = []
+        self.new_sim = None
+        self.simsectnr = 0
 
     def parse_text(self, text, mode=None):
         state = ly.lex.state(mode) if mode else ly.lex.guessState(text)
@@ -79,12 +82,27 @@ class parse_source():
 
     def SimultaneousStart(self, token):
         """ << """
-        pass
+        if self.new_sim:
+            self.sim_list.append(self.new_sim)
+        else:
+            if not self.simsectnr:
+                self.curr_sect = self.mediator.insert_into
+            self.simsectnr += 1
+            self.varname = "sim-sect-"+str(self.simsectnr)
+            self.can_create_sect = True
 
     def SimultaneousEnd(self, token):
         """ >> """
-        if self.ongoing_part:
-            self.ongoing_part = False
+        if self.new_sim and self.sim_list:
+            self.sim_list.pop()
+            if self.sim_list:
+                self.new_sim = self.sim_list[-1]
+            else:
+                self.new_sim = None
+        elif self.simsectnr:
+            self.mediator.insert_into = self.curr_sect
+            self.mediator.fetch_variable("sim-sect-1")
+            self.mediator.new_bar()
 
     def SequentialStart(self, token):
         """ SequentialStart = { """
@@ -93,11 +111,12 @@ class parse_source():
             self.ttype = "start"
         elif self.prev_command[1:] == 'grace':
             self.grace_seq = True
-        else:
-            if self.can_create_sect and not self.ongoing_part:
-                self.mediator.new_section(self.varname)
-                self.can_create_sect = False
-                self.varname = ''
+        elif self.new_sim:
+            self.sim_list.append(self.new_sim)
+        elif self.can_create_sect:
+            self.mediator.new_section(self.varname)
+            self.can_create_sect = False
+            self.varname = ''
 
     def SequentialEnd(self, token):
         """ SequentialEnd = } """
@@ -106,13 +125,28 @@ class parse_source():
             self.tuplet = False
         elif self.grace_seq:
             self.grace_seq = False
+        elif self.new_sim and self.sim_list:
+            self.sim_list.pop()
+            if self.sim_list:
+                self.new_sim = self.sim_list[-1]
+            else:
+                self.new_sim = None
         else:
+            if self.simsectnr:
+                if self.simsectnr>1:
+                    self.mediator.merge_variable(self.simsectnr,
+                    "sim-sect-"+str(self.simsectnr), False, "sim-sect-1")
+                self.simsectnr += 1
+                self.varname = "sim-sect-"+str(self.simsectnr)
             self.prev_command = ''
             self.can_create_sect = True
 
+    def Score(self, token):
+        self.new_sim = "score"
+
     def New(self, token):
         """ New """
-        if not self.ongoing_part:
+        if self.new_sim != "staff":
             self.can_create_part = True
 
     def ContextName(self, token):
@@ -120,11 +154,23 @@ class parse_source():
         if token == "Staff":
             if self.can_create_part:
                 self.mediator.new_part()
-                self.ongoing_part = True
+                self.new_sim = "staff"
                 self.can_create_sect = False
                 self.can_create_part = False
+            elif self.piano_staff>=0:
+                self.piano_staff += 1
+        elif token == "PianoStaff":
+            if self.can_create_part:
+                self.mediator.new_part(True)
+                self.new_sim = "staff"
+                self.can_create_sect = False
+                self.can_create_part = False
+                self.piano_staff = 0
         elif token == "Voice":
             self.voicecontext = True
+        else:
+            print token
+            self.new_sim = token
 
     def ContextProperty(self, token):
         """ instrumentName, midiInstrument, etc """
@@ -234,8 +280,6 @@ class parse_source():
             self.voicenr = self.mediator.new_voice(token[1:])
         elif self.prev_command != '\\numericTimeSignature':
             self.prev_command = token
-        else:
-            print ("Command:"+token)
 
     def UserCommand(self, token):
         if self.prev_command == 'key':
@@ -244,6 +288,8 @@ class parse_source():
         else:
             if self.voicecontext and self.voicenr>1:
                 self.mediator.merge_variable(self.voicenr, token[1:])
+            elif self.piano_staff == 2:
+                self.mediator.merge_variable(2, token[1:], True)
             else:
                 self.mediator.fetch_variable(token[1:])
 
@@ -266,8 +312,11 @@ class parse_source():
     def iterate_mediator(self):
         """ the mediator lists are looped through and outputed to the xml-file """
         for part in self.mediator.score:
-            self.musxml.create_part(part.name)
-            self.mediator.set_first_bar(part)
+            if part.barlist:
+                self.musxml.create_part(part.name)
+                self.mediator.set_first_bar(part)
+            else:
+                print "Warning: empty part: "+part.name
             for bar in part.barlist:
                 self.musxml.create_measure()
                 for obj in bar:
@@ -276,6 +325,8 @@ class parse_source():
                             self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
                         if obj.barline:
                             self.musxml.add_barline(obj.barline)
+                        if obj.staves:
+                            self.musxml.add_staves(obj.staves)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
                         self.musxml.new_note(obj.grace, [obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration,
                         obj.voice, obj.type, self.mediator.divisions, obj.dot)
@@ -285,11 +336,15 @@ class parse_source():
                             self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
                         if obj.tremolo:
                             self.musxml.add_tremolo("single", obj.tremolo)
+                        if obj.staff:
+                            self.musxml.add_staff(obj.staff)
                     elif isinstance(obj, ly2xml_mediator.bar_rest):
                         if obj.skip:
                             self.musxml.new_skip(obj.duration, self.mediator.divisions)
                         else:
                             self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
+                        if obj.staff:
+                            self.musxml.add_staff(obj.staff)
                     elif isinstance(obj, ly2xml_mediator.bar_backup):
                         self.musxml.new_backup(obj.duration, self.mediator.divisions)
 

@@ -112,21 +112,9 @@ class create_musicXML():
 
     def new_rest(self, base_scaling, durtype, divs, pos, dot, voice):
         """ create all nodes needed for a rest. """
-        base = base_scaling[0]
-        scaling = base_scaling[1]
         self.create_note()
         self.add_rest(pos)
-        if dot:
-            import math
-            den = int(math.pow(2,dot))
-            num = int(math.pow(2,dot+1)-1)
-            a = divs*4*num
-            b = (1/base)*den
-            duration = a/b
-        else:
-            duration = divs*4*base
-        duration = duration * scaling
-        self.add_div_duration(duration)
+        self.add_div_duration(self.count_duration(base_scaling, divs, dot))
         self.add_voice(voice)
         if durtype:
             self.add_duration_type(durtype)
@@ -337,6 +325,14 @@ class create_musicXML():
     def add_voice(self, voice):
         voicenode = etree.SubElement(self.current_note, "voice")
         voicenode.text = str(voice)
+
+    def add_staff(self, staff):
+        staffnode = etree.SubElement(self.current_note, "staff")
+        staffnode.text = str(staff)
+
+    def add_staves(self, staves):
+        stavesnode = etree.SubElement(self.bar_attr, "staves")
+        stavesnode.text = str(staves)
 
 
     ##

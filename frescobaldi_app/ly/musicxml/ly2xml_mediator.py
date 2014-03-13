@@ -50,8 +50,16 @@ class mediator():
         self.sections.append(section)
         self.bar = None
 
-    def new_part(self):
-        self.part = score_part()
+    def get_var_byname(self, name):
+        for n in self.sections:
+            if n.name == name:
+                return n
+
+    def new_part(self, piano=False):
+        if piano:
+            self.part = score_part(2)
+        else:
+            self.part = score_part()
         self.score.append(self.part)
         self.insert_into = self.part
         self.bar = None
@@ -60,17 +68,21 @@ class mediator():
         self.voice = get_voice(command)
         return self.voice
 
-    def merge_variable(self, voice, varname):
+    def merge_variable(self, voice, varname, staff=False, org=None):
         """ Fetches variable as new voice """
-        for n in self.sections:
-            if n.name == varname:
-                varlen = len(n.barlist)
-                if voice:
-                    self.change_voice(n.barlist, voice)
-                for i, bar in enumerate(self.insert_into.barlist):
-                    if i < varlen:
-                        backup = self.create_backup(bar)
-                        self.insert_into.barlist[i] = bar + [backup] + n.barlist[i]
+        if org:
+            self.insert_into = self.get_var_byname(org)
+        n = self.get_var_byname(varname)
+        varlen = len(n.barlist)
+        if voice:
+            self.change_voice(n.barlist, voice)
+        if staff:
+            self.set_staff(self.insert_into.barlist, 1, False)
+            self.set_staff(n.barlist, 2)
+        for i, bar in enumerate(self.insert_into.barlist):
+            if i < varlen:
+                backup = self.create_backup(bar)
+                self.insert_into.barlist[i] = bar + [backup] + n.barlist[i]
 
     def change_voice(self, barlist, newvoice, del_barattr=True):
         for bar in barlist:
@@ -78,6 +90,16 @@ class mediator():
             for obj in orig:
                 if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
                     obj.voice = newvoice
+                elif isinstance(obj, bar_attr):
+                    if del_barattr:
+                        bar.remove(obj)
+
+    def set_staff(self, barlist, staffnr, del_barattr=True):
+        for bar in barlist:
+            orig= list(bar)
+            for obj in orig:
+                if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
+                    obj.staff = staffnr
                 elif isinstance(obj, bar_attr):
                     if del_barattr:
                         bar.remove(obj)
@@ -103,20 +125,18 @@ class mediator():
 
     def fetch_variable(self, varname):
         """ Fetches stored data for variable. """
-        for n in self.sections:
-            if n.name == varname:
-                if n.barlist:
-                    if self.check_var(n.barlist):
-                        if self.bar:
-                            if not self.check_bar(self.bar):
-                                n.barlist[0] = self.bar + n.barlist[0]
-                                self.insert_into.barlist.pop()
-                        self.insert_into.barlist.extend(n.barlist)
-                    elif isinstance(n.barlist[0][0], bar_attr):
-                        if self.bar is None:
-                            self.new_bar()
-                        self.current_attr = n.barlist[0][0]
-                        self.bar.append(self.current_attr)
+        n = self.get_var_byname(varname)
+        if n.barlist:
+            if self.check_var(n.barlist):
+                if self.insert_into.barlist and not self.check_bar(self.insert_into.barlist[-1]):
+                    n.barlist[0] = self.insert_into.barlist[-1] + n.barlist[0]
+                    self.insert_into.barlist.pop()
+                self.insert_into.barlist.extend(n.barlist)
+            elif isinstance(n.barlist[0][0], bar_attr):
+                if self.bar is None:
+                    self.new_bar()
+                self.current_attr = n.barlist[0][0]
+                self.bar.append(self.current_attr)
 
     def check_var(self, barlist):
         """ Check if barlist in variable is suitable for insert.
@@ -137,11 +157,15 @@ class mediator():
         return False
 
     def check_score(self):
+        """ if no part were created, place first variable as part. """
         if not self.score:
             self.new_part()
-            for n in self.sections:
-                if self.check_var(n.barlist):
-                    self.part.barlist.extend(n.barlist)
+            self.part.barlist.extend(self.get_first_var())
+
+    def get_first_var(self):
+        for n in self.sections:
+            if self.check_var(n.barlist):
+                return n.barlist
 
     def set_first_bar(self, part):
         initime = '4/4'
@@ -151,6 +175,8 @@ class mediator():
         if not self.check_clef(part.barlist[0]):
             part.barlist[0][0].set_clef(iniclef)
         part.barlist[0][0].divs = self.divisions
+        if part.staves:
+            part.barlist[0][0].staves = part.staves
 
     def check_time(self, bar):
         """ For now used to check first bar """
@@ -323,9 +349,10 @@ class mediator():
 
 class score_part():
     """ object to keep track of part """
-    def __init__(self):
-        self.name = "unnamed"
+    def __init__(self, staves=0):
+        self.name = ''
         self.barlist = []
+        self.staves = staves
 
 class score_section():
     """ object to keep track of music section """
@@ -347,6 +374,7 @@ class bar_note():
         self.grace = [0,0]
         self.tremolo = 0
         self.voice = voice
+        self.staff = 0
 
     def set_duration(self, base_scaling, durval=0):
         self.duration = base_scaling
@@ -390,6 +418,7 @@ class bar_rest():
         self.dot = 0
         self.pos = pos
         self.voice = voice
+        self.staff = 0
 
     def set_duration(self, base_scaling, durval=0, durtype=None):
         self.duration = base_scaling
@@ -412,6 +441,7 @@ class bar_attr():
         self.mode = ''
         self.divs = 0
         self.barline = ''
+        self.staves = 0
 
     def set_key(self, muskey, mode):
         self.key = muskey
