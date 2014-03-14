@@ -14,6 +14,7 @@ Changes in 2.0.16 --
   - Score Wizard: In the midi section the \tempo x=y syntax is now used when
     LilyPond version >= 2.16 is used (issue #337)
 * Bugfixes:
+  - fix html export and copy not using the correct color scheme
   - fix AttributeError in handle_lyricmode while typing \lyricmode
 
 

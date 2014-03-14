@@ -62,7 +62,7 @@ def html(cursor, scheme='editor', inline=False, number_lines=False):
     w.number_lines = number_lines
     w.fgcolor = data.baseColors['text'].name()
     w.bgcolor = data.baseColors['background'].name()
-    w.scheme = data.css_scheme()
+    w.css_scheme = data.css_scheme()
     return w.html(cursor)
 
 
