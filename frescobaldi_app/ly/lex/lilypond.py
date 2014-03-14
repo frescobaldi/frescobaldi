@@ -520,7 +520,7 @@ class MarkupScore(Markup):
 class MarkupUserCommand(Markup, IdentifierRef):
     """A user-defined markup (i.e. not in the words markupcommands list)."""
     def update_state(self, state):
-        state.enter(ParseMarkup(1))
+        state.endArgument()
 
 
 class MarkupWord(_token.Item):
