@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-14 11:38+0100\n"
+"POT-Creation-Date: 2014-03-14 19:39+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2520,1037 +2520,683 @@ msgid "Oblique"
 msgstr ""
 
 #: ../po/messages.py:90
-#, fuzzy
-msgctxt "QHttp"
-msgid "Connection closed"
-msgstr "Spojit taktové čáry"
-
-#: ../po/messages.py:91
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr ""
 
-#: ../po/messages.py:93
+#: ../po/messages.py:91
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr ""
 
-#: ../po/messages.py:94
+#: ../po/messages.py:92
 #, fuzzy
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "Vybr&at vše"
 
-#: ../po/messages.py:97
+#: ../po/messages.py:93
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Dole"
 
-#: ../po/messages.py:98
+#: ../po/messages.py:94
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Levý okraj"
 
-#: ../po/messages.py:99
+#: ../po/messages.py:95
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Strana dolů"
 
-#: ../po/messages.py:100
+#: ../po/messages.py:96
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Strana vlevo"
 
-#: ../po/messages.py:101
+#: ../po/messages.py:97
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Strana vpravo"
 
-#: ../po/messages.py:102
+#: ../po/messages.py:98
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Strana nahoru"
 
-#: ../po/messages.py:103
+#: ../po/messages.py:99
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Pravý okraj"
 
-#: ../po/messages.py:104
+#: ../po/messages.py:100
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Projíždět dolů"
 
-#: ../po/messages.py:105
+#: ../po/messages.py:101
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Projíždět zde"
 
-#: ../po/messages.py:106
+#: ../po/messages.py:102
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Projíždět vlevo"
 
-#: ../po/messages.py:107
+#: ../po/messages.py:103
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Projíždět vpravo"
 
-#: ../po/messages.py:108
+#: ../po/messages.py:104
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Projíždět nahoru"
 
-#: ../po/messages.py:109
+#: ../po/messages.py:105
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Nahoře"
 
-#: ../po/messages.py:110
+#: ../po/messages.py:106
 msgctxt "QShortcut"
 msgid "+"
 msgstr ""
 
-#: ../po/messages.py:111
+#: ../po/messages.py:107
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr ""
 
-#: ../po/messages.py:112
+#: ../po/messages.py:108
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr ""
 
-#: ../po/messages.py:113
+#: ../po/messages.py:109
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alt"
 
-#: ../po/messages.py:114
+#: ../po/messages.py:110
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Pomocné programy"
 
-#: ../po/messages.py:115
+#: ../po/messages.py:111
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Pomocné programy"
 
-#: ../po/messages.py:116
+#: ../po/messages.py:112
 msgctxt "QShortcut"
 msgid "Audio Cycle Track"
 msgstr ""
 
-#: ../po/messages.py:117
+#: ../po/messages.py:113
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Audio Forward"
 msgstr "Vpřed"
 
-#: ../po/messages.py:118
+#: ../po/messages.py:114
 msgctxt "QShortcut"
 msgid "Audio Random Play"
 msgstr ""
 
-#: ../po/messages.py:119
+#: ../po/messages.py:115
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Audio Repeat"
 msgstr "Opakování"
 
-#: ../po/messages.py:120
+#: ../po/messages.py:116
 msgctxt "QShortcut"
 msgid "Audio Rewind"
 msgstr ""
 
-#: ../po/messages.py:121
+#: ../po/messages.py:117
 msgctxt "QShortcut"
 msgid "Away"
 msgstr ""
 
-#: ../po/messages.py:122
+#: ../po/messages.py:118
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Zpět"
 
-#: ../po/messages.py:123
+#: ../po/messages.py:119
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Back Forward"
 msgstr "Vpřed"
 
-#: ../po/messages.py:124
+#: ../po/messages.py:120
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Backspace"
 msgstr "Zpět"
 
-#: ../po/messages.py:125
+#: ../po/messages.py:121
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Backtab"
 msgstr "Zpět"
 
-#: ../po/messages.py:126
+#: ../po/messages.py:122
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Boost"
 msgstr "Fagot"
 
-#: ../po/messages.py:127
+#: ../po/messages.py:123
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Down"
 msgstr "Fagot"
 
-#: ../po/messages.py:128
+#: ../po/messages.py:124
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Up"
 msgstr "Basová kytara"
 
-#: ../po/messages.py:129
+#: ../po/messages.py:125
 msgctxt "QShortcut"
 msgid "Battery"
 msgstr ""
 
-#: ../po/messages.py:130
-msgctxt "QShortcut"
-msgid "Bluetooth"
-msgstr ""
-
-#: ../po/messages.py:131
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Book"
-msgstr "Kniha"
-
-#: ../po/messages.py:132
+#: ../po/messages.py:126
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Prohlížeč:"
 
-#: ../po/messages.py:133
-msgctxt "QShortcut"
-msgid "Calculator"
-msgstr ""
-
-#: ../po/messages.py:134
+#: ../po/messages.py:127
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr ""
 
-#: ../po/messages.py:135
+#: ../po/messages.py:128
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr ""
 
-#: ../po/messages.py:136
-msgctxt "QShortcut"
-msgid "CD"
-msgstr ""
-
-#: ../po/messages.py:137
+#: ../po/messages.py:129
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Smazat"
 
-#: ../po/messages.py:138
+#: ../po/messages.py:130
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Smazat"
 
-#: ../po/messages.py:139
+#: ../po/messages.py:131
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../po/messages.py:140
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Community"
-msgstr "Poznámka"
-
-#: ../po/messages.py:141
+#: ../po/messages.py:132
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "&Kopírovat"
 
-#: ../po/messages.py:142
+#: ../po/messages.py:133
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr ""
 
-#: ../po/messages.py:143
+#: ../po/messages.py:134
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr "Vyjmou&t"
 
-#: ../po/messages.py:144
+#: ../po/messages.py:135
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Smazáno"
 
-#: ../po/messages.py:145
+#: ../po/messages.py:136
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Smazáno"
 
-#: ../po/messages.py:146
+#: ../po/messages.py:137
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Display"
 msgstr "Zobrazit nosná lana"
 
-#: ../po/messages.py:147
+#: ../po/messages.py:138
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Dokumenty"
 
-#: ../po/messages.py:148
-msgctxt "QShortcut"
-msgid "DOS"
-msgstr ""
-
-#: ../po/messages.py:149
+#: ../po/messages.py:139
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Dolů"
 
-#: ../po/messages.py:150
+#: ../po/messages.py:140
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr ""
 
-#: ../po/messages.py:151
+#: ../po/messages.py:141
 #, fuzzy
 msgctxt "QShortcut"
 msgid "End"
 msgstr "Rozšířit"
 
-#: ../po/messages.py:152
+#: ../po/messages.py:142
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr ""
 
-#: ../po/messages.py:153
+#: ../po/messages.py:143
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Únik"
 
-#: ../po/messages.py:154
+#: ../po/messages.py:144
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr ""
 
-#: ../po/messages.py:155
-msgctxt "QShortcut"
-msgid "Favorites"
-msgstr ""
-
-#: ../po/messages.py:156
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Finance"
-msgstr "Zrušit"
-
-#: ../po/messages.py:157
+#: ../po/messages.py:145
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Vpřed"
 
-#: ../po/messages.py:158
-msgctxt "QShortcut"
-msgid "Game"
-msgstr ""
-
-#: ../po/messages.py:159
+#: ../po/messages.py:146
 msgctxt "QShortcut"
 msgid "Go"
 msgstr ""
 
-#: ../po/messages.py:160
+#: ../po/messages.py:147
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Nápověda"
 
-#: ../po/messages.py:161
-msgctxt "QShortcut"
-msgid "Hibernate"
-msgstr ""
-
-#: ../po/messages.py:162
+#: ../po/messages.py:148
 msgctxt "QShortcut"
 msgid "History"
 msgstr ""
 
-#: ../po/messages.py:163
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Home"
-msgstr "Domovská složka"
-
-#: ../po/messages.py:164
-msgctxt "QShortcut"
-msgid "Home Office"
-msgstr ""
-
-#: ../po/messages.py:165
+#: ../po/messages.py:149
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Další strana"
 
-#: ../po/messages.py:166
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Hot Links"
-msgstr "Odkazy:"
-
-#: ../po/messages.py:167
+#: ../po/messages.py:150
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Ins"
 msgstr "Vložení"
 
-#: ../po/messages.py:168
+#: ../po/messages.py:151
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "Vložení"
 
-#: ../po/messages.py:169
-msgctxt "QShortcut"
-msgid "iTouch"
-msgstr ""
-
-#: ../po/messages.py:170
-msgctxt "QShortcut"
-msgid "Keyboard Brightness Down"
-msgstr ""
-
-#: ../po/messages.py:171
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Keyboard Brightness Up"
-msgstr "Klávesové nástroje"
-
-#: ../po/messages.py:172
-msgctxt "QShortcut"
-msgid "Keyboard Light On/Off"
-msgstr ""
-
-#: ../po/messages.py:173
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Keyboard Menu"
-msgstr "Klávesové nástroje"
-
-#: ../po/messages.py:174
-msgctxt "QShortcut"
-msgid "Launch (0)"
-msgstr ""
-
-#: ../po/messages.py:175
-msgctxt "QShortcut"
-msgid "Launch (1)"
-msgstr ""
-
-#: ../po/messages.py:176
-msgctxt "QShortcut"
-msgid "Launch (2)"
-msgstr ""
-
-#: ../po/messages.py:177
-msgctxt "QShortcut"
-msgid "Launch (3)"
-msgstr ""
-
-#: ../po/messages.py:178
-msgctxt "QShortcut"
-msgid "Launch (4)"
-msgstr ""
-
-#: ../po/messages.py:179
-msgctxt "QShortcut"
-msgid "Launch (5)"
-msgstr ""
-
-#: ../po/messages.py:180
-msgctxt "QShortcut"
-msgid "Launch (6)"
-msgstr ""
-
-#: ../po/messages.py:181
-msgctxt "QShortcut"
-msgid "Launch (7)"
-msgstr ""
-
-#: ../po/messages.py:182
-msgctxt "QShortcut"
-msgid "Launch (8)"
-msgstr ""
-
-#: ../po/messages.py:183
-msgctxt "QShortcut"
-msgid "Launch (9)"
-msgstr ""
-
-#: ../po/messages.py:184
-msgctxt "QShortcut"
-msgid "Launch (A)"
-msgstr ""
-
-#: ../po/messages.py:185
-msgctxt "QShortcut"
-msgid "Launch (B)"
-msgstr ""
-
-#: ../po/messages.py:186
-msgctxt "QShortcut"
-msgid "Launch (C)"
-msgstr ""
-
-#: ../po/messages.py:187
-msgctxt "QShortcut"
-msgid "Launch (D)"
-msgstr ""
-
-#: ../po/messages.py:188
-msgctxt "QShortcut"
-msgid "Launch (E)"
-msgstr ""
-
-#: ../po/messages.py:189
-msgctxt "QShortcut"
-msgid "Launch (F)"
-msgstr ""
-
-#: ../po/messages.py:190
-msgctxt "QShortcut"
-msgid "Launch Mail"
-msgstr ""
-
-#: ../po/messages.py:191
-msgctxt "QShortcut"
-msgid "Launch Media"
-msgstr ""
-
-#: ../po/messages.py:192
+#: ../po/messages.py:152
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Left"
 msgstr "Levý prst"
 
-#: ../po/messages.py:193
-msgctxt "QShortcut"
-msgid "LightBulb"
-msgstr ""
-
-#: ../po/messages.py:194
-msgctxt "QShortcut"
-msgid "Logoff"
-msgstr ""
-
-#: ../po/messages.py:195
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Mail Forward"
-msgstr "Vpřed"
-
-#: ../po/messages.py:196
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Market"
-msgstr "Značení"
-
-#: ../po/messages.py:197
+#: ../po/messages.py:153
 msgctxt "QShortcut"
 msgid "Media Next"
 msgstr ""
 
-#: ../po/messages.py:198
+#: ../po/messages.py:154
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Pozastavit"
 
-#: ../po/messages.py:199
+#: ../po/messages.py:155
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr ""
 
-#: ../po/messages.py:200
+#: ../po/messages.py:156
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Předchozí"
 
-#: ../po/messages.py:201
+#: ../po/messages.py:157
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Nahrávat"
 
-#: ../po/messages.py:202
+#: ../po/messages.py:158
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr ""
 
-#: ../po/messages.py:203
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Meeting"
-msgstr "Nastavení MIDI"
-
-#: ../po/messages.py:204
+#: ../po/messages.py:159
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr "&Nabídka"
 
-#: ../po/messages.py:205
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Menu PB"
-msgstr "&Nabídka"
-
-#: ../po/messages.py:206
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Messenger"
-msgstr "&Zprávy"
-
-#: ../po/messages.py:207
+#: ../po/messages.py:160
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr ""
 
-#: ../po/messages.py:208
-msgctxt "QShortcut"
-msgid "Monitor Brightness Down"
-msgstr ""
-
-#: ../po/messages.py:209
-msgctxt "QShortcut"
-msgid "Monitor Brightness Up"
-msgstr ""
-
-#: ../po/messages.py:210
+#: ../po/messages.py:161
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "No&ty"
 
-#: ../po/messages.py:211
-msgctxt "QShortcut"
-msgid "My Sites"
-msgstr ""
-
-#: ../po/messages.py:212
+#: ../po/messages.py:162
 msgctxt "QShortcut"
 msgid "News"
 msgstr ""
 
-#: ../po/messages.py:213
+#: ../po/messages.py:163
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Number Lock"
 msgstr "Číslo"
 
-#: ../po/messages.py:214
+#: ../po/messages.py:164
 msgctxt "QShortcut"
 msgid "Num Lock"
 msgstr ""
 
-#: ../po/messages.py:215
+#: ../po/messages.py:165
 msgctxt "QShortcut"
 msgid "NumLock"
 msgstr ""
 
-#: ../po/messages.py:216
+#: ../po/messages.py:166
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "Otevřít"
 
-#: ../po/messages.py:217
+#: ../po/messages.py:167
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "Volby"
 
-#: ../po/messages.py:218
+#: ../po/messages.py:168
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Strana dolů"
 
-#: ../po/messages.py:219
+#: ../po/messages.py:169
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Strana nahoru"
 
-#: ../po/messages.py:220
+#: ../po/messages.py:170
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "&Vložit"
 
-#: ../po/messages.py:221
+#: ../po/messages.py:171
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: ../po/messages.py:222
+#: ../po/messages.py:172
 #, fuzzy
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "Dolů"
 
-#: ../po/messages.py:223
+#: ../po/messages.py:173
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr ""
 
-#: ../po/messages.py:224
-msgctxt "QShortcut"
-msgid "Phone"
-msgstr ""
-
-#: ../po/messages.py:225
-msgctxt "QShortcut"
-msgid "Pictures"
-msgstr ""
-
-#: ../po/messages.py:226
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Power Off"
-msgstr "Dolní notová osnova:"
-
-#: ../po/messages.py:227
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Print"
-msgstr "Tisk"
-
-#: ../po/messages.py:228
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Print Screen"
-msgstr "Vytisknout zdroj"
-
-#: ../po/messages.py:229
+#: ../po/messages.py:174
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr ""
 
-#: ../po/messages.py:230
+#: ../po/messages.py:175
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Nahrát znovu"
 
-#: ../po/messages.py:231
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Reply"
-msgstr "Nahradit:"
-
-#: ../po/messages.py:232
+#: ../po/messages.py:176
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Return"
 msgstr "Obrátit obal"
 
-#: ../po/messages.py:233
+#: ../po/messages.py:177
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Pravý prst"
 
-#: ../po/messages.py:234
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Rotate Windows"
-msgstr "Nové &okno"
-
-#: ../po/messages.py:235
-msgctxt "QShortcut"
-msgid "Rotation KB"
-msgstr ""
-
-#: ../po/messages.py:236
-msgctxt "QShortcut"
-msgid "Rotation PB"
-msgstr ""
-
-#: ../po/messages.py:237
+#: ../po/messages.py:178
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Uložit"
 
-#: ../po/messages.py:238
-msgctxt "QShortcut"
-msgid "Screensaver"
-msgstr ""
-
-#: ../po/messages.py:239
+#: ../po/messages.py:179
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Projíždět dolů"
 
-#: ../po/messages.py:240
+#: ../po/messages.py:180
 #, fuzzy
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "Projíždět dolů"
 
-#: ../po/messages.py:241
+#: ../po/messages.py:181
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Hledat:"
 
-#: ../po/messages.py:242
+#: ../po/messages.py:182
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Vybr&at vše"
 
-#: ../po/messages.py:243
+#: ../po/messages.py:183
 msgctxt "QShortcut"
 msgid "Send"
 msgstr ""
 
-#: ../po/messages.py:244
+#: ../po/messages.py:184
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr ""
 
-#: ../po/messages.py:245
-msgctxt "QShortcut"
-msgid "Shop"
-msgstr ""
-
-#: ../po/messages.py:246
-msgctxt "QShortcut"
-msgid "Sleep"
-msgstr ""
-
-#: ../po/messages.py:247
+#: ../po/messages.py:185
 msgctxt "QShortcut"
 msgid "Space"
 msgstr ""
 
-#: ../po/messages.py:248
+#: ../po/messages.py:186
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr ""
 
-#: ../po/messages.py:249
+#: ../po/messages.py:187
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr ""
 
-#: ../po/messages.py:250
+#: ../po/messages.py:188
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr "Hlavní list"
 
-#: ../po/messages.py:251
+#: ../po/messages.py:189
 msgctxt "QShortcut"
 msgid "Standby"
 msgstr ""
 
-#: ../po/messages.py:252
+#: ../po/messages.py:190
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../po/messages.py:253
+#: ../po/messages.py:191
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Podnázev"
 
-#: ../po/messages.py:254
+#: ../po/messages.py:192
 msgctxt "QShortcut"
 msgid "Support"
 msgstr ""
 
-#: ../po/messages.py:255
+#: ../po/messages.py:193
 msgctxt "QShortcut"
 msgid "Suspend"
 msgstr ""
 
-#: ../po/messages.py:256
+#: ../po/messages.py:194
 msgctxt "QShortcut"
 msgid "SysReq"
 msgstr ""
 
-#: ../po/messages.py:257
+#: ../po/messages.py:195
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Značka"
 
-#: ../po/messages.py:258
+#: ../po/messages.py:196
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr ""
 
-#: ../po/messages.py:259
+#: ../po/messages.py:197
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Terminál"
 
-#: ../po/messages.py:260
+#: ../po/messages.py:198
 msgctxt "QShortcut"
 msgid "Time"
 msgstr ""
 
-#: ../po/messages.py:261
+#: ../po/messages.py:199
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
 msgstr ""
 
-#: ../po/messages.py:262
+#: ../po/messages.py:200
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Nástroje"
 
-#: ../po/messages.py:263
+#: ../po/messages.py:201
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Top Menu"
 msgstr "&Nabídka"
 
-#: ../po/messages.py:264
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Travel"
-msgstr "Vyrýt"
-
-#: ../po/messages.py:265
+#: ../po/messages.py:202
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Treble Down"
 msgstr "Houslový klíč 8"
 
-#: ../po/messages.py:266
+#: ../po/messages.py:203
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Treble Up"
 msgstr "Houslový klíč 8"
 
-#: ../po/messages.py:267
-msgctxt "QShortcut"
-msgid "Ultra Wide Band"
-msgstr ""
-
-#: ../po/messages.py:268
+#: ../po/messages.py:204
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Nahoru"
 
-#: ../po/messages.py:269
+#: ../po/messages.py:205
 msgctxt "QShortcut"
 msgid "Video"
 msgstr ""
 
-#: ../po/messages.py:270
+#: ../po/messages.py:206
 #, fuzzy
 msgctxt "QShortcut"
 msgid "View"
 msgstr "&Pohled"
 
-#: ../po/messages.py:271
+#: ../po/messages.py:207
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Volume Down"
 msgstr "Projíždět dolů"
 
-#: ../po/messages.py:272
+#: ../po/messages.py:208
 msgctxt "QShortcut"
 msgid "Volume Mute"
 msgstr ""
 
-#: ../po/messages.py:273
+#: ../po/messages.py:209
 msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr ""
 
-#: ../po/messages.py:274
-msgctxt "QShortcut"
-msgid "Wake Up"
-msgstr ""
-
-#: ../po/messages.py:275
-msgctxt "QShortcut"
-msgid "WebCam"
-msgstr ""
-
-#: ../po/messages.py:276
-msgctxt "QShortcut"
-msgid "Wireless"
-msgstr ""
-
-#: ../po/messages.py:277
-msgctxt "QShortcut"
-msgid "Word Processor"
-msgstr ""
-
-#: ../po/messages.py:278
-msgctxt "QShortcut"
-msgid "WWW"
-msgstr ""
-
-#: ../po/messages.py:279
-msgctxt "QShortcut"
-msgid "XFer"
-msgstr ""
-
-#: ../po/messages.py:280
+#: ../po/messages.py:210
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "&Přiblížit"
 
-#: ../po/messages.py:281
+#: ../po/messages.py:211
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "&Oddálit"
 
-#: ../po/messages.py:282
+#: ../po/messages.py:212
 #, fuzzy
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
@@ -10221,6 +9867,101 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "QHttp"
+#~ msgid "Connection closed"
+#~ msgstr "Spojit taktové čáry"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Book"
+#~ msgstr "Kniha"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Community"
+#~ msgstr "Poznámka"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Finance"
+#~ msgstr "Zrušit"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Home"
+#~ msgstr "Domovská složka"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Hot Links"
+#~ msgstr "Odkazy:"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Keyboard Brightness Up"
+#~ msgstr "Klávesové nástroje"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Keyboard Menu"
+#~ msgstr "Klávesové nástroje"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Mail Forward"
+#~ msgstr "Vpřed"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Market"
+#~ msgstr "Značení"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Meeting"
+#~ msgstr "Nastavení MIDI"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Menu PB"
+#~ msgstr "&Nabídka"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Messenger"
+#~ msgstr "&Zprávy"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Power Off"
+#~ msgstr "Dolní notová osnova:"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Print"
+#~ msgstr "Tisk"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Print Screen"
+#~ msgstr "Vytisknout zdroj"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Reply"
+#~ msgstr "Nahradit:"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Rotate Windows"
+#~ msgstr "Nové &okno"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Travel"
+#~ msgstr "Vyrýt"
 
 #, fuzzy
 #~ msgid "Write the LilyPond version in a new document"

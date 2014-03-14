@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-14 11:38+0100\n"
-"PO-Revision-Date: 2014-03-14 11:44+0100\n"
+"POT-Creation-Date: 2014-03-14 19:39+0100\n"
+"PO-Revision-Date: 2014-03-14 21:19+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -462,9 +462,8 @@ msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
 #: ../lilychooser.py:42
-#, fuzzy
 msgid "Choose the desired LilyPond version."
-msgstr "Kan LilyPond-versie niet bepalen."
+msgstr "Kies de gewenste LilyPond-versie."
 
 #: ../lilypondinfo.py:143
 msgid "Running LilyPond, this can take some time..."
@@ -2210,10 +2209,9 @@ msgid "Apply"
 msgstr "Toepassen"
 
 #: ../po/messages.py:38
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "&Cancel"
-msgstr "Annuleren"
+msgstr "&Annuleren"
 
 #: ../po/messages.py:39
 msgctxt "QDialogButtonBox"
@@ -2228,7 +2226,7 @@ msgstr "Sluiten"
 #: ../po/messages.py:41
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
-msgstr ""
+msgstr "Sluiten zonder opslaan"
 
 #: ../po/messages.py:42
 msgctxt "QDialogButtonBox"
@@ -2241,10 +2239,9 @@ msgid "Help"
 msgstr "Help"
 
 #: ../po/messages.py:44
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "&OK"
-msgstr "OK"
+msgstr "&OK"
 
 #: ../po/messages.py:45
 msgctxt "QDialogButtonBox"
@@ -2262,7 +2259,6 @@ msgid "Reset"
 msgstr "Terugzetten"
 
 #: ../po/messages.py:48
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "&Save"
 msgstr "Op&slaan"
@@ -2283,7 +2279,6 @@ msgid "All Files (*)"
 msgstr "Alle bestanden (*)"
 
 #: ../po/messages.py:52
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Back"
 msgstr "Terug"
@@ -2291,41 +2286,37 @@ msgstr "Terug"
 #: ../po/messages.py:53
 msgctxt "QFileDialog"
 msgid "Change to detail view mode"
-msgstr ""
+msgstr "Omschakelen naar detail weergavemodus"
 
 #: ../po/messages.py:54
 msgctxt "QFileDialog"
 msgid "Change to list view mode"
-msgstr ""
+msgstr "Omschakelen naar lijstweergavemodus"
 
 #: ../po/messages.py:55
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Create a New Folder"
-msgstr "Een leeg document aanmaken"
+msgstr "Een nieuwe map aanmaken"
 
 #: ../po/messages.py:56
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Create New Folder"
-msgstr "Nieuwe bestanden maken"
+msgstr "Nieuwe map aanmaken"
 
 #: ../po/messages.py:57
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "&Delete"
-msgstr "Verwijderd"
+msgstr "Ver&wijderen"
 
 #: ../po/messages.py:58
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Detail View"
-msgstr "Details"
+msgstr "Detailweergave"
 
 #: ../po/messages.py:59
 msgctxt "QFileDialog"
 msgid "Drive"
-msgstr ""
+msgstr "Drive"
 
 #: ../po/messages.py:60
 msgctxt "QFileDialog"
@@ -2333,15 +2324,14 @@ msgid "File"
 msgstr "Bestand"
 
 #: ../po/messages.py:61
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "File &name:"
-msgstr "Bestandsnaam"
+msgstr "Bestands&naam:"
 
 #: ../po/messages.py:62
 msgctxt "QFileDialog"
 msgid "Files of type:"
-msgstr ""
+msgstr "Bestanden van type:"
 
 #: ../po/messages.py:63
 msgctxt "QFileDialog"
@@ -2354,7 +2344,6 @@ msgid "Folder"
 msgstr "Map"
 
 #: ../po/messages.py:65
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Forward"
 msgstr "Verder"
@@ -2362,96 +2351,84 @@ msgstr "Verder"
 #: ../po/messages.py:66
 msgctxt "QFileDialog"
 msgid "Go back"
-msgstr ""
+msgstr "Teruggaan"
 
 #: ../po/messages.py:67
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Go forward"
-msgstr "Verder"
+msgstr "Verder gaan"
 
 #: ../po/messages.py:68
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
-msgstr "Documenten per map groeperen"
+msgstr "Naar bovenliggende map"
 
 #: ../po/messages.py:69
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "List View"
-msgstr "&Volgende weergave"
+msgstr "Lijstweergave"
 
 #: ../po/messages.py:70
 msgctxt "QFileDialog"
 msgid "Look in:"
-msgstr ""
+msgstr "Kijken in:"
 
 #: ../po/messages.py:71
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "&New Folder"
-msgstr "Map"
+msgstr "&Nieuwe map"
 
 #: ../po/messages.py:72
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "&Open"
-msgstr "Openen"
+msgstr "&Openen"
 
 #: ../po/messages.py:73
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Parent Directory"
-msgstr "Huidige map openen"
+msgstr "Bovenliggende map"
 
 #: ../po/messages.py:74
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Remove"
 msgstr "Verwijderen"
 
 #: ../po/messages.py:75
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "&Rename"
-msgstr "Hernoemen"
+msgstr "He&rnoemen"
 
 #: ../po/messages.py:76
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Show "
-msgstr "Weergeven"
+msgstr "Weergeven "
 
 #: ../po/messages.py:77
 msgctxt "QFileDialog"
 msgid "Show &hidden files"
-msgstr ""
+msgstr "&Verborgen bestanden tonen"
 
 #: ../po/messages.py:78
 msgctxt "QFileSystemModel"
 msgid "%1 bytes"
-msgstr ""
+msgstr "%1 bytes"
 
 #: ../po/messages.py:79
 msgctxt "QFileSystemModel"
 msgid "%1 KB"
-msgstr ""
+msgstr "%1 KB"
 
 #: ../po/messages.py:80
-#, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Computer"
-msgstr "Componist"
+msgstr "Computer"
 
 #: ../po/messages.py:81
-#, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Date Modified"
-msgstr "[gewijzigd]"
+msgstr "Datum gewijzigd"
 
 #: ../po/messages.py:82
-#, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Name"
 msgstr "Naam"
@@ -2459,1050 +2436,649 @@ msgstr "Naam"
 #: ../po/messages.py:83
 msgctxt "QFileSystemModel"
 msgid "Size"
-msgstr ""
+msgstr "Grootte"
 
 #: ../po/messages.py:84
-#, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Type"
-msgstr "Type:"
+msgstr "Type"
 
 #: ../po/messages.py:85
 msgctxt "QFontDatabase"
 msgid "Black"
-msgstr ""
+msgstr "Zwart"
 
 #: ../po/messages.py:86
-#, fuzzy
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr "Vet"
 
 #: ../po/messages.py:87
-#, fuzzy
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
-msgstr "Vet"
+msgstr "Halfvet"
 
 #: ../po/messages.py:88
 msgctxt "QFontDatabase"
 msgid "Light"
-msgstr ""
+msgstr "Licht"
 
 #: ../po/messages.py:89
 msgctxt "QFontDatabase"
 msgid "Oblique"
-msgstr ""
+msgstr "Oblique"
 
 #: ../po/messages.py:90
-#, fuzzy
-msgctxt "QHttp"
-msgid "Connection closed"
-msgstr "Maatstrepen verbinden"
-
-#: ../po/messages.py:91
 msgctxt "QInputContext"
 msgid "XIM"
-msgstr ""
+msgstr "XIM"
 
-#: ../po/messages.py:93
-#, fuzzy
+#: ../po/messages.py:91
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
-msgstr "Italiaanse namen"
+msgstr "%1: Ongeldige naam"
 
-#: ../po/messages.py:94
-#, fuzzy
+#: ../po/messages.py:92
 msgctxt "QMultiInputContext"
 msgid "Select IM"
-msgstr "&Alles selecteren"
+msgstr "IM selecteren"
 
-#: ../po/messages.py:97
+#: ../po/messages.py:93
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Onder"
 
-#: ../po/messages.py:98
+#: ../po/messages.py:94
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Linkerkant"
 
-#: ../po/messages.py:99
+#: ../po/messages.py:95
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Pagina omlaag"
 
-#: ../po/messages.py:100
+#: ../po/messages.py:96
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Pagina naar links"
 
-#: ../po/messages.py:101
+#: ../po/messages.py:97
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Pagina naar rechts"
 
-#: ../po/messages.py:102
+#: ../po/messages.py:98
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Pagina omhoog"
 
-#: ../po/messages.py:103
+#: ../po/messages.py:99
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Rechterkant"
 
-#: ../po/messages.py:104
+#: ../po/messages.py:100
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Omlaag schuiven"
 
-#: ../po/messages.py:105
+#: ../po/messages.py:101
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Hierheen schuiven"
 
-#: ../po/messages.py:106
+#: ../po/messages.py:102
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Naar links schuiven"
 
-#: ../po/messages.py:107
+#: ../po/messages.py:103
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Naar rechts schuiven"
 
-#: ../po/messages.py:108
+#: ../po/messages.py:104
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Omhoog schuiven"
 
-#: ../po/messages.py:109
+#: ../po/messages.py:105
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Top"
 
-#: ../po/messages.py:110
+#: ../po/messages.py:106
 msgctxt "QShortcut"
 msgid "+"
-msgstr ""
+msgstr "+"
 
-#: ../po/messages.py:111
+#: ../po/messages.py:107
 msgctxt "QShortcut"
 msgid "Add Favorite"
-msgstr ""
+msgstr "Favoriet toevoegen"
 
-#: ../po/messages.py:112
+#: ../po/messages.py:108
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
-msgstr ""
+msgstr "Helderheid aanpassen"
 
-#: ../po/messages.py:113
-#, fuzzy
+#: ../po/messages.py:109
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alt"
 
-#: ../po/messages.py:114
-#, fuzzy
+#: ../po/messages.py:110
 msgctxt "QShortcut"
 msgid "Application Left"
-msgstr "Hulpprogramma's"
+msgstr "Toepassing links"
 
-#: ../po/messages.py:115
-#, fuzzy
+#: ../po/messages.py:111
 msgctxt "QShortcut"
 msgid "Application Right"
-msgstr "Hulpprogramma's"
+msgstr "Toepassing rechts"
+
+#: ../po/messages.py:112
+msgctxt "QShortcut"
+msgid "Audio Cycle Track"
+msgstr "Audiotrack herhalen"
+
+#: ../po/messages.py:113
+msgctxt "QShortcut"
+msgid "Audio Forward"
+msgstr "Audio verder"
+
+#: ../po/messages.py:114
+msgctxt "QShortcut"
+msgid "Audio Random Play"
+msgstr "Audio willekeurig afspelen"
+
+#: ../po/messages.py:115
+msgctxt "QShortcut"
+msgid "Audio Repeat"
+msgstr "Audio herhalen"
 
 #: ../po/messages.py:116
 msgctxt "QShortcut"
-msgid "Audio Cycle Track"
-msgstr ""
+msgid "Audio Rewind"
+msgstr "Audio terugspoelen"
 
 #: ../po/messages.py:117
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Audio Forward"
-msgstr "Verder"
-
-#: ../po/messages.py:118
-msgctxt "QShortcut"
-msgid "Audio Random Play"
-msgstr ""
-
-#: ../po/messages.py:119
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Audio Repeat"
-msgstr "Herhaling (\\repeat)"
-
-#: ../po/messages.py:120
-msgctxt "QShortcut"
-msgid "Audio Rewind"
-msgstr ""
-
-#: ../po/messages.py:121
 msgctxt "QShortcut"
 msgid "Away"
-msgstr ""
+msgstr "Afwezig"
 
-#: ../po/messages.py:122
-#, fuzzy
+#: ../po/messages.py:118
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Terug"
 
-#: ../po/messages.py:123
-#, fuzzy
+#: ../po/messages.py:119
 msgctxt "QShortcut"
 msgid "Back Forward"
-msgstr "Verder"
+msgstr "Terug Verder"
 
-#: ../po/messages.py:124
-#, fuzzy
+#: ../po/messages.py:120
 msgctxt "QShortcut"
 msgid "Backspace"
-msgstr "Terug"
+msgstr "Backspace"
 
-#: ../po/messages.py:125
-#, fuzzy
+#: ../po/messages.py:121
 msgctxt "QShortcut"
 msgid "Backtab"
-msgstr "Terug"
+msgstr "Backtab"
 
-#: ../po/messages.py:126
-#, fuzzy
+#: ../po/messages.py:122
 msgctxt "QShortcut"
 msgid "Bass Boost"
-msgstr "Fagot"
+msgstr "Bas boost"
 
-#: ../po/messages.py:127
-#, fuzzy
+#: ../po/messages.py:123
 msgctxt "QShortcut"
 msgid "Bass Down"
-msgstr "Fagot"
+msgstr "Bas zachter"
 
-#: ../po/messages.py:128
-#, fuzzy
+#: ../po/messages.py:124
 msgctxt "QShortcut"
 msgid "Bass Up"
-msgstr "Bas"
+msgstr "Bas sterker"
 
-#: ../po/messages.py:129
+#: ../po/messages.py:125
 msgctxt "QShortcut"
 msgid "Battery"
-msgstr ""
+msgstr "Batterij"
 
-#: ../po/messages.py:130
-msgctxt "QShortcut"
-msgid "Bluetooth"
-msgstr ""
-
-#: ../po/messages.py:131
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Book"
-msgstr "Book"
-
-#: ../po/messages.py:132
-#, fuzzy
+#: ../po/messages.py:126
 msgctxt "QShortcut"
 msgid "Browser"
-msgstr "Browser:"
+msgstr "Browser"
 
-#: ../po/messages.py:133
-msgctxt "QShortcut"
-msgid "Calculator"
-msgstr ""
-
-#: ../po/messages.py:134
+#: ../po/messages.py:127
 msgctxt "QShortcut"
 msgid "Caps Lock"
-msgstr ""
+msgstr "Caps Lock"
 
-#: ../po/messages.py:135
+#: ../po/messages.py:128
 msgctxt "QShortcut"
 msgid "CapsLock"
-msgstr ""
+msgstr "CapsLock"
 
-#: ../po/messages.py:136
-msgctxt "QShortcut"
-msgid "CD"
-msgstr ""
-
-#: ../po/messages.py:137
-#, fuzzy
+#: ../po/messages.py:129
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Leegmaken"
 
-#: ../po/messages.py:138
-#, fuzzy
+#: ../po/messages.py:130
 msgctxt "QShortcut"
 msgid "Clear Grab"
-msgstr "Leegmaken"
+msgstr "Grab verwijderen"
 
-#: ../po/messages.py:139
-#, fuzzy
+#: ../po/messages.py:131
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Sluiten"
 
-#: ../po/messages.py:140
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Community"
-msgstr "Commentaar"
-
-#: ../po/messages.py:141
-#, fuzzy
+#: ../po/messages.py:132
 msgctxt "QShortcut"
 msgid "Copy"
-msgstr "&Kopiëren"
+msgstr "Kopiëren"
 
-#: ../po/messages.py:142
+#: ../po/messages.py:133
 msgctxt "QShortcut"
 msgid "Ctrl"
-msgstr ""
+msgstr "Ctrl"
 
-#: ../po/messages.py:143
-#, fuzzy
+#: ../po/messages.py:134
 msgctxt "QShortcut"
 msgid "Cut"
-msgstr "&Knippen"
+msgstr "Knippen"
 
-#: ../po/messages.py:144
-#, fuzzy
+#: ../po/messages.py:135
 msgctxt "QShortcut"
 msgid "Del"
-msgstr "Verwijderd"
+msgstr "Del"
 
-#: ../po/messages.py:145
-#, fuzzy
+#: ../po/messages.py:136
 msgctxt "QShortcut"
 msgid "Delete"
-msgstr "Verwijderd"
+msgstr "Verwijderen"
 
-#: ../po/messages.py:146
-#, fuzzy
+#: ../po/messages.py:137
 msgctxt "QShortcut"
 msgid "Display"
-msgstr "Skylines weergeven"
+msgstr "Weergeven"
 
-#: ../po/messages.py:147
-#, fuzzy
+#: ../po/messages.py:138
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Documenten"
 
-#: ../po/messages.py:148
-msgctxt "QShortcut"
-msgid "DOS"
-msgstr ""
-
-#: ../po/messages.py:149
-#, fuzzy
+#: ../po/messages.py:139
 msgctxt "QShortcut"
 msgid "Down"
-msgstr "Onder"
+msgstr "Omlaag"
 
-#: ../po/messages.py:150
+#: ../po/messages.py:140
 msgctxt "QShortcut"
 msgid "Eject"
-msgstr ""
+msgstr "Uitwerpen"
 
-#: ../po/messages.py:151
-#, fuzzy
+#: ../po/messages.py:141
 msgctxt "QShortcut"
 msgid "End"
-msgstr "Sneltekst"
+msgstr "End"
 
-#: ../po/messages.py:152
+#: ../po/messages.py:142
 msgctxt "QShortcut"
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
-#: ../po/messages.py:153
-#, fuzzy
+#: ../po/messages.py:143
 msgctxt "QShortcut"
 msgid "Esc"
-msgstr "Escape"
+msgstr "Esc"
 
-#: ../po/messages.py:154
+#: ../po/messages.py:144
 msgctxt "QShortcut"
 msgid "F%1"
-msgstr ""
+msgstr "F%1"
 
-#: ../po/messages.py:155
-msgctxt "QShortcut"
-msgid "Favorites"
-msgstr ""
-
-#: ../po/messages.py:156
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Finance"
-msgstr "Annuleren"
-
-#: ../po/messages.py:157
-#, fuzzy
+#: ../po/messages.py:145
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Verder"
 
-#: ../po/messages.py:158
-msgctxt "QShortcut"
-msgid "Game"
-msgstr ""
-
-#: ../po/messages.py:159
+#: ../po/messages.py:146
 msgctxt "QShortcut"
 msgid "Go"
-msgstr ""
+msgstr "Gaan"
 
-#: ../po/messages.py:160
-#, fuzzy
+#: ../po/messages.py:147
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Help"
 
-#: ../po/messages.py:161
-msgctxt "QShortcut"
-msgid "Hibernate"
-msgstr ""
-
-#: ../po/messages.py:162
+#: ../po/messages.py:148
 msgctxt "QShortcut"
 msgid "History"
-msgstr ""
+msgstr "Geschiedenis"
 
-#: ../po/messages.py:163
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Home"
-msgstr "Begin"
-
-#: ../po/messages.py:164
-msgctxt "QShortcut"
-msgid "Home Office"
-msgstr ""
-
-#: ../po/messages.py:165
-#, fuzzy
+#: ../po/messages.py:149
 msgctxt "QShortcut"
 msgid "Home Page"
-msgstr "Volgende pagina"
+msgstr "Startpagina"
 
-#: ../po/messages.py:166
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Hot Links"
-msgstr "Koppelingen:"
-
-#: ../po/messages.py:167
-#, fuzzy
+#: ../po/messages.py:150
 msgctxt "QShortcut"
 msgid "Ins"
-msgstr "Invoegen"
+msgstr "Ins"
 
-#: ../po/messages.py:168
-#, fuzzy
+#: ../po/messages.py:151
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "Invoegen"
 
-#: ../po/messages.py:169
-msgctxt "QShortcut"
-msgid "iTouch"
-msgstr ""
-
-#: ../po/messages.py:170
-msgctxt "QShortcut"
-msgid "Keyboard Brightness Down"
-msgstr ""
-
-#: ../po/messages.py:171
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Keyboard Brightness Up"
-msgstr "Toetsinstrumenten"
-
-#: ../po/messages.py:172
-msgctxt "QShortcut"
-msgid "Keyboard Light On/Off"
-msgstr ""
-
-#: ../po/messages.py:173
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Keyboard Menu"
-msgstr "Toetsenbord"
-
-#: ../po/messages.py:174
-msgctxt "QShortcut"
-msgid "Launch (0)"
-msgstr ""
-
-#: ../po/messages.py:175
-msgctxt "QShortcut"
-msgid "Launch (1)"
-msgstr ""
-
-#: ../po/messages.py:176
-msgctxt "QShortcut"
-msgid "Launch (2)"
-msgstr ""
-
-#: ../po/messages.py:177
-msgctxt "QShortcut"
-msgid "Launch (3)"
-msgstr ""
-
-#: ../po/messages.py:178
-msgctxt "QShortcut"
-msgid "Launch (4)"
-msgstr ""
-
-#: ../po/messages.py:179
-msgctxt "QShortcut"
-msgid "Launch (5)"
-msgstr ""
-
-#: ../po/messages.py:180
-msgctxt "QShortcut"
-msgid "Launch (6)"
-msgstr ""
-
-#: ../po/messages.py:181
-msgctxt "QShortcut"
-msgid "Launch (7)"
-msgstr ""
-
-#: ../po/messages.py:182
-msgctxt "QShortcut"
-msgid "Launch (8)"
-msgstr ""
-
-#: ../po/messages.py:183
-msgctxt "QShortcut"
-msgid "Launch (9)"
-msgstr ""
-
-#: ../po/messages.py:184
-msgctxt "QShortcut"
-msgid "Launch (A)"
-msgstr ""
-
-#: ../po/messages.py:185
-msgctxt "QShortcut"
-msgid "Launch (B)"
-msgstr ""
-
-#: ../po/messages.py:186
-msgctxt "QShortcut"
-msgid "Launch (C)"
-msgstr ""
-
-#: ../po/messages.py:187
-msgctxt "QShortcut"
-msgid "Launch (D)"
-msgstr ""
-
-#: ../po/messages.py:188
-msgctxt "QShortcut"
-msgid "Launch (E)"
-msgstr ""
-
-#: ../po/messages.py:189
-msgctxt "QShortcut"
-msgid "Launch (F)"
-msgstr ""
-
-#: ../po/messages.py:190
-msgctxt "QShortcut"
-msgid "Launch Mail"
-msgstr ""
-
-#: ../po/messages.py:191
-msgctxt "QShortcut"
-msgid "Launch Media"
-msgstr ""
-
-#: ../po/messages.py:192
-#, fuzzy
+#: ../po/messages.py:152
 msgctxt "QShortcut"
 msgid "Left"
-msgstr "Linker teen"
+msgstr "Links"
 
-#: ../po/messages.py:193
-msgctxt "QShortcut"
-msgid "LightBulb"
-msgstr ""
-
-#: ../po/messages.py:194
-msgctxt "QShortcut"
-msgid "Logoff"
-msgstr ""
-
-#: ../po/messages.py:195
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Mail Forward"
-msgstr "Verder"
-
-#: ../po/messages.py:196
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Market"
-msgstr "Markup"
-
-#: ../po/messages.py:197
+#: ../po/messages.py:153
 msgctxt "QShortcut"
 msgid "Media Next"
-msgstr ""
+msgstr "Media volgende"
 
-#: ../po/messages.py:198
+#: ../po/messages.py:154
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Media Pauze"
 
-#: ../po/messages.py:199
+#: ../po/messages.py:155
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr "Media Afspelen"
 
-#: ../po/messages.py:200
+#: ../po/messages.py:156
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Media Vorige"
 
-#: ../po/messages.py:201
+#: ../po/messages.py:157
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Media Opnemen"
 
-#: ../po/messages.py:202
+#: ../po/messages.py:158
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr "Media Stoppen"
 
-#: ../po/messages.py:203
-msgctxt "QShortcut"
-msgid "Meeting"
-msgstr "Meeting"
-
-#: ../po/messages.py:204
+#: ../po/messages.py:159
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr "Menu"
 
-#: ../po/messages.py:205
-msgctxt "QShortcut"
-msgid "Menu PB"
-msgstr "Menu PB"
-
-#: ../po/messages.py:206
-msgctxt "QShortcut"
-msgid "Messenger"
-msgstr "Berichten"
-
-#: ../po/messages.py:207
+#: ../po/messages.py:160
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr "Meta"
 
-#: ../po/messages.py:208
-msgctxt "QShortcut"
-msgid "Monitor Brightness Down"
-msgstr ""
-
-#: ../po/messages.py:209
-msgctxt "QShortcut"
-msgid "Monitor Brightness Up"
-msgstr ""
-
-#: ../po/messages.py:210
+#: ../po/messages.py:161
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "Muziek"
 
-#: ../po/messages.py:211
-msgctxt "QShortcut"
-msgid "My Sites"
-msgstr ""
-
-#: ../po/messages.py:212
+#: ../po/messages.py:162
 msgctxt "QShortcut"
 msgid "News"
-msgstr ""
+msgstr "Nieuws"
 
-#: ../po/messages.py:213
-#, fuzzy
+#: ../po/messages.py:163
 msgctxt "QShortcut"
 msgid "Number Lock"
-msgstr "Getal"
+msgstr "Number Lock"
 
-#: ../po/messages.py:214
+#: ../po/messages.py:164
 msgctxt "QShortcut"
 msgid "Num Lock"
-msgstr ""
+msgstr "Num Lock"
 
-#: ../po/messages.py:215
+#: ../po/messages.py:165
 msgctxt "QShortcut"
 msgid "NumLock"
-msgstr ""
+msgstr "NumLock"
 
-#: ../po/messages.py:216
+#: ../po/messages.py:166
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "URL openen"
 
-#: ../po/messages.py:217
+#: ../po/messages.py:167
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "Opties"
 
-#: ../po/messages.py:218
+#: ../po/messages.py:168
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Pagina omlaag"
 
-#: ../po/messages.py:219
+#: ../po/messages.py:169
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Pagina omhoog"
 
-#: ../po/messages.py:220
+#: ../po/messages.py:170
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "Plakken"
 
-#: ../po/messages.py:221
+#: ../po/messages.py:171
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Pauze"
 
-#: ../po/messages.py:222
+#: ../po/messages.py:172
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "Pag omlaag"
 
-#: ../po/messages.py:223
+#: ../po/messages.py:173
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr "Pag omhoog"
 
-#: ../po/messages.py:224
-msgctxt "QShortcut"
-msgid "Phone"
-msgstr "Telefoon"
-
-#: ../po/messages.py:225
-msgctxt "QShortcut"
-msgid "Pictures"
-msgstr ""
-
-#: ../po/messages.py:226
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Power Off"
-msgstr "Onderste balk:"
-
-#: ../po/messages.py:227
-msgctxt "QShortcut"
-msgid "Print"
-msgstr "Afdrukken"
-
-#: ../po/messages.py:228
-msgctxt "QShortcut"
-msgid "Print Screen"
-msgstr "Scherm afdrukken"
-
-#: ../po/messages.py:229
+#: ../po/messages.py:174
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr "Verversen"
 
-#: ../po/messages.py:230
+#: ../po/messages.py:175
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Herladen"
 
-#: ../po/messages.py:231
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Reply"
-msgstr "Vervangen:"
-
-#: ../po/messages.py:232
-#, fuzzy
+#: ../po/messages.py:176
 msgctxt "QShortcut"
 msgid "Return"
-msgstr "Omgekeerde dubbelslag"
+msgstr "Return"
 
-#: ../po/messages.py:233
+#: ../po/messages.py:177
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Rechts"
 
-#: ../po/messages.py:234
-msgctxt "QShortcut"
-msgid "Rotate Windows"
-msgstr "Vensters draaien"
-
-#: ../po/messages.py:235
-msgctxt "QShortcut"
-msgid "Rotation KB"
-msgstr "Draaiing KB"
-
-#: ../po/messages.py:236
-msgctxt "QShortcut"
-msgid "Rotation PB"
-msgstr "Draaiing PB"
-
-#: ../po/messages.py:237
+#: ../po/messages.py:178
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../po/messages.py:238
-msgctxt "QShortcut"
-msgid "Screensaver"
-msgstr "Schermbeveiliging"
-
-#: ../po/messages.py:239
-#, fuzzy
+#: ../po/messages.py:179
 msgctxt "QShortcut"
 msgid "Scroll Lock"
-msgstr "Omlaag schuiven"
+msgstr "Scroll Lock"
 
-#: ../po/messages.py:240
-#, fuzzy
+#: ../po/messages.py:180
 msgctxt "QShortcut"
 msgid "ScrollLock"
-msgstr "Omlaag schuiven"
+msgstr "ScrollLock"
 
-#: ../po/messages.py:241
+#: ../po/messages.py:181
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Zoeken"
 
-#: ../po/messages.py:242
+#: ../po/messages.py:182
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Selecteren"
 
-#: ../po/messages.py:243
+#: ../po/messages.py:183
 msgctxt "QShortcut"
 msgid "Send"
-msgstr ""
+msgstr "Verzenden"
 
-#: ../po/messages.py:244
+#: ../po/messages.py:184
 msgctxt "QShortcut"
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
-#: ../po/messages.py:245
-msgctxt "QShortcut"
-msgid "Shop"
-msgstr ""
-
-#: ../po/messages.py:246
-msgctxt "QShortcut"
-msgid "Sleep"
-msgstr ""
-
-#: ../po/messages.py:247
+#: ../po/messages.py:185
 msgctxt "QShortcut"
 msgid "Space"
 msgstr "Spatie"
 
-#: ../po/messages.py:248
+#: ../po/messages.py:186
 msgctxt "QShortcut"
 msgid "Spellchecker"
-msgstr ""
+msgstr "Spellingcontrole"
 
-#: ../po/messages.py:249
+#: ../po/messages.py:187
 msgctxt "QShortcut"
 msgid "Split Screen"
-msgstr ""
+msgstr "Scherm splitsen"
 
-#: ../po/messages.py:250
-#, fuzzy
+#: ../po/messages.py:188
 msgctxt "QShortcut"
 msgid "Spreadsheet"
-msgstr "Lead-sheet"
+msgstr "Spreadsheet"
 
-#: ../po/messages.py:251
+#: ../po/messages.py:189
 msgctxt "QShortcut"
 msgid "Standby"
-msgstr ""
+msgstr "Standby"
 
-#: ../po/messages.py:252
+#: ../po/messages.py:190
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Stop"
 
-#: ../po/messages.py:253
+#: ../po/messages.py:191
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Subtitel"
 
-#: ../po/messages.py:254
+#: ../po/messages.py:192
 msgctxt "QShortcut"
 msgid "Support"
 msgstr "Ondersteuning"
 
-#: ../po/messages.py:255
+#: ../po/messages.py:193
 msgctxt "QShortcut"
 msgid "Suspend"
-msgstr ""
+msgstr "Suspend"
 
-#: ../po/messages.py:256
+#: ../po/messages.py:194
 msgctxt "QShortcut"
 msgid "SysReq"
-msgstr ""
+msgstr "SysReq"
 
-#: ../po/messages.py:257
+#: ../po/messages.py:195
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Tab"
 
-#: ../po/messages.py:258
+#: ../po/messages.py:196
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr "Taakbalk"
 
-#: ../po/messages.py:259
+#: ../po/messages.py:197
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Terminal"
 
-#: ../po/messages.py:260
+#: ../po/messages.py:198
 msgctxt "QShortcut"
 msgid "Time"
-msgstr ""
+msgstr "Tijd"
 
-#: ../po/messages.py:261
+#: ../po/messages.py:199
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
-msgstr ""
+msgstr "Media afspelen/pauzeren omschakelen"
 
-#: ../po/messages.py:262
-#, fuzzy
+#: ../po/messages.py:200
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Gereedschap"
 
-#: ../po/messages.py:263
-#, fuzzy
+#: ../po/messages.py:201
 msgctxt "QShortcut"
 msgid "Top Menu"
-msgstr "&Menu"
+msgstr "Bovenste menu"
 
-#: ../po/messages.py:264
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Travel"
-msgstr "Graveren"
-
-#: ../po/messages.py:265
-#, fuzzy
+#: ../po/messages.py:202
 msgctxt "QShortcut"
 msgid "Treble Down"
-msgstr "Vioolsleutel met 8"
+msgstr "Hoog zachter"
 
-#: ../po/messages.py:266
-#, fuzzy
+#: ../po/messages.py:203
 msgctxt "QShortcut"
 msgid "Treble Up"
-msgstr "Vioolsleutel met 8"
+msgstr "Hoog sterker"
 
-#: ../po/messages.py:267
-msgctxt "QShortcut"
-msgid "Ultra Wide Band"
-msgstr ""
-
-#: ../po/messages.py:268
-#, fuzzy
+#: ../po/messages.py:204
 msgctxt "QShortcut"
 msgid "Up"
-msgstr "Boven"
+msgstr "Omhoog"
 
-#: ../po/messages.py:269
+#: ../po/messages.py:205
 msgctxt "QShortcut"
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
-#: ../po/messages.py:270
-#, fuzzy
+#: ../po/messages.py:206
 msgctxt "QShortcut"
 msgid "View"
-msgstr "B&eeld"
+msgstr "Beeld"
 
-#: ../po/messages.py:271
-#, fuzzy
+#: ../po/messages.py:207
 msgctxt "QShortcut"
 msgid "Volume Down"
-msgstr "Volume"
+msgstr "Volume zachter"
 
-#: ../po/messages.py:272
-#, fuzzy
+#: ../po/messages.py:208
 msgctxt "QShortcut"
 msgid "Volume Mute"
-msgstr "Volume"
+msgstr "Volume dempen"
 
-#: ../po/messages.py:273
-#, fuzzy
+#: ../po/messages.py:209
 msgctxt "QShortcut"
 msgid "Volume Up"
-msgstr "Volume"
+msgstr "Volume sterker"
 
-#: ../po/messages.py:274
-msgctxt "QShortcut"
-msgid "Wake Up"
-msgstr ""
-
-#: ../po/messages.py:275
-msgctxt "QShortcut"
-msgid "WebCam"
-msgstr ""
-
-#: ../po/messages.py:276
-msgctxt "QShortcut"
-msgid "Wireless"
-msgstr ""
-
-#: ../po/messages.py:277
-msgctxt "QShortcut"
-msgid "Word Processor"
-msgstr ""
-
-#: ../po/messages.py:278
-msgctxt "QShortcut"
-msgid "WWW"
-msgstr ""
-
-#: ../po/messages.py:279
-msgctxt "QShortcut"
-msgid "XFer"
-msgstr ""
-
-#: ../po/messages.py:280
-#, fuzzy
+#: ../po/messages.py:210
 msgctxt "QShortcut"
 msgid "Zoom In"
-msgstr "&Inzoomen"
+msgstr "Inzoomen"
 
-#: ../po/messages.py:281
-#, fuzzy
+#: ../po/messages.py:211
 msgctxt "QShortcut"
 msgid "Zoom Out"
-msgstr "&Uitzoomen"
+msgstr "Uitzoomen"
 
-#: ../po/messages.py:282
-#, fuzzy
+#: ../po/messages.py:212
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Wat is dit?"
@@ -4090,15 +3666,16 @@ msgid "When saving documents"
 msgstr "Bij het opslaan van documenten"
 
 #: ../preferences/general.py:230
-#, fuzzy
 msgid "Strip trailing whitespace"
-msgstr "&Witruimte aan regeleinden verwijderen"
+msgstr "Witruimte aan regeleinden verwijderen"
 
 #: ../preferences/general.py:232
 msgid ""
 "If checked, Frescobaldi will remove unnecessary whitespace at the end of "
 "lines (but not inside multi-line strings)."
 msgstr ""
+"Indien ingeschakeld, zal Frescobaldi onnodige witruimte aan het eind van "
+"regels verwijderen (maar niet in tekenreeksen)."
 
 #: ../preferences/general.py:234
 msgid "Keep backup copy"
@@ -9347,7 +8924,7 @@ msgstr "Kinetische schuifbeweging in de muziekweergave"
 
 #: ../userguide/credits.md:24
 msgid "Homebrew formula for Mac OS X"
-msgstr ""
+msgstr "Homebrew-formule voor Mac OS X"
 
 #: ../userguide/credits.md:27
 msgid "Mac OS X packaging and various other improvements"
@@ -10238,6 +9815,110 @@ msgstr ""
 "Hoeveel spaties in te voegen als Tab wordt ingedrukt middenin een regel "
 "tekst, standaard 8. Deze waarde wordt genegeerd als `document-tabs` is "
 "ingesteld op {yes}."
+
+#, fuzzy
+#~ msgctxt "QHttp"
+#~ msgid "Connection closed"
+#~ msgstr "Maatstrepen verbinden"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Book"
+#~ msgstr "Book"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Community"
+#~ msgstr "Commentaar"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Finance"
+#~ msgstr "Annuleren"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Home"
+#~ msgstr "Begin"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Hot Links"
+#~ msgstr "Koppelingen:"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Keyboard Brightness Up"
+#~ msgstr "Toetsinstrumenten"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Keyboard Menu"
+#~ msgstr "Toetsenbord"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Mail Forward"
+#~ msgstr "Verder"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Market"
+#~ msgstr "Markup"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Meeting"
+#~ msgstr "Meeting"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Menu PB"
+#~ msgstr "Menu PB"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Messenger"
+#~ msgstr "Berichten"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Phone"
+#~ msgstr "Telefoon"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Power Off"
+#~ msgstr "Onderste balk:"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Print"
+#~ msgstr "Afdrukken"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Print Screen"
+#~ msgstr "Scherm afdrukken"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Reply"
+#~ msgstr "Vervangen:"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Rotate Windows"
+#~ msgstr "Vensters draaien"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Rotation KB"
+#~ msgstr "Draaiing KB"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Rotation PB"
+#~ msgstr "Draaiing PB"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Screensaver"
+#~ msgstr "Schermbeveiliging"
+
+#~ msgctxt "QShortcut"
+#~ msgid "Travel"
+#~ msgstr "Reizen"
 
 #~ msgid "Write the LilyPond version in a new document"
 #~ msgstr "Het LilyPond-versienummer in een nieuw document schrijven"

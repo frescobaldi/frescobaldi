@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-14 11:38+0100\n"
+"POT-Creation-Date: 2014-03-14 19:39+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -2613,1028 +2613,682 @@ msgid "Oblique"
 msgstr ""
 
 #: ../po/messages.py:90
-#, fuzzy
-msgctxt "QHttp"
-msgid "Connection closed"
-msgstr "Ölçü çizgilerini bağla"
-
-#: ../po/messages.py:91
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr ""
 
-#: ../po/messages.py:93
+#: ../po/messages.py:91
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr ""
 
-#: ../po/messages.py:94
+#: ../po/messages.py:92
 #, fuzzy
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "Hepsini seç"
 
-#: ../po/messages.py:97
+#: ../po/messages.py:93
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Portato"
 
-#: ../po/messages.py:98
+#: ../po/messages.py:94
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Left heel"
 
-#: ../po/messages.py:99
+#: ../po/messages.py:95
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Prall down"
 
-#: ../po/messages.py:100
+#: ../po/messages.py:96
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Flageolet"
 
-#: ../po/messages.py:101
+#: ../po/messages.py:97
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Bir ritm yapıştırınız"
 
-#: ../po/messages.py:102
+#: ../po/messages.py:98
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Prall up"
 
-#: ../po/messages.py:103
+#: ../po/messages.py:99
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Right heel"
 
-#: ../po/messages.py:104
+#: ../po/messages.py:100
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Prall down"
 
-#: ../po/messages.py:105
+#: ../po/messages.py:101
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Davul notası burada başlayacak."
 
-#: ../po/messages.py:106
+#: ../po/messages.py:102
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr ""
 
-#: ../po/messages.py:107
+#: ../po/messages.py:103
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr ""
 
-#: ../po/messages.py:108
+#: ../po/messages.py:104
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Prall up"
 
-#: ../po/messages.py:109
+#: ../po/messages.py:105
 #, fuzzy
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Tıkla"
 
-#: ../po/messages.py:110
+#: ../po/messages.py:106
 msgctxt "QShortcut"
 msgid "+"
 msgstr ""
 
-#: ../po/messages.py:111
+#: ../po/messages.py:107
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr ""
 
-#: ../po/messages.py:112
+#: ../po/messages.py:108
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr ""
 
-#: ../po/messages.py:113
+#: ../po/messages.py:109
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alto"
 
-#: ../po/messages.py:114
+#: ../po/messages.py:110
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Yardımcı Uygulamalar"
 
-#: ../po/messages.py:115
+#: ../po/messages.py:111
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Yardımcı Uygulamalar"
 
-#: ../po/messages.py:116
+#: ../po/messages.py:112
 msgctxt "QShortcut"
 msgid "Audio Cycle Track"
 msgstr ""
 
-#: ../po/messages.py:117
+#: ../po/messages.py:113
 msgctxt "QShortcut"
 msgid "Audio Forward"
 msgstr ""
 
-#: ../po/messages.py:118
+#: ../po/messages.py:114
 msgctxt "QShortcut"
 msgid "Audio Random Play"
 msgstr ""
 
-#: ../po/messages.py:119
+#: ../po/messages.py:115
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Audio Repeat"
 msgstr "Tekrar sonu"
 
-#: ../po/messages.py:120
+#: ../po/messages.py:116
 msgctxt "QShortcut"
 msgid "Audio Rewind"
 msgstr ""
 
-#: ../po/messages.py:121
+#: ../po/messages.py:117
 msgctxt "QShortcut"
 msgid "Away"
 msgstr ""
 
-#: ../po/messages.py:122
+#: ../po/messages.py:118
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Kalın parantez"
 
-#: ../po/messages.py:123
+#: ../po/messages.py:119
 msgctxt "QShortcut"
 msgid "Back Forward"
 msgstr ""
 
-#: ../po/messages.py:124
+#: ../po/messages.py:120
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Backspace"
 msgstr "Kalın parantez"
 
-#: ../po/messages.py:125
+#: ../po/messages.py:121
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Backtab"
 msgstr "Kalın parantez"
 
-#: ../po/messages.py:126
+#: ../po/messages.py:122
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Boost"
 msgstr "Bassoon"
 
-#: ../po/messages.py:127
+#: ../po/messages.py:123
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Down"
 msgstr "Bassoon"
 
-#: ../po/messages.py:128
+#: ../po/messages.py:124
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Up"
 msgstr "Bass"
 
-#: ../po/messages.py:129
+#: ../po/messages.py:125
 msgctxt "QShortcut"
 msgid "Battery"
 msgstr ""
 
-#: ../po/messages.py:130
-msgctxt "QShortcut"
-msgid "Bluetooth"
-msgstr ""
-
-#: ../po/messages.py:131
-msgctxt "QShortcut"
-msgid "Book"
-msgstr ""
-
-#: ../po/messages.py:132
+#: ../po/messages.py:126
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr ""
 
-#: ../po/messages.py:133
-msgctxt "QShortcut"
-msgid "Calculator"
-msgstr ""
-
-#: ../po/messages.py:134
+#: ../po/messages.py:127
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr ""
 
-#: ../po/messages.py:135
+#: ../po/messages.py:128
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr ""
 
-#: ../po/messages.py:136
-msgctxt "QShortcut"
-msgid "CD"
-msgstr ""
-
-#: ../po/messages.py:137
+#: ../po/messages.py:129
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Celesta"
 
-#: ../po/messages.py:138
+#: ../po/messages.py:130
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Celesta"
 
-#: ../po/messages.py:139
+#: ../po/messages.py:131
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Besteci"
 
-#: ../po/messages.py:140
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Community"
-msgstr "Komut"
-
-#: ../po/messages.py:141
+#: ../po/messages.py:132
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "&Kopyala"
 
-#: ../po/messages.py:142
+#: ../po/messages.py:133
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr ""
 
-#: ../po/messages.py:143
+#: ../po/messages.py:134
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr ""
 
-#: ../po/messages.py:144
+#: ../po/messages.py:135
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Hepsini seç"
 
-#: ../po/messages.py:145
+#: ../po/messages.py:136
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Hepsini seç"
 
-#: ../po/messages.py:146
+#: ../po/messages.py:137
 msgctxt "QShortcut"
 msgid "Display"
 msgstr ""
 
-#: ../po/messages.py:147
+#: ../po/messages.py:138
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "&Belge"
 
-#: ../po/messages.py:148
-msgctxt "QShortcut"
-msgid "DOS"
-msgstr ""
-
-#: ../po/messages.py:149
+#: ../po/messages.py:139
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Aşağı"
 
-#: ../po/messages.py:150
+#: ../po/messages.py:140
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr ""
 
-#: ../po/messages.py:151
+#: ../po/messages.py:141
 #, fuzzy
 msgctxt "QShortcut"
 msgid "End"
 msgstr "Genişlet"
 
-#: ../po/messages.py:152
+#: ../po/messages.py:142
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr ""
 
-#: ../po/messages.py:153
+#: ../po/messages.py:143
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Yatay"
 
-#: ../po/messages.py:154
+#: ../po/messages.py:144
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr ""
 
-#: ../po/messages.py:155
-msgctxt "QShortcut"
-msgid "Favorites"
-msgstr ""
-
-#: ../po/messages.py:156
-msgctxt "QShortcut"
-msgid "Finance"
-msgstr ""
-
-#: ../po/messages.py:157
+#: ../po/messages.py:145
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr ""
 
-#: ../po/messages.py:158
-msgctxt "QShortcut"
-msgid "Game"
-msgstr ""
-
-#: ../po/messages.py:159
+#: ../po/messages.py:146
 msgctxt "QShortcut"
 msgid "Go"
 msgstr ""
 
-#: ../po/messages.py:160
+#: ../po/messages.py:147
 msgctxt "QShortcut"
 msgid "Help"
 msgstr ""
 
-#: ../po/messages.py:161
-msgctxt "QShortcut"
-msgid "Hibernate"
-msgstr ""
-
-#: ../po/messages.py:162
+#: ../po/messages.py:148
 msgctxt "QShortcut"
 msgid "History"
 msgstr ""
 
-#: ../po/messages.py:163
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Home"
-msgstr "Ana Sayfa"
-
-#: ../po/messages.py:164
-msgctxt "QShortcut"
-msgid "Home Office"
-msgstr ""
-
-#: ../po/messages.py:165
+#: ../po/messages.py:149
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Sonraki boş satır"
 
-#: ../po/messages.py:166
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Hot Links"
-msgstr "Şarkı Sözleri:"
-
-#: ../po/messages.py:167
+#: ../po/messages.py:150
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Ins"
 msgstr "&Ekle"
 
-#: ../po/messages.py:168
+#: ../po/messages.py:151
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "&Ekle"
 
-#: ../po/messages.py:169
-msgctxt "QShortcut"
-msgid "iTouch"
-msgstr ""
-
-#: ../po/messages.py:170
-msgctxt "QShortcut"
-msgid "Keyboard Brightness Down"
-msgstr ""
-
-#: ../po/messages.py:171
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Keyboard Brightness Up"
-msgstr "Tuşlu çalgılar"
-
-#: ../po/messages.py:172
-msgctxt "QShortcut"
-msgid "Keyboard Light On/Off"
-msgstr ""
-
-#: ../po/messages.py:173
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Keyboard Menu"
-msgstr "Tuşlu çalgılar"
-
-#: ../po/messages.py:174
-msgctxt "QShortcut"
-msgid "Launch (0)"
-msgstr ""
-
-#: ../po/messages.py:175
-msgctxt "QShortcut"
-msgid "Launch (1)"
-msgstr ""
-
-#: ../po/messages.py:176
-msgctxt "QShortcut"
-msgid "Launch (2)"
-msgstr ""
-
-#: ../po/messages.py:177
-msgctxt "QShortcut"
-msgid "Launch (3)"
-msgstr ""
-
-#: ../po/messages.py:178
-msgctxt "QShortcut"
-msgid "Launch (4)"
-msgstr ""
-
-#: ../po/messages.py:179
-msgctxt "QShortcut"
-msgid "Launch (5)"
-msgstr ""
-
-#: ../po/messages.py:180
-msgctxt "QShortcut"
-msgid "Launch (6)"
-msgstr ""
-
-#: ../po/messages.py:181
-msgctxt "QShortcut"
-msgid "Launch (7)"
-msgstr ""
-
-#: ../po/messages.py:182
-msgctxt "QShortcut"
-msgid "Launch (8)"
-msgstr ""
-
-#: ../po/messages.py:183
-msgctxt "QShortcut"
-msgid "Launch (9)"
-msgstr ""
-
-#: ../po/messages.py:184
-msgctxt "QShortcut"
-msgid "Launch (A)"
-msgstr ""
-
-#: ../po/messages.py:185
-msgctxt "QShortcut"
-msgid "Launch (B)"
-msgstr ""
-
-#: ../po/messages.py:186
-msgctxt "QShortcut"
-msgid "Launch (C)"
-msgstr ""
-
-#: ../po/messages.py:187
-msgctxt "QShortcut"
-msgid "Launch (D)"
-msgstr ""
-
-#: ../po/messages.py:188
-msgctxt "QShortcut"
-msgid "Launch (E)"
-msgstr ""
-
-#: ../po/messages.py:189
-msgctxt "QShortcut"
-msgid "Launch (F)"
-msgstr ""
-
-#: ../po/messages.py:190
-msgctxt "QShortcut"
-msgid "Launch Mail"
-msgstr ""
-
-#: ../po/messages.py:191
-msgctxt "QShortcut"
-msgid "Launch Media"
-msgstr ""
-
-#: ../po/messages.py:192
+#: ../po/messages.py:152
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Left"
 msgstr "Left toe"
 
-#: ../po/messages.py:193
-msgctxt "QShortcut"
-msgid "LightBulb"
-msgstr ""
-
-#: ../po/messages.py:194
-msgctxt "QShortcut"
-msgid "Logoff"
-msgstr ""
-
-#: ../po/messages.py:195
-msgctxt "QShortcut"
-msgid "Mail Forward"
-msgstr ""
-
-#: ../po/messages.py:196
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Market"
-msgstr "Harp"
-
-#: ../po/messages.py:197
+#: ../po/messages.py:153
 msgctxt "QShortcut"
 msgid "Media Next"
 msgstr ""
 
-#: ../po/messages.py:198
+#: ../po/messages.py:154
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Durakla"
 
-#: ../po/messages.py:199
+#: ../po/messages.py:155
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr ""
 
-#: ../po/messages.py:200
+#: ../po/messages.py:156
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Önceki"
 
-#: ../po/messages.py:201
+#: ../po/messages.py:157
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Kayıt"
 
-#: ../po/messages.py:202
+#: ../po/messages.py:158
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr ""
 
-#: ../po/messages.py:203
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Meeting"
-msgstr "Ayarlar"
-
-#: ../po/messages.py:204
+#: ../po/messages.py:159
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr ""
 
-#: ../po/messages.py:205
-msgctxt "QShortcut"
-msgid "Menu PB"
-msgstr ""
-
-#: ../po/messages.py:206
-msgctxt "QShortcut"
-msgid "Messenger"
-msgstr ""
-
-#: ../po/messages.py:207
+#: ../po/messages.py:160
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr ""
 
-#: ../po/messages.py:208
-msgctxt "QShortcut"
-msgid "Monitor Brightness Down"
-msgstr ""
-
-#: ../po/messages.py:209
-msgctxt "QShortcut"
-msgid "Monitor Brightness Up"
-msgstr ""
-
-#: ../po/messages.py:210
+#: ../po/messages.py:161
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "Müziği Yazdır..."
 
-#: ../po/messages.py:211
-msgctxt "QShortcut"
-msgid "My Sites"
-msgstr ""
-
-#: ../po/messages.py:212
+#: ../po/messages.py:162
 msgctxt "QShortcut"
 msgid "News"
 msgstr ""
 
-#: ../po/messages.py:213
+#: ../po/messages.py:163
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Number Lock"
 msgstr "İsim"
 
-#: ../po/messages.py:214
+#: ../po/messages.py:164
 msgctxt "QShortcut"
 msgid "Num Lock"
 msgstr ""
 
-#: ../po/messages.py:215
+#: ../po/messages.py:165
 msgctxt "QShortcut"
 msgid "NumLock"
 msgstr ""
 
-#: ../po/messages.py:216
+#: ../po/messages.py:166
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "Aç %1"
 
-#: ../po/messages.py:217
+#: ../po/messages.py:167
 msgctxt "QShortcut"
 msgid "Option"
 msgstr ""
 
-#: ../po/messages.py:218
+#: ../po/messages.py:168
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Prall down"
 
-#: ../po/messages.py:219
+#: ../po/messages.py:169
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Prall up"
 
-#: ../po/messages.py:220
+#: ../po/messages.py:170
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "Durakla"
 
-#: ../po/messages.py:221
+#: ../po/messages.py:171
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Durakla"
 
-#: ../po/messages.py:222
+#: ../po/messages.py:172
 #, fuzzy
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "Aşağı"
 
-#: ../po/messages.py:223
+#: ../po/messages.py:173
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr ""
 
-#: ../po/messages.py:224
-msgctxt "QShortcut"
-msgid "Phone"
-msgstr ""
-
-#: ../po/messages.py:225
-msgctxt "QShortcut"
-msgid "Pictures"
-msgstr ""
-
-#: ../po/messages.py:226
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Power Off"
-msgstr "Bas dizek:"
-
-#: ../po/messages.py:227
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Print"
-msgstr "Yazdır"
-
-#: ../po/messages.py:228
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Print Screen"
-msgstr "Kaynağı Yazdır..."
-
-#: ../po/messages.py:229
+#: ../po/messages.py:174
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr ""
 
-#: ../po/messages.py:230
+#: ../po/messages.py:175
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Yeniden Yükle"
 
-#: ../po/messages.py:231
-msgctxt "QShortcut"
-msgid "Reply"
-msgstr ""
-
-#: ../po/messages.py:232
+#: ../po/messages.py:176
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Return"
 msgstr "Reverse turn"
 
-#: ../po/messages.py:233
+#: ../po/messages.py:177
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Right toe"
 
-#: ../po/messages.py:234
-msgctxt "QShortcut"
-msgid "Rotate Windows"
-msgstr ""
-
-#: ../po/messages.py:235
-msgctxt "QShortcut"
-msgid "Rotation KB"
-msgstr ""
-
-#: ../po/messages.py:236
-msgctxt "QShortcut"
-msgid "Rotation PB"
-msgstr ""
-
-#: ../po/messages.py:237
+#: ../po/messages.py:178
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Kaydet"
 
-#: ../po/messages.py:238
-msgctxt "QShortcut"
-msgid "Screensaver"
-msgstr ""
-
-#: ../po/messages.py:239
+#: ../po/messages.py:179
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Prall down"
 
-#: ../po/messages.py:240
+#: ../po/messages.py:180
 #, fuzzy
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "Prall down"
 
-#: ../po/messages.py:241
+#: ../po/messages.py:181
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Ara..."
 
-#: ../po/messages.py:242
+#: ../po/messages.py:182
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Hepsini seç"
 
-#: ../po/messages.py:243
+#: ../po/messages.py:183
 msgctxt "QShortcut"
 msgid "Send"
 msgstr ""
 
-#: ../po/messages.py:244
+#: ../po/messages.py:184
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr ""
 
-#: ../po/messages.py:245
-msgctxt "QShortcut"
-msgid "Shop"
-msgstr ""
-
-#: ../po/messages.py:246
-msgctxt "QShortcut"
-msgid "Sleep"
-msgstr ""
-
-#: ../po/messages.py:247
+#: ../po/messages.py:185
 msgctxt "QShortcut"
 msgid "Space"
 msgstr ""
 
-#: ../po/messages.py:248
+#: ../po/messages.py:186
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr ""
 
-#: ../po/messages.py:249
+#: ../po/messages.py:187
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr ""
 
-#: ../po/messages.py:250
+#: ../po/messages.py:188
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr "Detaylı Şarkı Notası"
 
-#: ../po/messages.py:251
+#: ../po/messages.py:189
 msgctxt "QShortcut"
 msgid "Standby"
 msgstr ""
 
-#: ../po/messages.py:252
+#: ../po/messages.py:190
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Adım"
 
-#: ../po/messages.py:253
+#: ../po/messages.py:191
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Alt Başlık"
 
-#: ../po/messages.py:254
+#: ../po/messages.py:192
 msgctxt "QShortcut"
 msgid "Support"
 msgstr ""
 
-#: ../po/messages.py:255
+#: ../po/messages.py:193
 msgctxt "QShortcut"
 msgid "Suspend"
 msgstr ""
 
-#: ../po/messages.py:256
+#: ../po/messages.py:194
 msgctxt "QShortcut"
 msgid "SysReq"
 msgstr ""
 
-#: ../po/messages.py:257
+#: ../po/messages.py:195
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Tıkla"
 
-#: ../po/messages.py:258
+#: ../po/messages.py:196
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr ""
 
-#: ../po/messages.py:259
+#: ../po/messages.py:197
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Konsol"
 
-#: ../po/messages.py:260
+#: ../po/messages.py:198
 msgctxt "QShortcut"
 msgid "Time"
 msgstr ""
 
-#: ../po/messages.py:261
+#: ../po/messages.py:199
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
 msgstr ""
 
-#: ../po/messages.py:262
+#: ../po/messages.py:200
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "&Araç Görünümleri"
 
-#: ../po/messages.py:263
+#: ../po/messages.py:201
 msgctxt "QShortcut"
 msgid "Top Menu"
 msgstr ""
 
-#: ../po/messages.py:264
-msgctxt "QShortcut"
-msgid "Travel"
-msgstr ""
-
-#: ../po/messages.py:265
+#: ../po/messages.py:202
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Treble Down"
 msgstr "Sekizli Yukarı"
 
-#: ../po/messages.py:266
+#: ../po/messages.py:203
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Treble Up"
 msgstr "Sekizli Yukarı"
 
-#: ../po/messages.py:267
-msgctxt "QShortcut"
-msgid "Ultra Wide Band"
-msgstr ""
-
-#: ../po/messages.py:268
+#: ../po/messages.py:204
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Yukarı"
 
-#: ../po/messages.py:269
+#: ../po/messages.py:205
 msgctxt "QShortcut"
 msgid "Video"
 msgstr ""
 
-#: ../po/messages.py:270
+#: ../po/messages.py:206
 #, fuzzy
 msgctxt "QShortcut"
 msgid "View"
 msgstr "&Araç Görünümleri"
 
-#: ../po/messages.py:271
+#: ../po/messages.py:207
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Volume Down"
 msgstr "Prall down"
 
-#: ../po/messages.py:272
+#: ../po/messages.py:208
 msgctxt "QShortcut"
 msgid "Volume Mute"
 msgstr ""
 
-#: ../po/messages.py:273
+#: ../po/messages.py:209
 msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr ""
 
-#: ../po/messages.py:274
-msgctxt "QShortcut"
-msgid "Wake Up"
-msgstr ""
-
-#: ../po/messages.py:275
-msgctxt "QShortcut"
-msgid "WebCam"
-msgstr ""
-
-#: ../po/messages.py:276
-msgctxt "QShortcut"
-msgid "Wireless"
-msgstr ""
-
-#: ../po/messages.py:277
-msgctxt "QShortcut"
-msgid "Word Processor"
-msgstr ""
-
-#: ../po/messages.py:278
-msgctxt "QShortcut"
-msgid "WWW"
-msgstr ""
-
-#: ../po/messages.py:279
-msgctxt "QShortcut"
-msgid "XFer"
-msgstr ""
-
-#: ../po/messages.py:280
+#: ../po/messages.py:210
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr ""
 
-#: ../po/messages.py:281
+#: ../po/messages.py:211
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr ""
 
-#: ../po/messages.py:282
+#: ../po/messages.py:212
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr ""
@@ -9886,6 +9540,61 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "QHttp"
+#~ msgid "Connection closed"
+#~ msgstr "Ölçü çizgilerini bağla"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Community"
+#~ msgstr "Komut"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Home"
+#~ msgstr "Ana Sayfa"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Hot Links"
+#~ msgstr "Şarkı Sözleri:"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Keyboard Brightness Up"
+#~ msgstr "Tuşlu çalgılar"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Keyboard Menu"
+#~ msgstr "Tuşlu çalgılar"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Market"
+#~ msgstr "Harp"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Meeting"
+#~ msgstr "Ayarlar"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Power Off"
+#~ msgstr "Bas dizek:"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Print"
+#~ msgstr "Yazdır"
+
+#, fuzzy
+#~ msgctxt "QShortcut"
+#~ msgid "Print Screen"
+#~ msgstr "Kaynağı Yazdır..."
 
 #, fuzzy
 #~ msgid "Write the LilyPond version in a new document"
