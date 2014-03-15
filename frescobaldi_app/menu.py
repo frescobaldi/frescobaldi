@@ -337,6 +337,7 @@ def menu_tools_rhythm(mainwindow):
     m.addAction(ac.rhythm_undot)
     m.addSeparator()
     m.addAction(ac.rhythm_remove_scaling)
+    m.addAction(ac.rhythm_remove_fraction_scaling)
     m.addAction(ac.rhythm_remove)
     m.addSeparator()
     m.addAction(ac.rhythm_implicit)

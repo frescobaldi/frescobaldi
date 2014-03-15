@@ -8,6 +8,9 @@ Changes in 2.0.16 --
   - updated: nl
 * New features
   - preference to automatically strip trailing whitespace on save (issue #274)
+  - in Tools -> Rhythm: new command to remove duration scalings that contain 
+    a fraction value (the action was already available for some time, but it 
+    wasn't in the menu)
 * Improvements:
   - autocompile does only happen when a document has toplevel markup or music
   - LilyPond instance can be selected in convert-ly dialog (wish #311)

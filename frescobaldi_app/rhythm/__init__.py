@@ -58,6 +58,7 @@ class Rhythm(plugin.MainWindowPlugin):
         ac.rhythm_dot.setEnabled(selection)
         ac.rhythm_undot.setEnabled(selection)
         ac.rhythm_remove_scaling.setEnabled(selection)
+        ac.rhythm_remove_fraction_scaling.setEnabled(selection)
         ac.rhythm_remove.setEnabled(selection)
         ac.rhythm_implicit.setEnabled(selection)
         ac.rhythm_implicit_per_line.setEnabled(selection)
