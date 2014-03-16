@@ -222,6 +222,8 @@ class Player(object):
             self.time_event(time)
         if event.beat:
             self.beat_event(*event.beat)
+        if event.user is not None:
+            self.user_event(event.user)
     
     def midi_event(self, midi):
         """(Private) Plays the specified MIDI events.
@@ -237,6 +239,9 @@ class Player(object):
     
     def time_event(self, msec):
         """(Private) Called on every time update."""
+    
+    def user_event(self, obj):
+        """(Private) Called when there is a user event."""
     
     def beat_event(self, measnum, beat, num, den):
         """(Private) Called on every beat."""
@@ -361,13 +366,15 @@ class Event(object):
     time: if True, time_event() is caled with the current music time.
     beat: None or (measnum, beat, num, den), then beat_event() is called.
     midi: If not None, midi_event() is called with the midi.
+    user: Any object, if not None, user_event() is called with the object.
     
     """
-    __slots__ = ['midi', 'time', 'beat']
+    __slots__ = ['midi', 'time', 'beat', 'user']
     def __init__(self):
         self.midi = None
         self.time = None
         self.beat = None
+        self.user = None
 
     def __repr__(self):
         l = []
@@ -377,6 +384,8 @@ class Event(object):
             l.append('beat({0}:{1})'.format(self.beat[0], self.beat[1]))
         if self.midi:
             l.append('midi')
+        if self.user:
+            l.append('user')
         return '<Event ' + ', '.join(l) + '>'
 
 

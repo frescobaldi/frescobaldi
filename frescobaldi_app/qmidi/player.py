@@ -45,10 +45,14 @@ class Player(QThread, midifile.player.Player):
         the measure number, beat number, time signature numerator and denom.,
         where 0 = whole note, 1 = half note, 2 = quarter note, etc.
     
+    user(object):
+        any user object that might be added to an event
+    
     """
     stateChanged = pyqtSignal(bool)
     time = pyqtSignal(int)
     beat = pyqtSignal(int, int, int, int)
+    user = pyqtSignal(object)
     
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
@@ -90,4 +94,8 @@ class Player(QThread, midifile.player.Player):
     
     def beat_event(self, measnum, beat, num, den):
         self.beat.emit(measnum, beat, num, den)
+    
+    def user_event(self, obj):
+        self.user.emit(obj)
+
 
