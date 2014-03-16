@@ -50,6 +50,7 @@ class parse_source():
         self.sim_list = []
         self.new_sim = None
         self.simsectnr = 0
+        self.is_chord = False
 
     def parse_text(self, text, mode=None):
         state = ly.lex.state(mode) if mode else ly.lex.guessState(text)
@@ -141,6 +142,15 @@ class parse_source():
             self.prev_command = ''
             self.can_create_sect = True
 
+    def ChordStart(self, token):
+        """ < """
+        self.is_chord = True
+        self.mediator.new_chord = True
+
+    def ChordEnd(self, token):
+        """ > """
+        self.is_chord = False
+
     def Score(self, token):
         self.new_sim = "score"
 
@@ -197,6 +207,9 @@ class parse_source():
             self.key = token
         elif self.prev_command == "relative":
             self.mediator.set_relative(token)
+        elif self.is_chord:
+            self.mediator.create_chord(token, self.pitch_mode)
+            self.mediator.new_chord = False
         else:
             self.mediator.new_note(token, self.pitch_mode)
             if self.tuplet:
@@ -329,7 +342,7 @@ class parse_source():
                             self.musxml.add_staves(obj.staves)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
                         self.musxml.new_note(obj.grace, [obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration,
-                        obj.voice, obj.type, self.mediator.divisions, obj.dot)
+                        obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                         if obj.tie:
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:

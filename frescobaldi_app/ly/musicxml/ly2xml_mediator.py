@@ -43,6 +43,8 @@ class mediator():
         self.base_scaling = [Fraction(1, 4), Fraction(1, 1)]
         self.tied = False
         self.voice = 1
+        self.current_chord = []
+        self.new_chord = True
 
     def new_section(self, name):
         section = score_section(name)
@@ -244,6 +246,22 @@ class mediator():
         self.current_attr = bar_attr()
         self.set_prev_pitch()
 
+    def create_chord(self, note_name, pitch_mode):
+        if self.new_chord:
+            self.current_chord = []
+            self.new_note(note_name, pitch_mode)
+            self.current_chord.append(self.current_note)
+        else:
+            self.current_chord.append(self.new_chordnote(note_name, pitch_mode, len(self.current_chord)))
+
+    def new_chordnote(self, note_name, pitch_mode, chord_num):
+        chord_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
+        if pitch_mode == 'rel':
+            chord_note.set_octave("", True, self.current_chord[chord_num-1].pitch)
+        chord_note.chord = True
+        self.bar.append(chord_note)
+        return chord_note
+
     def new_rest(self, rtype, pos=0):
         if rtype == 'r':
             self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice)
@@ -275,7 +293,11 @@ class mediator():
 
     def new_duration(self, duration):
         base, scaling = ly.duration.base_scaling_string(duration)
-        self.current_note.set_duration([base, scaling], duration)
+        if self.current_chord:
+            for c in self.current_chord:
+                c.set_duration([base, scaling], duration)
+        else:
+            self.current_note.set_duration([base, scaling], duration)
         self.duration = duration
         self.base_scaling = [base, scaling]
         self.check_divs(base, scaling, self.current_note.tuplet)
@@ -292,7 +314,11 @@ class mediator():
         self.current_note.set_tuplet(tfraction, ttype)
 
     def new_dot(self):
-        self.current_note.add_dot()
+        if self.current_chord:
+            for c in self.current_chord:
+                c.add_dot()
+        else:
+            self.current_note.add_dot()
         num_dots = self.current_note.dot
         import math
         num = int(math.pow(2,num_dots))
@@ -375,6 +401,7 @@ class bar_note():
         self.tremolo = 0
         self.voice = voice
         self.staff = 0
+        self.chord = False
 
     def set_duration(self, base_scaling, durval=0):
         self.duration = base_scaling

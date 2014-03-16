@@ -76,11 +76,13 @@ class create_musicXML():
     # High-level node creation
     ##
 
-    def new_note(self, grace, pitch, base_scaling, voice, durtype, divs, dot):
+    def new_note(self, grace, pitch, base_scaling, voice, durtype, divs, dot, chord):
         """ create all nodes needed for a note. """
         self.create_note()
         if grace[0]:
             self.add_grace(grace[1])
+        if chord:
+            self.add_chord()
         self.add_pitch(pitch[0], pitch[1], pitch[2])
         if not grace[0]:
             self.add_div_duration(self.count_duration(base_scaling, divs, dot))
@@ -333,6 +335,9 @@ class create_musicXML():
     def add_staves(self, staves):
         stavesnode = etree.SubElement(self.bar_attr, "staves")
         stavesnode.text = str(staves)
+
+    def add_chord(self):
+        etree.SubElement(self.current_note, "chord")
 
 
     ##
