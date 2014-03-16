@@ -57,7 +57,7 @@ class LilyChooser(QComboBox):
         """Load the available LilyPond infos."""
         infos = lilypondinfo.infos() or [lilypondinfo.default()]
         infos.sort(key = lambda i: i.version() or (999,))
-        cmd = self._infos[self.currentIndex()].abscommand() if self._infos else None
+        cur = self._infos[self.currentIndex()] if self._infos else lilypondinfo.preferred()
         self._infos = infos
         block = self.blockSignals(True)
         try:
@@ -66,9 +66,9 @@ class LilyChooser(QComboBox):
             for i, info in enumerate(infos):
                 icon = 'lilypond-run' if info.version() else 'dialog-error'
                 self.addItem(icons.get(icon), info.prettyName())
-                if cmd and info.abscommand() == cmd:
+                if info.abscommand() == cur.abscommand() or info.command == cur.command:
                     index = i
-            self.setCurrentIndex(i)
+            self.setCurrentIndex(index)
         finally:
             self.blockSignals(block)
 
