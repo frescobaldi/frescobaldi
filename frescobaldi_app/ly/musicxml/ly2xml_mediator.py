@@ -235,6 +235,7 @@ class mediator():
         self.prev_pitch = ly.pitch.Pitch(p.note, p.alter, p.octave)
 
     def new_note(self, note_name, pitch_mode):
+        self.current_chord = []
         self.current_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
         if self.dots:
             self.current_note.dot = self.dots
@@ -251,16 +252,17 @@ class mediator():
 
     def create_chord(self, note_name, pitch_mode):
         if self.new_chord:
-            self.current_chord = []
             self.new_note(note_name, pitch_mode)
             self.current_chord.append(self.current_note)
         else:
             self.current_chord.append(self.new_chordnote(note_name, pitch_mode, len(self.current_chord)))
 
-    def new_chordnote(self, note_name, pitch_mode, chord_num):
+    def new_chordnote(self, note_name, pitch_mode, chord_len):
         chord_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
+        if self.dots:
+            chord_note.dot = self.dots
         if pitch_mode == 'rel':
-            chord_note.set_octave("", True, self.current_chord[chord_num-1].pitch)
+            chord_note.set_octave("", True, self.current_chord[chord_len-1].pitch)
         chord_note.chord = True
         self.bar.append(chord_note)
         return chord_note
@@ -346,8 +348,13 @@ class mediator():
         self.current_note.set_tremolo(duration)
 
     def new_octave(self, octave, relative=False):
-        self.current_note.set_octave(octave, relative, self.prev_pitch)
-        self.set_prev_pitch()
+        chordlen = len(self.current_chord)
+        if chordlen > 1:
+            prevp = self.current_chord[chordlen - 2].pitch
+            self.current_chord[-1].set_octave(octave, relative, prevp)
+        else:
+            self.current_note.set_octave(octave, relative, self.prev_pitch)
+            self.set_prev_pitch()
 
     def new_from_command(self, command):
         #print (command)
