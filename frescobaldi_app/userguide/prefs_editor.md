@@ -35,3 +35,5 @@ You can also set indentation preferences per-document, see
 menu_autoindent menu tools -> &Automatic Indent
 document_variables help docvars
 
+#SEEALSO
+indent_format
