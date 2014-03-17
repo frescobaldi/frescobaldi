@@ -41,6 +41,7 @@ class mediator():
         self.divisions = 1
         self.duration = "4"
         self.base_scaling = [Fraction(1, 4), Fraction(1, 1)]
+        self.dots = 0
         self.tied = False
         self.voice = 1
         self.current_chord = []
@@ -235,6 +236,8 @@ class mediator():
 
     def new_note(self, note_name, pitch_mode):
         self.current_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
+        if self.dots:
+            self.current_note.dot = self.dots
         if pitch_mode == 'rel':
             self.current_note.set_octave("", True, self.prev_pitch)
         if self.tied:
@@ -301,6 +304,7 @@ class mediator():
         self.duration = duration
         self.base_scaling = [base, scaling]
         self.check_divs(base, scaling, self.current_note.tuplet)
+        self.dots = 0
 
     def scale_duration(self, scale):
         base, scaling = ly.duration.base_scaling_string(self.duration+scale)
@@ -314,17 +318,16 @@ class mediator():
         self.current_note.set_tuplet(tfraction, ttype)
 
     def new_dot(self):
+        self.current_note.add_dot()
+        self.dots = self.current_note.dot
         if self.current_chord:
-            for c in self.current_chord:
-                c.add_dot()
-        else:
-            self.current_note.add_dot()
-        num_dots = self.current_note.dot
+            for c in range(1, len(self.current_chord)):
+                self.current_chord[c].add_dot()
         import math
-        num = int(math.pow(2,num_dots))
-        den = int(math.pow(2,num_dots+1)-1)
+        num = int(math.pow(2,self.dots))
+        den = int(math.pow(2,self.dots+1)-1)
         dots = ''
-        for i in range(num_dots):
+        for i in range(self.dots):
             dots += '.'
         base, scaling = ly.duration.base_scaling_string(self.duration+dots)
         self.check_divs(base, scaling, self.current_note.tuplet)
@@ -405,6 +408,7 @@ class bar_note():
 
     def set_duration(self, base_scaling, durval=0):
         self.duration = base_scaling
+        self.dot = 0
         if durval:
             self.type = durval2type(durval)
 

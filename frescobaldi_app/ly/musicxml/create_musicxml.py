@@ -170,7 +170,8 @@ class create_musicXML():
             duration = a/b
         else:
             duration = divs*4*base
-        return duration * scaling
+        duration = duration * scaling
+        return int(duration)
 
 
     ##
