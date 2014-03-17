@@ -20,6 +20,7 @@ Changes in 2.0.16 --
   - fix html export and copy not using the correct color scheme
   - fix AttributeError in handle_lyricmode while typing \lyricmode
   - fix LilyPond version chooser not defaulting to the default LilyPond version
+  - fix indenter aligning on comment
 
 
 Changes in 2.0.15 -- March 11th, 2014

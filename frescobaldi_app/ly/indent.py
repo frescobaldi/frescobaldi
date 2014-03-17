@@ -301,11 +301,11 @@ class Line(object):
             if isinstance(token, ly.lex.scheme.OpenParen):
                 if len(rest) > 1 and self.is_alignable_scheme_keyword(rest[0]):
                     align, indent = rest[1].pos, False
-                elif len(rest) == 1:
+                elif len(rest) == 1 and not isinstance(rest[0], ly.lex.Comment):
                     align, indent = rest[0].pos, False
                 else:
                     align, indent = token.pos, True
-            elif rest:
+            elif rest and not isinstance(rest[0], ly.lex.Comment):
                 align, indent = rest[0].pos, False
             else:
                 align, indent = None, True
