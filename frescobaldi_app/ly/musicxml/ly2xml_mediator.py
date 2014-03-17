@@ -48,6 +48,9 @@ class mediator():
         self.new_chord = True
 
     def new_section(self, name):
+        n = self.get_var_byname(name)
+        if n:
+            n.name = name+"-old"
         section = score_section(name)
         self.insert_into = section
         self.sections.append(section)

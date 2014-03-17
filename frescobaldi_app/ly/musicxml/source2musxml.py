@@ -104,6 +104,7 @@ class parse_source():
             self.mediator.insert_into = self.curr_sect
             self.mediator.fetch_variable("sim-sect-1")
             self.mediator.new_bar()
+            self.simsectnr = 0
 
     def SequentialStart(self, token):
         """ SequentialStart = { """
