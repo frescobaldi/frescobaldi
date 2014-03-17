@@ -271,6 +271,7 @@ class mediator():
         return chord_note
 
     def new_rest(self, rtype, pos=0):
+        self.current_chord = []
         if rtype == 'r':
             self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice)
         elif rtype == 'R':
