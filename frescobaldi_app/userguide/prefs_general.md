@@ -22,6 +22,10 @@ a backup copy of the document (with a `~` appended).
 Also, you can specify a default folder in which you keep your LilyPond 
 documents.
 
+Under *Creating new documents*, you can choose what to do when a new document
+is created. It can be left empty (the default), the current LilyPond version
+can be set to it, or you can choose any of the templates you defined.
+
 
 #VARS
 sessions help sessions
