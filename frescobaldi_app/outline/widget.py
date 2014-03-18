@@ -161,8 +161,9 @@ class Widget(QTreeWidget):
         """Called when the user clicks an item."""
         cursor = self.cursorForItem(item)
         cursor.movePosition(cursor.StartOfBlock)
+        import browseriface
+        browseriface.get(self.parent().mainwindow()).setTextCursor(cursor)
         view = self.parent().mainwindow().currentView()
-        view.setTextCursor(cursor)
         view.centerCursor()
         view.setFocus()
 
