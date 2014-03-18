@@ -1,6 +1,6 @@
 === Document Outline ===
 
-The document outline (menu {tools}) shows important lines from your document
+The Document Outline (menu {tools}) shows important lines from your document
 and enables you to quickly navigate to them.
 
 #SEEALSO
