@@ -1,7 +1,7 @@
 === Indentation and Formatting ===
 
 By default, Frescobaldi will automatically indent two spaces after
-characters such as `{brace}` and `<<`. This is in accordance with the indenting
+characters such as `{` and `<<`. This is in accordance with the indenting
 the LilyPond documentation uses.
 
 You can change the indenting behaviour by using [docvars document variables].
@@ -34,7 +34,5 @@ regardless of the indent-with currently in use.
 
 
 #VARS
-brace text {
-closebrace text }
 example md `{ e f g a b }`
 

@@ -1,14 +1,14 @@
 # translation of nl.po to Nederlands
-#
 # Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-17 23:06+0100\n"
-"PO-Revision-Date: 2014-03-14 21:19+0100\n"
-"Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
-"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"POT-Creation-Date: 2014-03-18 22:27+0100\n"
+"PO-Revision-Date: 2014-03-18 22:27+0100\n"
+"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
+"Language-Team: Nederlands <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -6828,7 +6828,7 @@ msgstr "Start"
 msgid "Contents"
 msgstr "Inhoud"
 
-#: ../userguide/page.py:221
+#: ../userguide/page.py:218
 msgid "(no key defined)"
 msgstr "(geen toets ingesteld)"
 
@@ -7389,6 +7389,89 @@ msgstr ""
 #: ../userguide/creating.md:1
 msgid "Creating new files"
 msgstr "Nieuwe bestanden maken"
+
+#: ../userguide/creating.md:3
+msgid "New document"
+msgstr "Nieuw document"
+
+#: ../userguide/creating.md:5
+msgid ""
+"By default, Frescobaldi always creates one empty document, where you can "
+"start right away with typing LilyPond music."
+msgstr ""
+"Standaard maakt Frescobaldi altijd één leeg document, waar u gelijk kunt "
+"beginnen met het typen van LilyPond-muziek."
+
+#: ../userguide/creating.md:8
+msgid ""
+"It is recommended to always include the LilyPond version you plan to use for "
+"the document at the top of the file. This way, you can always recognize "
+"which LilyPond version you need to use to compile the document. LilyPond "
+"evolves quite fast, so although efforts are undertaken to not change the "
+"basic syntax, lots of new features and reorganisations of the LilyPond code "
+"sometimes make small changes to the language necessary."
+msgstr ""
+"Het wordt aanbevolen altijd de versie van LilyPond die u wilt gebruiken "
+"bovenaan in het document op te nemen. Op deze wijze kunt u altijd zien welke "
+"versie van LilyPond u gebruiken moet om het document te compileren. LilyPond "
+"ontwikkelt zich vrij snel, dus ook al wordt er moeite genomen de "
+"basisschrijfwijze niet teveel te veranderen, toch zijn er zo nu en dan "
+"kleine wijzigingen aan de schrijfwijze nodig door nieuwe functies en "
+"reorganisaties van de LilyPond-code zelf."
+
+#: ../userguide/creating.md:15
+msgid ""
+"You can type {key} to insert the LilyPond version you have set as default in "
+"the document."
+msgstr ""
+"U kunt {key} indrukken om de LilyPond versie die u als standaard hebt "
+"ingesteld in het document in te voegen."
+
+#: ../userguide/creating.md:18
+msgid ""
+"If you want the version always written in any new document you create, you "
+"can enable that in the {preferences}. It is even possible to specify any "
+"template as the default one."
+msgstr ""
+"Als u altijd de LilyPond-versie in een nieuw document wilt laten zetten kunt "
+"u dit inschakelen in de {preferences}. Het is zelfs mogelijk om sjabloon aan "
+"te wijzen om standaard te gebruiken."
+
+#: ../userguide/creating.md:22
+msgid "New from template"
+msgstr "Nieuw van sjabloon"
+
+#: ../userguide/creating.md:24
+msgid "You can also select {menu} and select a template there."
+msgstr "U kunt ook {menu} selecteren en daar een sjabloon kiezen."
+
+#. NOTE: markdown formatting
+#: ../userguide/creating.md:26
+msgid "A template is simply a snippet that has the `template` variable set."
+msgstr ""
+"Een sjabloon is gewoon een knipsel met de `template` variabele ingesteld."
+
+#: ../userguide/creating.md:28
+msgid ""
+"You can define templates by creating them and then choosing "
+"{save_as_template}. You can edit already defined templates using the command "
+"{manage_templates}."
+msgstr ""
+"U kunt sjablonen definiëren door ze gewoon te maken en dan te kiezen "
+"{save_as_template}. U kunt reeds gedefinieerde sjablonen bewerken door "
+"middel van {manage_templates}."
+
+#: ../userguide/creating.md:31
+msgid "Using the Score Wizard"
+msgstr "De Score Wizard gebruiken"
+
+#. NOTE: markdown formatting
+#: ../userguide/creating.md:33
+msgid ""
+"A third way to create a new document is to use the [scorewiz Score Wizard]."
+msgstr ""
+"Een derde mogelijkheid om een nieuw document te maken is de [scorewiz Score "
+"Wizard] te gebruiken."
 
 #: ../userguide/create_midi.md:1
 msgid "How to generate a MIDI file?"
@@ -8069,30 +8152,30 @@ msgstr "Inleiding"
 #. NOTE: markdown formatting
 #: ../userguide/intro.md:3
 msgid ""
-"[http://lilypond.org LilyPond] is an open-source music engraving program, "
+"[http://lilypond.org LilyPond] is a Free Software music engraving program, "
 "producing very high-quality sheet music printouts from fairly simple text "
 "input files. Input files can be created using virtually any text editor, "
 "which LilyPond can then compile and output beautiful engraving, by default "
 "but not restricted to, PDF."
 msgstr ""
-"[http://lilypond.org LilyPond] is een open-source muziekgravure-programma, "
-"dat bladmuziek van hoge kwaliteit produceert uit relatief eenvoudige "
-"tekstinvoerbestanden. Deze tekstbestanden kunnen met elke teksteditor worden "
-"aangemaakt, waarna LilyPond de bestanden leest en een fraaie gravure "
-"creëert, normaal gesproken in PDF-formaat."
+"[http://lilypond.org LilyPond] is een Vrije Software muziekgravure-"
+"programma, dat bladmuziek van hoge kwaliteit produceert uit relatief "
+"eenvoudige tekstinvoerbestanden. Deze tekstbestanden kunnen met elke "
+"teksteditor worden aangemaakt, waarna LilyPond de bestanden leest en een "
+"fraaie gravure creëert, normaal gesproken in PDF-formaat."
 
 #: ../userguide/intro.md:10
 msgid ""
-"Frescobaldi is an application to make editing LilyPond music scores faster "
-"and easier. You will still need to learn LilyPond's input language but if "
-"you read the {getting_started} section of this User Guide, you'll pickup "
-"some LilyPond basics to get you started."
+"Frescobaldi is an application designed to make editing LilyPond music scores "
+"faster and easier. You will still need to learn LilyPond's input language "
+"but if you read the {getting_started} section of this User Guide, you'll "
+"pickup some LilyPond basics to get you started."
 msgstr ""
 "Frescobaldi is ontworpen om het bewerken van LilyPond muziekbestanden "
 "sneller en gemakkelijker te maken. Het blijft echter noodzakelijk de "
 "LilyPond invoertaal te leren doorgronden. Als u het gedeelte "
 "{getting_started} leest in deze handleiding, zult u ook al wat LilyPond "
-"basiskennis opdoen."
+"basiskennis opdoen. "
 
 #. NOTE: markdown formatting
 #: ../userguide/intro.md:15
@@ -8214,6 +8297,18 @@ msgid ""
 "documents."
 msgstr "Ook kunt u een standaardmap opgeven waar u uw documenten in bewaart."
 
+#. NOTE: markdown formatting
+#: ../userguide/prefs_general.md:25
+msgid ""
+"Under *Creating new documents*, you can choose what to do when a new "
+"document is created. It can be left empty (the default), the current "
+"LilyPond version can be set to it, or you can choose any of the templates "
+"you defined."
+msgstr ""
+"Onder *Nieuwe documenten aanmaken*, kunt u kiezen wat er gedaan moet worden "
+"als een nieuw document wordt aangemaakt. Dit kan een leeg bestand zijn, of "
+"met de huidige LilyPond-versie, of met een ander sjabloon ingevuld."
+
 #: ../userguide/engrave_publish.md:1
 msgid "Publish mode"
 msgstr "Publicatie-modus"
@@ -8241,6 +8336,14 @@ msgstr ""
 #: ../userguide/outline.md:1
 msgid "Document Outline"
 msgstr "Documentstructuur"
+
+#: ../userguide/outline.md:3
+msgid ""
+"The Document Outline (menu {tools}) shows important lines from your document "
+"and enables you to quickly navigate to them."
+msgstr ""
+"De Structuur (menu {tools}), toont belangrijke regels uit uw document en "
+"maakt het mogelijk er snel naartoe te navigeren."
 
 #: ../userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
@@ -8618,9 +8721,12 @@ msgstr "Inspringen en opmaken"
 #: ../userguide/indent_format.md:3
 msgid ""
 "By default, Frescobaldi will automatically indent two spaces after "
-"characters such as `{brace}` and `<<`. This is in accordance with the "
-"indenting the LilyPond documentation uses."
+"characters such as `{` and `<<`. This is in accordance with the indenting "
+"the LilyPond documentation uses."
 msgstr ""
+"Standaard zal Frescobaldi automatisch twee spaties inspringen na tekens als `"
+"{` en `<<`. Dit is in overeenstemming met de inspringconventie die de "
+"LilyPond-documentatie gebruikt."
 
 #. NOTE: markdown formatting
 #: ../userguide/indent_format.md:7
@@ -8629,6 +8735,9 @@ msgid ""
 "variables]. In the following example, Frescobaldi will use 4 spaces for "
 "indent."
 msgstr ""
+"U kunt het inspring-gedrag wijzigen met behulp van [docvars document-"
+"variabelen]. In het volgende voorbeeld zal Frescobaldi 4 spaties voor het "
+"inspringen gebruiken."
 
 #. NOTE: markdown formatting
 #: ../userguide/indent_format.md:17
@@ -8636,6 +8745,8 @@ msgid ""
 "You can also change the default behaviour of Frescobaldi in the "
 "[prefs_editor editor preferences]."
 msgstr ""
+"U kunt ook het standaard-gedrag van Frescobaldi aanpassen in de "
+"[prefs_editor editorvoorkeuren]."
 
 #: ../userguide/indent_format.md:20
 msgid ""
@@ -8643,12 +8754,17 @@ msgid ""
 "other characters on the previous line, after the character that starts the "
 "indent. Consider the following example:"
 msgstr ""
+"Naast inspringen kan Frescobaldi ook ingesprongen regels uitlijnen met "
+"andere karakters op de vorige regel, na het karakter dat het inspringen laat "
+"starten. Zie het volgende voorbeeld:"
 
 #: ../userguide/indent_format.md:32
 msgid ""
 "The line {example} aligns itself with the preceding construct, regardless of "
 "the indent-with currently in use."
 msgstr ""
+"De regel {example} lijnt zichzelf uit met de voorgaande uitdrukking, "
+"ongeacht hoever er eigenlijk zou worden ingesprongen."
 
 #: ../userguide/externalchanges.md:1
 msgid "Monitoring external changes"
@@ -11913,10 +12029,6 @@ msgstr "Hier kunt u de instellingen van de diverse gereedschappen wijzigen."
 #~ msgctxt "menu title"
 #~ msgid "File"
 #~ msgstr "Bestand"
-
-#~ msgctxt "menu subtitle"
-#~ msgid "New from Template"
-#~ msgstr "Nieuw van sjabloon"
 
 #~ msgid ""
 #~ "<p>The other lines of the snippet define the text to be inserted in the "

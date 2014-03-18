@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-17 23:06+0100\n"
+"POT-Creation-Date: 2014-03-18 22:27+0100\n"
 "PO-Revision-Date: 2013-10-02 11:36+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -6955,7 +6955,7 @@ msgstr "Inicio"
 msgid "Contents"
 msgstr "Contenido"
 
-#: ../userguide/page.py:221
+#: ../userguide/page.py:218
 msgid "(no key defined)"
 msgstr "(sin tecla definida)"
 
@@ -7507,6 +7507,72 @@ msgstr ""
 #, fuzzy
 msgid "Creating new files"
 msgstr "Signos de respiración"
+
+#: ../userguide/creating.md:3
+#, fuzzy
+msgid "New document"
+msgstr "Docume&nto siguiente"
+
+#: ../userguide/creating.md:5
+msgid ""
+"By default, Frescobaldi always creates one empty document, where you can "
+"start right away with typing LilyPond music."
+msgstr ""
+
+#: ../userguide/creating.md:8
+msgid ""
+"It is recommended to always include the LilyPond version you plan to use for "
+"the document at the top of the file. This way, you can always recognize "
+"which LilyPond version you need to use to compile the document. LilyPond "
+"evolves quite fast, so although efforts are undertaken to not change the "
+"basic syntax, lots of new features and reorganisations of the LilyPond code "
+"sometimes make small changes to the language necessary."
+msgstr ""
+
+#: ../userguide/creating.md:15
+msgid ""
+"You can type {key} to insert the LilyPond version you have set as default in "
+"the document."
+msgstr ""
+
+#: ../userguide/creating.md:18
+msgid ""
+"If you want the version always written in any new document you create, you "
+"can enable that in the {preferences}. It is even possible to specify any "
+"template as the default one."
+msgstr ""
+
+#: ../userguide/creating.md:22
+#, fuzzy
+msgid "New from template"
+msgstr "Nuevo a partir de plantilla"
+
+#: ../userguide/creating.md:24
+msgid "You can also select {menu} and select a template there."
+msgstr ""
+
+#. NOTE: markdown formatting
+#: ../userguide/creating.md:26
+msgid "A template is simply a snippet that has the `template` variable set."
+msgstr ""
+
+#: ../userguide/creating.md:28
+msgid ""
+"You can define templates by creating them and then choosing "
+"{save_as_template}. You can edit already defined templates using the command "
+"{manage_templates}."
+msgstr ""
+
+#: ../userguide/creating.md:31
+#, fuzzy
+msgid "Using the Score Wizard"
+msgstr "Asistente de partitura"
+
+#. NOTE: markdown formatting
+#: ../userguide/creating.md:33
+msgid ""
+"A third way to create a new document is to use the [scorewiz Score Wizard]."
+msgstr ""
 
 #: ../userguide/create_midi.md:1
 msgid "How to generate a MIDI file?"
@@ -8204,7 +8270,7 @@ msgstr "Introducción"
 #. NOTE: markdown formatting
 #: ../userguide/intro.md:3
 msgid ""
-"[http://lilypond.org LilyPond] is an open-source music engraving program, "
+"[http://lilypond.org LilyPond] is a Free Software music engraving program, "
 "producing very high-quality sheet music printouts from fairly simple text "
 "input files. Input files can be created using virtually any text editor, "
 "which LilyPond can then compile and output beautiful engraving, by default "
@@ -8213,10 +8279,10 @@ msgstr ""
 
 #: ../userguide/intro.md:10
 msgid ""
-"Frescobaldi is an application to make editing LilyPond music scores faster "
-"and easier. You will still need to learn LilyPond's input language but if "
-"you read the {getting_started} section of this User Guide, you'll pickup "
-"some LilyPond basics to get you started."
+"Frescobaldi is an application designed to make editing LilyPond music scores "
+"faster and easier. You will still need to learn LilyPond's input language "
+"but if you read the {getting_started} section of this User Guide, you'll "
+"pickup some LilyPond basics to get you started."
 msgstr ""
 
 #. NOTE: markdown formatting
@@ -8325,6 +8391,21 @@ msgid ""
 "documents."
 msgstr "La carpeta predeterminada para los documentos de LilyPond (opcional)."
 
+#. NOTE: markdown formatting
+#: ../userguide/prefs_general.md:25
+#, fuzzy
+msgid ""
+"Under *Creating new documents*, you can choose what to do when a new "
+"document is created. It can be left empty (the default), the current "
+"LilyPond version can be set to it, or you can choose any of the templates "
+"you defined."
+msgstr ""
+"Bajo <em>{saving}</em>, puede elegir qué hacer cuando se guarda un "
+"documento, como recordar la posición del cursor y las líneas marcadas, o "
+"dejar una copia de seguridad del documento (con un carácter ~ añadido).  "
+"También puede especificar una carpeta predeterminada en la que guardar sus "
+"documentos de LilyPond."
+
 #: ../userguide/engrave_publish.md:1
 #, fuzzy
 msgid "Publish mode"
@@ -8348,6 +8429,12 @@ msgstr ""
 #, fuzzy
 msgid "Document Outline"
 msgstr "Navegador de documentación"
+
+#: ../userguide/outline.md:3
+msgid ""
+"The Document Outline (menu {tools}) shows important lines from your document "
+"and enables you to quickly navigate to them."
+msgstr ""
 
 #: ../userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
@@ -8697,8 +8784,8 @@ msgstr ""
 #: ../userguide/indent_format.md:3
 msgid ""
 "By default, Frescobaldi will automatically indent two spaces after "
-"characters such as `{brace}` and `<<`. This is in accordance with the "
-"indenting the LilyPond documentation uses."
+"characters such as `{` and `<<`. This is in accordance with the indenting "
+"the LilyPond documentation uses."
 msgstr ""
 
 #. NOTE: markdown formatting
@@ -11609,10 +11696,6 @@ msgstr "Aquí puede editar los ajustes de varias herramientas."
 #~ msgctxt "menu title"
 #~ msgid "File"
 #~ msgstr "Archivo"
-
-#~ msgctxt "menu subtitle"
-#~ msgid "New from Template"
-#~ msgstr "Nuevo a partir de plantilla"
 
 #~ msgid ""
 #~ "<p>The other lines of the snippet define the text to be inserted in the "

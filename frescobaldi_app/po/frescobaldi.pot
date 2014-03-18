@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.15\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-18 16:39+0100\n"
+"POT-Creation-Date: 2014-03-18 22:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7586,7 +7586,7 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../userguide/intro.md:3
 msgid ""
-"[http://lilypond.org LilyPond] is an open-source music engraving program, "
+"[http://lilypond.org LilyPond] is a Free Software music engraving program, "
 "producing very high-quality sheet music printouts from fairly simple text "
 "input files. Input files can be created using virtually any text editor, "
 "which LilyPond can then compile and output beautiful engraving, by default "
@@ -7595,10 +7595,10 @@ msgstr ""
 
 #: ../userguide/intro.md:10
 msgid ""
-"Frescobaldi is an application to make editing LilyPond music scores faster "
-"and easier. You will still need to learn LilyPond's input language but if "
-"you read the {getting_started} section of this User Guide, you'll pickup "
-"some LilyPond basics to get you started."
+"Frescobaldi is an application designed to make editing LilyPond music scores "
+"faster and easier. You will still need to learn LilyPond's input language "
+"but if you read the {getting_started} section of this User Guide, you'll "
+"pickup some LilyPond basics to get you started."
 msgstr ""
 
 #. NOTE: markdown formatting
@@ -7720,7 +7720,7 @@ msgstr ""
 
 #: ../userguide/outline.md:3
 msgid ""
-"The document outline (menu {tools}) shows important lines from your document "
+"The Document Outline (menu {tools}) shows important lines from your document "
 "and enables you to quickly navigate to them."
 msgstr ""
 
@@ -8021,8 +8021,8 @@ msgstr ""
 #: ../userguide/indent_format.md:3
 msgid ""
 "By default, Frescobaldi will automatically indent two spaces after "
-"characters such as `{brace}` and `<<`. This is in accordance with the "
-"indenting the LilyPond documentation uses."
+"characters such as `{` and `<<`. This is in accordance with the indenting "
+"the LilyPond documentation uses."
 msgstr ""
 
 #. NOTE: markdown formatting
