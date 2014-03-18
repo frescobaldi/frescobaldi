@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.15\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-03-18 16:37+0100\n"
+"POT-Creation-Date: 2014-03-18 16:39+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -7716,6 +7716,12 @@ msgstr ""
 
 #: ../userguide/outline.md:1
 msgid "Document Outline"
+msgstr ""
+
+#: ../userguide/outline.md:3
+msgid ""
+"The document outline (menu {tools}) shows important lines from your document "
+"and enables you to quickly navigate to them."
 msgstr ""
 
 #: ../userguide/snippet_import_export.md:1
