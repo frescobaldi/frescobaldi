@@ -315,10 +315,12 @@ class create_musicXML():
         linenode = etree.SubElement(clefnode, "line")
         linenode.text = str(line)
 
-    def add_barline(self, bl_type):
+    def add_barline(self, bl_type, repeat=None):
         barnode = etree.SubElement(self.current_bar, "barline", location="right")
         barstyle = etree.SubElement(barnode, "bar-style")
         barstyle.text = bl_type
+        if repeat:
+            repeatnode = etree.SubElement(barnode, "repeat", direction=repeat)
 
     def add_backup(self, duration):
         backupnode = etree.SubElement(self.current_bar, "backup")

@@ -211,6 +211,13 @@ class mediator():
         barline = bar_attr()
         barline.set_barline(bl)
         self.bar.append(barline)
+        self.new_bar()
+
+    def new_repeat(self, rep):
+        barline = bar_attr()
+        barline.set_barline(rep)
+        barline.repeat = rep
+        self.bar.append(barline)
 
     def new_key(self, key_name, mode_command):
         mode = mode_command[1:]
@@ -483,6 +490,7 @@ class bar_attr():
         self.mode = ''
         self.divs = 0
         self.barline = ''
+        self.repeat = None
         self.staves = 0
 
     def set_key(self, muskey, mode):
@@ -595,11 +603,11 @@ def convert_barl(bl):
         return 'heavy'
     elif bl == '||':
         return 'light-light'
-    elif bl == '.|':
+    elif bl == '.|' or bl == 'forward':
         return 'heavy-light'
     elif bl == '.|.':
         return 'heavy-heavy'
-    elif bl == '|.':
+    elif bl == '|.' or bl == 'backward':
         return 'light-heavy'
     elif bl == "'":
         return 'tick'

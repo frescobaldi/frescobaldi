@@ -44,6 +44,7 @@ class parse_source():
         self.tuplet = False
         self.scale = ''
         self.grace_seq = False
+        self.repeat = False
         self.voicenr = None
         self.voicecontext = False
         self.piano_staff = -1
@@ -113,6 +114,10 @@ class parse_source():
             self.ttype = "start"
         elif self.prev_command[1:] == 'grace':
             self.grace_seq = True
+        elif self.prev_command == 'repeat':
+            self.mediator.new_repeat('forward')
+            self.prev_command = ''
+            self.repeat = True
         elif self.new_sim:
             self.sim_list.append(self.new_sim)
         elif self.can_create_sect:
@@ -133,13 +138,18 @@ class parse_source():
                 self.new_sim = self.sim_list[-1]
             else:
                 self.new_sim = None
+        elif self.simsectnr:
+            if self.simsectnr>1:
+                self.mediator.merge_variable(self.simsectnr,
+                "sim-sect-"+str(self.simsectnr), False, "sim-sect-1")
+            self.simsectnr += 1
+            self.varname = "sim-sect-"+str(self.simsectnr)
+            self.can_create_sect = True
+        elif self.repeat:
+            self.mediator.new_repeat('backward')
+            self.mediator.new_bar()
+            self.repeat = False
         else:
-            if self.simsectnr:
-                if self.simsectnr>1:
-                    self.mediator.merge_variable(self.simsectnr,
-                    "sim-sect-"+str(self.simsectnr), False, "sim-sect-1")
-                self.simsectnr += 1
-                self.varname = "sim-sect-"+str(self.simsectnr)
             self.prev_command = ''
             self.can_create_sect = True
 
@@ -286,6 +296,9 @@ class parse_source():
     def Keyword(self, token):
         self.prev_command = token
 
+    def Repeat(self, token):
+        self.prev_command = "repeat"
+
     def Command(self, token):
         """ \bar, \rest, \time, etc """
         if token == '\\rest':
@@ -337,7 +350,9 @@ class parse_source():
                     if isinstance(obj, ly2xml_mediator.bar_attr):
                         if obj.has_attr():
                             self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
-                        if obj.barline:
+                        if obj.repeat:
+                            self.musxml.add_barline(obj.barline, obj.repeat)
+                        elif obj.barline:
                             self.musxml.add_barline(obj.barline)
                         if obj.staves:
                             self.musxml.add_staves(obj.staves)
