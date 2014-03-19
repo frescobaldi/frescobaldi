@@ -62,13 +62,30 @@ class Formatter(object):
                 '\n'.join('<li>{0}</li>'.format(self.format_link(c))
                 for c in children))
         else:
+            # add navigation to next page, or if last page, to next page in 
+            # the first parent document that has a next page.
             html = []
-            for p in parents:
-                c = cache.children(p)
+            def sibling(parent, name):
+                """Return the next sibling page name."""
+                c = cache.children(parent)
                 i = c.index(name)
                 if i < len(c) - 1:
+                    return c[i+1]
+            for p in parents:
+                next_page = sibling(p, name)
+                if next_page:
                     html.append('<div>{0} {1}</div>'.format(
-                        _("Next:"), self.format_link(c[i+1])))
+                        _("Next:"), self.format_link(next_page)))
+                else:
+                    pp = [(parent, p) for parent in cache.parents(p)]
+                    while pp:
+                        p1, p = pp.pop(0)
+                        next_chapter = sibling(p1, p)
+                        if next_chapter:
+                            html.append('<div>{0} {1}</div>'.format(
+                                _("Next Chapter:"), self.format_link(next_chapter)))
+                        else:
+                            pp.extend((parent, p1) for parent in cache.parents(p1))
             nav_next = '\n'.join(html)
         if page.seealso():
             nav_seealso = "<p>{0} {1}</p>".format(
