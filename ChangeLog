@@ -17,6 +17,9 @@ Changes in 2.0.16 --
   - LilyPond instance can be selected in convert-ly dialog (wish #311)
   - Score Wizard: In the midi section the \tempo x=y syntax is now used when
     LilyPond version >= 2.16 is used (issue #337)
+  - in the builtin manual, if there is no "Next:" page, add a link to the next
+    page of the first parent page that has a next page. The link is called
+    "Next Chapter:" and allows for continuous reading of the manual.
 * Bugfixes:
   - fix html export and copy not using the correct color scheme
   - fix AttributeError in handle_lyricmode while typing \lyricmode
