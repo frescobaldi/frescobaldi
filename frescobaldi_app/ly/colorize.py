@@ -527,7 +527,7 @@ class HtmlWriter(object):
     encoding = 'UTF-8'
     
     stylesheet_ref = None
-    
+    full_html = True
     
     def html(self, cursor):
         """Return the output HTML."""
@@ -564,6 +564,9 @@ class HtmlWriter(object):
             body = add_line_numbers(cursor, body, num_attrs, doc_attrs)
         else:
             body = '<pre{0}>{1}</pre>'.format(html_format_attrs(doc_attrs), body)
+        
+        if not self.full_html:
+            return body
         
         if self.stylesheet_ref:
             css = None

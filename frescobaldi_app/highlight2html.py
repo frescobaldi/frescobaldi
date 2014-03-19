@@ -29,22 +29,22 @@ import ly.document
 import ly.colorize
 
 
-def html_text(text, mode=None, scheme='editor', inline=True, number_lines=False):
+def html_text(text, mode=None, scheme='editor', inline=True, number_lines=False, full_html=True):
     """Converts the text to HTML using the specified or guessed mode."""
     c = ly.document.Cursor(ly.document.Document(text, mode))
-    return html(c, scheme, inline, number_lines)
+    return html(c, scheme, inline, number_lines, full_html)
 
-def html_inline(cursor, scheme='editor', inline=True, number_lines=False):
+def html_inline(cursor, scheme='editor', inline=True, number_lines=False, full_html=True):
     """Return an (by default) inline-styled HTML document for the cursor's selection."""
     c = lydocument.cursor(cursor)
-    return html(c, scheme, inline, number_lines)
+    return html(c, scheme, inline, number_lines, full_html)
 
-def html_document(document, scheme='editor', inline=False, number_lines=False):
+def html_document(document, scheme='editor', inline=False, number_lines=False, full_html=True):
     """Return a (by default) css-styled HTML document for the full document."""
     c = lydocument.Cursor(lydocument.Document(document))
-    return html(c, scheme, inline, number_lines)
+    return html(c, scheme, inline, number_lines, full_html)
 
-def html(cursor, scheme='editor', inline=False, number_lines=False):
+def html(cursor, scheme='editor', inline=False, number_lines=False, full_html=True):
     """Return a HTML document with the syntax-highlighted region.
     
     The tokens are marked with <span> tags. The cursor is a 
@@ -60,6 +60,7 @@ def html(cursor, scheme='editor', inline=False, number_lines=False):
     w = ly.colorize.HtmlWriter()
     w.inline_style = inline
     w.number_lines = number_lines
+    w.full_html = full_html
     w.fgcolor = data.baseColors['text'].name()
     w.bgcolor = data.baseColors['background'].name()
     w.css_scheme = data.css_scheme()
