@@ -89,6 +89,9 @@ The following people contributed to {appname}:
 {lang_uk}:
 :  !Dmytro O. Redchuk
 
+And of course, a big *Thank You* goes to the LilyPond developers, who create 
+such an excellent music engraver!
+
 
 #VARS
 python md [http://www.python.org/ Python]
