@@ -124,6 +124,7 @@ class parse_source():
             self.mediator.new_section(self.varname)
             self.can_create_sect = False
             self.varname = ''
+            self.prev_command = ''
 
     def SequentialEnd(self, token):
         """ SequentialEnd = } """

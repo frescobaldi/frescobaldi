@@ -217,6 +217,8 @@ class mediator():
         barline = bar_attr()
         barline.set_barline(rep)
         barline.repeat = rep
+        if self.bar is None:
+            self.new_bar()
         self.bar.append(barline)
 
     def new_key(self, key_name, mode_command):
