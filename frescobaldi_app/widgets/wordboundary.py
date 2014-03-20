@@ -162,18 +162,31 @@ class BoundaryHandler(QObject):
         edit.removeEventFilter(self)
         edit.viewport().removeEventFilter(self)
     
+    def get_textedit(self, obj):
+        """Return the textedit widget if obj is its viewport.
+        
+        If obj is not the viewport of its parent, obj itself is returned.
+        
+        """
+        parent = obj.parent()
+        try:
+            if obj is parent.viewport():
+                return parent
+        except AttributeError:
+            pass
+        return obj
+    
     def eventFilter(self, obj, ev):
         """Intercept key events from a Q(Plain)TextEdit and handle them."""
         if ev.type() == QEvent.KeyPress:
             return self.keyPressEvent(obj, ev)
         elif ev.type() == QEvent.MouseButtonDblClick:
-            edit = obj.parent()
-            if edit:
-                self._double_click_time = time.time()
-                return self.mouseDoubleClickEvent(edit, ev)
+            edit = self.get_textedit(obj)
+            self._double_click_time = time.time()
+            return self.mouseDoubleClickEvent(edit, ev)
         elif ev.type() == QEvent.MouseButtonPress:
-            edit = obj.parent()
-            if edit and time.time() - self._double_click_time < QApplication.doubleClickInterval() / 1000.0:
+            edit = self.get_textedit(obj)
+            if time.time() - self._double_click_time < QApplication.doubleClickInterval() / 1000.0:
                 return self.mouseTripleClickEvent(edit, ev)
         return False
     
