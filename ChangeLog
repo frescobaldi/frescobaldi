@@ -11,6 +11,8 @@ Changes in 2.0.16 --
   - in Tools -> Rhythm: new command to remove duration scalings that contain 
     a fraction value (the action was already available for some time, but it 
     wasn't in the menu)
+  - new option to copy only the styled HTML contents to the clipboard
+    wrapped in a pre tag, not a full HTML document
 * Improvements:
   - jumps in the Document Outline also allow navigating back
   - autocompile does only happen when a document has toplevel markup or music
