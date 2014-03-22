@@ -409,6 +409,7 @@ lilypond_music_commands = (
     'times',
     'timing',
     'tiny',
+    'tocItem', # since ?
     'transpose',
     'transposedCueDuring',
     'transposition',
@@ -539,6 +540,7 @@ markupcommands_nargs = (
     'sesquisharp',
     'sharp',
     'strut',
+    'table-of-contents'
 ),
 # one argument
 (
