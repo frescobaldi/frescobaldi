@@ -711,8 +711,10 @@ class MainWindow(QMainWindow):
         number_lines = QSettings().value("source_export/number_lines", False, bool)
         inline_style = QSettings().value("source_export/inline_copy", True, bool)
         as_plain_text = QSettings().value("source_export/copy_html_as_plain_text", False, bool)
+        document_body_only = QSettings().value("source_export/copy_document_body_only", False, bool)
         import highlight2html
-        html = highlight2html.html_inline(cursor, inline=inline_style, number_lines=number_lines)
+        html = highlight2html.html_inline(cursor, inline=inline_style, number_lines=number_lines,
+            full_html=not document_body_only)
         data = QMimeData()
         data.setText(html) if as_plain_text else data.setHtml(html)
         QApplication.clipboard().setMimeData(data)
