@@ -48,8 +48,6 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         self.sansCombo = QFontComboBox()
         self.typewriterLabel = QLabel()
         self.typewriterCombo = QFontComboBox(fontFilters=QFontComboBox.MonospacedFonts)
-        self.staffSizeLabel = QLabel()
-        self.staffSizeChooser = QSpinBox(minimum=1, maximum=200, value=20)
         
         layout.addWidget(self.romanLabel, 0, 0)
         layout.addWidget(self.romanCombo, 0, 1, 1, 2)
@@ -57,32 +55,20 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         layout.addWidget(self.sansCombo, 1, 1, 1, 2)
         layout.addWidget(self.typewriterLabel, 2, 0)
         layout.addWidget(self.typewriterCombo, 2, 1, 1, 2)
-        layout.addWidget(self.staffSizeLabel, 3, 0)
-        layout.addWidget(self.staffSizeChooser, 3, 1)
         
         self.loadSettings()
         self.finished.connect(self.saveSettings)
         app.translateUI(self)
-        qutil.saveDialogSize(self, "global_font_dialog/dialog/size")
         
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Global Fonts")))
         self.setMessage(_(
             "Please select the three global fonts to use for "
             r"<code>\roman</code>, <code>\sans</code>, and <code>\typewriter</code> "
-            "respectively. "
-            "You should also set the staff size to the global staff size you "
-            "use in the document (20 by default)."))
+            "respectively."))
         self.romanLabel.setText(_("Roman Font:"))
         self.sansLabel.setText(_("Sans Font:"))
         self.typewriterLabel.setText(_("Typewriter Font:"))
-        self.staffSizeLabel.setText(_("Staff Size:"))
-    
-    def staffSize(self):
-        return self.staffSizeChooser.value()
-    
-    def setStaffSize(self, value):
-        self.staffSizeChooser.setValue(value)
     
     def romanFont(self):
         return self.romanCombo.currentFont().family()

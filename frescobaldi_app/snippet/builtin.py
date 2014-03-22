@@ -491,30 +491,23 @@ if state[-1] != 'paper':
 'document_fonts': T(_("Document Fonts..."),
 r"""-*- menu: paper; name: fo; python; icon: preferences-desktop-font;
 snippet = '''\
-myStaffSize = #{staffsize}
-fonts = #(make-pango-font-tree
+fonts = #
+(make-pango-font-tree
   "{roman}"
   "{sans}"
   "{typewriter}"
-  (/ myStaffSize 20))
+  (/ (* staff-height pt) 2.5))
 '''
 
-import documentinfo
 import globalfontdialog
-size = documentinfo.docinfo(cursor.document()).global_staff_size()
 dlg = globalfontdialog.GlobalFontDialog(view)
-dlg.setStaffSize(size or 20)
 if dlg.exec_():
     text = snippet.format(
-        staffsize = dlg.staffSize(),
         roman = dlg.romanFont(),
         sans = dlg.sansFont(),
         typewriter = dlg.typewriterFont())
     if state[-1] != "paper":
         text = "\\paper {{\n{0}}}\n".format(text)
-        if size is None and dlg.staffSize() != 20:
-            staffsize = "#(set-global-staff-size {0})".format(dlg.staffSize())
-            text = staffsize + "\n\n" + text
 
 """),
 
