@@ -252,11 +252,12 @@ class SourceExport(preferences.Group):
             "plain text editing environment."))
         self.copyDocumentBodyOnly.setText(_("Copy <pre> element only"))
         self.copyDocumentBodyOnly.setToolTip('<qt>' + _(
-            "If enabled, only the content will be exported and enclosed "
-            "in a PRE tag. Otherwise, a full document will be created. "
-            "May be used in conjunction with using CSS and the plain text "
-            "option, to copy highlighted code in a text editor "
-            "when an external style sheet is already available."))
+            "If enabled, only the HTML contents, wrapped in a PRE tag, will be "
+            "copied to the clipboard instead of a full HTML document with a "
+            "header section. "
+            "May be used in conjunction with the plain text option, with the "
+            "inline style option turned off, to copy highlighted code in a "
+            "text editor when an external style sheet is already available."))
 
     def loadSettings(self):
         s = QSettings()
