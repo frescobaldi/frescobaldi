@@ -218,12 +218,14 @@ class SourceExport(preferences.Group):
         self.inlineStyleCopy = QCheckBox(toggled=self.changed)
         self.copyHtmlAsPlainText = QCheckBox(toggled=self.changed)
         self.inlineStyleExport = QCheckBox(toggled=self.changed)
-        
+        self.copyDocumentBodyOnly = QCheckBox(toggled=self.changed)
+
         layout.addWidget(self.numberLines)
         layout.addWidget(self.inlineStyleCopy)
         layout.addWidget(self.inlineStyleExport)
         layout.addWidget(self.copyHtmlAsPlainText)
-        
+        layout.addWidget(self.copyDocumentBodyOnly)
+
         app.translateUI(self)
     
     def translateUI(self):
@@ -248,6 +250,13 @@ class SourceExport(preferences.Group):
             "If enabled, HTML is copied to the clipboard as plain text. "
             "Use this when you want to type HTML formatted code in a "
             "plain text editing environment."))
+        self.copyDocumentBodyOnly.setText(_("Copy <pre> element only"))
+        self.copyDocumentBodyOnly.setToolTip('<qt>' + _(
+            "If enabled, only the content will be exported and enclosed "
+            "in a PRE tag. Otherwise, a full document will be created. "
+            "May be used in conjunction with using CSS and the plain text "
+            "option, to copy highlighted code in a text editor "
+            "when an external style sheet is already available."))
 
     def loadSettings(self):
         s = QSettings()
@@ -256,7 +265,8 @@ class SourceExport(preferences.Group):
         self.inlineStyleCopy.setChecked(s.value("inline_copy", True, bool))
         self.inlineStyleExport.setChecked(s.value("inline_export", False, bool))
         self.copyHtmlAsPlainText.setChecked(s.value("copy_html_as_plain_text", False, bool))
-    
+        self.copyDocumentBodyOnly.setChecked(s.value("copy_document_body_only", False, bool))
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("source_export")
@@ -264,5 +274,6 @@ class SourceExport(preferences.Group):
         s.setValue("inline_copy", self.inlineStyleCopy.isChecked())
         s.setValue("inline_export", self.inlineStyleExport.isChecked())
         s.setValue("copy_html_as_plain_text", self.copyHtmlAsPlainText.isChecked())
+        s.setValue("copy_document_body_only", self.copyDocumentBodyOnly.isChecked())
 
 
