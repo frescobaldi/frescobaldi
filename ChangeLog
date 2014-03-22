@@ -20,6 +20,9 @@ Changes in 2.0.16 --
   - in the builtin manual, if there is no "Next:" page, add a link to the next
     page of the first parent page that has a next page. The link is called
     "Next Chapter:" and allows for continuous reading of the manual.
+  - some missing commands and functions were added to highlighting and
+    autocompletion
+  - the Document Fonts snippet doesn't require setting the staffize anymore
 * Bugfixes:
   - fix html export and copy not using the correct color scheme
   - fix AttributeError in handle_lyricmode while typing \lyricmode
