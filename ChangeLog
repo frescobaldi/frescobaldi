@@ -23,6 +23,8 @@ Changes in 2.0.16 --
   - some missing commands and functions were added to highlighting and
     autocompletion
   - the Document Fonts snippet doesn't require setting the staffize anymore
+  - View -> Folding -> Fold all now folds all subregions as well, making
+    gradual unfolding easier (wish #394)
 * Bugfixes:
   - fix html export and copy not using the correct color scheme
   - fix AttributeError in handle_lyricmode while typing \lyricmode
