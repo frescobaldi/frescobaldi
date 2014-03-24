@@ -115,18 +115,20 @@ class mediator():
         s = 1
         for obj in bar:
             if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
-                if obj.dot:
-                    import math
-                    den = int(math.pow(2,obj.dot))
-                    num = int(math.pow(2,obj.dot+1)-1)
-                    b += Fraction(num, den)*obj.duration[0]
-                else:
-                    b += obj.duration[0]
-                s *= obj.duration[1]
+                if not obj.chord:
+                    if obj.dot:
+                        import math
+                        den = int(math.pow(2,obj.dot))
+                        num = int(math.pow(2,obj.dot+1)-1)
+                        b += Fraction(num, den)*obj.duration[0]
+                    else:
+                        b += obj.duration[0]
+                    s *= obj.duration[1]
             elif isinstance(obj, bar_backup):
                 self.check_divs(b, s)
                 return bar_backup([b,s])
-        self.check_divs(b, s)
+        if b:
+            self.check_divs(b, s)
         return bar_backup((b,s))
 
     def fetch_variable(self, varname):
@@ -383,7 +385,11 @@ class mediator():
             tfraction = scaling
         if(not tfraction):
             a = 4
-            b = 1/base
+            if base:
+                b = 1/base
+            else:
+                b = 1
+                print "Warning problem checking duration!"
         else:
             num = tfraction.numerator
             den = tfraction.denominator
@@ -470,6 +476,7 @@ class bar_rest():
         self.pos = pos
         self.voice = voice
         self.staff = 0
+        self.chord = False
 
     def set_duration(self, base_scaling, durval=0, durtype=None):
         self.duration = base_scaling
