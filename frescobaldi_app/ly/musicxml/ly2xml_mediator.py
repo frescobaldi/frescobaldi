@@ -80,11 +80,24 @@ class mediator():
             self.insert_into = self.get_var_byname(org)
         n = self.get_var_byname(varname)
         varlen = len(n.barlist)
-        if voice:
-            self.change_voice(n.barlist, voice)
         if staff:
+            if isinstance(self.insert_into.barlist[0][0], bar_attr):
+                clef_one = self.insert_into.barlist[0][0].clef
+                if clef_one:
+                    self.insert_into.barlist[0][0].multiclef.append(clef_one)
+                else:
+                    self.insert_into.barlist[0][0].multiclef.append(['G',2])
+                if isinstance(n.barlist[0][0], bar_attr):
+                    clef_two = n.barlist[0][0].clef
+                    if clef_two:
+                        self.insert_into.barlist[0][0].multiclef.append(clef_two)
+                    else:
+                        self.insert_into.barlist[0][0].multiclef.append(['G',2])
+                    self.insert_into.barlist[0][0].clef = 0
             self.set_staff(self.insert_into.barlist, 1, False)
             self.set_staff(n.barlist, 2)
+        if voice:
+            self.change_voice(n.barlist, voice)
         for i, bar in enumerate(self.insert_into.barlist):
             if i < varlen:
                 backup = self.create_backup(bar)
@@ -199,7 +212,7 @@ class mediator():
         """ For now used to check first bar """
         for obj in bar:
             if isinstance(obj, bar_attr):
-                if obj.clef:
+                if obj.clef or obj.multiclef:
                     return True
             if isinstance(obj, bar_note):
                 return False
@@ -501,6 +514,7 @@ class bar_attr():
         self.barline = ''
         self.repeat = None
         self.staves = 0
+        self.multiclef = []
 
     def set_key(self, muskey, mode):
         self.key = muskey

@@ -308,8 +308,11 @@ class create_musicXML():
         typenode = etree.SubElement(timenode, "beat-type")
         typenode.text = str(timesign[1])
 
-    def add_clef(self, sign, line):
-        clefnode = etree.SubElement(self.bar_attr, "clef")
+    def add_clef(self, sign, line, nr=0):
+        if nr:
+            clefnode = etree.SubElement(self.bar_attr, "clef", number=str(nr))
+        else:
+            clefnode = etree.SubElement(self.bar_attr, "clef")
         signnode = etree.SubElement(clefnode, "sign")
         signnode.text = str(sign)
         linenode = etree.SubElement(clefnode, "line")

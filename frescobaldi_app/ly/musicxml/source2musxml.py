@@ -357,6 +357,9 @@ class parse_source():
                             self.musxml.add_barline(obj.barline)
                         if obj.staves:
                             self.musxml.add_staves(obj.staves)
+                        if obj.multiclef:
+                            for i, m in enumerate(obj.multiclef):
+                                self.musxml.add_clef(m[0], m[1], i+1)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
                         self.musxml.new_note(obj.grace, [obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration,
                         obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
