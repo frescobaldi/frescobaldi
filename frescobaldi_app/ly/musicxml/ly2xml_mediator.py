@@ -80,11 +80,24 @@ class mediator():
             self.insert_into = self.get_var_byname(org)
         n = self.get_var_byname(varname)
         varlen = len(n.barlist)
-        if voice:
-            self.change_voice(n.barlist, voice)
         if staff:
+            if isinstance(self.insert_into.barlist[0][0], bar_attr):
+                clef_one = self.insert_into.barlist[0][0].clef
+                if clef_one:
+                    self.insert_into.barlist[0][0].multiclef.append(clef_one)
+                else:
+                    self.insert_into.barlist[0][0].multiclef.append(['G',2])
+                if isinstance(n.barlist[0][0], bar_attr):
+                    clef_two = n.barlist[0][0].clef
+                    if clef_two:
+                        self.insert_into.barlist[0][0].multiclef.append(clef_two)
+                    else:
+                        self.insert_into.barlist[0][0].multiclef.append(['G',2])
+                    self.insert_into.barlist[0][0].clef = 0
             self.set_staff(self.insert_into.barlist, 1, False)
             self.set_staff(n.barlist, 2)
+        if voice:
+            self.change_voice(n.barlist, voice)
         for i, bar in enumerate(self.insert_into.barlist):
             if i < varlen:
                 backup = self.create_backup(bar)
@@ -115,18 +128,20 @@ class mediator():
         s = 1
         for obj in bar:
             if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
-                if obj.dot:
-                    import math
-                    den = int(math.pow(2,obj.dot))
-                    num = int(math.pow(2,obj.dot+1)-1)
-                    b += Fraction(num, den)*obj.duration[0]
-                else:
-                    b += obj.duration[0]
-                s *= obj.duration[1]
+                if not obj.chord:
+                    if obj.dot:
+                        import math
+                        den = int(math.pow(2,obj.dot))
+                        num = int(math.pow(2,obj.dot+1)-1)
+                        b += Fraction(num, den)*obj.duration[0]
+                    else:
+                        b += obj.duration[0]
+                    s *= obj.duration[1]
             elif isinstance(obj, bar_backup):
                 self.check_divs(b, s)
                 return bar_backup([b,s])
-        self.check_divs(b, s)
+        if b:
+            self.check_divs(b, s)
         return bar_backup((b,s))
 
     def fetch_variable(self, varname):
@@ -197,7 +212,7 @@ class mediator():
         """ For now used to check first bar """
         for obj in bar:
             if isinstance(obj, bar_attr):
-                if obj.clef:
+                if obj.clef or obj.multiclef:
                     return True
             if isinstance(obj, bar_note):
                 return False
@@ -383,7 +398,11 @@ class mediator():
             tfraction = scaling
         if(not tfraction):
             a = 4
-            b = 1/base
+            if base:
+                b = 1/base
+            else:
+                b = 1
+                print "Warning problem checking duration!"
         else:
             num = tfraction.numerator
             den = tfraction.denominator
@@ -470,6 +489,7 @@ class bar_rest():
         self.pos = pos
         self.voice = voice
         self.staff = 0
+        self.chord = False
 
     def set_duration(self, base_scaling, durval=0, durtype=None):
         self.duration = base_scaling
@@ -494,6 +514,7 @@ class bar_attr():
         self.barline = ''
         self.repeat = None
         self.staves = 0
+        self.multiclef = []
 
     def set_key(self, muskey, mode):
         self.key = muskey
