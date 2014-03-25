@@ -93,6 +93,21 @@ class PanelManager(plugin.MainWindowPlugin):
         for name, panel in self._panels:
             menu.addAction(panel.toggleViewAction())
 
+    def panels_at(self, area):
+        """Return the list of panels at the specified Qt.DockWidgetArea.
+        
+        Each entry is the (name, panel) tuple. Floating or hidden panels are
+        not returned, but tabbed panels are.
+        
+        """
+        result = []
+        for name, panel in self._panels:
+            if (self.mainwindow().dockWidgetArea(panel) == area
+                and not panel.isFloating()
+                and (panel.isVisible() or self.mainwindow().tabifiedDockWidgets(panel))):
+                result.append((name, panel))
+        return result
+
 
 class Actions(actioncollection.ActionCollection):
     """Manages the keyboard shortcuts to hide/show the plugins."""
