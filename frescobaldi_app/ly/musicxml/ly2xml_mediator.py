@@ -96,19 +96,24 @@ class mediator():
                     self.insert_into.barlist[0][0].clef = 0
             self.set_staff(self.insert_into.barlist, 1, False)
             self.set_staff(n.barlist, 2)
-        if voice:
+        if voice>4:
+            self.change_voice(n.barlist, voice, plusvoice=True)
+        elif voice:
             self.change_voice(n.barlist, voice)
         for i, bar in enumerate(self.insert_into.barlist):
             if i < varlen:
                 backup = self.create_backup(bar)
                 self.insert_into.barlist[i] = bar + [backup] + n.barlist[i]
 
-    def change_voice(self, barlist, newvoice, del_barattr=True):
+    def change_voice(self, barlist, newvoice, del_barattr=True, plusvoice=False):
         for bar in barlist:
             orig = list(bar)
             for obj in orig:
                 if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
-                    obj.voice = newvoice
+                    if plusvoice:
+                        obj.voice += 4
+                    else:
+                        obj.voice = newvoice
                 elif isinstance(obj, bar_attr):
                     if del_barattr:
                         bar.remove(obj)

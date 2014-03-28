@@ -317,7 +317,7 @@ class parse_source():
             if self.voicecontext and self.voicenr>1:
                 self.mediator.merge_variable(self.voicenr, token[1:])
             elif self.piano_staff == 2:
-                self.mediator.merge_variable(2, token[1:], True)
+                self.mediator.merge_variable(5, token[1:], True)
             else:
                 self.mediator.fetch_variable(token[1:])
 
