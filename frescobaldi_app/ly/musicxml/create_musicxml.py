@@ -140,7 +140,8 @@ class create_musicXML():
         if mustime:
             self.add_time(mustime)
         if clef:
-            self.add_clef(clef[0], clef[1])
+            sign, line, octch = clef
+            self.add_clef(sign, line, oct_ch=octch)
 
     def new_backup(self, base_scaling, divs):
         self.add_backup(self.count_duration(base_scaling, divs, 0))
@@ -308,7 +309,7 @@ class create_musicXML():
         typenode = etree.SubElement(timenode, "beat-type")
         typenode.text = str(timesign[1])
 
-    def add_clef(self, sign, line, nr=0):
+    def add_clef(self, sign, line, nr=0, oct_ch=0):
         if nr:
             clefnode = etree.SubElement(self.bar_attr, "clef", number=str(nr))
         else:
@@ -317,6 +318,9 @@ class create_musicXML():
         signnode.text = str(sign)
         linenode = etree.SubElement(clefnode, "line")
         linenode.text = str(line)
+        if oct_ch:
+            octchnode = etree.SubElement(clefnode, "clef-octave-change")
+            octchnode.text = str(oct_ch)
 
     def add_barline(self, bl_type, repeat=None):
         barnode = etree.SubElement(self.current_bar, "barline", location="right")

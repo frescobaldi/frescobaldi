@@ -199,7 +199,7 @@ class mediator():
 
     def set_first_bar(self, part):
         initime = '4/4'
-        iniclef = ['G',2]
+        iniclef = 'G',2,0
         if not self.check_time(part.barlist[0]):
             part.barlist[0][0].set_time(initime, False)
         if not self.check_clef(part.barlist[0]):
@@ -579,13 +579,21 @@ def get_fifths(key, mode):
 
 def clefname2clef(clefname):
     if clefname == "treble":
-        return ['G',2]
+        return 'G',2,0
     elif clefname == "bass":
-        return ['F',4]
+        return 'F',4,0
     elif clefname == "alto":
-        return ['C',3]
+        return 'C',3,0
     elif clefname == "tenor":
-        return ['C',4]
+        return 'C',4,0
+    elif clefname == "treble_8":
+        return 'G',2,-1
+    elif clefname == "bass_8":
+        return 'F',4,-1
+    elif clefname == "treble^8":
+        return 'G',2,1
+    elif clefname == "bass^8":
+        return 'F',4,1
 
 def notename2step(note_name):
     alter = 0
