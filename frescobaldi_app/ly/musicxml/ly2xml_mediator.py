@@ -104,8 +104,9 @@ class mediator():
             self.change_voice(n.barlist, voice)
         for i, bar in enumerate(merge_org.barlist):
             if i < varlen:
-                backup = self.create_backup(bar)
-                merge_org.barlist[i] = bar + [backup] + n.barlist[i]
+                if self.check_bar(n.barlist[i]):
+                    backup = self.create_backup(bar)
+                    merge_org.barlist[i] = bar + [backup] + n.barlist[i]
 
     def change_voice(self, barlist, newvoice, del_barattr=True, plusvoice=False):
         for bar in barlist:
@@ -177,11 +178,12 @@ class mediator():
 
     def check_bar(self, bar):
         """ For variable handling.
-        Idealy the function should check if the bar is incomplete.
-        For now it only checks if the bar contains notes. """
+        Ideally the function should check if the bar is incomplete.
+        For now it only checks if the bar contains music. """
         for obj in bar:
-            if isinstance(obj, bar_note):
-                return True
+            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
+                if not obj.skip:
+                    return True
         return False
 
     def check_score(self):
@@ -451,6 +453,7 @@ class bar_note():
         self.voice = voice
         self.staff = 0
         self.chord = False
+        self.skip = False
 
     def set_duration(self, base_scaling, durval=0):
         self.duration = base_scaling

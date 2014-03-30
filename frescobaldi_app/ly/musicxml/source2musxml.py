@@ -395,7 +395,7 @@ class parse_source():
                             self.musxml.new_skip(obj.duration, self.mediator.divisions)
                         else:
                             self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
-                        if obj.staff:
+                        if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
                     elif isinstance(obj, ly2xml_mediator.bar_backup):
                         self.musxml.new_backup(obj.duration, self.mediator.divisions)
