@@ -40,16 +40,17 @@ class parse_source():
         self.pitch_mode = 'abs'
         self.varname = ''
         self.can_create_sect = True
-        self.can_create_part = False
         self.tuplet = False
         self.scale = ''
         self.grace_seq = False
-        self.repeat = False
+        self.new = False
+        self.context = False
         self.voicenr = None
         self.voicecontext = False
         self.piano_staff = -1
         self.sim_list = []
-        self.new_sim = None
+        self.seq_list = []
+        self.new_context = None
         self.simsectnr = 0
         self.is_chord = False
 
@@ -84,8 +85,9 @@ class parse_source():
 
     def SimultaneousStart(self, token):
         """ << """
-        if self.new_sim:
-            self.sim_list.append(self.new_sim)
+        if self.new_context:
+            self.sim_list.append(self.new_context)
+            self.new_context = None
         else:
             if not self.simsectnr:
                 self.curr_sect = self.mediator.insert_into
@@ -95,12 +97,11 @@ class parse_source():
 
     def SimultaneousEnd(self, token):
         """ >> """
-        if self.new_sim and self.sim_list:
+        if self.sim_list:
+            if self.sim_list[-1] == 'pianostaff':
+                if self.piano_var:
+                    self.mediator.merge_variable(5, self.piano_var, True)
             self.sim_list.pop()
-            if self.sim_list:
-                self.new_sim = self.sim_list[-1]
-            else:
-                self.new_sim = None
         elif self.simsectnr:
             self.mediator.insert_into = self.curr_sect
             self.mediator.fetch_variable("sim-sect-1")
@@ -117,14 +118,16 @@ class parse_source():
         elif self.prev_command == 'repeat':
             self.mediator.new_repeat('forward')
             self.prev_command = ''
-            self.repeat = True
-        elif self.new_sim:
-            self.sim_list.append(self.new_sim)
+            self.seq_list.append('repeat')
+        elif self.new_context:
+            self.seq_list.append(self.new_context)
+            self.new_context = None
         elif self.can_create_sect:
             self.mediator.new_section(self.varname)
             self.can_create_sect = False
             self.varname = ''
             self.prev_command = ''
+            self.seq_list.append("section")
 
     def SequentialEnd(self, token):
         """ SequentialEnd = } """
@@ -133,12 +136,6 @@ class parse_source():
             self.tuplet = False
         elif self.grace_seq:
             self.grace_seq = False
-        elif self.new_sim and self.sim_list:
-            self.sim_list.pop()
-            if self.sim_list:
-                self.new_sim = self.sim_list[-1]
-            else:
-                self.new_sim = None
         elif self.simsectnr:
             if self.simsectnr>1:
                 self.mediator.merge_variable(self.simsectnr,
@@ -146,13 +143,19 @@ class parse_source():
             self.simsectnr += 1
             self.varname = "sim-sect-"+str(self.simsectnr)
             self.can_create_sect = True
-        elif self.repeat:
-            self.mediator.new_repeat('backward')
-            self.mediator.new_bar()
-            self.repeat = False
+            self.seq_list.pop()
+        elif self.seq_list:
+            if self.seq_list[-1] == 'pianostaff':
+                if self.piano_var:
+                    self.mediator.merge_variable(5, self.piano_var, True)
+            elif self.seq_list[-1] == 'section':
+                self.can_create_sect = True
+            elif self.seq_list[-1] == 'repeat':
+                self.mediator.new_repeat('backward')
+                self.mediator.new_bar()
+            self.seq_list.pop()
         else:
             self.prev_command = ''
-            self.can_create_sect = True
 
     def ChordStart(self, token):
         """ < """
@@ -164,39 +167,52 @@ class parse_source():
         self.is_chord = False
 
     def Score(self, token):
-        self.new_sim = "score"
+        self.new_context = "score"
 
     def New(self, token):
-        """ New """
-        if self.new_sim != "staff":
-            self.can_create_part = True
+        """ \new """
+        self.new = True
+
+    def Context(self, token):
+        """ \context """
+        self.context = True
 
     def ContextName(self, token):
         """ Staff, Voice  """
         if token == "Staff":
-            if self.can_create_part:
+            if self.new or self.context:
+                self.new_context = "staff"
+            if self.new and "pianostaff" not in self.get_context():
                 self.mediator.new_part()
-                self.new_sim = "staff"
                 self.can_create_sect = False
-                self.can_create_part = False
+                self.new = False
             elif self.piano_staff>=0:
                 self.piano_staff += 1
         elif token == "PianoStaff":
-            if self.can_create_part:
+            if self.new:
                 self.mediator.new_part(True)
-                self.new_sim = "staff"
+                self.new_context = "pianostaff"
                 self.can_create_sect = False
-                self.can_create_part = False
                 self.piano_staff = 0
+                self.new = False
         elif token == "Voice":
             self.voicecontext = True
         else:
             print token
-            self.new_sim = token
+            self.new_context = token
 
     def ContextProperty(self, token):
         """ instrumentName, midiInstrument, etc """
         self.prev_command = token
+
+    def get_context(self):
+        curr_sim = ''
+        curr_seq = ''
+        if self.sim_list:
+            curr_sim = self.sim_list[-1]
+        if self.seq_list:
+            curr_seq = self.seq_list[-1]
+        return curr_sim, curr_seq
 
     def PipeSymbol(self, token):
         """ PipeSymbol = | """
@@ -315,9 +331,12 @@ class parse_source():
             self.prev_command = ''
         else:
             if self.voicecontext and self.voicenr>1:
-                self.mediator.merge_variable(self.voicenr, token[1:])
+                if self.piano_staff == 2:
+                    self.mediator.merge_variable(self.voicenr, token[1:], org=self.piano_var)
+                else:
+                    self.mediator.merge_variable(self.voicenr, token[1:])
             elif self.piano_staff == 2:
-                self.mediator.merge_variable(5, token[1:], True)
+                self.piano_var = token[1:]
             else:
                 self.mediator.fetch_variable(token[1:])
 

@@ -77,33 +77,35 @@ class mediator():
     def merge_variable(self, voice, varname, staff=False, org=None):
         """ Fetches variable as new voice """
         if org:
-            self.insert_into = self.get_var_byname(org)
+            merge_org = self.get_var_byname(org)
+        else:
+            merge_org = self.insert_into
         n = self.get_var_byname(varname)
         varlen = len(n.barlist)
         if staff:
-            if isinstance(self.insert_into.barlist[0][0], bar_attr):
-                clef_one = self.insert_into.barlist[0][0].clef
+            if isinstance(merge_org.barlist[0][0], bar_attr):
+                clef_one = merge_org.barlist[0][0].clef
                 if clef_one:
-                    self.insert_into.barlist[0][0].multiclef.append(clef_one)
+                    merge_org.barlist[0][0].multiclef.append(clef_one)
                 else:
-                    self.insert_into.barlist[0][0].multiclef.append(['G',2])
+                    merge_org.barlist[0][0].multiclef.append(['G',2])
                 if isinstance(n.barlist[0][0], bar_attr):
                     clef_two = n.barlist[0][0].clef
                     if clef_two:
-                        self.insert_into.barlist[0][0].multiclef.append(clef_two)
+                        merge_org.barlist[0][0].multiclef.append(clef_two)
                     else:
-                        self.insert_into.barlist[0][0].multiclef.append(['G',2])
-                    self.insert_into.barlist[0][0].clef = 0
-            self.set_staff(self.insert_into.barlist, 1, False)
+                        merge_org.barlist[0][0].multiclef.append(['G',2])
+                    merge_org.barlist[0][0].clef = 0
+            self.set_staff(merge_org.barlist, 1, False)
             self.set_staff(n.barlist, 2)
         if voice>4:
             self.change_voice(n.barlist, voice, plusvoice=True)
         elif voice:
             self.change_voice(n.barlist, voice)
-        for i, bar in enumerate(self.insert_into.barlist):
+        for i, bar in enumerate(merge_org.barlist):
             if i < varlen:
                 backup = self.create_backup(bar)
-                self.insert_into.barlist[i] = bar + [backup] + n.barlist[i]
+                merge_org.barlist[i] = bar + [backup] + n.barlist[i]
 
     def change_voice(self, barlist, newvoice, del_barattr=True, plusvoice=False):
         for bar in barlist:
