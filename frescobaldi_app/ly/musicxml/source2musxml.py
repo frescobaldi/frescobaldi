@@ -101,6 +101,7 @@ class parse_source():
             if self.sim_list[-1] == 'pianostaff':
                 if self.piano_var:
                     self.mediator.merge_variable(5, self.piano_var, True)
+                    self.piano_var = None
             self.sim_list.pop()
         elif self.simsectnr:
             self.mediator.insert_into = self.curr_sect
@@ -148,6 +149,7 @@ class parse_source():
             if self.seq_list[-1] == 'pianostaff':
                 if self.piano_var:
                     self.mediator.merge_variable(5, self.piano_var, True)
+                    self.piano_var = None
             elif self.seq_list[-1] == 'section':
                 self.can_create_sect = True
             elif self.seq_list[-1] == 'repeat':
@@ -337,6 +339,7 @@ class parse_source():
                     self.mediator.merge_variable(self.voicenr, token[1:])
             elif self.piano_staff == 2:
                 self.piano_var = token[1:]
+                self.piano_staff = -1
             else:
                 self.mediator.fetch_variable(token[1:])
 
@@ -395,7 +398,7 @@ class parse_source():
                             self.musxml.new_skip(obj.duration, self.mediator.divisions)
                         else:
                             self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
-                        if obj.staff:
+                        if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
                     elif isinstance(obj, ly2xml_mediator.bar_backup):
                         self.musxml.new_backup(obj.duration, self.mediator.divisions)
