@@ -185,23 +185,26 @@ class parse_source():
             if self.new or self.context:
                 self.new_context = "staff"
             if self.new and "pianostaff" not in self.get_context():
-                self.mediator.new_part()
-                self.can_create_sect = False
-                self.new = False
+                self.create_part()
             elif self.piano_staff>=0:
                 self.piano_staff += 1
         elif token == "PianoStaff":
             if self.new:
-                self.mediator.new_part(True)
+                self.create_part(True)
                 self.new_context = "pianostaff"
-                self.can_create_sect = False
                 self.piano_staff = 0
-                self.new = False
         elif token == "Voice":
             self.voicecontext = True
         else:
             print token
             self.new_context = token
+
+    def create_part(self, piano=False):
+        self.mediator.new_part(piano)
+        self.can_create_sect = False
+        self.new = False
+        self.context = False
+        self.voicenr = None
 
     def ContextProperty(self, token):
         """ instrumentName, midiInstrument, etc """
