@@ -393,6 +393,13 @@ class mediator():
             self.current_note.set_octave(octave, relative, self.prev_pitch)
             self.set_prev_pitch()
 
+    def new_tempo(self, unit, beats, dots):
+        tempo = bar_attr()
+        tempo.set_tempo(unit, beats, dots)
+        if self.bar is None:
+            self.new_bar()
+        self.bar.append(tempo)
+
     def new_from_command(self, command):
         #print (command)
         pass
@@ -525,6 +532,7 @@ class bar_attr():
         self.repeat = None
         self.staves = 0
         self.multiclef = []
+        self.tempo = None
 
     def set_key(self, muskey, mode):
         self.key = muskey
@@ -541,6 +549,9 @@ class bar_attr():
 
     def set_barline(self, bl):
         self.barline = convert_barl(bl)
+
+    def set_tempo(self, unit, beats, dots):
+        self.tempo = tempo_dir(unit, beats, dots)
 
     def has_attr(self):
         check = False
@@ -559,6 +570,26 @@ class bar_backup():
     """ Object that stores duration for backup """
     def __init__(self, duration):
         self.duration = duration
+
+
+class tempo_dir():
+    """ Object that stores tempo direction information """
+    def __init__(self, unit, beats, dots, text=""):
+        self.metr = durval2type(unit), beats
+        self.text = text
+        self.midi = self.set_midi_tempo(unit, beats, dots)
+        self.dots = dots
+
+    def set_midi_tempo(self, unit, beats, dots):
+        u = Fraction(1,int(unit))
+        if dots:
+            import math
+            den = int(math.pow(2,dots))
+            num = int(math.pow(2,dots+1)-1)
+            u *= Fraction(num, den)
+        mult = 4*u
+        return float(Fraction(beats)*mult)
+
 
 
 ##

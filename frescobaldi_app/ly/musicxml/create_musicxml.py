@@ -146,6 +146,11 @@ class create_musicXML():
     def new_backup(self, base_scaling, divs):
         self.add_backup(self.count_duration(base_scaling, divs, 0))
 
+    def create_tempo(self, metronome, sound, dots):
+        self.add_direction()
+        self.add_metron_dir(metronome[0], metronome[1], dots)
+        self.add_sound_dir(sound)
+
     def create_new_node(self, parentnode, nodename, txt):
         """ The Music XML language is extensive.
         This function can be used to create
@@ -348,6 +353,24 @@ class create_musicXML():
 
     def add_chord(self):
         etree.SubElement(self.current_note, "chord")
+
+    def add_direction(self, pos="above"):
+        self.direction = etree.SubElement(self.current_bar, "direction", placement=pos)
+
+    def add_metron_dir(self, unit, beats, dots):
+        dirtypenode = etree.SubElement(self.direction, "direction-type")
+        metrnode = etree.SubElement(dirtypenode, "metronome")
+        bunode = etree.SubElement(metrnode, "beat-unit")
+        bunode.text = unit
+        if dots:
+            for d in range(dots):
+                etree.SubElement(metrnode, "beat-unit-dot")
+        pmnode = etree.SubElement(metrnode, "per-minute")
+        pmnode.text = str(beats)
+
+    def add_sound_dir(self, midi_tempo):
+        soundnode = etree.SubElement(self.direction, "sound", tempo=str(midi_tempo))
+
 
 
     ##

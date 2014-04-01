@@ -53,6 +53,8 @@ class parse_source():
         self.new_context = None
         self.simsectnr = 0
         self.is_chord = False
+        self.new_tempo = 0
+        self.tempo_dots = 0
 
     def parse_text(self, text, mode=None):
         state = ly.lex.state(mode) if mode else ly.lex.guessState(text)
@@ -264,10 +266,24 @@ class parse_source():
             else:
                 self.mediator.new_octave(token)
 
+    def Tempo(self, token):
+        """ Tempo direction, e g '4 = 80' """
+        self.new_tempo = 1
+
     def Length(self, token):
         """ note length/duration, e.g. 4, 8, 16 ... """
-        self.duration = token
-        self.mediator.new_duration(token)
+        if self.new_tempo:
+            self.new_tempo = token
+        else:
+            self.duration = token
+            self.mediator.new_duration(token)
+
+    def IntegerValue(self, token):
+        """ tempo value """
+        if self.new_tempo:
+            self.mediator.new_tempo(self.new_tempo, token, self.tempo_dots)
+            self.new_tempo = 0
+            self.tempo_dots = 0
 
     def TremoloDuration(self, token):
         """ duration of tremolo notes for tremolo marking """
@@ -275,7 +291,10 @@ class parse_source():
 
     def Dot(self, token):
         """ dot, . """
-        self.mediator.new_dot()
+        if self.new_tempo:
+            self.tempo_dots += 1
+        else:
+            self.mediator.new_dot()
 
     def Tie(self, token):
         """ tie ~ """
@@ -385,6 +404,8 @@ class parse_source():
                         if obj.multiclef:
                             for i, m in enumerate(obj.multiclef):
                                 self.musxml.add_clef(m[0], m[1], i+1)
+                        if obj.tempo:
+                            self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
                         self.musxml.new_note(obj.grace, [obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration,
                         obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
