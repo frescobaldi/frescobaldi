@@ -146,6 +146,11 @@ class create_musicXML():
     def new_backup(self, base_scaling, divs):
         self.add_backup(self.count_duration(base_scaling, divs, 0))
 
+    def create_tempo(self, metronome, sound, dots):
+        self.add_direction()
+        self.add_metron_dir(metronome[0], metronome[1], dots)
+        self.add_sound_dir(sound)
+
     def create_new_node(self, parentnode, nodename, txt):
         """ The Music XML language is extensive.
         This function can be used to create
@@ -316,8 +321,9 @@ class create_musicXML():
             clefnode = etree.SubElement(self.bar_attr, "clef")
         signnode = etree.SubElement(clefnode, "sign")
         signnode.text = str(sign)
-        linenode = etree.SubElement(clefnode, "line")
-        linenode.text = str(line)
+        if line:
+            linenode = etree.SubElement(clefnode, "line")
+            linenode.text = str(line)
         if oct_ch:
             octchnode = etree.SubElement(clefnode, "clef-octave-change")
             octchnode.text = str(oct_ch)
@@ -349,6 +355,24 @@ class create_musicXML():
     def add_chord(self):
         etree.SubElement(self.current_note, "chord")
 
+    def add_direction(self, pos="above"):
+        self.direction = etree.SubElement(self.current_bar, "direction", placement=pos)
+
+    def add_metron_dir(self, unit, beats, dots):
+        dirtypenode = etree.SubElement(self.direction, "direction-type")
+        metrnode = etree.SubElement(dirtypenode, "metronome")
+        bunode = etree.SubElement(metrnode, "beat-unit")
+        bunode.text = unit
+        if dots:
+            for d in range(dots):
+                etree.SubElement(metrnode, "beat-unit-dot")
+        pmnode = etree.SubElement(metrnode, "per-minute")
+        pmnode.text = str(beats)
+
+    def add_sound_dir(self, midi_tempo):
+        soundnode = etree.SubElement(self.direction, "sound", tempo=str(midi_tempo))
+
+
 
     ##
     # Create the XML document
@@ -376,8 +400,17 @@ class MusicXML(object):
         """ output etree as a XML document """
         return etree.tostring(self.root, encoding=encoding, method="xml")
 
-    def write(self, file, encoding='UTF-8'):
+    def write(self, file, encoding='UTF-8', doctype=True):
         """ write XML to a file (file obj or filename) """
-        self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
+        if doctype:
+            f = open(file,'w')
+            f.write(xml_decl_txt+"\n")
+            f.write(doctype_txt+"\n")
+            self.tree.write(f, encoding=encoding, xml_declaration=False)
+        else:
+            self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
 
+xml_decl_txt = """<?xml version="1.0" encoding="UTF-8"?>"""
 
+doctype_txt = """<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN"
+                                "http://www.musicxml.org/dtds/partwise.dtd">"""

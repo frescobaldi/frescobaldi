@@ -80,8 +80,9 @@ class mediator():
             merge_org = self.get_var_byname(org)
         else:
             merge_org = self.insert_into
-        n = self.get_var_byname(varname)
-        varlen = len(n.barlist)
+        var = self.get_var_byname(varname)
+        var_barlist = self.copy_barlist(var.barlist)
+        varlen = len(var_barlist)
         if staff:
             if isinstance(merge_org.barlist[0][0], bar_attr):
                 clef_one = merge_org.barlist[0][0].clef
@@ -89,24 +90,24 @@ class mediator():
                     merge_org.barlist[0][0].multiclef.append(clef_one)
                 else:
                     merge_org.barlist[0][0].multiclef.append(['G',2])
-                if isinstance(n.barlist[0][0], bar_attr):
-                    clef_two = n.barlist[0][0].clef
+                if isinstance(var_barlist[0][0], bar_attr):
+                    clef_two = var_barlist[0][0].clef
                     if clef_two:
                         merge_org.barlist[0][0].multiclef.append(clef_two)
                     else:
                         merge_org.barlist[0][0].multiclef.append(['G',2])
                     merge_org.barlist[0][0].clef = 0
             self.set_staff(merge_org.barlist, 1, False)
-            self.set_staff(n.barlist, 2)
+            self.set_staff(var_barlist, 2)
         if voice>4:
-            self.change_voice(n.barlist, voice, plusvoice=True)
+            self.change_voice(var_barlist, voice, plusvoice=True)
         elif voice:
-            self.change_voice(n.barlist, voice)
+            self.change_voice(var_barlist, voice)
         for i, bar in enumerate(merge_org.barlist):
             if i < varlen:
-                if self.check_bar(n.barlist[i]):
+                if self.check_bar(var_barlist[i]):
                     backup = self.create_backup(bar)
-                    merge_org.barlist[i] = bar + [backup] + n.barlist[i]
+                    merge_org.barlist[i] = bar + [backup] + var_barlist[i]
 
     def change_voice(self, barlist, newvoice, del_barattr=True, plusvoice=False):
         for bar in barlist:
@@ -151,6 +152,19 @@ class mediator():
         if b:
             self.check_divs(b, s)
         return bar_backup((b,s))
+
+    def copy_barlist(self, barlist):
+        """ Make copy of barlist to preserve original.
+            Use before for example changing voice.
+        """
+        copylist = []
+        for bar in barlist:
+            copybar = []
+            for obj in bar:
+                import copy
+                copybar.append(copy.deepcopy(obj))
+            copylist.append(copybar)
+        return copylist
 
     def fetch_variable(self, varname):
         """ Fetches stored data for variable. """
@@ -201,9 +215,15 @@ class mediator():
         initime = '4/4'
         iniclef = 'G',2,0
         if not self.check_time(part.barlist[0]):
-            part.barlist[0][0].set_time(initime, False)
+            try:
+                part.barlist[0][0].set_time(initime, False)
+            except AttributeError:
+                print "Warning can't set initial time sign!"
         if not self.check_clef(part.barlist[0]):
-            part.barlist[0][0].set_clef(iniclef)
+            try:
+                part.barlist[0][0].set_clef(iniclef)
+            except AttributeError:
+                print "Warning can't set initial clef sign!"
         part.barlist[0][0].divs = self.divisions
         if part.staves:
             part.barlist[0][0].staves = part.staves
@@ -214,7 +234,7 @@ class mediator():
             if isinstance(obj, bar_attr):
                 if obj.time:
                     return True
-            if isinstance(obj, bar_note):
+            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
                 return False
 
     def check_clef(self, bar):
@@ -223,7 +243,7 @@ class mediator():
             if isinstance(obj, bar_attr):
                 if obj.clef or obj.multiclef:
                     return True
-            if isinstance(obj, bar_note):
+            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
                 return False
 
     def new_bar(self):
@@ -393,6 +413,13 @@ class mediator():
             self.current_note.set_octave(octave, relative, self.prev_pitch)
             self.set_prev_pitch()
 
+    def new_tempo(self, unit, beats, dots):
+        tempo = bar_attr()
+        tempo.set_tempo(unit, beats, dots)
+        if self.bar is None:
+            self.new_bar()
+        self.bar.append(tempo)
+
     def new_from_command(self, command):
         #print (command)
         pass
@@ -525,6 +552,7 @@ class bar_attr():
         self.repeat = None
         self.staves = 0
         self.multiclef = []
+        self.tempo = None
 
     def set_key(self, muskey, mode):
         self.key = muskey
@@ -541,6 +569,9 @@ class bar_attr():
 
     def set_barline(self, bl):
         self.barline = convert_barl(bl)
+
+    def set_tempo(self, unit, beats, dots):
+        self.tempo = tempo_dir(unit, beats, dots)
 
     def has_attr(self):
         check = False
@@ -561,6 +592,26 @@ class bar_backup():
         self.duration = duration
 
 
+class tempo_dir():
+    """ Object that stores tempo direction information """
+    def __init__(self, unit, beats, dots, text=""):
+        self.metr = durval2type(unit), beats
+        self.text = text
+        self.midi = self.set_midi_tempo(unit, beats, dots)
+        self.dots = dots
+
+    def set_midi_tempo(self, unit, beats, dots):
+        u = Fraction(1,int(unit))
+        if dots:
+            import math
+            den = int(math.pow(2,dots))
+            num = int(math.pow(2,dots+1)-1)
+            u *= Fraction(num, den)
+        mult = 4*u
+        return float(Fraction(beats)*mult)
+
+
+
 ##
 # translation functions
 ##
@@ -578,11 +629,11 @@ def get_fifths(key, mode):
         return fifths
 
 def clefname2clef(clefname):
-    if clefname == "treble":
+    if clefname == "treble" or clefname == "violin" or clefname == "G":
         return 'G',2,0
-    elif clefname == "bass":
+    elif clefname == "bass" or clefname == "F":
         return 'F',4,0
-    elif clefname == "alto":
+    elif clefname == "alto" or clefname == "C":
         return 'C',3,0
     elif clefname == "tenor":
         return 'C',4,0
@@ -594,6 +645,18 @@ def clefname2clef(clefname):
         return 'G',2,1
     elif clefname == "bass^8":
         return 'F',4,1
+    elif clefname == "percussion":
+        return 'percussion',0,0
+    elif clefname == "tab":
+        return 'TAB',5,0
+    elif clefname == "soprano":
+        return 'C',1,0
+    elif clefname == "mezzosoprano":
+        return 'C',2,0
+    elif clefname == "baritone":
+        return 'C',5,0
+    elif clefname == "varbaritone":
+        return 'F',3,0
 
 def notename2step(note_name):
     alter = 0
