@@ -80,8 +80,9 @@ class mediator():
             merge_org = self.get_var_byname(org)
         else:
             merge_org = self.insert_into
-        n = self.get_var_byname(varname)
-        varlen = len(n.barlist)
+        var = self.get_var_byname(varname)
+        var_barlist = self.copy_barlist(var.barlist)
+        varlen = len(var_barlist)
         if staff:
             if isinstance(merge_org.barlist[0][0], bar_attr):
                 clef_one = merge_org.barlist[0][0].clef
@@ -89,24 +90,24 @@ class mediator():
                     merge_org.barlist[0][0].multiclef.append(clef_one)
                 else:
                     merge_org.barlist[0][0].multiclef.append(['G',2])
-                if isinstance(n.barlist[0][0], bar_attr):
-                    clef_two = n.barlist[0][0].clef
+                if isinstance(var_barlist[0][0], bar_attr):
+                    clef_two = var_barlist[0][0].clef
                     if clef_two:
                         merge_org.barlist[0][0].multiclef.append(clef_two)
                     else:
                         merge_org.barlist[0][0].multiclef.append(['G',2])
                     merge_org.barlist[0][0].clef = 0
             self.set_staff(merge_org.barlist, 1, False)
-            self.set_staff(n.barlist, 2)
+            self.set_staff(var_barlist, 2)
         if voice>4:
-            self.change_voice(n.barlist, voice, plusvoice=True)
+            self.change_voice(var_barlist, voice, plusvoice=True)
         elif voice:
-            self.change_voice(n.barlist, voice)
+            self.change_voice(var_barlist, voice)
         for i, bar in enumerate(merge_org.barlist):
             if i < varlen:
-                if self.check_bar(n.barlist[i]):
+                if self.check_bar(var_barlist[i]):
                     backup = self.create_backup(bar)
-                    merge_org.barlist[i] = bar + [backup] + n.barlist[i]
+                    merge_org.barlist[i] = bar + [backup] + var_barlist[i]
 
     def change_voice(self, barlist, newvoice, del_barattr=True, plusvoice=False):
         for bar in barlist:
@@ -151,6 +152,19 @@ class mediator():
         if b:
             self.check_divs(b, s)
         return bar_backup((b,s))
+
+    def copy_barlist(self, barlist):
+        """ Make copy of barlist to preserve original.
+            Use before for example changing voice.
+        """
+        copylist = []
+        for bar in barlist:
+            copybar = []
+            for obj in bar:
+                import copy
+                copybar.append(copy.deepcopy(obj))
+            copylist.append(copybar)
+        return copylist
 
     def fetch_variable(self, varname):
         """ Fetches stored data for variable. """
