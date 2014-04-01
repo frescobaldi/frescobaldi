@@ -63,12 +63,12 @@ class AutoCompiler(plugin.MainWindowPlugin):
         doc = self.mainwindow().currentDocument()
         if enabled:
             self.mainwindow().currentDocumentChanged.connect(self.slotDocumentChanged)
-            app.documentSaved.connect(self.startTimer)
+            app.documentUrlChanged.connect(self.startTimer)
             if doc:
                 self.slotDocumentChanged(doc, None)
         else:
             self.mainwindow().currentDocumentChanged.disconnect(self.slotDocumentChanged)
-            app.documentSaved.disconnect(self.startTimer)
+            app.documentUrlChanged.disconnect(self.startTimer)
             if doc:
                 self.slotDocumentChanged(None, doc)
     
