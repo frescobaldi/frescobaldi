@@ -201,9 +201,15 @@ class mediator():
         initime = '4/4'
         iniclef = 'G',2,0
         if not self.check_time(part.barlist[0]):
-            part.barlist[0][0].set_time(initime, False)
+            try:
+                part.barlist[0][0].set_time(initime, False)
+            except AttributeError:
+                print "Warning can't set initial time sign!"
         if not self.check_clef(part.barlist[0]):
-            part.barlist[0][0].set_clef(iniclef)
+            try:
+                part.barlist[0][0].set_clef(iniclef)
+            except AttributeError:
+                print "Warning can't set initial clef sign!"
         part.barlist[0][0].divs = self.divisions
         if part.staves:
             part.barlist[0][0].staves = part.staves
@@ -214,7 +220,7 @@ class mediator():
             if isinstance(obj, bar_attr):
                 if obj.time:
                     return True
-            if isinstance(obj, bar_note):
+            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
                 return False
 
     def check_clef(self, bar):
@@ -223,7 +229,7 @@ class mediator():
             if isinstance(obj, bar_attr):
                 if obj.clef or obj.multiclef:
                     return True
-            if isinstance(obj, bar_note):
+            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
                 return False
 
     def new_bar(self):
