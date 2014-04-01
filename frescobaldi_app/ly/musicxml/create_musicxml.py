@@ -321,8 +321,9 @@ class create_musicXML():
             clefnode = etree.SubElement(self.bar_attr, "clef")
         signnode = etree.SubElement(clefnode, "sign")
         signnode.text = str(sign)
-        linenode = etree.SubElement(clefnode, "line")
-        linenode.text = str(line)
+        if line:
+            linenode = etree.SubElement(clefnode, "line")
+            linenode.text = str(line)
         if oct_ch:
             octchnode = etree.SubElement(clefnode, "clef-octave-change")
             octchnode.text = str(oct_ch)

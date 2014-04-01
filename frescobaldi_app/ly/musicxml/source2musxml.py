@@ -229,6 +229,12 @@ class parse_source():
         """ Clef \clef"""
         self.prev_command = "clef"
 
+    def ClefSpecifier(self, token):
+        """ clef name without quotation marks """
+        if self.prev_command == 'clef':
+            self.mediator.new_clef(token)
+            self.prev_command = ''
+
     def PitchCommand(self, token):
         if token == '\\relative':
             self.pitch_mode = 'rel'

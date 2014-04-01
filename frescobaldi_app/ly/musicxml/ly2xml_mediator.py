@@ -629,11 +629,11 @@ def get_fifths(key, mode):
         return fifths
 
 def clefname2clef(clefname):
-    if clefname == "treble":
+    if clefname == "treble" or clefname == "violin" or clefname == "G":
         return 'G',2,0
-    elif clefname == "bass":
+    elif clefname == "bass" or clefname == "F":
         return 'F',4,0
-    elif clefname == "alto":
+    elif clefname == "alto" or clefname == "C":
         return 'C',3,0
     elif clefname == "tenor":
         return 'C',4,0
@@ -645,6 +645,18 @@ def clefname2clef(clefname):
         return 'G',2,1
     elif clefname == "bass^8":
         return 'F',4,1
+    elif clefname == "percussion":
+        return 'percussion',0,0
+    elif clefname == "tab":
+        return 'TAB',5,0
+    elif clefname == "soprano":
+        return 'C',1,0
+    elif clefname == "mezzosoprano":
+        return 'C',2,0
+    elif clefname == "baritone":
+        return 'C',5,0
+    elif clefname == "varbaritone":
+        return 'F',3,0
 
 def notename2step(note_name):
     alter = 0
