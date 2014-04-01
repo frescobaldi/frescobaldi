@@ -310,6 +310,16 @@ class DocInfo(object):
                 pass
     
     @_cache
+    def token_hash(self):
+        """Return an integer hash for all non-whitespace and non-comment tokens.
+        
+        This hash does not change when only comments or whitespace are changed.
+        
+        """
+        return hash(tuple(t for t in self.tokens
+                          if not isinstance(t, (ly.lex.Space, ly.lex.Comment))))
+    
+    @_cache
     def complete(self):
         """Return whether the document is probably complete and could be compilable."""
         return self._d.state_end(self._d[len(self._d)-1]).depth() == 1

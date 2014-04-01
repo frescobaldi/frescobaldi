@@ -127,18 +127,8 @@ class AutoCompileManager(plugin.DocumentPlugin):
             else:
                 ext = '.pdf'
             self._dirty = not resultfiles.results(document).files(ext)
-        self._hash = None if self._dirty else self.token_hash()
+        self._hash = None if self._dirty else documentinfo.docinfo(document).token_hash()
         jobmanager.manager(document).started.connect(self.slotJobStarted)
-    
-    def token_hash(self):
-        """Return a hash for all non-whitespace tokens.
-        
-        Used to determine non-whitespace changes.
-        
-        """
-        dinfo = documentinfo.docinfo(self.document())
-        return hash(tuple(t for t in dinfo.tokens
-                  if not isinstance(t, (ly.lex.Space, ly.lex.Comment))))
     
     def may_compile(self):
         """Return True if we could need to compile the document."""
@@ -147,7 +137,7 @@ class AutoCompileManager(plugin.DocumentPlugin):
             if (dinfo.mode() == "lilypond"
                 and dinfo.complete()
                 and documentinfo.music(self.document()).has_output()):
-                h = self.token_hash()
+                h = dinfo.token_hash()
                 if h != self._hash:
                     self._hash = h
                     if h != hash(tuple()):
@@ -167,6 +157,6 @@ class AutoCompileManager(plugin.DocumentPlugin):
         """Called when an engraving job is started on this document."""
         if self._dirty:
             self._dirty = False
-            self._hash = self.token_hash()
+            self._hash = documentinfo.docinfo(self.document()).token_hash()
 
 
