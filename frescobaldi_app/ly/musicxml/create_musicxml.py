@@ -399,8 +399,17 @@ class MusicXML(object):
         """ output etree as a XML document """
         return etree.tostring(self.root, encoding=encoding, method="xml")
 
-    def write(self, file, encoding='UTF-8'):
+    def write(self, file, encoding='UTF-8', doctype=True):
         """ write XML to a file (file obj or filename) """
-        self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
+        if doctype:
+            f = open(file,'w')
+            f.write(xml_decl_txt+"\n")
+            f.write(doctype_txt+"\n")
+            self.tree.write(f, encoding=encoding, xml_declaration=False)
+        else:
+            self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
 
+xml_decl_txt = """<?xml version="1.0" encoding="UTF-8"?>"""
 
+doctype_txt = """<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN"
+                                "http://www.musicxml.org/dtds/partwise.dtd">"""
