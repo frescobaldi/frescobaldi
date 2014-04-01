@@ -154,6 +154,26 @@ class Page(object):
         """Change our scale to force our height to the given value."""
         self.setScale(self.scaleForHeight(height))
         
+    def image(self):
+        """Render the page as an image or our size. Return a QImage."""
+        d = self._document
+        w, h, r = self.width(), self.height(), self.rotation()
+        page = d.page(self._pageNumber)
+        pageSize = page.pageSize()
+        if r & 1:
+            pageSize.transpose()
+        xres = 72.0 * w / pageSize.width()
+        yres = 72.0 * h / pageSize.height()
+        threshold = cache.options().oversampleThreshold() or cache.options(d).oversampleThreshold()
+        multiplier = 2 if xres < threshold else 1
+        with lock(d):
+            cache.options().write(d)
+            cache.options(d).write(d)
+            image = page.renderToImage(xres * multiplier, yres * multiplier, 0, 0, w * multiplier, h * multiplier, r)
+        if multiplier == 2:
+            image = image.scaledToWidth(w, Qt.SmoothTransformation)
+        return image
+    
     def paint(self, painter, rect):
         update_rect = rect & self.rect()
         if not update_rect:
