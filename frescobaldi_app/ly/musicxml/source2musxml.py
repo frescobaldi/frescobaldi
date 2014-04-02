@@ -315,6 +315,7 @@ class parse_source():
     def Spacer(self, token):
         """ invisible rest/spacer rest (s) """
         self.mediator.new_rest(token)
+        self.scale = 's'
 
     def Skip(self, token):
         """ command \skip """
@@ -322,7 +323,7 @@ class parse_source():
 
     def Scaling(self, token):
         """ scaling, e.g. *3 or *2/3"""
-        if self.scale == 'R':
+        if self.scale == 'R' or self.scale == 's':
             self.mediator.scale_rest(token[1:])
             self.scale = ''
         else:
