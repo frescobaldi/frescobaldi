@@ -25,9 +25,9 @@ from __future__ import unicode_literals
 
 def writer():
     """Convert LilyPond text to MusicXML
-    
+
     Example:
-    
+
     import ly.musicxml
 
     e = ly.musicxml.writer()
@@ -37,9 +37,18 @@ def writer():
     xml.write(filename)         # or: xml.tostring()
 
     # xml.tree is the ElementTree xml tree.
-    
+
     """
-    from . import source2musxml
-    return source2musxml.parse_source()
+    #from . import source2musxml
+    #return source2musxml.parse_source()
+
+    """
+    new parser using ly.music
+    Under development!
+
+    """
+
+    from . import lymus2musxml
+    return lymus2musxml.parse_source()
 
 
