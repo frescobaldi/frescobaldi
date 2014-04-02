@@ -39,8 +39,8 @@ def writer():
     # xml.tree is the ElementTree xml tree.
 
     """
-    #from . import source2musxml
-    #return source2musxml.parse_source()
+    from . import source2musxml
+    return source2musxml.parse_source()
 
     """
     new parser using ly.music
@@ -48,7 +48,7 @@ def writer():
 
     """
 
-    from . import lymus2musxml
-    return lymus2musxml.parse_source()
+    #from . import lymus2musxml
+    #return lymus2musxml.parse_source()
 
 

@@ -65,6 +65,10 @@ class parse_source():
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
         print(mustree.dump())
+        tree_nodes = mustree.iter_music()
+        for m in tree_nodes:
+            print(m)
+            print(m.has_output())
 
     def musicxml(self, prettyprint=True):
         #self.mediator.check_score()
