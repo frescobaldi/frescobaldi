@@ -18,13 +18,19 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Export to Music XML
-Parsing source to convert to XML
+Export to Music XML.
+
+Using ly.music source to convert to XML.
+
+At the moment the status is test/experimental
+and the function is not actual use.
+
 """
 
 from __future__ import unicode_literals
 
-import ly.lex
+import documentinfo
+import ly.music
 
 from . import create_musicxml
 from . import ly2xml_mediator
@@ -56,23 +62,16 @@ class parse_source():
         self.new_tempo = 0
         self.tempo_dots = 0
 
-    def parse_text(self, text, mode=None):
-        state = ly.lex.state(mode) if mode else ly.lex.guessState(text)
-        self.parse_tokens(state.tokens(text))
-
-    def parse_tokens(self, tokens):
-        for t in tokens:
-            func_name = t.__class__.__name__ #get instance name
-            if func_name != 'Space':
-                try:
-                    func_call = getattr(self, func_name)
-                    func_call(t)
-                except AttributeError:
-                    # print "Warning: "+func_name+" not implemented!"
-                    pass
+    def parse_tree(self, doc):
+        mustree = documentinfo.music(doc)
+        print(mustree.dump())
+        tree_nodes = mustree.iter_music()
+        for m in tree_nodes:
+            print(m)
+            print(m.has_output())
 
     def musicxml(self, prettyprint=True):
-        self.mediator.check_score()
+        #self.mediator.check_score()
         self.iterate_mediator()
         xml = self.musxml.musicxml(prettyprint)
         return xml

@@ -162,7 +162,10 @@ class mediator():
             copybar = []
             for obj in bar:
                 import copy
-                copybar.append(copy.deepcopy(obj))
+                try:
+                    copybar.append(copy.deepcopy(obj))
+                except TypeError:
+                    print "Warning element can't be copied!"
             copylist.append(copybar)
         return copylist
 

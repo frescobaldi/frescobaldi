@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Export to non-lilypond file types. 
+Export to non-lilypond file types.
 """
 
 from __future__ import unicode_literals
@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import os
 
 from PyQt4.QtCore import Qt, QUrl
-from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox 
+from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox
 
 import app
 import actioncollection
@@ -41,7 +41,7 @@ class FileExport(plugin.MainWindowPlugin):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.export_musicxml.triggered.connect(self.exportMusicXML)
-    
+
     def exportMusicXML(self):
         """ Convert the current document to MusicXML """
         doc = self.mainwindow().currentDocument()
@@ -55,6 +55,7 @@ class FileExport(plugin.MainWindowPlugin):
         import ly.musicxml
         writer = ly.musicxml.writer()
         writer.parse_tokens(tokeniter.all_tokens(doc))
+        #writer.parse_tree(doc)
         xml = writer.musicxml()
         # put the Frescobaldi version in the xml file
         software = xml.root.find('.//encoding/software')
@@ -70,8 +71,8 @@ class FileExport(plugin.MainWindowPlugin):
 class Actions(actioncollection.ActionCollection):
     name = "file_export"
     def createActions(self, parent):
-        self.export_musicxml = QAction(parent)        
-    
+        self.export_musicxml = QAction(parent)
+
     def translateUI(self):
         self.export_musicxml.setText(_("Export Music&XML..."))
         self.export_musicxml.setToolTip(_("Export current document as MusicXML."))
