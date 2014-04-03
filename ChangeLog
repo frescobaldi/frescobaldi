@@ -28,6 +28,7 @@ Changes in 2.0.16 --
   - View -> Folding -> Fold all now folds all subregions as well, making
     gradual unfolding easier (wish #394)
 * Bugfixes:
+  - fix sticky document setting lost on reload (issue #409)
   - fix html export and copy not using the correct color scheme
   - fix AttributeError in handle_lyricmode while typing \lyricmode
   - fix LilyPond version chooser not defaulting to the default LilyPond version

@@ -197,13 +197,11 @@ class Engraver(plugin.MainWindowPlugin):
         self._currentStickyDocument = doc
         if cur:
             cur.closed.disconnect(self.slotUnStickDocument)
-            cur.loaded.disconnect(self.slotUnStickDocument)
-            cur.urlChanged.disconnect(self.updateStickyActionText)
+            cur.urlChanged.disconnect(self.slotUnStickDocument)
             self.stickyChanged(cur)
         if doc:
             doc.closed.connect(self.slotUnStickDocument)
-            doc.loaded.connect(self.slotUnStickDocument)
-            doc.urlChanged.connect(self.updateStickyActionText)
+            doc.urlChanged.connect(self.slotUnStickDocument)
             self.stickyChanged(doc)
         self.actionCollection.engrave_sticky.setChecked(bool(doc))
         self.updateStickyActionText()
