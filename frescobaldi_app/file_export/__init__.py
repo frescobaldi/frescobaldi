@@ -67,13 +67,36 @@ class FileExport(plugin.MainWindowPlugin):
                 _("Can't write to destination:\n\n{url}\n\n{error}").format(
                     url=filename, error=err.strerror))
 
+class FileExport(plugin.MainWindowPlugin):
+    def __init__(self, mainwindow):
+        ac = self.actionCollection = Actions()
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.export_audio.triggered.connect(self.exportAudio)
+
+    def exportAudio(self):
+        """ Convert the current document to Audio """
+        doc = self.mainwindow().currentDocument()
+        orgname = doc.url().toLocalFile()
+        filename = os.path.splitext(orgname)[0] + '.wav'
+        caption = app.caption(_("dialog title", "Export Audio File"))
+        filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
+        filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)
+        if not filename:
+            return False # cancelled
+	file = os.path.splitext(orgname)[0]
+	os.system('timidity "%s.midi" -Ow -o "%s.wav"' % (file, file))
+        
 
 class Actions(actioncollection.ActionCollection):
     name = "file_export"
     def createActions(self, parent):
         self.export_musicxml = QAction(parent)
+	self.export_audio = QAction(parent)
 
     def translateUI(self):
         self.export_musicxml.setText(_("Export Music&XML..."))
         self.export_musicxml.setToolTip(_("Export current document as MusicXML."))
+
+        self.export_audio.setText(_("Export Audio..."))
+        self.export_audio.setToolTip(_("Export to different audio formats."))
 
