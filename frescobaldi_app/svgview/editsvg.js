@@ -30,7 +30,7 @@ var txt = document.getElementsByTagName('text');
 //remove this
 onmouseup = function(){ 
 	drag = null;
-	pyLinks.pyLog("drag stopped externally!");
+	//pyLinks.pyLog("x="+e+":y="+f);
 	 
 };
 
@@ -53,7 +53,7 @@ function Drag(e){
 	//pyLinks.pyLog('drag activated by '+this+e.type);			
 	
 	e.stopPropagation();
-	var ct = e.target, et = e.type, m = mousePos(e);
+	var ct = e.target, et = e.type, m = mousePosII(e);
 	
 	var tr = this.transform.baseVal.getItem(0);
 	if (tr.type == SVGTransform.SVG_TRANSFORM_TRANSLATE){
@@ -66,10 +66,11 @@ function Drag(e){
 		drag = ct;
 		last_m = m;	
 		
-		x = mm2pix(e);
-		y = mm2pix(f);
+		x = e;
+		y = f;
 		
-		//pyLinks.pyLog(x+':'+y);		
+		//pyLinks.pyLog(x+':'+y);
+		//pyLinks.pyLog(m.x+':'+m.y);		
 	}
 	
 	//drag
@@ -78,7 +79,7 @@ function Drag(e){
 		x += m.x - last_m.x;
 		y += m.y - last_m.y;
 		last_m = m;	
-		tr.setTranslate(pix2mm(x),pix2mm(y));
+		tr.setTranslate(x,y);
 		
 		//pyLinks.pyLog(m.x+':'+m.y);
 		//pyLinks.pyLog(x+':'+y);
@@ -88,7 +89,7 @@ function Drag(e){
 	//stop drag
 	if (drag && (et == "mouseup")){
 		drag = null;
-		//pyLinks.pyLog('dragging stopped');	
+		pyLinks.pyLog("x="+e+":y="+f);	
 	}
 
 }
@@ -96,17 +97,21 @@ function Drag(e){
 //mouse position
 function mousePos(event) {
 	return {
-		x: Math.max(0, Math.min(maxX, event.pageX)),
-		y: Math.max(0, Math.min(maxY, event.pageY))
+		x: Math.max(0, Math.min(maxX, event.screenX)),
+		y: Math.max(0, Math.min(maxY, event.screenY))
 	}
 }
 
-//we need to convert between pixels and millimeters
-function pix2mm(pixval){
-	return (pixval*25.4)/96;
-}
-function mm2pix(mmval){
-	return (mmval*96)/25.4;
+//mouse position, second version
+function mousePosII(event) {
+	var svgPoint = svg.createSVGPoint();
+
+    svgPoint.x = event.clientX;
+    svgPoint.y = event.clientY;
+
+    svgPoint = svgPoint.matrixTransform(svg.getScreenCTM().inverse());
+    
+    return svgPoint;
 }
 	
 function getSVG(){
