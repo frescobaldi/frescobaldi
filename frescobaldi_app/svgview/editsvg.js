@@ -78,6 +78,9 @@ function Drag(e){
 	//drag
 	if (drag && (et == "mousemove")){
 		
+		//change color when element has been changed
+		this.setAttribute("fill", "orange");
+		
 		x += m.x - last_m.x;
 		y += m.y - last_m.y;
 		last_m = m;	
