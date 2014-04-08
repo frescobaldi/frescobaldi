@@ -30,17 +30,25 @@ var txt = document.getElementsByTagName('text');
 //remove this
 onmouseup = function(){ 
 	drag = null;
-	//pyLinks.pyLog("x="+e+":y="+f);
 	 
 };
 
 //listen for drag events on all text elements
-//and get their initial position
+//and save their initial position
 for (var t= 0; t < txt.length; ++t){
 
-	txt[t].onmousedown = txt[t].onmousemove = txt[t].onmouseup = Drag;	
+	txt[t].onmousedown = txt[t].onmousemove = txt[t].onmouseup = Drag;
 	
+	var doSave = pyLinks.savePos();
+	
+	if (doSave){
+		var p = getTranslPos(txt[t]);	
+		txt[t].setAttribute("init-x",p.x);
+		txt[t].setAttribute("init-y",p.y);
+	}
 }
+
+pyLinks.setSaved();
 
 //write error message
 function error(e){
@@ -48,62 +56,63 @@ function error(e){
 }
 
 //moving objects with mouse
-function Drag(e){
-	
-	//pyLinks.pyLog('drag activated by '+this+e.type);			
+function Drag(e){		
 	
 	e.stopPropagation();
-	var ct = e.target, et = e.type, m = mousePosII(e);
+	var ct = e.target, et = e.type, m = mousePos(e);
 	
-	var tr = this.transform.baseVal.getItem(0);
-	if (tr.type == SVGTransform.SVG_TRANSFORM_TRANSLATE){
-		var e = tr.matrix.e, f = tr.matrix.f;
-	}
+	var tp = getTranslPos(this);
+	var tr = tp.tr;
 
-	//start drag
+	//drag start
 	if (!drag && (et == "mousedown")){
-		//pyLinks.pyLog('dragging started');
+		
 		drag = ct;
 		last_m = m;	
 		
-		x = e;
-		y = f;
-		
-		//pyLinks.pyLog(x+':'+y);
-		//pyLinks.pyLog(m.x+':'+m.y);		
+		x = tp.x;
+		y = tp.y;
+				
 	}
 	
 	//drag
 	if (drag && (et == "mousemove")){
-		//pyLinks.pyLog('dragging ongoing');
+		
 		x += m.x - last_m.x;
 		y += m.y - last_m.y;
 		last_m = m;	
 		tr.setTranslate(x,y);
 		
-		//pyLinks.pyLog(m.x+':'+m.y);
-		//pyLinks.pyLog(x+':'+y);
-		
 	}
 	
-	//stop drag
+	//dragging stopped
 	if (drag && (et == "mouseup")){
 		drag = null;
-		pyLinks.pyLog("x="+e+":y="+f);	
+		pyLinks.pyLog("x="+x+":y="+y);
+		
+		var initX = parseFloat(this.getAttribute("init-x"));
+		var initY = parseFloat(this.getAttribute("init-y"));
+		
+		pyLinks.pyLog("init x="+initX+":init y="+initY);
+		
+		var diffX = getDiffPos(x, initX);
+		var diffY = getDiffPos(y, initY);
+		
+		pyLinks.pyLog("diff x="+diffX+":diff y="+diffY);
+		
+		//adjust to rounded diff
+		var newX = initX - diffX;
+		var newY = initY - diffY;
+		
+		//pyLinks.pyLog("new x="+newX+":new y="+newY);
+		
+		tr.setTranslate(newX,newY);	
 	}
 
 }
 
 //mouse position
 function mousePos(event) {
-	return {
-		x: Math.max(0, Math.min(maxX, event.screenX)),
-		y: Math.max(0, Math.min(maxY, event.screenY))
-	}
-}
-
-//mouse position, second version
-function mousePosII(event) {
 	var svgPoint = svg.createSVGPoint();
 
     svgPoint.x = event.clientX;
@@ -112,6 +121,27 @@ function mousePosII(event) {
     svgPoint = svgPoint.matrixTransform(svg.getScreenCTM().inverse());
     
     return svgPoint;
+}
+
+//get markup translate coordinates
+function getTranslPos(elem){
+	var tr = elem.transform.baseVal.getItem(0);
+	if (tr.type == SVGTransform.SVG_TRANSFORM_TRANSLATE){
+		return { 
+			x: tr.matrix.e, y: tr.matrix.f, tr: tr
+		}
+	}
+}
+
+//return difference between initial and current position
+function getDiffPos(p, initP){
+	
+	return roundPos(initP - p);
+}
+
+//round position to one decimal	
+function roundPos(pos){
+	return Math.round(pos * 10) / 10;
 }
 	
 function getSVG(){

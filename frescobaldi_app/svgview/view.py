@@ -104,6 +104,7 @@ class JSLink(QtCore.QObject):
         self._highlightFormat = QtGui.QTextCharFormat()
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
+        self.isSaved = False
         
     def mainwindow(self):
         return self.view.mainwindow()
@@ -180,7 +181,18 @@ class JSLink(QtCore.QObject):
 		
     @QtCore.pyqtSlot(str)	    
     def saveSVG(self, svg_string):
-		"""Pass string from JavaScript."""
-		pass
+        """Pass string from JavaScript."""
+        pass
+	
+    @QtCore.pyqtSlot(result="int")	
+    def savePos(self):
+        """ Determine if initial positions are already saved """
+        if self.isSaved:
+            return 0
+        else:
+            return 1
+	
+    @QtCore.pyqtSlot()		
+    def setSaved(self):
+        self.isSaved = True
 		
-    
