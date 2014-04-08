@@ -127,44 +127,53 @@ class JSLink(QtCore.QObject):
                 or d.url().toLocalFile() == filename):
                 return d
         if load:
-            return app.openUrl(QtCore.QUrl.fromLocalFile(filename))
+            doc = app.openUrl(QtCore.QUrl.fromLocalFile(filename))
+            
+            return doc
         
-    @QtCore.pyqtSlot(str)
-    def setCursor(self, url):
-        """set cursor in source by clicked textedit link""" 
+    def doTextEdit(self, url, setCursor = False):
+        """Process a textedit link and either highlight
+           the corresponding source code or set the 
+           cursor to it.
+        """
         t = textedit.link(url)
-        if t:
-            doc = self.document(t.filename, True)
+        # Only process textedit links
+        if not t:
+            return False
+        doc = self.document(t.filename, setCursor)
+        if doc:
             cursor = QtGui.QTextCursor(doc)
             b = doc.findBlockByNumber(t.line - 1)
             p = b.position() + t.column
             cursor.setPosition(p)
-            mainwindow = self.mainwindow()
-            mainwindow.setTextCursor(cursor)
-            import widgets.blink
-            widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
-            mainwindow.activateWindow()
-            mainwindow.currentView().setFocus()
-        else:
+            cursors = pointandclick.positions(cursor)
+            # Do highlighting if the document is active
+            if cursors and doc == self.mainwindow().currentDocument():
+                import viewhighlighter
+                view = self.mainwindow().currentView()
+                viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
+            # set the cursor and bring the document to front
+            if setCursor:
+                mainwindow = self.mainwindow()
+                mainwindow.setTextCursor(cursor)
+                import widgets.blink
+                widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
+                self.mainwindow().setCurrentDocument(doc)
+                mainwindow.activateWindow()
+                mainwindow.currentView().setFocus()
+        return True
+    
+    @QtCore.pyqtSlot(str)
+    def setCursor(self, url):
+        """set cursor in source by clicked textedit link""" 
+        if not self.doTextEdit(url, True):
             import helpers
             helpers.openUrl(QtCore.QUrl(url))
-	
+
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
         """actions when user set mouse over link"""
-        t = textedit.link(url)
-        if t:
-            doc = self.document(t.filename)
-            if doc and doc == self.mainwindow().currentDocument():
-                cursor = QtGui.QTextCursor(doc)
-                b = doc.findBlockByNumber(t.line - 1)
-                p = b.position() + t.column
-                cursor.setPosition(p)
-                cursors = pointandclick.positions(cursor)
-                if cursors:
-                    import viewhighlighter
-                    view = self.mainwindow().currentView()
-                    viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
+        self.doTextEdit(url, False)
     
     @QtCore.pyqtSlot(str)	    
     def leave(self, url):
