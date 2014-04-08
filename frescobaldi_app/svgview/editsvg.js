@@ -76,7 +76,7 @@ function Drag(e){
 	}
 	
 	//drag
-	if (drag && (et == "mousemove")){
+	if ((drag == ct)  && (et == "mousemove")){
 		
 		//change color when element has been changed
 		this.setAttribute("fill", "orange");
