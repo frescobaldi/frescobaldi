@@ -189,6 +189,13 @@ class JSLink(QtCore.QObject):
         view = self.mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
         
+    @QtCore.pyqtSlot(float, float)	    
+    def calcOffset(self, offsX, offsY):
+        """Calculate offsets and send values to the Object Editor panel."""
+        import panelmanager
+        oe = panelmanager.manager(self.mainwindow()).objecteditor.widget()
+        oe.setOffset(-offsX, offsY)
+    
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""

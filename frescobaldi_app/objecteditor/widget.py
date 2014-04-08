@@ -41,11 +41,13 @@ class Widget(QWidget):
         self.setLayout(layout)
         
         self.XOffsetBox = QDoubleSpinBox()
+        self.XOffsetBox.setRange(-99,99)
         self.XOffsetBox.setSingleStep(0.1)
         self.XOffsetLabel = l = QLabel()
         l.setBuddy(self.XOffsetBox)
  
         self.YOffsetBox = QDoubleSpinBox()
+        self.YOffsetBox.setRange(-99,99)
         self.YOffsetBox.setSingleStep(0.1)
         self.YOffsetLabel = l = QLabel()
         l.setBuddy(self.YOffsetBox)
@@ -66,7 +68,11 @@ class Widget(QWidget):
         self.XOffsetBox.setToolTip(_("Display the X Offset"))
         self.YOffsetLabel.setText(_("Y Offset"))
         self.YOffsetBox.setToolTip(_("Display the Y Offset"))
-
+	
+    def setOffset(self, x, y):
+        """Set the value of the offset externally."""
+        self.XOffsetBox.setValue(x)
+        self.YOffsetBox.setValue(y)
     
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""

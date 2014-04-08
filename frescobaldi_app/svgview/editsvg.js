@@ -88,17 +88,17 @@ function Drag(e){
 	//dragging stopped
 	if (drag && (et == "mouseup")){
 		drag = null;
-		pyLinks.pyLog("x="+x+":y="+y);
+		//pyLinks.pyLog("x="+x+":y="+y);
 		
 		var initX = parseFloat(this.getAttribute("init-x"));
 		var initY = parseFloat(this.getAttribute("init-y"));
 		
-		pyLinks.pyLog("init x="+initX+":init y="+initY);
+		//pyLinks.pyLog("init x="+initX+":init y="+initY);
 		
 		var diffX = getDiffPos(x, initX);
 		var diffY = getDiffPos(y, initY);
 		
-		pyLinks.pyLog("diff x=-"+diffX+":diff y="+diffY);
+		pyLinks.calcOffset(diffX, diffY);
 		
 		//adjust to rounded diff
 		var newX = initX - diffX;
@@ -139,9 +139,9 @@ function getDiffPos(p, initP){
 	return roundPos(initP - p);
 }
 
-//round position to one decimal	
+//round position to two decimals	
 function roundPos(pos){
-	return Math.round(pos * 10) / 10;
+	return Math.round(pos * 100) / 100;
 }
 	
 function getSVG(){
