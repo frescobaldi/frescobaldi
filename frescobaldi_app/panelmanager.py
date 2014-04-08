@@ -57,6 +57,9 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("doclist.DocumentList")
         self.loadPanel("outline.OutlinePanel")
         self.loadPanel("layoutcontrol.LayoutControlOptions")
+        # The Object editor is highly experimental and should be
+        # commented out for stable releases.
+        self.loadPanel("objecteditor.ObjectEditor")
         
         self.createActions()
         
