@@ -98,7 +98,7 @@ function Drag(e){
 		var diffX = getDiffPos(x, initX);
 		var diffY = getDiffPos(y, initY);
 		
-		pyLinks.pyLog("diff x="+diffX+":diff y="+diffY);
+		pyLinks.pyLog("diff x=-"+diffX+":diff y="+diffY);
 		
 		//adjust to rounded diff
 		var newX = initX - diffX;

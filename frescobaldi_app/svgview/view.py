@@ -75,6 +75,9 @@ class View(QtWebKit.QWebView):
     def clear(self):
         """Empty the View."""
         self.load(QtCore.QUrl())
+        
+    def resetSaved(self):
+        self.jslink.resetSaved()
     
     def zoomIn(self):
         self.setZoomFactor(self.zoomFactor() * 1.1)
@@ -163,6 +166,9 @@ class JSLink(QtCore.QObject):
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
         return True
+        
+    def resetSaved(self):
+        self.isSaved = False
     
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):

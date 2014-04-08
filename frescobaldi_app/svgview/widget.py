@@ -103,6 +103,7 @@ class SvgView(QWidget):
                     self.pageCombo.setModel(model)
                     self.pageCombo.setCurrentIndex(files.current)
                 self.view.load(files.url(files.current))
+                self.view.resetSaved()
 			
     def slotZoomNumberChanged(self, value):
         self._setting_zoom = True
