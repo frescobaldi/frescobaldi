@@ -77,6 +77,8 @@ class View(QtWebKit.QWebView):
             
     def evalSave(self):
 		frame = self.page().mainFrame()
+		# to enable useful save of SVG edits to file uncomment line below
+		# frame.evaluateJavaScript(getJsScript('cleansvg.js'))
 		frame.evaluateJavaScript(getJsScript('savesvg.js'))
     
     def clear(self):
