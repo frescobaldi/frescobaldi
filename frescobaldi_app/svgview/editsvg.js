@@ -148,12 +148,5 @@ function getDiffPos(p, initP){
 function roundPos(pos){
 	return Math.round(pos * 100) / 100;
 }
-	
-function getSVG(){
-	
-	if (typeof(XMLSerializer) !== 'undefined') {
-		var serializer = new XMLSerializer();
-		pyLinks.saveSVG(serializer.serializeToString(svg));
-   }	
-}
+
 

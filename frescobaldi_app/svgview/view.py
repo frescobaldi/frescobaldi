@@ -64,6 +64,9 @@ class View(QtWebKit.QWebView):
     
     def mainwindow(self):
         return self.parent().mainwindow()
+        
+    def currentSVG(self):
+		return self.parent().getCurrent()
     
     def svgLoaded(self):
         if not self.url().isEmpty():
@@ -71,6 +74,10 @@ class View(QtWebKit.QWebView):
             frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
             frame.evaluateJavaScript(getJsScript('editsvg.js')) #remove this for stable releases
+            
+    def evalSave(self):
+		frame = self.page().mainFrame()
+		frame.evaluateJavaScript(getJsScript('savesvg.js'))
     
     def clear(self):
         """Empty the View."""
@@ -203,8 +210,10 @@ class JSLink(QtCore.QObject):
 		
     @QtCore.pyqtSlot(str)	    
     def saveSVG(self, svg_string):
-        """Pass string from JavaScript."""
-        pass
+        """Pass string from JavaScript and save to current document."""
+        f = open(self.view.currentSVG(),'w')
+        f.write(svg_string.encode('utf8'))
+        f.close()
 	
     @QtCore.pyqtSlot(result="int")	
     def savePos(self):

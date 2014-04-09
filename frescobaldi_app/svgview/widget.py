@@ -73,6 +73,10 @@ class SvgView(QWidget):
         self.resetButton.clicked.connect(self.reLoadDoc)
         hbox.addWidget(self.resetButton)
         
+        self.saveButton = QPushButton("save edits", self)
+        self.saveButton.clicked.connect(self.callSave)
+        hbox.addWidget(self.saveButton)
+        
         hbox.addStretch(1)
         layout.addLayout(hbox)
         layout.addWidget(self.view)
@@ -113,6 +117,14 @@ class SvgView(QWidget):
         """Reloads current document."""
         if self._document:
             self.initSvg(self._document)
+            
+    def callSave(self):
+        """Call save function"""
+        self.view.evalSave()
+		
+    def getCurrent(self):
+        files = svgfiles.SvgFiles.instance(self._document)
+        return files.filename(files.current)
 			
     def slotZoomNumberChanged(self, value):
         self._setting_zoom = True
