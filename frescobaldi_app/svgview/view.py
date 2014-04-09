@@ -77,7 +77,7 @@ class View(QtWebKit.QWebView):
             
     def evalSave(self):
 		frame = self.page().mainFrame()
-		# to enable useful save of SVG edits to file uncomment line below
+		# to enable useful save of SVG edits to file uncomment the line below
 		# frame.evaluateJavaScript(getJsScript('cleansvg.js'))
 		frame.evaluateJavaScript(getJsScript('savesvg.js'))
     
@@ -212,7 +212,7 @@ class JSLink(QtCore.QObject):
 		
     @QtCore.pyqtSlot(str)	    
     def saveSVG(self, svg_string):
-        """Pass string from JavaScript and save to current document."""
+        """Pass string from JavaScript and save to current SVG page."""
         f = open(self.view.currentSVG(),'w')
         f.write(svg_string.encode('utf8'))
         f.close()
