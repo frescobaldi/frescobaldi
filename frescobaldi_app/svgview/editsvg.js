@@ -72,14 +72,16 @@ function Drag(e){
 		
 		x = tp.x;
 		y = tp.y;
+		
+		//change color when edit has begun
+		if(this.getAttribute("fill") != "orange"){
+			this.setAttribute("fill", "orange");
+		}
 				
 	}
 	
 	//drag
 	if ((drag == ct)  && (et == "mousemove")){
-		
-		//change color when element has been changed
-		this.setAttribute("fill", "orange");
 		
 		x += m.x - last_m.x;
 		y += m.y - last_m.y;
