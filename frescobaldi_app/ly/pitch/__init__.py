@@ -42,7 +42,7 @@ pitchInfo = {
     'deutsch': (
         ('c','d','e','f','g','a','h'),
         ('eses', 'eseh', 'es', 'eh', '', 'ih','is','isih','isis'),
-        (('ees', 'es'), ('aes', 'as'), ('hes', 'b'))
+        (('ases', 'asas'), ('ees', 'es'), ('aes', 'as'), ('hes', 'b'))
     ),
     'svenska': (
         ('c','d','e','f','g','a','h'),
