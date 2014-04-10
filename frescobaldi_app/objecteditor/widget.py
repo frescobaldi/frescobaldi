@@ -34,6 +34,13 @@ import objecteditor
 
 
 class Widget(QWidget):
+    
+# I think we will work with individual editor objects for different types of objects.
+# Each one will be shown/hidden on demand, i.e. when an element is activated
+# through the SVG view, the music view or the cursor in the source.
+# Each editor object handles its own connections to signals.
+# (PS: The object editor will also work with the source code directly,
+# i.e. independently of graphical SVG editing.)
 
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
@@ -70,19 +77,20 @@ class Widget(QWidget):
         self.connectSlots()
     
     def connectSlots(self):
-        # what's the right signal here??????
-        #self.onClose.connect(self.disconnectFromSvgView)
+        # On creation we connect to all available signals
         self.connectToSvgView()
     
     def connectToSvgView(self):
         """Register with signals emitted by the
            SVG viewer for processing graphical editing.
         """
+        self.svgview.objectDragging.connect(self.setOffset)
         self.svgview.objectDragged.connect(self.setOffset)
         
     def disconnectFromSvgView(self):
         """Do not process graphical edits when the
            Object Editor isn't visible."""
+        self.svgview.objectDragging.disconnect()
         self.svgview.objectDragged.disconnect()
         
     def translateUI(self):
@@ -91,6 +99,20 @@ class Widget(QWidget):
         self.YOffsetLabel.setText(_("Y Offset"))
         self.YOffsetBox.setToolTip(_("Display the Y Offset"))
 
+    def hideEvent(self, event):
+        """Disconnect from all graphical editing signals
+           when the panel isn't visible
+        """
+        self.disconnectFromSvgView()
+        event.accept()
+    
+    def showEvent(self, event):
+        """Connect to the graphical editing signals
+           when the panel becomes visible
+        """
+        self.connectToSvgView()
+        event.accept()
+    
     @QtCore.pyqtSlot(float, float)
     def setOffset(self, x, y):
         """Set the value of the offset externally."""

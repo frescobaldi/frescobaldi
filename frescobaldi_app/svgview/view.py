@@ -57,6 +57,7 @@ def getJsScript(filename):
 class View(QtWebKit.QWebView):
     zoomFactorChanged = QtCore.pyqtSignal(float)
     objectDragged = QtCore.pyqtSignal(float, float)
+    objectDragging = QtCore.pyqtSignal(float, float)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
