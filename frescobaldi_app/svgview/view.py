@@ -56,6 +56,7 @@ def getJsScript(filename):
 
 class View(QtWebKit.QWebView):
     zoomFactorChanged = QtCore.pyqtSignal(float)
+    objectDragged = QtCore.pyqtSignal(float, float)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -84,7 +85,11 @@ class View(QtWebKit.QWebView):
     def clear(self):
         """Empty the View."""
         self.load(QtCore.QUrl())
+    
+    def doObjectDragged(self, offsX, offsY):
+        self.objectDragged.emit(-offsX, offsY)
         
+
     def resetSaved(self):
         self.jslink.resetSaved()
     
@@ -201,9 +206,7 @@ class JSLink(QtCore.QObject):
     @QtCore.pyqtSlot(float, float)	    
     def calcOffset(self, offsX, offsY):
         """Calculate offsets and send values to the Object Editor panel."""
-        import panelmanager
-        oe = panelmanager.manager(self.mainwindow()).objecteditor.widget()
-        oe.setOffset(-offsX, offsY)
+        self.view.doObjectDragged(offsX, offsY)
     
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):

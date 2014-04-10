@@ -36,6 +36,7 @@ class Widget(QWidget):
 
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
+        self.mainwindow = tool.mainwindow()
         
         layout = QVBoxLayout(spacing=1)
         self.setLayout(layout)
@@ -61,8 +62,13 @@ class Widget(QWidget):
 
         app.translateUI(self)
         self.loadSettings()
-        tool.mainwindow().aboutToClose.connect(self.saveSettings)
+        
+        self.connectSlots()
     
+    def connectSlots(self):
+        import panelmanager
+        panelmanager.manager(self.mainwindow).svgview.widget().view.objectDragged.connect(self.setOffset)
+
     def translateUI(self):
         self.XOffsetLabel.setText(_("X Offset"))
         self.XOffsetBox.setToolTip(_("Display the X Offset"))
