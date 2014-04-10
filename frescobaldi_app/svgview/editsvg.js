@@ -20,7 +20,7 @@
 */
 window.addEventListener('error', error, false); 
 
-var last_m, drag = null;
+var last_m, drag = null, tp, tr, diffX, diffY;;
 var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
 var maxX = svg.offsetWidth-1;
@@ -61,17 +61,17 @@ function Drag(e){
 	e.stopPropagation();
 	var ct = e.target, et = e.type, m = mousePos(e);
 	
-	var tp = getTranslPos(this);
-	var tr = tp.tr;
+	tp = getTranslPos(this);
+	tr = tp.tr;
+	
+	var initX = parseFloat(this.getAttribute("init-x"));
+	var initY = parseFloat(this.getAttribute("init-y"));
 
 	//drag start
 	if (!drag && (et == "mousedown")){
 		
 		drag = ct;
 		last_m = m;	
-		
-		x = tp.x;
-		y = tp.y;
 		
 		//change color when edit has begun
 		if(this.getAttribute("fill") != "orange"){
@@ -83,33 +83,30 @@ function Drag(e){
 	//drag
 	if ((drag == ct)  && (et == "mousemove")){
 		
-		x += m.x - last_m.x;
-		y += m.y - last_m.y;
+		tp.x += m.x - last_m.x;
+		tp.y += m.y - last_m.y;
 		last_m = m;	
-		tr.setTranslate(x,y);
+		tr.setTranslate(tp.x,tp.y);
+		
+		diffX = getDiffPos(tp.x, initX);
+		diffY = getDiffPos(tp.y, initY);
+		
+		pyLinks.calcOffset(diffX, diffY);
 		
 	}
 	
 	//dragging stopped
 	if (drag && (et == "mouseup")){
 		drag = null;
-		//pyLinks.pyLog("x="+x+":y="+y);
 		
-		var initX = parseFloat(this.getAttribute("init-x"));
-		var initY = parseFloat(this.getAttribute("init-y"));
-		
-		//pyLinks.pyLog("init x="+initX+":init y="+initY);
-		
-		var diffX = getDiffPos(x, initX);
-		var diffY = getDiffPos(y, initY);
+		diffX = getRoundDiffPos(tp.x, initX);
+		diffY = getRoundDiffPos(tp.y, initY);
 		
 		pyLinks.calcOffset(diffX, diffY);
 		
 		//adjust to rounded diff
 		var newX = initX - diffX;
 		var newY = initY - diffY;
-		
-		//pyLinks.pyLog("new x="+newX+":new y="+newY);
 		
 		tr.setTranslate(newX,newY);	
 	}
@@ -140,6 +137,12 @@ function getTranslPos(elem){
 
 //return difference between initial and current position
 function getDiffPos(p, initP){
+	
+	return initP - p;
+}
+
+//return rounded difference between initial and current position 
+function getRoundDiffPos(p, initP){
 	
 	return roundPos(initP - p);
 }
