@@ -88,10 +88,7 @@ function Drag(e){
 		last_m = m;	
 		tr.setTranslate(tp.x,tp.y);
 		
-		diffX = getDiffPos(tp.x, initX);
-		diffY = getDiffPos(tp.y, initY);
-		
-		pyLinks.calcOffset(diffX, diffY);
+		pyLinks.calcOffset(tp.x, initX, tp.y, initY);
 		
 	}
 	
@@ -99,10 +96,10 @@ function Drag(e){
 	if (drag && (et == "mouseup")){
 		drag = null;
 		
+		pyLinks.calcOffset(tp.x, initX, tp.y, initY);
+		
 		diffX = getRoundDiffPos(tp.x, initX);
 		diffY = getRoundDiffPos(tp.y, initY);
-		
-		pyLinks.calcOffset(diffX, diffY);
 		
 		//adjust to rounded diff
 		var newX = initX - diffX;
@@ -133,12 +130,6 @@ function getTranslPos(elem){
 			x: tr.matrix.e, y: tr.matrix.f, tr: tr
 		}
 	}
-}
-
-//return difference between initial and current position
-function getDiffPos(p, initP){
-	
-	return initP - p;
 }
 
 //return rounded difference between initial and current position 

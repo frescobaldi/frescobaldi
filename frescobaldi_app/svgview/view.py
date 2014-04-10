@@ -87,7 +87,7 @@ class View(QtWebKit.QWebView):
         self.load(QtCore.QUrl())
     
     def doObjectDragged(self, offsX, offsY):
-        self.objectDragged.emit(-offsX, offsY)
+        self.objectDragged.emit(offsX, offsY)
         
 
     def resetSaved(self):
@@ -203,9 +203,11 @@ class JSLink(QtCore.QObject):
         view = self.mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
         
-    @QtCore.pyqtSlot(float, float)	    
-    def calcOffset(self, offsX, offsY):
+    @QtCore.pyqtSlot(float, float, float, float)	    
+    def calcOffset(self, x, initX, y, initY):
         """Calculate offsets and send values to the Object Editor panel."""
+        offsX = x - initX
+        offsY = initY - y
         self.view.doObjectDragged(offsX, offsY)
     
     @QtCore.pyqtSlot(str)	    
