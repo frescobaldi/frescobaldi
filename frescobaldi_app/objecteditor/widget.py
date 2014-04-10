@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import sys
 
+from PyQt4 import QtCore
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -37,6 +38,9 @@ class Widget(QWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
         self.mainwindow = tool.mainwindow()
+        
+        import panelmanager
+        self.svgview = panelmanager.manager(tool.mainwindow()).svgview.widget().view
         
         layout = QVBoxLayout(spacing=1)
         self.setLayout(layout)
@@ -66,15 +70,28 @@ class Widget(QWidget):
         self.connectSlots()
     
     def connectSlots(self):
-        import panelmanager
-        panelmanager.manager(self.mainwindow).svgview.widget().view.objectDragged.connect(self.setOffset)
-
+        # what's the right signal here??????
+        #self.onClose.connect(self.disconnectFromSvgView)
+        self.connectToSvgView()
+    
+    def connectToSvgView(self):
+        """Register with signals emitted by the
+           SVG viewer for processing graphical editing.
+        """
+        self.svgview.objectDragged.connect(self.setOffset)
+        
+    def disconnectFromSvgView(self):
+        """Do not process graphical edits when the
+           Object Editor isn't visible."""
+        self.svgview.objectDragged.disconnect()
+        
     def translateUI(self):
         self.XOffsetLabel.setText(_("X Offset"))
         self.XOffsetBox.setToolTip(_("Display the X Offset"))
         self.YOffsetLabel.setText(_("Y Offset"))
         self.YOffsetBox.setToolTip(_("Display the Y Offset"))
-	
+
+    @QtCore.pyqtSlot(float, float)
     def setOffset(self, x, y):
         """Set the value of the offset externally."""
         self.XOffsetBox.setValue(x)
