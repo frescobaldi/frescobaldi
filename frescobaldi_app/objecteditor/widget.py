@@ -52,6 +52,8 @@ class Widget(QWidget):
         layout = QVBoxLayout(spacing=1)
         self.setLayout(layout)
         
+        self.elemLabel = QLabel()
+        
         self.XOffsetBox = QDoubleSpinBox()
         self.XOffsetBox.setRange(-99,99)
         self.XOffsetBox.setSingleStep(0.1)
@@ -64,6 +66,7 @@ class Widget(QWidget):
         self.YOffsetLabel = l = QLabel()
         l.setBuddy(self.YOffsetBox)
         
+        layout.addWidget(self.elemLabel)
         layout.addWidget(self.XOffsetBox)
         layout.addWidget(self.XOffsetLabel)
         layout.addWidget(self.YOffsetBox)
@@ -87,6 +90,8 @@ class Widget(QWidget):
         self.svgview.objectStartDragging.connect(self.startDragging)
         self.svgview.objectDragging.connect(self.Dragging)
         self.svgview.objectDragged.connect(self.Dragged)
+        self.svgview.selectedObject.connect(self.selected)
+        self.svgview.selectedUrl.connect(self.url)
         
     def disconnectFromSvgView(self):
         """Do not process graphical edits when the
@@ -94,6 +99,8 @@ class Widget(QWidget):
         self.svgview.objectStartDragging.disconnect()
         self.svgview.objectDragging.disconnect()
         self.svgview.objectDragged.disconnect()
+        self.svgview.selectedObject.disconnect()
+        self.svgview.selectedUrl.disconnect()
         
     def translateUI(self):
         self.XOffsetLabel.setText(_("X Offset"))
@@ -114,6 +121,13 @@ class Widget(QWidget):
         """
         self.connectToSvgView()
         event.accept()
+        
+    def svg2lily(self, elem):
+		""" Translate name of SVG element into name of 
+		LilyPond object.
+		"""
+		svg2lilyDict = {"text": "TextScript"}
+		return svg2lilyDict[elem]
     
     @QtCore.pyqtSlot(float, float)
     def setOffset(self, x, y):
@@ -141,6 +155,20 @@ class Widget(QWidget):
         # temporary debug output
         print "Dragged to", x, y
         self.setOffset(x, y)
+        
+    @QtCore.pyqtSlot(str)
+    def selected(self, elem):
+        """Set selected element."""
+        # temporary debug output
+        lilyObj = self.svg2lily(elem)
+        print(lilyObj)
+        self.elemLabel.setText(lilyObj)
+        
+    @QtCore.pyqtSlot(str)
+    def url(self, url):
+        """Set selected element."""
+        # temporary debug output
+        print("url:"+url)
         
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""

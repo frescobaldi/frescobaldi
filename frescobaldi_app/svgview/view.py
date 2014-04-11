@@ -59,6 +59,8 @@ class View(QtWebKit.QWebView):
     objectDragged = QtCore.pyqtSignal(float, float)
     objectDragging = QtCore.pyqtSignal(float, float)
     objectStartDragging = QtCore.pyqtSignal(float, float)
+    selectedObject = QtCore.pyqtSignal(str)
+    selectedUrl = QtCore.pyqtSignal(str)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -79,10 +81,10 @@ class View(QtWebKit.QWebView):
             frame.evaluateJavaScript(getJsScript('editsvg.js')) #remove this for stable releases
             
     def evalSave(self):
-		frame = self.page().mainFrame()
-		# to enable useful save of SVG edits to file uncomment the line below
-		# frame.evaluateJavaScript(getJsScript('cleansvg.js'))
-		frame.evaluateJavaScript(getJsScript('savesvg.js'))
+        frame = self.page().mainFrame()
+        # to enable useful save of SVG edits to file uncomment the line below
+        # frame.evaluateJavaScript(getJsScript('cleansvg.js'))
+        frame.evaluateJavaScript(getJsScript('savesvg.js'))
     
     def clear(self):
         """Empty the View."""
@@ -95,7 +97,13 @@ class View(QtWebKit.QWebView):
         self.objectDragging.emit(offsX, offsY)    
 
     def doObjectStartDragging(self, offsX, offsY):
-        self.objectStartDragging.emit(offsX, offsY)    
+        self.objectStartDragging.emit(offsX, offsY)
+        
+    def emitSelected(self, elem):
+        self.selectedObject.emit(elem)
+		
+    def emitSelectedUrl(self, url):
+        self.selectedUrl.emit(url)    
 
     def resetSaved(self):
         self.jslink.resetSaved()
@@ -193,7 +201,8 @@ class JSLink(QtCore.QObject):
     
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
-        """set cursor in source by clicked textedit link""" 
+        """set cursor in source by clicked textedit link"""
+        self.view.emitSelectedUrl(url) 
         if not self.doTextEdit(url, True):
             import helpers
             helpers.openUrl(QtCore.QUrl(url))
@@ -220,7 +229,11 @@ class JSLink(QtCore.QObject):
         
     @QtCore.pyqtSlot(float, float)
     def dragged(self, x, y):
-		self.view.doObjectDragged(x, y)
+        self.view.doObjectDragged(x, y)
+        
+    @QtCore.pyqtSlot(str)
+    def dragElement(self, elem):
+        self.view.emitSelected(elem)
     
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):

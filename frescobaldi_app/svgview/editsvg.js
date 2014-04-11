@@ -99,6 +99,8 @@ function MouseDown(e){
   startY = startPos.y;
   // better name for tr? What is it, anyway?
   tr = startPos.tr;
+  //catch type of element
+  pyLinks.dragElement(this.nodeName)
     
   // where is the initial object position related to the original position?
   startOffX = getRoundDiffPos(startX, initX);
@@ -127,7 +129,7 @@ function MouseMove(e){
 }
 
 function MouseUp(e){
-		//change color when object is modified
+	//change color when object is modified
     if(this.getAttribute("fill") != "orange"){
 			this.setAttribute("fill", "orange");
 		}
