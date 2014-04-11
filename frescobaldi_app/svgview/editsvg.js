@@ -166,8 +166,16 @@ function MouseDown(e){
   //catch type of element by sending link
   pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
     
+<<<<<<< 885c5707f55a0bed8275e07134d005f8f3beead7
   // announce original position (may already have an offset)
   pyLinks.startDragging(startOffX, startOffY);
+=======
+  startPos = new Point(startPos.x, startPos.y);
+  //catch type of element
+  pyLinks.dragElement(this.nodeName)
+      
+  draggedObject = new draggableObject(e.target, initPos, startPos, startDrag);
+>>>>>>> ec9c939c7b51040527fbf10c3643e05d597df6d0
   
   //ensure that the selected element will always be on top by putting it last in the node list
   //Clone the node to make sure we can put it back when drag is finished
