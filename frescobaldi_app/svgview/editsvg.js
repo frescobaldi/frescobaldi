@@ -96,10 +96,10 @@ function Drag(e){
 	if (drag && (et == "mouseup")){
 		drag = null;
 		
-		pyLinks.calcOffset(tp.x, initX, tp.y, initY);
-		
 		diffX = getRoundDiffPos(tp.x, initX);
 		diffY = getRoundDiffPos(tp.y, initY);
+		
+		pyLinks.sendOffset(diffX, diffY);
 		
 		//adjust to rounded diff
 		var newX = initX - diffX;
