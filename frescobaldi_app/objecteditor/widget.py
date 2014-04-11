@@ -84,12 +84,14 @@ class Widget(QWidget):
         """Register with signals emitted by the
            SVG viewer for processing graphical editing.
         """
-        self.svgview.objectDragging.connect(self.setOffset)
-        self.svgview.objectDragged.connect(self.setOffset)
+        self.svgview.objectStartDragging.connect(self.startDragging)
+        self.svgview.objectDragging.connect(self.Dragging)
+        self.svgview.objectDragged.connect(self.Dragged)
         
     def disconnectFromSvgView(self):
         """Do not process graphical edits when the
            Object Editor isn't visible."""
+        self.svgview.objectStartDragging.disconnect()
         self.svgview.objectDragging.disconnect()
         self.svgview.objectDragged.disconnect()
         
@@ -115,10 +117,31 @@ class Widget(QWidget):
     
     @QtCore.pyqtSlot(float, float)
     def setOffset(self, x, y):
-        """Set the value of the offset externally."""
+        """Display the updated offset."""
         self.XOffsetBox.setValue(x)
         self.YOffsetBox.setValue(y)
     
+    @QtCore.pyqtSlot(float, float)
+    def startDragging(self, x, y):
+        """Set the value of the offset externally."""
+        # temporary debug output
+        print "Start dragging with offset", x, y
+        self.setOffset(x, y)
+        
+    @QtCore.pyqtSlot(float, float)
+    def Dragging(self, x, y):
+        """Set the value of the offset externally."""
+        # temporary debug output
+        print "Dragging with offset", x, y
+        self.setOffset(x, y)
+        
+    @QtCore.pyqtSlot(float, float)
+    def Dragged(self, x, y):
+        """Set the value of the offset externally."""
+        # temporary debug output
+        print "Dragged to", x, y
+        self.setOffset(x, y)
+        
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""
         s = QSettings()

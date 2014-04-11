@@ -58,6 +58,7 @@ class View(QtWebKit.QWebView):
     zoomFactorChanged = QtCore.pyqtSignal(float)
     objectDragged = QtCore.pyqtSignal(float, float)
     objectDragging = QtCore.pyqtSignal(float, float)
+    objectStartDragging = QtCore.pyqtSignal(float, float)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -92,6 +93,9 @@ class View(QtWebKit.QWebView):
     
     def doObjectDragging(self, offsX, offsY):
         self.objectDragging.emit(offsX, offsY)    
+
+    def doObjectStartDragging(self, offsX, offsY):
+        self.objectStartDragging.emit(offsX, offsY)    
 
     def resetSaved(self):
         self.jslink.resetSaved()
@@ -206,16 +210,17 @@ class JSLink(QtCore.QObject):
         view = self.mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
         
-    @QtCore.pyqtSlot(float, float, float, float)	    
-    def calcOffset(self, x, initX, y, initY):
-        """Calculate offsets and send values to the Object Editor panel."""
-        offsX = x - initX
-        offsY = initY - y
-        self.view.doObjectDragging(offsX, offsY)
-    
-    @QtCore.pyqtSlot(float, float)    
-    def sendOffset(self, offsX, offsY):
-		self.view.doObjectDragged(-offsX, offsY)
+    @QtCore.pyqtSlot(float, float)
+    def startDragging(self, x, y):
+        self.view.doObjectStartDragging(x, y)
+
+    @QtCore.pyqtSlot(float, float)
+    def dragging(self, x, y):
+        self.view.doObjectDragging(x, y)
+        
+    @QtCore.pyqtSlot(float, float)
+    def dragged(self, x, y):
+		self.view.doObjectDragged(x, y)
     
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
