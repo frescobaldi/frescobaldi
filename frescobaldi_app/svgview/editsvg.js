@@ -269,8 +269,8 @@ function getTranslPos(elem){
 }
 
 //return rounded difference between initial and current position 
-function getRoundDiffPos(p, initP){
-	return roundPos(p - initP);
+function getRoundDiffPos(p2, p1){
+	return roundPos(p2 - p1);
 }
 
 //round position to two decimals	
