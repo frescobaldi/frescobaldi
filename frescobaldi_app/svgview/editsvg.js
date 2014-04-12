@@ -28,6 +28,8 @@ var maxY = svg.offsetHeight-1;
 var txt = document.getElementsByTagName('text');
 var draggedObject, dragOrigin, dragPos = null;
 
+var clone, delNode;
+
 // object and helper positioning variables
 // should be put into an object.
 
@@ -47,9 +49,7 @@ var currOffX, currOffY;
 //and save their initial position
 for (var t= 0; t < txt.length; ++t){
 
-  txt[t].onmousedown = MouseDown;
-  txt[t].onmousemove = MouseMove;
-  txt[t].onmouseup = MouseUp;
+	enableMouseEvents(txt[t]);
 	
 	var doSave = pyLinks.savePos();
 	
@@ -65,6 +65,12 @@ pyLinks.setSaved();
 //write error message
 function error(e){
 	pyLinks.pyLog(e.message);
+}
+
+function enableMouseEvents(elem){
+	elem.onmousedown = MouseDown;
+	elem.onmousemove = MouseMove;
+	elem.onmouseup = MouseUp;
 }
 
 function calcPositions(e){
@@ -98,7 +104,7 @@ function MouseDown(e){
   startX = startPos.x;
   startY = startPos.y;
   objTransform = startPos.tr;
-  //catch type of element
+  //catch type of element [preliminary]
   pyLinks.dragElement(this.nodeName)
     
   // where is the initial object position related to the original position?
@@ -107,6 +113,21 @@ function MouseDown(e){
 
   // announce original position (may already have an offset)
   pyLinks.startDragging(startOffX, startOffY);
+  
+  //ensure that the selected element will always be on top by putting it last in the node list
+  //Clone the node to make sure we can put it back when drag is finished
+  clone = this.cloneNode(true);
+  this.parentNode.replaceChild(clone, this);
+  svg.appendChild(this);
+  
+  //prepare deletion
+  delNode = this;
+  
+  //make the clone transparent
+  //This can be set to 0 to preserve previous behaviour,
+  //but I think this has a nice touch.
+  clone.setAttribute("opacity", "0.3");
+  
 
 }
 
@@ -128,10 +149,22 @@ function MouseMove(e){
 }
 
 function MouseUp(e){
+	
+	//set the new position for the clone
+	var clonePos = getTranslPos(clone);
+	cloneTransform = clonePos.tr;
+	cloneTransform.setTranslate(currX, currY);
+	
+	//remove transparency
+	clone.removeAttribute("opacity");
+  
 	//change color when object is modified
-    if(this.getAttribute("fill") != "orange"){
-			this.setAttribute("fill", "orange");
-		}
+    if(clone.getAttribute("fill") != "orange"){
+			clone.setAttribute("fill", "orange");
+	}
+	
+	//enable further editing
+	enableMouseEvents(clone);
         
     // calculate positions, is only necessary for the signal
     calcPositions(e);
@@ -140,6 +173,7 @@ function MouseUp(e){
     // clean up
     draggedObject = null;
     dragOrigin = null;
+    svg.removeChild(delNode);
 }
 
 //mouse position
