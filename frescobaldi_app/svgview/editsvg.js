@@ -25,7 +25,7 @@ var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
 var maxX = svg.offsetWidth-1;
 var maxY = svg.offsetHeight-1;
-var txt = document.getElementsByTagName('text');
+var draggable = document.getElementsByTagName('a');
 var draggedObject, dragOrigin, dragPos = null;
 
 var clone, delNode;
@@ -47,16 +47,27 @@ var currOffX, currOffY;
 
 //listen for drag events on all text elements
 //and save their initial position
-for (var t= 0; t < txt.length; ++t){
+for (var t= 0; t < draggable.length; ++t){
+	
+	var node = draggable[t].firstChild;
+	
+	//loop through the children of every draggable node
+	while(node){		
+		// so far only enable dragging of 
+		// nodes with the transform attribute
+		if(node.nodeType==1 && node.hasAttribute("transform")){
 
-	enableMouseEvents(txt[t]);
-	
-	var doSave = pyLinks.savePos();
-	
-	if (doSave){
-		var p = getTranslPos(txt[t]);	
-		txt[t].setAttribute("init-x",p.x);
-		txt[t].setAttribute("init-y",p.y);
+			enableMouseEvents(node);
+			
+			var doSave = pyLinks.savePos();
+
+			if (doSave){
+				var p = getTranslPos(node);	
+				node.setAttribute("init-x",p.x);
+				node.setAttribute("init-y",p.y);
+			}			
+		}
+		node = node.nextSibling;
 	}
 }
 
@@ -160,7 +171,7 @@ function MouseUp(e){
   
 	//change color when object is modified
     if(clone.getAttribute("fill") != "orange"){
-			clone.setAttribute("fill", "orange");
+		clone.setAttribute("fill", "orange");
 	}
 	
 	//enable further editing
