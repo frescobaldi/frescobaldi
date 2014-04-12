@@ -51,11 +51,15 @@ for (var t= 0; t < draggable.length; ++t){
 	
 	var node = draggable[t].firstChild;
 	
+	var childs = new Array();
+	
 	//loop through the children of every draggable node
 	while(node){		
 		// so far only enable dragging of 
 		// nodes with the transform attribute
 		if(node.nodeType==1 && node.hasAttribute("transform")){
+			
+			childs.push(node);
 
 			enableMouseEvents(node);
 			
@@ -66,6 +70,10 @@ for (var t= 0; t < draggable.length; ++t){
 			}			
 		}
 		node = node.nextSibling;
+	}
+	//group elements together if the belong to the same link tag
+	if(childs.length>1){
+		draggable[t].group = childs;
 	}
 }
 
@@ -126,6 +134,8 @@ function MouseDown(e){
   //ensure that the selected element will always be on top by putting it last in the node list
   //Clone the node to make sure we can put it back when drag is finished
   clone = this.cloneNode(true);
+  //keep reference to parent
+  this.parent = this.parentNode;
   this.parentNode.replaceChild(clone, this);
   svg.appendChild(this);
   
@@ -135,8 +145,7 @@ function MouseDown(e){
   //make the clone transparent
   //This can be set to 0 to preserve previous behaviour,
   //but I think this has a nice touch.
-  clone.setAttribute("opacity", "0.3");
-  
+  clone.setAttribute("opacity", "0.3");  
 
 }
 
@@ -150,7 +159,11 @@ function MouseMove(e){
     calcPositions(e);
     
     // move the object to the new position
-    objTransform.setTranslate(currX, currY);
+    if(this.parent.group){
+		setGroupTranslate(this.parent.group, currX, currY); 
+	}else{
+		objTransform.setTranslate(currX, currY);
+	}
       
     // announce the new position
     pyLinks.dragging(currOffX, currOffY);
@@ -196,6 +209,14 @@ function mousePos(event) {
     
     return svgPoint;
 }
+
+//set transform translate for element group
+function setGroupTranslate(group, x, y){
+	for (var g= 0; g < group.length; ++g){
+		var transf = getTranslPos(group[g]);
+		transf.tr.setTranslate(x, y);
+	}
+}	
 
 //get markup translate coordinates
 function getTranslPos(elem){
