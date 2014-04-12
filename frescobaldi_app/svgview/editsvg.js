@@ -20,7 +20,7 @@
 */
 window.addEventListener('error', error, false); 
 
-var tr;
+var objTransform;
 var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
 var maxX = svg.offsetWidth-1;
@@ -97,8 +97,7 @@ function MouseDown(e){
   var startPos = getTranslPos(this);
   startX = startPos.x;
   startY = startPos.y;
-  // better name for tr? What is it, anyway?
-  tr = startPos.tr;
+  objTransform = startPos.tr;
   //catch type of element
   pyLinks.dragElement(this.nodeName)
     
@@ -121,7 +120,7 @@ function MouseMove(e){
     calcPositions(e);
     
     // move the object to the new position
-    tr.setTranslate(currX, currY);
+    objTransform.setTranslate(currX, currY);
       
     // announce the new position
     pyLinks.dragging(currOffX, currOffY);
