@@ -25,9 +25,6 @@ var txt = document.getElementsByTagName('text');
 
 for (var t= 0; t < txt.length; ++t){
 	
-	txt[t].removeAttribute("init-x");
-	txt[t].removeAttribute("init-y");
-	
 	if(txt[t].getAttribute("fill") == "orange"){
 		txt[t].setAttribute("fill", "currentColor");
 	}
