@@ -59,7 +59,10 @@ class View(QtWebKit.QWebView):
     objectDragged = QtCore.pyqtSignal(float, float)
     objectDragging = QtCore.pyqtSignal(float, float)
     objectStartDragging = QtCore.pyqtSignal(float, float)
+
     cursor = QtCore.pyqtSignal(QtGui.QTextCursor)
+    selectedObject = QtCore.pyqtSignal(str)
+    selectedUrl = QtCore.pyqtSignal(QtGui.QTextCursor)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -239,6 +242,7 @@ class JSLink(QtCore.QObject):
             p = b.position() + t.column
             cursor.setPosition(p)
         self.view.emitCursor(cursor)
+        self.view.emitSelectedUrl(cursor)
     
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
