@@ -65,8 +65,10 @@ for (var t= 0; t < draggable.length; ++t){
 			
 			var doSave = pyLinks.savePos();
 
-			if (doSave){	
-				node.init = getTranslPos(node);
+			if (doSave){
+				var p = getTranslPos(node);	
+				node.setAttribute("init-x",p.x);
+				node.setAttribute("init-y",p.y);
 			}			
 		}
 		node = node.nextSibling;
@@ -113,8 +115,8 @@ function MouseDown(e){
   dragOrigin = mousePos(e);
 
   // load original (LilyPond's) position of the object
-	initX = parseFloat(this.init.x);
-	initY = parseFloat(this.init.y);
+	initX = parseFloat(this.getAttribute("init-x"));
+	initY = parseFloat(this.getAttribute("init-y"));
   
   // determine the current position at the start of a (new) drag
   var startPos = getTranslPos(this);
