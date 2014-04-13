@@ -160,6 +160,8 @@ function MouseMove(e){
     
     // move the object to the new position
     if(this.parent.group){
+		// move whole group together
+		// to-do: calculate position for each element in the group
 		setGroupTranslate(this.parent.group, currX, currY); 
 	}else{
 		objTransform.setTranslate(currX, currY);
