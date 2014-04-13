@@ -121,8 +121,8 @@ function MouseDown(e){
   startX = startPos.x;
   startY = startPos.y;
   objTransform = startPos.tr;
-  //catch type of element [preliminary]
-  pyLinks.dragElement(this.nodeName)
+  //catch type of element by sending link
+  pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
     
   // where is the initial object position related to the original position?
   startOffX = getRoundDiffPos(startX, initX);

@@ -122,6 +122,17 @@ class Widget(QWidget):
         self.connectToSvgView()
         event.accept()
         
+    def getCurrentLilyObject(self, cursor):
+		""" Use cursor from textedit link to get type of object being edited."""
+		import ly
+		source = ly.document.Source(cursor)
+		lilyReader = ly.music.read.Reader(source)
+		tree = lilyReader.read()
+		for t in tree:
+			print(t)
+		lilyObj = "still testing"
+		self.elemLabel.setText(lilyObj)		
+        
     def svg2lily(self, elem):
 		""" Translate name of SVG element into name of 
 		LilyPond object.
@@ -146,7 +157,7 @@ class Widget(QWidget):
     def Dragging(self, x, y):
         """Set the value of the offset externally."""
         # temporary debug output
-        print "Dragging with offset", x, y
+        # print "Dragging with offset", x, y
         self.setOffset(x, y)
         
     @QtCore.pyqtSlot(float, float)
@@ -161,14 +172,15 @@ class Widget(QWidget):
         """Set selected element."""
         # temporary debug output
         lilyObj = self.svg2lily(elem)
-        print(lilyObj)
+        #print(lilyObj)
         self.elemLabel.setText(lilyObj)
         
     @QtCore.pyqtSlot(str)
     def url(self, url):
         """Set selected element."""
         # temporary debug output
-        print("url:"+url)
+        print(url)
+        self.getCurrentLilyObject(url)
         
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""

@@ -60,7 +60,7 @@ class View(QtWebKit.QWebView):
     objectDragging = QtCore.pyqtSignal(float, float)
     objectStartDragging = QtCore.pyqtSignal(float, float)
     selectedObject = QtCore.pyqtSignal(str)
-    selectedUrl = QtCore.pyqtSignal(str)
+    selectedUrl = QtCore.pyqtSignal(QtGui.QTextCursor)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -98,9 +98,6 @@ class View(QtWebKit.QWebView):
 
     def doObjectStartDragging(self, offsX, offsY):
         self.objectStartDragging.emit(offsX, offsY)
-        
-    def emitSelected(self, elem):
-        self.selectedObject.emit(elem)
 		
     def emitSelectedUrl(self, url):
         self.selectedUrl.emit(url)    
@@ -201,8 +198,7 @@ class JSLink(QtCore.QObject):
     
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
-        """set cursor in source by clicked textedit link"""
-        self.view.emitSelectedUrl(url) 
+        """set cursor in source by clicked textedit link""" 
         if not self.doTextEdit(url, True):
             import helpers
             helpers.openUrl(QtCore.QUrl(url))
@@ -232,8 +228,15 @@ class JSLink(QtCore.QObject):
         self.view.doObjectDragged(x, y)
         
     @QtCore.pyqtSlot(str)
-    def dragElement(self, elem):
-        self.view.emitSelected(elem)
+    def dragElement(self, url):
+        t = textedit.link(url)
+        # Only process textedit links
+        if not t:
+            return False
+        doc = self.document(t.filename, True)
+        if doc:
+            cursor = QtGui.QTextCursor(doc)
+        self.view.emitSelectedUrl(cursor)
     
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
