@@ -47,6 +47,7 @@ class Widget(QWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
         self.mainwindow = tool.mainwindow()
+        self.define = None
         
         import panelmanager
         self.svgview = panelmanager.manager(tool.mainwindow()).svgview.widget().view
@@ -68,11 +69,15 @@ class Widget(QWidget):
         self.YOffsetLabel = l = QLabel()
         l.setBuddy(self.YOffsetBox)
         
+        self.insertButton = QPushButton("insert offset in source", self)
+        self.insertButton.clicked.connect(self.callInsert)
+        
         layout.addWidget(self.elemLabel)
         layout.addWidget(self.XOffsetBox)
         layout.addWidget(self.XOffsetLabel)
         layout.addWidget(self.YOffsetBox)
         layout.addWidget(self.YOffsetLabel)
+        layout.addWidget(self.insertButton)
         
         layout.addStretch(1)
 
@@ -121,6 +126,11 @@ class Widget(QWidget):
         """
         self.connectToSvgView()
         event.accept()
+        
+    def callInsert(self):
+		""" Insert the override command in the source."""
+		if self.define:
+			self.define.insertOverride(self.XOffsetBox.value(), self.YOffsetBox.value())		
     
     @QtCore.pyqtSlot(float, float)
     def setOffset(self, x, y):
@@ -152,8 +162,8 @@ class Widget(QWidget):
     @QtCore.pyqtSlot(str)
     def setObjectFromCursor(self, cursor):
         """Set selected element."""
-        define = defineoffset.DefineOffset(self.mainwindow.currentDocument())
-        self.elemLabel.setText(define.getCurrentLilyObject(cursor))
+        self.define = defineoffset.DefineOffset(self.mainwindow.currentDocument())
+        self.elemLabel.setText(self.define.getCurrentLilyObject(cursor))
         
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""

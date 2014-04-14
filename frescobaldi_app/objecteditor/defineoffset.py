@@ -24,20 +24,27 @@ using ly.music.
 
 from __future__ import unicode_literals
 
+from PyQt4 import QtGui
+
 import documentinfo
 import lydocument
+import reformat
 
 
 class DefineOffset():
 
     def __init__(self, doc):
+        self.doc = doc
         self.docinfo = documentinfo.music(doc)
         self.node = None
+        self.lilyObject = None
+        self.pos = 0
         
     def getCurrentLilyObject(self, cursor):
         """ Use cursor from textedit link to get type of object being edited."""        
-        lycursor = lydocument.cursor(cursor)        
-        node = self.docinfo.node(lycursor.start)
+        lycursor = lydocument.cursor(cursor)
+        self.pos = lycursor.start        
+        node = self.docinfo.node(self.pos)
         self.node = node
         child = self.docinfo.iter_music(node)
         for c in child:
@@ -57,5 +64,26 @@ class DefineOffset():
             obj = item2objectDict[item]
         except KeyError:
             obj = "still testing!"
+        self.lilyObject = obj
         return obj
+        
+    def insertOverride(self, x, y):
+		""" Insert the override command. """
+		doc = lydocument.Document(self.doc)
+		block = doc.block(self.pos)
+		p = block.position()
+		cursor = QtGui.QTextCursor(self.doc)
+		cursor.setPosition(p)
+		cursor.beginEditBlock()
+		cursor.insertText(self.createOffsetOverride(x, y))
+		cursor.insertBlock()
+		cursor.endEditBlock()
+		reformat.reformat(cursor)
+        
+    def createOffsetOverride(self, x, y):
+		""" Create the override command.
+		Can this be created as a node?
+		"""
+		return "\override "+self.lilyObject+".extra-offset = #'("+str(x)+" . "+str(y)+")"
+		
 
