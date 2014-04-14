@@ -49,6 +49,11 @@ var currOffX, currOffY;
 //and save their initial position
 for (var t= 0; t < draggable.length; ++t){
 	
+	//transform attribute can be in link element itself
+	if(draggable[t].hasAttribute("transform")){
+		enableTranslPositioning(draggable[t])
+	}
+	 
 	var node = draggable[t].firstChild;
 	
 	var childs = new Array();
@@ -60,16 +65,9 @@ for (var t= 0; t < draggable.length; ++t){
 		if(node.nodeType==1 && node.hasAttribute("transform")){
 			
 			childs.push(node);
-
-			enableMouseEvents(node);
 			
-			var doSave = pyLinks.savePos();
-
-			if (doSave){
-				var p = getTranslPos(node);	
-				node.setAttribute("init-x",p.x);
-				node.setAttribute("init-y",p.y);
-			}			
+			enableTranslPositioning(node)
+					
 		}
 		node = node.nextSibling;
 	}
@@ -85,6 +83,18 @@ pyLinks.setSaved();
 function error(e){
 	pyLinks.pyLog(e.message);
 }
+
+function enableTranslPositioning(node){
+	enableMouseEvents(node);
+			
+	var doSave = pyLinks.savePos();
+
+	if (doSave){
+		var p = getTranslPos(node);	
+		node.setAttribute("init-x",p.x);
+		node.setAttribute("init-y",p.y);
+	}
+}	
 
 function enableMouseEvents(elem){
 	elem.onmousedown = MouseDown;

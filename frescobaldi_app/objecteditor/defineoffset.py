@@ -59,7 +59,10 @@ class DefineOffset():
         """
         item2objectDict = {"String": "TextScript", 
         "Markup": "TextScript",
-        "Tempo": "MetronomeMark"}
+        "Tempo": "MetronomeMark",
+        "Articulation": "Script"}
+        # Debug output of item
+        print("Item: "+item)
         try:
             obj = item2objectDict[item]
         except KeyError:
@@ -84,6 +87,6 @@ class DefineOffset():
 		""" Create the override command.
 		Can this be created as a node?
 		"""
-		return "\override "+self.lilyObject+".extra-offset = #'("+str(x)+" . "+str(y)+")"
+		return "\once \override "+self.lilyObject+".extra-offset = #'("+str(x)+" . "+str(y)+")"
 		
 
