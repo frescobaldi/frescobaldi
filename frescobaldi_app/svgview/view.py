@@ -59,8 +59,7 @@ class View(QtWebKit.QWebView):
     objectDragged = QtCore.pyqtSignal(float, float)
     objectDragging = QtCore.pyqtSignal(float, float)
     objectStartDragging = QtCore.pyqtSignal(float, float)
-    selectedObject = QtCore.pyqtSignal(str)
-    selectedUrl = QtCore.pyqtSignal(QtGui.QTextCursor)
+    cursor = QtCore.pyqtSignal(QtGui.QTextCursor)
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
@@ -99,8 +98,8 @@ class View(QtWebKit.QWebView):
     def doObjectStartDragging(self, offsX, offsY):
         self.objectStartDragging.emit(offsX, offsY)
 		
-    def emitSelectedUrl(self, url):
-        self.selectedUrl.emit(url)    
+    def emitCursor(self, cursor):
+        self.cursor.emit(cursor)    
 
     def resetSaved(self):
         self.jslink.resetSaved()
@@ -236,7 +235,10 @@ class JSLink(QtCore.QObject):
         doc = self.document(t.filename, True)
         if doc:
             cursor = QtGui.QTextCursor(doc)
-        self.view.emitSelectedUrl(cursor)
+            b = doc.findBlockByNumber(t.line - 1)
+            p = b.position() + t.column
+            cursor.setPosition(p)
+        self.view.emitCursor(cursor)
     
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
