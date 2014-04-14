@@ -112,6 +112,7 @@ class Widget(QWidget):
         self.XOffsetBox.setToolTip(_("Display the X Offset"))
         self.YOffsetLabel.setText(_("Y Offset"))
         self.YOffsetBox.setToolTip(_("Display the Y Offset"))
+        self.insertButton.setEnabled(False)
 
     def hideEvent(self, event):
         """Disconnect from all graphical editing signals
@@ -164,6 +165,7 @@ class Widget(QWidget):
         """Set selected element."""
         self.define = defineoffset.DefineOffset(self.mainwindow.currentDocument())
         self.elemLabel.setText(self.define.getCurrentLilyObject(cursor))
+        self.insertButton.setEnabled(True)
         
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""
