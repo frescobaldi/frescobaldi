@@ -115,19 +115,36 @@ function Point(x, y){
     distX = getRoundDiffPos(otherPoint.x, this.x);
     distY = getRoundDiffPos(otherPoint.y, this.y);
     return Point(distX, distY);
-  }
+  };
 }
 
-function draggableObject(target, initPos, startPos, startDrag){
-  pyLinks.pyLog("Create draggedObject");
-  this.target = target;
-  this.initPos = initPos;
-  this.startPos = startPos;
-  this.startDrag = startDrag;
+function DraggableObject(e){
+  pyLinks.pyLog("Create DraggableObject");
+  this.target = e.target;
+  var mouse = mousePos(e);
+
+  // Reference point for dragging operation
+  this.startDrag = new Point(mouse.x, mouse.y);
+
+  // load original (LilyPond's) position of the object
+	var initX = parseFloat(this.target.getAttribute("init-x"));
+	var initY = parseFloat(this.target.getAttribute("init-y"));
+  this.initPos = new Point(initX, initY);
+
+  // determine the current position at the start of a (new) drag
+  var tmpStartPos = getTranslPos(this.target);
+  this.transform = startPos.tr;
+  //catch type of element by sending link
+    
+  this.startPos = new Point(tmpStartPos.x, tmpStartPos.y);
+
+  pyLinks.pyLog(this.startPos.x.toString());
   
-  function startOffset(){
+//  this.startDrag = startDrag;
+  
+  this.startOffset = function(){
     return this.initPos.distanceTo(this.startPos)
-  }
+  };
 }
 
 var draggedObject = null;
@@ -150,32 +167,32 @@ function calcPositions(e){
 
 function MouseDown(e){
   e.stopPropagation();
-  // Set flags and values for the drag operation
-  var mouse = mousePos(e);
-  var startDrag = new Point(mouse.x, mouse.y);
+  draggedObject = new DraggableObject(e);
+    // Set flags and values for the drag operation
+  pyLinks.pyLog("DraggableObject was created");
+    
+//  var mouse = mousePos(e);
+//  var startDrag = new Point(mouse.x, mouse.y);
 
   // load original (LilyPond's) position of the object
-	var initX = parseFloat(this.getAttribute("init-x"));
-	var initY = parseFloat(this.getAttribute("init-y"));
-  var initPos = new Point(initX, initY);
+//	var initX = parseFloat(this.getAttribute("init-x"));
+//	var initY = parseFloat(this.getAttribute("init-y"));
+//  var initPos = new Point(initX, initY);
   
-  // determine the current position at the start of a (new) drag
-  var startPos = getTranslPos(this);
-  objTransform = startPos.tr;
+  
+  //catch type of element by sending link
+  pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
 
+  // announce original position (may already have an offset)
+  pyLinks.startDragging(startOffX, startOffY);
+//  var startPos = getTranslPos(this);
+//  objTransform = startPos.tr;
   //catch type of element by sending link
   pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
     
-<<<<<<< 885c5707f55a0bed8275e07134d005f8f3beead7
-  // announce original position (may already have an offset)
-  pyLinks.startDragging(startOffX, startOffY);
-=======
-  startPos = new Point(startPos.x, startPos.y);
+//  startPos = new Point(startPos.x, startPos.y);
   //catch type of element
-  pyLinks.dragElement(this.nodeName)
       
-  draggedObject = new draggableObject(e.target, initPos, startPos, startDrag);
->>>>>>> ec9c939c7b51040527fbf10c3643e05d597df6d0
   
   //ensure that the selected element will always be on top by putting it last in the node list
   //Clone the node to make sure we can put it back when drag is finished
@@ -205,7 +222,7 @@ function MouseMove(e){
   // _under_ another one the event is only triggered for the wrong one.
   if (e.target == draggedObject){
     // calculate mouse coordinates relative to the drag's starting position
-    calcPositions(e);
+//    calcPositions(e);
     
     // move the object to the new position
     if(this.parent.group){
