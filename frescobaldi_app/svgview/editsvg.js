@@ -137,17 +137,17 @@ function DraggableObject(elem, e){
 	var initX = parseFloat(elem.getAttribute("init-x"));
 	var initY = parseFloat(elem.getAttribute("init-y"));
   this.initPos = new Point(initX, initY);
+  pyLinks.pyLog("InitPos: " + this.initPos.toString());
 
   // determine the current position at the start of a (new) drag
   //var tmpStartPos = getTranslPos(elem);
 	this.transform = elem.transform.baseVal.getItem(0);
 	if (this.transform.type == SVGTransform.SVG_TRANSFORM_TRANSLATE){
     this.startPos = new Point(this.transform.matrix.e, this.transform.matrix.f);
-
-  pyLinks.pyLog(this.startPos.x.toString());
-  
-//  this.startDrag = startDrag;
-  
+	}
+  pyLinks.pyLog("StartPos: " + this.startPos.toString());
+    
+    
   this.startOffset = function(){
     return this.initPos.distanceTo(this.startPos)
   };
