@@ -32,44 +32,49 @@ var clone, delNode;
 
 //listen for drag events on all text elements
 //and save their initial position
-for (var t = 0; t < draggable.length; ++t) {
-
-    //transform attribute can be in link element itself
-    if (draggable[t].hasAttribute("transform")) {
-        enableTranslPositioning(draggable[t])
-    }
-
-    var node = draggable[t].firstChild;
-
-    var childs = new Array();
-
-    //loop through the children of every draggable node
-    while (node) {
-        // so far only enable dragging of 
-        // nodes with the transform attribute
-        if (node.nodeType == 1 && node.hasAttribute("transform")) {
-
-            childs.push(node);
-
-            enableTranslPositioning(node)
-
-            // QUESTION: is it a good idea to declare this variable
-            // *inside* the while loop?
-            var doSave = pyLinks.savePos();
-
-            if (doSave) {
-                var p = getTranslPos(node);
-                node.setAttribute("init-x", p.x);
-                node.setAttribute("init-y", p.y);
-            }
+function collectElements(){
+    var t;
+    for (t = 0; t < draggable.length; ++t) {
+    
+        //transform attribute can be in link element itself
+        if (draggable[t].hasAttribute("transform")) {
+            enableTranslPositioning(draggable[t])
         }
-        node = node.nextSibling;
-    }
-    //group elements together if the belong to the same link tag
-    if (childs.length > 1) {
-        draggable[t].group = childs;
+    
+        var node = draggable[t].firstChild;
+    
+        var childs = new Array();
+    
+        //loop through the children of every draggable node
+        while (node) {
+            // so far only enable dragging of 
+            // nodes with the transform attribute
+            if (node.nodeType == 1 && node.hasAttribute("transform")) {
+    
+                childs.push(node);
+    
+                enableTranslPositioning(node)
+    
+                // QUESTION: is it a good idea to declare this variable
+                // *inside* the while loop?
+                var doSave = pyLinks.savePos();
+    
+                if (doSave) {
+                    var p = getTranslPos(node);
+                    node.setAttribute("init-x", p.x);
+                    node.setAttribute("init-y", p.y);
+                }
+            }
+            node = node.nextSibling;
+        }
+        //group elements together if the belong to the same link tag
+        if (childs.length > 1) {
+            draggable[t].group = childs;
+        }
     }
 }
+
+collectElements();
 
 pyLinks.setSaved();
 
@@ -283,44 +288,3 @@ function MouseUp(e) {
     }
 }
 
-//mouse position
-function mousePos(event) {
-    var svgPoint = svg.createSVGPoint();
-
-    svgPoint.x = event.clientX;
-    svgPoint.y = event.clientY;
-
-    svgPoint = svgPoint.matrixTransform(svg.getScreenCTM().inverse());
-
-    return svgPoint;
-}
-
-//set transform translate for element group
-function setGroupTranslate(group, x, y) {
-    for (var g = 0; g < group.length; ++g) {
-        var transf = getTranslPos(group[g]);
-        transf.tr.setTranslate(x, y);
-    }
-}
-
-//get markup translate coordinates
-function getTranslPos(elem) {
-    var tr = elem.transform.baseVal.getItem(0);
-    if (tr.type == SVGTransform.SVG_TRANSFORM_TRANSLATE) {
-        return {
-            x: tr.matrix.e,
-            y: tr.matrix.f,
-            tr: tr
-        }
-    }
-}
-
-//return rounded difference between initial and current position 
-function getRoundDiffPos(p2, p1) {
-    return roundPos(p2 - p1);
-}
-
-//round position to two decimals	
-function roundPos(pos) {
-    return Math.round(pos * 100) / 100;
-}
