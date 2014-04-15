@@ -185,7 +185,7 @@ class Widget(QWidget):
         self.elemLabel.setText(self.define.getCurrentLilyObject(cursor))
         self.insertButton.setEnabled(True)
         # temporary debug output
-        lilyObj = self.svg2lily(elem)
+        lilyObj = self.svg2lily("text")
         #print(lilyObj)
         self.elemLabel.setText(lilyObj)
         
