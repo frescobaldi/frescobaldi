@@ -79,6 +79,13 @@ for (var t= 0; t < draggable.length; ++t){
 
 pyLinks.setSaved();
 
+//I'm putting this back in at least for now
+//generic onmouseup
+//needed when dragging doesn't keep mouse over object
+onmouseup = function(e){ 
+	MouseUp(e);	 
+};
+
 //write error message
 function error(e){
 	pyLinks.pyLog(e.message);
