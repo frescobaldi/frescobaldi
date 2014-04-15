@@ -242,7 +242,8 @@ class JSLink(QtCore.QObject):
             p = b.position() + t.column
             cursor.setPosition(p)
         self.view.emitCursor(cursor)
-        self.view.emitSelectedUrl(cursor)
+        #TODO: What to do with that signal???
+        #self.view.emitSelectedUrl(cursor)
     
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
