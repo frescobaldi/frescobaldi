@@ -50,8 +50,20 @@ for (var t= 0; t < draggable.length; ++t){
 			
 			childs.push(node);
 			
+<<<<<<< 5c75a9e7419c9bc6f162a50c465762dff902adf9
 			enableTranslPositioning(node)
 					
+=======
+      // QUESTION: is it a good idea to declare this variable
+      // *inside* the while loop?
+			var doSave = pyLinks.savePos();
+
+			if (doSave){
+				var p = getTranslPos(node);	
+				node.setAttribute("init-x",p.x);
+				node.setAttribute("init-y",p.y);
+			}			
+>>>>>>> e661130989e540e3b166a4ac6a2d89f6b81a7fc1
 		}
 		node = node.nextSibling;
 	}

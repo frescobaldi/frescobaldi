@@ -129,27 +129,27 @@ class Widget(QWidget):
         event.accept()
         
     def callInsert(self):
-    """ Insert the override command in the source."""
-    if self.define:
-        self.define.insertOverride(self.XOffsetBox.value(), self.YOffsetBox.value())		
+        """ Insert the override command in the source."""
+        if self.define:
+            self.define.insertOverride(self.XOffsetBox.value(), self.YOffsetBox.value())		
 
     def getCurrentLilyObject(self, cursor):
-    """ Use cursor from textedit link to get type of object being edited."""
-    import ly
-    source = ly.document.Source(cursor)
-    lilyReader = ly.music.read.Reader(source)
-    tree = lilyReader.read()
-    for t in tree:
-        print(t)
-    lilyObj = "still testing"
-    self.elemLabel.setText(lilyObj)		
+        """ Use cursor from textedit link to get type of object being edited."""
+        import ly
+        source = ly.document.Source(cursor)
+        lilyReader = ly.music.read.Reader(source)
+        tree = lilyReader.read()
+        for t in tree:
+            print(t)
+        lilyObj = "still testing"
+        self.elemLabel.setText(lilyObj)		
         
     def svg2lily(self, elem):
-    """ Translate name of SVG element into name of 
-    LilyPond object.
-    """
-    svg2lilyDict = {"text": "TextScript"}
-    return svg2lilyDict[elem]
+        """ Translate name of SVG element into name of 
+        LilyPond object.
+        """
+        svg2lilyDict = {"text": "TextScript"}
+        return svg2lilyDict[elem]
     
     @QtCore.pyqtSlot(float, float)
     def setOffset(self, x, y):
