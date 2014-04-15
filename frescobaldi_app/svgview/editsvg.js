@@ -121,25 +121,28 @@ function Point(x, y){
   };
 }
 
-function DraggableObject(e){
+function DraggableObject(elem, e){
   pyLinks.pyLog("Create DraggableObject");
   this.target = e.target;
   var mouse = mousePos(e);
-
+  
   // Reference point for dragging operation
   this.startDrag = new Point(mouse.x, mouse.y);
 
   // load original (LilyPond's) position of the object
-	var initX = parseFloat(this.target.getAttribute("init-x"));
-	var initY = parseFloat(this.target.getAttribute("init-y"));
+    
+  //TODO: Currently this seems to get wrong results with items that have been
+  //moved in a previous session. 
+  // initPos seems to return the same as startPos in any case (which shouldn't be the case)
+	var initX = parseFloat(elem.getAttribute("init-x"));
+	var initY = parseFloat(elem.getAttribute("init-y"));
   this.initPos = new Point(initX, initY);
 
   // determine the current position at the start of a (new) drag
-  var tmpStartPos = getTranslPos(this.target);
-  this.transform = startPos.tr;
-  //catch type of element by sending link
-    
-  this.startPos = new Point(tmpStartPos.x, tmpStartPos.y);
+  //var tmpStartPos = getTranslPos(elem);
+	this.transform = elem.transform.baseVal.getItem(0);
+	if (this.transform.type == SVGTransform.SVG_TRANSFORM_TRANSLATE){
+    this.startPos = new Point(this.transform.matrix.e, this.transform.matrix.f);
 
   pyLinks.pyLog(this.startPos.x.toString());
   
