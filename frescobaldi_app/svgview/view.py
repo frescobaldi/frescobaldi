@@ -103,9 +103,6 @@ class View(QtWebKit.QWebView):
 		
     def emitCursor(self, cursor):
         self.cursor.emit(cursor)    
-
-    def resetSaved(self):
-        self.jslink.resetSaved()
     
     def zoomIn(self):
         self.setZoomFactor(self.zoomFactor() * 1.1)
@@ -135,7 +132,6 @@ class JSLink(QtCore.QObject):
         self._highlightFormat = QtGui.QTextCharFormat()
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-        self.isSaved = False
         
     def mainwindow(self):
         return self.view.mainwindow()
@@ -194,9 +190,6 @@ class JSLink(QtCore.QObject):
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
         return True
-        
-    def resetSaved(self):
-        self.isSaved = False
     
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
@@ -254,14 +247,6 @@ class JSLink(QtCore.QObject):
         f = open(self.view.currentSVG(),'w')
         f.write(svg_string.encode('utf8'))
         f.close()
-	
-    @QtCore.pyqtSlot(result="int")	
-    def savePos(self):
-        """ Determine if initial positions are already saved """
-        if self.isSaved:
-            return 0
-        else:
-            return 1
 	
     @QtCore.pyqtSlot()		
     def setSaved(self):

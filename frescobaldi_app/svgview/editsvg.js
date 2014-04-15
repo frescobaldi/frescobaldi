@@ -103,9 +103,8 @@ function enableMouseEvents(elem) {
 function enableTranslPositioning(node) {
     enableMouseEvents(node);
 
-    var doSave = pyLinks.savePos();
-
-    if (doSave) {
+    //check first if init attribute is already set
+    if(!node.hasAttribute("init-x")){
         var p = getTranslPos(node);
         node.setAttribute("init-x", p.x);
         node.setAttribute("init-y", p.y);
