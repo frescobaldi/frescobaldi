@@ -19,7 +19,7 @@
 
 """
 Finds out which type of LilyPond object the offset will be applied to
-using ly.music.
+using ly.music, stores this data and creates and inserts an override command.
 """
 
 from __future__ import unicode_literals
