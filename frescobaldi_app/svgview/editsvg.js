@@ -27,6 +27,7 @@ var maxY = svg.offsetHeight-1;
 var draggable = document.getElementsByTagName('a');
 var draggedObject = null;
 
+var draggedObject = null;
 var clone, delNode;
 
 //listen for drag events on all text elements
@@ -102,6 +103,8 @@ function enableMouseEvents(elem){
 	elem.onmouseup = MouseUp;
 }
 
+// It's not clear whether we should keep that class at all.
+// The current implementation relies very much on the pure member variables.
 function Point(x, y){
   this.x = x;
   this.y = y;
@@ -122,25 +125,21 @@ function Point(x, y){
   };
 }
 
+// Class representing a draggable (text?) element
 function DraggableObject(elem, e){
-  pyLinks.pyLog("Create DraggableObject");
-    
-  // create an alias for privileged methods,
-  // this will always point to the object.
-  var that = this;
+// elem is the clicked item itself,
+// e the mouse event
     
   // I'm not really sure about what this "target" actually *is*.
   this.target = e.target;
   
   // Reference points for dragging operation
   var mp = mousePos(e);
-  //currMouse = new Point(mp.x, mp.y);
   this.startDragX = mp.x;
   this.startDragY =  mp.y;
   this.currDragX = this.currDragY = 0;
 
   // load original (LilyPond's) position of the object
-    
   //TODO: Currently this seems to get wrong results with items that have been
   //moved in a previous session. 
   // initPos seems to return the same as startPos in any case (which shouldn't be the case)
@@ -186,6 +185,7 @@ function DraggableObject(elem, e){
       return new Point(that.startX, that.startY);
   };
   
+  // recalculate the position variables upon modified mouse position.
   this.updatePositions = function(e){
     var mp = mousePos(e);
     this.currDragX = mp.x - this.startDragX;
@@ -196,8 +196,6 @@ function DraggableObject(elem, e){
     this.currOffY = this.startOffY - this.currDragY;
   };
 }
-
-var draggedObject = null;
 
 function MouseDown(e){
   e.stopPropagation();
@@ -227,8 +225,7 @@ function MouseDown(e){
   delNode = this;
   
   //make the clone transparent
-  //This can be set to 0 to preserve previous behaviour,
-  //but I think this has a nice touch.
+  //This could later be made a preference.
   clone.setAttribute("opacity", "0.3");  
 }
 
@@ -240,9 +237,9 @@ function MouseMove(e){
   if (draggedObject && e.target == draggedObject.target) {
 
     draggedObject.updatePositions(e);
-    var currPos = draggedObject.currPos();
 
     // move the object to the new position
+    var currPos = draggedObject.currPos();
     if(this.parent && this.parent.group){
   		// move whole group together
 	  	// to-do: calculate position for each element in the group
@@ -253,7 +250,6 @@ function MouseMove(e){
 	  }
 
     // announce the new position
-//    var currOffset = draggedObject.currOffset();
     pyLinks.dragging(draggedObject.currOffX, draggedObject.currOffY);
   }  
 }
@@ -279,8 +275,6 @@ function MouseUp(e){
 	//enable further editing
 	enableMouseEvents(clone);
         
-    // calculate positions, is only necessary for the signal
- //   calcPositions(e);
     pyLinks.dragged(draggedObject.currOffX, draggedObject.currOffY);
         
     // clean up
@@ -328,5 +322,3 @@ function getRoundDiffPos(p2, p1){
 function roundPos(pos){
 	return Math.round(pos * 100) / 100;
 }
-
-
