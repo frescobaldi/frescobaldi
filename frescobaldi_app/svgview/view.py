@@ -217,9 +217,9 @@ class JSLink(QtCore.QObject):
         view = self.mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
         
-    #@QtCore.pyqtSlot(float, float)
-    def startDragging(self, offset):
-        self.view.doObjectStartDragging(offset[0], offset[1])
+    @QtCore.pyqtSlot(float, float)
+    def startDragging(self, offX, offY):
+        self.view.doObjectStartDragging(offX, offY)
 
     @QtCore.pyqtSlot(float, float)
     def dragging(self, x, y):

@@ -124,69 +124,97 @@ function Point(x, y){
 
 function DraggableObject(elem, e){
   pyLinks.pyLog("Create DraggableObject");
+    
+  // create an alias for privileged methods,
+  // this will always point to the object.
+  var that = this;
+    
+  // I'm not really sure about what this "target" actually *is*.
   this.target = e.target;
-  var mouse = mousePos(e);
   
-  // Reference point for dragging operation
-  this.startDrag = new Point(mouse.x, mouse.y);
+  // Reference points for dragging operation
+  var mp = mousePos(e);
+  //currMouse = new Point(mp.x, mp.y);
+  this.startDragX = mp.x;
+  this.startDragY =  mp.y;
+  this.currDragX = this.currDragY = 0;
 
   // load original (LilyPond's) position of the object
     
   //TODO: Currently this seems to get wrong results with items that have been
   //moved in a previous session. 
   // initPos seems to return the same as startPos in any case (which shouldn't be the case)
-	var initX = parseFloat(elem.getAttribute("init-x"));
-	var initY = parseFloat(elem.getAttribute("init-y"));
-  this.initPos = new Point(initX, initY);
-  pyLinks.pyLog("InitPos: " + this.initPos.toString());
-
+	this.initX = parseFloat(elem.getAttribute("init-x"));
+	this.initY = parseFloat(elem.getAttribute("init-y"));
+  
   // determine the current position at the start of a (new) drag
-  //var tmpStartPos = getTranslPos(elem);
 	this.transform = elem.transform.baseVal.getItem(0);
 	if (this.transform.type == SVGTransform.SVG_TRANSFORM_TRANSLATE){
-    this.startPos = new Point(this.transform.matrix.e, this.transform.matrix.f);
+    this.startX = this.transform.matrix.e;
+    this.startY = this.transform.matrix.f;
+    this.currX = this.startX;
+    this.currY = this.startY;
+    this.startOffX = this.startX - this.initX;
+    this.currOffX = this.startOffX;
+    this.startOffY = this.initY - this.startY;
+    this.currOffY = this.startOffY;
 	}
-  pyLinks.pyLog("StartPos: " + this.startPos.toString());
-    
-    
-  this.startOffset = function(){
-    return this.initPos.distanceTo(this.startPos)
+
+// Properties, implemented as privileged methods    
+  // current dragging offset, 
+  //calculated from initial and current mouse position.
+  this.currDrag = function(){
+    return new Point(that.currDragX, that.currDragY);
+  };
+  
+  this.currOffset = function(){
+    return new Point(this.currOffX, this.currOffY);
+  };
+  
+  // current object position,
+  // calculated from starting position and current drag offset
+  this.currPos = function(){
+    return new Point(this.currX, this.currY);
+  };
+  
+  // initial (i.e. LilyPond-compiled) position of the element
+  this.initPos = function() {
+      return new Point(initX, initY);
+  };
+  
+  this.startPos = function() {
+      return new Point(that.startX, that.startY);
+  };
+  
+  this.updatePositions = function(e){
+    var mp = mousePos(e);
+    this.currDragX = mp.x - this.startDragX;
+    this.currDragY = mp.y - this.startDragY;
+    this.currX = this.startX + this.currDragX;
+    this.currY = this.startY + this.currDragY;
+    this.currOffX = this.startOffX + this.currDragX;
+    this.currOffY = this.startOffY - this.currDragY;
   };
 }
 
 var draggedObject = null;
-
-function calcPositions(e){
-    // calculate all the necessary values while dragging
-    // these should better be properties of an object
-    // because many of them don't have to be stored as values.
-    dragPos = mousePos(e);
-    // current offset of the dragging operation itself
-    dragOffX = getRoundDiffPos(dragPos.x, dragOrigin.x);
-    dragOffY = getRoundDiffPos(dragPos.y, dragOrigin.y);
-    // current position of the object
-    currX = startX + dragOffX;
-    currY = startY + dragOffY;
-    // current offset of the object against its init position
-    currOffX = startOffX + dragOffX;
-    currOffY = startOffY - dragOffY;
-}
 
 function MouseDown(e){
   e.stopPropagation();
 
   // create an object representing the dragged item
   draggedObject = new DraggableObject(this, e);
-
-  //Currently this always returns 0 (bug!)
-  pyLinks.pyLog("startOffsetX: " + draggedObject.startOffset().x.toString());
+    
+  // Currently this always returns 0 
+  // when a document has been reloaded (bug!)
+  pyLinks.pyLog("Bug? " + draggedObject.currOffset().toString());
 
   //catch type of element by sending link
   pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
-
+    
   // announce original position (may already have an offset)
-  pyLinks.startDragging(draggedObject.startPos.x, draggedObject.startPos.x);
-
+  pyLinks.startDragging(draggedObject.currOffX, draggedObject.currOffY);
+    
   //ensure that the selected element will always be on top by putting it last in the node list
   //Clone the node to make sure we can put it back when drag is finished
   clone = this.cloneNode(true);
@@ -209,31 +237,36 @@ function MouseMove(e){
   // ignore events from other objects than the dragged one
   // This doesn't work reliably yet. When an object is dragged
   // _under_ another one the event is only triggered for the wrong one.
-  if (e.target == draggedObject.target){
-    pyLinks.pyLog("We're moving the mouse");
-    // calculate mouse coordinates relative to the drag's starting position
-//    calcPositions(e);
-    
+  if (draggedObject && e.target == draggedObject.target) {
+
+    draggedObject.updatePositions(e);
+    var currPos = draggedObject.currPos();
+
     // move the object to the new position
-    if(this.parent.group){
-		// move whole group together
-		// to-do: calculate position for each element in the group
-		setGroupTranslate(this.parent.group, currX, currY); 
-	}else{
-		objTransform.setTranslate(currX, currY);
-	}
-      
+    if(this.parent && this.parent.group){
+  		// move whole group together
+	  	// to-do: calculate position for each element in the group
+		  pyLinks.pyLog(draggedObject.transform.toString());
+      setGroupTranslate(this.parent.group, currPos.x, currPos.y); 
+	  } else {
+		  draggedObject.transform.setTranslate(currPos.x, currPos.y);
+	  }
+
     // announce the new position
-    pyLinks.dragging(currOffX, currOffY);
-  }
+//    var currOffset = draggedObject.currOffset();
+    pyLinks.dragging(draggedObject.currOffX, draggedObject.currOffY);
+  }  
 }
 
 function MouseUp(e){
 	
+  e.stopPropagation();
+  if (draggedObject && e.target == draggedObject.target) {
+
 	//set the new position for the clone
 	var clonePos = getTranslPos(clone);
 	cloneTransform = clonePos.tr;
-	cloneTransform.setTranslate(currX, currY);
+	cloneTransform.setTranslate(draggedObject.currX, draggedObject.currY);
 	
 	//remove transparency
 	clone.removeAttribute("opacity");
@@ -247,13 +280,13 @@ function MouseUp(e){
 	enableMouseEvents(clone);
         
     // calculate positions, is only necessary for the signal
-    calcPositions(e);
-    pyLinks.dragged(currOffX, currOffY);
+ //   calcPositions(e);
+    pyLinks.dragged(draggedObject.currOffX, draggedObject.currOffY);
         
     // clean up
     draggedObject = null;
-    dragOrigin = null;
     svg.removeChild(delNode);
+      }
 }
 
 //mouse position
