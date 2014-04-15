@@ -18,7 +18,19 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * See http://www.gnu.org/licenses/ for more information.
  */
+
 window.addEventListener('error', error, false);
+
+/*********************************************
+*
+* File structure:
+* - global variables
+* - (helper) functions (sorted alphabetically)
+* - (worker) function(s)
+* - (helper) class(es)
+* - Event handlers
+* - Actual execution block
+*/
 
 var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
@@ -30,6 +42,83 @@ var draggedObject = null;
 var draggedObject = null;
 var clone, delNode;
 
+///////////////////////////////////////////////
+// Helper function
+///////////////////////////////////////////////
+
+//mouse position
+function mousePos(event) {
+    var svgPoint = svg.createSVGPoint();
+
+    svgPoint.x = event.clientX;
+    svgPoint.y = event.clientY;
+
+    svgPoint = svgPoint.matrixTransform(svg.getScreenCTM().inverse());
+
+    return svgPoint;
+}
+
+//return rounded difference between initial and current position 
+function getRoundDiffPos(p2, p1) {
+    return roundPos(p2 - p1);
+}
+
+//get markup translate coordinates
+function getTranslPos(elem) {
+    var tr = elem.transform.baseVal.getItem(0);
+    if (tr.type == SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+        return {
+            x: tr.matrix.e,
+            y: tr.matrix.f,
+            tr: tr
+        }
+    }
+}
+
+//I'm putting this back in at least for now
+//generic onmouseup
+//needed when dragging doesn't keep mouse over object
+onmouseup = function (e) {
+    MouseUp(e);
+};
+
+//round position to two decimals	
+function roundPos(pos) {
+    return Math.round(pos * 100) / 100;
+}
+//set transform translate for element group
+function setGroupTranslate(group, x, y) {
+    for (var g = 0; g < group.length; ++g) {
+        var transf = getTranslPos(group[g]);
+        transf.tr.setTranslate(x, y);
+    }
+}
+
+function enableMouseEvents(elem) {
+    elem.onmousedown = MouseDown;
+    elem.onmousemove = MouseMove;
+    elem.onmouseup = MouseUp;
+}
+
+function enableTranslPositioning(node) {
+    enableMouseEvents(node);
+
+    var doSave = pyLinks.savePos();
+
+    if (doSave) {
+        var p = getTranslPos(node);
+        node.setAttribute("init-x", p.x);
+        node.setAttribute("init-y", p.y);
+    }
+}
+
+//write error message
+function error(e) {
+    pyLinks.pyLog(e.message);
+}
+
+
+/////////////////////////////////////////////
 //listen for drag events on all text elements
 //and save their initial position
 function collectElements(){
@@ -74,39 +163,6 @@ function collectElements(){
     }
 }
 
-collectElements();
-
-pyLinks.setSaved();
-
-//I'm putting this back in at least for now
-//generic onmouseup
-//needed when dragging doesn't keep mouse over object
-onmouseup = function (e) {
-    MouseUp(e);
-};
-
-//write error message
-function error(e) {
-    pyLinks.pyLog(e.message);
-}
-
-function enableTranslPositioning(node) {
-    enableMouseEvents(node);
-
-    var doSave = pyLinks.savePos();
-
-    if (doSave) {
-        var p = getTranslPos(node);
-        node.setAttribute("init-x", p.x);
-        node.setAttribute("init-y", p.y);
-    }
-}
-
-function enableMouseEvents(elem) {
-    elem.onmousedown = MouseDown;
-    elem.onmousemove = MouseMove;
-    elem.onmouseup = MouseUp;
-}
 
 // It's not clear whether we should keep that class at all.
 // The current implementation relies very much on the pure member variables.
@@ -288,3 +344,9 @@ function MouseUp(e) {
     }
 }
 
+////////////////////////////////////////////
+// Actual execution block
+////////////////////////////////////////////
+
+collectElements();
+pyLinks.setSaved();
