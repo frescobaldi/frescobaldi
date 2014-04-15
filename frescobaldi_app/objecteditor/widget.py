@@ -132,24 +132,6 @@ class Widget(QWidget):
         """ Insert the override command in the source."""
         if self.define:
             self.define.insertOverride(self.XOffsetBox.value(), self.YOffsetBox.value())		
-
-    def getCurrentLilyObject(self, cursor):
-        """ Use cursor from textedit link to get type of object being edited."""
-        import ly
-        source = ly.document.Source(cursor)
-        lilyReader = ly.music.read.Reader(source)
-        tree = lilyReader.read()
-        for t in tree:
-            print(t)
-        lilyObj = "still testing"
-        self.elemLabel.setText(lilyObj)		
-        
-    def svg2lily(self, elem):
-        """ Translate name of SVG element into name of 
-        LilyPond object.
-        """
-        svg2lilyDict = {"text": "TextScript"}
-        return svg2lilyDict[elem]
     
     @QtCore.pyqtSlot(float, float)
     def setOffset(self, x, y):
@@ -178,23 +160,12 @@ class Widget(QWidget):
         print "Dragged to", x, y
         self.setOffset(x, y)
         
-    @QtCore.pyqtSlot(str)
+    @QtCore.pyqtSlot(QTextCursor)
     def setObjectFromCursor(self, cursor):
         """Set selected element."""
         self.define = defineoffset.DefineOffset(self.mainwindow.currentDocument())
         self.elemLabel.setText(self.define.getCurrentLilyObject(cursor))
         self.insertButton.setEnabled(True)
-        # temporary debug output
-        lilyObj = self.svg2lily("text")
-        #print(lilyObj)
-        self.elemLabel.setText(lilyObj)
-        
-    @QtCore.pyqtSlot(str)
-    def url(self, url):
-        """Set selected element."""
-        # temporary debug output
-        print(url)
-        self.getCurrentLilyObject(url)
 
     def loadSettings(self):
         """Called on construction. Load settings and set checkboxes state."""

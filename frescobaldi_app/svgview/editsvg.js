@@ -144,15 +144,6 @@ function collectElements(){
     
                 enableTranslPositioning(node)
     
-                // QUESTION: is it a good idea to declare this variable
-                // *inside* the while loop?
-                var doSave = pyLinks.savePos();
-    
-                if (doSave) {
-                    var p = getTranslPos(node);
-                    node.setAttribute("init-x", p.x);
-                    node.setAttribute("init-y", p.y);
-                }
             }
             node = node.nextSibling;
         }
