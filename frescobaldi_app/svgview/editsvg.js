@@ -173,33 +173,19 @@ function calcPositions(e){
 
 function MouseDown(e){
   e.stopPropagation();
-  draggedObject = new DraggableObject(e);
-    // Set flags and values for the drag operation
-  pyLinks.pyLog("DraggableObject was created");
-    
-//  var mouse = mousePos(e);
-//  var startDrag = new Point(mouse.x, mouse.y);
 
-  // load original (LilyPond's) position of the object
-//	var initX = parseFloat(this.getAttribute("init-x"));
-//	var initY = parseFloat(this.getAttribute("init-y"));
-//  var initPos = new Point(initX, initY);
-  
-  
+  // create an object representing the dragged item
+  draggedObject = new DraggableObject(this, e);
+
+  //Currently this always returns 0 (bug!)
+  pyLinks.pyLog("startOffsetX: " + draggedObject.startOffset().x.toString());
+
   //catch type of element by sending link
   pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
 
   // announce original position (may already have an offset)
-  pyLinks.startDragging(startOffX, startOffY);
-//  var startPos = getTranslPos(this);
-//  objTransform = startPos.tr;
-  //catch type of element by sending link
-  pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
-    
-//  startPos = new Point(startPos.x, startPos.y);
-  //catch type of element
-      
-  
+  pyLinks.startDragging(draggedObject.startPos.x, draggedObject.startPos.x);
+
   //ensure that the selected element will always be on top by putting it last in the node list
   //Clone the node to make sure we can put it back when drag is finished
   clone = this.cloneNode(true);
@@ -215,10 +201,6 @@ function MouseDown(e){
   //This can be set to 0 to preserve previous behaviour,
   //but I think this has a nice touch.
   clone.setAttribute("opacity", "0.3");  
-
-// announce original position (may already have an offset)
-  pyLinks.startDragging(draggedObject.startOffset());
-
 }
 
 function MouseMove(e){
