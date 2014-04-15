@@ -114,6 +114,11 @@ function Point(x, y){
     distY = getRoundDiffPos(otherPoint.y, this.y);
     return new Point(distX, distY);
   };
+  
+  // Debugging function for easy display of coordinates
+  this.toString = function(){
+    return "X: " + this.x + " | Y: " + this.y;
+  };
 }
 
 function DraggableObject(e){
