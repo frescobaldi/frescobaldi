@@ -20,28 +20,14 @@
 */
 window.addEventListener('error', error, false); 
 
-var objTransform;
 var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
 var maxX = svg.offsetWidth-1;
 var maxY = svg.offsetHeight-1;
 var draggable = document.getElementsByTagName('a');
-var draggedObject, dragOrigin, dragPos = null;
+var draggedObject = null;
 
 var clone, delNode;
-
-// object and helper positioning variables
-// should be put into an object.
-
-// position of the object at the start of the drag
-var startX, startY;
-// current position of the object
-var currX, currY;
-// offset against init position when starting the drag
-var startOffX, startOffY;
-// current offset of the object relative to the init position
-var currOffX, currOffY;
-
 
 //listen for drag events on all text elements
 //and save their initial position
