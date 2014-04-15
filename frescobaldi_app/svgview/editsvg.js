@@ -208,7 +208,8 @@ function MouseMove(e){
   // ignore events from other objects than the dragged one
   // This doesn't work reliably yet. When an object is dragged
   // _under_ another one the event is only triggered for the wrong one.
-  if (e.target == draggedObject){
+  if (e.target == draggedObject.target){
+    pyLinks.pyLog("We're moving the mouse");
     // calculate mouse coordinates relative to the drag's starting position
 //    calcPositions(e);
     
