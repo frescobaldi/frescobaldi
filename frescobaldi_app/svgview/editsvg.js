@@ -109,10 +109,10 @@ function Point(x, y){
   this.x = x;
   this.y = y;
 
-  function distanceTo(otherPoint){
+  this.distanceTo = function(otherPoint){
     distX = getRoundDiffPos(otherPoint.x, this.x);
     distY = getRoundDiffPos(otherPoint.y, this.y);
-    return Point(distX, distY);
+    return new Point(distX, distY);
   };
 }
 
