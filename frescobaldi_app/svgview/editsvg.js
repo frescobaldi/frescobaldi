@@ -106,6 +106,10 @@ function Point(x, y){
   this.x = x;
   this.y = y;
 
+  this.translate = function(otherPoint){
+      return new Point(this.x + otherPoint.x, this.y + otherPoint.y);
+  };
+
   this.distanceTo = function(otherPoint){
     distX = getRoundDiffPos(otherPoint.x, this.x);
     distY = getRoundDiffPos(otherPoint.y, this.y);
