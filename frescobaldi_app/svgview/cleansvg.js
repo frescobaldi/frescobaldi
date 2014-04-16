@@ -21,15 +21,43 @@
 //To be able to save the SVG edits without traces of the editing process
 //use this script
 
-var txt = document.getElementsByTagName('text');
+window.addEventListener('error', error, false);
 
-for (var t= 0; t < txt.length; ++t){
+//write error message
+function error(e) {
+    pyLinks.pyLog(e.message);
+}
+
+var svgarr = document.getElementsByTagName("svg");
+var svg = svgarr[0];
+cleanTree(svg);
+
+//clean node and all siblings and childs 
+function cleanTree(node){
 	
-	txt[t].removeAttribute("init-x");
-	txt[t].removeAttribute("init-y");
+	//pass on recursively		
+	if(node.hasChildNodes()){
+		cleanTree(node.firstChild);
+	}
 	
-	if(txt[t].getAttribute("fill") == "orange"){
-		txt[t].setAttribute("fill", "currentColor");
+	sibl = node.nextSibling;
+	if(sibl){
+		cleanTree(sibl);
+	}
+	
+    //do the actual cleaning
+	doClean(node);
+}
+
+function doClean(node){
+	
+	if(node.nodeType == 1 && node.hasAttribute("init-x")){
+		node.removeAttribute("init-x");
+		node.removeAttribute("init-y");
 	}
 
+	if(node.nodeType == 1 && node.getAttribute("fill") == "orange"){
+		node.setAttribute("fill", "currentColor");
+	}
 }
+
