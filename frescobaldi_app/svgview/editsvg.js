@@ -217,7 +217,7 @@ function DraggableObject(elem, e) {
     // current dragging offset, 
     //calculated from initial and current mouse position.
     this.currDrag = function () {
-        return new Point(that.currDragX, that.currDragY);
+        return new Point(this.currDragX, this.currDragY);
     };
 
     this.currOffset = function () {
@@ -253,7 +253,7 @@ function DraggableObject(elem, e) {
     };
 
     this.startPos = function () {
-        return new Point(that.startX, that.startY);
+        return new Point(this.startX, this.startY);
     };
 
     // recalculate the position variables upon modified mouse position.
