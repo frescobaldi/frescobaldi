@@ -86,6 +86,12 @@ onmouseup = function (e) {
 function roundPos(pos) {
     return Math.round(pos * 100) / 100;
 }
+
+function round(digits, number) {
+    var factor = Math.pow(10, digits)
+    return Math.round(number * factor) / factor
+}
+
 //set transform translate for element group
 function setGroupTranslate(group, x, y) {
     for (var g = 0; g < group.length; ++g) {
@@ -217,7 +223,7 @@ function DraggableObject(elem, e) {
     // current dragging offset, 
     //calculated from initial and current mouse position.
     this.currDrag = function () {
-        return new Point(that.currDragX, that.currDragY);
+        return new Point(this.currDragX, this.currDragY);
     };
 
     this.currOffset = function () {
@@ -253,7 +259,7 @@ function DraggableObject(elem, e) {
     };
 
     this.startPos = function () {
-        return new Point(that.startX, that.startY);
+        return new Point(this.startX, this.startY);
     };
 
     // recalculate the position variables upon modified mouse position.
