@@ -254,10 +254,6 @@ function MouseDown(e) {
     // create an object representing the dragged item
     draggedObject = new DraggableObject(this, e);
 
-    // Currently this always returns 0 
-    // when a document has been reloaded (bug!)
-    pyLinks.pyLog("Bug? " + draggedObject.currOffset().toString());
-
     //catch type of element by sending link
     pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
 
