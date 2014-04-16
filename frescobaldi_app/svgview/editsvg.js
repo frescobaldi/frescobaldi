@@ -365,6 +365,7 @@ function MouseUp(e) {
             pyLinks.click(draggedObject.url);
         }else{
             pyLinks.dragged(draggedObject.currOffX, draggedObject.currOffY);
+            doClick = true; //unset drag
         }
 
         // clean up
