@@ -31,7 +31,7 @@ function leave(){
 
 function click(){
     var url = this.getAttribute('xlink:href');
-    pyLinks.setCursor(url);
+    pyLinks.click(url);
 };
 
 var a = document.getElementsByTagName('a');

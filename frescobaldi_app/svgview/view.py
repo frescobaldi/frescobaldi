@@ -66,15 +66,36 @@ class View(QtWebKit.QWebView):
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
+        self._highlightFormat = QtGui.QTextCharFormat()
         self.jslink = JSLink(self)
         self.loadFinished.connect(self.svgLoaded)
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
     
     def mainwindow(self):
         return self.parent().mainwindow()
         
     def currentSVG(self):
-		return self.parent().getCurrent()
-    
+        return self.parent().getCurrent()
+
+    def document(self, filename, load=False):
+        """Get the document with the specified filename.
+        
+        If load is True, the document is loaded if it wasn't already.
+        Also takes scratchdir into account for unnamed or non-local documents.
+        
+        """
+        for d in app.documents:
+            s = scratchdir.scratchdir(d)
+            if (s.directory() and util.equal_paths(filename, s.path())
+                or d.url().toLocalFile() == filename):
+                return d
+        if load:
+            doc = app.openUrl(QtCore.QUrl.fromLocalFile(filename))
+            
+            return doc
+        
+
     def svgLoaded(self):
         if not self.url().isEmpty():
             frame = self.page().mainFrame()
@@ -92,18 +113,83 @@ class View(QtWebKit.QWebView):
         """Empty the View."""
         self.load(QtCore.QUrl())
     
+    def dragElement(self, url):
+        t = textedit.link(url)
+        # Only process textedit links
+        if not t:
+            return False
+        doc = self.document(t.filename, True)
+        if doc:
+            cursor = QtGui.QTextCursor(doc)
+            b = doc.findBlockByNumber(t.line - 1)
+            p = b.position() + t.column
+            cursor.setPosition(p)
+        self.emitCursor(cursor)
+    
     def doObjectDragged(self, offsX, offsY):
+        """announce extra-offsets an element has been dragged to"""
         self.objectDragged.emit(offsX, offsY)
     
     def doObjectDragging(self, offsX, offsY):
+        """announce extra-offsets while dragging an element"""
         self.objectDragging.emit(offsX, offsY)    
 
     def doObjectStartDragging(self, offsX, offsY):
+        """announce extra-offsets when starting to drag an element"""
         self.objectStartDragging.emit(offsX, offsY)
-		
+
+    def doTextEdit(self, url, setCursor = False):
+        """Process a textedit link and either highlight
+           the corresponding source code or set the 
+           cursor to it.
+        """
+        t = textedit.link(url)
+        # Only process textedit links
+        if not t:
+            return False
+        doc = self.document(t.filename, setCursor)
+        if doc:
+            cursor = QtGui.QTextCursor(doc)
+            b = doc.findBlockByNumber(t.line - 1)
+            p = b.position() + t.column
+            cursor.setPosition(p)
+            cursors = pointandclick.positions(cursor)
+            # Do highlighting if the document is active
+            if cursors and doc == self.mainwindow().currentDocument():
+                import viewhighlighter
+                view = self.mainwindow().currentView()
+                viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 0)
+            # set the cursor and bring the document to front
+            if setCursor:
+                mainwindow = self.mainwindow()
+                mainwindow.setTextCursor(cursor)
+                import widgets.blink
+                widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
+                self.mainwindow().setCurrentDocument(doc)
+                mainwindow.activateWindow()
+                mainwindow.currentView().setFocus()
+        return True
+    
     def emitCursor(self, cursor):
         self.cursor.emit(cursor)    
     
+    def readSettings(self):
+        """Reads the settings from the user's preferences."""
+        color = textformats.formatData('editor').baseColors['selectionbackground']
+        color.setAlpha(128)
+        self._highlightFormat.setBackground(color)
+    
+    def saveSVG(self, svg_string):
+        """Pass string from JavaScript and save to current SVG page."""
+        f = open(self.currentSVG(),'w')
+        f.write(svg_string.encode('utf8'))
+        f.close()
+
+    def unHighlight(self):
+        import viewhighlighter
+        view = self.mainwindow().currentView()
+        viewhighlighter.highlighter(view).clear(self._highlightFormat)
+
     def zoomIn(self):
         self.setZoomFactor(self.zoomFactor() * 1.1)
         
@@ -129,126 +215,56 @@ class JSLink(QtCore.QObject):
     def __init__(self, view):
         super(JSLink, self).__init__()
         self.view = view
-        self._highlightFormat = QtGui.QTextCharFormat()
-        app.settingsChanged.connect(self.readSettings)
-        self.readSettings()
-        
-    def mainwindow(self):
-        return self.view.mainwindow()
-    
-    def readSettings(self):
-        """Reads the settings from the user's preferences."""
-        color = textformats.formatData('editor').baseColors['selectionbackground']
-        color.setAlpha(128)
-        self._highlightFormat.setBackground(color)
-    
-    def document(self, filename, load=False):
-        """Get the document with the specified filename.
-        
-        If load is True, the document is loaded if it wasn't already.
-        Also takes scratchdir into account for unnamed or non-local documents.
-        
-        """
-        for d in app.documents:
-            s = scratchdir.scratchdir(d)
-            if (s.directory() and util.equal_paths(filename, s.path())
-                or d.url().toLocalFile() == filename):
-                return d
-        if load:
-            doc = app.openUrl(QtCore.QUrl.fromLocalFile(filename))
-            
-            return doc
-        
-    def doTextEdit(self, url, setCursor = False):
-        """Process a textedit link and either highlight
-           the corresponding source code or set the 
-           cursor to it.
-        """
-        t = textedit.link(url)
-        # Only process textedit links
-        if not t:
-            return False
-        doc = self.document(t.filename, setCursor)
-        if doc:
-            cursor = QtGui.QTextCursor(doc)
-            b = doc.findBlockByNumber(t.line - 1)
-            p = b.position() + t.column
-            cursor.setPosition(p)
-            cursors = pointandclick.positions(cursor)
-            # Do highlighting if the document is active
-            if cursors and doc == self.mainwindow().currentDocument():
-                import viewhighlighter
-                view = self.mainwindow().currentView()
-                viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
-            # set the cursor and bring the document to front
-            if setCursor:
-                mainwindow = self.mainwindow()
-                mainwindow.setTextCursor(cursor)
-                import widgets.blink
-                widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
-                self.mainwindow().setCurrentDocument(doc)
-                mainwindow.activateWindow()
-                mainwindow.currentView().setFocus()
-        return True
-    
-    @QtCore.pyqtSlot(str)
-    def setCursor(self, url):
-        """set cursor in source by clicked textedit link""" 
-        if not self.doTextEdit(url, True):
-            import helpers
-            helpers.openUrl(QtCore.QUrl(url))
 
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
         """actions when user set mouse over link"""
-        self.doTextEdit(url, False)
+        self.view.doTextEdit(url, False)
     
     @QtCore.pyqtSlot(str)	    
     def leave(self, url):
         """actions when user moves mouse off link"""
-        import viewhighlighter
-        view = self.mainwindow().currentView()
-        viewhighlighter.highlighter(view).clear(self._highlightFormat)
+        self.view.unHighlight()
         
+    @QtCore.pyqtSlot(str)
+    def click(self, url):
+        """set cursor in source by clicked textedit link""" 
+        if not self.view.doTextEdit(url, True):
+            import helpers
+            helpers.openUrl(QtCore.QUrl(url))
+
     @QtCore.pyqtSlot(float, float)
     def startDragging(self, offX, offY):
+        """announce extra-offsets when starting to drag an element"""
         self.view.doObjectStartDragging(offX, offY)
 
     @QtCore.pyqtSlot(float, float)
-    def dragging(self, x, y):
-        self.view.doObjectDragging(x, y)
+    def dragging(self, offX, offY):
+        """announce extra-offsets while dragging an element"""
+        self.view.doObjectDragging(offX, offY)
         
     @QtCore.pyqtSlot(float, float)
-    def dragged(self, x, y):
-        self.view.doObjectDragged(x, y)
+    def dragged(self, offX, offY):
+        """announce extra-offsets an element has been dragged to"""
+        self.view.doObjectDragged(offX, offY)
+        
+    @QtCore.pyqtSlot(str)
+    def draggedObject(self, JSON_string):
+        print "Dragged object JSON representation:"
+        import json
+        js = json.JSONDecoder()
+        print js.decode(JSON_string)
         
     @QtCore.pyqtSlot(str)
     def dragElement(self, url):
-        t = textedit.link(url)
-        # Only process textedit links
-        if not t:
-            return False
-        doc = self.document(t.filename, True)
-        if doc:
-            cursor = QtGui.QTextCursor(doc)
-            b = doc.findBlockByNumber(t.line - 1)
-            p = b.position() + t.column
-            cursor.setPosition(p)
-        self.view.emitCursor(cursor)
-    
+        self.view.dragElement(url)
+
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
         print(txt)
-		
+    
     @QtCore.pyqtSlot(str)	    
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
-        f = open(self.view.currentSVG(),'w')
-        f.write(svg_string.encode('utf8'))
-        f.close()
-	
-    @QtCore.pyqtSlot()		
-    def setSaved(self):
-        self.isSaved = True
-		
+        self.view.saveSVG(svg_string)

@@ -183,6 +183,9 @@ function DraggableObject(elem, e) {
 
     // I'm not really sure about what this "target" actually *is*.
     this.target = e.target;
+    
+    // store the textedit url attached to the element
+    this.url = elem.parentNode.getAttribute('xlink:href');
 
     // Reference points for dragging operation
     var mp = mousePos(e);
@@ -231,6 +234,23 @@ function DraggableObject(elem, e) {
     this.initPos = function () {
         return new Point(initX, initY);
     };
+    
+    // return a JSON string representing relevant information on the object
+    this.JSONified = function() {
+        return JSON.stringify(this,
+            ["url",
+             "initX",
+             "initY",
+             "startX",
+             "startY",
+             "currX",
+             "currY"]);
+    };
+    
+    // determine if an object is changed compared to the initial position.
+    this.modified = function() {
+        return (roundPos(this.currX) != roundPos(this.initX)) || (roundPos(this.currY) != roundPos(this.initY))
+    };
 
     this.startPos = function () {
         return new Point(that.startX, that.startY);
@@ -254,15 +274,14 @@ function MouseDown(e) {
     // create an object representing the dragged item
     draggedObject = new DraggableObject(this, e);
 
-    // Currently this always returns 0 
-    // when a document has been reloaded (bug!)
-    pyLinks.pyLog("Bug? " + draggedObject.currOffset().toString());
-
     //catch type of element by sending link
-    pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
+    pyLinks.dragElement(draggedObject.url)
 
     // announce original position (may already have an offset)
     pyLinks.startDragging(draggedObject.currOffX, draggedObject.currOffY);
+    
+    // send the SVG information of the dragged object to Python
+    pyLinks.draggedObject(draggedObject.JSONified());
 
     //ensure that the selected element will always be on top by putting it last in the node list
     //Clone the node to make sure we can put it back when drag is finished
@@ -319,8 +338,15 @@ function MouseUp(e) {
         clone.removeAttribute("opacity");
 
         //change color when object is modified
-        if (clone.getAttribute("fill") != "orange") {
-            clone.setAttribute("fill", "orange");
+        //reset color when object is moved to initial position.
+        if (draggedObject.modified()) {
+            if (clone.getAttribute("fill") != "orange") {
+                clone.setAttribute("fill", "orange");
+            }
+        } else {
+            if (clone.getAttribute("fill") == "orange") {
+                clone.removeAttribute("fill");
+            }
         }
 
         //enable further editing
@@ -339,4 +365,3 @@ function MouseUp(e) {
 ////////////////////////////////////////////
 
 collectElements();
-pyLinks.setSaved();
