@@ -213,13 +213,6 @@ class JSLink(QtCore.QObject):
         super(JSLink, self).__init__()
         self.view = view
 
-    @QtCore.pyqtSlot(str)
-    def setCursor(self, url):
-        """set cursor in source by clicked textedit link""" 
-        if not self.view.doTextEdit(url, True):
-            import helpers
-            helpers.openUrl(QtCore.QUrl(url))
-
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
         """actions when user set mouse over link"""
@@ -230,6 +223,13 @@ class JSLink(QtCore.QObject):
         """actions when user moves mouse off link"""
         self.view.unHighlight()
         
+    @QtCore.pyqtSlot(str)
+    def click(self, url):
+        """set cursor in source by clicked textedit link""" 
+        if not self.view.doTextEdit(url, True):
+            import helpers
+            helpers.openUrl(QtCore.QUrl(url))
+
     @QtCore.pyqtSlot(float, float)
     def startDragging(self, offX, offY):
         self.view.doObjectStartDragging(offX, offY)
