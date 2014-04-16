@@ -127,12 +127,15 @@ class View(QtWebKit.QWebView):
         self.emitCursor(cursor)
     
     def doObjectDragged(self, offsX, offsY):
+        """announce extra-offsets an element has been dragged to"""
         self.objectDragged.emit(offsX, offsY)
     
     def doObjectDragging(self, offsX, offsY):
+        """announce extra-offsets while dragging an element"""
         self.objectDragging.emit(offsX, offsY)    
 
     def doObjectStartDragging(self, offsX, offsY):
+        """announce extra-offsets when starting to drag an element"""
         self.objectStartDragging.emit(offsX, offsY)
 
     def doTextEdit(self, url, setCursor = False):
@@ -232,15 +235,18 @@ class JSLink(QtCore.QObject):
 
     @QtCore.pyqtSlot(float, float)
     def startDragging(self, offX, offY):
+        """announce extra-offsets when starting to drag an element"""
         self.view.doObjectStartDragging(offX, offY)
 
     @QtCore.pyqtSlot(float, float)
-    def dragging(self, x, y):
-        self.view.doObjectDragging(x, y)
+    def dragging(self, offX, offY):
+        """announce extra-offsets while dragging an element"""
+        self.view.doObjectDragging(offX, offY)
         
     @QtCore.pyqtSlot(float, float)
-    def dragged(self, x, y):
-        self.view.doObjectDragged(x, y)
+    def dragged(self, offX, offY):
+        """announce extra-offsets an element has been dragged to"""
+        self.view.doObjectDragged(offX, offY)
         
     @QtCore.pyqtSlot(str)
     def dragElement(self, url):
