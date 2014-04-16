@@ -183,6 +183,9 @@ function DraggableObject(elem, e) {
 
     // I'm not really sure about what this "target" actually *is*.
     this.target = e.target;
+    
+    // store the textedit url attached to the element
+    this.url = elem.parentNode.getAttribute('xlink:href');
 
     // Reference points for dragging operation
     var mp = mousePos(e);
@@ -255,7 +258,7 @@ function MouseDown(e) {
     draggedObject = new DraggableObject(this, e);
 
     //catch type of element by sending link
-    pyLinks.dragElement(this.parentNode.getAttribute('xlink:href'))
+    pyLinks.dragElement(draggedObject.url)
 
     // announce original position (may already have an offset)
     pyLinks.startDragging(draggedObject.currOffX, draggedObject.currOffY);
