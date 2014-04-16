@@ -38,9 +38,8 @@ var maxX = svg.offsetWidth - 1;
 var maxY = svg.offsetHeight - 1;
 var draggable = document.getElementsByTagName('a');
 var draggedObject = null;
-
-var draggedObject = null;
 var clone, delNode;
+var doClick = true;
 
 ///////////////////////////////////////////////
 // Helper function
@@ -327,6 +326,9 @@ function MouseMove(e) {
 
         // announce the new position
         pyLinks.dragging(draggedObject.currOffX, draggedObject.currOffY);
+        
+        //disable click
+        doClick = false;
     }
 }
 
@@ -357,8 +359,13 @@ function MouseUp(e) {
 
         //enable further editing
         enableMouseEvents(clone);
-
-        pyLinks.dragged(draggedObject.currOffX, draggedObject.currOffY);
+        
+        //if no drag is performed treat the event as a click
+        if(doClick){
+            pyLinks.click(draggedObject.url);
+        }else{
+            pyLinks.dragged(draggedObject.currOffX, draggedObject.currOffY);
+        }
 
         // clean up
         draggedObject = null;
