@@ -176,6 +176,12 @@ class View(QtWebKit.QWebView):
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
     
+    def saveSVG(self, svg_string):
+        """Pass string from JavaScript and save to current SVG page."""
+        f = open(self.currentSVG(),'w')
+        f.write(svg_string.encode('utf8'))
+        f.close()
+
     def unHighlight(self):
         import viewhighlighter
         view = self.mainwindow().currentView()
@@ -244,15 +250,12 @@ class JSLink(QtCore.QObject):
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
         print(txt)
-		
+    
     @QtCore.pyqtSlot(str)	    
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
-        f = open(self.view.currentSVG(),'w')
-        f.write(svg_string.encode('utf8'))
-        f.close()
-	
+        self.view.saveSVG(svg_string)
+
     @QtCore.pyqtSlot()		
     def setSaved(self):
         self.isSaved = True
-		
