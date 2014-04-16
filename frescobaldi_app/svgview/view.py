@@ -155,7 +155,7 @@ class View(QtWebKit.QWebView):
             if cursors and doc == self.mainwindow().currentDocument():
                 import viewhighlighter
                 view = self.mainwindow().currentView()
-                viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 5000)
+                viewhighlighter.highlighter(view).highlight(self._highlightFormat, cursors, 2, 0)
             # set the cursor and bring the document to front
             if setCursor:
                 mainwindow = self.mainwindow()
