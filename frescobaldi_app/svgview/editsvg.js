@@ -86,6 +86,12 @@ onmouseup = function (e) {
 function roundPos(pos) {
     return Math.round(pos * 100) / 100;
 }
+
+function round(digits, number) {
+    var factor = Math.pow(10, digits)
+    return Math.round(number * factor) / factor
+}
+
 //set transform translate for element group
 function setGroupTranslate(group, x, y) {
     for (var g = 0; g < group.length; ++g) {
