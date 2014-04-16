@@ -335,4 +335,3 @@ function MouseUp(e) {
 ////////////////////////////////////////////
 
 collectElements();
-pyLinks.setSaved();

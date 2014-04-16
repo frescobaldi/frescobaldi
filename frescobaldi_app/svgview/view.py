@@ -261,7 +261,3 @@ class JSLink(QtCore.QObject):
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
         self.view.saveSVG(svg_string)
-
-    @QtCore.pyqtSlot()		
-    def setSaved(self):
-        self.isSaved = True
