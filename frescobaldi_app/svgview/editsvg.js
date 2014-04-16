@@ -235,6 +235,18 @@ function DraggableObject(elem, e) {
         return new Point(initX, initY);
     };
     
+    // return a JSON string representing relevant information on the object
+    this.JSONified = function() {
+        return JSON.stringify(this,
+            ["url",
+             "initX",
+             "initY",
+             "startX",
+             "startY",
+             "currX",
+             "currY"]);
+    };
+    
     // determine if an object is changed compared to the initial position.
     this.modified = function() {
         return (roundPos(this.currX) != roundPos(this.initX)) || (roundPos(this.currY) != roundPos(this.initY))
@@ -267,6 +279,9 @@ function MouseDown(e) {
 
     // announce original position (may already have an offset)
     pyLinks.startDragging(draggedObject.currOffX, draggedObject.currOffY);
+    
+    // send the SVG information of the dragged object to Python
+    pyLinks.draggedObject(draggedObject.JSONified());
 
     //ensure that the selected element will always be on top by putting it last in the node list
     //Clone the node to make sure we can put it back when drag is finished
