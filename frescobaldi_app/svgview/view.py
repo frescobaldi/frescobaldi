@@ -66,82 +66,18 @@ class View(QtWebKit.QWebView):
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
+        self._highlightFormat = QtGui.QTextCharFormat()
         self.jslink = JSLink(self)
         self.loadFinished.connect(self.svgLoaded)
+        app.settingsChanged.connect(self.readSettings)
+        self.readSettings()
     
     def mainwindow(self):
         return self.parent().mainwindow()
         
     def currentSVG(self):
-		return self.parent().getCurrent()
-    
-    def svgLoaded(self):
-        if not self.url().isEmpty():
-            frame = self.page().mainFrame()
-            frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
-            frame.evaluateJavaScript(getJsScript('pointandclick.js'))
-            frame.evaluateJavaScript(getJsScript('editsvg.js')) #remove this for stable releases
-            
-    def evalSave(self):
-        frame = self.page().mainFrame()
-        # to enable useful save of SVG edits to file uncomment the line below
-        # frame.evaluateJavaScript(getJsScript('cleansvg.js'))
-        frame.evaluateJavaScript(getJsScript('savesvg.js'))
-    
-    def clear(self):
-        """Empty the View."""
-        self.load(QtCore.QUrl())
-    
-    def doObjectDragged(self, offsX, offsY):
-        self.objectDragged.emit(offsX, offsY)
-    
-    def doObjectDragging(self, offsX, offsY):
-        self.objectDragging.emit(offsX, offsY)    
+        return self.parent().getCurrent()
 
-    def doObjectStartDragging(self, offsX, offsY):
-        self.objectStartDragging.emit(offsX, offsY)
-		
-    def emitCursor(self, cursor):
-        self.cursor.emit(cursor)    
-    
-    def zoomIn(self):
-        self.setZoomFactor(self.zoomFactor() * 1.1)
-        
-    def zoomOut(self):
-        self.setZoomFactor(self.zoomFactor() / 1.1)
-        
-    def zoomOriginal(self):
-        self.setZoomFactor(1.0)
-    
-    def setZoomFactor(self, value):
-        changed = self.zoomFactor() != value
-        super(View, self).setZoomFactor(value)
-        if changed:
-            self.zoomFactorChanged.emit(self.zoomFactor())
-
-
-class JSLink(QtCore.QObject):
-    """functions to be called from JavaScript
-    
-    using addToJavaScriptWindowObject
-    
-    """
-    def __init__(self, view):
-        super(JSLink, self).__init__()
-        self.view = view
-        self._highlightFormat = QtGui.QTextCharFormat()
-        app.settingsChanged.connect(self.readSettings)
-        self.readSettings()
-        
-    def mainwindow(self):
-        return self.view.mainwindow()
-    
-    def readSettings(self):
-        """Reads the settings from the user's preferences."""
-        color = textformats.formatData('editor').baseColors['selectionbackground']
-        color.setAlpha(128)
-        self._highlightFormat.setBackground(color)
-    
     def document(self, filename, load=False):
         """Get the document with the specified filename.
         
@@ -159,6 +95,46 @@ class JSLink(QtCore.QObject):
             
             return doc
         
+
+    def svgLoaded(self):
+        if not self.url().isEmpty():
+            frame = self.page().mainFrame()
+            frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
+            frame.evaluateJavaScript(getJsScript('pointandclick.js'))
+            frame.evaluateJavaScript(getJsScript('editsvg.js')) #remove this for stable releases
+            
+    def evalSave(self):
+        frame = self.page().mainFrame()
+        # to enable useful save of SVG edits to file uncomment the line below
+        # frame.evaluateJavaScript(getJsScript('cleansvg.js'))
+        frame.evaluateJavaScript(getJsScript('savesvg.js'))
+    
+    def clear(self):
+        """Empty the View."""
+        self.load(QtCore.QUrl())
+    
+    def dragElement(self, url):
+        t = textedit.link(url)
+        # Only process textedit links
+        if not t:
+            return False
+        doc = self.document(t.filename, True)
+        if doc:
+            cursor = QtGui.QTextCursor(doc)
+            b = doc.findBlockByNumber(t.line - 1)
+            p = b.position() + t.column
+            cursor.setPosition(p)
+        self.emitCursor(cursor)
+    
+    def doObjectDragged(self, offsX, offsY):
+        self.objectDragged.emit(offsX, offsY)
+    
+    def doObjectDragging(self, offsX, offsY):
+        self.objectDragging.emit(offsX, offsY)    
+
+    def doObjectStartDragging(self, offsX, offsY):
+        self.objectStartDragging.emit(offsX, offsY)
+
     def doTextEdit(self, url, setCursor = False):
         """Process a textedit link and either highlight
            the corresponding source code or set the 
@@ -191,24 +167,62 @@ class JSLink(QtCore.QObject):
                 mainwindow.currentView().setFocus()
         return True
     
+    def emitCursor(self, cursor):
+        self.cursor.emit(cursor)    
+    
+    def readSettings(self):
+        """Reads the settings from the user's preferences."""
+        color = textformats.formatData('editor').baseColors['selectionbackground']
+        color.setAlpha(128)
+        self._highlightFormat.setBackground(color)
+    
+    def unHighlight(self):
+        import viewhighlighter
+        view = self.mainwindow().currentView()
+        viewhighlighter.highlighter(view).clear(self._highlightFormat)
+
+    def zoomIn(self):
+        self.setZoomFactor(self.zoomFactor() * 1.1)
+        
+    def zoomOut(self):
+        self.setZoomFactor(self.zoomFactor() / 1.1)
+        
+    def zoomOriginal(self):
+        self.setZoomFactor(1.0)
+    
+    def setZoomFactor(self, value):
+        changed = self.zoomFactor() != value
+        super(View, self).setZoomFactor(value)
+        if changed:
+            self.zoomFactorChanged.emit(self.zoomFactor())
+
+
+class JSLink(QtCore.QObject):
+    """functions to be called from JavaScript
+    
+    using addToJavaScriptWindowObject
+    
+    """
+    def __init__(self, view):
+        super(JSLink, self).__init__()
+        self.view = view
+
     @QtCore.pyqtSlot(str)
     def setCursor(self, url):
         """set cursor in source by clicked textedit link""" 
-        if not self.doTextEdit(url, True):
+        if not self.view.doTextEdit(url, True):
             import helpers
             helpers.openUrl(QtCore.QUrl(url))
 
     @QtCore.pyqtSlot(str)	    
     def hover(self, url):
         """actions when user set mouse over link"""
-        self.doTextEdit(url, False)
+        self.view.doTextEdit(url, False)
     
     @QtCore.pyqtSlot(str)	    
     def leave(self, url):
         """actions when user moves mouse off link"""
-        import viewhighlighter
-        view = self.mainwindow().currentView()
-        viewhighlighter.highlighter(view).clear(self._highlightFormat)
+        self.view.unHighlight()
         
     @QtCore.pyqtSlot(float, float)
     def startDragging(self, offX, offY):
@@ -224,18 +238,8 @@ class JSLink(QtCore.QObject):
         
     @QtCore.pyqtSlot(str)
     def dragElement(self, url):
-        t = textedit.link(url)
-        # Only process textedit links
-        if not t:
-            return False
-        doc = self.document(t.filename, True)
-        if doc:
-            cursor = QtGui.QTextCursor(doc)
-            b = doc.findBlockByNumber(t.line - 1)
-            p = b.position() + t.column
-            cursor.setPosition(p)
-        self.view.emitCursor(cursor)
-    
+        self.view.dragElement(url)
+
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
