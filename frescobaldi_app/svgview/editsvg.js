@@ -93,9 +93,15 @@ function round(digits, number) {
 
 //set transform translate for element group
 function setGroupTranslate(group, x, y) {
+    // store coordinates of first element
+    var groupOrigin = getTranslPos(group[0]);
     for (var g = 0; g < group.length; ++g) {
         var transf = getTranslPos(group[g]);
-        transf.tr.setTranslate(x, y);
+        // calculate offset against first element
+        var xOff = transf.x - groupOrigin.x;
+        var yOff = transf.y - groupOrigin.y;
+        // apply offset and translate object
+        transf.tr.setTranslate(x + xOff, y + yOff);
     }
 }
 
@@ -317,8 +323,6 @@ function MouseMove(e) {
         var currPos = draggedObject.currPos();
         if (this.parent && this.parent.group) {
             // move whole group together
-            // to-do: calculate position for each element in the group
-            pyLinks.pyLog(draggedObject.transform.toString());
             setGroupTranslate(this.parent.group, currPos.x, currPos.y);
         } else {
             draggedObject.transform.setTranslate(currPos.x, currPos.y);
