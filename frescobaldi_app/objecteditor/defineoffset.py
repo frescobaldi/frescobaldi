@@ -59,7 +59,7 @@ class DefineOffset():
         """
         item2objectDict = {"String": "TextScript", 
         "Markup": "TextScript",
-        "Tempo": "MetronomeMark",
+        "Tempo": "Score.MetronomeMark",
         "Articulation": "Script"}
         # Debug output of item
         #print("Item: "+item)
