@@ -216,16 +216,6 @@ class JSLink(QtCore.QObject):
         super(JSLink, self).__init__()
         self.view = view
 
-    @QtCore.pyqtSlot(str)	    
-    def hover(self, url):
-        """actions when user set mouse over link"""
-        self.view.doTextEdit(url, False)
-    
-    @QtCore.pyqtSlot(str)	    
-    def leave(self, url):
-        """actions when user moves mouse off link"""
-        self.view.unHighlight()
-        
     @QtCore.pyqtSlot(str)
     def click(self, url):
         """set cursor in source by clicked textedit link""" 
@@ -233,16 +223,6 @@ class JSLink(QtCore.QObject):
             import helpers
             helpers.openUrl(QtCore.QUrl(url))
 
-    @QtCore.pyqtSlot(float, float)
-    def startDragging(self, offX, offY):
-        """announce extra-offsets when starting to drag an element"""
-        self.view.doObjectStartDragging(offX, offY)
-
-    @QtCore.pyqtSlot(float, float)
-    def dragging(self, offX, offY):
-        """announce extra-offsets while dragging an element"""
-        self.view.doObjectDragging(offX, offY)
-        
     @QtCore.pyqtSlot(float, float)
     def dragged(self, offX, offY):
         """announce extra-offsets an element has been dragged to"""
@@ -259,6 +239,21 @@ class JSLink(QtCore.QObject):
     def dragElement(self, url):
         self.view.dragElement(url)
 
+    @QtCore.pyqtSlot(float, float)
+    def dragging(self, offX, offY):
+        """announce extra-offsets while dragging an element"""
+        self.view.doObjectDragging(offX, offY)
+        
+    @QtCore.pyqtSlot(str)	    
+    def hover(self, url):
+        """actions when user set mouse over link"""
+        self.view.doTextEdit(url, False)
+    
+    @QtCore.pyqtSlot(str)	    
+    def leave(self, url):
+        """actions when user moves mouse off link"""
+        self.view.unHighlight()
+        
     @QtCore.pyqtSlot(str)	    
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
@@ -268,3 +263,8 @@ class JSLink(QtCore.QObject):
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
         self.view.saveSVG(svg_string)
+
+    @QtCore.pyqtSlot(float, float)
+    def startDragging(self, offX, offY):
+        """announce extra-offsets when starting to drag an element"""
+        self.view.doObjectStartDragging(offX, offY)
