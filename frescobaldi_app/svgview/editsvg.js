@@ -165,14 +165,15 @@ function collectElements(){
 function Point(x, y) {
     this.x = x;
     this.y = y;
+    this.precision = 2;
 
     this.translate = function (otherPoint) {
         return new Point(this.x + otherPoint.x, this.y + otherPoint.y);
     };
 
     this.distanceTo = function (otherPoint) {
-        distX = getRoundDiffPos(otherPoint.x, this.x);
-        distY = getRoundDiffPos(otherPoint.y, this.y);
+        distX = round(this.precision, otherPoint.x - this.x);
+        distY = round(this.precision, otherPoint.y - this.y);
         return new Point(distX, distY);
     };
 
