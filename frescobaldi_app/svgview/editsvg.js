@@ -196,7 +196,7 @@ function DraggableObject(elem, e) {
     this.target = e.target;
     
     // store the textedit url attached to the element
-    this.url = elem.parentNode.getAttribute('xlink:href');
+    this.textedit = elem.parentNode.getAttribute('xlink:href');
 
     // Reference points for dragging operation
     var mp = mousePos(e);
@@ -249,7 +249,7 @@ function DraggableObject(elem, e) {
     // return a JSON string representing relevant information on the object
     this.JSONified = function() {
         return JSON.stringify(this,
-            ["url",
+            ["textedit",
              "initX",
              "initY",
              "startX",
@@ -286,7 +286,7 @@ function MouseDown(e) {
     draggedObject = new DraggableObject(this, e);
 
     //catch type of element by sending link
-    pyLinks.dragElement(draggedObject.url)
+    pyLinks.dragElement(draggedObject.textedit)
 
     // announce original position (may already have an offset)
     pyLinks.startDragging(draggedObject.currOffX, draggedObject.currOffY);
@@ -366,7 +366,7 @@ function MouseUp(e) {
         
         //if no drag is performed treat the event as a click
         if(doClick){
-            pyLinks.click(draggedObject.url);
+            pyLinks.click(draggedObject.textedit);
         }else{
             pyLinks.dragged(draggedObject.currOffX, draggedObject.currOffY);
             doClick = true; //unset drag
