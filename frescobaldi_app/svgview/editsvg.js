@@ -142,7 +142,7 @@ function collectElements(){
     
         var node = draggable[t].firstChild;
     
-        var childs = new Array();
+        var children = new Array();
     
         //loop through the children of every draggable node
         while (node) {
@@ -150,7 +150,7 @@ function collectElements(){
             // nodes with the transform attribute
             if (node.nodeType == 1 && node.hasAttribute("transform")) {
     
-                childs.push(node);
+                children.push(node);
     
                 enableTranslPositioning(node)
     
@@ -158,8 +158,8 @@ function collectElements(){
             node = node.nextSibling;
         }
         //group elements together if the belong to the same link tag
-        if (childs.length > 1) {
-            draggable[t].group = childs;
+        if (children.length > 1) {
+            draggable[t].group = children;
         }
     }
 }
