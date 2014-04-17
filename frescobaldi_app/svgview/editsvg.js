@@ -58,11 +58,6 @@ function mousePos(event) {
     return svgPoint;
 }
 
-//return rounded difference between initial and current position 
-//function getRoundDiffPos(p2, p1) {
-//    return round(2, p2 - p1);
-//}
-
 function getTranslPos(elem) {
     this.__doc__ =
     "Return the coordinates and the transform object" +
