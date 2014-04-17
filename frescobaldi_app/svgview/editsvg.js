@@ -295,9 +295,21 @@ function DraggableObject(elem, e) {
         return (round(2, this.currX) != round(2, this.initX)) || (round(2, this.currY) != round(2, this.initY))
     };
 
-    this.startPos = function () {
+    this.startPos = function() {
         // position at the start of the dragging operation
         return new Point(this.startX, this.startY);
+    };
+    
+    this.translate = function() {
+        if (this.group) {
+            var i;
+            for (i = 0; i < this.group.length; ++i) {
+                var subItem = getTranslPos(group[i]);
+                subItem.tr.setTranslate(this.currX, this.currY);
+            }
+        } else { 
+            this.transform.setTranslate(this.currX, this.currY);
+        }
     };
 
     this.updatePositions = function (e) {
@@ -309,6 +321,9 @@ function DraggableObject(elem, e) {
         this.currY = this.startY + this.currDragY;
         this.currOffX = this.startOffX + this.currDragX;
         this.currOffY = this.startOffY - this.currDragY;
+        
+        this.translate();
+        
     };
 }
 
@@ -326,6 +341,9 @@ function MouseDown(e) {
     e.stopPropagation();
 
     draggedObject = new DraggableObject(this, e);
+    
+    // TODO: Determine if "this" is part of a group (no idea how to access that)
+    // if yes: add the group to draggedObject as a property.
 
     // send signals
     pyLinks.dragElement(draggedObject.textedit)
@@ -358,11 +376,12 @@ function MouseMove(e) {
     if (draggedObject && e.target == draggedObject.target) {
         draggedObject.updatePositions(e);
 
+        // TODO: Completely remove this and let updatePositions do all the work!s
         var currPos = draggedObject.currPos();
         if (this.parent && this.parent.group) {
             setGroupTranslate(this.parent.group, currPos.x, currPos.y);
-        } else {
-            draggedObject.transform.setTranslate(currPos.x, currPos.y);
+//        } else {
+//            draggedObject.transform.setTranslate(currPos.x, currPos.y);
         }
 
         pyLinks.dragging(draggedObject.currOffX, draggedObject.currOffY);
