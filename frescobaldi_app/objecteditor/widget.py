@@ -143,7 +143,7 @@ class Widget(QWidget):
     def startDragging(self, x, y):
         """Set the value of the offset externally."""
         # temporary debug output
-        print "Start dragging with offset", x, y
+        #print "Start dragging with offset", x, y
         self.setOffset(x, y)
         
     @QtCore.pyqtSlot(float, float)
@@ -157,7 +157,7 @@ class Widget(QWidget):
     def Dragged(self, x, y):
         """Set the value of the offset externally."""
         # temporary debug output
-        print "Dragged to", x, y
+        #print "Dragged to", x, y
         self.setOffset(x, y)
         
     @QtCore.pyqtSlot(QTextCursor)

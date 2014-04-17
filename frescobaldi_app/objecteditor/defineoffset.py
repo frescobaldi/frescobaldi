@@ -62,7 +62,7 @@ class DefineOffset():
         "Tempo": "MetronomeMark",
         "Articulation": "Script"}
         # Debug output of item
-        print("Item: "+item)
+        #print("Item: "+item)
         try:
             obj = item2objectDict[item]
         except KeyError:

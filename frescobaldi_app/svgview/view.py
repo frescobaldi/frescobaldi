@@ -230,10 +230,12 @@ class JSLink(QtCore.QObject):
         
     @QtCore.pyqtSlot(str)
     def draggedObject(self, JSON_string):
-        print "Dragged object JSON representation:"
-        import json
-        js = json.JSONDecoder()
-        print js.decode(JSON_string)
+        # leave the following commented code as an idea how to proceed from here
+        #print "Dragged object JSON representation:"
+        #import json
+        #js = json.JSONDecoder()
+        #print js.decode(JSON_string)
+        pass
         
     @QtCore.pyqtSlot(str)
     def dragElement(self, url):
