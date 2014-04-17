@@ -59,7 +59,7 @@ function mousePos(event) {
 
 //return rounded difference between initial and current position 
 function getRoundDiffPos(p2, p1) {
-    return roundPos(p2 - p1);
+    return round(2, p2 - p1);
 }
 
 //get markup translate coordinates
@@ -80,11 +80,6 @@ function getTranslPos(elem) {
 onmouseup = function (e) {
     MouseUp(e);
 };
-
-//round position to two decimals	
-function roundPos(pos) {
-    return Math.round(pos * 100) / 100;
-}
 
 function round(digits, number) {
     var factor = Math.pow(10, digits)
@@ -260,7 +255,7 @@ function DraggableObject(elem, e) {
     
     // determine if an object is changed compared to the initial position.
     this.modified = function() {
-        return (roundPos(this.currX) != roundPos(this.initX)) || (roundPos(this.currY) != roundPos(this.initY))
+        return (round(2, this.currX) != round(2, this.initX)) || (round(2, this.currY) != round(2, this.initY))
     };
 
     this.startPos = function () {
