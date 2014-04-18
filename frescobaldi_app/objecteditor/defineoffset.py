@@ -55,12 +55,12 @@ class DefineOffset():
         
     def item2object(self, item):
         """ Translate item type into name of 
-		LilyPond object.
+        LilyPond object.
         """
         item2objectDict = {"String": "TextScript", 
-        "Markup": "TextScript",
-        "Tempo": "MetronomeMark",
-        "Articulation": "Script"}
+            "Markup": "TextScript",
+            "Tempo": "MetronomeMark",
+            "Articulation": "Script"}
         # Debug output of item
         #print("Item: "+item)
         try:
@@ -71,22 +71,20 @@ class DefineOffset():
         return obj
         
     def insertOverride(self, x, y):
-		""" Insert the override command. """
-		doc = lydocument.Document(self.doc)
-		block = doc.block(self.pos)
-		p = block.position()
-		cursor = QtGui.QTextCursor(self.doc)
-		cursor.setPosition(p)
-		cursor.beginEditBlock()
-		cursor.insertText(self.createOffsetOverride(x, y))
-		cursor.insertBlock()
-		cursor.endEditBlock()
-		reformat.reformat(cursor)
+        """ Insert the override command. """
+        doc = lydocument.Document(self.doc)
+        block = doc.block(self.pos)
+        p = block.position()
+        cursor = QtGui.QTextCursor(self.doc)
+        cursor.setPosition(p)
+        cursor.beginEditBlock()
+        cursor.insertText(self.createOffsetOverride(x, y))
+        cursor.insertBlock()
+        cursor.endEditBlock()
+        reformat.reformat(cursor)
         
     def createOffsetOverride(self, x, y):
-		""" Create the override command.
-		Can this be created as a node?
-		"""
-		return "\once \override "+self.lilyObject+".extra-offset = #'("+str(x)+" . "+str(y)+")"
-		
-
+        """ Create the override command.
+        Can this be created as a node?
+        """
+        return "\once \override "+self.lilyObject+".extra-offset = #'("+str(x)+" . "+str(y)+")"
