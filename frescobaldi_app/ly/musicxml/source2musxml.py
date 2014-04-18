@@ -347,6 +347,12 @@ class parse_source():
     def Repeat(self, token):
         self.prev_command = "repeat"
 
+    def KeySignatureMode(self, token):
+        """ \minor, \major etc """
+        if self.prev_command == 'key':
+            self.mediator.new_key(self.key, token)
+            self.prev_command = ''
+
     def Command(self, token):
         """ \bar, \rest, \time, etc """
         if token == '\\rest':
@@ -357,20 +363,16 @@ class parse_source():
             self.prev_command = token
 
     def UserCommand(self, token):
-        if self.prev_command == 'key':
-            self.mediator.new_key(self.key, token)
-            self.prev_command = ''
-        else:
-            if self.voicecontext and self.voicenr>1:
-                if self.piano_staff == 2:
-                    self.mediator.merge_variable(self.voicenr, token[1:], org=self.piano_var)
-                else:
-                    self.mediator.merge_variable(self.voicenr, token[1:])
-            elif self.piano_staff == 2:
-                self.piano_var = token[1:]
-                self.piano_staff = -1
+        if self.voicecontext and self.voicenr>1:
+            if self.piano_staff == 2:
+                self.mediator.merge_variable(self.voicenr, token[1:], org=self.piano_var)
             else:
-                self.mediator.fetch_variable(token[1:])
+                self.mediator.merge_variable(self.voicenr, token[1:])
+        elif self.piano_staff == 2:
+            self.piano_var = token[1:]
+            self.piano_staff = -1
+        else:
+            self.mediator.fetch_variable(token[1:])
 
     def String(self, token):
         if self.prev_command == 'clef':
