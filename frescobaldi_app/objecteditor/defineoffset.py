@@ -38,6 +38,7 @@ class DefineOffset():
         self.docinfo = documentinfo.music(doc)
         self.node = None
         self.lilyObject = None
+        self.lilyContext = ""
         self.pos = 0
         
     def getCurrentLilyObject(self, cursor):
@@ -51,24 +52,27 @@ class DefineOffset():
             name = c.__class__.__name__ #get instance name
             return self.item2object(name)
         name = node.__class__.__name__
-        return self.item2object(name)		
+        return self.item2object(name)
         
     def item2object(self, item):
         """ Translate item type into name of 
         LilyPond object.
         """
-        item2objectDict = {"String": "TextScript", 
-            "Markup": "TextScript",
-            "Tempo": "MetronomeMark",
-            "Articulation": "Script"}
-        # Debug output of item
-        #print("Item: "+item)
+        item2objectDict = {
+            "String": { "GrobType": "TextScript" }, 
+            "Markup": { "GrobType": "TextScript" },
+            "Tempo": { "GrobType": "MetronomeMark",
+                       "Context" : "Score" }, 
+            "Articulation": { "GrobType": "Script" }
+            }
         try:
             obj = item2objectDict[item]
         except KeyError:
-            obj = "still testing!"
-        self.lilyObject = obj
-        return obj
+            obj = { "GrobType": "still testing!" }
+        self.lilyObject = obj["GrobType"]
+        if "Context" in obj:
+            self.lilyContext = obj["Context"]
+        return obj["GrobType"]
         
     def insertOverride(self, x, y):
         """ Insert the override command. """
@@ -87,4 +91,8 @@ class DefineOffset():
         """ Create the override command.
         Can this be created as a node?
         """
-        return "\once \override "+self.lilyObject+".extra-offset = #'("+str(x)+" . "+str(y)+")"
+        objToOverride = self.lilyContext
+        if len(objToOverride) > 0:
+            objToOverride += "."
+        objToOverride += self.lilyObject
+        return "\once \override " + objToOverride + ".extra-offset = #'(" + str(x) + " . " + str(y) + ")"
