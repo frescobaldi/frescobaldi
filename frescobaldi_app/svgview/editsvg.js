@@ -73,13 +73,6 @@ function getTranslPos(elem) {
     }
 }
 
-//I'm putting this back in at least for now
-//generic onmouseup
-//needed when dragging doesn't keep mouse over object
-onmouseup = function (e) {
-    MouseUp(e);
-};
-
 function round(digits, number) {
     this.__doc__ =
     "set the precision of the given float" +
@@ -87,24 +80,6 @@ function round(digits, number) {
     
     var factor = Math.pow(10, digits)
     return Math.round(number * factor) / factor
-}
-
-//set transform translate for element group
-function setGroupTranslate(group, x, y) {
-    this.__doc__ =
-    "Translate a group of SVG items to a new position." +
-    "The items of the group are translated relatively" +
-    "to the position of the group.";
-    
-    var groupOrigin = getTranslPos(group[0]);
-    for (var g = 0; g < group.length; ++g) {
-        var subItem = getTranslPos(group[g]);
-        
-        var xOff = subItem.x - groupOrigin.x;
-        var yOff = subItem.y - groupOrigin.y;
-        
-        subItem.tr.setTranslate(x + xOff, y + yOff);
-    }
 }
 
 function enableMouseEvents(elem) {
@@ -129,6 +104,37 @@ function enableTranslPositioning(node) {
     }
 }
 
+//insert node in between parent and children
+//used when grouping elements
+function insertGroupNode(oldParent, newParent){
+    
+    var remNode;
+    
+    while(oldParent.firstChild){
+        remNode = oldParent.removeChild(oldParent.firstChild);
+        if(remNode.nodeType == 1 && remNode.hasAttribute("fill")){
+            remNode.removeAttribute("fill");
+        }
+        newParent.appendChild(remNode);
+    }
+    
+    oldParent.appendChild(newParent);
+
+}
+
+//Count number of nodes. Used for grouping
+function countNodes(childArr){
+    
+    var count = 0;
+    
+    for(var d=0; d < childArr.length; ++d){
+        if(childArr[d].nodeType == 1){
+            count++;
+        }
+     }
+     return count;
+}
+
 //write error message
 function error(e) {
     this.__doc__ =
@@ -149,28 +155,35 @@ function collectElements(){
     "Groups of elements (such as e.g. results from a \tempo command" +
     "are collected into groups so they can be dragged together.";
     
-    var t;
-    for (t = 0; t < draggable.length; ++t) {
+    var NS = "http://www.w3.org/2000/svg";
     
-        // process elements that have a link themselves
+    for (var t = 0; t < draggable.length; ++t) {
+    
+        // enable dragging for links with transform attribute
         if (draggable[t].hasAttribute("transform")) {
             enableTranslPositioning(draggable[t])
         }
+        
+        //check number of (real) childNodes
+        var children = countNodes(draggable[t].childNodes);
     
-        var node = draggable[t].firstChild;
-        var children = new Array();
-    
-        // determine nodes with groups of children
-        while (node) {
-            if (node.nodeType == 1 && node.hasAttribute("transform")) {    
-                children.push(node);
-                enableTranslPositioning(node)
+        // if more than one child, group elements together
+        if (children > 1) {
+            groupNode = document.createElementNS(NS, "g");
+            var trfm = svg.createSVGTransform();
+            trfm.setTranslate(0, 0);
+            groupNode.transform.baseVal.appendItem(trfm);
+            groupNode.setAttribute("fill", "currentColor");
+            enableTranslPositioning(groupNode);
+            insertGroupNode(draggable[t], groupNode);
+        }else{ //enable dragging of all children with the transform attribute
+            var node = draggable[t].firstChild;
+            while (node) {
+                if (node.nodeType == 1 && node.hasAttribute("transform")) {    
+                    enableTranslPositioning(node);
+                }
+                node = node.nextSibling;
             }
-            node = node.nextSibling;
-        }
-        // and group elements as a property of the parent element
-        if (children.length > 1) {
-            draggable[t].group = children;
         }
     }
 }
@@ -301,15 +314,7 @@ function DraggableObject(elem, e) {
     };
     
     this.translate = function() {
-        if (this.group) {
-            var i;
-            for (i = 0; i < this.group.length; ++i) {
-                var subItem = getTranslPos(group[i]);
-                subItem.tr.setTranslate(this.currX, this.currY);
-            }
-        } else { 
-            this.transform.setTranslate(this.currX, this.currY);
-        }
+        this.transform.setTranslate(this.currX, this.currY);
     };
 
     this.updatePositions = function (e) {
@@ -339,11 +344,8 @@ function MouseDown(e) {
     "to the end of the tree so it will always be on top.";
     
     e.stopPropagation();
-
-    draggedObject = new DraggableObject(this, e);
     
-    // TODO: Determine if "this" is part of a group (no idea how to access that)
-    // if yes: add the group to draggedObject as a property.
+    draggedObject = new DraggableObject(this, e);
 
     // send signals
     pyLinks.dragElement(draggedObject.textedit)
@@ -376,18 +378,8 @@ function MouseMove(e) {
     if (draggedObject && e.target == draggedObject.target) {
         draggedObject.updatePositions(e);
 
-        // TODO: Completely remove this and let updatePositions do all the work!s
-        var currPos = draggedObject.currPos();
-        if (this.parent && this.parent.group) {
-            setGroupTranslate(this.parent.group, currPos.x, currPos.y);
-//        } else {
-//            draggedObject.transform.setTranslate(currPos.x, currPos.y);
-        }
-
         pyLinks.dragging(draggedObject.currOffX, draggedObject.currOffY);
         
-        //disable click
-        doClick = false;
     }
 }
 
@@ -438,3 +430,5 @@ function MouseUp(e) {
 ////////////////////////////////////////////
 
 collectElements();
+
+
