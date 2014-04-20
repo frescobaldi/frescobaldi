@@ -66,6 +66,43 @@ class TrumpetBb(TrumpetC):
         return _("abbreviation for Trumpet in Bb", "Tr.Bb.")
 
     transposition = (-1, 6, -1)
+    
+    
+class CornetBb(BrassPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Cornet in Bb")
+    
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Cornet in Bb", "Crt.Bb.")
+
+    transposition = (-1, 6, -1)
+    
+   
+class Flugelhorn(BrassPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Flugelhorn")
+    
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Flugelhorn", "Fgh.")
+
+    midiInstrument = 'trumpet'
+   
+    
+class Mellophone(BrassPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Mellophone")
+    
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Mellophone", "Mph.")
+
+    midiInstrument = 'french horn'
+    transposition = (-1, 3, 0)
 
 
 class Trombone(BrassPart):
@@ -76,6 +113,34 @@ class Trombone(BrassPart):
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Trombone", "Trb.")
+
+    midiInstrument = 'trombone'
+    clef = 'bass'
+    octave = -1
+    
+    
+class Baritone(BrassPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Baritone")
+    
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Baritone", "Bar.")
+
+    midiInstrument = 'trombone'
+    clef = 'bass'
+    octave = -1
+    
+
+class Euphonium(BrassPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Euphonium")
+    
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Euphonium", "Euph.")
 
     midiInstrument = 'trombone'
     clef = 'bass'
@@ -116,7 +181,12 @@ register(
         HornF,
         TrumpetC,
         TrumpetBb,
+        CornetBb,
+        Flugelhorn,
+        Mellophone,
         Trombone,
+        Baritone,
+        Euphonium,
         Tuba,
         BassTuba,
     ])
