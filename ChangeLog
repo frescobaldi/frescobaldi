@@ -5,7 +5,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.0.16 -- 
 
 * Translations:
-  - updated: nl
+  - updated: nl, fr, it
 * New features
   - preference to automatically strip trailing whitespace on save (issue #274)
   - in Tools -> Rhythm: new command to remove duration scalings that contain 
@@ -19,6 +19,7 @@ Changes in 2.0.16 --
   - LilyPond instance can be selected in convert-ly dialog (wish #311)
   - Score Wizard: In the midi section the \tempo x=y syntax is now used when
     LilyPond version >= 2.16 is used (issue #337)
+  - Score Wizard: new brass instruments contributed by Ryan Michael McClure
   - in the builtin manual, if there is no "Next:" page, add a link to the next
     page of the first parent page that has a next page. The link is called
     "Next Chapter:" and allows for continuous reading of the manual.

@@ -66,7 +66,8 @@ The following people contributed to {appname}:
     Mikhail Iglizky
 
 {lang_it}:
-:  !Gianluca D'Orazio
+:  !Gianluca D'Orazio,
+    Federico Bruni
 
 {lang_de}:
 :  !Henrik Evers,
