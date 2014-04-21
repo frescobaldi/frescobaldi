@@ -123,6 +123,7 @@ setup(
 
 app_resources = 'dist/{0}.app/Contents/Resources'.format(info.appname)
 icon_dest = '{0}/{1}.icns'.format(app_resources, info.name)
+print('copying file {0} -> {1}'.format(icon, icon_dest))
 shutil.copyfile(icon, icon_dest)
 os.chmod(icon_dest, 0644)
 locales = ['cs', 'de', 'en', 'es', 'fr', 'gl', 'it', 'nl', 'pl', 'pt', 'ru', 'tr', 'uk']
@@ -130,5 +131,6 @@ for l in locales:
     app_lproj = '{0}/{1}.lproj'.format(app_resources, l)
     os.mkdir(app_lproj, 0755)
     ipstrings_dest = '{0}/InfoPlist.strings'.format(app_lproj)
+    print('copying file {0} -> {1}'.format(ipstrings, ipstrings_dest))
     shutil.copyfile(ipstrings, ipstrings_dest)
     os.chmod(ipstrings_dest, 0644)
