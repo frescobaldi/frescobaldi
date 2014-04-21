@@ -34,7 +34,8 @@ parser.add_argument('-s', '--script', \
   so that the application bundle can be moved to another \
   directory'.format(info.appname), default = '{0}/{1}'.format(root, info.name))
 parser.add_argument('-a', '--standalone', action = 'store_true', \
-  help = 'build a standalone application bundle (experimental, partially working)')
+  help = 'build a standalone application bundle \
+  (WARNING: some manual steps are required after the execution of this script)')
 args = parser.parse_args()
 
 if not (os.path.isfile(args.script) or args.force):
@@ -134,3 +135,18 @@ for l in locales:
     print('copying file {0} -> {1}'.format(ipstrings, ipstrings_dest))
     shutil.copyfile(ipstrings, ipstrings_dest)
     os.chmod(ipstrings_dest, 0644)
+
+if args.standalone:
+    print('removing file {0}/qt.conf'.format(app_resources))
+    os.remove('{0}/qt.conf'.format(app_resources))
+    imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(info.appname)
+    print('creating directory {0}'.format(imageformats_dest))
+    os.makedirs(imageformats_dest, 0755)
+    print("""
+WARNING: To complete the creation of the standalone application bundle \
+you need to perform the following steps manually:
+
+- copy libqsvg.dylib from Qt's 'plugins/imageformats' directory to '{1}',
+- execute Qt's macdeployqt tool on dist/{0}.app \
+(you can safely ignore the error about the failed copy of libqsvg.dylib).
+""".format(info.appname, imageformats_dest))
