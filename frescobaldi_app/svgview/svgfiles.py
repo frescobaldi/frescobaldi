@@ -70,5 +70,9 @@ class SvgFiles(plugin.DocumentPlugin):
             self.update()
         return QUrl.fromLocalFile(self._files[index])
 
-
+    def filename(self, index):
+        """Return the filename at index."""
+        if self._files is None:
+            self.update()
+        return self._files[index]
 

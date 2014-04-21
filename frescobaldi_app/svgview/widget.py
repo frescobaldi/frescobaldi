@@ -69,6 +69,14 @@ class SvgView(QWidget):
         hbox.addWidget(self.zoomOutButton)
         hbox.addWidget(self.zoomOriginalButton)
         
+        self.resetButton = QPushButton("reload", self)
+        self.resetButton.clicked.connect(self.reLoadDoc)
+        hbox.addWidget(self.resetButton)
+        
+        self.saveButton = QPushButton("save edits", self)
+        self.saveButton.clicked.connect(self.callSave)
+        hbox.addWidget(self.saveButton)
+        
         hbox.addStretch(1)
         layout.addLayout(hbox)
         layout.addWidget(self.view)
@@ -103,6 +111,19 @@ class SvgView(QWidget):
                     self.pageCombo.setModel(model)
                     self.pageCombo.setCurrentIndex(files.current)
                 self.view.load(files.url(files.current))
+                
+    def reLoadDoc(self):
+        """Reloads current document."""
+        if self._document:
+            self.initSvg(self._document)
+            
+    def callSave(self):
+        """Call save function"""
+        self.view.evalSave()
+		
+    def getCurrent(self):
+        files = svgfiles.SvgFiles.instance(self._document)
+        return files.filename(files.current)
 			
     def slotZoomNumberChanged(self, value):
         self._setting_zoom = True

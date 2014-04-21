@@ -18,30 +18,46 @@
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 * See http://www.gnu.org/licenses/ for more information.
 */
+//To be able to save the SVG edits without traces of the editing process
+//use this script
 
-function hover(){
-    var url = this.getAttribute('xlink:href');
-    pyLinks.hover(url);	
-};
+window.addEventListener('error', error, false);
 
-function leave(){
-    var url = this.getAttribute('xlink:href');
-    pyLinks.leave(url);	
-};
-
-function click(){
-    var url = this.getAttribute('xlink:href');
-    pyLinks.click(url);
-};
-
-var a = document.getElementsByTagName('a');
-//loop through all links
-for (var i= 0; i < a.length; ++i){
-
-	a[i].onmouseover = hover;
-    a[i].onmouseout = leave;
-	a[i].onclick = click;
+//write error message
+function error(e) {
+    pyLinks.pyLog(e.message);
 }
-	
 
+var svgarr = document.getElementsByTagName("svg");
+var svg = svgarr[0];
+cleanTree(svg);
+
+//clean node and all siblings and childs 
+function cleanTree(node){
+	
+	//pass on recursively		
+	if(node.hasChildNodes()){
+		cleanTree(node.firstChild);
+	}
+	
+	sibl = node.nextSibling;
+	if(sibl){
+		cleanTree(sibl);
+	}
+	
+    //do the actual cleaning
+	doClean(node);
+}
+
+function doClean(node){
+	
+	if(node.nodeType == 1 && node.hasAttribute("init-x")){
+		node.removeAttribute("init-x");
+		node.removeAttribute("init-y");
+	}
+
+	if(node.nodeType == 1 && node.getAttribute("fill") == "orange"){
+		node.setAttribute("fill", "currentColor");
+	}
+}
 

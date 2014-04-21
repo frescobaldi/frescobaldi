@@ -18,30 +18,10 @@
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 * See http://www.gnu.org/licenses/ for more information.
 */
-
-function hover(){
-    var url = this.getAttribute('xlink:href');
-    pyLinks.hover(url);	
-};
-
-function leave(){
-    var url = this.getAttribute('xlink:href');
-    pyLinks.leave(url);	
-};
-
-function click(){
-    var url = this.getAttribute('xlink:href');
-    pyLinks.click(url);
-};
-
-var a = document.getElementsByTagName('a');
-//loop through all links
-for (var i= 0; i < a.length; ++i){
-
-	a[i].onmouseover = hover;
-    a[i].onmouseout = leave;
-	a[i].onclick = click;
-}
+var svgarr = document.getElementsByTagName("svg");
+var svg = svgarr[0];
 	
-
-
+if (typeof(XMLSerializer) !== 'undefined') {
+	var serializer = new XMLSerializer();
+	pyLinks.saveSVG(serializer.serializeToString(svg));
+}
