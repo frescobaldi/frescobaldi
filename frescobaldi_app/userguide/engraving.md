@@ -8,6 +8,8 @@ The *Preview mode* renders the PDF with point and click information enabled, so
 that there is two-way navigation between the music view and the LilyPond source.
 
 The *Publish mode* is used to produce the final PDF intented to be shared.
+Not generating the point and click information reduces the size of the resulting PDF file
+and doesn't reveal hard-coded information about the directories on your computer.
 
 The *Layout Control mode* can be used to enable specific features that can help
 in controlling and fine-tuning the layout of a score.
