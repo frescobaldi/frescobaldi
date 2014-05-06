@@ -674,7 +674,11 @@ def notename2step(note_name):
         else:
             alter = -1 #assuming 'as'
     base_list = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
-    note_num = base_list.index(note_name)
+    try:
+        note_num = base_list.index(note_name)
+    except ValueError:
+        print(note_name+" isn't recognised as a supported pitch name.")
+        note_num = 0
     return [note_name.upper(), alter, note_num]
 
 def durval2type(durval):
