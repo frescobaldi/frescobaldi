@@ -1,45 +1,45 @@
-=== Credits ===
+=== Créditos ===
 
-{appname} is written in {python} and uses the {qt} toolkit.
+{appname} foi escrito em {python} e usa {qt} toolkit.
 
-The Music View is powered by the {poppler} library by {authors} and others.
+A visualização das Músicas é feito por {poppler} biblioteca de {authors} e outros.
 
-Most of the bundled icons are created by {tango}.
+A maioria dos ícones inclusos foram criados com {tango}.
 
-The following people contributed to {appname}:
+As seguintes pessoas contribuiram com {appname}:
 
 !Wilbert Berendsen:
-: Main author and core developer
+: Autor principal e desenvolvedor
 
 !Christopher Bryan:
-: Modal Transpose
+: Transposição modal
 
 !Peter Bjuhr:
-: Quick Insert buttons for grace notes, and MusicXML im- and export
+: Botão de Inserção Rápida para ornamentações musicais, e importação e exportação para MusicXML
 
 !Richard Cognot:
-: Kinetic Scrolling for the Music View
+: Rolagem para a Visualização de Música
 
 !Marnen Laibow-Koser:
-: Homebrew formula for Mac OS X
+: Fórmula Homebrew para Mac OS X
 
 !Davide Liessi:
-: Mac OS X packaging and various other improvements
+: Empacotamento para Mac OS X e várias outras melhorias
 
 !Urs Liska:
-: Layout control modes and various other contributions
+: Layout e várias outras contribuições
 
 !Nicolas Malarmey:
-: Improved highlighting and auto-completion of Scheme code
+: Melhoria em highlight e função auto-completar do código
 
 !Manuel Mchalwat:
-: MIDI capturing
+: captura MIDI
 
 !Mario Moles:
-: Finding lots of bugs
+: Encontrar vários bugs
 
 
-{appname} is translated into the following languages:
+{appname} é trraduzido para as seguintes linguagens:
 
 {lang_nl}:
 : !Wilbert Berendsen
@@ -90,8 +90,7 @@ The following people contributed to {appname}:
 {lang_uk}:
 :  !Dmytro O. Redchuk
 
-And of course, a big *Thank You* goes to the LilyPond developers, who create 
-such an excellent music engraver!
+E claro, um grande *Muito Obrigado* para todos os desenvolvedores do LilyPond que criaram essa excelente ferramenta de notação musical!
 
 
 #VARS
