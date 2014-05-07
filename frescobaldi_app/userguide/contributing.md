@@ -1,17 +1,15 @@
-=== Contributing ===
+=== Contribuindo ===
     
-Frescobaldi is a [http://www.gnu.org/philosophy/free-sw.html Free Software]
-project to create a user friendly LilyPond music score editor.
-The goal is to make Frescobaldi available on all major platforms.
+Frescobaldi é um projeto de [http://www.gnu.org/philosophy/free-sw.html Software Livre]
+para criar uma interface amigável ao editor de partituras musicais LilyPond. 
+O objetivo é tornar Frescobaldi disponível em todas as maiores plataformas.
 
-Frescobaldi is developed in a public GitHub repository at {url}.
-There you can browse or checkout the source code and report bugs and wishes.
+Frescobaldi é desenvolvido no repositório público GitHub em {url}.
+Lá você pode encontrar o código e conferi-lo, bem como reportar bugs e melhorias.
 
-You can contribute by simply using Frescobaldi and reporting bugs and suggestions.
-Translations are also very welcome. How to create new translations is described
-in the file `README-translations` in the source distribution of Frescobaldi.
-If you want to add functionality you can find information about the source code
-structure in the file `README-development`.
+Você pode contribuir em simplesmente utilizar o Frescobaldi e reportar bugs e sugestões.
+Traduções são sempre muito bem vindas. Como criar novas traduções está descrita no aquivo `README-translations` no código fonte do Frescobaldi.
+Se você quiser adicionar funcionabilidades, você pode encontrar informações sobre a estrutura do código fonte no arquivo `README-development`.
 
 #VARS
 url URL http://github.com/wbsoft/frescobaldi
