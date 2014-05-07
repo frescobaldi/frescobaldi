@@ -1,12 +1,12 @@
-=== About Frescobaldi ===
+=== Sobre Frescobaldi ===
 
-Frescobaldi is named after
+Frescobaldi foi nomeado após
 [http://en.wikipedia.org/wiki/Girolamo_Frescobaldi
 Girolamo Frescobaldi (1583-1643)],
-an Italian organist and composer.
+um compositor e organista Italiano.
 
-Frescobaldi's homepage is at [http://www.frescobaldi.org/]
-and there is a mailinglist at [frescobaldi@googlegroups.com]
+A página do Frescobaldi está em [http://www.frescobaldi.org/]
+e a lista de discussões em [frescobaldi@googlegroups.com]
 ([http://groups.google.com/group/frescobaldi more info]).
 
 #SUBDOCS
