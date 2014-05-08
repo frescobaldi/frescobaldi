@@ -1,20 +1,11 @@
-=== Introduction ===
+=== Introdução ===
 
-[http://lilypond.org LilyPond] is a Free Software music engraving program,
-producing very high-quality sheet music printouts from fairly simple text input
-files.
-Input files can be created using virtually any text editor, which LilyPond 
-can then compile and output beautiful engraving, by default but not restricted
-to, PDF.
+[http://lilypond.org LilyPond] é um Software Livre de notação musical, produzindo partituras musicais, prontas para impressão, de extrema qualidade a patir da compilação de arquivos textos bastante simples.
+Os arquivos de entrada podem ser criados virtualmente em qualquer editor de texto, os quais LilyPond pode compilar e gerar belas partituras, que por padrão são geradas em PDF, mas não restritas a esse formato.
 
-Frescobaldi is an application designed to make editing LilyPond music scores
-faster and easier. You will still need to learn LilyPond's input language
-but if you read the {getting_started} section of this User Guide, you'll pickup
-some LilyPond basics to get you started.
+Frescobaldi é um aplicativo desenvolvido para fazer editoração de partituras musicais LilyPond de maneira rápida e fácil. Você ainda vai precisar aprender a lingugem LilyPond, mas você pode ler a seção {getting_started} do Manual do Usuário, e você poderá começar com algumas notações básicas de LiliPond.
 
-Once you have grasped the basics, the next step would be to use the LilyPond 
-Learning Manual from 
-[http://lilypond.org/doc/ LilyPond's excellent online documentation].
+Assim que você tiver aprendido o básico, o próximo passo seria utilizar o Manual do LilyPond [http://lilypond.org/doc/ Excelente documentação online de LilyPond].
 
 #VARS
 getting_started help getstarted
