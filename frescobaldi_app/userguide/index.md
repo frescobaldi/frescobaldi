@@ -1,14 +1,15 @@
-=== Manual do Frescobaldi ===
+=== Frescobaldi Manual ===
 
-Frescobaldi é um editor de arquivos de música LilyPond leve e poderoso.is a light-weight, but powerful editor for LilyPond music files.
-Este manual foi escrito por {author} e documentos {appname} na versão {version}.
+Frescobaldi is a light-weight, but powerful editor for LilyPond music files.
+This manual is written by {author} and documents {appname} version {version}.
 
 {manual_translated_by}
 
-= Como conseguir ajuda dentro do Frescobaldi =
+= How to get help inside Frescobaldi =
 
-Em muitas barras de menu existe o botão Ajuda ou você pode pressionar a tecla {key_help}.
-Em muitas interfaces há também a informação "O que é isto?" que pode ser revelado ao pressionar {key_whatsthis} ou ao selecionar {menu_whatsthis}.
+In many dialogs there are Help buttons or you can press the {key_help} key.
+Many user interface items also have "What's This" information which can be
+revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}.
 
 
 #SUBDOCS
