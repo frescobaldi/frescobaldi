@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-04-21 10:29+0200\n"
+"POT-Creation-Date: 2014-05-09 22:59+0200\n"
 "PO-Revision-Date: 2011-01-03 17:37+0100\n"
 "Last-Translator: Manuel A. Vazquez <xixirei@yahoo.es>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -18,6 +18,7 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 
 #: ../about.py:50
+#, python-brace-format
 msgid "About {appname}"
 msgstr ""
 
@@ -40,7 +41,7 @@ msgid "Operating System"
 msgstr "Outros sistemas:"
 
 #: ../about.py:121
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Version {version}"
 msgstr "Inserir a versión de LilyPond"
 
@@ -50,6 +51,7 @@ msgid "A LilyPond Music Editor"
 msgstr "Editor de música para LilyPond"
 
 #: ../about.py:123
+#, python-brace-format
 msgid "Copyright (c) {year} by {author}"
 msgstr ""
 
@@ -63,6 +65,7 @@ msgid "Translated by Your Name."
 msgstr ""
 
 #: ../about.py:135
+#, python-brace-format
 msgid "Licensed under the {gpl}."
 msgstr ""
 
@@ -145,14 +148,17 @@ msgid "Forward"
 msgstr ""
 
 #: ../contextmenu.py:71
+#, python-brace-format
 msgid "Open \"{url}\""
 msgstr ""
 
 #: ../contextmenu.py:92
+#, python-brace-format
 msgid "&Jump to definition (line {num})"
 msgstr ""
 
 #: ../contextmenu.py:95
+#, python-brace-format
 msgid "&Jump to definition (in {filename})"
 msgstr ""
 
@@ -200,7 +206,7 @@ msgid "<unknown>"
 msgstr "descoñecido"
 
 #: ../convert_ly.py:146
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Empregar a versión de LilyPond %1"
 
@@ -224,7 +230,7 @@ msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
 
 #: ../convert_ly.py:215
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -251,6 +257,7 @@ msgid "Untitled"
 msgstr "Subtítulo"
 
 #: ../document.py:160
+#, python-brace-format
 msgid "Untitled ({num})"
 msgstr ""
 
@@ -405,7 +412,7 @@ msgid "Error"
 msgstr ""
 
 #: ../helpers.py:108 ../job.py:280
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -463,10 +470,12 @@ msgid "Select Color"
 msgstr "Seleccionar todo"
 
 #: ../job.py:269
+#, python-brace-format
 msgid "Starting {job}..."
 msgstr ""
 
 #: ../job.py:274
+#, python-brace-format
 msgid "Aborting {job}..."
 msgstr ""
 
@@ -480,16 +489,17 @@ msgid "An unknown error occured."
 msgstr "Houbo un erro descoñecido."
 
 #: ../job.py:290
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Exited with return code {code}."
 msgstr "LilyPond [%1] devolveu ao saír o código %2."
 
 #: ../job.py:292
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Exited with exit status {status}."
 msgstr "LilyPond [%1] devolveu ao saír o código %2."
 
 #: ../job.py:295
+#, python-brace-format
 msgid "Completed successfully in {time}."
 msgstr ""
 
@@ -518,6 +528,7 @@ msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Copiar a letra sen os guions separadores"
 
 #: ../main.py:56
+#, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr ""
 
@@ -546,6 +557,7 @@ msgid "NAME"
 msgstr ""
 
 #: ../main.py:66
+#, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
@@ -571,6 +583,7 @@ msgid "Close Document"
 msgstr "Pechar outros documentos"
 
 #: ../mainwindow.py:309
+#, python-brace-format
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -588,6 +601,7 @@ msgid "Warning"
 msgstr "Afinación da guitarra"
 
 #: ../mainwindow.py:378
+#, python-brace-format
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -601,6 +615,7 @@ msgid "Open File"
 msgstr "Abrir ficheiro"
 
 #: ../mainwindow.py:452 ../mainwindow.py:461 ../mainwindow.py:486
+#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -628,6 +643,7 @@ msgstr "Modo de selección de liñas"
 #: ../mainwindow.py:537 ../mainwindow.py:690 ../file_export/__init__.py:68
 #: ../preferences/fontscolors.py:273 ../preferences/shortcuts.py:207
 #: ../snippet/widget.py:325
+#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -642,7 +658,7 @@ msgid "Reload"
 msgstr "Cargar de novo"
 
 #: ../mainwindow.py:552
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Could not reload the document:\n"
 "\n"
@@ -664,6 +680,7 @@ msgstr ""
 
 #: ../mainwindow.py:635 ../preferences/import_export.py:92
 #: ../preferences/import_export.py:175 ../snippet/import_export.py:106
+#, python-brace-format
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -773,6 +790,7 @@ msgid "&Quit"
 msgstr ""
 
 #: ../mainwindow.py:1097
+#, python-brace-format
 msgid "Restart {appname}"
 msgstr ""
 
@@ -898,6 +916,7 @@ msgid "Report a &Bug..."
 msgstr ""
 
 #: ../mainwindow.py:1130 ../macosx/globalmenu.py:153
+#, python-brace-format
 msgid "&About {appname}..."
 msgstr ""
 
@@ -996,10 +1015,12 @@ msgid "&Help"
 msgstr ""
 
 #: ../musicpos.py:50 ../musicpos.py:98
+#, python-brace-format
 msgid "Pos: {pos}"
 msgstr ""
 
 #: ../musicpos.py:52 ../musicpos.py:94
+#, python-brace-format
 msgid "Length: {length}"
 msgstr ""
 
@@ -1019,7 +1040,7 @@ msgid "Music Preview"
 msgstr "Vista previa do PDF"
 
 #: ../popplerdummy.py:42
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Could not load the {name} module."
 msgstr "Non se puido cargar %1"
 
@@ -1029,7 +1050,7 @@ msgid "PDF Document"
 msgstr "&Documento"
 
 #: ../popplerprint.py:83
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Print {filename}"
 msgstr "Imprimir 1 ficheiro"
 
@@ -1044,10 +1065,12 @@ msgid "Could not send the document to the printer."
 msgstr "Enviouse o documento á impresora."
 
 #: ../popplerprint.py:139
+#, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr ""
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
+#, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr ""
 
@@ -1141,6 +1164,7 @@ msgid "(local)"
 msgstr "Vocal"
 
 #: ../docbrowser/browser.py:157
+#, python-brace-format
 msgid "({hostname})"
 msgstr ""
 
@@ -1206,6 +1230,7 @@ msgid "Close all untitled documents"
 msgstr "Pechar outros documentos"
 
 #: ../engrave/__init__.py:222
+#, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
@@ -1356,6 +1381,7 @@ msgid "Available Fonts"
 msgstr "Partes dispoñibles:"
 
 #: ../engrave/lytools.py:43
+#, python-brace-format
 msgid "List of fonts detected by {version}"
 msgstr ""
 
@@ -1461,6 +1487,7 @@ msgid "Document on Disk"
 msgstr "&Documento"
 
 #: ../externalchanges/widget.py:276
+#, python-brace-format
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
@@ -2094,6 +2121,7 @@ msgstr "Primeira páxina"
 
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:547
+#, python-brace-format
 msgid "{num} of {total}"
 msgstr ""
 
@@ -2104,6 +2132,7 @@ msgid "Edit in Place"
 msgstr "Editar sesión: %1"
 
 #: ../musicview/editinplace.py:148
+#, python-brace-format
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr ""
 
@@ -2143,7 +2172,7 @@ msgid "&Save As..."
 msgstr "Gardar PDF como..."
 
 #: ../musicview/image.py:137
-#, no-python-format
+#, no-python-format, python-brace-format
 msgid ""
 "<p>\n"
 "Clicking toggles the display between 100% size and window size. Drag to copy "
@@ -2157,7 +2186,7 @@ msgid ""
 msgstr ""
 
 #: ../musicview/image.py:168
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Image from {filename}"
 msgstr "Imprimir 1 ficheiro"
 
@@ -2171,7 +2200,34 @@ msgid "Could not save the image."
 msgstr "Non se puido cargar %1"
 
 #: ../musicview/tooltip.py:40
+#, python-brace-format
 msgid "Position: {pos}"
+msgstr ""
+
+#: ../objecteditor/__init__.py:43
+#, fuzzy
+msgid "Object Editor"
+msgstr "Quitar silencios"
+
+#: ../objecteditor/__init__.py:44
+#, fuzzy
+msgid "O&bject Editor"
+msgstr "Quitar silencios"
+
+#: ../objecteditor/widget.py:111
+msgid "X Offset"
+msgstr ""
+
+#: ../objecteditor/widget.py:112
+msgid "Display the X Offset"
+msgstr ""
+
+#: ../objecteditor/widget.py:113
+msgid "Y Offset"
+msgstr ""
+
+#: ../objecteditor/widget.py:114
+msgid "Display the Y Offset"
 msgstr ""
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:297
@@ -2243,7 +2299,7 @@ msgid "Pitch Name Language"
 msgstr "Idioma das notas"
 
 #: ../pitch/pitch.py:54
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -2277,7 +2333,7 @@ msgid "Transpose"
 msgstr "Transportar"
 
 #: ../pitch/pitch.py:116
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -2293,7 +2349,7 @@ msgid ""
 msgstr ""
 
 #: ../pitch/pitch.py:171
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -3420,6 +3476,7 @@ msgstr ""
 
 #. L10N: abbreviation for "n seconds" in spinbox, n >= 1, no plural forms
 #: ../preferences/editor.py:120
+#, python-brace-format
 msgid "{num} sec"
 msgstr ""
 
@@ -3469,6 +3526,7 @@ msgstr ""
 
 #. L10N: abbreviation for "n spaces" in spinbox, n >= 1, no plural forms
 #: ../preferences/editor.py:189
+#, python-brace-format
 msgid "{num} spaces"
 msgstr ""
 
@@ -3543,6 +3601,7 @@ msgid "Default Styles"
 msgstr "Predeterminado"
 
 #: ../preferences/fontscolors.py:159
+#, python-brace-format
 msgid "(Inherits: {name})"
 msgstr ""
 
@@ -3885,6 +3944,7 @@ msgid "Use System Icons"
 msgstr ""
 
 #: ../preferences/general.py:135
+#, python-brace-format
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -4111,7 +4171,7 @@ msgstr ""
 "Seleccione Que é isto (Maiús+F1) para obter máis información."
 
 #: ../preferences/lilypond.py:89
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "See also {link}."
 msgstr "Seleccionar todo"
 
@@ -4307,6 +4367,7 @@ msgid "Shortcut"
 msgstr "Atallo"
 
 #: ../preferences/shortcuts.py:100
+#, python-brace-format
 msgid "Menu {name}"
 msgstr ""
 
@@ -4316,7 +4377,7 @@ msgid "Other commands:"
 msgstr "Orde de impresión:"
 
 #: ../preferences/shortcuts.py:189
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Atallo"
 
@@ -4748,11 +4809,12 @@ msgid "Straight Caesura"
 msgstr "Cesura recta"
 
 #: ../quickinsert/buttongroup.py:177
+#, python-brace-format
 msgid "{name} ({key})"
 msgstr ""
 
 #: ../quickinsert/buttongroup.py:184
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Configurar atallo de teclado (%1)"
 
@@ -4770,7 +4832,7 @@ msgid "Dynamic symbols."
 msgstr "Símbolos de dinámica."
 
 #: ../quickinsert/dynamics.py:154
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Dynamic sign {name}"
 msgstr "Indicación de matiz dinámico %1"
 
@@ -4884,6 +4946,7 @@ msgid "After grace"
 msgstr ""
 
 #: ../quickinsert/widget.py:102
+#, python-brace-format
 msgid ""
 "<p>With the Quick Insert Panel you can add various music elements to the "
 "current note or selected music.</p>\n"
@@ -6606,7 +6669,7 @@ msgid "Base directory:"
 msgstr "Directorio base:"
 
 #: ../sessions/dialog.py:139
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Edit session: {name}"
 msgstr "Editar sesión: %1"
 
@@ -6619,12 +6682,12 @@ msgid "Please enter a session name."
 msgstr "Introduza o nome da sesión."
 
 #: ../sessions/dialog.py:180
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr "Non usar o nome '%1'."
 
 #: ../sessions/dialog.py:186
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
@@ -6969,6 +7032,7 @@ msgid "There are no new or updated snippets in the file."
 msgstr "Non hai ningún ficheiro para enviar por correo-e."
 
 #: ../snippet/import_export.py:197
+#, python-brace-format
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -7039,7 +7103,7 @@ msgid "Overwrite Template?"
 msgstr "Sobrescribir ficheiro?"
 
 #: ../snippet/template.py:50
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid ""
 "A template named \"{name}\" already exists.\n"
 "\n"
@@ -7087,6 +7151,7 @@ msgid "&Add..."
 msgstr ""
 
 #: ../snippet/widget.py:186
+#, python-brace-format
 msgid "Add a new snippet. ({key})"
 msgstr ""
 
@@ -7096,6 +7161,7 @@ msgid "&Edit..."
 msgstr "Imprimir..."
 
 #: ../snippet/widget.py:189
+#, python-brace-format
 msgid "Edit the current snippet. ({key})"
 msgstr ""
 
@@ -7164,6 +7230,7 @@ msgid ""
 msgstr ""
 
 #: ../snippet/widget.py:209
+#, python-brace-format
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
@@ -7178,12 +7245,14 @@ msgid ""
 msgstr ""
 
 #: ../snippet/widget.py:216
+#, python-brace-format
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
 #: ../snippet/widget.py:317
+#, python-brace-format
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -7201,7 +7270,7 @@ msgstr "Reproducir/Ver"
 msgid "SV&G View"
 msgstr "Vistas de ferramen&tas"
 
-#: ../svgview/widget.py:90
+#: ../svgview/widget.py:98
 #, fuzzy
 msgid "Page:"
 msgstr "Semitrino con final ascendente"
@@ -7261,6 +7330,7 @@ msgid ""
 msgstr ""
 
 #: ../vcs/gitrepo.py:43
+#, python-brace-format
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
 msgstr ""
 
@@ -7274,6 +7344,7 @@ msgid "Checkout Successful"
 msgstr ""
 
 #: ../vcs/menu.py:117
+#, python-brace-format
 msgid ""
 "Successfully checked out branch {name}.\n"
 "Changes will take effect after restart.\n"
@@ -7338,7 +7409,7 @@ msgid "Import color theme"
 msgstr ""
 
 #: ../widgets/schemeselector.py:176
-#, fuzzy
+#, fuzzy, python-brace-format
 msgctxt "dialog title"
 msgid "Export {name}"
 msgstr "Manuel A. Vázquez"
@@ -7360,6 +7431,7 @@ msgid "Use a &custom shortcut:"
 msgstr "Usar número de versión personalizado:"
 
 #: ../widgets/shortcuteditdialog.py:113
+#, python-brace-format
 msgid "Alternative #{num}:"
 msgstr ""
 
@@ -7368,11 +7440,12 @@ msgid "Primary shortcut:"
 msgstr ""
 
 #: ../widgets/shortcuteditdialog.py:132 ../widgets/shortcuteditdialog.py:142
-#, fuzzy
+#, fuzzy, python-brace-format
 msgid "Conflict with: {name}"
 msgstr "Indicación de matiz dinámico %1"
 
 #: ../widgets/shortcuteditdialog.py:155
+#, python-brace-format
 msgid "Here you can edit the shortcuts for {name}"
 msgstr ""
 
@@ -7383,6 +7456,7 @@ msgid "none"
 msgstr "Ningún"
 
 #: ../widgets/shortcuteditdialog.py:175
+#, python-brace-format
 msgid "Use &default shortcut ({name})"
 msgstr ""
 
@@ -7482,18 +7556,21 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:10
 msgid ""
-"The *Publish mode* is used to produce the final PDF intented to be shared."
+"The *Publish mode* is used to produce the final PDF intented to be shared. "
+"Not generating the point and click information reduces the size of the "
+"resulting PDF file and doesn't reveal hard-coded information about the "
+"directories on your computer."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../userguide/engraving.md:12
+#: ../userguide/engraving.md:14
 msgid ""
 "The *Layout Control mode* can be used to enable specific features that can "
 "help in controlling and fine-tuning the layout of a score."
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../userguide/engraving.md:15
+#: ../userguide/engraving.md:17
 msgid ""
 "The *Custom mode* opens a dialog allowing you to specify the LilyPond "
 "command in detail. This dialog also has options to let LilyPond engrave a "
@@ -7501,7 +7578,7 @@ msgid ""
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../userguide/engraving.md:19
+#: ../userguide/engraving.md:21
 msgid ""
 "All commands to run LilyPond can be found in the *LilyPond* menu. And if you "
 "enable the *Automatic engrave* option, Frescobaldi will run LilyPond "
