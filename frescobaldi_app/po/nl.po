@@ -1,14 +1,14 @@
 # translation of nl.po to Nederlands
-#
 # Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2014-05-09 22:59+0200\n"
-"PO-Revision-Date: 2014-05-09 23:05+0200\n"
-"Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
-"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
+"PO-Revision-Date: 2014-05-23 09:09+0200\n"
+"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
+"Language-Team: Nederlands <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,7 +17,6 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 
 #: ../about.py:50
-#, python-brace-format
 msgid "About {appname}"
 msgstr "Over {appname}"
 
@@ -38,7 +37,6 @@ msgid "Operating System"
 msgstr "Besturingssysteem"
 
 #: ../about.py:121
-#, python-brace-format
 msgid "Version {version}"
 msgstr "Versie {version}"
 
@@ -47,7 +45,6 @@ msgid "A LilyPond Music Editor"
 msgstr "Een muziek-editor voor LilyPond"
 
 #: ../about.py:123
-#, python-brace-format
 msgid "Copyright (c) {year} by {author}"
 msgstr "Copyright (c) {year} door {author}"
 
@@ -61,7 +58,6 @@ msgid "Translated by Your Name."
 msgstr "Vertaald door Wilbert Berendsen."
 
 #: ../about.py:135
-#, python-brace-format
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
 
@@ -135,17 +131,14 @@ msgid "Forward"
 msgstr "Verder"
 
 #: ../contextmenu.py:71
-#, python-brace-format
 msgid "Open \"{url}\""
 msgstr "\"{url}\" openen"
 
 #: ../contextmenu.py:92
-#, python-brace-format
 msgid "&Jump to definition (line {num})"
 msgstr "&Ga naar definitie (regel {num})"
 
 #: ../contextmenu.py:95
-#, python-brace-format
 msgid "&Jump to definition (in {filename})"
 msgstr "&Ga naar definitie (in {filename})"
 
@@ -191,7 +184,6 @@ msgid "<unknown>"
 msgstr "<onbekend>"
 
 #: ../convert_ly.py:146
-#, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly van LilyPond {version}"
 
@@ -212,7 +204,6 @@ msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Zowel de 'van'- als 'naar' versie dient ingesteld te zijn."
 
 #: ../convert_ly.py:215
-#, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
 "\n"
@@ -240,7 +231,6 @@ msgid "Untitled"
 msgstr "Naamloos"
 
 #: ../document.py:160
-#, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Naamloos ({num})"
 
@@ -385,7 +375,6 @@ msgid "Error"
 msgstr "Fout"
 
 #: ../helpers.py:108 ../job.py:280
-#, python-brace-format
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
@@ -438,12 +427,10 @@ msgid "Select Color"
 msgstr "Kleur selecteren"
 
 #: ../job.py:269
-#, python-brace-format
 msgid "Starting {job}..."
 msgstr "Starten {job}..."
 
 #: ../job.py:274
-#, python-brace-format
 msgid "Aborting {job}..."
 msgstr "Afbreken {job}..."
 
@@ -456,17 +443,14 @@ msgid "An unknown error occured."
 msgstr "Er is een onbekende fout opgetreden."
 
 #: ../job.py:290
-#, python-brace-format
 msgid "Exited with return code {code}."
 msgstr "Afgesloten met returncode {code}."
 
 #: ../job.py:292
-#, python-brace-format
 msgid "Exited with exit status {status}."
 msgstr "Afgesloten met status {status}."
 
 #: ../job.py:295
-#, python-brace-format
 msgid "Completed successfully in {time}."
 msgstr "Succesvol beëindigd in {time}."
 
@@ -491,7 +475,6 @@ msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Liedteksten &kopiëren met afbreking verwijderd"
 
 #: ../main.py:56
-#, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opties] bestand ..."
 
@@ -520,7 +503,6 @@ msgid "NAME"
 msgstr "NAAM"
 
 #: ../main.py:66
-#, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Te starten sessie ('{none}' voor lege sessie)"
 
@@ -543,7 +525,6 @@ msgid "Close Document"
 msgstr "Document sluiten"
 
 #: ../mainwindow.py:309
-#, python-brace-format
 msgid ""
 "The document \"{name}\" has been modified.\n"
 "Do you want to save your changes or discard them?"
@@ -561,7 +542,6 @@ msgid "Warning"
 msgstr "Waarschuwing"
 
 #: ../mainwindow.py:378
-#, python-brace-format
 msgid ""
 "Can't load non-local document:\n"
 "\n"
@@ -577,7 +557,6 @@ msgid "Open File"
 msgstr "Bestand openen"
 
 #: ../mainwindow.py:452 ../mainwindow.py:461 ../mainwindow.py:486
-#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -605,7 +584,6 @@ msgstr "Selectie opslaan"
 #: ../mainwindow.py:537 ../mainwindow.py:690 ../file_export/__init__.py:68
 #: ../preferences/fontscolors.py:273 ../preferences/shortcuts.py:207
 #: ../snippet/widget.py:325
-#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -624,7 +602,6 @@ msgid "Reload"
 msgstr "Herladen"
 
 #: ../mainwindow.py:552
-#, python-brace-format
 msgid ""
 "Could not reload the document:\n"
 "\n"
@@ -649,7 +626,6 @@ msgstr "Invoegen uit bestand"
 
 #: ../mainwindow.py:635 ../preferences/import_export.py:92
 #: ../preferences/import_export.py:175 ../snippet/import_export.py:106
-#, python-brace-format
 msgid ""
 "Can't read from source:\n"
 "\n"
@@ -762,7 +738,6 @@ msgid "&Quit"
 msgstr "Afslui&ten"
 
 #: ../mainwindow.py:1097
-#, python-brace-format
 msgid "Restart {appname}"
 msgstr "{appname} herstarten"
 
@@ -875,7 +850,6 @@ msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
 #: ../mainwindow.py:1130 ../macosx/globalmenu.py:153
-#, python-brace-format
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
 
@@ -963,12 +937,10 @@ msgid "&Help"
 msgstr "&Help"
 
 #: ../musicpos.py:50 ../musicpos.py:98
-#, python-brace-format
 msgid "Pos: {pos}"
 msgstr "Pos: {pos}"
 
 #: ../musicpos.py:52 ../musicpos.py:94
-#, python-brace-format
 msgid "Length: {length}"
 msgstr "Duur: {length}"
 
@@ -985,7 +957,6 @@ msgid "Music Preview"
 msgstr "Muziek vooruitblik"
 
 #: ../popplerdummy.py:42
-#, python-brace-format
 msgid "Could not load the {name} module."
 msgstr "Kan de module {name} niet laden."
 
@@ -994,7 +965,6 @@ msgid "PDF Document"
 msgstr "PDF-document"
 
 #: ../popplerprint.py:83
-#, python-brace-format
 msgid "Print {filename}"
 msgstr "{filename} afdrukken"
 
@@ -1007,12 +977,10 @@ msgid "Could not send the document to the printer."
 msgstr "Kan het document niet naar de printer verzenden."
 
 #: ../popplerprint.py:139
-#, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Afdrukken pagina {page} ({num} van {total})..."
 
 #: ../viewmanager.py:67 ../viewmanager.py:215
-#, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr "Regel: {line}, Kol: {column}"
 
@@ -1095,7 +1063,6 @@ msgid "(local)"
 msgstr "(lokaal)"
 
 #: ../docbrowser/browser.py:157
-#, python-brace-format
 msgid "({hostname})"
 msgstr "({hostname})"
 
@@ -1153,7 +1120,6 @@ msgid "Close all untitled documents"
 msgstr "Alle naamloze documenten sluiten"
 
 #: ../engrave/__init__.py:222
-#, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr "&Altijd graveren [{docname}]"
 
@@ -1295,7 +1261,6 @@ msgid "Available Fonts"
 msgstr "Beschikbare lettertypen"
 
 #: ../engrave/lytools.py:43
-#, python-brace-format
 msgid "List of fonts detected by {version}"
 msgstr "Lettertypen gedetecteerd door{version}"
 
@@ -1407,7 +1372,6 @@ msgid "Document on Disk"
 msgstr "Document op schijf"
 
 #: ../externalchanges/widget.py:276
-#, python-brace-format
 msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
@@ -2013,7 +1977,6 @@ msgstr "Hele pagina"
 
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:547
-#, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} van {total}"
 
@@ -2023,7 +1986,6 @@ msgid "Edit in Place"
 msgstr "Op de plaats bewerken"
 
 #: ../musicview/editinplace.py:148
-#, python-brace-format
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "Bewerken regel {linenum} van \"{document}\" ({variable})"
 
@@ -2060,7 +2022,7 @@ msgid "&Save As..."
 msgstr "Opslaan &als..."
 
 #: ../musicview/image.py:137
-#, no-python-format, python-brace-format
+#, no-python-format
 msgid ""
 "<p>\n"
 "Clicking toggles the display between 100% size and window size. Drag to copy "
@@ -2083,7 +2045,6 @@ msgstr ""
 "</p>"
 
 #: ../musicview/image.py:168
-#, python-brace-format
 msgid "Image from {filename}"
 msgstr "Afbeelding uit {filename}"
 
@@ -2096,7 +2057,6 @@ msgid "Could not save the image."
 msgstr "Kan de afbeelding niet opslaan."
 
 #: ../musicview/tooltip.py:40
-#, python-brace-format
 msgid "Position: {pos}"
 msgstr "Positie: {pos}"
 
@@ -2190,7 +2150,6 @@ msgid "Pitch Name Language"
 msgstr "Taal voor nootnamen"
 
 #: ../pitch/pitch.py:54
-#, python-brace-format
 msgid ""
 "Can't perform the requested translation.\n"
 "\n"
@@ -2224,7 +2183,6 @@ msgid "Transpose"
 msgstr "Transponeren"
 
 #: ../pitch/pitch.py:116
-#, python-brace-format
 msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
@@ -2241,7 +2199,6 @@ msgstr ""
 "(bijv. \"5 F\"):"
 
 #: ../pitch/pitch.py:171
-#, python-brace-format
 msgid ""
 "Can't perform the requested transposition.\n"
 "\n"
@@ -3269,7 +3226,6 @@ msgstr ""
 
 #. L10N: abbreviation for "n seconds" in spinbox, n >= 1, no plural forms
 #: ../preferences/editor.py:120
-#, python-brace-format
 msgid "{num} sec"
 msgstr "{num} sec"
 
@@ -3323,7 +3279,6 @@ msgstr ""
 
 #. L10N: abbreviation for "n spaces" in spinbox, n >= 1, no plural forms
 #: ../preferences/editor.py:189
-#, python-brace-format
 msgid "{num} spaces"
 msgstr "{num} spaties"
 
@@ -3392,6 +3347,11 @@ msgid ""
 "turned off, to copy highlighted code in a text editor when an external style "
 "sheet is already available."
 msgstr ""
+"Indien ingeschakeld, wordt alleen de HTML-inhoud, in een PRE tag, gekopieerd "
+"naar het klembord in plaats van een volledig HTML-document met een header-"
+"sectie. Kan worden gebruikt samen met de platte tekst-optie, met ingebedde "
+"stijlen uitgeschakeld om geaccentueerde code in een teksteditor te plakken "
+"wanneer er al een extern stylesheet beschikbaar is."
 
 #: ../preferences/fontscolors.py:123
 msgid "Use this scheme for printing"
@@ -3406,7 +3366,6 @@ msgid "Default Styles"
 msgstr "Standaardstijlen"
 
 #: ../preferences/fontscolors.py:159
-#, python-brace-format
 msgid "(Inherits: {name})"
 msgstr "(gebaseerd op: {name})"
 
@@ -3713,7 +3672,6 @@ msgid "Use System Icons"
 msgstr "Systeempictogrammen gebruiken"
 
 #: ../preferences/general.py:135
-#, python-brace-format
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
 "bundled icons.\n"
@@ -3953,7 +3911,6 @@ msgstr ""
 "Zie \"Wat is dit\" voor meer informatie."
 
 #: ../preferences/lilypond.py:89
-#, python-brace-format
 msgid "See also {link}."
 msgstr "Zie ook {link}."
 
@@ -4173,7 +4130,6 @@ msgid "Shortcut"
 msgstr "Sneltoets"
 
 #: ../preferences/shortcuts.py:100
-#, python-brace-format
 msgid "Menu {name}"
 msgstr "Menu {name}"
 
@@ -4182,7 +4138,6 @@ msgid "Other commands:"
 msgstr "Andere commando's:"
 
 #: ../preferences/shortcuts.py:189
-#, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "Sn&eltoets instellen voor \"{name}\""
 
@@ -4607,12 +4562,10 @@ msgid "Straight Caesura"
 msgstr "Rechte cesuur"
 
 #: ../quickinsert/buttongroup.py:177
-#, python-brace-format
 msgid "{name} ({key})"
 msgstr "{name} ({key})"
 
 #: ../quickinsert/buttongroup.py:184
-#, python-brace-format
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Sneltoets instellen ({key})"
 
@@ -4630,7 +4583,6 @@ msgid "Dynamic symbols."
 msgstr "Dynamische tekens."
 
 #: ../quickinsert/dynamics.py:154
-#, python-brace-format
 msgid "Dynamic sign {name}"
 msgstr "Dynamisch teken {name}"
 
@@ -4744,7 +4696,6 @@ msgid "After grace"
 msgstr "Voorslag na noot"
 
 #: ../quickinsert/widget.py:102
-#, python-brace-format
 msgid ""
 "<p>With the Quick Insert Panel you can add various music elements to the "
 "current note or selected music.</p>\n"
@@ -6408,7 +6359,6 @@ msgid "Base directory:"
 msgstr "Basismap:"
 
 #: ../sessions/dialog.py:139
-#, python-brace-format
 msgid "Edit session: {name}"
 msgstr "Sessie bewerken: {name}"
 
@@ -6421,12 +6371,10 @@ msgid "Please enter a session name."
 msgstr "Voer een sessienaam in."
 
 #: ../sessions/dialog.py:180
-#, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr "U kunt de naam '{name}' niet gebruiken."
 
 #: ../sessions/dialog.py:186
-#, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
 "\n"
@@ -6733,7 +6681,6 @@ msgid "There are no new or updated snippets in the file."
 msgstr "Er zijn geen nieuwe of bijgewerkte knipsels in het bestand."
 
 #: ../snippet/import_export.py:197
-#, python-brace-format
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
 "<p>If there are new or updated snippets, you can select or deselect them one "
@@ -6804,7 +6751,6 @@ msgid "Overwrite Template?"
 msgstr "Sjabloon overschrijven?"
 
 #: ../snippet/template.py:50
-#, python-brace-format
 msgid ""
 "A template named \"{name}\" already exists.\n"
 "\n"
@@ -6848,7 +6794,6 @@ msgid "&Add..."
 msgstr "&Toevoegen..."
 
 #: ../snippet/widget.py:186
-#, python-brace-format
 msgid "Add a new snippet. ({key})"
 msgstr "Nieuw knipsel toevoegen. ({key})"
 
@@ -6857,7 +6802,6 @@ msgid "&Edit..."
 msgstr "B&ewerken..."
 
 #: ../snippet/widget.py:189
-#, python-brace-format
 msgid "Edit the current snippet. ({key})"
 msgstr "Huidig knipsel bewerken. ({key})"
 
@@ -6922,7 +6866,6 @@ msgstr ""
 "geselecteerde knipsel toe te passen."
 
 #: ../snippet/widget.py:209
-#, python-brace-format
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
@@ -6943,7 +6886,6 @@ msgstr ""
 "de waarde van de variabele de gegeven tekst bevat."
 
 #: ../snippet/widget.py:216
-#, python-brace-format
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
@@ -6952,7 +6894,6 @@ msgstr ""
 "Invoegen worden weergegeven."
 
 #: ../snippet/widget.py:317
-#, python-brace-format
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
@@ -7024,7 +6965,6 @@ msgstr ""
 "geïnstalleerd, voert u dan het pad in in de Voorkeuren."
 
 #: ../vcs/gitrepo.py:43
-#, python-brace-format
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
 msgstr "De opgegeven directory '{rootdir}' is geen Git depot."
 
@@ -7038,7 +6978,6 @@ msgid "Checkout Successful"
 msgstr "Checkout geslaagd"
 
 #: ../vcs/menu.py:117
-#, python-brace-format
 msgid ""
 "Successfully checked out branch {name}.\n"
 "Changes will take effect after restart.\n"
@@ -7098,7 +7037,6 @@ msgid "Import color theme"
 msgstr "Kleurenschema importeren"
 
 #: ../widgets/schemeselector.py:176
-#, python-brace-format
 msgctxt "dialog title"
 msgid "Export {name}"
 msgstr "Exporteren van {name}"
@@ -7117,7 +7055,6 @@ msgid "Use a &custom shortcut:"
 msgstr "&Aangepaste sneltoets gebruiken:"
 
 #: ../widgets/shortcuteditdialog.py:113
-#, python-brace-format
 msgid "Alternative #{num}:"
 msgstr "Alternatief {num}:"
 
@@ -7126,12 +7063,10 @@ msgid "Primary shortcut:"
 msgstr "Primaire sneltoets:"
 
 #: ../widgets/shortcuteditdialog.py:132 ../widgets/shortcuteditdialog.py:142
-#, python-brace-format
 msgid "Conflict with: {name}"
 msgstr "Conflicteert met: {name}"
 
 #: ../widgets/shortcuteditdialog.py:155
-#, python-brace-format
 msgid "Here you can edit the shortcuts for {name}"
 msgstr "Hier kunt u de sneltoetsen instellen voor {name}"
 
@@ -7141,7 +7076,6 @@ msgid "none"
 msgstr "geen"
 
 #: ../widgets/shortcuteditdialog.py:175
-#, python-brace-format
 msgid "Use &default shortcut ({name})"
 msgstr "&Standaardsneltoets gebruiken ({name})"
 
@@ -7265,6 +7199,10 @@ msgid ""
 "resulting PDF file and doesn't reveal hard-coded information about the "
 "directories on your computer."
 msgstr ""
+"De *Publiceren-modus* wordt gebruikt om de uiteindelijke PDF te procuderen "
+"die wordt gepubliceerd. De point-en-klik informatie wordt niet gegenereerd, "
+"waardoor de PDF kleiner is en niet ongewild informatie over de "
+"mappenstructuur van uw computer verspreidt."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:14
@@ -8942,8 +8880,8 @@ msgid ""
 "characters such as `{` and `<<`. This is in accordance with the indenting "
 "the LilyPond documentation uses."
 msgstr ""
-"Standaard zal Frescobaldi automatisch twee spaties inspringen na tekens als "
-"`{` en `<<`. Dit is in overeenstemming met de inspringconventie die de "
+"Standaard zal Frescobaldi automatisch twee spaties inspringen na tekens als `"
+"{` en `<<`. Dit is in overeenstemming met de inspringconventie die de "
 "LilyPond-documentatie gebruikt."
 
 #. NOTE: markdown formatting
@@ -10747,8 +10685,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Geeft aan voor welke grobs de naam wordt afgebeeld. Standaard wordt dit "
 #~ "voor alle grobs gedaan, maar men kan een lijst van grobs aangeven zoals "
-#~ "bijvoorbeeld <code>#(define debug-grob-names-grob-list '(Script "
-#~ "NoteHead))</code>"
+#~ "bijvoorbeeld <code>#(define debug-grob-names-grob-list '(Script NoteHead))"
+#~ "</code>"
 
 #~ msgid "Engrave (Publication)"
 #~ msgstr "Graveren (publicatie)"
