@@ -154,6 +154,10 @@ class Float(Number):
     rx = r"-?((\d+(\.\d*)|\.\d+)(E\d+)?)(?=$|[)\s])"
 
 
+class VectorStart(OpenParen):
+    rx = r"#\("
+
+
 class LilyPond(_token.Token):
     pass
 
@@ -181,6 +185,7 @@ class ParseScheme(Parser):
         LineComment,
         BlockCommentStart,
         LilyPondStart,
+        VectorStart,
         Dot,
         Bool,
         Char,
