@@ -167,7 +167,7 @@ def file_new_with_wizard():
     w = mainwindow()
     w.newDocument()
     import scorewiz
-    scorewiz.ScoreWizard.instance(w).showInsertDialog()
+    scorewiz.ScoreWizard.instance(w).showDialog()
 
 def file_open():
     filetypes = app.filetypes('.ly')

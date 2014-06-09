@@ -36,6 +36,8 @@ Changes in 2.0.16 --
   - fix indenter aligning on comment
   - fix AttributeError: QStackedWidget object has no attribute cursorForPosition
     on doubleclick in the text, reported by an Apple user
+  - fix AttributeError: 'ScoreWizard' object has no attribute 'showInsertDialog'
+    reported by an Apple user
 
 
 Changes in 2.0.15 -- March 11th, 2014
