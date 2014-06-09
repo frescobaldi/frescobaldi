@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-05-09 22:59+0200\n"
+"POT-Creation-Date: 2014-06-09 20:43+0200\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -485,7 +485,7 @@ msgstr "Dokončeno úspěšně v {time}."
 msgid "Choose the desired LilyPond version."
 msgstr "Heslo s datem a verzí LilyPondu."
 
-#: ../lilypondinfo.py:143
+#: ../lilypondinfo.py:144
 msgid "Running LilyPond, this can take some time..."
 msgstr "Spouští se LilyPond. Může to chvíli trvat..."
 

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 2.0.16-dev\n"
+"Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-05-09 22:59+0200\n"
+"POT-Creation-Date: 2014-06-09 20:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -466,7 +466,7 @@ msgstr ""
 msgid "Choose the desired LilyPond version."
 msgstr ""
 
-#: ../lilypondinfo.py:143
+#: ../lilypondinfo.py:144
 msgid "Running LilyPond, this can take some time..."
 msgstr ""
 
