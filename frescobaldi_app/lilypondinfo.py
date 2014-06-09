@@ -24,6 +24,7 @@ Settings stuff and handling for different LilyPond versions.
 from __future__ import unicode_literals
 
 import glob
+import codecs
 import os
 import sys
 import re
@@ -213,7 +214,7 @@ class LilyPondInfo(object):
         @p.done.connect
         def done(success):
             if success:
-                output = unicode(p.process.readLine())
+                output = codecs.decode(p.process.readLine(), 'latin1', 'replace')
                 m = re.search(r"\d+\.\d+(.\d+)?", output)
                 self.versionString = m.group() if m else ""
             else:
@@ -258,7 +259,7 @@ class LilyPondInfo(object):
         @p.done.connect
         def done(success):
             if success:
-                d = unicode(p.process.readLine()).strip('\n')
+                d = codecs.decode(p.process.readLine(), 'latin1', 'replace').strip('\n')
                 if os.path.isabs(d) and os.path.isdir(d):
                     self.datadir = d
                     return

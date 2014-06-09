@@ -38,6 +38,7 @@ Changes in 2.0.16 --
     on doubleclick in the text, reported by an Apple user
   - fix AttributeError: 'ScoreWizard' object has no attribute 'showInsertDialog'
     reported by an Apple user
+  - fix UnicodeDecodeError in lilypondinfo datadir method
 
 
 Changes in 2.0.15 -- March 11th, 2014
