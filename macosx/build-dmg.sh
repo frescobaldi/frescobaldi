@@ -51,6 +51,11 @@ echo
 /opt/local/bin/macdeployqt dist/Frescobaldi.app
 echo
 
+if [[ ${NODMG} == 1 ]]
+then
+  exit
+fi
+
 echo Building the DMG disk image with appdmg.
 echo
 sed -e '/INSTALL/d' ../README > README.txt
