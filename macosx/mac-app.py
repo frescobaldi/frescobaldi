@@ -106,7 +106,8 @@ options = {
 
 if args.standalone:
     options.update({
-        'packages': ['frescobaldi_app']
+        'packages': ['frescobaldi_app'],
+        'frameworks': ['/opt/local/lib/libportmidi.dylib']
     })
 else:
     options.update({
