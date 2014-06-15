@@ -110,8 +110,10 @@ if args.standalone:
         'packages': ['frescobaldi_app'],
         'frameworks': ['/opt/local/lib/libportmidi.dylib']
     })
-    with open('patch/pm_ctypes.py.diff', 'r') as input:
-        Popen(["patch", "-d..", "-p0"], stdin=input)
+    for patchfile in os.listdir('patch'):
+        if patchfile.endswith(".diff"):
+            with open('patch/{0}'.format(patchfile), 'r') as input:
+                Popen(["patch", "-d..", "-p0"], stdin=input)
 else:
     options.update({
         'semi_standalone': True,
@@ -141,9 +143,11 @@ for l in locales:
     os.chmod(ipstrings_dest, 0644)
 
 if args.standalone:
-    with open('patch/pm_ctypes.py.diff', 'r') as input:
-        print('reversing patches:')
-        Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
+    print('reversing patches:')
+    for patchfile in os.listdir('patch'):
+        if patchfile.endswith(".diff"):
+            with open('patch/{0}'.format(patchfile), 'r') as input:
+                Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
     print('removing file {0}/qt.conf'.format(app_resources))
     os.remove('{0}/qt.conf'.format(app_resources))
     imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(info.appname)
