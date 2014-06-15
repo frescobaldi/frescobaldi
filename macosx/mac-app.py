@@ -108,7 +108,8 @@ options = {
 if args.standalone:
     options.update({
         'packages': ['frescobaldi_app'],
-        'frameworks': ['/opt/local/lib/libportmidi.dylib']
+        'frameworks': ['/opt/local/lib/libportmidi.dylib'],
+        'includes': ['new']
     })
     for patchfile in os.listdir('patch'):
         if patchfile.endswith(".diff"):

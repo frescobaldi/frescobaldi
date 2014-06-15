@@ -1,0 +1,11 @@
+--- frescobaldi_app/lilypondinfo.py.orig	2014-06-14 23:18:39.000000000 +0200
++++ frescobaldi_app/lilypondinfo.py	2014-06-14 23:18:45.000000000 +0200
+@@ -294,7 +294,7 @@
+                 toolpath += '.py'
+             command = [self.python(), toolpath]
+         else:
+-            command = [toolpath]
++            command = [os.path.abspath('../MacOS/python'), toolpath]
+         return command
+     
+     @CachedProperty.cachedproperty(depends=versionString)
