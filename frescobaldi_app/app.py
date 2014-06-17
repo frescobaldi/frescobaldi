@@ -31,18 +31,14 @@ from PyQt4.QtGui import QApplication
 
 import info
 
-qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
-QApplication.setApplicationName(info.name)
-QApplication.setApplicationVersion(info.version)
-QApplication.setOrganizationName(info.name)
-QApplication.setOrganizationDomain(info.domain)
-
+qApp = None                     # instantiate() puts the QApplication obj. here
 windows = []
 documents = []
 
 from signals import Signal, SignalContext
 
 # signals
+instantiated  = Signal()        # Called when the QApplication is instantiated
 aboutToQuit = Signal()          # Use this and not qApp.aboutToQuit
 mainwindowCreated = Signal()    # MainWindow
 mainwindowClosed = Signal()     # MainWindow
@@ -97,6 +93,16 @@ def findDocument(url):
         for d in documents:
             if url == d.url():
                 return d
+
+def instantiate():
+    """Instantiate the global QApplication object."""
+    global qApp
+    qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
+    QApplication.setApplicationName(info.name)
+    QApplication.setApplicationVersion(info.version)
+    QApplication.setOrganizationName(info.name)
+    QApplication.setOrganizationDomain(info.domain)
+    instantiated()
 
 def run():
     """Enter the Qt event loop."""

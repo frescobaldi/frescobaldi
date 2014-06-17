@@ -32,7 +32,6 @@ from PyQt4.QtCore import QLocale, QSettings, QTimer
 import app
 
 from . import find, install, available
-from . import qtranslator
 
 __all__ = ['preferred', 'current', 'default']
 
@@ -100,5 +99,13 @@ def _setup():
                 pass
     install(None)
 
+def start_up():
+    """Initialize GUI translations. Called op app startup."""
+    from . import qtranslator
+    _setup()
+
+
 app.settingsChanged.connect(_setup)
-_setup()
+app.instantiated.connect(start_up)
+
+

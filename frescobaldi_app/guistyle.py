@@ -29,7 +29,7 @@ from PyQt4.QtGui import QStyleFactory
 
 import app
 
-_system_default = app.qApp.style().objectName()
+_system_default = None # becomes app.qApp.style().objectName()
 
 
 def keys():
@@ -37,12 +37,20 @@ def keys():
 
 
 def setStyle():
+    global _system_default
+    
     style = QSettings().value("guistyle", "", type("")).lower()
     if style not in keys():
         style = _system_default
     if style != app.qApp.style().objectName():
         app.qApp.setStyle(QStyleFactory.create(style))
 
+def initialize():
+    """Initializes the GUI style setup. Called op app startup."""
+    global _system_default
+    
+    _system_default = app.qApp.style().objectName()
+    app.settingsChanged.connect(setStyle)
+    setStyle()
 
-app.settingsChanged.connect(setStyle)
-setStyle()
+app.instantiated.connect(initialize)

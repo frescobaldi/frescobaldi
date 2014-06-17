@@ -25,17 +25,27 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
 
+import app
+
 # increase this number by one whenever something needs to be done, installed
 # or updated concerning the application settings.
 SETTINGS_VERSION = 1
 
-version = QSettings().value("settings_version", 0, int)
 
-if version != SETTINGS_VERSION:
-    from . import update
-    update.update(version)
+def update_settings():
+    """Checks whether settings needs to be migrated to a new structure."""
     
-    #uncomment next lines when the upgrade from 0 to 1 works
-    QSettings().setValue("settings_version", SETTINGS_VERSION)
-    QSettings().sync() # just to be sure
+    version = QSettings().value("settings_version", 0, int)
+
+    if version != SETTINGS_VERSION:
+        from . import update
+        update.update(version)
+        
+        #uncomment next lines when the upgrade from 0 to 1 works
+        QSettings().setValue("settings_version", SETTINGS_VERSION)
+        QSettings().sync() # just to be sure
+
+
+# connect with highest priority, so this runs first
+app.instantiated.connect(update_settings, -1000)
 

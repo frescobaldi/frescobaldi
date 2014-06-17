@@ -11,18 +11,13 @@ from __future__ import unicode_literals
 
 import sys
 
-try:
-    from . import main
-    del main
-except (ImportError, ValueError):
-    pass # this was a reload()
-
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+from . import toplevel
+import main
 import app
 import document
-    
 
 
 def doc_repr(self):
@@ -62,4 +57,15 @@ del f, doc_repr
 def modules():
     """Print the list of loaded modules."""
     print('\n'.join(v.__name__ for k, v in sorted(sys.modules.items()) if v is not None))
+
+
+
+
+# avoid builtins._ being overwritten
+sys.displayhook = app.displayhook
+
+# instantiate app and create a mainwindow, etc
+app.instantiate()
+main.main()
+
 
