@@ -29,11 +29,13 @@ echo The version of the .app bundle will be ${VERSION}.
 echo
 
 echo Building the .app bundle with mac-app.py.
-echo \(This step will likely give an error from /usr/bin/strip about malformed object
-echo .../dist/Frescobaldi.app/Contents/MacOS/Frescobaldi: you can safely ignore it.\)
+echo \(This step will likely give some warnings from /usr/bin/strip about malformed
+echo objects: you can safely ignore them.\)
 echo
-# The expected error is:
+# The expected warnings are:
+# /usr/bin/strip: for architecture x86_64 object: .../dist/Frescobaldi.app/Contents/Frameworks/libgcc_s.1.dylib malformed object (unknown load command 11)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/MacOS/Frescobaldi malformed object (unknown load command 15)
+# /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/Frameworks/libstdc++.6.dylib malformed object (unknown load command 12)
 /opt/local/bin/python2.7 mac-app.py -v ${VERSION} -a > /dev/null
 echo
 
