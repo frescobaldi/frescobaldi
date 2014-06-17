@@ -15,6 +15,8 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 from . import toplevel
+toplevel.install()
+
 import main
 import app
 import document

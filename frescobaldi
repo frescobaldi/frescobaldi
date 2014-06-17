@@ -2,6 +2,7 @@
 import sys
 
 from frescobaldi_app import toplevel
+toplevel.install()
 
 import main
 import app
