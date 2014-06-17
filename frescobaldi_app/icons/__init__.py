@@ -28,16 +28,10 @@ import os
 from PyQt4.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
 from PyQt4.QtGui import QFileIconProvider, QIcon
 
+import app
+
+
 _cache = {}
-
-QDir.setSearchPaths("icons", __path__)
-
-
-# use our icon theme (that builds on Tango) if there are no system icons
-if (not QIcon.themeName() or QIcon.themeName() == "hicolor"
-    or not QSettings().value("system_icons", True, bool)):
-    QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
-    QIcon.setThemeName("TangoExt")
 
 
 def get(name):
@@ -67,5 +61,19 @@ def file_type(name):
     if '.' not in name:
         name = 'test.' + name
     return QFileIconProvider().icon(QFileInfo(name))
+
+
+def initialize():
+    """Initialize support for the icons. Called on app startup."""
+    QDir.setSearchPaths("icons", __path__)
+    
+    # use our icon theme (that builds on Tango) if there are no system icons
+    if (not QIcon.themeName() or QIcon.themeName() == "hicolor"
+        or not QSettings().value("system_icons", True, bool)):
+        QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
+        QIcon.setThemeName("TangoExt")
+
+
+app.instantiated.connect(initialize)
 
 
