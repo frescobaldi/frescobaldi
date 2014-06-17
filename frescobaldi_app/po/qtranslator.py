@@ -47,10 +47,10 @@ def installTranslator():
     _translator = Translator()
     QCoreApplication.installTranslator(_translator)
 
-# just install again on change, so the widgets get a LanguageChange event
-app.languageChanged.connect(installTranslator)
-installTranslator()
-
+def initialize():
+    # just install again on change, so the widgets get a LanguageChange event
+    app.languageChanged.connect(installTranslator)
+    installTranslator()
 
 # DEBUG: show translatable Qt messages once
 _debugmessages = set()

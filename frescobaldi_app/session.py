@@ -47,6 +47,7 @@ def sessionSettings():
 
 
 if __name__ == '__main__':
+    app.instantiate()
     settings = sessionSettings()
     settings.remove(sys.argv[-1])
     sys.exit(0)
@@ -99,6 +100,10 @@ def restoreSession():
         settings.endGroup()
     settings.endGroup()
 
-# the new-style way of connecting fails on PyQt4 4.8.x...
-QObject.connect(app.qApp, SIGNAL("saveStateRequest(QSessionManager&)"), saveState)
-QObject.connect(app.qApp, SIGNAL("commitDataRequest(QSessionManager&)"), commitData)
+@app.instantiated.connect
+def _setup():
+    # the new-style way of connecting fails on PyQt4 4.8.x...
+    QObject.connect(app.qApp, SIGNAL("saveStateRequest(QSessionManager&)"), saveState)
+    QObject.connect(app.qApp, SIGNAL("commitDataRequest(QSessionManager&)"), commitData)
+
+

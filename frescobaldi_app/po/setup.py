@@ -102,6 +102,7 @@ def _setup():
 def start_up():
     """Initialize GUI translations. Called op app startup."""
     from . import qtranslator
+    qtranslator.initialize()
     _setup()
 
 
