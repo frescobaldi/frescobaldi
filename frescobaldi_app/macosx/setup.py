@@ -30,26 +30,27 @@ from PyQt4.QtCore import QTimer
 
 import app
 
-
-# on Mac OS X, handle FileOpen requests (e.g. double-clicking a file in the
-# Finder), these events also can occur right on application start.
-# We do this just before creating the window, so that when multiple files
-# are opened on startup (I don't know whether that really could happen),
-# they are not made the current document, as that slows down loading
-# multiple documents drastically.
-from . import file_open_eventhandler
-
-# handle window icon drag events
-from . import icon_drag_eventhandler
-
-# on mac os, the app should remain running, even if there is no main window 
-# anymore. In this case, we setup a basic global menu.
-app.qApp.setQuitOnLastWindowClosed(False)
-
 @app.mainwindowClosed.connect
 def check_open_window():
     if not app.windows:
         from . import globalmenu
         QTimer.singleShot(0, globalmenu.setup)
 
+def initialize():
+    # on Mac OS X, handle FileOpen requests (e.g. double-clicking a file in the
+    # Finder), these events also can occur right on application start.
+    # We do this just before creating the window, so that when multiple files
+    # are opened on startup (I don't know whether that really could happen),
+    # they are not made the current document, as that slows down loading
+    # multiple documents drastically.
+    from . import file_open_eventhandler
+    file_open_eventhandler.initialize()
+    
+    # handle window icon drag events
+    from . import icon_drag_eventhandler
+    icon_drag_eventhandler.initialize()
+    
+    # on mac os, the app should remain running, even if there is no main window 
+    # anymore. In this case, we setup a basic global menu.
+    app.qApp.setQuitOnLastWindowClosed(False)
 

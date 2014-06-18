@@ -144,6 +144,7 @@ def main():
     
     if sys.platform.startswith('darwin'):
         import macosx.setup
+        macosx.setup.initialize()
     
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager

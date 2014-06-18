@@ -32,6 +32,9 @@ from PyQt4.QtGui import QApplication
 import app
 
 
+handler = None
+
+
 def openUrl(url):
     """Open Url.
     
@@ -59,7 +62,9 @@ class FileOpenEventHandler(QObject):
         return False
 
 
-handler = FileOpenEventHandler()
-app.qApp.installEventFilter(handler)
+def initialize():
+    global handler
+    handler = FileOpenEventHandler()
+    app.qApp.installEventFilter(handler)
 
 

@@ -32,6 +32,9 @@ from PyQt4.QtGui import QApplication, QDrag, QStyle
 import app
 
 
+handler = None
+
+
 class IconDragEventHandler(QObject):
     """Event handler to handle window icon events on Mac OS X."""
     def eventFilter(self, mainwin, ev):
@@ -71,7 +74,9 @@ class IconDragEventHandler(QObject):
         pass
 
 
-handler = IconDragEventHandler()
+def initialize():
+    global handler
+    handler = IconDragEventHandler()
 
 @app.mainwindowCreated.connect
 def windowCreated(window):
