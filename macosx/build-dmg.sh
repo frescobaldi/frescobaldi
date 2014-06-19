@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 
+if [[ ${MPPREFIX} == '' ]]
+then
+  MPPREFIX=/opt/local
+fi
+
 echo This script will build a standalone Mac application bundle for Frescobaldi
 echo and wrap it into a distributable DMG disk image, provided that
-echo - you have a standard MacPorts installation,
+echo - you have a working MacPorts installation in ${MPPREFIX},
 echo - you installed Frescobaldi\'s dependencies, node.js and npm through MacPorts
 echo ' ' with default variants \(this also implies that you are using Python 2.7\),
 echo - you installed appdmg through npm in global mode,
@@ -15,7 +20,7 @@ echo You can achieve this for packages installed through MacPorts with
 echo ' ' sudo port deactivate active and not rdepof:frescobaldi and categories:python
 echo
 
-VERSION=`/opt/local/bin/python2.7 -c 'import os
+VERSION=`${MPPREFIX}/bin/python2.7 -c 'import os
 os.chdir("..")
 from frescobaldi_app import info
 print info.version'`
@@ -36,21 +41,21 @@ echo
 # /usr/bin/strip: for architecture x86_64 object: .../dist/Frescobaldi.app/Contents/Frameworks/libgcc_s.1.dylib malformed object (unknown load command 11)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/MacOS/Frescobaldi malformed object (unknown load command 15)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/Frameworks/libstdc++.6.dylib malformed object (unknown load command 12)
-/opt/local/bin/python2.7 mac-app.py -v ${VERSION} -a > /dev/null
+${MPPREFIX}/bin/python2.7 mac-app.py -v ${VERSION} -a > /dev/null
 echo
 
 echo Copying libqsvg.dylib inside the .app bundle.
 echo
-cp /opt/local/share/qt4/plugins/imageformats/libqsvg.dylib dist/Frescobaldi.app/Contents/PlugIns/imageformats/
+cp ${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib dist/Frescobaldi.app/Contents/PlugIns/imageformats/
 
 echo Finalizing the .app bundle with macdeployqt.
 echo \(This step will likely give an error about the failed copy of libqsvg.dylib:
 echo you can safely ignore it.\)
 echo
 # The expected error is:
-# ERROR: file copy failed from "/opt/local/share/qt4/plugins/imageformats/libqsvg.dylib" 
+# ERROR: file copy failed from "${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib" 
 # ERROR:  to "dist/Frescobaldi.app/Contents/PlugIns/imageformats/libqsvg.dylib" 
-/opt/local/bin/macdeployqt dist/Frescobaldi.app
+${MPPREFIX}/bin/macdeployqt dist/Frescobaldi.app
 echo
 
 if [[ ${NODMG} == 1 ]]
@@ -63,5 +68,5 @@ echo
 sed -e '/INSTALL/d' ../README > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
-/opt/local/bin/appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}.dmg
+${MPPREFIX}/bin/appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}.dmg
 rm {README,ChangeLog,COPYING}.txt
