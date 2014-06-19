@@ -20,6 +20,7 @@ root = os.path.dirname(macosx)
 sys.path.append(root)
 
 from frescobaldi_app import info
+from frescobaldi_app.portmidi import pm_ctypes
 
 icon = '{0}/icons/{1}.icns'.format(macosx, info.name)
 ipstrings = '{0}/app_resources/InfoPlist.strings'.format(macosx)
@@ -37,12 +38,18 @@ parser.add_argument('-s', '--script', \
 parser.add_argument('-a', '--standalone', action = 'store_true', \
   help = 'build a standalone application bundle \
   (WARNING: some manual steps are required after the execution of this script)')
+parser.add_argument('-p', '--portmidi', \
+  help = 'full path of PortMIDI library (used only with \'-a\')', \
+  default = pm_ctypes.dll_name)
 args = parser.parse_args()
 
 if not (os.path.isfile(args.script) or args.force):
     sys.exit('Error: \'{0}\' does not exist or is not a file.\n\
 If you really want to point the application bundle to \'{0}\',\n\
 use the \'-f\' or \'--force\' flag.'.format(args.script))
+
+if args.standalone and not os.path.isfile(args.portmidi):
+    sys.exit('Error: \'{0}\' does not exist or is not a file.'.format(args.portmidi))
 
 plist = dict(
     CFBundleName                  = info.appname,
@@ -108,7 +115,7 @@ options = {
 if args.standalone:
     options.update({
         'packages': ['frescobaldi_app'],
-        'frameworks': ['/opt/local/lib/libportmidi.dylib'],
+        'frameworks': [args.portmidi],
         'includes': ['new']
     })
     for patchfile in os.listdir('patch'):
