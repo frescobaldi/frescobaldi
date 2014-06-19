@@ -11,9 +11,6 @@ from __future__ import unicode_literals
 
 import sys
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
 from . import toplevel
 toplevel.install()
 
@@ -69,5 +66,9 @@ sys.displayhook = app.displayhook
 # instantiate app and create a mainwindow, etc
 app.instantiate()
 main.main()
+
+# be friendly and import Qt stuff
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 
