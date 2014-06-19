@@ -74,6 +74,6 @@ def initialize():
         QIcon.setThemeName("TangoExt")
 
 
-app.instantiated.connect(initialize)
+app.oninit(initialize)
 
 

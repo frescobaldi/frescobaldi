@@ -104,6 +104,18 @@ def instantiate():
     QApplication.setOrganizationDomain(info.domain)
     instantiated()
 
+def oninit(func):
+    """Call function on QApplication instantiation.
+    
+    If the QApplication alreay has been instantiated, the function is called
+    directly.
+    
+    """
+    if qApp is None:
+        instantiated.connect(func)
+    else:
+        func()
+
 def run():
     """Enter the Qt event loop."""
     result = qApp.exec_()
