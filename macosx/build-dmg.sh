@@ -68,5 +68,15 @@ echo
 sed -e '/INSTALL/d' ../README > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
-appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}.dmg
+APPFILE=`file dist/Frescobaldi.app/Contents/MacOS/Frescobaldi`
+APPARCH=''
+if [[ ${APPFILE} == *i386* ]]
+then
+  APPARCH=${APPARCH}-i386
+fi
+if [[ ${APPFILE} == *x86_64* ]]
+then
+  APPARCH=${APPARCH}-x86_64
+fi
+appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}${APPARCH}.dmg
 rm {README,ChangeLog,COPYING}.txt
