@@ -100,7 +100,7 @@ def restoreSession():
         settings.endGroup()
     settings.endGroup()
 
-@app.instantiated.connect
+@app.oninit
 def _setup():
     # the new-style way of connecting fails on PyQt4 4.8.x...
     QObject.connect(app.qApp, SIGNAL("saveStateRequest(QSessionManager&)"), saveState)

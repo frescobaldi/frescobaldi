@@ -99,6 +99,7 @@ def _setup():
                 pass
     install(None)
 
+@app.oninit
 def _start_up():
     """Initialize GUI translations. Called op app startup."""
     from . import qtranslator
@@ -107,6 +108,4 @@ def _start_up():
 
 
 app.settingsChanged.connect(_setup)
-app.instantiated.connect(_start_up)
-
 

@@ -45,6 +45,7 @@ def setStyle():
     if style != app.qApp.style().objectName():
         app.qApp.setStyle(QStyleFactory.create(style))
 
+@app.oninit
 def initialize():
     """Initializes the GUI style setup. Called op app startup."""
     global _system_default
@@ -53,4 +54,3 @@ def initialize():
     app.settingsChanged.connect(setStyle)
     setStyle()
 
-app.instantiated.connect(initialize)

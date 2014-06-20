@@ -105,16 +105,20 @@ def instantiate():
     instantiated()
 
 def oninit(func):
-    """Call function on QApplication instantiation.
+    """Call specified function on QApplication instantiation.
     
     If the QApplication alreay has been instantiated, the function is called
     directly.
     
+    As this function returns the specified function, you can use this as a
+    decorator.
+    
     """
-    if qApp is None:
-        instantiated.connect(func)
-    else:
+    if qApp:
         func()
+    else:
+        instantiated.connect(func)
+    return func
 
 def run():
     """Enter the Qt event loop."""
