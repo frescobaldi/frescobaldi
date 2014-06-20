@@ -8,10 +8,10 @@ fi
 echo This script will build a standalone Mac application bundle for Frescobaldi
 echo and wrap it into a distributable DMG disk image, provided that
 echo - you have a working MacPorts installation in ${MPPREFIX},
-echo - you installed Frescobaldi\'s dependencies, node.js and npm through MacPorts
-echo ' ' with default variants \(this also implies that you are using Python 2.7\),
-echo - you installed appdmg through npm in global mode,
-echo - you have a working Git in your \$PATH,
+echo - you installed Frescobaldi\'s dependencies through MacPorts with default
+echo ' ' variants \(this also implies that you are using Python 2.7\),
+echo - you have working Git, node.js and npm in your \$PATH,
+echo - you installed appdmg through npm in global mode \(so it is in your \$PATH\),
 echo - you are running this script from the directory macosx of Frescobaldi\'s source.
 echo
 echo It is strongly recommended that no Python packages are active except for
@@ -68,5 +68,5 @@ echo
 sed -e '/INSTALL/d' ../README > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
-${MPPREFIX}/bin/appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}.dmg
+appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}.dmg
 rm {README,ChangeLog,COPYING}.txt
