@@ -29,7 +29,7 @@ In the panelmanager module, the Panels are instantiated.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QDockWidget, QLabel
+from PyQt4.QtGui import QAbstractButton, QDockWidget, QLabel
 
 import app
 
@@ -53,6 +53,8 @@ class Panel(QDockWidget):
         super(Panel, self).__init__(mainwindow)
         self.setObjectName(self.__class__.__name__.lower())
         app.translateUI(self)
+        app.languageChanged.connect(self._setToolTips)
+        self._setToolTips()
     
     def mainwindow(self):
         """Returns the MainWindow."""
@@ -95,5 +97,15 @@ class Panel(QDockWidget):
         raise NotImplementedError(
             "Please implement this method to at least set a title "
             "for the dockwidget and its toggleViewAction().")
+    
+    def _setToolTips(self):
+        """Generic tool tips are set here."""
+        self.setToolTip(_("Drag to dock/undock"))
+        closebutton = self.findChild(QAbstractButton, 'qt_dockwidget_closebutton')
+        if closebutton:
+            closebutton.setToolTip(_("Close"))
+        floatbutton = self.findChild(QAbstractButton, 'qt_dockwidget_floatbutton')
+        if floatbutton:
+            floatbutton.setToolTip(_("Dock/Undock"))
 
 
