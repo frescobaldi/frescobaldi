@@ -80,8 +80,18 @@ To see the usage notes, run:
   python macosx/mac-app.py -h
 
 The application bundle will be created inside a 'dist' folder in the current
-working directory. The application bundle is NOT self-contained.
+working directory.
+The script can build both a non-standalone system-dependent launcher and an
+**almost** standalone self-contained application bundle (the script will print
+instructions on the further steps needed to get a **fully** standalone
+self-contained application bundle).
 To use the script you need argparse (included in Python >= 2.7) and py2app.
+
+A macosx/build-dmg.sh script is provided to build the **fully** standalone
+application bundle and wrap it in a distributable DMG disk image along with
+the README, ChangeLog and COPYING files.
+The script assumes a specific system configuration (see the script for details),
+but can be easily adapted to other configurations.
 
 
 For Linux distribution packagers:

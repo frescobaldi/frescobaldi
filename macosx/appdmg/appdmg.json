@@ -1,0 +1,15 @@
+{
+  "title": "Frescobaldi",
+  "app": "../dist/Frescobaldi.app",
+  "background": "background.png",
+  "icons": {
+    "size": 80,
+    "app": [188, 320],
+    "alias": [449, 320]
+  },
+  "extra": [
+    ["../README.txt", 100, 70],
+    ["../ChangeLog.txt", 100, 185],
+    ["../COPYING.txt", 540, 70]
+  ]
+}
