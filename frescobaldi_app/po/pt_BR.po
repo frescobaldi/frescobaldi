@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-06-09 20:43+0200\n"
+"POT-Creation-Date: 2014-07-08 11:58+0200\n"
 "PO-Revision-Date: 2012-01-17 19:44-0200\n"
 "Last-Translator: Édio Mazera\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
@@ -45,7 +45,7 @@ msgstr "Sistema Operacional"
 msgid "Version {version}"
 msgstr "Versão {version}"
 
-#: ../about.py:122 ../main.py:58
+#: ../about.py:122 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Um Editor de música LilyPond"
 
@@ -70,31 +70,31 @@ msgstr ""
 msgid "Licensed under the {gpl}."
 msgstr "Sob a Licença {gpl}."
 
-#: ../app.py:139
+#: ../app.py:161
 msgid "LilyPond Files"
 msgstr "Arquivo LilyPond"
 
-#: ../app.py:140
+#: ../app.py:162
 msgid "LaTeX Files"
 msgstr "Arquivo LaTex"
 
-#: ../app.py:141
+#: ../app.py:163
 msgid "DocBook Files"
 msgstr "Arquivo DocBook"
 
-#: ../app.py:142
+#: ../app.py:164
 msgid "HTML Files"
 msgstr "Arquivo HTML "
 
-#: ../app.py:143
+#: ../app.py:165
 msgid "Texinfo Files"
 msgstr "Arquivo Texinfo"
 
-#: ../app.py:144
+#: ../app.py:166
 msgid "Scheme Files"
 msgstr "Arquivo Scheme"
 
-#: ../app.py:145 ../file_export/__init__.py:52 ../file_export/__init__.py:77
+#: ../app.py:167 ../file_export/__init__.py:52 ../file_export/__init__.py:77
 #: ../file_import/__init__.py:47 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
@@ -507,46 +507,46 @@ msgstr "&Remover hifenização"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Copiar Letra com hifenização removida"
 
-#: ../main.py:56
+#: ../main.py:55
 #, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr "{appname} [opções] arquivo ..."
 
-#: ../main.py:59
+#: ../main.py:58
 msgid "ENC"
 msgstr "ENC"
 
-#: ../main.py:60
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr "Codificação utilizada"
 
-#: ../main.py:61 ../main.py:63
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr "NUM"
 
-#: ../main.py:62
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr "Número de linha, iniciando em 1"
 
-#: ../main.py:64
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr "Coluna para ir, iniciando em 0"
 
-#: ../main.py:65
+#: ../main.py:64
 msgid "NAME"
 msgstr "NAME"
 
-#: ../main.py:66
+#: ../main.py:65
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sessão a iniciar ('{none}\" para a sessão vazia)"
 
-#: ../main.py:69
+#: ../main.py:68
 #, fuzzy
 msgid "List the session names and exit"
 msgstr "exibir esta mensagem de ajuda e sair"
 
-#: ../main.py:71
+#: ../main.py:70
 msgid "Always start a new instance"
 msgstr ""
 
@@ -1004,6 +1004,18 @@ msgstr "Im&primir"
 #: ../musicpreview.py:197
 msgid "Music Preview"
 msgstr "Visualizar Música"
+
+#: ../panel.py:103
+msgid "Drag to dock/undock"
+msgstr ""
+
+#: ../panel.py:106 ../search/__init__.py:109
+msgid "Close"
+msgstr "Fechar"
+
+#: ../panel.py:109
+msgid "Dock/Undock"
+msgstr ""
 
 #: ../popplerdummy.py:42
 #, python-brace-format
@@ -6354,10 +6366,6 @@ msgstr "Expressão Regular"
 #: ../search/__init__.py:108
 msgid "The total number of matches"
 msgstr "O número total de correspondências"
-
-#: ../search/__init__.py:109
-msgid "Close"
-msgstr "Fechar"
 
 #: ../search/__init__.py:110
 msgid "Replace:"

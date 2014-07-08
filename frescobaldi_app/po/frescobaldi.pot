@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: frescobaldi 2.0.16\n"
+"Project-Id-Version: frescobaldi 2.17-dev\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-06-09 20:43+0200\n"
+"POT-Creation-Date: 2014-07-08 11:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Version {version}"
 msgstr ""
 
-#: ../about.py:122 ../main.py:58
+#: ../about.py:122 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr ""
 
@@ -67,31 +67,31 @@ msgstr ""
 msgid "Licensed under the {gpl}."
 msgstr ""
 
-#: ../app.py:139
+#: ../app.py:161
 msgid "LilyPond Files"
 msgstr ""
 
-#: ../app.py:140
+#: ../app.py:162
 msgid "LaTeX Files"
 msgstr ""
 
-#: ../app.py:141
+#: ../app.py:163
 msgid "DocBook Files"
 msgstr ""
 
-#: ../app.py:142
+#: ../app.py:164
 msgid "HTML Files"
 msgstr ""
 
-#: ../app.py:143
+#: ../app.py:165
 msgid "Texinfo Files"
 msgstr ""
 
-#: ../app.py:144
+#: ../app.py:166
 msgid "Scheme Files"
 msgstr ""
 
-#: ../app.py:145 ../file_export/__init__.py:52 ../file_export/__init__.py:77
+#: ../app.py:167 ../file_export/__init__.py:52 ../file_export/__init__.py:77
 #: ../file_import/__init__.py:47 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
@@ -482,45 +482,45 @@ msgstr ""
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr ""
 
-#: ../main.py:56
+#: ../main.py:55
 #, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr ""
 
-#: ../main.py:59
+#: ../main.py:58
 msgid "ENC"
 msgstr ""
 
-#: ../main.py:60
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr ""
 
-#: ../main.py:61 ../main.py:63
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:62
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr ""
 
-#: ../main.py:64
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr ""
 
-#: ../main.py:65
+#: ../main.py:64
 msgid "NAME"
 msgstr ""
 
-#: ../main.py:66
+#: ../main.py:65
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
-#: ../main.py:69
+#: ../main.py:68
 msgid "List the session names and exit"
 msgstr ""
 
-#: ../main.py:71
+#: ../main.py:70
 msgid "Always start a new instance"
 msgstr ""
 
@@ -947,6 +947,18 @@ msgstr ""
 
 #: ../musicpreview.py:197
 msgid "Music Preview"
+msgstr ""
+
+#: ../panel.py:103
+msgid "Drag to dock/undock"
+msgstr ""
+
+#: ../panel.py:106 ../search/__init__.py:109
+msgid "Close"
+msgstr ""
+
+#: ../panel.py:109
+msgid "Dock/Undock"
 msgstr ""
 
 #: ../popplerdummy.py:42
@@ -6116,10 +6128,6 @@ msgstr ""
 
 #: ../search/__init__.py:108
 msgid "The total number of matches"
-msgstr ""
-
-#: ../search/__init__.py:109
-msgid "Close"
 msgstr ""
 
 #: ../search/__init__.py:110

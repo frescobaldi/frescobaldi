@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-06-09 20:43+0200\n"
+"POT-Creation-Date: 2014-07-08 11:58+0200\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -47,7 +47,7 @@ msgstr "Diğer satırlar:"
 msgid "Version {version}"
 msgstr "LilyPond Sürümünü ekle"
 
-#: ../about.py:122 ../main.py:58
+#: ../about.py:122 ../main.py:57
 #, fuzzy
 msgid "A LilyPond Music Editor"
 msgstr "LilyPond Müzik Düzenleyicisi"
@@ -71,36 +71,36 @@ msgstr ""
 msgid "Licensed under the {gpl}."
 msgstr ""
 
-#: ../app.py:139
+#: ../app.py:161
 #, fuzzy
 msgid "LilyPond Files"
 msgstr "LilyPond dosyaları"
 
-#: ../app.py:140
+#: ../app.py:162
 #, fuzzy
 msgid "LaTeX Files"
 msgstr "Tüm dosyalar"
 
-#: ../app.py:141
+#: ../app.py:163
 #, fuzzy
 msgid "DocBook Files"
 msgstr "PDf Dosyaları"
 
-#: ../app.py:142
+#: ../app.py:164
 #, fuzzy
 msgid "HTML Files"
 msgstr "Tüm dosyalar"
 
-#: ../app.py:143
+#: ../app.py:165
 #, fuzzy
 msgid "Texinfo Files"
 msgstr "Dosya Aç"
 
-#: ../app.py:144
+#: ../app.py:166
 msgid "Scheme Files"
 msgstr ""
 
-#: ../app.py:145 ../file_export/__init__.py:52 ../file_export/__init__.py:77
+#: ../app.py:167 ../file_export/__init__.py:52 ../file_export/__init__.py:77
 #: ../file_import/__init__.py:47 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
@@ -529,45 +529,45 @@ msgstr "Tirelemeyi kaldır"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Şarkı Sözlerini tirelemeler kaldırılmış şekilde kopyalayın"
 
-#: ../main.py:56
+#: ../main.py:55
 #, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr ""
 
-#: ../main.py:59
+#: ../main.py:58
 msgid "ENC"
 msgstr ""
 
-#: ../main.py:60
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr "Kullanılacak dil kodlaması"
 
-#: ../main.py:61 ../main.py:63
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:62
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr "Gidilecek satır numarası, sıra numarası 1'den başlamaktadır."
 
-#: ../main.py:64
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr "Gidilecek sütun numarası, sıra numarası 0'dan başlamaktadır."
 
-#: ../main.py:65
+#: ../main.py:64
 msgid "NAME"
 msgstr ""
 
-#: ../main.py:66
+#: ../main.py:65
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
-#: ../main.py:69
+#: ../main.py:68
 msgid "List the session names and exit"
 msgstr ""
 
-#: ../main.py:71
+#: ../main.py:70
 #, fuzzy
 msgid "Always start a new instance"
 msgstr "Yeni bir çalışmaya başla"
@@ -1041,6 +1041,19 @@ msgstr "Yazdır"
 #, fuzzy
 msgid "Music Preview"
 msgstr "PDF Önizleme"
+
+#: ../panel.py:103
+msgid "Drag to dock/undock"
+msgstr ""
+
+#: ../panel.py:106 ../search/__init__.py:109
+#, fuzzy
+msgid "Close"
+msgstr "Besteci"
+
+#: ../panel.py:109
+msgid "Dock/Undock"
+msgstr ""
 
 #: ../popplerdummy.py:42
 #, fuzzy, python-brace-format
@@ -6623,11 +6636,6 @@ msgstr ""
 #, fuzzy
 msgid "The total number of matches"
 msgstr "Kıtaların numarası."
-
-#: ../search/__init__.py:109
-#, fuzzy
-msgid "Close"
-msgstr "Besteci"
 
 #: ../search/__init__.py:110
 msgid "Replace:"

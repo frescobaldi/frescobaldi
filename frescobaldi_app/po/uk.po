@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-06-09 20:43+0200\n"
+"POT-Creation-Date: 2014-07-08 11:58+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -45,7 +45,7 @@ msgstr "Операційна система"
 msgid "Version {version}"
 msgstr "Версія {version}"
 
-#: ../about.py:122 ../main.py:58
+#: ../about.py:122 ../main.py:57
 msgid "A LilyPond Music Editor"
 msgstr "Музичний редактор LilyPond"
 
@@ -68,31 +68,31 @@ msgstr "Переклад Дмитра Редчука"
 msgid "Licensed under the {gpl}."
 msgstr "Розповсюджується на умовах {gpl}."
 
-#: ../app.py:139
+#: ../app.py:161
 msgid "LilyPond Files"
 msgstr "Файли LilyPond"
 
-#: ../app.py:140
+#: ../app.py:162
 msgid "LaTeX Files"
 msgstr "Файли LaTeX"
 
-#: ../app.py:141
+#: ../app.py:163
 msgid "DocBook Files"
 msgstr "Файли DocBook"
 
-#: ../app.py:142
+#: ../app.py:164
 msgid "HTML Files"
 msgstr "Файли HTML"
 
-#: ../app.py:143
+#: ../app.py:165
 msgid "Texinfo Files"
 msgstr "Файли Texinfo"
 
-#: ../app.py:144
+#: ../app.py:166
 msgid "Scheme Files"
 msgstr "Файли Scheme"
 
-#: ../app.py:145 ../file_export/__init__.py:52 ../file_export/__init__.py:77
+#: ../app.py:167 ../file_export/__init__.py:52 ../file_export/__init__.py:77
 #: ../file_import/__init__.py:47 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
@@ -506,45 +506,45 @@ msgstr "&Видалити переноси"
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "Копіювати вокальний текст, видаливши перено&си"
 
-#: ../main.py:56
+#: ../main.py:55
 #, python-brace-format
 msgid "{appname} [options] file ..."
 msgstr "{appname} [ключі] файл ..."
 
-#: ../main.py:59
+#: ../main.py:58
 msgid "ENC"
 msgstr ""
 
-#: ../main.py:60
+#: ../main.py:59
 msgid "Encoding to use"
 msgstr "Використовувати кодування"
 
-#: ../main.py:61 ../main.py:63
+#: ../main.py:60 ../main.py:62
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:62
+#: ../main.py:61
 msgid "Line number to go to, starting at 1"
 msgstr "Номер рядка для переходу, починаючи з 1"
 
-#: ../main.py:64
+#: ../main.py:63
 msgid "Column to go to, starting at 0"
 msgstr "Номер позиції для переходу, починаючи з 0"
 
-#: ../main.py:65
+#: ../main.py:64
 msgid "NAME"
 msgstr ""
 
-#: ../main.py:66
+#: ../main.py:65
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Відкрити сесію ('{none}' для порожньої сесії)"
 
-#: ../main.py:69
+#: ../main.py:68
 msgid "List the session names and exit"
 msgstr ""
 
-#: ../main.py:71
+#: ../main.py:70
 #, fuzzy
 msgid "Always start a new instance"
 msgstr "Завжди запускати новий примірник"
@@ -1007,6 +1007,18 @@ msgstr "&Друкувати"
 #: ../musicpreview.py:197
 msgid "Music Preview"
 msgstr "Попередній перегляд"
+
+#: ../panel.py:103
+msgid "Drag to dock/undock"
+msgstr ""
+
+#: ../panel.py:106 ../search/__init__.py:109
+msgid "Close"
+msgstr "Закрити"
+
+#: ../panel.py:109
+msgid "Dock/Undock"
+msgstr ""
 
 #: ../popplerdummy.py:42
 #, python-brace-format
@@ -6345,10 +6357,6 @@ msgstr "Регулярний вираз"
 #: ../search/__init__.py:108
 msgid "The total number of matches"
 msgstr "Кількість збігів"
-
-#: ../search/__init__.py:109
-msgid "Close"
-msgstr "Закрити"
 
 #: ../search/__init__.py:110
 msgid "Replace:"
