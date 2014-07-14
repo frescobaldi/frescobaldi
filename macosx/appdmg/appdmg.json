@@ -1,15 +1,12 @@
 {
   "title": "Frescobaldi",
-  "app": "../dist/Frescobaldi.app",
   "background": "background.png",
-  "icons": {
-    "size": 80,
-    "app": [188, 320],
-    "alias": [449, 320]
-  },
-  "extra": [
-    ["../README.txt", 100, 70],
-    ["../ChangeLog.txt", 100, 185],
-    ["../COPYING.txt", 540, 70]
+  "icon-size": 80,
+  "contents": [
+    { "x": 449, "y": 320, "type": "link", "path": "/Applications"},
+    { "x": 188, "y": 320, "type": "file", "path": "../dist/Frescobaldi.app"},
+    { "x": 100, "y": 70, "type": "file", "path": "../README.txt" },
+    { "x": 100, "y": 185, "type": "file", "path": "../ChangeLog.txt" },
+    { "x": 540, "y": 70, "type": "file", "path": "../COPYING.txt" }
   ]
 }
