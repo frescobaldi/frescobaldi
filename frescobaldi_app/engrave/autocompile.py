@@ -116,6 +116,12 @@ class AutoCompileManager(plugin.DocumentPlugin):
     def __init__(self, document):
         document.contentsChanged.connect(self.slotDocumentContentsChanged)
         document.saved.connect(self.slotDocumentSaved)
+        document.loaded.connect(self.initialize)
+        jobmanager.manager(document).started.connect(self.slotJobStarted)
+        self.initialize()
+    
+    def initialize(self):
+        document = self.document()
         if document.isModified():
             self._dirty = True
         else:
@@ -128,7 +134,6 @@ class AutoCompileManager(plugin.DocumentPlugin):
                 ext = '.pdf'
             self._dirty = not resultfiles.results(document).files(ext)
         self._hash = None if self._dirty else documentinfo.docinfo(document).token_hash()
-        jobmanager.manager(document).started.connect(self.slotJobStarted)
     
     def may_compile(self):
         """Return True if we could need to compile the document."""
