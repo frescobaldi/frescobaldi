@@ -36,6 +36,7 @@ import userguide
 import icons
 import job
 import jobmanager
+import jobattributes
 import panelmanager
 import lilychooser
 import listmodel
@@ -152,7 +153,8 @@ class Dialog(QDialog):
     
     def setDocument(self, doc):
         self.lilyChooser.setLilyPondInfo(command.info(doc))
-        if jobmanager.isRunning(doc):
+        job = jobmanager.job(doc)
+        if job and job.isRunning() and not jobattributes.get(job).hidden:
             self._document = doc
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
         
