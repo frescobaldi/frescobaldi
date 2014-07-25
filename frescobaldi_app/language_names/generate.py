@@ -45,7 +45,7 @@ This script needs not to be installed to be able to use the language_names packa
 lang_names = [
     "C", "en", "de", "fr", "es", "nl", "pl", "pt_BR",
     "cs", "ru", "hu", "gl", "it", "tr", "uk",
-    "ja", "zh",
+    "ja", "zh_CN", "zh_HK", "zh_TW",
 ]
 
 
@@ -71,6 +71,8 @@ def generate_kde(fileName="/usr/share/locale/all_languages"):
     
     # correct KDE mistake
     langs["cs"]["gl"] = "Galicijský"
+    langs["zh_HK"]["gl"] = "加利西亞語"
+    langs["zh_HK"]["zh_HK"] = "繁體中文（香港）"
     return dict(langs)
     
 
