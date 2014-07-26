@@ -148,7 +148,7 @@ def main():
     
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager
-        session.restoreSession()
+        session.restoreSession(app.qApp.sessionKey())
         return
 
     # load specified session?
