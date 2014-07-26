@@ -141,7 +141,7 @@ icon_dest = '{0}/{1}.icns'.format(app_resources, info.name)
 print('copying file {0} -> {1}'.format(icon, icon_dest))
 shutil.copyfile(icon, icon_dest)
 os.chmod(icon_dest, 0644)
-locales = ['cs', 'de', 'en', 'es', 'fr', 'gl', 'it', 'nl', 'pl', 'pt', 'ru', 'tr', 'uk']
+locales = ['cs', 'de', 'en', 'es', 'fr', 'gl', 'it', 'nl', 'pl', 'pt', 'ru', 'tr', 'uk', 'zh_CN', 'zh_HK', 'zh_TW']
 for l in locales:
     app_lproj = '{0}/{1}.lproj'.format(app_resources, l)
     os.mkdir(app_lproj, 0755)
