@@ -90,6 +90,9 @@ The following people contributed to {appname}:
 {lang_uk}:
 :  !Dmytro O. Redchuk
 
+{lang_zh}:
+:  !Anthony Fok
+
 And of course, a big *Thank You* goes to the LilyPond developers, who create 
 such an excellent music engraver!
 
@@ -112,4 +115,5 @@ lang_pt_br  languagename pt_BR
 lang_ru     languagename ru
 lang_tr     languagename tr
 lang_uk     languagename uk
+lang_zh     languagename zh
 
