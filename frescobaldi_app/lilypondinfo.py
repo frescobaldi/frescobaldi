@@ -285,7 +285,11 @@ class LilyPondInfo(object):
         interpeter and the tool path.
         
         """
-        toolpath = os.path.join(self.bindir(), command)
+        bindir = self.bindir()
+        if bindir:
+            toolpath = os.path.join(self.bindir(), command)
+        else:
+            toolpath = command
         
         # on Windows the tool command is not directly executable, but
         # must be started using the LilyPond-provided Python interpreter
