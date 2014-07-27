@@ -87,7 +87,11 @@ def restoreSession(key):
         for index in range(numdocuments):
             settings.beginGroup("document{0}".format(index))
             url = settings.value("url", QUrl(), QUrl)
-            doc = app.openUrl(url) # (FIXME: looses empty nameless doc if first)
+            if url.isEmpty():
+                import document
+                doc = document.Document()
+            else:
+                doc = app.openUrl(url)
             settings.endGroup()
     else:
         doc = app.openUrl(QUrl())
@@ -100,9 +104,13 @@ def restoreSession(key):
             win.readSessionSettings(settings)
             win.show()
             u = settings.value("active_document", QUrl(), QUrl)
-            d = app.findDocument(u)
-            if d:
-                win.setCurrentDocument(d)
+            # we dont use app.findDocument because it does not allow empty url
+            for d in app.documents:
+                if u == d.url():
+                    win.setCurrentDocument(d)
+                    break
+            else:
+                win.setCurrentDocument(app.documents[0])
             settings.endGroup()
     else:
         win = mainwindow.MainWindow()
