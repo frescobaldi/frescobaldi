@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4.QtCore import QObject, QSettings, Qt, SIGNAL
+from PyQt4.QtCore import QObject, QSettings, Qt, QUrl, SIGNAL
 from PyQt4.QtGui import QApplication, QSessionManager
 
 import info
@@ -54,10 +54,21 @@ def commitData(sm):
 def saveSession(key):
     """Save the current session under key."""
     settings = sessionSettings(key)
+    ## save current named session name
+    import sessions
+    settings.setValue('session_name', sessions.currentSession() or "")
+    ## save the list of open documents
+    settings.setValue('numdocuments', len(app.documents))
+    for index, d in enumerate(app.documents):
+        settings.beginGroup("document{0}".format(index))
+        settings.setValue("url", d.url())
+        settings.endGroup()
+    ## save windows
     settings.setValue('numwindows', len(app.windows))
     for index, win in enumerate(app.windows):
         settings.beginGroup("mainwindow{0}".format(index))
         win.writeSessionSettings(settings)
+        settings.setValue("active_document", win.currentDocument().url())
         settings.endGroup()
     settings.sync()
 
@@ -65,12 +76,37 @@ def saveSession(key):
 def restoreSession(key):
     """Restore a session specified by key, previously saved by the session manager."""
     settings = sessionSettings(key)
-    for index in range(settings.value('numwindows', 0, int)):
-        settings.beginGroup("mainwindow{0}".format(index))
+    ## restore current named session name
+    session_name = settings.value('session_name', "", type(""))
+    if session_name:
+        import sessions
+        sessions.setCurrentSession(session_name)
+    ## restore documents
+    numdocuments = settings.value('numdocuments', 0, int)
+    if numdocuments > 0:
+        for index in range(numdocuments):
+            settings.beginGroup("document{0}".format(index))
+            url = settings.value("url", QUrl(), QUrl)
+            doc = app.openUrl(url) # (FIXME: looses empty nameless doc if first)
+            settings.endGroup()
+    else:
+        doc = app.openUrl(QUrl())
+    ## restore windows
+    numwindows = settings.value('numwindows', 0, int)
+    if numwindows > 0:
+        for index in range(numwindows):
+            settings.beginGroup("mainwindow{0}".format(index))
+            win = mainwindow.MainWindow()
+            win.readSessionSettings(settings)
+            win.show()
+            u = settings.value("active_document", QUrl(), QUrl)
+            d = app.findDocument(u)
+            if d:
+                win.setCurrentDocument(d)
+            settings.endGroup()
+    else:
         win = mainwindow.MainWindow()
-        win.readSessionSettings(settings)
         win.show()
-        settings.endGroup()
 
 
 @app.oninit
