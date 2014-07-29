@@ -30,8 +30,8 @@ import subprocess
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QGridLayout, QLabel,
-    QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
+    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, 
+    QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
 import util
@@ -91,11 +91,12 @@ class Dialog(QDialog):
         self.tabw.addTab(self.uni_diff, '')
         
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Reset |
+            QDialogButtonBox.Reset | QDialogButtonBox.Save |
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         self.buttons.button(QDialogButtonBox.Reset).clicked.connect(self.run)
+        self.buttons.button(QDialogButtonBox.Save).clicked.connect(self.saveFile)
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -133,6 +134,7 @@ class Dialog(QDialog):
         self.tabw.setTabText(1, _("&Changes"))
         self.tabw.setTabText(2, _("&Diff"))
         self.buttons.button(QDialogButtonBox.Reset).setText(_("Run Again"))
+        self.buttons.button(QDialogButtonBox.Save).setText(_("Save as file"))
         self.setCaption()
     
     def saveCopyCheckSetting(self):
@@ -236,4 +238,24 @@ class Dialog(QDialog):
             if not out or self._convertedtext == self._text:
                 self.messages.append('\n' + _("The document has not been changed."))
 
-
+    def saveFile(self):
+        """Save content in tab as file"""
+        filename = "convert-ly"
+        caption = app.caption(_("dialog title", "Save File"))
+        filetypes = '{0} (*.txt);;{1} (*.htm);;{2} (*)'.format(_("Text Files"), _("HTML Files"), _("All Files"))
+        filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
+        if not filename:
+            return False # cancelled
+        f = open(filename, 'w')
+        tabdata = self.getTabData(self.tabw.currentIndex())
+        f.write(tabdata.encode('utf-8'))
+        f.close()
+		
+    def getTabData(self, index):
+        """Get content of current tab from current index"""
+        if index == 0:
+            return self.messages.toPlainText()
+        elif index == 1:
+            return self.diff.toHtml()
+        elif index == 2:
+            return self.uni_diff.toPlainText()
