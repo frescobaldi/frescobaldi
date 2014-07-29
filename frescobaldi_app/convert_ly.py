@@ -30,7 +30,7 @@ import subprocess
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, 
+    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QFont, 
     QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
@@ -143,6 +143,9 @@ class Dialog(QDialog):
     def readSettings(self):
         font = textformats.formatData('editor').font
         self.diff.setFont(font)
+        diffFont = QFont("Monospace")
+        diffFont.setStyleHint(QFont.TypeWriter)
+        self.uni_diff.setFont(diffFont)
     
     def slotLilyPondVersionChanged(self):
         self.setLilyPondInfo(self.lilyChooser.lilyPondInfo())
