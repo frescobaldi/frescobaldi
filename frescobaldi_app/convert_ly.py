@@ -72,6 +72,7 @@ class Dialog(QDialog):
         self._text = ''
         self._convertedtext = ''
         self._encoding = None
+        self.mainwindow = parent
         
         self.fromVersionLabel = QLabel()
         self.fromVersion = QLineEdit()
@@ -243,22 +244,33 @@ class Dialog(QDialog):
 
     def saveFile(self):
         """Save content in tab as file"""
-        filename = "convert-ly"
+        tabdata = self.getTabData(self.tabw.currentIndex())
+        doc = self.mainwindow.currentDocument()
+        orgname = doc.url().toLocalFile()
+        filename = os.path.splitext(orgname)[0] + '['+tabdata.filename+']'+'.'+tabdata.ext
         caption = app.caption(_("dialog title", "Save File"))
         filetypes = '{0} (*.txt);;{1} (*.htm);;{2} (*)'.format(_("Text Files"), _("HTML Files"), _("All Files"))
-        filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
+        filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)
         if not filename:
             return False # cancelled
         f = open(filename, 'w')
-        tabdata = self.getTabData(self.tabw.currentIndex())
-        f.write(tabdata.encode('utf-8'))
+        f.write(tabdata.text.encode('utf-8'))
         f.close()
 		
     def getTabData(self, index):
         """Get content of current tab from current index"""
         if index == 0:
-            return self.messages.toPlainText()
+            return FileInfo('message', 'txt', self.messages.toPlainText())
         elif index == 1:
-            return self.diff.toHtml()
+            return FileInfo('html-diff', 'htm', self.diff.toHtml())
         elif index == 2:
-            return self.uni_diff.toPlainText()
+            return FileInfo('uni-diff', 'diff', self.uni_diff.toPlainText())
+
+class FileInfo():
+	"""Holds information useful for the file saving"""
+	def __init__(self, filename, ext, text):
+		self.filename = filename
+		self.ext = ext
+		self.text = text
+		
+		 
