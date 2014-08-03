@@ -176,16 +176,12 @@ class Dialog(QDialog):
             self.diff.clear()
             
     def setDiffText(self, text=''):
-        color = True #this could be optional!?
         if text:
             difflist = list(difflib.unified_diff(
                     self._text.split('\n'), text.split('\n'), 
                     _("Current Document"), _("Converted Document")))
-            diffstr = "\n".join(difflist)
-            if color:
-                self.uni_diff.setHtml(self.useHighl(diffstr))
-            else:
-                self.uni_diff.setPlainText(difflist)
+            diffHLstr = self.diffHighl(difflist)
+            self.uni_diff.setHtml(diffHLstr)
         else:
             self.uni_diff.clear()
     
@@ -271,13 +267,17 @@ class Dialog(QDialog):
         elif index == 2:
             return FileInfo('uni-diff', 'diff', self.uni_diff.toPlainText())
             
-    def useHighl(self, lycode):
+    def diffHighl(self, difflist):
         """Return highlighted version of input."""
-        import ly.document, ly.colorize
-        doc = ly.document.Document(lycode)
-        cursor = ly.document.Cursor(doc)
-        colorWriter = ly.colorize.HtmlWriter()
-        return colorWriter.html(cursor)
+        import re
+        for n, l in enumerate(difflist):
+            addMatch = re.search(r'^[+]', l)
+            subMatch = re.search(r'^[-]', l)
+            if addMatch:
+                difflist[n] = '<span style="color: green;">'+l+'</span>'
+            elif subMatch:
+                difflist[n] = '<span style="color: red;">'+l+'</span>' 
+        return "<br>".join(difflist)
 
 class FileInfo():
     """Holds information useful for the file saving"""
