@@ -23,7 +23,7 @@ Export to Music XML.
 Using ly.music source to convert to XML.
 
 At the moment the status is test/experimental
-and the function is not actual use.
+and the function is not in actual use.
 
 """
 
@@ -35,6 +35,8 @@ import ly.music
 from . import create_musicxml
 from . import ly2xml_mediator
 
+#excluded from parsing
+excl_list = ['Version']
 
 class parse_source():
     """ creates the XML-file from the source code according to the Music XML standard """
@@ -43,7 +45,7 @@ class parse_source():
         self.musxml = create_musicxml.create_musicXML()
         self.mediator = ly2xml_mediator.mediator()
         self.prev_command = ''
-        self.pitch_mode = 'abs'
+        self.relative = False
         self.varname = ''
         self.can_create_sect = True
         self.tuplet = False
@@ -67,18 +69,33 @@ class parse_source():
         print(mustree.dump())
         tree_nodes = mustree.iter_music()
         for m in tree_nodes:
-            print(m)
-            print(m.has_output())
+            #print(m)
+            if m.has_output():
+                print("Has output!")
+            func_name = m.__class__.__name__ #get instance name
+            print func_name
+            if func_name not in excl_list:
+                try:
+                    func_call = getattr(self, func_name)
+                    func_call(m)
+                except AttributeError as ae:
+                    print "Warning: "+func_name+" not implemented!"
+                    print ae
+                    pass
 
     def musicxml(self, prettyprint=True):
-        #self.mediator.check_score()
+        self.mediator.check_score()
         self.iterate_mediator()
         xml = self.musxml.musicxml(prettyprint)
         return xml
 
     ##
-    # The different source types from ly.lex.lilypond are here sent to translation.
+    # The different source types from ly.music are here sent to translation.
     ##
+
+    def MusicList(self, musicList):
+        self.mediator.new_section("new")
+        #print(musicList.preceding())
 
     def Name(self, token):
         """ name of variable """
@@ -241,24 +258,17 @@ class parse_source():
         elif token == '\key':
             self.prev_command = "key"
 
-    def Note(self, token):
+    def Relative(self, relative):
+        self.relative = True
+
+    def Note(self, note):
         """ notename, e.g. c, cis, a bes ... """
-        if self.prev_command == "key":
-            self.key = token
-        elif self.prev_command == "relative":
-            self.mediator.set_relative(token)
-        elif self.is_chord:
-            self.mediator.create_chord(token, self.pitch_mode)
-            self.mediator.new_chord = False
+        if note.length():
+            print(note.duration.tokens)
+            self.mediator.new_note(note, self.relative)
         else:
-            self.mediator.new_note(token, self.pitch_mode)
-            if self.tuplet:
-                self.mediator.change_to_tuplet(self.fraction, self.ttype)
-                self.ttype = ""
-            if self.prev_command[1:] == 'grace':
-                self.mediator.new_grace(0)
-                if not self.grace_seq:
-                    self.prev_command = ''
+            if isinstance(note.music_parent(), ly.music.items.Relative):
+                self.mediator.set_relative(note)
 
     def Octave(self, token):
         """ a number of , or ' """
@@ -301,24 +311,24 @@ class parse_source():
         else:
             self.mediator.new_dot()
 
-    def Tie(self, token):
+    def Tie(self, tie):
         """ tie ~ """
         self.mediator.tie_to_next()
 
-    def Rest(self, token):
+    def Rest(self, rest):
         """ rest, r or R. Note: NOT by command, i.e. \rest """
-        if token == 'R':
-            self.scale = token
-        self.mediator.new_rest(token)
+        if rest.token == 'R':
+            self.scale = 'R'
+        self.mediator.new_rest(rest)
 
     def Spacer(self, token):
         """ invisible rest/spacer rest (s) """
         self.mediator.new_rest(token)
         self.scale = 's'
 
-    def Skip(self, token):
-        """ command \skip """
-        self.mediator.new_rest('s')
+    def Skip(self, skip):
+        """ invisible rest/spacer rest (s or command \skip)"""
+        self.mediator.new_rest(skip)
 
     def Scaling(self, token):
         """ scaling, e.g. *3 or *2/3"""
@@ -346,11 +356,12 @@ class parse_source():
     def Repeat(self, token):
         self.prev_command = "repeat"
 
-    def Command(self, token):
+    def Command(self, command):
         """ \bar, \rest, \time, etc """
-        if token == '\\rest':
+        print(command.token)
+        if command.token == '\\rest':
             self.mediator.note2rest()
-        elif token.find('voice') == 1:
+        elif command.token.find('voice') == 1:
             self.voicenr = self.mediator.new_voice(token[1:])
         elif self.prev_command != '\\numericTimeSignature':
             self.prev_command = token

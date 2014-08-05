@@ -46,6 +46,7 @@ class mediator():
         self.voice = 1
         self.current_chord = []
         self.new_chord = True
+        self.prev_pitch = None
 
     def new_section(self, name):
         n = self.get_var_byname(name)
@@ -285,21 +286,21 @@ class mediator():
             self.new_bar()
         self.current_attr.set_clef(self.clef)
 
-    def set_relative(self, note_name):
-        self.current_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
-        self.set_prev_pitch()
+    def set_relative(self, note):
+        barNote = bar_note(note)
+        barNote.set_octave(False)
+        self.prev_pitch = barNote.pitch
 
     def set_prev_pitch(self):
         p = self.current_note.pitch
         self.prev_pitch = ly.pitch.Pitch(p.note, p.alter, p.octave)
 
-    def new_note(self, note_name, pitch_mode):
+    def new_note(self, note, rel=False):
         self.current_chord = []
-        self.current_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
-        if self.dots:
-            self.current_note.dot = self.dots
-        if pitch_mode == 'rel':
-            self.current_note.set_octave("", True, self.prev_pitch)
+        self.current_note = bar_note(note)
+        self.current_note.set_octave(rel, self.prev_pitch)
+        self.check_divs(note.duration.base_scaling)
+        self.check_duration(note.duration.tokens)
         if self.tied:
             self.current_note.set_tie('stop')
             self.tied = False
@@ -307,7 +308,23 @@ class mediator():
             self.new_bar()
         self.bar.append(self.current_note)
         self.current_attr = bar_attr()
-        self.set_prev_pitch()
+        self.prev_pitch = self.current_note.pitch
+
+    def check_duration(self, dur_tokens):
+        has_looped = False
+        for i, t in enumerate(dur_tokens):
+            has_looped = True
+            if i == 0:
+                self.current_note.set_durtype(t)
+                self.duration = t
+                self.dots = 0
+            elif t == '.':
+                self.current_note.add_dot()
+                self.dots += 1
+        if not has_looped:
+            self.current_note.set_durtype(self.duration)
+            for d in range(self.dots):
+                self.current_note.add_dot()
 
     def create_chord(self, note_name, pitch_mode):
         if self.new_chord:
@@ -326,14 +343,17 @@ class mediator():
         self.bar.append(chord_note)
         return chord_note
 
-    def new_rest(self, rtype, pos=0):
+    def new_rest(self, rest):
         self.current_chord = []
+        rtype = rest.token
         if rtype == 'r':
-            self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice)
+            self.current_note = bar_rest(rest.duration.base_scaling)
         elif rtype == 'R':
-            self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice, show_type=False)
-        elif rtype == 's':
-            self.current_note = bar_rest(self.base_scaling, self.duration, pos, self.voice, skip=True)
+            self.current_note = bar_rest(rest.duration.base_scaling, show_type=False)
+        elif rtype == 's' or rtype == '\skip':
+            print("skipping!")
+            self.current_note = bar_rest(rest.duration.base_scaling, skip=True)
+        self.check_duration(rest.duration.tokens)
         if self.bar is None:
             self.new_bar()
         self.bar.append(self.current_note)
@@ -342,7 +362,7 @@ class mediator():
     def note2rest(self):
         """ note used as rest position transformed to rest"""
         temp_note = self.current_note
-        self.current_note = bar_rest(temp_note.duration, self.duration, [temp_note.base_note, temp_note.pitch.octave], self.voice)
+        self.current_note = bar_rest(temp_note.duration, pos = [temp_note.base_note, temp_note.pitch.octave])
         self.bar.pop()
         self.bar.append(self.current_note)
 
@@ -430,8 +450,10 @@ class mediator():
     def set_partname(self, name):
         self.part.name = name
 
-    def check_divs(self, base, scaling, tfraction=0):
+    def check_divs(self, base_scaling, tfraction=0):
         """ The new duration is checked against current divisions """
+        base = base_scaling[0]
+        scaling = base_scaling[1]
         divs = self.divisions
         if scaling != 1:
             tfraction = scaling
@@ -469,18 +491,18 @@ class score_section():
 
 class bar_note():
     """ object to keep track of note parameters """
-    def __init__(self, note_name, base_scaling, durval, voice):
-        plist = notename2step(note_name)
-        self.base_note = plist[0]
-        self.pitch = ly.pitch.Pitch(plist[2], plist[1], 3)
-        self.duration = base_scaling
-        self.type = durval2type(durval)
+    def __init__(self, note):
+        self.pitch = note.pitch
+        self.base_note = getNoteName(note.pitch.note)
+        if note.duration:
+            self.duration = note.duration.base_scaling
+        self.type = None
         self.tuplet = 0
         self.dot = 0
         self.tie = 0
         self.grace = [0,0]
         self.tremolo = 0
-        self.voice = voice
+        self.voice = 1
         self.staff = 0
         self.chord = False
         self.skip = False
@@ -491,12 +513,15 @@ class bar_note():
         if durval:
             self.type = durval2type(durval)
 
-    def set_octave(self, octmark, relative, prev_pitch):
-        self.pitch.octave = ly.pitch.octaveToNum(octmark)
+    def set_durtype(self, durval):
+        self.type = durval2type(durval)
+        print(self.type)
+
+    def set_octave(self, relative, prev_pitch=None):
         if relative:
             self.pitch.makeAbsolute(prev_pitch)
         else:
-            self.pitch.octave += 3; #adjusting to scientific pitch notation
+            self.pitch.octave += 3 #adjusting to scientific pitch notation
 
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
@@ -516,18 +541,15 @@ class bar_note():
 
 class bar_rest():
     """ object to keep track of different rests and skips """
-    def __init__(self, base_scaling, durval, pos, voice, show_type=True, skip=False):
-        self.duration = base_scaling
+    def __init__(self, duration, show_type=True, skip=False, pos=0):
+        self.duration = duration
         self.show_type = show_type
-        if self.show_type:
-            self.type = durval2type(durval)
-        else:
-            self.type = None
+        self.type = None
         self.skip = skip
         self.tuplet = 0
         self.dot = 0
         self.pos = pos
-        self.voice = voice
+        self.voice = 1
         self.staff = 0
         self.chord = False
 
@@ -538,6 +560,11 @@ class bar_rest():
                 self.type = durval2type(durval)
             else:
                 self.type = None
+
+    def set_durtype(self, durval):
+        if self.show_type:
+            self.type = durval2type(durval)
+            print(self.type)
 
     def add_dot(self):
         self.dot = self.dot + 1
@@ -660,6 +687,10 @@ def clefname2clef(clefname):
         return 'C',5,0
     elif clefname == "varbaritone":
         return 'F',3,0
+
+def getNoteName(index):
+    noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+    return noteNames[index]
 
 def notename2step(note_name):
     alter = 0

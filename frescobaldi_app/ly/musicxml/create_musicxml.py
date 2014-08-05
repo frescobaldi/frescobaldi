@@ -85,7 +85,7 @@ class create_musicXML():
             self.add_chord()
         self.add_pitch(pitch[0], pitch[1], pitch[2])
         if not grace[0]:
-            self.add_div_duration(self.count_duration(base_scaling, divs, dot))
+            self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
         self.add_duration_type(durtype)
         if dot:
@@ -116,7 +116,7 @@ class create_musicXML():
         """ create all nodes needed for a rest. """
         self.create_note()
         self.add_rest(pos)
-        self.add_div_duration(self.count_duration(base_scaling, divs, dot))
+        self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
         if durtype:
             self.add_duration_type(durtype)
@@ -144,7 +144,7 @@ class create_musicXML():
             self.add_clef(sign, line, oct_ch=octch)
 
     def new_backup(self, base_scaling, divs):
-        self.add_backup(self.count_duration(base_scaling, divs, 0))
+        self.add_backup(self.count_duration(base_scaling, divs))
 
     def create_tempo(self, metronome, sound, dots):
         self.add_direction()
@@ -164,18 +164,10 @@ class create_musicXML():
     # Help functions
     ##
 
-    def count_duration(self, base_scaling, divs, dot):
+    def count_duration(self, base_scaling, divs):
         base = base_scaling[0]
         scaling = base_scaling[1]
-        if dot:
-            import math
-            den = int(math.pow(2,dot))
-            num = int(math.pow(2,dot+1)-1)
-            a = divs*4*num
-            b = (1/base)*den
-            duration = a/b
-        else:
-            duration = divs*4*base
+        duration = divs*4*base
         duration = duration * scaling
         return int(duration)
 
