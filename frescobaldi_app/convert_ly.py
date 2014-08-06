@@ -23,14 +23,15 @@ Updates a document using convert-ly.
 
 from __future__ import unicode_literals
 
+import difflib
 import textwrap
 import os
 import subprocess
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QGridLayout, QLabel,
-    QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
+    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QFont, 
+    QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
 import util
@@ -71,6 +72,7 @@ class Dialog(QDialog):
         self._text = ''
         self._convertedtext = ''
         self._encoding = None
+        self.mainwindow = parent
         
         self.fromVersionLabel = QLabel()
         self.fromVersion = QLineEdit()
@@ -80,19 +82,22 @@ class Dialog(QDialog):
         self.lilyChooser = lilychooser.LilyChooser()
         self.messages = QTextBrowser()
         self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
+        self.uni_diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
         self.copyCheck = QCheckBox(checked=
             QSettings().value('convert_ly/copy_messages', True, bool))
         self.tabw = QTabWidget()
         
         self.tabw.addTab(self.messages, '')
         self.tabw.addTab(self.diff, '')
+        self.tabw.addTab(self.uni_diff, '')
         
         self.buttons = QDialogButtonBox(
-            QDialogButtonBox.Reset |
+            QDialogButtonBox.Reset | QDialogButtonBox.Save |
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         self.buttons.button(QDialogButtonBox.Reset).clicked.connect(self.run)
+        self.buttons.button(QDialogButtonBox.Save).clicked.connect(self.saveFile)
         
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -128,7 +133,9 @@ class Dialog(QDialog):
             "comment to the end of the document."))
         self.tabw.setTabText(0, _("&Messages"))
         self.tabw.setTabText(1, _("&Changes"))
+        self.tabw.setTabText(2, _("&Diff"))
         self.buttons.button(QDialogButtonBox.Reset).setText(_("Run Again"))
+        self.buttons.button(QDialogButtonBox.Save).setText(_("Save as file"))
         self.setCaption()
     
     def saveCopyCheckSetting(self):
@@ -137,6 +144,9 @@ class Dialog(QDialog):
     def readSettings(self):
         font = textformats.formatData('editor').font
         self.diff.setFont(font)
+        diffFont = QFont("Monospace")
+        diffFont.setStyleHint(QFont.TypeWriter)
+        self.uni_diff.setFont(diffFont)
     
     def slotLilyPondVersionChanged(self):
         self.setLilyPondInfo(self.lilyChooser.lilyPondInfo())
@@ -151,6 +161,7 @@ class Dialog(QDialog):
         self.setCaption()
         self.toVersion.setText(info.versionString())
         self.setConvertedText()
+        self.setDiffText()
         self.messages.clear()
     
     def setConvertedText(self, text=''):
@@ -163,6 +174,16 @@ class Dialog(QDialog):
                 wrapcolumn=100))
         else:
             self.diff.clear()
+            
+    def setDiffText(self, text=''):
+        if text:
+            difflist = list(difflib.unified_diff(
+                    self._text.split('\n'), text.split('\n'), 
+                    _("Current Document"), _("Converted Document")))
+            diffHLstr = self.diffHighl(difflist)
+            self.uni_diff.setHtml(diffHLstr)
+        else:
+            self.uni_diff.clear()
     
     def convertedText(self):
         return self._convertedtext or ''
@@ -177,6 +198,7 @@ class Dialog(QDialog):
         self._text = doc.toPlainText()
         self._encoding = doc.encoding() or 'UTF-8'
         self.setConvertedText()
+        self.setDiffText()
         
     def run(self):
         """Runs convert-ly (again)."""
@@ -217,7 +239,51 @@ class Dialog(QDialog):
                 return
             self.messages.setPlainText(err.decode('UTF-8'))
             self.setConvertedText(out.decode('UTF-8'))
+            self.setDiffText(out.decode('UTF-8'))
             if not out or self._convertedtext == self._text:
                 self.messages.append('\n' + _("The document has not been changed."))
 
+    def saveFile(self):
+        """Save content in tab as file"""
+        tabdata = self.getTabData(self.tabw.currentIndex())
+        doc = self.mainwindow.currentDocument()
+        orgname = doc.url().toLocalFile()
+        filename = os.path.splitext(orgname)[0] + '['+tabdata.filename+']'+'.'+tabdata.ext
+        caption = app.caption(_("dialog title", "Save File"))
+        filetypes = '{0} (*.txt);;{1} (*.htm);;{2} (*)'.format(_("Text Files"), _("HTML Files"), _("All Files"))
+        filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)
+        if not filename:
+            return False # cancelled
+        f = open(filename, 'w')
+        f.write(tabdata.text.encode('utf-8'))
+        f.close()
+		
+    def getTabData(self, index):
+        """Get content of current tab from current index"""
+        if index == 0:
+            return FileInfo('message', 'txt', self.messages.toPlainText())
+        elif index == 1:
+            return FileInfo('html-diff', 'htm', self.diff.toHtml())
+        elif index == 2:
+            return FileInfo('uni-diff', 'diff', self.uni_diff.toPlainText())
+            
+    def diffHighl(self, difflist):
+        """Return highlighted version of input."""
+        import re
+        for n, l in enumerate(difflist):
+            addMatch = re.search(r'^[+]', l)
+            subMatch = re.search(r'^[-]', l)
+            if addMatch:
+                difflist[n] = '<span style="color: green;">'+l+'</span>'
+            elif subMatch:
+                difflist[n] = '<span style="color: red;">'+l+'</span>' 
+        return "<br>".join(difflist)
 
+class FileInfo():
+    """Holds information useful for the file saving"""
+    def __init__(self, filename, ext, text):
+        self.filename = filename
+        self.ext = ext
+        self.text = text
+		
+		 
