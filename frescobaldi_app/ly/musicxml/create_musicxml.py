@@ -135,7 +135,7 @@ class create_musicXML():
         self.create_bar_attr()
         if divs:
             self.add_divisions(divs)
-        if key>=0:
+        if key != 0:
             self.add_key(key, mode)
         if mustime:
             self.add_time(mustime)

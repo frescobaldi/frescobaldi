@@ -63,6 +63,7 @@ class parse_source():
         self.is_chord = False
         self.new_tempo = 0
         self.tempo_dots = 0
+        self.numericTime = False
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -70,8 +71,6 @@ class parse_source():
         tree_nodes = mustree.iter_music()
         for m in tree_nodes:
             #print(m)
-            if m.has_output():
-                print("Has output!")
             func_name = m.__class__.__name__ #get instance name
             print func_name
             if func_name not in excl_list:
@@ -241,15 +240,18 @@ class parse_source():
         """ PipeSymbol = | """
         self.mediator.new_bar()
 
-    def Clef(self, token):
+    def Clef(self, clef):
         """ Clef \clef"""
-        self.prev_command = "clef"
+        self.mediator.new_clef(clef.specifier())
 
     def ClefSpecifier(self, token):
         """ clef name without quotation marks """
         if self.prev_command == 'clef':
             self.mediator.new_clef(token)
             self.prev_command = ''
+
+    def KeySignature(self, key):
+        self.mediator.new_key(key.pitch().output(), key.mode())
 
     def PitchCommand(self, token):
         if token == '\\relative':
@@ -267,7 +269,8 @@ class parse_source():
             print(note.duration.tokens)
             self.mediator.new_note(note, self.relative)
         else:
-            if isinstance(note.music_parent(), ly.music.items.Relative):
+            if isinstance(note.parent(), ly.music.items.Relative):
+                print("setting relative")
                 self.mediator.set_relative(note)
 
     def Octave(self, token):
@@ -281,9 +284,9 @@ class parse_source():
             else:
                 self.mediator.new_octave(token)
 
-    def Tempo(self, token):
+    def Tempo(self, tempo):
         """ Tempo direction, e g '4 = 80' """
-        self.new_tempo = 1
+        self.mediator.new_tempo(tempo.duration.tokens, tempo.tempo(), tempo.text())
 
     def Length(self, token):
         """ note length/duration, e.g. 4, 8, 16 ... """
@@ -338,6 +341,9 @@ class parse_source():
         else:
             self.mediator.scale_duration(token)
 
+    def TimeSignature(self, timeSign):
+        self.mediator.new_time(timeSign.numerator(), timeSign.fraction(), self.numericTime)
+
     def Fraction(self, token):
         """ fraction, e.g. 3/4
         can be used for time sign or tuplets """
@@ -357,14 +363,18 @@ class parse_source():
         self.prev_command = "repeat"
 
     def Command(self, command):
-        """ \bar, \rest, \time, etc """
+        """ \bar, \rest etc """
         print(command.token)
         if command.token == '\\rest':
             self.mediator.note2rest()
+        elif command.token == '\\numericTimeSignature':
+            self.numericTime = True
+        elif command.token == '\\defaultTimeSignature':
+            self.numericTime = False
         elif command.token.find('voice') == 1:
             self.voicenr = self.mediator.new_voice(token[1:])
         elif self.prev_command != '\\numericTimeSignature':
-            self.prev_command = token
+            self.prev_command = command.token
 
     def UserCommand(self, token):
         if self.prev_command == 'key':
@@ -382,17 +392,27 @@ class parse_source():
             else:
                 self.mediator.fetch_variable(token[1:])
 
-    def String(self, token):
-        if self.prev_command == 'clef':
-            self.mediator.new_clef(token)
-            self.prev_command = ''
-        elif self.prev_command == '\\bar':
-            self.mediator.create_barline(token)
-            self.prev_command = ''
+    def String(self, string):
+        prev = self.get_previous_node(string)
+        if prev and prev.token == '\\bar':
+            self.mediator.create_barline(string.value())
         elif self.prev_command == 'instrumentName':
             self.mediator.set_partname(token)
             self.prev_command = ''
 
+    ##
+    # Helper functions
+    ##
+
+    def get_previous_node(self, node):
+        """ returns the nodes previous node
+        or false if the node is first """
+        parent = node.parent()
+        i = parent.index(node)
+        if i > 0:
+            return parent[i-1]
+        else:
+            return False
 
     ##
     # The xml-file is built from the mediator objects

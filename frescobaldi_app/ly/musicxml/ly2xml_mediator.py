@@ -269,16 +269,15 @@ class mediator():
             self.new_bar()
         self.bar.append(barline)
 
-    def new_key(self, key_name, mode_command):
-        mode = mode_command[1:]
+    def new_key(self, key_name, mode):
         if self.bar is None:
             self.new_bar()
         self.current_attr.set_key(get_fifths(key_name, mode), mode)
 
-    def new_time(self, fraction, numeric=False):
+    def new_time(self, num, den, numeric=False):
         if self.bar is None:
             self.new_bar()
-        self.current_attr.set_time(fraction, numeric)
+        self.current_attr.set_time([num, den.denominator], numeric)
 
     def new_clef(self, clefname):
         self.clef = clefname2clef(clefname)
@@ -311,20 +310,15 @@ class mediator():
         self.prev_pitch = self.current_note.pitch
 
     def check_duration(self, dur_tokens):
-        has_looped = False
-        for i, t in enumerate(dur_tokens):
-            has_looped = True
-            if i == 0:
-                self.current_note.set_durtype(t)
-                self.duration = t
-                self.dots = 0
-            elif t == '.':
-                self.current_note.add_dot()
-                self.dots += 1
-        if not has_looped:
+        dur_nr, dots = self.duration_from_tokens(dur_tokens)
+        if dur_nr:
+            self.current_note.set_durtype(dur_nr)
+            self.current_note.dot = dots
+            self.duration = dur_nr
+            self.dots = dots
+        else:
             self.current_note.set_durtype(self.duration)
-            for d in range(self.dots):
-                self.current_note.add_dot()
+            self.current_note.dot = self.dots
 
     def create_chord(self, note_name, pitch_mode):
         if self.new_chord:
@@ -351,7 +345,6 @@ class mediator():
         elif rtype == 'R':
             self.current_note = bar_rest(rest.duration.base_scaling, show_type=False)
         elif rtype == 's' or rtype == '\skip':
-            print("skipping!")
             self.current_note = bar_rest(rest.duration.base_scaling, skip=True)
         self.check_duration(rest.duration.tokens)
         if self.bar is None:
@@ -436,9 +429,12 @@ class mediator():
             self.current_note.set_octave(octave, relative, self.prev_pitch)
             self.set_prev_pitch()
 
-    def new_tempo(self, unit, beats, dots):
+    def new_tempo(self, dur_tokens, tempo, string):
+        unit, dots = self.duration_from_tokens(dur_tokens)
+        beats = tempo[0]
+        text = string.value()
         tempo = bar_attr()
-        tempo.set_tempo(unit, beats, dots)
+        tempo.set_tempo(unit, beats, dots, text)
         if self.bar is None:
             self.new_bar()
         self.bar.append(tempo)
@@ -449,6 +445,16 @@ class mediator():
 
     def set_partname(self, name):
         self.part.name = name
+
+    def duration_from_tokens(self, dur_tokens):
+        dur_nr = 0
+        dots = 0
+        for i, t in enumerate(dur_tokens):
+            if i == 0:
+                dur_nr = t
+            elif t == '.':
+                dots += 1
+        return dur_nr, dots
 
     def check_divs(self, base_scaling, tfraction=0):
         """ The new duration is checked against current divisions """
@@ -515,7 +521,6 @@ class bar_note():
 
     def set_durtype(self, durval):
         self.type = durval2type(durval)
-        print(self.type)
 
     def set_octave(self, relative, prev_pitch=None):
         if relative:
@@ -531,7 +536,7 @@ class bar_note():
         self.tie = tie_type
 
     def add_dot(self):
-        self.dot = self.dot + 1
+        self.dot += 1
 
     def set_grace(self, slash):
         self.grace = [1,slash]
@@ -564,7 +569,6 @@ class bar_rest():
     def set_durtype(self, durval):
         if self.show_type:
             self.type = durval2type(durval)
-            print(self.type)
 
     def add_dot(self):
         self.dot = self.dot + 1
@@ -573,7 +577,7 @@ class bar_rest():
 class bar_attr():
     """ object that keep track of bar attributes, e.g. time sign, clef, key etc """
     def __init__(self):
-        self.key = -1
+        self.key = 0
         self.time = 0
         self.clef = 0
         self.mode = ''
@@ -587,12 +591,12 @@ class bar_attr():
     def set_key(self, muskey, mode):
         self.key = muskey
         self.mode = mode
+        print(self.key, self.mode)
 
-    def set_time(self, fraction, numeric):
-        mustime = fraction.split('/')
-        if not numeric and (fraction == '2/2' or fraction == '4/4'):
-            mustime.append('common')
-        self.time = mustime
+    def set_time(self, fractlist, numeric):
+        self.time = fractlist
+        if not numeric and (fractlist == [2,2] or fractlist == [4,4]):
+            self.time.append('common')
 
     def set_clef(self, clef):
         self.clef = clef
@@ -600,12 +604,12 @@ class bar_attr():
     def set_barline(self, bl):
         self.barline = convert_barl(bl)
 
-    def set_tempo(self, unit, beats, dots):
-        self.tempo = tempo_dir(unit, beats, dots)
+    def set_tempo(self, unit, beats, dots=0, text=""):
+        self.tempo = tempo_dir(unit, beats, dots, text)
 
     def has_attr(self):
         check = False
-        if self.key != -1:
+        if self.key != 0:
             check = True
         elif self.time != 0:
             check = True
@@ -624,7 +628,7 @@ class bar_backup():
 
 class tempo_dir():
     """ Object that stores tempo direction information """
-    def __init__(self, unit, beats, dots, text=""):
+    def __init__(self, unit, beats, dots, text):
         self.metr = durval2type(unit), beats
         self.text = text
         self.midi = self.set_midi_tempo(unit, beats, dots)
