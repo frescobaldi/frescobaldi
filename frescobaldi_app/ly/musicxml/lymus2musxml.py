@@ -36,7 +36,7 @@ from . import create_musicxml
 from . import ly2xml_mediator
 
 #excluded from parsing
-excl_list = ['Version']
+excl_list = ['Version', 'Midi']
 
 class parse_source():
     """ creates the XML-file from the source code according to the Music XML standard """
@@ -68,9 +68,13 @@ class parse_source():
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
         print(mustree.dump())
-        tree_nodes = mustree.iter_music()
-        for m in tree_nodes:
-            #print(m)
+        score = self.get_score(mustree)
+        if score:
+            mus_nodes = self.iter_score(score, mustree)
+        else:
+            mus_nodes = self.find_score_sub(mustree)
+        self.mediator.new_section("untitled") #fallback section
+        for m in mus_nodes:
             func_name = m.__class__.__name__ #get instance name
             print func_name
             if func_name not in excl_list:
@@ -92,9 +96,11 @@ class parse_source():
     # The different source types from ly.music are here sent to translation.
     ##
 
+    def Assignment(self, assignm):
+        print("Warning assignment in score block or corresponding: "+assignm.name())
+
     def MusicList(self, musicList):
-        self.mediator.new_section("new")
-        #print(musicList.preceding())
+        print(musicList.parent())
 
     def Name(self, token):
         """ name of variable """
@@ -192,9 +198,10 @@ class parse_source():
         """ \new """
         self.new = True
 
-    def Context(self, token):
+    def Context(self, context):
         """ \context """
-        self.context = True
+        if context.context() == 'Staff':
+            self.mediator.new_part()
 
     def ContextName(self, token):
         """ Staff, Voice  """
@@ -401,7 +408,7 @@ class parse_source():
             self.prev_command = ''
 
     ##
-    # Helper functions
+    # Additional node manipulation (should be moved to ly.music?)
     ##
 
     def get_previous_node(self, node):
@@ -413,6 +420,29 @@ class parse_source():
             return parent[i-1]
         else:
             return False
+
+    def get_score(self, node):
+        """ returns (first) Score node or false if no Score is found """
+        for n in node:
+            if isinstance(n, ly.music.items.Score):
+                return n
+        return False
+
+    def iter_score(self, scorenode, doc):
+        """Iter over score. Similar to Document.iter_music."""
+        for s in scorenode:
+            n = doc.substitute_for_node(s) or s
+            yield n
+            for n in self.iter_score(n, doc):
+                yield n
+
+    def find_score_sub(self, doc):
+        """Find substitute for scorenode. Takes first music node that isn't
+        an assignment."""
+        for n in doc:
+            if not isinstance(n, ly.music.items.Assignment):
+                if isinstance(n, ly.music.items.Music):
+                    return self.iter_score(n, doc)
 
     ##
     # The xml-file is built from the mediator objects
