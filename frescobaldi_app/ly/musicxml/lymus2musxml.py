@@ -444,7 +444,7 @@ class parse_source():
                         if obj.tempo:
                             self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
                     elif isinstance(obj, ly2xml_mediator.bar_note):
-                        self.musxml.new_note(obj.grace, [obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration,
+                        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.duration,
                         obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                         if obj.tie:
                             self.musxml.tie_note(obj.tie)

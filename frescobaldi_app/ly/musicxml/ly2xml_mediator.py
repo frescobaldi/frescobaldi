@@ -500,6 +500,7 @@ class bar_note():
     def __init__(self, note):
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
+        self.alter = note.pitch.alter*2
         if note.duration:
             self.duration = note.duration.base_scaling
         self.type = None
