@@ -283,6 +283,9 @@ class parse_source():
         if note.length():
             print(note.duration.tokens)
             self.mediator.new_note(note, self.relative)
+            if self.tuplet:
+                self.mediator.change_to_tuplet(self.fraction, self.ttype)
+                self.ttype = ""
         else:
             if isinstance(note.parent(), ly.music.items.Relative):
                 print("setting relative")
@@ -357,6 +360,13 @@ class parse_source():
         else:
             self.mediator.scale_duration(token)
 
+    def Scaler(self, scaler):
+        """ Tuplets, and ??"""
+        if scaler.token == '\\tuplet':
+            self.tuplet = True
+            self.ttype = "start"
+            self.fraction = scaler.scaling
+
     def TimeSignature(self, timeSign):
         self.mediator.new_time(timeSign.numerator(), timeSign.fraction(), self.numericTime)
 
@@ -417,7 +427,12 @@ class parse_source():
             self.prev_command = ''
 
     def End(self, end):
-        print(end.node)
+        if end.node == '\\tuplet':
+            self.mediator.change_to_tuplet(self.fraction, "stop")
+            self.tuplet = False
+            self.fraction = None
+        else:
+            print(end.node)
 
     ##
     # Additional node manipulation

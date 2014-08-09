@@ -389,8 +389,9 @@ class mediator():
 
     def change_to_tuplet(self, fraction, ttype):
         tfraction = Fraction(fraction)
-        tfraction = 1/tfraction # delete this row with new tuplet notation
+        tfraction = 1/tfraction
         self.current_note.set_tuplet(tfraction, ttype)
+        self.check_divs(self.current_note.duration, tfraction)
 
     def new_dot(self):
         self.current_note.add_dot()
