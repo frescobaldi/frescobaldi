@@ -38,6 +38,12 @@ from . import ly2xml_mediator
 #excluded from parsing
 excl_list = ['Version', 'Midi']
 
+class End():
+    """ Extra class that gives information about the end of Container
+    elements in the node list. """
+    def __init__(self, node):
+        self.node = node
+
 class parse_source():
     """ creates the XML-file from the source code according to the Music XML standard """
 
@@ -100,7 +106,8 @@ class parse_source():
         print("Warning assignment in score block or corresponding: "+assignm.name())
 
     def MusicList(self, musicList):
-        print(musicList.parent())
+        if musicList.token == '<<':
+            print("<<")
 
     def Name(self, token):
         """ name of variable """
@@ -268,7 +275,8 @@ class parse_source():
             self.prev_command = "key"
 
     def Relative(self, relative):
-        self.relative = True
+        #self.relative = True
+        pass
 
     def Note(self, note):
         """ notename, e.g. c, cis, a bes ... """
@@ -279,6 +287,7 @@ class parse_source():
             if isinstance(note.parent(), ly.music.items.Relative):
                 print("setting relative")
                 self.mediator.set_relative(note)
+                self.relative = True
 
     def Octave(self, token):
         """ a number of , or ' """
@@ -407,8 +416,11 @@ class parse_source():
             self.mediator.set_partname(token)
             self.prev_command = ''
 
+    def End(self, end):
+        print(end.node)
+
     ##
-    # Additional node manipulation (should be moved to ly.music?)
+    # Additional node manipulation
     ##
 
     def get_previous_node(self, node):
@@ -435,6 +447,8 @@ class parse_source():
             yield n
             for n in self.iter_score(n, doc):
                 yield n
+        if isinstance(scorenode, ly.music.items.Container):
+            yield End(scorenode.token)
 
     def find_score_sub(self, doc):
         """Find substitute for scorenode. Takes first music node that isn't
