@@ -82,7 +82,7 @@ class parse_source():
         self.mediator.new_section("untitled") #fallback section
         for m in mus_nodes:
             func_name = m.__class__.__name__ #get instance name
-            print func_name
+            #print func_name
             if func_name not in excl_list:
                 try:
                     func_call = getattr(self, func_name)
@@ -281,7 +281,6 @@ class parse_source():
     def Note(self, note):
         """ notename, e.g. c, cis, a bes ... """
         if note.length():
-            print(note.duration.tokens)
             self.mediator.new_note(note, self.relative)
             if self.tuplet:
                 self.mediator.change_to_tuplet(self.fraction, self.ttype)

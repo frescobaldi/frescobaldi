@@ -342,11 +342,12 @@ class mediator():
         rtype = rest.token
         if rtype == 'r':
             self.current_note = bar_rest(rest.duration.base_scaling)
+            self.check_duration(rest.duration.tokens)
         elif rtype == 'R':
             self.current_note = bar_rest(rest.duration.base_scaling, show_type=False)
         elif rtype == 's' or rtype == '\skip':
             self.current_note = bar_rest(rest.duration.base_scaling, skip=True)
-        self.check_duration(rest.duration.tokens)
+            self.check_duration(rest.duration.tokens)
         if self.bar is None:
             self.new_bar()
         self.bar.append(self.current_note)
@@ -463,7 +464,7 @@ class mediator():
         scaling = base_scaling[1]
         divs = self.divisions
         if scaling != 1:
-            tfraction = scaling
+            tfraction = 1/scaling
         if(not tfraction):
             a = 4
             if base:
@@ -593,7 +594,6 @@ class bar_attr():
     def set_key(self, muskey, mode):
         self.key = muskey
         self.mode = mode
-        print(self.key, self.mode)
 
     def set_time(self, fractlist, numeric):
         self.time = fractlist
