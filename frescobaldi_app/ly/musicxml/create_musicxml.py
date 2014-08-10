@@ -191,7 +191,7 @@ class create_musicXML():
             altnode = etree.SubElement(pitch, "alter")
             altnode.text = str(alter)
         octnode = etree.SubElement(pitch, "octave")
-        octnode.text = str(octave)
+        octnode.text = str(octave+3)
 
     def add_accidental(self, alter):
         """ create accidental """

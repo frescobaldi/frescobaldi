@@ -198,6 +198,13 @@ class parse_source():
         """ > """
         self.is_chord = False
 
+    def Chord(self, chord):
+        self.mediator.clear_chord()
+        self.prev_chord = []
+
+    def Q(self, q):
+        self.mediator.copy_prev_chord(q.duration, self.relative)
+
     def Score(self, token):
         self.new_context = "score"
 
@@ -290,6 +297,8 @@ class parse_source():
                 print("setting relative")
                 self.mediator.set_relative(note)
                 self.relative = True
+            elif isinstance(note.parent(), ly.music.items.Chord):
+                self.mediator.new_chord(note, note.parent().duration, self.relative)
 
     def Octave(self, token):
         """ a number of , or ' """
@@ -431,7 +440,7 @@ class parse_source():
             self.tuplet = False
             self.fraction = None
         else:
-            print(end.node)
+            print("end:"+end.node)
 
     ##
     # Additional node manipulation

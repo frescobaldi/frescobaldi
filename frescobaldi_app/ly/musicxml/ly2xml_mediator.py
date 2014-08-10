@@ -45,7 +45,6 @@ class mediator():
         self.tied = False
         self.voice = 1
         self.current_chord = []
-        self.new_chord = True
         self.prev_pitch = None
 
     def new_section(self, name):
@@ -295,7 +294,7 @@ class mediator():
         self.prev_pitch = ly.pitch.Pitch(p.note, p.alter, p.octave)
 
     def new_note(self, note, rel=False):
-        self.current_chord = []
+        self.clear_chord()
         self.current_note = bar_note(note)
         self.current_note.set_octave(rel, self.prev_pitch)
         self.check_divs(note.duration.base_scaling)
@@ -320,25 +319,49 @@ class mediator():
             self.current_note.set_durtype(self.duration)
             self.current_note.dot = self.dots
 
-    def create_chord(self, note_name, pitch_mode):
-        if self.new_chord:
-            self.new_note(note_name, pitch_mode)
+    def new_chord(self, note, duration, rel=False):
+        if not self.current_chord:
+            self.new_chordbase(note, duration, rel)
             self.current_chord.append(self.current_note)
         else:
-            self.current_chord.append(self.new_chordnote(note_name, pitch_mode, len(self.current_chord)))
+            self.current_chord.append(self.new_chordnote(note, rel))
 
-    def new_chordnote(self, note_name, pitch_mode, chord_len):
-        chord_note = bar_note(note_name, self.base_scaling, self.duration, self.voice)
-        if self.dots:
-            chord_note.dot = self.dots
-        if pitch_mode == 'rel':
-            chord_note.set_octave("", True, self.current_chord[chord_len-1].pitch)
+    def new_chordbase(self, note, duration, rel=False):
+        self.current_note = bar_note(note)
+        self.current_note.set_octave(rel, self.prev_pitch)
+        self.current_note.set_duration(duration.base_scaling)
+        self.check_divs(duration.base_scaling)
+        self.check_duration(duration.tokens)
+        if self.tied:
+            self.current_note.set_tie('stop')
+            self.tied = False
+        if self.bar is None:
+            self.new_bar()
+        self.bar.append(self.current_note)
+        self.current_attr = bar_attr()
+        self.prev_pitch = self.current_note.pitch
+
+    def new_chordnote(self, note, rel):
+        chord_note = bar_note(note)
+        chord_note.set_duration(self.current_note.duration)
+        chord_note.set_durtype(self.duration)
+        chord_note.dots = self.dots
+        chord_note.set_octave(rel, self.current_chord[-1].pitch)
         chord_note.chord = True
         self.bar.append(chord_note)
         return chord_note
 
-    def new_rest(self, rest):
+    def copy_prev_chord(self, duration, rel):
+        prev_chord = self.current_chord
+        self.clear_chord()
+        for pc in prev_chord:
+            self.new_chord(pc.note, duration, rel)
+
+    def clear_chord(self):
         self.current_chord = []
+
+    def new_rest(self, rest):
+        self.clear_chord()
         rtype = rest.token
         if rtype == 'r':
             self.current_note = bar_rest(rest.duration.base_scaling)
@@ -500,6 +523,7 @@ class score_section():
 class bar_note():
     """ object to keep track of note parameters """
     def __init__(self, note):
+        self.note = note
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
         self.alter = note.pitch.alter*2
@@ -528,8 +552,6 @@ class bar_note():
     def set_octave(self, relative, prev_pitch=None):
         if relative:
             self.pitch.makeAbsolute(prev_pitch)
-        else:
-            self.pitch.octave += 3 #adjusting to scientific pitch notation
 
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
@@ -574,7 +596,7 @@ class bar_rest():
             self.type = durval2type(durval)
 
     def add_dot(self):
-        self.dot = self.dot + 1
+        self.dot += 1
 
 
 class bar_attr():
