@@ -89,7 +89,7 @@ class parse_source():
                     func_call(m)
                 except AttributeError as ae:
                     print "Warning: "+func_name+" not implemented!"
-                    print ae
+                    print(ae)
                     pass
 
     def musicxml(self, prettyprint=True):
@@ -287,6 +287,7 @@ class parse_source():
 
     def Note(self, note):
         """ notename, e.g. c, cis, a bes ... """
+        print(note.token)
         if note.length():
             self.mediator.new_note(note, self.relative)
             if self.tuplet:
@@ -393,8 +394,11 @@ class parse_source():
     def Keyword(self, token):
         self.prev_command = token
 
-    def Repeat(self, token):
-        self.prev_command = "repeat"
+    def Repeat(self, repeat):
+        if repeat.specifier() == 'volta':
+            self.mediator.new_repeat('forward')
+        elif repeat.specifier() == 'unfold':
+            self.mediator.new_snippet('unfold')
 
     def Command(self, command):
         """ \bar, \rest etc """
@@ -435,12 +439,18 @@ class parse_source():
             self.prev_command = ''
 
     def End(self, end):
-        if end.node == '\\tuplet':
+        if end.node.token == '\\tuplet':
             self.mediator.change_to_tuplet(self.fraction, "stop")
             self.tuplet = False
             self.fraction = None
+        elif end.node.token == '\\repeat':
+            if end.node.specifier() == 'volta':
+                self.mediator.new_repeat('backward')
+            elif end.node.specifier() == 'unfold':
+                for n in range(end.node.repeat_count()):
+                    self.mediator.merge_snippet('unfold')
         else:
-            print("end:"+end.node)
+            print("end:"+end.node.token)
 
     ##
     # Additional node manipulation
@@ -471,7 +481,7 @@ class parse_source():
             for n in self.iter_score(n, doc):
                 yield n
         if isinstance(scorenode, ly.music.items.Container):
-            yield End(scorenode.token)
+            yield End(scorenode)
 
     def find_score_sub(self, doc):
         """Find substitute for scorenode. Takes first music node that isn't
@@ -495,7 +505,7 @@ class parse_source():
                 print "Warning: empty part: "+part.name
             for bar in part.barlist:
                 self.musxml.create_measure()
-                for obj in bar:
+                for obj in bar.obj_list:
                     if isinstance(obj, ly2xml_mediator.bar_attr):
                         if obj.has_attr():
                             self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)

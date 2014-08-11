@@ -56,6 +56,15 @@ class mediator():
         self.sections.append(section)
         self.bar = None
 
+    def new_snippet(self, name):
+        n = self.get_var_byname(name)
+        if n:
+            n.name = name+"-old"
+        snippet = Snippet(name, self.insert_into)
+        self.insert_into = snippet
+        self.sections.append(snippet)
+        self.bar = None
+
     def get_var_byname(self, name):
         for n in self.sections:
             if n.name == name:
@@ -74,7 +83,23 @@ class mediator():
         self.voice = get_voice(command)
         return self.voice
 
-    def merge_variable(self, voice, varname, staff=False, org=None):
+    def continue_barlist(self, insert_into):
+        self.insert_into = insert_into
+        if insert_into.barlist:
+            self.bar = insert_into.barlist[-1]
+        else:
+            self.new_bar(False)
+
+    def merge_snippet(self, snippet_name, voice=1):
+        snippet = self.get_var_byname(snippet_name)
+        self.continue_barlist(snippet.merge_barlist)
+        for bb in snippet.barlist:
+            for b in bb.obj_list:
+                self.bar.add(b)
+            if bb.list_full:
+                self.new_bar()
+
+    def merge_variable(self, varname, voice=1, staff=False, org=None):
         """ Fetches variable as new voice """
         if org:
             merge_org = self.get_var_byname(org)
@@ -188,7 +213,7 @@ class mediator():
         """ Check if barlist in variable is suitable for insert.
         For now if variable contains notes full bars are assumed."""
         for bar in barlist:
-            for obj in bar:
+            for obj in bar.obj_list:
                 if isinstance(obj, bar_note):
                     return True
         return False
@@ -219,21 +244,21 @@ class mediator():
         iniclef = 'G',2,0
         if not self.check_time(part.barlist[0]):
             try:
-                part.barlist[0][0].set_time(initime, False)
+                part.barlist[0].obj_list[0].set_time(initime, False)
             except AttributeError:
                 print "Warning can't set initial time sign!"
         if not self.check_clef(part.barlist[0]):
             try:
-                part.barlist[0][0].set_clef(iniclef)
+                part.barlist[0].obj_list[0].set_clef(iniclef)
             except AttributeError:
                 print "Warning can't set initial clef sign!"
-        part.barlist[0][0].divs = self.divisions
+        part.barlist[0].obj_list[0].divs = self.divisions
         if part.staves:
-            part.barlist[0][0].staves = part.staves
+            part.barlist[0].obj_list[0].staves = part.staves
 
     def check_time(self, bar):
         """ For now used to check first bar """
-        for obj in bar:
+        for obj in bar.obj_list:
             if isinstance(obj, bar_attr):
                 if obj.time:
                     return True
@@ -242,22 +267,31 @@ class mediator():
 
     def check_clef(self, bar):
         """ For now used to check first bar """
-        for obj in bar:
+        for obj in bar.obj_list:
             if isinstance(obj, bar_attr):
                 if obj.clef or obj.multiclef:
                     return True
             if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
                 return False
 
-    def new_bar(self):
+    def new_bar(self, fill_prev=True):
+        if self.bar and fill_prev:
+            self.bar.list_full = True
         self.current_attr = bar_attr()
-        self.bar = [self.current_attr]
+        self.bar = Bar()
+        self.bar.obj_list = [self.current_attr]
         self.insert_into.barlist.append(self.bar)
+
+    def add_to_bar(self, obj):
+        if self.bar is None:
+            self.new_bar()
+        self.bar.add(obj)
+        self.current_attr = bar_attr()
 
     def create_barline(self, bl):
         barline = bar_attr()
         barline.set_barline(bl)
-        self.bar.append(barline)
+        self.bar.add(barline)
         self.new_bar()
 
     def new_repeat(self, rep):
@@ -266,7 +300,7 @@ class mediator():
         barline.repeat = rep
         if self.bar is None:
             self.new_bar()
-        self.bar.append(barline)
+        self.bar.add(barline)
 
     def new_key(self, key_name, mode):
         if self.bar is None:
@@ -302,10 +336,7 @@ class mediator():
         if self.tied:
             self.current_note.set_tie('stop')
             self.tied = False
-        if self.bar is None:
-            self.new_bar()
-        self.bar.append(self.current_note)
-        self.current_attr = bar_attr()
+        self.add_to_bar(self.current_note)
         self.prev_pitch = self.current_note.pitch
 
     def check_duration(self, dur_tokens):
@@ -335,10 +366,7 @@ class mediator():
         if self.tied:
             self.current_note.set_tie('stop')
             self.tied = False
-        if self.bar is None:
-            self.new_bar()
-        self.bar.append(self.current_note)
-        self.current_attr = bar_attr()
+        self.add_to_bar(self.current_note)
         self.prev_pitch = self.current_note.pitch
 
     def new_chordnote(self, note, rel):
@@ -348,7 +376,7 @@ class mediator():
         chord_note.dots = self.dots
         chord_note.set_octave(rel, self.current_chord[-1].pitch)
         chord_note.chord = True
-        self.bar.append(chord_note)
+        self.bar.add(chord_note)
         return chord_note
 
     def copy_prev_chord(self, duration, rel):
@@ -371,17 +399,14 @@ class mediator():
         elif rtype == 's' or rtype == '\skip':
             self.current_note = bar_rest(rest.duration.base_scaling, skip=True)
             self.check_duration(rest.duration.tokens)
-        if self.bar is None:
-            self.new_bar()
-        self.bar.append(self.current_note)
-        self.current_attr = bar_attr()
+        self.add_to_bar(self.current_note)
 
     def note2rest(self):
         """ note used as rest position transformed to rest"""
         temp_note = self.current_note
         self.current_note = bar_rest(temp_note.duration, pos = [temp_note.base_note, temp_note.pitch.octave])
         self.bar.pop()
-        self.bar.append(self.current_note)
+        self.bar.add(self.current_note)
 
     def scale_rest(self, multp, new_bar=False):
         """ create multiple whole bar rests """
@@ -462,7 +487,7 @@ class mediator():
         tempo.set_tempo(unit, beats, dots, text)
         if self.bar is None:
             self.new_bar()
-        self.bar.append(tempo)
+        self.bar.add(tempo)
 
     def new_from_command(self, command):
         #print (command)
@@ -519,6 +544,23 @@ class score_section():
     def __init__(self, name):
         self.name = name
         self.barlist = []
+
+class Snippet(score_section):
+    """ Short section indended to be merged.
+    Holds reference to the barlist to be merged into."""
+    def __init__(self, name, merge_into):
+        score_section.__init__(self, name)
+        self.merge_barlist = merge_into
+
+class Bar():
+    """ Representing the bar/measure.
+    Contains also information about how complete it is."""
+    def __init__(self):
+        self.obj_list = []
+        self.list_full = False
+
+    def add(self, obj):
+        self.obj_list.append(obj)
 
 class bar_note():
     """ object to keep track of note parameters """
