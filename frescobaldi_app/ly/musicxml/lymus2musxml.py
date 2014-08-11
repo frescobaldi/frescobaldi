@@ -79,7 +79,7 @@ class parse_source():
             mus_nodes = self.iter_score(score, mustree)
         else:
             mus_nodes = self.find_score_sub(mustree)
-        self.mediator.new_section("untitled") #fallback section
+        self.mediator.new_section("fallback") #fallback section
         for m in mus_nodes:
             func_name = m.__class__.__name__ #get instance name
             #print func_name
@@ -107,7 +107,8 @@ class parse_source():
 
     def MusicList(self, musicList):
         if musicList.token == '<<':
-            print("<<")
+            if not isinstance(musicList.music_parent(), ly.music.items.Context):
+                self.mediator.new_snippet('voice')
 
     def Name(self, token):
         """ name of variable """
@@ -216,6 +217,15 @@ class parse_source():
         """ \context """
         if context.context() == 'Staff':
             self.mediator.new_part()
+        elif context.context() == 'Voice':
+            if context.context_id():
+                self.mediator.new_section(context.context_id())
+            else:
+                self.mediator.new_section('voice')
+
+    def VoiceSeparator(self, voice_sep):
+        self.mediator.new_snippet('voice')
+        self.mediator.new_voice(add=True)
 
     def ContextName(self, token):
         """ Staff, Voice  """
@@ -410,9 +420,7 @@ class parse_source():
         elif command.token == '\\defaultTimeSignature':
             self.numericTime = False
         elif command.token.find('voice') == 1:
-            self.voicenr = self.mediator.new_voice(token[1:])
-        elif self.prev_command != '\\numericTimeSignature':
-            self.prev_command = command.token
+            self.voicenr = self.mediator.new_voice(command.token[1:])
 
     def UserCommand(self, token):
         if self.prev_command == 'key':
@@ -448,7 +456,16 @@ class parse_source():
                 self.mediator.new_repeat('backward')
             elif end.node.specifier() == 'unfold':
                 for n in range(end.node.repeat_count()):
-                    self.mediator.merge_snippet('unfold')
+                    self.mediator.add_snippet('unfold')
+        elif end.node.token == '\\new':
+            if end.node.context() == 'Voice':
+                self.mediator.check_voices()
+            elif end.node.context() == 'Staff':
+                self.mediator.check_part()
+        elif end.node.token == '<<':
+            if not isinstance(end.node.music_parent(), ly.music.items.Context):
+                self.mediator.check_voices_by_nr()
+                self.mediator.voice = 1
         else:
             print("end:"+end.node.token)
 

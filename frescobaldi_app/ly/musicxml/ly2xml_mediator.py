@@ -79,9 +79,13 @@ class mediator():
         self.insert_into = self.part
         self.bar = None
 
-    def new_voice(self, command):
-        self.voice = get_voice(command)
-        return self.voice
+    def new_voice(self, command=None, add=False, nr=0):
+        if add:
+            self.voice += 1
+        elif nr:
+            self.voice = nr
+        else:
+            self.voice = get_voice(command)
 
     def continue_barlist(self, insert_into):
         self.insert_into = insert_into
@@ -90,7 +94,7 @@ class mediator():
         else:
             self.new_bar(False)
 
-    def merge_snippet(self, snippet_name, voice=1):
+    def add_snippet(self, snippet_name):
         snippet = self.get_var_byname(snippet_name)
         self.continue_barlist(snippet.merge_barlist)
         for bb in snippet.barlist:
@@ -157,27 +161,6 @@ class mediator():
                     if del_barattr:
                         bar.remove(obj)
 
-    def create_backup(self, bar):
-        b = 0
-        s = 1
-        for obj in bar:
-            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
-                if not obj.chord:
-                    if obj.dot:
-                        import math
-                        den = int(math.pow(2,obj.dot))
-                        num = int(math.pow(2,obj.dot+1)-1)
-                        b += Fraction(num, den)*obj.duration[0]
-                    else:
-                        b += obj.duration[0]
-                    s *= obj.duration[1]
-            elif isinstance(obj, bar_backup):
-                self.check_divs(b, s)
-                return bar_backup([b,s])
-        if b:
-            self.check_divs(b, s)
-        return bar_backup((b,s))
-
     def copy_barlist(self, barlist):
         """ Make copy of barlist to preserve original.
             Use before for example changing voice.
@@ -227,6 +210,35 @@ class mediator():
                 if not obj.skip:
                     return True
         return False
+
+    def check_voices(self):
+        if len(self.sections)>2:
+            self.sections[1].merge_voice(self.sections[-1])
+            self.sections.pop()
+
+    def check_voices_by_nr(self):
+        sect_len = len(self.sections)
+        print(sect_len)
+        if sect_len>2:
+            print(self.voice)
+            if self.voice>1:
+                for n in range(sect_len):
+                    self.check_voices()
+                self.add_snippet(self.sections[1].name)
+            else: # just parallell without voices
+                self.check_part()
+                for n in range(2,sect_len):
+                    print(n)
+                    self.new_part()
+                    self.part.barlist.extend(self.sections[1].barlist)
+                    self.sections.pop()
+
+    def check_part(self):
+        if len(self.sections)>1:
+            if not self.score:
+                self.new_part()
+            self.part.barlist.extend(self.sections[1].barlist)
+            self.sections.pop()
 
     def check_score(self):
         """ if no part were created, place first variable as part. """
@@ -329,7 +341,7 @@ class mediator():
 
     def new_note(self, note, rel=False):
         self.clear_chord()
-        self.current_note = bar_note(note)
+        self.current_note = bar_note(note, self.voice)
         self.current_note.set_octave(rel, self.prev_pitch)
         self.check_divs(note.duration.base_scaling)
         self.check_duration(note.duration.tokens)
@@ -358,7 +370,7 @@ class mediator():
             self.current_chord.append(self.new_chordnote(note, rel))
 
     def new_chordbase(self, note, duration, rel=False):
-        self.current_note = bar_note(note)
+        self.current_note = bar_note(note, self.voice)
         self.current_note.set_octave(rel, self.prev_pitch)
         self.current_note.set_duration(duration.base_scaling)
         self.check_divs(duration.base_scaling)
@@ -370,7 +382,7 @@ class mediator():
         self.prev_pitch = self.current_note.pitch
 
     def new_chordnote(self, note, rel):
-        chord_note = bar_note(note)
+        chord_note = bar_note(note, self.voice)
         chord_note.set_duration(self.current_note.duration)
         chord_note.set_durtype(self.duration)
         chord_note.dots = self.dots
@@ -392,19 +404,19 @@ class mediator():
         self.clear_chord()
         rtype = rest.token
         if rtype == 'r':
-            self.current_note = bar_rest(rest.duration.base_scaling)
+            self.current_note = bar_rest(rest.duration.base_scaling, self.voice)
             self.check_duration(rest.duration.tokens)
         elif rtype == 'R':
-            self.current_note = bar_rest(rest.duration.base_scaling, show_type=False)
+            self.current_note = bar_rest(rest.duration.base_scaling, self.voice, show_type=False)
         elif rtype == 's' or rtype == '\skip':
-            self.current_note = bar_rest(rest.duration.base_scaling, skip=True)
+            self.current_note = bar_rest(rest.duration.base_scaling, self.voice, skip=True)
             self.check_duration(rest.duration.tokens)
         self.add_to_bar(self.current_note)
 
     def note2rest(self):
         """ note used as rest position transformed to rest"""
         temp_note = self.current_note
-        self.current_note = bar_rest(temp_note.duration, pos = [temp_note.base_note, temp_note.pitch.octave])
+        self.current_note = bar_rest(temp_note.duration, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
         self.bar.pop()
         self.bar.add(self.current_note)
 
@@ -545,6 +557,10 @@ class score_section():
         self.name = name
         self.barlist = []
 
+    def merge_voice(self, voice):
+        for org_v, add_v in zip(self.barlist, voice.barlist):
+            org_v.inject_voice(add_v)
+
 class Snippet(score_section):
     """ Short section indended to be merged.
     Holds reference to the barlist to be merged into."""
@@ -562,9 +578,30 @@ class Bar():
     def add(self, obj):
         self.obj_list.append(obj)
 
+    def create_backup(self):
+        """ Calculate and create backup object."""
+        b = 0
+        s = 1
+        for obj in self.obj_list:
+            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
+                if not obj.chord:
+                    b += obj.duration[0]
+                    s *= obj.duration[1]
+            elif isinstance(obj, bar_backup):
+                break
+        return bar_backup((b,s))
+
+    def inject_voice(self, new_voice):
+        """ Adding new voice to bar.
+        Omitting bar attributes in voice."""
+        self.add(self.create_backup())
+        for nv in new_voice.obj_list:
+            if not isinstance(nv, bar_attr):
+                self.obj_list.append(nv)
+
 class bar_note():
     """ object to keep track of note parameters """
-    def __init__(self, note):
+    def __init__(self, note, voice=1):
         self.note = note
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
@@ -577,7 +614,7 @@ class bar_note():
         self.tie = 0
         self.grace = [0,0]
         self.tremolo = 0
-        self.voice = 1
+        self.voice = voice
         self.staff = 0
         self.chord = False
         self.skip = False
@@ -613,7 +650,7 @@ class bar_note():
 
 class bar_rest():
     """ object to keep track of different rests and skips """
-    def __init__(self, duration, show_type=True, skip=False, pos=0):
+    def __init__(self, duration, voice=1, show_type=True, skip=False, pos=0):
         self.duration = duration
         self.show_type = show_type
         self.type = None
@@ -621,7 +658,7 @@ class bar_rest():
         self.tuplet = 0
         self.dot = 0
         self.pos = pos
-        self.voice = 1
+        self.voice = voice
         self.staff = 0
         self.chord = False
 
