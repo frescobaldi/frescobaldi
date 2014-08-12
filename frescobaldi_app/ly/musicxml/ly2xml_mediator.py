@@ -47,24 +47,28 @@ class mediator():
         self.staff = 0
         self.current_chord = []
         self.prev_pitch = None
+        self.store_voicenr = 0
 
     def new_section(self, name):
-        n = self.get_var_byname(name)
-        if n:
-            n.name = name+"-old"
+        name = self.check_name(name)
         section = score_section(name)
         self.insert_into = section
         self.sections.append(section)
         self.bar = None
 
     def new_snippet(self, name):
-        n = self.get_var_byname(name)
-        if n:
-            n.name = name+"-old"
+        name = self.check_name(name)
         snippet = Snippet(name, self.insert_into)
         self.insert_into = snippet
         self.sections.append(snippet)
         self.bar = None
+
+    def check_name(self, name, nr=1):
+        n = self.get_var_byname(name)
+        if n:
+            name = name+str(nr)
+            name = self.check_name(name, nr+1)
+        return name
 
     def get_var_byname(self, name):
         for n in self.sections:
@@ -82,6 +86,8 @@ class mediator():
 
     def set_voicenr(self, command=None, add=False, nr=0, piano=0):
         if add:
+            if not self.store_voicenr:
+                self.store_voicenr = self.voice
             self.voice += 1
         elif nr:
             self.voice = nr
@@ -89,6 +95,10 @@ class mediator():
             self.voice = get_voice(command)
             if piano>1:
                 self.voice += piano+3
+
+    def revert_voicenr(self):
+        self.voice = self.store_voicenr
+        self.store_voicenr = 0
 
     def set_staffnr(self, staffnr):
         self.staff = staffnr
@@ -219,28 +229,26 @@ class mediator():
 
     def check_voices(self):
         if len(self.sections)>2:
-            self.sections[1].merge_voice(self.sections[-1])
+            self.sections[-2].merge_voice(self.sections[-1])
             self.sections.pop()
 
     def check_voices_by_nr(self):
         sect_len = len(self.sections)
         if sect_len>2:
             if self.voice>1:
-                for n in range(sect_len):
+                for n in range(self.store_voicenr, self.voice):
                     self.check_voices()
-                self.add_snippet(self.sections[1].name)
-            else: # just parallell without voices
-                self.check_part()
-                for n in range(2,sect_len):
-                    self.new_part()
-                    self.part.barlist.extend(self.sections[1].barlist)
+                if isinstance(self.sections[-1], Snippet):
+                    self.add_snippet(self.sections[-1].name)
                     self.sections.pop()
+                else:
+                    print("WARNING: problem adding snippet!")
 
     def check_part(self):
         if len(self.sections)>1:
             if not self.score:
                 self.new_part()
-            self.part.barlist.extend(self.sections[1].barlist)
+            self.part.barlist.extend(self.sections[-1].barlist)
             self.sections.pop()
 
     def check_score(self):

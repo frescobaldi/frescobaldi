@@ -70,6 +70,7 @@ class parse_source():
         self.new_tempo = 0
         self.tempo_dots = 0
         self.numericTime = False
+        self.voice_sep = False
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -107,8 +108,9 @@ class parse_source():
 
     def MusicList(self, musicList):
         if musicList.token == '<<':
-            pass
-            #self.mediator.new_snippet('sim')
+            if self.look_ahead(musicList, ly.music.items.VoiceSeparator):
+                self.mediator.new_snippet('sim')
+                self.voice_sep = True
 
     def Name(self, token):
         """ name of variable """
@@ -234,7 +236,7 @@ class parse_source():
                 self.mediator.new_section('voice')
 
     def VoiceSeparator(self, voice_sep):
-        self.mediator.new_snippet('voice')
+        self.mediator.new_snippet('sim')
         self.mediator.set_voicenr(add=True)
 
     def ContextName(self, token):
@@ -486,9 +488,10 @@ class parse_source():
                 self.piano_staff = 0
                 self.mediator.set_voicenr(nr=1)
         elif end.node.token == '<<':
-                print(end.node.token)
-                #self.mediator.check_voices_by_nr()
-                #self.mediator.voice = 1
+            if self.voice_sep:
+                self.mediator.check_voices_by_nr()
+                self.mediator.revert_voicenr()
+                self.voice_sep = False
         else:
             print("end:"+end.node.token)
 
@@ -530,6 +533,14 @@ class parse_source():
             if not isinstance(n, ly.music.items.Assignment):
                 if isinstance(n, ly.music.items.Music):
                     return self.iter_score(n, doc)
+
+    def look_ahead(self, node, find_node):
+        """Looks ahead in a container node and returns True
+        if the search is successful."""
+        for n in node:
+            if isinstance(n, find_node):
+                return True
+        return False
 
     ##
     # The xml-file is built from the mediator objects
