@@ -61,7 +61,7 @@ class parse_source():
         self.context = False
         self.voicenr = None
         self.voicecontext = False
-        self.piano_staff = -1
+        self.piano_staff = 0
         self.sim_list = []
         self.seq_list = []
         self.new_context = None
@@ -107,8 +107,8 @@ class parse_source():
 
     def MusicList(self, musicList):
         if musicList.token == '<<':
-            if not isinstance(musicList.music_parent(), ly.music.items.Context):
-                self.mediator.new_snippet('voice')
+            pass
+            #self.mediator.new_snippet('sim')
 
     def Name(self, token):
         """ name of variable """
@@ -215,8 +215,18 @@ class parse_source():
 
     def Context(self, context):
         """ \context """
-        if context.context() == 'Staff':
-            self.mediator.new_part()
+        if context.context() in ['PianoStaff', 'GrandStaff']:
+            self.mediator.new_part(piano=True)
+            self.piano_staff = 1
+        elif context.context() == 'Staff':
+            if self.piano_staff:
+                if self.piano_staff > 1:
+                    self.mediator.set_voicenr(nr=self.piano_staff+3)
+                self.mediator.new_section('piano-staff'+str(self.piano_staff))
+                self.mediator.set_staffnr(self.piano_staff)
+                self.piano_staff += 1
+            else:
+                self.mediator.new_part()
         elif context.context() == 'Voice':
             if context.context_id():
                 self.mediator.new_section(context.context_id())
@@ -225,7 +235,7 @@ class parse_source():
 
     def VoiceSeparator(self, voice_sep):
         self.mediator.new_snippet('voice')
-        self.mediator.new_voice(add=True)
+        self.mediator.set_voicenr(add=True)
 
     def ContextName(self, token):
         """ Staff, Voice  """
@@ -303,6 +313,8 @@ class parse_source():
             if self.tuplet:
                 self.mediator.change_to_tuplet(self.fraction, self.ttype)
                 self.ttype = ""
+            if self.grace_seq:
+                self.mediator.new_grace()
         else:
             if isinstance(note.parent(), ly.music.items.Relative):
                 print("setting relative")
@@ -386,6 +398,9 @@ class parse_source():
             self.ttype = "start"
             self.fraction = scaler.scaling
 
+    def Grace(self, grace):
+        self.grace_seq = True
+
     def TimeSignature(self, timeSign):
         self.mediator.new_time(timeSign.numerator(), timeSign.fraction(), self.numericTime)
 
@@ -420,7 +435,7 @@ class parse_source():
         elif command.token == '\\defaultTimeSignature':
             self.numericTime = False
         elif command.token.find('voice') == 1:
-            self.voicenr = self.mediator.new_voice(command.token[1:])
+            self.voicenr = self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
 
     def UserCommand(self, token):
         if self.prev_command == 'key':
@@ -451,6 +466,8 @@ class parse_source():
             self.mediator.change_to_tuplet(self.fraction, "stop")
             self.tuplet = False
             self.fraction = None
+        elif isinstance(end.node, ly.music.items.Grace): #Grace
+            self.grace_seq = False
         elif end.node.token == '\\repeat':
             if end.node.specifier() == 'volta':
                 self.mediator.new_repeat('backward')
@@ -461,11 +478,17 @@ class parse_source():
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
             elif end.node.context() == 'Staff':
+                if not self.piano_staff:
+                    self.mediator.check_part()
+            elif end.node.context() in ['PianoStaff', 'GrandStaff']:
+                self.mediator.check_voices()
                 self.mediator.check_part()
+                self.piano_staff = 0
+                self.mediator.set_voicenr(nr=1)
         elif end.node.token == '<<':
-            if not isinstance(end.node.music_parent(), ly.music.items.Context):
-                self.mediator.check_voices_by_nr()
-                self.mediator.voice = 1
+                print(end.node.token)
+                #self.mediator.check_voices_by_nr()
+                #self.mediator.voice = 1
         else:
             print("end:"+end.node.token)
 

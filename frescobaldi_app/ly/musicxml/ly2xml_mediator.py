@@ -44,6 +44,7 @@ class mediator():
         self.dots = 0
         self.tied = False
         self.voice = 1
+        self.staff = 0
         self.current_chord = []
         self.prev_pitch = None
 
@@ -79,13 +80,18 @@ class mediator():
         self.insert_into = self.part
         self.bar = None
 
-    def new_voice(self, command=None, add=False, nr=0):
+    def set_voicenr(self, command=None, add=False, nr=0, piano=0):
         if add:
             self.voice += 1
         elif nr:
             self.voice = nr
         else:
             self.voice = get_voice(command)
+            if piano>1:
+                self.voice += piano+3
+
+    def set_staffnr(self, staffnr):
+        self.staff = staffnr
 
     def continue_barlist(self, insert_into):
         self.insert_into = insert_into
@@ -218,9 +224,7 @@ class mediator():
 
     def check_voices_by_nr(self):
         sect_len = len(self.sections)
-        print(sect_len)
         if sect_len>2:
-            print(self.voice)
             if self.voice>1:
                 for n in range(sect_len):
                     self.check_voices()
@@ -228,7 +232,6 @@ class mediator():
             else: # just parallell without voices
                 self.check_part()
                 for n in range(2,sect_len):
-                    print(n)
                     self.new_part()
                     self.part.barlist.extend(self.sections[1].barlist)
                     self.sections.pop()
@@ -348,6 +351,8 @@ class mediator():
         if self.tied:
             self.current_note.set_tie('stop')
             self.tied = False
+        if self.staff:
+            self.current_note.set_staff(self.staff)
         self.add_to_bar(self.current_note)
         self.prev_pitch = self.current_note.pitch
 
@@ -476,7 +481,7 @@ class mediator():
             self.current_note.set_tie('start')
         self.tied = True
 
-    def new_grace(self, slash):
+    def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
 
     def new_tremolo(self, duration):
@@ -612,7 +617,7 @@ class bar_note():
         self.tuplet = 0
         self.dot = 0
         self.tie = 0
-        self.grace = [0,0]
+        self.grace = (0,0)
         self.tremolo = 0
         self.voice = voice
         self.staff = 0
@@ -636,6 +641,9 @@ class bar_note():
         self.tuplet = fraction
         self.ttype = ttype
 
+    def set_staff(self, staff):
+        self.staff = staff
+
     def set_tie(self, tie_type):
         self.tie = tie_type
 
@@ -643,7 +651,7 @@ class bar_note():
         self.dot += 1
 
     def set_grace(self, slash):
-        self.grace = [1,slash]
+        self.grace = (1,slash)
 
     def set_tremolo(self, duration):
         self.tremolo = dur2lines(duration)
@@ -676,6 +684,9 @@ class bar_rest():
 
     def add_dot(self):
         self.dot += 1
+
+    def set_staff(self, staff):
+        self.staff = staff
 
 
 class bar_attr():
