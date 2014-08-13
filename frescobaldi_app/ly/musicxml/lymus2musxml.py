@@ -50,26 +50,13 @@ class parse_source():
     def __init__(self):
         self.musxml = create_musicxml.create_musicXML()
         self.mediator = ly2xml_mediator.mediator()
-        self.prev_command = ''
         self.relative = False
-        self.varname = ''
-        self.can_create_sect = True
         self.tuplet = False
         self.scale = ''
         self.grace_seq = False
         self.trem_rep = 0
-        self.new = False
-        self.context = False
         self.voicenr = None
-        self.voicecontext = False
         self.piano_staff = 0
-        self.sim_list = []
-        self.seq_list = []
-        self.new_context = None
-        self.simsectnr = 0
-        self.is_chord = False
-        self.new_tempo = 0
-        self.tempo_dots = 0
         self.numericTime = False
         self.voice_sep = False
 
@@ -113,108 +100,12 @@ class parse_source():
                 self.mediator.new_snippet('sim')
                 self.voice_sep = True
 
-    def Name(self, token):
-        """ name of variable """
-        self.varname = token
-
-    def SimultaneousStart(self, token):
-        """ << """
-        if self.new_context:
-            self.sim_list.append(self.new_context)
-            self.new_context = None
-        else:
-            if not self.simsectnr:
-                self.curr_sect = self.mediator.insert_into
-            self.simsectnr += 1
-            self.varname = "sim-sect-"+str(self.simsectnr)
-            self.can_create_sect = True
-
-    def SimultaneousEnd(self, token):
-        """ >> """
-        if self.sim_list:
-            if self.sim_list[-1] == 'pianostaff':
-                if self.piano_var:
-                    self.mediator.merge_variable(5, self.piano_var, True)
-                    self.piano_var = None
-            self.sim_list.pop()
-        elif self.simsectnr:
-            self.mediator.insert_into = self.curr_sect
-            self.mediator.fetch_variable("sim-sect-1")
-            self.mediator.new_bar()
-            self.simsectnr = 0
-
-    def SequentialStart(self, token):
-        """ SequentialStart = { """
-        if self.prev_command[1:] == 'times':
-            self.tuplet = True
-            self.ttype = "start"
-        elif self.prev_command[1:] == 'grace':
-            self.grace_seq = True
-        elif self.prev_command == 'repeat':
-            self.mediator.new_repeat('forward')
-            self.prev_command = ''
-            self.seq_list.append('repeat')
-        elif self.new_context:
-            self.seq_list.append(self.new_context)
-            self.new_context = None
-        elif self.can_create_sect:
-            self.mediator.new_section(self.varname)
-            self.can_create_sect = False
-            self.varname = ''
-            self.prev_command = ''
-            self.seq_list.append("section")
-
-    def SequentialEnd(self, token):
-        """ SequentialEnd = } """
-        if self.tuplet:
-            self.mediator.change_to_tuplet(self.fraction, "stop")
-            self.tuplet = False
-        elif self.grace_seq:
-            self.grace_seq = False
-        elif self.simsectnr:
-            if self.simsectnr>1:
-                self.mediator.merge_variable(self.simsectnr,
-                "sim-sect-"+str(self.simsectnr), False, "sim-sect-1")
-            self.simsectnr += 1
-            self.varname = "sim-sect-"+str(self.simsectnr)
-            self.can_create_sect = True
-            self.seq_list.pop()
-        elif self.seq_list:
-            if self.seq_list[-1] == 'pianostaff':
-                if self.piano_var:
-                    self.mediator.merge_variable(5, self.piano_var, True)
-                    self.piano_var = None
-            elif self.seq_list[-1] == 'section':
-                self.can_create_sect = True
-            elif self.seq_list[-1] == 'repeat':
-                self.mediator.new_repeat('backward')
-                self.mediator.new_bar()
-            self.seq_list.pop()
-        else:
-            self.prev_command = ''
-
-    def ChordStart(self, token):
-        """ < """
-        self.is_chord = True
-        self.mediator.new_chord = True
-
-    def ChordEnd(self, token):
-        """ > """
-        self.is_chord = False
-
     def Chord(self, chord):
         self.mediator.clear_chord()
         self.prev_chord = []
 
     def Q(self, q):
         self.mediator.copy_prev_chord(q.duration, self.relative)
-
-    def Score(self, token):
-        self.new_context = "score"
-
-    def New(self, token):
-        """ \new """
-        self.new = True
 
     def Context(self, context):
         """ \context """
@@ -240,47 +131,7 @@ class parse_source():
         self.mediator.new_snippet('sim')
         self.mediator.set_voicenr(add=True)
 
-    def ContextName(self, token):
-        """ Staff, Voice  """
-        if token == "Staff":
-            if self.new or self.context:
-                self.new_context = "staff"
-            if self.new and "pianostaff" not in self.get_context():
-                self.create_part()
-            elif self.piano_staff>=0:
-                self.piano_staff += 1
-        elif token == "PianoStaff":
-            if self.new:
-                self.create_part(True)
-                self.new_context = "pianostaff"
-                self.piano_staff = 0
-        elif token == "Voice":
-            self.voicecontext = True
-        else:
-            print token
-            self.new_context = token
-
-    def create_part(self, piano=False):
-        self.mediator.new_part(piano)
-        self.can_create_sect = False
-        self.new = False
-        self.context = False
-        self.voicenr = None
-
-    def ContextProperty(self, token):
-        """ instrumentName, midiInstrument, etc """
-        self.prev_command = token
-
-    def get_context(self):
-        curr_sim = ''
-        curr_seq = ''
-        if self.sim_list:
-            curr_sim = self.sim_list[-1]
-        if self.seq_list:
-            curr_seq = self.seq_list[-1]
-        return curr_sim, curr_seq
-
-    def PipeSymbol(self, token):
+    def PipeSymbol(self,barcheck):
         """ PipeSymbol = | """
         self.mediator.new_bar()
 
@@ -288,24 +139,10 @@ class parse_source():
         """ Clef \clef"""
         self.mediator.new_clef(clef.specifier())
 
-    def ClefSpecifier(self, token):
-        """ clef name without quotation marks """
-        if self.prev_command == 'clef':
-            self.mediator.new_clef(token)
-            self.prev_command = ''
-
     def KeySignature(self, key):
         self.mediator.new_key(key.pitch().output(), key.mode())
 
-    def PitchCommand(self, token):
-        if token == '\\relative':
-            self.pitch_mode = 'rel'
-            self.prev_command = token[1:]
-        elif token == '\key':
-            self.prev_command = "key"
-
     def Relative(self, relative):
-        #self.relative = True
         pass
 
     def Note(self, note):
@@ -328,46 +165,9 @@ class parse_source():
             elif isinstance(note.parent(), ly.music.items.Chord):
                 self.mediator.new_chord(note, note.parent().duration, self.relative)
 
-    def Octave(self, token):
-        """ a number of , or ' """
-        if self.prev_command == "relative":
-            self.mediator.new_octave(token)
-            self.prev_command = ''
-        else:
-            if self.pitch_mode == 'rel':
-                self.mediator.new_octave(token, True)
-            else:
-                self.mediator.new_octave(token)
-
     def Tempo(self, tempo):
         """ Tempo direction, e g '4 = 80' """
         self.mediator.new_tempo(tempo.duration.tokens, tempo.tempo(), tempo.text())
-
-    def Length(self, token):
-        """ note length/duration, e.g. 4, 8, 16 ... """
-        if self.new_tempo:
-            self.new_tempo = token
-        else:
-            self.duration = token
-            self.mediator.new_duration(token)
-
-    def IntegerValue(self, token):
-        """ tempo value """
-        if self.new_tempo:
-            self.mediator.new_tempo(self.new_tempo, token, self.tempo_dots)
-            self.new_tempo = 0
-            self.tempo_dots = 0
-
-    def TremoloDuration(self, token):
-        """ duration of tremolo notes for tremolo marking """
-        self.mediator.new_tremolo(token)
-
-    def Dot(self, token):
-        """ dot, . """
-        if self.new_tempo:
-            self.tempo_dots += 1
-        else:
-            self.mediator.new_dot()
 
     def Tie(self, tie):
         """ tie ~ """
@@ -379,22 +179,9 @@ class parse_source():
             self.scale = 'R'
         self.mediator.new_rest(rest)
 
-    def Spacer(self, token):
-        """ invisible rest/spacer rest (s) """
-        self.mediator.new_rest(token)
-        self.scale = 's'
-
     def Skip(self, skip):
         """ invisible rest/spacer rest (s or command \skip)"""
         self.mediator.new_rest(skip)
-
-    def Scaling(self, token):
-        """ scaling, e.g. *3 or *2/3"""
-        if self.scale == 'R' or self.scale == 's':
-            self.mediator.scale_rest(token[1:])
-            self.scale = ''
-        else:
-            self.mediator.scale_duration(token)
 
     def Scaler(self, scaler):
         """ Tuplets, and ??"""
@@ -408,21 +195,6 @@ class parse_source():
 
     def TimeSignature(self, timeSign):
         self.mediator.new_time(timeSign.numerator(), timeSign.fraction(), self.numericTime)
-
-    def Fraction(self, token):
-        """ fraction, e.g. 3/4
-        can be used for time sign or tuplets """
-        if self.prev_command == '\\time':
-            self.mediator.new_time(token)
-            self.prev_command = ''
-        elif self.prev_command == '\\numericTimeSignature':
-            self.mediator.new_time(token, numeric=True)
-            self.prev_command = ''
-        else:
-            self.fraction = token
-
-    def Keyword(self, token):
-        self.prev_command = token
 
     def Repeat(self, repeat):
         if repeat.specifier() == 'volta':
@@ -455,22 +227,6 @@ class parse_source():
             self.numericTime = False
         elif command.token.find('voice') == 1:
             self.voicenr = self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
-
-    def UserCommand(self, token):
-        if self.prev_command == 'key':
-            self.mediator.new_key(self.key, token)
-            self.prev_command = ''
-        else:
-            if self.voicecontext and self.voicenr>1:
-                if self.piano_staff == 2:
-                    self.mediator.merge_variable(self.voicenr, token[1:], org=self.piano_var)
-                else:
-                    self.mediator.merge_variable(self.voicenr, token[1:])
-            elif self.piano_staff == 2:
-                self.piano_var = token[1:]
-                self.piano_staff = -1
-            else:
-                self.mediator.fetch_variable(token[1:])
 
     def String(self, string):
         prev = self.get_previous_node(string)
