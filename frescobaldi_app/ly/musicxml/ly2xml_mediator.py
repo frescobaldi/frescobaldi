@@ -492,8 +492,16 @@ class mediator():
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
 
-    def new_tremolo(self, duration):
-        self.current_note.set_tremolo(duration)
+    def set_tremolo(self, trem_type='single', duration=0, repeats=0):
+        if self.current_note.tremolo[1]: #tremolo already set
+            self.current_note.set_tremolo(trem_type)
+        else:
+            if not duration:
+                duration = int(self.duration)
+                bs, durtype = calc_trem_dur(repeats, self.current_note.duration, duration)
+                self.current_note.duration = bs
+                self.current_note.type = durtype
+            self.current_note.set_tremolo(trem_type, duration)
 
     def new_octave(self, octave, relative=False):
         chordlen = len(self.current_chord)
@@ -626,7 +634,7 @@ class bar_note():
         self.dot = 0
         self.tie = 0
         self.grace = (0,0)
-        self.tremolo = 0
+        self.tremolo = ('',0)
         self.voice = voice
         self.staff = 0
         self.chord = False
@@ -661,8 +669,11 @@ class bar_note():
     def set_grace(self, slash):
         self.grace = (1,slash)
 
-    def set_tremolo(self, duration):
-        self.tremolo = dur2lines(duration)
+    def set_tremolo(self, trem_type, duration=False):
+        if duration:
+            self.tremolo = (trem_type, dur2lines(duration))
+        else:
+            self.tremolo = (trem_type, self.tremolo[1])
 
 class bar_rest():
     """ object to keep track of different rests and skips """
@@ -848,12 +859,14 @@ def durval2type(durval):
     return xml_types[ly.duration.durations.index(durval)]
 
 def dur2lines(dur):
-    if dur == "8":
+    if dur == 8:
         return 1
-    if dur == "16":
+    elif dur == 16:
         return 2
-    if dur == "32":
+    elif dur == 32:
         return 3
+    else:
+        return 0
 
 def get_mult(num, den):
     from fractions import Fraction
@@ -884,6 +897,11 @@ def get_voice(c):
     voices = ["voiceOne", "voiceTwo", "voiceThree", "voiceFour"]
     return voices.index(c)+1
 
-
-
-
+def calc_trem_dur(repeats, base_scaling, duration):
+    """ Calculate tremolo duration from number of
+    repeats and initial duration. """
+    base = base_scaling[0]
+    scale = base_scaling[1]
+    new_base = base * repeats
+    new_type = durval2type(str(duration/repeats))
+    return (new_base, scale), new_type

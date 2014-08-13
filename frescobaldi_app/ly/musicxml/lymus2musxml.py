@@ -57,6 +57,7 @@ class parse_source():
         self.tuplet = False
         self.scale = ''
         self.grace_seq = False
+        self.trem_rep = 0
         self.new = False
         self.context = False
         self.voicenr = None
@@ -317,6 +318,8 @@ class parse_source():
                 self.ttype = ""
             if self.grace_seq:
                 self.mediator.new_grace()
+            if self.trem_rep:
+                self.mediator.set_tremolo(trem_type='start', repeats=self.trem_rep)
         else:
             if isinstance(note.parent(), ly.music.items.Relative):
                 print("setting relative")
@@ -426,6 +429,11 @@ class parse_source():
             self.mediator.new_repeat('forward')
         elif repeat.specifier() == 'unfold':
             self.mediator.new_snippet('unfold')
+        elif repeat.specifier() == 'tremolo':
+            self.trem_rep = repeat.repeat_count()
+
+    def Tremolo(self, tremolo):
+        self.mediator.set_tremolo(duration=int(tremolo.duration.token))
 
     def Command(self, command):
         """ \bar, \rest etc """
@@ -476,6 +484,12 @@ class parse_source():
             elif end.node.specifier() == 'unfold':
                 for n in range(end.node.repeat_count()):
                     self.mediator.add_snippet('unfold')
+            elif end.node.specifier() == 'tremolo':
+                if self.look_ahead(end.node, ly.music.items.MusicList):
+                    self.mediator.set_tremolo(trem_type="stop", repeats=self.trem_rep)
+                else:
+                    self.mediator.set_tremolo(trem_type="single", repeats=self.trem_rep)
+                self.trem_rep = 0
         elif end.node.token == '\\new':
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
@@ -578,8 +592,8 @@ class parse_source():
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:
                             self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
-                        if obj.tremolo:
-                            self.musxml.add_tremolo("single", obj.tremolo)
+                        if obj.tremolo[1]:
+                            self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                         if obj.staff:
                             self.musxml.add_staff(obj.staff)
                     elif isinstance(obj, ly2xml_mediator.bar_rest):
