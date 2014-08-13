@@ -36,7 +36,7 @@ from . import create_musicxml
 from . import ly2xml_mediator
 
 #excluded from parsing
-excl_list = ['Version', 'Midi']
+excl_list = ['Version', 'Midi', 'Layout']
 
 class End():
     """ Extra class that gives information about the end of Container
@@ -435,6 +435,15 @@ class parse_source():
     def Tremolo(self, tremolo):
         self.mediator.set_tremolo(duration=int(tremolo.duration.token))
 
+    def With(self, cont_with):
+        print(cont_with.tokens)
+
+    def Set(self, cont_set):
+        if cont_set.property() == 'instrumentName':
+            self.mediator.set_partname(cont_set.value().value())
+        elif cont_set.property() == 'midiInstrument':
+            self.mediator.set_partmidi(cont_set.value().value())
+
     def Command(self, command):
         """ \bar, \rest etc """
         print(command.token)
@@ -467,9 +476,6 @@ class parse_source():
         prev = self.get_previous_node(string)
         if prev and prev.token == '\\bar':
             self.mediator.create_barline(string.value())
-        elif self.prev_command == 'instrumentName':
-            self.mediator.set_partname(token)
-            self.prev_command = ''
 
     def End(self, end):
         if end.node.token == '\\tuplet':
@@ -564,7 +570,7 @@ class parse_source():
         """ the mediator lists are looped through and outputed to the xml-file """
         for part in self.mediator.score:
             if part.barlist:
-                self.musxml.create_part(part.name)
+                self.musxml.create_part(part.name, part.midi)
                 self.mediator.set_first_bar(part)
             else:
                 print "Warning: empty part: "+part.name

@@ -529,6 +529,9 @@ class mediator():
     def set_partname(self, name):
         self.part.name = name
 
+    def set_partmidi(self, midi):
+        self.part.midi = midi
+
     def duration_from_tokens(self, dur_tokens):
         dur_nr = 0
         dots = 0
@@ -569,6 +572,7 @@ class score_part():
     """ object to keep track of part """
     def __init__(self, staves=0):
         self.name = ''
+        self.midi = ''
         self.barlist = []
         self.staves = staves
 

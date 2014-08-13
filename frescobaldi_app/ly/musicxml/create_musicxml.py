@@ -58,12 +58,23 @@ class create_musicXML():
     # Building the basic Elements
     ##
 
-    def create_part(self, name):
+    def create_part(self, name, midi):
         """ create a new part """
-        part = etree.SubElement(self.partlist, "score-part", id="P"+str(self.part_count))
-        partname = etree.SubElement(part, "part-name")
-        partname.text = name
-        self.current_part = etree.SubElement(self.root, "part", id="P"+str(self.part_count))
+        strnr = str(self.part_count)
+        part = etree.SubElement(self.partlist, "score-part", id="P"+strnr)
+        if name:
+            partname = etree.SubElement(part, "part-name")
+            partname.text = name
+        if midi:
+            scoreinstr = etree.SubElement(part, "score-instrument", id="P"+strnr+"-I"+strnr)
+            instrname = etree.SubElement(scoreinstr, "instrument-name")
+            instrname.text = midi
+            midiinstr = etree.SubElement(part, "midi-instrument", id="P"+strnr+"-I"+strnr)
+            midich = etree.SubElement(midiinstr, "midi-channel")
+            midich.text = strnr
+            midiname = etree.SubElement(midiinstr, "midi-name")
+            midiname.text = midi
+        self.current_part = etree.SubElement(self.root, "part", id="P"+strnr)
         self.part_count +=1
         self.bar_nr = 1
 
