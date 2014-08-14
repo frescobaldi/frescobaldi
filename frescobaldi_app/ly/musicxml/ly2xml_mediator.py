@@ -258,19 +258,26 @@ class Mediator():
                 self.current_note.set_tie('stop')
                 self.tied = False
             self.prev_pitch = self.current_note.pitch
-        self.check_duration()
-        self.check_divs(self.current_note.duration)
+        self.check_duration(rest)
+        self.check_divs()
         if self.staff:
             self.current_note.set_staff(self.staff)
         self.add_to_bar(self.current_note)
 
-    def check_duration(self):
+    def check_duration(self, rest):
         dur_tokens = self.current_note.note.duration.tokens
-        dur_nr, dots = self.duration_from_tokens(dur_tokens)
+        dur_nr, dots, rs = self.duration_from_tokens(dur_tokens)
         if dur_nr:
             self.current_note.set_durtype(dur_nr)
-            self.current_note.dot = dots
             self.duration = dur_nr
+            if rest and rs: # special case of multibar rest
+                if not self.current_note.show_type:
+                    bs = self.current_note.duration
+                    if rs == bs[1]:
+                        self.current_note.duration = (bs[0], 1)
+                        self.scale_rest(rs)
+                        return
+            self.current_note.dot = dots
             self.dots = dots
         else:
             self.current_note.set_durtype(self.duration)
@@ -324,22 +331,20 @@ class Mediator():
         self.bar.pop()
         self.bar.add(self.current_note)
 
-    def scale_rest(self, multp, new_bar=False):
+    def scale_rest(self, multp):
         """ create multiple whole bar rests """
-        print("rest scaling!")
-        import copy
-        bar_copy = copy.deepcopy(self.bar)
-        bar_copy[0] = BarAttr()
+        cn = self.current_note
         for i in range(1, int(multp)):
-            self.insert_into.barlist.append(bar_copy)
-        if new_bar:
+            cn.note.duration.base_scaling = cn.duration
+            rest_copy = BarRest(cn.note, voice=cn.voice, show_type=False)
+            self.add_to_bar(rest_copy)
             self.new_bar()
 
     def change_to_tuplet(self, fraction, ttype):
         tfraction = Fraction(fraction)
         tfraction = 1/tfraction
         self.current_note.set_tuplet(tfraction, ttype)
-        self.check_divs(self.current_note.duration, tfraction)
+        self.check_divs(tfraction)
 
     def tie_to_next(self):
         if self.current_note.tie == 'stop': # only if previous was tied
@@ -381,17 +386,20 @@ class Mediator():
     def duration_from_tokens(self, dur_tokens):
         dur_nr = 0
         dots = 0
+        rs = 0
         for i, t in enumerate(dur_tokens):
             if i == 0:
                 dur_nr = t
             elif t == '.':
                 dots += 1
-        return dur_nr, dots
+            elif '*' in t and '/' not in t:
+                rs = int(t[1:])
+        return (dur_nr, dots, rs)
 
-    def check_divs(self, base_scaling, tfraction=0):
+    def check_divs(self, tfraction=0):
         """ The new duration is checked against current divisions """
-        base = base_scaling[0]
-        scaling = base_scaling[1]
+        base = self.current_note.duration[0]
+        scaling = self.current_note.duration[1]
         divs = self.divisions
         if scaling != 1:
             tfraction = 1/scaling
