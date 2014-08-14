@@ -40,7 +40,7 @@ class Mediator():
         """ default and initial values """
         self.current_note = None
         self.divisions = 1
-        self.duration = "4"
+        self.dur_token = "4"
         self.base_scaling = [Fraction(1, 4), Fraction(1, 1)]
         self.dots = 0
         self.tied = False
@@ -163,7 +163,7 @@ class Mediator():
             return self.sections[0].barlist
 
     def set_first_bar(self, part):
-        initime = '4/4'
+        initime = [4,4]
         iniclef = ('G',2,0)
 
         def check_time(bar):
@@ -208,7 +208,6 @@ class Mediator():
         if self.bar is None:
             self.new_bar()
         self.bar.add(obj)
-        self.current_attr = BarAttr()
 
     def create_barline(self, bl):
         barline = BarAttr()
@@ -227,7 +226,12 @@ class Mediator():
     def new_key(self, key_name, mode):
         if self.bar is None:
             self.new_bar()
-        self.current_attr.set_key(get_fifths(key_name, mode), mode)
+        if self.bar.has_music():
+            new_bar_attr = BarAttr()
+            new_bar_attr.set_key(get_fifths(key_name, mode), mode)
+            self.add_to_bar(new_bar_attr)
+        else:
+            self.current_attr.set_key(get_fifths(key_name, mode), mode)
 
     def new_time(self, num, den, numeric=False):
         if self.bar is None:
@@ -238,7 +242,12 @@ class Mediator():
         self.clef = clefname2clef(clefname)
         if self.bar is None:
             self.new_bar()
-        self.current_attr.set_clef(self.clef)
+        if self.bar.has_music():
+            new_bar_attr = BarAttr()
+            new_bar_attr.set_clef(self.clef)
+            self.add_to_bar(new_bar_attr)
+        else:
+            self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note):
         bar_note = BarNote(note)
@@ -265,22 +274,22 @@ class Mediator():
         self.add_to_bar(self.current_note)
 
     def check_duration(self, rest):
-        dur_tokens = self.current_note.note.duration.tokens
+        dur_tokens = self.current_note.duration.tokens
         dur_nr, dots, rs = self.duration_from_tokens(dur_tokens)
         if dur_nr:
             self.current_note.set_durtype(dur_nr)
-            self.duration = dur_nr
+            self.dur_token = dur_nr
             if rest and rs: # special case of multibar rest
                 if not self.current_note.show_type:
-                    bs = self.current_note.duration
+                    bs = self.current_note.base_scaling
                     if rs == bs[1]:
-                        self.current_note.duration = (bs[0], 1)
+                        self.current_note.base_scaling = (bs[0], 1)
                         self.scale_rest(rs)
                         return
             self.current_note.dot = dots
             self.dots = dots
         else:
-            self.current_note.set_durtype(self.duration)
+            self.current_note.set_durtype(self.dur_token)
             self.current_note.dot = self.dots
 
     def new_chord(self, note, duration, rel=False):
@@ -292,12 +301,13 @@ class Mediator():
 
     def new_chordbase(self, note, duration, rel=False):
         self.current_note = BarNote(note, self.voice)
+        self.current_note.set_duration(duration)
         self.check_current_note(rel)
 
     def new_chordnote(self, note, rel):
         chord_note = BarNote(note, self.voice)
         chord_note.set_duration(self.current_note.duration)
-        chord_note.set_durtype(self.duration)
+        chord_note.set_durtype(self.dur_token)
         chord_note.dots = self.dots
         chord_note.set_octave(rel, self.current_chord[-1].pitch)
         chord_note.chord = True
@@ -361,9 +371,9 @@ class Mediator():
             self.current_note.set_tremolo(trem_type)
         else:
             if not duration:
-                duration = int(self.duration)
-                bs, durtype = calc_trem_dur(repeats, self.current_note.duration, duration)
-                self.current_note.duration = bs
+                duration = int(self.dur_token)
+                bs, durtype = calc_trem_dur(repeats, self.current_note.base_scaling, duration)
+                self.current_note.base_scaling = bs
                 self.current_note.type = durtype
             self.current_note.set_tremolo(trem_type, duration)
 
@@ -398,8 +408,8 @@ class Mediator():
 
     def check_divs(self, tfraction=0):
         """ The new duration is checked against current divisions """
-        base = self.current_note.duration[0]
-        scaling = self.current_note.duration[1]
+        base = self.current_note.base_scaling[0]
+        scaling = self.current_note.base_scaling[1]
         divs = self.divisions
         if scaling != 1:
             tfraction = 1/scaling
@@ -463,6 +473,13 @@ class Bar():
     def add(self, obj):
         self.obj_list.append(obj)
 
+    def has_music(self):
+        """ Check if bar contains music. """
+        for obj in self.obj_list:
+            if isinstance(obj, BarMus):
+                return True
+        return False
+
     def create_backup(self):
         """ Calculate and create backup object."""
         b = 0
@@ -498,7 +515,8 @@ class BarNote(BarMus):
         self.base_note = getNoteName(note.pitch.note)
         self.alter = note.pitch.alter*2
         if note.duration:
-            self.duration = note.duration.base_scaling
+            self.duration = note.duration
+            self.base_scaling = note.duration.base_scaling
         self.type = None
         self.tuplet = 0
         self.dot = 0
@@ -510,8 +528,9 @@ class BarNote(BarMus):
         self.chord = False
         self.skip = False
 
-    def set_duration(self, base_scaling, durval=0):
-        self.duration = base_scaling
+    def set_duration(self, duration, durval=0):
+        self.duration = duration
+        self.base_scaling = duration.base_scaling
         self.dot = 0
         if durval:
             self.type = durval2type(durval)
@@ -550,7 +569,9 @@ class BarRest(BarMus):
     """ object to keep track of different rests and skips """
     def __init__(self, rest, voice=1, show_type=True, skip=False, pos=0):
         self.note = rest
-        self.duration = rest.duration.base_scaling
+        if rest.duration:
+            self.duration = rest.duration
+            self.base_scaling = rest.duration.base_scaling
         self.show_type = show_type
         self.type = None
         self.skip = skip
@@ -561,8 +582,9 @@ class BarRest(BarMus):
         self.staff = 0
         self.chord = False
 
-    def set_duration(self, base_scaling, durval=0, durtype=None):
-        self.duration = base_scaling
+    def set_duration(self, duration, durval=0, durtype=None):
+        self.duration = duration
+        self.base_scaling = duration.base_scaling
         if durval:
             if self.show_type:
                 self.type = durval2type(durval)
@@ -627,8 +649,8 @@ class BarAttr():
 
 class BarBackup():
     """ Object that stores duration for backup """
-    def __init__(self, duration):
-        self.duration = duration
+    def __init__(self, base_scaling):
+        self.base_scaling = base_scaling
 
 
 class TempoDir():

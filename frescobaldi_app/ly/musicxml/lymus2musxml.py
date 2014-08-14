@@ -108,7 +108,6 @@ class ParseSource():
 
     def Chord(self, chord):
         self.mediator.clear_chord()
-        self.prev_chord = []
 
     def Q(self, q):
         self.mediator.copy_prev_chord(q.duration, self.relative)
@@ -190,8 +189,8 @@ class ParseSource():
         self.mediator.new_rest(skip)
 
     def Scaler(self, scaler):
-        """ Tuplets, and ??"""
-        if scaler.token == '\\tuplet':
+        """ \times \tuplet \scaleDurations"""
+        if not scaler.token == '\\scaleDurations': #I'll come back for this later
             self.tuplet = True
             self.ttype = "start"
             self.fraction = scaler.scaling
@@ -240,10 +239,11 @@ class ParseSource():
             self.mediator.create_barline(string.value())
 
     def End(self, end):
-        if end.node.token == '\\tuplet':
-            self.mediator.change_to_tuplet(self.fraction, "stop")
-            self.tuplet = False
-            self.fraction = None
+        if isinstance(end.node, ly.music.items.Scaler):
+            if not end.node.token == '\scaleDurations':
+                self.mediator.change_to_tuplet(self.fraction, "stop")
+                self.tuplet = False
+                self.fraction = None
         elif isinstance(end.node, ly.music.items.Grace): #Grace
             self.grace_seq = False
         elif end.node.token == '\\repeat':
@@ -354,24 +354,24 @@ class ParseSource():
                         if obj.tempo:
                             self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
                     elif isinstance(obj, ly2xml_mediator.BarNote):
-                        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.duration,
+                        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.base_scaling,
                         obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                         if obj.tie:
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:
-                            self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
+                            self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
                         if obj.tremolo[1]:
                             self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                         if obj.staff:
                             self.musxml.add_staff(obj.staff)
                     elif isinstance(obj, ly2xml_mediator.BarRest):
                         if obj.skip:
-                            self.musxml.new_skip(obj.duration, self.mediator.divisions)
+                            self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
                         else:
-                            self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
+                            self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
                         if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
                     elif isinstance(obj, ly2xml_mediator.BarBackup):
-                        self.musxml.new_backup(obj.duration, self.mediator.divisions)
+                        self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
 
 
