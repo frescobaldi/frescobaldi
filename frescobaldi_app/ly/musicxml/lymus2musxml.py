@@ -20,10 +20,14 @@
 """
 Export to Music XML.
 
-Using ly.music source to convert to XML.
+Using ly.music document tree to convert the source to XML.
 
-At the moment the status is test/experimental
-and the function is not in actual use.
+Uses functions similar to items.Document.iter_music() to iter through
+the node tree. But information about where a node branch ends
+is also added.
+
+This approach substitues the previous method of using ly.lex directly
+to parse the source. It should prove more stable and easier to implement.
 
 """
 
@@ -38,18 +42,20 @@ from . import ly2xml_mediator
 #excluded from parsing
 excl_list = ['Version', 'Midi', 'Layout']
 
+
 class End():
     """ Extra class that gives information about the end of Container
     elements in the node list. """
     def __init__(self, node):
         self.node = node
 
-class parse_source():
+
+class ParseSource():
     """ creates the XML-file from the source code according to the Music XML standard """
 
     def __init__(self):
-        self.musxml = create_musicxml.create_musicXML()
-        self.mediator = ly2xml_mediator.mediator()
+        self.musxml = create_musicxml.CreateMusicXML()
+        self.mediator = ly2xml_mediator.Mediator()
         self.relative = False
         self.tuplet = False
         self.scale = ''
@@ -293,7 +299,7 @@ class parse_source():
         return False
 
     def iter_score(self, scorenode, doc):
-        """Iter over score. Similar to Document.iter_music."""
+        """Iter over score. Similar to items.Document.iter_music."""
         for s in scorenode:
             n = doc.substitute_for_node(s) or s
             yield n
@@ -333,7 +339,7 @@ class parse_source():
             for bar in part.barlist:
                 self.musxml.create_measure()
                 for obj in bar.obj_list:
-                    if isinstance(obj, ly2xml_mediator.bar_attr):
+                    if isinstance(obj, ly2xml_mediator.BarAttr):
                         if obj.has_attr():
                             self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
                         if obj.repeat:
@@ -347,7 +353,7 @@ class parse_source():
                                 self.musxml.add_clef(m[0], m[1], i+1)
                         if obj.tempo:
                             self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
-                    elif isinstance(obj, ly2xml_mediator.bar_note):
+                    elif isinstance(obj, ly2xml_mediator.BarNote):
                         self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.duration,
                         obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                         if obj.tie:
@@ -358,14 +364,14 @@ class parse_source():
                             self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                         if obj.staff:
                             self.musxml.add_staff(obj.staff)
-                    elif isinstance(obj, ly2xml_mediator.bar_rest):
+                    elif isinstance(obj, ly2xml_mediator.BarRest):
                         if obj.skip:
                             self.musxml.new_skip(obj.duration, self.mediator.divisions)
                         else:
                             self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
                         if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
-                    elif isinstance(obj, ly2xml_mediator.bar_backup):
+                    elif isinstance(obj, ly2xml_mediator.BarBackup):
                         self.musxml.new_backup(obj.duration, self.mediator.divisions)
 
 

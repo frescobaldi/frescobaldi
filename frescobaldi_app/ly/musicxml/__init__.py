@@ -49,6 +49,6 @@ def writer():
     """
 
     from . import lymus2musxml
-    return lymus2musxml.parse_source()
+    return lymus2musxml.ParseSource()
 
 

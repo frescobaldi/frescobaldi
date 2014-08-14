@@ -34,7 +34,7 @@ except ImportError:
 import ly.pkginfo
 
 
-class create_musicXML():
+class CreateMusicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
 
     def __init__(self):
@@ -375,8 +375,6 @@ class create_musicXML():
     def add_sound_dir(self, midi_tempo):
         soundnode = etree.SubElement(self.direction, "sound", tempo=str(midi_tempo))
 
-
-
     ##
     # Create the XML document
     ##
@@ -412,6 +410,7 @@ class MusicXML(object):
             self.tree.write(f, encoding=encoding, xml_declaration=False)
         else:
             self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
+
 
 xml_decl_txt = """<?xml version="1.0" encoding="UTF-8"?>"""
 

@@ -18,7 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Help class between the ly source parser and the XML creator
+The information of the parsed source is organised into an object
+structure suitable for the transformation into a XML tree.
 """
 
 from __future__ import unicode_literals
@@ -29,7 +30,7 @@ import ly.duration
 import ly.pitch
 
 
-class mediator():
+class Mediator():
     """ Help class between the ly source parser and the XML creator """
 
     def __init__(self):
@@ -51,7 +52,7 @@ class mediator():
 
     def new_section(self, name):
         name = self.check_name(name)
-        section = score_section(name)
+        section = ScoreSection(name)
         self.insert_into = section
         self.sections.append(section)
         self.bar = None
@@ -77,9 +78,9 @@ class mediator():
 
     def new_part(self, piano=False):
         if piano:
-            self.part = score_part(2)
+            self.part = ScorePart(2)
         else:
-            self.part = score_part()
+            self.part = ScorePart()
         self.score.append(self.part)
         self.insert_into = self.part
         self.bar = None
@@ -103,14 +104,10 @@ class mediator():
     def set_staffnr(self, staffnr):
         self.staff = staffnr
 
-    def continue_barlist(self, insert_into):
-        self.insert_into = insert_into
-        if insert_into.barlist:
-            self.bar = insert_into.barlist[-1]
-        else:
-            self.new_bar(False)
-
     def add_snippet(self, snippet_name):
+        """ Adds snippet to previous barlist.
+        A snippet can be shorter than a full bar,
+        so this can also mean continuing a previous bar."""
         snippet = self.get_var_byname(snippet_name)
         self.continue_barlist(snippet.merge_barlist)
         for bb in snippet.barlist:
@@ -119,31 +116,23 @@ class mediator():
             if bb.list_full:
                 self.new_bar()
 
-    def check_var(self, barlist):
-        """ Check if barlist in variable is suitable for insert.
-        For now if variable contains notes full bars are assumed."""
-        for bar in barlist:
-            for obj in bar.obj_list:
-                if isinstance(obj, bar_note):
-                    return True
-        return False
-
-    def check_bar(self, bar):
-        """ For variable handling.
-        Ideally the function should check if the bar is incomplete.
-        For now it only checks if the bar contains music. """
-        for obj in bar:
-            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
-                if not obj.skip:
-                    return True
-        return False
+        def continue_barlist(self, insert_into):
+            self.insert_into = insert_into
+            if insert_into.barlist:
+                self.bar = insert_into.barlist[-1]
+            else:
+                self.new_bar(False)
 
     def check_voices(self):
+        """ Checks active sections.
+        The two latest created are merged."""
         if len(self.sections)>2:
             self.sections[-2].merge_voice(self.sections[-1])
             self.sections.pop()
 
     def check_voices_by_nr(self):
+        """ Used for snippets. Merges all active snippets
+        created after the stored voice number."""
         sect_len = len(self.sections)
         if sect_len>2:
             if self.voice>1:
@@ -156,6 +145,7 @@ class mediator():
                     print("WARNING: problem adding snippet!")
 
     def check_part(self):
+        """Adds the latest active section to the part."""
         if len(self.sections)>1:
             if not self.score:
                 self.new_part()
@@ -163,25 +153,41 @@ class mediator():
             self.sections.pop()
 
     def check_score(self):
-        """ if no part were created, place first variable as part. """
+        """ If no part were created, place first variable (fallback) as part. """
         if not self.score:
             self.new_part()
             self.part.barlist.extend(self.get_first_var())
 
     def get_first_var(self):
-        for n in self.sections:
-            if self.check_var(n.barlist):
-                return n.barlist
+        if self.sections:
+            return self.sections[0].barlist
 
     def set_first_bar(self, part):
         initime = '4/4'
-        iniclef = 'G',2,0
-        if not self.check_time(part.barlist[0]):
+        iniclef = ('G',2,0)
+
+        def check_time(bar):
+            for obj in bar.obj_list:
+                if isinstance(obj, BarAttr):
+                    if obj.time:
+                        return True
+                if isinstance(obj, BarMus):
+                    return False
+
+        def check_clef(bar):
+            for obj in bar.obj_list:
+                if isinstance(obj, BarAttr):
+                    if obj.clef or obj.multiclef:
+                        return True
+                if isinstance(obj, BarMus):
+                    return False
+
+        if not check_time(part.barlist[0]):
             try:
                 part.barlist[0].obj_list[0].set_time(initime, False)
             except AttributeError:
                 print "Warning can't set initial time sign!"
-        if not self.check_clef(part.barlist[0]):
+        if not check_clef(part.barlist[0]):
             try:
                 part.barlist[0].obj_list[0].set_clef(iniclef)
             except AttributeError:
@@ -190,28 +196,10 @@ class mediator():
         if part.staves:
             part.barlist[0].obj_list[0].staves = part.staves
 
-    def check_time(self, bar):
-        """ For now used to check first bar """
-        for obj in bar.obj_list:
-            if isinstance(obj, bar_attr):
-                if obj.time:
-                    return True
-            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
-                return False
-
-    def check_clef(self, bar):
-        """ For now used to check first bar """
-        for obj in bar.obj_list:
-            if isinstance(obj, bar_attr):
-                if obj.clef or obj.multiclef:
-                    return True
-            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
-                return False
-
     def new_bar(self, fill_prev=True):
         if self.bar and fill_prev:
             self.bar.list_full = True
-        self.current_attr = bar_attr()
+        self.current_attr = BarAttr()
         self.bar = Bar()
         self.bar.obj_list = [self.current_attr]
         self.insert_into.barlist.append(self.bar)
@@ -220,16 +208,16 @@ class mediator():
         if self.bar is None:
             self.new_bar()
         self.bar.add(obj)
-        self.current_attr = bar_attr()
+        self.current_attr = BarAttr()
 
     def create_barline(self, bl):
-        barline = bar_attr()
+        barline = BarAttr()
         barline.set_barline(bl)
         self.bar.add(barline)
         self.new_bar()
 
     def new_repeat(self, rep):
-        barline = bar_attr()
+        barline = BarAttr()
         barline.set_barline(rep)
         barline.repeat = rep
         if self.bar is None:
@@ -253,25 +241,31 @@ class mediator():
         self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note):
-        barNote = bar_note(note)
-        barNote.set_octave(False)
-        self.prev_pitch = barNote.pitch
+        bar_note = BarNote(note)
+        bar_note.set_octave(False)
+        self.prev_pitch = bar_note.pitch
 
     def new_note(self, note, rel=False):
         self.clear_chord()
-        self.current_note = bar_note(note, self.voice)
-        self.current_note.set_octave(rel, self.prev_pitch)
-        self.check_divs(note.duration.base_scaling)
-        self.check_duration(note.duration.tokens)
-        if self.tied:
-            self.current_note.set_tie('stop')
-            self.tied = False
+        self.current_note = BarNote(note, self.voice)
+        self.check_current_note(rel)
+
+    def check_current_note(self, rel=False, rest=False):
+        """ Perform checks common for all new notes and rests. """
+        if not rest: #don't do this for rests
+            self.current_note.set_octave(rel, self.prev_pitch)
+            if self.tied:
+                self.current_note.set_tie('stop')
+                self.tied = False
+            self.prev_pitch = self.current_note.pitch
+        self.check_duration()
+        self.check_divs(self.current_note.duration)
         if self.staff:
             self.current_note.set_staff(self.staff)
         self.add_to_bar(self.current_note)
-        self.prev_pitch = self.current_note.pitch
 
-    def check_duration(self, dur_tokens):
+    def check_duration(self):
+        dur_tokens = self.current_note.note.duration.tokens
         dur_nr, dots = self.duration_from_tokens(dur_tokens)
         if dur_nr:
             self.current_note.set_durtype(dur_nr)
@@ -290,19 +284,11 @@ class mediator():
             self.current_chord.append(self.new_chordnote(note, rel))
 
     def new_chordbase(self, note, duration, rel=False):
-        self.current_note = bar_note(note, self.voice)
-        self.current_note.set_octave(rel, self.prev_pitch)
-        self.current_note.set_duration(duration.base_scaling)
-        self.check_divs(duration.base_scaling)
-        self.check_duration(duration.tokens)
-        if self.tied:
-            self.current_note.set_tie('stop')
-            self.tied = False
-        self.add_to_bar(self.current_note)
-        self.prev_pitch = self.current_note.pitch
+        self.current_note = BarNote(note, self.voice)
+        self.check_current_note(rel)
 
     def new_chordnote(self, note, rel):
-        chord_note = bar_note(note, self.voice)
+        chord_note = BarNote(note, self.voice)
         chord_note.set_duration(self.current_note.duration)
         chord_note.set_durtype(self.duration)
         chord_note.dots = self.dots
@@ -324,43 +310,30 @@ class mediator():
         self.clear_chord()
         rtype = rest.token
         if rtype == 'r':
-            self.current_note = bar_rest(rest.duration.base_scaling, self.voice)
-            self.check_duration(rest.duration.tokens)
+            self.current_note = BarRest(rest, self.voice)
         elif rtype == 'R':
-            self.current_note = bar_rest(rest.duration.base_scaling, self.voice, show_type=False)
+            self.current_note = BarRest(rest, self.voice, show_type=False)
         elif rtype == 's' or rtype == '\skip':
-            self.current_note = bar_rest(rest.duration.base_scaling, self.voice, skip=True)
-            self.check_duration(rest.duration.tokens)
-        self.add_to_bar(self.current_note)
+            self.current_note = BarRest(rest, self.voice, skip=True)
+        self.check_current_note(rest=True)
 
     def note2rest(self):
         """ note used as rest position transformed to rest"""
         temp_note = self.current_note
-        self.current_note = bar_rest(temp_note.duration, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
+        self.current_note = BarRest(temp_note.duration, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
         self.bar.pop()
         self.bar.add(self.current_note)
 
     def scale_rest(self, multp, new_bar=False):
         """ create multiple whole bar rests """
+        print("rest scaling!")
         import copy
         bar_copy = copy.deepcopy(self.bar)
-        bar_copy[0] = bar_attr()
+        bar_copy[0] = BarAttr()
         for i in range(1, int(multp)):
             self.insert_into.barlist.append(bar_copy)
         if new_bar:
             self.new_bar()
-
-    def new_duration(self, duration):
-        base, scaling = ly.duration.base_scaling_string(duration)
-        if self.current_chord:
-            for c in self.current_chord:
-                c.set_duration([base, scaling], duration)
-        else:
-            self.current_note.set_duration([base, scaling], duration)
-        self.duration = duration
-        self.base_scaling = [base, scaling]
-        self.check_divs(base, scaling, self.current_note.tuplet)
-        self.dots = 0
 
     def change_to_tuplet(self, fraction, ttype):
         tfraction = Fraction(fraction)
@@ -393,7 +366,7 @@ class mediator():
         unit, dots = self.duration_from_tokens(dur_tokens)
         beats = tempo[0]
         text = string.value()
-        tempo = bar_attr()
+        tempo = BarAttr()
         tempo.set_tempo(unit, beats, dots, text)
         if self.bar is None:
             self.new_bar()
@@ -440,8 +413,11 @@ class mediator():
             mult = get_mult(a,b)
             self.divisions = divs*mult
 
+##
+# Classes that
+##
 
-class score_part():
+class ScorePart():
     """ object to keep track of part """
     def __init__(self, staves=0):
         self.name = ''
@@ -449,7 +425,8 @@ class score_part():
         self.barlist = []
         self.staves = staves
 
-class score_section():
+
+class ScoreSection():
     """ object to keep track of music section """
     def __init__(self, name):
         self.name = name
@@ -459,12 +436,14 @@ class score_section():
         for org_v, add_v in zip(self.barlist, voice.barlist):
             org_v.inject_voice(add_v)
 
-class Snippet(score_section):
+
+class Snippet(ScoreSection):
     """ Short section indended to be merged.
     Holds reference to the barlist to be merged into."""
     def __init__(self, name, merge_into):
-        score_section.__init__(self, name)
+        ScoreSection.__init__(self, name)
         self.merge_barlist = merge_into
+
 
 class Bar():
     """ Representing the bar/measure.
@@ -481,23 +460,29 @@ class Bar():
         b = 0
         s = 1
         for obj in self.obj_list:
-            if isinstance(obj, bar_note) or isinstance(obj, bar_rest):
+            if isinstance(obj, BarMus):
                 if not obj.chord:
                     b += obj.duration[0]
                     s *= obj.duration[1]
-            elif isinstance(obj, bar_backup):
+            elif isinstance(obj, BarBackup):
                 break
-        return bar_backup((b,s))
+        return BarBackup((b,s))
 
     def inject_voice(self, new_voice):
         """ Adding new voice to bar.
         Omitting bar attributes in voice."""
         self.add(self.create_backup())
         for nv in new_voice.obj_list:
-            if not isinstance(nv, bar_attr):
+            if not isinstance(nv, BarAttr):
                 self.obj_list.append(nv)
 
-class bar_note():
+
+class BarMus():
+    """ Common class for notes and rests. """
+    pass
+
+
+class BarNote(BarMus):
     """ object to keep track of note parameters """
     def __init__(self, note, voice=1):
         self.note = note
@@ -552,10 +537,12 @@ class bar_note():
         else:
             self.tremolo = (trem_type, self.tremolo[1])
 
-class bar_rest():
+
+class BarRest(BarMus):
     """ object to keep track of different rests and skips """
-    def __init__(self, duration, voice=1, show_type=True, skip=False, pos=0):
-        self.duration = duration
+    def __init__(self, rest, voice=1, show_type=True, skip=False, pos=0):
+        self.note = rest
+        self.duration = rest.duration.base_scaling
         self.show_type = show_type
         self.type = None
         self.skip = skip
@@ -585,7 +572,7 @@ class bar_rest():
         self.staff = staff
 
 
-class bar_attr():
+class BarAttr():
     """ object that keep track of bar attributes, e.g. time sign, clef, key etc """
     def __init__(self):
         self.key = 0
@@ -615,7 +602,7 @@ class bar_attr():
         self.barline = convert_barl(bl)
 
     def set_tempo(self, unit, beats, dots=0, text=""):
-        self.tempo = tempo_dir(unit, beats, dots, text)
+        self.tempo = TempoDir(unit, beats, dots, text)
 
     def has_attr(self):
         check = False
@@ -630,13 +617,13 @@ class bar_attr():
         return check
 
 
-class bar_backup():
+class BarBackup():
     """ Object that stores duration for backup """
     def __init__(self, duration):
         self.duration = duration
 
 
-class tempo_dir():
+class TempoDir():
     """ Object that stores tempo direction information """
     def __init__(self, unit, beats, dots, text):
         self.metr = durval2type(unit), beats
@@ -654,10 +641,8 @@ class tempo_dir():
         mult = 4*u
         return float(Fraction(beats)*mult)
 
-
-
 ##
-# translation functions
+# Translation functions
 ##
 
 def get_fifths(key, mode):
@@ -673,34 +658,19 @@ def get_fifths(key, mode):
         return fifths
 
 def clefname2clef(clefname):
-    if clefname == "treble" or clefname == "violin" or clefname == "G":
-        return 'G',2,0
-    elif clefname == "bass" or clefname == "F":
-        return 'F',4,0
-    elif clefname == "alto" or clefname == "C":
-        return 'C',3,0
-    elif clefname == "tenor":
-        return 'C',4,0
-    elif clefname == "treble_8":
-        return 'G',2,-1
-    elif clefname == "bass_8":
-        return 'F',4,-1
-    elif clefname == "treble^8":
-        return 'G',2,1
-    elif clefname == "bass^8":
-        return 'F',4,1
-    elif clefname == "percussion":
-        return 'percussion',0,0
-    elif clefname == "tab":
-        return 'TAB',5,0
-    elif clefname == "soprano":
-        return 'C',1,0
-    elif clefname == "mezzosoprano":
-        return 'C',2,0
-    elif clefname == "baritone":
-        return 'C',5,0
-    elif clefname == "varbaritone":
-        return 'F',3,0
+    clef_dict = {
+    "treble": ('G',2,0), "violin": ('G',2,0), "G": ('G',2,0),
+    "bass": ('F',4,0), "F": ('F',4,0),
+    "alto": ('C',3,0), "C": ('C',3,0),
+    "tenor": ('C',4,0), "treble_8": ('G',2,-1),
+    "bass_8": ('F',4,-1), "treble^8": ('G',2,1),
+    "bass^8": ('F',4,1), "percussion": ('percussion',0,0),
+    "tab": ('TAB',5,0), "soprano": ('C',1,0),
+    "mezzosoprano": ('C',2,0),
+    "baritone": ('C',5,0),
+    "varbaritone": ('F',3,0)
+    }
+    return clef_dict[clefname]
 
 def getNoteName(index):
     noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
