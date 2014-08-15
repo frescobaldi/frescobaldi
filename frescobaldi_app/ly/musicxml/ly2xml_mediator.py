@@ -373,10 +373,14 @@ class Mediator():
         self.tied = True
 
     def new_articulation(self, art_token):
-        """ New articulation. """
-        art_name = artic_token2xml_name(art_token)
-        if art_name:
-            self.current_note.add_articulation(art_name)
+        """ New articulation or ornament. """
+        ret = artic_token2xml_name(art_token)
+        if ret == 'ornament':
+            self.current_note.add_ornament(art_token[1:])
+        elif ret == 'other':
+            self.current_note.add_other_notation(art_token[1:])
+        elif ret:
+            self.current_note.add_articulation(ret)
 
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
@@ -561,6 +565,8 @@ class BarNote(BarMus):
         self.chord = False
         self.skip = False
         self.artic = None
+        self.ornament = None
+        self.other_notation = None
 
     def set_duration(self, duration, durval=0):
         self.duration = duration
@@ -592,6 +598,9 @@ class BarNote(BarMus):
     def add_articulation(self, art_name):
         self.artic = art_name
 
+    def add_ornament(self, ornament):
+        self.ornament = ornament
+
     def set_grace(self, slash):
         self.grace = (1,slash)
 
@@ -600,6 +609,9 @@ class BarNote(BarMus):
             self.tremolo = (trem_type, dur2lines(duration))
         else:
             self.tremolo = (trem_type, self.tremolo[1])
+
+    def add_other_notation(self, other):
+        self.other_notation = other
 
 
 class BarRest(BarMus):
@@ -814,12 +826,20 @@ def get_voice(c):
 def artic_token2xml_name(art_token):
     artic_dict = {
     ".": "staccato", "-": "tenuto", ">": "accent",
-    "_": "detached_legato"
+    "_": "detached-legato", "!": "staccatissimo",
+    "\\staccatissimo": "staccatissimo"
     }
+    ornaments = ['\\trill', '\\prall', '\\mordent', '\\turn']
+    others = ['\\fermata']
     try:
         return artic_dict[art_token]
     except KeyError:
-        return False
+        if art_token in ornaments:
+            return "ornament"
+        elif art_token in others:
+            return "other"
+        else:
+            return False
 
 def calc_trem_dur(repeats, base_scaling, duration):
     """ Calculate tremolo duration from number of

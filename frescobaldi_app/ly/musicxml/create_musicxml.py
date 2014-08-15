@@ -142,10 +142,16 @@ class CreateMusicXML():
         self.add_skip(duration)
 
     def new_articulation(self, artic):
-        """ Adds specified articulation. """
+        """ Add specified articulation. """
         self.add_notations()
         self.add_articulations()
-        func_call = getattr(self, 'add_'+artic)
+        self.add_named_artic(artic)
+
+    def new_simple_ornament(self, ornament):
+        """ Add specified ornament. """
+        self.add_notations()
+        self.add_ornaments()
+        func_call = getattr(self, 'add_'+ornament)
         func_call()
 
     def new_bar_attr(self, clef, mustime, key, mode, divs):
@@ -198,6 +204,7 @@ class CreateMusicXML():
         """ create new note """
         self.current_note = etree.SubElement(self.current_bar, "note")
         self.current_notation = None
+        self.current_artic = None
         self.current_ornaments = None
 
     def add_pitch(self, step, alter, octave):
@@ -298,34 +305,19 @@ class CreateMusicXML():
         """ Add slur. """
         etree.SubElement(self.current_notation, "slur", {'number': str(nr), 'type': sl_type })
 
+    def add_named_notation(self, notate):
+        """ Fermata, etc. """
+        self.add_notations()
+        etree.SubElement(self.current_notation, notate)
+
     def add_articulations(self):
         """ Common for all articulations. """
-        if not self.current_notation:
+        if not self.current_artic:
             self.current_artic = etree.SubElement(self.current_notation, "articulations")
 
-    def add_staccato(self):
-        """ Staccato. """
-        etree.SubElement(self.current_artic, "staccato")
-
-    def add_tenuto(self):
-        """ Tenuto. """
-        etree.SubElement(self.current_artic, "tenuto")
-
-    def add_accent(self):
-        """ Accent. """
-        etree.SubElement(self.current_artic, "accent")
-
-    def add_detached_legato(self):
-        """ Detached legato. """
-        etree.SubElement(self.current_artic, "detached-legato")
-
-    def add_staccatissimo(self):
-        """ Staccatissimo. """
-        etree.SubElement(self.current_artic, "staccatissimo")
-
-    def add_spiccato(self):
-        """ Spiccato. """
-        etree.SubElement(self.current_artic, "spiccato")
+    def add_named_artic(self, artic):
+        """ Add articulation with specified name. """
+        etree.SubElement(self.current_artic, artic)
 
     def add_ornaments(self):
         if not self.current_ornaments:
@@ -336,6 +328,18 @@ class CreateMusicXML():
         self.add_ornaments()
         trem_node = etree.SubElement(self.current_ornament, "tremolo", type=trem_type)
         trem_node.text = str(lines)
+
+    def add_trill(self):
+        etree.SubElement(self.current_ornament, "trill-mark")
+
+    def add_turn(self):
+        etree.SubElement(self.current_ornament, "turn")
+
+    def add_mordent(self):
+        etree.SubElement(self.current_ornament, "mordent")
+
+    def add_prall(self):
+        etree.SubElement(self.current_ornament, "inverted-mordent")
 
     def create_bar_attr(self):
         """ create node attributes """

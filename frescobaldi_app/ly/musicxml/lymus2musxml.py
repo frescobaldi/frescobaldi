@@ -388,10 +388,14 @@ class ParseSource():
                             self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
                         if obj.artic:
                             self.musxml.new_articulation(obj.artic)
+                        if obj.ornament:
+                            self.musxml.new_simple_ornament(obj.ornament)
                         if obj.tremolo[1]:
                             self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                         if obj.staff:
                             self.musxml.add_staff(obj.staff)
+                        if obj.other_notation:
+                            self.musxml.add_named_notation(obj.other_notation)
                     elif isinstance(obj, ly2xml_mediator.BarRest):
                         if obj.skip:
                             self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
