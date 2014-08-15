@@ -394,6 +394,8 @@ class ParseSource():
                             self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                         if obj.staff:
                             self.musxml.add_staff(obj.staff)
+                        if obj.fingering:
+                            self.musxml.add_fingering(obj.fingering)
                         if obj.other_notation:
                             self.musxml.add_named_notation(obj.other_notation)
                     elif isinstance(obj, ly2xml_mediator.BarRest):

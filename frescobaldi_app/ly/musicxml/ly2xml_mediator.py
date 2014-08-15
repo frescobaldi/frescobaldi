@@ -374,13 +374,16 @@ class Mediator():
 
     def new_articulation(self, art_token):
         """ New articulation or ornament. """
-        ret = artic_token2xml_name(art_token)
-        if ret == 'ornament':
-            self.current_note.add_ornament(art_token[1:])
-        elif ret == 'other':
-            self.current_note.add_other_notation(art_token[1:])
-        elif ret:
-            self.current_note.add_articulation(ret)
+        if isinstance(art_token, ly.lex.lilypond.Fingering):
+            self.current_note.add_fingering(art_token)
+        else:
+            ret = artic_token2xml_name(art_token)
+            if ret == 'ornament':
+                self.current_note.add_ornament(art_token[1:])
+            elif ret == 'other':
+                self.current_note.add_other_notation(art_token[1:])
+            elif ret:
+                self.current_note.add_articulation(ret)
 
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
@@ -567,6 +570,7 @@ class BarNote(BarMus):
         self.artic = None
         self.ornament = None
         self.other_notation = None
+        self.fingering = None
 
     def set_duration(self, duration, durval=0):
         self.duration = duration
@@ -612,6 +616,9 @@ class BarNote(BarMus):
 
     def add_other_notation(self, other):
         self.other_notation = other
+
+    def add_fingering(self, finger_nr):
+        self.fingering = finger_nr
 
 
 class BarRest(BarMus):

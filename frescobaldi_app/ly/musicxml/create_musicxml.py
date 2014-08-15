@@ -206,6 +206,7 @@ class CreateMusicXML():
         self.current_notation = None
         self.current_artic = None
         self.current_ornaments = None
+        self.current_tech = None
 
     def add_pitch(self, step, alter, octave):
         """ create new pitch """
@@ -340,6 +341,16 @@ class CreateMusicXML():
 
     def add_prall(self):
         etree.SubElement(self.current_ornament, "inverted-mordent")
+
+    def add_technical(self):
+        if not self.current_tech:
+            self.add_notations()
+            self.current_tech = etree.SubElement(self.current_notation, "technical")
+
+    def add_fingering(self, finger_nr):
+        self.add_technical()
+        fing_node = etree.SubElement(self.current_tech, "fingering")
+        fing_node.text = str(finger_nr)
 
     def create_bar_attr(self):
         """ create node attributes """
