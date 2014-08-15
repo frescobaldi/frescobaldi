@@ -287,7 +287,7 @@ class Mediator():
             self.current_note.set_durtype(dur_nr)
             self.dur_token = dur_nr
             if rest and rs: # special case of multibar rest
-                if not self.current_note.show_type:
+                if not self.current_note.show_type or self.current_note.skip:
                     bs = self.current_note.base_scaling
                     if rs == bs[1]:
                         self.current_note.base_scaling = (bs[0], 1)
@@ -344,16 +344,18 @@ class Mediator():
     def note2rest(self):
         """ note used as rest position transformed to rest"""
         temp_note = self.current_note
-        self.current_note = BarRest(temp_note.duration, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
-        self.bar.pop()
+        self.current_note = BarRest(temp_note, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
+        self.bar.obj_list.pop()
         self.bar.add(self.current_note)
 
     def scale_rest(self, multp):
         """ create multiple whole bar rests """
         cn = self.current_note
+        st = self.current_note.show_type
+        sk = self.current_note.skip
         for i in range(1, int(multp)):
-            cn.note.duration.base_scaling = cn.duration
-            rest_copy = BarRest(cn.note, voice=cn.voice, show_type=False)
+            cn.note.duration.base_scaling = cn.base_scaling
+            rest_copy = BarRest(cn.note, voice=cn.voice, show_type=st, skip=sk)
             self.add_to_bar(rest_copy)
             self.new_bar()
 
@@ -500,18 +502,36 @@ class Bar():
                 break
         return BarBackup((b,s))
 
+    def is_skip(self):
+        """ Check if bar has nothing but skips. """
+        for obj in self.obj_list:
+            if obj.has_attr():
+                return False
+            if isinstance(obj, BarNote):
+                return False
+            elif isinstance(obj, BarRest):
+                if not obj.skip:
+                    return False
+        return True
+
     def inject_voice(self, new_voice):
         """ Adding new voice to bar.
-        Omitting bar attributes in voice."""
-        self.add(self.create_backup())
-        for nv in new_voice.obj_list:
-            if not isinstance(nv, BarAttr):
-                self.obj_list.append(nv)
+        Omitting double or conflicting bar attributes.
+        Omitting also bars with only skips."""
+        if new_voice.obj_list[0].has_attr():
+            if not self.obj_list[0].has_attr():
+                self.obj_list.insert(0, new_voice.obj_list[0])
+            new_voice.obj_list.pop(0)
+        if not new_voice.is_skip():
+            self.add(new_voice.create_backup())
+            for nv in new_voice.obj_list:
+                    self.add(nv)
 
 
 class BarMus():
     """ Common class for notes and rests. """
-    pass
+    def has_attr(self):
+        return False
 
 
 class BarNote(BarMus):
