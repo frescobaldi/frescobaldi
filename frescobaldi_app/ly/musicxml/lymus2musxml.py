@@ -75,17 +75,20 @@ class ParseSource():
         else:
             mus_nodes = self.find_score_sub(mustree)
         self.mediator.new_section("fallback") #fallback section
-        for m in mus_nodes:
-            func_name = m.__class__.__name__ #get instance name
-            #print func_name
-            if func_name not in excl_list:
-                try:
-                    func_call = getattr(self, func_name)
-                    func_call(m)
-                except AttributeError as ae:
-                    print "Warning: "+func_name+" not implemented!"
-                    print(ae)
-                    pass
+        if mus_nodes:
+            for m in mus_nodes:
+                func_name = m.__class__.__name__ #get instance name
+                #print func_name
+                if func_name not in excl_list:
+                    try:
+                        func_call = getattr(self, func_name)
+                        func_call(m)
+                    except AttributeError as ae:
+                        print "Warning: "+func_name+" not implemented!"
+                        print(ae)
+                        pass
+        else:
+            print("Warning! Couldn't parse source!")
 
     def musicxml(self, prettyprint=True):
         self.mediator.check_score()
@@ -258,7 +261,7 @@ class ParseSource():
                 else:
                     self.mediator.set_tremolo(trem_type="single", repeats=self.trem_rep)
                 self.trem_rep = 0
-        elif end.node.token == '\\new':
+        elif isinstance(end.node, ly.music.items.Context):
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
             elif end.node.context() == 'Staff':
@@ -294,7 +297,7 @@ class ParseSource():
     def get_score(self, node):
         """ returns (first) Score node or false if no Score is found """
         for n in node:
-            if isinstance(n, ly.music.items.Score):
+            if isinstance(n, ly.music.items.Score) or isinstance(n, ly.music.items.Book):
                 return n
         return False
 

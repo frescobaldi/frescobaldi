@@ -94,8 +94,8 @@ class Mediator():
             self.voice = nr
         else:
             self.voice = get_voice(command)
-            if piano>1:
-                self.voice += piano+3
+            if piano>2:
+                self.voice += piano+1
 
     def revert_voicenr(self):
         self.voice = self.store_voicenr
@@ -108,27 +108,34 @@ class Mediator():
         """ Adds snippet to previous barlist.
         A snippet can be shorter than a full bar,
         so this can also mean continuing a previous bar."""
-        snippet = self.get_var_byname(snippet_name)
-        self.continue_barlist(snippet.merge_barlist)
-        for bb in snippet.barlist:
-            for b in bb.obj_list:
-                self.bar.add(b)
-            if bb.list_full:
-                self.new_bar()
-
-        def continue_barlist(self, insert_into):
+        def continue_barlist(insert_into):
             self.insert_into = insert_into
             if insert_into.barlist:
                 self.bar = insert_into.barlist[-1]
             else:
                 self.new_bar(False)
 
+        snippet = self.get_var_byname(snippet_name)
+        continue_barlist(snippet.merge_barlist)
+        for bb in snippet.barlist:
+            for b in bb.obj_list:
+                self.bar.add(b)
+            if bb.list_full:
+                self.new_bar()
+
     def check_voices(self):
-        """ Checks active sections.
-        The two latest created are merged."""
+        """ Checks active sections. The two latest created are merged.
+        Also checks for empty sections. """
         if len(self.sections)>2:
-            self.sections[-2].merge_voice(self.sections[-1])
-            self.sections.pop()
+            if not self.sections[-2].barlist:
+                self.sections.pop(-2)
+                self.check_voices()
+            elif not self.sections[-1].barlist:
+                self.sections.pop()
+                self.check_voices()
+            else:
+                self.sections[-2].merge_voice(self.sections[-1])
+                self.sections.pop()
 
     def check_voices_by_nr(self):
         """ Used for snippets. Merges all active snippets
@@ -432,7 +439,7 @@ class Mediator():
             self.divisions = divs*mult
 
 ##
-# Classes that
+# Classes that holds information suitable for converting to XML.
 ##
 
 class ScorePart():
@@ -487,8 +494,8 @@ class Bar():
         for obj in self.obj_list:
             if isinstance(obj, BarMus):
                 if not obj.chord:
-                    b += obj.duration[0]
-                    s *= obj.duration[1]
+                    b += obj.base_scaling[0]
+                    s *= obj.base_scaling[1]
             elif isinstance(obj, BarBackup):
                 break
         return BarBackup((b,s))
