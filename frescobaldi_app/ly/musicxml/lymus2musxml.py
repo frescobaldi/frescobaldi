@@ -155,7 +155,7 @@ class ParseSource():
 
     def Note(self, note):
         """ notename, e.g. c, cis, a bes ... """
-        print(note.token)
+        #print(note.token)
         if note.length():
             self.mediator.new_note(note, self.relative)
             if self.tuplet:
@@ -197,6 +197,18 @@ class ParseSource():
             self.tuplet = True
             self.ttype = "start"
             self.fraction = scaler.scaling
+
+    def Articulation(self, art):
+        pass
+
+    def Postfix(self, postfix):
+        pass
+
+    def Beam(self, beam):
+        pass
+
+    def Slur(self, slur):
+        pass
 
     def Grace(self, grace):
         self.grace_seq = True
