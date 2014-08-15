@@ -40,7 +40,7 @@ from . import create_musicxml
 from . import ly2xml_mediator
 
 #excluded from parsing
-excl_list = ['Version', 'Midi', 'Layout']
+excl_list = ['Version', 'Midi', 'Layout', 'Scheme', 'SchemeItem', 'PathItem']
 
 
 class End():
@@ -61,10 +61,10 @@ class ParseSource():
         self.scale = ''
         self.grace_seq = False
         self.trem_rep = 0
-        self.voicenr = None
         self.piano_staff = 0
         self.numericTime = False
         self.voice_sep = False
+        self.simultan = False
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -106,8 +106,14 @@ class ParseSource():
     def MusicList(self, musicList):
         if musicList.token == '<<':
             if self.look_ahead(musicList, ly.music.items.VoiceSeparator):
-                self.mediator.new_snippet('sim')
+                self.mediator.new_snippet('sim-snip')
                 self.voice_sep = True
+            else:
+                self.simultan = True
+        elif musicList.token == '{':
+            if self.simultan:
+                if isinstance(musicList.parent(), (ly.music.items.Relative, ly.music.items.Assignment)):
+                    self.mediator.new_section('simultan')
 
     def Chord(self, chord):
         self.mediator.clear_chord()
@@ -246,7 +252,7 @@ class ParseSource():
         elif command.token == '\\defaultTimeSignature':
             self.numericTime = False
         elif command.token.find('voice') == 1:
-            self.voicenr = self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
+            self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
 
     def String(self, string):
         prev = self.get_previous_node(string)
@@ -289,6 +295,10 @@ class ParseSource():
                 self.mediator.check_voices_by_nr()
                 self.mediator.revert_voicenr()
                 self.voice_sep = False
+            elif self.simultan:
+                self.mediator.check_voices()
+                self.mediator.check_part()
+                self.simultan = False
         else:
             print("end:"+end.node.token)
 
