@@ -34,7 +34,7 @@ except ImportError:
 import ly.pkginfo
 
 
-class create_musicXML():
+class CreateMusicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
 
     def __init__(self):
@@ -58,12 +58,23 @@ class create_musicXML():
     # Building the basic Elements
     ##
 
-    def create_part(self, name):
+    def create_part(self, name, midi):
         """ create a new part """
-        part = etree.SubElement(self.partlist, "score-part", id="P"+str(self.part_count))
-        partname = etree.SubElement(part, "part-name")
-        partname.text = name
-        self.current_part = etree.SubElement(self.root, "part", id="P"+str(self.part_count))
+        strnr = str(self.part_count)
+        part = etree.SubElement(self.partlist, "score-part", id="P"+strnr)
+        if name:
+            partname = etree.SubElement(part, "part-name")
+            partname.text = name
+        if midi:
+            scoreinstr = etree.SubElement(part, "score-instrument", id="P"+strnr+"-I"+strnr)
+            instrname = etree.SubElement(scoreinstr, "instrument-name")
+            instrname.text = midi
+            midiinstr = etree.SubElement(part, "midi-instrument", id="P"+strnr+"-I"+strnr)
+            midich = etree.SubElement(midiinstr, "midi-channel")
+            midich.text = strnr
+            midiname = etree.SubElement(midiinstr, "midi-name")
+            midiname.text = midi
+        self.current_part = etree.SubElement(self.root, "part", id="P"+strnr)
         self.part_count +=1
         self.bar_nr = 1
 
@@ -85,7 +96,7 @@ class create_musicXML():
             self.add_chord()
         self.add_pitch(pitch[0], pitch[1], pitch[2])
         if not grace[0]:
-            self.add_div_duration(self.count_duration(base_scaling, divs, dot))
+            self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
         self.add_duration_type(durtype)
         if dot:
@@ -116,7 +127,7 @@ class create_musicXML():
         """ create all nodes needed for a rest. """
         self.create_note()
         self.add_rest(pos)
-        self.add_div_duration(self.count_duration(base_scaling, divs, dot))
+        self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
         if durtype:
             self.add_duration_type(durtype)
@@ -135,7 +146,7 @@ class create_musicXML():
         self.create_bar_attr()
         if divs:
             self.add_divisions(divs)
-        if key>=0:
+        if key != 0:
             self.add_key(key, mode)
         if mustime:
             self.add_time(mustime)
@@ -144,7 +155,7 @@ class create_musicXML():
             self.add_clef(sign, line, oct_ch=octch)
 
     def new_backup(self, base_scaling, divs):
-        self.add_backup(self.count_duration(base_scaling, divs, 0))
+        self.add_backup(self.count_duration(base_scaling, divs))
 
     def create_tempo(self, metronome, sound, dots):
         self.add_direction()
@@ -164,18 +175,10 @@ class create_musicXML():
     # Help functions
     ##
 
-    def count_duration(self, base_scaling, divs, dot):
+    def count_duration(self, base_scaling, divs):
         base = base_scaling[0]
         scaling = base_scaling[1]
-        if dot:
-            import math
-            den = int(math.pow(2,dot))
-            num = int(math.pow(2,dot+1)-1)
-            a = divs*4*num
-            b = (1/base)*den
-            duration = a/b
-        else:
-            duration = divs*4*base
+        duration = divs*4*base
         duration = duration * scaling
         return int(duration)
 
@@ -199,7 +202,7 @@ class create_musicXML():
             altnode = etree.SubElement(pitch, "alter")
             altnode.text = str(alter)
         octnode = etree.SubElement(pitch, "octave")
-        octnode.text = str(octave)
+        octnode.text = str(octave+3)
 
     def add_accidental(self, alter):
         """ create accidental """
@@ -372,8 +375,6 @@ class create_musicXML():
     def add_sound_dir(self, midi_tempo):
         soundnode = etree.SubElement(self.direction, "sound", tempo=str(midi_tempo))
 
-
-
     ##
     # Create the XML document
     ##
@@ -409,6 +410,7 @@ class MusicXML(object):
             self.tree.write(f, encoding=encoding, xml_declaration=False)
         else:
             self.tree.write(file, encoding=encoding, xml_declaration=True, method="xml")
+
 
 xml_decl_txt = """<?xml version="1.0" encoding="UTF-8"?>"""
 

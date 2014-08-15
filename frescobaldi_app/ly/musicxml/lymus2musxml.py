@@ -20,10 +20,14 @@
 """
 Export to Music XML.
 
-Using ly.music source to convert to XML.
+Using ly.music document tree to convert the source to XML.
 
-At the moment the status is test/experimental
-and the function is not actual use.
+Uses functions similar to items.Document.iter_music() to iter through
+the node tree. But information about where a node branch ends
+is also added.
+
+This approach substitues the previous method of using ly.lex directly
+to parse the source. It should prove more stable and easier to implement.
 
 """
 
@@ -35,353 +39,293 @@ import ly.music
 from . import create_musicxml
 from . import ly2xml_mediator
 
+#excluded from parsing
+excl_list = ['Version', 'Midi', 'Layout']
 
-class parse_source():
+
+class End():
+    """ Extra class that gives information about the end of Container
+    elements in the node list. """
+    def __init__(self, node):
+        self.node = node
+
+
+class ParseSource():
     """ creates the XML-file from the source code according to the Music XML standard """
 
     def __init__(self):
-        self.musxml = create_musicxml.create_musicXML()
-        self.mediator = ly2xml_mediator.mediator()
-        self.prev_command = ''
-        self.pitch_mode = 'abs'
-        self.varname = ''
-        self.can_create_sect = True
+        self.musxml = create_musicxml.CreateMusicXML()
+        self.mediator = ly2xml_mediator.Mediator()
+        self.relative = False
         self.tuplet = False
         self.scale = ''
         self.grace_seq = False
-        self.new = False
-        self.context = False
+        self.trem_rep = 0
         self.voicenr = None
-        self.voicecontext = False
-        self.piano_staff = -1
-        self.sim_list = []
-        self.seq_list = []
-        self.new_context = None
-        self.simsectnr = 0
-        self.is_chord = False
-        self.new_tempo = 0
-        self.tempo_dots = 0
+        self.piano_staff = 0
+        self.numericTime = False
+        self.voice_sep = False
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
         print(mustree.dump())
-        tree_nodes = mustree.iter_music()
-        for m in tree_nodes:
-            print(m)
-            print(m.has_output())
+        score = self.get_score(mustree)
+        if score:
+            mus_nodes = self.iter_score(score, mustree)
+        else:
+            mus_nodes = self.find_score_sub(mustree)
+        self.mediator.new_section("fallback") #fallback section
+        if mus_nodes:
+            for m in mus_nodes:
+                func_name = m.__class__.__name__ #get instance name
+                #print func_name
+                if func_name not in excl_list:
+                    try:
+                        func_call = getattr(self, func_name)
+                        func_call(m)
+                    except AttributeError as ae:
+                        print "Warning: "+func_name+" not implemented!"
+                        print(ae)
+                        pass
+        else:
+            print("Warning! Couldn't parse source!")
 
     def musicxml(self, prettyprint=True):
-        #self.mediator.check_score()
+        self.mediator.check_score()
         self.iterate_mediator()
         xml = self.musxml.musicxml(prettyprint)
         return xml
 
     ##
-    # The different source types from ly.lex.lilypond are here sent to translation.
+    # The different source types from ly.music are here sent to translation.
     ##
 
-    def Name(self, token):
-        """ name of variable """
-        self.varname = token
+    def Assignment(self, assignm):
+        print("Warning assignment in score block or corresponding: "+assignm.name())
 
-    def SimultaneousStart(self, token):
-        """ << """
-        if self.new_context:
-            self.sim_list.append(self.new_context)
-            self.new_context = None
-        else:
-            if not self.simsectnr:
-                self.curr_sect = self.mediator.insert_into
-            self.simsectnr += 1
-            self.varname = "sim-sect-"+str(self.simsectnr)
-            self.can_create_sect = True
+    def MusicList(self, musicList):
+        if musicList.token == '<<':
+            if self.look_ahead(musicList, ly.music.items.VoiceSeparator):
+                self.mediator.new_snippet('sim')
+                self.voice_sep = True
 
-    def SimultaneousEnd(self, token):
-        """ >> """
-        if self.sim_list:
-            if self.sim_list[-1] == 'pianostaff':
-                if self.piano_var:
-                    self.mediator.merge_variable(5, self.piano_var, True)
-                    self.piano_var = None
-            self.sim_list.pop()
-        elif self.simsectnr:
-            self.mediator.insert_into = self.curr_sect
-            self.mediator.fetch_variable("sim-sect-1")
-            self.mediator.new_bar()
-            self.simsectnr = 0
+    def Chord(self, chord):
+        self.mediator.clear_chord()
 
-    def SequentialStart(self, token):
-        """ SequentialStart = { """
-        if self.prev_command[1:] == 'times':
-            self.tuplet = True
-            self.ttype = "start"
-        elif self.prev_command[1:] == 'grace':
-            self.grace_seq = True
-        elif self.prev_command == 'repeat':
-            self.mediator.new_repeat('forward')
-            self.prev_command = ''
-            self.seq_list.append('repeat')
-        elif self.new_context:
-            self.seq_list.append(self.new_context)
-            self.new_context = None
-        elif self.can_create_sect:
-            self.mediator.new_section(self.varname)
-            self.can_create_sect = False
-            self.varname = ''
-            self.prev_command = ''
-            self.seq_list.append("section")
+    def Q(self, q):
+        self.mediator.copy_prev_chord(q.duration, self.relative)
 
-    def SequentialEnd(self, token):
-        """ SequentialEnd = } """
-        if self.tuplet:
-            self.mediator.change_to_tuplet(self.fraction, "stop")
-            self.tuplet = False
-        elif self.grace_seq:
-            self.grace_seq = False
-        elif self.simsectnr:
-            if self.simsectnr>1:
-                self.mediator.merge_variable(self.simsectnr,
-                "sim-sect-"+str(self.simsectnr), False, "sim-sect-1")
-            self.simsectnr += 1
-            self.varname = "sim-sect-"+str(self.simsectnr)
-            self.can_create_sect = True
-            self.seq_list.pop()
-        elif self.seq_list:
-            if self.seq_list[-1] == 'pianostaff':
-                if self.piano_var:
-                    self.mediator.merge_variable(5, self.piano_var, True)
-                    self.piano_var = None
-            elif self.seq_list[-1] == 'section':
-                self.can_create_sect = True
-            elif self.seq_list[-1] == 'repeat':
-                self.mediator.new_repeat('backward')
-                self.mediator.new_bar()
-            self.seq_list.pop()
-        else:
-            self.prev_command = ''
-
-    def ChordStart(self, token):
-        """ < """
-        self.is_chord = True
-        self.mediator.new_chord = True
-
-    def ChordEnd(self, token):
-        """ > """
-        self.is_chord = False
-
-    def Score(self, token):
-        self.new_context = "score"
-
-    def New(self, token):
-        """ \new """
-        self.new = True
-
-    def Context(self, token):
+    def Context(self, context):
         """ \context """
-        self.context = True
-
-    def ContextName(self, token):
-        """ Staff, Voice  """
-        if token == "Staff":
-            if self.new or self.context:
-                self.new_context = "staff"
-            if self.new and "pianostaff" not in self.get_context():
-                self.create_part()
-            elif self.piano_staff>=0:
+        if context.context() in ['PianoStaff', 'GrandStaff']:
+            self.mediator.new_part(piano=True)
+            self.piano_staff = 1
+        elif context.context() == 'Staff':
+            if self.piano_staff:
+                if self.piano_staff > 1:
+                    self.mediator.set_voicenr(nr=self.piano_staff+3)
+                self.mediator.new_section('piano-staff'+str(self.piano_staff))
+                self.mediator.set_staffnr(self.piano_staff)
                 self.piano_staff += 1
-        elif token == "PianoStaff":
-            if self.new:
-                self.create_part(True)
-                self.new_context = "pianostaff"
-                self.piano_staff = 0
-        elif token == "Voice":
-            self.voicecontext = True
-        else:
-            print token
-            self.new_context = token
+            else:
+                self.mediator.new_part()
+        elif context.context() == 'Voice':
+            if context.context_id():
+                self.mediator.new_section(context.context_id())
+            else:
+                self.mediator.new_section('voice')
 
-    def create_part(self, piano=False):
-        self.mediator.new_part(piano)
-        self.can_create_sect = False
-        self.new = False
-        self.context = False
-        self.voicenr = None
+    def VoiceSeparator(self, voice_sep):
+        self.mediator.new_snippet('sim')
+        self.mediator.set_voicenr(add=True)
 
-    def ContextProperty(self, token):
-        """ instrumentName, midiInstrument, etc """
-        self.prev_command = token
-
-    def get_context(self):
-        curr_sim = ''
-        curr_seq = ''
-        if self.sim_list:
-            curr_sim = self.sim_list[-1]
-        if self.seq_list:
-            curr_seq = self.seq_list[-1]
-        return curr_sim, curr_seq
-
-    def PipeSymbol(self, token):
+    def PipeSymbol(self,barcheck):
         """ PipeSymbol = | """
         self.mediator.new_bar()
 
-    def Clef(self, token):
+    def Clef(self, clef):
         """ Clef \clef"""
-        self.prev_command = "clef"
+        self.mediator.new_clef(clef.specifier())
 
-    def ClefSpecifier(self, token):
-        """ clef name without quotation marks """
-        if self.prev_command == 'clef':
-            self.mediator.new_clef(token)
-            self.prev_command = ''
+    def KeySignature(self, key):
+        self.mediator.new_key(key.pitch().output(), key.mode())
 
-    def PitchCommand(self, token):
-        if token == '\\relative':
-            self.pitch_mode = 'rel'
-            self.prev_command = token[1:]
-        elif token == '\key':
-            self.prev_command = "key"
+    def Relative(self, relative):
+        pass
 
-    def Note(self, token):
+    def Note(self, note):
         """ notename, e.g. c, cis, a bes ... """
-        if self.prev_command == "key":
-            self.key = token
-        elif self.prev_command == "relative":
-            self.mediator.set_relative(token)
-        elif self.is_chord:
-            self.mediator.create_chord(token, self.pitch_mode)
-            self.mediator.new_chord = False
-        else:
-            self.mediator.new_note(token, self.pitch_mode)
+        print(note.token)
+        if note.length():
+            self.mediator.new_note(note, self.relative)
             if self.tuplet:
                 self.mediator.change_to_tuplet(self.fraction, self.ttype)
                 self.ttype = ""
-            if self.prev_command[1:] == 'grace':
-                self.mediator.new_grace(0)
-                if not self.grace_seq:
-                    self.prev_command = ''
-
-    def Octave(self, token):
-        """ a number of , or ' """
-        if self.prev_command == "relative":
-            self.mediator.new_octave(token)
-            self.prev_command = ''
+            if self.grace_seq:
+                self.mediator.new_grace()
+            if self.trem_rep:
+                self.mediator.set_tremolo(trem_type='start', repeats=self.trem_rep)
         else:
-            if self.pitch_mode == 'rel':
-                self.mediator.new_octave(token, True)
-            else:
-                self.mediator.new_octave(token)
+            if isinstance(note.parent(), ly.music.items.Relative):
+                print("setting relative")
+                self.mediator.set_relative(note)
+                self.relative = True
+            elif isinstance(note.parent(), ly.music.items.Chord):
+                self.mediator.new_chord(note, note.parent().duration, self.relative)
 
-    def Tempo(self, token):
+    def Tempo(self, tempo):
         """ Tempo direction, e g '4 = 80' """
-        self.new_tempo = 1
+        self.mediator.new_tempo(tempo.duration.tokens, tempo.tempo(), tempo.text())
 
-    def Length(self, token):
-        """ note length/duration, e.g. 4, 8, 16 ... """
-        if self.new_tempo:
-            self.new_tempo = token
-        else:
-            self.duration = token
-            self.mediator.new_duration(token)
-
-    def IntegerValue(self, token):
-        """ tempo value """
-        if self.new_tempo:
-            self.mediator.new_tempo(self.new_tempo, token, self.tempo_dots)
-            self.new_tempo = 0
-            self.tempo_dots = 0
-
-    def TremoloDuration(self, token):
-        """ duration of tremolo notes for tremolo marking """
-        self.mediator.new_tremolo(token)
-
-    def Dot(self, token):
-        """ dot, . """
-        if self.new_tempo:
-            self.tempo_dots += 1
-        else:
-            self.mediator.new_dot()
-
-    def Tie(self, token):
+    def Tie(self, tie):
         """ tie ~ """
         self.mediator.tie_to_next()
 
-    def Rest(self, token):
+    def Rest(self, rest):
         """ rest, r or R. Note: NOT by command, i.e. \rest """
-        if token == 'R':
-            self.scale = token
-        self.mediator.new_rest(token)
+        if rest.token == 'R':
+            self.scale = 'R'
+        self.mediator.new_rest(rest)
 
-    def Spacer(self, token):
-        """ invisible rest/spacer rest (s) """
-        self.mediator.new_rest(token)
-        self.scale = 's'
+    def Skip(self, skip):
+        """ invisible rest/spacer rest (s or command \skip)"""
+        self.mediator.new_rest(skip)
 
-    def Skip(self, token):
-        """ command \skip """
-        self.mediator.new_rest('s')
+    def Scaler(self, scaler):
+        """ \times \tuplet \scaleDurations"""
+        if not scaler.token == '\\scaleDurations': #I'll come back for this later
+            self.tuplet = True
+            self.ttype = "start"
+            self.fraction = scaler.scaling
 
-    def Scaling(self, token):
-        """ scaling, e.g. *3 or *2/3"""
-        if self.scale == 'R' or self.scale == 's':
-            self.mediator.scale_rest(token[1:])
-            self.scale = ''
-        else:
-            self.mediator.scale_duration(token)
+    def Grace(self, grace):
+        self.grace_seq = True
 
-    def Fraction(self, token):
-        """ fraction, e.g. 3/4
-        can be used for time sign or tuplets """
-        if self.prev_command == '\\time':
-            self.mediator.new_time(token)
-            self.prev_command = ''
-        elif self.prev_command == '\\numericTimeSignature':
-            self.mediator.new_time(token, numeric=True)
-            self.prev_command = ''
-        else:
-            self.fraction = token
+    def TimeSignature(self, timeSign):
+        self.mediator.new_time(timeSign.numerator(), timeSign.fraction(), self.numericTime)
 
-    def Keyword(self, token):
-        self.prev_command = token
+    def Repeat(self, repeat):
+        if repeat.specifier() == 'volta':
+            self.mediator.new_repeat('forward')
+        elif repeat.specifier() == 'unfold':
+            self.mediator.new_snippet('unfold')
+        elif repeat.specifier() == 'tremolo':
+            self.trem_rep = repeat.repeat_count()
 
-    def Repeat(self, token):
-        self.prev_command = "repeat"
+    def Tremolo(self, tremolo):
+        self.mediator.set_tremolo(duration=int(tremolo.duration.token))
 
-    def Command(self, token):
-        """ \bar, \rest, \time, etc """
-        if token == '\\rest':
+    def With(self, cont_with):
+        print(cont_with.tokens)
+
+    def Set(self, cont_set):
+        if cont_set.property() == 'instrumentName':
+            self.mediator.set_partname(cont_set.value().value())
+        elif cont_set.property() == 'midiInstrument':
+            self.mediator.set_partmidi(cont_set.value().value())
+
+    def Command(self, command):
+        """ \bar, \rest etc """
+        print(command.token)
+        if command.token == '\\rest':
             self.mediator.note2rest()
-        elif token.find('voice') == 1:
-            self.voicenr = self.mediator.new_voice(token[1:])
-        elif self.prev_command != '\\numericTimeSignature':
-            self.prev_command = token
+        elif command.token == '\\numericTimeSignature':
+            self.numericTime = True
+        elif command.token == '\\defaultTimeSignature':
+            self.numericTime = False
+        elif command.token.find('voice') == 1:
+            self.voicenr = self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
 
-    def UserCommand(self, token):
-        if self.prev_command == 'key':
-            self.mediator.new_key(self.key, token)
-            self.prev_command = ''
-        else:
-            if self.voicecontext and self.voicenr>1:
-                if self.piano_staff == 2:
-                    self.mediator.merge_variable(self.voicenr, token[1:], org=self.piano_var)
+    def String(self, string):
+        prev = self.get_previous_node(string)
+        if prev and prev.token == '\\bar':
+            self.mediator.create_barline(string.value())
+
+    def End(self, end):
+        if isinstance(end.node, ly.music.items.Scaler):
+            if not end.node.token == '\scaleDurations':
+                self.mediator.change_to_tuplet(self.fraction, "stop")
+                self.tuplet = False
+                self.fraction = None
+        elif isinstance(end.node, ly.music.items.Grace): #Grace
+            self.grace_seq = False
+        elif end.node.token == '\\repeat':
+            if end.node.specifier() == 'volta':
+                self.mediator.new_repeat('backward')
+            elif end.node.specifier() == 'unfold':
+                for n in range(end.node.repeat_count()):
+                    self.mediator.add_snippet('unfold')
+            elif end.node.specifier() == 'tremolo':
+                if self.look_ahead(end.node, ly.music.items.MusicList):
+                    self.mediator.set_tremolo(trem_type="stop", repeats=self.trem_rep)
                 else:
-                    self.mediator.merge_variable(self.voicenr, token[1:])
-            elif self.piano_staff == 2:
-                self.piano_var = token[1:]
-                self.piano_staff = -1
-            else:
-                self.mediator.fetch_variable(token[1:])
+                    self.mediator.set_tremolo(trem_type="single", repeats=self.trem_rep)
+                self.trem_rep = 0
+        elif isinstance(end.node, ly.music.items.Context):
+            if end.node.context() == 'Voice':
+                self.mediator.check_voices()
+            elif end.node.context() == 'Staff':
+                if not self.piano_staff:
+                    self.mediator.check_part()
+            elif end.node.context() in ['PianoStaff', 'GrandStaff']:
+                self.mediator.check_voices()
+                self.mediator.check_part()
+                self.piano_staff = 0
+                self.mediator.set_voicenr(nr=1)
+        elif end.node.token == '<<':
+            if self.voice_sep:
+                self.mediator.check_voices_by_nr()
+                self.mediator.revert_voicenr()
+                self.voice_sep = False
+        else:
+            print("end:"+end.node.token)
 
-    def String(self, token):
-        if self.prev_command == 'clef':
-            self.mediator.new_clef(token)
-            self.prev_command = ''
-        elif self.prev_command == '\\bar':
-            self.mediator.create_barline(token)
-            self.prev_command = ''
-        elif self.prev_command == 'instrumentName':
-            self.mediator.set_partname(token)
-            self.prev_command = ''
+    ##
+    # Additional node manipulation
+    ##
 
+    def get_previous_node(self, node):
+        """ returns the nodes previous node
+        or false if the node is first """
+        parent = node.parent()
+        i = parent.index(node)
+        if i > 0:
+            return parent[i-1]
+        else:
+            return False
+
+    def get_score(self, node):
+        """ returns (first) Score node or false if no Score is found """
+        for n in node:
+            if isinstance(n, ly.music.items.Score) or isinstance(n, ly.music.items.Book):
+                return n
+        return False
+
+    def iter_score(self, scorenode, doc):
+        """Iter over score. Similar to items.Document.iter_music."""
+        for s in scorenode:
+            n = doc.substitute_for_node(s) or s
+            yield n
+            for n in self.iter_score(n, doc):
+                yield n
+        if isinstance(scorenode, ly.music.items.Container):
+            yield End(scorenode)
+
+    def find_score_sub(self, doc):
+        """Find substitute for scorenode. Takes first music node that isn't
+        an assignment."""
+        for n in doc:
+            if not isinstance(n, ly.music.items.Assignment):
+                if isinstance(n, ly.music.items.Music):
+                    return self.iter_score(n, doc)
+
+    def look_ahead(self, node, find_node):
+        """Looks ahead in a container node and returns True
+        if the search is successful."""
+        for n in node:
+            if isinstance(n, find_node):
+                return True
+        return False
 
     ##
     # The xml-file is built from the mediator objects
@@ -391,14 +335,14 @@ class parse_source():
         """ the mediator lists are looped through and outputed to the xml-file """
         for part in self.mediator.score:
             if part.barlist:
-                self.musxml.create_part(part.name)
+                self.musxml.create_part(part.name, part.midi)
                 self.mediator.set_first_bar(part)
             else:
                 print "Warning: empty part: "+part.name
             for bar in part.barlist:
                 self.musxml.create_measure()
-                for obj in bar:
-                    if isinstance(obj, ly2xml_mediator.bar_attr):
+                for obj in bar.obj_list:
+                    if isinstance(obj, ly2xml_mediator.BarAttr):
                         if obj.has_attr():
                             self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
                         if obj.repeat:
@@ -412,25 +356,25 @@ class parse_source():
                                 self.musxml.add_clef(m[0], m[1], i+1)
                         if obj.tempo:
                             self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
-                    elif isinstance(obj, ly2xml_mediator.bar_note):
-                        self.musxml.new_note(obj.grace, [obj.base_note, obj.pitch.alter, obj.pitch.octave], obj.duration,
+                    elif isinstance(obj, ly2xml_mediator.BarNote):
+                        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.base_scaling,
                         obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                         if obj.tie:
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:
-                            self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.mediator.divisions)
-                        if obj.tremolo:
-                            self.musxml.add_tremolo("single", obj.tremolo)
+                            self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
+                        if obj.tremolo[1]:
+                            self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                         if obj.staff:
                             self.musxml.add_staff(obj.staff)
-                    elif isinstance(obj, ly2xml_mediator.bar_rest):
+                    elif isinstance(obj, ly2xml_mediator.BarRest):
                         if obj.skip:
-                            self.musxml.new_skip(obj.duration, self.mediator.divisions)
+                            self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
                         else:
-                            self.musxml.new_rest(obj.duration, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
+                            self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
                         if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
-                    elif isinstance(obj, ly2xml_mediator.bar_backup):
-                        self.musxml.new_backup(obj.duration, self.mediator.divisions)
+                    elif isinstance(obj, ly2xml_mediator.BarBackup):
+                        self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
 
 
