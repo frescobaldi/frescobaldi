@@ -372,6 +372,12 @@ class Mediator():
             self.current_note.set_tie('start')
         self.tied = True
 
+    def new_articulation(self, art_token):
+        """ New articulation. """
+        art_name = artic_token2xml_name(art_token)
+        if art_name:
+            self.current_note.add_articulation(art_name)
+
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
 
@@ -554,6 +560,7 @@ class BarNote(BarMus):
         self.staff = 0
         self.chord = False
         self.skip = False
+        self.artic = None
 
     def set_duration(self, duration, durval=0):
         self.duration = duration
@@ -581,6 +588,9 @@ class BarNote(BarMus):
 
     def add_dot(self):
         self.dot += 1
+
+    def add_articulation(self, art_name):
+        self.artic = art_name
 
     def set_grace(self, slash):
         self.grace = (1,slash)
@@ -800,6 +810,16 @@ def convert_barl(bl):
 def get_voice(c):
     voices = ["voiceOne", "voiceTwo", "voiceThree", "voiceFour"]
     return voices.index(c)+1
+
+def artic_token2xml_name(art_token):
+    artic_dict = {
+    ".": "staccato", "-": "tenuto", ">": "accent",
+    "_": "detached_legato"
+    }
+    try:
+        return artic_dict[art_token]
+    except KeyError:
+        return False
 
 def calc_trem_dur(repeats, base_scaling, duration):
     """ Calculate tremolo duration from number of

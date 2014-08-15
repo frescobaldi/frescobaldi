@@ -205,7 +205,8 @@ class ParseSource():
             self.fraction = scaler.scaling
 
     def Articulation(self, art):
-        pass
+        """An articulation, fingering, string number, or other symbol."""
+        self.mediator.new_articulation(art.token)
 
     def Postfix(self, postfix):
         pass
@@ -385,6 +386,8 @@ class ParseSource():
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:
                             self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
+                        if obj.artic:
+                            self.musxml.new_articulation(obj.artic)
                         if obj.tremolo[1]:
                             self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                         if obj.staff:

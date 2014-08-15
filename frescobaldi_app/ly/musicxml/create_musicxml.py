@@ -145,7 +145,7 @@ class CreateMusicXML():
         """ Adds specified articulation. """
         self.add_notations()
         self.add_articulations()
-        func_call = getattr(self, artic)
+        func_call = getattr(self, 'add_'+artic)
         func_call()
 
     def new_bar_attr(self, clef, mustime, key, mode, divs):
