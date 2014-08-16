@@ -373,7 +373,11 @@ class Mediator():
         self.tied = True
 
     def new_articulation(self, art_token):
-        """ New articulation or ornament. """
+        """
+        An articulation, fingering, string number, or other symbol.
+
+        Grouped as articulations, ornaments, technical and others.
+        """
         if isinstance(art_token, ly.lex.lilypond.Fingering):
             self.current_note.add_fingering(art_token)
         else:
@@ -744,6 +748,11 @@ def get_fifths(key, mode):
         return fifths
 
 def clefname2clef(clefname):
+    """
+    To add a clef look up the clef name in LilyPond
+    and the corresponding definition in musicXML.
+    Add it to the python dictionary below.
+    """
     clef_dict = {
     "treble": ('G',2,0), "violin": ('G',2,0), "G": ('G',2,0),
     "bass": ('F',4,0), "F": ('F',4,0),
@@ -831,6 +840,14 @@ def get_voice(c):
     return voices.index(c)+1
 
 def artic_token2xml_name(art_token):
+    """
+    From Articulations in ly.music.items.
+    Grouped as articulations, ornaments and others.
+
+    To add an articulation look up the name or abbreviation
+    in LilyPond and the corresponding node name in musicXML.
+    Add it to the python dictionary below.
+    """
     artic_dict = {
     ".": "staccato", "-": "tenuto", ">": "accent",
     "_": "detached-legato", "!": "staccatissimo",

@@ -201,7 +201,7 @@ class ParseSource():
         """
         \times \tuplet \scaleDurations
 
-        This will not work yet for \scaleDurations,
+        This will not work yet for `\scaleDurations`,
         because the fraction is not set in attribute `scaling`.
 
         """
@@ -321,8 +321,8 @@ class ParseSource():
     ##
 
     def get_previous_node(self, node):
-        """ returns the nodes previous node
-        or false if the node is first """
+        """ Returns the nodes previous node
+        or false if the node is first in its branch. """
         parent = node.parent()
         i = parent.index(node)
         if i > 0:
@@ -331,7 +331,7 @@ class ParseSource():
             return False
 
     def get_score(self, node):
-        """ returns (first) Score node or false if no Score is found """
+        """ Returns (first) Score node or false if no Score is found. """
         for n in node:
             if isinstance(n, ly.music.items.Score) or isinstance(n, ly.music.items.Book):
                 return n
@@ -368,7 +368,7 @@ class ParseSource():
     ##
 
     def iterate_mediator(self):
-        """ the mediator lists are looped through and outputed to the xml-file """
+        """ The mediator lists are looped through and outputed to the xml-file. """
         for part in self.mediator.score:
             if part.barlist:
                 self.musxml.create_part(part.name, part.midi)
