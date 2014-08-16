@@ -226,7 +226,11 @@ class ParseSource():
         pass
 
     def Slur(self, slur):
-        pass
+        """ Slur, '(' = start, ')' = stop. """
+        if slur.token == '(':
+            self.mediator.set_slur("start")
+        elif slur.token == ')':
+            self.mediator.set_slur("stop")
 
     def Grace(self, grace):
         self.grace_seq = True
@@ -399,6 +403,8 @@ class ParseSource():
                             self.musxml.tie_note(obj.tie)
                         if obj.tuplet:
                             self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
+                        if obj.slur:
+                            self.musxml.add_slur(1, obj.slur) #LilyPond doesn't allow nested slurs so the number can be 1
                         if obj.artic:
                             self.musxml.new_articulation(obj.artic)
                         if obj.ornament:

@@ -304,6 +304,7 @@ class CreateMusicXML():
 
     def add_slur(self, nr, sl_type):
         """ Add slur. """
+        self.add_notations()
         etree.SubElement(self.current_notation, "slur", {'number': str(nr), 'type': sl_type })
 
     def add_named_notation(self, notate):

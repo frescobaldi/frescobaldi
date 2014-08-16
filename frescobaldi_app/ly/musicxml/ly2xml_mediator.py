@@ -372,6 +372,11 @@ class Mediator():
             self.current_note.set_tie('start')
         self.tied = True
 
+    def set_slur(self, slur_type):
+        """
+        Set the slur start or stop for the current note. """
+        self.current_note.set_slur(slur_type)
+
     def new_articulation(self, art_token):
         """
         An articulation, fingering, string number, or other symbol.
@@ -571,6 +576,7 @@ class BarNote(BarMus):
         self.staff = 0
         self.chord = False
         self.skip = False
+        self.slur = None
         self.artic = None
         self.ornament = None
         self.other_notation = None
@@ -602,6 +608,9 @@ class BarNote(BarMus):
 
     def add_dot(self):
         self.dot += 1
+
+    def set_slur(self, slur_type):
+        self.slur = slur_type
 
     def add_articulation(self, art_name):
         self.artic = art_name
