@@ -198,11 +198,22 @@ class ParseSource():
         self.mediator.new_rest(skip)
 
     def Scaler(self, scaler):
-        """ \times \tuplet \scaleDurations"""
-        if not scaler.token == '\\scaleDurations': #I'll come back for this later
-            self.tuplet = True
+        """
+        \times \tuplet \scaleDurations
+
+        This will not work yet for \scaleDurations,
+        because the fraction is not set in attribute `scaling`.
+
+        """
+        if scaler.token == '\\scaleDurations':
+            self.ttype = ""
+        else:
             self.ttype = "start"
-            self.fraction = scaler.scaling
+        self.tuplet = True
+        self.fraction = scaler.scaling
+
+    def Number(self, number):
+        pass
 
     def Articulation(self, art):
         """An articulation, fingering, string number, or other symbol."""
@@ -262,10 +273,12 @@ class ParseSource():
 
     def End(self, end):
         if isinstance(end.node, ly.music.items.Scaler):
-            if not end.node.token == '\scaleDurations':
+            if end.node.token == '\scaleDurations':
+                self.mediator.change_to_tuplet(self.fraction, "")
+            else:
                 self.mediator.change_to_tuplet(self.fraction, "stop")
-                self.tuplet = False
-                self.fraction = None
+            self.tuplet = False
+            self.fraction = None
         elif isinstance(end.node, ly.music.items.Grace): #Grace
             self.grace_seq = False
         elif end.node.token == '\\repeat':
