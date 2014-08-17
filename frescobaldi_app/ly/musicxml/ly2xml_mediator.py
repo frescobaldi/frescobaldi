@@ -52,6 +52,7 @@ class Mediator():
         self.staff_id_dict = {}
         self.store_unset_staff = False
         self.staff_unset_notes = {}
+        self.lyric_sections = {}
 
     def new_section(self, name):
         name = self.check_name(name)
@@ -66,6 +67,12 @@ class Mediator():
         self.insert_into = snippet
         self.sections.append(snippet)
         self.bar = None
+
+    def new_lyric_section(self, name, voice_id):
+        name = self.check_name(name)
+        lyrics = LyricsSection(name, voice_id)
+        self.insert_into = lyrics
+        self.lyric_sections[name] = lyrics
 
     def check_name(self, name, nr=1):
         n = self.get_var_byname(name)
@@ -168,6 +175,14 @@ class Mediator():
                     self.sections.pop()
                 else:
                     print("WARNING: problem adding snippet!")
+
+    def check_lyrics(self, voice_id):
+        """Check the finished lyrics section and merge it into
+        the referenced voice."""
+        lyrics_section = self.lyric_sections['lyricsto'+voice_id]
+        voice_section = self.get_var_byname(lyrics_section.voice_id)
+        if voice_section:
+            voice_section.merge_lyrics(lyrics_section)
 
     def check_part(self):
         """Adds the latest active section to the part."""
@@ -450,6 +465,12 @@ class Mediator():
     def set_partmidi(self, midi):
         self.part.midi = midi
 
+    def new_lyrics_text(self, txt):
+        self.insert_into.barlist.append(txt)
+
+    def new_lyrics_item(self, item):
+        pass
+
     def duration_from_tokens(self, dur_tokens):
         dur_nr = 0
         dots = 0
@@ -511,6 +532,14 @@ class ScoreSection():
         for org_v, add_v in zip(self.barlist, voice.barlist):
             org_v.inject_voice(add_v)
 
+    def merge_lyrics(self, lyrics):
+        i = 0
+        for bar in self.barlist:
+            for obj in bar.obj_list:
+                if isinstance(obj, BarNote):
+                    obj.add_lyric(lyrics.barlist[i])
+                    i += 1
+
 
 class Snippet(ScoreSection):
     """ Short section indended to be merged.
@@ -518,6 +547,14 @@ class Snippet(ScoreSection):
     def __init__(self, name, merge_into):
         ScoreSection.__init__(self, name)
         self.merge_barlist = merge_into
+
+
+class LyricsSection(ScoreSection):
+    """ Holds the lyrics information. Will eventually be merged to
+    the corresponding note in the section set by the voice id. """
+    def __init__(self, name, voice_id):
+        ScoreSection.__init__(self, name)
+        self.voice_id = voice_id
 
 
 class Bar():
@@ -607,6 +644,7 @@ class BarNote(BarMus):
         self.ornament = None
         self.other_notation = None
         self.fingering = None
+        self.lyric = None
 
     def set_duration(self, duration, durval=0):
         self.duration = duration
@@ -658,6 +696,9 @@ class BarNote(BarMus):
 
     def add_fingering(self, finger_nr):
         self.fingering = finger_nr
+
+    def add_lyric(self, text):
+        self.lyric = text
 
 
 class BarRest(BarMus):

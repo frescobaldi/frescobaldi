@@ -281,6 +281,22 @@ class ParseSource():
         if prev and prev.token == '\\bar':
             self.mediator.create_barline(string.value())
 
+    def LyricsTo(self, lyrics_to):
+        """A \\lyricsto expression. """
+        self.mediator.new_lyric_section('lyricsto'+lyrics_to.context_id(), lyrics_to.context_id())
+
+    def LyricText(self, lyrics_text):
+        """A lyric text (word, markup or string), with a Duration."""
+        self.mediator.new_lyrics_text(lyrics_text.token)
+
+    def LyricItem(self, lyrics_item):
+        """Another lyric item (skip, extender, hyphen or tie)."""
+        print(lyrics_item.token)
+
+    def LyricMode(self, lyric_mode):
+        """A \\lyricmode, \\lyrics or \\addlyrics expression."""
+        pass
+
     def End(self, end):
         if isinstance(end.node, ly.music.items.Scaler):
             if end.node.token == '\scaleDurations':
@@ -323,6 +339,8 @@ class ParseSource():
                 self.mediator.check_voices()
                 self.mediator.check_part()
                 self.simultan = False
+        elif end.node.token == '\\lyricsto':
+            self.mediator.check_lyrics(end.node.context_id())
         else:
             print("end:"+end.node.token)
 
@@ -423,6 +441,8 @@ class ParseSource():
                             self.musxml.add_fingering(obj.fingering)
                         if obj.other_notation:
                             self.musxml.add_named_notation(obj.other_notation)
+                        if obj.lyric:
+                            self.musxml.add_lyric(obj.lyric)
                     elif isinstance(obj, ly2xml_mediator.BarRest):
                         if obj.skip:
                             self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
