@@ -49,6 +49,9 @@ class Mediator():
         self.current_chord = []
         self.prev_pitch = None
         self.store_voicenr = 0
+        self.staff_id_dict = {}
+        self.store_unset_staff = False
+        self.staff_unset_notes = {}
 
     def new_section(self, name):
         name = self.check_name(name)
@@ -101,8 +104,23 @@ class Mediator():
         self.voice = self.store_voicenr
         self.store_voicenr = 0
 
-    def set_staffnr(self, staffnr):
-        self.staff = staffnr
+    def set_staffnr(self, staffnr, staff_id=None):
+        self.store_unset_staff = False
+        if staffnr:
+            self.staff = staffnr
+        elif staff_id in self.staff_id_dict:
+            self.staff = self.staff_id_dict[staff_id]
+        elif staff_id:
+            self.store_unset_staff = True
+            self.staff = staff_id
+
+    def add_staff_id(self, staff_id):
+        self.store_unset_staff = False
+        if staff_id:
+            self.staff_id_dict[staff_id] = self.staff
+            if staff_id in self.staff_unset_notes:
+                for n in self.staff_unset_notes[staff_id]:
+                    n.staff = self.staff
 
     def add_snippet(self, snippet_name):
         """ Adds snippet to previous barlist.
@@ -254,7 +272,10 @@ class Mediator():
             new_bar_attr.set_clef(self.clef)
             self.add_to_bar(new_bar_attr)
         else:
-            self.current_attr.set_clef(self.clef)
+            if self.staff:
+                self.current_attr.multiclef.append((self.clef, self.staff))
+            else:
+                self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note):
         bar_note = BarNote(note)
@@ -278,6 +299,11 @@ class Mediator():
         self.check_divs()
         if self.staff:
             self.current_note.set_staff(self.staff)
+            if self.store_unset_staff:
+                if self.staff in self.staff_unset_notes:
+                    self.staff_unset_notes[self.staff].append(self.current_note)
+                else:
+                    self.staff_unset_notes[self.staff] = [self.current_note]
         self.add_to_bar(self.current_note)
 
     def check_duration(self, rest):

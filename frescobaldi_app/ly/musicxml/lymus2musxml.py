@@ -135,6 +135,7 @@ class ParseSource():
                 self.piano_staff += 1
             else:
                 self.mediator.new_part()
+            self.mediator.add_staff_id(context.context_id())
         elif context.context() == 'Voice':
             if context.context_id():
                 self.mediator.new_section(context.context_id())
@@ -145,7 +146,12 @@ class ParseSource():
         self.mediator.new_snippet('sim')
         self.mediator.set_voicenr(add=True)
 
-    def PipeSymbol(self,barcheck):
+    def Change(self, change):
+        """ A \\change music expression. Changes the staff number. """
+        if change.context() == 'Staff':
+            self.mediator.set_staffnr(0, staff_id=change.context_id())
+
+    def PipeSymbol(self, barcheck):
         """ PipeSymbol = | """
         self.mediator.new_bar()
 
@@ -392,8 +398,8 @@ class ParseSource():
                         if obj.staves:
                             self.musxml.add_staves(obj.staves)
                         if obj.multiclef:
-                            for i, m in enumerate(obj.multiclef):
-                                self.musxml.add_clef(m[0], m[1], i+1)
+                            for mc in obj.multiclef:
+                                self.musxml.add_clef(sign=mc[0][0], line=mc[0][1], nr=mc[1], oct_ch=mc[0][2])
                         if obj.tempo:
                             self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
                     elif isinstance(obj, ly2xml_mediator.BarNote):
