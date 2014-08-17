@@ -53,6 +53,8 @@ class Mediator():
         self.store_unset_staff = False
         self.staff_unset_notes = {}
         self.lyric_sections = {}
+        self.lyric = None
+        self.lyric_syll = False
 
     def new_section(self, name):
         name = self.check_name(name)
@@ -179,10 +181,14 @@ class Mediator():
     def check_lyrics(self, voice_id):
         """Check the finished lyrics section and merge it into
         the referenced voice."""
+        if self.lyric[1] == 'middle':
+            self.lyric[1] = 'end'
         lyrics_section = self.lyric_sections['lyricsto'+voice_id]
         voice_section = self.get_var_byname(lyrics_section.voice_id)
         if voice_section:
             voice_section.merge_lyrics(lyrics_section)
+        else:
+            print("Warning can't merge in lyrics!")
 
     def check_part(self):
         """Adds the latest active section to the part."""
@@ -466,10 +472,25 @@ class Mediator():
         self.part.midi = midi
 
     def new_lyrics_text(self, txt):
-        self.insert_into.barlist.append(txt)
+        if self.lyric:
+            if self.lyric_syll:
+                if self.lyric[1] in ['begin', 'middle']:
+                    self.lyric = [txt, 'middle', 1]
+            else:
+                if self.lyric[1] in ['begin', 'middle']:
+                    self.lyric[1] = 'end'
+                self.lyric = [txt, 'single', 1]
+        else:
+            self.lyric = [txt, 'single', 1]
+        self.insert_into.barlist.append(self.lyric)
+        self.lyric_syll = False
 
     def new_lyrics_item(self, item):
-        pass
+        if item == '--':
+            if self.lyric:
+                if self.lyric[1] == 'single':
+                    self.lyric[1] = 'begin'
+                self.lyric_syll = True
 
     def duration_from_tokens(self, dur_tokens):
         dur_nr = 0
@@ -697,8 +718,14 @@ class BarNote(BarMus):
     def add_fingering(self, finger_nr):
         self.fingering = finger_nr
 
-    def add_lyric(self, text):
-        self.lyric = text
+    def add_lyric(self, lyric_list):
+        self.lyric = lyric_list
+
+    def change_lyric_syll(self, syll):
+        self.lyric[1] = syll
+
+    def change_lyric_nr(self, nr):
+        self.lyric[2] = nr
 
 
 class BarRest(BarMus):

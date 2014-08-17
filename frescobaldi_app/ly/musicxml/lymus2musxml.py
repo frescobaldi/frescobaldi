@@ -112,8 +112,12 @@ class ParseSource():
                 self.simultan = True
         elif musicList.token == '{':
             if self.simultan:
+                """
+                I'll come back for this!
+
                 if isinstance(musicList.parent(), (ly.music.items.Relative, ly.music.items.Assignment)):
                     self.mediator.new_section('simultan')
+                """
 
     def Chord(self, chord):
         self.mediator.clear_chord()
@@ -291,7 +295,7 @@ class ParseSource():
 
     def LyricItem(self, lyrics_item):
         """Another lyric item (skip, extender, hyphen or tie)."""
-        print(lyrics_item.token)
+        self.mediator.new_lyrics_item(lyrics_item.token)
 
     def LyricMode(self, lyric_mode):
         """A \\lyricmode, \\lyrics or \\addlyrics expression."""
@@ -442,7 +446,7 @@ class ParseSource():
                         if obj.other_notation:
                             self.musxml.add_named_notation(obj.other_notation)
                         if obj.lyric:
-                            self.musxml.add_lyric(obj.lyric)
+                            self.musxml.add_lyric(obj.lyric[0], obj.lyric[1], obj.lyric[2])
                     elif isinstance(obj, ly2xml_mediator.BarRest):
                         if obj.skip:
                             self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
