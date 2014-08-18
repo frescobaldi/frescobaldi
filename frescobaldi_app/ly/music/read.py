@@ -663,23 +663,35 @@ class Reader(object):
         item._tempo = []
         source = self.consume()
         equal_sign_seen = False
+        t = None
         for t in source:
             if not equal_sign_seen:
                 if not item._text:
                     if isinstance(t, lilypond.SchemeStart):
                         item._text = self.read_scheme_item(t)
+                        t = None
                     elif isinstance(t, lex.StringStart):
                         item._text = self.factory(String, t, True)
+                        t = None
                     elif isinstance(t, lilypond.Markup):
                         item._text = self.handle_markup(t)
-                elif isinstance(t, lilypond.Length):
+                        t = None
+                if isinstance(t, lilypond.Length):
                     self.add_duration(item, t, source)
+                    t = None
                 elif isinstance(t, lilypond.EqualSign):
                     equal_sign_seen = True
+                    t = None
             elif isinstance(t, lilypond.IntegerValue):
                 item._tempo.append(t)
+                t = None
             elif isinstance(t, lilypond.SchemeStart):
                 item._tempo.append(self.read_scheme_item(t))
+                t = None
+        ## if the last token does not belong to the \\tempo expression anymore,
+        ## push it back
+        if t and not isinstance(t, (lex.Space, lex.Comment)):
+            self.source.pushback()
         return item
     
     @_commands('\\time')
