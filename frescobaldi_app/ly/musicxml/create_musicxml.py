@@ -422,6 +422,19 @@ class CreateMusicXML():
     def add_direction(self, pos="above"):
         self.direction = etree.SubElement(self.current_bar, "direction", placement=pos)
 
+    def add_dynamic_mark(self, dyn):
+        """Add specified dynamic mark."""
+        direction = etree.SubElement(self.current_bar, "direction", placement='below')
+        dirtypenode = etree.SubElement(direction, "direction-type")
+        dyn_node = etree.SubElement(dirtypenode, "dynamics")
+        dynexpr_node = etree.SubElement(dyn_node, dyn)
+
+    def add_dynamic_wedge(self, wedge_type):
+        """Add dynamic wedge/hairpin."""
+        direction = etree.SubElement(self.current_bar, "direction", placement='below')
+        dirtypenode = etree.SubElement(direction, "direction-type")
+        dyn_node = etree.SubElement(dirtypenode, "wedge", type=wedge_type)
+
     def add_metron_dir(self, unit, beats, dots):
         dirtypenode = etree.SubElement(self.direction, "direction-type")
         metrnode = etree.SubElement(dirtypenode, "metronome")

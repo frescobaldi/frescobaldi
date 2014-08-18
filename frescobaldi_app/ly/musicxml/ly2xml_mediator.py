@@ -55,6 +55,7 @@ class Mediator():
         self.lyric_sections = {}
         self.lyric = None
         self.lyric_syll = False
+        self.ongoing_wedge = False
 
     def new_section(self, name):
         name = self.check_name(name)
@@ -441,6 +442,21 @@ class Mediator():
             elif ret:
                 self.current_note.add_articulation(ret)
 
+    def new_dynamics(self, dynamics):
+        hairpins = {'<': 'crescendo', '>': 'diminuendo'}
+        if dynamics == '!':
+            self.current_note.set_dynamics_before(wedge='stop')
+            self.ongoing_wedge = False
+        elif dynamics in hairpins:
+            self.current_note.set_dynamics_after(wedge=hairpins[dynamics])
+            self.ongoing_wedge = True
+        elif self.ongoing_wedge:
+            self.current_note.set_dynamics_before(wedge='stop')
+            self.current_note.set_dynamics_after(mark=dynamics)
+            self.ongoing_wedge = False
+        else:
+            self.current_note.set_dynamics_before(mark=dynamics)
+
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
 
@@ -648,6 +664,10 @@ class BarMus():
         self.staff = 0
         self.chord = False
         self.other_notation = None
+        self.dynamic = {
+        'before': {'mark': None, 'wedge': None },
+        'after': {'mark': None, 'wedge': None }
+        }
 
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
@@ -661,6 +681,18 @@ class BarMus():
 
     def add_other_notation(self, other):
         self.other_notation = other
+
+    def set_dynamics_before(self, mark=None, wedge=None):
+        if mark:
+            self.dynamic['before']['mark'] = mark
+        if wedge:
+            self.dynamic['before']['wedge'] = wedge
+
+    def set_dynamics_after(self, mark=None, wedge=None):
+        if mark:
+            self.dynamic['after']['mark'] = mark
+        if wedge:
+            self.dynamic['after']['wedge'] = wedge
 
     def has_attr(self):
         return False

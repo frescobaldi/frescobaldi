@@ -239,6 +239,10 @@ class ParseSource():
         elif slur.token == ')':
             self.mediator.set_slur("stop")
 
+    def Dynamic(self, dynamic):
+        """Any dynamic symbol."""
+        self.mediator.new_dynamics(dynamic.token[1:])
+
     def Grace(self, grace):
         self.grace_seq = True
 
@@ -424,36 +428,45 @@ class ParseSource():
                                 self.musxml.add_clef(sign=mc[0][0], line=mc[0][1], nr=mc[1], oct_ch=mc[0][2])
                         if obj.tempo:
                             self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
-                    elif isinstance(obj, ly2xml_mediator.BarNote):
-                        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.base_scaling,
-                        obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
-                        if obj.tie:
-                            self.musxml.tie_note(obj.tie)
+                    elif isinstance(obj, ly2xml_mediator.BarMus):
+                        if obj.dynamic['before']:
+                            if obj.dynamic['before']['mark']:
+                                self.musxml.add_dynamic_mark(obj.dynamic['before']['mark'])
+                            if obj.dynamic['before']['wedge']:
+                                self.musxml.add_dynamic_wedge(obj.dynamic['before']['wedge'])
+                        if isinstance(obj, ly2xml_mediator.BarNote):
+                            self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.base_scaling,
+                            obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
+                            if obj.tie:
+                                self.musxml.tie_note(obj.tie)
+                            if obj.slur:
+                                self.musxml.add_slur(1, obj.slur) #LilyPond doesn't allow nested slurs so the number can be 1
+                            if obj.artic:
+                                self.musxml.new_articulation(obj.artic)
+                            if obj.ornament:
+                                self.musxml.new_simple_ornament(obj.ornament)
+                            if obj.tremolo[1]:
+                                self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
+                            if obj.staff:
+                                self.musxml.add_staff(obj.staff)
+                            if obj.fingering:
+                                self.musxml.add_fingering(obj.fingering)
+                            if obj.lyric:
+                                self.musxml.add_lyric(obj.lyric[0], obj.lyric[1], obj.lyric[2])
+                        elif isinstance(obj, ly2xml_mediator.BarRest):
+                            if obj.skip:
+                                self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
+                            else:
+                                self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
                         if obj.tuplet:
                             self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
-                        if obj.slur:
-                            self.musxml.add_slur(1, obj.slur) #LilyPond doesn't allow nested slurs so the number can be 1
-                        if obj.artic:
-                            self.musxml.new_articulation(obj.artic)
-                        if obj.ornament:
-                            self.musxml.new_simple_ornament(obj.ornament)
-                        if obj.tremolo[1]:
-                            self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
-                        if obj.staff:
-                            self.musxml.add_staff(obj.staff)
-                        if obj.fingering:
-                            self.musxml.add_fingering(obj.fingering)
-                        if obj.other_notation:
-                            self.musxml.add_named_notation(obj.other_notation)
-                        if obj.lyric:
-                            self.musxml.add_lyric(obj.lyric[0], obj.lyric[1], obj.lyric[2])
-                    elif isinstance(obj, ly2xml_mediator.BarRest):
-                        if obj.skip:
-                            self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
-                        else:
-                            self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
                         if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
+                        if obj.dynamic['after']:
+                            if obj.dynamic['after']['mark']:
+                                self.musxml.add_dynamic_mark(obj.dynamic['after']['mark'])
+                            if obj.dynamic['after']['wedge']:
+                                self.musxml.add_dynamic_wedge(obj.dynamic['after']['wedge'])
                         if obj.other_notation:
                             self.musxml.add_named_notation(obj.other_notation)
                     elif isinstance(obj, ly2xml_mediator.BarBackup):
