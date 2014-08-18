@@ -636,6 +636,32 @@ class Bar():
 
 class BarMus():
     """ Common class for notes and rests. """
+    def __init__(self, note, voice=1):
+        self.note = note
+        if note.duration:
+            self.duration = note.duration
+            self.base_scaling = note.duration.base_scaling
+        self.type = None
+        self.tuplet = 0
+        self.dot = 0
+        self.voice = voice
+        self.staff = 0
+        self.chord = False
+        self.other_notation = None
+
+    def set_tuplet(self, fraction, ttype):
+        self.tuplet = fraction
+        self.ttype = ttype
+
+    def set_staff(self, staff):
+        self.staff = staff
+
+    def add_dot(self):
+        self.dot += 1
+
+    def add_other_notation(self, other):
+        self.other_notation = other
+
     def has_attr(self):
         return False
 
@@ -643,27 +669,17 @@ class BarMus():
 class BarNote(BarMus):
     """ object to keep track of note parameters """
     def __init__(self, note, voice=1):
-        self.note = note
+        BarMus.__init__(self, note, voice)
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
         self.alter = note.pitch.alter*2
-        if note.duration:
-            self.duration = note.duration
-            self.base_scaling = note.duration.base_scaling
-        self.type = None
-        self.tuplet = 0
-        self.dot = 0
         self.tie = 0
         self.grace = (0,0)
         self.tremolo = ('',0)
-        self.voice = voice
-        self.staff = 0
-        self.chord = False
         self.skip = False
         self.slur = None
         self.artic = None
         self.ornament = None
-        self.other_notation = None
         self.fingering = None
         self.lyric = None
 
@@ -681,18 +697,8 @@ class BarNote(BarMus):
         if relative:
             self.pitch.makeAbsolute(prev_pitch)
 
-    def set_tuplet(self, fraction, ttype):
-        self.tuplet = fraction
-        self.ttype = ttype
-
-    def set_staff(self, staff):
-        self.staff = staff
-
     def set_tie(self, tie_type):
         self.tie = tie_type
-
-    def add_dot(self):
-        self.dot += 1
 
     def set_slur(self, slur_type):
         self.slur = slur_type
@@ -712,9 +718,6 @@ class BarNote(BarMus):
         else:
             self.tremolo = (trem_type, self.tremolo[1])
 
-    def add_other_notation(self, other):
-        self.other_notation = other
-
     def add_fingering(self, finger_nr):
         self.fingering = finger_nr
 
@@ -731,19 +734,11 @@ class BarNote(BarMus):
 class BarRest(BarMus):
     """ object to keep track of different rests and skips """
     def __init__(self, rest, voice=1, show_type=True, skip=False, pos=0):
-        self.note = rest
-        if rest.duration:
-            self.duration = rest.duration
-            self.base_scaling = rest.duration.base_scaling
+        BarMus.__init__(self, rest, voice)
         self.show_type = show_type
         self.type = None
         self.skip = skip
-        self.tuplet = 0
-        self.dot = 0
         self.pos = pos
-        self.voice = voice
-        self.staff = 0
-        self.chord = False
 
     def set_duration(self, duration, durval=0, durtype=None):
         self.duration = duration
@@ -757,12 +752,6 @@ class BarRest(BarMus):
     def set_durtype(self, durval):
         if self.show_type:
             self.type = durval2type(durval)
-
-    def add_dot(self):
-        self.dot += 1
-
-    def set_staff(self, staff):
-        self.staff = staff
 
 
 class BarAttr():

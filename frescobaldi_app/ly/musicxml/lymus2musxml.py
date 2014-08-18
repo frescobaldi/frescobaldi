@@ -454,6 +454,8 @@ class ParseSource():
                             self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
                         if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
+                        if obj.other_notation:
+                            self.musxml.add_named_notation(obj.other_notation)
                     elif isinstance(obj, ly2xml_mediator.BarBackup):
                         self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
 
