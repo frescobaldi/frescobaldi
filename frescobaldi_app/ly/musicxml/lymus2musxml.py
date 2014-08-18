@@ -64,7 +64,7 @@ class ParseSource():
         self.piano_staff = 0
         self.numericTime = False
         self.voice_sep = False
-        self.simultan = False
+        self.sims_and_seqs = []
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -109,15 +109,11 @@ class ParseSource():
                 self.mediator.new_snippet('sim-snip')
                 self.voice_sep = True
             else:
-                self.simultan = True
+                self.sims_and_seqs.append('sim')
         elif musicList.token == '{':
-            if self.simultan:
-                """
-                I'll come back for this!
-
-                if isinstance(musicList.parent(), (ly.music.items.Relative, ly.music.items.Assignment)):
-                    self.mediator.new_section('simultan')
-                """
+            if self.sims_and_seqs and self.sims_and_seqs[-1] == 'sim':
+                self.mediator.new_section('simultan')
+            self.sims_and_seqs.append('seq')
 
     def Chord(self, chord):
         self.mediator.clear_chord()
@@ -127,6 +123,7 @@ class ParseSource():
 
     def Context(self, context):
         """ \context """
+        self.in_context = True
         if context.context() in ['PianoStaff', 'GrandStaff']:
             self.mediator.new_part(piano=True)
             self.piano_staff = 1
@@ -324,6 +321,7 @@ class ParseSource():
                     self.mediator.set_tremolo(trem_type="single", repeats=self.trem_rep)
                 self.trem_rep = 0
         elif isinstance(end.node, ly.music.items.Context):
+            self.in_context = False
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
             elif end.node.context() == 'Staff':
@@ -339,10 +337,12 @@ class ParseSource():
                 self.mediator.check_voices_by_nr()
                 self.mediator.revert_voicenr()
                 self.voice_sep = False
-            elif self.simultan:
+            else:
                 self.mediator.check_voices()
                 self.mediator.check_part()
-                self.simultan = False
+                self.sims_and_seqs.pop()
+        elif end.node.token == '{':
+            self.sims_and_seqs.pop()
         elif end.node.token == '\\lyricsto':
             self.mediator.check_lyrics(end.node.context_id())
         else:
