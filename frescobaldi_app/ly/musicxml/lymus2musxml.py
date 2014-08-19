@@ -268,6 +268,10 @@ class ParseSource():
             self.mediator.set_partname(cont_set.value().value())
         elif cont_set.property() == 'midiInstrument':
             self.mediator.set_partmidi(cont_set.value().value())
+        elif cont_set.property() == 'stanza':
+            self.mediator.new_lyric_nr(cont_set.value().value())
+        else:
+            print(cont_set.property())
 
     def Command(self, command):
         """ \bar, \rest etc """
@@ -457,7 +461,8 @@ class ParseSource():
                             if obj.skip:
                                 self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
                             else:
-                                self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos, obj.dot, obj.voice)
+                                self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos,
+                                obj.dot, obj.voice)
                         if obj.tuplet:
                             self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
                         if obj.staff and not obj.skip:

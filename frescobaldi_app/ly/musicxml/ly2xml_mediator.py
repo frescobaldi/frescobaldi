@@ -55,6 +55,7 @@ class Mediator():
         self.lyric_sections = {}
         self.lyric = None
         self.lyric_syll = False
+        self.lyric_nr = 1
         self.ongoing_wedge = False
 
     def new_section(self, name):
@@ -487,17 +488,20 @@ class Mediator():
     def set_partmidi(self, midi):
         self.part.midi = midi
 
+    def new_lyric_nr(self, num):
+        self.lyric_nr = num
+
     def new_lyrics_text(self, txt):
         if self.lyric:
             if self.lyric_syll:
                 if self.lyric[1] in ['begin', 'middle']:
-                    self.lyric = [txt, 'middle', 1]
+                    self.lyric = [txt, 'middle', self.lyric_nr]
             else:
                 if self.lyric[1] in ['begin', 'middle']:
                     self.lyric[1] = 'end'
-                self.lyric = [txt, 'single', 1]
+                self.lyric = [txt, 'single', self.lyric_nr]
         else:
-            self.lyric = [txt, 'single', 1]
+            self.lyric = [txt, 'single', self.lyric_nr]
         self.insert_into.barlist.append(self.lyric)
         self.lyric_syll = False
 
