@@ -452,11 +452,7 @@ class CreateMusicXML():
     def add_lyric(self, txt, syll=None, nr=0):
         """ Add lyric element. """
         if nr:
-            try:
-                nr = int(nr)
-                lyricnode = etree.SubElement(self.current_note, "lyric", number=str(nr))
-            except ValueError:
-                lyricnode = etree.SubElement(self.current_note, "lyric", name=nr)
+            lyricnode = etree.SubElement(self.current_note, "lyric", number=str(nr))
         else:
             lyricnode = etree.SubElement(self.current_note, "lyric")
         if syll:

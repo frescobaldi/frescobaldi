@@ -758,13 +758,15 @@ class BarNote(BarMus):
         self.fingering = finger_nr
 
     def add_lyric(self, lyric_list):
-        self.lyric = lyric_list
+        if not self.lyric:
+            self.lyric = []
+        self.lyric.append(lyric_list)
 
-    def change_lyric_syll(self, syll):
-        self.lyric[1] = syll
+    def change_lyric_syll(self, index, syll):
+        self.lyric[index][1] = syll
 
     def change_lyric_nr(self, nr):
-        self.lyric[2] = nr
+        self.lyric[index][2] = nr
 
 
 class BarRest(BarMus):

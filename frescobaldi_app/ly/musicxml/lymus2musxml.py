@@ -294,6 +294,7 @@ class ParseSource():
     def LyricsTo(self, lyrics_to):
         """A \\lyricsto expression. """
         self.mediator.new_lyric_section('lyricsto'+lyrics_to.context_id(), lyrics_to.context_id())
+        self.sims_and_seqs.append('lyrics')
 
     def LyricText(self, lyrics_text):
         """A lyric text (word, markup or string), with a Duration."""
@@ -355,6 +356,7 @@ class ParseSource():
             self.sims_and_seqs.pop()
         elif end.node.token == '\\lyricsto':
             self.mediator.check_lyrics(end.node.context_id())
+            self.sims_and_seqs.pop()
         else:
             print("end:"+end.node.token)
 
@@ -458,7 +460,8 @@ class ParseSource():
                             if obj.fingering:
                                 self.musxml.add_fingering(obj.fingering)
                             if obj.lyric:
-                                self.musxml.add_lyric(obj.lyric[0], obj.lyric[1], obj.lyric[2])
+                                for l in obj.lyric:
+                                    self.musxml.add_lyric(l[0], l[1], l[2])
                         elif isinstance(obj, ly2xml_mediator.BarRest):
                             if obj.skip:
                                 self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
