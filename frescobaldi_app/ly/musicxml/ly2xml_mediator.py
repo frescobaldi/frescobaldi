@@ -473,7 +473,7 @@ class Mediator():
             self.current_note.set_tremolo(trem_type, duration)
 
     def new_tempo(self, dur_tokens, tempo, string):
-        unit, dots = self.duration_from_tokens(dur_tokens)
+        unit, dots, rs = self.duration_from_tokens(dur_tokens)
         beats = tempo[0]
         text = string.value()
         tempo = BarAttr()

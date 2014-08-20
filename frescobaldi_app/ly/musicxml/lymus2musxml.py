@@ -114,6 +114,7 @@ class ParseSource():
             if self.sims_and_seqs and self.sims_and_seqs[-1] == 'sim':
                 self.mediator.new_section('simultan')
             self.sims_and_seqs.append('seq')
+            print(self.sims_and_seqs)
 
     def Chord(self, chord):
         self.mediator.clear_chord()
@@ -356,7 +357,8 @@ class ParseSource():
                 self.mediator.check_part()
                 self.sims_and_seqs.pop()
         elif end.node.token == '{':
-            self.sims_and_seqs.pop()
+            if self.sims_and_seqs:
+                self.sims_and_seqs.pop()
         elif end.node.token == '\\lyricsto':
             self.mediator.check_lyrics(end.node.context_id())
             self.sims_and_seqs.pop()
