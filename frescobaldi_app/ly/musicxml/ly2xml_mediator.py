@@ -190,7 +190,7 @@ class Mediator():
         if voice_section:
             voice_section.merge_lyrics(lyrics_section)
         else:
-            print("Warning can't merge in lyrics!")
+            print("Warning can't merge in lyrics!", voice_section)
 
     def check_part(self):
         """Adds the latest active section to the part."""
@@ -511,6 +511,10 @@ class Mediator():
                 if self.lyric[1] == 'single':
                     self.lyric[1] = 'begin'
                 self.lyric_syll = True
+        elif item == '__':
+            self.lyric.append("extend")
+        elif item == '\\skip':
+            self.insert_into.barlist.append("skip")
 
     def duration_from_tokens(self, dur_tokens):
         dur_nr = 0
@@ -574,12 +578,28 @@ class ScoreSection():
             org_v.inject_voice(add_v)
 
     def merge_lyrics(self, lyrics):
+        """Merge in lyrics in music section."""
         i = 0
+        ext = False
         for bar in self.barlist:
             for obj in bar.obj_list:
                 if isinstance(obj, BarNote):
-                    obj.add_lyric(lyrics.barlist[i])
-                    i += 1
+                    if ext:
+                        if obj.slur:
+                            ext = False
+                    else:
+                        try:
+                            l = lyrics.barlist[i]
+                        except IndexError:
+                            break
+                        if l != 'skip':
+                            try:
+                                if l[3] == "extend" and obj.slur:
+                                    ext = True
+                            except IndexError:
+                                pass
+                            obj.add_lyric(l)
+                        i += 1
 
 
 class Snippet(ScoreSection):
@@ -765,7 +785,7 @@ class BarNote(BarMus):
     def change_lyric_syll(self, index, syll):
         self.lyric[index][1] = syll
 
-    def change_lyric_nr(self, nr):
+    def change_lyric_nr(self, index, nr):
         self.lyric[index][2] = nr
 
 

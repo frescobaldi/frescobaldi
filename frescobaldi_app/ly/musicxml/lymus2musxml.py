@@ -203,7 +203,10 @@ class ParseSource():
 
     def Skip(self, skip):
         """ invisible rest/spacer rest (s or command \skip)"""
-        self.mediator.new_rest(skip)
+        if 'lyrics' in self.sims_and_seqs:
+            self.mediator.new_lyrics_item(skip.token)
+        else:
+            self.mediator.new_rest(skip)
 
     def Scaler(self, scaler):
         """
@@ -461,7 +464,10 @@ class ParseSource():
                                 self.musxml.add_fingering(obj.fingering)
                             if obj.lyric:
                                 for l in obj.lyric:
-                                    self.musxml.add_lyric(l[0], l[1], l[2])
+                                    try:
+                                       self.musxml.add_lyric(l[0], l[1], l[2], l[3])
+                                    except IndexError:
+                                        self.musxml.add_lyric(l[0], l[1], l[2])
                         elif isinstance(obj, ly2xml_mediator.BarRest):
                             if obj.skip:
                                 self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)

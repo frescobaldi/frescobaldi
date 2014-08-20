@@ -449,17 +449,15 @@ class CreateMusicXML():
     def add_sound_dir(self, midi_tempo):
         soundnode = etree.SubElement(self.direction, "sound", tempo=str(midi_tempo))
 
-    def add_lyric(self, txt, syll=None, nr=0):
+    def add_lyric(self, txt, syll, nr, ext=False):
         """ Add lyric element. """
-        if nr:
-            lyricnode = etree.SubElement(self.current_note, "lyric", number=str(nr))
-        else:
-            lyricnode = etree.SubElement(self.current_note, "lyric")
-        if syll:
-            syllnode = etree.SubElement(lyricnode, "syllabic")
-            syllnode.text = syll
+        lyricnode = etree.SubElement(self.current_note, "lyric", number=str(nr))
+        syllnode = etree.SubElement(lyricnode, "syllabic")
+        syllnode.text = syll
         txtnode = etree.SubElement(lyricnode, "text")
         txtnode.text = txt
+        if ext:
+            etree.SubElement(lyricnode, "extend")
 
 
     ##
