@@ -138,6 +138,7 @@ class ParseSource():
                 self.mediator.new_part()
             self.mediator.add_staff_id(context.context_id())
         elif context.context() == 'Voice':
+            self.sims_and_seqs.append('voice')
             if context.context_id():
                 self.mediator.new_section(context.context_id())
             else:
@@ -332,6 +333,7 @@ class ParseSource():
             self.in_context = False
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
+                self.sims_and_seqs.pop()
             elif end.node.context() == 'Staff':
                 if not self.piano_staff:
                     self.mediator.check_part()
