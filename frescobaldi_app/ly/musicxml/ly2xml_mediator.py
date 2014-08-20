@@ -49,6 +49,14 @@ class Mediator():
         self.current_chord = []
         self.prev_pitch = None
         self.store_voicenr = 0
+        self.staff_id_dict = {}
+        self.store_unset_staff = False
+        self.staff_unset_notes = {}
+        self.lyric_sections = {}
+        self.lyric = None
+        self.lyric_syll = False
+        self.lyric_nr = 1
+        self.ongoing_wedge = False
 
     def new_section(self, name):
         name = self.check_name(name)
@@ -63,6 +71,12 @@ class Mediator():
         self.insert_into = snippet
         self.sections.append(snippet)
         self.bar = None
+
+    def new_lyric_section(self, name, voice_id):
+        name = self.check_name(name)
+        lyrics = LyricsSection(name, voice_id)
+        self.insert_into = lyrics
+        self.lyric_sections[name] = lyrics
 
     def check_name(self, name, nr=1):
         n = self.get_var_byname(name)
@@ -101,8 +115,23 @@ class Mediator():
         self.voice = self.store_voicenr
         self.store_voicenr = 0
 
-    def set_staffnr(self, staffnr):
-        self.staff = staffnr
+    def set_staffnr(self, staffnr, staff_id=None):
+        self.store_unset_staff = False
+        if staffnr:
+            self.staff = staffnr
+        elif staff_id in self.staff_id_dict:
+            self.staff = self.staff_id_dict[staff_id]
+        elif staff_id:
+            self.store_unset_staff = True
+            self.staff = staff_id
+
+    def add_staff_id(self, staff_id):
+        self.store_unset_staff = False
+        if staff_id:
+            self.staff_id_dict[staff_id] = self.staff
+            if staff_id in self.staff_unset_notes:
+                for n in self.staff_unset_notes[staff_id]:
+                    n.staff = self.staff
 
     def add_snippet(self, snippet_name):
         """ Adds snippet to previous barlist.
@@ -150,6 +179,18 @@ class Mediator():
                     self.sections.pop()
                 else:
                     print("WARNING: problem adding snippet!")
+
+    def check_lyrics(self, voice_id):
+        """Check the finished lyrics section and merge it into
+        the referenced voice."""
+        if self.lyric[1] == 'middle':
+            self.lyric[1] = 'end'
+        lyrics_section = self.lyric_sections['lyricsto'+voice_id]
+        voice_section = self.get_var_byname(lyrics_section.voice_id)
+        if voice_section:
+            voice_section.merge_lyrics(lyrics_section)
+        else:
+            print("Warning can't merge in lyrics!", voice_section)
 
     def check_part(self):
         """Adds the latest active section to the part."""
@@ -254,7 +295,10 @@ class Mediator():
             new_bar_attr.set_clef(self.clef)
             self.add_to_bar(new_bar_attr)
         else:
-            self.current_attr.set_clef(self.clef)
+            if self.staff:
+                self.current_attr.multiclef.append((self.clef, self.staff))
+            else:
+                self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note):
         bar_note = BarNote(note)
@@ -278,6 +322,11 @@ class Mediator():
         self.check_divs()
         if self.staff:
             self.current_note.set_staff(self.staff)
+            if self.store_unset_staff:
+                if self.staff in self.staff_unset_notes:
+                    self.staff_unset_notes[self.staff].append(self.current_note)
+                else:
+                    self.staff_unset_notes[self.staff] = [self.current_note]
         self.add_to_bar(self.current_note)
 
     def check_duration(self, rest):
@@ -372,6 +421,43 @@ class Mediator():
             self.current_note.set_tie('start')
         self.tied = True
 
+    def set_slur(self, slur_type):
+        """
+        Set the slur start or stop for the current note. """
+        self.current_note.set_slur(slur_type)
+
+    def new_articulation(self, art_token):
+        """
+        An articulation, fingering, string number, or other symbol.
+
+        Grouped as articulations, ornaments, technical and others.
+        """
+        if isinstance(art_token, ly.lex.lilypond.Fingering):
+            self.current_note.add_fingering(art_token)
+        else:
+            ret = artic_token2xml_name(art_token)
+            if ret == 'ornament':
+                self.current_note.add_ornament(art_token[1:])
+            elif ret == 'other':
+                self.current_note.add_other_notation(art_token[1:])
+            elif ret:
+                self.current_note.add_articulation(ret)
+
+    def new_dynamics(self, dynamics):
+        hairpins = {'<': 'crescendo', '>': 'diminuendo'}
+        if dynamics == '!':
+            self.current_note.set_dynamics_before(wedge='stop')
+            self.ongoing_wedge = False
+        elif dynamics in hairpins:
+            self.current_note.set_dynamics_after(wedge=hairpins[dynamics])
+            self.ongoing_wedge = True
+        elif self.ongoing_wedge:
+            self.current_note.set_dynamics_before(wedge='stop')
+            self.current_note.set_dynamics_after(mark=dynamics)
+            self.ongoing_wedge = False
+        else:
+            self.current_note.set_dynamics_before(mark=dynamics)
+
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
 
@@ -387,7 +473,7 @@ class Mediator():
             self.current_note.set_tremolo(trem_type, duration)
 
     def new_tempo(self, dur_tokens, tempo, string):
-        unit, dots = self.duration_from_tokens(dur_tokens)
+        unit, dots, rs = self.duration_from_tokens(dur_tokens)
         beats = tempo[0]
         text = string.value()
         tempo = BarAttr()
@@ -401,6 +487,34 @@ class Mediator():
 
     def set_partmidi(self, midi):
         self.part.midi = midi
+
+    def new_lyric_nr(self, num):
+        self.lyric_nr = num
+
+    def new_lyrics_text(self, txt):
+        if self.lyric:
+            if self.lyric_syll:
+                if self.lyric[1] in ['begin', 'middle']:
+                    self.lyric = [txt, 'middle', self.lyric_nr]
+            else:
+                if self.lyric[1] in ['begin', 'middle']:
+                    self.lyric[1] = 'end'
+                self.lyric = [txt, 'single', self.lyric_nr]
+        else:
+            self.lyric = [txt, 'single', self.lyric_nr]
+        self.insert_into.barlist.append(self.lyric)
+        self.lyric_syll = False
+
+    def new_lyrics_item(self, item):
+        if item == '--':
+            if self.lyric:
+                if self.lyric[1] == 'single':
+                    self.lyric[1] = 'begin'
+                self.lyric_syll = True
+        elif item == '__':
+            self.lyric.append("extend")
+        elif item == '\\skip':
+            self.insert_into.barlist.append("skip")
 
     def duration_from_tokens(self, dur_tokens):
         dur_nr = 0
@@ -463,6 +577,30 @@ class ScoreSection():
         for org_v, add_v in zip(self.barlist, voice.barlist):
             org_v.inject_voice(add_v)
 
+    def merge_lyrics(self, lyrics):
+        """Merge in lyrics in music section."""
+        i = 0
+        ext = False
+        for bar in self.barlist:
+            for obj in bar.obj_list:
+                if isinstance(obj, BarNote):
+                    if ext:
+                        if obj.slur:
+                            ext = False
+                    else:
+                        try:
+                            l = lyrics.barlist[i]
+                        except IndexError:
+                            break
+                        if l != 'skip':
+                            try:
+                                if l[3] == "extend" and obj.slur:
+                                    ext = True
+                            except IndexError:
+                                pass
+                            obj.add_lyric(l)
+                        i += 1
+
 
 class Snippet(ScoreSection):
     """ Short section indended to be merged.
@@ -470,6 +608,14 @@ class Snippet(ScoreSection):
     def __init__(self, name, merge_into):
         ScoreSection.__init__(self, name)
         self.merge_barlist = merge_into
+
+
+class LyricsSection(ScoreSection):
+    """ Holds the lyrics information. Will eventually be merged to
+    the corresponding note in the section set by the voice id. """
+    def __init__(self, name, voice_id):
+        ScoreSection.__init__(self, name)
+        self.voice_id = voice_id
 
 
 class Bar():
@@ -530,6 +676,48 @@ class Bar():
 
 class BarMus():
     """ Common class for notes and rests. """
+    def __init__(self, note, voice=1):
+        self.note = note
+        if note.duration:
+            self.duration = note.duration
+            self.base_scaling = note.duration.base_scaling
+        self.type = None
+        self.tuplet = 0
+        self.dot = 0
+        self.voice = voice
+        self.staff = 0
+        self.chord = False
+        self.other_notation = None
+        self.dynamic = {
+        'before': {'mark': None, 'wedge': None },
+        'after': {'mark': None, 'wedge': None }
+        }
+
+    def set_tuplet(self, fraction, ttype):
+        self.tuplet = fraction
+        self.ttype = ttype
+
+    def set_staff(self, staff):
+        self.staff = staff
+
+    def add_dot(self):
+        self.dot += 1
+
+    def add_other_notation(self, other):
+        self.other_notation = other
+
+    def set_dynamics_before(self, mark=None, wedge=None):
+        if mark:
+            self.dynamic['before']['mark'] = mark
+        if wedge:
+            self.dynamic['before']['wedge'] = wedge
+
+    def set_dynamics_after(self, mark=None, wedge=None):
+        if mark:
+            self.dynamic['after']['mark'] = mark
+        if wedge:
+            self.dynamic['after']['wedge'] = wedge
+
     def has_attr(self):
         return False
 
@@ -537,23 +725,19 @@ class BarMus():
 class BarNote(BarMus):
     """ object to keep track of note parameters """
     def __init__(self, note, voice=1):
-        self.note = note
+        BarMus.__init__(self, note, voice)
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
         self.alter = note.pitch.alter*2
-        if note.duration:
-            self.duration = note.duration
-            self.base_scaling = note.duration.base_scaling
-        self.type = None
-        self.tuplet = 0
-        self.dot = 0
         self.tie = 0
         self.grace = (0,0)
         self.tremolo = ('',0)
-        self.voice = voice
-        self.staff = 0
-        self.chord = False
         self.skip = False
+        self.slur = None
+        self.artic = None
+        self.ornament = None
+        self.fingering = None
+        self.lyric = None
 
     def set_duration(self, duration, durval=0):
         self.duration = duration
@@ -569,18 +753,17 @@ class BarNote(BarMus):
         if relative:
             self.pitch.makeAbsolute(prev_pitch)
 
-    def set_tuplet(self, fraction, ttype):
-        self.tuplet = fraction
-        self.ttype = ttype
-
-    def set_staff(self, staff):
-        self.staff = staff
-
     def set_tie(self, tie_type):
         self.tie = tie_type
 
-    def add_dot(self):
-        self.dot += 1
+    def set_slur(self, slur_type):
+        self.slur = slur_type
+
+    def add_articulation(self, art_name):
+        self.artic = art_name
+
+    def add_ornament(self, ornament):
+        self.ornament = ornament
 
     def set_grace(self, slash):
         self.grace = (1,slash)
@@ -591,23 +774,29 @@ class BarNote(BarMus):
         else:
             self.tremolo = (trem_type, self.tremolo[1])
 
+    def add_fingering(self, finger_nr):
+        self.fingering = finger_nr
+
+    def add_lyric(self, lyric_list):
+        if not self.lyric:
+            self.lyric = []
+        self.lyric.append(lyric_list)
+
+    def change_lyric_syll(self, index, syll):
+        self.lyric[index][1] = syll
+
+    def change_lyric_nr(self, index, nr):
+        self.lyric[index][2] = nr
+
 
 class BarRest(BarMus):
     """ object to keep track of different rests and skips """
     def __init__(self, rest, voice=1, show_type=True, skip=False, pos=0):
-        self.note = rest
-        if rest.duration:
-            self.duration = rest.duration
-            self.base_scaling = rest.duration.base_scaling
+        BarMus.__init__(self, rest, voice)
         self.show_type = show_type
         self.type = None
         self.skip = skip
-        self.tuplet = 0
-        self.dot = 0
         self.pos = pos
-        self.voice = voice
-        self.staff = 0
-        self.chord = False
 
     def set_duration(self, duration, durval=0, durtype=None):
         self.duration = duration
@@ -621,12 +810,6 @@ class BarRest(BarMus):
     def set_durtype(self, durval):
         if self.show_type:
             self.type = durval2type(durval)
-
-    def add_dot(self):
-        self.dot += 1
-
-    def set_staff(self, staff):
-        self.staff = staff
 
 
 class BarAttr():
@@ -715,6 +898,11 @@ def get_fifths(key, mode):
         return fifths
 
 def clefname2clef(clefname):
+    """
+    To add a clef look up the clef name in LilyPond
+    and the corresponding definition in musicXML.
+    Add it to the python dictionary below.
+    """
     clef_dict = {
     "treble": ('G',2,0), "violin": ('G',2,0), "G": ('G',2,0),
     "bass": ('F',4,0), "F": ('F',4,0),
@@ -800,6 +988,32 @@ def convert_barl(bl):
 def get_voice(c):
     voices = ["voiceOne", "voiceTwo", "voiceThree", "voiceFour"]
     return voices.index(c)+1
+
+def artic_token2xml_name(art_token):
+    """
+    From Articulations in ly.music.items.
+    Grouped as articulations, ornaments and others.
+
+    To add an articulation look up the name or abbreviation
+    in LilyPond and the corresponding node name in musicXML.
+    Add it to the python dictionary below.
+    """
+    artic_dict = {
+    ".": "staccato", "-": "tenuto", ">": "accent",
+    "_": "detached-legato", "!": "staccatissimo",
+    "\\staccatissimo": "staccatissimo"
+    }
+    ornaments = ['\\trill', '\\prall', '\\mordent', '\\turn']
+    others = ['\\fermata']
+    try:
+        return artic_dict[art_token]
+    except KeyError:
+        if art_token in ornaments:
+            return "ornament"
+        elif art_token in others:
+            return "other"
+        else:
+            return False
 
 def calc_trem_dur(repeats, base_scaling, duration):
     """ Calculate tremolo duration from number of

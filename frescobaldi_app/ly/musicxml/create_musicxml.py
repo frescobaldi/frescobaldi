@@ -141,6 +141,19 @@ class CreateMusicXML():
         duration = divs*4*base*scaling
         self.add_skip(duration)
 
+    def new_articulation(self, artic):
+        """ Add specified articulation. """
+        self.add_notations()
+        self.add_articulations()
+        self.add_named_artic(artic)
+
+    def new_simple_ornament(self, ornament):
+        """ Add specified ornament. """
+        self.add_notations()
+        self.add_ornaments()
+        func_call = getattr(self, 'add_'+ornament)
+        func_call()
+
     def new_bar_attr(self, clef, mustime, key, mode, divs):
         """ create all bar attributes set. """
         self.create_bar_attr()
@@ -191,7 +204,9 @@ class CreateMusicXML():
         """ create new note """
         self.current_note = etree.SubElement(self.current_bar, "note")
         self.current_notation = None
+        self.current_artic = None
         self.current_ornaments = None
+        self.current_tech = None
 
     def add_pitch(self, step, alter, octave):
         """ create new pitch """
@@ -251,6 +266,11 @@ class CreateMusicXML():
         """ create a dot """
         etree.SubElement(self.current_note, "dot")
 
+    def add_beam(self, nr, beam_type):
+        """ Add beam. """
+        beam_node = etree.SubElement(self.current_notation, "beam", number=str(nr))
+        beam_node.text = beam_type
+
     def add_tie(self, tie_type):
         """ create node tie (used for sound of tie) """
         etree.SubElement(self.current_note, "tie", type=tie_type)
@@ -282,6 +302,25 @@ class CreateMusicXML():
         """ create tuplet with type attribute """
         etree.SubElement(self.current_notation, "tuplet", type=ttype)
 
+    def add_slur(self, nr, sl_type):
+        """ Add slur. """
+        self.add_notations()
+        etree.SubElement(self.current_notation, "slur", {'number': str(nr), 'type': sl_type })
+
+    def add_named_notation(self, notate):
+        """ Fermata, etc. """
+        self.add_notations()
+        etree.SubElement(self.current_notation, notate)
+
+    def add_articulations(self):
+        """ Common for all articulations. """
+        if not self.current_artic:
+            self.current_artic = etree.SubElement(self.current_notation, "articulations")
+
+    def add_named_artic(self, artic):
+        """ Add articulation with specified name. """
+        etree.SubElement(self.current_artic, artic)
+
     def add_ornaments(self):
         if not self.current_ornaments:
             self.add_notations()
@@ -291,6 +330,28 @@ class CreateMusicXML():
         self.add_ornaments()
         trem_node = etree.SubElement(self.current_ornament, "tremolo", type=trem_type)
         trem_node.text = str(lines)
+
+    def add_trill(self):
+        etree.SubElement(self.current_ornament, "trill-mark")
+
+    def add_turn(self):
+        etree.SubElement(self.current_ornament, "turn")
+
+    def add_mordent(self):
+        etree.SubElement(self.current_ornament, "mordent")
+
+    def add_prall(self):
+        etree.SubElement(self.current_ornament, "inverted-mordent")
+
+    def add_technical(self):
+        if not self.current_tech:
+            self.add_notations()
+            self.current_tech = etree.SubElement(self.current_notation, "technical")
+
+    def add_fingering(self, finger_nr):
+        self.add_technical()
+        fing_node = etree.SubElement(self.current_tech, "fingering")
+        fing_node.text = str(finger_nr)
 
     def create_bar_attr(self):
         """ create node attributes """
@@ -361,6 +422,19 @@ class CreateMusicXML():
     def add_direction(self, pos="above"):
         self.direction = etree.SubElement(self.current_bar, "direction", placement=pos)
 
+    def add_dynamic_mark(self, dyn):
+        """Add specified dynamic mark."""
+        direction = etree.SubElement(self.current_bar, "direction", placement='below')
+        dirtypenode = etree.SubElement(direction, "direction-type")
+        dyn_node = etree.SubElement(dirtypenode, "dynamics")
+        dynexpr_node = etree.SubElement(dyn_node, dyn)
+
+    def add_dynamic_wedge(self, wedge_type):
+        """Add dynamic wedge/hairpin."""
+        direction = etree.SubElement(self.current_bar, "direction", placement='below')
+        dirtypenode = etree.SubElement(direction, "direction-type")
+        dyn_node = etree.SubElement(dirtypenode, "wedge", type=wedge_type)
+
     def add_metron_dir(self, unit, beats, dots):
         dirtypenode = etree.SubElement(self.direction, "direction-type")
         metrnode = etree.SubElement(dirtypenode, "metronome")
@@ -374,6 +448,17 @@ class CreateMusicXML():
 
     def add_sound_dir(self, midi_tempo):
         soundnode = etree.SubElement(self.direction, "sound", tempo=str(midi_tempo))
+
+    def add_lyric(self, txt, syll, nr, ext=False):
+        """ Add lyric element. """
+        lyricnode = etree.SubElement(self.current_note, "lyric", number=str(nr))
+        syllnode = etree.SubElement(lyricnode, "syllabic")
+        syllnode.text = syll
+        txtnode = etree.SubElement(lyricnode, "text")
+        txtnode.text = txt
+        if ext:
+            etree.SubElement(lyricnode, "extend")
+
 
     ##
     # Create the XML document
