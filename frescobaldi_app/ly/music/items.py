@@ -30,6 +30,13 @@ tokens in the 'tokens' attribute, as a tuple.
 The 'end_position()' method returns the position where the node (including 
 its child nodes) ends.
 
+You can get the whole tree structure of a LilyPond document by instantiating
+a Document with the ly.document.Document instance. (It will read all the tokens
+from the document using the Reader from the read module.) As a convenience,
+the ly.music.document(doc) function does this.
+
+If you want to add new Item types, you should also add a method to read.Reader
+to construct those items.
 
 """
 

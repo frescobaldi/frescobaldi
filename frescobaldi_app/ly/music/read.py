@@ -18,7 +18,12 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The items a music expression is constructed with in a tree structure.
+The Reader is used to construct a tree structure of (musical and other)
+items in a LilyPond document. The item types that are used are in the items
+module.
+
+You instantiate a Reader with a ly.document.Source that reads tokens from
+any (part of a) ly.document.Document.
 
 Whitespace and comments are left out.
 
