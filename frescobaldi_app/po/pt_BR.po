@@ -7359,10 +7359,13 @@ msgid ""
 "Frescobaldi is a light-weight, but powerful editor for LilyPond music files. "
 "This manual is written by {author} and documents {appname} version {version}."
 msgstr ""
+"Frescobaldi é um editor leve e poderoso para arquivos de música LilyPond. "
+"Esse manual é escrito por {author} e os documentos {appname} em versão "
+"{version}."
 
 #: ../userguide/index.md:8
 msgid "How to get help inside Frescobaldi"
-msgstr ""
+msgstr "Como encontrar ajuda dentro do Frescobaldi"
 
 #: ../userguide/index.md:10
 msgid ""
@@ -7370,19 +7373,23 @@ msgid ""
 "Many user interface items also have \"What's This\" information which can be "
 "revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}."
 msgstr ""
+"Em muitos diálogos há botões de ajuda ou você pode clicar em {key_help}. "
+"Muitos itens da interfácie têm informações como \"O que é isso\" que podem "
+"ser reveladas ao pressionar {key_whatsthis} ou selecionando {menu_whatsthis}."
+
 
 #: ../userguide/managing.md:1
 #, fuzzy
 msgid "Managing Files"
-msgstr "Arquivo XML"
+msgstr "Manuseiando Arquivos"
 
 #: ../userguide/snippet_import_export.md:1
 msgid "Importing and exporting snippets"
-msgstr ""
+msgstr "Importando e exportando fragmentos"
 
 #: ../userguide/snippet_import_export.md:3
 msgid "Snippets can be imported from and exported to XML files."
-msgstr ""
+msgstr "Fragmentos podem ser importados e exportados como arquivos XML."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_import_export.md:5
@@ -7393,6 +7400,11 @@ msgid ""
 "selecting {menu_export}, and then choose a file name, preferably ending in `."
 "xml`."
 msgstr ""
+"Para exportar fragmentos, selecione o fragmento pelo gerenciador, ou filtro "
+"de fragmentos usando a barra de procura e selecionando nenhum, assim todos os "
+"fragmentos visíveis serão exportados. Exportar fragmentos através do "
+"{menu_export}, e depois escolher o nome do Arquivo, preferencialmente "
+"terminando em `.xml`."
 
 #: ../userguide/snippet_import_export.md:11
 msgid ""
@@ -7400,6 +7412,7 @@ msgid ""
 "import. You may also drop an XML file on the snippet manager. A dialog will "
 "be displayed where you can select which snippets you want to import."
 msgstr ""
+
 
 #: ../userguide/snippet_import_export.md:15
 msgid ""
@@ -7416,6 +7429,8 @@ msgid ""
 "Frescobaldi has its roots in LilyKDE, which was a plugin for KDE3's editor "
 "Kate. LilyKDE was written in Python and released in 2007 on Christmas."
 msgstr ""
+"Frescobaldi tem sua origem no LilyKDE, que era um plugin para o editor Kate "
+"do KDE3. LilyKDE foi escrito em Python e lançado no Natal de 2007."
 
 #: ../userguide/history.md:6
 msgid ""
@@ -7426,6 +7441,13 @@ msgid ""
 "public release, on Christmas 2008. On Christmas 2009 version 1.0.0 was "
 "released and on Christmas 2010 version 1.2.0."
 msgstr ""
+"Quando foi lançada a versão 4 do KDE, não foi possível imediatamente fazer o "
+"plugin em Python para o Kate. Dessa forma o LilyKDE passou a ser um "
+"aplicativo independente, envolvendo o editor Kate, e foi renomeado para "
+"Frescobaldi. Ainda mantém o uso do aplicativo Okular do KDE para abrir os "
+"documentos PDF. Frescobaldi 0.7 teve seu primeiro lançamento público no "
+"Natal de 2008. No Natal de 2009 foi lançada a versão 1.0.0 e no Natal de "
+"2010 a versão 1.2.0."
 
 #: ../userguide/history.md:13
 msgid ""
@@ -7434,16 +7456,22 @@ msgid ""
 "platforms. Frescobaldi 2.0 is a complete rewrite from scratch. Its release "
 "date is targeted at Christmas 2011."
 msgstr ""
+"Neste momento foi decidido abandonar o uso das bibliotecas do KDE4 e utilizar "
+"somente Python e Qt4 que são facilmente encontradas para as maiores "
+"plataformas computacionais. Frescobaldi 2.0 foi reescrito do princípio e sua "
+"data de lançamento foi marcada no Natal de 2011."
 
 #: ../userguide/pitch.md:1
 msgid "Pitch Manipulation"
-msgstr ""
+msgstr "Manipulação de Tom"
 
 #: ../userguide/pitch.md:4
 msgid ""
 "Frescobaldi offers the following pitch-manipulating functions, all in the "
 "menu {menu}:"
 msgstr ""
+"Frescobaldi oferece as seguintes funções de manipulação de Tom, todas "
+"menu {menu}:"
 
 #: ../userguide/pitch.md:7
 #, fuzzy
@@ -7458,7 +7486,7 @@ msgstr "Transpõe todas as notas no documento ou seleção."
 #: ../userguide/pitch.md:10
 #, fuzzy
 msgid "Convert relative music to absolute"
-msgstr "Converter Relativo para &Absoluto"
+msgstr "Converte Relativo para &Absoluto"
 
 #. NOTE: markdown formatting
 #: ../userguide/pitch.md:11
@@ -7466,6 +7494,8 @@ msgid ""
 "This converts all `\\relative` music parts to absolute pitch names. It "
 "removes, but honours, octave checks."
 msgstr ""
+"Converte todos `\\relativos` nas partes da música para nome absoluto do Tom. "
+"Isso remove, mas mantém, a checagem de oitavas."
 
 #: ../userguide/pitch.md:14
 #, fuzzy
@@ -7480,6 +7510,10 @@ msgid ""
 "expressions relative, it may be necessary to select music from the first "
 "expression, leaving out higher-level opening braces."
 msgstr ""
+"Checa todas as expressões, mudando a intro de modo `\\relative` e expressões "
+"contendo Tom. Se você quiser separar as sub-expressões, será necessário "
+"selecionar a música, a partir da primeira expressão, deixando de fora as "
+"chaves delimitadoras do nível maior de hierarquia."
 
 #: ../userguide/snippet_python.md:1
 msgid "Python Snippets"
@@ -7491,27 +7525,30 @@ msgid ""
 "Python snippets can read and should set the variable `text`. The variable "
 "`text` contains the currently selected text (which may be an empty string)."
 msgstr ""
+"Os fragmentos Python podem ler e devem setar as variáveis de `text`. As "
+"variáveis `text` contêm a seleção corrente do texto (que podem ser strings "
+"vazias)."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:7
 msgid "You may set `text` to a string or a list of strings."
-msgstr ""
+msgstr "Você pode setar o `text` para uma string ou lista de strings."
 
 #: ../userguide/snippet_python.md:9
 msgid "Other variables that may be referenced:"
-msgstr ""
+msgstr "Outras variáveis que podem ser referenciadas:"
 
 #: ../userguide/snippet_python.md:12
 msgid "A list of strings describing the type of text the cursor is at."
-msgstr "A lista de cordas que descreve o tipo de texto em que o cursor está."
+msgstr "A lista de strings que descreve o tipo de texto em que o cursor está."
 
 #: ../userguide/snippet_python.md:15
 msgid ""
 "The current QTextCursor, giving access to the document. Don't change the "
 "document through the cursor, however."
 msgstr ""
-"O QTextCursor atual, que dá acesso ao documento. Não altere o documento "
-"através do cursor, no entanto."
+"O QTextCursor atual é que dá acesso ao documento. No entanto, não altera "
+"o documento através do cursor."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:19
@@ -7519,6 +7556,9 @@ msgid ""
 "When setting `text` to a list instead of a string, you can use this value to "
 "specify the place the text cursor will be placed after inserting the snippet."
 msgstr ""
+"Quando definir o `text` para uma lista, ao invés de uma string, você pode "
+"usar esse valor para especificar o lugar onde o cursor irá se posicionar, "
+"após inserir um fragmento."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:23
@@ -7527,6 +7567,9 @@ msgid ""
 "together with `CURSOR` to select text when inserting the string parts of the "
 "list."
 msgstr ""
+"Quando definir o `text` para uma lista, ao invés de uma string, esse valor "
+"pode ser usado como `CURSOR` para selecionar o texto que será inserida a "
+"string em partes da lista."
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:28
@@ -7535,6 +7578,9 @@ msgid ""
 "instead of inserting the text from the `text` variable. In this case you may "
 "alter the document through the `cursor`."
 msgstr ""
+"Quando você define uma função com esse nome, ela é chamada sem os argumentos, "
+"ao invés de inserir o texto da variável `text`. Nesse caso você pode alterar "
+"o documento através do `cursor`."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_paths.md:3
