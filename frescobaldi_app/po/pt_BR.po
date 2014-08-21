@@ -7023,11 +7023,15 @@ msgid ""
 "what consequences to take. If you <em>do</em> have Git installed you may set "
 "the path to its executable in the Preferences dialog."
 msgstr ""
+"Frescobaldi é mantido através de um repositório Git, mas o Git não é "
+"instalado. Vou continuar sem o suporte a Git, mas talvez você queira checar "
+"quais as consequências a tomar. Se você <em>tem</em> o Git instalado, você "
+"deve setar o caminho do executável na Caixa de Preferências."
 
 #: ../vcs/gitrepo.py:43
 #, python-brace-format
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
-msgstr ""
+msgstr "O diretório '{rootdir} não parece ser um repositório Git."
 
 #: ../vcs/menu.py:41
 msgctxt "menu title"
@@ -7045,10 +7049,13 @@ msgid ""
 "Changes will take effect after restart.\n"
 "Do you want to restart now?"
 msgstr ""
+"Sucesso em Checked out branch {name}.\n"
+"As mudanças terão efeito após a reinicialização.\n"
+"Você quer reiniciar agora?"
 
 #: ../vcs/menu.py:124
 msgid "Git Checkout Error"
-msgstr ""
+msgstr "Erro em Git Checkout"
 
 #: ../widgets/keysequencewidget.py:60
 msgid "Start recording a key sequence."
@@ -7056,20 +7063,20 @@ msgstr "Iniciar a gravação de uma sequência de teclas."
 
 #: ../widgets/keysequencewidget.py:61
 msgid "Clear the key sequence."
-msgstr ""
+msgstr "Limpar a sequência de teclas."
 
 #: ../widgets/keysequencewidget.py:118
 msgid "Input"
-msgstr ""
+msgstr "Entrada"
 
 #: ../widgets/schemeselector.py:91
 msgid "Scheme:"
-msgstr ""
+msgstr "Esquema:"
 
 #: ../widgets/schemeselector.py:95
 #, fuzzy
 msgid "Re&name..."
-msgstr "&Gerenciar..."
+msgstr "Re&nomear"
 
 #: ../widgets/schemeselector.py:97
 #, fuzzy
@@ -7078,41 +7085,41 @@ msgstr "E&xportar"
 
 #: ../widgets/schemeselector.py:137
 msgid "Add Scheme"
-msgstr ""
+msgstr "Adicionar Esquema"
 
 #: ../widgets/schemeselector.py:138
 msgid "Please enter a name for the new scheme:"
-msgstr ""
+msgstr "Por favor entre o nome do novo esquema:"
 
 #: ../widgets/schemeselector.py:156
 #, fuzzy
 msgid "Rename"
-msgstr "nome_do_arquivo"
+msgstr "Renomear"
 
 #: ../widgets/schemeselector.py:156
 #, fuzzy
 msgid "New name:"
-msgstr "nome_do_arquivo"
+msgstr "Novo nome:"
 
 #: ../widgets/schemeselector.py:167
 msgctxt "dialog title"
 msgid "Import color theme"
-msgstr ""
+msgstr "Importar tema de cores"
 
 #: ../widgets/schemeselector.py:176
 #, fuzzy, python-brace-format
 msgctxt "dialog title"
 msgid "Export {name}"
-msgstr "Exportar {num} Fragmento"
+msgstr "Exportar {name}"
 
 #: ../widgets/shortcuteditdialog.py:109
 msgctxt "window title"
 msgid "Edit Shortcut"
-msgstr ""
+msgstr "Editar Atalho"
 
 #: ../widgets/shortcuteditdialog.py:110
 msgid "&No shortcut"
-msgstr ""
+msgstr "&Nenhum atalho"
 
 #: ../widgets/shortcuteditdialog.py:111
 msgid "Use a &custom shortcut:"
@@ -7121,21 +7128,21 @@ msgstr "Usar um atalho personalizado:"
 #: ../widgets/shortcuteditdialog.py:113
 #, python-brace-format
 msgid "Alternative #{num}:"
-msgstr ""
+msgstr "Alternativo #{num}:"
 
 #: ../widgets/shortcuteditdialog.py:113
 msgid "Primary shortcut:"
-msgstr ""
+msgstr "Atalho Primário:"
 
 #: ../widgets/shortcuteditdialog.py:132 ../widgets/shortcuteditdialog.py:142
 #, python-brace-format
 msgid "Conflict with: {name}"
-msgstr ""
+msgstr "Conflito com: {name}"
 
 #: ../widgets/shortcuteditdialog.py:155
 #, python-brace-format
 msgid "Here you can edit the shortcuts for {name}"
-msgstr ""
+msgstr "Aqui você pode editar os atalhos para {name}"
 
 #: ../widgets/shortcuteditdialog.py:174
 msgctxt "no keyboard shortcut"
@@ -7149,7 +7156,7 @@ msgstr "Usar atalho pa&drão ({name})"
 
 #: ../widgets/tempobutton.py:53
 msgid "The tempo is set as you click this button."
-msgstr ""
+msgstr "O tempo é definido assim que clique o botão."
 
 #: ../widgets/tempobutton.py:55
 msgid ""
@@ -7157,10 +7164,13 @@ msgid ""
 "\n"
 "The average speed of clicking is used; wait 3 seconds to \"reset\"."
 msgstr ""
+"Aperte esse botão para setar o tempo.\n"
+"\n"
+"A média da velocidade de cliques será usada; espere 3 segundos para \"reset\"."
 
 #: ../widgets/urlrequester.py:65
 msgid "Open file dialog"
-msgstr ""
+msgstr "Abrir Arquivo"
 
 #: ../widgets/urlrequester.py:109
 msgid "Select a directory"
@@ -7173,15 +7183,15 @@ msgstr "Selecionar o Arquivo"
 #: ../userguide/modal_transpose.md:1
 #, fuzzy
 msgid "Modal transpose"
-msgstr "&Transporte..."
+msgstr "&Transporte"
 
 #: ../userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
-msgstr ""
+msgstr "Aqui você pode modificar as configurações de várias Ferramentas."
 
 #: ../userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
-msgstr ""
+msgstr "Após gerar a partitura, a função Visualizar Música não exibirá a música"
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:3
@@ -7197,7 +7207,7 @@ msgstr ""
 
 #: ../userguide/nomusic.md:8
 msgid "Do you use an exotic way to specify the output filename?"
-msgstr ""
+msgstr "Você usou algum jeito exótico para o Nome do Arquivo?"
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:10
@@ -7207,6 +7217,10 @@ msgid ""
 "output filename or -suffix. Frescobaldi even searches `\\include` files for "
 "commands like `\\bookOutputName` and `\\bookOutputSuffix`."
 msgstr ""
+"Frescobaldi é capaz de determinar o nome dos arquivos de saída através dos "
+"documentos e dos comandos LilyPond que especificam o sufixo ou o Nome do "
+"Arquivo de saída. Frescobaldi também procura por `\\include` Arquivos através "
+"dos comandos `\\bookOutputName` and `\\bookOutputSuffix`."
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:16
@@ -7216,6 +7230,10 @@ msgid ""
 "filenames. In that case you can override the base name(s) using the "
 "[var_output `output`] document variable."
 msgstr ""
+"Se você usar Esquemas de códigos mais complicados no seu documento, para "
+"especificar o Nome do Arquivo de Saída, talvez o Frescobaldi não consiga "
+"determinar corretamente o Nome do Arquivo. Nesse caso você pode sobrescrever "
+"a base de nome(s) usando a [var_output `output`] variável"
 
 #: ../userguide/engraving.md:1
 #, fuzzy
