@@ -7247,6 +7247,9 @@ msgid ""
 "options. There are four modes Frescobaldi can compile scores in: *Preview*, "
 "*Publish*, *Layout Control* and *Custom*."
 msgstr ""
+"Para gerar uma partitura, Frescobaldi usa LilyPond com corretas opções de "
+"comandos. Existem quatro modos do Frescobaldi compilar as partituras: "
+"*Preview*, *Publish*, *Layout Control* and *Custom*."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:7
@@ -7255,6 +7258,9 @@ msgid ""
 "so that there is two-way navigation between the music view and the LilyPond "
 "source."
 msgstr ""
+"O *Preview mode* renderiza o PDF com pontos e informações de cliques "
+"habilitados, assim há duas maneiras de navegar entre a visualização da música "
+"e o código fonte do LilyPond."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:10
@@ -7264,6 +7270,7 @@ msgid ""
 "resulting PDF file and doesn't reveal hard-coded information about the "
 "directories on your computer."
 msgstr ""
+"O modo *Publish* é usado para produzir o PDF final, que se quer compartilhar."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:14
@@ -7271,6 +7278,8 @@ msgid ""
 "The *Layout Control mode* can be used to enable specific features that can "
 "help in controlling and fine-tuning the layout of a score."
 msgstr ""
+"O *Layout Control mode* pode ser usado para habilitar funções específicas que "
+"ajudam no controle e ajustes finos do layout da partitura."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:17
@@ -7279,6 +7288,9 @@ msgid ""
 "command in detail. This dialog also has options to let LilyPond engrave a "
 "score to PostScript, SVG or PNG images, or to a PDF using the EPS backend."
 msgstr ""
+"O *Custom mode* abre o diálogo permitindo especificar o comando LilyPond "
+"em detalhe. Aqui também tem a opção de deixar o LilyPond gerar a partitura em "
+"PostScript, SVG ou imagens PNG, ou em PDF usando o backend do EPS."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:21
@@ -7287,12 +7299,15 @@ msgid ""
 "enable the *Automatic engrave* option, Frescobaldi will run LilyPond "
 "automatically everytime the document is modified (in preview mode)."
 msgstr ""
+"Todos os comandos do LilyPond podem ser usados no *LilyPond* menu. E se você "
+"habilitar a opção *Automatic engrave*, Frescobaldi irá gerar o Lilypond "
+"automaticamente, toda vez que o documento for modificado (em modo preview)."
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:1
 #, fuzzy
 msgid "The `output` document variable"
-msgstr "variáveis do Documento"
+msgstr "Variáveis `output` do Documento"
 
 #: ../userguide/var_output.md:3
 msgid ""
@@ -7300,20 +7315,25 @@ msgid ""
 "determination and makes Frescobaldi look for output documents (PDF, MIDI, "
 "etc.) with the specified basename, or comma-separated list of names."
 msgstr ""
+"Setando essa variável irá suprimir o nome automático de Arquivo de Saída "
+"e fará com que o Frescobaldi olhe para os nomes dos documentos (PDF, MIDI, "
+"etc.) com o nome base especificado, ou lista de nomes separadas por vírgulas."
 
 #: ../userguide/var_output.md:7
 msgid ""
 "If a name ends with a directory separator, output files are looked for in "
 "the specified directory."
 msgstr ""
+"Se o nome termina com um separador de Diretório, o Nome de Saída será "
+"procurado no diretório especificado."
 
 #: ../userguide/var_output.md:10
 msgid "All names are relative to the document's filename."
-msgstr ""
+msgstr "Todos os nomes são relativos para o Nome do Arquivo."
 
 #: ../userguide/var_output.md:12 ../userguide/create_midi.md:7
 msgid "For example:"
-msgstr ""
+msgstr "Por exemplo:"
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:27
@@ -7324,6 +7344,11 @@ msgid ""
 "output name, such as `\\bookOutputName`, etc); or when the automatic output "
 "file name determination does not work due to complicated LilyPond code."
 msgstr ""
+"Você pode setar essa variável se a saída automática do nome do Arquivo de "
+"Saída consumir tempo (pois Frescobaldi faz um parse do documento em todas as "
+"variáveis do documento, procurando por comandos LilyPond que especifiquem o "
+"Nome de Arquivo de Saída, como em `\\bookOutputName`, etc); ou quando o Nome "
+"de saída não funciona por complicações no código LilyPond."
 
 #: ../userguide/index.md:1
 msgid "Frescobaldi Manual"
