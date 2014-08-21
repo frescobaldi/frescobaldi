@@ -102,8 +102,13 @@ class CreateMusicXML():
         if dot:
             for i in range(dot):
                 self.add_dot()
-        if pitch[1]:
-            self.add_accidental(pitch[1])
+        if pitch[1] or pitch[3]:
+            if pitch[3] == '!': # cautionary
+                self.add_accidental(pitch[1], caut=True)
+            elif pitch[3] == '?': # parentheses
+                self.add_accidental(pitch[1], parenth=True)
+            else:
+                self.add_accidental(pitch[1])
 
     def tuplet_note(self, fraction, base_scaling, ttype, divs):
         """ convert current note to tuplet """
@@ -219,17 +224,22 @@ class CreateMusicXML():
         octnode = etree.SubElement(pitch, "octave")
         octnode.text = str(octave+3)
 
-    def add_accidental(self, alter):
+    def add_accidental(self, alter, caut=False, parenth=False):
         """ create accidental """
-        acc = etree.SubElement(self.current_note, "accidental")
-        if alter == 1:
-            acc.text = "sharp"
-        elif alter == 2:
-            acc.text = "double-sharp"
-        elif alter == -1:
-            acc.text = "flat"
-        elif alter == -2:
-            acc.text = "flat-flat"
+        attrib = {}
+        if caut:
+            attrib['cautionary'] = 'yes'
+        if parenth:
+            attrib['parentheses'] = 'yes'
+        acc = etree.SubElement(self.current_note, "accidental", attrib)
+        acc_dict = {
+        0: 'natural',
+        1: 'sharp', -1: 'flat',
+        2: 'sharp-sharp', -2: 'flat-flat',
+        0.5: 'natural-up', -0.5: 'natural-down',
+        1.5: 'sharp-up', -1.5: 'flat-down'
+        }
+        acc.text = acc_dict[alter]
 
     def add_rest(self, pos):
         """ create rest """

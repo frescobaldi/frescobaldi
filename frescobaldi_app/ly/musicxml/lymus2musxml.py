@@ -114,7 +114,7 @@ class ParseSource():
             if self.sims_and_seqs and self.sims_and_seqs[-1] == 'sim':
                 self.mediator.new_section('simultan')
             self.sims_and_seqs.append('seq')
-            print(self.sims_and_seqs)
+            # print(self.sims_and_seqs)
 
     def Chord(self, chord):
         self.mediator.clear_chord()
@@ -448,8 +448,8 @@ class ParseSource():
                             if obj.dynamic['before']['wedge']:
                                 self.musxml.add_dynamic_wedge(obj.dynamic['before']['wedge'])
                         if isinstance(obj, ly2xml_mediator.BarNote):
-                            self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.base_scaling,
-                            obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
+                            self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave, obj.note.accidental_token],
+                            obj.base_scaling, obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                             if obj.tie:
                                 self.musxml.tie_note(obj.tie)
                             if obj.slur:

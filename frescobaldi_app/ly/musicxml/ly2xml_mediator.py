@@ -728,7 +728,8 @@ class BarNote(BarMus):
         BarMus.__init__(self, note, voice)
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
-        self.alter = note.pitch.alter*2
+        self.alter = get_xml_alter(note.pitch.alter)
+        self.accidental_token = note.accidental_token
         self.tie = 0
         self.grace = (0,0)
         self.tremolo = ('',0)
@@ -1023,3 +1024,13 @@ def calc_trem_dur(repeats, base_scaling, duration):
     new_base = base * repeats
     new_type = durval2type(str(duration/repeats))
     return (new_base, scale), new_type
+
+def get_xml_alter(alter):
+    """ Convert alter to the specified format,
+    i e int if it's int and float otherwise.
+    Also multiply with 2."""
+    alter *= 2
+    if float(alter).is_integer():
+        return alter
+    else:
+        return float(alter)
