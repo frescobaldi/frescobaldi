@@ -475,7 +475,10 @@ class Mediator():
     def new_tempo(self, dur_tokens, tempo, string):
         unit, dots, rs = self.duration_from_tokens(dur_tokens)
         beats = tempo[0]
-        text = string.value()
+        try:
+            text = string.value()
+        except AttributeError:
+            text = None
         tempo = BarAttr()
         tempo.set_tempo(unit, beats, dots, text)
         if self.bar is None:
@@ -729,7 +732,6 @@ class BarNote(BarMus):
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
         self.alter = get_xml_alter(note.pitch.alter)
-        self.accidental_token = note.accidental_token
         self.tie = 0
         self.grace = (0,0)
         self.tremolo = ('',0)
