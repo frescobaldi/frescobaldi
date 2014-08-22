@@ -85,7 +85,8 @@ The following people contributed to {appname}:
 :  !Manuel A. Vázquez
 
 {lang_pt_br}:
-:  !Édio Mazera
+:  !Édio Mazera,
+    Arnaldo Russo
 
 {lang_uk}:
 :  !Dmytro O. Redchuk
