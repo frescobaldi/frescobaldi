@@ -391,9 +391,10 @@ class Mediator():
         self.check_current_note(rest=True)
 
     def note2rest(self):
-        """ note used as rest position transformed to rest"""
+        """Note used as rest position transformed to rest."""
         temp_note = self.current_note
         self.current_note = BarRest(temp_note, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
+        self.check_duration(rest=True)
         self.bar.obj_list.pop()
         self.bar.add(self.current_note)
 

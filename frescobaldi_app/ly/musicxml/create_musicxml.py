@@ -94,7 +94,7 @@ class CreateMusicXML():
             self.add_grace(grace[1])
         if chord:
             self.add_chord()
-        self.add_pitch(pitch[0], pitch[1], pitch[2])
+        self.add_pitch(pitch[0], pitch[1], pitch[2]+3)
         if not grace[0]:
             self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
@@ -131,7 +131,10 @@ class CreateMusicXML():
     def new_rest(self, base_scaling, durtype, divs, pos, dot, voice):
         """ create all nodes needed for a rest. """
         self.create_note()
-        self.add_rest(pos)
+        if pos:
+            self.add_rest_w_pos(pos[0], pos[1]+3)
+        else:
+            self.add_rest()
         self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
         if durtype:
@@ -222,7 +225,7 @@ class CreateMusicXML():
             altnode = etree.SubElement(pitch, "alter")
             altnode.text = str(alter)
         octnode = etree.SubElement(pitch, "octave")
-        octnode.text = str(octave+3)
+        octnode.text = str(octave)
 
     def add_accidental(self, alter, caut=False, parenth=False):
         """ create accidental """
@@ -241,14 +244,17 @@ class CreateMusicXML():
         }
         acc.text = acc_dict[alter]
 
-    def add_rest(self, pos):
-        """ create rest """
+    def add_rest(self):
+        """Create rest."""
+        etree.SubElement(self.current_note, "rest")
+
+    def add_rest_w_pos(self, step, octave):
+        """Create rest with display position."""
         restnode = etree.SubElement(self.current_note, "rest")
-        if pos:
-            step = etree.SubElement(restnode, "display-step")
-            octave = etree.SubElement(restnode, "display-octave")
-            step.text = str(pos[0])
-            octave.text = str(pos[1])
+        stepnode = etree.SubElement(restnode, "display-step")
+        octnode = etree.SubElement(restnode, "display-octave")
+        stepnode.text = str(step)
+        octnode.text = str(octave)
 
     def add_skip(self, duration, forward=True):
         if forward:

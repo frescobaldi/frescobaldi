@@ -280,7 +280,6 @@ class ParseSource():
 
     def Command(self, command):
         """ \bar, \rest etc """
-        print(command.token)
         if command.token == '\\rest':
             self.mediator.note2rest()
         elif command.token == '\\numericTimeSignature':
@@ -289,6 +288,8 @@ class ParseSource():
             self.numericTime = False
         elif command.token.find('voice') == 1:
             self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
+        else:
+            print(command.token)
 
     def String(self, string):
         prev = self.get_previous_node(string)
