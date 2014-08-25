@@ -41,6 +41,10 @@ parser.add_argument('-a', '--standalone', action = 'store_true', \
 parser.add_argument('-p', '--portmidi', \
   help = 'full path of PortMIDI library (used only with \'-a\')', \
   default = pm_ctypes.dll_name)
+parser.add_argument('-r', '--arch', \
+  help = 'architecture set to include, e.g. i386, x86_64, intel; \
+  if the value is None, the architecture of the current Python binary is used \
+  (used only with \'-a\')')
 args = parser.parse_args()
 
 if not (os.path.isfile(args.script) or args.force):
@@ -118,6 +122,10 @@ if args.standalone:
         'frameworks': [args.portmidi],
         'includes': ['new']
     })
+    if args.arch:
+        options.update({
+            'arch': args.arch
+        })
     for patchfile in os.listdir('patch'):
         if patchfile.endswith(".diff"):
             with open('patch/{0}'.format(patchfile), 'r') as input:
