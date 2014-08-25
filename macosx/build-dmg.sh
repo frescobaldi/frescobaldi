@@ -35,7 +35,7 @@ echo
 
 echo Building the .app bundle with mac-app.py.
 echo \(This step will likely give some warnings from /usr/bin/strip about malformed
-echo objects: you can safely ignore them.\)
+echo objects and print a long list of missing modules: you can safely ignore them.\)
 echo
 # The expected warnings are:
 # /usr/bin/strip: for architecture x86_64 object: .../dist/Frescobaldi.app/Contents/Frameworks/libgcc_s.1.dylib malformed object (unknown load command 11)
