@@ -25,9 +25,16 @@ os.chdir("..")
 from frescobaldi_app import info
 print info.version'`
 
-if [ v${VERSION} != `git describe` ]
+if git rev-parse --git-dir > /dev/null 2>&1
 then
-  VERSION=${VERSION}-`git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/'`
+  if [[ v${VERSION} != `git describe` ]]
+  then
+    VERSION=${VERSION}-`git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/'`
+  fi
+else
+  echo "Warning: you are not running "`basename $0`" from the Git repository."
+  echo "The version of the .app bundle could be wrong or incomplete if you are"
+  echo "not building from the source of a tagged release."
 fi
 
 echo The version of the .app bundle will be ${VERSION}.
