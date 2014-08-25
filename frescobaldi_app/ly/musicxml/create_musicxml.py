@@ -38,14 +38,11 @@ class CreateMusicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
 
     def __init__(self):
-        """ creates the basic structure of the XML without any music
-        TODO:
-        set doctype
-        """
+        """Creates the basic structure of the XML without any music."""
         self.root = etree.Element("score-partwise", version="3.0")
         self.tree = etree.ElementTree(self.root)
-        identification = etree.SubElement(self.root, "identification")
-        encoding = etree.SubElement(identification, "encoding")
+        self.score_info = etree.SubElement(self.root, "identification")
+        encoding = etree.SubElement(self.score_info, "encoding")
         software = etree.SubElement(encoding, "software")
         software.text = ly.pkginfo.name + " " + ly.pkginfo.version
         encoding_date = etree.SubElement(encoding, "encoding-date")
@@ -57,6 +54,16 @@ class CreateMusicXML():
     ##
     # Building the basic Elements
     ##
+
+    def create_title(self, title):
+        """Create score title."""
+        mov_title = etree.SubElement(self.root, "movement-title")
+        mov_title.text = title
+
+    def create_score_info(self, tag, info, attr={}):
+        """Create score info."""
+        info_node = etree.SubElement(self.score_info, tag, attr)
+        info_node.text = info
 
     def create_part(self, name, midi):
         """ create a new part """
@@ -207,6 +214,15 @@ class CreateMusicXML():
     ##
     # Low-level node creation
     ##
+
+    def add_creator(self, creator, name):
+        """Add creator to score info."""
+        attr = {'type': creator }
+        self.create_score_info("creator", name, attr)
+
+    def add_rights(self, rights):
+        """Add rights to score info."""
+        self.create_score_info("rights", rights)
 
     def create_note(self):
         """ create new note """

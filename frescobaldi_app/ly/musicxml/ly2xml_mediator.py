@@ -35,7 +35,7 @@ class Mediator():
 
     def __init__(self):
         """ create global lists """
-        self.score = []
+        self.score = Score()
         self.sections = []
         """ default and initial values """
         self.current_note = None
@@ -57,6 +57,18 @@ class Mediator():
         self.lyric_syll = False
         self.lyric_nr = 1
         self.ongoing_wedge = False
+
+    def new_header_assignment(self, name, value):
+        """Distributing header information."""
+        creators = ['composer', 'arranger', 'poet', 'lyricist']
+        if name == 'title':
+            self.score.title = value
+        elif name == 'copyright':
+            self.score.rights = value
+        elif name in creators:
+            self.score.creators[name] = value
+        else:
+            self.score.info[name] = value
 
     def new_section(self, name):
         name = self.check_name(name)
@@ -95,7 +107,7 @@ class Mediator():
             self.part = ScorePart(2)
         else:
             self.part = ScorePart()
-        self.score.append(self.part)
+        self.score.partlist.append(self.part)
         self.insert_into = self.part
         self.bar = None
 
@@ -561,6 +573,15 @@ class Mediator():
 ##
 # Classes that holds information suitable for converting to XML.
 ##
+class Score():
+    """Object that keep track of a whole score."""
+    def __init__(self):
+        self.partlist = []
+        self.title = None
+        self.creators = {}
+        self.info = {}
+        self.rights = None
+
 
 class ScorePart():
     """ object to keep track of part """

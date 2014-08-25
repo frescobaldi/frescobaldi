@@ -69,16 +69,23 @@ class ParseSource():
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
         print(mustree.dump())
+        header_nodes = self.iter_header(mustree)
+        self.parse_nodes(header_nodes)
         score = self.get_score(mustree)
         if score:
             mus_nodes = self.iter_score(score, mustree)
         else:
             mus_nodes = self.find_score_sub(mustree)
         self.mediator.new_section("fallback") #fallback section
+        self.parse_nodes(mus_nodes)
+
+    def parse_nodes(self, mus_nodes):
+        """Work through all nodes by calling the function with the
+        same name as the nodes class."""
         if mus_nodes:
             for m in mus_nodes:
                 func_name = m.__class__.__name__ #get instance name
-                #print func_name
+                # print func_name
                 if func_name not in excl_list:
                     try:
                         func_call = getattr(self, func_name)
@@ -101,7 +108,12 @@ class ParseSource():
     ##
 
     def Assignment(self, assignm):
-        print("Warning assignment in score block or corresponding: "+assignm.name())
+        """Because assignments in score are substituted, this should only be
+        header assignments."""
+        if isinstance(assignm.value(), ly.music.items.Markup):
+            pass
+        elif isinstance(assignm.value(), ly.music.items.String):
+            self.mediator.new_header_assignment(assignm.name(), assignm.value().value())
 
     def MusicList(self, musicList):
         if musicList.token == '<<':
@@ -380,6 +392,19 @@ class ParseSource():
         else:
             return False
 
+    def simple_node_gen(self, node):
+        """Unlike iter_score are the subnodes yielded without substitution."""
+        for n in node:
+            yield n
+            for s in self.simple_node_gen(n):
+                yield s
+
+    def iter_header(self, tree):
+        """Iter only over header nodes."""
+        for t in tree:
+            if isinstance(t, ly.music.items.Header):
+                return self.simple_node_gen(t)
+
     def get_score(self, node):
         """ Returns (first) Score node or false if no Score is found. """
         for n in node:
@@ -419,7 +444,15 @@ class ParseSource():
 
     def iterate_mediator(self):
         """ The mediator lists are looped through and outputed to the xml-file. """
-        for part in self.mediator.score:
+        if self.mediator.score.title:
+            self.musxml.create_title(self.mediator.score.title)
+        for ctag in self.mediator.score.creators:
+            self.musxml.add_creator(ctag, self.mediator.score.creators[ctag])
+        for itag in self.mediator.score.info:
+            self.musxml.create_score_info(itag, self.mediator.score.info[itag])
+        if self.mediator.score.rights:
+            self.musxml.add_rights(self.mediator.score.rights)
+        for part in self.mediator.score.partlist:
             if part.barlist:
                 self.musxml.create_part(part.name, part.midi)
                 self.mediator.set_first_bar(part)
