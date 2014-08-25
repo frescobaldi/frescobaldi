@@ -1,23 +1,33 @@
 #!/usr/bin/env bash
 
+read -d '' INTRO <<- EOF
+Build a standalone Mac application bundle for Frescobaldi
+and wrap it into a distributable DMG disk image.
+
+Prerequisites:
+- Frescobaldi's dependencies installed through MacPorts with default variants,
+  for the requested architecture set,
+- \$PATH contains Git and appdmg (a node.js/npm package).
+
+It is strongly recommended that no Python packages are active except for
+Frescobaldi's dependencies.
+You can achieve this for packages installed through MacPorts with
+  sudo port deactivate active and not rdepof:frescobaldi and categories:python
+EOF
+
+if [[ ./`basename $0` != $0 ]]
+then
+  echo "Error: wrong working directory." 1>&2
+  echo "You must run "`basename $0`" from the macosx directory of Frescobaldi's source." 1>&2
+  exit 1
+fi
+
 if [[ ${MPPREFIX} == '' ]]
 then
   MPPREFIX=/opt/local
 fi
 
-echo This script will build a standalone Mac application bundle for Frescobaldi
-echo and wrap it into a distributable DMG disk image, provided that
-echo - you have a working MacPorts installation in ${MPPREFIX},
-echo - you installed Frescobaldi\'s dependencies through MacPorts with default
-echo ' ' variants \(this also implies that you are using Python 2.7\),
-echo - you have working Git, node.js and npm in your \$PATH,
-echo - you installed appdmg through npm in global mode \(so it is in your \$PATH\),
-echo - you are running this script from the directory macosx of Frescobaldi\'s source.
-echo
-echo It is strongly recommended that no Python packages are active except for
-echo Frescobaldi\'s dependencies.
-echo You can achieve this for packages installed through MacPorts with
-echo ' ' sudo port deactivate active and not rdepof:frescobaldi and categories:python
+echo "${INTRO}"
 echo
 
 VERSION=`${MPPREFIX}/bin/python2.7 -c 'import os
