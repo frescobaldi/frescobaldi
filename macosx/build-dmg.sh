@@ -16,18 +16,24 @@ You can achieve this for packages installed through MacPorts with
 EOF
 
 read -d '' USAGE <<- EOF
-Usage: $0 [-p <MacPorts prefix>] [-d] [-h]
+Usage: $0 [-p <MacPorts prefix>] [-a <architecture set>] [-d] [-h]
   -p defaults to /opt/local
+  -a defaults to the architecture of the current Python binary
   -d = do not build the DMG disk image
   -h = show this help
+  <architecture set> must be either i386, x86_64 or intel (= i386 + x86_64)
 EOF
 
 MPPREFIX=/opt/local
 
-while getopts ":p:dh" opt; do
+while getopts ":p:a:dh" opt; do
   case ${opt} in
     p)
       MPPREFIX=${OPTARG}
+      ;;
+    a)
+      ARCH=${OPTARG}
+      ARCHOPT='-r '${ARCH}
       ;;
     d)
       NODMG=1
@@ -85,7 +91,7 @@ echo
 # /usr/bin/strip: for architecture x86_64 object: .../dist/Frescobaldi.app/Contents/Frameworks/libgcc_s.1.dylib malformed object (unknown load command 11)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/MacOS/Frescobaldi malformed object (unknown load command 15)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/Frameworks/libstdc++.6.dylib malformed object (unknown load command 12)
-${MPPREFIX}/bin/python2.7 mac-app.py -v ${VERSION} -a > /dev/null
+${MPPREFIX}/bin/python2.7 mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
 echo
 
 echo Copying libqsvg.dylib inside the .app bundle.
@@ -102,6 +108,42 @@ echo
 ${MPPREFIX}/bin/macdeployqt dist/Frescobaldi.app
 echo
 
+APPFILE=`file dist/Frescobaldi.app/Contents/MacOS/Frescobaldi`
+if [[ ${APPFILE} == *i386* ]]
+then
+  if [[ ${APPFILE} == *x86_64* ]]
+  then
+    APPARCH=intel
+  else
+    APPARCH=i386
+  fi
+else
+  if [[ ${APPFILE} == *x86_64* ]]
+  then
+    APPARCH=x86_64
+  else
+    APPARCH=unknown
+  fi
+fi
+if [[ ${ARCH} != '' ]]
+then
+  if [[ ${ARCH} != ${APPARCH} ]]
+  then
+    echo "Error: binary architecture set mismatch." 1>&2
+    echo "You requested ${ARCH}, but the apparent architecture set is ${APPARCH}." 1>&2
+    exit 1
+  fi
+else
+  if [[ ${APPARCH} == unknown ]]
+  then
+    echo "Error: binary architecture set unknown." 1>&2
+    echo "The .app bundle might be broken." 1>&2
+    exit 1
+  fi
+  echo "The apparent architecture set of the .app bundle is ${APPARCH}."
+  echo
+fi
+
 if [[ ${NODMG} == 1 ]]
 then
   exit
@@ -112,15 +154,5 @@ echo
 sed -e '/INSTALL/d' ../README > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
-APPFILE=`file dist/Frescobaldi.app/Contents/MacOS/Frescobaldi`
-APPARCH=''
-if [[ ${APPFILE} == *i386* ]]
-then
-  APPARCH=${APPARCH}-i386
-fi
-if [[ ${APPFILE} == *x86_64* ]]
-then
-  APPARCH=${APPARCH}-x86_64
-fi
-appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}${APPARCH}.dmg
+appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}-${APPARCH}.dmg
 rm {README,ChangeLog,COPYING}.txt
