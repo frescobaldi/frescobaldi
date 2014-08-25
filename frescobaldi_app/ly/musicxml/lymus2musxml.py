@@ -79,11 +79,11 @@ class ParseSource():
         self.mediator.new_section("fallback") #fallback section
         self.parse_nodes(mus_nodes)
 
-    def parse_nodes(self, mus_nodes):
+    def parse_nodes(self, nodes):
         """Work through all nodes by calling the function with the
         same name as the nodes class."""
-        if mus_nodes:
-            for m in mus_nodes:
+        if nodes:
+            for m in nodes:
                 func_name = m.__class__.__name__ #get instance name
                 # print func_name
                 if func_name not in excl_list:
