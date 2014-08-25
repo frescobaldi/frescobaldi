@@ -920,7 +920,8 @@ def clefname2clef(clefname):
     "tab": ('TAB',5,0), "soprano": ('C',1,0),
     "mezzosoprano": ('C',2,0),
     "baritone": ('C',5,0),
-    "varbaritone": ('F',3,0)
+    "varbaritone": ('F',3,0),
+    "french": ('G',1,0)
     }
     try:
         clef = clef_dict[clefname]
