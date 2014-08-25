@@ -15,16 +15,43 @@ You can achieve this for packages installed through MacPorts with
   sudo port deactivate active and not rdepof:frescobaldi and categories:python
 EOF
 
+read -d '' USAGE <<- EOF
+Usage: $0 [-p <MacPorts prefix>] [-d] [-h]
+  -p defaults to /opt/local
+  -d = do not build the DMG disk image
+  -h = show this help
+EOF
+
+MPPREFIX=/opt/local
+
+while getopts ":p:dh" opt; do
+  case ${opt} in
+    p)
+      MPPREFIX=${OPTARG}
+      ;;
+    d)
+      NODMG=1
+      ;;
+    h)
+      echo "${INTRO}"
+      echo
+      echo "${USAGE}"
+      exit
+      ;;
+    *)
+      echo "${INTRO}" 1>&2
+      echo 1>&2
+      echo "${USAGE}" 1>&2
+      exit 1
+      ;;
+  esac
+done
+
 if [[ ./`basename $0` != $0 ]]
 then
   echo "Error: wrong working directory." 1>&2
   echo "You must run "`basename $0`" from the macosx directory of Frescobaldi's source." 1>&2
   exit 1
-fi
-
-if [[ ${MPPREFIX} == '' ]]
-then
-  MPPREFIX=/opt/local
 fi
 
 echo "${INTRO}"
