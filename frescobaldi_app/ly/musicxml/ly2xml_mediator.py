@@ -819,7 +819,7 @@ class BarRest(BarMus):
 class BarAttr():
     """ object that keep track of bar attributes, e.g. time sign, clef, key etc """
     def __init__(self):
-        self.key = 0
+        self.key = None
         self.time = 0
         self.clef = 0
         self.mode = ''
@@ -850,7 +850,7 @@ class BarAttr():
 
     def has_attr(self):
         check = False
-        if self.key != 0:
+        if self.key is not None:
             check = True
         elif self.time != 0:
             check = True
@@ -890,8 +890,11 @@ class TempoDir():
 ##
 
 def get_fifths(key, mode):
-    sharpkeys = ['c', 'g', 'd', 'a', 'e', 'b', 'fis', 'cis', 'gis', 'dis', 'ais']
-    flatkeys = ['c', 'f', 'bes', 'es', 'as', 'des', 'ges']
+    fifths = 0
+    sharpkeys = ['c', 'g', 'd', 'a', 'e', 'b', 'fis', 'cis', 'gis',
+    'dis', 'ais', 'eis', 'bis', 'fisis', 'cisis']
+    flatkeys = ['c', 'f', 'bes', 'es', 'as', 'des', 'ges', 'ces', 'fes',
+    'beses', 'eses', 'ases']
     if key in sharpkeys:
         fifths = sharpkeys.index(key)
     elif key in flatkeys:
