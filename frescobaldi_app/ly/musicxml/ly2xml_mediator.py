@@ -919,7 +919,11 @@ def clefname2clef(clefname):
     "baritone": ('C',5,0),
     "varbaritone": ('F',3,0)
     }
-    return clef_dict[clefname]
+    try:
+        clef = clef_dict[clefname]
+    except KeyError:
+        clef = 0
+    return clef
 
 def getNoteName(index):
     noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
