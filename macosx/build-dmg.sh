@@ -151,8 +151,14 @@ fi
 
 echo Building the DMG disk image with appdmg.
 echo
+DMGTARGET=dist/Frescobaldi-${VERSION}-${APPARCH}.dmg
 sed -e '/INSTALL/d' ../README > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
-appdmg --quiet appdmg/appdmg.json dist/Frescobaldi-${VERSION}-${APPARCH}.dmg
+appdmg --quiet appdmg/appdmg.json ${DMGTARGET}
 rm {README,ChangeLog,COPYING}.txt
+
+if [[ $? == 0 ]]
+then
+  echo "The disk image is ready: ${DMGTARGET}"
+fi
