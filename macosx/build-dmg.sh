@@ -154,5 +154,5 @@ echo
 sed -e '/INSTALL/d' ../README > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
-appdmg appdmg/appdmg.json dist/Frescobaldi-${VERSION}-${APPARCH}.dmg
+appdmg --quiet appdmg/appdmg.json dist/Frescobaldi-${VERSION}-${APPARCH}.dmg
 rm {README,ChangeLog,COPYING}.txt
