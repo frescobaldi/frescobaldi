@@ -70,7 +70,8 @@ class ParseSource():
         mustree = documentinfo.music(doc)
         print(mustree.dump())
         header_nodes = self.iter_header(mustree)
-        self.parse_nodes(header_nodes)
+        if header_nodes:
+            self.parse_nodes(header_nodes)
         score = self.get_score(mustree)
         if score:
             mus_nodes = self.iter_score(score, mustree)
