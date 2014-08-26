@@ -94,9 +94,11 @@ echo
 ${MPPREFIX}/bin/python2.7 mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
 echo
 
+APPBUNDLE=dist/Frescobaldi.app
+
 echo Copying libqsvg.dylib inside the .app bundle.
 echo
-cp ${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib dist/Frescobaldi.app/Contents/PlugIns/imageformats/
+cp ${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib ${APPBUNDLE}/Contents/PlugIns/imageformats/
 
 echo Finalizing the .app bundle with macdeployqt.
 echo \(This step will likely give an error about the failed copy of libqsvg.dylib:
@@ -105,7 +107,7 @@ echo
 # The expected error is:
 # ERROR: file copy failed from "${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib" 
 # ERROR:  to "dist/Frescobaldi.app/Contents/PlugIns/imageformats/libqsvg.dylib" 
-${MPPREFIX}/bin/macdeployqt dist/Frescobaldi.app
+${MPPREFIX}/bin/macdeployqt ${APPBUNDLE}
 echo
 
 APPFILE=`file dist/Frescobaldi.app/Contents/MacOS/Frescobaldi`
