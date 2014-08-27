@@ -214,7 +214,7 @@ class Mediator():
 
     def check_score(self):
         """ If no part were created, place first variable (fallback) as part. """
-        if not self.score:
+        if self.score.is_empty():
             self.new_part()
             self.part.barlist.extend(self.get_first_var())
 
@@ -581,6 +581,13 @@ class Score():
         self.creators = {}
         self.info = {}
         self.rights = None
+
+    def is_empty(self):
+        """Check if score is empty."""
+        if self.partlist:
+            return False
+        else:
+            return True
 
 
 class ScorePart():
