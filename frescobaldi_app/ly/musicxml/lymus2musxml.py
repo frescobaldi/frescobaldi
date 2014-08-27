@@ -448,6 +448,7 @@ class ParseSource():
 
     def iterate_mediator(self):
         """ The mediator lists are looped through and outputed to the xml-file. """
+        self.mediator.score.debug_score(['grace'])
         if self.mediator.score.title:
             self.musxml.create_title(self.mediator.score.title)
         for ctag in self.mediator.score.creators:

@@ -589,6 +589,27 @@ class Score():
         else:
             return True
 
+    def debug_score(self, attr=[]):
+        """
+        Loop through score and print all elements for debugging purposes.
+
+        Additionally print element attributes by adding them to the
+        argument 'attr' list.
+
+        """
+        ind = "  "
+        for p in self.partlist:
+            print("Score part:"+p.name)
+            for n, b in enumerate(p.barlist):
+                print(ind+"Bar nr: "+str(n+1))
+                for obj in b.obj_list:
+                    print(ind+ind+repr(obj))
+                    for a in attr:
+                        try:
+                            print(ind+ind+ind+a+':'+repr(getattr(obj, a)))
+                        except AttributeError:
+                            pass
+
 
 class ScorePart():
     """ object to keep track of part """
@@ -725,6 +746,9 @@ class BarMus():
         'after': {'mark': None, 'wedge': None }
         }
 
+    def __repr__(self):
+        return '<{0} {1}>'.format(self.__class__.__name__, self.note)
+
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
         self.ttype = ttype
@@ -857,6 +881,9 @@ class BarAttr():
         self.staves = 0
         self.multiclef = []
         self.tempo = None
+
+    def __repr__(self):
+        return '<{0}>'.format(self.__class__.__name__)
 
     def set_key(self, muskey, mode):
         self.key = muskey
