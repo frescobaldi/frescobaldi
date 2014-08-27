@@ -200,6 +200,9 @@ class ParseSource():
                 self.relative = True
             elif isinstance(note.parent(), ly.music.items.Chord):
                 self.mediator.new_chord(note, note.parent().duration, self.relative)
+                # chord as grace note
+                if self.grace_seq:
+                    self.mediator.new_grace()
 
     def Tempo(self, tempo):
         """ Tempo direction, e g '4 = 80' """
