@@ -1,6 +1,6 @@
---- frescobaldi_app/lilypondinfo.py.orig	2014-06-14 23:18:39.000000000 +0200
-+++ frescobaldi_app/lilypondinfo.py	2014-06-14 23:18:45.000000000 +0200
-@@ -294,7 +294,7 @@
+--- frescobaldi_app/lilypondinfo.py.orig	2014-08-25 18:04:02.000000000 +0200
++++ frescobaldi_app/lilypondinfo.py	2014-08-25 18:06:28.000000000 +0200
+@@ -298,7 +298,7 @@
                  toolpath += '.py'
              command = [self.python(), toolpath]
          else:
