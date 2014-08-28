@@ -474,6 +474,9 @@ class Mediator():
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
 
+    def new_chord_grace(self, slash=0):
+        self.current_chord[-1].set_grace(slash)
+
     def set_tremolo(self, trem_type='single', duration=0, repeats=0):
         if self.current_note.tremolo[1]: #tremolo already set
             self.current_note.set_tremolo(trem_type)

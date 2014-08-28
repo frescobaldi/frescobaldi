@@ -68,7 +68,7 @@ class ParseSource():
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
-        print(mustree.dump())
+        # print(mustree.dump())
         header_nodes = self.iter_header(mustree)
         if header_nodes:
             self.parse_nodes(header_nodes)
@@ -77,7 +77,7 @@ class ParseSource():
             mus_nodes = self.iter_score(score, mustree)
         else:
             mus_nodes = self.find_score_sub(mustree)
-        self.mediator.new_section("fallback") #fallback section
+        self.mediator.new_section("fallback") #fallback/default section
         self.parse_nodes(mus_nodes)
 
     def parse_nodes(self, nodes):
@@ -202,7 +202,7 @@ class ParseSource():
                 self.mediator.new_chord(note, note.parent().duration, self.relative)
                 # chord as grace note
                 if self.grace_seq:
-                    self.mediator.new_grace()
+                    self.mediator.new_chord_grace()
 
     def Tempo(self, tempo):
         """ Tempo direction, e g '4 = 80' """
@@ -448,7 +448,7 @@ class ParseSource():
 
     def iterate_mediator(self):
         """ The mediator lists are looped through and outputed to the xml-file. """
-        self.mediator.score.debug_score(['grace'])
+        # self.mediator.score.debug_score(['grace'])
         if self.mediator.score.title:
             self.musxml.create_title(self.mediator.score.title)
         for ctag in self.mediator.score.creators:
