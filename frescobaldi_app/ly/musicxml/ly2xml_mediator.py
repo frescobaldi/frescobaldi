@@ -422,8 +422,7 @@ class Mediator():
             self.new_bar()
 
     def change_to_tuplet(self, fraction, ttype):
-        tfraction = Fraction(fraction)
-        tfraction = 1/tfraction
+        tfraction = 1/fraction
         self.current_note.set_tuplet(tfraction, ttype)
         self.check_divs(tfraction)
 
