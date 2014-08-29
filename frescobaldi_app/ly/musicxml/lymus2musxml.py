@@ -195,7 +195,6 @@ class ParseSource():
                 self.mediator.set_tremolo(trem_type='start', repeats=self.trem_rep)
         else:
             if isinstance(note.parent(), ly.music.items.Relative):
-                print("setting relative")
                 self.mediator.set_relative(note)
                 self.relative = True
             elif isinstance(note.parent(), ly.music.items.Chord):
@@ -369,7 +368,7 @@ class ParseSource():
                 self.mediator.check_voices_by_nr()
                 self.mediator.revert_voicenr()
                 self.voice_sep = False
-            else:
+            elif not self.piano_staff:
                 self.mediator.check_voices()
                 self.mediator.check_part()
                 self.sims_and_seqs.pop()
@@ -380,7 +379,8 @@ class ParseSource():
             self.mediator.check_lyrics(end.node.context_id())
             self.sims_and_seqs.pop()
         else:
-            print("end:"+end.node.token)
+            # print("end:"+end.node.token)
+            pass
 
     ##
     # Additional node manipulation
@@ -448,7 +448,7 @@ class ParseSource():
 
     def iterate_mediator(self):
         """ The mediator lists are looped through and outputed to the xml-file. """
-        # self.mediator.score.debug_score(['grace'])
+        # self.mediator.score.debug_score(['staff'])
         if self.mediator.score.title:
             self.musxml.create_title(self.mediator.score.title)
         for ctag in self.mediator.score.creators:
@@ -499,8 +499,6 @@ class ParseSource():
                                 self.musxml.new_simple_ornament(obj.ornament)
                             if obj.tremolo[1]:
                                 self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
-                            if obj.staff:
-                                self.musxml.add_staff(obj.staff)
                             if obj.fingering:
                                 self.musxml.add_fingering(obj.fingering)
                             if obj.lyric:
