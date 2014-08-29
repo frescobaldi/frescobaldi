@@ -702,7 +702,7 @@ class Bar():
                     s *= obj.base_scaling[1]
             elif isinstance(obj, BarBackup):
                 break
-        return BarBackup((b,s))
+        self.add(BarBackup((b,s)))
 
     def is_skip(self):
         """ Check if bar has nothing but skips. """
@@ -725,7 +725,7 @@ class Bar():
                 self.obj_list.insert(0, new_voice.obj_list[0])
             new_voice.obj_list.pop(0)
         if not new_voice.is_skip():
-            self.add(new_voice.create_backup())
+            self.create_backup()
             for nv in new_voice.obj_list:
                     self.add(nv)
 
