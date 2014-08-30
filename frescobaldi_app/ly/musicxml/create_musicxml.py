@@ -38,14 +38,11 @@ class CreateMusicXML():
     """ creates the XML-file from the source code according to the Music XML standard """
 
     def __init__(self):
-        """ creates the basic structure of the XML without any music
-        TODO:
-        set doctype
-        """
+        """Creates the basic structure of the XML without any music."""
         self.root = etree.Element("score-partwise", version="3.0")
         self.tree = etree.ElementTree(self.root)
-        identification = etree.SubElement(self.root, "identification")
-        encoding = etree.SubElement(identification, "encoding")
+        self.score_info = etree.SubElement(self.root, "identification")
+        encoding = etree.SubElement(self.score_info, "encoding")
         software = etree.SubElement(encoding, "software")
         software.text = ly.pkginfo.name + " " + ly.pkginfo.version
         encoding_date = etree.SubElement(encoding, "encoding-date")
@@ -57,6 +54,16 @@ class CreateMusicXML():
     ##
     # Building the basic Elements
     ##
+
+    def create_title(self, title):
+        """Create score title."""
+        mov_title = etree.SubElement(self.root, "movement-title")
+        mov_title.text = title
+
+    def create_score_info(self, tag, info, attr={}):
+        """Create score info."""
+        info_node = etree.SubElement(self.score_info, tag, attr)
+        info_node.text = info
 
     def create_part(self, name, midi):
         """ create a new part """
@@ -94,7 +101,7 @@ class CreateMusicXML():
             self.add_grace(grace[1])
         if chord:
             self.add_chord()
-        self.add_pitch(pitch[0], pitch[1], pitch[2])
+        self.add_pitch(pitch[0], pitch[1], pitch[2]+3)
         if not grace[0]:
             self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
@@ -102,8 +109,13 @@ class CreateMusicXML():
         if dot:
             for i in range(dot):
                 self.add_dot()
-        if pitch[1]:
-            self.add_accidental(pitch[1])
+        if pitch[1] or pitch[3]:
+            if pitch[3] == '!': # cautionary
+                self.add_accidental(pitch[1], caut=True)
+            elif pitch[3] == '?': # parentheses
+                self.add_accidental(pitch[1], parenth=True)
+            else:
+                self.add_accidental(pitch[1])
 
     def tuplet_note(self, fraction, base_scaling, ttype, divs):
         """ convert current note to tuplet """
@@ -126,7 +138,10 @@ class CreateMusicXML():
     def new_rest(self, base_scaling, durtype, divs, pos, dot, voice):
         """ create all nodes needed for a rest. """
         self.create_note()
-        self.add_rest(pos)
+        if pos:
+            self.add_rest_w_pos(pos[0], pos[1]+3)
+        else:
+            self.add_rest()
         self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
         if durtype:
@@ -159,7 +174,7 @@ class CreateMusicXML():
         self.create_bar_attr()
         if divs:
             self.add_divisions(divs)
-        if key != 0:
+        if key is not None:
             self.add_key(key, mode)
         if mustime:
             self.add_time(mustime)
@@ -200,6 +215,15 @@ class CreateMusicXML():
     # Low-level node creation
     ##
 
+    def add_creator(self, creator, name):
+        """Add creator to score info."""
+        attr = {'type': creator }
+        self.create_score_info("creator", name, attr)
+
+    def add_rights(self, rights):
+        """Add rights to score info."""
+        self.create_score_info("rights", rights)
+
     def create_note(self):
         """ create new note """
         self.current_note = etree.SubElement(self.current_bar, "note")
@@ -217,28 +241,36 @@ class CreateMusicXML():
             altnode = etree.SubElement(pitch, "alter")
             altnode.text = str(alter)
         octnode = etree.SubElement(pitch, "octave")
-        octnode.text = str(octave+3)
+        octnode.text = str(octave)
 
-    def add_accidental(self, alter):
+    def add_accidental(self, alter, caut=False, parenth=False):
         """ create accidental """
-        acc = etree.SubElement(self.current_note, "accidental")
-        if alter == 1:
-            acc.text = "sharp"
-        elif alter == 2:
-            acc.text = "double-sharp"
-        elif alter == -1:
-            acc.text = "flat"
-        elif alter == -2:
-            acc.text = "flat-flat"
+        attrib = {}
+        if caut:
+            attrib['cautionary'] = 'yes'
+        if parenth:
+            attrib['parentheses'] = 'yes'
+        acc = etree.SubElement(self.current_note, "accidental", attrib)
+        acc_dict = {
+        0: 'natural',
+        1: 'sharp', -1: 'flat',
+        2: 'sharp-sharp', -2: 'flat-flat',
+        0.5: 'natural-up', -0.5: 'natural-down',
+        1.5: 'sharp-up', -1.5: 'flat-down'
+        }
+        acc.text = acc_dict[alter]
 
-    def add_rest(self, pos):
-        """ create rest """
+    def add_rest(self):
+        """Create rest."""
+        etree.SubElement(self.current_note, "rest")
+
+    def add_rest_w_pos(self, step, octave):
+        """Create rest with display position."""
         restnode = etree.SubElement(self.current_note, "rest")
-        if pos:
-            step = etree.SubElement(restnode, "display-step")
-            octave = etree.SubElement(restnode, "display-octave")
-            step.text = str(pos[0])
-            octave.text = str(pos[1])
+        stepnode = etree.SubElement(restnode, "display-step")
+        octnode = etree.SubElement(restnode, "display-octave")
+        stepnode.text = str(step)
+        octnode.text = str(octave)
 
     def add_skip(self, duration, forward=True):
         if forward:

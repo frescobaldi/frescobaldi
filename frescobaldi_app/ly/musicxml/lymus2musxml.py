@@ -68,17 +68,25 @@ class ParseSource():
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
-        print(mustree.dump())
+        # print(mustree.dump())
+        header_nodes = self.iter_header(mustree)
+        if header_nodes:
+            self.parse_nodes(header_nodes)
         score = self.get_score(mustree)
         if score:
             mus_nodes = self.iter_score(score, mustree)
         else:
             mus_nodes = self.find_score_sub(mustree)
-        self.mediator.new_section("fallback") #fallback section
-        if mus_nodes:
-            for m in mus_nodes:
+        self.mediator.new_section("fallback") #fallback/default section
+        self.parse_nodes(mus_nodes)
+
+    def parse_nodes(self, nodes):
+        """Work through all nodes by calling the function with the
+        same name as the nodes class."""
+        if nodes:
+            for m in nodes:
                 func_name = m.__class__.__name__ #get instance name
-                #print func_name
+                # print func_name
                 if func_name not in excl_list:
                     try:
                         func_call = getattr(self, func_name)
@@ -101,7 +109,12 @@ class ParseSource():
     ##
 
     def Assignment(self, assignm):
-        print("Warning assignment in score block or corresponding: "+assignm.name())
+        """Because assignments in score are substituted, this should only be
+        header assignments."""
+        if isinstance(assignm.value(), ly.music.items.Markup):
+            pass
+        elif isinstance(assignm.value(), ly.music.items.String):
+            self.mediator.new_header_assignment(assignm.name(), assignm.value().value())
 
     def MusicList(self, musicList):
         if musicList.token == '<<':
@@ -114,7 +127,7 @@ class ParseSource():
             if self.sims_and_seqs and self.sims_and_seqs[-1] == 'sim':
                 self.mediator.new_section('simultan')
             self.sims_and_seqs.append('seq')
-            print(self.sims_and_seqs)
+            # print(self.sims_and_seqs)
 
     def Chord(self, chord):
         self.mediator.clear_chord()
@@ -182,11 +195,13 @@ class ParseSource():
                 self.mediator.set_tremolo(trem_type='start', repeats=self.trem_rep)
         else:
             if isinstance(note.parent(), ly.music.items.Relative):
-                print("setting relative")
                 self.mediator.set_relative(note)
                 self.relative = True
             elif isinstance(note.parent(), ly.music.items.Chord):
                 self.mediator.new_chord(note, note.parent().duration, self.relative)
+                # chord as grace note
+                if self.grace_seq:
+                    self.mediator.new_chord_grace()
 
     def Tempo(self, tempo):
         """ Tempo direction, e g '4 = 80' """
@@ -280,7 +295,6 @@ class ParseSource():
 
     def Command(self, command):
         """ \bar, \rest etc """
-        print(command.token)
         if command.token == '\\rest':
             self.mediator.note2rest()
         elif command.token == '\\numericTimeSignature':
@@ -289,6 +303,8 @@ class ParseSource():
             self.numericTime = False
         elif command.token.find('voice') == 1:
             self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
+        else:
+            print(command.token)
 
     def String(self, string):
         prev = self.get_previous_node(string)
@@ -352,7 +368,7 @@ class ParseSource():
                 self.mediator.check_voices_by_nr()
                 self.mediator.revert_voicenr()
                 self.voice_sep = False
-            else:
+            elif not self.piano_staff:
                 self.mediator.check_voices()
                 self.mediator.check_part()
                 self.sims_and_seqs.pop()
@@ -363,7 +379,8 @@ class ParseSource():
             self.mediator.check_lyrics(end.node.context_id())
             self.sims_and_seqs.pop()
         else:
-            print("end:"+end.node.token)
+            # print("end:"+end.node.token)
+            pass
 
     ##
     # Additional node manipulation
@@ -378,6 +395,19 @@ class ParseSource():
             return parent[i-1]
         else:
             return False
+
+    def simple_node_gen(self, node):
+        """Unlike iter_score are the subnodes yielded without substitution."""
+        for n in node:
+            yield n
+            for s in self.simple_node_gen(n):
+                yield s
+
+    def iter_header(self, tree):
+        """Iter only over header nodes."""
+        for t in tree:
+            if isinstance(t, ly.music.items.Header):
+                return self.simple_node_gen(t)
 
     def get_score(self, node):
         """ Returns (first) Score node or false if no Score is found. """
@@ -418,7 +448,16 @@ class ParseSource():
 
     def iterate_mediator(self):
         """ The mediator lists are looped through and outputed to the xml-file. """
-        for part in self.mediator.score:
+        # self.mediator.score.debug_score(['tuplet'])
+        if self.mediator.score.title:
+            self.musxml.create_title(self.mediator.score.title)
+        for ctag in self.mediator.score.creators:
+            self.musxml.add_creator(ctag, self.mediator.score.creators[ctag])
+        for itag in self.mediator.score.info:
+            self.musxml.create_score_info(itag, self.mediator.score.info[itag])
+        if self.mediator.score.rights:
+            self.musxml.add_rights(self.mediator.score.rights)
+        for part in self.mediator.score.partlist:
             if part.barlist:
                 self.musxml.create_part(part.name, part.midi)
                 self.mediator.set_first_bar(part)
@@ -448,8 +487,8 @@ class ParseSource():
                             if obj.dynamic['before']['wedge']:
                                 self.musxml.add_dynamic_wedge(obj.dynamic['before']['wedge'])
                         if isinstance(obj, ly2xml_mediator.BarNote):
-                            self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave], obj.base_scaling,
-                            obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
+                            self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave, obj.note.accidental_token],
+                            obj.base_scaling, obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                             if obj.tie:
                                 self.musxml.tie_note(obj.tie)
                             if obj.slur:
@@ -460,8 +499,6 @@ class ParseSource():
                                 self.musxml.new_simple_ornament(obj.ornament)
                             if obj.tremolo[1]:
                                 self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
-                            if obj.staff:
-                                self.musxml.add_staff(obj.staff)
                             if obj.fingering:
                                 self.musxml.add_fingering(obj.fingering)
                             if obj.lyric:

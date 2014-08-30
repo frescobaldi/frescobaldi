@@ -35,7 +35,7 @@ class Mediator():
 
     def __init__(self):
         """ create global lists """
-        self.score = []
+        self.score = Score()
         self.sections = []
         """ default and initial values """
         self.current_note = None
@@ -57,6 +57,18 @@ class Mediator():
         self.lyric_syll = False
         self.lyric_nr = 1
         self.ongoing_wedge = False
+
+    def new_header_assignment(self, name, value):
+        """Distributing header information."""
+        creators = ['composer', 'arranger', 'poet', 'lyricist']
+        if name == 'title':
+            self.score.title = value
+        elif name == 'copyright':
+            self.score.rights = value
+        elif name in creators:
+            self.score.creators[name] = value
+        else:
+            self.score.info[name] = value
 
     def new_section(self, name):
         name = self.check_name(name)
@@ -95,7 +107,7 @@ class Mediator():
             self.part = ScorePart(2)
         else:
             self.part = ScorePart()
-        self.score.append(self.part)
+        self.score.partlist.append(self.part)
         self.insert_into = self.part
         self.bar = None
 
@@ -202,7 +214,7 @@ class Mediator():
 
     def check_score(self):
         """ If no part were created, place first variable (fallback) as part. """
-        if not self.score:
+        if self.score.is_empty():
             self.new_part()
             self.part.barlist.extend(self.get_first_var())
 
@@ -391,9 +403,10 @@ class Mediator():
         self.check_current_note(rest=True)
 
     def note2rest(self):
-        """ note used as rest position transformed to rest"""
+        """Note used as rest position transformed to rest."""
         temp_note = self.current_note
         self.current_note = BarRest(temp_note, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
+        self.check_duration(rest=True)
         self.bar.obj_list.pop()
         self.bar.add(self.current_note)
 
@@ -409,8 +422,7 @@ class Mediator():
             self.new_bar()
 
     def change_to_tuplet(self, fraction, ttype):
-        tfraction = Fraction(fraction)
-        tfraction = 1/tfraction
+        tfraction = 1/fraction
         self.current_note.set_tuplet(tfraction, ttype)
         self.check_divs(tfraction)
 
@@ -461,6 +473,9 @@ class Mediator():
     def new_grace(self, slash=0):
         self.current_note.set_grace(slash)
 
+    def new_chord_grace(self, slash=0):
+        self.current_chord[-1].set_grace(slash)
+
     def set_tremolo(self, trem_type='single', duration=0, repeats=0):
         if self.current_note.tremolo[1]: #tremolo already set
             self.current_note.set_tremolo(trem_type)
@@ -475,7 +490,10 @@ class Mediator():
     def new_tempo(self, dur_tokens, tempo, string):
         unit, dots, rs = self.duration_from_tokens(dur_tokens)
         beats = tempo[0]
-        text = string.value()
+        try:
+            text = string.value()
+        except AttributeError:
+            text = None
         tempo = BarAttr()
         tempo.set_tempo(unit, beats, dots, text)
         if self.bar is None:
@@ -557,6 +575,43 @@ class Mediator():
 ##
 # Classes that holds information suitable for converting to XML.
 ##
+class Score():
+    """Object that keep track of a whole score."""
+    def __init__(self):
+        self.partlist = []
+        self.title = None
+        self.creators = {}
+        self.info = {}
+        self.rights = None
+
+    def is_empty(self):
+        """Check if score is empty."""
+        if self.partlist:
+            return False
+        else:
+            return True
+
+    def debug_score(self, attr=[]):
+        """
+        Loop through score and print all elements for debugging purposes.
+
+        Additionally print element attributes by adding them to the
+        argument 'attr' list.
+
+        """
+        ind = "  "
+        for p in self.partlist:
+            print("Score part:"+p.name)
+            for n, b in enumerate(p.barlist):
+                print(ind+"Bar nr: "+str(n+1))
+                for obj in b.obj_list:
+                    print(ind+ind+repr(obj))
+                    for a in attr:
+                        try:
+                            print(ind+ind+ind+a+':'+repr(getattr(obj, a)))
+                        except AttributeError:
+                            pass
+
 
 class ScorePart():
     """ object to keep track of part """
@@ -646,7 +701,7 @@ class Bar():
                     s *= obj.base_scaling[1]
             elif isinstance(obj, BarBackup):
                 break
-        return BarBackup((b,s))
+        self.add(BarBackup((b,s)))
 
     def is_skip(self):
         """ Check if bar has nothing but skips. """
@@ -669,7 +724,7 @@ class Bar():
                 self.obj_list.insert(0, new_voice.obj_list[0])
             new_voice.obj_list.pop(0)
         if not new_voice.is_skip():
-            self.add(new_voice.create_backup())
+            self.create_backup()
             for nv in new_voice.obj_list:
                     self.add(nv)
 
@@ -692,6 +747,9 @@ class BarMus():
         'before': {'mark': None, 'wedge': None },
         'after': {'mark': None, 'wedge': None }
         }
+
+    def __repr__(self):
+        return '<{0} {1}>'.format(self.__class__.__name__, self.note)
 
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
@@ -728,7 +786,7 @@ class BarNote(BarMus):
         BarMus.__init__(self, note, voice)
         self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
-        self.alter = note.pitch.alter*2
+        self.alter = get_xml_alter(note.pitch.alter)
         self.tie = 0
         self.grace = (0,0)
         self.tremolo = ('',0)
@@ -815,7 +873,7 @@ class BarRest(BarMus):
 class BarAttr():
     """ object that keep track of bar attributes, e.g. time sign, clef, key etc """
     def __init__(self):
-        self.key = 0
+        self.key = None
         self.time = 0
         self.clef = 0
         self.mode = ''
@@ -825,6 +883,9 @@ class BarAttr():
         self.staves = 0
         self.multiclef = []
         self.tempo = None
+
+    def __repr__(self):
+        return '<{0}>'.format(self.__class__.__name__)
 
     def set_key(self, muskey, mode):
         self.key = muskey
@@ -846,7 +907,7 @@ class BarAttr():
 
     def has_attr(self):
         check = False
-        if self.key != 0:
+        if self.key is not None:
             check = True
         elif self.time != 0:
             check = True
@@ -886,8 +947,11 @@ class TempoDir():
 ##
 
 def get_fifths(key, mode):
-    sharpkeys = ['c', 'g', 'd', 'a', 'e', 'b', 'fis', 'cis', 'gis', 'dis', 'ais']
-    flatkeys = ['c', 'f', 'bes', 'es', 'as', 'des', 'ges']
+    fifths = 0
+    sharpkeys = ['c', 'g', 'd', 'a', 'e', 'b', 'fis', 'cis', 'gis',
+    'dis', 'ais', 'eis', 'bis', 'fisis', 'cisis']
+    flatkeys = ['c', 'f', 'bes', 'es', 'as', 'des', 'ges', 'ces', 'fes',
+    'beses', 'eses', 'ases']
     if key in sharpkeys:
         fifths = sharpkeys.index(key)
     elif key in flatkeys:
@@ -913,9 +977,14 @@ def clefname2clef(clefname):
     "tab": ('TAB',5,0), "soprano": ('C',1,0),
     "mezzosoprano": ('C',2,0),
     "baritone": ('C',5,0),
-    "varbaritone": ('F',3,0)
+    "varbaritone": ('F',3,0),
+    "french": ('G',1,0)
     }
-    return clef_dict[clefname]
+    try:
+        clef = clef_dict[clefname]
+    except KeyError:
+        clef = 0
+    return clef
 
 def getNoteName(index):
     noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
@@ -1023,3 +1092,13 @@ def calc_trem_dur(repeats, base_scaling, duration):
     new_base = base * repeats
     new_type = durval2type(str(duration/repeats))
     return (new_base, scale), new_type
+
+def get_xml_alter(alter):
+    """ Convert alter to the specified format,
+    i e int if it's int and float otherwise.
+    Also multiply with 2."""
+    alter *= 2
+    if float(alter).is_integer():
+        return alter
+    else:
+        return float(alter)
