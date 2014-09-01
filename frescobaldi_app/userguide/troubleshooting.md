@@ -6,3 +6,4 @@ this section may give some solutions.
 #SUBDOCS
 nomusic
 create_midi
+midi_synth
