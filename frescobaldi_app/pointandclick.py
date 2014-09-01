@@ -279,11 +279,21 @@ def positions(cursor):
                 end = token.end + source.block.position()
                 break
     elif token == '"':
-        # find the end of the string
-        for token in source:
-            if isinstance(token, ly.lex.StringEnd):
-                end = token.end + source.block.position()
-                break
+        if isinstance(token, ly.lex.StringEnd):
+            # a bug in LilyPond can cause the texedit url to point at the
+            # closing quote of a string, rather than the starting quote
+            end = token.end + source.block.position()
+            r = lydocument.Runner.at(c, False, True)
+            for token in r.backward():
+                if isinstance(token, ly.lex.StringStart):
+                    cur.setPosition(token.pos)
+                    break
+        else:
+            # find the end of the string
+            for token in source:
+                if isinstance(token, ly.lex.StringEnd):
+                    end = token.end + source.block.position()
+                    break
     elif isinstance(token, ly.lex.MatchStart):
         # find the end of slur, beam. ligature, phrasing slur, etc.
         name = token.matchname
