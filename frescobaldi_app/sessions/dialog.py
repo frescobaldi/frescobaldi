@@ -23,11 +23,12 @@ Session dialog for named session stuff.
 
 from __future__ import unicode_literals
 
+import json
 
-from PyQt4.QtCore import Qt
+from PyQt4.QtCore import Qt, QUrl
 from PyQt4.QtGui import (
-    QCheckBox, QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit,
-    QMessageBox, QVBoxLayout)
+    QCheckBox, QDialog, QDialogButtonBox, QFileDialog, QGridLayout, 
+    QLabel, QLineEdit, QMessageBox, QPushButton, QVBoxLayout)
 
 import app
 import widgets.listedit
@@ -39,6 +40,7 @@ import userguide
 class SessionManagerDialog(QDialog):
     def __init__(self, mainwindow):
         super(SessionManagerDialog, self).__init__(mainwindow)
+        self.mainwindow = mainwindow
         self.setWindowModality(Qt.WindowModal)
         self.setWindowTitle(app.caption(_("Manage Sessions")))
         layout = QVBoxLayout()
@@ -46,7 +48,18 @@ class SessionManagerDialog(QDialog):
         
         self.sessions = SessionList(self)
         layout.addWidget(self.sessions)
+        
+        self.imp = QPushButton(self)
+        self.exp = QPushButton(self)
+        self.imp.clicked.connect(self.importSession)
+        self.exp.clicked.connect(self.exportSession)
+        self.imp.clicked.connect(self.accept)
+        ielayout = QVBoxLayout()
+        ielayout.addWidget(self.imp, alignment=Qt.AlignRight)
+        ielayout.addWidget(self.exp, alignment=Qt.AlignRight)
+        layout.addLayout(ielayout)
         layout.addWidget(widgets.Separator())
+        app.translateUI(self)
         
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
@@ -54,6 +67,34 @@ class SessionManagerDialog(QDialog):
         b.rejected.connect(self.accept)
         userguide.addButton(b, "sessions")
         self.sessions.load()
+        
+    def translateUI(self):
+        self.imp.setText(_("Import"))
+        self.exp.setText(_("Export"))
+        
+    def importSession(self):
+        filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
+        caption = app.caption(_("dialog title", "Import session"))
+        import os
+        directory = os.path.dirname(self.mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
+        importfile = QFileDialog.getOpenFileName(self.mainwindow, caption, directory, filetypes)
+        if not importfile:
+            return # cancelled by user
+        f = open(importfile)
+        self.sessions.importItem(json.load(f))
+        f.close()
+		
+    def exportSession(self):
+        itemname, jsondict = self.sessions.exportItem()
+        filename = itemname+".json"
+        caption = app.caption(_("dialog title", "Export session"))
+        filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
+        filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)
+        if not filename:
+            return False # cancelled
+        f = open(filename, 'w')
+        json.dump(jsondict, f, indent=4)
+        f.close()
 
 
 class SessionList(widgets.listedit.ListEdit):
@@ -74,6 +115,31 @@ class SessionList(widgets.listedit.ListEdit):
         if name:
             item.setText(name)
             return True
+            
+    def importItem(self, data):
+        session = sessions.sessionGroup(data['name'])
+        for key in data:
+            if key == 'urls':
+                urls = []
+                for u in data[key]:
+                    urls.append(QUrl(u))
+                session.setValue("urls", urls)
+            elif key != 'name':
+                session.setValue(key, data[key])
+		
+    def exportItem(self):
+        jsondict = {}
+        item = self.listBox.currentItem()
+        s = sessions.sessionGroup(item.text())
+        for key in s.allKeys():
+			if key == 'urls':
+				urls = []
+				for u in s.value(key):
+					urls.append(u.toString())
+				jsondict[key] = urls 
+			else:
+				jsondict[key] = s.value(key)
+        return (item.text(), jsondict)
 
 
 class SessionEditor(QDialog):
