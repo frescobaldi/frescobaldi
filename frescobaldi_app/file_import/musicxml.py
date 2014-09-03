@@ -87,6 +87,7 @@ class Dialog(QDialog):
         self.nolayoutCheck = QCheckBox()
         self.nobeamCheck = QCheckBox()
         self.useAbsCheck = QCheckBox()
+        self.commMidiCheck = QCheckBox()
         
         self.langCombo = QComboBox()
         self.langLabel = QLabel()
@@ -95,7 +96,8 @@ class Dialog(QDialog):
 						  self.norestCheck,
 						  self.nolayoutCheck,
 						  self.nobeamCheck,
-						  self.useAbsCheck]
+						  self.useAbsCheck,
+						  self.commMidiCheck]
 		
         self.formatCheck = QCheckBox()
         self.trimDurCheck = QCheckBox()
@@ -124,11 +126,12 @@ class Dialog(QDialog):
         itabLayout.addWidget(self.nolayoutCheck, 2, 0, 1, 2)
         itabLayout.addWidget(self.nobeamCheck, 3, 0, 1, 2)
         itabLayout.addWidget(self.useAbsCheck, 4, 0, 1, 2)
-        itabLayout.addWidget(self.langLabel, 5, 0, 1, 2)
-        itabLayout.addWidget(self.langCombo, 6, 0, 1, 2)
-        itabLayout.addWidget(widgets.Separator(), 7, 0, 1, 2)
-        itabLayout.addWidget(self.commandLineLabel, 8, 0, 1, 2)
-        itabLayout.addWidget(self.commandLine, 9, 0, 1, 2)
+        itabLayout.addWidget(self.commMidiCheck, 5, 0, 1, 2)
+        itabLayout.addWidget(self.langLabel, 6, 0, 1, 2)
+        itabLayout.addWidget(self.langCombo, 7, 0, 1, 2)
+        itabLayout.addWidget(widgets.Separator(), 8, 0, 1, 2)
+        itabLayout.addWidget(self.commandLineLabel, 9, 0, 1, 2)
+        itabLayout.addWidget(self.commandLine, 10, 0, 1, 2)
         
         ptabLayout.addWidget(self.formatCheck, 0, 0, 1, 2)
         ptabLayout.addWidget(self.trimDurCheck, 1, 0, 1, 2)       
@@ -149,6 +152,7 @@ class Dialog(QDialog):
         self.nolayoutCheck.toggled.connect(self.makeCommandLine)
         self.nobeamCheck.toggled.connect(self.makeCommandLine)
         self.useAbsCheck.toggled.connect(self.makeCommandLine)
+        self.commMidiCheck.toggled.connect(self.makeCommandLine)
         self.langCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
         
@@ -160,6 +164,7 @@ class Dialog(QDialog):
         self.nolayoutCheck.setObjectName("page-layout")
         self.nobeamCheck.setObjectName("import-beaming")
         self.useAbsCheck.setObjectName("absolute-mode")
+        self.commMidiCheck.setObjectName("comment-out-midi")
         
         self.formatCheck.setObjectName("reformat")
         self.trimDurCheck.setObjectName("trim-durations")
@@ -173,6 +178,7 @@ class Dialog(QDialog):
         self.nolayoutCheck.setText(_("Import page layout"))
         self.nobeamCheck.setText(_("Import beaming"))
         self.useAbsCheck.setText(_("Pitches in absolute mode"))
+        self.commMidiCheck.setText(_("Comment out midi block"))
         self.commandLineLabel.setText(_("Command line:"))
         
         self.langLabel.setText(_("Language for pitch names"))
@@ -202,6 +208,8 @@ class Dialog(QDialog):
             cmd.append('--npl')
         if not self.nobeamCheck.isChecked():
             cmd.append('--no-beaming')
+        if not self.commMidiCheck.isChecked():
+            cmd.append('-m')
         index = self.langCombo.currentIndex()
         if index > 0:
 			cmd.append('--language=' + _langlist[index-1])
@@ -243,7 +251,7 @@ class Dialog(QDialog):
         
     def loadSettings(self):
         """ get users previous settings """
-        imp_default = [False, False, False, False, False]
+        imp_default = [False, False, False, False, False, False]
         post_default = [True, False, False, True]
         s = QSettings()
         s.beginGroup('xml_import')
