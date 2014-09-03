@@ -42,7 +42,6 @@ class SessionManagerDialog(QDialog):
         super(SessionManagerDialog, self).__init__(mainwindow)
         self.mainwindow = mainwindow
         self.setWindowModality(Qt.WindowModal)
-        self.setWindowTitle(app.caption(_("Manage Sessions")))
         layout = QVBoxLayout()
         self.setLayout(layout)
         
@@ -69,6 +68,7 @@ class SessionManagerDialog(QDialog):
         self.sessions.load()
         
     def translateUI(self):
+        self.setWindowTitle(app.caption(_("Manage Sessions")))
         self.imp.setText(_("Import"))
         self.exp.setText(_("Export"))
         
@@ -80,9 +80,8 @@ class SessionManagerDialog(QDialog):
         importfile = QFileDialog.getOpenFileName(self.mainwindow, caption, directory, filetypes)
         if not importfile:
             return # cancelled by user
-        f = open(importfile)
-        self.sessions.importItem(json.load(f))
-        f.close()
+        with open(importfile) as f:
+            self.sessions.importItem(json.load(f))
 		
     def exportSession(self):
         itemname, jsondict = self.sessions.exportItem()
@@ -92,9 +91,8 @@ class SessionManagerDialog(QDialog):
         filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)
         if not filename:
             return False # cancelled
-        f = open(filename, 'w')
-        json.dump(jsondict, f, indent=4)
-        f.close()
+        with open(filename, 'w') as f:
+            json.dump(jsondict, f, indent=4)
 
 
 class SessionList(widgets.listedit.ListEdit):
