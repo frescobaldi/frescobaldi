@@ -375,6 +375,11 @@ class CreateMusicXML():
     def add_prall(self):
         etree.SubElement(self.current_ornament, "inverted-mordent")
 
+    def add_gliss(self, linetype, endtype, nr):
+        nodedict = { "line-type": linetype, "number": str(nr), "type": endtype }
+        self.add_notations()
+        etree.SubElement(self.current_notation, "glissando", nodedict)
+
     def add_technical(self):
         if not self.current_tech:
             self.add_notations()

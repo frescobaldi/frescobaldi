@@ -39,6 +39,7 @@ class Mediator():
         self.sections = []
         """ default and initial values """
         self.current_note = None
+        self.action_onnext = None
         self.divisions = 1
         self.dur_token = "4"
         self.base_scaling = [Fraction(1, 4), Fraction(1, 1)]
@@ -321,6 +322,8 @@ class Mediator():
         self.clear_chord()
         self.current_note = BarNote(note, self.voice)
         self.check_current_note(rel)
+        self.do_action_onnext(self.current_note)
+        self.action_onnext = None
 
     def check_current_note(self, rel=False, rest=False):
         """ Perform checks common for all new notes and rests. """
@@ -340,6 +343,12 @@ class Mediator():
                 else:
                     self.staff_unset_notes[self.staff] = [self.current_note]
         self.add_to_bar(self.current_note)
+
+    def do_action_onnext(self, note):
+        """Perform the stored action on the next note."""
+        if self.action_onnext:
+            func_call = getattr(self, self.action_onnext[0])
+            func_call(note, self.action_onnext[1])
 
     def check_duration(self, rest):
         dur_tokens = self.current_note.duration.tokens
@@ -366,6 +375,7 @@ class Mediator():
             self.current_chord.append(self.current_note)
         else:
             self.current_chord.append(self.new_chordnote(note, rel))
+        self.do_action_onnext(self.current_chord[-1])
 
     def new_chordbase(self, note, duration, rel=False):
         self.current_note = BarNote(note, self.voice)
@@ -390,6 +400,10 @@ class Mediator():
 
     def clear_chord(self):
         self.current_chord = []
+
+    def chord_end(self):
+        """Actions when chord is parsed."""
+        self.action_onnext = None
 
     def new_rest(self, rest):
         self.clear_chord()
@@ -475,6 +489,23 @@ class Mediator():
 
     def new_chord_grace(self, slash=0):
         self.current_chord[-1].set_grace(slash)
+
+    def new_gliss(self, line=None):
+        if line:
+            line = get_line_style(line)
+        if self.current_chord:
+            for n, c in enumerate(self.current_chord):
+                c.set_gliss(line, nr=n+1)
+        else:
+            self.current_note.set_gliss(line)
+        self.action_onnext = ("end_gliss", line)
+
+    def end_gliss(self, note, line):
+        if self.current_chord:
+            n = len(self.current_chord)
+        else:
+            n = 1
+        note.set_gliss(line, endtype="stop", nr=n)
 
     def set_tremolo(self, trem_type='single', duration=0, repeats=0):
         if self.current_note.tremolo[1]: #tremolo already set
@@ -789,6 +820,7 @@ class BarNote(BarMus):
         self.alter = get_xml_alter(note.pitch.alter)
         self.tie = 0
         self.grace = (0,0)
+        self.gliss = None
         self.tremolo = ('',0)
         self.skip = False
         self.slur = None
@@ -825,6 +857,11 @@ class BarNote(BarMus):
 
     def set_grace(self, slash):
         self.grace = (1,slash)
+
+    def set_gliss(self, line, endtype = "start", nr=1):
+        if not line:
+            line = "solid"
+        self.gliss = (line, endtype, nr)
 
     def set_tremolo(self, trem_type, duration=False):
         if duration:
@@ -1102,3 +1139,15 @@ def get_xml_alter(alter):
         return alter
     else:
         return float(alter)
+
+def get_line_style(style):
+    style_dict = {
+    "dashed-line": "dashed",
+    "dotted-line": "dotted",
+    "trill": "wavy",
+    "zigzag": "wavy"
+    }
+    try:
+        return style_dict[style]
+    except KeyError:
+        return false
