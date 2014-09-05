@@ -23,6 +23,7 @@ Session dialog for named session stuff.
 
 from __future__ import unicode_literals
 
+import os
 import json
 
 from PyQt4.QtCore import Qt, QUrl
@@ -40,7 +41,6 @@ import userguide
 class SessionManagerDialog(QDialog):
     def __init__(self, mainwindow):
         super(SessionManagerDialog, self).__init__(mainwindow)
-        self.mainwindow = mainwindow
         self.setWindowModality(Qt.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -74,9 +74,9 @@ class SessionManagerDialog(QDialog):
     def importSession(self):
         filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import session"))
-        import os
-        directory = os.path.dirname(self.mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
-        importfile = QFileDialog.getOpenFileName(self.mainwindow, caption, directory, filetypes)
+        mainwindow = self.parent()
+        directory = os.path.dirname(mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
+        importfile = QFileDialog.getOpenFileName(mainwindow, caption, directory, filetypes)
         if not importfile:
             return # cancelled by user
         with open(importfile) as f:
@@ -84,10 +84,12 @@ class SessionManagerDialog(QDialog):
 		
     def exportSession(self):
         itemname, jsondict = self.sessions.exportItem()
-        filename = itemname+".json"
         caption = app.caption(_("dialog title", "Export session"))
         filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
-        filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)
+        mainwindow = self.parent()
+        directory = os.path.dirname(mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
+        filename = os.path.join(directory, itemname + ".json")
+        filename = QFileDialog.getSaveFileName(mainwindow, caption, filename, filetypes)
         if not filename:
             return False # cancelled
         with open(filename, 'w') as f:
@@ -114,7 +116,8 @@ class SessionList(widgets.listedit.ListEdit):
             return True
             
     def importItem(self, data):
-        session = sessions.sessionGroup(data['name'])
+        name = data['name']
+        session = sessions.sessionGroup(name)
         for key in data:
             if key == 'urls':
                 urls = []
@@ -123,7 +126,8 @@ class SessionList(widgets.listedit.ListEdit):
                 session.setValue("urls", urls)
             elif key != 'name':
                 session.setValue(key, data[key])
-		
+		self.load()
+        
     def exportItem(self):
         jsondict = {}
         item = self.listBox.currentItem()
