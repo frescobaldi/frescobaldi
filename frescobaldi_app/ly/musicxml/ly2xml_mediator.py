@@ -518,6 +518,12 @@ class Mediator():
                 self.current_note.type = durtype
             self.current_note.set_tremolo(trem_type, duration)
 
+    def new_trill_spanner(self, end=None):
+        if not end:
+            self.current_note.add_ornament('trill')
+            end = "start"
+        self.current_note.add_adv_ornament('wavy-line', end)
+
     def new_tempo(self, dur_tokens, tempo, string):
         unit, dots, rs = self.duration_from_tokens(dur_tokens)
         beats = tempo[0]
@@ -826,6 +832,7 @@ class BarNote(BarMus):
         self.slur = None
         self.artic = None
         self.ornament = None
+        self.adv_ornament = None
         self.fingering = None
         self.lyric = None
 
@@ -854,6 +861,9 @@ class BarNote(BarMus):
 
     def add_ornament(self, ornament):
         self.ornament = ornament
+
+    def add_adv_ornament(self, ornament, end_type="start"):
+        self.adv_ornament = (ornament, {"type": end_type})
 
     def set_grace(self, slash):
         self.grace = (1,slash)

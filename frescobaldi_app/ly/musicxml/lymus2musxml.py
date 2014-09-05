@@ -309,6 +309,10 @@ class ParseSource():
                 self.mediator.new_gliss(self.override_dict["Glissando.style"])
             except KeyError:
                 self.mediator.new_gliss()
+        elif command.token == '\\startTrillSpan':
+            self.mediator.new_trill_spanner()
+        elif command.token == '\\stopTrillSpan':
+            self.mediator.new_trill_spanner("stop")
         else:
             print("Unknown command: "+command.token)
 
@@ -539,6 +543,8 @@ class ParseSource():
                                 self.musxml.new_articulation(obj.artic)
                             if obj.ornament:
                                 self.musxml.new_simple_ornament(obj.ornament)
+                            if obj.adv_ornament:
+                                self.musxml.new_adv_ornament(obj.adv_ornament[0], obj.adv_ornament[1])
                             if obj.tremolo[1]:
                                 self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
                             if obj.gliss:
