@@ -49,7 +49,7 @@ class ListEdit(QWidget):
         
         layout.setContentsMargins(1, 1, 1, 1)
         layout.setSpacing(0)
-        layout.addWidget(self.listBox, 0, 0, 4, 1)
+        layout.addWidget(self.listBox, 0, 0, 8, 1)
         layout.addWidget(self.addButton, 0, 1)
         layout.addWidget(self.editButton, 1, 1)
         layout.addWidget(self.removeButton, 2, 1)

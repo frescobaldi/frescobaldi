@@ -53,12 +53,11 @@ class SessionManagerDialog(QDialog):
         self.imp.clicked.connect(self.importSession)
         self.exp.clicked.connect(self.exportSession)
         self.imp.clicked.connect(self.accept)
-        ielayout = QVBoxLayout()
-        ielayout.addWidget(self.imp, alignment=Qt.AlignRight)
-        ielayout.addWidget(self.exp, alignment=Qt.AlignRight)
-        layout.addLayout(ielayout)
+        
+        self.sessions.layout().addWidget(self.imp, 5, 1)
+        self.sessions.layout().addWidget(self.exp, 6, 1)
+        
         layout.addWidget(widgets.Separator())
-        app.translateUI(self)
         
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
@@ -66,6 +65,7 @@ class SessionManagerDialog(QDialog):
         b.rejected.connect(self.accept)
         userguide.addButton(b, "sessions")
         self.sessions.load()
+        app.translateUI(self)
         
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Manage Sessions")))
