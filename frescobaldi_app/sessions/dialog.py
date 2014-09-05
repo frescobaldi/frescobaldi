@@ -82,11 +82,13 @@ class SessionManagerDialog(QDialog):
         self.act.setToolTip(_("Switches to the selected session."))
     
     def enableButtons(self):
+        """Called when the selection in the listedit changes."""
         enabled = bool(self.sessions.listBox.currentItem())
         self.act.setEnabled(enabled)
         self.exp.setEnabled(enabled)
         
     def importSession(self):
+        """Called when the user clicks Import."""
         filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import session"))
         mainwindow = self.parent()
@@ -98,6 +100,7 @@ class SessionManagerDialog(QDialog):
             self.sessions.importItem(json.load(f))
 		
     def exportSession(self):
+        """Called when the user clicks Export."""
         itemname, jsondict = self.sessions.exportItem()
         caption = app.caption(_("dialog title", "Export session"))
         filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
@@ -111,6 +114,7 @@ class SessionManagerDialog(QDialog):
             json.dump(jsondict, f, indent=4)
     
     def activateSession(self):
+        """Called when the user clicks Activate."""
         item = self.sessions.listBox.currentItem()
         if item:
             name = item.text()
@@ -124,6 +128,7 @@ class SessionManagerDialog(QDialog):
 class SessionList(widgets.listedit.ListEdit):
     """Manage the list of sessions."""
     def load(self):
+        """Loads the list of session names in the list edit."""
         names = sessions.sessionNames()
         current = sessions.currentSession()
         self.setValue(names)
@@ -131,16 +136,19 @@ class SessionList(widgets.listedit.ListEdit):
             self.setCurrentRow(names.index(current))
 
     def removeItem(self, item):
+        """Reimplemented to delete the specified session."""
         sessions.deleteSession(item.text())
         super(SessionList, self).removeItem(item)
 
     def openEditor(self, item):
+        """Reimplemented to allow editing the specified session."""
         name = SessionEditor(self).edit(item.text())
         if name:
             item.setText(name)
             return True
             
     def importItem(self, data):
+        """Implement importing a new session from a json data dict."""
         name = data['name']
         session = sessions.sessionGroup(name)
         for key in data:
@@ -154,6 +162,11 @@ class SessionList(widgets.listedit.ListEdit):
 		self.load()
         
     def exportItem(self):
+        """Implement exporting the currently selected session item to a dict.
+        
+        Returns the dict, which can be dumped as a json data dictionary.
+        
+        """
         jsondict = {}
         item = self.listBox.currentItem()
         s = sessions.sessionGroup(item.text())
