@@ -34,7 +34,7 @@ from PyQt4.QtGui import (
 import app
 import widgets.listedit
 import widgets.urlrequester
-import sessions
+import sessions.manager
 import userguide
 
 
@@ -50,11 +50,14 @@ class SessionManagerDialog(QDialog):
         
         self.imp = QPushButton(self)
         self.exp = QPushButton(self)
+        self.act = QPushButton(self)
         self.imp.clicked.connect(self.importSession)
         self.exp.clicked.connect(self.exportSession)
+        self.act.clicked.connect(self.activateSession)
         
         self.sessions.layout().addWidget(self.imp, 5, 1)
         self.sessions.layout().addWidget(self.exp, 6, 1)
+        self.sessions.layout().addWidget(self.act, 7, 1)
         
         layout.addWidget(widgets.Separator())
         
@@ -65,11 +68,23 @@ class SessionManagerDialog(QDialog):
         userguide.addButton(b, "sessions")
         self.sessions.load()
         app.translateUI(self)
+        self.sessions.changed.connect(self.enableButtons)
+        self.sessions.listBox.itemSelectionChanged.connect(self.enableButtons)
+        self.enableButtons()
         
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Manage Sessions")))
-        self.imp.setText(_("Import"))
-        self.exp.setText(_("Export"))
+        self.imp.setText(_("&Import..."))
+        self.imp.setToolTip(_("Opens a dialog to import a session from a file."))
+        self.exp.setText(_("E&xport..."))
+        self.exp.setToolTip(_("Opens a dialog to export a session to a file."))
+        self.act.setText(_("&Activate"))
+        self.act.setToolTip(_("Switches to the selected session."))
+    
+    def enableButtons(self):
+        enabled = bool(self.sessions.listBox.currentItem())
+        self.act.setEnabled(enabled)
+        self.exp.setEnabled(enabled)
         
     def importSession(self):
         filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
@@ -94,6 +109,16 @@ class SessionManagerDialog(QDialog):
             return False # cancelled
         with open(filename, 'w') as f:
             json.dump(jsondict, f, indent=4)
+    
+    def activateSession(self):
+        item = self.sessions.listBox.currentItem()
+        if item:
+            name = item.text()
+            mainwindow = self.parent()
+            man = sessions.manager.get(mainwindow)
+            man.saveCurrentSessionIfDesired()
+            self.accept()
+            man.startSession(name)
 
 
 class SessionList(widgets.listedit.ListEdit):
