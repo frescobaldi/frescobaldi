@@ -524,6 +524,24 @@ class Mediator():
             end = "start"
         self.current_note.add_adv_ornament('wavy-line', end)
 
+    def new_ottava(self, octdiff):
+        nr = int(octdiff)
+        if nr == 0:
+            size = self.oct_size
+            plac = self.oct_plac
+            octdir = "stop"
+        else:
+            if nr < 0:
+                plac = "below"
+                octdir = "up"
+            elif nr > 0:
+                plac = "above"
+                octdir = "down"
+            size = abs(nr) * 7 + 1
+            self.oct_size = size
+            self.oct_plac = plac
+        self.current_note.set_oct_shift(plac, octdir, size)
+
     def new_tempo(self, dur_tokens, tempo, string):
         unit, dots, rs = self.duration_from_tokens(dur_tokens)
         beats = tempo[0]
@@ -784,6 +802,7 @@ class BarMus():
         'before': {'mark': None, 'wedge': None },
         'after': {'mark': None, 'wedge': None }
         }
+        self.oct_shift = None
 
     def __repr__(self):
         return '<{0} {1}>'.format(self.__class__.__name__, self.note)
@@ -813,8 +832,29 @@ class BarMus():
         if wedge:
             self.dynamic['after']['wedge'] = wedge
 
+    def set_oct_shift(self, plac, octdir, size):
+        self.oct_shift = OctaveShift(plac, octdir, size)
+
     def has_attr(self):
         return False
+
+
+##
+# Classes that are used by BarMus
+##
+
+
+class OctaveShift():
+    """Class for octave shifts."""
+    def __init__(self, plac, octdir, size):
+        self.plac = plac
+        self.octdir = octdir
+        self.size = size
+
+
+##
+# Subclasses of BarMus
+##
 
 
 class BarNote(BarMus):

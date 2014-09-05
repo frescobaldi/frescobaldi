@@ -483,6 +483,13 @@ class CreateMusicXML():
         dirtypenode = etree.SubElement(direction, "direction-type")
         dyn_node = etree.SubElement(dirtypenode, "wedge", type=wedge_type)
 
+    def add_octave_shift(self, plac, octdir, size):
+        """Add octave shift."""
+        oct_dict = {"type": octdir, "size": str(size) }
+        direction = etree.SubElement(self.current_bar, "direction", placement=plac)
+        dirtypenode = etree.SubElement(direction, "direction-type")
+        dyn_node = etree.SubElement(dirtypenode, "octave-shift", oct_dict)
+
     def add_metron_dir(self, unit, beats, dots):
         dirtypenode = etree.SubElement(self.direction, "direction-type")
         metrnode = etree.SubElement(dirtypenode, "metronome")

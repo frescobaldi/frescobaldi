@@ -66,6 +66,7 @@ class ParseSource():
         self.voice_sep = False
         self.sims_and_seqs = []
         self.override_dict = {}
+        self.ottava = False
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -313,6 +314,8 @@ class ParseSource():
             self.mediator.new_trill_spanner()
         elif command.token == '\\stopTrillSpan':
             self.mediator.new_trill_spanner("stop")
+        elif command.token == '\\ottava':
+            self.ottava = True
         else:
             print("Unknown command: "+command.token)
 
@@ -352,7 +355,9 @@ class ParseSource():
 
     def SchemeItem(self, item):
         """Any scheme token."""
-        if self.look_behind(item, ly.music.items.Override):
+        if self.ottava:
+            self.mediator.new_ottava(item.token)
+        elif self.look_behind(item, ly.music.items.Override):
             self.override_dict[self.override_key] = item.token
 
     def SchemeQuote(self, quote):
@@ -567,13 +572,15 @@ class ParseSource():
                             self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
                         if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
+                        if obj.other_notation:
+                            self.musxml.add_named_notation(obj.other_notation)
                         if obj.dynamic['after']:
                             if obj.dynamic['after']['mark']:
                                 self.musxml.add_dynamic_mark(obj.dynamic['after']['mark'])
                             if obj.dynamic['after']['wedge']:
                                 self.musxml.add_dynamic_wedge(obj.dynamic['after']['wedge'])
-                        if obj.other_notation:
-                            self.musxml.add_named_notation(obj.other_notation)
+                        if obj.oct_shift:
+                            self.musxml.add_octave_shift(obj.oct_shift.plac, obj.oct_shift.octdir, obj.oct_shift.size)
                     elif isinstance(obj, ly2xml_mediator.BarBackup):
                         self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
 
