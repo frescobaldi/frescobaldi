@@ -8,6 +8,13 @@ Changes in 2.17 --
   - updated: nl, pt_BR
   - new (partial): Chinese Traditional, Simplified and Hong Kong by Anthony Fok
 * Improvements:
+  - MusicXML export has improved by using the ly.music module that has a notion
+    of the music events and time/duration of those events, ly.music is authored
+    and maintained by Wilbert Berendsen but the MusicXML export module is
+    contributed by Peter Bjuhr
+  - workaround a LilyPond buglet in point-and-click highlighting of quoted
+    strings: although the textedit uri points to the closing quote, the string
+    is correctly highlighted
   - dont disable run button of Engrave Custom dialog for autocompile jobs
   - dont always run autocompile job for the first opened document
   - tooltips for the panel title and float/close buttons
