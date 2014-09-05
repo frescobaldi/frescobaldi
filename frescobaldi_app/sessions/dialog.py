@@ -52,7 +52,6 @@ class SessionManagerDialog(QDialog):
         self.exp = QPushButton(self)
         self.imp.clicked.connect(self.importSession)
         self.exp.clicked.connect(self.exportSession)
-        self.imp.clicked.connect(self.accept)
         
         self.sessions.layout().addWidget(self.imp, 5, 1)
         self.sessions.layout().addWidget(self.exp, 6, 1)
