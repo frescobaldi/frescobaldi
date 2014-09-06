@@ -444,29 +444,31 @@ class MainWindow(QMainWindow):
         """
         if doc.url().isEmpty():
             return self.saveDocumentAs(doc)
-        filename = dest = doc.url().toLocalFile()
-        if not filename:
-            dest = doc.url().toString()
-        if not util.iswritable(filename):
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}").format(url=dest))
-            return False
+        # we only support local files for now
+        filename = doc.url().toLocalFile()
         if QSettings().value("strip_trailing_whitespace", False, bool):
             import reformat
             reformat.remove_trailing_whitespace(QTextCursor(doc))
         b = backup.backup(filename)
-        success = doc.save()
-        if not success:
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}").format(url=filename))
-        elif b:
-            backup.removeBackup(filename)
-        return success
+        try:
+            doc.save()
+        except IOError as e:
+            msg = _("{message}\n\n{strerror} ({errno})").format(
+                message = _("Could not write to: {url}").format(url=filename),
+                strerror = e.strerror,
+                errno = e.errno)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
+            return False
+        else:
+            if b:
+                backup.removeBackup(filename)
+            recentfiles.add(doc.url())
+        return True
             
     def saveDocumentAs(self, doc):
         """ Saves the document, always asking for a name.
         
-        Returns True if saving succeeded.
+        Returns True if saving succeeded, False if it failed or was cancelled.
         
         """
         filename = doc.url().toLocalFile()
@@ -481,14 +483,14 @@ class MainWindow(QMainWindow):
         filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
         if not filename:
             return False # cancelled
-        if not util.iswritable(filename):
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}").format(url=filename))
+        oldurl = doc.url()
+        doc.setUrl(QUrl.fromLocalFile(filename))
+        # if saving under the new name failed, put the old name back if it had one
+        if not self.saveDocument(doc):
+            if oldurl.toLocalFile() and oldurl.toLocalFile() != filename:
+                doc.setUrl(oldurl)
             return False
-        url = QUrl.fromLocalFile(filename)
-        doc.setUrl(url)
-        recentfiles.add(url)
-        return self.saveDocument(doc)
+        return True
         
     def closeDocument(self, doc):
         """ Closes the document, asking for saving if modified.
@@ -532,10 +534,12 @@ class MainWindow(QMainWindow):
         try:
             with open(filename, "w") as f:
                 f.write(data)
-        except (IOError, OSError) as err:
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}\n\n{error}").format(
-                    url=filename, error=err.strerror))
+        except IOError as e:
+            msg = _("{message}\n\n{strerror} ({errno})").format(
+                message = _("Could not write to: {url}").format(url=filename),
+                strerror = e.strerror,
+                errno = e.errno)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
     
     def closeCurrentDocument(self):
         return self.closeDocument(self.currentDocument())
@@ -629,11 +633,14 @@ class MainWindow(QMainWindow):
         filename = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
         if filename:
             try:
-                data = open(filename).read()
-            except (IOError, OSError) as err:
-                QMessageBox.warning(self, app.caption(_("Error")),
-                    _("Can't read from source:\n\n{url}\n\n{error}").format(
-                        url=filename, error=err.strerror))
+                with open(filename) as f:
+                    data = f.read()
+            except IOError as e:
+                msg = _("{message}\n\n{strerror} ({errno})").format(
+                    message = _("Could not read from: {url}").format(url=filename),
+                    strerror = e.strerror,
+                    errno = e.errno)
+                QMessageBox.critical(self, app.caption(_("Error")), msg)
             else:
                 text = util.decode(data)
                 self.currentView().textCursor().insertText(text)
@@ -685,9 +692,12 @@ class MainWindow(QMainWindow):
         try:
             with open(filename, "wb") as f:
                 f.write(html.encode('utf-8'))
-        except (IOError, OSError) as err:
-            QMessageBox.warning(self, app.caption(_("Error")),
-                _("Can't write to destination:\n\n{url}\n\n{error}").format(url=filename, error=err))
+        except IOError as e:
+            msg = _("{message}\n\n{strerror} ({errno})").format(
+                message = _("Could not read from: {url}").format(url=filename),
+                strerror = e.strerror,
+                errno = e.errno)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
         
     def undo(self):
         self.currentView().undo()

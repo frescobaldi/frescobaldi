@@ -101,10 +101,10 @@ class SessionManagerDialog(QDialog):
                 self.sessions.importItem(json.load(f))
         except IOError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
-                message = _("Could not read from {url}").format(url=importfile),
+                message = _("Could not read from: {url}").format(url=importfile),
                 strerror = e.strerror,
                 errno = e.errno)
-            QMessageBox.critical(self, _("Error"), msg)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
 		
     def exportSession(self):
         """Called when the user clicks Export."""
@@ -122,10 +122,10 @@ class SessionManagerDialog(QDialog):
                 json.dump(jsondict, f, indent=4)
         except IOError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
-                message = _("Could not write to {url}").format(url=filename),
+                message = _("Could not write to: {url}").format(url=filename),
                 strerror = e.strerror,
                 errno = e.errno)
-            QMessageBox.critical(self, _("Error"), msg)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
     
     def activateSession(self):
         """Called when the user clicks Activate."""

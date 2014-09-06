@@ -65,54 +65,46 @@ class Document(QTextDocument):
     def load(self, keepUndo=False):
         """Loads the current url.
         
-        Returns True if loading succeeded, False if an error occurred,
-        and None when the current url is empty or non-local.
-        Currently only local files are supported.
+        Currently only local files are supported. An IOError is raised
+        when trying to load a nonlocal URL.
         
         If keepUndo is True, the loading can be undone (with Ctrl-Z).
         
         """
         fileName = self.url().toLocalFile()
-        if fileName:
-            try:
-                with open(fileName) as f:
-                    data = f.read()
-            except (IOError, OSError):
-                return False # errors are caught in MainWindow.openUrl()
-            text = util.decode(data)
-            if keepUndo:
-                c = QTextCursor(self)
-                c.select(QTextCursor.Document)
-                c.insertText(text)
-            else:
-                self.setPlainText(text)
-            self.setModified(False)
-            self.loaded()
-            app.documentLoaded(self)
-            return True
+        if not fileName:
+            raise IOError("not a local file")
+        with open(fileName) as f:
+            data = f.read()
+        text = util.decode(data)
+        if keepUndo:
+            c = QTextCursor(self)
+            c.select(QTextCursor.Document)
+            c.insertText(text)
+        else:
+            self.setPlainText(text)
+        self.setModified(False)
+        self.loaded()
+        app.documentLoaded(self)
             
     def save(self):
         """Saves the document to the current url.
         
-        Returns True if saving succeeded, False if an error occurred,
-        and None when the current url is empty or non-local.
-        Currently only local files are supported.
+        Currently only local files are supported. An IOError is raised
+        when trying to save a nonlocal URL.
         
         """
         with app.documentSaving(self):
             fileName = self.url().toLocalFile()
-            if fileName:
-                try:
-                    with open(fileName, "w") as f:
-                        f.write(self.encodedText())
-                        f.flush()
-                        os.fsync(f.fileno())
-                except (IOError, OSError):
-                    return False
-                self.setModified(False)
-                self.saved()
-                app.documentSaved(self)
-                return True
+            if not fileName:
+                raise IOError("not a local file")
+            with open(fileName, "w") as f:
+                f.write(self.encodedText())
+                f.flush()
+                os.fsync(f.fileno())
+            self.setModified(False)
+            self.saved()
+            app.documentSaved(self)
 
     def url(self):
         return self._url
