@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-07-08 11:58+0200\n"
+"POT-Creation-Date: 2014-09-06 21:08+0200\n"
 "PO-Revision-Date: 2013-09-29 12:52+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -91,7 +91,7 @@ msgstr "Fichiers LaTeX"
 msgid "DocBook Files"
 msgstr "Fichiers DocBook"
 
-#: ../app.py:164
+#: ../app.py:164 ../convert_ly.py:253
 msgid "HTML Files"
 msgstr "Fichiers HTML"
 
@@ -103,8 +103,9 @@ msgstr "Fichiers Texinfo"
 msgid "Scheme Files"
 msgstr "Fichiers Scheme"
 
-#: ../app.py:167 ../file_export/__init__.py:52 ../file_export/__init__.py:77
-#: ../file_import/__init__.py:47 ../snippet/widget.py:297
+#: ../app.py:167 ../convert_ly.py:253 ../file_export/__init__.py:52
+#: ../file_export/__init__.py:77 ../file_import/__init__.py:47
+#: ../sessions/dialog.py:92 ../sessions/dialog.py:113 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
 msgid "All Files"
@@ -167,19 +168,19 @@ msgstr "&Aller à la définition (dans {filename})"
 msgid "&Jump to definition (unknown)"
 msgstr "&Aller à la définition (inconnu)"
 
-#: ../convert_ly.py:123
+#: ../convert_ly.py:128
 msgid "From version:"
 msgstr "Depuis la version :"
 
-#: ../convert_ly.py:124
+#: ../convert_ly.py:129
 msgid "To version:"
 msgstr "Vers la version :"
 
-#: ../convert_ly.py:125
+#: ../convert_ly.py:130
 msgid "Save convert-ly messages in document"
 msgstr "Enregistrer les messages de convert-ly dans le document"
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:132
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -187,45 +188,54 @@ msgstr ""
 "Si coché, les messages de convert-ly sont ajoutés comme commentaires en fin "
 "de document"
 
-#: ../convert_ly.py:129
+#: ../convert_ly.py:134
 msgid "&Messages"
 msgstr "&Messages"
 
-#: ../convert_ly.py:130
+#: ../convert_ly.py:135
 msgid "&Changes"
 msgstr "&Changements"
 
-#: ../convert_ly.py:131
+#: ../convert_ly.py:136
+msgid "&Diff"
+msgstr ""
+
+#: ../convert_ly.py:137
 msgid "Run Again"
 msgstr "Exécuter à nouveau"
 
-#: ../convert_ly.py:145 ../docbrowser/browser.py:158
+#: ../convert_ly.py:138
+#, fuzzy
+msgid "Save as file"
+msgstr "Enregistrer le fichier"
+
+#: ../convert_ly.py:155 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:151 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<inconnu>"
 
-#: ../convert_ly.py:146
+#: ../convert_ly.py:156
 #, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Lancer convert-ly depuis la version {version} de LilyPond"
 
-#: ../convert_ly.py:162 ../externalchanges/widget.py:269
+#: ../convert_ly.py:173 ../convert_ly.py:182 ../externalchanges/widget.py:269
 msgid "Current Document"
 msgstr "Document en cours"
 
-#: ../convert_ly.py:162
+#: ../convert_ly.py:173 ../convert_ly.py:182
 msgid "Converted Document"
 msgstr "Document converti"
 
-#: ../convert_ly.py:174
+#: ../convert_ly.py:195
 msgid "(set in document)"
 msgstr "(défini(e) dans le document)"
 
-#: ../convert_ly.py:187
+#: ../convert_ly.py:209
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Versions source et cible doivent être définies"
 
-#: ../convert_ly.py:215
+#: ../convert_ly.py:237
 #, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -236,9 +246,19 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:221
+#: ../convert_ly.py:244
 msgid "The document has not been changed."
 msgstr "Le document n'a pas été modifié."
+
+#: ../convert_ly.py:252 ../mainwindow.py:482
+msgctxt "dialog title"
+msgid "Save File"
+msgstr "Enregistrer le fichier"
+
+#: ../convert_ly.py:253
+#, fuzzy
+msgid "Text Files"
+msgstr "Fichiers Texinfo"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
@@ -250,11 +270,11 @@ msgstr ""
 "Veuillez saisir le nom de la variable à laquelle vous souhaitez assigner le "
 "texte sélectionné :"
 
-#: ../document.py:158 ../doclist/widget.py:134 ../snippet/edit.py:171
+#: ../document.py:150 ../doclist/widget.py:134 ../snippet/edit.py:171
 msgid "Untitled"
 msgstr "Sans titre"
 
-#: ../document.py:160
+#: ../document.py:152
 #, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Sans titre ({num})"
@@ -315,20 +335,20 @@ msgstr "Supprimer les &nuances"
 msgid "Remove Text &Markup (from music)"
 msgstr "Supprimer le &markup de texte (de la musique)"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1081
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1091
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "Enregistrer"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1082
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1092
 msgid "Save &As..."
 msgstr "Enregistrer sous..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1092
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1102
 msgid "&Close"
 msgstr "Fermer"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1093
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1103
 msgid "Close Other Documents"
 msgstr "Fermer les autres documents"
 
@@ -388,14 +408,14 @@ msgid "Typewriter Font:"
 msgstr "Police « largeur fixe » :"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:107 ../mainwindow.py:451 ../mainwindow.py:460
-#: ../mainwindow.py:485 ../mainwindow.py:536 ../mainwindow.py:634
-#: ../mainwindow.py:689 ../externalchanges/widget.py:243
+#: ../helpers.py:107 ../mainwindow.py:460 ../mainwindow.py:542
+#: ../mainwindow.py:643 ../mainwindow.py:700 ../externalchanges/widget.py:243
 #: ../file_export/__init__.py:67 ../file_import/__init__.py:73
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:272
 #: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:538
 #: ../preferences/import_export.py:91 ../preferences/import_export.py:174
-#: ../preferences/shortcuts.py:206 ../snippet/import_export.py:105
+#: ../preferences/shortcuts.py:206 ../sessions/dialog.py:107
+#: ../sessions/dialog.py:128 ../snippet/import_export.py:105
 #: ../snippet/widget.py:324
 msgid "Error"
 msgstr "Erreur"
@@ -572,8 +592,8 @@ msgstr ""
 msgid "Tab Bar"
 msgstr "Barre d'onglets"
 
-#: ../mainwindow.py:377 ../sessions/dialog.py:171 ../sessions/dialog.py:179
-#: ../sessions/dialog.py:185
+#: ../mainwindow.py:377 ../sessions/dialog.py:293 ../sessions/dialog.py:301
+#: ../sessions/dialog.py:307
 msgid "Warning"
 msgstr "Avertissement"
 
@@ -593,53 +613,38 @@ msgctxt "dialog title"
 msgid "Open File"
 msgstr "Ouvrir fichier"
 
-#: ../mainwindow.py:452 ../mainwindow.py:461 ../mainwindow.py:486
+#: ../mainwindow.py:456 ../mainwindow.py:538 ../mainwindow.py:639
+#: ../mainwindow.py:696 ../sessions/dialog.py:103 ../sessions/dialog.py:124
 #, python-brace-format
 msgid ""
-"Can't write to destination:\n"
+"{message}\n"
 "\n"
-"{url}"
+"{strerror} ({errno})"
 msgstr ""
-"Impossible d'écrire sur la cible :\n"
+
+#: ../mainwindow.py:457 ../mainwindow.py:539 ../sessions/dialog.py:125
+#, fuzzy, python-brace-format
+msgid "Could not write to: {url}"
+msgstr ""
+"Impossible de recharger le document distant :\n"
 "\n"
 "{url}"
 
-#: ../mainwindow.py:480
-msgctxt "dialog title"
-msgid "Save File"
-msgstr "Enregistrer le fichier"
-
-#: ../mainwindow.py:520
+#: ../mainwindow.py:522
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Enregistrer une copie"
 
-#: ../mainwindow.py:526
+#: ../mainwindow.py:528
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Enregistrer la sélection"
 
-#: ../mainwindow.py:537 ../mainwindow.py:690 ../file_export/__init__.py:68
-#: ../preferences/fontscolors.py:273 ../preferences/shortcuts.py:207
-#: ../snippet/widget.py:325
-#, python-brace-format
-msgid ""
-"Can't write to destination:\n"
-"\n"
-"{url}\n"
-"\n"
-"{error}"
-msgstr ""
-"Impossible d'écrire sur la cible :\n"
-"\n"
-"{url}\n"
-"{error}"
-
-#: ../mainwindow.py:551 ../mainwindow.py:565 ../externalchanges/widget.py:103
+#: ../mainwindow.py:555 ../mainwindow.py:569 ../externalchanges/widget.py:103
 msgid "Reload"
 msgstr "Recharger"
 
-#: ../mainwindow.py:552
+#: ../mainwindow.py:556
 #, python-brace-format
 msgid ""
 "Could not reload the document:\n"
@@ -650,45 +655,37 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:562
+#: ../mainwindow.py:566
 msgid "Some documents could not be reloaded."
 msgstr "Des documents ne peuvent pas être rechargés."
 
-#: ../mainwindow.py:564
+#: ../mainwindow.py:568
 msgid "No document could be reloaded."
 msgstr "Aucun document ne peut être rechargé."
 
-#: ../mainwindow.py:627
+#: ../mainwindow.py:631
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Insérer depuis le fichier"
 
-#: ../mainwindow.py:635 ../preferences/import_export.py:92
-#: ../preferences/import_export.py:175 ../snippet/import_export.py:106
-#, python-brace-format
-msgid ""
-"Can't read from source:\n"
-"\n"
-"{url}\n"
-"\n"
-"{error}"
+#: ../mainwindow.py:640 ../mainwindow.py:697 ../sessions/dialog.py:104
+#, fuzzy, python-brace-format
+msgid "Could not read from: {url}"
 msgstr ""
-"Impossible de lire depuis la source :\n"
+"Impossible de recharger le document distant :\n"
 "\n"
-"{url}\n"
-"\n"
-"{error}"
+"{url}"
 
-#: ../mainwindow.py:651
+#: ../mainwindow.py:658
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Imprimer le code source"
 
-#: ../mainwindow.py:677
+#: ../mainwindow.py:684
 msgid "Export as HTML"
 msgstr "Exporter en HTML"
 
-#: ../mainwindow.py:814
+#: ../mainwindow.py:824
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -700,60 +697,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:928
+#: ../mainwindow.py:938
 msgid "Main Toolbar"
 msgstr "Barre principale"
 
-#: ../mainwindow.py:929
+#: ../mainwindow.py:939
 msgid "Music View Toolbar"
 msgstr "Barre d'aperçu"
 
-#: ../mainwindow.py:1075 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1085 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nouveau"
 
-#: ../mainwindow.py:1076 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1086 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "&Ouvrir..."
 
-#: ../mainwindow.py:1077 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1087 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Ouvrir &récent"
 
-#: ../mainwindow.py:1078
+#: ../mainwindow.py:1088
 msgid "Insert from &File..."
 msgstr "Insérer depuis le fichier..."
 
-#: ../mainwindow.py:1079
+#: ../mainwindow.py:1089
 msgid "Open Current Directory"
 msgstr "Ouvrir le dossier courant"
 
-#: ../mainwindow.py:1080
+#: ../mainwindow.py:1090
 msgid "Open Command Prompt"
 msgstr "Ouvrir la ligne de commande (Terminal)"
 
-#: ../mainwindow.py:1083
+#: ../mainwindow.py:1093
 msgid "Save Copy or Selection As..."
 msgstr "Enregistrer une copie ou la sélection sous..."
 
-#: ../mainwindow.py:1084 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1094 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Tout enregistrer"
 
-#: ../mainwindow.py:1085
+#: ../mainwindow.py:1095
 msgid "Re&load"
 msgstr "Re&charger"
 
-#: ../mainwindow.py:1086 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1096 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Recharger tous les fichiers"
 
-#: ../mainwindow.py:1087
+#: ../mainwindow.py:1097
 msgid "Check for External Changes..."
 msgstr "Contrôler les modifications externes..."
 
-#: ../mainwindow.py:1089
+#: ../mainwindow.py:1099
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -761,136 +758,136 @@ msgstr ""
 "Ouvre une fenêtre pour contrôler si les documents ouverts ont été modifiés "
 "ou supprimés par d'autres programmes."
 
-#: ../mainwindow.py:1091
+#: ../mainwindow.py:1101
 msgid "Print Source..."
 msgstr "Imprimer le code source"
 
-#: ../mainwindow.py:1094
+#: ../mainwindow.py:1104
 msgid "Close All Documents"
 msgstr "Fermer tous les documents"
 
-#: ../mainwindow.py:1095
+#: ../mainwindow.py:1105
 msgid "Closes all documents and leaves the current session."
 msgstr "Fermer tous les documents et quitter la session courante"
 
-#: ../mainwindow.py:1096 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1106 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "&Quitter"
 
-#: ../mainwindow.py:1097
+#: ../mainwindow.py:1107
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "Redémarrer {appname}"
 
-#: ../mainwindow.py:1099
+#: ../mainwindow.py:1109
 msgid "Export Source as Colored &HTML..."
 msgstr "Exporter le code source en &HTML coloré..."
 
-#: ../mainwindow.py:1101
+#: ../mainwindow.py:1111
 msgid "&Undo"
 msgstr "Annuler"
 
-#: ../mainwindow.py:1102
+#: ../mainwindow.py:1112
 msgid "Re&do"
 msgstr "Refaire"
 
-#: ../mainwindow.py:1103
+#: ../mainwindow.py:1113
 msgid "Cu&t"
 msgstr "Couper"
 
-#: ../mainwindow.py:1104 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1114 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copier"
 
-#: ../mainwindow.py:1105
+#: ../mainwindow.py:1115
 msgid "Copy as Colored &HTML"
 msgstr "Copier en HTML coloré"
 
-#: ../mainwindow.py:1106
+#: ../mainwindow.py:1116
 msgid "&Paste"
 msgstr "Coller"
 
-#: ../mainwindow.py:1107
+#: ../mainwindow.py:1117
 msgid "Select &All"
 msgstr "Tout sélectionner"
 
-#: ../mainwindow.py:1108
+#: ../mainwindow.py:1118
 msgid "Select &Block"
 msgstr "Sélectionner le bloc"
 
-#: ../mainwindow.py:1109
+#: ../mainwindow.py:1119
 msgid "Select &None"
 msgstr "Ne rien sélectionner"
 
-#: ../mainwindow.py:1110
+#: ../mainwindow.py:1120
 msgid "Select Whole Lines Up"
 msgstr "Sélectionner des lignes entières au-dessus"
 
-#: ../mainwindow.py:1111
+#: ../mainwindow.py:1121
 msgid "Select Whole Lines Down"
 msgstr "Sélectionner des lignes entières en-dessous"
 
-#: ../mainwindow.py:1112
+#: ../mainwindow.py:1122
 msgid "&Find..."
 msgstr "Rechercher..."
 
-#: ../mainwindow.py:1113
+#: ../mainwindow.py:1123
 msgid "Find Ne&xt"
 msgstr "Rechercher le suivant"
 
-#: ../mainwindow.py:1114
+#: ../mainwindow.py:1124
 msgid "Find Pre&vious"
 msgstr "Rechercher le précédent"
 
-#: ../mainwindow.py:1115
+#: ../mainwindow.py:1125
 msgid "&Replace..."
 msgstr "&Remplacer..."
 
-#: ../mainwindow.py:1116 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1126 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Préfér&ences..."
 
-#: ../mainwindow.py:1118
+#: ../mainwindow.py:1128
 msgid "&Next Document"
 msgstr "Document suivant"
 
-#: ../mainwindow.py:1119
+#: ../mainwindow.py:1129
 msgid "&Previous Document"
 msgstr "Document précédent"
 
-#: ../mainwindow.py:1120
+#: ../mainwindow.py:1130
 msgid "Wrap &Lines"
 msgstr "Renvoi à la ligne"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1131
 msgid "Scroll Up"
 msgstr "Défiler vers le haut"
 
-#: ../mainwindow.py:1122
+#: ../mainwindow.py:1132
 msgid "Scroll Down"
 msgstr "Défiler vers le bas"
 
-#: ../mainwindow.py:1124 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1134 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Nouvelle fenêtre"
 
-#: ../mainwindow.py:1125
+#: ../mainwindow.py:1135
 msgid "&Fullscreen"
 msgstr "Plein écran"
 
-#: ../mainwindow.py:1127
+#: ../mainwindow.py:1137
 msgid "&User Guide"
 msgstr "Manuel utilisateur"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1138
 msgid "&What's This?"
 msgstr "Qu'est-ce que c'est ?"
 
-#: ../mainwindow.py:1129
+#: ../mainwindow.py:1139
 msgid "Report a &Bug..."
 msgstr "Rapporter un &bogue..."
 
-#: ../mainwindow.py:1130 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1140 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&À propos de {appname}..."
@@ -1241,83 +1238,83 @@ msgstr "Gravure e&n continu"
 msgid "Show Available &Fonts..."
 msgstr "Afficher les polices &disponibles..."
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:134
 msgid "Engrave custom"
 msgstr "Graver (personnalisé)"
 
-#: ../engrave/custom.py:134
+#: ../engrave/custom.py:135
 msgid "LilyPond Version:"
 msgstr "Version de LilyPond :"
 
-#: ../engrave/custom.py:135
+#: ../engrave/custom.py:136
 msgid "Output Format:"
 msgstr "Format de sortie :"
 
-#: ../engrave/custom.py:136 ../preferences/helpers.py:160
+#: ../engrave/custom.py:137 ../preferences/helpers.py:160
 msgid "Resolution:"
 msgstr "Résolution :"
 
-#: ../engrave/custom.py:137
+#: ../engrave/custom.py:138
 msgid "Antialias Factor:"
 msgstr "Facteur de lissage :"
 
-#: ../engrave/custom.py:138
+#: ../engrave/custom.py:139
 msgid "Engraving mode:"
 msgstr "Mode de gravure :"
 
-#: ../engrave/custom.py:139 ../scorewiz/dialog.py:83
+#: ../engrave/custom.py:140 ../scorewiz/dialog.py:83
 msgid "Preview"
 msgstr "Aperçu"
 
-#: ../engrave/custom.py:140
+#: ../engrave/custom.py:141
 msgid "Publish"
 msgstr "Publication"
 
-#: ../engrave/custom.py:141
+#: ../engrave/custom.py:142
 msgid "Layout Control"
 msgstr "Contrôle de mise en page"
 
-#: ../engrave/custom.py:142 ../preferences/lilypond.py:295
+#: ../engrave/custom.py:143 ../preferences/lilypond.py:295
 msgid "Run LilyPond with English messages"
 msgstr "Lancer LilyPond avec des messages en anglais"
 
-#: ../engrave/custom.py:143 ../preferences/lilypond.py:292
+#: ../engrave/custom.py:144 ../preferences/lilypond.py:292
 msgid "Delete intermediate output files"
 msgstr "Effacer les fichiers de sortie intermédiaires"
 
-#: ../engrave/custom.py:144 ../file_import/musicxml.py:176
+#: ../engrave/custom.py:145 ../file_import/musicxml.py:182
 msgid "Command line:"
 msgstr "Ligne de commande :"
 
-#: ../engrave/custom.py:145
+#: ../engrave/custom.py:146
 msgid "Run LilyPond"
 msgstr "Lancer LilyPond"
 
-#: ../engrave/custom.py:217 ../preferences/lilypond.py:337
+#: ../engrave/custom.py:219 ../preferences/lilypond.py:337
 msgid "PDF"
 msgstr "PDF"
 
-#: ../engrave/custom.py:223
+#: ../engrave/custom.py:225
 msgid "PostScript"
 msgstr "PostScript"
 
-#: ../engrave/custom.py:229
+#: ../engrave/custom.py:231
 msgid "PNG"
 msgstr "PNG"
 
-#: ../engrave/custom.py:239 ../preferences/lilypond.py:340
+#: ../engrave/custom.py:241 ../preferences/lilypond.py:340
 msgid "SVG"
 msgstr "SVG"
 
-#: ../engrave/custom.py:245
+#: ../engrave/custom.py:247
 msgid "PDF (EPS Backend)"
 msgstr "PDF (Backend EPS)"
 
-#: ../engrave/custom.py:251
+#: ../engrave/custom.py:253
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr "PostScript encapsulé (Backend EPS)"
 
-#: ../engrave/custom.py:257
+#: ../engrave/custom.py:259
 msgid "PNG (EPS Backend)"
 msgstr "PNG (Backend EPS)"
 
@@ -1463,6 +1460,21 @@ msgstr "Exporter un fichier MusicXML"
 msgid "XML Files"
 msgstr "Fichiers XML"
 
+#: ../file_export/__init__.py:68 ../preferences/fontscolors.py:273
+#: ../preferences/shortcuts.py:207 ../snippet/widget.py:325
+#, python-brace-format
+msgid ""
+"Can't write to destination:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
+msgstr ""
+"Impossible d'écrire sur la cible :\n"
+"\n"
+"{url}\n"
+"{error}"
+
 #: ../file_export/__init__.py:76
 msgctxt "dialog title"
 msgid "Export Audio File"
@@ -1505,35 +1517,39 @@ msgstr "Importer MusicXML…"
 msgid "Import a MusicXML file using musicxml2ly."
 msgstr "Importer un fichier MusicXML à l'aide de musicxml2ly."
 
-#: ../file_import/musicxml.py:170 ../userguide/musicxml_import.md:1
+#: ../file_import/musicxml.py:175 ../userguide/musicxml_import.md:1
 msgid "Import Music XML"
 msgstr "Importer MusicXML"
 
-#: ../file_import/musicxml.py:171 ../userguide/musicxml_import.md:16
+#: ../file_import/musicxml.py:176 ../userguide/musicxml_import.md:16
 msgid "Import articulation directions"
 msgstr "Importer les orientations d'articulation"
 
-#: ../file_import/musicxml.py:172 ../userguide/musicxml_import.md:17
+#: ../file_import/musicxml.py:177 ../userguide/musicxml_import.md:17
 msgid "Import rest positions"
 msgstr "Importer les positions de silence"
 
-#: ../file_import/musicxml.py:173 ../userguide/musicxml_import.md:18
+#: ../file_import/musicxml.py:178 ../userguide/musicxml_import.md:18
 msgid "Import page layout"
 msgstr "Importer la mise en page"
 
-#: ../file_import/musicxml.py:174 ../userguide/musicxml_import.md:19
+#: ../file_import/musicxml.py:179 ../userguide/musicxml_import.md:19
 msgid "Import beaming"
 msgstr "Importer les ligatures"
 
-#: ../file_import/musicxml.py:175 ../userguide/musicxml_import.md:20
+#: ../file_import/musicxml.py:180 ../userguide/musicxml_import.md:20
 msgid "Pitches in absolute mode"
 msgstr "Hauteurs de notes en mode absolu"
 
-#: ../file_import/musicxml.py:178 ../userguide/musicxml_import.md:21
+#: ../file_import/musicxml.py:181
+msgid "Comment out midi block"
+msgstr ""
+
+#: ../file_import/musicxml.py:184 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
 msgstr "Langage du nom des notes"
 
-#: ../file_import/musicxml.py:179 ../preferences/documentation.py:120
+#: ../file_import/musicxml.py:185 ../preferences/documentation.py:120
 #: ../preferences/general.py:132 ../preferences/tools.py:298
 #: ../scorewiz/settings.py:143 ../scorewiz/settings.py:211
 #: ../scorewiz/settings.py:306 ../scorewiz/parts/_base.py:218
@@ -1541,23 +1557,23 @@ msgstr "Langage du nom des notes"
 msgid "Default"
 msgstr "Par défaut"
 
-#: ../file_import/musicxml.py:180
+#: ../file_import/musicxml.py:186
 msgid "Reformat source"
 msgstr "Reformater la source"
 
-#: ../file_import/musicxml.py:181
+#: ../file_import/musicxml.py:187
 msgid "Trim durations (Make implicit per line)"
 msgstr "Durées implicites (&ligne par ligne)"
 
-#: ../file_import/musicxml.py:182
+#: ../file_import/musicxml.py:188
 msgid "Remove fraction duration scaling"
 msgstr "Supprimer les multiplicateurs des durées"
 
-#: ../file_import/musicxml.py:183
+#: ../file_import/musicxml.py:189
 msgid "Engrave directly"
 msgstr "Graver directement"
 
-#: ../file_import/musicxml.py:185
+#: ../file_import/musicxml.py:191
 msgid "Run musicxml2ly"
 msgstr "Lancer musicxml2py"
 
@@ -3981,6 +3997,22 @@ msgstr "Définir la résolution si Frescobaldi imprime en utilisant des images."
 #: ../preferences/import_export.py:89
 msgid "No theme found."
 msgstr "Aucun thème trouvé"
+
+#: ../preferences/import_export.py:92 ../preferences/import_export.py:175
+#: ../snippet/import_export.py:106
+#, python-brace-format
+msgid ""
+"Can't read from source:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
+msgstr ""
+"Impossible de lire depuis la source :\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
 
 #: ../preferences/import_export.py:172
 msgid "No shortcuts found."
@@ -6436,41 +6468,84 @@ msgstr ""
 "Remplace toutes les occurrences du terme recherché dans le document ou dans "
 "la sélection."
 
-#: ../sessions/dialog.py:43
+#: ../sessions/dialog.py:76
 msgid "Manage Sessions"
 msgstr "Gérer les Sessions"
 
-#: ../sessions/dialog.py:115
+#: ../sessions/dialog.py:77 ../snippet/widget.py:195
+#: ../widgets/schemeselector.py:96
+msgid "&Import..."
+msgstr "&Importer"
+
+#: ../sessions/dialog.py:78
+msgid "Opens a dialog to import a session from a file."
+msgstr ""
+
+#: ../sessions/dialog.py:79 ../snippet/widget.py:197
+msgid "E&xport..."
+msgstr "E&xporter"
+
+#: ../sessions/dialog.py:80
+msgid "Opens a dialog to export a session to a file."
+msgstr ""
+
+#: ../sessions/dialog.py:81
+msgid "&Activate"
+msgstr ""
+
+#: ../sessions/dialog.py:82
+#, fuzzy
+msgid "Switches to the selected session."
+msgstr "Copie le rythme de la musique sélectionnée."
+
+#: ../sessions/dialog.py:92 ../sessions/dialog.py:113
+#, fuzzy
+msgid "JSON Files"
+msgstr "Fichiers Scheme"
+
+#: ../sessions/dialog.py:93
+#, fuzzy
+msgctxt "dialog title"
+msgid "Import session"
+msgstr "Importer les positions de silence"
+
+#: ../sessions/dialog.py:112
+#, fuzzy
+msgctxt "dialog title"
+msgid "Export session"
+msgstr "Modifier la session %1"
+
+#: ../sessions/dialog.py:237
 msgid "Name:"
 msgstr "Nom :"
 
-#: ../sessions/dialog.py:116
+#: ../sessions/dialog.py:238
 msgid "Always save the list of documents in this session"
 msgstr "Toujours enregistrer la liste des documents dans cette session"
 
-#: ../sessions/dialog.py:117
+#: ../sessions/dialog.py:239
 msgid "Base directory:"
 msgstr "Dossier de base :"
 
-#: ../sessions/dialog.py:139
+#: ../sessions/dialog.py:261
 #, python-brace-format
 msgid "Edit session: {name}"
 msgstr "Éditer la session : {name}"
 
-#: ../sessions/dialog.py:143
+#: ../sessions/dialog.py:265
 msgid "Edit new session"
 msgstr "Éditer une nouvelle session"
 
-#: ../sessions/dialog.py:172
+#: ../sessions/dialog.py:294
 msgid "Please enter a session name."
 msgstr "Veuillez saisir un nom de session."
 
-#: ../sessions/dialog.py:180
+#: ../sessions/dialog.py:302
 #, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr "Veuillez ne pas utiliser le nom « {name} »."
 
-#: ../sessions/dialog.py:186
+#: ../sessions/dialog.py:308
 #, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
@@ -6481,7 +6556,7 @@ msgstr ""
 "\n"
 "Voulez-vous l'écraser ?"
 
-#: ../sessions/dialog.py:189
+#: ../sessions/dialog.py:311
 msgid "Overwrite"
 msgstr "Écraser"
 
@@ -6925,17 +7000,9 @@ msgstr "A&ppliquer"
 msgid "Apply the current snippet."
 msgstr "Appliquer le fragment courant."
 
-#: ../snippet/widget.py:195 ../widgets/schemeselector.py:96
-msgid "&Import..."
-msgstr "&Importer"
-
 #: ../snippet/widget.py:196
 msgid "Import snippets from a file."
 msgstr "Importer des fragments depuis un fichier."
-
-#: ../snippet/widget.py:197
-msgid "E&xport..."
-msgstr "E&xporter"
 
 #: ../snippet/widget.py:198
 msgid "Export snippets to a file."
@@ -8236,6 +8303,30 @@ msgstr ""
 "cas, rejouer le fichier depuis le début redéfinit correctement les "
 "instruments."
 
+#: ../userguide/midi_synth.md:1
+msgid "Playing a MIDI file does not work"
+msgstr ""
+
+#: ../userguide/midi_synth.md:3
+msgid ""
+"The built-in MIDI player needs an external synthesizer to make the MIDI "
+"audible, otherwise it will play the file silently, only showing the \"No "
+"Output Found!\" message."
+msgstr ""
+
+#: ../userguide/midi_synth.md:7
+msgid ""
+"So make sure either a software synthesizer like TiMidity or FluidSynth is "
+"running (preferably at bootup or session login), or you have an external "
+"MIDI synthesizer connected to your computer."
+msgstr ""
+
+#: ../userguide/midi_synth.md:11
+msgid ""
+"In the {midi_prefs} you can configure which MIDI port you want to use for "
+"playing the MIDI files."
+msgstr ""
+
 #: ../userguide/engrave_layout_configure.md:1
 msgid "Configuring the Layout Control options"
 msgstr "Configurer les options de contrôle de mise en page"
@@ -9363,7 +9454,7 @@ msgid "{appname} is translated into the following languages:"
 msgstr "{appname} est traduit dans les langues suivantes :"
 
 #. NOTE: markdown formatting
-#: ../userguide/credits.md:93
+#: ../userguide/credits.md:97
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -9967,10 +10058,12 @@ msgstr ""
 "fermés puis les documents de l'autre session sont ouverts."
 
 #: ../userguide/sessions.md:10
+#, fuzzy
 msgid ""
-"Inside the session properties dialog, you can choose whether to always save "
-"the list of open documents to that session, or to only save on creation (or "
-"via {menu_session_save}). This can be useful if you want to keep the list of "
+"Inside the session properties dialog, you can specify a default directory "
+"for the session. You can also choose whether to always save the list of open "
+"documents to that session, or to only save on creation (or via "
+"{menu_session_save}). This can be useful if you want to keep the list of "
 "documents in session the same, even if you open or close documents while "
 "working."
 msgstr ""
@@ -9980,9 +10073,12 @@ msgstr ""
 "peut être utile si vous désirez garder une liste identique de fichiers dans "
 "une session, même si vous ouvrez ou fermez des documents en cours de travail."
 
-#: ../userguide/sessions.md:16
-msgid "You can also specify a default directory for the session."
-msgstr "Vous pouvez également définir un dossier par défaut pour la session."
+#: ../userguide/sessions.md:17
+msgid ""
+"Another way of backing up the state of the session is to use the import and "
+"export functionality in the session manager ({menu_session_manage}). In the "
+"session manager you can also add, edit or remove a session."
+msgstr ""
 
 #: ../userguide/troubleshooting.md:1
 msgid "Troubleshooting"
@@ -10266,6 +10362,19 @@ msgstr ""
 "Le nomre d'espaces à insérer quand une tabulation est entrée au milieu du "
 "texte, par défaut 8. Cette valeur est ignorée quand `document-tabs` est "
 "réglé sur {yes}."
+
+#~ msgid ""
+#~ "Can't write to destination:\n"
+#~ "\n"
+#~ "{url}"
+#~ msgstr ""
+#~ "Impossible d'écrire sur la cible :\n"
+#~ "\n"
+#~ "{url}"
+
+#~ msgid "You can also specify a default directory for the session."
+#~ msgstr ""
+#~ "Vous pouvez également définir un dossier par défaut pour la session."
 
 #~ msgid ""
 #~ "The *Publish mode* is used to produce the final PDF intented to be shared."
@@ -12771,9 +12880,6 @@ msgstr ""
 
 #~ msgid "Properties of this session"
 #~ msgstr "Propriétés de cette session"
-
-#~ msgid "Edit session: %1"
-#~ msgstr "Modifier la session %1"
 
 #~ msgid "Please do not use the name '%1'."
 #~ msgstr "N'utilisez pas le nom « %1 »."

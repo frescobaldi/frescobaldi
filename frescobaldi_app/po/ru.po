@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-07-08 11:58+0200\n"
+"POT-Creation-Date: 2014-09-06 21:08+0200\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -84,7 +84,7 @@ msgstr "Файлы LaTeX"
 msgid "DocBook Files"
 msgstr "Файлы DocBook"
 
-#: ../app.py:164
+#: ../app.py:164 ../convert_ly.py:253
 msgid "HTML Files"
 msgstr "Файлы HTML"
 
@@ -96,8 +96,9 @@ msgstr "Файлы Texinfo"
 msgid "Scheme Files"
 msgstr "Файлы Scheme"
 
-#: ../app.py:167 ../file_export/__init__.py:52 ../file_export/__init__.py:77
-#: ../file_import/__init__.py:47 ../snippet/widget.py:297
+#: ../app.py:167 ../convert_ly.py:253 ../file_export/__init__.py:52
+#: ../file_export/__init__.py:77 ../file_import/__init__.py:47
+#: ../sessions/dialog.py:92 ../sessions/dialog.py:113 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
 msgid "All Files"
@@ -162,19 +163,19 @@ msgstr ""
 msgid "&Jump to definition (unknown)"
 msgstr ""
 
-#: ../convert_ly.py:123
+#: ../convert_ly.py:128
 msgid "From version:"
 msgstr "От версии:"
 
-#: ../convert_ly.py:124
+#: ../convert_ly.py:129
 msgid "To version:"
 msgstr "До версии:"
 
-#: ../convert_ly.py:125
+#: ../convert_ly.py:130
 msgid "Save convert-ly messages in document"
 msgstr "Сохранить вывод convert-ly в документе"
 
-#: ../convert_ly.py:127
+#: ../convert_ly.py:132
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -182,45 +183,54 @@ msgstr ""
 "Если отмечено, сообщения convert-ly будут добавлены в комментарий в конце "
 "документа"
 
-#: ../convert_ly.py:129
+#: ../convert_ly.py:134
 msgid "&Messages"
 msgstr "Сообщения"
 
-#: ../convert_ly.py:130
+#: ../convert_ly.py:135
 msgid "&Changes"
 msgstr "Изменения:"
 
-#: ../convert_ly.py:131
+#: ../convert_ly.py:136
+msgid "&Diff"
+msgstr ""
+
+#: ../convert_ly.py:137
 msgid "Run Again"
 msgstr "Запустить снова"
 
-#: ../convert_ly.py:145 ../docbrowser/browser.py:158
+#: ../convert_ly.py:138
+#, fuzzy
+msgid "Save as file"
+msgstr "Сохранить"
+
+#: ../convert_ly.py:155 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:151 ../musicview/image.py:167
 msgid "<unknown>"
 msgstr "<неизвестно>"
 
-#: ../convert_ly.py:146
+#: ../convert_ly.py:156
 #, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly от версии LilyPond {version}"
 
-#: ../convert_ly.py:162 ../externalchanges/widget.py:269
+#: ../convert_ly.py:173 ../convert_ly.py:182 ../externalchanges/widget.py:269
 msgid "Current Document"
 msgstr "Текущий файл"
 
-#: ../convert_ly.py:162
+#: ../convert_ly.py:173 ../convert_ly.py:182
 msgid "Converted Document"
 msgstr "Конвертированный файл"
 
-#: ../convert_ly.py:174
+#: ../convert_ly.py:195
 msgid "(set in document)"
 msgstr "(установлена в файле)"
 
-#: ../convert_ly.py:187
+#: ../convert_ly.py:209
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Нужно установить и версию «с» и «до»"
 
-#: ../convert_ly.py:215
+#: ../convert_ly.py:237
 #, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -231,9 +241,19 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:221
+#: ../convert_ly.py:244
 msgid "The document has not been changed."
 msgstr "Файл не изменен"
+
+#: ../convert_ly.py:252 ../mainwindow.py:482
+msgctxt "dialog title"
+msgid "Save File"
+msgstr "Сохранить"
+
+#: ../convert_ly.py:253
+#, fuzzy
+msgid "Text Files"
+msgstr "Файлы Texinfo"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
@@ -243,11 +263,11 @@ msgstr "Создать переменную"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Введите имя переменной, которая будет содержать выделенный текст:"
 
-#: ../document.py:158 ../doclist/widget.py:134 ../snippet/edit.py:171
+#: ../document.py:150 ../doclist/widget.py:134 ../snippet/edit.py:171
 msgid "Untitled"
 msgstr "Без имени"
 
-#: ../document.py:160
+#: ../document.py:152
 #, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Без имени ({num})"
@@ -312,20 +332,20 @@ msgstr "Динамика"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1081
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1091
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "Сохранить"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1082
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1092
 msgid "Save &As..."
 msgstr "Сохранить как..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1092
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1102
 msgid "&Close"
 msgstr "Закрыть"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1093
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1103
 msgid "Close Other Documents"
 msgstr "Закрыть другие файлы"
 
@@ -388,14 +408,14 @@ msgid "Typewriter Font:"
 msgstr "Моноширинный шрифт:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:107 ../mainwindow.py:451 ../mainwindow.py:460
-#: ../mainwindow.py:485 ../mainwindow.py:536 ../mainwindow.py:634
-#: ../mainwindow.py:689 ../externalchanges/widget.py:243
+#: ../helpers.py:107 ../mainwindow.py:460 ../mainwindow.py:542
+#: ../mainwindow.py:643 ../mainwindow.py:700 ../externalchanges/widget.py:243
 #: ../file_export/__init__.py:67 ../file_import/__init__.py:73
 #: ../musicview/image.py:214 ../preferences/fontscolors.py:272
 #: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:538
 #: ../preferences/import_export.py:91 ../preferences/import_export.py:174
-#: ../preferences/shortcuts.py:206 ../snippet/import_export.py:105
+#: ../preferences/shortcuts.py:206 ../sessions/dialog.py:107
+#: ../sessions/dialog.py:128 ../snippet/import_export.py:105
 #: ../snippet/widget.py:324
 msgid "Error"
 msgstr "Ошибка"
@@ -571,8 +591,8 @@ msgstr "Файл \"{name}\" был изменён. Сохранить измен
 msgid "Tab Bar"
 msgstr "Вкладки документов"
 
-#: ../mainwindow.py:377 ../sessions/dialog.py:171 ../sessions/dialog.py:179
-#: ../sessions/dialog.py:185
+#: ../mainwindow.py:377 ../sessions/dialog.py:293 ../sessions/dialog.py:301
+#: ../sessions/dialog.py:307
 msgid "Warning"
 msgstr "Предупреждение"
 
@@ -591,52 +611,38 @@ msgctxt "dialog title"
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: ../mainwindow.py:452 ../mainwindow.py:461 ../mainwindow.py:486
+#: ../mainwindow.py:456 ../mainwindow.py:538 ../mainwindow.py:639
+#: ../mainwindow.py:696 ../sessions/dialog.py:103 ../sessions/dialog.py:124
 #, python-brace-format
 msgid ""
-"Can't write to destination:\n"
+"{message}\n"
 "\n"
-"{url}"
+"{strerror} ({errno})"
 msgstr ""
-"Невозможно записать файл\n"
+
+#: ../mainwindow.py:457 ../mainwindow.py:539 ../sessions/dialog.py:125
+#, fuzzy, python-brace-format
+msgid "Could not write to: {url}"
+msgstr ""
+"Невозможно загрузить удалённый файл\n"
 "{url}"
 
-#: ../mainwindow.py:480
-msgctxt "dialog title"
-msgid "Save File"
-msgstr "Сохранить"
-
-#: ../mainwindow.py:520
+#: ../mainwindow.py:522
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Сохранить копию"
 
-#: ../mainwindow.py:526
+#: ../mainwindow.py:528
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Сохранить выделенное"
 
-#: ../mainwindow.py:537 ../mainwindow.py:690 ../file_export/__init__.py:68
-#: ../preferences/fontscolors.py:273 ../preferences/shortcuts.py:207
-#: ../snippet/widget.py:325
-#, python-brace-format
-msgid ""
-"Can't write to destination:\n"
-"\n"
-"{url}\n"
-"\n"
-"{error}"
-msgstr ""
-"Невозможно записать файл\n"
-"{url}\n"
-"{error}"
-
-#: ../mainwindow.py:551 ../mainwindow.py:565 ../externalchanges/widget.py:103
+#: ../mainwindow.py:555 ../mainwindow.py:569 ../externalchanges/widget.py:103
 #, fuzzy
 msgid "Reload"
 msgstr "Запись"
 
-#: ../mainwindow.py:552
+#: ../mainwindow.py:556
 #, fuzzy, python-brace-format
 msgid ""
 "Could not reload the document:\n"
@@ -646,44 +652,37 @@ msgstr ""
 "Невозможно загрузить удалённый файл\n"
 "{url}"
 
-#: ../mainwindow.py:562
+#: ../mainwindow.py:566
 #, fuzzy
 msgid "Some documents could not be reloaded."
 msgstr "Файл не изменен"
 
-#: ../mainwindow.py:564
+#: ../mainwindow.py:568
 msgid "No document could be reloaded."
 msgstr ""
 
-#: ../mainwindow.py:627
+#: ../mainwindow.py:631
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Добавить из файла"
 
-#: ../mainwindow.py:635 ../preferences/import_export.py:92
-#: ../preferences/import_export.py:175 ../snippet/import_export.py:106
-#, python-brace-format
-msgid ""
-"Can't read from source:\n"
-"\n"
-"{url}\n"
-"\n"
-"{error}"
+#: ../mainwindow.py:640 ../mainwindow.py:697 ../sessions/dialog.py:104
+#, fuzzy, python-brace-format
+msgid "Could not read from: {url}"
 msgstr ""
-"Невозможно прочитать файл:\n"
-"{url}\n"
-"{error}"
+"Невозможно загрузить удалённый файл\n"
+"{url}"
 
-#: ../mainwindow.py:651
+#: ../mainwindow.py:658
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Печать исходного кода"
 
-#: ../mainwindow.py:677
+#: ../mainwindow.py:684
 msgid "Export as HTML"
 msgstr "Экспоритровать в HTML"
 
-#: ../mainwindow.py:814
+#: ../mainwindow.py:824
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -695,198 +694,198 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:928
+#: ../mainwindow.py:938
 msgid "Main Toolbar"
 msgstr "Основная панель"
 
-#: ../mainwindow.py:929
+#: ../mainwindow.py:939
 msgid "Music View Toolbar"
 msgstr "Панель предпросмотра"
 
-#: ../mainwindow.py:1075 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1085 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Создать"
 
-#: ../mainwindow.py:1076 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1086 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "Открыть..."
 
-#: ../mainwindow.py:1077 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1087 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Предыдущие"
 
-#: ../mainwindow.py:1078
+#: ../mainwindow.py:1088
 msgid "Insert from &File..."
 msgstr "Добавить из файла..."
 
-#: ../mainwindow.py:1079
+#: ../mainwindow.py:1089
 msgid "Open Current Directory"
 msgstr "Открыть текущий каталог"
 
-#: ../mainwindow.py:1080
+#: ../mainwindow.py:1090
 msgid "Open Command Prompt"
 msgstr "Открыть командную строку"
 
-#: ../mainwindow.py:1083
+#: ../mainwindow.py:1093
 msgid "Save Copy or Selection As..."
 msgstr "Сохранить копию или выделенное как..."
 
-#: ../mainwindow.py:1084 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1094 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Сохранить все"
 
-#: ../mainwindow.py:1085
+#: ../mainwindow.py:1095
 #, fuzzy
 msgid "Re&load"
 msgstr "Запись"
 
-#: ../mainwindow.py:1086 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1096 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Запись"
 
-#: ../mainwindow.py:1087
+#: ../mainwindow.py:1097
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1089
+#: ../mainwindow.py:1099
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1091
+#: ../mainwindow.py:1101
 msgid "Print Source..."
 msgstr "Печать исходного кода..."
 
-#: ../mainwindow.py:1094
+#: ../mainwindow.py:1104
 msgid "Close All Documents"
 msgstr "Закрыть все файлы"
 
-#: ../mainwindow.py:1095
+#: ../mainwindow.py:1105
 msgid "Closes all documents and leaves the current session."
 msgstr "Закрыть все файлы и завершить сеанс"
 
-#: ../mainwindow.py:1096 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1106 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "Выход"
 
-#: ../mainwindow.py:1097
+#: ../mainwindow.py:1107
 #, fuzzy, python-brace-format
 msgid "Restart {appname}"
 msgstr "О {appname}"
 
-#: ../mainwindow.py:1099
+#: ../mainwindow.py:1109
 msgid "Export Source as Colored &HTML..."
 msgstr "Экспортировать в цветной HTML..."
 
-#: ../mainwindow.py:1101
+#: ../mainwindow.py:1111
 msgid "&Undo"
 msgstr "Отменить"
 
-#: ../mainwindow.py:1102
+#: ../mainwindow.py:1112
 msgid "Re&do"
 msgstr "Повторить"
 
-#: ../mainwindow.py:1103
+#: ../mainwindow.py:1113
 msgid "Cu&t"
 msgstr "Вырезать"
 
-#: ../mainwindow.py:1104 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1114 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Копировать"
 
-#: ../mainwindow.py:1105
+#: ../mainwindow.py:1115
 msgid "Copy as Colored &HTML"
 msgstr "Скопировать как цветной HTML"
 
-#: ../mainwindow.py:1106
+#: ../mainwindow.py:1116
 msgid "&Paste"
 msgstr "Вставить"
 
-#: ../mainwindow.py:1107
+#: ../mainwindow.py:1117
 msgid "Select &All"
 msgstr "Выделить все"
 
-#: ../mainwindow.py:1108
+#: ../mainwindow.py:1118
 msgid "Select &Block"
 msgstr "Выделить блок"
 
-#: ../mainwindow.py:1109
+#: ../mainwindow.py:1119
 msgid "Select &None"
 msgstr "Снять выделение"
 
-#: ../mainwindow.py:1110
+#: ../mainwindow.py:1120
 msgid "Select Whole Lines Up"
 msgstr "Выделить строки выше"
 
-#: ../mainwindow.py:1111
+#: ../mainwindow.py:1121
 msgid "Select Whole Lines Down"
 msgstr "Выделить строки ниже"
 
-#: ../mainwindow.py:1112
+#: ../mainwindow.py:1122
 msgid "&Find..."
 msgstr "Найти..."
 
-#: ../mainwindow.py:1113
+#: ../mainwindow.py:1123
 msgid "Find Ne&xt"
 msgstr "Найти далее"
 
-#: ../mainwindow.py:1114
+#: ../mainwindow.py:1124
 msgid "Find Pre&vious"
 msgstr "Найти предыдущий"
 
-#: ../mainwindow.py:1115
+#: ../mainwindow.py:1125
 msgid "&Replace..."
 msgstr "Заменить..."
 
-#: ../mainwindow.py:1116 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1126 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Настройки..."
 
-#: ../mainwindow.py:1118
+#: ../mainwindow.py:1128
 msgid "&Next Document"
 msgstr "&Следующий файл"
 
-#: ../mainwindow.py:1119
+#: ../mainwindow.py:1129
 msgid "&Previous Document"
 msgstr "&Предыдущий файл"
 
-#: ../mainwindow.py:1120
+#: ../mainwindow.py:1130
 #, fuzzy
 msgid "Wrap &Lines"
 msgstr "Тактовые черты"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1131
 msgid "Scroll Up"
 msgstr "Вверх"
 
-#: ../mainwindow.py:1122
+#: ../mainwindow.py:1132
 msgid "Scroll Down"
 msgstr "Вниз"
 
-#: ../mainwindow.py:1124 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1134 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Новое окно"
 
-#: ../mainwindow.py:1125
+#: ../mainwindow.py:1135
 msgid "&Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: ../mainwindow.py:1127
+#: ../mainwindow.py:1137
 msgid "&User Guide"
 msgstr "Руководство пользователя"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1138
 msgid "&What's This?"
 msgstr "Что это такое?"
 
-#: ../mainwindow.py:1129
+#: ../mainwindow.py:1139
 msgid "Report a &Bug..."
 msgstr "Сообщить об ошибке..."
 
-#: ../mainwindow.py:1130 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1140 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "О {appname}..."
@@ -1237,87 +1236,87 @@ msgstr "Набрать"
 msgid "Show Available &Fonts..."
 msgstr "Доступные инструменты:"
 
-#: ../engrave/custom.py:133
+#: ../engrave/custom.py:134
 msgid "Engrave custom"
 msgstr "Особые настройки набора"
 
-#: ../engrave/custom.py:134
+#: ../engrave/custom.py:135
 msgid "LilyPond Version:"
 msgstr "Версия LilyPond:"
 
-#: ../engrave/custom.py:135
+#: ../engrave/custom.py:136
 msgid "Output Format:"
 msgstr "Выходной формат:"
 
-#: ../engrave/custom.py:136 ../preferences/helpers.py:160
+#: ../engrave/custom.py:137 ../preferences/helpers.py:160
 msgid "Resolution:"
 msgstr "Разрешение:"
 
-#: ../engrave/custom.py:137
+#: ../engrave/custom.py:138
 #, fuzzy
 msgid "Antialias Factor:"
 msgstr "Сглаживание"
 
-#: ../engrave/custom.py:138
+#: ../engrave/custom.py:139
 #, fuzzy
 msgid "Engraving mode:"
 msgstr "Остановить набор"
 
-#: ../engrave/custom.py:139 ../scorewiz/dialog.py:83
+#: ../engrave/custom.py:140 ../scorewiz/dialog.py:83
 msgid "Preview"
 msgstr "Предпросмотр"
 
-#: ../engrave/custom.py:140
+#: ../engrave/custom.py:141
 #, fuzzy
 msgid "Publish"
 msgstr "режим публикации"
 
-#: ../engrave/custom.py:141
+#: ../engrave/custom.py:142
 #, fuzzy
 msgid "Layout Control"
 msgstr "Настройки редактора"
 
-#: ../engrave/custom.py:142 ../preferences/lilypond.py:295
+#: ../engrave/custom.py:143 ../preferences/lilypond.py:295
 msgid "Run LilyPond with English messages"
 msgstr "Запускать LilyPond с английскими сообщениями"
 
-#: ../engrave/custom.py:143 ../preferences/lilypond.py:292
+#: ../engrave/custom.py:144 ../preferences/lilypond.py:292
 msgid "Delete intermediate output files"
 msgstr "Удалить промежуточные файлы."
 
-#: ../engrave/custom.py:144 ../file_import/musicxml.py:176
+#: ../engrave/custom.py:145 ../file_import/musicxml.py:182
 msgid "Command line:"
 msgstr "Командная строка:"
 
-#: ../engrave/custom.py:145
+#: ../engrave/custom.py:146
 msgid "Run LilyPond"
 msgstr "Запустить LilyPond"
 
-#: ../engrave/custom.py:217 ../preferences/lilypond.py:337
+#: ../engrave/custom.py:219 ../preferences/lilypond.py:337
 msgid "PDF"
 msgstr ""
 
-#: ../engrave/custom.py:223
+#: ../engrave/custom.py:225
 msgid "PostScript"
 msgstr ""
 
-#: ../engrave/custom.py:229
+#: ../engrave/custom.py:231
 msgid "PNG"
 msgstr ""
 
-#: ../engrave/custom.py:239 ../preferences/lilypond.py:340
+#: ../engrave/custom.py:241 ../preferences/lilypond.py:340
 msgid "SVG"
 msgstr ""
 
-#: ../engrave/custom.py:245
+#: ../engrave/custom.py:247
 msgid "PDF (EPS Backend)"
 msgstr "PDF (EPS)"
 
-#: ../engrave/custom.py:251
+#: ../engrave/custom.py:253
 msgid "Encapsulated PostScript (EPS Backend)"
 msgstr ""
 
-#: ../engrave/custom.py:257
+#: ../engrave/custom.py:259
 msgid "PNG (EPS Backend)"
 msgstr "PNG (EPS)"
 
@@ -1454,6 +1453,20 @@ msgstr "Экспоритровать в HTML"
 msgid "XML Files"
 msgstr "Файлы XML"
 
+#: ../file_export/__init__.py:68 ../preferences/fontscolors.py:273
+#: ../preferences/shortcuts.py:207 ../snippet/widget.py:325
+#, python-brace-format
+msgid ""
+"Can't write to destination:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
+msgstr ""
+"Невозможно записать файл\n"
+"{url}\n"
+"{error}"
+
 #: ../file_export/__init__.py:76
 #, fuzzy
 msgctxt "dialog title"
@@ -1501,40 +1514,44 @@ msgstr "Напечатать музыку..."
 msgid "Import a MusicXML file using musicxml2ly."
 msgstr ""
 
-#: ../file_import/musicxml.py:170 ../userguide/musicxml_import.md:1
+#: ../file_import/musicxml.py:175 ../userguide/musicxml_import.md:1
 #, fuzzy
 msgid "Import Music XML"
 msgstr "Экспоритровать в HTML"
 
-#: ../file_import/musicxml.py:171 ../userguide/musicxml_import.md:16
+#: ../file_import/musicxml.py:176 ../userguide/musicxml_import.md:16
 #, fuzzy
 msgid "Import articulation directions"
 msgstr "Удалить длительности"
 
-#: ../file_import/musicxml.py:172 ../userguide/musicxml_import.md:17
+#: ../file_import/musicxml.py:177 ../userguide/musicxml_import.md:17
 #, fuzzy
 msgid "Import rest positions"
 msgstr "Перейти к позиции курсора"
 
-#: ../file_import/musicxml.py:173 ../userguide/musicxml_import.md:18
+#: ../file_import/musicxml.py:178 ../userguide/musicxml_import.md:18
 #, fuzzy
 msgid "Import page layout"
 msgstr "Импортировать сниппеты"
 
-#: ../file_import/musicxml.py:174 ../userguide/musicxml_import.md:19
+#: ../file_import/musicxml.py:179 ../userguide/musicxml_import.md:19
 #, fuzzy
 msgid "Import beaming"
 msgstr "Импортировать сниппеты"
 
-#: ../file_import/musicxml.py:175 ../userguide/musicxml_import.md:20
+#: ../file_import/musicxml.py:180 ../userguide/musicxml_import.md:20
 msgid "Pitches in absolute mode"
 msgstr ""
 
-#: ../file_import/musicxml.py:178 ../userguide/musicxml_import.md:21
+#: ../file_import/musicxml.py:181
+msgid "Comment out midi block"
+msgstr ""
+
+#: ../file_import/musicxml.py:184 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
 msgstr ""
 
-#: ../file_import/musicxml.py:179 ../preferences/documentation.py:120
+#: ../file_import/musicxml.py:185 ../preferences/documentation.py:120
 #: ../preferences/general.py:132 ../preferences/tools.py:298
 #: ../scorewiz/settings.py:143 ../scorewiz/settings.py:211
 #: ../scorewiz/settings.py:306 ../scorewiz/parts/_base.py:218
@@ -1542,26 +1559,26 @@ msgstr ""
 msgid "Default"
 msgstr "По умолчанию"
 
-#: ../file_import/musicxml.py:180
+#: ../file_import/musicxml.py:186
 msgid "Reformat source"
 msgstr ""
 
-#: ../file_import/musicxml.py:181
+#: ../file_import/musicxml.py:187
 #, fuzzy
 msgid "Trim durations (Make implicit per line)"
 msgstr "Сделать длительности неявными (по строкам)"
 
-#: ../file_import/musicxml.py:182
+#: ../file_import/musicxml.py:188
 #, fuzzy
 msgid "Remove fraction duration scaling"
 msgstr "Удалить длительности"
 
-#: ../file_import/musicxml.py:183
+#: ../file_import/musicxml.py:189
 #, fuzzy
 msgid "Engrave directly"
 msgstr "Особые настройки набора"
 
-#: ../file_import/musicxml.py:185
+#: ../file_import/musicxml.py:191
 msgid "Run musicxml2ly"
 msgstr ""
 
@@ -4022,6 +4039,20 @@ msgstr "Сессия, если Frescobaldi запущен без аргумен�
 msgid "No theme found."
 msgstr "Сниппеты не найдены."
 
+#: ../preferences/import_export.py:92 ../preferences/import_export.py:175
+#: ../snippet/import_export.py:106
+#, python-brace-format
+msgid ""
+"Can't read from source:\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
+msgstr ""
+"Невозможно прочитать файл:\n"
+"{url}\n"
+"{error}"
+
 #: ../preferences/import_export.py:172
 #, fuzzy
 msgid "No shortcuts found."
@@ -6446,41 +6477,84 @@ msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr "Заменить все вхождения в файле или выделенном"
 
-#: ../sessions/dialog.py:43
+#: ../sessions/dialog.py:76
 msgid "Manage Sessions"
 msgstr "Управление сессиями"
 
-#: ../sessions/dialog.py:115
+#: ../sessions/dialog.py:77 ../snippet/widget.py:195
+#: ../widgets/schemeselector.py:96
+msgid "&Import..."
+msgstr "Импорт"
+
+#: ../sessions/dialog.py:78
+msgid "Opens a dialog to import a session from a file."
+msgstr ""
+
+#: ../sessions/dialog.py:79 ../snippet/widget.py:197
+msgid "E&xport..."
+msgstr "Экспорт"
+
+#: ../sessions/dialog.py:80
+msgid "Opens a dialog to export a session to a file."
+msgstr ""
+
+#: ../sessions/dialog.py:81
+msgid "&Activate"
+msgstr ""
+
+#: ../sessions/dialog.py:82
+#, fuzzy
+msgid "Switches to the selected session."
+msgstr "Копировать ритм выделенной музыки."
+
+#: ../sessions/dialog.py:92 ../sessions/dialog.py:113
+#, fuzzy
+msgid "JSON Files"
+msgstr "Файлы Scheme"
+
+#: ../sessions/dialog.py:93
+#, fuzzy
+msgctxt "dialog title"
+msgid "Import session"
+msgstr "Перейти к позиции курсора"
+
+#: ../sessions/dialog.py:112
+#, fuzzy
+msgctxt "dialog title"
+msgid "Export session"
+msgstr "Редактирование новой сессии"
+
+#: ../sessions/dialog.py:237
 msgid "Name:"
 msgstr "Имя:"
 
-#: ../sessions/dialog.py:116
+#: ../sessions/dialog.py:238
 msgid "Always save the list of documents in this session"
 msgstr "Всегда сохранять список документов в этой сессии"
 
-#: ../sessions/dialog.py:117
+#: ../sessions/dialog.py:239
 msgid "Base directory:"
 msgstr "Базовый каталог:"
 
-#: ../sessions/dialog.py:139
+#: ../sessions/dialog.py:261
 #, python-brace-format
 msgid "Edit session: {name}"
 msgstr "Редактирование сессии: {name}"
 
-#: ../sessions/dialog.py:143
+#: ../sessions/dialog.py:265
 msgid "Edit new session"
 msgstr "Редактирование новой сессии"
 
-#: ../sessions/dialog.py:172
+#: ../sessions/dialog.py:294
 msgid "Please enter a session name."
 msgstr "Введите имя сессии."
 
-#: ../sessions/dialog.py:180
+#: ../sessions/dialog.py:302
 #, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr "Не используйте имя '{name}'."
 
-#: ../sessions/dialog.py:186
+#: ../sessions/dialog.py:308
 #, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
@@ -6491,7 +6565,7 @@ msgstr ""
 "\n"
 "Перезаписать?"
 
-#: ../sessions/dialog.py:189
+#: ../sessions/dialog.py:311
 msgid "Overwrite"
 msgstr "Перезаписать"
 
@@ -6926,17 +7000,9 @@ msgstr "Применить"
 msgid "Apply the current snippet."
 msgstr "Применить выбранный сниппет."
 
-#: ../snippet/widget.py:195 ../widgets/schemeselector.py:96
-msgid "&Import..."
-msgstr "Импорт"
-
 #: ../snippet/widget.py:196
 msgid "Import snippets from a file."
 msgstr "Импортировать сниппеты из файла."
-
-#: ../snippet/widget.py:197
-msgid "E&xport..."
-msgstr "Экспорт"
 
 #: ../snippet/widget.py:198
 msgid "Export snippets to a file."
@@ -7969,6 +8035,30 @@ msgid ""
 "beginning sets up the instruments again."
 msgstr ""
 
+#: ../userguide/midi_synth.md:1
+msgid "Playing a MIDI file does not work"
+msgstr ""
+
+#: ../userguide/midi_synth.md:3
+msgid ""
+"The built-in MIDI player needs an external synthesizer to make the MIDI "
+"audible, otherwise it will play the file silently, only showing the \"No "
+"Output Found!\" message."
+msgstr ""
+
+#: ../userguide/midi_synth.md:7
+msgid ""
+"So make sure either a software synthesizer like TiMidity or FluidSynth is "
+"running (preferably at bootup or session login), or you have an external "
+"MIDI synthesizer connected to your computer."
+msgstr ""
+
+#: ../userguide/midi_synth.md:11
+msgid ""
+"In the {midi_prefs} you can configure which MIDI port you want to use for "
+"playing the MIDI files."
+msgstr ""
+
 #: ../userguide/engrave_layout_configure.md:1
 #, fuzzy
 msgid "Configuring the Layout Control options"
@@ -8849,7 +8939,7 @@ msgid "{appname} is translated into the following languages:"
 msgstr "Для {appname} доступны следующие языки:"
 
 #. NOTE: markdown formatting
-#: ../userguide/credits.md:93
+#: ../userguide/credits.md:97
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -9316,15 +9406,19 @@ msgstr ""
 
 #: ../userguide/sessions.md:10
 msgid ""
-"Inside the session properties dialog, you can choose whether to always save "
-"the list of open documents to that session, or to only save on creation (or "
-"via {menu_session_save}). This can be useful if you want to keep the list of "
+"Inside the session properties dialog, you can specify a default directory "
+"for the session. You can also choose whether to always save the list of open "
+"documents to that session, or to only save on creation (or via "
+"{menu_session_save}). This can be useful if you want to keep the list of "
 "documents in session the same, even if you open or close documents while "
 "working."
 msgstr ""
 
-#: ../userguide/sessions.md:16
-msgid "You can also specify a default directory for the session."
+#: ../userguide/sessions.md:17
+msgid ""
+"Another way of backing up the state of the session is to use the import and "
+"export functionality in the session manager ({menu_session_manage}). In the "
+"session manager you can also add, edit or remove a session."
 msgstr ""
 
 #: ../userguide/troubleshooting.md:1
@@ -9555,6 +9649,14 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#~ msgid ""
+#~ "Can't write to destination:\n"
+#~ "\n"
+#~ "{url}"
+#~ msgstr ""
+#~ "Невозможно записать файл\n"
+#~ "{url}"
 
 #~ msgid "Staff Size:"
 #~ msgstr "Размер стана:"
