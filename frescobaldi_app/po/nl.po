@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2014-09-06 21:08+0200\n"
-"PO-Revision-Date: 2014-09-06 21:15+0200\n"
+"PO-Revision-Date: 2014-09-06 21:17+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -184,16 +184,15 @@ msgstr "&Wijzigingen"
 
 #: ../convert_ly.py:136
 msgid "&Diff"
-msgstr ""
+msgstr "&Verschil"
 
 #: ../convert_ly.py:137
 msgid "Run Again"
 msgstr "Opnieuw uitvoeren"
 
 #: ../convert_ly.py:138
-#, fuzzy
 msgid "Save as file"
-msgstr "Bestand openen"
+msgstr "Opslaan als bestand"
 
 #: ../convert_ly.py:155 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:151 ../musicview/image.py:167
@@ -242,9 +241,8 @@ msgid "Save File"
 msgstr "Bestand opslaan"
 
 #: ../convert_ly.py:253
-#, fuzzy
 msgid "Text Files"
-msgstr "Texinfo-bestanden"
+msgstr "Tekstbestanden"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
@@ -604,14 +602,14 @@ msgid ""
 "\n"
 "{strerror} ({errno})"
 msgstr ""
+"{message}\n"
+"\n"
+"{strerror} ({errno})"
 
 #: ../mainwindow.py:457 ../mainwindow.py:539 ../sessions/dialog.py:125
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not write to: {url}"
-msgstr ""
-"Kan document niet herladen:\n"
-"\n"
-"{url}"
+msgstr "Kan niet schrijven naar: {url}"
 
 #: ../mainwindow.py:522
 msgctxt "dialog title"
@@ -652,12 +650,9 @@ msgid "Insert From File"
 msgstr "Invoegen uit bestand"
 
 #: ../mainwindow.py:640 ../mainwindow.py:697 ../sessions/dialog.py:104
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not read from: {url}"
-msgstr ""
-"Kan document niet herladen:\n"
-"\n"
-"{url}"
+msgstr "Kan niet lezen van: {url}"
 
 #: ../mainwindow.py:658
 msgctxt "dialog title"
