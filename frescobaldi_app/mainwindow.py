@@ -436,22 +436,39 @@ class MainWindow(QMainWindow):
         if docs:
             self.setCurrentDocument(docs[-1])
         
-    def saveDocument(self, doc):
+    def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
         
+        If save_as is True, a name is always asked.
         Returns True if saving succeeded.
         
         """
-        if doc.url().isEmpty():
-            return self.saveDocumentAs(doc)
-        # we only support local files for now
-        filename = doc.url().toLocalFile()
+        if save_as or doc.url().isEmpty():
+            filename = doc.url().toLocalFile()
+            if filename:
+                filetypes = app.filetypes(os.path.splitext(filename)[1])
+            else:
+                filename = app.basedir() # default directory to save to
+                import documentinfo
+                import ly.lex
+                filetypes = app.filetypes(ly.lex.extensions[documentinfo.mode(doc)])
+            caption = app.caption(_("dialog title", "Save File"))
+            filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
+            if not filename:
+                return False # cancelled
+            url = QUrl.fromLocalFile(filename)
+        else:
+            url = doc.url()
+        
         if QSettings().value("strip_trailing_whitespace", False, bool):
             import reformat
             reformat.remove_trailing_whitespace(QTextCursor(doc))
+
+        # we only support local files for now
+        filename = url.toLocalFile()
         b = backup.backup(filename)
         try:
-            doc.save()
+            doc.save(url)
         except IOError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
                 message = _("Could not write to: {url}").format(url=filename),
@@ -471,26 +488,7 @@ class MainWindow(QMainWindow):
         Returns True if saving succeeded, False if it failed or was cancelled.
         
         """
-        filename = doc.url().toLocalFile()
-        if filename:
-            filetypes = app.filetypes(os.path.splitext(filename)[1])
-        else:
-            filename = app.basedir() # default directory to save to
-            import documentinfo
-            import ly.lex
-            filetypes = app.filetypes(ly.lex.extensions[documentinfo.mode(doc)])
-        caption = app.caption(_("dialog title", "Save File"))
-        filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
-        if not filename:
-            return False # cancelled
-        oldurl = doc.url()
-        doc.setUrl(QUrl.fromLocalFile(filename))
-        # if saving under the new name failed, put the old name back if it had one
-        if not self.saveDocument(doc):
-            if oldurl.toLocalFile() and oldurl.toLocalFile() != filename:
-                doc.setUrl(oldurl)
-            return False
-        return True
+        return self.saveDocument(doc, True)
         
     def closeDocument(self, doc):
         """ Closes the document, asking for saving if modified.
@@ -551,7 +549,7 @@ class MainWindow(QMainWindow):
         
         """
         d = self.currentDocument()
-        if d.load(True) is False:
+        if d.load(keepUndo=True) is False:
             QMessageBox.warning(self, app.caption(_("Reload")),
               _("Could not reload the document:\n\n{url}").format(
                 url = d.url().toString()))
@@ -560,7 +558,7 @@ class MainWindow(QMainWindow):
         """Reloads all documents."""
         success = []
         for d in self.historyManager.documents():
-            success.append(d.load(True))
+            success.append(d.load(keepUndo=True))
         if False in success:
             if True in success:
                 msg = _("Some documents could not be reloaded.")

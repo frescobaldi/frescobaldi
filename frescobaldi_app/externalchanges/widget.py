@@ -215,12 +215,12 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
     def slotButtonReload(self):
         """Called when the user clicks Reload."""
         for d in self.selectedDocuments():
-            d.load(True)
+            d.load(keepUndo=True)
         
     def slotButtonReloadAll(self):
         """Called when the user clicks Reload All."""
         for d in self.allDocuments():
-            d.load(True)
+            d.load(keepUndo=True)
     
     def slotButtonSave(self):
         """Called when the user clicks Save."""
