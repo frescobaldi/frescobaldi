@@ -136,7 +136,7 @@ class SnippetActions(actioncollection.ShortcutCollection):
     def realAction(self, name):
         from . import actions, model
         if name in model.model().names():
-            return actions.action(name)
+            return actions.action(name, None, self)
     
     def triggerAction(self, name):
         from . import insert, model
