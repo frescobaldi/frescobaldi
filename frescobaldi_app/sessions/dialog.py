@@ -160,6 +160,9 @@ class SessionList(widgets.listedit.ListEdit):
             elif key != 'name':
                 session.setValue(key, data[key])
 		self.load()
+        names = sessions.sessionNames()
+        if name in names:
+            self.setCurrentRow(names.index(name))
         
     def exportItem(self):
         """Implement exporting the currently selected session item to a dict.
