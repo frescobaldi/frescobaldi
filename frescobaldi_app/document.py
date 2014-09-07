@@ -50,9 +50,9 @@ class Document(QTextDocument):
         self._url = url # avoid urlChanged on init
         self.setUrl(url)
         self.modificationChanged.connect(self.slotModificationChanged)
+        self.load()
         app.documents.append(self)
         app.documentCreated(self)
-        self.load()
         
     def slotModificationChanged(self):
         app.documentModificationChanged(self)
