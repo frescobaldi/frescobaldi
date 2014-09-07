@@ -214,13 +214,11 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
     
     def slotButtonReload(self):
         """Called when the user clicks Reload."""
-        for d in self.selectedDocuments():
-            d.load(keepUndo=True)
+        self.reloadDocuments(self.selectedDocuments())
         
     def slotButtonReloadAll(self):
         """Called when the user clicks Reload All."""
-        for d in self.allDocuments():
-            d.load(keepUndo=True)
+        self.reloadDocuments(self.allDocuments())
     
     def slotButtonSave(self):
         """Called when the user clicks Save."""
@@ -230,21 +228,40 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         """Called when the user clicks Save All."""
         self.saveDocuments(self.allDocuments())
     
+    def reloadDocuments(self, documents):
+        """Used by slotButtonReload and slotButtonReloadAll."""
+        failures = []
+        for d in documents:
+            try:
+                d.load(keepUndo=True)
+            except IOError as e:
+                failures.append((d, e))
+        if failures:
+            msg = _("Could not reload:") + "\n\n" + "\n".join(
+                "{url}: {strerror} ({errno})".format(
+                    url = d.url().toLocalFile(),
+                    strerror = e.strerror,
+                    errno = e.errno) for d, e in failures)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
+
     def saveDocuments(self, documents):
         """Used by slotButtonSave and slotButtonSaveAll."""
-        results = [d.save() for d in documents]
-        if False in results:
-            if len(documents) == 1:
-                msg = _("The document could not be saved.")
-            elif results.count(False) == 1:
-                msg = _("One document could not be saved.")
-            else:
-                msg = _("Some documents could not be saved.")
-            QMessageBox.warning(self, app.caption(_("Error")), "\n".join((msg,
-            _("Maybe the directory does not exist anymore."),
+        failures = []
+        for d in documents:
+            try:
+                d.save()
+            except IOError as e:
+                failures.append((d, e))
+        if failures:
+            msg = _("Could not save:") + "\n\n" + "\n".join(
+                "{url}: {strerror} ({errno})".format(
+                    url = d.url().toLocalFile(),
+                    strerror = e.strerror,
+                    errno = e.errno) for d, e in failures) + "\n\n" +
             _("Please save the document using the \"Save As...\" dialog.",
               "Please save the documents using the \"Save As...\" dialog.",
-              results.count(False)))))
+              len(failures))
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
         
     def slotButtonShowDiff(self):
         """Called when the user clicks Show Difference."""
