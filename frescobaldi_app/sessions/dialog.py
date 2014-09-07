@@ -173,7 +173,7 @@ class SessionList(widgets.listedit.ListEdit):
                 session.setValue("urls", urls)
             elif key != 'name':
                 session.setValue(key, data[key])
-		self.load()
+        self.load()
         names = sessions.sessionNames()
         if name in names:
             self.setCurrentRow(names.index(name))
@@ -188,13 +188,13 @@ class SessionList(widgets.listedit.ListEdit):
         item = self.listBox.currentItem()
         s = sessions.sessionGroup(item.text())
         for key in s.allKeys():
-			if key == 'urls':
-				urls = []
-				for u in s.value(key):
-					urls.append(u.toString())
-				jsondict[key] = urls 
-			else:
-				jsondict[key] = s.value(key)
+            if key == 'urls':
+                urls = []
+                for u in s.value(key):
+                    urls.append(u.toString())
+                jsondict[key] = urls 
+            else:
+                jsondict[key] = s.value(key)
         return (item.text(), jsondict)
 
 
