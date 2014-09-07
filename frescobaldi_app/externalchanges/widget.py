@@ -257,7 +257,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
                 "{url}: {strerror} ({errno})".format(
                     url = d.url().toLocalFile(),
                     strerror = e.strerror,
-                    errno = e.errno) for d, e in failures) + "\n\n" +
+                    errno = e.errno) for d, e in failures) + "\n\n" + \
             _("Please save the document using the \"Save As...\" dialog.",
               "Please save the documents using the \"Save As...\" dialog.",
               len(failures))
