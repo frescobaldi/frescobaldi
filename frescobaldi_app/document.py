@@ -75,23 +75,24 @@ class Document(QTextDocument):
         
         """
         u = url if url is not None else self.url()
-        filename = u.toLocalFile()
-        if not filename:
-            raise IOError("not a local file")
-        with open(filename) as f:
-            data = f.read()
-        text = util.decode(data)
-        if keepUndo:
-            c = QTextCursor(self)
-            c.select(QTextCursor.Document)
-            c.insertText(text)
-        else:
-            self.setPlainText(text)
-        if url is not None:
-            self.setUrl(url)
-        self.setModified(False)
-        self.loaded()
-        app.documentLoaded(self)
+        if not u.isEmpty():
+            filename = u.toLocalFile()
+            if not filename:
+                raise IOError("not a local file")
+            with open(filename) as f:
+                data = f.read()
+            text = util.decode(data)
+            if keepUndo:
+                c = QTextCursor(self)
+                c.select(QTextCursor.Document)
+                c.insertText(text)
+            else:
+                self.setPlainText(text)
+            if url is not None:
+                self.setUrl(url)
+            self.setModified(False)
+            self.loaded()
+            app.documentLoaded(self)
             
     def save(self, url=None):
         """Saves the document to the specified or current url.
@@ -104,19 +105,20 @@ class Document(QTextDocument):
         
         """
         u = url if url is not None else self.url()
-        with app.documentSaving(self):
-            filename = u.toLocalFile()
-            if not filename:
-                raise IOError("not a local file")
-            with open(filename, "w") as f:
-                f.write(self.encodedText())
-                f.flush()
-                os.fsync(f.fileno())
-            if url is not None:
-                self.setUrl(url)
-            self.setModified(False)
-            self.saved()
-            app.documentSaved(self)
+        if not u.isEmpty():
+            with app.documentSaving(self):
+                filename = u.toLocalFile()
+                if not filename:
+                    raise IOError("not a local file")
+                with open(filename, "w") as f:
+                    f.write(self.encodedText())
+                    f.flush()
+                    os.fsync(f.fileno())
+                if url is not None:
+                    self.setUrl(url)
+                self.setModified(False)
+                self.saved()
+                app.documentSaved(self)
 
     def url(self):
         return self._url
