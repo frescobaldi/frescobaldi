@@ -710,7 +710,7 @@ class MainWindow(QMainWindow):
                 f.write(html.encode('utf-8'))
         except IOError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
-                message = _("Could not read from: {url}").format(url=filename),
+                message = _("Could not write to: {url}").format(url=filename),
                 strerror = e.strerror,
                 errno = e.errno)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
