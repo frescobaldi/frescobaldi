@@ -55,6 +55,7 @@ import scorewiz
 import externalchanges
 import browseriface
 import vcs
+import manuscript
 
 
 class MainWindow(QMainWindow):

@@ -60,6 +60,8 @@ class PanelManager(plugin.MainWindowPlugin):
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
         self.loadPanel("objecteditor.ObjectEditor")
+        # The Engraver's Copy Tool is only in its beginning stage too.
+        self.loadPanel("manuscript.ManuscriptViewerTool")
         
         self.createActions()
         
