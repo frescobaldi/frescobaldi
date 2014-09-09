@@ -28,7 +28,7 @@ newline. Arguments are separated with spaces.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QApplication
+from PyQt4.QtGui import QApplication, QMessageBox
 from PyQt4.QtNetwork import QLocalSocket
 
 import app
@@ -110,7 +110,16 @@ class Incoming(object):
         
         if cmd == b'open':
             url = QUrl.fromEncoded(args[0])
-            win.openUrl(url, self.encoding)
+            try:
+                win.openUrl(url, self.encoding)
+            except IOError as e:
+                filename = url.toLocalFile()
+                msg = _("{message}\n\n{strerror} ({errno})").format(
+                    message = _("Could not read from: {url}").format(url=filename),
+                    strerror = e.strerror,
+                    errno = e.errno)
+                QMessageBox.critical(win, app.caption(_("Error")), msg)
+                
         elif cmd == b'encoding':
             self.encoding = str(args[0])
         elif cmd == b'activate_window':
@@ -118,7 +127,10 @@ class Incoming(object):
             win.raise_()
         elif cmd == b'set_current':
             url = QUrl.fromEncoded(args[0])
-            win.setCurrentDocument(app.openUrl(url, self.encoding))
+            try:
+                win.setCurrentDocument(app.openUrl(url)) # already loaded
+            except IOError:
+                pass
         elif cmd == b'set_cursor':
             line, column = map(int, args)
             cursor = win.textCursor()

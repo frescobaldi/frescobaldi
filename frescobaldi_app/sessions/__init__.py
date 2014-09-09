@@ -94,22 +94,32 @@ def sessionNames():
     return names
     
 def loadSession(name):
-    """Loads the given session (without closing other docs first)."""
-    session = sessionGroup(name)
+    """Loads the given session (without closing other docs first).
     
+    Return the document that should become the active one.
+    If None is returned, the session did not open any documents!
+    
+    """
+    session = sessionGroup(name)
     try:
         urls = session.value("urls", [], QUrl)
     except TypeError:
         urls = []
     active = session.value("active", -1, int)
     result = None
-    if urls:
-        docs = [app.openUrl(url) for url in urls]
+    docs = []
+    for url in urls:
+        try:
+            doc = app.openUrl(url)
+        except IOError:
+            pass
+        else:
+            docs.append(doc)
+    setCurrentSession(name)
+    if docs:
         if active not in range(len(docs)):
             active = 0
-        result = docs[active]
-    setCurrentSession(name)
-    return result
+        return docs[active]
 
 def saveSession(name, documents, activeDocument=None):
     """Saves the list of documents and which one is active."""

@@ -83,17 +83,21 @@ def restoreSession(key):
         sessions.setCurrentSession(session_name)
     ## restore documents
     numdocuments = settings.value('numdocuments', 0, int)
-    if numdocuments > 0:
-        for index in range(numdocuments):
-            settings.beginGroup("document{0}".format(index))
-            url = settings.value("url", QUrl(), QUrl)
-            if url.isEmpty():
-                import document
-                doc = document.Document()
-            else:
+    doc = None
+    for index in range(numdocuments):
+        settings.beginGroup("document{0}".format(index))
+        url = settings.value("url", QUrl(), QUrl)
+        if url.isEmpty():
+            import document
+            doc = document.Document()
+        else:
+            try:
                 doc = app.openUrl(url)
-            settings.endGroup()
-    else:
+            except IOError:
+                pass
+        settings.endGroup()
+    # open at least one
+    if doc is None:
         doc = app.openUrl(QUrl())
     ## restore windows
     numwindows = settings.value('numwindows', 0, int)
