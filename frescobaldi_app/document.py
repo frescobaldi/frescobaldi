@@ -85,11 +85,11 @@ class Document(QTextDocument):
         with the contents loaded.
         
         """
+        if url is None:
+            url = QUrl()
         super(Document, self).__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
         self._encoding = encoding
-        if url is None:
-            url = QUrl()
         self._url = url # avoid urlChanged on init
         self.setUrl(url)
         self.modificationChanged.connect(self.slotModificationChanged)
@@ -116,7 +116,9 @@ class Document(QTextDocument):
         If keepUndo is True, the loading can be undone (with Ctrl-Z).
         
         """
-        u = url if url is not None else self.url()
+        if url is None:
+            url = QUrl()
+        u = url if not url.isEmpty() else self.url()
         text = self.load_data(u, encoding or self._encoding)
         if keepUndo:
             c = QTextCursor(self)
@@ -125,7 +127,7 @@ class Document(QTextDocument):
         else:
             self.setPlainText(text)
         self.setModified(False)
-        if url is not None:
+        if not url.isEmpty():
             self.setUrl(url)
         self.loaded()
         app.documentLoaded(self)
@@ -140,18 +142,24 @@ class Document(QTextDocument):
         current url (by calling setUrl() internally).
         
         """
-        u = url if url is not None else self.url()
+        if url is None:
+            url = QUrl()
+        u = url if not url.isEmpty() else self.url()
         filename = u.toLocalFile()
         # currently, we do not support non-local files
         if not filename:
             raise IOError("not a local file")
+        # keep the url if specified when we didn't have one, even if saving
+        # would fail
+        if self.url().isEmpty() and not url.isEmpty():
+            self.setUrl(url)
         with app.documentSaving(self):
             with open(filename, "w") as f:
                 f.write(self.encodedText())
                 f.flush()
                 os.fsync(f.fileno())
             self.setModified(False)
-            if url is not None:
+            if not url.isEmpty():
                 self.setUrl(url)
         self.saved()
         app.documentSaved(self)
