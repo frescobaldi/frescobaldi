@@ -266,15 +266,8 @@ class MainWindow(QMainWindow):
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
-            doc = None
-            for url in ev.mimeData().urls():
-                try:
-                    doc = self.openUrl(url)
-                except IOError:
-                    pass
-            if doc:
-                self.setCurrentDocument(doc)
-        
+            self.openDocuments(ev.mimeData().urls())
+    
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
@@ -376,11 +369,42 @@ class MainWindow(QMainWindow):
         settings.setValue('state', self.saveState())
 
     def openUrl(self, url, encoding=None):
-        """Same as app.openUrl but with some error checking and recent files."""
+        """Same as app.openUrl but adds url to recent files."""
         d = app.openUrl(url, encoding)
         recentfiles.add(url)
         return d
     
+    def openDocuments(self, urls, encoding=None):
+        """Open a list of urls, with error handling.
+        
+        The last loaded document is made current.
+        
+        """
+        doc = None
+        failures = []
+        for url in urls:
+            try:
+                doc = self.openUrl(url)
+            except IOError as e:
+                failures.append((url, e))
+        if doc:
+            self.setCurrentDocument(doc)
+        if failures:
+            if len(failures) == 1:
+                url, e = failures[0]
+                filename = url.toLocalFile()
+                msg = _("{message}\n\n{strerror} ({errno})").format(
+                    message = _("Could not read from: {url}").format(url=filename),
+                    strerror = e.strerror,
+                    errno = e.errno)
+            else:
+                msg = _("Could not read:") + "\n\n" + "\n".join(
+                    "{url}: {strerror} ({errno})".format(
+                        url = url.toLocalFile(),
+                        strerror = e.strerror,
+                        errno = e.errno) for url, e in failures)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
+                
     def currentDirectory(self):
         """Returns the current directory of the current document.
         
@@ -432,18 +456,8 @@ class MainWindow(QMainWindow):
         caption = app.caption(_("dialog title", "Open File"))
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
         files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
-        doc = None
-        for filename in files:
-            try:
-                doc = self.openUrl(QUrl.fromLocalFile(filename))
-            except IOError as e:
-                msg = _("{message}\n\n{strerror} ({errno})").format(
-                    message = _("Could not read from: {url}").format(url=filename),
-                    strerror = e.strerror,
-                    errno = e.errno)
-                QMessageBox.critical(self, app.caption(_("Error")), msg)
-        if doc:
-            self.setCurrentDocument(doc)
+        urls = [QUrl.fromLocalFile(filename) for filename in files]
+        self.openDocuments(urls)
         
     def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
