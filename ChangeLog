@@ -20,6 +20,7 @@ Changes in 2.17 --
   - dont disable run button of Engrave Custom dialog for autocompile jobs
   - dont always run autocompile job for the first opened document
   - tooltips for the panel title and float/close buttons
+  - error handling in I/O-related operations has improved
 * Bugfixes:
   - fix AttributeError: 'bool' object has no attribute 'endswith' in
     lilypondinfo.py, toolcommand()

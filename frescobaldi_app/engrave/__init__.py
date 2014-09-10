@@ -79,7 +79,10 @@ class Engraver(plugin.MainWindowPlugin):
                 master = variables.get(doc, "master")
                 if master:
                     url = doc.url().resolved(QUrl(master))
-                    doc = app.openUrl(url)
+                    try:
+                        doc = app.openUrl(url)
+                    except IOError:
+                        pass
         return doc
                 
     def runningJob(self):

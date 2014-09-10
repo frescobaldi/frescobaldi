@@ -161,8 +161,12 @@ def main():
     win.show()
     
     # load documents given as arguments
+    import document
     for u in urls:
-        doc = win.openUrl(u, options.encoding)
+        try:
+            doc = win.openUrl(u, options.encoding)
+        except IOError:
+            doc = document.Document(u, options.encoding)
     
     # were documents loaded?
     if not doc:

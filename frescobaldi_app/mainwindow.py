@@ -427,9 +427,18 @@ class MainWindow(QMainWindow):
         caption = app.caption(_("dialog title", "Open File"))
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
         files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
-        docs = [self.openUrl(QUrl.fromLocalFile(f)) for f in files]
-        if docs:
-            self.setCurrentDocument(docs[-1])
+        doc = None
+        for filename in files:
+            try:
+                doc = self.openUrl(QUrl.fromLocalFile(filename))
+            except IOError as e:
+                msg = _("{message}\n\n{strerror} ({errno})").format(
+                    message = _("Could not read from: {url}").format(url=filename),
+                    strerror = e.strerror,
+                    errno = e.errno)
+                QMessageBox.critical(self, app.caption(_("Error")), msg)
+        if doc:
+            self.setCurrentDocument(doc)
         
     def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
@@ -544,22 +553,31 @@ class MainWindow(QMainWindow):
         
         """
         d = self.currentDocument()
-        if d.load(keepUndo=True) is False:
-            QMessageBox.warning(self, app.caption(_("Reload")),
-              _("Could not reload the document:\n\n{url}").format(
-                url = d.url().toString()))
+        try:
+            d.load(keepUndo=True)
+        except IOError as e:
+            filename = d.url().toLocalFile()
+            msg = _("{message}\n\n{strerror} ({errno})").format(
+                message = _("Could not read from: {url}").format(url=filename),
+                strerror = e.strerror,
+                errno = e.errno)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
     
     def reloadAllDocuments(self):
         """Reloads all documents."""
-        success = []
+        failures = []
         for d in self.historyManager.documents():
-            success.append(d.load(keepUndo=True))
-        if False in success:
-            if True in success:
-                msg = _("Some documents could not be reloaded.")
-            else:
-                msg = _("No document could be reloaded.")
-            QMessageBox.warning(self, app.caption(_("Reload")), msg)
+            try:
+                d.load(keepUndo=True)
+            except IOError as e:
+                failures.append((d, e))
+        if failures:
+            msg = _("Could not reload:") + "\n\n" + "\n".join(
+                "{url}: {strerror} ({errno})".format(
+                    url = d.url().toLocalFile(),
+                    strerror = e.strerror,
+                    errno = e.errno) for d, e in failures)
+            QMessageBox.critical(self, app.caption(_("Error")), msg)
     
     def saveAllDocuments(self):
         """ Saves all documents.
@@ -687,7 +705,7 @@ class MainWindow(QMainWindow):
                 f.write(html.encode('utf-8'))
         except IOError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
-                message = _("Could not read from: {url}").format(url=filename),
+                message = _("Could not write to: {url}").format(url=filename),
                 strerror = e.strerror,
                 errno = e.errno)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
