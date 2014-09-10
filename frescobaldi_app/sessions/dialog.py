@@ -238,6 +238,14 @@ class SessionEditor(QDialog):
         
         grid.addWidget(ip, 4, 1)
         
+        self.revt = QPushButton(self)
+        self.clean = QPushButton(self)
+        self.revt.clicked.connect(self.revertPaths)
+        self.clean.clicked.connect(self.cleanPaths)
+       
+        self.include.layout().addWidget(self.revt, 5, 1)
+        self.include.layout().addWidget(self.clean, 6, 1)
+        
         self.setPaths.toggled.connect(self.showInclPaths)
         
         layout.addWidget(widgets.Separator())
@@ -254,7 +262,11 @@ class SessionEditor(QDialog):
         self.autosave.setText(_("Always save the list of documents in this session"))
         self.basedirLabel.setText(_("Base directory:"))
         self.setPaths.setText(_("Use session specific include paths"))
-        self.inclPaths.hide()  
+        self.revt.setText(_("Revert"))
+        self.revt.setToolTip(_("Revert paths from LilyPond preferences."))
+        self.clean.setText(_("Clean"))
+        self.clean.setToolTip(_("Remove all paths."))
+        self.inclPaths.hide()
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
@@ -273,7 +285,7 @@ class SessionEditor(QDialog):
         if self.setPaths.isChecked():
             self.inclPaths.show()
         else:
-            self.inclPaths.hide()         
+            self.inclPaths.hide()     
         
     def fetchGenPaths(self):
         """Fetch paths from general preferences."""
@@ -282,7 +294,15 @@ class SessionEditor(QDialog):
         try:
             return s.value("include_path", [], type(""))
         except TypeError:
-            return []	
+            return []
+            
+    def revertPaths(self):
+        """Revert paths from general preferences."""
+        self.include.setValue(self.fetchGenPaths())
+		
+    def cleanPaths(self):
+        """Remove all paths."""
+        self.include.setValue([])	
         
     def save(self, name):
         settings = sessions.sessionGroup(name)
