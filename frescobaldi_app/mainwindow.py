@@ -372,14 +372,9 @@ class MainWindow(QMainWindow):
 
     def openUrl(self, url, encoding=None):
         """Same as app.openUrl but with some error checking and recent files."""
-        if not url.toLocalFile():
-            # we only support local files
-            QMessageBox.warning(self, app.caption(_("Warning")),
-                _("Can't load non-local document:\n\n{url}").format(
-                    url=url.toString()))
-        else:
-            recentfiles.add(url)
-        return app.openUrl(url, encoding)
+        d = app.openUrl(url, encoding)
+        recentfiles.add(url)
+        return d
     
     def currentDirectory(self):
         """Returns the current directory of the current document.
