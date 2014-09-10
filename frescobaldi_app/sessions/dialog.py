@@ -26,10 +26,10 @@ from __future__ import unicode_literals
 import os
 import json
 
-from PyQt4.QtCore import Qt, QUrl
+from PyQt4.QtCore import Qt, QSettings, QUrl
 from PyQt4.QtGui import (
-    QCheckBox, QDialog, QDialogButtonBox, QFileDialog, QGridLayout, 
-    QLabel, QLineEdit, QMessageBox, QPushButton, QVBoxLayout)
+    QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog, 
+    QGridLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QVBoxLayout)
 
 import app
 import widgets.listedit
@@ -224,6 +224,13 @@ class SessionEditor(QDialog):
         grid.addWidget(l, 2, 0)
         grid.addWidget(self.basedir, 2, 1)
         
+        self.includeLabel = QLabel()
+        self.include = widgets.listedit.FilePathEdit()
+        self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
+        #self.include.changed.connect(self.pathSettingsChanged)
+        grid.addWidget(self.includeLabel, 3, 1)
+        grid.addWidget(self.include, 4, 1)
+        
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
@@ -237,22 +244,39 @@ class SessionEditor(QDialog):
         self.nameLabel.setText(_("Name:"))
         self.autosave.setText(_("Always save the list of documents in this session"))
         self.basedirLabel.setText(_("Base directory:"))
+        self.includeLabel.setText(_("Session specific include paths:"))   
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True, bool))
         self.basedir.setPath(settings.value("basedir", "", type("")))
-        # more settings here
+        try:
+            paths = settings.value("include-path", [], type(""))
+        except TypeError:
+            paths = []
+        self.include.setValue(paths)
+        # more settings here            
+        
+    def fetchGenPaths(self):
+        """Fetch paths from general preferences."""
+        s = QSettings()
+        s.beginGroup("lilypond_settings")
+        try:
+            return s.value("include_path", [], type(""))
+        except TypeError:
+            return []	
         
     def save(self, name):
         settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
         settings.setValue("basedir", self.basedir.path())
+        settings.setValue("include-path", self.include.value())
         # more settings here
         
     def defaults(self):
         self.autosave.setChecked(True)
         self.basedir.setPath('')
+        self.include.setValue(self.fetchGenPaths())
         # more defaults here
         
     def edit(self, name=None):
