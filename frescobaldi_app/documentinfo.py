@@ -120,10 +120,10 @@ class DocumentInfo(plugin.DocumentPlugin):
         import sessions
         session_settings = sessions.currentSessionGroup()
         try:
-			if session_settings and session_settings.contains("include-path"):
-				include_path = session_settings.value("include-path", [], type(""))
-			else:
-				include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
+            if session_settings and session_settings.contains("include-path"):
+                include_path = session_settings.value("include-path", [], type(""))
+            else:
+                include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
         except TypeError:
             include_path = []
         return include_path
