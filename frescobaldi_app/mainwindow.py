@@ -266,9 +266,14 @@ class MainWindow(QMainWindow):
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
-            docs = [self.openUrl(url) for url in ev.mimeData().urls()]
-            if docs:
-                self.setCurrentDocument(docs[-1])
+            doc = None
+            for url in ev.mimeData().urls():
+                try:
+                    doc = self.openUrl(url)
+                except IOError:
+                    pass
+            if doc:
+                self.setCurrentDocument(doc)
         
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
