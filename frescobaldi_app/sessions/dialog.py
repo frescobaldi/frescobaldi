@@ -29,7 +29,8 @@ import json
 from PyQt4.QtCore import Qt, QSettings, QUrl
 from PyQt4.QtGui import (
     QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog, 
-    QGridLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QVBoxLayout)
+    QGridLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QVBoxLayout,
+    QWidget)
 
 import app
 import widgets.listedit
@@ -224,12 +225,20 @@ class SessionEditor(QDialog):
         grid.addWidget(l, 2, 0)
         grid.addWidget(self.basedir, 2, 1)
         
-        self.includeLabel = QLabel()
+        self.setPaths = QCheckBox()
+        grid.addWidget(self.setPaths, 3, 1)
+        
+        self.inclPaths = ip = QWidget(self)
+        ipLayout = QVBoxLayout()
+        ip.setLayout(ipLayout)
+        
         self.include = widgets.listedit.FilePathEdit()
         self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
-        #self.include.changed.connect(self.pathSettingsChanged)
-        grid.addWidget(self.includeLabel, 3, 1)
-        grid.addWidget(self.include, 4, 1)
+        ipLayout.addWidget(self.include)
+        
+        grid.addWidget(ip, 4, 1)
+        
+        self.setPaths.toggled.connect(self.showInclPaths)
         
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
@@ -244,7 +253,8 @@ class SessionEditor(QDialog):
         self.nameLabel.setText(_("Name:"))
         self.autosave.setText(_("Always save the list of documents in this session"))
         self.basedirLabel.setText(_("Base directory:"))
-        self.includeLabel.setText(_("Session specific include paths:"))   
+        self.setPaths.setText(_("Use session specific include paths"))
+        self.inclPaths.hide()  
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
@@ -255,7 +265,15 @@ class SessionEditor(QDialog):
         except TypeError:
             paths = []
         self.include.setValue(paths)
-        # more settings here            
+        self.setPaths.setChecked(bool(paths))
+        # more settings here
+        
+    def showInclPaths(self):
+        """Show and hide the settings for session specific include paths."""
+        if self.setPaths.isChecked():
+            self.inclPaths.show()
+        else:
+            self.inclPaths.hide()         
         
     def fetchGenPaths(self):
         """Fetch paths from general preferences."""
@@ -270,7 +288,10 @@ class SessionEditor(QDialog):
         settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
         settings.setValue("basedir", self.basedir.path())
-        settings.setValue("include-path", self.include.value())
+        if self.setPaths.isChecked(): 
+            settings.setValue("include-path", self.include.value())
+        else:
+            settings.remove("include-path")
         # more settings here
         
     def defaults(self):
