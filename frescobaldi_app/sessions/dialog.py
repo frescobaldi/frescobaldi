@@ -277,7 +277,7 @@ class SessionEditor(QDialog):
         except TypeError:
             paths = []
         self.include.setValue(paths)
-        self.setPaths.setChecked(bool(paths))
+        self.setPaths.setChecked(settings.value("set-paths", False, bool))
         # more settings here
         
     def showInclPaths(self):
@@ -308,6 +308,7 @@ class SessionEditor(QDialog):
         settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
         settings.setValue("basedir", self.basedir.path())
+        settings.setValue("set-paths", self.setPaths.isChecked())
         if self.setPaths.isChecked(): 
             settings.setValue("include-path", self.include.value())
         else:
@@ -317,6 +318,7 @@ class SessionEditor(QDialog):
     def defaults(self):
         self.autosave.setChecked(True)
         self.basedir.setPath('')
+        self.setPaths.setChecked(False)
         self.include.setValue(self.fetchGenPaths())
         # more defaults here
         
