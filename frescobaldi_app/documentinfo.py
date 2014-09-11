@@ -113,9 +113,17 @@ class DocumentInfo(plugin.DocumentPlugin):
             return self.lydocinfo().mode()
     
     def includepath(self):
-        """Returns the configured include path. Currently the document does not matter."""
+        """Returns the configured include path. 
+        If there are session specific include paths, they are used.
+        Otherwise the paths are taken from the LilyPond preferences.
+        Currently the document does not matter."""
+        import sessions
+        session_settings = sessions.currentSessionGroup()
         try:
-            include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
+            if session_settings and session_settings.contains("include-path"):
+                include_path = session_settings.value("include-path", [], type(""))
+            else:
+                include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
         except TypeError:
             include_path = []
         return include_path

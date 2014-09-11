@@ -26,10 +26,11 @@ from __future__ import unicode_literals
 import os
 import json
 
-from PyQt4.QtCore import Qt, QUrl
+from PyQt4.QtCore import Qt, QSettings, QUrl
 from PyQt4.QtGui import (
-    QCheckBox, QDialog, QDialogButtonBox, QFileDialog, QGridLayout, 
-    QLabel, QLineEdit, QMessageBox, QPushButton, QVBoxLayout)
+    QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog, 
+    QGridLayout, QLabel, QLineEdit, QMessageBox, QPushButton, QVBoxLayout,
+    QWidget)
 
 import app
 import widgets.listedit
@@ -224,6 +225,29 @@ class SessionEditor(QDialog):
         grid.addWidget(l, 2, 0)
         grid.addWidget(self.basedir, 2, 1)
         
+        self.setPaths = QCheckBox()
+        grid.addWidget(self.setPaths, 3, 1)
+        
+        self.inclPaths = ip = QWidget(self)
+        ipLayout = QVBoxLayout()
+        ip.setLayout(ipLayout)
+        
+        self.include = widgets.listedit.FilePathEdit()
+        self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
+        ipLayout.addWidget(self.include)
+        
+        grid.addWidget(ip, 4, 1)
+        
+        self.revt = QPushButton(self)
+        self.clean = QPushButton(self)
+        self.revt.clicked.connect(self.revertPaths)
+        self.clean.clicked.connect(self.cleanPaths)
+       
+        self.include.layout().addWidget(self.revt, 5, 1)
+        self.include.layout().addWidget(self.clean, 6, 1)
+        
+        self.setPaths.toggled.connect(self.showInclPaths)
+        
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
@@ -237,22 +261,63 @@ class SessionEditor(QDialog):
         self.nameLabel.setText(_("Name:"))
         self.autosave.setText(_("Always save the list of documents in this session"))
         self.basedirLabel.setText(_("Base directory:"))
+        self.setPaths.setText(_("Use session specific include paths"))
+        self.revt.setText(_("Revert"))
+        self.revt.setToolTip(_("Revert paths from LilyPond preferences."))
+        self.clean.setText(_("Clean"))
+        self.clean.setToolTip(_("Remove all paths."))
+        self.inclPaths.hide()
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True, bool))
         self.basedir.setPath(settings.value("basedir", "", type("")))
+        try:
+            paths = settings.value("include-path", [], type(""))
+        except TypeError:
+            paths = []
+        self.include.setValue(paths)
+        self.setPaths.setChecked(bool(paths))
         # more settings here
+        
+    def showInclPaths(self):
+        """Show and hide the settings for session specific include paths."""
+        if self.setPaths.isChecked():
+            self.inclPaths.show()
+        else:
+            self.inclPaths.hide()     
+        
+    def fetchGenPaths(self):
+        """Fetch paths from general preferences."""
+        s = QSettings()
+        s.beginGroup("lilypond_settings")
+        try:
+            return s.value("include_path", [], type(""))
+        except TypeError:
+            return []
+            
+    def revertPaths(self):
+        """Revert paths from general preferences."""
+        self.include.setValue(self.fetchGenPaths())
+		
+    def cleanPaths(self):
+        """Remove all paths."""
+        self.include.setValue([])	
         
     def save(self, name):
         settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
         settings.setValue("basedir", self.basedir.path())
+        if self.setPaths.isChecked(): 
+            settings.setValue("include-path", self.include.value())
+        else:
+            settings.remove("include-path")
         # more settings here
         
     def defaults(self):
         self.autosave.setChecked(True)
         self.basedir.setPath('')
+        self.include.setValue(self.fetchGenPaths())
         # more defaults here
         
     def edit(self, name=None):
