@@ -266,7 +266,7 @@ class SessionEditor(QDialog):
         self.revt.setToolTip(_("Revert paths from LilyPond preferences."))
         self.clean.setText(_("Clean"))
         self.clean.setToolTip(_("Remove all paths."))
-        self.inclPaths.hide()
+        self.inclPaths.setEnabled(False)
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
@@ -277,15 +277,15 @@ class SessionEditor(QDialog):
         except TypeError:
             paths = []
         self.include.setValue(paths)
-        self.setPaths.setChecked(bool(paths))
+        self.setPaths.setChecked(settings.value("set-paths", False, bool))
         # more settings here
         
     def showInclPaths(self):
         """Show and hide the settings for session specific include paths."""
         if self.setPaths.isChecked():
-            self.inclPaths.show()
+            self.inclPaths.setEnabled(True)
         else:
-            self.inclPaths.hide()     
+            self.inclPaths.setEnabled(False)     
         
     def fetchGenPaths(self):
         """Fetch paths from general preferences."""
@@ -308,6 +308,7 @@ class SessionEditor(QDialog):
         settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
         settings.setValue("basedir", self.basedir.path())
+        settings.setValue("set-paths", self.setPaths.isChecked())
         if self.setPaths.isChecked(): 
             settings.setValue("include-path", self.include.value())
         else:
@@ -317,6 +318,7 @@ class SessionEditor(QDialog):
     def defaults(self):
         self.autosave.setChecked(True)
         self.basedir.setPath('')
+        self.setPaths.setChecked(False)
         self.include.setValue(self.fetchGenPaths())
         # more defaults here
         
