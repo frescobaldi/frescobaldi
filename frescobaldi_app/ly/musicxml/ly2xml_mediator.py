@@ -870,7 +870,7 @@ class BarNote(BarMus):
         self.tremolo = ('',0)
         self.skip = False
         self.slur = None
-        self.artic = None
+        self.artic = []
         self.ornament = None
         self.adv_ornament = None
         self.fingering = None
@@ -897,7 +897,7 @@ class BarNote(BarMus):
         self.slur = slur_type
 
     def add_articulation(self, art_name):
-        self.artic = art_name
+        self.artic.append(art_name)
 
     def add_ornament(self, ornament):
         self.ornament = ornament
