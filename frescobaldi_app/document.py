@@ -69,12 +69,14 @@ class Document(QTextDocument):
         if loading the contents fails.
         
         """
-        text = cls.load_data(url, encoding)
+        if not url.isEmpty():
+            text = cls.load_data(url, encoding)
         d = cls(url, encoding)
-        d.setPlainText(text)
-        d.setModified(False)
-        d.loaded()
-        app.documentLoaded(d)
+        if not url.isEmpty():
+            d.setPlainText(text)
+            d.setModified(False)
+            d.loaded()
+            app.documentLoaded(d)
         return d
         
     def __init__(self, url=None, encoding=None):

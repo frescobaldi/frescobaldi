@@ -75,7 +75,9 @@ def openUrl(url, encoding=None):
             and not documents[0].isUndoAvailable()
             and not documents[0].isRedoAvailable()):
             d = documents[0]
-            d.load(url, encoding)
+            d.setEncoding(encoding)
+            if not url.isEmpty():
+                d.load(url)
         else:
             import document
             d = document.Document.new_from_url(url, encoding)
