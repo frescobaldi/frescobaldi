@@ -869,7 +869,7 @@ class BarNote(BarMus):
         self.gliss = None
         self.tremolo = ('',0)
         self.skip = False
-        self.slur = None
+        self.slur = []
         self.artic = []
         self.ornament = None
         self.adv_ornament = None
@@ -894,7 +894,7 @@ class BarNote(BarMus):
         self.tie = tie_type
 
     def set_slur(self, slur_type):
-        self.slur = slur_type
+        self.slur.append(slur_type)
 
     def add_articulation(self, art_name):
         self.artic.append(art_name)

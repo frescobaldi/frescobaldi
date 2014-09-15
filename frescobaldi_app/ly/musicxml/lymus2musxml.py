@@ -542,8 +542,8 @@ class ParseSource():
                             obj.base_scaling, obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                             if obj.tie:
                                 self.musxml.tie_note(obj.tie)
-                            if obj.slur:
-                                self.musxml.add_slur(1, obj.slur) #LilyPond doesn't allow nested slurs so the number can be 1
+                            for s in obj.slur:
+                                self.musxml.add_slur(1, s) #LilyPond doesn't allow nested slurs so the number can be 1
                             for a in obj.artic:
                                 self.musxml.new_articulation(a)
                             if obj.ornament:
