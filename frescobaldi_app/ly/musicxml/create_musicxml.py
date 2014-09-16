@@ -169,6 +169,13 @@ class CreateMusicXML():
         func_call = getattr(self, 'add_'+ornament)
         func_call()
 
+    def new_adv_ornament(self, ornament, args):
+        """ Add more complex ornament."""
+        self.add_notations()
+        self.add_ornaments()
+        if ornament == "wavy-line":
+            self.add_wavyline(args['type'])
+
     def new_bar_attr(self, clef, mustime, key, mode, divs):
         """ create all bar attributes set. """
         self.create_bar_attr()
@@ -229,7 +236,7 @@ class CreateMusicXML():
         self.current_note = etree.SubElement(self.current_bar, "note")
         self.current_notation = None
         self.current_artic = None
-        self.current_ornaments = None
+        self.current_ornament = None
         self.current_tech = None
 
     def add_pitch(self, step, alter, octave):
@@ -354,7 +361,7 @@ class CreateMusicXML():
         etree.SubElement(self.current_artic, artic)
 
     def add_ornaments(self):
-        if not self.current_ornaments:
+        if not self.current_ornament:
             self.add_notations()
             self.current_ornament = etree.SubElement(self.current_notation, "ornaments")
 
@@ -374,6 +381,15 @@ class CreateMusicXML():
 
     def add_prall(self):
         etree.SubElement(self.current_ornament, "inverted-mordent")
+
+    def add_wavyline(self, end_type):
+        self.add_ornaments
+        etree.SubElement(self.current_ornament, "wavy-line", type=end_type)
+
+    def add_gliss(self, linetype, endtype, nr):
+        nodedict = { "line-type": linetype, "number": str(nr), "type": endtype }
+        self.add_notations()
+        etree.SubElement(self.current_notation, "glissando", nodedict)
 
     def add_technical(self):
         if not self.current_tech:
@@ -466,6 +482,13 @@ class CreateMusicXML():
         direction = etree.SubElement(self.current_bar, "direction", placement='below')
         dirtypenode = etree.SubElement(direction, "direction-type")
         dyn_node = etree.SubElement(dirtypenode, "wedge", type=wedge_type)
+
+    def add_octave_shift(self, plac, octdir, size):
+        """Add octave shift."""
+        oct_dict = {"type": octdir, "size": str(size) }
+        direction = etree.SubElement(self.current_bar, "direction", placement=plac)
+        dirtypenode = etree.SubElement(direction, "direction-type")
+        dyn_node = etree.SubElement(dirtypenode, "octave-shift", oct_dict)
 
     def add_metron_dir(self, unit, beats, dots):
         dirtypenode = etree.SubElement(self.direction, "direction-type")

@@ -40,7 +40,7 @@ from . import create_musicxml
 from . import ly2xml_mediator
 
 #excluded from parsing
-excl_list = ['Version', 'Midi', 'Layout', 'Scheme', 'SchemeItem', 'PathItem']
+excl_list = ['Version', 'Midi', 'Layout']
 
 
 class End():
@@ -65,6 +65,8 @@ class ParseSource():
         self.numericTime = False
         self.voice_sep = False
         self.sims_and_seqs = []
+        self.override_dict = {}
+        self.ottava = False
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -303,8 +305,19 @@ class ParseSource():
             self.numericTime = False
         elif command.token.find('voice') == 1:
             self.mediator.set_voicenr(command.token[1:], piano=self.piano_staff)
+        elif command.token == '\\glissando':
+            try:
+                self.mediator.new_gliss(self.override_dict["Glissando.style"])
+            except KeyError:
+                self.mediator.new_gliss()
+        elif command.token == '\\startTrillSpan':
+            self.mediator.new_trill_spanner()
+        elif command.token == '\\stopTrillSpan':
+            self.mediator.new_trill_spanner("stop")
+        elif command.token == '\\ottava':
+            self.ottava = True
         else:
-            print(command.token)
+            print("Unknown command: "+command.token)
 
     def String(self, string):
         prev = self.get_previous_node(string)
@@ -326,6 +339,29 @@ class ParseSource():
 
     def LyricMode(self, lyric_mode):
         """A \\lyricmode, \\lyrics or \\addlyrics expression."""
+        pass
+
+    def Override(self, override):
+        """An \\override command."""
+        self.override_key = ''
+
+    def PathItem(self, item):
+        """An item in the path of an \\override or \\revert command."""
+        self.override_key += item.token
+
+    def Scheme(self, scheme):
+        """A Scheme expression inside LilyPond."""
+        pass
+
+    def SchemeItem(self, item):
+        """Any scheme token."""
+        if self.ottava:
+            self.mediator.new_ottava(item.token)
+        elif self.look_behind(item, ly.music.items.Override):
+            self.override_dict[self.override_key] = item.token
+
+    def SchemeQuote(self, quote):
+        """A ' in scheme."""
         pass
 
     def End(self, end):
@@ -375,6 +411,8 @@ class ParseSource():
         elif end.node.token == '{':
             if self.sims_and_seqs:
                 self.sims_and_seqs.pop()
+        elif end.node.token == '<': #chord
+            self.mediator.chord_end()
         elif end.node.token == '\\lyricsto':
             self.mediator.check_lyrics(end.node.context_id())
             self.sims_and_seqs.pop()
@@ -442,6 +480,19 @@ class ParseSource():
                 return True
         return False
 
+    def look_behind(self, node, find_node):
+        """Looks behind on the parent node(s) and returns True
+        if the search is successful."""
+        parent = node.parent()
+        if parent:
+            if isinstance(parent, find_node):
+                ret = True
+            else:
+                ret = self.look_behind(parent, find_node)
+            return ret
+        else:
+            return False
+
     ##
     # The xml-file is built from the mediator objects
     ##
@@ -491,14 +542,18 @@ class ParseSource():
                             obj.base_scaling, obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
                             if obj.tie:
                                 self.musxml.tie_note(obj.tie)
-                            if obj.slur:
-                                self.musxml.add_slur(1, obj.slur) #LilyPond doesn't allow nested slurs so the number can be 1
-                            if obj.artic:
-                                self.musxml.new_articulation(obj.artic)
+                            for s in obj.slur:
+                                self.musxml.add_slur(1, s) #LilyPond doesn't allow nested slurs so the number can be 1
+                            for a in obj.artic:
+                                self.musxml.new_articulation(a)
                             if obj.ornament:
                                 self.musxml.new_simple_ornament(obj.ornament)
+                            if obj.adv_ornament:
+                                self.musxml.new_adv_ornament(obj.adv_ornament[0], obj.adv_ornament[1])
                             if obj.tremolo[1]:
                                 self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
+                            if obj.gliss:
+                                self.musxml.add_gliss(obj.gliss[0], obj.gliss[1], obj.gliss[2])
                             if obj.fingering:
                                 self.musxml.add_fingering(obj.fingering)
                             if obj.lyric:
@@ -517,13 +572,15 @@ class ParseSource():
                             self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
                         if obj.staff and not obj.skip:
                             self.musxml.add_staff(obj.staff)
+                        if obj.other_notation:
+                            self.musxml.add_named_notation(obj.other_notation)
                         if obj.dynamic['after']:
                             if obj.dynamic['after']['mark']:
                                 self.musxml.add_dynamic_mark(obj.dynamic['after']['mark'])
                             if obj.dynamic['after']['wedge']:
                                 self.musxml.add_dynamic_wedge(obj.dynamic['after']['wedge'])
-                        if obj.other_notation:
-                            self.musxml.add_named_notation(obj.other_notation)
+                        if obj.oct_shift:
+                            self.musxml.add_octave_shift(obj.oct_shift.plac, obj.oct_shift.octdir, obj.oct_shift.size)
                     elif isinstance(obj, ly2xml_mediator.BarBackup):
                         self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
 
