@@ -230,9 +230,6 @@ class ParseSource():
         """
         \times \tuplet \scaleDurations
 
-        This will not work yet for `\scaleDurations`,
-        because the fraction is not set in attribute `scaling`.
-
         """
         if scaler.token == '\\scaleDurations':
             self.ttype = ""
