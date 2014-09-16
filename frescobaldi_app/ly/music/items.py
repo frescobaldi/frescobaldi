@@ -1189,7 +1189,15 @@ class Scheme(Item):
         for i in self.find(SchemeItem):
             if i.token.isdigit():
                 return int(i.token)
-
+    
+    def get_fraction(self):
+        """A basic way to get one (may be fractional) numerical value."""
+        for i in self.find(SchemeItem):
+            if i.token.isdigit():
+                return int(i.token)
+            elif isinstance(i.token, scheme.Fraction):
+                return Fraction(i.token)
+    
     def get_string(self):
         """A basic way to get a quoted string value (without the quotes)."""
         return ''.join(i.value() for i in self.find(String))

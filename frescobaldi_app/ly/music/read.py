@@ -562,10 +562,19 @@ class Reader(object):
         if t == '\\scaleDurations':
             for i in self.read(source):
                 item.append(i)
-                if isinstance(i, Scheme):
-                    pair = i.get_pair_ints()
-                    if pair:
-                        item.scaling = Fraction(*pair)
+                if isinstance(i, Number):
+                    item.scaling = i.value()
+                elif isinstance(i, Scheme):
+                    try:
+                        pair = i.get_pair_ints()
+                        if pair:
+                            item.scaling = Fraction(*pair)
+                        else:
+                            val = i.get_fraction()
+                            if val is not None:
+                                item.scaling = val
+                    except ZeroDivisionError:
+                        pass
                 break
         elif t == '\\tuplet':
             for t in source:
