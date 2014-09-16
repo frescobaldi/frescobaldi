@@ -117,15 +117,22 @@ class DocumentInfo(plugin.DocumentPlugin):
         If there are session specific include paths, they are used.
         Otherwise the paths are taken from the LilyPond preferences.
         Currently the document does not matter."""
+        sess_paths = []
+        glob_paths = []
         import sessions
         session_settings = sessions.currentSessionGroup()
+        if session_settings:
+            repl_paths = session_settings.value("repl-paths", False, bool)
         try:
             if session_settings and session_settings.contains("include-path"):
-                include_path = session_settings.value("include-path", [], type(""))
-            else:
-                include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
+                sess_paths = session_settings.value("include-path", [], type(""))
+            glob_paths = QSettings().value("lilypond_settings/include_path", [], type(""))
         except TypeError:
-            include_path = []
+            pass
+        if sess_paths and repl_paths:
+            include_path = sess_paths
+        else:
+            include_path = sess_paths + glob_paths
         return include_path
         
     def jobinfo(self, create=False):
