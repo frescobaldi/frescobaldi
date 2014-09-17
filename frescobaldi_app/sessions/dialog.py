@@ -240,12 +240,12 @@ class SessionEditor(QDialog):
         grid.addWidget(ip, 3, 1)
         
         self.revt = QPushButton(self)
-        self.clean = QPushButton(self)
+        self.clear = QPushButton(self)
         self.revt.clicked.connect(self.revertPaths)
-        self.clean.clicked.connect(self.cleanPaths)
+        self.clear.clicked.connect(self.clearPaths)
        
         self.include.layout().addWidget(self.revt, 5, 1)
-        self.include.layout().addWidget(self.clean, 6, 1)
+        self.include.layout().addWidget(self.clear, 6, 1)
         
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
@@ -265,8 +265,8 @@ class SessionEditor(QDialog):
         self.replPaths.setToolTip(_("When checked, paths in LilyPond preferences are not included."))
         self.revt.setText(_("Revert"))
         self.revt.setToolTip(_("Revert paths from LilyPond preferences."))
-        self.clean.setText(_("Clean"))
-        self.clean.setToolTip(_("Remove all paths."))
+        self.clear.setText(_("Clear"))
+        self.clear.setToolTip(_("Remove all paths."))
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
@@ -317,7 +317,7 @@ class SessionEditor(QDialog):
             self.include.clear()
             self.addDisabledGenPaths()  
         
-    def cleanPaths(self):
+    def clearPaths(self):
         """Remove all active paths."""
         items = self.include.items()
         for i in items:
