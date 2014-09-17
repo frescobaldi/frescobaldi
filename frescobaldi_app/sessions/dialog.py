@@ -317,8 +317,11 @@ class SessionEditor(QDialog):
             self.addDisabledGenPaths()  
         
     def cleanPaths(self):
-        """Remove all paths."""
-        self.include.clear()   
+        """Remove all active paths."""
+        items = self.include.items()
+        for i in items:
+            if 32 and i.flags(): #is enabled
+              self.include.listBox.takeItem(self.include.listBox.row(i))   
         
     def save(self, name):
         settings = sessions.sessionGroup(name)
