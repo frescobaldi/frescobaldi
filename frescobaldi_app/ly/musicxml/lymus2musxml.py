@@ -230,9 +230,6 @@ class ParseSource():
         """
         \times \tuplet \scaleDurations
 
-        This will not work yet for `\scaleDurations`,
-        because the fraction is not set in attribute `scaling`.
-
         """
         if scaler.token == '\\scaleDurations':
             self.ttype = ""
@@ -287,9 +284,15 @@ class ParseSource():
 
     def Set(self, cont_set):
         if cont_set.property() == 'instrumentName':
-            self.mediator.set_partname(cont_set.value().value())
+            if isinstance(cont_set.value(), ly.music.items.Scheme):
+                self.mediator.set_partname(cont_set.value().get_string())
+            else:
+                self.mediator.set_partname(cont_set.value().value())
         elif cont_set.property() == 'midiInstrument':
-            self.mediator.set_partmidi(cont_set.value().value())
+            if isinstance(cont_set.value(), ly.music.items.Scheme):
+                self.mediator.set_partmidi(cont_set.value().get_string())
+            else:
+                self.mediator.set_partmidi(cont_set.value().value())
         elif cont_set.property() == 'stanza':
             self.mediator.new_lyric_nr(cont_set.value().value())
         else:
@@ -499,7 +502,7 @@ class ParseSource():
 
     def iterate_mediator(self):
         """ The mediator lists are looped through and outputed to the xml-file. """
-        # self.mediator.score.debug_score(['tuplet'])
+        # self.mediator.score.debug_score([])
         if self.mediator.score.title:
             self.musxml.create_title(self.mediator.score.title)
         for ctag in self.mediator.score.creators:
