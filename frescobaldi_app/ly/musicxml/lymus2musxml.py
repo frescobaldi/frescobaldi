@@ -284,9 +284,15 @@ class ParseSource():
 
     def Set(self, cont_set):
         if cont_set.property() == 'instrumentName':
-            self.mediator.set_partname(cont_set.value().value())
+            if isinstance(cont_set.value(), ly.music.items.Scheme):
+                self.mediator.set_partname(cont_set.value().get_string())
+            else:
+                self.mediator.set_partname(cont_set.value().value())
         elif cont_set.property() == 'midiInstrument':
-            self.mediator.set_partmidi(cont_set.value().value())
+            if isinstance(cont_set.value(), ly.music.items.Scheme):
+                self.mediator.set_partmidi(cont_set.value().get_string())
+            else:
+                self.mediator.set_partmidi(cont_set.value().value())
         elif cont_set.property() == 'stanza':
             self.mediator.new_lyric_nr(cont_set.value().value())
         else:

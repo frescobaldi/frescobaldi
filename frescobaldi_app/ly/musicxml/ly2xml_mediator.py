@@ -556,9 +556,13 @@ class Mediator():
         self.bar.add(tempo)
 
     def set_partname(self, name):
+        if self.score.is_empty():
+            self.new_part()
         self.part.name = name
 
     def set_partmidi(self, midi):
+        if self.score.is_empty():
+            self.new_part()
         self.part.midi = midi
 
     def new_lyric_nr(self, num):
