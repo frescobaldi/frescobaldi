@@ -208,7 +208,7 @@ class Mediator():
     def check_part(self):
         """Adds the latest active section to the part."""
         if len(self.sections)>1:
-            if not self.score:
+            if self.score.is_empty():
                 self.new_part()
             self.part.barlist.extend(self.sections[-1].barlist)
             self.sections.pop()
