@@ -263,8 +263,8 @@ class SessionEditor(QDialog):
         self.inclPaths.setTitle(_("Use session specific include paths"))
         self.replPaths.setText(_("Replace global paths"))
         self.replPaths.setToolTip(_("When checked, paths in LilyPond preferences are not included."))
-        self.revt.setText(_("Revert"))
-        self.revt.setToolTip(_("Revert paths from LilyPond preferences."))
+        self.revt.setText(_("Edit global paths"))
+        self.revt.setToolTip(_("Add and edit the paths from LilyPond preferences."))
         self.clear.setText(_("Clear"))
         self.clear.setToolTip(_("Remove all paths."))
     
@@ -281,6 +281,7 @@ class SessionEditor(QDialog):
         self.replPaths.setChecked(settings.value("repl-paths", False, bool))
         if not self.replPaths.isChecked():
             self.addDisabledGenPaths()
+            self.revt.setEnabled(False)
         # more settings here
         
     def fetchGenPaths(self):
@@ -306,16 +307,17 @@ class SessionEditor(QDialog):
             for i in items:
                 if not (32 and i.flags()): #is not enabled
                   self.include.listBox.takeItem(self.include.listBox.row(i))
+            self.revt.setEnabled(True)
         else:
             self.addDisabledGenPaths()
+            self.revt.setEnabled(False)
             
     def revertPaths(self):
-        """Revert paths from general preferences."""
-        if self.replPaths.isChecked():
-            self.include.setValue(self.fetchGenPaths())
-        else:
-            self.include.clear()
-            self.addDisabledGenPaths()  
+        """Add global paths (for edit)."""
+        genPaths = self.fetchGenPaths()
+        for p in genPaths:
+            i = QListWidgetItem(p, self.include.listBox)
+        self.revt.setEnabled(False)
         
     def clearPaths(self):
         """Remove all active paths."""
@@ -347,6 +349,7 @@ class SessionEditor(QDialog):
         self.inclPaths.setChecked(False)
         self.replPaths.setChecked(False)
         self.addDisabledGenPaths()
+        self.revt.setEnabled(False)
         # more defaults here
         
     def edit(self, name=None):
