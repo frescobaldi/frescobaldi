@@ -304,7 +304,8 @@ class SessionEditor(QDialog):
         if self.replPaths.isChecked():
             items = self.include.items()
             for i in items:
-                i.setFlags(Qt.ItemIsEnabled)
+                if not (32 and i.flags()): #is not enabled
+                  self.include.listBox.takeItem(self.include.listBox.row(i))
         else:
             self.addDisabledGenPaths()
             
