@@ -29,8 +29,8 @@ import json
 from PyQt4.QtCore import Qt, QSettings, QUrl
 from PyQt4.QtGui import (
     QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog, 
-    QGridLayout, QGroupBox, QLabel, QLineEdit, QMessageBox, QPushButton, 
-    QVBoxLayout)
+    QGridLayout, QGroupBox, QLabel, QListWidgetItem, QLineEdit, QMessageBox, 
+    QPushButton, QVBoxLayout)
 
 import app
 import widgets.listedit
@@ -229,6 +229,10 @@ class SessionEditor(QDialog):
         ipLayout = QVBoxLayout()
         ip.setLayout(ipLayout)
         
+        self.replPaths = QCheckBox()
+        ipLayout.addWidget(self.replPaths)
+        self.replPaths.toggled.connect(self.toggleReplace)
+        
         self.include = widgets.listedit.FilePathEdit()
         self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
         ipLayout.addWidget(self.include)
@@ -236,12 +240,12 @@ class SessionEditor(QDialog):
         grid.addWidget(ip, 3, 1)
         
         self.revt = QPushButton(self)
-        self.clean = QPushButton(self)
+        self.clear = QPushButton(self)
         self.revt.clicked.connect(self.revertPaths)
-        self.clean.clicked.connect(self.cleanPaths)
+        self.clear.clicked.connect(self.clearPaths)
        
         self.include.layout().addWidget(self.revt, 5, 1)
-        self.include.layout().addWidget(self.clean, 6, 1)
+        self.include.layout().addWidget(self.clear, 6, 1)
         
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
@@ -257,10 +261,12 @@ class SessionEditor(QDialog):
         self.autosave.setText(_("Always save the list of documents in this session"))
         self.basedirLabel.setText(_("Base directory:"))
         self.inclPaths.setTitle(_("Use session specific include paths"))
-        self.revt.setText(_("Revert"))
-        self.revt.setToolTip(_("Revert paths from LilyPond preferences."))
-        self.clean.setText(_("Clean"))
-        self.clean.setToolTip(_("Remove all paths."))
+        self.replPaths.setText(_("Replace global paths"))
+        self.replPaths.setToolTip(_("When checked, paths in LilyPond preferences are not included."))
+        self.revt.setText(_("Edit global paths"))
+        self.revt.setToolTip(_("Add and edit the paths from LilyPond preferences."))
+        self.clear.setText(_("Clear"))
+        self.clear.setToolTip(_("Remove all paths."))
     
     def load(self, name):
         settings = sessions.sessionGroup(name)
@@ -272,6 +278,10 @@ class SessionEditor(QDialog):
             paths = []
         self.include.setValue(paths)
         self.inclPaths.setChecked(settings.value("set-paths", False, bool))
+        self.replPaths.setChecked(settings.value("repl-paths", False, bool))
+        if not self.replPaths.isChecked():
+            self.addDisabledGenPaths()
+            self.revt.setEnabled(False)
         # more settings here
         
     def fetchGenPaths(self):
@@ -283,21 +293,52 @@ class SessionEditor(QDialog):
         except TypeError:
             return []
             
+    def addDisabledGenPaths(self):
+        """Add global paths, but set as disabled."""
+        genPaths = self.fetchGenPaths()
+        for p in genPaths:
+            i = QListWidgetItem(p, self.include.listBox)
+            i.setFlags(Qt.NoItemFlags)
+            
+    def toggleReplace(self):
+        """Called when user changes setting for replace of global paths."""
+        if self.replPaths.isChecked():
+            items = self.include.items()
+            for i in items:
+                if not (32 and i.flags()): #is not enabled
+                  self.include.listBox.takeItem(self.include.listBox.row(i))
+            self.revt.setEnabled(True)
+        else:
+            self.addDisabledGenPaths()
+            self.revt.setEnabled(False)
+            
     def revertPaths(self):
-        """Revert paths from general preferences."""
-        self.include.setValue(self.fetchGenPaths())
+        """Add global paths (for edit)."""
+        genPaths = self.fetchGenPaths()
+        for p in genPaths:
+            i = QListWidgetItem(p, self.include.listBox)
+        self.revt.setEnabled(False)
         
-    def cleanPaths(self):
-        """Remove all paths."""
-        self.include.setValue([])   
+    def clearPaths(self):
+        """Remove all active paths."""
+        items = self.include.items()
+        for i in items:
+            if 32 and i.flags(): #is enabled
+              self.include.listBox.takeItem(self.include.listBox.row(i))   
         
     def save(self, name):
         settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
         settings.setValue("basedir", self.basedir.path())
         settings.setValue("set-paths", self.inclPaths.isChecked())
+        settings.setValue("repl-paths", self.replPaths.isChecked())
         if self.inclPaths.isChecked(): 
-            settings.setValue("include-path", self.include.value())
+            save = []
+            items = self.include.items()
+            for i in items:
+                if 32 and i.flags(): #is enabled
+                  save.append(i.text())
+            settings.setValue("include-path", save)
         else:
             settings.remove("include-path")
         # more settings here
@@ -306,7 +347,9 @@ class SessionEditor(QDialog):
         self.autosave.setChecked(True)
         self.basedir.setPath('')
         self.inclPaths.setChecked(False)
-        self.include.setValue(self.fetchGenPaths())
+        self.replPaths.setChecked(False)
+        self.addDisabledGenPaths()
+        self.revt.setEnabled(False)
         # more defaults here
         
     def edit(self, name=None):
