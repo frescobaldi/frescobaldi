@@ -105,7 +105,6 @@ class Mediator():
                 return n
 
     def new_part(self, piano=False):
-        print("nwe part!!")
         if piano:
             self.part = ScorePart(2)
         else:
@@ -565,6 +564,11 @@ class Mediator():
             self.new_part()
         self.part.name = name
 
+    def set_partabbr(self, abbr):
+        if self.score.is_empty():
+            self.new_part()
+        self.part.abbr = abbr
+
     def set_partmidi(self, midi):
         if self.score.is_empty():
             self.new_part()
@@ -681,6 +685,7 @@ class ScorePart():
     """ object to keep track of part """
     def __init__(self, staves=0):
         self.name = ''
+        self.abbr = ''
         self.midi = ''
         self.barlist = []
         self.staves = staves

@@ -290,6 +290,11 @@ class ParseSource():
                 self.mediator.set_partname(cont_set.value().get_string())
             else:
                 self.mediator.set_partname(cont_set.value().value())
+        elif cont_set.property() == 'shortInstrumentName':
+            if isinstance(cont_set.value(), ly.music.items.Scheme):
+                self.mediator.set_partabbr(cont_set.value().get_string())
+            else:
+                self.mediator.set_partabbr(cont_set.value().value())
         elif cont_set.property() == 'midiInstrument':
             if isinstance(cont_set.value(), ly.music.items.Scheme):
                 self.mediator.set_partmidi(cont_set.value().get_string())
@@ -515,7 +520,7 @@ class ParseSource():
             self.musxml.add_rights(self.mediator.score.rights)
         for part in self.mediator.score.partlist:
             if part.barlist:
-                self.musxml.create_part(part.name, part.midi)
+                self.musxml.create_part(part.name, part.abbr, part.midi)
                 self.mediator.set_first_bar(part)
             else:
                 print "Warning: empty part: "+part.name
