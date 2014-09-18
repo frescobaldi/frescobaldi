@@ -143,6 +143,8 @@ class ParseSource():
         if context.context() in ['PianoStaff', 'GrandStaff']:
             self.mediator.new_part(piano=True)
             self.piano_staff = 1
+        elif context.context() == 'StaffGroup':
+            self.mediator.new_group()
         elif context.context() == 'Staff':
             if self.piano_staff:
                 if self.piano_staff > 1:
@@ -161,6 +163,8 @@ class ParseSource():
                 self.mediator.new_section(context.context_id())
             else:
                 self.mediator.new_section('voice')
+        else:
+            print(context.context())
 
     def VoiceSeparator(self, voice_sep):
         self.mediator.new_snippet('sim')
@@ -401,6 +405,8 @@ class ParseSource():
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
                 self.sims_and_seqs.pop()
+            elif end.node.context() == 'StaffGroup':
+                self.mediator.close_group()
             elif end.node.context() == 'Staff':
                 if not self.piano_staff:
                     self.mediator.check_part()
@@ -518,80 +524,94 @@ class ParseSource():
             self.musxml.create_score_info(itag, self.mediator.score.info[itag])
         if self.mediator.score.rights:
             self.musxml.add_rights(self.mediator.score.rights)
-        for part in self.mediator.score.partlist:
-            if part.barlist:
-                self.musxml.create_part(part.name, part.abbr, part.midi)
-                self.mediator.set_first_bar(part)
-            else:
-                print "Warning: empty part: "+part.name
+        for p in self.mediator.score.partlist:
+            if isinstance(p, ly2xml_mediator.ScorePart):
+                self.iterate_part(p)
+            elif isinstance(p, ly2xml_mediator.ScorePartGroup):
+                self.musxml.create_partgroup('start', p.bracket)
+                for part in p.partlist:
+                    self.iterate_part(part)
+                self.musxml.create_partgroup('stop')
+
+    def iterate_part(self, part):
+        """The part is iterated."""
+        if part.barlist:
+            self.musxml.create_part(part.name, part.abbr, part.midi)
+            self.mediator.set_first_bar(part)
             for bar in part.barlist:
-                self.musxml.create_measure()
-                for obj in bar.obj_list:
-                    if isinstance(obj, ly2xml_mediator.BarAttr):
-                        if obj.has_attr():
-                            self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
-                        if obj.repeat:
-                            self.musxml.add_barline(obj.barline, obj.repeat)
-                        elif obj.barline:
-                            self.musxml.add_barline(obj.barline)
-                        if obj.staves:
-                            self.musxml.add_staves(obj.staves)
-                        if obj.multiclef:
-                            for mc in obj.multiclef:
-                                self.musxml.add_clef(sign=mc[0][0], line=mc[0][1], nr=mc[1], oct_ch=mc[0][2])
-                        if obj.tempo:
-                            self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
-                    elif isinstance(obj, ly2xml_mediator.BarMus):
-                        if obj.dynamic['before']:
-                            if obj.dynamic['before']['mark']:
-                                self.musxml.add_dynamic_mark(obj.dynamic['before']['mark'])
-                            if obj.dynamic['before']['wedge']:
-                                self.musxml.add_dynamic_wedge(obj.dynamic['before']['wedge'])
-                        if isinstance(obj, ly2xml_mediator.BarNote):
-                            self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave, obj.note.accidental_token],
-                            obj.base_scaling, obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
-                            if obj.tie:
-                                self.musxml.tie_note(obj.tie)
-                            for s in obj.slur:
-                                self.musxml.add_slur(1, s) #LilyPond doesn't allow nested slurs so the number can be 1
-                            for a in obj.artic:
-                                self.musxml.new_articulation(a)
-                            if obj.ornament:
-                                self.musxml.new_simple_ornament(obj.ornament)
-                            if obj.adv_ornament:
-                                self.musxml.new_adv_ornament(obj.adv_ornament[0], obj.adv_ornament[1])
-                            if obj.tremolo[1]:
-                                self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
-                            if obj.gliss:
-                                self.musxml.add_gliss(obj.gliss[0], obj.gliss[1], obj.gliss[2])
-                            if obj.fingering:
-                                self.musxml.add_fingering(obj.fingering)
-                            if obj.lyric:
-                                for l in obj.lyric:
-                                    try:
-                                       self.musxml.add_lyric(l[0], l[1], l[2], l[3])
-                                    except IndexError:
-                                        self.musxml.add_lyric(l[0], l[1], l[2])
-                        elif isinstance(obj, ly2xml_mediator.BarRest):
-                            if obj.skip:
-                                self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
-                            else:
-                                self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos,
-                                obj.dot, obj.voice)
-                        if obj.tuplet:
-                            self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
-                        if obj.staff and not obj.skip:
-                            self.musxml.add_staff(obj.staff)
-                        if obj.other_notation:
-                            self.musxml.add_named_notation(obj.other_notation)
-                        if obj.dynamic['after']:
-                            if obj.dynamic['after']['mark']:
-                                self.musxml.add_dynamic_mark(obj.dynamic['after']['mark'])
-                            if obj.dynamic['after']['wedge']:
-                                self.musxml.add_dynamic_wedge(obj.dynamic['after']['wedge'])
-                        if obj.oct_shift:
-                            self.musxml.add_octave_shift(obj.oct_shift.plac, obj.oct_shift.octdir, obj.oct_shift.size)
-                    elif isinstance(obj, ly2xml_mediator.BarBackup):
-                        self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
+                self.iterate_bar(bar)
+        else:
+            print "Warning: empty part: "+part.name
+
+    def iterate_bar(self, bar):
+        """The objects in the bar is outputed to the xml-file."""
+        self.musxml.create_measure()
+        for obj in bar.obj_list:
+            if isinstance(obj, ly2xml_mediator.BarAttr):
+                if obj.has_attr():
+                    self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
+                if obj.repeat:
+                    self.musxml.add_barline(obj.barline, obj.repeat)
+                elif obj.barline:
+                    self.musxml.add_barline(obj.barline)
+                if obj.staves:
+                    self.musxml.add_staves(obj.staves)
+                if obj.multiclef:
+                    for mc in obj.multiclef:
+                        self.musxml.add_clef(sign=mc[0][0], line=mc[0][1], nr=mc[1], oct_ch=mc[0][2])
+                if obj.tempo:
+                    self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
+            elif isinstance(obj, ly2xml_mediator.BarMus):
+                if obj.dynamic['before']:
+                    if obj.dynamic['before']['mark']:
+                        self.musxml.add_dynamic_mark(obj.dynamic['before']['mark'])
+                    if obj.dynamic['before']['wedge']:
+                        self.musxml.add_dynamic_wedge(obj.dynamic['before']['wedge'])
+                if isinstance(obj, ly2xml_mediator.BarNote):
+                    self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave, obj.note.accidental_token],
+                    obj.base_scaling, obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
+                    if obj.tie:
+                        self.musxml.tie_note(obj.tie)
+                    for s in obj.slur:
+                        self.musxml.add_slur(1, s) #LilyPond doesn't allow nested slurs so the number can be 1
+                    for a in obj.artic:
+                        self.musxml.new_articulation(a)
+                    if obj.ornament:
+                        self.musxml.new_simple_ornament(obj.ornament)
+                    if obj.adv_ornament:
+                        self.musxml.new_adv_ornament(obj.adv_ornament[0], obj.adv_ornament[1])
+                    if obj.tremolo[1]:
+                        self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
+                    if obj.gliss:
+                        self.musxml.add_gliss(obj.gliss[0], obj.gliss[1], obj.gliss[2])
+                    if obj.fingering:
+                        self.musxml.add_fingering(obj.fingering)
+                    if obj.lyric:
+                        for l in obj.lyric:
+                            try:
+                               self.musxml.add_lyric(l[0], l[1], l[2], l[3])
+                            except IndexError:
+                                self.musxml.add_lyric(l[0], l[1], l[2])
+                elif isinstance(obj, ly2xml_mediator.BarRest):
+                    if obj.skip:
+                        self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
+                    else:
+                        self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos,
+                        obj.dot, obj.voice)
+                if obj.tuplet:
+                    self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
+                if obj.staff and not obj.skip:
+                    self.musxml.add_staff(obj.staff)
+                if obj.other_notation:
+                    self.musxml.add_named_notation(obj.other_notation)
+                if obj.dynamic['after']:
+                    if obj.dynamic['after']['mark']:
+                        self.musxml.add_dynamic_mark(obj.dynamic['after']['mark'])
+                    if obj.dynamic['after']['wedge']:
+                        self.musxml.add_dynamic_wedge(obj.dynamic['after']['wedge'])
+                if obj.oct_shift:
+                    self.musxml.add_octave_shift(obj.oct_shift.plac, obj.oct_shift.octdir, obj.oct_shift.size)
+            elif isinstance(obj, ly2xml_mediator.BarBackup):
+                self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
 
 

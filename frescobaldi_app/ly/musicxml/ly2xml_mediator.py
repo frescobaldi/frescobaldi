@@ -48,6 +48,7 @@ class Mediator():
         self.voice = 1
         self.staff = 0
         self.part = None
+        self.group = None
         self.current_chord = []
         self.prev_pitch = None
         self.store_voicenr = 0
@@ -104,12 +105,22 @@ class Mediator():
             if n.name == name:
                 return n
 
+    def new_group(self):
+        self.group = ScorePartGroup("bracket")
+        self.score.partlist.append(self.group)
+
+    def close_group(self):
+        self.group = None
+
     def new_part(self, piano=False):
         if piano:
             self.part = ScorePart(2)
         else:
             self.part = ScorePart()
-        self.score.partlist.append(self.part)
+        if self.group:
+            self.group.partlist.append(self.part)
+        else:
+            self.score.partlist.append(self.part)
         self.insert_into = self.part
         self.bar = None
 
@@ -679,6 +690,15 @@ class Score():
                             print(ind+ind+ind+a+':'+repr(getattr(obj, a)))
                         except AttributeError:
                             pass
+
+
+class ScorePartGroup():
+    """Object to keep track of part group."""
+    def __init__(self, bracket):
+        self.bracket = bracket
+        self.partlist = []
+        self.name = ''
+        self.abbr = ''
 
 
 class ScorePart():
