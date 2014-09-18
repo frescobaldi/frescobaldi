@@ -47,6 +47,7 @@ class Mediator():
         self.tied = False
         self.voice = 1
         self.staff = 0
+        self.part = None
         self.current_chord = []
         self.prev_pitch = None
         self.store_voicenr = 0
@@ -104,6 +105,7 @@ class Mediator():
                 return n
 
     def new_part(self, piano=False):
+        print("nwe part!!")
         if piano:
             self.part = ScorePart(2)
         else:
@@ -111,6 +113,9 @@ class Mediator():
         self.score.partlist.append(self.part)
         self.insert_into = self.part
         self.bar = None
+
+    def part_not_empty(self):
+        return self.part and self.part.barlist
 
     def set_voicenr(self, command=None, add=False, nr=0, piano=0):
         if add:

@@ -151,7 +151,9 @@ class ParseSource():
                 self.mediator.set_staffnr(self.piano_staff)
                 self.piano_staff += 1
             else:
-                self.mediator.new_part()
+                # Check first if part already exists
+                if context.token != '\\context' or self.mediator.part_not_empty():
+                    self.mediator.new_part()
             self.mediator.add_staff_id(context.context_id())
         elif context.context() == 'Voice':
             self.sims_and_seqs.append('voice')
