@@ -229,10 +229,22 @@ class Mediator():
             self.sections.pop()
 
     def check_score(self):
-        """ If no part were created, place first variable (fallback) as part. """
+        """
+        Check score
+
+        If no part were created, place first variable (fallback) as part.
+
+        Also check that all parts have basic bar attributes.
+        """
         if self.score.is_empty():
             self.new_part()
             self.part.barlist.extend(self.get_first_var())
+        for p in self.score.partlist:
+            if isinstance(p, ScorePart):
+                self.set_first_bar(p)
+            elif isinstance(p, ScorePartGroup):
+                for part in p.partlist:
+                    self.set_first_bar(part)
 
     def get_first_var(self):
         if self.sections:
