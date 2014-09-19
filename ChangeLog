@@ -10,6 +10,7 @@ Changes in 2.17 --
 * New features:
   - Session import/export, contributed by Peter Bjuhr
 * Improvements:
+  - Printing the music PDF now honors the duplex settings
   - MusicXML export has improved by using the ly.music module that has a notion
     of the music events and time/duration of those events, ly.music is authored
     and maintained by Wilbert Berendsen but the MusicXML export module is

@@ -98,7 +98,13 @@ def printCommand(cmd, printer, filename):
         else:
             command.append('-o')
             command.append('page-ranges=' + pageRange)
-
+    
+    # duplex mode
+    if printer.duplex() == QPrinter.DuplexLongSide:
+        command.extend(['-o', 'sides=two-sided-long-edge'])
+    elif printer.duplex() == QPrinter.DuplexShortSide:
+        command.extend(['-o', 'sides=two-sided-short-edge'])
+    
     command.append(filename)
     return command
 
