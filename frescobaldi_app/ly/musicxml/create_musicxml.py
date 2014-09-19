@@ -66,10 +66,16 @@ class CreateMusicXML():
         info_node = etree.SubElement(self.score_info, tag, attr)
         info_node.text = info
 
-    def create_partgroup(self, gr_type, symbol=None):
+    def create_partgroup(self, gr_type, name=None, abbr=None, symbol=None):
         """Create a new part group."""
         attr_dict = {"type": gr_type, "number": str(self.partgroup_count)}
         partgroup = etree.SubElement(self.partlist, "part-group", attr_dict)
+        if name:
+            group_name = etree.SubElement(partgroup, "group-name")
+            group_name.text = name
+        if abbr:
+            group_abbr = etree.SubElement(partgroup, "group-abbreviation")
+            group_abbr.text = abbr
         if symbol:
             group_symbol = etree.SubElement(partgroup, "group-symbol")
             group_symbol.text = symbol

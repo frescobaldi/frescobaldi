@@ -166,7 +166,7 @@ class ParseSource():
             else:
                 self.mediator.new_section('voice')
         else:
-            print(context.context())
+            print("Context not implemented: " + context.context())
 
     def VoiceSeparator(self, voice_sep):
         self.mediator.new_snippet('sim')
@@ -291,25 +291,26 @@ class ParseSource():
         print(cont_with.tokens)
 
     def Set(self, cont_set):
-        if cont_set.property() == 'instrumentName':
-            if isinstance(cont_set.value(), ly.music.items.Scheme):
-                self.mediator.set_partname(cont_set.value().get_string())
-            else:
-                self.mediator.set_partname(cont_set.value().value())
-        elif cont_set.property() == 'shortInstrumentName':
-            if isinstance(cont_set.value(), ly.music.items.Scheme):
-                self.mediator.set_partabbr(cont_set.value().get_string())
-            else:
-                self.mediator.set_partabbr(cont_set.value().value())
-        elif cont_set.property() == 'midiInstrument':
-            if isinstance(cont_set.value(), ly.music.items.Scheme):
-                self.mediator.set_partmidi(cont_set.value().get_string())
-            else:
-                self.mediator.set_partmidi(cont_set.value().value())
-        elif cont_set.property() == 'stanza':
-            self.mediator.new_lyric_nr(cont_set.value().value())
+        if isinstance(cont_set.value(), ly.music.items.Scheme):
+            val = ont_set.value().get_string()
         else:
-            print(cont_set.property())
+            val = cont_set.value().value()
+        if cont_set.property() == 'instrumentName':
+            if cont_set.context() == "Staff":
+                func = 'set_partname'
+            elif cont_set.context() == "StaffGroup":
+                func = 'set_groupname'
+        elif cont_set.property() == 'shortInstrumentName':
+            if cont_set.context() == "Staff":
+                func = 'set_partabbr'
+            elif cont_set.context() == "StaffGroup":
+                func = 'set_groupabbr'
+        elif cont_set.property() == 'midiInstrument':
+            func = 'set_partmidi'
+        elif cont_set.property() == 'stanza':
+            func = 'new_lyric_nr'
+        if func:
+            self.gen_med_caller(func, val)
 
     def Command(self, command):
         """ \bar, \rest etc """
@@ -510,3 +511,12 @@ class ParseSource():
             return ret
         else:
             return False
+
+    ##
+    # Other functions
+    ##
+    def gen_med_caller(self, func_name, *args):
+        """Call any function in the mediator object."""
+        func_call = getattr(self.mediator, func_name)
+        func_call(*args)
+

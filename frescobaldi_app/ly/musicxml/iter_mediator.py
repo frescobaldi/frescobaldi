@@ -46,7 +46,7 @@ class iterateMediatorScore():
             if isinstance(p, xml_objs.ScorePart):
                 self.iterate_part(p)
             elif isinstance(p, xml_objs.ScorePartGroup):
-                self.musxml.create_partgroup('start', p.bracket)
+                self.musxml.create_partgroup('start', p.name, p.abbr, p.bracket)
                 for part in p.partlist:
                     self.iterate_part(part)
                 self.musxml.create_partgroup('stop')

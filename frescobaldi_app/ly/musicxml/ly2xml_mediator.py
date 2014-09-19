@@ -554,6 +554,14 @@ class Mediator():
             self.new_part()
         self.part.abbr = abbr
 
+    def set_groupname(self, name):
+        if self.group:
+            self.group.name = name
+
+    def set_groupabbr(self, abbr):
+        if self.group:
+            self.group.abbr = abbr
+
     def set_partmidi(self, midi):
         if self.score.is_empty():
             self.new_part()
