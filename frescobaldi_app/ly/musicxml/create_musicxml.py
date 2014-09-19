@@ -50,7 +50,6 @@ class CreateMusicXML():
         encoding_date.text = str(datetime.date.today())
         self.partlist = etree.SubElement(self.root, "part-list")
         self.part_count = 1
-        self.partgroup_count = 1
 
     ##
     # Building the basic Elements
@@ -66,9 +65,9 @@ class CreateMusicXML():
         info_node = etree.SubElement(self.score_info, tag, attr)
         info_node.text = info
 
-    def create_partgroup(self, gr_type, name=None, abbr=None, symbol=None):
+    def create_partgroup(self, gr_type, num, name=None, abbr=None, symbol=None):
         """Create a new part group."""
-        attr_dict = {"type": gr_type, "number": str(self.partgroup_count)}
+        attr_dict = {"type": gr_type, "number": str(num)}
         partgroup = etree.SubElement(self.partlist, "part-group", attr_dict)
         if name:
             group_name = etree.SubElement(partgroup, "group-name")
@@ -79,8 +78,6 @@ class CreateMusicXML():
         if symbol:
             group_symbol = etree.SubElement(partgroup, "group-symbol")
             group_symbol.text = symbol
-        if gr_type == 'stop':
-            self.partgroup_count += 1
 
     def create_part(self, name, abbr, midi):
         """ create a new part """

@@ -288,9 +288,10 @@ class ParseSource():
         self.mediator.set_tremolo(duration=int(tremolo.duration.token))
 
     def With(self, cont_with):
-        print(cont_with.tokens)
+        print("With not implemented", cont_with.tokens)
 
     def Set(self, cont_set):
+        func = None
         if isinstance(cont_set.value(), ly.music.items.Scheme):
             val = ont_set.value().get_string()
         else:
@@ -311,6 +312,13 @@ class ParseSource():
             func = 'new_lyric_nr'
         if func:
             self.gen_med_caller(func, val)
+        else:
+            print(
+            "Set for context: "
+            + cont_set.context() +
+            " and property: "
+            + cont_set.property() +
+            " not implemented!")
 
     def Command(self, command):
         """ \bar, \rest etc """

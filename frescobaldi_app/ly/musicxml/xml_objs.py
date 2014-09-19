@@ -49,7 +49,7 @@ class Score():
 
         """
         ind = "  "
-        for p in self.partlist:
+        def debug_part(p):
             print("Score part:"+p.name)
             for n, b in enumerate(p.barlist):
                 print(ind+"Bar nr: "+str(n+1))
@@ -61,14 +61,27 @@ class Score():
                         except AttributeError:
                             pass
 
+        def debug_group(g):
+            if hasattr(g, 'barlist'):
+                debug_part(g)
+            else:
+                print("Score group:"+g.name)
+                for pg in g.partlist:
+                    debug_group(pg)
+
+        for i in self.partlist:
+            debug_group(i)
+
 
 class ScorePartGroup():
     """Object to keep track of part group."""
-    def __init__(self, bracket):
+    def __init__(self, num, bracket):
         self.bracket = bracket
         self.partlist = []
         self.name = ''
         self.abbr = ''
+        self.parent = None
+        self.num = num
 
 
 class ScorePart():

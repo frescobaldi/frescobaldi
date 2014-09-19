@@ -46,10 +46,18 @@ class iterateMediatorScore():
             if isinstance(p, xml_objs.ScorePart):
                 self.iterate_part(p)
             elif isinstance(p, xml_objs.ScorePartGroup):
-                self.musxml.create_partgroup('start', p.name, p.abbr, p.bracket)
-                for part in p.partlist:
-                    self.iterate_part(part)
-                self.musxml.create_partgroup('stop')
+                self.iterate_partgroup(p)
+
+    def iterate_partgroup(self, group):
+        """Loop through a group, recursively if nested."""
+        self.musxml.create_partgroup(
+            'start', group.num, group.name, group.abbr, group.bracket)
+        for p in group.partlist:
+            if isinstance(p, xml_objs.ScorePart):
+                self.iterate_part(p)
+            elif isinstance(p, xml_objs.ScorePartGroup):
+                self.iterate_partgroup(p)
+        self.musxml.create_partgroup('stop', group.num)
 
     def iterate_part(self, part):
         """The part is iterated."""

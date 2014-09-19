@@ -51,6 +51,7 @@ class Mediator():
         self.staff = 0
         self.part = None
         self.group = None
+        self.group_num = 0
         self.current_chord = []
         self.prev_pitch = None
         self.store_voicenr = 0
@@ -108,11 +109,20 @@ class Mediator():
                 return n
 
     def new_group(self):
-        self.group = xml_objs.ScorePartGroup("bracket")
-        self.score.partlist.append(self.group)
+        parent = self.group
+        self.group_num += 1
+        self.group = xml_objs.ScorePartGroup(self.group_num, "bracket")
+        if parent: #nested group
+            self.group.parent = parent
+            parent.partlist.append(self.group)
+        else:
+            self.score.partlist.append(self.group)
 
     def close_group(self):
-        self.group = None
+        if self.group.parent:
+            self.group = self.group.parent
+        else:
+            self.group = None
 
     def new_part(self, piano=False):
         if piano:
