@@ -54,6 +54,7 @@ class iterateMediatorScore():
     def iterate_part(self, part):
         """The part is iterated."""
         if part.barlist:
+            part.set_first_bar(self.divisions)
             self.musxml.create_part(part.name, part.abbr, part.midi)
             for bar in part.barlist:
                 self.iterate_bar(bar)

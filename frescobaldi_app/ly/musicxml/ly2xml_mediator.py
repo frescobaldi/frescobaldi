@@ -234,55 +234,15 @@ class Mediator():
 
         If no part were created, place first variable (fallback) as part.
 
-        Also check that all parts have basic bar attributes.
+        More checks?
         """
         if self.score.is_empty():
             self.new_part()
             self.part.barlist.extend(self.get_first_var())
-        for p in self.score.partlist:
-            if isinstance(p, ScorePart):
-                self.set_first_bar(p)
-            elif isinstance(p, ScorePartGroup):
-                for part in p.partlist:
-                    self.set_first_bar(part)
 
     def get_first_var(self):
         if self.sections:
             return self.sections[0].barlist
-
-    def set_first_bar(self, part):
-        initime = [4,4]
-        iniclef = ('G',2,0)
-
-        def check_time(bar):
-            for obj in bar.obj_list:
-                if isinstance(obj, BarAttr):
-                    if obj.time:
-                        return True
-                if isinstance(obj, BarMus):
-                    return False
-
-        def check_clef(bar):
-            for obj in bar.obj_list:
-                if isinstance(obj, BarAttr):
-                    if obj.clef or obj.multiclef:
-                        return True
-                if isinstance(obj, BarMus):
-                    return False
-
-        if not check_time(part.barlist[0]):
-            try:
-                part.barlist[0].obj_list[0].set_time(initime, False)
-            except AttributeError:
-                print "Warning can't set initial time sign!"
-        if not check_clef(part.barlist[0]):
-            try:
-                part.barlist[0].obj_list[0].set_clef(iniclef)
-            except AttributeError:
-                print "Warning can't set initial clef sign!"
-        part.barlist[0].obj_list[0].divs = self.divisions
-        if part.staves:
-            part.barlist[0].obj_list[0].staves = part.staves
 
     def new_bar(self, fill_prev=True):
         if self.bar and fill_prev:
@@ -721,6 +681,40 @@ class ScorePart():
         self.midi = ''
         self.barlist = []
         self.staves = staves
+
+    def set_first_bar(self, divisions):
+        initime = [4,4]
+        iniclef = ('G',2,0)
+
+        def check_time(bar):
+            for obj in bar.obj_list:
+                if isinstance(obj, BarAttr):
+                    if obj.time:
+                        return True
+                if isinstance(obj, BarMus):
+                    return False
+
+        def check_clef(bar):
+            for obj in bar.obj_list:
+                if isinstance(obj, BarAttr):
+                    if obj.clef or obj.multiclef:
+                        return True
+                if isinstance(obj, BarMus):
+                    return False
+
+        if not check_time(self.barlist[0]):
+            try:
+                self.barlist[0].obj_list[0].set_time(initime, False)
+            except AttributeError:
+                print "Warning can't set initial time sign!"
+        if not check_clef(self.barlist[0]):
+            try:
+                self.barlist[0].obj_list[0].set_clef(iniclef)
+            except AttributeError:
+                print "Warning can't set initial clef sign!"
+        self.barlist[0].obj_list[0].divs = divisions
+        if self.staves:
+            self.barlist[0].obj_list[0].staves = self.staves
 
 
 class ScoreSection():
