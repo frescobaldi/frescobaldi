@@ -74,13 +74,12 @@ def rhythm_apply(cursor, mainwindow):
         complete = sorted(_history),
         regexp = r'([0-9./* ]|\\breve|\\longa|\\maxima)+',
         help = "rhythm", icon = icons.get('tools-rhythm'))
-    try:
-        durations = durs.split()
-        if durations:
-            _history.add(durs.strip())
+    if not durs:
+        return # user cancelled dialog
+    durations = durs.split()
+    if durations:
+        _history.add(durs.strip())
         ly.rhythm.rhythm_overwrite(lydocument.cursor(cursor), durations)
-    except AttributeError: # user cancelled dialog
-        pass
 
 def rhythm_copy(cursor):
     _clipboard[:] = ly.rhythm.rhythm_extract(lydocument.cursor(cursor))
