@@ -88,6 +88,7 @@ _start = (
     ly.lex.lilypond.Accidental,
     ly.lex.lilypond.OctaveCheck,
     ly.lex.lilypond.Duration,
+    ly.lex.lilypond.Tie,
 )
 
 _stay = _start[4:]
@@ -257,14 +258,14 @@ def rhythm_overwrite(cursor, durations):
     durations_source = remove_dups(itertools.cycle(durations))
     source = ly.document.Source(cursor, True, tokens_with_position=True)
     with cursor.document as d:
-        for pos, tokens in duration_tokens_pos(source, ly.lex.lilypond.Duration):
+        for pos, tokens in duration_tokens_pos(source, ly.lex.lilypond.Duration, ly.lex.lilypond.Tie):
             end = tokens[-1].end if tokens else pos
             d[pos:end] = next(durations_source)
 
 def rhythm_extract(cursor):
     """Return a list of the durations from the cursor's range."""
     source = ly.document.Source(cursor, True)
-    durations = list(duration_tokens(source, ly.lex.lilypond.Duration))
+    durations = list(duration_tokens(source, ly.lex.lilypond.Duration, ly.lex.lilypond.Tie))
     # if the first duration was not given, find it
     if durations and not durations[0]:
         durations[0] = preceding_duration(cursor) or ['4']
