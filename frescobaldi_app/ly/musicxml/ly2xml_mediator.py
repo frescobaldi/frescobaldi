@@ -29,13 +29,15 @@ from fractions import Fraction
 import ly.duration
 import ly.pitch
 
+from . import xml_objs
+
 
 class Mediator():
     """ Help class between the ly source parser and the XML creator """
 
     def __init__(self):
         """ create global lists """
-        self.score = Score()
+        self.score = xml_objs.Score()
         self.sections = []
         """ default and initial values """
         self.current_note = None
@@ -75,21 +77,21 @@ class Mediator():
 
     def new_section(self, name):
         name = self.check_name(name)
-        section = ScoreSection(name)
+        section = xml_objs.ScoreSection(name)
         self.insert_into = section
         self.sections.append(section)
         self.bar = None
 
     def new_snippet(self, name):
         name = self.check_name(name)
-        snippet = Snippet(name, self.insert_into)
+        snippet = xml_objs.Snippet(name, self.insert_into)
         self.insert_into = snippet
         self.sections.append(snippet)
         self.bar = None
 
     def new_lyric_section(self, name, voice_id):
         name = self.check_name(name)
-        lyrics = LyricsSection(name, voice_id)
+        lyrics = xml_objs.LyricsSection(name, voice_id)
         self.insert_into = lyrics
         self.lyric_sections[name] = lyrics
 
@@ -106,7 +108,7 @@ class Mediator():
                 return n
 
     def new_group(self):
-        self.group = ScorePartGroup("bracket")
+        self.group = xml_objs.ScorePartGroup("bracket")
         self.score.partlist.append(self.group)
 
     def close_group(self):
@@ -114,9 +116,9 @@ class Mediator():
 
     def new_part(self, piano=False):
         if piano:
-            self.part = ScorePart(2)
+            self.part = xml_objs.ScorePart(2)
         else:
-            self.part = ScorePart()
+            self.part = xml_objs.ScorePart()
         if self.group:
             self.group.partlist.append(self.part)
         else:
@@ -202,7 +204,7 @@ class Mediator():
             if self.voice>1:
                 for n in range(self.store_voicenr, self.voice):
                     self.check_voices()
-                if isinstance(self.sections[-1], Snippet):
+                if isinstance(self.sections[-1], xml_objs.Snippet):
                     self.add_snippet(self.sections[-1].name)
                     self.sections.pop()
                 else:
@@ -247,8 +249,8 @@ class Mediator():
     def new_bar(self, fill_prev=True):
         if self.bar and fill_prev:
             self.bar.list_full = True
-        self.current_attr = BarAttr()
-        self.bar = Bar()
+        self.current_attr = xml_objs.BarAttr()
+        self.bar = xml_objs.Bar()
         self.bar.obj_list = [self.current_attr]
         self.insert_into.barlist.append(self.bar)
 
@@ -258,13 +260,13 @@ class Mediator():
         self.bar.add(obj)
 
     def create_barline(self, bl):
-        barline = BarAttr()
+        barline = xml_objs.BarAttr()
         barline.set_barline(bl)
         self.bar.add(barline)
         self.new_bar()
 
     def new_repeat(self, rep):
-        barline = BarAttr()
+        barline = xml_objs.BarAttr()
         barline.set_barline(rep)
         barline.repeat = rep
         if self.bar is None:
@@ -275,7 +277,7 @@ class Mediator():
         if self.bar is None:
             self.new_bar()
         if self.bar.has_music():
-            new_bar_attr = BarAttr()
+            new_bar_attr = xml_objs.BarAttr()
             new_bar_attr.set_key(get_fifths(key_name, mode), mode)
             self.add_to_bar(new_bar_attr)
         else:
@@ -291,7 +293,7 @@ class Mediator():
         if self.bar is None:
             self.new_bar()
         if self.bar.has_music():
-            new_bar_attr = BarAttr()
+            new_bar_attr = xml_objs.BarAttr()
             new_bar_attr.set_clef(self.clef)
             self.add_to_bar(new_bar_attr)
         else:
@@ -301,13 +303,13 @@ class Mediator():
                 self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note):
-        bar_note = BarNote(note)
+        bar_note = xml_objs.BarNote(note)
         bar_note.set_octave(False)
         self.prev_pitch = bar_note.pitch
 
     def new_note(self, note, rel=False):
         self.clear_chord()
-        self.current_note = BarNote(note, self.voice)
+        self.current_note = xml_objs.BarNote(note, self.voice)
         self.check_current_note(rel)
         self.do_action_onnext(self.current_note)
         self.action_onnext = None
@@ -365,12 +367,12 @@ class Mediator():
         self.do_action_onnext(self.current_chord[-1])
 
     def new_chordbase(self, note, duration, rel=False):
-        self.current_note = BarNote(note, self.voice)
+        self.current_note = xml_objs.BarNote(note, self.voice)
         self.current_note.set_duration(duration)
         self.check_current_note(rel)
 
     def new_chordnote(self, note, rel):
-        chord_note = BarNote(note, self.voice)
+        chord_note = xml_objs.BarNote(note, self.voice)
         chord_note.set_duration(self.current_note.duration)
         chord_note.set_durtype(self.dur_token)
         chord_note.dots = self.dots
@@ -396,17 +398,17 @@ class Mediator():
         self.clear_chord()
         rtype = rest.token
         if rtype == 'r':
-            self.current_note = BarRest(rest, self.voice)
+            self.current_note = xml_objs.BarRest(rest, self.voice)
         elif rtype == 'R':
-            self.current_note = BarRest(rest, self.voice, show_type=False)
+            self.current_note = xml_objs.BarRest(rest, self.voice, show_type=False)
         elif rtype == 's' or rtype == '\skip':
-            self.current_note = BarRest(rest, self.voice, skip=True)
+            self.current_note = xml_objs.BarRest(rest, self.voice, skip=True)
         self.check_current_note(rest=True)
 
     def note2rest(self):
         """Note used as rest position transformed to rest."""
         temp_note = self.current_note
-        self.current_note = BarRest(temp_note, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
+        self.current_note = xml_objs.BarRest(temp_note, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
         self.check_duration(rest=True)
         self.bar.obj_list.pop()
         self.bar.add(self.current_note)
@@ -418,7 +420,7 @@ class Mediator():
         sk = self.current_note.skip
         for i in range(1, int(multp)):
             cn.note.duration.base_scaling = cn.base_scaling
-            rest_copy = BarRest(cn.note, voice=cn.voice, show_type=st, skip=sk)
+            rest_copy = xml_objs.BarRest(cn.note, voice=cn.voice, show_type=st, skip=sk)
             self.add_to_bar(rest_copy)
             self.new_bar()
 
@@ -536,7 +538,7 @@ class Mediator():
             text = string.value()
         except AttributeError:
             text = None
-        tempo = BarAttr()
+        tempo = xml_objs.BarAttr()
         tempo.set_tempo(unit, beats, dots, text)
         if self.bar is None:
             self.new_bar()
@@ -623,451 +625,7 @@ class Mediator():
             mult = get_mult(a,b)
             self.divisions = divs*mult
 
-##
-# Classes that holds information suitable for converting to XML.
-##
-class Score():
-    """Object that keep track of a whole score."""
-    def __init__(self):
-        self.partlist = []
-        self.title = None
-        self.creators = {}
-        self.info = {}
-        self.rights = None
 
-    def is_empty(self):
-        """Check if score is empty."""
-        if self.partlist:
-            return False
-        else:
-            return True
-
-    def debug_score(self, attr=[]):
-        """
-        Loop through score and print all elements for debugging purposes.
-
-        Additionally print element attributes by adding them to the
-        argument 'attr' list.
-
-        """
-        ind = "  "
-        for p in self.partlist:
-            print("Score part:"+p.name)
-            for n, b in enumerate(p.barlist):
-                print(ind+"Bar nr: "+str(n+1))
-                for obj in b.obj_list:
-                    print(ind+ind+repr(obj))
-                    for a in attr:
-                        try:
-                            print(ind+ind+ind+a+':'+repr(getattr(obj, a)))
-                        except AttributeError:
-                            pass
-
-
-class ScorePartGroup():
-    """Object to keep track of part group."""
-    def __init__(self, bracket):
-        self.bracket = bracket
-        self.partlist = []
-        self.name = ''
-        self.abbr = ''
-
-
-class ScorePart():
-    """ object to keep track of part """
-    def __init__(self, staves=0):
-        self.name = ''
-        self.abbr = ''
-        self.midi = ''
-        self.barlist = []
-        self.staves = staves
-
-    def set_first_bar(self, divisions):
-        initime = [4,4]
-        iniclef = ('G',2,0)
-
-        def check_time(bar):
-            for obj in bar.obj_list:
-                if isinstance(obj, BarAttr):
-                    if obj.time:
-                        return True
-                if isinstance(obj, BarMus):
-                    return False
-
-        def check_clef(bar):
-            for obj in bar.obj_list:
-                if isinstance(obj, BarAttr):
-                    if obj.clef or obj.multiclef:
-                        return True
-                if isinstance(obj, BarMus):
-                    return False
-
-        if not check_time(self.barlist[0]):
-            try:
-                self.barlist[0].obj_list[0].set_time(initime, False)
-            except AttributeError:
-                print "Warning can't set initial time sign!"
-        if not check_clef(self.barlist[0]):
-            try:
-                self.barlist[0].obj_list[0].set_clef(iniclef)
-            except AttributeError:
-                print "Warning can't set initial clef sign!"
-        self.barlist[0].obj_list[0].divs = divisions
-        if self.staves:
-            self.barlist[0].obj_list[0].staves = self.staves
-
-
-class ScoreSection():
-    """ object to keep track of music section """
-    def __init__(self, name):
-        self.name = name
-        self.barlist = []
-
-    def merge_voice(self, voice):
-        for org_v, add_v in zip(self.barlist, voice.barlist):
-            org_v.inject_voice(add_v)
-
-    def merge_lyrics(self, lyrics):
-        """Merge in lyrics in music section."""
-        i = 0
-        ext = False
-        for bar in self.barlist:
-            for obj in bar.obj_list:
-                if isinstance(obj, BarNote):
-                    if ext:
-                        if obj.slur:
-                            ext = False
-                    else:
-                        try:
-                            l = lyrics.barlist[i]
-                        except IndexError:
-                            break
-                        if l != 'skip':
-                            try:
-                                if l[3] == "extend" and obj.slur:
-                                    ext = True
-                            except IndexError:
-                                pass
-                            obj.add_lyric(l)
-                        i += 1
-
-
-class Snippet(ScoreSection):
-    """ Short section indended to be merged.
-    Holds reference to the barlist to be merged into."""
-    def __init__(self, name, merge_into):
-        ScoreSection.__init__(self, name)
-        self.merge_barlist = merge_into
-
-
-class LyricsSection(ScoreSection):
-    """ Holds the lyrics information. Will eventually be merged to
-    the corresponding note in the section set by the voice id. """
-    def __init__(self, name, voice_id):
-        ScoreSection.__init__(self, name)
-        self.voice_id = voice_id
-
-
-class Bar():
-    """ Representing the bar/measure.
-    Contains also information about how complete it is."""
-    def __init__(self):
-        self.obj_list = []
-        self.list_full = False
-
-    def add(self, obj):
-        self.obj_list.append(obj)
-
-    def has_music(self):
-        """ Check if bar contains music. """
-        for obj in self.obj_list:
-            if isinstance(obj, BarMus):
-                return True
-        return False
-
-    def create_backup(self):
-        """ Calculate and create backup object."""
-        b = 0
-        s = 1
-        for obj in self.obj_list:
-            if isinstance(obj, BarMus):
-                if not obj.chord:
-                    b += obj.base_scaling[0]
-                    s *= obj.base_scaling[1]
-            elif isinstance(obj, BarBackup):
-                break
-        self.add(BarBackup((b,s)))
-
-    def is_skip(self):
-        """ Check if bar has nothing but skips. """
-        for obj in self.obj_list:
-            if obj.has_attr():
-                return False
-            if isinstance(obj, BarNote):
-                return False
-            elif isinstance(obj, BarRest):
-                if not obj.skip:
-                    return False
-        return True
-
-    def inject_voice(self, new_voice):
-        """ Adding new voice to bar.
-        Omitting double or conflicting bar attributes.
-        Omitting also bars with only skips."""
-        if new_voice.obj_list[0].has_attr():
-            if not self.obj_list[0].has_attr():
-                self.obj_list.insert(0, new_voice.obj_list[0])
-            new_voice.obj_list.pop(0)
-        if not new_voice.is_skip():
-            self.create_backup()
-            for nv in new_voice.obj_list:
-                    self.add(nv)
-
-
-class BarMus():
-    """ Common class for notes and rests. """
-    def __init__(self, note, voice=1):
-        self.note = note
-        if note.duration:
-            self.duration = note.duration
-            self.base_scaling = note.duration.base_scaling
-        self.type = None
-        self.tuplet = 0
-        self.dot = 0
-        self.voice = voice
-        self.staff = 0
-        self.chord = False
-        self.other_notation = None
-        self.dynamic = {
-        'before': {'mark': None, 'wedge': None },
-        'after': {'mark': None, 'wedge': None }
-        }
-        self.oct_shift = None
-
-    def __repr__(self):
-        return '<{0} {1}>'.format(self.__class__.__name__, self.note)
-
-    def set_tuplet(self, fraction, ttype):
-        self.tuplet = fraction
-        self.ttype = ttype
-
-    def set_staff(self, staff):
-        self.staff = staff
-
-    def add_dot(self):
-        self.dot += 1
-
-    def add_other_notation(self, other):
-        self.other_notation = other
-
-    def set_dynamics_before(self, mark=None, wedge=None):
-        if mark:
-            self.dynamic['before']['mark'] = mark
-        if wedge:
-            self.dynamic['before']['wedge'] = wedge
-
-    def set_dynamics_after(self, mark=None, wedge=None):
-        if mark:
-            self.dynamic['after']['mark'] = mark
-        if wedge:
-            self.dynamic['after']['wedge'] = wedge
-
-    def set_oct_shift(self, plac, octdir, size):
-        self.oct_shift = OctaveShift(plac, octdir, size)
-
-    def has_attr(self):
-        return False
-
-
-##
-# Classes that are used by BarMus
-##
-
-
-class OctaveShift():
-    """Class for octave shifts."""
-    def __init__(self, plac, octdir, size):
-        self.plac = plac
-        self.octdir = octdir
-        self.size = size
-
-
-##
-# Subclasses of BarMus
-##
-
-
-class BarNote(BarMus):
-    """ object to keep track of note parameters """
-    def __init__(self, note, voice=1):
-        BarMus.__init__(self, note, voice)
-        self.pitch = note.pitch
-        self.base_note = getNoteName(note.pitch.note)
-        self.alter = get_xml_alter(note.pitch.alter)
-        self.tie = 0
-        self.grace = (0,0)
-        self.gliss = None
-        self.tremolo = ('',0)
-        self.skip = False
-        self.slur = []
-        self.artic = []
-        self.ornament = None
-        self.adv_ornament = None
-        self.fingering = None
-        self.lyric = None
-
-    def set_duration(self, duration, durval=0):
-        self.duration = duration
-        self.base_scaling = duration.base_scaling
-        self.dot = 0
-        if durval:
-            self.type = durval2type(durval)
-
-    def set_durtype(self, durval):
-        self.type = durval2type(durval)
-
-    def set_octave(self, relative, prev_pitch=None):
-        if relative:
-            self.pitch.makeAbsolute(prev_pitch)
-
-    def set_tie(self, tie_type):
-        self.tie = tie_type
-
-    def set_slur(self, slur_type):
-        self.slur.append(slur_type)
-
-    def add_articulation(self, art_name):
-        self.artic.append(art_name)
-
-    def add_ornament(self, ornament):
-        self.ornament = ornament
-
-    def add_adv_ornament(self, ornament, end_type="start"):
-        self.adv_ornament = (ornament, {"type": end_type})
-
-    def set_grace(self, slash):
-        self.grace = (1,slash)
-
-    def set_gliss(self, line, endtype = "start", nr=1):
-        if not line:
-            line = "solid"
-        self.gliss = (line, endtype, nr)
-
-    def set_tremolo(self, trem_type, duration=False):
-        if duration:
-            self.tremolo = (trem_type, dur2lines(duration))
-        else:
-            self.tremolo = (trem_type, self.tremolo[1])
-
-    def add_fingering(self, finger_nr):
-        self.fingering = finger_nr
-
-    def add_lyric(self, lyric_list):
-        if not self.lyric:
-            self.lyric = []
-        self.lyric.append(lyric_list)
-
-    def change_lyric_syll(self, index, syll):
-        self.lyric[index][1] = syll
-
-    def change_lyric_nr(self, index, nr):
-        self.lyric[index][2] = nr
-
-
-class BarRest(BarMus):
-    """ object to keep track of different rests and skips """
-    def __init__(self, rest, voice=1, show_type=True, skip=False, pos=0):
-        BarMus.__init__(self, rest, voice)
-        self.show_type = show_type
-        self.type = None
-        self.skip = skip
-        self.pos = pos
-
-    def set_duration(self, duration, durval=0, durtype=None):
-        self.duration = duration
-        self.base_scaling = duration.base_scaling
-        if durval:
-            if self.show_type:
-                self.type = durval2type(durval)
-            else:
-                self.type = None
-
-    def set_durtype(self, durval):
-        if self.show_type:
-            self.type = durval2type(durval)
-
-
-class BarAttr():
-    """ object that keep track of bar attributes, e.g. time sign, clef, key etc """
-    def __init__(self):
-        self.key = None
-        self.time = 0
-        self.clef = 0
-        self.mode = ''
-        self.divs = 0
-        self.barline = ''
-        self.repeat = None
-        self.staves = 0
-        self.multiclef = []
-        self.tempo = None
-
-    def __repr__(self):
-        return '<{0}>'.format(self.__class__.__name__)
-
-    def set_key(self, muskey, mode):
-        self.key = muskey
-        self.mode = mode
-
-    def set_time(self, fractlist, numeric):
-        self.time = fractlist
-        if not numeric and (fractlist == [2,2] or fractlist == [4,4]):
-            self.time.append('common')
-
-    def set_clef(self, clef):
-        self.clef = clef
-
-    def set_barline(self, bl):
-        self.barline = convert_barl(bl)
-
-    def set_tempo(self, unit, beats, dots=0, text=""):
-        self.tempo = TempoDir(unit, beats, dots, text)
-
-    def has_attr(self):
-        check = False
-        if self.key is not None:
-            check = True
-        elif self.time != 0:
-            check = True
-        elif self.clef != 0:
-            check = True
-        elif self.divs != 0:
-            check = True
-        return check
-
-
-class BarBackup():
-    """ Object that stores duration for backup """
-    def __init__(self, base_scaling):
-        self.base_scaling = base_scaling
-
-
-class TempoDir():
-    """ Object that stores tempo direction information """
-    def __init__(self, unit, beats, dots, text):
-        self.metr = durval2type(unit), beats
-        self.text = text
-        self.midi = self.set_midi_tempo(unit, beats, dots)
-        self.dots = dots
-
-    def set_midi_tempo(self, unit, beats, dots):
-        u = Fraction(1,int(unit))
-        if dots:
-            import math
-            den = int(math.pow(2,dots))
-            num = int(math.pow(2,dots+1)-1)
-            u *= Fraction(num, den)
-        mult = 4*u
-        return float(Fraction(beats)*mult)
 
 ##
 # Translation functions
@@ -1113,73 +671,10 @@ def clefname2clef(clefname):
         clef = 0
     return clef
 
-def getNoteName(index):
-    noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-    return noteNames[index]
-
-def notename2step(note_name):
-    alter = 0
-    if len(note_name)>1:
-        is_sharp = note_name.split('i')
-        is_flat = note_name.split('e')
-        note_name = note_name[0]
-        if len(is_sharp)>1:
-            alter = len(is_sharp)-1
-        elif len(is_flat)>1:
-            alter = -(len(is_flat)-1)
-        else:
-            alter = -1 #assuming 'as'
-    base_list = ['c', 'd', 'e', 'f', 'g', 'a', 'b']
-    try:
-        note_num = base_list.index(note_name)
-    except ValueError:
-        print(note_name+" isn't recognised as a supported pitch name.")
-        note_num = 0
-    return [note_name.upper(), alter, note_num]
-
-def durval2type(durval):
-    xml_types = [
-        "maxima", "long", "breve", "whole",
-        "half", "quarter", "eighth",
-        "16th", "32nd", "64th",
-        "128th", "256th", "512th", "1024th", "2048th"
-    ] # Note: 2048 is supported by ly but not by MusicXML!
-    return xml_types[ly.duration.durations.index(durval)]
-
-def dur2lines(dur):
-    if dur == 8:
-        return 1
-    elif dur == 16:
-        return 2
-    elif dur == 32:
-        return 3
-    else:
-        return 0
-
 def get_mult(num, den):
     from fractions import Fraction
     simple = Fraction(num, den)
     return simple.denominator
-
-def convert_barl(bl):
-    if bl == '|':
-        return 'regular'
-    elif bl == ':':
-        return 'dotted'
-    elif bl == 'dashed':
-        return bl
-    elif bl == '.':
-        return 'heavy'
-    elif bl == '||':
-        return 'light-light'
-    elif bl == '.|' or bl == 'forward':
-        return 'heavy-light'
-    elif bl == '.|.':
-        return 'heavy-heavy'
-    elif bl == '|.' or bl == 'backward':
-        return 'light-heavy'
-    elif bl == "'":
-        return 'tick'
 
 def get_voice(c):
     voices = ["voiceOne", "voiceTwo", "voiceThree", "voiceFour"]
@@ -1217,18 +712,8 @@ def calc_trem_dur(repeats, base_scaling, duration):
     base = base_scaling[0]
     scale = base_scaling[1]
     new_base = base * repeats
-    new_type = durval2type(str(duration/repeats))
+    new_type = xml_objs.durval2type(str(duration/repeats))
     return (new_base, scale), new_type
-
-def get_xml_alter(alter):
-    """ Convert alter to the specified format,
-    i e int if it's int and float otherwise.
-    Also multiply with 2."""
-    alter *= 2
-    if float(alter).is_integer():
-        return alter
-    else:
-        return float(alter)
 
 def get_line_style(style):
     style_dict = {

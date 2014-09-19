@@ -24,7 +24,7 @@ The xml-file is built from the mediator objects
 
 from __future__ import unicode_literals
 
-from . import ly2xml_mediator
+from . import xml_objs
 
 
 class iterateMediatorScore():
@@ -43,9 +43,9 @@ class iterateMediatorScore():
         if score.rights:
             self.musxml.add_rights(score.rights)
         for p in score.partlist:
-            if isinstance(p, ly2xml_mediator.ScorePart):
+            if isinstance(p, xml_objs.ScorePart):
                 self.iterate_part(p)
-            elif isinstance(p, ly2xml_mediator.ScorePartGroup):
+            elif isinstance(p, xml_objs.ScorePartGroup):
                 self.musxml.create_partgroup('start', p.bracket)
                 for part in p.partlist:
                     self.iterate_part(part)
@@ -65,17 +65,17 @@ class iterateMediatorScore():
         """The objects in the bar is outputed to the xml-file."""
         self.musxml.create_measure()
         for obj in bar.obj_list:
-            if isinstance(obj, ly2xml_mediator.BarAttr):
+            if isinstance(obj, xml_objs.BarAttr):
                 self.new_xml_bar_attr(obj)
-            elif isinstance(obj, ly2xml_mediator.BarMus):
+            elif isinstance(obj, xml_objs.BarMus):
                 self.before_note(obj)
-                if isinstance(obj, ly2xml_mediator.BarNote):
+                if isinstance(obj, xml_objs.BarNote):
                     self.new_xml_note(obj)
-                elif isinstance(obj, ly2xml_mediator.BarRest):
+                elif isinstance(obj, xml_objs.BarRest):
                     self.new_xml_rest(obj)
                 self.gener_xml_mus(obj)
                 self.after_note(obj)
-            elif isinstance(obj, ly2xml_mediator.BarBackup):
+            elif isinstance(obj, xml_objs.BarBackup):
                 self.musxml.new_backup(obj.base_scaling, self.divisions)
 
     def new_xml_bar_attr(self, obj):
