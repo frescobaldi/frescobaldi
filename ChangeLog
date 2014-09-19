@@ -9,10 +9,13 @@ Changes in 2.17 --
   - new (partial): Chinese Traditional, Simplified and Hong Kong by Anthony Fok
 * New features:
   - Session import/export, contributed by Peter Bjuhr
+  - A session can have its own list of include paths, that can be used either
+    instead of or in addition to the global list of include paths, contributed
+    by Peter Bjuhr
 * Improvements:
   - MusicXML export has improved by using the ly.music module that has a notion
-    of the music events and time/duration of those events, ly.music is authored
-    and maintained by Wilbert Berendsen but the MusicXML export module is
+    of the music events and time/duration of those events. Although ly.music is
+    authored and maintained by Wilbert Berendsen, the MusicXML export module is
     contributed by Peter Bjuhr
   - workaround a LilyPond buglet in point-and-click highlighting of quoted
     strings: although the textedit uri points to the closing quote, the string
