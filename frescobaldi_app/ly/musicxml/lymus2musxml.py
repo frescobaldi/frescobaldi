@@ -44,6 +44,17 @@ from . import ly2xml_mediator
 excl_list = ['Version', 'Midi', 'Layout']
 
 
+# Defining contexts in relation to musicXML
+group_contexts = ['StaffGroup', 'ChoirStaff']
+
+pno_contexts = ['PianoStaff', 'GrandStaff']
+
+staff_contexts = ['Staff', 'RhythmicStaff', 'TabStaff',
+    'DrumStaff', 'VaticanaStaff', 'MensuralStaff']
+
+part_contexts = pno_contexts + staff_contexts
+
+
 class End():
     """ Extra class that gives information about the end of Container
     elements in the node list. """
@@ -142,12 +153,12 @@ class ParseSource():
     def Context(self, context):
         """ \context """
         self.in_context = True
-        if context.context() in ['PianoStaff', 'GrandStaff']:
+        if context.context() in pno_contexts:
             self.mediator.new_part(piano=True)
             self.piano_staff = 1
-        elif context.context() == 'StaffGroup':
+        elif context.context() in group_contexts:
             self.mediator.new_group()
-        elif context.context() == 'Staff':
+        elif context.context() in staff_contexts:
             if self.piano_staff:
                 if self.piano_staff > 1:
                     self.mediator.set_voicenr(nr=self.piano_staff+3)
@@ -297,14 +308,14 @@ class ParseSource():
         else:
             val = cont_set.value().value()
         if cont_set.property() == 'instrumentName':
-            if cont_set.context() == "Staff":
+            if cont_set.context() in part_contexts:
                 func = 'set_partname'
-            elif cont_set.context() == "StaffGroup":
+            elif cont_set.context() in group_contexts:
                 func = 'set_groupname'
         elif cont_set.property() == 'shortInstrumentName':
-            if cont_set.context() == "Staff":
+            if cont_set.context() in part_contexts:
                 func = 'set_partabbr'
-            elif cont_set.context() == "StaffGroup":
+            elif cont_set.context() in group_contexts:
                 func = 'set_groupabbr'
         elif cont_set.property() == 'midiInstrument':
             func = 'set_partmidi'
@@ -416,12 +427,12 @@ class ParseSource():
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
                 self.sims_and_seqs.pop()
-            elif end.node.context() == 'StaffGroup':
+            elif end.node.context() in group_contexts:
                 self.mediator.close_group()
-            elif end.node.context() == 'Staff':
+            elif end.node.context() in staff_contexts:
                 if not self.piano_staff:
                     self.mediator.check_part()
-            elif end.node.context() in ['PianoStaff', 'GrandStaff']:
+            elif end.node.context() in pno_contexts:
                 self.mediator.check_voices()
                 self.mediator.check_part()
                 self.piano_staff = 0
