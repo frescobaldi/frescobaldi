@@ -228,6 +228,8 @@ class Bar():
         if new_voice.obj_list[0].has_attr():
             if not self.obj_list[0].has_attr():
                 self.obj_list.insert(0, new_voice.obj_list[0])
+            if new_voice.obj_list[0].multiclef:
+                self.obj_list[0].multiclef += new_voice.obj_list[0].multiclef
             new_voice.obj_list.pop(0)
         try:
             if self.obj_list[-1].barline and new_voice.obj_list[-1].barline:
@@ -455,6 +457,8 @@ class BarAttr():
         elif self.time != 0:
             check = True
         elif self.clef != 0:
+            check = True
+        elif self.multiclef:
             check = True
         elif self.divs != 0:
             check = True
