@@ -229,10 +229,15 @@ class Bar():
             if not self.obj_list[0].has_attr():
                 self.obj_list.insert(0, new_voice.obj_list[0])
             new_voice.obj_list.pop(0)
+        try:
+            if self.obj_list[-1].barline and new_voice.obj_list[-1].barline:
+               self.obj_list.pop()
+        except AttributeError:
+            pass
         if not new_voice.is_skip():
             self.create_backup()
             for nv in new_voice.obj_list:
-                    self.add(nv)
+                self.add(nv)
 
 
 class BarMus():
@@ -416,7 +421,7 @@ class BarAttr():
         self.clef = 0
         self.mode = ''
         self.divs = 0
-        self.barline = ''
+        self.barline = None
         self.repeat = None
         self.staves = 0
         self.multiclef = []

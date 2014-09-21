@@ -31,7 +31,7 @@ class iterateMediatorScore():
 
     def __init__(self, score, musxml, div):
         """ The mediator score is looped through and outputed to the xml-file. """
-        # score.debug_score([])
+        score.debug_score(['barline'])
         self.musxml = musxml
         self.divisions = div
         if score.title:
