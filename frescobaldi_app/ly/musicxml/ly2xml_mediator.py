@@ -124,6 +124,9 @@ class Mediator():
         else:
             self.group = None
 
+    def change_group_bracket(self, system_start):
+        self.group.set_bracket(get_group_symbol(system_start))
+
     def new_part(self, piano=False):
         if piano:
             self.part = xml_objs.ScorePart(2)
@@ -743,4 +746,14 @@ def get_line_style(style):
     try:
         return style_dict[style]
     except KeyError:
-        return false
+        return False
+
+def get_group_symbol(lily_sys_start):
+    symbol_dict = {
+        "SystemStartBrace": "brace",
+        "SystemStartSquare": "square"
+        }
+    try:
+        return symbol_dict[lily_sys_start]
+    except KeyError:
+        return False

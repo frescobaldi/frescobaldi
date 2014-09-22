@@ -299,7 +299,7 @@ class ParseSource():
         self.mediator.set_tremolo(duration=int(tremolo.duration.token))
 
     def With(self, cont_with):
-        print("With not implemented", cont_with.tokens)
+        print("With not implemented", cont_with.token, cont_with.tokens)
 
     def Set(self, cont_set):
         func = None
@@ -395,6 +395,8 @@ class ParseSource():
             self.mediator.new_ottava(item.token)
         elif self.look_behind(item, ly.music.items.Override):
             self.override_dict[self.override_key] = item.token
+        else:
+            print("SchemeItem not implemented: " + item.token)
 
     def SchemeQuote(self, quote):
         """A ' in scheme."""

@@ -23,6 +23,7 @@ Classes that holds information suitable for converting to musicXML.
 
 from __future__ import unicode_literals
 
+from fractions import Fraction
 
 class Score():
     """Object that keep track of a whole score."""
@@ -82,6 +83,9 @@ class ScorePartGroup():
         self.abbr = ''
         self.parent = None
         self.num = num
+
+    def set_bracket(self, bracket):
+        self.bracket = bracket
 
 
 class ScorePart():
