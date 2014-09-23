@@ -37,10 +37,22 @@ import documentinfo
 import ly.music
 
 from . import create_musicxml
+from . import iter_mediator
 from . import ly2xml_mediator
 
 #excluded from parsing
 excl_list = ['Version', 'Midi', 'Layout']
+
+
+# Defining contexts in relation to musicXML
+group_contexts = ['StaffGroup', 'ChoirStaff']
+
+pno_contexts = ['PianoStaff', 'GrandStaff']
+
+staff_contexts = ['Staff', 'RhythmicStaff', 'TabStaff',
+    'DrumStaff', 'VaticanaStaff', 'MensuralStaff']
+
+part_contexts = pno_contexts + staff_contexts
 
 
 class End():
@@ -102,7 +114,8 @@ class ParseSource():
 
     def musicxml(self, prettyprint=True):
         self.mediator.check_score()
-        self.iterate_mediator()
+        iter_mediator.iterateMediatorScore(
+            self.mediator.score, self.musxml, self.mediator.divisions)
         xml = self.musxml.musicxml(prettyprint)
         return xml
 
@@ -140,10 +153,12 @@ class ParseSource():
     def Context(self, context):
         """ \context """
         self.in_context = True
-        if context.context() in ['PianoStaff', 'GrandStaff']:
+        if context.context() in pno_contexts:
             self.mediator.new_part(piano=True)
             self.piano_staff = 1
-        elif context.context() == 'Staff':
+        elif context.context() in group_contexts:
+            self.mediator.new_group()
+        elif context.context() in staff_contexts:
             if self.piano_staff:
                 if self.piano_staff > 1:
                     self.mediator.set_voicenr(nr=self.piano_staff+3)
@@ -151,7 +166,9 @@ class ParseSource():
                 self.mediator.set_staffnr(self.piano_staff)
                 self.piano_staff += 1
             else:
-                self.mediator.new_part()
+                # Check first if part already exists
+                if context.token != '\\context' or self.mediator.part_not_empty():
+                    self.mediator.new_part()
             self.mediator.add_staff_id(context.context_id())
         elif context.context() == 'Voice':
             self.sims_and_seqs.append('voice')
@@ -159,6 +176,8 @@ class ParseSource():
                 self.mediator.new_section(context.context_id())
             else:
                 self.mediator.new_section('voice')
+        else:
+            print("Context not implemented: " + context.context())
 
     def VoiceSeparator(self, voice_sep):
         self.mediator.new_snippet('sim')
@@ -280,23 +299,37 @@ class ParseSource():
         self.mediator.set_tremolo(duration=int(tremolo.duration.token))
 
     def With(self, cont_with):
-        print(cont_with.tokens)
+        print("With not implemented", cont_with.token, cont_with.tokens)
 
     def Set(self, cont_set):
-        if cont_set.property() == 'instrumentName':
-            if isinstance(cont_set.value(), ly.music.items.Scheme):
-                self.mediator.set_partname(cont_set.value().get_string())
-            else:
-                self.mediator.set_partname(cont_set.value().value())
-        elif cont_set.property() == 'midiInstrument':
-            if isinstance(cont_set.value(), ly.music.items.Scheme):
-                self.mediator.set_partmidi(cont_set.value().get_string())
-            else:
-                self.mediator.set_partmidi(cont_set.value().value())
-        elif cont_set.property() == 'stanza':
-            self.mediator.new_lyric_nr(cont_set.value().value())
+        func = None
+        if isinstance(cont_set.value(), ly.music.items.Scheme):
+            val = ont_set.value().get_string()
         else:
-            print(cont_set.property())
+            val = cont_set.value().value()
+        if cont_set.property() == 'instrumentName':
+            if cont_set.context() in part_contexts:
+                func = 'set_partname'
+            elif cont_set.context() in group_contexts:
+                func = 'set_groupname'
+        elif cont_set.property() == 'shortInstrumentName':
+            if cont_set.context() in part_contexts:
+                func = 'set_partabbr'
+            elif cont_set.context() in group_contexts:
+                func = 'set_groupabbr'
+        elif cont_set.property() == 'midiInstrument':
+            func = 'set_partmidi'
+        elif cont_set.property() == 'stanza':
+            func = 'new_lyric_nr'
+        if func:
+            self.gen_med_caller(func, val)
+        else:
+            print(
+            "Set for context: "
+            + cont_set.context() +
+            " and property: "
+            + cont_set.property() +
+            " not implemented!")
 
     def Command(self, command):
         """ \bar, \rest etc """
@@ -362,6 +395,8 @@ class ParseSource():
             self.mediator.new_ottava(item.token)
         elif self.look_behind(item, ly.music.items.Override):
             self.override_dict[self.override_key] = item.token
+        else:
+            print("SchemeItem not implemented: " + item.token)
 
     def SchemeQuote(self, quote):
         """A ' in scheme."""
@@ -394,10 +429,12 @@ class ParseSource():
             if end.node.context() == 'Voice':
                 self.mediator.check_voices()
                 self.sims_and_seqs.pop()
-            elif end.node.context() == 'Staff':
+            elif end.node.context() in group_contexts:
+                self.mediator.close_group()
+            elif end.node.context() in staff_contexts:
                 if not self.piano_staff:
                     self.mediator.check_part()
-            elif end.node.context() in ['PianoStaff', 'GrandStaff']:
+            elif end.node.context() in pno_contexts:
                 self.mediator.check_voices()
                 self.mediator.check_part()
                 self.piano_staff = 0
@@ -497,94 +534,10 @@ class ParseSource():
             return False
 
     ##
-    # The xml-file is built from the mediator objects
+    # Other functions
     ##
-
-    def iterate_mediator(self):
-        """ The mediator lists are looped through and outputed to the xml-file. """
-        # self.mediator.score.debug_score([])
-        if self.mediator.score.title:
-            self.musxml.create_title(self.mediator.score.title)
-        for ctag in self.mediator.score.creators:
-            self.musxml.add_creator(ctag, self.mediator.score.creators[ctag])
-        for itag in self.mediator.score.info:
-            self.musxml.create_score_info(itag, self.mediator.score.info[itag])
-        if self.mediator.score.rights:
-            self.musxml.add_rights(self.mediator.score.rights)
-        for part in self.mediator.score.partlist:
-            if part.barlist:
-                self.musxml.create_part(part.name, part.midi)
-                self.mediator.set_first_bar(part)
-            else:
-                print "Warning: empty part: "+part.name
-            for bar in part.barlist:
-                self.musxml.create_measure()
-                for obj in bar.obj_list:
-                    if isinstance(obj, ly2xml_mediator.BarAttr):
-                        if obj.has_attr():
-                            self.musxml.new_bar_attr(obj.clef, obj.time, obj.key, obj.mode, obj.divs)
-                        if obj.repeat:
-                            self.musxml.add_barline(obj.barline, obj.repeat)
-                        elif obj.barline:
-                            self.musxml.add_barline(obj.barline)
-                        if obj.staves:
-                            self.musxml.add_staves(obj.staves)
-                        if obj.multiclef:
-                            for mc in obj.multiclef:
-                                self.musxml.add_clef(sign=mc[0][0], line=mc[0][1], nr=mc[1], oct_ch=mc[0][2])
-                        if obj.tempo:
-                            self.musxml.create_tempo(obj.tempo.metr, obj.tempo.midi, obj.tempo.dots)
-                    elif isinstance(obj, ly2xml_mediator.BarMus):
-                        if obj.dynamic['before']:
-                            if obj.dynamic['before']['mark']:
-                                self.musxml.add_dynamic_mark(obj.dynamic['before']['mark'])
-                            if obj.dynamic['before']['wedge']:
-                                self.musxml.add_dynamic_wedge(obj.dynamic['before']['wedge'])
-                        if isinstance(obj, ly2xml_mediator.BarNote):
-                            self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave, obj.note.accidental_token],
-                            obj.base_scaling, obj.voice, obj.type, self.mediator.divisions, obj.dot, obj.chord)
-                            if obj.tie:
-                                self.musxml.tie_note(obj.tie)
-                            for s in obj.slur:
-                                self.musxml.add_slur(1, s) #LilyPond doesn't allow nested slurs so the number can be 1
-                            for a in obj.artic:
-                                self.musxml.new_articulation(a)
-                            if obj.ornament:
-                                self.musxml.new_simple_ornament(obj.ornament)
-                            if obj.adv_ornament:
-                                self.musxml.new_adv_ornament(obj.adv_ornament[0], obj.adv_ornament[1])
-                            if obj.tremolo[1]:
-                                self.musxml.add_tremolo(obj.tremolo[0], obj.tremolo[1])
-                            if obj.gliss:
-                                self.musxml.add_gliss(obj.gliss[0], obj.gliss[1], obj.gliss[2])
-                            if obj.fingering:
-                                self.musxml.add_fingering(obj.fingering)
-                            if obj.lyric:
-                                for l in obj.lyric:
-                                    try:
-                                       self.musxml.add_lyric(l[0], l[1], l[2], l[3])
-                                    except IndexError:
-                                        self.musxml.add_lyric(l[0], l[1], l[2])
-                        elif isinstance(obj, ly2xml_mediator.BarRest):
-                            if obj.skip:
-                                self.musxml.new_skip(obj.base_scaling, self.mediator.divisions)
-                            else:
-                                self.musxml.new_rest(obj.base_scaling, obj.type, self.mediator.divisions, obj.pos,
-                                obj.dot, obj.voice)
-                        if obj.tuplet:
-                            self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.mediator.divisions)
-                        if obj.staff and not obj.skip:
-                            self.musxml.add_staff(obj.staff)
-                        if obj.other_notation:
-                            self.musxml.add_named_notation(obj.other_notation)
-                        if obj.dynamic['after']:
-                            if obj.dynamic['after']['mark']:
-                                self.musxml.add_dynamic_mark(obj.dynamic['after']['mark'])
-                            if obj.dynamic['after']['wedge']:
-                                self.musxml.add_dynamic_wedge(obj.dynamic['after']['wedge'])
-                        if obj.oct_shift:
-                            self.musxml.add_octave_shift(obj.oct_shift.plac, obj.oct_shift.octdir, obj.oct_shift.size)
-                    elif isinstance(obj, ly2xml_mediator.BarBackup):
-                        self.musxml.new_backup(obj.base_scaling, self.mediator.divisions)
-
+    def gen_med_caller(self, func_name, *args):
+        """Call any function in the mediator object."""
+        func_call = getattr(self.mediator, func_name)
+        func_call(*args)
 

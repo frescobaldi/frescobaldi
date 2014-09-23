@@ -65,13 +65,30 @@ class CreateMusicXML():
         info_node = etree.SubElement(self.score_info, tag, attr)
         info_node.text = info
 
-    def create_part(self, name, midi):
+    def create_partgroup(self, gr_type, num, name=None, abbr=None, symbol=None):
+        """Create a new part group."""
+        attr_dict = {"type": gr_type, "number": str(num)}
+        partgroup = etree.SubElement(self.partlist, "part-group", attr_dict)
+        if name:
+            group_name = etree.SubElement(partgroup, "group-name")
+            group_name.text = name
+        if abbr:
+            group_abbr = etree.SubElement(partgroup, "group-abbreviation")
+            group_abbr.text = abbr
+        if symbol:
+            group_symbol = etree.SubElement(partgroup, "group-symbol")
+            group_symbol.text = symbol
+
+    def create_part(self, name, abbr, midi):
         """ create a new part """
         strnr = str(self.part_count)
         part = etree.SubElement(self.partlist, "score-part", id="P"+strnr)
         if name:
             partname = etree.SubElement(part, "part-name")
             partname.text = name
+        if abbr:
+            partabbr = etree.SubElement(part, "part-abbreviation")
+            partabbr.text = abbr
         if midi:
             scoreinstr = etree.SubElement(part, "score-instrument", id="P"+strnr+"-I"+strnr)
             instrname = etree.SubElement(scoreinstr, "instrument-name")
@@ -82,7 +99,7 @@ class CreateMusicXML():
             midiname = etree.SubElement(midiinstr, "midi-name")
             midiname.text = midi
         self.current_part = etree.SubElement(self.root, "part", id="P"+strnr)
-        self.part_count +=1
+        self.part_count += 1
         self.bar_nr = 1
 
     def create_measure(self):
