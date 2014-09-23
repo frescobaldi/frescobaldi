@@ -332,10 +332,9 @@ class Reader(object):
             break
         return item
     
-    @_tokencls(lilypond.Name)
+    @_tokencls(lilypond.Name, lilypond.ContextProperty)
     def handle_name(self, t, source):
-        if self.source.state.depth() < 2:
-            return self.read_assignment(t)
+        return self.read_assignment(t)
     
     @_tokencls(
         lilypond.PaperVariable,
