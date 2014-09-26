@@ -175,6 +175,19 @@ class View(QPlainTextEdit):
                 color.setAlpha(128)
                 QPainter(self.viewport()).fillRect(rect, color)
     
+    def setTextCursor(self, cursor):
+        """Reimplemented to show n surrounding lines."""
+        numlines = QSettings().value("view_preferences/context_lines", 3, int)
+        if numlines > 0:
+            c = QTextCursor(cursor)
+            c.setPosition(cursor.selectionEnd())
+            c.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor, numlines)
+            super(View, self).setTextCursor(c)
+            c.setPosition(cursor.selectionStart())
+            c.movePosition(QTextCursor.Up, QTextCursor.MoveAnchor, numlines)
+            super(View, self).setTextCursor(c)
+        super(View, self).setTextCursor(cursor)
+    
     def readSettings(self):
         data = textformats.formatData('editor')
         self.setFont(data.font)
