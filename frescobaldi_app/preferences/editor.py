@@ -54,12 +54,17 @@ class ViewSettings(preferences.Group):
     def __init__(self, page):
         super(ViewSettings, self).__init__(page)
         
-        layout = QVBoxLayout()
+        layout = QGridLayout()
         self.setLayout(layout)
         
         self.wrapLines = QCheckBox(toggled=self.changed)
+        self.numContextLines = QSpinBox(minimum=0, maximum=20, valueChanged=self.changed)
+        self.numContextLinesLabel = l = QLabel()
+        l.setBuddy(self.numContextLines)
         
-        layout.addWidget(self.wrapLines)
+        layout.addWidget(self.wrapLines, 0, 0, 0, 1)
+        layout.addWidget(self.numContextLinesLabel, 1, 0)
+        layout.addWidget(self.numContextLines, 1, 1)
         app.translateUI(self)
     
     def translateUI(self):
@@ -70,16 +75,24 @@ class ViewSettings(preferences.Group):
             "by default. "
             "Note: when the document is displayed by multiple views, they all "
             "share the same line wrapping width, which might look strange."))
+        self.numContextLinesLabel.setText(_("Number of surrounding lines:"))
+        self.numContextLines.setToolTip('<qt>' + _(
+            "When jumping between search results or clicking on a link, the "
+            "text view tries to scroll as few lines as possible. "
+            "Here you can speficy how many surrounding lines at least should "
+            "be visible."))
 
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("view_preferences")
         self.wrapLines.setChecked(s.value("wrap_lines", False, bool))
+        self.numContextLines.setValue(s.value("context_lines", 3, int))
     
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("view_preferences")
         s.setValue("wrap_lines", self.wrapLines.isChecked())
+        s.setValue("context_lines", self.numContextLines.value())
 
 
 class Highlighting(preferences.Group):

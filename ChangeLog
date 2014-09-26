@@ -8,6 +8,9 @@ Changes in 2.17 --
   - updated: nl, pt_BR
   - new (partial): Chinese Traditional, Simplified and Hong Kong by Anthony Fok
 * New features:
+  - Preference for the number of contextual lines to show at least, when the
+    text view is scrolled to a cursor position (e.g. by clicking on a link, or
+    when jumping between search results. Wish: issue #488)
   - Session import/export, contributed by Peter Bjuhr
   - A session can have its own list of include paths, that can be used either
     instead of or in addition to the global list of include paths, contributed
