@@ -36,12 +36,12 @@ import preferences
 import widgets.urlrequester
 
 
-class Editor(preferences.GroupsPage):
+class Editor(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(Editor, self).__init__(dialog)
         
         layout = QVBoxLayout()
-        self.setLayout(layout)
+        self.scrolledWidget.setLayout(layout)
         
         layout.addWidget(ViewSettings(self))
         layout.addWidget(Highlighting(self))
@@ -54,7 +54,7 @@ class ViewSettings(preferences.Group):
     def __init__(self, page):
         super(ViewSettings, self).__init__(page)
         
-        layout = QGridLayout()
+        layout = QGridLayout(spacing=1)
         self.setLayout(layout)
         
         self.wrapLines = QCheckBox(toggled=self.changed)
@@ -62,7 +62,7 @@ class ViewSettings(preferences.Group):
         self.numContextLinesLabel = l = QLabel()
         l.setBuddy(self.numContextLines)
         
-        layout.addWidget(self.wrapLines, 0, 0, 0, 1)
+        layout.addWidget(self.wrapLines, 0, 0, 1, 1)
         layout.addWidget(self.numContextLinesLabel, 1, 0)
         layout.addWidget(self.numContextLines, 1, 1)
         app.translateUI(self)
@@ -81,6 +81,7 @@ class ViewSettings(preferences.Group):
             "text view tries to scroll as few lines as possible. "
             "Here you can speficy how many surrounding lines at least should "
             "be visible."))
+        self.numContextLinesLabel.setToolTip(self.numContextLines.toolTip())
 
     def loadSettings(self):
         s = QSettings()
