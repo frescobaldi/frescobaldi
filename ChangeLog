@@ -25,6 +25,7 @@ Changes in 2.17 --
     strings: although the textedit uri points to the closing quote, the string
     is correctly highlighted
   - dont disable run button of Engrave Custom dialog for autocompile jobs
+  - let autocompile jobs finish before starting a new one
   - dont always run autocompile job for the first opened document
   - tooltips for the panel title and float/close buttons
   - error handling in I/O-related operations has improved
