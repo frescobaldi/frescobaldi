@@ -334,15 +334,8 @@ class SessionEditor(QDialog):
         settings.setValue("basedir", self.basedir.path())
         settings.setValue("set-paths", self.inclPaths.isChecked())
         settings.setValue("repl-paths", self.replPaths.isChecked())
-        if self.inclPaths.isChecked(): 
-            save = []
-            items = self.include.items()
-            for i in items:
-                if i.flags() & Qt.ItemIsEnabled:
-                  save.append(i.text())
-            settings.setValue("include-path", save)
-        else:
-            settings.remove("include-path")
+        path = [i.text() for i in self.include.items() if i.flags() & Qt.ItemIsEnabled]
+        settings.setValue("include-path", path)
         # more settings here
         
     def defaults(self):
