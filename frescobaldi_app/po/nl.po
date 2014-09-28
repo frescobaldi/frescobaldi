@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-09-27 12:32+0200\n"
-"PO-Revision-Date: 2014-09-27 12:35+0200\n"
+"POT-Creation-Date: 2014-09-28 19:22+0200\n"
+"PO-Revision-Date: 2014-09-28 19:24+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -6471,12 +6471,12 @@ msgid "Base directory:"
 msgstr "Basismap:"
 
 #: ../sessions/dialog.py:263
-msgid "Use session specific include paths"
-msgstr "Sessie-specifieke include paden gebruiken"
+msgid "Use session specific include path"
+msgstr "Sessie-specifiek include-pad gebruiken"
 
 #: ../sessions/dialog.py:264
-msgid "Replace global paths"
-msgstr "Globale paden vervangen"
+msgid "Replace global path"
+msgstr "Globale pad vervangen"
 
 #: ../sessions/dialog.py:265
 msgid "When checked, paths in LilyPond preferences are not included."
@@ -6485,41 +6485,41 @@ msgstr ""
 "gebruikt."
 
 #: ../sessions/dialog.py:266
-msgid "Edit global paths"
-msgstr "Globale paden invoegen"
+msgid "Copy global path"
+msgstr "Globale pad kopiëren"
 
 #: ../sessions/dialog.py:267
-msgid "Add and edit the paths from LilyPond preferences."
-msgstr "Globale paden uit de LilyPond-voorkeuren toevoegen en bewerken."
+msgid "Add and edit the path from LilyPond preferences."
+msgstr "Globale include-pad uit de LilyPond-voorkeuren toevoegen en bewerken."
 
 #: ../sessions/dialog.py:269
 msgid "Remove all paths."
 msgstr "Alle paden verwijderen."
 
-#: ../sessions/dialog.py:358
+#: ../sessions/dialog.py:360
 #, python-brace-format
 msgid "Edit session: {name}"
 msgstr "Sessie bewerken: {name}"
 
-#: ../sessions/dialog.py:362
+#: ../sessions/dialog.py:364
 msgid "Edit new session"
 msgstr "Nieuwe sessie bewerken"
 
-#: ../sessions/dialog.py:390 ../sessions/dialog.py:398
-#: ../sessions/dialog.py:404
+#: ../sessions/dialog.py:392 ../sessions/dialog.py:400
+#: ../sessions/dialog.py:406
 msgid "Warning"
 msgstr "Waarschuwing"
 
-#: ../sessions/dialog.py:391
+#: ../sessions/dialog.py:393
 msgid "Please enter a session name."
 msgstr "Voer een sessienaam in."
 
-#: ../sessions/dialog.py:399
+#: ../sessions/dialog.py:401
 #, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr "U kunt de naam '{name}' niet gebruiken."
 
-#: ../sessions/dialog.py:405
+#: ../sessions/dialog.py:407
 #, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
@@ -6530,7 +6530,7 @@ msgstr ""
 "\n"
 "Wilt u deze overschrijven?"
 
-#: ../sessions/dialog.py:408
+#: ../sessions/dialog.py:410
 msgid "Overwrite"
 msgstr "Overschrijven"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-09-27 12:32+0200\n"
+"POT-Creation-Date: 2014-09-28 19:22+0200\n"
 "PO-Revision-Date: 2014-07-25 22:55+0800\n"
 "Last-Translator: Anthony Fok <foka@debian.org>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -6246,23 +6246,24 @@ msgid "Base directory:"
 msgstr ""
 
 #: ../sessions/dialog.py:263
-msgid "Use session specific include paths"
+msgid "Use session specific include path"
 msgstr ""
 
 #: ../sessions/dialog.py:264
-msgid "Replace global paths"
-msgstr ""
+#, fuzzy
+msgid "Replace global path"
+msgstr "移除圓滑線(&S)"
 
 #: ../sessions/dialog.py:265
 msgid "When checked, paths in LilyPond preferences are not included."
 msgstr ""
 
 #: ../sessions/dialog.py:266
-msgid "Edit global paths"
+msgid "Copy global path"
 msgstr ""
 
 #: ../sessions/dialog.py:267
-msgid "Add and edit the paths from LilyPond preferences."
+msgid "Add and edit the path from LilyPond preferences."
 msgstr ""
 
 #: ../sessions/dialog.py:269
@@ -6270,30 +6271,30 @@ msgstr ""
 msgid "Remove all paths."
 msgstr "移除圓滑線(&S)"
 
-#: ../sessions/dialog.py:358
+#: ../sessions/dialog.py:360
 #, python-brace-format
 msgid "Edit session: {name}"
 msgstr ""
 
-#: ../sessions/dialog.py:362
+#: ../sessions/dialog.py:364
 msgid "Edit new session"
 msgstr ""
 
-#: ../sessions/dialog.py:390 ../sessions/dialog.py:398
-#: ../sessions/dialog.py:404
+#: ../sessions/dialog.py:392 ../sessions/dialog.py:400
+#: ../sessions/dialog.py:406
 msgid "Warning"
 msgstr ""
 
-#: ../sessions/dialog.py:391
+#: ../sessions/dialog.py:393
 msgid "Please enter a session name."
 msgstr ""
 
-#: ../sessions/dialog.py:399
+#: ../sessions/dialog.py:401
 #, python-brace-format
 msgid "Please do not use the name '{name}'."
 msgstr ""
 
-#: ../sessions/dialog.py:405
+#: ../sessions/dialog.py:407
 #, python-brace-format
 msgid ""
 "Another session with the name {name} already exists.\n"
@@ -6301,7 +6302,7 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 
-#: ../sessions/dialog.py:408
+#: ../sessions/dialog.py:410
 msgid "Overwrite"
 msgstr ""
 
