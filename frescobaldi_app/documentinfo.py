@@ -113,26 +113,36 @@ class DocumentInfo(plugin.DocumentPlugin):
             return self.lydocinfo().mode()
     
     def includepath(self):
-        """Returns the configured include path. 
-        If there are session specific include paths, they are used.
-        Otherwise the paths are taken from the LilyPond preferences.
-        Currently the document does not matter."""
-        sess_paths = []
-        glob_paths = []
+        """Return the configured include path.
+        
+        A path is a list of directories.
+        
+        If there is a session specific include path, it is used.
+        Otherwise the path is taken from the LilyPond preferences.
+        
+        Currently the document does not matter.
+        
+        """
+        # get the global include path
+        try:
+            include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
+        except TypeError:
+            include_path = []
+        
+        # get the session specific include path
         import sessions
         session_settings = sessions.currentSessionGroup()
-        if session_settings:
-            repl_paths = session_settings.value("repl-paths", False, bool)
-        try:
-            if session_settings and session_settings.contains("include-path"):
-                sess_paths = session_settings.value("include-path", [], type(""))
-            glob_paths = QSettings().value("lilypond_settings/include_path", [], type(""))
-        except TypeError:
-            pass
-        if sess_paths and repl_paths:
-            include_path = sess_paths
-        else:
-            include_path = sess_paths + glob_paths
+        if session_settings and session_settings.value("set-path", False, bool):
+            try:
+                sess_path = session_settings.value("include-path", [], type(""))
+            except TypeError:
+                sess_path = []
+            
+            if session_settings.value("repl-paths", False, bool):
+                include_path = sess_path
+            else:
+                include_path = sess_path + include_path
+        
         return include_path
         
     def jobinfo(self, create=False):
