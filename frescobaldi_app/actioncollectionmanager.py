@@ -44,8 +44,8 @@ def action(collection_name, action_name):
     May return None, if the named collection or action does not exist.
     
     """
-    mgr = ActionCollectionManager.instances()[0]
-    return mgr.action(collection_name, action_name)
+    for mgr in ActionCollectionManager.instances():
+        return mgr.action(collection_name, action_name)
 
 
 class ActionCollectionManager(plugin.MainWindowPlugin):
