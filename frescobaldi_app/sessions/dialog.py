@@ -323,7 +323,7 @@ class SessionEditor(QDialog):
         """Remove all active paths."""
         items = self.include.items()
         for i in items:
-            if 32 and i.flags(): #is enabled
+            if i.flags() & Qt.ItemIsEnabled:
               self.include.listBox.takeItem(self.include.listBox.row(i))
         if self.replPaths.isChecked():
             self.revt.setEnabled(True)
@@ -338,7 +338,7 @@ class SessionEditor(QDialog):
             save = []
             items = self.include.items()
             for i in items:
-                if 32 and i.flags(): #is enabled
+                if i.flags() & Qt.ItemIsEnabled:
                   save.append(i.text())
             settings.setValue("include-path", save)
         else:
