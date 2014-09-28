@@ -263,7 +263,7 @@ class SessionEditor(QDialog):
         self.inclPaths.setTitle(_("Use session specific include paths"))
         self.replPaths.setText(_("Replace global paths"))
         self.replPaths.setToolTip(_("When checked, paths in LilyPond preferences are not included."))
-        self.revt.setText(_("Edit global paths"))
+        self.revt.setText(_("Copy global path"))
         self.revt.setToolTip(_("Add and edit the paths from LilyPond preferences."))
         self.clear.setText(_("Clear"))
         self.clear.setToolTip(_("Remove all paths."))
@@ -324,7 +324,8 @@ class SessionEditor(QDialog):
         items = self.include.items()
         for i in items:
             if 32 and i.flags(): #is enabled
-              self.include.listBox.takeItem(self.include.listBox.row(i))   
+              self.include.listBox.takeItem(self.include.listBox.row(i))
+        self.revt.setEnabled(True)
         
     def save(self, name):
         settings = sessions.sessionGroup(name)
