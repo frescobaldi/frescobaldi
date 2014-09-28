@@ -80,6 +80,7 @@ class ParseSource():
         self.override_dict = {}
         self.ottava = False
         self.with_contxt = None
+        self.schm_assignm = None
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -132,13 +133,18 @@ class ParseSource():
         if isinstance(a.value(), ly.music.items.Markup):
             pass
         elif isinstance(a.value(), ly.music.items.String):
-            if self.look_behind(a, ly.music.items.With):
-                if self.with_contxt in group_contexts:
-                    self.mediator.set_by_property(a.name(), a.value().value(), True)
-                else:
-                    self.mediator.set_by_property(a.name(), a.value().value())
+            val = a.value().value()
+        elif isinstance(a.value(), ly.music.items.Scheme):
+            val = a.value().get_string()
+            if not val:
+                self.schm_assignm = a.name()
+        if self.look_behind(a, ly.music.items.With):
+            if self.with_contxt in group_contexts:
+                self.mediator.set_by_property(a.name(), val, True)
             else:
-                self.mediator.new_header_assignment(a.name(), a.value().value())
+                self.mediator.set_by_property(a.name(), val)
+        else:
+            self.mediator.new_header_assignment(a.name(), val)
 
     def MusicList(self, musicList):
         if musicList.token == '<<':
@@ -314,7 +320,7 @@ class ParseSource():
     def Set(self, cont_set):
         """A \\set command."""
         if isinstance(cont_set.value(), ly.music.items.Scheme):
-            val = ont_set.value().get_string()
+            val = cont_set.value().get_string()
         else:
             val = cont_set.value().value()
         if cont_set.context() in part_contexts:
@@ -386,6 +392,8 @@ class ParseSource():
             self.mediator.new_ottava(item.token)
         elif self.look_behind(item, ly.music.items.Override):
             self.override_dict[self.override_key] = item.token
+        elif self.schm_assignm:
+            self.mediator.set_by_property(self.schm_assignm, item.token)
         else:
             print("SchemeItem not implemented: " + item.token)
 

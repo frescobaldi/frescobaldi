@@ -573,6 +573,8 @@ class Mediator():
             self.set_partmidi(value)
         elif prprty == 'stanza':
             self.new_lyric_nr(value)
+        elif prprty == 'systemStartDelimiter':
+            self.change_group_bracket(value)
 
     def set_partname(self, name):
         if self.score.is_empty():
