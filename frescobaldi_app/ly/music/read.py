@@ -582,6 +582,7 @@ class Reader(object):
         elif t == '\\tuplet':
             for t in source:
                 if isinstance(t, lilypond.Fraction):
+                    item.numerator, item.denominator = map(int, t.split('/'))
                     item.scaling = 1 / Fraction(t)
                 elif isinstance(t, lilypond.Duration):
                     self.add_duration(item, t, source)
@@ -592,6 +593,7 @@ class Reader(object):
         else: # t == '\\times'
             for t in source:
                 if isinstance(t, lilypond.Fraction):
+                    item.numerator, item.denominator = map(int, t.split('/'))
                     item.scaling = Fraction(t)
                     break
                 elif not isinstance(t, lex.Space):

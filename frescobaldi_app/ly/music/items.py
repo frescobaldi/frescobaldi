@@ -560,8 +560,20 @@ class Tag(Music):
 
 
 class Scaler(Music):
-    """A music construct that scales the duration of its contents."""
+    """A music construct that scales the duration of its contents.
+    
+    In the numerator and denominator attributes the values specified for
+    LilyPond are stored, e.g. with \\times 3/2 { c d e }, the numerator is
+    integer 3 and the denominator is integer 2. Note that for \\tuplet and
+    \\times the meaning of these numbers is reversed.    
+    
+    The algebraic scaling is stored in the scaling attribute.
+    
+    """
     scaling = 1
+    
+    numerator = 0
+    denominator = 0
     
     def events(self, e, time, scaling):
         """Let the event.Events instance handle the events. Return the time."""
