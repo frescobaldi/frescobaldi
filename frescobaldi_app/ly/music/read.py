@@ -143,9 +143,12 @@ class Reader(object):
             return True
 
     def add_duration(self, item, token=None, source=None):
-        """Add a duration attribute to the item."""
+        """Add a duration attribute to the item.
+        
+        When there are tokens, a Duration item is also appended to the item.
+        
+        """
         source = source or self.source
-        d = item.duration = self.factory(Duration, position=0)
         tokens = []
         if not token or isinstance(token, lilypond.Duration):
             if token:
@@ -160,11 +163,12 @@ class Reader(object):
                     self.source.pushback()
                     break
         if tokens:
-            d.tokens = tuple(tokens)
-            d.position = tokens[0].pos
-            d.base_scaling = self.prev_duration = ly.duration.base_scaling(tokens)
+            d = self.factory(Duration, tokens[0])
+            d.tokens = tuple(tokens[1:])
+            item.append(d)
+            item.duration = self.prev_duration = ly.duration.base_scaling(tokens)
         else:
-            d.base_scaling = self.prev_duration
+            item.duration = self.prev_duration
     
     def consume(self, last_token=None):
         """Yield the tokens from our source until a parser is exit.
@@ -325,8 +329,8 @@ class Reader(object):
         item = self.factory(Tremolo, t)
         for t in self.source:
             if isinstance(t, lilypond.TremoloDuration):
-                item.duration = self.factory(Duration, t)
-                item.duration.base_scaling = ly.duration.base_scaling_string(t)
+                item.append(self.factory(Duration, t))
+                item.duration = ly.duration.base_scaling_string(t)
             else:
                 self.source.pushback()
             break

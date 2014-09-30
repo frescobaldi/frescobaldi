@@ -436,37 +436,21 @@ class Container(Item):
 
 
 class Duration(Item):
-    """A duration"""
-    base_scaling = None, None   # two Fractions
-    
-    def fraction(self):
-        """Returns base and scaling multiplied, as one Fraction."""
-        base, scaling = self.base_scaling
-        return base * scaling
+    """A written duration"""
 
 
 class Durable(Item):
-    """An Item that has a Duration attribute."""
-    duration = None
+    """An Item that has a musical duration, in the duration attribute."""
+    duration = 0, 1 # two Fractions: (base, scaling)
+    
+    def length(self):
+        """Return the musical duration (our base * our scaling)."""
+        base, scaling = self.duration
+        return base * scaling
     
     def events(self, e, time, scaling):
         """Let the event.Events instance handle the events. Return the time."""
-        if self.duration:
-            time += self.duration.fraction() * scaling
-        return time
-    
-    def length(self):
-        """Return the duration.
-        
-        Returns 0 if no duration attribute was set.
-        
-        """
-        return self.duration.fraction() if self.duration else 0
-    
-    def base_scaling(self):
-        """Return the base and scaling fractions (if set, else None)."""
-        if self.duration:
-            return self.duration.base_scaling
+        return time + self.duration[0] * self.duration[1] * scaling
 
 
 class Chord(Durable, Container):
@@ -766,8 +750,8 @@ class ChordItem(Item):
 
 
 class Tremolo(Item):
-    """A tremolo item ":". The duration attribute may be a Duration or None."""
-    duration = None
+    """A tremolo item ":". The duration attribute is a tuple (base, scaling)."""
+    duration = 0, 1
 
 
 class Translator(Item):
@@ -794,14 +778,14 @@ class Change(Translator):
 
 
 class Tempo(Item):
-    duration = None
+    duration = 0, 1
     _text = None
     _tempo = ()
     
     def fraction(self):
         """Return the note value as a fraction given before the equal sign."""
-        if self.duration:
-            return self.duration.base_scaling[0]
+        base, scaling = self.duration   # (scaling will normally be 1)
+        return base * scaling
             
     def text(self):
         """Return the text, if set. Can be Markup, Scheme, or String."""
@@ -845,13 +829,12 @@ class TimeSignature(Item):
 
 class Partial(Item):
     """A \\partial command."""
-    duration = None
+    duration = 0, 1
 
     def partial_length(self):
         """Return the duration given as argument as a Fraction."""
-        if self.duration:
-            base, scaling = self.duration.base_scaling
-            return base * scaling
+        base, scaling = self.duration
+        return base * scaling
 
 
 class Clef(Item):
