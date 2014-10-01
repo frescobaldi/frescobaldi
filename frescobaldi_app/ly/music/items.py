@@ -791,8 +791,6 @@ class Change(Translator):
 
 class Tempo(Item):
     duration = 0, 1
-    _text = None
-    _tempo = ()
     
     def fraction(self):
         """Return the note value as a fraction given before the equal sign."""
@@ -801,18 +799,24 @@ class Tempo(Item):
             
     def text(self):
         """Return the text, if set. Can be Markup, Scheme, or String."""
-        return self._text
+        for i in self:
+            if isinstance(i, (Markup, Scheme, String)):
+                return i
+            return
     
     def tempo(self):
         """Return a list of integer values describing the tempo or range."""
+        nodes = iter(self)
         result = []
-        for i in self._tempo:
-            if isinstance(i, Scheme):
-                v = i.get_int()
-                if v is not None:
-                    result.append(v)
-            else:
-                result.append(int(i))
+        for i in nodes:
+            if isinstance(i, Duration):
+                for i in nodes:
+                    if isinstance(i, Scheme):
+                        v = i.get_int()
+                        if v is not None:
+                            result.append(v)
+                    elif isinstance(i, Number):
+                        result.append(i.value())
         return result
 
 
