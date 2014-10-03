@@ -471,9 +471,10 @@ class MainWindow(QMainWindow):
             if filename:
                 filetypes = app.filetypes(os.path.splitext(filename)[1])
             else:
-                filename = app.basedir() # default directory to save to
+                directory = app.basedir() # default directory to save to
                 import documentinfo
                 import ly.lex
+                filename = os.path.join(directory, documentinfo.defaultfilename(doc))
                 filetypes = app.filetypes(ly.lex.extensions[documentinfo.mode(doc)])
             caption = app.caption(_("dialog title", "Save File"))
             filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
