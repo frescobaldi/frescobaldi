@@ -64,6 +64,38 @@ def mode(document, guess=True):
     """Returns the type of the given document. See DocumentInfo.mode()."""
     return info(document).mode(guess)
 
+
+def defaultfilename(document):
+    """Return a default filename that could be used for the document.
+    
+    The name is based on the score's title, composer etc.
+    
+    """
+    i = info(document)
+    m = i.music()
+    import ly.music.items as mus
+    d = {}
+    for h in m.find(mus.Header):
+        for a in h.find(mus.Assignment):
+            for f in ("title", "composer"):
+                if f not in d and a.name() == f:
+                    n = a.value()
+                    if n:
+                        t = n.plaintext()
+                        if t:
+                            d[f] = t
+    # make filenames
+    for k in d:
+        d[k] = re.sub(r'\W+', '-', d[k]).strip('-')
+    
+    filename = '-'.join(d[k] for k in (
+            'composer', 'title'
+            ) if k in d)
+    if not filename:
+        filename = document.documentName()
+    ext = ly.lex.extensions[i.mode()]
+    return filename + "." + ext
+    
     
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
