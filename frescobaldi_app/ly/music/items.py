@@ -73,6 +73,15 @@ class Item(node.WeakNode):
         s = ' ' + repr(self.token[:]) if self.token else ''
         return '<{0}{1}>'.format(self.__class__.__name__, s)
     
+    def plaintext(self):
+        """Return a plaintext value for this node.
+        
+        This only makes sense for items like Markup or String. For other types,
+        an empty string is returned
+        
+        """
+        return ""
+     
     def end_position(self):
         """Return the end position of this node."""
         def ends():
@@ -977,10 +986,22 @@ class Language(Item):
 
 class Markup(Item):
     """A command starting markup (\markup, -lines and -list)."""
+    def plaintext(self):
+        """Return the plain text value of this node."""
+        return ' '.join(n.plaintext() for n in self)
 
 
 class MarkupCommand(Item):
     """A markup command, such as \italic etc."""
+    def plaintext(self):
+        """Return the plain text value of this node."""
+        if self.token == '\\concat':
+            joiner = ''
+        #elif 'column' in self.token:
+            #joiner = '\n'
+        else:
+            joiner = ' '
+        return joiner.join(n.plaintext() for n in self)
 
 
 class MarkupUserCommand(Item):
@@ -1016,10 +1037,15 @@ class MarkupScore(Item):
 
 class MarkupList(Item):
     """The group of markup items inside { and }. NOTE: *not* a \markuplist."""
+    def plaintext(self):
+        """Return the plain text value of this node."""
+        return ' '.join(n.plaintext() for n in self)
 
 
 class MarkupWord(Item):
     """A MarkupWord token."""
+    def plaintext(self):
+        return self.token
 
 
 class Assignment(Item):
@@ -1148,6 +1174,11 @@ class PathItem(Item):
 class String(Item):
     """A double-quoted string."""
     
+    def plaintext(self):
+        """Return the plaintext value of this string, without escapes and quotes."""
+        # TEMP use the value(), must become token independent.
+        return self.value()
+    
     def value(self):
         return ''.join(
             t[1:] if isinstance(t, lex.Character) and t.startswith('\\') else t
@@ -1169,6 +1200,11 @@ class Number(Item):
 
 class Scheme(Item):
     """A Scheme expression inside LilyPond."""
+    def plaintext(self):
+        """A crude way to get the plain text in this node."""
+        # TEMP use get_string()
+        return self.get_string()
+    
     def get_pair_ints(self):
         """Very basic way to get two integers specified as a pair."""
         result = [int(i.token) for i in self.find(SchemeItem) if i.token.isdigit()]
