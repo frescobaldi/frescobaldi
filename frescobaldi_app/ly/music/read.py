@@ -582,6 +582,7 @@ class Reader(object):
         elif t == '\\tuplet':
             for t in source:
                 if isinstance(t, lilypond.Fraction):
+                    item.append(self.factory(Number, t))
                     item.numerator, item.denominator = map(int, t.split('/'))
                     item.scaling = 1 / Fraction(t)
                 elif isinstance(t, lilypond.Duration):
@@ -593,6 +594,7 @@ class Reader(object):
         else: # t == '\\times'
             for t in source:
                 if isinstance(t, lilypond.Fraction):
+                    item.append(self.factory(Number, t))
                     item.numerator, item.denominator = map(int, t.split('/'))
                     item.scaling = Fraction(t)
                     break
@@ -678,35 +680,28 @@ class Reader(object):
     @_commands('\\tempo')
     def handle_tempo(self, t, source):
         item = self.factory(Tempo, t)
-        item._text = None
-        item._tempo = []
         source = self.consume()
         equal_sign_seen = False
+        text_seen = False
         t = None
         for t in source:
             if not equal_sign_seen:
-                if not item._text:
-                    if isinstance(t, lilypond.SchemeStart):
-                        item._text = self.read_scheme_item(t)
-                        t = None
-                    elif isinstance(t, lex.StringStart):
-                        item._text = self.factory(String, t, True)
-                        t = None
-                    elif isinstance(t, lilypond.Markup):
-                        item._text = self.handle_markup(t)
-                        t = None
-                if isinstance(t, lilypond.Length):
+                if (not text_seen and isinstance(t,
+                        (lilypond.SchemeStart, lex.StringStart, lilypond.Markup))):
+                    item.append(self.read_item(t))
+                    t = None
+                    text_seen = True
+                elif isinstance(t, lilypond.Length):
                     self.add_duration(item, t, source)
                     t = None
                 elif isinstance(t, lilypond.EqualSign):
+                    item.tokens = (t,)
                     equal_sign_seen = True
                     t = None
-            elif isinstance(t, lilypond.IntegerValue):
-                item._tempo.append(t)
-                t = None
-            elif isinstance(t, lilypond.SchemeStart):
-                item._tempo.append(self.read_scheme_item(t))
-                t = None
+            elif isinstance(t, (lilypond.IntegerValue, lilypond.SchemeStart)):
+                item.append(self.read_item(t))
+            elif t == "-":
+                item.tokens += (t,)
         ## if the last token does not belong to the \\tempo expression anymore,
         ## push it back
         if t and not isinstance(t, (lex.Space, lex.Comment)):
