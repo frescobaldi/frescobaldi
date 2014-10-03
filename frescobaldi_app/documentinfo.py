@@ -74,10 +74,14 @@ def defaultfilename(document):
     i = info(document)
     m = i.music()
     import ly.music.items as mus
+    
+    # which fields (in order) to harvest:
+    fields = ('composer', 'title')
+    
     d = {}
     for h in m.find(mus.Header):
         for a in h.find(mus.Assignment):
-            for f in ("title", "composer"):
+            for f in fields:
                 if f not in d and a.name() == f:
                     n = a.value()
                     if n:
@@ -88,9 +92,7 @@ def defaultfilename(document):
     for k in d:
         d[k] = re.sub(r'\W+', '-', d[k]).strip('-')
     
-    filename = '-'.join(d[k] for k in (
-            'composer', 'title'
-            ) if k in d)
+    filename = '-'.join(d[k] for k in fields if k in d)
     if not filename:
         filename = document.documentName()
     ext = ly.lex.extensions[i.mode()]
