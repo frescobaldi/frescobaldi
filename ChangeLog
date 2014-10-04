@@ -16,6 +16,8 @@ Changes in 2.17 --
     instead of or in addition to the global list of include paths, contributed
     by Peter Bjuhr
 * Improvements:
+  - When saving new file for the first time, a default filename is provided,
+    based on composer and title of the score (wish: issue #472)
   - Printing the music PDF now honors the duplex settings
   - MusicXML export has improved by using the ly.music module that has a notion
     of the music events and time/duration of those events. Although ly.music is
