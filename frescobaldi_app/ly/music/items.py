@@ -1005,7 +1005,11 @@ class MarkupCommand(Item):
             #joiner = '\n'
         else:
             joiner = ' '
-        return joiner.join(n.plaintext() for n in self)
+        if len(self) == 1 and isinstance(self[0], MarkupList):
+            node = self[0]
+        else:
+            node = self
+        return joiner.join(n.plaintext() for n in node)
 
 
 class MarkupUserCommand(Item):
