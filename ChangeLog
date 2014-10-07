@@ -29,6 +29,8 @@ Changes in 2.17 --
   - dont disable run button of Engrave Custom dialog for autocompile jobs
   - let autocompile jobs finish before starting a new one
   - dont always run autocompile job for the first opened document
+  - after a successful compile the default music viewer (pdf or svg) is
+    activated. This can be suppressed in the LilyPond prefs (wish: issue #435)
   - tooltips for the panel title and float/close buttons
   - error handling in I/O-related operations has improved
 * Bugfixes:
