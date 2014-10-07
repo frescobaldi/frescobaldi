@@ -63,6 +63,7 @@ class Engraver(plugin.MainWindowPlugin):
         app.jobStarted.connect(self.updateActions)
         app.jobFinished.connect(self.updateActions)
         app.jobFinished.connect(self.checkLilyPondInstalled)
+        app.jobFinished.connect(self.openDefaultView)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
         mainwindow.aboutToClose.connect(self.saveSettings)
@@ -100,6 +101,17 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_debug.setEnabled(not running)
         ac.engrave_abort.setEnabled(running)
         ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
+    
+    def openDefaultView(self, document, job, success):
+        if (success and jobattributes.get(job).mainwindow is self.mainwindow()
+                and QSettings().value("lilypond_settings/open_default_view", True, bool)):
+            target = QSettings().value(
+                "lilypond_settings/default_output_target", "pdf", type(""))
+            mgr = panelmanager.manager(self.mainwindow())
+            if target == "svg":
+                mgr.svgview.activate()
+            elif target == "pdf":
+                mgr.musicview.activate()
     
     def engraveRunner(self):
         job = self.runningJob()

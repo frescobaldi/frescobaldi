@@ -321,15 +321,16 @@ class Target(preferences.Group):
     def __init__(self, page):
         super(Target, self).__init__(page)
         
-        layout = QHBoxLayout()
+        layout = QGridLayout()
         self.setLayout(layout)
         
         self.targetPDF = QRadioButton(toggled=page.changed)
         self.targetSVG = QRadioButton(toggled=page.changed)
+        self.openDefaultView = QCheckBox(clicked=page.changed)
         
-        layout.addWidget(self.targetPDF)
-        layout.addWidget(self.targetSVG)
-        layout.addStretch()
+        layout.addWidget(self.targetPDF, 0, 0)
+        layout.addWidget(self.targetSVG, 0, 1)
+        layout.addWidget(self.openDefaultView, 1, 0, 1, 5)
         app.translateUI(self)
         
     def translateUI(self):
@@ -340,6 +341,10 @@ class Target(preferences.Group):
         self.targetSVG.setText(_("SVG"))
         self.targetSVG.setToolTip(_(
             "Create SVG (Scalable Vector Graphics) documents by default."))
+        self.openDefaultView.setText(_("Open default viewer after successful compile"))
+        self.openDefaultView.setToolTip(_(
+            "Shows the PDF or SVG music view when a compile job finishes "
+            "successfully."))
     
     def loadSettings(self):
         s = settings()
@@ -350,6 +355,7 @@ class Target(preferences.Group):
         else:
             self.targetSVG.setChecked(False)
             self.targetPDF.setChecked(True)
+        self.openDefaultView.setChecked(s.value("open_default_view", True, bool))
         
     def saveSettings(self):
         s = settings()
@@ -358,5 +364,6 @@ class Target(preferences.Group):
         else:
             target = "pdf"
         s.setValue("default_output_target", target)
+        s.setValue("open_default_view", self.openDefaultView.isChecked())
 
 
