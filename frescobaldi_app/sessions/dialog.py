@@ -305,7 +305,7 @@ class SessionEditor(QDialog):
         if self.replPaths.isChecked():
             items = self.include.items()
             for i in items:
-                if not (32 and i.flags()): #is not enabled
+                if not (i.flags() & Qt.ItemIsEnabled): #is not enabled
                   self.include.listBox.takeItem(self.include.listBox.row(i))
             self.revt.setEnabled(True)
         else:
@@ -317,7 +317,6 @@ class SessionEditor(QDialog):
         genPaths = self.fetchGenPaths()
         for p in genPaths:
             i = QListWidgetItem(p, self.include.listBox)
-        self.revt.setEnabled(False)
         
     def clearPaths(self):
         """Remove all active paths."""
@@ -325,8 +324,6 @@ class SessionEditor(QDialog):
         for i in items:
             if i.flags() & Qt.ItemIsEnabled:
               self.include.listBox.takeItem(self.include.listBox.row(i))
-        if self.replPaths.isChecked():
-            self.revt.setEnabled(True)
         
     def save(self, name):
         settings = sessions.sessionGroup(name)
