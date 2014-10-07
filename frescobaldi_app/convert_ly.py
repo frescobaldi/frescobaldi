@@ -94,7 +94,7 @@ class Dialog(QDialog):
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Reset | QDialogButtonBox.Save |
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        self.buttons.accepted.connect(self.accept)
+        self.buttons.button(QDialogButtonBox.Ok).clicked    .connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         self.buttons.button(QDialogButtonBox.Reset).clicked.connect(self.run)
         self.buttons.button(QDialogButtonBox.Save).clicked.connect(self.saveFile)
@@ -263,21 +263,24 @@ class Dialog(QDialog):
         if index == 0:
             return FileInfo('message', 'txt', self.messages.toPlainText())
         elif index == 1:
-            return FileInfo('html-diff', 'htm', self.diff.toHtml())
+            return FileInfo('html-diff', 'html', self.diff.toHtml())
         elif index == 2:
             return FileInfo('uni-diff', 'diff', self.uni_diff.toPlainText())
             
     def diffHighl(self, difflist):
         """Return highlighted version of input."""
-        import re
-        for n, l in enumerate(difflist):
-            addMatch = re.search(r'^[+]', l)
-            subMatch = re.search(r'^[-]', l)
-            if addMatch:
-                difflist[n] = '<span style="color: green;">'+l+'</span>'
-            elif subMatch:
-                difflist[n] = '<span style="color: red;">'+l+'</span>' 
-        return "<br>".join(difflist)
+        result = []
+        for l in difflist:
+            if l.startswith('-'):
+                s = '<span style="color: red; white-space: pre-wrap;">'
+            elif l.startswith('+'):
+                s = '<span style="color: green; white-space: pre-wrap;">'
+            else:
+                s = '<span style="white-space: pre-wrap;">'
+            h = l.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            result.append(s + h + '</span>')
+        return '<br>'.join(result)
+
 
 class FileInfo():
     """Holds information useful for the file saving"""
