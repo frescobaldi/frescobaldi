@@ -50,9 +50,8 @@ def parse_commandline():
     
     """
     import argparse
-    argparse._ = _ # let optparse use our translations
+    argparse._ = _ # let argparse use our translations
     parser = argparse.ArgumentParser(
-        usage = _("{appname} [options] file ...").format(appname=info.name),
         version = "{0} {1}".format(info.appname, info.version),
         description = _("A LilyPond Music Editor"))
     parser.add_argument('-e', '--encoding', metavar=_("ENC"),
@@ -68,8 +67,8 @@ def parse_commandline():
         help=_("List the session names and exit"))
     parser.add_argument('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
-    parser.add_argument('files', metavar=_("FILES"), nargs=argparse.REMAINDER, 
-        help=_("Files to be opened"))
+    parser.add_argument('files', metavar=_("file"), nargs='*', 
+        help=_("File to be opened"))
     
     # Make sure debugger options are recognized as valid. These are passed automatically
     # from PyDev in Eclipse to the inferior process.
