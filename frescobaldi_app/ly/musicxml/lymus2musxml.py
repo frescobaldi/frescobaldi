@@ -239,6 +239,10 @@ class ParseSource():
                 if self.grace_seq:
                     self.mediator.new_chord_grace()
 
+    def Duration(self, duration):
+        """A written duration"""
+        self.mediator.new_duration_token(duration.token, duration.tokens)
+
     def Tempo(self, tempo):
         """ Tempo direction, e g '4 = 80' """
         self.mediator.new_tempo(tempo.duration.tokens, tempo.tempo(), tempo.text())

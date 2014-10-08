@@ -41,10 +41,11 @@ class Mediator():
         self.sections = []
         """ default and initial values """
         self.current_note = None
+        self.current_is_rest = False
         self.action_onnext = None
         self.divisions = 1
         self.dur_token = "4"
-        self.base_scaling = [Fraction(1, 4), Fraction(1, 1)]
+        self.dur_tokens = ()
         self.dots = 0
         self.tied = False
         self.voice = 1
@@ -321,11 +322,17 @@ class Mediator():
         self.prev_pitch = bar_note.pitch
 
     def new_note(self, note, rel=False):
+        self.current_is_rest = False
         self.clear_chord()
         self.current_note = xml_objs.BarNote(note, self.voice)
         self.check_current_note(rel)
         self.do_action_onnext(self.current_note)
         self.action_onnext = None
+
+    def new_duration_token(self, token, tokens):
+        self.dur_token = token
+        self.dur_tokens = tokens
+        self.check_duration(self.current_is_rest)
 
     def check_current_note(self, rel=False, rest=False):
         """ Perform checks common for all new notes and rests. """
@@ -353,16 +360,15 @@ class Mediator():
             func_call(note, self.action_onnext[1])
 
     def check_duration(self, rest):
-        dur_tokens = self.current_note.duration.tokens
-        dur_nr, dots, rs = self.duration_from_tokens(dur_tokens)
+        dur_nr, dots, rs = self.duration_from_tokens(self.dur_token, self.dur_tokens)
         if dur_nr:
             self.current_note.set_durtype(dur_nr)
             self.dur_token = dur_nr
             if rest and rs: # special case of multibar rest
                 if not self.current_note.show_type or self.current_note.skip:
-                    bs = self.current_note.base_scaling
+                    bs = self.current_note.duration
                     if rs == bs[1]:
-                        self.current_note.base_scaling = (bs[0], 1)
+                        self.current_note.duration = (bs[0], 1)
                         self.scale_rest(rs)
                         return
             self.current_note.dot = dots
@@ -408,6 +414,7 @@ class Mediator():
         self.action_onnext = None
 
     def new_rest(self, rest):
+        self.current_is_rest = True
         self.clear_chord()
         rtype = rest.token
         if rtype == 'r':
@@ -432,7 +439,7 @@ class Mediator():
         st = self.current_note.show_type
         sk = self.current_note.skip
         for i in range(1, int(multp)):
-            cn.note.duration.base_scaling = cn.base_scaling
+            cn.note.duration = cn.duration
             rest_copy = xml_objs.BarRest(cn.note, voice=cn.voice, show_type=st, skip=sk)
             self.add_to_bar(rest_copy)
             self.new_bar()
@@ -515,8 +522,8 @@ class Mediator():
         else:
             if not duration:
                 duration = int(self.dur_token)
-                bs, durtype = calc_trem_dur(repeats, self.current_note.base_scaling, duration)
-                self.current_note.base_scaling = bs
+                bs, durtype = calc_trem_dur(repeats, self.current_note.duration, duration)
+                self.current_note.duration = bs
                 self.current_note.type = durtype
             self.current_note.set_tremolo(trem_type, duration)
 
@@ -627,14 +634,12 @@ class Mediator():
         elif item == '\\skip':
             self.insert_into.barlist.append("skip")
 
-    def duration_from_tokens(self, dur_tokens):
-        dur_nr = 0
+    def duration_from_tokens(self, token, tokens):
+        dur_nr = token
         dots = 0
         rs = 0
-        for i, t in enumerate(dur_tokens):
-            if i == 0:
-                dur_nr = t
-            elif t == '.':
+        for t in tokens:
+            if t == '.':
                 dots += 1
             elif '*' in t and '/' not in t:
                 rs = int(t[1:])
@@ -642,8 +647,8 @@ class Mediator():
 
     def check_divs(self, tfraction=0):
         """ The new duration is checked against current divisions """
-        base = self.current_note.base_scaling[0]
-        scaling = self.current_note.base_scaling[1]
+        base = self.current_note.duration[0]
+        scaling = self.current_note.duration[1]
         divs = self.divisions
         if scaling != 1:
             tfraction = 1/scaling

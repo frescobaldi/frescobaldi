@@ -207,8 +207,8 @@ class Bar():
         for obj in self.obj_list:
             if isinstance(obj, BarMus):
                 if not obj.chord:
-                    b += obj.base_scaling[0]
-                    s *= obj.base_scaling[1]
+                    b += obj.duration[0]
+                    s *= obj.duration[1]
             elif isinstance(obj, BarBackup):
                 break
         self.add(BarBackup((b,s)))
@@ -252,7 +252,6 @@ class BarMus():
         self.note = note
         if note.duration:
             self.duration = note.duration
-            self.base_scaling = note.duration.base_scaling
         self.type = None
         self.tuplet = 0
         self.dot = 0
@@ -340,7 +339,6 @@ class BarNote(BarMus):
 
     def set_duration(self, duration, durval=0):
         self.duration = duration
-        self.base_scaling = duration.base_scaling
         self.dot = 0
         if durval:
             self.type = durval2type(durval)
@@ -407,7 +405,6 @@ class BarRest(BarMus):
 
     def set_duration(self, duration, durval=0, durtype=None):
         self.duration = duration
-        self.base_scaling = duration.base_scaling
         if durval:
             if self.show_type:
                 self.type = durval2type(durval)
@@ -471,8 +468,8 @@ class BarAttr():
 
 class BarBackup():
     """ Object that stores duration for backup """
-    def __init__(self, base_scaling):
-        self.base_scaling = base_scaling
+    def __init__(self, duration):
+        self.duration = duration
 
 
 class TempoDir():
