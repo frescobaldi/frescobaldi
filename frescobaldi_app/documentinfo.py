@@ -96,7 +96,7 @@ def defaultfilename(document):
     if not filename:
         filename = document.documentName()
     ext = ly.lex.extensions[i.mode()]
-    return filename + "." + ext
+    return filename + ext
     
     
 class DocumentInfo(plugin.DocumentPlugin):
