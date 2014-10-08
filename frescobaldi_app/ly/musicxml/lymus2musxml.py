@@ -79,6 +79,8 @@ class ParseSource():
         self.sims_and_seqs = []
         self.override_dict = {}
         self.ottava = False
+        self.with_contxt = None
+        self.schm_assignm = None
 
     def parse_tree(self, doc):
         mustree = documentinfo.music(doc)
@@ -123,13 +125,26 @@ class ParseSource():
     # The different source types from ly.music are here sent to translation.
     ##
 
-    def Assignment(self, assignm):
-        """Because assignments in score are substituted, this should only be
-        header assignments."""
-        if isinstance(assignm.value(), ly.music.items.Markup):
+    def Assignment(self, a):
+        """
+        Variables should already have been substituted
+        so this need only cover other types of assignments.
+        """
+        if isinstance(a.value(), ly.music.items.Markup):
             pass
-        elif isinstance(assignm.value(), ly.music.items.String):
-            self.mediator.new_header_assignment(assignm.name(), assignm.value().value())
+        elif isinstance(a.value(), ly.music.items.String):
+            val = a.value().value()
+        elif isinstance(a.value(), ly.music.items.Scheme):
+            val = a.value().get_string()
+            if not val:
+                self.schm_assignm = a.name()
+        if self.look_behind(a, ly.music.items.With):
+            if self.with_contxt in group_contexts:
+                self.mediator.set_by_property(a.name(), val, True)
+            else:
+                self.mediator.set_by_property(a.name(), val)
+        else:
+            self.mediator.new_header_assignment(a.name(), val)
 
     def MusicList(self, musicList):
         if musicList.token == '<<':
@@ -299,37 +314,19 @@ class ParseSource():
         self.mediator.set_tremolo(duration=int(tremolo.duration.token))
 
     def With(self, cont_with):
-        print("With not implemented", cont_with.token, cont_with.tokens)
+        """A \\with ... construct."""
+        self.with_contxt = cont_with.parent().context()
 
     def Set(self, cont_set):
-        func = None
+        """A \\set command."""
         if isinstance(cont_set.value(), ly.music.items.Scheme):
-            val = ont_set.value().get_string()
+            val = cont_set.value().get_string()
         else:
             val = cont_set.value().value()
-        if cont_set.property() == 'instrumentName':
-            if cont_set.context() in part_contexts:
-                func = 'set_partname'
-            elif cont_set.context() in group_contexts:
-                func = 'set_groupname'
-        elif cont_set.property() == 'shortInstrumentName':
-            if cont_set.context() in part_contexts:
-                func = 'set_partabbr'
-            elif cont_set.context() in group_contexts:
-                func = 'set_groupabbr'
-        elif cont_set.property() == 'midiInstrument':
-            func = 'set_partmidi'
-        elif cont_set.property() == 'stanza':
-            func = 'new_lyric_nr'
-        if func:
-            self.gen_med_caller(func, val)
-        else:
-            print(
-            "Set for context: "
-            + cont_set.context() +
-            " and property: "
-            + cont_set.property() +
-            " not implemented!")
+        if cont_set.context() in part_contexts:
+            self.mediator.set_by_property(cont_set.property(), val)
+        elif cont_set.context() in group_contexts:
+            self.mediator.set_by_property(cont_set.property(), val, group=True)
 
     def Command(self, command):
         """ \bar, \rest etc """
@@ -395,6 +392,8 @@ class ParseSource():
             self.mediator.new_ottava(item.token)
         elif self.look_behind(item, ly.music.items.Override):
             self.override_dict[self.override_key] = item.token
+        elif self.schm_assignm:
+            self.mediator.set_by_property(self.schm_assignm, item.token)
         else:
             print("SchemeItem not implemented: " + item.token)
 
@@ -456,6 +455,8 @@ class ParseSource():
         elif end.node.token == '\\lyricsto':
             self.mediator.check_lyrics(end.node.context_id())
             self.sims_and_seqs.pop()
+        elif end.node.token == '\\with':
+            self.with_contxt = None
         else:
             # print("end:"+end.node.token)
             pass

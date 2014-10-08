@@ -557,6 +557,25 @@ class Mediator():
             self.new_bar()
         self.bar.add(tempo)
 
+    def set_by_property(self, prprty, value, group=False):
+        """Generic setter for deferent properties."""
+        if prprty == 'instrumentName':
+            if group:
+                self.set_groupname(value)
+            else:
+                self.set_partname(value)
+        elif prprty == 'shortInstrumentName':
+            if group:
+                self.set_groupabbr(value)
+            else:
+                self.set_partabbr(value)
+        elif prprty == 'midiInstrument':
+            self.set_partmidi(value)
+        elif prprty == 'stanza':
+            self.new_lyric_nr(value)
+        elif prprty == 'systemStartDelimiter':
+            self.change_group_bracket(value)
+
     def set_partname(self, name):
         if self.score.is_empty():
             self.new_part()
