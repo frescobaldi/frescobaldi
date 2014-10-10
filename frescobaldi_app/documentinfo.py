@@ -166,7 +166,7 @@ class DocumentInfo(plugin.DocumentPlugin):
         # get the session specific include path
         import sessions
         session_settings = sessions.currentSessionGroup()
-        if session_settings and session_settings.value("set-path", False, bool):
+        if session_settings and session_settings.value("set-paths", False, bool):
             try:
                 sess_path = session_settings.value("include-path", [], type(""))
             except TypeError:
