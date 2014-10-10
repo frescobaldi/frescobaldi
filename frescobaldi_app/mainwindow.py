@@ -1132,7 +1132,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
-        self.file_close_all.setText(_("Close All Documents"))
+        self.file_close_all.setText(_("Close All Documents and Session"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
         self.file_restart.setText(_("Restart {appname}").format(appname=info.appname))
