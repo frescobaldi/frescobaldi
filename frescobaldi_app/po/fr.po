@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-10-10 11:45+0200\n"
+"POT-Creation-Date: 2014-10-10 12:40+0200\n"
 "PO-Revision-Date: 2013-09-29 12:52+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -749,7 +749,8 @@ msgid "Print Source..."
 msgstr "Imprimer le code source"
 
 #: ../mainwindow.py:1135
-msgid "Close All Documents"
+#, fuzzy
+msgid "Close All Documents and Session"
 msgstr "Fermer tous les documents"
 
 #: ../mainwindow.py:1136

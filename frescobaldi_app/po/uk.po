@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-10-10 11:45+0200\n"
+"POT-Creation-Date: 2014-10-10 12:40+0200\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -748,7 +748,8 @@ msgid "Print Source..."
 msgstr "Друкувати джерело..."
 
 #: ../mainwindow.py:1135
-msgid "Close All Documents"
+#, fuzzy
+msgid "Close All Documents and Session"
 msgstr "Закрити всі документи"
 
 #: ../mainwindow.py:1136

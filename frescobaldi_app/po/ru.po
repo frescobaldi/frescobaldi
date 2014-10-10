@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-10-10 11:45+0200\n"
+"POT-Creation-Date: 2014-10-10 12:40+0200\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -743,7 +743,8 @@ msgid "Print Source..."
 msgstr "Печать исходного кода..."
 
 #: ../mainwindow.py:1135
-msgid "Close All Documents"
+#, fuzzy
+msgid "Close All Documents and Session"
 msgstr "Закрыть все файлы"
 
 #: ../mainwindow.py:1136

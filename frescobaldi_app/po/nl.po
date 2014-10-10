@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-10-10 11:45+0200\n"
-"PO-Revision-Date: 2014-10-10 11:47+0200\n"
+"POT-Creation-Date: 2014-10-10 12:40+0200\n"
+"PO-Revision-Date: 2014-10-10 12:40+0200\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -717,8 +717,8 @@ msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
 #: ../mainwindow.py:1135
-msgid "Close All Documents"
-msgstr "Alle documenten sluiten"
+msgid "Close All Documents and Session"
+msgstr "Alle documenten en sessie sluiten"
 
 #: ../mainwindow.py:1136
 msgid "Closes all documents and leaves the current session."
