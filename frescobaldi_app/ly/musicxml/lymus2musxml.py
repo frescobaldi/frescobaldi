@@ -101,8 +101,8 @@ class ParseSource():
         same name as the nodes class."""
         if nodes:
             for m in nodes:
+                # print(m)
                 func_name = m.__class__.__name__ #get instance name
-                # print func_name
                 if func_name not in excl_list:
                     try:
                         func_call = getattr(self, func_name)
@@ -309,8 +309,6 @@ class ParseSource():
     def Repeat(self, repeat):
         if repeat.specifier() == 'volta':
             self.mediator.new_repeat('forward')
-        elif repeat.specifier() == 'unfold':
-            self.mediator.new_snippet('unfold')
         elif repeat.specifier() == 'tremolo':
             self.trem_rep = repeat.repeat_count()
 
@@ -418,9 +416,6 @@ class ParseSource():
         elif end.node.token == '\\repeat':
             if end.node.specifier() == 'volta':
                 self.mediator.new_repeat('backward')
-            elif end.node.specifier() == 'unfold':
-                for n in range(end.node.repeat_count()):
-                    self.mediator.add_snippet('unfold')
             elif end.node.specifier() == 'tremolo':
                 if self.look_ahead(end.node, ly.music.items.MusicList):
                     self.mediator.set_tremolo(trem_type="stop", repeats=self.trem_rep)
@@ -500,14 +495,34 @@ class ParseSource():
         return False
 
     def iter_score(self, scorenode, doc):
-        """Iter over score. Similar to items.Document.iter_music."""
+        """
+        Iter over score.
+
+        Similarly to items.Document.iter_music user commands are substituted.
+
+        Furthermore \\repeat unfold expressions are unfolded.
+        """
         for s in scorenode:
-            n = doc.substitute_for_node(s) or s
-            yield n
-            for n in self.iter_score(n, doc):
+            if isinstance(s, ly.music.items.Repeat) and s.specifier() == 'unfold':
+                for u in self.unfold_repeat(s, s.repeat_count(), doc):
+                    yield u
+            else:
+                n = doc.substitute_for_node(s) or s
                 yield n
+                for c in self.iter_score(n, doc):
+                    yield c
         if isinstance(scorenode, ly.music.items.Container):
             yield End(scorenode)
+
+    def unfold_repeat(self, repeat_node, repeat_count, doc):
+        """
+        Iter over node which represent a \\repeat unfold expression
+        and do the unfolding directly.
+        """
+        for r in range(repeat_count):
+            for n in repeat_node:
+                for c in self.iter_score(n, doc):
+                    yield c
 
     def find_score_sub(self, doc):
         """Find substitute for scorenode. Takes first music node that isn't
