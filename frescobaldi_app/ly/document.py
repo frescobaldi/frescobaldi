@@ -118,8 +118,7 @@ class DocumentBase(object):
         """Constructor"""
         self._writing = 0
         self._changes = collections.defaultdict(list)
-        # to keep compatible with 2.6 (else we'd use a WeakSet)
-        self._cursors = weakref.WeakKeyDictionary()
+        self._cursors = weakref.WeakSet()
     
     def __nonzero__(self):
         return True
@@ -237,7 +236,7 @@ class DocumentBase(object):
         The Cursor gets updated when the document is changed.
         
         """
-        self._cursors[cursor] = True
+        self._cursors.add(cursor)
         
     def check_changes(self):
         """Debugging method that checks for overlapping edits."""

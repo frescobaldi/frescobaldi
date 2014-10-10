@@ -33,6 +33,8 @@ Changes in 2.17 --
     activated. This can be suppressed in the LilyPond prefs (wish: issue #435)
   - tooltips for the panel title and float/close buttons
   - error handling in I/O-related operations has improved
+* Installation:
+  - Python 2.7 is now required.
 * Bugfixes:
   - fix AttributeError: 'bool' object has no attribute 'endswith' in
     lilypondinfo.py, toolcommand()
