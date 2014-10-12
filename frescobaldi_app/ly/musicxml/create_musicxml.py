@@ -156,7 +156,7 @@ class CreateMusicXML():
         """ create all nodes needed for a rest. """
         self.create_note()
         if pos:
-            self.add_rest_w_pos(pos[0], pos[1]+3)
+            self.add_rest_w_pos(pos[0], pos[1])
         else:
             self.add_rest()
         self.add_div_duration(self.count_duration(base_scaling, divs))
