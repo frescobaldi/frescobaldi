@@ -248,9 +248,8 @@ class Bar():
 
 class BarMus():
     """ Common class for notes and rests. """
-    def __init__(self, note, voice=1):
-        if note.duration:
-            self.duration = note.duration
+    def __init__(self, duration, voice=1):
+        self.duration = duration
         self.type = None
         self.tuplet = 0
         self.dot = 0
@@ -319,12 +318,12 @@ class OctaveShift():
 
 class BarNote(BarMus):
     """ object to keep track of note parameters """
-    def __init__(self, note, voice=1):
-        BarMus.__init__(self, note, voice)
-        self.base_note = getNoteName(note.pitch.note)
-        self.alter = get_xml_alter(note.pitch.alter)
+    def __init__(self, pitch_note, alter, accidental, duration, voice=1):
+        BarMus.__init__(self, duration, voice)
+        self.base_note = pitch_note
+        self.alter = alter
         self.octave = None
-        self.accidental_token = note.accidental_token
+        self.accidental_token = accidental
         self.tie = 0
         self.grace = (0,0)
         self.gliss = None
@@ -395,8 +394,8 @@ class BarNote(BarMus):
 
 class BarRest(BarMus):
     """ object to keep track of different rests and skips """
-    def __init__(self, rest, voice=1, show_type=True, skip=False, pos=0):
-        BarMus.__init__(self, rest, voice)
+    def __init__(self, duration, voice=1, show_type=True, skip=False, pos=0):
+        BarMus.__init__(self, duration, voice)
         self.show_type = show_type
         self.type = None
         self.skip = skip
@@ -494,10 +493,6 @@ class TempoDir():
 # Translation functions
 ##
 
-def getNoteName(index):
-    noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-    return noteNames[index]
-
 def durval2type(durval):
     import ly.duration
     xml_types = [
@@ -538,12 +533,3 @@ def convert_barl(bl):
     elif bl == "'":
         return 'tick'
 
-def get_xml_alter(alter):
-    """ Convert alter to the specified format,
-    i e int if it's int and float otherwise.
-    Also multiply with 2."""
-    alter *= 2
-    if float(alter).is_integer():
-        return alter
-    else:
-        return float(alter)

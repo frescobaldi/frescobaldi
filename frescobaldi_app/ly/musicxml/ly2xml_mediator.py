@@ -323,11 +323,19 @@ class Mediator():
     def new_note(self, note, rel=False):
         self.current_is_rest = False
         self.clear_chord()
-        self.current_note = xml_objs.BarNote(note, self.voice)
+        self.current_note = self.create_barnote_from_note(note)
         self.current_lynote = note
         self.check_current_note(rel)
         self.do_action_onnext(self.current_note)
         self.action_onnext = None
+
+    def create_barnote_from_note(self, note):
+        """Create a xml_objs.BarNote from ly.music.items.Note."""
+        p = getNoteName(note.pitch.note)
+        alt = get_xml_alter(note.pitch.alter)
+        acc = note.accidental_token
+        dura = note.duration
+        return xml_objs.BarNote(p, alt, acc, dura, self.voice)
 
     def new_duration_token(self, token, tokens):
         self.dur_token = token
@@ -424,30 +432,33 @@ class Mediator():
         self.current_is_rest = True
         self.clear_chord()
         rtype = rest.token
+        dur = rest.duration
         if rtype == 'r':
-            self.current_note = xml_objs.BarRest(rest, self.voice)
+            self.current_note = xml_objs.BarRest(dur, self.voice)
         elif rtype == 'R':
-            self.current_note = xml_objs.BarRest(rest, self.voice, show_type=False)
+            self.current_note = xml_objs.BarRest(dur, self.voice, show_type=False)
         elif rtype == 's' or rtype == '\skip':
-            self.current_note = xml_objs.BarRest(rest, self.voice, skip=True)
+            self.current_note = xml_objs.BarRest(dur, self.voice, skip=True)
         self.check_current_note(rest=True)
 
     def note2rest(self):
         """Note used as rest position transformed to rest."""
-        temp_note = self.current_note
-        self.current_note = xml_objs.BarRest(temp_note, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
+        dur = self.current_note.duration
+        voice = self.current_note.voice
+        pos = [self.current_note.base_note, self.current_note.octave]
+        self.current_note = xml_objs.BarRest(dur, voice, pos=pos)
         self.check_duration(rest=True)
         self.bar.obj_list.pop()
         self.bar.add(self.current_note)
 
     def scale_rest(self, multp):
         """ create multiple whole bar rests """
-        cn = self.current_note
+        dur = self.current_note.duration
+        voc = self.current_note.voice
         st = self.current_note.show_type
         sk = self.current_note.skip
         for i in range(1, int(multp)):
-            cn.note.duration = cn.duration
-            rest_copy = xml_objs.BarRest(cn.note, voice=cn.voice, show_type=st, skip=sk)
+            rest_copy = xml_objs.BarRest(dur, voice=voc, show_type=st, skip=sk)
             self.add_to_bar(rest_copy)
             self.new_bar()
 
@@ -682,6 +693,20 @@ class Mediator():
 ##
 # Translation functions
 ##
+
+def getNoteName(index):
+    noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+    return noteNames[index]
+
+def get_xml_alter(alter):
+    """ Convert alter to the specified format,
+    i e int if it's int and float otherwise.
+    Also multiply with 2."""
+    alter *= 2
+    if float(alter).is_integer():
+        return alter
+    else:
+        return float(alter)
 
 def get_fifths(key, mode):
     fifths = 0
