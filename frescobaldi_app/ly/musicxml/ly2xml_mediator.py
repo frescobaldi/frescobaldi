@@ -362,7 +362,7 @@ class Mediator():
 
     def set_octave(self, relative):
         """Set octave by getting the octave of an absolute note + 3."""
-        p = ly.pitch.Pitch(octave=self.current_lynote.pitch.octave)
+        p = self.current_lynote.pitch.copy()
         if relative:
             p.makeAbsolute(self.prev_pitch)
         self.prev_pitch = p
