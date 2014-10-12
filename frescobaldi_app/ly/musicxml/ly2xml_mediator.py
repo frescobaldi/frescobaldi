@@ -379,7 +379,7 @@ class Mediator():
         if relative:
             p.makeAbsolute(self.prev_pitch)
         self.prev_pitch = p
-        self.current_note.set_octave(p.octave+3)
+        self.current_note.set_octave(p.octave + 3)
 
     def do_action_onnext(self, note):
         """Perform the stored action on the next note."""
@@ -428,11 +428,11 @@ class Mediator():
         chord_note.set_durtype(self.dur_token)
         chord_note.dots = self.dots
         if not self.prev_chord_pitch:
-            self.prev_chord_pitch = self.current_lynote.pitch
+            self.prev_chord_pitch = self.prev_pitch
         p = note.pitch.copy()
         if(rel):
             p.makeAbsolute(self.prev_chord_pitch)
-        chord_note.set_octave(p.octave+3)
+        chord_note.set_octave(p.octave + 3)
         self.prev_chord_pitch = p
         chord_note.chord = True
         self.bar.add(chord_note)
