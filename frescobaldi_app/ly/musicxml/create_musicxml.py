@@ -118,7 +118,7 @@ class CreateMusicXML():
             self.add_grace(grace[1])
         if chord:
             self.add_chord()
-        self.add_pitch(pitch[0], pitch[1], pitch[2]+3)
+        self.add_pitch(pitch[0], pitch[1], pitch[2])
         if not grace[0]:
             self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)

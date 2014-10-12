@@ -41,6 +41,7 @@ class Mediator():
         self.sections = []
         """ default and initial values """
         self.current_note = None
+        self.current_lynote = None
         self.current_is_rest = False
         self.action_onnext = None
         self.divisions = 1
@@ -317,14 +318,13 @@ class Mediator():
                 self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note):
-        bar_note = xml_objs.BarNote(note)
-        bar_note.set_octave(False)
-        self.prev_pitch = bar_note.pitch
+        self.prev_pitch = note.pitch
 
     def new_note(self, note, rel=False):
         self.current_is_rest = False
         self.clear_chord()
         self.current_note = xml_objs.BarNote(note, self.voice)
+        self.current_lynote = note
         self.check_current_note(rel)
         self.do_action_onnext(self.current_note)
         self.action_onnext = None
@@ -337,11 +337,10 @@ class Mediator():
     def check_current_note(self, rel=False, rest=False):
         """ Perform checks common for all new notes and rests. """
         if not rest: #don't do this for rests
-            self.current_note.set_octave(rel, self.prev_pitch)
+            self.set_octave(rel)
             if self.tied:
                 self.current_note.set_tie('stop')
                 self.tied = False
-            self.prev_pitch = self.current_note.pitch
         self.check_duration(rest)
         self.check_divs()
         if self.staff:
@@ -352,6 +351,14 @@ class Mediator():
                 else:
                     self.staff_unset_notes[self.staff] = [self.current_note]
         self.add_to_bar(self.current_note)
+
+    def set_octave(self, relative):
+        """Set octave by getting the octave of an absolute note + 3."""
+        p = ly.pitch.Pitch(octave=self.current_lynote.pitch.octave)
+        if relative:
+            p.makeAbsolute(self.prev_pitch)
+        self.prev_pitch = p
+        self.current_note.set_octave(p.octave+3)
 
     def do_action_onnext(self, note):
         """Perform the stored action on the next note."""

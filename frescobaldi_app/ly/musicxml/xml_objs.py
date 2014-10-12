@@ -249,7 +249,6 @@ class Bar():
 class BarMus():
     """ Common class for notes and rests. """
     def __init__(self, note, voice=1):
-        self.note = note
         if note.duration:
             self.duration = note.duration
         self.type = None
@@ -322,9 +321,10 @@ class BarNote(BarMus):
     """ object to keep track of note parameters """
     def __init__(self, note, voice=1):
         BarMus.__init__(self, note, voice)
-        self.pitch = note.pitch
         self.base_note = getNoteName(note.pitch.note)
         self.alter = get_xml_alter(note.pitch.alter)
+        self.octave = None
+        self.accidental_token = note.accidental_token
         self.tie = 0
         self.grace = (0,0)
         self.gliss = None
@@ -346,9 +346,8 @@ class BarNote(BarMus):
     def set_durtype(self, durval):
         self.type = durval2type(durval)
 
-    def set_octave(self, relative, prev_pitch=None):
-        if relative:
-            self.pitch.makeAbsolute(prev_pitch)
+    def set_octave(self, octave):
+        self.octave = octave
 
     def set_tie(self, tie_type):
         self.tie = tie_type

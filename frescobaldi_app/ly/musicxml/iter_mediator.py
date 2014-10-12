@@ -131,8 +131,9 @@ class iterateMediatorScore():
 
     def new_xml_note(self, obj):
         """Create note specific xml-nodes."""
-        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave, obj.note.accidental_token],
-            obj.duration, obj.voice, obj.type, self.divisions, obj.dot, obj.chord)
+        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.octave,
+            obj.accidental_token], obj.duration, obj.voice, obj.type,
+            self.divisions, obj.dot, obj.chord)
         if obj.tie:
             self.musxml.tie_note(obj.tie)
         for s in obj.slur:
