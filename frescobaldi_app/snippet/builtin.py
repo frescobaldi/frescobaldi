@@ -253,7 +253,7 @@ r"""-*- menu: blocks; name: rep; selection: strip; symbol: bar_repeat_start;
 'relative': T(_("Relative Music"),
 r"""-*- name: rel;
 \relative c$CURSOR'$ANCHOR {
-""" '  ' r"""  
+""" '   $SELECTION' r"""  
 }"""),
 
 
