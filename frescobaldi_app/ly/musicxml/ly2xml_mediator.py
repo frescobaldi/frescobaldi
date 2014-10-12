@@ -56,6 +56,7 @@ class Mediator():
         self.group_num = 0
         self.current_chord = []
         self.prev_pitch = None
+        self.prev_chord_pitch = None
         self.store_voicenr = 0
         self.staff_id_dict = {}
         self.store_unset_staff = False
@@ -337,6 +338,18 @@ class Mediator():
         dura = note.duration
         return xml_objs.BarNote(p, alt, acc, dura, self.voice)
 
+    def copy_barnote_basics(self, bar_note):
+        """Create a xml_objs.BarNote from ly.music.items.Note."""
+        p = bar_note.base_note
+        alt = bar_note.alter
+        acc = bar_note.accidental_token
+        dura = bar_note.duration
+        voc = bar_note.voice
+        copy = xml_objs.BarNote(p, alt, acc, dura, voc)
+        copy.octave = bar_note.octave
+        copy.chord = bar_note.chord
+        return copy
+
     def new_duration_token(self, token, tokens):
         self.dur_token = token
         self.dur_tokens = tokens
@@ -391,6 +404,9 @@ class Mediator():
         else:
             self.current_note.set_durtype(self.dur_token)
             self.current_note.dot = self.dots
+        if self.current_chord:
+            for c in self.current_chord:
+                c.set_durtype(self.dur_token)
 
     def new_chord(self, note, duration, rel=False):
         if not self.current_chord:
@@ -401,28 +417,42 @@ class Mediator():
         self.do_action_onnext(self.current_chord[-1])
 
     def new_chordbase(self, note, duration, rel=False):
-        self.current_note = xml_objs.BarNote(note, self.voice)
+        self.current_note = self.create_barnote_from_note(note)
         self.current_note.set_duration(duration)
+        self.current_lynote = note
         self.check_current_note(rel)
 
     def new_chordnote(self, note, rel):
-        chord_note = xml_objs.BarNote(note, self.voice)
+        chord_note = self.create_barnote_from_note(note)
         chord_note.set_duration(self.current_note.duration)
         chord_note.set_durtype(self.dur_token)
         chord_note.dots = self.dots
-        chord_note.set_octave(rel, self.current_chord[-1].pitch)
+        if not self.prev_chord_pitch:
+            self.prev_chord_pitch = self.current_lynote.pitch
+        p = note.pitch.copy()
+        if(rel):
+            p.makeAbsolute(self.prev_chord_pitch)
+        chord_note.set_octave(p.octave+3)
+        self.prev_chord_pitch = p
         chord_note.chord = True
         self.bar.add(chord_note)
         return chord_note
 
-    def copy_prev_chord(self, duration, rel):
+    def copy_prev_chord(self, duration):
         prev_chord = self.current_chord
         self.clear_chord()
-        for pc in prev_chord:
-            self.new_chord(pc.note, duration, rel)
+        for i, pc in enumerate(prev_chord):
+            cn = self.copy_barnote_basics(pc)
+            cn.set_duration(duration)
+            cn.set_durtype(self.dur_token)
+            if i == 0:
+                self.current_note = cn
+            self.current_chord.append(cn)
+            self.bar.add(cn)
 
     def clear_chord(self):
         self.current_chord = []
+        self.prev_chord_pitch = None
 
     def chord_end(self):
         """Actions when chord is parsed."""

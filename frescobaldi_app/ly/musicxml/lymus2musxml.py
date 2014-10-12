@@ -163,7 +163,7 @@ class ParseSource():
         self.mediator.clear_chord()
 
     def Q(self, q):
-        self.mediator.copy_prev_chord(q.duration, self.relative)
+        self.mediator.copy_prev_chord(q.duration)
 
     def Context(self, context):
         """ \context """
@@ -445,7 +445,8 @@ class ParseSource():
             elif not self.piano_staff:
                 self.mediator.check_voices()
                 self.mediator.check_part()
-                self.sims_and_seqs.pop()
+                if self.sims_and_seqs:
+                    self.sims_and_seqs.pop()
         elif end.node.token == '{':
             if self.sims_and_seqs:
                 self.sims_and_seqs.pop()
