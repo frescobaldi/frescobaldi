@@ -488,10 +488,9 @@ class Mediator():
             self.add_to_bar(rest_copy)
             self.new_bar()
 
-    def change_to_tuplet(self, fraction, ttype):
-        tfraction = 1/fraction
+    def change_to_tuplet(self, tfraction, ttype):
         self.current_note.set_tuplet(tfraction, ttype)
-        self.check_divs(tfraction)
+        self.check_divs(Fraction(tfraction[0], tfraction[1]))
 
     def tie_to_next(self):
         if self.current_note.tie == 'stop': # only if previous was tied

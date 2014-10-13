@@ -271,10 +271,14 @@ class ParseSource():
         """
         if scaler.token == '\\scaleDurations':
             self.ttype = ""
-        else:
+            self.fraction = (scaler.denominator, scaler.numerator)
+        elif scaler.token == '\\times':
             self.ttype = "start"
+            self.fraction = (scaler.denominator, scaler.numerator)
+        elif scaler.token == '\\tuplet':
+            self.ttype = "start"
+            self.fraction = (scaler.numerator, scaler.denominator)
         self.tuplet = True
-        self.fraction = scaler.scaling
 
     def Number(self, number):
         pass
