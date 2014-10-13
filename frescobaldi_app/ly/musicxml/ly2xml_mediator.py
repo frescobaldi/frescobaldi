@@ -388,22 +388,18 @@ class Mediator():
             func_call(note, self.action_onnext[1])
 
     def check_duration(self, rest):
-        dur_nr, dots, rs = self.duration_from_tokens(self.dur_token, self.dur_tokens)
-        if dur_nr:
-            self.current_note.set_durtype(dur_nr)
-            self.dur_token = dur_nr
-            if rest and rs: # special case of multibar rest
-                if not self.current_note.show_type or self.current_note.skip:
-                    bs = self.current_note.duration
-                    if rs == bs[1]:
-                        self.current_note.duration = (bs[0], 1)
-                        self.scale_rest(rs)
-                        return
-            self.current_note.dot = dots
-            self.dots = dots
-        else:
-            self.current_note.set_durtype(self.dur_token)
-            self.current_note.dot = self.dots
+        """Check the duration for the current note."""
+        dots, rs = self.duration_from_tokens(self.dur_tokens)
+        if rest and rs: # special case of multibar rest
+            if not self.current_note.show_type or self.current_note.skip:
+                bs = self.current_note.duration
+                if rs == bs[1]:
+                    self.current_note.duration = (bs[0], 1)
+                    self.scale_rest(rs)
+                    return
+        self.current_note.dot = dots
+        self.dots = dots
+        self.current_note.set_durtype(self.dur_token)
         if self.current_chord:
             for c in self.current_chord:
                 c.set_durtype(self.dur_token)
@@ -682,8 +678,8 @@ class Mediator():
         elif item == '\\skip':
             self.insert_into.barlist.append("skip")
 
-    def duration_from_tokens(self, token, tokens):
-        dur_nr = token
+    def duration_from_tokens(self, tokens):
+        """Calculate dots and multibar rests from tokens."""
         dots = 0
         rs = 0
         for t in tokens:
@@ -691,7 +687,7 @@ class Mediator():
                 dots += 1
             elif '*' in t and '/' not in t:
                 rs = int(t[1:])
-        return (dur_nr, dots, rs)
+        return (dots, rs)
 
     def check_divs(self, tfraction=0):
         """ The new duration is checked against current divisions """
