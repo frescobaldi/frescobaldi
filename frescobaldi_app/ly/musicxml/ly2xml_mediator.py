@@ -395,6 +395,7 @@ class Mediator():
                 bs = self.current_note.duration
                 if rs == bs[1]:
                     self.current_note.duration = (bs[0], 1)
+                    self.current_note.dot = 0
                     self.scale_rest(rs)
                     return
         self.current_note.dot = dots
@@ -484,9 +485,9 @@ class Mediator():
         st = self.current_note.show_type
         sk = self.current_note.skip
         for i in range(1, int(multp)):
+            self.new_bar()
             rest_copy = xml_objs.BarRest(dur, voice=voc, show_type=st, skip=sk)
             self.add_to_bar(rest_copy)
-            self.new_bar()
 
     def change_to_tuplet(self, tfraction, ttype):
         self.current_note.set_tuplet(tfraction, ttype)
