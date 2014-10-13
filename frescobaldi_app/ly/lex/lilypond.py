@@ -976,6 +976,8 @@ class ParseGlobal(ParseLilyPond):
         Name,
         DotPath,
         EqualSign,
+        Fraction,
+        DecimalValue,
     )
     def update_state(self, state, token):
         if isinstance(token, EqualSign):
