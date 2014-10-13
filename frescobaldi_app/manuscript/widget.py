@@ -28,11 +28,14 @@ import weakref
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import os
+
 import app
 import userguide.util
 import icons
 import symbols
 
+from view import View
 
 class Widget(QWidget):
     def __init__(self, dockwidget):
@@ -50,14 +53,18 @@ class Widget(QWidget):
             autoRaise = True,
             clicked = lambda: userguide.show("manuscript"))
         hor = QHBoxLayout()
-        hor.setContentsMargins(0, 0, 0, 0)
+        
+        hor.addWidget(QLabel("Here will be the controls"))        
         layout.addLayout(hor)
+        
+        self.view = View(self)
+        layout.addWidget(self.view)
 
         app.translateUI(self)
         userguide.openWhatsThis(self)
         
-        # restore remembered current page
-        
+        # TEMPORARY immediate action!
+        self.openManuscripts()
     
     def translateUI(self):
         self.setWhatsThis(_(
@@ -73,6 +80,16 @@ class Widget(QWidget):
         except KeyError:
             pass
 
+    def mainwindow(self):
+        return self.parent().mainwindow()       
+        
+    def openManuscripts(self):
+        """ Displays an open dialog to open one or more documents. """
+        caption = app.caption(_("dialog title", "Open Manuscript(s)"))
+        directory = app.basedir()
+        files = QFileDialog.getOpenFileNames(self, caption, directory, '*')
+        self.view.open(files, False)
+ 
     def dockwidget(self):
         return self._dockwidget()
 
