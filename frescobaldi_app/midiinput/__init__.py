@@ -57,7 +57,8 @@ class MidiIn(object):
         # see https://groups.google.com/d/msg/pygame-mirror-on-google-groups/UA16GbFsUDE/RkYxb9SzZFwJ
         # so we cleanup ourself and invoke __dealloc__() by garbage collection
         # so discard any reference to a pypm.Input instance
-        self._portmidiinput._input = None
+        if self._portmidiinput:
+            self._portmidiinput._input = None
         self._portmidiinput = None
         self._listener = None
     
