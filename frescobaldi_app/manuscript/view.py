@@ -32,8 +32,6 @@ from PyQt4 import QtGui
 
 import app
 
-import imagecontainer 
-
 class View(QtGui.QScrollArea):
     """Display a series of manuscript pages"""    
     def __init__(self, parent):
