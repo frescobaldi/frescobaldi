@@ -36,9 +36,13 @@ class Document(ly.music.items.Document):
         if filename:
             resolved = self.resolve_filename(filename)
             if resolved:
-                d = fileinfo.music(resolved)
-                d.include_node = node
-                d.include_path = self.include_path
-                return d
+                try:
+                    d = fileinfo.music(resolved)
+                except IOError:
+                    pass
+                else:
+                    d.include_node = node
+                    d.include_path = self.include_path
+                    return d
 
 
