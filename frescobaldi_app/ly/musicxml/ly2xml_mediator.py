@@ -41,10 +41,12 @@ class Mediator():
         self.sections = []
         """ default and initial values """
         self.current_note = None
+        self.current_lynote = None
+        self.current_is_rest = False
         self.action_onnext = None
         self.divisions = 1
         self.dur_token = "4"
-        self.base_scaling = [Fraction(1, 4), Fraction(1, 1)]
+        self.dur_tokens = ()
         self.dots = 0
         self.tied = False
         self.voice = 1
@@ -54,6 +56,7 @@ class Mediator():
         self.group_num = 0
         self.current_chord = []
         self.prev_pitch = None
+        self.prev_chord_pitch = None
         self.store_voicenr = 0
         self.staff_id_dict = {}
         self.store_unset_staff = False
@@ -316,25 +319,49 @@ class Mediator():
                 self.current_attr.set_clef(self.clef)
 
     def set_relative(self, note):
-        bar_note = xml_objs.BarNote(note)
-        bar_note.set_octave(False)
-        self.prev_pitch = bar_note.pitch
+        self.prev_pitch = note.pitch
 
     def new_note(self, note, rel=False):
+        self.current_is_rest = False
         self.clear_chord()
-        self.current_note = xml_objs.BarNote(note, self.voice)
+        self.current_note = self.create_barnote_from_note(note)
+        self.current_lynote = note
         self.check_current_note(rel)
         self.do_action_onnext(self.current_note)
         self.action_onnext = None
 
+    def create_barnote_from_note(self, note):
+        """Create a xml_objs.BarNote from ly.music.items.Note."""
+        p = getNoteName(note.pitch.note)
+        alt = get_xml_alter(note.pitch.alter)
+        acc = note.accidental_token
+        dura = note.duration
+        return xml_objs.BarNote(p, alt, acc, dura, self.voice)
+
+    def copy_barnote_basics(self, bar_note):
+        """Create a xml_objs.BarNote from ly.music.items.Note."""
+        p = bar_note.base_note
+        alt = bar_note.alter
+        acc = bar_note.accidental_token
+        dura = bar_note.duration
+        voc = bar_note.voice
+        copy = xml_objs.BarNote(p, alt, acc, dura, voc)
+        copy.octave = bar_note.octave
+        copy.chord = bar_note.chord
+        return copy
+
+    def new_duration_token(self, token, tokens):
+        self.dur_token = token
+        self.dur_tokens = tokens
+        self.check_duration(self.current_is_rest)
+
     def check_current_note(self, rel=False, rest=False):
         """ Perform checks common for all new notes and rests. """
         if not rest: #don't do this for rests
-            self.current_note.set_octave(rel, self.prev_pitch)
+            self.set_octave(rel)
             if self.tied:
                 self.current_note.set_tie('stop')
                 self.tied = False
-            self.prev_pitch = self.current_note.pitch
         self.check_duration(rest)
         self.check_divs()
         if self.staff:
@@ -346,6 +373,14 @@ class Mediator():
                     self.staff_unset_notes[self.staff] = [self.current_note]
         self.add_to_bar(self.current_note)
 
+    def set_octave(self, relative):
+        """Set octave by getting the octave of an absolute note + 3."""
+        p = self.current_lynote.pitch.copy()
+        if relative:
+            p.makeAbsolute(self.prev_pitch)
+        self.prev_pitch = p
+        self.current_note.set_octave(p.octave + 3)
+
     def do_action_onnext(self, note):
         """Perform the stored action on the next note."""
         if self.action_onnext:
@@ -353,23 +388,22 @@ class Mediator():
             func_call(note, self.action_onnext[1])
 
     def check_duration(self, rest):
-        dur_tokens = self.current_note.duration.tokens
-        dur_nr, dots, rs = self.duration_from_tokens(dur_tokens)
-        if dur_nr:
-            self.current_note.set_durtype(dur_nr)
-            self.dur_token = dur_nr
-            if rest and rs: # special case of multibar rest
-                if not self.current_note.show_type or self.current_note.skip:
-                    bs = self.current_note.base_scaling
-                    if rs == bs[1]:
-                        self.current_note.base_scaling = (bs[0], 1)
-                        self.scale_rest(rs)
-                        return
-            self.current_note.dot = dots
-            self.dots = dots
-        else:
-            self.current_note.set_durtype(self.dur_token)
-            self.current_note.dot = self.dots
+        """Check the duration for the current note."""
+        dots, rs = self.duration_from_tokens(self.dur_tokens)
+        if rest and rs: # special case of multibar rest
+            if not self.current_note.show_type or self.current_note.skip:
+                bs = self.current_note.duration
+                if rs == bs[1]:
+                    self.current_note.duration = (bs[0], 1)
+                    self.current_note.dot = 0
+                    self.scale_rest(rs)
+                    return
+        self.current_note.dot = dots
+        self.dots = dots
+        self.current_note.set_durtype(self.dur_token)
+        if self.current_chord:
+            for c in self.current_chord:
+                c.set_durtype(self.dur_token)
 
     def new_chord(self, note, duration, rel=False):
         if not self.current_chord:
@@ -380,67 +414,84 @@ class Mediator():
         self.do_action_onnext(self.current_chord[-1])
 
     def new_chordbase(self, note, duration, rel=False):
-        self.current_note = xml_objs.BarNote(note, self.voice)
+        self.current_note = self.create_barnote_from_note(note)
         self.current_note.set_duration(duration)
+        self.current_lynote = note
         self.check_current_note(rel)
 
     def new_chordnote(self, note, rel):
-        chord_note = xml_objs.BarNote(note, self.voice)
+        chord_note = self.create_barnote_from_note(note)
         chord_note.set_duration(self.current_note.duration)
         chord_note.set_durtype(self.dur_token)
         chord_note.dots = self.dots
-        chord_note.set_octave(rel, self.current_chord[-1].pitch)
+        if not self.prev_chord_pitch:
+            self.prev_chord_pitch = self.prev_pitch
+        p = note.pitch.copy()
+        if(rel):
+            p.makeAbsolute(self.prev_chord_pitch)
+        chord_note.set_octave(p.octave + 3)
+        self.prev_chord_pitch = p
         chord_note.chord = True
         self.bar.add(chord_note)
         return chord_note
 
-    def copy_prev_chord(self, duration, rel):
+    def copy_prev_chord(self, duration):
         prev_chord = self.current_chord
         self.clear_chord()
-        for pc in prev_chord:
-            self.new_chord(pc.note, duration, rel)
+        for i, pc in enumerate(prev_chord):
+            cn = self.copy_barnote_basics(pc)
+            cn.set_duration(duration)
+            cn.set_durtype(self.dur_token)
+            if i == 0:
+                self.current_note = cn
+            self.current_chord.append(cn)
+            self.bar.add(cn)
 
     def clear_chord(self):
         self.current_chord = []
+        self.prev_chord_pitch = None
 
     def chord_end(self):
         """Actions when chord is parsed."""
         self.action_onnext = None
 
     def new_rest(self, rest):
+        self.current_is_rest = True
         self.clear_chord()
         rtype = rest.token
+        dur = rest.duration
         if rtype == 'r':
-            self.current_note = xml_objs.BarRest(rest, self.voice)
+            self.current_note = xml_objs.BarRest(dur, self.voice)
         elif rtype == 'R':
-            self.current_note = xml_objs.BarRest(rest, self.voice, show_type=False)
+            self.current_note = xml_objs.BarRest(dur, self.voice, show_type=False)
         elif rtype == 's' or rtype == '\skip':
-            self.current_note = xml_objs.BarRest(rest, self.voice, skip=True)
+            self.current_note = xml_objs.BarRest(dur, self.voice, skip=True)
         self.check_current_note(rest=True)
 
     def note2rest(self):
         """Note used as rest position transformed to rest."""
-        temp_note = self.current_note
-        self.current_note = xml_objs.BarRest(temp_note, temp_note.voice, pos = [temp_note.base_note, temp_note.pitch.octave])
+        dur = self.current_note.duration
+        voice = self.current_note.voice
+        pos = [self.current_note.base_note, self.current_note.octave]
+        self.current_note = xml_objs.BarRest(dur, voice, pos=pos)
         self.check_duration(rest=True)
         self.bar.obj_list.pop()
         self.bar.add(self.current_note)
 
     def scale_rest(self, multp):
         """ create multiple whole bar rests """
-        cn = self.current_note
+        dur = self.current_note.duration
+        voc = self.current_note.voice
         st = self.current_note.show_type
         sk = self.current_note.skip
         for i in range(1, int(multp)):
-            cn.note.duration.base_scaling = cn.base_scaling
-            rest_copy = xml_objs.BarRest(cn.note, voice=cn.voice, show_type=st, skip=sk)
-            self.add_to_bar(rest_copy)
             self.new_bar()
+            rest_copy = xml_objs.BarRest(dur, voice=voc, show_type=st, skip=sk)
+            self.add_to_bar(rest_copy)
 
-    def change_to_tuplet(self, fraction, ttype):
-        tfraction = 1/fraction
+    def change_to_tuplet(self, tfraction, ttype):
         self.current_note.set_tuplet(tfraction, ttype)
-        self.check_divs(tfraction)
+        self.check_divs(Fraction(tfraction[0], tfraction[1]))
 
     def tie_to_next(self):
         if self.current_note.tie == 'stop': # only if previous was tied
@@ -515,8 +566,8 @@ class Mediator():
         else:
             if not duration:
                 duration = int(self.dur_token)
-                bs, durtype = calc_trem_dur(repeats, self.current_note.base_scaling, duration)
-                self.current_note.base_scaling = bs
+                bs, durtype = calc_trem_dur(repeats, self.current_note.duration, duration)
+                self.current_note.duration = bs
                 self.current_note.type = durtype
             self.current_note.set_tremolo(trem_type, duration)
 
@@ -627,23 +678,21 @@ class Mediator():
         elif item == '\\skip':
             self.insert_into.barlist.append("skip")
 
-    def duration_from_tokens(self, dur_tokens):
-        dur_nr = 0
+    def duration_from_tokens(self, tokens):
+        """Calculate dots and multibar rests from tokens."""
         dots = 0
         rs = 0
-        for i, t in enumerate(dur_tokens):
-            if i == 0:
-                dur_nr = t
-            elif t == '.':
+        for t in tokens:
+            if t == '.':
                 dots += 1
             elif '*' in t and '/' not in t:
                 rs = int(t[1:])
-        return (dur_nr, dots, rs)
+        return (dots, rs)
 
     def check_divs(self, tfraction=0):
         """ The new duration is checked against current divisions """
-        base = self.current_note.base_scaling[0]
-        scaling = self.current_note.base_scaling[1]
+        base = self.current_note.duration[0]
+        scaling = self.current_note.duration[1]
         divs = self.divisions
         if scaling != 1:
             tfraction = 1/scaling
@@ -670,6 +719,20 @@ class Mediator():
 ##
 # Translation functions
 ##
+
+def getNoteName(index):
+    noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+    return noteNames[index]
+
+def get_xml_alter(alter):
+    """ Convert alter to the specified format,
+    i e int if it's int and float otherwise.
+    Also multiply with 2."""
+    alter *= 2
+    if float(alter).is_integer():
+        return alter
+    else:
+        return float(alter)
 
 def get_fifths(key, mode):
     fifths = 0

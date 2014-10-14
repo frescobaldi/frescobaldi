@@ -207,8 +207,8 @@ class Bar():
         for obj in self.obj_list:
             if isinstance(obj, BarMus):
                 if not obj.chord:
-                    b += obj.base_scaling[0]
-                    s *= obj.base_scaling[1]
+                    b += obj.duration[0]
+                    s *= obj.duration[1]
             elif isinstance(obj, BarBackup):
                 break
         self.add(BarBackup((b,s)))
@@ -248,11 +248,8 @@ class Bar():
 
 class BarMus():
     """ Common class for notes and rests. """
-    def __init__(self, note, voice=1):
-        self.note = note
-        if note.duration:
-            self.duration = note.duration
-            self.base_scaling = note.duration.base_scaling
+    def __init__(self, duration, voice=1):
+        self.duration = duration
         self.type = None
         self.tuplet = 0
         self.dot = 0
@@ -321,11 +318,12 @@ class OctaveShift():
 
 class BarNote(BarMus):
     """ object to keep track of note parameters """
-    def __init__(self, note, voice=1):
-        BarMus.__init__(self, note, voice)
-        self.pitch = note.pitch
-        self.base_note = getNoteName(note.pitch.note)
-        self.alter = get_xml_alter(note.pitch.alter)
+    def __init__(self, pitch_note, alter, accidental, duration, voice=1):
+        BarMus.__init__(self, duration, voice)
+        self.base_note = pitch_note
+        self.alter = alter
+        self.octave = None
+        self.accidental_token = accidental
         self.tie = 0
         self.grace = (0,0)
         self.gliss = None
@@ -340,7 +338,6 @@ class BarNote(BarMus):
 
     def set_duration(self, duration, durval=0):
         self.duration = duration
-        self.base_scaling = duration.base_scaling
         self.dot = 0
         if durval:
             self.type = durval2type(durval)
@@ -348,9 +345,8 @@ class BarNote(BarMus):
     def set_durtype(self, durval):
         self.type = durval2type(durval)
 
-    def set_octave(self, relative, prev_pitch=None):
-        if relative:
-            self.pitch.makeAbsolute(prev_pitch)
+    def set_octave(self, octave):
+        self.octave = octave
 
     def set_tie(self, tie_type):
         self.tie = tie_type
@@ -398,8 +394,8 @@ class BarNote(BarMus):
 
 class BarRest(BarMus):
     """ object to keep track of different rests and skips """
-    def __init__(self, rest, voice=1, show_type=True, skip=False, pos=0):
-        BarMus.__init__(self, rest, voice)
+    def __init__(self, duration, voice=1, show_type=True, skip=False, pos=0):
+        BarMus.__init__(self, duration, voice)
         self.show_type = show_type
         self.type = None
         self.skip = skip
@@ -407,7 +403,6 @@ class BarRest(BarMus):
 
     def set_duration(self, duration, durval=0, durtype=None):
         self.duration = duration
-        self.base_scaling = duration.base_scaling
         if durval:
             if self.show_type:
                 self.type = durval2type(durval)
@@ -471,8 +466,8 @@ class BarAttr():
 
 class BarBackup():
     """ Object that stores duration for backup """
-    def __init__(self, base_scaling):
-        self.base_scaling = base_scaling
+    def __init__(self, duration):
+        self.duration = duration
 
 
 class TempoDir():
@@ -497,10 +492,6 @@ class TempoDir():
 ##
 # Translation functions
 ##
-
-def getNoteName(index):
-    noteNames = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
-    return noteNames[index]
 
 def durval2type(durval):
     import ly.duration
@@ -542,12 +533,3 @@ def convert_barl(bl):
     elif bl == "'":
         return 'tick'
 
-def get_xml_alter(alter):
-    """ Convert alter to the specified format,
-    i e int if it's int and float otherwise.
-    Also multiply with 2."""
-    alter *= 2
-    if float(alter).is_integer():
-        return alter
-    else:
-        return float(alter)

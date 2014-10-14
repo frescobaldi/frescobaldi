@@ -118,7 +118,7 @@ class CreateMusicXML():
             self.add_grace(grace[1])
         if chord:
             self.add_chord()
-        self.add_pitch(pitch[0], pitch[1], pitch[2]+3)
+        self.add_pitch(pitch[0], pitch[1], pitch[2])
         if not grace[0]:
             self.add_div_duration(self.count_duration(base_scaling, divs))
         self.add_voice(voice)
@@ -138,8 +138,8 @@ class CreateMusicXML():
         """ convert current note to tuplet """
         base = base_scaling[0]
         scaling = base_scaling[1]
-        a = divs*4*fraction.denominator
-        b = (1/base)*fraction.numerator
+        a = divs*4*fraction[1]
+        b = (1/base)*fraction[0]
         duration = (a/b)*scaling
         self.change_div_duration(duration)
         self.add_time_modify(fraction)
@@ -156,7 +156,7 @@ class CreateMusicXML():
         """ create all nodes needed for a rest. """
         self.create_note()
         if pos:
-            self.add_rest_w_pos(pos[0], pos[1]+3)
+            self.add_rest_w_pos(pos[0], pos[1])
         else:
             self.add_rest()
         self.add_div_duration(self.count_duration(base_scaling, divs))
@@ -350,9 +350,9 @@ class CreateMusicXML():
         """ create time modification """
         timemod_node = etree.SubElement(self.current_note, "time-modification")
         actual_notes = etree.SubElement(timemod_node, "actual-notes")
-        actual_notes.text = str(fraction.numerator)
+        actual_notes.text = str(fraction[0])
         norm_notes = etree.SubElement(timemod_node, "normal-notes")
-        norm_notes.text = str(fraction.denominator)
+        norm_notes.text = str(fraction[1])
 
     def add_tuplet_type(self, ttype):
         """ create tuplet with type attribute """

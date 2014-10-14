@@ -84,7 +84,7 @@ class iterateMediatorScore():
                 self.gener_xml_mus(obj)
                 self.after_note(obj)
             elif isinstance(obj, xml_objs.BarBackup):
-                self.musxml.new_backup(obj.base_scaling, self.divisions)
+                self.musxml.new_backup(obj.duration, self.divisions)
 
     def new_xml_bar_attr(self, obj):
         """Create bar attribute xml-nodes."""
@@ -123,7 +123,7 @@ class iterateMediatorScore():
     def gener_xml_mus(self, obj):
         """Nodes generic for both notes and rests."""
         if obj.tuplet:
-            self.musxml.tuplet_note(obj.tuplet, obj.base_scaling, obj.ttype, self.divisions)
+            self.musxml.tuplet_note(obj.tuplet, obj.duration, obj.ttype, self.divisions)
         if obj.staff and not obj.skip:
             self.musxml.add_staff(obj.staff)
         if obj.other_notation:
@@ -131,8 +131,9 @@ class iterateMediatorScore():
 
     def new_xml_note(self, obj):
         """Create note specific xml-nodes."""
-        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.pitch.octave, obj.note.accidental_token],
-            obj.base_scaling, obj.voice, obj.type, self.divisions, obj.dot, obj.chord)
+        self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.octave,
+            obj.accidental_token], obj.duration, obj.voice, obj.type,
+            self.divisions, obj.dot, obj.chord)
         if obj.tie:
             self.musxml.tie_note(obj.tie)
         for s in obj.slur:
@@ -159,7 +160,7 @@ class iterateMediatorScore():
     def new_xml_rest(self, obj):
         """Create rest specific xml-nodes."""
         if obj.skip:
-            self.musxml.new_skip(obj.base_scaling, self.divisions)
+            self.musxml.new_skip(obj.duration, self.divisions)
         else:
-            self.musxml.new_rest(obj.base_scaling, obj.type, self.divisions, obj.pos,
+            self.musxml.new_rest(obj.duration, obj.type, self.divisions, obj.pos,
             obj.dot, obj.voice)
