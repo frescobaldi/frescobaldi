@@ -117,7 +117,7 @@ def main():
         if not args.new and remote.enabled():
             api = remote.get()
             if api:
-                api.command_line(options, urls)
+                api.command_line(args, urls)
                 api.close()
                 sys.exit(0)
     
