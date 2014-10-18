@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2014-10-10 12:40+0200\n"
-"PO-Revision-Date: 2013-09-29 12:52+0100\n"
+"PO-Revision-Date: 2014-10-18 13:17+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.9\n"
 "X-Language: fr\n"
 "X-Source-Language: C\n"
 
@@ -47,7 +47,7 @@ msgstr "Version"
 
 #: ../about.py:114
 msgid "Operating System"
-msgstr "Système d'exploitation"
+msgstr "Système d'Exploitation"
 
 #: ../about.py:121
 #, python-brace-format
@@ -56,7 +56,7 @@ msgstr "Version {version}"
 
 #: ../about.py:122 ../main.py:56
 msgid "A LilyPond Music Editor"
-msgstr "Un éditeur de partitions LilyPond"
+msgstr "Un éditeur de partitions pour LilyPond"
 
 #: ../about.py:123
 #, python-brace-format
@@ -198,16 +198,15 @@ msgstr "&Changements"
 
 #: ../convert_ly.py:136
 msgid "&Diff"
-msgstr ""
+msgstr "&Différences"
 
 #: ../convert_ly.py:137
 msgid "Run Again"
 msgstr "Exécuter à nouveau"
 
 #: ../convert_ly.py:138
-#, fuzzy
 msgid "Save as file"
-msgstr "Enregistrer le fichier"
+msgstr "Enregistrer comme fichier"
 
 #: ../convert_ly.py:155 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:151 ../musicview/image.py:167
@@ -256,9 +255,8 @@ msgid "Save File"
 msgstr "Enregistrer le fichier"
 
 #: ../convert_ly.py:253
-#, fuzzy
 msgid "Text Files"
-msgstr "Fichiers Texinfo"
+msgstr "Fichiers Text"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
@@ -565,14 +563,12 @@ msgid "Always start a new instance"
 msgstr "Toujours ouvrir une nouvelle instance"
 
 #: ../main.py:70
-#, fuzzy
 msgid "file"
-msgstr "Nom de fichier"
+msgstr "fichier"
 
 #: ../main.py:71
-#, fuzzy
 msgid "File to be opened"
-msgstr "Nom de fichier à inclure"
+msgstr "Fichier à ouvrir"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:257 ../externalchanges/widget.py:159
@@ -607,23 +603,19 @@ msgid ""
 "\n"
 "{strerror} ({errno})"
 msgstr ""
+"{message}\n"
+"\n"
+"{strerror} ({errno})"
 
 #: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:671
 #: ../remote/api.py:118 ../sessions/dialog.py:105
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not read from: {url}"
-msgstr ""
-"Impossible de recharger le document distant :\n"
-"\n"
-"{url}"
+msgstr "Impossible de lire depuis : {url}"
 
 #: ../mainwindow.py:401
-#, fuzzy
 msgid "Could not read:"
-msgstr ""
-"Impossible de recharger le document distant :\n"
-"\n"
-"{url}"
+msgstr "Impossible de lire :"
 
 #: ../mainwindow.py:456 ../macosx/globalmenu.py:174
 msgctxt "dialog title"
@@ -632,12 +624,9 @@ msgstr "Ouvrir fichier"
 
 #: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:728
 #: ../sessions/dialog.py:126
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not write to: {url}"
-msgstr ""
-"Impossible de recharger le document distant :\n"
-"\n"
-"{url}"
+msgstr "Impossible d'écrire sur : {url}"
 
 #: ../mainwindow.py:544
 msgctxt "dialog title"
@@ -650,12 +639,8 @@ msgid "Save Selection"
 msgstr "Enregistrer la sélection"
 
 #: ../mainwindow.py:595 ../externalchanges/widget.py:240
-#, fuzzy
 msgid "Could not reload:"
-msgstr ""
-"Impossible de recharger le document distant :\n"
-"\n"
-"{url}"
+msgstr "Impossible de recharger :"
 
 #: ../mainwindow.py:662
 msgctxt "dialog title"
@@ -749,9 +734,8 @@ msgid "Print Source..."
 msgstr "Imprimer le code source"
 
 #: ../mainwindow.py:1135
-#, fuzzy
 msgid "Close All Documents and Session"
-msgstr "Fermer tous les documents"
+msgstr "Fermer Tous les Documents et Session"
 
 #: ../mainwindow.py:1136
 msgid "Closes all documents and leaves the current session."
@@ -986,16 +970,15 @@ msgstr "Aperçu"
 
 #: ../panel.py:103
 msgid "Drag to dock/undock"
-msgstr ""
+msgstr "Faire glisser pour ancrer/détacher"
 
 #: ../panel.py:106 ../search/__init__.py:109
 msgid "Close"
 msgstr "Fermer"
 
 #: ../panel.py:109
-#, fuzzy
 msgid "Dock/Undock"
-msgstr "Détacher"
+msgstr "Ancrer/Détacher"
 
 #: ../popplerdummy.py:42
 #, python-brace-format
@@ -1402,9 +1385,8 @@ msgid "[deleted]"
 msgstr "[supprimé]"
 
 #: ../externalchanges/widget.py:256
-#, fuzzy
 msgid "Could not save:"
-msgstr "Impossible d'enregistrer l'image."
+msgstr "Impossible d'enregistrer :"
 
 #: ../externalchanges/widget.py:261
 msgid "Please save the document using the \"Save As...\" dialog."
@@ -1481,9 +1463,8 @@ msgid "Export to different audio formats."
 msgstr "Exporter vers différents formats audio."
 
 #: ../file_import/__init__.py:48
-#, fuzzy
 msgid "MXL Files"
-msgstr "Fichiers XML"
+msgstr "Fichiers MXL"
 
 #: ../file_import/__init__.py:49
 msgctxt "dialog title"
@@ -1528,7 +1509,7 @@ msgstr "Hauteurs de notes en mode absolu"
 
 #: ../file_import/musicxml.py:181
 msgid "Comment out midi block"
-msgstr ""
+msgstr "Commenter bloc MIDI"
 
 #: ../file_import/musicxml.py:184 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
@@ -2317,17 +2298,16 @@ msgid "Options"
 msgstr "Options"
 
 #: ../po/messages.py:35
-#, fuzzy
 msgid "usage: "
-msgstr "Utilisation : %s\n"
+msgstr "Utilisation :"
 
 #: ../po/messages.py:36
 msgid "positional arguments"
-msgstr ""
+msgstr "paramètres positionnels"
 
 #: ../po/messages.py:37
 msgid "optional arguments"
-msgstr ""
+msgstr "paramètres optionnels"
 
 #: ../po/messages.py:42
 msgctxt "CloseButton"
@@ -3312,7 +3292,7 @@ msgstr ""
 
 #: ../preferences/editor.py:78
 msgid "Number of surrounding lines:"
-msgstr ""
+msgstr "Nombre de lignes voisines :"
 
 #: ../preferences/editor.py:80
 msgid ""
@@ -3320,6 +3300,9 @@ msgid ""
 "tries to scroll as few lines as possible. Here you can speficy how many "
 "surrounding lines at least should be visible."
 msgstr ""
+"Lorsqu’elle passe des résultats de recherches au clic sur un lien, la vue "
+"texte tente de défiler le moins possible. Vous pouvez spécifier ici combien "
+"de lignes voisines doivent être visibles au moins."
 
 #: ../preferences/editor.py:125
 msgid "Matching Item:"
@@ -3986,7 +3969,7 @@ msgstr ""
 
 #: ../preferences/helpers.py:154
 msgid "Use Frescobaldi's print dialog"
-msgstr "Utiliser le dialogue d'impression de Frescobaldi"
+msgstr "Utiliser la boîte de dialogue d'impression de Frescobaldi"
 
 #: ../preferences/helpers.py:156
 msgid ""
@@ -3994,10 +3977,10 @@ msgid ""
 "PostScript document containing only the selected pages to print. Otherwise, "
 "the command is called directly and is expected to show a print dialog itself."
 msgstr ""
-"Si activé, Frescobaldi affichera un dialogue d'impression et créera un "
-"document PDF ou Postscript contenant uniquement les pages à imprimer. Sinon, "
-"la commande est appelée directement et affichier le dialogue d'impression "
-"lui-même."
+"Si activé, Frescobaldi affichera la boîte de dialogue d'impression et créera "
+"un document PDF ou Postscript contenant uniquement les pages à imprimer. "
+"Sinon, la commande est appelée directement et affichier le dialogue "
+"d'impression lui-même."
 
 #: ../preferences/helpers.py:162
 msgid "Set the resolution if Frescobaldi prints using raster images."
@@ -4131,12 +4114,14 @@ msgstr "Créer des documents SVG (Scalable Vector Graphics) par défaut."
 
 #: ../preferences/lilypond.py:344
 msgid "Open default viewer after successful compile"
-msgstr ""
+msgstr "Ouvrir la visionneuse par défaut après une compilation réussie"
 
 #: ../preferences/lilypond.py:346
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
+"Affiche la vue musicale PDF ou SVG quand un travail de compilation se "
+"termine correctement."
 
 #: ../preferences/midi.py:82
 msgid "MIDI Ports"
@@ -5758,7 +5743,7 @@ msgid ""
 "<code>e, a d g b e'</code>. Use absolute note names in the same language as "
 "you want to use in your document (by default: \"nederlands\")."
 msgstr ""
-"Sélectionnez un accord personnalisé dans une boîte de dialogue et entrez une "
+"Sélectionnez un accord personnalisé dans la liste déroulante et entrez un "
 "accord personnalisé ici, p. ex. <code>e, a d g b e'</code>. Utilisez les "
 "noms de notes absolus dans le même langage que celui qui est utilisé dans "
 "votre document (par défaut : \"nederlands\")."
@@ -6498,6 +6483,8 @@ msgstr "&Importer"
 #: ../sessions/dialog.py:79
 msgid "Opens a dialog to import a session from a file."
 msgstr ""
+"Ouvre une boîte de dialogue permettant d'importer une session depuis un "
+"fichier."
 
 #: ../sessions/dialog.py:80 ../snippet/widget.py:197
 msgid "E&xport..."
@@ -6506,32 +6493,30 @@ msgstr "E&xporter"
 #: ../sessions/dialog.py:81
 msgid "Opens a dialog to export a session to a file."
 msgstr ""
+"Ouvre une boîte de dialogue permettant d'exporter une session vers un "
+"fichier."
 
 #: ../sessions/dialog.py:82
 msgid "&Activate"
-msgstr ""
+msgstr "&Activer"
 
 #: ../sessions/dialog.py:83
-#, fuzzy
 msgid "Switches to the selected session."
-msgstr "Copie le rythme de la musique sélectionnée."
+msgstr "Bascule vers la session sélectionnée."
 
 #: ../sessions/dialog.py:93 ../sessions/dialog.py:114
-#, fuzzy
 msgid "JSON Files"
-msgstr "Fichiers Scheme"
+msgstr "Fichiers JSON"
 
 #: ../sessions/dialog.py:94
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import session"
-msgstr "Importer les positions de silence"
+msgstr "Importer session"
 
 #: ../sessions/dialog.py:113
-#, fuzzy
 msgctxt "dialog title"
 msgid "Export session"
-msgstr "Modifier la session %1"
+msgstr "Exporter session"
 
 #: ../sessions/dialog.py:260
 msgid "Name:"
@@ -6547,30 +6532,28 @@ msgstr "Dossier de base :"
 
 #: ../sessions/dialog.py:263
 msgid "Use session specific include path"
-msgstr ""
+msgstr "Utiliser un chemin d'inclusion spécifique"
 
 #: ../sessions/dialog.py:264
-#, fuzzy
 msgid "Replace global path"
-msgstr "Supprimer les hampes"
+msgstr "Remplacer le chemin global"
 
 #: ../sessions/dialog.py:265
 msgid "When checked, paths in LilyPond preferences are not included."
 msgstr ""
+"Lorsque coché, les chemins des préférences de LilyPond ne sont pas inclus"
 
 #: ../sessions/dialog.py:266
 msgid "Copy global path"
-msgstr ""
+msgstr "Copier le chemin global"
 
 #: ../sessions/dialog.py:267
-#, fuzzy
 msgid "Add and edit the path from LilyPond preferences."
-msgstr "Impossible de lire à partir du processus LilyPond."
+msgstr "Ajouter et éditer le chemin depuis les préférences de LilyPond."
 
 #: ../sessions/dialog.py:269
-#, fuzzy
 msgid "Remove all paths."
-msgstr "Supprimer les hampes"
+msgstr "Supprimer tous les chemins."
 
 #: ../sessions/dialog.py:350
 #, python-brace-format
@@ -6948,9 +6931,9 @@ msgid ""
 "or deleted. Check the snippets you want to recover and click the button "
 "\"Restore Checked Snippets.\""
 msgstr ""
-"Ce dialogue vous permet de rétablir des fragments par défaut qui ont été "
-"changés ou supprimés. Cochez les fragments que vous voulez rétablir et "
-"cliquez sur le bouton « Rétablir les Fragments Sélectionnés »."
+"Cette boîte de dialogue vous permet de rétablir des fragments par défaut qui "
+"ont été changés ou supprimés. Cochez les fragments que vous voulez rétablir "
+"et cliquez sur le bouton « Rétablir les Fragments Sélectionnés »."
 
 #: ../snippet/restore.py:67
 msgid "Restore Checked Snippets"
@@ -7542,7 +7525,7 @@ msgid ""
 "Many user interface items also have \"What's This\" information which can be "
 "revealed by pressing {key_whatsthis} or by selecting {menu_whatsthis}."
 msgstr ""
-"Dans la plupart des fenêtres de dialogue, vous pouvez cliquer sur un bouton "
+"Dans la plupart des boîtes de dialogue, vous pouvez cliquer sur un bouton "
 "Aide ou appuyer la touche {key_help}. La plupart des éléments d'interface "
 "ont aussi une information « Qu'est-ce que c'est ? » qui peut être affichée "
 "en appuyant {key_whatsthis} ou en sélectionnant {menu_whatsthis}."
@@ -7584,7 +7567,7 @@ msgid ""
 msgstr ""
 "Pour importer des fragments, sélectionnez {menu_import} et choisissez le "
 "fichier à importer. Il est aussi possible de faire glisser une fichier XML "
-"sur le gestionnaire de fragments. Une boite de dialogue s’ouvrira alors pour "
+"sur le gestionnaire de fragments. Une boîte de dialogue s’ouvrira alors pour "
 "vous permettre de sélectionner les fragments à importer."
 
 #: ../userguide/snippet_import_export.md:15
@@ -7945,14 +7928,14 @@ msgid ""
 "entered in a dialog."
 msgstr ""
 "Les trois dernières commandes permettent de copier, coller ou appliquer un "
-"rythme entré dans la fenêtre de dialogue."
+"rythme entré dans la boîte de dialogue."
 
 #: ../userguide/rhythm.md:16
 msgid ""
 "In the \"Apply Rhythm\" dialog you can enter a series of durations, e.g.:"
 msgstr ""
-"Dans la fenêtre \"Appliquer un rythme\", vous pouvez entrer une série de "
-"durées, p. ex :"
+"Dans la boîte de dialogue \"Appliquer un rythme\", vous pouvez entrer une "
+"série de durées, p. ex :"
 
 #: ../userguide/rhythm.md:22
 msgid "which will then, repetitively, be applied to a selection of notes."
@@ -8057,12 +8040,12 @@ msgid ""
 "range to print and the printer to use. If you don't use Frescobaldi's print "
 "dialog, you don't need to put the `$printer` variable in your command line."
 msgstr ""
-"Décochez l'option *Utiliser le dialogue d'impression de Frescobaldi* lorsque "
-"la commande d'impression ouvre un dialogue elle-même, dans lequel vous "
-"pouvez sélectionner entre autres les pages à imprimer et l'imprimante à "
-"utiliser. Si vous n'utilisez pas le dialogue d'impression de Frescobaldi, il "
-"n'est pas nécessaire d'inclure la variable `$printer` dans votre ligne de "
-"commande."
+"Décochez l'option *Utiliser la boîte de dialogue d'impression de "
+"Frescobaldi* lorsque la commande d'impression ouvre un dialogue elle-même, "
+"dans lequel vous pouvez sélectionner entre autres les pages à imprimer et "
+"l'imprimante à utiliser. Si vous n'utilisez pas le dialogue d'impression de "
+"Frescobaldi, il n'est pas nécessaire d'inclure la variable `$printer` dans "
+"votre ligne de commande."
 
 #: ../userguide/prefs_helpers.md:31
 msgid ""
@@ -8355,7 +8338,7 @@ msgstr ""
 
 #: ../userguide/midi_synth.md:1
 msgid "Playing a MIDI file does not work"
-msgstr ""
+msgstr "Jouer un fichier MIDI ne fonctionne pas"
 
 #: ../userguide/midi_synth.md:3
 msgid ""
@@ -8363,6 +8346,9 @@ msgid ""
 "audible, otherwise it will play the file silently, only showing the \"No "
 "Output Found!\" message."
 msgstr ""
+"Le lecteur MIDI intégré à besoin d'un synthétiseur externe pour rendre le "
+"MIDI audible, sinon il jouera le fichier en silence, n'affichant que le "
+"message \"Aucune Sortie Trouveé!\"."
 
 #: ../userguide/midi_synth.md:7
 msgid ""
@@ -8370,12 +8356,17 @@ msgid ""
 "running (preferably at bootup or session login), or you have an external "
 "MIDI synthesizer connected to your computer."
 msgstr ""
+"Assurez-vous donc qu'un synthétiseur logiciel tel que TiMidity ou FluidSynth "
+"est lancé (préférablement au démarrage ou à l'ouverture de session) ou que "
+"vous avez un synthétiseur MIDI externe raccordé à votre ordinateur."
 
 #: ../userguide/midi_synth.md:11
 msgid ""
 "In the {midi_prefs} you can configure which MIDI port you want to use for "
 "playing the MIDI files."
 msgstr ""
+"Dans les {midi_prefs} vous pouvez configurer que port MIDI vous souhaitez "
+"utiliser pour lire les fichiers MIDI."
 
 #: ../userguide/engrave_layout_configure.md:1
 msgid "Configuring the Layout Control options"
@@ -9003,7 +8994,8 @@ msgstr ""
 #: ../userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
 msgstr ""
-"Dans ce dialogue vous pouvez éditer une ligne unique du document texte."
+"Dans cette boîte de dialogue vous pouvez éditer une ligne unique du document "
+"texte."
 
 #: ../userguide/musicview_editinplace.md:5
 msgid ""
@@ -9020,7 +9012,7 @@ msgid ""
 "in the Music View or by right-clicking the object and selecting "
 "{menu_editinplace}."
 msgstr ""
-"Vous pouvez ouvrir la boite de dialogue « Éditer en ligne » en utilisant Maj-"
+"Vous pouvez ouvrir la boîte de dialogue « Éditer en ligne » en utilisant Maj-"
 "Clic sur un object cliquable dans l'Aperçu ou en utilisant Clic-Droit sur "
 "cet objet et en sélectionnant {menu_editinplace}."
 
@@ -9235,9 +9227,9 @@ msgid ""
 "place."
 msgstr ""
 "Pour utiliser cette fonction, vous devez d'abord sélectionner le texte à "
-"traiter. Ensuite, appuyer {key_hyphen} ou choisissez {menu_hyphen}. Dans le "
-"dialogue qui suit, sélectionnez la langue du texte. Cliquez OK ou appuyer "
-"Enter pour procéder à la césure."
+"traiter. Ensuite, appuyer {key_hyphen} ou choisissez {menu_hyphen}. Dans la "
+"boîte de dialogue qui suit, sélectionnez la langue du texte. Cliquez OK ou "
+"appuyer Enter pour procéder à la césure."
 
 #: ../userguide/lyrics.md:12
 msgid ""
@@ -9906,8 +9898,8 @@ msgid ""
 "The *Engrave (Custom)* dialog ({key_engrave_custom}) gives you detailed "
 "access to all aspects of the LilyPond command."
 msgstr ""
-"Le dialogue *Graver (personnalisé)* ({key_engrave_custom}) vous donne un "
-"accès détaillé à tous les aspects de la commande LilyPond."
+"La boîte de dialogue *Graver (personnalisé)* ({key_engrave_custom}) vous "
+"donne un accès détaillé à tous les aspects de la commande LilyPond."
 
 #: ../userguide/engrave_custom.md:6
 msgid ""
@@ -9925,8 +9917,8 @@ msgid ""
 "PNG output) from a number of image resolutions."
 msgstr ""
 "Vous pouvez sélectionner la version de LilyPond (parmi celles définies dans "
-"le dialogue de [prefs_lilypond Préférences], les formats de sorties "
-"disponibles et (pour une sortie en PNG) parmi plusieurs résolutions d'image."
+"les [prefs_lilypond Préférences], les formats de sorties disponibles et "
+"(pour une sortie en PNG) parmi plusieurs résolutions d'image."
 
 #. NOTE: markdown formatting
 #: ../userguide/engrave_custom.md:13
@@ -10039,8 +10031,8 @@ msgid ""
 "In the Preferences Dialog (under {menu_edit_preferences}) you can configure "
 "many aspects of Frescobaldi and LilyPond."
 msgstr ""
-"Dans le dialogue Préférences (sous {menu_edit_preferences}) vous pouvez "
-"configurer de nombreux aspects de Frescobaldi et LilyPond."
+"Dans les Préférences (sous {menu_edit_preferences}) vous pouvez configurer "
+"de nombreux aspects de Frescobaldi et LilyPond."
 
 #: ../userguide/engrave_preview.md:1
 msgid "Preview mode"
@@ -10108,7 +10100,6 @@ msgstr ""
 "fermés puis les documents de l'autre session sont ouverts."
 
 #: ../userguide/sessions.md:10
-#, fuzzy
 msgid ""
 "Inside the session properties dialog, you can specify a default directory "
 "for the session. You can also choose whether to always save the list of open "
@@ -10117,8 +10108,8 @@ msgid ""
 "documents in session the same, even if you open or close documents while "
 "working."
 msgstr ""
-"Dans le dialogue des propriétés de session, vous pouvez choisir de toujours "
-"enregistrer la liste des documents ouverts dans cette session, ou "
+"Dans la boîte de dialogue des propriétés de session, vous pouvez choisir de "
+"toujours enregistrer la liste des documents ouverts dans cette session, ou "
 "d'enregistrer uniquement à la création (ou via {menu_session_save}). Ceci "
 "peut être utile si vous désirez garder une liste identique de fichiers dans "
 "une session, même si vous ouvrez ou fermez des documents en cours de travail."
@@ -10129,6 +10120,10 @@ msgid ""
 "export functionality in the session manager ({menu_session_manage}). In the "
 "session manager you can also add, edit or remove a session."
 msgstr ""
+"Une autre façon de sauvegarder l'état de la session et d'utiliser la "
+"fonction d'import et d'export du gestionnaire de session "
+"{{menu_session_manage}}. Dans le gestionnaire de session, vous pouvez aussi "
+"ajouter, éditer ou supprimer une session."
 
 #: ../userguide/troubleshooting.md:1
 msgid "Troubleshooting"
