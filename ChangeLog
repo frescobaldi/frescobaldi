@@ -5,7 +5,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.17 -- 
 
 * Translations:
-  - updated: nl, pt_BR
+  - updated: nl, pt_BR, fr
   - new (partial): Chinese Traditional, Simplified and Hong Kong by Anthony Fok
 * New features:
   - Preference for the number of contextual lines to show at least, when the
