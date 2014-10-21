@@ -501,8 +501,6 @@ class Mediator():
         tie_type = 'start'
         self.tied = True
         self.current_note.set_tie(tie_type)
-        for c in self.current_chord:
-            c.set_tie(tie_type)
 
     def set_slur(self, slur_type):
         """
