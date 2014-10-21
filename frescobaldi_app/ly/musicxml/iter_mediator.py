@@ -134,8 +134,8 @@ class iterateMediatorScore():
         self.musxml.new_note(obj.grace, [obj.base_note, obj.alter, obj.octave,
             obj.accidental_token], obj.duration, obj.voice, obj.type,
             self.divisions, obj.dot, obj.chord)
-        if obj.tie:
-            self.musxml.tie_note(obj.tie)
+        for t in obj.tie:
+            self.musxml.tie_note(t)
         for s in obj.slur:
             self.musxml.add_slur(1, s) #LilyPond doesn't allow nested slurs so the number can be 1
         for a in obj.artic:

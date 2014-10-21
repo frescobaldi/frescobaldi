@@ -424,6 +424,7 @@ class Mediator():
         chord_note.set_duration(self.current_note.duration)
         chord_note.set_durtype(self.dur_token)
         chord_note.dots = self.dots
+        chord_note.tie = self.current_note.tie
         if not self.prev_chord_pitch:
             self.prev_chord_pitch = self.prev_pitch
         p = note.pitch.copy()
@@ -445,7 +446,10 @@ class Mediator():
             if i == 0:
                 self.current_note = cn
             self.current_chord.append(cn)
+            if self.tied:
+                cn.set_tie('stop')
             self.bar.add(cn)
+        self.tied = False
 
     def clear_chord(self):
         self.current_chord = []
@@ -494,11 +498,11 @@ class Mediator():
         self.check_divs(Fraction(tfraction[0], tfraction[1]))
 
     def tie_to_next(self):
-        if self.current_note.tie == 'stop': # only if previous was tied
-            self.current_note.set_tie('continue')
-        else:
-            self.current_note.set_tie('start')
+        tie_type = 'start'
         self.tied = True
+        self.current_note.set_tie(tie_type)
+        for c in self.current_chord:
+            c.set_tie(tie_type)
 
     def set_slur(self, slur_type):
         """
