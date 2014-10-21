@@ -264,7 +264,7 @@ class BarMus():
         self.oct_shift = None
 
     def __repr__(self):
-        return '<{0} {1}>'.format(self.__class__.__name__, self.note)
+        return '<{0} {1}>'.format(self.__class__.__name__, self.duration)
 
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
