@@ -31,6 +31,8 @@ Changes in 2.17 --
   - dont always run autocompile job for the first opened document
   - after a successful compile the default music viewer (pdf or svg) is
     activated. This can be suppressed in the LilyPond prefs (wish: issue #435)
+  - the music view does not switch documents anymore when a compile is finised
+    but the user is working on a different document (wish: issue #513)
   - tooltips for the panel title and float/close buttons
   - error handling in I/O-related operations has improved
 * Installation:
