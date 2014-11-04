@@ -4,9 +4,6 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.17 -- 
 
-* Translations:
-  - updated: nl, pt_BR, fr
-  - new (partial): Chinese Traditional, Simplified and Hong Kong by Anthony Fok
 * New features:
   - Preference for the number of contextual lines to show at least, when the
     text view is scrolled to a cursor position (e.g. by clicking on a link, or
@@ -16,7 +13,7 @@ Changes in 2.17 --
     instead of or in addition to the global list of include paths, contributed
     by Peter Bjuhr
 * Improvements:
-  - When saving new file for the first time, a default filename is provided,
+  - When saving a new file for the first time, a default filename is provided,
     based on composer and title of the score (wish: issue #472)
   - Printing the music PDF now honors the duplex settings
   - MusicXML export has improved by using the ly.music module that has a notion
@@ -27,7 +24,7 @@ Changes in 2.17 --
     strings: although the textedit uri points to the closing quote, the string
     is correctly highlighted
   - dont disable run button of Engrave Custom dialog for autocompile jobs
-  - let autocompile jobs finish before starting a new one
+  - let autocompile jobs finish before starting a new one (comments issue #120)
   - dont always run autocompile job for the first opened document
   - after a successful compile the default music viewer (pdf or svg) is
     activated. This can be suppressed in the LilyPond prefs (wish: issue #435)
@@ -35,11 +32,16 @@ Changes in 2.17 --
     but the user is working on a different document (wish: issue #513)
   - tooltips for the panel title and float/close buttons
   - error handling in I/O-related operations has improved
-* Installation:
-  - Python 2.7 is now required.
 * Bugfixes:
   - fix AttributeError: 'bool' object has no attribute 'endswith' in
     lilypondinfo.py, toolcommand()
+  - fix AttributeError: 'NoneType' object has no attribute '_register_cursor'
+    (cause in music.py, get_included_document_node())
+* Installation:
+  - Python 2.7 is now required.
+* Translations:
+  - updated: nl, pt_BR, fr
+  - new (partial): Chinese Traditional, Simplified and Hong Kong by Anthony Fok
 
 
 Changes in 2.0.16 -- June 9th, 2014
