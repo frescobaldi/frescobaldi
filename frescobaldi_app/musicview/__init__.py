@@ -385,7 +385,15 @@ class DocumentChooserAction(ComboBoxAction):
     
     def slotDocumentUpdated(self, doc, job):
         """Called when a Job, finished on the document, has created new PDFs."""
-        if doc == self._document:
+        # if result files of this document were already displayed, the display
+        # is updated. Else the current document is switched if the document was
+        # the current document to be engraved (e.g. sticky or master) and the
+        # the job was started on this mainwindow
+        import engrave
+        mainwindow = self.parent().mainwindow()
+        if (doc == self._document or
+            (jobattributes.get(job).mainwindow == mainwindow and
+             doc == engrave.engraver(mainwindow).document())):
             self.setCurrentDocument(doc)
     
     def setCurrentDocument(self, document):
