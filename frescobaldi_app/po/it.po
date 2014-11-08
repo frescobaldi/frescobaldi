@@ -12,15 +12,15 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2014-10-10 12:40+0200\n"
-"PO-Revision-Date: 2014-04-20 12:08+0200\n"
-"Last-Translator: Federico Bruni <fedelogy at gmail dot com>\n"
+"PO-Revision-Date: 2014-11-08 09:22+0100\n"
+"Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: ../about.py:50
 #, python-brace-format
@@ -190,16 +190,15 @@ msgstr "&Modifiche"
 
 #: ../convert_ly.py:136
 msgid "&Diff"
-msgstr ""
+msgstr "&Diff"
 
 #: ../convert_ly.py:137
 msgid "Run Again"
 msgstr "Esegui di nuovo"
 
 #: ../convert_ly.py:138
-#, fuzzy
 msgid "Save as file"
-msgstr "Salva file"
+msgstr "Salva come file"
 
 #: ../convert_ly.py:155 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:151 ../musicview/image.py:167
@@ -249,9 +248,8 @@ msgid "Save File"
 msgstr "Salva file"
 
 #: ../convert_ly.py:253
-#, fuzzy
 msgid "Text Files"
-msgstr "File Texinfo"
+msgstr "File di testo"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
@@ -555,14 +553,12 @@ msgid "Always start a new instance"
 msgstr "Avvia sempre una nuova istanza"
 
 #: ../main.py:70
-#, fuzzy
 msgid "file"
-msgstr "nomefile"
+msgstr "file"
 
 #: ../main.py:71
-#, fuzzy
 msgid "File to be opened"
-msgstr "Nome del file da includere"
+msgstr "Nome del file da aprire"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:257 ../externalchanges/widget.py:159
@@ -596,23 +592,19 @@ msgid ""
 "\n"
 "{strerror} ({errno})"
 msgstr ""
+"{message}\n"
+"\n"
+"{strerror} ({errno})"
 
 #: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:671
 #: ../remote/api.py:118 ../sessions/dialog.py:105
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not read from: {url}"
-msgstr ""
-"Impossibile ricaricare il documento:\n"
-"\n"
-"{url}"
+msgstr "Impossibile leggere da: {url}"
 
 #: ../mainwindow.py:401
-#, fuzzy
 msgid "Could not read:"
-msgstr ""
-"Impossibile ricaricare il documento:\n"
-"\n"
-"{url}"
+msgstr "Impossibile leggere:"
 
 #: ../mainwindow.py:456 ../macosx/globalmenu.py:174
 msgctxt "dialog title"
@@ -621,12 +613,9 @@ msgstr "Apri file"
 
 #: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:728
 #: ../sessions/dialog.py:126
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not write to: {url}"
-msgstr ""
-"Impossibile ricaricare il documento:\n"
-"\n"
-"{url}"
+msgstr "Impossibile scrivere su: {url}"
 
 #: ../mainwindow.py:544
 msgctxt "dialog title"
@@ -639,12 +628,8 @@ msgid "Save Selection"
 msgstr "Salva selezione"
 
 #: ../mainwindow.py:595 ../externalchanges/widget.py:240
-#, fuzzy
 msgid "Could not reload:"
-msgstr ""
-"Impossibile ricaricare il documento:\n"
-"\n"
-"{url}"
+msgstr "Impossibile ricaricare:"
 
 #: ../mainwindow.py:662
 msgctxt "dialog title"
@@ -738,9 +723,8 @@ msgid "Print Source..."
 msgstr "Stampa documento sorgente..."
 
 #: ../mainwindow.py:1135
-#, fuzzy
 msgid "Close All Documents and Session"
-msgstr "Chiudi tutti i documenti"
+msgstr "Chiudi tutti i documenti e la sessione"
 
 #: ../mainwindow.py:1136
 msgid "Closes all documents and leaves the current session."
@@ -975,7 +959,7 @@ msgstr "Anteprima spartito"
 
 #: ../panel.py:103
 msgid "Drag to dock/undock"
-msgstr ""
+msgstr "Trascina per agganciare/sganciare"
 
 #: ../panel.py:106 ../search/__init__.py:109
 msgid "Close"
@@ -983,7 +967,7 @@ msgstr "Chiudi"
 
 #: ../panel.py:109
 msgid "Dock/Undock"
-msgstr ""
+msgstr "Aggancia/Sgancia"
 
 #: ../popplerdummy.py:42
 #, python-brace-format
@@ -1384,9 +1368,8 @@ msgid "[deleted]"
 msgstr "[eliminato]"
 
 #: ../externalchanges/widget.py:256
-#, fuzzy
 msgid "Could not save:"
-msgstr "Impossibile salvare l'immagine."
+msgstr "Impossibile salvare:"
 
 #: ../externalchanges/widget.py:261
 msgid "Please save the document using the \"Save As...\" dialog."
@@ -1460,9 +1443,8 @@ msgid "Export to different audio formats."
 msgstr "Esporta in vari formati audio."
 
 #: ../file_import/__init__.py:48
-#, fuzzy
 msgid "MXL Files"
-msgstr "File XML"
+msgstr "File MXL"
 
 #: ../file_import/__init__.py:49
 msgctxt "dialog title"
@@ -1507,7 +1489,7 @@ msgstr "Note in modalità assoluta"
 
 #: ../file_import/musicxml.py:181
 msgid "Comment out midi block"
-msgstr ""
+msgstr "Commenta il blocco midi"
 
 #: ../file_import/musicxml.py:184 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
@@ -2121,32 +2103,28 @@ msgid "Position: {pos}"
 msgstr "Posizione: {pos}"
 
 #: ../objecteditor/__init__.py:43
-#, fuzzy
 msgid "Object Editor"
-msgstr "Editor dei frammenti"
+msgstr "Editor degli oggetti"
 
 #: ../objecteditor/__init__.py:44
-#, fuzzy
 msgid "O&bject Editor"
-msgstr "Editor dei frammenti"
+msgstr "Editor degli oggetti"
 
 #: ../objecteditor/widget.py:111
 msgid "X Offset"
-msgstr ""
+msgstr "Spostamento di X"
 
 #: ../objecteditor/widget.py:112
-#, fuzzy
 msgid "Display the X Offset"
-msgstr "Mostra il nome di ogni grob (oggetto grafico)"
+msgstr "Mostra lo spostamento di X"
 
 #: ../objecteditor/widget.py:113
 msgid "Y Offset"
-msgstr ""
+msgstr "Spostamento di Y"
 
 #: ../objecteditor/widget.py:114
-#, fuzzy
 msgid "Display the Y Offset"
-msgstr "Mostra il nome di ogni grob (oggetto grafico)"
+msgstr "Mostra lo spostamento di Y"
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:297
 msgid "Outline"
@@ -2300,17 +2278,16 @@ msgid "Options"
 msgstr "Opzioni"
 
 #: ../po/messages.py:35
-#, fuzzy
 msgid "usage: "
-msgstr "Uso: %s\n"
+msgstr "uso: "
 
 #: ../po/messages.py:36
 msgid "positional arguments"
-msgstr ""
+msgstr "argoomenti relativi alla posizione"
 
 #: ../po/messages.py:37
 msgid "optional arguments"
-msgstr ""
+msgstr "argomenti opzionali"
 
 #: ../po/messages.py:42
 msgctxt "CloseButton"
@@ -3291,7 +3268,7 @@ msgstr ""
 
 #: ../preferences/editor.py:78
 msgid "Number of surrounding lines:"
-msgstr ""
+msgstr "Numero di righe esterne:"
 
 #: ../preferences/editor.py:80
 msgid ""
@@ -3299,6 +3276,10 @@ msgid ""
 "tries to scroll as few lines as possible. Here you can speficy how many "
 "surrounding lines at least should be visible."
 msgstr ""
+"Quando si salta da un risultato di una ricerca a un altro o si clicca su un "
+"collegamento, il riquadro testuale cerca di scorrere per il minor numero di "
+"righe possibile. Qui si può specificare il numero minimo di righe esterne da "
+"visualizzare."
 
 #: ../preferences/editor.py:125
 msgid "Matching Item:"
@@ -4096,7 +4077,7 @@ msgstr ""
 
 #: ../preferences/lilypond.py:299
 msgid "LilyPond include path:"
-msgstr "Percorso dei file aggiuntivi per LilyPond:"
+msgstr "Percorso di inclusione di file LilyPond:"
 
 #: ../preferences/lilypond.py:337
 msgid "Default output format"
@@ -4114,12 +4095,14 @@ msgstr ""
 
 #: ../preferences/lilypond.py:344
 msgid "Open default viewer after successful compile"
-msgstr ""
+msgstr "Apri il visualizzatore predefinito dopo la riuscita compilazione"
 
 #: ../preferences/lilypond.py:346
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
+"Mostra l'anteprima spartito in formato PDF o SVG quando la compilazione "
+"termina con successo."
 
 #: ../preferences/midi.py:82
 msgid "MIDI Ports"
@@ -5370,34 +5353,31 @@ msgid "Tr.Bb."
 msgstr "Tr. in sib"
 
 #: ../scorewiz/parts/brass.py:74
-#, fuzzy
 msgid "Cornet in Bb"
-msgstr "Tromba in sib"
+msgstr "Cornetta in sib"
 
 #: ../scorewiz/parts/brass.py:78
-#, fuzzy
 msgctxt "abbreviation for Cornet in Bb"
 msgid "Crt.Bb."
-msgstr "Tr. in sib"
+msgstr "Crt.Sib."
 
 #: ../scorewiz/parts/brass.py:86
 msgid "Flugelhorn"
-msgstr ""
+msgstr "Flicorno soprano"
 
 #: ../scorewiz/parts/brass.py:90
 msgctxt "abbreviation for Flugelhorn"
 msgid "Fgh."
-msgstr ""
+msgstr "Flic"
 
 #: ../scorewiz/parts/brass.py:98
-#, fuzzy
 msgid "Mellophone"
-msgstr "Xilofono"
+msgstr "Mellofono"
 
 #: ../scorewiz/parts/brass.py:102
 msgctxt "abbreviation for Mellophone"
 msgid "Mph."
-msgstr ""
+msgstr "Mell."
 
 #: ../scorewiz/parts/brass.py:111
 msgid "Trombone"
@@ -5409,23 +5389,22 @@ msgid "Trb."
 msgstr "Trb."
 
 #: ../scorewiz/parts/brass.py:125
-#, fuzzy
 msgid "Baritone"
-msgstr "Sassofono baritono"
+msgstr "Flicorno tenore"
 
 #: ../scorewiz/parts/brass.py:129
 msgctxt "abbreviation for Baritone"
 msgid "Bar."
-msgstr ""
+msgstr "Flic. ten."
 
 #: ../scorewiz/parts/brass.py:139
 msgid "Euphonium"
-msgstr ""
+msgstr "Eufonio"
 
 #: ../scorewiz/parts/brass.py:143
 msgctxt "abbreviation for Euphonium"
 msgid "Euph."
-msgstr ""
+msgstr "Euf."
 
 #: ../scorewiz/parts/brass.py:153
 msgid "Tuba"
@@ -6486,7 +6465,7 @@ msgstr "&Importa..."
 
 #: ../sessions/dialog.py:79
 msgid "Opens a dialog to import a session from a file."
-msgstr ""
+msgstr "Apre una finestra di dialogo per importare una sessione da un file."
 
 #: ../sessions/dialog.py:80 ../snippet/widget.py:197
 msgid "E&xport..."
@@ -6494,33 +6473,29 @@ msgstr "E&sporta..."
 
 #: ../sessions/dialog.py:81
 msgid "Opens a dialog to export a session to a file."
-msgstr ""
+msgstr "Apre una finestra di dialogo per esportare una sessione in un file."
 
 #: ../sessions/dialog.py:82
 msgid "&Activate"
-msgstr ""
+msgstr "&Attiva"
 
 #: ../sessions/dialog.py:83
-#, fuzzy
 msgid "Switches to the selected session."
-msgstr "Copia lo schema ritmico della musica selezionata."
+msgstr "Passa alla sessione selezionata."
 
 #: ../sessions/dialog.py:93 ../sessions/dialog.py:114
-#, fuzzy
 msgid "JSON Files"
-msgstr "File Scheme"
+msgstr "File JSON"
 
 #: ../sessions/dialog.py:94
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import session"
-msgstr "Importa le posizioni delle pause"
+msgstr "Importa sessione"
 
 #: ../sessions/dialog.py:113
-#, fuzzy
 msgctxt "dialog title"
 msgid "Export session"
-msgstr "Modifica una nuova sessione"
+msgstr "Esporta sessione"
 
 #: ../sessions/dialog.py:260
 msgid "Name:"
@@ -6536,29 +6511,29 @@ msgstr "Directory base:"
 
 #: ../sessions/dialog.py:263
 msgid "Use session specific include path"
-msgstr ""
+msgstr "Usa il percorso di inclusione specifico della sessione"
 
 #: ../sessions/dialog.py:264
-#, fuzzy
 msgid "Replace global path"
-msgstr "Togli i gambi"
+msgstr "Sostituisci il percorso globale"
 
 #: ../sessions/dialog.py:265
 msgid "When checked, paths in LilyPond preferences are not included."
 msgstr ""
+"Se vistato, i percorsi presenti nelle preferenze relative a LilyPond non "
+"sono inclusi."
 
 #: ../sessions/dialog.py:266
 msgid "Copy global path"
-msgstr ""
+msgstr "Copia il percorso globale"
 
 #: ../sessions/dialog.py:267
 msgid "Add and edit the path from LilyPond preferences."
-msgstr ""
+msgstr "Aggiunge e modifica il percorso dalle preferenze relative a LilyPond."
 
 #: ../sessions/dialog.py:269
-#, fuzzy
 msgid "Remove all paths."
-msgstr "Togli i gambi"
+msgstr "Togli tutti i percorsi."
 
 #: ../sessions/dialog.py:350
 #, python-brace-format
@@ -7417,6 +7392,10 @@ msgid ""
 "resulting PDF file and doesn't reveal hard-coded information about the "
 "directories on your computer."
 msgstr ""
+"La *Modalità pubblicazione* serve a produrre il PDF finale destinato alla "
+"condivisione. Poiché non genera le informazioni necessarie per il punta e "
+"clicca, la dimensione del file PDF è ridotta e non viene inclusa nel file "
+"alcuna informazione sulle cartelle del proprio computer."
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:14
@@ -8322,7 +8301,7 @@ msgstr ""
 
 #: ../userguide/midi_synth.md:1
 msgid "Playing a MIDI file does not work"
-msgstr ""
+msgstr "La riproduzione di un file MIDI non funziona"
 
 #: ../userguide/midi_synth.md:3
 msgid ""
@@ -8330,6 +8309,9 @@ msgid ""
 "audible, otherwise it will play the file silently, only showing the \"No "
 "Output Found!\" message."
 msgstr ""
+"Il lettore MIDI integrato ha bisogno di un sintetizzatore esterno per "
+"rendere udibile il MIDI, altrimenti riprodurrà il file senza emettere suono "
+"e mostrando solo il messaggio «Nessun output trovato!»."
 
 #: ../userguide/midi_synth.md:7
 msgid ""
@@ -8337,12 +8319,17 @@ msgid ""
 "running (preferably at bootup or session login), or you have an external "
 "MIDI synthesizer connected to your computer."
 msgstr ""
+"Dunque assicurati di avere o un sintetizzatore come TiMidity or FluidSynth "
+"in esecuzione (preferibilmente all'avvio del computer o della sessione "
+"grafica) oppure un sintetizzatore MIDI esterno connesso al computer."
 
 #: ../userguide/midi_synth.md:11
 msgid ""
 "In the {midi_prefs} you can configure which MIDI port you want to use for "
 "playing the MIDI files."
 msgstr ""
+"Nelle {midi_prefs} si può configurare la porta MIDI da usare per la "
+"riproduzione di file MIDI."
 
 #: ../userguide/engrave_layout_configure.md:1
 msgid "Configuring the Layout Control options"
@@ -9932,7 +9919,7 @@ msgstr "L'eseguibile di LilyPond"
 
 #: ../userguide/engrave_custom.md:26
 msgid "All the include paths"
-msgstr "Tutt i percorsi dei file aggiuntivi per LilyPond"
+msgstr "Tutti i percorsi di inclusione di file LilyPond"
 
 #: ../userguide/engrave_custom.md:29
 msgid "The filename of the document"
@@ -10078,7 +10065,6 @@ msgstr ""
 "poi vengono aperti quelli della sessione successiva."
 
 #: ../userguide/sessions.md:10
-#, fuzzy
 msgid ""
 "Inside the session properties dialog, you can specify a default directory "
 "for the session. You can also choose whether to always save the list of open "
@@ -10087,12 +10073,12 @@ msgid ""
 "documents in session the same, even if you open or close documents while "
 "working."
 msgstr ""
-"All'interno della finestra per le proprietà delle sessioni, si può scegliere "
-"se salvare sempre l'elenco dei documenti aperti per quella sessione o se "
-"salvarla soltanto al momento della creazione (o tramite "
-"{menu_session_save}). Questo può essere utile se si vuole mantenere "
-"inalterato l'elenco dei documenti pur aprendone o chiudendone altri durante "
-"il lavoro."
+"All'interno della finestra delle proprietà delle sessioni, si può indicare "
+"una directory predefinita per la sessione. Si può scegliere se salvare "
+"sempre l'elenco dei documenti aperti in quella sessione o se salvarla "
+"soltanto al momento della creazione (o tramite {menu_session_save}). Questo "
+"può essere utile se si vuole mantenere inalterato l'elenco dei documenti pur "
+"aprendone o chiudendone altri durante il lavoro."
 
 #: ../userguide/sessions.md:17
 msgid ""
@@ -10100,6 +10086,9 @@ msgid ""
 "export functionality in the session manager ({menu_session_manage}). In the "
 "session manager you can also add, edit or remove a session."
 msgstr ""
+"Un altro modo per recuperare lo stato della sessione è usare la funzionalità "
+"di importazione e esportazione nel gestore sessioni ({menu_session_manage}), "
+"dove si può anche aggiungere, modificare o rimuovere una sessione."
 
 #: ../userguide/troubleshooting.md:1
 msgid "Troubleshooting"
@@ -10231,13 +10220,13 @@ msgid ""
 msgstr ""
 "Eventuali errori o avvertimenti rilevati da LilyPond appaiono nel riquadro "
 "Messaggi LilyPond in fondo allo schermo. Frescobaldi evidenzia queste righe "
-"nel riquadro del testo proprio dove si trovano gli errori. Cliccando "
-"sull'errore nella finestra dei Messaggi o premendo {key_error} porta "
-"immediatamente il cursore sulla riga in questione. Premendo di nuovo "
-"{key_error} si passa al messaggio di errore successivo, e così via. LilyPond "
-"toglierà le evidenziazioni del rigo di qualsiasi errore precedente la volta "
-"successiva in cui viene eseguito, ma è possibile anche rimuovere manualmente "
-"i contrassegni di errore su una riga tramite l'opzione "
+"nel riquadro testuale proprio dove si trovano gli errori. Facendo clic "
+"sull'errore nella finestra dei Messaggi o premendo {key_error} il cursore va "
+"immediatamente alla riga in questione. Premendo di nuovo {key_error} si "
+"passa al messaggio di errore successivo, e così via. LilyPond toglierà le "
+"evidenziazioni del rigo di qualsiasi errore precedente la volta successiva "
+"in cui viene eseguito, ma è possibile anche rimuovere manualmente i "
+"contrassegni di errore su una riga tramite l'opzione "
 "{menu_clear_error_marks}."
 
 #: ../userguide/engrave_publish.md:1
