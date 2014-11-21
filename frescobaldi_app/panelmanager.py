@@ -59,7 +59,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("layoutcontrol.LayoutControlOptions")
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
-        self.loadPanel("objecteditor.ObjectEditor")
+#        self.loadPanel("objecteditor.ObjectEditor")
         
         self.createActions()
         
