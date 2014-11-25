@@ -32,6 +32,7 @@ Changes in 2.17 -- December 26th, 2014
     but the user is working on a different document (wish: issue #513)
   - tooltips for the panel title and float/close buttons
   - error handling in I/O-related operations has improved
+  - Ctrl+C in editor view does not copy HTML, only plain text (issue #517)
 * Bugfixes:
   - fix AttributeError: 'bool' object has no attribute 'endswith' in
     lilypondinfo.py, toolcommand()
