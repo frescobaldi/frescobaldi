@@ -103,7 +103,7 @@ class View(QtWebKit.QWebView):
             frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
             if vcs.app_is_git_controlled(): #for now only editable in dev (git)
-				frame.evaluateJavaScript(getJsScript('editsvg.js')) 
+                frame.evaluateJavaScript(getJsScript('editsvg.js')) 
             
     def evalSave(self):
         frame = self.page().mainFrame()
