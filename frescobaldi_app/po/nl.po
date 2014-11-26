@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2014-11-26 14:36+0100\n"
-"PO-Revision-Date: 2014-10-10 12:40+0200\n"
+"PO-Revision-Date: 2014-11-26 14:38+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -3163,7 +3163,6 @@ msgid "Zoom Out"
 msgstr "Uitzoomen"
 
 #: ../po/messages.py:229
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "&Ongedaan maken"
@@ -3171,37 +3170,32 @@ msgstr "&Ongedaan maken"
 #: ../po/messages.py:230
 msgctxt "QTextControl"
 msgid "&Redo"
-msgstr ""
+msgstr "Opnie&uw"
 
 #: ../po/messages.py:231
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "&Knippen"
 
 #: ../po/messages.py:232
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "&Kopiëren"
 
 #: ../po/messages.py:233
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "&Plakken"
 
 #: ../po/messages.py:234
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr "Verwijderen"
 
 #: ../po/messages.py:235
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Select All"
-msgstr "&Alles selecteren"
+msgstr "Alles selecteren"
 
 #: ../po/messages.py:237
 msgctxt "QWhatsThisAction"
