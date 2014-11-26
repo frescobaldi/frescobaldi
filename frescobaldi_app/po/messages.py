@@ -40,6 +40,7 @@ _("show program's version number and exit")
 
 # Qt
 _("CloseButton", "Close Tab")
+
 _("QDialogButtonBox", "Apply")
 _("QDialogButtonBox", "&Cancel")
 _("QDialogButtonBox", "Cancel")
@@ -53,7 +54,9 @@ _("QDialogButtonBox", "Open")
 _("QDialogButtonBox", "Reset")
 _("QDialogButtonBox", "&Save")
 _("QDialogButtonBox", "Save")
+
 _("QDialog", "What's This?")
+
 _("QFileDialog", "All Files (*)")
 _("QFileDialog", "Back")
 _("QFileDialog", "Change to detail view mode")
@@ -81,6 +84,7 @@ _("QFileDialog", "Remove")
 _("QFileDialog", "&Rename")
 _("QFileDialog", "Show ")
 _("QFileDialog", "Show &hidden files")
+
 _("QFileSystemModel", "%1 bytes")
 _("QFileSystemModel", "%1 KB")
 _("QFileSystemModel", "Computer")
@@ -88,14 +92,19 @@ _("QFileSystemModel", "Date Modified")
 _("QFileSystemModel", "Name")
 _("QFileSystemModel", "Size")
 _("QFileSystemModel", "Type")
+
 _("QFontDatabase", "Black")
 _("QFontDatabase", "Bold")
 _("QFontDatabase", "Demi Bold")
 _("QFontDatabase", "Light")
 _("QFontDatabase", "Oblique")
+
 _("QInputContext", "XIM")
+
 _("QLocalSocket", "%1: Invalid name")
+
 _("QMultiInputContext", "Select IM")
+
 _("QScrollBar", "Bottom")
 _("QScrollBar", "Left edge")
 _("QScrollBar", "Page down")
@@ -109,6 +118,7 @@ _("QScrollBar", "Scroll left")
 _("QScrollBar", "Scroll right")
 _("QScrollBar", "Scroll up")
 _("QScrollBar", "Top")
+
 _("QShortcut", "+")
 _("QShortcut", "Add Favorite")
 _("QShortcut", "Adjust Brightness")
@@ -215,4 +225,13 @@ _("QShortcut", "Volume Mute")
 _("QShortcut", "Volume Up")
 _("QShortcut", "Zoom In")
 _("QShortcut", "Zoom Out")
+
+_('QTextControl', '&Undo')
+_('QTextControl', '&Redo')
+_('QTextControl', 'Cu&t')
+_('QTextControl', '&Copy')
+_('QTextControl', '&Paste')
+_('QTextControl', 'Delete')
+_('QTextControl', 'Select All')
+
 _("QWhatsThisAction", "What's This?")

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-10-10 12:40+0200\n"
+"POT-Creation-Date: 2014-11-26 14:36+0100\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -2025,30 +2025,30 @@ msgstr ""
 msgid "&Reload"
 msgstr "&Перечитати"
 
-#: ../musicview/__init__.py:468
+#: ../musicview/__init__.py:475
 msgid "Choose the PDF document to display."
 msgstr ""
 
-#: ../musicview/__init__.py:470
+#: ../musicview/__init__.py:477
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
 msgstr ""
 
-#: ../musicview/__init__.py:528
+#: ../musicview/__init__.py:535
 msgid "Fit Width"
 msgstr "Влаштувати ширину"
 
-#: ../musicview/__init__.py:529
+#: ../musicview/__init__.py:536
 msgid "Fit Height"
 msgstr "Влаштувати висоту"
 
-#: ../musicview/__init__.py:530
+#: ../musicview/__init__.py:537
 msgid "Fit Page"
 msgstr "Влаштувати сторінку"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:547
+#: ../musicview/__init__.py:554
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} з {total}"
@@ -2306,953 +2306,994 @@ msgctxt "CloseButton"
 msgid "Close Tab"
 msgstr "Закрити вкладку"
 
-#: ../po/messages.py:43
+#: ../po/messages.py:44
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Застосувати"
 
-#: ../po/messages.py:44
+#: ../po/messages.py:45
 #, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "&Cancel"
 msgstr "Скасувати"
 
-#: ../po/messages.py:45
+#: ../po/messages.py:46
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: ../po/messages.py:46
+#: ../po/messages.py:47
 msgctxt "QDialogButtonBox"
 msgid "Close"
 msgstr "Закрити"
 
-#: ../po/messages.py:47
+#: ../po/messages.py:48
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
 msgstr ""
 
-#: ../po/messages.py:48
+#: ../po/messages.py:49
 msgctxt "QDialogButtonBox"
 msgid "Discard"
 msgstr "Відкинути"
 
-#: ../po/messages.py:49
+#: ../po/messages.py:50
 msgctxt "QDialogButtonBox"
 msgid "Help"
 msgstr "Допомога"
 
-#: ../po/messages.py:50
+#: ../po/messages.py:51
 msgctxt "QDialogButtonBox"
 msgid "&OK"
 msgstr ""
 
-#: ../po/messages.py:51
+#: ../po/messages.py:52
 msgctxt "QDialogButtonBox"
 msgid "OK"
 msgstr ""
 
-#: ../po/messages.py:52
+#: ../po/messages.py:53
 msgctxt "QDialogButtonBox"
 msgid "Open"
 msgstr "Відкрити"
 
-#: ../po/messages.py:53
+#: ../po/messages.py:54
 msgctxt "QDialogButtonBox"
 msgid "Reset"
 msgstr "Відновити"
 
-#: ../po/messages.py:54
+#: ../po/messages.py:55
 #, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "&Save"
 msgstr "&Зберегти"
 
-#: ../po/messages.py:55
+#: ../po/messages.py:56
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Зберегти"
 
-#: ../po/messages.py:56
+#: ../po/messages.py:58
 msgctxt "QDialog"
 msgid "What's This?"
 msgstr "Що це?"
 
-#: ../po/messages.py:57
+#: ../po/messages.py:60
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr "Усі файли (*)"
 
-#: ../po/messages.py:58
+#: ../po/messages.py:61
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Back"
 msgstr "Назад"
 
-#: ../po/messages.py:59
+#: ../po/messages.py:62
 msgctxt "QFileDialog"
 msgid "Change to detail view mode"
 msgstr ""
 
-#: ../po/messages.py:60
+#: ../po/messages.py:63
 msgctxt "QFileDialog"
 msgid "Change to list view mode"
 msgstr ""
 
-#: ../po/messages.py:61
+#: ../po/messages.py:64
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Create a New Folder"
 msgstr "Поточний документ"
 
-#: ../po/messages.py:62
+#: ../po/messages.py:65
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Create New Folder"
 msgstr "Цезури"
 
-#: ../po/messages.py:63
+#: ../po/messages.py:66
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "&Delete"
 msgstr "Видалено"
 
-#: ../po/messages.py:64
+#: ../po/messages.py:67
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Detail View"
 msgstr "&Наступний перегляд"
 
-#: ../po/messages.py:65
+#: ../po/messages.py:68
 msgctxt "QFileDialog"
 msgid "Drive"
 msgstr ""
 
-#: ../po/messages.py:66
+#: ../po/messages.py:69
 msgctxt "QFileDialog"
 msgid "File"
 msgstr "Файл"
 
-#: ../po/messages.py:67
+#: ../po/messages.py:70
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "File &name:"
 msgstr "Менеджер файлів:"
 
-#: ../po/messages.py:68
+#: ../po/messages.py:71
 msgctxt "QFileDialog"
 msgid "Files of type:"
 msgstr ""
 
-#: ../po/messages.py:69
+#: ../po/messages.py:72
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr "Знайти теку"
 
-#: ../po/messages.py:70
+#: ../po/messages.py:73
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr "Тека"
 
-#: ../po/messages.py:71
+#: ../po/messages.py:74
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Forward"
 msgstr "Вперед"
 
-#: ../po/messages.py:72
+#: ../po/messages.py:75
 msgctxt "QFileDialog"
 msgid "Go back"
 msgstr ""
 
-#: ../po/messages.py:73
+#: ../po/messages.py:76
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Go forward"
 msgstr "Вперед"
 
-#: ../po/messages.py:74
+#: ../po/messages.py:77
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
 msgstr "Групувати документи за теками"
 
-#: ../po/messages.py:75
+#: ../po/messages.py:78
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "List View"
 msgstr "&Наступний перегляд"
 
-#: ../po/messages.py:76
+#: ../po/messages.py:79
 msgctxt "QFileDialog"
 msgid "Look in:"
 msgstr ""
 
-#: ../po/messages.py:77
+#: ../po/messages.py:80
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "&New Folder"
 msgstr "Тека"
 
-#: ../po/messages.py:78
+#: ../po/messages.py:81
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "&Open"
 msgstr "Відкрити"
 
-#: ../po/messages.py:79
+#: ../po/messages.py:82
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Parent Directory"
 msgstr "Відкрити поточну теку"
 
-#: ../po/messages.py:80
+#: ../po/messages.py:83
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "Remove"
 msgstr "&Видалити"
 
-#: ../po/messages.py:81
+#: ../po/messages.py:84
 #, fuzzy
 msgctxt "QFileDialog"
 msgid "&Rename"
 msgstr "&Керувати..."
 
-#: ../po/messages.py:82
+#: ../po/messages.py:85
 msgctxt "QFileDialog"
 msgid "Show "
 msgstr ""
 
-#: ../po/messages.py:83
+#: ../po/messages.py:86
 msgctxt "QFileDialog"
 msgid "Show &hidden files"
 msgstr ""
 
-#: ../po/messages.py:84
+#: ../po/messages.py:88
 msgctxt "QFileSystemModel"
 msgid "%1 bytes"
 msgstr ""
 
-#: ../po/messages.py:85
+#: ../po/messages.py:89
 msgctxt "QFileSystemModel"
 msgid "%1 KB"
 msgstr ""
 
-#: ../po/messages.py:86
+#: ../po/messages.py:90
 #, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Computer"
 msgstr "Автор"
 
-#: ../po/messages.py:87
+#: ../po/messages.py:91
 #, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Date Modified"
 msgstr "[змінено]"
 
-#: ../po/messages.py:88
+#: ../po/messages.py:92
 #, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Name"
 msgstr "Назва"
 
-#: ../po/messages.py:89
+#: ../po/messages.py:93
 msgctxt "QFileSystemModel"
 msgid "Size"
 msgstr ""
 
-#: ../po/messages.py:90
+#: ../po/messages.py:94
 msgctxt "QFileSystemModel"
 msgid "Type"
 msgstr ""
 
-#: ../po/messages.py:91
+#: ../po/messages.py:96
 msgctxt "QFontDatabase"
 msgid "Black"
 msgstr ""
 
-#: ../po/messages.py:92
+#: ../po/messages.py:97
 #, fuzzy
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr "Напівгрубий"
 
-#: ../po/messages.py:93
+#: ../po/messages.py:98
 #, fuzzy
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
 msgstr "Напівгрубий"
 
-#: ../po/messages.py:94
+#: ../po/messages.py:99
 msgctxt "QFontDatabase"
 msgid "Light"
 msgstr ""
 
-#: ../po/messages.py:95
+#: ../po/messages.py:100
 msgctxt "QFontDatabase"
 msgid "Oblique"
 msgstr ""
 
-#: ../po/messages.py:96
+#: ../po/messages.py:102
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr ""
 
-#: ../po/messages.py:97
+#: ../po/messages.py:104
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr ""
 
-#: ../po/messages.py:98
+#: ../po/messages.py:106
 #, fuzzy
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "Виділити &усе"
 
-#: ../po/messages.py:99
+#: ../po/messages.py:108
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr ""
 
-#: ../po/messages.py:100
+#: ../po/messages.py:109
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr ""
 
-#: ../po/messages.py:101
+#: ../po/messages.py:110
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr ""
 
-#: ../po/messages.py:102
+#: ../po/messages.py:111
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr ""
 
-#: ../po/messages.py:103
+#: ../po/messages.py:112
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr ""
 
-#: ../po/messages.py:104
+#: ../po/messages.py:113
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr ""
 
-#: ../po/messages.py:105
+#: ../po/messages.py:114
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr ""
 
-#: ../po/messages.py:106
+#: ../po/messages.py:115
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr ""
 
-#: ../po/messages.py:107
+#: ../po/messages.py:116
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr ""
 
-#: ../po/messages.py:108
+#: ../po/messages.py:117
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr ""
 
-#: ../po/messages.py:109
+#: ../po/messages.py:118
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr ""
 
-#: ../po/messages.py:110
+#: ../po/messages.py:119
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr ""
 
-#: ../po/messages.py:111
+#: ../po/messages.py:120
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr ""
 
-#: ../po/messages.py:112
+#: ../po/messages.py:122
 msgctxt "QShortcut"
 msgid "+"
 msgstr ""
 
-#: ../po/messages.py:113
+#: ../po/messages.py:123
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr ""
 
-#: ../po/messages.py:114
+#: ../po/messages.py:124
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr ""
 
-#: ../po/messages.py:115
+#: ../po/messages.py:125
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr ""
 
-#: ../po/messages.py:116
+#: ../po/messages.py:126
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Допоміжні програми"
 
-#: ../po/messages.py:117
+#: ../po/messages.py:127
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Допоміжні програми"
 
-#: ../po/messages.py:118
-msgctxt "QShortcut"
-msgid "Audio Cycle Track"
-msgstr ""
-
-#: ../po/messages.py:119
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Audio Forward"
-msgstr "Вперед"
-
-#: ../po/messages.py:120
-msgctxt "QShortcut"
-msgid "Audio Random Play"
-msgstr ""
-
-#: ../po/messages.py:121
-msgctxt "QShortcut"
-msgid "Audio Repeat"
-msgstr ""
-
-#: ../po/messages.py:122
-msgctxt "QShortcut"
-msgid "Audio Rewind"
-msgstr ""
-
-#: ../po/messages.py:123
-msgctxt "QShortcut"
-msgid "Away"
-msgstr ""
-
-#: ../po/messages.py:124
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Back"
-msgstr "Назад"
-
-#: ../po/messages.py:125
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Back Forward"
-msgstr "Вперед"
-
-#: ../po/messages.py:126
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Backspace"
-msgstr "Назад"
-
-#: ../po/messages.py:127
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Backtab"
-msgstr "Назад"
-
 #: ../po/messages.py:128
 msgctxt "QShortcut"
-msgid "Bass Boost"
+msgid "Audio Cycle Track"
 msgstr ""
 
 #: ../po/messages.py:129
 #, fuzzy
 msgctxt "QShortcut"
-msgid "Bass Down"
-msgstr "Вниз"
+msgid "Audio Forward"
+msgstr "Вперед"
 
 #: ../po/messages.py:130
 msgctxt "QShortcut"
-msgid "Bass Up"
+msgid "Audio Random Play"
 msgstr ""
 
 #: ../po/messages.py:131
 msgctxt "QShortcut"
-msgid "Battery"
+msgid "Audio Repeat"
 msgstr ""
 
 #: ../po/messages.py:132
+msgctxt "QShortcut"
+msgid "Audio Rewind"
+msgstr ""
+
+#: ../po/messages.py:133
+msgctxt "QShortcut"
+msgid "Away"
+msgstr ""
+
+#: ../po/messages.py:134
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Back"
+msgstr "Назад"
+
+#: ../po/messages.py:135
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Back Forward"
+msgstr "Вперед"
+
+#: ../po/messages.py:136
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Backspace"
+msgstr "Назад"
+
+#: ../po/messages.py:137
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Backtab"
+msgstr "Назад"
+
+#: ../po/messages.py:138
+msgctxt "QShortcut"
+msgid "Bass Boost"
+msgstr ""
+
+#: ../po/messages.py:139
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Bass Down"
+msgstr "Вниз"
+
+#: ../po/messages.py:140
+msgctxt "QShortcut"
+msgid "Bass Up"
+msgstr ""
+
+#: ../po/messages.py:141
+msgctxt "QShortcut"
+msgid "Battery"
+msgstr ""
+
+#: ../po/messages.py:142
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Переглядач WWW:"
 
-#: ../po/messages.py:133
+#: ../po/messages.py:143
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr ""
 
-#: ../po/messages.py:134
+#: ../po/messages.py:144
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr ""
 
-#: ../po/messages.py:135
+#: ../po/messages.py:145
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Очистити"
 
-#: ../po/messages.py:136
+#: ../po/messages.py:146
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Очистити"
 
-#: ../po/messages.py:137
+#: ../po/messages.py:147
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Закрити"
 
-#: ../po/messages.py:138
+#: ../po/messages.py:148
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "С&копіювати"
 
-#: ../po/messages.py:139
+#: ../po/messages.py:149
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr ""
 
-#: ../po/messages.py:140
+#: ../po/messages.py:150
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr "Ви&різати"
 
-#: ../po/messages.py:141
+#: ../po/messages.py:151
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Видалено"
 
-#: ../po/messages.py:142
+#: ../po/messages.py:152
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Видалено"
 
-#: ../po/messages.py:143
+#: ../po/messages.py:153
 msgctxt "QShortcut"
 msgid "Display"
 msgstr ""
 
-#: ../po/messages.py:144
+#: ../po/messages.py:154
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Документи"
 
-#: ../po/messages.py:145
+#: ../po/messages.py:155
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Вниз"
 
-#: ../po/messages.py:146
+#: ../po/messages.py:156
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr ""
 
-#: ../po/messages.py:147
+#: ../po/messages.py:157
 msgctxt "QShortcut"
 msgid "End"
 msgstr ""
 
-#: ../po/messages.py:148
+#: ../po/messages.py:158
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr ""
 
-#: ../po/messages.py:149
+#: ../po/messages.py:159
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr ""
 
-#: ../po/messages.py:150
+#: ../po/messages.py:160
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr ""
 
-#: ../po/messages.py:151
+#: ../po/messages.py:161
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Вперед"
 
-#: ../po/messages.py:152
+#: ../po/messages.py:162
 msgctxt "QShortcut"
 msgid "Go"
 msgstr ""
 
-#: ../po/messages.py:153
+#: ../po/messages.py:163
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Допомога"
 
-#: ../po/messages.py:154
+#: ../po/messages.py:164
 msgctxt "QShortcut"
 msgid "History"
 msgstr ""
 
-#: ../po/messages.py:155
+#: ../po/messages.py:165
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Наступна сторінка"
 
-#: ../po/messages.py:156
-msgctxt "QShortcut"
-msgid "Ins"
-msgstr ""
-
-#: ../po/messages.py:157
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Insert"
-msgstr "&Швидка вставка"
-
-#: ../po/messages.py:158
-msgctxt "QShortcut"
-msgid "Left"
-msgstr ""
-
-#: ../po/messages.py:159
-msgctxt "QShortcut"
-msgid "Media Next"
-msgstr ""
-
-#: ../po/messages.py:160
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Media Pause"
-msgstr "Пауза"
-
-#: ../po/messages.py:161
-msgctxt "QShortcut"
-msgid "Media Play"
-msgstr ""
-
-#: ../po/messages.py:162
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Media Previous"
-msgstr "Знайт&и попереднє"
-
-#: ../po/messages.py:163
-msgctxt "QShortcut"
-msgid "Media Record"
-msgstr ""
-
-#: ../po/messages.py:164
-msgctxt "QShortcut"
-msgid "Media Stop"
-msgstr ""
-
-#: ../po/messages.py:165
-msgctxt "QShortcut"
-msgid "Menu"
-msgstr ""
-
 #: ../po/messages.py:166
 msgctxt "QShortcut"
-msgid "Meta"
+msgid "Ins"
 msgstr ""
 
 #: ../po/messages.py:167
 #, fuzzy
 msgctxt "QShortcut"
-msgid "Music"
-msgstr "&Перегляд твору"
+msgid "Insert"
+msgstr "&Швидка вставка"
 
 #: ../po/messages.py:168
 msgctxt "QShortcut"
-msgid "News"
+msgid "Left"
 msgstr ""
 
 #: ../po/messages.py:169
-#, fuzzy
 msgctxt "QShortcut"
-msgid "Number Lock"
-msgstr "Число"
+msgid "Media Next"
+msgstr ""
 
 #: ../po/messages.py:170
+#, fuzzy
 msgctxt "QShortcut"
-msgid "Num Lock"
-msgstr ""
+msgid "Media Pause"
+msgstr "Пауза"
 
 #: ../po/messages.py:171
 msgctxt "QShortcut"
-msgid "NumLock"
+msgid "Media Play"
 msgstr ""
 
 #: ../po/messages.py:172
 #, fuzzy
 msgctxt "QShortcut"
-msgid "Open URL"
-msgstr "Відкрити"
+msgid "Media Previous"
+msgstr "Знайт&и попереднє"
 
 #: ../po/messages.py:173
 msgctxt "QShortcut"
-msgid "Option"
+msgid "Media Record"
 msgstr ""
 
 #: ../po/messages.py:174
-#, fuzzy
 msgctxt "QShortcut"
-msgid "Page Down"
-msgstr "Вниз"
+msgid "Media Stop"
+msgstr ""
 
 #: ../po/messages.py:175
-#, fuzzy
 msgctxt "QShortcut"
-msgid "Page Up"
-msgstr "Зображення:"
+msgid "Menu"
+msgstr ""
 
 #: ../po/messages.py:176
-#, fuzzy
 msgctxt "QShortcut"
-msgid "Paste"
-msgstr "&Вставити"
+msgid "Meta"
+msgstr ""
 
 #: ../po/messages.py:177
 #, fuzzy
 msgctxt "QShortcut"
-msgid "Pause"
-msgstr "Пауза"
+msgid "Music"
+msgstr "&Перегляд твору"
 
 #: ../po/messages.py:178
-#, fuzzy
 msgctxt "QShortcut"
-msgid "PgDown"
-msgstr "Вниз"
+msgid "News"
+msgstr ""
 
 #: ../po/messages.py:179
+#, fuzzy
 msgctxt "QShortcut"
-msgid "PgUp"
-msgstr ""
+msgid "Number Lock"
+msgstr "Число"
 
 #: ../po/messages.py:180
 msgctxt "QShortcut"
-msgid "Refresh"
+msgid "Num Lock"
 msgstr ""
 
 #: ../po/messages.py:181
-#, fuzzy
 msgctxt "QShortcut"
-msgid "Reload"
-msgstr "&Перечитати"
+msgid "NumLock"
+msgstr ""
 
 #: ../po/messages.py:182
+#, fuzzy
 msgctxt "QShortcut"
-msgid "Return"
-msgstr ""
+msgid "Open URL"
+msgstr "Відкрити"
 
 #: ../po/messages.py:183
 msgctxt "QShortcut"
-msgid "Right"
+msgid "Option"
 msgstr ""
 
 #: ../po/messages.py:184
 #, fuzzy
 msgctxt "QShortcut"
+msgid "Page Down"
+msgstr "Вниз"
+
+#: ../po/messages.py:185
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Page Up"
+msgstr "Зображення:"
+
+#: ../po/messages.py:186
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Paste"
+msgstr "&Вставити"
+
+#: ../po/messages.py:187
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Pause"
+msgstr "Пауза"
+
+#: ../po/messages.py:188
+#, fuzzy
+msgctxt "QShortcut"
+msgid "PgDown"
+msgstr "Вниз"
+
+#: ../po/messages.py:189
+msgctxt "QShortcut"
+msgid "PgUp"
+msgstr ""
+
+#: ../po/messages.py:190
+msgctxt "QShortcut"
+msgid "Refresh"
+msgstr ""
+
+#: ../po/messages.py:191
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Reload"
+msgstr "&Перечитати"
+
+#: ../po/messages.py:192
+msgctxt "QShortcut"
+msgid "Return"
+msgstr ""
+
+#: ../po/messages.py:193
+msgctxt "QShortcut"
+msgid "Right"
+msgstr ""
+
+#: ../po/messages.py:194
+#, fuzzy
+msgctxt "QShortcut"
 msgid "Save"
 msgstr "Зберегти"
 
-#: ../po/messages.py:185
+#: ../po/messages.py:195
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Прокрутити вниз"
 
-#: ../po/messages.py:186
+#: ../po/messages.py:196
 #, fuzzy
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "Прокрутити вниз"
 
-#: ../po/messages.py:187
+#: ../po/messages.py:197
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Пошук:"
 
-#: ../po/messages.py:188
+#: ../po/messages.py:198
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Виділити &усе"
 
-#: ../po/messages.py:189
+#: ../po/messages.py:199
 msgctxt "QShortcut"
 msgid "Send"
 msgstr ""
 
-#: ../po/messages.py:190
+#: ../po/messages.py:200
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr ""
 
-#: ../po/messages.py:191
+#: ../po/messages.py:201
 msgctxt "QShortcut"
 msgid "Space"
 msgstr ""
 
-#: ../po/messages.py:192
+#: ../po/messages.py:202
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr ""
 
-#: ../po/messages.py:193
+#: ../po/messages.py:203
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr ""
 
-#: ../po/messages.py:194
+#: ../po/messages.py:204
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr ""
 
-#: ../po/messages.py:195
-msgctxt "QShortcut"
-msgid "Standby"
-msgstr ""
-
-#: ../po/messages.py:196
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Stop"
-msgstr "Зупинити"
-
-#: ../po/messages.py:197
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Subtitle"
-msgstr "Підзаголовок"
-
-#: ../po/messages.py:198
-msgctxt "QShortcut"
-msgid "Support"
-msgstr ""
-
-#: ../po/messages.py:199
-msgctxt "QShortcut"
-msgid "Suspend"
-msgstr ""
-
-#: ../po/messages.py:200
-msgctxt "QShortcut"
-msgid "SysReq"
-msgstr ""
-
-#: ../po/messages.py:201
-#, fuzzy
-msgctxt "QShortcut"
-msgid "Tab"
-msgstr "Мітка"
-
-#: ../po/messages.py:202
-msgctxt "QShortcut"
-msgid "Task Panel"
-msgstr ""
-
-#: ../po/messages.py:203
-msgctxt "QShortcut"
-msgid "Terminal"
-msgstr ""
-
-#: ../po/messages.py:204
-msgctxt "QShortcut"
-msgid "Time"
-msgstr ""
-
 #: ../po/messages.py:205
 msgctxt "QShortcut"
-msgid "Toggle Media Play/Pause"
+msgid "Standby"
 msgstr ""
 
 #: ../po/messages.py:206
 #, fuzzy
 msgctxt "QShortcut"
-msgid "Tools"
-msgstr "Інструменти"
+msgid "Stop"
+msgstr "Зупинити"
 
 #: ../po/messages.py:207
-msgctxt "QShortcut"
-msgid "Top Menu"
-msgstr ""
-
-#: ../po/messages.py:208
 #, fuzzy
 msgctxt "QShortcut"
-msgid "Treble Down"
-msgstr "Прокрутити вниз"
+msgid "Subtitle"
+msgstr "Підзаголовок"
+
+#: ../po/messages.py:208
+msgctxt "QShortcut"
+msgid "Support"
+msgstr ""
 
 #: ../po/messages.py:209
 msgctxt "QShortcut"
-msgid "Treble Up"
+msgid "Suspend"
 msgstr ""
 
 #: ../po/messages.py:210
-#, fuzzy
 msgctxt "QShortcut"
-msgid "Up"
-msgstr "Вгору"
-
-#: ../po/messages.py:211
-msgctxt "QShortcut"
-msgid "Video"
+msgid "SysReq"
 msgstr ""
 
-#: ../po/messages.py:212
+#: ../po/messages.py:211
 #, fuzzy
 msgctxt "QShortcut"
-msgid "View"
-msgstr "&Вигляд"
+msgid "Tab"
+msgstr "Мітка"
+
+#: ../po/messages.py:212
+msgctxt "QShortcut"
+msgid "Task Panel"
+msgstr ""
 
 #: ../po/messages.py:213
-#, fuzzy
 msgctxt "QShortcut"
-msgid "Volume Down"
-msgstr "Прокрутити вниз"
+msgid "Terminal"
+msgstr ""
 
 #: ../po/messages.py:214
 msgctxt "QShortcut"
-msgid "Volume Mute"
+msgid "Time"
 msgstr ""
 
 #: ../po/messages.py:215
 msgctxt "QShortcut"
-msgid "Volume Up"
+msgid "Toggle Media Play/Pause"
 msgstr ""
 
 #: ../po/messages.py:216
 #, fuzzy
 msgctxt "QShortcut"
+msgid "Tools"
+msgstr "Інструменти"
+
+#: ../po/messages.py:217
+msgctxt "QShortcut"
+msgid "Top Menu"
+msgstr ""
+
+#: ../po/messages.py:218
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Treble Down"
+msgstr "Прокрутити вниз"
+
+#: ../po/messages.py:219
+msgctxt "QShortcut"
+msgid "Treble Up"
+msgstr ""
+
+#: ../po/messages.py:220
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Up"
+msgstr "Вгору"
+
+#: ../po/messages.py:221
+msgctxt "QShortcut"
+msgid "Video"
+msgstr ""
+
+#: ../po/messages.py:222
+#, fuzzy
+msgctxt "QShortcut"
+msgid "View"
+msgstr "&Вигляд"
+
+#: ../po/messages.py:223
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Volume Down"
+msgstr "Прокрутити вниз"
+
+#: ../po/messages.py:224
+msgctxt "QShortcut"
+msgid "Volume Mute"
+msgstr ""
+
+#: ../po/messages.py:225
+msgctxt "QShortcut"
+msgid "Volume Up"
+msgstr ""
+
+#: ../po/messages.py:226
+#, fuzzy
+msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Збіль&шити"
 
-#: ../po/messages.py:217
+#: ../po/messages.py:227
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "Зменш&ити"
 
-#: ../po/messages.py:218
+#: ../po/messages.py:229
+#, fuzzy
+msgctxt "QTextControl"
+msgid "&Undo"
+msgstr "&Скасувати"
+
+#: ../po/messages.py:230
+msgctxt "QTextControl"
+msgid "&Redo"
+msgstr ""
+
+#: ../po/messages.py:231
+#, fuzzy
+msgctxt "QTextControl"
+msgid "Cu&t"
+msgstr "Ви&різати"
+
+#: ../po/messages.py:232
+#, fuzzy
+msgctxt "QTextControl"
+msgid "&Copy"
+msgstr "С&копіювати"
+
+#: ../po/messages.py:233
+#, fuzzy
+msgctxt "QTextControl"
+msgid "&Paste"
+msgstr "&Вставити"
+
+#: ../po/messages.py:234
+#, fuzzy
+msgctxt "QTextControl"
+msgid "Delete"
+msgstr "Видалено"
+
+#: ../po/messages.py:235
+#, fuzzy
+msgctxt "QTextControl"
+msgid "Select All"
+msgstr "Виділити &усе"
+
+#: ../po/messages.py:237
 #, fuzzy
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
