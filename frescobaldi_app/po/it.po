@@ -5,14 +5,14 @@
 #
 # .billyBoh <billyboh@gmail.com>, 2011, 2012.
 # Gianluca D'Orazio <gianluca.dorazio@gmail.com>, 2008, 2009, 2010, 2011, 2013, 2014.
-# Federico Bruni <fedelogy at gmail dot com>, 2014.
+# Federico Bruni <fede@inventati.org>, 2014.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: it\n"
+"Project-Id-Version: Frescobaldi 2.0.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2014-11-26 14:36+0100\n"
-"PO-Revision-Date: 2014-11-08 09:22+0100\n"
+"PO-Revision-Date: 2014-11-26 15:27+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../about.py:50
 #, python-brace-format
@@ -3170,7 +3170,6 @@ msgid "Zoom Out"
 msgstr "Diminuisci zoom"
 
 #: ../po/messages.py:229
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "&Annulla"
@@ -3178,37 +3177,32 @@ msgstr "&Annulla"
 #: ../po/messages.py:230
 msgctxt "QTextControl"
 msgid "&Redo"
-msgstr ""
+msgstr "&Ripeti"
 
 #: ../po/messages.py:231
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "Ta&glia"
 
 #: ../po/messages.py:232
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "&Copia"
 
 #: ../po/messages.py:233
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "&Incolla"
 
 #: ../po/messages.py:234
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr "Elimina"
 
 #: ../po/messages.py:235
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Select All"
-msgstr "Seleziona &tutto"
+msgstr "Seleziona tutto"
 
 #: ../po/messages.py:237
 msgctxt "QWhatsThisAction"
