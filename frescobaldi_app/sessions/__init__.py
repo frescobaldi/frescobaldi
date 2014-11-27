@@ -105,6 +105,9 @@ def loadSession(name):
         urls = session.value("urls", [], QUrl)
     except TypeError:
         urls = []
+    else:
+        if not isinstance(urls, (list, tuple)):
+            urls = []
     active = session.value("active", -1, int)
     result = None
     docs = []
