@@ -1575,6 +1575,7 @@ class ParseChordItems(FallthroughParser):
 class ParseDecimalValue(FallthroughParser):
     """Parses a decimal value without a # before it (if present)."""
     items = space_items + (
+        Fraction,
         DecimalValue,
     )
 
