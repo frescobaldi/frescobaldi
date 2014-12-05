@@ -6,6 +6,8 @@ import ly.pitch
 
 
 class Note:
+    LastPitch = ly.pitch.Pitch()
+    
     def __init__(self, midinote, notemapping):
         # get correct note 0...11 = c...b
         # and octave corresponding to octave modifiers ',' & '''
@@ -14,7 +16,14 @@ class Note:
         self._octave -= 4
         self._pitch = ly.pitch.Pitch(notemapping[self._note][0], notemapping[self._note][1], self._octave)
     
-    def output(self, language='nederlands'):
+    def output(self, relativemode, language='nederlands'):
+        if relativemode:
+            # makeRelative changes pitch, so we need temporary variables for note and octave
+            lastnote = self._pitch.note
+            lastoctave = self._pitch.octave
+            self._pitch.makeRelative(Note.LastPitch)
+            Note.LastPitch.note = lastnote
+            Note.LastPitch.octave = lastoctave
         return self._pitch.output(language)
     
     def midinote(self):
@@ -28,14 +37,19 @@ class Chord(object):
     def add(self, note):
         self._notes.append(note)
     
-    def output(self, language='nederlands'):
+    def output(self, relativemode, language='nederlands'):
         if len(self._notes) == 1:    # only one note, no chord
-            return self._notes[0].output(language)
+            return self._notes[0].output(relativemode, language)
         else:    # so we have a chord, print <chord>
             sortednotes = sorted(self._notes, key=lambda note: note.midinote())
             chord = ''
+            # temporary variables, to reset LastPitch after this chord
+            lastnote = sortednotes[0]._pitch.note
+            lastoctave = sortednotes[0]._pitch.octave
             for n in sortednotes:
-                chord += n.output(language) + ' '
+                chord += n.output(relativemode, language) + ' '
+            Note.LastPitch.note = lastnote
+            Note.LastPitch.octave = lastoctave
             return '<' + chord[:-1] + '>'    # strip last space
 
 
