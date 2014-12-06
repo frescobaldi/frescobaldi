@@ -12,7 +12,8 @@ Changes in 2.17 -- December 26th, 2014
   - A session can have its own list of include paths, that can be used either
     instead of or in addition to the global list of include paths, contributed
     by Peter Bjuhr
-  - Relative mode for MIDI input, contributed by AlexSchr (pull request #521)
+  - Relative mode for MIDI input, contributed by Alex Schreiber (pull request
+    #521)
 * Improvements:
   - When saving a new file for the first time, a default filename is provided,
     based on composer and title of the score (wish: issue #472)
