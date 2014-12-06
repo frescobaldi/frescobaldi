@@ -7,7 +7,6 @@ provides a dock which allows to capture midi events and insert notes
   or insert elements (e. g. slurs)
  
 current limitations:
-- outputs only absolute notes
 - special events not implemented yet
 
 TODO:
@@ -93,12 +92,12 @@ class MidiIn(object):
                     self._chord.add(note)
                     self._activenotes += 1
                 else:
-                    self.printwithspace(note.output(self._language))
+                    self.printwithspace(note.output(self.widget().relativemode(), self._language))
             elif (notetype == 8 or (notetype == 9 and value == 0)) and self.widget().chordmode():
                 self._activenotes -= 1
                 if self._activenotes <= 0:    # activenotes could get negative under strange conditions
                     if self._chord:
-                        self.printwithspace(self._chord.output(self._language))
+                        self.printwithspace(self._chord.output(self.widget().relativemode(), self._language))
                     self._activenotes = 0    # reset in case it was negative
                     self._chord = None
     
