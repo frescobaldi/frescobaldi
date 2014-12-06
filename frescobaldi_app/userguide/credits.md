@@ -35,6 +35,9 @@ The following people contributed to {appname}:
 !Manuel Mchalwat:
 : MIDI capturing
 
+!AlexSchr:
+: Relative mode for MIDI capturing
+
 !Mario Moles:
 : Finding lots of bugs
 
