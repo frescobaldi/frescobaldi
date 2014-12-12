@@ -37,7 +37,7 @@ def show():
     else:
         fontsize = 40
 
-    splash = QSplashScreen(pixmap, Qt.SplashScreen | Qt.WindowStaysOnTopHint)
+    splash = QSplashScreen(pixmap, Qt.SplashScreen)
 
     font = splash.font()
     font.setPixelSize(fontsize)
