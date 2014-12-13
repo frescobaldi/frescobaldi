@@ -38,7 +38,8 @@ documents = []
 from signals import Signal, SignalContext
 
 # signals
-instantiated  = Signal()        # Called when the QApplication is instantiated
+appInstantiated  = Signal()     # Called when the QApplication is instantiated
+appStarted = Signal()           # Called when the main event loop is entered
 aboutToQuit = Signal()          # Use this and not qApp.aboutToQuit
 mainwindowCreated = Signal()    # MainWindow
 mainwindowClosed = Signal()     # MainWindow
@@ -102,7 +103,7 @@ def instantiate():
     QApplication.setApplicationVersion(info.version)
     QApplication.setOrganizationName(info.name)
     QApplication.setOrganizationDomain(info.domain)
-    instantiated()
+    appInstantiated()
 
 def oninit(func):
     """Call specified function on QApplication instantiation.
@@ -117,11 +118,12 @@ def oninit(func):
     if qApp:
         func()
     else:
-        instantiated.connect(func)
+        appInstantiated.connect(func)
     return func
 
 def run():
-    """Enter the Qt event loop."""
+    """Emit the appStarted signal and enter the Qt event loop."""
+    appStarted()
     result = qApp.exec_()
     aboutToQuit()
     return result
