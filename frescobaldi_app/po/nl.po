@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-06 14:34+0100\n"
-"PO-Revision-Date: 2014-12-06 14:36+0100\n"
+"POT-Creation-Date: 2014-12-13 21:22+0100\n"
+"PO-Revision-Date: 2014-12-13 21:23+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -65,31 +65,31 @@ msgstr "Vertaald door Wilbert Berendsen."
 msgid "Licensed under the {gpl}."
 msgstr "Beschikbaar onder de {gpl}."
 
-#: ../app.py:161
+#: ../app.py:163
 msgid "LilyPond Files"
 msgstr "LilyPond-bestanden"
 
-#: ../app.py:162
+#: ../app.py:164
 msgid "LaTeX Files"
 msgstr "LaTeX-bestanden"
 
-#: ../app.py:163
+#: ../app.py:165
 msgid "DocBook Files"
 msgstr "DocBook-bestanden"
 
-#: ../app.py:164 ../convert_ly.py:253
+#: ../app.py:166 ../convert_ly.py:253
 msgid "HTML Files"
 msgstr "HTML-bestanden"
 
-#: ../app.py:165
+#: ../app.py:167
 msgid "Texinfo Files"
 msgstr "Texinfo-bestanden"
 
-#: ../app.py:166
+#: ../app.py:168
 msgid "Scheme Files"
 msgstr "Scheme-bestanden"
 
-#: ../app.py:167 ../convert_ly.py:253 ../file_export/__init__.py:52
+#: ../app.py:169 ../convert_ly.py:253 ../file_export/__init__.py:52
 #: ../file_export/__init__.py:77 ../file_import/__init__.py:48
 #: ../sessions/dialog.py:93 ../sessions/dialog.py:114 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
@@ -1131,20 +1131,28 @@ msgstr "Alle naamloze documenten opslaan"
 msgid "Close all untitled documents"
 msgstr "Alle naamloze documenten sluiten"
 
-#: ../engrave/__init__.py:237
+#: ../engrave/__init__.py:104
+msgid "Abort engraving job"
+msgstr "Graveertaak afbreken"
+
+#: ../engrave/__init__.py:105
+msgid "Engrave (preview; press Shift for custom)"
+msgstr "Graveren (vooruitblik; shift-klik voor aangepast)"
+
+#: ../engrave/__init__.py:239
 #, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr "&Altijd graveren [{docname}]"
 
-#: ../engrave/__init__.py:239
+#: ../engrave/__init__.py:241
 msgid "&Always Engrave This Document"
 msgstr "Dit document &altijd graveren"
 
-#: ../engrave/__init__.py:299
+#: ../engrave/__init__.py:301
 msgid "No LilyPond installation found"
 msgstr "Geen LilyPond-installatie gevonden"
 
-#: ../engrave/__init__.py:300
+#: ../engrave/__init__.py:302
 msgid ""
 "Frescobaldi uses LilyPond to engrave music, but LilyPond is not installed in "
 "the default locations and it cannot be found in your PATH.\n"
@@ -1157,35 +1165,39 @@ msgstr ""
 "\n"
 "Installeer LilyPond en voeg het, indien nodig, toe in de LilyPond-voorkeuren."
 
-#: ../engrave/__init__.py:338
+#: ../engrave/__init__.py:340
 msgid "Engrave"
 msgstr "Graveren"
 
-#: ../engrave/__init__.py:339
+#: ../engrave/__init__.py:341
+msgid "Engrave (preview; Shift-click for custom)"
+msgstr "Graveren (vooruitblik; shift-klik voor aangepast)"
+
+#: ../engrave/__init__.py:342
 msgid "&Engrave (preview)"
 msgstr "&Graveren (vooruitblik)"
 
-#: ../engrave/__init__.py:340
+#: ../engrave/__init__.py:343
 msgid "Engrave (&publish)"
 msgstr "Graveren (&publicatie)"
 
-#: ../engrave/__init__.py:341
+#: ../engrave/__init__.py:344
 msgid "Engrave (&layout control)"
 msgstr "Graveren (&layoutcontrole)"
 
-#: ../engrave/__init__.py:342
+#: ../engrave/__init__.py:345
 msgid "Engrave (&custom)..."
 msgstr "Gra&veren (aangepast)..."
 
-#: ../engrave/__init__.py:343
+#: ../engrave/__init__.py:346
 msgid "Abort Engraving &Job"
 msgstr "Graveertaak af&breken"
 
-#: ../engrave/__init__.py:344
+#: ../engrave/__init__.py:347
 msgid "Automatic E&ngrave"
 msgstr "A&utomatisch graveren"
 
-#: ../engrave/__init__.py:345
+#: ../engrave/__init__.py:348
 msgid "Show Available &Fonts..."
 msgstr "&Beschikbare lettertypen weergeven..."
 
@@ -1812,28 +1824,28 @@ msgid ""
 "Enter octaves of notes relative to the last note. See \"What's This\" for "
 "more information."
 msgstr ""
-"Voer het octaaf van de noten relatief tot de vorige noot in. Zie \"Wat is "
-"dit\" voor "
-"meer informatie."
+"Voer het octaaf van de noten relatief tot de vorige noot in. Zie \"Wat is dit"
+"\" voor meer informatie."
 
 #: ../midiinput/widget.py:202
 msgid ""
 "Enter octaves of notes relative to the last note. This refers to the last "
-"key pressed on the MIDI keyboard, not the last note in the document."
+"key pressed on the MIDI keyboard, not the last note in the document.Hold "
+"Shift with a note to enter an octave check."
 msgstr ""
 "Het octaaf van nieuw ingevoerde noten wordt relatief t.o.v. de vorige "
 "gespeelde noot ingevoerd (niet ten opzichte van de laatste noot in het "
-"document)."
+"document). Houd Shift ingedrukt om een octave-check in te voeren."
 
-#: ../midiinput/widget.py:204
+#: ../midiinput/widget.py:205
 msgid "Damper pedal"
 msgstr "Demper-pedaal"
 
-#: ../midiinput/widget.py:205
+#: ../midiinput/widget.py:206
 msgid "Sostenuto pedal"
 msgstr "Doorklink-pedaal"
 
-#: ../midiinput/widget.py:206
+#: ../midiinput/widget.py:207
 msgid "Soft pedal"
 msgstr "Zacht pedaal"
 
@@ -7463,12 +7475,16 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:21
 msgid ""
-"All commands to run LilyPond can be found in the *LilyPond* menu. And if you "
-"enable the *Automatic engrave* option, Frescobaldi will run LilyPond "
-"automatically everytime the document is modified (in preview mode)."
+"All commands to run LilyPond can be found in the *LilyPond* menu. Pressing "
+"the LilyPond symbol in the toolbar engraves the document in preview mode, or "
+"in custom mode if Shift is held. And if you enable the *Automatic engrave* "
+"option, Frescobaldi will run LilyPond automatically everytime the document "
+"is modified (in preview mode)."
 msgstr ""
 "Alle commando's om LilyPond te starten zijn te vinden in het *LilyPond* "
-"menu. En als u de optie *Automatisch graveren* inschakelt, zal Frescobaldi "
+"menu. Klik op het LilyPond symbool in de werkbalk om het document in "
+"vooruitblik-modus te graveren, of in aangepaste modus als u Shift indrukt. "
+"En als u de optie *Automatisch graveren* inschakelt, zal Frescobaldi "
 "LilyPond automatisch starten (in vooruitblik-modus) telkens als het document "
 "wordt gewijzigd."
 

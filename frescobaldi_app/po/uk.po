@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-06 14:34+0100\n"
+"POT-Creation-Date: 2014-12-13 21:22+0100\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -68,31 +68,31 @@ msgstr "Переклад Дмитра Редчука"
 msgid "Licensed under the {gpl}."
 msgstr "Розповсюджується на умовах {gpl}."
 
-#: ../app.py:161
+#: ../app.py:163
 msgid "LilyPond Files"
 msgstr "Файли LilyPond"
 
-#: ../app.py:162
+#: ../app.py:164
 msgid "LaTeX Files"
 msgstr "Файли LaTeX"
 
-#: ../app.py:163
+#: ../app.py:165
 msgid "DocBook Files"
 msgstr "Файли DocBook"
 
-#: ../app.py:164 ../convert_ly.py:253
+#: ../app.py:166 ../convert_ly.py:253
 msgid "HTML Files"
 msgstr "Файли HTML"
 
-#: ../app.py:165
+#: ../app.py:167
 msgid "Texinfo Files"
 msgstr "Файли Texinfo"
 
-#: ../app.py:166
+#: ../app.py:168
 msgid "Scheme Files"
 msgstr "Файли Scheme"
 
-#: ../app.py:167 ../convert_ly.py:253 ../file_export/__init__.py:52
+#: ../app.py:169 ../convert_ly.py:253 ../file_export/__init__.py:52
 #: ../file_export/__init__.py:77 ../file_import/__init__.py:48
 #: ../sessions/dialog.py:93 ../sessions/dialog.py:114 ../snippet/widget.py:297
 #: ../snippet/widget.py:314 ../widgets/schemeselector.py:166
@@ -1168,21 +1168,30 @@ msgstr "Зберегти всі неназвані документи"
 msgid "Close all untitled documents"
 msgstr "Закрити всі неназвані документи"
 
-#: ../engrave/__init__.py:237
+#: ../engrave/__init__.py:104
+#, fuzzy
+msgid "Abort engraving job"
+msgstr "Пере&рвати процес гравіювання"
+
+#: ../engrave/__init__.py:105
+msgid "Engrave (preview; press Shift for custom)"
+msgstr ""
+
+#: ../engrave/__init__.py:239
 #, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr "Завжди &гравіювати [{docname}]"
 
-#: ../engrave/__init__.py:239
+#: ../engrave/__init__.py:241
 msgid "&Always Engrave This Document"
 msgstr "Завжди &гравіювати цей документ"
 
-#: ../engrave/__init__.py:299
+#: ../engrave/__init__.py:301
 #, fuzzy
 msgid "No LilyPond installation found"
 msgstr "Документація LilyPond"
 
-#: ../engrave/__init__.py:300
+#: ../engrave/__init__.py:302
 msgid ""
 "Frescobaldi uses LilyPond to engrave music, but LilyPond is not installed in "
 "the default locations and it cannot be found in your PATH.\n"
@@ -1191,39 +1200,43 @@ msgid ""
 "Preferences dialog."
 msgstr ""
 
-#: ../engrave/__init__.py:338
+#: ../engrave/__init__.py:340
 msgid "Engrave"
 msgstr "Гравіювати"
 
-#: ../engrave/__init__.py:339
+#: ../engrave/__init__.py:341
+msgid "Engrave (preview; Shift-click for custom)"
+msgstr ""
+
+#: ../engrave/__init__.py:342
 msgid "&Engrave (preview)"
 msgstr "Граві&ювати (перегляд)"
 
-#: ../engrave/__init__.py:340
+#: ../engrave/__init__.py:343
 #, fuzzy
 msgid "Engrave (&publish)"
 msgstr "Гравіювати (&начисто)"
 
-#: ../engrave/__init__.py:341
+#: ../engrave/__init__.py:344
 #, fuzzy
 msgid "Engrave (&layout control)"
 msgstr "Гравіювати (&начисто)"
 
-#: ../engrave/__init__.py:342
+#: ../engrave/__init__.py:345
 #, fuzzy
 msgid "Engrave (&custom)..."
 msgstr "Гравіювати (не&стандартно)"
 
-#: ../engrave/__init__.py:343
+#: ../engrave/__init__.py:346
 msgid "Abort Engraving &Job"
 msgstr "Пере&рвати процес гравіювання"
 
-#: ../engrave/__init__.py:344
+#: ../engrave/__init__.py:347
 #, fuzzy
 msgid "Automatic E&ngrave"
 msgstr "Гравіювати"
 
-#: ../engrave/__init__.py:345
+#: ../engrave/__init__.py:348
 #, fuzzy
 msgid "Show Available &Fonts..."
 msgstr "Доступні партії:"
@@ -1867,18 +1880,19 @@ msgstr ""
 #: ../midiinput/widget.py:202
 msgid ""
 "Enter octaves of notes relative to the last note. This refers to the last "
-"key pressed on the MIDI keyboard, not the last note in the document."
-msgstr ""
-
-#: ../midiinput/widget.py:204
-msgid "Damper pedal"
+"key pressed on the MIDI keyboard, not the last note in the document.Hold "
+"Shift with a note to enter an octave check."
 msgstr ""
 
 #: ../midiinput/widget.py:205
-msgid "Sostenuto pedal"
+msgid "Damper pedal"
 msgstr ""
 
 #: ../midiinput/widget.py:206
+msgid "Sostenuto pedal"
+msgstr ""
+
+#: ../midiinput/widget.py:207
 msgid "Soft pedal"
 msgstr ""
 
@@ -7393,9 +7407,11 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:21
 msgid ""
-"All commands to run LilyPond can be found in the *LilyPond* menu. And if you "
-"enable the *Automatic engrave* option, Frescobaldi will run LilyPond "
-"automatically everytime the document is modified (in preview mode)."
+"All commands to run LilyPond can be found in the *LilyPond* menu. Pressing "
+"the LilyPond symbol in the toolbar engraves the document in preview mode, or "
+"in custom mode if Shift is held. And if you enable the *Automatic engrave* "
+"option, Frescobaldi will run LilyPond automatically everytime the document "
+"is modified (in preview mode)."
 msgstr ""
 
 #. NOTE: markdown formatting

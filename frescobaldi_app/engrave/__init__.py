@@ -338,7 +338,7 @@ class Actions(actioncollection.ActionCollection):
 
     def translateUI(self):
         self.engrave_runner.setText(_("Engrave"))
-        self.engrave_runner.setToolTip(_("Engrave (preview; press Shift for custom)"))
+        self.engrave_runner.setToolTip(_("Engrave (preview; Shift-click for custom)"))
         self.engrave_preview.setText(_("&Engrave (preview)"))
         self.engrave_publish.setText(_("Engrave (&publish)"))
         self.engrave_debug.setText(_("Engrave (&layout control)"))
