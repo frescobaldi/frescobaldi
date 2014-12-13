@@ -2,6 +2,9 @@
 Elements that can bei inserted by MIDI events
 """
 
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
 import ly.pitch
 
 
@@ -24,7 +27,8 @@ class Note:
             self._pitch.makeRelative(Note.LastPitch)
             Note.LastPitch.note = lastnote
             Note.LastPitch.octave = lastoctave
-        return self._pitch.output(language)
+        # also octavecheck if Shift is held
+        return self._pitch.output(language) +   (('='+ly.pitch.octaveToString(self._octave)) if QApplication.keyboardModifiers() & Qt.SHIFT else '')
     
     def midinote(self):
         return self._midinote
