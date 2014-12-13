@@ -2,6 +2,9 @@
 Elements that can bei inserted by MIDI events
 """
 
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
 import ly.pitch
 
 
@@ -16,7 +19,7 @@ class Note:
         self._octave -= 4
         self._pitch = ly.pitch.Pitch(notemapping[self._note][0], notemapping[self._note][1], self._octave)
     
-    def output(self, relativemode, language='nederlands'):
+    def output(self, relativemode=0, language='nederlands'):
         if relativemode:
             # makeRelative changes pitch, so we need temporary variables for note and octave
             lastnote = self._pitch.note
@@ -24,7 +27,8 @@ class Note:
             self._pitch.makeRelative(Note.LastPitch)
             Note.LastPitch.note = lastnote
             Note.LastPitch.octave = lastoctave
-        return self._pitch.output(language)
+        # also octavecheck if Shift is held
+        return self._pitch.output(language) +   (('='+ly.pitch.octaveToString(self._octave)) if QApplication.keyboardModifiers() & Qt.SHIFT else '')
     
     def midinote(self):
         return self._midinote
@@ -37,7 +41,7 @@ class Chord(object):
     def add(self, note):
         self._notes.append(note)
     
-    def output(self, relativemode, language='nederlands'):
+    def output(self, relativemode=0, language='nederlands'):
         if len(self._notes) == 1:    # only one note, no chord
             return self._notes[0].output(relativemode, language)
         else:    # so we have a chord, print <chord>
