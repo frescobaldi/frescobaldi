@@ -335,7 +335,7 @@ class Actions(actioncollection.ActionCollection):
         
 
     def translateUI(self):
-        self.engrave_runner.setText(_("Engrave"))
+        self.engrave_runner.setText(_("Engrave (preview)"))
         self.engrave_preview.setText(_("&Engrave (preview)"))
         self.engrave_publish.setText(_("Engrave (&publish)"))
         self.engrave_debug.setText(_("Engrave (&layout control)"))
