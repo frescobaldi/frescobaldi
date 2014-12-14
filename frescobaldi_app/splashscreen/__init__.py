@@ -47,6 +47,11 @@ def show():
     splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
     splash.show()
     splash.repaint()
-    splash.deleteLater()
+    
+    def hide():
+        splash.deleteLater()
+        app.appStarted.disconnect(hide)
+
+    app.appStarted.connect(hide)
 
 
