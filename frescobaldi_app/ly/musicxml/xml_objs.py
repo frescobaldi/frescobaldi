@@ -22,6 +22,7 @@ Classes that holds information suitable for converting to musicXML.
 """
 
 from __future__ import unicode_literals
+from __future__ import print_function
 
 from fractions import Fraction
 
@@ -121,12 +122,12 @@ class ScorePart():
             try:
                 self.barlist[0].obj_list[0].set_time(initime, False)
             except AttributeError:
-                print "Warning can't set initial time sign!"
+                print("Warning can't set initial time sign!")
         if not check_clef(self.barlist[0]):
             try:
                 self.barlist[0].obj_list[0].set_clef(iniclef)
             except AttributeError:
-                print "Warning can't set initial clef sign!"
+                print("Warning can't set initial clef sign!")
         self.barlist[0].obj_list[0].divs = divisions
         if self.staves:
             self.barlist[0].obj_list[0].staves = self.staves

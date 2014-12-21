@@ -13,6 +13,7 @@ It creates a help/ directory (by default) and puts the HTML and images there.
 """
 
 from __future__ import unicode_literals
+from __future__ import print_function
 
 import os
 import re
@@ -240,7 +241,7 @@ def make_page(lang):
         page_address = footer)
     
     filename = os.path.join(output_dir, make_filename('uguide.html', lang))
-    print 'Exporting to:', filename
+    print('Exporting to:', filename)
     with open(filename, 'w') as f:
         f.write(html.encode('utf-8'))
 
