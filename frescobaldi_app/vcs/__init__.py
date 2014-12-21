@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import sys
 import os
+from .gitrepo import GitError
 
 def app_is_git_controlled():
     """Return True if Frescobaldi is running from Git.
@@ -46,7 +47,7 @@ def app_is_git_controlled():
                 app_repo._run_git_command('--version')
                 _app_is_git_controlled = True
                 return _app_is_git_controlled
-            except:
+            except GitError:
                 from PyQt4.QtGui import QMessageBox
                 QMessageBox.warning(None, 
                                     _("No Git installation found"), 
