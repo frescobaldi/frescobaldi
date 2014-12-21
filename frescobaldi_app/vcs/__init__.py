@@ -47,17 +47,17 @@ def app_is_git_controlled():
                 app_repo._run_git_command('--version')
                 _app_is_git_controlled = True
                 return _app_is_git_controlled
-            except GitError:
+            except GitError as giterror:
                 from PyQt4.QtGui import QMessageBox
                 QMessageBox.warning(None, 
-                                    _("No Git installation found"), 
-                                    _("Frescobaldi is run from within a Git repository "
-                                    "but Git isn't installed. I will continue without "
-                                    "Git support, but you might want to check out yourself "
-                                    "what consequences to take. "
-                                    "If you <em>do</em> have Git installed you "
-                                    "may set the path to its executable in the "
-                                    "Preferences dialog."))
+                                    _("Git not found"),
+                                    _("Frescobaldi is run from within a Git "
+                                      "repository, but Git does not appear "
+                                      "to be working. Git support will be "
+                                      "disabled. If you have Git installed, "
+                                      "you can specify its location in the "
+                                      "Preferences dialog.\n\n"
+                                      "Error message:\n\n") + str(giterror))
                 _app_is_git_controlled = False
                 return _app_is_git_controlled
         else:
