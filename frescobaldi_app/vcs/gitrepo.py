@@ -40,8 +40,8 @@ class GitRepo(AbstractVCSRepo):
     """
     def __init__(self, root):
         if not os.path.isdir(os.path.join(root, '.git')):
-            raise Exception(_("The given directory '{rootdir} "
-                              "doesn't seem to be a Git repository.".format(rootdir=root)))
+            raise GitError(_("The given directory '{rootdir} "
+                             "doesn't seem to be a Git repository.".format(rootdir=root)))
         self.rootDir = root
         self._read_config()
     
