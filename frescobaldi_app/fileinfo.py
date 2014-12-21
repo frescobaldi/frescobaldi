@@ -61,7 +61,7 @@ def _cached(filename):
     try:
         c = _document_cache[filename]
     except KeyError:
-        with open(filename) as f:
+        with open(filename, 'rb') as f:
             text = util.decode(f.read())
         c = _document_cache[filename] = _CachedDocument()
         c.variables = v = variables.variables(text)
