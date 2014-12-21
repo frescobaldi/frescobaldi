@@ -30,6 +30,7 @@ import app
 import mainwindow
 import plugin
 import vcs
+from .gitrepo import GitError
 
 class GitMenu(QMenu):
     def __init__(self, mainwindow):
@@ -120,7 +121,7 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
             msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             if msgBox.exec_() == QMessageBox.Ok:
                 self.parent().restart()
-        except git.GitError as giterror:
+        except GitError as giterror:
             msgBox.setText(_("Git Checkout Error"))
             msgBox.setInformativeText(str(giterror))
             msgBox.exec_()
