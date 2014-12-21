@@ -118,11 +118,12 @@ class GitRepo(AbstractVCSRepo):
         pr = subprocess.Popen(' '.join(cmd), cwd = self.rootDir, 
                               shell = True, 
                               stdout = subprocess.PIPE, 
-                              stderr = subprocess.PIPE)
+                              stderr = subprocess.PIPE,
+                              universal_newlines = True)
         (out, error) = pr.communicate()
         if error:
-            raise GitError(str(error))
-        result = str(out).split('\n')
+            raise GitError(error)
+        result = out.split('\n')
         if result[-1] == '':
             result.pop()
         return result
