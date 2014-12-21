@@ -178,7 +178,9 @@ class GitRepo(AbstractVCSRepo):
         is tracking a remote branch.
         Checks if the branch is present in .git/config
         """
-        return branch in self.config['branch']
+        return branch in self.config['branch'] and \
+               'remote' in self.config['branch'][branch] and \
+               'merge' in self.config['branch'][branch]
         
     def remotes(self):
         """Return a string list with registered remote names"""
