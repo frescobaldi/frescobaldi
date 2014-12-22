@@ -28,6 +28,7 @@ import sys
 import actioncollection
 import actioncollectionmanager
 import plugin
+import vcs
 
 
 def manager(mainwindow):
@@ -57,9 +58,11 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("doclist.DocumentList")
         self.loadPanel("outline.OutlinePanel")
         self.loadPanel("layoutcontrol.LayoutControlOptions")
+        
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
-        # self.loadPanel("objecteditor.ObjectEditor")
+        if vcs.app_is_git_controlled():
+            self.loadPanel("objecteditor.ObjectEditor")
         
         self.createActions()
         
