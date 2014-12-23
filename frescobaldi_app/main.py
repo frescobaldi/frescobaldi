@@ -159,6 +159,7 @@ def main():
     # Just create one MainWindow
     win = mainwindow.MainWindow()
     win.show()
+    win.activateWindow()
     
     # load documents given as arguments
     import document

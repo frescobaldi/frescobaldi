@@ -801,7 +801,9 @@ class MainWindow(QMainWindow):
     def newWindow(self):
         """Opens a new MainWindow."""
         self.writeSettings()
-        MainWindow(self).show()
+        w = MainWindow(self)
+        w.show()
+        w.activateWindow()
 
     def toggleWrapLines(self, enable):
         """Called when the user toggles View->Line Wrap"""
