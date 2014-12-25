@@ -28,6 +28,7 @@ try:
 except ImportError:
     import __builtin__ as builtins # py2
 
+from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QMenu
 
 import app
@@ -139,7 +140,7 @@ def menu_file_export(mainwindow):
     ac = mainwindow.actionCollection
     acfe = file_export.FileExport.instance(mainwindow).actionCollection
     
-    if vcs.app_is_git_controlled():
+    if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
         m.addAction(acfe.export_audio)
         m.addAction(acfe.export_musicxml)
     m.addAction(ac.export_colored_html)

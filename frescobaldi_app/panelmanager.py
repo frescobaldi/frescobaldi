@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 import sys
 
+from PyQt4.QtCore import QSettings
+
 import actioncollection
 import actioncollectionmanager
 import plugin
@@ -61,7 +63,7 @@ class PanelManager(plugin.MainWindowPlugin):
         
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
-        if vcs.app_is_git_controlled():
+        if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
             self.loadPanel("objecteditor.ObjectEditor")
         
         self.createActions()
