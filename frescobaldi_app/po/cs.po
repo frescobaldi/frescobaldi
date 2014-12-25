@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-13 21:22+0100\n"
+"POT-Creation-Date: 2014-12-25 15:46+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -326,20 +326,20 @@ msgstr "Odstranit &dynamiku"
 msgid "Remove Text &Markup (from music)"
 msgstr "Odstranit textové &značení (z not)"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1122
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "&Uložit"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1123
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1133
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
 msgid "&Close"
 msgstr "&Zavřít"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1134
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
 msgid "Close Other Documents"
 msgstr "Zavřít jiné dokumenty"
 
@@ -619,7 +619,7 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:456 ../macosx/globalmenu.py:174
+#: ../mainwindow.py:456 ../macosx/globalmenu.py:175
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otevřít soubor"
@@ -665,7 +665,7 @@ msgstr "Vytisknout zdroj"
 msgid "Export as HTML"
 msgstr "Vyvést jako HTML"
 
-#: ../mainwindow.py:855
+#: ../mainwindow.py:857
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -677,60 +677,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:969
+#: ../mainwindow.py:971
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: ../mainwindow.py:970
+#: ../mainwindow.py:972
 msgid "Music View Toolbar"
 msgstr "Nástrojový pruh pro pohled na noty"
 
-#: ../mainwindow.py:1116 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nový"
 
-#: ../mainwindow.py:1117 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "&Otevřít..."
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Otevřít ne&dávný"
 
-#: ../mainwindow.py:1119
+#: ../mainwindow.py:1121
 msgid "Insert from &File..."
 msgstr "Vložit ze &souboru..."
 
-#: ../mainwindow.py:1120
+#: ../mainwindow.py:1122
 msgid "Open Current Directory"
 msgstr "Otevřít nynější adresář"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Open Command Prompt"
 msgstr "Otevřít výzvu k příkazu"
 
-#: ../mainwindow.py:1124
+#: ../mainwindow.py:1126
 msgid "Save Copy or Selection As..."
 msgstr "Uložit kopii nebo výběr jako..."
 
-#: ../mainwindow.py:1125 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Uložit vše"
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 msgid "Re&load"
 msgstr "Nahrát &znovu"
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Nahrát vše znovu"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 msgid "Check for External Changes..."
 msgstr "Prověřit na vnější změny..."
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -738,138 +738,138 @@ msgstr ""
 "Otevře okno, aby se prověřilo, zda byly otevřené dokumenty změněny nebo "
 "smazány jinými programy."
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid "Print Source..."
 msgstr "Vytisknout zdroj..."
 
-#: ../mainwindow.py:1135
+#: ../mainwindow.py:1137
 #, fuzzy
 msgid "Close All Documents and Session"
 msgstr "Zavřít všechny dokumenty"
 
-#: ../mainwindow.py:1136
+#: ../mainwindow.py:1138
 msgid "Closes all documents and leaves the current session."
 msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
-#: ../mainwindow.py:1137 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "U&končit"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "Spustit znovu {appname}"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 msgid "Export Source as Colored &HTML..."
 msgstr "Vyvést zdroj jako barevné &HTML..."
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: ../mainwindow.py:1143
+#: ../mainwindow.py:1145
 msgid "Re&do"
 msgstr "Znov&u"
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: ../mainwindow.py:1145 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Copy as Colored &HTML"
 msgstr "Kopírovat jako barevné &HTML"
 
-#: ../mainwindow.py:1147
+#: ../mainwindow.py:1149
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 msgid "Select &Block"
 msgstr "Vybrat &blok"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 msgid "Select &None"
 msgstr "Nevybrat nic"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 msgid "Select Whole Lines Up"
 msgstr "Vybrat celé řádky nahoru"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 msgid "Select Whole Lines Down"
 msgstr "Vybrat celé řádky dolů"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1156
 msgid "Find Ne&xt"
 msgstr "Najít &další"
 
-#: ../mainwindow.py:1155
+#: ../mainwindow.py:1157
 msgid "Find Pre&vious"
 msgstr "Najít &předchozí"
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1158
 msgid "&Replace..."
 msgstr "Nah&radit..."
 
-#: ../mainwindow.py:1157 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Na&stavení..."
 
-#: ../mainwindow.py:1159
+#: ../mainwindow.py:1161
 msgid "&Next Document"
 msgstr "&Další dokument"
 
-#: ../mainwindow.py:1160
+#: ../mainwindow.py:1162
 msgid "&Previous Document"
 msgstr "&Předchozí dokument"
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 #, fuzzy
 msgid "Wrap &Lines"
 msgstr "Taktové čáry"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 msgid "Scroll Up"
 msgstr "Projíždět nahoru"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 msgid "Scroll Down"
 msgstr "Projíždět dolů"
 
-#: ../mainwindow.py:1165 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Nové &okno"
 
-#: ../mainwindow.py:1166
+#: ../mainwindow.py:1168
 msgid "&Fullscreen"
 msgstr "&Celá obrazovka"
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&User Guide"
 msgstr "Průvodce pro &uživatele"
 
-#: ../mainwindow.py:1169
+#: ../mainwindow.py:1171
 msgid "&What's This?"
 msgstr "&Co je toto?"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "Report a &Bug..."
 msgstr "Nahlásit chy&bu..."
 
-#: ../mainwindow.py:1171 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&O programu {appname}..."
@@ -882,77 +882,77 @@ msgstr "Odpovídající &dvojice"
 msgid "&Select Matching Pair"
 msgstr "&Vybrat odpovídající dvojici"
 
-#: ../menu.py:92 ../macosx/globalmenu.py:72
+#: ../menu.py:93 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Soubor"
 
-#: ../menu.py:130 ../macosx/globalmenu.py:121
+#: ../menu.py:131 ../macosx/globalmenu.py:121
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Zavést"
 
-#: ../menu.py:138
+#: ../menu.py:139
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Vyvést"
 
-#: ../menu.py:150 ../macosx/globalmenu.py:127
+#: ../menu.py:151 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Úp&ravy"
 
-#: ../menu.py:177
+#: ../menu.py:178
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Pohled"
 
-#: ../menu.py:211
+#: ../menu.py:212
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "S&kládání"
 
-#: ../menu.py:226
+#: ../menu.py:227
 msgctxt "menu title"
 msgid "&Music"
 msgstr "No&ty"
 
-#: ../menu.py:253
+#: ../menu.py:254
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:276
+#: ../menu.py:277
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Nástroje"
 
-#: ../menu.py:303
+#: ../menu.py:304
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Slova písně"
 
-#: ../menu.py:315
+#: ../menu.py:316
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Výška tónu"
 
-#: ../menu.py:330
+#: ../menu.py:331
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rytmus"
 
-#: ../menu.py:355
+#: ../menu.py:356
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Rychlé odstranění"
 
-#: ../menu.py:373 ../macosx/globalmenu.py:134
+#: ../menu.py:374 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Okno"
 
-#: ../menu.py:393 ../macosx/globalmenu.py:151
+#: ../menu.py:394 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Nápověd&a"
@@ -1545,7 +1545,7 @@ msgid "Language for pitch names"
 msgstr ""
 
 #: ../file_import/musicxml.py:185 ../preferences/documentation.py:120
-#: ../preferences/general.py:132 ../preferences/tools.py:298
+#: ../preferences/general.py:133 ../preferences/tools.py:298
 #: ../scorewiz/settings.py:143 ../scorewiz/settings.py:211
 #: ../scorewiz/settings.py:306 ../scorewiz/parts/_base.py:218
 #: ../scorewiz/parts/plucked_strings.py:67 ../widgets/schemeselector.py:196
@@ -3396,7 +3396,7 @@ msgstr "Co je toto?"
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: ../preferences/__init__.py:174 ../preferences/general.py:127
+#: ../preferences/__init__.py:174 ../preferences/general.py:128
 #: ../userguide/prefs_general.md:1
 msgid "General Preferences"
 msgstr "Obecné volby"
@@ -3925,27 +3925,27 @@ msgstr "Blok"
 msgid "Verbatim"
 msgstr "Podrobný"
 
-#: ../preferences/general.py:128 ../scorewiz/settings.py:229
+#: ../preferences/general.py:129 ../scorewiz/settings.py:229
 msgid "Language:"
 msgstr "Jazyk:"
 
-#: ../preferences/general.py:129
+#: ../preferences/general.py:130
 msgid "No Translation"
 msgstr "Žádný překlad"
 
-#: ../preferences/general.py:130
+#: ../preferences/general.py:131
 msgid "System Default Language (if available)"
 msgstr "Výchozí jazyk systému (je-li dostupný)"
 
-#: ../preferences/general.py:131 ../scorewiz/parts/percussion.py:185
+#: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:185
 msgid "Style:"
 msgstr "Styl:"
 
-#: ../preferences/general.py:133
+#: ../preferences/general.py:134
 msgid "Use System Icons"
 msgstr "Použít systémové ikony"
 
-#: ../preferences/general.py:135
+#: ../preferences/general.py:136
 #, python-brace-format
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
@@ -3956,15 +3956,15 @@ msgstr ""
 "ikon.\n"
 "Toto nastavení se projeví při příštím spuštění {appname}."
 
-#: ../preferences/general.py:138
+#: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
 msgstr "Ukázat úvodní obrazovku při spuštění"
 
-#: ../preferences/general.py:139
+#: ../preferences/general.py:140
 msgid "Open Files in Running Instance"
 msgstr "Otevřít soubory v běžící instanci"
 
-#: ../preferences/general.py:141
+#: ../preferences/general.py:142
 msgid ""
 "If checked, files will be opened in a running Frescobaldi application if "
 "available, instead of starting a new instance."
@@ -3972,41 +3972,41 @@ msgstr ""
 "Je-li zaškrtnuto, budou soubory otevřeny v běžícím programu Frescobaldi, je-"
 "li dostupný, namísto spuštění nové instance."
 
-#: ../preferences/general.py:169
+#: ../preferences/general.py:170
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Sezení, které se má nahrát, je-li Frescobaldi spuštěn bez argumentů"
 
-#: ../preferences/general.py:170
+#: ../preferences/general.py:171
 msgid "Start with no session"
 msgstr "Začít bez sezení"
 
-#: ../preferences/general.py:171
+#: ../preferences/general.py:172
 msgid "Start with last used session"
 msgstr "Začít s naposledy použitým sezením"
 
-#: ../preferences/general.py:172
+#: ../preferences/general.py:173
 msgid "Start with session:"
 msgstr "Začít se sezením:"
 
-#: ../preferences/general.py:229
+#: ../preferences/general.py:230
 msgid "When saving documents"
 msgstr "Při ukládání dokumentů"
 
-#: ../preferences/general.py:230
+#: ../preferences/general.py:231
 msgid "Strip trailing whitespace"
 msgstr ""
 
-#: ../preferences/general.py:232
+#: ../preferences/general.py:233
 msgid ""
 "If checked, Frescobaldi will remove unnecessary whitespace at the end of "
 "lines (but not inside multi-line strings)."
 msgstr ""
 
-#: ../preferences/general.py:234
+#: ../preferences/general.py:235
 msgid "Keep backup copy"
 msgstr "Ponechat záložní kopii"
 
-#: ../preferences/general.py:236
+#: ../preferences/general.py:237
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -4014,37 +4014,51 @@ msgstr ""
 "Frescobaldi vždy zálohuje soubor, předtím než jej přepíše novou verzí.\n"
 "Je-li to zaškrtnuto, jsou tyto záložní kopie ponechány."
 
-#: ../preferences/general.py:239
+#: ../preferences/general.py:240
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Zapamatovat si pozici ukazatele, záložky atd."
 
-#: ../preferences/general.py:240
+#: ../preferences/general.py:241
 msgid "Default directory:"
 msgstr "Výchozí adresář:"
 
-#: ../preferences/general.py:241
+#: ../preferences/general.py:242
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Výchozí složka pro vaše dokumenty LilyPond (volitelná)."
 
-#: ../preferences/general.py:282
+#: ../preferences/general.py:283
 #, fuzzy
 msgid "When creating new documents"
 msgstr "Při ukládání dokumentů"
 
-#: ../preferences/general.py:283
+#: ../preferences/general.py:284
 #, fuzzy
 msgid "Create an empty document"
 msgstr "Nynější dokument"
 
-#: ../preferences/general.py:284
+#: ../preferences/general.py:285
 #, fuzzy
 msgid "Create a document that contains the LilyPond version statement"
 msgstr "Váš dokument má již uvedenu verzi programu LilyPond."
 
-#: ../preferences/general.py:285
+#: ../preferences/general.py:286
 #, fuzzy
 msgid "Create a document from a template:"
 msgstr "Zadejte, prosím, název předlohy:"
+
+#: ../preferences/general.py:334
+msgid "Experimental Features"
+msgstr ""
+
+#: ../preferences/general.py:335
+msgid "Enable Experimental Features"
+msgstr ""
+
+#: ../preferences/general.py:337
+msgid ""
+"If checked, features that are not yet finished are enabled.\n"
+"You need to restart Frescobaldi to see the changes."
+msgstr ""
 
 #: ../preferences/helpers.py:73
 msgid "PDF:"
@@ -7345,16 +7359,19 @@ msgstr "Další změna"
 msgid "See also:"
 msgstr "Podívejte se také na:"
 
-#: ../vcs/__init__.py:52
-msgid "No Git installation found"
-msgstr ""
-
 #: ../vcs/__init__.py:53
+#, fuzzy
+msgid "Git not found"
+msgstr "Nenalezen žádný motiv."
+
+#: ../vcs/__init__.py:54
 msgid ""
-"Frescobaldi is run from within a Git repository but Git isn't installed. I "
-"will continue without Git support, but you might want to check out yourself "
-"what consequences to take. If you <em>do</em> have Git installed you may set "
-"the path to its executable in the Preferences dialog."
+"Frescobaldi is run from within a Git repository, but Git does not appear to "
+"be working. Git support will be disabled. If you have Git installed, you can "
+"specify its location in the Preferences dialog.\n"
+"\n"
+"Error message:\n"
+"\n"
 msgstr ""
 
 #: ../vcs/gitrepo.py:43
@@ -7362,16 +7379,16 @@ msgstr ""
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
 msgstr "Zdá se, že zadaný adresář '{rootdir} není skladištěm Git."
 
-#: ../vcs/menu.py:41
+#: ../vcs/menu.py:42
 msgctxt "menu title"
 msgid "&Git"
 msgstr "&Git"
 
-#: ../vcs/menu.py:116
+#: ../vcs/menu.py:117
 msgid "Checkout Successful"
 msgstr "Stažení úspěšné"
 
-#: ../vcs/menu.py:117
+#: ../vcs/menu.py:118
 #, python-brace-format
 msgid ""
 "Successfully checked out branch {name}.\n"
@@ -7382,7 +7399,7 @@ msgstr ""
 "Změny se projeví po opětovném spuštění.\n"
 "Chcete nyní program spustit znovu?"
 
-#: ../vcs/menu.py:124
+#: ../vcs/menu.py:125
 msgid "Git Checkout Error"
 msgstr "Chyba při stahování z Gitu"
 

@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-13 21:22+0100\n"
+"POT-Creation-Date: 2014-12-25 15:46+0100\n"
 "PO-Revision-Date: 2014-10-18 13:17+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -333,20 +333,20 @@ msgstr "Supprimer les &nuances"
 msgid "Remove Text &Markup (from music)"
 msgstr "Supprimer le &markup de texte (de la musique)"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1122
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "Enregistrer"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1123
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
 msgid "Save &As..."
 msgstr "Enregistrer sous..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1133
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
 msgid "&Close"
 msgstr "Fermer"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1134
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
 msgid "Close Other Documents"
 msgstr "Fermer les autres documents"
 
@@ -617,7 +617,7 @@ msgstr "Impossible de lire depuis : {url}"
 msgid "Could not read:"
 msgstr "Impossible de lire :"
 
-#: ../mainwindow.py:456 ../macosx/globalmenu.py:174
+#: ../mainwindow.py:456 ../macosx/globalmenu.py:175
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Ouvrir fichier"
@@ -656,7 +656,7 @@ msgstr "Imprimer le code source"
 msgid "Export as HTML"
 msgstr "Exporter en HTML"
 
-#: ../mainwindow.py:855
+#: ../mainwindow.py:857
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -668,60 +668,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:969
+#: ../mainwindow.py:971
 msgid "Main Toolbar"
 msgstr "Barre principale"
 
-#: ../mainwindow.py:970
+#: ../mainwindow.py:972
 msgid "Music View Toolbar"
 msgstr "Barre d'aperçu"
 
-#: ../mainwindow.py:1116 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nouveau"
 
-#: ../mainwindow.py:1117 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "&Ouvrir..."
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Ouvrir &récent"
 
-#: ../mainwindow.py:1119
+#: ../mainwindow.py:1121
 msgid "Insert from &File..."
 msgstr "Insérer depuis le fichier..."
 
-#: ../mainwindow.py:1120
+#: ../mainwindow.py:1122
 msgid "Open Current Directory"
 msgstr "Ouvrir le dossier courant"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Open Command Prompt"
 msgstr "Ouvrir la ligne de commande (Terminal)"
 
-#: ../mainwindow.py:1124
+#: ../mainwindow.py:1126
 msgid "Save Copy or Selection As..."
 msgstr "Enregistrer une copie ou la sélection sous..."
 
-#: ../mainwindow.py:1125 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Tout enregistrer"
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 msgid "Re&load"
 msgstr "Re&charger"
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Recharger tous les fichiers"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 msgid "Check for External Changes..."
 msgstr "Contrôler les modifications externes..."
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -729,136 +729,136 @@ msgstr ""
 "Ouvre une fenêtre pour contrôler si les documents ouverts ont été modifiés "
 "ou supprimés par d'autres programmes."
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid "Print Source..."
 msgstr "Imprimer le code source"
 
-#: ../mainwindow.py:1135
+#: ../mainwindow.py:1137
 msgid "Close All Documents and Session"
 msgstr "Fermer Tous les Documents et Session"
 
-#: ../mainwindow.py:1136
+#: ../mainwindow.py:1138
 msgid "Closes all documents and leaves the current session."
 msgstr "Fermer tous les documents et quitter la session courante"
 
-#: ../mainwindow.py:1137 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "&Quitter"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "Redémarrer {appname}"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 msgid "Export Source as Colored &HTML..."
 msgstr "Exporter le code source en &HTML coloré..."
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "&Undo"
 msgstr "Annuler"
 
-#: ../mainwindow.py:1143
+#: ../mainwindow.py:1145
 msgid "Re&do"
 msgstr "Refaire"
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 msgid "Cu&t"
 msgstr "Couper"
 
-#: ../mainwindow.py:1145 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copier"
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Copy as Colored &HTML"
 msgstr "Copier en HTML coloré"
 
-#: ../mainwindow.py:1147
+#: ../mainwindow.py:1149
 msgid "&Paste"
 msgstr "Coller"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Select &All"
 msgstr "Tout sélectionner"
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 msgid "Select &Block"
 msgstr "Sélectionner le bloc"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 msgid "Select &None"
 msgstr "Ne rien sélectionner"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 msgid "Select Whole Lines Up"
 msgstr "Sélectionner des lignes entières au-dessus"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 msgid "Select Whole Lines Down"
 msgstr "Sélectionner des lignes entières en-dessous"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "&Find..."
 msgstr "Rechercher..."
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1156
 msgid "Find Ne&xt"
 msgstr "Rechercher le suivant"
 
-#: ../mainwindow.py:1155
+#: ../mainwindow.py:1157
 msgid "Find Pre&vious"
 msgstr "Rechercher le précédent"
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1158
 msgid "&Replace..."
 msgstr "&Remplacer..."
 
-#: ../mainwindow.py:1157 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Préfér&ences..."
 
-#: ../mainwindow.py:1159
+#: ../mainwindow.py:1161
 msgid "&Next Document"
 msgstr "Document suivant"
 
-#: ../mainwindow.py:1160
+#: ../mainwindow.py:1162
 msgid "&Previous Document"
 msgstr "Document précédent"
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 msgid "Wrap &Lines"
 msgstr "Renvoi à la ligne"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 msgid "Scroll Up"
 msgstr "Défiler vers le haut"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 msgid "Scroll Down"
 msgstr "Défiler vers le bas"
 
-#: ../mainwindow.py:1165 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Nouvelle fenêtre"
 
-#: ../mainwindow.py:1166
+#: ../mainwindow.py:1168
 msgid "&Fullscreen"
 msgstr "Plein écran"
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&User Guide"
 msgstr "Manuel utilisateur"
 
-#: ../mainwindow.py:1169
+#: ../mainwindow.py:1171
 msgid "&What's This?"
 msgstr "Qu'est-ce que c'est ?"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "Report a &Bug..."
 msgstr "Rapporter un &bogue..."
 
-#: ../mainwindow.py:1171 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&À propos de {appname}..."
@@ -871,77 +871,77 @@ msgstr "Caractère appa&rié"
 msgid "&Select Matching Pair"
 msgstr "&Sélectionner les caractères appariés"
 
-#: ../menu.py:92 ../macosx/globalmenu.py:72
+#: ../menu.py:93 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Fichier"
 
-#: ../menu.py:130 ../macosx/globalmenu.py:121
+#: ../menu.py:131 ../macosx/globalmenu.py:121
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importer"
 
-#: ../menu.py:138
+#: ../menu.py:139
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporter"
 
-#: ../menu.py:150 ../macosx/globalmenu.py:127
+#: ../menu.py:151 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Édition"
 
-#: ../menu.py:177
+#: ../menu.py:178
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Affichage"
 
-#: ../menu.py:211
+#: ../menu.py:212
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Replier/Déplier"
 
-#: ../menu.py:226
+#: ../menu.py:227
 msgctxt "menu title"
 msgid "&Music"
 msgstr "Aperçu"
 
-#: ../menu.py:253
+#: ../menu.py:254
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:276
+#: ../menu.py:277
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Outils"
 
-#: ../menu.py:303
+#: ../menu.py:304
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Paroles"
 
-#: ../menu.py:315
+#: ../menu.py:316
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Hauteur"
 
-#: ../menu.py:330
+#: ../menu.py:331
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Rythme"
 
-#: ../menu.py:355
+#: ../menu.py:356
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Suppression &rapide"
 
-#: ../menu.py:373 ../macosx/globalmenu.py:134
+#: ../menu.py:374 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Fenêtre"
 
-#: ../menu.py:393 ../macosx/globalmenu.py:151
+#: ../menu.py:394 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Aide"
@@ -1530,7 +1530,7 @@ msgid "Language for pitch names"
 msgstr "Langage du nom des notes"
 
 #: ../file_import/musicxml.py:185 ../preferences/documentation.py:120
-#: ../preferences/general.py:132 ../preferences/tools.py:298
+#: ../preferences/general.py:133 ../preferences/tools.py:298
 #: ../scorewiz/settings.py:143 ../scorewiz/settings.py:211
 #: ../scorewiz/settings.py:306 ../scorewiz/parts/_base.py:218
 #: ../scorewiz/parts/plucked_strings.py:67 ../widgets/schemeselector.py:196
@@ -3277,7 +3277,7 @@ msgstr "Qu'est-ce que c'est ?"
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../preferences/__init__.py:174 ../preferences/general.py:127
+#: ../preferences/__init__.py:174 ../preferences/general.py:128
 #: ../userguide/prefs_general.md:1
 msgid "General Preferences"
 msgstr "Préférences générales"
@@ -3827,27 +3827,27 @@ msgstr "Bloc"
 msgid "Verbatim"
 msgstr "Verbatim"
 
-#: ../preferences/general.py:128 ../scorewiz/settings.py:229
+#: ../preferences/general.py:129 ../scorewiz/settings.py:229
 msgid "Language:"
 msgstr "Langue :"
 
-#: ../preferences/general.py:129
+#: ../preferences/general.py:130
 msgid "No Translation"
 msgstr "Pas de traduction"
 
-#: ../preferences/general.py:130
+#: ../preferences/general.py:131
 msgid "System Default Language (if available)"
 msgstr "Langue système par défaut (si disponible)"
 
-#: ../preferences/general.py:131 ../scorewiz/parts/percussion.py:185
+#: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:185
 msgid "Style:"
 msgstr "Style :"
 
-#: ../preferences/general.py:133
+#: ../preferences/general.py:134
 msgid "Use System Icons"
 msgstr "Utiliser les icônes système"
 
-#: ../preferences/general.py:135
+#: ../preferences/general.py:136
 #, python-brace-format
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
@@ -3858,15 +3858,15 @@ msgstr ""
 "icônes embarquées.\n"
 "Ce réglage prend effet au prochain démarrage de {appname}."
 
-#: ../preferences/general.py:138
+#: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
 msgstr "Afficher l'écran de présentation au démarrage"
 
-#: ../preferences/general.py:139
+#: ../preferences/general.py:140
 msgid "Open Files in Running Instance"
 msgstr "Ouvrir les fichiers dans l'instance existante"
 
-#: ../preferences/general.py:141
+#: ../preferences/general.py:142
 msgid ""
 "If checked, files will be opened in a running Frescobaldi application if "
 "available, instead of starting a new instance."
@@ -3875,31 +3875,31 @@ msgstr ""
 "existante de Frescobaldi si elle existe, plutôt que de démarrer une nouvelle "
 "instance."
 
-#: ../preferences/general.py:169
+#: ../preferences/general.py:170
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Session à charger si Frescobaldi est lancé sans arguments"
 
-#: ../preferences/general.py:170
+#: ../preferences/general.py:171
 msgid "Start with no session"
 msgstr "Démarrer sans session"
 
-#: ../preferences/general.py:171
+#: ../preferences/general.py:172
 msgid "Start with last used session"
 msgstr "Démarrer avec la dernière session utilisée"
 
-#: ../preferences/general.py:172
+#: ../preferences/general.py:173
 msgid "Start with session:"
 msgstr "Démarrer avec la session :"
 
-#: ../preferences/general.py:229
+#: ../preferences/general.py:230
 msgid "When saving documents"
 msgstr "Lors de l'enregistrement de documents"
 
-#: ../preferences/general.py:230
+#: ../preferences/general.py:231
 msgid "Strip trailing whitespace"
 msgstr "Supprimer les espaces de fin"
 
-#: ../preferences/general.py:232
+#: ../preferences/general.py:233
 msgid ""
 "If checked, Frescobaldi will remove unnecessary whitespace at the end of "
 "lines (but not inside multi-line strings)."
@@ -3907,11 +3907,11 @@ msgstr ""
 "Si coché, Frescobaldi supprimera les espaces superflus en fin de ligne (à "
 "l'exception des chaînes multi-lignes)"
 
-#: ../preferences/general.py:234
+#: ../preferences/general.py:235
 msgid "Keep backup copy"
 msgstr "Conserver une copie de sauvegarde"
 
-#: ../preferences/general.py:236
+#: ../preferences/general.py:237
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
@@ -3920,33 +3920,47 @@ msgstr ""
 "nouvelle version.\n"
 "Si coché, ces copies de sauvegarde sont conservées."
 
-#: ../preferences/general.py:239
+#: ../preferences/general.py:240
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Retenir la position du curseur, des repères, etc."
 
-#: ../preferences/general.py:240
+#: ../preferences/general.py:241
 msgid "Default directory:"
 msgstr "Dossier par défaut :"
 
-#: ../preferences/general.py:241
+#: ../preferences/general.py:242
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Le dossier par défaut pour vos documents LilyPond (optionnel)."
 
-#: ../preferences/general.py:282
+#: ../preferences/general.py:283
 msgid "When creating new documents"
 msgstr "Lors de la création de nouveaux documents"
 
-#: ../preferences/general.py:283
+#: ../preferences/general.py:284
 msgid "Create an empty document"
 msgstr "Créer un nouveau document vide"
 
-#: ../preferences/general.py:284
+#: ../preferences/general.py:285
 msgid "Create a document that contains the LilyPond version statement"
 msgstr "Créer un document comprenant déjà une indication de version"
 
-#: ../preferences/general.py:285
+#: ../preferences/general.py:286
 msgid "Create a document from a template:"
 msgstr "Créer un nouveau document depuis un modèle :"
+
+#: ../preferences/general.py:334
+msgid "Experimental Features"
+msgstr ""
+
+#: ../preferences/general.py:335
+msgid "Enable Experimental Features"
+msgstr ""
+
+#: ../preferences/general.py:337
+msgid ""
+"If checked, features that are not yet finished are enabled.\n"
+"You need to restart Frescobaldi to see the changes."
+msgstr ""
 
 #: ../preferences/helpers.py:73
 msgid "PDF:"
@@ -7232,16 +7246,20 @@ msgstr "Chapitre suivant :"
 msgid "See also:"
 msgstr "Voir aussi :"
 
-#: ../vcs/__init__.py:52
-msgid "No Git installation found"
-msgstr "Aucune installation Git n'a été trouvée"
-
 #: ../vcs/__init__.py:53
+#, fuzzy
+msgid "Git not found"
+msgstr "Aucun manuel trouvé"
+
+#: ../vcs/__init__.py:54
+#, fuzzy
 msgid ""
-"Frescobaldi is run from within a Git repository but Git isn't installed. I "
-"will continue without Git support, but you might want to check out yourself "
-"what consequences to take. If you <em>do</em> have Git installed you may set "
-"the path to its executable in the Preferences dialog."
+"Frescobaldi is run from within a Git repository, but Git does not appear to "
+"be working. Git support will be disabled. If you have Git installed, you can "
+"specify its location in the Preferences dialog.\n"
+"\n"
+"Error message:\n"
+"\n"
 msgstr ""
 "Frescobaldi est exécuté depuis un dépôt Git mais Git n'est pas installé. Je "
 "continuerai sans support Git, mais vous pouvez en vérifier les conséquences. "
@@ -7253,16 +7271,16 @@ msgstr ""
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
 msgstr "Le dossier indiqué '{rootdir} ne semble pas être un dépôt Git."
 
-#: ../vcs/menu.py:41
+#: ../vcs/menu.py:42
 msgctxt "menu title"
 msgid "&Git"
 msgstr "&Git"
 
-#: ../vcs/menu.py:116
+#: ../vcs/menu.py:117
 msgid "Checkout Successful"
 msgstr "Vérification réussie"
 
-#: ../vcs/menu.py:117
+#: ../vcs/menu.py:118
 #, python-brace-format
 msgid ""
 "Successfully checked out branch {name}.\n"
@@ -7273,7 +7291,7 @@ msgstr ""
 "Les changements seront effectifs après un redémarrage.\n"
 "Voulez-vous redémarrer maintenant ?"
 
-#: ../vcs/menu.py:124
+#: ../vcs/menu.py:125
 msgid "Git Checkout Error"
 msgstr "Erreur de vérification Git"
 
@@ -10491,6 +10509,9 @@ msgstr ""
 "Le nomre d'espaces à insérer quand une tabulation est entrée au milieu du "
 "texte, par défaut 8. Cette valeur est ignorée quand `document-tabs` est "
 "réglé sur {yes}."
+
+#~ msgid "No Git installation found"
+#~ msgstr "Aucune installation Git n'a été trouvée"
 
 #~ msgid "{appname} [options] file ..."
 #~ msgstr "{appname} [options] fichier..."

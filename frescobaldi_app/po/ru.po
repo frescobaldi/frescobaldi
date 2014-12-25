@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-13 21:22+0100\n"
+"POT-Creation-Date: 2014-12-25 15:46+0100\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -332,20 +332,20 @@ msgstr "Динамика"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1122
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "Сохранить"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1123
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
 msgid "Save &As..."
 msgstr "Сохранить как..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1133
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
 msgid "&Close"
 msgstr "Закрыть"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1134
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
 msgid "Close Other Documents"
 msgstr "Закрыть другие файлы"
 
@@ -621,7 +621,7 @@ msgstr ""
 "Невозможно загрузить удалённый файл\n"
 "{url}"
 
-#: ../mainwindow.py:456 ../macosx/globalmenu.py:174
+#: ../mainwindow.py:456 ../macosx/globalmenu.py:175
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Открыть файл"
@@ -665,7 +665,7 @@ msgstr "Печать исходного кода"
 msgid "Export as HTML"
 msgstr "Экспоритровать в HTML"
 
-#: ../mainwindow.py:855
+#: ../mainwindow.py:857
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -677,199 +677,199 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:969
+#: ../mainwindow.py:971
 msgid "Main Toolbar"
 msgstr "Основная панель"
 
-#: ../mainwindow.py:970
+#: ../mainwindow.py:972
 msgid "Music View Toolbar"
 msgstr "Панель предпросмотра"
 
-#: ../mainwindow.py:1116 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Создать"
 
-#: ../mainwindow.py:1117 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "Открыть..."
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Предыдущие"
 
-#: ../mainwindow.py:1119
+#: ../mainwindow.py:1121
 msgid "Insert from &File..."
 msgstr "Добавить из файла..."
 
-#: ../mainwindow.py:1120
+#: ../mainwindow.py:1122
 msgid "Open Current Directory"
 msgstr "Открыть текущий каталог"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Open Command Prompt"
 msgstr "Открыть командную строку"
 
-#: ../mainwindow.py:1124
+#: ../mainwindow.py:1126
 msgid "Save Copy or Selection As..."
 msgstr "Сохранить копию или выделенное как..."
 
-#: ../mainwindow.py:1125 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Сохранить все"
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 #, fuzzy
 msgid "Re&load"
 msgstr "Запись"
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Запись"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid "Print Source..."
 msgstr "Печать исходного кода..."
 
-#: ../mainwindow.py:1135
+#: ../mainwindow.py:1137
 #, fuzzy
 msgid "Close All Documents and Session"
 msgstr "Закрыть все файлы"
 
-#: ../mainwindow.py:1136
+#: ../mainwindow.py:1138
 msgid "Closes all documents and leaves the current session."
 msgstr "Закрыть все файлы и завершить сеанс"
 
-#: ../mainwindow.py:1137 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "Выход"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 #, fuzzy, python-brace-format
 msgid "Restart {appname}"
 msgstr "О {appname}"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 msgid "Export Source as Colored &HTML..."
 msgstr "Экспортировать в цветной HTML..."
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "&Undo"
 msgstr "Отменить"
 
-#: ../mainwindow.py:1143
+#: ../mainwindow.py:1145
 msgid "Re&do"
 msgstr "Повторить"
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 msgid "Cu&t"
 msgstr "Вырезать"
 
-#: ../mainwindow.py:1145 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Копировать"
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Copy as Colored &HTML"
 msgstr "Скопировать как цветной HTML"
 
-#: ../mainwindow.py:1147
+#: ../mainwindow.py:1149
 msgid "&Paste"
 msgstr "Вставить"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Select &All"
 msgstr "Выделить все"
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 msgid "Select &Block"
 msgstr "Выделить блок"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 msgid "Select &None"
 msgstr "Снять выделение"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 msgid "Select Whole Lines Up"
 msgstr "Выделить строки выше"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 msgid "Select Whole Lines Down"
 msgstr "Выделить строки ниже"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "&Find..."
 msgstr "Найти..."
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1156
 msgid "Find Ne&xt"
 msgstr "Найти далее"
 
-#: ../mainwindow.py:1155
+#: ../mainwindow.py:1157
 msgid "Find Pre&vious"
 msgstr "Найти предыдущий"
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1158
 msgid "&Replace..."
 msgstr "Заменить..."
 
-#: ../mainwindow.py:1157 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Настройки..."
 
-#: ../mainwindow.py:1159
+#: ../mainwindow.py:1161
 msgid "&Next Document"
 msgstr "&Следующий файл"
 
-#: ../mainwindow.py:1160
+#: ../mainwindow.py:1162
 msgid "&Previous Document"
 msgstr "&Предыдущий файл"
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 #, fuzzy
 msgid "Wrap &Lines"
 msgstr "Тактовые черты"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 msgid "Scroll Up"
 msgstr "Вверх"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 msgid "Scroll Down"
 msgstr "Вниз"
 
-#: ../mainwindow.py:1165 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Новое окно"
 
-#: ../mainwindow.py:1166
+#: ../mainwindow.py:1168
 msgid "&Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&User Guide"
 msgstr "Руководство пользователя"
 
-#: ../mainwindow.py:1169
+#: ../mainwindow.py:1171
 msgid "&What's This?"
 msgstr "Что это такое?"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "Report a &Bug..."
 msgstr "Сообщить об ошибке..."
 
-#: ../mainwindow.py:1171 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "О {appname}..."
@@ -883,79 +883,79 @@ msgstr "Совпадающий символ"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:92 ../macosx/globalmenu.py:72
+#: ../menu.py:93 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr "Файл"
 
-#: ../menu.py:130 ../macosx/globalmenu.py:121
+#: ../menu.py:131 ../macosx/globalmenu.py:121
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "Импорт"
 
-#: ../menu.py:138
+#: ../menu.py:139
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "Экспорт"
 
-#: ../menu.py:150 ../macosx/globalmenu.py:127
+#: ../menu.py:151 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Правка"
 
-#: ../menu.py:177
+#: ../menu.py:178
 msgctxt "menu title"
 msgid "&View"
 msgstr "Вид"
 
-#: ../menu.py:211
+#: ../menu.py:212
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Сворачивание"
 
-#: ../menu.py:226
+#: ../menu.py:227
 msgctxt "menu title"
 msgid "&Music"
 msgstr "Просмотр"
 
-#: ../menu.py:253
+#: ../menu.py:254
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "LilyPond"
 
-#: ../menu.py:276
+#: ../menu.py:277
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Инструменты"
 
-#: ../menu.py:303
+#: ../menu.py:304
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "Текст"
 
-#: ../menu.py:315
+#: ../menu.py:316
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "Тон"
 
-#: ../menu.py:330
+#: ../menu.py:331
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Ритм"
 
-#: ../menu.py:355
+#: ../menu.py:356
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Удалить"
 
-#: ../menu.py:373 ../macosx/globalmenu.py:134
+#: ../menu.py:374 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr "Окно"
 
-#: ../menu.py:393 ../macosx/globalmenu.py:151
+#: ../menu.py:394 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Справка"
@@ -1546,7 +1546,7 @@ msgid "Language for pitch names"
 msgstr ""
 
 #: ../file_import/musicxml.py:185 ../preferences/documentation.py:120
-#: ../preferences/general.py:132 ../preferences/tools.py:298
+#: ../preferences/general.py:133 ../preferences/tools.py:298
 #: ../scorewiz/settings.py:143 ../scorewiz/settings.py:211
 #: ../scorewiz/settings.py:306 ../scorewiz/parts/_base.py:218
 #: ../scorewiz/parts/plucked_strings.py:67 ../widgets/schemeselector.py:196
@@ -3367,7 +3367,7 @@ msgstr "Что это такое?"
 msgid "Preferences"
 msgstr "Настройки"
 
-#: ../preferences/__init__.py:174 ../preferences/general.py:127
+#: ../preferences/__init__.py:174 ../preferences/general.py:128
 #: ../userguide/prefs_general.md:1
 msgid "General Preferences"
 msgstr "Общие настройки"
@@ -3895,27 +3895,27 @@ msgstr "Блок"
 msgid "Verbatim"
 msgstr ""
 
-#: ../preferences/general.py:128 ../scorewiz/settings.py:229
+#: ../preferences/general.py:129 ../scorewiz/settings.py:229
 msgid "Language:"
 msgstr "Язык:"
 
-#: ../preferences/general.py:129
+#: ../preferences/general.py:130
 msgid "No Translation"
 msgstr "Без перевода"
 
-#: ../preferences/general.py:130
+#: ../preferences/general.py:131
 msgid "System Default Language (if available)"
 msgstr "Системный язык (если доступен)"
 
-#: ../preferences/general.py:131 ../scorewiz/parts/percussion.py:185
+#: ../preferences/general.py:132 ../scorewiz/parts/percussion.py:185
 msgid "Style:"
 msgstr "Стиль:"
 
-#: ../preferences/general.py:133
+#: ../preferences/general.py:134
 msgid "Use System Icons"
 msgstr "Использовать системные значки"
 
-#: ../preferences/general.py:135
+#: ../preferences/general.py:136
 #, python-brace-format
 msgid ""
 "If checked, icons of the desktop icon theme will be used instead of the "
@@ -3923,91 +3923,105 @@ msgid ""
 "This setting takes effect on the next start of {appname}."
 msgstr ""
 
-#: ../preferences/general.py:138
+#: ../preferences/general.py:139
 msgid "Show Splash Screen on Startup"
 msgstr "Показывать заставку при запуске"
 
-#: ../preferences/general.py:139
+#: ../preferences/general.py:140
 msgid "Open Files in Running Instance"
 msgstr "Открывать файлы в запущеном экземпляре"
 
-#: ../preferences/general.py:141
+#: ../preferences/general.py:142
 msgid ""
 "If checked, files will be opened in a running Frescobaldi application if "
 "available, instead of starting a new instance."
 msgstr ""
 
-#: ../preferences/general.py:169
+#: ../preferences/general.py:170
 msgid "Session to load if Frescobaldi is started without arguments"
 msgstr "Сессия, если Frescobaldi запущен без аргументов"
 
-#: ../preferences/general.py:170
+#: ../preferences/general.py:171
 msgid "Start with no session"
 msgstr "Запускать без сессии"
 
-#: ../preferences/general.py:171
+#: ../preferences/general.py:172
 msgid "Start with last used session"
 msgstr "Запускать с последней сессией"
 
-#: ../preferences/general.py:172
+#: ../preferences/general.py:173
 msgid "Start with session:"
 msgstr "Начинать с сессии:"
 
-#: ../preferences/general.py:229
+#: ../preferences/general.py:230
 msgid "When saving documents"
 msgstr "При сохранении документов"
 
-#: ../preferences/general.py:230
+#: ../preferences/general.py:231
 msgid "Strip trailing whitespace"
 msgstr ""
 
-#: ../preferences/general.py:232
+#: ../preferences/general.py:233
 msgid ""
 "If checked, Frescobaldi will remove unnecessary whitespace at the end of "
 "lines (but not inside multi-line strings)."
 msgstr ""
 
-#: ../preferences/general.py:234
+#: ../preferences/general.py:235
 msgid "Keep backup copy"
 msgstr "Сохранять резервные копии"
 
-#: ../preferences/general.py:236
+#: ../preferences/general.py:237
 msgid ""
 "Frescobaldi always backups a file before overwriting it with a new version.\n"
 "If checked those backup copies are retained."
 msgstr ""
 
-#: ../preferences/general.py:239
+#: ../preferences/general.py:240
 msgid "Remember cursor position, bookmarks, etc."
 msgstr "Запоминать позицию курсора, закладки и т.п."
 
-#: ../preferences/general.py:240
+#: ../preferences/general.py:241
 msgid "Default directory:"
 msgstr "Каталог по умолчанию:"
 
-#: ../preferences/general.py:241
+#: ../preferences/general.py:242
 msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Каталог по умолчанию для файлов LilyPond (необязательно)."
 
-#: ../preferences/general.py:282
+#: ../preferences/general.py:283
 #, fuzzy
 msgid "When creating new documents"
 msgstr "При сохранении документов"
 
-#: ../preferences/general.py:283
+#: ../preferences/general.py:284
 #, fuzzy
 msgid "Create an empty document"
 msgstr "Текущий файл"
 
-#: ../preferences/general.py:284
+#: ../preferences/general.py:285
 #, fuzzy
 msgid "Create a document that contains the LilyPond version statement"
 msgstr "Ваш документ уже содержит сведения о версии LilyPond"
 
-#: ../preferences/general.py:285
+#: ../preferences/general.py:286
 #, fuzzy
 msgid "Create a document from a template:"
 msgstr "Введите имя шаблона:"
+
+#: ../preferences/general.py:334
+msgid "Experimental Features"
+msgstr ""
+
+#: ../preferences/general.py:335
+msgid "Enable Experimental Features"
+msgstr ""
+
+#: ../preferences/general.py:337
+msgid ""
+"If checked, features that are not yet finished are enabled.\n"
+"You need to restart Frescobaldi to see the changes."
+msgstr ""
 
 #: ../preferences/helpers.py:73
 msgid "PDF:"
@@ -7235,16 +7249,19 @@ msgstr "Следующее изменение"
 msgid "See also:"
 msgstr "Смотри также:"
 
-#: ../vcs/__init__.py:52
-msgid "No Git installation found"
-msgstr ""
-
 #: ../vcs/__init__.py:53
+#, fuzzy
+msgid "Git not found"
+msgstr "Сниппеты не найдены."
+
+#: ../vcs/__init__.py:54
 msgid ""
-"Frescobaldi is run from within a Git repository but Git isn't installed. I "
-"will continue without Git support, but you might want to check out yourself "
-"what consequences to take. If you <em>do</em> have Git installed you may set "
-"the path to its executable in the Preferences dialog."
+"Frescobaldi is run from within a Git repository, but Git does not appear to "
+"be working. Git support will be disabled. If you have Git installed, you can "
+"specify its location in the Preferences dialog.\n"
+"\n"
+"Error message:\n"
+"\n"
 msgstr ""
 
 #: ../vcs/gitrepo.py:43
@@ -7252,16 +7269,16 @@ msgstr ""
 msgid "The given directory '{rootdir} doesn't seem to be a Git repository."
 msgstr ""
 
-#: ../vcs/menu.py:41
+#: ../vcs/menu.py:42
 msgctxt "menu title"
 msgid "&Git"
 msgstr ""
 
-#: ../vcs/menu.py:116
+#: ../vcs/menu.py:117
 msgid "Checkout Successful"
 msgstr ""
 
-#: ../vcs/menu.py:117
+#: ../vcs/menu.py:118
 #, python-brace-format
 msgid ""
 "Successfully checked out branch {name}.\n"
@@ -7269,7 +7286,7 @@ msgid ""
 "Do you want to restart now?"
 msgstr ""
 
-#: ../vcs/menu.py:124
+#: ../vcs/menu.py:125
 msgid "Git Checkout Error"
 msgstr ""
 
