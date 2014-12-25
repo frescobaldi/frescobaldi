@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Frescobaldi 2.0.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2014-12-25 15:46+0100\n"
-"PO-Revision-Date: 2014-11-26 15:27+0100\n"
+"PO-Revision-Date: 2014-12-23 10:15+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -1138,13 +1138,12 @@ msgid "Close all untitled documents"
 msgstr "Chiudi tutti i documenti senza nome"
 
 #: ../engrave/__init__.py:104
-#, fuzzy
 msgid "Abort engraving job"
-msgstr "&Interrompi compilazione"
+msgstr "Interrompi compilazione"
 
 #: ../engrave/__init__.py:105
 msgid "Engrave (preview; press Shift for custom)"
-msgstr ""
+msgstr "Compila (anteprima; premere Maiusc per modificare le opzioni)"
 
 #: ../engrave/__init__.py:239
 #, python-brace-format
@@ -1180,6 +1179,7 @@ msgstr "Compila"
 #: ../engrave/__init__.py:341
 msgid "Engrave (preview; Shift-click for custom)"
 msgstr ""
+"Compila (anteprima; premere Maiusc e fare clic per modificare le opzioni)"
 
 #: ../engrave/__init__.py:342
 msgid "&Engrave (preview)"
@@ -1824,17 +1824,15 @@ msgstr ""
 "possono inserire anche note singole."
 
 #: ../midiinput/widget.py:197
-#, fuzzy
 msgid "Relative mode"
-msgstr "Musica (mod. Relative)"
+msgstr "Modalità relativa"
 
 #: ../midiinput/widget.py:199
-#, fuzzy
 msgid ""
 "Enter octaves of notes relative to the last note. See \"What's This\" for "
 "more information."
 msgstr ""
-"Inserire come accordi le note suonate simultaneamente. Vedere \"Che cos'è?\" "
+"Inserisce le ottave in modo relativo all'ultima nota. Vedere \"Che cos'è?\" "
 "per ulteriori informazioni."
 
 #: ../midiinput/widget.py:202
@@ -1843,6 +1841,10 @@ msgid ""
 "key pressed on the MIDI keyboard, not the last note in the document.Hold "
 "Shift with a note to enter an octave check."
 msgstr ""
+"Inserisce le ottave in modo relativo all'ultima nota, ovvero alla nota "
+"dell'ultimo tasto premuto sulla tastiera MIDI e non all'ultima nota nel "
+"documento. Tenere premuto Maiusc mentre si suona la nota per inserire un "
+"controllo di ottava."
 
 #: ../midiinput/widget.py:205
 msgid "Damper pedal"
@@ -2691,7 +2693,7 @@ msgstr "Regola luminosità"
 #: ../po/messages.py:125
 msgctxt "QShortcut"
 msgid "Alt"
-msgstr "Maiusc"
+msgstr "Alt"
 
 #: ../po/messages.py:126
 msgctxt "QShortcut"
@@ -7508,7 +7510,6 @@ msgstr ""
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:21
-#, fuzzy
 msgid ""
 "All commands to run LilyPond can be found in the *LilyPond* menu. Pressing "
 "the LilyPond symbol in the toolbar engraves the document in preview mode, or "
@@ -7516,10 +7517,12 @@ msgid ""
 "option, Frescobaldi will run LilyPond automatically everytime the document "
 "is modified (in preview mode)."
 msgstr ""
-"Tutti i comandi per eseguire LilyPond si trovano nel menu *LilyPond*. E se "
-"si attiva l'opzione *Compilazione automatica*, Frescobaldi eseguirà LilyPond "
-"automaticamente ogni volta che il documento viene modificato (in modalità "
-"anteprima)."
+"Tutti i comandi per eseguire LilyPond si trovano nel menu *LilyPond*. "
+"Premendo l'icona di LilyPond nella barra degli strumenti il documento viene "
+"compilato in modalità anteprima; in modalità personalizzata se si tiene "
+"premuto Maiusc E se si attiva l'opzione *Compilazione automatica*, "
+"Frescobaldi eseguirà LilyPond automaticamente ogni volta che il documento "
+"viene modificato (in modalità anteprima)."
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:1
@@ -9213,8 +9216,8 @@ msgid ""
 "the LilyPond documentation uses."
 msgstr ""
 "Per impostazione predefinita, Frescobaldi indenta automaticamente di due "
-"spazi dopo caratteri come `{` e `<<`. Segue la modalità di indentazine usata "
-"nella documentazione di LilyPond."
+"spazi dopo caratteri come `{` e `<<`. Segue la modalità di indentazione "
+"usata nella documentazione di LilyPond."
 
 #. NOTE: markdown formatting
 #: ../userguide/indent_format.md:7
@@ -9542,9 +9545,8 @@ msgid "MIDI capturing"
 msgstr "Cattura MIDI"
 
 #: ../userguide/credits.md:39
-#, fuzzy
 msgid "Relative mode for MIDI capturing"
-msgstr "Ferma la cattura MIDI"
+msgstr "Modalità relativa per la cattura MIDI"
 
 #: ../userguide/credits.md:42
 msgid "Finding lots of bugs"
