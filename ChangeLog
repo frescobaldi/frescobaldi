@@ -35,6 +35,11 @@ Changes in 2.17 -- December 26th, 2014
   - tooltips for the panel title and float/close buttons
   - error handling in I/O-related operations has improved
   - Ctrl+C in editor view does not copy HTML, only plain text (issue #517)
+  - Features that are in development can be enabled by checking Preferences→
+    General→Experimental Features→Enable Experimental Features. Some features
+    that are not completely finished are hidden by default but become visible
+    when this preference is enabled. New features are enabled after a restart,
+    or when a new main window is created using Window→New.
 * Bugfixes:
   - fix AttributeError: 'bool' object has no attribute 'endswith' in
     lilypondinfo.py, toolcommand()
