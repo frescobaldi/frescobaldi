@@ -1451,7 +1451,7 @@ language_names = {
  "nds":"Basso sassone",
  "ne":"Nepalese",
  "ng":"Ndonga",
- "nl":"Nederlandese",
+ "nl":"Olandese",
  "nn":"Norvegese nynorsk",
  "nr":"Ndebele meridionale",
  "nso":"Sesotho del nord",
