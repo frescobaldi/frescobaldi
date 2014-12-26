@@ -649,12 +649,14 @@ class MainWindow(QMainWindow):
             if window is not self:
                 window.close()
         self.close()
-        app.qApp.quit()
+        if not app.windows:
+            app.qApp.quit()
     
     def restart(self):
         """Closes all MainWindows and restart Frescobaldi."""
         self.quit()
-        app.restart()
+        if not app.windows:
+            app.restart()
     
     def insertFromFile(self):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
