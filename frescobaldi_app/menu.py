@@ -65,7 +65,7 @@ def createMenus(mainwindow):
     m.addMenu(menu_edit(mainwindow))
     m.addMenu(menu_view(mainwindow))
     m.addMenu(menu_music(mainwindow))
-    m.addMenu(menu_insert(mainwindow))
+    m.addMenu(menu_snippets(mainwindow))
     m.addMenu(menu_lilypond(mainwindow))
     m.addMenu(menu_tools(mainwindow))
     m.addMenu(menu_document(mainwindow))
@@ -246,8 +246,8 @@ def menu_music(mainwindow):
     return m
 
 
-def menu_insert(mainwindow):
-    return snippet.menu.InsertMenu(mainwindow)
+def menu_snippets(mainwindow):
+    return snippet.menu.SnippetMenu(mainwindow)
 
 
 def menu_lilypond(mainwindow):

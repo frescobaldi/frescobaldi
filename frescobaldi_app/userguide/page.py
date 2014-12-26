@@ -239,7 +239,7 @@ class Resolver(object):
                     'file': 'menu title|&File',
                     'edit': 'menu title|&Edit',
                     'view': 'menu title|&View',
-                    'insert': 'menu title|&Insert',
+                    'snippets': 'menu title|Sn&ippets',
                     'music': 'menu title|&Music',
                     'lilypond': 'menu title|&LilyPond',
                     'tools': 'menu title|&Tools',
