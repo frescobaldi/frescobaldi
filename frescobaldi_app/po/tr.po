@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-25 15:46+0100\n"
+"POT-Creation-Date: 2014-12-26 19:29+0100\n"
 "PO-Revision-Date: 2010-12-12 07:48+0200\n"
 "Last-Translator: Server Acim <serveracim@gmail.com>\n"
 "Language-Team: Turkish <kde-i18n-doc@kde.org>\n"
@@ -348,22 +348,22 @@ msgstr "Gürlükler"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1126
 #: ../sessions/manager.py:130
 #, fuzzy
 msgid "&Save"
 msgstr "Kaydet"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1127
 #, fuzzy
 msgid "Save &As..."
 msgstr "PDF'yi Farklı Kaydet..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1137
 msgid "&Close"
 msgstr ""
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1138
 msgid "Close Other Documents"
 msgstr "Diğer Belgeleri Kapat"
 
@@ -424,7 +424,7 @@ msgstr ""
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:406 ../mainwindow.py:501
 #: ../mainwindow.py:564 ../mainwindow.py:584 ../mainwindow.py:600
-#: ../mainwindow.py:674 ../mainwindow.py:731 ../externalchanges/widget.py:245
+#: ../mainwindow.py:676 ../mainwindow.py:733 ../externalchanges/widget.py:245
 #: ../externalchanges/widget.py:264 ../file_export/__init__.py:67
 #: ../file_import/__init__.py:74 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:272 ../preferences/fontscolors.py:496
@@ -624,7 +624,7 @@ msgid "Tab Bar"
 msgstr "Tablature"
 
 #: ../mainwindow.py:396 ../mainwindow.py:497 ../mainwindow.py:560
-#: ../mainwindow.py:580 ../mainwindow.py:670 ../mainwindow.py:727
+#: ../mainwindow.py:580 ../mainwindow.py:672 ../mainwindow.py:729
 #: ../remote/api.py:117 ../sessions/dialog.py:104 ../sessions/dialog.py:125
 #, python-brace-format
 msgid ""
@@ -633,7 +633,7 @@ msgid ""
 "{strerror} ({errno})"
 msgstr ""
 
-#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:671
+#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:673
 #: ../remote/api.py:118 ../sessions/dialog.py:105
 #, fuzzy, python-brace-format
 msgid "Could not read from: {url}"
@@ -650,7 +650,7 @@ msgctxt "dialog title"
 msgid "Open File"
 msgstr "Dosya Aç"
 
-#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:728
+#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:730
 #: ../sessions/dialog.py:126
 #, fuzzy, python-brace-format
 msgid "Could not write to: {url}"
@@ -673,22 +673,22 @@ msgstr "Partisyon ayarları"
 msgid "Could not reload:"
 msgstr "Yüklenemedi %s"
 
-#: ../mainwindow.py:662
+#: ../mainwindow.py:664
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr ""
 
-#: ../mainwindow.py:689
+#: ../mainwindow.py:691
 #, fuzzy
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Kaynağı Yazdır..."
 
-#: ../mainwindow.py:715
+#: ../mainwindow.py:717
 msgid "Export as HTML"
 msgstr ""
 
-#: ../mainwindow.py:857
+#: ../mainwindow.py:859
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -696,215 +696,215 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:973
 msgid "Main Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:974
 msgid "Music View Toolbar"
 msgstr ""
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:73
 #, fuzzy
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Yeni..."
 
-#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1121 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr ""
 
-#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1122 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr ""
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Insert from &File..."
 msgstr ""
 
-#: ../mainwindow.py:1122
+#: ../mainwindow.py:1124
 #, fuzzy
 msgid "Open Current Directory"
 msgstr "Yürürlükteki Dosyayı Aç"
 
-#: ../mainwindow.py:1123
+#: ../mainwindow.py:1125
 msgid "Open Command Prompt"
 msgstr ""
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 msgid "Save Copy or Selection As..."
 msgstr ""
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:117
 #, fuzzy
 msgid "Save All"
 msgstr "Kaydet"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 #, fuzzy
 msgid "Re&load"
 msgstr "Yeniden Yükle"
 
-#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1131 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Yeniden Yükle"
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1134
+#: ../mainwindow.py:1136
 msgid "Print Source..."
 msgstr "Kaynağı Yazdır..."
 
-#: ../mainwindow.py:1137
+#: ../mainwindow.py:1139
 #, fuzzy
 msgid "Close All Documents and Session"
 msgstr "Diğer Belgeleri Kapat"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 #, fuzzy
 msgid "Closes all documents and leaves the current session."
 msgstr "Belgede veya seçimdeki tüm notaların aktarımını yapar."
 
-#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1141 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr ""
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr ""
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "Export Source as Colored &HTML..."
 msgstr ""
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 #, fuzzy
 msgid "&Undo"
 msgstr "Uzat"
 
-#: ../mainwindow.py:1145
+#: ../mainwindow.py:1147
 msgid "Re&do"
 msgstr ""
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1149 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopyala"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Copy as Colored &HTML"
 msgstr ""
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 #, fuzzy
 msgid "&Paste"
 msgstr "Durakla"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 #, fuzzy
 msgid "Select &All"
 msgstr "Hepsini seç"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 #, fuzzy
 msgid "Select &Block"
 msgstr "Hepsini seç"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 #, fuzzy
 msgid "Select &None"
 msgstr "Hepsini seç"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "Select Whole Lines Up"
 msgstr ""
 
-#: ../mainwindow.py:1154
-msgid "Select Whole Lines Down"
-msgstr ""
-
-#: ../mainwindow.py:1155
-#, fuzzy
-msgid "&Find..."
-msgstr "Yazdır..."
-
 #: ../mainwindow.py:1156
-msgid "Find Ne&xt"
+msgid "Select Whole Lines Down"
 msgstr ""
 
 #: ../mainwindow.py:1157
 #, fuzzy
+msgid "&Find..."
+msgstr "Yazdır..."
+
+#: ../mainwindow.py:1158
+msgid "Find Ne&xt"
+msgstr ""
+
+#: ../mainwindow.py:1159
+#, fuzzy
 msgid "Find Pre&vious"
 msgstr "Önceki"
 
-#: ../mainwindow.py:1158
+#: ../mainwindow.py:1160
 #, fuzzy
 msgid "&Replace..."
 msgstr "Ara..."
 
-#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1161 ../macosx/globalmenu.py:129
 #, fuzzy
 msgid "Pr&eferences..."
 msgstr "Genel Tercihler"
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 #, fuzzy
 msgid "&Next Document"
 msgstr "&Belge"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 #, fuzzy
 msgid "&Previous Document"
 msgstr "&Kaynak Belgesi"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 #, fuzzy
 msgid "Wrap &Lines"
 msgstr "Ölçü Çizgileri"
 
-#: ../mainwindow.py:1164
+#: ../mainwindow.py:1166
 msgid "Scroll Up"
 msgstr ""
 
-#: ../mainwindow.py:1165
+#: ../mainwindow.py:1167
 #, fuzzy
 msgid "Scroll Down"
 msgstr "Prall down"
 
-#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1169 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr ""
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&Fullscreen"
 msgstr ""
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "&User Guide"
 msgstr ""
 
-#: ../mainwindow.py:1171
+#: ../mainwindow.py:1173
 msgid "&What's This?"
 msgstr ""
 
-#: ../mainwindow.py:1172
+#: ../mainwindow.py:1174
 msgid "Report a &Bug..."
 msgstr ""
 
-#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1175 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr ""
@@ -7261,8 +7261,8 @@ msgstr ""
 #: ../snippet/menu.py:118
 #, fuzzy
 msgctxt "menu title"
-msgid "&Insert"
-msgstr "&Ekle"
+msgid "Sn&ippets"
+msgstr "Susları çıkar"
 
 #: ../snippet/model.py:59
 msgid "Name"
@@ -7351,8 +7351,9 @@ msgid "Manage Templates..."
 msgstr "PDF'yi Farklı Kaydet..."
 
 #: ../snippet/tool.py:104
-msgid "&Snippets..."
-msgstr ""
+#, fuzzy
+msgid "Manage &Snippets..."
+msgstr "Susları çıkar"
 
 #: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
 msgid "&Menu"
@@ -10062,6 +10063,11 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "menu title"
+#~ msgid "&Insert"
+#~ msgstr "&Ekle"
 
 #, fuzzy
 #~ msgid ""

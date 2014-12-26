@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-25 15:46+0100\n"
+"POT-Creation-Date: 2014-12-26 19:29+0100\n"
 "PO-Revision-Date: 2013-10-02 11:36+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -320,20 +320,20 @@ msgstr "Quitar indicaciones &dinámicas"
 msgid "Remove Text &Markup (from music)"
 msgstr "Eliminar &marcado de texto de la música"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1126
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "&Guardar"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1127
 msgid "Save &As..."
 msgstr "Guard&ar como..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1137
 msgid "&Close"
 msgstr "&Cerrar"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1138
 msgid "Close Other Documents"
 msgstr "Cerrar otros documentos"
 
@@ -397,7 +397,7 @@ msgstr "Tipo Monoespaciado:"
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:406 ../mainwindow.py:501
 #: ../mainwindow.py:564 ../mainwindow.py:584 ../mainwindow.py:600
-#: ../mainwindow.py:674 ../mainwindow.py:731 ../externalchanges/widget.py:245
+#: ../mainwindow.py:676 ../mainwindow.py:733 ../externalchanges/widget.py:245
 #: ../externalchanges/widget.py:264 ../file_export/__init__.py:67
 #: ../file_import/__init__.py:74 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:272 ../preferences/fontscolors.py:496
@@ -585,7 +585,7 @@ msgid "Tab Bar"
 msgstr "Compás de tablatura"
 
 #: ../mainwindow.py:396 ../mainwindow.py:497 ../mainwindow.py:560
-#: ../mainwindow.py:580 ../mainwindow.py:670 ../mainwindow.py:727
+#: ../mainwindow.py:580 ../mainwindow.py:672 ../mainwindow.py:729
 #: ../remote/api.py:117 ../sessions/dialog.py:104 ../sessions/dialog.py:125
 #, python-brace-format
 msgid ""
@@ -594,7 +594,7 @@ msgid ""
 "{strerror} ({errno})"
 msgstr ""
 
-#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:671
+#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:673
 #: ../remote/api.py:118 ../sessions/dialog.py:105
 #, fuzzy, python-brace-format
 msgid "Could not read from: {url}"
@@ -616,7 +616,7 @@ msgctxt "dialog title"
 msgid "Open File"
 msgstr "Abrir archivo"
 
-#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:728
+#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:730
 #: ../sessions/dialog.py:126
 #, fuzzy, python-brace-format
 msgid "Could not write to: {url}"
@@ -643,21 +643,21 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:662
+#: ../mainwindow.py:664
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Insertar desde archivo"
 
-#: ../mainwindow.py:689
+#: ../mainwindow.py:691
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Imprimir fuente"
 
-#: ../mainwindow.py:715
+#: ../mainwindow.py:717
 msgid "Export as HTML"
 msgstr "Exportar como HTML"
 
-#: ../mainwindow.py:857
+#: ../mainwindow.py:859
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -669,60 +669,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:973
 msgid "Main Toolbar"
 msgstr "Barra principal"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:974
 msgid "Music View Toolbar"
 msgstr "Barra de vista de música"
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nuevo"
 
-#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1121 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "&Abrir..."
 
-#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1122 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Abrir &reciente"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Insert from &File..."
 msgstr "&Insertar desde archivo..."
 
-#: ../mainwindow.py:1122
+#: ../mainwindow.py:1124
 msgid "Open Current Directory"
 msgstr "Abrir carpeta actual"
 
-#: ../mainwindow.py:1123
+#: ../mainwindow.py:1125
 msgid "Open Command Prompt"
 msgstr "Abrir consola de órdenes"
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 msgid "Save Copy or Selection As..."
 msgstr "Guardar copia o selección como..."
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Guardar todo"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 msgid "Re&load"
 msgstr "Re&cargar"
 
-#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1131 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Recargar todo"
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid "Check for External Changes..."
 msgstr "Comprobar cambios externos..."
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -730,138 +730,138 @@ msgstr ""
 "Abre una ventana para comprobar si otros programas han modificado\n"
 "o borrado los documentos abiertos."
 
-#: ../mainwindow.py:1134
+#: ../mainwindow.py:1136
 msgid "Print Source..."
 msgstr "Imprimir fuente..."
 
-#: ../mainwindow.py:1137
+#: ../mainwindow.py:1139
 #, fuzzy
 msgid "Close All Documents and Session"
 msgstr "Cerrar todos los documentos"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 msgid "Closes all documents and leaves the current session."
 msgstr "Cierra todos los documentos y deja la sesión actual."
 
-#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1141 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "Sal&ir"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 #, fuzzy, python-brace-format
 msgid "Restart {appname}"
 msgstr "Acerca de {appname}"
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "Export Source as Colored &HTML..."
 msgstr "Exportar fuente como &HTML coloreado..."
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 msgid "&Undo"
 msgstr "Des&hacer"
 
-#: ../mainwindow.py:1145
+#: ../mainwindow.py:1147
 msgid "Re&do"
 msgstr "Reha&cer"
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Cu&t"
 msgstr "Cor&tar"
 
-#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1149 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Copiar"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Copy as Colored &HTML"
 msgstr "Copiar como &HTML coloreado"
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 msgid "&Paste"
 msgstr "&Pegar"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 msgid "Select &All"
 msgstr "Seleccion&ar todo"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 msgid "Select &Block"
 msgstr "Seleccionar &bloque"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 msgid "Select &None"
 msgstr "Seleccionar &nada"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "Select Whole Lines Up"
 msgstr "Seleccionar líneas completas hacia arriba"
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1156
 msgid "Select Whole Lines Down"
 msgstr "Seleccionar líneas completas hacia abajo"
 
-#: ../mainwindow.py:1155
+#: ../mainwindow.py:1157
 msgid "&Find..."
 msgstr "&Buscar..."
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1158
 msgid "Find Ne&xt"
 msgstr "Buscar siguien&te"
 
-#: ../mainwindow.py:1157
+#: ../mainwindow.py:1159
 msgid "Find Pre&vious"
 msgstr "Buscar an&terior"
 
-#: ../mainwindow.py:1158
+#: ../mainwindow.py:1160
 msgid "&Replace..."
 msgstr "&Reemplazar..."
 
-#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1161 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Pr&eferencias..."
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 msgid "&Next Document"
 msgstr "Docume&nto siguiente"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 msgid "&Previous Document"
 msgstr "Documento an&terior"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 #, fuzzy
 msgid "Wrap &Lines"
 msgstr "Barras de compás"
 
-#: ../mainwindow.py:1164
+#: ../mainwindow.py:1166
 msgid "Scroll Up"
 msgstr "Desplazar hacia arriba"
 
-#: ../mainwindow.py:1165
+#: ../mainwindow.py:1167
 msgid "Scroll Down"
 msgstr "Desplazar hacia abajo"
 
-#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1169 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "&Ventana siguiente"
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&Fullscreen"
 msgstr "Pantalla co&mpleta"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "&User Guide"
 msgstr "Manual del &usuario"
 
-#: ../mainwindow.py:1171
+#: ../mainwindow.py:1173
 msgid "&What's This?"
 msgstr "¿&Qué es esto?"
 
-#: ../mainwindow.py:1172
+#: ../mainwindow.py:1174
 msgid "Report a &Bug..."
 msgstr "Informe de &fallo..."
 
-#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1175 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&Acerca de {appname}..."
@@ -7104,8 +7104,8 @@ msgstr "Error del fragmento de código"
 #: ../snippet/menu.py:118
 #, fuzzy
 msgctxt "menu title"
-msgid "&Insert"
-msgstr "&Insertar"
+msgid "Sn&ippets"
+msgstr "Fragmentos de código"
 
 #: ../snippet/model.py:59
 msgid "Name"
@@ -7187,7 +7187,8 @@ msgid "Manage Templates..."
 msgstr "Gestionar plantillas..."
 
 #: ../snippet/tool.py:104
-msgid "&Snippets..."
+#, fuzzy
+msgid "Manage &Snippets..."
 msgstr "Fragmento&s de código..."
 
 #: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
@@ -10350,6 +10351,11 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "menu title"
+#~ msgid "&Insert"
+#~ msgstr "&Insertar"
 
 #~ msgid "{appname} [options] file ..."
 #~ msgstr "{appname} [opciones] archivo ..."

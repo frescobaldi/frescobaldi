@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-25 15:46+0100\n"
+"POT-Creation-Date: 2014-12-26 19:29+0100\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -332,20 +332,20 @@ msgstr "Динамика"
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1126
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "Сохранить"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1127
 msgid "Save &As..."
 msgstr "Сохранить как..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1137
 msgid "&Close"
 msgstr "Закрыть"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1138
 msgid "Close Other Documents"
 msgstr "Закрыть другие файлы"
 
@@ -410,7 +410,7 @@ msgstr "Моноширинный шрифт:"
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:406 ../mainwindow.py:501
 #: ../mainwindow.py:564 ../mainwindow.py:584 ../mainwindow.py:600
-#: ../mainwindow.py:674 ../mainwindow.py:731 ../externalchanges/widget.py:245
+#: ../mainwindow.py:676 ../mainwindow.py:733 ../externalchanges/widget.py:245
 #: ../externalchanges/widget.py:264 ../file_export/__init__.py:67
 #: ../file_import/__init__.py:74 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:272 ../preferences/fontscolors.py:496
@@ -597,7 +597,7 @@ msgid "Tab Bar"
 msgstr "Вкладки документов"
 
 #: ../mainwindow.py:396 ../mainwindow.py:497 ../mainwindow.py:560
-#: ../mainwindow.py:580 ../mainwindow.py:670 ../mainwindow.py:727
+#: ../mainwindow.py:580 ../mainwindow.py:672 ../mainwindow.py:729
 #: ../remote/api.py:117 ../sessions/dialog.py:104 ../sessions/dialog.py:125
 #, python-brace-format
 msgid ""
@@ -606,7 +606,7 @@ msgid ""
 "{strerror} ({errno})"
 msgstr ""
 
-#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:671
+#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:673
 #: ../remote/api.py:118 ../sessions/dialog.py:105
 #, fuzzy, python-brace-format
 msgid "Could not read from: {url}"
@@ -626,7 +626,7 @@ msgctxt "dialog title"
 msgid "Open File"
 msgstr "Открыть файл"
 
-#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:728
+#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:730
 #: ../sessions/dialog.py:126
 #, fuzzy, python-brace-format
 msgid "Could not write to: {url}"
@@ -651,21 +651,21 @@ msgstr ""
 "Невозможно загрузить удалённый файл\n"
 "{url}"
 
-#: ../mainwindow.py:662
+#: ../mainwindow.py:664
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Добавить из файла"
 
-#: ../mainwindow.py:689
+#: ../mainwindow.py:691
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Печать исходного кода"
 
-#: ../mainwindow.py:715
+#: ../mainwindow.py:717
 msgid "Export as HTML"
 msgstr "Экспоритровать в HTML"
 
-#: ../mainwindow.py:857
+#: ../mainwindow.py:859
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -677,199 +677,199 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:973
 msgid "Main Toolbar"
 msgstr "Основная панель"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:974
 msgid "Music View Toolbar"
 msgstr "Панель предпросмотра"
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "Создать"
 
-#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1121 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "Открыть..."
 
-#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1122 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Предыдущие"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Insert from &File..."
 msgstr "Добавить из файла..."
 
-#: ../mainwindow.py:1122
+#: ../mainwindow.py:1124
 msgid "Open Current Directory"
 msgstr "Открыть текущий каталог"
 
-#: ../mainwindow.py:1123
+#: ../mainwindow.py:1125
 msgid "Open Command Prompt"
 msgstr "Открыть командную строку"
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 msgid "Save Copy or Selection As..."
 msgstr "Сохранить копию или выделенное как..."
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Сохранить все"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 #, fuzzy
 msgid "Re&load"
 msgstr "Запись"
 
-#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1131 ../externalchanges/widget.py:108
 #, fuzzy
 msgid "Reload All"
 msgstr "Запись"
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid "Check for External Changes..."
 msgstr ""
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr ""
 
-#: ../mainwindow.py:1134
+#: ../mainwindow.py:1136
 msgid "Print Source..."
 msgstr "Печать исходного кода..."
 
-#: ../mainwindow.py:1137
+#: ../mainwindow.py:1139
 #, fuzzy
 msgid "Close All Documents and Session"
 msgstr "Закрыть все файлы"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 msgid "Closes all documents and leaves the current session."
 msgstr "Закрыть все файлы и завершить сеанс"
 
-#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1141 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "Выход"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 #, fuzzy, python-brace-format
 msgid "Restart {appname}"
 msgstr "О {appname}"
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "Export Source as Colored &HTML..."
 msgstr "Экспортировать в цветной HTML..."
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 msgid "&Undo"
 msgstr "Отменить"
 
-#: ../mainwindow.py:1145
+#: ../mainwindow.py:1147
 msgid "Re&do"
 msgstr "Повторить"
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Cu&t"
 msgstr "Вырезать"
 
-#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1149 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Копировать"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Copy as Colored &HTML"
 msgstr "Скопировать как цветной HTML"
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 msgid "&Paste"
 msgstr "Вставить"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 msgid "Select &All"
 msgstr "Выделить все"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 msgid "Select &Block"
 msgstr "Выделить блок"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 msgid "Select &None"
 msgstr "Снять выделение"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "Select Whole Lines Up"
 msgstr "Выделить строки выше"
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1156
 msgid "Select Whole Lines Down"
 msgstr "Выделить строки ниже"
 
-#: ../mainwindow.py:1155
+#: ../mainwindow.py:1157
 msgid "&Find..."
 msgstr "Найти..."
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1158
 msgid "Find Ne&xt"
 msgstr "Найти далее"
 
-#: ../mainwindow.py:1157
+#: ../mainwindow.py:1159
 msgid "Find Pre&vious"
 msgstr "Найти предыдущий"
 
-#: ../mainwindow.py:1158
+#: ../mainwindow.py:1160
 msgid "&Replace..."
 msgstr "Заменить..."
 
-#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1161 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Настройки..."
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 msgid "&Next Document"
 msgstr "&Следующий файл"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 msgid "&Previous Document"
 msgstr "&Предыдущий файл"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 #, fuzzy
 msgid "Wrap &Lines"
 msgstr "Тактовые черты"
 
-#: ../mainwindow.py:1164
+#: ../mainwindow.py:1166
 msgid "Scroll Up"
 msgstr "Вверх"
 
-#: ../mainwindow.py:1165
+#: ../mainwindow.py:1167
 msgid "Scroll Down"
 msgstr "Вниз"
 
-#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1169 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Новое окно"
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&Fullscreen"
 msgstr "Полноэкранный режим"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "&User Guide"
 msgstr "Руководство пользователя"
 
-#: ../mainwindow.py:1171
+#: ../mainwindow.py:1173
 msgid "&What's This?"
 msgstr "Что это такое?"
 
-#: ../mainwindow.py:1172
+#: ../mainwindow.py:1174
 msgid "Report a &Bug..."
 msgstr "Сообщить об ошибке..."
 
-#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1175 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "О {appname}..."
@@ -7010,8 +7010,8 @@ msgstr "Ошибка сниппета"
 #: ../snippet/menu.py:118
 #, fuzzy
 msgctxt "menu title"
-msgid "&Insert"
-msgstr "&Вставка"
+msgid "Sn&ippets"
+msgstr "Сниппеты"
 
 #: ../snippet/model.py:59
 msgid "Name"
@@ -7090,7 +7090,8 @@ msgid "Manage Templates..."
 msgstr "Управление шаблонами..."
 
 #: ../snippet/tool.py:104
-msgid "&Snippets..."
+#, fuzzy
+msgid "Manage &Snippets..."
 msgstr "Сниппеты..."
 
 #: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
@@ -9791,6 +9792,11 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "menu title"
+#~ msgid "&Insert"
+#~ msgstr "&Вставка"
 
 #~ msgid ""
 #~ "Can't load non-local document:\n"

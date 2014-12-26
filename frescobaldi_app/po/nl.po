@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-25 15:46+0100\n"
-"PO-Revision-Date: 2014-12-25 15:48+0100\n"
+"POT-Creation-Date: 2014-12-26 19:29+0100\n"
+"PO-Revision-Date: 2014-12-26 19:31+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -318,20 +318,20 @@ msgstr "&Dynamiek verwijderen"
 msgid "Remove Text &Markup (from music)"
 msgstr "&Markup verwijderen (uit muziek)"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1126
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1127
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1137
 msgid "&Close"
 msgstr "&Sluiten"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1138
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
@@ -392,7 +392,7 @@ msgstr "Schrijfmachine-lettertype:"
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:406 ../mainwindow.py:501
 #: ../mainwindow.py:564 ../mainwindow.py:584 ../mainwindow.py:600
-#: ../mainwindow.py:674 ../mainwindow.py:731 ../externalchanges/widget.py:245
+#: ../mainwindow.py:676 ../mainwindow.py:733 ../externalchanges/widget.py:245
 #: ../externalchanges/widget.py:264 ../file_export/__init__.py:67
 #: ../file_import/__init__.py:74 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:272 ../preferences/fontscolors.py:496
@@ -578,7 +578,7 @@ msgid "Tab Bar"
 msgstr "Tabbalk"
 
 #: ../mainwindow.py:396 ../mainwindow.py:497 ../mainwindow.py:560
-#: ../mainwindow.py:580 ../mainwindow.py:670 ../mainwindow.py:727
+#: ../mainwindow.py:580 ../mainwindow.py:672 ../mainwindow.py:729
 #: ../remote/api.py:117 ../sessions/dialog.py:104 ../sessions/dialog.py:125
 #, python-brace-format
 msgid ""
@@ -590,7 +590,7 @@ msgstr ""
 "\n"
 "{strerror} ({errno})"
 
-#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:671
+#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:673
 #: ../remote/api.py:118 ../sessions/dialog.py:105
 #, python-brace-format
 msgid "Could not read from: {url}"
@@ -605,7 +605,7 @@ msgctxt "dialog title"
 msgid "Open File"
 msgstr "Bestand openen"
 
-#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:728
+#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:730
 #: ../sessions/dialog.py:126
 #, python-brace-format
 msgid "Could not write to: {url}"
@@ -625,21 +625,21 @@ msgstr "Selectie opslaan"
 msgid "Could not reload:"
 msgstr "Kan niet herladen:"
 
-#: ../mainwindow.py:662
+#: ../mainwindow.py:664
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Invoegen uit bestand"
 
-#: ../mainwindow.py:689
+#: ../mainwindow.py:691
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Brontekst afdrukken"
 
-#: ../mainwindow.py:715
+#: ../mainwindow.py:717
 msgid "Export as HTML"
 msgstr "Exporteren als HTML"
 
-#: ../mainwindow.py:857
+#: ../mainwindow.py:859
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -651,60 +651,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:973
 msgid "Main Toolbar"
 msgstr "Hoofdwerkbalk"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:974
 msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nieuw"
 
-#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1121 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "&Openen..."
 
-#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1122 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "&Recent geopend"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
-#: ../mainwindow.py:1122
+#: ../mainwindow.py:1124
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: ../mainwindow.py:1123
+#: ../mainwindow.py:1125
 msgid "Open Command Prompt"
 msgstr "Commandoregel openen"
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 msgid "Re&load"
 msgstr "Her&laden"
 
-#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1131 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alles herladen"
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid "Check for External Changes..."
 msgstr "Controleren op externe wijzigingen..."
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -712,136 +712,136 @@ msgstr ""
 "Opent een venster om te controleren of open documenten werden gewijzigd of "
 "verwijderd door andere programma's."
 
-#: ../mainwindow.py:1134
+#: ../mainwindow.py:1136
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: ../mainwindow.py:1137
+#: ../mainwindow.py:1139
 msgid "Close All Documents and Session"
 msgstr "Alle documenten en sessie sluiten"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1141 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "{appname} herstarten"
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: ../mainwindow.py:1145
+#: ../mainwindow.py:1147
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1149 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1156
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: ../mainwindow.py:1155
+#: ../mainwindow.py:1157
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1158
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: ../mainwindow.py:1157
+#: ../mainwindow.py:1159
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: ../mainwindow.py:1158
+#: ../mainwindow.py:1160
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1161 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 msgid "Wrap &Lines"
 msgstr "Rege&ls afbreken"
 
-#: ../mainwindow.py:1164
+#: ../mainwindow.py:1166
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: ../mainwindow.py:1165
+#: ../mainwindow.py:1167
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1169 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: ../mainwindow.py:1171
+#: ../mainwindow.py:1173
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: ../mainwindow.py:1172
+#: ../mainwindow.py:1174
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1175 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
@@ -6959,8 +6959,8 @@ msgstr "Knipsel-fout"
 
 #: ../snippet/menu.py:118
 msgctxt "menu title"
-msgid "&Insert"
-msgstr "&Invoegen"
+msgid "Sn&ippets"
+msgstr "Kn&ipsels"
 
 #: ../snippet/model.py:59
 msgid "Name"
@@ -7041,8 +7041,8 @@ msgid "Manage Templates..."
 msgstr "Sjablonen beheren..."
 
 #: ../snippet/tool.py:104
-msgid "&Snippets..."
-msgstr "&Knipsels..."
+msgid "Manage &Snippets..."
+msgstr "&Knipsels beheren..."
 
 #: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
 msgid "&Menu"
@@ -10400,6 +10400,10 @@ msgstr ""
 "Hoeveel spaties in te voegen als Tab wordt ingedrukt middenin een regel "
 "tekst, standaard 8. Deze waarde wordt genegeerd als `document-tabs` is "
 "ingesteld op {yes}."
+
+#~ msgctxt "menu title"
+#~ msgid "&Insert"
+#~ msgstr "&Invoegen"
 
 #~ msgid "No Git installation found"
 #~ msgstr "Geen Git-installatie gevonden"

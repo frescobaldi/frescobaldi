@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2014-12-25 15:46+0100\n"
+"POT-Creation-Date: 2014-12-26 19:29+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -326,20 +326,20 @@ msgstr "Odstranit &dynamiku"
 msgid "Remove Text &Markup (from music)"
 msgstr "Odstranit textové &značení (z not)"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1124
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1126
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "&Uložit"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1125
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1127
 msgid "Save &As..."
 msgstr "Uložit &jako..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1135
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1137
 msgid "&Close"
 msgstr "&Zavřít"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1136
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1138
 msgid "Close Other Documents"
 msgstr "Zavřít jiné dokumenty"
 
@@ -404,7 +404,7 @@ msgstr "Písmo psacího stroje:"
 #. L10N: a basic type of input in the editor
 #: ../helpers.py:107 ../mainwindow.py:406 ../mainwindow.py:501
 #: ../mainwindow.py:564 ../mainwindow.py:584 ../mainwindow.py:600
-#: ../mainwindow.py:674 ../mainwindow.py:731 ../externalchanges/widget.py:245
+#: ../mainwindow.py:676 ../mainwindow.py:733 ../externalchanges/widget.py:245
 #: ../externalchanges/widget.py:264 ../file_export/__init__.py:67
 #: ../file_import/__init__.py:74 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:272 ../preferences/fontscolors.py:496
@@ -593,7 +593,7 @@ msgid "Tab Bar"
 msgstr "Pruh s kartami"
 
 #: ../mainwindow.py:396 ../mainwindow.py:497 ../mainwindow.py:560
-#: ../mainwindow.py:580 ../mainwindow.py:670 ../mainwindow.py:727
+#: ../mainwindow.py:580 ../mainwindow.py:672 ../mainwindow.py:729
 #: ../remote/api.py:117 ../sessions/dialog.py:104 ../sessions/dialog.py:125
 #, python-brace-format
 msgid ""
@@ -602,7 +602,7 @@ msgid ""
 "{strerror} ({errno})"
 msgstr ""
 
-#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:671
+#: ../mainwindow.py:397 ../mainwindow.py:581 ../mainwindow.py:673
 #: ../remote/api.py:118 ../sessions/dialog.py:105
 #, fuzzy, python-brace-format
 msgid "Could not read from: {url}"
@@ -624,7 +624,7 @@ msgctxt "dialog title"
 msgid "Open File"
 msgstr "Otevřít soubor"
 
-#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:728
+#: ../mainwindow.py:498 ../mainwindow.py:561 ../mainwindow.py:730
 #: ../sessions/dialog.py:126
 #, fuzzy, python-brace-format
 msgid "Could not write to: {url}"
@@ -651,21 +651,21 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:662
+#: ../mainwindow.py:664
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Vložit ze souboru"
 
-#: ../mainwindow.py:689
+#: ../mainwindow.py:691
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Vytisknout zdroj"
 
-#: ../mainwindow.py:715
+#: ../mainwindow.py:717
 msgid "Export as HTML"
 msgstr "Vyvést jako HTML"
 
-#: ../mainwindow.py:857
+#: ../mainwindow.py:859
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -677,60 +677,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:971
+#: ../mainwindow.py:973
 msgid "Main Toolbar"
 msgstr "Hlavní nástrojový pruh"
 
-#: ../mainwindow.py:972
+#: ../mainwindow.py:974
 msgid "Music View Toolbar"
 msgstr "Nástrojový pruh pro pohled na noty"
 
-#: ../mainwindow.py:1118 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1120 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Nový"
 
-#: ../mainwindow.py:1119 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1121 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "&Otevřít..."
 
-#: ../mainwindow.py:1120 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1122 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "Otevřít ne&dávný"
 
-#: ../mainwindow.py:1121
+#: ../mainwindow.py:1123
 msgid "Insert from &File..."
 msgstr "Vložit ze &souboru..."
 
-#: ../mainwindow.py:1122
+#: ../mainwindow.py:1124
 msgid "Open Current Directory"
 msgstr "Otevřít nynější adresář"
 
-#: ../mainwindow.py:1123
+#: ../mainwindow.py:1125
 msgid "Open Command Prompt"
 msgstr "Otevřít výzvu k příkazu"
 
-#: ../mainwindow.py:1126
+#: ../mainwindow.py:1128
 msgid "Save Copy or Selection As..."
 msgstr "Uložit kopii nebo výběr jako..."
 
-#: ../mainwindow.py:1127 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1129 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Uložit vše"
 
-#: ../mainwindow.py:1128
+#: ../mainwindow.py:1130
 msgid "Re&load"
 msgstr "Nahrát &znovu"
 
-#: ../mainwindow.py:1129 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1131 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Nahrát vše znovu"
 
-#: ../mainwindow.py:1130
+#: ../mainwindow.py:1132
 msgid "Check for External Changes..."
 msgstr "Prověřit na vnější změny..."
 
-#: ../mainwindow.py:1132
+#: ../mainwindow.py:1134
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -738,138 +738,138 @@ msgstr ""
 "Otevře okno, aby se prověřilo, zda byly otevřené dokumenty změněny nebo "
 "smazány jinými programy."
 
-#: ../mainwindow.py:1134
+#: ../mainwindow.py:1136
 msgid "Print Source..."
 msgstr "Vytisknout zdroj..."
 
-#: ../mainwindow.py:1137
+#: ../mainwindow.py:1139
 #, fuzzy
 msgid "Close All Documents and Session"
 msgstr "Zavřít všechny dokumenty"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1140
 msgid "Closes all documents and leaves the current session."
 msgstr "Zavře všechny dokumenty a opustí současné sezení."
 
-#: ../mainwindow.py:1139 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1141 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "U&končit"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1142
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "Spustit znovu {appname}"
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1144
 msgid "Export Source as Colored &HTML..."
 msgstr "Vyvést zdroj jako barevné &HTML..."
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1146
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: ../mainwindow.py:1145
+#: ../mainwindow.py:1147
 msgid "Re&do"
 msgstr "Znov&u"
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1148
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: ../mainwindow.py:1147 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1149 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: ../mainwindow.py:1148
+#: ../mainwindow.py:1150
 msgid "Copy as Colored &HTML"
 msgstr "Kopírovat jako barevné &HTML"
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1151
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1152
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: ../mainwindow.py:1151
+#: ../mainwindow.py:1153
 msgid "Select &Block"
 msgstr "Vybrat &blok"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1154
 msgid "Select &None"
 msgstr "Nevybrat nic"
 
-#: ../mainwindow.py:1153
+#: ../mainwindow.py:1155
 msgid "Select Whole Lines Up"
 msgstr "Vybrat celé řádky nahoru"
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1156
 msgid "Select Whole Lines Down"
 msgstr "Vybrat celé řádky dolů"
 
-#: ../mainwindow.py:1155
+#: ../mainwindow.py:1157
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1158
 msgid "Find Ne&xt"
 msgstr "Najít &další"
 
-#: ../mainwindow.py:1157
+#: ../mainwindow.py:1159
 msgid "Find Pre&vious"
 msgstr "Najít &předchozí"
 
-#: ../mainwindow.py:1158
+#: ../mainwindow.py:1160
 msgid "&Replace..."
 msgstr "Nah&radit..."
 
-#: ../mainwindow.py:1159 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1161 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "Na&stavení..."
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1163
 msgid "&Next Document"
 msgstr "&Další dokument"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1164
 msgid "&Previous Document"
 msgstr "&Předchozí dokument"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1165
 #, fuzzy
 msgid "Wrap &Lines"
 msgstr "Taktové čáry"
 
-#: ../mainwindow.py:1164
+#: ../mainwindow.py:1166
 msgid "Scroll Up"
 msgstr "Projíždět nahoru"
 
-#: ../mainwindow.py:1165
+#: ../mainwindow.py:1167
 msgid "Scroll Down"
 msgstr "Projíždět dolů"
 
-#: ../mainwindow.py:1167 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1169 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "Nové &okno"
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1170
 msgid "&Fullscreen"
 msgstr "&Celá obrazovka"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1172
 msgid "&User Guide"
 msgstr "Průvodce pro &uživatele"
 
-#: ../mainwindow.py:1171
+#: ../mainwindow.py:1173
 msgid "&What's This?"
 msgstr "&Co je toto?"
 
-#: ../mainwindow.py:1172
+#: ../mainwindow.py:1174
 msgid "Report a &Bug..."
 msgstr "Nahlásit chy&bu..."
 
-#: ../mainwindow.py:1173 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1175 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&O programu {appname}..."
@@ -7107,8 +7107,8 @@ msgstr "Chyba úryvku"
 #: ../snippet/menu.py:118
 #, fuzzy
 msgctxt "menu title"
-msgid "&Insert"
-msgstr "&Vložka"
+msgid "Sn&ippets"
+msgstr "Úryvky"
 
 #: ../snippet/model.py:59
 msgid "Name"
@@ -7189,7 +7189,8 @@ msgid "Manage Templates..."
 msgstr "Spravovat předlohy..."
 
 #: ../snippet/tool.py:104
-msgid "&Snippets..."
+#, fuzzy
+msgid "Manage &Snippets..."
 msgstr "Úr&yvky..."
 
 #: ../snippet/widget.py:183 ../widgets/schemeselector.py:92
@@ -10433,6 +10434,11 @@ msgid ""
 "How many spaces to insert when Tab is pressed in the middle of text, by "
 "default 8. This value is ignored when `document-tabs` is set to {yes}."
 msgstr ""
+
+#, fuzzy
+#~ msgctxt "menu title"
+#~ msgid "&Insert"
+#~ msgstr "&Vložka"
 
 #~ msgid "{appname} [options] file ..."
 #~ msgstr "{appname} [options] soubor..."
