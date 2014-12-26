@@ -2,6 +2,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.17.1 -- December 26th, 2014
+
+* Bugfixes:
+  - on quit, respect cancel (issue #531)
+
+
 Changes in 2.17 -- December 26th, 2014
 
 * New features:
