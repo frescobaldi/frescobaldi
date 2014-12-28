@@ -391,7 +391,7 @@ class Document(Item):
                 yield n
     
     def get_included_document_node(self, node):
-        """Return a Document for the Include node."""
+        """Return a Document for the Include node. May return None."""
         try:
             return node._document
         except AttributeError:

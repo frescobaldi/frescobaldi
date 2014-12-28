@@ -354,14 +354,6 @@ class DocInfo(object):
 
     def counted_tokens(self):
         """Return a dictionary mapping classes to the number of instances of that class."""
-        try:
-            # only in Python 2.7+
-            return collections.Counter(self.classes)
-        except AttributeError:
-            # for the time being also support Python 2.6
-            d = collections.defaultdict(int)
-            for c in self.classes:
-                d[c] += 1
-            return d
+        return collections.Counter(self.classes)
 
 

@@ -48,6 +48,10 @@ class Widget(QWidget):
         self._chordmode = QCheckBox()
         signals.append(self._chordmode.clicked)
         
+        self._labelrelativemode = QLabel()
+        self._relativemode = QCheckBox()
+        signals.append(self._relativemode.clicked)
+
         self._labeldamper = QLabel()
         self._damper = QComboBox()
         
@@ -77,6 +81,8 @@ class Widget(QWidget):
         grid.addWidget(self._groupaccidentals, 2, 1)
         grid.addWidget(self._labelchordmode, 3, 0)
         grid.addWidget(self._chordmode, 3, 1)
+        grid.addWidget(self._labelrelativemode, 3, 2)
+        grid.addWidget(self._relativemode, 3, 3)
         grid.addWidget(self._labeldamper, 4, 0)
         grid.addWidget(self._damper, 4, 1)
         grid.addWidget(self._labelsostenuto, 5, 0)
@@ -88,8 +94,6 @@ class Widget(QWidget):
         layout.addLayout(hbox)
         hbox.addWidget(self._capture)
         hbox.addStretch()
-        hbox.addWidget(self._notemode)
-        self._notemode.setText('absolute')
         
         app.translateUI(self)
         
@@ -115,6 +119,9 @@ class Widget(QWidget):
     def chordmode(self):
         return self._chordmode.isChecked()
     
+    def relativemode(self):
+        return self._relativemode.isChecked()
+
     def startcapturing(self):
         self._midiin.capture()
         ac = self.parentWidget().actionCollection
@@ -139,6 +146,7 @@ class Widget(QWidget):
         else:
             s.setValue("accidentals", 'sharps')
         s.setValue("chordmode", self._chordmode.isChecked())
+        s.setValue("relativemode", self._relativemode.isChecked())
     
     def loadsettings(self):
         s = QSettings()
@@ -150,6 +158,7 @@ class Widget(QWidget):
         else:
             self._accidentalssharps.setChecked(True)
         self._chordmode.setChecked(s.value("chordmode", False, bool))
+        self._relativemode.setChecked(s.value("relativemode", False, bool))
 
     def translateUI(self):
         self._labelmidichannel.setText(_("MIDI channel"))
@@ -185,6 +194,14 @@ class Widget(QWidget):
             "as chords. As a consequence they are not written "
             "before the last key is lifted. Of course single "
             "can also be entered."))
+        self._labelrelativemode.setText(_("Relative mode"))
+        self._relativemode.setToolTip(_(
+            "Enter octaves of notes relative to the last note. "
+            "See \"What's This\" for more information."))
+        self._relativemode.setWhatsThis(_(
+            "Enter octaves of notes relative to the last note. "
+            "This refers to the last key pressed on the MIDI keyboard, not the last note in the document."
+            "Hold Shift with a note to enter an octave check."))
         self._labeldamper.setText(_("Damper pedal"))
         self._labelsostenuto.setText(_("Sostenuto pedal"))
         self._labelsoft.setText(_("Soft pedal"))

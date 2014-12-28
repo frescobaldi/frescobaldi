@@ -49,34 +49,35 @@ def parse_commandline():
     exit.
     
     """
-    import optparse
-    optparse._ = _ # let optparse use our translations
-    parser = optparse.OptionParser(
-        usage = _("{appname} [options] file ...").format(appname=info.name),
+    import argparse
+    argparse._ = _ # let argparse use our translations
+    parser = argparse.ArgumentParser(
         version = "{0} {1}".format(info.appname, info.version),
         description = _("A LilyPond Music Editor"))
-    parser.add_option('-e', '--encoding', metavar=_("ENC"),
+    parser.add_argument('-e', '--encoding', metavar=_("ENC"),
         help=_("Encoding to use"))
-    parser.add_option('-l', '--line', type="int", metavar=_("NUM"),
+    parser.add_argument('-l', '--line', type=int, metavar=_("NUM"),
         help=_("Line number to go to, starting at 1"))
-    parser.add_option('-c', '--column', type="int", metavar=_("NUM"),
+    parser.add_argument('-c', '--column', type=int, metavar=_("NUM"),
         help=_("Column to go to, starting at 0"), default=0)
-    parser.add_option('--start', metavar=_("NAME"),
+    parser.add_argument('--start', metavar=_("NAME"),
         help=_("Session to start ('{none}' for empty session)").format(none="-"),
         dest="session")
-    parser.add_option('--list-sessions', action="store_true", default=False,
+    parser.add_argument('--list-sessions', action="store_true", default=False,
         help=_("List the session names and exit"))
-    parser.add_option('-n', '--new', action="store_true", default=False,
+    parser.add_argument('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
+    parser.add_argument('files', metavar=_("file"), nargs='*', 
+        help=_("File to be opened"))
     
     # Make sure debugger options are recognized as valid. These are passed automatically
     # from PyDev in Eclipse to the inferior process.
     if "pydevd" in sys.modules:
-        parser.add_option('-v', '--vm_type')
-        parser.add_option('-a', '--client')
-        parser.add_option('-p', '--port')
-        parser.add_option('-f', '--file')
-        parser.add_option('-o', '--output')
+        parser.add_argument('-v', '--vm_type')
+        parser.add_argument('-a', '--client')
+        parser.add_argument('-p', '--port')
+        parser.add_argument('-f', '--file')
+        parser.add_argument('-o', '--output')
 
 
 
@@ -85,8 +86,7 @@ def parse_commandline():
         args = args[2:]
     else:
         args = args[1:]
-    options, files = parser.parse_args(args)
-    return options, files
+    return parser.parse_args(args)
 
 
 def url(arg):
@@ -103,21 +103,21 @@ def url(arg):
 
 def main():
     """Main function."""
-    options, files = parse_commandline()
+    args = parse_commandline()
     
-    if options.list_sessions:
+    if args.list_sessions:
         import sessions
         for name in sessions.sessionNames():
             sys.stdout.write(name + '\n')
         sys.exit(0)
         
-    urls = list(map(url, files))
+    urls = list(map(url, args.files))
     
     if not app.qApp.isSessionRestored():
-        if not options.new and remote.enabled():
+        if not args.new and remote.enabled():
             api = remote.get()
             if api:
-                api.command_line(options, urls)
+                api.command_line(args, urls)
                 api.close()
                 sys.exit(0)
     
@@ -153,26 +153,27 @@ def main():
 
     # load specified session?
     doc = None
-    if options.session and options.session != "-":
-        doc = sessions.loadSession(options.session)
+    if args.session and args.session != "-":
+        doc = sessions.loadSession(args.session)
     
     # Just create one MainWindow
     win = mainwindow.MainWindow()
     win.show()
+    win.activateWindow()
     
     # load documents given as arguments
     import document
     for u in urls:
         try:
-            doc = win.openUrl(u, options.encoding)
+            doc = win.openUrl(u, args.encoding)
         except IOError:
-            doc = document.Document(u, options.encoding)
+            doc = document.Document(u, args.encoding)
     
     # were documents loaded?
     if not doc:
         if app.documents:
             doc = app.documents[-1]
-        elif not options.session:
+        elif not args.session:
             # no docs, load default session
             doc = sessions.loadDefaultSession()
     
@@ -181,9 +182,9 @@ def main():
     else:
         win.cleanStart()
     
-    if urls and options.line is not None:
+    if urls and args.line is not None:
         # set the last loaded document active and apply navigation if requested
-        pos = doc.findBlockByNumber(options.line - 1).position() + options.column
+        pos = doc.findBlockByNumber(args.line - 1).position() + args.column
         cursor = QTextCursor(doc)
         cursor.setPosition(pos)
         win.currentView().setTextCursor(cursor)

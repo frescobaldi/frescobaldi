@@ -40,8 +40,8 @@ class GitRepo(AbstractVCSRepo):
     """
     def __init__(self, root):
         if not os.path.isdir(os.path.join(root, '.git')):
-            raise Exception(_("The given directory '{rootdir} "
-                              "doesn't seem to be a Git repository.".format(rootdir=root)))
+            raise GitError(_("The given directory '{rootdir} "
+                             "doesn't seem to be a Git repository.".format(rootdir=root)))
         self.rootDir = root
         self._read_config()
     
@@ -178,7 +178,9 @@ class GitRepo(AbstractVCSRepo):
         is tracking a remote branch.
         Checks if the branch is present in .git/config
         """
-        return branch in self.config['branch']
+        return branch in self.config['branch'] and \
+               'remote' in self.config['branch'][branch] and \
+               'merge' in self.config['branch'][branch]
         
     def remotes(self):
         """Return a string list with registered remote names"""

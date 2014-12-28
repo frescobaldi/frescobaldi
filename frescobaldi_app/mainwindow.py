@@ -649,12 +649,14 @@ class MainWindow(QMainWindow):
             if window is not self:
                 window.close()
         self.close()
-        app.qApp.quit()
+        if not app.windows:
+            app.qApp.quit()
     
     def restart(self):
         """Closes all MainWindows and restart Frescobaldi."""
         self.quit()
-        app.restart()
+        if not app.windows:
+            app.restart()
     
     def insertFromFile(self):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
@@ -801,7 +803,9 @@ class MainWindow(QMainWindow):
     def newWindow(self):
         """Opens a new MainWindow."""
         self.writeSettings()
-        MainWindow(self).show()
+        w = MainWindow(self)
+        w.show()
+        w.activateWindow()
 
     def toggleWrapLines(self, enable):
         """Called when the user toggles View->Line Wrap"""
@@ -1132,7 +1136,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
-        self.file_close_all.setText(_("Close All Documents"))
+        self.file_close_all.setText(_("Close All Documents and Session"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
         self.file_restart.setText(_("Restart {appname}").format(appname=info.appname))

@@ -158,6 +158,7 @@ def mainwindow():
     import mainwindow
     w = mainwindow.MainWindow()
     w.show()
+    w.activateWindow()
     return w
 
 def file_new():

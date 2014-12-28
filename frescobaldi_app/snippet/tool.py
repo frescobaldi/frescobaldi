@@ -101,7 +101,7 @@ class Actions(actioncollection.ActionCollection):
         self.file_save_as_template.setText(_("Save as Template..."))
         self.copy_to_snippet.setText(_("Copy to &Snippet..."))
         self.templates_manage.setText(_("Manage Templates..."))
-        self.snippettool_activate.setText(_("&Snippets..."))
+        self.snippettool_activate.setText(_("Manage &Snippets..."))
 
 
 class SnippetActions(actioncollection.ShortcutCollection):

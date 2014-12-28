@@ -18,9 +18,10 @@ The *Custom mode* opens a dialog allowing you to specify the LilyPond command
 in detail. This dialog also has options to let LilyPond engrave a score to
 PostScript, SVG or PNG images, or to a PDF using the EPS backend.
 
-All commands to run LilyPond can be found in the *LilyPond* menu. And if you
-enable the *Automatic engrave* option, Frescobaldi will run LilyPond
-automatically everytime the document is modified (in preview mode).
+All commands to run LilyPond can be found in the *LilyPond* menu. 
+Pressing the LilyPond symbol in the toolbar engraves the document
+in preview mode, or in custom mode if Shift is held. And if you enable the *Automatic engrave* option, 
+Frescobaldi will run LilyPond automatically everytime the document is modified (in preview mode).
 
 #SUBDOCS
 engrave_preview

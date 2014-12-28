@@ -30,7 +30,7 @@ snippet_import_export
 #VARS
 link help snippet_editor
 key_snippets shortcut snippettool snippettool_activate
-menu_snippets menu insert -> &Snippets...
+menu_snippets menu snippets -> Manage &Snippets...
 key_add text INS
 key_edit text F2
 key_delete text Ctrl+DEL

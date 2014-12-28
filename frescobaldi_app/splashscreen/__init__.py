@@ -37,7 +37,7 @@ def show():
     else:
         fontsize = 40
 
-    splash = QSplashScreen(pixmap, Qt.SplashScreen | Qt.WindowStaysOnTopHint)
+    splash = QSplashScreen(pixmap, Qt.SplashScreen)
 
     font = splash.font()
     font.setPixelSize(fontsize)
@@ -47,6 +47,11 @@ def show():
     splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
     splash.show()
     splash.repaint()
-    splash.deleteLater()
+    
+    def hide():
+        splash.deleteLater()
+        app.appStarted.disconnect(hide)
+
+    app.appStarted.connect(hide)
 
 

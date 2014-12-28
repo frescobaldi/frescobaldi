@@ -28,6 +28,7 @@ try:
 except ImportError:
     import __builtin__ as builtins # py2
 
+from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QMenu
 
 import app
@@ -64,7 +65,7 @@ def createMenus(mainwindow):
     m.addMenu(menu_edit(mainwindow))
     m.addMenu(menu_view(mainwindow))
     m.addMenu(menu_music(mainwindow))
-    m.addMenu(menu_insert(mainwindow))
+    m.addMenu(menu_snippets(mainwindow))
     m.addMenu(menu_lilypond(mainwindow))
     m.addMenu(menu_tools(mainwindow))
     m.addMenu(menu_document(mainwindow))
@@ -139,8 +140,8 @@ def menu_file_export(mainwindow):
     ac = mainwindow.actionCollection
     acfe = file_export.FileExport.instance(mainwindow).actionCollection
     
-    m.addAction(acfe.export_audio)
-    if vcs.app_is_git_controlled():
+    if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
+        m.addAction(acfe.export_audio)
         m.addAction(acfe.export_musicxml)
     m.addAction(ac.export_colored_html)
     return m
@@ -245,8 +246,8 @@ def menu_music(mainwindow):
     return m
 
 
-def menu_insert(mainwindow):
-    return snippet.menu.InsertMenu(mainwindow)
+def menu_snippets(mainwindow):
+    return snippet.menu.SnippetMenu(mainwindow)
 
 
 def menu_lilypond(mainwindow):

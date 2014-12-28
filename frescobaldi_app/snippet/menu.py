@@ -44,9 +44,9 @@ import qutil
 import panelmanager
 
 
-class SnippetMenu(QMenu):
+class SnippetMenuBase(QMenu):
     def __init__(self, parent=None):
-        super(SnippetMenu, self).__init__(parent)
+        super(SnippetMenuBase, self).__init__(parent)
         self.aboutToShow.connect(self.populate)
         self.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
         self.triggered.connect(self.slotTriggered)
@@ -109,13 +109,13 @@ class SnippetMenu(QMenu):
         insert.insert(name, view)
 
 
-class InsertMenu(SnippetMenu):
+class SnippetMenu(SnippetMenuBase):
     def __init__(self, parent=None):
-        super(InsertMenu, self).__init__(parent)
+        super(SnippetMenu, self).__init__(parent)
         self.addAction(self.tool().actionCollection.snippettool_activate)
         
     def translateUI(self):
-        self.setTitle(_("menu title", "&Insert"))
+        self.setTitle(_("menu title", "Sn&ippets"))
     
     def insertBeforeAction(self):
         return self.actions()[-1]
@@ -134,7 +134,7 @@ class InsertMenu(SnippetMenu):
             a.deleteLater()
 
 
-class TemplateMenu(SnippetMenu):
+class TemplateMenu(SnippetMenuBase):
     def __init__(self, parent=None):
         super(TemplateMenu, self).__init__(parent)
         self.addAction(self.tool().actionCollection.templates_manage)

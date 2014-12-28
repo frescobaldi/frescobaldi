@@ -566,13 +566,11 @@ def needsPrefix(globalGroup):
     scoreBsoprano, etc.)
     
     """
-    counter = {}    # collections.Counter() would be nice but requires Python 2.7
+    counter = collections.Counter()
     for group in itergroups(globalGroup):
         if group:
-            partTypes = set(type(g.part) for g in group.parts)
-            for partType in partTypes:
-                counter[partType] = counter.get(partType, 0) + 1
-    return any(v for v in counter.values() if v > 1)
+            counter.update(type(g.part) for g in group.parts)
+    return bool(counter) and max(counter.values()) > 1
 
 
 def allparts(parts):

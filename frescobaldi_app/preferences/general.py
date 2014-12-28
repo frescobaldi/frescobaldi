@@ -50,6 +50,7 @@ class GeneralPrefs(preferences.ScrolledGroupsPage):
         layout.addWidget(SavingDocument(self))
         layout.addWidget(NewDocument(self))
         layout.addWidget(StartSession(self))
+        layout.addWidget(ExperimentalFeatures(self))
 
 
 class General(preferences.Group):
@@ -316,4 +317,32 @@ class NewDocument(preferences.Group):
             s.setValue("new_document", "version")
         else:
             s.setValue("new_document", "empty")
+
+
+class ExperimentalFeatures(preferences.Group):
+    def __init__(self, page):
+        super(ExperimentalFeatures, self).__init__(page)
+        
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        
+        self.experimentalFeatures = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.experimentalFeatures)
+        app.translateUI(self)
+        
+    def translateUI(self):
+        self.setTitle(_("Experimental Features"))
+        self.experimentalFeatures.setText(_("Enable Experimental Features"))
+        self.experimentalFeatures.setToolTip('<qt>' + _(
+            "If checked, features that are not yet finished are enabled.\n"
+            "You need to restart Frescobaldi to see the changes."))
+    
+    def loadSettings(self):
+        s = QSettings()
+        self.experimentalFeatures.setChecked(s.value("experimental-features", False, bool))
+        
+    def saveSettings(self):
+        s = QSettings()
+        s.setValue("experimental-features", self.experimentalFeatures.isChecked())
+
 

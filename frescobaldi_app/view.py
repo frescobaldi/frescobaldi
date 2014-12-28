@@ -28,7 +28,7 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import QEvent, QSettings, Qt, QTimer, pyqtSignal
+from PyQt4.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
 from PyQt4.QtGui import (
     QApplication, QContextMenuEvent, QKeySequence, QPainter, QPlainTextEdit,
     QTextCursor)
@@ -251,5 +251,11 @@ class View(QPlainTextEdit):
             if definition.goto_definition(self.window(), clicked):
                 return
         super(View, self).mousePressEvent(ev)
+    
+    def createMimeDataFromSelection(self):
+        """Reimplemented to only copy plain text."""
+        m = QMimeData()
+        m.setText(self.textCursor().selection().toPlainText())
+        return m
 
 

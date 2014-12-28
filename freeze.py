@@ -46,6 +46,7 @@ includes = [
     'pypm',
     
     '__future__',
+    'argparse',
     'bisect',
     'contextlib',
     'difflib',

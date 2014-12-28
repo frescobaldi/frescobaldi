@@ -976,6 +976,8 @@ class ParseGlobal(ParseLilyPond):
         Name,
         DotPath,
         EqualSign,
+        Fraction,
+        DecimalValue,
     )
     def update_state(self, state, token):
         if isinstance(token, EqualSign):
@@ -1573,6 +1575,7 @@ class ParseChordItems(FallthroughParser):
 class ParseDecimalValue(FallthroughParser):
     """Parses a decimal value without a # before it (if present)."""
     items = space_items + (
+        Fraction,
         DecimalValue,
     )
 
