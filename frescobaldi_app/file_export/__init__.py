@@ -79,7 +79,11 @@ class FileExport(plugin.MainWindowPlugin):
         if not filename:
             return False # cancelled
         file = os.path.splitext(orgname)[0]
-        os.system('timidity "%s.midi" -Ow -o "%s.wav"' % (file, file))
+        if os.path.exists(file + '.midi'):
+            os.system('timidity "%s.midi" -Ow -o "%s.wav"' % (file, file))
+        else:
+            QMessageBox.critical(None, _("Error"),
+                    _("The audio file couldn't be created. Please create midi file first"))
 
 
 class Actions(actioncollection.ActionCollection):
