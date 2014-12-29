@@ -83,7 +83,7 @@ class FileExport(plugin.MainWindowPlugin):
             os.system('timidity "%s.midi" -Ow -o "%s.wav"' % (file, file))
         else:
             QMessageBox.critical(None, _("Error"),
-                    _("The audio file couldn't be converted. Please create midi file first"))
+                    _("The audio file couldn't be created. Please create midi file first"))
 
 
 class Actions(actioncollection.ActionCollection):
