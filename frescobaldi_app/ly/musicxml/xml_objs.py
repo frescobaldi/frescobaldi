@@ -264,7 +264,7 @@ class BarMus():
         self.oct_shift = None
 
     def __repr__(self):
-        return '<{0} {1}>'.format(self.__class__.__name__, self.note)
+        return '<{0} {1}>'.format(self.__class__.__name__, self.duration)
 
     def set_tuplet(self, fraction, ttype):
         self.tuplet = fraction
@@ -324,7 +324,7 @@ class BarNote(BarMus):
         self.alter = alter
         self.octave = None
         self.accidental_token = accidental
-        self.tie = 0
+        self.tie = []
         self.grace = (0,0)
         self.gliss = None
         self.tremolo = ('',0)
@@ -349,7 +349,7 @@ class BarNote(BarMus):
         self.octave = octave
 
     def set_tie(self, tie_type):
-        self.tie = tie_type
+        self.tie.append(tie_type);
 
     def set_slur(self, slur_type):
         self.slur.append(slur_type)
