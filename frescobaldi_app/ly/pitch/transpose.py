@@ -68,6 +68,34 @@ class Transposer(object):
             pitch.alter += doct * -6 + self.scale[pitch.note] - self.scale[note]
             pitch.octave += doct
             pitch.note = note
+            
+            
+class ModeShifter(Transposer):
+    """
+    Shift pitches to the optional mode.
+    
+    The scale should be formatted in analogy to the scale in the Transposer
+    parent class.
+    
+    The key should be an instance of ly.pitch.Pitch. 
+    """
+    def __init__(self, key, scale):
+        self.octave = 0
+        self.modpitches = [0] * 7
+        for i, s in enumerate(scale):
+            p = key.copy()
+            self.steps = i
+            self.alter = s
+            super(ModeShifter, self).transpose(p)
+            self.modpitches[p.note] = p
+        
+    def transpose(self, pitch):
+        mp = self.modpitches[pitch.note]
+        if pitch.note != mp.note or pitch.alter != mp.alter:
+            self.steps = mp.note - pitch.note
+            self.alter = (self.scale[mp.note] + mp.alter -
+                          self.scale[pitch.note] - pitch.alter)            
+            super(ModeShifter, self).transpose(pitch)
 
 
 class ModalTransposer(object):
