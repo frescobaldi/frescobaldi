@@ -4,6 +4,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18 -- 
 
+* Improvements:
+  - The Insert menu got renamed to Snippets, making more clear how it is used
+    and can be changed. When copying text to a new snippet, the snippet is added
+    to the menu by default, but the user can change that while editing.
+* Bugfixes:
+  - fix AttributeError: 'unicode' object has no attribute 'insert' (issue #543)
 * Translations:
   - updated: nl, fr
 
