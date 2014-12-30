@@ -158,6 +158,53 @@ def getModalTransposer(document, mainwindow):
     if text:
         words = text.split()
         return ly.pitch.transpose.ModalTransposer(int(words[0]), ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1]))
+        
+
+def getModeShifter(document, mainwindow):
+    """Show a dialog and return the desired mode shifter.
+    
+    Returns None if the dialog was cancelled.
+    
+    TODO: 
+    1. Create a dialog where you can choose the mode from a dropdown list.
+    2. Define more modes/scales.
+    
+    """
+    from fractions import Fraction
+    # Mode definitions
+    modes = {
+    'Major': (0, 1, 2, Fraction(5, 2), Fraction(7, 2), Fraction(9, 2), Fraction(11, 2)),
+    'Minor': (0, 1, Fraction(3, 2), Fraction(5, 2), Fraction(7, 2), 4, Fraction(11, 2)),
+    'Natminor': (0, 1, Fraction(3, 2), Fraction(5, 2), Fraction(7, 2), 4, 5),
+    'Dorian': (0, 1, Fraction(3, 2), Fraction(5, 2), Fraction(7, 2), Fraction(9, 2), 5)
+    }
+    language = documentinfo.docinfo(document).language() or 'nederlands'
+    
+    def readpitches(text):
+        """Reads pitches from text."""
+        result = []
+        for pitch, octave in re.findall(r"([a-z]+)([,']*)", text):
+            r = ly.pitch.pitchReader(language)(pitch)
+            if r:
+                result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
+        return result
+        
+    def validate(text):
+        """Validates text by checking if it contains a defined mode."""
+        words = text.split()
+        one = bool(words) and len(readpitches(words[0])) == 1
+        sec = len(words) > 1 and words[1].capitalize() in modes
+        return one and sec
+    
+    text = inputdialog.getText(mainwindow, _("Shift mode"), _(
+        "Please enter the mode to shift to. (i.e. \"D major\")"
+        ), icon = icons.get('tools-transpose'),
+        help = "mode_shift", validate = validate)
+    if text:
+        words = text.split()
+        key = readpitches(words[0])[0]
+        scale = modes[words[1].capitalize()]
+        return ly.pitch.transpose.ModeShifter(key, scale)
 
     
 def transpose(cursor, transposer, mainwindow=None):

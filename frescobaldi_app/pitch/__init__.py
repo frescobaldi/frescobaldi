@@ -53,6 +53,7 @@ class Pitch(plugin.MainWindowPlugin):
         ac.pitch_abs2rel.triggered.connect(self.abs2rel)
         ac.pitch_transpose.triggered.connect(self.transpose)
         ac.pitch_modal_transpose.triggered.connect(self.modalTranspose)
+        ac.pitch_mode_shift.triggered.connect(self.modeShift)
     
     def rel2abs(self):
         from . import pitch
@@ -75,6 +76,13 @@ class Pitch(plugin.MainWindowPlugin):
         from . import pitch
         cursor = self.mainwindow().textCursor()
         transposer = pitch.getModalTransposer(cursor.document(), self.mainwindow())
+        if transposer:
+            pitch.transpose(cursor, transposer, self.mainwindow())
+            
+    def modeShift(self):
+        from . import pitch
+        cursor = self.mainwindow().textCursor()
+        transposer = pitch.getModeShifter(cursor.document(), self.mainwindow())
         if transposer:
             pitch.transpose(cursor, transposer, self.mainwindow())
     
@@ -102,10 +110,12 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_abs2rel = QAction(parent)
         self.pitch_transpose = QAction(parent)
         self.pitch_modal_transpose = QAction(parent)
+        self.pitch_mode_shift = QAction(parent)
 
         self.pitch_language.setIcon(icons.get('tools-pitch-language'))
         self.pitch_transpose.setIcon(icons.get('tools-transpose'))
         self.pitch_modal_transpose.setIcon(icons.get('tools-transpose'))
+        self.pitch_mode_shift.setIcon(icons.get('tools-transpose'))
         
     def translateUI(self):
         self.pitch_language.setText(_("Pitch Name &Language"))
@@ -126,4 +136,7 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_modal_transpose.setText(_("&Modal Transpose..."))
         self.pitch_modal_transpose.setToolTip(_(
             "Transposes all notes in the document or selection within a given mode."))
+        self.pitch_mode_shift.setText(_("Mode shift..."))
+        self.pitch_mode_shift.setToolTip(_(
+            "Transforms all notes in the document or selection to an optional mode."))
         
