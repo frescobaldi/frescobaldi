@@ -78,6 +78,7 @@ class SnippetTool(panel.Panel):
     
     def copyToSnippet(self):
         text = self.mainwindow().textCursor().selection().toPlainText()
+        text = '-*- menu;\n' + text
         from . import edit
         edit.Edit(self.widget(), None, text)
     
