@@ -30,6 +30,7 @@ from PyQt4.QtCore import QSettings, QUrl
 import app
 import util
 import signals
+import qsettings
 
 from . import documentation
 
@@ -117,10 +118,7 @@ def urls():
     are scanned.
     
     """
-    try:
-        user_paths = QSettings().value("documentation/paths", [], type(""))
-    except TypeError:
-        user_paths = []
+    user_paths = qsettings.get_string_list(QSettings(), "documentation/paths")
     system_prefixes = [p for p in (
         '/usr',
         '/usr/local',

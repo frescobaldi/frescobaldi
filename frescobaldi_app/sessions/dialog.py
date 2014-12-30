@@ -36,6 +36,7 @@ import app
 import widgets.listedit
 import widgets.urlrequester
 import sessions.manager
+import qsettings
 import userguide
 
 
@@ -272,11 +273,7 @@ class SessionEditor(QDialog):
         settings = sessions.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True, bool))
         self.basedir.setPath(settings.value("basedir", "", type("")))
-        try:
-            paths = settings.value("include-path", [], type(""))
-        except TypeError:
-            paths = []
-        self.include.setValue(paths)
+        self.include.setValue(qsettings.get_string_list(settings, "include-path"))
         self.inclPaths.setChecked(settings.value("set-paths", False, bool))
         self.replPaths.setChecked(settings.value("repl-paths", False, bool))
         if not self.replPaths.isChecked():
@@ -286,12 +283,8 @@ class SessionEditor(QDialog):
         
     def fetchGenPaths(self):
         """Fetch paths from general preferences."""
-        s = QSettings()
-        s.beginGroup("lilypond_settings")
-        try:
-            return s.value("include_path", [], type(""))
-        except TypeError:
-            return []
+        return qsettings.get_string_list(QSettings(),
+            "lilypond_settings/include_path")
             
     def addDisabledGenPaths(self):
         """Add global paths, but set as disabled."""

@@ -36,6 +36,7 @@ import widgets.dialog
 import lilydoc
 import userguide
 import language_names
+import qsettings
 
 
 class Documentation(preferences.GroupsPage):
@@ -70,10 +71,7 @@ class Paths(preferences.Group):
         self.paths.setWhatsThis(userguide.html("prefs_lilydoc"))
     
     def loadSettings(self):
-        try:
-            paths = QSettings().value("documentation/paths", [], type(""))
-        except TypeError:
-            paths = []
+        paths = qsettings.get_string_list(QSettings(), "documentation/paths")
         self.paths.setValue(paths)
         
     def saveSettings(self):

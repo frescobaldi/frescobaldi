@@ -31,6 +31,7 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QUrl
 
+import qsettings
 import ly.lex
 import lydocinfo
 import lydocument
@@ -158,20 +159,14 @@ class DocumentInfo(plugin.DocumentPlugin):
         
         """
         # get the global include path
-        try:
-            include_path = QSettings().value("lilypond_settings/include_path", [], type(""))
-        except TypeError:
-            include_path = []
+        include_path = qsettings.get_string_list(
+            QSettings(), "lilypond_settings/include_path")
         
         # get the session specific include path
         import sessions
         session_settings = sessions.currentSessionGroup()
         if session_settings and session_settings.value("set-paths", False, bool):
-            try:
-                sess_path = session_settings.value("include-path", [], type(""))
-            except TypeError:
-                sess_path = []
-            
+            sess_path = qsettings.get_string_list(session_settings, "include-path")
             if session_settings.value("repl-paths", False, bool):
                 include_path = sess_path
             else:
