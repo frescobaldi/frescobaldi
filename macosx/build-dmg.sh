@@ -7,7 +7,8 @@ and wrap it into a distributable DMG disk image.
 Prerequisites:
 - Frescobaldi's dependencies installed through MacPorts with default variants,
   for the requested architecture set,
-- \$PATH contains Git and appdmg (a node.js/npm package).
+- \$PATH contains Git, appdmg (a node.js/npm package) and OpenSSL with
+  SHA256 support.
 
 It is strongly recommended that no Python packages are active except for
 Frescobaldi's dependencies.
@@ -181,14 +182,17 @@ echo
 
 echo Building the DMG disk image with appdmg.
 echo
-DMGTARGET=dist/Frescobaldi-${VERSION}-${APPARCH}.dmg
+DMGNAME=Frescobaldi-${VERSION}-${APPARCH}.dmg
 sed -e '/INSTALL/d' ../README > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
-appdmg --quiet appdmg/appdmg.json ${DMGTARGET}
+appdmg --quiet appdmg/appdmg.json dist/${DMGNAME}
+cd dist
+openssl sha256 ${DMGNAME} > ${DMGNAME}.sha256
+cd ..
 rm {README,ChangeLog,COPYING}.txt
 
 if [[ $? == 0 ]]
 then
-  echo "The disk image is ready: ${DMGTARGET}"
+  echo "The disk image is ready: dist/${DMGNAME}"
 fi
