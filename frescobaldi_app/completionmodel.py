@@ -27,6 +27,9 @@ import weakref
 from PyQt4.QtCore import QSettings, QTimer
 from PyQt4.QtGui import QCompleter, QStringListModel
 
+import qsettings # for safely retrieving list of strings
+
+
 _models = {}
 
 
@@ -106,10 +109,7 @@ class Model(QStringListModel):
         self.load()
         
     def load(self):
-        try:
-            strings = QSettings().value(self.key, [], type(""))
-        except TypeError:
-            strings = []
+        strings = qsettings.get_string_list(QSettings(), self.key)
         self.setStringList(sorted(strings))
         self._changed = False
     

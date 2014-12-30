@@ -29,6 +29,7 @@ from PyQt4.QtGui import *
 import app
 import widgets.listedit
 import preferences
+import qsettings
 
 
 class Paths(preferences.GroupsPage):
@@ -61,10 +62,7 @@ class HyphenPaths(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("hyphenation")
-        try:
-            paths = s.value("paths", [], type(""))
-        except TypeError:
-            paths = []
+        paths = qsettings.get_string_list(s, "paths")
         self.listedit.setValue(paths)
         
     def saveSettings(self):

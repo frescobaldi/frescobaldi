@@ -35,6 +35,7 @@ import util
 import icons
 import preferences
 import lilypondinfo
+import qsettings
 import widgets.listedit
 import widgets.urlrequester
 
@@ -303,10 +304,7 @@ class Running(preferences.Group):
         self.saveDocument.setChecked(s.value("save_on_run", False, bool))
         self.deleteFiles.setChecked(s.value("delete_intermediate_files", True, bool))
         self.noTranslation.setChecked(s.value("no_translation", False, bool))
-        try:
-            include_path = s.value("include_path", [], type(""))
-        except TypeError:
-            include_path = []
+        include_path = qsettings.get_string_list(s, "include_path")
         self.include.setValue(include_path)
         
     def saveSettings(self):
