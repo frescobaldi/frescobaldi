@@ -16,3 +16,5 @@ structure in the file `README-development`.
 #VARS
 url URL http://github.com/wbsoft/frescobaldi
 
+#SEEALSO
+experimental_features
