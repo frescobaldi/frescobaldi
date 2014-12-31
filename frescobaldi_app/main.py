@@ -52,8 +52,9 @@ def parse_commandline():
     import argparse
     argparse._ = _ # let argparse use our translations
     parser = argparse.ArgumentParser(
-        version = "{0} {1}".format(info.appname, info.version),
         description = _("A LilyPond Music Editor"))
+    parser.add_argument('-v', '--version', action="version",
+        version="{0} {1}".format(info.appname, info.version))
     parser.add_argument('-e', '--encoding', metavar=_("ENC"),
         help=_("Encoding to use"))
     parser.add_argument('-l', '--line', type=int, metavar=_("NUM"),
