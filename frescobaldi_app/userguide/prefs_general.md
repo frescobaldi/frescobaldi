@@ -26,6 +26,10 @@ Under *Creating new documents*, you can choose what to do when a new document
 is created. It can be left empty (the default), the current LilyPond version
 can be set to it, or you can choose any of the templates you defined.
 
+Under *Experimental Features*, you can choose whether to enable features that
+are in development and are not yet considered complete.
+See {experimental}.
 
 #VARS
 sessions help sessions
+experimental help experimental_features
