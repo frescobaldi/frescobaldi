@@ -101,7 +101,7 @@ class NoteMappings:
 
         self.sharp_mappings = []
         self.flat_mappings = []
-        for i in xrange(len(self.key_order_flat)-1, -1, -1):
+        for i in range(len(self.key_order_flat)-1, -1, -1):
             flatmap = list(self.flats) # copy existing list
             sharpmap = list(self.sharps) # copy existing list
             for k in self.key_order_flat[:i+1]:
@@ -113,7 +113,7 @@ class NoteMappings:
         self.sharp_mappings.append(self.sharps) # Append C major signature -> no key alteration
         self.flat_mappings.append(self.flats) # Append C major signature -> no key alteration
 
-        for i in xrange(len(self.key_order_sharp)):
+        for i in range(len(self.key_order_sharp)):
             flatmap = list(self.flats) # copy existing list
             sharpmap = list(self.sharps) # copy existing list
             for k in self.key_order_sharp[:i+1]:
