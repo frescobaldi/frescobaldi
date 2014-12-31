@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import sys
 import os
 
-from gitrepo import GitRepo
+from .gitrepo import GitRepo
 
 # Reference to distinguish the official repository from forks.
 upstream_repository = "wbsoft/frescobaldi"

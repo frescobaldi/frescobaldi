@@ -41,7 +41,7 @@ def app_is_git_controlled():
     except NameError:
         if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
             try:
-                import apprepo
+                from . import apprepo
                 global app_repo
                 app_repo = apprepo.AppRepo()
                 app_repo._run_git_command('--version')

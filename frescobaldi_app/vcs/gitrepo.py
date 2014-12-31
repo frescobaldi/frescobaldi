@@ -27,7 +27,7 @@ import sys
 import os
 import subprocess
 
-from abstractrepo import AbstractVCSRepo
+from .abstractrepo import AbstractVCSRepo
 
 class GitError(Exception):
     pass
@@ -111,7 +111,7 @@ class GitRepo(AbstractVCSRepo):
         git_cmd = s.value("git", "git", type(""))
         git_cmd = git_cmd if git_cmd else "git"
         cmd = [git_cmd, cmd]
-        if isinstance(args, str) or isinstance(args, unicode):
+        if isinstance(args, str) or isinstance(args, type("")):
             cmd.append(args)
         else:
             cmd.extend(args)
