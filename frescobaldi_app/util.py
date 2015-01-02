@@ -239,7 +239,7 @@ def decode(data, encoding=None):
     for e in (enc, encoding):
         if e:
             try:
-                return data.decode(enc)
+                return data.decode(e)
             except (UnicodeError, LookupError):
                 pass
     latin1 = data.decode('latin1') # this never fails
@@ -247,7 +247,7 @@ def decode(data, encoding=None):
     for e in (encoding, 'utf-8'):
         if e and e != 'latin1':
             try:
-                return data.decode(encoding)
+                return data.decode(e)
             except (UnicodeError, LookupError):
                 pass
     return latin1
