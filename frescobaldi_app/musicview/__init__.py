@@ -118,7 +118,7 @@ class MusicViewPanel(panel.Panel):
         self.toggleViewAction().setText(_("&Music View"))
     
     def createWidget(self):
-        import widget
+        from . import widget
         w = widget.MusicView(self)
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
