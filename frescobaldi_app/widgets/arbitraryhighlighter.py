@@ -23,6 +23,7 @@ using QTextEdit.ExtraSelections.
 """
 
 import weakref
+import operator
 
 from PyQt4.QtCore import QObject, QTimer
 from PyQt4.QtGui import QTextCharFormat, QTextEdit, QTextFormat
@@ -100,8 +101,9 @@ class ArbitraryHighlighter(QObject):
         """(Internal) Called whenever the arbitrary highlighting changes."""
         textedit = self.parent()
         if textedit:
-            textedit.setExtraSelections(
-                sum((s[1] for s in sorted(self._selections.values())), []))
+            selections = sorted(self._selections.values(), key=operator.itemgetter(0))
+            ess = sum(map(operator.itemgetter(1), selections), [])
+            textedit.setExtraSelections(ess)
 
     def reload(self):
         """Reloads the named formats in the highlighting (e.g. in case of settings change)."""

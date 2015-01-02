@@ -23,6 +23,7 @@ Manages lists of rectangular objects and quickly finds them.
 """
 
 import bisect
+import operator
 
 
 Left   = 0
@@ -195,7 +196,7 @@ class Rectangles(object):
         except KeyError:
             if self._items:
                 objects = [(coords[side], obj) for obj, coords in self._items.items()]
-                objects.sort()
+                objects.sort(key=operator.itemgetter(0))
                 result = tuple(map(list, zip(*objects)))
             else:
                 result = [], []
