@@ -51,7 +51,7 @@ def versionInfo():
     try:
         import platform
         python_version = platform.python_version()
-        osname = platform.platform().decode('utf-8')
+        osname = platform.platform()
     except (ImportError, NameError):
         python_version = "unknown"
         osname = "unknown"
