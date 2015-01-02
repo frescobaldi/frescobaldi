@@ -66,6 +66,7 @@ sys.displayhook = app.displayhook
 # instantiate app and create a mainwindow, etc
 app.instantiate()
 main.main()
+app.appStarted()
 
 # be friendly and import Qt stuff
 from PyQt4.QtCore import *
