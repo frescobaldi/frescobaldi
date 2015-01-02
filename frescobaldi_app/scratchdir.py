@@ -63,7 +63,7 @@ class ScratchDir(plugin.DocumentPlugin):
         """Writes the text of the document to our path()."""
         if not self._directory:
             self.create()
-        with open(self.path(), 'w') as f:
+        with open(self.path(), 'wb') as f:
             f.write(self.document().encodedText())
             
 
