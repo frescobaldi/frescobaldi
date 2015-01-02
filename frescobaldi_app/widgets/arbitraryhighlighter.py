@@ -38,6 +38,7 @@ class ArbitraryHighlighter(QObject):
         """Initializes ourselves with a Q(Plain)TextEdit as parent."""
         super(ArbitraryHighlighter, self).__init__(edit)
         self._selections = {}
+        self._formats = {} # store the QTextFormats
     
     def highlight(self, format, cursors, priority=0, msec=0):
         """Highlights the selection of an arbitrary list of QTextCursors.
@@ -49,7 +50,13 @@ class ArbitraryHighlighter(QObject):
         msec, if > 0, removes the highlighting after that many milliseconds.
         
         """
-        fmt = format if isinstance(format, QTextFormat) else self.textFormat(format)
+        if isinstance(format, QTextFormat):
+            fmt = format
+            key = id(format)
+            self._formats[key] = format
+        else:
+            fmt = self.textFormat(format)
+            key = format
         selections = []
         for cursor in cursors:
             es = QTextEdit.ExtraSelection()
@@ -63,15 +70,23 @@ class ArbitraryHighlighter(QObject):
                     self.clear(format)
             timer = QTimer(timeout=clear, singleShot=True)
             timer.start(msec)
-            self._selections[format] = (priority, selections, timer)
+            self._selections[key] = (priority, selections, timer)
         else:
-            self._selections[format] = (priority, selections)
+            self._selections[key] = (priority, selections)
         self.update()
 
     def clear(self, format):
         """Removes the highlighting for the given format (name or QTextCharFormat)."""
+        if isinstance(format, QTextFormat):
+            key = id(format)
+            try:
+                del self._formats[key]
+            except KeyError:
+                pass
+        else:
+            key = format
         try:
-            del self._selections[format]
+            del self._selections[key]
         except KeyError:
             pass
         else:
@@ -90,10 +105,10 @@ class ArbitraryHighlighter(QObject):
 
     def reload(self):
         """Reloads the named formats in the highlighting (e.g. in case of settings change)."""
-        for format in self._selections:
-            if not isinstance(format, QTextFormat):
-                fmt = self.textFormat(format)
-                for es in self._selections[format][1]:
+        for key in self._selections:
+            if isinstance(key, type("")):
+                fmt = self.textFormat(key)
+                for es in self._selections[key][1]:
                     es.format = fmt
         self.update()
 
