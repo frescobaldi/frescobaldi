@@ -17,7 +17,7 @@ from subprocess import Popen
 macosx = os.path.realpath(os.path.dirname(__file__))
 root = os.path.dirname(macosx)
 
-sys.path.append(root)
+sys.path.insert(0, root)
 
 from frescobaldi_app import info
 try:
