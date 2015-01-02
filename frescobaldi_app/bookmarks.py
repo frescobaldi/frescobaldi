@@ -45,7 +45,7 @@ types = (
 )
 
 
-metainfo.define('bookmarks', json.dumps(None), bytes)
+metainfo.define('bookmarks', json.dumps(None))
 
 
 def bookmarks(document):
