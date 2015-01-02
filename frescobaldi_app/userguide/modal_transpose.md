@@ -10,13 +10,13 @@ E.g. when transposing a major second upwards in the key of C major, you would en
 1 C
 ```
 
-Note that if some of the original pitches are outside the given key the relation
+*Note that if some of the original pitches are outside the given key the relation
 will be kept and the pitches will not be adjusted to the key. Hence you can't
-use this functionality to shift between different keys. 
+use this functionality to shift between different keys. Use the {modeshift} 
+function instead.*
 
-But a special trick would be to use modal transpose and (chromatic) transpose in combination: 
-You would then make use of the fact that different modes have the same set of pitches. 
-If we take the example above which moves the music upwards a major second in the key of C major, 
-and then use the regular non-modal transpose `d c` to move the music downwards to its 
-original position; we have in effect shifted the music from C major to C dorian.
+#SEEALSO
+mode_shift
 
+#VARS
+modeshift help mode_shift
