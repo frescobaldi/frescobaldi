@@ -34,7 +34,7 @@ import plugin
 __all__ = ['get', 'update', 'manager', 'variables']
 
 
-_variable_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*):[ \t]*(.*?);')
+_variable_re = re.compile(r'\s*?([a-z]+(?:-[a-z]+)*):[ \t]*(.*?);')
 
 _LINES = 5      # how many lines from top and bottom to scan for variables
 
@@ -67,8 +67,8 @@ def manager(document):
     
     
 def variables(text):
-    """Reads variables from the first and last _LINES lines of text. Also accepts byte strings."""
-    lines = text.split(b'\n')
+    """Reads variables from the first and last _LINES lines of text."""
+    lines = text.splitlines()
     start, count = 0, len(lines)
     d = {}
     if count > 2 * _LINES:
@@ -144,12 +144,12 @@ def positions(lines):
         start = 0
         if interesting:
             # already parsing? then skip comment start tokens
-            m = re.match(br'\s*{0}'.format(re.escape(commentstart)), text)
+            m = re.match(r'\s*{0}'.format(re.escape(commentstart)), text)
             if m:
                 start = m.end()
         else:
             # does the line have '-*-' ?
-            m = re.search(br'(\S*)\s*-\*-', text)
+            m = re.search(r'(\S*)\s*-\*-', text)
             if m:
                 interesting = True
                 commentstart = m.group(1)

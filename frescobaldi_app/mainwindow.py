@@ -554,7 +554,7 @@ class MainWindow(QMainWindow):
         if not filename:
             return # cancelled
         try:
-            with open(filename, "w") as f:
+            with open(filename, "wb") as f:
                 f.write(data)
         except IOError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
@@ -666,7 +666,7 @@ class MainWindow(QMainWindow):
         filename = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
         if filename:
             try:
-                with open(filename) as f:
+                with open(filename, 'rb') as f:
                     data = f.read()
             except IOError as e:
                 msg = _("{message}\n\n{strerror} ({errno})").format(

@@ -205,46 +205,64 @@ def uniq(iterable):
             l = len(s)
 
 
-def decode(data, encoding=None):
-    """Returns the unicode text from the encoded, data. Prefer encoding if given.
+def get_bom(data):
+    """Get the BOM mark of data, if any.
     
-    The text is also checked for the 'coding' document variable.
+    A two-tuple is returned (encoding, data). If the data starts with a BOM 
+    mark, its encoding is determined and the BOM mark is stripped off. 
+    Otherwise, the returned encoding is None and the data is returned 
+    unchanged.
     
     """
-    encodings = [encoding] if encoding else []
     for bom, encoding in (
         (codecs.BOM_UTF8, 'utf-8'),
         (codecs.BOM_UTF16_LE, 'utf_16_le'),
         (codecs.BOM_UTF16_BE, 'utf_16_be'),
+        (codecs.BOM_UTF32_LE, 'utf_32_le'),
+        (codecs.BOM_UTF32_BE, 'utf_32_be'),
             ):
         if data.startswith(bom):
-            encodings.append(encoding)
-            data = data[len(bom):]
-            break
-    else:
-        var_coding = variables.variables(data).get("coding")
-        if var_coding:
-            encodings.append(var_coding)
-    encodings.append('utf-8')
-    encodings.append('latin1')
-    
-    for encoding in encodings:
-        try:
-            return data.decode(encoding)
-        except (UnicodeError, LookupError):
-            continue
-    return data.decode('utf-8', 'replace')
+            return encoding, data[len(bom):]
+    return None, data
 
 
-def encode(text, default_encoding='utf-8'):
-    """Returns the bytes representing the text, encoded.
+def decode(data, encoding=None):
+    """Decode binary data, using encoding if specified.
     
-    Looks at the 'coding' variable to determine the encoding,
-    otherwise falls back to the given default encoding, defaulting to 'utf-8'.
+    When the encoding can't be determined and isn't specified, it is tried to 
+    get the encoding from the document variables (see variables module).
+    
+    Otherwise utf-8 and finally latin1 are tried.
     
     """
-    encoding = variables.variables(text).get("coding")
-    if encoding:
+    enc, data = get_bom(data)
+    for e in (enc, encoding):
+        if e:
+            try:
+                return data.decode(enc)
+            except (UnicodeError, LookupError):
+                pass
+    latin1 = data.decode('latin1') # this never fails
+    encoding = variables.variables(latin1).get("coding")
+    for e in (encoding, 'utf-8'):
+        if e and e != 'latin1':
+            try:
+                return data.decode(encoding)
+            except (UnicodeError, LookupError):
+                pass
+    return latin1
+
+
+def encode(text, encoding=None, default_encoding='utf-8'):
+    """Return the bytes representing the text, encoded.
+    
+    Looks at the specified encoding or the 'coding' variable to determine 
+    the encoding, otherwise falls back to the given default encoding, 
+    defaulting to 'utf-8'.
+    
+    """
+    enc = encoding or variables.variables(text).get("coding")
+    if enc:
         try:
             return text.encode(encoding)
         except (LookupError, UnicodeError):

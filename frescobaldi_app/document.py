@@ -57,7 +57,7 @@ class Document(QTextDocument):
         # currently, we do not support non-local files
         if not filename:
             raise IOError("not a local file")
-        with open(filename) as f:
+        with open(filename, 'rb') as f:
             data = f.read()
         return util.decode(data, encoding)
     
@@ -156,7 +156,7 @@ class Document(QTextDocument):
         if self.url().isEmpty() and not url.isEmpty():
             self.setUrl(url)
         with app.documentSaving(self):
-            with open(filename, "w") as f:
+            with open(filename, "wb") as f:
                 f.write(self.encodedText())
                 f.flush()
                 os.fsync(f.fileno())
@@ -198,10 +198,7 @@ class Document(QTextDocument):
         Useful to save to a file.
         
         """
-        try:
-            return self.toPlainText().encode(self.encoding() or 'utf-8')
-        except (UnicodeError, LookupError):
-            return self.toPlainText().encode('utf-8')
+        return util.encode(self.toPlainText(), self.encoding())
         
     def documentName(self):
         """ Returns a suitable name for this document. """
