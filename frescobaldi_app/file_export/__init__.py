@@ -78,9 +78,11 @@ class FileExport(plugin.MainWindowPlugin):
         filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)
         if not filename:
             return False # cancelled
-        file = os.path.splitext(orgname)[0]
-        if os.path.exists(file + '.midi'):
-            os.system('timidity "%s.midi" -Ow -o "%s.wav"' % (file, file))
+        import resultfiles
+        midfiles = resultfiles.results(doc).files('.mid*')
+        print(filename, midfiles)
+        if midfiles:
+            os.system('timidity "%s" -Ow -o "%s"' % (midfiles[0], filename))
         else:
             QMessageBox.critical(None, _("Error"),
                     _("The audio file couldn't be created. Please create midi file first"))
