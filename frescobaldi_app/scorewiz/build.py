@@ -31,8 +31,6 @@ import ly.dom
 import po.mofile
 
 from . import parts
-import parts._base
-import parts.containers
 
 
 class PartNode(object):

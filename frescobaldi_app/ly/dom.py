@@ -177,20 +177,20 @@ class Reference(object):
     def __init__(self, name=""):
         self.name = name
     
-    def __unicode__(self):
+    def __format__(self, format_spec):
         return self.name
 
 
 class Named(object):
     """
     Mixin to print a \\name before the contents of the container.
-    unicode() is called on the self.name attribute, so it may also
+    format() is called on the self.name attribute, so it may also
     be a Reference.
     """
     name = ""
     
     def ly(self, printer):
-        return "\\{0} {1}".format(unicode(self.name), super(Named, self).ly(printer))
+        return "\\{0} {1}".format(self.name, super(Named, self).ly(printer))
         
         
 class HandleVars(object):
@@ -212,10 +212,10 @@ class HandleVars(object):
         Otherwise the same method from the super class is called.
         """
         def newfunc(obj, name, *args):
-            if isinstance(name, basestring):
+            if isinstance(name, type("")):
                 return func(obj, name, *args)
             else:
-                f = getattr(super(HandleVars, obj), func.func_name)
+                f = getattr(super(HandleVars, obj), func.__name__)
                 return f(name, *args)
         return newfunc
 
@@ -287,8 +287,6 @@ class Text(Leaf):
     """ A leaf node with arbitrary text """
     def __init__(self, text="", parent=None):
         super(Text, self).__init__(parent)
-        if not isinstance(text, basestring):
-            text = unicode(text)
         self.text = text
     
     def ly(self, printer):
@@ -397,8 +395,7 @@ class Assignment(Container):
             return self[0]
 
     def ly(self, printer):
-        return "{0} = {1}".format(
-            unicode(self.name), super(Assignment, self).ly(printer))
+        return "{0} = {1}".format(self.name, super(Assignment, self).ly(printer))
 
 
 HandleVars.childClass = Assignment
@@ -416,7 +413,7 @@ class Identifier(Leaf):
         self.name = name
         
     def ly(self, printer):
-        return "\\" + unicode(self.name)
+        return "\\{0}".format(self.name)
 
 
 class Statement(Named, Container):
@@ -584,7 +581,7 @@ class ContextType(Container):
         res.append(self.ctype or self.__class__.__name__)
         if self.cid:
             res.append("=")
-            res.append(printer.quoteString(unicode(self.cid)))
+            res.append(printer.quoteString(format(self.cid)))
         res.append(super(ContextType, self).ly(printer))
         return " ".join(res)
         
@@ -715,7 +712,7 @@ class LyricsTo(LyricMode):
     
     def ly(self, printer):
         res = ["\\" + self.name]
-        res.append(printer.quoteString(unicode(self.cid)))
+        res.append(printer.quoteString(format(self.cid)))
         res.append(super(Named, self).ly(printer))
         return " ".join(res)
         

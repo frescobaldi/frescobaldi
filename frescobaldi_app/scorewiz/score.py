@@ -31,8 +31,6 @@ import icons
 import widgets.treewidget
 
 from . import parts
-import parts._base
-import parts.containers
 
 
 class ScorePartsWidget(QSplitter):

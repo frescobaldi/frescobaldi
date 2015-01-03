@@ -51,7 +51,7 @@ class MusicPreviewJob(job.Job):
         super(MusicPreviewJob, self).__init__()
         self.directory = util.tempdir()
         self.document = os.path.join(self.directory, 'document.ly')
-        with open(self.document, 'w') as f:
+        with open(self.document, 'wb') as f:
             f.write(text.encode('utf-8'))
             
         info = lilypondinfo.preferred()
