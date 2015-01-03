@@ -23,6 +23,7 @@ Convert absolute music to relative
 #SUBDOCS
 transpose
 modal_transpose
+mode_shift
 
 #VARS
 menu menu tools -> submenu title|&Pitch

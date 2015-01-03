@@ -10,17 +10,21 @@ d Minor
 ```
 
 The supported modes are:
-- Major
-- Minor (harmonic)
-- Natminor (natural)
-- Dorian
+
+Major
+
+Minor (harmonic)
+
+Natminor (natural)
+
+Dorian
 
 (The capital letters are optional.)
 
 The mode name should be preceded by a note name in the language of the document.
 
 *Note that unlike the modal transposer all pitches will be shifted to the choosen 
-scale regerdless of which mode they possibly belonged to originally.*
+scale regardless of which mode they possibly belonged to originally.*
 
 This feature is currently experimental, see {experimental}.
 
