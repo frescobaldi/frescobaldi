@@ -7,6 +7,7 @@ import
 export
 externalchanges
 sessions
+docstatistics
 
 
 #SUBDOCS_TO_ADD

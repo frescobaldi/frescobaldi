@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The Score Wizard dialog.
+The Document statistics dialog.
 """
 
 from __future__ import unicode_literals

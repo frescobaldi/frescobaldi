@@ -39,7 +39,7 @@ class DocumentStatistics(plugin.MainWindowPlugin):
         self._dlg = None
     
     def dialog(self):
-        """Return the wizard dialog, creating it if necessary."""
+        """Return the statistic dialog, creating it if necessary."""
         if self._dlg is None:
             from . import dialog
             self._dlg = dialog.DocumentStatisticsDialog(self.mainwindow())
