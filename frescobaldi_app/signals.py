@@ -269,7 +269,7 @@ class ListenerBase(object):
         # determine the number of arguments allowed
         end = None
         try:
-            co = self.func.func_code
+            co = self.func.__code__
             if not co.co_flags & 12:
                 # no *args or **kwargs are used, cut off the unwanted arguments
                 end = co.co_argcount - self.removeargs
