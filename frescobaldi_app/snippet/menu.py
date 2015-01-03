@@ -73,7 +73,7 @@ class SnippetMenuBase(QMenu):
                 action = actions.action(name, self.mainwindow(), shortcuts)
                 self.visitAction(action, variables)
                 groups.setdefault(group, []).append(action)
-        for group in sorted(groups):
+        for group in sorted(groups, key=lambda g: '' if g is True else g):
             for action in groups[group]:
                 self.insertAction(last, action)
             self.insertSeparator(last)

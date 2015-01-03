@@ -40,7 +40,7 @@ textvars = collections.namedtuple('textvars', 'text variables')
 _cache = {}
 
 # match variables in a '-*- ' line
-_variables_re = re.compile(br'\s*?([a-z]+(?:-[a-z]+)*)(?::[ \t]*(.*?))?;')
+_variables_re = re.compile(r'\s*?([a-z]+(?:-[a-z]+)*)(?::[ \t]*(.*?))?;')
 
 # match expansions $$, $NAME or ${text} (the latter may contain escaped right brace: '\}')
 _expansions_re = re.compile(r'\$(?P<_bracket_>\{)?((?(_bracket_)(?:\\\}|[^\}])*|(?:\$|[A-Z]+(?:_[A-Z]+)*)))(?(_bracket_)\})')

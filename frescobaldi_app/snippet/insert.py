@@ -23,6 +23,8 @@ Insert snippets into a Document.
 
 from __future__ import unicode_literals
 
+import sys
+
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import QTextCursor, QMessageBox
 
@@ -157,7 +159,10 @@ def insert_python(text, cursor, name, view):
     }
     try:
         code = compile(text, "<snippet>", "exec")
-        exec code in namespace
+        if sys.version_info < (3, 0):
+            exec("exec code in namespace")
+        else:
+            exec(code, namespace)
         if 'main' in namespace:
             return namespace['main']()
     except Exception:
