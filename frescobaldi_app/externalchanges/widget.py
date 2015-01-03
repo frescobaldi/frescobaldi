@@ -163,7 +163,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
                 fileitem.setText(1, itemtext)
                 fileitem.doc = document
         # select the item if there is only one
-        if len(dirs) == 1 and len(dirs.values()[0]) == 1:
+        if len(dirs) == 1 and len(list(dirs.values())[0]) == 1:
             fileitem.setSelected(True)
         self.tree.resizeColumnToContents(0)
         self.tree.resizeColumnToContents(1)
@@ -274,7 +274,7 @@ class ChangedDocumentsListDialog(widgets.dialog.Dialog):
         
         filename = d.url().toLocalFile()
         try:
-            with open(filename) as f:
+            with open(filename, 'rb') as f:
                 disktext = util.decode(f.read())
         except (IOError, OSError):
             return
