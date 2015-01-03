@@ -103,7 +103,7 @@ def image(page, exact=True):
         return
     # find the closest size (assuming aspect ratio has not changed)
     if sizes:
-        sizes.sort(key=lambda s: abs(1 - s[0] / float(page.width())))
+        sizes = sorted(sizes, key=lambda s: abs(1 - s[0] / float(page.width())))
         return _cache[document][pageKey][sizes[0]][0]
 
 

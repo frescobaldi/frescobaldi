@@ -22,7 +22,8 @@
 Surface is the widget everything is drawn on.
 """
 
-import itertools
+import collections
+import operator
 import weakref
 
 from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
@@ -239,9 +240,10 @@ class Surface(QWidget):
         linkArea attribute of a Poppler.Link.
         
         """
-        d = weakref.WeakKeyDictionary()
-        for page, areas in itertools.groupby(sorted(areas), lambda a: a[0]):
-            d[page] = list(area[1] for area in areas)
+        d = collections.defaultdict(list)
+        for page, area in areas:
+            d[page].append(area)
+        d = weakref.WeakKeyDictionary(d)
         if msec:
             def clear(selfref=weakref.ref(self)):
                 self = selfref()
