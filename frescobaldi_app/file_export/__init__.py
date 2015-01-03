@@ -80,7 +80,6 @@ class FileExport(plugin.MainWindowPlugin):
             return False # cancelled
         import resultfiles
         midfiles = resultfiles.results(doc).files('.mid*')
-        print(filename, midfiles)
         if midfiles:
             os.system('timidity "%s" -Ow -o "%s"' % (midfiles[0], filename))
         else:
