@@ -60,7 +60,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("doclist.DocumentList")
         self.loadPanel("outline.OutlinePanel")
         self.loadPanel("layoutcontrol.LayoutControlOptions")
-        
+
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
         if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
