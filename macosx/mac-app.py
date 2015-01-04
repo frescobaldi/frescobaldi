@@ -14,6 +14,11 @@ from setuptools import setup
 import shutil
 from subprocess import Popen
 
+if sys.version_info[0] == 3:
+    string_types = str
+else:
+    string_types = basestring
+
 macosx = os.path.realpath(os.path.dirname(__file__))
 root = os.path.dirname(macosx)
 
@@ -56,7 +61,7 @@ if not (os.path.isfile(args.script) or args.force):
 If you really want to point the application bundle to \'{0}\',\n\
 use the \'-f\' or \'--force\' flag.'.format(args.script))
 
-if args.standalone and not (isinstance(args.portmidi, basestring) and os.path.isfile(args.portmidi)):
+if args.standalone and not (isinstance(args.portmidi, string_types) and os.path.isfile(args.portmidi)):
     sys.exit('Error: \'{0}\' does not exist or is not a file.'.format(args.portmidi))
 
 plist = dict(
