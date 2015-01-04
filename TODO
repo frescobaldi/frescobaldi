@@ -75,9 +75,6 @@ get it's own branch "v2"
 Other ideas/wishes
 ==================
 
-- continuous autocompile (run LilyPond whenever deemed suitable)
-  stub: engrave/autocompile.py
-
 - support for Git/Hg/Svn diff/revert/commit
 
 - play from cursor: plays music to MIDI output
@@ -91,4 +88,8 @@ Other ideas/wishes
 - define and extend api for script snippets
 
 - make Frescobaldi api (using pydoc) browsable via the helpbrowser.
+
+- \displayMusic tool to show music in Scheme format (by calling LilyPond's
+  \displayMusic function on a music expression).
+
 
