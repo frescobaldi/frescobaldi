@@ -14,13 +14,22 @@ from setuptools import setup
 import shutil
 from subprocess import Popen
 
+if sys.version_info[0] == 3:
+    string_types = str
+else:
+    string_types = basestring
+
 macosx = os.path.realpath(os.path.dirname(__file__))
 root = os.path.dirname(macosx)
 
-sys.path.append(root)
+sys.path.insert(0, root)
 
 from frescobaldi_app import info
-from frescobaldi_app.portmidi import pm_ctypes
+try:
+    from frescobaldi_app.portmidi import pm_ctypes
+    dylib_name = pm_ctypes.dll_name
+except ImportError:
+    dylib_name = None
 
 icon = '{0}/icons/{1}.icns'.format(macosx, info.name)
 ipstrings = '{0}/app_resources/InfoPlist.strings'.format(macosx)
@@ -40,7 +49,7 @@ parser.add_argument('-a', '--standalone', action = 'store_true', \
   (WARNING: some manual steps are required after the execution of this script)')
 parser.add_argument('-p', '--portmidi', \
   help = 'full path of PortMIDI library (used only with \'-a\')', \
-  default = pm_ctypes.dll_name)
+  default = dylib_name)
 parser.add_argument('-r', '--arch', \
   help = 'architecture set to include, e.g. i386, x86_64, intel; \
   if the value is None, the architecture of the current Python binary is used \
@@ -52,7 +61,7 @@ if not (os.path.isfile(args.script) or args.force):
 If you really want to point the application bundle to \'{0}\',\n\
 use the \'-f\' or \'--force\' flag.'.format(args.script))
 
-if args.standalone and not os.path.isfile(args.portmidi):
+if args.standalone and not (isinstance(args.portmidi, string_types) and os.path.isfile(args.portmidi)):
     sys.exit('Error: \'{0}\' does not exist or is not a file.'.format(args.portmidi))
 
 plist = dict(
@@ -148,15 +157,15 @@ app_resources = 'dist/{0}.app/Contents/Resources'.format(info.appname)
 icon_dest = '{0}/{1}.icns'.format(app_resources, info.name)
 print('copying file {0} -> {1}'.format(icon, icon_dest))
 shutil.copyfile(icon, icon_dest)
-os.chmod(icon_dest, 0644)
+os.chmod(icon_dest, 0o0644)
 locales = ['cs', 'de', 'en', 'es', 'fr', 'gl', 'it', 'nl', 'pl', 'pt', 'ru', 'tr', 'uk', 'zh_CN', 'zh_HK', 'zh_TW']
 for l in locales:
     app_lproj = '{0}/{1}.lproj'.format(app_resources, l)
-    os.mkdir(app_lproj, 0755)
+    os.mkdir(app_lproj, 0o0755)
     ipstrings_dest = '{0}/InfoPlist.strings'.format(app_lproj)
     print('copying file {0} -> {1}'.format(ipstrings, ipstrings_dest))
     shutil.copyfile(ipstrings, ipstrings_dest)
-    os.chmod(ipstrings_dest, 0644)
+    os.chmod(ipstrings_dest, 0o0644)
 
 if args.standalone:
     print('reversing patches:')
@@ -168,7 +177,7 @@ if args.standalone:
     os.remove('{0}/qt.conf'.format(app_resources))
     imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(info.appname)
     print('creating directory {0}'.format(imageformats_dest))
-    os.makedirs(imageformats_dest, 0755)
+    os.makedirs(imageformats_dest, 0o0755)
     print("""
 WARNING: To complete the creation of the standalone application bundle \
 you need to perform the following steps manually:
