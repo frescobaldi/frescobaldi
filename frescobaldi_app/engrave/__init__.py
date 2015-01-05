@@ -94,14 +94,16 @@ class Engraver(plugin.MainWindowPlugin):
             return job
     
     def updateActions(self):
-        running = bool(self.runningJob())
+        job = jobmanager.job(self.document())
+        running = bool(job and job.isRunning())
+        visible = running and not jobattributes.get(job).hidden
         ac = self.actionCollection
-        ac.engrave_preview.setEnabled(not running)
-        ac.engrave_publish.setEnabled(not running)
-        ac.engrave_debug.setEnabled(not running)
+        ac.engrave_preview.setEnabled(not visible)
+        ac.engrave_publish.setEnabled(not visible)
+        ac.engrave_debug.setEnabled(not visible)
         ac.engrave_abort.setEnabled(running)
-        ac.engrave_runner.setIcon(icons.get('process-stop' if running else 'lilypond-run'))
-        ac.engrave_runner.setToolTip(_("Abort engraving job") if running else
+        ac.engrave_runner.setIcon(icons.get('process-stop' if visible else 'lilypond-run'))
+        ac.engrave_runner.setToolTip(_("Abort engraving job") if visible else
                     _("Engrave (preview; press Shift for custom)"))
     
     def openDefaultView(self, document, job, success):
@@ -180,8 +182,8 @@ class Engraver(plugin.MainWindowPlugin):
         self.runJob(command.defaultJob(doc, args), doc)
     
     def engraveAbort(self):
-        job = self.runningJob()
-        if job:
+        job = jobmanager.job(self.document())
+        if job and job.isRunning():
             job.abort()
     
     def saveDocumentIfDesired(self):

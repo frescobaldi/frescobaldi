@@ -8,6 +8,8 @@ Changes in 2.18 --
   - The Insert menu got renamed to Snippets, making more clear how it is used
     and can be changed. When copying text to a new snippet, the snippet is added
     to the menu by default, but the user can change that while editing.
+  - Ctrl+Break (LilyPond → Abort Engraving Job) also stops an autocompile job
+    if one is running.
 * Bugfixes:
   - fix AttributeError: 'unicode' object has no attribute 'insert' (issue #543)
 * Translations:
