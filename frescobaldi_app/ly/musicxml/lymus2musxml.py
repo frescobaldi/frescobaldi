@@ -131,7 +131,7 @@ class ParseSource():
         so this need only cover other types of assignments.
         """
         if isinstance(a.value(), ly.music.items.Markup):
-            pass
+            val = a.value().plaintext()
         elif isinstance(a.value(), ly.music.items.String):
             val = a.value().value()
         elif isinstance(a.value(), ly.music.items.Scheme):

@@ -46,7 +46,9 @@ def filenames_at_cursor(cursor, existing=True):
     i = dinfo.lydocinfo().range(start, end)
     fnames = i.include_args() or i.scheme_load_args()
     if not fnames and cursor.hasSelection():
-        fnames = [cursor.selection().toPlainText()]
+        text = cursor.selection().toPlainText()
+        if '\n' not in text.strip():
+            fnames = [text]
     
     # determine search path: doc dir and other include path names
     filename = cursor.document().url().toLocalFile()
