@@ -72,7 +72,7 @@ class Transposer(object):
             
 class ModeShifter(Transposer):
     """
-    Shift pitches to the optional mode.
+    Shift pitches to optional mode/scale.
     
     The scale should be formatted in analogy to the scale in the Transposer
     parent class.
@@ -80,22 +80,77 @@ class ModeShifter(Transposer):
     The key should be an instance of ly.pitch.Pitch. 
     """
     def __init__(self, key, scale):
+        """
+        Create scale of pitches from given scale definition.
+        """
+        import math
         self.octave = 0
         self.modpitches = [0] * 7
-        for i, s in enumerate(scale):
+        for s, a in scale:
             p = key.copy()
-            self.steps = i
-            self.alter = s
+            self.steps = s 
+            self.alter = a
             super(ModeShifter, self).transpose(p)
-            self.modpitches[p.note] = p
+            if self.modpitches[p.note]:
+                self.modpitches[p.note].append(p)
+            else:
+                self.modpitches[p.note] = [p]
+        
+    def closestPitch(self, pitch):
+        """
+        Get closest pitch from scale. 
+        
+        If only one scale note with the same base step exist that is returned.
+        Otherwise the closest is calculated.
+        """
+        def getNextPitch(step, up=True):
+            modepitch = self.modpitches[step]
+            if modepitch:
+                return modepitch
+            else:
+                if up:
+                    step = (step + 1) % 7
+                else:
+                    step = (step - 1) % 7
+                return getNextPitch(step, up)
+                
+        def comparePitch(pitch, uppitch, dwnpitch):
+            upnum = self.scale[uppitch.note] + uppitch.alter
+            dwnnum = self.scale[dwnpitch.note] + dwnpitch.alter
+            pnum = self.scale[pitch.note] + pitch.alter
+            if upnum - pnum < pnum - dwnnum:
+                return uppitch
+            else: 
+                return dwnpitch
+            
+        step = pitch.note
+        modepitch = self.modpitches[step]
+        if modepitch and len(modepitch) == 2:
+            return comparePitch(pitch, modepitch[0], modepitch[1])
+        else:
+            uppitch = getNextPitch(step)[0] 
+            dwnpitch = getNextPitch(step, False)[-1]
+            return comparePitch(pitch, uppitch, dwnpitch)
+            
         
     def transpose(self, pitch):
-        mp = self.modpitches[pitch.note]
-        if pitch.note != mp.note or pitch.alter != mp.alter:
-            self.steps = mp.note - pitch.note
-            self.alter = (self.scale[mp.note] + mp.alter -
-                          self.scale[pitch.note] - pitch.alter)            
-            super(ModeShifter, self).transpose(pitch)
+        """
+        Shift to closest scale pitch if not already in scale.
+        """
+        modpitch = self.modpitches[pitch.note]
+        if modpitch:
+            for mp in modpitch:
+                if pitch.note == mp.note and pitch.alter == mp.alter:
+                    return
+        clp = self.closestPitch(pitch)
+        self.steps = clp.note - pitch.note
+        if self.steps > 3:
+            self.octave = -1
+        elif self.steps < -3:
+            self.octave = 1
+        self.alter = (self.scale[clp.note] + clp.alter -
+                      self.scale[pitch.note] - pitch.alter)
+        super(ModeShifter, self).transpose(pitch)
 
 
 class ModalTransposer(object):
