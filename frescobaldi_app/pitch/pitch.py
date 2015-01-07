@@ -197,7 +197,7 @@ def getModeShifter(document, mainwindow):
         return one and sec
     
     text = inputdialog.getText(mainwindow, _("Shift mode"), _(
-        "Please enter the mode to shift to. (i.e. \"D major\")"
+        "Please enter the mode to shift to. (e.g. \"d major\")"
         ), icon = icons.get('tools-transpose'),
         help = "mode_shift", validate = validate)
     if text:
