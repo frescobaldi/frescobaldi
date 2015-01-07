@@ -32,6 +32,7 @@ to parse the source. It should prove more stable and easier to implement.
 """
 
 from __future__ import unicode_literals
+from __future__ import print_function
 
 import documentinfo
 import ly.music
@@ -108,7 +109,7 @@ class ParseSource():
                         func_call = getattr(self, func_name)
                         func_call(m)
                     except AttributeError as ae:
-                        print "Warning: "+func_name+" not implemented!"
+                        print("Warning:", func_name, "not implemented!")
                         print(ae)
                         pass
         else:
@@ -192,7 +193,7 @@ class ParseSource():
             else:
                 self.mediator.new_section('voice')
         else:
-            print("Context not implemented: " + context.context())
+            print("Context not implemented:", context.context())
 
     def VoiceSeparator(self, voice_sep):
         self.mediator.new_snippet('sim')
@@ -356,7 +357,7 @@ class ParseSource():
         elif command.token == '\\ottava':
             self.ottava = True
         else:
-            print("Unknown command: "+command.token)
+            print("Unknown command:", command.token)
 
     def String(self, string):
         prev = self.get_previous_node(string)
@@ -401,7 +402,7 @@ class ParseSource():
         elif self.schm_assignm:
             self.mediator.set_by_property(self.schm_assignm, item.token)
         else:
-            print("SchemeItem not implemented: " + item.token)
+            print("SchemeItem not implemented:", item.token)
 
     def SchemeQuote(self, quote):
         """A ' in scheme."""
@@ -462,7 +463,7 @@ class ParseSource():
         elif end.node.token == '\\with':
             self.with_contxt = None
         else:
-            # print("end:"+end.node.token)
+            # print("end:", end.node.token)
             pass
 
     ##

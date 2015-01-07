@@ -23,6 +23,7 @@ The xml-file is built from the mediator objects
 """
 
 from __future__ import unicode_literals
+from __future__ import print_function
 
 from . import xml_objs
 
@@ -67,7 +68,7 @@ class iterateMediatorScore():
             for bar in part.barlist:
                 self.iterate_bar(bar)
         else:
-            print "Warning: empty part: "+part.name
+            print("Warning: empty part:", part.name)
 
     def iterate_bar(self, bar):
         """The objects in the bar is outputed to the xml-file."""

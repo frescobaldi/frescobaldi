@@ -41,7 +41,7 @@ Usage:
 >>> txt = r"\relative c' { c d e f-^ g }"
 >>> s = ly.lex.state("lilypond")
 >>> for t in s.tokens(txt):
-...     print t, t.__class__.__name__
+...     print(t, t.__class__.__name__)
 
 \relative Command
   Space

@@ -22,6 +22,7 @@ An Object Editor widget.
 """
 
 from __future__ import unicode_literals
+from __future__ import print_function
 
 import sys
 
@@ -143,21 +144,21 @@ class Widget(QWidget):
     def startDragging(self, x, y):
         """Set the value of the offset externally."""
         # temporary debug output
-        #print "Start dragging with offset", x, y
+        #print("Start dragging with offset", x, y)
         self.setOffset(x, y)
         
     @QtCore.pyqtSlot(float, float)
     def Dragging(self, x, y):
         """Set the value of the offset externally."""
         # temporary debug output
-        # print "Dragging with offset", x, y
+        # print("Dragging with offset", x, y)
         self.setOffset(x, y)
         
     @QtCore.pyqtSlot(float, float)
     def Dragged(self, x, y):
         """Set the value of the offset externally."""
         # temporary debug output
-        #print "Dragged to", x, y
+        #print("Dragged to", x, y)
         self.setOffset(x, y)
         
     @QtCore.pyqtSlot(QTextCursor)

@@ -704,7 +704,7 @@ class Mediator():
                 b = 1/base
             else:
                 b = 1
-                print "Warning problem checking duration!"
+                print("Warning problem checking duration!")
         else:
             num = tfraction.numerator
             den = tfraction.denominator

@@ -27,6 +27,7 @@ that runs inside the displayed SVG file.
 
 from __future__ import unicode_literals
 from __future__ import absolute_import
+from __future__ import print_function
 
 import os
 import sys
@@ -234,10 +235,10 @@ class JSLink(QtCore.QObject):
     @QtCore.pyqtSlot(str)
     def draggedObject(self, JSON_string):
         # leave the following commented code as an idea how to proceed from here
-        #print "Dragged object JSON representation:"
+        #print("Dragged object JSON representation:")
         #import json
         #js = json.JSONDecoder()
-        #print js.decode(JSON_string)
+        #print(js.decode(JSON_string))
         pass
         
     @QtCore.pyqtSlot(str)

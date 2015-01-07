@@ -52,7 +52,7 @@ def psfile(doc, printer, output, pageList=None, margins=(0, 0, 0, 0)):
     else:
         for num in pageList:
             if num < 1 or num > doc.numPages():
-                raise ValueError, "invalid page number: {0}".format(num)
+                raise ValueError("invalid page number: {0}".format(num))
     
     ps = doc.psConverter()
     ps.setPageList(pageList)
