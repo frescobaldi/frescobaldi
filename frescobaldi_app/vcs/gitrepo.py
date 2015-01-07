@@ -95,6 +95,7 @@ class GitRepo(AbstractVCSRepo):
                 # add new key-value pair
                 key, value = self._key_value(line)
                 target[key] = value        
+        fin.close()
         return
                 
     def _run_git_command(self, cmd, args = []): 
