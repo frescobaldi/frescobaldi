@@ -53,7 +53,7 @@ def getJsScript(filename):
     directory = __path__[0]
     with open(os.path.join(directory, filename), 'r') as fileObject:
         jsValue = fileObject.read()
-	return jsValue
+    return jsValue
 
 
 class View(QtWebKit.QWebView):
@@ -250,22 +250,22 @@ class JSLink(QtCore.QObject):
         """announce extra-offsets while dragging an element"""
         self.view.doObjectDragging(offX, offY)
         
-    @QtCore.pyqtSlot(str)	    
+    @QtCore.pyqtSlot(str)       
     def hover(self, url):
         """actions when user set mouse over link"""
         self.view.doTextEdit(url, False)
     
-    @QtCore.pyqtSlot(str)	    
+    @QtCore.pyqtSlot(str)       
     def leave(self, url):
         """actions when user moves mouse off link"""
         self.view.unHighlight()
         
-    @QtCore.pyqtSlot(str)	    
+    @QtCore.pyqtSlot(str)       
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
         print(txt)
     
-    @QtCore.pyqtSlot(str)	    
+    @QtCore.pyqtSlot(str)       
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
         self.view.saveSVG(svg_string)

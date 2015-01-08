@@ -48,13 +48,13 @@ class SvgViewPanel(panel.Panel):
         ac.svg_zoom_in.triggered.connect(self.zoomIn)
         ac.svg_zoom_out.triggered.connect(self.zoomOut)
         ac.svg_zoom_original.triggered.connect(self.zoomOriginal)
-		
+        
     def translateUI(self):
         self.setWindowTitle(_("window title", "SVG View"))
         self.toggleViewAction().setText(_("SV&G View"))
         
     def createWidget(self):
-        import widget
+        from . import widget
         w = widget.SvgView(self)
         return w
     
