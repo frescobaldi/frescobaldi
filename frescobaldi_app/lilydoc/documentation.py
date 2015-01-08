@@ -29,7 +29,7 @@ import re
 from PyQt4.QtCore import pyqtSignal, QObject, QUrl
 from PyQt4.QtNetwork import QNetworkRequest
 
-import network
+from . import network
 
 
 class Documentation(QObject):
@@ -110,7 +110,7 @@ class Documentation(QObject):
         
         """
         if self._versionString is not None:
-            return tuple(map(int, re.findall(br"\d+", self._versionString)))
+            return tuple(map(int, re.findall(r"\d+", self._versionString)))
     
     def isLocal(self):
         """Returns True if the documentation is on the local system."""
