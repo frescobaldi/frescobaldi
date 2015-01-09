@@ -11,6 +11,10 @@ Changes in 2.18 --
   - Ctrl+Break (LilyPond → Abort Engraving Job) also stops an autocompile job
     if one is running.
 * Bugfixes:
+  - If the preference "Open default viewer after successful compile" is enabled,
+    the viewer to be opened is determined from the actual results, instead of
+    the default output format. This fixes the PDF view opening instead of the
+    SVG view, when the SVG format was chosen in the Engrave Custom dialog.
   - fix AttributeError: 'unicode' object has no attribute 'insert' (issue #543)
 * Translations:
   - updated: nl, fr

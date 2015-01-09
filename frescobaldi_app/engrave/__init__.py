@@ -23,6 +23,8 @@ Actions to engrave the music in the documents.
 
 from __future__ import unicode_literals
 
+import os
+
 from PyQt4.QtCore import QSettings, Qt, QUrl
 from PyQt4.QtGui import QAction, QApplication, QKeySequence, QMessageBox
 
@@ -107,15 +109,28 @@ class Engraver(plugin.MainWindowPlugin):
                     _("Engrave (preview; press Shift for custom)"))
     
     def openDefaultView(self, document, job, success):
+        """Called when a job finishes.
+        
+        Open the default viewer for the created files if the user has the
+        preference for this set.
+        
+        """
         if (success and jobattributes.get(job).mainwindow is self.mainwindow()
                 and QSettings().value("lilypond_settings/open_default_view", True, bool)):
-            target = QSettings().value(
-                "lilypond_settings/default_output_target", "pdf", type(""))
+            
+            # which files were created by this job?
+            import resultfiles
+            extentions = set(os.path.splitext(filename)[1].lower()
+                for filename in resultfiles.results(document).files())
+            
             mgr = panelmanager.manager(self.mainwindow())
-            if target == "svg":
+            if '.svg' in extentions or '.svgz' in extentions:
                 mgr.svgview.activate()
-            elif target == "pdf":
+            elif '.pdf' in extentions:
                 mgr.musicview.activate()
+            
+            if '.midi' in extentions or '.mid' in extentions:
+                mgr.miditool.activate()
     
     def engraveRunner(self):
         job = self.runningJob()
