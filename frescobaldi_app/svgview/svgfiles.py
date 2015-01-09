@@ -52,8 +52,10 @@ class SvgFiles(plugin.DocumentPlugin):
             self.current = len(files) - 1
         return bool(files)
     
-    def __nonzero__(self):
+    def __bool__(self):
         return bool(self._files)
+    
+    __nonzero__ = __bool__ # py2 compat
     
     def model(self):
         """Returns a model for a combobox."""
