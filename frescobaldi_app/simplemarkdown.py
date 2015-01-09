@@ -502,8 +502,10 @@ class Tree(Output):
         def __init__(self, name, *args):
             list.__init__(self)
         
-        def __nonzero__(self):
+        def __bool__(self):
             return True
+        
+        __nonzero__ = __bool__      # py2 compat
         
         def __repr__(self):
             return '<Node "{0}" {1} [{2}]>'.format(self.name, self.args, len(self))

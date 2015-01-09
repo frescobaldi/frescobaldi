@@ -120,8 +120,10 @@ class DocumentBase(object):
         self._changes = collections.defaultdict(list)
         self._cursors = weakref.WeakSet()
     
-    def __nonzero__(self):
+    def __bool__(self):
         return True
+    
+    __nonzero__ = __bool__      # py2 compat
     
     def __iter__(self):
         """Iter over all blocks."""

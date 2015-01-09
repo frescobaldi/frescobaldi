@@ -154,9 +154,11 @@ class Rectangles(object):
     def __contains__(self, obj):
         return obj in self._items
         
-    def __nonzero__(self):
+    def __bool__(self):
         return bool(self._items)
         
+    __nonzero__ = __bool__      # py2 compat
+    
     # private helper methods
     def _test(self, *tests):
         """Performs tests and returns objects that fulfill all of them.
