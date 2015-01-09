@@ -98,7 +98,11 @@ def findDocument(url):
 def instantiate():
     """Instantiate the global QApplication object."""
     global qApp
-    qApp = QApplication([os.path.abspath(sys.argv[0])] + sys.argv[1:])
+    args = [os.path.abspath(sys.argv[0])] + sys.argv[1:]
+    ### on Python3, QApplication args must be byte strings
+    if sys.version_info >= (3, 0):
+        args = list(map( os.fsencode, args))
+    qApp = QApplication(args)
     QApplication.setApplicationName(info.name)
     QApplication.setApplicationVersion(info.version)
     QApplication.setOrganizationName(info.name)
