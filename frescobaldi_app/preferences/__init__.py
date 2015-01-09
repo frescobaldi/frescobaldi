@@ -174,7 +174,7 @@ class General(PrefsItemBase):
         self.setText(_("General Preferences"))
 
     def widget(self, dlg):
-        import general
+        from . import general
         return general.GeneralPrefs(dlg)
         
 
@@ -185,7 +185,7 @@ class LilyPond(PrefsItemBase):
         self.setText(_("LilyPond Preferences"))
         
     def widget(self, dlg):
-        import lilypond
+        from . import lilypond
         return lilypond.LilyPondPrefs(dlg)
 
 
@@ -207,7 +207,7 @@ class Helpers(PrefsItemBase):
         self.setText(_("Helper Applications"))
         
     def widget(self, dlg):
-        import helpers
+        from . import helpers
         return helpers.Helpers(dlg)
 
 
@@ -251,7 +251,7 @@ class Editor(PrefsItemBase):
         self.setText(_("Editor Preferences"))
         
     def widget(self, dlg):
-        import editor
+        from . import editor
         return editor.Editor(dlg)
 
 

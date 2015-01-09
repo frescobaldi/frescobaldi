@@ -31,7 +31,7 @@ from PyQt4.QtGui import (
 
 import app
 from . import Separator
-from keysequencewidget import KeySequenceWidget
+from .keysequencewidget import KeySequenceWidget
 
 
 class ShortcutEditDialog(QDialog):
