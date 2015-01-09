@@ -133,7 +133,7 @@ def get_default_output_id():
 def get_device_info(device_id):
     """Returns information about a midi device.
     
-    A file-tuple is returned:
+    A five-tuple is returned:
     (interf, name, isinput, isoutput, isopen).
     
     """

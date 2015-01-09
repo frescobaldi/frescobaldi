@@ -35,6 +35,9 @@ not with portmidi directly.
 
 """
 
+from __future__ import unicode_literals
+
+
 import portmidi
 import signals
 
@@ -76,16 +79,18 @@ def output_ports():
     if available():
         for i in device_infos():
             if i.isoutput:
-                names.append(i.name)
+                name = _decode_name(i.name)
+                names.append(name)
     return names
 
 def input_ports():
-    """Returns a list of all the output port names."""
+    """Returns a list of all the input port names."""
     names = []
     if available():
         for i in device_infos():
             if i.isinput:
-                names.append(i.name)
+                name = _decode_name(i.name)
+                names.append(name)
     return names
 
 def default_output():
@@ -94,9 +99,10 @@ def default_output():
     if available():
         for i in device_infos():
             if i.isoutput:
-                names.append(i.name)
-                if 'through' not in i.name.lower():
-                    return i.name
+                name = _decode_name(i.name)
+                names.append(name)
+                if 'through' not in name.lower():
+                    return name
     return names[0] if names else ""
 
 def default_input():
@@ -105,24 +111,32 @@ def default_input():
     if available():
         for i in device_infos():
             if i.isinput:
-                names.append(i.name)
-                if 'through' not in i.name.lower():
-                    return i.name
+                name = _decode_name(i.name)
+                names.append(name)
+                if 'through' not in name.lower():
+                    return name
     return names[0] if names else ""
 
 def output_by_name(name):
     """Returns a portmidi.Output instance for name."""
     for n in range(get_count()):
         i = portmidi.get_device_info(n)
-        if i.isoutput and i.name.startswith(name) and not i.isopen:
+        output_name = _decode_name(i.name)
+        if i.isoutput and output_name.startswith(name) and not i.isopen:
             return portmidi.Output(n)
 
 def input_by_name(name):
     """Returns a portmidi.Output instance for name."""
     for n in range(get_count()):
         i = portmidi.get_device_info(n)
-        if i.isinput and i.name.startswith(name) and not i.isopen:
+        input_name = _decode_name(i.name)
+        if i.isinput and input_name.startswith(name) and not i.isopen:
             return portmidi.Input(n)
+
+def _decode_name(s):
+    """Helper to decode a device name or interf if it is a bytes type."""
+    return s.decode('latin1') if isinstance(s, type(b'')) else s
+
 
 # allow the MIDI player to run on python time if portmidi is not available:
 if available():
