@@ -27,16 +27,20 @@ its tracks.
 A basic event factory returns the MIDI events as simple named tuples,
 but you can subclass the event factory for more sophisticated behaviour.
 
-Runs with Python 2.6, 2.7.
-For Python 3 you can remove the ord() calls.
+Runs with Python 2.6, 2.7 and 3.
 
 """
 
 from __future__ import unicode_literals
 
+import sys
 import struct
 
 from . import event
+
+
+PY2 = sys.version_info[0] == 2
+
 
 unpack_midi_header = struct.Struct(b'>hhh').unpack
 unpack_int = struct.Struct(b'>i').unpack
@@ -76,14 +80,14 @@ def parse_midi_data(s):
 
 
 def read_var_len(s, pos):
-    """Reads variable-length integer from s starting on pos.
+    """Reads variable-length integer from byte string s starting on pos.
     
     Returns the value and the new position.
     
     """
     value = 0
     while True:
-        i = ord(s[pos])
+        i = s[pos]
         pos += 1
         value = value * 128 + (i & 0x7F)
         if not i & 0x80:
@@ -106,12 +110,15 @@ def parse_midi_events(s, factory=None):
         
     running_status = None
     
+    if PY2:
+        s = bytearray(s)
+    
     pos = 0
     while pos < len(s):
         
         delta, pos = read_var_len(s, pos)
         
-        status = ord(s[pos])
+        status = s[pos]
         if status & 0x80:
             running_status = status
             pos += 1
@@ -125,15 +132,15 @@ def parse_midi_events(s, factory=None):
         
         if ev_type <= 0x0A:
             # note on, off or aftertouch
-            note = ord(s[pos])
-            value = ord(s[pos+1])
+            note = s[pos]
+            value = s[pos+1]
             pos += 2
             ev = factory.note_event(ev_type, channel, note, value)
         elif ev_type >= 0x0F:
             running_status = None
             if status == 0xFF:
                 # meta event
-                meta_type = ord(s[pos])
+                meta_type = s[pos]
                 meta_size, pos = read_var_len(s, pos+1)
                 meta_data = s[pos:pos+meta_size]
                 pos += meta_size
@@ -146,23 +153,23 @@ def parse_midi_events(s, factory=None):
                 ev = factory.sysex_event(status, sysex_data)
         elif ev_type == 0x0E:
             # Pitch Bend
-            value = ord(s[pos]) + ord(s[pos+1]) * 128
+            value = s[pos] + s[pos+1] * 128
             pos += 2
             ev = factory.pitchbend_event(channel, value)
         elif ev_type == 0xD:
             # Channel AfterTouch
-            value = ord(s[pos])
+            value = s[pos]
             pos += 1
             ev = factory.channelaftertouch_event(channel, value)
         elif ev_type == 0xB:
             # Controller
-            number = ord(s[pos])
-            value = ord(s[pos+1])
+            number = s[pos]
+            value = s[pos+1]
             pos += 2
             ev = factory.controller_event(channel, number, value)
         else: # ev_type == 0xC
             # Program Change
-            number = ord(s[pos])
+            number = s[pos]
             pos += 1
             ev = factory.programchange_event(channel, number)
         yield delta, ev

@@ -77,7 +77,7 @@ def is_tempo(e):
 
 def get_tempo(e):
     """Returns the tempo from the Set Tempo Meta-event."""
-    return ord(e.data[0])*65536 + ord(e.data[1])*256 + ord(e.data[2])
+    return e.data[0]*65536 + e.data[1]*256 + e.data[2]
 
 
 def is_time_signature(e):
@@ -87,7 +87,7 @@ def is_time_signature(e):
 
 def get_time_signature(e):
     """Returns the num, den, clocks, num_32s from the Time Signature event."""
-    return map(ord, e.data)
+    return tuple(e.data)
 
 
 def smpte_division(div):
