@@ -132,7 +132,7 @@ class Listener(QThread):
             # so we feed it one. But since it's just one event, we only need the first "generated" element.
             # First bytes are time, which are unnecessary in our case, so we feed a dummy byte "chr(77)"
             # and strip output by just using [1]. 77 is chosen randomly ;)
-            s = chr(77) + chr(data[0][0][0]) + chr(data[0][0][1]) + chr(data[0][0][2]) + chr(data[0][0][3])
+            s = bytes((77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]))
             event = next(midifile.parser.parse_midi_events(s))[1]
             
             self.emit(SIGNAL("caughtevent"), event)
