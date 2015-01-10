@@ -115,7 +115,7 @@ class View(QtWebKit.QWebView):
     
     def clear(self):
         """Empty the View."""
-        self.load(QtCore.QUrl())
+        self.load(QtCore.QUrl(os.path.join(__path__[0], 'frescobaldi-svg.svg')))
     
     def dragElement(self, url):
         t = textedit.link(url)
