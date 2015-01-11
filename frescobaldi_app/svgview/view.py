@@ -66,6 +66,8 @@ class View(QtWebKit.QWebView):
     selectedObject = QtCore.pyqtSignal(str)
     selectedUrl = QtCore.pyqtSignal(QtGui.QTextCursor)
     
+    defaulturl = QtCore.QUrl(os.path.join(__path__[0], 'background.html'))
+    
     def __init__(self, parent):
         super(View, self).__init__(parent)
         self._highlightFormat = QtGui.QTextCharFormat()
@@ -73,6 +75,7 @@ class View(QtWebKit.QWebView):
         self.loadFinished.connect(self.svgLoaded)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
+        self.load(self.defaulturl)
     
     def mainwindow(self):
         return self.parent().mainwindow()
@@ -115,7 +118,7 @@ class View(QtWebKit.QWebView):
     
     def clear(self):
         """Empty the View."""
-        self.load(QtCore.QUrl())
+        self.load(self.defaulturl)
     
     def dragElement(self, url):
         t = textedit.link(url)
