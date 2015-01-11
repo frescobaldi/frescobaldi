@@ -28,7 +28,7 @@ package_data = {
     'frescobaldi_app.po': ['*.mo'],
     'frescobaldi_app.scorewiz': ['*.png'],
     'frescobaldi_app.splashscreen': ['*.png'],
-    'frescobaldi_app.svgview': ['*.js'],
+    'frescobaldi_app.svgview': ['*.js', '*.html'],
     'frescobaldi_app.symbols': ['*.svg'],
     'frescobaldi_app.userguide': ['*.md', '*.png'],
 }

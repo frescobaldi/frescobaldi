@@ -10,6 +10,8 @@ Changes in 2.18 --
     to the menu by default, but the user can change that while editing.
   - Ctrl+Break (LilyPond → Abort Engraving Job) also stops an autocompile job
     if one is running.
+  - The SVG View now displays a default gray background when no document is
+    loaded, which is more helpful than a white background.
 * Bugfixes:
   - If the preference "Open default viewer after successful compile" is enabled,
     the viewer to be opened is determined from the actual results, instead of
