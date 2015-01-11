@@ -102,7 +102,7 @@ class View(QtWebKit.QWebView):
         
 
     def svgLoaded(self):
-        if not self.url().isEmpty():
+        if not self.url().isEmpty() and not self.url().path().endswith(".html"):
             frame = self.page().mainFrame()
             frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
