@@ -224,6 +224,8 @@ def transpose(cursor, transposer):
                     absolute(context())
                 elif isinstance(t, ly.lex.lilypond.ChordMode):
                     chordmode()
+                elif isinstance(t, ly.lex.lilypond.Command) and t == '\stringTuning':
+                    string_tuning()
                 elif isinstance(t, ly.lex.lilypond.PitchCommand):
                     if t == "\\transposition":
                         next(psource) # skip pitch
@@ -280,6 +282,13 @@ def transpose(cursor, transposer):
         for p in getpitches(context()):
             transpose(p, 0)
             
+    def string_tuning():
+        """Called after \\stringTuning. Ignores the following chord expression."""
+        for t in tsource:
+            if isinstance(t, ly.lex.lilypond.ChordStart):
+                consume()
+            break
+    
     def absolute(tokens):
         """Called when outside a possible \\relative environment."""
         for p in getpitches(tokens):
