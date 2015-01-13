@@ -18,9 +18,9 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-lasptygrqu -- The only module in Frescobaldi with an incomprehensible name.
+lasptyqu -- The only module in Frescobaldi with an incomprehensible name.
 
-LAnguage-SPecific TYpoGRaphical QUotes.
+LAnguage-SPecific TYpographical QUotes.
 
 This modules contains 'secondary' and "primary" opening and closing quotes for many
 different languages.
@@ -98,6 +98,19 @@ QuoteSet(
 )
 
 
+def quote_set(primary_left, primary_right, secondary_left, secondary_right):
+    """Return a QuoteSet object for the specified four quote character strings.
+    
+    This function is not needed normally, but should you ever want to create
+    a custom QuoteSet object and access the attributes in the same way as with
+    the predefined quote sets, this function can be used.
+    
+    """
+    return QuoteSet(
+        primary=Quotes(primary_left, primary_right),
+        secondary=Quotes(secondary_left, secondary_right),
+    )
+
 def quotes(language="C"):
     try:
         return _quotes[language]
@@ -111,9 +124,15 @@ def quotes(language="C"):
 
 
 def preferred_quotes():
-    """Return the quotes desired by the Frescobaldi user."""
+    """Return the quotes desired by the Frescobaldi user.
+    
+    Only this function depends on Qt and Frescobaldi.
+    
+    """
     
     from PyQt4.QtCore import QSettings
+    import po.setup
+
     s = QSettings()
     s.beginGroup("typographical_quotes")
     mode = s.value("mode", "default", type(""))
@@ -132,7 +151,6 @@ def preferred_quotes():
         )
     language = s.value("language", "default", type(""))
     if language == "default":
-        import po.setup
         language = po.setup.current()
     return quotes(language)
 
