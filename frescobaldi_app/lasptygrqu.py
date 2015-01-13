@@ -22,8 +22,19 @@ lasptygrqu -- The only module in Frescobaldi with an incomprehensible name.
 
 LAnguage-SPecific TYpoGRaphical QUotes.
 
-This modules contains 'single' and "double" opening and closing quotes for many
+This modules contains 'secondary' and "primary" opening and closing quotes for many
 different languages.
+
+Primary quotes are like double quotes in ASCII, and secondary quotes are like
+single quotes.
+
+A set of quotes (primary and secondary, left and right) is defined by
+a named tuple(primary, secondary). Both the primary and secondary attributes
+are also a named tuple(left, right). Use e.g. q.primary.left to get the left
+primary quote of a quote set.
+
+The quotes itself are simply unicode strings.
+
 """
 
 from __future__ import unicode_literals
@@ -31,7 +42,7 @@ from __future__ import unicode_literals
 import collections
 
 
-QuoteSet = collections.namedtuple("QuoteSet", "single double")
+QuoteSet = collections.namedtuple("QuoteSet", "primary secondary")
 Quotes = collections.namedtuple("Quotes", "left right")
 
 _quotes = {}
@@ -41,8 +52,8 @@ _quotes["en"] = \
 _quotes["nl"] = \
 _quotes["tr"] = \
 QuoteSet(
-    single=Quotes(left="\u2018", right="\u2019"),
-    double=Quotes(left="\u201C", right="\u201D"),
+    primary=Quotes(left="\u201C", right="\u201D"),
+    secondary=Quotes(left="\u2018", right="\u2019"),
 )
 
 _quotes["es"] = \
@@ -50,39 +61,79 @@ _quotes["fr"] = \
 _quotes["gl"] = \
 _quotes["it"] = \
 QuoteSet(
-    single=Quotes(left="\u2039", right="\u203A"),
-    double=Quotes(left="\u00AB", right="\u00BB"),
+    primary=Quotes(left="\u00AB", right="\u00BB"),
+    secondary=Quotes(left="\u2039", right="\u203A"),
 )
 
 _quotes["de"] = \
 QuoteSet(
-    single=Quotes(left="\u201A", right="\u2018"),
-    double=Quotes(left="\u201E", right="\u201C"),
+    primary=Quotes(left="\u201E", right="\u201C"),
+    secondary=Quotes(left="\u201A", right="\u2018"),
 )
 
 _quotes["pl"] = \
 QuoteSet(
-    single=Quotes(left="\u00AB", right="\u00BB"),
-    double=Quotes(left="\u201E", right="\u201D"),
+    primary=Quotes(left="\u201E", right="\u201D"),
+    secondary=Quotes(left="\u00AB", right="\u00BB"),
 )
 
 _quotes["ru"] = \
 _quotes["uk" ] =\
 QuoteSet(
-    single=Quotes(left="\u201E", right="\u201C"),
-    double=Quotes(left="\u00AB", right="\u00BB"),
+    primary=Quotes(left="\u00AB", right="\u00BB"),
+    secondary=Quotes(left="\u201E", right="\u201C"),
 )
 
 _quotes["pt_BR"] = \
 QuoteSet(
-    single=Quotes(left="\u201C", right="\u201D"),
-    double=Quotes(left="\u00AB", right="\u00BB"),
+    primary=Quotes(left="\u00AB", right="\u00BB"),
+    secondary=Quotes(left="\u201C", right="\u201D"),
 )
 
 _quotes["zh"] = \
 _quotes["ja"] = \
 QuoteSet(
-    single=Quotes(left="\u300C", right="\u300D"),
-    double=Quotes(left="\u300E", right="\u300F"),
+    primary=Quotes(left="\u300E", right="\u300F"),
+    secondary=Quotes(left="\u300C", right="\u300D"),
 )
+
+
+def quotes(language="C"):
+    try:
+        return _quotes[language]
+    except KeyError:
+        if '_' in language:
+            try:
+                return _quotes[language.split("_")[0]]
+            except KeyError:
+                pass
+    return _quotes["C"]
+
+
+def preferred_quotes():
+    """Return the quotes desired by the Frescobaldi user."""
+    
+    from PyQt4.QtCore import QSettings
+    s = QSettings()
+    s.beginGroup("typographical_quotes")
+    mode = s.value("mode", "default", type(""))
+    
+    if mode == "custom":
+        default = _quotes["C"]
+        return QuoteSet(
+            primary = Quotes(
+                left = s.value("primary_left", default.primary.left, type(""))
+                right = s.value("primary_right", default.primary.right, type(""))
+            )
+            secondary = Quotes(
+                left = s.value("secondary_left", default.secondary.left, type(""))
+                right = s.value("secondary_right", default.secondary.right, type(""))
+            )
+        )
+    language = s.value("language", "default", type(""))
+    if language == "default":
+        import po.setup
+        language = po.setup.current()
+    return quotes(language)
+
 
