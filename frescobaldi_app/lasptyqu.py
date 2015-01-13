@@ -141,12 +141,12 @@ def preferred_quotes():
         default = _quotes["C"]
         return QuoteSet(
             primary = Quotes(
-                left = s.value("primary_left", default.primary.left, type(""))
-                right = s.value("primary_right", default.primary.right, type(""))
-            )
+                left = s.value("primary_left", default.primary.left, type("")),
+                right = s.value("primary_right", default.primary.right, type("")),
+            ),
             secondary = Quotes(
-                left = s.value("secondary_left", default.secondary.left, type(""))
-                right = s.value("secondary_right", default.secondary.right, type(""))
+                left = s.value("secondary_left", default.secondary.left, type("")),
+                right = s.value("secondary_right", default.secondary.right, type("")),
             )
         )
     language = s.value("language", "default", type(""))
