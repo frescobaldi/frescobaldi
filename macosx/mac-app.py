@@ -14,7 +14,7 @@ from setuptools import setup
 import shutil
 from subprocess import Popen
 
-if sys.version_info[0] == 3:
+if sys.version_info[0] >= 3:
     string_types = str
 else:
     string_types = basestring
