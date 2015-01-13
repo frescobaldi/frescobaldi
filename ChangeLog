@@ -18,6 +18,8 @@ Changes in 2.18 --
     the default output format. This fixes the PDF view opening instead of the
     SVG view, when the SVG format was chosen in the Engrave Custom dialog.
   - fix AttributeError: 'unicode' object has no attribute 'insert' (issue #543)
+  - the transpose functions will not transpose the chord after \stringTuning
+    anymore (issue #539).
 * Translations:
   - updated: nl, fr
 
