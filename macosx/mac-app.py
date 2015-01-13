@@ -14,7 +14,12 @@ from setuptools import setup
 import shutil
 from subprocess import Popen
 
-if sys.version_info[0] == 3:
+# Python 2 text strings: basestring = str (ASCII) + unicode (Unicode)
+# Python 3 text strings: str (Unicode)
+# See https://docs.python.org/3/howto/pyporting.html for details.
+# The following code is the same used in package six to define a
+# version independent string type for isinstance() tests.
+if sys.version_info[0] >= 3:
     string_types = str
 else:
     string_types = basestring
