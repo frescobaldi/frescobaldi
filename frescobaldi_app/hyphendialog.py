@@ -118,7 +118,7 @@ class HyphenDialog(QDialog):
     def load(self):
         current = po.setup.current()
         self._langs = [(language_names.languageName(lang, current), lang, dic)
-                       for lang, dic in findDicts().iteritems()]
+                       for lang, dic in findDicts().items()]
         self._langs.sort()
         for name, lang, dic in self._langs:
             self.listWidget.addItem("{0}  ({1})".format(name, lang))
