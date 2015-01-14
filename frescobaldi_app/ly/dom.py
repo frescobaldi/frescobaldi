@@ -132,6 +132,13 @@ class Printer(object):
     Performs certain operations on behalf of a LyNode tree,
     like quoting strings or translating pitch names, etc.
     """
+    
+    # You may change these
+    primary_quote_left = '\u2018'
+    primary_quote_right = '\u2019'
+    secondary_quote_left = '\u201C'
+    secondary_quote_right = '\u201D'
+    
     def __init__(self):
         self.typographicalQuotes = True
         self.language = "nederlands"
@@ -139,8 +146,8 @@ class Printer(object):
         
     def quoteString(self, text):
         if self.typographicalQuotes:
-            text = re.sub(r'"(.*?)"', '\u201C\\1\u201D', text)
-            text = re.sub(r"'(.*?)'", '\u2018\\1\u2019', text)
+            text = re.sub(r'"(.*?)"', self.primary_quote_left + r'\1' + self.primary_quote_right, text)
+            text = re.sub(r"'(.*?)'", self.secondary_quote_left + r'\1' + self.secondary_quote_right, text)
             text = text.replace("'", '\u2018')
         # escape regular double quotes
         text = text.replace('"', '\\"')
