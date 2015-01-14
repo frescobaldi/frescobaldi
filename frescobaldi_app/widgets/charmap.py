@@ -26,6 +26,12 @@ When a character is clicked, a signal is emitted.
 
 from __future__ import unicode_literals
 
+try:
+    chr = unichr
+    str = unicode
+except NameError:
+    pass
+
 import unicodedata
 
 from PyQt4.QtCore import *
@@ -34,8 +40,8 @@ from PyQt4.QtGui import *
 
 class CharMap(QWidget):
     """A widget displaying a table of characters."""
-    characterSelected = pyqtSignal(unicode)
-    characterClicked = pyqtSignal(unicode)
+    characterSelected = pyqtSignal(str)
+    characterClicked = pyqtSignal(str)
     
     def __init__(self, parent=None):
         super(CharMap, self).__init__(parent)
@@ -68,13 +74,13 @@ class CharMap(QWidget):
             charcode = -1
         if self._selected != charcode:
             self._selected = charcode
-            self.characterSelected.emit(unichr(charcode))
+            self.characterSelected.emit(chr(charcode))
             self.update()
     
     def character(self):
         """Returns the currently selected character, if any."""
         if self._selected != -1:
-            return unichr(self._selected)
+            return chr(self._selected)
     
     def setDisplayFont(self, font):
         self._font.setFamily(font.family())
@@ -117,8 +123,8 @@ class CharMap(QWidget):
     def paintEvent(self, ev):
         rect = ev.rect()
         s = self._square
-        rows = range(rect.top() / s, rect.bottom() / s + 1)
-        cols = range(rect.left() / s, rect.right() / s + 1)
+        rows = range(rect.top() // s, rect.bottom() // s + 1)
+        cols = range(rect.left() // s, rect.right() // s + 1)
         
         painter = QPainter(self)
         painter.setPen(QPen(self.palette().color(QPalette.Window)))
@@ -148,8 +154,8 @@ class CharMap(QWidget):
                 elif printable:
                     painter.fillRect(col * s + 1, row * s + 1, s - 2, s - 2, tile)
                 painter.setPen(text_pen if printable else disabled_pen)
-                t = unichr(char)
-                x = col * s + s / 2 - metrics.width(t) / 2
+                t = chr(char)
+                x = col * s + s // 2 - metrics.width(t) // 2
                 y = row * s + 4 + metrics.ascent()
                 painter.drawText(x, y, t)
             else:
@@ -175,7 +181,7 @@ class CharMap(QWidget):
         if charcode != -1 and self.isprint(charcode):
             self.select(charcode)
             if ev.button() != Qt.RightButton:
-                self.characterClicked.emit(unichr(charcode))
+                self.characterClicked.emit(chr(charcode))
     
     def charcodeRect(self, charcode):
         """Returns the rectangular box around the given charcode, if any."""
@@ -222,17 +228,17 @@ class CharMap(QWidget):
     
     def getToolTipText(self, charcode):
         try:
-            return unicodedata.name(unichr(charcode))
+            return unicodedata.name(chr(charcode))
         except ValueError:
             pass
     
     def getWhatsThisText(self, charcode):
         try:
-            name = unicodedata.name(unichr(charcode))
+            name = unicodedata.name(chr(charcode))
         except ValueError:
             return
         return whatsthis_html.format(
-            self._font.family(), unichr(charcode), name, charcode)
+            self._font.family(), chr(charcode), name, charcode)
     
     def setShowToolTips(self, enabled):
         self._showToolTips = bool(enabled)
@@ -253,7 +259,7 @@ class CharMap(QWidget):
 
 def isprint(charcode):
     """Returns True if the given charcode is printable."""
-    return unicodedata.category(unichr(charcode)) not in ('Cc', 'Cn')
+    return unicodedata.category(chr(charcode)) not in ('Cc', 'Cn')
 
 
 whatsthis_html = """\
