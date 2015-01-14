@@ -29,6 +29,7 @@ import re
 
 import ly.dom
 import po.mofile
+import lasptyqu
 
 from . import parts
 
@@ -197,6 +198,11 @@ class Builder(object):
         p = self._printer = ly.dom.Printer()
         p.indentString = "  " # will be re-indented anyway
         p.typographicalQuotes = generalPreferences.typq.isChecked()
+        quotes = lasptyqu.preferred()
+        p.primary_quote_left = quotes.primary.left
+        p.primary_quote_right = quotes.primary.right
+        p.secondary_quote_left = quotes.secondary.left
+        p.secondary_quote_right = quotes.secondary.right
         if self.pitchLanguage:
             p.language = self.pitchLanguage
         
