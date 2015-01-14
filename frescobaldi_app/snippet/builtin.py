@@ -136,13 +136,19 @@ def main():
 
 
 'quotes_s': T(_("Single Typographical Quotes"),
-"""-*- menu: text;
-\u2018$SELECTION\u2019"""),
+"""-*- menu: text; python;
+import lasptyqu
+left, right = lasptyqu.preferred().secondary
+text = left + text + right
+"""),
 
 
 'quotes_d': T(_("Double Typographical Quotes"),
-"""-*- menu: text;
-\u201C$SELECTION\u201D"""),
+"""-*- menu: text; python;
+import lasptyqu
+left, right = lasptyqu.preferred().primary
+text = left + text + right
+"""),
 
 
 'voice1': T(None,
