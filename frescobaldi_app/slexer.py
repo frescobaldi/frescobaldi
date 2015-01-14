@@ -115,8 +115,9 @@ for t in s.tokens(
 
 """
 
-# remove the following 5 lines if sure Python 3.x is used
 from __future__ import unicode_literals
+from __future__ import print_function
+
 import sys
 if sys.version_info[0] < 3:
     str = unicode
