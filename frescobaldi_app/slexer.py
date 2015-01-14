@@ -118,11 +118,10 @@ for t in s.tokens(
 from __future__ import unicode_literals
 from __future__ import print_function
 
-import sys
-if sys.version_info[0] < 3:
+try:
     str = unicode
-del sys
-
+except NameError:
+    pass
 
 import re
 

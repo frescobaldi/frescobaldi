@@ -23,6 +23,11 @@ Completions data harvested from a Document.
 
 from __future__ import unicode_literals
 
+try:
+    str = unicode
+except NameError:
+    pass
+
 import itertools
 import os
 
@@ -53,7 +58,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
         """Scheme names, including those harvested from document."""
         schemewords = set(itertools.chain(
             ly.data.all_scheme_words(),
-            (unicode(t)
+            (str(t)
                 for t in harvest.schemewords(self.document())
                 if len(t) > 2),
             ))
