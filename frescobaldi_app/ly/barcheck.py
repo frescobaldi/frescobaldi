@@ -22,6 +22,7 @@ Add, check or remove bar checks in selected music.
 """
 
 from __future__ import unicode_literals
+from __future__ import print_function
 
 import collections
 import itertools
