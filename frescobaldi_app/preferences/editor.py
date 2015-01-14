@@ -47,6 +47,7 @@ class Editor(preferences.ScrolledGroupsPage):
         layout.addWidget(Highlighting(self))
         layout.addWidget(Indenting(self))
         layout.addWidget(SourceExport(self))
+        layout.addWidget(TypographicalQuotes(self))
         layout.addStretch()
 
 
@@ -290,5 +291,28 @@ class SourceExport(preferences.Group):
         s.setValue("inline_export", self.inlineStyleExport.isChecked())
         s.setValue("copy_html_as_plain_text", self.copyHtmlAsPlainText.isChecked())
         s.setValue("copy_document_body_only", self.copyDocumentBodyOnly.isChecked())
+
+
+class TypographicalQuotes(preferences.Group):
+    def __init__(self, page):
+        super(TypographicalQuotes, self).__init__(page)
+        
+        layout = QGridLayout()
+        self.setLayout(layout)
+        
+        
+        app.translateUI(self)
+    
+    def translateUI(self):
+        self.setTitle(_("Typographical Quotes"))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("typographical_quotes")
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("typographical_quotes")
+
 
 
