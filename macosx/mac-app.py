@@ -20,10 +20,10 @@ from subprocess import Popen
 # See https://docs.python.org/3/howto/pyporting.html for details.
 # The following code is the same used in package six to define a
 # version independent string type for isinstance() tests.
-if sys.version_info[0] >= 3:
-    string_types = str
-else:
+try:
     string_types = basestring
+except NameError:
+    string_types = str
 
 macosx = os.path.realpath(os.path.dirname(__file__))
 root = os.path.dirname(macosx)

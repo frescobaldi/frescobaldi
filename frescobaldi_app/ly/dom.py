@@ -38,6 +38,11 @@ Note: elements keep a weak reference to their parent.
 from __future__ import unicode_literals
 from __future__ import absolute_import # prevent picking old stale node.py from package
 
+try:
+    string_types = basestring
+except NameError:
+    string_types = str
+
 import fractions
 import re
 
@@ -219,7 +224,7 @@ class HandleVars(object):
         Otherwise the same method from the super class is called.
         """
         def newfunc(obj, name, *args):
-            if isinstance(name, type("")):
+            if isinstance(name, string_types):
                 return func(obj, name, *args)
             else:
                 f = getattr(super(HandleVars, obj), func.__name__)

@@ -23,6 +23,11 @@ Performs upgrades in the settings structure.
 
 from __future__ import unicode_literals
 
+try:
+    string_types = basestring
+except NameError:
+    string_types = str
+
 from PyQt4.QtCore import QSettings
 
 import info
@@ -41,7 +46,7 @@ def moveSettingsToNewRoot():
     """Move all settings to one application file."""
     movelist = [[info.name, info.url, False], "metainfo", "snippets", "sessions", "sessiondata"]
     for moveitem in movelist:
-        if isinstance(moveitem, basestring):
+        if isinstance(moveitem, string_types):
             moveitem = [moveitem, info.name, True]
         o = QSettings(moveitem[1], moveitem[0])
         o.setFallbacksEnabled(False)
