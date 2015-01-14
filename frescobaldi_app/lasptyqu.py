@@ -98,6 +98,10 @@ QuoteSet(
 )
 
 
+def available():
+    """Return the list of language codes quotes are defined for."""
+    return sorted(_quotes)
+
 def quote_set(primary_left, primary_right, secondary_left, secondary_right):
     """Return a QuoteSet object for the specified four quote character strings.
     
@@ -112,6 +116,11 @@ def quote_set(primary_left, primary_right, secondary_left, secondary_right):
     )
 
 def quotes(language="C"):
+    """Return a quotes set for the specified language (default C).
+    
+    May return None, in case there are no quotes defined for the language.
+    
+    """
     try:
         return _quotes[language]
     except KeyError:
@@ -120,12 +129,15 @@ def quotes(language="C"):
                 return _quotes[language.split("_")[0]]
             except KeyError:
                 pass
+
+def default():
+    """Return quotes("C")."""
     return _quotes["C"]
 
-
-def preferred_quotes():
+def preferred():
     """Return the quotes desired by the Frescobaldi user.
     
+    Always returns a quote set.
     Only this function depends on Qt and Frescobaldi.
     
     """
@@ -137,8 +149,8 @@ def preferred_quotes():
     s.beginGroup("typographical_quotes")
     mode = s.value("mode", "default", type(""))
     
+    default = _quotes["C"]
     if mode == "custom":
-        default = _quotes["C"]
         return QuoteSet(
             primary = Quotes(
                 left = s.value("primary_left", default.primary.left, type("")),
@@ -152,6 +164,6 @@ def preferred_quotes():
     language = s.value("language", "default", type(""))
     if language == "default":
         language = po.setup.current()
-    return quotes(language)
+    return quotes(language) or default
 
 
