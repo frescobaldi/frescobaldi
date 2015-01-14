@@ -79,7 +79,7 @@ class Shortcuts(preferences.Page):
                 allactions[action] = (collection, name)
         
         # keep a list of actions not in the menu structure
-        left = allactions.keys()
+        left = list(allactions.keys())
         
         def add_actions(menuitem, actions):
             """Add actions to a QTreeWidgetItem."""
