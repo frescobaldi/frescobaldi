@@ -17,6 +17,11 @@ License: LGPL. More info: http://python-hyphenator.googlecode.com/
 from __future__ import unicode_literals
 from __future__ import print_function
 
+try:
+    chr = unichr
+except NameError:
+    pass
+
 import codecs
 import re
 
@@ -34,7 +39,7 @@ parse = re.compile(r'(\d?)(\D?)').findall
 _hex_re = re.compile(r'\^{2}([0-9a-f]{2})')
 
 # replace the matched hex string with the corresponding unicode character
-_hex_repl = lambda matchObj: unichr(int(matchObj.group(1), 16))
+_hex_repl = lambda matchObj: chr(int(matchObj.group(1), 16))
 
 def replace_hex(text):
     """Replaces ^^xx (where xx is a two-digit hexadecimal value) occurrences
@@ -97,12 +102,12 @@ class HyphenationDictionary(object):
     """
     def __init__(self, filename):
         self.patterns = {}
-        with open(filename) as f:
+        with open(filename, 'rb') as f:
             # use correct encoding, specified in first line
             for encoding in f.readline().split():
-                if encoding != "charset":
+                if encoding != b"charset":
                     try:
-                        decoder = codecs.getreader(encoding)
+                        decoder = codecs.getreader(encoding.decode('ascii'))
                         break
                     except LookupError:
                         pass
@@ -259,10 +264,13 @@ class Hyphenator(object):
 if __name__ == "__main__":
     import sys
     dict_file = sys.argv[1]
-    word = sys.argv[2].decode('latin1')
+    word = sys.argv[2]
+    if not isinstance(word, type("")):
+        import locale
+        word = word.decode(locale.getpreferredencoding())
 
     h = Hyphenator(dict_file, left=1, right=1)
 
     for i in h(word):
-        print(i)
+        print(" \u2013 ".join(i))
 
