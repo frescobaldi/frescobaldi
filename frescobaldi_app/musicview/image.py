@@ -79,7 +79,7 @@ class Dialog(QDialog):
         self.dpiCombo = QComboBox(insertPolicy=QComboBox.NoInsert, editable=True)
         self.dpiCombo.lineEdit().setCompleter(None)
         self.dpiCombo.setValidator(QDoubleValidator(10.0, 1200.0, 4, self.dpiCombo))
-        self.dpiCombo.addItems([format(i) for i in 72, 100, 200, 300, 600, 1200])
+        self.dpiCombo.addItems([format(i) for i in (72, 100, 200, 300, 600, 1200)])
         
         self.colorButton = widgets.colorbutton.ColorButton()
         self.colorButton.setColor(QColor(Qt.white))
