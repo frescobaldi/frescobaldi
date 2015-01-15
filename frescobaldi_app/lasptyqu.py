@@ -78,7 +78,7 @@ QuoteSet(
 )
 
 _quotes["ru"] = \
-_quotes["uk" ] =\
+_quotes["uk"] = \
 QuoteSet(
     primary=Quotes(left="\u00AB", right="\u00BB"),
     secondary=Quotes(left="\u201E", right="\u201C"),
