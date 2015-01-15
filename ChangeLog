@@ -4,6 +4,9 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18 -- 
 
+* New features:
+  - In the Editor Preferences, you can select which quotes will be used as
+    single and double (primary and secondary) typographical quotes.
 * Improvements:
   - The Insert menu got renamed to Snippets, making more clear how it is used
     and can be changed. When copying text to a new snippet, the snippet is added

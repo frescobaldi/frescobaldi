@@ -25,13 +25,16 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QSpinBox, 
+    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QLineEdit, QSpinBox, 
     QVBoxLayout, QWidget)
 
 import app
 import util
 import qutil
 import icons
+import lasptyqu
+import po.setup
+import language_names
 import preferences
 import widgets.urlrequester
 
@@ -297,22 +300,81 @@ class TypographicalQuotes(preferences.Group):
     def __init__(self, page):
         super(TypographicalQuotes, self).__init__(page)
         
-        layout = QGridLayout()
+        layout = QGridLayout(spacing=1)
         self.setLayout(layout)
+        l = self.languageLabel = QLabel()
+        c = self.languageCombo = QComboBox(currentIndexChanged=self.languageChanged)
+        l.setBuddy(c)
         
+        self.primaryLabel = QLabel()
+        self.secondaryLabel = QLabel()
+        self.primaryLeft = QLineEdit(textEdited=self.changed)
+        self.primaryRight = QLineEdit(textEdited=self.changed)
+        self.secondaryLeft = QLineEdit(textEdited=self.changed)
+        self.secondaryRight = QLineEdit(textEdited=self.changed)
+        
+        self._langs = ["current", "custom"]
+        self._langs.extend(lang for lang in lasptyqu.available() if lang != "C")
+        c.addItems(['' for i in self._langs])
+        
+        layout.addWidget(self.languageLabel, 0, 0)
+        layout.addWidget(self.primaryLabel, 1, 0)
+        layout.addWidget(self.secondaryLabel, 2, 0)
+        layout.addWidget(self.languageCombo, 0, 1, 1, 2)
+        layout.addWidget(self.primaryLeft, 1, 1)
+        layout.addWidget(self.primaryRight, 1, 2)
+        layout.addWidget(self.secondaryLeft, 2, 1)
+        layout.addWidget(self.secondaryRight, 2, 2)
         
         app.translateUI(self)
     
+    def languageChanged(self):
+        """Called when the user changes the combobox."""
+        enabled = self.languageCombo.currentIndex() == 1
+        self.primaryLabel.setEnabled(enabled)
+        self.primaryLeft.setEnabled(enabled)
+        self.primaryRight.setEnabled(enabled)
+        self.secondaryLabel.setEnabled(enabled)
+        self.secondaryLeft.setEnabled(enabled)
+        self.secondaryRight.setEnabled(enabled)
+        self.changed.emit()
+        
     def translateUI(self):
         self.setTitle(_("Typographical Quotes"))
+        self.languageLabel.setText(_("Quotes to use:"))
+        self.primaryLabel.setText(_("Primary (double) quotes:"))
+        self.secondaryLabel.setText(_("Secondary (single) quotes:"))
+        curlang = po.setup.current()
+        qformat = "{0}   {1.primary.left} {1.primary.right}    {1.secondary.left} {1.secondary.right}"
+        self.languageCombo.setItemText(0, qformat.format(
+            _("Current language"), lasptyqu.quotes(curlang) or lasptyqu.default()))
+        self.languageCombo.setItemText(1, _("Custom quotes (enter below)"))
+        for i, lang in enumerate(self._langs[2:], 2):
+            self.languageCombo.setItemText(i, qformat.format(
+                language_names.languageName(lang, curlang), lasptyqu.quotes(lang)))
 
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("typographical_quotes")
+        lang = s.value("language", "current", type(""))
+        try:
+            index = self._langs.index(lang)
+        except ValueError:
+            index = 0
+        self.languageCombo.setCurrentIndex(index)
+        default = lasptyqu.default()
+        self.primaryLeft.setText(s.value("primary_left", default.primary.left, type("")))
+        self.primaryRight.setText(s.value("primary_right", default.primary.right, type("")))
+        self.secondaryLeft.setText(s.value("secondary_left", default.secondary.left, type("")))
+        self.secondaryRight.setText(s.value("secondary_right", default.secondary.right, type("")))
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("typographical_quotes")
-
+        s.setValue("language", self._langs[self.languageCombo.currentIndex()])
+        s.setValue("primary_left", self.primaryLeft.text())
+        s.setValue("primary_right", self.primaryRight.text())
+        s.setValue("secondary_left", self.secondaryLeft.text())
+        s.setValue("secondary_right", self.secondaryRight.text())
 
 

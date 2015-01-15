@@ -147,10 +147,12 @@ def preferred():
 
     s = QSettings()
     s.beginGroup("typographical_quotes")
-    mode = s.value("mode", "default", type(""))
+    language = s.value("language", "current", type(""))
     
     default = _quotes["C"]
-    if mode == "custom":
+    if language == "current":
+        language = po.setup.current()
+    elif language == "custom":
         return QuoteSet(
             primary = Quotes(
                 left = s.value("primary_left", default.primary.left, type("")),
@@ -161,9 +163,6 @@ def preferred():
                 right = s.value("secondary_right", default.secondary.right, type("")),
             )
         )
-    language = s.value("language", "default", type(""))
-    if language == "default":
-        language = po.setup.current()
     return quotes(language) or default
 
 
