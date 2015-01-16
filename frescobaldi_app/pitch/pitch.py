@@ -28,6 +28,7 @@ from __future__ import unicode_literals
 
 import re
 
+from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QMessageBox
 
 import app
@@ -166,26 +167,9 @@ def getModeShifter(document, mainwindow):
     Returns None if the dialog was cancelled.
     
     TODO: 
-    1. Create a dialog where you can choose the mode from a dropdown list.
     2. Define more modes/scales.
     
     """
-    from fractions import Fraction
-    # Mode definitions
-    modes = {
-    'Major': ((0,0), (1,1), (2,2), (3, Fraction(5, 2)), (4, Fraction(7, 2)), 
-              (5, Fraction(9, 2)), (6, Fraction(11, 2))),
-    'Minor': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
-              (4, Fraction(7, 2)), (5, 4), (6, Fraction(11, 2))),
-    'Natminor': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
-                 (4, Fraction(7, 2)), (5, 4), (6,5)),
-    'Dorian': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
-               (4, Fraction(7, 2)), (5, Fraction(9, 2)), (6,5)),
-    'Dim': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), (4, 3), 
-            (5,4), (5, Fraction(9, 2)), (6, Fraction(11, 2))),
-    'Whole': ((0,0), (1,1), (2,2), (3,3), (4,4), (6,5)),
-    'Yo': ((0,0), (1,1), (3, Fraction(5, 2)), (4, Fraction(7, 2)), (6,5)) 
-    }
     language = documentinfo.docinfo(document).language() or 'nederlands'
     
     def readpitches(text):
@@ -204,14 +188,14 @@ def getModeShifter(document, mainwindow):
         sec = len(words) > 1 and words[1].capitalize() in modes
         return one and sec
     
-    text = inputdialog.getText(mainwindow, _("Shift mode"), _(
-        "Please enter the mode to shift to. (e.g. \"d major\")"
-        ), icon = icons.get('tools-transpose'),
-        help = "mode_shift", validate = validate)
-    if text:
-        words = text.split()
-        key = readpitches(words[0])[0]
-        scale = modes[words[1].capitalize()]
+    from . import dialog
+    dlg = dialog.ModeShiftDialog(mainwindow)
+    dlg.addAction(mainwindow.actionCollection.help_whatsthis)
+    dlg.setWindowModality(Qt.WindowModal)
+    if dlg.exec_():
+        key, scale = dlg.getMode()
+        key = readpitches(key)[0]
+        dlg.saveSettings()
         return ly.pitch.transpose.ModeShifter(key, scale)
 
     
