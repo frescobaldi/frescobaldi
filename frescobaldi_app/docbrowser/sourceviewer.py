@@ -23,6 +23,10 @@ A dialog to view LilyPond source.
 
 from __future__ import unicode_literals
 
+try:
+    str = unicode
+except NameError:
+    pass
 
 from PyQt4.QtCore import QSettings, QSize, Qt
 from PyQt4.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
@@ -78,6 +82,6 @@ class SourceViewer(QDialog):
         self._reply.deleteLater()
         del self._reply
         self.textbrowser.clear()
-        self.textbrowser.setText(unicode(data, 'utf-8', 'replace'))
+        self.textbrowser.setText(str(data, 'utf-8', 'replace'))
         highlighter.highlight(self.textbrowser.document())
 

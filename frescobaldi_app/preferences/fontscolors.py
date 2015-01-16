@@ -26,6 +26,11 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+try:
+    str = unicode
+except NameError:
+    pass
+
 import app
 import icons
 import preferences
@@ -291,7 +296,7 @@ class FontsColors(preferences.Page):
 
 class BaseColors(QGroupBox):
     
-    changed = pyqtSignal(unicode)
+    changed = pyqtSignal(str)
     
     def __init__(self, parent=None):
         super(BaseColors, self).__init__(parent)
