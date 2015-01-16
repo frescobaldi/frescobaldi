@@ -67,7 +67,7 @@ class ModeShiftDialog(QDialog):
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         userguide.addButton(self.buttons, "mode_shift")
         
-        for m in modes:
+        for m in sorted(modes.keys()):
             self.modeCombo.addItem(m)
 
         mainLayout.addWidget(self.keyLabel, 0, 0, 1, 1)
