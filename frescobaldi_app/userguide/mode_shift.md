@@ -23,7 +23,7 @@ Dorian
 
 The mode name should be preceded by a note name in the language of the document.
 
-*Note that unlike the modal transposer all pitches will be shifted to the choosen 
+*Note that unlike the modal transposer all pitches will be shifted to the chosen 
 scale regardless of which mode they possibly belonged to originally.*
 
 This feature is currently experimental, see {experimental}.

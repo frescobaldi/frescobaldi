@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-01-16 06:31+0100\n"
+"POT-Creation-Date: 2015-01-16 06:50+0100\n"
 "PO-Revision-Date: 2014-07-25 22:55+0800\n"
 "Last-Translator: Anthony Fok <foka@debian.org>\n"
 "Language-Team: Chinese (Hong Kong) <(nothing)>\n"
@@ -7623,7 +7623,7 @@ msgstr ""
 #: ../userguide/mode_shift.md:26
 msgid ""
 "*Note that unlike the modal transposer all pitches will be shifted to the "
-"choosen scale regardless of which mode they possibly belonged to originally.*"
+"chosen scale regardless of which mode they possibly belonged to originally.*"
 msgstr ""
 
 #: ../userguide/mode_shift.md:29 ../userguide/musicxml_export.md:7
