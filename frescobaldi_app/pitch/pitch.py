@@ -183,15 +183,13 @@ def getModeShifter(document, mainwindow):
         
     def validate(text):
         """Validates text by checking if it contains a defined mode."""
-        words = text.split()
-        one = bool(words) and len(readpitches(words[0])) == 1
-        sec = len(words) > 1 and words[1].capitalize() in modes
-        return one and sec
+        return len(readpitches(text)) == 1
     
     from . import dialog
     dlg = dialog.ModeShiftDialog(mainwindow)
     dlg.addAction(mainwindow.actionCollection.help_whatsthis)
     dlg.setWindowModality(Qt.WindowModal)
+    dlg.setKeyValidator(validate)
     if dlg.exec_():
         key, scale = dlg.getMode()
         key = readpitches(key)[0]

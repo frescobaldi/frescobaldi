@@ -27,7 +27,7 @@ from fractions import Fraction
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (QComboBox, QDialog, QDialogButtonBox,
-    QGridLayout, QLabel, QLineEdit, QWidget)
+    QGridLayout, QLabel, QLineEdit, QValidator, QWidget)
 
 import app
 import userguide
@@ -81,7 +81,7 @@ class ModeShiftDialog(QDialog):
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
         
-        self.keyInput.textEdited.connect(self.readSettings)
+        self.keyInput.textEdited.connect(self.readKeyInput)
         self.modeCombo.currentIndexChanged.connect(self.readSettings)
         
         self.loadSettings()
@@ -91,11 +91,26 @@ class ModeShiftDialog(QDialog):
         self.keyLabel.setText(_("Key:"))
         self.modeLabel.setText(_("Mode:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("shift pitches"))
+        self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
+        
+    def setKeyValidator(self, validate):
+        """Set function that validates the key input."""
+        keyValidator = KeyValidator()
+        keyValidator.setValidateFunc(validate)
+        self.keyInput.setValidator(keyValidator)
     
     def readSettings(self):
         """Reads the current settings."""
         self._currentKey = self.keyInput.text()
         self._currentMode = self.modeCombo.currentText()
+        
+    def readKeyInput(self):
+        """Read the key input and check if it's acceptable."""
+        if self.keyInput.hasAcceptableInput():
+            self.readSettings()
+            self.buttons.button(QDialogButtonBox.Ok).setEnabled(True)
+        else:
+            self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
     
     def getMode(self):
         """Returns the chosen mode."""
@@ -117,3 +132,20 @@ class ModeShiftDialog(QDialog):
         s.setValue('key', self._currentKey)
         s.setValue('mode', self.modeCombo.currentIndex())
 
+
+class KeyValidator(QValidator):
+    
+    def __init__(self, parent=None):
+        super(KeyValidator, self).__init__(parent)
+        
+    def setValidateFunc(self, func):
+        self._func = func
+        
+    def validate(self, text, pos):
+        if text:
+            if self._func(text):
+                return (QValidator.Acceptable, text, pos)
+            elif len(text) > 3:
+                return (QValidator.Invalid, text, pos)
+        return (QValidator.Intermediate, text, pos)
+    
