@@ -140,6 +140,7 @@ class ModeShiftDialog(QDialog):
         self.keyInput.setText(key)
         index = s.value('mode', 0, int)
         self.modeCombo.setCurrentIndex(index)
+        self.readKeyInput()
         
     def saveSettings(self):
         """ save users last settings """
