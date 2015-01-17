@@ -40,8 +40,8 @@ import weakref
 
 from PyQt4.QtCore import QSettings, QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import (
-    QAction, QApplication, QColor, QComboBox, QLabel, QKeySequence, QPalette,
-    QSpinBox, QWidgetAction)
+    QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
+    QKeySequence, QPalette, QSpinBox, QWidgetAction)
 
 import app
 import actioncollection
@@ -98,6 +98,9 @@ class MusicViewPanel(panel.Panel):
         ac.music_fit_width.triggered.connect(self.fitWidth)
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
+        ac.music_single_pages.triggered.connect(self.viewSinglePages)
+        ac.music_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
+        ac.music_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
@@ -109,6 +112,7 @@ class MusicViewPanel(panel.Panel):
         self.slotPageCountChanged(0)
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
+        ac.music_single_pages.trigger()
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
@@ -225,6 +229,27 @@ class MusicViewPanel(panel.Panel):
         self.widget().view.setViewMode(FitBoth)
     
     @activate
+    def viewSinglePages(self):
+        layout = self.widget().view.surface().pageLayout()
+        layout.setPagesPerRow(1)
+        layout.setPagesFirstRow(0)
+        layout.update()
+    
+    @activate
+    def viewTwoPagesFirstRight(self):
+        layout = self.widget().view.surface().pageLayout()
+        layout.setPagesPerRow(2)
+        layout.setPagesFirstRow(1)
+        layout.update()
+    
+    @activate
+    def viewTwoPagesFirstLeft(self):
+        layout = self.widget().view.surface().pageLayout()
+        layout.setPagesPerRow(2)
+        layout.setPagesFirstRow(0)
+        layout.update()
+    
+    @activate
     def jumpToCursor(self):
         self.widget().showCurrentLinks()
     
@@ -273,6 +298,10 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width = QAction(panel, checkable=True)
         self.music_fit_height = QAction(panel, checkable=True)
         self.music_fit_both = QAction(panel, checkable=True)
+        self._column_mode = ag = QActionGroup(panel)
+        self.music_single_pages = QAction(ag, checkable=True)
+        self.music_two_pages_first_right = QAction(ag, checkable=True)
+        self.music_two_pages_first_left = QAction(ag, checkable=True)
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
         self.music_sync_cursor = QAction(panel, checkable=True)
@@ -313,6 +342,9 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width.setText(_("Fit &Width"))
         self.music_fit_height.setText(_("Fit &Height"))
         self.music_fit_both.setText(_("Fit &Page"))
+        self.music_single_pages.setText(_("Single Pages"))
+        self.music_two_pages_first_right.setText(_("Two Pages (first page right)"))
+        self.music_two_pages_first_left.setText(_("Two Pages (first page left)"))
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))

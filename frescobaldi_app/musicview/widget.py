@@ -79,7 +79,7 @@ class MusicView(QWidget):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.view.setViewMode(qpopplerview.FitWidth)
-        #self.view.surface().setPageLayout(qpopplerview.RowLayout())
+        self.view.surface().setPageLayout(qpopplerview.RowLayout())
         self.view.surface().linkClicked.connect(self.slotLinkClicked)
         self.view.surface().linkHovered.connect(self.slotLinkHovered)
         self.view.surface().linkLeft.connect(self.slotLinkLeft)
