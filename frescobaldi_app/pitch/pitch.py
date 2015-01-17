@@ -166,9 +166,6 @@ def getModeShifter(document, mainwindow):
     
     Returns None if the dialog was cancelled.
     
-    TODO: 
-    2. Define more modes/scales.
-    
     """
     language = documentinfo.docinfo(document).language() or 'nederlands'
     
