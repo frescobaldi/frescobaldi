@@ -235,7 +235,7 @@ class Dialog(QDialog):
             except OSError as e:
                 self.messages.setPlainText(_(
                     "Could not start {convert_ly}:\n\n"
-                    "{message}\n").format(convert_ly = convert_ly, message = e))
+                    "{message}\n").format(convert_ly = command[0], message = e))
                 return
             self.messages.setPlainText(err.decode('UTF-8'))
             self.setConvertedText(out.decode('UTF-8'))
