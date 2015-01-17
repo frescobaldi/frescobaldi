@@ -90,7 +90,7 @@ FitBoth    = FitHeight | FitWidth
 
 from .view import View
 from .page import Page
-from .layout import AbstractLayout, Layout, NPageLayout
+from .layout import AbstractLayout, Layout, RowLayout
 from .surface import Surface
 from .render import RenderOptions
 from .highlight import Highlighter

@@ -361,33 +361,26 @@ class Layout(AbstractLayout):
             self.setSize(QSize(left, height))
             
 
-class NPageLayout(Layout):
-    """A layout that can show more than one page besides each other.
-    
-    When the orientation is vertical, nPages() is the number of pages
-    to show next to each other.
-    When the orientation is horizontal, nPages() is the number of pages
-    to show above each other.
-    
-    """
+class RowLayout(AbstractLayout):
+    """A layout that orders pages in rows."""
     def __init__(self):
-        super(NPageLayout, self).__init__()
+        super(RowLayout, self).__init__()
         self._npages = 2
         self._npages_first = 1
     
-    def setNPages(self, n):
+    def setPagesPerRow(self, n):
         """Set the number of pages to show per row."""
         self._npages = n
     
-    def nPages(self):
+    def pagesPerRow(self):
         """Return the number of pages to show per row."""
         return self._npages
     
-    def setNPagesFirst(self, n):
+    def setPagesFirstRow(self, n):
         """Set the number of pages to show in the first row."""
         self._npages_first = n
     
-    def nPagesFirst(self):
+    def pagesFirstRow(self):
         """Return the number of pages to show in the first row."""
         return self._npages_first
     
@@ -401,18 +394,22 @@ class NPageLayout(Layout):
             cols = len(pages)
         
         col_widths = []
+        col_offsets = []
+        offset = self._margin
         for col in range(cols):
-            col_widths.append(max(p.width() for p in pages[col::cols] if p))
+            width = max(p.width() for p in pages[col::cols] if p)
+            col_widths.append(width)
+            col_offsets.append(offset)
+            offset += width + self._spacing
+        
         top = self._margin
         for row in (pages[i:i + cols] for i in range(0, len(pages), cols or 1)):
             height = max(p.height() for p in row if p)
             for n, page in enumerate(row):
                 if page:
-                    offset = self._margin + n * self._spacing
-                    if n:
-                        offset += col_widths[n - 1]
-                    x = offset + (col_widths[n] - page.width()) / 2
-                    page.setPos(QPoint(x, top))
+                    x = col_offsets[n] + (col_widths[n] - page.width()) / 2
+                    y = top + (height - page.height()) / 2
+                    page.setPos(QPoint(x, y))
             top += height + self._spacing
         total_height = top + self._margin - self._spacing
         total_width = self._margin * 2 + self._spacing * (cols - 1) + sum(col_widths)
