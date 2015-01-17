@@ -7,7 +7,7 @@ Changes in 2.17.2 -- January 16th, 2015
 * Bugfixes:
   - fix AttributeError: 'unicode' object has no attribute 'insert' (issue #543)
 * Translations:
-  - updated: fr, it
+  - updated: nl, fr, it
 
 
 Changes in 2.17.1 -- December 26th, 2014
