@@ -42,12 +42,12 @@ pitchInfo = {
     'deutsch': (
         ('c','d','e','f','g','a','h'),
         ('eses', 'eseh', 'es', 'eh', '', 'ih','is','isih','isis'),
-        (('ases', 'asas'), ('ees', 'es'), ('aes', 'as'), ('hes', 'b'))
+        (('ases', 'asas'), ('ees', 'es'), ('aes', 'as'), ('heses', 'heses'), ('hes', 'b'))
     ),
     'svenska': (
         ('c','d','e','f','g','a','h'),
         ('essess', '', 'ess', '', '', '','iss','','ississ'),
-        (('ees', 'es'), ('aes', 'as'), ('hess', 'b'))
+        (('ees', 'es'), ('aes', 'as'), ('hessess', 'hessess'), ('hess', 'b'))
     ),
     'italiano': (
         ('do', 're', 'mi', 'fa', 'sol', 'la', 'si'),
