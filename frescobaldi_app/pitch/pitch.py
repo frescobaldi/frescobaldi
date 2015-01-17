@@ -175,7 +175,7 @@ def getModeShifter(document, mainwindow):
     def readpitches(text):
         """Reads pitches from text."""
         result = []
-        for pitch, octave in re.findall(r"([a-z]+)([,']*)", text):
+        for pitch, octave in re.findall(r"([a-z]+)([,']*)", text.lower()):
             r = ly.pitch.pitchReader(language)(pitch)
             if r:
                 result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
