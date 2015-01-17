@@ -112,7 +112,7 @@ class MusicViewPanel(panel.Panel):
         self.slotPageCountChanged(0)
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
-        ac.music_single_pages.trigger()
+        ac.music_single_pages.setChecked(True) # default to single pages
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
@@ -127,6 +127,8 @@ class MusicViewPanel(panel.Panel):
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
+        w.view.surface().pageLayout().setPagesPerRow(1)   # default to single
+        w.view.surface().pageLayout().setPagesFirstRow(0) # pages
         
         import qpopplerview.pager
         self._pager = p = qpopplerview.pager.Pager(w.view)
