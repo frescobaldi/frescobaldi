@@ -324,8 +324,7 @@ def menu_tools_pitch(mainwindow):
     m.addSeparator()
     m.addAction(ac.pitch_transpose)
     m.addAction(ac.pitch_modal_transpose)
-    if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
-        m.addAction(ac.pitch_mode_shift)
+    m.addAction(ac.pitch_mode_shift)
     return m
 
 
