@@ -1,35 +1,18 @@
 === Mode shift ===
 
-Use the mode shifter to change all or selected notes to a specified mode or scale.
+Use the mode shifter to change all or selected notes to a specified mode or scale. 
+Any note that is divergent will be adjusted to fit inside the given mode/scale.
 
-E.g. when shifting to the d (harmonic) minor scale, you would enter: 
-
-
-```lilypond
-d Minor
-```
-
-The supported modes are:
-
-Major
-
-Minor (harmonic)
-
-Natminor (natural)
-
-Dorian
-
-(The capital letters are optional.)
-
-The mode name should be preceded by a note name in the language of the document.
+In the dialog enter the key (root/tonic pitch) as a note name in your preferred 
+language. And choose the mode/scale in the dropdown list. 
 
 *Note that unlike the modal transposer all pitches will be shifted to the chosen 
 scale regardless of which mode they possibly belonged to originally.*
 
-This feature is currently experimental, see {experimental}.
+*Note also that when using modes with less than seven scale steps (e. g. 
+hexatonic and pentatonic modes) the mode shift can lead to double notes.*
+
 
 #SEEALSO
 modal_transpose
 
-#VARS
-experimental help experimental_features
