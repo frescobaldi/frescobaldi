@@ -37,16 +37,32 @@ import qutil
 modes = {
 'Major': ((0,0), (1,1), (2,2), (3, Fraction(5, 2)), (4, Fraction(7, 2)), 
           (5, Fraction(9, 2)), (6, Fraction(11, 2))),
-'Minor': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
+'Minor (harmonic)': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
           (4, Fraction(7, 2)), (5, 4), (6, Fraction(11, 2))),
-'Natminor': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
+'Minor (natural)': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
              (4, Fraction(7, 2)), (5, 4), (6,5)),
 'Dorian': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), 
            (4, Fraction(7, 2)), (5, Fraction(9, 2)), (6,5)),
-'Dim': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), (4, 3), 
+'Phrygian': ((0,0), (1, Fraction(1, 2)), (2, Fraction(3, 2)), 
+             (3, Fraction(5, 2)), (4, Fraction(7, 2)), (5,4), (6,5)),
+'Lydian': ((0,0), (1,1), (2,2), (3,3), (4, Fraction(7, 2)), 
+           (5, Fraction(9, 2)), (6, Fraction(11, 2))),
+'Mixolydian': ((0,0), (1,1), (2,2), (3, Fraction(5, 2)), (4, Fraction(7, 2)), 
+               (5, Fraction(9, 2)), (6,5)),
+'Locrian': ((0,0), (1, Fraction(1, 2)), (2, Fraction(3, 2)), 
+             (3, Fraction(5, 2)), (4, 3), (5,4), (6,5)),
+'Phrygian dominant': ((0,0), (1, Fraction(1, 2)), (2, 2), 
+             (3, Fraction(5, 2)), (4, Fraction(7, 2)), (5,4), (6,5)),
+'Hungarian minor': ((0,0), (1,1), (2, Fraction(3, 2)), (3,3), 
+          (4, Fraction(7, 2)), (5, 4), (6, Fraction(11, 2))),
+'Double harmonic major': ((0,0), (1, Fraction(1, 2)), (2, 2), (3, Fraction(5, 2)), 
+                          (4, Fraction(7, 2)), (5,4), (6, Fraction(11, 2))),
+'Persian': ((0,0), (1, Fraction(1, 2)), (2, 2), (3, Fraction(5, 2)), 
+            (4, 3), (5,4), (6, Fraction(11, 2))),
+'Diminished (octatonic)': ((0,0), (1,1), (2, Fraction(3, 2)), (3, Fraction(5, 2)), (4, 3), 
         (5,4), (5, Fraction(9, 2)), (6, Fraction(11, 2))),
-'Whole': ((0,0), (1,1), (2,2), (3,3), (4,4), (6,5)),
-'Yo': ((0,0), (1,1), (3, Fraction(5, 2)), (4, Fraction(7, 2)), (6,5)) 
+'Whole tone (hexatonic)': ((0,0), (1,1), (2,2), (3,3), (4,4), (6,5)),
+'Yo (pentatonic)': ((0,0), (1,1), (3, Fraction(5, 2)), (4, Fraction(7, 2)), (6,5)) 
 }
            
                 
