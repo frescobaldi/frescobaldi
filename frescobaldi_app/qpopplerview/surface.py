@@ -183,7 +183,7 @@ class Surface(QWidget):
         """
         if self._magnifier:
             self._magnifier.setParent(None)
-        magnifier.setParent(self)
+        magnifier.setParent(self.view())
         self._magnifier = magnifier
     
     def magnifier(self):

@@ -51,6 +51,7 @@ class Magnifier(QWidget):
         """Called by the surface, centers the widget on the given QPoint."""
         r = self.geometry()
         r.moveCenter(pos)
+        r.translate(self.parent().surface().pos())
         self.setGeometry(r)
     
     def setScale(self, scale):
@@ -72,8 +73,8 @@ class Magnifier(QWidget):
         
     def paintEvent(self, ev):
         """Called when paint is needed, finds out which page to magnify."""
-        layout = self.parent().pageLayout()
-        pos = self.geometry().center()
+        layout = self.parent().surface().pageLayout()
+        pos = self.geometry().center() - self.parent().surface().pos()
         page = layout.pageAt(pos)
         if not page:
             return
