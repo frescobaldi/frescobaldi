@@ -44,11 +44,9 @@ class Widget(QWidget):
         hbox.addWidget(self._accidentalsflats)
         self._accidentalssharps.setChecked(True)
         
-        self._labelchordmode = QLabel()
         self._chordmode = QCheckBox()
         signals.append(self._chordmode.clicked)
         
-        self._labelrelativemode = QLabel()
         self._relativemode = QCheckBox()
         signals.append(self._relativemode.clicked)
 
@@ -79,10 +77,8 @@ class Widget(QWidget):
         grid.addWidget(self._keysignature, 1, 1)
         grid.addWidget(self._labelaccidentals, 2, 0)
         grid.addWidget(self._groupaccidentals, 2, 1)
-        grid.addWidget(self._labelchordmode, 3, 0)
-        grid.addWidget(self._chordmode, 3, 1)
-        grid.addWidget(self._labelrelativemode, 3, 2)
-        grid.addWidget(self._relativemode, 3, 3)
+        grid.addWidget(self._chordmode, 3, 0)
+        grid.addWidget(self._relativemode, 3, 1)
         grid.addWidget(self._labeldamper, 4, 0)
         grid.addWidget(self._damper, 4, 1)
         grid.addWidget(self._labelsostenuto, 5, 0)
@@ -185,7 +181,7 @@ class Widget(QWidget):
         self._labelaccidentals.setText(_("Accidentals"))
         self._accidentalssharps.setText(_("sharps"))
         self._accidentalsflats.setText(_("flats"))
-        self._labelchordmode.setText(_("Chord mode"))
+        self._chordmode.setText(_("Chord mode"))
         self._chordmode.setToolTip(_(
             "Enter simultaneously played notes as chords. "
             "See \"What's This\" for more information."))
@@ -194,7 +190,7 @@ class Widget(QWidget):
             "as chords. As a consequence they are not written "
             "before the last key is lifted. Of course single "
             "can also be entered."))
-        self._labelrelativemode.setText(_("Relative mode"))
+        self._relativemode.setText(_("Relative mode"))
         self._relativemode.setToolTip(_(
             "Enter octaves of notes relative to the last note. "
             "See \"What's This\" for more information."))
