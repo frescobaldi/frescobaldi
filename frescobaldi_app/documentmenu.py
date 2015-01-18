@@ -118,6 +118,9 @@ class DocumentActionGroup(QActionGroup, plugin.MainWindowPlugin):
         self._acts[doc].setIcon(icon)
     
     def slotTriggered(self, action):
-        self.mainwindow().setCurrentDocument(self._acts.keys()[self._acts.values().index(action)])
+        for doc, act in self._acts.items():
+            if act == action:
+                self.mainwindow().setCurrentDocument(doc)
+                break
 
 

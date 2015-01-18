@@ -28,6 +28,11 @@ import os
 import sys
 import weakref
 
+try:
+    os.getcwd = os.getcwdu  # py2
+except AttributeError:
+    pass  # py3
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
@@ -416,7 +421,7 @@ class MainWindow(QMainWindow):
         """
         import resultfiles
         return (resultfiles.results(self.currentDocument()).currentDirectory()
-                or app.basedir() or QDir.homePath() or os.getcwdu())
+                or app.basedir() or QDir.homePath() or os.getcwd())
     
     def cleanStart(self):
         """Called when the previous action left no document open.

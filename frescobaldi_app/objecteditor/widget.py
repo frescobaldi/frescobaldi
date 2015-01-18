@@ -74,10 +74,10 @@ class Widget(QWidget):
         self.insertButton.clicked.connect(self.callInsert)
         
         layout.addWidget(self.elemLabel)
-        layout.addWidget(self.XOffsetBox)
         layout.addWidget(self.XOffsetLabel)
-        layout.addWidget(self.YOffsetBox)
+        layout.addWidget(self.XOffsetBox)
         layout.addWidget(self.YOffsetLabel)
+        layout.addWidget(self.YOffsetBox)
         layout.addWidget(self.insertButton)
         
         layout.addStretch(1)

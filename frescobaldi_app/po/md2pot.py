@@ -48,8 +48,11 @@ class Parser(userguide.read.Parser):
         self._curfilename = filename
         self.parse(userguide.read.document(filename)[0], lineno=1)
 
+    def write(self, string):
+        self.f.write(string.encode('utf8'))
+
     def translate(self, s):
-        self.f.write('#: {0}:{1}\n'.format(self._curfilename, self.lineno))
+        self.write('#: {0}:{1}\n'.format(self._curfilename, self.lineno))
         # is there markdown formatting in the string?
         formatting = False
         for c in '[]', '**', '``':
@@ -57,22 +60,22 @@ class Parser(userguide.read.Parser):
                 formatting = bool(t2)
                 break
             if formatting:
-                self.f.write('#. NOTE: markdown formatting\n')
+                self.write('#. NOTE: markdown formatting\n')
                 break
         s = s.replace('\\', '\\\\').replace('"', '\\"')
         lines = self.wrapper.wrap(s)
         if len(lines) > 1:
-            self.f.write('msgid ""\n')
+            self.write('msgid ""\n')
             for l in lines[:-1]:
-                self.f.write(('"' + l + ' "\n').encode('utf8'))
-            self.f.write(('"' + lines[-1] + '"\n').encode('utf8'))
+                self.write(('"' + l + ' "\n'))
+            self.write(('"' + lines[-1] + '"\n'))
         else:
-            self.f.write(('msgid "' + lines[0] + '"\n').encode('utf8'))
-        self.f.write('msgstr ""\n\n')
+            self.write(('msgid "' + lines[0] + '"\n'))
+        self.write('msgstr ""\n\n')
 
 
 def md2pot(filename, md_files):
-    with open(filename, 'w') as f:
+    with open(filename, 'wb') as f:
         p = Parser(f)
         for name in md_files:
             p.make_translation_strings(name)
