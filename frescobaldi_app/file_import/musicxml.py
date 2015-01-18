@@ -93,22 +93,22 @@ class Dialog(QDialog):
         self.langLabel = QLabel()
         
         self.impChecks = [self.noartCheck,
-						  self.norestCheck,
-						  self.nolayoutCheck,
-						  self.nobeamCheck,
-						  self.useAbsCheck,
-						  self.commMidiCheck]
-		
+                          self.norestCheck,
+                          self.nolayoutCheck,
+                          self.nobeamCheck,
+                          self.useAbsCheck,
+                          self.commMidiCheck]
+
         self.formatCheck = QCheckBox()
         self.trimDurCheck = QCheckBox()
         self.removeScalesCheck = QCheckBox()
         self.runEngraverCheck = QCheckBox()
-						   
+
         self.postChecks = [self.formatCheck,
-						   self.trimDurCheck,
-						   self.removeScalesCheck,
-						   self.runEngraverCheck]								  
-        
+                           self.trimDurCheck,
+                           self.removeScalesCheck,
+                           self.runEngraverCheck]
+
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
         
@@ -212,7 +212,7 @@ class Dialog(QDialog):
             cmd.append('-m')
         index = self.langCombo.currentIndex()
         if index > 0:
-			cmd.append('--language=' + _langlist[index-1])
+            cmd.append('--language=' + _langlist[index - 1])
 
         cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))

@@ -110,7 +110,7 @@ copy_plugins('iconengines')
 
 # copy the frescobaldi_app directory
 subprocess.call([sys.executable, 'setup.py', 'build_py',
-	'--build-lib', target_dir, '--compile'])
+                 '--build-lib', target_dir, '--compile'])
 
 # make an Inno Setup installer
 inno_script = b'''
