@@ -36,7 +36,8 @@ def load(filename):
     If the filename is a type 2 MIDI file, just returns the first track.
     
     """
-    fmt, div, tracks = parser.parse_midi_data(open(filename, 'rb').read())
+    with open(filename, 'rb') as midifile:
+        fmt, div, tracks = parser.parse_midi_data(midifile.read())
     if fmt == 2:
         tracks = tracks[:1]
     return Song(div, tracks)
