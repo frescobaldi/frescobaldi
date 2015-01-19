@@ -102,19 +102,19 @@ class MoFile(NullMoFile):
         self._plural = lambda n: int(n != 1)
         self._info = {}
         for context, msgs, tmsgs in parse_mo_split(buf):
-            if msgs[0] == '':
+            if msgs[0] == b'':
                 # header
                 info = parse_header(tmsgs[0])
                 try:
-                    charset = info.get('content-type', '').split('charset=')[1]
+                    charset = info.get(b'content-type', b'').split(b'charset=')[1].decode('ascii')
                 except IndexError:
                     pass
                 try:
-                    plural = info.get('plural-forms', '').split(';')[1].split('plural=')[1]
+                    plural = info.get(b'plural-forms', b'').split(b';')[1].split(b'plural=')[1]
                 except IndexError:
                     pass
                 else:
-                    f = parse_plural_expr(plural)
+                    f = parse_plural_expr(plural.decode(charset))
                     if f:
                         self._plural = f
                 # store as well
@@ -239,8 +239,8 @@ def parse_header(data):
     for line in data.splitlines():
         line = line.strip()
         if line:
-            if ':' in line:
-                key, val = line.split(':', 1)
+            if b':' in line:
+                key, val = line.split(b':', 1)
                 key = key.strip().lower()
                 val = val.strip()
                 info[key] = val
@@ -271,10 +271,10 @@ def parse_mo_decode(buf, default_charset="UTF-8"):
     """Parses and splits, returns three-tuples like parse_mo_split but decoded to unicode."""
     charset = default_charset
     for context, msgs, tmsgs in parse_mo_split(buf):
-        if msgs[0] == '':
+        if msgs[0] == b'':
             info = parse_header(tmsgs[0])
             try:
-                charset = info.get('content-type', '').split('charset=')[1]
+                charset = info.get(b'content-type', '').split(b'charset=')[1].decode("ascii")
             except IndexError:
                 pass
         yield (context.decode(charset) if context else None,
