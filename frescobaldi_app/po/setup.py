@@ -92,11 +92,8 @@ def _setup():
     if language != "C":
         mo = find(language)
         if mo:
-            try:
-                install(mo)
-                return
-            except Exception:
-                pass
+            install(mo)
+            return
     install(None)
 
 @app.oninit
