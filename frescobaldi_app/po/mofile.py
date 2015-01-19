@@ -322,9 +322,6 @@ def parse_plural_expr(text):
     py_expression = ' '.join(_expr())
     if py_expression:
         code = "lambda n: int({0})".format(py_expression)
-        try:
-            compiled_code = compile(code, '<plural_expression>', 'eval')
-        except Exception:
-            return
+        compiled_code = compile(code, '<plural_expression>', 'eval')
         return eval(compiled_code, {}, {})
 
