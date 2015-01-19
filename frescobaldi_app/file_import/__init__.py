@@ -45,7 +45,7 @@ class FileImport(plugin.MainWindowPlugin):
     def importMusicXML(self):
         """ Opens a MusicXML file. Converts it to ly by using musicxml2ly """
         filetypes = '{0} (*.xml);;{1} (*.mxl);;{2} (*)'.format(
-			_("XML Files"), _("MXL Files"), _("All Files"))
+            _("XML Files"), _("MXL Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a MusicXML file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
         importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
@@ -91,13 +91,12 @@ class FileImport(plugin.MainWindowPlugin):
         
     def postImport(self, settings, doc):
         """Adaptations of the source after running musicxml2ly
-		
-		Present settings: 
-		Reformat source
+
+        Present settings:
+        Reformat source
         Remove superfluous durations
         Remove duration scaling
         Engrave directly
-		
         """
         cursor = QTextCursor(doc)		
         if settings[0]:

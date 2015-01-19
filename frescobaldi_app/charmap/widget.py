@@ -37,8 +37,8 @@ import listmodel
 
 # avoid handling characters above 0xFFFF in narrow Python builds
 _blocks = tuple(itertools.takewhile(
-	lambda block: block.end < sys.maxunicode,
-	unicode_blocks.blocks()))
+    lambda block: block.end < sys.maxunicode,
+        unicode_blocks.blocks()))
 
 
 class Widget(QWidget):

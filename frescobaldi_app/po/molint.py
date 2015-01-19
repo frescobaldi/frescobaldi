@@ -34,7 +34,9 @@ def molint(filename):
     
     """
     correct = True
-    for context, messages, translations in mofile.parse_mo_decode(open(filename, 'rb').read()):
+    with open(filename, 'rb') as f:
+        buf = f.read()
+    for context, messages, translations in mofile.parse_mo_decode(buf):
 
         # collect fields in messages
         s = set()
