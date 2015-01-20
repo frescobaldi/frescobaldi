@@ -178,13 +178,10 @@ class GitRepo(AbstractVCSRepo):
         
     def has_remote_branch(self, branch):
         """
-        Return True if the given branch
-        is tracking a remote branch.
-        Checks if the branch is present in .git/config
+        Return True if the given branch is tracking a remote branch.
         """
-        return branch in self.config['branch'] and \
-               'remote' in self.config['branch'][branch] and \
-               'merge' in self.config['branch'][branch]
+        remote, remote_branch = self.tracked_remote(branch)
+        return (remote != "local" or remote_branch != "local")
         
     def remotes(self):
         """Return a string list with registered remote names"""
@@ -200,13 +197,18 @@ class GitRepo(AbstractVCSRepo):
         """
         if not self.has_branch(branch):
             raise GitError('Branch not found: ' + branch)
-        if self.has_remote_branch(branch):
-            remote_name = self.config['branch'][branch]['remote']
-            remote_merge = self.config['branch'][branch]['merge']
-            remote_branch = remote_merge[remote_merge.rfind('/')+1:]
-            return (remote_name, remote_branch)
-        else:
+
+        remote_name = self._run_git_command("config",
+                                            ["branch." + branch + ".remote"])
+        remote_merge = self._run_git_command("config",
+                                             ["branch." + branch + ".merge"])
+        if not remote_name or not remote_merge:
             return ('local', 'local')
+
+        remote_name = remote_name[0]
+        remote_merge = remote_merge[0]
+        remote_branch = remote_merge[remote_merge.rfind('/')+1:]
+        return (remote_name, remote_branch)
     
     def tracked_remote_label(self, branch):
         """
