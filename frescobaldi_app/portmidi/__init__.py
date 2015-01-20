@@ -299,6 +299,10 @@ def _do_import_pypm():
     
     """
     import pypm
+    # Reject incompatible API, such as ActiveState PyPM
+    if not hasattr(pypm, "CountDevices"):
+        del pypm
+        raise ImportError("Unsupported pypm API")
     return pypm
 
 def _do_import_pyportmidi():
