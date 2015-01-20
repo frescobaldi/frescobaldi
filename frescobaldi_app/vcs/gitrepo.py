@@ -141,7 +141,9 @@ class GitRepo(AbstractVCSRepo):
         """
         args = [] if local else ['-a']
         args.append('--color=never')
-        return [line.strip() for line in self._run_git_command('branch', args)]
+        branches = [line.strip() for line in self._run_git_command('branch', args)]
+        branches = [line for line in branches if not line.endswith('.stgit')]
+        return branches
         
     def checkout(self, branch):
         """
