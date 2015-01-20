@@ -61,13 +61,9 @@ class GitRepo(AbstractVCSRepo):
         git_cmd = s.value("git", "git", type(""))
         git_cmd = git_cmd if git_cmd else "git"
         cmd = [git_cmd, cmd]
-        if isinstance(args, str) or isinstance(args, type("")):
-            cmd.append(args)
-        else:
-            cmd.extend(args)
-        pr = subprocess.Popen(' '.join(cmd), cwd = self.rootDir, 
-                              shell = True, 
-                              stdout = subprocess.PIPE, 
+        cmd.extend(args)
+        pr = subprocess.Popen(cmd, cwd = self.rootDir,
+                              stdout = subprocess.PIPE,
                               stderr = subprocess.PIPE,
                               universal_newlines = True)
         (out, error) = pr.communicate()
@@ -134,7 +130,7 @@ class GitRepo(AbstractVCSRepo):
         
     def remotes(self):
         """Return a string list with registered remote names"""
-        return self._run_git_command('remote show')
+        return self._run_git_command('remote', ['show'])
         
     def tracked_remote(self, branch):
         """
