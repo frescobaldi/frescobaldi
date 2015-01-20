@@ -174,7 +174,7 @@ class GitRepo(AbstractVCSRepo):
     
     def has_remote(self, remote):
         """Returns True if the given remote name is registered."""
-        return remote in self.config['remote']
+        return remote in self.remotes()
         
     def has_remote_branch(self, branch):
         """
