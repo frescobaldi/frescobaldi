@@ -235,7 +235,6 @@ class Dialog(QDialog):
         cmd = self.getCmd()
         directory = os.path.dirname(self._document)
         proc = subprocess.Popen(cmd, cwd=directory,
-            universal_newlines = True,
             stdin = subprocess.PIPE,
             stdout = subprocess.PIPE,
             stderr = subprocess.PIPE)
