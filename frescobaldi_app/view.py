@@ -175,18 +175,25 @@ class View(QPlainTextEdit):
                 color.setAlpha(128)
                 QPainter(self.viewport()).fillRect(rect, color)
     
-    def setTextCursor(self, cursor):
-        """Reimplemented to show n surrounding lines."""
-        numlines = QSettings().value("view_preferences/context_lines", 3, int)
+    def gotoTextCursor(self, cursor, numlines=3):
+        """Go to the specified cursor.
+        
+        If possible, at least numlines (default: 3) number of surrounding lines
+        is shown. The number of surrounding lines can also be set in the
+        preferences, under the key "view_preferences/context_lines". This
+        setting takes precedence.
+        
+        """
+        numlines = QSettings().value("view_preferences/context_lines", numlines, int)
         if numlines > 0:
             c = QTextCursor(cursor)
             c.setPosition(cursor.selectionEnd())
             c.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor, numlines)
-            super(View, self).setTextCursor(c)
+            self.setTextCursor(c)
             c.setPosition(cursor.selectionStart())
             c.movePosition(QTextCursor.Up, QTextCursor.MoveAnchor, numlines)
-            super(View, self).setTextCursor(c)
-        super(View, self).setTextCursor(cursor)
+            self.setTextCursor(c)
+        self.setTextCursor(cursor)
     
     def readSettings(self):
         data = textformats.formatData('editor')

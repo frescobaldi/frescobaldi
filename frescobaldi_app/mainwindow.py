@@ -185,10 +185,13 @@ class MainWindow(QMainWindow):
         """Switch to the cursor's document() and set that cursor on its View.
         
         For the findOpenView argument, see setCurrentDocument().
+        This method also respects the preferred number of surrounding lines
+        that are at least to be shown (by using the gotoTextCursor() method of
+        the View (see view.py)).
         
         """
         self.setCurrentDocument(cursor.document(), findOpenView)
-        self.currentView().setTextCursor(cursor)
+        self.currentView().gotoTextCursor(cursor)
     
     def slotViewChanged(self, view):
         curv = self._currentView()

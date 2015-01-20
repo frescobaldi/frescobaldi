@@ -218,7 +218,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                 # text.
                 if cursortools.contains(self._positions[index-1], cursor):
                     index -= 1
-            self.currentView().setTextCursor(self._positions[index])
+            self.currentView().gotoTextCursor(self._positions[index])
 
     def highlightingOn(self, view=None):
         if view is None:
@@ -262,9 +262,9 @@ class Search(QWidget, plugin.MainWindowPlugin):
             positions = [c.position() for c in self._positions]
             index = bisect.bisect_right(positions, view.textCursor().position())
             if index < len(positions):
-                view.setTextCursor(self._positions[index])
+                view.gotoTextCursor(self._positions[index])
             else:
-                view.setTextCursor(self._positions[0])
+                view.gotoTextCursor(self._positions[0])
             view.ensureCursorVisible()
 
     def findPrevious(self):
@@ -272,7 +272,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         positions = [c.position() for c in self._positions]
         if view and positions:
             index = bisect.bisect_left(positions, view.textCursor().position()) - 1
-            view.setTextCursor(self._positions[index])
+            view.gotoTextCursor(self._positions[index])
             view.ensureCursorVisible()
 
     def event(self, ev):
@@ -339,9 +339,9 @@ class Search(QWidget, plugin.MainWindowPlugin):
             if self.doReplace(self._positions[index]):
                 self.highlightingOn(view)
                 if index < len(positions) - 1:
-                    view.setTextCursor(self._positions[index+1])
+                    view.gotoTextCursor(self._positions[index+1])
                 else:
-                    view.setTextCursor(self._positions[0])
+                    view.gotoTextCursor(self._positions[0])
                 del self._positions[index]
                 view.ensureCursorVisible()
     

@@ -17,6 +17,8 @@ Changes in 2.18 --
     if one is running.
   - The SVG View now displays a default gray background when no document is
     loaded, which is more helpful than a white background.
+  - When right-clicking in the editor, the editor does not scroll anymore to
+    show more surrounding lines.
 * Bugfixes:
   - The german ("deutsch") pitch names asas and heses are now handled correctly.
     Previously, when translating the "nederlands" beses to german, it was output
