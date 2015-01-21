@@ -43,61 +43,10 @@ class GitRepo(AbstractVCSRepo):
             raise GitError(_("The given directory '{rootdir} "
                              "doesn't seem to be a Git repository.".format(rootdir=root)))
         self.rootDir = root
-        self._read_config()
     
     # #########################
     # Internal helper functions
     
-    def _key_value(self, line):
-        """
-        Return a tuple with the key and value parts of a
-        .git/config section entry.
-        """
-        line = line.strip()
-        sep = line.find('=')
-        return (line[:sep-1], line[sep+2:])
-        
-    def _read_config(self):
-        """
-        Produce a hierarchical dictionary representing the
-        .git/config file.
-        Currently we will only use the 'branch' and 'remote'
-        dictionaries:
-        - self.config['branch']
-        - self.config['remote']
-        """
-        
-        # The Git object can only be instantiated with a valid repo.
-        # So we can assume .git/config to be present 
-        fin = open(os.path.join(self.rootDir, '.git', 'config'))
-        lines = fin.read().split('\n')
-        
-        # reset config dictionary
-        cf = self.config = {}
-        # target will be the (sub-)dictionary to add keys to
-        target = {}
-        # parse file
-        for line in lines:
-            if line == '' or line.strip().startswith('#'):
-                continue
-            elif line.startswith('['):
-                # add new section
-                items = line.strip('[').strip(']').split()
-                if not items[0] in cf:
-                    cf[items[0]] = {}
-                target = cf[items[0]]
-                if len(items) > 1:
-                    name = items[1].strip('"')
-                    if not name in target:
-                        target[name] = {}
-                    target = target[name]
-            else:
-                # add new key-value pair
-                key, value = self._key_value(line)
-                target[key] = value        
-        fin.close()
-        return
-                
     def _run_git_command(self, cmd, args = []): 
         """
         run a git command and return its output
@@ -112,13 +61,9 @@ class GitRepo(AbstractVCSRepo):
         git_cmd = s.value("git", "git", type(""))
         git_cmd = git_cmd if git_cmd else "git"
         cmd = [git_cmd, cmd]
-        if isinstance(args, str) or isinstance(args, type("")):
-            cmd.append(args)
-        else:
-            cmd.extend(args)
-        pr = subprocess.Popen(' '.join(cmd), cwd = self.rootDir, 
-                              shell = True, 
-                              stdout = subprocess.PIPE, 
+        cmd.extend(args)
+        pr = subprocess.Popen(cmd, cwd = self.rootDir,
+                              stdout = subprocess.PIPE,
                               stderr = subprocess.PIPE,
                               universal_newlines = True)
         (out, error) = pr.communicate()
@@ -141,7 +86,9 @@ class GitRepo(AbstractVCSRepo):
         """
         args = [] if local else ['-a']
         args.append('--color=never')
-        return [line.strip() for line in self._run_git_command('branch', args)]
+        branches = [line.strip() for line in self._run_git_command('branch', args)]
+        branches = [line for line in branches if not line.endswith('.stgit')]
+        return branches
         
     def checkout(self, branch):
         """
@@ -172,21 +119,18 @@ class GitRepo(AbstractVCSRepo):
     
     def has_remote(self, remote):
         """Returns True if the given remote name is registered."""
-        return remote in self.config['remote']
+        return remote in self.remotes()
         
     def has_remote_branch(self, branch):
         """
-        Return True if the given branch
-        is tracking a remote branch.
-        Checks if the branch is present in .git/config
+        Return True if the given branch is tracking a remote branch.
         """
-        return branch in self.config['branch'] and \
-               'remote' in self.config['branch'][branch] and \
-               'merge' in self.config['branch'][branch]
+        remote, remote_branch = self.tracked_remote(branch)
+        return (remote != "local" or remote_branch != "local")
         
     def remotes(self):
         """Return a string list with registered remote names"""
-        return self._run_git_command('remote show')
+        return self._run_git_command('remote', ['show'])
         
     def tracked_remote(self, branch):
         """
@@ -198,13 +142,18 @@ class GitRepo(AbstractVCSRepo):
         """
         if not self.has_branch(branch):
             raise GitError('Branch not found: ' + branch)
-        if self.has_remote_branch(branch):
-            remote_name = self.config['branch'][branch]['remote']
-            remote_merge = self.config['branch'][branch]['merge']
-            remote_branch = remote_merge[remote_merge.rfind('/')+1:]
-            return (remote_name, remote_branch)
-        else:
+
+        remote_name = self._run_git_command("config",
+                                            ["branch." + branch + ".remote"])
+        remote_merge = self._run_git_command("config",
+                                             ["branch." + branch + ".merge"])
+        if not remote_name or not remote_merge:
             return ('local', 'local')
+
+        remote_name = remote_name[0]
+        remote_merge = remote_merge[0]
+        remote_branch = remote_merge[remote_merge.rfind('/')+1:]
+        return (remote_name, remote_branch)
     
     def tracked_remote_label(self, branch):
         """
