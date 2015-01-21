@@ -39,9 +39,9 @@ class Folder(widgets.folding.Folder):
     def fold_events(self, block):
         """Provides folding information by looking at indent/dedent tokens."""
         for t in tokeniter.tokens(block):
-            if isinstance(t, ly.lex.Indent):
+            if isinstance(t, (ly.lex.Indent, ly.lex.BlockCommentStart)):
                 yield widgets.folding.START
-            elif isinstance(t, ly.lex.Dedent):
+            elif isinstance(t, (ly.lex.Dedent, ly.lex.BlockCommentEnd)):
                 yield widgets.folding.STOP
     
     def mark(self, block, state=None):

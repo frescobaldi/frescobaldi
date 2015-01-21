@@ -19,6 +19,7 @@ Changes in 2.18 --
     loaded, which is more helpful than a white background.
   - When right-clicking in the editor, the editor does not scroll anymore to
     show more surrounding lines.
+  - Multi-line block comments are now also foldable (issue #587)
 * Bugfixes:
   - The german ("deutsch") pitch names asas and heses are now handled correctly.
     Previously, when translating the "nederlands" beses to german, it was output
