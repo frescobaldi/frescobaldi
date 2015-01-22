@@ -700,15 +700,15 @@ class LyricText(Lyric):
 
 
 class LyricHyphen(Lyric):
-    rx = r"--"
+    rx = r"--(?=($|[\s\\]))"
     
     
 class LyricExtender(Lyric):
-    rx = r"__"
+    rx = r"__(?=($|[\s\\]))"
     
     
 class LyricSkip(Lyric):
-    rx = r"_"
+    rx = r"_(?=($|[\s\\]))"
     
 
 class Figure(_token.Token):
