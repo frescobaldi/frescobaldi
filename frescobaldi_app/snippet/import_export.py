@@ -51,7 +51,7 @@ def save(names, filename):
     root.tail = '\n'
     d = ET.ElementTree(root)
     
-    comment = ET.Comment(_comment.format(info=info))
+    comment = ET.Comment(_comment.format(appinfo=appinfo))
     comment.tail = '\n\n'
     root.append(comment)
     

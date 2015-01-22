@@ -29,7 +29,7 @@ import sys
 from cx_Freeze import Executable, Freezer
 
 # access meta-information such as version, etc.
-from frescobaldi_app import info
+from frescobaldi_app import appinfo
 
 # find pypm by adding the dir of pygame to sys.path
 sys.path.append(imp.find_module('pygame')[1])
@@ -160,10 +160,10 @@ Filename: "{{app}}\\frescobaldi.exe";\
  Flags: postinstall nowait skipifsilent;
 
 '''.format(
-    version=info.version,
-    homepage=info.url,
-    author=info.maintainer,
-    comments=info.description,
+    version=appinfo.version,
+    homepage=appinfo.url,
+    author=appinfo.maintainer,
+    comments=appinfo.description,
     target=target_dir,
 )
 
