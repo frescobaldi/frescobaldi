@@ -28,14 +28,14 @@ root = os.path.dirname(macosx)
 
 sys.path.insert(0, root)
 
-from frescobaldi_app import info
+from frescobaldi_app import appinfo
 try:
     from frescobaldi_app.portmidi import pm_ctypes
     dylib_name = pm_ctypes.dll_name
 except ImportError:
     dylib_name = None
 
-icon = '{0}/icons/{1}.icns'.format(macosx, info.name)
+icon = '{0}/icons/{1}.icns'.format(macosx, appinfo.name)
 ipstrings = '{0}/app_resources/InfoPlist.strings'.format(macosx)
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -43,11 +43,11 @@ parser.add_argument('-f', '--force', action = 'store_true', \
   help = 'force execution even if SCRIPT does not exist')
 parser.add_argument('-v', '--version', \
   help = 'version string for the application bundle, \
-  visible e.g. in \'Get Info\' and in \'Open with...\'', default = info.version)
+  visible e.g. in \'Get Info\' and in \'Open with...\'', default = appinfo.version)
 parser.add_argument('-s', '--script', \
   help = 'path of {0}\'s main script; you should use an absolute path, \
   so that the application bundle can be moved to another \
-  directory'.format(info.appname), default = '{0}/{1}'.format(root, info.name))
+  directory'.format(appinfo.appname), default = '{0}/{1}'.format(root, appinfo.name))
 parser.add_argument('-a', '--standalone', action = 'store_true', \
   help = 'build a standalone application bundle \
   (WARNING: some manual steps are required after the execution of this script)')
@@ -69,13 +69,13 @@ if args.standalone and not (isinstance(args.portmidi, string_types) and os.path.
     sys.exit('Error: \'{0}\' does not exist or is not a file.'.format(args.portmidi))
 
 plist = dict(
-    CFBundleName                  = info.appname,
-    CFBundleDisplayName           = info.appname,
+    CFBundleName                  = appinfo.appname,
+    CFBundleDisplayName           = appinfo.appname,
     CFBundleShortVersionString    = args.version,
     CFBundleVersion               = args.version,
-    CFBundleExecutable            = info.appname,
-    CFBundleIdentifier            = 'org.{0}.{0}'.format(info.name),
-    CFBundleIconFile              = '{0}.icns'.format(info.name),
+    CFBundleExecutable            = appinfo.appname,
+    CFBundleIdentifier            = 'org.{0}.{0}'.format(appinfo.name),
+    CFBundleIconFile              = '{0}.icns'.format(appinfo.name),
     NSHumanReadableCopyright      = u'Copyright © 2008-2014 Wilbert Berendsen.',
     CFBundleDocumentTypes         = [
         {
@@ -151,14 +151,14 @@ else:
 
 setup(
     app = [args.script],
-    name = info.appname,
+    name = appinfo.appname,
     options = {'py2app': options},
     setup_requires = ['py2app'],
     script_args = ['py2app']
 )
 
-app_resources = 'dist/{0}.app/Contents/Resources'.format(info.appname)
-icon_dest = '{0}/{1}.icns'.format(app_resources, info.name)
+app_resources = 'dist/{0}.app/Contents/Resources'.format(appinfo.appname)
+icon_dest = '{0}/{1}.icns'.format(app_resources, appinfo.name)
 print('copying file {0} -> {1}'.format(icon, icon_dest))
 shutil.copyfile(icon, icon_dest)
 os.chmod(icon_dest, 0o0644)
@@ -179,7 +179,7 @@ if args.standalone:
                 Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
     print('removing file {0}/qt.conf'.format(app_resources))
     os.remove('{0}/qt.conf'.format(app_resources))
-    imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(info.appname)
+    imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(appinfo.appname)
     print('creating directory {0}'.format(imageformats_dest))
     os.makedirs(imageformats_dest, 0o0755)
     print("""
@@ -189,4 +189,4 @@ you need to perform the following steps manually:
 - copy libqsvg.dylib from Qt's 'plugins/imageformats' directory to '{1}',
 - execute Qt's macdeployqt tool on dist/{0}.app \
 (you can safely ignore the error about the failed copy of libqsvg.dylib).
-""".format(info.appname, imageformats_dest))
+""".format(appinfo.appname, imageformats_dest))

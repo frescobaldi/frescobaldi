@@ -41,7 +41,7 @@ def exportTheme(widget, schemeName, filename):
     tfd = widget.currentSchemeData()
     root = ET.Element('frescobaldi-theme')
     root.set('name', schemeName)
-    comment = ET.Comment(_comment.format(info=info))
+    comment = ET.Comment(_comment.format(appinfo=appinfo))
     root.append(comment)
     d = ET.ElementTree(root)
     
@@ -139,7 +139,7 @@ def exportShortcut(widget, scheme, schemeName, filename):
         
     root = ET.Element('frescobaldi-shortcut')
     root.set('name', schemeName)
-    comment = ET.Comment(_comment.format(info=info))
+    comment = ET.Comment(_comment.format(appinfo=appinfo))
     root.append(comment)
     d = ET.ElementTree(root)
     

@@ -27,9 +27,9 @@ except ImportError:
 
 # Frescobaldi meta info (Possibly not accessible anymore on uninstall):
 try:
-    from frescobaldi_app import info
+    from frescobaldi_app import appinfo
 except ImportError:
-    info = None
+    appinfo = None
 
 
 # Icon:
@@ -80,7 +80,7 @@ def install_startmenu():
             get_special_folder_path('CSIDL_COMMON_STARTMENU'),
             get_special_folder_path('CSIDL_STARTMENU'),
             ):
-        menudir = os.path.join(startmenu, info.appname)
+        menudir = os.path.join(startmenu, appinfo.appname)
         if os.path.isdir(menudir):
             shortcut(menudir)
             break
@@ -96,22 +96,22 @@ def install_startmenu():
 
 def shortcut(directory):
     """Makes the Frescobaldi shortcut in the specified directory."""
-    lnk = os.path.join(directory, info.appname + ".lnk")
+    lnk = os.path.join(directory, appinfo.appname + ".lnk")
     create_shortcut(
-        python,             # path
-        info.description,   # description
-        lnk,                # link name
-        script,             # arguments
-        "",                 # workdir
-        icon,               # icon
-        0,                  # icon index
+        python,              # path
+        appinfo.description, # description
+        lnk,                 # link name
+        script,              # arguments
+        "",                  # workdir
+        icon,                # icon
+        0,                   # icon index
     )
     file_created(lnk)
-    print("* Added \"{0}\" to Start Menu".format(info.appname))
+    print("* Added \"{0}\" to Start Menu".format(appinfo.appname))
 
 def welcome():
     """Prints a nice welcome message in the installer."""
-    print("\nWelcome to {0} {1}!".format(info.appname, info.version))
+    print("\nWelcome to {0} {1}!".format(appinfo.appname, appinfo.version))
     
 
 ### Main:
