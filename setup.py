@@ -50,7 +50,8 @@ classifiers = [
     'Environment :: X11 Applications :: Qt',
     'Intended Audience :: End Users/Desktop',
     'License :: OSI Approved :: GNU General Public License (GPL)',
-    'Natural Language :: Chinese (Hong Kong)',
+    # Natural Language :: Chinese (Hong Kong) is not yet accepted by pypi
+    #'Natural Language :: Chinese (Hong Kong)',
     'Natural Language :: Chinese (Simplified)',
     'Natural Language :: Chinese (Traditional)',
     'Natural Language :: Czech',
@@ -69,7 +70,6 @@ classifiers = [
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: Microsoft :: Windows',
     'Operating System :: POSIX',
-    'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
     'Topic :: Multimedia :: Sound/Audio',
     'Topic :: Multimedia :: Graphics',
