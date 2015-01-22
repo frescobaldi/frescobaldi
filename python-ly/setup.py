@@ -32,6 +32,8 @@ py_modules = [
     'slexer',
 ]
 
+with open('README.md', 'rb') as f:
+    long_description = f.read().decode('utf-8')
 
 #data_files = [
 #    ('share/man/man1', ['ly.1']),
@@ -55,7 +57,7 @@ setup(
     name = pkginfo.name,
     version = pkginfo.version,
     description = pkginfo.description,
-    long_description = pkginfo.long_description,
+    long_description = long_description,
     maintainer = pkginfo.maintainer,
     maintainer_email = pkginfo.maintainer_email,
     url = pkginfo.url,
