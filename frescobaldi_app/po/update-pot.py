@@ -13,7 +13,7 @@ import subprocess
 import sys
 
 sys.path.insert(0, "..")
-import info
+import appinfo
 import md2pot
 
 # 1. create a temp POT file for the messages, harvested from the source code
@@ -21,9 +21,9 @@ command = [
     'xgettext',
     '--language=python',
     '--output=temp1.pot',
-    '--package-name={0}'.format(info.name),
-    '--package-version={0}'.format(info.version),
-    '--msgid-bugs-address={0}'.format(info.maintainer_email),
+    '--package-name={0}'.format(appinfo.name),
+    '--package-version={0}'.format(appinfo.version),
+    '--msgid-bugs-address={0}'.format(appinfo.maintainer_email),
     '--keyword',                # empty the default keyword list
     '--keyword=_:1c,2,3,4t',    # context, message, plural, count
     '--keyword=_:1,2,3t',       # message, plural, count
@@ -46,7 +46,7 @@ md2pot.md2pot('temp2.pot', glob.glob('../userguide/*.md'))
 subprocess.call('msguniq -t UTF-8 -o temp3.pot temp2.pot'.split())
 
 # 4. merge the two
-subprocess.call('msgcat temp1.pot temp3.pot -o {0}.pot'.format(info.name).split())
+subprocess.call('msgcat temp1.pot temp3.pot -o {0}.pot'.format(appinfo.name).split())
 
 # 5. remove the unneeded temp files
 os.remove('temp1.pot')

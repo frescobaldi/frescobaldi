@@ -30,7 +30,7 @@ import sys
 from PyQt4.QtCore import QSettings, QThread
 from PyQt4.QtGui import QApplication
 
-import info
+import appinfo
 
 qApp = None                     # instantiate() puts the QApplication obj. here
 windows = []
@@ -104,10 +104,10 @@ def instantiate():
     if sys.version_info >= (3, 0):
         args = list(map(os.fsencode, args))
     qApp = QApplication(args)
-    QApplication.setApplicationName(info.name)
-    QApplication.setApplicationVersion(info.version)
-    QApplication.setOrganizationName(info.name)
-    QApplication.setOrganizationDomain(info.domain)
+    QApplication.setApplicationName(appinfo.name)
+    QApplication.setApplicationVersion(appinfo.version)
+    QApplication.setOrganizationName(appinfo.name)
+    QApplication.setOrganizationDomain(appinfo.domain)
     appInstantiated()
 
 def oninit(func):
@@ -155,7 +155,7 @@ def translateUI(obj, priority=0):
 
 def caption(title):
     """Returns a nice dialog or window title with appname appended."""
-    return "{0} \u2013 {1}".format(title, info.appname)
+    return "{0} \u2013 {1}".format(title, appinfo.appname)
 
 def filetypes(extension=None):
     """Returns a list of supported filetypes.

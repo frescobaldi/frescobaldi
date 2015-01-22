@@ -30,7 +30,7 @@ except NameError:
 
 from PyQt4.QtCore import QSettings
 
-import info
+import appinfo
 
 def update(version):
     """Call subroutines listed below for version upgrades."""
@@ -44,10 +44,10 @@ def update(version):
 
 def moveSettingsToNewRoot():
     """Move all settings to one application file."""
-    movelist = [[info.name, info.url, False], "metainfo", "snippets", "sessions", "sessiondata"]
+    movelist = [[appinfo.name, appinfo.url, False], "metainfo", "snippets", "sessions", "sessiondata"]
     for moveitem in movelist:
         if isinstance(moveitem, string_types):
-            moveitem = [moveitem, info.name, True]
+            moveitem = [moveitem, appinfo.name, True]
         o = QSettings(moveitem[1], moveitem[0])
         o.setFallbacksEnabled(False)
         keys = o.allKeys()

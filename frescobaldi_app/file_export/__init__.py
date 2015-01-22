@@ -33,7 +33,7 @@ import actioncollection
 import actioncollectionmanager
 import plugin
 import tokeniter
-import info
+import appinfo
 
 
 class FileExport(plugin.MainWindowPlugin):
@@ -60,7 +60,7 @@ class FileExport(plugin.MainWindowPlugin):
         xml = writer.musicxml()
         # put the Frescobaldi version in the xml file
         software = xml.root.find('.//encoding/software')
-        software.text = "{0} {1}".format(info.appname, info.version)
+        software.text = "{0} {1}".format(appinfo.appname, appinfo.version)
         try:
             xml.write(filename)
         except (IOError, OSError) as err:

@@ -29,7 +29,7 @@ import sys
 from PyQt4.QtCore import QObject, QSettings, Qt, QUrl, SIGNAL
 from PyQt4.QtGui import QApplication, QSessionManager
 
-import info
+import appinfo
 import app
 import mainwindow
 

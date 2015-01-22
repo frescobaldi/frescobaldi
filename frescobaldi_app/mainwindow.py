@@ -38,7 +38,7 @@ from PyQt4.QtGui import *
 
 import app
 import backup
-import info
+import appinfo
 import icons
 import actioncollection
 import actioncollectionmanager
@@ -1147,7 +1147,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all.setText(_("Close All Documents and Session"))
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
-        self.file_restart.setText(_("Restart {appname}").format(appname=info.appname))
+        self.file_restart.setText(_("Restart {appname}").format(appname=appinfo.appname))
         
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
         
@@ -1180,6 +1180,6 @@ class ActionCollection(actioncollection.ActionCollection):
         self.help_manual.setText(_("&User Guide"))
         self.help_whatsthis.setText(_("&What's This?"))
         self.help_bugreport.setText(_("Report a &Bug..."))
-        self.help_about.setText(_("&About {appname}...").format(appname=info.appname))
+        self.help_about.setText(_("&About {appname}...").format(appname=appinfo.appname))
         
 

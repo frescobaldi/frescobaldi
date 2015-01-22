@@ -30,7 +30,7 @@ from PyQt4.QtCore import QSettings
 from PyQt4.QtNetwork import QLocalServer, QLocalSocket
 
 import app
-import info
+import appinfo
 
 
 _server = None
@@ -108,7 +108,7 @@ def generate_id():
     on X11.
     
     """
-    name = [info.name]
+    name = [appinfo.name]
     
     try:
         name.append(format(os.getuid()))

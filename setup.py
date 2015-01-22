@@ -1,7 +1,7 @@
 import os
 import sys
 from distutils.core import setup
-from frescobaldi_app import info
+from frescobaldi_app import appinfo
 
 def packagelist(directory):
     """Returns a sorted list with package names for all packages under the given directory."""
@@ -77,14 +77,14 @@ classifiers = [
 ]
 
 setup(
-    name = info.name,
-    version = info.version,
-    description = info.description,
-    long_description = info.long_description,
-    maintainer = info.maintainer,
-    maintainer_email = info.maintainer_email,
-    url = info.url,
-    license = info.license,
+    name = appinfo.name,
+    version = appinfo.version,
+    description = appinfo.description,
+    long_description = appinfo.long_description,
+    maintainer = appinfo.maintainer,
+    maintainer_email = appinfo.maintainer_email,
+    url = appinfo.url,
+    license = appinfo.license,
     
     scripts = scripts,
     packages = packages,

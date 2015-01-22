@@ -31,7 +31,7 @@ from PyQt4.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
 from PyQt4.QtGui import (
     QAction, QApplication, QColor, QKeySequence, QProgressDialog)
 
-import info
+import appinfo
 
 
 def saveDialogSize(dialog, key, default=QSize()):
@@ -218,7 +218,7 @@ def waitForSignal(signal, message="", timeout=0):
     """
     loop = QEventLoop()
     dlg = QProgressDialog(minimum=0, maximum=0, labelText=message)
-    dlg.setWindowTitle(info.appname)
+    dlg.setWindowTitle(appinfo.appname)
     dlg.setWindowModality(Qt.ApplicationModal)
     QTimer.singleShot(2000, dlg.show)
     dlg.canceled.connect(loop.quit)

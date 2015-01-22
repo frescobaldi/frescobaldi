@@ -32,7 +32,7 @@ from PyQt4.QtGui import (QTextFormat, QMessageBox, QColor, QTextCharFormat,
                          QFont, QFontDatabase, QKeySequence)
 
 import os
-import info
+import appinfo
 import textformats
 import app
 
@@ -248,5 +248,5 @@ def indentXml(elem, level=0, tab=2):
             
               
 _comment = """
-  Created by {info.appname} {info.version}.
+  Created by {appinfo.appname} {appinfo.version}.
 """  

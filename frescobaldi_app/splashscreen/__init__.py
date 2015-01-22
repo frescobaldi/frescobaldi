@@ -25,11 +25,11 @@ from PyQt4.QtCore import QEventLoop, QTimer, Qt
 from PyQt4.QtGui import QApplication, QFont, QPixmap, QSplashScreen
 
 import app
-import info
+import appinfo
 
 def show():
     
-    message = "{0}  {1} ".format(info.appname, info.version)
+    message = "{0}  {1} ".format(appinfo.appname, appinfo.version)
     pixmap = QPixmap(os.path.join(__path__[0], 'splash.png'))
     if QApplication.desktop().screenGeometry().height() < 640:
         fontsize = 23

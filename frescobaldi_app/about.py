@@ -30,7 +30,7 @@ from PyQt4.QtGui import (
     QVBoxLayout, QWidget)
 
 import app
-import info
+import appinfo
 import icons
 import helpers
 import bugreport
@@ -47,7 +47,7 @@ class AboutDialog(QDialog):
         """Creates the about dialog. You can simply exec_() it."""
         super(AboutDialog, self).__init__(mainwindow)
         
-        self.setWindowTitle(_("About {appname}").format(appname = info.appname))
+        self.setWindowTitle(_("About {appname}").format(appname = appinfo.appname))
         layout = QVBoxLayout()
         self.setLayout(layout)
         
@@ -109,23 +109,23 @@ class Version(QTextBrowser):
             "sip: {sip_version}</p>\n"
             "<p>{operating_system}:<br />\n"
             "{osname}</p>".format(
-                app_name = info.appname,
-                app_version = info.version,
+                app_name = appinfo.appname,
+                app_version = appinfo.version,
                 operating_system = _("Operating System"),
                 **bugreport.versionInfo()))
 
 
 def html():
     """Returns a HTML string for the about dialog."""
-    appname = info.appname
-    version = _("Version {version}").format(version = info.version)
+    appname = appinfo.appname
+    version = _("Version {version}").format(version = appinfo.version)
     description = _("A LilyPond Music Editor")
     copyright = _("Copyright (c) {year} by {author}").format(
         year = "2008-2014",
         author = """<a href="mailto:{0}" title="{1}">{2}</a>""".format(
-            info.maintainer_email,
+            appinfo.maintainer_email,
             _("Send an e-mail message to the maintainers."),
-            info.maintainer))
+            appinfo.maintainer))
     # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
     translator = _("Translated by Your Name.")
     if translator == "Translated by Your Name.":
@@ -134,7 +134,7 @@ def html():
         translator = "<p>{0}</p>".format(translator)
     license = _("Licensed under the {gpl}.").format(
         gpl = """<a href="http://www.gnu.org/licenses/gpl.html">GNU GPL</a>""")
-    homepage = info.url
+    homepage = appinfo.url
     
     return html_template.format(**locals())
 

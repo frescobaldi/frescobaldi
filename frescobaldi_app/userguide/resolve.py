@@ -28,17 +28,17 @@ guide page.
 
 from __future__ import unicode_literals
 
-import info
+import appinfo
 
 
 def appname():
-    return info.appname
+    return appinfo.appname
 
 def version():
-    return info.version
+    return appinfo.version
 
 def author():
-    return info.maintainer
+    return appinfo.maintainer
 
 def manual_translated_by():
     # L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.

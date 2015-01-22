@@ -31,7 +31,7 @@ import re
 
 from PyQt4.QtCore import QDir
 
-import info
+import appinfo
 import variables
 
 
@@ -99,7 +99,7 @@ def tempdir():
     try:
         _tempdir
     except NameError:
-        _tempdir = tempfile.mkdtemp(prefix = info.name +'-')
+        _tempdir = tempfile.mkdtemp(prefix = appinfo.name +'-')
         import atexit
         @atexit.register
         def remove():

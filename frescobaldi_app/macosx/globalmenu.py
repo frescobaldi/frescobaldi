@@ -38,7 +38,7 @@ import app
 import util
 import qutil
 import icons
-import info
+import appinfo
 
 from . import use_osx_menu_roles
 
@@ -150,7 +150,7 @@ def menu_help(parent):
     m = QMenu(parent)
     m.setTitle(_('menu title', '&Help'))
     role = QAction.AboutRole if use_osx_menu_roles() else QAction.NoRole
-    m.addAction(icons.get('help-about'), _("&About {appname}...").format(appname=info.appname), help_about).setMenuRole(role)
+    m.addAction(icons.get('help-about'), _("&About {appname}...").format(appname=appinfo.appname), help_about).setMenuRole(role)
     return m
 
 def mainwindow():

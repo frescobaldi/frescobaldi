@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import QUrl
 
 import helpers
-import info
+import appinfo
 
 
 def versionInfo():
@@ -71,9 +71,9 @@ def versionInfoString():
 
 def email(subject, body):
     """Opens the e-mail composer with the given subject and body, with version information added to it."""
-    subject = "[{0} {1}] {2}".format(info.appname, info.version, subject)
-    body = "{0}: {1}\n\n{2}\n\n{3}\n\n".format(info.appname, info.version, versionInfoString(), body)
-    url = QUrl("mailto:" + info.maintainer_email)
+    subject = "[{0} {1}] {2}".format(appinfo.appname, appinfo.version, subject)
+    body = "{0}: {1}\n\n{2}\n\n{3}\n\n".format(appinfo.appname, appinfo.version, versionInfoString(), body)
+    url = QUrl("mailto:" + appinfo.maintainer_email)
     url.addQueryItem("subject", subject)
     url.addQueryItem("body", body)
     helpers.openUrl(url, "email")

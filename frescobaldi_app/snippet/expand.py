@@ -30,7 +30,7 @@ except ImportError:
 
 import time
 
-import info
+import appinfo
 import lilypondinfo
 
 
@@ -87,7 +87,7 @@ class Expander(object):
 
     @_("The version of Frescobaldi.")
     def FRESCOBALDI_VERSION(self):
-        return info.version
+        return appinfo.version
     
     @_("The URL of the current document.")
     def URL(self):

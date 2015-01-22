@@ -34,7 +34,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import info
+import appinfo
 import qutil
 import userguide
 import widgets.dialog
@@ -217,7 +217,7 @@ def load(filename, widget):
 
 
 _comment = """
-  Created by {info.appname} {info.version}.
+  Created by {appinfo.appname} {appinfo.version}.
   
   Every snippet is represented by:
     title:      title text

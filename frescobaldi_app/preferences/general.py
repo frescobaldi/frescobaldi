@@ -27,7 +27,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
-import info
+import appinfo
 import icons
 import preferences
 import sessions
@@ -135,7 +135,7 @@ class General(preferences.Group):
         self.systemIcons.setToolTip(_(
             "If checked, icons of the desktop icon theme "
             "will be used instead of the bundled icons.\n"
-            "This setting takes effect on the next start of {appname}.").format(appname=info.appname))
+            "This setting takes effect on the next start of {appname}.").format(appname=appinfo.appname))
         self.splashScreen.setText(_("Show Splash Screen on Startup"))
         self.allowRemote.setText(_("Open Files in Running Instance"))
         self.allowRemote.setToolTip(_(

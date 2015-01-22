@@ -34,7 +34,7 @@ import sys
 from PyQt4.QtCore import QSettings, QTimer, QUrl
 from PyQt4.QtGui import QApplication, QTextCursor
 
-import info             # Information about our application
+import appinfo             # Information about our application
 import app              # Instantiate global signals etc
 import install          # Update QSettings structure etc. if needed
 import guistyle         # Setup GUI style
@@ -54,7 +54,7 @@ def parse_commandline():
     parser = argparse.ArgumentParser(
         description = _("A LilyPond Music Editor"))
     parser.add_argument('-v', '--version', action="version",
-        version="{0} {1}".format(info.appname, info.version))
+        version="{0} {1}".format(appinfo.appname, appinfo.version))
     parser.add_argument('-e', '--encoding', metavar=_("ENC"),
         help=_("Encoding to use"))
     parser.add_argument('-l', '--line', type=int, metavar=_("NUM"),
