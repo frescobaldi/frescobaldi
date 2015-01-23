@@ -56,6 +56,12 @@ def versionInfo():
         python_version = "unknown"
         osname = "unknown"
     
+    try:
+        import ly.pkginfo
+        ly_version = ly.pkginfo.version
+    except (ImportError, NameError):
+        ly_version = "unknown"
+    
     return locals()
 
 
@@ -66,6 +72,7 @@ def versionInfoString():
         "Qt: {qt_version} -- "
         "PyQt4: {pyqt_version} -- "
         "sip: {sip_version}\n"
+        "python-ly: {ly_version}\n"
         "OS: {osname}".format(**versionInfo()))
     
 

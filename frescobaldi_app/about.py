@@ -106,7 +106,8 @@ class Version(QTextBrowser):
             "<p>Python: {python_version}<br />"
             "Qt: {qt_version}<br />\n"
             "PyQt4: {pyqt_version}<br />\n"
-            "sip: {sip_version}</p>\n"
+            "sip: {sip_version}<br />\n"
+            "python-ly: {ly_version}</p>\n"
             "<p>{operating_system}:<br />\n"
             "{osname}</p>".format(
                 app_name = appinfo.appname,
