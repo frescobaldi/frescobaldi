@@ -1,6 +1,10 @@
 Changes for python-ly
 =====================
 
+2015-01-23: python-ly 0.6
+- node and slexer are no longer toplevel modules; only the ly package
+
+
 2015-01-21: python-ly 0.5
 - large MusicXML export improvements, contributed by Peter Bjuhr (MusicXML
   export is still experimental)
