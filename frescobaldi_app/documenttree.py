@@ -33,12 +33,12 @@ from __future__ import unicode_literals
 
 import os
 
-import node
+import ly.node
 import app
 import documentinfo
 
 
-class DocumentNode(node.Node):
+class DocumentNode(ly.node.Node):
     document = None
     url = None
 
@@ -46,7 +46,7 @@ class DocumentNode(node.Node):
 def tree(urls=False):
     """Return the open documents as a tree structure.
     
-    Returned is a node.Node instance having the toplevel documents (documents
+    Returned is a ly.node.Node instance having the toplevel documents (documents
     that are not included by other open documents) as children. The children of
     the nodes are the documents that are included by the toplevel document.
     
@@ -59,7 +59,7 @@ def tree(urls=False):
     It is not checked whether the referred to urls or files actually exist.
     
     """
-    root = node.Node()
+    root = ly.node.Node()
     nodes = {}
     for doc in app.documents:
         try:

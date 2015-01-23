@@ -45,14 +45,13 @@ from __future__ import unicode_literals
 from fractions import Fraction
 import re
 
-import node
-
+import ly.node
 from ly import lex
 from ly.lex import lilypond
 from ly.lex import scheme
 
 
-class Item(node.WeakNode):
+class Item(ly.node.WeakNode):
     """Represents any item in the music of a document.
     
     This can be just a token, or an interpreted construct such as a note,
