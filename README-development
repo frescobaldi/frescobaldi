@@ -75,7 +75,6 @@ view:           View (QPlainTextEdit)
 menu:           Here the menubar is constructed (by importing all the relevant
                 modules and adding the actions they define)
 plugin:         A simple way to extend objects without them knowing it
-ly:             LilyPond and the LY file format, tokenizer for LY and related
 metainfo:       Stores (optionally) meta information about the document, such
                 as last cursor position, whether to enable auto indent, etc
 panel:          The base class of all dock widgets
