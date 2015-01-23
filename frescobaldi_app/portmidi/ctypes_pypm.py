@@ -4,6 +4,7 @@
 # Don't use this module directly but via the toplevel API of this package.
 # Copyright (c) 2011 - 2014 by Wilbert Berendsen, placed in the public domain.
 
+import array
 from ctypes import byref, create_string_buffer
 
 from .pm_ctypes import (
