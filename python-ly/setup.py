@@ -27,10 +27,7 @@ package_dir = {
 
 scripts = ['ly']
 packages = packagelist('src/ly')
-py_modules = [
-    'node',
-    'slexer',
-]
+py_modules = []
 
 with open('README.md', 'rb') as f:
     long_description = f.read().decode('utf-8')
