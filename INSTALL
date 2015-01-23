@@ -109,7 +109,7 @@ Icons:
 You can remove the frescobaldi_app/icons/Tango directory, and make Frescobaldi
 depend on the tango-icon-theme package instead.
 
-Hyphentation dictionaries:
+Hyphenation dictionaries:
 You can remove the hyph_*.dic files from frescobaldi_app/hyphdicts, and make
 Frescobaldi depend on a package that installs hyphenation dictionaries in
 /usr/share/hyphen/ (or another dictionary listed by default in frescobaldi_app/

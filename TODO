@@ -82,12 +82,12 @@ Other ideas/wishes
 - editor:
     * context menu (with help, open filename, etc)
     * if matching brace out of view, popup a small display of it (idea:
-      Franciso Vila)
+      Francisco Vila)
     * vi-mode (stub: vimode/)
 
-- define and extend api for script snippets
+- define and extend API for script snippets
 
-- make Frescobaldi api (using pydoc) browsable via the helpbrowser.
+- make Frescobaldi API (using pydoc) browsable via the helpbrowser.
 
 - \displayMusic tool to show music in Scheme format (by calling LilyPond's
   \displayMusic function on a music expression).

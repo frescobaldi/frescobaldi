@@ -10,9 +10,9 @@ Changes in 2.18 --
     can be found at https://github.com/wbsoft/python-ly and should be installed
     so that Frescobaldi can run.  
     When overwriting previous Frescobaldi installations, be sure that any
-    remainings from the old ly package are removed, with a command like:
+    remnants from the old ly package are removed, with a command like:
         rm -r /usr/local/<python site-packagesdir>/frescobaldi_app/ly
-    Otherwise, Frescobaldi wont't find the new ly module.
+    Otherwise, Frescobaldi won't find the new ly module.
 * New features:
   - In the Editor Preferences, you can select which quotes will be used as
     single and double (primary and secondary) typographical quotes.

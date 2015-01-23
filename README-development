@@ -6,7 +6,7 @@ Qt4 for its user interface, via the PyQt4 bindings.
 
 All code and application data is in the frescobaldi_app/ directory. The
 frescobaldi script just imports frescobaldi_app.main.  You can simply run
-./frescobaldi from the commandline after unpacking Frescobaldi.
+./frescobaldi from the command line after unpacking Frescobaldi.
 
 You can also install the 'frescobaldi_app' package in the system- or user-wide
 python directories and the frescobaldi script in your PATH.  The distutils-based
@@ -27,7 +27,7 @@ without arguments, or by using Dreampie or IPython) and then enter:
 
 from frescobaldi_app.debug import *
 
-This ensures the application starts up and uses the correct SIP api (2) for 
+This ensures the application starts up and uses the correct SIP API (2) for 
 QString and QVariant. This will also install some handlers that print 
 debugging information on certain events. And it imports the most used modules.
 
@@ -48,7 +48,7 @@ add features to Documents, MainWindows etc. Instead of clobbering those basic
 classes with an ever-growing number of unrelated groups of methods, a different
 approach is chosen: the plugin module.
 
-This keeps all classes small and only have methods that direcly apply to
+This keeps all classes small and only have methods that directly apply to
 themselves and not to other parts of Frescobaldi (separation of concerns).
 
 So e.g. the resultfiles, highlighter or documentinfo modules contain classes
@@ -152,7 +152,7 @@ without needing to have logic for accessing the preferences, constructing a
 particular GUI, etc. It could, like app and many other modules, be used almost
 unchanged in any other application.
 
-New features that add menu actions can be imported in meny.py, while building
+New features that add menu actions can be imported in menu.py, while building
 the menu. Features that should run in a global background thread can have their
 toplevel file (<feature>/__init__.py) imported from main.py or mainwindow.py,
 loading as few as possible on first import.
@@ -185,8 +185,8 @@ Guidelines for writing GUI texts
 
 * Write short, directly and non-technical
 * For help pages: each paragraph is one translatable string
-* Avoid HTML in texts (but <code>\include</code> is ok)
-* In help pages you can construct html using some helper functions
+* Avoid HTML in texts (but <code>\include</code> is OK)
+* In help pages you can construct HTML using some helper functions
 * Avoid hard line breaks (<br>) in any texts: use short paragraphs instead
 * Use named format fields: not "page {0} of {1}" but "page {num} of {total}"
 * Don't change existing strings just for cosmetics, it breaks translations
@@ -197,8 +197,8 @@ Testing and developing under Windows
 
 Linux is the recommended developing platform, but it might be necessary to test
 specific functionality or behaviour under Windows. It can be difficult to get
-all the dependencies right, especially the right combi of poppler, pyqt4 and
-sip.
+all the dependencies right, especially the right combination of poppler, pyqt4
+and sip.
 
 There is an easy way to get setup under Windows and be able to do quite a lot
 of testing and development, you don't even need to install Python at all.
