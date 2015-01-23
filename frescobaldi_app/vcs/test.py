@@ -26,11 +26,3 @@ if app_repo.has_branch('master'):
 print('has remote dummy:', app_repo.has_remote('dummy'))
 print('has remote origin:', app_repo.has_remote('origin'))
 print('has remote upstream:', app_repo.has_remote('upstream'))
-
-upstream = app_repo.upstream_remote()
-if upstream == '':
-    print('No remote tracking upstream')
-else:
-    print()
-    print('remote tracking the official repo:', upstream)
-    print('URL:', app_repo.config['remote'][upstream]['url'])

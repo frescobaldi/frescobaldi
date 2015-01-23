@@ -28,9 +28,6 @@ import os
 
 from .gitrepo import GitRepo
 
-# Reference to distinguish the official repository from forks.
-upstream_repository = "wbsoft/frescobaldi"
-
 class AppRepo(GitRepo):
     """
     Subclass to be used for the Frescobaldi Git repository.
@@ -49,14 +46,3 @@ class AppRepo(GitRepo):
         runtime of the application
         """
         return self._activeBranch
-    
-    def upstream_remote(self):
-        """
-        Returns the name of the official
-        upstream remote or '' in case this shouldn't be registered
-        (e.g. one runs from a fork)
-        """
-        for remote in self.remotes():
-            if upstream_repository in self.config['remote'][remote]['url']:
-                return remote
-        return ''
