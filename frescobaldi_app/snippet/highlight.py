@@ -32,10 +32,9 @@ import keyword
 
 from PyQt4.QtGui import QSyntaxHighlighter
 
-import slexer
-
 import app
 import textformats
+from ly import slexer
 
 from . import snippets
 

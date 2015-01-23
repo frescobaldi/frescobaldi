@@ -33,7 +33,7 @@ the mode modules.
 from __future__ import unicode_literals
 
 
-import slexer
+from .. import slexer
 
 
 class Token(slexer.Token):

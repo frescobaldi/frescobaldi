@@ -86,7 +86,7 @@ from __future__ import unicode_literals
 
 import re
 
-import slexer
+from .. import slexer
 from ._token import *
 from ._mode import extensions, modes, guessMode
 
