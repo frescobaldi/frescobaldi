@@ -14,7 +14,7 @@ print(app_repo.branches(False))
 print()
 print('List of branches with tracked remotes:')
 for branch in app_repo.branches():
-    print(branch, app_repo.tracked_remote_label(branch.lstrip('* ')))
+    print(branch, app_repo.tracked_remote_label(branch))
 print('Current branch:')
 print(app_repo.current_branch())
 if app_repo.has_branch('master'):

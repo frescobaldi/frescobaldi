@@ -74,21 +74,39 @@ class GitRepo(AbstractVCSRepo):
             result.pop()
         return result
 
+    def _branches(self, local=True):
+        """
+        Returns a tuple.
+        The first element is the list of branch names.
+        The second element is the name of the current branch (may be None).
+        If local is False also return 'remote' branches.
+        """
+        args = ['--color=never']
+        if not local:
+            args.append('-a')
+
+        branches = []
+        current_branch = None
+        for line in self._run_git_command('branch', args):
+            branch = line.strip()
+            if branch.startswith('* '):
+                branch = branch.lstrip('* ')
+                current_branch = branch
+            if branch.endswith('.stgit'):
+                continue
+            branches.append(branch)
+
+        return (branches, current_branch)
+
     # ####################
     # Public API functions
 
     def branches(self, local=True):
         """
         Returns a string list of branch names.
-        The currently checked out branch will have a
-        leading '* '.
-        If local == False also return 'remote' branches.
+        If local is False also return 'remote' branches.
         """
-        args = [] if local else ['-a']
-        args.append('--color=never')
-        branches = [line.strip() for line in self._run_git_command('branch', args)]
-        branches = [line for line in branches if not line.endswith('.stgit')]
-        return branches
+        return self._branches(local)[0]
         
     def checkout(self, branch):
         """
@@ -102,20 +120,16 @@ class GitRepo(AbstractVCSRepo):
         """
         Returns the name of the current branch.
         """
-        for branch in self.branches():
-            if branch[0] == '*':
-                return branch[2:]
-        raise GitError('current_branch: No branch found')
+        current_branch = self._branches(local=True)[1]
+        if not current_branch:
+            raise GitError('current_branch: No branch found')
+        return current_branch
 
     def has_branch(self, branch):
         """
-        Returns True if the given branch exists.
-        Checks by actually running git branch.
+        Returns True if the given local branch exists.
         """
-        for br in self.branches():
-            if br.strip('* ') == branch :
-                return True 
-        return False
+        return (branch in self.branches(local=True))
     
     def has_remote(self, remote):
         """Returns True if the given remote name is registered."""

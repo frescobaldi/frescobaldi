@@ -65,7 +65,7 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
         self._accels = {}
         self.setExclusive(True)
         for branch in vcs.app_repo.branches():
-            self.addBranch(branch.lstrip('* '))
+            self.addBranch(branch)
         self.triggered.connect(self.slotTriggered)
     
     def actions(self):
@@ -80,7 +80,6 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
         """
         result = []
         for branch in vcs.app_repo.branches():
-            branch = branch.lstrip('* ')
             if not branch in self._acts:
                 self.addBranch(branch)
             result.append(self._acts[branch])
@@ -98,7 +97,7 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
     def setBranchStatus(self, branch):
         # create accels
         accels = [self._accels[b] for b in self._accels if b != branch]
-        name = branch = branch.lstrip('* ')
+        name = branch
         for index, char in enumerate(name):
             if char.isalnum() and char.lower() not in accels:
                 name = name[:index] + '&' + name[index:]

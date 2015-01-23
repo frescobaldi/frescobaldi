@@ -36,6 +36,10 @@ class AbstractVCSRepo(object):
 
     @abstractmethod
     def branches(self, local=True):
+        """
+        Returns a string list of branch names.
+        If local is False also return 'remote' branches.
+        """
         pass
 
     @abstractmethod
