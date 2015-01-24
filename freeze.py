@@ -44,6 +44,7 @@ includes = [
     'PyQt4.QtXml',
     'popplerqt4',
     'pypm',
+    'ly',
     
     '__future__',
     'argparse',
