@@ -26,16 +26,6 @@ if sys.version_info[0] < 3:
                 result.extend(b'%{0:02X}'.format(o))
         return bytes(result)
 
-    def decode(s):
-        """Percent-decodes all %HH sequences in the specified bytes string."""
-        l = s.split(b'%')
-        res = [l[0]]
-        for i in l[1:]:
-            res.append(chr(int(i[:2], 16)))
-            res.append(i[2:])
-        return b''.join(res)
-
-
 else:
 
     # Python 3
@@ -53,14 +43,15 @@ else:
                 result.extend('%{0:02X}'.format(c).encode('ascii'))
         return bytes(result)
 
-    def decode(s):
-        """Percent-decodes all %HH sequences in the specified bytes string."""
-        l = s.split(b'%')
-        res = bytearray(l[0])
-        for i in l[1:]:
-            res.append(int(i[:2], 16))
-            res.extend(i[2:])
-        return bytes(res)
+def decode(s):
+    """Percent-decodes all %HH sequences in the specified bytes string."""
+    l = s.split(b'%')
+    res = bytearray(l[0])
+    for i in l[1:]:
+        res.append(int(i[:2], 16))
+        res.extend(i[2:])
+    return bytes(res)
+
 
 if __name__ == "__main__":
     original = b'\x00\x10 %-09:@AZ[\\]_`az{}\x7f\x80\xff'
