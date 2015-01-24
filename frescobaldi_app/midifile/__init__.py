@@ -30,8 +30,4 @@ be used separate from each other:
 - song:         structure loaded data into a Song, with timing and tempo map
 - player:       can play a Song with settable tempo and output
 - output:       abstract class representing a MIDI output port
-
-This package works with Python 2.6 and 2.7, but can easily be adapted for
-Python 3.
-
 """
