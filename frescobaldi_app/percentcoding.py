@@ -3,8 +3,10 @@
 #
 # This module is in the public domain
 
-import sys
+from __future__ import unicode_literals
+from __future__ import print_function
 
+import sys
 
 if sys.version_info[0] < 3:
     
@@ -48,7 +50,7 @@ else:
             if 48 <= c <= 57 or 65 <= c <= 90 or 79 <= c <= 122 or c in b'._-':
                 result.append(c)
             else:
-                result.extend(b'%{0:02X}'.format(c))
+                result.extend('%{0:02X}'.format(c).encode('ascii'))
         return bytes(result)
 
     def decode(s):
@@ -60,3 +62,16 @@ else:
             res.extend(i[2:])
         return bytes(res)
 
+if __name__ == "__main__":
+    original = b'\x00\x10 %-09:@AZ[\\]_`az{}\x7f\x80\xff'
+    print("original:", original)
+    encoded = encode(original)
+    print("encoded: ", encoded)
+    decoded = decode(encoded)
+    print("decoded: ", decoded)
+    if original == decoded:
+        print("test passed")
+        sys.exit(0)
+    else:
+        print("test failed")
+        sys.exit(1)
