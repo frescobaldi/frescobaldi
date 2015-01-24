@@ -31,6 +31,7 @@ from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
+import documentinfo
 import plugin
 import tokeniter
 import appinfo
@@ -56,7 +57,7 @@ class FileExport(plugin.MainWindowPlugin):
         import ly.musicxml
         writer = ly.musicxml.writer()
         #writer.parse_tokens(tokeniter.all_tokens(doc))
-        writer.parse_tree(doc)
+        writer.parse_tree(documentinfo.music(doc))
         xml = writer.musicxml()
         # put the Frescobaldi version in the xml file
         software = xml.root.find('.//encoding/software')
