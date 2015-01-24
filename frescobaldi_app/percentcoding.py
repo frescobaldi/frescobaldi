@@ -20,7 +20,7 @@ if sys.version_info[0] < 3:
         result = bytearray()
         for c in s:
             o = ord(c)
-            if 48 <= o <= 57 or 65 <= o <= 90 or 79 <= o <= 122 or c in b'._-':
+            if 48 <= o <= 57 or 65 <= o <= 90 or 97 <= o <= 122 or c in b'._-':
                 result.append(o)
             else:
                 result.extend(b'%{0:02X}'.format(o))
@@ -37,7 +37,7 @@ else:
         """
         result = bytearray()
         for c in s:
-            if 48 <= c <= 57 or 65 <= c <= 90 or 79 <= c <= 122 or c in b'._-':
+            if 48 <= c <= 57 or 65 <= c <= 90 or 97 <= c <= 122 or c in b'._-':
                 result.append(c)
             else:
                 result.extend('%{0:02X}'.format(c).encode('ascii'))
