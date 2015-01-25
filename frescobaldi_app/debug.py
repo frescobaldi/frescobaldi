@@ -60,6 +60,11 @@ def modules():
 
 
 
+# include python-ly if possible
+import os
+lypath = os.path.realpath('../python-ly')
+if os.path.isdir(lypath):
+    sys.path.insert(1, lypath)
 
 # avoid builtins._ being overwritten
 sys.displayhook = app.displayhook
