@@ -40,8 +40,8 @@ def results(document):
 
 # Set the basenames of the resulting documents to expect when a job starts
 @app.jobStarted.connect
-def _init_basenames(document):
-    results(document).saveDocumentInfo()
+def _init_basenames(document, job):
+    results(document).saveDocumentInfo(job.start_time())
     
 
 
@@ -50,10 +50,13 @@ class Results(plugin.DocumentPlugin):
     def __init__(self, document):
         self._jobfile = None
         self._basenames = None
+        self._start_time = 0.0
         document.saved.connect(self.forgetDocumentInfo)
         
-    def saveDocumentInfo(self):
+    def saveDocumentInfo(self, start_time):
         """Takes over some vital information from a DocumentInfo instance.
+        
+        This method is called as soon as a job is started.
         
         The file a job is run on and the basenames expected to be created are saved.
         When the user saves a Document after a Job has run, this information is 'forgotten' again.
@@ -65,6 +68,7 @@ class Results(plugin.DocumentPlugin):
         
         """
         info = documentinfo.info(self.document())
+        self._start_time = start_time
         self._jobfile = info.jobinfo()[0]
         self._basenames = info.basenames()
 
@@ -75,6 +79,7 @@ class Results(plugin.DocumentPlugin):
         
         """
         if not jobmanager.isRunning(self.document()):
+            self._start_time = 0.0
             self._jobfile = None
             self._basenames = None
             
