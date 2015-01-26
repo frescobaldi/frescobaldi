@@ -121,6 +121,11 @@ def files(basenames, extension = '.*'):
     return sorted(uniq(itertools.chain.from_iterable(source())), key=filenamesort)
 
 
+def newer_files(files, time):
+    """Return a list of files that have their mtime >= time."""
+    return [f for f in files if os.path.getmtime(f) >= self._start_time]
+
+
 def group_files(names, groups):
     """Groups the given filenames by extension.
     
