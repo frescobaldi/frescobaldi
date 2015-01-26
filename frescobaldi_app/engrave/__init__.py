@@ -121,7 +121,7 @@ class Engraver(plugin.MainWindowPlugin):
             # which files were created by this job?
             import resultfiles
             extentions = set(os.path.splitext(filename)[1].lower()
-                for filename in resultfiles.results(document).files())
+                for filename in resultfiles.results(document).files_lastjob())
             
             mgr = panelmanager.manager(self.mainwindow())
             if '.svg' in extentions or '.svgz' in extentions:
@@ -130,7 +130,9 @@ class Engraver(plugin.MainWindowPlugin):
                 mgr.musicview.activate()
             
             if '.midi' in extentions or '.mid' in extentions:
-                mgr.miditool.activate()
+                # only activate the first time, can become annoying
+                if not mgr.miditool.instantiated():
+                    mgr.miditool.activate()
     
     def engraveRunner(self):
         job = self.runningJob()

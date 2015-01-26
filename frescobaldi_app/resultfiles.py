@@ -123,7 +123,7 @@ class Results(plugin.DocumentPlugin):
         files_uptodate() method.
         
         """
-        if self._start_time == 0.0:
+        if self._start_time:
             files = util.files(self.basenames(), extension)
             try:
                 files = util.newer_files(files, self._start_time)
