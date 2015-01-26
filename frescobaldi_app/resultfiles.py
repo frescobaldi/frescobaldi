@@ -110,12 +110,28 @@ class Results(plugin.DocumentPlugin):
             files = util.files(self.basenames(), extension)
             if newer:
                 try:
-                    mtime = os.path.getmtime(jobfile)
-                    files = filter(lambda fname: os.path.getmtime(fname) >= mtime, files)
+                    return util.newer_files(files, os.path.getmtime(jobfile))
                 except (OSError, IOError):
                     pass
             return list(files)
         return []
+    
+    def files_lastjob(self, extension = '*'):
+        """Like files(), but only returns files that were created by the last job.
+        
+        If no job has yet run on the document, returns the same files as the
+        files_uptodate() method.
+        
+        """
+        if self._start_time == 0.0:
+            files = util.files(self.basenames(), extension)
+            try:
+                files = util.newer_files(files, self._start_time)
+            except (OSError, IOError):
+                pass
+            return files
+        else:
+            return self.files(extension)
     
     def is_newer(self, filename):
         """Return True if the given (generated) file is newer than the jobfile().
