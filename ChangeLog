@@ -40,6 +40,7 @@ Changes in 2.18 --
   - fix AttributeError: 'unicode' object has no attribute 'insert' (issue #543)
   - the transpose functions will not transpose the chord after \stringTuning
     anymore (issue #539).
+  - fix error when opening a "recent file" that has been deleted (issue #597)
 * Translations:
   - updated: nl, fr
 

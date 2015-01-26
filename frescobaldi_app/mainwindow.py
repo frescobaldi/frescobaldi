@@ -932,8 +932,7 @@ class MainWindow(QMainWindow):
     
     def slotRecentFilesAction(self, action):
         """Called when a recent files menu action is triggered."""
-        doc = self.openUrl(action.url)
-        self.setCurrentDocument(doc)
+        self.openDocuments([action.url])
         
     def createMenus(self):
         menu.createMenus(self)
