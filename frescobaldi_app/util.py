@@ -123,7 +123,7 @@ def files(basenames, extension = '.*'):
 
 def newer_files(files, time):
     """Return a list of files that have their mtime >= time."""
-    return [f for f in files if os.path.getmtime(f) >= self._start_time]
+    return [f for f in files if os.path.getmtime(f) >= time]
 
 
 def group_files(names, groups):
