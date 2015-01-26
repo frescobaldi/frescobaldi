@@ -73,6 +73,10 @@ class Panel(QDockWidget):
             self.setWidget(w)
         return w
     
+    def instantiated(self):
+        """Return True if the tool already has been loaded."""
+        return bool(super(Panel, self).widget())
+        
     def showEvent(self, ev):
         """Re-implemented to force creation of widget."""
         self.widget()
