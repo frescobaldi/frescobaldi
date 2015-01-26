@@ -188,9 +188,8 @@ class View(QtWebKit.QWebView):
     
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
-        f = open(self.currentSVG(),'w')
-        f.write(svg_string.encode('utf8'))
-        f.close()
+        with open(self.currentSVG(), 'wb') as f:
+            f.write(svg_string.encode('utf8'))
 
     def unHighlight(self):
         import viewhighlighter
