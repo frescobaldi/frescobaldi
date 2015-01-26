@@ -141,6 +141,14 @@ class Job(object):
             self._updateProcessEnvironment()
         self._process.start(self.command[0], self.command[1:])
     
+    def start_time(self):
+        """Return the time this job was started.
+        
+        Returns 0.0 when the job has not been started yet.
+        
+        """
+        return self._starttime
+    
     def elapsed(self):
         """Returns how many seconds this process has been running."""
         if self._elapsed:
