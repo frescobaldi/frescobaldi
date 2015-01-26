@@ -110,7 +110,12 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
     
     def slotTriggered(self, action):
         msgBox = QMessageBox()
-        new_branch = self._acts.keys()[self._acts.values().index(action)]
+        for branch, act in self._acts.items():
+            if act == action:
+                new_branch = branch
+                break
+        if not new_branch:
+            return
         try:
             vcs.app_repo.checkout(new_branch)
             msgBox.setText(_("Checkout Successful"))
