@@ -73,9 +73,19 @@ class View(QtWebKit.QWebView):
         self._highlightFormat = QtGui.QTextCharFormat()
         self.jslink = JSLink(self)
         self.loadFinished.connect(self.svgLoaded)
+        self.mainwindow().aboutToClose.connect(self.cleanupForClose)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.load(self.defaulturl)
+    
+    def cleanupForClose(self):
+        """Called when our mainwindow is about to close.
+        
+        Disconnects the loadFinished signal to prevent a RuntimeError
+        about the QWebView already being deleted.
+        
+        """
+        self.loadFinished.disconnect(self.svgLoaded)
     
     def mainwindow(self):
         return self.parent().mainwindow()
