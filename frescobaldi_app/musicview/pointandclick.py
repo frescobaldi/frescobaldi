@@ -54,7 +54,8 @@ def links(document):
                         if isinstance(link, popplerqt4.Poppler.LinkBrowse):
                             t = textedit.link(link.url())
                             if t:
-                                l.add_link(t.filename, t.line, t.column, (num, link.linkArea()))
+                                filename = util.normpath(t.filename)
+                                l.add_link(filename, t.line, t.column, (num, link.linkArea()))
         return l
 
 
@@ -76,7 +77,8 @@ class Links(pointandclick.Links):
             return
         t = textedit.link(link.url())
         if t:
-            return super(Links, self).cursor(t.filename, t.line, t.column, load)
+            filename = util.normpath(t.filename)
+            return super(Links, self).cursor(filename, t.line, t.column, load)
 
 
 positions = pointandclick.positions

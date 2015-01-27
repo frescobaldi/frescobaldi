@@ -125,7 +125,8 @@ class View(QtWebKit.QWebView):
         # Only process textedit links
         if not t:
             return False
-        doc = self.document(t.filename, True)
+        filename = util.normpath(t.filename)
+        doc = self.document(filename, True)
         if doc:
             cursor = QtGui.QTextCursor(doc)
             b = doc.findBlockByNumber(t.line - 1)
@@ -154,7 +155,8 @@ class View(QtWebKit.QWebView):
         # Only process textedit links
         if not t:
             return False
-        doc = self.document(t.filename, setCursor)
+        filename = util.normpath(t.filename)
+        doc = self.document(filename, setCursor)
         if doc:
             cursor = QtGui.QTextCursor(doc)
             b = doc.findBlockByNumber(t.line - 1)

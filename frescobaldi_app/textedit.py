@@ -27,7 +27,7 @@ import re
 import sys
 import collections
 
-import util
+__all__ = ['link', 'percent_decode']
 
 
 textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
@@ -36,9 +36,14 @@ Link = collections.namedtuple("Link", "filename line column")
 
 
 def link(url):
-    """Return Link(filename, line, column) for the url if it's valid.
+    """Return Link(filename, line, column) for the specified `textedit:` url.
     
     Link is a named tuple (filename, line, column).
+    If the url is not a valid textedit url, None is returned.
+    
+    The url should be specified as a normal Python string (unicode in Python 2,
+    str in Python 3); the filename is percent-decoded and converted in the
+    correct filesystem ecoding if necessary.
     
     """
     m = textedit_match(url)
@@ -65,9 +70,6 @@ def readfilename(match):
         fname = lat1.decode(sys.getfilesystemencoding())
     except UnicodeError:
         pass
-    # normalize path (although this might change a path if it contains
-    # symlinks followed by '/../' !
-    fname = util.normpath(fname)
     return fname
 
 def percent_decode(s):
