@@ -23,6 +23,8 @@ Generic helper functions regarding QSettings
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import QUrl
+
 
 def get_string_list(settings, key):
     """Makes sure a list of strings is returned for the key.
@@ -43,6 +45,25 @@ def get_string_list(settings, key):
                 value = []
             else:
                 value = [value]
+    return value
+
+
+def get_url_list(settings, key):
+    """Makes sure a list of QUrl instances is returned for the key.
+    
+    You can write the value with settings.setValue(key, [url, url]), but
+    when you need to read the value with settings.value(key, [], QUrl), things
+    go wrong when an empty list was stored. So please use this function when
+    reading a list of strings from QSettings.
+    
+    """
+    try:
+        value = settings.value(key, [], QUrl)
+    except TypeError:
+        value = []
+    else:
+        if isinstance(value, QUrl):
+            value = []
     return value
 
 
