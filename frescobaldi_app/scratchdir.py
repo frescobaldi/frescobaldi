@@ -43,8 +43,7 @@ def findDocument(filename):
     document is returned. Otherwise, the document that really has the filename
     is returned.
     
-    Note that, unlike app.findDocument(), a filename if specified and not an
-    url.
+    Note that, unlike app.findDocument(), a filename is specified and not a url.
     
     """
     for d in app.documents:
