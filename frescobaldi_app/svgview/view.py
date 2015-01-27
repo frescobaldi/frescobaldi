@@ -90,16 +90,10 @@ class View(QtWebKit.QWebView):
         Also takes scratchdir into account for unnamed or non-local documents.
         
         """
-        for d in app.documents:
-            s = scratchdir.scratchdir(d)
-            if (s.directory() and util.equal_paths(filename, s.path())
-                or d.url().toLocalFile() == filename):
-                return d
-        if load:
+        doc = scratchdir.findDocument(filename)
+        if not doc and load:
             doc = app.openUrl(QtCore.QUrl.fromLocalFile(filename))
-            
-            return doc
-        
+        return doc
 
     def svgLoaded(self):
         if not self.url().isEmpty() and not self.url().path().endswith(".html"):

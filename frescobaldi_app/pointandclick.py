@@ -30,7 +30,6 @@ from PyQt4.QtCore import QUrl
 from PyQt4.QtGui import QTextCursor
 
 import app
-import util
 import scratchdir
 import ly.lex.lilypond
 import ly.document
@@ -64,11 +63,9 @@ class Links(object):
         
         """
         for filename in self._links:
-            for d in app.documents:
-                s = scratchdir.scratchdir(d)
-                if (s.directory() and util.equal_paths(filename, s.path())
-                    or d.url().toLocalFile() == filename):
-                    self.bind(filename, d)
+            d = scratchdir.findDocument(filename)
+            if d:
+                self.bind(filename, d)
         app.documentLoaded.connect(self.slotDocumentLoaded)
         app.documentClosed.connect(self.slotDocumentClosed)
     
