@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import os
 
+import app
 import util
 import ly.lex
 import documentinfo
@@ -34,6 +35,25 @@ import plugin
 def scratchdir(document):
     return ScratchDir.instance(document)
     
+
+def findDocument(filename):
+    """Like app.findDocument(), but also takes a possible scratchdir into account.
+    
+    If the filename happens to be the scratch-filename of a document, that
+    document is returned. Otherwise, the document that really has the filename
+    is returned.
+    
+    Note that, unlike app.findDocument(), a filename if specified and not an
+    url.
+    
+    """
+    for d in app.documents:
+        if d.url().toLocalFile() == filename:
+            return d
+        s = ScratchDir.instance(d)
+        if s.directory() and util.equal_paths(filename, s.path()):
+            return d
+
 
 class ScratchDir(plugin.DocumentPlugin):
     
