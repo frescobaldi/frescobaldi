@@ -28,7 +28,6 @@ import sys
 import collections
 
 import util
-import percentcoding
 
 
 textedit_match = re.compile(r"^textedit://(.*?):(\d+):(\d+)(?::\d+)$").match
@@ -59,7 +58,7 @@ def readfilename(match):
     fname = match.group(1)
     lat1 = fname.encode('latin1')
     try:
-        lat1 = percentcoding.decode(lat1)
+        lat1 = percent_decode(lat1)
     except ValueError:
         pass
     try:
@@ -71,3 +70,11 @@ def readfilename(match):
     fname = util.normpath(fname)
     return fname
 
+def percent_decode(s):
+    """Percent-decodes all %HH sequences in the specified bytes string."""
+    l = s.split(b'%')
+    res = bytearray(l[0])
+    for i in l[1:]:
+        res.append(int(i[:2], 16))
+        res.extend(i[2:])
+    return bytes(res)
