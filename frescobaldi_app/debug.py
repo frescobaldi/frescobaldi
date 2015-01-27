@@ -59,13 +59,6 @@ def modules():
     print('\n'.join(v.__name__ for k, v in sorted(sys.modules.items()) if v is not None))
 
 
-
-# include python-ly if possible
-import os
-lypath = os.path.realpath('../python-ly')
-if os.path.isdir(lypath):
-    sys.path.insert(1, lypath)
-
 # avoid builtins._ being overwritten
 sys.displayhook = app.displayhook
 
