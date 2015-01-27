@@ -28,6 +28,7 @@ import os
 from PyQt4.QtCore import QSettings, QUrl
 
 import app
+import qsettings
 
 __all__ = ['urls', 'add', 'remove']
 
@@ -44,10 +45,7 @@ def load():
         return
     _recentfiles = []
     
-    try:
-        urls = QSettings().value("recent_files", [], QUrl)
-    except TypeError:
-        urls = []
+    urls = qsettings.get_url_list(QSettings(), "recent_files")
     for url in urls:
         if os.access(url.toLocalFile(), os.R_OK):
             _recentfiles.append(url)
