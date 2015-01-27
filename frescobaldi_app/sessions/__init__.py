@@ -33,6 +33,7 @@ from PyQt4.QtCore import QSettings, QUrl
 
 import app
 import util
+import qsettings
 
 
 _currentSession = None
@@ -101,13 +102,7 @@ def loadSession(name):
     
     """
     session = sessionGroup(name)
-    try:
-        urls = session.value("urls", [], QUrl)
-    except TypeError:
-        urls = []
-    else:
-        if not isinstance(urls, (list, tuple)):
-            urls = []
+    urls = qsettings.get_url_list(session, "urls")
     active = session.value("active", -1, int)
     result = None
     docs = []
