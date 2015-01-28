@@ -51,6 +51,8 @@ colorVoiceTemporary =
      \temporary\override Beam #'color = #color
      \temporary\override Flag #'color = #color
      \temporary\override Accidental #'color = #color
+     \temporary\override Rest #'color = #color
+     \temporary\override Dots #'color = #color
    #})
 
 colorVoiceOld = 
@@ -62,6 +64,8 @@ colorVoiceOld =
      \override Beam #'color = #color
      \override Flag #'color = #color
      \override Accidental #'color = #color
+     \override Rest #'color = #color
+     \override Dots #'color = #color
    #})
 
 colorVoice = 
@@ -81,5 +85,7 @@ unColorVoice =
      \revert Beam #'color
      \revert Flag #'color
      \revert Accidental #'color
+     \revert Rest #'color
+     \revert Dots #'color
    #})
      
