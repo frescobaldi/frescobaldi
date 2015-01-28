@@ -37,10 +37,9 @@ import tokeniter
 import appinfo
 import codecs
 import job
-import log
 import qutil
 import resultfiles
-import widgets.dialog
+import externalcommand
 
 
 class FileExport(plugin.MainWindowPlugin):
@@ -85,50 +84,40 @@ class FileExport(plugin.MainWindowPlugin):
                     _("The audio file couldn't be created. Please create midi file first"))
             return False
         orgname = doc.url().toLocalFile()
+        midifile = midfiles[0]
         wavfile = os.path.splitext(orgname)[0] + '.wav'
         caption = app.caption(_("dialog title", "Export Audio File"))
         filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
         wavfile = QFileDialog.getSaveFileName(mainwin, caption, wavfile, filetypes)
         if not wavfile:
             return False # cancelled
-        dlg = AudioExportDialog(mainwin, midfiles[0], wavfile, caption)
+        dlg = AudioExportDialog(mainwin, caption)
+        dlg.setAttribute(Qt.WA_DeleteOnClose) # we use it only once
+        dlg.midi2wav(midifile, wavfile)
         dlg.show()
-        dlg.setAttribute(Qt.WA_DeleteOnClose)
 
 
-class AudioExportDialog(widgets.dialog.Dialog):
+class AudioExportDialog(externalcommand.ExternalCommandDialog):
 
     """Dialog to show timidity output."""
 
-    def __init__(self, parent, midfile, wavfile, caption):
-        super(AudioExportDialog, self).__init__(
-            parent,
-            buttons=('cancel',),
-        )
-        self.wavfile = wavfile
+    def __init__(self, parent, caption):
+        super(AudioExportDialog, self).__init__(parent)
         self.setWindowModality(Qt.NonModal)
-        self.log = log.Log(self)
-        self.setMainWidget(self.log)
-        self.setAttribute(Qt.WA_DeleteOnClose)
-        self.finished.connect(self._cleanup)
         self.setWindowTitle(caption)
-        self.setMessage(_("Please wait until the command finishes"))
         qutil.saveDialogSize(self, "audio_export/dialog/size", QSize(640, 400))
-        j = self.job = job.Job()
+    
+    def midi2wav(self, midfile, wavfile):
+        """Run timidity to convert the MIDI to WAV."""
+        self.wavfile = wavfile # we could need to clean it up...
+        j = job.Job()
         j.errors = 'replace'
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
         j.command = ["timidity", midfile, "-Ow", "-o", wavfile]
-        self.log.connectJob(j)
-        j.done.connect(self._done)
-        j.start()
+        self.run_job(j)
 
-    def _done(self, args):
-        self.setMessage(_("Command completed"))
-        self.setStandardButtons(('ok',))
-
-    def _cleanup(self, args):
-        if self.job.success is None:
-            self.job.abort()
+    def cleanup(self, state):
+        if state == "aborted":
             try:
                 os.remove(self.wavfile)
             except OSError:
