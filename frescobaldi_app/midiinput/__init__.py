@@ -17,7 +17,6 @@ import time
 import weakref
 
 from PyQt4.QtCore import *
-from PyQt4.QtGui import *
 
 import midihub
 import midifile.event

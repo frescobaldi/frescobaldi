@@ -25,7 +25,6 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
