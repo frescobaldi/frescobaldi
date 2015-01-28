@@ -37,7 +37,7 @@ import widgets.dialog
 def show_available_fonts(mainwin, info):
     """Display a dialog with the available fonts of LilyPond specified by info."""
     dlg = Dialog(mainwin)
-    dlg.setWindowTitle(app.caption("Available Fonts"))
+    dlg.setWindowTitle(app.caption(_("Available Fonts")))
     dlg.run_command(info, ['-dshow-available-fonts'], _("Available Fonts"))
     dlg.setMessage(_(
         "List of fonts detected by {version}").format(version=info.prettyName()))
