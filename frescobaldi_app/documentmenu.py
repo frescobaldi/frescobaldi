@@ -109,7 +109,7 @@ class DocumentActionGroup(QActionGroup, plugin.MainWindowPlugin):
             name += " " + _("[always engraved]")
         self._acts[doc].setText(name)
         # set the icon
-        if jobmanager.isRunning(doc):
+        if jobmanager.is_running(doc):
             icon = icons.get('lilypond-run')
         elif doc.isModified():
             icon = icons.get('document-save')

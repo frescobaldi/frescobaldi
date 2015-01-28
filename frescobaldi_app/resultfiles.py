@@ -78,7 +78,7 @@ class Results(plugin.DocumentPlugin):
         'Forgets' the basenames and job filename if set, but only if no job is currently running.
         
         """
-        if not jobmanager.isRunning(self.document()):
+        if not jobmanager.is_running(self.document()):
             self._start_time = 0.0
             self._jobfile = None
             self._basenames = None
