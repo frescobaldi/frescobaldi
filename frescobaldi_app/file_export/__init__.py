@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import Qt, QUrl
+from PyQt4.QtCore import Qt, QUrl, QSize
 from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox
 
 import app
@@ -35,6 +35,12 @@ import documentinfo
 import plugin
 import tokeniter
 import appinfo
+import codecs
+import job
+import log
+import qutil
+import resultfiles
+import widgets.dialog
 
 
 class FileExport(plugin.MainWindowPlugin):
@@ -71,21 +77,61 @@ class FileExport(plugin.MainWindowPlugin):
 
     def exportAudio(self):
         """ Convert the current document to Audio """
-        doc = self.mainwindow().currentDocument()
-        orgname = doc.url().toLocalFile()
-        filename = os.path.splitext(orgname)[0] + '.wav'
-        caption = app.caption(_("dialog title", "Export Audio File"))
-        filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
-        filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)
-        if not filename:
-            return False # cancelled
-        import resultfiles
+        mainwin = self.mainwindow()
+        doc = mainwin.currentDocument()
         midfiles = resultfiles.results(doc).files('.mid*')
-        if midfiles:
-            os.system('timidity "%s" -Ow -o "%s"' % (midfiles[0], filename))
-        else:
+        if not midfiles:
             QMessageBox.critical(None, _("Error"),
                     _("The audio file couldn't be created. Please create midi file first"))
+            return False
+        orgname = doc.url().toLocalFile()
+        wavfile = os.path.splitext(orgname)[0] + '.wav'
+        caption = app.caption(_("dialog title", "Export Audio File"))
+        filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
+        wavfile = QFileDialog.getSaveFileName(mainwin, caption, wavfile, filetypes)
+        if not wavfile:
+            return False # cancelled
+        dlg = AudioExportDialog(mainwin, midfiles[0], wavfile, caption)
+        dlg.show()
+
+
+class AudioExportDialog(widgets.dialog.Dialog):
+
+    """Dialog to show timidity output."""
+
+    def __init__(self, parent, midfile, wavfile, caption):
+        super(AudioExportDialog, self).__init__(
+            parent,
+            buttons=('cancel',),
+        )
+        self.wavfile = wavfile
+        self.setWindowModality(Qt.NonModal)
+        self.log = log.Log(self)
+        self.setMainWidget(self.log)
+        self.setAttribute(Qt.WA_DeleteOnClose)
+        self.finished.connect(self._cleanup)
+        self.setWindowTitle(caption)
+        self.setMessage(_("Please wait until the command finishes"))
+        qutil.saveDialogSize(self, "audio_export/dialog/size", QSize(640, 400))
+        j = self.job = job.Job()
+        j.errors = 'replace'
+        j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
+        j.command = ["timidity", midfile, "-Ow", "-o", wavfile]
+        self.log.connectJob(j)
+        j.done.connect(self._done)
+        j.start()
+
+    def _done(self, args):
+        self.setMessage(_("Command completed"))
+        self.setStandardButtons(('ok',))
+
+    def _cleanup(self, args):
+        if self.job.success is None:
+            self.job.abort()
+            try:
+                os.remove(self.wavfile)
+            except OSError:
+                pass
 
 
 class Actions(actioncollection.ActionCollection):
