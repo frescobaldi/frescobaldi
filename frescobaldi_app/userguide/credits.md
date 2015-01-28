@@ -35,11 +35,14 @@ The following people contributed to {appname}:
 !Manuel Mchalwat:
 : MIDI capturing
 
-!Alex Schreiber:
-: Relative mode for MIDI capturing
-
 !Mario Moles:
 : Finding lots of bugs
+
+!Pavel Roskin:
+: Many code and feature improvements and work on proper Python 3 support
+
+!Alex Schreiber:
+: Relative mode for MIDI capturing
 
 
 {appname} is translated into the following languages:
