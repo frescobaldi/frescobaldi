@@ -40,9 +40,9 @@ def job(document):
     return JobManager.instance(document).job()
 
 
-def isRunning(document):
+def is_running(document):
     if job(document):
-        return job(document).isRunning()
+        return job(document).is_running()
     return False
 
 
@@ -54,9 +54,9 @@ class JobManager(plugin.DocumentPlugin):
     def __init__(self, document):
         self._job = None
         
-    def startJob(self, job):
+    def start_job(self, job):
         """Starts a Job on our behalf."""
-        if not self.isRunning():
+        if not self.is_running():
             self._job = job
             job.done.connect(self._finished)
             job.start()
@@ -71,10 +71,10 @@ class JobManager(plugin.DocumentPlugin):
         """Returns the last job if any."""
         return self._job
 
-    def isRunning(self):
+    def is_running(self):
         """Returns True when a job is running."""
         if self._job:
-            return self._job.isRunning() and not self._job.isAborted()
+            return self._job.is_running() and not self._job.is_aborted()
 
 
 

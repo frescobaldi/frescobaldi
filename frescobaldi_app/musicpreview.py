@@ -63,7 +63,7 @@ class MusicPreviewJob(job.Job):
         lilypond = info.abscommand() or info.command
         self.command = [lilypond, '-dno-point-and-click', '--pdf', self.document]
         if title:
-            self.setTitle(title)
+            self.set_title(title)
     
     def resultfiles(self):
         return glob.glob(os.path.join(self.directory, '*.pdf'))
@@ -129,7 +129,7 @@ class MusicPreviewWidget(QWidget):
         if not pdfs:
             self._stack.setCurrentWidget(self._log)
             return
-        self._lastbuildtime = self._running.elapsed()
+        self._lastbuildtime = self._running.elapsed_time()
         self._stack.setCurrentWidget(self._view)
         if self._current:
             self._current.cleanup()

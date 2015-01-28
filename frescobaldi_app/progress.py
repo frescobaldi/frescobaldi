@@ -51,11 +51,11 @@ class ProgressBar(plugin.ViewSpacePlugin):
     
     def showProgress(self, document):
         job = jobmanager.job(document)
-        if job and job.isRunning():
+        if job and job.is_running():
             buildtime = metainfo.info(document).buildtime
             if not buildtime:
                 buildtime = 3.0 + document.blockCount() / 20 # very arbitrary estimate...
-            self._bar.start(buildtime, job.elapsed())
+            self._bar.start(buildtime, job.elapsed_time())
             if jobattributes.get(job).hidden:
                 self._bar.setEnabled(False)
                 self._bar.setMaximumHeight(8)
@@ -75,7 +75,7 @@ class ProgressBar(plugin.ViewSpacePlugin):
         if document == self.viewSpace().document():
             self._bar.stop(success and not jobattributes.get(job).hidden)
             if success:
-                metainfo.info(document).buildtime = job.elapsed()
+                metainfo.info(document).buildtime = job.elapsed_time()
 
 
 app.viewSpaceCreated.connect(ProgressBar.instance)

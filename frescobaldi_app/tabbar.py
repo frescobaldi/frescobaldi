@@ -98,7 +98,7 @@ class TabBar(QTabBar):
             self.setTabToolTip(index, tooltip)
             # icon
             job = jobmanager.job(doc)
-            if job and job.isRunning() and not jobattributes.get(job).hidden:
+            if job and job.is_running() and not jobattributes.get(job).hidden:
                 icon = 'lilypond-run'
             elif doc.isModified():
                 icon = 'document-save'

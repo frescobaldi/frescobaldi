@@ -92,12 +92,12 @@ class Engraver(plugin.MainWindowPlugin):
         """Returns a Job for the sticky or current document if that is running."""
         doc = self.document()
         job = jobmanager.job(doc)
-        if job and job.isRunning() and not jobattributes.get(job).hidden:
+        if job and job.is_running() and not jobattributes.get(job).hidden:
             return job
     
     def updateActions(self):
         job = jobmanager.job(self.document())
-        running = bool(job and job.isRunning())
+        running = bool(job and job.is_running())
         visible = running and not jobattributes.get(job).hidden
         ac = self.actionCollection
         ac.engrave_preview.setEnabled(not visible)
@@ -200,7 +200,7 @@ class Engraver(plugin.MainWindowPlugin):
     
     def engraveAbort(self):
         job = jobmanager.job(self.document())
-        if job and job.isRunning():
+        if job and job.is_running():
             job.abort()
     
     def saveDocumentIfDesired(self):
@@ -219,9 +219,9 @@ class Engraver(plugin.MainWindowPlugin):
         jobattributes.get(job).mainwindow = self.mainwindow()
         # cancel running job, that would be an autocompile job
         rjob = jobmanager.job(document)
-        if rjob and rjob.isRunning():
+        if rjob and rjob.is_running():
             rjob.abort()
-        jobmanager.manager(document).startJob(job)
+        jobmanager.manager(document).start_job(job)
     
     def stickyToggled(self):
         """Called when the user toggles the 'Sticky' action."""
@@ -315,7 +315,7 @@ class Engraver(plugin.MainWindowPlugin):
         
         """
         app.jobFinished.disconnect(self.checkLilyPondInstalled)
-        if not success and job.failedToStart():
+        if not success and job.failed_to_start():
             QMessageBox.warning(self.mainwindow(),
                 _("No LilyPond installation found"), _(
                 "Frescobaldi uses LilyPond to engrave music, "

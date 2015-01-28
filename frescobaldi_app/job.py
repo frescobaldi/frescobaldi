@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2014 by Wilbert Berendsen
+# Copyright (c) 2008 - 2015 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -28,12 +28,7 @@ import codecs
 import os
 import time
 
-from PyQt4.QtCore import QCoreApplication, QProcess
-
-try:
-    from PyQt4.QtCore import QProcessEnvironment # only in Qt >= 4.6
-except ImportError:
-    QProcessEnvironment = None
+from PyQt4.QtCore import QCoreApplication, QProcess, QProcessEnvironment
 
 import signals
 
@@ -86,7 +81,7 @@ class Job(object):
     """
     output = signals.Signal()
     done = signals.Signal()
-    titleChanged = signals.Signal() # title (string)
+    title_changed = signals.Signal() # title (string)
     
     def __init__(self):
         self.command = []
@@ -100,12 +95,17 @@ class Job(object):
         self._history = []
         self._starttime = 0.0
         self._elapsed = 0.0
-        self.decoder_stdout = self.createDecoder(STDOUT)
-        self.decoder_stderr = self.createDecoder(STDERR)
-        self.errors = 'strict'  # codecs error handling
+        self.decoder_stdout = self.create_decoder(STDOUT)
+        self.decoder_stderr = self.create_decoder(STDERR)
+        self.decode_errors = 'strict'  # codecs error handling
     
-    def createDecoder(self, channel):
-        """Should return a decoder for the given channel (STDOUT/STDERR).
+    def create_decoder(self, channel):
+        """Return a decoder for the given channel (STDOUT/STDERR).
+        
+        This method is called from the constructor. You can re-implement this
+        method to return another decoder, or you can set the decoders manually
+        by setting the `decoder_stdout` and `decoder_stderr` manually after
+        construction.
         
         This decoder is then used to decode the 8bit bytestrings into Python
         unicode strings. The default implementation returns a 'latin1'
@@ -115,14 +115,22 @@ class Job(object):
         return codecs.getdecoder('latin1')
         
     def title(self):
-        """Returns the job title, set with setTitle(), defaults to an empty string."""
+        """Return the job title, as set with set_title().
+        
+        The title defaults to an empty string.
+        
+        """
         return self._title
         
-    def setTitle(self, title):
-        """Sets the title and if changed, emits the titleChanged(title) signal."""
+    def set_title(self, title):
+        """Set the title.
+        
+        If the title changed, the title_changed(title) signal is emitted.
+        
+        """
         old, self._title = self._title, title
         if title != old:
-            self.titleChanged(title)
+            self.title_changed(title)
     
     def start(self):
         """Starts the process."""
@@ -133,12 +141,12 @@ class Job(object):
         self._elapsed = 0.0
         self._starttime = time.time()
         if self._process is None:
-            self.setProcess(QProcess())
-        self.startMessage()
+            self.set_process(QProcess())
+        self.start_message()
         if os.path.isdir(self.directory):
             self._process.setWorkingDirectory(self.directory)
         if self.environment:
-            self._updateProcessEnvironment()
+            self._update_process_environment()
         self._process.start(self.command[0], self.command[1:])
     
     def start_time(self):
@@ -149,8 +157,8 @@ class Job(object):
         """
         return self._starttime
     
-    def elapsed(self):
-        """Returns how many seconds this process has been running."""
+    def elapsed_time(self):
+        """Return how many seconds this process has been running."""
         if self._elapsed:
             return self._elapsed
         elif self._starttime:
@@ -158,24 +166,24 @@ class Job(object):
         return 0.0
 
     def abort(self):
-        """Aborts the process."""
+        """Abort the process."""
         if self._process:
             self._aborted = True
-            self.abortMessage()
+            self.abort_message()
             if os.name == "nt":
                 self._process.kill()
             else:
                 self._process.terminate()
     
-    def isAborted(self):
+    def is_aborted(self):
         """Returns True if the job was aborted by calling abort()."""
         return self._aborted
         
-    def isRunning(self):
+    def is_running(self):
         """Returns True if this job is running."""
         return bool(self._process)
     
-    def failedToStart(self):
+    def failed_to_start(self):
         """Return True if the process failed to start.
         
         (Call this method after the process has finished.)
@@ -183,7 +191,7 @@ class Job(object):
         """
         return self.error == QProcess.FailedToStart
     
-    def setProcess(self, process):
+    def set_process(self, process):
         """Sets a QProcess instance and connects the signals."""
         self._process = process
         if process.parent() is None:
@@ -193,35 +201,20 @@ class Job(object):
         process.readyReadStandardError.connect(self._readstderr)
         process.readyReadStandardOutput.connect(self._readstdout)
     
-    if QProcessEnvironment is not None:
-        # use the preferred method (Qt >= 4.6)
-        def _updateProcessEnvironment(self):
-            """Called internally; initializes the environment for the process."""
-            se = QProcessEnvironment.systemEnvironment()
-            for k, v in self.environment.items():
-                se.remove(k) if v is None else se.insert(k, v)
-            self._process.setProcessEnvironment(se)
-    else:
-        # use the deprecated method (Qt < 4.6)
-        def _updateProcessEnvironment(self):
-            """Called internally; initializes the environment for the process."""
-            env = dict(os.environ) # copy
-            for k, v in self.environment.items():
-                if v is None:
-                    if k in env:
-                        del env[k]
-                else:
-                    env[k] = v
-            se = [k + '=' + v for k, v in env.items()]
-            self._process.setEnvironment(se)
+    def _update_process_environment(self):
+        """(internal) initializes the environment for the process."""
+        se = QProcessEnvironment.systemEnvironment()
+        for k, v in self.environment.items():
+            se.remove(k) if v is None else se.insert(k, v)
+        self._process.setProcessEnvironment(se)
     
     def message(self, text, type=NEUTRAL):
-        """Outputs some text as the given type (NEUTRAL, SUCCESS, FAILURE, STDOUT or STDERR)."""
+        """Output some text as the given type (NEUTRAL, SUCCESS, FAILURE, STDOUT or STDERR)."""
         self.output(text, type)
         self._history.append((text, type))
         
     def history(self, types=ALL):
-        """Yields the output messages as two-tuples (text, type) since the process started.
+        """Yield the output messages as two-tuples (text, type) since the process started.
         
         If types is given, it should be an OR-ed combination of the status types
         STDERR, STDOUT, NEUTRAL, SUCCESS or FAILURE.
@@ -240,19 +233,19 @@ class Job(object):
         return "".join(self.history(STDERR))
     
     def _finished(self, exitCode, exitStatus):
-        """Called when the process has finished."""
-        self.finishMessage(exitCode, exitStatus)
+        """(internal) Called when the process has finished."""
+        self.finish_message(exitCode, exitStatus)
         success = exitCode == 0 and exitStatus == QProcess.NormalExit
         self._bye(success)
         
     def _error(self, error):
-        """Called when an error occurs."""
-        self.errorMessage(error)
+        """(internal) Called when an error occurs."""
+        self.error_message(error)
         if self._process.state() == QProcess.NotRunning:
             self._bye(False)
     
     def _bye(self, success):
-        """Ends and emits the done() signal."""
+        """(internal) Ends and emits the done() signal."""
         self._elapsed = time.time() - self._starttime
         if not success:
             self.error = self._process.error()
@@ -262,27 +255,39 @@ class Job(object):
         self.done(success)
         
     def _readstderr(self):
-        """Called when STDERR can be read."""
+        """(internal) Called when STDERR can be read."""
         output = self._process.readAllStandardError()
-        self.message(self.decoder_stderr(output, self.errors)[0], STDERR)
+        self.message(self.decoder_stderr(output, self.decode_errors)[0], STDERR)
         
     def _readstdout(self):
-        """Called when STDOUT can be read."""
+        """(internal) Called when STDOUT can be read."""
         output = self._process.readAllStandardOutput()
-        self.message(self.decoder_stdout(output, self.errors)[0], STDOUT)
+        self.message(self.decoder_stdout(output, self.decode_errors)[0], STDOUT)
 
-    def startMessage(self):
-        """Outputs a message the process has started."""
+    def start_message(self):
+        """Called by start().
+        
+        Outputs a message that the process has started.
+        
+        """
         name = self.title() or os.path.basename(self.command[0])
         self.message(_("Starting {job}...").format(job=name), NEUTRAL)
     
-    def abortMessage(self):
-        """Outputs a message the process has been aborted."""
+    def abort_message(self):
+        """Called by abort().
+        
+        Outputs a message that the process has been aborted.
+        
+        """
         name = self.title() or os.path.basename(self.command[0])
         self.message(_("Aborting {job}...").format(job=name), NEUTRAL)
     
-    def errorMessage(self, error):
-        """Outputs a message describing the given QProcess.Error."""
+    def error_message(self, error):
+        """Called when there is an error (by _error()).
+        
+        Outputs a message describing the given QProcess.Error.
+        
+        """
         if error == QProcess.FailedToStart:
             self.message(_(
                 "Could not start {program}.\n"
@@ -292,23 +297,26 @@ class Job(object):
         elif self._process.state() == QProcess.NotRunning:
             self.message(_("An unknown error occured."), FAILURE)
 
-    def finishMessage(self, exitCode, exitStatus):
-        """Outputs a message on completion of the process."""
+    def finish_message(self, exitCode, exitStatus):
+        """Called when the process finishes (by _finished()).
+        
+        Outputs a message on completion of the process.
+        
+        """
         if exitCode:
             self.message(_("Exited with return code {code}.").format(code=exitCode), FAILURE)
         elif exitStatus:
             self.message(_("Exited with exit status {status}.").format(status=exitStatus), FAILURE)
         else:
-            time = elapsed2str(self.elapsed())
+            time = self.elapsed2str(self.elapsed_time())
             self.message(_("Completed successfully in {time}.").format(time=time), SUCCESS)
 
-
-
-def elapsed2str(seconds):
-    """Returns a short display for the given time period (in seconds)."""
-    minutes, seconds = divmod(seconds, 60)
-    if minutes:
-        return "{0:.0f}'{1:.0f}\"".format(minutes, seconds)
-    return '{0:.1f}"'.format(seconds)
+    @staticmethod
+    def elapsed2str(seconds):
+        """Return a short display for the given time period (in seconds)."""
+        minutes, seconds = divmod(seconds, 60)
+        if minutes:
+            return "{0:.0f}'{1:.0f}\"".format(minutes, seconds)
+        return '{0:.1f}"'.format(seconds)
 
 

@@ -92,7 +92,7 @@ class AutoCompiler(plugin.MainWindowPlugin):
         eng = engraver(self.mainwindow())
         doc = eng.document()
         rjob = jobmanager.job(doc)
-        if rjob and rjob.isRunning(): # and not jobattributes.get(rjob).hidden:
+        if rjob and rjob.is_running(): # and not jobattributes.get(rjob).hidden:
             # a real job is running, come back when that is done
             rjob.done.connect(self.startTimer)
             return

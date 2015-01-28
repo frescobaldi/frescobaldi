@@ -107,7 +107,7 @@ class Widget(QTreeWidget):
         # set properties according to document
         i.setText(0, doc.documentName())
         job = jobmanager.job(doc)
-        if job and job.isRunning() and not jobattributes.get(job).hidden:
+        if job and job.is_running() and not jobattributes.get(job).hidden:
             icon = 'lilypond-run'
         elif engrave.Engraver.instance(self.parentWidget().mainwindow()).stickyDocument() is doc:
             icon = 'pushpin'

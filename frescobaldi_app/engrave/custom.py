@@ -154,7 +154,7 @@ class Dialog(QDialog):
     def setDocument(self, doc):
         self.lilyChooser.setLilyPondInfo(command.info(doc))
         job = jobmanager.job(doc)
-        if job and job.isRunning() and not jobattributes.get(job).hidden:
+        if job and job.is_running() and not jobattributes.get(job).hidden:
             self._document = doc
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
         
@@ -206,7 +206,7 @@ class Dialog(QDialog):
         j.command = cmd
         if self.englishCheck.isChecked():
             j.environment['LANG'] = 'C'
-        j.setTitle("{0} {1} [{2}]".format(
+        j.set_title("{0} {1} [{2}]".format(
             os.path.basename(i.command), i.versionString(), document.documentName()))
         return j
 
