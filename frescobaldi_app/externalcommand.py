@@ -47,10 +47,7 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
     
     """
     def __init__(self, parent=None):
-        super(ExternalCommandDialog, self).__init__(
-            parent,
-            buttons=('cancel',),
-        )
+        super(ExternalCommandDialog, self).__init__(parent)
         self.log = log.Log(self)
         self.setMainWidget(self.log)
         self.finished.connect(self._closed)
@@ -58,6 +55,7 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
     def run_job(self, job):
         """Run a job.Job()."""
         self.setMessage(_("Please wait until the command finishes"))
+        self.setStandardButtons(('cancel',))
         self.job = job
         self.log.connectJob(job)
         job.done.connect(self._done)
