@@ -93,6 +93,7 @@ class FileExport(plugin.MainWindowPlugin):
             return False # cancelled
         dlg = AudioExportDialog(mainwin, midfiles[0], wavfile, caption)
         dlg.show()
+        dlg.setAttribute(Qt.WA_DeleteOnClose)
 
 
 class AudioExportDialog(widgets.dialog.Dialog):
