@@ -4,11 +4,11 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18 -- 
 
-* Note about installing and for distributors:
-  - the ly module that used to be in frescobaldi_app is now a separate package
-    on its own. It is listed among the dependencies in the INSTALL file and it
-    can be found at https://github.com/wbsoft/python-ly and should be installed
-    so that Frescobaldi can run.  
+* Note about installing and for packagers/distributors:
+  - the ly module that used to be in frescobaldi_app is now a separate package.
+    It is listed among the dependencies in the INSTALL file and it can be found
+    at https://github.com/wbsoft/python-ly and should be installed so that
+    Frescobaldi can run.  
     When overwriting previous Frescobaldi installations, be sure that any
     remnants from the old ly package are removed, with a command like:
         rm -r /usr/local/<python site-packagesdir>/frescobaldi_app/ly
@@ -29,6 +29,8 @@ Changes in 2.18 --
   - When right-clicking in the editor, the editor does not scroll anymore to
     show more surrounding lines.
   - Multi-line block comments are now also foldable (issue #587)
+  - The magnifying glass in the Music View does not clip to the page borders
+    anymore, which was annoying when showing many pages in a small size.
 * Bugfixes:
   - The german ("deutsch") pitch names asas and heses are now handled correctly.
     Previously, when translating the "nederlands" beses to german, it was output
