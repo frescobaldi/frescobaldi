@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2015-01-16 06:50+0100\n"
-"PO-Revision-Date: 2015-01-16 06:51+0100\n"
+"PO-Revision-Date: 2015-01-29 08:11+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -1289,7 +1289,7 @@ msgstr "Beschikbare lettertypen"
 #: ../engrave/lytools.py:43
 #, python-brace-format
 msgid "List of fonts detected by {version}"
-msgstr "Lettertypen gedetecteerd door{version}"
+msgstr "Lettertypen gedetecteerd door {version}"
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
