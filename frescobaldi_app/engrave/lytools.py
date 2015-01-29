@@ -42,6 +42,7 @@ def show_available_fonts(mainwin, info):
     dlg.setMessage(_(
         "List of fonts detected by {version}").format(version=info.prettyName()))
     qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
+    self.setAttribute(Qt.WA_DeleteOnClose)
     dlg.show()
     
 
@@ -55,7 +56,6 @@ class Dialog(widgets.dialog.Dialog):
         self.setWindowModality(Qt.NonModal)
         self.log = log.Log(self)
         self.setMainWidget(self.log)
-        self.setAttribute(Qt.WA_DeleteOnClose)
 
     def run_command(self, info, args, title=None):
         """Run lilypond from info with the args list, and a job title."""
