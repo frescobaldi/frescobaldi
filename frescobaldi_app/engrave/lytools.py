@@ -42,7 +42,7 @@ def show_available_fonts(mainwin, info):
     dlg.setMessage(_(
         "List of fonts detected by {version}").format(version=info.prettyName()))
     qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
-    self.setAttribute(Qt.WA_DeleteOnClose)
+    dlg.setAttribute(Qt.WA_DeleteOnClose)
     dlg.show()
     
 
