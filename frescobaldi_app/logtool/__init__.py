@@ -65,7 +65,7 @@ class LogTool(panel.Panel):
 
     def slotJobFinished(self, document, job, success):
         import jobattributes
-        if (not success and not job.isAborted()
+        if (not success and not job.is_aborted()
                 and not jobattributes.get(job).hidden
                 and document == self.mainwindow().currentDocument()):
             self.show()
