@@ -23,7 +23,7 @@ A dummy surface only showing a "could not load popplerqt4 module" message.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QLabel, QLayout, QVBoxLayout
+from PyQt4.QtGui import QLabel, QLayout, QVBoxLayout, QWidget
 
 import qpopplerview
 import app
@@ -43,6 +43,4 @@ class Surface(qpopplerview.Surface):
             name = '<a href="https://github.com/wbsoft/python-poppler-qt4">popplerqt4</a>'))
     
     def paintEvent(self, ev):
-        super(qpopplerview.Surface, self).paintEvent(ev)
-
-
+        QWidget.paintEvent(self, ev)
