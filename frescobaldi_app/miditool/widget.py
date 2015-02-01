@@ -23,8 +23,9 @@ The MIDI tool widget.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import Qt, QTimer, QSettings
+from PyQt4.QtGui import (
+    QWidget, QComboBox, QToolButton, QSlider, QGridLayout, QSizePolicy, QLabel)
 
 import app
 import css
