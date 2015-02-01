@@ -253,6 +253,13 @@ class SignalContext(Signal):
 
 
 class ListenerBase(object):
+
+    removeargs = 0
+
+    def __init__(self, func, owner=None):
+        self.func = func
+        self.obj = owner
+
     def __lt__(self, other):
         return self.priority < other.priority
     
@@ -279,16 +286,19 @@ class ListenerBase(object):
 
 
 class MethodListener(ListenerBase):
+
     removeargs = 1
+
     def __init__(self, meth):
-        self.obj = meth.__self__
+        obj = meth.__self__
         self.objid = id(meth.__self__)
         try:
-            self.func = meth.__func__
+            func = meth.__func__
         except AttributeError:
             # c++ methods from PyQt4 object sometimes do not have the __func__ attribute
-            self.func = getattr(meth.__self__.__class__, meth.__name__)
-    
+            func = getattr(meth.__self__.__class__, meth.__name__)
+        super(MethodListener, self).__init__(func, obj)
+
     def __eq__(self, other):
         return self.__class__ is other.__class__ and self.objid == other.objid and self.func is other.func
 
@@ -299,10 +309,6 @@ class MethodListener(ListenerBase):
 
 
 class FunctionListener(ListenerBase):
-    removeargs = 0
-    def __init__(self, func, owner=None):
-        self.obj = owner
-        self.func = func
 
     def __eq__(self, other):
         return self.__class__ is other.__class__ and self.func is other.func
