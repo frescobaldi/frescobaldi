@@ -45,7 +45,7 @@ module from pygame; or, as a last resort, embedding the PortMidi C-library via
 ctypes. MIDI is optional.
 
 Required:
-    Python 2.7
+    Python (2.7 or >= 3.2):
         http://www.python.org/
     Qt4 (>= 4.7):
         http://qt.nokia.com/
