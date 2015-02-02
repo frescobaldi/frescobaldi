@@ -31,8 +31,10 @@ This ensures the application starts up and uses the correct SIP API (2) for
 QString and QVariant. This will also install some handlers that print 
 debugging information on certain events. And it imports the most used modules.
 
-Currently Python 2.6 and 2.7 are supported, but the code should be designed such
-that Frescobaldi works as well with Python 3.
+Currently Python 2.7 and Python 3.2 and newer are supported. Supporting both
+Python 2 and Python 3 requires certain care, so please test your changes with
+both, especially if your code involves string encoding/decoding and file
+operations.
 
 
 How Frescobaldi is organized
