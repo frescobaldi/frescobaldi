@@ -35,7 +35,7 @@ See the distutils documentation for more install options.
 Dependencies:
 =============
 
-Frescobaldi 2.0 is written in Python version 2.7 (3.x support is planned)
+Frescobaldi 2.0 is written in Python (Python 2.7 and Python 3.2+ are supported)
 and depends on Qt4.7 and PyQt4.8, and uses the python-poppler-qt4 binding to
 Poppler for the built-in PDF preview.
 

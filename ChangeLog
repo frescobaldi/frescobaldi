@@ -13,6 +13,7 @@ Changes in 2.18 --
     remnants from the old ly package are removed, with a command like:
         rm -r /usr/local/<python site-packagesdir>/frescobaldi_app/ly
     Otherwise, Frescobaldi won't find the new ly module.
+  - Frescobaldi now supports Python 3.2 and higher. Also 2.7 is still supported.
 * New features:
   - In the Editor Preferences, you can select which quotes will be used as
     single and double (primary and secondary) typographical quotes.
