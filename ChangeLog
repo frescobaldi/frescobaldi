@@ -16,7 +16,7 @@ Changes in 2.18 --
   - Frescobaldi now supports Python 3.2 and higher. Also 2.7 is still supported.
 * New features:
   - In the Editor Preferences, you can select which quotes will be used as
-    single and double (primary and secondary) typographical quotes.
+    single and double (primary and secondary) typographical quotes (issue #529)
   - The music view now can display a PDF document with two pages next to each
     other, starting with a right or left page, and in single pages (issue #575)
 * Improvements:
@@ -32,6 +32,9 @@ Changes in 2.18 --
   - Multi-line block comments are now also foldable (issue #587)
   - The magnifying glass in the Music View does not clip to the page borders
     anymore, which was annoying when showing many pages in a small size.
+  - To save space in the toolbar, the almost never used Save As... button was
+    removed. But when holding the Save button longer, three choices pop up:
+    Save, Save As and Save All.
 * Bugfixes:
   - The german ("deutsch") pitch names asas and heses are now handled correctly.
     Previously, when translating the "nederlands" beses to german, it was output

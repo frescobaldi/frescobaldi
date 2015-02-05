@@ -950,6 +950,8 @@ class MainWindow(QMainWindow):
         t.addAction(ac.file_new)
         t.addAction(ac.file_open)
         t.addAction(ac.file_save)
+        t.widgetForAction(ac.file_save).addAction(ac.file_save_as)
+        t.widgetForAction(ac.file_save).addAction(ac.file_save_all)
         t.addAction(ac.file_close)
         t.addSeparator()
         t.addAction(browseriface.get(self).actionCollection.go_back)
