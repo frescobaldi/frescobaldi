@@ -128,11 +128,6 @@ class Engraver(plugin.MainWindowPlugin):
                 mgr.svgview.activate()
             elif '.pdf' in extentions:
                 mgr.musicview.activate()
-            
-            if '.midi' in extentions or '.mid' in extentions:
-                # only activate the first time, can become annoying
-                if not mgr.miditool.instantiated():
-                    mgr.miditool.activate()
     
     def engraveRunner(self):
         job = self.runningJob()
