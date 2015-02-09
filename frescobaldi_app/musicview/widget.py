@@ -233,7 +233,9 @@ class MusicView(QWidget):
                 and self.parent().actionCollection.music_sync_cursor.isChecked()):
                 rect = self.destinationsRect(links.destinations()[s])
                 center = rect.center()
-                self.view.ensureVisible(center.x(), center.y(), 50+rect.width()/2, 50+rect.height()/2)
+                self.view.ensureVisible(center.x(), center.y(),
+                                        50 + rect.width() // 2,
+                                        50 + rect.height() // 2)
             
             # perform highlighting after move has been started. This is to ensure that if kinetic scrolling is
             # is enabled its speed is already set so that we can adjust the highlight timer.

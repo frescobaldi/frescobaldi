@@ -254,8 +254,8 @@ class View(KineticScrollArea):
         self.fit()
         # restore our position
         newSize = self.surface().size()
-        newx = self._centerPos.x() * newSize.width() / oldSize.width()
-        newy = self._centerPos.y() * newSize.height() / oldSize.height()
+        newx = self._centerPos.x() * newSize.width() // oldSize.width()
+        newy = self._centerPos.y() * newSize.height() // oldSize.height()
         # we explicitely want the non-kinetic centering function regardless of kinetic state.
         self.fastCenter(QPoint(newx, newy))
         self._centerPos = None

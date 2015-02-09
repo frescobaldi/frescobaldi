@@ -84,8 +84,8 @@ class CustomRubberBand(QWidget):
         region += QRect(self.rect().width()-20, self.rect().height()-20, 20, 20)
         region += QRect(0, self.rect().height()-20, 20, 20)
         # Clip middles
-        region += QRect(0, self.rect().height()/2-10, self.rect().width(), 20)
-        region += QRect(self.rect().width()/2-10, 0, 20, self.rect().height())
+        region += QRect(0, self.rect().height() // 2 - 10, self.rect().width(), 20)
+        region += QRect(self.rect().width() // 2 - 10, 0, 20, self.rect().height())
         
         # Draw thicker rectangles, clipped at corners and sides.
         painter.setClipRegion(region)

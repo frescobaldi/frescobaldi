@@ -407,8 +407,8 @@ class RowLayout(AbstractLayout):
             height = max(p.height() for p in row if p)
             for n, page in enumerate(row):
                 if page:
-                    x = col_offsets[n] + (col_widths[n] - page.width()) / 2
-                    y = top + (height - page.height()) / 2
+                    x = col_offsets[n] + (col_widths[n] - page.width()) // 2
+                    y = top + (height - page.height()) // 2
                     page.setPos(QPoint(x, y))
             top += height + self._spacing
         total_height = top + self._margin - self._spacing
