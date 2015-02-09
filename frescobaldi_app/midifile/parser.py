@@ -214,11 +214,12 @@ if __name__ == '__main__':
     import sys
     files = sys.argv[1:]
     for f in files:
-        s = open(f, 'rb').read()
+        with open(f, 'rb') as midifile:
+            s = midifile.read()
         ftm, div, tracks = parse_midi_data(s)
         try:
             for t in tracks:
-                list(parse_midi_events(t))
+                print(list(parse_midi_events(t)))
         except Exception as e:
             print('error in:', f)
             print(e)
