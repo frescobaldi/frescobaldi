@@ -227,7 +227,7 @@ class Widget(QWidget):
     def loadSong(self, index):
         files = midifiles.MidiFiles.instance(self._document)
         self._player.set_song(files.song(index))
-        m, s = divmod(self._player.total_time() / 1000, 60)
+        m, s = divmod(self._player.total_time() // 1000, 60)
         name = self._fileSelector.currentText()
         self.updateTimeSlider()
         self._display.reset()
@@ -299,7 +299,7 @@ class Display(QLabel):
         self.updateDisplay()
         
     def updateDisplay(self):
-        minutes, seconds = divmod(self._time / 1000, 60)
+        minutes, seconds = divmod(self._time // 1000, 60)
         
         time_spec = "{0}:{1:02}".format(minutes, seconds)
         if self._status:
