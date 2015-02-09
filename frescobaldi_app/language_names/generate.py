@@ -58,16 +58,17 @@ def generate_kde(fileName="/usr/share/locale/all_languages"):
     langs = collections.defaultdict(dict)
 
     group = None
-    for line in codecs.open(fileName, "r", "utf-8"):
-        line = line.strip()
-        m = re.match(r"\[([^]]+)\]", line)
-        if m:
-            group = m.group(1)
-        elif group and group != 'x-test':
-            m = re.match(r"Name(?:\[([^]]+)\])?\s*=(.*)$", line)
+    with codecs.open(fileName, "r", "utf-8") as langfile:
+        for line in langfile:
+            line = line.strip()
+            m = re.match(r"\[([^]]+)\]", line)
             if m:
-                lang, name = m.group(1) or "C", m.group(2)
-                langs[lang][group] = name
+                group = m.group(1)
+            elif group and group != 'x-test':
+                m = re.match(r"Name(?:\[([^]]+)\])?\s*=(.*)$", line)
+                if m:
+                    lang, name = m.group(1) or "C", m.group(2)
+                    langs[lang][group] = name
     
     # correct KDE mistake
     langs["cs"]["gl"] = "Galicijský"
