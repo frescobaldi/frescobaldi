@@ -184,7 +184,7 @@ def beats(d, division):
         if sigs_index < len(time_sigs) and time >= time_sigs[sigs_index][0]:
             # new time signature
             time, (num, den, clocks, n32s) = time_sigs[sigs_index]
-            step = (4 * division) / (2 ** den)
+            step = (4 * division) // (2 ** den)
             beat = 1
             sigs_index += 1
             
