@@ -70,8 +70,9 @@ def changedDocuments():
             filename = d.url().toLocalFile()
             if filename:
                 try:
-                    if open(filename).read() == d.encodedText():
-                        w.changed = False
+                    with open(filename, 'rb') as diskfile:
+                        if diskfile.read() == d.encodedText():
+                            w.changed = False
                 except (OSError, IOError):
                     pass
     return [w.document() for w in documentwatcher.DocumentWatcher.instances()
