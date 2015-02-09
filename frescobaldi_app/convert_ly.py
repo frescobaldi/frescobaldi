@@ -253,10 +253,9 @@ class Dialog(QDialog):
         filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)
         if not filename:
             return False # cancelled
-        f = open(filename, 'w')
-        f.write(tabdata.text.encode('utf-8'))
-        f.close()
-		
+        with open(filename, 'wb') as f:
+            f.write(tabdata.text.encode('utf-8'))
+
     def getTabData(self, index):
         """Get content of current tab from current index"""
         if index == 0:
