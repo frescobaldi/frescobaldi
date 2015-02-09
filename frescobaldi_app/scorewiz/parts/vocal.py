@@ -571,7 +571,7 @@ class Choir(VocalPart):
             # Move voices if unevenly spread
             if abs(len(upper) - len(lower)) > 1:
                 voices = upper + lower
-                half = (len(voices) + preferUpper) / 2
+                half = (len(voices) + preferUpper) // 2
                 upper = voices[:half]
                 lower = voices[half:]
             
