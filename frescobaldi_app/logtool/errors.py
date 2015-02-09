@@ -69,7 +69,7 @@ class Errors(plugin.DocumentPlugin):
         if jobattributes.get(job).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
             return
         # clear earlier set error marks
-        docs = set([self.document()])
+        docs = {self.document()}
         for ref in self._refs.values():
             c = ref.cursor(False)
             if c:

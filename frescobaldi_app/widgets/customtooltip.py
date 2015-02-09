@@ -84,7 +84,7 @@ def show(widget, pos=None, timeout=10000):
     _timer.start(timeout)
 
 
-_hideevents = set((
+_hideevents = {
     QEvent.KeyPress,
     QEvent.KeyRelease,
     QEvent.Leave,
@@ -97,7 +97,7 @@ _hideevents = set((
     QEvent.FocusOut,
     QEvent.Wheel,
     QEvent.MouseMove,
-))
+}
 
 class EventHandler(QObject):
     def eventFilter(self, obj, ev):
