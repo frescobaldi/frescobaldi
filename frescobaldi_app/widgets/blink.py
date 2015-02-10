@@ -117,7 +117,7 @@ class Blinker(QWidget):
         if not color or color.alpha() == 0:
             return
         painter = QPainter(self)
-        adj = self.lineWidth / 2
+        adj = self.lineWidth // 2
         rect = self.rect().adjusted(adj, adj, -adj, -adj)
         pen = QPen(color)
         pen.setWidth(self.lineWidth)
