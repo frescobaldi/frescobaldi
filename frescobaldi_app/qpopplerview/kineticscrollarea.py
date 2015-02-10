@@ -218,8 +218,8 @@ class KineticScrollArea(QScrollArea):
         
         # compute the amount of displacement still needed because we're dealing with integer values.
         diff = QPoint(0,0)
-        diff.setX(-abs(newx-oldx) + speed.x()*(speed.x()+1)/2)
-        diff.setY(-abs(newy-oldy) + speed.y()*(speed.y()+1)/2)
+        diff.setX((speed.x() * (speed.x() + 1) // 2) - abs(newx - oldx))
+        diff.setY((speed.y() * (speed.y() + 1) // 2) - abs(newy - oldy))
 
         # Since this function is called for exact moves (not free scrolling)
         # limit the kinetic time to 2 seconds, which means 100 ticks, 5050 pixels.
@@ -256,7 +256,7 @@ class KineticScrollArea(QScrollArea):
         
         # Get the remaining scroll amount.
         currentSpeed = abs( s )
-        leftToScroll = (currentSpeed+1)*currentSpeed / 2 ;
+        leftToScroll = (currentSpeed + 1) * currentSpeed // 2
         if s < 0:
             leftToScroll *= -1
         leftToScroll += delta
