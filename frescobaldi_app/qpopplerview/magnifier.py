@@ -81,7 +81,7 @@ class Magnifier(QWidget):
         pagePos = pos - page.pos()
         
         newPage = Page(page, self._scale)
-        if newPage != self._page:
+        if not newPage.same_page(self._page):
             if self._page:
                 self._page.magnifier = None
             self._page = newPage
@@ -121,8 +121,9 @@ class Page(object):
         self._rotation = page.rotation()
         self.magnifier = None
         
-    def __eq__(self, other):
+    def same_page(self, other):
         return (
+            other is not None and
             self._document() == other._document() and
             self._pageNumber == other._pageNumber and
             self._width == other._width and
