@@ -85,13 +85,11 @@ class Blinker(QWidget):
         self.finished.emit()
     
     def _updateAnimation(self):
-        try:
-            delta, self._color = next(self._animation)
-        except StopIteration:
-            self.done()
+        for delta, self._color in self._animation:
+            self.update()
+            self._timer.start(delta)
             return
-        self.update()
-        self._timer.start(delta)
+        self.done()
         
     def animateColor(self):
         """A generator yielding tuples (msec_delta, color) to animate colors.
