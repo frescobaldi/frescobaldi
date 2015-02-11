@@ -199,7 +199,8 @@ class KineticScrollArea(QScrollArea):
         """Kinetically center the view on the givent QPoint"""
 
         size = self.widget().viewportRect().size()
-        self.kineticEnsureVisible( point.x(), point.y(), size.width()/2, size.height()/2)
+        self.kineticEnsureVisible(point.x(), point.y(),
+                                  size.width() // 2, size.height() // 2)
     
     def center(self, point, overrideKinetic=False):
         """Centers the given QPoint of the widget.
