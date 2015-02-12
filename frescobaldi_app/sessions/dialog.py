@@ -99,7 +99,7 @@ class SessionManagerDialog(QDialog):
         if not importfile:
             return # cancelled by user
         try:
-            with open(importfile) as f:
+            with open(importfile, 'r') as f:
                 self.sessions.importItem(json.load(f))
         except IOError as e:
             msg = _("{message}\n\n{strerror} ({errno})").format(
