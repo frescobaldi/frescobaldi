@@ -106,8 +106,26 @@ def url(arg):
         return QUrl.fromLocalFile(os.path.abspath(arg))
 
 
+def patch_pyqt():
+    """Patch PyQt classes to strip trailing null characters on Python 2
+
+    It works around a bug triggered by Unicode characters above 0xFFFF.
+    """
+    if sys.version_info >= (3, 0):
+        return
+
+    old_toLocalFile = QUrl.toLocalFile
+    QUrl.toLocalFile = lambda url: old_toLocalFile(url).rstrip('\0')
+    old_path = QUrl.path
+    QUrl.path = lambda self: old_path(self).rstrip('\0')
+    old_arguments = QApplication.arguments
+    QApplication.arguments = staticmethod(
+        lambda: [arg.rstrip('\0') for arg in old_arguments()])
+
+
 def main():
     """Main function."""
+    patch_pyqt()
     args = parse_commandline()
     
     if args.list_sessions:
