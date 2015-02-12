@@ -1,7 +1,14 @@
 import os
 import sys
-from distutils.core import setup
 from frescobaldi_app import appinfo
+
+try:
+    from setuptools import setup
+    USE_SETUPTOOLS = True
+except ImportError:
+    from distutils.core import setup
+    USE_SETUPTOOLS = False
+
 
 def packagelist(directory):
     """Returns a sorted list with package names for all packages under the given directory."""
@@ -42,6 +49,10 @@ else:
         ('share/applications', ['frescobaldi.desktop']),
         ('share/man/man1', ['frescobaldi.1']),
     ]
+
+setup_extra_args = {}
+if USE_SETUPTOOLS:
+    setup_extra_args['install_requires'] = ['python-ly', 'python-poppler-qt4']
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -96,5 +107,6 @@ setup(
     package_data = package_data,
     data_files = data_files,
     classifiers = classifiers,
+    **setup_extra_args
 )
 
