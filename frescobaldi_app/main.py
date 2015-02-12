@@ -83,11 +83,15 @@ def parse_commandline():
 
 
     args = QApplication.arguments()
-    if os.name == 'nt' and args and 'python' in os.path.basename(args[0]).lower():
-        args = args[2:]
-    else:
-        args = args[1:]
-    return parser.parse_args(args)
+
+    # Strip interpreter name and its command line options on Windows
+    if os.name == 'nt':
+        while args:
+            if os.path.basename(args[0]).lower().startswith(appinfo.name):
+                break
+            args.pop(0)
+
+    return parser.parse_args(args[1:])
 
 
 def url(arg):
