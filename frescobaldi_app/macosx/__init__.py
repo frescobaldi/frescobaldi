@@ -46,3 +46,35 @@ def use_osx_menu_roles():
             or ('.app/Contents/MacOS' in os.path.abspath(sys.argv[0])))
     return _use_roles
 
+def system_python():
+    """Return a list containing the command line to run the system Python.
+    
+    (One of) the system-provided Python interpreter(s) is selected to run
+    the tools included in LilyPond, e.g. convert-ly.
+    
+    The system-provided Python interpreter must be explicitly called:
+    - the LilyPond-provided interpreter lacks many modules (and is
+      difficult to run properly from outside the application bundle);
+    - searching for the interpreter in the path is unreliable, since it
+      might lack some modules or it could be an incompatible version;
+      moreover if Frescobaldi is launched as an application bundle,
+      the PATH variable is not set;
+    - the interpreter included in Frescobaldi's application bundle,
+      when present, lacks some modules.
+    
+    The earliest Python version >= 2.4 is called in 32 bit mode, for
+    compatibility with midi2ly and lilysong, although Frescobaldi does not
+    currently support them.
+    In particular:
+    - midi.so is 32-bit only;
+    - Python >= 2.5 gives a "C API version mismatch" RuntimeWarning
+      on `import midi`;
+    - Python >= 2.6 gives a DeprecationWarning on `import popen2`.
+    
+    """
+    for v in ['4', '5', '6', '7']:
+        python = '/System/Library/Frameworks/Python.framework/Versions/2.' + v
+        python += '/bin/python2.' + v
+        if os.path.exists(python):
+            return ['/usr/bin/arch', '-i386', python]
+
