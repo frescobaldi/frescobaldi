@@ -120,6 +120,8 @@ class ToLyDialog(QDialog):
         for t in self.commandLine.toPlainText().split():
             if t == '$musicxml2ly':
                 cmd.extend(lilypondinfo.preferred().toolcommand('musicxml2ly'))
+            elif t == '$midi2ly':
+                cmd.extend(lilypondinfo.preferred().toolcommand('midi2ly'))
             elif t == '$abc2ly':
                 cmd.extend(lilypondinfo.preferred().toolcommand('abc2ly'))
             elif t == '$filename':
