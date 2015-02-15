@@ -43,13 +43,13 @@ class FileImport(plugin.MainWindowPlugin):
         ac.import_musicxml.triggered.connect(self.importMusicXML)
 
     def importMusicXML(self):
-        """ Opens a MusicXML file. Converts it to ly by using musicxml2ly """
+        """Opens a MusicXML file. Converts it to ly by using musicxml2ly."""
         filetypes = '{0} (*.xml);;{1} (*.mxl);;{2} (*)'.format(
             _("XML Files"), _("MXL Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a MusicXML file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
-        if not importfile:
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        if not self.importfile:
             return # the dialog was cancelled by user
 
         try:
@@ -59,14 +59,18 @@ class FileImport(plugin.MainWindowPlugin):
             dlg = self._importDialog = musicxml.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
-
-        dlg.setDocument(importfile)
+        self.runImport()
+    
+    def runImport(self):
+        """Generic execution of all import dialogs."""
+        dlg = self._importDialog
+        dlg.setDocument(self.importfile)
         if dlg.exec_():
             with qutil.busyCursor():
                 stdout, stderr = dlg.run_command()
             if stdout: #success
                 dlg.saveSettings()
-                lyfile = os.path.splitext(importfile)[0] + ".ly"
+                lyfile = os.path.splitext(self.importfile)[0] + ".ly"
                 doc = self.createDocument(lyfile, stdout.decode('utf-8'))
                 self.postImport(dlg.getPostSettings(), doc)
                 self.mainwindow().saveDocument(doc)
