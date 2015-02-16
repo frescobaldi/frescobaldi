@@ -28,9 +28,11 @@ root = os.path.dirname(macosx)
 
 sys.path.insert(0, root)
 
-from frescobaldi_app import appinfo
+from frescobaldi_app import toplevel
+toplevel.install()
+import appinfo
 try:
-    from frescobaldi_app.portmidi import pm_ctypes
+    from portmidi import pm_ctypes
     dylib_name = pm_ctypes.dll_name
 except ImportError:
     dylib_name = None
@@ -139,7 +141,11 @@ if args.standalone:
         options.update({
             'arch': args.arch
         })
-    for patchfile in os.listdir('patch'):
+    try:
+        patchlist = os.listdir('patch')
+    except OSError:
+        patchlist = []
+    for patchfile in patchlist:
         if patchfile.endswith(".diff"):
             with open('patch/{0}'.format(patchfile), 'r') as input:
                 Popen(["patch", "-d..", "-p0"], stdin=input)
@@ -173,7 +179,7 @@ for l in locales:
 
 if args.standalone:
     print('reversing patches:')
-    for patchfile in os.listdir('patch'):
+    for patchfile in patchlist:
         if patchfile.endswith(".diff"):
             with open('patch/{0}'.format(patchfile), 'r') as input:
                 Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
