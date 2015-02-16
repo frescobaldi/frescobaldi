@@ -142,13 +142,12 @@ if args.standalone:
             'arch': args.arch
         })
     try:
-        patchlist = os.listdir('patch')
+        patchlist = [f for f in os.listdir('patch') if f.endswith(".diff")]
     except OSError:
         patchlist = []
     for patchfile in patchlist:
-        if patchfile.endswith(".diff"):
-            with open('patch/{0}'.format(patchfile), 'r') as input:
-                Popen(["patch", "-d..", "-p0"], stdin=input)
+        with open('patch/{0}'.format(patchfile), 'r') as input:
+            Popen(["patch", "-d..", "-p0"], stdin=input)
 else:
     options.update({
         'semi_standalone': True,
@@ -178,11 +177,11 @@ for l in locales:
     os.chmod(ipstrings_dest, 0o0644)
 
 if args.standalone:
-    print('reversing patches:')
+    if patchlist:
+        print('reversing patches:')
     for patchfile in patchlist:
-        if patchfile.endswith(".diff"):
-            with open('patch/{0}'.format(patchfile), 'r') as input:
-                Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
+        with open('patch/{0}'.format(patchfile), 'r') as input:
+            Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
     print('removing file {0}/qt.conf'.format(app_resources))
     os.remove('{0}/qt.conf'.format(app_resources))
     imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(appinfo.appname)
