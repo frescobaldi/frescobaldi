@@ -55,10 +55,10 @@ class FileImport(plugin.MainWindowPlugin):
             return # the dialog was cancelled by user
 
         try:
-            dlg = self._importDialog
+            dlg = self._importDialog = self.mxmlDlg
         except AttributeError:
             from . import musicxml
-            dlg = self._importDialog = musicxml.Dialog(self.mainwindow())
+            dlg = self._importDialog = self.mxmlDlg = musicxml.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
@@ -74,10 +74,10 @@ class FileImport(plugin.MainWindowPlugin):
             return # the dialog was cancelled by user
 
         try:
-            dlg = self._importDialog
+            dlg = self._importDialog = self.midDlg
         except AttributeError:
             from . import midi
-            dlg = self._importDialog = midi.Dialog(self.mainwindow())
+            dlg = self._importDialog = self.midDlg = midi.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
@@ -93,10 +93,10 @@ class FileImport(plugin.MainWindowPlugin):
             return # the dialog was cancelled by user
 
         try:
-            dlg = self._importDialog
+            dlg = self._importDialog = self.abcDlg
         except AttributeError:
             from . import abc
-            dlg = self._importDialog = abc.Dialog(self.mainwindow())
+            dlg = self._importDialog = self.abcDlg = abc.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
