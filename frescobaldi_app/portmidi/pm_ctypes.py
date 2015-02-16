@@ -13,11 +13,9 @@ from ctypes import (CDLL, CFUNCTYPE, POINTER, Structure, byref, c_char_p,
 # the basename of the portmidi/porttime libraries on different platforms
 _PM_DLL = dict(
     win32 = 'libportmidi-0',
-    darwin = 'portmidi'
 )
 _PT_DLL = dict(
     win32 = 'libporttime-0',
-    darwin = 'porttime'
 )
 
 if sys.platform.startswith('win'):
