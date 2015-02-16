@@ -47,7 +47,8 @@ def app_is_git_controlled():
                 app_repo._run_git_command('--version')
                 _app_is_git_controlled = True
                 return _app_is_git_controlled
-            except GitError as giterror:
+            except (GitError, OSError) as error:
+                error_type = type(error).__name__
                 from PyQt4.QtGui import QMessageBox
                 QMessageBox.warning(None, 
                                     _("Git not found"),
@@ -57,7 +58,8 @@ def app_is_git_controlled():
                                       "disabled. If you have Git installed, "
                                       "you can specify its location in the "
                                       "Preferences dialog.\n\n"
-                                      "Error message:\n\n") + str(giterror))
+                                      "Error message:\n\n")
+                                        + error_type + ': ' + str(error))
                 _app_is_git_controlled = False
                 return _app_is_git_controlled
         else:
