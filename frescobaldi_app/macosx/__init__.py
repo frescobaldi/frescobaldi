@@ -36,14 +36,21 @@ def is_osx():
     """Return True if we are running on Mac OS X."""
     return sys.platform.startswith('darwin')
 
+def inside_app_bundle():
+    """Return True if we are inside a .app bundle."""
+    # Testing for sys.frozen == 'macosx_app' (i.e. are we inside a .app bundle
+    # packaged with py2app?) should be sufficient, but let's also check whether
+    # we are inside a .app-bundle-like folder structure.
+    return (getattr(sys, 'frozen', '') == 'macosx_app' or
+        '.app/Contents/MacOS' in os.path.abspath(sys.argv[0]))
+
 def use_osx_menu_roles():
     """Return True if Mac OS X-specific menu roles are to be used."""
     global _use_roles
     try:
         return _use_roles
     except NameError:
-        _use_roles = (getattr(sys, 'frozen', '') == 'macosx_app'
-            or ('.app/Contents/MacOS' in os.path.abspath(sys.argv[0])))
+        _use_roles = inside_app_bundle()
     return _use_roles
 
 def system_python():
