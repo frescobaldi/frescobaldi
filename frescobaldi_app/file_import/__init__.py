@@ -40,44 +40,69 @@ class FileImport(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        ac.import_all.triggered.connect(self.importAll)
         ac.import_musicxml.triggered.connect(self.importMusicXML)
         ac.import_midi.triggered.connect(self.importMidi)
         ac.import_abc.triggered.connect(self.importAbc)
+        
+    def importAll(self):
+        """Reads the file type and determines which import to use."""
+        filetypes = '{0} (*.xml *.mxl *.midi *.mid *.abc);;{1} (*)'.format(
+                    _("All importable formats"), _("All Files"))
+        caption = app.caption(_("dialog title", "Import"))
+        directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        if not self.importfile:
+            return # the dialog was cancelled by user
+        ext = os.path.splitext(self.importfile)[1]
+        if ext == '.xml' or ext == '.mxl':
+            self.openMusicxmlDialog()
+        elif ext == '.midi' or ext == '.mid':
+            self.openMidiDialog()
+        elif ext == '.abc':
+            self.openAbcDialog()
+        else:
+            QMessageBox.critical(None, _("Error"),
+                    _("The file couldn't be converted. Wrong file type."))
 
     def importMusicXML(self):
         """Opens a MusicXML file. Converts it to ly by using musicxml2ly."""
-        filetypes = '{0} (*.xml);;{1} (*.mxl);;{2} (*)'.format(
-            _("XML Files"), _("MXL Files"), _("All Files"))
+        filetypes = '{0} (*.xml *.mxl);;{1} (*)'.format(
+            _("MusicXML Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a MusicXML file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
         self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
         if not self.importfile:
             return # the dialog was cancelled by user
-
+        self.openMusicxmlDialog()
+    
+    def openMusicxmlDialog(self):
         try:
-            dlg = self._importDialog
+            dlg = self._importDialog = self.mxmlDlg
         except AttributeError:
             from . import musicxml
-            dlg = self._importDialog = musicxml.Dialog(self.mainwindow())
+            dlg = self._importDialog = self.mxmlDlg = musicxml.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
         
     def importMidi(self):
         """Opens an midi file. Converts it to ly by using midi2ly."""
-        filetypes = '{0} (*.midi);;{1} (*.mid);;{2} (*)'.format(
-            _("Midi Files"), _("Midi Files"), _("All Files"))
+        filetypes = '{0} (*.midi *.mid);;{1} (*)'.format(
+            _("Midi Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a midi file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
         self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
         if not self.importfile:
             return # the dialog was cancelled by user
-
+        self.openMidiDialog()
+    
+    def openMidiDialog(self):
         try:
-            dlg = self._importDialog
+            dlg = self._importDialog = self.midDlg
         except AttributeError:
             from . import midi
-            dlg = self._importDialog = midi.Dialog(self.mainwindow())
+            dlg = self._importDialog = self.midDlg = midi.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
@@ -91,12 +116,14 @@ class FileImport(plugin.MainWindowPlugin):
         self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
         if not self.importfile:
             return # the dialog was cancelled by user
+        self.openAbcDialog()
 
+    def openAbcDialog(self):
         try:
-            dlg = self._importDialog
+            dlg = self._importDialog = self.abcDlg
         except AttributeError:
             from . import abc
-            dlg = self._importDialog = abc.Dialog(self.mainwindow())
+            dlg = self._importDialog = self.abcDlg = abc.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
@@ -163,11 +190,14 @@ class FileImport(plugin.MainWindowPlugin):
 class Actions(actioncollection.ActionCollection):
     name = "file_import"
     def createActions(self, parent):
+        self.import_all = QAction(parent)
         self.import_musicxml = QAction(parent)
         self.import_midi = QAction(parent)
         self.import_abc = QAction(parent)
 
     def translateUI(self):
+        self.import_all.setText(_("Import all..."))
+        self.import_all.setToolTip(_("Generic import for all LilyPond tools."))
         self.import_musicxml.setText(_("Import MusicXML..."))
         self.import_musicxml.setToolTip(_("Import a MusicXML file using musicxml2ly."))
         self.import_midi.setText(_("Import Midi..."))

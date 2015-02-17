@@ -29,8 +29,9 @@ import subprocess
 from PyQt4.QtGui import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
-import userguide
+import lilychooser
 import lilypondinfo
+import userguide
 import widgets
 
 
@@ -38,6 +39,7 @@ class ToLyDialog(QDialog):
 	
     def __init__(self, parent=None):
         super(ToLyDialog, self).__init__(parent)
+        self._info = None
         self._document = None
         self._path = None
         
@@ -64,6 +66,9 @@ class ToLyDialog(QDialog):
                            self.trimDurCheck,
                            self.removeScalesCheck,
                            self.runEngraverCheck]
+                           
+        self.versionLabel = QLabel()
+        self.lilyChooser = lilychooser.LilyChooser()
 
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
@@ -88,8 +93,11 @@ class ToLyDialog(QDialog):
             itabLayout.addWidget(w, row, 0, 1, 2)
         
         itabLayout.addWidget(widgets.Separator(), row + 1, 0, 1, 2)
-        itabLayout.addWidget(self.commandLineLabel, row + 2, 0, 1, 2)
-        itabLayout.addWidget(self.commandLine, row + 2, 0, 1, 2)
+        itabLayout.addWidget(self.versionLabel, row + 2, 0, 1, 0)
+        itabLayout.addWidget(self.lilyChooser, row + 3, 0, 1, 2)
+        itabLayout.addWidget(widgets.Separator(), row + 4, 0, 1, 2)
+        itabLayout.addWidget(self.commandLineLabel, row + 5, 0, 1, 2)
+        itabLayout.addWidget(self.commandLine, row + 6, 0, 1, 2)
         
         ptabLayout.addWidget(self.formatCheck, 0, 0, 1, 2)
         ptabLayout.addWidget(self.trimDurCheck, 1, 0, 1, 2)       
@@ -102,8 +110,12 @@ class ToLyDialog(QDialog):
         
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
+        
+        self.lilyChooser.currentIndexChanged.connect(self.slotLilyPondVersionChanged)
+        self.slotLilyPondVersionChanged()
     
     def translateUI(self):
+        self.versionLabel.setText(_("LilyPond version:"))
         self.commandLineLabel.setText(_("Command line:"))
         self.formatCheck.setText(_("Reformat source"))
         self.trimDurCheck.setText(_("Trim durations (Make implicit per line)"))
@@ -113,17 +125,20 @@ class ToLyDialog(QDialog):
     def setDocument(self, path):
         """Set the full path to the MusicXML document."""
         self._document = path
+        
+    def slotLilyPondVersionChanged(self):
+        self._info = self.lilyChooser.lilyPondInfo()
     
     def getCmd(self):
         """Returns the command line."""
         cmd = []
         for t in self.commandLine.toPlainText().split():
             if t == '$musicxml2ly':
-                cmd.extend(lilypondinfo.preferred().toolcommand('musicxml2ly'))
+                cmd.extend(self._info.toolcommand('musicxml2ly'))
             elif t == '$midi2ly':
-                cmd.extend(lilypondinfo.preferred().toolcommand('midi2ly'))
+                cmd.extend(self._info.toolcommand('midi2ly'))
             elif t == '$abc2ly':
-                cmd.extend(lilypondinfo.preferred().toolcommand('abc2ly'))
+                cmd.extend(self._info.toolcommand('abc2ly'))
             elif t == '$filename':
                 cmd.append(self._document)
             else:
