@@ -88,7 +88,7 @@ class Dialog(toly_dialog.ToLyDialog):
             stderr = subprocess.PIPE)
         stdouterr = proc.communicate()
         if not stdouterr[0]:
-            with open(os.path.join(directory, cmd[4])) as abc:
+            with open(os.path.join(directory, cmd[-1])) as abc:
                 stdouterr = (abc.read(), stdouterr[1])
         return stdouterr
         
