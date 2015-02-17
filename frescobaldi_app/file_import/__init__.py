@@ -41,15 +41,17 @@ class FileImport(plugin.MainWindowPlugin):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.import_musicxml.triggered.connect(self.importMusicXML)
+        ac.import_midi.triggered.connect(self.importMidi)
+        ac.import_abc.triggered.connect(self.importAbc)
 
     def importMusicXML(self):
-        """ Opens a MusicXML file. Converts it to ly by using musicxml2ly """
+        """Opens a MusicXML file. Converts it to ly by using musicxml2ly."""
         filetypes = '{0} (*.xml);;{1} (*.mxl);;{2} (*)'.format(
             _("XML Files"), _("MXL Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a MusicXML file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
-        if not importfile:
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        if not self.importfile:
             return # the dialog was cancelled by user
 
         try:
@@ -59,14 +61,56 @@ class FileImport(plugin.MainWindowPlugin):
             dlg = self._importDialog = musicxml.Dialog(self.mainwindow())
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
+        self.runImport()
+        
+    def importMidi(self):
+        """Opens an midi file. Converts it to ly by using midi2ly."""
+        filetypes = '{0} (*.midi);;{1} (*.mid);;{2} (*)'.format(
+            _("Midi Files"), _("Midi Files"), _("All Files"))
+        caption = app.caption(_("dialog title", "Import a midi file"))
+        directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        if not self.importfile:
+            return # the dialog was cancelled by user
 
-        dlg.setDocument(importfile)
+        try:
+            dlg = self._importDialog
+        except AttributeError:
+            from . import midi
+            dlg = self._importDialog = midi.Dialog(self.mainwindow())
+            dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
+            dlg.setWindowModality(Qt.WindowModal)
+        self.runImport()
+        
+    def importAbc(self):
+        """Opens an abc file. Converts it to ly by using abc2ly."""
+        filetypes = '{0} (*.abc);;{1} (*)'.format(
+            _("ABC Files"), _("All Files"))
+        caption = app.caption(_("dialog title", "Import an abc file"))
+        directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        if not self.importfile:
+            return # the dialog was cancelled by user
+
+        try:
+            dlg = self._importDialog
+        except AttributeError:
+            from . import abc
+            dlg = self._importDialog = abc.Dialog(self.mainwindow())
+            dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
+            dlg.setWindowModality(Qt.WindowModal)
+        self.runImport()
+    
+    def runImport(self):
+        """Generic execution of all import dialogs."""
+        dlg = self._importDialog
+        dlg.setDocument(self.importfile)
         if dlg.exec_():
             with qutil.busyCursor():
                 stdout, stderr = dlg.run_command()
             if stdout: #success
                 dlg.saveSettings()
-                lyfile = os.path.splitext(importfile)[0] + ".ly"
+                lyfile = os.path.splitext(self.importfile)[0] + ".ly"
                 doc = self.createDocument(lyfile, stdout.decode('utf-8'))
                 self.postImport(dlg.getPostSettings(), doc)
                 self.mainwindow().saveDocument(doc)
@@ -120,8 +164,14 @@ class Actions(actioncollection.ActionCollection):
     name = "file_import"
     def createActions(self, parent):
         self.import_musicxml = QAction(parent)
+        self.import_midi = QAction(parent)
+        self.import_abc = QAction(parent)
 
     def translateUI(self):
         self.import_musicxml.setText(_("Import MusicXML..."))
         self.import_musicxml.setToolTip(_("Import a MusicXML file using musicxml2ly."))
+        self.import_midi.setText(_("Import Midi..."))
+        self.import_midi.setToolTip(_("Import a Midi file using midi2ly."))
+        self.import_abc.setText(_("Import abc..."))
+        self.import_abc.setToolTip(_("Import an abc file using abc2ly."))
 

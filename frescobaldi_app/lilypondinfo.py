@@ -280,7 +280,9 @@ class LilyPondInfo(object):
     def toolcommand(self, command):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
         
-        On Unix and Mac OS X, the list has one element: the full path to the tool.
+        On Unix, the list has one element: the full path to the tool.
+        On Mac OS X, the list has four elements: the system-provided Python
+        interpreter called in 32 bit mode (three elements) and the tool path.
         On Windows, the list has two elements: the LilyPond-provided Python
         interpeter and the tool path.
         
@@ -297,6 +299,11 @@ class LilyPondInfo(object):
             if not os.access(toolpath, os.R_OK) and not toolpath.endswith('.py'):
                 toolpath += '.py'
             command = [self.python(), toolpath]
+        # on Mac the system-provided Python interpreter must be called
+        elif sys.platform.startswith('darwin'):
+            import macosx
+            command = macosx.system_python()
+            command.append(toolpath)
         else:
             command = [toolpath]
         return command

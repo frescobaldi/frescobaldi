@@ -28,9 +28,11 @@ root = os.path.dirname(macosx)
 
 sys.path.insert(0, root)
 
-from frescobaldi_app import appinfo
+from frescobaldi_app import toplevel
+toplevel.install()
+import appinfo
 try:
-    from frescobaldi_app.portmidi import pm_ctypes
+    from portmidi import pm_ctypes
     dylib_name = pm_ctypes.dll_name
 except ImportError:
     dylib_name = None
@@ -139,10 +141,13 @@ if args.standalone:
         options.update({
             'arch': args.arch
         })
-    for patchfile in os.listdir('patch'):
-        if patchfile.endswith(".diff"):
-            with open('patch/{0}'.format(patchfile), 'r') as input:
-                Popen(["patch", "-d..", "-p0"], stdin=input)
+    try:
+        patchlist = [f for f in os.listdir('patch') if f.endswith(".diff")]
+    except OSError:
+        patchlist = []
+    for patchfile in patchlist:
+        with open('patch/{0}'.format(patchfile), 'r') as input:
+            Popen(["patch", "-d..", "-p0"], stdin=input)
 else:
     options.update({
         'semi_standalone': True,
@@ -172,11 +177,11 @@ for l in locales:
     os.chmod(ipstrings_dest, 0o0644)
 
 if args.standalone:
-    print('reversing patches:')
-    for patchfile in os.listdir('patch'):
-        if patchfile.endswith(".diff"):
-            with open('patch/{0}'.format(patchfile), 'r') as input:
-                Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
+    if patchlist:
+        print('reversing patches:')
+    for patchfile in patchlist:
+        with open('patch/{0}'.format(patchfile), 'r') as input:
+            Popen(["patch", "-R", "-d..", "-p0"], stdin=input)
     print('removing file {0}/qt.conf'.format(app_resources))
     os.remove('{0}/qt.conf'.format(app_resources))
     imageformats_dest = 'dist/{0}.app/Contents/PlugIns/imageformats'.format(appinfo.appname)
