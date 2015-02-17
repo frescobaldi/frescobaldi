@@ -25,10 +25,14 @@ In the dialog the options of abc2ly can be set.
 
 from __future__ import unicode_literals
 
+import os
+import subprocess
+
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
 
 import app
+import util
 import qutil
 
 from . import toly_dialog
@@ -73,6 +77,20 @@ class Dialog(toly_dialog.ToLyDialog):
 
         cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))
+        
+    def run_command(self):
+        """ABC import (at least for now) needs a specific solution here."""
+        cmd = self.getCmd()
+        directory = util.tempdir()
+        proc = subprocess.Popen(cmd, cwd=directory,
+            stdin = subprocess.PIPE,
+            stdout = subprocess.PIPE,
+            stderr = subprocess.PIPE)
+        stdouterr = proc.communicate()
+        if not stdouterr[0]:
+            with open(os.path.join(directory, cmd[4])) as abc:
+                stdouterr = (abc.read(), stdouterr[1])
+        return stdouterr
         
     def loadSettings(self):
         """Get users previous settings."""
