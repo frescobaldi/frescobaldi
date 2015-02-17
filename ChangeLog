@@ -15,6 +15,8 @@ Changes in 2.18 --
     Otherwise, Frescobaldi won't find the new ly module.
   - Frescobaldi now supports Python 3.2 and higher. Also 2.7 is still supported.
 * New features:
+  - Midi import, using the LilyPond-provided midi2ly tool
+  - ABC import, using the LilyPond-provided abc2ly tool
   - In the Editor Preferences, you can select which quotes will be used as
     single and double (primary and secondary) typographical quotes (issue #529)
   - The music view now can display a PDF document with two pages next to each
@@ -35,6 +37,7 @@ Changes in 2.18 --
   - To save space in the toolbar, the almost never used Save As... button was
     removed. But when holding the Save button longer, three choices pop up:
     Save, Save As and Save All.
+  - Ctrl-Mousewheel zooming the LilyPond Log now works properly.
 * Bugfixes:
   - The german ("deutsch") pitch names asas and heses are now handled correctly.
     Previously, when translating the "nederlands" beses to german, it was output

@@ -15,7 +15,7 @@ The following people contributed to {appname}:
 : Modal Transpose
 
 !Peter Bjuhr:
-: Quick Insert buttons for grace notes, and MusicXML im- and export
+: Quick Insert buttons for grace notes, MusicXML, Midi and Abc im- and export
 
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
