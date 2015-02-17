@@ -119,6 +119,8 @@ class Log(QTextBrowser):
         
         output = QTextCharFormat()
         output.setFont(outputFont)
+        # enable zooming the log font size
+        output.setProperty(QTextFormat.FontSizeAdjustment, 0)
         
         stdout = QTextCharFormat(output)
         stdout.setForeground(stdoutColor)
