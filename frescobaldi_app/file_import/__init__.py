@@ -57,14 +57,15 @@ class FileImport(plugin.MainWindowPlugin):
         ))
         caption = app.caption(_("dialog title", "Import"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
-        if not self.importfile:
+        importfiles = QFileDialog.getOpenFileNames(self.mainwindow(), caption, directory, filetypes)
+        if not importfiles:
             return # the dialog was cancelled by user
-        if self.isImportable():
-            self.openDialog()
-        else:
-            QMessageBox.critical(None, _("Error"),
-                    _("The file couldn't be converted. Wrong file type."))
+        for imp in importfiles:
+            if self.isImportable(imp):
+                self.openDialog()
+            else:
+                QMessageBox.critical(None, _("Error"),
+                        _(imp + " couldn't be converted. Wrong file type."))
         
     def isImportable(self, infile=None):
         """Check if the file is importable."""
