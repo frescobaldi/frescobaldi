@@ -47,8 +47,13 @@ class FileImport(plugin.MainWindowPlugin):
         
     def importAll(self):
         """Reads the file type and determines which import to use."""
-        filetypes = '{0} (*.xml *.mxl *.midi *.mid *.abc);;{1} (*)'.format(
-                    _("All importable formats"), _("All Files"))
+        filetypes = ';;'.join((
+            '{0} (*.xml *.mxl *.midi *.mid *.abc)'.format(_("All importable formats")),
+            '{0} (*.xml *.mxl)'.format(_("MusicXML Files")),
+            '{0} (*.midi *.mid)'.format(_("Midi Files")),
+            '{0} (*.abc)'.format(_("ABC Files")),
+            '{0} (*)'.format(_("All Files")),
+        ))
         caption = app.caption(_("dialog title", "Import"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
         self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)

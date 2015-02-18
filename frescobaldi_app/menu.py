@@ -132,6 +132,7 @@ def menu_file_import(mainwindow):
     ac = file_import.FileImport.instance(mainwindow).actionCollection
     
     m.addAction(ac.import_all)
+    m.addSeparator()
     m.addAction(ac.import_musicxml)
     m.addAction(ac.import_midi)
     m.addAction(ac.import_abc)
