@@ -244,8 +244,8 @@ class InfoDialog(QDialog):
         """Takes over settings for the dialog from the LilyPondInfo object."""
         self.lilyname.setText(info.name)
         self.lilypond.setPath(info.command)
-        self.convert_ly.setText(info.convert_ly)
-        self.lilypond_book.setText(info.lilypond_book)
+        self.convert_ly.setText(info.ly_tool('convert-ly'))
+        self.lilypond_book.setText(info.ly_tool('lilypond-book'))
         self.auto.setChecked(info.auto)
 
     def newInfo(self):
@@ -258,8 +258,8 @@ class InfoDialog(QDialog):
         if self.lilyname.text() and not self.lilyname.text().isspace():
             info.name = self.lilyname.text()
         info.auto = self.auto.isChecked()
-        info.convert_ly = self.convert_ly.text()
-        info.lilypond_book = self.lilypond_book.text()
+        info.set_ly_tool('convert-ly', self.convert_ly.text())
+        info.set_ly_tool('lilypond-book', self.lilypond_book.text())
         return info
 
 

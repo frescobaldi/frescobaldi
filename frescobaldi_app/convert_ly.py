@@ -209,7 +209,7 @@ class Dialog(QDialog):
                 "Both 'from' and 'to' versions need to be set."))
             return
         info = self._info
-        command = info.toolcommand(info.convert_ly)
+        command = info.toolcommand(info.ly_tool('convert-ly'))
         command += ['-f', fromVersion, '-t', toVersion, '-']
         
         # if the user wants english messages, do it also here: LANGUAGE=C

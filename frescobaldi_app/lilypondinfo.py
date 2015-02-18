@@ -149,12 +149,19 @@ class CachedProperty(cachedproperty.CachedProperty):
 
 
 class LilyPondInfo(object):
+    ly_tool_names = (
+        'lilypond-book',
+        'convert-ly',
+        'musicxml2ly',
+        'midi2ly',
+        'abc2ly',
+    )
+    
     def __init__(self, command):
         self._command = command
         self.auto = True
         self.name = "LilyPond"
-        self.lilypond_book = 'lilypond-book'
-        self.convert_ly = 'convert-ly'
+        self._lytools = {}
     
     @property
     def command(self):
@@ -286,6 +293,10 @@ class LilyPondInfo(object):
         On Windows, the list has two elements: the LilyPond-provided Python
         interpeter and the tool path.
         
+        This does not automatically take into account the command the user
+        might have configured for the tool, use ly_tool() to get that command
+        name first, then this method to get the real command to run.
+        
         """
         bindir = self.bindir()
         if bindir:
@@ -316,6 +327,24 @@ class LilyPondInfo(object):
             version = self.versionString(),
             command = self.displaycommand())
     
+    def ly_tool(self, name):
+        """Get the configured command for the ly tool (e.g. midi2ly).
+        
+        By default this is just the name itself, relative to the directory
+        the LilyPond executable is in.
+        
+        """
+        return self._lytools.get(name, name)
+    
+    def set_ly_tool(self, name, value):
+        """Set the command for the named ly tool (e.g. midi2ly).
+        
+        By default this is just the name itself, relative to the directory
+        the LilyPond executable is in.
+        
+        """
+        self._lytools[name] = value
+    
     @classmethod
     def read(cls, settings):
         """Returns a new LilyPondInfo instance, filled from a QSettings instance.
@@ -329,8 +358,8 @@ class LilyPondInfo(object):
             if info.abscommand.wait():
                 info.auto = settings.value("auto", True, bool)
                 info.name = settings.value("name", "LilyPond", type(""))
-                info.lilypond_book = settings.value("lilypond-book", "lilypond-book", type(""))
-                info.convert_ly = settings.value("convert-ly", "convert-ly", type(""))
+                for name in cls.ly_tool_names:
+                    info.set_ly_tool(name, settings.value(name, name, type("")))
                 if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
                     info.versionString = settings.value("version", "", type(""))
                     datadir = settings.value("datadir", "", type(""))
@@ -347,8 +376,12 @@ class LilyPondInfo(object):
             settings.setValue("mtime", int(os.path.getmtime(self.abscommand())))
         settings.setValue("auto", self.auto)
         settings.setValue("name", self.name)
-        settings.setValue("lilypond-book", self.lilypond_book)
-        settings.setValue("convert-ly", self.convert_ly)
+        for name in self.ly_tool_names:
+            value = self._lytools.get(name, name)
+            if name == value:
+                settings.remove(name)
+            else:
+                settings.setValue(name, value)
 
     def python(self):
         """Returns the path to the LilyPond-provided Python interpreter.
