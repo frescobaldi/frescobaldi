@@ -201,7 +201,7 @@ class Actions(actioncollection.ActionCollection):
         self.import_abc = QAction(parent)
 
     def translateUI(self):
-        self.import_all.setText(_("Import all..."))
+        self.import_all.setText(_("Import..."))
         self.import_all.setToolTip(_("Generic import for all LilyPond tools."))
         self.import_musicxml.setText(_("Import MusicXML..."))
         self.import_musicxml.setToolTip(_("Import a MusicXML file using musicxml2ly."))
