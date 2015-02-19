@@ -214,7 +214,7 @@ r"""-*- name: s6;
 
 'times23': T(_("Tuplets"),
 r"""-*- menu: blocks; selection: strip;
-\times 2/3 { $SELECTION }"""),
+\tuplet 3/2 { $SELECTION }"""),
 
 
 'onceoverride': T(None,
