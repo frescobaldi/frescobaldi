@@ -65,7 +65,8 @@ class FileImport(plugin.MainWindowPlugin):
                 self.openDialog()
             else:
                 QMessageBox.critical(None, _("Error"),
-                        _(imp + " couldn't be converted. Wrong file type."))
+                    _("The file {filename} could not be converted. "
+                      "Wrong file type.").format(filename=imp))
         
     def isImportable(self, infile=None):
         """Check if the file is importable."""
