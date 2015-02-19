@@ -56,6 +56,7 @@ import scorewiz
 import externalchanges
 import browseriface
 import vcs
+import file_import
 
 
 class MainWindow(QMainWindow):
@@ -270,7 +271,12 @@ class MainWindow(QMainWindow):
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
-            self.openDocuments(ev.mimeData().urls())
+            for url in ev.mimeData().urls():
+                imp = file_import.FileImport.instance(self)
+                if imp.isImportable(url.path()):
+                    imp.openDialog()
+                else:
+                    self.openUrl(url)
     
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():

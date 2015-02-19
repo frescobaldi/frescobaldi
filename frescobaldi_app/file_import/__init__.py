@@ -44,6 +44,7 @@ class FileImport(plugin.MainWindowPlugin):
         ac.import_musicxml.triggered.connect(self.importMusicXML)
         ac.import_midi.triggered.connect(self.importMidi)
         ac.import_abc.triggered.connect(self.importAbc)
+        self.extension = None
         
     def importAll(self):
         """Reads the file type and determines which import to use."""
@@ -56,19 +57,36 @@ class FileImport(plugin.MainWindowPlugin):
         ))
         caption = app.caption(_("dialog title", "Import"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
-        if not self.importfile:
+        importfiles = QFileDialog.getOpenFileNames(self.mainwindow(), caption, directory, filetypes)
+        if not importfiles:
             return # the dialog was cancelled by user
+        for imp in importfiles:
+            if self.isImportable(imp):
+                self.openDialog()
+            else:
+                QMessageBox.critical(None, _("Error"),
+                        _(imp + " couldn't be converted. Wrong file type."))
+        
+    def isImportable(self, infile=None):
+        """Check if the file is importable."""
+        if infile:
+            self.importfile = infile
         ext = os.path.splitext(self.importfile)[1]
+        if ext in ['.xml', '.mxl', '.midi', '.mid', '.abc']:
+            self.extension = ext
+            return True
+        else:
+            return False
+            
+    def openDialog(self): 
+        """Check file type and open the proper dialog."""       
+        ext = self.extension
         if ext == '.xml' or ext == '.mxl':
             self.openMusicxmlDialog()
         elif ext == '.midi' or ext == '.mid':
             self.openMidiDialog()
         elif ext == '.abc':
             self.openAbcDialog()
-        else:
-            QMessageBox.critical(None, _("Error"),
-                    _("The file couldn't be converted. Wrong file type."))
 
     def importMusicXML(self):
         """Opens a MusicXML file. Converts it to ly by using musicxml2ly."""
