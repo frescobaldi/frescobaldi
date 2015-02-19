@@ -12,10 +12,11 @@ The following people contributed to {appname}:
 : Main author and core developer
 
 !Christopher Bryan:
-: Modal Transpose
+: !_(Modal Transpose)_
 
 !Peter Bjuhr:
-: Quick Insert buttons for grace notes, MusicXML, Midi and Abc im- and export
+: !_(Quick Insert buttons for grace notes)_,
+   _(MusicXML, Midi and Abc im- and export)_
 
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
@@ -24,10 +25,12 @@ The following people contributed to {appname}:
 : Homebrew formula for Mac OS X
 
 !Davide Liessi:
-: Mac OS X packaging and various other improvements
+: !_(Mac OS X packaging)_,
+   _(various other improvements)_
 
 !Urs Liska:
-: Layout control modes and various other contributions
+: !_(Layout control modes)_,
+   _(various other contributions)_
 
 !Nicolas Malarmey:
 : Improved highlighting and auto-completion of Scheme code
@@ -39,7 +42,8 @@ The following people contributed to {appname}:
 : Finding lots of bugs
 
 !Pavel Roskin:
-: Many code and feature improvements and work on proper Python 3 support
+: !_(Many code and feature improvements)_,
+   _(work on proper Python 3 support)_
 
 !Alex Schreiber:
 : Relative mode for MIDI capturing
@@ -69,7 +73,8 @@ The following people contributed to {appname}:
 {lang_ru}:
 :  !Sergey Poltavski,
     Artem Zolochevskiy,
-    Mikhail Iglizky
+    Mikhail Iglizky,
+    Pavel Roskin
 
 {lang_it}:
 :  !Gianluca D'Orazio,
