@@ -34,7 +34,7 @@ msgstr "О Frescobaldi"
 
 #: ../about.py:58 ../userguide/credits.md:1
 msgid "Credits"
-msgstr "Участники"
+msgstr "Благодарности"
 
 #: ../about.py:59
 msgid "Version"
@@ -56,11 +56,11 @@ msgstr "Редактор музыки для LilyPond"
 #: ../about.py:124
 #, python-brace-format
 msgid "Copyright (c) {year} by {author}"
-msgstr ""
+msgstr "Copyright © {year}, {author}"
 
 #: ../about.py:128
 msgid "Send an e-mail message to the maintainers."
-msgstr "Отправить e-mail авторам"
+msgstr "Отправить e-mail разработчикам"
 
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: ../about.py:131 ../userguide/resolve.py:45
@@ -70,7 +70,7 @@ msgstr ""
 #: ../about.py:136
 #, python-brace-format
 msgid "Licensed under the {gpl}."
-msgstr "Распространяется по лицензии {gpl}"
+msgstr "Распространяется по лицензии {gpl}."
 
 #: ../app.py:168
 msgid "LilyPond Files"
@@ -126,9 +126,8 @@ msgid "Previous Mark"
 msgstr "Предыдущая отметка"
 
 #: ../browseriface.py:135
-#, fuzzy
 msgid "Go to previous position"
-msgstr "Перейти к позиции курсора"
+msgstr "Перейти к предыдущей позиции"
 
 #: ../browseriface.py:136 ../docbrowser/__init__.py:82
 #: ../userguide/browser.py:80
@@ -136,9 +135,8 @@ msgid "Back"
 msgstr "Назад"
 
 #: ../browseriface.py:137
-#, fuzzy
 msgid "Go to next position"
-msgstr "Перейти к позиции курсора"
+msgstr "Перейти к следующей позиции"
 
 #: ../browseriface.py:138 ../docbrowser/__init__.py:83
 #: ../userguide/browser.py:81
@@ -148,21 +146,21 @@ msgstr "Вперед"
 #: ../contextmenu.py:71
 #, python-brace-format
 msgid "Open \"{url}\""
-msgstr ""
+msgstr "Открыть \"{url}\""
 
 #: ../contextmenu.py:92
 #, python-brace-format
 msgid "&Jump to definition (line {num})"
-msgstr ""
+msgstr "Перейти к определению (строка {num})"
 
 #: ../contextmenu.py:95
 #, python-brace-format
 msgid "&Jump to definition (in {filename})"
-msgstr ""
+msgstr "Перейти к определению (файл {filename})"
 
 #: ../contextmenu.py:101
 msgid "&Jump to definition (unknown)"
-msgstr ""
+msgstr "Перейти к определению (неизвестно)"
 
 #: ../convert_ly.py:128
 msgid "From version:"
@@ -174,7 +172,7 @@ msgstr "До версии:"
 
 #: ../convert_ly.py:130
 msgid "Save convert-ly messages in document"
-msgstr "Сохранить вывод convert-ly в документе"
+msgstr "Сохранить сообщения convert-ly в документе"
 
 #: ../convert_ly.py:132
 msgid ""
@@ -190,7 +188,7 @@ msgstr "Сообщения"
 
 #: ../convert_ly.py:135
 msgid "&Changes"
-msgstr "Изменения:"
+msgstr "Изменения"
 
 #: ../convert_ly.py:136
 msgid "&Diff"
@@ -201,9 +199,8 @@ msgid "Run Again"
 msgstr "Запустить снова"
 
 #: ../convert_ly.py:138
-#, fuzzy
 msgid "Save as file"
-msgstr "Сохранить"
+msgstr "Сохранить как файл"
 
 #: ../convert_ly.py:155 ../docbrowser/browser.py:158
 #: ../musicview/editinplace.py:151 ../musicview/image.py:167
@@ -213,15 +210,15 @@ msgstr "<неизвестно>"
 #: ../convert_ly.py:156
 #, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
-msgstr "Convert-ly от версии LilyPond {version}"
+msgstr "Convert-ly от LilyPond версии {version}"
 
 #: ../convert_ly.py:173 ../convert_ly.py:182 ../externalchanges/widget.py:286
 msgid "Current Document"
-msgstr "Текущий файл"
+msgstr "Текущий документ"
 
 #: ../convert_ly.py:173 ../convert_ly.py:182
 msgid "Converted Document"
-msgstr "Конвертированный файл"
+msgstr "Конвертированный документ"
 
 #: ../convert_ly.py:195
 msgid "(set in document)"
@@ -229,7 +226,7 @@ msgstr "(установлена в файле)"
 
 #: ../convert_ly.py:209
 msgid "Both 'from' and 'to' versions need to be set."
-msgstr "Нужно установить и версию «с» и «до»"
+msgstr "Нужно установить начальную и конечную версию."
 
 #: ../convert_ly.py:236
 #, python-brace-format
@@ -244,17 +241,16 @@ msgstr ""
 
 #: ../convert_ly.py:243
 msgid "The document has not been changed."
-msgstr "Файл не изменен"
+msgstr "Файл не был изменен"
 
 #: ../convert_ly.py:251 ../mainwindow.py:489
 msgctxt "dialog title"
 msgid "Save File"
-msgstr "Сохранить"
+msgstr "Сохранить файл"
 
 #: ../convert_ly.py:252
-#, fuzzy
 msgid "Text Files"
-msgstr "Файлы Texinfo"
+msgstr "Текстовые файлы"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
