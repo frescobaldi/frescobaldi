@@ -129,9 +129,9 @@ class Listener(QThread):
             
             # midifile.parser.parse_midi_events is a generator which expects a long "byte string" from a file,
             # so we feed it one. But since it's just one event, we only need the first "generated" element.
-            # First bytes are time, which are unnecessary in our case, so we feed a dummy byte "chr(77)"
+            # First byte is time, which is unnecessary in our case, so we feed a dummy byte 77
             # and strip output by just using [1]. 77 is chosen randomly ;)
-            s = bytes((77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]))
+            s = bytearray([77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]])
             event = next(midifile.parser.parse_midi_events(s))[1]
             
             self.emit(SIGNAL("caughtevent"), event)
