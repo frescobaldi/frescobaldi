@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-18 22:38+0100\n"
+"POT-Creation-Date: 2015-02-20 00:18+0100\n"
 "PO-Revision-Date: 2014-11-11 21:20+0100\n"
 "Last-Translator: Georg Hennig <georg@hennigbuam.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -92,9 +92,9 @@ msgid "Scheme Files"
 msgstr "Scheme-Dateien"
 
 #: ../app.py:174 ../convert_ly.py:252 ../file_export/__init__.py:58
-#: ../file_export/__init__.py:90 ../file_import/__init__.py:55
-#: ../file_import/__init__.py:76 ../file_import/__init__.py:97
-#: ../file_import/__init__.py:118 ../sessions/dialog.py:94
+#: ../file_export/__init__.py:90 ../file_import/__init__.py:56
+#: ../file_import/__init__.py:95 ../file_import/__init__.py:116
+#: ../file_import/__init__.py:137 ../sessions/dialog.py:94
 #: ../sessions/dialog.py:115 ../snippet/widget.py:297 ../snippet/widget.py:314
 #: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "All Files"
@@ -239,7 +239,7 @@ msgstr ""
 msgid "The document has not been changed."
 msgstr "Das Dokument wurde nicht verändert."
 
-#: ../convert_ly.py:251 ../mainwindow.py:489
+#: ../convert_ly.py:251 ../mainwindow.py:495
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Datei speichern"
@@ -324,20 +324,20 @@ msgstr "&Dynamik entfernen"
 msgid "Remove Text &Markup (from music)"
 msgstr "&Textauszeichnungen (aus Musik) entfernen"
 
-#: ../documentcontextmenu.py:69 ../mainwindow.py:1136
+#: ../documentcontextmenu.py:69 ../mainwindow.py:1142
 #: ../sessions/manager.py:130
 msgid "&Save"
 msgstr "&Speichern"
 
-#: ../documentcontextmenu.py:70 ../mainwindow.py:1137
+#: ../documentcontextmenu.py:70 ../mainwindow.py:1143
 msgid "Save &As..."
 msgstr "Speichern &unter..."
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1147
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1153
 msgid "&Close"
 msgstr "Schlie&ßen"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1148
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1154
 msgid "Close Other Documents"
 msgstr "Andere Doku&mente schließen"
 
@@ -405,12 +405,12 @@ msgid "Typewriter Font:"
 msgstr "Schriftarte Typewriter:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:107 ../mainwindow.py:410 ../mainwindow.py:511
-#: ../mainwindow.py:574 ../mainwindow.py:594 ../mainwindow.py:610
-#: ../mainwindow.py:686 ../mainwindow.py:743 ../externalchanges/widget.py:245
+#: ../helpers.py:107 ../mainwindow.py:416 ../mainwindow.py:517
+#: ../mainwindow.py:580 ../mainwindow.py:600 ../mainwindow.py:616
+#: ../mainwindow.py:692 ../mainwindow.py:749 ../externalchanges/widget.py:245
 #: ../externalchanges/widget.py:264 ../file_export/__init__.py:73
-#: ../file_export/__init__.py:83 ../file_import/__init__.py:70
-#: ../file_import/__init__.py:150 ../musicview/image.py:214
+#: ../file_export/__init__.py:83 ../file_import/__init__.py:67
+#: ../file_import/__init__.py:169 ../musicview/image.py:214
 #: ../preferences/fontscolors.py:277 ../preferences/fontscolors.py:501
 #: ../preferences/fontscolors.py:543 ../preferences/import_export.py:91
 #: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
@@ -573,16 +573,16 @@ msgid "File to be opened"
 msgstr "Keine Dateien zu verschicken"
 
 #. L10N: state of document in window titlebar
-#: ../mainwindow.py:261 ../externalchanges/widget.py:159
+#: ../mainwindow.py:262 ../externalchanges/widget.py:159
 msgid "[modified]"
 msgstr "[geändert]"
 
-#: ../mainwindow.py:310
+#: ../mainwindow.py:316
 msgctxt "dialog title"
 msgid "Close Document"
 msgstr "Dokument schließen"
 
-#: ../mainwindow.py:311
+#: ../mainwindow.py:317
 #, python-brace-format
 msgid ""
 "The document \"{name}\" has been modified.\n"
@@ -591,12 +591,12 @@ msgstr ""
 "Das Dokument \"{name}\" wurde geändert.\n"
 "Wollen Sie die Änderungen speichern oder verwerfen?"
 
-#: ../mainwindow.py:323
+#: ../mainwindow.py:329
 msgid "Tab Bar"
 msgstr "Tab-Balken"
 
-#: ../mainwindow.py:400 ../mainwindow.py:507 ../mainwindow.py:570
-#: ../mainwindow.py:590 ../mainwindow.py:682 ../mainwindow.py:739
+#: ../mainwindow.py:406 ../mainwindow.py:513 ../mainwindow.py:576
+#: ../mainwindow.py:596 ../mainwindow.py:688 ../mainwindow.py:745
 #: ../remote/api.py:117 ../sessions/dialog.py:105 ../sessions/dialog.py:126
 #, python-brace-format
 msgid ""
@@ -605,7 +605,7 @@ msgid ""
 "{strerror} ({errno})"
 msgstr ""
 
-#: ../mainwindow.py:401 ../mainwindow.py:591 ../mainwindow.py:683
+#: ../mainwindow.py:407 ../mainwindow.py:597 ../mainwindow.py:689
 #: ../remote/api.py:118 ../sessions/dialog.py:106
 #, fuzzy, python-brace-format
 msgid "Could not read from: {url}"
@@ -614,17 +614,17 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:405
+#: ../mainwindow.py:411
 #, fuzzy
 msgid "Could not read:"
 msgstr "Konnte Pdftk nicht starten: %s"
 
-#: ../mainwindow.py:466 ../macosx/globalmenu.py:175
+#: ../mainwindow.py:472 ../macosx/globalmenu.py:175
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "Datei öffnen"
 
-#: ../mainwindow.py:508 ../mainwindow.py:571 ../mainwindow.py:740
+#: ../mainwindow.py:514 ../mainwindow.py:577 ../mainwindow.py:746
 #: ../sessions/dialog.py:127
 #, fuzzy, python-brace-format
 msgid "Could not write to: {url}"
@@ -633,36 +633,36 @@ msgstr ""
 "\n"
 "{url}"
 
-#: ../mainwindow.py:554
+#: ../mainwindow.py:560
 msgctxt "dialog title"
 msgid "Save Copy"
 msgstr "Kopie speichern"
 
-#: ../mainwindow.py:560
+#: ../mainwindow.py:566
 msgctxt "dialog title"
 msgid "Save Selection"
 msgstr "Auswahl speichern"
 
-#: ../mainwindow.py:605 ../externalchanges/widget.py:240
+#: ../mainwindow.py:611 ../externalchanges/widget.py:240
 #, fuzzy
 msgid "Could not reload:"
 msgstr "Konnte LilyPond nicht starten."
 
-#: ../mainwindow.py:674
+#: ../mainwindow.py:680
 msgctxt "dialog title"
 msgid "Insert From File"
 msgstr "Aus Datei einfügen"
 
-#: ../mainwindow.py:701
+#: ../mainwindow.py:707
 msgctxt "dialog title"
 msgid "Print Source"
 msgstr "Quelltext drucken"
 
-#: ../mainwindow.py:727
+#: ../mainwindow.py:733
 msgid "Export as HTML"
 msgstr "Als HTML exportieren"
 
-#: ../mainwindow.py:869
+#: ../mainwindow.py:875
 msgid ""
 "Please describe the issue or feature request.\n"
 "Provide as much information as possible.\n"
@@ -674,60 +674,60 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../mainwindow.py:983
+#: ../mainwindow.py:989
 msgid "Main Toolbar"
 msgstr "Haupt-Werkzeugleiste"
 
-#: ../mainwindow.py:984
+#: ../mainwindow.py:990
 msgid "Music View Toolbar"
 msgstr "Musik-Ansicht-Werkzeugleiste"
 
-#: ../mainwindow.py:1130 ../macosx/globalmenu.py:73
+#: ../mainwindow.py:1136 ../macosx/globalmenu.py:73
 msgctxt "action: new document"
 msgid "&New"
 msgstr "&Neu"
 
-#: ../mainwindow.py:1131 ../macosx/globalmenu.py:77
+#: ../mainwindow.py:1137 ../macosx/globalmenu.py:77
 msgid "&Open..."
 msgstr "&Öffnen..."
 
-#: ../mainwindow.py:1132 ../macosx/globalmenu.py:108
+#: ../mainwindow.py:1138 ../macosx/globalmenu.py:108
 msgid "Open &Recent"
 msgstr "&Zuletzt verwendete Dateien"
 
-#: ../mainwindow.py:1133
+#: ../mainwindow.py:1139
 msgid "Insert from &File..."
 msgstr "Aus Datei ein&fügen..."
 
-#: ../mainwindow.py:1134
+#: ../mainwindow.py:1140
 msgid "Open Current Directory"
 msgstr "Öffne &aktuellen Ordner"
 
-#: ../mainwindow.py:1135
+#: ../mainwindow.py:1141
 msgid "Open Command Prompt"
 msgstr "&Befehlszeile/Shell öffnen"
 
-#: ../mainwindow.py:1138
+#: ../mainwindow.py:1144
 msgid "Save Copy or Selection As..."
 msgstr "Speichere &Kopie oder Auswahl unter..."
 
-#: ../mainwindow.py:1139 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1145 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles s&peichern"
 
-#: ../mainwindow.py:1140
+#: ../mainwindow.py:1146
 msgid "Re&load"
 msgstr "Neu la&den"
 
-#: ../mainwindow.py:1141 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1147 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alle neu &laden"
 
-#: ../mainwindow.py:1142
+#: ../mainwindow.py:1148
 msgid "Check for External Changes..."
 msgstr "Auf externe &Änderungen überprüfen"
 
-#: ../mainwindow.py:1144
+#: ../mainwindow.py:1150
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -735,137 +735,137 @@ msgstr ""
 "Öffnet ein Fenster um zu überprüfen, ob Dokumente von anderen Programmen "
 "verändert oder gelöscht wurden."
 
-#: ../mainwindow.py:1146
+#: ../mainwindow.py:1152
 msgid "Print Source..."
 msgstr "&Quelltext drucken..."
 
-#: ../mainwindow.py:1149
+#: ../mainwindow.py:1155
 #, fuzzy
 msgid "Close All Documents and Session"
 msgstr "Alle Dokumente sc&hließen"
 
-#: ../mainwindow.py:1150
+#: ../mainwindow.py:1156
 msgid "Closes all documents and leaves the current session."
 msgstr "Schließe alle Dokumente und beende die Sitzung."
 
-#: ../mainwindow.py:1151 ../macosx/globalmenu.py:83
+#: ../mainwindow.py:1157 ../macosx/globalmenu.py:83
 msgid "&Quit"
 msgstr "&Beenden"
 
-#: ../mainwindow.py:1152
+#: ../mainwindow.py:1158
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "{appname} neu starten"
 
-#: ../mainwindow.py:1154
+#: ../mainwindow.py:1160
 msgid "Export Source as Colored &HTML..."
 msgstr "Quelltext als farbiges &HTML exportieren..."
 
-#: ../mainwindow.py:1156
+#: ../mainwindow.py:1162
 msgid "&Undo"
 msgstr "Rück&gängig"
 
-#: ../mainwindow.py:1157
+#: ../mainwindow.py:1163
 msgid "Re&do"
 msgstr "Wieder&herstellen"
 
-#: ../mainwindow.py:1158
+#: ../mainwindow.py:1164
 msgid "Cu&t"
 msgstr "Auss&chneiden"
 
-#: ../mainwindow.py:1159 ../docbrowser/browser.py:248
+#: ../mainwindow.py:1165 ../docbrowser/browser.py:248
 msgid "&Copy"
 msgstr "&Kopieren"
 
-#: ../mainwindow.py:1160
+#: ../mainwindow.py:1166
 msgid "Copy as Colored &HTML"
 msgstr "Als farbiges HTM&L kopieren"
 
-#: ../mainwindow.py:1161
+#: ../mainwindow.py:1167
 msgid "&Paste"
 msgstr "Ein&fügen"
 
-#: ../mainwindow.py:1162
+#: ../mainwindow.py:1168
 msgid "Select &All"
 msgstr "&Alles auswählen"
 
-#: ../mainwindow.py:1163
+#: ../mainwindow.py:1169
 msgid "Select &Block"
 msgstr "&Block auswählen"
 
-#: ../mainwindow.py:1164
+#: ../mainwindow.py:1170
 msgid "Select &None"
 msgstr "&Nichts auswählen"
 
-#: ../mainwindow.py:1165
+#: ../mainwindow.py:1171
 msgid "Select Whole Lines Up"
 msgstr "Alle Zeile oberhalb auswählen"
 
-#: ../mainwindow.py:1166
+#: ../mainwindow.py:1172
 msgid "Select Whole Lines Down"
 msgstr "Alle Zeilen unterhalb auswählen"
 
-#: ../mainwindow.py:1167
+#: ../mainwindow.py:1173
 msgid "&Find..."
 msgstr "&Suchen..."
 
-#: ../mainwindow.py:1168
+#: ../mainwindow.py:1174
 msgid "Find Ne&xt"
 msgstr "N&ächstes finden"
 
-#: ../mainwindow.py:1169
+#: ../mainwindow.py:1175
 msgid "Find Pre&vious"
 msgstr "V&orheriges finden"
 
-#: ../mainwindow.py:1170
+#: ../mainwindow.py:1176
 msgid "&Replace..."
 msgstr "E&rsetzen..."
 
-#: ../mainwindow.py:1171 ../macosx/globalmenu.py:129
+#: ../mainwindow.py:1177 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
 msgstr "&Einstellungen..."
 
-#: ../mainwindow.py:1173
+#: ../mainwindow.py:1179
 msgid "&Next Document"
 msgstr "&Nächstes Dokument"
 
-#: ../mainwindow.py:1174
+#: ../mainwindow.py:1180
 msgid "&Previous Document"
 msgstr "&Vorheriges Dokument"
 
-#: ../mainwindow.py:1175
+#: ../mainwindow.py:1181
 msgid "Wrap &Lines"
 msgstr "Zeilen &umbrechen"
 
-#: ../mainwindow.py:1176
+#: ../mainwindow.py:1182
 msgid "Scroll Up"
 msgstr "Hochscrollen"
 
-#: ../mainwindow.py:1177
+#: ../mainwindow.py:1183
 msgid "Scroll Down"
 msgstr "Herunterscrollen"
 
-#: ../mainwindow.py:1179 ../macosx/globalmenu.py:135
+#: ../mainwindow.py:1185 ../macosx/globalmenu.py:135
 msgid "New &Window"
 msgstr "&Neues Fenster"
 
-#: ../mainwindow.py:1180
+#: ../mainwindow.py:1186
 msgid "&Fullscreen"
 msgstr "V&ollbild"
 
-#: ../mainwindow.py:1182
+#: ../mainwindow.py:1188
 msgid "&User Guide"
 msgstr "&Handbuch"
 
-#: ../mainwindow.py:1183
+#: ../mainwindow.py:1189
 msgid "&What's This?"
 msgstr "&Was ist das?"
 
-#: ../mainwindow.py:1184
+#: ../mainwindow.py:1190
 msgid "Report a &Bug..."
 msgstr "Programmfehler mel&den..."
 
-#: ../mainwindow.py:1185 ../macosx/globalmenu.py:153
+#: ../mainwindow.py:1191 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "Ü&ber {appname}..."
@@ -1482,90 +1482,90 @@ msgstr "Audio e&xportieren..."
 msgid "Export to different audio formats."
 msgstr "Exportiere in verschiedene Audioformate."
 
-#: ../file_import/__init__.py:51
+#: ../file_import/__init__.py:52
 msgid "All importable formats"
 msgstr ""
 
-#: ../file_import/__init__.py:52 ../file_import/__init__.py:76
+#: ../file_import/__init__.py:53 ../file_import/__init__.py:95
 #, fuzzy
 msgid "MusicXML Files"
 msgstr "XML-Dateien"
 
-#: ../file_import/__init__.py:53 ../file_import/__init__.py:97
+#: ../file_import/__init__.py:54 ../file_import/__init__.py:116
 #, fuzzy
 msgid "Midi Files"
 msgstr "Veränderte Dateien"
 
-#: ../file_import/__init__.py:54 ../file_import/__init__.py:118
+#: ../file_import/__init__.py:55 ../file_import/__init__.py:137
 #, fuzzy
 msgid "ABC Files"
 msgstr "Alle Dateien"
 
-#: ../file_import/__init__.py:57
+#: ../file_import/__init__.py:58
 #, fuzzy
 msgctxt "dialog title"
 msgid "Import"
 msgstr "&Importieren..."
 
-#: ../file_import/__init__.py:71
-#, fuzzy
-msgid "The file couldn't be converted. Wrong file type."
+#: ../file_import/__init__.py:68
+#, fuzzy, python-brace-format
+msgid "The file {filename} could not be converted. Wrong file type."
 msgstr "Die Datei konnte nicht umgewandelt werden. Fehlermeldung:\n"
 
-#: ../file_import/__init__.py:77
+#: ../file_import/__init__.py:96
 msgctxt "dialog title"
 msgid "Import a MusicXML file"
 msgstr "MusicXML-Datei importieren"
 
-#: ../file_import/__init__.py:98
+#: ../file_import/__init__.py:117
 #, fuzzy
 msgctxt "dialog title"
 msgid "Import a midi file"
 msgstr "MusicXML-Datei importieren"
 
-#: ../file_import/__init__.py:119
+#: ../file_import/__init__.py:138
 #, fuzzy
 msgctxt "dialog title"
 msgid "Import an abc file"
 msgstr "MusicXML-Datei importieren"
 
-#: ../file_import/__init__.py:151
+#: ../file_import/__init__.py:170
 msgid "The file couldn't be converted. Error message:\n"
 msgstr "Die Datei konnte nicht umgewandelt werden. Fehlermeldung:\n"
 
-#: ../file_import/__init__.py:204
+#: ../file_import/__init__.py:223
 #, fuzzy
 msgid "Import..."
 msgstr "&Importieren..."
 
-#: ../file_import/__init__.py:205
+#: ../file_import/__init__.py:224
 msgid "Generic import for all LilyPond tools."
 msgstr ""
 
-#: ../file_import/__init__.py:206 ../macosx/globalmenu.py:122
+#: ../file_import/__init__.py:225 ../macosx/globalmenu.py:122
 msgid "Import MusicXML..."
 msgstr "MusicXML importieren..."
 
-#: ../file_import/__init__.py:207
+#: ../file_import/__init__.py:226
 msgid "Import a MusicXML file using musicxml2ly."
 msgstr "Importiere eine MusicXML-Datei mit musicxml2ly"
 
-#: ../file_import/__init__.py:208
+#: ../file_import/__init__.py:227
 #, fuzzy
 msgid "Import Midi..."
 msgstr "MusicXML importieren..."
 
-#: ../file_import/__init__.py:209
+#: ../file_import/__init__.py:228
 #, fuzzy
 msgid "Import a Midi file using midi2ly."
 msgstr "Importiere eine MusicXML-Datei mit musicxml2ly"
 
-#: ../file_import/__init__.py:210
+#: ../file_import/__init__.py:229
 #, fuzzy
 msgid "Import abc..."
 msgstr "&Importieren..."
 
-#: ../file_import/__init__.py:211
+#: ../file_import/__init__.py:230
 #, fuzzy
 msgid "Import an abc file using abc2ly."
 msgstr "Importiere eine MusicXML-Datei mit musicxml2ly"
@@ -9439,55 +9439,72 @@ msgid "Modal Transpose"
 msgstr "Modale Transposition"
 
 #: ../userguide/credits.md:18
-#, fuzzy
-msgid ""
-"Quick Insert buttons for grace notes, MusicXML, Midi and Abc im- and export"
+msgid "Quick Insert buttons for grace notes"
 msgstr "Schnelleinfüge-Befehle für Vorschlagsnoten"
 
-#: ../userguide/credits.md:21
+#: ../userguide/credits.md:18
+#, fuzzy
+msgid "MusicXML, Midi and Abc im- and export"
+msgstr "Schnelleinfüge-Befehle für Vorschlagsnoten"
+
+#: ../userguide/credits.md:22
 msgid "Kinetic Scrolling for the Music View"
 msgstr "Automatisches Scrollen der Notenansicht"
 
-#: ../userguide/credits.md:24
+#: ../userguide/credits.md:25
 msgid "Homebrew formula for Mac OS X"
 msgstr ""
 
-#: ../userguide/credits.md:27
-msgid "Mac OS X packaging and various other improvements"
+#: ../userguide/credits.md:28
+msgid "Mac OS X packaging"
 msgstr ""
 
-#: ../userguide/credits.md:30
-msgid "Layout control modes and various other contributions"
+#: ../userguide/credits.md:28
+msgid "various other improvements"
 msgstr ""
 
-#: ../userguide/credits.md:33
+#: ../userguide/credits.md:32
+#, fuzzy
+msgid "Layout control modes"
+msgstr "Zeige Kontrollpunkte an"
+
+#: ../userguide/credits.md:32
+#, fuzzy
+msgid "various other contributions"
+msgstr "Verschiedene Beiträge"
+
+#: ../userguide/credits.md:36
 msgid "Improved highlighting and auto-completion of Scheme code"
 msgstr "Verbesserte Formatierung und Autovervollständigung von Scheme Code"
 
-#: ../userguide/credits.md:36
+#: ../userguide/credits.md:39
 msgid "MIDI capturing"
 msgstr "MIDI-Aufnahme"
 
-#: ../userguide/credits.md:39
+#: ../userguide/credits.md:42
 #, fuzzy
 msgid "Finding lots of bugs"
 msgstr "Zu benutzender Zeichensatz"
 
-#: ../userguide/credits.md:42
-msgid "Many code and feature improvements and work on proper Python 3 support"
+#: ../userguide/credits.md:45
+msgid "Many code and feature improvements"
 msgstr ""
 
 #: ../userguide/credits.md:45
+msgid "work on proper Python 3 support"
+msgstr ""
+
+#: ../userguide/credits.md:49
 #, fuzzy
 msgid "Relative mode for MIDI capturing"
 msgstr "MIDI-Aufnahme beenden"
 
-#: ../userguide/credits.md:48
+#: ../userguide/credits.md:52
 msgid "{appname} is translated into the following languages:"
 msgstr "{appname} ist in die folgenden Sprachen übersetzt worden:"
 
 #. NOTE: markdown formatting
-#: ../userguide/credits.md:103
+#: ../userguide/credits.md:108
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
@@ -10622,12 +10639,6 @@ msgstr ""
 #~ "[http://qt-project.org/ Qt] toolkit."
 #~ msgstr ""
 #~ "{appname} wurde in {python} geschrieben und benutzt das {qt} Toolkit."
-
-#~ msgid "Various contributions"
-#~ msgstr "Verschiedene Beiträge"
-
-#~ msgid "Quick Insert buttons for grace notes"
-#~ msgstr "Schnelleinfüge-Befehle für Vorschlagsnoten"
 
 #~ msgid "MusicXML import"
 #~ msgstr "MusicXML-Import"
