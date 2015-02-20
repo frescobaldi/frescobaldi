@@ -102,14 +102,12 @@ if dll_name is None:
     raise ImportError("Couldn't find the PortMidi library.")
 
 libpm = CDLL(dll_name)
-# portmidi mightbe linked against porttime but not actually export its symbols
-# so we might need to load the porttime lib dynamically as well.
-try:
-    libpm.Pt_Time
-except AttributeError:
-    libpt = CDLL(find_library(_PT_DLL.get(sys.platform, 'porttime')))
-else:
+# The portmidi library may be linked against porttime but not export its
+# symbols. Then we need to load the porttime library as well.
+if hasattr(libpm, 'Pt_Time'):
     libpt = libpm
+else:
+    libpt = CDLL(find_library(_PT_DLL.get(sys.platform, 'porttime')))
 
 
 # portmidi.h
