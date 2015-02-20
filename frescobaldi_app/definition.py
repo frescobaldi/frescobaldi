@@ -71,8 +71,14 @@ def goto_definition(mainwindow, cursor=None):
 
 def goto_target(mainwindow, target):
     """Switch to the document and location where the node target is."""
-    filename = target.document.filename
-    doc = app.openUrl(QUrl.fromLocalFile(filename))
+    lydoc = target.document
+    try:
+        # this succeeds if this is a document that is currently open
+        doc = lydoc.document
+    except AttributeError:
+        # it is an included file, just load it
+        filename = target.document.filename
+        doc = app.openUrl(QUrl.fromLocalFile(filename))
     cursor = QTextCursor(doc)
     cursor.setPosition(target.position)
     browseriface.get(mainwindow).setTextCursor(cursor)
