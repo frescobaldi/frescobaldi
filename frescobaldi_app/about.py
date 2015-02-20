@@ -107,7 +107,9 @@ class Version(QTextBrowser):
             "Qt: {qt_version}<br />\n"
             "PyQt4: {pyqt_version}<br />\n"
             "sip: {sip_version}<br />\n"
-            "python-ly: {ly_version}</p>\n"
+            "python-ly: {ly_version}<br />\n"
+            "poppler: {poppler_version}<br />\n"
+            "python-poppler-qt4: {python_poppler_version}</p>\n"
             "<p>{operating_system}:<br />\n"
             "{osname}</p>".format(
                 app_name = appinfo.appname,

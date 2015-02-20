@@ -62,6 +62,17 @@ def versionInfo():
     except (ImportError, NameError):
         ly_version = "unknown"
     
+    try:
+        import popplerqt4
+        poppler_version = '.'.join(str(n) for n in popplerqt4.poppler_version())
+        python_poppler_version = '.'.join(str(n) for n in popplerqt4.version())
+    except ImportError:
+        poppler_version = "unknown"
+        python_poppler_version = "missing"
+    except AttributeError:
+        poppler_version = "unknown"
+        python_poppler_version = "unknown"
+
     return locals()
 
 
@@ -73,6 +84,8 @@ def versionInfoString():
         "PyQt4: {pyqt_version} -- "
         "sip: {sip_version}\n"
         "python-ly: {ly_version}\n"
+        "poppler: {poppler_version} -- "
+        "python-poppler-qt4: {python_poppler_version}\n"
         "OS: {osname}".format(**versionInfo()))
     
 
