@@ -181,12 +181,13 @@ class Input(object):
 def _check_error(err_no):
     if err_no < 0:
         if err_no == pmHostError:
-            err_msg = create_string_buffer('\000' * 256)
+            err_msg = create_string_buffer(b'\000' * 256)
             libpm.Pm_GetHostErrorText(err_msg, 256)
             err_msg = err_msg.value
         else:
             err_msg = libpm.Pm_GetErrorText(err_no)
         raise MidiException(
-            "PortMIDI-ctypes error [{0}]: {1}".format(err_no, err_msg))
+            "PortMIDI-ctypes error [{0}]: {1}".format(err_no,
+                                                      err_msg.decode('utf-8')))
 
 
