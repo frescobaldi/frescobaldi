@@ -63,6 +63,8 @@ class MidiIn(object):
     def capture(self):
         if not self._portmidiinput:
             self.open()
+            if not self._portmidiinput:
+                return
         doc = self.widget().mainwindow().currentDocument()
         self._language = documentinfo.docinfo(doc).language() or 'nederlands'
         self._activenotes = 0
