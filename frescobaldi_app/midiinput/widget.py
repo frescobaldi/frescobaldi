@@ -168,7 +168,7 @@ class Widget(QWidget):
             _("E flat major (3 flats)"),
             _("B flat major (2 flats)"),
             _("F major (1 flat)"),
-            _("no key"),
+            _("C major"),
             _("G major (1 sharp)"),
             _("D major (2 sharps)"),
             _("A major (3 sharps)"),

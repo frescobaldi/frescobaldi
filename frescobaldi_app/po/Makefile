@@ -15,6 +15,9 @@ all: $(mofiles)
 $(pofiles): $(potfile)
 	msgmerge -U $@ $<
 
+$(potfile):
+	$(PYTHON) update-pot.py
+
 $(mofiles): %.mo: %.po
 	msgfmt -o $@ $<
 	$(PYTHON) molint.py $@
