@@ -53,7 +53,7 @@ Changes in 2.18 --
     anymore (issue #539).
   - fix error when opening a "recent file" that has been deleted (issue #597)
 * Translations:
-  - updated: nl, fr
+  - updated: nl, fr, ru
 
 
 Changes in 2.17.2 -- January 17th, 2015
