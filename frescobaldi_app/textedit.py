@@ -79,4 +79,4 @@ def percent_decode(s):
     for i in l[1:]:
         res.append(int(i[:2], 16))
         res.extend(i[2:])
-    return bytes(res)
+    return res
