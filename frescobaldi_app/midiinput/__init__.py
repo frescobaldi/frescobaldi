@@ -131,7 +131,6 @@ class Listener(QThread):
             # so we feed it one. But since it's just one event, we only need the first "generated" element.
             # First byte is time, which is unnecessary in our case, so we feed a dummy byte "77"
             # and strip output by just using [1]. 77 is chosen randomly ;)
-            # 'bytearray' should work in python2 and python3, whereas 'bytes' would fail in python2  
             s = bytearray([77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]])
             event = next(midifile.parser.parse_midi_events(s))[1]
             
