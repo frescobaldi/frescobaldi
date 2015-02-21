@@ -124,7 +124,7 @@ def html():
     version = _("Version {version}").format(version = appinfo.version)
     description = _("A LilyPond Music Editor")
     copyright = _("Copyright (c) {year} by {author}").format(
-        year = "2008-2014",
+        year = "2008-2015",
         author = """<a href="mailto:{0}" title="{1}">{2}</a>""".format(
             appinfo.maintainer_email,
             _("Send an e-mail message to the maintainers."),
