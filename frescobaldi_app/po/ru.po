@@ -226,7 +226,7 @@ msgstr "(установлена в файле)"
 
 #: ../convert_ly.py:209
 msgid "Both 'from' and 'to' versions need to be set."
-msgstr "Нужно установить начальную и конечную версию."
+msgstr "Необходимо задать начальную и конечную версию."
 
 #: ../convert_ly.py:236
 #, python-brace-format
@@ -279,7 +279,7 @@ msgstr "Подсветка синтаксиса"
 
 #: ../documentactions.py:186
 msgid "View File or Definition at &Cursor"
-msgstr ""
+msgstr "Показать файл или определение под курсором"
 
 #: ../documentactions.py:187
 msgid "&Automatic Indent"
@@ -287,47 +287,43 @@ msgstr "Автоматические отступы"
 
 #: ../documentactions.py:188
 msgid "Re-&Indent"
-msgstr "Переформатировать"
+msgstr "Упорядочить отступы"
 
 #: ../documentactions.py:189
 msgid "&Format"
-msgstr "Форматировать"
+msgstr "Переформатировать"
 
 #: ../documentactions.py:190
 msgid "Remove Trailing &Whitespace"
-msgstr ""
+msgstr "Удалить пробелы в конце строк"
 
 #: ../documentactions.py:191
 msgid "&Update with convert-ly..."
-msgstr "Обновить с помощью convert-ly"
+msgstr "Обновить с помощью convert-ly..."
 
 #: ../documentactions.py:192
-#, fuzzy
 msgid "Remove &Articulations"
-msgstr "Артикуляционные обозначения"
+msgstr "Удалить артикуляцию"
 
 #: ../documentactions.py:193
-#, fuzzy
 msgid "Remove &Ornaments"
-msgstr "Мелизмы"
+msgstr "Удалить орнаментику"
 
 #: ../documentactions.py:194
 msgid "Remove &Instrument Scripts"
-msgstr ""
+msgstr "Удалить штрихи инструментов"
 
 #: ../documentactions.py:195
-#, fuzzy
 msgid "Remove &Slurs"
-msgstr "Удалить длительности"
+msgstr "Удалить лиги"
 
 #: ../documentactions.py:196
-#, fuzzy
 msgid "Remove &Dynamics"
-msgstr "Динамика"
+msgstr "Удалить динамику"
 
 #: ../documentactions.py:197
 msgid "Remove Text &Markup (from music)"
-msgstr ""
+msgstr "Удалить аннотации (из музыки)"
 
 #: ../documentcontextmenu.py:69 ../mainwindow.py:1142
 #: ../sessions/manager.py:130
@@ -344,23 +340,21 @@ msgstr "Закрыть"
 
 #: ../documentcontextmenu.py:72 ../mainwindow.py:1154
 msgid "Close Other Documents"
-msgstr "Закрыть другие файлы"
+msgstr "Закрыть другие документы"
 
 #: ../documentcontextmenu.py:73
-#, fuzzy
 msgid "Always &Engrave This Document"
-msgstr "Всегда набирать этот файл"
+msgstr "Всегда набирать этот документ"
 
 #: ../documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
 msgid "&Documents"
-msgstr "&Документ"
+msgstr "Документы"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: ../documentmenu.py:109
 msgid "[always engraved]"
-msgstr ""
+msgstr "[всегда набирается]"
 
 #: ../exception.py:69
 msgid "An internal error has occurred:"
@@ -372,42 +366,40 @@ msgstr "Внутренняя ошибка"
 
 #: ../exception.py:71
 msgid "Email Bug Report..."
-msgstr "Послать отчет об ошибке по e-mail"
+msgstr "Послать отчет об ошибке по e-mail..."
 
 #: ../exception.py:79
 msgid "Optionally describe below what you were doing:"
-msgstr "Дополнительно опишите ваши действия:"
+msgstr "По возможности опишите ваши действия:"
 
 #: ../externalcommand.py:57
 msgid "Please wait until the command finishes"
-msgstr ""
+msgstr "Пожалуйста дождитесь окончания работы программы"
 
 #: ../externalcommand.py:66
-#, fuzzy
 msgid "Command completed"
-msgstr "Открыть командную строку"
+msgstr "Команда выполнена"
 
 #: ../globalfontdialog.py:64
 msgid "Global Fonts"
 msgstr "Глобальные шрифты"
 
 #: ../globalfontdialog.py:66
-#, fuzzy
 msgid ""
 "Please select the three global fonts to use for <code>\\roman</code>, <code>"
 "\\sans</code>, and <code>\\typewriter</code> respectively."
 msgstr ""
-"Выберите три шрифта, которые будут использоваться для <code>\\roman</code>, "
-"<code>\\sans</code>, и <code>\\typewriter</code> соответственно. Вы также "
-"должны выбрать глобальный размер стана в документе (по умолчанию 20)"
+"Выберите три глобальных шрифта, которые будут использоваться для текста после "
+"<code>\\roman</code>, <code>\\sans</code> и <code>\\typewriter</code> "
+"соответственно."
 
 #: ../globalfontdialog.py:69
 msgid "Roman Font:"
-msgstr "Шрифт с засечками"
+msgstr "Шрифт с засечками:"
 
 #: ../globalfontdialog.py:70
 msgid "Sans Font:"
-msgstr "Шрифт без засечек"
+msgstr "Шрифт без засечек:"
 
 #: ../globalfontdialog.py:71
 msgid "Typewriter Font:"
@@ -429,13 +421,12 @@ msgid "Error"
 msgstr "Ошибка"
 
 #: ../helpers.py:108 ../job.py:293
-#, fuzzy, python-brace-format
 msgid ""
 "Could not start {program}.\n"
 "Please check path and permissions."
 msgstr ""
-"Невозможно запустить LilyPond\n"
-"Проверьте путь к программе и разрешения."
+"Не удалось запустить {program}.\n"
+"Проверьте путь к программе и права доступа."
 
 #: ../htmldiff.py:45
 msgid "Colors:"
@@ -484,7 +475,7 @@ msgstr "Выберите цвет:"
 #: ../job.py:274
 #, python-brace-format
 msgid "Starting {job}..."
-msgstr "Запуск {job}..."
+msgstr "Запускается {job}..."
 
 #: ../job.py:283
 #, python-brace-format
@@ -493,7 +484,7 @@ msgstr "Прерывание {job}..."
 
 #: ../job.py:296
 msgid "Could not read from the process."
-msgstr "Невозможно чтение из процесса LilyPond."
+msgstr "Невозможно чтение из процесса."
 
 #: ../job.py:298
 msgid "An unknown error occured."
@@ -512,16 +503,15 @@ msgstr "Программа завершилась со статусом {status}
 #: ../job.py:312
 #, python-brace-format
 msgid "Completed successfully in {time}."
-msgstr "Завершено за {time}"
+msgstr "Успешно завершено за {time}"
 
 #: ../lilychooser.py:42
-#, fuzzy
 msgid "Choose the desired LilyPond version."
-msgstr "Строка снизу с датой и версией LilyPond"
+msgstr "Выберите желаемую версию LilyPond."
 
 #: ../lilypondinfo.py:144
 msgid "Running LilyPond, this can take some time..."
-msgstr "Запуск LilyPond, пожалуйста, подождите..."
+msgstr "Работает LilyPond, пожалуйста подождите..."
 
 #: ../lyrics.py:126
 msgid "&Hyphenate Lyrics Text..."
@@ -533,7 +523,7 @@ msgstr "Удалить разделение на слоги"
 
 #: ../lyrics.py:128
 msgid "&Copy Lyrics with hyphenation removed"
-msgstr "Скопировать, удалив разделение на слоги"
+msgstr "Скопировать без разделения на слоги"
 
 #: ../main.py:58
 msgid "ENC"
@@ -541,7 +531,7 @@ msgstr ""
 
 #: ../main.py:59
 msgid "Encoding to use"
-msgstr ""
+msgstr "Задать кодировку"
 
 #: ../main.py:60 ../main.py:62
 msgid "NUM"
@@ -549,11 +539,11 @@ msgstr ""
 
 #: ../main.py:61
 msgid "Line number to go to, starting at 1"
-msgstr ""
+msgstr "Начальная строка, начиная с 1"
 
 #: ../main.py:63
 msgid "Column to go to, starting at 0"
-msgstr ""
+msgstr "Начальная колонка, начиная с 0"
 
 #: ../main.py:64
 msgid "NAME"
@@ -562,25 +552,23 @@ msgstr ""
 #: ../main.py:65
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
-msgstr ""
+msgstr "Начальная сессия ('{none}' для пустой сессии)"
 
 #: ../main.py:68
 msgid "List the session names and exit"
-msgstr ""
+msgstr "Выдать список сессий и выйти"
 
 #: ../main.py:70
 msgid "Always start a new instance"
-msgstr ""
+msgstr "Всегда начинать новый процесс"
 
 #: ../main.py:71
-#, fuzzy
 msgid "file"
-msgstr "Печать %1"
+msgstr "файл"
 
 #: ../main.py:72
-#, fuzzy
 msgid "File to be opened"
-msgstr "Нет файлов для посылки."
+msgstr "Открыть данный файл"
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:262 ../externalchanges/widget.py:159
@@ -590,7 +578,7 @@ msgstr "[изменен]"
 #: ../mainwindow.py:316
 msgctxt "dialog title"
 msgid "Close Document"
-msgstr "Закрыть файл"
+msgstr "Закрыть документ"
 
 #: ../mainwindow.py:317
 #, python-brace-format
@@ -879,7 +867,7 @@ msgstr "Сообщить об ошибке..."
 #: ../mainwindow.py:1191 ../macosx/globalmenu.py:153
 #, python-brace-format
 msgid "&About {appname}..."
-msgstr "О {appname}..."
+msgstr "О программе {appname}..."
 
 #: ../matcher.py:132
 #, fuzzy
@@ -2452,11 +2440,11 @@ msgstr "Использование: %s\n"
 
 #: ../po/messages.py:29 ../po/messages.py:38
 msgid "show this help message and exit"
-msgstr ""
+msgstr "показать это сообщение и выйти"
 
 #: ../po/messages.py:30 ../po/messages.py:39
 msgid "show program's version number and exit"
-msgstr ""
+msgstr "показать версию программы и выйти"
 
 #. L10N: Command line options
 #: ../po/messages.py:32
@@ -2464,17 +2452,16 @@ msgid "Options"
 msgstr ""
 
 #: ../po/messages.py:35
-#, fuzzy
 msgid "usage: "
-msgstr "Использование: %s\n"
+msgstr "Использование: "
 
 #: ../po/messages.py:36
 msgid "positional arguments"
-msgstr ""
+msgstr "основные аргументы"
 
 #: ../po/messages.py:37
 msgid "optional arguments"
-msgstr ""
+msgstr "опциональные аргументы"
 
 #: ../po/messages.py:42
 msgctxt "CloseButton"
