@@ -28,7 +28,6 @@ _("usage: ")
 _("positional arguments")
 _("optional arguments")
 _("show this help message and exit")
-_("show program's version number and exit")
 
 # Qt
 _("CloseButton", "Close Tab")
