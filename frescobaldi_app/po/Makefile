@@ -13,7 +13,7 @@ all: $(mofiles)
 
 
 $(pofiles): $(potfile)
-	msgmerge -U $@ $<
+	msgmerge -U $@ $< && touch $@
 
 $(potfile):
 	$(PYTHON) update-pot.py
