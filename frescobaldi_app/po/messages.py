@@ -23,14 +23,6 @@ Dummy file containing messages that are part of some Python modules or Qt and us
 
 from __future__ import unicode_literals
 
-# Python, optparse:
-_("Usage")
-_("Usage: %s\n")
-_("show this help message and exit")
-_("show program's version number and exit")
-# L10N: Command line options
-_("Options")
-
 # Python, argparse:
 _("usage: ")
 _("positional arguments")
