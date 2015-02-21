@@ -31,8 +31,8 @@ from __future__ import unicode_literals
 import sys
 import os
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QUrl
+from PyQt4.QtGui import QAction, QFileDialog, QMenu, QMenuBar
 
 import app
 import util

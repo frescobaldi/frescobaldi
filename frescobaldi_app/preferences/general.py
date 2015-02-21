@@ -23,8 +23,9 @@ Keyboard shortcuts settings page.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel,
+                         QRadioButton, QStyleFactory, QVBoxLayout)
 
 import app
 import appinfo

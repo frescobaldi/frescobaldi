@@ -27,8 +27,11 @@ import collections
 import os
 import tempfile
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, QSize, Qt
+from PyQt4.QtGui import (QApplication, QBitmap, QCheckBox, QColor, QComboBox,
+                         QDialog, QDialogButtonBox, QDoubleValidator,
+                         QFileDialog, QHBoxLayout, QLabel, QMessageBox,
+                         QPushButton, QRegion, QVBoxLayout)
 
 import app
 import util

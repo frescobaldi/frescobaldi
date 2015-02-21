@@ -23,8 +23,8 @@ The PDF preview panel context menu.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QUrl
+from PyQt4.QtGui import QApplication, QMenu
 
 
 import icons

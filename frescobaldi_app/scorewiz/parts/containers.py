@@ -23,8 +23,10 @@ Container part types.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSize
+from PyQt4.QtGui import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
+                         QHBoxLayout, QLabel, QLineEdit, QRadioButton,
+                         QVBoxLayout)
 
 import ly.dom
 import listmodel

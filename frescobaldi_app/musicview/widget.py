@@ -28,8 +28,8 @@ import itertools
 import os
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt4.QtGui import QCursor, QTextCharFormat, QToolTip, QVBoxLayout, QWidget
 
 try:
     import popplerqt4

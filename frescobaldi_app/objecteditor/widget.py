@@ -27,8 +27,9 @@ from __future__ import print_function
 import sys
 
 from PyQt4 import QtCore
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import (QDoubleSpinBox, QLabel, QPushButton, QTextCursor,
+                         QVBoxLayout, QWidget)
 
 import app
 import objecteditor

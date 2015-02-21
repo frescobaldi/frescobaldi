@@ -23,8 +23,8 @@ Paths preferences page
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QVBoxLayout
 
 import app
 import widgets.listedit

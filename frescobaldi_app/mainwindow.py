@@ -29,8 +29,13 @@ import os
 import sys
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
+                          QSize, Qt, QUrl)
+from PyQt4.QtGui import (QAbstractPrintDialog, QAction, QApplication,
+                         QFileDialog, QKeySequence, QMainWindow, QMenu,
+                         QMessageBox, QPlainTextEdit, QPrintDialog, QPrinter,
+                         QTextCursor, QTextDocument, QVBoxLayout, QWhatsThis,
+                         QWidget)
 
 import app
 import backup

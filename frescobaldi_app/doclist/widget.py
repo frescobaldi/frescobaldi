@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, Qt, QUrl
+from PyQt4.QtGui import QItemSelectionModel, QMenu, QTreeWidget, QTreeWidgetItem
 
 import app
 import util

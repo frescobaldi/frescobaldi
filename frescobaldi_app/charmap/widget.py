@@ -26,8 +26,9 @@ from __future__ import unicode_literals
 import sys
 import itertools
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import (QComboBox, QScrollArea, QSizePolicy, QVBoxLayout,
+                         QWidget)
 
 import app
 import widgets.charmap

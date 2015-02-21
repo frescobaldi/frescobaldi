@@ -26,8 +26,12 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings, Qt
+from PyQt4.QtGui import (QAbstractItemView, QCheckBox, QDialog,
+                         QDialogButtonBox, QFileDialog, QGridLayout,
+                         QHBoxLayout, QLabel, QLineEdit, QListWidgetItem,
+                         QPushButton, QRadioButton, QTabWidget, QVBoxLayout,
+                         QWidget)
 
 import app
 import userguide

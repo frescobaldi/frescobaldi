@@ -16,7 +16,7 @@ TODO:
 import time
 import weakref
 
-from PyQt4.QtCore import *
+from PyQt4.QtCore import QObject, QSettings, QThread, SIGNAL
 
 import midihub
 import midifile.event

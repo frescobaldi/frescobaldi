@@ -34,8 +34,9 @@ except NameError:
 
 import unicodedata
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import pyqtSignal, QEvent, QRect, QSize, Qt
+from PyQt4.QtGui import (QFont, QFontMetrics, QPainter, QPalette, QPen,
+                         QToolTip, QWhatsThis, QWidget)
 
 
 class CharMap(QWidget):

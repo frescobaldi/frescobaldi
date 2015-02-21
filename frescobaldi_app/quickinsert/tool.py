@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QVBoxLayout, QWidget
 
 
 class Tool(QWidget):

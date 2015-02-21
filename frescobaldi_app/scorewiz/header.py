@@ -23,8 +23,9 @@ The Header (titles) widget.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSize, Qt, QUrl
+from PyQt4.QtGui import (QGridLayout, QHBoxLayout, QLabel, QLineEdit, QPalette,
+                         QTextBrowser, QWidget)
 
 import app
 import qutil

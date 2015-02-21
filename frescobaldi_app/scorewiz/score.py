@@ -23,8 +23,10 @@ The Parts widget.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import (QGroupBox, QHBoxLayout, QLabel, QPushButton, QSplitter,
+                         QStackedWidget, QToolButton, QTreeView, QVBoxLayout,
+                         QWidget)
 
 import app
 import icons

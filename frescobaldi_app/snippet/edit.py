@@ -26,8 +26,11 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSize
+from PyQt4.QtGui import (QAction, QDialog, QDialogButtonBox, QGridLayout, QIcon,
+                         QItemSelectionModel, QKeySequence, QLabel, QLineEdit,
+                         QMessageBox, QPushButton, QTextCharFormat, QTextEdit,
+                         QVBoxLayout)
 
 import actioncollectionmanager
 import app

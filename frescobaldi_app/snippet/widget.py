@@ -23,8 +23,11 @@ The snippets widget.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, QModelIndex, Qt
+from PyQt4.QtGui import (QAction, QApplication, QCompleter, QFileDialog,
+                         QHBoxLayout, QItemSelectionModel, QKeySequence, QMenu,
+                         QMessageBox, QPushButton, QSplitter, QTextBrowser,
+                         QToolButton, QTreeView, QVBoxLayout, QWidget)
 
 import app
 import userguide

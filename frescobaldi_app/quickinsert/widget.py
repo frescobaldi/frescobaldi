@@ -25,8 +25,9 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import (QComboBox, QHBoxLayout, QLabel, QToolBox, QToolButton,
+                         QVBoxLayout, QWidget)
 
 import app
 import userguide.util
