@@ -32,10 +32,6 @@ import os
 import sys
 
 
-def is_osx():
-    """Return True if we are running on Mac OS X."""
-    return sys.platform.startswith('darwin')
-
 def inside_app_bundle():
     """Return True if we are inside a .app bundle."""
     # Testing for sys.frozen == 'macosx_app' (i.e. are we inside a .app bundle

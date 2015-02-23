@@ -137,6 +137,22 @@ package. The different groups separated by a blank line:
 
     from . import widget            # imports from current package
 
+Avoid platform specific code, but when it is really needed, you can test
+for Windows:
+
+    if sys.platform.startswith('win'):
+        ...
+
+or:
+
+    if os.name == "nt":
+        ...
+
+Testing for Mac OS X can be done using:
+
+    if sys.platform.startswith('darwin'):
+        ...
+
 
 Adding Functionality
 ====================
