@@ -41,7 +41,9 @@ class _noinst(object):
 
 class Poppler(_noinst):
     class Document(_noinst):
+        @staticmethod
         def load(filename): pass
+        @staticmethod
         def loadFromData(data): pass
         class RenderHint(int): pass
         Antialiasing = RenderHint(1)
