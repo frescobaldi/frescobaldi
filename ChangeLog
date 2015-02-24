@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.18 -- 
+Changes in 2.18 -- March 7th, 2015
 
 * Note about installing and for packagers/distributors:
   - the ly module that used to be in frescobaldi_app is now a separate package.
