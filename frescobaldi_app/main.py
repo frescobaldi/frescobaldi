@@ -134,8 +134,44 @@ def patch_pyqt():
         lambda *args: [f.rstrip('\0') for f in old_getOpenFileNames(*args)])
 
 
+def check_ly():
+    """Check if ly is installed and has the correct version.
+    
+    If python-ly is not available or too old, we display a critical message
+    and exit.  In the future we will probably remove this function.
+    In a good software distribution this should never happen, but it can happen
+    when a user leaves the old stale 'ly' package in the frescobaldi_app
+    directory, or has not installed python-ly at all.
+    
+    Because that yield unexpected behaviour and error messages, we better
+    check for the availability of the 'ly' module beforehand.
+    Importing ly.pkginfo is not expensive.
+    
+    """
+    ly_required = (0, 9)
+    try:
+        import ly.pkginfo
+        version = tuple(map(int, re.findall(r"\d+", ly.pkginfo.version)))
+    except (ImportError, AttributeError):
+        pass
+    else:
+        if version >= ly_required:
+            return
+    from PyQt4.QtGui import QMessageBox
+    QMessageBox.critical(None, _("Can't run Frescobaldi"), _(
+        "We are sorry, but Frescobaldi can't run properly.\n\n"
+        "The python-ly package is not available or too old.\n"
+        "At least version {version} is required to run Frescobaldi.\n\n"
+        "If you did install python-ly correctly, please remove the old\n"
+        "ly package from the frescobaldi_app directory, or completely\n"
+        "remove and then reinstall Frescobaldi."
+    ).format(version=".".join(format(d) for d in ly_required)))
+    sys.exit(1)
+
+
 def main():
     """Main function."""
+    check_ly()
     patch_pyqt()
     args = parse_commandline()
     
