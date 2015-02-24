@@ -23,6 +23,8 @@ Changes in 2.18 -- March 7th, 2015
     other, starting with a right or left page, and in single pages (issue #575)
   - A new pitch tool, Mode shift, which can be used to change all or selected 
     notes to a specified mode or scale.
+  - Commands to convert rests to spaces or vice versa, and to convert pitched
+    rests (like c'4\rest) to normal rests, contributed by Peter Bjuhr.
 * Improvements:
   - The Insert menu got renamed to Snippets, making more clear how it is used
     and can be changed. When copying text to a new snippet, the snippet is added
