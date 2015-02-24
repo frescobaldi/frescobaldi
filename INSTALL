@@ -1,46 +1,48 @@
-INSTALL for Frescobaldi 2.0.
-============================
+INSTALL for Frescobaldi 2
+=========================
 
 You can run Frescobaldi without installing. Just unpack and then run:
 
-  python frescobaldi
-
+    python frescobaldi
 
 The Frescobaldi package is based on distutils. No build process is needed as
 Frescobaldi is fully written in the interpreted Python language. To install in
 the default location:
 
-  sudo python setup.py install
-
+    sudo python setup.py install
 
 To run Frescobaldi, then simply type
 
-  frescobaldi
-
+    frescobaldi
 
 If you want to install into /usr instead of /usr/local:
 
-  python setup.py install --prefix=/usr
-
+    python setup.py install --prefix=/usr
 
 If you have a Debian-based system such as Ubuntu, and you get the error
 message "ImportError: No module named frescobaldi_app.main", try:
 
-  python setup.py install --install-layout=deb
-
+    python setup.py install --install-layout=deb
 
 See the distutils documentation for more install options.
 
+NOTE: Since 2.18, Frescobaldi depends on the python-ly module, which needs to
+      be installed separately (see below). Previously, this Python module
+      (named 'ly') was part of Frescobaldi. When installing Frescobaldi, be
+      sure that old remnants of previous Frescobaldi installations are removed,
+      otherwise Frescobaldi will use the old 'ly' module instead, resulting in
+      various error messages.
 
-Dependencies:
-=============
 
-Frescobaldi 2.0 is written in Python (Python 2.7 and Python 3.2+ are supported)
+Dependencies
+============
+
+Frescobaldi 2 is written in Python (Python 2.7 and Python 3.2+ are supported)
 and depends on Qt4.7 and PyQt4.8, and uses the python-poppler-qt4 binding to
 Poppler for the built-in PDF preview.
 
 For MIDI the PortMidi library is used, either via importing 'pypm',
-'pyportmidi._pyportmidi, or, if that is not available, loading the pygame.pypm
+'pyportmidi._pyportmidi', or, if that is not available, loading the pygame.pypm
 module from pygame; or, as a last resort, embedding the PortMidi C-library via
 ctypes. MIDI is optional.
 
@@ -58,28 +60,39 @@ Required:
     python-poppler-qt4:
         https://github.com/wbsoft/python-poppler-qt4
 
-Optional:
+Optional but recommended:
     PortMidi:
         http://portmedia.sourceforge.net/portmidi/
 
-Of course you'll need to install one or more versions of LilyPond!
+Suggested:
+    LilyPond:
+        http://www.lilypond.org/
+
+Python 3.2 (or higher) is recommended above Python 2.7, but Python 2.7 will
+continue to be supported during the full Frescobaldi 2 lifecycle.
+
+Of course, PyQt4, python-poppler-qt4, python-ly, and pypm or pyportmidi need
+to be installed for the same Python version as Frescobaldi itself.
+
+LilyPond is not a dependency of Frescobaldi, but of course you'll need to
+install one or more versions of LilyPond to make sensible use of Frescobaldi!
 
 
-"Freeze" installer:
-===================
+"Freeze" installer
+==================
 
 The freeze.py script can create a self-contained Windows-installer, bundling all
 of Python, PyQt4, popplerqt4 and pypm (from pygame) when used on MS Windows.
 To use the script you need cx_Freeze and Inno Setup.
 
 
-Mac OS X application bundle:
-============================
+Mac OS X application bundle
+===========================
 
 The macosx/mac-app.py script can build an application bundle on Mac OS X.
 To see the usage notes, run:
 
-  python macosx/mac-app.py -h
+    python macosx/mac-app.py -h
 
 The application bundle will be created inside a 'dist' folder in the current
 working directory.
@@ -96,8 +109,12 @@ The script assumes a specific system configuration (for details run the script
 with the '-h' option), but can be easily adapted to other configurations.
 
 
-For Linux distribution packagers:
-=================================
+For Linux distribution packagers
+================================
+
+See the secion Dependencies for the dependencies that need to be installed.
+Be sure that all python packages belong to the same Python version Frescobaldi
+uses.
 
 Frescobaldi contains some files by default which are also available in other
 packages often used in Linux distributions. It is possible to remove those
@@ -114,14 +131,4 @@ You can remove the hyph_*.dic files from frescobaldi_app/hyphdicts, and make
 Frescobaldi depend on a package that installs hyphenation dictionaries in
 /usr/share/hyphen/ (or another dictionary listed by default in frescobaldi_app/
 hyphendialog.py).
-
-
-The ly module:
-==============
-
-Frescobaldi provides a Python module (ly) that can be installed separately,
-without requiring the rest of Frescobaldi. This can be done using the setup.py
-script in the python-ly directory. This folder also contains the command line
-tool "ly" that makes the functionality of the ly module accessible via the
-command line.
 
