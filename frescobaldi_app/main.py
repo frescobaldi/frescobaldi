@@ -112,7 +112,7 @@ def patch_pyqt():
 
     It works around a bug triggered by Unicode characters above 0xFFFF.
     """
-    if sys.version_info >= (3, 0):
+    if sys.version_info >= (3, 3):
         return
 
     old_toLocalFile = QUrl.toLocalFile
