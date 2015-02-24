@@ -118,6 +118,9 @@ def patch_pyqt():
     old_toLocalFile = QUrl.toLocalFile
     QUrl.toLocalFile = lambda url: old_toLocalFile(url).rstrip('\0')
 
+    old_toString = QUrl.toString
+    QUrl.toString = lambda *args: old_toString(*args).rstrip('\0')
+
     old_path = QUrl.path
     QUrl.path = lambda self: old_path(self).rstrip('\0')
 
