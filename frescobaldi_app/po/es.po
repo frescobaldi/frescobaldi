@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-24 13:45+0100\n"
+"POT-Creation-Date: 2015-02-24 21:37+0100\n"
 "PO-Revision-Date: 2013-10-02 11:36+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -889,77 +889,83 @@ msgstr "Pa&reja correspondiente"
 msgid "&Select Matching Pair"
 msgstr "&Seleccionar pareja correspondiente"
 
-#: ../menu.py:93 ../macosx/globalmenu.py:72
+#: ../menu.py:94 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Archivo"
 
-#: ../menu.py:131 ../macosx/globalmenu.py:121
+#: ../menu.py:132 ../macosx/globalmenu.py:121
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importar"
 
-#: ../menu.py:143
+#: ../menu.py:144
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exportar"
 
-#: ../menu.py:155 ../macosx/globalmenu.py:127
+#: ../menu.py:156 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "&Editar"
 
-#: ../menu.py:182
+#: ../menu.py:183
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Vista"
 
-#: ../menu.py:216
+#: ../menu.py:217
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Plegar"
 
-#: ../menu.py:231
+#: ../menu.py:232
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Música"
 
-#: ../menu.py:262
+#: ../menu.py:263
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:285
+#: ../menu.py:286
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Herramien&tas"
 
-#: ../menu.py:312
+#: ../menu.py:314
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Letra"
 
-#: ../menu.py:324
+#: ../menu.py:326
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Altura"
 
-#: ../menu.py:340
+#: ../menu.py:341
+#, fuzzy
+msgctxt "submenu title"
+msgid "Rest"
+msgstr "Reinicio"
+
+#: ../menu.py:353
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "Du&raciones"
 
-#: ../menu.py:365
+#: ../menu.py:378
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "E&liminación rápida"
 
-#: ../menu.py:383 ../macosx/globalmenu.py:134
+#: ../menu.py:396 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Ventana"
 
-#: ../menu.py:403 ../macosx/globalmenu.py:151
+#: ../menu.py:416 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Ay&uda"
@@ -5187,6 +5193,37 @@ msgstr "Neutro"
 #: ../quickinsert/widget.py:109
 msgid "Down"
 msgstr "Abajo"
+
+#: ../rest/__init__.py:65
+msgid "Replace full measure rests with spacer rests"
+msgstr ""
+
+#: ../rest/__init__.py:67
+#, fuzzy
+msgid "Change all R to s in this document or in the selection."
+msgstr "Trnasporta todas las notas del documento o selección."
+
+#: ../rest/__init__.py:70
+msgid "Replace spacer rests with full measure rests"
+msgstr ""
+
+#: ../rest/__init__.py:72
+#, fuzzy
+msgid "Change all s to R in this document or in the selection."
+msgstr ""
+"Cambiar el idioma de LilyPond que se usa para los nombres de las notas en "
+"este documento o en la selección."
+
+#: ../rest/__init__.py:75
+msgid "Replace positioned rests with plain rests"
+msgstr ""
+
+#: ../rest/__init__.py:77
+#, fuzzy
+msgid "Change all \\rest with r in this document or in the selection."
+msgstr ""
+"Cambiar el idioma de LilyPond que se usa para los nombres de las notas en "
+"este documento o en la selección."
 
 #: ../rhythm/__init__.py:154
 msgid "&Double durations"

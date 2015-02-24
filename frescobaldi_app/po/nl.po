@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-24 13:45+0100\n"
-"PO-Revision-Date: 2015-02-20 00:20+0100\n"
+"POT-Creation-Date: 2015-02-24 21:37+0100\n"
+"PO-Revision-Date: 2015-02-24 21:42+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -868,77 +868,82 @@ msgstr "&Bijbehorend item"
 msgid "&Select Matching Pair"
 msgstr "Bijbehorende &items selecteren"
 
-#: ../menu.py:93 ../macosx/globalmenu.py:72
+#: ../menu.py:94 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr "&Bestand"
 
-#: ../menu.py:131 ../macosx/globalmenu.py:121
+#: ../menu.py:132 ../macosx/globalmenu.py:121
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "&Importeren"
 
-#: ../menu.py:143
+#: ../menu.py:144
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "&Exporteren"
 
-#: ../menu.py:155 ../macosx/globalmenu.py:127
+#: ../menu.py:156 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Be&werken"
 
-#: ../menu.py:182
+#: ../menu.py:183
 msgctxt "menu title"
 msgid "&View"
 msgstr "B&eeld"
 
-#: ../menu.py:216
+#: ../menu.py:217
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "Invou&wen"
 
-#: ../menu.py:231
+#: ../menu.py:232
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Muziek"
 
-#: ../menu.py:262
+#: ../menu.py:263
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr "&LilyPond"
 
-#: ../menu.py:285
+#: ../menu.py:286
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "&Gereedschap"
 
-#: ../menu.py:312
+#: ../menu.py:314
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Liedteksten"
 
-#: ../menu.py:324
+#: ../menu.py:326
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Toonhoogte"
 
-#: ../menu.py:340
+#: ../menu.py:341
+msgctxt "submenu title"
+msgid "Rest"
+msgstr "Rusten"
+
+#: ../menu.py:353
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ritme"
 
-#: ../menu.py:365
+#: ../menu.py:378
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Snel verwijderen"
 
-#: ../menu.py:383 ../macosx/globalmenu.py:134
+#: ../menu.py:396 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Venster"
 
-#: ../menu.py:403 ../macosx/globalmenu.py:151
+#: ../menu.py:416 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Help"
@@ -1840,7 +1845,6 @@ msgid "F major (1 flat)"
 msgstr "F majeur (1 mol)"
 
 #: ../midiinput/widget.py:173
-#, fuzzy
 msgid "C major"
 msgstr "C-groot"
 
@@ -2341,7 +2345,7 @@ msgstr "Toonsoort:"
 
 #: ../pitch/dialog.py:109
 msgid "shift pitches"
-msgstr ""
+msgstr "toonhoogte verschuiven"
 
 #: ../pitch/pitch.py:54 ../pitch/pitch.py:69
 msgid "Pitch Name Language"
@@ -5064,6 +5068,31 @@ msgstr "Neutraal"
 msgid "Down"
 msgstr "Onder"
 
+#: ../rest/__init__.py:65
+msgid "Replace full measure rests with spacer rests"
+msgstr "Helemaat-rusten door spacers vervangen"
+
+#: ../rest/__init__.py:67
+msgid "Change all R to s in this document or in the selection."
+msgstr "Alle R in s veranderen in het huidige document of selectie."
+
+#: ../rest/__init__.py:70
+msgid "Replace spacer rests with full measure rests"
+msgstr "Spacer rusten vervangen door helemaat-rusten"
+
+#: ../rest/__init__.py:72
+msgid "Change all s to R in this document or in the selection."
+msgstr "Alle s in R veranderen in het huidige document of de selectie."
+
+#: ../rest/__init__.py:75
+msgid "Replace positioned rests with plain rests"
+msgstr "Gepositioneerde rusten door gewone rusten vervangen"
+
+#: ../rest/__init__.py:77
+msgid "Change all \\rest with r in this document or in the selection."
+msgstr ""
+"Vervang alle \\rest door gewone r in het huidige document of de selectie."
+
 #: ../rhythm/__init__.py:154
 msgid "&Double durations"
 msgstr "Tijdsduur ver&dubbelen"
@@ -7756,6 +7785,10 @@ msgid ""
 "LilyPond import tools (musicxml2ly, midi2ly and abc2ly). For each tool and "
 "dialog see {musicxml}, {midi} and {abc}."
 msgstr ""
+"Via {menu_import}, kunt u een bestand importeren dat compatibel is met de"
+"LilyPond import tools (musicxml2ly, midi2ly en abc2ly). Voor elke tool en "
+"dialoogvenster,"
+"zie {musicxml}, {midi} en {abc}."
 
 #. NOTE: markdown formatting
 #: ../userguide/import_all.md:7
@@ -7765,6 +7798,10 @@ msgid ""
 "will fail. If you get a file type error use the specific importer directly "
 "from the menu.*"
 msgstr ""
+"*Let op: de importeer-tool is gekozen op basis van de bestandsextensie (.xml, "
+".mxl, .midi, .mid of .abc). "
+"Wilt u een bestand met een andere extensie importeren, kies dan zelf de "
+"geschikte tool uit het menu.*"
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:1

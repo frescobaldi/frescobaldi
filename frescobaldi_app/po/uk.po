@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-24 13:45+0100\n"
+"POT-Creation-Date: 2015-02-24 21:37+0100\n"
 "PO-Revision-Date: 2012-04-19 17:21+0300\n"
 "Last-Translator: Dmytro O. Redchuk <brownian.box@gmail.com>\n"
 "Language-Team: Ukrainian\n"
@@ -903,80 +903,85 @@ msgstr "Символ збігу"
 msgid "&Select Matching Pair"
 msgstr ""
 
-#: ../menu.py:93 ../macosx/globalmenu.py:72
+#: ../menu.py:94 ../macosx/globalmenu.py:72
 msgctxt "menu title"
 msgid "&File"
 msgstr "Ф&айл"
 
-#: ../menu.py:131 ../macosx/globalmenu.py:121
+#: ../menu.py:132 ../macosx/globalmenu.py:121
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "Експорт"
 
-#: ../menu.py:143
+#: ../menu.py:144
 msgctxt "submenu title"
 msgid "&Export"
 msgstr "Експорт"
 
-#: ../menu.py:155 ../macosx/globalmenu.py:127
+#: ../menu.py:156 ../macosx/globalmenu.py:127
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "Редаг&ування"
 
-#: ../menu.py:182
+#: ../menu.py:183
 msgctxt "menu title"
 msgid "&View"
 msgstr "&Вигляд"
 
-#: ../menu.py:216
+#: ../menu.py:217
 msgctxt "submenu title"
 msgid "&Folding"
 msgstr "&Згортки"
 
-#: ../menu.py:231
+#: ../menu.py:232
 #, fuzzy
 msgctxt "menu title"
 msgid "&Music"
 msgstr "&Перегляд твору"
 
-#: ../menu.py:262
+#: ../menu.py:263
 msgctxt "menu title"
 msgid "&LilyPond"
 msgstr ""
 
-#: ../menu.py:285
+#: ../menu.py:286
 msgctxt "menu title"
 msgid "&Tools"
 msgstr "Інструм&енти"
 
-#: ../menu.py:312
+#: ../menu.py:314
 msgctxt "submenu title"
 msgid "&Lyrics"
 msgstr "&Вокальний текст"
 
-#: ../menu.py:324
+#: ../menu.py:326
 msgctxt "submenu title"
 msgid "&Pitch"
 msgstr "&Тони"
 
-#: ../menu.py:340
+#: ../menu.py:341
+msgctxt "submenu title"
+msgid "Rest"
+msgstr ""
+
+#: ../menu.py:353
 msgctxt "submenu title"
 msgid "&Rhythm"
 msgstr "&Ритм"
 
-#: ../menu.py:365
+#: ../menu.py:378
 #, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Видалити"
 
-#: ../menu.py:383 ../macosx/globalmenu.py:134
+#: ../menu.py:396 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Вікно"
 
-#: ../menu.py:403 ../macosx/globalmenu.py:151
+#: ../menu.py:416 ../macosx/globalmenu.py:151
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Допомога"
@@ -5087,6 +5092,33 @@ msgstr "Не вказано"
 #: ../quickinsert/widget.py:109
 msgid "Down"
 msgstr "Вниз"
+
+#: ../rest/__init__.py:65
+msgid "Replace full measure rests with spacer rests"
+msgstr ""
+
+#: ../rest/__init__.py:67
+#, fuzzy
+msgid "Change all R to s in this document or in the selection."
+msgstr "Транспонувати всі ноти у документі чи виділенні."
+
+#: ../rest/__init__.py:70
+msgid "Replace spacer rests with full measure rests"
+msgstr ""
+
+#: ../rest/__init__.py:72
+#, fuzzy
+msgid "Change all s to R in this document or in the selection."
+msgstr "Транспонувати всі ноти у документі чи виділенні."
+
+#: ../rest/__init__.py:75
+msgid "Replace positioned rests with plain rests"
+msgstr ""
+
+#: ../rest/__init__.py:77
+#, fuzzy
+msgid "Change all \\rest with r in this document or in the selection."
+msgstr "Транспонувати всі ноти у документі чи виділенні."
 
 #: ../rhythm/__init__.py:154
 msgid "&Double durations"
