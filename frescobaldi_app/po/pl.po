@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-24 21:37+0100\n"
+"POT-Creation-Date: 2015-02-24 23:38+0100\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -591,6 +591,24 @@ msgstr "nazwa pliku"
 #, fuzzy
 msgid "File to be opened"
 msgstr "Brak plików do wysłania"
+
+#: ../main.py:161
+#, fuzzy
+msgid "Can't run Frescobaldi"
+msgstr "O programie Frescobaldi"
+
+#: ../main.py:162
+#, python-brace-format
+msgid ""
+"We are sorry, but Frescobaldi can't run properly.\n"
+"\n"
+"The python-ly package is not available or too old.\n"
+"At least version {version} is required to run Frescobaldi.\n"
+"\n"
+"If you did install python-ly correctly, please remove the old\n"
+"ly package from the frescobaldi_app directory, or completely\n"
+"remove and then reinstall Frescobaldi."
+msgstr ""
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:267 ../externalchanges/widget.py:160
@@ -5184,31 +5202,31 @@ msgstr "Neutralnie"
 msgid "Down"
 msgstr "Na dół"
 
-#: ../rest/__init__.py:65
+#: ../rest/__init__.py:66
 msgid "Replace full measure rests with spacer rests"
 msgstr ""
 
-#: ../rest/__init__.py:67
+#: ../rest/__init__.py:68
 #, fuzzy
 msgid "Change all R to s in this document or in the selection."
 msgstr "Transponuje wszystkie nuty w danym dokumencie, lub jego fragmencie."
 
-#: ../rest/__init__.py:70
+#: ../rest/__init__.py:71
 msgid "Replace spacer rests with full measure rests"
 msgstr ""
 
-#: ../rest/__init__.py:72
+#: ../rest/__init__.py:73
 #, fuzzy
 msgid "Change all s to R in this document or in the selection."
 msgstr ""
 "Zmień języku używany przez LilyPonda dla nazw dźwięków dla tego dokumentu, "
 "lub w danym zaznaczeniu."
 
-#: ../rest/__init__.py:75
+#: ../rest/__init__.py:76
 msgid "Replace positioned rests with plain rests"
 msgstr ""
 
-#: ../rest/__init__.py:77
+#: ../rest/__init__.py:78
 #, fuzzy
 msgid "Change all \\rest with r in this document or in the selection."
 msgstr ""

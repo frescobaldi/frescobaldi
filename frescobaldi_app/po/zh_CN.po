@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-24 21:37+0100\n"
+"POT-Creation-Date: 2015-02-24 23:38+0100\n"
 "PO-Revision-Date: 2014-07-25 22:55+0800\n"
 "Last-Translator: Anthony Fok <foka@debian.org>\n"
 "Language-Team: Chinese (simplified) <18n-zh@googlegroups.com>\n"
@@ -559,6 +559,24 @@ msgstr ""
 
 #: ../main.py:73
 msgid "File to be opened"
+msgstr ""
+
+#: ../main.py:161
+#, fuzzy
+msgid "Can't run Frescobaldi"
+msgstr "关于 Frescobaldi"
+
+#: ../main.py:162
+#, python-brace-format
+msgid ""
+"We are sorry, but Frescobaldi can't run properly.\n"
+"\n"
+"The python-ly package is not available or too old.\n"
+"At least version {version} is required to run Frescobaldi.\n"
+"\n"
+"If you did install python-ly correctly, please remove the old\n"
+"ly package from the frescobaldi_app directory, or completely\n"
+"remove and then reinstall Frescobaldi."
 msgstr ""
 
 #. L10N: state of document in window titlebar
@@ -4882,27 +4900,27 @@ msgstr ""
 msgid "Down"
 msgstr ""
 
-#: ../rest/__init__.py:65
+#: ../rest/__init__.py:66
 msgid "Replace full measure rests with spacer rests"
 msgstr ""
 
-#: ../rest/__init__.py:67
+#: ../rest/__init__.py:68
 msgid "Change all R to s in this document or in the selection."
 msgstr ""
 
-#: ../rest/__init__.py:70
+#: ../rest/__init__.py:71
 msgid "Replace spacer rests with full measure rests"
 msgstr ""
 
-#: ../rest/__init__.py:72
+#: ../rest/__init__.py:73
 msgid "Change all s to R in this document or in the selection."
 msgstr ""
 
-#: ../rest/__init__.py:75
+#: ../rest/__init__.py:76
 msgid "Replace positioned rests with plain rests"
 msgstr ""
 
-#: ../rest/__init__.py:77
+#: ../rest/__init__.py:78
 msgid "Change all \\rest with r in this document or in the selection."
 msgstr ""
 

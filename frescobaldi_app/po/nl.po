@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-24 21:37+0100\n"
-"PO-Revision-Date: 2015-02-24 21:42+0100\n"
+"POT-Creation-Date: 2015-02-24 23:38+0100\n"
+"PO-Revision-Date: 2015-02-24 23:47+0100\n"
 "Last-Translator: Wilbert Berendsen <info@wilbertberendsen.nl>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -567,6 +567,31 @@ msgstr "bestand"
 #: ../main.py:73
 msgid "File to be opened"
 msgstr "Te openen bestand"
+
+#: ../main.py:161
+msgid "Can't run Frescobaldi"
+msgstr "Kan Frescobaldi niet starten"
+
+#: ../main.py:162
+#, python-brace-format
+msgid ""
+"We are sorry, but Frescobaldi can't run properly.\n"
+"\n"
+"The python-ly package is not available or too old.\n"
+"At least version {version} is required to run Frescobaldi.\n"
+"\n"
+"If you did install python-ly correctly, please remove the old\n"
+"ly package from the frescobaldi_app directory, or completely\n"
+"remove and then reinstall Frescobaldi."
+msgstr ""
+"Frescobaldi kan helaas niet starten.\n"
+"\n"
+"Het pakket python-ly is niet geïnstalleerd of te oud.\n"
+"Tenminste versie {version} is vereist om Frescobaldi te kunnen starten.\n"
+"\n"
+"Als u python-ly geïnstalleerd hebt, zorg er dan voor dat de oude\n"
+"ly module uit de frescobaldi_app directory wordt verwijderd,\n"
+"of verwijder Frescobaldi volledig en installeer het opnieuw."
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:267 ../externalchanges/widget.py:160
@@ -5068,27 +5093,27 @@ msgstr "Neutraal"
 msgid "Down"
 msgstr "Onder"
 
-#: ../rest/__init__.py:65
+#: ../rest/__init__.py:66
 msgid "Replace full measure rests with spacer rests"
 msgstr "Helemaat-rusten door spacers vervangen"
 
-#: ../rest/__init__.py:67
+#: ../rest/__init__.py:68
 msgid "Change all R to s in this document or in the selection."
 msgstr "Alle R in s veranderen in het huidige document of selectie."
 
-#: ../rest/__init__.py:70
+#: ../rest/__init__.py:71
 msgid "Replace spacer rests with full measure rests"
 msgstr "Spacer rusten vervangen door helemaat-rusten"
 
-#: ../rest/__init__.py:72
+#: ../rest/__init__.py:73
 msgid "Change all s to R in this document or in the selection."
 msgstr "Alle s in R veranderen in het huidige document of de selectie."
 
-#: ../rest/__init__.py:75
+#: ../rest/__init__.py:76
 msgid "Replace positioned rests with plain rests"
 msgstr "Gepositioneerde rusten door gewone rusten vervangen"
 
-#: ../rest/__init__.py:77
+#: ../rest/__init__.py:78
 msgid "Change all \\rest with r in this document or in the selection."
 msgstr ""
 "Vervang alle \\rest door gewone r in het huidige document of de selectie."
@@ -7785,10 +7810,9 @@ msgid ""
 "LilyPond import tools (musicxml2ly, midi2ly and abc2ly). For each tool and "
 "dialog see {musicxml}, {midi} and {abc}."
 msgstr ""
-"Via {menu_import}, kunt u een bestand importeren dat compatibel is met de"
-"LilyPond import tools (musicxml2ly, midi2ly en abc2ly). Voor elke tool en "
-"dialoogvenster,"
-"zie {musicxml}, {midi} en {abc}."
+"Via {menu_import}, kunt u een bestand importeren dat compatibel is met "
+"deLilyPond import tools (musicxml2ly, midi2ly en abc2ly). Voor elke tool en "
+"dialoogvenster,zie {musicxml}, {midi} en {abc}."
 
 #. NOTE: markdown formatting
 #: ../userguide/import_all.md:7
@@ -7798,10 +7822,9 @@ msgid ""
 "will fail. If you get a file type error use the specific importer directly "
 "from the menu.*"
 msgstr ""
-"*Let op: de importeer-tool is gekozen op basis van de bestandsextensie (.xml, "
-".mxl, .midi, .mid of .abc). "
-"Wilt u een bestand met een andere extensie importeren, kies dan zelf de "
-"geschikte tool uit het menu.*"
+"*Let op: de importeer-tool is gekozen op basis van de bestandsextensie (."
+"xml, .mxl, .midi, .mid of .abc). Wilt u een bestand met een andere extensie "
+"importeren, kies dan zelf de geschikte tool uit het menu.*"
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:1
@@ -8168,20 +8191,22 @@ msgid "Mode shift"
 msgstr "Toonsoort verschuiven"
 
 #: ../userguide/mode_shift.md:3
-#, fuzzy
 msgid ""
 "Use the mode shifter to change all or selected notes to a specified mode or "
 "scale. Any note that is divergent will be adjusted to fit inside the given "
 "mode/scale."
 msgstr ""
 "Gebruik de toonsoort-verschuiver om alle of de geselecteerde noten naar een "
-"bepaalde toonsoort of toonladder te verschuiven."
+"bepaalde toonsoort of toonladder te verschuiven. Een noot die afwijkt wordt "
+"aangepast om binnen de toonsoort of modus te passen."
 
 #: ../userguide/mode_shift.md:6
 msgid ""
 "In the dialog enter the key (root/tonic pitch) as a note name in your "
 "preferred language. And choose the mode/scale in the dropdown list."
 msgstr ""
+"Voer in the dialoog de toonsoort (grondtoon) in als een nootnaam in uw "
+"gebruikte taal. En kies de modus in de uitklaplijst."
 
 #. NOTE: markdown formatting
 #: ../userguide/mode_shift.md:9
@@ -8199,6 +8224,9 @@ msgid ""
 "*Note also that when using modes with less than seven scale steps (e. g. "
 "hexatonic and pentatonic modes) the mode shift can lead to double notes.*"
 msgstr ""
+"*Let op: als u een modus gebruikt met minder dan zeven stappen (bijvoorbeeld "
+"hexatonische of pentatonische modi) kan het verschuiven van modus leiden tot "
+"dubbele noten.*"
 
 #: ../userguide/toc.md:1
 msgid "Table of Contents"
@@ -9459,9 +9487,8 @@ msgstr ""
 
 #: ../userguide/musicxml_import.md:31 ../userguide/abc_import.md:24
 #: ../userguide/midi_import.md:21
-#, fuzzy
 msgid "You can also change the LilyPond version to use."
-msgstr "De te gebruiken LilyPond-versies"
+msgstr "U kunt ook de te gebruiken LilyPond-versie aanpassen."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:33
@@ -10804,13 +10831,12 @@ msgstr "ABC Importeren"
 
 #. NOTE: markdown formatting
 #: ../userguide/abc_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import an abc file using the command line tool "
 "`abc2ly` from the LilyPond package."
 msgstr ""
-"Via {menu_import} kunt u een MusicXML-bestand importeren met behulp van het "
-"gereedschap `musicxml2ly` uit het LilyPond pakket."
+"Via {menu_import} kunt u een ABC-bestand importeren met behulp van het "
+"gereedschap `abc2ly` uit het LilyPond pakket."
 
 #: ../userguide/abc_import.md:6
 msgid ""
@@ -10818,30 +10844,32 @@ msgid ""
 "in plain text. It was designed primarily for folk and traditional tunes of "
 "Western European origin."
 msgstr ""
+"ABC is een notatiestandaard net als LilyPond bedacht om muziek in platte "
+"tekst weer te kunnen geven. Het is voornamelijk ontworpen voor folk muziek en "
+"traditionele West-Europese melodieën."
 
 #: ../userguide/abc_import.md:10
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the abc2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
 "In deze dialoog zijn twee tabs. In de eerste kunt u enige parameters voor de "
-"musicxml2ly-import instellen. In de tweede kunnen acties worden aangegeven "
+"abc2ly-import instellen. In de tweede kunnen acties worden aangegeven "
 "om te doen met de geïmporteerde LilyPond-tekst."
 
 #: ../userguide/abc_import.md:16
-#, fuzzy
 msgid "The abc2ly tab"
-msgstr "De musicxml2ly-tab"
+msgstr "De abc2ly-tab"
 
 #: ../userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the abc notation."
 msgstr ""
+"Deze optie kan worden gebruikt om de waardestrepen uit de ABC-notatie over te "
+"nemen."
 
 #. NOTE: markdown formatting
 #: ../userguide/abc_import.md:26
-#, fuzzy
 msgid ""
 "At the bottom you have a text area that mimics the command line text used to "
 "run `abc2ly`. If you are familiar with command line tools in general and "
@@ -10849,63 +10877,55 @@ msgid ""
 "ignore this."
 msgstr ""
 "Onderaan is een tekstvak dat de commandoregel laat zien waarmee "
-"`musicxml2ly` wordt gestart. U kunt deze tekst rechtstreeks aanpassen als u "
+"`abc2ly` wordt gestart. U kunt deze tekst rechtstreeks aanpassen als u "
 "wilt."
 
 #. NOTE: markdown formatting
 #: ../userguide/abc_import.md:34
-#, fuzzy
 msgid ""
 "After `abc2ly` is run and the new ly-file is created you can set Frescobaldi "
 "to automatically do some adjustments on the new file."
 msgstr ""
-"Nadat `musicxml2ly` heeft gedraaid en het nieuwe ly-bestand is aangemaakt "
+"Nadat `abc2ly` heeft gedraaid en het nieuwe ly-bestand is aangemaakt "
 "kan Frescobaldi nog enige aanpassingen aan het bestand doen."
 
 #: ../userguide/midi_import.md:1
-#, fuzzy
 msgid "Import Midi"
-msgstr "MusicXML importeren"
+msgstr "Midi importeren"
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import a Midi file using the command line tool "
 "`midi2ly` from the LilyPond package."
 msgstr ""
-"Via {menu_import} kunt u een MusicXML-bestand importeren met behulp van het "
-"gereedschap `musicxml2ly` uit het LilyPond pakket."
+"Via {menu_import} kunt u een Midi-bestand importeren met behulp van het "
+"gereedschap `midi2ly` uit het LilyPond pakket."
 
 #: ../userguide/midi_import.md:6
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the midi2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
 "In deze dialoog zijn twee tabs. In de eerste kunt u enige parameters voor de "
-"musicxml2ly-import instellen. In de tweede kunnen acties worden aangegeven "
+"midi2ly-import instellen. In de tweede kunnen acties worden aangegeven "
 "om te doen met de geïmporteerde LilyPond-tekst."
 
 #: ../userguide/midi_import.md:12
-#, fuzzy
 msgid "The midi2ly tab"
-msgstr "De musicxml2ly-tab"
+msgstr "De midi2ly-tab"
 
 #: ../userguide/midi_import.md:18
-#, fuzzy
 msgid ""
 "This option can be used if you prefer to have the source code in absolute "
 "mode."
 msgstr ""
-"De volgende twee opties kunnen worden gebruikt als u de muzieknoten absoluut "
-"wilt in plaats van relatief, of als u een andere taal voor nootnamen wilt "
-"gebruiken dan de standaardtaal."
+"Deze optie kan worden gebruikt als u de muzieknoten absoluut "
+"wilt in plaats van relatief."
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:23
-#, fuzzy
 msgid ""
 "At the bottom you have a text area that mimics the command line text used to "
 "run `midi2ly`. If you are familiar with command line tools in general and "
@@ -10913,17 +10933,16 @@ msgid ""
 "just ignore this."
 msgstr ""
 "Onderaan is een tekstvak dat de commandoregel laat zien waarmee "
-"`musicxml2ly` wordt gestart. U kunt deze tekst rechtstreeks aanpassen als u "
+"`midi2ly` wordt gestart. U kunt deze tekst rechtstreeks aanpassen als u "
 "wilt."
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:31
-#, fuzzy
 msgid ""
 "After `midi2ly` is run and the new ly-file is created you can set "
 "Frescobaldi to automatically do some adjustments on the new file."
 msgstr ""
-"Nadat `musicxml2ly` heeft gedraaid en het nieuwe ly-bestand is aangemaakt "
+"Nadat `midi2ly` heeft gedraaid en het nieuwe ly-bestand is aangemaakt "
 "kan Frescobaldi nog enige aanpassingen aan het bestand doen."
 
 #~ msgid "no key"
@@ -13442,9 +13461,6 @@ msgstr ""
 
 #~ msgid "Add..."
 #~ msgstr "Toevoegen..."
-
-#~ msgid "Frescobaldi"
-#~ msgstr "Frescobaldi"
 
 #~ msgid "LilyPond Music Editor"
 #~ msgstr "Muziek-editor voor LilyPond"

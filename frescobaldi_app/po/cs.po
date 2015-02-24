@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2015-02-24 21:37+0100\n"
+"POT-Creation-Date: 2015-02-24 23:38+0100\n"
 "PO-Revision-Date: 2013-11-08 16:31+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -583,6 +583,24 @@ msgstr "Souborový název"
 #, fuzzy
 msgid "File to be opened"
 msgstr "Soubor k zahrnutí"
+
+#: ../main.py:161
+#, fuzzy
+msgid "Can't run Frescobaldi"
+msgstr "O Frescobaldi"
+
+#: ../main.py:162
+#, python-brace-format
+msgid ""
+"We are sorry, but Frescobaldi can't run properly.\n"
+"\n"
+"The python-ly package is not available or too old.\n"
+"At least version {version} is required to run Frescobaldi.\n"
+"\n"
+"If you did install python-ly correctly, please remove the old\n"
+"ly package from the frescobaldi_app directory, or completely\n"
+"remove and then reinstall Frescobaldi."
+msgstr ""
 
 #. L10N: state of document in window titlebar
 #: ../mainwindow.py:267 ../externalchanges/widget.py:160
@@ -5219,31 +5237,31 @@ msgstr "Neutrální"
 msgid "Down"
 msgstr "Dolů"
 
-#: ../rest/__init__.py:65
+#: ../rest/__init__.py:66
 msgid "Replace full measure rests with spacer rests"
 msgstr ""
 
-#: ../rest/__init__.py:67
+#: ../rest/__init__.py:68
 #, fuzzy
 msgid "Change all R to s in this document or in the selection."
 msgstr "Převede všechny noty v dokumentu nebo ve výběru."
 
-#: ../rest/__init__.py:70
+#: ../rest/__init__.py:71
 msgid "Replace spacer rests with full measure rests"
 msgstr ""
 
-#: ../rest/__init__.py:72
+#: ../rest/__init__.py:73
 #, fuzzy
 msgid "Change all s to R in this document or in the selection."
 msgstr ""
 "Změnit jazyk LilyPondu, který se používá pro názvy výšek tónů v tomto "
 "dokumentu nebo ve výběru."
 
-#: ../rest/__init__.py:75
+#: ../rest/__init__.py:76
 msgid "Replace positioned rests with plain rests"
 msgstr ""
 
-#: ../rest/__init__.py:77
+#: ../rest/__init__.py:78
 #, fuzzy
 msgid "Change all \\rest with r in this document or in the selection."
 msgstr ""
