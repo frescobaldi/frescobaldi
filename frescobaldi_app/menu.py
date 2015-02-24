@@ -38,6 +38,7 @@ import documentactions
 import documentmenu
 import sessions.menu
 import pitch
+import rest
 import rhythm
 import lyrics
 import panelmanager
@@ -295,6 +296,7 @@ def menu_tools(mainwindow):
     m.addAction(ac.popup_completions)
     m.addSeparator()
     m.addMenu(menu_tools_pitch(mainwindow))
+    m.addMenu(menu_tools_rest(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))
     m.addMenu(menu_tools_lyrics(mainwindow))
     m.addMenu(menu_tools_quick_remove(mainwindow))
@@ -333,6 +335,17 @@ def menu_tools_pitch(mainwindow):
     m.addAction(ac.pitch_transpose)
     m.addAction(ac.pitch_modal_transpose)
     m.addAction(ac.pitch_mode_shift)
+    return m
+
+def menu_tools_rest(mainwindow):
+    m = Menu(_('submenu title', "Rest"), mainwindow)
+    m.setIcon(icons.get('tools-rest'))
+    ac = rest.Rest.instance(mainwindow).actionCollection
+    
+    m.addAction(ac.rest_fmrest2spacer)
+    m.addAction(ac.rest_spacer2fmrest)
+    m.addSeparator()
+    m.addAction(ac.rest_restcomm2rest)
     return m
 
 
