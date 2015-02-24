@@ -29,8 +29,6 @@ import actioncollection
 import actioncollectionmanager
 import plugin
 
-from . import rest
-
 
 class Rest(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
@@ -41,14 +39,17 @@ class Rest(plugin.MainWindowPlugin):
         ac.rest_restcomm2rest.triggered.connect(self.restcomm2rest)
     
     def fmrest2spacer(self):
+        from . import rest
         cursor = self.mainwindow().textCursor()
         rest.fmrest2spacer(cursor)
     
     def spacer2fmrest(self):
+        from . import rest
         cursor = self.mainwindow().textCursor()
         rest.spacer2fmrest(cursor)
     
     def restcomm2rest(self):
+        from . import rest
         cursor = self.mainwindow().textCursor()
         rest.restcomm2rest(cursor)
 
