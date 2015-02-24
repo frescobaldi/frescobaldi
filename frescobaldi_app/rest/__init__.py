@@ -74,6 +74,6 @@ class Actions(actioncollection.ActionCollection):
         self.rest_restcomm2rest.setText(_(
             "Replace positioned rests with plain rests"))
         self.rest_restcomm2rest.setToolTip(_(
-            "Change all \rest with r "
+            "Change all \\rest with r "
             "in this document or in the selection."))
         
