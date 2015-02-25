@@ -41,7 +41,7 @@ package_data = {
 }
 
 if sys.platform.startswith('win'):
-    scripts.append('frescobaldi-wininst.py')
+    scripts.append('windows/frescobaldi-wininst.py')
     data_files = []
 else:
     data_files = [

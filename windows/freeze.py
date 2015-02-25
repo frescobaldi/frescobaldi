@@ -28,6 +28,9 @@ import subprocess
 import sys
 from cx_Freeze import Executable, Freezer
 
+# access the frescobaldi_app package
+sys.path.insert(0, '..')
+
 # access meta-information such as version, etc.
 from frescobaldi_app import appinfo
 
@@ -82,8 +85,8 @@ excludes = [
 shutil.rmtree(target_dir, ignore_errors = True)
 
 frescobaldi = Executable(
-    'frescobaldi',
-    icon = 'frescobaldi_app/icons/frescobaldi.ico',
+    '../frescobaldi',
+    icon = '../frescobaldi_app/icons/frescobaldi.ico',
     appendScriptToExe = True,
     base = 'Win32GUI', # no console
 )
@@ -116,8 +119,10 @@ copy_plugins('imageformats')
 copy_plugins('iconengines')
 
 # copy the frescobaldi_app directory
-subprocess.call([sys.executable, 'setup.py', 'build_py',
-                 '--build-lib', target_dir, '--compile'])
+subprocess.call(
+    [sys.executable, 'setup.py', 'build_py',
+     '--build-lib', os.path.join('windows', target_dir), '--compile'],
+    cwd="..")
 
 # make an Inno Setup installer
 inno_script = b'''
@@ -136,10 +141,10 @@ Compression=lzma2
 SolidCompression=yes
 
 SourceDir={target}\\
-OutputDir=..\\dist\\
+OutputDir=..\\..\\dist\\
 OutputBaseFilename="Frescobaldi Setup {version}"
 SetupIconFile=frescobaldi_app\\icons\\frescobaldi.ico
-LicenseFile=..\\COPYING
+LicenseFile=..\\..\\COPYING
 WizardImageFile=..\\frescobaldi-wininst.bmp
 WizardImageStretch=no
 
