@@ -76,6 +76,9 @@ excludes = [
     
 ]
 
+# be sure the target dir is removed
+shutil.rmtree(target_dir, ignore_errors = True)
+
 frescobaldi = Executable(
     'frescobaldi',
     icon = 'frescobaldi_app/icons/frescobaldi.ico',
