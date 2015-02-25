@@ -44,7 +44,6 @@ includes = [
     'PyQt4.QtXml',
     'popplerqt4',
     'pypm',
-    'ly',
     
     '__future__',
     'argparse',
@@ -71,9 +70,12 @@ includes = [
     'xml.etree.ElementTree',
 ]
 
+packages = [
+    'ly',
+]
+
 excludes = [
     'frescobaldi_app',  # we'll add this one manually
-    
 ]
 
 # be sure the target dir is removed
@@ -89,6 +91,7 @@ frescobaldi = Executable(
 f = Freezer(
     [frescobaldi],
     includes = includes,
+    packages = packages,
     excludes = excludes,
     targetDir = target_dir,
     copyDependentFiles = True,
