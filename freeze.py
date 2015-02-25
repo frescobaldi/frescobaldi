@@ -144,7 +144,7 @@ WizardImageFile=..\\frescobaldi-wininst.bmp
 WizardImageStretch=no
 
 [InstallDelete]
-Type: filesandordirs; Name: "{{app}}\\frescobaldi_app\\ly"
+Type: filesandordirs; Name: "{{app}}\\frescobaldi_app"
 
 [Files]
 Source: "*.*"; DestDir: "{{app}}"; Flags: recursesubdirs;
