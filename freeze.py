@@ -140,6 +140,9 @@ LicenseFile=..\\COPYING
 WizardImageFile=..\\frescobaldi-wininst.bmp
 WizardImageStretch=no
 
+[InstallDelete]
+Type: filesandordirs; Name: "{{app}}\\frescobaldi_app\\ly"
+
 [Files]
 Source: "*.*"; DestDir: "{{app}}"; Flags: recursesubdirs;
 
