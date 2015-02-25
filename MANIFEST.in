@@ -3,7 +3,6 @@ include frescobaldi.desktop
 include frescobaldi.1
 include frescobaldi.png
 include *.py
-include frescobaldi-wininst.bmp
 recursive-include frescobaldi_app README*
 recursive-include frescobaldi_app *.png *.svg *.ico index.theme
 recursive-include frescobaldi_app *.ly *.ily Makefile
@@ -12,4 +11,5 @@ recursive-include frescobaldi_app *.dic
 recursive-include frescobaldi_app *.js
 recursive-include frescobaldi_app *.md
 recursive-include macosx *.svg *.icns *.py *.strings *.sh *.png *.json *.diff
+recursive-include windows *.bmp *.py
 global-exclude *~
