@@ -54,6 +54,8 @@ Changes in 2.18 -- March 7th, 2015
   - the transpose functions will not transpose the chord after \stringTuning
     anymore (issue #539).
   - fix error when opening a "recent file" that has been deleted (issue #597)
+  - Quick Insert articulations etc. now also work with q (repeated) chords
+    (issue #628, fixed in python-ly)
 * Translations:
   - updated: nl, fr, ru
 
