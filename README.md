@@ -20,7 +20,8 @@ Features:
 - Built-in LilyPond documentation browser and built-in help
 - Configurable document outline view to navigate large LilyPond scores easily
 - Smart layout-control functions like coloring specific objects in the PDF
-- MusicXML import
+- Import ABC, Midi and MusicXML using the LilyPond-provided tools
+- Experimental export to MusicXML
 - Modern user interface with configurable colors, fonts and keyboard shortcuts
 - Translated into: Dutch, English, French, German, Italian, Czech, Russian,
   Spanish, Galician, Turkish, Polish, Brazilian and Ukrainian.
