@@ -165,7 +165,8 @@ class Folder(QObject):
                             if self.fold_level(n).start:
                                 continue
                     n = n.next()
-                self.document().markContentsDirty(block.next().position(), n.position())
+                start = block.next().position()
+                self.document().markContentsDirty(start, n.position() - start)
         self._timer.start(250 + self.document().blockCount())
     
     def invalidate_depth_cache(self, block):
@@ -239,8 +240,9 @@ class Folder(QObject):
         if show_blocks:
             for block in show_blocks:
                 block.setVisible(True)
-            self.document().markContentsDirty(
-                min(show_blocks).position(), max(show_blocks).position())
+            start = min(show_blocks).position()
+            end = max(show_blocks).position()
+            self.document().markContentsDirty(start, end - start)
     
     def document(self):
         """Return our document."""
@@ -365,7 +367,8 @@ class Folder(QObject):
         for block in cursortools.forwards(r.start.next(), end):
             block.setVisible(False)
         self.mark(r.start, True)
-        self.document().markContentsDirty(r.start.next().position(), end.position())
+        start = r.start.next().position()
+        self.document().markContentsDirty(start, end.position() - start)
         self._all_visible = False
 
     def unfold(self, block, depth=0, full=False):
@@ -403,7 +406,8 @@ class Folder(QObject):
                             count += sum(l)
             block.setVisible(True)
         self.mark(r.start, False)
-        self.document().markContentsDirty(r.start.position(), r.end.position())
+        start = r.start.position()
+        self.document().markContentsDirty(start, r.end.position() - start)
         
     def fold_toplevel(self):
         """Folds all toplevel regions, without touching inner regions."""
@@ -434,7 +438,7 @@ class Folder(QObject):
                     first = block
                 last = block
         if first:
-            self.document().markContentsDirty(first.position(), last.position())
+            self.document().markContentsDirty(first.position(), last.position() - first.position())
         # no need to check consistency
         self._all_visible = True
         self._timer.isActive() and self._timer.stop()
