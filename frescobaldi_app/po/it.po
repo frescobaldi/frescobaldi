@@ -5,14 +5,14 @@
 #
 # .billyBoh <billyboh@gmail.com>, 2011, 2012.
 # Gianluca D'Orazio <gianluca.dorazio@gmail.com>, 2008, 2009, 2010, 2011, 2013, 2014.
-# Federico Bruni <fede@inventati.org>, 2014.
+# Federico Bruni <fede@inventati.org>, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 2.0.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2015-02-24 23:38+0100\n"
-"PO-Revision-Date: 2014-12-23 10:15+0100\n"
+"PO-Revision-Date: 2015-03-01 11:02+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -106,7 +106,7 @@ msgstr "Tutti i file"
 
 #: ../bookmarkmanager.py:112
 msgid "&Mark Current Line"
-msgstr "&Contrassegna la riga attuale"
+msgstr "Contrassegna la riga att&uale"
 
 #: ../bookmarkmanager.py:113
 msgid "Clear &Error Marks"
@@ -279,7 +279,7 @@ msgstr "&Evidenzia sintassi"
 
 #: ../documentactions.py:186
 msgid "View File or Definition at &Cursor"
-msgstr "Visualizza file o definizione al &cursore"
+msgstr "Visualizza file o defini&zione al cursore"
 
 #: ../documentactions.py:187
 msgid "&Automatic Indent"
@@ -332,11 +332,11 @@ msgstr "&Salva"
 
 #: ../documentcontextmenu.py:70 ../mainwindow.py:1148
 msgid "Save &As..."
-msgstr "&Salva come..."
+msgstr "Sal&va come..."
 
 #: ../documentcontextmenu.py:71 ../mainwindow.py:1158
 msgid "&Close"
-msgstr "&Chiudi"
+msgstr "C&hiudi"
 
 #: ../documentcontextmenu.py:72 ../mainwindow.py:1159
 msgid "Close Other Documents"
@@ -374,12 +374,11 @@ msgstr "È possibile descrivere sotto quel che si stava facendo:"
 
 #: ../externalcommand.py:57
 msgid "Please wait until the command finishes"
-msgstr ""
+msgstr "Attendere che il comando finisca"
 
 #: ../externalcommand.py:66
-#, fuzzy
 msgid "Command completed"
-msgstr "Apri riga di comando"
+msgstr "Comando completato"
 
 #: ../globalfontdialog.py:64
 msgid "Global Fonts"
@@ -733,7 +732,7 @@ msgstr "Salva tutto"
 
 #: ../mainwindow.py:1151
 msgid "Re&load"
-msgstr "Ri&carica"
+msgstr "&Ricarica"
 
 #: ../mainwindow.py:1152 ../externalchanges/widget.py:109
 msgid "Reload All"
@@ -765,7 +764,7 @@ msgstr "Chiude tutti i documenti ed esce dalla sessione corrente."
 
 #: ../mainwindow.py:1162 ../macosx/globalmenu.py:83
 msgid "&Quit"
-msgstr "&Esci"
+msgstr "Es&ci"
 
 #: ../mainwindow.py:1163
 #, python-brace-format
@@ -782,7 +781,7 @@ msgstr "&Annulla"
 
 #: ../mainwindow.py:1168
 msgid "Re&do"
-msgstr "Ri&peti"
+msgstr "&Ripeti"
 
 #: ../mainwindow.py:1169
 msgid "Cu&t"
@@ -822,7 +821,7 @@ msgstr "Seleziona tutte le righe seguenti"
 
 #: ../mainwindow.py:1178
 msgid "&Find..."
-msgstr "&Trova..."
+msgstr "Tro&va..."
 
 #: ../mainwindow.py:1179
 msgid "Find Ne&xt"
@@ -830,11 +829,11 @@ msgstr "Trova &successivo"
 
 #: ../mainwindow.py:1180
 msgid "Find Pre&vious"
-msgstr "Trova pre&cedente"
+msgstr "Trova prece&dente"
 
 #: ../mainwindow.py:1181
 msgid "&Replace..."
-msgstr "&Sostituisci..."
+msgstr "S&ostituisci..."
 
 #: ../mainwindow.py:1182 ../macosx/globalmenu.py:129
 msgid "Pr&eferences..."
@@ -866,7 +865,7 @@ msgstr "Nuova &finestra"
 
 #: ../mainwindow.py:1191
 msgid "&Fullscreen"
-msgstr "&Schermo intero"
+msgstr "Schermo &intero"
 
 #: ../mainwindow.py:1193
 msgid "&User Guide"
@@ -936,7 +935,7 @@ msgstr "&LilyPond"
 #: ../menu.py:286
 msgctxt "menu title"
 msgid "&Tools"
-msgstr "&Strumenti"
+msgstr "S&trumenti"
 
 #: ../menu.py:314
 msgctxt "submenu title"
@@ -949,10 +948,9 @@ msgid "&Pitch"
 msgstr "&Note"
 
 #: ../menu.py:341
-#, fuzzy
 msgctxt "submenu title"
 msgid "Rest"
-msgstr "Riavvolgi"
+msgstr "Pausa"
 
 #: ../menu.py:353
 msgctxt "submenu title"
@@ -967,7 +965,7 @@ msgstr "Rimozione &veloce"
 #: ../menu.py:396 ../macosx/globalmenu.py:134
 msgctxt "menu title"
 msgid "&Window"
-msgstr "&Finestra"
+msgstr "Fi&nestra"
 
 #: ../menu.py:416 ../macosx/globalmenu.py:151
 msgctxt "menu title"
@@ -1062,11 +1060,11 @@ msgstr "Chiudi gli &altri riquadri"
 
 #: ../viewmanager.py:451
 msgid "&Next View"
-msgstr "&Riquadro successivo"
+msgstr "Riquadro &successivo"
 
 #: ../viewmanager.py:452
 msgid "&Previous View"
-msgstr "&Riquadro precedente"
+msgstr "Riquadro &precedente"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
@@ -1339,7 +1337,7 @@ msgstr "Elenco dei tipi di carattere rilevati da {version}"
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
-msgstr "&File prodotti"
+msgstr "Fil&e prodotti"
 
 #: ../engrave/result_menu.py:67
 msgid "No files available"
@@ -1471,7 +1469,7 @@ msgstr ""
 
 #: ../file_export/__init__.py:84
 msgid "The audio file couldn't be created. Please create midi file first"
-msgstr ""
+msgstr "Impossibile creare il file audio. Occorre creare prima il file Midi."
 
 #: ../file_export/__init__.py:89
 msgctxt "dialog title"
@@ -1500,33 +1498,29 @@ msgstr "Esporta in vari formati audio."
 
 #: ../file_import/__init__.py:52
 msgid "All importable formats"
-msgstr ""
+msgstr "Tutti i formati importabili"
 
 #: ../file_import/__init__.py:53 ../file_import/__init__.py:95
-#, fuzzy
 msgid "MusicXML Files"
-msgstr "File XML"
+msgstr "File MusicXML"
 
 #: ../file_import/__init__.py:54 ../file_import/__init__.py:116
-#, fuzzy
 msgid "Midi Files"
-msgstr "Documenti modificati"
+msgstr "File Midi"
 
 #: ../file_import/__init__.py:55 ../file_import/__init__.py:137
-#, fuzzy
 msgid "ABC Files"
-msgstr "Tutti i file"
+msgstr "File ABC"
 
 #: ../file_import/__init__.py:58
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import"
-msgstr "&Importa"
+msgstr "Importa"
 
 #: ../file_import/__init__.py:68
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "The file {filename} could not be converted. Wrong file type."
-msgstr "Impossibile convertire il file. Messaggio di errore:\n"
+msgstr "Impossibile convertire il file {filename}. Tipo di file errato."
 
 #: ../file_import/__init__.py:96
 msgctxt "dialog title"
@@ -1534,29 +1528,28 @@ msgid "Import a MusicXML file"
 msgstr "Importa un file MusicXML"
 
 #: ../file_import/__init__.py:117
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import a midi file"
-msgstr "Importa un file MusicXML"
+msgstr "Importa un file Midi"
 
 #: ../file_import/__init__.py:138
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import an abc file"
-msgstr "Importa un file MusicXML"
+msgstr "Importa un file ABC"
 
 #: ../file_import/__init__.py:170
 msgid "The file couldn't be converted. Error message:\n"
 msgstr "Impossibile convertire il file. Messaggio di errore:\n"
 
 #: ../file_import/__init__.py:223
-#, fuzzy
 msgid "Import..."
-msgstr "&Importa..."
+msgstr "Importa..."
 
 #: ../file_import/__init__.py:224
 msgid "Generic import for all LilyPond tools."
 msgstr ""
+"Sistema di importazione comune a tutti gli script di conversione inclusi in "
+"LilyPond."
 
 #: ../file_import/__init__.py:225 ../macosx/globalmenu.py:122
 msgid "Import MusicXML..."
@@ -1567,24 +1560,20 @@ msgid "Import a MusicXML file using musicxml2ly."
 msgstr "Importa un file MusicXML usando musicxml2ly."
 
 #: ../file_import/__init__.py:227
-#, fuzzy
 msgid "Import Midi..."
-msgstr "Importa MusicXML..."
+msgstr "Importa Midi..."
 
 #: ../file_import/__init__.py:228
-#, fuzzy
 msgid "Import a Midi file using midi2ly."
-msgstr "Importa un file MusicXML usando musicxml2ly."
+msgstr "Importa un file Midi usando midi2ly."
 
 #: ../file_import/__init__.py:229
-#, fuzzy
 msgid "Import abc..."
-msgstr "&Importa..."
+msgstr "Importa ABC..."
 
 #: ../file_import/__init__.py:230
-#, fuzzy
 msgid "Import an abc file using abc2ly."
-msgstr "Importa un file MusicXML usando musicxml2ly."
+msgstr "Importa un file ABC usando abc2ly."
 
 #: ../file_import/abc.py:66 ../file_import/musicxml.py:103
 #: ../userguide/musicxml_import.md:19 ../userguide/abc_import.md:20
@@ -1592,9 +1581,8 @@ msgid "Import beaming"
 msgstr "Importa la disposizione delle travature"
 
 #: ../file_import/abc.py:68
-#, fuzzy
 msgid "Run abc2ly"
-msgstr "Esegui musicxml2ly"
+msgstr "Esegui abc2ly"
 
 #: ../file_import/midi.py:63 ../file_import/musicxml.py:104
 #: ../userguide/musicxml_import.md:20 ../userguide/midi_import.md:16
@@ -1602,9 +1590,8 @@ msgid "Pitches in absolute mode"
 msgstr "Note in modalità assoluta"
 
 #: ../file_import/midi.py:65
-#, fuzzy
 msgid "Run midi2ly"
-msgstr "Esegui musicxml2ly"
+msgstr "Esegui midi2ly"
 
 #: ../file_import/musicxml.py:99 ../userguide/musicxml_import.md:1
 msgid "Import Music XML"
@@ -1643,7 +1630,6 @@ msgid "Run musicxml2ly"
 msgstr "Esegui musicxml2ly"
 
 #: ../file_import/toly_dialog.py:118
-#, fuzzy
 msgid "LilyPond version:"
 msgstr "Versione di LilyPond:"
 
@@ -1814,7 +1800,7 @@ msgstr "Nuovo da &modello"
 #: ../macosx/globalmenu.py:140 ../sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
-msgstr "&Sessione"
+msgstr "S&essione"
 
 #: ../midiinput/tool.py:29
 msgid "MIDI Input"
@@ -1885,9 +1871,8 @@ msgid "F major (1 flat)"
 msgstr "Fa bemolle maggiore (1 bemolle)"
 
 #: ../midiinput/widget.py:173
-#, fuzzy
 msgid "C major"
-msgstr "Maggiore"
+msgstr "Do maggiore"
 
 #: ../midiinput/widget.py:174
 msgid "G major (1 sharp)"
@@ -1992,7 +1977,7 @@ msgstr "MIDI"
 
 #: ../miditool/__init__.py:52
 msgid "MIDI &Player"
-msgstr "&Lettore MIDI"
+msgstr "Lettore &MIDI"
 
 #: ../miditool/__init__.py:97
 msgctxt "midi player"
@@ -2058,7 +2043,7 @@ msgstr "Anteprima &spartito"
 
 #: ../musicview/__init__.py:191
 msgid "Print Music"
-msgstr "&Stampa la musica"
+msgstr "S&tampa la musica"
 
 #: ../musicview/__init__.py:192
 msgid ""
@@ -2098,7 +2083,7 @@ msgstr "&Diminuisci zoom"
 
 #: ../musicview/__init__.py:342 ../svgview/__init__.py:88
 msgid "Original &Size"
-msgstr "&Dimensione originale"
+msgstr "Dimensione &originale"
 
 #: ../musicview/__init__.py:343
 msgid "Zoom Music"
@@ -2110,24 +2095,23 @@ msgstr "Adatta alla &larghezza"
 
 #: ../musicview/__init__.py:345
 msgid "Fit &Height"
-msgstr "Adatta all'&altezza"
+msgstr "Adatta all'alte&zza"
 
 #: ../musicview/__init__.py:346
 msgid "Fit &Page"
 msgstr "Adatta alla &pagina"
 
 #: ../musicview/__init__.py:347
-#, fuzzy
 msgid "Single Pages"
-msgstr "Stanghetta semplice"
+msgstr "Pagine singole"
 
 #: ../musicview/__init__.py:348
 msgid "Two Pages (first page right)"
-msgstr ""
+msgstr "Due pagine (prima pagina a destra)"
 
 #: ../musicview/__init__.py:349
 msgid "Two Pages (first page left)"
-msgstr ""
+msgstr "Due pagine (prima pagina a sinistra)"
 
 #: ../musicview/__init__.py:350
 msgid "&Maximize"
@@ -2309,7 +2293,7 @@ msgstr "Struttura"
 
 #: ../outline/__init__.py:41
 msgid "&Outline"
-msgstr "&Struttura"
+msgstr "Str&uttura"
 
 #: ../pitch/__init__.py:121
 msgid "Pitch Name &Language"
@@ -2366,30 +2350,28 @@ msgstr ""
 
 #: ../pitch/__init__.py:139
 msgid "Mode shift..."
-msgstr ""
+msgstr "Cambio di modo..."
 
 #: ../pitch/__init__.py:141
-#, fuzzy
 msgid "Transforms all notes in the document or selection to an optional mode."
 msgstr ""
-"Traspone tutte le note nel documento o nella selezione in una certa modalità."
+"Trasforma tutte le note nel documento o nella selezione in un modo a scelta."
 
 #: ../pitch/dialog.py:106
-#, fuzzy
 msgid "Mode Shift"
-msgstr "Maiusc"
+msgstr "Cambio di modo"
 
 #: ../pitch/dialog.py:107
 msgid "Key:"
-msgstr ""
+msgstr "Tonalità:"
 
 #: ../pitch/dialog.py:108
 msgid "Mode:"
-msgstr ""
+msgstr "Modo:"
 
 #: ../pitch/dialog.py:109
 msgid "shift pitches"
-msgstr ""
+msgstr "cambia altezze"
 
 #: ../pitch/pitch.py:54 ../pitch/pitch.py:69
 msgid "Pitch Name Language"
@@ -2503,7 +2485,7 @@ msgstr "Chiudi"
 #: ../po/messages.py:39
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
-msgstr "Chiudi senza salvare"
+msgstr "&Chiudi senza salvare"
 
 #: ../po/messages.py:40
 msgctxt "QDialogButtonBox"
@@ -3652,30 +3634,28 @@ msgstr ""
 "già disponibile."
 
 #: ../preferences/editor.py:343
-#, fuzzy
 msgid "Typographical Quotes"
-msgstr "Virgolette tipografiche singole"
+msgstr "Virgolette tipografiche"
 
 #: ../preferences/editor.py:344
 msgid "Quotes to use:"
-msgstr ""
+msgstr "Virgolette da usare:"
 
 #: ../preferences/editor.py:345
 msgid "Primary (double) quotes:"
-msgstr ""
+msgstr "Virgolette primarie (doppie):"
 
 #: ../preferences/editor.py:346
 msgid "Secondary (single) quotes:"
-msgstr ""
+msgstr "Virgolette secondarie (singole):"
 
 #: ../preferences/editor.py:350
-#, fuzzy
 msgid "Current language"
-msgstr "Riga attuale"
+msgstr "Linguaggio attuale"
 
 #: ../preferences/editor.py:351
 msgid "Custom quotes (enter below)"
-msgstr ""
+msgstr "Virgolette personalizzate (inserire sotto)"
 
 #: ../preferences/fontscolors.py:132
 msgid "Use this scheme for printing"
@@ -4100,17 +4080,19 @@ msgstr "Crea un documento da un modello:"
 
 #: ../preferences/general.py:335 ../userguide/experimental_features.md:1
 msgid "Experimental Features"
-msgstr ""
+msgstr "Funzionalità sperimentali"
 
 #: ../preferences/general.py:336
 msgid "Enable Experimental Features"
-msgstr ""
+msgstr "Abilita le funzionalità sperimentali"
 
 #: ../preferences/general.py:338
 msgid ""
 "If checked, features that are not yet finished are enabled.\n"
 "You need to restart Frescobaldi to see the changes."
 msgstr ""
+"Se vistato, vengono abilitate le funzionalità non ancora completate.\n"
+"È necessario riavviare Frescobaldi per vedere i cambiamenti."
 
 #: ../preferences/helpers.py:73
 msgid "PDF:"
@@ -4287,15 +4269,15 @@ msgstr "LilyPond-book:"
 
 #: ../preferences/lilypond.py:258
 msgid "Midi2ly:"
-msgstr ""
+msgstr "Midi2ly:"
 
 #: ../preferences/lilypond.py:259
 msgid "MusicXML2ly:"
-msgstr ""
+msgstr "MusicXML2ly:"
 
 #: ../preferences/lilypond.py:260
 msgid "ABC2ly:"
-msgstr ""
+msgstr "ABC2ly:"
 
 #: ../preferences/lilypond.py:264
 msgid "Label:"
@@ -4318,14 +4300,12 @@ msgid "Include in automatic version selection"
 msgstr "Abilita per la selezione automatica della versione"
 
 #: ../preferences/lilypond.py:269
-#, fuzzy
 msgid "General"
-msgstr "&File prodotti"
+msgstr "Generale"
 
 #: ../preferences/lilypond.py:270
-#, fuzzy
 msgid "Tool Commands"
-msgstr "Comando"
+msgstr "Comandi"
 
 #: ../preferences/lilypond.py:319
 msgid "Running LilyPond"
@@ -5118,34 +5098,27 @@ msgstr "Sotto"
 
 #: ../rest/__init__.py:66
 msgid "Replace full measure rests with spacer rests"
-msgstr ""
+msgstr "Sostituisci le pause d'intero con pause spaziatrici"
 
 #: ../rest/__init__.py:68
-#, fuzzy
 msgid "Change all R to s in this document or in the selection."
-msgstr "Traspone tutte le note nel documento o nella selezione."
+msgstr "Trasforma in s tutte le R in questo documento o nella selezione."
 
 #: ../rest/__init__.py:71
 msgid "Replace spacer rests with full measure rests"
-msgstr ""
+msgstr "Sostituisci tutte le pause spaziatrici con pause d'intero"
 
 #: ../rest/__init__.py:73
-#, fuzzy
 msgid "Change all s to R in this document or in the selection."
-msgstr ""
-"Cambia la lingua usata da LilyPond per i nomi delle note nel documento o "
-"nella selezione."
+msgstr "Trasforma in R tutte le s in questo documento o nella selezione."
 
 #: ../rest/__init__.py:76
 msgid "Replace positioned rests with plain rests"
-msgstr ""
+msgstr "Sostituisci le pause posizionate con pause semplici"
 
 #: ../rest/__init__.py:78
-#, fuzzy
 msgid "Change all \\rest with r in this document or in the selection."
-msgstr ""
-"Cambia la lingua usata da LilyPond per i nomi delle note nel documento o "
-"nella selezione."
+msgstr "Trasforma in r tutti i \\rest nel documento o nella selezione."
 
 #: ../rhythm/__init__.py:154
 msgid "&Double durations"
@@ -6902,7 +6875,7 @@ msgstr "Nessuna sessione"
 
 #: ../sidebar/__init__.py:245
 msgid "&Line Numbers"
-msgstr "Numero di &riga"
+msgstr "Numero di ri&ga"
 
 #: ../sidebar/__init__.py:246
 msgid "&Enable Folding"
@@ -7199,10 +7172,9 @@ msgid "Snippet error"
 msgstr "Errore del frammento"
 
 #: ../snippet/menu.py:118
-#, fuzzy
 msgctxt "menu title"
 msgid "Sn&ippets"
-msgstr "Frammenti"
+msgstr "F&rammenti"
 
 #: ../snippet/model.py:59
 msgid "Name"
@@ -7280,12 +7252,11 @@ msgstr "Copia come &frammento..."
 
 #: ../snippet/tool.py:104
 msgid "Manage Templates..."
-msgstr "Gestisci modelli..."
+msgstr "Gestisci i modelli..."
 
 #: ../snippet/tool.py:105
-#, fuzzy
 msgid "Manage &Snippets..."
-msgstr "&Frammenti..."
+msgstr "Gestisci i &frammenti..."
 
 #: ../snippet/widget.py:186 ../widgets/schemeselector.py:92
 msgid "&Menu"
@@ -7450,12 +7421,10 @@ msgid "See also:"
 msgstr "Vedi anche:"
 
 #: ../vcs/__init__.py:54
-#, fuzzy
 msgid "Git not found"
-msgstr "Non trovato"
+msgstr "Git non trovato"
 
 #: ../vcs/__init__.py:55
-#, fuzzy
 msgid ""
 "Frescobaldi is run from within a Git repository, but Git does not appear to "
 "be working. Git support will be disabled. If you have Git installed, you can "
@@ -7464,10 +7433,12 @@ msgid ""
 "Error message:\n"
 "\n"
 msgstr ""
-"Frescobaldi è eseguito da un repository Git ma Git non è installato. "
-"Frescobaldi viene lanciato senza supporto a Git, ma è meglio se verifichi la "
-"tua configurazione. Se in realtà Git è installato, imposta il percorso ai "
-"suoi eseguibili nelle Preferenze."
+"Frescobaldi è eseguito da un repository Git, ma Git non sembra funzionare e "
+"il supporto a Git sarà quindi disabilitato. Se in realtà Git è installato, "
+"imposta il percorso ai suoi eseguibili nelle Preferenze.\n"
+"\n"
+"Messaggio di errore:\n"
+"\n"
 
 #: ../vcs/gitrepo.py:43
 #, python-brace-format
@@ -7625,34 +7596,45 @@ msgid ""
 "those features, knowing their limitations, you can select the option *Enable "
 "Experimental Features*, in the {prefs_general}."
 msgstr ""
+"Alcune funzionalità di Frescobaldi restano in fase di sviluppo per un po' di "
+"tempo prima che si possano considerare pronte per l'uso generale. Per "
+"avvantaggiarsi di tali funzionalità, conoscendone le limitazioni, si può "
+"selezionare l'opzione *Abilita le funzionalità sperimentali* nelle "
+"{prefs_general}."
 
 #: ../userguide/experimental_features.md:8
 msgid ""
 "In most cases you need to restart Frescobaldi or create a new window (via "
 "{menu_window_new}) to see the new menu options."
 msgstr ""
+"Nella maggior parte dei casi occorre riavviare Frescobaldi o lanciare una "
+"nuova finestra (attraverso {menu_window_new}) per vedere le nuove opzioni "
+"nel menu."
 
 #: ../userguide/experimental_features.md:11
 msgid "This is the list of experimental features in Frescobaldi:"
-msgstr ""
+msgstr "Ecco la lista delle funzionalità sperimentali di Frescobaldi:"
 
 #: ../userguide/experimental_features.md:13
 msgid "{export_audio} Export audio (converts MIDI to WAV)"
-msgstr ""
+msgstr "{export_audio} Esporta l'audio (converte il MIDI in WAV)"
 
 #: ../userguide/experimental_features.md:14
 msgid ""
 "{export_musicxml} Convert LilyPond source to MusicXML (without using "
 "LilyPond)"
 msgstr ""
+"{export_musicxml} Converte il sorgente LilyPond in MusicXML (senza usare "
+"LilyPond)"
 
 #: ../userguide/experimental_features.md:15
 msgid "{object_editor} Edit properties of objects in LilyPond output"
 msgstr ""
+"{object_editor} Modifica le proprietà degli oggetti nell'output di LilyPond"
 
 #: ../userguide/experimental_features.md:16
 msgid "Editing items in the SVG view"
-msgstr ""
+msgstr "Modifica degli elementi nell'anteprima SVG"
 
 #: ../userguide/modal_transpose.md:1
 msgid "Modal transpose"
@@ -7663,22 +7645,21 @@ msgid ""
 "Use the modal transpose if you want the notes to be kept within a given "
 "scale or key."
 msgstr ""
+"La trasposizione modale si usa quando si vogliono tenere le note in una "
+"certa scala o tonalità."
 
 #: ../userguide/modal_transpose.md:5
-#, fuzzy
 msgid ""
 "Enter the number of steps you want to transpose followed by the given scale."
-msgstr ""
-"Inserire il numero di gradi di cui alterare, seguito da un'armatura di "
-"chiave. (per esempio \"5 F\")"
+msgstr "Inserire il numero di gradi di cui alterare, seguito dalla scala."
 
 #: ../userguide/modal_transpose.md:7
-#, fuzzy
 msgid ""
 "E.g. when transposing a major second upwards in the key of C major, you "
 "would enter:"
 msgstr ""
-"Per esempio, quando si traspone in alto di una terza minore, si inserisce:"
+"Per esempio, quando si traspone in alto di una seconda maggiore, si "
+"inserisce:"
 
 #. NOTE: markdown formatting
 #: ../userguide/modal_transpose.md:13
@@ -7688,6 +7669,11 @@ msgid ""
 "you can't use this functionality to shift between different keys. Use the "
 "{modeshift} function instead.*"
 msgstr ""
+"*Attenzione: se alcune delle altezze di partenza si trovano fuori dalla "
+"tonalità scelta, il rapporto viene mantenuto e le altezze non verranno "
+"modificate sulla base della tonalità. Dunque non si può usare questa "
+"funzionalità per passare tra tonalità diverse; in questo caso si usa invece "
+"la funzione {modeshift}.*"
 
 #: ../userguide/prefs_tools.md:3
 msgid "Here you can change the settings for various tools."
@@ -7825,7 +7811,7 @@ msgstr ""
 
 #: ../userguide/import_all.md:1
 msgid "(Generic) Import"
-msgstr ""
+msgstr "Importazione (generica)"
 
 #: ../userguide/import_all.md:3
 msgid ""
@@ -7833,6 +7819,10 @@ msgid ""
 "LilyPond import tools (musicxml2ly, midi2ly and abc2ly). For each tool and "
 "dialog see {musicxml}, {midi} and {abc}."
 msgstr ""
+"Tramite il {menu_import}, si può importare qualsiasi file che sia "
+"compatibile con gli strumenti di importazione inclusi in LilyPond "
+"(musicxml2ly, midi2ly and abc2ly). Per conoscere ciascuno strumento e le sue "
+"opzioni vedere {musicxml}, {midi} e {abc}."
 
 #. NOTE: markdown formatting
 #: ../userguide/import_all.md:7
@@ -7842,6 +7832,10 @@ msgid ""
 "will fail. If you get a file type error use the specific importer directly "
 "from the menu.*"
 msgstr ""
+"*Attenzione: lo strumento di importazione da usare è determinato "
+"dall'estensione del file (.xml, .mxl, .midi, .mid o .abc), senza il quale "
+"l'importazione non funzionerà. Se si ottiene un errore di tipo di file, "
+"usare lo strumento di importazione direttamente dal menu.*"
 
 #. NOTE: markdown formatting
 #: ../userguide/var_output.md:1
@@ -8203,7 +8197,7 @@ msgstr ""
 
 #: ../userguide/mode_shift.md:1
 msgid "Mode shift"
-msgstr ""
+msgstr "Cambio di modo"
 
 #: ../userguide/mode_shift.md:3
 msgid ""
@@ -8211,12 +8205,18 @@ msgid ""
 "scale. Any note that is divergent will be adjusted to fit inside the given "
 "mode/scale."
 msgstr ""
+"Usa il cambio di modo per cambiare tutte le note del documento o solo quelle "
+"selezionate in un certo modo o scala. Le note divergenti saranno modificate "
+"per concordare col modo/scala scelti."
 
 #: ../userguide/mode_shift.md:6
 msgid ""
 "In the dialog enter the key (root/tonic pitch) as a note name in your "
 "preferred language. And choose the mode/scale in the dropdown list."
 msgstr ""
+"Nella finestra di dialogo inserire la tonalità (la tonica) come nome della "
+"nota nella lingua preferita e scegliere il modo o scala nell'elenco a "
+"comparsa."
 
 #. NOTE: markdown formatting
 #: ../userguide/mode_shift.md:9
@@ -8224,6 +8224,9 @@ msgid ""
 "*Note that unlike the modal transposer all pitches will be shifted to the "
 "chosen scale regardless of which mode they possibly belonged to originally.*"
 msgstr ""
+"*Attenzione: diversamente dalla trasposizione modale, tutte le altezze "
+"saranno modificate secondo la scala scelta senza tener conto del modo al "
+"quale potevano appartenere originariamente.*"
 
 #. NOTE: markdown formatting
 #: ../userguide/mode_shift.md:12
@@ -8231,6 +8234,9 @@ msgid ""
 "*Note also that when using modes with less than seven scale steps (e. g. "
 "hexatonic and pentatonic modes) the mode shift can lead to double notes.*"
 msgstr ""
+"*Si noti anche che quando si usano modi che hanno meno di sette gradi della "
+"scala (per esempio i modi esatonico e pentatonico) il cambio di modo può "
+"produrre note doppie.*"
 
 #: ../userguide/toc.md:1
 msgid "Table of Contents"
@@ -8354,24 +8360,20 @@ msgid "which will then, repetitively, be applied to a selection of notes."
 msgstr "che verranno applicate ripetutamente a una selezione di note."
 
 #: ../userguide/musicxml_export.md:1
-#, fuzzy
 msgid "Export Music XML"
-msgstr "Importa Music XML"
+msgstr "Esporta Music XML"
 
 #: ../userguide/musicxml_export.md:3
 msgid "Convert LilyPond source to MusicXML (without using LilyPond)."
-msgstr ""
+msgstr "Converte il sorgente LilyPond in MusicXML (senza usare LilyPond)."
 
 #: ../userguide/musicxml_export.md:5
-#, fuzzy
 msgid "You can use the MusicXML-file to export to other applications."
-msgstr ""
-"Frescobaldi può rilevare se i file vengono modificati o eliminati da altri "
-"programmi."
+msgstr "Il file MusicXML permette di esportare verso altre applicazioni."
 
 #: ../userguide/musicxml_export.md:7
 msgid "This feature is currently experimental, see {experimental}."
-msgstr ""
+msgstr "Questa funzionalità è attualmente sperimentale, vedi {experimental}."
 
 #: ../userguide/prefs_fontscolors.md:3
 msgid ""
@@ -8708,6 +8710,9 @@ msgid ""
 "that are in development and are not yet considered complete. See "
 "{experimental}."
 msgstr ""
+"Sotto *Funzionalità sperimentali* è possibile scegliere se abilitare "
+"funzionalità ancora in fase di sviluppo e ritenute non ancora complete. Vedi "
+"{experimental}."
 
 #: ../userguide/git.md:1
 msgid "Git"
@@ -9503,9 +9508,8 @@ msgstr ""
 
 #: ../userguide/musicxml_import.md:31 ../userguide/abc_import.md:24
 #: ../userguide/midi_import.md:21
-#, fuzzy
 msgid "You can also change the LilyPond version to use."
-msgstr "Versioni di LilyPond da usare"
+msgstr "Si può anche cambiare la versione di LilyPond da usare."
 
 #. NOTE: markdown formatting
 #: ../userguide/musicxml_import.md:33
@@ -9910,18 +9914,13 @@ msgid "Modal Transpose"
 msgstr "Trasposizione modale"
 
 #: ../userguide/credits.md:18
-#, fuzzy
 msgid "Quick Insert buttons for grace notes"
-msgstr ""
-"Pulsanti di inserimento veloce per abbellimenti e per l'importazione e "
-"l'esportazione in formato MusicXML"
+msgstr "Pulsanti di inserimento veloce per abbellimenti"
 
 #: ../userguide/credits.md:18
-#, fuzzy
 msgid "MusicXML, Midi and Abc im- and export"
 msgstr ""
-"Pulsanti di inserimento veloce per abbellimenti e per l'importazione e "
-"l'esportazione in formato MusicXML"
+"Pulsanti per l'importazione e l'esportazione in formato MusicXML, Midi e Abc"
 
 #: ../userguide/credits.md:22
 msgid "Kinetic Scrolling for the Music View"
@@ -9933,22 +9932,19 @@ msgstr "Formula Homebrew per Mac OS X"
 
 #: ../userguide/credits.md:28
 msgid "Mac OS X packaging"
-msgstr ""
+msgstr "Pacchetto Mac OS X"
 
 #: ../userguide/credits.md:28
-#, fuzzy
 msgid "various other improvements"
-msgstr "Pacchetto Mac OS X e vari altri miglioramenti"
+msgstr "vari altri miglioramenti"
 
 #: ../userguide/credits.md:32
-#, fuzzy
 msgid "Layout control modes"
 msgstr "Modalità di controllo della formattazione"
 
 #: ../userguide/credits.md:32
-#, fuzzy
 msgid "various other contributions"
-msgstr "Modi di controllo della formattazione e vari altri contributi"
+msgstr "vari altri contributi"
 
 #: ../userguide/credits.md:36
 msgid "Improved highlighting and auto-completion of Scheme code"
@@ -9963,13 +9959,12 @@ msgid "Finding lots of bugs"
 msgstr "Trovare molti bug"
 
 #: ../userguide/credits.md:45
-#, fuzzy
 msgid "Many code and feature improvements"
-msgstr "Pacchetto Mac OS X e vari altri miglioramenti"
+msgstr "Molti miglioramenti nel codice e in nuove funzionalità"
 
 #: ../userguide/credits.md:45
 msgid "work on proper Python 3 support"
-msgstr ""
+msgstr "lavoro per un completo supporto a Python 3"
 
 #: ../userguide/credits.md:49
 msgid "Relative mode for MIDI capturing"
@@ -10900,19 +10895,17 @@ msgstr ""
 "{yes}."
 
 #: ../userguide/abc_import.md:1
-#, fuzzy
 msgid "Import ABC"
-msgstr "&Importa"
+msgstr "Importa ABC"
 
 #. NOTE: markdown formatting
 #: ../userguide/abc_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import an abc file using the command line tool "
 "`abc2ly` from the LilyPond package."
 msgstr ""
-"Usando {menu_import}, è possibile importare un file Music XML usando lo "
-"strumento a linea di comando `musicxml2ly` incluso in LilyPond."
+"Usando {menu_import}, è possibile importare un file abc usando lo strumento "
+"a linea di comando `abc2ly` incluso in LilyPond."
 
 #: ../userguide/abc_import.md:6
 msgid ""
@@ -10920,31 +10913,32 @@ msgid ""
 "in plain text. It was designed primarily for folk and traditional tunes of "
 "Western European origin."
 msgstr ""
+"Abc è uno standard della notazione musicale che, come LilyPond, è progettato "
+"per rappresentare la musica in testo semplice. Fu ideato principalmente per "
+"le canzoni folk e tradizionali dell'Europa occidentale."
 
 #: ../userguide/abc_import.md:10
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the abc2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
 "In questa finestra ci sono due schede. Nella prima si possono impostare "
-"alcuni parametri per l'importazione con musicxml2ly. Nella seconda si "
-"possono impostare alcune azioni relative al codice di input LilyPond "
-"importato."
+"alcuni parametri per l'importazione con abc2ly. Nella seconda si possono "
+"impostare alcune azioni relative al codice di input LilyPond importato."
 
 #: ../userguide/abc_import.md:16
-#, fuzzy
 msgid "The abc2ly tab"
-msgstr "La scheda musicxml2ly"
+msgstr "La scheda abc2ly"
 
 #: ../userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the abc notation."
 msgstr ""
+"Si può usare questa opzione per mantenere la disposizione delle travature "
+"della notazione abc."
 
 #. NOTE: markdown formatting
 #: ../userguide/abc_import.md:26
-#, fuzzy
 msgid ""
 "At the bottom you have a text area that mimics the command line text used to "
 "run `abc2ly`. If you are familiar with command line tools in general and "
@@ -10952,67 +10946,57 @@ msgid ""
 "ignore this."
 msgstr ""
 "In fondo c'è un riquadro che riproduce il comando usato per eseguire "
-"`musicxml2ly` secondo le impostazioni scelte. Se si ha confidenza con gli "
-"strumenti a linea di comando in generale e con musicxml2ly in particolare, "
-"si può modificare il comando direttamente, altrimenti si può semplicemente "
-"ignorare."
+"`abc2ly` secondo le impostazioni scelte. Se si ha confidenza con gli "
+"strumenti a linea di comando in generale e con abc2ly in particolare, si può "
+"modificare il comando direttamente, altrimenti si può semplicemente ignorare."
 
 #. NOTE: markdown formatting
 #: ../userguide/abc_import.md:34
-#, fuzzy
 msgid ""
 "After `abc2ly` is run and the new ly-file is created you can set Frescobaldi "
 "to automatically do some adjustments on the new file."
 msgstr ""
-"Dopo l'esecuzione di `musicxml2ly` e la creazione del nuovo file .ly, è "
-"possibile far sì che Frescobaldi esegua automaticamente alcuni aggiustamenti "
-"al nuovo file."
+"Dopo l'esecuzione di `abc2ly` e la creazione del nuovo file .ly, è possibile "
+"far sì che Frescobaldi esegua automaticamente alcuni aggiustamenti al nuovo "
+"file."
 
 #: ../userguide/midi_import.md:1
-#, fuzzy
 msgid "Import Midi"
-msgstr "Importa Music XML"
+msgstr "Importa Midi"
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:3
-#, fuzzy
 msgid ""
 "Using {menu_import}, you can import a Midi file using the command line tool "
 "`midi2ly` from the LilyPond package."
 msgstr ""
-"Usando {menu_import}, è possibile importare un file Music XML usando lo "
-"strumento a linea di comando `musicxml2ly` incluso in LilyPond."
+"Dal {menu_import}, è possibile importare un file Midi usando lo strumento a "
+"linea di comando `midi2ly` incluso in LilyPond."
 
 #: ../userguide/midi_import.md:6
-#, fuzzy
 msgid ""
 "In this dialog there are two tabs. In the first you can set some parameters "
 "for the midi2ly import. In the second you can set some actions on the "
 "imported LilyPond source code."
 msgstr ""
 "In questa finestra ci sono due schede. Nella prima si possono impostare "
-"alcuni parametri per l'importazione con musicxml2ly. Nella seconda si "
-"possono impostare alcune azioni relative al codice di input LilyPond "
-"importato."
+"alcuni parametri per l'importazione con midi2ly. Nella seconda si possono "
+"impostare alcune azioni relative al codice di input LilyPond importato."
 
 #: ../userguide/midi_import.md:12
-#, fuzzy
 msgid "The midi2ly tab"
-msgstr "La scheda musicxml2ly"
+msgstr "La scheda midi2ly"
 
 #: ../userguide/midi_import.md:18
-#, fuzzy
 msgid ""
 "This option can be used if you prefer to have the source code in absolute "
 "mode."
 msgstr ""
-"Le due opzioni successive possono essere usate se si preferisce avere il "
-"codice di input in modalità assoluta o un linguaggio del nome delle note "
-"diverso da quello predefinito."
+"Questa opzione può essere utile se si preferisce avere il codice di input in "
+"modalità assoluta."
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:23
-#, fuzzy
 msgid ""
 "At the bottom you have a text area that mimics the command line text used to "
 "run `midi2ly`. If you are familiar with command line tools in general and "
@@ -11020,19 +11004,18 @@ msgid ""
 "just ignore this."
 msgstr ""
 "In fondo c'è un riquadro che riproduce il comando usato per eseguire "
-"`musicxml2ly` secondo le impostazioni scelte. Se si ha confidenza con gli "
+"`midi2ly` secondo le impostazioni scelte. Se si ha confidenza con gli "
 "strumenti a linea di comando in generale e con musicxml2ly in particolare, "
 "si può modificare il comando direttamente, altrimenti si può semplicemente "
 "ignorare."
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:31
-#, fuzzy
 msgid ""
 "After `midi2ly` is run and the new ly-file is created you can set "
 "Frescobaldi to automatically do some adjustments on the new file."
 msgstr ""
-"Dopo l'esecuzione di `musicxml2ly` e la creazione del nuovo file .ly, è "
+"Dopo l'esecuzione di `midi2ly` e la creazione del nuovo file .ly, è "
 "possibile far sì che Frescobaldi esegua automaticamente alcuni aggiustamenti "
 "al nuovo file."
 

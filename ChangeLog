@@ -57,7 +57,7 @@ Changes in 2.18 -- March 7th, 2015
   - Quick Insert articulations etc. now also work with q (repeated) chords
     (issue #628, fixed in python-ly)
 * Translations:
-  - updated: nl, fr, ru
+  - updated: nl, fr, ru, it
 
 
 Changes in 2.17.2 -- January 17th, 2015
