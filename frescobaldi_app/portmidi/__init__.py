@@ -175,7 +175,7 @@ class Input(object):
         elif r == pypm.FALSE:
             return False
         else:
-            raise MidiException(pypm.GetErrorText(r))
+            raise MidiException(pypm.GetErrorText(r).decode('utf-8'))
 
 
 class Output(object):
