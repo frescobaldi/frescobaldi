@@ -150,7 +150,7 @@ class Input(object):
         if self._open and GetDeviceInfo(self.device_id)[4]:
             err = libpm.Pm_Close(self._midi_stream)
             _check_error(err)
-            self._opened = False
+            self._open = False
         
     __del__ = Close
 
