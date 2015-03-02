@@ -80,7 +80,7 @@ __all__ = [
 ]
 
 pypm = None
-_initalized = None
+_initialized = None
 
 
 
@@ -98,10 +98,10 @@ def init():
     It is safe to call this more than once.
     
     """
-    global _initalized
-    if _setup() and not _initalized:
+    global _initialized
+    if _setup() and not _initialized:
         pypm.Initialize()
-        _initalized = True
+        _initialized = True
 
 def quit():
     """Terminates the PortMIDI library.
@@ -110,10 +110,10 @@ def quit():
     On application exit this is also called.
     
     """
-    global _initalized
-    if pypm and _initalized:
+    global _initialized
+    if pypm and _initialized:
         pypm.Terminate()
-        _initalized = False
+        _initialized = False
 
 def get_count():
     """Returns the number if available MIDI devices."""
@@ -255,7 +255,7 @@ def _check_channel(channel):
         raise ValueError("invalid channel number (must be 0..15)")
 
 def _check_initialized():
-    if not _initalized:
+    if not _initialized:
         raise RuntimeError("PortMIDI not initialized.")
 
 def _setup():
