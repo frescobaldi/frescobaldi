@@ -46,6 +46,7 @@ class Pager(QObject):
         self._currentPage = 0
         self._pageCount = 0
         self._blockLevel = 0
+        self._pageNumSet = False
         self._updateTimer = QTimer(
             singleShot=True, interval=100, timeout=self._updatePageNumber)
         
@@ -64,6 +65,7 @@ class Pager(QObject):
     def setCurrentPage(self, num):
         """Shows the specified page number."""
         changed, self._currentPage = self._currentPage != num, num
+        self._pageNumSet = True
         self.blockListening(True)
         self.view().gotoPageNumber(num - 1)
         self.blockListening(False)
@@ -105,7 +107,10 @@ class Pager(QObject):
             self._blockLevel -= 1
         
         if self._blockLevel == 0:
-            self._updatePageNumber()
+            if self._pageNumSet:
+                self._pageNumSet = False
+            else:
+                self._updatePageNumber()
 
     def eventFilter(self, obj, ev):
         if (self._blockLevel == 0 and
