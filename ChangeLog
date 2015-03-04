@@ -14,9 +14,9 @@ Changes in 2.18 -- March 7th, 2015
     remnants from the old 'ly' package are removed, with a command like:
         rm -r /usr/local/<python site-packagesdir>/frescobaldi_app/ly
     Otherwise, Frescobaldi won't find the new ly module and will fail to run.
-  - Python 3.2 and higher are supported and recommended! But Python 2.7 is still
-    supported, and will continue to be, during the whole Frescobaldi 2.x
-    lifecycle.
+    Python-ly version 0.9 is required for Frescobaldi 2.18.
+  - Python 3.2 (or higher) is supported and recommended! But Python 2.7 will
+    continue to be supported during the full Frescobaldi 2 lifecycle.
 * New features:
   - Midi import, using the LilyPond-provided midi2ly tool
   - ABC import, using the LilyPond-provided abc2ly tool

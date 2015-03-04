@@ -53,10 +53,10 @@ Required:
         http://qt.nokia.com/
     PyQt4 (>= 4.8.3):
         http://www.riverbankcomputing.co.uk/software/pyqt/
+    python-ly (>= 0.9):
+        https://pypi.python.org/pypi/python-ly
     Poppler:
         http://poppler.freedesktop.org/
-    python-ly:
-        https://github.com/wbsoft/python-ly
     python-poppler-qt4:
         https://github.com/wbsoft/python-poppler-qt4
 
