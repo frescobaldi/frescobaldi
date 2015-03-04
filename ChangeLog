@@ -4,16 +4,19 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18 -- March 7th, 2015
 
-* Note about installing and for packagers/distributors:
-  - the ly module that used to be in frescobaldi_app is now a separate package.
+* Important notes about installing and for packagers/distributors:
+  - Frescobaldi is now dependent on the package 'python-ly'. This package
+    needs to be installed so that Frescobaldi can run.
     It is listed among the dependencies in the INSTALL file and it can be found
-    at https://github.com/wbsoft/python-ly and should be installed so that
-    Frescobaldi can run.  
-    When overwriting previous Frescobaldi installations, be sure that any
-    remnants from the old ly package are removed, with a command like:
+    at https://pypi.python.org/pypi/python-ly.
+    Previously, this python package was contained in the frescobaldi_app folder.
+    So, when overwriting previous Frescobaldi installations, be sure that any
+    remnants from the old 'ly' package are removed, with a command like:
         rm -r /usr/local/<python site-packagesdir>/frescobaldi_app/ly
-    Otherwise, Frescobaldi won't find the new ly module.
-  - Frescobaldi now supports Python 3.2 and higher. Also 2.7 is still supported.
+    Otherwise, Frescobaldi won't find the new ly module and will fail to run.
+  - Python 3.2 and higher are supported and recommended! But Python 2.7 is still
+    supported, and will continue to be, during the whole Frescobaldi 2.x
+    lifecycle.
 * New features:
   - Midi import, using the LilyPond-provided midi2ly tool
   - ABC import, using the LilyPond-provided abc2ly tool
@@ -56,6 +59,8 @@ Changes in 2.18 -- March 7th, 2015
   - fix error when opening a "recent file" that has been deleted (issue #597)
   - Quick Insert articulations etc. now also work with q (repeated) chords
     (issue #628, fixed in python-ly)
+  - Quick Insert: do not add articulation to the duration of a \tuplet command
+    (issue #631, fixed in python-ly)
 * Translations:
   - updated: nl, fr, ru, it
 
