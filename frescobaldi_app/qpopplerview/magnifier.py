@@ -25,7 +25,7 @@ The Magnifier magnifies a part of the displayed Poppler document.
 import weakref
 
 from PyQt4.QtCore import QPoint, QRect
-from PyQt4.QtGui import QPainter, QRegion, QWidget
+from PyQt4.QtGui import QColor, QPainter, QPen, QRegion, QWidget
 
 from . import cache
 
@@ -100,7 +100,11 @@ class Magnifier(QWidget):
                 img_rect.setHeight(self.height() * image.height() / self._page.height())
         if image:
             img_rect.moveCenter(QPoint(relx * image.width(), rely * image.height()))
-            QPainter(self).drawImage(self.rect(), image, img_rect)
+            p = QPainter(self)
+            p.drawImage(self.rect(), image, img_rect)
+            p.setRenderHint(QPainter.Antialiasing, True)
+            p.setPen(QPen(QColor(192, 192, 192, 128), 6))
+            p.drawEllipse(self.rect().adjusted(2, 2, -2, -2))
 
 
 class Page(object):
