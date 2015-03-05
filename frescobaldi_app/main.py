@@ -133,6 +133,14 @@ def patch_pyqt():
     QFileDialog.getOpenFileNames = staticmethod(
         lambda *args: [f.rstrip('\0') for f in old_getOpenFileNames(*args)])
 
+    old_getOpenFileName = QFileDialog.getOpenFileName
+    QFileDialog.getOpenFileName = staticmethod(
+        lambda *args: old_getOpenFileName(*args).rstrip('\0'))
+
+    old_getSaveFileName = QFileDialog.getSaveFileName
+    QFileDialog.getSaveFileName = staticmethod(
+        lambda *args: old_getSaveFileName(*args).rstrip('\0'))
+
 
 def check_ly():
     """Check if ly is installed and has the correct version.
