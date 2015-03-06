@@ -154,7 +154,7 @@ Changes in 2.0.16 -- June 9th, 2014
     "Next Chapter:" and allows for continuous reading of the manual.
   - some missing commands and functions were added to highlighting and
     autocompletion
-  - the Document Fonts snippet doesn't require setting the staffize anymore
+  - the Document Fonts snippet doesn't require setting the staff size anymore
   - View -> Folding -> Fold all now folds all subregions as well, making
     gradual unfolding easier (wish #394)
 * Bugfixes:
