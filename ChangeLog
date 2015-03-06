@@ -28,6 +28,8 @@ Changes in 2.18 -- March 7th, 2015
     notes to a specified mode or scale.
   - Commands to convert rests to spaces or vice versa, and to convert pitched
     rests (like c'4\rest) to normal rests, contributed by Peter Bjuhr.
+  - Command to open LilyPond data directory (useful if you want to study Lily's
+    own init- and Scheme files).
 * Improvements:
   - The Insert menu got renamed to Snippets, making more clear how it is used
     and can be changed. When copying text to a new snippet, the snippet is added
