@@ -80,7 +80,7 @@ class Dialog(toly_dialog.ToLyDialog):
         
     def run_command(self):
         """ABC import (at least for now) needs a specific solution here."""
-        cmd = self.getCmd()
+        cmd = self.getCmd('document.ly')
         directory = util.tempdir()
         proc = subprocess.Popen(cmd, cwd=directory,
             stdin = subprocess.PIPE,

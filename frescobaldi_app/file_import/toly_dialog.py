@@ -129,7 +129,7 @@ class ToLyDialog(QDialog):
     def slotLilyPondVersionChanged(self):
         self._info = self.lilyChooser.lilyPondInfo()
     
-    def getCmd(self):
+    def getCmd(self, outputname='-'):
         """Returns the command line."""
         cmd = []
         for t in self.commandLine.toPlainText().split():
@@ -143,7 +143,7 @@ class ToLyDialog(QDialog):
                 cmd.append(self._document)
             else:
                 cmd.append(t)
-        cmd.extend(['--output', '-'])
+        cmd.extend(['--output', outputname])
         return cmd
         
     def run_command(self):
