@@ -67,7 +67,7 @@ def system_python():
     
     The earliest Python version >= 2.4 is called in 32 bit mode, for
     compatibility with midi2ly and lilysong, although Frescobaldi does not
-    currently support them.
+    currently support the latter.
     In particular:
     - midi.so is 32-bit only;
     - Python >= 2.5 gives a "C API version mismatch" RuntimeWarning
