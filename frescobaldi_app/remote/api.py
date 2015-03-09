@@ -60,12 +60,12 @@ class Remote(object):
         """Let remote Frescobaldi handle a command line."""
         if urls:
             if args.encoding:
-                self.write(b'encoding {0}\n'.format(args.encoding))
+                self.write('encoding {0}\n'.format(args.encoding).encode('utf-8'))
             for u in urls:
-                self.write(b'open {0}\n'.format(u.toEncoded()))
-            self.write(b'set_current {0}\n'.format(u.toEncoded()))
+                self.write(b'open ' + u.toEncoded() + b'\n')
+            self.write(b'set_current ' + u.toEncoded() + b'\n')
             if args.line is not None:
-                self.write(b'set_cursor {0} {1}\n'.format(args.line, args.column))
+                self.write('set_cursor {0} {1}\n'.format(args.line, args.column).encode('utf-8'))
         self.write(b'activate_window\n')
 
 

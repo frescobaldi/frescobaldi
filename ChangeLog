@@ -2,6 +2,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 2.18.1 -- 
+
+* Bugfixes:
+  - Fix open in running instance when using Python 3 (issue #634)
+
+
 Changes in 2.18 -- March 7th, 2015
 
 * Important notes about installing and for packagers/distributors:
