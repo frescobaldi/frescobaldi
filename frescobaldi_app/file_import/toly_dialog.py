@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 import os
 import subprocess
+import sys
 
 from PyQt4.QtGui import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
@@ -150,7 +151,18 @@ class ToLyDialog(QDialog):
         """Run command line."""
         cmd = self.getCmd()
         directory = os.path.dirname(self._document)
+        subenviron = dict(os.environ)
+        if sys.platform.startswith('darwin'):
+            try:
+                del subenviron['PYTHONHOME']
+            except KeyError:
+                pass
+            try:
+               del subenviron['PYTHONPATH']
+            except KeyError:
+                pass
         proc = subprocess.Popen(cmd, cwd=directory,
+            env = subenviron,
             stdin = subprocess.PIPE,
             stdout = subprocess.PIPE,
             stderr = subprocess.PIPE)

@@ -27,6 +27,7 @@ import difflib
 import textwrap
 import os
 import subprocess
+import sys
 
 from PyQt4.QtCore import QSettings, QSize
 from PyQt4.QtGui import (
@@ -214,13 +215,25 @@ class Dialog(QDialog):
         
         # if the user wants english messages, do it also here: LANGUAGE=C
         env = None
+        if os.name == "nt":
+            # Python 2.7 subprocess on Windows chokes on unicode in env
+            env = util.bytes_environ()
+        else:
+            env = dict(os.environ)
+        if sys.platform.startswith('darwin'):
+            try:
+                del env['PYTHONHOME']
+            except KeyError:
+                pass
+            try:
+                del env['PYTHONPATH']
+            except KeyError:
+                pass
         if QSettings().value("lilypond_settings/no_translation", False, bool):
             if os.name == "nt":
                 # Python 2.7 subprocess on Windows chokes on unicode in env
-                env = util.bytes_environ()
                 env[b'LANGUAGE'] = b'C'
             else:
-                env = dict(os.environ)
                 env['LANGUAGE'] = 'C'
         
         with qutil.busyCursor():
