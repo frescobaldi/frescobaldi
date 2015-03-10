@@ -83,7 +83,12 @@ class Dialog(toly_dialog.ToLyDialog):
         """ABC import (at least for now) needs a specific solution here."""
         cmd = self.getCmd('document.ly')
         directory = util.tempdir()
-        subenviron = dict(os.environ)
+        subenviron = None
+        if os.name == "nt":
+            # Python 2.7 subprocess on Windows chokes on unicode in env
+            subenviron = util.bytes_environ()
+        else:
+            subenviron = dict(os.environ)
         if sys.platform.startswith('darwin'):
             try:
                 del subenviron['PYTHONHOME']

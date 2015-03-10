@@ -151,7 +151,12 @@ class ToLyDialog(QDialog):
         """Run command line."""
         cmd = self.getCmd()
         directory = os.path.dirname(self._document)
-        subenviron = dict(os.environ)
+        subenviron = None
+        if os.name == "nt":
+            # Python 2.7 subprocess on Windows chokes on unicode in env
+            subenviron = util.bytes_environ()
+        else:
+            subenviron = dict(os.environ)
         if sys.platform.startswith('darwin'):
             try:
                 del subenviron['PYTHONHOME']
