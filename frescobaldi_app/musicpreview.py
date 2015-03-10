@@ -36,6 +36,7 @@ import ly.document
 import ly.docinfo
 
 import app
+import codecs
 import icons
 import job
 import log
@@ -50,6 +51,8 @@ import widgets.progressbar
 class MusicPreviewJob(job.Job):
     def __init__(self, text, title=None):
         super(MusicPreviewJob, self).__init__()
+        self.decode_errors = 'replace'
+        self.decoder_stdout = self.decoder_stderr = codecs.getdecoder('utf-8')
         self.directory = util.tempdir()
         self.document = os.path.join(self.directory, 'document.ly')
         with open(self.document, 'wb') as f:
