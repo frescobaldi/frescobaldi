@@ -96,7 +96,7 @@ class Dialog(widgets.dialog.Dialog):
         self._document = cursor.document()
         self._document.closed.connect(self.reject)
         
-        # dont change the cursor
+        # don't change the cursor
         c = self._range = QTextCursor(cursor)
         cursorpos = c.position() - c.block().position()
         cursortools.strip_indent(c)
@@ -136,7 +136,7 @@ class Dialog(widgets.dialog.Dialog):
         """Called to perform the edits in the document."""
         cursor = QTextCursor(self._range)
         start = cursor.selectionStart()
-        # use cursordiff; dont destroy point and click positions
+        # use cursordiff; don't destroy point and click positions
         cursordiff.insert_text(cursor, self.view.toPlainText())
         cursor.setPosition(start, QTextCursor.KeepAnchor)
         with cursortools.compress_undo(cursor, True):

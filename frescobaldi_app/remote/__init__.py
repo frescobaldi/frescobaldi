@@ -71,7 +71,7 @@ def init():
             else:
                 socket.disconnectFromServer()
         else:
-            # no ids left, dont listen
+            # no ids left, don't listen
             return
     app.aboutToQuit.connect(server.close)
     server.newConnection.connect(slot_new_connection)

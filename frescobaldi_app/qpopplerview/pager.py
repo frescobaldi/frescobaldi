@@ -55,7 +55,7 @@ class Pager(QObject):
         view.surface().installEventFilter(self)
         view.surface().pageLayout().changed.connect(self._layoutChanged)
         
-        # Connect to the kineticScrollingEnabled signal to avoid uneeded updates.
+        # Connect to the kineticScrollingEnabled signal to avoid unneeded updates.
         view.kineticScrollingActive.connect(self.blockListening)
         
     def currentPage(self):
@@ -100,7 +100,7 @@ class Pager(QObject):
         """Block/unblock listening to event, used to avoid multiple updates when we know lots
         of events are going to be sent to the pager.
         
-        Blocking can be nested, only the outmost unblock will really unblock the event processing."""
+        Blocking can be nested, only the outermost unblock will really unblock the event processing."""
         if block:
             self._blockLevel += 1
         else:

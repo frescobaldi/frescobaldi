@@ -35,7 +35,7 @@ and ViewSpacePlugin (for ViewSpace instances).
 Also the Attributes class is defined here, which is a simple class without methods
 but with special instance attribute handling:
 - when setting attributes on an instance, weak references are used when possible
-- when requesting unexisting attributes, None is returned
+- when requesting non-existing attributes, None is returned
 - deleting an attribute does not fail if it doesn't exist.
 
 You can use this class to store information to associate objects with each other,

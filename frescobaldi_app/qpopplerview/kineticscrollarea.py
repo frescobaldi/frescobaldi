@@ -190,13 +190,13 @@ class KineticScrollArea(QScrollArea):
         self._scrollBy[self._scrollFuncIndex](diff) 
     
     def fastCenter(self, point):
-        """Immediately center the view on the givent QPoint"""
+        """Immediately center the view on the given QPoint"""
         
         diff = point - self.viewport().rect().center() + self.widget().pos()
         self.fastScrollBy(diff)
     
     def kineticCenter(self, point):
-        """Kinetically center the view on the givent QPoint"""
+        """Kinetically center the view on the given QPoint"""
 
         size = self.widget().viewportRect().size()
         self.kineticEnsureVisible(point.x(), point.y(),
@@ -274,7 +274,7 @@ class KineticScrollArea(QScrollArea):
         self.kineticStart(speed)
             
     def kineticStart(self, speed):
-        """Start kinetic scrolling with a givent speed. Speed will be decremented periodically
+        """Start kinetic scrolling with a given speed. Speed will be decremented periodically
         until scrolling halts."""
         # Setup the kinetic displacement speed, removing the speed limit imposed on
         # interactive scrolling.

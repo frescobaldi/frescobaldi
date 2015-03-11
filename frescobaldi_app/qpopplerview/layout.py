@@ -137,7 +137,7 @@ class AbstractLayout(QObject):
         return self._pages.index(page)
         
     def setSize(self, size):
-        """Sets our size. Mainly done after layouting."""
+        """Sets our size. Mainly done after layout."""
         self._size = size
         
     def size(self):
@@ -197,7 +197,7 @@ class AbstractLayout(QObject):
         
         """
         if sameScale and any(self.pages()):
-            self.setScale(self.heighest().scaleForWidth(height))
+            self.setScale(self.highest().scaleForWidth(height))
         else:
             for page in self:
                 page.setHeight(height)
@@ -225,11 +225,11 @@ class AbstractLayout(QObject):
             if mode & FitWidth:
                 scales.append(self.widest().scaleForWidth(size.width() - self.margin() * 2))
             if mode & FitHeight:
-                scales.append(self.heighest().scaleForHeight(size.height() - self.margin() * 2))
+                scales.append(self.highest().scaleForHeight(size.height() - self.margin() * 2))
             self.setScale(min(scales))
         
     def update(self):
-        """Performs the layouting (positions the Pages and adjusts our size)."""
+        """Performs the layout (positions the Pages and adjusts our size)."""
         self.reLayout()
         if self._scaleChanged:
             self.scaleChanged.emit(self._scale)
@@ -302,8 +302,8 @@ class AbstractLayout(QObject):
         if pages:
             return max(pages, key = lambda p: p.pageSize().width())
             
-    def heighest(self):
-        """Returns the heighest visible page (in its natural page size)."""
+    def highest(self):
+        """Returns the highest visible page (in its natural page size)."""
         pages = list(self.pages())
         if pages:
             return max(pages, key = lambda p: p.pageSize().height())
@@ -314,12 +314,12 @@ class AbstractLayout(QObject):
         return page.width() if page else 0
         
     def maxHeight(self):
-        """Returns the height of the heighest visible page."""
-        page = self.heighest()
+        """Returns the height of the highest visible page."""
+        page = self.highest()
         return page.height() if page else 0
         
     def load(self, document):
-        """Convenience mehod to load all the pages of the given Poppler.Document using page.Page()."""
+        """Convenience method to load all the pages of the given Poppler.Document using page.Page()."""
         self.clear()
         for num in range(document.numPages()):
             p = page.Page(document, num)

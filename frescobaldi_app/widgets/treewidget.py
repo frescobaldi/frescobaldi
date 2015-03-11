@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A TreeWidget with some useful methods to manupulate items.
+A TreeWidget with some useful methods to manipulate items.
 """
 
 
@@ -30,8 +30,8 @@ class TreeWidget(QTreeWidget):
     
     We use a widget instead of a view with a standard model because
     this lets us really have control over the items. With a standard
-    model, items are recreated e.g. when dragging and this looses the
-    python subclassed instances with their own paramaters.
+    model, items are recreated e.g. when dragging and this loses the
+    python subclassed instances with their own parameters.
     
     Calls the cleanup() method on QTreeWidgetItems as they are removed,
     but does not error out if the QTreeWidgetItem does not have a cleanup()

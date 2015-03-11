@@ -50,7 +50,7 @@ lang_names = [
 
 
 def generate_kde(fileName="/usr/share/locale/all_languages"):
-    """Uses the KDE file to extract languge names.
+    """Uses the KDE file to extract language names.
     
     Returns the dictionary. All strings are in unicode form.
     

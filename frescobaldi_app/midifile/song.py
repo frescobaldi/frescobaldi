@@ -157,7 +157,7 @@ def beats(d, division):
     """Yields tuples for every beat in the events dictionary d.
     
     Each tuple is:
-        (midi_time, beat_num, beat_total, denumerator)
+        (midi_time, beat_num, beat_total, denominator)
     
     With this you can easily add measure numbers and find measure positions
     in the MIDI.

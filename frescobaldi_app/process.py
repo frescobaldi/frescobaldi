@@ -36,7 +36,7 @@ class Process(QObject):
     the process.
     
     The done() signal is emitted with a boolean success value. In slots
-    connected (synchroneously) the process attribute is still available.
+    connected (synchronously) the process attribute is still available.
     
     """
     
@@ -77,7 +77,7 @@ class Process(QObject):
 class Scheduler(object):
     """A very simple scheduler that runs one Process at a time.
     
-    You can use this to run e.g. commandline tools asynchronuously and you
+    You can use this to run e.g. commandline tools asynchronously and you
     don't want to have them running at the same time.
     
     """

@@ -45,7 +45,7 @@ class SessionManager(plugin.MainWindowPlugin):
     
     Emits the saveSessionData(name) signal when a session wants to be saved.
     Connect to this if you only want the notification for the current MainWindow
-    (the one the user initated the action from).
+    (the one the user initiated the action from).
     
     Use app.saveSessionData(name) if you want to get the global notification.
     

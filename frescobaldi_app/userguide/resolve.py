@@ -21,7 +21,7 @@
 These functions return values for python format variables in user guide pages.
 
 Some generic functions are called by several pages, but there are also some
-specialistic, auto-generated parts of text that are used in a specific user
+special, auto-generated parts of text that are used in a specific user
 guide page.
 
 """

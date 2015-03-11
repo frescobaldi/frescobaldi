@@ -85,7 +85,7 @@ else:
 
 
 def homify(path):
-    """Replaces the homedirectory (if present) in the path with a tilde (~)."""
+    """Replaces the home directory (if present) in the path with a tilde (~)."""
     homedir = QDir.homePath()
     if equal_paths(path[:len(homedir)+1], homedir + '/'):
         path = "~" + path[len(homedir):]

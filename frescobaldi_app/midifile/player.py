@@ -363,7 +363,7 @@ class Event(object):
     
     Has three attributes that determine what the Player does:
     
-    time: if True, time_event() is caled with the current music time.
+    time: if True, time_event() is called with the current music time.
     beat: None or (measnum, beat, num, den), then beat_event() is called.
     midi: If not None, midi_event() is called with the midi.
     user: Any object, if not None, user_event() is called with the object.

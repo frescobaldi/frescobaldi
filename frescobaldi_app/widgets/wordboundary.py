@@ -92,7 +92,7 @@ class BoundaryHandler(QObject):
         NextWord
         WordRight
         
-        Other move operations are delegated to the QTextCursor ifself.
+        Other move operations are delegated to the QTextCursor itself.
         """
         block = cursor.block()
         pos = cursor.position() - block.position()
@@ -143,7 +143,7 @@ class BoundaryHandler(QObject):
     def select(self, cursor, selection):
         """Reimplements the WordUnderCursor selection type.
         
-        Other selection types are delegated to the QTextCursor ifself.
+        Other selection types are delegated to the QTextCursor itself.
         
         """
         if selection == QTextCursor.WordUnderCursor:

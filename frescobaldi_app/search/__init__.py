@@ -54,7 +54,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         mainwindow.actionCollection.edit_find_next.triggered.connect(self.findNext)
         mainwindow.actionCollection.edit_find_previous.triggered.connect(self.findPrevious)
         
-        # dont inherit looks from view
+        # don't inherit looks from view
         self.setFont(QApplication.font())
         self.setPalette(QApplication.palette())
         

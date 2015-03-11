@@ -123,7 +123,7 @@ class View(KineticScrollArea):
     def load(self, document):
         """Convenience method to load all the pages from the given Poppler.Document."""
         self.surface().pageLayout().load(document)
-        # dont do a fit() before the very first resize as the size is then bogus
+        # don't do a fit() before the very first resize as the size is then bogus
         if self.viewMode():
             self.fit()
         self.surface().pageLayout().update()
@@ -222,7 +222,7 @@ class View(KineticScrollArea):
             layout.fit(QSize(maxsize.width(), h), mode)
             layout.reLayout()
             if layout.width() <= maxsize.width():
-                # now the hor. scrollbar would disappear!
+                # now the horizontal scrollbar would disappear!
                 # enlarge it as long as the horizontal scrollbar would not be needed
                 while True:
                     h += 1
@@ -256,7 +256,7 @@ class View(KineticScrollArea):
         newSize = self.surface().size()
         newx = self._centerPos.x() * newSize.width() // oldSize.width()
         newy = self._centerPos.y() * newSize.height() // oldSize.height()
-        # we explicitely want the non-kinetic centering function regardless of kinetic state.
+        # we explicitly want the non-kinetic centering function regardless of kinetic state.
         self.fastCenter(QPoint(newx, newy))
         self._centerPos = None
 

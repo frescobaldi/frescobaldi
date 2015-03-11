@@ -108,7 +108,7 @@ def restoreSession(key):
             win.readSessionSettings(settings)
             win.show()
             u = settings.value("active_document", QUrl(), QUrl)
-            # we dont use app.findDocument because it does not allow empty url
+            # we don't use app.findDocument because it does not allow empty url
             for d in app.documents:
                 if u == d.url():
                     win.setCurrentDocument(d)

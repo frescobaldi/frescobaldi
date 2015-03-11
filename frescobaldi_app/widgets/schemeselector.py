@@ -183,7 +183,7 @@ class SchemeSelector(QWidget):
             
     
     def loadSettings(self, currentKey, namesGroup):
-        # dont mark schemes for removal anymore
+        # don't mark schemes for removal anymore
         self._schemesToRemove = set()
         
         s = QSettings()

@@ -291,7 +291,7 @@ class LilyPondInfo(object):
         On Mac OS X, the list has four elements: the system-provided Python
         interpreter called in 32 bit mode (three elements) and the tool path.
         On Windows, the list has two elements: the LilyPond-provided Python
-        interpeter and the tool path.
+        interpreter and the tool path.
         
         This does not automatically take into account the command the user
         might have configured for the tool, use ly_tool() to get that command

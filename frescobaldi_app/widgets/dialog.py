@@ -141,7 +141,7 @@ class Dialog(QDialog):
         """Sets the button orientation.
         
         Qt.Horizontal (default) puts the buttons at the bottom of the dialog
-        in a horizonzal row, Qt.Vertical puts the buttons at the right in a
+        in a horizontal row, Qt.Vertical puts the buttons at the right in a
         vertical column.
         
         """

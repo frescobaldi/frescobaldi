@@ -509,7 +509,7 @@ class Surface(QWidget):
         
         (Use this instead of the contextMenuEvent as that one also
         fires when starting a right-button selection.)
-        The default implementation emite the rightClicked(pos) signal and also
+        The default implementation emits the rightClicked(pos) signal and also
         sends a ContextMenu event to the View widget.
         
         """

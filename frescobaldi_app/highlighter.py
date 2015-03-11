@@ -171,7 +171,7 @@ class Highlighter(QSyntaxHighlighter, plugin.Plugin):
         return self._highlighting
         
     def state(self, block):
-        """Return a thawn ly.lex.State() object at the *end* of the QTextBlock.
+        """Return a thawed ly.lex.State() object at the *end* of the QTextBlock.
         
         Do not use this method directly. Instead use tokeniter.state() or
         tokeniter.state_end(), because that assures the highlighter has run

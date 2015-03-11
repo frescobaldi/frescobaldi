@@ -19,7 +19,7 @@
 
 
 """
-A Page is resposible for drawing a page of a Poppler document
+A Page is responsible for drawing a page of a Poppler document
 inside a layout.
 """
 

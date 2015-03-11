@@ -113,7 +113,7 @@ def instantiate():
 def oninit(func):
     """Call specified function on QApplication instantiation.
     
-    If the QApplication alreay has been instantiated, the function is called
+    If the QApplication already has been instantiated, the function is called
     directly.
     
     As this function returns the specified function, you can use this as a

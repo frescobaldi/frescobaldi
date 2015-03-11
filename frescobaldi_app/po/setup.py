@@ -63,7 +63,7 @@ def preferred():
 def default():
     """Return the first preferred system default UI language that is available in Frescobaldi.
     
-    May return None, if none of the system preferred languages is avaiable
+    May return None, if none of the system preferred languages is available
     in Frescobaldi.
     
     """

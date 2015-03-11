@@ -68,7 +68,7 @@ class CharMap(QWidget):
         return self._square
     
     def select(self, charcode):
-        """Selects the specifed character (int or str)."""
+        """Selects the specified character (int or str)."""
         if not isinstance(charcode, int):
             charcode = ord(charcode)
         if not self._range[0] <= charcode <= self._range[1]:

@@ -43,7 +43,7 @@ def link(url):
     
     The url should be specified as a normal Python string (unicode in Python 2,
     str in Python 3); the filename is percent-decoded and converted in the
-    correct filesystem ecoding if necessary.
+    correct filesystem encoding if necessary.
     
     """
     m = textedit_match(url)

@@ -272,7 +272,7 @@ def spanner_positions(cursor):
     if cursor.hasSelection():
         partial = ly.document.INSIDE
     else:
-        # just select til the end of the current line
+        # just select until the end of the current line
         c.select_end_of_block()
         partial = ly.document.OUTSIDE
     source = lydocument.Source(c, True, partial, True)

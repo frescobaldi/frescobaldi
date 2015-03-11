@@ -157,7 +157,7 @@ class KeySequenceButton(QPushButton):
             # change Shift+Backtab into Shift+Tab
             if key == Qt.Key_Backtab and modifiers & Qt.SHIFT:
                 key = Qt.Key_Tab | modifiers
-            # remove the Shift modifier if it doen't make sense
+            # remove the Shift modifier if it doesn't make sense
 #            elif (Qt.Key_Exclam <= key <= Qt.Key_At
 #                  or Qt.Key_Z < key <= 0x0ff):
 #                key = key | (modifiers & ~Qt.SHIFT)

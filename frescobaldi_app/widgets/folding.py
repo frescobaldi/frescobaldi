@@ -317,7 +317,7 @@ class Folder(QObject):
         """Return as Region (start, end) the region of the specified block.
         
         start is the block the region starts, end the block the region ends.
-        When collapsing the block, dont hide the last block if it starts a new
+        When collapsing the block, don't hide the last block if it starts a new
         fold region.
         
         The depth argument specifies how deep a region may be nested.

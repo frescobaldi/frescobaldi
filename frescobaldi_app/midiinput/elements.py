@@ -1,5 +1,5 @@
 """
-Elements that can bei inserted by MIDI events
+Elements that can be inserted by MIDI events
 """
 
 from PyQt4.QtCore import Qt

@@ -134,7 +134,7 @@ class Actions(actioncollection.ActionCollection):
 
 
 def matches(cursor, view=None):
-    """Return a list of zero to two cursors specifing matching tokens.
+    """Return a list of zero to two cursors specifying matching tokens.
     
     If the list is empty, the cursor was not at a MatchStart/MatchEnd token,
     if the list only contains one cursor the matching token could not be found,

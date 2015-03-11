@@ -219,7 +219,7 @@ def articulation_positions(cursor):
     """
     c = lydocument.cursor(cursor)
     if not cursor.hasSelection():
-        # just select til the end of the current line
+        # just select until the end of the current line
         c.select_end_of_block()
         rests = True
         partial = ly.document.OUTSIDE

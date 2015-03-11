@@ -243,7 +243,7 @@ class InstrumentNames(QGroupBox):
         
         '' means:  default (use same translation as system)
         'C' means: English (untranslated)
-        or a languagecode that is available in Frescobaldi's translation.
+        or a language code that is available in Frescobaldi's translation.
         
         """
         return self._langs[self.language.currentIndex()]

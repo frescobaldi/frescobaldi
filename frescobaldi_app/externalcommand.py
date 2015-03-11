@@ -62,7 +62,7 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
         job.start()
 
     def _done(self):
-        """(internal) Called when the job has finised."""
+        """(internal) Called when the job has finished."""
         self.setMessage(_("Command completed"))
         self.setStandardButtons(('ok',))
 

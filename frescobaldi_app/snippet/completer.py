@@ -39,7 +39,7 @@ class Completer(widgets.completer.Completer):
     def __init__(self, textedit):
         super(Completer, self).__init__()
         self.setWidget(textedit)
-        self.setParent(textedit) # othw. PyQt4 looses us
+        self.setParent(textedit) # otherwise PyQt4 loses us
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
     

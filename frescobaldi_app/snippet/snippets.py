@@ -248,7 +248,7 @@ def expand(text):
     
     An expansion starts with a '$' and is an uppercase word (which can have
     single underscores in the middle), or other text between braces (which may
-    contain a right brace espaced: '\}', those are already unescaped by this
+    contain a right brace escaped: '\}', those are already unescaped by this
     function).
 
     One of (text, expansion) may be an empty string.
