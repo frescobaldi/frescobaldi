@@ -255,6 +255,9 @@ r"""-*- menu;
 r"""-*- menu: blocks; name: rep; selection: strip; symbol: bar_repeat_start;
 \repeat volta 2 { $SELECTION }"""),
 
+'repeatunfold': T(_("Repeat unfold"),
+r"""-*- menu: blocks; name: repunf; selection: strip;
+\repeat unfold 2$CURSOR { $SELECTION }"""),
 
 'relative': T(_("Relative Music"),
 r"""-*- name: rel;
