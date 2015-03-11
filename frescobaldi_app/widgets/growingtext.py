@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Provides a QTextEdit subclass that grows vertically to accomodate document size.
+Provides a QTextEdit subclass that grows vertically to accommodate document size.
 
 You should set maximumHeight to restrict its vertical size.
 """
@@ -80,7 +80,7 @@ class _GrowingTextEditBase(object):
     def setLineWrapMode(self, mode):
         """Reimplemented to avoid WidgetWidth wrap mode, which causes resize loops."""
         if mode == self.WidgetWidth:
-            raise ValueError("cant use WidgetWidth wrap mode")
+            raise ValueError("cannot use WidgetWidth wrap mode")
         else:
             super(_GrowingTextEditBase, self).setLineWrapMode(mode)
 

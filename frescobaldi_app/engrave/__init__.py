@@ -121,13 +121,13 @@ class Engraver(plugin.MainWindowPlugin):
             
             # which files were created by this job?
             import resultfiles
-            extentions = set(os.path.splitext(filename)[1].lower()
+            extensions = set(os.path.splitext(filename)[1].lower()
                 for filename in resultfiles.results(document).files_lastjob())
             
             mgr = panelmanager.manager(self.mainwindow())
-            if '.svg' in extentions or '.svgz' in extentions:
+            if '.svg' in extensions or '.svgz' in extensions:
                 mgr.svgview.activate()
-            elif '.pdf' in extentions:
+            elif '.pdf' in extensions:
                 mgr.musicview.activate()
     
     def engraveRunner(self):

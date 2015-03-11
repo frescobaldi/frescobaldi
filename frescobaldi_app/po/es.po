@@ -487,7 +487,7 @@ msgid "Could not read from the process."
 msgstr "No se ha podido leer a partir del proceso."
 
 #: ../job.py:298
-msgid "An unknown error occured."
+msgid "An unknown error occurred."
 msgstr "Se ha producido un error desconocido."
 
 #: ../job.py:307
@@ -3621,7 +3621,7 @@ msgstr ""
 #: ../preferences/editor.py:84
 msgid ""
 "When jumping between search results or clicking on a link, the text view "
-"tries to scroll as few lines as possible. Here you can speficy how many "
+"tries to scroll as few lines as possible. Here you can specify how many "
 "surrounding lines at least should be visible."
 msgstr ""
 
@@ -3728,7 +3728,7 @@ msgstr ""
 
 #: ../preferences/editor.py:263
 msgid ""
-"If enabled, inline style attributes are used when exporing colored HTML to a "
+"If enabled, inline style attributes are used when exporting colored HTML to a "
 "file. Otherwise, a CSS stylesheet is embedded."
 msgstr ""
 
@@ -4604,7 +4604,7 @@ msgstr ""
 msgid ""
 "Sets the time between the polling of the MIDI input port in milliseconds. "
 "Small values lead to faster recognition of incoming MIDI events, but stress "
-"the CPU. 10 ms should be a goot value."
+"the CPU. 10 ms should be a good value."
 msgstr ""
 
 #: ../preferences/paths.py:60
@@ -8943,7 +8943,7 @@ msgstr ""
 #: ../userguide/prefs_paths.md:6
 msgid ""
 "These hyphenation dictionaries are used by Frescobaldi to break lyrics text "
-"into syllabes."
+"into syllables."
 msgstr ""
 "Estos diccionarios de enguionado se usan por parte de Frescobaldi para "
 "separar en sílabas el texto de la letra de las canciones."
@@ -9172,7 +9172,7 @@ msgstr ""
 #: ../userguide/engrave_publish.md:8
 msgid ""
 "You should also note that the point-and-click links contain hard-coded path "
-"information of your systen, which may be considered a security issue."
+"information of your system, which may be considered a security issue."
 msgstr ""
 
 #: ../userguide/outline.md:1
@@ -10227,7 +10227,7 @@ msgstr ""
 
 #: ../userguide/prefs_fontscolors.md:6
 msgid ""
-"The first item lets you set the colors for the text editor backgroud, "
+"The first item lets you set the colors for the text editor background, "
 "foreground, selection background, the current line, line markings, the paper "
 "color in the Music View, etcetera."
 msgstr ""
@@ -10752,7 +10752,7 @@ msgstr ""
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:10
 msgid ""
-"The *Publish mode* is used to produce the final PDF intented to be shared. "
+"The *Publish mode* is used to produce the final PDF intended to be shared. "
 "Not generating the point and click information reduces the size of the "
 "resulting PDF file and doesn't reveal hard-coded information about the "
 "directories on your computer."
@@ -10779,7 +10779,7 @@ msgid ""
 "All commands to run LilyPond can be found in the *LilyPond* menu. Pressing "
 "the LilyPond symbol in the toolbar engraves the document in preview mode, or "
 "in custom mode if Shift is held. And if you enable the *Automatic engrave* "
-"option, Frescobaldi will run LilyPond automatically everytime the document "
+"option, Frescobaldi will run LilyPond automatically every time the document "
 "is modified (in preview mode)."
 msgstr ""
 

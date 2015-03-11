@@ -36,7 +36,7 @@ class Process(QObject):
     the process.
     
     The done() signal is emitted with a boolean success value. In slots
-    connected (synchroneously) the process attribute is still avalable.
+    connected (synchroneously) the process attribute is still available.
     
     """
     

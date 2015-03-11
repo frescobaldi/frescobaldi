@@ -1,5 +1,5 @@
 This directory contains a subset of the SVG icons of the real Tango theme.
-For Linux distributions this folder may be ommitted and instead
+For Linux distributions this folder may be omitted and instead
 the real tango-icon-theme package might be made a dependency.
 
 The tango icon theme:

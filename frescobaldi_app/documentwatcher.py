@@ -57,7 +57,7 @@ class DocumentWatcher(plugin.DocumentPlugin):
         self.changed = False
     
     def isdeleted(self):
-        """Return True if some change has occured, the document has a local
+        """Return True if some change has occurred, the document has a local
         filename, but the file is not existing on disk.
         
         """

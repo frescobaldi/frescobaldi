@@ -188,7 +188,7 @@ class Prefs(preferences.Group):
         self._pollingTime.setWhatsThis(_(
             "Sets the time between the polling of the MIDI input port in milliseconds. "
             "Small values lead to faster recognition of incoming MIDI events, but stress "
-            "the CPU. 10 ms should be a goot value."))
+            "the CPU. 10 ms should be a good value."))
 
     def loadSettings(self):
         s = QSettings()

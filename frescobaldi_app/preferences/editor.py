@@ -83,7 +83,7 @@ class ViewSettings(preferences.Group):
         self.numContextLines.setToolTip('<qt>' + _(
             "When jumping between search results or clicking on a link, the "
             "text view tries to scroll as few lines as possible. "
-            "Here you can speficy how many surrounding lines at least should "
+            "Here you can specify how many surrounding lines at least should "
             "be visible."))
         self.numContextLinesLabel.setToolTip(self.numContextLines.toolTip())
 
@@ -260,7 +260,7 @@ class SourceExport(preferences.Group):
         
         self.inlineStyleExport.setText(_("Use inline style when exporting colored HTML"))
         self.inlineStyleExport.setToolTip('<qt>' + _(
-            "If enabled, inline style attributes are used when exporing "
+            "If enabled, inline style attributes are used when exporting "
             "colored HTML to a file. "
             "Otherwise, a CSS stylesheet is embedded."))
         self.copyHtmlAsPlainText.setText(_("Copy HTML as plain text"))

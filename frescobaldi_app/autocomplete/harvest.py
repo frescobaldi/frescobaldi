@@ -34,7 +34,7 @@ import ly.lex.scheme
 
 
 def get_docinfo(cursor):
-    """Return a ly DocInfo instance for the cursor's document upto its position."""
+    """Return a ly DocInfo instance for the cursor's document up to its position."""
     dinfo = documentinfo.info(cursor.document())
     return dinfo.lydocinfo().range(0, cursor.position())
 

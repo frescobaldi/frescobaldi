@@ -185,8 +185,8 @@ class Hyphenator(object):
     Provides methods to hyphenate strings in various ways.
     Parameters:
     -filename : filename of hyph_*.dic to read
-    -left: make the first syllabe not shorter than this
-    -right: make the last syllabe not shorter than this
+    -left: make the first syllable not shorter than this
+    -right: make the last syllable not shorter than this
     -cache: if true (default), use a cached copy of the dic file, if possible
 
     left and right may also later be changed:

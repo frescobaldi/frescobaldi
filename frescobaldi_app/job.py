@@ -295,7 +295,7 @@ class Job(object):
         elif error == QProcess.ReadError:
             self.message(_("Could not read from the process."), FAILURE)
         elif self._process.state() == QProcess.NotRunning:
-            self.message(_("An unknown error occured."), FAILURE)
+            self.message(_("An unknown error occurred."), FAILURE)
 
     def finish_message(self, exitCode, exitStatus):
         """Called when the process finishes (by _finished()).

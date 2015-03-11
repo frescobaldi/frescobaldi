@@ -3,7 +3,7 @@
 Here you can set the editor font (a monospace font is recommended) and all 
 colors.
 
-The first item lets you set the colors for the text editor backgroud, 
+The first item lets you set the colors for the text editor background, 
 foreground, selection background, the current line, line markings, the paper 
 color in the Music View, etcetera.
 
