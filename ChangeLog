@@ -6,6 +6,8 @@ Changes in 2.18.1 --
 
 * Bugfixes:
   - Fix open in running instance when using Python 3 (issue #634)
+  - Fix icons missing on Windows with system icons enabled (issue #643)
+  - Fix Wrong encoding in Score Wizard with Russian locale (issue #641)
 
 
 Changes in 2.18 -- March 7th, 2015
