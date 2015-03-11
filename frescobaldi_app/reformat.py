@@ -22,7 +22,7 @@ Reformat the selection or the whole document, only adjusting whitespace.
 
 What it does:
 
-- remove trialing whitespace
+- remove trailing whitespace
 - newline after all { or << in lilypond mode, unless terminated on same line
 - same way newline before >> or }
 - remove indent for commented lines with more than two comment characters

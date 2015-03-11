@@ -8763,7 +8763,7 @@ msgid "Requires text to be selected."
 msgstr "Requiere la selección de un texto."
 
 #: ../userguide/snippet_editor.md:36
-msgid "Adjusts the selection to not include starting and trialing whitespace."
+msgid "Adjusts the selection to not include starting and trailing whitespace."
 msgstr ""
 "Ajusta la selección de forma que no incluya los espacios inicial y final."
 

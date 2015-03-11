@@ -35,7 +35,7 @@ The following variables can be used:
 !`selection`
 : !_(One of more of the following words (separated with spaces or commas):)_
   `yes`: _(Requires text to be selected.)_
-  `strip`: _(Adjusts the selection to not include starting and trialing
+  `strip`: _(Adjusts the selection to not include starting and trailing
              whitespace.)_
   `keep`: _(Selects all inserted text.)_
 

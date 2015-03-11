@@ -8533,7 +8533,7 @@ msgid "Requires text to be selected."
 msgstr "Wymaga zaznaczenia tekstu."
 
 #: ../userguide/snippet_editor.md:36
-msgid "Adjusts the selection to not include starting and trialing whitespace."
+msgid "Adjusts the selection to not include starting and trailing whitespace."
 msgstr ""
 
 #: ../userguide/snippet_editor.md:36
@@ -11834,7 +11834,7 @@ msgstr "Tutaj można modyfikować skróty klawiszowe dla {name}"
 #~ msgid "Do not use rests, but give all notes the maximum length."
 #~ msgstr "Zamiast pauz, wydłużaj wartości nut"
 
-#~ msgid "Strip leading and trialing rests from output."
+#~ msgid "Strip leading and trailing rests from output."
 #~ msgstr "Usuń pauzy na początku i końcu pliku wyjściowego."
 
 #~ msgid "Guile scripts to load:"

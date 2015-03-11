@@ -8640,7 +8640,7 @@ msgid "Requires text to be selected."
 msgstr "Er moet tekst geselecteerd zijn."
 
 #: ../userguide/snippet_editor.md:36
-msgid "Adjusts the selection to not include starting and trialing whitespace."
+msgid "Adjusts the selection to not include starting and trailing whitespace."
 msgstr "Verandert de selectie zodat witruimte erbuiten valt."
 
 #: ../userguide/snippet_editor.md:36
@@ -14459,7 +14459,7 @@ msgstr "Hier kunt u de instellingen van de diverse gereedschappen wijzigen."
 #~ msgid "Do not use rests, but give all notes the maximum length."
 #~ msgstr "Gebruik geen rusten maar geef alle noten de maximale lengte."
 
-#~ msgid "Strip leading and trialing rests from output."
+#~ msgid "Strip leading and trailing rests from output."
 #~ msgstr "Verwijder rusten aan het begin en het einde."
 
 #~ msgid "Guile scripts to load:"

@@ -8432,7 +8432,7 @@ msgid "Requires text to be selected."
 msgstr ""
 
 #: ../userguide/snippet_editor.md:36
-msgid "Adjusts the selection to not include starting and trialing whitespace."
+msgid "Adjusts the selection to not include starting and trailing whitespace."
 msgstr ""
 
 #: ../userguide/snippet_editor.md:36
@@ -11192,7 +11192,7 @@ msgstr ""
 #~ msgstr ""
 #~ "Не использовать паузы, а делать ноты максимальной продолжительности."
 
-#~ msgid "Strip leading and trialing rests from output."
+#~ msgid "Strip leading and trailing rests from output."
 #~ msgstr "Удалить паузы в начале и в конце документа."
 
 #~ msgid "Guile scripts to load:"
