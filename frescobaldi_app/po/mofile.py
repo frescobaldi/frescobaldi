@@ -253,7 +253,7 @@ def parse_header(data):
 def parse_mo_split(buf):
     """Parses the mo file and splits up all messages/translation pairs.
     
-    Yields a three-element tuple: (context, messages, translations)
+    Yields three-element tuples: (context, messages, translations)
     
     where context is None or bytes, and messages and translations are both lists
     of undecoded bytes objects.
