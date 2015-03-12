@@ -1,20 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
 <!-- Page: 1/1 -->
-<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_after.ly:5:25:26">
 <polygon transform="translate(2.5461, 1.3580)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="1.3945 -0.5100 1.3945 -0.2060 0.0400 0.1520 0.0400 -0.1520"/>
 <polygon transform="translate(2.5461, 2.0444)" stroke-linejoin="round" stroke-linecap="round" stroke-width="0.0800" fill="currentColor" stroke="currentColor" points="1.3945 -0.5100 1.3945 -0.2060 0.0400 0.1520 0.0400 -0.1520"/>
-</a>
 <rect transform="translate(3.9156, 2.5000)" x="-0.0650" y="-1.4838" width="0.1300" height="2.3681" ry="0.0400" fill="currentColor"/>
-<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_after.ly:5:27:28">
 <path transform="translate(3.0522, 3.5000) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
-</a>
 <rect transform="translate(2.6111, 2.5000)" x="-0.0650" y="-1.1582" width="0.1300" height="2.5425" ry="0.0400" fill="currentColor"/>
-<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_after.ly:5:20:21">
 <path transform="translate(1.7477, 4.0000) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
-</a>
 <rect transform="translate(1.3827, 2.5000)" x="-0.0650" y="-2.5000" width="0.1300" height="3.2386" ry="0.0400" fill="currentColor"/>
-<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_after.ly:5:14:15">
 <path transform="translate(0.0577, 3.5000) scale(0.0040, -0.0040)" d="M315 65c0 24 -21 41 -42 41c-4 0 -8 0 -12 -1c-31 -9 -77 -40 -114 -64s-84 -53 -104 -78c-7 -8 -11 -18 -11 -28c0 -24 21 -41 42 -41c4 0 8 0 12 1c31 9 78 40 115 64s84 53 104 78c7 8 10 18 10 28zM264 137c47 0 83 -21 83 -72c0 -19 -4 -37 -10 -56
 c-12 -38 -32 -74 -65 -96c-54 -36 -113 -51 -188 -51c-47 0 -84 22 -84 73c0 19 5 37 11 56c12 38 31 74 64 96c54 36 114 50 189 50z" fill="currentColor"/>
-</a>
 </svg>

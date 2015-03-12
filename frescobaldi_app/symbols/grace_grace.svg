@@ -1,13 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" width="7.73mm" height="7.73mm" viewBox="0 0 4.4000 4.4000">
 <!-- Page: 1/1 -->
 <rect transform="translate(3.4498, 2.5000)" x="-0.0650" y="-2.5000" width="0.1300" height="3.3122" ry="0.0400" fill="currentColor"/>
-<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_grace.ly:5:14:15">
 <path transform="translate(2.1986, 3.5000) scale(0.0040, -0.0040)" d="M220 138c56 0 109 -29 109 -91c0 -72 -56 -121 -103 -149c-36 -21 -76 -36 -117 -36c-56 0 -109 29 -109 91c0 72 56 121 103 149c36 21 76 36 117 36z" fill="currentColor"/>
-</a>
 <path transform="translate(1.1126, 1.2400) scale(0.0028, -0.0028)" d="M0 0c0 -177 203 -290 203 -467c0 -33 -8 -66 -23 -96c18 -36 29 -74 29 -116c0 -63 -15 -125 -41 -182c-5 -10 -14 -13 -23 -13c-14 0 -28 10 -28 26v5c27 51 43 107 43 164c0 95 -91 188 -160 254v-75h-21v500h21zM148 -507c4 13 6 26 6 40c0 94 -88 187 -154 254
 c0 -114 86 -200 148 -294z" fill="currentColor"/>
 <rect transform="translate(1.0476, 2.5000)" x="-0.0650" y="-1.3000" width="0.1300" height="2.6843" ry="0.0400" fill="currentColor"/>
-<a style="color:inherit;" xlink:href="textedit:///home/wilbert/dev/frescobaldi/frescobaldi_app/symbols/grace_grace.ly:5:9:10">
 <path transform="translate(0.1843, 4.0000) scale(0.0028, -0.0028)" d="M211 141c61 0 117 -33 117 -100c0 -71 -52 -121 -99 -149c-34 -20 -73 -33 -112 -33c-61 0 -117 33 -117 100c0 71 52 121 99 149c34 20 73 33 112 33z" fill="currentColor"/>
-</a>
 </svg>
