@@ -81,8 +81,9 @@ class Incoming(object):
         socket.disconnected.connect(self.close)
     
     def close(self):
-        self.socket.deleteLater()
-        _incoming_handlers.remove(self)
+        if self in _incoming_handlers:
+            self.socket.deleteLater()
+            _incoming_handlers.remove(self)
     
     def read(self):
         """Read from the socket and let command() handle the commands."""
