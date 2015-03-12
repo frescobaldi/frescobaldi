@@ -33,6 +33,7 @@ from __future__ import unicode_literals
 import os
 import sys
 import subprocess
+import weakref
 
 from PyQt4.QtCore import pyqtSignal, QSettings, QTemporaryFile, Qt, QThread
 from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
@@ -41,6 +42,10 @@ import app
 import helpers
 import fileprinter
 import qpopplerview.printer
+
+
+# store QPrinter instances for a widget
+_printers = weakref.WeakKeyDictionary()
 
 
 def print_(doc, filename=None, widget=None):
@@ -72,7 +77,17 @@ def print_(doc, filename=None, widget=None):
 
     print_file = filename
     title = os.path.basename(filename) if filename else _("PDF Document")
-    printer = QPrinter()
+    
+    if widget:
+        try:
+            printer = _printers[widget]
+        except KeyError:
+            printer = _printers[widget] = QPrinter()
+        else:
+            printer.setCopyCount(1)
+    else:
+        printer = QPrinter()
+    
     printer.setDocName(title)
     printer.setPrintRange(QPrinter.AllPages)
     

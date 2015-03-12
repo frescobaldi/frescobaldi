@@ -707,7 +707,12 @@ class MainWindow(QMainWindow):
     
     def printSource(self):
         cursor = self.textCursor()
-        printer = QPrinter()
+        try:
+            printer = self._sourcePrinter
+        except AttributeError:
+            printer = self._sourcePrinter = QPrinter()
+        else:
+            printer.setCopyCount(1)
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("dialog title", "Print Source")))
         options = QAbstractPrintDialog.PrintToFile | QAbstractPrintDialog.PrintShowPageSize

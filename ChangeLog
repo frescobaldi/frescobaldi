@@ -4,6 +4,8 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18.1 -- 
 
+* Improvements:
+  - The print dialog remembers the last used printer and options
 * Bugfixes:
   - Fix open in running instance when using Python 3 (issue #634)
   - Fix icons missing on Windows with system icons enabled (issue #643)
