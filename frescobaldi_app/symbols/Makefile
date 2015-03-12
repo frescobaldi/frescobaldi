@@ -10,7 +10,7 @@ svgs = $(patsubst %.ly,%.svg,$(lys))
 all: $(svgs)
 
 $(svgs): %.svg: %.ly
-	$(LILYPOND) -dbackend=svg -ddelete-intermediate-files $<
+	$(LILYPOND) -dbackend=svg -ddelete-intermediate-files -dno-point-and-click $<
 
 # Make some lilypond images also depend on the files they include
 $(patsubst %.ly,%.svg,$(wildcard arpeggio_*.ly)): arpeggio_defaults.ily
