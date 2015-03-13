@@ -522,7 +522,7 @@ if dlg.exec_():
 
 
 'last_note': T(_("Last note or chord"),
-r"""-*- python; menu: music; symbol: note_4d;
+r"""-*- python; menu: music; symbol: note_ellipsis;
 # This snippet reads back the last entered note or chord and 
 # inserts it again. It removes the octave mark from a note of the first
 # note of a chord if the music is in relative mode.
