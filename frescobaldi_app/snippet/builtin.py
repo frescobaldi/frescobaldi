@@ -498,7 +498,7 @@ if state[-1] != 'paper':
 
 
 'document_fonts': T(_("Document Fonts..."),
-r"""-*- menu: paper; name: fo; python; icon: preferences-desktop-font;
+r"""-*- menu: paper; name: fo; python; symbol: fonts_abc;
 snippet = '''\
 fonts = #
 (make-pango-font-tree
