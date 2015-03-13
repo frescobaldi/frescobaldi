@@ -243,15 +243,17 @@ class Dialog(QDialog):
                     stdin = subprocess.PIPE,
                     stdout = subprocess.PIPE,
                     stderr = subprocess.PIPE)
-                out, err = proc.communicate(self._text.encode(self._encoding))
+                out, err = proc.communicate(util.platform_newlines(self._text).encode(self._encoding))
             except OSError as e:
                 self.messages.setPlainText(_(
                     "Could not start {convert_ly}:\n\n"
                     "{message}\n").format(convert_ly = command[0], message = e))
                 return
-            self.messages.setPlainText(err.decode('UTF-8'))
-            self.setConvertedText(out.decode('UTF-8'))
-            self.setDiffText(out.decode('UTF-8'))
+            out = util.universal_newlines(out.decode('UTF-8'))
+            err = util.universal_newlines(err.decode('UTF-8'))
+            self.messages.setPlainText(err)
+            self.setConvertedText(out)
+            self.setDiffText(out)
             if not out or self._convertedtext == self._text:
                 self.messages.append('\n' + _("The document has not been changed."))
 
