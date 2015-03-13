@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 
 # This script freezes Frescobaldi to a standalone application without
 # needing to install any dependencies.

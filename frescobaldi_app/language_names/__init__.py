@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 
 """
 This module provides one function, languageName(), that returns

@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 
 """
 This package brings the most important parts of the functionality of the
