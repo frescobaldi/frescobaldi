@@ -51,6 +51,8 @@ class Document(QTextDocument):
         This method returns the text contents of the url as decoded text,
         thus a unicode string.
         
+        The line separator is always '\\n'.
+        
         """
         filename = url.toLocalFile()
         
@@ -59,7 +61,8 @@ class Document(QTextDocument):
             raise IOError("not a local file")
         with open(filename, 'rb') as f:
             data = f.read()
-        return util.decode(data, encoding)
+        text = util.decode(data, encoding)
+        return util.universal_newlines(text)
     
     @classmethod
     def new_from_url(cls, url, encoding=None):
@@ -195,10 +198,13 @@ class Document(QTextDocument):
     def encodedText(self):
         """Returns the text of the document encoded in the correct encoding.
         
+        The line separator is '\\n' on Unix/Linux/Mac OS X, '\\r\\n' on Windows.
+        
         Useful to save to a file.
         
         """
-        return util.encode(self.toPlainText(), self.encoding())
+        text = util.platform_newlines(self.toPlainText())
+        return util.encode(text, self.encoding())
         
     def documentName(self):
         """ Returns a suitable name for this document. """
