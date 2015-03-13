@@ -26,6 +26,7 @@ from __future__ import unicode_literals
 import codecs
 import glob
 import itertools
+import io
 import os
 import re
 
@@ -273,5 +274,19 @@ def encode(text, encoding=None, default_encoding='utf-8'):
         except (LookupError, UnicodeError):
             pass
     return text.encode(default_encoding)
+
+
+def universal_newlines(text):
+    """Converts '\\r' or '\\r\\n' to '\\n' in text."""
+    return io.StringIO(text, newline=None).read()
+
+
+def platform_newlines(text):
+    """Convert newlines in text to the platform-specific newline.
+    
+    On Unix/Linux/Mac OS X this is '\\n', on Windows '\\r\\n'.
+    
+    """
+    return universal_newlines(text).replace('\n', os.linesep)
 
 
