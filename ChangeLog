@@ -6,8 +6,12 @@ Changes in 2.18.1 --
 
 * Improvements:
   - The print dialog remembers the last used printer and options
+  - Improved icons for File->Close, Snippets->Repeat last note/chord and
+    Snippets->Document Fonts
 * Bugfixes:
+  - Fix convert-ly adding linefeeds / carriage return on Windows (issue #649)
   - Fix open in running instance when using Python 3 (issue #634)
+  - Fix crash when opening non-existing file in running instance (issue #650)
   - Fix icons missing on Windows with system icons enabled (issue #643)
   - Fix Wrong encoding in Score Wizard with Russian locale (issue #641)
 
