@@ -696,7 +696,7 @@ class MainWindow(QMainWindow):
                     errno = e.errno)
                 QMessageBox.critical(self, app.caption(_("Error")), msg)
             else:
-                text = util.decode(data)
+                text = util.universal_newlines(util.decode(data))
                 self.currentView().textCursor().insertText(text)
         
     def openCurrentDirectory(self):
