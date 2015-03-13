@@ -567,7 +567,7 @@ class MainWindow(QMainWindow):
             import fileinfo
             text = self.currentView().textCursor().selection().toPlainText()
             mode = fileinfo.textmode(text)
-            data = util.encode(text)
+            data = util.encode(util.platform_newlines(text))
             caption = app.caption(_("dialog title", "Save Selection"))
         filetypes = app.filetypes(ly.lex.extensions[mode])
         dirname = os.path.dirname(doc.url().toLocalFile()) or app.basedir()
