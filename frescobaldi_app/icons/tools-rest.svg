@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -8,73 +6,79 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.2"
    width="128"
    height="128"
    viewBox="0 0 20.556804 20.556804"
-   id="svg2">
+   id="svg2"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="bluerest.svg">
   <metadata
-     id="metadata30">
+     id="metadata24">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs28" />
+     id="defs22" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1215"
+     inkscape:window-height="1000"
+     id="namedview20"
+     showgrid="false"
+     inkscape:zoom="1"
+     inkscape:cx="105.35412"
+     inkscape:cy="366.6665"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg2" />
+  <!-- Page: 1/1 -->
   <text
-     x="5.6905999"
-     y="-145.6073"
+     font-size="2.2001"
      id="text4"
-     style="font-size:2.20009995px;text-anchor:start;fill:currentColor;font-family:Century Schoolbook L">
+     style="font-size:2.20009995px;text-anchor:start;fill:currentColor;font-family:Century Schoolbook L"
+     x="5.6905999"
+     y="-145.6073">
     <tspan
        id="tspan6" />
   </text>
-  <path
-     d="m 20.6624,-140.9393 c -0.196,0 -0.3,-0.168 -0.3,-0.3 0,-0.152 0.108,-0.308 0.288,-0.308 0.016,0 0.036,0 0.056,0.004 -0.112,-0.148 -0.288,-0.236 -0.48,-0.236 -0.424,0 -0.452,0.292 -0.452,0.744 v 0.204 0.204 c 0,0.452 0.028,0.748 0.452,0.748 0.32,0 0.556,-0.28 0.632,-0.604 0.008,-0.028 0.028,-0.04 0.048,-0.04 0.024,0 0.052,0.016 0.052,0.048 0,0.376 -0.42,0.696 -0.732,0.696 -0.272,0 -0.548,-0.084 -0.736,-0.28 -0.196,-0.204 -0.264,-0.488 -0.264,-0.772 0,-0.284 0.068,-0.568 0.264,-0.772 0.188,-0.196 0.464,-0.276 0.736,-0.276 0.348,0 0.64,0.256 0.7,0.6 0.004,0.02 0.004,0.036 0.004,0.052 0,0.16 -0.12,0.288 -0.268,0.288 z"
-     id="path8"
-     style="fill:currentColor" />
-  <path
-     d="m 16.5304,-140.8793 c 0.016,0 0.036,-0.004 0.052,-0.004 0.62,0 1.024,0.512 1.024,1.044 0,0.304 -0.132,0.616 -0.428,0.84 -0.088,0.068 -0.188,0.112 -0.292,0.144 0.012,0.14 0.02,0.28 0.02,0.42 0,0.076 -0.004,0.156 -0.008,0.232 -0.028,0.48 -0.36,0.912 -0.832,0.912 -0.432,0 -0.78,-0.352 -0.78,-0.788 0,-0.232 0.212,-0.412 0.448,-0.412 0.216,0 0.38,0.188 0.38,0.412 0,0.208 -0.172,0.38 -0.38,0.38 -0.044,0 -0.084,-0.008 -0.124,-0.024 0.104,0.156 0.272,0.26 0.468,0.26 0.384,0 0.628,-0.368 0.652,-0.764 0.004,-0.072 0.008,-0.148 0.008,-0.22 0,-0.124 -0.004,-0.244 -0.016,-0.368 -0.116,0.02 -0.232,0.032 -0.356,0.032 -0.752,0 -1.332,-0.688 -1.332,-1.496 0,-0.708 0.524,-1.224 0.992,-1.764 -0.076,-0.248 -0.148,-0.5 -0.18,-0.76 -0.024,-0.208 -0.028,-0.416 -0.028,-0.624 0,-0.46 0.22,-0.896 0.596,-1.168 0.012,-0.008 0.028,-0.012 0.04,-0.012 0.016,0 0.028,0 0.04,0.012 0.284,0.336 0.532,0.98 0.532,1.432 0,0.572 -0.344,1.02 -0.72,1.456 0.084,0.272 0.156,0.552 0.224,0.828 z m 0.34,1.86 c 0.272,-0.096 0.452,-0.38 0.452,-0.656 0,-0.36 -0.264,-0.716 -0.692,-0.76 0.096,0.464 0.184,0.924 0.24,1.416 z m -1.548,-0.924 c 0,0.54 0.516,0.988 1.056,0.988 0.112,0 0.22,-0.008 0.328,-0.024 -0.056,-0.508 -0.148,-0.98 -0.252,-1.456 -0.316,0.032 -0.496,0.244 -0.496,0.476 0,0.176 0.1,0.364 0.324,0.492 0.02,0.02 0.028,0.04 0.028,0.06 0,0.044 -0.04,0.088 -0.088,0.088 -0.012,0 -0.024,-0.004 -0.036,-0.008 -0.32,-0.172 -0.468,-0.46 -0.468,-0.74 0,-0.352 0.232,-0.696 0.64,-0.788 -0.056,-0.232 -0.116,-0.468 -0.184,-0.7 -0.428,0.484 -0.852,0.972 -0.852,1.612 z m 1.336,-4.068 c -0.396,0.192 -0.648,0.596 -0.648,1.036 0,0.296 0.072,0.532 0.144,0.776 0.32,-0.388 0.584,-0.792 0.584,-1.296 0,-0.22 -0.016,-0.316 -0.08,-0.516 z"
-     id="path10"
-     style="fill:currentColor" />
   <g
-     transform="matrix(7.4758077,0,0,7.4758077,-164.72826,-47.074512)"
-     id="g12"
-     style="color:#0000ff">
-    <a
-       xlink:href="textedit:///home/peter/frescob-dev/img/bluerest.ly:6:31:32"
-       id="a14">
-      <path
-         d="M 72,-250 189,76 C 155,64 120,54 84,54 38,54 -3,87 -3,133 c 0,40 33,72 73,72 25,0 48,-15 56,-39 10,-28 6,-59 35,-59 16,0 54,48 61,63 6,12 23,12 28,0 L 127,-250 c -8,-7 -17,-10 -27,-10 -10,0 -20,3 -28,10 z"
-         transform="matrix(0.004,0,0,-0.004,22.9264,7.6213)"
-         id="path16"
-         style="fill:currentColor" />
-    </a>
+     id="g8"
+     style="color:#0000ff"
+     transform="matrix(8.3088748,0,0,8.3088748,-116.38633,-28.865749)">
+    <path
+       transform="matrix(0.004,0,0,-0.004,14.7264,4.6653)"
+       d="M 72,-250 189,76 C 155,64 120,54 84,54 38,54 -3,87 -3,133 c 0,40 33,72 73,72 25,0 48,-15 56,-39 10,-28 6,-59 35,-59 16,0 54,48 61,63 6,12 23,12 28,0 L 127,-250 c -8,-7 -17,-10 -27,-10 -10,0 -20,3 -28,10 z"
+       id="path10"
+       inkscape:connector-curvature="0"
+       style="fill:currentColor" />
   </g>
   <a
-     xlink:href="http://lilypond.org/"
      transform="translate(31.0704,16.698604)"
-     id="a18">
+     xlink:href="http://lilypond.org/"
+     id="a12">
     <rect
-       width="57.360802"
-       height="2.0486"
        x="0"
        y="-0.44389999"
-       id="rect20"
+       width="57.360802"
+       height="2.0486"
+       id="rect14"
        style="fill:none;stroke:none" />
   </a>
-  <text
-     x="31.0704"
-     y="16.698603"
-     id="text22"
-     style="font-size:2.20009995px;text-anchor:start;fill:currentColor;font-family:Century Schoolbook L">
-    <tspan
-       id="tspan24">Music engraving by LilyPond 2.19.16—www.lilypond.org</tspan>
-  </text>
 </svg>
