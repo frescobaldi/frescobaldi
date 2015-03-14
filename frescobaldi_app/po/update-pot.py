@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 
 # This small script creates a POT file for the translations by extracting all messages
 # from Python source files.

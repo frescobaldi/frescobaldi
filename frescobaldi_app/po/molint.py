@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 
 """
 This script reads a MO file and checks that translated messages do not use named

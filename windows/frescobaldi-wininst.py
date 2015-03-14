@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 """
 PostInstall/PostUninstall script for Frescobaldi on Windows
 

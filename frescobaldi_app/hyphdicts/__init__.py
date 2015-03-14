@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 
 """
 In this directory you can place hyphenation dictionaries (with names like

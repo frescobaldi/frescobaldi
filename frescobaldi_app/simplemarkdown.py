@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/env python
 # SimpleMarkdown -- a basic markdown-like parser.
 #
 # Copyright (c) 2013 - 2014 by Wilbert Berendsen

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
@@ -88,7 +88,7 @@ def write_dict(langs):
     keys = sorted(filter(lambda k: k in langs, lang_names) if lang_names else langs)
 
     with codecs.open("data.py", "w", "utf-8") as output:
-        output.write("#! python\n# -*- coding: utf-8;\n\n")
+        output.write("#!/usr/bin/env python\n# -*- coding: utf-8;\n\n")
         output.write("# Do not edit, this file is generated. See generate.py.\n")
         output.write("\nfrom __future__ import unicode_literals\n")
         output.write("\n\n")    

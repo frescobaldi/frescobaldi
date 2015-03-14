@@ -1,4 +1,4 @@
-#! python
+#!/usr/bin/env python
 
 # Python midifile package -- parse, load and play MIDI files.
 # Copyright (c) 2011 - 2014 by Wilbert Berendsen
