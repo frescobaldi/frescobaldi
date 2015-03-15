@@ -39,9 +39,18 @@ package_data = {
     'frescobaldi_app.symbols': ['*.svg'],
     'frescobaldi_app.userguide': ['*.md', '*.png'],
 }
+options = {
+    'sdist': {
+        'force_manifest': 1,
+    }
+}
 
 if sys.platform.startswith('win'):
     scripts.append('windows/frescobaldi-wininst.py')
+    options['bdist_wininst'] = {
+        'install_script': 'windows/frescobaldi-wininst.py',
+        'bitmap': 'windows/frescobaldi-wininst.bmp',
+    }
     data_files = []
 else:
     data_files = [
@@ -107,6 +116,7 @@ setup(
     package_data = package_data,
     data_files = data_files,
     classifiers = classifiers,
+    options = options,
     **setup_extra_args
 )
 
