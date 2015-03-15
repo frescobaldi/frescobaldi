@@ -1,4 +1,3 @@
-#! python
 # This module provides the same api via ctypes as John Harrison's pyrex-based
 # PortMIDI binding. 
 # Don't use this module directly but via the toplevel API of this package.

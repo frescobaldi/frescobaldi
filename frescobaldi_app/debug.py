@@ -1,4 +1,3 @@
-#! python
 # This module helps with debugging Frescobaldi.
 #
 # Start a Python shell

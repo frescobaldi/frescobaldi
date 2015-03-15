@@ -1,5 +1,3 @@
-#! python
-
 """
 This module provides one function, languageName(), that returns
 the human-readable name of a language from a codename (like 'nl').

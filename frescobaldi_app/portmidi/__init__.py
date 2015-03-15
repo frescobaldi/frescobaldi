@@ -1,5 +1,3 @@
-#! python
-
 """
 This package brings the most important parts of the functionality of the
 PortMIDI library in a flexible way to Python.
