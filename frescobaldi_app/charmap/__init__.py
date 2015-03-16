@@ -47,6 +47,7 @@ class CharMap(panel.Panel):
         return w
     
     def insertCharacter(self, character):
+        character = character.rstrip('\0')  # PyQt bug workaround
         self.mainwindow().textCursor().insertText(character)
         self.mainwindow().currentView().setFocus()
 
