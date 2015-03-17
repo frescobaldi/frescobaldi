@@ -52,7 +52,7 @@ def pixmap(name, size, mode, state):
     The state argument is ignored for now.
     
     """
-    if mode == QIcon.Selected:
+    if mode in (QIcon.Active, QIcon.Selected):
         color = QApplication.palette().highlightedText().color()
     else:
         color = QApplication.palette().text().color()
