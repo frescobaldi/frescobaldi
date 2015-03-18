@@ -52,7 +52,7 @@ def pixmap(name, size, mode, state):
     The state argument is ignored for now.
     
     """
-    color = QApplication.palette().foreground().color()
+    color = QApplication.palette().text().color()
     key = (name, size.width(), size.height(), color.rgb(), mode)
     try:
         return _pixmaps[key]
