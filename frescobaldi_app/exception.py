@@ -72,7 +72,7 @@ class ExceptionDialog(QDialog):
 
     def done(self, result):
         if result:
-           self.reportBug()
+            self.reportBug()
         super(ExceptionDialog, self).done(result)
         
     def reportBug(self):

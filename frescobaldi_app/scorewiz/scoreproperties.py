@@ -184,7 +184,7 @@ class ScoreProperties(object):
         layout.addLayout(box)
     
     def lyPickup(self, node, builder):
-         if self.pickup.currentIndex() > 0:
+        if self.pickup.currentIndex() > 0:
             dur, dots = partialDurations[self.pickup.currentIndex() - 1]
             ly.dom.Partial(dur, dots, parent=node)
     

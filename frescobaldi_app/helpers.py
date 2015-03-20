@@ -132,7 +132,7 @@ def terminalCommands():
                 if p:
                     prog = os.path.join(p, cmd[0])
                     if os.access(prog, os.X_OK):
-                         yield cmd
+                        yield cmd
         yield ['xterm']
 
 

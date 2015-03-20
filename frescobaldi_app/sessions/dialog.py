@@ -299,7 +299,7 @@ class SessionEditor(QDialog):
             items = self.include.items()
             for i in items:
                 if not (i.flags() & Qt.ItemIsEnabled): #is not enabled
-                  self.include.listBox.takeItem(self.include.listBox.row(i))
+                    self.include.listBox.takeItem(self.include.listBox.row(i))
             self.revt.setEnabled(True)
         else:
             self.addDisabledGenPaths()
@@ -316,7 +316,7 @@ class SessionEditor(QDialog):
         items = self.include.items()
         for i in items:
             if i.flags() & Qt.ItemIsEnabled:
-              self.include.listBox.takeItem(self.include.listBox.row(i))
+                self.include.listBox.takeItem(self.include.listBox.row(i))
         
     def save(self, name):
         settings = sessions.sessionGroup(name)

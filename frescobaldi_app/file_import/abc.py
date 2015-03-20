@@ -95,7 +95,7 @@ class Dialog(toly_dialog.ToLyDialog):
             except KeyError:
                 pass
             try:
-               del subenviron['PYTHONPATH']
+                del subenviron['PYTHONPATH']
             except KeyError:
                 pass
         proc = subprocess.Popen(cmd, cwd=directory,
