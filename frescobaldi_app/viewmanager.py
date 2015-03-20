@@ -47,7 +47,7 @@ class ViewStatusBar(QWidget):
         
         layout = QHBoxLayout()
         layout.setContentsMargins(2, 1, 0, 1)
-        layout.setSpacing(4)
+        layout.setSpacing(8)
         self.setLayout(layout)
         self.pos = QLabel()
         layout.addWidget(self.pos)
@@ -56,16 +56,10 @@ class ViewStatusBar(QWidget):
         self.state.setFixedSize(16, 16)
         layout.addWidget(self.state)
         
-        self.info = QLabel()
+        self.info = QLabel(minimumWidth=10)
         layout.addWidget(self.info, 1)
         
         self.installEventFilter(self)
-        self.translateUI()
-        app.languageChanged.connect(self.translateUI)
-        
-    def translateUI(self):
-        text = _("Line: {line}, Col: {column}").format(line=9999, column=99)
-        self.pos.setMinimumWidth(self.pos.fontMetrics().width(text))
     
     def eventFilter(self, obj, ev):
         if ev.type() == QEvent.MouseButtonPress:

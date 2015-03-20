@@ -44,14 +44,6 @@ class MusicPosition(plugin.ViewSpacePlugin):
         view = space.activeView()
         if view:
             self.slotViewChanged(view)
-        app.translateUI(self)
-    
-    def translateUI(self):
-        text = _("Pos: {pos}").format(pos="999/16")
-        pos_width = self._label.fontMetrics().width(text)
-        text = _("Length: {length}").format(length="999/16")
-        len_width = self._label.fontMetrics().width(text)
-        self._label.setMinimumWidth(max(pos_width, len_width))
     
     def slotViewChanged(self, view):
         old = self._view()

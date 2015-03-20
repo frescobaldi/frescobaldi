@@ -41,7 +41,7 @@ class ProgressBar(plugin.ViewSpacePlugin):
     """A Simple progress bar to show a Job is running."""
     def __init__(self, viewSpace):
         bar = self._bar = widgets.progressbar.TimedProgressBar()
-        viewSpace.status.layout().addWidget(bar, 1, Qt.AlignCenter)
+        viewSpace.status.layout().addWidget(bar, 0, Qt.AlignCenter)
         bar.hide()
         viewSpace.viewChanged.connect(self.viewChanged)
         app.jobStarted.connect(self.jobStarted)

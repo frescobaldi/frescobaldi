@@ -10,6 +10,7 @@ Changes in 2.18.1 --
     Snippets->Document Fonts
   - Holding the engrave button also shows Engrave publish and custom actions
 * Bugfixes:
+  - Fix document panel is resized when engraving (issue #660)
   - Fix convert-ly adding linefeeds / carriage return on Windows (issue #649)
   - Fix open in running instance when using Python 3 (issue #634)
   - Fix crash when opening non-existing file in running instance (issue #650)
