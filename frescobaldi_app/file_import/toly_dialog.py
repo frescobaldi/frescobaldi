@@ -31,8 +31,8 @@ from PyQt4.QtGui import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
 import lilychooser
-import lilypondinfo
 import userguide
+import util
 import widgets
 
 
@@ -163,7 +163,7 @@ class ToLyDialog(QDialog):
             except KeyError:
                 pass
             try:
-               del subenviron['PYTHONPATH']
+                del subenviron['PYTHONPATH']
             except KeyError:
                 pass
         proc = subprocess.Popen(cmd, cwd=directory,
