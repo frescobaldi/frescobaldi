@@ -69,7 +69,7 @@ def show(widget, pos=None, timeout=10000):
     if x + widget.width() > screen.x() + screen.width():
         x -= 4 + widget.width()
     if y + widget.height() > screen.y() + screen.height():
-        y -= 24 + widget.height();
+        y -= 24 + widget.height()
     if y < screen.y():
         y = screen.y()
     if x < screen.x():

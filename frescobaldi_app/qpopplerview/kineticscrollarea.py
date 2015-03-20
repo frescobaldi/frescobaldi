@@ -338,30 +338,30 @@ class KineticScrollArea(QScrollArea):
         if self._kineticScrollingEnabled:
             if ev.key() == Qt.Key_PageDown:
                 self.kineticAddDelta(-self.verticalScrollBar().pageStep())
-                return;
+                return
             elif ev.key() == Qt.Key_PageUp:
                 self.kineticAddDelta(self.verticalScrollBar().pageStep())
-                return;
+                return
             elif ev.key() == Qt.Key_Down:
                 self.kineticAddDelta(-self.verticalScrollBar().singleStep())
-                return;
+                return
             elif ev.key() == Qt.Key_Up:
                 self.kineticAddDelta(self.verticalScrollBar().singleStep())
-                return;
+                return
             elif ev.key() == Qt.Key_Home:
                 self.kineticMove(0, self.verticalScrollBar().value(), 0, 0)
-                return;
+                return
             elif ev.key() == Qt.Key_End:
                 self.kineticMove(0, self.verticalScrollBar().value(), 0, self.verticalScrollBar().maximum())
-                return;
+                return
         else:
             # Home/End are not handled by default.
             if ev.key() == Qt.Key_Home:
                 self.setScrollOffset(QPoint(0,0))
-                return;
+                return
             elif ev.key() == Qt.Key_End:
                 self.setScrollOffset(QPoint(self.horizontalScrollBar().maximum(), self.verticalScrollBar().maximum()))
-                return;
+                return
 
         super(KineticScrollArea, self).keyPressEvent(ev)
 
@@ -503,4 +503,4 @@ class KineticScrollArea(QScrollArea):
             self._kineticData._ticker.stop()
             self.kineticScrollingActive.emit(False)
     
-        super(KineticScrollArea, self).timerEvent(event);
+        super(KineticScrollArea, self).timerEvent(event)
