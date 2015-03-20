@@ -980,6 +980,9 @@ class MainWindow(QMainWindow):
         t.addSeparator()
         t.addAction(scorewiz.ScoreWizard.instance(self).actionCollection.scorewiz)
         t.addAction(engrave.engraver(self).actionCollection.engrave_runner)
+        w = t.widgetForAction(engrave.engraver(self).actionCollection.engrave_runner)
+        w.addAction(engrave.engraver(self).actionCollection.engrave_publish)
+        w.addAction(engrave.engraver(self).actionCollection.engrave_custom)
         
         self.toolbar_music = t = self.addToolBar('')
         t.setObjectName('toolbar_music')
