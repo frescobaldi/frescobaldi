@@ -8,6 +8,7 @@ Changes in 2.18.1 --
   - The print dialog remembers the last used printer and options
   - Improved icons for File->Close, Snippets->Repeat last note/chord and
     Snippets->Document Fonts
+  - Holding the engrave button also shows Engrave publish and custom actions
 * Bugfixes:
   - Fix convert-ly adding linefeeds / carriage return on Windows (issue #649)
   - Fix open in running instance when using Python 3 (issue #634)
