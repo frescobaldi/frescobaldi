@@ -78,7 +78,6 @@ class Incoming(object):
         self.encoding = None
         _incoming_handlers.append(self)
         socket.readyRead.connect(self.read)
-        socket.disconnected.connect(self.close)
     
     def close(self):
         if self in _incoming_handlers:
@@ -95,6 +94,8 @@ class Incoming(object):
             end = pos + 1
             pos = self.data.find(b'\n', end)
         del self.data[:end]
+        if self.socket.state() == QLocalSocket.UnconnectedState:
+            self.close()
     
     def command(self, command):
         """Perform one command."""
