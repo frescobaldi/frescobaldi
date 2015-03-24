@@ -177,9 +177,9 @@ def file_open():
     files = QFileDialog.getOpenFileNames(None, caption, directory, filetypes)
     if files:
         w = mainwindow()
-        docs = [w.openUrl(QUrl.fromLocalFile(f)) for f in files]
-        if docs:
-            w.setCurrentDocument(docs[-1])
+        w.openDocuments([QUrl.fromLocalFile(f) for f in files])
+        if not app.documents:
+            w.cleanStart()
 
 def slot_file_new_from_template_action(action):
     name = action.objectName()
@@ -200,7 +200,7 @@ def slot_file_new_from_template_action(action):
 def slot_file_open_recent_action(action):
     url = action.url
     w = mainwindow()
-    w.setCurrentDocument(w.openUrl(url))
+    w.openDocuments([url])
 
 def file_import_musicxml():
     w = mainwindow()
