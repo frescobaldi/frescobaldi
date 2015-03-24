@@ -102,12 +102,11 @@ class Incoming(object):
         cmd = command[0]
         args = command[1:]
         
-        win = QApplication.activeWindow()
-        if win not in app.windows:
-            if not app.windows:
-                import mainwindow
-                mainwindow.MainWindow().show()
-            win = app.windows[0]
+        win = app.activeWindow()
+        if not win:
+            import mainwindow
+            win = mainwindow.MainWindow()
+            win.show()
         
         if cmd == b'open':
             url = QUrl.fromEncoded(args[0])

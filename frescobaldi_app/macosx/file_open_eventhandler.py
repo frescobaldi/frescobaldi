@@ -43,12 +43,11 @@ def openUrl(url):
     created.
     
     """
-    if not app.windows:
+    win = app.activeWindow()
+    if not win:
         import mainwindow
-        mainwindow.MainWindow().show()
-    win = QApplication.activeWindow()
-    if win not in app.windows:
-        win = app.windows[0]
+        win = mainwindow.MainWindow()
+        win.show()
     doc = win.openUrl(url)
     if doc:
         win.setCurrentDocument(doc)
