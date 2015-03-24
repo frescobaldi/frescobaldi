@@ -129,12 +129,9 @@ class Reference(object):
         self._cursor = None
         
         app.documentLoaded.connect(self.trybind)
-        for d in app.documents:
-            s = scratchdir.scratchdir(d)
-            if (s.directory() and util.equal_paths(filename, s.path())
-                or d.url().toLocalFile() == filename):
-                self.bind(d)
-                break
+        d = scratchdir.findDocument(filename)
+        if d:
+            self.bind(d)
     
     def bind(self, document):
         """Called when a document is loaded this Reference points to.
