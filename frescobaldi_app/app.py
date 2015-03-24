@@ -61,6 +61,18 @@ jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
 
 
+def activeWindow():
+    """Return the currently active MainWindow.
+    
+    Only returns None if there are no windows at all.
+    
+    """
+    if windows:
+        w = QApplication.activeWindow()
+        if w in windows:
+            return w
+        return windows[0]
+
 def openUrl(url, encoding=None):
     """Returns a Document instance for the given QUrl.
     
