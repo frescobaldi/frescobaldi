@@ -44,7 +44,6 @@ class FileImport(plugin.MainWindowPlugin):
         ac.import_musicxml.triggered.connect(self.importMusicXML)
         ac.import_midi.triggered.connect(self.importMidi)
         ac.import_abc.triggered.connect(self.importAbc)
-        self.extension = None
         
     def importAll(self):
         """Reads the file type and determines which import to use."""
@@ -62,26 +61,24 @@ class FileImport(plugin.MainWindowPlugin):
             return # the dialog was cancelled by user
         for imp in importfiles:
             if self.isImportable(imp):
-                self.openDialog()
+                self.openDialog(imp)
             else:
                 QMessageBox.critical(None, _("Error"),
                     _("The file {filename} could not be converted. "
                       "Wrong file type.").format(filename=imp))
         
-    def isImportable(self, infile=None):
+    def isImportable(self, infile):
         """Check if the file is importable."""
-        if infile:
-            self.importfile = infile
-        ext = os.path.splitext(self.importfile)[1]
+        ext = os.path.splitext(infile)[1]
         if ext in ['.xml', '.mxl', '.midi', '.mid', '.abc']:
-            self.extension = ext
             return True
         else:
             return False
             
-    def openDialog(self): 
-        """Check file type and open the proper dialog."""       
-        ext = self.extension
+    def openDialog(self, infile): 
+        """Check file type and open the proper dialog."""
+        self.importfile = infile   
+        ext = os.path.splitext(infile)[1]
         if ext == '.xml' or ext == '.mxl':
             self.openMusicxmlDialog()
         elif ext == '.midi' or ext == '.mid':

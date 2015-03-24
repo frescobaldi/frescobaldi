@@ -276,12 +276,17 @@ class MainWindow(QMainWindow):
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
+            lyurls = []
+            impurls = []
             for url in ev.mimeData().urls():
                 imp = file_import.FileImport.instance(self)
                 if imp.isImportable(url.path()):
-                    imp.openDialog()
+                    impurls.append(url.path())
                 else:
-                    self.openUrl(url)
+                    lyurls.append(url)
+            self.openUrls(lyurls)
+            for i in impurls:
+                imp.openDialog(i)
     
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
