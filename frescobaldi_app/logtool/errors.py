@@ -171,7 +171,10 @@ class Reference(object):
         if load:
             win = app.activeWindow()
             if win:
-                win.openUrl(QUrl.fromLocalFile(self._filename)) # also calls bind
+                try:
+                    win.openUrl(QUrl.fromLocalFile(self._filename)) # also calls bind
+                except IOError:
+                    pass
                 if self._cursor:
                     return self._cursor
 
