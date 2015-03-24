@@ -48,7 +48,9 @@ def openUrl(url):
         import mainwindow
         win = mainwindow.MainWindow()
         win.show()
-    win.openDocuments([url])
+    d = win.openUrl(url)
+    if d:
+        win.setCurrentDocument(d)
 
 
 class FileOpenEventHandler(QObject):

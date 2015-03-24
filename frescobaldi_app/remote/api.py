@@ -28,7 +28,6 @@ newline. Arguments are separated with spaces.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QApplication, QMessageBox
 from PyQt4.QtNetwork import QLocalSocket
 
 import app
@@ -111,15 +110,7 @@ class Incoming(object):
         
         if cmd == b'open':
             url = QUrl.fromEncoded(args[0])
-            try:
-                win.openUrl(url, self.encoding)
-            except IOError as e:
-                filename = url.toLocalFile()
-                msg = _("{message}\n\n{strerror} ({errno})").format(
-                    message = _("Could not read from: {url}").format(url=filename),
-                    strerror = e.strerror,
-                    errno = e.errno)
-                QMessageBox.critical(win, app.caption(_("Error")), msg)
+            win.openUrl(url, self.encoding)
                 
         elif cmd == b'encoding':
             self.encoding = str(args[0])

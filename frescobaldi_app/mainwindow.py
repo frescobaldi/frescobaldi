@@ -383,28 +383,39 @@ class MainWindow(QMainWindow):
         settings.setValue('geometry', self.saveGeometry())
         settings.setValue('state', self.saveState())
 
-    def openUrl(self, url, encoding=None):
-        """Same as app.openUrl but adds url to recent files."""
-        d = app.openUrl(url, encoding)
-        recentfiles.add(url)
-        return d
+    def openUrl(self, url, encoding=None, ignore_errors=False):
+        """Calls openUrls() with one url. See openUrls()."""
+        for d in self.openUrls([url], encoding, ignore_errors):
+            return d
     
-    def openDocuments(self, urls, encoding=None):
-        """Open a list of urls, with error handling.
+    def openUrls(self, urls, encoding=None, ignore_errors=False):
+        """Open a list of urls, using encoding if specified.
         
-        The last loaded document is made current.
+        Returns the list of documents that were successfully loaded.
+        
+        If encoding is None, the encoding is read from the document, defaulting
+        to UTF-8.
+        
+        If ignore_errors is False (the default), an error message is given
+        showing the url or urls that failed to load. If ignore_errors is True,
+        load errors are silently ignored.
+        
+        If an url fails to load, a document is not created. To create an
+        empty document with an url, use the document.Document constructor.
+        Successfully loaded urls are added to the recent files.
         
         """
-        doc = None
+        docs = []
         failures = []
         for url in urls:
             try:
-                doc = self.openUrl(url)
+                doc = app.openUrl(url, encoding)
             except IOError as e:
                 failures.append((url, e))
-        if doc:
-            self.setCurrentDocument(doc)
-        if failures:
+            else:
+                docs.append(doc)
+                recentfiles.add(url)
+        if failures and not ignore_errors:
             if len(failures) == 1:
                 url, e = failures[0]
                 filename = url.toLocalFile()
@@ -419,7 +430,8 @@ class MainWindow(QMainWindow):
                         strerror = e.strerror,
                         errno = e.errno) for url, e in failures)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
-                
+        return docs
+    
     def currentDirectory(self):
         """Returns the current directory of the current document.
         
@@ -478,7 +490,9 @@ class MainWindow(QMainWindow):
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
         files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
         urls = [QUrl.fromLocalFile(filename) for filename in files]
-        self.openDocuments(urls)
+        docs = self.openUrls(urls)
+        if docs:
+            self.setCurrentDocument(docs[-1])
         
     def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
@@ -950,7 +964,9 @@ class MainWindow(QMainWindow):
     
     def slotRecentFilesAction(self, action):
         """Called when a recent files menu action is triggered."""
-        self.openDocuments([action.url])
+        d = self.openUrl(action.url)
+        if d:
+            self.setCurrentDocument(d)
         
     def createMenus(self):
         menu.createMenus(self)

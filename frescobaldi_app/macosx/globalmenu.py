@@ -177,7 +177,7 @@ def file_open():
     files = QFileDialog.getOpenFileNames(None, caption, directory, filetypes)
     if files:
         w = mainwindow()
-        w.openDocuments([QUrl.fromLocalFile(f) for f in files])
+        w.openUrls([QUrl.fromLocalFile(f) for f in files])
         if not app.documents:
             w.cleanStart()
 
@@ -198,9 +198,10 @@ def slot_file_new_from_template_action(action):
         engrave.engraver(win).engrave('preview', d)
 
 def slot_file_open_recent_action(action):
-    url = action.url
     w = mainwindow()
-    w.openDocuments([url])
+    d = w.openUrl(action.url)
+    if d:
+        w.setCurrentDocument(d)
 
 def file_import_musicxml():
     w = mainwindow()

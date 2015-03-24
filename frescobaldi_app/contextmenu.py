@@ -73,7 +73,8 @@ def open_files(cursor, menu, mainwindow):
         @a.triggered.connect
         def open_doc():
             d = mainwindow.openUrl(url)
-            browseriface.get(mainwindow).setCurrentDocument(d)
+            if d:
+                browseriface.get(mainwindow).setCurrentDocument(d)
         return a
     import open_file_at_cursor
     return list(map(action, open_file_at_cursor.filenames_at_cursor(cursor)))

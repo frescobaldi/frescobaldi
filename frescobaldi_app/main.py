@@ -242,9 +242,8 @@ def main():
     # load documents given as arguments
     import document
     for u in urls:
-        try:
-            doc = win.openUrl(u, args.encoding)
-        except IOError:
+        doc = win.openUrl(u, args.encoding, ignore_errors=True)
+        if not doc:
             doc = document.Document(u, args.encoding)
     
     # were documents loaded?
