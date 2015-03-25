@@ -280,8 +280,8 @@ class MainWindow(QMainWindow):
             impurls = []
             for url in ev.mimeData().urls():
                 imp = file_import.FileImport.instance(self)
-                if imp.isImportable(url.path()):
-                    impurls.append(url.path())
+                if imp.isImportable(url.toLocalFile()):
+                    impurls.append(QDir.toNativeSeparators(url.toLocalFile()))
                 else:
                     lyurls.append(url)
             docs = self.openUrls(lyurls)
