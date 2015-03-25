@@ -284,7 +284,9 @@ class MainWindow(QMainWindow):
                     impurls.append(url.path())
                 else:
                     lyurls.append(url)
-            self.openUrls(lyurls)
+            docs = self.openUrls(lyurls)
+            if docs:
+                self.setCurrentDocument(docs[-1])
             for i in impurls:
                 imp.openDialog(i)
     
