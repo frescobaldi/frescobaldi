@@ -249,7 +249,7 @@ class ScoreProperties(object):
         text = self.tempo.text().strip()
         if builder.showMetronomeMark:
             dur = durations[self.metronomeNote.currentIndex()]
-            val = self.metronomeValue.currentText()
+            val = self.metronomeValue.currentText() or '60'
         elif text:
             dur = None
             val = None
@@ -266,13 +266,13 @@ class ScoreProperties(object):
     def schemeMidiTempo(self):
         """Returns a string with the tempo like '(ly:make-moment 100 4)' from the settings."""
         base, mul = midiDurations[self.metronomeNote.currentIndex()]
-        val = int(self.metronomeValue.currentText()) * mul
+        val = int(self.metronomeValue.currentText() or '60') * mul
         return "(ly:make-moment {0} {1})".format(val, base)
     
     def lySimpleMidiTempo(self, node):
         """Return a simple \tempo x=y node for the currently set tempo."""
         dur = durations[self.metronomeNote.currentIndex()]
-        val = self.metronomeValue.currentText()
+        val = self.metronomeValue.currentText() or '60'
         return ly.dom.Tempo(dur, val, node)
         
 
