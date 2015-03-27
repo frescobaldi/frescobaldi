@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-"""
+r"""
 Reformat the selection or the whole document, only adjusting whitespace.
 
 What it does:

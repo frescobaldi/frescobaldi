@@ -188,7 +188,7 @@ class Drums(_base.Part):
         self.drumStyle.model().update()
     
     def assignDrums(self, data, name = None):
-        """Creates an empty name = \drummode assignment.
+        r"""Creates an empty name = \drummode assignment.
 
         Returns the assignment.
         

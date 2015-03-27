@@ -242,7 +242,7 @@ def isoriginal(name):
 
 
 def expand(text):
-    """Yields tuples (text, expansion) for text.
+    r"""Yields tuples (text, expansion) for text.
     
     Parses text for expressions like '$VAR_NAME', '${other text}' or '$$'.
     

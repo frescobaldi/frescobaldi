@@ -61,7 +61,7 @@ class PartNode(object):
 
 
 class PartData(object):
-    """Represents what a Part wants to add to the LilyPond score.
+    r"""Represents what a Part wants to add to the LilyPond score.
     
     A Part may append to the following instance attributes (which are lists):
     

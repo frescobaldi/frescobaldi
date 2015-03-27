@@ -157,7 +157,7 @@ def markup(cursor):
 
 @remove
 def smart_delete(cursor, backspace=False):
-    """This function intelligently deletes an item the cursor is at.
+    r"""This function intelligently deletes an item the cursor is at.
     
     Basically it behaves like normal Delete (cursor.deleteChar()) or BackSpace
     (cursor.deletePreviousChar()), but it performs the following:

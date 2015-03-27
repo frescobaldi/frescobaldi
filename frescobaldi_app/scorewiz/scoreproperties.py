@@ -270,7 +270,7 @@ class ScoreProperties(object):
         return "(ly:make-moment {0} {1})".format(val, base)
     
     def lySimpleMidiTempo(self, node):
-        """Return a simple \tempo x=y node for the currently set tempo."""
+        r"""Return a simple \tempo x=y node for the currently set tempo."""
         dur = durations[self.metronomeNote.currentIndex()]
         val = self.metronomeValue.currentText() or '60'
         return ly.dom.Tempo(dur, val, node)

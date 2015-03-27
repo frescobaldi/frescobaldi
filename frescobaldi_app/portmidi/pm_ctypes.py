@@ -56,7 +56,7 @@ if sys.platform.startswith('win'):
             return plen and path.value or None
 
     def find_library(name, prepend_paths=None):
-        """Find and return the path of the given DLL using the DLL search order.
+        r"""Find and return the path of the given DLL using the DLL search order.
 
         'name' should be the basename of the DLL with or without the '.dll'
         extension. If 'prepend_paths' is specified, it should be a list of

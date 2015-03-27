@@ -215,7 +215,7 @@ class Analyzer(object):
         return documentdata.doc(cursor.document()).lyriccommands(cursor)
         
     def music_glyph(self):
-        """Complete \markup \musicglyph names."""
+        r"""Complete \markup \musicglyph names."""
         try:
             i = self.tokens.index('\\musicglyph', -5, -3)
         except ValueError:
@@ -443,7 +443,7 @@ class Analyzer(object):
         return completiondata.lilypond_accidental_styles_contexts
 
     def hide_omit(self):
-        """test for \omit and \hide"""
+        r"""test for \omit and \hide"""
         indices = []
         for t in "\\omit", "\\hide":
             try:
