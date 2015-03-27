@@ -95,5 +95,5 @@ class DefineOffset():
         if len(objToOverride) > 0:
             objToOverride += "."
         objToOverride += self.lilyObject
-        return ("\once \override {0}.extra-offset = #'({1:.2f} . {2:.2f})"
+        return (r"\once \override {0}.extra-offset = #'({1:.2f} . {2:.2f})"
                 .format(objToOverride, x, y))

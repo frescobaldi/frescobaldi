@@ -239,8 +239,8 @@ class PySpecialVariable(Variable):
 
 class PyValue(Value):
     rx = (
-        "(0[bB][01]+|0[oO][0-7]+|0[xX][0-9A-Fa-f]+|\d+)[lL]?"
-        "|(\d+\.\d*|\.\d+)([eE][+-]?\d+)?"
+        r"(0[bB][01]+|0[oO][0-7]+|0[xX][0-9A-Fa-f]+|\d+)[lL]?"
+        r"|(\d+\.\d*|\.\d+)([eE][+-]?\d+)?"
     )
 
 # Parsers, many because of complicated string quote types in Python
