@@ -66,7 +66,7 @@ class View(QtWebKit.QWebView):
     selectedObject = QtCore.pyqtSignal(str)
     selectedUrl = QtCore.pyqtSignal(QtGui.QTextCursor)
     
-    defaulturl = QtCore.QUrl(os.path.join(__path__[0], 'background.html'))
+    defaulturl = QtCore.QUrl.fromLocalFile(os.path.join(__path__[0], 'background.html'))
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
