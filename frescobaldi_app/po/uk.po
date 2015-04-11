@@ -473,7 +473,7 @@ msgstr "Нагору"
 
 #: ../hyphendialog.py:115
 msgid "Hyphenate Lyrics Text"
-msgstr "Розбити вокальний текст на склади"
+msgstr "Розбити на склади"
 
 #: ../hyphendialog.py:116
 msgid "Please select a language:"
@@ -517,18 +517,16 @@ msgid "Completed successfully in {time}."
 msgstr "Завершено успішно за {time}"
 
 #: ../lilychooser.py:42
-#, fuzzy
 msgid "Choose the desired LilyPond version."
-msgstr "Convert-ly з версії LilyPond {version}"
+msgstr ""
 
 #: ../lilypondinfo.py:144
 msgid "Running LilyPond, this can take some time..."
 msgstr "Запускаємо LilyPond, це може тривати певний час..."
 
 #: ../lyrics.py:126
-#, fuzzy
 msgid "&Hyphenate Lyrics Text..."
-msgstr "&Розбити вокальний текст на склади"
+msgstr "&Розбити на склади..."
 
 #: ../lyrics.py:127
 msgid "&Remove hyphenation"
@@ -757,18 +755,16 @@ msgid "Save All"
 msgstr "Зберегти усе"
 
 #: ../mainwindow.py:1182
-#, fuzzy
 msgid "Re&load"
 msgstr "&Перечитати"
 
 #: ../mainwindow.py:1183 ../externalchanges/widget.py:109
-#, fuzzy
 msgid "Reload All"
 msgstr "&Перечитати"
 
 #: ../mainwindow.py:1184
 msgid "Check for External Changes..."
-msgstr ""
+msgstr "Перевірити наявність зовнішніх змін..."
 
 #: ../mainwindow.py:1186
 msgid ""
@@ -781,9 +777,8 @@ msgid "Print Source..."
 msgstr "Друкувати джерело..."
 
 #: ../mainwindow.py:1191
-#, fuzzy
 msgid "Close All Documents and Session"
-msgstr "Закрити всі документи"
+msgstr "Закрити всі документи та сесії"
 
 #: ../mainwindow.py:1192
 msgid "Closes all documents and leaves the current session."
@@ -794,7 +789,7 @@ msgid "&Quit"
 msgstr "Ви&йти"
 
 #: ../mainwindow.py:1194
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Restart {appname}"
 msgstr "Про {appname}"
 
@@ -875,9 +870,8 @@ msgid "&Previous Document"
 msgstr "П&опередній документ"
 
 #: ../mainwindow.py:1217
-#, fuzzy
 msgid "Wrap &Lines"
-msgstr "Тактові риски"
+msgstr "Розбити довгі рядки"
 
 #: ../mainwindow.py:1218
 msgid "Scroll Up"
@@ -913,13 +907,12 @@ msgid "&About {appname}..."
 msgstr "&Про {appname}..."
 
 #: ../matcher.py:132
-#, fuzzy
 msgid "Matching Pai&r"
-msgstr "Символ збігу"
+msgstr "Перейти до символа-пари"
 
 #: ../matcher.py:133
 msgid "&Select Matching Pair"
-msgstr ""
+msgstr "Виділити фрагмент до символа-пари"
 
 #: ../menu.py:94 ../macosx/globalmenu.py:72
 msgctxt "menu title"
@@ -989,10 +982,9 @@ msgid "&Rhythm"
 msgstr "&Ритм"
 
 #: ../menu.py:379
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Quick Remove"
-msgstr "&Видалити"
+msgstr "&Швидке видалення"
 
 #: ../menu.py:397 ../macosx/globalmenu.py:134
 msgctxt "menu title"
@@ -2148,17 +2140,16 @@ msgid "Fit &Page"
 msgstr "Влаштувати сто&рінку"
 
 #: ../musicview/__init__.py:347
-#, fuzzy
 msgid "Single Pages"
-msgstr "Тонка тактова риска"
+msgstr "Одинарні сторінки"
 
 #: ../musicview/__init__.py:348
 msgid "Two Pages (first page right)"
-msgstr ""
+msgstr "Дві сторінки (перша праворуч)"
 
 #: ../musicview/__init__.py:349
 msgid "Two Pages (first page left)"
-msgstr ""
+msgstr "Дві сторінки (перша ліворуч)"
 
 #: ../musicview/__init__.py:350
 msgid "&Maximize"
@@ -2169,7 +2160,6 @@ msgid "&Jump to Cursor Position"
 msgstr "Перейти до п&озиції курсора"
 
 #: ../musicview/__init__.py:352
-#, fuzzy
 msgid "S&ynchronize with Cursor Position"
 msgstr "Перейти до п&озиції курсора"
 
@@ -3514,9 +3504,8 @@ msgid "Keyboard Shortcuts"
 msgstr "Гарячі клавіші"
 
 #: ../preferences/__init__.py:251 ../userguide/prefs_editor.md:1
-#, fuzzy
 msgid "Editor Preferences"
-msgstr "Налаштування"
+msgstr "Налаштування редактора"
 
 #: ../preferences/__init__.py:262 ../userguide/prefs_fontscolors.md:1
 msgid "Fonts & Colors"
@@ -3552,9 +3541,8 @@ msgid "Please enter a local path or a URL:"
 msgstr ""
 
 #: ../preferences/editor.py:75
-#, fuzzy
 msgid "View Preferences"
-msgstr "Загальні налаштування"
+msgstr "Налаштування перегляду"
 
 #: ../preferences/editor.py:76
 msgid "Wrap long lines by default"
@@ -3605,13 +3593,12 @@ msgid "Infinite"
 msgstr ""
 
 #: ../preferences/editor.py:190 ../userguide/prefs_editor.md:11
-#, fuzzy
 msgid "Indenting Preferences"
-msgstr "Налаштування"
+msgstr "Налаштування відступів"
 
 #: ../preferences/editor.py:191
 msgid "Visible Tab Width:"
-msgstr ""
+msgstr "Видима ширина табуляції"
 
 #: ../preferences/editor.py:193
 msgid "The visible width of a Tab character in the editor."
@@ -3619,19 +3606,20 @@ msgstr ""
 
 #: ../preferences/editor.py:194
 msgid "Indent text with:"
-msgstr ""
+msgstr "Ширина відступу тексту:"
 
 #: ../preferences/editor.py:196
 msgid ""
 "How many spaces to use for indenting one level.\n"
 "Move to zero to use a Tab character for indenting."
 msgstr ""
+"Скільки пробілів використовувати для відступу на один рівень.\n"
+"Якщо нуль, для відступу буде використано символ табуляції."
 
 #: ../preferences/editor.py:198 ../preferences/editor.py:204
 #: ../preferences/editor.py:205
-#, fuzzy
 msgid "Tab"
-msgstr "Мітка"
+msgstr ""
 
 #: ../preferences/editor.py:199
 msgid "Tab ouside indent inserts:"
@@ -3651,12 +3639,10 @@ msgid "{num} spaces"
 msgstr ""
 
 #: ../preferences/editor.py:250
-#, fuzzy
 msgid "Source Export Preferences"
-msgstr "Налаштування"
+msgstr ""
 
 #: ../preferences/editor.py:251
-#, fuzzy
 msgid "Show line numbers"
 msgstr "Номери ря&дків"
 
@@ -3708,30 +3694,28 @@ msgid ""
 msgstr ""
 
 #: ../preferences/editor.py:343
-#, fuzzy
 msgid "Typographical Quotes"
-msgstr "Одинарні типографські лапки"
+msgstr "Типографські лапки"
 
 #: ../preferences/editor.py:344
 msgid "Quotes to use:"
-msgstr ""
+msgstr "Використовувати лапки:"
 
 #: ../preferences/editor.py:345
 msgid "Primary (double) quotes:"
-msgstr ""
+msgstr "Зовнішні (подвійні) лапки:"
 
 #: ../preferences/editor.py:346
 msgid "Secondary (single) quotes:"
-msgstr ""
+msgstr "Внутрішні (одинарні) лапки:"
 
 #: ../preferences/editor.py:350
-#, fuzzy
 msgid "Current language"
-msgstr "Поточний рядок"
+msgstr "Поточна мова"
 
 #: ../preferences/editor.py:351
 msgid "Custom quotes (enter below)"
-msgstr ""
+msgstr "Особливі лапки (введіть нижче)"
 
 #: ../preferences/fontscolors.py:132
 msgid "Use this scheme for printing"
@@ -4099,13 +4083,15 @@ msgstr "Зберігаючи документи"
 
 #: ../preferences/general.py:232
 msgid "Strip trailing whitespace"
-msgstr ""
+msgstr "Видаляти пробіли на кінці рядків"
 
 #: ../preferences/general.py:234
 msgid ""
 "If checked, Frescobaldi will remove unnecessary whitespace at the end of "
 "lines (but not inside multi-line strings)."
 msgstr ""
+"Якщо відмітити, Frescobaldi буде видаляти непотрібні пробіли "
+"на кінцях рядків (але не всередині багаторядкових стрічок)."
 
 #: ../preferences/general.py:236
 msgid "Keep backup copy"
@@ -4133,36 +4119,36 @@ msgid "The default folder for your LilyPond documents (optional)."
 msgstr "Тека для ваших документів LilyPond (не обов’язково)."
 
 #: ../preferences/general.py:284
-#, fuzzy
 msgid "When creating new documents"
-msgstr "Зберігаючи документи"
+msgstr "Створюючи новий документ"
 
 #: ../preferences/general.py:285
-#, fuzzy
 msgid "Create an empty document"
-msgstr "Поточний документ"
+msgstr "Створити порожній"
 
 #: ../preferences/general.py:286
 msgid "Create a document that contains the LilyPond version statement"
-msgstr ""
+msgstr "Створити документ із вказаною версією LilyPond"
 
 #: ../preferences/general.py:287
 msgid "Create a document from a template:"
-msgstr ""
+msgstr "Створити документ із шаблону:"
 
 #: ../preferences/general.py:335 ../userguide/experimental_features.md:1
 msgid "Experimental Features"
-msgstr ""
+msgstr "Експериментальні можливості"
 
 #: ../preferences/general.py:336
 msgid "Enable Experimental Features"
-msgstr ""
+msgstr "Дозволити експериментальні можливості"
 
 #: ../preferences/general.py:338
 msgid ""
 "If checked, features that are not yet finished are enabled.\n"
 "You need to restart Frescobaldi to see the changes."
 msgstr ""
+"Якщо відмічено, незавершені можливості буде увімкнено.\n"
+"Ви мусите перезавантажити Frescobaldi, щоб побачити зміни."
 
 #: ../preferences/helpers.py:73
 msgid "PDF:"
@@ -5267,7 +5253,6 @@ msgid "Enter a rhythm:"
 msgstr ""
 
 #: ../scorewiz/__init__.py:61
-#, fuzzy
 msgid "Score &Wizard..."
 msgstr "Майстер налаштування твору"
 
@@ -7031,11 +7016,11 @@ msgstr "Колір"
 
 #: ../snippet/builtin.py:631
 msgid "Basic Leadsheet"
-msgstr ""
+msgstr "Базовий твір"
 
 #: ../snippet/builtin.py:675
 msgid "Choir Hymn"
-msgstr ""
+msgstr "Хорова партитура"
 
 #: ../snippet/edit.py:126 ../snippet/insert.py:224
 msgid "Edit Snippet"
