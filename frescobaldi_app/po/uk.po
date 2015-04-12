@@ -122,9 +122,8 @@ msgid "Previous Mark"
 msgstr "Попередня позначка"
 
 #: ../browseriface.py:135
-#, fuzzy
 msgid "Go to previous position"
-msgstr "Перейти до п&озиції курсора"
+msgstr "Перейти до попередньої позиції"
 
 #: ../browseriface.py:136 ../docbrowser/__init__.py:82
 #: ../userguide/browser.py:81
@@ -132,9 +131,8 @@ msgid "Back"
 msgstr "Назад"
 
 #: ../browseriface.py:137
-#, fuzzy
 msgid "Go to next position"
-msgstr "Перейти до п&озиції курсора"
+msgstr "Перейти до наступної позиції"
 
 #: ../browseriface.py:138 ../docbrowser/__init__.py:83
 #: ../userguide/browser.py:82
@@ -197,9 +195,8 @@ msgid "Run Again"
 msgstr "Виконати знову"
 
 #: ../convert_ly.py:139
-#, fuzzy
 msgid "Save as file"
-msgstr "Зберегти файл"
+msgstr "Зберегти як файл"
 
 #: ../convert_ly.py:156 ../docbrowser/browser.py:159
 #: ../musicview/editinplace.py:153 ../musicview/image.py:170
@@ -248,9 +245,8 @@ msgid "Save File"
 msgstr "Зберегти файл"
 
 #: ../convert_ly.py:267
-#, fuzzy
 msgid "Text Files"
-msgstr "Файли Texinfo"
+msgstr "Текстові файли"
 
 #: ../cut_assign.py:39
 msgid "Cut and Assign"
@@ -303,28 +299,24 @@ msgid "&Update with convert-ly..."
 msgstr "Поновити з допомогою convert-ly..."
 
 #: ../documentactions.py:192
-#, fuzzy
 msgid "Remove &Articulations"
-msgstr "&Видалити тривалості"
+msgstr "Видалити артикуляції"
 
 #: ../documentactions.py:193
-#, fuzzy
 msgid "Remove &Ornaments"
-msgstr "Видалити номери тактів"
+msgstr "Видалити орнаменти"
 
 #: ../documentactions.py:194
 msgid "Remove &Instrument Scripts"
 msgstr ""
 
 #: ../documentactions.py:195
-#, fuzzy
 msgid "Remove &Slurs"
-msgstr "&Видалити тривалості"
+msgstr "Видалити ліги"
 
 #: ../documentactions.py:196
-#, fuzzy
 msgid "Remove &Dynamics"
-msgstr "Прибрати &масштабування"
+msgstr "Видалити динамічні позначки"
 
 #: ../documentactions.py:197
 msgid "Remove Text &Markup (from music)"
@@ -348,15 +340,13 @@ msgid "Close Other Documents"
 msgstr "Закрити інші документи"
 
 #: ../documentcontextmenu.py:73
-#, fuzzy
 msgid "Always &Engrave This Document"
 msgstr "Завжди &гравіювати цей документ"
 
 #: ../documentmenu.py:42
-#, fuzzy
 msgctxt "menu title"
 msgid "&Documents"
-msgstr "&Документ"
+msgstr "&Документи"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
 #: ../documentmenu.py:109
@@ -384,24 +374,20 @@ msgid "Please wait until the command finishes"
 msgstr ""
 
 #: ../externalcommand.py:66
-#, fuzzy
 msgid "Command completed"
-msgstr "Відкрити командний рядок"
+msgstr "Виконання завершено"
 
 #: ../globalfontdialog.py:64
 msgid "Global Fonts"
 msgstr "Глобальні шрифти"
 
 #: ../globalfontdialog.py:66
-#, fuzzy
 msgid ""
 "Please select the three global fonts to use for <code>\\roman</code>, <code>"
 "\\sans</code>, and <code>\\typewriter</code> respectively."
 msgstr ""
 "Будь ласка, виберіть глобальні шрифти для <code>\\roman</code>, <code>"
-"\\sans</code> та <code>\\typewriter</code> відповідно. Ви маєте також "
-"вибрати розмір нотоносця відповідно до використовуваного у документі "
-"(стандартно 20)."
+"\\sans</code> та <code>\\typewriter</code> відповідно."
 
 #: ../globalfontdialog.py:69
 msgid "Roman Font:"
@@ -486,12 +472,12 @@ msgstr "Виберіть колір"
 #: ../job.py:274
 #, python-brace-format
 msgid "Starting {job}..."
-msgstr "Починаємо {job}"
+msgstr "Починаємо завдання «{job}»"
 
 #: ../job.py:283
 #, python-brace-format
 msgid "Aborting {job}..."
-msgstr "Уриваємо {job}"
+msgstr "Уриваємо завдання «{job}»"
 
 #: ../job.py:296
 msgid "Could not read from the process."
@@ -574,23 +560,20 @@ msgid "List the session names and exit"
 msgstr ""
 
 #: ../main.py:71
-#, fuzzy
 msgid "Always start a new instance"
 msgstr "Завжди запускати новий примірник"
 
 #: ../main.py:72
-#, fuzzy
 msgid "file"
-msgstr "Друкувати {filename}"
+msgstr "файл"
 
 #: ../main.py:73
 msgid "File to be opened"
 msgstr ""
 
 #: ../main.py:169
-#, fuzzy
 msgid "Can't run Frescobaldi"
-msgstr "Про Frescobaldi"
+msgstr "Неможливо виконати Frescobaldi"
 
 #: ../main.py:170
 #, python-brace-format
@@ -640,20 +623,13 @@ msgstr ""
 
 #: ../mainwindow.py:430 ../mainwindow.py:623 ../mainwindow.py:715
 #: ../sessions/dialog.py:106
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not read from: {url}"
-msgstr ""
-"Не можу відкрити віддалений документ:\n"
-"\n"
-"{url}"
+msgstr "Неможливо зчитати з: {url}"
 
 #: ../mainwindow.py:434
-#, fuzzy
 msgid "Could not read:"
-msgstr ""
-"Не можу відкрити віддалений документ:\n"
-"\n"
-"{url}"
+msgstr "Неможливо зчитати:"
 
 #: ../mainwindow.py:496 ../macosx/globalmenu.py:175
 msgctxt "dialog title"
@@ -662,12 +638,9 @@ msgstr "Відкрити файл"
 
 #: ../mainwindow.py:540 ../mainwindow.py:603 ../mainwindow.py:777
 #: ../sessions/dialog.py:127
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not write to: {url}"
-msgstr ""
-"Не можу відкрити віддалений документ:\n"
-"\n"
-"{url}"
+msgstr "Неможливо записати до: {url}"
 
 #: ../mainwindow.py:586
 msgctxt "dialog title"
@@ -680,12 +653,8 @@ msgid "Save Selection"
 msgstr "Зберегти виділення"
 
 #: ../mainwindow.py:637 ../externalchanges/widget.py:241
-#, fuzzy
 msgid "Could not reload:"
-msgstr ""
-"Не можу відкрити віддалений документ:\n"
-"\n"
-"{url}"
+msgstr "Неможливо перечитати:"
 
 #: ../mainwindow.py:706
 msgctxt "dialog title"
@@ -920,10 +889,9 @@ msgid "&File"
 msgstr "Ф&айл"
 
 #: ../menu.py:132 ../macosx/globalmenu.py:121
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Import"
-msgstr "Експорт"
+msgstr "Імпорт"
 
 #: ../menu.py:144
 msgctxt "submenu title"
@@ -946,10 +914,9 @@ msgid "&Folding"
 msgstr "&Згортки"
 
 #: ../menu.py:232
-#, fuzzy
 msgctxt "menu title"
 msgid "&Music"
-msgstr "&Перегляд твору"
+msgstr ""
 
 #: ../menu.py:263
 msgctxt "menu title"
@@ -1199,9 +1166,8 @@ msgid "Close all untitled documents"
 msgstr "Закрити всі неназвані документи"
 
 #: ../engrave/__init__.py:109
-#, fuzzy
 msgid "Abort engraving job"
-msgstr "Пере&рвати процес гравіювання"
+msgstr "Перервати процес гравіювання"
 
 #: ../engrave/__init__.py:110
 msgid "Engrave (preview; press Shift for custom)"
@@ -1219,7 +1185,7 @@ msgstr "Завжди &гравіювати цей документ"
 #: ../engrave/__init__.py:325
 #, fuzzy
 msgid "No LilyPond installation found"
-msgstr "Документація LilyPond"
+msgstr "LilyPond не знайдено"
 
 #: ../engrave/__init__.py:326
 msgid ""
@@ -1243,17 +1209,14 @@ msgid "&Engrave (preview)"
 msgstr "Граві&ювати (перегляд)"
 
 #: ../engrave/__init__.py:368
-#, fuzzy
 msgid "Engrave (&publish)"
 msgstr "Гравіювати (&начисто)"
 
 #: ../engrave/__init__.py:369
-#, fuzzy
 msgid "Engrave (&layout control)"
-msgstr "Гравіювати (&начисто)"
+msgstr "Гравіювати (з контролем розкладки)"
 
 #: ../engrave/__init__.py:370
-#, fuzzy
 msgid "Engrave (&custom)..."
 msgstr "Гравіювати (не&стандартно)"
 
@@ -1262,22 +1225,18 @@ msgid "Abort Engraving &Job"
 msgstr "Пере&рвати процес гравіювання"
 
 #: ../engrave/__init__.py:372
-#, fuzzy
 msgid "Automatic E&ngrave"
-msgstr "Гравіювати"
+msgstr ""
 
 #: ../engrave/__init__.py:373
-#, fuzzy
 msgid "Open LilyPond &Data Directory"
-msgstr "Відкрити поточну теку"
+msgstr "Відкрити теку даних LilyPond"
 
 #: ../engrave/__init__.py:374
-#, fuzzy
 msgid "Show Available &Fonts..."
-msgstr "Доступні партії:"
+msgstr "Показати доступні шрифти..."
 
 #: ../engrave/custom.py:134
-#, fuzzy
 msgid "Engrave custom"
 msgstr "Гравіювати нестандартно"
 
@@ -1298,9 +1257,8 @@ msgid "Antialias Factor:"
 msgstr ""
 
 #: ../engrave/custom.py:139
-#, fuzzy
 msgid "Engraving mode:"
-msgstr "Пере&рвати процес гравіювання"
+msgstr "Режим гравіювання:"
 
 #: ../engrave/custom.py:140 ../scorewiz/dialog.py:84
 msgid "Preview"
@@ -1311,9 +1269,8 @@ msgid "Publish"
 msgstr ""
 
 #: ../engrave/custom.py:142
-#, fuzzy
 msgid "Layout Control"
-msgstr "Гравіювати (&начисто)"
+msgstr "Керування розкладкою"
 
 #: ../engrave/custom.py:143 ../preferences/lilypond.py:327
 msgid "Run LilyPond with English messages"
@@ -1360,14 +1317,13 @@ msgid "PNG (EPS Backend)"
 msgstr ""
 
 #: ../engrave/lytools.py:40 ../engrave/lytools.py:41
-#, fuzzy
 msgid "Available Fonts"
-msgstr "Доступні партії:"
+msgstr "Доступні шрифти"
 
 #: ../engrave/lytools.py:43
 #, python-brace-format
 msgid "List of fonts detected by {version}"
-msgstr ""
+msgstr "Перелік шрифтів, знайдених {version}"
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
@@ -1386,7 +1342,6 @@ msgid "The following files were modified or deleted by other applications:"
 msgstr ""
 
 #: ../externalchanges/widget.py:104
-#, fuzzy
 msgid "Reload"
 msgstr "&Перечитати"
 
@@ -1419,9 +1374,8 @@ msgid ""
 msgstr ""
 
 #: ../externalchanges/widget.py:122
-#, fuzzy
 msgid "Show Difference..."
-msgstr "Налаш&тування"
+msgstr "Показати різницю..."
 
 #: ../externalchanges/widget.py:124
 msgid ""
@@ -1429,9 +1383,8 @@ msgid ""
 msgstr ""
 
 #: ../externalchanges/widget.py:127
-#, fuzzy
 msgid "Enable watching documents for external changes"
-msgstr "Документ не було змінено."
+msgstr ""
 
 #: ../externalchanges/widget.py:129
 msgid ""
@@ -1440,14 +1393,12 @@ msgid ""
 msgstr ""
 
 #: ../externalchanges/widget.py:157
-#, fuzzy
 msgid "[deleted]"
-msgstr "Видалено"
+msgstr "[видалено]"
 
 #: ../externalchanges/widget.py:257
-#, fuzzy
 msgid "Could not save:"
-msgstr "Не вдалося зберегти зображення."
+msgstr "Не вдалося зберегти:"
 
 #: ../externalchanges/widget.py:262
 msgid "Please save the document using the \"Save As...\" dialog."
@@ -1457,9 +1408,8 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: ../externalchanges/widget.py:287
-#, fuzzy
 msgid "Document on Disk"
-msgstr "Документи"
+msgstr "Документ на Дискові"
 
 #: ../externalchanges/widget.py:294
 #, python-brace-format
@@ -1469,20 +1419,19 @@ msgid ""
 msgstr ""
 
 #: ../file_export/__init__.py:57
-#, fuzzy
 msgctxt "dialog title"
 msgid "Export MusicXML File"
-msgstr "Експортувати як HTML"
+msgstr "Експортувати як MusicXML"
 
 #: ../file_export/__init__.py:58 ../snippet/widget.py:300
 #: ../snippet/widget.py:317 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
 msgid "XML Files"
-msgstr ""
+msgstr "Файли XML"
 
 #: ../file_export/__init__.py:74 ../preferences/fontscolors.py:282
 #: ../preferences/shortcuts.py:207 ../snippet/widget.py:328
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Can't write to destination:\n"
 "\n"
@@ -1501,58 +1450,50 @@ msgid "The audio file couldn't be created. Please create midi file first"
 msgstr ""
 
 #: ../file_export/__init__.py:89
-#, fuzzy
 msgctxt "dialog title"
 msgid "Export Audio File"
-msgstr "Експортувати як HTML"
+msgstr "Експортувати аудіо"
 
 #: ../file_export/__init__.py:90
-#, fuzzy
 msgid "WAV Files"
-msgstr "Усі файли"
+msgstr "Файли WAV"
 
 #: ../file_export/__init__.py:134
-#, fuzzy
 msgid "Export Music&XML..."
-msgstr "&Друкувати твір"
+msgstr "Експорт MusicXML..."
 
 #: ../file_export/__init__.py:135
 msgid "Export current document as MusicXML."
 msgstr ""
 
 #: ../file_export/__init__.py:137
-#, fuzzy
 msgid "Export Audio..."
-msgstr "Експорт"
+msgstr "Експорт аудіо..."
 
 #: ../file_export/__init__.py:138
 msgid "Export to different audio formats."
-msgstr ""
+msgstr "Експорт у різні формати аудіо"
 
 #: ../file_import/__init__.py:51
 msgid "All importable formats"
 msgstr ""
 
 #: ../file_import/__init__.py:52 ../file_import/__init__.py:92
-#, fuzzy
 msgid "MusicXML Files"
-msgstr "Файли HTML"
+msgstr "Файли MusicXML"
 
 #: ../file_import/__init__.py:53 ../file_import/__init__.py:113
-#, fuzzy
 msgid "Midi Files"
-msgstr "Файли HTML"
+msgstr "Файли MIDI"
 
 #: ../file_import/__init__.py:54 ../file_import/__init__.py:134
-#, fuzzy
 msgid "ABC Files"
-msgstr "Усі файли"
+msgstr "Файли ABC"
 
 #: ../file_import/__init__.py:57
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import"
-msgstr "Експорт"
+msgstr "Імпорт"
 
 #: ../file_import/__init__.py:67
 #, python-brace-format
@@ -1565,52 +1506,46 @@ msgid "Import a MusicXML file"
 msgstr ""
 
 #: ../file_import/__init__.py:114
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import a midi file"
-msgstr "Файли Texinfo"
+msgstr "Імпорт MIDI"
 
 #: ../file_import/__init__.py:135
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import an abc file"
-msgstr "Файли Texinfo"
+msgstr "Імпорт ABC"
 
 #: ../file_import/__init__.py:167
 msgid "The file couldn't be converted. Error message:\n"
 msgstr ""
 
 #: ../file_import/__init__.py:220
-#, fuzzy
 msgid "Import..."
-msgstr "Експорт"
+msgstr "Імпорт..."
 
 #: ../file_import/__init__.py:221
 msgid "Generic import for all LilyPond tools."
 msgstr ""
 
 #: ../file_import/__init__.py:222 ../macosx/globalmenu.py:122
-#, fuzzy
 msgid "Import MusicXML..."
-msgstr "&Друкувати твір"
+msgstr "Імпортувати MusicXML..."
 
 #: ../file_import/__init__.py:223
 msgid "Import a MusicXML file using musicxml2ly."
 msgstr ""
 
 #: ../file_import/__init__.py:224
-#, fuzzy
 msgid "Import Midi..."
-msgstr "&Друкувати твір"
+msgstr "Імпортувати MIDI..."
 
 #: ../file_import/__init__.py:225
 msgid "Import a Midi file using midi2ly."
-msgstr ""
+msgstr "Імпорт MIDI через midi2ly."
 
 #: ../file_import/__init__.py:226
-#, fuzzy
 msgid "Import abc..."
-msgstr "&Друкувати твір"
+msgstr "Імпортувати abc..."
 
 #: ../file_import/__init__.py:227
 msgid "Import an abc file using abc2ly."
@@ -1618,9 +1553,8 @@ msgstr ""
 
 #: ../file_import/abc.py:67 ../file_import/musicxml.py:103
 #: ../userguide/musicxml_import.md:19 ../userguide/abc_import.md:20
-#, fuzzy
 msgid "Import beaming"
-msgstr "Файли Texinfo"
+msgstr ""
 
 #: ../file_import/abc.py:69
 msgid "Run abc2ly"
@@ -1632,24 +1566,20 @@ msgid "Pitches in absolute mode"
 msgstr ""
 
 #: ../file_import/midi.py:65
-#, fuzzy
 msgid "Run midi2ly"
-msgstr "Запустити LilyPond"
+msgstr "Запустити midi2ly"
 
 #: ../file_import/musicxml.py:99 ../userguide/musicxml_import.md:1
-#, fuzzy
 msgid "Import Music XML"
-msgstr "Експортувати як HTML"
+msgstr "Імпорт Music XML"
 
 #: ../file_import/musicxml.py:100 ../userguide/musicxml_import.md:16
-#, fuzzy
 msgid "Import articulation directions"
-msgstr "&Видалити тривалості"
+msgstr ""
 
 #: ../file_import/musicxml.py:101 ../userguide/musicxml_import.md:17
-#, fuzzy
 msgid "Import rest positions"
-msgstr "Перейти до п&озиції курсора"
+msgstr ""
 
 #: ../file_import/musicxml.py:102 ../userguide/musicxml_import.md:18
 msgid "Import page layout"
@@ -1676,7 +1606,6 @@ msgid "Run musicxml2ly"
 msgstr ""
 
 #: ../file_import/toly_dialog.py:119
-#, fuzzy
 msgid "LilyPond version:"
 msgstr "Версія LilyPond:"
 
@@ -1689,14 +1618,12 @@ msgid "Trim durations (Make implicit per line)"
 msgstr ""
 
 #: ../file_import/toly_dialog.py:123
-#, fuzzy
 msgid "Remove fraction duration scaling"
-msgstr "&Видалити тривалості"
+msgstr ""
 
 #: ../file_import/toly_dialog.py:124
-#, fuzzy
 msgid "Engrave directly"
-msgstr "Гравіювати нестандартно"
+msgstr ""
 
 #: ../layoutcontrol/__init__.py:37 ../userguide/engrave_layout.md:90
 msgid "Annotate Spacing"
@@ -1719,9 +1646,8 @@ msgstr ""
 
 #: ../layoutcontrol/__init__.py:47 ../userguide/engrave_layout_configure.md:36
 #: ../userguide/engrave_layout.md:35
-#, fuzzy
 msgid "Color explicit directions"
-msgstr "&Видалити тривалості"
+msgstr ""
 
 #: ../layoutcontrol/__init__.py:48
 msgid "Highlight elements that are explicitly switched up- or downwards"
@@ -1746,9 +1672,8 @@ msgid "Display the name of each grob"
 msgstr ""
 
 #: ../layoutcontrol/__init__.py:59
-#, fuzzy
 msgid "Display Paper Columns"
-msgstr "Колір паперу"
+msgstr ""
 
 #: ../layoutcontrol/__init__.py:60
 msgid "Display info on the paper columns"
@@ -1785,9 +1710,8 @@ msgid "Help"
 msgstr ""
 
 #: ../layoutcontrol/widget.py:101
-#, fuzzy
 msgid "Verbose output"
-msgstr "Вихід програвача:"
+msgstr ""
 
 #: ../layoutcontrol/widget.py:102
 msgid "Run LilyPond with verbose output"
@@ -1798,14 +1722,12 @@ msgid "Point-and-Click"
 msgstr ""
 
 #: ../layoutcontrol/widget.py:104
-#, fuzzy
 msgid "Run LilyPond in preview mode (with Point and Click)"
-msgstr "Стартувати LilyPond у попередньому режимі (з Point-and-Click)"
+msgstr "Стартувати LilyPond у режимі попереднього перегляду (з Point-and-Click)"
 
 #: ../layoutcontrol/widget.py:105
-#, fuzzy
 msgid "Include Custom File:"
-msgstr "Вставити з файлу"
+msgstr ""
 
 #: ../layoutcontrol/widget.py:106
 msgid ""
@@ -1838,9 +1760,8 @@ msgid "Click to edit this file"
 msgstr "Клацніть, щоб редагувати цей файл"
 
 #: ../macosx/globalmenu.py:75
-#, fuzzy
 msgid "New Score with &Wizard..."
-msgstr "Майстер налаштування твору"
+msgstr ""
 
 #: ../macosx/globalmenu.py:88 ../snippet/menu.py:143
 msgid "New from &Template"
@@ -2050,7 +1971,7 @@ msgstr "Темп"
 
 #: ../miditool/widget.py:158
 msgid "No output found!"
-msgstr "Не знайденофайла midi!"
+msgstr ""
 
 #: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
@@ -2454,9 +2375,8 @@ msgid ""
 msgstr ""
 
 #: ../po/messages.py:27
-#, fuzzy
 msgid "usage: "
-msgstr "Використання: %s\n"
+msgstr "використання: "
 
 #: ../po/messages.py:28
 msgid "positional arguments"
@@ -2481,7 +2401,6 @@ msgid "Apply"
 msgstr "Застосувати"
 
 #: ../po/messages.py:36
-#, fuzzy
 msgctxt "QDialogButtonBox"
 msgid "&Cancel"
 msgstr "Скасувати"
@@ -2968,19 +2887,16 @@ msgid "CapsLock"
 msgstr ""
 
 #: ../po/messages.py:136
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Очистити"
 
 #: ../po/messages.py:137
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Clear Grab"
-msgstr "Очистити"
+msgstr ""
 
 #: ../po/messages.py:138
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Закрити"
@@ -3006,7 +2922,7 @@ msgstr "Ви&різати"
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Del"
-msgstr "Видалено"
+msgstr "Видалити"
 
 #: ../po/messages.py:143
 #, fuzzy
@@ -3020,7 +2936,6 @@ msgid "Display"
 msgstr ""
 
 #: ../po/messages.py:145
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Документи"
@@ -3079,10 +2994,9 @@ msgid "History"
 msgstr ""
 
 #: ../po/messages.py:156
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Home Page"
-msgstr "Наступна сторінка"
+msgstr "Домашня сторінка"
 
 #: ../po/messages.py:157
 msgctxt "QShortcut"
@@ -3090,10 +3004,9 @@ msgid "Ins"
 msgstr ""
 
 #: ../po/messages.py:158
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Insert"
-msgstr "&Швидка вставка"
+msgstr ""
 
 #: ../po/messages.py:159
 msgctxt "QShortcut"
@@ -3154,10 +3067,9 @@ msgid "News"
 msgstr ""
 
 #: ../po/messages.py:170
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Number Lock"
-msgstr "Число"
+msgstr ""
 
 #: ../po/messages.py:171
 msgctxt "QShortcut"
@@ -3170,10 +3082,9 @@ msgid "NumLock"
 msgstr ""
 
 #: ../po/messages.py:173
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Open URL"
-msgstr "Відкрити"
+msgstr "Відкрити URL"
 
 #: ../po/messages.py:174
 msgctxt "QShortcut"
@@ -3187,10 +3098,9 @@ msgid "Page Down"
 msgstr "Вниз"
 
 #: ../po/messages.py:176
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Page Up"
-msgstr "Зображення:"
+msgstr ""
 
 #: ../po/messages.py:177
 #, fuzzy
@@ -3199,7 +3109,6 @@ msgid "Paste"
 msgstr "&Вставити"
 
 #: ../po/messages.py:178
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Пауза"
@@ -3221,10 +3130,9 @@ msgid "Refresh"
 msgstr ""
 
 #: ../po/messages.py:182
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Reload"
-msgstr "&Перечитати"
+msgstr "Перечитати"
 
 #: ../po/messages.py:183
 msgctxt "QShortcut"
@@ -3237,34 +3145,29 @@ msgid "Right"
 msgstr ""
 
 #: ../po/messages.py:185
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Зберегти"
 
 #: ../po/messages.py:186
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Scroll Lock"
-msgstr "Прокрутити вниз"
+msgstr ""
 
 #: ../po/messages.py:187
-#, fuzzy
 msgctxt "QShortcut"
 msgid "ScrollLock"
-msgstr "Прокрутити вниз"
+msgstr ""
 
 #: ../po/messages.py:188
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Search"
-msgstr "Пошук:"
+msgstr ""
 
 #: ../po/messages.py:189
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Select"
-msgstr "Виділити &усе"
+msgstr "Виділити"
 
 #: ../po/messages.py:190
 msgctxt "QShortcut"
@@ -3302,13 +3205,11 @@ msgid "Standby"
 msgstr ""
 
 #: ../po/messages.py:197
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Зупинити"
 
 #: ../po/messages.py:198
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Підзаголовок"
@@ -3316,7 +3217,7 @@ msgstr "Підзаголовок"
 #: ../po/messages.py:199
 msgctxt "QShortcut"
 msgid "Support"
-msgstr ""
+msgstr "Підтримка"
 
 #: ../po/messages.py:200
 msgctxt "QShortcut"
@@ -3329,10 +3230,9 @@ msgid "SysReq"
 msgstr ""
 
 #: ../po/messages.py:202
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Tab"
-msgstr "Мітка"
+msgstr "Вкладка"
 
 #: ../po/messages.py:203
 msgctxt "QShortcut"
@@ -3355,7 +3255,6 @@ msgid "Toggle Media Play/Pause"
 msgstr ""
 
 #: ../po/messages.py:207
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Інструменти"
@@ -3366,10 +3265,9 @@ msgid "Top Menu"
 msgstr ""
 
 #: ../po/messages.py:209
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Treble Down"
-msgstr "Прокрутити вниз"
+msgstr ""
 
 #: ../po/messages.py:210
 msgctxt "QShortcut"
@@ -3377,7 +3275,6 @@ msgid "Treble Up"
 msgstr ""
 
 #: ../po/messages.py:211
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Вгору"
@@ -3385,47 +3282,42 @@ msgstr "Вгору"
 #: ../po/messages.py:212
 msgctxt "QShortcut"
 msgid "Video"
-msgstr ""
+msgstr "Відео"
 
 #: ../po/messages.py:213
-#, fuzzy
 msgctxt "QShortcut"
 msgid "View"
-msgstr "&Вигляд"
+msgstr ""
 
 #: ../po/messages.py:214
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Volume Down"
-msgstr "Прокрутити вниз"
+msgstr "Зменшити гучність"
 
 #: ../po/messages.py:215
 msgctxt "QShortcut"
 msgid "Volume Mute"
-msgstr ""
+msgstr "Вимкнути звук"
 
 #: ../po/messages.py:216
 msgctxt "QShortcut"
 msgid "Volume Up"
-msgstr ""
+msgstr "Збільшити гучність"
 
 #: ../po/messages.py:217
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Збіль&шити"
 
 #: ../po/messages.py:218
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "Зменш&ити"
 
 #: ../po/messages.py:220
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Undo"
-msgstr "&Скасувати"
+msgstr ""
 
 #: ../po/messages.py:221
 msgctxt "QTextControl"
@@ -3433,37 +3325,31 @@ msgid "&Redo"
 msgstr ""
 
 #: ../po/messages.py:222
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "Ви&різати"
 
 #: ../po/messages.py:223
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "С&копіювати"
 
 #: ../po/messages.py:224
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "&Вставити"
 
 #: ../po/messages.py:225
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Delete"
-msgstr "Видалено"
+msgstr ""
 
 #: ../po/messages.py:226
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr "Виділити &усе"
 
 #: ../po/messages.py:228
-#, fuzzy
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Що це?"
@@ -4253,9 +4139,8 @@ msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "При старті відкрити сесію, якщо не вказано інше"
 
 #: ../preferences/import_export.py:89
-#, fuzzy
 msgid "No theme found."
-msgstr "Не знайденофайла midi!"
+msgstr ""
 
 #: ../preferences/import_export.py:92 ../preferences/import_export.py:175
 #: ../snippet/import_export.py:106
@@ -4274,9 +4159,8 @@ msgstr ""
 "{error}"
 
 #: ../preferences/import_export.py:172
-#, fuzzy
 msgid "No shortcuts found."
-msgstr "Не знайденофайла midi!"
+msgstr ""
 
 #: ../preferences/lilypond.py:88
 msgid "LilyPond versions to use"
@@ -4439,9 +4323,8 @@ msgid ""
 msgstr ""
 
 #: ../preferences/midi.py:102
-#, fuzzy
 msgid "Input port:"
-msgstr "Вихідний формат:"
+msgstr "Вхідний порт:"
 
 #: ../preferences/midi.py:104
 msgid ""
@@ -4507,7 +4390,7 @@ msgid "Shortcut"
 msgstr "Комбінація клавіш"
 
 #: ../preferences/shortcuts.py:100
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Menu {name}"
 msgstr "Меню {name}"
 
@@ -4555,9 +4438,8 @@ msgid "Music View"
 msgstr "Перегляд твору"
 
 #: ../preferences/tools.py:166
-#, fuzzy
 msgid "Only load updated PDF documents"
-msgstr "Закрити всі неназвані документи"
+msgstr ""
 
 #: ../preferences/tools.py:168
 msgid ""
@@ -4593,9 +4475,8 @@ msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../preferences/tools.py:180
-#, fuzzy
 msgid "Kinetic Scrolling"
-msgstr "&Дозволити згортки"
+msgstr "Динамічне прокручування"
 
 #: ../preferences/tools.py:181
 msgid "Show Scrollbars"
@@ -4634,9 +4515,8 @@ msgid "Use short notation for some articulations like staccato."
 msgstr ""
 
 #: ../quickinsert/articulations.py:100
-#, fuzzy
 msgid "Remove articulations etc."
-msgstr "&Видалити тривалості"
+msgstr "Видалити артикуляцію тощо"
 
 #: ../quickinsert/articulations.py:108 ../quickinsert/articulations.py:146
 #: ../userguide/quickinsert.md:16
@@ -4649,27 +4529,27 @@ msgstr ""
 
 #: ../quickinsert/articulations.py:149
 msgid "Accent"
-msgstr ""
+msgstr "Акцент"
 
 #: ../quickinsert/articulations.py:150
 msgid "Marcato"
-msgstr ""
+msgstr "Маркато"
 
 #: ../quickinsert/articulations.py:151
 msgid "Staccatissimo"
-msgstr ""
+msgstr "Стакатісімо"
 
 #: ../quickinsert/articulations.py:152
 msgid "Staccato"
-msgstr ""
+msgstr "Стакато"
 
 #: ../quickinsert/articulations.py:153
 msgid "Portato"
-msgstr ""
+msgstr "Портато"
 
 #: ../quickinsert/articulations.py:154
 msgid "Tenuto"
-msgstr ""
+msgstr "Тенуто"
 
 #: ../quickinsert/articulations.py:155
 msgid "Espressivo"
@@ -4677,7 +4557,7 @@ msgstr ""
 
 #: ../quickinsert/articulations.py:160
 msgid "Ornaments"
-msgstr ""
+msgstr "Орнаменти"
 
 #: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:173
 msgid "Trill"
@@ -4689,7 +4569,7 @@ msgstr ""
 
 #: ../quickinsert/articulations.py:165
 msgid "Mordent"
-msgstr ""
+msgstr "Мордент"
 
 #: ../quickinsert/articulations.py:166
 msgid "Turn"
@@ -4742,27 +4622,27 @@ msgstr ""
 
 #: ../quickinsert/articulations.py:184
 msgid "Fermata"
-msgstr ""
+msgstr "Фермат"
 
 #: ../quickinsert/articulations.py:185
 msgid "Short fermata"
-msgstr ""
+msgstr "Коротка фермата"
 
 #: ../quickinsert/articulations.py:186
 msgid "Long fermata"
-msgstr ""
+msgstr "Довга фермата"
 
 #: ../quickinsert/articulations.py:187
 msgid "Very long fermata"
-msgstr ""
+msgstr "Дуже довга фермата"
 
 #: ../quickinsert/articulations.py:188
 msgid "Segno"
-msgstr ""
+msgstr "Сеньйо"
 
 #: ../quickinsert/articulations.py:189
 msgid "Coda"
-msgstr ""
+msgstr "Кода"
 
 #: ../quickinsert/articulations.py:190
 msgid "Varcoda"
@@ -4798,7 +4678,7 @@ msgstr ""
 
 #: ../quickinsert/articulations.py:204
 msgid "Flageolet"
-msgstr ""
+msgstr "Флажолет"
 
 #: ../quickinsert/articulations.py:205
 msgid "Thumb"
@@ -4898,28 +4778,24 @@ msgid "Segno bar line"
 msgstr ""
 
 #: ../quickinsert/barlines.py:78
-#, fuzzy
 msgid "Single wide bar line"
-msgstr "Тонка тактова риска"
+msgstr "Одинарна товста тактова риска"
 
 #: ../quickinsert/barlines.py:80
-#, fuzzy
 msgid "Angled repeat start"
-msgstr "Початок повтору"
+msgstr ""
 
 #: ../quickinsert/barlines.py:81
-#, fuzzy
 msgid "Angled repeat end"
-msgstr "Кінець повтору"
+msgstr ""
 
 #: ../quickinsert/barlines.py:82
 msgid "Angled repeat both"
 msgstr ""
 
 #: ../quickinsert/barlines.py:83
-#, fuzzy
 msgid "Kievan bar line"
-msgstr "Кінцева тактова риска"
+msgstr ""
 
 #: ../quickinsert/barlines.py:108
 msgid "Breathing Signs"
@@ -5107,36 +4983,32 @@ msgid "Replace full measure rests with spacer rests"
 msgstr ""
 
 #: ../rest/__init__.py:68
-#, fuzzy
 msgid "Change all R to s in this document or in the selection."
-msgstr "Транспонувати всі ноти у документі чи виділенні."
+msgstr "Замінити усі R на s у всьому документі чи виділенні."
 
 #: ../rest/__init__.py:71
 msgid "Replace spacer rests with full measure rests"
 msgstr ""
 
 #: ../rest/__init__.py:73
-#, fuzzy
 msgid "Change all s to R in this document or in the selection."
-msgstr "Транспонувати всі ноти у документі чи виділенні."
+msgstr "Замінити усі s на R у всьому документі чи виділенні."
 
 #: ../rest/__init__.py:76
 msgid "Replace positioned rests with plain rests"
 msgstr ""
 
 #: ../rest/__init__.py:78
-#, fuzzy
 msgid "Change all \\rest with r in this document or in the selection."
-msgstr "Транспонувати всі ноти у документі чи виділенні."
+msgstr "Замінити усі \\rest на r у всьому документі чи виділенні."
 
 #: ../rhythm/__init__.py:154
 msgid "&Double durations"
 msgstr "По&двоїти тривалості"
 
 #: ../rhythm/__init__.py:156
-#, fuzzy
 msgid "Double all the durations in the selection."
-msgstr "Зменшити вдвічі всі тривалості у виділенні."
+msgstr "Збільшити вдвічі всі тривалості у виділенні."
 
 #: ../rhythm/__init__.py:157
 msgid "&Halve durations"
@@ -5151,9 +5023,8 @@ msgid "Do&t durations"
 msgstr "Додати &крапку"
 
 #: ../rhythm/__init__.py:162
-#, fuzzy
 msgid "Add a dot to all the durations in the selection."
-msgstr "Прибрати одну крапку від усіх тривалостей у виділенні."
+msgstr "Додати крапку до всіх тривалостей у виділенні."
 
 #: ../rhythm/__init__.py:163
 msgid "&Undot durations"
@@ -5168,9 +5039,8 @@ msgid "Remove &scaling"
 msgstr "Прибрати &масштабування"
 
 #: ../rhythm/__init__.py:168
-#, fuzzy
 msgid "Remove all scaling (*n, *n/m) from the durations in the selection."
-msgstr "Прибрати усі масштабування (*n/m) з тривалостей у виділенні."
+msgstr "Прибрати усі масштабування (*n, *n/m) з тривалостей у виділенні."
 
 #: ../rhythm/__init__.py:169
 #, fuzzy
@@ -6745,26 +6615,22 @@ msgid "&Activate"
 msgstr ""
 
 #: ../sessions/dialog.py:84
-#, fuzzy
 msgid "Switches to the selected session."
-msgstr "Відкрити останню сесію"
+msgstr "Перейти у вибрану сесію."
 
 #: ../sessions/dialog.py:94 ../sessions/dialog.py:115
-#, fuzzy
 msgid "JSON Files"
-msgstr "Файли Scheme"
+msgstr "Файли JSON"
 
 #: ../sessions/dialog.py:95
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import session"
-msgstr "Перейти до п&озиції курсора"
+msgstr "Імпорт сесій"
 
 #: ../sessions/dialog.py:114
-#, fuzzy
 msgctxt "dialog title"
 msgid "Export session"
-msgstr "Редагувати нову сесію"
+msgstr "Експортувати сесію"
 
 #: ../sessions/dialog.py:261
 msgid "Name:"
@@ -6783,9 +6649,8 @@ msgid "Use session specific include path"
 msgstr ""
 
 #: ../sessions/dialog.py:265
-#, fuzzy
 msgid "Replace global path"
-msgstr "&Видалити тривалості"
+msgstr ""
 
 #: ../sessions/dialog.py:266
 msgid "When checked, paths in LilyPond preferences are not included."
@@ -6800,9 +6665,8 @@ msgid "Add and edit the path from LilyPond preferences."
 msgstr ""
 
 #: ../sessions/dialog.py:270
-#, fuzzy
 msgid "Remove all paths."
-msgstr "&Видалити тривалості"
+msgstr ""
 
 #: ../sessions/dialog.py:343
 #, python-brace-format
@@ -6938,9 +6802,8 @@ msgid "LilyPond Version"
 msgstr ""
 
 #: ../snippet/builtin.py:258
-#, fuzzy
 msgid "Repeat unfold"
-msgstr "Кінець повтору"
+msgstr ""
 
 #: ../snippet/builtin.py:262
 msgid "Relative Music"
@@ -7215,18 +7078,16 @@ msgid "Save as Template..."
 msgstr "Зберегти як шаблон..."
 
 #: ../snippet/tool.py:103
-#, fuzzy
 msgid "Copy to &Snippet..."
-msgstr "Копіювати у &зображення..."
+msgstr ""
 
 #: ../snippet/tool.py:104
 msgid "Manage Templates..."
 msgstr "Керувати шаблонами..."
 
 #: ../snippet/tool.py:105
-#, fuzzy
 msgid "Manage &Snippets..."
-msgstr "Керувати шаблонами..."
+msgstr ""
 
 #: ../snippet/widget.py:186 ../widgets/schemeselector.py:92
 msgid "&Menu"
@@ -7330,15 +7191,13 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../svgview/__init__.py:53
-#, fuzzy
 msgctxt "window title"
 msgid "SVG View"
-msgstr "Перегляд"
+msgstr ""
 
 #: ../svgview/__init__.py:54
-#, fuzzy
 msgid "SV&G View"
-msgstr "&Вигляд"
+msgstr ""
 
 #: ../svgview/widget.py:99
 #, fuzzy
@@ -7374,18 +7233,16 @@ msgid "Next:"
 msgstr "Далі:"
 
 #: ../userguide/util.py:86
-#, fuzzy
 msgid "Next Chapter:"
-msgstr "Наступна зміна"
+msgstr ""
 
 #: ../userguide/util.py:92
 msgid "See also:"
 msgstr "Див. також:"
 
 #: ../vcs/__init__.py:54
-#, fuzzy
 msgid "Git not found"
-msgstr "Не знайденофайла midi!"
+msgstr ""
 
 #: ../vcs/__init__.py:55
 msgid ""
@@ -9815,9 +9672,8 @@ msgid ""
 msgstr ""
 
 #: ../userguide/404.md:1
-#, fuzzy
 msgid "Not Found"
-msgstr "Не знайденофайла midi!"
+msgstr "Не знайдено"
 
 #: ../userguide/404.md:3
 msgid "Cannot load the requested userguide resource {userguide_page}."
