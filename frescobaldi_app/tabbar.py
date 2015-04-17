@@ -47,6 +47,8 @@ class TabBar(QTabBar):
         self.setTabsClosable(True) # TODO: make configurable
         self.setMovable(True)      # TODO: make configurable
         self.setExpanding(False)
+        self.setUsesScrollButtons(True)
+        self.setElideMode(Qt.ElideNone)
         
         mainwin = self.window()
         self.docs = []
