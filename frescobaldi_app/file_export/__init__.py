@@ -61,8 +61,7 @@ class FileExport(plugin.MainWindowPlugin):
             return False # cancelled
         import ly.musicxml
         writer = ly.musicxml.writer()
-        #writer.parse_tokens(tokeniter.all_tokens(doc))
-        writer.parse_tree(documentinfo.music(doc))
+        writer.parse_text(doc.encodedText())
         xml = writer.musicxml()
         # put the Frescobaldi version in the xml file
         software = xml.root.find('.//encoding/software')
@@ -106,7 +105,7 @@ class AudioExportDialog(externalcommand.ExternalCommandDialog):
         self.setWindowModality(Qt.NonModal)
         self.setWindowTitle(caption)
         qutil.saveDialogSize(self, "audio_export/dialog/size", QSize(640, 400))
-    
+
     def midi2wav(self, midfile, wavfile):
         """Run timidity to convert the MIDI to WAV."""
         self.wavfile = wavfile # we could need to clean it up...
