@@ -61,7 +61,7 @@ class FileExport(plugin.MainWindowPlugin):
             return False # cancelled
         import ly.musicxml
         writer = ly.musicxml.writer()
-        writer.parse_text(doc.encodedText())
+        writer.parse_text(doc.toPlainText())
         xml = writer.musicxml()
         # put the Frescobaldi version in the xml file
         software = xml.root.find('.//encoding/software')
