@@ -9,6 +9,7 @@ Changes in 2.18.1 --
   - Improved icons for File->Close, Snippets->Repeat last note/chord and
     Snippets->Document Fonts
   - Holding the engrave button also shows Engrave publish and custom actions
+  - Tab bar uses scroll buttons on Mac, like the other platforms
 * Bugfixes:
   - Fix document panel is resized when engraving (issue #660)
   - Fix convert-ly adding linefeeds / carriage return on Windows (issue #649)
@@ -19,7 +20,7 @@ Changes in 2.18.1 --
   - Fix running LilyPond tools on Mac (pre-built app) (issues #633, #589)
   - Fix ValueError: invalid literal for int() with base 10 (issue #669)
 * Translations:
-  - updated: nl, cs
+  - updated: Dutch, Czech, Ukrainian
 
 
 Changes in 2.18 -- March 7th, 2015
