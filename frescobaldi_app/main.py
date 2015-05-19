@@ -56,6 +56,9 @@ def parse_commandline():
     parser.add_argument('-v', '--version', action="version",
         version="{0} {1}".format(appinfo.appname, appinfo.version),
         help=_("show program's version number and exit"))
+    parser.add_argument('-V', '--version-debug', action="store_true", default=False,
+        help=_("show version numbers of {appname} and its supporting modules "
+               "and exit").format(appname=appinfo.appname))
     parser.add_argument('-e', '--encoding', metavar=_("ENC"),
         help=_("Encoding to use"))
     parser.add_argument('-l', '--line', type=int, metavar=_("NUM"),
@@ -187,6 +190,11 @@ def main():
         import sessions
         for name in sessions.sessionNames():
             sys.stdout.write(name + '\n')
+        sys.exit(0)
+    
+    if args.version_debug:
+        import debuginfo
+        sys.stdout.write(debuginfo.version_info_string() + '\n')
         sys.exit(0)
         
     urls = list(map(url, args.files))
