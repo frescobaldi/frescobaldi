@@ -154,7 +154,7 @@ def check_ly():
     when a user leaves the old stale 'ly' package in the frescobaldi_app
     directory, or has not installed python-ly at all.
     
-    Because that yield unexpected behaviour and error messages, we better
+    Because that yields unexpected behaviour and error messages, we better
     check for the availability of the 'ly' module beforehand.
     Importing ly.pkginfo is not expensive.
     
@@ -182,9 +182,15 @@ def check_ly():
 
 def main():
     """Main function."""
+    args = parse_commandline()
+    
+    if args.version_debug:
+        import debuginfo
+        sys.stdout.write(debuginfo.version_info_string() + '\n')
+        sys.exit(0)
+    
     check_ly()
     patch_pyqt()
-    args = parse_commandline()
     
     if args.list_sessions:
         import sessions
@@ -192,11 +198,6 @@ def main():
             sys.stdout.write(name + '\n')
         sys.exit(0)
     
-    if args.version_debug:
-        import debuginfo
-        sys.stdout.write(debuginfo.version_info_string() + '\n')
-        sys.exit(0)
-        
     urls = list(map(url, args.files))
     
     if not app.qApp.isSessionRestored():
