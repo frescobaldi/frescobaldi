@@ -1,4 +1,4 @@
-﻿# Chinese (simplified) translation of the Frescobaldi package
+# Chinese (simplified) translation of the Frescobaldi package
 # Copyright (C) 2008-2014 Wilbert Berendsen
 # This file is distributed under the same license as the frescobaldi package.
 #
@@ -1182,7 +1182,7 @@ msgstr "雕刻（预览；按 Shift 来定制）"
 #: ../engrave/__init__.py:254
 #, python-brace-format
 msgid "&Always Engrave [{docname}]"
-msgstr "总是雕刻[{document}](&A)"
+msgstr "总是雕刻[{docname}](&A)"
 
 #: ../engrave/__init__.py:256
 msgid "&Always Engrave This Document"
