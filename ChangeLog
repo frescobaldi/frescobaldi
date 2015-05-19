@@ -20,6 +20,7 @@ Changes in 2.18.1 --
   - Fix Wrong encoding in Score Wizard with Russian locale (issue #641)
   - Fix running LilyPond tools on Mac (pre-built app) (issues #633, #589)
   - Fix ValueError: invalid literal for int() with base 10 (issue #669)
+  - Fix UnicodeEncodeError on convert-ly with some languages (issue #674)
 * Translations:
   - updated: Dutch, Czech, Ukrainian, Chinese Simplified
 
