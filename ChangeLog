@@ -10,6 +10,7 @@ Changes in 2.18.1 --
     Snippets->Document Fonts
   - Holding the engrave button also shows Engrave publish and custom actions
   - Tab bar uses scroll buttons on Mac, like the other platforms
+  - Automatic engrave only engraves *.ly documents, not *.ily etc
 * Bugfixes:
   - Fix document panel is resized when engraving (issue #660)
   - Fix convert-ly adding linefeeds / carriage return on Windows (issue #649)

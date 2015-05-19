@@ -138,8 +138,10 @@ class AutoCompileManager(plugin.DocumentPlugin):
     def may_compile(self):
         """Return True if we could need to compile the document."""
         if self._dirty:
+            path = self.document().url().path()
             dinfo = documentinfo.docinfo(self.document())
             if (dinfo.mode() == "lilypond"
+                and (path.endswith('.ly') or path == '')
                 and dinfo.complete()
                 and documentinfo.music(self.document()).has_output()):
                 h = dinfo.token_hash()
