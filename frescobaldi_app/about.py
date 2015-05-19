@@ -33,7 +33,7 @@ import app
 import appinfo
 import icons
 import helpers
-import bugreport
+import debuginfo
 import userguide.page
 
 
@@ -101,21 +101,7 @@ class Version(QTextBrowser):
     """Version information."""
     def __init__(self, parent=None):
         super(Version, self).__init__(parent)
-        self.setHtml(
-            "<p>{app_name}: {app_version}</p>\n"
-            "<p>Python: {python_version}<br />"
-            "Qt: {qt_version}<br />\n"
-            "PyQt4: {pyqt_version}<br />\n"
-            "sip: {sip_version}<br />\n"
-            "python-ly: {ly_version}<br />\n"
-            "poppler: {poppler_version}<br />\n"
-            "python-poppler-qt4: {python_poppler_version}</p>\n"
-            "<p>{operating_system}:<br />\n"
-            "{osname}</p>".format(
-                app_name = appinfo.appname,
-                app_version = appinfo.version,
-                operating_system = _("Operating System"),
-                **bugreport.versionInfo()))
+        self.setPlainText(debuginfo.version_info_string())
 
 
 def html():

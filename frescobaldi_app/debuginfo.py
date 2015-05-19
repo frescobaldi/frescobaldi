@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 import functools
 
+import appinfo
+
 
 def _catch_unknown(f):
     """Decorate a function, returning "unknown" on import/attribute error."""
@@ -85,7 +87,7 @@ def python_poppler_version():
 
 def version_info_named():
     """Yield all the relevant names and their version string."""
-    yield "Frescobaldi", app_version()
+    yield appinfo.appname, appinfo.version
     yield "python-ly", ly_version()
     yield "Python", python_version()
     yield "Qt", qt_version()
