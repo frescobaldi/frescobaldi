@@ -95,7 +95,7 @@ def version_info_named():
     yield "sip", sip_version()
     yield "poppler", poppler_version()
     yield "python-poppler-qt", python_poppler_version()
-    yield "Operating System", operating_system()
+    yield "OS", operating_system()
 
 
 def version_info_string(separator='\n'):
