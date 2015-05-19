@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.18.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2015-04-02 23:27+0200\n"
-"PO-Revision-Date: 2015-05-12 22:06+0800\n"
+"PO-Revision-Date: 2015-05-17 22:40+0800\n"
 "Last-Translator: Anthony Fok <foka@debian.org>, Ben Luo <benluo@gmail.com>\n"
 "Language-Team: Chinese (simplified) <18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -567,7 +567,6 @@ msgid "File to be opened"
 msgstr "将要打开的文件"
 
 #: ../main.py:169
-#, fuzzy
 msgid "Can't run Frescobaldi"
 msgstr "不能运行 Frescobaldi"
 
@@ -946,10 +945,9 @@ msgid "&Pitch"
 msgstr "音高(&P)"
 
 #: ../menu.py:342
-#, fuzzy
 msgctxt "submenu title"
 msgid "Rest"
-msgstr "重新开始"
+msgstr "休止"
 
 #: ../menu.py:354
 msgctxt "submenu title"
@@ -1034,52 +1032,52 @@ msgstr "打印页{page} (第{num}页，共{total}页)..."
 
 #: ../viewmanager.py:79 ../viewmanager.py:441
 msgid "Split &Horizontally"
-msgstr ""
+msgstr "水平分屏(&H)"
 
 #: ../viewmanager.py:82 ../viewmanager.py:442
 msgid "Split &Vertically"
-msgstr ""
+msgstr "垂直分屏(&V)"
 
 #: ../viewmanager.py:86
 msgid "&Close View"
-msgstr ""
+msgstr "关闭视图(&C)"
 
 #: ../viewmanager.py:209
 #, python-brace-format
 msgid "Line: {line}, Col: {column}"
-msgstr ""
+msgstr "行：{line}，列：{column}"
 
 #: ../viewmanager.py:443
 msgid "&Close Current View"
-msgstr ""
+msgstr "关闭当前视图(&C)"
 
 #: ../viewmanager.py:444
 msgid "Close &Other Views"
-msgstr ""
+msgstr "关闭其它视图(&O)"
 
 #: ../viewmanager.py:445
 msgid "&Next View"
-msgstr ""
+msgstr "下一个视图(&N)"
 
 #: ../viewmanager.py:446
 msgid "&Previous View"
-msgstr ""
+msgstr "上一个视图(&P)"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"
-msgstr ""
+msgstr "自动补全(&C)"
 
 #: ../autocomplete/__init__.py:80
 msgid "Show C&ompletions Popup"
-msgstr ""
+msgstr "显示自动补全弹出列表(&o)"
 
 #: ../charmap/__init__.py:40 ../preferences/tools.py:232
 msgid "Special Characters"
-msgstr ""
+msgstr "特殊字符"
 
 #: ../charmap/__init__.py:41
 msgid "Special Charac&ters"
-msgstr ""
+msgstr "特殊字符(&t)"
 
 #: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
 #: ../preferences/documentation.py:116
@@ -1093,7 +1091,7 @@ msgstr "说明文档浏览器(&D)"
 #. L10N: Home page of the LilyPond manual
 #: ../docbrowser/__init__.py:85
 msgid "Home"
-msgstr ""
+msgstr "主页"
 
 #: ../docbrowser/__init__.py:86
 msgid "Print..."
@@ -1105,7 +1103,7 @@ msgstr "LilyPond 说明文档(&L)"
 
 #: ../docbrowser/__init__.py:88
 msgid "&Contextual LilyPond Help"
-msgstr ""
+msgstr "根据上下文的LilyPond帮助(&C)"
 
 #: ../docbrowser/browser.py:116 ../snippet/widget.py:182
 msgid "Search..."
@@ -1127,15 +1125,15 @@ msgstr "打印"
 
 #: ../docbrowser/browser.py:240 ../musicview/contextmenu.py:61
 msgid "Copy &Link"
-msgstr ""
+msgstr "复制链接(&L)"
 
 #: ../docbrowser/browser.py:243 ../musicview/contextmenu.py:55
 msgid "Open Link in &New Window"
-msgstr ""
+msgstr "在新窗口打开链接(&N)"
 
 #: ../docbrowser/browser.py:252
 msgid "Open Document in &New Window"
-msgstr ""
+msgstr "在新窗口打开文档(&N)"
 
 #: ../docbrowser/sourceviewer.py:63
 msgid "LilyPond Source"
@@ -1143,56 +1141,56 @@ msgstr "LilyPond 源码"
 
 #: ../doclist/__init__.py:39 ../preferences/tools.py:265
 msgid "Documents"
-msgstr ""
+msgstr "文档"
 
 #: ../doclist/__init__.py:40
 msgid "Docum&ents"
-msgstr ""
+msgstr "文档(&e)"
 
 #: ../doclist/widget.py:189
 msgid "Save selected documents"
-msgstr ""
+msgstr "保存选择的文档"
 
 #: ../doclist/widget.py:190
 msgid "Close selected documents"
-msgstr ""
+msgstr "关闭选择的文档"
 
 #: ../doclist/widget.py:196
 msgid "Save documents in this folder"
-msgstr ""
+msgstr "保存本文件夹中的文档"
 
 #: ../doclist/widget.py:197
 msgid "Close documents in this folder"
-msgstr ""
+msgstr "关闭在本文件夹中的文档"
 
 #: ../doclist/widget.py:200
 msgid "Save all untitled documents"
-msgstr ""
+msgstr "保存所有无标题的文档"
 
 #: ../doclist/widget.py:201
 msgid "Close all untitled documents"
-msgstr ""
+msgstr "关闭所有无标题的文档"
 
 #: ../engrave/__init__.py:109
 msgid "Abort engraving job"
-msgstr ""
+msgstr "放弃雕刻工作"
 
 #: ../engrave/__init__.py:110
 msgid "Engrave (preview; press Shift for custom)"
-msgstr ""
+msgstr "雕刻（预览；按 Shift 来定制）"
 
 #: ../engrave/__init__.py:254
 #, python-brace-format
 msgid "&Always Engrave [{docname}]"
-msgstr ""
+msgstr "总是雕刻[{document}](&A)"
 
 #: ../engrave/__init__.py:256
 msgid "&Always Engrave This Document"
-msgstr ""
+msgstr "总是雕刻本文档(&A)"
 
 #: ../engrave/__init__.py:325
 msgid "No LilyPond installation found"
-msgstr ""
+msgstr "没有发现LilyPond"
 
 #: ../engrave/__init__.py:326
 msgid ""
@@ -1202,6 +1200,9 @@ msgid ""
 "Please install LilyPond or, if you have already installed it, add it in the "
 "Preferences dialog."
 msgstr ""
+"Frescobaldi 使用LilyPond来雕刻音乐，但是在缺省的位置没有安装LilyPond，在你的路径里也没有找到它。\n"
+"\n"
+"请安装LilyPond。如果你已经安装了它，请在首选项对话框中添加它。"
 
 #: ../engrave/__init__.py:365
 msgid "Engrave"
@@ -1209,7 +1210,7 @@ msgstr "雕刻"
 
 #: ../engrave/__init__.py:366
 msgid "Engrave (preview; Shift-click for custom)"
-msgstr ""
+msgstr "雕刻（预览；按 Shift-click 来定制）"
 
 #: ../engrave/__init__.py:367
 msgid "&Engrave (preview)"
@@ -1217,36 +1218,35 @@ msgstr "雕刻(预览)(&E)"
 
 #: ../engrave/__init__.py:368
 msgid "Engrave (&publish)"
-msgstr ""
+msgstr "雕刻（出版）(&p)"
 
 #: ../engrave/__init__.py:369
 msgid "Engrave (&layout control)"
-msgstr ""
+msgstr "雕刻（布局控制)(&l)"
 
 #: ../engrave/__init__.py:370
 msgid "Engrave (&custom)..."
-msgstr ""
+msgstr "雕刻（定制）(&c)"
 
 #: ../engrave/__init__.py:371
 msgid "Abort Engraving &Job"
-msgstr ""
+msgstr "中断雕刻工作(&J)"
 
 #: ../engrave/__init__.py:372
 msgid "Automatic E&ngrave"
 msgstr "自动雕刻(&N)"
 
 #: ../engrave/__init__.py:373
-#, fuzzy
 msgid "Open LilyPond &Data Directory"
-msgstr "打开目前目录"
+msgstr "打开LilyPond数据目录(&D)"
 
 #: ../engrave/__init__.py:374
 msgid "Show Available &Fonts..."
-msgstr ""
+msgstr "显示可用的字体...(&F)"
 
 #: ../engrave/custom.py:134
 msgid "Engrave custom"
-msgstr ""
+msgstr "定制雕刻"
 
 #: ../engrave/custom.py:135
 msgid "LilyPond Version:"
@@ -1258,11 +1258,11 @@ msgstr "输出格式："
 
 #: ../engrave/custom.py:137 ../preferences/helpers.py:160
 msgid "Resolution:"
-msgstr ""
+msgstr "分辨率："
 
 #: ../engrave/custom.py:138
 msgid "Antialias Factor:"
-msgstr ""
+msgstr "反锯齿参数："
 
 #: ../engrave/custom.py:139
 msgid "Engraving mode:"
@@ -1274,19 +1274,19 @@ msgstr "预览"
 
 #: ../engrave/custom.py:141
 msgid "Publish"
-msgstr ""
+msgstr "出版"
 
 #: ../engrave/custom.py:142
 msgid "Layout Control"
-msgstr ""
+msgstr "布局控制"
 
 #: ../engrave/custom.py:143 ../preferences/lilypond.py:327
 msgid "Run LilyPond with English messages"
-msgstr ""
+msgstr "运行LilyPond时用英文信息"
 
 #: ../engrave/custom.py:144 ../preferences/lilypond.py:324
 msgid "Delete intermediate output files"
-msgstr ""
+msgstr "删除中间输出的文件"
 
 #: ../engrave/custom.py:145 ../file_import/toly_dialog.py:120
 msgid "Command line:"
@@ -1314,41 +1314,40 @@ msgstr "SVG"
 
 #: ../engrave/custom.py:247
 msgid "PDF (EPS Backend)"
-msgstr ""
+msgstr "PDF (EPS 作为后端)"
 
 #: ../engrave/custom.py:253
 msgid "Encapsulated PostScript (EPS Backend)"
-msgstr ""
+msgstr "压缩 PostScript （EPS 作为后端）"
 
 #: ../engrave/custom.py:259
 msgid "PNG (EPS Backend)"
-msgstr ""
+msgstr "PNG (EPS 作为后端)"
 
 #: ../engrave/lytools.py:40 ../engrave/lytools.py:41
-#, fuzzy
 msgid "Available Fonts"
-msgstr "全局字体"
+msgstr "可用字体"
 
 #: ../engrave/lytools.py:43
 #, python-brace-format
 msgid "List of fonts detected by {version}"
-msgstr ""
+msgstr "列出{version}检测出的字体"
 
 #: ../engrave/result_menu.py:46
 msgid "Generated &Files"
-msgstr ""
+msgstr "生成文件(&F)"
 
 #: ../engrave/result_menu.py:67
 msgid "No files available"
-msgstr ""
+msgstr "没有可用文件"
 
 #: ../externalchanges/widget.py:100
 msgid "Modified Files"
-msgstr ""
+msgstr "改动过的文件"
 
 #: ../externalchanges/widget.py:102
 msgid "The following files were modified or deleted by other applications:"
-msgstr ""
+msgstr "以下文件改动过或被其它应用删除了："
 
 #: ../externalchanges/widget.py:104
 msgid "Reload"
@@ -1358,13 +1357,13 @@ msgstr "重新载入"
 msgid ""
 "Reloads the selected documents from disk. (You can still reach the previous "
 "state of the document using the Undo command.)"
-msgstr ""
+msgstr "从磁盘中重新载入选择的文件。（通过使用撤回命令，你仍可以回到文档以前的状态。）"
 
 #: ../externalchanges/widget.py:111
 msgid ""
 "Reloads all externally modified documents from disk. (You can still reach "
 "the previous state of the document using the Undo command.)"
-msgstr ""
+msgstr "从磁盘中重新载入所有被外面程序改动过的文件。（通过使用撤回命令，你仍可以回到文档以前的状态。）"
 
 #: ../externalchanges/widget.py:114
 msgid "Save"
@@ -1374,32 +1373,32 @@ msgstr "保存"
 msgid ""
 "Saves the selected documents to disk, overwriting the modifications by "
 "another program."
-msgstr ""
+msgstr "把选中的文档保存到磁盘中，覆盖被别的程序改动过的地方。"
 
 #: ../externalchanges/widget.py:120
 msgid ""
 "Saves all documents to disk, overwriting the modifications by another "
 "program."
-msgstr ""
+msgstr "把所有文档保存到磁盘中，覆盖被别的程序改动过的地方。"
 
 #: ../externalchanges/widget.py:122
 msgid "Show Difference..."
-msgstr ""
+msgstr "显示不同..."
 
 #: ../externalchanges/widget.py:124
 msgid ""
 "Shows the differences between the current document and the file on disk."
-msgstr ""
+msgstr "显示当前文档和在磁盘上的文件有什么不同。"
 
 #: ../externalchanges/widget.py:127
 msgid "Enable watching documents for external changes"
-msgstr ""
+msgstr "启用观察文档是否有外部的改变"
 
 #: ../externalchanges/widget.py:129
 msgid ""
 "If checked, Frescobaldi will warn you when opened files are modified or "
 "deleted by other applications."
-msgstr ""
+msgstr "如果选中，当有别的程序改动或删除你已经打开的文件时，Frescobaldi 会发出警报。"
 
 #: ../externalchanges/widget.py:157
 msgid "[deleted]"
@@ -1407,16 +1406,16 @@ msgstr "[已删除]"
 
 #: ../externalchanges/widget.py:257
 msgid "Could not save:"
-msgstr ""
+msgstr "不能保存："
 
 #: ../externalchanges/widget.py:262
 msgid "Please save the document using the \"Save As...\" dialog."
 msgid_plural "Please save the documents using the \"Save As...\" dialog."
-msgstr[0] ""
+msgstr[0] "请用\"另存为...\"对话框来保存文档。"
 
 #: ../externalchanges/widget.py:287
 msgid "Document on Disk"
-msgstr ""
+msgstr "在磁盘中的文件"
 
 #: ../externalchanges/widget.py:294
 #, python-brace-format
@@ -1424,11 +1423,13 @@ msgid ""
 "Document: {url}\n"
 "Difference between the current document and the file on disk:"
 msgstr ""
+"文档：{url}\n"
+"当前文档和在磁盘上的文件二者不同之处："
 
 #: ../file_export/__init__.py:57
 msgctxt "dialog title"
 msgid "Export MusicXML File"
-msgstr ""
+msgstr "导出 MusicXML 文件"
 
 #: ../file_export/__init__.py:58 ../snippet/widget.py:300
 #: ../snippet/widget.py:317 ../widgets/schemeselector.py:166
@@ -1446,10 +1447,15 @@ msgid ""
 "\n"
 "{error}"
 msgstr ""
+"不能向目标写入：\n"
+"\n"
+"{url}\n"
+"\n"
+"{error}"
 
 #: ../file_export/__init__.py:84
 msgid "The audio file couldn't be created. Please create midi file first"
-msgstr ""
+msgstr "不能创建音频文件。请先创建midi文件。"
 
 #: ../file_export/__init__.py:89
 msgctxt "dialog title"
@@ -1466,7 +1472,7 @@ msgstr "导出 Music&XML..."
 
 #: ../file_export/__init__.py:135
 msgid "Export current document as MusicXML."
-msgstr ""
+msgstr "导出当前文件为 MusicXML。"
 
 #: ../file_export/__init__.py:137
 msgid "Export Audio..."
@@ -1474,11 +1480,11 @@ msgstr "导出音频..."
 
 #: ../file_export/__init__.py:138
 msgid "Export to different audio formats."
-msgstr ""
+msgstr "导出成不同的音频格式。"
 
 #: ../file_import/__init__.py:51
 msgid "All importable formats"
-msgstr ""
+msgstr "所有可导入的格式。"
 
 #: ../file_import/__init__.py:52 ../file_import/__init__.py:92
 msgid "MusicXML Files"
@@ -1500,17 +1506,17 @@ msgstr "导入"
 #: ../file_import/__init__.py:67
 #, python-brace-format
 msgid "The file {filename} could not be converted. Wrong file type."
-msgstr ""
+msgstr "文件{filename}不能转换。文件格式错误。"
 
 #: ../file_import/__init__.py:93
 msgctxt "dialog title"
 msgid "Import a MusicXML file"
-msgstr ""
+msgstr "导入 MusicXML 文件"
 
 #: ../file_import/__init__.py:114
 msgctxt "dialog title"
 msgid "Import a midi file"
-msgstr ""
+msgstr "导入 midi 文件"
 
 #: ../file_import/__init__.py:135
 msgctxt "dialog title"
@@ -1519,7 +1525,7 @@ msgstr "导入 abc 文件"
 
 #: ../file_import/__init__.py:167
 msgid "The file couldn't be converted. Error message:\n"
-msgstr ""
+msgstr "该文件不能转换。错误信息：\n"
 
 #: ../file_import/__init__.py:220
 msgid "Import..."
@@ -1527,7 +1533,7 @@ msgstr "导入..."
 
 #: ../file_import/__init__.py:221
 msgid "Generic import for all LilyPond tools."
-msgstr ""
+msgstr "对所有LilyPond工具的通用导入。"
 
 #: ../file_import/__init__.py:222 ../macosx/globalmenu.py:122
 msgid "Import MusicXML..."
@@ -1535,7 +1541,7 @@ msgstr "导入 MusicXML..."
 
 #: ../file_import/__init__.py:223
 msgid "Import a MusicXML file using musicxml2ly."
-msgstr ""
+msgstr "用 musicxml2ly 导入 MusicXML 文件。"
 
 #: ../file_import/__init__.py:224
 msgid "Import Midi..."
@@ -1543,7 +1549,7 @@ msgstr "导入 Midi..."
 
 #: ../file_import/__init__.py:225
 msgid "Import a Midi file using midi2ly."
-msgstr ""
+msgstr "用 midi2ly 导入 midi 文件。"
 
 #: ../file_import/__init__.py:226
 msgid "Import abc..."
@@ -1551,12 +1557,12 @@ msgstr "导入abc..."
 
 #: ../file_import/__init__.py:227
 msgid "Import an abc file using abc2ly."
-msgstr ""
+msgstr "用 abc2ly 导入 abc 文件。"
 
 #: ../file_import/abc.py:67 ../file_import/musicxml.py:103
 #: ../userguide/musicxml_import.md:19 ../userguide/abc_import.md:20
 msgid "Import beaming"
-msgstr ""
+msgstr "导入音符连线"
 
 #: ../file_import/abc.py:69
 msgid "Run abc2ly"
@@ -1565,7 +1571,7 @@ msgstr "运行 abc2ly"
 #: ../file_import/midi.py:63 ../file_import/musicxml.py:104
 #: ../userguide/musicxml_import.md:20 ../userguide/midi_import.md:16
 msgid "Pitches in absolute mode"
-msgstr ""
+msgstr "绝对模式下的音高"
 
 #: ../file_import/midi.py:65
 msgid "Run midi2ly"
@@ -1577,23 +1583,23 @@ msgstr "导入 Music XML"
 
 #: ../file_import/musicxml.py:100 ../userguide/musicxml_import.md:16
 msgid "Import articulation directions"
-msgstr ""
+msgstr "导入连奏指导"
 
 #: ../file_import/musicxml.py:101 ../userguide/musicxml_import.md:17
 msgid "Import rest positions"
-msgstr ""
+msgstr "导入休止符位置"
 
 #: ../file_import/musicxml.py:102 ../userguide/musicxml_import.md:18
 msgid "Import page layout"
-msgstr ""
+msgstr "导入页面布局"
 
 #: ../file_import/musicxml.py:105
 msgid "Comment out midi block"
-msgstr ""
+msgstr "把 midi 块用注释的方法标出"
 
 #: ../file_import/musicxml.py:107 ../userguide/musicxml_import.md:21
 msgid "Language for pitch names"
-msgstr ""
+msgstr "音高名用的语言"
 
 #: ../file_import/musicxml.py:108 ../preferences/documentation.py:118
 #: ../preferences/general.py:134 ../preferences/tools.py:298
@@ -1601,20 +1607,19 @@ msgstr ""
 #: ../scorewiz/settings.py:307 ../scorewiz/parts/_base.py:218
 #: ../scorewiz/parts/plucked_strings.py:67 ../widgets/schemeselector.py:196
 msgid "Default"
-msgstr ""
+msgstr "缺省"
 
 #: ../file_import/musicxml.py:110
 msgid "Run musicxml2ly"
-msgstr ""
+msgstr "运行 musicxml2ly"
 
 #: ../file_import/toly_dialog.py:119
-#, fuzzy
 msgid "LilyPond version:"
 msgstr "LilyPond 版本："
 
 #: ../file_import/toly_dialog.py:121
 msgid "Reformat source"
-msgstr ""
+msgstr "重新格式化源码"
 
 #: ../file_import/toly_dialog.py:122
 msgid "Trim durations (Make implicit per line)"
@@ -1626,35 +1631,35 @@ msgstr ""
 
 #: ../file_import/toly_dialog.py:124
 msgid "Engrave directly"
-msgstr ""
+msgstr "直接雕刻"
 
 #: ../layoutcontrol/__init__.py:37 ../userguide/engrave_layout.md:90
 msgid "Annotate Spacing"
-msgstr ""
+msgstr "注解空间"
 
 #: ../layoutcontrol/__init__.py:38
 msgid ""
 "Use LilyPond's \"annotate spacing\" option to\n"
 "display measurement information"
-msgstr ""
+msgstr "使用 LilyPond 的\"注解空间\"选项来显示音符信息。"
 
 #: ../layoutcontrol/__init__.py:42 ../userguide/engrave_layout_configure.md:18
 #: ../userguide/engrave_layout.md:19
 msgid "Display Control Points"
-msgstr ""
+msgstr "显示控制点"
 
 #: ../layoutcontrol/__init__.py:43
 msgid "Display the control points that determine curve shapes"
-msgstr ""
+msgstr "显示控制点，这些控制点能决定曲线形状"
 
 #: ../layoutcontrol/__init__.py:47 ../userguide/engrave_layout_configure.md:36
 #: ../userguide/engrave_layout.md:35
 msgid "Color explicit directions"
-msgstr ""
+msgstr "用颜色标出明确的方向"
 
 #: ../layoutcontrol/__init__.py:48
 msgid "Highlight elements that are explicitly switched up- or downwards"
-msgstr ""
+msgstr "加亮那些元素，它们明确转换成向上或向下"
 
 #: ../layoutcontrol/__init__.py:51 ../userguide/engrave_layout_configure.md:53
 #: ../userguide/engrave_layout.md:50
@@ -1676,35 +1681,35 @@ msgstr ""
 
 #: ../layoutcontrol/__init__.py:59
 msgid "Display Paper Columns"
-msgstr ""
+msgstr "显示纸的列"
 
 #: ../layoutcontrol/__init__.py:60
 msgid "Display info on the paper columns"
-msgstr ""
+msgstr "在纸的列上显示信息"
 
 #: ../layoutcontrol/__init__.py:63 ../userguide/engrave_layout.md:80
 msgid "Display Skylines"
-msgstr ""
+msgstr "显示轮廓线"
 
 #: ../layoutcontrol/__init__.py:64
 msgid "Display the skylines that LilyPond uses to detect collisions."
-msgstr ""
+msgstr "显示轮廓线，LilyPond用它来检测冲突。"
 
 #: ../layoutcontrol/__init__.py:68 ../userguide/engrave_layout_configure.md:27
 msgid "Color \\voiceXXX"
-msgstr ""
+msgstr "给 \\voiceXXX 上色"
 
 #: ../layoutcontrol/__init__.py:69
 msgid "Highlight notes that are explicitly set to \\voiceXXX"
-msgstr ""
+msgstr "高亮那些明确是设定给 \\voiceXXX 的音符"
 
 #: ../layoutcontrol/__init__.py:113
 msgid "Layout Control Options"
-msgstr ""
+msgstr "布局控制选项"
 
 #: ../layoutcontrol/__init__.py:114
 msgid "Layout &Control Options"
-msgstr ""
+msgstr "布局控制选项(&C)"
 
 #: ../layoutcontrol/widget.py:99 ../layoutcontrol/widget.py:100
 #: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:107
@@ -1714,33 +1719,35 @@ msgstr "帮助"
 
 #: ../layoutcontrol/widget.py:101
 msgid "Verbose output"
-msgstr ""
+msgstr "冗余输出"
 
 #: ../layoutcontrol/widget.py:102
 msgid "Run LilyPond with verbose output"
-msgstr ""
+msgstr "运行 LilyPond 并带冗余输出"
 
 #: ../layoutcontrol/widget.py:103 ../userguide/engrave_layout.md:15
 msgid "Point-and-Click"
-msgstr ""
+msgstr "点中并单击"
 
 #: ../layoutcontrol/widget.py:104
 msgid "Run LilyPond in preview mode (with Point and Click)"
-msgstr ""
+msgstr "在预览模式下运行 LilyPond （与选中并点击）"
 
 #: ../layoutcontrol/widget.py:105
 msgid "Include Custom File:"
-msgstr ""
+msgstr "包括定制文件："
 
 #: ../layoutcontrol/widget.py:106
 msgid ""
 "Include a custom file with definitions\n"
 "for additional Layout Control Modes"
 msgstr ""
+"包括定制文件，该文件中有用来定义\n"
+"增加的布局控制模式"
 
 #: ../layoutcontrol/widget.py:108
 msgid "Filename to be included"
-msgstr ""
+msgstr "应该包括文件名"
 
 #: ../logtool/__init__.py:50 ../preferences/tools.py:91
 msgid "LilyPond Log"
@@ -1752,23 +1759,23 @@ msgstr "LilyPond 日志(&L)"
 
 #: ../logtool/__init__.py:94
 msgid "Next Error Message"
-msgstr ""
+msgstr "下一个错误信息"
 
 #: ../logtool/__init__.py:95
 msgid "Previous Error Message"
-msgstr ""
+msgstr "上一个错误信息"
 
 #: ../logtool/logwidget.py:122
 msgid "Click to edit this file"
-msgstr ""
+msgstr "点击来编辑本文件"
 
 #: ../macosx/globalmenu.py:75
 msgid "New Score with &Wizard..."
-msgstr ""
+msgstr "用专家来生成新的乐谱...(&W)"
 
 #: ../macosx/globalmenu.py:88 ../snippet/menu.py:143
 msgid "New from &Template"
-msgstr ""
+msgstr "从模板生成新文件"
 
 #: ../macosx/globalmenu.py:140 ../sessions/menu.py:55
 msgctxt "menu title"
@@ -1786,30 +1793,30 @@ msgstr "MIDI 输入(&N)"
 #: ../midiinput/tool.py:52
 msgctxt "midi input"
 msgid "Start capturing"
-msgstr ""
+msgstr "开始获取"
 
 #: ../midiinput/tool.py:53
 msgctxt "midi input"
 msgid "Start MIDI capturing"
-msgstr ""
+msgstr "开始获取MIDI"
 
 #: ../midiinput/tool.py:54
 msgctxt "midi input"
 msgid "Stop capturing"
-msgstr ""
+msgstr "停止获取"
 
 #: ../midiinput/tool.py:55
 msgctxt "midi input"
 msgid "Stop MIDI capturing"
-msgstr ""
+msgstr "停止获取MIDI"
 
 #: ../midiinput/widget.py:162
 msgid "MIDI channel"
-msgstr ""
+msgstr "MIDI 通道"
 
 #: ../midiinput/widget.py:163
 msgid "all"
-msgstr ""
+msgstr "所有"
 
 #: ../midiinput/widget.py:164
 msgid "Key signature"
@@ -1817,31 +1824,31 @@ msgstr "调号"
 
 #: ../midiinput/widget.py:166
 msgid "C flat major (7 flats)"
-msgstr ""
+msgstr "降C大调(7个降号)"
 
 #: ../midiinput/widget.py:167
 msgid "G flat major (6 flats)"
-msgstr ""
+msgstr "降G大调(6个降号)"
 
 #: ../midiinput/widget.py:168
 msgid "D flat major (5 flats)"
-msgstr ""
+msgstr "降D大调(5个降号)"
 
 #: ../midiinput/widget.py:169
 msgid "A flat major (4 flats)"
-msgstr ""
+msgstr "降A大调(4个降号)"
 
 #: ../midiinput/widget.py:170
 msgid "E flat major (3 flats)"
-msgstr ""
+msgstr "降E大调(3个降号)"
 
 #: ../midiinput/widget.py:171
 msgid "B flat major (2 flats)"
-msgstr ""
+msgstr "降B大调(2个降号)"
 
 #: ../midiinput/widget.py:172
 msgid "F major (1 flat)"
-msgstr ""
+msgstr "F大调(1个降号)"
 
 #: ../midiinput/widget.py:173
 msgid "C major"
@@ -1849,19 +1856,19 @@ msgstr "C 大调"
 
 #: ../midiinput/widget.py:174
 msgid "G major (1 sharp)"
-msgstr ""
+msgstr "G大调(1个升号)"
 
 #: ../midiinput/widget.py:175
 msgid "D major (2 sharps)"
-msgstr ""
+msgstr "D大调(2个升号)"
 
 #: ../midiinput/widget.py:176
 msgid "A major (3 sharps)"
-msgstr ""
+msgstr "A大调(3个升号)"
 
 #: ../midiinput/widget.py:177
 msgid "E major (4 sharps)"
-msgstr ""
+msgstr "E大调(4个升号)"
 
 #: ../midiinput/widget.py:178
 msgid "B major (5 sharps)"
@@ -1873,66 +1880,65 @@ msgstr "升F大调(6个升号)"
 
 #: ../midiinput/widget.py:180
 msgid "C sharp major (7 sharps)"
-msgstr ""
+msgstr "C升大调(7个升号)"
 
 #: ../midiinput/widget.py:183
 msgid "Accidentals"
-msgstr ""
+msgstr "加重号"
 
 #: ../midiinput/widget.py:184
 msgid "sharps"
-msgstr ""
+msgstr "升号"
 
 #: ../midiinput/widget.py:185
 msgid "flats"
-msgstr ""
+msgstr "降号"
 
 #: ../midiinput/widget.py:186
 msgid "Chord mode"
-msgstr ""
+msgstr "和弦模式"
 
 #: ../midiinput/widget.py:188
 msgid ""
 "Enter simultaneously played notes as chords. See \"What's This\" for more "
 "information."
-msgstr ""
+msgstr "把同时演奏的音符当成和弦输入。见\"这是什么\"来获得更多信息。"
 
 #: ../midiinput/widget.py:191
 msgid ""
 "Notes which are played simultaneously are written as chords. As a "
 "consequence they are not written before the last key is lifted. Of course "
 "single can also be entered."
-msgstr ""
+msgstr "把同时演奏的音符当成和弦写入。作为序列，在最后一个键抬起前，它们不会被写入。当然也可以输入单个音。"
 
 #: ../midiinput/widget.py:195
-#, fuzzy
 msgid "Relative mode"
-msgstr "预览模式"
+msgstr "相对模式"
 
 #: ../midiinput/widget.py:197
 msgid ""
 "Enter octaves of notes relative to the last note. See \"What's This\" for "
 "more information."
-msgstr ""
+msgstr "输入比最后一个音相对高八度的音。见\"这是什么\"来获得更多信息。"
 
 #: ../midiinput/widget.py:200
 msgid ""
 "Enter octaves of notes relative to the last note. This refers to the last "
 "key pressed on the MIDI keyboard, not the last note in the document.Hold "
 "Shift with a note to enter an octave check."
-msgstr ""
+msgstr "输入比最后一个音相对高八度的音。这是指在 MIDI 键盘上最后按的键，不是文档中的最后一个音符。按 Shift 键的同时按一个音就会输入一个八度检测。"
 
 #: ../midiinput/widget.py:203
 msgid "Damper pedal"
-msgstr ""
+msgstr "延音踏板"
 
 #: ../midiinput/widget.py:204
 msgid "Sostenuto pedal"
-msgstr ""
+msgstr "音色踏板"
 
 #: ../midiinput/widget.py:205
 msgid "Soft pedal"
-msgstr ""
+msgstr "柔音踏板"
 
 #: ../miditool/__init__.py:51
 msgid "MIDI"
@@ -1968,17 +1974,17 @@ msgstr "速度"
 
 #: ../miditool/widget.py:158
 msgid "No output found!"
-msgstr ""
+msgstr "没有发现输出！"
 
 #: ../miditool/widget.py:235
 msgctxt "midi lcd screen"
 msgid "LOADED"
-msgstr ""
+msgstr "已载入"
 
 #: ../miditool/widget.py:236
 msgctxt "midi lcd screen"
 msgid "TOTAL"
-msgstr ""
+msgstr "总共"
 
 #: ../miditool/widget.py:318 ../miditool/widget.py:328
 msgctxt "midi lcd screen"
@@ -2019,10 +2025,15 @@ msgid ""
 "Choose Yes if you want that, No if you want to try the built-in printing "
 "functionality anyway, or Cancel to cancel printing."
 msgstr ""
+"非常不幸，在 Mac OS X中，由于各种技术原因，本版 Frescobaldi 不能打印PDF文档。\n"
+"\n"
+"作为替代，你想在缺省的察看器中打开本文件吗？（记住再一次关闭它来避免存取问题）\n"
+"\n"
+"选是如果你想这样，选不如果你无论如何都想试试内置的打印功能，或者选取消来取消打印。"
 
 #: ../musicview/__init__.py:338
 msgid "Select Music View Document"
-msgstr ""
+msgstr "选择音乐视图文档"
 
 #: ../musicview/__init__.py:339
 msgid "&Print Music..."
@@ -2046,43 +2057,43 @@ msgstr "缩放乐谱"
 
 #: ../musicview/__init__.py:344
 msgid "Fit &Width"
-msgstr ""
+msgstr "适合宽度(&W)"
 
 #: ../musicview/__init__.py:345
 msgid "Fit &Height"
-msgstr ""
+msgstr "适合高度(&H)"
 
 #: ../musicview/__init__.py:346
 msgid "Fit &Page"
-msgstr ""
+msgstr "适合页面(&P)"
 
 #: ../musicview/__init__.py:347
 msgid "Single Pages"
-msgstr ""
+msgstr "单页"
 
 #: ../musicview/__init__.py:348
 msgid "Two Pages (first page right)"
-msgstr ""
+msgstr "双页（第一页在右）"
 
 #: ../musicview/__init__.py:349
 msgid "Two Pages (first page left)"
-msgstr ""
+msgstr "双页（第一页在左）"
 
 #: ../musicview/__init__.py:350
 msgid "&Maximize"
-msgstr ""
+msgstr "最大化(&M)"
 
 #: ../musicview/__init__.py:351
 msgid "&Jump to Cursor Position"
-msgstr ""
+msgstr "跳到光标位置(&J)"
 
 #: ../musicview/__init__.py:352
 msgid "S&ynchronize with Cursor Position"
-msgstr ""
+msgstr "与光标位置同步(&y)"
 
 #: ../musicview/__init__.py:353
 msgid "Copy to &Image..."
-msgstr ""
+msgstr "复制到图像...(&I)"
 
 #: ../musicview/__init__.py:354
 msgid "Next Page"
@@ -2090,7 +2101,7 @@ msgstr "下一页"
 
 #: ../musicview/__init__.py:355
 msgid "Next"
-msgstr ""
+msgstr "下一个"
 
 #: ../musicview/__init__.py:356
 msgid "Previous Page"
@@ -2098,7 +2109,7 @@ msgstr "上一页"
 
 #: ../musicview/__init__.py:357
 msgid "Previous"
-msgstr ""
+msgstr "上一个"
 
 #: ../musicview/__init__.py:358
 msgid "&Reload"
@@ -2106,45 +2117,45 @@ msgstr "重新载入(&R)"
 
 #: ../musicview/__init__.py:509
 msgid "Choose the PDF document to display."
-msgstr ""
+msgstr "选择需要显示的PDF文档"
 
 #: ../musicview/__init__.py:511
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
-msgstr ""
+msgstr "选择要显示的PDF文档，或者把这个文件拖到其它程序或位置。"
 
 #: ../musicview/__init__.py:569
 msgid "Fit Width"
-msgstr ""
+msgstr "适合宽度"
 
 #: ../musicview/__init__.py:570
 msgid "Fit Height"
-msgstr ""
+msgstr "适合高度"
 
 #: ../musicview/__init__.py:571
 msgid "Fit Page"
-msgstr ""
+msgstr "适合页面"
 
 #. L10N: page numbering: page {num} of {total}
 #: ../musicview/__init__.py:588
 #, python-brace-format
 msgid "{num} of {total}"
-msgstr ""
+msgstr "第{num}，总{total}"
 
 #: ../musicview/contextmenu.py:49 ../musicview/editinplace.py:85
 #: ../userguide/musicview_editinplace.md:1
 msgid "Edit in Place"
-msgstr ""
+msgstr "在当前位置编辑"
 
 #: ../musicview/editinplace.py:150
 #, python-brace-format
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
-msgstr ""
+msgstr "编辑\"{document}\"({variable})中的第{linenum}行"
 
 #: ../musicview/image.py:130
 msgid "DPI:"
-msgstr ""
+msgstr "DPI："
 
 #: ../musicview/image.py:131
 msgid "Paper Color"
@@ -2156,19 +2167,19 @@ msgstr "自动裁剪"
 
 #: ../musicview/image.py:133
 msgid "Antialias"
-msgstr ""
+msgstr "反锯齿"
 
 #: ../musicview/image.py:134
 msgid "Drag"
-msgstr ""
+msgstr "拖"
 
 #: ../musicview/image.py:135
 msgid "Drag the image as a PNG file."
-msgstr ""
+msgstr "作为PNG文件来拖图像文件"
 
 #: ../musicview/image.py:136
 msgid "&Copy to Clipboard"
-msgstr ""
+msgstr "复制到剪贴板(&C)"
 
 #: ../musicview/image.py:137
 msgid "&Save As..."
@@ -2191,7 +2202,7 @@ msgstr ""
 #: ../musicview/image.py:171
 #, python-brace-format
 msgid "Image from {filename}"
-msgstr ""
+msgstr "从{filename}文件来的图像"
 
 #: ../musicview/image.py:214
 msgid "Save Image As"
@@ -2199,36 +2210,36 @@ msgstr "保存图像为"
 
 #: ../musicview/image.py:218
 msgid "Could not save the image."
-msgstr ""
+msgstr "不能保存图像。"
 
 #: ../musicview/tooltip.py:40
 #, python-brace-format
 msgid "Position: {pos}"
-msgstr ""
+msgstr "位置：{pos}"
 
 #: ../objecteditor/__init__.py:43
 msgid "Object Editor"
-msgstr ""
+msgstr "对像编辑器"
 
 #: ../objecteditor/__init__.py:44
 msgid "O&bject Editor"
-msgstr ""
+msgstr "对像编辑器(&b)"
 
 #: ../objecteditor/widget.py:113
 msgid "X Offset"
-msgstr ""
+msgstr "X轴偏移"
 
 #: ../objecteditor/widget.py:114
 msgid "Display the X Offset"
-msgstr ""
+msgstr "显示X轴偏移"
 
 #: ../objecteditor/widget.py:115
 msgid "Y Offset"
-msgstr ""
+msgstr "Y轴偏移"
 
 #: ../objecteditor/widget.py:116
 msgid "Display the Y Offset"
-msgstr ""
+msgstr "显示Y轴偏移"
 
 #: ../outline/__init__.py:40 ../preferences/tools.py:297
 msgid "Outline"
@@ -2240,7 +2251,7 @@ msgstr ""
 
 #: ../pitch/__init__.py:121
 msgid "Pitch Name &Language"
-msgstr ""
+msgstr "音高名的语言(&L)"
 
 #: ../pitch/__init__.py:123
 msgid ""
@@ -2363,9 +2374,8 @@ msgid ""
 msgstr ""
 
 #: ../po/messages.py:27
-#, fuzzy
 msgid "usage: "
-msgstr "用法：%s\n"
+msgstr "用法："
 
 #: ../po/messages.py:28
 msgid "positional arguments"
@@ -2407,12 +2417,12 @@ msgstr "关闭"
 #: ../po/messages.py:39
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
-msgstr ""
+msgstr "不保存关闭"
 
 #: ../po/messages.py:40
 msgctxt "QDialogButtonBox"
 msgid "Discard"
-msgstr ""
+msgstr "放弃"
 
 #: ../po/messages.py:41
 msgctxt "QDialogButtonBox"
@@ -2437,7 +2447,7 @@ msgstr "打开"
 #: ../po/messages.py:45
 msgctxt "QDialogButtonBox"
 msgid "Reset"
-msgstr ""
+msgstr "重置"
 
 #: ../po/messages.py:46
 msgctxt "QDialogButtonBox"
@@ -2452,12 +2462,12 @@ msgstr "保存"
 #: ../po/messages.py:49
 msgctxt "QDialog"
 msgid "What's This?"
-msgstr ""
+msgstr "这是什么？"
 
 #: ../po/messages.py:51
 msgctxt "QFileDialog"
 msgid "All Files (*)"
-msgstr ""
+msgstr "所有文件(*)"
 
 #: ../po/messages.py:52
 msgctxt "QFileDialog"
@@ -2505,10 +2515,9 @@ msgid "File"
 msgstr "文件"
 
 #: ../po/messages.py:61
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "File &name:"
-msgstr "文件管理器："
+msgstr "文件名：(&n)"
 
 #: ../po/messages.py:62
 msgctxt "QFileDialog"
@@ -2541,10 +2550,9 @@ msgid "Go forward"
 msgstr ""
 
 #: ../po/messages.py:68
-#, fuzzy
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
-msgstr "打开目前目录"
+msgstr "进入上一层目录"
 
 #: ../po/messages.py:69
 msgctxt "QFileDialog"
@@ -2594,28 +2602,27 @@ msgstr ""
 #: ../po/messages.py:79
 msgctxt "QFileSystemModel"
 msgid "%1 bytes"
-msgstr ""
+msgstr "%1字节"
 
 #: ../po/messages.py:80
 msgctxt "QFileSystemModel"
 msgid "%1 KB"
-msgstr ""
+msgstr "%1 KB"
 
 #: ../po/messages.py:81
-#, fuzzy
 msgctxt "QFileSystemModel"
 msgid "Computer"
-msgstr "作曲家"
+msgstr "计算机"
 
 #: ../po/messages.py:82
 msgctxt "QFileSystemModel"
 msgid "Date Modified"
-msgstr ""
+msgstr "日期已改变"
 
 #: ../po/messages.py:83
 msgctxt "QFileSystemModel"
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #: ../po/messages.py:84
 msgctxt "QFileSystemModel"
@@ -2625,60 +2632,57 @@ msgstr ""
 #: ../po/messages.py:85
 msgctxt "QFileSystemModel"
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: ../po/messages.py:87
 msgctxt "QFontDatabase"
 msgid "Black"
-msgstr ""
+msgstr "黑色"
 
 #: ../po/messages.py:88
-#, fuzzy
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr "粗体"
 
 #: ../po/messages.py:89
-#, fuzzy
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
-msgstr "粗体"
+msgstr "半粗体"
 
 #: ../po/messages.py:90
 msgctxt "QFontDatabase"
 msgid "Light"
-msgstr ""
+msgstr "淡"
 
 #: ../po/messages.py:91
 msgctxt "QFontDatabase"
 msgid "Oblique"
-msgstr ""
+msgstr "斜体"
 
 #: ../po/messages.py:93
 msgctxt "QInputContext"
 msgid "XIM"
-msgstr ""
+msgstr "XIM"
 
 #: ../po/messages.py:95
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
-msgstr ""
+msgstr "%1: 名字不能用"
 
 #: ../po/messages.py:97
-#, fuzzy
 msgctxt "QMultiInputContext"
 msgid "Select IM"
-msgstr "全部选取(&A)"
+msgstr "选取输入上下文"
 
 #: ../po/messages.py:99
 msgctxt "QScrollBar"
 msgid "Bottom"
-msgstr ""
+msgstr "底部"
 
 #: ../po/messages.py:100
 msgctxt "QScrollBar"
 msgid "Left edge"
-msgstr ""
+msgstr "左边距"
 
 #: ../po/messages.py:101
 msgctxt "QScrollBar"
@@ -2873,7 +2877,7 @@ msgstr "复制"
 #: ../po/messages.py:140
 msgctxt "QShortcut"
 msgid "Ctrl"
-msgstr ""
+msgstr "Ctrl"
 
 #: ../po/messages.py:141
 msgctxt "QShortcut"
@@ -2883,17 +2887,17 @@ msgstr "剪切"
 #: ../po/messages.py:142
 msgctxt "QShortcut"
 msgid "Del"
-msgstr ""
+msgstr "Del"
 
 #: ../po/messages.py:143
 msgctxt "QShortcut"
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: ../po/messages.py:144
 msgctxt "QShortcut"
 msgid "Display"
-msgstr ""
+msgstr "显示"
 
 #: ../po/messages.py:145
 msgctxt "QShortcut"
@@ -2903,42 +2907,42 @@ msgstr "文档"
 #: ../po/messages.py:146
 msgctxt "QShortcut"
 msgid "Down"
-msgstr ""
+msgstr "下"
 
 #: ../po/messages.py:147
 msgctxt "QShortcut"
 msgid "Eject"
-msgstr ""
+msgstr "弹出"
 
 #: ../po/messages.py:148
 msgctxt "QShortcut"
 msgid "End"
-msgstr ""
+msgstr "End"
 
 #: ../po/messages.py:149
 msgctxt "QShortcut"
 msgid "Enter"
-msgstr ""
+msgstr "回车"
 
 #: ../po/messages.py:150
 msgctxt "QShortcut"
 msgid "Esc"
-msgstr ""
+msgstr "Esc"
 
 #: ../po/messages.py:151
 msgctxt "QShortcut"
 msgid "F%1"
-msgstr ""
+msgstr "F%1"
 
 #: ../po/messages.py:152
 msgctxt "QShortcut"
 msgid "Forward"
-msgstr ""
+msgstr "向前"
 
 #: ../po/messages.py:153
 msgctxt "QShortcut"
 msgid "Go"
-msgstr ""
+msgstr "运行"
 
 #: ../po/messages.py:154
 msgctxt "QShortcut"
@@ -2948,29 +2952,27 @@ msgstr "帮助"
 #: ../po/messages.py:155
 msgctxt "QShortcut"
 msgid "History"
-msgstr ""
+msgstr "历史"
 
 #: ../po/messages.py:156
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Home Page"
-msgstr "下一页"
+msgstr "主页"
 
 #: ../po/messages.py:157
 msgctxt "QShortcut"
 msgid "Ins"
-msgstr ""
+msgstr "Ins"
 
 #: ../po/messages.py:158
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Insert"
-msgstr "插入(&I)"
+msgstr "插入"
 
 #: ../po/messages.py:159
 msgctxt "QShortcut"
 msgid "Left"
-msgstr ""
+msgstr "左"
 
 #: ../po/messages.py:160
 msgctxt "QShortcut"
@@ -2978,10 +2980,9 @@ msgid "Media Next"
 msgstr ""
 
 #: ../po/messages.py:161
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Media Pause"
-msgstr "暂停"
+msgstr "暂停媒体"
 
 #: ../po/messages.py:162
 msgctxt "QShortcut"
@@ -2989,10 +2990,9 @@ msgid "Media Play"
 msgstr ""
 
 #: ../po/messages.py:163
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Media Previous"
-msgstr "找上一个(&V)"
+msgstr "上一个媒体"
 
 #: ../po/messages.py:164
 msgctxt "QShortcut"
@@ -3005,10 +3005,9 @@ msgid "Media Stop"
 msgstr ""
 
 #: ../po/messages.py:166
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Menu"
-msgstr "选单(&M)"
+msgstr "菜单"
 
 #: ../po/messages.py:167
 msgctxt "QShortcut"
@@ -3016,10 +3015,9 @@ msgid "Meta"
 msgstr ""
 
 #: ../po/messages.py:168
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Music"
-msgstr "乐谱(&M)"
+msgstr "音乐"
 
 #: ../po/messages.py:169
 msgctxt "QShortcut"
@@ -3042,13 +3040,11 @@ msgid "NumLock"
 msgstr ""
 
 #: ../po/messages.py:173
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Open URL"
-msgstr "打开"
+msgstr "打开URL"
 
 #: ../po/messages.py:174
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "选项"
@@ -3076,20 +3072,19 @@ msgstr "暂停"
 #: ../po/messages.py:179
 msgctxt "QShortcut"
 msgid "PgDown"
-msgstr ""
+msgstr "PgDown"
 
 #: ../po/messages.py:180
 msgctxt "QShortcut"
 msgid "PgUp"
-msgstr ""
+msgstr "PgUp"
 
 #: ../po/messages.py:181
 msgctxt "QShortcut"
 msgid "Refresh"
-msgstr ""
+msgstr "刷新"
 
 #: ../po/messages.py:182
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "重新载入"
@@ -3097,12 +3092,12 @@ msgstr "重新载入"
 #: ../po/messages.py:183
 msgctxt "QShortcut"
 msgid "Return"
-msgstr ""
+msgstr "回车"
 
 #: ../po/messages.py:184
 msgctxt "QShortcut"
 msgid "Right"
-msgstr ""
+msgstr "右"
 
 #: ../po/messages.py:185
 msgctxt "QShortcut"
@@ -3112,12 +3107,12 @@ msgstr "保存"
 #: ../po/messages.py:186
 msgctxt "QShortcut"
 msgid "Scroll Lock"
-msgstr ""
+msgstr "Scroll Lock"
 
 #: ../po/messages.py:187
 msgctxt "QShortcut"
 msgid "ScrollLock"
-msgstr ""
+msgstr "Scroll Lock"
 
 #: ../po/messages.py:188
 msgctxt "QShortcut"
@@ -3132,37 +3127,37 @@ msgstr "选取"
 #: ../po/messages.py:190
 msgctxt "QShortcut"
 msgid "Send"
-msgstr ""
+msgstr "发送"
 
 #: ../po/messages.py:191
 msgctxt "QShortcut"
 msgid "Shift"
-msgstr ""
+msgstr "Shift"
 
 #: ../po/messages.py:192
 msgctxt "QShortcut"
 msgid "Space"
-msgstr ""
+msgstr "空格"
 
 #: ../po/messages.py:193
 msgctxt "QShortcut"
 msgid "Spellchecker"
-msgstr ""
+msgstr "拼写检查"
 
 #: ../po/messages.py:194
 msgctxt "QShortcut"
 msgid "Split Screen"
-msgstr ""
+msgstr "分屏"
 
 #: ../po/messages.py:195
 msgctxt "QShortcut"
 msgid "Spreadsheet"
-msgstr ""
+msgstr "电子表格"
 
 #: ../po/messages.py:196
 msgctxt "QShortcut"
 msgid "Standby"
-msgstr ""
+msgstr "待命"
 
 #: ../po/messages.py:197
 msgctxt "QShortcut"
@@ -3177,37 +3172,37 @@ msgstr "子标题"
 #: ../po/messages.py:199
 msgctxt "QShortcut"
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
 #: ../po/messages.py:200
 msgctxt "QShortcut"
 msgid "Suspend"
-msgstr ""
+msgstr "挂起"
 
 #: ../po/messages.py:201
 msgctxt "QShortcut"
 msgid "SysReq"
-msgstr ""
+msgstr "系统需求"
 
 #: ../po/messages.py:202
 msgctxt "QShortcut"
 msgid "Tab"
-msgstr ""
+msgstr "Tab"
 
 #: ../po/messages.py:203
 msgctxt "QShortcut"
 msgid "Task Panel"
-msgstr ""
+msgstr "任务面板"
 
 #: ../po/messages.py:204
 msgctxt "QShortcut"
 msgid "Terminal"
-msgstr ""
+msgstr "终端"
 
 #: ../po/messages.py:205
 msgctxt "QShortcut"
 msgid "Time"
-msgstr ""
+msgstr "时间"
 
 #: ../po/messages.py:206
 msgctxt "QShortcut"
@@ -3220,10 +3215,9 @@ msgid "Tools"
 msgstr "工具"
 
 #: ../po/messages.py:208
-#, fuzzy
 msgctxt "QShortcut"
 msgid "Top Menu"
-msgstr "选单(&M)"
+msgstr "顶级选单"
 
 #: ../po/messages.py:209
 msgctxt "QShortcut"
@@ -3253,17 +3247,17 @@ msgstr "视图"
 #: ../po/messages.py:214
 msgctxt "QShortcut"
 msgid "Volume Down"
-msgstr ""
+msgstr "降低声音"
 
 #: ../po/messages.py:215
 msgctxt "QShortcut"
 msgid "Volume Mute"
-msgstr ""
+msgstr "静音"
 
 #: ../po/messages.py:216
 msgctxt "QShortcut"
 msgid "Volume Up"
-msgstr ""
+msgstr "升高声音"
 
 #: ../po/messages.py:217
 msgctxt "QShortcut"
@@ -3276,7 +3270,6 @@ msgid "Zoom Out"
 msgstr "拉远"
 
 #: ../po/messages.py:220
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "复原(&U)"
@@ -3284,22 +3277,19 @@ msgstr "复原(&U)"
 #: ../po/messages.py:221
 msgctxt "QTextControl"
 msgid "&Redo"
-msgstr ""
+msgstr "再做(&R)"
 
 #: ../po/messages.py:222
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "剪切(&T)"
 
 #: ../po/messages.py:223
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "复制(&C)"
 
 #: ../po/messages.py:224
-#, fuzzy
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "粘贴(&P)"
@@ -3307,10 +3297,9 @@ msgstr "粘贴(&P)"
 #: ../po/messages.py:225
 msgctxt "QTextControl"
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: ../po/messages.py:226
-#, fuzzy
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr "全部选取(&A)"
@@ -3318,7 +3307,7 @@ msgstr "全部选取(&A)"
 #: ../po/messages.py:228
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
-msgstr ""
+msgstr "这是什么？"
 
 #: ../preferences/__init__.py:107 ../preferences/midi.py:170
 #: ../userguide/preferences.md:1
@@ -3341,7 +3330,7 @@ msgstr "MIDI 设置"
 #: ../preferences/__init__.py:207 ../preferences/helpers.py:84
 #: ../userguide/prefs_helpers.md:1
 msgid "Helper Applications"
-msgstr ""
+msgstr "帮助应用"
 
 #: ../preferences/__init__.py:218 ../userguide/prefs_paths.md:1
 msgid "Paths"
@@ -3373,7 +3362,7 @@ msgstr "到 LilyPond 文档的路径"
 
 #: ../preferences/documentation.py:70
 msgid "Add paths or URLs. See \"What's This\" for more information."
-msgstr ""
+msgstr "添加路径或URLS。见\"这是什么\"来获得更多信息。"
 
 #: ../preferences/documentation.py:117
 msgid "Preferred Language:"
@@ -3393,13 +3382,12 @@ msgid "Please enter a local path or a URL:"
 msgstr "请输入本地路径或URL："
 
 #: ../preferences/editor.py:75
-#, fuzzy
 msgid "View Preferences"
-msgstr "首选项"
+msgstr "查看首选项"
 
 #: ../preferences/editor.py:76
 msgid "Wrap long lines by default"
-msgstr ""
+msgstr "对长的行缺省设置是自动换行"
 
 #: ../preferences/editor.py:78
 msgid ""
@@ -3425,7 +3413,7 @@ msgstr ""
 
 #: ../preferences/editor.py:132 ../userguide/prefs_editor.md:3
 msgid "Highlighting Options"
-msgstr ""
+msgstr "高亮选项"
 
 #: ../preferences/editor.py:134
 msgid ""
@@ -3437,11 +3425,11 @@ msgstr ""
 #: ../preferences/editor.py:138
 #, python-brace-format
 msgid "{num} sec"
-msgstr ""
+msgstr "{num} 秒"
 
 #: ../preferences/editor.py:140
 msgid "Infinite"
-msgstr ""
+msgstr "无限"
 
 #: ../preferences/editor.py:190 ../userguide/prefs_editor.md:11
 msgid "Indenting Preferences"
@@ -3488,13 +3476,12 @@ msgid "{num} spaces"
 msgstr ""
 
 #: ../preferences/editor.py:250
-#, fuzzy
 msgid "Source Export Preferences"
-msgstr "编辑器首选项"
+msgstr "源码输出成首选项"
 
 #: ../preferences/editor.py:251
 msgid "Show line numbers"
-msgstr ""
+msgstr "显示行数"
 
 #: ../preferences/editor.py:253
 msgid "If enabled, line numbers are shown in exported HTML or printed source."
@@ -3522,7 +3509,7 @@ msgstr ""
 
 #: ../preferences/editor.py:266
 msgid "Copy HTML as plain text"
-msgstr ""
+msgstr "以纯文本的方式复制 HTML"
 
 #: ../preferences/editor.py:268
 msgid ""
@@ -3764,11 +3751,11 @@ msgstr ""
 
 #: ../preferences/fontscolors.py:530
 msgid "User Command"
-msgstr ""
+msgstr "用户命令"
 
 #: ../preferences/fontscolors.py:531 ../snippet/builtin.py:297
 msgid "Markup"
-msgstr ""
+msgstr "标记"
 
 #: ../preferences/fontscolors.py:532
 msgid "Lyric Mode"
@@ -3776,7 +3763,7 @@ msgstr "歌词模式"
 
 #: ../preferences/fontscolors.py:533
 msgid "Lyric Text"
-msgstr ""
+msgstr "歌词文本"
 
 #: ../preferences/fontscolors.py:534 ../preferences/fontscolors.py:569
 msgid "Delimiter"
@@ -3872,7 +3859,7 @@ msgstr "语言："
 
 #: ../preferences/general.py:131
 msgid "No Translation"
-msgstr ""
+msgstr "无翻译"
 
 #: ../preferences/general.py:132
 msgid "System Default Language (if available)"
@@ -3880,7 +3867,7 @@ msgstr "系统缺省语言 (如适用)"
 
 #: ../preferences/general.py:133 ../scorewiz/parts/percussion.py:185
 msgid "Style:"
-msgstr ""
+msgstr "风格："
 
 #: ../preferences/general.py:135
 msgid "Use System Icons"
@@ -3896,7 +3883,7 @@ msgstr ""
 
 #: ../preferences/general.py:140
 msgid "Show Splash Screen on Startup"
-msgstr ""
+msgstr "在启动时显示开始动画"
 
 #: ../preferences/general.py:141
 msgid "Open Files in Running Instance"
@@ -3914,19 +3901,19 @@ msgstr ""
 
 #: ../preferences/general.py:172
 msgid "Start with no session"
-msgstr ""
+msgstr "无会话启动"
 
 #: ../preferences/general.py:173
 msgid "Start with last used session"
-msgstr ""
+msgstr "用上一次会话启动"
 
 #: ../preferences/general.py:174
 msgid "Start with session:"
-msgstr ""
+msgstr "用以下会话启动："
 
 #: ../preferences/general.py:231
 msgid "When saving documents"
-msgstr ""
+msgstr "当保存文档时"
 
 #: ../preferences/general.py:232
 msgid "Strip trailing whitespace"
@@ -3950,7 +3937,7 @@ msgstr ""
 
 #: ../preferences/general.py:241
 msgid "Remember cursor position, bookmarks, etc."
-msgstr ""
+msgstr "记住光标位置，书签等。"
 
 #: ../preferences/general.py:242
 msgid "Default directory:"
@@ -4121,7 +4108,7 @@ msgstr ""
 #: ../preferences/lilypond.py:94
 #, python-brace-format
 msgid "See also {link}."
-msgstr ""
+msgstr "参见{link}。"
 
 #: ../preferences/lilypond.py:142
 msgid "Set as &Default"
@@ -4133,31 +4120,31 @@ msgstr "缺省值"
 
 #: ../preferences/lilypond.py:256
 msgid "Convert-ly:"
-msgstr ""
+msgstr "Convert-ly:"
 
 #: ../preferences/lilypond.py:257
 msgid "LilyPond-book:"
-msgstr ""
+msgstr "Lilypond-book:"
 
 #: ../preferences/lilypond.py:258
 msgid "Midi2ly:"
-msgstr ""
+msgstr "Midi2ly:"
 
 #: ../preferences/lilypond.py:259
 msgid "MusicXML2ly:"
-msgstr ""
+msgstr "MusicXmL2ly:"
 
 #: ../preferences/lilypond.py:260
 msgid "ABC2ly:"
-msgstr ""
+msgstr "ABC2ly:"
 
 #: ../preferences/lilypond.py:264
 msgid "Label:"
-msgstr ""
+msgstr "标签："
 
 #: ../preferences/lilypond.py:265
 msgid "How this version of LilyPond will be displayed."
-msgstr ""
+msgstr "本版本的LilyPond是如何显示的。"
 
 #: ../preferences/lilypond.py:266
 msgid "LilyPond Command:"
@@ -4165,20 +4152,19 @@ msgstr "LilyPond 指令："
 
 #: ../preferences/lilypond.py:267
 msgid "Name or full path of the LilyPond program."
-msgstr ""
+msgstr "LilyPond程序的名字或完整的路径。"
 
 #: ../preferences/lilypond.py:268
 msgid "Include in automatic version selection"
-msgstr ""
+msgstr "包含自动选择版本"
 
 #: ../preferences/lilypond.py:269
 msgid "General"
-msgstr ""
+msgstr "通用"
 
 #: ../preferences/lilypond.py:270
-#, fuzzy
 msgid "Tool Commands"
-msgstr "LilyPond 指令："
+msgstr "工具指令"
 
 #: ../preferences/lilypond.py:319
 msgid "Running LilyPond"
@@ -4186,7 +4172,7 @@ msgstr "执行 LilyPond"
 
 #: ../preferences/lilypond.py:320
 msgid "Save document if possible"
-msgstr ""
+msgstr "如果可能保存文档"
 
 #: ../preferences/lilypond.py:322
 msgid ""
@@ -4353,7 +4339,7 @@ msgstr ""
 
 #: ../preferences/tools.py:94
 msgid "Display plain log output"
-msgstr ""
+msgstr "显示无格式的日志输出"
 
 #: ../preferences/tools.py:96
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
@@ -4371,7 +4357,7 @@ msgstr ""
 
 #: ../preferences/tools.py:165
 msgid "Music View"
-msgstr ""
+msgstr "音乐视图"
 
 #: ../preferences/tools.py:166
 msgid "Only load updated PDF documents"
@@ -4407,7 +4393,7 @@ msgstr ""
 #: ../preferences/tools.py:178
 msgctxt "percent unit sign"
 msgid "%"
-msgstr ""
+msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
 #: ../preferences/tools.py:180
@@ -4416,7 +4402,7 @@ msgstr ""
 
 #: ../preferences/tools.py:181
 msgid "Show Scrollbars"
-msgstr ""
+msgstr "显示滚动条"
 
 #: ../preferences/tools.py:266
 msgid "Group documents by directory"
@@ -5138,11 +5124,11 @@ msgstr "编曲家"
 
 #: ../scorewiz/header.py:136
 msgid "Poet"
-msgstr ""
+msgstr "诗人"
 
 #: ../scorewiz/header.py:137
 msgid "Meter"
-msgstr ""
+msgstr "标尺"
 
 #: ../scorewiz/header.py:138
 msgid "Piece"
@@ -5154,7 +5140,7 @@ msgstr "作品"
 
 #: ../scorewiz/header.py:140
 msgid "Copyright"
-msgstr ""
+msgstr "版权"
 
 #: ../scorewiz/header.py:141
 msgid "Tagline"
@@ -5179,11 +5165,11 @@ msgstr ""
 
 #: ../scorewiz/score.py:104
 msgid "Move up"
-msgstr ""
+msgstr "上移"
 
 #: ../scorewiz/score.py:105
 msgid "Move down"
-msgstr ""
+msgstr "下移"
 
 #: ../scorewiz/scoreproperties.py:99
 msgid "Key signature:"
@@ -5199,11 +5185,11 @@ msgstr ""
 
 #: ../scorewiz/scoreproperties.py:221
 msgid "Metronome mark:"
-msgstr ""
+msgstr "节拍器标志："
 
 #: ../scorewiz/scoreproperties.py:245
 msgid "Tempo indication:"
-msgstr ""
+msgstr "速度探测："
 
 #: ../scorewiz/scoreproperties.py:384
 msgid "Major"
@@ -5307,15 +5293,15 @@ msgstr "纸张大小："
 
 #: ../scorewiz/settings.py:145
 msgid "Landscape"
-msgstr ""
+msgstr "横向"
 
 #: ../scorewiz/settings.py:200 ../scorewiz/settings.py:203
 msgid "Long"
-msgstr ""
+msgstr "长"
 
 #: ../scorewiz/settings.py:200 ../scorewiz/settings.py:203
 msgid "Short"
-msgstr ""
+msgstr "短"
 
 #: ../scorewiz/settings.py:227
 msgid "Instrument names"
@@ -5371,19 +5357,19 @@ msgstr ""
 
 #: ../scorewiz/parts/_base.py:140
 msgid "Right hand:"
-msgstr ""
+msgstr "右手："
 
 #: ../scorewiz/parts/_base.py:141
 msgid "Left hand:"
-msgstr ""
+msgstr "左手："
 
 #: ../scorewiz/parts/_base.py:190
 msgid "Chord style:"
-msgstr ""
+msgstr "和弦风格："
 
 #: ../scorewiz/parts/_base.py:191
 msgid "Guitar fret diagrams"
-msgstr ""
+msgstr "吉他品格图"
 
 #: ../scorewiz/parts/_base.py:193
 msgid ""
@@ -5393,7 +5379,7 @@ msgstr ""
 
 #: ../scorewiz/parts/_base.py:207
 msgid "Chords follow here."
-msgstr ""
+msgstr "和弦跟在这。"
 
 #: ../scorewiz/parts/_base.py:219
 msgid "German"
@@ -5680,11 +5666,11 @@ msgstr ""
 
 #: ../scorewiz/parts/percussion.py:82 ../scorewiz/parts/plucked_strings.py:382
 msgid "Upper staff:"
-msgstr ""
+msgstr "上谱表："
 
 #: ../scorewiz/parts/percussion.py:83 ../scorewiz/parts/plucked_strings.py:383
 msgid "Lower staff:"
-msgstr ""
+msgstr "下谱表："
 
 #: ../scorewiz/parts/percussion.py:85
 msgid "Set the number of voices to 0 to disable the second staff."
@@ -6472,11 +6458,11 @@ msgstr ""
 
 #: ../scorewiz/parts/woodwind.py:376
 msgid "Woodwinds"
-msgstr ""
+msgstr "木管"
 
 #: ../search/__init__.py:103
 msgid "Search:"
-msgstr ""
+msgstr "搜索："
 
 #: ../search/__init__.py:104
 msgid "&Case"
@@ -6484,7 +6470,7 @@ msgstr ""
 
 #: ../search/__init__.py:105
 msgid "Case Sensitive"
-msgstr ""
+msgstr "大小写敏感"
 
 #: ../search/__init__.py:106
 msgid "&Regex"
@@ -6492,7 +6478,7 @@ msgstr ""
 
 #: ../search/__init__.py:107
 msgid "Regular Expression"
-msgstr ""
+msgstr "正则表达式"
 
 #: ../search/__init__.py:108
 msgid "The total number of matches"
@@ -6500,7 +6486,7 @@ msgstr ""
 
 #: ../search/__init__.py:110
 msgid "Replace:"
-msgstr ""
+msgstr "替换："
 
 #: ../search/__init__.py:111
 msgid "Re&place"
@@ -6549,25 +6535,22 @@ msgid "Switches to the selected session."
 msgstr ""
 
 #: ../sessions/dialog.py:94 ../sessions/dialog.py:115
-#, fuzzy
 msgid "JSON Files"
-msgstr "Scheme 文件"
+msgstr "JSON 文件"
 
 #: ../sessions/dialog.py:95
-#, fuzzy
 msgctxt "dialog title"
 msgid "Import session"
-msgstr "没有会话"
+msgstr "导入会话"
 
 #: ../sessions/dialog.py:114
-#, fuzzy
 msgctxt "dialog title"
 msgid "Export session"
-msgstr "没有会话"
+msgstr "导出会话"
 
 #: ../sessions/dialog.py:261
 msgid "Name:"
-msgstr ""
+msgstr "名称："
 
 #: ../sessions/dialog.py:262
 msgid "Always save the list of documents in this session"
@@ -6582,9 +6565,8 @@ msgid "Use session specific include path"
 msgstr ""
 
 #: ../sessions/dialog.py:265
-#, fuzzy
 msgid "Replace global path"
-msgstr "移除圆滑线(&S)"
+msgstr "替换全局路径"
 
 #: ../sessions/dialog.py:266
 msgid "When checked, paths in LilyPond preferences are not included."
@@ -6592,16 +6574,15 @@ msgstr ""
 
 #: ../sessions/dialog.py:267
 msgid "Copy global path"
-msgstr ""
+msgstr "复制全局路径"
 
 #: ../sessions/dialog.py:268
 msgid "Add and edit the path from LilyPond preferences."
 msgstr ""
 
 #: ../sessions/dialog.py:270
-#, fuzzy
 msgid "Remove all paths."
-msgstr "移除圆滑线(&S)"
+msgstr "移除所有路径"
 
 #: ../sessions/dialog.py:343
 #, python-brace-format
@@ -6615,7 +6596,7 @@ msgstr ""
 #: ../sessions/dialog.py:375 ../sessions/dialog.py:383
 #: ../sessions/dialog.py:389
 msgid "Warning"
-msgstr ""
+msgstr "警告"
 
 #: ../sessions/dialog.py:376
 msgid "Please enter a session name."
@@ -6973,23 +6954,23 @@ msgstr ""
 
 #: ../snippet/restore.py:68
 msgid "Deleted Snippets"
-msgstr ""
+msgstr "删除片段"
 
 #: ../snippet/restore.py:69
 msgid "Changed Snippets"
-msgstr ""
+msgstr "改变片段"
 
 #: ../snippet/template.py:41
 msgid "Save as Template"
-msgstr ""
+msgstr "另存为模板"
 
 #: ../snippet/template.py:42
 msgid "Please enter a template name:"
-msgstr ""
+msgstr "请输入模板名："
 
 #: ../snippet/template.py:49
 msgid "Overwrite Template?"
-msgstr ""
+msgstr "覆盖模板？"
 
 #: ../snippet/template.py:50
 #, python-brace-format
@@ -6998,31 +6979,33 @@ msgid ""
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
+"名为\"{name}\"的模板文件已经存在。\n"
+"\n"
+"你想要覆盖它？"
 
 #: ../snippet/tool.py:57 ../snippet/tool.py:150 ../userguide/snippets.md:1
 msgid "Snippets"
-msgstr ""
+msgstr "片段"
 
 #: ../snippet/tool.py:58
 msgid "&Snippets"
-msgstr ""
+msgstr "片段(&S)"
 
 #: ../snippet/tool.py:102
 msgid "Save as Template..."
-msgstr ""
+msgstr "另存为模板..."
 
 #: ../snippet/tool.py:103
 msgid "Copy to &Snippet..."
-msgstr ""
+msgstr "复制到片段...(&S)"
 
 #: ../snippet/tool.py:104
 msgid "Manage Templates..."
-msgstr ""
+msgstr "管理模板..."
 
 #: ../snippet/tool.py:105
-#, fuzzy
 msgid "Manage &Snippets..."
-msgstr "管理(&M)..."
+msgstr "管理代码片段(&S)..."
 
 #: ../snippet/widget.py:186 ../widgets/schemeselector.py:92
 msgid "&Menu"
@@ -7031,12 +7014,12 @@ msgstr "选单(&M)"
 #: ../snippet/widget.py:187 ../widgets/listedit.py:91
 #: ../widgets/schemeselector.py:93
 msgid "&Add..."
-msgstr ""
+msgstr "增加...(&A)"
 
 #: ../snippet/widget.py:189
 #, python-brace-format
 msgid "Add a new snippet. ({key})"
-msgstr ""
+msgstr "增加一个新片段。({key})"
 
 #: ../snippet/widget.py:190 ../widgets/listedit.py:92
 msgid "&Edit..."
@@ -7167,13 +7150,12 @@ msgid "Next:"
 msgstr ""
 
 #: ../userguide/util.py:86
-#, fuzzy
 msgid "Next Chapter:"
-msgstr "下一页"
+msgstr "下一章"
 
 #: ../userguide/util.py:92
 msgid "See also:"
-msgstr ""
+msgstr "参见："
 
 #: ../vcs/__init__.py:54
 msgid "Git not found"
@@ -7325,11 +7307,11 @@ msgstr "打开文件对话盒"
 
 #: ../widgets/urlrequester.py:109
 msgid "Select a directory"
-msgstr ""
+msgstr "选择目录"
 
 #: ../widgets/urlrequester.py:111
 msgid "Select a file"
-msgstr ""
+msgstr "选择一个文件"
 
 #. NOTE: markdown formatting
 #: ../userguide/experimental_features.md:3
@@ -7442,7 +7424,7 @@ msgstr ""
 
 #: ../userguide/engraving.md:1
 msgid "Engraving Scores"
-msgstr ""
+msgstr "雕刻音符"
 
 #. NOTE: markdown formatting
 #: ../userguide/engraving.md:3
@@ -7678,7 +7660,7 @@ msgstr ""
 
 #: ../userguide/snippet_python.md:1
 msgid "Python Snippets"
-msgstr ""
+msgstr "Python 片段"
 
 #. NOTE: markdown formatting
 #: ../userguide/snippet_python.md:3
@@ -7905,9 +7887,8 @@ msgid "which will then, repetitively, be applied to a selection of notes."
 msgstr ""
 
 #: ../userguide/musicxml_export.md:1
-#, fuzzy
 msgid "Export Music XML"
-msgstr "导出 Music&XML..."
+msgstr "导出 Music XML"
 
 #: ../userguide/musicxml_export.md:3
 msgid "Convert LilyPond source to MusicXML (without using LilyPond)."
@@ -8913,9 +8894,8 @@ msgid "Creating new files"
 msgstr ""
 
 #: ../userguide/creating.md:3
-#, fuzzy
 msgid "New document"
-msgstr "关闭文档"
+msgstr "新文档"
 
 #: ../userguide/creating.md:5
 msgid ""
@@ -9019,7 +8999,7 @@ msgstr ""
 
 #: ../userguide/musicview.md:19
 msgid "You can also adjust the view:"
-msgstr ""
+msgstr "你也可以调整视图："
 
 #: ../userguide/musicview.md:21
 msgid ""
@@ -9086,7 +9066,7 @@ msgstr ""
 
 #: ../userguide/credits.md:28
 msgid "Mac OS X packaging"
-msgstr ""
+msgstr "Mac OS X 包"
 
 #: ../userguide/credits.md:28
 msgid "various other improvements"
@@ -9094,7 +9074,7 @@ msgstr ""
 
 #: ../userguide/credits.md:32
 msgid "Layout control modes"
-msgstr ""
+msgstr "布局控制模式"
 
 #: ../userguide/credits.md:32
 msgid "various other contributions"
@@ -9110,7 +9090,7 @@ msgstr ""
 
 #: ../userguide/credits.md:42
 msgid "Finding lots of bugs"
-msgstr ""
+msgstr "发现很多缺陷"
 
 #: ../userguide/credits.md:45
 msgid "Many code and feature improvements"
@@ -9137,7 +9117,7 @@ msgstr ""
 
 #: ../userguide/search_replace.md:1
 msgid "Search and replace"
-msgstr ""
+msgstr "查找并替换"
 
 #: ../userguide/search_replace.md:3
 msgid ""
@@ -9200,7 +9180,7 @@ msgstr ""
 
 #: ../userguide/engrave_layout.md:1
 msgid "Layout control mode"
-msgstr ""
+msgstr "布局控制模式"
 
 #: ../userguide/engrave_layout.md:3
 msgid ""
@@ -9560,7 +9540,7 @@ msgstr ""
 
 #: ../userguide/404.md:1
 msgid "Not Found"
-msgstr ""
+msgstr "没有发现"
 
 #: ../userguide/404.md:3
 msgid "Cannot load the requested userguide resource {userguide_page}."
@@ -9602,7 +9582,7 @@ msgstr ""
 
 #: ../userguide/troubleshooting.md:1
 msgid "Troubleshooting"
-msgstr ""
+msgstr "找错"
 
 #: ../userguide/troubleshooting.md:3
 msgid ""
@@ -9612,7 +9592,7 @@ msgstr ""
 
 #: ../userguide/getstarted.md:1
 msgid "Getting Started"
-msgstr ""
+msgstr "开始"
 
 #: ../userguide/getstarted.md:3
 msgid ""
@@ -9699,7 +9679,7 @@ msgstr ""
 
 #: ../userguide/engrave_publish.md:1
 msgid "Publish mode"
-msgstr ""
+msgstr "出版模式"
 
 #: ../userguide/engrave_publish.md:3
 msgid ""
@@ -9756,7 +9736,7 @@ msgstr ""
 
 #: ../userguide/docvars.md:19
 msgid "name"
-msgstr ""
+msgstr "名称"
 
 #. NOTE: markdown formatting
 #: ../userguide/docvars.md:20
@@ -9775,7 +9755,7 @@ msgstr ""
 
 #: ../userguide/docvars.md:27
 msgid "version"
-msgstr ""
+msgstr "版本"
 
 #: ../userguide/docvars.md:28
 msgid ""
@@ -9784,12 +9764,12 @@ msgstr ""
 
 #: ../userguide/docvars.md:30
 msgid "Indentation variables"
-msgstr ""
+msgstr "缩进变量"
 
 #: ../userguide/docvars.md:32 ../userguide/docvars.md:38
 #: ../userguide/docvars.md:45
 msgid "number"
-msgstr ""
+msgstr "数字"
 
 #: ../userguide/docvars.md:33
 msgid "The visible width of a tab character in the editor, by default 8."
@@ -9818,9 +9798,8 @@ msgid ""
 msgstr ""
 
 #: ../userguide/abc_import.md:1
-#, fuzzy
 msgid "Import ABC"
-msgstr "导入(&I)"
+msgstr "导入ABC"
 
 #. NOTE: markdown formatting
 #: ../userguide/abc_import.md:3
@@ -9845,7 +9824,7 @@ msgstr ""
 
 #: ../userguide/abc_import.md:16
 msgid "The abc2ly tab"
-msgstr ""
+msgstr "abc2ly 谱表"
 
 #: ../userguide/abc_import.md:22
 msgid "This option can be used to retain the beaming from the abc notation."
@@ -9868,9 +9847,8 @@ msgid ""
 msgstr ""
 
 #: ../userguide/midi_import.md:1
-#, fuzzy
 msgid "Import Midi"
-msgstr "导入(&I)"
+msgstr "导入Midi"
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:3
