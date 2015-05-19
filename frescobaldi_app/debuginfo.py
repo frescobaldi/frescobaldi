@@ -88,8 +88,8 @@ def python_poppler_version():
 def version_info_named():
     """Yield all the relevant names and their version string."""
     yield appinfo.appname, appinfo.version
-    yield "python-ly", ly_version()
     yield "Python", python_version()
+    yield "python-ly", ly_version()
     yield "Qt", qt_version()
     yield "PyQt", pyqt_version()
     yield "sip", sip_version()
