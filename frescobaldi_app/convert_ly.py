@@ -178,10 +178,17 @@ class Dialog(QDialog):
             
     def setDiffText(self, text=''):
         if text:
-            difflist = list(difflib.unified_diff(
+            try:
+                difflist = list(difflib.unified_diff(
                     self._text.split('\n'), text.split('\n'), 
                     _("Current Document"), _("Converted Document")))
-            diffHLstr = self.diffHighl(difflist)
+                diffHLstr = self.diffHighl(difflist)
+            except UnicodeEncodeError:
+                difflist = list(difflib.unified_diff(
+                    self._text.split('\n'), text.split('\n'), 
+                    _("Current Document").encode('utf8'),
+                    _("Converted Document").encode('utf8')))
+                diffHLstr = self.diffHighl([d.decode('utf8') for d in difflist])
             self.uni_diff.setHtml(diffHLstr)
         else:
             self.uni_diff.clear()
