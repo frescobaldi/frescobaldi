@@ -2,8 +2,11 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.18.1 -- 
+Changes in 2.18.1 -- May 24th, 2015
 
+* New feature:
+  - New command line option -V, showing version information of all supporting
+    modules such as Python, Poppler, Qt4, etc.
 * Improvements:
   - The print dialog remembers the last used printer and options
   - Improved icons for File->Close, Snippets->Repeat last note/chord and
