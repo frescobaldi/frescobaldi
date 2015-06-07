@@ -30,16 +30,24 @@ from PyQt4.QtGui import *
 
 import os
 
+try:
+    import popplerqt4
+except ImportError:
+    pass
+
+import qpopplerview
+import popplerview
+
 import app
 import userguide.util
 import icons
 import symbols
 
-from view import View
+#from view import View
 
-class Widget(QWidget):
+class ManuscriptView(QWidget):
     def __init__(self, dockwidget):
-        super(Widget, self).__init__(dockwidget)
+        super(ManuscriptView, self).__init__(dockwidget)
         self._dockwidget = weakref.ref(dockwidget)
         # filled in by ButtonGroup subclasses
         self.actionDict = {}
@@ -57,8 +65,11 @@ class Widget(QWidget):
         hor.addWidget(QLabel("Here will be the controls"))        
         layout.addLayout(hor)
         
-        self.view = View(self)
+        self.view = popplerview.View(self)
         layout.addWidget(self.view)
+
+        import qpopplerview.pager
+        self._pager = qpopplerview.pager.Pager(self.view)
 
         app.translateUI(self)
         userguide.openWhatsThis(self)
@@ -88,7 +99,9 @@ class Widget(QWidget):
         caption = app.caption(_("dialog title", "Open Manuscript(s)"))
         directory = app.basedir()
         files = QFileDialog.getOpenFileNames(self, caption, directory, '*')
-        self.view.open(files, False)
+        for f in files:
+            doc = popplerqt4.Poppler.Document.load(f)
+            self.view.load(doc)
  
     def dockwidget(self):
         return self._dockwidget()

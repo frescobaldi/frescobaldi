@@ -49,7 +49,7 @@ class ManuscriptViewerTool(panel.Panel):
     
     def createWidget(self):
         from . import widget
-        return widget.Widget(self)
+        return widget.ManuscriptView(self)
         
 
 class Actions(actioncollection.ActionCollection):
