@@ -65,6 +65,8 @@ class PanelManager(plugin.MainWindowPlugin):
         # commented out for stable releases.
         if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
             self.loadPanel("objecteditor.ObjectEditor")
+        # The Engraver's Copy Tool is only in its beginning stage too.
+        self.loadPanel("manuscript.ManuscriptViewerTool")
         
         self.createActions()
         

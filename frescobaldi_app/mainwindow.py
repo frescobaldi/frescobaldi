@@ -62,6 +62,7 @@ import externalchanges
 import browseriface
 import vcs
 import file_import
+import manuscript
 
 
 class MainWindow(QMainWindow):
