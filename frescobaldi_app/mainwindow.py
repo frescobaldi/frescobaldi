@@ -325,10 +325,11 @@ class MainWindow(QMainWindow):
         if not doc.isModified():
             return True
         self.setCurrentDocument(doc, findOpenView=True)
-        res = QMessageBox.warning(self, _("dialog title", "Close Document"),
+        msgbx = QMessageBox(QMessageBox.Warning, _("Close Document"),
             _("The document \"{name}\" has been modified.\n"
             "Do you want to save your changes or discard them?").format(name=doc.documentName()),
-            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel, self)
+        res = msgbx.exec_()
         if res == QMessageBox.Save:
             return self.saveDocument(doc)
         else:
