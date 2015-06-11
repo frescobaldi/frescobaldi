@@ -329,6 +329,7 @@ class MainWindow(QMainWindow):
             _("The document \"{name}\" has been modified.\n"
             "Do you want to save your changes or discard them?").format(name=doc.documentName()),
             QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel, self)
+        msgbx.raise_()
         res = msgbx.exec_()
         if res == QMessageBox.Save:
             return self.saveDocument(doc)
