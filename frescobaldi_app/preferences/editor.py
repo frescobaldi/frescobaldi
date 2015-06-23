@@ -239,10 +239,13 @@ class SourceExport(preferences.Group):
         self.copyDocumentBodyOnly = QCheckBox(toggled=self.changed)
         self.wrapperTag = QLabel()
         self.wrapTagSelector = QComboBox()
+        self.wrapTagSelector.currentIndexChanged.connect(page.changed)
         self.wrapperAttribute = QLabel()
         self.wrapAttribSelector = QComboBox()
+        self.wrapAttribSelector.currentIndexChanged.connect(page.changed)
         self.wrapAttribNameLabel = QLabel()
         self.wrapAttribName = QLineEdit()
+        self.wrapAttribName.textEdited.connect(page.changed)
 
         # left column
         layout.addWidget(self.numberLines, 0, 0)
@@ -315,6 +318,11 @@ class SourceExport(preferences.Group):
         self.inlineStyleExport.setChecked(s.value("inline_export", False, bool))
         self.copyHtmlAsPlainText.setChecked(s.value("copy_html_as_plain_text", False, bool))
         self.copyDocumentBodyOnly.setChecked(s.value("copy_document_body_only", False, bool))
+        self.wrapTagSelector.setCurrentIndex(
+            self.wrapTagSelector.findText(s.value("wrap_tag", "pre", str)))
+        self.wrapAttribSelector.setCurrentIndex(
+            self.wrapAttribSelector.findText(s.value("wrap_attrib", "id", str)))
+        self.wrapAttribName.setText(s.value("wrap_attrib_name", "document", str))
 
     def saveSettings(self):
         s = QSettings()
@@ -324,6 +332,9 @@ class SourceExport(preferences.Group):
         s.setValue("inline_export", self.inlineStyleExport.isChecked())
         s.setValue("copy_html_as_plain_text", self.copyHtmlAsPlainText.isChecked())
         s.setValue("copy_document_body_only", self.copyDocumentBodyOnly.isChecked())
+        s.setValue("wrap_tag", self.wrapTagSelector.currentText())
+        s.setValue("wrap_attrib", self.wrapAttribSelector.currentText())
+        s.setValue("wrap_attrib_name", self.wrapAttribName.text())
 
 
 class TypographicalQuotes(preferences.Group):
