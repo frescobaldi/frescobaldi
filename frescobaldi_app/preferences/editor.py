@@ -282,9 +282,9 @@ class SourceExport(preferences.Group):
             "If enabled, HTML is copied to the clipboard as plain text. "
             "Use this when you want to type HTML formatted code in a "
             "plain text editing environment."))
-        self.copyDocumentBodyOnly.setText(_("Copy <pre> element only"))
+        self.copyDocumentBodyOnly.setText(_("Copy document body only"))
         self.copyDocumentBodyOnly.setToolTip('<qt>' + _(
-            "If enabled, only the HTML contents, wrapped in a PRE tag, will be "
+            "If enabled, only the HTML contents, wrapped in a single tag, will be "
             "copied to the clipboard instead of a full HTML document with a "
             "header section. "
             "May be used in conjunction with the plain text option, with the "
