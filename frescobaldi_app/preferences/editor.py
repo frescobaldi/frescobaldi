@@ -229,7 +229,7 @@ class SourceExport(preferences.Group):
     def __init__(self, page):
         super(SourceExport, self).__init__(page)
 
-        layout = QVBoxLayout()
+        layout = QGridLayout(spacing=1)
         self.setLayout(layout)
 
         self.numberLines = QCheckBox(toggled=self.changed)
@@ -237,12 +237,26 @@ class SourceExport(preferences.Group):
         self.copyHtmlAsPlainText = QCheckBox(toggled=self.changed)
         self.inlineStyleExport = QCheckBox(toggled=self.changed)
         self.copyDocumentBodyOnly = QCheckBox(toggled=self.changed)
+        self.wrapperTag = QLabel()
+        self.wrapTagSelector = QComboBox()
+        self.wrapperAttribute = QLabel()
+        self.wrapAttribSelector = QComboBox()
+        self.wrapAttribNameLabel = QLabel()
+        self.wrapAttribName = QLineEdit()
 
-        layout.addWidget(self.numberLines)
-        layout.addWidget(self.inlineStyleCopy)
-        layout.addWidget(self.inlineStyleExport)
-        layout.addWidget(self.copyHtmlAsPlainText)
-        layout.addWidget(self.copyDocumentBodyOnly)
+        # left column
+        layout.addWidget(self.numberLines, 0, 0)
+        layout.addWidget(self.inlineStyleCopy, 1, 0)
+        layout.addWidget(self.inlineStyleExport, 2, 0)
+        layout.addWidget(self.copyHtmlAsPlainText, 3, 0)
+        #right column
+        layout.addWidget(self.copyDocumentBodyOnly, 0, 1, 1, 2)
+        layout.addWidget(self.wrapperTag, 1, 1)
+        layout.addWidget(self.wrapTagSelector, 1, 2)
+        layout.addWidget(self.wrapperAttribute, 2, 1)
+        layout.addWidget(self.wrapAttribSelector, 2, 2)
+        layout.addWidget(self.wrapAttribNameLabel, 3, 1)
+        layout.addWidget(self.wrapAttribName, 3, 2)
 
         app.translateUI(self)
 
@@ -276,6 +290,22 @@ class SourceExport(preferences.Group):
             "May be used in conjunction with the plain text option, with the "
             "inline style option turned off, to copy highlighted code in a "
             "text editor when an external style sheet is already available."))
+        self.wrapperTag.setText(_("Tag to wrap around source:" + "  "))
+        self.wrapperTag.setToolTip('<qt>' + _(
+            "Choose what tag the colored HTML will be wrapped into."))
+        self.wrapTagSelector.addItem(_("pre"))
+        self.wrapTagSelector.addItem(_("code"))
+        self.wrapTagSelector.addItem(_("div"))
+        self.wrapperAttribute.setText(_("Attribute type of wrapper:" + "  "))
+        self.wrapperAttribute.setToolTip('<qt>' + _(
+            "Choose whether the wrapper tag should be of type 'id' or 'class'"))
+        self.wrapAttribSelector.addItem(_("id"))
+        self.wrapAttribSelector.addItem(_("class"))
+        self.wrapAttribNameLabel.setText(_("Name of attribute:" + "  "))
+        self.wrapAttribNameLabel.setToolTip('<qt>' + _(
+            "Arbitrary name for the type attribute. " +
+            "This must match the CSS stylesheet if using external CSS."))
+
 
     def loadSettings(self):
         s = QSettings()
