@@ -50,15 +50,15 @@ def html_document(document, scheme='editor', inline=False, number_lines=False, f
 def html(cursor, scheme='editor', inline=False, number_lines=False, full_html=True,
         wrap_tag="pre", wrap_attrib="id", wrap_attrib_name="document"):
     """Return a HTML document with the syntax-highlighted region.
-    
-    The tokens are marked with <span> tags. The cursor is a 
-    ly.document.Cursor instance. The specified text formats scheme is used 
-    (by default 'editor'). If inline is True, the span tags have inline 
-    style attributes. If inline is False, the span tags have class 
+
+    The tokens are marked with <span> tags. The cursor is a
+    ly.document.Cursor instance. The specified text formats scheme is used
+    (by default 'editor'). If inline is True, the span tags have inline
+    style attributes. If inline is False, the span tags have class
     attributes and a stylesheet is included.
-    
+
     Set number_lines to True to add line numbers.
-    
+
     """
     data = textformats.formatData(scheme)       # the current highlighting scheme
     w = ly.colorize.HtmlWriter()
@@ -72,5 +72,3 @@ def html(cursor, scheme='editor', inline=False, number_lines=False, full_html=Tr
     w.bgcolor = data.baseColors['background'].name()
     w.css_scheme = data.css_scheme()
     return w.html(cursor)
-
-
