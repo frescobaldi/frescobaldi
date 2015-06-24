@@ -196,7 +196,7 @@ class Indenting(preferences.Group):
             "How many spaces to use for indenting one level.\n"
             "Move to zero to use a Tab character for indenting."))
         self.nspacesBox.setSpecialValueText(_("Tab"))
-        self.dspacesLabel.setText(_("Tab ouside indent inserts:"))
+        self.dspacesLabel.setText(_("Tab outside indent inserts:"))
         self.dspacesBox.setToolTip(_(
             "How many spaces to insert when Tab is pressed outside the indent, "
             "elsewhere in the document.\n"
