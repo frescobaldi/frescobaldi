@@ -798,13 +798,16 @@ class MainWindow(QMainWindow):
         cursor = self.textCursor()
         if not cursor.hasSelection():
             return
-        number_lines = QSettings().value("source_export/number_lines", False, bool)
-        inline_style = QSettings().value("source_export/inline_copy", True, bool)
-        as_plain_text = QSettings().value("source_export/copy_html_as_plain_text", False, bool)
-        wrap_tag = QSettings().value("source_export/wrap_tag", "pre", str)
-        wrap_attrib = QSettings().value("source_export/wrap_attrib", "id", str)
-        wrap_attrib_name = QSettings().value("source_export/wrap_attrib_name", "document", str)
-        document_body_only = QSettings().value("source_export/copy_document_body_only", False, bool)
+
+        s = QSettings()
+        s.beginGroup("source_export")
+        number_lines = s.value("number_lines", False, bool)
+        inline_style = s.value("inline_copy", True, bool)
+        as_plain_text = s.value("copy_html_as_plain_text", False, bool)
+        wrap_tag = s.value("wrap_tag", "pre", str)
+        wrap_attrib = s.value("wrap_attrib", "id", str)
+        wrap_attrib_name = s.value("wrap_attrib_name", "document", str)
+        document_body_only = s.value("copy_document_body_only", False, bool)
         import highlight2html
         html = highlight2html.html_inline(cursor, inline=inline_style, number_lines=number_lines,
             full_html=not document_body_only, wrap_tag=wrap_tag, wrap_attrib=wrap_attrib,
