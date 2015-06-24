@@ -29,22 +29,26 @@ import ly.document
 import ly.colorize
 
 
-def html_text(text, mode=None, scheme='editor', inline=True, number_lines=False, full_html=True):
+def html_text(text, mode=None, scheme='editor', inline=True, number_lines=False, full_html=True,
+    wrap_tag="pre", wrap_attrib="id", wrap_attrib_name="document"):
     """Converts the text to HTML using the specified or guessed mode."""
     c = ly.document.Cursor(ly.document.Document(text, mode))
-    return html(c, scheme, inline, number_lines, full_html)
+    return html(c, scheme, inline, number_lines, full_html, wrap_tag, wrap_attrib, wrap_attrib_name)
 
-def html_inline(cursor, scheme='editor', inline=True, number_lines=False, full_html=True):
+def html_inline(cursor, scheme='editor', inline=True, number_lines=False,
+        full_html=True, wrap_tag="pre", wrap_attrib="id", wrap_attrib_name="document"):
     """Return an (by default) inline-styled HTML document for the cursor's selection."""
     c = lydocument.cursor(cursor)
-    return html(c, scheme, inline, number_lines, full_html)
+    return html(c, scheme, inline, number_lines, full_html, wrap_tag, wrap_attrib, wrap_attrib_name)
 
-def html_document(document, scheme='editor', inline=False, number_lines=False, full_html=True):
+def html_document(document, scheme='editor', inline=False, number_lines=False, full_html=True,
+        wrap_tag="pre", wrap_attrib="id", wrap_attrib_name="document"):
     """Return a (by default) css-styled HTML document for the full document."""
     c = lydocument.Cursor(lydocument.Document(document))
-    return html(c, scheme, inline, number_lines, full_html)
+    return html(c, scheme, inline, number_lines, full_html, wrap_tag, wrap_attrib, wrap_attrib_name)
 
-def html(cursor, scheme='editor', inline=False, number_lines=False, full_html=True):
+def html(cursor, scheme='editor', inline=False, number_lines=False, full_html=True,
+        wrap_tag="pre", wrap_attrib="id", wrap_attrib_name="document"):
     """Return a HTML document with the syntax-highlighted region.
     
     The tokens are marked with <span> tags. The cursor is a 
@@ -58,6 +62,9 @@ def html(cursor, scheme='editor', inline=False, number_lines=False, full_html=Tr
     """
     data = textformats.formatData(scheme)       # the current highlighting scheme
     w = ly.colorize.HtmlWriter()
+    w.set_wrapper_tag(wrap_tag)
+    w.set_wrapper_attribute(wrap_attrib)
+    w.document_id = wrap_attrib_name
     w.inline_style = inline
     w.number_lines = number_lines
     w.full_html = full_html
