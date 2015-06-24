@@ -765,10 +765,17 @@ class MainWindow(QMainWindow):
             name, "{0} (*.html)".format("HTML Files"))
         if not filename:
             return #cancelled
-        number_lines = QSettings().value("source_export/number_lines", False, bool)
-        inline_style = QSettings().value("source_export/inline_export", False, bool)
+
+        s = QSettings()
+        s.beginGroup("source_export")
+        number_lines = s.value("number_lines", False, bool)
+        inline_style = s.value("inline_export", False, bool)
+        wrap_tag = s.value("wrap_tag", "pre", str)
+        wrap_attrib = s.value("wrap_attrib", "id", str)
+        wrap_attrib_name = s.value("wrap_attrib_name", "document", str)
         import highlight2html
-        html = highlight2html.html_document(doc, inline=inline_style, number_lines=number_lines)
+        html = highlight2html.html_document(doc, inline=inline_style, number_lines=number_lines,
+            wrap_tag=wrap_tag, wrap_attrib=wrap_attrib, wrap_attrib_name=wrap_attrib_name)
         try:
             with open(filename, "wb") as f:
                 f.write(html.encode('utf-8'))
