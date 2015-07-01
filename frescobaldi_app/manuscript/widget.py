@@ -61,8 +61,11 @@ class ManuscriptView(QWidget):
             autoRaise = True,
             clicked = lambda: userguide.show("manuscript"))
         hor = QHBoxLayout()
-        
-        hor.addWidget(QLabel("Here will be the controls"))        
+
+        self.openButton = QPushButton(self)
+        self.openButton.clicked.connect(self.openManuscripts)
+        hor.addWidget(self.openButton)
+
         layout.addLayout(hor)
         
         self.view = popplerview.View(self)
@@ -73,9 +76,6 @@ class ManuscriptView(QWidget):
 
         app.translateUI(self)
         userguide.openWhatsThis(self)
-        
-        # TEMPORARY immediate action!
-        self.openManuscripts()
     
     def translateUI(self):
         self.setWhatsThis(_(
@@ -83,6 +83,7 @@ class ManuscriptView(QWidget):
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link("quickinsert")))
+        self.openButton.setText(_("Open file"))
             
     def actionForName(self, name):
         """This is called by the ShortcutCollection of our dockwidget, e.g. if the user presses a key."""
