@@ -104,7 +104,7 @@ class ManuscriptView(QWidget):
         return self.parent().mainwindow()
 
     def closeManuscripts(self):
-        """ Displays an open dialog to open one or more documents. """
+        """ Close current document. """
         self.view.clear()
 
     def openManuscripts(self):
