@@ -51,11 +51,11 @@ class ManuscriptView(QWidget):
         self._dockwidget = weakref.ref(dockwidget)
         # filled in by ButtonGroup subclasses
         self.actionDict = {}
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         layout.setContentsMargins(0, 0, 0, 0)
-        
+
         self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
             autoRaise = True,
@@ -68,7 +68,7 @@ class ManuscriptView(QWidget):
         hor.addStretch(1)
 
         layout.addLayout(hor)
-        
+
         self.view = popplerview.View(self)
         layout.addWidget(self.view)
 
@@ -77,7 +77,7 @@ class ManuscriptView(QWidget):
 
         app.translateUI(self)
         userguide.openWhatsThis(self)
-    
+
     def translateUI(self):
         self.setWhatsThis(_(
             "<p>The Manuscript Viewer displays an original manuscript " +
@@ -85,7 +85,7 @@ class ManuscriptView(QWidget):
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link("quickinsert")))
         self.openButton.setText(_("Open file"))
-            
+
     def actionForName(self, name):
         """This is called by the ShortcutCollection of our dockwidget, e.g. if the user presses a key."""
         try:
@@ -94,8 +94,8 @@ class ManuscriptView(QWidget):
             pass
 
     def mainwindow(self):
-        return self.parent().mainwindow()       
-        
+        return self.parent().mainwindow()
+
     def openManuscripts(self):
         """ Displays an open dialog to open one or more documents. """
         caption = app.caption(_("dialog title", "Open Manuscript(s)"))
@@ -104,8 +104,6 @@ class ManuscriptView(QWidget):
         for f in files:
             doc = popplerqt4.Poppler.Document.load(f)
             self.view.load(doc)
- 
+
     def dockwidget(self):
         return self._dockwidget()
-
-
