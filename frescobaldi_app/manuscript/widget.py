@@ -65,6 +65,7 @@ class ManuscriptView(QWidget):
         self.openButton = QPushButton(self)
         self.openButton.clicked.connect(self.openManuscripts)
         hor.addWidget(self.openButton)
+        hor.addStretch(1)
 
         layout.addLayout(hor)
         
