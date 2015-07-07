@@ -108,14 +108,13 @@ class ManuscriptView(QWidget):
         self.view.clear()
 
     def openManuscripts(self):
-        """ Displays an open dialog to open one or more documents. """
+        """ Displays an open dialog to open a manuscript PDF. """
         caption = app.caption(_("dialog title", "Open Manuscript(s)"))
         directory = app.basedir()
-        files = QFileDialog.getOpenFileNames(self, caption, directory, '*')
-        for f in files:
-            self.view.clear()
-            doc = popplerqt4.Poppler.Document.load(f)
-            self.view.load(doc)
+        filename = QFileDialog().getOpenFileName(self, caption, directory, '*.pdf',)
+        self.view.clear()
+        doc = popplerqt4.Poppler.Document.load(filename)
+        self.view.load(doc)
 
     def dockwidget(self):
         return self._dockwidget()
