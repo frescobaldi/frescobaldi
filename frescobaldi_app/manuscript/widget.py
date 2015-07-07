@@ -66,6 +66,11 @@ class ManuscriptView(QWidget):
         self.openButton = QPushButton(self)
         self.openButton.clicked.connect(self.openManuscripts)
         hor.addWidget(self.openButton)
+
+        self.closeButton = QPushButton(self)
+        self.closeButton.clicked.connect(self.closeManuscripts)
+        hor.addWidget(self.closeButton)
+
         hor.addStretch(1)
 
         layout.addLayout(hor)
@@ -86,6 +91,7 @@ class ManuscriptView(QWidget):
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link("quickinsert")))
         self.openButton.setText(_("Open file"))
+        self.closeButton.setText(_("Close manuscript"))
 
     def actionForName(self, name):
         """This is called by the ShortcutCollection of our dockwidget, e.g. if the user presses a key."""
@@ -96,6 +102,10 @@ class ManuscriptView(QWidget):
 
     def mainwindow(self):
         return self.parent().mainwindow()
+
+    def closeManuscripts(self):
+        """ Displays an open dialog to open one or more documents. """
+        self.view.clear()
 
     def openManuscripts(self):
         """ Displays an open dialog to open one or more documents. """
