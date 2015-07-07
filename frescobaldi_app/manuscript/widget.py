@@ -103,6 +103,7 @@ class ManuscriptView(QWidget):
         directory = app.basedir()
         files = QFileDialog.getOpenFileNames(self, caption, directory, '*')
         for f in files:
+            self.view.clear()
             doc = popplerqt4.Poppler.Document.load(f)
             self.view.load(doc)
 
