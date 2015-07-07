@@ -62,6 +62,7 @@ class ManuscriptView(QWidget):
             clicked = lambda: userguide.show("manuscript"))
         hor = QHBoxLayout()
 
+        hor.addWidget(self.helpButton)
         self.openButton = QPushButton(self)
         self.openButton.clicked.connect(self.openManuscripts)
         hor.addWidget(self.openButton)
