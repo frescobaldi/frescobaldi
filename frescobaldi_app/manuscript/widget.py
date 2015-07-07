@@ -91,7 +91,7 @@ class ManuscriptView(QWidget):
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link("quickinsert")))
         self.openButton.setText(_("Open file"))
-        self.closeButton.setText(_("Close manuscript"))
+        self.closeButton.setText(_("Close"))
 
     def actionForName(self, name):
         """This is called by the ShortcutCollection of our dockwidget, e.g. if the user presses a key."""
