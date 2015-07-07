@@ -18,11 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The SVG view (a QWebView displaying a SVG file).
-
-Interaction between the SVG object and Python is done via a JavaScript bridge
-that runs inside the displayed SVG file.
-
+The Manuscript view 
 """
 
 from __future__ import unicode_literals

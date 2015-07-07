@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The Quick Insert panel widget.
+The Manuscript viewer panel widget.
 """
 
 from __future__ import unicode_literals
