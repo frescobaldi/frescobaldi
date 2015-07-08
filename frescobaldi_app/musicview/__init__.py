@@ -81,10 +81,10 @@ def activate(func):
             QTimer.singleShot(0, lambda: func(self))
     return wrapper
 
-
-class MusicViewPanel(panel.Panel):
+class AbstractViewPanel(panel.Panel):
+    """Abstract base class for several viewer panels"""
     def __init__(self, mainwindow):
-        super(MusicViewPanel, self).__init__(mainwindow)
+        super(AbstractViewPanel, self).__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
 
@@ -608,3 +608,7 @@ class PagerAction(QWidgetAction):
 
     def slotValueChanged(self, num):
         self.parent().setCurrentPage(num)
+
+class MusicViewPanel(AbstractViewPanel):
+    def __init__(self, mainwindow):
+        super(MusicViewPanel, self).__init__(mainwindow)
