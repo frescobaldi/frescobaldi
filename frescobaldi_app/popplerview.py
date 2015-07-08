@@ -59,7 +59,7 @@ class View(qpopplerview.View):
         self.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-    
+
     def readSettings(self):
         kineticScrollingActive = QSettings().value("musicview/kinetic_scrolling", True, bool)
         scrollbarsVisible = QSettings().value("musicview/show_scrollbars", True, bool)
@@ -76,7 +76,7 @@ class MagnifierSettings(object):
     """Manages settings for the MusicView Magnifier."""
     sizeRange = (200, 800)
     scaleRange = (150, 500)
-    
+
     def __init__(self, size=300, scale=300):
         self.size = size
         self.scale = scale
@@ -95,7 +95,7 @@ class MagnifierSettings(object):
             self.scale = int(s.value("scale", self.scale))
         except ValueError:
             pass
-        
+
         self.size = bound(self.size, *cls.sizeRange)
         self.scale = bound(self.scale, *cls.scaleRange)
         return self
@@ -111,5 +111,3 @@ class MagnifierSettings(object):
 def bound(value, start, end):
     """Clips value so it falls in the int range defined by start and end."""
     return max(start, min(end, value))
-
-

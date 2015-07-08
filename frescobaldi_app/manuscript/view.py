@@ -29,25 +29,24 @@ from PyQt4 import QtGui
 import app
 
 class View(QtGui.QScrollArea):
-    """Display a series of manuscript pages"""    
+    """Display a series of manuscript pages"""
     def __init__(self, parent):
         super(View, self).__init__(parent)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-        
+
         # initialize with empty widget
         self.setWidget(QtGui.QWidget())
-            
+
     def open(self, image_list, pdf = False):
         """Open a list of images.
         Open an image viewer or a PDF viewer."""
         import manuscriptcontainer
         self.setWidget(manuscriptcontainer.open(self, image_list, pdf))
-    
+
     def mainwindow(self):
         return self.parent().mainwindow()
 
     def readSettings(self):
         """Reads the settings from the user's preferences."""
         pass
-
