@@ -34,10 +34,10 @@ import panel
 
 import viewers
 
-class ManuscriptViewerTool(viewers.AbstractViewPanel):
+class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
-        super(ManuscriptViewerTool, self).__init__(mainwindow, Actions)
+        super(ManuscriptViewPanel, self).__init__(mainwindow, Actions)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
         ac = self.actionCollection = Actions(self)
