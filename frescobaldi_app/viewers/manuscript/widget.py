@@ -31,6 +31,10 @@ from PyQt4.QtGui import *
 import app
 import userguide.util
 import icons
+try:
+    import popplerqt4
+except ImportError:
+    pass
 
 import viewers
 
@@ -84,5 +88,5 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
             self.view.clear()
             #TODO: This has to do something different,
             # i.e. not open the doc explicitly but let the base class do it.
-            #doc = popplerqt4.Poppler.Document.load(filename)
-            #self.view.load(doc)
+            doc = popplerqt4.Poppler.Document.load(filename)
+            self.view.load(doc)
