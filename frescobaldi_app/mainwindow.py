@@ -65,42 +65,42 @@ import file_import
 
 
 class MainWindow(QMainWindow):
-    
+
     # emitted when the MainWindow will close
     aboutToClose = pyqtSignal()
-    
+
     # only emitted when this is the last MainWindow to close
     aboutToCloseLast = pyqtSignal()
-    
+
     # both signals emit (current, previous)
     currentDocumentChanged = pyqtSignal(document.Document, document.Document)
     currentViewChanged = pyqtSignal(view.View, view.View)
-    
+
     # emitted when whether there is a selection changes
     selectionStateChanged = pyqtSignal(bool)
-    
+
     def __init__(self, other=None):
         """Creates a new MainWindow.
-        
+
         It adds itself to app.windows to keep a reference.
         It shares the documents list with all other MainWindows. It copies
         some info (like the currently active document) from the 'other' window,
         if given.
-        
+
         """
         QMainWindow.__init__(self)
         self.setAttribute(Qt.WA_DeleteOnClose)
-        
+
         # this could be made configurable
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
         self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
         self.setCorner(Qt.TopRightCorner, Qt.RightDockWidgetArea)
         self.setCorner(Qt.BottomRightCorner, Qt.RightDockWidgetArea)
-        
+
         self._currentDocument = None
         self._currentView = lambda: None
         self._selectedState = None
-        
+
         # find an unused objectName
         names = set(win.objectName() for win in app.windows)
         for num in itertools.count(1):
@@ -108,9 +108,9 @@ class MainWindow(QMainWindow):
             if name not in names:
                 self.setObjectName(name)
                 break
-        
+
         app.windows.append(self)
-        
+
         mainwidget = QWidget()
         self.setCentralWidget(mainwidget)
         layout = QVBoxLayout()
@@ -125,76 +125,76 @@ class MainWindow(QMainWindow):
         self.createActions()
         self.createMenus()
         self.createToolBars()
-        
+
         app.translateUI(self)
         app.sessionChanged.connect(self.updateWindowTitle)
-        
+
         self.readSettings()
-        
+
         self.historyManager = historymanager.HistoryManager(self, other.historyManager if other else None)
         self.viewManager.viewChanged.connect(self.slotViewChanged)
         self.tabBar.currentDocumentChanged.connect(self.setCurrentDocument)
         self.setAcceptDrops(True)
-        
+
         # keep track of all ActionCollections for the keyboard settings dialog
         actioncollectionmanager.manager(self).addActionCollection(self.actionCollection)
         actioncollectionmanager.manager(self).addActionCollection(self.viewManager.actionCollection)
-        
+
         if other:
             self.setCurrentDocument(other.currentDocument())
         self.updateWindowTitle()
         app.mainwindowCreated(self)
-        
+
     def documents(self):
         """Returns the list of documents in the order of the TabBar."""
         return self.tabBar.documents()
-        
+
     def currentView(self):
         """Returns the current View or None."""
         return self._currentView()
-    
+
     def currentDocument(self):
         """Returns the current Document or None."""
         return self._currentDocument
-        
+
     def setCurrentDocument(self, doc, findOpenView=None):
         """Set the current document.
-        
+
         The findOpenView argument makes sense when the user has split the
         editor view in more than one.  If findOpenView == True and one of the
         views has the document, that view is focused. If findOpenView == False,
         the currently focused view is changed to the document. If findOpenView
         is None, the users setting is read.
-        
+
         """
         if findOpenView is None:
             findOpenView = QSettings().value("mainwindow/find_open_view", True, bool)
         self.viewManager.setCurrentDocument(doc, findOpenView)
-    
+
     def hasSelection(self):
         """Returns whether there is a selection."""
         return self.textCursor().hasSelection() if self.currentView() else False
-            
+
     def textCursor(self):
         """Returns the QTextCursor of the current View.
-        
+
         Raises an error if there is not yet a view.
-        
+
         """
         return self.currentView().textCursor()
-        
+
     def setTextCursor(self, cursor, findOpenView=None):
         """Switch to the cursor's document() and set that cursor on its View.
-        
+
         For the findOpenView argument, see setCurrentDocument().
         This method also respects the preferred number of surrounding lines
         that are at least to be shown (by using the gotoTextCursor() method of
         the View (see view.py)).
-        
+
         """
         self.setCurrentDocument(cursor.document(), findOpenView)
         self.currentView().gotoTextCursor(cursor)
-    
+
     def slotViewChanged(self, view):
         curv = self._currentView()
         if curv:
@@ -205,7 +205,7 @@ class MainWindow(QMainWindow):
         view.copyAvailable.connect(self.updateSelection)
         view.selectionChanged.connect(self.updateSelection)
         self._currentView = weakref.ref(view)
-        
+
         doc = view.document()
         curd, self._currentDocument = self._currentDocument, doc
         if curd is not doc:
@@ -227,7 +227,7 @@ class MainWindow(QMainWindow):
         self.currentViewChanged.emit(view, curv)
         if curd is not doc:
             self.currentDocumentChanged.emit(doc, curd)
-    
+
     def updateSelection(self):
         selection = self.textCursor().hasSelection()
         if selection != self._selectedState:
@@ -238,18 +238,18 @@ class MainWindow(QMainWindow):
             ac.edit_copy_colored_html.setEnabled(selection)
             ac.edit_cut.setEnabled(selection)
             ac.edit_select_none.setEnabled(selection)
-    
+
     def updateActions(self):
         view = self.currentView()
         action = self.actionCollection.view_wrap_lines
         action.setChecked(view.lineWrapMode() == QPlainTextEdit.WidgetWidth)
-        
+
     def updateDocActions(self):
         doc = self.currentDocument()
         ac = self.actionCollection
         ac.edit_undo.setEnabled(doc.isUndoAvailable())
         ac.edit_redo.setEnabled(doc.isRedoAvailable())
-        
+
     def updateWindowTitle(self):
         doc = self.currentDocument()
         name = []
@@ -265,14 +265,14 @@ class MainWindow(QMainWindow):
             if doc.isModified():
                 # L10N: state of document in window titlebar
                 name.append(_("[modified]"))
-        
+
         window_title = app.caption(" ".join(name))
-        
+
         if vcs.app_is_git_controlled():
             window_title += " " + vcs.app_active_branch_window_title()
-        
+
         self.setWindowTitle(window_title)
-    
+
     def dropEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
@@ -289,11 +289,11 @@ class MainWindow(QMainWindow):
                 self.setCurrentDocument(docs[-1])
             for i in impurls:
                 imp.openDialog(i)
-    
+
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
-        
+
     def closeEvent(self, ev):
         lastWindow = len(app.windows) == 1
         if not lastWindow or self.queryClose():
@@ -319,7 +319,7 @@ class MainWindow(QMainWindow):
 
     def queryCloseDocument(self, doc):
         """Returns whether a document can be closed.
-        
+
         If modified, asks the user. The document is not closed.
         """
         if not doc.isModified():
@@ -333,7 +333,7 @@ class MainWindow(QMainWindow):
             return self.saveDocument(doc)
         else:
             return res == QMessageBox.Discard
-        
+
     def createPopupMenu(self):
         """ Adds an entry to the popup menu to show/hide the tab bar. """
         menu = QMainWindow.createPopupMenu(self)
@@ -343,7 +343,7 @@ class MainWindow(QMainWindow):
         a.setChecked(self.tabBar.isVisible())
         a.toggled.connect(self.tabBar.setVisible)
         return menu
-        
+
     def readSettings(self):
         """ Read a few settings from the application global config. """
         settings = QSettings()
@@ -354,7 +354,7 @@ class MainWindow(QMainWindow):
         self.tabBar.setVisible(settings.value('tabbar', True, bool))
         if os.name != "posix" and settings.value('maximized', False, bool):
             self.showMaximized()
-        
+
     def writeSettings(self):
         """ Write a few settings to the application global config. """
         settings = QSettings()
@@ -364,27 +364,27 @@ class MainWindow(QMainWindow):
         settings.setValue('state', self.saveState())
         settings.setValue('tabbar', self.tabBar.isVisible())
         settings.setValue('maximized', self.isMaximized())
-    
+
     def readSessionSettings(self, settings):
         """Restore ourselves from session manager settings.
-        
+
         These methods store much more information than the readSettings and
         writeSettings methods. This method tries to restore window size and
         position. Also the objectName() is set, so that the window manager can
         preserve stacking order, etc.
-        
+
         """
         name = settings.value('name', '', type(""))
         if name:
             self.setObjectName(name)
         self.restoreGeometry(settings.value('geometry', QByteArray(), QByteArray))
         self.restoreState(settings.value('state', QByteArray(), QByteArray))
-        
+
     def writeSessionSettings(self, settings):
         """Write our state to the session manager settings.
-        
+
         See readSessionSettings().
-        
+
         """
         settings.setValue('name', self.objectName())
         settings.setValue('geometry', self.saveGeometry())
@@ -394,23 +394,23 @@ class MainWindow(QMainWindow):
         """Calls openUrls() with one url. See openUrls()."""
         for d in self.openUrls([url], encoding, ignore_errors):
             return d
-    
+
     def openUrls(self, urls, encoding=None, ignore_errors=False):
         """Open a list of urls, using encoding if specified.
-        
+
         Returns the list of documents that were successfully loaded.
-        
+
         If encoding is None, the encoding is read from the document, defaulting
         to UTF-8.
-        
+
         If ignore_errors is False (the default), an error message is given
         showing the url or urls that failed to load. If ignore_errors is True,
         load errors are silently ignored.
-        
+
         If an url fails to load, a document is not created. To create an
         empty document with an url, use the document.Document constructor.
         Successfully loaded urls are added to the recent files.
-        
+
         """
         docs = []
         failures = []
@@ -438,15 +438,15 @@ class MainWindow(QMainWindow):
                         errno = e.errno) for url, e in failures)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
         return docs
-    
+
     def currentDirectory(self):
         """Returns the current directory of the current document.
-        
+
         If the document has no filename yet, returns the configured default
         directory, or the user's home directory.
         Is that is not set as well, returns the current directory
         of the application.
-        
+
         """
         import resultfiles
         curdir = (resultfiles.results(self.currentDocument()).currentDirectory()
@@ -457,19 +457,19 @@ class MainWindow(QMainWindow):
             return os.getcwdu()
         except AttributeError:
             return os.getcwd()
-    
+
     def cleanStart(self):
         """Called when the previous action left no document open.
-        
+
         Currently simply calls newDocument().
-        
+
         """
         self.newDocument()
-    
+
     ##
     # Implementations of menu actions
     ##
-    
+
     def newDocument(self):
         """ Creates a new, empty document. """
         d = document.Document()
@@ -488,7 +488,7 @@ class MainWindow(QMainWindow):
             import lilypondinfo
             d.setPlainText('\\version "{0}"\n\n'.format(lilypondinfo.preferred().versionString()))
             d.setModified(False)
-    
+
     def openDocument(self):
         """ Displays an open dialog to open one or more documents. """
         ext = os.path.splitext(self.currentDocument().url().path())[1]
@@ -500,13 +500,13 @@ class MainWindow(QMainWindow):
         docs = self.openUrls(urls)
         if docs:
             self.setCurrentDocument(docs[-1])
-        
+
     def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
-        
+
         If save_as is True, a name is always asked.
         Returns True if saving succeeded.
-        
+
         """
         if save_as or doc.url().isEmpty():
             filename = doc.url().toLocalFile()
@@ -525,7 +525,7 @@ class MainWindow(QMainWindow):
             url = QUrl.fromLocalFile(filename)
         else:
             url = doc.url()
-        
+
         if QSettings().value("strip_trailing_whitespace", False, bool):
             import reformat
             reformat.remove_trailing_whitespace(QTextCursor(doc))
@@ -547,20 +547,20 @@ class MainWindow(QMainWindow):
                 backup.removeBackup(filename)
             recentfiles.add(doc.url())
         return True
-            
+
     def saveDocumentAs(self, doc):
         """ Saves the document, always asking for a name.
-        
+
         Returns True if saving succeeded, False if it failed or was cancelled.
-        
+
         """
         return self.saveDocument(doc, True)
-        
+
     def closeDocument(self, doc):
         """ Closes the document, asking for saving if modified.
-        
+
         Returns True if closing succeeded.
-        
+
         """
         close = self.queryCloseDocument(doc)
         if close:
@@ -569,13 +569,13 @@ class MainWindow(QMainWindow):
             if not app.documents:
                 self.cleanStart()
         return close
-        
+
     def saveCurrentDocument(self):
         return self.saveDocument(self.currentDocument())
-    
+
     def saveCurrentDocumentAs(self):
         return self.saveDocumentAs(self.currentDocument())
-    
+
     def saveCopyAs(self):
         import ly.lex
         doc = self.currentDocument()
@@ -604,15 +604,15 @@ class MainWindow(QMainWindow):
                 strerror = e.strerror,
                 errno = e.errno)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
-    
+
     def closeCurrentDocument(self):
         return self.closeDocument(self.currentDocument())
-    
+
     def reloadCurrentDocument(self):
         """Reload the current document again from disk.
-        
+
         This action can be undone.
-        
+
         """
         d = self.currentDocument()
         try:
@@ -624,7 +624,7 @@ class MainWindow(QMainWindow):
                 strerror = e.strerror,
                 errno = e.errno)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
-    
+
     def reloadAllDocuments(self):
         """Reloads all documents."""
         failures = []
@@ -640,14 +640,14 @@ class MainWindow(QMainWindow):
                     strerror = e.strerror,
                     errno = e.errno) for d, e in failures)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
-    
+
     def saveAllDocuments(self):
         """ Saves all documents.
-        
+
         Returns True if all documents were saved.
         If one document failed or was cancelled the whole operation is cancelled
         and this function returns False.
-        
+
         """
         cur = self.currentDocument()
         for doc in self.historyManager.documents():
@@ -661,12 +661,12 @@ class MainWindow(QMainWindow):
                     return False
         self.setCurrentDocument(cur, findOpenView=True)
         return True
-                    
+
     def closeOtherDocuments(self):
         """ Closes all documents that are not the current document.
-        
+
         Returns True if all documents were closed.
-        
+
         """
         cur = self.currentDocument()
         docs = self.historyManager.documents()[1:]
@@ -677,14 +677,14 @@ class MainWindow(QMainWindow):
         for doc in docs:
             doc.close()
         return True
-    
+
     def closeAllDocuments(self):
         """Closes all documents and keep one new, empty document."""
         sessions.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
             sessions.setCurrentSession(None)
             self.cleanStart()
-    
+
     def quit(self):
         """Closes all MainWindows."""
         for window in app.windows[:]: # copy
@@ -693,13 +693,13 @@ class MainWindow(QMainWindow):
         self.close()
         if not app.windows:
             app.qApp.quit()
-    
+
     def restart(self):
         """Closes all MainWindows and restart Frescobaldi."""
         self.quit()
         if not app.windows:
             app.restart()
-    
+
     def insertFromFile(self):
         ext = os.path.splitext(self.currentDocument().url().path())[1]
         filetypes = app.filetypes(ext)
@@ -719,13 +719,13 @@ class MainWindow(QMainWindow):
             else:
                 text = util.universal_newlines(util.decode(data))
                 self.currentView().textCursor().insertText(text)
-        
+
     def openCurrentDirectory(self):
         helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "directory")
-    
+
     def openCommandPrompt(self):
         helpers.openUrl(QUrl.fromLocalFile(self.currentDirectory()), "shell")
-    
+
     def printSource(self):
         cursor = self.textCursor()
         try:
@@ -750,7 +750,7 @@ class MainWindow(QMainWindow):
             font.setPointSizeF(font.pointSizeF() * 0.8)
             doc.setDefaultFont(font)
             doc.print_(printer)
-    
+
     def exportColoredHtml(self):
         doc = self.currentDocument()
         name, ext = os.path.splitext(os.path.basename(doc.url().path()))
@@ -778,22 +778,22 @@ class MainWindow(QMainWindow):
                 strerror = e.strerror,
                 errno = e.errno)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
-        
+
     def undo(self):
         self.currentView().undo()
-        
+
     def redo(self):
         self.currentView().redo()
-    
+
     def cut(self):
         self.currentView().cut()
-        
+
     def copy(self):
         self.currentView().copy()
-        
+
     def paste(self):
         self.currentView().paste()
-        
+
     def copyColoredHtml(self):
         cursor = self.textCursor()
         if not cursor.hasSelection():
@@ -808,36 +808,36 @@ class MainWindow(QMainWindow):
         data = QMimeData()
         data.setText(html) if as_plain_text else data.setHtml(html)
         QApplication.clipboard().setMimeData(data)
-        
+
     def selectNone(self):
         cursor = self.currentView().textCursor()
         cursor.clearSelection()
         self.currentView().setTextCursor(cursor)
-    
+
     def selectAll(self):
         self.currentView().selectAll()
-        
+
     def selectBlock(self):
         import lydocument
         import ly.cursortools
         cursor = lydocument.cursor(self.textCursor())
         if ly.cursortools.select_block(cursor):
             self.currentView().setTextCursor(cursor.cursor())
-        
+
     def find(self):
         import search
         search.Search.instance(self).find()
-        
+
     def replace(self):
         import search
         search.Search.instance(self).replace()
-        
+
     def showPreferences(self):
         import preferences
         dlg = preferences.PreferencesDialog(self)
         dlg.exec_()
         dlg.deleteLater()
-    
+
     def toggleFullScreen(self, enabled):
         if enabled:
             self._maximized = self.isMaximized()
@@ -846,7 +846,7 @@ class MainWindow(QMainWindow):
             self.showNormal()
             if self._maximized:
                 self.showMaximized()
-    
+
     def newWindow(self):
         """Opens a new MainWindow."""
         self.writeSettings()
@@ -858,25 +858,25 @@ class MainWindow(QMainWindow):
         """Called when the user toggles View->Line Wrap"""
         wrap = QPlainTextEdit.WidgetWidth if enable else QPlainTextEdit.NoWrap
         self.currentView().setLineWrapMode(wrap)
-    
+
     def scrollUp(self):
         """Scroll up without moving the cursor"""
         sb = self.currentView().verticalScrollBar()
         sb.setValue(sb.value() - 1 if sb.value() else 0)
-        
+
     def scrollDown(self):
         """Scroll down without moving the cursor"""
         sb = self.currentView().verticalScrollBar()
         sb.setValue(sb.value() + 1)
-        
+
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""
         self.selectFullLines(QTextCursor.Up)
-        
+
     def selectFullLinesDown(self):
         """Select lines downwards, selecting full lines."""
         self.selectFullLines(QTextCursor.Down)
-        
+
     def selectFullLines(self, direction):
         """Select full lines in the direction QTextCursor.Up or Down."""
         view = self.currentView()
@@ -888,33 +888,33 @@ class MainWindow(QMainWindow):
         cur.movePosition(direction, QTextCursor.KeepAnchor)
         cur.movePosition(QTextCursor.StartOfLine, QTextCursor.KeepAnchor)
         view.setTextCursor(cur)
-    
+
     def showManual(self):
         """Shows the user guide, called when user presses F1."""
         import userguide
         userguide.show()
-    
+
     def showAbout(self):
         """Shows about dialog."""
         import about
         about.AboutDialog(self).exec_()
-    
+
     def reportBug(self):
         """Opens e-mail composer to send a bug or feature report."""
         import bugreport
         bugreport.email('', _(
             "Please describe the issue or feature request.\n"
             "Provide as much information as possible.\n\n\n"))
-    
+
     def createActions(self):
         self.actionCollection = ac = ActionCollection()
-        
+
         # recent files
         self.menu_recent_files = m = QMenu()
         ac.file_open_recent.setMenu(m)
         m.aboutToShow.connect(self.populateRecentFilesMenu)
         m.triggered.connect(self.slotRecentFilesAction)
-        
+
         # connections
         ac.file_quit.triggered.connect(self.quit, Qt.QueuedConnection)
         ac.file_restart.triggered.connect(self.restart, Qt.QueuedConnection)
@@ -959,7 +959,7 @@ class MainWindow(QMainWindow):
         ac.help_manual.triggered.connect(self.showManual)
         ac.help_about.triggered.connect(self.showAbout)
         ac.help_bugreport.triggered.connect(self.reportBug)
-        
+
     def populateRecentFilesMenu(self):
         self.menu_recent_files.clear()
         for url in recentfiles.urls():
@@ -968,13 +968,13 @@ class MainWindow(QMainWindow):
             text = "{0}  ({1})".format(basename, util.homify(dirname))
             self.menu_recent_files.addAction(text).url = url
         qutil.addAccelerators(self.menu_recent_files.actions())
-    
+
     def slotRecentFilesAction(self, action):
         """Called when a recent files menu action is triggered."""
         d = self.openUrl(action.url)
         if d:
             self.setCurrentDocument(d)
-        
+
     def createMenus(self):
         menu.createMenus(self)
         # actions that are not in menus
@@ -983,7 +983,7 @@ class MainWindow(QMainWindow):
         self.addAction(ac.view_scroll_down)
         self.addAction(ac.edit_select_full_lines_up)
         self.addAction(ac.edit_select_full_lines_down)
-        
+
     def createToolBars(self):
         ac = self.actionCollection
         self.toolbar_main = t = self.addToolBar('')
@@ -1006,7 +1006,7 @@ class MainWindow(QMainWindow):
         w = t.widgetForAction(engrave.engraver(self).actionCollection.engrave_runner)
         w.addAction(engrave.engraver(self).actionCollection.engrave_publish)
         w.addAction(engrave.engraver(self).actionCollection.engrave_custom)
-        
+
         self.toolbar_music = t = self.addToolBar('')
         t.setObjectName('toolbar_music')
         ma = panelmanager.manager(self).musicview.actionCollection
@@ -1020,7 +1020,7 @@ class MainWindow(QMainWindow):
         t.addAction(ma.music_prev_page)
         t.addAction(ma.music_pager)
         t.addAction(ma.music_next_page)
-        
+
     def translateUI(self):
         self.toolbar_main.setWindowTitle(_("Main Toolbar"))
         self.toolbar_music.setWindowTitle(_("Music View Toolbar"))
@@ -1048,9 +1048,9 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all = QAction(parent)
         self.file_quit = QAction(parent)
         self.file_restart = QAction(parent)
-        
+
         self.export_colored_html = QAction(parent)
-        
+
         self.edit_undo = QAction(parent)
         self.edit_redo = QAction(parent)
         self.edit_cut = QAction(parent)
@@ -1067,22 +1067,22 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_find_previous = QAction(parent)
         self.edit_replace = QAction(parent)
         self.edit_preferences = QAction(parent)
-        
+
         self.view_next_document = QAction(parent)
         self.view_previous_document = QAction(parent)
         self.view_wrap_lines = QAction(parent, checkable=True)
         self.view_scroll_up = QAction(parent)
         self.view_scroll_down = QAction(parent)
-        
+
         self.window_new = QAction(parent)
         self.window_fullscreen = QAction(parent)
         self.window_fullscreen.setCheckable(True)
-        
+
         self.help_manual = QAction(parent)
         self.help_whatsthis = QWhatsThis.createAction(parent)
         self.help_about = QAction(parent)
         self.help_bugreport = QAction(parent)
-        
+
         # icons
         self.file_new.setIcon(icons.get('document-new'))
         self.file_open.setIcon(icons.get('document-open'))
@@ -1098,7 +1098,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_print_source.setIcon(icons.get('document-print'))
         self.file_close.setIcon(icons.get('document-close'))
         self.file_quit.setIcon(icons.get('application-exit'))
-        
+
         self.edit_undo.setIcon(icons.get('edit-undo'))
         self.edit_redo.setIcon(icons.get('edit-redo'))
         self.edit_cut.setIcon(icons.get('edit-cut'))
@@ -1111,18 +1111,18 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_find_previous.setIcon(icons.get('go-up-search'))
         self.edit_replace.setIcon(icons.get('edit-find-replace'))
         self.edit_preferences.setIcon(icons.get('preferences-system'))
-        
+
         self.view_next_document.setIcon(icons.get('go-next'))
         self.view_previous_document.setIcon(icons.get('go-previous'))
-        
+
         self.window_new.setIcon(icons.get('window-new'))
         self.window_fullscreen.setIcon(icons.get('view-fullscreen'))
-        
+
         self.help_manual.setIcon(icons.get('help-contents'))
         self.help_whatsthis.setIcon(icons.get('help-contextual'))
         self.help_bugreport.setIcon(icons.get('tools-report-bug'))
         self.help_about.setIcon(icons.get('help-about'))
-        
+
         # shortcuts
         self.file_new.setShortcuts(QKeySequence.New)
         self.file_open.setShortcuts(QKeySequence.Open)
@@ -1130,7 +1130,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save_as.setShortcuts(QKeySequence.SaveAs)
         self.file_close.setShortcuts(QKeySequence.Close)
         self.file_quit.setShortcuts(QKeySequence.Quit)
-        
+
         self.edit_undo.setShortcuts(QKeySequence.Undo)
         self.edit_redo.setShortcuts(QKeySequence.Redo)
         self.edit_cut.setShortcuts(QKeySequence.Cut)
@@ -1146,16 +1146,16 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_find_previous.setShortcuts(QKeySequence.FindPrevious)
         self.edit_replace.setShortcuts(QKeySequence.Replace)
         self.edit_preferences.setShortcuts(QKeySequence.Preferences)
-        
+
         self.view_next_document.setShortcuts(QKeySequence.Forward)
         self.view_previous_document.setShortcuts(QKeySequence.Back)
         self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
         self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
-        
+
         self.window_fullscreen.setShortcuts([QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F), QKeySequence(Qt.Key_F11)])
-        
+
         self.help_manual.setShortcuts(QKeySequence.HelpContents)
-        
+
         # Mac OS X-specific roles?
         if sys.platform.startswith('darwin'):
             import macosx
@@ -1167,7 +1167,7 @@ class ActionCollection(actioncollection.ActionCollection):
                 self.file_quit.setMenuRole(QAction.NoRole)
                 self.edit_preferences.setMenuRole(QAction.NoRole)
                 self.help_about.setMenuRole(QAction.NoRole)
-        
+
     def translateUI(self):
         self.file_new.setText(_("action: new document", "&New"))
         self.file_open.setText(_("&Open..."))
@@ -1192,9 +1192,9 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
         self.file_quit.setText(_("&Quit"))
         self.file_restart.setText(_("Restart {appname}").format(appname=appinfo.appname))
-        
+
         self.export_colored_html.setText(_("Export Source as Colored &HTML..."))
-        
+
         self.edit_undo.setText(_("&Undo"))
         self.edit_redo.setText(_("Re&do"))
         self.edit_cut.setText(_("Cu&t"))
@@ -1211,19 +1211,17 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_find_previous.setText(_("Find Pre&vious"))
         self.edit_replace.setText(_("&Replace..."))
         self.edit_preferences.setText(_("Pr&eferences..."))
-        
+
         self.view_next_document.setText(_("&Next Document"))
         self.view_previous_document.setText(_("&Previous Document"))
         self.view_wrap_lines.setText(_("Wrap &Lines"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
-        
+
         self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))
-        
+
         self.help_manual.setText(_("&User Guide"))
         self.help_whatsthis.setText(_("&What's This?"))
         self.help_bugreport.setText(_("Report a &Bug..."))
         self.help_about.setText(_("&About {appname}...").format(appname=appinfo.appname))
-        
-
