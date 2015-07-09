@@ -114,7 +114,7 @@ class AbstractViewPanel(panel.Panel):
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
 
-    def createWidget(self, w):
+    def configureWidget(self, w):
         """Takes a widget created by a child class and applies the general
         operations of the base class to it, mainly connecting slots."""
 

@@ -54,7 +54,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 
     def createWidget(self):
         from . import widget
-        return super(ManuscriptViewPanel, self).createWidget(widget.Widget(self))
+        return super(ManuscriptViewPanel, self).configureWidget(widget.Widget(self))
 
 
 

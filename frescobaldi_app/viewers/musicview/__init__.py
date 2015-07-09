@@ -58,7 +58,7 @@ class MusicViewPanel(viewers.AbstractViewPanel):
         # Concise implementation here:
         # return super(MusicViewPanel, self).createWidget(Widget(self))
         basic_widget = Widget(self)
-        base_class_applied = super(MusicViewPanel, self).createWidget(basic_widget)
+        base_class_applied = super(MusicViewPanel, self).configureWidget(basic_widget)
         # there could be more code after applying the superclass's method
         return base_class_applied
 
