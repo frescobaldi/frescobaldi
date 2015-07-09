@@ -102,7 +102,6 @@ class AbstractViewPanel(panel.Panel):
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.music_copy_image.triggered.connect(self.copyImage)
-        ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
@@ -113,6 +112,24 @@ class AbstractViewPanel(panel.Panel):
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
+
+    def configureWidget(self, w):
+        """Takes a widget created by a child class and applies the general
+        operations of the base class to it, mainly connecting slots."""
+
+        w.zoomChanged.connect(self.slotMusicZoomChanged)
+        w.updateZoomInfo()
+        w.view.surface().selectionChanged.connect(self.updateSelection)
+        w.view.surface().pageLayout().setPagesPerRow(1)   # default to single
+        w.view.surface().pageLayout().setPagesFirstRow(0) # pages
+
+        import qpopplerview.pager
+        self._pager = p = qpopplerview.pager.Pager(w.view)
+        p.pageCountChanged.connect(self.slotPageCountChanged)
+        p.currentPageChanged.connect(self.slotCurrentPageChanged)
+        app.languageChanged.connect(self.updatePagerLanguage)
+
+        return w
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
@@ -256,7 +273,6 @@ class AbstractViewPanel(panel.Panel):
 class Actions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
-        self.music_document_select = DocumentChooserAction(panel)
         self.music_print = QAction(panel)
         self.music_zoom_in = QAction(panel)
         self.music_zoom_out = QAction(panel)
@@ -291,7 +307,6 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page.setIcon(icons.get('go-next'))
         self.music_prev_page.setIcon(icons.get('go-previous'))
 
-        self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
         self.music_print.setShortcuts(QKeySequence.Print)
         self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
         self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
@@ -300,7 +315,6 @@ class Actions(actioncollection.ActionCollection):
         self.music_reload.setShortcut(QKeySequence(Qt.Key_F5))
 
     def translateUI(self):
-        self.music_document_select.setText(_("Select Music View Document"))
         self.music_print.setText(_("&Print Music..."))
         self.music_zoom_in.setText(_("Zoom &In"))
         self.music_zoom_out.setText(_("Zoom &Out"))

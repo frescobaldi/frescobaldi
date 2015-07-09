@@ -37,8 +37,9 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import Qt, QTimer
 from PyQt4.QtGui import QKeySequence
 
-import viewers
 import app
+import viewers
+from viewers import popplerwidget
 
 
 class MusicViewPanel(viewers.AbstractViewPanel):
@@ -46,25 +47,20 @@ class MusicViewPanel(viewers.AbstractViewPanel):
         super(MusicViewPanel, self).__init__(mainwindow, Actions)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
+        ac = self.actionCollection
+        ac.music_document_select.documentsChanged.connect(self.updateActions)
 
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
 
     def createWidget(self):
-        from . import widget
-        w = widget.MusicView(self)
-        w.zoomChanged.connect(self.slotMusicZoomChanged)
-        w.updateZoomInfo()
-        w.view.surface().selectionChanged.connect(self.updateSelection)
-        w.view.surface().pageLayout().setPagesPerRow(1)   # default to single
-        w.view.surface().pageLayout().setPagesFirstRow(0) # pages
-
-        import qpopplerview.pager
-        self._pager = p = qpopplerview.pager.Pager(w.view)
-        p.pageCountChanged.connect(self.slotPageCountChanged)
-        p.currentPageChanged.connect(self.slotCurrentPageChanged)
-        app.languageChanged.connect(self.updatePagerLanguage)
+        #TODO: clean that up, the current implementation is
+        # simply to demonstrate the steps where one can hook into.
+        # Concise implementation here:
+        # return super(MusicViewPanel, self).createWidget(Widget(self))
+        w = super(MusicViewPanel, self).configureWidget(Widget(self))
+        # there could be more code after applying the superclass's method
 
         selector = self.actionCollection.music_document_select
         selector.currentDocumentChanged.connect(w.openDocument)
@@ -77,6 +73,7 @@ class MusicViewPanel(viewers.AbstractViewPanel):
                 if selector.currentDocument():
                     w.openDocument(selector.currentDocument())
             QTimer.singleShot(0, open)
+
         return w
 
 class Actions(viewers.Actions):
@@ -84,6 +81,13 @@ class Actions(viewers.Actions):
 
     def createActions(self, parent=None):
         super(Actions, self).createActions(parent)
+        self.music_document_select = viewers.DocumentChooserAction(parent)
+        self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
 
     def translateUI(self):
         super(Actions, self).translateUI()
+        self.music_document_select.setText(_("Select Music View Document"))
+
+class Widget(viewers.popplerwidget.AbstractPopplerView):
+    def __init__(self, dockwidget):
+        super(Widget, self).__init__(dockwidget)
