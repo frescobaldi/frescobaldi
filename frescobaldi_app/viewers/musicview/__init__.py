@@ -47,6 +47,8 @@ class MusicViewPanel(viewers.AbstractViewPanel):
         super(MusicViewPanel, self).__init__(mainwindow, Actions)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
+        ac = self.actionCollection
+        ac.music_document_select.documentsChanged.connect(self.updateActions)
 
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -57,19 +59,34 @@ class MusicViewPanel(viewers.AbstractViewPanel):
         # simply to demonstrate the steps where one can hook into.
         # Concise implementation here:
         # return super(MusicViewPanel, self).createWidget(Widget(self))
-        basic_widget = Widget(self)
-        base_class_applied = super(MusicViewPanel, self).configureWidget(basic_widget)
+        w = super(MusicViewPanel, self).configureWidget(Widget(self))
         # there could be more code after applying the superclass's method
-        return base_class_applied
+
+        selector = self.actionCollection.music_document_select
+        selector.currentDocumentChanged.connect(w.openDocument)
+        selector.documentClosed.connect(w.clear)
+
+        if selector.currentDocument():
+            # open a document only after the widget has been created;
+            # this prevents many superfluous resizes
+            def open():
+                if selector.currentDocument():
+                    w.openDocument(selector.currentDocument())
+            QTimer.singleShot(0, open)
+
+        return w
 
 class Actions(viewers.Actions):
     name = "musicview"
 
     def createActions(self, parent=None):
         super(Actions, self).createActions(parent)
+        self.music_document_select = viewers.DocumentChooserAction(parent)
+        self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
 
     def translateUI(self):
         super(Actions, self).translateUI()
+        self.music_document_select.setText(_("Select Music View Document"))
 
 class Widget(viewers.popplerwidget.AbstractPopplerView):
     def __init__(self, dockwidget):
