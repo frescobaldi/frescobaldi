@@ -37,8 +37,9 @@ from __future__ import unicode_literals
 from PyQt4.QtCore import Qt, QTimer
 from PyQt4.QtGui import QKeySequence
 
-import viewers
 import app
+import viewers
+from viewers import popplerwidget
 
 
 class MusicViewPanel(viewers.AbstractViewPanel):
@@ -52,8 +53,7 @@ class MusicViewPanel(viewers.AbstractViewPanel):
         self.toggleViewAction().setText(_("&Music View"))
 
     def createWidget(self):
-        from viewers import popplerwidget
-        w = popplerwidget.PopplerView(self)
+        w = Widget(self)
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
@@ -87,3 +87,7 @@ class Actions(viewers.Actions):
 
     def translateUI(self):
         super(Actions, self).translateUI()
+
+class Widget(viewers.popplerwidget.AbstractPopplerView):
+    def __init__(self, dockwidget):
+        super(Widget, self).__init__(dockwidget)
