@@ -28,33 +28,17 @@ import weakref
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import os
-
-try:
-    import popplerqt4
-except ImportError:
-    pass
-
-import qpopplerview
-import popplerview
-
 import app
 import userguide.util
 import icons
-import symbols
 
-#from view import View
+import viewers
 
-class ManuscriptView(QWidget):
+class Widget(viewers.popplerwidget.AbstractPopplerView):
     def __init__(self, dockwidget):
-        super(ManuscriptView, self).__init__(dockwidget)
-        self._dockwidget = weakref.ref(dockwidget)
-        # filled in by ButtonGroup subclasses
-        self.actionDict = {}
 
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-        layout.setContentsMargins(0, 0, 0, 0)
+        self.use_layout = layout = QVBoxLayout()
+        super(Widget, self).__init__(dockwidget)
 
         self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
@@ -75,12 +59,6 @@ class ManuscriptView(QWidget):
 
         layout.addLayout(hor)
 
-        self.view = popplerview.View(self)
-        layout.addWidget(self.view)
-
-        import qpopplerview.pager
-        self._pager = qpopplerview.pager.Pager(self.view)
-
         app.translateUI(self)
         userguide.openWhatsThis(self)
 
@@ -93,16 +71,6 @@ class ManuscriptView(QWidget):
         self.openButton.setText(_("Open file"))
         self.closeButton.setText(_("Close"))
 
-    def actionForName(self, name):
-        """This is called by the ShortcutCollection of our dockwidget, e.g. if the user presses a key."""
-        try:
-            return self.actionDict[name]
-        except KeyError:
-            pass
-
-    def mainwindow(self):
-        return self.parent().mainwindow()
-
     def closeManuscripts(self):
         """ Close current document. """
         self.view.clear()
@@ -114,8 +82,7 @@ class ManuscriptView(QWidget):
         filename = QFileDialog().getOpenFileName(self, caption, directory, '*.pdf',)
         if filename:
             self.view.clear()
-            doc = popplerqt4.Poppler.Document.load(filename)
-            self.view.load(doc)
-
-    def dockwidget(self):
-        return self._dockwidget()
+            #TODO: This has to do something different,
+            # i.e. not open the doc explicitly but let the base class do it.
+            #doc = popplerqt4.Poppler.Document.load(filename)
+            #self.view.load(doc)
