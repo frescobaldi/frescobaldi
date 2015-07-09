@@ -52,8 +52,8 @@ class MusicViewPanel(viewers.AbstractViewPanel):
         self.toggleViewAction().setText(_("&Music View"))
 
     def createWidget(self):
-        from . import widget
-        w = widget.MusicView(self)
+        from viewers import popplerwidget
+        w = popplerwidget.PopplerView(self)
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
