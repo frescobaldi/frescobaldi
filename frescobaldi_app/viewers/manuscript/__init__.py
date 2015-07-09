@@ -32,30 +32,32 @@ import app
 import icons
 import panel
 
+import viewers
 
-class ManuscriptViewerTool(panel.Panel):
+class ManuscriptViewerTool(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
-        super(ManuscriptViewerTool, self).__init__(mainwindow)
+        super(ManuscriptViewerTool, self).__init__(mainwindow, Actions)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
-        ac = self.actionCollection = Actions()
+        ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.TopDockWidgetArea, self)
-    
+
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))
         self.toggleViewAction().setText(_("Display Manuscript"))
-    
+
     def createWidget(self):
         from . import widget
         return widget.ManuscriptView(self)
-        
 
-class Actions(actioncollection.ActionCollection):
+
+class Actions(viewers.Actions):
     name = "manuscript"
+
     def createActions(self, parent=None):
-        pass
+        super(Actions, self).createActions(parent)
 
     def translateUI(self):
-        pass
+        super(Actions, self).translateUI()
