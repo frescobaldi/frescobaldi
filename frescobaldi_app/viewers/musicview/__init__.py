@@ -34,13 +34,22 @@ All the point & click stuff is handled in the pointandclick module.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtCore import Qt, QTimer
+from PyQt4.QtGui import QKeySequence
+
 import viewers
 import app
 
 
 class MusicViewPanel(viewers.AbstractViewPanel):
     def __init__(self, mainwindow):
-        super(MusicViewPanel, self).__init__(mainwindow)
+        super(MusicViewPanel, self).__init__(mainwindow, Actions)
+        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
+        mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
+
+    def translateUI(self):
+        self.setWindowTitle(_("window title", "Music View"))
+        self.toggleViewAction().setText(_("&Music View"))
 
     def createWidget(self):
         from . import widget
@@ -69,3 +78,12 @@ class MusicViewPanel(viewers.AbstractViewPanel):
                     w.openDocument(selector.currentDocument())
             QTimer.singleShot(0, open)
         return w
+
+class Actions(viewers.Actions):
+    name = "musicview"
+
+    def createActions(self, parent=None):
+        super(Actions, self).createActions(parent)
+
+    def translateUI(self):
+        super(Actions, self).translateUI()
