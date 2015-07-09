@@ -73,6 +73,8 @@ class AbstractPopplerView(QWidget):
 
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
+        if hasattr(self, 'use_layout'):
+            layout.addLayout(self.use_layout)
         self.setLayout(layout)
 
         self.view = popplerview.View(self)
