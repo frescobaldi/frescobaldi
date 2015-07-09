@@ -24,15 +24,19 @@ A tool to display an engraver's copy in a dock.
 from __future__ import unicode_literals
 
 from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAction, QKeySequence
+from PyQt4.QtGui import (
+    QAction, QKeySequence, QVBoxLayout, QToolButton,
+    QHBoxLayout, QPushButton, QFileDialog)
 
 import actioncollection
 import actioncollectionmanager
 import app
 import icons
 import panel
+import userguide.util
 
 import viewers
+from viewers import popplerwidget
 
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
@@ -50,7 +54,8 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 
     def createWidget(self):
         from . import widget
-        return widget.ManuscriptView(self)
+        return super(ManuscriptViewPanel, self).createWidget(widget.Widget(self))
+
 
 
 class Actions(viewers.Actions):
