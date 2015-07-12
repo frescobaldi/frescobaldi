@@ -58,7 +58,7 @@ class AbstractPopplerView(QWidget):
     zoomChanged = pyqtSignal(int, float) # mode, scale
 
     def __init__(self, dockwidget):
-        """Creates the Music View for the dockwidget."""
+        """Creates the Poppler View for the dockwidget."""
         super(AbstractPopplerView, self).__init__(dockwidget)
 
         self._positions = weakref.WeakKeyDictionary()
