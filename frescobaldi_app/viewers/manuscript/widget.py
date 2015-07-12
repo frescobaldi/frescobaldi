@@ -85,8 +85,4 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         directory = app.basedir()
         filename = QFileDialog().getOpenFileName(self, caption, directory, '*.pdf',)
         if filename:
-            self.view.clear()
-            #TODO: This has to do something different,
-            # i.e. not open the doc explicitly but let the base class do it.
-            doc = popplerqt4.Poppler.Document.load(filename)
-            self.view.load(doc)
+            super(Widget, self).openDocument(filename)
