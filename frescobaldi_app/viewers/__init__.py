@@ -77,12 +77,9 @@ def activate(func):
 
 class AbstractViewPanel(panel.Panel):
     """Abstract base class for several viewer panels"""
-    def __init__(self, mainwindow):
+    def __init__(self, mainwindow, actionClass):
         super(AbstractViewPanel, self).__init__(mainwindow)
-        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
-        mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
-
-        ac = self.actionCollection = Actions(self)
+        ac = self.actionCollection = actionClass(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.music_print.triggered.connect(self.printMusic)
         ac.music_zoom_in.triggered.connect(self.zoomIn)
@@ -110,10 +107,6 @@ class AbstractViewPanel(panel.Panel):
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
-
-    def translateUI(self):
-        self.setWindowTitle(_("window title", "Music View"))
-        self.toggleViewAction().setText(_("&Music View"))
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
@@ -255,7 +248,7 @@ class AbstractViewPanel(panel.Panel):
 
 
 class Actions(actioncollection.ActionCollection):
-    name = "musicview"
+    name = "abstractviewpanel"
     def createActions(self, panel):
         self.music_document_select = DocumentChooserAction(panel)
         self.music_print = QAction(panel)
