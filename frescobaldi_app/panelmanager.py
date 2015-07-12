@@ -67,7 +67,6 @@ class PanelManager(plugin.MainWindowPlugin):
             self.loadPanel("objecteditor.ObjectEditor")
         # The Engraver's Copy Tool is only in its beginning stage too.
         self.loadPanel("viewers.manuscript.ManuscriptViewPanel")
-
         self.createActions()
 
         # make some default arrangements
