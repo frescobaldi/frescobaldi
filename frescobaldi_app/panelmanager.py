@@ -88,7 +88,7 @@ class PanelManager(plugin.MainWindowPlugin):
         module_name, class_name = name.rsplit('.', 1)
         __import__(module_name)
         module = sys.modules[module_name]
-        attribute_name = module_name.replace('.', '')
+        attribute_name = module_name.split('.')[-1] if "viewers" in name else module_name.replace('.', '')
         cls = vars(module)[class_name]
         panel = cls(self.mainwindow())
         self._panels.append((attribute_name, panel))
