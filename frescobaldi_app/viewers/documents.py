@@ -61,7 +61,9 @@ def group(document):
 
 def load(filename):
     """Returns a Poppler.Document for the given filename, caching it (weakly).
+
     Returns None if the document failed to load.
+
     """
     mtime = os.path.getmtime(filename)
     key = (mtime, filename)
@@ -99,11 +101,14 @@ class Document(popplertools.Document):
 
 class DocumentGroup(plugin.DocumentPlugin):
     """Represents a group of PDF documents, created by the text document it belongs to.
+
     Multiple MusicView instances can use this group, they can store the positions
     of the Documents in the viewer themselves via a weak-key dictionary on the Document
     instances returned by documents(). On update() these Document instances will be reused.
+
     The global documentUpdated(Document) signal will be emitted when the global
     app.jobFinished() signal causes a reload of documents in a group.
+
     """
     def __init__(self, document):
         self._documents = None
@@ -119,10 +124,12 @@ class DocumentGroup(plugin.DocumentPlugin):
 
     def update(self, newer=None):
         """Queries the resultfiles of this text document for PDF files and loads them.
+
         Returns True if new documents were loaded.
         If newer is True, only PDF files newer than the source document are returned.
         If newer is False, all PDF files are returned.
         If newer is None (default), the setting from the configuration is used.
+
         """
         if newer is None:
             newer = QSettings().value("musicview/newer_files_only", True, bool)

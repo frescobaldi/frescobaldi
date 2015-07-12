@@ -19,13 +19,17 @@
 
 """
 The PDF preview panel.
+
 This file loads even if popplerqt4 is absent, although the PDF preview
 panel only shows a message about missing the popplerqt4 module.
+
 The widget module contains the real widget, the documents module a simple
 abstraction and caching of Poppler documents with their filename,
 and the printing module contains code to print a Poppler document, either
 via a PostScript rendering or by printing raster images to a QPrinter.
+
 All the point & click stuff is handled in the pointandclick module.
+
 """
 
 from __future__ import unicode_literals
@@ -61,9 +65,11 @@ from qpopplerview import FixedScale, FitWidth, FitHeight, FitBoth
 
 def activate(func):
     """Decorator for MusicViewPanel methods/slots.
+
     The purpose is to first activate the widget and only perform an action
     when the event loop starts. This gives the PDF widget the chance to resize
     and position itself correctly.
+
     """
     @functools.wraps(func)
     def wrapper(self):
@@ -353,11 +359,14 @@ class ComboBoxAction(QWidgetAction):
 
 class DocumentChooserAction(ComboBoxAction):
     """A ComboBoxAction that keeps track of the current text document.
+
     It manages the list of generated PDF documents for every text document.
     If the mainwindow changes its current document and there are PDFs to display,
     it switches the current document.
+
     It also switches to a text document if a job finished for that document,
     and it generated new PDF documents.
+
     """
 
     documentClosed = pyqtSignal()
@@ -490,7 +499,9 @@ class ZoomerAction(ComboBoxAction):
 
     def setCurrentIndex(self, index):
         """Called when a user manipulates a Zoomer combobox.
+
         Updates the other widgets and calls the corresponding method of the panel.
+
         """
         for w in self.createdWidgets():
             w.setCurrentIndex(index)

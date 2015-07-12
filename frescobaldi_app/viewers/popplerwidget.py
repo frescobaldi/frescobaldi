@@ -141,8 +141,10 @@ class AbstractPopplerView(QWidget):
 
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.
+
         If the links is a textedit link, opens the document and puts the cursor there.
         Otherwise, call the helpers module to open the destination.
+
         """
         if ev.button() == Qt.RightButton:
             return
@@ -166,10 +168,13 @@ class AbstractPopplerView(QWidget):
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
+
         If the links points to the current editor document, the token(s) it points
         at are highlighted using a transparent selection color.
+
         The highlight shows for a few seconds but disappears when the mouse moves
         off the link or when the link is clicked.
+
         """
         self.view.surface().highlight(self._highlightMusicFormat,
             [(page, link.linkArea().normalized())], 2000)
@@ -318,7 +323,9 @@ class AbstractPopplerView(QWidget):
 
 class Highlighter(qpopplerview.Highlighter):
     """Simple version of qpopplerview.Highlighter that has the color settable.
+
     You must set a color before using the Highlighter.
+
     """
     def setColor(self, color):
         """Sets the color to use to draw highlighting rectangles."""
