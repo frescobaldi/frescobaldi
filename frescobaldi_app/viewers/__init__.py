@@ -108,6 +108,35 @@ class AbstractViewPanel(panel.Panel):
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
 
+    def createWidget(self, w):
+        """Takes a widget created by a child class and applies the general
+        operations of the base class to it, mainly connecting slots."""
+
+        w.zoomChanged.connect(self.slotMusicZoomChanged)
+        w.updateZoomInfo()
+        w.view.surface().selectionChanged.connect(self.updateSelection)
+        w.view.surface().pageLayout().setPagesPerRow(1)   # default to single
+        w.view.surface().pageLayout().setPagesFirstRow(0) # pages
+
+        import qpopplerview.pager
+        self._pager = p = qpopplerview.pager.Pager(w.view)
+        p.pageCountChanged.connect(self.slotPageCountChanged)
+        p.currentPageChanged.connect(self.slotCurrentPageChanged)
+        app.languageChanged.connect(self.updatePagerLanguage)
+
+        selector = self.actionCollection.music_document_select
+        selector.currentDocumentChanged.connect(w.openDocument)
+        selector.documentClosed.connect(w.clear)
+
+        if selector.currentDocument():
+            # open a document only after the widget has been created;
+            # this prevents many superfluous resizes
+            def open():
+                if selector.currentDocument():
+                    w.openDocument(selector.currentDocument())
+            QTimer.singleShot(0, open)
+        return w
+
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
 
