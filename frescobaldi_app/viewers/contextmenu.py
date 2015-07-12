@@ -77,7 +77,7 @@ def show(position, panel, link, cursor):
     @a.triggered.connect
     def help():
         import userguide
-        userguide.show("musicview")
+        userguide.show(panel.actionCollection.name)
     
     # show it!
     if m.actions():
