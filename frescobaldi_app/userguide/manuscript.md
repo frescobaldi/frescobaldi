@@ -24,5 +24,5 @@ This is an initial release. Among the planned features of the manuscript viewer 
 * Let LilyPond use the manuscripts' breaking for compilation so the engraved score's
   page layout always matches the currently visible manuscript.
 
-  #VARS
-  music_view help musicview
+#VARS
+music_view help musicview
