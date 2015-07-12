@@ -51,6 +51,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("quickinsert.QuickInsertPanel")
         self.loadPanel("musicview.MusicViewPanel")
         self.loadPanel("svgview.SvgViewPanel")
+        self.loadPanel("viewers.manuscript.ManuscriptViewPanel")
         self.loadPanel("logtool.LogTool")
         self.loadPanel("docbrowser.HelpBrowser")
         self.loadPanel("snippet.tool.SnippetTool")
