@@ -7,7 +7,20 @@ editorial tool.
 
 Navigating is currently possible with the scroll bars and by dragging the image
 with the mouse, and zooming can be achieved with *Ctrl* and the mouse wheel.
-*Ctrl*-clicking accesses the magnifyer as with the {music_view}.
+
+It is possible to inspect the document with the magnifying glass by *Ctrl*-clicking as is the case with the {music_view}.  Upon drawing a selection
+rectangle with the right mouse key it an excerpt from the document can be
+exported to a PNG file.
+
+If the opened file is a PDF score engraved by LilyPond and containing valid
+point-and-click links several function of the {music_view} also work in the
+manuscript viewer:
+
+* Highlight input by selecting music or vice versa
+* Move the viewer to the current cursor position
+* Synchronize the document cursor with the view (automatic following)
+* Edit in place
+
 
 === Roadmap ===
 
