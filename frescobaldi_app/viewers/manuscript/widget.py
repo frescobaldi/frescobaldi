@@ -71,7 +71,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
             "<p>The Manuscript Viewer displays an original manuscript " +
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
-                userguide.util.format_link("quickinsert")))
+                userguide.util.format_link("manuscript")))
         self.openButton.setText(_("Open file"))
         self.closeButton.setText(_("Close"))
 
