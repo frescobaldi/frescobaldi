@@ -59,6 +59,15 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         self.closeButton.clicked.connect(self.closeManuscripts)
         hor.addWidget(self.closeButton)
 
+        ac = self.parent().actionCollection
+        t = self.parent().mainwindow().addToolBar("manuscriptview")
+
+        t.addAction(ac.music_zoom_in)
+        t.addAction(ac.music_zoom_combo)
+        t.addAction(ac.music_zoom_out)
+
+        hor.addWidget(t)
+
         hor.addStretch(1)
 
         layout.addLayout(hor)
