@@ -23,6 +23,7 @@ The Manuscript viewer panel widget.
 
 from __future__ import unicode_literals
 
+import os
 import weakref
 
 from PyQt4.QtCore import *
@@ -96,6 +97,8 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         """ Displays an open dialog to open a manuscript PDF. """
         caption = app.caption(_("dialog title", "Open Manuscript(s)"))
         directory = app.basedir()
+        current_editor_document = self.parent().mainwindow().currentDocument().url().toLocalFile()
+        directory = os.path.dirname(current_editor_document or app.basedir())
         filename = QFileDialog().getOpenFileName(self, caption, directory, '*.pdf',)
         if filename:
             super(Widget, self).openDocument(filename)
