@@ -92,13 +92,17 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
     def closeManuscripts(self):
         """ Close current document. """
         self.view.clear()
+        self.parent().widget()._currentDocument = None
 
     def openManuscripts(self):
         """ Displays an open dialog to open a manuscript PDF. """
         caption = app.caption(_("dialog title", "Open Manuscript(s)"))
         directory = app.basedir()
+
+        current_ms = self.parent().widget()._currentDocument
+        current_manuscript_document = current_ms.filename() if current_ms else None
         current_editor_document = self.parent().mainwindow().currentDocument().url().toLocalFile()
-        directory = os.path.dirname(current_editor_document or app.basedir())
+        directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
         filename = QFileDialog().getOpenFileName(self, caption, directory, '*.pdf',)
         if filename:
             super(Widget, self).openDocument(filename)
