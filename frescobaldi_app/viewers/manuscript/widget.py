@@ -69,7 +69,6 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         t.addAction(ac.music_prev_page)
         t.addAction(ac.music_pager)
         t.addAction(ac.music_next_page)
-        
 
         hor.addWidget(t)
 
