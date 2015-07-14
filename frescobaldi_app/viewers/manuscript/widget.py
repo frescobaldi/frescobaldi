@@ -45,24 +45,26 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         self.use_layout = layout = QVBoxLayout()
         super(Widget, self).__init__(dockwidget)
 
+        hor = QHBoxLayout()
+
         self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
             autoRaise = True,
             clicked = lambda: userguide.show("manuscript"))
-        hor = QHBoxLayout()
 
-        hor.addWidget(self.helpButton)
         self.openButton = QPushButton(self)
         self.openButton.clicked.connect(self.openManuscripts)
-        hor.addWidget(self.openButton)
 
         self.closeButton = QPushButton(self)
         self.closeButton.clicked.connect(self.closeManuscripts)
-        hor.addWidget(self.closeButton)
 
         ac = self.parent().actionCollection
         t = self.parent().mainwindow().addToolBar("manuscriptview")
 
+        t.addWidget(self.helpButton)
+        t.addWidget(self.openButton)
+        t.addWidget(self.closeButton)
+        t.addSeparator()
         t.addAction(ac.music_zoom_in)
         t.addAction(ac.music_zoom_combo)
         t.addAction(ac.music_zoom_out)
