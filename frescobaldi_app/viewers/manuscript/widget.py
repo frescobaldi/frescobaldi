@@ -52,18 +52,15 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
             autoRaise = True,
             clicked = lambda: userguide.show("manuscript"))
 
-        self.openButton = QPushButton(self)
-        self.openButton.clicked.connect(self.openManuscripts)
-
-        self.closeButton = QPushButton(self)
-        self.closeButton.clicked.connect(self.closeManuscripts)
-
         ac = self.parent().actionCollection
+        ac.manuscript_open.triggered.connect(self.openManuscripts)
+        ac.manuscript_close.triggered.connect(self.closeManuscripts)
+        
         t = self.parent().mainwindow().addToolBar("manuscriptview")
 
         t.addWidget(self.helpButton)
-        t.addWidget(self.openButton)
-        t.addWidget(self.closeButton)
+        t.addAction(ac.manuscript_open)
+        t.addAction(ac.manuscript_close)
         t.addSeparator()
         t.addAction(ac.music_zoom_in)
         t.addAction(ac.music_zoom_combo)
@@ -72,6 +69,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         t.addAction(ac.music_prev_page)
         t.addAction(ac.music_pager)
         t.addAction(ac.music_next_page)
+        
 
         hor.addWidget(t)
 
@@ -88,8 +86,6 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link("manuscript")))
-        self.openButton.setText(_("Open file"))
-        self.closeButton.setText(_("Close"))
 
     def closeManuscripts(self):
         """ Close current document. """

@@ -55,12 +55,19 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         return super(ManuscriptViewPanel, self).configureWidget(widget.Widget(self))
 
 
-
 class Actions(viewers.Actions):
     name = "manuscript"
 
     def createActions(self, parent=None):
         super(Actions, self).createActions(parent)
+        self.manuscript_open = QAction(parent)
+        self.manuscript_open.setIcon(icons.get('document-open'))
+        self.manuscript_close = QAction(parent)
+        self.manuscript_close.setIcon(icons.get('document-close'))
 
     def translateUI(self):
         super(Actions, self).translateUI()
+        self.manuscript_open.setText(_("Open document"))
+        self.manuscript_open.setIconText(_("Open"))
+        self.manuscript_close.setText(_("Close document"))
+        self.manuscript_close.setIconText(_("Close"))
