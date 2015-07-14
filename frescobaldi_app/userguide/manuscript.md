@@ -8,9 +8,10 @@ editorial tool.
 Navigating is currently possible with the scroll bars and by dragging the image
 with the mouse, and zooming can be achieved with *Ctrl* and the mouse wheel.
 
-It is possible to inspect the document with the magnifying glass by *Ctrl*-clicking as is the case with the {music_view}.  Upon drawing a selection
-rectangle with the right mouse key it an excerpt from the document can be
-exported to a PNG file.
+It is possible to inspect the document with the magnifying glass by *Ctrl*-clicking
+as is the case with the {music_view}.  Upon drawing a selection
+rectangle with the right mouse key (*Ctrl-click-drag on Mac*) an excerpt from
+the document can be exported to a PNG file.
 
 If the opened file is a PDF score engraved by LilyPond and containing valid
 point-and-click links several function of the {music_view} also work in the
