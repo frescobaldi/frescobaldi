@@ -56,7 +56,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         ac = self.parent().actionCollection
         ac.manuscript_open.triggered.connect(self.openManuscripts)
         ac.manuscript_close.triggered.connect(self.closeManuscripts)
-        
+
         t = self.parent().mainwindow().addToolBar("manuscriptview")
 
         t.addWidget(self.helpButton)
@@ -109,7 +109,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         caption = app.caption(_("dialog title", "Open Manuscript(s)"))
         directory = app.basedir()
 
-        current_ms = self.parent().widget()._currentDocument
+        current_ms = self._currentDocument
         current_manuscript_document = current_ms.filename() if current_ms else None
         current_editor_document = self.parent().mainwindow().currentDocument().url().toLocalFile()
         directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
