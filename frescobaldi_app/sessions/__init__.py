@@ -119,7 +119,7 @@ def loadSession(name):
             active = 0
         return docs[active]
 
-def saveSession(name, documents, activeDocument=None):
+def saveSession(name, documents, activeDocument=None, activeManuscript=None):
     """Saves the list of documents and which one is active."""
     # only save the documents that have an url
     documents = [doc for doc in documents if not doc.url().isEmpty()]
@@ -129,6 +129,8 @@ def saveSession(name, documents, activeDocument=None):
         session.setValue("active", documents.index(activeDocument))
     else:
         session.remove("active")
+    act_ms = activeManuscript.filename() if activeManuscript else ""
+    session.setValue("active-manuscript", act_ms)
     app.saveSessionData(name)
 
 def deleteSession(name):

@@ -27,6 +27,7 @@ from PyQt4.QtGui import QAction, QActionGroup
 
 import actioncollection
 import actioncollectionmanager
+import panelmanager
 import plugin
 import document
 import icons
@@ -108,7 +109,11 @@ class SessionManager(plugin.MainWindowPlugin):
         if cur:
             documents = self.mainwindow().documents()
             active_document = self.mainwindow().currentDocument()
-            sessions.saveSession(cur, documents, active_document)
+            #TODO: This may have to be changed when we support
+            # multiple manuscripts
+            manuscript_panel = panelmanager.manager(self.mainwindow()).manuscript
+            active_manuscript = manuscript_panel.widget()._currentDocument
+            sessions.saveSession(cur, documents, active_document, active_manuscript)
             self.saveSessionData(cur)
 
 
