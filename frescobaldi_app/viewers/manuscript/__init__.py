@@ -70,6 +70,9 @@ class Actions(viewers.Actions):
 
     def createActions(self, parent=None):
         super(Actions, self).createActions(parent)
+        # overrided actions
+        self.music_document_select = DocumentChooserAction(parent)
+        # new actions
         self.manuscript_open = QAction(parent)
         self.manuscript_open.setIcon(icons.get('document-open'))
         self.manuscript_close = QAction(parent)
@@ -77,7 +80,33 @@ class Actions(viewers.Actions):
 
     def translateUI(self):
         super(Actions, self).translateUI()
+        self.music_document_select.setText(_("Select Manuscript Document"))
         self.manuscript_open.setText(_("Open document"))
         self.manuscript_open.setIconText(_("Open"))
         self.manuscript_close.setText(_("Close document"))
         self.manuscript_close.setIconText(_("Close"))
+
+
+class DocumentChooserAction(viewers.DocumentChooserAction):
+    """Extends the parent class and also keeps track of when a document is
+    opened or closed in the manuscript viewer.
+    """
+
+    def __init__(self, panel):
+        super(DocumentChooserAction, self).__init__(panel)
+
+    def slotDocumentChanged(self, doc):
+        """Called when the mainwindow changes its current document."""
+        # for now do nothing
+        pass
+
+    def slotManuscriptChanged(self, doc):
+        """Called when the ManuscriptView widget changes its current document."""
+        # only switch our document if there are PDF documents to display
+        if self._document is None or documents.group(doc).documents():
+            self.setCurrentDocument(doc)
+
+    def slotDocumentUpdated(self, doc, job):
+        """Called when a Job, finished on the document, has created new PDFs."""
+        # for now do nothing
+        pass
