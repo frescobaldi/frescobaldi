@@ -39,6 +39,7 @@ except ImportError:
     pass
 
 import viewers
+from viewers import documents
 
 class Widget(viewers.popplerwidget.AbstractPopplerView):
     def __init__(self, dockwidget):
@@ -53,7 +54,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
             autoRaise = True,
             clicked = lambda: userguide.show("manuscript"))
 
-        ac = self.parent().actionCollection
+        ac = self.actionCollection = self.parent().actionCollection
         ac.manuscript_open.triggered.connect(self.openManuscripts)
         ac.manuscript_close.triggered.connect(self.closeManuscripts)
 
@@ -126,4 +127,5 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
         filename = QFileDialog().getOpenFileName(self, caption, directory, '*.pdf',)
         if filename:
-            super(Widget, self).openDocument(filename)
+            doc = documents.Document(filename)
+            self.actionCollection.music_document_select.setCurrentManuscript(doc)
