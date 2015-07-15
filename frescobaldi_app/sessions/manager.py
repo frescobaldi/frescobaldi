@@ -107,8 +107,8 @@ class SessionManager(plugin.MainWindowPlugin):
         cur = sessions.currentSession()
         if cur:
             documents = self.mainwindow().documents()
-            active = self.mainwindow().currentDocument()
-            sessions.saveSession(cur, documents, active)
+            active_document = self.mainwindow().currentDocument()
+            sessions.saveSession(cur, documents, active_document)
             self.saveSessionData(cur)
 
 
