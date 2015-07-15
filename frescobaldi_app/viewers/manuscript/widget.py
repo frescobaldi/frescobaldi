@@ -91,14 +91,22 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
                 userguide.util.format_link("manuscript")))
 
     def slotSessionChanged(self, name):
-        session = sessions.sessionGroup(name)
-        active_manuscript = session.value("active-manuscript", "")
-        if active_manuscript:
-            try:
-                super(Widget, self).openDocument(active_manuscript)
-            except OSError:
-                # If the file is not present (anymore) simply don't do anything
-                pass
+        if name:
+            session = sessions.sessionGroup(name)
+            active_manuscript = session.value("active-manuscript", "")
+            if active_manuscript:
+                try:
+                    super(Widget, self).openDocument(active_manuscript)
+                except OSError:
+                    # If the file is not present (anymore) simply don't do anything
+                    pass
+            else:
+                # Session has no active manuscript
+                self.closeManuscripts()
+        #TODO: Discuss if switching to "no session" should close documents and manuscripts
+        # else:
+        #     # "No session"
+        #     self.closeManuscripts()
 
     def closeManuscripts(self):
         """ Close current document. """
