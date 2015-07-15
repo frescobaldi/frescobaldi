@@ -96,6 +96,7 @@ class AbstractViewPanel(panel.Panel):
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.music_copy_image.triggered.connect(self.copyImage)
+        ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
@@ -122,6 +123,18 @@ class AbstractViewPanel(panel.Panel):
         p.pageCountChanged.connect(self.slotPageCountChanged)
         p.currentPageChanged.connect(self.slotCurrentPageChanged)
         app.languageChanged.connect(self.updatePagerLanguage)
+
+        selector = self.actionCollection.music_document_select
+        selector.currentDocumentChanged.connect(w.openDocument)
+        selector.documentClosed.connect(w.clear)
+
+        if selector.currentDocument():
+            # open a document only after the widget has been created;
+            # this prevents many superfluous resizes
+            def open():
+                if selector.currentDocument():
+                    w.openDocument(selector.currentDocument())
+            QTimer.singleShot(0, open)
 
         return w
 
@@ -267,6 +280,7 @@ class AbstractViewPanel(panel.Panel):
 class Actions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
+        self.music_document_select = DocumentChooserAction(panel)
         self.music_print = QAction(panel)
         self.music_zoom_in = QAction(panel)
         self.music_zoom_out = QAction(panel)
@@ -310,6 +324,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_reload.setShortcut(QKeySequence(Qt.Key_F5))
 
     def translateUI(self):
+        self.music_document_select.setText(_("Select Music View Document"))
         self.music_print.setText(_("&Print Music..."))
         self.music_zoom_in.setText(_("Zoom &In"))
         self.music_zoom_out.setText(_("Zoom &Out"))
