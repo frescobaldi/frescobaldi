@@ -70,7 +70,7 @@ class Actions(viewers.Actions):
 
     def createActions(self, parent=None):
         super(Actions, self).createActions(parent)
-        # overrided actions
+        # overridden actions
         self.music_document_select = DocumentChooserAction(parent)
         # new actions
         self.manuscript_open = QAction(parent)
