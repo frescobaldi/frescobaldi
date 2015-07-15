@@ -48,7 +48,6 @@ import lydocument
 import viewhighlighter
 import ly.lex.lilypond
 
-from . import documents
 from . import pointandclick
 
 
@@ -115,13 +114,9 @@ class AbstractPopplerView(QWidget):
 
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
-        self.clear()
-        try:
-            document = doc.document()
-        except AttributeError:
-            doc = documents.Document(doc)
-            document = doc.document()
+        self.clear() 
         self._currentDocument = doc
+        document = doc.document()
         if document:
             self._links = pointandclick.links(document)
             self.view.load(document)
