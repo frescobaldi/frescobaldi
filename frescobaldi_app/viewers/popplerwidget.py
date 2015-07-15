@@ -109,6 +109,10 @@ class AbstractPopplerView(QWidget):
         """Called when zoom and viewmode of the qpopplerview change, emit zoomChanged."""
         self.zoomChanged.emit(self.view.viewMode(), self.view.surface().pageLayout().scale())
 
+    def currentDocument(self):
+        """Returns the current Document or None."""
+        return self._currentDocument
+
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         self.clear()
