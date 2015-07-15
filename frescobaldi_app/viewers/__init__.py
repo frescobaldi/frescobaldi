@@ -426,11 +426,13 @@ class DocumentChooserAction(ComboBoxAction):
             self._indices[prev] = self._currentIndex
         document.loaded.connect(self.updateDocument)
         document.closed.connect(self.closeDocument)
+        self._documents = documents.group(document).documents()
+        self._currentIndex = self._indices.get(document, 0)
         self.updateDocument()
 
     def updateDocument(self):
         """(Re)read the output documents of the current document and show them."""
-        docs = self._documents = documents.group(self._document).documents()
+        docs = self._documents
         self.setVisible(bool(docs))
         self.setEnabled(bool(docs))
 
@@ -441,7 +443,7 @@ class DocumentChooserAction(ComboBoxAction):
         for w in self.createdWidgets():
             w.setModel(m)
 
-        index = self._indices.get(self._document, 0)
+        index = self._currentIndex
         if index < 0 or index >= len(docs):
             index = 0
         self.documentsChanged.emit()
