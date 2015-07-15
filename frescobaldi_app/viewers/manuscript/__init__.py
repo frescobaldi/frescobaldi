@@ -110,3 +110,9 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         """Called when a Job, finished on the document, has created new PDFs."""
         # for now do nothing
         pass
+
+    def setCurrentManuscript(self, document):
+        """Displays the DocumentGroup of the given manuscript in our chooser."""
+        self._documents.append(document)
+        self._currentIndex = self._indices.get(document, 0)
+        self.updateDocument()
