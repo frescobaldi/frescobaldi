@@ -30,6 +30,7 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 import app
+import sessions
 import userguide.util
 import icons
 try:
@@ -79,12 +80,24 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         app.translateUI(self)
         userguide.openWhatsThis(self)
 
+        app.sessionChanged.connect(self.slotSessionChanged)
+
     def translateUI(self):
         self.setWhatsThis(_(
             "<p>The Manuscript Viewer displays an original manuscript " +
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link("manuscript")))
+
+    def slotSessionChanged(self, name):
+        session = sessions.sessionGroup(name)
+        active_manuscript = session.value("active-manuscript", "")
+        if active_manuscript:
+            try:
+                super(Widget, self).openDocument(active_manuscript)
+            except OSError:
+                # If the file is not present (anymore) simply don't do anything
+                pass
 
     def closeManuscripts(self):
         """ Close current document. """
