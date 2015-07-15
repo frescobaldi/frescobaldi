@@ -62,6 +62,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         t.addWidget(self.helpButton)
         t.addAction(ac.manuscript_open)
         t.addAction(ac.manuscript_close)
+        t.addAction(ac.music_reload)
         t.addSeparator()
         t.addAction(ac.music_zoom_in)
         t.addAction(ac.music_zoom_combo)

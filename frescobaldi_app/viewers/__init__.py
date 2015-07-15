@@ -300,6 +300,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_copy_image.setIcon(icons.get('edit-copy'))
         self.music_next_page.setIcon(icons.get('go-next'))
         self.music_prev_page.setIcon(icons.get('go-previous'))
+        self.music_reload.setIcon(icons.get('reload'))
 
         self.music_print.setShortcuts(QKeySequence.Print)
         self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
