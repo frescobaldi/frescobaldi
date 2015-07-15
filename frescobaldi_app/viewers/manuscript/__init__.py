@@ -54,6 +54,16 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         from . import widget
         return super(ManuscriptViewPanel, self).configureWidget(widget.Widget(self))
 
+    @viewers.activate
+    def reloadView(self):
+        active_manuscript = self.widget().currentDocument()
+        if active_manuscript:
+            try:
+                self.widget().openDocument(active_manuscript.filename())
+            except OSError:
+                # If the file is not present (anymore) simply don't do anything
+                pass
+
 
 class Actions(viewers.Actions):
     name = "manuscript"
