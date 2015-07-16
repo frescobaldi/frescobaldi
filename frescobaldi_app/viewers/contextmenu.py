@@ -83,6 +83,9 @@ class ViewerContextMenu(QObject):
             ac = self._panel.actionCollection
             m.addAction(ac.music_fit_width)
             m.addAction(ac.music_fit_height)
+            m.addAction(ac.music_fit_both)
+            m.addAction(ac.music_zoom_in)
+            m.addAction(ac.music_zoom_out)
             m.addAction(ac.music_zoom_original)
             m.addSeparator()
             m.addAction(ac.music_sync_cursor)
