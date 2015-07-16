@@ -112,6 +112,10 @@ class AbstractPopplerView(QWidget):
         """Returns the current Document or None."""
         return self._currentDocument
 
+    def setCurrentDocument(self, doc):
+        """Set the current document."""
+        self._currentDocument = doc
+
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         self.clear() 
