@@ -85,9 +85,9 @@ class Actions(viewers.Actions):
     def translateUI(self):
         super(Actions, self).translateUI()
         self.music_document_select.setText(_("Select Manuscript Document"))
-        self.manuscript_open.setText(_("Open document"))
+        self.manuscript_open.setText(_("Open manuscript(s)"))
         self.manuscript_open.setIconText(_("Open"))
-        self.manuscript_close.setText(_("Close document"))
+        self.manuscript_close.setText(_("Close manuscript"))
         self.manuscript_close.setIconText(_("Close"))
         self.manuscript_close_other.setText(_("Close other manuscripts"))
         self.manuscript_close_all.setText(_("Close all manuscripts"))
