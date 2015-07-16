@@ -106,7 +106,7 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         """Called when the ManuscriptView widget changes its current document."""
         # only switch our document if there are PDF documents to display
         if self._document is None or documents.group(doc).documents():
-            self.setCurrentDocument(doc)
+            self.setCurrentManuscript(doc)
 
     def slotDocumentUpdated(self, doc, job):
         """Called when a Job, finished on the document, has created new PDFs."""
