@@ -37,6 +37,7 @@ import userguide.util
 
 import viewers
 from viewers import popplerwidget
+from viewers import documents
 
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
@@ -59,7 +60,8 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         active_manuscript = self.widget().currentDocument()
         if active_manuscript:
             try:
-                self.widget().openDocument(active_manuscript.filename())
+                doc = documents.Document(active_manuscript.filename())
+                self.widget().view.load(doc.document())
             except OSError:
                 # If the file is not present (anymore) simply don't do anything
                 pass
