@@ -125,7 +125,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         current_manuscript_document = current_ms.filename() if current_ms else None
         current_editor_document = self.parent().mainwindow().currentDocument().url().toLocalFile()
         directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
-        filename = QFileDialog().getOpenFileName(self, caption, directory, '*.pdf',)
-        if filename:
+        filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
+        for filename in filenames:
             doc = documents.Document(filename)
             self.actionCollection.music_document_select.setCurrentManuscript(doc)
