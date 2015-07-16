@@ -56,7 +56,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
 
         ac = self.actionCollection = self.parent().actionCollection
         ac.manuscript_open.triggered.connect(self.openManuscripts)
-        ac.manuscript_close.triggered.connect(self.closeManuscripts)
+        ac.manuscript_close.triggered.connect(self.closeManuscript)
 
         t = self.parent().mainwindow().addToolBar("manuscriptview")
 
@@ -112,10 +112,13 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         #     # "No session"
         #     self.closeManuscripts()
 
-    def closeManuscripts(self):
-        """ Close current document. """
-        self.view.clear()
-        self.parent().widget()._currentDocument = None
+    def closeManuscript(self):
+        """ Close current manuscript. """
+        mds = self.parent().actionCollection.music_document_select
+        mds.removeManuscript(self._currentDocument)
+        if len(mds._documents) == 0:
+            self.view.clear()
+
 
     def openManuscripts(self):
         """ Displays an open dialog to open a manuscript PDF. """

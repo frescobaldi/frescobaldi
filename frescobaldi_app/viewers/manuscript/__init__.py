@@ -113,6 +113,10 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         # for now do nothing
         pass
 
+    def removeManuscript(self, document):
+        self._documents.remove(document)
+        self.updateDocument()
+
     def setCurrentManuscript(self, document):
         """Displays the DocumentGroup of the given manuscript in our chooser."""
         self._documents.append(document)
