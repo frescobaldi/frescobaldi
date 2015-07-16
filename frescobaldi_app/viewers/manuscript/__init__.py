@@ -60,8 +60,9 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         active_manuscript = self.widget().currentDocument()
         if active_manuscript:
             try:
-                doc = documents.Document(active_manuscript.filename())
-                self.widget().view.load(doc.document())
+                reread = documents.Document(active_manuscript.filename())
+                mds = self.actionCollection.music_document_select
+                mds.replaceManuscript(active_manuscript, reread)
             except OSError:
                 # If the file is not present (anymore) simply don't do anything
                 pass
@@ -139,3 +140,13 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         self._documents.append(document)
         self._currentIndex = self._indices.get(document, 0)
         self.updateDocument()
+
+    def replaceManuscript(self, olddoc, newdoc):
+        """Instead of adding a new document replace an existing."""
+        try:
+            docindex = self._documents.index(olddoc)
+            self._documents[docindex] = newdoc
+            self.updateDocument()
+        except ValueError:
+            # no replacement possible because the original doc isn't found
+            pass
