@@ -23,66 +23,101 @@ The PDF preview panel context menu.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QUrl
+from PyQt4.QtCore import QObject, QUrl
 from PyQt4.QtGui import QApplication, QMenu
 
 
 import icons
 
+class ViewerContextMenu(QObject):
 
-def show(position, panel, link, cursor):
-    """Shows a context menu.
-    
-    position: The global position to pop up
-    panel: The music view panel, giving access to mainwindow and view widget
-    link: a popplerqt4 LinkBrowse instance or None
-    cursor: a QTextCursor instance or None
-    
-    """
-    m = QMenu(panel)
-    
-    # selection? -> Copy
-    if panel.widget().view.surface().hasSelection():
-        m.addAction(panel.actionCollection.music_copy_image)
-    
-    if cursor:
-        a = m.addAction(icons.get("document-edit"), _("Edit in Place"))
+    def __init__(self, panel):
+        self._panel = panel
+        self._surface = None
+        self._menu = None
+
+    def surface(self):
+        """Return the (cached) surface"""
+        result = self._surface or self._panel.widget().view.surface()
+        return result
+
+    def addCopyImageAction(self):
+        """Add action to copy image if available"""
+        if self.surface().hasSelection():
+            self._menu.addAction(self._panel.actionCollection.music_copy_image)
+
+    def addEditInPlaceAction(self, cursor, position):
+        """Add action to edit snippet if on a textedit link"""
+        a = self._menu.addAction(icons.get("document-edit"), _("Edit in Place"))
         @a.triggered.connect
         def edit():
             from . import editinplace
-            editinplace.edit(panel.widget(), cursor, position)
-    elif link:
+            editinplace.edit(self._panel.widget(), cursor, position)
+
+    def addLinkAction(self, link):
+        """Add action if on an arbitrary link"""
+        m = self._menu
         a = m.addAction(icons.get("window-new"), _("Open Link in &New Window"))
         @a.triggered.connect
         def open_in_browser():
             import helpers
             helpers.openUrl(QUrl(link.url()))
-        
+
         a = m.addAction(icons.get("edit-copy"), _("Copy &Link"))
         @a.triggered.connect
         def copy_link():
             QApplication.clipboard().setText(link.url())
 
-    # no actions yet? insert Fit Width/Height
-    if not m.actions():
-        m.addAction(panel.actionCollection.music_fit_width)
-        m.addAction(panel.actionCollection.music_fit_height)
-        m.addAction(panel.actionCollection.music_zoom_original)
+    def addCursorLinkActions(self, cursor, link, position):
+        """Add actions if on a textedit or arbitrary link"""
+        if cursor:
+            self.addEditInPlaceAction(cursor, position)
+        elif link:
+            self.addLinkAction(link)
+
+    def addZoomActions(self):
+        """Add actions to zoom the viewer"""
+        m = self._menu
+        # no actions yet? insert Fit Width/Height
+        if not m.actions():
+            ac = self._panel.actionCollection
+            m.addAction(ac.music_fit_width)
+            m.addAction(ac.music_fit_height)
+            m.addAction(ac.music_fit_both)
+            m.addAction(ac.music_zoom_in)
+            m.addAction(ac.music_zoom_out)
+            m.addAction(ac.music_zoom_original)
+            m.addSeparator()
+            m.addAction(ac.music_sync_cursor)
+
+    def addCloseActions(self):
+        """Add actions to close documents.
+        This is not implemented in the base class"""
+        pass
+
+    def addHelpAction(self):
+        """Add help menu item"""
+        m = self._menu
         m.addSeparator()
-        m.addAction(panel.actionCollection.music_sync_cursor)
-    
-    # help
-    m.addSeparator()
-    a = m.addAction(icons.get("help-contents"), _("Help"))
-    @a.triggered.connect
-    def help():
-        import userguide
-        userguide.show(panel.actionCollection.name)
-    
-    # show it!
-    if m.actions():
-        m.exec_(position)
-    m.deleteLater()
+        a = m.addAction(icons.get("help-contents"), _("Help"))
+        @a.triggered.connect
+        def help():
+            import userguide
+            userguide.show(self._panel.actionCollection.name)
 
+    def show(self, position, link, cursor):
+        """Build the panel's context menu dynamically.
+        Implements the template method pattern to allow
+        subclasses to override each step."""
+        self._menu = m = QMenu(self._panel)
 
+        self.addCopyImageAction()
+        self.addCursorLinkActions(cursor, link, position)
+        self.addZoomActions()
+        self.addCloseActions()
+        self.addHelpAction()
 
+        # show it!
+        if m.actions():
+            m.exec_(position)
+        m.deleteLater()

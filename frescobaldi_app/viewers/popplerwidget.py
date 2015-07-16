@@ -44,6 +44,7 @@ import icons
 import helpers
 import textedit
 import textformats
+import contextmenu
 import lydocument
 import viewhighlighter
 import ly.lex.lilypond
@@ -64,6 +65,9 @@ class AbstractPopplerView(QWidget):
         self._currentDocument = None
         self._links = None
         self._clicking_link = False
+
+        self._contextMenu = None
+        self._ctxMenuClass = contextmenu.ViewerContextMenu
 
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = Highlighter()
@@ -99,6 +103,13 @@ class AbstractPopplerView(QWidget):
         view = dockwidget.mainwindow().currentView()
         if view:
             self.slotCurrentViewChanged(view)
+
+    def contextMenu(self):
+        if self._contextMenu:
+            return self._contextMenu
+        else:
+            from . import contextmenu
+            return self._ctxMenuClass(self.parent())
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -323,8 +334,7 @@ class AbstractPopplerView(QWidget):
             page, link = self.view.surface().pageLayout().linkAt(pos_in_surface)
             if link:
                 cursor = self._links.cursor(link, True)
-        from . import contextmenu
-        contextmenu.show(pos, self.parent(), link, cursor)
+        self.contextMenu().show(pos, link, cursor)
 
 
 class Highlighter(qpopplerview.Highlighter):

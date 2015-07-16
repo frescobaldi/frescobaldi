@@ -40,12 +40,15 @@ except ImportError:
 
 import viewers
 from viewers import documents
+from . import contextmenu
 
 class Widget(viewers.popplerwidget.AbstractPopplerView):
     def __init__(self, dockwidget):
 
         self.use_layout = layout = QVBoxLayout()
         super(Widget, self).__init__(dockwidget)
+
+        self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
 
         hor = QHBoxLayout()
 
