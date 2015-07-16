@@ -96,10 +96,11 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
     def slotSessionChanged(self, name):
         if name:
             session = sessions.sessionGroup(name)
-            active_manuscript = session.value("active-manuscript", "")
-            if active_manuscript:
+            filename = session.value("active-manuscript", "")
+            if filename:
                 try:
-                    super(Widget, self).openDocument(active_manuscript)
+                    doc = documents.Document(filename)
+                    self.actionCollection.music_document_select.setCurrentManuscript(doc)
                 except OSError:
                     # If the file is not present (anymore) simply don't do anything
                     pass
