@@ -33,48 +33,80 @@ class ViewerContextMenu(QObject):
 
     def __init__(self, panel):
         self._panel = panel
+        self._surface = None
         self._menu = None
 
-    def show(self, position, link, cursor):
-        panel = self._panel
-        self._menu = m = QMenu(panel)
-        # selection? -> Copy
-        if panel.widget().view.surface().hasSelection():
-            m.addAction(panel.actionCollection.music_copy_image)
+    def surface(self):
+        """Return the (cached) surface"""
+        result = self._surface or self._panel.widget().view.surface()
+        return result
 
+    def addCopyImageAction(self):
+        """Add action to copy image if available"""
+        if self.surface().hasSelection():
+            self._menu.addAction(self._panel.actionCollection.music_copy_image)
+
+    def addEditInPlaceAction(self, cursor, position):
+        """Add action to edit snippet if on a textedit link"""
+        a = self._menu.addAction(icons.get("document-edit"), _("Edit in Place"))
+        @a.triggered.connect
+        def edit():
+            from . import editinplace
+            editinplace.edit(self._panel.widget(), cursor, position)
+
+    def addLinkAction(self, link):
+        """Add action if on an arbitrary link"""
+        m = self._menu
+        a = m.addAction(icons.get("window-new"), _("Open Link in &New Window"))
+        @a.triggered.connect
+        def open_in_browser():
+            import helpers
+            helpers.openUrl(QUrl(link.url()))
+
+        a = m.addAction(icons.get("edit-copy"), _("Copy &Link"))
+        @a.triggered.connect
+        def copy_link():
+            QApplication.clipboard().setText(link.url())
+
+    def addCursorLinkActions(self, cursor, link, position):
+        """Add actions if on a textedit or arbitrary link"""
         if cursor:
-            a = m.addAction(icons.get("document-edit"), _("Edit in Place"))
-            @a.triggered.connect
-            def edit():
-                from . import editinplace
-                editinplace.edit(panel.widget(), cursor, position)
+            self.addEditInPlaceAction(cursor, position)
         elif link:
-            a = m.addAction(icons.get("window-new"), _("Open Link in &New Window"))
-            @a.triggered.connect
-            def open_in_browser():
-                import helpers
-                helpers.openUrl(QUrl(link.url()))
+            self.addLinkAction(link)
 
-            a = m.addAction(icons.get("edit-copy"), _("Copy &Link"))
-            @a.triggered.connect
-            def copy_link():
-                QApplication.clipboard().setText(link.url())
-
+    def addZoomActions(self):
+        """Add actions to zoom the viewer"""
+        m = self._menu
         # no actions yet? insert Fit Width/Height
         if not m.actions():
-            m.addAction(panel.actionCollection.music_fit_width)
-            m.addAction(panel.actionCollection.music_fit_height)
-            m.addAction(panel.actionCollection.music_zoom_original)
+            ac = self._panel.actionCollection
+            m.addAction(ac.music_fit_width)
+            m.addAction(ac.music_fit_height)
+            m.addAction(ac.music_zoom_original)
             m.addSeparator()
-            m.addAction(panel.actionCollection.music_sync_cursor)
+            m.addAction(ac.music_sync_cursor)
 
-        # help
+    def addHelpAction(self):
+        """Add help menu item"""
+        m = self._menu
         m.addSeparator()
         a = m.addAction(icons.get("help-contents"), _("Help"))
         @a.triggered.connect
         def help():
             import userguide
-            userguide.show(panel.actionCollection.name)
+            userguide.show(self._panel.actionCollection.name)
+
+    def show(self, position, link, cursor):
+        """Build the panel's context menu dynamically.
+        Implements the template method pattern to allow
+        subclasses to override each step."""
+        self._menu = m = QMenu(self._panel)
+
+        self.addCopyImageAction()
+        self.addCursorLinkActions(cursor, link, position)
+        self.addZoomActions()
+        self.addHelpAction()
 
         # show it!
         if m.actions():
