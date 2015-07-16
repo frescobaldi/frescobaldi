@@ -90,6 +90,11 @@ class ViewerContextMenu(QObject):
             m.addSeparator()
             m.addAction(ac.music_sync_cursor)
 
+    def addCloseActions(self):
+        """Add actions to close documents.
+        This is not implemented in the base class"""
+        pass
+
     def addHelpAction(self):
         """Add help menu item"""
         m = self._menu
@@ -109,6 +114,7 @@ class ViewerContextMenu(QObject):
         self.addCopyImageAction()
         self.addCursorLinkActions(cursor, link, position)
         self.addZoomActions()
+        self.addCloseActions()
         self.addHelpAction()
 
         # show it!
