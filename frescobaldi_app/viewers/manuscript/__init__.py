@@ -77,6 +77,10 @@ class Actions(viewers.Actions):
         self.manuscript_open.setIcon(icons.get('document-open'))
         self.manuscript_close = QAction(parent)
         self.manuscript_close.setIcon(icons.get('document-close'))
+        self.manuscript_close_other = QAction(parent)
+        # don't set an icon? self.manuscript_close_other.setIcon(icons.get())
+        self.manuscript_close_all = QAction(parent)
+        # don't set an icon?
 
     def translateUI(self):
         super(Actions, self).translateUI()
@@ -85,6 +89,9 @@ class Actions(viewers.Actions):
         self.manuscript_open.setIconText(_("Open"))
         self.manuscript_close.setText(_("Close document"))
         self.manuscript_close.setIconText(_("Close"))
+        self.manuscript_close_other.setText(_("Close other manuscripts"))
+        self.manuscript_close_all.setText(_("Close all manuscripts"))
+
 
 
 class DocumentChooserAction(viewers.DocumentChooserAction):
@@ -115,6 +122,14 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
 
     def removeManuscript(self, document):
         self._documents.remove(document)
+        self.updateDocument()
+
+    def removeOtherManuscripts(self, document):
+        self._documents = [document]
+        self.updateDocument()
+
+    def removeAllManuscripts(self):
+        self._documents = []
         self.updateDocument()
 
     def setCurrentManuscript(self, document):
