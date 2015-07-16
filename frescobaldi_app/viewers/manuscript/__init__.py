@@ -59,13 +59,9 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
     def reloadView(self):
         active_manuscript = self.widget().currentDocument()
         if active_manuscript:
-            try:
-                reread = documents.Document(active_manuscript.filename())
-                mds = self.actionCollection.music_document_select
-                mds.replaceManuscript(active_manuscript, reread)
-            except OSError:
-                # If the file is not present (anymore) simply don't do anything
-                pass
+            reread = documents.Document(active_manuscript.filename())
+            mds = self.actionCollection.music_document_select
+            mds.replaceManuscript(active_manuscript, reread)
 
 
 class Actions(viewers.Actions):
