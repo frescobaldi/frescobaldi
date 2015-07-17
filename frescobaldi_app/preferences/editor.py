@@ -248,12 +248,12 @@ class SourceExport(preferences.Group):
         self.wrapAttribName.textEdited.connect(page.changed)
 
         # left column
-        layout.addWidget(self.numberLines, 0, 0)
-        layout.addWidget(self.inlineStyleCopy, 1, 0)
-        layout.addWidget(self.inlineStyleExport, 2, 0)
-        layout.addWidget(self.copyHtmlAsPlainText, 3, 0)
+        layout.addWidget(self.copyHtmlAsPlainText, 0, 0)
+        layout.addWidget(self.copyDocumentBodyOnly, 1, 0)
+        layout.addWidget(self.inlineStyleCopy, 2, 0)
+        layout.addWidget(self.inlineStyleExport, 3, 0)
         #right column
-        layout.addWidget(self.copyDocumentBodyOnly, 0, 1, 1, 2)
+        layout.addWidget(self.numberLines, 0, 1, 1, 2)
         layout.addWidget(self.wrapperTag, 1, 1)
         layout.addWidget(self.wrapTagSelector, 1, 2)
         layout.addWidget(self.wrapperAttribute, 2, 1)
