@@ -682,7 +682,7 @@ class MainWindow(QMainWindow):
         """Closes all documents and keep one new, empty document."""
         sessions.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
-            panelmanager.manager(self).manuscript.widget().closeManuscripts()
+            panelmanager.manager(self).manuscript.widget().closeAllManuscripts()
             sessions.setCurrentSession(None)
             self.cleanStart()
     
