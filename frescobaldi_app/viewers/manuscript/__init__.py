@@ -131,14 +131,18 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         self._documents = []
         self.updateDocument()
 
-    def loadManuscripts(self, manuscripts, active_manuscript):
-        """Load the manuscripts from a list of filenames"""
+    def loadManuscripts(self, manuscripts, active_manuscript, clear = False):
+        """Load or add the manuscripts from a list of filenames"""
         if active_manuscript and not active_manuscript in manuscripts:
             manuscripts.append(active_manuscript)
-        self._currentIndex = manuscripts.index(active_manuscript)
-        self._documents = docs = []
+        if clear:
+            self._documents = []
+        docnames = [d.filename() for d in self._documents]
         for m in manuscripts:
-            docs.append(documents.Document(m))
+            if not m in docnames:
+                self._documents.append(documents.Document(m))
+                docnames.append(m)
+        self._currentIndex = docnames.index(active_manuscript)
         self.updateDocument()
 
     def replaceManuscript(self, olddoc, newdoc):

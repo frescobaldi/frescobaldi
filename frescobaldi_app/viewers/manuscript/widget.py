@@ -107,7 +107,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
             active_manuscript = session.value("active-manuscript", "")
             if manuscripts:
                 ds = self.actionCollection.music_document_select
-                ds.loadManuscripts(manuscripts, active_manuscript)
+                ds.loadManuscripts(manuscripts, active_manuscript, True)
 
     def closeManuscript(self):
         """ Close current manuscript. """
@@ -137,6 +137,4 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         current_editor_document = self.parent().mainwindow().currentDocument().url().toLocalFile()
         directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
-        for filename in filenames:
-            doc = documents.Document(filename)
-            self.actionCollection.music_document_select.setCurrentManuscript(doc)
+        self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
