@@ -23,6 +23,8 @@ A tool to display an engraver's copy in a dock.
 
 from __future__ import unicode_literals
 
+import os
+
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import (
     QAction, QKeySequence, QVBoxLayout, QToolButton,
@@ -127,16 +129,50 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
 
     def loadManuscripts(self, manuscripts, active_manuscript, clear = False):
         """Load or add the manuscripts from a list of filenames"""
+        # make sure the active manuscript is part of the opened manuscripts
         if active_manuscript and not active_manuscript in manuscripts:
             manuscripts.append(active_manuscript)
+
+        # optionally clear the list of already open manuscripts
+        # (when changing sessions)
         if clear:
             self._documents = []
-        docnames = [d.filename() for d in self._documents]
+
+        # build a list of manuscript files taking the existing list
+        # and adding the to-be-opened ones. Check for duplicates.
+        msfiles = [d.filename() for d in self._documents]
         for m in manuscripts:
-            if not m in docnames:
-                self._documents.append(documents.Document(m))
-                docnames.append(m)
-        self._currentIndex = docnames.index(active_manuscript)
+            if not m in msfiles:
+                msfiles.append(m)
+
+        # create a dict structure to sort and access all files
+        name_dict = {}
+        msnames = []
+        for f in msfiles:
+            name = os.path.basename(f)
+            if name in name_dict:
+                name_dict[name].append(f)
+            else:
+                name_dict[name] = [f]
+                msnames.append(name)
+        msnames = sorted(msnames)
+
+        # iterate over manuscript names (and potential duplicates)
+        # and build new documents list.
+        # Take existing Document objects if available
+        docs = []
+        for n in msnames:
+            for f in name_dict[n]:
+                index = msfiles.index(f)
+                if index >= len(self._documents):
+                    docs.append(documents.Document(f))
+                else:
+                    docs.append(self._documents[index])
+                if f == active_manuscript:
+                    self._currentIndex = len(docs) - 1
+
+        # apply results
+        self._documents = docs
         self.updateDocument()
 
     def replaceManuscript(self, olddoc, newdoc):
