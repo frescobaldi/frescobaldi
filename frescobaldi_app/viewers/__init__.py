@@ -316,13 +316,6 @@ class Actions(actioncollection.ActionCollection):
         self.music_prev_page.setIcon(icons.get('go-previous'))
         self.music_reload.setIcon(icons.get('reload'))
 
-        self.music_print.setShortcuts(QKeySequence.Print)
-        self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
-        self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
-        self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
-        self.music_copy_image.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_C))
-        self.music_reload.setShortcut(QKeySequence(Qt.Key_F5))
-
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
         self.music_print.setText(_("&Print Music..."))
