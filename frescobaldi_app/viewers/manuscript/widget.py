@@ -137,4 +137,5 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         current_editor_document = self.parent().mainwindow().currentDocument().url().toLocalFile()
         directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
-        self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
+        if filenames:
+            self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
