@@ -95,6 +95,11 @@ class ViewerContextMenu(QObject):
         This is not implemented in the base class"""
         pass
 
+    def addReloadAction(self):
+        """Add action to reload document.
+        This is not implemented in the base class"""
+        pass
+
     def addHelpAction(self):
         """Add help menu item"""
         m = self._menu
@@ -115,6 +120,7 @@ class ViewerContextMenu(QObject):
         self.addCursorLinkActions(cursor, link, position)
         self.addZoomActions()
         self.addCloseActions()
+        self.addReloadAction()
         self.addHelpAction()
 
         # show it!

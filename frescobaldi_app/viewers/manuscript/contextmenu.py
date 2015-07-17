@@ -44,3 +44,12 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
             ac.manuscript_close_all.setEnabled(multi_docs)
             m.addAction(ac.manuscript_close_other)
             m.addAction(ac.manuscript_close_all)
+
+    def addReloadAction(self):
+        """Add action to reload document."""
+        current_document = self._panel.widget().currentDocument()
+        if current_document:
+            m = self._menu
+            ac = self._panel.actionCollection
+            m.addSeparator()
+            m.addAction(ac.music_reload)

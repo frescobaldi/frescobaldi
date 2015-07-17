@@ -70,7 +70,6 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         t.addAction(ac.manuscript_open)
         t.addAction(ac.manuscript_close)
         t.addAction(ac.music_document_select)
-        t.addAction(ac.music_reload)
         t.addAction(ac.music_print)
         t.addSeparator()
         t.addAction(ac.music_zoom_in)
