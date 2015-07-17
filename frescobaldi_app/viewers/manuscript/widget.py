@@ -109,11 +109,6 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
                 ds = self.actionCollection.music_document_select
                 ds.loadManuscripts(manuscripts, active_manuscript)
 
-        #TODO: Discuss if switching to "no session" should close documents and manuscripts
-        # else:
-        #     # "No session"
-        #     self.closeManuscripts()
-
     def closeManuscript(self):
         """ Close current manuscript. """
         mds = self.parent().actionCollection.music_document_select
