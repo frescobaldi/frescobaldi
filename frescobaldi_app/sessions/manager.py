@@ -112,8 +112,9 @@ class SessionManager(plugin.MainWindowPlugin):
             #TODO: This may have to be changed when we support
             # multiple manuscripts
             manuscript_panel = panelmanager.manager(self.mainwindow()).manuscript
+            manuscripts = manuscript_panel.actionCollection.music_document_select._documents
             active_manuscript = manuscript_panel.widget()._currentDocument
-            sessions.saveSession(cur, documents, active_document, active_manuscript)
+            sessions.saveSession(cur, documents, manuscripts, active_document, active_manuscript)
             self.saveSessionData(cur)
 
 

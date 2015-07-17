@@ -101,18 +101,14 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
 
     def slotSessionChanged(self, name):
         if name:
+            self.closeAllManuscripts()
             session = sessions.sessionGroup(name)
-            filename = session.value("active-manuscript", "")
-            if filename:
-                try:
-                    doc = documents.Document(filename)
-                    self.actionCollection.music_document_select.setCurrentManuscript(doc)
-                except OSError:
-                    # If the file is not present (anymore) simply don't do anything
-                    pass
-            else:
-                # Session has no active manuscript
-                self.closeManuscripts()
+            manuscripts = session.value("manuscripts", "")
+            active_manuscript = session.value("active-manuscript", "")
+            if manuscripts:
+                ds = self.actionCollection.music_document_select
+                ds.loadManuscripts(manuscripts, active_manuscript)
+
         #TODO: Discuss if switching to "no session" should close documents and manuscripts
         # else:
         #     # "No session"

@@ -131,10 +131,14 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         self._documents = []
         self.updateDocument()
 
-    def setCurrentManuscript(self, document):
-        """Displays the DocumentGroup of the given manuscript in our chooser."""
-        self._documents.append(document)
-        self._currentIndex = self._indices.get(document, 0)
+    def loadManuscripts(self, manuscripts, active_manuscript):
+        """Load the manuscripts from a list of filenames"""
+        if active_manuscript and not active_manuscript in manuscripts:
+            manuscripts.append(active_manuscript)
+        self._currentIndex = manuscripts.index(active_manuscript)
+        self._documents = docs = []
+        for m in manuscripts:
+            docs.append(documents.Document(m))
         self.updateDocument()
 
     def replaceManuscript(self, olddoc, newdoc):
