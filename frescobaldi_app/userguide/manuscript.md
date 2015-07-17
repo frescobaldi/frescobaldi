@@ -4,8 +4,7 @@ The *Manuscript Viewer* can display PDF documents alongside the default
 {music_view}. Typically it is used to have the to-be-copied manuscript(s) open
 in Frescobaldi's window (that's where the tool got its name from) but it can
 also be useful to show arbitrary documents, for example with notes or task
-descriptions.  Currently the Manuscript Viewer is a rather simple tool that but
-it will be significantly enhanced to become a powerful editorial tool.
+descriptions.  
 
 One or more manuscripts can be opened using the *Open* button, new files are
 added to the list of open manuscripts. The current manuscript can be closed
@@ -21,7 +20,7 @@ and upon drawing a selection rectangle with the right mouse key (*Ctrl-click-dra
 on Mac*) an excerpt from the document can be exported to a PNG file.
 
 If the opened file is a PDF score engraved by LilyPond and containing valid
-point-and-click links several function of the {music_view} also work in the
+point-and-click links several function of {music_view} also work in the
 manuscript viewer:
 
 * Highlight input by selecting music or vice versa
@@ -32,6 +31,10 @@ manuscript viewer:
 However, when that score should be recompiled wtih LilyPond the manuscript viewer
 won't automatically update, but this can be done manually through the context
 menu
+
+If a manuscript contains external hyperlinks they can be clicked on and will
+open in an external viewer/browser. This may be practical for keeping lists of
+useful links around in that window.
 
 
 === Roadmap ===
