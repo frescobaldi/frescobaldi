@@ -65,7 +65,7 @@ get it's own branch "v2"
 2. Require and make use of PyQt5 and Qt5 (recompile/update poppler-qt4)
 
 3. SVG music view and editor
-   
+
    Make a new music view that displays the SVG output of LilyPond and allows
    for very fine-grained editing, both via altering the LilyPond source but
    also editing and saving the SVG file manually to provide a final PDF
@@ -92,4 +92,12 @@ Other ideas/wishes
 - \displayMusic tool to show music in Scheme format (by calling LilyPond's
   \displayMusic function on a music expression).
 
-
+- extended manuscript viewer:
+  * `<filename>.manuscripts` file to tie a (set of) manuscript(s) to a LilyPond
+    document. This may be a simple JSON file or an MEI file (for further
+    scholarly edition options)
+  * create regions on the manuscript(s) identifying the physical location of
+    measures. Use these for synchronizing the view with the editor and the
+    music view.
+  * Display a given measure/region in the different manuscripts
+  * Provide compiled scores matching the manuscripts' line and page breaks.

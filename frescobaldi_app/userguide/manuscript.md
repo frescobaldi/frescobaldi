@@ -37,19 +37,5 @@ open in an external viewer/browser. This may be practical for keeping lists of
 useful links around in that window.
 
 
-=== Roadmap ===
-
-This is an initial release. Among the planned features of the manuscript viewer are:
-
-* Maintain a *set* of manuscripts to an input document. Let the set be opened
-  automatically.
-* Edit metadata for that set of manuscripts, making the viewer an editorial
-  tool for scholarly editions.
-* Automatically link the cursor position with the corresponding place in the
-  manuscripts. (The user will have to mark up the manuscripts for this to work.)
-* Display the "current" measure in the different manuscripts
-* Let LilyPond use the manuscripts' breaking for compilation so the engraved score's
-  page layout always matches the currently visible manuscript.
-
 #VARS
 music_view help musicview
