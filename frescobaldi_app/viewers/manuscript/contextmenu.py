@@ -39,6 +39,8 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         if docs:
             m.addSeparator()
             m.addAction(ac.manuscript_close)
-            if len(docs) > 1:
-                m.addAction(ac.manuscript_close_other)
-                m.addAction(ac.manuscript_close_all)
+            multi_docs = len(docs) > 1
+            ac.manuscript_close_other.setEnabled(multi_docs)
+            ac.manuscript_close_all.setEnabled(multi_docs)
+            m.addAction(ac.manuscript_close_other)
+            m.addAction(ac.manuscript_close_all)
