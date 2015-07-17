@@ -333,6 +333,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
         self.music_copy_image.setText(_("Copy to &Image..."))
+        self.music_pager.setText(_("Pager"))
         self.music_next_page.setText(_("Next Page"))
         self.music_next_page.setIconText(_("Next"))
         self.music_prev_page.setText(_("Previous Page"))
