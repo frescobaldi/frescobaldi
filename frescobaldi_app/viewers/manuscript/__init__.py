@@ -93,6 +93,8 @@ class Actions(viewers.Actions):
         self.manuscript_close_other.setText(_("Close other manuscripts"))
         self.manuscript_close_all.setText(_("Close all manuscripts"))
 
+    def title(self):
+        return _("Manuscript")
 
 
 class DocumentChooserAction(viewers.DocumentChooserAction):
