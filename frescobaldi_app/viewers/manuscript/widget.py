@@ -45,12 +45,9 @@ from . import contextmenu
 class Widget(viewers.popplerwidget.AbstractPopplerView):
     def __init__(self, dockwidget):
 
-        self.use_layout = layout = QVBoxLayout()
-        super(Widget, self).__init__(dockwidget)
+        super(Widget, self).__init__(dockwidget, "manuscriptview")
 
         self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
-
-        hor = QHBoxLayout()
 
         self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
@@ -63,9 +60,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
         ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
 
-
-        t = self.parent().mainwindow().addToolBar("manuscriptview")
-
+        t = self._toolbar
         t.addWidget(self.helpButton)
         t.addAction(ac.manuscript_open)
         t.addAction(ac.manuscript_close)
@@ -80,11 +75,6 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         t.addAction(ac.music_pager)
         t.addAction(ac.music_next_page)
 
-        hor.addWidget(t)
-
-        hor.addStretch(1)
-
-        layout.addLayout(hor)
 
         app.translateUI(self)
         userguide.openWhatsThis(self)

@@ -29,7 +29,7 @@ import os
 import weakref
 
 from PyQt4.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
-from PyQt4.QtGui import QCursor, QTextCharFormat, QToolTip, QVBoxLayout, QWidget
+from PyQt4.QtGui import QCursor, QTextCharFormat, QToolTip, QVBoxLayout, QHBoxLayout, QWidget
 
 try:
     import popplerqt4
@@ -57,7 +57,7 @@ class AbstractPopplerView(QWidget):
 
     zoomChanged = pyqtSignal(int, float) # mode, scale
 
-    def __init__(self, dockwidget):
+    def __init__(self, dockwidget, name):
         """Creates the Poppler View for the dockwidget."""
         super(AbstractPopplerView, self).__init__(dockwidget)
 
@@ -77,9 +77,13 @@ class AbstractPopplerView(QWidget):
 
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
-        if hasattr(self, 'use_layout'):
-            layout.addLayout(self.use_layout)
         self.setLayout(layout)
+
+        toolbar = QHBoxLayout()
+        self._toolbar = t = self.parent().mainwindow().addToolBar(name)
+        toolbar.addWidget(self._toolbar)
+        toolbar.addStretch(1)
+        layout.addLayout(toolbar)
 
         self.view = popplerview.View(self)
         layout.addWidget(self.view)
@@ -130,7 +134,7 @@ class AbstractPopplerView(QWidget):
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         try:
-            self.clear() 
+            self.clear()
             self._currentDocument = doc
             document = doc.document()
             if document:
