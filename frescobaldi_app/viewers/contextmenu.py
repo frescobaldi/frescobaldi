@@ -100,6 +100,13 @@ class ViewerContextMenu(QObject):
         This is not implemented in the base class"""
         pass
 
+    def addToggleToolbarAction(self):
+        """Add action to toggle the visibility of
+        the viewer's toolbar"""
+        m = self._menu
+        ac = self._panel.actionCollection
+        m.addAction(ac.viewer_toggle_toolbar)
+
     def addHelpAction(self):
         """Add help menu item"""
         m = self._menu
@@ -121,6 +128,7 @@ class ViewerContextMenu(QObject):
         self.addZoomActions()
         self.addCloseActions()
         self.addReloadAction()
+        self.addToggleToolbarAction()
         self.addHelpAction()
 
         # show it!

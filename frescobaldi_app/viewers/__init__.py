@@ -107,6 +107,7 @@ class AbstractViewPanel(panel.Panel):
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
+        ac.viewer_toggle_toolbar.triggered.connect(self.toggleToolbar)
 
     def configureWidget(self, w):
         """Takes a widget created by a child class and applies the general
@@ -256,6 +257,10 @@ class AbstractViewPanel(panel.Panel):
         QSettings().setValue("musicview/sync_cursor",
             self.actionCollection.music_sync_cursor.isChecked())
 
+    def toggleToolbar(self):
+        t = self.widget()._toolbar
+        t.setVisible(not t.isVisible())
+
     def copyImage(self):
         from . import image
         image.copy(self)
@@ -301,6 +306,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page = QAction(panel)
         self.music_prev_page = QAction(panel)
         self.music_reload = QAction(panel)
+        self.viewer_toggle_toolbar = QAction(panel)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
@@ -315,6 +321,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page.setIcon(icons.get('go-next'))
         self.music_prev_page.setIcon(icons.get('go-previous'))
         self.music_reload.setIcon(icons.get('reload'))
+        #TODO: self.viewer_toggle_toolbar.setIcon(icons.get('reload'))
 
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
@@ -339,6 +346,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_prev_page.setText(_("Previous Page"))
         self.music_prev_page.setIconText(_("Previous"))
         self.music_reload.setText(_("&Reload"))
+        self.viewer_toggle_toolbar.setText(_("&Toggle Toolbar"))
 
 
 class ComboBoxAction(QWidgetAction):
