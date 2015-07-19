@@ -34,7 +34,7 @@ import functools
 import os
 import weakref
 
-from PyQt4.QtCore import QSettings, QTimer, Qt, pyqtSignal
+from PyQt4.QtCore import QTimer, Qt, pyqtSignal
 from PyQt4.QtGui import (
     QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
     QKeySequence, QPalette, QSpinBox, QWidgetAction)
@@ -105,8 +105,7 @@ class AbstractViewPanel(panel.Panel):
         ac.music_prev_page.setEnabled(False)
         ac.music_single_pages.setChecked(True) # default to single pages
         ac.music_reload.triggered.connect(self.reloadView)
-        self.actionCollection.music_sync_cursor.setChecked(
-            QSettings().value("musicview/sync_cursor", False, bool))
+        ac.music_sync_cursor.setChecked(False)
         ac.viewer_toggle_toolbar.triggered.connect(self.toggleToolbar)
         ac.viewer_toggle_toolbar.setChecked(True)
 
@@ -255,8 +254,7 @@ class AbstractViewPanel(panel.Panel):
             ac.music_document_select.setCurrentDocument(d)
 
     def toggleSyncCursor(self):
-        QSettings().setValue("musicview/sync_cursor",
-            self.actionCollection.music_sync_cursor.isChecked())
+        pass
 
     def toggleToolbar(self):
         t = self.widget()._toolbar
