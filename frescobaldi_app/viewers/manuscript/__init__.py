@@ -50,6 +50,9 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("manuscriptview/sync_cursor", False, bool))
+        ttbch = QSettings().value("manuscriptview/toogle_toolbar", True, bool)
+        self.actionCollection.viewer_toggle_toolbar.setChecked(ttbch)
+        self.widget()._toolbar.setVisible(ttbch)
 
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))
@@ -70,6 +73,11 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
     def toggleSyncCursor(self):
         QSettings().setValue("manuscriptview/sync_cursor",
             self.actionCollection.music_sync_cursor.isChecked())
+
+    def toggleToolbar(self):
+        checked = self.actionCollection.viewer_toggle_toolbar.isChecked()
+        QSettings().setValue("manuscriptview/toogle_toolbar", checked)
+        self.widget()._toolbar.setVisible(checked)
 
 
 class Actions(viewers.Actions):
