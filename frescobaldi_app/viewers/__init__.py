@@ -108,6 +108,7 @@ class AbstractViewPanel(panel.Panel):
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
         ac.viewer_toggle_toolbar.triggered.connect(self.toggleToolbar)
+        ac.viewer_toggle_toolbar.setChecked(True)
 
     def configureWidget(self, w):
         """Takes a widget created by a child class and applies the general
@@ -306,7 +307,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page = QAction(panel)
         self.music_prev_page = QAction(panel)
         self.music_reload = QAction(panel)
-        self.viewer_toggle_toolbar = QAction(panel)
+        self.viewer_toggle_toolbar = QAction(panel, checkable=True)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
@@ -346,7 +347,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_prev_page.setText(_("Previous Page"))
         self.music_prev_page.setIconText(_("Previous"))
         self.music_reload.setText(_("&Reload"))
-        self.viewer_toggle_toolbar.setText(_("&Toggle Toolbar"))
+        self.viewer_toggle_toolbar.setText(_("Show toolbar"))
 
 
 class ComboBoxAction(QWidgetAction):
