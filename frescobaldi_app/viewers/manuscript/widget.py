@@ -118,19 +118,19 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
 
     def closeManuscript(self):
         """ Close current manuscript. """
-        mds = self.parent().actionCollection.music_document_select
+        mds = self.actionCollection.music_document_select
         mds.removeManuscript(self._currentDocument)
         if len(mds._documents) == 0:
             self.view.clear()
 
     def closeOtherManuscripts(self):
         """Close all manuscripts except the one currently opened"""
-        mds = self.parent().actionCollection.music_document_select
+        mds = self.actionCollection.music_document_select
         mds.removeOtherManuscripts(self._currentDocument)
 
     def closeAllManuscripts(self):
         """Close all opened manuscripts"""
-        mds = self.parent().actionCollection.music_document_select
+        mds = self.actionCollection.music_document_select
         mds.removeAllManuscripts()
         self.view.clear()
 
