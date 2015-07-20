@@ -60,7 +60,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
         ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
 
-        t = self._toolbar
+        t = self.toolbar()
         t.addWidget(self.helpButton)
         t.addAction(ac.manuscript_open)
         t.addAction(ac.manuscript_close)

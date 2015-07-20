@@ -65,6 +65,8 @@ class AbstractPopplerView(QWidget):
         self._currentDocument = None
         self._links = None
         self._clicking_link = False
+        self._name = name
+        self._toolbar = None
 
         self._contextMenu = None
         self._ctxMenuClass = contextmenu.ViewerContextMenu
@@ -79,11 +81,10 @@ class AbstractPopplerView(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
-        toolbar = QHBoxLayout()
-        self._toolbar = t = self.parent().mainwindow().addToolBar(name)
-        toolbar.addWidget(self._toolbar)
-        toolbar.addStretch(1)
-        layout.addLayout(toolbar)
+        tb_layout = QHBoxLayout()
+        tb_layout.addWidget(self.toolbar())
+        tb_layout.addStretch(1)
+        layout.addLayout(tb_layout)
 
         self.view = popplerview.View(self)
         layout.addWidget(self.view)
@@ -340,6 +341,11 @@ class AbstractPopplerView(QWidget):
                 cursor = self._links.cursor(link, True)
         self.contextMenu().show(pos, link, cursor)
 
+    def toolbar(self):
+        """Returns the viewer's toolbar widget."""
+        if not self._toolbar:
+            self._toolbar = self.parent().mainwindow().addToolBar(self._name)
+        return self._toolbar
 
 class Highlighter(qpopplerview.Highlighter):
     """Simple version of qpopplerview.Highlighter that has the color settable.
