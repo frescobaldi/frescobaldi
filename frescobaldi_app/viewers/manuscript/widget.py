@@ -97,6 +97,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
             if manuscripts:
                 ds = self.actionCollection.music_document_select
                 ds.loadManuscripts(manuscripts, active_manuscript, True)
+                self.view.setPosition(session.value("active-manuscript-position", (0, 0, 0)))
 
     def closeManuscript(self):
         """ Close current manuscript. """
