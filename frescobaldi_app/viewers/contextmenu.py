@@ -78,19 +78,18 @@ class ViewerContextMenu(QObject):
     def addZoomActions(self):
         """Add actions to zoom the viewer"""
         m = self._menu
-        # no actions yet? insert Fit Width/Height
-        if not m.actions():
-            sm = QMenu(m)
-            sm.setTitle(_("Zoom"))
-            m.addMenu(sm)
-            ac = self._panel.actionCollection
-            sm.addAction(ac.music_fit_width)
-            sm.addAction(ac.music_fit_height)
-            sm.addAction(ac.music_fit_both)
-            sm.addSeparator()
-            sm.addAction(ac.music_zoom_in)
-            sm.addAction(ac.music_zoom_out)
-            sm.addAction(ac.music_zoom_original)
+        m.addSeparator()
+        sm = QMenu(m)
+        sm.setTitle(_("Zoom"))
+        m.addMenu(sm)
+        ac = self._panel.actionCollection
+        sm.addAction(ac.music_fit_width)
+        sm.addAction(ac.music_fit_height)
+        sm.addAction(ac.music_fit_both)
+        sm.addSeparator()
+        sm.addAction(ac.music_zoom_in)
+        sm.addAction(ac.music_zoom_out)
+        sm.addAction(ac.music_zoom_original)
 
     def addCloseActions(self):
         """Add actions to close documents.
