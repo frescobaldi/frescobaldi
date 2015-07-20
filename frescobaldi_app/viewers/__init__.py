@@ -257,7 +257,7 @@ class AbstractViewPanel(panel.Panel):
         pass
 
     def toggleToolbar(self):
-        t = self.widget()._toolbar
+        t = self.widget().toolbar()
         t.setVisible(not t.isVisible())
 
     def copyImage(self):

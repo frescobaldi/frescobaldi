@@ -52,7 +52,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
             QSettings().value("manuscriptview/sync_cursor", False, bool))
         ttbch = QSettings().value("manuscriptview/toogle_toolbar", True, bool)
         self.actionCollection.viewer_toggle_toolbar.setChecked(ttbch)
-        self.widget()._toolbar.setVisible(ttbch)
+        self.widget().toolbar().setVisible(ttbch)
 
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))
@@ -77,7 +77,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
     def toggleToolbar(self):
         checked = self.actionCollection.viewer_toggle_toolbar.isChecked()
         QSettings().setValue("manuscriptview/toogle_toolbar", checked)
-        self.widget()._toolbar.setVisible(checked)
+        self.widget().toolbar().setVisible(checked)
 
 
 class Actions(viewers.Actions):
