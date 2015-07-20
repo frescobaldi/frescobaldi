@@ -80,20 +80,30 @@ class ViewerContextMenu(QObject):
         m = self._menu
         # no actions yet? insert Fit Width/Height
         if not m.actions():
+            sm = QMenu(m)
+            sm.setTitle(_("Zoom"))
+            m.addMenu(sm)
             ac = self._panel.actionCollection
-            m.addAction(ac.music_fit_width)
-            m.addAction(ac.music_fit_height)
-            m.addAction(ac.music_fit_both)
-            m.addAction(ac.music_zoom_in)
-            m.addAction(ac.music_zoom_out)
-            m.addAction(ac.music_zoom_original)
-            m.addSeparator()
-            m.addAction(ac.music_sync_cursor)
+            sm.addAction(ac.music_fit_width)
+            sm.addAction(ac.music_fit_height)
+            sm.addAction(ac.music_fit_both)
+            sm.addSeparator()
+            sm.addAction(ac.music_zoom_in)
+            sm.addAction(ac.music_zoom_out)
+            sm.addAction(ac.music_zoom_original)
 
     def addCloseActions(self):
         """Add actions to close documents.
         This is not implemented in the base class"""
         pass
+
+    def addSynchronizeAction(self):
+        """Add an action telling the viewer to
+        always try syncing with the input editor."""
+        m = self._menu
+        ac = self._panel.actionCollection
+        m.addSeparator()
+        m.addAction(ac.music_sync_cursor)
 
     def addReloadAction(self):
         """Add action to reload document.
@@ -128,6 +138,7 @@ class ViewerContextMenu(QObject):
         self.addZoomActions()
         self.addCloseActions()
         self.addReloadAction()
+        self.addSynchronizeAction()
         self.addToggleToolbarAction()
         self.addHelpAction()
 
