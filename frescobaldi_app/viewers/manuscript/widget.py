@@ -40,7 +40,6 @@ except ImportError:
 
 import viewers
 from viewers import documents
-from viewers import pointandclick
 from . import contextmenu
 
 class Widget(viewers.popplerwidget.AbstractPopplerView):
@@ -92,14 +91,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         try:
-            self.clear()
-            self._currentDocument = doc
-            document = doc.document()
-            if document:
-                self._links = pointandclick.links(document)
-                self.view.load(document)
-                position = self._positions.get(doc, (0, 0, 0))
-                self.view.setPosition(position, True)
+            super(Widget, self).openDocument(doc)
         except OSError:
             # remove manuscript if it can't be opened
             mds = self.actionCollection.music_document_select
