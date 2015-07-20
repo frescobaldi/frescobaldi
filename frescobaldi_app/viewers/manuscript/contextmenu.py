@@ -32,6 +32,18 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
     def __init__(self, panel):
         super(ManuscriptViewerContextMenu, self).__init__(panel)
 
+    def addShowActions(self):
+        """Adds a submenu giving access to the (other)
+        opened manuscripts"""
+        m = self._menu
+        sm = QMenu(m)
+        sm.setTitle(_("Show"))
+        docs = self._panel.actionCollection.music_document_select._documents
+        multi_docs = len(docs) > 1
+        sm.setEnabled(multi_docs)
+        m.addSeparator()
+        m.addMenu(sm)
+
     def addCloseActions(self):
         """Add actions to close documents.
         This is not implemented in the base class"""
@@ -41,7 +53,6 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         if docs:
             sm = QMenu(m)
             sm.setTitle(_("Close"))
-            m.addSeparator()
             m.addMenu(sm)
             sm.addAction(ac.manuscript_close)
             multi_docs = len(docs) > 1

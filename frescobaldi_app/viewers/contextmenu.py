@@ -91,6 +91,11 @@ class ViewerContextMenu(QObject):
         sm.addAction(ac.music_zoom_out)
         sm.addAction(ac.music_zoom_original)
 
+    def addShowActions(self):
+        """Add actions to show alternative documents.
+        This is not implemented in the base class"""
+        pass
+
     def addCloseActions(self):
         """Add actions to close documents.
         This is not implemented in the base class"""
@@ -135,6 +140,7 @@ class ViewerContextMenu(QObject):
         self.addCopyImageAction()
         self.addCursorLinkActions(cursor, link, position)
         # Actions affecting the currently opened documents
+        self.addShowActions()
         self.addCloseActions()
         self.addReloadAction()
         # Actions affecting the viewer's state
