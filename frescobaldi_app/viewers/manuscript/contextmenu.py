@@ -41,6 +41,7 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         if docs:
             sm = QMenu(m)
             sm.setTitle(_("Close"))
+            m.addSeparator()
             m.addMenu(sm)
             sm.addAction(ac.manuscript_close)
             multi_docs = len(docs) > 1
@@ -55,5 +56,4 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         if current_document:
             m = self._menu
             ac = self._panel.actionCollection
-            m.addSeparator()
             m.addAction(ac.music_reload)

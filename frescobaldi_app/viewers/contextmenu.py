@@ -101,7 +101,6 @@ class ViewerContextMenu(QObject):
         always try syncing with the input editor."""
         m = self._menu
         ac = self._panel.actionCollection
-        m.addSeparator()
         m.addAction(ac.music_sync_cursor)
 
     def addReloadAction(self):
@@ -132,13 +131,17 @@ class ViewerContextMenu(QObject):
         subclasses to override each step."""
         self._menu = m = QMenu(self._panel)
 
+        # Actions affecting the current link(selection)
         self.addCopyImageAction()
         self.addCursorLinkActions(cursor, link, position)
-        self.addZoomActions()
+        # Actions affecting the currently opened documents
         self.addCloseActions()
         self.addReloadAction()
+        # Actions affecting the viewer's state
+        self.addZoomActions()
         self.addSynchronizeAction()
         self.addToggleToolbarAction()
+        # Well ...
         self.addHelpAction()
 
         # show it!
