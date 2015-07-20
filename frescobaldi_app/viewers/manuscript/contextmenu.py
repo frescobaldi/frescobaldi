@@ -23,6 +23,8 @@ The Manuscriot Viewer context menu additions.
 
 from __future__ import unicode_literals
 
+from PyQt4.QtGui import QMenu
+
 from viewers import contextmenu
 
 class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
@@ -37,13 +39,15 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         ac = self._panel.actionCollection
         docs = self._panel.actionCollection.music_document_select._documents
         if docs:
-            m.addSeparator()
-            m.addAction(ac.manuscript_close)
+            sm = QMenu(m)
+            sm.setTitle(_("Close"))
+            m.addMenu(sm)
+            sm.addAction(ac.manuscript_close)
             multi_docs = len(docs) > 1
             ac.manuscript_close_other.setEnabled(multi_docs)
             ac.manuscript_close_all.setEnabled(multi_docs)
-            m.addAction(ac.manuscript_close_other)
-            m.addAction(ac.manuscript_close_all)
+            sm.addAction(ac.manuscript_close_other)
+            sm.addAction(ac.manuscript_close_all)
 
     def addReloadAction(self):
         """Add action to reload document."""
