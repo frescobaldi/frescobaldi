@@ -109,13 +109,6 @@ class AbstractPopplerView(QWidget):
         if view:
             self.slotCurrentViewChanged(view)
 
-    def contextMenu(self):
-        if self._contextMenu:
-            return self._contextMenu
-        else:
-            from . import contextmenu
-            return self._ctxMenuClass(self.parent())
-
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
         return self.parent().mainwindow().size() / 2
@@ -339,7 +332,8 @@ class AbstractPopplerView(QWidget):
             page, link = self.view.surface().pageLayout().linkAt(pos_in_surface)
             if link:
                 cursor = self._links.cursor(link, True)
-        self.contextMenu().show(pos, link, cursor)
+        self._contextMenu = self._ctxMenuClass(self.parent())
+        self._contextMenu.show(pos, link, cursor)
 
     def toolbar(self):
         """Returns the viewer's toolbar widget."""
