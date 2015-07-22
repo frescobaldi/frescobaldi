@@ -23,7 +23,7 @@ The Manuscriot Viewer context menu additions.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QMenu, QAction
+from PyQt4.QtGui import QMenu, QAction, QActionGroup
 
 from viewers import contextmenu
 
@@ -45,6 +45,8 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         sm = QMenu(m)
         sm.setTitle(_("Show"))
         sm.setEnabled(multi_docs)
+        ag = QActionGroup(m)
+        ag.triggered.connect(self.slotShowDocument)
 
         for d in docs:
             action = QAction(sm)
@@ -52,21 +54,23 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
             action._document_filename = d.filename()
             # TODO: Tooltips aren't shown by Qt (it seems)
             action.setToolTip(d.filename())
-            action.setEnabled(d.filename() != current_doc_filename)
+            action.setCheckable(True)
+            action.setChecked(d.filename() == current_doc_filename)
 
             # variant a) doesn't work because the slot is never reached
             # action.triggered.connect(self.slotShowDocument)
 
             # variant b) doesn't work because it's always the *last*
             # entry that is triggered
-            document_actions[action] = d.filename()
-            @action.triggered.connect
-            def showDocument():
-                # TODO: Problem is: action.toolTip() is obviously always
-                # the one from the *last* entry.
-                print document_actions[action]
-                mds.setActiveDocument(document_actions[action])
+#            document_actions[action] = d.filename()
+            # @action.triggered.connect
+            # def showDocument():
+            #     # TODO: Problem is: action.toolTip() is obviously always
+            #     # the one from the *last* entry.
+            #     print document_actions[action]
+            #     mds.setActiveDocument(document_actions[action])
 
+            ag.addAction(action)
             sm.addAction(action)
 
         m.addSeparator()
