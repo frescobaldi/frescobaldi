@@ -100,7 +100,6 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
 
     def slotSessionChanged(self, name):
         if name:
-            self.closeAllManuscripts()
             session = sessions.sessionGroup(name)
             manuscripts = session.value("manuscripts", "")
             active_manuscript = session.value("active-manuscript", "")
@@ -143,6 +142,6 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
     def reportMissingManuscripts(self, missing):
         """Report missing manuscript files when restoring a session."""
         report_msg = (_('The following file/s are/is missing and could not be loaded ' +
-                     'when restoring a session:\n\n'))"
+                     'when restoring a session:\n\n'))
         QMessageBox.warning(self, (_("Missing manuscript files")),
                                     report_msg + '\n'.join(missing))
