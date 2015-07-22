@@ -59,6 +59,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         ac.manuscript_close.triggered.connect(self.closeManuscript)
         ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
         ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
+        ac.music_document_select.documentsMissing.connect(self.reportMissingManuscripts)
 
         t = self.toolbar()
         t.addWidget(self.helpButton)
@@ -138,3 +139,10 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
             self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
+
+    def reportMissingManuscripts(self, missing):
+        """Report missing manuscript files when restoring a session."""
+        report_msg = (_('The following file/s are/is missing and could not be loaded ' +
+                     'when restoring a session:\n\n'))"
+        QMessageBox.warning(self, (_("Missing manuscript files")),
+                                    report_msg + '\n'.join(missing))

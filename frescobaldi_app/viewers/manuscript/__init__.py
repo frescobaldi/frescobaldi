@@ -28,7 +28,7 @@ import os
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
     QAction, QKeySequence, QVBoxLayout, QToolButton,
-    QHBoxLayout, QPushButton, QFileDialog)
+    QHBoxLayout, QPushButton, QFileDialog, QMessageBox)
 
 import actioncollection
 import actioncollectionmanager
@@ -177,11 +177,15 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         # and build new documents list.
         # Take existing Document objects if available
         docs = []
+        missing = []
         for n in msnames:
             for f in name_dict[n]:
                 index = msfiles.index(f)
                 if index >= len(self._documents):
-                    docs.append(documents.Document(f))
+                    if os.path.isfile(f):
+                        docs.append(documents.Document(f))
+                    else:
+                        missing.append(f)
                 else:
                     docs.append(self._documents[index])
                 if f == active_manuscript:
@@ -190,6 +194,10 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         # apply results
         self._documents = docs
         self.updateDocument()
+
+        # report missing docs
+        if missing:
+            self.documentsMissing.emit(missing)
 
     def replaceManuscript(self, olddoc, newdoc):
         """Instead of adding a new document replace an existing."""

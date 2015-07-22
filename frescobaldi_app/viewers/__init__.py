@@ -380,6 +380,7 @@ class DocumentChooserAction(ComboBoxAction):
     documentClosed = pyqtSignal()
     documentsChanged = pyqtSignal()
     currentDocumentChanged = pyqtSignal(documents.Document)
+    documentsMissing = pyqtSignal(list)
 
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)
