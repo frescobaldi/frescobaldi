@@ -43,7 +43,7 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
 
         m = self._menu
         sm = QMenu(m)
-        sm.setTitle(_("Show"))
+        sm.setTitle(_("Show..."))
         sm.setEnabled(multi_docs)
         ag = QActionGroup(m)
         ag.triggered.connect(self._panel.widget().slotShowDocument)
@@ -77,15 +77,16 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         m.addMenu(sm)
 
 
-    def addCloseActions(self):
+    def addOpenCloseActions(self):
         """Add actions to close documents.
         This is not implemented in the base class"""
         m = self._menu
         ac = self._panel.actionCollection
+        m.addAction(ac.manuscript_open)
         docs = self._panel.actionCollection.music_document_select._documents
         if docs:
             sm = QMenu(m)
-            sm.setTitle(_("Close"))
+            sm.setTitle(_("Close..."))
             m.addMenu(sm)
             sm.addAction(ac.manuscript_close)
             multi_docs = len(docs) > 1

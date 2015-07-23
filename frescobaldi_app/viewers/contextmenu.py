@@ -96,7 +96,7 @@ class ViewerContextMenu(QObject):
         This is not implemented in the base class"""
         pass
 
-    def addCloseActions(self):
+    def addOpenCloseActions(self):
         """Add actions to close documents.
         This is not implemented in the base class"""
         pass
@@ -142,7 +142,7 @@ class ViewerContextMenu(QObject):
         self.addCursorLinkActions(cursor, link, position)
         # Actions affecting the currently opened documents
         self.addShowActions()
-        self.addCloseActions()
+        self.addOpenCloseActions()
         self.addReloadAction()
         # Actions affecting the viewer's state
         self.addZoomActions()
