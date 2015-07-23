@@ -56,7 +56,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))
-        self.toggleViewAction().setText(_("Display Manuscript"))
+        self.toggleViewAction().setText(_("Manuscript Viewer"))
 
     def createWidget(self):
         from . import widget

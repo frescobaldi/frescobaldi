@@ -51,6 +51,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("quickinsert.QuickInsertPanel")
         self.loadPanel("musicview.MusicViewPanel")
         self.loadPanel("svgview.SvgViewPanel")
+        self.loadPanel("viewers.manuscript.ManuscriptViewPanel")
         self.loadPanel("logtool.LogTool")
         self.loadPanel("docbrowser.HelpBrowser")
         self.loadPanel("snippet.tool.SnippetTool")
@@ -65,8 +66,6 @@ class PanelManager(plugin.MainWindowPlugin):
         # commented out for stable releases.
         if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
             self.loadPanel("objecteditor.ObjectEditor")
-        # The Engraver's Copy Tool is only in its beginning stage too.
-        self.loadPanel("viewers.manuscript.ManuscriptViewPanel")
         self.createActions()
         
         # make some default arrangements
