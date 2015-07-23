@@ -135,6 +135,8 @@ class ViewerContextMenu(QObject):
         Implements the template method pattern to allow
         subclasses to override each step."""
 
+        self._menu.clear()
+
         # Actions affecting the current link(selection)
         self.addCopyImageAction()
         self.addCursorLinkActions(cursor, link, position)
@@ -152,4 +154,8 @@ class ViewerContextMenu(QObject):
         # show it!
         if self._menu.actions():
             self._menu.exec_(position)
-        self._menu.deleteLater()
+        # TODO: Can this really be removed?
+        # it had to be commented out because in the documents submenu
+        # there popped up issues with deleted objects (the menu was already
+        # deleted when the signal was emitted)
+#        self._menu.deleteLater()

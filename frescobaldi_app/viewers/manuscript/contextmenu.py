@@ -46,7 +46,7 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         sm.setTitle(_("Show"))
         sm.setEnabled(multi_docs)
         ag = QActionGroup(m)
-        ag.triggered.connect(self.slotShowDocument)
+        ag.triggered.connect(self._panel.widget().slotShowDocument)
 
         for d in docs:
             action = QAction(sm)
@@ -76,11 +76,6 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         m.addSeparator()
         m.addMenu(sm)
 
-    def slotShowDocument(self):
-        # TODO: This obviously isn't ever Called
-        # Probably "self" has been destroyed before the action
-        # is ever triggered.
-        print self.sender()
 
     def addCloseActions(self):
         """Add actions to close documents.

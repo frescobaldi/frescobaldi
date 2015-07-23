@@ -68,8 +68,10 @@ class AbstractPopplerView(QWidget):
         self._name = name
         self._toolbar = None
 
-        self._contextMenu = None
-        self._ctxMenuClass = contextmenu.ViewerContextMenu
+        if hasattr(self, '_ctxMenuClass'):
+            self._contextMenu = self._ctxMenuClass(dockwidget)
+        else:
+            self._contextMenu = contextmenu.ViewerContextMenu(dockwidget)
 
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = Highlighter()
@@ -332,7 +334,6 @@ class AbstractPopplerView(QWidget):
             page, link = self.view.surface().pageLayout().linkAt(pos_in_surface)
             if link:
                 cursor = self._links.cursor(link, True)
-        self._contextMenu = self._ctxMenuClass(self.parent())
         self._contextMenu.show(pos, link, cursor)
 
     def toolbar(self):
