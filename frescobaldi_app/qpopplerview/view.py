@@ -236,6 +236,8 @@ class View(KineticScrollArea):
 
     def resizeEvent(self, ev):
         super(View, self).resizeEvent(ev)
+        print "reached resizeEvent()"
+        print "self._inSessionChange:", self._inSessionChange
         # Adjust the size of the document if desired
         if self.viewMode() and any(self.surface().pageLayout().pages()):
             if self._centerPos is False:
@@ -246,11 +248,14 @@ class View(KineticScrollArea):
             if self._inSessionChange:
                 self._inSessionChange = False
             else:
+                print "trigger _resizeTimer"
                 if not self._resizeTimer.isActive():
                     self._resizeTimeout()
                 self._resizeTimer.start(150)
 
     def _resizeTimeout(self):
+        print "reached _resizeTimeout()"
+        print "self._inSessionChange:", self._inSessionChange
         if self._centerPos is None:
             return
         oldSize = self.surface().size()
