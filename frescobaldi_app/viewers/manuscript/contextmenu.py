@@ -23,7 +23,7 @@ The Manuscriot Viewer context menu additions.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QMenu
+from PyQt4.QtGui import QMenu, QAction, QActionGroup
 
 from viewers import contextmenu
 
@@ -31,6 +31,56 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
 
     def __init__(self, panel):
         super(ManuscriptViewerContextMenu, self).__init__(panel)
+
+    def addShowActions(self):
+        """Adds a submenu giving access to the (other)
+        opened manuscripts"""
+        mds = self._panel.actionCollection.music_document_select
+        docs = mds._documents
+        document_actions = {}
+        multi_docs = len(docs) > 1
+        current_doc_filename = self._panel.widget().currentDocument().filename()
+
+        m = self._menu
+        sm = QMenu(m)
+        sm.setTitle(_("Show"))
+        sm.setEnabled(multi_docs)
+        ag = QActionGroup(m)
+        ag.triggered.connect(self.slotShowDocument)
+
+        for d in docs:
+            action = QAction(sm)
+            action.setText(d.name())
+            action._document_filename = d.filename()
+            # TODO: Tooltips aren't shown by Qt (it seems)
+            action.setToolTip(d.filename())
+            action.setCheckable(True)
+            action.setChecked(d.filename() == current_doc_filename)
+
+            # variant a) doesn't work because the slot is never reached
+            # action.triggered.connect(self.slotShowDocument)
+
+            # variant b) doesn't work because it's always the *last*
+            # entry that is triggered
+#            document_actions[action] = d.filename()
+            # @action.triggered.connect
+            # def showDocument():
+            #     # TODO: Problem is: action.toolTip() is obviously always
+            #     # the one from the *last* entry.
+            #     print document_actions[action]
+            #     mds.setActiveDocument(document_actions[action])
+
+            ag.addAction(action)
+            sm.addAction(action)
+
+        m.addSeparator()
+        m.addMenu(sm)
+
+    def slotShowDocument(self):
+        # TODO: This obviously isn't ever Called
+        # Probably "self" has been destroyed before the action
+        # is ever triggered.
+        print self.sender()
 
     def addCloseActions(self):
         """Add actions to close documents.
@@ -41,7 +91,6 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
         if docs:
             sm = QMenu(m)
             sm.setTitle(_("Close"))
-            m.addSeparator()
             m.addMenu(sm)
             sm.addAction(ac.manuscript_close)
             multi_docs = len(docs) > 1

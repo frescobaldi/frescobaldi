@@ -208,3 +208,10 @@ class DocumentChooserAction(viewers.DocumentChooserAction):
         except ValueError:
             # no replacement possible because the original doc isn't found
             pass
+
+    def setActiveDocument(self, filename):
+        """Activate the given document if it's in the list of documents"""
+        filenames = [d.filename() for d in self._documents]
+        if filename in filenames:
+            self._currentIndex = filenames.index(filename)
+            self.updateDocument()
