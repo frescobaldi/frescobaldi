@@ -248,8 +248,7 @@ class View(KineticScrollArea):
             else:
                 if not self._resizeTimer.isActive():
                     self._resizeTimeout()
-                if not self._inSessionChange:
-                    self._resizeTimer.start(150)
+                self._resizeTimer.start(150)
 
     def _resizeTimeout(self):
         if self._centerPos is None:
