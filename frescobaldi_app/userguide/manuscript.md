@@ -12,6 +12,11 @@ with the *Close* button, and there are context menu entries to close all other
 or all manuscripts.  The opened manuscripts are maintained in sessions, alongside
 the input documents.
 
+The toolbar can be hidden through the context menu entry to give more space for
+the document's display.  Most of the necessary functionality is then accessible
+through context menu entries, including opening, closing and switching between
+different manuscripts.
+
 Navigation, zooming and printing provide the same functionality as the {music_view}
 tool, giving access through buttons, context menu items and mouse interaction.
 
