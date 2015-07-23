@@ -45,9 +45,9 @@ from . import contextmenu
 class Widget(viewers.popplerwidget.AbstractPopplerView):
     def __init__(self, dockwidget):
 
+        self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
         super(Widget, self).__init__(dockwidget, "manuscriptview")
 
-        self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
 
         self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
@@ -150,3 +150,9 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
                      'when restoring a session:\n\n'))
         QMessageBox.warning(self, (_("Missing manuscript files")),
                                     report_msg + '\n'.join(missing))
+
+    def slotShowDocument(self):
+        """Bring the document to front that was selected from the context menu"""
+        # TODO: Probably this has to go to the base class
+        doc_filename = self.sender().checkedAction()._document_filename
+        self.actionCollection.music_document_select.setActiveDocument(doc_filename)

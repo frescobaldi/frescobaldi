@@ -34,7 +34,7 @@ class ViewerContextMenu(QObject):
     def __init__(self, panel):
         self._panel = panel
         self._surface = None
-        self._menu = None
+        self._menu = QMenu(self._panel)
 
     def surface(self):
         """Return the (cached) surface"""
@@ -91,7 +91,12 @@ class ViewerContextMenu(QObject):
         sm.addAction(ac.music_zoom_out)
         sm.addAction(ac.music_zoom_original)
 
-    def addCloseActions(self):
+    def addShowActions(self):
+        """Add actions to show alternative documents.
+        This is not implemented in the base class"""
+        pass
+
+    def addOpenCloseActions(self):
         """Add actions to close documents.
         This is not implemented in the base class"""
         pass
@@ -129,13 +134,15 @@ class ViewerContextMenu(QObject):
         """Build the panel's context menu dynamically.
         Implements the template method pattern to allow
         subclasses to override each step."""
-        self._menu = m = QMenu(self._panel)
+
+        self._menu.clear()
 
         # Actions affecting the current link(selection)
         self.addCopyImageAction()
         self.addCursorLinkActions(cursor, link, position)
         # Actions affecting the currently opened documents
-        self.addCloseActions()
+        self.addShowActions()
+        self.addOpenCloseActions()
         self.addReloadAction()
         # Actions affecting the viewer's state
         self.addZoomActions()
@@ -145,6 +152,10 @@ class ViewerContextMenu(QObject):
         self.addHelpAction()
 
         # show it!
-        if m.actions():
-            m.exec_(position)
-        m.deleteLater()
+        if self._menu.actions():
+            self._menu.exec_(position)
+        # TODO: Can this really be removed?
+        # it had to be commented out because in the documents submenu
+        # there popped up issues with deleted objects (the menu was already
+        # deleted when the signal was emitted)
+#        self._menu.deleteLater()
