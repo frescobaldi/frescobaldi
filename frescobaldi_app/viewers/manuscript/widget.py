@@ -102,7 +102,9 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
         if name:
             # will be reset upon the resize event (happening later)
             self.view._inSessionChange = True
-            self.closeAllManuscripts()
+            if not sessions._creatingSession:
+                # new session will be a copy of the current one
+                self.closeAllManuscripts()
             session = sessions.sessionGroup(name)
             manuscripts = session.value("manuscripts", "")
             active_manuscript = session.value("active-manuscript", "")

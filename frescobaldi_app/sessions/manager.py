@@ -67,9 +67,11 @@ class SessionManager(plugin.MainWindowPlugin):
         from . import dialog
         name = dialog.SessionEditor(self.mainwindow()).edit()
         if name:
+            sessions._creatingSession = True
             sessions.setCurrentSession(name)
             self.saveCurrentSession()
-    
+            sessions._creatingSession = False
+
     def saveSession(self):
         if not sessions.currentSession():
             return self.newSession()

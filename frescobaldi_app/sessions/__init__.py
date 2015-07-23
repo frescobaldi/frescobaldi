@@ -38,6 +38,7 @@ import qsettings
 
 
 _currentSession = None
+_creatingSession = False
 
 
 @app.mainwindowClosed.connect
