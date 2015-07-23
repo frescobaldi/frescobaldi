@@ -100,6 +100,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
 
     def slotSessionChanged(self, name):
         if name:
+            self.closeAllManuscripts()
             session = sessions.sessionGroup(name)
             manuscripts = session.value("manuscripts", "")
             active_manuscript = session.value("active-manuscript", "")
