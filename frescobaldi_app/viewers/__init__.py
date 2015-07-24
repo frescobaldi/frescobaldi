@@ -122,9 +122,13 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_toggle_toolbar.triggered.connect(self.toggleToolbar)
 
 
-    def configureWidget(self, w):
+    def configureWidget(self, widget):
         """Takes a widget created by a child class and applies the general
         operations of the base class to it, mainly connecting slots."""
+
+        # The child class must override createWidget() and "pipe" the
+        # created widget through this method in the base class.
+        w = widget
 
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
