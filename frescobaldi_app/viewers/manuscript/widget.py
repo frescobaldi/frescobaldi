@@ -42,7 +42,7 @@ import viewers
 from viewers import documents
 from . import contextmenu
 
-class Widget(viewers.popplerwidget.AbstractPopplerView):
+class Widget(viewers.popplerwidget.AbstractPopplerWidget):
     def __init__(self, dockwidget):
 
         self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu

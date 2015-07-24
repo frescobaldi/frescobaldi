@@ -52,14 +52,14 @@ import ly.lex.lilypond
 from . import pointandclick
 
 
-class AbstractPopplerView(QWidget):
+class AbstractPopplerWidget(QWidget):
     """Widget containing the qpopplerview.View."""
 
     zoomChanged = pyqtSignal(int, float) # mode, scale
 
     def __init__(self, dockwidget, name):
         """Creates the Poppler View for the dockwidget."""
-        super(AbstractPopplerView, self).__init__(dockwidget)
+        super(AbstractPopplerWidget, self).__init__(dockwidget)
 
         self._positions = weakref.WeakKeyDictionary()
         self._currentDocument = None
