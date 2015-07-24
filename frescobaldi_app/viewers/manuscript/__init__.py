@@ -71,7 +71,7 @@ class ManuscriptActions(viewers.Actions):
     def createActions(self, parent=None):
         super(ManuscriptActions, self).createActions(parent)
         # overridden actions
-        self.music_document_select = DocumentChooserAction(parent)
+        self.music_document_select = ManuscriptDocumentChooserAction(parent)
         # new actions
         self.manuscript_open = QAction(parent)
         self.manuscript_open.setIcon(icons.get('document-open'))
@@ -96,13 +96,13 @@ class ManuscriptActions(viewers.Actions):
         return _("Manuscript")
 
 
-class DocumentChooserAction(viewers.DocumentChooserAction):
+class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
     """Extends the parent class and also keeps track of when a document is
     opened or closed in the manuscript viewer.
     """
 
     def __init__(self, panel):
-        super(DocumentChooserAction, self).__init__(panel)
+        super(ManuscriptDocumentChooserAction, self).__init__(panel)
 
     def slotDocumentChanged(self, doc):
         """Called when the mainwindow changes its current document."""
