@@ -42,11 +42,11 @@ import viewers
 from viewers import documents
 from . import contextmenu
 
-class Widget(viewers.popplerwidget.AbstractPopplerWidget):
+class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
     def __init__(self, dockwidget):
 
         self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
-        super(Widget, self).__init__(dockwidget, "manuscriptview")
+        super(ManuscriptViewWidget, self).__init__(dockwidget, "manuscriptview")
 
 
         self.helpButton = QToolButton(
@@ -92,7 +92,7 @@ class Widget(viewers.popplerwidget.AbstractPopplerWidget):
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         try:
-            super(Widget, self).openDocument(doc)
+            super(ManuscriptViewWidget, self).openDocument(doc)
         except OSError:
             # remove manuscript if it can't be opened
             mds = self.actionCollection.music_document_select
