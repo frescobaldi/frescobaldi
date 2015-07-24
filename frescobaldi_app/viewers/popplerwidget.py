@@ -56,9 +56,11 @@ from . import pointandclick
 class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     """Widget containing the qpopplerview.View."""
 
+    # TODO: As much as possible should be moved to the base class.
+
     zoomChanged = pyqtSignal(int, float) # mode, scale
 
-    def __init__(self, dockwidget, name):
+    def __init__(self, dockwidget):
         """Creates the Poppler View for the dockwidget."""
         super(AbstractPopplerWidget, self).__init__(dockwidget)
 
@@ -66,7 +68,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._currentDocument = None
         self._links = None
         self._clicking_link = False
-        self._name = name
         self._toolbar = None
 
         if hasattr(self, '_ctxMenuClass'):
@@ -337,7 +338,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def toolbar(self):
         """Returns the viewer's toolbar widget."""
         if not self._toolbar:
-            self._toolbar = self.parent().mainwindow().addToolBar(self._name)
+            self._toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
         return self._toolbar
 
 class Highlighter(qpopplerview.Highlighter):

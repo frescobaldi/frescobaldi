@@ -46,7 +46,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
     def __init__(self, dockwidget):
 
         self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
-        super(ManuscriptViewWidget, self).__init__(dockwidget, "manuscriptview")
+        super(ManuscriptViewWidget, self).__init__(dockwidget)
 
 
         self.helpButton = QToolButton(
