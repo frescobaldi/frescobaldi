@@ -118,7 +118,7 @@ class ViewerContextMenu(QObject):
         the viewer's toolbar"""
         m = self._menu
         ac = self._panel.actionCollection
-        m.addAction(ac.viewer_toggle_toolbar)
+        m.addAction(ac.viewer_show_toolbar)
 
     def addHelpAction(self):
         """Add help menu item"""

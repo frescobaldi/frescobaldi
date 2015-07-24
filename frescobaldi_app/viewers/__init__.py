@@ -79,11 +79,6 @@ class AbstractViewPanel(panel.Panel):
     """Abstract base class for several viewer panels"""
     def __init__(self, mainwindow, actionClass):
         super(AbstractViewPanel, self).__init__(mainwindow)
-        try:
-            if self._name:
-                pass
-        except:
-            raise NotImplementedError('Subclass {} doesn\'t have the "_name" field!'.format(type(self).__name__))
         ac = self.actionCollection = actionClass(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         self.slotPageCountChanged(0)
@@ -97,7 +92,9 @@ class AbstractViewPanel(panel.Panel):
         ac.music_prev_page.setEnabled(False)
         ac.music_single_pages.setChecked(True) # default to single pages
         ac.music_sync_cursor.setChecked(False)
-        ac.viewer_toggle_toolbar.setChecked(True)
+        show_toolbar = QSettings().value("{}/show-toolbar".format(self.viewerName()), True, bool)
+        ac.viewer_show_toolbar.setChecked(show_toolbar)
+        self.slotShowToolbar()
 
     def connectActions(self):
         ac = self.actionCollection
@@ -124,7 +121,7 @@ class AbstractViewPanel(panel.Panel):
         # Miscellaneous actions
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
-        ac.viewer_toggle_toolbar.triggered.connect(self.slotShowToolbar)
+        ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
 
 
     def configureWidget(self, widget):
@@ -160,6 +157,11 @@ class AbstractViewPanel(panel.Panel):
             QTimer.singleShot(0, open)
 
         return w
+
+    def viewerName(self):
+        """Returns the class name of the panel.
+        To be used for accessing the QSettings group."""
+        return type(self).__name__
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
@@ -281,9 +283,9 @@ class AbstractViewPanel(panel.Panel):
     def slotShowToolbar(self):
         """Sets the visibility of the viewer's toolbar and saves it to
         the application settings."""
-        checked = self.actionCollection.viewer_toggle_toolbar.isChecked()
+        checked = self.actionCollection.viewer_show_toolbar.isChecked()
         self.widget().toolbar().setVisible(checked)
-        QSettings().setValue("{}/toogle_toolbar".format(self._name), checked)
+        QSettings().setValue("{}/show-toolbar".format(self.viewerName()), checked)
 
     def copyImage(self):
         from . import image
@@ -330,7 +332,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page = QAction(panel)
         self.music_prev_page = QAction(panel)
         self.music_reload = QAction(panel)
-        self.viewer_toggle_toolbar = QAction(panel, checkable=True)
+        self.viewer_show_toolbar = QAction(panel, checkable=True)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
@@ -345,7 +347,6 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page.setIcon(icons.get('go-next'))
         self.music_prev_page.setIcon(icons.get('go-previous'))
         self.music_reload.setIcon(icons.get('reload'))
-        #TODO: self.viewer_toggle_toolbar.setIcon(icons.get('reload'))
 
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
@@ -370,7 +371,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_prev_page.setText(_("Previous Page"))
         self.music_prev_page.setIconText(_("Previous"))
         self.music_reload.setText(_("&Reload"))
-        self.viewer_toggle_toolbar.setText(_("Show toolbar"))
+        self.viewer_show_toolbar.setText(_("Show toolbar"))
 
 
 class ComboBoxAction(QWidgetAction):

@@ -44,16 +44,12 @@ from viewers import documents
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
-        self._name = "manuscriptview"
         super(ManuscriptViewPanel, self).__init__(mainwindow, Actions)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("manuscriptview/sync_cursor", False, bool))
-        ttbch = QSettings().value("manuscriptview/toogle_toolbar", True, bool)
-        self.actionCollection.viewer_toggle_toolbar.setChecked(ttbch)
-        self.widget().toolbar().setVisible(ttbch)
 
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))
