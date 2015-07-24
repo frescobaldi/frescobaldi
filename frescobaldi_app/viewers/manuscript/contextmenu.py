@@ -27,7 +27,7 @@ from PyQt4.QtGui import QMenu, QAction, QActionGroup
 
 from viewers import contextmenu
 
-class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
+class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
 
     def __init__(self, panel):
         super(ManuscriptViewerContextMenu, self).__init__(panel)
@@ -102,3 +102,19 @@ class ManuscriptViewerContextMenu(contextmenu.ViewerContextMenu):
             m = self._menu
             ac = self._panel.actionCollection
             m.addAction(ac.music_reload)
+
+    def show(self, position, link, cursor):
+        """Build the panel's context menu dynamically.
+        Implements the template method pattern to allow
+        subclasses to override each step."""
+        methods = [self.addCopyImageAction,
+            self.addCursorLinkActions,
+            # Actions affecting the currently opened documents
+            self.addShowActions,
+            self.addOpenCloseActions,
+            self.addReloadAction,
+            # Actions affecting the viewer's state
+            self.addZoomActions,
+            self.addSynchronizeAction,
+            self.addShowToolbarAction]
+        super(ManuscriptViewerContextMenu, self).show(position, link, cursor, methods)
