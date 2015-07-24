@@ -45,7 +45,6 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
         super(ManuscriptViewPanel, self).__init__(mainwindow, Actions)
-        self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
 

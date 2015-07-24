@@ -79,6 +79,7 @@ class AbstractViewPanel(panel.Panel):
     """Abstract base class for several viewer panels"""
     def __init__(self, mainwindow, actionClass):
         super(AbstractViewPanel, self).__init__(mainwindow)
+        self.hide()
         ac = self.actionCollection = actionClass(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         self.slotPageCountChanged(0)
