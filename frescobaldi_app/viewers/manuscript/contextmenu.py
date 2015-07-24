@@ -35,8 +35,8 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
     def addShowActions(self):
         """Adds a submenu giving access to the (other)
         opened manuscripts"""
-        mds = self._panel.actionCollection.music_document_select
-        docs = mds._documents
+        mds = self._actionCollection.music_document_select
+        docs = mds.documents()
         document_actions = {}
         multi_docs = len(docs) > 1
         current_doc_filename = self._panel.widget().currentDocument().filename()
@@ -57,19 +57,6 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
             action.setCheckable(True)
             action.setChecked(d.filename() == current_doc_filename)
 
-            # variant a) doesn't work because the slot is never reached
-            # action.triggered.connect(self.slotShowDocument)
-
-            # variant b) doesn't work because it's always the *last*
-            # entry that is triggered
-#            document_actions[action] = d.filename()
-            # @action.triggered.connect
-            # def showDocument():
-            #     # TODO: Problem is: action.toolTip() is obviously always
-            #     # the one from the *last* entry.
-            #     print document_actions[action]
-            #     mds.setActiveDocument(document_actions[action])
-
             ag.addAction(action)
             sm.addAction(action)
 
@@ -81,9 +68,9 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         """Add actions to close documents.
         This is not implemented in the base class"""
         m = self._menu
-        ac = self._panel.actionCollection
+        ac = self._actionCollection
         m.addAction(ac.manuscript_open)
-        docs = self._panel.actionCollection.music_document_select._documents
+        docs = self._actionCollection.music_document_select.documents()
         if docs:
             sm = QMenu(m)
             sm.setTitle(_("Close..."))
@@ -100,7 +87,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         current_document = self._panel.widget().currentDocument()
         if current_document:
             m = self._menu
-            ac = self._panel.actionCollection
+            ac = self._actionCollection
             m.addAction(ac.music_reload)
 
     def show(self, position, link, cursor):
