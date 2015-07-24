@@ -29,7 +29,8 @@ import os
 import weakref
 
 from PyQt4.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
-from PyQt4.QtGui import QCursor, QTextCharFormat, QToolTip, QVBoxLayout, QHBoxLayout, QWidget
+from PyQt4.QtGui import (QCursor, QTextCharFormat, QToolTip, QVBoxLayout,
+                         QHBoxLayout, QToolButton, QWidget)
 
 try:
     import popplerqt4
@@ -48,6 +49,7 @@ import contextmenu
 import lydocument
 import viewhighlighter
 import ly.lex.lilypond
+import userguide.util
 
 from . import abstractviewwidget
 from . import pointandclick
@@ -69,6 +71,14 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._links = None
         self._clicking_link = False
         self._toolbar = None
+
+        # The help button requires that the userguide page's filename
+        # matches that of the viewer panel's classname
+        # (e.g. ManuscriptViewPanel.md)
+        self.helpButton = QToolButton(
+            icon = icons.get("help-contents"),
+            autoRaise = True,
+            clicked = lambda: userguide.show(self.parent().viewerName()))
 
         if hasattr(self, '_ctxMenuClass'):
             self._contextMenu = self._ctxMenuClass(dockwidget)

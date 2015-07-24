@@ -48,11 +48,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
         super(ManuscriptViewWidget, self).__init__(dockwidget)
 
-
-        self.helpButton = QToolButton(
-            icon = icons.get("help-contents"),
-            autoRaise = True,
-            clicked = lambda: userguide.show("manuscript"))
+        userguide.openWhatsThis(self)
 
         ac = self.actionCollection = self.parent().actionCollection
         ac.manuscript_open.triggered.connect(self.openManuscripts)
@@ -78,7 +74,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
 
 
         app.translateUI(self)
-        userguide.openWhatsThis(self)
 
         app.sessionChanged.connect(self.slotSessionChanged)
 
@@ -87,7 +82,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
             "<p>The Manuscript Viewer displays an original manuscript " +
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
-                userguide.util.format_link("manuscript")))
+                userguide.util.format_link(self.parent().viewerName())))
 
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
