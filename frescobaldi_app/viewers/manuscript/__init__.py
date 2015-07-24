@@ -48,8 +48,6 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
-        self.actionCollection.music_sync_cursor.setChecked(
-            QSettings().value("manuscriptview/sync_cursor", False, bool))
 
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))
@@ -66,10 +64,6 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
             reread = documents.Document(active_manuscript.filename())
             mds = self.actionCollection.music_document_select
             mds.replaceManuscript(active_manuscript, reread)
-
-    def toggleSyncCursor(self):
-        QSettings().setValue("manuscriptview/sync_cursor",
-            self.actionCollection.music_sync_cursor.isChecked())
 
 
 class Actions(viewers.Actions):

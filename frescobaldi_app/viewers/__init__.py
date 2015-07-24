@@ -92,6 +92,8 @@ class AbstractViewPanel(panel.Panel):
         ac.music_prev_page.setEnabled(False)
         ac.music_single_pages.setChecked(True) # default to single pages
         ac.music_sync_cursor.setChecked(False)
+        sync_cursor = QSettings().value("{}/sync-cursor".format(self.viewerName()), False, bool)
+        ac.music_sync_cursor.setChecked(sync_cursor)
         show_toolbar = QSettings().value("{}/show-toolbar".format(self.viewerName()), True, bool)
         ac.viewer_show_toolbar.setChecked(show_toolbar)
         self.slotShowToolbar()
@@ -278,7 +280,8 @@ class AbstractViewPanel(panel.Panel):
             ac.music_document_select.setCurrentDocument(d)
 
     def toggleSyncCursor(self):
-        pass
+        checked = self.actionCollection.music_sync_cursor.isChecked()
+        QSettings().setValue("{}/sync-cursor".format(self.viewerName()), checked)
 
     def slotShowToolbar(self):
         """Sets the visibility of the viewer's toolbar and saves it to
