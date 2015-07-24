@@ -81,7 +81,23 @@ class AbstractViewPanel(panel.Panel):
         super(AbstractViewPanel, self).__init__(mainwindow)
         ac = self.actionCollection = actionClass(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+        self.slotPageCountChanged(0)
+        self.configureActions()
+        self.connectActions()
+
+    def configureActions(self):
+        ac = self.actionCollection
+        ac.music_copy_image.setEnabled(False)
+        ac.music_next_page.setEnabled(False)
+        ac.music_prev_page.setEnabled(False)
+        ac.music_single_pages.setChecked(True) # default to single pages
+        ac.music_sync_cursor.setChecked(False)
+        ac.viewer_toggle_toolbar.setChecked(True)
+
+    def connectActions(self):
+        ac = self.actionCollection
         ac.music_print.triggered.connect(self.printMusic)
+        # Zooming actions
         ac.music_zoom_in.triggered.connect(self.zoomIn)
         ac.music_zoom_out.triggered.connect(self.zoomOut)
         ac.music_zoom_original.triggered.connect(self.zoomOriginal)
@@ -89,25 +105,22 @@ class AbstractViewPanel(panel.Panel):
         ac.music_fit_width.triggered.connect(self.fitWidth)
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
+        # Page display actions
         ac.music_single_pages.triggered.connect(self.viewSinglePages)
         ac.music_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
         ac.music_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
         ac.music_maximize.triggered.connect(self.maximize)
-        ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
-        ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
-        ac.music_copy_image.triggered.connect(self.copyImage)
+        # Navigation and file handling actions
         ac.music_document_select.documentsChanged.connect(self.updateActions)
-        ac.music_copy_image.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
-        self.slotPageCountChanged(0)
-        ac.music_next_page.setEnabled(False)
-        ac.music_prev_page.setEnabled(False)
-        ac.music_single_pages.setChecked(True) # default to single pages
+        ac.music_copy_image.triggered.connect(self.copyImage)
         ac.music_reload.triggered.connect(self.reloadView)
-        ac.music_sync_cursor.setChecked(False)
+        # Miscellaneous actions
+        ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
+        ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.viewer_toggle_toolbar.triggered.connect(self.toggleToolbar)
-        ac.viewer_toggle_toolbar.setChecked(True)
+
 
     def configureWidget(self, w):
         """Takes a widget created by a child class and applies the general
