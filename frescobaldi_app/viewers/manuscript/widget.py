@@ -100,18 +100,14 @@ class Widget(viewers.popplerwidget.AbstractPopplerView):
 
     def slotSessionChanged(self, name):
         if name:
-            # will be reset upon the resize event (happening later)
-            self.view._inSessionChange = True
-            if not sessions._creatingSession:
-                # new session will be a copy of the current one
-                self.closeAllManuscripts()
+            self.closeAllManuscripts()
             session = sessions.sessionGroup(name)
             manuscripts = session.value("manuscripts", "")
             active_manuscript = session.value("active-manuscript", "")
             if manuscripts:
                 ds = self.actionCollection.music_document_select
                 ds.loadManuscripts(manuscripts, active_manuscript, True)
-                self.view.setPosition(session.value("active-manuscript-position", (0, 0, 0)), True)
+                self.view.setPosition(session.value("active-manuscript-position", (0, 0, 0)))
 
     def closeManuscript(self):
         """ Close current manuscript. """

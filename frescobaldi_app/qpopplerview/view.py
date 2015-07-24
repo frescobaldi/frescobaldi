@@ -63,7 +63,6 @@ class View(KineticScrollArea):
         # delayed resize
         self._centerPos = False
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
-        self._inSessionChange = False
 
     def surface(self):
         """Returns our Surface, the widget drawing the page(s)."""
@@ -243,12 +242,9 @@ class View(KineticScrollArea):
             elif self._centerPos is None:
                 # store the point currently in the center
                 self._centerPos = self.viewport().rect().center() - self.surface().pos()
-            if self._inSessionChange:
-                self._inSessionChange = False
-            else:
-                if not self._resizeTimer.isActive():
-                    self._resizeTimeout()
-                self._resizeTimer.start(150)
+            if not self._resizeTimer.isActive():
+                self._resizeTimeout()
+            self._resizeTimer.start(150)
 
     def _resizeTimeout(self):
         if self._centerPos is None:

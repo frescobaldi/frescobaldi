@@ -135,9 +135,8 @@ class AbstractPopplerView(QWidget):
         if document:
             self._links = pointandclick.links(document)
             self.view.load(document)
-            if not self.view._inSessionChange:
-                position = self._positions.get(doc, (0, 0, 0))
-                self.view.setPosition(position, True)
+            position = self._positions.get(doc, (0, 0, 0))
+            self.view.setPosition(position, True)
 
     def clear(self):
         """Empties the view."""
