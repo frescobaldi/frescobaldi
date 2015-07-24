@@ -128,7 +128,7 @@ class AbstractViewerContextMenu(QObject):
         @a.triggered.connect
         def help():
             import userguide
-            userguide.show(self._actionCollection.name)
+            userguide.show(self._panel.viewerName())
 
     def show(self, position, link, cursor, methods = None):
         """Build the panel's context menu dynamically.
