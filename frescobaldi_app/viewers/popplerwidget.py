@@ -49,10 +49,11 @@ import lydocument
 import viewhighlighter
 import ly.lex.lilypond
 
+from . import abstractviewwidget
 from . import pointandclick
 
 
-class AbstractPopplerWidget(QWidget):
+class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     """Widget containing the qpopplerview.View."""
 
     zoomChanged = pyqtSignal(int, float) # mode, scale
