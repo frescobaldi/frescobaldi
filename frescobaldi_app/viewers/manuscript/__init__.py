@@ -44,7 +44,7 @@ from viewers import documents
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
-        super(ManuscriptViewPanel, self).__init__(mainwindow, Actions)
+        super(ManuscriptViewPanel, self).__init__(mainwindow, ManuscriptActions)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
 
@@ -65,11 +65,11 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
             mds.replaceManuscript(active_manuscript, reread)
 
 
-class Actions(viewers.Actions):
+class ManuscriptActions(viewers.Actions):
     name = "manuscript"
 
     def createActions(self, parent=None):
-        super(Actions, self).createActions(parent)
+        super(ManuscriptActions, self).createActions(parent)
         # overridden actions
         self.music_document_select = DocumentChooserAction(parent)
         # new actions
@@ -83,7 +83,7 @@ class Actions(viewers.Actions):
         # don't set an icon?
 
     def translateUI(self):
-        super(Actions, self).translateUI()
+        super(ManuscriptActions, self).translateUI()
         self.music_document_select.setText(_("Select Manuscript Document"))
         self.manuscript_open.setText(_("Open manuscript(s)"))
         self.manuscript_open.setIconText(_("Open"))
