@@ -44,6 +44,7 @@ from viewers import documents
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
+        self._name = "manuscriptview"
         super(ManuscriptViewPanel, self).__init__(mainwindow, Actions)
         self.hide()
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
@@ -73,11 +74,6 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
     def toggleSyncCursor(self):
         QSettings().setValue("manuscriptview/sync_cursor",
             self.actionCollection.music_sync_cursor.isChecked())
-
-    def toggleToolbar(self):
-        checked = self.actionCollection.viewer_toggle_toolbar.isChecked()
-        QSettings().setValue("manuscriptview/toogle_toolbar", checked)
-        self.widget().toolbar().setVisible(checked)
 
 
 class Actions(viewers.Actions):

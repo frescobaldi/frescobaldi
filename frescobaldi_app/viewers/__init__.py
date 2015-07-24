@@ -34,7 +34,7 @@ import functools
 import os
 import weakref
 
-from PyQt4.QtCore import QTimer, Qt, pyqtSignal
+from PyQt4.QtCore import QTimer, Qt, pyqtSignal, QSettings
 from PyQt4.QtGui import (
     QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
     QKeySequence, QPalette, QSpinBox, QWidgetAction)
@@ -79,6 +79,11 @@ class AbstractViewPanel(panel.Panel):
     """Abstract base class for several viewer panels"""
     def __init__(self, mainwindow, actionClass):
         super(AbstractViewPanel, self).__init__(mainwindow)
+        try:
+            if self._name:
+                pass
+        except:
+            raise NotImplementedError('Subclass {} doesn\'t have the "_name" field!'.format(type(self).__name__))
         ac = self.actionCollection = actionClass(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         self.slotPageCountChanged(0)
@@ -119,7 +124,7 @@ class AbstractViewPanel(panel.Panel):
         # Miscellaneous actions
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
-        ac.viewer_toggle_toolbar.triggered.connect(self.toggleToolbar)
+        ac.viewer_toggle_toolbar.triggered.connect(self.slotShowToolbar)
 
 
     def configureWidget(self, widget):
@@ -273,9 +278,12 @@ class AbstractViewPanel(panel.Panel):
     def toggleSyncCursor(self):
         pass
 
-    def toggleToolbar(self):
-        t = self.widget().toolbar()
-        t.setVisible(not t.isVisible())
+    def slotShowToolbar(self):
+        """Sets the visibility of the viewer's toolbar and saves it to
+        the application settings."""
+        checked = self.actionCollection.viewer_toggle_toolbar.isChecked()
+        self.widget().toolbar().setVisible(checked)
+        QSettings().setValue("{}/toogle_toolbar".format(self._name), checked)
 
     def copyImage(self):
         from . import image
