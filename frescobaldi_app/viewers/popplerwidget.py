@@ -100,15 +100,17 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             clicked = lambda: userguide.show(self.parent().viewerName()))
 
     def createToolbar(self):
-        """Creates and returns a new toolbar instance with a help button
-        as its first widget."""
+        """Creates a new toolbar instance with
+        a help as its first widget."""
         # create and add toolbar layout
         self._toolbar_layout = QHBoxLayout()
         self._main_layout.addLayout(self._toolbar_layout)
+
         # create toolbar and add to layout
         self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
         self._toolbar_layout.addWidget(toolbar)
         self._toolbar_layout.addStretch(1)
+
         # create help button as first widget
         self.createHelpButton()
         toolbar.addWidget(self.helpButton)
