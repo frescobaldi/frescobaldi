@@ -97,7 +97,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             icon = icons.get("help-contents"),
             autoRaise = True,
             clicked = lambda: userguide.show(self.parent().viewerName()))
-        return result
 
     def createToolbar(self):
         """Creates and returns a new toolbar instance with a help button
@@ -110,7 +109,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._toolbar_layout.addWidget(toolbar)
         self._toolbar_layout.addStretch(1)
         # create help button as first widget
-        toolbar.addWidget(self.createHelpButton())
+        self.createHelpButton()
+        toolbar.addWidget(self.helpButton)
 
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
