@@ -43,9 +43,9 @@ from viewers import documents
 from . import contextmenu
 
 class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
-    def __init__(self, dockwidget):
-
-        super(ManuscriptViewWidget, self).__init__(dockwidget)
+    def __init__(self, panel):
+        """Widget holding a manuscript view."""
+        super(ManuscriptViewWidget, self).__init__(panel)
 
         userguide.openWhatsThis(self)
 
