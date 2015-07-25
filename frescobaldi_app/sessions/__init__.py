@@ -32,13 +32,11 @@ import itertools
 from PyQt4.QtCore import QSettings, QUrl
 
 import app
-import panelmanager
 import util
 import qsettings
 
 
 _currentSession = None
-_creatingSession = False
 
 
 @app.mainwindowClosed.connect
@@ -121,7 +119,7 @@ def loadSession(name):
             active = 0
         return docs[active]
 
-def saveSession(name, documents, manuscripts, activeDocument=None, activeManuscript=None):
+def saveSession(name, documents, activeDocument=None):
     """Saves the list of documents and which one is active."""
     # only save the documents that have an url
     documents = [doc for doc in documents if not doc.url().isEmpty()]
@@ -131,14 +129,6 @@ def saveSession(name, documents, manuscripts, activeDocument=None, activeManuscr
         session.setValue("active", documents.index(activeDocument))
     else:
         session.remove("active")
-    # store position of the *active* manuscript
-    # TODO: Make this save all manuscripts' positions.
-    act_ms_pos = panelmanager.manager(app.activeWindow()).manuscript.widget().view.position()
-    session.setValue("active-manuscript-position", act_ms_pos)
-
-    session.setValue("manuscripts", [ms.filename() for ms in manuscripts])
-    act_ms = activeManuscript.filename() if activeManuscript else ""
-    session.setValue("active-manuscript", act_ms)
     app.saveSessionData(name)
 
 def deleteSession(name):

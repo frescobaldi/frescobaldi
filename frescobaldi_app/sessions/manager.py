@@ -27,7 +27,6 @@ from PyQt4.QtGui import QAction, QActionGroup
 
 import actioncollection
 import actioncollectionmanager
-import panelmanager
 import plugin
 import document
 import icons
@@ -67,10 +66,8 @@ class SessionManager(plugin.MainWindowPlugin):
         from . import dialog
         name = dialog.SessionEditor(self.mainwindow()).edit()
         if name:
-            sessions._creatingSession = True
             sessions.setCurrentSession(name)
             self.saveCurrentSession()
-            sessions._creatingSession = False
 
     def saveSession(self):
         if not sessions.currentSession():
@@ -110,13 +107,8 @@ class SessionManager(plugin.MainWindowPlugin):
         cur = sessions.currentSession()
         if cur:
             documents = self.mainwindow().documents()
-            active_document = self.mainwindow().currentDocument()
-            #TODO: This may have to be changed when we support
-            # multiple manuscripts
-            manuscript_panel = panelmanager.manager(self.mainwindow()).manuscript
-            manuscripts = manuscript_panel.actionCollection.music_document_select._documents
-            active_manuscript = manuscript_panel.widget()._currentDocument
-            sessions.saveSession(cur, documents, manuscripts, active_document, active_manuscript)
+            active = self.mainwindow().currentDocument()
+            sessions.saveSession(cur, documents, active)
             self.saveSessionData(cur)
 
 
