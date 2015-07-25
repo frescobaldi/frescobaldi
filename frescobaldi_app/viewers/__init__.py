@@ -80,7 +80,7 @@ class AbstractViewPanel(panel.Panel):
     def __init__(self, mainwindow, actionClass):
         super(AbstractViewPanel, self).__init__(mainwindow)
         self.hide()
-        ac = self.actionCollection = actionClass(self)
+        self.actionCollection = actionClass(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         self.slotPageCountChanged(0)
         self.configureActions()
