@@ -62,7 +62,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     zoomChanged = pyqtSignal(int, float) # mode, scale
 
-    def __init__(self, dockwidget):
+    def __init__(self, panel):
         """Creates the Poppler View for the panel."""
         super(AbstractPopplerWidget, self).__init__(panel)
         self.createProtectedFields()
