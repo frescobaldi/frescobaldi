@@ -40,7 +40,9 @@ from viewers import documents
 from . import contextmenu
 
 class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
-    """Widget holding a manuscript view."""
+    def __init__(self, panel):
+        """Widget holding a manuscript view."""
+        super(ManuscriptViewWidget, self).__init__(panel)
 
     def translateUI(self):
         self.setWhatsThis(_(
@@ -53,6 +55,10 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         super(ManuscriptViewWidget, self).connectSlots()
         ac = self.actionCollection
 
+        # TODO: These actions have to be moved to the base class
+        # (maybe also to the panel) and renamed to be harmonized with
+        # the music_NN actions.
+        # This method override can then be removed.
         ac.manuscript_open.triggered.connect(self.openManuscripts)
         ac.manuscript_close.triggered.connect(self.closeManuscript)
         ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
