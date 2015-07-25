@@ -24,7 +24,6 @@ The PDF preview panel widget.
 from __future__ import division
 from __future__ import unicode_literals
 
-import itertools
 import os
 import weakref
 
@@ -46,9 +45,7 @@ import helpers
 import textedit
 import textformats
 import contextmenu
-import lydocument
 import viewhighlighter
-import ly.lex.lilypond
 import userguide.util
 
 from . import abstractviewwidget
@@ -65,14 +62,18 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def __init__(self, panel):
         """Creates the Poppler View for the panel."""
         super(AbstractPopplerWidget, self).__init__(panel)
+        self.actionCollection = panel.actionCollection
         self.createProtectedFields()
-        layout = self.createLayout()
+        self.createLayout()
+        self.createToolbar()
         self.createHighlighters()
         self.createView()
-        layout.addWidget(self.view)
-        self.createHelpButton()
         self.createContextMenu()
         self.connectSlots()
+        self.readSettings()
+
+        userguide.openWhatsThis(self)
+        app.translateUI(self)
 
     def createProtectedFields(self):
         """Create the empty protected fields that will hold actual data."""
@@ -83,20 +84,52 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._toolbar = None
 
     def createLayout(self):
-        """Set up the main layout components.
-        Returns the layout instance"""
-        # main layout
+        """Set up the main layout component."""
         self._main_layout = layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
-        # add an empty toolbar to the widget
-        self._toolbar_layout = tb_layout = QHBoxLayout()
-        layout.addLayout(tb_layout)
-        tb_layout.addWidget(self.toolbar())
-        tb_layout.addStretch(1)
+    def createHelpButton(self):
+        """Create the viewer's help  button."""
+        # The help button requires that the userguide page's filename
+        # matches that of the viewer panel's classname
+        # (e.g. ManuscriptViewPanel.md)
+        result = self.helpButton = QToolButton(
+            icon = icons.get("help-contents"),
+            autoRaise = True,
+            clicked = lambda: userguide.show(self.parent().viewerName()))
 
-        return layout
+    def createToolbar(self):
+        """Creates a new toolbar instance with
+        a help as its first widget."""
+        # create and add toolbar layout
+        self._toolbar_layout = QHBoxLayout()
+        self._main_layout.addLayout(self._toolbar_layout)
+
+        # create toolbar and add to layout
+        self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
+        self._toolbar_layout.addWidget(toolbar)
+        self._toolbar_layout.addStretch(1)
+
+        # create help button as first widget
+        self.createHelpButton()
+        toolbar.addWidget(self.helpButton)
+
+        ac = self.actionCollection
+
+        t = self._toolbar
+        t.addAction(ac.manuscript_open)
+        t.addAction(ac.manuscript_close)
+        t.addAction(ac.music_document_select)
+        t.addAction(ac.music_print)
+        t.addSeparator()
+        t.addAction(ac.music_zoom_in)
+        t.addAction(ac.music_zoom_combo)
+        t.addAction(ac.music_zoom_out)
+        t.addSeparator()
+        t.addAction(ac.music_prev_page)
+        t.addAction(ac.music_pager)
+        t.addAction(ac.music_next_page)
 
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
@@ -108,15 +141,11 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def createView(self):
         """Creates the actual View instance."""
         self.view = popplerview.View(self)
-        self.readSettings()
+        self._main_layout.addWidget(self.view)
         self.view.setViewMode(qpopplerview.FitWidth)
         surface = self.view.surface()
-        surface.setPageLayout(qpopplerview.RowLayout())
-        surface.linkClicked.connect(self.slotLinkClicked)
-        surface.linkHovered.connect(self.slotLinkHovered)
-        surface.linkLeft.connect(self.slotLinkLeft)
         surface.setShowUrlTips(False)
-        surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
+        surface.setPageLayout(qpopplerview.RowLayout())
 
         self.view.viewModeChanged.connect(self.updateZoomInfo)
         surface.pageLayout().scaleChanged.connect(self.updateZoomInfo)
@@ -129,15 +158,9 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         raise NotImplementedError("Concrete Viewer class {} must implement 'createContextMenu'".format(
             type(self).__name__))
 
-    def createHelpButton(self):
-        """Create the viewer's help  button."""
-        # The help button requires that the userguide page's filename
-        # matches that of the viewer panel's classname
-        # (e.g. ManuscriptViewPanel.md)
-        self.helpButton = QToolButton(
-            icon = icons.get("help-contents"),
-            autoRaise = True,
-            clicked = lambda: userguide.show(self.parent().viewerName()))
+    def translateUI(self):
+        self.setWhatsThis(_(
+            "<p>This viewer doesn't have a What'sThis info set.</p>"))
 
     def connectSlots(self):
         """Connects the slots of the viewer."""
@@ -148,6 +171,15 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         view = self.parent().mainwindow().currentView()
         if view:
             self.slotCurrentViewChanged(view)
+
+        surface = self.view.surface()
+        surface.linkClicked.connect(self.slotLinkClicked)
+        surface.linkHovered.connect(self.slotLinkHovered)
+        surface.linkLeft.connect(self.slotLinkLeft)
+        surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
+
+        app.sessionChanged.connect(self.slotSessionChanged)
+        app.saveSessionData.connect(self.slotSaveSessionData)
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -220,6 +252,14 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
+
+    def slotSessionChanged(self, name):
+        """Called when after a session is changed/opened."""
+        pass
+
+    def saveSessionData(self):
+        """Called when after a session is changed/opened."""
+        pass
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
@@ -373,8 +413,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def toolbar(self):
         """Returns the viewer's toolbar widget."""
-        if not self._toolbar:
-            self._toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
         return self._toolbar
 
 

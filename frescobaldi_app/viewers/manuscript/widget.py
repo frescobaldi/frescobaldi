@@ -24,15 +24,10 @@ The Manuscript viewer panel widget.
 from __future__ import unicode_literals
 
 import os
-import weakref
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
 
 import app
 import sessions
 import userguide.util
-import icons
 try:
     import popplerqt4
 except ImportError:
@@ -47,17 +42,9 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         """Widget holding a manuscript view."""
         super(ManuscriptViewWidget, self).__init__(panel)
 
-        userguide.openWhatsThis(self)
+        ac = self.actionCollection
 
-        ac = self.actionCollection = self.parent().actionCollection
-        ac.manuscript_open.triggered.connect(self.openManuscripts)
-        ac.manuscript_close.triggered.connect(self.closeManuscript)
-        ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
-        ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
-        ac.music_document_select.documentsMissing.connect(self.reportMissingManuscripts)
-
-        t = self.toolbar()
-        t.addWidget(self.helpButton)
+        t = self._toolbar
         t.addAction(ac.manuscript_open)
         t.addAction(ac.manuscript_close)
         t.addAction(ac.music_document_select)
@@ -72,17 +59,22 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         t.addAction(ac.music_next_page)
 
 
-        app.translateUI(self)
-
-        app.sessionChanged.connect(self.slotSessionChanged)
-        app.saveSessionData.connect(self.slotSaveSessionData)
-
     def translateUI(self):
         self.setWhatsThis(_(
             "<p>The Manuscript Viewer displays an original manuscript " +
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link(self.parent().viewerName())))
+
+    def connectSlots(self):
+        super(ManuscriptViewWidget, self).connectSlots()
+        ac = self.actionCollection
+
+        ac.manuscript_open.triggered.connect(self.openManuscripts)
+        ac.manuscript_close.triggered.connect(self.closeManuscript)
+        ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
+        ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
+        ac.music_document_select.documentsMissing.connect(self.reportMissingManuscripts)
 
     def createContextMenu(self):
         """Creates the context menu."""
