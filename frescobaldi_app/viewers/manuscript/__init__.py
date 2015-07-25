@@ -184,6 +184,12 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         if missing:
             self.documentsMissing.emit(missing)
 
+    def addManuscript(self, document):
+        """Add a manuscript to our chooser."""
+        self._documents.append(document)
+        self._currentIndex = self._indices.get(document, 0)
+        self.updateDocument()
+
     def replaceManuscript(self, olddoc, newdoc):
         """Instead of adding a new document replace an existing."""
         try:
