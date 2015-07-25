@@ -25,6 +25,8 @@ from __future__ import unicode_literals
 
 import os
 
+from PyQt4.QtGui import QFileDialog
+
 import app
 import sessions
 import userguide.util
@@ -41,23 +43,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
     def __init__(self, panel):
         """Widget holding a manuscript view."""
         super(ManuscriptViewWidget, self).__init__(panel)
-
-        ac = self.actionCollection
-
-        t = self._toolbar
-        t.addAction(ac.manuscript_open)
-        t.addAction(ac.manuscript_close)
-        t.addAction(ac.music_document_select)
-        t.addAction(ac.music_print)
-        t.addSeparator()
-        t.addAction(ac.music_zoom_in)
-        t.addAction(ac.music_zoom_combo)
-        t.addAction(ac.music_zoom_out)
-        t.addSeparator()
-        t.addAction(ac.music_prev_page)
-        t.addAction(ac.music_pager)
-        t.addAction(ac.music_next_page)
-
 
     def translateUI(self):
         self.setWhatsThis(_(
