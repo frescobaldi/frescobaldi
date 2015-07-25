@@ -187,7 +187,7 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
     def addManuscript(self, document):
         """Add a manuscript to our chooser."""
         self._documents.append(document)
-        self._currentIndex = self._indices.get(document, 0)
+        self._currentIndex = len(self._documents) - 1
         self.updateDocument()
 
     def replaceManuscript(self, olddoc, newdoc):
