@@ -98,17 +98,19 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
 
     def slotSaveSessionData(self):
         g = sessions.currentSessionGroup()
-        pos = []
         if g:
-            for p in self._positions:
-                pos.append((p.filename(), self._positions[p]))
-            g.setValue("manuscripts", pos)
             if self._currentDocument:
                 currentfile = self._currentDocument.filename()
                 currpos = self.view.position()
                 g.setValue("active-manuscript", (currentfile, currpos))
             else:
                 g.setValue("active-manuscript", False)
+            pos = []
+            for p in self._positions:
+                if p.filename() != currentfile:
+                    pos.append((p.filename(), self._positions[p]))
+            g.setValue("manuscripts", pos)
+            
 
     def closeManuscript(self):
         """ Close current manuscript. """
