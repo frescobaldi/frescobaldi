@@ -49,12 +49,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
 
         userguide.openWhatsThis(self)
 
-        ac = self.actionCollection = self.parent().actionCollection
-        ac.manuscript_open.triggered.connect(self.openManuscripts)
-        ac.manuscript_close.triggered.connect(self.closeManuscript)
-        ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
-        ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
-        ac.music_document_select.documentsMissing.connect(self.reportMissingManuscripts)
+        ac = self.actionCollection
 
         t = self.toolbar()
         t.addWidget(self.helpButton)
@@ -83,6 +78,15 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link(self.parent().viewerName())))
+
+    def connectSlots(self):
+        ac = self.actionCollection
+
+        ac.manuscript_open.triggered.connect(self.openManuscripts)
+        ac.manuscript_close.triggered.connect(self.closeManuscript)
+        ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
+        ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
+        ac.music_document_select.documentsMissing.connect(self.reportMissingManuscripts)
 
     def createContextMenu(self):
         """Creates the context menu."""

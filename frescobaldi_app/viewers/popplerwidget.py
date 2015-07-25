@@ -65,6 +65,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def __init__(self, panel):
         """Creates the Poppler View for the panel."""
         super(AbstractPopplerWidget, self).__init__(panel)
+        self.actionCollection = panel.actionCollection
         self.createProtectedFields()
         layout = self.createLayout()
         self.createHighlighters()
