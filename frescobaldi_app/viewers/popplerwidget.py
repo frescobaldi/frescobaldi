@@ -99,10 +99,72 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             autoRaise = True,
             clicked = lambda: userguide.show(self.parent().viewerName()))
 
+    def _tbAddSeparator(self):
+        """Add a separator to the toolbar."""
+        self._toolbar.addSeparator()
+
+    def _tbAddOpenCloseActions(self):
+        """Add actions to open and close files."""
+        t = self._toolbar
+        ac = self.actionCollection
+        t.addAction(ac.manuscript_open)
+        t.addAction(ac.manuscript_close)
+
+    def _tbAddDocumentChooserAction(self):
+        """Add the document chooser to the toolbar."""
+        t = self._toolbar
+        ac = self.actionCollection
+        t.addAction(ac.music_document_select)
+
+    def _tbAddPrintAction(self):
+        """Add the print action."""
+        t = self._toolbar
+        ac = self.actionCollection
+        t.addAction(ac.music_print)
+
+    def _tbAddZoomActions(self):
+        """Add different zoomer actions."""
+        t = self._toolbar
+        ac = self.actionCollection
+        t.addAction(ac.music_zoom_in)
+        t.addAction(ac.music_zoom_combo)
+        t.addAction(ac.music_zoom_out)
+
+    def _tbAddPagerActions(self):
+        """Add navigational actions."""
+        t = self._toolbar
+        ac = self.actionCollection
+        t.addAction(ac.music_prev_page)
+        t.addAction(ac.music_pager)
+        t.addAction(ac.music_next_page)
+
+    def populateToolbar(self, methods = None):
+        """Defines a template for the population of the viewer's toolbar.
+        Subclasses can configure the toolbar by overriding individual
+        _tbAdd... methods or by passing a list of methods."""
+        ac = self.actionCollection
+        t = self._toolbar
+
+        # create help button as first widget, not to be overridden
+        self.createHelpButton()
+        t.addWidget(self.helpButton)
+
+        if not methods:
+            self._tbAddOpenCloseActions()
+            self._tbAddDocumentChooserAction()
+            self._tbAddPrintAction()
+            self._tbAddSeparator()
+            self._tbAddZoomActions()
+            self._tbAddSeparator()
+            self._tbAddPagerActions()
+        else:
+            for m in methods:
+                m()
+
     def createToolbar(self):
         """Creates a new toolbar instance with
         a help as its first widget."""
-        # create and add toolbar layout
+        # create and add toolbar layout to the widget
         self._toolbar_layout = QHBoxLayout()
         self._main_layout.addLayout(self._toolbar_layout)
 
@@ -111,25 +173,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._toolbar_layout.addWidget(toolbar)
         self._toolbar_layout.addStretch(1)
 
-        # create help button as first widget
-        self.createHelpButton()
-        toolbar.addWidget(self.helpButton)
-
-        ac = self.actionCollection
-
-        t = self._toolbar
-        t.addAction(ac.manuscript_open)
-        t.addAction(ac.manuscript_close)
-        t.addAction(ac.music_document_select)
-        t.addAction(ac.music_print)
-        t.addSeparator()
-        t.addAction(ac.music_zoom_in)
-        t.addAction(ac.music_zoom_combo)
-        t.addAction(ac.music_zoom_out)
-        t.addSeparator()
-        t.addAction(ac.music_prev_page)
-        t.addAction(ac.music_pager)
-        t.addAction(ac.music_next_page)
+        # add the actions to the toolbar
+        self.populateToolbar()
 
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
