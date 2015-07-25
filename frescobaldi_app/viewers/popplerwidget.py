@@ -88,6 +88,30 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
+    def createHelpButton(self):
+        """Create the viewer's help  button."""
+        # The help button requires that the userguide page's filename
+        # matches that of the viewer panel's classname
+        # (e.g. ManuscriptViewPanel.md)
+        result = self.helpButton = QToolButton(
+            icon = icons.get("help-contents"),
+            autoRaise = True,
+            clicked = lambda: userguide.show(self.parent().viewerName()))
+        return result
+
+    def createToolbar(self):
+        """Creates and returns a new toolbar instance with a help button
+        as its first widget."""
+        # create and add toolbar layout
+        self._toolbar_layout = QHBoxLayout()
+        self._main_layout.addLayout(self._toolbar_layout)
+        # create toolbar and add to layout
+        self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
+        self._toolbar_layout.addWidget(toolbar)
+        self._toolbar_layout.addStretch(1)
+        # create help button as first widget
+        toolbar.addWidget(self.createHelpButton())
+
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = Highlighter()
@@ -119,30 +143,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         Subclasses should override this with their concrete menu."""
         raise NotImplementedError("Concrete Viewer class {} must implement 'createContextMenu'".format(
             type(self).__name__))
-
-    def createHelpButton(self):
-        """Create the viewer's help  button."""
-        # The help button requires that the userguide page's filename
-        # matches that of the viewer panel's classname
-        # (e.g. ManuscriptViewPanel.md)
-        result = self.helpButton = QToolButton(
-            icon = icons.get("help-contents"),
-            autoRaise = True,
-            clicked = lambda: userguide.show(self.parent().viewerName()))
-        return result
-
-    def createToolbar(self):
-        """Creates and returns a new toolbar instance with a help button
-        as its first widget."""
-        # create and add toolbar layout
-        self._toolbar_layout = QHBoxLayout()
-        self._main_layout.addLayout(self._toolbar_layout)
-        # create toolbar and add to layout
-        self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
-        self._toolbar_layout.addWidget(toolbar)
-        self._toolbar_layout.addStretch(1)
-        # create help button as first widget
-        toolbar.addWidget(self.createHelpButton())
 
     def connectSlots(self):
         """Connects the slots of the viewer."""
