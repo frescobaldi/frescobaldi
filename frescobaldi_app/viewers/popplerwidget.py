@@ -63,15 +63,74 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     zoomChanged = pyqtSignal(int, float) # mode, scale
 
     def __init__(self, dockwidget):
-        """Creates the Poppler View for the dockwidget."""
-        super(AbstractPopplerWidget, self).__init__(dockwidget)
+        """Creates the Poppler View for the panel."""
+        super(AbstractPopplerWidget, self).__init__(panel)
+        self.createProtectedFields()
+        layout = self.createLayout()
+        self.createHighlighters()
+        self.createView()
+        layout.addWidget(self.view)
+        self.createHelpButton()
+        self.createContextMenu()
+        self.connectSlots()
 
+    def createProtectedFields(self):
+        """Create the empty protected fields that will hold actual data."""
         self._positions = weakref.WeakKeyDictionary()
         self._currentDocument = None
         self._links = None
         self._clicking_link = False
         self._toolbar = None
 
+    def createLayout(self):
+        """Set up the main layout components.
+        Returns the layout instance"""
+        # main layout
+        self._main_layout = layout = QVBoxLayout()
+        layout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(layout)
+
+        # add an empty toolbar to the widget
+        self._toolbar_layout = tb_layout = QHBoxLayout()
+        layout.addLayout(tb_layout)
+        tb_layout.addWidget(self.toolbar())
+        tb_layout.addStretch(1)
+
+        return layout
+
+    def createHighlighters(self):
+        self._highlightFormat = QTextCharFormat()
+        self._highlightMusicFormat = Highlighter()
+        self._highlightRange = None
+        self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
+        self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
+
+    def createView(self):
+        """Creates the actual View instance."""
+        self.view = popplerview.View(self)
+        self.readSettings()
+        self.view.setViewMode(qpopplerview.FitWidth)
+        surface = self.view.surface()
+        surface.setPageLayout(qpopplerview.RowLayout())
+        surface.linkClicked.connect(self.slotLinkClicked)
+        surface.linkHovered.connect(self.slotLinkHovered)
+        surface.linkLeft.connect(self.slotLinkLeft)
+        surface.setShowUrlTips(False)
+        surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
+
+        self.view.viewModeChanged.connect(self.updateZoomInfo)
+        surface.pageLayout().scaleChanged.connect(self.updateZoomInfo)
+        self.view.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.view.customContextMenuRequested.connect(self.showContextMenu)
+
+    def createContextMenu(self):
+        """Creates the context menu.
+        Subclasses should override this with their concrete menu."""
+        raise NotImplementedError("Concrete Viewer class {} must implement 'createContextMenu'".format(
+            type(self).__name__))
+
+    def createHelpButton(self):
+        """Create the viewer's help  button."""
         # The help button requires that the userguide page's filename
         # matches that of the viewer panel's classname
         # (e.g. ManuscriptViewPanel.md)
@@ -80,46 +139,13 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             autoRaise = True,
             clicked = lambda: userguide.show(self.parent().viewerName()))
 
-        if hasattr(self, '_ctxMenuClass'):
-            self._contextMenu = self._ctxMenuClass(dockwidget)
-        else:
-            self._contextMenu = contextmenu.ViewerContextMenu(dockwidget)
-
-        self._highlightFormat = QTextCharFormat()
-        self._highlightMusicFormat = Highlighter()
-        self._highlightRange = None
-        self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
-        self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
-
-        layout = QVBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        self.setLayout(layout)
-
-        tb_layout = QHBoxLayout()
-        tb_layout.addWidget(self.toolbar())
-        tb_layout.addStretch(1)
-        layout.addLayout(tb_layout)
-
-        self.view = popplerview.View(self)
-        layout.addWidget(self.view)
+    def connectSlots(self):
+        """Connects the slots of the viewer."""
         app.settingsChanged.connect(self.readSettings)
-        self.readSettings()
-        self.view.setViewMode(qpopplerview.FitWidth)
-        self.view.surface().setPageLayout(qpopplerview.RowLayout())
-        self.view.surface().linkClicked.connect(self.slotLinkClicked)
-        self.view.surface().linkHovered.connect(self.slotLinkHovered)
-        self.view.surface().linkLeft.connect(self.slotLinkLeft)
-        self.view.surface().setShowUrlTips(False)
-        self.view.surface().linkHelpRequested.connect(self.slotLinkHelpRequested)
-
-        self.view.viewModeChanged.connect(self.updateZoomInfo)
-        self.view.surface().pageLayout().scaleChanged.connect(self.updateZoomInfo)
-        self.view.setContextMenuPolicy(Qt.CustomContextMenu)
-        self.view.customContextMenuRequested.connect(self.showContextMenu)
 
         # react if cursor of current text document moves
-        dockwidget.mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
-        view = dockwidget.mainwindow().currentView()
+        self.parent().mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
+        view = self.parent().mainwindow().currentView()
         if view:
             self.slotCurrentViewChanged(view)
 
@@ -350,6 +376,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         if not self._toolbar:
             self._toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
         return self._toolbar
+
 
 class Highlighter(qpopplerview.Highlighter):
     """Simple version of qpopplerview.Highlighter that has the color settable.

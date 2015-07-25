@@ -45,7 +45,6 @@ from . import contextmenu
 class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
     def __init__(self, dockwidget):
 
-        self._ctxMenuClass = contextmenu.ManuscriptViewerContextMenu
         super(ManuscriptViewWidget, self).__init__(dockwidget)
 
         userguide.openWhatsThis(self)
@@ -83,6 +82,10 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link(self.parent().viewerName())))
+
+    def createContextMenu(self):
+        """Creates the context menu."""
+        self._contextMenu = contextmenu.ManuscriptViewerContextMenu(self.parent())
 
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
