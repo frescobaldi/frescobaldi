@@ -128,12 +128,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._main_layout.addWidget(self.view)
         self.view.setViewMode(qpopplerview.FitWidth)
         surface = self.view.surface()
-        surface.setPageLayout(qpopplerview.RowLayout())
-        surface.linkClicked.connect(self.slotLinkClicked)
-        surface.linkHovered.connect(self.slotLinkHovered)
-        surface.linkLeft.connect(self.slotLinkLeft)
         surface.setShowUrlTips(False)
-        surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
+        surface.setPageLayout(qpopplerview.RowLayout())
 
         self.view.viewModeChanged.connect(self.updateZoomInfo)
         surface.pageLayout().scaleChanged.connect(self.updateZoomInfo)
@@ -155,6 +151,12 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         view = self.parent().mainwindow().currentView()
         if view:
             self.slotCurrentViewChanged(view)
+
+        surface = self.view.surface()
+        surface.linkClicked.connect(self.slotLinkClicked)
+        surface.linkHovered.connect(self.slotLinkHovered)
+        surface.linkLeft.connect(self.slotLinkLeft)
+        surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
