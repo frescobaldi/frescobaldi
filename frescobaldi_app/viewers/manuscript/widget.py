@@ -51,8 +51,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
 
         ac = self.actionCollection
 
-        t = self.toolbar()
-        t.addWidget(self.helpButton)
+        t = self._toolbar
         t.addAction(ac.manuscript_open)
         t.addAction(ac.manuscript_close)
         t.addAction(ac.music_document_select)

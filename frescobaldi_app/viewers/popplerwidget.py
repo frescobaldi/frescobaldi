@@ -67,11 +67,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         super(AbstractPopplerWidget, self).__init__(panel)
         self.actionCollection = panel.actionCollection
         self.createProtectedFields()
-        layout = self.createLayout()
+        self.createLayout()
+        self.createToolbar()
         self.createHighlighters()
         self.createView()
-        layout.addWidget(self.view)
-        self.createHelpButton()
         self.createContextMenu()
         self.connectSlots()
 
@@ -84,20 +83,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._toolbar = None
 
     def createLayout(self):
-        """Set up the main layout components.
-        Returns the layout instance"""
-        # main layout
+        """Set up the main layout component."""
         self._main_layout = layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-
-        # add an empty toolbar to the widget
-        self._toolbar_layout = tb_layout = QHBoxLayout()
-        layout.addLayout(tb_layout)
-        tb_layout.addWidget(self.toolbar())
-        tb_layout.addStretch(1)
-
-        return layout
 
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
@@ -109,6 +98,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def createView(self):
         """Creates the actual View instance."""
         self.view = popplerview.View(self)
+        self._main_layout.addWidget(self.view)
         self.readSettings()
         self.view.setViewMode(qpopplerview.FitWidth)
         surface = self.view.surface()
@@ -135,10 +125,24 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         # The help button requires that the userguide page's filename
         # matches that of the viewer panel's classname
         # (e.g. ManuscriptViewPanel.md)
-        self.helpButton = QToolButton(
+        result = self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
             autoRaise = True,
             clicked = lambda: userguide.show(self.parent().viewerName()))
+        return result
+
+    def createToolbar(self):
+        """Creates and returns a new toolbar instance with a help button
+        as its first widget."""
+        # create and add toolbar layout
+        self._toolbar_layout = QHBoxLayout()
+        self._main_layout.addLayout(self._toolbar_layout)
+        # create toolbar and add to layout
+        self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
+        self._toolbar_layout.addWidget(toolbar)
+        self._toolbar_layout.addStretch(1)
+        # create help button as first widget
+        toolbar.addWidget(self.createHelpButton())
 
     def connectSlots(self):
         """Connects the slots of the viewer."""
@@ -374,8 +378,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def toolbar(self):
         """Returns the viewer's toolbar widget."""
-        if not self._toolbar:
-            self._toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
         return self._toolbar
 
 
