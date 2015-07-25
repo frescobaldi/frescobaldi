@@ -76,14 +76,21 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
 
     def slotSessionChanged(self, name):
         if name:
-            self.closeAllManuscripts()
             session = sessions.sessionGroup(name)
             manuscripts = session.value("manuscripts", "")
-            active_manuscript = session.value("active-manuscript", "")
-            if manuscripts:
+            active_manuscript = session.value("active-manuscript", None)
+            if active_manuscript is not None: # the session is not new
+                self.closeAllManuscripts()
                 ds = self.actionCollection.music_document_select
-                ds.loadManuscripts(manuscripts, active_manuscript, True)
-                self.view.setPosition(session.value("active-manuscript-position", (0, 0, 0)))
+                if manuscripts:
+                    for m in manuscripts:
+                        doc = documents.Document(m[0])
+                        self._positions[doc] = m[1]
+                        ds.addManuscript(doc)
+                if active_manuscript:
+                    doc = documents.Document(active_manuscript[0])
+                    self._positions[doc] = active_manuscript[1]
+                    ds.addManuscript(doc)
 
     def slotSaveSessionData(self):
         g = sessions.currentSessionGroup()
@@ -96,6 +103,8 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                 currentfile = self._currentDocument.filename()
                 currpos = self.view.position()
                 g.setValue("active-manuscript", (currentfile, currpos))
+            else:
+                g.setValue("active-manuscript", False)
 
     def closeManuscript(self):
         """ Close current manuscript. """
