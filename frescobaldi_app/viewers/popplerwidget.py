@@ -24,7 +24,6 @@ The PDF preview panel widget.
 from __future__ import division
 from __future__ import unicode_literals
 
-import itertools
 import os
 import weakref
 
@@ -46,9 +45,7 @@ import helpers
 import textedit
 import textformats
 import contextmenu
-import lydocument
 import viewhighlighter
-import ly.lex.lilypond
 import userguide.util
 
 from . import abstractviewwidget
@@ -118,6 +115,22 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self.createHelpButton()
         toolbar.addWidget(self.helpButton)
 
+        ac = self.actionCollection
+
+        t = self._toolbar
+        t.addAction(ac.manuscript_open)
+        t.addAction(ac.manuscript_close)
+        t.addAction(ac.music_document_select)
+        t.addAction(ac.music_print)
+        t.addSeparator()
+        t.addAction(ac.music_zoom_in)
+        t.addAction(ac.music_zoom_combo)
+        t.addAction(ac.music_zoom_out)
+        t.addSeparator()
+        t.addAction(ac.music_prev_page)
+        t.addAction(ac.music_pager)
+        t.addAction(ac.music_next_page)
+
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = Highlighter()
@@ -164,6 +177,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         surface.linkHovered.connect(self.slotLinkHovered)
         surface.linkLeft.connect(self.slotLinkLeft)
         surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
+
+        app.sessionChanged.connect(self.slotSessionChanged)
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -236,6 +251,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
+
+    def slotSessionChanged(self, name):
+        """Called when after a session is changed/opened."""
+        pass
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
