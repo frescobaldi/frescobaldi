@@ -47,8 +47,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         """Widget holding a manuscript view."""
         super(ManuscriptViewWidget, self).__init__(panel)
 
-        userguide.openWhatsThis(self)
-
         ac = self.actionCollection
 
         t = self._toolbar

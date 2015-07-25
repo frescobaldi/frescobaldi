@@ -75,6 +75,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self.connectSlots()
         self.readSettings()
 
+        userguide.openWhatsThis(self)
+
     def createProtectedFields(self):
         """Create the empty protected fields that will hold actual data."""
         self._positions = weakref.WeakKeyDictionary()
@@ -141,6 +143,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         Subclasses should override this with their concrete menu."""
         raise NotImplementedError("Concrete Viewer class {} must implement 'createContextMenu'".format(
             type(self).__name__))
+
+    def translateUI(self):
+        self.setWhatsThis(_(
+            "<p>This viewer doesn't have a What'sThis info set.</p>"))
 
     def connectSlots(self):
         """Connects the slots of the viewer."""
