@@ -24,15 +24,10 @@ The Manuscript viewer panel widget.
 from __future__ import unicode_literals
 
 import os
-import weakref
-
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
 
 import app
 import sessions
 import userguide.util
-import icons
 try:
     import popplerqt4
 except ImportError:
