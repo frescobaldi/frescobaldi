@@ -162,9 +162,13 @@ class AbstractViewPanel(panel.Panel):
         return w
 
     def viewerName(self):
-        """Returns the class name of the panel.
+        """Returns the 'name' of the viewer panel.
+        This is the lowercase classname, right-stripped
+        of a trailing 'panel'.
         To be used for accessing the QSettings group."""
-        return type(self).__name__
+        result = type(self).__name__.lower()
+        result = result if not result.endswith('panel') else result[:-5]
+        return result
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
