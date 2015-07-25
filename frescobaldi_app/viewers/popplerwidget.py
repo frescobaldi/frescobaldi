@@ -73,6 +73,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self.createView()
         self.createContextMenu()
         self.connectSlots()
+        self.readSettings()
 
     def createProtectedFields(self):
         """Create the empty protected fields that will hold actual data."""
@@ -123,7 +124,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         """Creates the actual View instance."""
         self.view = popplerview.View(self)
         self._main_layout.addWidget(self.view)
-        self.readSettings()
         self.view.setViewMode(qpopplerview.FitWidth)
         surface = self.view.surface()
         surface.setPageLayout(qpopplerview.RowLayout())
