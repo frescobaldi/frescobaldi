@@ -64,8 +64,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         t.addAction(ac.music_next_page)
 
 
-        app.translateUI(self)
-
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
 

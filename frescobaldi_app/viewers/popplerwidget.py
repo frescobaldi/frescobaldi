@@ -76,6 +76,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self.readSettings()
 
         userguide.openWhatsThis(self)
+        app.translateUI(self)
 
     def createProtectedFields(self):
         """Create the empty protected fields that will hold actual data."""
