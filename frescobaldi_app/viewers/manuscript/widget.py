@@ -77,6 +77,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                 userguide.util.format_link(self.parent().viewerName())))
 
     def connectSlots(self):
+        super(ManuscriptViewWidget, self).connectSlots()
         ac = self.actionCollection
 
         ac.manuscript_open.triggered.connect(self.openManuscripts)
