@@ -75,6 +75,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         app.translateUI(self)
 
         app.sessionChanged.connect(self.slotSessionChanged)
+        app.saveSessionData.connect(self.slotSaveSessionData)
 
     def translateUI(self):
         self.setWhatsThis(_(
@@ -106,6 +107,16 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                 ds = self.actionCollection.music_document_select
                 ds.loadManuscripts(manuscripts, active_manuscript, True)
                 self.view.setPosition(session.value("active-manuscript-position", (0, 0, 0)))
+
+    def slotSaveSessionData(self):
+        sessiongroup = sessions.currentSessionGroup()
+        pos = []
+        if sessiongroup:
+            for p in self._positions:
+                pos.append((p.filename(), self._positions[p]))
+            g.setValue("manuscripts", pos)
+            currentfile = self._currentDocument.filename()
+            g.setValue("active-manuscript", (currentfile, self.view.position()))
 
     def closeManuscript(self):
         """ Close current manuscript. """
