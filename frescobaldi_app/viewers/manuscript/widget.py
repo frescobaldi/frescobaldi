@@ -59,8 +59,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         t.addAction(ac.music_next_page)
 
 
-        app.saveSessionData.connect(self.slotSaveSessionData)
-
     def translateUI(self):
         self.setWhatsThis(_(
             "<p>The Manuscript Viewer displays an original manuscript " +

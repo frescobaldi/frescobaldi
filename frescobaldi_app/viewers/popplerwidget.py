@@ -179,6 +179,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
 
         app.sessionChanged.connect(self.slotSessionChanged)
+        app.saveSessionData.connect(self.slotSaveSessionData)
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
@@ -253,6 +254,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             helpers.openUrl(QUrl(link.url()))
 
     def slotSessionChanged(self, name):
+        """Called when after a session is changed/opened."""
+        pass
+
+    def saveSessionData(self):
         """Called when after a session is changed/opened."""
         pass
 
