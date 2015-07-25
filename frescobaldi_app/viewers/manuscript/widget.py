@@ -114,7 +114,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         """ Close current manuscript. """
         mds = self.actionCollection.music_document_select
         mds.removeManuscript(self._currentDocument)
-        if len(mds._documents) == 0:
+        if len(mds.documents()) == 0:
             self.view.clear()
 
     def closeOtherManuscripts(self):
