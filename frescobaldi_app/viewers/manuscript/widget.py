@@ -95,6 +95,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                     doc = documents.Document(active_manuscript[0])
                     self._positions[doc] = active_manuscript[1]
                     ds.addManuscript(doc)
+                    self.view._centerPos = None
 
     def slotSaveSessionData(self):
         g = sessions.currentSessionGroup()
