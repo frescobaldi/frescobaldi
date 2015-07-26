@@ -118,7 +118,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         mds = self.actionCollection.music_document_select
         mds.removeManuscript(self._currentDocument)
         if len(mds.documents()) == 0:
-            self.view.clear()
+            self.clear()
 
     def closeOtherManuscripts(self):
         """Close all manuscripts except the one currently opened"""
@@ -129,7 +129,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         """Close all opened manuscripts"""
         mds = self.actionCollection.music_document_select
         mds.removeAllManuscripts()
-        self.view.clear()
+        self.clear()
 
     def openManuscripts(self):
         """ Displays an open dialog to open a manuscript PDF. """
