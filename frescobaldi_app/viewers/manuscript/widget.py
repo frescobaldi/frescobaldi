@@ -104,14 +104,16 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                 currentfile = self._currentDocument.filename()
                 currpos = self.view.position()
                 g.setValue("active-manuscript", (currentfile, currpos))
+                pos = []
+                for p in self._positions:
+                    if p.filename() != currentfile:
+                        pos.append((p.filename(), self._positions[p]))
+                g.setValue("manuscripts", pos)
             else:
-                g.setValue("active-manuscript", None)
-            pos = []
-            for p in self._positions:
-                if p.filename() != currentfile:
-                    pos.append((p.filename(), self._positions[p]))
-            g.setValue("manuscripts", pos)
-            
+                currentfile = ''
+                g.setValue("active-manuscript", False)
+                g.remove("manuscripts")
+
 
     def closeManuscript(self):
         """ Close current manuscript. """
