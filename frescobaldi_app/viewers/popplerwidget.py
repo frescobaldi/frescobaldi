@@ -107,7 +107,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         """Add actions to open and close files."""
         t = self._toolbar
         ac = self.actionCollection
-        t.addAction(ac.manuscript_open)
+        t.addAction(ac.music_open)
         t.addAction(ac.manuscript_close)
 
     def _tbAddDocumentChooserAction(self):

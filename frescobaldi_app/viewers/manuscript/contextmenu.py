@@ -70,7 +70,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         This is not implemented in the base class"""
         m = self._menu
         ac = self._actionCollection
-        m.addAction(ac.manuscript_open)
+        m.addAction(ac.music_open)
         docs = self._actionCollection.music_document_select.documents()
         if docs:
             sm = QMenu(m)

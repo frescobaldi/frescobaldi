@@ -37,7 +37,7 @@ import weakref
 from PyQt4.QtCore import QTimer, Qt, pyqtSignal, QSettings
 from PyQt4.QtGui import (
     QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
-    QKeySequence, QPalette, QSpinBox, QWidgetAction)
+    QKeySequence, QPalette, QSpinBox, QWidgetAction, QFileDialog)
 
 import app
 import actioncollection
@@ -115,17 +115,18 @@ class AbstractViewPanel(panel.Panel):
         ac.music_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
         ac.music_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
         ac.music_maximize.triggered.connect(self.maximize)
-        # Navigation and file handling actions
+        # File handling actions
         ac.music_document_select.documentsChanged.connect(self.updateActions)
+        ac.music_open.triggered.connect(self.openMusic)
+        ac.music_reload.triggered.connect(self.reloadView)
+        # Navigation actions
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
         ac.music_copy_image.triggered.connect(self.copyImage)
-        ac.music_reload.triggered.connect(self.reloadView)
         # Miscellaneous actions
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
-
 
     def configureWidget(self, widget):
         """Takes a widget created by a child class and applies the general
@@ -315,6 +316,22 @@ class AbstractViewPanel(panel.Panel):
         ac.music_fit_both.setChecked(mode == FitBoth)
         ac.music_zoom_combo.updateZoomInfo(mode, scale)
 
+    def _openMusicCaption(self):
+        """Returns the caption for the file open dialog."""
+        raise NotImplementedError('Method _openMusicCaption has to be implemented in {}'.format(self.viewerName()))
+
+    def openMusic(self):
+        """ Displays an open dialog to open music document(s). """
+        caption = self._openMusicCaption()
+        current_music_doc = self.widget().currentDocument()
+        current_filename = current_music_doc.filename() if current_music_doc else None
+        current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
+        directory = os.path.dirname(current_filename or current_editor_document or app.basedir())
+        filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
+        if filenames:
+            # TODO: This has to be generalized too
+            self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
+
 
 class Actions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
@@ -380,6 +397,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_prev_page.setIconText(_("Previous"))
         self.music_reload.setText(_("&Reload"))
         self.viewer_show_toolbar.setText(_("Show toolbar"))
+        self.music_open.setText(_("Open music document(s)"))
 
 
 class ComboBoxAction(QWidgetAction):

@@ -59,7 +59,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         # (maybe also to the panel) and renamed to be harmonized with
         # the music_NN actions.
         # This method override can then be removed.
-        ac.manuscript_open.triggered.connect(self.openManuscripts)
         ac.manuscript_close.triggered.connect(self.closeManuscript)
         ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
         ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)

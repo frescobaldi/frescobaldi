@@ -28,7 +28,7 @@ import os
 from PyQt4.QtCore import QSettings, Qt
 from PyQt4.QtGui import (
     QAction, QKeySequence, QVBoxLayout, QToolButton,
-    QHBoxLayout, QPushButton, QFileDialog, QMessageBox)
+    QHBoxLayout, QPushButton, QMessageBox)
 
 import actioncollection
 import actioncollectionmanager
@@ -64,6 +64,10 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
             mds = self.actionCollection.music_document_select
             mds.replaceManuscript(active_manuscript, reread)
 
+    def _openMusicCaption(self):
+        """Returns the caption for the file open dialog."""
+        return app.caption(_("dialog title", "Open Manuscript(s)"))
+
 
 class ManuscriptActions(viewers.Actions):
     name = "manuscript"
@@ -73,8 +77,8 @@ class ManuscriptActions(viewers.Actions):
         # overridden actions
         self.music_document_select = ManuscriptDocumentChooserAction(parent)
         # new actions
-        self.manuscript_open = QAction(parent)
-        self.manuscript_open.setIcon(icons.get('document-open'))
+        self.music_open = QAction(parent)
+        self.music_open.setIcon(icons.get('document-open'))
         self.manuscript_close = QAction(parent)
         self.manuscript_close.setIcon(icons.get('document-close'))
         self.manuscript_close_other = QAction(parent)
@@ -85,8 +89,8 @@ class ManuscriptActions(viewers.Actions):
     def translateUI(self):
         super(ManuscriptActions, self).translateUI()
         self.music_document_select.setText(_("Select Manuscript Document"))
-        self.manuscript_open.setText(_("Open manuscript(s)"))
-        self.manuscript_open.setIconText(_("Open"))
+        self.music_open.setText(_("Open manuscript(s)"))
+        self.music_open.setIconText(_("Open"))
         self.manuscript_close.setText(_("Close manuscript"))
         self.manuscript_close.setIconText(_("Close"))
         self.manuscript_close_other.setText(_("Close other manuscripts"))
