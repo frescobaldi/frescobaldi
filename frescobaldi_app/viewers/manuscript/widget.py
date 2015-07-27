@@ -100,14 +100,16 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
     def slotSaveSessionData(self):
         g = sessions.currentSessionGroup()
         if g:
-            if self._currentDocument:
+            docs = self.actionCollection.music_document_select.documents()
+            if docs:
                 currentfile = self._currentDocument.filename()
                 currpos = self.view.position()
                 g.setValue("active-manuscript", (currentfile, currpos))
                 pos = []
-                for p in self._positions:
-                    if p.filename() != currentfile:
-                        pos.append((p.filename(), self._positions[p]))
+                for d in docs:
+                    p = self._positions.get(d, (0, 0, 0))
+                    if d != self._currentDocument:
+                        pos.append((d.filename(), p))
                 g.setValue("manuscripts", pos)
                 g.setValue("session-created", True)
             else:
