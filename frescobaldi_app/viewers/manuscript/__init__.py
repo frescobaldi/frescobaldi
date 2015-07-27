@@ -117,8 +117,9 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         pass
 
     def removeManuscript(self, document):
-        self._documents.remove(document)
-        self.updateDocument()
+        if document:
+            self._documents.remove(document)
+            self.updateDocument()
 
     def removeOtherManuscripts(self, document):
         self._documents = [document]
