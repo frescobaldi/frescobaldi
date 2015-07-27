@@ -113,7 +113,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                 g.setValue("manuscripts", pos)
                 g.setValue("session-created", True)
             else:
-                currentfile = ''
                 g.setValue("active-manuscript", False)
                 g.remove("manuscripts")
 
