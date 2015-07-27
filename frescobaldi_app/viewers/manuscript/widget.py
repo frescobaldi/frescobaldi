@@ -83,7 +83,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
             session = sessions.sessionGroup(name)
             manuscripts = session.value("manuscripts", "")
             active_manuscript = session.value("active-manuscript", None)
-            if session.value("session-created", False): # the session is not new
+            if session.contains("urls"): # the session is not new
                 self.closeAllManuscripts()
                 ds = self.actionCollection.music_document_select
                 if manuscripts:
@@ -111,7 +111,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                         p = self._positions.get(d, (0, 0, 0))
                         pos.append((d.filename(), p))
                 g.setValue("manuscripts", pos)
-                g.setValue("session-created", True)
             else:
                 g.setValue("active-manuscript", False)
                 g.remove("manuscripts")
