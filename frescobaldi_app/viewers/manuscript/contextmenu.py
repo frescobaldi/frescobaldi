@@ -39,7 +39,8 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         docs = mds.documents()
         document_actions = {}
         multi_docs = len(docs) > 1
-        current_doc_filename = self._panel.widget().currentDocument().filename()
+        if self._panel.widget().currentDocument():
+            current_doc_filename = self._panel.widget().currentDocument().filename()
 
         m = self._menu
         sm = QMenu(m)
