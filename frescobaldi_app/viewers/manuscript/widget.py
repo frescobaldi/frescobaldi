@@ -107,8 +107,8 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                 g.setValue("active-manuscript", (currentfile, currpos))
                 pos = []
                 for d in docs:
-                    p = self._positions.get(d, (0, 0, 0))
                     if d != self._currentDocument:
+                        p = self._positions.get(d, (0, 0, 0))
                         pos.append((d.filename(), p))
                 g.setValue("manuscripts", pos)
                 g.setValue("session-created", True)
