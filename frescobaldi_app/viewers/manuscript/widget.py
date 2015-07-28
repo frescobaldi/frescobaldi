@@ -28,7 +28,6 @@ import os
 from PyQt4.QtGui import QFileDialog
 
 import app
-import sessions
 import userguide.util
 try:
     import popplerqt4
