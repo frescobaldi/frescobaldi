@@ -54,7 +54,8 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 
     def createWidget(self):
         from . import widget
-        return super(ManuscriptViewPanel, self).configureWidget(widget.ManuscriptViewWidget(self))
+        w = widget.ManuscriptViewWidget(self)
+        return super(ManuscriptViewPanel, self).configureWidget(w)
 
     @viewers.activate
     def reloadView(self):
