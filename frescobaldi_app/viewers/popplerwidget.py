@@ -223,9 +223,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         surface.linkLeft.connect(self.slotLinkLeft)
         surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
 
-        app.sessionChanged.connect(self.slotSessionChanged)
-        app.saveSessionData.connect(self.slotSaveSessionData)
-
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
         return self.parent().mainwindow().size() / 2

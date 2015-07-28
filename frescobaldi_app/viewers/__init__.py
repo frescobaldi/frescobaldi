@@ -132,6 +132,8 @@ class AbstractViewPanel(panel.Panel):
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
+        app.sessionChanged.connect(self.slotSessionChanged)
+        app.saveSessionData.connect(self.slotSaveSessionData)
 
     def configureWidget(self, widget):
         """Takes a widget created by a child class and applies the general
@@ -189,6 +191,45 @@ class AbstractViewPanel(panel.Panel):
         self.actionCollection.music_pager.setCurrentPage(num)
         self.actionCollection.music_next_page.setEnabled(num < self._pager.pageCount())
         self.actionCollection.music_prev_page.setEnabled(num > 1)
+
+    def slotSessionChanged(self, name):
+        """Called whenever the current session is changed
+        (also on application startup or after a session is created).
+        If the session already exists load manuscripts from the
+        session object and load them in the viewer."""
+        if name:
+            import sessions
+            session = sessions.sessionGroup(name)
+            if session.contains("urls"): # the session is not new
+                files_key = "{}-files".format(self.viewerName())
+                active_file_key = "{}-active-file".format(self.viewerName())
+                ds = self.actionCollection.music_document_select
+                ds.loadManuscripts(session.value(files_key, ""),
+                    active_manuscript = session.value(active_file_key, ""),
+                    clear = True,
+                    sort = False) # may be replaced by a Preference
+
+    def slotSaveSessionData(self):
+        """Saves the filenames and positions of the open manuscripts.
+        If a file doesn't have a position (because it hasn't been moved or
+        shown) a default position is stored."""
+        import sessions
+        g = sessions.currentSessionGroup()
+        if g:
+            files_key = "{}-files".format(self.viewerName())
+            active_file_key = "{}-active-file".format(self.viewerName())
+            docs = self.actionCollection.music_document_select.documents()
+            if docs:
+                currentfile = self.widget().currentDocument().filename()
+                g.setValue(active_file_key, currentfile)
+                pos = []
+                for d in docs:
+                    p = self.widget()._positions.get(d, (0, 0, 0))
+                    pos.append((d.filename(), p))
+                g.setValue(files_key, pos)
+            else:
+                g.remove(active_file_key)
+                g.remove(files_key)
 
     @activate
     def slotNextPage(self):
