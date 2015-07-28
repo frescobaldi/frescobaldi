@@ -51,9 +51,3 @@ class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
             # remove manuscript if it can't be opened
             mds = self.actionCollection.music_document_select
             mds.removeManuscript(doc)
-
-    def slotShowDocument(self):
-        """Bring the document to front that was selected from the context menu"""
-        # TODO: Probably this has to go to the base class
-        doc_filename = self.sender().checkedAction()._document_filename
-        self.actionCollection.music_document_select.setActiveDocument(doc_filename)

@@ -47,7 +47,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         sm.setTitle(_("Show..."))
         sm.setEnabled(multi_docs)
         ag = QActionGroup(m)
-        ag.triggered.connect(self._panel.widget().slotShowDocument)
+        ag.triggered.connect(self._panel.slotShowDocument)
 
         for d in docs:
             action = QAction(sm)

@@ -369,6 +369,11 @@ class AbstractViewPanel(panel.Panel):
         ac.music_fit_both.setChecked(mode == FitBoth)
         ac.music_zoom_combo.updateZoomInfo(mode, scale)
 
+    def slotShowDocument(self):
+        """Bring the document to front that was selected from the context menu"""
+        doc_filename = self.sender().checkedAction()._document_filename
+        self.actionCollection.music_document_select.setActiveDocument(doc_filename)
+
     def _openMusicCaption(self):
         """Returns the caption for the file open dialog."""
         raise NotImplementedError('Method _openMusicCaption has to be implemented in {}'.format(self.viewerName()))
