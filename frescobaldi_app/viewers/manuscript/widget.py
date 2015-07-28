@@ -23,22 +23,11 @@ The Manuscript viewer panel widget.
 
 from __future__ import unicode_literals
 
-import os
-
-from PyQt4.QtGui import QFileDialog
-
-import app
-import userguide.util
-try:
-    import popplerqt4
-except ImportError:
-    pass
-
-import viewers
-from viewers import documents
+from viewers import popplerwidget
 from . import contextmenu
+import userguide.util
 
-class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
+class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
     def __init__(self, panel):
         """Widget holding a manuscript view."""
         super(ManuscriptViewWidget, self).__init__(panel)
