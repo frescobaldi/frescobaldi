@@ -82,37 +82,43 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         if name:
             session = sessions.sessionGroup(name)
             manuscripts = session.value("manuscripts", "")
-            active_manuscript = session.value("active-manuscript", None)
+            active_manuscript = session.value("active-manuscript", "")
             if session.contains("urls"): # the session is not new
+                docs = []
                 self.closeAllManuscripts()
                 ds = self.actionCollection.music_document_select
                 if manuscripts:
                     for m in manuscripts:
-                        doc = documents.Document(m[0])
-                        self._positions[doc] = m[1]
+                        if isinstance(m, tuple):
+                            docs.append(m)
+                            doc = documents.Document(m[0])
+                            self._positions[doc] = m[1]
+                        else:
+                            doc = documents.Document(m)
+                            self._positions[doc] = (0, 0, 0)
+                            docs.append((doc, self._positions))
                         ds.addManuscript(doc)
                 if active_manuscript:
-                    doc = documents.Document(active_manuscript[0])
-                    self._positions[doc] = active_manuscript[1]
-                    ds.addManuscript(doc)
-                    self.view._centerPos = None
+                    ds.setActiveDocument(active_manuscript)
+                self.view._centerPos = None
 
     def slotSaveSessionData(self):
+        """Saves the filenames and positions of the open manuscripts.
+        If a file doesn't have a position (because it hasn't been moved or
+        shown) a default position is stored."""
         g = sessions.currentSessionGroup()
         if g:
             docs = self.actionCollection.music_document_select.documents()
             if docs:
                 currentfile = self._currentDocument.filename()
-                currpos = self.view.position()
-                g.setValue("active-manuscript", (currentfile, currpos))
+                g.setValue("active-manuscript", currentfile)
                 pos = []
                 for d in docs:
-                    if d != self._currentDocument:
-                        p = self._positions.get(d, (0, 0, 0))
-                        pos.append((d.filename(), p))
+                    p = self._positions.get(d, (0, 0, 0))
+                    pos.append((d.filename(), p))
                 g.setValue("manuscripts", pos)
             else:
-                g.setValue("active-manuscript", False)
+                g.remove("active-manuscript")
                 g.remove("manuscripts")
 
 
@@ -145,7 +151,7 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
-            self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
+            self.actionCollection.music_document_select.loadManuscripts(filenames)
 
     def reportMissingManuscripts(self, missing):
         """Report missing manuscript files when restoring a session."""
