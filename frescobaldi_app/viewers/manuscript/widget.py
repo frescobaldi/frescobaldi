@@ -72,9 +72,11 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         if name:
             session = sessions.sessionGroup(name)
             if session.contains("urls"): # the session is not new
+                files_key = "{}-files".format(self.parent().viewerName())
+                active_file_key = "{}-active-file".format(self.parent().viewerName())
                 ds = self.actionCollection.music_document_select
-                ds.loadManuscripts(session.value("manuscripts", ""),
-                    active_manuscript = session.value("active-manuscript", ""),
+                ds.loadManuscripts(files_key, ""),
+                    active_manuscript = session.value(active_file_key, ""),
                     clear = True,
                     sort = False) # may be replaced by a Preference
 
@@ -84,18 +86,20 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         shown) a default position is stored."""
         g = sessions.currentSessionGroup()
         if g:
+            files_key = "{}-files".format(self.parent().viewerName())
+            active_file_key = "{}-active-file".format(self.parent().viewerName())
             docs = self.actionCollection.music_document_select.documents()
             if docs:
                 currentfile = self._currentDocument.filename()
-                g.setValue("active-manuscript", currentfile)
+                g.setValue(active_file_key, currentfile)
                 pos = []
                 for d in docs:
                     p = self._positions.get(d, (0, 0, 0))
                     pos.append((d.filename(), p))
-                g.setValue("manuscripts", pos)
+                g.setValue(files_key, pos)
             else:
-                g.remove("active-manuscript")
-                g.remove("manuscripts")
+                g.remove(active_file_key)
+                g.remove(files_key)
 
 
     def openManuscripts(self):
