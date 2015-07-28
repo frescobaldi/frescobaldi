@@ -220,11 +220,18 @@ class AbstractViewPanel(panel.Panel):
             active_file_key = "{}-active-file".format(self.viewerName())
             docs = self.actionCollection.music_document_select.documents()
             if docs:
-                currentfile = self.widget().currentDocument().filename()
-                g.setValue(active_file_key, currentfile)
+                current_document = self.widget().currentDocument()
+                current_file = current_document.filename()
+                g.setValue(active_file_key, current_file)
                 pos = []
                 for d in docs:
-                    p = self.widget()._positions.get(d, (0, 0, 0))
+                    if d.filename() == current_file:
+                        # retrieve the position of the current document directly
+                        # from the view because the entry in _positions may not
+                        # be set in all cases
+                        p = self.widget().view.position()
+                    else:
+                        p = self.widget()._positions.get(d, (0, 0, 0))
                     pos.append((d.filename(), p))
                 g.setValue(files_key, pos)
             else:
