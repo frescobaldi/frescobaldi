@@ -79,28 +79,18 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
             mds.removeManuscript(doc)
 
     def slotSessionChanged(self, name):
+        """Called whenever the current session is changed
+        (also on application startup or after a session is created).
+        If the session already exists load manuscripts from the
+        session object and load them in the viewer."""
         if name:
             session = sessions.sessionGroup(name)
-            manuscripts = session.value("manuscripts", "")
-            active_manuscript = session.value("active-manuscript", "")
             if session.contains("urls"): # the session is not new
-                docs = []
-                self.closeAllManuscripts()
                 ds = self.actionCollection.music_document_select
-                if manuscripts:
-                    for m in manuscripts:
-                        if isinstance(m, tuple):
-                            docs.append(m)
-                            doc = documents.Document(m[0])
-                            self._positions[doc] = m[1]
-                        else:
-                            doc = documents.Document(m)
-                            self._positions[doc] = (0, 0, 0)
-                            docs.append((doc, self._positions))
-                        ds.addManuscript(doc)
-                if active_manuscript:
-                    ds.setActiveDocument(active_manuscript)
-                self.view._centerPos = None
+                ds.loadManuscripts(session.value("manuscripts", ""),
+                    active_manuscript = session.value("active-manuscript", ""),
+                    clear = True,
+                    sort = False) # may be replaced by a Preference
 
     def slotSaveSessionData(self):
         """Saves the filenames and positions of the open manuscripts.
@@ -151,7 +141,9 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         directory = os.path.dirname(current_manuscript_document or current_editor_document or app.basedir())
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
-            self.actionCollection.music_document_select.loadManuscripts(filenames)
+            ds = self.actionCollection.music_document_select
+            ds.loadManuscripts(filenames)
+            ds.setActiveDocument(filenames[-1])
 
     def reportMissingManuscripts(self, missing):
         """Report missing manuscript files when restoring a session."""

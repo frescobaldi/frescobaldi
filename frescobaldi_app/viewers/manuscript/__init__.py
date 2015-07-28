@@ -129,21 +129,59 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         self._documents = []
         self.updateDocument()
 
-    def loadManuscripts(self, manuscripts, active_manuscript, clear = False):
+    def loadManuscripts(self, manuscripts, active_manuscript = "",
+                        clear = False, sort = False):
         """Load or add the manuscripts from a list of filenames"""
-        # make sure the active manuscript is part of the opened manuscripts
-        if active_manuscript and not active_manuscript in manuscripts:
-            manuscripts.append(active_manuscript)
 
-        # optionally clear the list of already open manuscripts
-        # (when changing sessions)
+        # When switching sessions we replace the manuscripts
+        # otherwise the loaded manuscripts are added.
         if clear:
-            self._documents = []
+            self.removeAllManuscripts()
+            self.parent().widget().clear()
+
+        # process manuscripts, adding fallback position if required.
+        # load manuscript or add to list of missing filenames
+        missing = []
+        for m in manuscripts:
+            if isinstance(m, tuple):
+                file = m[0]
+                position = m[1]
+            else:
+                file = m
+                position = (0, 0, 0)
+            if os.path.isfile(file):
+                doc = documents.Document(file)
+                self._documents.append(doc)
+                self.parent().widget()._positions[doc] = position
+            else:
+                missing.append(file)
+
+        # bring active document to front
+        # (will automatically 'pass' if empty)
+        self.setActiveDocument(active_manuscript)
+
+        # Hack to suppress the resize event that
+        # clears the position of the current document
+        self.parent().widget().view._centerPos = None
+
+        if sort:
+            self.sortManuscripts()
+        else:
+            self.updateDocument()
+
+        # report missing docs
+        if missing:
+            self.documentsMissing.emit(missing)
+
+    def sortManuscripts(self):
+        """sort the open manuscripts alphabetically."""
+        # This is completly dysfunctional. I just copied it
+        # over from loadManuscripts().
 
         # build a list of manuscript files taking the existing list
         # and adding the to-be-opened ones. Check for duplicates.
         msfiles = [d.filename() for d in self._documents]
-        for m in manuscripts:
+        for m in in_names:
             if not m in msfiles:
                 msfiles.append(m)
 
@@ -152,38 +190,40 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         msnames = []
         for f in msfiles:
             name = os.path.basename(f)
-            if name in name_dict:
+            if name in name_dict: # handle duplicate filenames
                 name_dict[name].append(f)
             else:
                 name_dict[name] = [f]
                 msnames.append(name)
+        # sorted list of unique filenames.
+        # a filename *may* refer to several files in different directories
         msnames = sorted(msnames)
 
         # iterate over manuscript names (and potential duplicates)
-        # and build new documents list.
+        # and build new documents list. This ensures that the documents are
+        # sorted by their file name (ignoring directory names).
         # Take existing Document objects if available
         docs = []
         missing = []
         for n in msnames:
             for f in name_dict[n]:
                 index = msfiles.index(f)
-                if index >= len(self._documents):
+                if index >= len(self._documents): # no document object yet
                     if os.path.isfile(f):
-                        docs.append(documents.Document(f))
+                        doc = documents.Document(f)
+                        docs.append(doc)
+                        self._positions[doc] = manuscripts[msfiles.index(f)][1]
+                        print "position:",self._positions[doc]
                     else:
                         missing.append(f)
                 else:
                     docs.append(self._documents[index])
-                if f == active_manuscript:
+                if f == active_manuscript_filename:
                     self._currentIndex = len(docs) - 1
 
         # apply results
         self._documents = docs
         self.updateDocument()
-
-        # report missing docs
-        if missing:
-            self.documentsMissing.emit(missing)
 
     def addManuscript(self, document):
         """Add a manuscript to our chooser."""
