@@ -108,7 +108,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         t = self._toolbar
         ac = self.actionCollection
         t.addAction(ac.music_open)
-        t.addAction(ac.manuscript_close)
+        t.addAction(ac.music_close)
 
     def _tbAddDocumentChooserAction(self):
         """Add the document chooser to the toolbar."""

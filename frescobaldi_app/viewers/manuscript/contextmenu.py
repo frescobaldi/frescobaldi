@@ -76,12 +76,12 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
             sm = QMenu(m)
             sm.setTitle(_("Close..."))
             m.addMenu(sm)
-            sm.addAction(ac.manuscript_close)
+            sm.addAction(ac.music_close)
             multi_docs = len(docs) > 1
-            ac.manuscript_close_other.setEnabled(multi_docs)
-            ac.manuscript_close_all.setEnabled(multi_docs)
-            sm.addAction(ac.manuscript_close_other)
-            sm.addAction(ac.manuscript_close_all)
+            ac.music_close_other.setEnabled(multi_docs)
+            ac.music_close_all.setEnabled(multi_docs)
+            sm.addAction(ac.music_close_other)
+            sm.addAction(ac.music_close_all)
 
     def addReloadAction(self):
         """Add action to reload document."""

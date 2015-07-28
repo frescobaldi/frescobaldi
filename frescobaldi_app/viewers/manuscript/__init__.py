@@ -77,10 +77,6 @@ class ManuscriptActions(viewers.Actions):
         # overridden actions
         self.music_document_select = ManuscriptDocumentChooserAction(parent)
         # new actions
-        self.music_open = QAction(parent)
-        self.music_open.setIcon(icons.get('document-open'))
-        self.manuscript_close = QAction(parent)
-        self.manuscript_close.setIcon(icons.get('document-close'))
         self.manuscript_close_other = QAction(parent)
         # don't set an icon? self.manuscript_close_other.setIcon(icons.get())
         self.manuscript_close_all = QAction(parent)
@@ -91,10 +87,10 @@ class ManuscriptActions(viewers.Actions):
         self.music_document_select.setText(_("Select Manuscript Document"))
         self.music_open.setText(_("Open manuscript(s)"))
         self.music_open.setIconText(_("Open"))
-        self.manuscript_close.setText(_("Close manuscript"))
-        self.manuscript_close.setIconText(_("Close"))
-        self.manuscript_close_other.setText(_("Close other manuscripts"))
-        self.manuscript_close_all.setText(_("Close all manuscripts"))
+        self.music_close.setText(_("Close manuscript"))
+        self.music_close.setIconText(_("Close"))
+        self.music_close_other.setText(_("Close other manuscripts"))
+        self.music_close_all.setText(_("Close all manuscripts"))
 
     def title(self):
         return _("Manuscript")

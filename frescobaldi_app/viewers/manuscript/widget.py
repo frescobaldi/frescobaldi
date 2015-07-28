@@ -59,9 +59,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
         # (maybe also to the panel) and renamed to be harmonized with
         # the music_NN actions.
         # This method override can then be removed.
-        ac.manuscript_close.triggered.connect(self.closeManuscript)
-        ac.manuscript_close_other.triggered.connect(self.closeOtherManuscripts)
-        ac.manuscript_close_all.triggered.connect(self.closeAllManuscripts)
         ac.music_document_select.documentsMissing.connect(self.reportMissingManuscripts)
 
     def createContextMenu(self):
@@ -110,24 +107,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
                 g.remove("active-manuscript")
                 g.remove("manuscripts")
 
-
-    def closeManuscript(self):
-        """ Close current manuscript. """
-        mds = self.actionCollection.music_document_select
-        mds.removeManuscript(self._currentDocument)
-        if len(mds.documents()) == 0:
-            self.clear()
-
-    def closeOtherManuscripts(self):
-        """Close all manuscripts except the one currently opened"""
-        mds = self.actionCollection.music_document_select
-        mds.removeOtherManuscripts(self._currentDocument)
-
-    def closeAllManuscripts(self):
-        """Close all opened manuscripts"""
-        mds = self.actionCollection.music_document_select
-        mds.removeAllManuscripts()
-        self.clear()
 
     def openManuscripts(self):
         """ Displays an open dialog to open a manuscript PDF. """

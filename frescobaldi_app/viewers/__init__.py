@@ -118,6 +118,9 @@ class AbstractViewPanel(panel.Panel):
         # File handling actions
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_open.triggered.connect(self.openMusic)
+        ac.music_close.triggered.connect(self.closeMusic)
+        ac.music_close_other.triggered.connect(self.closeOtherMusicDocuments)
+        ac.music_close_all.triggered.connect(self.closeAllMusicDocuments)
         ac.music_reload.triggered.connect(self.reloadView)
         # Navigation actions
         ac.music_next_page.triggered.connect(self.slotNextPage)
@@ -332,6 +335,24 @@ class AbstractViewPanel(panel.Panel):
             # TODO: This has to be generalized too
             self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
 
+    def closeMusic(self):
+        """ Close current music document. """
+        mds = self.actionCollection.music_document_select
+        mds.removeManuscript(self.widget().currentDocument())
+        if len(mds.documents()) == 0:
+            self.widget().clear()
+
+    def closeOtherMusicDocuments(self):
+        """Close all music documents except the one currently opened"""
+        mds = self.actionCollection.music_document_select
+        mds.removeOtherManuscripts(self.widget().currentDocument())
+
+    def closeAllMusicDocuments(self):
+        """Close all opened music documents"""
+        mds = self.actionCollection.music_document_select
+        mds.removeAllManuscripts()
+        self.widget().clear()
+
 
 class Actions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
@@ -358,6 +379,10 @@ class Actions(actioncollection.ActionCollection):
         self.music_prev_page = QAction(panel)
         self.music_reload = QAction(panel)
         self.viewer_show_toolbar = QAction(panel, checkable=True)
+        self.music_open = QAction(panel)
+        self.music_close = QAction(panel)
+        self.music_close_other = QAction(panel)
+        self.music_close_all = QAction(panel)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_zoom_in.setIcon(icons.get('zoom-in'))
@@ -372,6 +397,10 @@ class Actions(actioncollection.ActionCollection):
         self.music_next_page.setIcon(icons.get('go-next'))
         self.music_prev_page.setIcon(icons.get('go-previous'))
         self.music_reload.setIcon(icons.get('reload'))
+        self.music_open.setIcon(icons.get('document-open'))
+        self.music_close.setIcon(icons.get('document-close'))
+        self.music_close_other.setText(_("Close other documents"))
+        self.music_close_all.setText(_("Close all documents"))
 
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
@@ -398,6 +427,9 @@ class Actions(actioncollection.ActionCollection):
         self.music_reload.setText(_("&Reload"))
         self.viewer_show_toolbar.setText(_("Show toolbar"))
         self.music_open.setText(_("Open music document(s)"))
+        self.music_open.setIconText(_("Open"))
+        self.music_close.setText(_("Close document"))
+        self.music_close.setIconText(_("Close"))
 
 
 class ComboBoxAction(QWidgetAction):
