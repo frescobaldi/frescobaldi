@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtGui import QFileDialog, QMessageBox
+from PyQt4.QtGui import QFileDialog
 
 import app
 import sessions
@@ -50,16 +50,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
             "one is copying from.</p>\n"
             "<p>See {link} for more information.</p>").format(link=
                 userguide.util.format_link(self.parent().viewerName())))
-
-    def connectSlots(self):
-        super(ManuscriptViewWidget, self).connectSlots()
-        ac = self.actionCollection
-
-        # TODO: These actions have to be moved to the base class
-        # (maybe also to the panel) and renamed to be harmonized with
-        # the music_NN actions.
-        # This method override can then be removed.
-        ac.music_document_select.documentsMissing.connect(self.reportMissingManuscripts)
 
     def createContextMenu(self):
         """Creates the context menu."""
@@ -122,13 +112,6 @@ class ManuscriptViewWidget(viewers.popplerwidget.AbstractPopplerWidget):
             ds = self.actionCollection.music_document_select
             ds.loadManuscripts(filenames)
             ds.setActiveDocument(filenames[-1])
-
-    def reportMissingManuscripts(self, missing):
-        """Report missing manuscript files when restoring a session."""
-        report_msg = (_('The following file/s are/is missing and could not be loaded ' +
-                     'when restoring a session:\n\n'))
-        QMessageBox.warning(self, (_("Missing manuscript files")),
-                                    report_msg + '\n'.join(missing))
 
     def slotShowDocument(self):
         """Bring the document to front that was selected from the context menu"""

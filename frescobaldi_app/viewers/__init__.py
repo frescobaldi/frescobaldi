@@ -37,7 +37,8 @@ import weakref
 from PyQt4.QtCore import QTimer, Qt, pyqtSignal, QSettings
 from PyQt4.QtGui import (
     QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
-    QKeySequence, QPalette, QSpinBox, QWidgetAction, QFileDialog)
+    QKeySequence, QPalette, QSpinBox, QWidgetAction, QFileDialog,
+    QMessageBox)
 
 import app
 import actioncollection
@@ -122,6 +123,7 @@ class AbstractViewPanel(panel.Panel):
         ac.music_close_other.triggered.connect(self.closeOtherMusicDocuments)
         ac.music_close_all.triggered.connect(self.closeAllMusicDocuments)
         ac.music_reload.triggered.connect(self.reloadView)
+        ac.music_document_select.documentsMissing.connect(self.reportMissingMusicDocuments)
         # Navigation actions
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
@@ -352,6 +354,13 @@ class AbstractViewPanel(panel.Panel):
         mds = self.actionCollection.music_document_select
         mds.removeAllManuscripts()
         self.widget().clear()
+
+    def reportMissingMusicDocuments(self, missing):
+        """Report missing document files when restoring a session."""
+        report_msg = (_('The following file/s are/is missing and could not be loaded ' +
+                     'when restoring a session:\n\n'))
+        QMessageBox.warning(self, (_("Missing manuscript files")),
+                                    report_msg + '\n'.join(missing))
 
 
 class Actions(actioncollection.ActionCollection):
