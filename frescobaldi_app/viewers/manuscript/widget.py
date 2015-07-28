@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtGui import QFileDialog
+from PyQt4.QtGui import QFileDialog, QMessageBox
 
 import app
 import sessions
