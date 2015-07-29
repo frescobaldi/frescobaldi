@@ -52,10 +52,14 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         self.setWindowTitle(_("Manuscript"))
         self.toggleViewAction().setText(_("Manuscript Viewer"))
 
-    def createConcreteWidget(self):
+    def _createConcreteWidget(self):
         """Create the widget for the panel"""
         from . import widget
         return widget.ManuscriptViewWidget(self)
+
+    def _openMusicCaption(self):
+        """Returns the caption for the file open dialog."""
+        return app.caption(_("dialog title", "Open Manuscript(s)"))
 
     @viewers.activate
     def reloadView(self):
@@ -64,10 +68,6 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
             reread = documents.Document(active_manuscript.filename())
             mds = self.actionCollection.music_document_select
             mds.replaceManuscript(active_manuscript, reread)
-
-    def _openMusicCaption(self):
-        """Returns the caption for the file open dialog."""
-        return app.caption(_("dialog title", "Open Manuscript(s)"))
 
 
 class ManuscriptActions(viewers.Actions):
