@@ -130,6 +130,16 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         self._documents = []
         self.updateDocument()
 
+    def documentFiles(self):
+        """Return a list with the filenames of all documents."""
+        # TODO: Consider if it makes sense to cache that.
+        # May be useless because *then* you'd have to add a slot to
+        # update whenever _documents is changed.
+        result = []
+        for d in self._documents:
+            result.append(d.filename())
+        return result
+
     def loadManuscripts(self, manuscripts, active_manuscript = "",
                         clear = False, sort = False):
         """Load or add the manuscripts from a list of filenames"""
@@ -150,12 +160,13 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
             else:
                 file = m
                 position = (0, 0, 0)
-            if os.path.isfile(file):
-                doc = documents.Document(file)
-                self._documents.append(doc)
-                self.parent().widget()._positions[doc] = position
-            else:
-                missing.append(file)
+            if not file in self.documentFiles():
+                if os.path.isfile(file):
+                    doc = documents.Document(file)
+                    self._documents.append(doc)
+                    self.parent().widget()._positions[doc] = position
+                else:
+                    missing.append(file)
 
         # bring active document to front
         # (will automatically 'pass' if empty)
