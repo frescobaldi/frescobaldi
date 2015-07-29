@@ -44,13 +44,16 @@ from viewers import documents
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
     """Manuscript Viewer Tool."""
     def __init__(self, mainwindow):
-        super(ManuscriptViewPanel, self).__init__(mainwindow, ManuscriptActions)
+        super(ManuscriptViewPanel, self).__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+A"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
 
     def translateUI(self):
         self.setWindowTitle(_("Manuscript"))
         self.toggleViewAction().setText(_("Manuscript Viewer"))
+
+    def _createConcreteActions(self, panel):
+        return ManuscriptActions(self)
 
     def _createConcreteWidget(self):
         """Create the widget for the panel"""
@@ -72,6 +75,9 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 
 class ManuscriptActions(viewers.Actions):
     name = "manuscript"
+
+    def __init__(self, panel):
+        super(ManuscriptActions, self).__init__(panel)
 
     def _createDocumentChooserAction(self, panel):
         """Create the concrete DocumentChooserAction."""

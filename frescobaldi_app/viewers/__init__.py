@@ -78,10 +78,10 @@ def activate(func):
 
 class AbstractViewPanel(panel.Panel):
     """Abstract base class for several viewer panels"""
-    def __init__(self, mainwindow, actionClass):
+    def __init__(self, mainwindow):
         super(AbstractViewPanel, self).__init__(mainwindow)
         self.hide()
-        ac = self.actionCollection = actionClass(self)
+        ac = self.actionCollection = self._createConcreteActions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         self.slotPageCountChanged(0)
         self.configureActions()
@@ -134,6 +134,11 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
+
+    def _createConreteActions(self):
+        """Create the actionCollection.
+        Subclasses must override this method."""
+        raise NotImplementedError()
 
     def _createConcreteWidget(self):
         """Create the Widget for the panel. Subclasses should override
