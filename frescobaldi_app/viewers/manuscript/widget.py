@@ -43,11 +43,3 @@ class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
         """Creates the context menu."""
         self._contextMenu = contextmenu.ManuscriptViewerContextMenu(self.parent())
 
-    def openDocument(self, doc):
-        """Opens a documents.Document instance."""
-        try:
-            super(ManuscriptViewWidget, self).openDocument(doc)
-        except OSError:
-            # remove manuscript if it can't be opened
-            mds = self.actionCollection.music_document_select
-            mds.removeManuscript(doc)

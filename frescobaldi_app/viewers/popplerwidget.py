@@ -241,14 +241,19 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
-        self.clear()
-        self._currentDocument = doc
-        document = doc.document()
-        if document:
-            self._links = pointandclick.links(document)
-            self.view.load(document)
-            position = self._positions.get(doc, (0, 0, 0))
-            self.view.setPosition(position, True)
+        try:
+            self.clear()
+            self._currentDocument = doc
+            document = doc.document()
+            if document:
+                self._links = pointandclick.links(document)
+                self.view.load(document)
+                position = self._positions.get(doc, (0, 0, 0))
+                self.view.setPosition(position, True)
+        except OSError:
+            # remove manuscript if it can't be opened
+            mds = self.actionCollection.music_document_select
+            mds.removeManuscript(doc)
 
     def clear(self):
         """Empties the view."""
