@@ -52,10 +52,10 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         self.setWindowTitle(_("Manuscript"))
         self.toggleViewAction().setText(_("Manuscript Viewer"))
 
-    def createWidget(self):
+    def createConcreteWidget(self):
+        """Create the widget for the panel"""
         from . import widget
-        w = widget.ManuscriptViewWidget(self)
-        return super(ManuscriptViewPanel, self).configureWidget(w)
+        return widget.ManuscriptViewWidget(self)
 
     @viewers.activate
     def reloadView(self):

@@ -135,13 +135,15 @@ class AbstractViewPanel(panel.Panel):
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
 
-    def configureWidget(self, widget):
-        """Takes a widget created by a child class and applies the general
-        operations of the base class to it, mainly connecting slots."""
+    def createConcreteWidget(self):
+        """Create the Widget for the panel. Subclasses should override
+        this to instantiatethe appropriate class."""
+        raise NotImplementedError()
 
-        # The child class must override createWidget() and "pipe" the
-        # created widget through this method in the base class.
-        w = widget
+    def createWidget(self):
+        """Creates and configures the widget for the panel."""
+
+        w = self.createConcreteWidget()
 
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
