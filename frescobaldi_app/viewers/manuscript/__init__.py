@@ -76,9 +76,6 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 class ManuscriptActions(viewers.Actions):
     name = "manuscript"
 
-    def __init__(self, panel):
-        super(ManuscriptActions, self).__init__(panel)
-
     def _createDocumentChooserAction(self, panel):
         """Create the concrete DocumentChooserAction."""
         return ManuscriptDocumentChooserAction(panel)
