@@ -77,11 +77,6 @@ class ManuscriptActions(viewers.Actions):
         super(ManuscriptActions, self).createActions(parent)
         # overridden actions
         self.music_document_select = ManuscriptDocumentChooserAction(parent)
-        # new actions
-        self.manuscript_close_other = QAction(parent)
-        # don't set an icon? self.manuscript_close_other.setIcon(icons.get())
-        self.manuscript_close_all = QAction(parent)
-        # don't set an icon?
 
     def translateUI(self):
         super(ManuscriptActions, self).translateUI()
