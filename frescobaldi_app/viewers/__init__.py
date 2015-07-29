@@ -180,6 +180,10 @@ class AbstractViewPanel(panel.Panel):
         result = result if not result.endswith('panel') else result[:-5]
         return result
 
+    def viewerPanelDisplayName(self):
+        """Returns the 'display name' of the current viewer."""
+        return self.toggleViewAction().text()
+
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
 
@@ -414,7 +418,7 @@ class AbstractViewPanel(panel.Panel):
         """Report missing document files when restoring a session."""
         report_msg = (_('The following file/s are/is missing and could not be loaded ' +
                      'when restoring a session:\n\n'))
-        QMessageBox.warning(self, (_("Missing manuscript files")),
+        QMessageBox.warning(self, (_("Missing files in {}".format(self.viewerPanelDisplayName()))),
                                     report_msg + '\n'.join(missing))
 
 
