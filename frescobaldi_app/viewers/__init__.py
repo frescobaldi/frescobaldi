@@ -645,6 +645,19 @@ class DocumentChooserAction(ComboBoxAction):
         if self._documents:
             return self._documents[self._currentIndex]
 
+    def removeManuscript(self, document):
+        if document:
+            self._documents.remove(document)
+            self.updateDocument()
+
+    def removeOtherManuscripts(self, document):
+        self._documents = [document]
+        self.updateDocument()
+
+    def removeAllManuscripts(self):
+        self._documents = []
+        self.updateDocument()
+
 
 class DocumentChooser(QComboBox):
     def __init__(self, parent):

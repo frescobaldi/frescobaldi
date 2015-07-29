@@ -114,19 +114,6 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         # for now do nothing
         pass
 
-    def removeManuscript(self, document):
-        if document:
-            self._documents.remove(document)
-            self.updateDocument()
-
-    def removeOtherManuscripts(self, document):
-        self._documents = [document]
-        self.updateDocument()
-
-    def removeAllManuscripts(self):
-        self._documents = []
-        self.updateDocument()
-
     def documentFiles(self):
         """Return a list with the filenames of all documents."""
         # TODO: Consider if it makes sense to cache that.
