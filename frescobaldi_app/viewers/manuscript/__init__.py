@@ -73,10 +73,9 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 class ManuscriptActions(viewers.Actions):
     name = "manuscript"
 
-    def createActions(self, parent=None):
-        super(ManuscriptActions, self).createActions(parent)
-        # overridden actions
-        self.music_document_select = ManuscriptDocumentChooserAction(parent)
+    def _createDocumentChooserAction(self, panel):
+        """Create the concrete DocumentChooserAction."""
+        return ManuscriptDocumentChooserAction(panel)
 
     def translateUI(self):
         super(ManuscriptActions, self).translateUI()

@@ -425,7 +425,7 @@ class AbstractViewPanel(panel.Panel):
 class Actions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
-        self.music_document_select = DocumentChooserAction(panel)
+        self.music_document_select = self._createDocumentChooserAction(panel)
         self.music_print = QAction(panel)
         self.music_zoom_in = QAction(panel)
         self.music_zoom_out = QAction(panel)
@@ -499,6 +499,10 @@ class Actions(actioncollection.ActionCollection):
         self.music_close.setText(_("Close document"))
         self.music_close.setIconText(_("Close"))
 
+    def _createDocumentChooserAction(self, panel):
+        """Create the document chooser action.
+        Subclasses must override this."""
+        raise NotImplementedError()
 
 class ComboBoxAction(QWidgetAction):
     """A widget action that opens a combobox widget popup when triggered."""
