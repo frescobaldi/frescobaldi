@@ -187,54 +187,8 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
 
     def sortManuscripts(self):
         """sort the open manuscripts alphabetically."""
-        # This is completly dysfunctional. I just copied it
-        # over from loadManuscripts().
-
-        # build a list of manuscript files taking the existing list
-        # and adding the to-be-opened ones. Check for duplicates.
-        msfiles = [d.filename() for d in self._documents]
-        for m in in_names:
-            if not m in msfiles:
-                msfiles.append(m)
-
-        # create a dict structure to sort and access all files
-        name_dict = {}
-        msnames = []
-        for f in msfiles:
-            name = os.path.basename(f)
-            if name in name_dict: # handle duplicate filenames
-                name_dict[name].append(f)
-            else:
-                name_dict[name] = [f]
-                msnames.append(name)
-        # sorted list of unique filenames.
-        # a filename *may* refer to several files in different directories
-        msnames = sorted(msnames)
-
-        # iterate over manuscript names (and potential duplicates)
-        # and build new documents list. This ensures that the documents are
-        # sorted by their file name (ignoring directory names).
-        # Take existing Document objects if available
-        docs = []
-        missing = []
-        for n in msnames:
-            for f in name_dict[n]:
-                index = msfiles.index(f)
-                if index >= len(self._documents): # no document object yet
-                    if os.path.isfile(f):
-                        doc = documents.Document(f)
-                        docs.append(doc)
-                        self._positions[doc] = manuscripts[msfiles.index(f)][1]
-                        print "position:",self._positions[doc]
-                    else:
-                        missing.append(f)
-                else:
-                    docs.append(self._documents[index])
-                if f == active_manuscript_filename:
-                    self._currentIndex = len(docs) - 1
-
-        # apply results
-        self._documents = docs
+        self._documents = sorted(self._documents,
+                            key= lambda d: os.path.basename(d.filename()))
         self.updateDocument()
 
     def addManuscript(self, document):
