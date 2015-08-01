@@ -154,26 +154,28 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
 
         # bring active document to front
         # (will automatically 'pass' if empty)
-        self.setActiveDocument(active_manuscript)
+        self.setActiveDocument(active_manuscript, update = False)
 
         # Hack to suppress the resize event that
         # clears the position of the current document
         self.parent().widget().view._centerPos = None
 
         if sort:
-            self.sortManuscripts()
-        else:
-            self.updateDocument()
+            self.sortManuscripts(update = False)
+
+        # finally: load documents
+        self.updateDocument()
 
         # report missing docs
         if missing:
             self.documentsMissing.emit(missing)
 
-    def sortManuscripts(self):
+    def sortManuscripts(self, update = True):
         """sort the open manuscripts alphabetically."""
         self._documents = sorted(self._documents,
                             key= lambda d: os.path.basename(d.filename()))
-        self.updateDocument()
+        if update:
+            self.updateDocument()
 
     def addManuscript(self, document):
         """Add a manuscript to our chooser."""
@@ -191,9 +193,10 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
             # no replacement possible because the original doc isn't found
             pass
 
-    def setActiveDocument(self, filename):
+    def setActiveDocument(self, filename, update = True):
         """Activate the given document if it's in the list of documents"""
         filenames = [d.filename() for d in self._documents]
         if filename in filenames:
             self._currentIndex = filenames.index(filename)
-            self.updateDocument()
+            if update:
+                self.updateDocument()
