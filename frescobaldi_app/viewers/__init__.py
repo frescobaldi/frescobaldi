@@ -219,7 +219,7 @@ class AbstractViewPanel(panel.Panel):
                 files_key = "{}-files".format(self.viewerName())
                 active_file_key = "{}-active-file".format(self.viewerName())
                 ds = self.actionCollection.viewer_document_select
-                ds.loadManuscripts(session.value(files_key, ""),
+                ds.openViewdocs(session.value(files_key, ""),
                     active_viewdoc = session.value(active_file_key, ""),
                     clear = True,
                     sort = False) # may be replaced by a Preference
@@ -403,7 +403,7 @@ class AbstractViewPanel(panel.Panel):
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
             # TODO: This has to be generalized too
-            self.actionCollection.viewer_document_select.loadManuscripts(filenames, filenames[-1])
+            self.actionCollection.viewer_document_select.openViewdocs(filenames, filenames[-1])
 
     def closeMusic(self):
         """ Close current music document. """
@@ -662,20 +662,20 @@ class DocumentChooserAction(ComboBoxAction):
         self._documents = []
         self.updateDocument()
 
-    def loadManuscripts(self, manuscripts, active_viewdoc = "",
+    def openViewdocs(self, viewdocs, active_viewdoc = "",
                         clear = False, sort = False):
-        """Load or add the manuscripts from a list of filenames"""
+        """Load or add the viewer documents from a list of filenames"""
 
-        # When switching sessions we replace the manuscripts
-        # otherwise the loaded manuscripts are added.
+        # When switching sessions we replace the viewer documents
+        # otherwise the loaded viewer documents are added.
         if clear:
             self.removeAllManuscripts()
             self.parent().widget().clear()
 
-        # process manuscripts, adding fallback position if required.
-        # load manuscript or add to list of missing filenames
+        # process viewer documents, adding fallback position if required.
+        # load viewer documents or add to list of missing filenames
         missing = []
-        for m in manuscripts:
+        for m in viewdocs:
             if isinstance(m, tuple):
                 file = m[0]
                 position = m[1]
@@ -699,7 +699,7 @@ class DocumentChooserAction(ComboBoxAction):
         self.parent().widget().view._centerPos = None
 
         if sort:
-            self.sortManuscripts(update = False)
+            self.sortViewdocs(update = False)
 
         # finally: load documents
         self.updateDocument()
@@ -708,7 +708,7 @@ class DocumentChooserAction(ComboBoxAction):
         if missing:
             self.documentsMissing.emit(missing)
 
-    def sortManuscripts(self, update = True):
+    def sortViewdocs(self, update = True):
         """sort the open manuscripts alphabetically."""
         self._documents = sorted(self._documents,
                             key= lambda d: os.path.basename(d.filename()))
