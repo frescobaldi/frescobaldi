@@ -150,7 +150,7 @@ class AbstractViewPanel(panel.Panel):
 
         w = self._createConcreteWidget()
 
-        w.zoomChanged.connect(self.slotMusicZoomChanged)
+        w.zoomChanged.connect(self.slotViewerZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
         w.view.surface().pageLayout().setPagesPerRow(1)   # default to single
@@ -372,7 +372,7 @@ class AbstractViewPanel(panel.Panel):
         else:
             self.widget().view.setViewMode(mode)
 
-    def slotMusicZoomChanged(self, mode, scale):
+    def slotViewerZoomChanged(self, mode, scale):
         """Called when the music view is changed, updates the toolbar actions."""
         ac = self.actionCollection
         ac.viewer_fit_width.setChecked(mode == FitWidth)
