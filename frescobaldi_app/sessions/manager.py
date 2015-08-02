@@ -68,7 +68,7 @@ class SessionManager(plugin.MainWindowPlugin):
         if name:
             sessions.setCurrentSession(name)
             self.saveCurrentSession()
-
+    
     def saveSession(self):
         if not sessions.currentSession():
             return self.newSession()
