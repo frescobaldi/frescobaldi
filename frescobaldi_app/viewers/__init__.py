@@ -220,7 +220,7 @@ class AbstractViewPanel(panel.Panel):
                 active_file_key = "{}-active-file".format(self.viewerName())
                 ds = self.actionCollection.viewer_document_select
                 ds.loadManuscripts(session.value(files_key, ""),
-                    active_manuscript = session.value(active_file_key, ""),
+                    active_viewdoc = session.value(active_file_key, ""),
                     clear = True,
                     sort = False) # may be replaced by a Preference
 
@@ -661,6 +661,59 @@ class DocumentChooserAction(ComboBoxAction):
     def removeAllManuscripts(self):
         self._documents = []
         self.updateDocument()
+
+    def loadManuscripts(self, manuscripts, active_viewdoc = "",
+                        clear = False, sort = False):
+        """Load or add the manuscripts from a list of filenames"""
+
+        # When switching sessions we replace the manuscripts
+        # otherwise the loaded manuscripts are added.
+        if clear:
+            self.removeAllManuscripts()
+            self.parent().widget().clear()
+
+        # process manuscripts, adding fallback position if required.
+        # load manuscript or add to list of missing filenames
+        missing = []
+        for m in manuscripts:
+            if isinstance(m, tuple):
+                file = m[0]
+                position = m[1]
+            else:
+                file = m
+                position = (0, 0, 0)
+            if not file in self.documentFiles():
+                if os.path.isfile(file):
+                    doc = documents.Document(file)
+                    self._documents.append(doc)
+                    self.parent().widget()._positions[doc] = position
+                else:
+                    missing.append(file)
+
+        # bring active document to front
+        # (will automatically 'pass' if empty)
+        self.setActiveDocument(active_viewdoc, update = False)
+
+        # Hack to suppress the resize event that
+        # clears the position of the current document
+        self.parent().widget().view._centerPos = None
+
+        if sort:
+            self.sortManuscripts(update = False)
+
+        # finally: load documents
+        self.updateDocument()
+
+        # report missing docs
+        if missing:
+            self.documentsMissing.emit(missing)
+
+    def sortManuscripts(self, update = True):
+        """sort the open manuscripts alphabetically."""
+        self._documents = sorted(self._documents,
+                            key= lambda d: os.path.basename(d.filename()))
+        if update:
+            self.updateDocument()
 
 
 class DocumentChooser(QComboBox):
