@@ -408,14 +408,14 @@ class AbstractViewPanel(panel.Panel):
     def closeMusic(self):
         """ Close current music document. """
         mds = self.actionCollection.viewer_document_select
-        mds.removeManuscript(self.widget().currentDocument())
+        mds.removeViewdoc(self.widget().currentDocument())
         if len(mds.documents()) == 0:
             self.widget().clear()
 
     def closeOtherMusicDocuments(self):
         """Close all music documents except the one currently opened"""
         mds = self.actionCollection.viewer_document_select
-        mds.removeOtherManuscripts(self.widget().currentDocument())
+        mds.removeOtherViewdocs(self.widget().currentDocument())
 
     def closeAllMusicDocuments(self):
         """Close all opened music documents"""
@@ -649,12 +649,12 @@ class DocumentChooserAction(ComboBoxAction):
         if self._documents:
             return self._documents[self._currentIndex]
 
-    def removeManuscript(self, document):
+    def removeViewdoc(self, document):
         if document:
             self._documents.remove(document)
             self.updateDocument()
 
-    def removeOtherManuscripts(self, document):
+    def removeOtherViewdocs(self, document):
         self._documents = [document]
         self.updateDocument()
 
