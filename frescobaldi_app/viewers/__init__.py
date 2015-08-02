@@ -89,48 +89,48 @@ class AbstractViewPanel(panel.Panel):
 
     def configureActions(self):
         ac = self.actionCollection
-        ac.music_copy_image.setEnabled(False)
-        ac.music_next_page.setEnabled(False)
-        ac.music_prev_page.setEnabled(False)
-        ac.music_single_pages.setChecked(True) # default to single pages
-        ac.music_sync_cursor.setChecked(False)
+        ac.viewer_copy_image.setEnabled(False)
+        ac.viewer_next_page.setEnabled(False)
+        ac.viewer_prev_page.setEnabled(False)
+        ac.viewer_single_pages.setChecked(True) # default to single pages
+        ac.viewer_sync_cursor.setChecked(False)
         sync_cursor = QSettings().value("{}/sync-cursor".format(self.viewerName()), False, bool)
-        ac.music_sync_cursor.setChecked(sync_cursor)
+        ac.viewer_sync_cursor.setChecked(sync_cursor)
         show_toolbar = QSettings().value("{}/show-toolbar".format(self.viewerName()), True, bool)
         ac.viewer_show_toolbar.setChecked(show_toolbar)
         self.slotShowToolbar()
 
     def connectActions(self):
         ac = self.actionCollection
-        ac.music_print.triggered.connect(self.printMusic)
+        ac.viewer_print.triggered.connect(self.printMusic)
         # Zooming actions
-        ac.music_zoom_in.triggered.connect(self.zoomIn)
-        ac.music_zoom_out.triggered.connect(self.zoomOut)
-        ac.music_zoom_original.triggered.connect(self.zoomOriginal)
-        ac.music_zoom_combo.zoomChanged.connect(self.slotZoomChanged)
-        ac.music_fit_width.triggered.connect(self.fitWidth)
-        ac.music_fit_height.triggered.connect(self.fitHeight)
-        ac.music_fit_both.triggered.connect(self.fitBoth)
+        ac.viewer_zoom_in.triggered.connect(self.zoomIn)
+        ac.viewer_zoom_out.triggered.connect(self.zoomOut)
+        ac.viewer_zoom_original.triggered.connect(self.zoomOriginal)
+        ac.viewer_zoom_combo.zoomChanged.connect(self.slotZoomChanged)
+        ac.viewer_fit_width.triggered.connect(self.fitWidth)
+        ac.viewer_fit_height.triggered.connect(self.fitHeight)
+        ac.viewer_fit_both.triggered.connect(self.fitBoth)
         # Page display actions
-        ac.music_single_pages.triggered.connect(self.viewSinglePages)
-        ac.music_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
-        ac.music_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
-        ac.music_maximize.triggered.connect(self.maximize)
+        ac.viewer_single_pages.triggered.connect(self.viewSinglePages)
+        ac.viewer_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
+        ac.viewer_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
+        ac.viewer_maximize.triggered.connect(self.maximize)
         # File handling actions
-        ac.music_document_select.documentsChanged.connect(self.updateActions)
-        ac.music_open.triggered.connect(self.openMusic)
-        ac.music_close.triggered.connect(self.closeMusic)
-        ac.music_close_other.triggered.connect(self.closeOtherMusicDocuments)
-        ac.music_close_all.triggered.connect(self.closeAllMusicDocuments)
-        ac.music_reload.triggered.connect(self.reloadView)
-        ac.music_document_select.documentsMissing.connect(self.reportMissingMusicDocuments)
+        ac.viewer_document_select.documentsChanged.connect(self.updateActions)
+        ac.viewer_open.triggered.connect(self.openMusic)
+        ac.viewer_close.triggered.connect(self.closeMusic)
+        ac.viewer_close_other.triggered.connect(self.closeOtherMusicDocuments)
+        ac.viewer_close_all.triggered.connect(self.closeAllMusicDocuments)
+        ac.viewer_reload.triggered.connect(self.reloadView)
+        ac.viewer_document_select.documentsMissing.connect(self.reportMissingMusicDocuments)
         # Navigation actions
-        ac.music_next_page.triggered.connect(self.slotNextPage)
-        ac.music_prev_page.triggered.connect(self.slotPreviousPage)
-        ac.music_copy_image.triggered.connect(self.copyImage)
+        ac.viewer_next_page.triggered.connect(self.slotNextPage)
+        ac.viewer_prev_page.triggered.connect(self.slotPreviousPage)
+        ac.viewer_copy_image.triggered.connect(self.copyImage)
         # Miscellaneous actions
-        ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
-        ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
+        ac.viewer_jump_to_cursor.triggered.connect(self.jumpToCursor)
+        ac.viewer_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
@@ -162,7 +162,7 @@ class AbstractViewPanel(panel.Panel):
         p.currentPageChanged.connect(self.slotCurrentPageChanged)
         app.languageChanged.connect(self.updatePagerLanguage)
 
-        selector = self.actionCollection.music_document_select
+        selector = self.actionCollection.viewer_document_select
         selector.currentDocumentChanged.connect(w.openDocument)
         selector.documentClosed.connect(w.clear)
 
@@ -190,18 +190,18 @@ class AbstractViewPanel(panel.Panel):
         return self.toggleViewAction().text()
 
     def updateSelection(self, rect):
-        self.actionCollection.music_copy_image.setEnabled(bool(rect))
+        self.actionCollection.viewer_copy_image.setEnabled(bool(rect))
 
     def updatePagerLanguage(self):
-        self.actionCollection.music_pager.setPageCount(self._pager.pageCount())
+        self.actionCollection.viewer_pager.setPageCount(self._pager.pageCount())
 
     def slotPageCountChanged(self, total):
-        self.actionCollection.music_pager.setPageCount(total)
+        self.actionCollection.viewer_pager.setPageCount(total)
 
     def slotCurrentPageChanged(self, num):
-        self.actionCollection.music_pager.setCurrentPage(num)
-        self.actionCollection.music_next_page.setEnabled(num < self._pager.pageCount())
-        self.actionCollection.music_prev_page.setEnabled(num > 1)
+        self.actionCollection.viewer_pager.setCurrentPage(num)
+        self.actionCollection.viewer_next_page.setEnabled(num < self._pager.pageCount())
+        self.actionCollection.viewer_prev_page.setEnabled(num > 1)
 
     def slotSessionChanged(self, name):
         """Called whenever the current session is changed
@@ -214,7 +214,7 @@ class AbstractViewPanel(panel.Panel):
             if session.contains("urls"): # the session is not new
                 files_key = "{}-files".format(self.viewerName())
                 active_file_key = "{}-active-file".format(self.viewerName())
-                ds = self.actionCollection.music_document_select
+                ds = self.actionCollection.viewer_document_select
                 ds.loadManuscripts(session.value(files_key, ""),
                     active_manuscript = session.value(active_file_key, ""),
                     clear = True,
@@ -229,7 +229,7 @@ class AbstractViewPanel(panel.Panel):
         if g:
             files_key = "{}-files".format(self.viewerName())
             active_file_key = "{}-active-file".format(self.viewerName())
-            docs = self.actionCollection.music_document_select.documents()
+            docs = self.actionCollection.viewer_document_select.documents()
             if docs:
                 current_document = self.widget().currentDocument()
                 current_file = current_document.filename()
@@ -263,10 +263,10 @@ class AbstractViewPanel(panel.Panel):
 
     def updateActions(self):
         ac = self.actionCollection
-        ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
+        ac.viewer_print.setEnabled(bool(ac.viewer_document_select.documents()))
 
     def printMusic(self):
-        doc = self.actionCollection.music_document_select.currentDocument()
+        doc = self.actionCollection.viewer_document_select.currentDocument()
         if doc and doc.document():
             ### temporarily disable printing on Mac OS X
             import sys
@@ -347,10 +347,10 @@ class AbstractViewPanel(panel.Panel):
         group = documents.group(d)
         if group.update() or group.update(False):
             ac = self.actionCollection
-            ac.music_document_select.setCurrentDocument(d)
+            ac.viewer_document_select.setCurrentDocument(d)
 
     def toggleSyncCursor(self):
-        checked = self.actionCollection.music_sync_cursor.isChecked()
+        checked = self.actionCollection.viewer_sync_cursor.isChecked()
         QSettings().setValue("{}/sync-cursor".format(self.viewerName()), checked)
 
     def slotShowToolbar(self):
@@ -375,15 +375,15 @@ class AbstractViewPanel(panel.Panel):
     def slotMusicZoomChanged(self, mode, scale):
         """Called when the music view is changed, updates the toolbar actions."""
         ac = self.actionCollection
-        ac.music_fit_width.setChecked(mode == FitWidth)
-        ac.music_fit_height.setChecked(mode == FitHeight)
-        ac.music_fit_both.setChecked(mode == FitBoth)
-        ac.music_zoom_combo.updateZoomInfo(mode, scale)
+        ac.viewer_fit_width.setChecked(mode == FitWidth)
+        ac.viewer_fit_height.setChecked(mode == FitHeight)
+        ac.viewer_fit_both.setChecked(mode == FitBoth)
+        ac.viewer_zoom_combo.updateZoomInfo(mode, scale)
 
     def slotShowDocument(self):
         """Bring the document to front that was selected from the context menu"""
         doc_filename = self.sender().checkedAction()._document_filename
-        self.actionCollection.music_document_select.setActiveDocument(doc_filename)
+        self.actionCollection.viewer_document_select.setActiveDocument(doc_filename)
 
     def _openMusicCaption(self):
         """Returns the caption for the file open dialog."""
@@ -392,30 +392,30 @@ class AbstractViewPanel(panel.Panel):
     def openMusic(self):
         """ Displays an open dialog to open music document(s). """
         caption = self._openMusicCaption()
-        current_music_doc = self.widget().currentDocument()
-        current_filename = current_music_doc.filename() if current_music_doc else None
+        current_viewer_doc = self.widget().currentDocument()
+        current_filename = current_viewer_doc.filename() if current_viewer_doc else None
         current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
         directory = os.path.dirname(current_filename or current_editor_document or app.basedir())
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
             # TODO: This has to be generalized too
-            self.actionCollection.music_document_select.loadManuscripts(filenames, filenames[-1])
+            self.actionCollection.viewer_document_select.loadManuscripts(filenames, filenames[-1])
 
     def closeMusic(self):
         """ Close current music document. """
-        mds = self.actionCollection.music_document_select
+        mds = self.actionCollection.viewer_document_select
         mds.removeManuscript(self.widget().currentDocument())
         if len(mds.documents()) == 0:
             self.widget().clear()
 
     def closeOtherMusicDocuments(self):
         """Close all music documents except the one currently opened"""
-        mds = self.actionCollection.music_document_select
+        mds = self.actionCollection.viewer_document_select
         mds.removeOtherManuscripts(self.widget().currentDocument())
 
     def closeAllMusicDocuments(self):
         """Close all opened music documents"""
-        mds = self.actionCollection.music_document_select
+        mds = self.actionCollection.viewer_document_select
         mds.removeAllManuscripts()
         self.widget().clear()
 
@@ -430,79 +430,79 @@ class AbstractViewPanel(panel.Panel):
 class Actions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
-        self.music_document_select = self._createDocumentChooserAction(panel)
-        self.music_print = QAction(panel)
-        self.music_zoom_in = QAction(panel)
-        self.music_zoom_out = QAction(panel)
-        self.music_zoom_original = QAction(panel)
-        self.music_zoom_combo = ZoomerAction(panel)
-        self.music_fit_width = QAction(panel, checkable=True)
-        self.music_fit_height = QAction(panel, checkable=True)
-        self.music_fit_both = QAction(panel, checkable=True)
+        self.viewer_document_select = self._createDocumentChooserAction(panel)
+        self.viewer_print = QAction(panel)
+        self.viewer_zoom_in = QAction(panel)
+        self.viewer_zoom_out = QAction(panel)
+        self.viewer_zoom_original = QAction(panel)
+        self.viewer_zoom_combo = ZoomerAction(panel)
+        self.viewer_fit_width = QAction(panel, checkable=True)
+        self.viewer_fit_height = QAction(panel, checkable=True)
+        self.viewer_fit_both = QAction(panel, checkable=True)
         self._column_mode = ag = QActionGroup(panel)
-        self.music_single_pages = QAction(ag, checkable=True)
-        self.music_two_pages_first_right = QAction(ag, checkable=True)
-        self.music_two_pages_first_left = QAction(ag, checkable=True)
-        self.music_maximize = QAction(panel)
-        self.music_jump_to_cursor = QAction(panel)
-        self.music_sync_cursor = QAction(panel, checkable=True)
-        self.music_copy_image = QAction(panel)
-        self.music_pager = PagerAction(panel)
-        self.music_next_page = QAction(panel)
-        self.music_prev_page = QAction(panel)
-        self.music_reload = QAction(panel)
+        self.viewer_single_pages = QAction(ag, checkable=True)
+        self.viewer_two_pages_first_right = QAction(ag, checkable=True)
+        self.viewer_two_pages_first_left = QAction(ag, checkable=True)
+        self.viewer_maximize = QAction(panel)
+        self.viewer_jump_to_cursor = QAction(panel)
+        self.viewer_sync_cursor = QAction(panel, checkable=True)
+        self.viewer_copy_image = QAction(panel)
+        self.viewer_pager = PagerAction(panel)
+        self.viewer_next_page = QAction(panel)
+        self.viewer_prev_page = QAction(panel)
+        self.viewer_reload = QAction(panel)
         self.viewer_show_toolbar = QAction(panel, checkable=True)
-        self.music_open = QAction(panel)
-        self.music_close = QAction(panel)
-        self.music_close_other = QAction(panel)
-        self.music_close_all = QAction(panel)
+        self.viewer_open = QAction(panel)
+        self.viewer_close = QAction(panel)
+        self.viewer_close_other = QAction(panel)
+        self.viewer_close_all = QAction(panel)
 
-        self.music_print.setIcon(icons.get('document-print'))
-        self.music_zoom_in.setIcon(icons.get('zoom-in'))
-        self.music_zoom_out.setIcon(icons.get('zoom-out'))
-        self.music_zoom_original.setIcon(icons.get('zoom-original'))
-        self.music_fit_width.setIcon(icons.get('zoom-fit-width'))
-        self.music_fit_height.setIcon(icons.get('zoom-fit-height'))
-        self.music_fit_both.setIcon(icons.get('zoom-fit-best'))
-        self.music_maximize.setIcon(icons.get('view-fullscreen'))
-        self.music_jump_to_cursor.setIcon(icons.get('go-jump'))
-        self.music_copy_image.setIcon(icons.get('edit-copy'))
-        self.music_next_page.setIcon(icons.get('go-next'))
-        self.music_prev_page.setIcon(icons.get('go-previous'))
-        self.music_reload.setIcon(icons.get('reload'))
-        self.music_open.setIcon(icons.get('document-open'))
-        self.music_close.setIcon(icons.get('document-close'))
-        self.music_close_other.setText(_("Close other documents"))
-        self.music_close_all.setText(_("Close all documents"))
+        self.viewer_print.setIcon(icons.get('document-print'))
+        self.viewer_zoom_in.setIcon(icons.get('zoom-in'))
+        self.viewer_zoom_out.setIcon(icons.get('zoom-out'))
+        self.viewer_zoom_original.setIcon(icons.get('zoom-original'))
+        self.viewer_fit_width.setIcon(icons.get('zoom-fit-width'))
+        self.viewer_fit_height.setIcon(icons.get('zoom-fit-height'))
+        self.viewer_fit_both.setIcon(icons.get('zoom-fit-best'))
+        self.viewer_maximize.setIcon(icons.get('view-fullscreen'))
+        self.viewer_jump_to_cursor.setIcon(icons.get('go-jump'))
+        self.viewer_copy_image.setIcon(icons.get('edit-copy'))
+        self.viewer_next_page.setIcon(icons.get('go-next'))
+        self.viewer_prev_page.setIcon(icons.get('go-previous'))
+        self.viewer_reload.setIcon(icons.get('reload'))
+        self.viewer_open.setIcon(icons.get('document-open'))
+        self.viewer_close.setIcon(icons.get('document-close'))
+        self.viewer_close_other.setText(_("Close other documents"))
+        self.viewer_close_all.setText(_("Close all documents"))
 
     def translateUI(self):
-        self.music_document_select.setText(_("Select Music View Document"))
-        self.music_print.setText(_("&Print Music..."))
-        self.music_zoom_in.setText(_("Zoom &In"))
-        self.music_zoom_out.setText(_("Zoom &Out"))
-        self.music_zoom_original.setText(_("Original &Size"))
-        self.music_zoom_combo.setText(_("Zoom Music"))
-        self.music_fit_width.setText(_("Fit &Width"))
-        self.music_fit_height.setText(_("Fit &Height"))
-        self.music_fit_both.setText(_("Fit &Page"))
-        self.music_single_pages.setText(_("Single Pages"))
-        self.music_two_pages_first_right.setText(_("Two Pages (first page right)"))
-        self.music_two_pages_first_left.setText(_("Two Pages (first page left)"))
-        self.music_maximize.setText(_("&Maximize"))
-        self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
-        self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
-        self.music_copy_image.setText(_("Copy to &Image..."))
-        self.music_pager.setText(_("Pager"))
-        self.music_next_page.setText(_("Next Page"))
-        self.music_next_page.setIconText(_("Next"))
-        self.music_prev_page.setText(_("Previous Page"))
-        self.music_prev_page.setIconText(_("Previous"))
-        self.music_reload.setText(_("&Reload"))
+        self.viewer_document_select.setText(_("Select Music View Document"))
+        self.viewer_print.setText(_("&Print Music..."))
+        self.viewer_zoom_in.setText(_("Zoom &In"))
+        self.viewer_zoom_out.setText(_("Zoom &Out"))
+        self.viewer_zoom_original.setText(_("Original &Size"))
+        self.viewer_zoom_combo.setText(_("Zoom Music"))
+        self.viewer_fit_width.setText(_("Fit &Width"))
+        self.viewer_fit_height.setText(_("Fit &Height"))
+        self.viewer_fit_both.setText(_("Fit &Page"))
+        self.viewer_single_pages.setText(_("Single Pages"))
+        self.viewer_two_pages_first_right.setText(_("Two Pages (first page right)"))
+        self.viewer_two_pages_first_left.setText(_("Two Pages (first page left)"))
+        self.viewer_maximize.setText(_("&Maximize"))
+        self.viewer_jump_to_cursor.setText(_("&Jump to Cursor Position"))
+        self.viewer_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
+        self.viewer_copy_image.setText(_("Copy to &Image..."))
+        self.viewer_pager.setText(_("Pager"))
+        self.viewer_next_page.setText(_("Next Page"))
+        self.viewer_next_page.setIconText(_("Next"))
+        self.viewer_prev_page.setText(_("Previous Page"))
+        self.viewer_prev_page.setIconText(_("Previous"))
+        self.viewer_reload.setText(_("&Reload"))
         self.viewer_show_toolbar.setText(_("Show toolbar"))
-        self.music_open.setText(_("Open music document(s)"))
-        self.music_open.setIconText(_("Open"))
-        self.music_close.setText(_("Close document"))
-        self.music_close.setIconText(_("Close"))
+        self.viewer_open.setText(_("Open music document(s)"))
+        self.viewer_open.setIconText(_("Open"))
+        self.viewer_close.setText(_("Close document"))
+        self.viewer_close.setIconText(_("Close"))
 
     def _createDocumentChooserAction(self, panel):
         """Create the document chooser action.

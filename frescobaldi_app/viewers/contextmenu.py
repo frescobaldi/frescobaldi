@@ -48,11 +48,11 @@ class AbstractViewerContextMenu(QObject):
     def addSeparator(self):
         """Add a separator to the menu."""
         self._menu.addSeparator()
-        
+
     def addCopyImageAction(self):
         """Add action to copy image if available"""
         if self.surface().hasSelection():
-            self._menu.addAction(self._actionCollection.music_copy_image)
+            self._menu.addAction(self._actionCollection.viewer_copy_image)
 
     def addEditInPlaceAction(self, cursor, position):
         """Add action to edit snippet if on a textedit link"""
@@ -91,13 +91,13 @@ class AbstractViewerContextMenu(QObject):
         sm.setTitle(_("Zoom"))
         m.addMenu(sm)
         ac = self._actionCollection
-        sm.addAction(ac.music_fit_width)
-        sm.addAction(ac.music_fit_height)
-        sm.addAction(ac.music_fit_both)
+        sm.addAction(ac.viewer_fit_width)
+        sm.addAction(ac.viewer_fit_height)
+        sm.addAction(ac.viewer_fit_both)
         sm.addSeparator()
-        sm.addAction(ac.music_zoom_in)
-        sm.addAction(ac.music_zoom_out)
-        sm.addAction(ac.music_zoom_original)
+        sm.addAction(ac.viewer_zoom_in)
+        sm.addAction(ac.viewer_zoom_out)
+        sm.addAction(ac.viewer_zoom_original)
 
     def addOpenCloseActions(self):
         """Add actions to close documents.
@@ -111,7 +111,7 @@ class AbstractViewerContextMenu(QObject):
         always try syncing with the input editor."""
         m = self._menu
         ac = self._actionCollection
-        m.addAction(ac.music_sync_cursor)
+        m.addAction(ac.viewer_sync_cursor)
 
     def addShowToolbarAction(self):
         """Add action to toggle the visibility of

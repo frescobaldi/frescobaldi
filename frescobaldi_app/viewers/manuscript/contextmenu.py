@@ -35,7 +35,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
     def addShowActions(self):
         """Adds a submenu giving access to the (other)
         opened manuscripts"""
-        mds = self._actionCollection.music_document_select
+        mds = self._actionCollection.viewer_document_select
         docs = mds.documents()
         document_actions = {}
         multi_docs = len(docs) > 1
@@ -70,18 +70,18 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         This is not implemented in the base class"""
         m = self._menu
         ac = self._actionCollection
-        m.addAction(ac.music_open)
-        docs = self._actionCollection.music_document_select.documents()
+        m.addAction(ac.viewer_open)
+        docs = self._actionCollection.viewer_document_select.documents()
         if docs:
             sm = QMenu(m)
             sm.setTitle(_("Close..."))
             m.addMenu(sm)
-            sm.addAction(ac.music_close)
+            sm.addAction(ac.viewer_close)
             multi_docs = len(docs) > 1
-            ac.music_close_other.setEnabled(multi_docs)
-            ac.music_close_all.setEnabled(multi_docs)
-            sm.addAction(ac.music_close_other)
-            sm.addAction(ac.music_close_all)
+            ac.viewer_close_other.setEnabled(multi_docs)
+            ac.viewer_close_all.setEnabled(multi_docs)
+            sm.addAction(ac.viewer_close_other)
+            sm.addAction(ac.viewer_close_all)
 
     def addReloadAction(self):
         """Add action to reload document."""
@@ -89,7 +89,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         if current_document:
             m = self._menu
             ac = self._actionCollection
-            m.addAction(ac.music_reload)
+            m.addAction(ac.viewer_reload)
 
     def show(self, position, link, cursor):
         """Build the panel's context menu dynamically.

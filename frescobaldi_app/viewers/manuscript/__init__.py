@@ -69,7 +69,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         active_manuscript = self.widget().currentDocument()
         if active_manuscript:
             reread = documents.Document(active_manuscript.filename())
-            mds = self.actionCollection.music_document_select
+            mds = self.actionCollection.viewer_document_select
             mds.replaceManuscript(active_manuscript, reread)
 
 
@@ -82,13 +82,13 @@ class ManuscriptActions(viewers.Actions):
 
     def translateUI(self):
         super(ManuscriptActions, self).translateUI()
-        self.music_document_select.setText(_("Select Manuscript Document"))
-        self.music_open.setText(_("Open manuscript(s)"))
-        self.music_open.setIconText(_("Open"))
-        self.music_close.setText(_("Close manuscript"))
-        self.music_close.setIconText(_("Close"))
-        self.music_close_other.setText(_("Close other manuscripts"))
-        self.music_close_all.setText(_("Close all manuscripts"))
+        self.viewer_document_select.setText(_("Select Manuscript Document"))
+        self.viewer_open.setText(_("Open manuscript(s)"))
+        self.viewer_open.setIconText(_("Open"))
+        self.viewer_close.setText(_("Close manuscript"))
+        self.viewer_close.setIconText(_("Close"))
+        self.viewer_close_other.setText(_("Close other manuscripts"))
+        self.viewer_close_all.setText(_("Close all manuscripts"))
 
     def title(self):
         return _("Manuscript")

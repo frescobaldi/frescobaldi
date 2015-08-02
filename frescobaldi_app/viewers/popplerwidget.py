@@ -107,36 +107,36 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         """Add actions to open and close files."""
         t = self._toolbar
         ac = self.actionCollection
-        t.addAction(ac.music_open)
-        t.addAction(ac.music_close)
+        t.addAction(ac.viewer_open)
+        t.addAction(ac.viewer_close)
 
     def _tbAddDocumentChooserAction(self):
         """Add the document chooser to the toolbar."""
         t = self._toolbar
         ac = self.actionCollection
-        t.addAction(ac.music_document_select)
+        t.addAction(ac.viewer_document_select)
 
     def _tbAddPrintAction(self):
         """Add the print action."""
         t = self._toolbar
         ac = self.actionCollection
-        t.addAction(ac.music_print)
+        t.addAction(ac.viewer_print)
 
     def _tbAddZoomActions(self):
         """Add different zoomer actions."""
         t = self._toolbar
         ac = self.actionCollection
-        t.addAction(ac.music_zoom_in)
-        t.addAction(ac.music_zoom_combo)
-        t.addAction(ac.music_zoom_out)
+        t.addAction(ac.viewer_zoom_in)
+        t.addAction(ac.viewer_zoom_combo)
+        t.addAction(ac.viewer_zoom_out)
 
     def _tbAddPagerActions(self):
         """Add navigational actions."""
         t = self._toolbar
         ac = self.actionCollection
-        t.addAction(ac.music_prev_page)
-        t.addAction(ac.music_pager)
-        t.addAction(ac.music_next_page)
+        t.addAction(ac.viewer_prev_page)
+        t.addAction(ac.viewer_pager)
+        t.addAction(ac.viewer_next_page)
 
     def populateToolbar(self, methods = None):
         """Defines a template for the population of the viewer's toolbar.
@@ -252,7 +252,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 self.view.setPosition(position, True)
         except OSError:
             # remove manuscript if it can't be opened
-            mds = self.actionCollection.music_document_select
+            mds = self.actionCollection.viewer_document_select
             mds.removeManuscript(doc)
 
     def clear(self):
@@ -372,7 +372,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             # move if sync is enabled and the cursor did not move as a result of
             # clicking a link
             if (not self._clicking_link
-                and self.parent().actionCollection.music_sync_cursor.isChecked()):
+                and self.parent().actionCollection.viewer_sync_cursor.isChecked()):
                 rect = self.destinationsRect(links.destinations()[s])
                 center = rect.center()
                 self.view.ensureVisible(center.x(), center.y(),
