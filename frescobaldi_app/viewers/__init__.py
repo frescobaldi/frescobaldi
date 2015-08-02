@@ -420,7 +420,7 @@ class AbstractViewPanel(panel.Panel):
     def closeAllMusicDocuments(self):
         """Close all opened music documents"""
         mds = self.actionCollection.viewer_document_select
-        mds.removeAllManuscripts()
+        mds.removeAllViewdocs()
         self.widget().clear()
 
     def reportMissingMusicDocuments(self, missing):
@@ -658,7 +658,7 @@ class DocumentChooserAction(ComboBoxAction):
         self._documents = [document]
         self.updateDocument()
 
-    def removeAllManuscripts(self):
+    def removeAllViewdocs(self):
         self._documents = []
         self.updateDocument()
 
@@ -669,7 +669,7 @@ class DocumentChooserAction(ComboBoxAction):
         # When switching sessions we replace the viewer documents
         # otherwise the loaded viewer documents are added.
         if clear:
-            self.removeAllManuscripts()
+            self.removeAllViewdocs()
             self.parent().widget().clear()
 
         # process viewer documents, adding fallback position if required.
