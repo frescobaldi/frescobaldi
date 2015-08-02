@@ -117,13 +117,13 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
         ac.viewer_maximize.triggered.connect(self.maximize)
         # File handling actions
-        ac.viewer_document_select.documentsChanged.connect(self.updateActions)
+        ac.viewer_document_select.viewdocsChanged.connect(self.updateActions)
         ac.viewer_open.triggered.connect(self.openMusic)
         ac.viewer_close.triggered.connect(self.closeMusic)
         ac.viewer_close_other.triggered.connect(self.closeOtherMusicDocuments)
         ac.viewer_close_all.triggered.connect(self.closeAllMusicDocuments)
         ac.viewer_reload.triggered.connect(self.reloadView)
-        ac.viewer_document_select.documentsMissing.connect(self.reportMissingMusicDocuments)
+        ac.viewer_document_select.viewdocsMissing.connect(self.reportMissingMusicDocuments)
         # Navigation actions
         ac.viewer_next_page.triggered.connect(self.slotNextPage)
         ac.viewer_prev_page.triggered.connect(self.slotPreviousPage)
@@ -163,8 +163,8 @@ class AbstractViewPanel(panel.Panel):
         app.languageChanged.connect(self.updatePagerLanguage)
 
         selector = self.actionCollection.viewer_document_select
-        selector.currentDocumentChanged.connect(w.openDocument)
-        selector.documentClosed.connect(w.clear)
+        selector.currentViewdocChanged.connect(w.openDocument)
+        selector.viewdocClosed.connect(w.clear)
 
         if selector.currentDocument():
             # open a document only after the widget has been created;
@@ -542,10 +542,10 @@ class DocumentChooserAction(ComboBoxAction):
     and it generated new PDF documents.
     """
 
-    documentClosed = pyqtSignal()
-    documentsChanged = pyqtSignal()
-    currentDocumentChanged = pyqtSignal(documents.Document)
-    documentsMissing = pyqtSignal(list)
+    viewdocClosed = pyqtSignal()
+    viewdocsChanged = pyqtSignal()
+    currentViewdocChanged = pyqtSignal(documents.Document)
+    viewdocsMissing = pyqtSignal(list)
 
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)
@@ -613,7 +613,7 @@ class DocumentChooserAction(ComboBoxAction):
         index = self._currentIndex
         if index < 0 or index >= len(docs):
             index = 0
-        self.documentsChanged.emit()
+        self.viewdocsChanged.emit()
         self.setCurrentIndex(index)
 
     def closeDocument(self):
@@ -623,8 +623,8 @@ class DocumentChooserAction(ComboBoxAction):
         self._currentIndex = -1
         self.setVisible(False)
         self.setEnabled(False)
-        self.documentClosed.emit()
-        self.documentsChanged.emit()
+        self.viewdocClosed.emit()
+        self.viewdocsChanged.emit()
 
     def documents(self):
         return self._documents
@@ -639,7 +639,7 @@ class DocumentChooserAction(ComboBoxAction):
             for w in self.createdWidgets():
                 w.setCurrentIndex(index)
                 w.setPalette(p)
-            self.currentDocumentChanged.emit(self._documents[index])
+            self.currentViewdocChanged.emit(self._documents[index])
 
     def currentIndex(self):
         return self._currentIndex
@@ -706,7 +706,7 @@ class DocumentChooserAction(ComboBoxAction):
 
         # report missing docs
         if missing:
-            self.documentsMissing.emit(missing)
+            self.viewdocsMissing.emit(missing)
 
     def sortViewdocs(self, update = True):
         """sort the open manuscripts alphabetically."""
