@@ -190,9 +190,13 @@ class AbstractViewPanel(panel.Panel):
         return self.toggleViewAction().text()
 
     def updateSelection(self, rect):
+        """Called when the selection has changed.
+        Update copy-image action according to selection state."""
         self.actionCollection.viewer_copy_image.setEnabled(bool(rect))
 
     def updatePagerLanguage(self):
+        """Called when the application lanugage has changed.
+        Update the pager to implicitly update the language."""
         self.actionCollection.viewer_pager.setPageCount(self._pager.pageCount())
 
     def slotPageCountChanged(self, total):
