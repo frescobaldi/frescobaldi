@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A tool to display an engraver's copy in a dock.
+A tool to display an engraver's copy (manuscript) in a dock.
 """
 
 from __future__ import unicode_literals
@@ -84,9 +84,7 @@ class ManuscriptViewerActions(viewers.ViewerActions):
 
 
 class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
-    """Extends the parent class and also keeps track of when a document is
-    opened or closed in the manuscript viewer.
-    """
+    """Currently only suppresses some slots."""
 
     def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""
