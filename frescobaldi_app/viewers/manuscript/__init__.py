@@ -120,21 +120,21 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
         # May be useless because *then* you'd have to add a slot to
         # update whenever _documents is changed.
         result = []
-        for d in self._documents:
+        for d in self._viewdocs:
             result.append(d.filename())
         return result
 
     def addManuscript(self, document):
         """Add a manuscript to our chooser."""
-        self._documents.append(document)
-        self._currentIndex = len(self._documents) - 1
+        self._viewdocs.append(document)
+        self._currentIndex = len(self._viewdocs) - 1
         self.updateDocument()
 
     def replaceManuscript(self, olddoc, newdoc):
         """Instead of adding a new document replace an existing."""
         try:
-            docindex = self._documents.index(olddoc)
-            self._documents[docindex] = newdoc
+            docindex = self._viewdocs.index(olddoc)
+            self._viewdocs[docindex] = newdoc
             self.updateDocument()
         except ValueError:
             # no replacement possible because the original doc isn't found
@@ -142,7 +142,7 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
 
     def setActiveDocument(self, filename, update = True):
         """Activate the given document if it's in the list of documents"""
-        filenames = [d.filename() for d in self._documents]
+        filenames = [d.filename() for d in self._viewdocs]
         if filename in filenames:
             self._currentIndex = filenames.index(filename)
             if update:

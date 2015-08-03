@@ -236,8 +236,8 @@ class AbstractViewPanel(panel.Panel):
             active_file_key = "{}-active-file".format(self.viewerName())
             docs = self.actionCollection.viewer_document_select.documents()
             if docs:
-                current_document = self.widget().currentDocument()
-                current_file = current_document.filename()
+                current_viewdoc = self.widget().currentDocument()
+                current_file = current_viewdoc.filename()
                 g.setValue(active_file_key, current_file)
                 pos = []
                 for d in docs:
@@ -551,8 +551,8 @@ class ViewdocChooserAction(ComboBoxAction):
     def __init__(self, panel):
         super(ViewdocChooserAction, self).__init__(panel)
         self._model = None
-        self._document = None
-        self._documents = []
+        self._viewdoc = None
+        self._viewdocs = []
         self._currentIndex = -1
         self._indices = weakref.WeakKeyDictionary()
         panel.mainwindow().currentDocumentChanged.connect(self.slotEditdocChanged)
@@ -568,7 +568,7 @@ class ViewdocChooserAction(ComboBoxAction):
     def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # only switch our document if there are PDF documents to display
-        if self._document is None or documents.group(doc).documents():
+        if self._viewdoc is None or documents.group(doc).documents():
             self.setCurrentViewdoc(doc)
 
     def slotEditdocUpdated(self, doc, job):
@@ -579,28 +579,28 @@ class ViewdocChooserAction(ComboBoxAction):
         # the job was started on this mainwindow
         import engrave
         mainwindow = self.parent().mainwindow()
-        if (doc == self._document or
+        if (doc == self._viewdoc or
             (jobattributes.get(job).mainwindow == mainwindow and
              doc == engrave.engraver(mainwindow).document())):
             self.setCurrentViewdoc(doc)
 
     def setCurrentViewdoc(self, document):
         """Displays the DocumentGroup of the given text Document in our chooser."""
-        prev = self._document
-        self._document = document
+        prev = self._viewdoc
+        self._viewdoc = document
         if prev:
             prev.loaded.disconnect(self.updateDocument)
             prev.closed.disconnect(self.closeDocument)
             self._indices[prev] = self._currentIndex
         document.loaded.connect(self.updateDocument)
         document.closed.connect(self.closeDocument)
-        self._documents = documents.group(document).documents()
+        self._viewdocs = documents.group(document).documents()
         self._currentIndex = self._indices.get(document, 0)
         self.updateDocument()
 
     def updateDocument(self):
         """(Re)read the output documents of the current document and show them."""
-        docs = self._documents
+        docs = self._viewdocs
         self.setVisible(bool(docs))
         self.setEnabled(bool(docs))
 
@@ -619,8 +619,8 @@ class ViewdocChooserAction(ComboBoxAction):
 
     def closeDocument(self):
         """Called when the current document is closed by the user."""
-        self._document = None
-        self._documents = []
+        self._viewdoc = None
+        self._viewdocs = []
         self._currentIndex = -1
         self.setVisible(False)
         self.setEnabled(False)
@@ -628,39 +628,39 @@ class ViewdocChooserAction(ComboBoxAction):
         self.viewdocsChanged.emit()
 
     def documents(self):
-        return self._documents
+        return self._viewdocs
 
     def setCurrentIndex(self, index):
-        if self._documents:
+        if self._viewdocs:
             self._currentIndex = index
             p = QApplication.palette()
-            if not self._documents[index].updated:
+            if not self._viewdocs[index].updated:
                 color = qutil.mixcolor(QColor(Qt.red), p.color(QPalette.Base), 0.3)
                 p.setColor(QPalette.Base, color)
             for w in self.createdWidgets():
                 w.setCurrentIndex(index)
                 w.setPalette(p)
-            self.currentViewdocChanged.emit(self._documents[index])
+            self.currentViewdocChanged.emit(self._viewdocs[index])
 
     def currentIndex(self):
         return self._currentIndex
 
     def currentDocument(self):
         """Returns the currently selected Music document (Note: NOT the text document!)"""
-        if self._documents:
-            return self._documents[self._currentIndex]
+        if self._viewdocs:
+            return self._viewdocs[self._currentIndex]
 
     def removeViewdoc(self, document):
         if document:
-            self._documents.remove(document)
+            self._viewdocs.remove(document)
             self.updateDocument()
 
     def removeOtherViewdocs(self, document):
-        self._documents = [document]
+        self._viewdocs = [document]
         self.updateDocument()
 
     def removeAllViewdocs(self):
-        self._documents = []
+        self._viewdocs = []
         self.updateDocument()
 
     def openViewdocs(self, viewdocs, active_viewdoc = "",
@@ -686,7 +686,7 @@ class ViewdocChooserAction(ComboBoxAction):
             if not file in self.documentFiles():
                 if os.path.isfile(file):
                     doc = documents.Document(file)
-                    self._documents.append(doc)
+                    self._viewdocs.append(doc)
                     self.parent().widget()._positions[doc] = position
                 else:
                     missing.append(file)
@@ -711,7 +711,7 @@ class ViewdocChooserAction(ComboBoxAction):
 
     def sortViewdocs(self, update = True):
         """sort the open manuscripts alphabetically."""
-        self._documents = sorted(self._documents,
+        self._viewdocs = sorted(self._viewdocs,
                             key= lambda d: os.path.basename(d.filename()))
         if update:
             self.updateDocument()

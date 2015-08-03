@@ -39,8 +39,8 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         docs = mds.documents()
         document_actions = {}
         multi_docs = len(docs) > 1
-        if self._panel.widget().currentDocument():
-            current_doc_filename = self._panel.widget().currentDocument().filename()
+        if self._panel.widget().currentViewdoc():
+            current_doc_filename = self._panel.widget().currentViewdoc().filename()
 
         m = self._menu
         sm = QMenu(m)
@@ -85,7 +85,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
 
     def addReloadAction(self):
         """Add action to reload document."""
-        current_document = self._panel.widget().currentDocument()
+        current_document = self._panel.widget().currentViewdoc()
         if current_document:
             m = self._menu
             ac = self._actionCollection

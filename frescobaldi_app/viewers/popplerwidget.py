@@ -78,7 +78,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def createProtectedFields(self):
         """Create the empty protected fields that will hold actual data."""
         self._positions = weakref.WeakKeyDictionary()
-        self._currentDocument = None
+        self._currentViewdoc = None
         self._links = None
         self._clicking_link = False
         self._toolbar = None
@@ -231,19 +231,19 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         """Called when zoom and viewmode of the qpopplerview change, emit zoomChanged."""
         self.zoomChanged.emit(self.view.viewMode(), self.view.surface().pageLayout().scale())
 
-    def currentDocument(self):
+    def currentViewdoc(self):
         """Returns the current Document or None."""
-        return self._currentDocument
+        return self._currentViewdoc
 
     def setCurrentDocument(self, doc):
         """Set the current document."""
-        self._currentDocument = doc
+        self._currentViewdoc = doc
 
     def openViewdoc(self, doc):
         """Opens a documents.Document instance."""
         try:
             self.clear()
-            self._currentDocument = doc
+            self._currentViewdoc = doc
             document = doc.document()
             if document:
                 self._links = pointandclick.links(document)
@@ -257,10 +257,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def clear(self):
         """Empties the view."""
-        cur = self._currentDocument
+        cur = self._currentViewdoc
         if cur:
             self._positions[cur] = self.view.position()
-        self._currentDocument = None
+        self._currentViewdoc = None
         self._links = None
         self._highlightRange = None
         self._highlightTimer.stop()
@@ -319,7 +319,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             [(page, link.linkArea().normalized())], 2000)
         self._highlightRange = None
         cursor = self._links.cursor(link)
-        if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
+        if not cursor or cursor.document() != self.parent().mainwindow().currentViewdoc():
             return
 
         # highlight token(s) at this cursor
