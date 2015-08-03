@@ -18,12 +18,10 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The Manuscriot Viewer context menu additions.
+The Manuscript Viewer context menu additions.
 """
 
 from __future__ import unicode_literals
-
-from PyQt4.QtGui import QMenu
 
 from viewers import contextmenu
 
@@ -32,27 +30,24 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
     def __init__(self, panel):
         super(ManuscriptViewerContextMenu, self).__init__(panel)
 
+    # It turned out that our base class's context menu will form the
+    # base for all future viewers' menus. So we actually do not need
+    # this subclass at all.
+    # However, as we will surely add specifications in the future
+    # this stub is kept for reference
 
-    def addReloadAction(self):
-        """Add action to reload document."""
-        current_document = self._panel.widget().currentViewdoc()
-        if current_document:
-            m = self._menu
-            ac = self._actionCollection
-            m.addAction(ac.viewer_reload)
-
-    def show(self, position, link, cursor):
-        """Build the panel's context menu dynamically.
-        Implements the template method pattern to allow
-        subclasses to override each step."""
-        methods = [self.addCopyImageAction,
-            self.addCursorLinkActions,
-            # Actions affecting the currently opened documents
-            self.addShowActions,
-            self.addOpenCloseActions,
-            self.addReloadAction,
-            # Actions affecting the viewer's state
-            self.addZoomActions,
-            self.addSynchronizeAction,
-            self.addShowToolbarAction]
-        super(ManuscriptViewerContextMenu, self).show(position, link, cursor, methods)
+    # def show(self, position, link, cursor):
+    #     """Build the panel's context menu dynamically.
+    #     Implements the template method pattern to allow
+    #     subclasses to override each step."""
+    #     methods = [self.addCopyImageAction,
+    #         self.addCursorLinkActions,
+    #         # Actions affecting the currently opened documents
+    #         self.addShowActions,
+    #         self.addOpenCloseActions,
+    #         self.addReloadAction,
+    #         # Actions affecting the viewer's state
+    #         self.addZoomActions,
+    #         self.addSynchronizeAction,
+    #         self.addShowToolbarAction]
+    #     super(ManuscriptViewerContextMenu, self).show(position, link, cursor)
