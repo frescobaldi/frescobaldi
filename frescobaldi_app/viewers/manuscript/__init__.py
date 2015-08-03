@@ -53,7 +53,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         self.toggleViewAction().setText(_("Manuscript Viewer"))
 
     def _createConcreteActions(self, panel):
-        return ManuscriptActions(self)
+        return ManuscriptViewerActions(self)
 
     def _createConcreteWidget(self):
         """Create the widget for the panel"""
@@ -73,7 +73,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
             mds.replaceManuscript(active_manuscript, reread)
 
 
-class ManuscriptActions(viewers.Actions):
+class ManuscriptViewerActions(viewers.ViewerActions):
     name = "manuscript"
 
     def _createViewdocChooserAction(self, panel):
@@ -81,7 +81,7 @@ class ManuscriptActions(viewers.Actions):
         return ManuscriptViewdocChooserAction(panel)
 
     def translateUI(self):
-        super(ManuscriptActions, self).translateUI()
+        super(ManuscriptViewerActions, self).translateUI()
         self.viewer_document_select.setText(_("Select Manuscript Document"))
         self.viewer_open.setText(_("Open manuscript(s)"))
         self.viewer_open.setIconText(_("Open"))

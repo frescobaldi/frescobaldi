@@ -431,7 +431,7 @@ class AbstractViewPanel(panel.Panel):
                                     report_msg + '\n'.join(missing))
 
 
-class Actions(actioncollection.ActionCollection):
+class ViewerActions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
         self.viewer_document_select = self._createViewdocChooserAction(panel)
