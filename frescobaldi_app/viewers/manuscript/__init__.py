@@ -109,7 +109,7 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         # something will have to be done here
         pass
 
-    def slotDocumentUpdated(self, doc, job):
+    def slotEditdocUpdated(self, doc, job):
         """Called when a Job, finished on the document, has created new PDFs."""
         # for now do nothing
         pass

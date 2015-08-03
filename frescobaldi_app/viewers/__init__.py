@@ -118,12 +118,12 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_maximize.triggered.connect(self.maximize)
         # File handling actions
         ac.viewer_document_select.viewdocsChanged.connect(self.updateActions)
-        ac.viewer_open.triggered.connect(self.openViewdocs)
-        ac.viewer_close.triggered.connect(self.closeCurrentViewdoc)
-        ac.viewer_close_other.triggered.connect(self.closeOtherViewdocs)
+        ac.viewer_open.triggered.connect(self.openMusic)
+        ac.viewer_close.triggered.connect(self.closeMusic)
+        ac.viewer_close_other.triggered.connect(self.closeOtherMusicDocuments)
         ac.viewer_close_all.triggered.connect(self.closeAllViewdocs)
         ac.viewer_reload.triggered.connect(self.reloadView)
-        ac.viewer_document_select.viewdocsMissing.connect(self.reportMissingViewdocs)
+        ac.viewer_document_select.viewdocsMissing.connect(self.reportMissingMusicDocuments)
         # Navigation actions
         ac.viewer_next_page.triggered.connect(self.slotNextPage)
         ac.viewer_prev_page.triggered.connect(self.slotPreviousPage)
@@ -384,18 +384,18 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_fit_both.setChecked(mode == FitBoth)
         ac.viewer_zoom_combo.updateZoomInfo(mode, scale)
 
-    def slotShowViewdoc(self):
+    def slotShowDocument(self):
         """Bring the document to front that was selected from the context menu"""
         doc_filename = self.sender().checkedAction()._document_filename
         self.actionCollection.viewer_document_select.setActiveDocument(doc_filename)
 
-    def _openViewdocsCaption(self):
+    def _openMusicCaption(self):
         """Returns the caption for the file open dialog."""
-        raise NotImplementedError('Method _openViewdocsCaption has to be implemented in {}'.format(self.viewerName()))
+        raise NotImplementedError('Method _openMusicCaption has to be implemented in {}'.format(self.viewerName()))
 
-    def openViewdocs(self):
-        """ Displays an open dialog to open viewer document(s). """
-        caption = self._openViewdocsCaption()
+    def openMusic(self):
+        """ Displays an open dialog to open music document(s). """
+        caption = self._openMusicCaption()
         current_viewer_doc = self.widget().currentDocument()
         current_filename = current_viewer_doc.filename() if current_viewer_doc else None
         current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
@@ -405,15 +405,15 @@ class AbstractViewPanel(panel.Panel):
             # TODO: This has to be generalized too
             self.actionCollection.viewer_document_select.openViewdocs(filenames, filenames[-1])
 
-    def closeCurrentViewdoc(self):
-        """ Close current viewer document. """
+    def closeMusic(self):
+        """ Close current music document. """
         mds = self.actionCollection.viewer_document_select
         mds.removeViewdoc(self.widget().currentDocument())
         if len(mds.documents()) == 0:
             self.widget().clear()
 
-    def closeOtherViewdocs(self):
-        """Close all viewer documents except the one currently opened"""
+    def closeOtherMusicDocuments(self):
+        """Close all music documents except the one currently opened"""
         mds = self.actionCollection.viewer_document_select
         mds.removeOtherViewdocs(self.widget().currentDocument())
 
@@ -423,8 +423,8 @@ class AbstractViewPanel(panel.Panel):
         mds.removeAllViewdocs()
         self.widget().clear()
 
-    def reportMissingViewdocs(self, missing):
-        """Report missing viewer document files when restoring a session."""
+    def reportMissingMusicDocuments(self, missing):
+        """Report missing document files when restoring a session."""
         report_msg = (_('The following file/s are/is missing and could not be loaded ' +
                      'when restoring a session:\n\n'))
         QMessageBox.warning(self, (_("Missing files in {}".format(self.viewerPanelDisplayName()))),
@@ -555,7 +555,7 @@ class DocumentChooserAction(ComboBoxAction):
         self._currentIndex = -1
         self._indices = weakref.WeakKeyDictionary()
         panel.mainwindow().currentDocumentChanged.connect(self.slotEditdocChanged)
-        documents.documentUpdated.connect(self.slotDocumentUpdated)
+        documents.documentUpdated.connect(self.slotEditdocUpdated)
 
     def createWidget(self, parent):
         w = DocumentChooser(parent)
@@ -570,7 +570,7 @@ class DocumentChooserAction(ComboBoxAction):
         if self._document is None or documents.group(doc).documents():
             self.setCurrentDocument(doc)
 
-    def slotDocumentUpdated(self, doc, job):
+    def slotEditdocUpdated(self, doc, job):
         """Called when a Job, finished on the document, has created new PDFs."""
         # if result files of this document were already displayed, the display
         # is updated. Else the current document is switched if the document was
