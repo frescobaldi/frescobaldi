@@ -654,6 +654,16 @@ class ViewdocChooserAction(ComboBoxAction):
         if self._viewdocs:
             return self._viewdocs[self._currentIndex]
 
+    def replaceViewdoc(self, olddoc, newdoc):
+        """Instead of adding a new document replace an existing."""
+        try:
+            docindex = self._viewdocs.index(olddoc)
+            self._viewdocs[docindex] = newdoc
+            self.updateViewdoc()
+        except ValueError:
+            # no replacement possible because the original doc isn't found
+            pass
+
     def removeViewdoc(self, document):
         if document:
             self._viewdocs.remove(document)

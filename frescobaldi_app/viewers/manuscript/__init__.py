@@ -70,7 +70,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         if active_manuscript:
             reread = documents.Document(active_manuscript.filename())
             mds = self.actionCollection.viewer_document_select
-            mds.replaceManuscript(active_manuscript, reread)
+            mds.replaceViewdoc(active_manuscript, reread)
 
 
 class ManuscriptViewerActions(viewers.ViewerActions):
@@ -113,16 +113,6 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
         """Called when a Job, finished on the document, has created new PDFs."""
         # for now do nothing
         pass
-
-    def replaceManuscript(self, olddoc, newdoc):
-        """Instead of adding a new document replace an existing."""
-        try:
-            docindex = self._viewdocs.index(olddoc)
-            self._viewdocs[docindex] = newdoc
-            self.updateViewdoc()
-        except ValueError:
-            # no replacement possible because the original doc isn't found
-            pass
 
     def setActiveDocument(self, filename, update = True):
         """Activate the given document if it's in the list of documents"""
