@@ -36,7 +36,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         """Adds a submenu giving access to the (other)
         opened manuscripts"""
         mds = self._actionCollection.viewer_document_select
-        docs = mds.documents()
+        docs = mds.viewdocs()
         document_actions = {}
         multi_docs = len(docs) > 1
         if self._panel.widget().currentViewdoc():
@@ -71,7 +71,7 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         m = self._menu
         ac = self._actionCollection
         m.addAction(ac.viewer_open)
-        docs = self._actionCollection.viewer_document_select.documents()
+        docs = self._actionCollection.viewer_document_select.viewdocs()
         if docs:
             sm = QMenu(m)
             sm.setTitle(_("Close..."))

@@ -234,7 +234,7 @@ class AbstractViewPanel(panel.Panel):
         if g:
             files_key = "{}-files".format(self.viewerName())
             active_file_key = "{}-active-file".format(self.viewerName())
-            docs = self.actionCollection.viewer_document_select.documents()
+            docs = self.actionCollection.viewer_document_select.viewdocs()
             if docs:
                 current_viewdoc = self.widget().currentViewdoc()
                 current_file = current_viewdoc.filename()
@@ -268,7 +268,7 @@ class AbstractViewPanel(panel.Panel):
 
     def updateActions(self):
         ac = self.actionCollection
-        ac.viewer_print.setEnabled(bool(ac.viewer_document_select.documents()))
+        ac.viewer_print.setEnabled(bool(ac.viewer_document_select.viewdocs()))
 
     def printMusic(self):
         doc = self.actionCollection.viewer_document_select.currentViewdoc()
@@ -399,7 +399,7 @@ class AbstractViewPanel(panel.Panel):
         caption = self._openViewdocsCaption()
         current_viewer_doc = self.widget().currentViewdoc()
         current_filename = current_viewer_doc.filename() if current_viewer_doc else None
-        current_editor_document = self.mainwindow().currentViewdoc().url().toLocalFile()
+        current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
         directory = os.path.dirname(current_filename or current_editor_document or app.basedir())
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
@@ -410,7 +410,7 @@ class AbstractViewPanel(panel.Panel):
         """ Close current music document. """
         mds = self.actionCollection.viewer_document_select
         mds.removeViewdoc(self.widget().currentViewdoc())
-        if len(mds.documents()) == 0:
+        if len(mds.viewdocs()) == 0:
             self.widget().clear()
 
     def closeOtherViewdocs(self):
@@ -627,7 +627,7 @@ class ViewdocChooserAction(ComboBoxAction):
         self.viewdocClosed.emit()
         self.viewdocsChanged.emit()
 
-    def documents(self):
+    def viewdocs(self):
         return self._viewdocs
 
     def setCurrentIndex(self, index):
@@ -646,7 +646,7 @@ class ViewdocChooserAction(ComboBoxAction):
         return self._currentIndex
 
     def currentViewdoc(self):
-        """Returns the currently selected Music document (Note: NOT the text document!)"""
+        """Returns the currently selected viewer document."""
         if self._viewdocs:
             return self._viewdocs[self._currentIndex]
 
@@ -683,7 +683,7 @@ class ViewdocChooserAction(ComboBoxAction):
             else:
                 file = m
                 position = (0, 0, 0)
-            if not file in self.documentFiles():
+            if not file in self._viewdocFiles():
                 if os.path.isfile(file):
                     doc = documents.Document(file)
                     self._viewdocs.append(doc)
