@@ -121,7 +121,7 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_open.triggered.connect(self.openMusic)
         ac.viewer_close.triggered.connect(self.closeMusic)
         ac.viewer_close_other.triggered.connect(self.closeOtherMusicDocuments)
-        ac.viewer_close_all.triggered.connect(self.closeAllMusicDocuments)
+        ac.viewer_close_all.triggered.connect(self.closeAllViewdocs)
         ac.viewer_reload.triggered.connect(self.reloadView)
         ac.viewer_document_select.viewdocsMissing.connect(self.reportMissingMusicDocuments)
         # Navigation actions
@@ -417,8 +417,8 @@ class AbstractViewPanel(panel.Panel):
         mds = self.actionCollection.viewer_document_select
         mds.removeOtherViewdocs(self.widget().currentDocument())
 
-    def closeAllMusicDocuments(self):
-        """Close all opened music documents"""
+    def closeAllViewdocs(self):
+        """Close all opened viewer documents"""
         mds = self.actionCollection.viewer_document_select
         mds.removeAllViewdocs()
         self.widget().clear()
