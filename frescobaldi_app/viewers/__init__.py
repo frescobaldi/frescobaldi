@@ -565,6 +565,10 @@ class ViewdocChooserAction(ComboBoxAction):
             w.setModel(self._model)
         return w
 
+    def _viewdocFiles(self):
+        """Return a list with the filenames of all documents."""
+        return [d.filename() for d in self._viewdocs]
+
     def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # only switch our document if there are PDF documents to display

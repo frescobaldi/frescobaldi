@@ -114,16 +114,6 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
         # for now do nothing
         pass
 
-    def documentFiles(self):
-        """Return a list with the filenames of all documents."""
-        # TODO: Consider if it makes sense to cache that.
-        # May be useless because *then* you'd have to add a slot to
-        # update whenever _documents is changed.
-        result = []
-        for d in self._viewdocs:
-            result.append(d.filename())
-        return result
-
     def addManuscript(self, document):
         """Add a manuscript to our chooser."""
         self._viewdocs.append(document)
