@@ -118,7 +118,7 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_maximize.triggered.connect(self.maximize)
         # File handling actions
         ac.viewer_document_select.viewdocsChanged.connect(self.updateActions)
-        ac.viewer_open.triggered.connect(self.openMusic)
+        ac.viewer_open.triggered.connect(self.openViewdocs)
         ac.viewer_close.triggered.connect(self.closeMusic)
         ac.viewer_close_other.triggered.connect(self.closeOtherMusicDocuments)
         ac.viewer_close_all.triggered.connect(self.closeAllViewdocs)
@@ -351,7 +351,7 @@ class AbstractViewPanel(panel.Panel):
         group = documents.group(d)
         if group.update() or group.update(False):
             ac = self.actionCollection
-            ac.viewer_document_select.setCurrentDocument(d)
+            ac.viewer_document_select.setCurrentViewdoc(d)
 
     def toggleSyncCursor(self):
         checked = self.actionCollection.viewer_sync_cursor.isChecked()
@@ -389,13 +389,13 @@ class AbstractViewPanel(panel.Panel):
         doc_filename = self.sender().checkedAction()._document_filename
         self.actionCollection.viewer_document_select.setActiveDocument(doc_filename)
 
-    def _openMusicCaption(self):
+    def _openViewdocsCaption(self):
         """Returns the caption for the file open dialog."""
-        raise NotImplementedError('Method _openMusicCaption has to be implemented in {}'.format(self.viewerName()))
+        raise NotImplementedError('Method _openViewdocsCaption has to be implemented in {}'.format(self.viewerName()))
 
-    def openMusic(self):
+    def openViewdocs(self):
         """ Displays an open dialog to open music document(s). """
-        caption = self._openMusicCaption()
+        caption = self._openViewdocsCaption()
         current_viewer_doc = self.widget().currentDocument()
         current_filename = current_viewer_doc.filename() if current_viewer_doc else None
         current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
@@ -568,7 +568,7 @@ class ViewdocChooserAction(ComboBoxAction):
         """Called when the mainwindow changes its current document."""
         # only switch our document if there are PDF documents to display
         if self._document is None or documents.group(doc).documents():
-            self.setCurrentDocument(doc)
+            self.setCurrentViewdoc(doc)
 
     def slotEditdocUpdated(self, doc, job):
         """Called when a Job, finished on the document, has created new PDFs."""
@@ -581,9 +581,9 @@ class ViewdocChooserAction(ComboBoxAction):
         if (doc == self._document or
             (jobattributes.get(job).mainwindow == mainwindow and
              doc == engrave.engraver(mainwindow).document())):
-            self.setCurrentDocument(doc)
+            self.setCurrentViewdoc(doc)
 
-    def setCurrentDocument(self, document):
+    def setCurrentViewdoc(self, document):
         """Displays the DocumentGroup of the given text Document in our chooser."""
         prev = self._document
         self._document = document
