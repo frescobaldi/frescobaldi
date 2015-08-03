@@ -296,14 +296,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
 
-    def slotSessionChanged(self, name):
-        """Called when after a session is changed/opened."""
-        pass
-
-    def saveSessionData(self):
-        """Called when after a session is changed/opened."""
-        pass
-
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
         If the links points to the current editor document, the token(s) it points
