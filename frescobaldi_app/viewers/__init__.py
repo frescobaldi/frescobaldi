@@ -131,8 +131,6 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.viewer_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
-        app.sessionChanged.connect(self.slotSessionChanged)
-        app.saveSessionData.connect(self.slotSaveSessionData)
         self.mainwindow().allDocumentsClosed.connect(self.closeAllViewdocs)
 
     def _createConreteActions(self):

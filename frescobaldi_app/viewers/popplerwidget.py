@@ -70,6 +70,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self.createView()
         self.createContextMenu()
         self.connectSlots()
+
+        # load current session when the widget is created
+        import sessions
+        panel.slotSessionChanged(sessions.currentSession())
         self.readSettings()
 
         userguide.openWhatsThis(self)
@@ -213,6 +217,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def connectSlots(self):
         """Connects the slots of the viewer."""
         app.settingsChanged.connect(self.readSettings)
+        app.sessionChanged.connect(self.parent().slotSessionChanged)
+        app.saveSessionData.connect(self.parent().slotSaveSessionData)
 
         # react if cursor of current text document moves
         self.parent().mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
