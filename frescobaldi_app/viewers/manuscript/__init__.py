@@ -114,12 +114,6 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
         # for now do nothing
         pass
 
-    def addManuscript(self, document):
-        """Add a manuscript to our chooser."""
-        self._viewdocs.append(document)
-        self._currentIndex = len(self._viewdocs) - 1
-        self.updateViewdoc()
-
     def replaceManuscript(self, olddoc, newdoc):
         """Instead of adding a new document replace an existing."""
         try:
