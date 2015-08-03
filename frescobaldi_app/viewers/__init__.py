@@ -384,7 +384,7 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_fit_both.setChecked(mode == FitBoth)
         ac.viewer_zoom_combo.updateZoomInfo(mode, scale)
 
-    def slotShowDocument(self):
+    def slotShowViewdoc(self):
         """Bring the document to front that was selected from the context menu"""
         doc_filename = self.sender().checkedAction()._document_filename
         self.actionCollection.viewer_document_select.setActiveDocument(doc_filename)
