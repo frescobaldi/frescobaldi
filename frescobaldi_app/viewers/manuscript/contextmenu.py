@@ -23,7 +23,7 @@ The Manuscriot Viewer context menu additions.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QMenu, QAction, QActionGroup
+from PyQt4.QtGui import QMenu
 
 from viewers import contextmenu
 
@@ -31,38 +31,6 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
 
     def __init__(self, panel):
         super(ManuscriptViewerContextMenu, self).__init__(panel)
-
-    def addShowActions(self):
-        """Adds a submenu giving access to the (other)
-        opened manuscripts"""
-        mds = self._actionCollection.viewer_document_select
-        docs = mds.viewdocs()
-        document_actions = {}
-        multi_docs = len(docs) > 1
-        if self._panel.widget().currentViewdoc():
-            current_doc_filename = self._panel.widget().currentViewdoc().filename()
-
-        m = self._menu
-        sm = QMenu(m)
-        sm.setTitle(_("Show..."))
-        sm.setEnabled(multi_docs)
-        ag = QActionGroup(m)
-        ag.triggered.connect(self._panel.slotShowViewdoc)
-
-        for d in docs:
-            action = QAction(sm)
-            action.setText(d.name())
-            action._document_filename = d.filename()
-            # TODO: Tooltips aren't shown by Qt (it seems)
-            action.setToolTip(d.filename())
-            action.setCheckable(True)
-            action.setChecked(d.filename() == current_doc_filename)
-
-            ag.addAction(action)
-            sm.addAction(action)
-
-        m.addSeparator()
-        m.addMenu(sm)
 
 
     def addOpenCloseActions(self):
