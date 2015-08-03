@@ -113,11 +113,3 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
         """Called when a Job, finished on the document, has created new PDFs."""
         # for now do nothing
         pass
-
-    def setActiveDocument(self, filename, update = True):
-        """Activate the given document if it's in the list of documents"""
-        filenames = [d.filename() for d in self._viewdocs]
-        if filename in filenames:
-            self._currentIndex = filenames.index(filename)
-            if update:
-                self.updateViewdoc()

@@ -388,7 +388,7 @@ class AbstractViewPanel(panel.Panel):
     def slotShowViewdoc(self):
         """Bring the document to front that was selected from the context menu"""
         doc_filename = self.sender().checkedAction()._document_filename
-        self.actionCollection.viewer_document_select.setActiveDocument(doc_filename)
+        self.actionCollection.viewer_document_select.setActiveViewdoc(doc_filename)
 
     def _openViewdocsCaption(self):
         """Returns the caption for the file open dialog."""
@@ -634,6 +634,14 @@ class ViewdocChooserAction(ComboBoxAction):
     def viewdocs(self):
         return self._viewdocs
 
+    def setActiveViewdoc(self, filename, update = True):
+        """Activate the given document if it's in the list of documents"""
+        filenames = [d.filename() for d in self._viewdocs]
+        if filename in filenames:
+            self._currentIndex = filenames.index(filename)
+            if update:
+                self.updateViewdoc()
+
     def setCurrentIndex(self, index):
         if self._viewdocs:
             self._currentIndex = index
@@ -707,7 +715,7 @@ class ViewdocChooserAction(ComboBoxAction):
 
         # bring active document to front
         # (will automatically 'pass' if empty)
-        self.setActiveDocument(active_viewdoc, update = False)
+        self.setActiveViewdoc(active_viewdoc, update = False)
 
         # Hack to suppress the resize event that
         # clears the position of the current document
