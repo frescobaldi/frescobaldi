@@ -33,24 +33,6 @@ class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
         super(ManuscriptViewerContextMenu, self).__init__(panel)
 
 
-    def addOpenCloseActions(self):
-        """Add actions to close documents.
-        This is not implemented in the base class"""
-        m = self._menu
-        ac = self._actionCollection
-        m.addAction(ac.viewer_open)
-        docs = self._actionCollection.viewer_document_select.viewdocs()
-        if docs:
-            sm = QMenu(m)
-            sm.setTitle(_("Close..."))
-            m.addMenu(sm)
-            sm.addAction(ac.viewer_close)
-            multi_docs = len(docs) > 1
-            ac.viewer_close_other.setEnabled(multi_docs)
-            ac.viewer_close_all.setEnabled(multi_docs)
-            sm.addAction(ac.viewer_close_other)
-            sm.addAction(ac.viewer_close_all)
-
     def addReloadAction(self):
         """Add action to reload document."""
         current_document = self._panel.widget().currentViewdoc()

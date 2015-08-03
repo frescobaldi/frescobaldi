@@ -115,6 +115,32 @@ class AbstractViewerContextMenu(QObject):
         m.addSeparator()
         m.addMenu(sm)
 
+    def addOpenCloseActions(self):
+        """Add actions to close documents.
+        This is not implemented in the base class"""
+        m = self._menu
+        ac = self._actionCollection
+        m.addAction(ac.viewer_open)
+        docs = self._actionCollection.viewer_document_select.viewdocs()
+        if docs:
+            sm = QMenu(m)
+            sm.setTitle(_("Close..."))
+            m.addMenu(sm)
+            sm.addAction(ac.viewer_close)
+            multi_docs = len(docs) > 1
+            ac.viewer_close_other.setEnabled(multi_docs)
+            ac.viewer_close_all.setEnabled(multi_docs)
+            sm.addAction(ac.viewer_close_other)
+            sm.addAction(ac.viewer_close_all)
+
+    def addReloadAction(self):
+        """Add action to reload document."""
+        current_document = self._panel.widget().currentViewdoc()
+        if current_document:
+            m = self._menu
+            ac = self._actionCollection
+            m.addAction(ac.viewer_reload)
+
     def addZoomActions(self):
         """Add actions to zoom the viewer"""
         m = self._menu
@@ -130,13 +156,6 @@ class AbstractViewerContextMenu(QObject):
         sm.addAction(ac.viewer_zoom_in)
         sm.addAction(ac.viewer_zoom_out)
         sm.addAction(ac.viewer_zoom_original)
-
-    def addOpenCloseActions(self):
-        """Add actions to close documents.
-        This is not implemented in the base class"""
-        pass
-        # TODO: Should these also be available in other viewers
-        # than the manusccript viewer?
 
     def addSynchronizeAction(self):
         """Add an action telling the viewer to
@@ -182,7 +201,9 @@ class AbstractViewerContextMenu(QObject):
             self.addCopyImageAction()
             self.addCursorLinkActions()
             # Actions affecting the currently opened documents
+            self.addShowActions()
             self.addOpenCloseActions()
+            self.addReloadAction()
             # Actions affecting the viewer's state
             self.addZoomActions()
             self.addSynchronizeAction()
