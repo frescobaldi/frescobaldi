@@ -99,9 +99,6 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
     opened or closed in the manuscript viewer.
     """
 
-    def __init__(self, panel):
-        super(ManuscriptViewdocChooserAction, self).__init__(panel)
-
     def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # for now do nothing
