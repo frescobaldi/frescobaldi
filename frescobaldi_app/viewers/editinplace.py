@@ -18,7 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The Music View's Edit in Place dialog.
+Viewers' Edit in Place dialog. Available only for
+point-and-click supplied viewer documents
 """
 
 from __future__ import unicode_literals

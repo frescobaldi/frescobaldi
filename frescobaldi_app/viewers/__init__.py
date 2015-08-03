@@ -26,6 +26,8 @@ abstraction and caching of Poppler documents with their filename,
 and the printing module contains code to print a Poppler document, either
 via a PostScript rendering or by printing raster images to a QPrinter.
 All the point & click stuff is handled in the pointandclick module.
+
+This is an abstract base class for different viewer modules.
 """
 
 from __future__ import unicode_literals

@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The PDF preview panel widget.
+Abstract base class for a Poppler based viewer widget.
 """
 
 from __future__ import division

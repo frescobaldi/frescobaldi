@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Dialog to copy contents from PDF to a raster image.
+Dialog to copy contents from Poppler view surface to a raster image.
 """
 
 from __future__ import unicode_literals
