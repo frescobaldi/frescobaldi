@@ -98,7 +98,6 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_sync_cursor.setChecked(sync_cursor)
         show_toolbar = QSettings().value("{}/show-toolbar".format(self.viewerName()), True, bool)
         ac.viewer_show_toolbar.setChecked(show_toolbar)
-        self.slotShowToolbar()
 
     def connectActions(self):
         ac = self.actionCollection

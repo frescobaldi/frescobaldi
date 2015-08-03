@@ -176,6 +176,9 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         # add the actions to the toolbar
         self.populateToolbar()
 
+        # show or hide toolbar upon creation
+        self.toolbar().setVisible(self.actionCollection.viewer_show_toolbar.isChecked())
+
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = Highlighter()
