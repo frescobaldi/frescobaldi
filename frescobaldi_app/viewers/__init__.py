@@ -134,6 +134,7 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
+        self.mainwindow().allDocumentsClosed.connect(self.closeAllViewdocs)
 
     def _createConreteActions(self):
         """Create the actionCollection.
