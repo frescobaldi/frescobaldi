@@ -53,14 +53,14 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         self.toggleViewAction().setText(_("Manuscript Viewer"))
 
     def _createConcreteActions(self, panel):
-        return ManuscriptActions(self)
+        return ManuscriptViewerActions(self)
 
     def _createConcreteWidget(self):
         """Create the widget for the panel"""
         from . import widget
         return widget.ManuscriptViewWidget(self)
 
-    def _openMusicCaption(self):
+    def _openViewdocsCaption(self):
         """Returns the caption for the file open dialog."""
         return app.caption(_("dialog title", "Open Manuscript(s)"))
 
@@ -69,47 +69,47 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         active_manuscript = self.widget().currentDocument()
         if active_manuscript:
             reread = documents.Document(active_manuscript.filename())
-            mds = self.actionCollection.music_document_select
+            mds = self.actionCollection.viewer_document_select
             mds.replaceManuscript(active_manuscript, reread)
 
 
-class ManuscriptActions(viewers.Actions):
+class ManuscriptViewerActions(viewers.ViewerActions):
     name = "manuscript"
 
-    def _createDocumentChooserAction(self, panel):
-        """Create the concrete DocumentChooserAction."""
-        return ManuscriptDocumentChooserAction(panel)
+    def _createViewdocChooserAction(self, panel):
+        """Create the concrete ViewdocChooserAction."""
+        return ManuscriptViewdocChooserAction(panel)
 
     def translateUI(self):
-        super(ManuscriptActions, self).translateUI()
-        self.music_document_select.setText(_("Select Manuscript Document"))
-        self.music_open.setText(_("Open manuscript(s)"))
-        self.music_open.setIconText(_("Open"))
-        self.music_close.setText(_("Close manuscript"))
-        self.music_close.setIconText(_("Close"))
-        self.music_close_other.setText(_("Close other manuscripts"))
-        self.music_close_all.setText(_("Close all manuscripts"))
+        super(ManuscriptViewerActions, self).translateUI()
+        self.viewer_document_select.setText(_("Select Manuscript Document"))
+        self.viewer_open.setText(_("Open manuscript(s)"))
+        self.viewer_open.setIconText(_("Open"))
+        self.viewer_close.setText(_("Close manuscript"))
+        self.viewer_close.setIconText(_("Close"))
+        self.viewer_close_other.setText(_("Close other manuscripts"))
+        self.viewer_close_all.setText(_("Close all manuscripts"))
 
     def title(self):
         return _("Manuscript")
 
 
-class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
+class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
     """Extends the parent class and also keeps track of when a document is
     opened or closed in the manuscript viewer.
     """
 
     def __init__(self, panel):
-        super(ManuscriptDocumentChooserAction, self).__init__(panel)
+        super(ManuscriptViewdocChooserAction, self).__init__(panel)
 
-    def slotDocumentChanged(self, doc):
+    def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # for now do nothing
         # when we have a tie between documents and manuscripts
         # something will have to be done here
         pass
 
-    def slotDocumentUpdated(self, doc, job):
+    def slotEditdocUpdated(self, doc, job):
         """Called when a Job, finished on the document, has created new PDFs."""
         # for now do nothing
         pass
@@ -123,59 +123,6 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
         for d in self._documents:
             result.append(d.filename())
         return result
-
-    def loadManuscripts(self, manuscripts, active_manuscript = "",
-                        clear = False, sort = False):
-        """Load or add the manuscripts from a list of filenames"""
-
-        # When switching sessions we replace the manuscripts
-        # otherwise the loaded manuscripts are added.
-        if clear:
-            self.removeAllManuscripts()
-            self.parent().widget().clear()
-
-        # process manuscripts, adding fallback position if required.
-        # load manuscript or add to list of missing filenames
-        missing = []
-        for m in manuscripts:
-            if isinstance(m, tuple):
-                file = m[0]
-                position = m[1]
-            else:
-                file = m
-                position = (0, 0, 0)
-            if not file in self.documentFiles():
-                if os.path.isfile(file):
-                    doc = documents.Document(file)
-                    self._documents.append(doc)
-                    self.parent().widget()._positions[doc] = position
-                else:
-                    missing.append(file)
-
-        # bring active document to front
-        # (will automatically 'pass' if empty)
-        self.setActiveDocument(active_manuscript, update = False)
-
-        # Hack to suppress the resize event that
-        # clears the position of the current document
-        self.parent().widget().view._centerPos = None
-
-        if sort:
-            self.sortManuscripts(update = False)
-
-        # finally: load documents
-        self.updateDocument()
-
-        # report missing docs
-        if missing:
-            self.documentsMissing.emit(missing)
-
-    def sortManuscripts(self, update = True):
-        """sort the open manuscripts alphabetically."""
-        self._documents = sorted(self._documents,
-                            key= lambda d: os.path.basename(d.filename()))
-        if update:
-            self.updateDocument()
 
     def addManuscript(self, document):
         """Add a manuscript to our chooser."""
