@@ -76,9 +76,9 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 class ManuscriptActions(viewers.Actions):
     name = "manuscript"
 
-    def _createDocumentChooserAction(self, panel):
-        """Create the concrete DocumentChooserAction."""
-        return ManuscriptDocumentChooserAction(panel)
+    def _createViewdocChooserAction(self, panel):
+        """Create the concrete ViewdocChooserAction."""
+        return ManuscriptViewdocChooserAction(panel)
 
     def translateUI(self):
         super(ManuscriptActions, self).translateUI()
@@ -94,13 +94,13 @@ class ManuscriptActions(viewers.Actions):
         return _("Manuscript")
 
 
-class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
+class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
     """Extends the parent class and also keeps track of when a document is
     opened or closed in the manuscript viewer.
     """
 
     def __init__(self, panel):
-        super(ManuscriptDocumentChooserAction, self).__init__(panel)
+        super(ManuscriptViewdocChooserAction, self).__init__(panel)
 
     def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""

@@ -434,7 +434,7 @@ class AbstractViewPanel(panel.Panel):
 class Actions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
-        self.viewer_document_select = self._createDocumentChooserAction(panel)
+        self.viewer_document_select = self._createViewdocChooserAction(panel)
         self.viewer_print = QAction(panel)
         self.viewer_zoom_in = QAction(panel)
         self.viewer_zoom_out = QAction(panel)
@@ -508,7 +508,7 @@ class Actions(actioncollection.ActionCollection):
         self.viewer_close.setText(_("Close document"))
         self.viewer_close.setIconText(_("Close"))
 
-    def _createDocumentChooserAction(self, panel):
+    def _createViewdocChooserAction(self, panel):
         """Create the document chooser action.
         Subclasses must override this."""
         raise NotImplementedError()
@@ -533,7 +533,7 @@ class ComboBoxAction(QWidgetAction):
                 return
 
 
-class DocumentChooserAction(ComboBoxAction):
+class ViewdocChooserAction(ComboBoxAction):
     """A ComboBoxAction that keeps track of the current text document.
     It manages the list of generated PDF documents for every text document.
     If the mainwindow changes its current document and there are PDFs to display,
@@ -548,7 +548,7 @@ class DocumentChooserAction(ComboBoxAction):
     viewdocsMissing = pyqtSignal(list)
 
     def __init__(self, panel):
-        super(DocumentChooserAction, self).__init__(panel)
+        super(ViewdocChooserAction, self).__init__(panel)
         self._model = None
         self._document = None
         self._documents = []
@@ -558,7 +558,7 @@ class DocumentChooserAction(ComboBoxAction):
         documents.documentUpdated.connect(self.slotEditdocUpdated)
 
     def createWidget(self, parent):
-        w = DocumentChooser(parent)
+        w = ViewdocChooser(parent)
         w.activated[int].connect(self.setCurrentIndex)
         if self._model:
             w.setModel(self._model)
@@ -716,9 +716,9 @@ class DocumentChooserAction(ComboBoxAction):
             self.updateDocument()
 
 
-class DocumentChooser(QComboBox):
+class ViewdocChooser(QComboBox):
     def __init__(self, parent):
-        super(DocumentChooser, self).__init__(parent)
+        super(ViewdocChooser, self).__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
         self.setEditable(True)
         self.lineEdit().setReadOnly(True)
