@@ -118,12 +118,12 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_maximize.triggered.connect(self.maximize)
         # File handling actions
         ac.viewer_document_select.viewdocsChanged.connect(self.updateActions)
-        ac.viewer_open.triggered.connect(self.openMusic)
-        ac.viewer_close.triggered.connect(self.closeMusic)
-        ac.viewer_close_other.triggered.connect(self.closeOtherMusicDocuments)
+        ac.viewer_open.triggered.connect(self.openViewdocs)
+        ac.viewer_close.triggered.connect(self.closeCurrentViewdoc)
+        ac.viewer_close_other.triggered.connect(self.closeOtherViewdocs)
         ac.viewer_close_all.triggered.connect(self.closeAllViewdocs)
         ac.viewer_reload.triggered.connect(self.reloadView)
-        ac.viewer_document_select.viewdocsMissing.connect(self.reportMissingMusicDocuments)
+        ac.viewer_document_select.viewdocsMissing.connect(self.reportMissingViewdocs)
         # Navigation actions
         ac.viewer_next_page.triggered.connect(self.slotNextPage)
         ac.viewer_prev_page.triggered.connect(self.slotPreviousPage)
@@ -384,18 +384,18 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_fit_both.setChecked(mode == FitBoth)
         ac.viewer_zoom_combo.updateZoomInfo(mode, scale)
 
-    def slotShowDocument(self):
+    def slotShowViewdoc(self):
         """Bring the document to front that was selected from the context menu"""
         doc_filename = self.sender().checkedAction()._document_filename
         self.actionCollection.viewer_document_select.setActiveDocument(doc_filename)
 
-    def _openMusicCaption(self):
+    def _openViewdocsCaption(self):
         """Returns the caption for the file open dialog."""
-        raise NotImplementedError('Method _openMusicCaption has to be implemented in {}'.format(self.viewerName()))
+        raise NotImplementedError('Method _openViewdocsCaption has to be implemented in {}'.format(self.viewerName()))
 
-    def openMusic(self):
-        """ Displays an open dialog to open music document(s). """
-        caption = self._openMusicCaption()
+    def openViewdocs(self):
+        """ Displays an open dialog to open viewer document(s). """
+        caption = self._openViewdocsCaption()
         current_viewer_doc = self.widget().currentDocument()
         current_filename = current_viewer_doc.filename() if current_viewer_doc else None
         current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
@@ -405,15 +405,15 @@ class AbstractViewPanel(panel.Panel):
             # TODO: This has to be generalized too
             self.actionCollection.viewer_document_select.openViewdocs(filenames, filenames[-1])
 
-    def closeMusic(self):
-        """ Close current music document. """
+    def closeCurrentViewdoc(self):
+        """ Close current viewer document. """
         mds = self.actionCollection.viewer_document_select
         mds.removeViewdoc(self.widget().currentDocument())
         if len(mds.documents()) == 0:
             self.widget().clear()
 
-    def closeOtherMusicDocuments(self):
-        """Close all music documents except the one currently opened"""
+    def closeOtherViewdocs(self):
+        """Close all viewer documents except the one currently opened"""
         mds = self.actionCollection.viewer_document_select
         mds.removeOtherViewdocs(self.widget().currentDocument())
 
@@ -423,8 +423,8 @@ class AbstractViewPanel(panel.Panel):
         mds.removeAllViewdocs()
         self.widget().clear()
 
-    def reportMissingMusicDocuments(self, missing):
-        """Report missing document files when restoring a session."""
+    def reportMissingViewdocs(self, missing):
+        """Report missing viewer document files when restoring a session."""
         report_msg = (_('The following file/s are/is missing and could not be loaded ' +
                      'when restoring a session:\n\n'))
         QMessageBox.warning(self, (_("Missing files in {}".format(self.viewerPanelDisplayName()))),

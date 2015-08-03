@@ -60,7 +60,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
         from . import widget
         return widget.ManuscriptViewWidget(self)
 
-    def _openMusicCaption(self):
+    def _openViewdocsCaption(self):
         """Returns the caption for the file open dialog."""
         return app.caption(_("dialog title", "Open Manuscript(s)"))
 
