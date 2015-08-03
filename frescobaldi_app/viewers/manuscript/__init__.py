@@ -128,14 +128,14 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
         """Add a manuscript to our chooser."""
         self._viewdocs.append(document)
         self._currentIndex = len(self._viewdocs) - 1
-        self.updateDocument()
+        self.updateViewdoc()
 
     def replaceManuscript(self, olddoc, newdoc):
         """Instead of adding a new document replace an existing."""
         try:
             docindex = self._viewdocs.index(olddoc)
             self._viewdocs[docindex] = newdoc
-            self.updateDocument()
+            self.updateViewdoc()
         except ValueError:
             # no replacement possible because the original doc isn't found
             pass
@@ -146,4 +146,4 @@ class ManuscriptViewdocChooserAction(viewers.ViewdocChooserAction):
         if filename in filenames:
             self._currentIndex = filenames.index(filename)
             if update:
-                self.updateDocument()
+                self.updateViewdoc()

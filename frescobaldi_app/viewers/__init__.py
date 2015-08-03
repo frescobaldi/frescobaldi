@@ -589,16 +589,16 @@ class ViewdocChooserAction(ComboBoxAction):
         prev = self._viewdoc
         self._viewdoc = document
         if prev:
-            prev.loaded.disconnect(self.updateDocument)
+            prev.loaded.disconnect(self.updateViewdoc)
             prev.closed.disconnect(self.closeDocument)
             self._indices[prev] = self._currentIndex
-        document.loaded.connect(self.updateDocument)
+        document.loaded.connect(self.updateViewdoc)
         document.closed.connect(self.closeDocument)
         self._viewdocs = documents.group(document).documents()
         self._currentIndex = self._indices.get(document, 0)
-        self.updateDocument()
+        self.updateViewdoc()
 
-    def updateDocument(self):
+    def updateViewdoc(self):
         """(Re)read the output documents of the current document and show them."""
         docs = self._viewdocs
         self.setVisible(bool(docs))
@@ -653,15 +653,15 @@ class ViewdocChooserAction(ComboBoxAction):
     def removeViewdoc(self, document):
         if document:
             self._viewdocs.remove(document)
-            self.updateDocument()
+            self.updateViewdoc()
 
     def removeOtherViewdocs(self, document):
         self._viewdocs = [document]
-        self.updateDocument()
+        self.updateViewdoc()
 
     def removeAllViewdocs(self):
         self._viewdocs = []
-        self.updateDocument()
+        self.updateViewdoc()
 
     def openViewdocs(self, viewdocs, active_viewdoc = "",
                         clear = False, sort = False):
@@ -703,7 +703,7 @@ class ViewdocChooserAction(ComboBoxAction):
             self.sortViewdocs(update = False)
 
         # finally: load documents
-        self.updateDocument()
+        self.updateViewdoc()
 
         # report missing docs
         if missing:
@@ -714,7 +714,7 @@ class ViewdocChooserAction(ComboBoxAction):
         self._viewdocs = sorted(self._viewdocs,
                             key= lambda d: os.path.basename(d.filename()))
         if update:
-            self.updateDocument()
+            self.updateViewdoc()
 
 
 class ViewdocChooser(QComboBox):
