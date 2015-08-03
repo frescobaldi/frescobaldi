@@ -66,7 +66,7 @@ class ManuscriptViewPanel(viewers.AbstractViewPanel):
 
     @viewers.activate
     def reloadView(self):
-        active_manuscript = self.widget().currentDocument()
+        active_manuscript = self.widget().currentViewdoc()
         if active_manuscript:
             reread = documents.Document(active_manuscript.filename())
             mds = self.actionCollection.viewer_document_select

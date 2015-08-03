@@ -167,12 +167,12 @@ class AbstractViewPanel(panel.Panel):
         selector.currentViewdocChanged.connect(w.openViewdoc)
         selector.viewdocClosed.connect(w.clear)
 
-        if selector.currentDocument():
+        if selector.currentViewdoc():
             # open a document only after the widget has been created;
             # this prevents many superfluous resizes
             def open():
-                if selector.currentDocument():
-                    w.openDocument(selector.currentDocument())
+                if selector.currentViewdoc():
+                    w.openDocument(selector.currentViewdoc())
             QTimer.singleShot(0, open)
 
         return w
@@ -236,7 +236,7 @@ class AbstractViewPanel(panel.Panel):
             active_file_key = "{}-active-file".format(self.viewerName())
             docs = self.actionCollection.viewer_document_select.documents()
             if docs:
-                current_viewdoc = self.widget().currentDocument()
+                current_viewdoc = self.widget().currentViewdoc()
                 current_file = current_viewdoc.filename()
                 g.setValue(active_file_key, current_file)
                 pos = []
@@ -271,7 +271,7 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_print.setEnabled(bool(ac.viewer_document_select.documents()))
 
     def printMusic(self):
-        doc = self.actionCollection.viewer_document_select.currentDocument()
+        doc = self.actionCollection.viewer_document_select.currentViewdoc()
         if doc and doc.document():
             ### temporarily disable printing on Mac OS X
             import sys
@@ -397,9 +397,9 @@ class AbstractViewPanel(panel.Panel):
     def openViewdocs(self):
         """ Displays an open dialog to open music document(s). """
         caption = self._openViewdocsCaption()
-        current_viewer_doc = self.widget().currentDocument()
+        current_viewer_doc = self.widget().currentViewdoc()
         current_filename = current_viewer_doc.filename() if current_viewer_doc else None
-        current_editor_document = self.mainwindow().currentDocument().url().toLocalFile()
+        current_editor_document = self.mainwindow().currentViewdoc().url().toLocalFile()
         directory = os.path.dirname(current_filename or current_editor_document or app.basedir())
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
@@ -409,14 +409,14 @@ class AbstractViewPanel(panel.Panel):
     def closeViewdoc(self):
         """ Close current music document. """
         mds = self.actionCollection.viewer_document_select
-        mds.removeViewdoc(self.widget().currentDocument())
+        mds.removeViewdoc(self.widget().currentViewdoc())
         if len(mds.documents()) == 0:
             self.widget().clear()
 
     def closeOtherViewdocs(self):
         """Close all viewer documents except the one currently opened"""
         mds = self.actionCollection.viewer_document_select
-        mds.removeOtherViewdocs(self.widget().currentDocument())
+        mds.removeOtherViewdocs(self.widget().currentViewdoc())
 
     def closeAllViewdocs(self):
         """Close all opened viewer documents"""
@@ -645,7 +645,7 @@ class ViewdocChooserAction(ComboBoxAction):
     def currentIndex(self):
         return self._currentIndex
 
-    def currentDocument(self):
+    def currentViewdoc(self):
         """Returns the currently selected Music document (Note: NOT the text document!)"""
         if self._viewdocs:
             return self._viewdocs[self._currentIndex]
