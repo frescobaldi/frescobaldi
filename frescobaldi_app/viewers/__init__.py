@@ -554,7 +554,7 @@ class DocumentChooserAction(ComboBoxAction):
         self._documents = []
         self._currentIndex = -1
         self._indices = weakref.WeakKeyDictionary()
-        panel.mainwindow().currentDocumentChanged.connect(self.slotDocumentChanged)
+        panel.mainwindow().currentDocumentChanged.connect(self.slotEditdocChanged)
         documents.documentUpdated.connect(self.slotDocumentUpdated)
 
     def createWidget(self, parent):
@@ -564,7 +564,7 @@ class DocumentChooserAction(ComboBoxAction):
             w.setModel(self._model)
         return w
 
-    def slotDocumentChanged(self, doc):
+    def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # only switch our document if there are PDF documents to display
         if self._document is None or documents.group(doc).documents():

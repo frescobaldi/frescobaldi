@@ -102,7 +102,7 @@ class ManuscriptDocumentChooserAction(viewers.DocumentChooserAction):
     def __init__(self, panel):
         super(ManuscriptDocumentChooserAction, self).__init__(panel)
 
-    def slotDocumentChanged(self, doc):
+    def slotEditdocChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # for now do nothing
         # when we have a tie between documents and manuscripts
