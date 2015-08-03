@@ -590,10 +590,10 @@ class ViewdocChooserAction(ComboBoxAction):
         self._viewdoc = document
         if prev:
             prev.loaded.disconnect(self.updateViewdoc)
-            prev.closed.disconnect(self.closeDocument)
+            prev.closed.disconnect(self.closeViewdoc)
             self._indices[prev] = self._currentIndex
         document.loaded.connect(self.updateViewdoc)
-        document.closed.connect(self.closeDocument)
+        document.closed.connect(self.closeViewdoc)
         self._viewdocs = documents.group(document).documents()
         self._currentIndex = self._indices.get(document, 0)
         self.updateViewdoc()
@@ -617,7 +617,7 @@ class ViewdocChooserAction(ComboBoxAction):
         self.viewdocsChanged.emit()
         self.setCurrentIndex(index)
 
-    def closeDocument(self):
+    def closeViewdoc(self):
         """Called when the current document is closed by the user."""
         self._viewdoc = None
         self._viewdocs = []
