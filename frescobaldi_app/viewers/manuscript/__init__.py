@@ -23,22 +23,11 @@ A tool to display an engraver's copy in a dock.
 
 from __future__ import unicode_literals
 
-import os
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QKeySequence
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import (
-    QAction, QKeySequence, QVBoxLayout, QToolButton,
-    QHBoxLayout, QPushButton, QMessageBox)
-
-import actioncollection
-import actioncollectionmanager
 import app
-import icons
-import panel
-import userguide.util
-
 import viewers
-from viewers import popplerwidget
 from viewers import documents
 
 class ManuscriptViewPanel(viewers.AbstractViewPanel):
