@@ -164,7 +164,7 @@ class AbstractViewPanel(panel.Panel):
         app.languageChanged.connect(self.updatePagerLanguage)
 
         selector = self.actionCollection.viewer_document_select
-        selector.currentViewdocChanged.connect(w.openDocument)
+        selector.currentViewdocChanged.connect(w.openViewdoc)
         selector.viewdocClosed.connect(w.clear)
 
         if selector.currentDocument():

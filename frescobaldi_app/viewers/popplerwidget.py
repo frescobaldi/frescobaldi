@@ -239,7 +239,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         """Set the current document."""
         self._currentDocument = doc
 
-    def openDocument(self, doc):
+    def openViewdoc(self, doc):
         """Opens a documents.Document instance."""
         try:
             self.clear()
