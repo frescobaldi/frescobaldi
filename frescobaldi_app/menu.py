@@ -285,7 +285,8 @@ def menu_lilypond_generated_files(mainwindow):
 
 def menu_tools(mainwindow):
     m = Menu(_('menu title', '&Tools'), mainwindow)
-    
+    viewers_menu = Menu(_('menu title', '&Viewers'), mainwindow)
+
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_indent_auto)
     m.addAction(ac.tools_indent_indent)
@@ -307,7 +308,7 @@ def menu_tools(mainwindow):
     m.addAction(mainwindow.actionCollection.file_open_current_directory)
     m.addAction(mainwindow.actionCollection.file_open_command_prompt)
     m.addSeparator()
-    panelmanager.manager(mainwindow).addActionsToMenu(m)
+    panelmanager.manager(mainwindow).addActionsToMenu(m, viewers_menu)
     return m
 
 
