@@ -96,10 +96,15 @@ class PanelManager(plugin.MainWindowPlugin):
         self.actionCollection = Actions(self)
         actioncollectionmanager.manager(self.mainwindow()).addActionCollection(self.actionCollection)
 
-    def addActionsToMenu(self, menu):
-        """Adds all toggleViewActions to the given menu."""
+    def addActionsToMenu(self, menu, viewers_menu):
+        """Adds all toggleViewActions to the given menu.
+        Groups the music viewers in a submenu."""
+        menu.addMenu(viewers_menu)
         for name, panel in self._panels:
-            menu.addAction(panel.toggleViewAction())
+            if name in ['musicview', 'svgview', 'manuscript']:
+                viewers_menu.addAction(panel.toggleViewAction())
+            else:
+                menu.addAction(panel.toggleViewAction())
 
     def panels_at(self, area):
         """Return the list of panels at the specified Qt.DockWidgetArea.
