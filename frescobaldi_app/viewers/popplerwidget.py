@@ -316,7 +316,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             [(page, link.linkArea().normalized())], 2000)
         self._highlightRange = None
         cursor = self._links.cursor(link)
-        if not cursor or cursor.document() != self.parent().mainwindow().currentViewdoc():
+        if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
 
         # highlight token(s) at this cursor
