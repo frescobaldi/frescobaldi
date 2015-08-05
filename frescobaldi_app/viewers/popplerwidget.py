@@ -70,10 +70,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self.createView()
         self.createContextMenu()
         self.connectSlots()
-
-        # load current session when the widget is created
-        import sessions
-        panel.slotSessionChanged(sessions.currentSession())
         self.readSettings()
 
         userguide.openWhatsThis(self)
@@ -385,7 +381,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             # perform highlighting after move has been started. This is to ensure that if kinetic scrolling is
             # is enabled its speed is already set so that we can adjust the highlight timer.
             self.highlight(links.destinations(), s)
-
 
     def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""
