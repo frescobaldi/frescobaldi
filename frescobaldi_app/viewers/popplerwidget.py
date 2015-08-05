@@ -102,7 +102,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         result = self.helpButton = QToolButton(
             icon = icons.get("help-contents"),
             autoRaise = True,
-            clicked = lambda: userguide.show(self.parent().viewerName()))
+            clicked = lambda: userguide.show(self.viewerName()))
 
     def _tbAddSeparator(self):
         """Add a separator to the toolbar."""
@@ -174,7 +174,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._main_layout.addLayout(self._toolbar_layout)
 
         # create toolbar and add to layout
-        self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.parent().viewerName())
+        self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.viewerName())
         self._toolbar_layout.addWidget(toolbar)
         self._toolbar_layout.addStretch(1)
 
@@ -232,6 +232,12 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         surface.linkHovered.connect(self.slotLinkHovered)
         surface.linkLeft.connect(self.slotLinkLeft)
         surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
+
+    def viewerName(self):
+        """Return the viewerName() attribute of the panel."""
+        if not hasattr(self, '_viewerName'):
+            self._viewerName = self.parent().viewerName()
+        return self._viewerName
 
     def sizeHint(self):
         """Returns the initial size the PDF (Music) View prefers."""
