@@ -135,6 +135,18 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_show_toolbar.triggered.connect(self.slotShowToolbar)
         self.mainwindow().allDocumentsClosed.connect(self.closeAllViewdocs)
 
+    def widget(self):
+        """Ensures that our widget() is created and intitialized and returns it.
+        Overrides the default implementation of Panel because we need to call
+        the session handler *after* the widget is created."""
+        w = super(panel.Panel, self).widget()
+        if not w:
+            w = self.createWidget()
+            self.setWidget(w)
+            import sessions
+            self.slotSessionChanged(sessions.currentSession())
+        return w
+
     def _createConreteActions(self):
         """Create the actionCollection.
         Subclasses must override this method."""
@@ -181,9 +193,10 @@ class AbstractViewPanel(panel.Panel):
         This is the lowercase classname, right-stripped
         of a trailing 'panel'.
         To be used for accessing the QSettings group."""
-        result = type(self).__name__.lower()
-        result = result if not result.endswith('panel') else result[:-5]
-        return result
+        if not hasattr(self, '_viewerName'):
+            name = type(self).__name__.lower()
+            self._viewerName = name if not name.endswith('panel') else name[:-5]
+        return self._viewerName
 
     def viewerPanelDisplayName(self):
         """Returns the 'display name' of the current viewer."""
