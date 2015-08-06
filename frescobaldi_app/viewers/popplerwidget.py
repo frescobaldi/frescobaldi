@@ -46,6 +46,7 @@ import textedit
 import textformats
 import contextmenu
 import viewhighlighter
+import widgets.dialog
 import userguide.util
 
 from . import abstractviewwidget
@@ -256,9 +257,14 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 position = self._positions.get(doc, (0, 0, 0))
                 self.view.setPosition(position, True)
         except OSError:
-            # remove manuscript if it can't be opened
-            mds = self.actionCollection.viewer_document_select
-            mds.removeViewdoc(doc)
+            # the file is not found on the given path
+            dlg = widgets.dialog.Dialog(buttons=('yes', 'no'))
+            dlg.setWindowTitle("Missing file")
+            fn = doc.filename()
+            dlg.setMessage(_("{} is missing. Remove?".format(fn)))
+            if dlg.exec_():
+                mds = self.actionCollection.viewer_document_select
+                mds.removeViewdoc(doc)
 
     def clear(self):
         """Empties the view."""
