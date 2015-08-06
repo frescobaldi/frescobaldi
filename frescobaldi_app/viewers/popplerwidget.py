@@ -258,7 +258,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         except OSError:
             # remove manuscript if it can't be opened
             mds = self.actionCollection.viewer_document_select
-            mds.removeManuscript(doc)
+            mds.removeViewdoc(doc)
 
     def clear(self):
         """Empties the view."""
