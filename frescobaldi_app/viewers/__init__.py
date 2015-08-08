@@ -208,52 +208,6 @@ class AbstractViewPanel(panel.Panel):
         self.actionCollection.viewer_next_page.setEnabled(num < self._pager.pageCount())
         self.actionCollection.viewer_prev_page.setEnabled(num > 1)
 
-    def slotSessionChanged(self, name):
-        """Called whenever the current session is changed
-        (also on application startup or after a session is created).
-        If the session already exists load manuscripts from the
-        session object and load them in the viewer."""
-        if name:
-            import sessions
-            session = sessions.sessionGroup(name)
-            if session.contains("urls"): # the session is not new
-                files_key = "{}-files".format(self.viewerName())
-                active_file_key = "{}-active-file".format(self.viewerName())
-                ds = self.actionCollection.viewer_document_select
-                ds.openViewdocs(session.value(files_key, ""),
-                    active_viewdoc = session.value(active_file_key, ""),
-                    clear = True,
-                    sort = False) # may be replaced by a Preference
-
-    def slotSaveSessionData(self):
-        """Saves the filenames and positions of the open manuscripts.
-        If a file doesn't have a position (because it hasn't been moved or
-        shown) a default position is stored."""
-        import sessions
-        g = sessions.currentSessionGroup()
-        if g:
-            files_key = "{}-files".format(self.viewerName())
-            active_file_key = "{}-active-file".format(self.viewerName())
-            docs = self.actionCollection.viewer_document_select.viewdocs()
-            if docs:
-                current_viewdoc = self.widget().currentViewdoc()
-                current_file = current_viewdoc.filename()
-                g.setValue(active_file_key, current_file)
-                pos = []
-                for d in docs:
-                    if d.filename() == current_file:
-                        # retrieve the position of the current document directly
-                        # from the view because the entry in _positions may not
-                        # be set in all cases
-                        p = self.widget().view.position()
-                    else:
-                        p = self.widget()._positions.get(d, (0, 0, 0))
-                    pos.append((d.filename(), p))
-                g.setValue(files_key, pos)
-            else:
-                g.remove(active_file_key)
-                g.remove(files_key)
-
     @activate
     def slotNextPage(self):
         self._pager.setCurrentPage(self._pager.currentPage() + 1)

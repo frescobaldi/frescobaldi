@@ -74,7 +74,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
         # load current session when the widget is created
         import sessions
-        panel.slotSessionChanged(sessions.currentSession())
+        self.slotSessionChanged(sessions.currentSession())
         self.readSettings()
 
         userguide.openWhatsThis(self)
@@ -218,8 +218,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
     def connectSlots(self):
         """Connects the slots of the viewer."""
         app.settingsChanged.connect(self.readSettings)
-        app.sessionChanged.connect(self.parent().slotSessionChanged)
-        app.saveSessionData.connect(self.parent().slotSaveSessionData)
+        app.sessionChanged.connect(self.slotSessionChanged)
+        app.saveSessionData.connect(self.slotSaveSessionData)
 
         # react if cursor of current text document moves
         self.parent().mainwindow().currentViewChanged.connect(self.slotCurrentViewChanged)
@@ -357,6 +357,52 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 else:
                     text = link.url()
             QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
+
+    def slotSessionChanged(self, name):
+        """Called whenever the current session is changed
+        (also on application startup or after a session is created).
+        If the session already exists load manuscripts from the
+        session object and load them in the viewer."""
+        if name:
+            import sessions
+            session = sessions.sessionGroup(name)
+            if session.contains("urls"): # the session is not new
+                files_key = "{}-files".format(self.viewerName())
+                active_file_key = "{}-active-file".format(self.viewerName())
+                ds = self.actionCollection.viewer_document_select
+                ds.openViewdocs(session.value(files_key, ""),
+                    active_viewdoc = session.value(active_file_key, ""),
+                    clear = True,
+                    sort = False) # may be replaced by a Preference
+
+    def slotSaveSessionData(self):
+        """Saves the filenames and positions of the open manuscripts.
+        If a file doesn't have a position (because it hasn't been moved or
+        shown) a default position is stored."""
+        import sessions
+        g = sessions.currentSessionGroup()
+        if g:
+            files_key = "{}-files".format(self.viewerName())
+            active_file_key = "{}-active-file".format(self.viewerName())
+            docs = self.actionCollection.viewer_document_select.viewdocs()
+            if docs:
+                current_viewdoc = self.currentViewdoc()
+                current_file = current_viewdoc.filename()
+                g.setValue(active_file_key, current_file)
+                pos = []
+                for d in docs:
+                    if d.filename() == current_file:
+                        # retrieve the position of the current document directly
+                        # from the view because the entry in _positions may not
+                        # be set in all cases
+                        p = self.view.position()
+                    else:
+                        p = self._positions.get(d, (0, 0, 0))
+                    pos.append((d.filename(), p))
+                g.setValue(files_key, pos)
+            else:
+                g.remove(active_file_key)
+                g.remove(files_key)
 
     def slotCurrentViewChanged(self, view, old=None):
         self.view.surface().clearHighlight(self._highlightMusicFormat)
