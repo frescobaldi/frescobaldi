@@ -358,7 +358,7 @@ class AbstractViewPanel(panel.Panel):
         filenames = QFileDialog().getOpenFileNames(self, caption, directory, '*.pdf',)
         if filenames:
             # TODO: This has to be generalized too
-            self.actionCollection.viewer_document_select.openViewdocs(filenames, filenames[-1])
+            self.actionCollection.viewer_document_select.loadFiles(filenames)
 
     def closeViewdoc(self):
         """ Close current music document. """
@@ -652,6 +652,15 @@ class ViewdocChooserAction(ComboBoxAction):
     def removeAllViewdocs(self):
         self._viewdocs = []
         self.updateViewdoc()
+
+    def loadFiles(self, files, sort=False):
+        """Load from a list of filenames. Check if the file already exists."""
+        viewdocs = []
+        for f in files:
+            if not f in self._viewdocFiles():
+                doc = documents.Document(f)
+                viewdocs.append(doc)
+        self.loadViewdocs(viewdocs, files[-1], sort)
 
     def loadViewdocs(self, viewdocs, active_viewdoc="", sort=False):
         """Load or add the viewer documents from a list of filenames"""
