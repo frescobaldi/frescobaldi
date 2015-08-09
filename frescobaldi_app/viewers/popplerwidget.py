@@ -50,6 +50,7 @@ import widgets.dialog
 import userguide.util
 
 from . import abstractviewwidget
+from . import documents
 from . import pointandclick
 
 
@@ -377,9 +378,21 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 files_key = "{}-files".format(self.viewerName())
                 active_file_key = "{}-active-file".format(self.viewerName())
                 ds = self.actionCollection.viewer_document_select
-                ds.openViewdocs(session.value(files_key, ""),
+                self.clear()
+                viewdocs = []
+                for v in session.value(files_key, ""):
+                    filename = v[0]
+                    position = v[1]
+                    doc = documents.Document(filename)
+                    viewdocs.append(doc)
+                    self._positions[doc] = position
+                    if not os.path.isfile(filename):
+                        doc.ispresent = False
+                # Temporary hack to suppress the resize event that
+                # clears the position of the current document
+                self.view._centerPos = None
+                ds.openViewdocs(viewdocs,
                     active_viewdoc = session.value(active_file_key, ""),
-                    clear = True,
                     sort = False) # may be replaced by a Preference
 
     def slotSaveSessionData(self):
