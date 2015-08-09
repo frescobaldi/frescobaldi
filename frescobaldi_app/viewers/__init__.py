@@ -683,6 +683,15 @@ class ViewdocChooserAction(ComboBoxAction):
         if update:
             self.updateViewdoc()
 
+    def checkMissingFiles(self):
+        """Check for missing files and emit signal if found."""
+        missing = []
+        for d in self._viewdocs:
+            if not d.ispresent:
+                missing.append(d.filename())
+        if missing:
+            self.viewdocsMissing.emit(missing)
+
 
 class ViewdocChooser(QComboBox):
     def __init__(self, parent):
