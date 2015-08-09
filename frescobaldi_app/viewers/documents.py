@@ -87,6 +87,7 @@ def filename(poppler_document):
 class Document(popplertools.Document):
     """Represents a (lazily) loaded PDF document."""
     updated = True
+    ispresent = True
 
     def load(self):
         return load(self.filename())
