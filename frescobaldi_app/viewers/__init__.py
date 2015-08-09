@@ -663,7 +663,7 @@ class ViewdocChooserAction(ComboBoxAction):
         self.loadViewdocs(viewdocs, files[-1], sort)
 
     def loadViewdocs(self, viewdocs, active_viewdoc="", sort=False):
-        """Load or add the viewer documents from a list of filenames"""
+        """Load the viewer documents and set the active document."""
         self._viewdocs += viewdocs
 
         # bring active document to front
