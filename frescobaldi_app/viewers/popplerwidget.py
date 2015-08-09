@@ -257,6 +257,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             self.clear()
             self._currentViewdoc = doc
             document = doc.document()
+            doc.ispresent = True
             if document:
                 self._links = pointandclick.links(document)
                 self.view.load(document)
@@ -271,6 +272,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             if dlg.exec_():
                 mds = self.actionCollection.viewer_document_select
                 mds.removeViewdoc(doc)
+            else:
+                doc.ispresent = False
 
     def clear(self):
         """Empties the view."""

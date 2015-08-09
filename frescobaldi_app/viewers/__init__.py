@@ -564,7 +564,8 @@ class ViewdocChooserAction(ComboBoxAction):
 
         # make model for the docs
         m = self._model = listmodel.ListModel([d.filename() for d in docs],
-            display = os.path.basename, icon = icons.file_type)
+            display = os.path.basename, tooltip = self.setToolTip,
+            icon = icons.file_type)
         m.setRoleFunction(Qt.UserRole, lambda f: f)
         for w in self.createdWidgets():
             w.setModel(m)
@@ -574,6 +575,19 @@ class ViewdocChooserAction(ComboBoxAction):
             index = 0
         self.viewdocsChanged.emit()
         self.setCurrentIndex(index)
+
+    def setToolTip(self, name):
+        if self.isPresent(name):
+            return name
+        else:
+            return "File not found. Please restore if you can."
+
+    def isPresent(self, filename):
+        """Check if the viewdoc with the given filename
+        has been marked as present."""
+        for d in self._viewdocs:
+            if d.filename() == filename:
+                return d.ispresent
 
     def closeViewdoc(self):
         """Called when the current document is closed by the user."""
