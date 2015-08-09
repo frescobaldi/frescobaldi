@@ -653,51 +653,19 @@ class ViewdocChooserAction(ComboBoxAction):
         self._viewdocs = []
         self.updateViewdoc()
 
-    def openViewdocs(self, viewdocs, active_viewdoc = "",
-                        clear = False, sort = False):
+    def loadViewdocs(self, viewdocs, active_viewdoc="", sort=False):
         """Load or add the viewer documents from a list of filenames"""
-
-        # When switching sessions we replace the viewer documents
-        # otherwise the loaded viewer documents are added.
-        if clear:
-            self.removeAllViewdocs()
-            self.parent().widget().clear()
-
-        # process viewer documents, adding fallback position if required.
-        # load viewer documents or add to list of missing filenames
-        missing = []
-        for m in viewdocs:
-            if isinstance(m, tuple):
-                file = m[0]
-                position = m[1]
-            else:
-                file = m
-                position = (0, 0, 0)
-            if not file in self._viewdocFiles():
-                if os.path.isfile(file):
-                    doc = documents.Document(file)
-                    self._viewdocs.append(doc)
-                    self.parent().widget()._positions[doc] = position
-                else:
-                    missing.append(file)
+        self._viewdocs += viewdocs
 
         # bring active document to front
         # (will automatically 'pass' if empty)
         self.setActiveViewdoc(active_viewdoc, update = False)
-
-        # Hack to suppress the resize event that
-        # clears the position of the current document
-        self.parent().widget().view._centerPos = None
 
         if sort:
             self.sortViewdocs(update = False)
 
         # finally: load documents
         self.updateViewdoc()
-
-        # report missing docs
-        if missing:
-            self.viewdocsMissing.emit(missing)
 
     def sortViewdocs(self, update = True):
         """sort the open manuscripts alphabetically."""

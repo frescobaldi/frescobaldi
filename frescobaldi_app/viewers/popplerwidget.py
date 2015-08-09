@@ -378,6 +378,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 files_key = "{}-files".format(self.viewerName())
                 active_file_key = "{}-active-file".format(self.viewerName())
                 ds = self.actionCollection.viewer_document_select
+                ds.removeAllViewdocs()
                 self.clear()
                 viewdocs = []
                 for v in session.value(files_key, ""):
@@ -391,7 +392,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 # Temporary hack to suppress the resize event that
                 # clears the position of the current document
                 self.view._centerPos = None
-                ds.openViewdocs(viewdocs,
+                ds.loadViewdocs(viewdocs,
                     active_viewdoc = session.value(active_file_key, ""),
                     sort = False) # may be replaced by a Preference
 
