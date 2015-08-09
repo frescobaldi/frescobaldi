@@ -269,6 +269,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             dlg.setWindowTitle("Missing file")
             fn = doc.filename()
             dlg.setMessage(_("{} is missing. Remove?".format(fn)))
+            dlg.setIcon("question")
+            ttt = "Answering 'No' will give you a chance to restore the " \
+                  "file without having to re-add it."
+            dlg.setToolTip(ttt)
             if dlg.exec_():
                 mds = self.actionCollection.viewer_document_select
                 mds.removeViewdoc(doc)
