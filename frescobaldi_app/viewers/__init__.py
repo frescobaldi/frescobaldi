@@ -171,7 +171,7 @@ class AbstractViewPanel(panel.Panel):
             # this prevents many superfluous resizes
             def open():
                 if selector.currentViewdoc():
-                    w.openDocument(selector.currentViewdoc())
+                    w.openViewdoc(selector.currentViewdoc())
             QTimer.singleShot(0, open)
 
         return w
