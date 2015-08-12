@@ -580,7 +580,7 @@ class ViewdocChooserAction(ComboBoxAction):
         if self.isPresent(name):
             return name
         else:
-            return "File not found. Please restore if you can."
+            return (_("File not found:\n{}\nPlease restore if you can.").format(name))
 
     def isPresent(self, filename):
         """Check if the viewdoc with the given filename
