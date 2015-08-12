@@ -649,9 +649,10 @@ class ViewdocChooserAction(ComboBoxAction):
         self._viewdocs = [document]
         self.updateViewdoc()
 
-    def removeAllViewdocs(self):
+    def removeAllViewdocs(self, update = True):
         self._viewdocs = []
-        self.updateViewdoc()
+        if update:
+            self.updateViewdoc()
 
     def loadFiles(self, files, sort=False):
         """Load from a list of filenames. Check if the file already exists."""

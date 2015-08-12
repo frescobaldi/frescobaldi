@@ -380,7 +380,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 files_key = "{}-files".format(self.viewerName())
                 active_file_key = "{}-active-file".format(self.viewerName())
                 ds = self.actionCollection.viewer_document_select
-                ds.removeAllViewdocs()
+                ds.removeAllViewdocs(update = False)
                 self.clear()
                 viewdocs = []
                 for v in session.value(files_key, ""):
