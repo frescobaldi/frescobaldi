@@ -90,6 +90,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._links = None
         self._clicking_link = False
         self._toolbar = None
+        self._helpButton = None
 
     def createLayout(self):
         """Set up the main layout component."""
@@ -97,15 +98,17 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
-    def createHelpButton(self):
+    def helpButton(self):
         """Create the viewer's help  button."""
         # The help button requires that the userguide page's filename
         # matches that of the viewer panel's classname
         # (e.g. ManuscriptViewPanel.md)
-        result = self.helpButton = QToolButton(
-            icon = icons.get("help-contents"),
-            autoRaise = True,
-            clicked = lambda: userguide.show(self.viewerName()))
+        if not self._helpButton:
+            self._helpButton = QToolButton(
+                icon = icons.get("help-contents"),
+                autoRaise = True,
+                clicked = lambda: userguide.show(self.viewerName()))
+        return self._helpButton
 
     def _tbAddSeparator(self):
         """Add a separator to the toolbar."""
@@ -153,9 +156,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         ac = self.actionCollection
         t = self._toolbar
 
-        # create help button as first widget, not to be overridden
-        self.createHelpButton()
-        t.addWidget(self.helpButton)
+        # add help button as first widget, not to be overridden
+        t.addWidget(self.helpButton())
 
         if not methods:
             self._tbAddOpenCloseActions()
