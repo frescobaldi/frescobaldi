@@ -75,7 +75,9 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
         # load current session when the widget is created
         import sessions
-        self.slotSessionChanged(sessions.currentSession())
+        cs = sessions.currentSession()
+        if cs:
+            self.slotSessionChanged(cs)
         self.readSettings()
 
         userguide.openWhatsThis(self)
