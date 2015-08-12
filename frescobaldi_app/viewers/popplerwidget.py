@@ -118,7 +118,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         t.addAction(ac.viewer_open)
         t.addAction(ac.viewer_close)
 
-    def _tbAddDocumentChooserAction(self):
+    def _tbAddViewdocChooserAction(self):
         """Add the document chooser to the toolbar."""
         t = self._toolbar
         ac = self.actionCollection
@@ -159,7 +159,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
         if not methods:
             self._tbAddOpenCloseActions()
-            self._tbAddDocumentChooserAction()
+            self._tbAddViewdocChooserAction()
             self._tbAddPrintAction()
             self._tbAddSeparator()
             self._tbAddZoomActions()
