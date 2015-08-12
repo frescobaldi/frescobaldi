@@ -29,7 +29,7 @@ import weakref
 
 from PyQt4.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
 from PyQt4.QtGui import (QCursor, QTextCharFormat, QToolTip, QVBoxLayout,
-                         QHBoxLayout, QToolButton, QWidget)
+                         QHBoxLayout, QToolButton, QWidget, QToolBar)
 
 try:
     import popplerqt4
@@ -175,7 +175,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._main_layout.addLayout(self._toolbar_layout)
 
         # create toolbar and add to layout
-        self._toolbar = toolbar = self.parent().mainwindow().addToolBar(self.viewerName())
+        self._toolbar = toolbar = QToolBar(self)
         self._toolbar_layout.addWidget(toolbar)
         self._toolbar_layout.addStretch(1)
 
