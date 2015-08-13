@@ -104,6 +104,7 @@ class AbstractViewPanel(panel.Panel):
 
     def connectActions(self):
         ac = self.actionCollection
+        ac.viewer_help.triggered.connect(self.slotShowHelp)
         ac.viewer_print.triggered.connect(self.printMusic)
         # Zooming actions
         ac.viewer_zoom_in.triggered.connect(self.zoomIn)
@@ -320,6 +321,10 @@ class AbstractViewPanel(panel.Panel):
         self.widget().toolbar().setVisible(checked)
         QSettings().setValue("{}/show-toolbar".format(self.viewerName()), checked)
 
+    def slotShowHelp(self):
+        import userguide
+        userguide.show(self.viewerName())
+
     def copyImage(self):
         from . import image
         image.copy(self)
@@ -390,6 +395,7 @@ class AbstractViewPanel(panel.Panel):
 class ViewerActions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
+        self.viewer_help = QAction(panel)
         self.viewer_document_select = self._createViewdocChooserAction(panel)
         self.viewer_print = QAction(panel)
         self.viewer_zoom_in = QAction(panel)
@@ -417,6 +423,7 @@ class ViewerActions(actioncollection.ActionCollection):
         self.viewer_close_other = QAction(panel)
         self.viewer_close_all = QAction(panel)
 
+        self.viewer_help.setIcon(icons.get('help-contents'))
         self.viewer_print.setIcon(icons.get('document-print'))
         self.viewer_zoom_in.setIcon(icons.get('zoom-in'))
         self.viewer_zoom_out.setIcon(icons.get('zoom-out'))
@@ -436,6 +443,7 @@ class ViewerActions(actioncollection.ActionCollection):
         self.viewer_close_all.setText(_("Close all documents"))
 
     def translateUI(self):
+        self.viewer_help.setText(_("Show Help"))
         self.viewer_document_select.setText(_("Select Music View Document"))
         self.viewer_print.setText(_("&Print Music..."))
         self.viewer_zoom_in.setText(_("Zoom &In"))

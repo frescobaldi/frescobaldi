@@ -174,12 +174,9 @@ class AbstractViewerContextMenu(QObject):
     def addHelpAction(self):
         """Add help menu item"""
         m = self._menu
+        ac = self._actionCollection
         m.addSeparator()
-        a = m.addAction(icons.get("help-contents"), _("Help"))
-        @a.triggered.connect
-        def help():
-            import userguide
-            userguide.show(self._panel.viewerName())
+        m.addAction(ac.viewer_help)
 
     def show(self, position, link, cursor, methods = None):
         """Build the panel's context menu dynamically.

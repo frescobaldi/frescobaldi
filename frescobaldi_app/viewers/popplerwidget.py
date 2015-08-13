@@ -29,7 +29,7 @@ import weakref
 
 from PyQt4.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
 from PyQt4.QtGui import (QCursor, QTextCharFormat, QToolTip, QVBoxLayout,
-                         QHBoxLayout, QToolButton, QWidget, QToolBar)
+                         QHBoxLayout, QWidget, QToolBar)
 
 try:
     import popplerqt4
@@ -40,14 +40,13 @@ import qpopplerview
 import popplerview
 
 import app
-import icons
 import helpers
 import textedit
 import textformats
 import contextmenu
 import viewhighlighter
 import widgets.dialog
-import userguide.util
+import userguide
 
 from . import abstractviewwidget
 from . import documents
@@ -90,25 +89,12 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self._links = None
         self._clicking_link = False
         self._toolbar = None
-        self._helpButton = None
 
     def createLayout(self):
         """Set up the main layout component."""
         self._main_layout = layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-
-    def helpButton(self):
-        """Create the viewer's help  button."""
-        # The help button requires that the userguide page's filename
-        # matches that of the viewer panel's classname
-        # (e.g. ManuscriptViewPanel.md)
-        if not self._helpButton:
-            self._helpButton = QToolButton(
-                icon = icons.get("help-contents"),
-                autoRaise = True,
-                clicked = lambda: userguide.show(self.viewerName()))
-        return self._helpButton
 
     def _tbAddSeparator(self):
         """Add a separator to the toolbar."""
@@ -157,7 +143,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         t = self._toolbar
 
         # add help button as first widget, not to be overridden
-        t.addWidget(self.helpButton())
+        t.addAction(ac.viewer_help)
 
         if not methods:
             self._tbAddOpenCloseActions()
