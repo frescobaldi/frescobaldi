@@ -140,10 +140,9 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         Subclasses can configure the toolbar by overriding individual
         _tbAdd... methods or by passing a list of methods."""
         ac = self.actionCollection
-        t = self._toolbar
 
         # add help button as first widget, not to be overridden
-        t.addAction(ac.viewer_help)
+        self._toolbar.addAction(ac.viewer_help)
 
         if not methods:
             self._tbAddOpenCloseActions()
