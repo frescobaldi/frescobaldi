@@ -40,7 +40,8 @@ from PyQt4.QtCore import QTimer, Qt, pyqtSignal, QSettings
 from PyQt4.QtGui import (
     QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
     QKeySequence, QPalette, QSpinBox, QWidgetAction, QFileDialog,
-    QMessageBox)
+    QMessageBox,
+    QMenu)
 
 import app
 import actioncollection
