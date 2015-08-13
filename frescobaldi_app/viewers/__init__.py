@@ -513,6 +513,11 @@ class ViewdocChooserAction(ComboBoxAction):
         documents.documentUpdated.connect(self.slotEditdocUpdated)
 
     def createWidget(self, parent):
+        """Is called whenever the action is added to a container widget."""
+        # We need to rule out cases where the action is added to menus
+        # as we don't want to have the widget in a menu.
+        if isinstance(parent, QMenu):
+            return None
         w = ViewdocChooser(parent)
         w.activated[int].connect(self.setCurrentIndex)
         if self._model:
