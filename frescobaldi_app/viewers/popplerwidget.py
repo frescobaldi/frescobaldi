@@ -159,11 +159,14 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 m()
 
     def createToolbar(self):
-        """Creates a new toolbar instance with
-        a help as its first widget."""
+        """Creates a widget to own several QToolBars"""
         # create and add toolbar layout to the widget
+        self._toolbar_wrapper = QWidget()
+        self._main_layout.addWidget(self._toolbar_wrapper)
+
         self._toolbar_layout = QHBoxLayout()
-        self._main_layout.addLayout(self._toolbar_layout)
+        self._toolbar_layout.setContentsMargins(0, 0, 0, 0)
+        self._toolbar_wrapper.setLayout(self._toolbar_layout)
 
         # create toolbar and add to layout
         self._toolbar = toolbar = QToolBar(self)
@@ -529,7 +532,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def toolbar(self):
         """Returns the viewer's toolbar widget."""
-        return self._toolbar
+        return self._toolbar_wrapper
 
 
 class Highlighter(qpopplerview.Highlighter):
