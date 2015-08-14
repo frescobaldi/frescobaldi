@@ -135,18 +135,20 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         t.addAction(ac.viewer_pager)
         t.addAction(ac.viewer_next_page)
 
-    def populateToolbar(self, methods = None):
+    def populateToolbars(self, methods = None):
         """Defines a template for the population of the viewer's toolbar.
         Subclasses can configure the toolbar by overriding individual
         _tbAdd... methods or by passing a list of methods."""
         ac = self.actionCollection
 
-        # add help button as first widget, not to be overridden
-        self._toolbar.addAction(ac.viewer_help)
+        # add help button to the help toolbar (right-aligned)
+        self._help_toolbar.addAction(ac.viewer_help)
 
         if not methods:
             self._tbAddOpenCloseActions()
+            self._tbAddSeparator()
             self._tbAddViewdocChooserAction()
+            self._tbAddSeparator()
             self._tbAddPrintAction()
             self._tbAddSeparator()
             self._tbAddZoomActions()
@@ -165,11 +167,13 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
         # create toolbar and add to layout
         self._toolbar = toolbar = QToolBar(self)
+        self._help_toolbar = help_toolbar = QToolBar(self)
         self._toolbar_layout.addWidget(toolbar)
         self._toolbar_layout.addStretch(1)
+        self._toolbar_layout.addWidget(help_toolbar)
 
         # add the actions to the toolbar
-        self.populateToolbar()
+        self.populateToolbars()
 
         # show or hide toolbar upon creation
         toolbar.setVisible(self.actionCollection.viewer_show_toolbar.isChecked())
