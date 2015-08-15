@@ -25,6 +25,7 @@ from __future__ import unicode_literals
 
 from viewers import popplerwidget
 from . import contextmenu
+from . import toolbar
 import userguide.util
 
 class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
@@ -43,3 +44,6 @@ class ManuscriptViewWidget(popplerwidget.AbstractPopplerWidget):
         """Creates the context menu."""
         self._contextMenu = contextmenu.ManuscriptViewerContextMenu(self.parent())
 
+    def createToolbar(self):
+        """Creates the toolbar."""
+        return toolbar.ManuscriptViewerToolbar(self)

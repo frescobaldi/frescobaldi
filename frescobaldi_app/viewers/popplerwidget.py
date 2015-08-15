@@ -66,7 +66,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         self.actionCollection = panel.actionCollection
         self.createProtectedFields()
         self.createLayout()
-        self.createToolbar()
+        self._toolbar = self.createToolbar()
+        self._main_layout.addWidget(self._toolbar)
         self.createHighlighters()
         self.createView()
         self.createContextMenu()
@@ -96,90 +97,9 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
-    def _tbAddSeparator(self):
-        """Add a separator to the toolbar."""
-        self._toolbar.addSeparator()
-
-    def _tbAddOpenCloseActions(self):
-        """Add actions to open and close files."""
-        t = self._toolbar
-        ac = self.actionCollection
-        t.addAction(ac.viewer_open)
-        t.addAction(ac.viewer_close)
-
-    def _tbAddViewdocChooserAction(self):
-        """Add the document chooser to the toolbar."""
-        t = self._toolbar
-        ac = self.actionCollection
-        t.addAction(ac.viewer_document_select)
-
-    def _tbAddPrintAction(self):
-        """Add the print action."""
-        t = self._toolbar
-        ac = self.actionCollection
-        t.addAction(ac.viewer_print)
-
-    def _tbAddZoomActions(self):
-        """Add different zoomer actions."""
-        t = self._toolbar
-        ac = self.actionCollection
-        t.addAction(ac.viewer_zoom_in)
-        t.addAction(ac.viewer_zoom_combo)
-        t.addAction(ac.viewer_zoom_out)
-
-    def _tbAddPagerActions(self):
-        """Add navigational actions."""
-        t = self._toolbar
-        ac = self.actionCollection
-        t.addAction(ac.viewer_prev_page)
-        t.addAction(ac.viewer_pager)
-        t.addAction(ac.viewer_next_page)
-
-    def populateToolbars(self, methods = None):
-        """Defines a template for the population of the viewer's toolbar.
-        Subclasses can configure the toolbar by overriding individual
-        _tbAdd... methods or by passing a list of methods."""
-        ac = self.actionCollection
-
-        # add help button to the help toolbar (right-aligned)
-        self._help_toolbar.addAction(ac.viewer_help)
-
-        if not methods:
-            self._tbAddOpenCloseActions()
-            self._tbAddSeparator()
-            self._tbAddViewdocChooserAction()
-            self._tbAddSeparator()
-            self._tbAddPrintAction()
-            self._tbAddSeparator()
-            self._tbAddZoomActions()
-            self._tbAddSeparator()
-            self._tbAddPagerActions()
-        else:
-            for m in methods:
-                m()
-
     def createToolbar(self):
-        """Creates a widget to own several QToolBars"""
-        # create and add toolbar layout to the widget
-        self._toolbar_wrapper = QWidget()
-        self._main_layout.addWidget(self._toolbar_wrapper)
-
-        self._toolbar_layout = QHBoxLayout()
-        self._toolbar_layout.setContentsMargins(0, 0, 0, 0)
-        self._toolbar_wrapper.setLayout(self._toolbar_layout)
-
-        # create toolbar and add to layout
-        self._toolbar = toolbar = QToolBar(self)
-        self._help_toolbar = help_toolbar = QToolBar(self)
-        self._toolbar_layout.addWidget(toolbar)
-        self._toolbar_layout.addStretch(1)
-        self._toolbar_layout.addWidget(help_toolbar)
-
-        # add the actions to the toolbar
-        self.populateToolbars()
-
-        # show or hide toolbar upon creation
-        toolbar.setVisible(self.actionCollection.viewer_show_toolbar.isChecked())
+        """Factory method to create a toolbar."""
+        raise NotImplementedError()
 
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
@@ -532,7 +452,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def toolbar(self):
         """Returns the viewer's toolbar widget."""
-        return self._toolbar_wrapper
+        return self._toolbar
 
 
 class Highlighter(qpopplerview.Highlighter):
