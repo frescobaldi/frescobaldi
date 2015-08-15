@@ -39,10 +39,16 @@ class ToolBar(QToolBar):
         """Custom method to add an action to the toolbar."""
         # TODO: At first this doesn't do anything on its own
         if not isinstance(action, QWidgetAction):
+            # TODO:
+            # Create a QToolButton from the action
+            # Add that toolbutton to the toolbar
+            # ensure its menu doesn't catch a qwidgetaction
             super(ToolBar, self).addAction(action)
         else:
+            # TODO:
+            # handle the qwidgetaction (no idea how)
             super(ToolBar, self).addAction(action)
-        
+
 
 class AbstractViewerToolbar(QWidget):
     """Base class for viewers' toolbars.
