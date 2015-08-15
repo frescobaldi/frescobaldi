@@ -28,12 +28,21 @@ from PyQt4.QtGui import (
     QWidget,
     QToolBar,
     QHBoxLayout,
+    QWidgetAction,
 )
 
 class ToolBar(QToolBar):
     """Improved toolbar for use when not child of a QMainWindow.
     For now this is only a stub."""
-    pass
+
+    def addAction(self, action):
+        """Custom method to add an action to the toolbar."""
+        # TODO: At first this doesn't do anything on its own
+        if not isinstance(action, QWidgetAction):
+            super(ToolBar, self).addAction(action)
+        else:
+            super(ToolBar, self).addAction(action)
+        
 
 class AbstractViewerToolbar(QWidget):
     """Base class for viewers' toolbars.
