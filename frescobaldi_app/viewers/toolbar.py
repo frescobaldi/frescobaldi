@@ -79,7 +79,8 @@ class AbstractViewerToolbar(QWidget):
 
         if not methods:
             # default order of actions
-            self.addOpenCloseActions()
+            self.addOpenAction()
+            self.addCloseAction()
             self.addSeparator()
             self.addViewdocChooserAction()
             self.addSeparator()
@@ -97,11 +98,16 @@ class AbstractViewerToolbar(QWidget):
         """Add a separator to the toolbar."""
         self.main_toolbar.addSeparator()
 
-    def addOpenCloseActions(self):
-        """Add actions to open and close files."""
+    def addOpenAction(self):
+        """Add actions to open viewer documents."""
         t = self.main_toolbar
         ac = self.actionCollection
         t.addAction(ac.viewer_open)
+
+    def addCloseAction(self):
+        """Add actions to close the current viewer document."""
+        t = self.main_toolbar
+        ac = self.actionCollection
         t.addAction(ac.viewer_close)
 
     def addViewdocChooserAction(self):
