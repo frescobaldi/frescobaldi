@@ -51,6 +51,8 @@ class AbstractViewerToolbar(QWidget):
         self.createComponents()
         self.createLayout()
         self.populate(methods)
+        # show or hide toolbar upon creation
+        self.setVisible(self.actionCollection.viewer_show_toolbar.isChecked())
 
     def createComponents(self):
         # TODO: If it would become necessary to
