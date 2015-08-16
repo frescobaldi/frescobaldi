@@ -25,16 +25,49 @@ Provides a consistent but configurable infrastructure for toolbars.
 from __future__ import unicode_literals
 
 from PyQt4.QtGui import (
+    QAction,
+    QBoxLayout,
     QWidget,
-    QToolBar,
+    QToolButton,
     QHBoxLayout,
+    QSizePolicy,
+    QWidgetAction,
 )
 
-class ToolBar(QToolBar):
-    """Improved toolbar for use when not child of a QMainWindow.
+class ToolBar(QWidget):
+    """Toolbar for use when not child of a QMainWindow.
     For now this is only a stub."""
-    pass
 
+    def __init__(self, parent):
+        super(ToolBar, self).__init__(parent)
+        self.layout = QBoxLayout(QBoxLayout.LeftToRight)
+        self.setLayout(self.layout)
+
+    def addAction(self, action):
+        """Custom method to add an action to the toolbar."""
+        super(ToolBar, self).addAction(action)
+        if isinstance(action, QWidgetAction):
+            widget = action.createWidget(self)
+            action.setDefaultWidget(widget)
+        elif action.isSeparator():
+            # In QToolBar QToolBarSeparator is used
+            widget = QWidget();
+            widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        else:
+            widget = QToolButton()
+            widget.setDefaultAction(action)
+        self.addWidget(widget)
+        return action
+
+    def addWidget(self, widget):
+        self.layout.addWidget(widget)
+
+    def addSeparator(self):
+        action = QAction(self);
+        action.setSeparator(True);
+        self.addAction(action)
+
+        
 class AbstractViewerToolbar(QWidget):
     """Base class for viewers' toolbars.
     Each toolbar contains a main and a help toolbar element.
