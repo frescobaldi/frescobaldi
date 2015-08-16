@@ -27,13 +27,33 @@ from __future__ import unicode_literals
 from PyQt4.QtGui import (
     QWidget,
     QToolBar,
+    QToolButton,
     QHBoxLayout,
+    QWidgetAction,
 )
 
 class ToolBar(QToolBar):
     """Improved toolbar for use when not child of a QMainWindow.
     For now this is only a stub."""
-    pass
+
+    def addAction(self, action):
+        """Custom method to add an action to the toolbar."""
+        # TODO: At first this doesn't do anything on its own
+        if not isinstance(action, QWidgetAction):
+            # TODO:
+            # Create a QToolButton from the action
+            # Add that toolbutton to the toolbar
+            # ensure its menu doesn't catch a qwidgetaction
+
+            tb = QToolButton()
+            tb.setDefaultAction(action)
+            self.addWidget(tb)
+            # super(ToolBar, self).addAction(action)
+        else:
+            # TODO:
+            # handle the qwidgetaction (no idea how)
+            super(ToolBar, self).addAction(action)
+
 
 class AbstractViewerToolbar(QWidget):
     """Base class for viewers' toolbars.
