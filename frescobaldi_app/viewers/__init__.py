@@ -41,7 +41,7 @@ from PyQt4.QtGui import (
     QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
     QKeySequence, QPalette, QSpinBox, QWidgetAction, QFileDialog,
     QMessageBox,
-    QToolBar)
+    QMenu)
 
 import app
 import actioncollection
@@ -483,25 +483,6 @@ class ComboBoxAction(QWidgetAction):
         super(ComboBoxAction, self).__init__(panel)
         self.triggered.connect(self.showPopup)
 
-    def _createWidget(self, parent):
-        """Factory method to create a concrete widget instance.
-        Must be implemented by subclasses."""
-        raise NotImplementedError()
-
-    def createWidget(self, parent):
-        """Create the concrete widget for the action,
-        but only when it is added to a QToolBar instance."""
-
-        # TODO:
-        # Note this is a workaround for issue #760 / #762
-        # Suppress the creation of a widget if the action is not added
-        # to a QToolBar (the erroneous calls parent to QMenu items instead)
-
-        if not isinstance(parent, QToolBar):
-            return None
-        else:
-            return self._createWidget(parent)
-
     def showPopup(self):
         """Called when our action is triggered by a keyboard shortcut."""
         # find the widget in our floating panel, if available there
@@ -540,9 +521,12 @@ class ViewdocChooserAction(ComboBoxAction):
         panel.mainwindow().currentDocumentChanged.connect(self.slotEditdocChanged)
         documents.documentUpdated.connect(self.slotEditdocUpdated)
 
-    def _createWidget(self, parent):
-        """Create and configure a ViewdocChooser.
-        This is a factory method to instantiate the right class."""
+    def createWidget(self, parent):
+        """Is called whenever the action is added to a container widget."""
+        # We need to rule out cases where the action is added to menus
+        # as we don't want to have the widget in a menu.
+        if isinstance(parent, QMenu):
+            return None
         w = ViewdocChooser(parent)
         w.activated[int].connect(self.setCurrentIndex)
         if self._model:
@@ -744,7 +728,7 @@ class ViewdocChooser(QComboBox):
 class ZoomerAction(ComboBoxAction):
     zoomChanged = pyqtSignal(int, float)
 
-    def _createWidget(self, parent):
+    def createWidget(self, parent):
         return Zoomer(self, parent)
 
     def setCurrentIndex(self, index):
