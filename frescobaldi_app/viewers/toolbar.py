@@ -27,6 +27,7 @@ from __future__ import unicode_literals
 from PyQt4.QtGui import (
     QWidget,
     QToolBar,
+    QToolButton,
     QHBoxLayout,
     QWidgetAction,
 )
@@ -43,7 +44,11 @@ class ToolBar(QToolBar):
             # Create a QToolButton from the action
             # Add that toolbutton to the toolbar
             # ensure its menu doesn't catch a qwidgetaction
-            super(ToolBar, self).addAction(action)
+
+            tb = QToolButton()
+            tb.setDefaultAction(action)
+            self.addWidget(tb)
+            # super(ToolBar, self).addAction(action)
         else:
             # TODO:
             # handle the qwidgetaction (no idea how)
