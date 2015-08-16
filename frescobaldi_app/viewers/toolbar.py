@@ -51,8 +51,8 @@ class ToolBar(QToolBar):
             # super(ToolBar, self).addAction(action)
         else:
             # TODO:
-            # handle the qwidgetaction (no idea how)
-            super(ToolBar, self).addAction(action)
+            # Everything beyond this basic start
+            self.addWidget(action.createWidget(self))
 
 
 class AbstractViewerToolbar(QWidget):
