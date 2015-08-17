@@ -45,10 +45,9 @@ class ToolBar(QWidget):
 
     def addAction(self, action):
         """Custom method to add an action to the toolbar."""
-        super(ToolBar, self).addAction(action)
         if isinstance(action, QWidgetAction):
             widget = action.createWidget(self)
-            action.setDefaultWidget(widget)
+#            action.setDefaultWidget(widget)
         elif action.isSeparator():
             # In QToolBar QToolBarSeparator is used
             widget = QWidget();
@@ -67,7 +66,7 @@ class ToolBar(QWidget):
         action.setSeparator(True);
         self.addAction(action)
 
-        
+
 class AbstractViewerToolbar(QWidget):
     """Base class for viewers' toolbars.
     Each toolbar contains a main and a help toolbar element.
