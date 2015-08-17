@@ -707,8 +707,7 @@ class ViewdocChooser(QComboBox):
     def __init__(self, parent):
         super(ViewdocChooser, self).__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.setEditable(True)
-        self.lineEdit().setReadOnly(True)
+        self.setEditable(False)
         self.setFocusPolicy(Qt.NoFocus)
         app.translateUI(self)
         widgets.drag.ComboDrag(self).role = Qt.UserRole
@@ -762,8 +761,7 @@ class Zoomer(QComboBox):
     def __init__(self, action, parent):
         super(Zoomer, self).__init__(parent)
         self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.setEditable(True)
-        self.lineEdit().setReadOnly(True)
+        self.setEditable(False)
         self.setFocusPolicy(Qt.NoFocus)
         self.activated[int].connect(action.setCurrentIndex)
         self.addItems(['']*3)
