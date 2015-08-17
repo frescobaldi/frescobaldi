@@ -54,7 +54,7 @@ class ToolBar(QWidget):
             widget = QWidget();
             widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         else:
-            widget = QToolButton()
+            widget = QToolButton(autoRaise = True)
             widget.setDefaultAction(action)
         self.addWidget(widget)
         return action
