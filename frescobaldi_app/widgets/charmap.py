@@ -138,7 +138,7 @@ class CharMap(QWidget):
         selected_tile.setAlpha(96)
         selected_box = self.palette().color(QPalette.Highlight)
         
-        text_pen = QPen(self.palette().text())
+        text_pen = QPen(self.palette().text().color())
         disabled_pen = QPen(self.palette().color(QPalette.Disabled, QPalette.Text))
         selection_pen = QPen(selected_box)
         for row in rows:
