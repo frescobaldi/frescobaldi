@@ -103,7 +103,13 @@ class Widget(QTreeWidget):
         self.setCurrentItem(self._items[doc], 0, QItemSelectionModel.ClearAndSelect)
 
     def setDocumentStatus(self, doc):
-        i = self._items[doc]
+        try:
+            i = self._items[doc]
+        except KeyError:
+            # this fails when a document is closed that had a job running,
+            # in that case setDocumentStatus is called twice (the second time
+            # when the job quits, but then we already removed the document)
+            return
         # set properties according to document
         i.setText(0, doc.documentName())
         job = jobmanager.job(doc)
