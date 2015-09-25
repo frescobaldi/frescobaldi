@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 from PyQt4.QtCore import QSettings
 from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QLineEdit, QSpinBox, 
+    QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QLineEdit, QSpinBox,
     QVBoxLayout, QWidget)
 
 import app
@@ -42,10 +42,10 @@ import widgets.urlrequester
 class Editor(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(Editor, self).__init__(dialog)
-        
+
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
-        
+
         layout.addWidget(ViewSettings(self))
         layout.addWidget(Highlighting(self))
         layout.addWidget(Indenting(self))
@@ -57,20 +57,20 @@ class Editor(preferences.ScrolledGroupsPage):
 class ViewSettings(preferences.Group):
     def __init__(self, page):
         super(ViewSettings, self).__init__(page)
-        
+
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
-        
+
         self.wrapLines = QCheckBox(toggled=self.changed)
         self.numContextLines = QSpinBox(minimum=0, maximum=20, valueChanged=self.changed)
         self.numContextLinesLabel = l = QLabel()
         l.setBuddy(self.numContextLines)
-        
+
         layout.addWidget(self.wrapLines, 0, 0, 1, 1)
         layout.addWidget(self.numContextLinesLabel, 1, 0)
         layout.addWidget(self.numContextLines, 1, 1)
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_("View Preferences"))
         self.wrapLines.setText(_("Wrap long lines by default"))
@@ -92,7 +92,7 @@ class ViewSettings(preferences.Group):
         s.beginGroup("view_preferences")
         self.wrapLines.setChecked(s.value("wrap_lines", False, bool))
         self.numContextLines.setValue(s.value("context_lines", 3, int))
-    
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("view_preferences")
@@ -103,10 +103,10 @@ class ViewSettings(preferences.Group):
 class Highlighting(preferences.Group):
     def __init__(self, page):
         super(Highlighting, self).__init__(page)
-        
+
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
-        
+
         self.messageLabel = QLabel(wordWrap=True)
         layout.addWidget(self.messageLabel, 0, 0, 1, 2)
         self.labels = {}
@@ -118,16 +118,16 @@ class Highlighting(preferences.Group):
             e.valueChanged.connect(page.changed)
             layout.addWidget(l, row, 0)
             layout.addWidget(e, row, 1)
-            
+
         app.translateUI(self)
-    
+
     def items(self):
         """
         Yields (name, title, default) tuples for every setting in this group.
         Default is understood in seconds.
         """
         yield "match", _("Matching Item:"), 1
-        
+
     def translateUI(self):
         self.setTitle(_("Highlighting Options"))
         self.messageLabel.setText(_(
@@ -141,13 +141,13 @@ class Highlighting(preferences.Group):
             self.entries[name].setPrefix(prefix)
             self.entries[name].setSuffix(suffix)
             self.labels[name].setText(title)
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("editor_highlighting")
         for name, title, default in self.items():
             self.entries[name].setValue(s.value(name, default, int))
-    
+
     def saveSettings(self):
         s= QSettings()
         s.beginGroup("editor_highlighting")
@@ -158,34 +158,34 @@ class Highlighting(preferences.Group):
 class Indenting(preferences.Group):
     def __init__(self, page):
         super(Indenting, self).__init__(page)
-        
+
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
-        
+
         self.tabwidthBox = QSpinBox(minimum=1, maximum=99)
         self.tabwidthLabel = l = QLabel()
         l.setBuddy(self.tabwidthBox)
-        
+
         self.nspacesBox = QSpinBox(minimum=0, maximum=99)
         self.nspacesLabel = l = QLabel()
         l.setBuddy(self.nspacesBox)
-        
+
         self.dspacesBox = QSpinBox(minimum=0, maximum=99)
         self.dspacesLabel = l = QLabel()
         l.setBuddy(self.dspacesBox)
-        
+
         layout.addWidget(self.tabwidthLabel, 0, 0)
         layout.addWidget(self.tabwidthBox, 0, 1)
         layout.addWidget(self.nspacesLabel, 1, 0)
         layout.addWidget(self.nspacesBox, 1, 1)
         layout.addWidget(self.dspacesLabel, 2, 0)
         layout.addWidget(self.dspacesBox, 2, 1)
-        
+
         self.tabwidthBox.valueChanged.connect(page.changed)
         self.nspacesBox.valueChanged.connect(page.changed)
         self.dspacesBox.valueChanged.connect(page.changed)
         self.translateUI()
-        
+
     def translateUI(self):
         self.setTitle(_("Indenting Preferences"))
         self.tabwidthLabel.setText(_("Visible Tab Width:"))
@@ -216,7 +216,7 @@ class Indenting(preferences.Group):
         self.tabwidthBox.setValue(s.value("tab_width", 8, int))
         self.nspacesBox.setValue(s.value("indent_spaces", 2, int))
         self.dspacesBox.setValue(s.value("document_spaces", 8, int))
-    
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("indent")
@@ -228,24 +228,41 @@ class Indenting(preferences.Group):
 class SourceExport(preferences.Group):
     def __init__(self, page):
         super(SourceExport, self).__init__(page)
-        
-        layout = QVBoxLayout()
+
+        layout = QGridLayout(spacing=1)
         self.setLayout(layout)
-        
+
         self.numberLines = QCheckBox(toggled=self.changed)
         self.inlineStyleCopy = QCheckBox(toggled=self.changed)
         self.copyHtmlAsPlainText = QCheckBox(toggled=self.changed)
         self.inlineStyleExport = QCheckBox(toggled=self.changed)
         self.copyDocumentBodyOnly = QCheckBox(toggled=self.changed)
+        self.wrapperTag = QLabel()
+        self.wrapTagSelector = QComboBox()
+        self.wrapTagSelector.currentIndexChanged.connect(page.changed)
+        self.wrapperAttribute = QLabel()
+        self.wrapAttribSelector = QComboBox()
+        self.wrapAttribSelector.currentIndexChanged.connect(page.changed)
+        self.wrapAttribNameLabel = QLabel()
+        self.wrapAttribName = QLineEdit()
+        self.wrapAttribName.textEdited.connect(page.changed)
 
-        layout.addWidget(self.numberLines)
-        layout.addWidget(self.inlineStyleCopy)
-        layout.addWidget(self.inlineStyleExport)
-        layout.addWidget(self.copyHtmlAsPlainText)
-        layout.addWidget(self.copyDocumentBodyOnly)
+        # left column
+        layout.addWidget(self.copyHtmlAsPlainText, 0, 0)
+        layout.addWidget(self.copyDocumentBodyOnly, 1, 0)
+        layout.addWidget(self.inlineStyleCopy, 2, 0)
+        layout.addWidget(self.inlineStyleExport, 3, 0)
+        #right column
+        layout.addWidget(self.numberLines, 0, 1, 1, 2)
+        layout.addWidget(self.wrapperTag, 1, 1)
+        layout.addWidget(self.wrapTagSelector, 1, 2)
+        layout.addWidget(self.wrapperAttribute, 2, 1)
+        layout.addWidget(self.wrapAttribSelector, 2, 2)
+        layout.addWidget(self.wrapAttribNameLabel, 3, 1)
+        layout.addWidget(self.wrapAttribName, 3, 2)
 
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_("Source Export Preferences"))
         self.numberLines.setText(_("Show line numbers"))
@@ -257,7 +274,7 @@ class SourceExport(preferences.Group):
             "If enabled, inline style attributes are used when copying "
             "colored HTML to the clipboard. "
             "Otherwise, a CSS stylesheet is embedded."))
-        
+
         self.inlineStyleExport.setText(_("Use inline style when exporting colored HTML"))
         self.inlineStyleExport.setToolTip('<qt>' + _(
             "If enabled, inline style attributes are used when exporting "
@@ -268,14 +285,30 @@ class SourceExport(preferences.Group):
             "If enabled, HTML is copied to the clipboard as plain text. "
             "Use this when you want to type HTML formatted code in a "
             "plain text editing environment."))
-        self.copyDocumentBodyOnly.setText(_("Copy <pre> element only"))
+        self.copyDocumentBodyOnly.setText(_("Copy document body only"))
         self.copyDocumentBodyOnly.setToolTip('<qt>' + _(
-            "If enabled, only the HTML contents, wrapped in a PRE tag, will be "
+            "If enabled, only the HTML contents, wrapped in a single tag, will be "
             "copied to the clipboard instead of a full HTML document with a "
             "header section. "
             "May be used in conjunction with the plain text option, with the "
             "inline style option turned off, to copy highlighted code in a "
             "text editor when an external style sheet is already available."))
+        self.wrapperTag.setText(_("Tag to wrap around source:" + "  "))
+        self.wrapperTag.setToolTip('<qt>' + _(
+            "Choose what tag the colored HTML will be wrapped into."))
+        self.wrapTagSelector.addItem(_("pre"))
+        self.wrapTagSelector.addItem(_("code"))
+        self.wrapTagSelector.addItem(_("div"))
+        self.wrapperAttribute.setText(_("Attribute type of wrapper:" + "  "))
+        self.wrapperAttribute.setToolTip('<qt>' + _(
+            "Choose whether the wrapper tag should be of type 'id' or 'class'"))
+        self.wrapAttribSelector.addItem(_("id"))
+        self.wrapAttribSelector.addItem(_("class"))
+        self.wrapAttribNameLabel.setText(_("Name of attribute:" + "  "))
+        self.wrapAttribNameLabel.setToolTip('<qt>' + _(
+            "Arbitrary name for the type attribute. " +
+            "This must match the CSS stylesheet if using external CSS."))
+
 
     def loadSettings(self):
         s = QSettings()
@@ -285,6 +318,11 @@ class SourceExport(preferences.Group):
         self.inlineStyleExport.setChecked(s.value("inline_export", False, bool))
         self.copyHtmlAsPlainText.setChecked(s.value("copy_html_as_plain_text", False, bool))
         self.copyDocumentBodyOnly.setChecked(s.value("copy_document_body_only", False, bool))
+        self.wrapTagSelector.setCurrentIndex(
+            self.wrapTagSelector.findText(s.value("wrap_tag", "pre", str)))
+        self.wrapAttribSelector.setCurrentIndex(
+            self.wrapAttribSelector.findText(s.value("wrap_attrib", "id", str)))
+        self.wrapAttribName.setText(s.value("wrap_attrib_name", "document", str))
 
     def saveSettings(self):
         s = QSettings()
@@ -294,29 +332,32 @@ class SourceExport(preferences.Group):
         s.setValue("inline_export", self.inlineStyleExport.isChecked())
         s.setValue("copy_html_as_plain_text", self.copyHtmlAsPlainText.isChecked())
         s.setValue("copy_document_body_only", self.copyDocumentBodyOnly.isChecked())
+        s.setValue("wrap_tag", self.wrapTagSelector.currentText())
+        s.setValue("wrap_attrib", self.wrapAttribSelector.currentText())
+        s.setValue("wrap_attrib_name", self.wrapAttribName.text())
 
 
 class TypographicalQuotes(preferences.Group):
     def __init__(self, page):
         super(TypographicalQuotes, self).__init__(page)
-        
+
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
         l = self.languageLabel = QLabel()
         c = self.languageCombo = QComboBox(currentIndexChanged=self.languageChanged)
         l.setBuddy(c)
-        
+
         self.primaryLabel = QLabel()
         self.secondaryLabel = QLabel()
         self.primaryLeft = QLineEdit(textEdited=self.changed)
         self.primaryRight = QLineEdit(textEdited=self.changed)
         self.secondaryLeft = QLineEdit(textEdited=self.changed)
         self.secondaryRight = QLineEdit(textEdited=self.changed)
-        
+
         self._langs = ["current", "custom"]
         self._langs.extend(lang for lang in lasptyqu.available() if lang != "C")
         c.addItems(['' for i in self._langs])
-        
+
         layout.addWidget(self.languageLabel, 0, 0)
         layout.addWidget(self.primaryLabel, 1, 0)
         layout.addWidget(self.secondaryLabel, 2, 0)
@@ -325,9 +366,9 @@ class TypographicalQuotes(preferences.Group):
         layout.addWidget(self.primaryRight, 1, 2)
         layout.addWidget(self.secondaryLeft, 2, 1)
         layout.addWidget(self.secondaryRight, 2, 2)
-        
+
         app.translateUI(self)
-    
+
     def languageChanged(self):
         """Called when the user changes the combobox."""
         enabled = self.languageCombo.currentIndex() == 1
@@ -338,7 +379,7 @@ class TypographicalQuotes(preferences.Group):
         self.secondaryLeft.setEnabled(enabled)
         self.secondaryRight.setEnabled(enabled)
         self.changed.emit()
-        
+
     def translateUI(self):
         self.setTitle(_("Typographical Quotes"))
         self.languageLabel.setText(_("Quotes to use:"))
@@ -376,5 +417,3 @@ class TypographicalQuotes(preferences.Group):
         s.setValue("primary_right", self.primaryRight.text())
         s.setValue("secondary_left", self.secondaryLeft.text())
         s.setValue("secondary_right", self.secondaryRight.text())
-
-

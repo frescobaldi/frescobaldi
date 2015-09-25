@@ -57,21 +57,21 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
         """Called when something changes in the bookmarks."""
         for type, marks in bookmarks.bookmarks(self.parent().document()).marks().items():
             self.highlight(type, marks, -1)
-    
+
     def eventFilter(self, view, ev):
         if ev.type() in (QEvent.FocusIn, QEvent.FocusOut):
             self.updateCursor(view)
         return False
-    
+
     def updateCursor(self, view=None):
         """Called when the textCursor has moved. Highlights the current line.
-        
+
         If view is None (the default), our parent() is assumed to be the
         view. The eventFilter() method calls us with the view, this is
         done because the event filter is sometimes called very late in
         the destructor phase, when our parent is possibly not valid
         anymore.
-        
+
         """
         if view is None:
             view = self.parent()
@@ -86,7 +86,7 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
         color.setAlpha(200 if view.hasFocus() else 100)
         self._cursorFormat.setBackground(color)
         self.highlight(self._cursorFormat, [cursor], 0)
-        
+
     def readSettings(self):
         data = textformats.formatData('editor')
         self._baseColors = data.baseColors
@@ -95,14 +95,12 @@ class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.
 
     def textFormat(self, name):
         """(Internal) Returns a QTextCharFormat setup according to the preferences.
-        
+
         For bookmarks and the current line, FullWidthSelection is automatically enabled.
-        
+
         """
         f = QTextCharFormat()
         f.setBackground(self._baseColors[name])
         if name in ('current', 'mark', 'error'):
             f.setProperty(QTextFormat.FullWidthSelection, True)
         return f
-
-
