@@ -4,6 +4,8 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18.2 -- 
 
+* Bugfixes:
+  - Fix python errors in quick insert panel about missing music_tokens method
 * Translations:
   - updated: Dutch, French
 
