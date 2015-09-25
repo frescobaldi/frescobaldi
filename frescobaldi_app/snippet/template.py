@@ -23,13 +23,43 @@ Save the current document as a snippet that appears in File->New from Template.
 
 from __future__ import unicode_literals
 
+import app
 import documentinfo
-import inputdialog
+import widgets.dialog
 
-from PyQt4.QtGui import QMessageBox
+from PyQt4.QtCore import Qt
+from PyQt4.QtGui import QCheckBox, QCompleter, QVBoxLayout, QMessageBox, QWidget
 
 from . import model
 from . import snippets
+
+
+class TemplateDialog(widgets.dialog.TextDialog):
+    def __init__(self, parent):
+        self._lineEdit = None
+        super(TemplateDialog, self).__init__(parent)
+        self.setWindowTitle(app.caption(_("Save as Template")))
+        self.setMessage(_("Please enter a template name:"))
+        self.setMinimumWidth(320)
+        self.setValidateRegExp(r"\w(.*\w)?")
+        e = self._lineEdit = self.mainWidget()
+        w = QWidget()
+        self.setMainWidget(w)
+        c = self._runCheck = QCheckBox(
+            _("Run LilyPond when creating a new document from this template"))
+        layout = QVBoxLayout(margin=0)
+        w.setLayout(layout)
+        layout.addWidget(e)
+        layout.addWidget(c)
+        e.setFocus()
+    
+    def lineEdit(self):
+        """Return the QLineEdit widget."""
+        return self._lineEdit or self.mainWidget()
+    
+    def runCheck(self):
+        """Return the Run LilyPond checkbox."""
+        return self._runCheck
 
 
 def save(mainwindow):
@@ -37,12 +67,28 @@ def save(mainwindow):
     titles = dict((snippets.title(name), name)
                   for name in model.model().names()
                   if 'template' in snippets.get(name).variables)
-    title = inputdialog.getText(mainwindow,
-        _("Save as Template"),
-        _("Please enter a template name:"),
-        regexp=r"\w(.*\w)?", complete=sorted(titles))
-    if not title:
-        return
+    
+    # would it make sense to run LilyPond after creating a document from this
+    # template?
+    cursor = mainwindow.textCursor()
+    template_run = False
+    if documentinfo.mode(cursor.document()) == 'lilypond':
+        dinfo = documentinfo.docinfo(cursor.document())
+        if dinfo.complete() and dinfo.has_output():
+            template_run = True
+
+    dlg = TemplateDialog(mainwindow)
+    c = QCompleter(sorted(titles), dlg.lineEdit())
+    dlg.lineEdit().setCompleter(c)
+    dlg.runCheck().setChecked(template_run)
+    
+    result = dlg.exec_()
+    dlg.deleteLater()
+    if not result:
+        return # cancelled
+    
+    title = dlg.text()
+    template_run = dlg.runCheck().isChecked()
     
     if title in titles:
         if QMessageBox.critical(mainwindow,
@@ -56,7 +102,6 @@ def save(mainwindow):
         name = None
     
     # get the text and insert cursor position or selection
-    cursor = mainwindow.textCursor()
     text = cursor.document().toPlainText()
     
     repls = [(cursor.position(), '${CURSOR}')]
@@ -73,12 +118,10 @@ def save(mainwindow):
     result.append(text[prev:].replace('$', '$$'))
     text = ''.join(result)
     
-    # add header line, if it is lilypond, enable autorun
+    # add header line, if desired enable autorun
     headerline = '-*- template; indent: no;'
-    if documentinfo.mode(cursor.document()) == 'lilypond':
-        dinfo = documentinfo.docinfo(cursor.document())
-        if dinfo.complete() and dinfo.has_output():
-            headerline += ' template-run;'
+    if template_run:
+        headerline += ' template-run;'
     text = headerline + '\n' + text
     
     # save the new snippet
