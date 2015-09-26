@@ -399,7 +399,7 @@ def main():
             t = cursor.selection().toPlainText()
     else:
         t = cursor.selection().toPlainText()
-    cursor.movePosition(cursor.selectionEnd())
+    cursor.setPosition(cursor.selectionEnd())
     cursor.clearSelection()
     cursor.insertText(t)
     if t.endswith('\n'):
