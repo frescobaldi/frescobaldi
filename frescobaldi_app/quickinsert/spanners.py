@@ -254,8 +254,11 @@ class GraceGroup(buttongroup.ButtonGroup):
                     items = list(ly.rhythm.music_items(c, partial=ly.document.OUTSIDE))
                     after = self.mainwindow().textCursor()
                     try:
-                        after.setPosition(items[2].pos + 1)
-                        after.movePosition(items[2][0].end, QTextCursor.KeepAnchor)
+                        i = items[2]
+                        pos = i.pos + 1
+                        end = (i.tokens or i.dur_tokens)[0].end
+                        after.setPosition(pos)
+                        after.movePosition(end, QTextCursor.KeepAnchor)
                     except IndexError:
                         after.movePosition(cursor.EndOfLine)
                     after.insertText(outer[1])
