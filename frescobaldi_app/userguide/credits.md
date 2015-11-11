@@ -111,7 +111,7 @@ such an excellent music engraver!
 
 #VARS
 python md [http://www.python.org/ Python]
-qt md [http://qt-project.org/ Qt]
+qt md [http://www.qt.io/ Qt]
 poppler md [http://poppler.freedesktop.org/ Poppler]
 authors text Kristian Høgsberg, Albert Astals Cid
 tango md [http://tango.freedesktop.org/ The Tango Desktop Project]
