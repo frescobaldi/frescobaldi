@@ -53,6 +53,8 @@ def insert(name, view):
         # insert the snippet, might return a new cursor
         if 'python' in variables:
             new = insert_python(text, cursor, name, view)
+        elif 'macro' in variables:
+            new = insert_macro(text, view)
         else:
             new = insert_snippet(text, cursor, variables)
         
@@ -189,6 +191,34 @@ def insert_python(text, cursor, name, view):
                 return new
         else:
             cursor.insertText(namespace['text'])
+
+
+def insert_macro(text, view):
+    """The macro snippet is a sequence of commands which are either 
+    Frescobaldi actions or other snippets.
+    """
+    import re
+    import actioncollectionmanager
+    from . import model
+    
+    avail_snippets = {}
+    for n in model.model().names():
+        varname = snippets.get(n).variables.get('name')
+        if varname:
+            avail_snippets[varname] = n
+
+    avail_actions = {}
+    win = view.window()
+    for collection in actioncollectionmanager.manager(win).actionCollections():
+        for name, action in collection.actions().items():
+            avail_actions[name] = action
+
+    commands = [x.strip() for x in text.split('\n') if x]
+    for c in commands:
+        if c in avail_snippets:
+            insert(avail_snippets[c], view)
+        elif c in avail_actions:
+            avail_actions[c].trigger()
 
 
 def state(cursor):
