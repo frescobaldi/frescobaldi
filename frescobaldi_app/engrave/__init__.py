@@ -208,8 +208,11 @@ class Engraver(plugin.MainWindowPlugin):
         if QSettings().value("lilypond_settings/save_on_run", False, bool):
             doc = self.mainwindow().currentDocument()
             if doc.isModified() and doc.url().toLocalFile():
-                doc.save()
-    
+                try:
+                    doc.save()
+                except IOError:
+                    pass ## saving was not possible (e.g. happens when read only)
+
     def runJob(self, job, document):
         """Runs the engraving job on behalf of document."""
         jobattributes.get(job).mainwindow = self.mainwindow()
