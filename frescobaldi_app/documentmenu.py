@@ -29,7 +29,7 @@ import app
 import icons
 import plugin
 import engrave
-import jobmanager
+import documenticon
 
 
 class DocumentMenu(QMenu):
@@ -108,12 +108,8 @@ class DocumentActionGroup(QActionGroup, plugin.MainWindowPlugin):
             # L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
             name += " " + _("[always engraved]")
         self._acts[doc].setText(name)
-        # set the icon
-        if jobmanager.is_running(doc):
-            icon = icons.get('lilypond-run')
-        elif doc.isModified():
-            icon = icons.get('document-save')
-        else:
+        icon = documenticon.icon(doc, self.mainwindow())
+        if icon.name() == "text-plain":
             icon = QIcon()
         self._acts[doc].setIcon(icon)
     

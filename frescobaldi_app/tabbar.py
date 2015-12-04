@@ -30,8 +30,8 @@ import app
 import icons
 import document
 import documentcontextmenu
-import jobmanager
-import jobattributes
+import documenticon
+import engrave
 import util
 
 
@@ -63,6 +63,7 @@ class TabBar(QTabBar):
         app.documentModificationChanged.connect(self.setDocumentStatus)
         app.jobStarted.connect(self.setDocumentStatus)
         app.jobFinished.connect(self.setDocumentStatus)
+        engrave.engraver(mainwin).stickyChanged.connect(self.setDocumentStatus)
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         self.currentChanged.connect(self.slotCurrentChanged)
         self.tabMoved.connect(self.slotTabMoved)
@@ -98,15 +99,7 @@ class TabBar(QTabBar):
             else:
                 tooltip = None
             self.setTabToolTip(index, tooltip)
-            # icon
-            job = jobmanager.job(doc)
-            if job and job.is_running() and not jobattributes.get(job).hidden:
-                icon = 'lilypond-run'
-            elif doc.isModified():
-                icon = 'document-save'
-            else:
-                icon = 'text-plain'
-            self.setTabIcon(index, icons.get(icon))
+            self.setTabIcon(index, documenticon.icon(doc, self.window()))
     
     def setCurrentDocument(self, doc):
         """ Raise the tab belonging to this document."""
