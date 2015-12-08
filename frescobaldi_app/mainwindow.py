@@ -491,10 +491,14 @@ class MainWindow(QMainWindow):
 
     def openDocument(self):
         """ Displays an open dialog to open one or more documents. """
-        ext = os.path.splitext(self.currentDocument().url().path())[1]
+        if app.documents:
+            ext = os.path.splitext(self.currentDocument().url().path())[1]
+            directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
+        else:
+            ext = ".ly"
+            directory = app.basedir()
         filetypes = app.filetypes(ext)
         caption = app.caption(_("dialog title", "Open File"))
-        directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
         files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
         urls = [QUrl.fromLocalFile(filename) for filename in files]
         docs = self.openUrls(urls)
