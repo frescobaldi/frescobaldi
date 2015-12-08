@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2015-12-08 09:15+0100\n"
-"PO-Revision-Date: 2015-03-06 09:13+0100\n"
+"PO-Revision-Date: 2015-12-08 09:27+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -523,6 +523,7 @@ msgstr "toon het versienummer en sluit af"
 #, python-brace-format
 msgid "show version numbers of {appname} and its supporting modules and exit"
 msgstr ""
+"toon het versienummer van {appname} en de ondersteunende modules en sluit af"
 
 #: ../main.py:62
 msgid "ENC"
@@ -3617,12 +3618,10 @@ msgstr ""
 "invoeren."
 
 #: ../preferences/editor.py:288
-#, fuzzy
 msgid "Copy document body only"
-msgstr "Documenten per map groeperen"
+msgstr "Alleen document-body kopiëren"
 
 #: ../preferences/editor.py:290
-#, fuzzy
 msgid ""
 "If enabled, only the HTML contents, wrapped in a single tag, will be copied "
 "to the clipboard instead of a full HTML document with a header section. May "
@@ -3630,57 +3629,59 @@ msgid ""
 "option turned off, to copy highlighted code in a text editor when an "
 "external style sheet is already available."
 msgstr ""
-"Indien ingeschakeld, wordt alleen de HTML-inhoud, in een PRE tag, gekopieerd "
-"naar het klembord in plaats van een volledig HTML-document met een header-"
-"sectie. Kan worden gebruikt samen met de platte tekst-optie, met ingebedde "
-"stijlen uitgeschakeld om geaccentueerde code in een teksteditor te plakken "
-"wanneer er al een extern stylesheet beschikbaar is."
+"Indien ingeschakeld, wordt alleen de HTML-inhoud, in een enkele tag, "
+"gekopieerd naar het klembord in plaats van een volledig HTML-document met "
+"een header-sectie. Kan worden gebruikt samen met de platte tekst-optie, met "
+"ingebedde stijlen uitgeschakeld om geaccentueerde code in een teksteditor te "
+"plakken wanneer er al een extern stylesheet beschikbaar is."
 
 #: ../preferences/editor.py:296
 msgid "Tag to wrap around source:  "
-msgstr ""
+msgstr "Tag om de bron in te plaatsen:"
 
 #: ../preferences/editor.py:298
 msgid "Choose what tag the colored HTML will be wrapped into."
-msgstr ""
+msgstr "Kies in welke HTML-tag de gekleurde HTML moet worden geplaatst."
 
 #: ../preferences/editor.py:299
 msgid "pre"
-msgstr ""
+msgstr "pre"
 
 #: ../preferences/editor.py:300
 msgid "code"
-msgstr ""
+msgstr "code"
 
 #: ../preferences/editor.py:301
 msgid "div"
-msgstr ""
+msgstr "div"
 
 #: ../preferences/editor.py:302
 msgid "Attribute type of wrapper:  "
-msgstr ""
+msgstr "Attribute-type van tag:"
 
 #: ../preferences/editor.py:304
 msgid "Choose whether the wrapper tag should be of type 'id' or 'class'"
-msgstr ""
+msgstr "Kies of de tag een attribute 'id' of 'class' moet hebben"
 
 #: ../preferences/editor.py:305
 msgid "id"
-msgstr ""
+msgstr "id"
 
 #: ../preferences/editor.py:306
 msgid "class"
-msgstr ""
+msgstr "class"
 
 #: ../preferences/editor.py:307
 msgid "Name of attribute:  "
-msgstr ""
+msgstr "Naam van attribuut:"
 
 #: ../preferences/editor.py:309
 msgid ""
 "Arbitrary name for the type attribute. This must match the CSS stylesheet if "
 "using external CSS."
 msgstr ""
+"Een naam voor het type attribuut. Dit moet dan passen bij het CSS stylesheet "
+"als een extern stylesheet wordt gebruikt."
 
 #: ../preferences/editor.py:384
 msgid "Typographical Quotes"
