@@ -31,10 +31,8 @@ from PyQt4.QtGui import QItemSelectionModel, QMenu, QTreeWidget, QTreeWidgetItem
 import app
 import util
 import qutil
-
 import icons
-import jobmanager
-import jobattributes
+import documenticon
 import engrave
 
 
@@ -112,16 +110,7 @@ class Widget(QTreeWidget):
             return
         # set properties according to document
         i.setText(0, doc.documentName())
-        job = jobmanager.job(doc)
-        if job and job.is_running() and not jobattributes.get(job).hidden:
-            icon = 'lilypond-run'
-        elif engrave.Engraver.instance(self.parentWidget().mainwindow()).stickyDocument() is doc:
-            icon = 'pushpin'
-        elif doc.isModified():
-            icon = 'document-save'
-        else:
-            icon = 'text-plain'
-        i.setIcon(0, icons.get(icon))
+        i.setIcon(0, documenticon.icon(doc, self.parentWidget().mainwindow()))
         i.setToolTip(0, path(doc.url()))
         # handle ordering in groups if desired
         if self._group:

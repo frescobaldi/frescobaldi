@@ -46,7 +46,7 @@ def engraver(mainwindow):
 
 class Engraver(plugin.MainWindowPlugin):
     
-    stickyChanged = signals.Signal()
+    stickyChanged = signals.Signal()    # Document
     
     def __init__(self, mainwindow):
         self._currentStickyDocument = None
