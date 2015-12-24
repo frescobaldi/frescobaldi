@@ -2,10 +2,16 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.18.2 -- 
+Changes in 2.18.2 -- December 26th, 2015
 
 * Requirement changes:
   - Frescobaldi now requires python-ly 0.9.3
+* Improvements:
+  - More flexible colored HTML export and copy
+  - Tabs now show the push-pin icon when a document is always engraved
+* Bug fixes:
+  - fix TypeError: QPen(): argument 1 has unexpected type QBrush
+  - fix some bugs in Quick Insert panel
 * Translations:
   - updated: Dutch, French, Italian, Ukrainian
 
