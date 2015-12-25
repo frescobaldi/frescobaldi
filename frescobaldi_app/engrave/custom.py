@@ -210,6 +210,12 @@ class Dialog(QDialog):
             os.path.basename(i.command), i.versionString(), document.documentName()))
         return j
 
+    def keyPressEvent(self, ev):
+        if ev.key() == Qt.Key_Return and ev.modifiers() == Qt.ControlModifier:
+            self.accept()
+        else:
+            super(Dialog, self).keyPressEvent(ev)
+
 
 Format = collections.namedtuple("Format", "type title options widgets")
 

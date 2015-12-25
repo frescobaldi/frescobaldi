@@ -10,6 +10,7 @@ Changes in 2.18.2 -- December 26th, 2015
   - More flexible colored HTML export and copy
   - Tabs now show the push-pin icon when a document is always engraved
   - Autocomplete correctly again after '\markup' without opening bracket
+  - Enable Ctrl-Enter in Custom Engrave dialog (issue #691)
 * Bug fixes:
   - fix AttributeError: 'SourceViewer' object has no attribute '_reply' (issue
     #789)
