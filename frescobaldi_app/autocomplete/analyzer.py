@@ -270,6 +270,14 @@ class Analyzer(object):
         cursor = self.document_cursor()
         return documentdata.doc(cursor.document()).markup(cursor)
         
+    def markup_top(self):
+        """\\markup ... in music or toplevel"""
+        if self.last.startswith('\\') and isinstance(self.last,
+            (ly.lex.lilypond.MarkupCommand, ly.lex.lilypond.MarkupUserCommand)):
+            self.column = self.lastpos
+            cursor = self.document_cursor()
+            return documentdata.doc(cursor.document()).markup(cursor)
+    
     def header(self):
         """\\header {"""
         if '=' in self.tokens[-3:] or self.last.startswith('\\'):
@@ -465,19 +473,23 @@ class Analyzer(object):
     # Mapping from Parsers to the lists of functions to run.
     tests = {
         lp.ParseGlobal: (
+            markup_top,
             repeat,
             toplevel,
         ),
         lp.ParseBook: (
+            markup_top,
             book,
         ),
         lp.ParseBookPart: (
+            markup_top,
             bookpart,
         ),
         lp.ParseScore: (
             score,
         ),
         lp.ParseMusic: (
+            markup_top,
             tweak,
             scheme_word,
             key,
@@ -489,6 +501,19 @@ class Analyzer(object):
             general_music,
         ),
         lp.ParseNoteMode: (
+            markup_top,
+            tweak,
+            scheme_word,
+            key,
+            clef,
+            repeat,
+            accidental_style,
+            hide_omit,
+            revert,
+            general_music,
+        ),
+        lp.ParseChordMode: (
+            markup_top,
             tweak,
             scheme_word,
             key,
@@ -503,6 +528,7 @@ class Analyzer(object):
             markup,
         ),
         lp.ParseHeader: (
+            markup_top,
             header,
         ),
         lp.ParsePaper: (
@@ -522,6 +548,7 @@ class Analyzer(object):
             context,
         ),
         lp.ParseWith: (
+            markup_top,
             engraver,
             context_variable_set,
             with_,
@@ -576,6 +603,7 @@ class Analyzer(object):
             font_name,
         ),
         lp.ParseLyricMode: (
+            markup_top,
             repeat,
             lyricmode,
         ),
