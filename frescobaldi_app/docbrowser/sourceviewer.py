@@ -71,8 +71,8 @@ class SourceViewer(QDialog):
     def showReply(self, reply):
         reply.setParent(self)
         self.urlLabel.setText(reply.url().toString())
-        reply.finished.connect(self.loadingFinished)
         self._reply = reply
+        reply.finished.connect(self.loadingFinished)
         self.textbrowser.clear()
         self.show()
         
