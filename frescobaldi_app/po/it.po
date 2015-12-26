@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Frescobaldi 2.0.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2015-12-08 09:15+0100\n"
-"PO-Revision-Date: 2015-11-11 17:42+0100\n"
+"PO-Revision-Date: 2015-12-27 00:00+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -529,6 +529,7 @@ msgstr "mostra il numero di versione del programma ed esce"
 #, python-brace-format
 msgid "show version numbers of {appname} and its supporting modules and exit"
 msgstr ""
+"mostra i numeri di versione di {appname} e i suoi moduli di supporto e esce"
 
 #: ../main.py:62
 msgid "ENC"
@@ -3553,9 +3554,8 @@ msgid "Tab"
 msgstr "Tabulazione"
 
 #: ../preferences/editor.py:199
-#, fuzzy
 msgid "Tab outside indent inserts:"
-msgstr "Inserimento di una tabulazione fuori dall'indentazione:"
+msgstr "Inserimenti di tabulazione fuori dall'indentazione:"
 
 #: ../preferences/editor.py:201
 msgid ""
@@ -3628,12 +3628,10 @@ msgstr ""
 "testo semplice."
 
 #: ../preferences/editor.py:288
-#, fuzzy
 msgid "Copy document body only"
-msgstr "Raggruppa documenti per cartella"
+msgstr "Copia soltanto il corpo del documento"
 
 #: ../preferences/editor.py:290
-#, fuzzy
 msgid ""
 "If enabled, only the HTML contents, wrapped in a single tag, will be copied "
 "to the clipboard instead of a full HTML document with a header section. May "
@@ -3641,8 +3639,8 @@ msgid ""
 "option turned off, to copy highlighted code in a text editor when an "
 "external style sheet is already available."
 msgstr ""
-"Se abilitato, solo i contenuti HTML, racchiusi nell'elemento PRE, vengono "
-"copiati negli appunti, invece di un intero documento HTML con "
+"Se abilitato, solo i contenuti HTML, racchiusi in un singolo elemento, "
+"vengono copiati negli appunti, invece di un intero documento HTML con "
 "un'intestazione. Può essere usato in congiunzione con l'opzione di testo "
 "semplice, con l'opzione di stile in linea disabilitata, per copiare il "
 "codice evidenziato in un editor di testo quando un foglio di stile esterno è "
@@ -3650,49 +3648,53 @@ msgstr ""
 
 #: ../preferences/editor.py:296
 msgid "Tag to wrap around source:  "
-msgstr ""
+msgstr "Elemento in cui includere il sorgente:  "
 
 #: ../preferences/editor.py:298
 msgid "Choose what tag the colored HTML will be wrapped into."
-msgstr ""
+msgstr "Scegli in quale elemento verrà incluso l'HTML colorato."
 
 #: ../preferences/editor.py:299
 msgid "pre"
-msgstr ""
+msgstr "pre"
 
 #: ../preferences/editor.py:300
 msgid "code"
-msgstr ""
+msgstr "code"
 
 #: ../preferences/editor.py:301
 msgid "div"
-msgstr ""
+msgstr "div"
 
 #: ../preferences/editor.py:302
 msgid "Attribute type of wrapper:  "
-msgstr ""
+msgstr "Tipo di attributo per l'involucro:  "
 
 #: ../preferences/editor.py:304
 msgid "Choose whether the wrapper tag should be of type 'id' or 'class'"
 msgstr ""
+"Scegli se l'elemento che avvolge il sorgente (l'involucro) debba essere di "
+"tipo 'id' o 'class'"
 
 #: ../preferences/editor.py:305
 msgid "id"
-msgstr ""
+msgstr "id"
 
 #: ../preferences/editor.py:306
 msgid "class"
-msgstr ""
+msgstr "class"
 
 #: ../preferences/editor.py:307
 msgid "Name of attribute:  "
-msgstr ""
+msgstr "Nome dell'attributo:  "
 
 #: ../preferences/editor.py:309
 msgid ""
 "Arbitrary name for the type attribute. This must match the CSS stylesheet if "
 "using external CSS."
 msgstr ""
+"Nome arbitrario per l'attributo tipo. Deve corrispondere al foglio di stile "
+"CSS se si usa un CSS esterno."
 
 #: ../preferences/editor.py:384
 msgid "Typographical Quotes"
@@ -6010,8 +6012,7 @@ msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Batt."
 
-#: ../scorewiz/parts/percussion.py:184
-#: ../scorewiz/parts/plucked_strings.py:318
+#: ../scorewiz/parts/percussion.py:184 ../scorewiz/parts/plucked_strings.py:318
 msgid "Voices:"
 msgstr "Voci:"
 
@@ -7285,9 +7286,8 @@ msgid "Please enter a template name:"
 msgstr "Inserire un nome per il modello:"
 
 #: ../snippet/template.py:49
-#, fuzzy
 msgid "Run LilyPond when creating a new document from this template"
-msgstr "Crea un documento da un modello:"
+msgstr "Eseguire LilyPond quando si crea un nuovo documento da questo modello"
 
 #: ../snippet/template.py:95
 msgid "Overwrite Template?"
@@ -7300,7 +7300,7 @@ msgid ""
 "\n"
 "Do you want to overwrite it?"
 msgstr ""
-"Esiste già un modello con questo nome: \"{name}\".\n"
+"Esiste già un modello chiamato \"{name}\".\n"
 "\n"
 "Sovrascriverlo?"
 
@@ -7879,6 +7879,8 @@ msgid ""
 "Configures how colored source code is produced when exporting to a file or "
 "copying to clipboard. Available options are:"
 msgstr ""
+"Configura come viene prodotto il codice sorgente colorato quando si esporta "
+"in un file o si copia negli appunti. Le opzioni disponibili sono:"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:38
@@ -7887,6 +7889,11 @@ msgid ""
 "so it can be pasted in HTML pages.  When unchecked rich text is produced "
 "that can be pasted to rich text editors like word processors."
 msgstr ""
+"`Copia HTML come testo semplice` | Genera il codice sorgente colorato come "
+"markup HTML, così che possa essere incollato nelle pagine HTML.  Se non è "
+"vistato, viene prodotto il testo formattato che può essere incollato negli "
+"editor di testo che lo supportano come i programmi di videoscrittura (word "
+"processor)."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:42
@@ -7895,6 +7902,10 @@ msgid ""
 "unchecked a full HTML document is produced. *Note:* This option doesn't take "
 "effect when *exporting* source code."
 msgstr ""
+"`Copia soltanto il corpo del documento` | Inserisce il sorgente in un "
+"singolo elemento HTML. Se non è vistato, viene prodotto un documento HTML "
+"completo. *Nota:* questa opzione non ha effetto quando si *esporta* il "
+"codice sorgente."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:46
@@ -7906,6 +7917,13 @@ msgid ""
 "CSS available in the target document. *Note:* This option doesn't take "
 "effect when *exporting* source code."
 msgstr ""
+"`Usa lo stile in linea quando si copia l'HTML colorato` | Inserisce gli "
+"stili CSS *negli* elementi HTML generati. Se non è spuntato, vengono usate "
+"le classi CSS. *Nota:* Quando questa opzione è *senza spunta* e `Copia "
+"soltanto il corpo del documento` è *spuntato*, non verrà generato alcun "
+"foglio di stile CSS. Per usare questa opzione è necessario un CSS esterno "
+"nel documento finale. *Nota:* questa opzione non ha effetto quando si "
+"*esporta* il codice sorgente."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:53
@@ -7913,11 +7931,14 @@ msgid ""
 "`Use inline style when exporting colored HTML` | Same as above but applies "
 "for exporting instead of copying."
 msgstr ""
+"`Usa lo stile in linea quando si esporta l'HTML colorato` | Vale quanto "
+"detto sopra ma si applica all'esportazione invece che alla copia."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:55
 msgid "`Show line numbers` | (should be self-explanatory)"
 msgstr ""
+"`Mostra i numeri di linea` | (non dovrebbe avere bisogno di spiegazioni)"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:57
@@ -7928,6 +7949,11 @@ msgid ""
 "generate an `<div class=\"lilypond\">` element if that is more suitable for "
 "the existing CSS."
 msgstr ""
+"`Involucri` | Di default il codice colorato viene avvolto da un elemento "
+"`<pre id=\"document\"></pre>`, ma ciò può essere configurato perché usi "
+"altri elementi involucro e altri tipi di attributo tra quelli disponibili e "
+"un nome a scelta. Dunque può servire per esempio a generare un elemento "
+"`<div class=\"lilypond\">`, se ciò è più adatto per un CSS esistente."
 
 #: ../userguide/preferences.md:3
 msgid ""
@@ -8843,23 +8869,21 @@ msgstr "Gestione dei file"
 msgid ""
 "Here you can add local paths or URLs pointing to LilyPond documentation."
 msgstr ""
+"Qui puoi aggiungere i percorsi locali o gli URL che puntano alla "
+"documentazione di LilyPond."
 
 #: ../userguide/prefs_lilydoc.md:5
-#, fuzzy
 msgid "Local path"
-msgstr "Copia il percorso globale"
+msgstr "Percorso locale"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilydoc.md:7
-#, fuzzy
 msgid ""
 "A local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
 msgstr ""
-"Qui si possono aggiungere percorsi locali o URL per la documentazione "
-"LilyPond. Un percorso locale deve puntare alla directory in cui si trova la "
-"cartella `Documentation` o tutto il percorso `share/doc/lilypond/html/"
-"offline-root`."
+"Un percorso locale deve puntare alla directory in cui si trova la cartella "
+"`Documentation` o tutto il percorso `share/doc/lilypond/html/offline-root`."
 
 #: ../userguide/prefs_lilydoc.md:10
 msgid ""
@@ -8868,16 +8892,14 @@ msgid ""
 "versions of LilyPond documentation in different subdirectories and have "
 "Frescobaldi automatically find them."
 msgstr ""
-"Se non si verificherà nessuno di questi due casi, la documentazione sarà "
-"cercata in tutte le sottocartelle del livello immediatamente inferiore a "
-"quello del percorso dato. Questo permette di avere diverse versioni della "
-"documentazione LilyPond in differenti cartelle che Frescobaldi troverà "
-"automaticamente."
+"Se questi non si trovano, la documentazione sarà cercata in tutte le "
+"sottocartelle del livello immediatamente inferiore a quello del percorso "
+"dato. Questo permette di avere diverse versioni della documentazione di "
+"LilyPond in differenti cartelle che Frescobaldi troverà automaticamente."
 
 #: ../userguide/prefs_lilydoc.md:15
-#, fuzzy
 msgid "Remote URL"
-msgstr "Togli"
+msgstr "URL remoto"
 
 #: ../userguide/prefs_lilydoc.md:17
 msgid ""
@@ -8885,10 +8907,13 @@ msgid ""
 "computer, you can add an URL to the LilyPond website.  The URL should have "
 "the following format:"
 msgstr ""
+"Se preferisci non gestire la documentazione di LilyPond localmente nel tuo "
+"computer, puoi aggiungere un URL al sito di LilyPond.  L'URL deve avere il "
+"seguente formato:"
 
 #: ../userguide/prefs_lilydoc.md:21
 msgid "http://www.lilypond.org/doc/VERSION/"
-msgstr ""
+msgstr "http://www.lilypond.org/doc/VERSIONE/"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilydoc.md:23
@@ -8896,12 +8921,16 @@ msgid ""
 "where *VERSION* can be either a specific release number or the latest stable "
 "or development release, as in the following examples:"
 msgstr ""
+"dove *VERSIONE* può essere il numero di un rilascio specifico oppure "
+"l'ultimo rilascio stabile o di sviluppo, come negli esempi seguenti:"
 
 #: ../userguide/prefs_lilydoc.md:26
 msgid ""
 "http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 msgstr ""
+"http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
+"www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 
 #: ../userguide/outline_configure.md:1
 msgid "Configuring the Outline View"
