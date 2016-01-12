@@ -222,10 +222,14 @@ class ScoreProperties(object):
     
     def setMetronomeValue(self, bpm):
         """ Tap the tempo tap button """
-        l = [abs(t - bpm) for t in metronomeValues]
-        m = min(l)
-        if m < 6:
-            self.metronomeValue.setCurrentIndex(l.index(m))
+        if  self.metronomeRound.isChecked():
+            l = [abs(t - bpm) for t in metronomeValues]
+            m = min(l)
+            if m < 6:
+                self.metronomeValue.setCurrentIndex(l.index(m))
+
+        else:
+            self.metronomeValue.setEditText(str(bpm))
 
     # Tempo indication
     def createTempoWidget(self):
