@@ -32,7 +32,7 @@ import fractions
 import re
 
 from PyQt4.QtCore import QSize, Qt
-from PyQt4.QtGui import QComboBox, QHBoxLayout, QIntValidator, QLabel
+from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QIntValidator, QLabel
 
 import ly.dom
 import completionmodel
@@ -207,25 +207,40 @@ class ScoreProperties(object):
         self.metronomeTempo = widgets.tempobutton.TempoButton()
         self.metronomeTempo.tempo.connect(self.setMetronomeValue)
         self.metronomeLabel.setBuddy(self.metronomeNote)
+        self.metronomeRound = QCheckBox()
+
     
     def layoutMetronomeWidget(self, layout):
+        grid = QGridLayout()
+        grid.addWidget(self.metronomeLabel, 0, 0)
+
         box = QHBoxLayout(spacing=0)
-        box.addWidget(self.metronomeLabel)
         box.addWidget(self.metronomeNote)
         box.addWidget(self.metronomeEqualSign)
         box.addWidget(self.metronomeValue)
         box.addWidget(self.metronomeTempo)
-        layout.addLayout(box)
+        grid.addLayout(box, 0, 1)
+
+        grid.addWidget(self.metronomeRound, 1, 1)
+        layout.addLayout(grid)
         
     def tranlateMetronomeWidget(self):
         self.metronomeLabel.setText(_("Metronome mark:"))
+        self.metronomeRound.setText(_("Round tap tempo value"))
+        self.metronomeRound.setToolTip(_(
+            "Round the entered tap tempo to a common value."
+            ))
     
     def setMetronomeValue(self, bpm):
         """ Tap the tempo tap button """
-        l = [abs(t - bpm) for t in metronomeValues]
-        m = min(l)
-        if m < 6:
-            self.metronomeValue.setCurrentIndex(l.index(m))
+        if  self.metronomeRound.isChecked():
+            l = [abs(t - bpm) for t in metronomeValues]
+            m = min(l)
+            if m < 6:
+                self.metronomeValue.setCurrentIndex(l.index(m))
+
+        else:
+            self.metronomeValue.setEditText(str(bpm))
 
     # Tempo indication
     def createTempoWidget(self):
