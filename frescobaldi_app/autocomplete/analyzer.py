@@ -524,6 +524,17 @@ class Analyzer(object):
             revert,
             general_music,
         ),
+        lp.ParseDrumMode: (
+            markup_top,
+            tweak,
+            scheme_word,
+            key,
+            clef,
+            repeat,
+            hide_omit,
+            revert,
+            general_music,
+        ),
         lp.ParseFigureMode: (
             markup_top,
             tweak,
