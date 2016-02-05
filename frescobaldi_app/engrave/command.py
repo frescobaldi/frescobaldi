@@ -79,6 +79,7 @@ def defaultJob(document, args=None):
     j.command = command
     if s.value("no_translation", False, bool):
         j.environment['LANG'] = 'C'
+        j.environment['LC_ALL'] = 'C'
     j.set_title("{0} {1} [{2}]".format(
         os.path.basename(i.command), i.versionString(), document.documentName()))
     return j

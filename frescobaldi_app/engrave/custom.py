@@ -206,6 +206,7 @@ class Dialog(QDialog):
         j.command = cmd
         if self.englishCheck.isChecked():
             j.environment['LANG'] = 'C'
+            j.environment['LC_ALL'] = 'C'
         j.set_title("{0} {1} [{2}]".format(
             os.path.basename(i.command), i.versionString(), document.documentName()))
         return j
