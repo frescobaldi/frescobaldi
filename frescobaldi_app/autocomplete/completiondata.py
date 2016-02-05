@@ -69,6 +69,7 @@ inputmodes = (
 
 # commands that only occur at the global file level
 toplevel = (
+    'defineBarLine',
     'language',
     'version',
     'sourcefileline',
