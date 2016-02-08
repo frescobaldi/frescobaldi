@@ -29,7 +29,7 @@ except ImportError:
     import __builtin__ as builtins # py2
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import QMenu
+from PyQt5.QtWidgets import QMenu
 
 import app
 import icons

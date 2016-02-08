@@ -26,7 +26,7 @@ Some very simple ones are in this file, others in their own files.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QFrame, QToolButton
+from PyQt5.QtWidgets import QFrame, QToolButton
 
 import icons
 

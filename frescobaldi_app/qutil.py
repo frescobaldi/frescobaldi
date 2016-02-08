@@ -28,8 +28,8 @@ import re
 import weakref
 
 from PyQt5.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
-from PyQt5.QtGui import (
-    QAction, QApplication, QColor, QKeySequence, QProgressDialog)
+from PyQt5.QtGui import QColor, QKeySequence
+from PyQt5.QtWidgets import QAction, QApplication, QProgressDialog
 
 import appinfo
 

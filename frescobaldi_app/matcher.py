@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt5.QtGui import QAction
+from PyQt5.QtWidgets import QAction
 
 import app
 import plugin

@@ -36,7 +36,7 @@ TODO:
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QMenu
+from PyQt5.QtWidgets import QMenu
 
 import app
 import document

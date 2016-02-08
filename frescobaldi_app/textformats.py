@@ -26,7 +26,8 @@ from __future__ import unicode_literals
 import os
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import QApplication, QColor, QFont, QPalette, QTextCharFormat, QTextFormat
+from PyQt5.QtGui import QColor, QFont, QPalette, QTextCharFormat, QTextFormat
+from PyQt5.QtWidgets import QApplication
 
 import app
 import ly.colorize

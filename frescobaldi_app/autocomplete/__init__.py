@@ -24,7 +24,8 @@ Auto-completes entered text.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QAction, QKeySequence
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import QAction
 
 import app
 import actioncollection

@@ -31,11 +31,11 @@ import weakref
 
 from PyQt5.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
                           QSize, Qt, QUrl)
-from PyQt5.QtGui import (QAbstractPrintDialog, QAction, QApplication,
-                         QFileDialog, QKeySequence, QMainWindow, QMenu,
-                         QMessageBox, QPlainTextEdit, QPrintDialog, QPrinter,
-                         QTextCursor, QTextDocument, QVBoxLayout, QWhatsThis,
-                         QWidget)
+from PyQt5.QtGui import (QKeySequence, QTextCursor, QTextDocument)
+from PyQt5.QtPrintSupport import (QAbstractPrintDialog, QPrintDialog, QPrinter)
+from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QMainWindow,
+                             QMenu, QMessageBox, QPlainTextEdit, QVBoxLayout,
+                             QWhatsThis, QWidget)
 
 import app
 import backup

@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import QStyleFactory
+from PyQt5.QtWidgets import QStyleFactory
 
 import app
 
