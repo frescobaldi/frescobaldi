@@ -23,8 +23,8 @@ A button to select a color.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt, pyqtSignal
-from PyQt4.QtGui import (
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtGui import (
     QColor, QColorDialog, QPainter, QPushButton, QStyle, QStyleOptionButton,
     qDrawShadeRect)
 

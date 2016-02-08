@@ -28,8 +28,8 @@ try:
 except ImportError:
     import __builtin__ as builtins # py2
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QMenu
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QMenu
 
 import app
 import icons

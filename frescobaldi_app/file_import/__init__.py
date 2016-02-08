@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import Qt, QUrl
-from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox, QTextCursor
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox, QTextCursor
 
 import app
 import actioncollection

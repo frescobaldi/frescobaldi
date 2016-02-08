@@ -25,7 +25,7 @@ about a document's contents.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtGui import (
+from PyQt5.QtGui import (
     QColor, QSyntaxHighlighter, QTextBlockUserData, QTextCharFormat,
     QTextCursor, QTextDocument)
 

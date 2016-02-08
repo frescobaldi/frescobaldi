@@ -23,8 +23,8 @@ Container part types.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSize
-from PyQt4.QtGui import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
+from PyQt5.QtCore import QSize
+from PyQt5.QtGui import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
                          QHBoxLayout, QLabel, QLineEdit, QRadioButton,
                          QVBoxLayout)
 

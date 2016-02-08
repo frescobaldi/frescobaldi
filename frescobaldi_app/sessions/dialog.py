@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import json
 
-from PyQt4.QtCore import Qt, QSettings, QUrl
-from PyQt4.QtGui import (
+from PyQt5.QtCore import Qt, QSettings, QUrl
+from PyQt5.QtGui import (
     QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog, 
     QGridLayout, QGroupBox, QLabel, QListWidgetItem, QLineEdit, QMessageBox, 
     QPushButton, QVBoxLayout)

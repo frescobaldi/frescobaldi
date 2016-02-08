@@ -26,8 +26,8 @@ import collections
 import operator
 import weakref
 
-from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
+from PyQt5.QtGui import (
     QApplication, QContextMenuEvent, QCursor, QPainter, QPalette,
     QRegion, QRubberBand, QToolTip, QWidget, QColor, QBrush, QPen)
 

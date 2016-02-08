@@ -27,8 +27,8 @@ from __future__ import print_function
 import os
 import sys
 
-from PyQt4.QtCore import QSettings, QThread
-from PyQt4.QtGui import QApplication
+from PyQt5.QtCore import QSettings, QThread
+from PyQt5.QtGui import QApplication
 
 import appinfo
 

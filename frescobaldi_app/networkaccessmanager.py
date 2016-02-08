@@ -23,8 +23,8 @@ A QNetworkAccessManager subclass with easy registration of custom url schemes.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QThread, QTimer, QUrl
-from PyQt4.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
+from PyQt5.QtCore import QThread, QTimer, QUrl
+from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkRequest
 
 
 class NetworkAccessManager(QNetworkAccessManager):

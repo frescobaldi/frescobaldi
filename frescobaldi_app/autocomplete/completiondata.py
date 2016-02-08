@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QFont, QFontDatabase
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont, QFontDatabase
 
 import listmodel
 import ly.words

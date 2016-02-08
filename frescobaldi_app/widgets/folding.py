@@ -45,8 +45,8 @@ from __future__ import unicode_literals
 
 import collections
 
-from PyQt4.QtCore import QEvent, QObject, QPoint, QRect, QSize, Qt, QTimer
-from PyQt4.QtGui import QPainter, QPalette, QWidget
+from PyQt5.QtCore import QEvent, QObject, QPoint, QRect, QSize, Qt, QTimer
+from PyQt5.QtGui import QPainter, QPalette, QWidget
 
 import cursortools
 

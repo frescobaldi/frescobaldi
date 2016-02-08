@@ -24,8 +24,8 @@ A lineedit with a clear button.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import QEvent, QSize, Qt
-from PyQt4.QtGui import QLineEdit, QStyle, QToolButton
+from PyQt5.QtCore import QEvent, QSize, Qt
+from PyQt5.QtGui import QLineEdit, QStyle, QToolButton
 
 import icons
 

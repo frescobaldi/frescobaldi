@@ -27,8 +27,8 @@ import bisect
 import re
 import weakref
 
-from PyQt4.QtCore import QEvent, Qt
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QEvent, Qt
+from PyQt5.QtGui import (
     QAction, QApplication, QCheckBox, QGridLayout, QKeySequence, QLabel,
     QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 

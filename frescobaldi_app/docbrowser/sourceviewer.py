@@ -28,8 +28,8 @@ try:
 except NameError:
     pass
 
-from PyQt4.QtCore import QSettings, QSize, Qt
-from PyQt4.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
+from PyQt5.QtCore import QSettings, QSize, Qt
+from PyQt5.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
 
 
 import app

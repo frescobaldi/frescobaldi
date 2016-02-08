@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import collections
 
-from PyQt4.QtCore import QAbstractItemModel, QModelIndex, Qt
-from PyQt4.QtGui import QApplication
+from PyQt5.QtCore import QAbstractItemModel, QModelIndex, Qt
+from PyQt5.QtGui import QApplication
 
 import icons
 

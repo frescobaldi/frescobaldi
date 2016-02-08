@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import codecs
 
-from PyQt4.QtCore import QSize, Qt
+from PyQt5.QtCore import QSize, Qt
 
 import app
 import job

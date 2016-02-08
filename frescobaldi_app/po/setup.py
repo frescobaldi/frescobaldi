@@ -27,7 +27,7 @@ system.
 
 import locale
 
-from PyQt4.QtCore import QLocale, QSettings, QTimer
+from PyQt5.QtCore import QLocale, QSettings, QTimer
 
 import app
 

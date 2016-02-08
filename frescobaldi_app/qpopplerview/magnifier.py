@@ -24,8 +24,8 @@ The Magnifier magnifies a part of the displayed Poppler document.
 
 import weakref
 
-from PyQt4.QtCore import QPoint, QRect
-from PyQt4.QtGui import QColor, QPainter, QPen, QRegion, QWidget
+from PyQt5.QtCore import QPoint, QRect
+from PyQt5.QtGui import QColor, QPainter, QPen, QRegion, QWidget
 
 from . import cache
 

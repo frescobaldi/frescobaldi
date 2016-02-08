@@ -23,8 +23,8 @@ A dialog to edit the keyboard shortcuts for an action.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt, QTimer
-from PyQt4.QtGui import (
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import (
     QDialog, QDialogButtonBox, QGridLayout, QHBoxLayout, QKeySequence, QLabel,
     QRadioButton, QVBoxLayout)
 

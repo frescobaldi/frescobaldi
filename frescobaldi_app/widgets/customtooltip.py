@@ -23,8 +23,8 @@ Displays any widget as a tooltip.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QEvent, QObject, QTimer, Qt
-from PyQt4.QtGui import QApplication, QCursor
+from PyQt5.QtCore import QEvent, QObject, QTimer, Qt
+from PyQt5.QtGui import QApplication, QCursor
 
 
 __all__ = ['hide', 'show']

@@ -34,8 +34,8 @@ except NameError:
 
 import unicodedata
 
-from PyQt4.QtCore import pyqtSignal, QEvent, QRect, QSize, Qt
-from PyQt4.QtGui import (QFont, QFontMetrics, QPainter, QPalette, QPen,
+from PyQt5.QtCore import pyqtSignal, QEvent, QRect, QSize, Qt
+from PyQt5.QtGui import (QFont, QFontMetrics, QPainter, QPalette, QPen,
                          QToolTip, QWhatsThis, QWidget)
 
 

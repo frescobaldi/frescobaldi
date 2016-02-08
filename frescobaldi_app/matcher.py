@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtGui import QAction
+from PyQt5.QtGui import QAction
 
 import app
 import plugin
@@ -46,7 +46,7 @@ class AbstractMatcher(object):
         self.updateSettings()
 
     def updateSettings(self):
-        from PyQt4.QtCore import QSettings
+        from PyQt5.QtCore import QSettings
         s = QSettings()
         s.beginGroup("editor_highlighting")
         self._match_duration = s.value("match", 1, int) * 1000

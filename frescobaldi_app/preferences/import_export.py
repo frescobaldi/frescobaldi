@@ -28,7 +28,7 @@ try:
 except ImportError:
     import xml.etree.ElementTree as ET
 
-from PyQt4.QtGui import (QTextFormat, QMessageBox, QColor, QTextCharFormat,
+from PyQt5.QtGui import (QTextFormat, QMessageBox, QColor, QTextCharFormat,
                          QFont, QFontDatabase, QKeySequence)
 
 import os

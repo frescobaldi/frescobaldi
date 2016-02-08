@@ -24,8 +24,8 @@ the current line, marked lines, search results etc.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QEvent
-from PyQt4.QtGui import QColor, QTextCharFormat, QTextFormat
+from PyQt5.QtCore import QEvent
+from PyQt5.QtGui import QColor, QTextCharFormat, QTextFormat
 
 import app
 import plugin

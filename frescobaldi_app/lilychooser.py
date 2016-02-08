@@ -23,7 +23,7 @@ A chooser combobox to choose a LilyPond instance.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QComboBox
+from PyQt5.QtGui import QComboBox
 
 import app
 import lilypondinfo

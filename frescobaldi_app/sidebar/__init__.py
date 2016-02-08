@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import sys
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QAction, QApplication
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QAction, QApplication
 
 import app
 import actioncollection

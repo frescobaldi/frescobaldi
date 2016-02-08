@@ -29,8 +29,8 @@ from __future__ import unicode_literals
 import contextlib
 import weakref
 
-from PyQt4.QtCore import QEvent, Qt, pyqtSignal
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QEvent, Qt, pyqtSignal
+from PyQt5.QtGui import (
     QAction, QHBoxLayout, QKeySequence, QLabel, QMenu, QPixmap, QProgressBar,
     QSplitter, QStackedWidget, QVBoxLayout, QWidget)
 
@@ -204,7 +204,7 @@ class ViewSpace(QWidget):
         line = cur.blockNumber() + 1
         try:
             column = cur.positionInBlock()
-        except AttributeError: # only in very recent PyQt4
+        except AttributeError: # only in very recent PyQt5
             column = cur.position() - cur.block().position()
         self.status.pos.setText(_("Line: {line}, Col: {column}").format(
             line = line, column = column))

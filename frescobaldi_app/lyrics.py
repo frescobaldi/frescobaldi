@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAction, QApplication, QKeySequence, QTextCursor
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QAction, QApplication, QKeySequence, QTextCursor
 
 import ly.lex.lilypond
 import actioncollection

@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 from fractions import Fraction
 
-from PyQt4.QtCore import QSettings, QSize
-from PyQt4.QtGui import (QComboBox, QDialog, QDialogButtonBox,
+from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtGui import (QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QLineEdit, QValidator, QWidget)
 
 import app

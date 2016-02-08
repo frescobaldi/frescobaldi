@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt4.QtCore import QEvent, QObject, Qt
-from PyQt4.QtGui import QKeySequence, QTextCursor
+from PyQt5.QtCore import QEvent, QObject, Qt
+from PyQt5.QtGui import QKeySequence, QTextCursor
 
 import app
 import widgets.wordboundary

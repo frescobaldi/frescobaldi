@@ -28,7 +28,7 @@ try:
 except ImportError:
     from . import popplerqt4_dummy as popplerqt4
 
-from PyQt4.QtCore import QRect, QRectF, QSize
+from PyQt5.QtCore import QRect, QRectF, QSize
 
 from . import cache
 from .locking import lock

@@ -24,7 +24,7 @@ using ly.music, stores this data and creates and inserts an override command.
 
 from __future__ import unicode_literals
 
-from PyQt4 import QtGui
+from PyQt5 import QtGui
 
 import documentinfo
 import lydocument

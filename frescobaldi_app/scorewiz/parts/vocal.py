@@ -27,8 +27,8 @@ import collections
 import itertools
 import re
 
-from PyQt4.QtCore import QRegExp, Qt
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QRegExp, Qt
+from PyQt5.QtGui import (
     QCheckBox, QComboBox, QGroupBox, QHBoxLayout, QLabel, QRegExpValidator,
     QSpinBox, QVBoxLayout)
 

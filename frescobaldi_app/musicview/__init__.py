@@ -38,8 +38,8 @@ import functools
 import os
 import weakref
 
-from PyQt4.QtCore import QSettings, QTimer, Qt, pyqtSignal
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
+from PyQt5.QtGui import (
     QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
     QKeySequence, QPalette, QSpinBox, QWidgetAction)
 
@@ -185,8 +185,8 @@ class MusicViewPanel(panel.Panel):
             ### temporarily disable printing on Mac OS X
             import sys
             if sys.platform.startswith('darwin'):
-                from PyQt4.QtCore import QUrl
-                from PyQt4.QtGui import QMessageBox
+                from PyQt5.QtCore import QUrl
+                from PyQt5.QtGui import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(
                     "Unfortunately, this version of Frescobaldi is unable to print "

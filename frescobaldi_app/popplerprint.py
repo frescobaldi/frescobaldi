@@ -35,8 +35,8 @@ import sys
 import subprocess
 import weakref
 
-from PyQt4.QtCore import pyqtSignal, QSettings, QTemporaryFile, Qt, QThread
-from PyQt4.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
+from PyQt5.QtCore import pyqtSignal, QSettings, QTemporaryFile, Qt, QThread
+from PyQt5.QtGui import QMessageBox, QPrinter, QPrintDialog, QProgressDialog
 
 import app
 import helpers

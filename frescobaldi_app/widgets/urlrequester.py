@@ -23,8 +23,8 @@ UrlRequester, a lineedit with a Browse-button.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import pyqtSignal
-from PyQt4.QtGui import (
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import (
     QFileDialog, QHBoxLayout, QLineEdit, QToolButton, QWidget)
 
 import app

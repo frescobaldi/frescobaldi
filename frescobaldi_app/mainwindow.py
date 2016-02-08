@@ -29,9 +29,9 @@ import os
 import sys
 import weakref
 
-from PyQt4.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
+from PyQt5.QtCore import (pyqtSignal, QByteArray, QDir, QMimeData, QSettings,
                           QSize, Qt, QUrl)
-from PyQt4.QtGui import (QAbstractPrintDialog, QAction, QApplication,
+from PyQt5.QtGui import (QAbstractPrintDialog, QAction, QApplication,
                          QFileDialog, QKeySequence, QMainWindow, QMenu,
                          QMessageBox, QPlainTextEdit, QPrintDialog, QPrinter,
                          QTextCursor, QTextDocument, QVBoxLayout, QWhatsThis,

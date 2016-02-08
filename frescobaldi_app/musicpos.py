@@ -23,8 +23,8 @@ Shows the time position of the text cursor in the music.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QTimer
-from PyQt4.QtGui import QLabel
+from PyQt5.QtCore import QTimer
+from PyQt5.QtGui import QLabel
 
 import weakref
 

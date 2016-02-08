@@ -30,7 +30,7 @@ if needed.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import QSettings, QTimer
+from PyQt5.QtCore import QSettings, QTimer
 
 
 def enabled():

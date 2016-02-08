@@ -30,7 +30,7 @@ try:
 except ImportError:
     from . import popplerqt4_dummy as popplerqt4
 
-from PyQt4.QtCore import Qt, QThread
+from PyQt5.QtCore import Qt, QThread
 
 from . import render
 from . import rectangles

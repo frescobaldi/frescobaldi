@@ -23,7 +23,7 @@ Percussion part types.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
+from PyQt5.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox
 
 import listmodel
 import ly.dom

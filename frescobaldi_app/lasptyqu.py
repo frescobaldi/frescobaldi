@@ -142,7 +142,7 @@ def preferred():
     
     """
     
-    from PyQt4.QtCore import QSettings
+    from PyQt5.QtCore import QSettings
     import po.setup
 
     s = QSettings()

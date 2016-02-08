@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtGui import QMenu
+from PyQt5.QtGui import QMenu
 
 import app
 import icons

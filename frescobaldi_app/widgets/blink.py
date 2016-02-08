@@ -21,8 +21,8 @@
 Shortly blinks a region on a widget.
 """
 
-from PyQt4.QtCore import QTimer, pyqtSignal
-from PyQt4.QtGui import QColor, QFontMetrics, QPainter, QPalette, QPen, QWidget
+from PyQt5.QtCore import QTimer, pyqtSignal
+from PyQt5.QtGui import QColor, QFontMetrics, QPainter, QPalette, QPen, QWidget
 
 
 class Blinker(QWidget):

@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtGui import (
     QAction, QKeySequence, QMessageBox, QPushButton, QTreeWidget,
     QTreeWidgetItem, QVBoxLayout)
 
@@ -304,7 +304,7 @@ class ShortcutItem(QTreeWidgetItem):
                 try:
                     shortcuts = s.value(key, [], QKeySequence)
                 except TypeError:
-                    # PyQt4 raises TypeError when an empty list was stored
+                    # PyQt5 raises TypeError when an empty list was stored
                     shortcuts = []
                 self._shortcuts[scheme] = (shortcuts, False)
             else:

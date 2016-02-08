@@ -31,8 +31,8 @@ from __future__ import unicode_literals
 import fractions
 import re
 
-from PyQt4.QtCore import QSize, Qt
-from PyQt4.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QIntValidator, QLabel
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QIntValidator, QLabel
 
 import ly.dom
 import completionmodel

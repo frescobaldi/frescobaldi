@@ -28,8 +28,8 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
+from PyQt5.QtGui import (
     QApplication, QContextMenuEvent, QKeySequence, QPainter, QPlainTextEdit,
     QTextCursor)
 

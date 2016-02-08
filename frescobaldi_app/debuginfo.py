@@ -51,13 +51,13 @@ def sip_version():
 
 @_catch_unknown
 def pyqt_version():
-    import PyQt4.QtCore
-    return PyQt4.QtCore.PYQT_VERSION_STR
+    import PyQt5.QtCore
+    return PyQt5.QtCore.PYQT_VERSION_STR
 
 @_catch_unknown
 def qt_version():
-    import PyQt4.QtCore
-    return PyQt4.QtCore.QT_VERSION_STR
+    import PyQt5.QtCore
+    return PyQt5.QtCore.QT_VERSION_STR
 
 @_catch_unknown
 def python_version():

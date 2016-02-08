@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
-from PyQt4.QtGui import QFileIconProvider, QIcon
+from PyQt5.QtCore import QDir, QFile, QFileInfo, QSettings, QSize
+from PyQt5.QtGui import QFileIconProvider, QIcon
 
 import app
 

@@ -24,8 +24,8 @@ Restored changed or deleted builtin snippets.
 from __future__ import unicode_literals
 
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTreeWidget, QTreeWidgetItem
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QTreeWidget, QTreeWidgetItem
 
 import app
 import userguide

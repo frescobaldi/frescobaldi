@@ -49,7 +49,7 @@ def app_is_git_controlled():
                 return _app_is_git_controlled
             except (GitError, OSError) as error:
                 error_type = type(error).__name__
-                from PyQt4.QtGui import QMessageBox
+                from PyQt5.QtGui import QMessageBox
                 QMessageBox.warning(None, 
                                     _("Git not found"),
                                     _("Frescobaldi is run from within a Git "

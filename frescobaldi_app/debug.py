@@ -67,7 +67,7 @@ main.main()
 app.appStarted()
 
 # be friendly and import Qt stuff
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 

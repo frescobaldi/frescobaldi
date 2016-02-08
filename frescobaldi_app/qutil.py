@@ -27,8 +27,8 @@ import contextlib
 import re
 import weakref
 
-from PyQt4.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
-from PyQt4.QtGui import (
+from PyQt5.QtCore import QEventLoop, QSettings, QSize, QTimer, Qt
+from PyQt5.QtGui import (
     QAction, QApplication, QColor, QKeySequence, QProgressDialog)
 
 import appinfo

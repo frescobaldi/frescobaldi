@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import QSettings, QSize, Qt, QUrl
-from PyQt4.QtGui import (QAbstractPrintDialog, QMainWindow, QPrintDialog,
+from PyQt5.QtCore import QSettings, QSize, Qt, QUrl
+from PyQt5.QtGui import (QAbstractPrintDialog, QMainWindow, QPrintDialog,
                          QPrinter, QTextBrowser, QTextDocument)
 
 import app

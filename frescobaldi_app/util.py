@@ -30,7 +30,7 @@ import io
 import os
 import re
 
-from PyQt4.QtCore import QDir
+from PyQt5.QtCore import QDir
 
 import appinfo
 import variables

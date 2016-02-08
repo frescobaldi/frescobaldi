@@ -23,7 +23,7 @@ Some special part types.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QCheckBox
+from PyQt5.QtGui import QCheckBox
 
 import ly.dom
 

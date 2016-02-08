@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import os
 import shutil
 
-from PyQt4.QtCore import QSettings
+from PyQt5.QtCore import QSettings
 
 
 def backup(filename):

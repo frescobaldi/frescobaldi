@@ -26,7 +26,7 @@ from __future__ import unicode_literals
 import itertools
 import os
 
-from PyQt4.QtGui import QPrinter
+from PyQt5.QtGui import QPrinter
 
 
 lpr_commands = (

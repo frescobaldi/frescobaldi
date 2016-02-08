@@ -31,8 +31,8 @@ import os
 import re
 import sys
 
-from PyQt4.QtCore import QSettings, QTimer, QUrl
-from PyQt4.QtGui import QApplication, QTextCursor
+from PyQt5.QtCore import QSettings, QTimer, QUrl
+from PyQt5.QtGui import QApplication, QTextCursor
 
 import appinfo             # Information about our application
 import app              # Instantiate global signals etc
@@ -131,7 +131,7 @@ def patch_pyqt():
     QApplication.arguments = staticmethod(
         lambda: [arg.rstrip('\0') for arg in old_arguments()])
 
-    from PyQt4.QtGui import QFileDialog
+    from PyQt5.QtGui import QFileDialog
     old_getOpenFileNames = QFileDialog.getOpenFileNames
     QFileDialog.getOpenFileNames = staticmethod(
         lambda *args: [f.rstrip('\0') for f in old_getOpenFileNames(*args)])
@@ -168,7 +168,7 @@ def check_ly():
     else:
         if version >= ly_required:
             return
-    from PyQt4.QtGui import QMessageBox
+    from PyQt5.QtGui import QMessageBox
     QMessageBox.critical(None, _("Can't run Frescobaldi"), _(
         "We are sorry, but Frescobaldi can't run properly.\n\n"
         "The python-ly package is not available or too old.\n"
