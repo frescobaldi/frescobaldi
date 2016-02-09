@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import collections
 
-from PyQt5.QtGui import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel,
-                         QSpinBox)
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
+                             QLabel, QSpinBox)
 
 import listmodel
 import ly.dom

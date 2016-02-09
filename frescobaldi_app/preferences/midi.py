@@ -23,9 +23,10 @@ MIDI preferences.
 
 from __future__ import unicode_literals
 
+<<<<<<< HEAD
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel,
-                         QPushButton, QSpinBox, QVBoxLayout)
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
+                             QLabel, QPushButton, QSpinBox, QVBoxLayout)
 
 
 import app

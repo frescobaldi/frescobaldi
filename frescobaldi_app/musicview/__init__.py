@@ -39,9 +39,10 @@ import os
 import weakref
 
 from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
-from PyQt5.QtGui import (
-    QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
-    QKeySequence, QPalette, QSpinBox, QWidgetAction)
+from PyQt5.QtGui import QColor, QKeySequence, QPalette
+from PyQt5.QtWidgets import (
+    QAction, QActionGroup, QApplication, QComboBox, QLabel, QSpinBox,
+    QWidgetAction)
 
 import app
 import actioncollection

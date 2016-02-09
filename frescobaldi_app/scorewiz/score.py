@@ -24,9 +24,9 @@ The Parts widget.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import (QGroupBox, QHBoxLayout, QLabel, QPushButton, QSplitter,
-                         QStackedWidget, QToolButton, QTreeView, QVBoxLayout,
-                         QWidget)
+from PyQt5.QtWidgets import (
+    QGroupBox, QHBoxLayout, QLabel, QPushButton, QSplitter, QStackedWidget,
+    QToolButton, QTreeView, QVBoxLayout, QWidget)
 
 import app
 import icons

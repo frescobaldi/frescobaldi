@@ -24,7 +24,8 @@ ViMode implements a Vi-like mode for QPlainTextEdit.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QObject, Qt
-from PyQt5.QtGui import QApplication, QFont, QPalette, QTextEdit
+from PyQt5.QtGui import QFont, QPalette
+from PyQt5.QtWidgets import QApplication, QTextEdit
 
 # the Vi modes
 NORMAL = 0

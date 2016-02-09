@@ -27,8 +27,8 @@ import sys
 import itertools
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import (QComboBox, QScrollArea, QSizePolicy, QVBoxLayout,
-                         QWidget)
+from PyQt5.QtWidgets import (QComboBox, QScrollArea, QSizePolicy, QVBoxLayout,
+                             QWidget)
 
 import app
 import widgets.charmap

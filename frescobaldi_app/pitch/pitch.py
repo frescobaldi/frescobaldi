@@ -29,7 +29,7 @@ from __future__ import unicode_literals
 import re
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QMessageBox
+from PyQt5.QtWidgets import QMessageBox
 
 import app
 import icons

@@ -23,11 +23,12 @@ The snippets widget.
 
 from __future__ import unicode_literals
 
-from PyQt5.QtCore import QEvent, QModelIndex, Qt
-from PyQt5.QtGui import (QAction, QApplication, QCompleter, QFileDialog,
-                         QHBoxLayout, QItemSelectionModel, QKeySequence, QMenu,
-                         QMessageBox, QPushButton, QSplitter, QTextBrowser,
-                         QToolButton, QTreeView, QVBoxLayout, QWidget)
+from PyQt5.QtCore import QEvent, QItemSelectionModel, QModelIndex, Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import (
+    QAction, QApplication, QCompleter, QFileDialog, QHBoxLayout, QMenu,
+    QMessageBox, QPushButton, QSplitter, QTextBrowser, QToolButton,
+    QTreeView, QVBoxLayout, QWidget)
 
 import app
 import userguide

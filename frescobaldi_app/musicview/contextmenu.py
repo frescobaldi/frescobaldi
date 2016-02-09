@@ -24,7 +24,7 @@ The PDF preview panel context menu.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QApplication, QMenu
+from PyQt5.QtWidgets import QApplication, QMenu
 
 
 import icons

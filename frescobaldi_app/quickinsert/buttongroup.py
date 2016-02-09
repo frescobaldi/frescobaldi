@@ -27,8 +27,9 @@ from __future__ import print_function
 import weakref
 
 from PyQt5.QtCore import QEvent, QSize
-from PyQt5.QtGui import (QAction, QGridLayout, QGroupBox, QKeySequence, QMenu,
-                         QToolButton, QToolTip)
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import (
+    QAction, QGridLayout, QGroupBox, QMenu, QToolButton, QToolTip)
 
 import actioncollection
 import actioncollectionmanager

@@ -26,8 +26,9 @@ from __future__ import unicode_literals
 import contextlib
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import (QApplication, QFont, QPalette, QTextBrowser,
-                         QTextCharFormat, QTextCursor, QTextFormat)
+from PyQt5.QtGui import (QFont, QPalette, QTextCharFormat, QTextCursor,
+                         QTextFormat)
+from PyQt5.QtWidgets import QApplication, QTextBrowser
 
 import job
 import qutil

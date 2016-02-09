@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import sys
 
 from PyQt5.QtCore import pyqtSignal, QSettings
-from PyQt5.QtGui import (QCheckBox, QHBoxLayout, QLineEdit, QToolButton,
-                         QVBoxLayout, QWidget)
+from PyQt5.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QToolButton,
+                             QVBoxLayout, QWidget)
 
 import app
 import icons

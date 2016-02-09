@@ -30,8 +30,8 @@ import weakref
 
 from PyQt5.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import (
-    QApplication, QContextMenuEvent, QKeySequence, QPainter, QPlainTextEdit,
-    QTextCursor)
+    QContextMenuEvent, QKeySequence, QPainter, QTextCursor)
+from PyQt5.QtWidgets import QApplication, QPlainTextEdit
 
 import app
 import homekey

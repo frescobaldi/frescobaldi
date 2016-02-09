@@ -29,7 +29,7 @@ except NameError:
     pass
 
 from PyQt5.QtCore import QSettings, QSize, Qt
-from PyQt5.QtGui import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
+from PyQt5.QtWidgets import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
 
 
 import app

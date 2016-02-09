@@ -32,7 +32,7 @@ import sys
 import os
 
 from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QAction, QFileDialog, QMenu, QMenuBar
+from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMenuBar
 
 import app
 import util

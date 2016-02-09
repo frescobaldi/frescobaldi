@@ -27,8 +27,8 @@ import os
 import sys
 
 from PyQt5 import QtCore
-from PyQt5.QtGui import (QComboBox, QHBoxLayout, QLabel, QPushButton, QSpinBox,
-                         QToolButton, QVBoxLayout, QWidget)
+from PyQt5.QtWidgets import (QComboBox, QHBoxLayout, QLabel, QPushButton,
+                             QSpinBox, QToolButton, QVBoxLayout, QWidget)
 
 import app
 import qutil

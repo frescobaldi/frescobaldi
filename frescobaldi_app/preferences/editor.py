@@ -24,7 +24,7 @@ Helper application preferences.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import (
+from PyQt5.QtWidgets import (
     QCheckBox, QComboBox, QFileDialog, QGridLayout, QLabel, QLineEdit, QSpinBox,
     QVBoxLayout, QWidget)
 

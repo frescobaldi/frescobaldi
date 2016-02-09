@@ -30,7 +30,7 @@ import sys
 import re
 
 from PyQt5.QtCore import QEventLoop, QSettings, QTimer
-from PyQt5.QtGui import QProgressDialog
+from PyQt5.QtWidgets import QProgressDialog
 
 import app
 import cachedproperty

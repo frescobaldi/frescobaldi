@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import (QCheckBox, QGridLayout, QMessageBox, QPushButton,
-                         QTextBrowser, QTreeWidget, QTreeWidgetItem)
+from PyQt5.QtWidgets import (QCheckBox, QGridLayout, QMessageBox, QPushButton,
+                             QTextBrowser, QTreeWidget, QTreeWidgetItem)
 
 import app
 import qutil

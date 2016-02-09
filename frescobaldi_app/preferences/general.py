@@ -24,8 +24,8 @@ Keyboard shortcuts settings page.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtGui import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel,
-                         QRadioButton, QStyleFactory, QVBoxLayout)
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
+                             QLabel, QRadioButton, QStyleFactory, QVBoxLayout)
 
 import app
 import appinfo

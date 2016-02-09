@@ -25,7 +25,8 @@ from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import (
-    QFont, QLabel, QPainter, QPixmap, QTextCursor, QTextDocument)
+    QFont, QPainter, QPixmap, QTextCursor, QTextDocument)
+from PyQt5.QtWidgets import QLabel
 
 import metainfo
 import tokeniter

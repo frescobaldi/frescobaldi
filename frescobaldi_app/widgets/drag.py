@@ -24,7 +24,8 @@ Event-filtering objects and helper functions to drag things.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QFileInfo, QMimeData, QObject, Qt, QUrl
-from PyQt5.QtGui import QApplication, QDrag, QFileIconProvider
+from PyQt5.QtGui import QDrag
+from PyQt5.QtWidgets import QApplication, QFileIconProvider
 
 
 class ComboDrag(QObject):

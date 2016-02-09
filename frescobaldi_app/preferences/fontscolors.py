@@ -24,11 +24,12 @@ Fonts and Colors preferences page.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import pyqtSignal, QSettings, QSize, Qt
-from PyQt5.QtGui import (QApplication, QBrush, QCheckBox, QColor,
-                         QDoubleSpinBox, QFont, QFontComboBox, QGridLayout,
-                         QGroupBox, QHBoxLayout, QLabel, QMessageBox, QPalette,
-                         QStackedWidget, QTextCharFormat, QTextFormat,
-                         QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
+from PyQt5.QtGui import (QBrush, QColor, QFont, QPalette, QTextCharFormat,
+                         QTextFormat)
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox,
+                             QFontComboBox, QGridLayout, QGroupBox,
+                             QHBoxLayout, QLabel, QMessageBox, QStackedWidget,
+                             QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 try:
     str = unicode

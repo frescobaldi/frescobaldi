@@ -32,7 +32,9 @@ import fractions
 import re
 
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QIntValidator, QLabel
+from PyQt5.QtGui import QIntValidator
+from PyQt5.QtWidgets import (
+    QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel)
 
 import ly.dom
 import completionmodel

@@ -26,11 +26,11 @@ from __future__ import unicode_literals
 
 import re
 
-from PyQt5.QtCore import QSize
-from PyQt5.QtGui import (QAction, QDialog, QDialogButtonBox, QGridLayout, QIcon,
-                         QItemSelectionModel, QKeySequence, QLabel, QLineEdit,
-                         QMessageBox, QPushButton, QTextCharFormat, QTextEdit,
-                         QVBoxLayout)
+from PyQt5.QtCore import QItemSelectionModel, QSize
+from PyQt5.QtGui import QIcon, QKeySequence, QTextCharFormat
+from PyQt5.QtWidgets import (
+    QAction, QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit,
+    QMessageBox, QPushButton, QTextEdit, QVBoxLayout)
 
 import actioncollectionmanager
 import app

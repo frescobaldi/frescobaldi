@@ -31,7 +31,8 @@ except ImportError:
     import xml.etree.ElementTree as ET
 
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QKeySequence, QMessageBox, QTreeWidget, QTreeWidgetItem
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import QMessageBox, QTreeWidget, QTreeWidgetItem
 
 import app
 import appinfo

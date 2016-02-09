@@ -25,7 +25,7 @@ from __future__ import division
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import Qt, QTimeLine, QTimer
-from PyQt5.QtGui import QProgressBar
+from PyQt5.QtWidgets import QProgressBar
 
 import app
 import plugin

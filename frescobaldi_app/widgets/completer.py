@@ -24,7 +24,8 @@ Completer providing completions in a Q(Plain)TextEdit.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QModelIndex, Qt
-from PyQt5.QtGui import QCompleter, QKeySequence, QTextCursor
+from PyQt5.QtGui import QKeySequence, QTextCursor
+from PyQt5.QtWidgets import QCompleter
 
 
 class Completer(QCompleter):

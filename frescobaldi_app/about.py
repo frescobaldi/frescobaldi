@@ -25,7 +25,7 @@ About dialog.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings, QSize, Qt, QUrl
-from PyQt5.QtGui import (
+from PyQt5.QtWidgets import (
     QDialog, QDialogButtonBox, QLabel, QLayout, QTabWidget, QTextBrowser,
     QVBoxLayout, QWidget)
 

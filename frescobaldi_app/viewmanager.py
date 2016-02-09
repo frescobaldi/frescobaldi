@@ -30,9 +30,10 @@ import contextlib
 import weakref
 
 from PyQt5.QtCore import QEvent, Qt, pyqtSignal
-from PyQt5.QtGui import (
-    QAction, QHBoxLayout, QKeySequence, QLabel, QMenu, QPixmap, QProgressBar,
-    QSplitter, QStackedWidget, QVBoxLayout, QWidget)
+from PyQt5.QtGui import QKeySequence, QPixmap
+from PyQt5.QtWidgets import (
+    QAction, QHBoxLayout, QLabel, QMenu, QProgressBar, QSplitter,
+    QStackedWidget, QVBoxLayout, QWidget)
 
 import actioncollection
 import app

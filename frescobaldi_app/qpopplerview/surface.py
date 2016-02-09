@@ -28,8 +28,9 @@ import weakref
 
 from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import (
-    QApplication, QContextMenuEvent, QCursor, QPainter, QPalette,
-    QRegion, QRubberBand, QToolTip, QWidget, QColor, QBrush, QPen)
+    QContextMenuEvent, QCursor, QPainter, QPalette, QRegion, QColor,
+    QBrush, QPen)
+from PyQt5.QtWidgets import QApplication, QRubberBand, QToolTip, QWidget
 
 try:
     import popplerqt4

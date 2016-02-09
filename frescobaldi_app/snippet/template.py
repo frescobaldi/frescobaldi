@@ -28,7 +28,8 @@ import documentinfo
 import widgets.dialog
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QCheckBox, QCompleter, QVBoxLayout, QMessageBox, QWidget
+from PyQt5.QtWidgets import (
+    QCheckBox, QCompleter, QVBoxLayout, QMessageBox, QWidget)
 
 from . import model
 from . import snippets

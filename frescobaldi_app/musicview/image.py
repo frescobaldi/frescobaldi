@@ -28,10 +28,10 @@ import os
 import tempfile
 
 from PyQt5.QtCore import QSettings, QSize, Qt
-from PyQt5.QtGui import (QApplication, QBitmap, QCheckBox, QColor, QComboBox,
-                         QDialog, QDialogButtonBox, QDoubleValidator,
-                         QFileDialog, QHBoxLayout, QLabel, QMessageBox,
-                         QPushButton, QRegion, QVBoxLayout)
+from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QRegion
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
+                             QDialogButtonBox, QFileDialog, QHBoxLayout,
+                             QLabel, QMessageBox, QPushButton, QVBoxLayout)
 
 import app
 import util
