@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A dummy surface only showing a "could not load popplerqt4 module" message.
+A dummy surface only showing a "could not load popplerqt5 module" message.
 """
 
 from __future__ import unicode_literals
@@ -40,7 +40,7 @@ class Surface(qpopplerview.Surface):
     
     def translateUI(self):
         self._msg.setText(_("Could not load the {name} module.").format(
-            name = '<a href="https://github.com/wbsoft/python-poppler-qt4">popplerqt4</a>'))
+            name = '<a href="https://github.com/wbsoft/python-poppler-qt4">popplerqt5</a>'))
     
     def paintEvent(self, ev):
         QWidget.paintEvent(self, ev)

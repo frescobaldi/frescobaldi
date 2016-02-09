@@ -26,7 +26,7 @@ To be implemented.
 """
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
-    from . import popplerqt4_dummy as popplerqt4
+    from . import popplerqt5_dummy as popplerqt5
 

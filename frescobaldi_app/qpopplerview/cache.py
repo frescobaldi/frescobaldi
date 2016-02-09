@@ -26,9 +26,9 @@ import time
 import weakref
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
-    from . import popplerqt4_dummy as popplerqt4
+    from . import popplerqt5_dummy as popplerqt5
 
 from PyQt5.QtCore import Qt, QThread
 
@@ -184,8 +184,8 @@ def options(document=None):
     if not _globaloptions:
         _globaloptions = render.RenderOptions()
         # enable antialiasing by default
-        _globaloptions.setRenderHint(popplerqt4.Poppler.Document.Antialiasing |
-                                     popplerqt4.Poppler.Document.TextAntialiasing)
+        _globaloptions.setRenderHint(popplerqt5.Poppler.Document.Antialiasing |
+                                     popplerqt5.Poppler.Document.TextAntialiasing)
     return _globaloptions
 
 

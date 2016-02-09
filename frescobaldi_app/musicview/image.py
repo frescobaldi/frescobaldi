@@ -43,9 +43,9 @@ import widgets.colorbutton
 import widgets.drag
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
-    popplerqt4 = None
+    popplerqt5 = None
 
 from . import documents
 
@@ -186,10 +186,10 @@ class Dialog(QDialog):
         options = qpopplerview.RenderOptions()
         options.setPaperColor(self.colorButton.color())
         if self.antialias.isChecked():
-            if popplerqt4:
+            if popplerqt5:
                 options.setRenderHint(
-                    popplerqt4.Poppler.Document.Antialiasing |
-                    popplerqt4.Poppler.Document.TextAntialiasing)
+                    popplerqt5.Poppler.Document.Antialiasing |
+                    popplerqt5.Poppler.Document.TextAntialiasing)
         else:
             options.setRenderHint(0)
         self._image = self._page.image(self._rect, dpi, dpi, options)

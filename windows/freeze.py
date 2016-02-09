@@ -45,7 +45,7 @@ includes = [
     'PyQt5.QtNetwork',
     'PyQt5.QtSvg',
     'PyQt5.QtXml',
-    'popplerqt4',
+    'popplerqt5',
     'pypm',
     
     '__future__',

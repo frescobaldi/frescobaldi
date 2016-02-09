@@ -50,7 +50,7 @@ _printers = weakref.WeakKeyDictionary()
 
 
 def print_(doc, filename=None, widget=None):
-    """Prints the popplerqt4.Poppler.Document.
+    """Prints the popplerqt5.Poppler.Document.
     
     The filename is used in the dialog and print job name.
     If the filename is not given, it defaults to a translation of "PDF Document".

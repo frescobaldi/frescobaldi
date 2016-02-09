@@ -46,12 +46,12 @@ def links(document):
     except KeyError:
         l = _cache[document] = Links()
         with l:
-            import popplerqt4
+            import popplerqt5
             with qpopplerview.lock(document):
                 for num in range(document.numPages()):
                     page = document.page(num)
                     for link in page.links():
-                        if isinstance(link, popplerqt4.Poppler.LinkBrowse):
+                        if isinstance(link, popplerqt5.Poppler.LinkBrowse):
                             t = textedit.link(link.url())
                             if t:
                                 filename = util.normpath(t.filename)
@@ -72,8 +72,8 @@ class Links(pointandclick.Links):
         Returns None if the url was not valid or the document could not be loaded.
         
         """
-        import popplerqt4
-        if not isinstance(link, popplerqt4.Poppler.LinkBrowse) or not link.url():
+        import popplerqt5
+        if not isinstance(link, popplerqt5.Poppler.LinkBrowse) or not link.url():
             return
         t = textedit.link(link.url())
         if t:
