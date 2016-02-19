@@ -5,8 +5,9 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 2.18.3 -- ?
 
 * Improvements:
-  - when tapping a tempo in the Score Wizard, it is now configurable whether
+  - When tapping a tempo in the Score Wizard, it is now configurable whether
     a "common" metronome value is picked, or the exact tapped BPM (#792)
+  - Allow zooming to 800% in Music View (#800)
 * Bug fixes:
   - fix #793 Command autocompletion doesn’t work in figuremode
 * Translations:

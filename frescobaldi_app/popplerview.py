@@ -75,7 +75,7 @@ class View(qpopplerview.View):
 class MagnifierSettings(object):
     """Manages settings for the MusicView Magnifier."""
     sizeRange = (200, 800)
-    scaleRange = (150, 500)
+    scaleRange = (150, 800)
     
     def __init__(self, size=300, scale=300):
         self.size = size

@@ -76,6 +76,7 @@ class MusicView(QWidget):
         self.setLayout(layout)
         
         self.view = popplerview.View(self)
+        self.view.MAX_ZOOM = 8.0
         layout.addWidget(self.view)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()

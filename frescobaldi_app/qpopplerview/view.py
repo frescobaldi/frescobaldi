@@ -47,6 +47,8 @@ _SCAM = (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META)
 
 class View(KineticScrollArea):
     
+    MAX_ZOOM = 4.0
+    
     viewModeChanged = pyqtSignal(int)
     
     def __init__(self, parent=None):
@@ -267,7 +269,7 @@ class View(KineticScrollArea):
         Pos is a QPoint relative to ourselves.
         
         """
-        scale = max(0.05, min(4.0, scale))
+        scale = max(0.05, min(self.MAX_ZOOM, scale))
         if scale == self.scale():
             return
         
