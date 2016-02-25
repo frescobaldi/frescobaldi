@@ -128,6 +128,12 @@ def dynamics(cursor):
 
 
 @remove
+def fingerings(cursor):
+    """Remove fingerings from the cursor's selection."""
+    return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Fingering))
+
+
+@remove
 def markup(cursor):
     """Remove (postfix) markup texts from the cursor's selection."""
     source = ly.document.Source(cursor, True, tokens_with_position=True)

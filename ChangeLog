@@ -4,6 +4,8 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18.3 -- ?
 
+* New features:
+  - Tools->Quick Remove->Remove Fingerings
 * Improvements:
   - When tapping a tempo in the Score Wizard, it is now configurable whether
     a "common" metronome value is picked, or the exact tapped BPM (#792)

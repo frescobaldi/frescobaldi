@@ -56,6 +56,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
         ac.tools_quick_remove_slurs.triggered.connect(self.quickRemoveSlurs)
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
+        ac.tools_quick_remove_fingerings.triggered.connect(self.quickRemoveFingerings)
         ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
         
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
@@ -76,6 +77,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         self.actionCollection.tools_quick_remove_instrument_scripts.setEnabled(selection)
         self.actionCollection.tools_quick_remove_slurs.setEnabled(selection)
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_fingerings.setEnabled(selection)
         self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
     
     def currentView(self):
@@ -150,6 +152,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import quickremove
         quickremove.dynamics(self.mainwindow().textCursor())
     
+    def quickRemoveFingerings(self):
+        import quickremove
+        quickremove.fingerings(self.mainwindow().textCursor())
+    
     def quickRemoveMarkup(self):
         import quickremove
         quickremove.markup(self.mainwindow().textCursor())
@@ -173,6 +179,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_instrument_scripts = QAction(parent)
         self.tools_quick_remove_slurs = QAction(parent)
         self.tools_quick_remove_dynamics = QAction(parent)
+        self.tools_quick_remove_fingerings = QAction(parent)
         self.tools_quick_remove_markup = QAction(parent)
         
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
@@ -194,5 +201,6 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_instrument_scripts.setText(_("Remove &Instrument Scripts"))
         self.tools_quick_remove_slurs.setText(_("Remove &Slurs"))
         self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))
+        self.tools_quick_remove_fingerings.setText(_("Remove &Fingerings"))
         self.tools_quick_remove_markup.setText(_("Remove Text &Markup (from music)"))
 
