@@ -51,6 +51,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_reformat.triggered.connect(self.reFormat)
         ac.tools_remove_trailing_whitespace.triggered.connect(self.removeTrailingWhitespace)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
+        ac.tools_quick_remove_comments.triggered.connect(self.quickRemoveComments)
         ac.tools_quick_remove_articulations.triggered.connect(self.quickRemoveArticulations)
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
         ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
@@ -72,6 +73,7 @@ class DocumentActions(plugin.MainWindowPlugin):
     
     def updateSelectionActions(self, selection):
         self.actionCollection.edit_cut_assign.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_comments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_articulations.setEnabled(selection)
         self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_instrument_scripts.setEnabled(selection)
@@ -132,6 +134,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import convert_ly
         convert_ly.convert(self.mainwindow())
     
+    def quickRemoveComments(self):
+        import quickremove
+        quickremove.comments(self.mainwindow().textCursor())
+    
     def quickRemoveArticulations(self):
         import quickremove
         quickremove.articulations(self.mainwindow().textCursor())
@@ -174,6 +180,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_reformat = QAction(parent)
         self.tools_remove_trailing_whitespace = QAction(parent)
         self.tools_convert_ly = QAction(parent)
+        self.tools_quick_remove_comments = QAction(parent)
         self.tools_quick_remove_articulations = QAction(parent)
         self.tools_quick_remove_ornaments = QAction(parent)
         self.tools_quick_remove_instrument_scripts = QAction(parent)
@@ -196,6 +203,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_reformat.setText(_("&Format"))
         self.tools_remove_trailing_whitespace.setText(_("Remove Trailing &Whitespace"))
         self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
+        self.tools_quick_remove_comments.setText(_("Remove &Comments"))
         self.tools_quick_remove_articulations.setText(_("Remove &Articulations"))
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))
         self.tools_quick_remove_instrument_scripts.setText(_("Remove &Instrument Scripts"))

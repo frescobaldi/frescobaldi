@@ -97,6 +97,15 @@ def find_positions(cursor, predicate, predicate_dir=None):
 
 
 @remove
+def comments(cursor):
+    """Remove all comments from the cursor's selection."""
+    source = ly.document.Source(cursor, True, tokens_with_position=True)
+    for token in source:
+        if isinstance(token, ly.lex.Comment):
+            yield token.pos, token.end
+
+    
+@remove
 def articulations(cursor):
     """Remove articulations from the cursor's selection."""
     return find_positions(cursor, is_articulation,

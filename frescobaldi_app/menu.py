@@ -380,6 +380,7 @@ def menu_tools_quick_remove(mainwindow):
     m.setIcon(icons.get('edit-clear'))
     ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
     
+    m.addAction(ac.tools_quick_remove_comments)
     m.addAction(ac.tools_quick_remove_articulations)
     m.addAction(ac.tools_quick_remove_ornaments)
     m.addAction(ac.tools_quick_remove_instrument_scripts)
