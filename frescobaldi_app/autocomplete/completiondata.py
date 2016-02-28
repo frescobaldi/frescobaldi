@@ -45,6 +45,7 @@ markup = (
     'markuplist',
     'pageBreak',
     'noPageBreak',
+    'noPageTurn',
 )
 
 # these can occur (almost) everywhere
