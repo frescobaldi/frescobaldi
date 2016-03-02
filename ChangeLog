@@ -11,6 +11,9 @@ Changes in 2.18.3 -- ?
   - When tapping a tempo in the Score Wizard, it is now configurable whether
     a "common" metronome value is picked, or the exact tapped BPM (#792)
   - Allow zooming to 800% in Music View (#800)
+  - When closing a document that has an engrave job running, the user is warned
+    and can choose whether to wait for the job to complete, to abort it, or to
+    cancel the closing.
 * Bug fixes:
   - fix #793 Command autocompletion doesn’t work in figuremode
 * Translations:

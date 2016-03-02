@@ -323,17 +323,19 @@ class MainWindow(QMainWindow):
         If modified, asks the user. The document is not closed.
         """
         if not doc.isModified():
-            return True
-        self.setCurrentDocument(doc, findOpenView=True)
-        res = QMessageBox.warning(self, _("dialog title", "Close Document"),
-            _("The document \"{name}\" has been modified.\n"
-            "Do you want to save your changes or discard them?").format(name=doc.documentName()),
-            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
-        if res == QMessageBox.Save:
-            return self.saveDocument(doc)
+            allow_close = True
         else:
-            return res == QMessageBox.Discard
-
+            self.setCurrentDocument(doc, findOpenView=True)
+            res = QMessageBox.warning(self, _("dialog title", "Close Document"),
+                _("The document \"{name}\" has been modified.\n"
+                "Do you want to save your changes or discard them?").format(name=doc.documentName()),
+                QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+            if res == QMessageBox.Save:
+                allow_close = self.saveDocument(doc)
+            else:
+                allow_close = res == QMessageBox.Discard
+        return allow_close and engrave.engraver(self).queryCloseDocument(doc)
+    
     def createPopupMenu(self):
         """ Adds an entry to the popup menu to show/hide the tab bar. """
         menu = QMainWindow.createPopupMenu(self)

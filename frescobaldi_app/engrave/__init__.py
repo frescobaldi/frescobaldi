@@ -69,6 +69,7 @@ class Engraver(plugin.MainWindowPlugin):
         app.jobFinished.connect(self.openDefaultView)
         app.sessionChanged.connect(self.slotSessionChanged)
         app.saveSessionData.connect(self.slotSaveSessionData)
+        app.documentClosed.connect(self.slotDocumentClosed)
         mainwindow.aboutToClose.connect(self.saveSettings)
         self.loadSettings()
         app.languageChanged.connect(self.updateStickyActionText)
@@ -213,6 +214,30 @@ class Engraver(plugin.MainWindowPlugin):
                 except IOError:
                     pass ## saving was not possible (e.g. happens when read only)
 
+    def queryCloseDocument(self, doc):
+        """Return True whether a document can be closed.
+        
+        When no job is running, True is immediately returned.
+        When a job is running, the user is asked whether to abort the job (not
+        for autocompile ("hidden") jobs).
+        
+        """
+        job = jobmanager.job(doc)
+        if not job or not job.is_running() or jobattributes.get(job).hidden:
+            return True
+        msgbox = QMessageBox(QMessageBox.Warning,
+            _("Warning"),
+            _("An engrave job is running for the document \"{name}\".\n"
+              "Do you want to abort the running job?").format(name=doc.documentName()),
+            QMessageBox.Abort | QMessageBox.Cancel,
+            self.mainwindow())
+        abort_button = msgbox.button(QMessageBox.Abort)
+        signal = lambda: abort_button.click()
+        job.done.connect(signal)
+        msgbox.exec_()
+        job.done.disconnect(signal)
+        return msgbox.clickedButton() == abort_button
+
     def runJob(self, job, document):
         """Runs the engraving job on behalf of document."""
         jobattributes.get(job).mainwindow = self.mainwindow()
@@ -279,6 +304,12 @@ class Engraver(plugin.MainWindowPlugin):
         info = command.info(self.mainwindow().currentDocument())
         from . import lytools
         lytools.show_available_fonts(self.mainwindow(), info)
+        
+    def slotDocumentClosed(self, doc):
+        """Called when the user closes a document. Aborts a running Job."""
+        job = jobmanager.job(doc)
+        if job and job.is_running():
+            job.abort()
         
     def slotSessionChanged(self):
         """Called when the session is changed."""
