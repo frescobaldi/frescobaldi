@@ -196,7 +196,8 @@ class Analyzer(object):
         """complete \\include """
         if '\\include' in self.tokens[-4:-2]:
             self.backuntil(lp.StringQuotedStart)
-            dir = self.last[:self.last.rfind(os.sep)] if os.sep in self.last else None
+            sep = '/' # Even on Windows, LilyPond uses the forward slash
+            dir = self.last[:self.last.rfind(sep)] if sep in self.last else None
             cursor = self.document_cursor()
             return documentdata.doc(cursor.document()).includenames(cursor, dir)
 
