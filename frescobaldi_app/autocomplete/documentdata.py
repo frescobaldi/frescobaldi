@@ -179,7 +179,7 @@ def get_filenames(path, directories = False):
             if directories:
                 for f in dirs:
                     if f and not f.startswith('.'):
-                        yield f + os.sep
+                        yield f # + os.sep # don't add dir separator
             return
     except UnicodeDecodeError:
         # this only happens when there are filenames in the wrong encoding,
