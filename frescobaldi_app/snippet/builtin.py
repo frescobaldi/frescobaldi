@@ -139,7 +139,10 @@ def main():
 """-*- menu: text; python;
 import lasptyqu
 left, right = lasptyqu.preferred().secondary
-text = left + text + right
+if text:
+    text = left + text + right
+else:
+    text = [left, CURSOR, right]
 """),
 
 
@@ -147,7 +150,10 @@ text = left + text + right
 """-*- menu: text; python;
 import lasptyqu
 left, right = lasptyqu.preferred().primary
-text = left + text + right
+if text:
+    text = left + text + right
+else:
+    text = [left, CURSOR, right]
 """),
 
 
@@ -399,7 +405,7 @@ def main():
             t = cursor.selection().toPlainText()
     else:
         t = cursor.selection().toPlainText()
-    cursor.movePosition(cursor.selectionEnd())
+    cursor.setPosition(cursor.selectionEnd())
     cursor.clearSelection()
     cursor.insertText(t)
     if t.endswith('\n'):

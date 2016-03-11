@@ -36,9 +36,15 @@ import qutil
 import userguide
 import language_names
 import widgets
-import hyphdicts
 import hyphenator
 import po.setup
+
+# If the folder was completely removed by a distributor
+try:
+    import hyphdicts
+except ImportError:
+    hyphdicts = None
+
 
 # paths to check for hyphen dicts
 default_paths = [
@@ -74,7 +80,8 @@ def directories():
             else:
                 for pref in prefixes:
                     yield os.path.join(pref, path)
-        yield hyphdicts.path
+        if hyphdicts:
+            yield hyphdicts.path
     return filter(os.path.isdir, gen())
 
 def findDicts():

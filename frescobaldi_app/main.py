@@ -51,7 +51,7 @@ def parse_commandline():
     """
     import argparse
     argparse._ = _ # let argparse use our translations
-    parser = argparse.ArgumentParser(
+    parser = argparse.ArgumentParser(conflict_handler="resolve",
         description = _("A LilyPond Music Editor"))
     parser.add_argument('-v', '--version', action="version",
         version="{0} {1}".format(appinfo.appname, appinfo.version),
@@ -78,7 +78,7 @@ def parse_commandline():
     # Make sure debugger options are recognized as valid. These are passed automatically
     # from PyDev in Eclipse to the inferior process.
     if "pydevd" in sys.modules:
-        parser.add_argument('-v', '--vm_type')
+        parser.add_argument('--vm_type', '-v')
         parser.add_argument('-a', '--client')
         parser.add_argument('-p', '--port')
         parser.add_argument('-f', '--file')
@@ -159,7 +159,7 @@ def check_ly():
     Importing ly.pkginfo is not expensive.
     
     """
-    ly_required = (0, 9)
+    ly_required = (0, 9, 3)
     try:
         import ly.pkginfo
         version = tuple(map(int, re.findall(r"\d+", ly.pkginfo.version)))

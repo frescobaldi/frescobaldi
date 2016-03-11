@@ -51,11 +51,13 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_reformat.triggered.connect(self.reFormat)
         ac.tools_remove_trailing_whitespace.triggered.connect(self.removeTrailingWhitespace)
         ac.tools_convert_ly.triggered.connect(self.convertLy)
+        ac.tools_quick_remove_comments.triggered.connect(self.quickRemoveComments)
         ac.tools_quick_remove_articulations.triggered.connect(self.quickRemoveArticulations)
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
         ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
         ac.tools_quick_remove_slurs.triggered.connect(self.quickRemoveSlurs)
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
+        ac.tools_quick_remove_fingerings.triggered.connect(self.quickRemoveFingerings)
         ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
         
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
@@ -71,11 +73,13 @@ class DocumentActions(plugin.MainWindowPlugin):
     
     def updateSelectionActions(self, selection):
         self.actionCollection.edit_cut_assign.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_comments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_articulations.setEnabled(selection)
         self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_instrument_scripts.setEnabled(selection)
         self.actionCollection.tools_quick_remove_slurs.setEnabled(selection)
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_fingerings.setEnabled(selection)
         self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
     
     def currentView(self):
@@ -130,6 +134,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import convert_ly
         convert_ly.convert(self.mainwindow())
     
+    def quickRemoveComments(self):
+        import quickremove
+        quickremove.comments(self.mainwindow().textCursor())
+    
     def quickRemoveArticulations(self):
         import quickremove
         quickremove.articulations(self.mainwindow().textCursor())
@@ -150,6 +158,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import quickremove
         quickremove.dynamics(self.mainwindow().textCursor())
     
+    def quickRemoveFingerings(self):
+        import quickremove
+        quickremove.fingerings(self.mainwindow().textCursor())
+    
     def quickRemoveMarkup(self):
         import quickremove
         quickremove.markup(self.mainwindow().textCursor())
@@ -168,11 +180,13 @@ class Actions(actioncollection.ActionCollection):
         self.tools_reformat = QAction(parent)
         self.tools_remove_trailing_whitespace = QAction(parent)
         self.tools_convert_ly = QAction(parent)
+        self.tools_quick_remove_comments = QAction(parent)
         self.tools_quick_remove_articulations = QAction(parent)
         self.tools_quick_remove_ornaments = QAction(parent)
         self.tools_quick_remove_instrument_scripts = QAction(parent)
         self.tools_quick_remove_slurs = QAction(parent)
         self.tools_quick_remove_dynamics = QAction(parent)
+        self.tools_quick_remove_fingerings = QAction(parent)
         self.tools_quick_remove_markup = QAction(parent)
         
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
@@ -189,10 +203,12 @@ class Actions(actioncollection.ActionCollection):
         self.tools_reformat.setText(_("&Format"))
         self.tools_remove_trailing_whitespace.setText(_("Remove Trailing &Whitespace"))
         self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
+        self.tools_quick_remove_comments.setText(_("Remove &Comments"))
         self.tools_quick_remove_articulations.setText(_("Remove &Articulations"))
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))
         self.tools_quick_remove_instrument_scripts.setText(_("Remove &Instrument Scripts"))
         self.tools_quick_remove_slurs.setText(_("Remove &Slurs"))
         self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))
+        self.tools_quick_remove_fingerings.setText(_("Remove &Fingerings"))
         self.tools_quick_remove_markup.setText(_("Remove Text &Markup (from music)"))
 

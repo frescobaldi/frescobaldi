@@ -45,7 +45,7 @@ class Analyzer(object):
         self.column = column = cursor.position() - block.position()
         self.text = text = block.text()[:column]
         self.model = None
-        
+
         # make a list of tokens exactly ending at the cursor position
         # and let state follow
         state = self.state = tokeniter.state(block)
@@ -59,12 +59,12 @@ class Analyzer(object):
             state.follow(t)
             if t.end == column:
                 break
-        
+
         self.last = tokens[-1] if tokens else ''
         self.lastpos = self.last.pos if self.last else column
-        
+
         parser = state.parser()
-        
+
         # Map the parser class to a group of tests to return the model.
         # Try the tests until a model is returned.
         try:
@@ -80,31 +80,31 @@ class Analyzer(object):
 
     def completions(self, cursor):
         """Analyzes text at cursor and returns a tuple (position, model).
-        
+
         The position is an integer specifying the column in the line where the last
         text starts that should be completed.
-        
+
         The model list the possible completions. If the model is None, there are no
         suitable completions.
-        
+
         This function does its best to return extremely meaningful completions
         for the context the cursor is in.
-        
+
         """
         self.analyze(cursor)
         return self.column, self.model
-    
+
     def document_cursor(self):
         """Return the current QTextCursor, to harvest info from its document.
-        
+
         By default this is simply the cursor given on analyze() or completions()
         but you can override this method to provide another cursor. This can
         be useful when the completion occurs in a small QTextDocument, which is
         in fact a part of the main document.
-        
+
         """
         return self.cursor
-    
+
     def tokenclasses(self):
         """Return the list of classes of the tokens."""
         return list(map(type, self.tokens))
@@ -128,7 +128,7 @@ class Analyzer(object):
         self.backuntil(lx.Space)
         cursor = self.document_cursor()
         return documentdata.doc(cursor.document()).bookcommands(cursor)
-        
+
     def bookpart(self):
         """\\bookpart {"""
         self.backuntil(lx.Space)
@@ -179,7 +179,7 @@ class Analyzer(object):
         if '\\clef' in self.tokens[-4:-1]:
             self.backuntil(lx.Space, lp.StringQuotedStart)
             return completiondata.lilypond_clefs
-            
+
     def repeat(self):
         """complete \\repeat types"""
         if '\\repeat' in self.tokens[-4:-1]:
@@ -196,7 +196,8 @@ class Analyzer(object):
         """complete \\include """
         if '\\include' in self.tokens[-4:-2]:
             self.backuntil(lp.StringQuotedStart)
-            dir = self.last[:self.last.rfind(os.sep)] if os.sep in self.last else None
+            sep = '/' # Even on Windows, LilyPond uses the forward slash
+            dir = self.last[:self.last.rfind(sep)] if sep in self.last else None
             cursor = self.document_cursor()
             return documentdata.doc(cursor.document()).includenames(cursor, dir)
 
@@ -213,7 +214,7 @@ class Analyzer(object):
             self.column = self.lastpos
         cursor = self.document_cursor()
         return documentdata.doc(cursor.document()).lyriccommands(cursor)
-        
+
     def music_glyph(self):
         r"""Complete \markup \musicglyph names."""
         try:
@@ -237,7 +238,7 @@ class Analyzer(object):
         if self.last != '"':
             self.column = self.lastpos
         return completiondata.midi_instruments
-        
+
     def font_name(self):
         """Complete #'font-name = #"..."""
         try:
@@ -247,14 +248,14 @@ class Analyzer(object):
         if self.last != '"':
             self.column = self.lastpos
         return completiondata.font_names()
-        
+
     def scheme_word(self):
         """Complete scheme word from scheme functions, etc."""
         if isinstance(self.last, scm.Word):
             self.column = self.lastpos
             cursor = self.document_cursor()
             return documentdata.doc(cursor.document()).schemewords()
-        
+
     def markup(self):
         """\\markup {"""
         if self.last.startswith('\\'):
@@ -269,7 +270,15 @@ class Analyzer(object):
                 self.column = self.lastpos + m.start()
         cursor = self.document_cursor()
         return documentdata.doc(cursor.document()).markup(cursor)
-        
+
+    def markup_top(self):
+        """\\markup ... in music or toplevel"""
+        if self.last.startswith('\\') and isinstance(self.last,
+            (ly.lex.lilypond.MarkupCommand, ly.lex.lilypond.MarkupUserCommand)):
+            self.column = self.lastpos
+            cursor = self.document_cursor()
+            return documentdata.doc(cursor.document()).markup(cursor)
+
     def header(self):
         """\\header {"""
         if '=' in self.tokens[-3:] or self.last.startswith('\\'):
@@ -289,7 +298,7 @@ class Analyzer(object):
         if self.last[:1].isalpha():
             self.column = self.lastpos
         return completiondata.lilypond_paper_variables
-        
+
     def layout(self):
         """\\layout {"""
         self.backuntil(lx.Space)
@@ -314,7 +323,7 @@ class Analyzer(object):
         if cmd_in(self.tokens[-3:-1]):
             self.backuntil(lx.Space)
             return completiondata.lilypond_engravers
-        
+
     def context_variable_set(self):
         if '=' in self.tokens[-4:]:
             if isinstance(self.last, scm.Word):
@@ -375,17 +384,17 @@ class Analyzer(object):
             return completiondata.lilypond_grob_properties(self.tokens[i])
         self.backuntil(lp.DotPath, lx.Space)
         return completiondata.lilypond_grob_properties(self.tokens[i], False)
-    
+
     def revert(self):
         """test for \\revert in general music expressions
-        
+
         (because the revert parser drops out of invalid constructs, which happen
         during typing).
-        
+
         """
         if '\\revert' in self.tokens:
             return self.override()
-    
+
     def set_unset(self):
         """\\set and \\unset"""
         tokenclasses = self.tokenclasses()
@@ -421,7 +430,7 @@ class Analyzer(object):
                 self.column = self.lastpos
             cursor = self.document_cursor()
             return documentdata.doc(cursor.document()).schemewords()
-    
+
     def accidental_style(self):
         """test for \accidentalStyle"""
         try:
@@ -465,19 +474,23 @@ class Analyzer(object):
     # Mapping from Parsers to the lists of functions to run.
     tests = {
         lp.ParseGlobal: (
+            markup_top,
             repeat,
             toplevel,
         ),
         lp.ParseBook: (
+            markup_top,
             book,
         ),
         lp.ParseBookPart: (
+            markup_top,
             bookpart,
         ),
         lp.ParseScore: (
             score,
         ),
         lp.ParseMusic: (
+            markup_top,
             tweak,
             scheme_word,
             key,
@@ -489,6 +502,42 @@ class Analyzer(object):
             general_music,
         ),
         lp.ParseNoteMode: (
+            markup_top,
+            tweak,
+            scheme_word,
+            key,
+            clef,
+            repeat,
+            accidental_style,
+            hide_omit,
+            revert,
+            general_music,
+        ),
+        lp.ParseChordMode: (
+            markup_top,
+            tweak,
+            scheme_word,
+            key,
+            clef,
+            repeat,
+            accidental_style,
+            hide_omit,
+            revert,
+            general_music,
+        ),
+        lp.ParseDrumMode: (
+            markup_top,
+            tweak,
+            scheme_word,
+            key,
+            clef,
+            repeat,
+            hide_omit,
+            revert,
+            general_music,
+        ),
+        lp.ParseFigureMode: (
+            markup_top,
             tweak,
             scheme_word,
             key,
@@ -503,6 +552,7 @@ class Analyzer(object):
             markup,
         ),
         lp.ParseHeader: (
+            markup_top,
             header,
         ),
         lp.ParsePaper: (
@@ -522,6 +572,7 @@ class Analyzer(object):
             context,
         ),
         lp.ParseWith: (
+            markup_top,
             engraver,
             context_variable_set,
             with_,
@@ -576,6 +627,7 @@ class Analyzer(object):
             font_name,
         ),
         lp.ParseLyricMode: (
+            markup_top,
             repeat,
             lyricmode,
         ),
@@ -592,4 +644,3 @@ class Analyzer(object):
             revert,
         ),
     }
-

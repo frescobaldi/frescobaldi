@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import itertools
 
-from PyQt4.QtGui import QCheckBox, QHBoxLayout, QToolButton
+from PyQt4.QtGui import QCheckBox, QHBoxLayout, QTextCursor, QToolButton
 
 import app
 import symbols
@@ -226,13 +226,14 @@ def articulation_positions(cursor):
     else:
         rests = False
         partial = ly.document.INSIDE
-    source = lydocument.Source(c, True, partial, True)
     
     positions = []
-    for p in ly.rhythm.music_tokens(source):
-        if not rests and isinstance(p[0], ly.lex.lilypond.Rest):
+    for item in ly.rhythm.music_items(c, partial):
+        if not rests and item.tokens and isinstance(item.tokens[0], ly.lex.lilypond.Rest):
             continue
-        positions.append(source.cursor(p[-1], start=len(p[-1])))
+        csr = QTextCursor(cursor.document())
+        csr.setPosition(item.end)
+        positions.append(csr)
         if not cursor.hasSelection():
             break # leave if first found, that's enough
     return positions

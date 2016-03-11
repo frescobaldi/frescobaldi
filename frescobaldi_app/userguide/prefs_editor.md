@@ -30,6 +30,37 @@ a real Tab by moving the number to zero.
 You can also set indentation preferences per-document, see
 {document_variables}.
 
+= Source Export Preferences=
+
+Configures how colored source code is produced when exporting to a file or
+copying to clipboard. Available options are:
+
+* `Copy HTML as plain text` |
+  Generates the colored source code as HTML markup so it can be pasted in HTML
+  pages.  When unchecked rich text is produced that can be pasted to rich text
+  editors like word processors.
+* `Copy document body only` |
+  Wraps the source in a single HTML tag. When unchecked a full HTML document is
+  produced.
+  *Note:* This option doesn't take effect when *exporting* source code.
+* `Use inline style when copying colored HTML` |
+  Inserts CSS styles *in* the generated HTML tags.
+  When unchecked CSS classes are used.
+  *Note:* When this option is *unchecked* and `Copy document body only` is
+  *checked* no actual CSS styles will be generated. To use this option there has
+  to be an external CSS available in the target document.
+  *Note:* This option doesn't take effect when *exporting* source code.
+* `Use inline style when exporting colored HTML` |
+  Same as above but applies for exporting instead of copying.
+* `Show line numbers` |
+  (should be self-explanatory)
+* `Wrappers` |
+  By default colored code is wrapped in a `<pre id="document"></pre>` tag, but
+  this can be configured to use a selection of wrapper tags and attribute types
+  and an arbitrary attribute name.
+  So it is for example to generate an `<div class="lilypond">` element if that
+  is more suitable for the existing CSS.
+
 
 #VARS
 menu_autoindent menu tools -> &Automatic Indent

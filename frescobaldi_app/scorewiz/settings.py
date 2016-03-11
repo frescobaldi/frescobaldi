@@ -73,11 +73,23 @@ class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
         scorewiz = self.window()
         scorewiz.pitchLanguageChanged.connect(self.setPitchLanguage)
         self.setPitchLanguage(scorewiz.pitchLanguage())
+
+        self.loadSettings()
+        self.window().finished.connect(self.saveSettings)
         
     def translateUI(self):
         self.translateWidgets()
         self.setTitle(_("Score properties"))
-    
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/scoreproperties')
+        self.metronomeRound.setChecked(s.value('round_metronome', True, bool))
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('scorewiz/scoreproperties')
+        s.setValue('round_metronome', self.metronomeRound.isChecked())
 
 
 class GeneralPreferences(QGroupBox):

@@ -33,7 +33,7 @@ The log is not displayed.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, QTimer
+from PyQt4.QtCore import QSettings, Qt, QTimer
 
 import app
 import documentinfo
@@ -114,7 +114,7 @@ class AutoCompiler(plugin.MainWindowPlugin):
 
 class AutoCompileManager(plugin.DocumentPlugin):
     def __init__(self, document):
-        document.contentsChanged.connect(self.slotDocumentContentsChanged)
+        document.contentsChanged.connect(self.slotDocumentContentsChanged, Qt.QueuedConnection)
         document.saved.connect(self.slotDocumentSaved)
         document.loaded.connect(self.initialize)
         jobmanager.manager(document).started.connect(self.slotJobStarted)
@@ -124,6 +124,8 @@ class AutoCompileManager(plugin.DocumentPlugin):
         document = self.document()
         if document.isModified():
             self._dirty = True
+        elif document.url().isEmpty():
+            self._dirty = False
         else:
             # look for existing result files in the default output format
             s = QSettings()
@@ -153,7 +155,8 @@ class AutoCompileManager(plugin.DocumentPlugin):
     
     def slotDocumentContentsChanged(self):
         """Called when the user modifies the document."""
-        self._dirty = True
+        if self.document().isModified():    # not when a template was applied
+            self._dirty = True
 
     def slotDocumentSaved(self):
         """Called when the document is saved. Forces auto-compile once."""

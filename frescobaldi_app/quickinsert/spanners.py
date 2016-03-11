@@ -23,7 +23,7 @@ The Quick Insert panel spanners Tool.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QHBoxLayout, QToolButton
+from PyQt4.QtGui import QHBoxLayout, QTextCursor, QToolButton
 
 import app
 import icons
@@ -113,10 +113,10 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
         # where to insert
         c = lydocument.cursor(cursor)
         c.select_end_of_block()
-        source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
         with cursortools.compress_undo(cursor):
-            for p in ly.rhythm.music_tokens(source):
-                c = source.cursor(p[-1], start=len(p[-1]))
+            for item in ly.rhythm.music_items(c, partial=ly.document.OUTSIDE):
+                c = QTextCursor(cursor.document())
+                c.setPosition(item.end)
                 c.insertText('\\arpeggio')
                 if name != lastused:
                     cursortools.strip_indent(c)
@@ -148,16 +148,17 @@ class GlissandoGroup(buttongroup.ButtonGroup):
         style = _glissandoStyles[name]
         c = lydocument.cursor(cursor)
         c.select_end_of_block()
-        source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
-        for p in ly.rhythm.music_tokens(source):
-            c = source.cursor(p[-1], start=len(p[-1]))
+        for item in ly.rhythm.music_items(c, partial=ly.document.OUTSIDE):
+            c = QTextCursor(cursor.document())
+            c.setPosition(item.end)
             if style:
                 text = "-\\tweak #'style #'{0} \\glissando".format(style)
             else:
                 text = '\\glissando'
             c.insertText(text)
             return
-     
+
+
 class SpannerGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Spanners"))
@@ -190,6 +191,7 @@ class SpannerGroup(buttongroup.ButtonGroup):
         with cursortools.compress_undo(cursor):
             for s, c in zip(spanner, spanner_positions(cursor)):
                 c.insertText(s)
+
 
 class GraceGroup(buttongroup.ButtonGroup):
     def translateUI(self):
@@ -249,14 +251,16 @@ class GraceGroup(buttongroup.ButtonGroup):
                 else:
                     c = lydocument.cursor(cursor)
                     c.end = None
-                    source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
-                    music_list = list(ly.rhythm.music_tokens(source))
+                    items = list(ly.rhythm.music_items(c, partial=ly.document.OUTSIDE))
+                    after = self.mainwindow().textCursor()
                     try:
-                        m = music_list[2][0]
-                        after = source.cursor(m, 1)
-                    except IndexError:                      
-                        after = self.mainwindow().textCursor()
-                        after.movePosition(cursor.EndOfLine)        
+                        i = items[2]
+                        pos = i.pos + 1
+                        end = (i.tokens or i.dur_tokens)[0].end
+                        after.setPosition(pos)
+                        after.setPosition(end, QTextCursor.KeepAnchor)
+                    except IndexError:
+                        after.movePosition(cursor.EndOfLine)
                     after.insertText(outer[1])
                     cursor.insertText(outer[0])
 
@@ -275,15 +279,18 @@ def spanner_positions(cursor):
         # just select until the end of the current line
         c.select_end_of_block()
         partial = ly.document.OUTSIDE
-    source = lydocument.Source(c, True, partial, True)
-      
-    positions = [source.cursor(p[-1], start=len(p[-1]))
-        for p in ly.rhythm.music_tokens(source)]
     
+    items = list(ly.rhythm.music_items(c, partial=partial))
     if cursor.hasSelection():
-        del positions[1:-1]
+        del items[1:-1]
     else:
-        del positions[2:]
+        del items[2:]
+    
+    positions = []
+    for i in items:
+        c = QTextCursor(cursor.document())
+        c.setPosition(i.end)
+        positions.append(c)
     return positions
         
     

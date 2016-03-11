@@ -161,6 +161,10 @@ class DocumentDataSource(plugin.DocumentPlugin):
                 if not f.endswith('init.ly')
                 and f.islower()))
         
+        # forward slashes on Windows (issue #804)
+        if os.name == "nt":
+            names = [name.replace('\\', '/') for name in names]
+        
         return listmodel.ListModel(names)
 
 

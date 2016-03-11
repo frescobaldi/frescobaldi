@@ -23,7 +23,7 @@ The Quick Insert panel dynamics Tool.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QHBoxLayout, QToolButton
+from PyQt4.QtGui import QHBoxLayout, QTextCursor, QToolButton
 
 import app
 import icons
@@ -96,17 +96,18 @@ class Group(buttongroup.ButtonGroup):
                 # no, find the first pitch
                 c = lydocument.cursor(cursor)
                 c.end = None
-                source = lydocument.Source(c, True, ly.document.OUTSIDE, True)
-                for p in ly.rhythm.music_tokens(source):
-                    cursor = source.cursor(p[-1], start=len(p[-1]))
+                for item in ly.rhythm.music_items(c, partial=ly.document.OUTSIDE):
+                    cursor.setPosition(item.end)
                     break
             cursor.insertText(direction + dynamic)
             self.mainwindow().currentView().setTextCursor(cursor)
         else:
             c = lydocument.cursor(cursor)
-            source = lydocument.Source(c, True, tokens_with_position=True)
-            cursors = [source.cursor(p[-1], start=len(p[-1]))
-                for p in ly.rhythm.music_tokens(source)]
+            cursors = []
+            for item in ly.rhythm.music_items(c):
+                csr = QTextCursor(cursor.document())
+                csr.setPosition(item.end)
+                cursors.append(csr)
             if not cursors:
                 return
             c1, c2 = cursors[0], cursors[-1]
