@@ -14,6 +14,8 @@ Changes in 2.18.3 -- ?
   - When closing a document that has an engrave job running, the user is warned
     and can choose whether to wait for the job to complete, to abort it, or to
     cancel the closing.
+  - Tabbar and document list show in the document icon whether the last
+    engraving was successful
 * Bug fixes:
   - fix #793 Command autocompletion doesn’t work in figuremode
 * Translations:

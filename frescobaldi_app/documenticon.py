@@ -63,6 +63,10 @@ class DocumentIconProvider(plugin.DocumentPlugin):
             icon = 'pushpin'
         elif doc.isModified():
             icon = 'document-save'
+        elif job and not job.is_running() and not job.is_aborted() and job.success:
+            icon = 'document-compile-success'
+        elif job and not job.is_running() and not job.is_aborted():
+            icon = 'document-compile-failed'
         else:
             icon = 'text-plain'
         return icons.get(icon)
