@@ -68,7 +68,7 @@ class TimedProgressBar(QProgressBar):
             self._done()
 
     def _done(self):
-        self.reset()
         if self.hideOnTimeout:
             self.hide()
+        self.reset()
 
