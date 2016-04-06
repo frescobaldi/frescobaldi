@@ -39,6 +39,7 @@ class Document(QTextDocument):
     urlChanged = signals.Signal() # new url, old url
     closed = signals.Signal()
     loaded = signals.Signal()
+    saving = signals.SignalContext()
     saved = signals.Signal()
     
     @classmethod
@@ -158,7 +159,7 @@ class Document(QTextDocument):
         # would fail
         if self.url().isEmpty() and not url.isEmpty():
             self.setUrl(url)
-        with app.documentSaving(self):
+        with self.saving(), app.documentSaving(self):
             with open(filename, "wb") as f:
                 f.write(self.encodedText())
                 f.flush()
