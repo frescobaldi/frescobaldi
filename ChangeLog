@@ -8,6 +8,11 @@ Changes in 2.18.3 -- ?
   - Tools->Quick Remove->Remove Fingerings
   - Tools->Quick Remove->Remove Comments
 * Improvements:
+  - Autocompile was not triggered in some circumstances.
+    Now it is also triggered:
+    * when a document is saved
+    * when undoing a change after a save (i.e. the undo would reset the 
+      "modifified" flag of the document)
   - When tapping a tempo in the Score Wizard, it is now configurable whether
     a "common" metronome value is picked, or the exact tapped BPM (#792)
   - Allow zooming to 800% in Music View (#800)
