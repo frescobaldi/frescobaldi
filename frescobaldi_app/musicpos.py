@@ -24,7 +24,7 @@ Shows the time position of the text cursor in the music.
 from __future__ import unicode_literals
 
 from PyQt5.QtCore import QTimer
-from PyQt5.QtGui import QLabel
+from PyQt5.QtWidgets import QLabel
 
 import weakref
 
