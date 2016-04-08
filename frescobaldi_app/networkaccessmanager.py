@@ -60,7 +60,7 @@ class NetworkAccessManager(QNetworkAccessManager):
         
         """
         for name, value in self.headers.items():
-            request.setRawHeader(name, value)
+            request.setRawHeader(bytearray(name, "latin_1"), bytearray(value, "latin_1"))
     
     def registerHandler(self, scheme, handler):
         """Registers a handler for the given scheme.
