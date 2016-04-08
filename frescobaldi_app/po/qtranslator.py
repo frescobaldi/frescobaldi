@@ -35,7 +35,7 @@ _translator = None
 
 class Translator(QTranslator):
     """Subclass of QTranslator that gets its messages via the _() function."""
-    def translate(self, context, sourceText, disambiguation=""):
+    def translate(self, context, sourceText, disambiguation="", n=-1):
         #_debug(context, sourceText)
         return _(context, sourceText)
 
