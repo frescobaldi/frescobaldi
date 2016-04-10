@@ -538,7 +538,7 @@ class ZoomerAction(ComboBoxAction):
     def updateZoomInfo(self, mode, scale):
         """Connect view.viewModeChanged and layout.scaleChanged to this."""
         if mode == FixedScale:
-            text = "{0:.0f}%".format(round(scale * 100.0))
+            text = "{0:.0%}".format(scale)
             for w in self.createdWidgets():
                 w.setEditText(text)
         else:
