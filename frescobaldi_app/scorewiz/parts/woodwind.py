@@ -201,6 +201,18 @@ class BassClarinet(WoodWindPart):
     transposition = (-2, 6, -1)
 
 
+class C_MelodySax(WoodWindPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("C-Melody Sax")
+    
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for C-Melody Sax", "C-Mel Sax")
+
+    midiInstrument = 'soprano sax'
+
+
 class SopraninoSax(WoodWindPart):
     @staticmethod
     def title(_=_base.translate):
@@ -394,6 +406,7 @@ register(
         TenorSax,
         BaritoneSax,
         BassSax,
+        C_MelodySax,
         SopraninoRecorder,
         SopranoRecorder,
         AltoRecorder,
