@@ -8,6 +8,8 @@ Changes in 2.18.3 -- ?
   - Tools->Quick Remove->Remove Fingerings
   - Tools->Quick Remove->Remove Comments
 * Improvements:
+  - Clicking a point and click link in the Music View now remembers the previous
+    position
   - Autocompile was not triggered in some circumstances.
     Now it is also triggered:
     * when a document is saved
