@@ -153,9 +153,10 @@ class MusicView(QWidget):
                 from . import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
             else:
+                import browseriface
                 mainwindow = self.parent().mainwindow()
                 self._clicking_link = True
-                mainwindow.setTextCursor(cursor, findOpenView=True)
+                browseriface.get(mainwindow).setTextCursor(cursor, findOpenView=True)
                 self._clicking_link = False
                 import widgets.blink
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
