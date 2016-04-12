@@ -7,6 +7,7 @@ Changes in 2.18.3 -- ?
 * New features:
   - Tools->Quick Remove->Remove Fingerings
   - Tools->Quick Remove->Remove Comments
+  - It is now configurable whether the document tabs have a close button
 * Improvements:
   - Clicking a point and click link in the Music View now remembers the previous
     position

@@ -73,10 +73,12 @@ class General(preferences.Group):
         
         self.systemIcons = QCheckBox(toggled=self.changed)
         grid.addWidget(self.systemIcons, 2, 0, 1, 3)
+        self.tabsClosable = QCheckBox(toggled=self.changed)
+        grid.addWidget(self.tabsClosable, 3, 0, 1, 3)
         self.splashScreen = QCheckBox(toggled=self.changed)
-        grid.addWidget(self.splashScreen, 3, 0, 1, 3)
+        grid.addWidget(self.splashScreen, 4, 0, 1, 3)
         self.allowRemote = QCheckBox(toggled=self.changed)
-        grid.addWidget(self.allowRemote, 4, 0, 1, 3)
+        grid.addWidget(self.allowRemote, 5, 0, 1, 3)
         
         grid.setColumnStretch(2, 1)
         
@@ -111,6 +113,7 @@ class General(preferences.Group):
             index = 0
         self.styleCombo.setCurrentIndex(index)
         self.systemIcons.setChecked(s.value("system_icons", True, bool))
+        self.tabsClosable.setChecked(s.value("tabs_closable", True, bool))
         self.splashScreen.setChecked(s.value("splash_screen", True, bool))
         self.allowRemote.setChecked(remote.enabled())
     
@@ -118,6 +121,7 @@ class General(preferences.Group):
         s = QSettings()
         s.setValue("language", self._langs[self.lang.currentIndex()])
         s.setValue("system_icons", self.systemIcons.isChecked())
+        s.setValue("tabs_closable", self.tabsClosable.isChecked())
         s.setValue("splash_screen", self.splashScreen.isChecked())
         s.setValue("allow_remote", self.allowRemote.isChecked())
         if self.styleCombo.currentIndex() == 0:
@@ -138,6 +142,7 @@ class General(preferences.Group):
             "will be used instead of the bundled icons.\n"
             "This setting takes effect on the next start of {appname}.").format(appname=appinfo.appname))
         self.splashScreen.setText(_("Show Splash Screen on Startup"))
+        self.tabsClosable.setText(_("Document tabs have a close button"))
         self.allowRemote.setText(_("Open Files in Running Instance"))
         self.allowRemote.setToolTip(_(
             "If checked, files will be opened in a running Frescobaldi "
