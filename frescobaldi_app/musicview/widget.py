@@ -165,6 +165,9 @@ class MusicView(QWidget):
         elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
+        elif (isinstance(link, popplerqt4.Poppler.LinkGoto)
+              and not link.isExternal()):
+            self.view.gotoPageNumber(link.destination().pageNumber() - 1)
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.

@@ -10,6 +10,7 @@ Changes in 2.18.3 -- ?
   - It is now configurable whether the document tabs have a close button
   - The new LilyPond feature to embed source code files in the PDF (LilyPond >=
     2.19.39) can be used in publish mode and the custom engrave dialog (#813)
+  - Clicking a TOC item in the Music View jumps to its destination (#803)
 * Improvements:
   - Clicking a point and click link in the Music View now remembers the previous
     position
