@@ -303,6 +303,7 @@ class Running(preferences.Group):
         
         self.saveDocument = QCheckBox(clicked=self.changed)
         self.deleteFiles = QCheckBox(clicked=self.changed)
+        self.embedSourceCode = QCheckBox(clicked=self.changed)
         self.noTranslation = QCheckBox(clicked=self.changed)
         self.includeLabel = QLabel()
         self.include = widgets.listedit.FilePathEdit()
@@ -310,6 +311,7 @@ class Running(preferences.Group):
         self.include.changed.connect(self.changed)
         layout.addWidget(self.saveDocument)
         layout.addWidget(self.deleteFiles)
+        layout.addWidget(self.embedSourceCode)
         layout.addWidget(self.noTranslation)
         layout.addWidget(self.includeLabel)
         layout.addWidget(self.include)
@@ -324,6 +326,11 @@ class Running(preferences.Group):
         self.deleteFiles.setText(_("Delete intermediate output files"))
         self.deleteFiles.setToolTip(_(
             "If checked, LilyPond will delete intermediate PostScript files."))
+        self.embedSourceCode.setText(_("Embed Source Code files in publish mode"))
+        self.embedSourceCode.setToolTip(_(
+            "If checked, the LilyPond source files will be embedded in the PDF\n"
+            "when LilyPond is started in publish mode.\n"
+            "This feature is available since LilyPond 2.19.39."))
         self.noTranslation.setText(_("Run LilyPond with English messages"))
         self.noTranslation.setToolTip(_(
             "If checked, LilyPond's output messages will be in English.\n"
@@ -334,6 +341,7 @@ class Running(preferences.Group):
         s = settings()
         self.saveDocument.setChecked(s.value("save_on_run", False, bool))
         self.deleteFiles.setChecked(s.value("delete_intermediate_files", True, bool))
+        self.embedSourceCode.setChecked(s.value("embed_source_code", False, bool))
         self.noTranslation.setChecked(s.value("no_translation", False, bool))
         include_path = qsettings.get_string_list(s, "include_path")
         self.include.setValue(include_path)
@@ -342,6 +350,7 @@ class Running(preferences.Group):
         s = settings()
         s.setValue("save_on_run", self.saveDocument.isChecked())
         s.setValue("delete_intermediate_files", self.deleteFiles.isChecked())
+        s.setValue("embed_source_code", self.embedSourceCode.isChecked())
         s.setValue("no_translation", self.noTranslation.isChecked())
         s.setValue("include_path", self.include.value())
 

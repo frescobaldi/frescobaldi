@@ -70,8 +70,9 @@ class Dialog(QDialog):
         self.modeLabel = QLabel()
         self.modeCombo = QComboBox()
         
-        self.englishCheck = QCheckBox()
         self.deleteCheck = QCheckBox()
+        self.embedSourceCodeCheck = QCheckBox()
+        self.englishCheck = QCheckBox()
         
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
@@ -95,12 +96,13 @@ class Dialog(QDialog):
         layout.addWidget(self.antialiasSpin, 2, 3)
         layout.addWidget(self.modeLabel, 3, 0)
         layout.addWidget(self.modeCombo, 3, 1, 1, 3)
-        layout.addWidget(self.englishCheck, 4, 0, 1, 4)
-        layout.addWidget(self.deleteCheck, 5, 0, 1, 4)
-        layout.addWidget(self.commandLineLabel, 6, 0, 1, 4)
-        layout.addWidget(self.commandLine, 7, 0, 1, 4)
-        layout.addWidget(widgets.Separator(), 8, 0, 1, 4)
-        layout.addWidget(self.buttons, 9, 0, 1, 4)
+        layout.addWidget(self.deleteCheck, 4, 0, 1, 4)
+        layout.addWidget(self.embedSourceCodeCheck, 5, 0, 1, 4)
+        layout.addWidget(self.englishCheck, 6, 0, 1, 4)
+        layout.addWidget(self.commandLineLabel, 7, 0, 1, 4)
+        layout.addWidget(self.commandLine, 8, 0, 1, 4)
+        layout.addWidget(widgets.Separator(), 9, 0, 1, 4)
+        layout.addWidget(self.buttons, 10, 0, 1, 4)
         
         app.translateUI(self)
         qutil.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
@@ -125,6 +127,7 @@ class Dialog(QDialog):
         self.outputCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.modeCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.deleteCheck.toggled.connect(self.makeCommandLine)
+        self.embedSourceCodeCheck.toggled.connect(self.makeCommandLine)
         self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
         self.antialiasSpin.valueChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
@@ -140,8 +143,9 @@ class Dialog(QDialog):
         self.modeCombo.setItemText(0, _("Preview"))
         self.modeCombo.setItemText(1, _("Publish"))
         self.modeCombo.setItemText(2, _("Layout Control"))
-        self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.deleteCheck.setText(_("Delete intermediate output files"))
+        self.embedSourceCodeCheck.setText(_("Embed Source Code (LilyPond >= 2.19.39)"))
+        self.englishCheck.setText(_("Run LilyPond with English messages"))
         self.commandLineLabel.setText(_("Command line:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
         self.outputCombo.update()
@@ -177,6 +181,10 @@ class Dialog(QDialog):
             cmd.append('-ddelete-intermediate-files')
         else:
             cmd.append('-dno-delete-intermediate-files')
+        
+        if self.embedSourceCodeCheck.isChecked():
+            cmd.append('-dembed-source-code')
+        
         d = {
             'version': self.lilyChooser.lilyPondInfo().version,
             'resolution': self.resolutionCombo.currentText(),

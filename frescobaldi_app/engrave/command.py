@@ -66,12 +66,20 @@ def defaultJob(document, args=None):
     if args:
         command.extend(args)
     else:
+        # publish mode
         command.append('-dno-point-and-click')
     
     if s.value("default_output_target", "pdf", type("")) == "svg":
+        # engrave to SVG
         command.append('-dbackend=svg')
     else:
+        # engrave to PDF
+        if not args:
+            # publish mode
+            if s.value("embed_source_code", False, bool) and i.version() >= (2, 19, 39):
+                command.append('-dembed-source-code')
         command.append('--pdf')
+
         
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)

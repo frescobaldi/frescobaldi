@@ -185,7 +185,7 @@ class Engraver(plugin.MainWindowPlugin):
         if mode == 'preview':
             args = ['-dpoint-and-click']
         elif mode == 'publish':
-            args = ['-dno-point-and-click']
+            args = None     # command.defaultJob() will handle publish mode
         elif mode == 'layout-control':
             args = panelmanager.manager(
                     self.mainwindow()).layoutcontrol.widget().preview_options()
