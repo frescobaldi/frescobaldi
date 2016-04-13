@@ -211,7 +211,13 @@ class MusicView(QWidget):
                     text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
                     text = link.url()
-            QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
+        elif isinstance(link, popplerqt4.Poppler.LinkGoto):
+            text = _("Page {num}").format(num=link.destination().pageNumber())
+            if link.isExternal():
+                text = link.fileName() + "\n" + text
+        else:
+            return
+        QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
 
     def slotCurrentViewChanged(self, view, old=None):
         self.view.surface().clearHighlight(self._highlightMusicFormat)
