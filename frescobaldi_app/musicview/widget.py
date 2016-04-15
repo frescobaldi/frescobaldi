@@ -166,7 +166,7 @@ class MusicView(QWidget):
         elif (isinstance(link, popplerqt5.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
-        elif (isinstance(link, popplerqt4.Poppler.LinkGoto)
+        elif (isinstance(link, popplerqt5.Poppler.LinkGoto)
               and not link.isExternal()):
             self.view.gotoPageNumber(link.destination().pageNumber() - 1)
 
@@ -212,7 +212,7 @@ class MusicView(QWidget):
                     text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
                     text = link.url()
-        elif isinstance(link, popplerqt4.Poppler.LinkGoto):
+        elif isinstance(link, popplerqt5.Poppler.LinkGoto):
             text = _("Page {num}").format(num=link.destination().pageNumber())
             if link.isExternal():
                 text = link.fileName() + "\n" + text
