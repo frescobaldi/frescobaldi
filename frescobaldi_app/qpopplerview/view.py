@@ -307,8 +307,8 @@ class View(KineticScrollArea):
     def wheelEvent(self, ev):
         if (self._wheelZoomEnabled and
             int(ev.modifiers()) & _SCAM == self._wheelZoomModifier):
-            factor = 1.1 ** (ev.delta() / 120)
-            if ev.delta():
+            factor = 1.1 ** (ev.angleDelta().y() / 120)
+            if ev.angleDelta().y():
                 self.zoom(self.scale() * factor, ev.pos())
         else:
             super(View, self).wheelEvent(ev)
