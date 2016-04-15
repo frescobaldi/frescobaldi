@@ -26,9 +26,10 @@ from __future__ import unicode_literals
 import itertools
 
 from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
-    QAction, QKeySequence, QMessageBox, QPushButton, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout)
+    QAction, QMessageBox, QPushButton, QTreeWidget, QTreeWidgetItem,
+    QVBoxLayout)
 
 import app
 import actioncollectionmanager
