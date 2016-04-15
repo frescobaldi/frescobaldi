@@ -27,7 +27,7 @@ from __future__ import unicode_literals
 import os
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QIconEngineV2, QImage, QPainter, QPixmap
+from PyQt5.QtGui import QIcon, QIconEngine, QImage, QPainter, QPixmap
 from PyQt5.QtWidgets import QApplication, QStyleOption
 from PyQt5.QtSvg import QSvgRenderer
 
@@ -76,7 +76,7 @@ def pixmap(name, size, mode, state):
         return pixmap
 
 
-class Engine(QIconEngineV2):
+class Engine(QIconEngine):
     """Engine to provide renderings of SVG icons in the default text color."""
     def __init__(self, name):
         super(Engine, self).__init__()
