@@ -26,8 +26,9 @@ from __future__ import unicode_literals
 
 import traceback
 
+from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import (
-    QDialog, QDialogButtonBox, QLabel, QTextBrowser, QTextCursor, QVBoxLayout)
+    QDialog, QDialogButtonBox, QLabel, QTextBrowser, QVBoxLayout)
 
 import app
 import icons
