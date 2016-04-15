@@ -501,7 +501,7 @@ class MainWindow(QMainWindow):
             directory = app.basedir()
         filetypes = app.filetypes(ext)
         caption = app.caption(_("dialog title", "Open File"))
-        files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)
+        files = QFileDialog.getOpenFileNames(self, caption, directory, filetypes)[0]
         urls = [QUrl.fromLocalFile(filename) for filename in files]
         docs = self.openUrls(urls)
         if docs:
@@ -525,7 +525,7 @@ class MainWindow(QMainWindow):
                 filename = os.path.join(directory, documentinfo.defaultfilename(doc))
                 filetypes = app.filetypes(ly.lex.extensions[documentinfo.mode(doc)])
             caption = app.caption(_("dialog title", "Save File"))
-            filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)
+            filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)[0]
             if not filename:
                 return False # cancelled
             url = QUrl.fromLocalFile(filename)
@@ -598,7 +598,7 @@ class MainWindow(QMainWindow):
             caption = app.caption(_("dialog title", "Save Selection"))
         filetypes = app.filetypes(ly.lex.extensions[mode])
         dirname = os.path.dirname(doc.url().toLocalFile()) or app.basedir()
-        filename = QFileDialog.getSaveFileName(self, caption, dirname, filetypes)
+        filename = QFileDialog.getSaveFileName(self, caption, dirname, filetypes)[0]
         if not filename:
             return # cancelled
         try:
@@ -711,7 +711,7 @@ class MainWindow(QMainWindow):
         filetypes = app.filetypes(ext)
         caption = app.caption(_("dialog title", "Insert From File"))
         directory = os.path.dirname(self.currentDocument().url().toLocalFile()) or app.basedir()
-        filename = QFileDialog.getOpenFileName(self, caption, directory, filetypes)
+        filename = QFileDialog.getOpenFileName(self, caption, directory, filetypes)[0]
         if filename:
             try:
                 with open(filename, 'rb') as f:
@@ -768,7 +768,7 @@ class MainWindow(QMainWindow):
         if dir:
             name = os.path.join(dir, name)
         filename = QFileDialog.getSaveFileName(self, app.caption(_("Export as HTML")),
-            name, "{0} (*.html)".format("HTML Files"))
+            name, "{0} (*.html)".format("HTML Files"))[0]
         if not filename:
             return #cancelled
 

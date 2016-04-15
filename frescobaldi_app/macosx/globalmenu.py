@@ -174,7 +174,7 @@ def file_open():
     filetypes = app.filetypes('.ly')
     caption = app.caption(_("dialog title", "Open File"))
     directory = app.basedir()
-    files = QFileDialog.getOpenFileNames(None, caption, directory, filetypes)
+    files = QFileDialog.getOpenFileNames(None, caption, directory, filetypes)[0]
     if files:
         w = mainwindow()
         w.openUrls([QUrl.fromLocalFile(f) for f in files])

@@ -301,7 +301,7 @@ class Widget(QWidget):
         filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import Snippets"))
         filename = None
-        filename = QFileDialog.getOpenFileName(self, caption, filename, filetypes)
+        filename = QFileDialog.getOpenFileName(self, caption, filename, filetypes)[0]
         if filename:
             from . import import_export
             import_export.load(filename, self)
@@ -319,7 +319,7 @@ class Widget(QWidget):
         n = len(names)
         caption = app.caption(_("dialog title",
             "Export {num} Snippet", "Export {num} Snippets", n).format(num=n))
-        filename = QFileDialog.getSaveFileName(self, caption, None, filetypes)
+        filename = QFileDialog.getSaveFileName(self, caption, None, filetypes)[0]
         if filename:
             from . import import_export
             try:

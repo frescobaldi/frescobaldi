@@ -211,7 +211,7 @@ class Dialog(QDialog):
         else:
             filename = 'image.png'
         filename = QFileDialog.getSaveFileName(self,
-            _("Save Image As"), filename)
+            _("Save Image As"), filename)[0]
         if filename:
             if not self.imageViewer.image().save(filename):
                 QMessageBox.critical(self, _("Error"), _(

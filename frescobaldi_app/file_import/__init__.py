@@ -57,7 +57,7 @@ class FileImport(plugin.MainWindowPlugin):
         ))
         caption = app.caption(_("dialog title", "Import"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        importfiles = QFileDialog.getOpenFileNames(self.mainwindow(), caption, directory, filetypes)
+        importfiles = QFileDialog.getOpenFileNames(self.mainwindow(), caption, directory, filetypes)[0]
         if not importfiles:
             return # the dialog was cancelled by user
         for imp in importfiles:
@@ -93,7 +93,7 @@ class FileImport(plugin.MainWindowPlugin):
             _("MusicXML Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a MusicXML file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)[0]
         if not self.importfile:
             return # the dialog was cancelled by user
         self.openMusicxmlDialog()
@@ -114,7 +114,7 @@ class FileImport(plugin.MainWindowPlugin):
             _("Midi Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a midi file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)[0]
         if not self.importfile:
             return # the dialog was cancelled by user
         self.openMidiDialog()
@@ -135,7 +135,7 @@ class FileImport(plugin.MainWindowPlugin):
             _("ABC Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import an abc file"))
         directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)
+        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)[0]
         if not self.importfile:
             return # the dialog was cancelled by user
         self.openAbcDialog()
