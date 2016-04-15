@@ -41,9 +41,10 @@ def highlighter(view):
 app.viewCreated.connect(highlighter)
 
 
-class ViewHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter, plugin.Plugin):
+class ViewHighlighter(plugin.Plugin, widgets.arbitraryhighlighter.ArbitraryHighlighter):
     def __init__(self, view):
-        super(ViewHighlighter, self).__init__(view)
+        # no need to call the plugin __init__ method
+        widgets.arbitraryhighlighter.ArbitraryHighlighter.__init__(self, view)
         self._cursorFormat = QTextCharFormat()
         self._cursorFormat.setProperty(QTextFormat.FullWidthSelection, True)
         app.settingsChanged.connect(self.readSettings)
