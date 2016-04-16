@@ -26,7 +26,7 @@ Changes in 2.18.3 -- ?
     and can choose whether to wait for the job to complete, to abort it, or to
     cancel the closing.
   - Tabbar and document list show in the document icon whether the last
-    engraving was successful
+    engraving was successful (#636)
   - Score Wizard:
     - add C-Melody Sax (#810)
 * Bug fixes:
