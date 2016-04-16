@@ -28,9 +28,9 @@ import itertools
 import re
 
 from PyQt5.QtCore import QRegExp, Qt
+from PyQt5.QtGui import QRegExpValidator
 from PyQt5.QtWidgets import (
-    QCheckBox, QComboBox, QGroupBox, QHBoxLayout, QLabel, QRegExpValidator,
-    QSpinBox, QVBoxLayout)
+    QCheckBox, QComboBox, QGroupBox, QHBoxLayout, QLabel, QSpinBox, QVBoxLayout)
 
 import listmodel
 import ly.dom
