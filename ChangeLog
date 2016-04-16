@@ -31,6 +31,7 @@ Changes in 2.18.3 -- ?
     - add C-Melody Sax (#810)
 * Bug fixes:
   - fix #793 Command autocompletion doesn’t work in figuremode
+  - fix #806 MIDI file not updated in MIDI Player when using "master" variable
   - fix #808 \figuremode should be enclosed within \new FiguredBass
 * Translations:
   - updated: Dutch, Italian

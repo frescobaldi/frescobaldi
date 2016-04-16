@@ -87,7 +87,6 @@ class Widget(QWidget):
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
         self.slotPlayerStateChanged(False)
         dockwidget.mainwindow().currentDocumentChanged.connect(self.loadResults)
-        app.documentLoaded.connect(self.slotUpdatedFiles)
         app.jobFinished.connect(self.slotUpdatedFiles)
         app.aboutToQuit.connect(self.stop)
         midihub.aboutToRestart.connect(self.slotAboutToRestart)
@@ -210,16 +209,22 @@ class Widget(QWidget):
         if not self._timeSlider.isSliderDown():
             self._display.setTime(time)
     
-    def slotUpdatedFiles(self, document):
+    def slotUpdatedFiles(self, document, job=None):
         """Called when there are new MIDI files."""
-        if document == self.parentWidget().mainwindow().currentDocument():
-            self.loadResults(document)
+        mainwindow = self.parentWidget().mainwindow()
+        import engrave
+        if document not in (mainwindow.currentDocument(), engrave.engraver(mainwindow).document()):
+            return
+        import jobattributes
+        if job and jobattributes.get(job).mainwindow != mainwindow:
+            return
+        self.loadResults(document)
     
     def loadResults(self, document):
-        self._document = document
         files = midifiles.MidiFiles.instance(document)
-        self._fileSelector.setModel(files.model())
-        if files:
+        if files.update():
+            self._document = document
+            self._fileSelector.setModel(files.model())
             self._fileSelector.setCurrentIndex(files.current)
             if not self._player.is_playing():
                 self.loadSong(files.current)
