@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-12 13:24+0200\n"
+"POT-Creation-Date: 2016-04-16 21:09+0200\n"
 "PO-Revision-Date: 2015-04-02 15:39+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2291,6 +2291,11 @@ msgstr "Obrázek se nepodařilo uložit."
 #, python-brace-format
 msgid "Position: {pos}"
 msgstr "Poloha: {pos}"
+
+#: ../musicview/widget.py:215
+#, fuzzy, python-brace-format
+msgid "Page {num}"
+msgstr "Strana nahoru"
 
 #: ../objecteditor/__init__.py:43
 msgid "Object Editor"

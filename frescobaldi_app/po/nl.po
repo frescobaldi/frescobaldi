@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-12 13:24+0200\n"
+"POT-Creation-Date: 2016-04-16 21:09+0200\n"
 "PO-Revision-Date: 2015-12-08 09:27+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
@@ -2292,6 +2292,11 @@ msgstr "Kan de afbeelding niet opslaan."
 #, python-brace-format
 msgid "Position: {pos}"
 msgstr "Positie: {pos}"
+
+#: ../musicview/widget.py:215
+#, fuzzy, python-brace-format
+msgid "Page {num}"
+msgstr "Pagina omhoog"
 
 #: ../objecteditor/__init__.py:43
 msgid "Object Editor"

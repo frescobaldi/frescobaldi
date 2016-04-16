@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-12 13:24+0200\n"
+"POT-Creation-Date: 2016-04-16 21:09+0200\n"
 "PO-Revision-Date: 2012-02-17 00:26+0100\n"
 "Last-Translator: Piotr Komorowski <piotr-komorowski@wp.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -2354,6 +2354,11 @@ msgstr "Nie można zapisać obrazu."
 #, python-brace-format
 msgid "Position: {pos}"
 msgstr ""
+
+#: ../musicview/widget.py:215
+#, fuzzy, python-brace-format
+msgid "Page {num}"
+msgstr "Numery stron:"
 
 #: ../objecteditor/__init__.py:43
 #, fuzzy
