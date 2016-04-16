@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-12 13:24+0200\n"
+"POT-Creation-Date: 2016-04-16 20:56+0200\n"
 "PO-Revision-Date: 2015-04-02 15:39+0200\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -43,7 +43,7 @@ msgstr "Verze"
 msgid "Version {version}"
 msgstr "Verze {version}"
 
-#: ../about.py:111 ../main.py:55
+#: ../about.py:111 ../main.py:56
 msgid "A LilyPond Music Editor"
 msgstr "Hudební editor pro LilyPond"
 
@@ -78,7 +78,7 @@ msgstr "Soubory LaTeX"
 msgid "DocBook Files"
 msgstr "Soubory DocBook"
 
-#: ../app.py:183 ../convert_ly.py:270
+#: ../app.py:183 ../convert_ly.py:271
 msgid "HTML Files"
 msgstr "Soubory HTML "
 
@@ -90,11 +90,11 @@ msgstr "Soubory Texinfo"
 msgid "Scheme Files"
 msgstr "Soubory Scheme"
 
-#: ../app.py:186 ../convert_ly.py:270 ../file_export/__init__.py:58
-#: ../file_export/__init__.py:89 ../file_import/__init__.py:55
-#: ../file_import/__init__.py:92 ../file_import/__init__.py:113
-#: ../file_import/__init__.py:134 ../sessions/dialog.py:94
-#: ../sessions/dialog.py:115 ../snippet/widget.py:300 ../snippet/widget.py:317
+#: ../app.py:186 ../convert_ly.py:271 ../file_export/__init__.py:59
+#: ../file_export/__init__.py:90 ../file_import/__init__.py:56
+#: ../file_import/__init__.py:93 ../file_import/__init__.py:114
+#: ../file_import/__init__.py:135 ../sessions/dialog.py:94
+#: ../sessions/dialog.py:115 ../snippet/widget.py:301 ../snippet/widget.py:318
 #: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "All Files"
 msgstr "Všechny soubory"
@@ -119,21 +119,21 @@ msgstr "Další značka"
 msgid "Previous Mark"
 msgstr "Předchozí značka"
 
-#: ../browseriface.py:135
+#: ../browseriface.py:136
 msgid "Go to previous position"
 msgstr "Jít na předchozí polohu"
 
-#: ../browseriface.py:136 ../docbrowser/__init__.py:82
-#: ../userguide/browser.py:81
+#: ../browseriface.py:137 ../docbrowser/__init__.py:83
+#: ../userguide/browser.py:82
 msgid "Back"
 msgstr "Zpět"
 
-#: ../browseriface.py:137
+#: ../browseriface.py:138
 msgid "Go to next position"
 msgstr "Jít na další polohu"
 
-#: ../browseriface.py:138 ../docbrowser/__init__.py:83
-#: ../userguide/browser.py:82
+#: ../browseriface.py:139 ../docbrowser/__init__.py:84
+#: ../userguide/browser.py:83
 msgid "Forward"
 msgstr "Vpřed"
 
@@ -156,19 +156,19 @@ msgstr "&Skočit na vymezení (v {filename})"
 msgid "&Jump to definition (unknown)"
 msgstr "&Skočit na vymezení (neznámý)"
 
-#: ../convert_ly.py:129
+#: ../convert_ly.py:130
 msgid "From version:"
 msgstr "Od verze:"
 
-#: ../convert_ly.py:130
+#: ../convert_ly.py:131
 msgid "To version:"
 msgstr "Po verzi:"
 
-#: ../convert_ly.py:131
+#: ../convert_ly.py:132
 msgid "Save convert-ly messages in document"
 msgstr "Uložit zprávy convert-ly v dokumentu"
 
-#: ../convert_ly.py:133
+#: ../convert_ly.py:134
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
@@ -176,53 +176,53 @@ msgstr ""
 "Je-li zaškrtnuto, jsou zprávy convert-ly připojeny jako poznámka na konci "
 "dokumentu."
 
-#: ../convert_ly.py:135
+#: ../convert_ly.py:136
 msgid "&Messages"
 msgstr "&Zprávy"
 
-#: ../convert_ly.py:136
+#: ../convert_ly.py:137
 msgid "&Changes"
 msgstr "&Změny"
 
-#: ../convert_ly.py:137
+#: ../convert_ly.py:138
 msgid "&Diff"
 msgstr "&Rozdíly"
 
-#: ../convert_ly.py:138
+#: ../convert_ly.py:139
 msgid "Run Again"
 msgstr "Spustit znovu"
 
-#: ../convert_ly.py:139
+#: ../convert_ly.py:140
 msgid "Save as file"
 msgstr "Uložit jako soubor"
 
-#: ../convert_ly.py:156 ../docbrowser/browser.py:159
+#: ../convert_ly.py:157 ../docbrowser/browser.py:161
 #: ../musicview/editinplace.py:153 ../musicview/image.py:170
 msgid "<unknown>"
 msgstr "<neznámý>"
 
-#: ../convert_ly.py:157
+#: ../convert_ly.py:158
 #, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly z LilyPondu {version}"
 
-#: ../convert_ly.py:174 ../externalchanges/widget.py:287
+#: ../convert_ly.py:175 ../externalchanges/widget.py:287
 msgid "Current Document"
 msgstr "Nynější dokument"
 
-#: ../convert_ly.py:174
+#: ../convert_ly.py:175
 msgid "Converted Document"
 msgstr "Převedený dokument"
 
-#: ../convert_ly.py:199
+#: ../convert_ly.py:200
 msgid "(set in document)"
 msgstr "(nastavit v dokumentu)"
 
-#: ../convert_ly.py:213
+#: ../convert_ly.py:214
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "Je potřeba nastavit jak verzi 'od'tak verzi 'po'."
 
-#: ../convert_ly.py:252
+#: ../convert_ly.py:253
 #, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -233,16 +233,16 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../convert_ly.py:261
+#: ../convert_ly.py:262
 msgid "The document has not been changed."
 msgstr "Dokument byl změněn."
 
-#: ../convert_ly.py:269 ../mainwindow.py:527
+#: ../convert_ly.py:270 ../mainwindow.py:527
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "Uložit soubor"
 
-#: ../convert_ly.py:270
+#: ../convert_ly.py:271
 msgid "Text Files"
 msgstr "Textové soubory"
 
@@ -254,78 +254,78 @@ msgstr "Vyjmout a přiřadit"
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr "Zadejte, prosím, název proměnné, které má být vybraný text přiřazen:"
 
-#: ../document.py:214 ../doclist/widget.py:129 ../snippet/edit.py:174
+#: ../document.py:215 ../doclist/widget.py:129 ../snippet/edit.py:174
 msgid "Untitled"
 msgstr "Bez názvu"
 
-#: ../document.py:216
+#: ../document.py:217
 #, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Bez názvu ({num})"
 
-#: ../documentactions.py:198
+#: ../documentactions.py:199
 msgid "Cut and Assign..."
 msgstr "Vyjmout a přiřadit..."
 
-#: ../documentactions.py:199
+#: ../documentactions.py:200
 msgid "Syntax &Highlighting"
 msgstr "&Zvýraznění skladby"
 
-#: ../documentactions.py:200
+#: ../documentactions.py:201
 msgid "View File or Definition at &Cursor"
 msgstr "Zobrazit soubor nebo vymezení v poloze &ukazatele"
 
-#: ../documentactions.py:201
+#: ../documentactions.py:202
 msgid "&Automatic Indent"
 msgstr "&Automatické odsazení"
 
-#: ../documentactions.py:202
+#: ../documentactions.py:203
 msgid "Re-&Indent"
 msgstr "Odsad&it znovu"
 
-#: ../documentactions.py:203
+#: ../documentactions.py:204
 msgid "&Format"
 msgstr "&Formát"
 
-#: ../documentactions.py:204
+#: ../documentactions.py:205
 msgid "Remove Trailing &Whitespace"
 msgstr "Odstranit &prázdné místo na konci"
 
-#: ../documentactions.py:205
+#: ../documentactions.py:206
 msgid "&Update with convert-ly..."
 msgstr "O&bnovit za použití convert-ly..."
 
-#: ../documentactions.py:206
+#: ../documentactions.py:207
 #, fuzzy
 msgid "Remove &Comments"
 msgstr "Odstranit &ozdoby"
 
-#: ../documentactions.py:207
+#: ../documentactions.py:208
 msgid "Remove &Articulations"
 msgstr "Odstranit &artikulace"
 
-#: ../documentactions.py:208
+#: ../documentactions.py:209
 msgid "Remove &Ornaments"
 msgstr "Odstranit &ozdoby"
 
-#: ../documentactions.py:209
+#: ../documentactions.py:210
 msgid "Remove &Instrument Scripts"
 msgstr "Odstranit &nástrojové skripty"
 
-#: ../documentactions.py:210
+#: ../documentactions.py:211
 msgid "Remove &Slurs"
 msgstr "Odstranit &legatové obloučky"
 
-#: ../documentactions.py:211
+#: ../documentactions.py:212
 msgid "Remove &Dynamics"
 msgstr "Odstranit &dynamiku"
 
-#: ../documentactions.py:212
+#: ../documentactions.py:213
 #, fuzzy
 msgid "Remove &Fingerings"
 msgstr "Odstranit &ozdoby"
 
-#: ../documentactions.py:213
+#: ../documentactions.py:214
 msgid "Remove Text &Markup (from music)"
 msgstr "Odstranit textové &značení (z not)"
 
@@ -350,29 +350,29 @@ msgstr "Zavřít jiné dokumenty"
 msgid "Always &Engrave This Document"
 msgstr "Tento dokument &vyrýt vždy"
 
-#: ../documentmenu.py:42
+#: ../documentmenu.py:43
 msgctxt "menu title"
 msgid "&Documents"
 msgstr "&Dokumenty"
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
-#: ../documentmenu.py:109
+#: ../documentmenu.py:110
 msgid "[always engraved]"
 msgstr "[vždy vyryto]"
 
-#: ../exception.py:69
+#: ../exception.py:70
 msgid "An internal error has occurred:"
 msgstr "Vyskytla se vnitřní chyba:"
 
-#: ../exception.py:70
+#: ../exception.py:71
 msgid "Internal Error"
 msgstr "Vnitřní chyba"
 
-#: ../exception.py:71
+#: ../exception.py:72
 msgid "Email Bug Report..."
 msgstr "Hlášení chyb elektronickou poštou..."
 
-#: ../exception.py:79
+#: ../exception.py:80
 msgid "Optionally describe below what you were doing:"
 msgstr "Dole volitelně popište, co jste dělal:"
 
@@ -384,11 +384,11 @@ msgstr "Počkejte, prosím, dokud příkaz neskončí"
 msgid "Command completed"
 msgstr "Příkaz dokončen"
 
-#: ../globalfontdialog.py:64
+#: ../globalfontdialog.py:65
 msgid "Global Fonts"
 msgstr "Celková písma"
 
-#: ../globalfontdialog.py:66
+#: ../globalfontdialog.py:67
 msgid ""
 "Please select the three global fonts to use for <code>\\roman</code>, <code>"
 "\\sans</code>, and <code>\\typewriter</code> respectively."
@@ -397,34 +397,34 @@ msgstr ""
 "používat pro <code>\\roman</code>, <code>\\sans</code>, a <code>"
 "\\typewriter</code>"
 
-#: ../globalfontdialog.py:69
+#: ../globalfontdialog.py:70
 msgid "Roman Font:"
 msgstr "Antikvové písmo:"
 
-#: ../globalfontdialog.py:70
+#: ../globalfontdialog.py:71
 msgid "Sans Font:"
 msgstr "Bezpatkové písmo:"
 
-#: ../globalfontdialog.py:71
+#: ../globalfontdialog.py:72
 msgid "Typewriter Font:"
 msgstr "Písmo psacího stroje:"
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:107 ../mainwindow.py:441 ../mainwindow.py:549
+#: ../helpers.py:108 ../mainwindow.py:441 ../mainwindow.py:549
 #: ../mainwindow.py:612 ../mainwindow.py:632 ../mainwindow.py:648
 #: ../mainwindow.py:724 ../mainwindow.py:793 ../externalchanges/widget.py:246
-#: ../externalchanges/widget.py:265 ../file_export/__init__.py:72
-#: ../file_export/__init__.py:82 ../file_import/__init__.py:66
-#: ../file_import/__init__.py:166 ../musicview/image.py:217
-#: ../preferences/fontscolors.py:281 ../preferences/fontscolors.py:505
-#: ../preferences/fontscolors.py:547 ../preferences/import_export.py:91
-#: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
+#: ../externalchanges/widget.py:265 ../file_export/__init__.py:73
+#: ../file_export/__init__.py:83 ../file_import/__init__.py:67
+#: ../file_import/__init__.py:167 ../musicview/image.py:217
+#: ../preferences/fontscolors.py:282 ../preferences/fontscolors.py:506
+#: ../preferences/fontscolors.py:548 ../preferences/import_export.py:93
+#: ../preferences/import_export.py:176 ../preferences/shortcuts.py:207
 #: ../sessions/dialog.py:109 ../sessions/dialog.py:130
-#: ../snippet/import_export.py:105 ../snippet/widget.py:327
+#: ../snippet/import_export.py:106 ../snippet/widget.py:328
 msgid "Error"
 msgstr "Chyba"
 
-#: ../helpers.py:108 ../job.py:293
+#: ../helpers.py:109 ../job.py:293
 #, python-brace-format
 msgid ""
 "Could not start {program}.\n"
@@ -473,7 +473,7 @@ msgstr "Rozdělit spojovníkem text se slovy písně"
 msgid "Please select a language:"
 msgstr "Vyberte, prosím, jazyk:"
 
-#: ../inputdialog.py:101
+#: ../inputdialog.py:102
 msgid "Select Color"
 msgstr "Vybrat barvu"
 
@@ -519,77 +519,77 @@ msgstr "Vyberte požadovanou verzi LilyPondu."
 msgid "Running LilyPond, this can take some time..."
 msgstr "Spouští se LilyPond. Může to chvíli trvat..."
 
-#: ../lyrics.py:126
+#: ../lyrics.py:127
 msgid "&Hyphenate Lyrics Text..."
 msgstr "&Rozdělit spojovníkem text se slovy písně..."
 
-#: ../lyrics.py:127
+#: ../lyrics.py:128
 msgid "&Remove hyphenation"
 msgstr "&Odstranit dělení slov"
 
-#: ../lyrics.py:128
+#: ../lyrics.py:129
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr "&Kopírovat slova písně s odstraněným dělením slov"
 
-#: ../main.py:58
+#: ../main.py:59
 msgid "show program's version number and exit"
 msgstr "Ukázat číslo s verzí programu a ukončit"
 
-#: ../main.py:60
+#: ../main.py:61
 #, python-brace-format
 msgid "show version numbers of {appname} and its supporting modules and exit"
 msgstr ""
 
-#: ../main.py:62
+#: ../main.py:63
 msgid "ENC"
 msgstr "KÓD"
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "Encoding to use"
 msgstr "Použít kódování"
 
-#: ../main.py:64 ../main.py:66
+#: ../main.py:65 ../main.py:67
 msgid "NUM"
 msgstr "ČÍS"
 
-#: ../main.py:65
+#: ../main.py:66
 msgid "Line number to go to, starting at 1"
 msgstr "Přejít na řádek číslo. Začíná prvním"
 
-#: ../main.py:67
+#: ../main.py:68
 msgid "Column to go to, starting at 0"
 msgstr "Přejít na sloupec. Začíná nulou"
 
-#: ../main.py:68
+#: ../main.py:69
 msgid "NAME"
 msgstr "NÁZEV"
 
-#: ../main.py:69
+#: ../main.py:70
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr "Sezení ke spuštění ('{none}' pro prázdné sezení)"
 
-#: ../main.py:72
+#: ../main.py:73
 msgid "List the session names and exit"
 msgstr "Vypsat názvy sezení a ukončit"
 
-#: ../main.py:74
+#: ../main.py:75
 msgid "Always start a new instance"
 msgstr "Vždy spustit novou instanci"
 
-#: ../main.py:75
+#: ../main.py:76
 msgid "file"
 msgstr "Soubor"
 
-#: ../main.py:76
+#: ../main.py:77
 msgid "File to be opened"
 msgstr "Soubor k otevření"
 
-#: ../main.py:172
+#: ../main.py:173
 msgid "Can't run Frescobaldi"
 msgstr "Nelze spustit Frescobaldi"
 
-#: ../main.py:173
+#: ../main.py:174
 #, python-brace-format
 msgid ""
 "We are sorry, but Frescobaldi can't run properly.\n"
@@ -804,7 +804,7 @@ msgstr "Znov&u"
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: ../mainwindow.py:1221 ../docbrowser/browser.py:249
+#: ../mainwindow.py:1221 ../docbrowser/browser.py:251
 msgid "&Copy"
 msgstr "&Kopírovat"
 
@@ -1015,7 +1015,7 @@ msgstr "Náhled na noty"
 msgid "Drag to dock/undock"
 msgstr "Táhněte pro ukotvení/zrušení ukotvení"
 
-#: ../panel.py:110 ../search/__init__.py:109
+#: ../panel.py:110 ../search/__init__.py:110
 msgid "Close"
 msgstr "Zavřít"
 
@@ -1028,70 +1028,70 @@ msgstr "Ukotvit/Zrušit ukotvení"
 msgid "Could not load the {name} module."
 msgstr "Nepodařilo se nahrát modul {name}."
 
-#: ../popplerprint.py:79
+#: ../popplerprint.py:80
 msgid "PDF Document"
 msgstr "Dokument PDF"
 
-#: ../popplerprint.py:98
+#: ../popplerprint.py:99
 #, python-brace-format
 msgid "Print {filename}"
 msgstr "Tisk {filename}"
 
-#: ../popplerprint.py:132 ../popplerprint.py:162
+#: ../popplerprint.py:133 ../popplerprint.py:163
 msgid "Printing Error"
 msgstr "Chyba tisku"
 
-#: ../popplerprint.py:133 ../popplerprint.py:163
+#: ../popplerprint.py:134 ../popplerprint.py:164
 msgid "Could not send the document to the printer."
 msgstr "Dokument se nepodařilo poslat tiskárně."
 
-#: ../popplerprint.py:154
+#: ../popplerprint.py:155
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Tiskne se strana {page} ({num} z {total})..."
 
-#: ../viewmanager.py:79 ../viewmanager.py:441
+#: ../viewmanager.py:80 ../viewmanager.py:442
 msgid "Split &Horizontally"
 msgstr "Rozdělit &vodorovně"
 
-#: ../viewmanager.py:82 ../viewmanager.py:442
+#: ../viewmanager.py:83 ../viewmanager.py:443
 msgid "Split &Vertically"
 msgstr "Rozdělit &svisle"
 
-#: ../viewmanager.py:86
+#: ../viewmanager.py:87
 msgid "&Close View"
 msgstr "&Zavřít pohled"
 
-#: ../viewmanager.py:209
+#: ../viewmanager.py:210
 #, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr "Řádek: {line}, Sloupec: {column}"
 
-#: ../viewmanager.py:443
+#: ../viewmanager.py:444
 msgid "&Close Current View"
 msgstr "&Zavřít nynější pohled"
 
-#: ../viewmanager.py:444
+#: ../viewmanager.py:445
 msgid "Close &Other Views"
 msgstr "Zavřít &jiné pohledy"
 
-#: ../viewmanager.py:445
+#: ../viewmanager.py:446
 msgid "&Next View"
 msgstr "&Další pohled"
 
-#: ../viewmanager.py:446
+#: ../viewmanager.py:447
 msgid "&Previous View"
 msgstr "&Předchozí pohled"
 
-#: ../autocomplete/__init__.py:79
+#: ../autocomplete/__init__.py:80
 msgid "Automatic &Completion"
 msgstr "Automati&cké dokončení"
 
-#: ../autocomplete/__init__.py:80
+#: ../autocomplete/__init__.py:81
 msgid "Show C&ompletions Popup"
 msgstr "Ukázat vyskakovací do&končení"
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:232
+#: ../charmap/__init__.py:40 ../preferences/tools.py:233
 msgid "Special Characters"
 msgstr "Zvláštní znaky"
 
@@ -1099,59 +1099,59 @@ msgstr "Zvláštní znaky"
 msgid "Special Charac&ters"
 msgstr "Zvláš&tní znaky"
 
-#: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
+#: ../docbrowser/__init__.py:47 ../docbrowser/__init__.py:63
 #: ../preferences/documentation.py:116
 msgid "Documentation Browser"
 msgstr "Prohlížeč dokumentace"
 
-#: ../docbrowser/__init__.py:47
+#: ../docbrowser/__init__.py:48
 msgid "&Documentation Browser"
 msgstr "&Prohlížeč dokumentace"
 
 #. L10N: Home page of the LilyPond manual
-#: ../docbrowser/__init__.py:85
+#: ../docbrowser/__init__.py:86
 msgid "Home"
 msgstr "Domovská složka"
 
-#: ../docbrowser/__init__.py:86
+#: ../docbrowser/__init__.py:87
 msgid "Print..."
 msgstr "Tisk..."
 
-#: ../docbrowser/__init__.py:87
+#: ../docbrowser/__init__.py:88
 msgid "&LilyPond Documentation"
 msgstr "Dokumentace k &LilyPondu"
 
-#: ../docbrowser/__init__.py:88
+#: ../docbrowser/__init__.py:89
 msgid "&Contextual LilyPond Help"
 msgstr "Nápověda k LilyPondu vyplývající ze &souvislosti"
 
-#: ../docbrowser/browser.py:116 ../snippet/widget.py:182
+#: ../docbrowser/browser.py:118 ../snippet/widget.py:183
 msgid "Search..."
 msgstr "Hledat..."
 
-#: ../docbrowser/browser.py:156
+#: ../docbrowser/browser.py:158
 msgid "(local)"
 msgstr "(místní)"
 
-#: ../docbrowser/browser.py:158
+#: ../docbrowser/browser.py:160
 #, python-brace-format
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: ../docbrowser/browser.py:230 ../userguide/browser.py:85
-#: ../userguide/browser.py:115
+#: ../docbrowser/browser.py:232 ../userguide/browser.py:86
+#: ../userguide/browser.py:116
 msgid "Print"
 msgstr "Tisk"
 
-#: ../docbrowser/browser.py:240 ../musicview/contextmenu.py:61
+#: ../docbrowser/browser.py:242 ../musicview/contextmenu.py:61
 msgid "Copy &Link"
 msgstr "Kopírovat &odkaz"
 
-#: ../docbrowser/browser.py:243 ../musicview/contextmenu.py:55
+#: ../docbrowser/browser.py:245 ../musicview/contextmenu.py:55
 msgid "Open Link in &New Window"
 msgstr "Otevřít odkaz v &novém okně"
 
-#: ../docbrowser/browser.py:252
+#: ../docbrowser/browser.py:254
 msgid "Open Document in &New Window"
 msgstr "Otevřít dokument v &novém okně"
 
@@ -1159,7 +1159,7 @@ msgstr "Otevřít dokument v &novém okně"
 msgid "LilyPond Source"
 msgstr "Zdroj LilyPond"
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:265
+#: ../doclist/__init__.py:39 ../preferences/tools.py:266
 msgid "Documents"
 msgstr "Dokumenty"
 
@@ -1191,40 +1191,40 @@ msgstr "Uložit všechny nepojmenované dokumenty"
 msgid "Close all untitled documents"
 msgstr "Zavřít všechny nepojmenované dokumenty"
 
-#: ../engrave/__init__.py:110
+#: ../engrave/__init__.py:111
 msgid "Abort engraving job"
 msgstr "Zrušit ryteckou práci"
 
-#: ../engrave/__init__.py:111
+#: ../engrave/__init__.py:112
 msgid "Engrave (preview; press Shift for custom)"
 msgstr "Vyrýt (náhled; stisknout Shift pro vlastní)"
 
-#: ../engrave/__init__.py:229 ../sessions/dialog.py:375
+#: ../engrave/__init__.py:230 ../sessions/dialog.py:375
 #: ../sessions/dialog.py:383 ../sessions/dialog.py:389
 msgid "Warning"
 msgstr "Varování"
 
-#: ../engrave/__init__.py:230
+#: ../engrave/__init__.py:231
 #, python-brace-format
 msgid ""
 "An engrave job is running for the document \"{name}\".\n"
 "Do you want to abort the running job?"
 msgstr ""
 
-#: ../engrave/__init__.py:282
+#: ../engrave/__init__.py:283
 #, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr "&Vyrýt vždy [{docname}]"
 
-#: ../engrave/__init__.py:284
+#: ../engrave/__init__.py:285
 msgid "&Always Engrave This Document"
 msgstr "Tento dokument vyrýt &vždy"
 
-#: ../engrave/__init__.py:359
+#: ../engrave/__init__.py:360
 msgid "No LilyPond installation found"
 msgstr "Nenalezena žádná instalace LilyPondu"
 
-#: ../engrave/__init__.py:360
+#: ../engrave/__init__.py:361
 msgid ""
 "Frescobaldi uses LilyPond to engrave music, but LilyPond is not installed in "
 "the default locations and it cannot be found in your PATH.\n"
@@ -1238,43 +1238,43 @@ msgstr ""
 "Nainstalujte, prosím, LilyPond, nebo, pokud jste jej již nainstalovat, "
 "přidejte jej v dialogu Nastavení."
 
-#: ../engrave/__init__.py:399
+#: ../engrave/__init__.py:400
 msgid "Engrave"
 msgstr "Vyrýt"
 
-#: ../engrave/__init__.py:400
+#: ../engrave/__init__.py:401
 msgid "Engrave (preview; Shift-click for custom)"
 msgstr "Vyrýt (náhled; Shift-klepnutí pro vlastní)"
 
-#: ../engrave/__init__.py:401
+#: ../engrave/__init__.py:402
 msgid "&Engrave (preview)"
 msgstr "Vyrýt (&náhled)"
 
-#: ../engrave/__init__.py:402
+#: ../engrave/__init__.py:403
 msgid "Engrave (&publish)"
 msgstr "Vyrýt (vy&dat)"
 
-#: ../engrave/__init__.py:403
+#: ../engrave/__init__.py:404
 msgid "Engrave (&layout control)"
 msgstr "Vyrýt (ovládání &rozvržení)"
 
-#: ../engrave/__init__.py:404
+#: ../engrave/__init__.py:405
 msgid "Engrave (&custom)..."
 msgstr "Vyrýt (vlas&tní)..."
 
-#: ../engrave/__init__.py:405
+#: ../engrave/__init__.py:406
 msgid "Abort Engraving &Job"
 msgstr "Zrušit ryteckou &práci"
 
-#: ../engrave/__init__.py:406
+#: ../engrave/__init__.py:407
 msgid "Automatic E&ngrave"
 msgstr "&Vyrýt automaticky"
 
-#: ../engrave/__init__.py:407
+#: ../engrave/__init__.py:408
 msgid "Open LilyPond &Data Directory"
 msgstr "Otevřít adresář s &daty LilyPond"
 
-#: ../engrave/__init__.py:408
+#: ../engrave/__init__.py:409
 msgid "Show Available &Fonts..."
 msgstr "Ukázat dostupná &písma..."
 
@@ -1314,7 +1314,7 @@ msgstr "Vydání"
 msgid "Layout Control"
 msgstr "Ovládání rozvržení"
 
-#: ../engrave/custom.py:146 ../preferences/lilypond.py:326
+#: ../engrave/custom.py:146 ../preferences/lilypond.py:325
 msgid "Delete intermediate output files"
 msgstr "Smazat mezi výstupní soubory"
 
@@ -1322,7 +1322,7 @@ msgstr "Smazat mezi výstupní soubory"
 msgid "Embed Source Code (LilyPond >= 2.19.39)"
 msgstr ""
 
-#: ../engrave/custom.py:148 ../preferences/lilypond.py:334
+#: ../engrave/custom.py:148 ../preferences/lilypond.py:333
 msgid "Run LilyPond with English messages"
 msgstr "Spustit LilyPond s anglickými zprávami"
 
@@ -1334,7 +1334,7 @@ msgstr "Příkazový řádek:"
 msgid "Run LilyPond"
 msgstr "Spustit LilyPond"
 
-#: ../engrave/custom.py:234 ../preferences/lilypond.py:376
+#: ../engrave/custom.py:234 ../preferences/lilypond.py:375
 msgid "PDF"
 msgstr "PDF"
 
@@ -1346,7 +1346,7 @@ msgstr "PostScript"
 msgid "PNG"
 msgstr "PNG"
 
-#: ../engrave/custom.py:256 ../preferences/lilypond.py:379
+#: ../engrave/custom.py:256 ../preferences/lilypond.py:378
 msgid "SVG"
 msgstr "SVG"
 
@@ -1474,19 +1474,19 @@ msgstr ""
 "Dokument: {url}\n"
 "Rozdíl mezi nynějším dokumentem a souborem na disku:"
 
-#: ../file_export/__init__.py:57
+#: ../file_export/__init__.py:58
 msgctxt "dialog title"
 msgid "Export MusicXML File"
 msgstr "Vyvést soubor MusicXML"
 
-#: ../file_export/__init__.py:58 ../snippet/widget.py:300
-#: ../snippet/widget.py:317 ../widgets/schemeselector.py:166
+#: ../file_export/__init__.py:59 ../snippet/widget.py:301
+#: ../snippet/widget.py:318 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
 msgid "XML Files"
 msgstr "Soubory XML"
 
-#: ../file_export/__init__.py:73 ../preferences/fontscolors.py:282
-#: ../preferences/shortcuts.py:207 ../snippet/widget.py:328
+#: ../file_export/__init__.py:74 ../preferences/fontscolors.py:283
+#: ../preferences/shortcuts.py:208 ../snippet/widget.py:329
 #, python-brace-format
 msgid ""
 "Can't write to destination:\n"
@@ -1501,110 +1501,110 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../file_export/__init__.py:83
+#: ../file_export/__init__.py:84
 msgid "The audio file couldn't be created. Please create midi file first"
 msgstr ""
 "Zvukový soubor se nepodařilo vytvořit. Nejprve, prosím, vytvořte soubor MIDI"
 
-#: ../file_export/__init__.py:88
+#: ../file_export/__init__.py:89
 msgctxt "dialog title"
 msgid "Export Audio File"
 msgstr "Vyvést zvukový soubor"
 
-#: ../file_export/__init__.py:89
+#: ../file_export/__init__.py:90
 msgid "WAV Files"
 msgstr "Soubory WAV"
 
-#: ../file_export/__init__.py:133
+#: ../file_export/__init__.py:134
 msgid "Export Music&XML..."
 msgstr "Vyvést Music&XML..."
 
-#: ../file_export/__init__.py:134
+#: ../file_export/__init__.py:135
 msgid "Export current document as MusicXML."
 msgstr "Vyvést nynější dokument jako MusicXML."
 
-#: ../file_export/__init__.py:136
+#: ../file_export/__init__.py:137
 msgid "Export Audio..."
 msgstr "Vyvést zvuk..."
 
-#: ../file_export/__init__.py:137
+#: ../file_export/__init__.py:138
 msgid "Export to different audio formats."
 msgstr "Vyvést do různých zvukových formátů."
 
-#: ../file_import/__init__.py:51
+#: ../file_import/__init__.py:52
 msgid "All importable formats"
 msgstr "Všechny zaveditelné formáty"
 
-#: ../file_import/__init__.py:52 ../file_import/__init__.py:92
+#: ../file_import/__init__.py:53 ../file_import/__init__.py:93
 msgid "MusicXML Files"
 msgstr "Soubory MusicXML"
 
-#: ../file_import/__init__.py:53 ../file_import/__init__.py:113
+#: ../file_import/__init__.py:54 ../file_import/__init__.py:114
 msgid "Midi Files"
 msgstr "Soubory MIDI"
 
-#: ../file_import/__init__.py:54 ../file_import/__init__.py:134
+#: ../file_import/__init__.py:55 ../file_import/__init__.py:135
 msgid "ABC Files"
 msgstr "Soubory ABC"
 
-#: ../file_import/__init__.py:57
+#: ../file_import/__init__.py:58
 msgctxt "dialog title"
 msgid "Import"
 msgstr "Zavést"
 
-#: ../file_import/__init__.py:67
+#: ../file_import/__init__.py:68
 #, python-brace-format
 msgid "The file {filename} could not be converted. Wrong file type."
 msgstr "Soubor {filename} se nepodařilo převést. Nesprávný typ souboru."
 
-#: ../file_import/__init__.py:93
+#: ../file_import/__init__.py:94
 msgctxt "dialog title"
 msgid "Import a MusicXML file"
 msgstr "Zavést soubor MusicXML"
 
-#: ../file_import/__init__.py:114
+#: ../file_import/__init__.py:115
 msgctxt "dialog title"
 msgid "Import a midi file"
 msgstr "Zavést soubor MIDI"
 
-#: ../file_import/__init__.py:135
+#: ../file_import/__init__.py:136
 msgctxt "dialog title"
 msgid "Import an abc file"
 msgstr "Zavést soubor ABC"
 
-#: ../file_import/__init__.py:167
+#: ../file_import/__init__.py:168
 msgid "The file couldn't be converted. Error message:\n"
 msgstr "Soubor se nepodařilo převést. Chybové hlášení:\n"
 
-#: ../file_import/__init__.py:220
+#: ../file_import/__init__.py:221
 msgid "Import..."
 msgstr "Zavést..."
 
-#: ../file_import/__init__.py:221
+#: ../file_import/__init__.py:222
 msgid "Generic import for all LilyPond tools."
 msgstr "Obecné zavedení pro všechny nástroje LilyPond."
 
-#: ../file_import/__init__.py:222 ../macosx/globalmenu.py:122
+#: ../file_import/__init__.py:223 ../macosx/globalmenu.py:122
 msgid "Import MusicXML..."
 msgstr "Zavést MusicXML..."
 
-#: ../file_import/__init__.py:223
+#: ../file_import/__init__.py:224
 msgid "Import a MusicXML file using musicxml2ly."
 msgstr "Zavést soubor MusicXML pomocí musicxml2ly."
 
-#: ../file_import/__init__.py:224
+#: ../file_import/__init__.py:225
 msgid "Import Midi..."
 msgstr "Zavést MIDI..."
 
-#: ../file_import/__init__.py:225
+#: ../file_import/__init__.py:226
 msgid "Import a Midi file using midi2ly."
 msgstr "Zavést soubor MIDI pomocí midi2ly."
 
-#: ../file_import/__init__.py:226
+#: ../file_import/__init__.py:227
 msgid "Import abc..."
 msgstr "Zavést ABC..."
 
-#: ../file_import/__init__.py:227
+#: ../file_import/__init__.py:228
 msgid "Import an abc file using abc2ly."
 msgstr "Zavést soubor ABC pomocí abc2ly."
 
@@ -1651,7 +1651,7 @@ msgid "Language for pitch names"
 msgstr "Jazyk pro názvy výšek tónů"
 
 #: ../file_import/musicxml.py:108 ../preferences/documentation.py:118
-#: ../preferences/general.py:138 ../preferences/tools.py:298
+#: ../preferences/general.py:138 ../preferences/tools.py:299
 #: ../scorewiz/settings.py:156 ../scorewiz/settings.py:224
 #: ../scorewiz/settings.py:319 ../scorewiz/parts/_base.py:218
 #: ../scorewiz/parts/plucked_strings.py:67 ../widgets/schemeselector.py:196
@@ -1764,7 +1764,7 @@ msgstr "Volby pro &ovládání rozvržení"
 
 #: ../layoutcontrol/widget.py:99 ../layoutcontrol/widget.py:100
 #: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:107
-#: ../userguide/browser.py:91 ../userguide/browser.py:92
+#: ../userguide/browser.py:92 ../userguide/browser.py:93
 msgid "Help"
 msgstr "Nápověda"
 
@@ -1800,23 +1800,23 @@ msgstr ""
 msgid "Filename to be included"
 msgstr "Soubor k zahrnutí"
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:91
+#: ../logtool/__init__.py:51 ../preferences/tools.py:92
 msgid "LilyPond Log"
 msgstr "Záznam o průběhu činnosti od LilyPondu"
 
-#: ../logtool/__init__.py:51
+#: ../logtool/__init__.py:52
 msgid "LilyPond &Log"
 msgstr "&Zápis o LilyPondu"
 
-#: ../logtool/__init__.py:94
+#: ../logtool/__init__.py:95
 msgid "Next Error Message"
 msgstr "Další chybové hlášení"
 
-#: ../logtool/__init__.py:95
+#: ../logtool/__init__.py:96
 msgid "Previous Error Message"
 msgstr "Předchozí chybové hlášení"
 
-#: ../logtool/logwidget.py:122
+#: ../logtool/logwidget.py:123
 msgid "Click to edit this file"
 msgstr "Klepněte, abyste mohl upravovat tento soubor"
 
@@ -1833,30 +1833,30 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr "Se&zení"
 
-#: ../midiinput/tool.py:29
+#: ../midiinput/tool.py:30
 msgid "MIDI Input"
 msgstr "Vstup MIDI"
 
-#: ../midiinput/tool.py:30
+#: ../midiinput/tool.py:31
 msgid "MIDI I&nput"
 msgstr "&Vstup MIDI"
 
-#: ../midiinput/tool.py:52
+#: ../midiinput/tool.py:53
 msgctxt "midi input"
 msgid "Start capturing"
 msgstr "Spustit zachytávání"
 
-#: ../midiinput/tool.py:53
+#: ../midiinput/tool.py:54
 msgctxt "midi input"
 msgid "Start MIDI capturing"
 msgstr "Spustit zachytávání MIDI"
 
-#: ../midiinput/tool.py:54
+#: ../midiinput/tool.py:55
 msgctxt "midi input"
 msgid "Stop capturing"
 msgstr "Zastavit zachytávání"
 
-#: ../midiinput/tool.py:55
+#: ../midiinput/tool.py:56
 msgctxt "midi input"
 msgid "Stop MIDI capturing"
 msgstr "Zastavit zachytávání MIDI"
@@ -2001,30 +2001,30 @@ msgstr "Pedál pro sustenuto"
 msgid "Soft pedal"
 msgstr "Levý pedál"
 
-#: ../miditool/__init__.py:51
+#: ../miditool/__init__.py:52
 msgid "MIDI"
 msgstr "MIDI"
 
-#: ../miditool/__init__.py:52
+#: ../miditool/__init__.py:53
 msgid "MIDI &Player"
 msgstr "Pře&hrávač MIDI"
 
-#: ../miditool/__init__.py:97
+#: ../miditool/__init__.py:98
 msgctxt "midi player"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: ../miditool/__init__.py:98
+#: ../miditool/__init__.py:99
 msgctxt "midi player"
 msgid "Play"
 msgstr "Přehrát"
 
-#: ../miditool/__init__.py:99
+#: ../miditool/__init__.py:100
 msgctxt "midi player"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../miditool/__init__.py:100
+#: ../miditool/__init__.py:101
 msgctxt "midi player"
 msgid "Restart"
 msgstr "Spustit znovu"
@@ -2062,20 +2062,20 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "DOBA"
 
-#: ../musicview/__init__.py:121
+#: ../musicview/__init__.py:122
 msgctxt "window title"
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../musicview/__init__.py:122
+#: ../musicview/__init__.py:123
 msgid "&Music View"
 msgstr "Pohled na &noty"
 
-#: ../musicview/__init__.py:191
+#: ../musicview/__init__.py:192
 msgid "Print Music"
 msgstr "Vytisknout noty"
 
-#: ../musicview/__init__.py:192
+#: ../musicview/__init__.py:193
 msgid ""
 "Unfortunately, this version of Frescobaldi is unable to print PDF documents "
 "on Mac OS X due to various technical reasons.\n"
@@ -2095,95 +2095,95 @@ msgstr ""
 "Zvolte Ano, v případě že toto je vaším cílem, Ne, pokud přesto hodláte "
 "vyzkoušet vestavěnou tiskovou funkcionalitu, nebo Zrušit pro zrušení tisku."
 
-#: ../musicview/__init__.py:338
+#: ../musicview/__init__.py:339
 msgid "Select Music View Document"
 msgstr "Vybrat dokument s pohledem na noty"
 
-#: ../musicview/__init__.py:339
+#: ../musicview/__init__.py:340
 msgid "&Print Music..."
 msgstr "Vy&tisknout noty..."
 
-#: ../musicview/__init__.py:340 ../svgview/__init__.py:86
+#: ../musicview/__init__.py:341 ../svgview/__init__.py:87
 msgid "Zoom &In"
 msgstr "&Přiblížit"
 
-#: ../musicview/__init__.py:341 ../svgview/__init__.py:87
+#: ../musicview/__init__.py:342 ../svgview/__init__.py:88
 msgid "Zoom &Out"
 msgstr "&Oddálit"
 
-#: ../musicview/__init__.py:342 ../svgview/__init__.py:88
+#: ../musicview/__init__.py:343 ../svgview/__init__.py:89
 msgid "Original &Size"
 msgstr "Původní &velikost"
 
-#: ../musicview/__init__.py:343
+#: ../musicview/__init__.py:344
 msgid "Zoom Music"
 msgstr "Zvětšení hudby"
 
-#: ../musicview/__init__.py:344
+#: ../musicview/__init__.py:345
 msgid "Fit &Width"
 msgstr "Přizpůsobit šíř&ce"
 
-#: ../musicview/__init__.py:345
+#: ../musicview/__init__.py:346
 msgid "Fit &Height"
 msgstr "Přizpůsobit &výšce"
 
-#: ../musicview/__init__.py:346
+#: ../musicview/__init__.py:347
 msgid "Fit &Page"
 msgstr "Přizpůsobit &straně"
 
-#: ../musicview/__init__.py:347
+#: ../musicview/__init__.py:348
 msgid "Single Pages"
 msgstr "Jednoduché strany"
 
-#: ../musicview/__init__.py:348
+#: ../musicview/__init__.py:349
 msgid "Two Pages (first page right)"
 msgstr "Dvě strany (první strana vpravo)"
 
-#: ../musicview/__init__.py:349
+#: ../musicview/__init__.py:350
 msgid "Two Pages (first page left)"
 msgstr "Dvě strany (první strana vlevo)"
 
-#: ../musicview/__init__.py:350
+#: ../musicview/__init__.py:351
 msgid "&Maximize"
 msgstr "&Zvětšit"
 
-#: ../musicview/__init__.py:351
+#: ../musicview/__init__.py:352
 msgid "&Jump to Cursor Position"
 msgstr "&Skočit na polohu ukazatele"
 
-#: ../musicview/__init__.py:352
+#: ../musicview/__init__.py:353
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&eřídit s polohou ukazatele"
 
-#: ../musicview/__init__.py:353
+#: ../musicview/__init__.py:354
 msgid "Copy to &Image..."
 msgstr "Kopírovat do &obrázku..."
 
-#: ../musicview/__init__.py:354
+#: ../musicview/__init__.py:355
 msgid "Next Page"
 msgstr "Další strana"
 
-#: ../musicview/__init__.py:355
+#: ../musicview/__init__.py:356
 msgid "Next"
 msgstr "Další"
 
-#: ../musicview/__init__.py:356
+#: ../musicview/__init__.py:357
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
-#: ../musicview/__init__.py:357
+#: ../musicview/__init__.py:358
 msgid "Previous"
 msgstr "Předchozí"
 
-#: ../musicview/__init__.py:358
+#: ../musicview/__init__.py:359
 msgid "&Reload"
 msgstr "&Nahrát znovu"
 
-#: ../musicview/__init__.py:509
+#: ../musicview/__init__.py:510
 msgid "Choose the PDF document to display."
 msgstr "Vybrat dokument PDF k zobrazení."
 
-#: ../musicview/__init__.py:511
+#: ../musicview/__init__.py:512
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2191,20 +2191,20 @@ msgstr ""
 "Vyberte dokument PDF k zobrazení nebo soubor přetáhněte do jiného programu "
 "nebo umístění.."
 
-#: ../musicview/__init__.py:569
+#: ../musicview/__init__.py:570
 msgid "Fit Width"
 msgstr "Přizpůsobit šířce"
 
-#: ../musicview/__init__.py:570
+#: ../musicview/__init__.py:571
 msgid "Fit Height"
 msgstr "Přizpůsobit výšce"
 
-#: ../musicview/__init__.py:571
+#: ../musicview/__init__.py:572
 msgid "Fit Page"
 msgstr "Přizpůsobit straně"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:588
+#: ../musicview/__init__.py:589
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} z {total}"
@@ -2292,6 +2292,11 @@ msgstr "Obrázek se nepodařilo uložit."
 msgid "Position: {pos}"
 msgstr "Poloha: {pos}"
 
+#: ../musicview/widget.py:216
+#, fuzzy, python-brace-format
+msgid "Page {num}"
+msgstr "Strana nahoru"
+
 #: ../objecteditor/__init__.py:43
 msgid "Object Editor"
 msgstr "Editor předmětů"
@@ -2300,23 +2305,23 @@ msgstr "Editor předmětů"
 msgid "O&bject Editor"
 msgstr "Editor &předmětů"
 
-#: ../objecteditor/widget.py:113
+#: ../objecteditor/widget.py:114
 msgid "X Offset"
 msgstr "Posun X"
 
-#: ../objecteditor/widget.py:114
+#: ../objecteditor/widget.py:115
 msgid "Display the X Offset"
 msgstr "Zobrazit posun X"
 
-#: ../objecteditor/widget.py:115
+#: ../objecteditor/widget.py:116
 msgid "Y Offset"
 msgstr "Posun Y"
 
-#: ../objecteditor/widget.py:116
+#: ../objecteditor/widget.py:117
 msgid "Display the Y Offset"
 msgstr "Zobrazit posun Y"
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:297
+#: ../outline/__init__.py:40 ../preferences/tools.py:298
 msgid "Outline"
 msgstr "Osnova"
 
@@ -2560,851 +2565,903 @@ msgid "What's This?"
 msgstr "Co je toto?"
 
 #: ../po/messages.py:51
+msgctxt "QDockWidget"
+msgid "Float"
+msgstr ""
+
+#: ../po/messages.py:52
+msgctxt "QDockWidget"
+msgid "Undocks and re-attaches the dock widget"
+msgstr ""
+
+#: ../po/messages.py:53
+#, fuzzy
+msgctxt "QDockWidget"
+msgid "Close"
+msgstr "Zavřít"
+
+#: ../po/messages.py:54
+#, fuzzy
+msgctxt "QDockWidget"
+msgid "Closes the dock widget"
+msgstr "Zavřít jiné dokumenty"
+
+#: ../po/messages.py:56
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr "Všechny soubory (*)"
 
-#: ../po/messages.py:52
+#: ../po/messages.py:57
 msgctxt "QFileDialog"
 msgid "Back"
 msgstr "Zpět"
 
-#: ../po/messages.py:53
+#: ../po/messages.py:58
 msgctxt "QFileDialog"
 msgid "Change to detail view mode"
 msgstr "Změnit na režim podrobného zobrazení"
 
-#: ../po/messages.py:54
+#: ../po/messages.py:59
 msgctxt "QFileDialog"
 msgid "Change to list view mode"
 msgstr "Změnit na režim seznamového zobrazení"
 
-#: ../po/messages.py:55
+#: ../po/messages.py:60
 msgctxt "QFileDialog"
 msgid "Create a New Folder"
 msgstr "Vytvořit novou složku"
 
-#: ../po/messages.py:56
+#: ../po/messages.py:61
 msgctxt "QFileDialog"
 msgid "Create New Folder"
 msgstr "Vytvořit novou složku"
 
-#: ../po/messages.py:57
+#: ../po/messages.py:62
 msgctxt "QFileDialog"
 msgid "&Delete"
 msgstr "&Smazat"
 
-#: ../po/messages.py:58
+#: ../po/messages.py:63
 msgctxt "QFileDialog"
 msgid "Detail View"
 msgstr "Podrobnosti"
 
-#: ../po/messages.py:59
+#: ../po/messages.py:64
 msgctxt "QFileDialog"
 msgid "Drive"
 msgstr "Disk"
 
-#: ../po/messages.py:60
+#: ../po/messages.py:65
 msgctxt "QFileDialog"
 msgid "File"
 msgstr "Soubor"
 
-#: ../po/messages.py:61
+#: ../po/messages.py:66
 msgctxt "QFileDialog"
 msgid "File &name:"
 msgstr "&Název souboru:"
 
-#: ../po/messages.py:62
+#: ../po/messages.py:67
 msgctxt "QFileDialog"
 msgid "Files of type:"
 msgstr "Typ souborů:"
 
-#: ../po/messages.py:63
+#: ../po/messages.py:68
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr "Adresář hledání"
 
-#: ../po/messages.py:64
+#: ../po/messages.py:69
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr "Složka"
 
-#: ../po/messages.py:65
+#: ../po/messages.py:70
 msgctxt "QFileDialog"
 msgid "Forward"
 msgstr "Vpřed"
 
-#: ../po/messages.py:66
+#: ../po/messages.py:71
 msgctxt "QFileDialog"
 msgid "Go back"
 msgstr "Jít zpět"
 
-#: ../po/messages.py:67
+#: ../po/messages.py:72
 msgctxt "QFileDialog"
 msgid "Go forward"
 msgstr "Jít vpřed"
 
-#: ../po/messages.py:68
+#: ../po/messages.py:73
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
 msgstr "Jít do nadřazeného adresáře"
 
-#: ../po/messages.py:69
+#: ../po/messages.py:74
 msgctxt "QFileDialog"
 msgid "List View"
 msgstr "Seznam"
 
-#: ../po/messages.py:70
+#: ../po/messages.py:75
 msgctxt "QFileDialog"
 msgid "Look in:"
 msgstr "Vyhledat:"
 
-#: ../po/messages.py:71
+#: ../po/messages.py:76
 msgctxt "QFileDialog"
 msgid "&New Folder"
 msgstr "&Nová složka"
 
-#: ../po/messages.py:72
+#: ../po/messages.py:77
 msgctxt "QFileDialog"
 msgid "&Open"
 msgstr "&Otevřít"
 
-#: ../po/messages.py:73
+#: ../po/messages.py:78
 msgctxt "QFileDialog"
 msgid "Parent Directory"
 msgstr "Nadřazený adresář"
 
-#: ../po/messages.py:74
+#: ../po/messages.py:79
 msgctxt "QFileDialog"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: ../po/messages.py:75
+#: ../po/messages.py:80
 msgctxt "QFileDialog"
 msgid "&Rename"
 msgstr "&Přejmenovat"
 
-#: ../po/messages.py:76
+#: ../po/messages.py:81
 msgctxt "QFileDialog"
 msgid "Show "
 msgstr "Ukázat "
 
-#: ../po/messages.py:77
+#: ../po/messages.py:82
 msgctxt "QFileDialog"
 msgid "Show &hidden files"
 msgstr "Ukázat &skryté soubory"
 
-#: ../po/messages.py:79
+#: ../po/messages.py:84
 msgctxt "QFileSystemModel"
 msgid "%1 bytes"
 msgstr "%1 bajtů"
 
-#: ../po/messages.py:80
+#: ../po/messages.py:85
 msgctxt "QFileSystemModel"
 msgid "%1 KB"
 msgstr "%1 KB"
 
-#: ../po/messages.py:81
+#: ../po/messages.py:86
 msgctxt "QFileSystemModel"
 msgid "Computer"
 msgstr "Počítač"
 
-#: ../po/messages.py:82
+#: ../po/messages.py:87
 msgctxt "QFileSystemModel"
 msgid "Date Modified"
 msgstr "[datum změny]"
 
-#: ../po/messages.py:83
+#: ../po/messages.py:88
 msgctxt "QFileSystemModel"
 msgid "Name"
 msgstr "Název"
 
-#: ../po/messages.py:84
+#: ../po/messages.py:89
 msgctxt "QFileSystemModel"
 msgid "Size"
 msgstr "Velikost"
 
-#: ../po/messages.py:85
+#: ../po/messages.py:90
 msgctxt "QFileSystemModel"
 msgid "Type"
 msgstr "Typ"
 
-#: ../po/messages.py:87
+#: ../po/messages.py:92
 msgctxt "QFontDatabase"
 msgid "Black"
 msgstr "Černé"
 
-#: ../po/messages.py:88
+#: ../po/messages.py:93
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr "Tučné"
 
-#: ../po/messages.py:89
+#: ../po/messages.py:94
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
 msgstr "Polotučné"
 
-#: ../po/messages.py:90
+#: ../po/messages.py:95
 msgctxt "QFontDatabase"
 msgid "Light"
 msgstr "Lehké"
 
-#: ../po/messages.py:91
+#: ../po/messages.py:96
 msgctxt "QFontDatabase"
 msgid "Oblique"
 msgstr "Nesouměrné"
 
-#: ../po/messages.py:93
+#: ../po/messages.py:98
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr "XIM"
 
-#: ../po/messages.py:95
+#: ../po/messages.py:100
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr "%1: Neplatný název"
 
-#: ../po/messages.py:97
+#: ../po/messages.py:102
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "Vybrat IM"
 
-#: ../po/messages.py:99
+#: ../po/messages.py:104
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Save"
+msgstr "Uložit"
+
+#: ../po/messages.py:105
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: ../po/messages.py:106
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Discard"
+msgstr "Zahodit"
+
+#: ../po/messages.py:108
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Dole"
 
-#: ../po/messages.py:100
+#: ../po/messages.py:109
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Levý okraj"
 
-#: ../po/messages.py:101
+#: ../po/messages.py:110
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Strana dolů"
 
-#: ../po/messages.py:102
+#: ../po/messages.py:111
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Strana vlevo"
 
-#: ../po/messages.py:103
+#: ../po/messages.py:112
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Strana vpravo"
 
-#: ../po/messages.py:104
+#: ../po/messages.py:113
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Strana nahoru"
 
-#: ../po/messages.py:105
+#: ../po/messages.py:114
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Pravý okraj"
 
-#: ../po/messages.py:106
+#: ../po/messages.py:115
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Projíždět dolů"
 
-#: ../po/messages.py:107
+#: ../po/messages.py:116
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Projíždět zde"
 
-#: ../po/messages.py:108
+#: ../po/messages.py:117
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Projíždět vlevo"
 
-#: ../po/messages.py:109
+#: ../po/messages.py:118
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Projíždět vpravo"
 
-#: ../po/messages.py:110
+#: ../po/messages.py:119
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Projíždět nahoru"
 
-#: ../po/messages.py:111
+#: ../po/messages.py:120
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Nahoře"
 
-#: ../po/messages.py:113
+#: ../po/messages.py:122
 msgctxt "QShortcut"
 msgid "+"
 msgstr "+"
 
-#: ../po/messages.py:114
+#: ../po/messages.py:123
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr "Přidat oblíbené"
 
-#: ../po/messages.py:115
+#: ../po/messages.py:124
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr "Upravit jas"
 
-#: ../po/messages.py:116
+#: ../po/messages.py:125
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alt"
 
-#: ../po/messages.py:117
+#: ../po/messages.py:126
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Program vlevo"
 
-#: ../po/messages.py:118
+#: ../po/messages.py:127
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Program vpravo"
 
-#: ../po/messages.py:119
+#: ../po/messages.py:128
 msgctxt "QShortcut"
 msgid "Audio Cycle Track"
 msgstr "Kroužit skladbu"
 
-#: ../po/messages.py:120
+#: ../po/messages.py:129
 msgctxt "QShortcut"
 msgid "Audio Forward"
 msgstr "Vpřed"
 
-#: ../po/messages.py:121
+#: ../po/messages.py:130
 msgctxt "QShortcut"
 msgid "Audio Random Play"
 msgstr "Náhodné přehrávání"
 
-#: ../po/messages.py:122
+#: ../po/messages.py:131
 msgctxt "QShortcut"
 msgid "Audio Repeat"
 msgstr "Opakování"
 
-#: ../po/messages.py:123
+#: ../po/messages.py:132
 msgctxt "QShortcut"
 msgid "Audio Rewind"
 msgstr "Přetočit zpět"
 
-#: ../po/messages.py:124
+#: ../po/messages.py:133
 msgctxt "QShortcut"
 msgid "Away"
 msgstr "Pryč"
 
-#: ../po/messages.py:125
+#: ../po/messages.py:134
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Zpět"
 
-#: ../po/messages.py:126
+#: ../po/messages.py:135
 msgctxt "QShortcut"
 msgid "Back Forward"
 msgstr "Zpět Vpřed"
 
-#: ../po/messages.py:127
+#: ../po/messages.py:136
 msgctxt "QShortcut"
 msgid "Backspace"
 msgstr "Backspace"
 
-#: ../po/messages.py:128
+#: ../po/messages.py:137
 msgctxt "QShortcut"
 msgid "Backtab"
 msgstr "Zpětný tabulátor"
 
-#: ../po/messages.py:129
+#: ../po/messages.py:138
 msgctxt "QShortcut"
 msgid "Bass Boost"
 msgstr "Zesílení hloubek"
 
-#: ../po/messages.py:130
+#: ../po/messages.py:139
 msgctxt "QShortcut"
 msgid "Bass Down"
 msgstr "Hloubky dolů"
 
-#: ../po/messages.py:131
+#: ../po/messages.py:140
 msgctxt "QShortcut"
 msgid "Bass Up"
 msgstr "Hloubky nahoru"
 
-#: ../po/messages.py:132
+#: ../po/messages.py:141
 msgctxt "QShortcut"
 msgid "Battery"
 msgstr "Baterie"
 
-#: ../po/messages.py:133
+#: ../po/messages.py:142
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Prohlížeč"
 
-#: ../po/messages.py:134
+#: ../po/messages.py:143
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr "Caps Lock"
 
-#: ../po/messages.py:135
+#: ../po/messages.py:144
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr "Velká písmena"
 
-#: ../po/messages.py:136
+#: ../po/messages.py:145
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Vyprázdnit"
 
-#: ../po/messages.py:137
+#: ../po/messages.py:146
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Smazat"
 
-#: ../po/messages.py:138
+#: ../po/messages.py:147
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Zavřít"
 
-#: ../po/messages.py:139
+#: ../po/messages.py:148
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: ../po/messages.py:140
+#: ../po/messages.py:149
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr "Ctrl"
 
-#: ../po/messages.py:141
+#: ../po/messages.py:150
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: ../po/messages.py:142
+#: ../po/messages.py:151
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Delete"
 
-#: ../po/messages.py:143
+#: ../po/messages.py:152
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../po/messages.py:144
+#: ../po/messages.py:153
 msgctxt "QShortcut"
 msgid "Display"
 msgstr "Zobrazit"
 
-#: ../po/messages.py:145
+#: ../po/messages.py:154
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Dokumenty"
 
-#: ../po/messages.py:146
+#: ../po/messages.py:155
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Dolů"
 
-#: ../po/messages.py:147
+#: ../po/messages.py:156
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr "Vysunout"
 
-#: ../po/messages.py:148
+#: ../po/messages.py:157
 msgctxt "QShortcut"
 msgid "End"
 msgstr "End"
 
-#: ../po/messages.py:149
+#: ../po/messages.py:158
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr "Enter"
 
-#: ../po/messages.py:150
+#: ../po/messages.py:159
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Esc"
 
-#: ../po/messages.py:151
+#: ../po/messages.py:160
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr "F%1"
 
-#: ../po/messages.py:152
+#: ../po/messages.py:161
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Vpřed"
 
-#: ../po/messages.py:153
+#: ../po/messages.py:162
 msgctxt "QShortcut"
 msgid "Go"
 msgstr "Pohyb"
 
-#: ../po/messages.py:154
+#: ../po/messages.py:163
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Nápověda"
 
-#: ../po/messages.py:155
+#: ../po/messages.py:164
 msgctxt "QShortcut"
 msgid "History"
 msgstr "Historie"
 
-#: ../po/messages.py:156
+#: ../po/messages.py:165
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Domovská stránka"
 
-#: ../po/messages.py:157
+#: ../po/messages.py:166
 msgctxt "QShortcut"
 msgid "Ins"
 msgstr "Insert"
 
-#: ../po/messages.py:158
+#: ../po/messages.py:167
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "Vložení"
 
-#: ../po/messages.py:159
+#: ../po/messages.py:168
 msgctxt "QShortcut"
 msgid "Left"
 msgstr "Vlevo"
 
-#: ../po/messages.py:160
+#: ../po/messages.py:169
 msgctxt "QShortcut"
 msgid "Media Next"
 msgstr "Další"
 
-#: ../po/messages.py:161
+#: ../po/messages.py:170
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Pozastavit"
 
-#: ../po/messages.py:162
+#: ../po/messages.py:171
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr "Přehrát"
 
-#: ../po/messages.py:163
+#: ../po/messages.py:172
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Předchozí"
 
-#: ../po/messages.py:164
+#: ../po/messages.py:173
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Nahrávat"
 
-#: ../po/messages.py:165
+#: ../po/messages.py:174
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr "Zastavit"
 
-#: ../po/messages.py:166
+#: ../po/messages.py:175
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr "Nabídka"
 
-#: ../po/messages.py:167
+#: ../po/messages.py:176
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr "Meta"
 
-#: ../po/messages.py:168
+#: ../po/messages.py:177
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "Hudba"
 
-#: ../po/messages.py:169
+#: ../po/messages.py:178
 msgctxt "QShortcut"
 msgid "News"
 msgstr "Novinky"
 
-#: ../po/messages.py:170
+#: ../po/messages.py:179
 msgctxt "QShortcut"
 msgid "Number Lock"
 msgstr "Zámek čísel"
 
-#: ../po/messages.py:171
+#: ../po/messages.py:180
 msgctxt "QShortcut"
 msgid "Num Lock"
 msgstr "Num Lock"
 
-#: ../po/messages.py:172
+#: ../po/messages.py:181
 msgctxt "QShortcut"
 msgid "NumLock"
 msgstr "Číslice"
 
-#: ../po/messages.py:173
+#: ../po/messages.py:182
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "Otevřít adresu"
 
-#: ../po/messages.py:174
+#: ../po/messages.py:183
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "Volba"
 
-#: ../po/messages.py:175
+#: ../po/messages.py:184
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Strana dolů"
 
-#: ../po/messages.py:176
+#: ../po/messages.py:185
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Strana nahoru"
 
-#: ../po/messages.py:177
+#: ../po/messages.py:186
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "Vložit"
 
-#: ../po/messages.py:178
+#: ../po/messages.py:187
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: ../po/messages.py:179
+#: ../po/messages.py:188
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "PgDown"
 
-#: ../po/messages.py:180
+#: ../po/messages.py:189
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr "PgUp"
 
-#: ../po/messages.py:181
+#: ../po/messages.py:190
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr "Obnovit"
 
-#: ../po/messages.py:182
+#: ../po/messages.py:191
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Nahrát znovu"
 
-#: ../po/messages.py:183
+#: ../po/messages.py:192
 msgctxt "QShortcut"
 msgid "Return"
 msgstr "Enter"
 
-#: ../po/messages.py:184
+#: ../po/messages.py:193
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Vpravo"
 
-#: ../po/messages.py:185
+#: ../po/messages.py:194
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Uložit"
 
-#: ../po/messages.py:186
+#: ../po/messages.py:195
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Zámek na posun"
 
-#: ../po/messages.py:187
+#: ../po/messages.py:196
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "ScrollLock"
 
-#: ../po/messages.py:188
+#: ../po/messages.py:197
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Hledat"
 
-#: ../po/messages.py:189
+#: ../po/messages.py:198
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Vybrat"
 
-#: ../po/messages.py:190
+#: ../po/messages.py:199
 msgctxt "QShortcut"
 msgid "Send"
 msgstr "Poslat"
 
-#: ../po/messages.py:191
+#: ../po/messages.py:200
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr "Shift"
 
-#: ../po/messages.py:192
+#: ../po/messages.py:201
 msgctxt "QShortcut"
 msgid "Space"
 msgstr "Mezerník"
 
-#: ../po/messages.py:193
+#: ../po/messages.py:202
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr "Ověření pravopisu"
 
-#: ../po/messages.py:194
+#: ../po/messages.py:203
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr "Rozdělit obrazovku"
 
-#: ../po/messages.py:195
+#: ../po/messages.py:204
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr "Tabulkový kalkulátor"
 
-#: ../po/messages.py:196
+#: ../po/messages.py:205
 msgctxt "QShortcut"
 msgid "Standby"
 msgstr "Pohotovost"
 
-#: ../po/messages.py:197
+#: ../po/messages.py:206
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../po/messages.py:198
+#: ../po/messages.py:207
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Titulky"
 
-#: ../po/messages.py:199
+#: ../po/messages.py:208
 msgctxt "QShortcut"
 msgid "Support"
 msgstr "Podpora"
 
-#: ../po/messages.py:200
+#: ../po/messages.py:209
 msgctxt "QShortcut"
 msgid "Suspend"
 msgstr "Uspat"
 
-#: ../po/messages.py:201
+#: ../po/messages.py:210
 msgctxt "QShortcut"
 msgid "SysReq"
 msgstr "SysReq"
 
-#: ../po/messages.py:202
+#: ../po/messages.py:211
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Tab"
 
-#: ../po/messages.py:203
+#: ../po/messages.py:212
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr "Panel úkolů"
 
-#: ../po/messages.py:204
+#: ../po/messages.py:213
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Terminál"
 
-#: ../po/messages.py:205
+#: ../po/messages.py:214
 msgctxt "QShortcut"
 msgid "Time"
 msgstr "Čas"
 
-#: ../po/messages.py:206
+#: ../po/messages.py:215
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
 msgstr "Přepnout přehrát/pozastavit"
 
-#: ../po/messages.py:207
+#: ../po/messages.py:216
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Nástroje"
 
-#: ../po/messages.py:208
+#: ../po/messages.py:217
 msgctxt "QShortcut"
 msgid "Top Menu"
 msgstr "Nabídka"
 
-#: ../po/messages.py:209
+#: ../po/messages.py:218
 msgctxt "QShortcut"
 msgid "Treble Down"
 msgstr "Výšky dolů"
 
-#: ../po/messages.py:210
+#: ../po/messages.py:219
 msgctxt "QShortcut"
 msgid "Treble Up"
 msgstr "Výšky nahoru"
 
-#: ../po/messages.py:211
+#: ../po/messages.py:220
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Nahoru"
 
-#: ../po/messages.py:212
+#: ../po/messages.py:221
 msgctxt "QShortcut"
 msgid "Video"
 msgstr "Obraz"
 
-#: ../po/messages.py:213
+#: ../po/messages.py:222
 msgctxt "QShortcut"
 msgid "View"
 msgstr "Pohled"
 
-#: ../po/messages.py:214
+#: ../po/messages.py:223
 msgctxt "QShortcut"
 msgid "Volume Down"
 msgstr "Snížit hlasitost"
 
-#: ../po/messages.py:215
+#: ../po/messages.py:224
 msgctxt "QShortcut"
 msgid "Volume Mute"
 msgstr "Ztlumit"
 
-#: ../po/messages.py:216
+#: ../po/messages.py:225
 msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr "Zvýšit hlasitost"
 
-#: ../po/messages.py:217
+#: ../po/messages.py:226
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Přiblížit"
 
-#: ../po/messages.py:218
+#: ../po/messages.py:227
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "Oddálit"
 
-#: ../po/messages.py:220
+#: ../po/messages.py:229
+#, fuzzy
+msgctxt "QTabBar"
+msgid "Scroll Left"
+msgstr "Projíždět vlevo"
+
+#: ../po/messages.py:230
+#, fuzzy
+msgctxt "QTabBar"
+msgid "Scroll Right"
+msgstr "Projíždět vpravo"
+
+#: ../po/messages.py:232
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: ../po/messages.py:221
+#: ../po/messages.py:233
 msgctxt "QTextControl"
 msgid "&Redo"
 msgstr "&Znovu"
 
-#: ../po/messages.py:222
+#: ../po/messages.py:234
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "Vyjmou&t"
 
-#: ../po/messages.py:223
+#: ../po/messages.py:235
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "&Kopírovat"
 
-#: ../po/messages.py:224
+#: ../po/messages.py:236
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "&Vložit"
 
-#: ../po/messages.py:225
+#: ../po/messages.py:237
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../po/messages.py:226
+#: ../po/messages.py:238
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr "Vybrat vše"
 
-#: ../po/messages.py:228
+#: ../po/messages.py:240
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Co je toto?"
 
-#: ../preferences/__init__.py:107 ../preferences/midi.py:170
+#: ../preferences/__init__.py:107 ../preferences/midi.py:171
 #: ../userguide/preferences.md:1
 msgid "Preferences"
 msgstr "Nastavení"
@@ -3469,8 +3526,8 @@ msgstr "Upřednostňovaný jazyk:"
 msgid "English (untranslated)"
 msgstr "Anglický (nepřeloženo)"
 
-#: ../preferences/documentation.py:120 ../preferences/fontscolors.py:133
-#: ../preferences/tools.py:92 ../preferences/tools.py:233
+#: ../preferences/documentation.py:120 ../preferences/fontscolors.py:134
+#: ../preferences/tools.py:93 ../preferences/tools.py:234
 msgid "Font:"
 msgstr "Písmo:"
 
@@ -3730,302 +3787,302 @@ msgstr "Nynější jazyk"
 msgid "Custom quotes (enter below)"
 msgstr "Vlastní uvozovky (zadejte níže)"
 
-#: ../preferences/fontscolors.py:132
+#: ../preferences/fontscolors.py:133
 msgid "Use this scheme for printing"
 msgstr "Použít toto schéma pro tisk"
 
-#: ../preferences/fontscolors.py:134 ../preferences/fontscolors.py:327
+#: ../preferences/fontscolors.py:135 ../preferences/fontscolors.py:328
 msgid "Base Colors"
 msgstr "Základní barvy"
 
-#: ../preferences/fontscolors.py:135
+#: ../preferences/fontscolors.py:136
 msgid "Default Styles"
 msgstr "Výchozí styly"
 
-#: ../preferences/fontscolors.py:168
+#: ../preferences/fontscolors.py:169
 #, python-brace-format
 msgid "(Inherits: {name})"
 msgstr "(Zdědí: {name})"
 
 #. L10N: color of Text
-#: ../preferences/fontscolors.py:389 ../preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:390 ../preferences/fontscolors.py:465
 msgid "Text"
 msgstr "Text"
 
 #. L10N: color of Background
-#: ../preferences/fontscolors.py:390 ../preferences/fontscolors.py:466
+#: ../preferences/fontscolors.py:391 ../preferences/fontscolors.py:467
 msgid "Background"
 msgstr "Pozadí"
 
-#: ../preferences/fontscolors.py:391
+#: ../preferences/fontscolors.py:392
 msgid "Bold"
 msgstr "Tučné"
 
-#: ../preferences/fontscolors.py:392
+#: ../preferences/fontscolors.py:393
 msgid "Italic"
 msgstr "Kurzíva"
 
-#: ../preferences/fontscolors.py:393
+#: ../preferences/fontscolors.py:394
 msgid "Underline"
 msgstr "Podtržení"
 
 #. L10N: color of Selected Text
-#: ../preferences/fontscolors.py:468
+#: ../preferences/fontscolors.py:469
 msgid "Selected Text"
 msgstr "Vybraný text"
 
 #. L10N: color of Selection Background
-#: ../preferences/fontscolors.py:470
+#: ../preferences/fontscolors.py:471
 msgid "Selection Background"
 msgstr "Pozadí výběru"
 
 #. L10N: color of Current Line
-#: ../preferences/fontscolors.py:472
+#: ../preferences/fontscolors.py:473
 msgid "Current Line"
 msgstr "Nynější řádek"
 
 #. L10N: color of Marked Line (bookmark)
-#: ../preferences/fontscolors.py:474
+#: ../preferences/fontscolors.py:475
 msgid "Marked Line"
 msgstr "Označený řádek"
 
 #. L10N: color of line with Error
-#: ../preferences/fontscolors.py:476
+#: ../preferences/fontscolors.py:477
 msgid "Error Line"
 msgstr "Řádek s chybou"
 
 #. L10N: color of highlighted search result
-#: ../preferences/fontscolors.py:478
+#: ../preferences/fontscolors.py:479
 msgid "Search Result"
 msgstr "Výsledek hledání"
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
-#: ../preferences/fontscolors.py:480
+#: ../preferences/fontscolors.py:481
 msgid "Matching Character"
 msgstr "Odpovídající znak"
 
 #. L10N: color of paper in music preview
-#: ../preferences/fontscolors.py:482
+#: ../preferences/fontscolors.py:483
 msgid "Preview Background"
 msgstr "Pozadí náhledu"
 
 #. L10N: color of objects highlighting in preview
-#: ../preferences/fontscolors.py:484
+#: ../preferences/fontscolors.py:485
 msgid "Preview Highlight"
 msgstr "Zvýraznění náhledu"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:491 ../preferences/fontscolors.py:527
-#: ../preferences/fontscolors.py:564 ../preferences/fontscolors.py:572
+#: ../preferences/fontscolors.py:492 ../preferences/fontscolors.py:528
+#: ../preferences/fontscolors.py:565 ../preferences/fontscolors.py:573
 msgid "Keyword"
 msgstr "Klíčové slovo"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:493 ../preferences/fontscolors.py:565
+#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:566
 msgid "Function"
 msgstr "Funkce"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:495 ../preferences/fontscolors.py:541
-#: ../preferences/fontscolors.py:566
+#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:542
+#: ../preferences/fontscolors.py:567
 msgid "Variable"
 msgstr "Proměnná"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:497 ../preferences/fontscolors.py:543
-#: ../preferences/fontscolors.py:553
+#: ../preferences/fontscolors.py:498 ../preferences/fontscolors.py:544
+#: ../preferences/fontscolors.py:554
 msgid "Value"
 msgstr "Hodnota"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:499 ../preferences/fontscolors.py:544
-#: ../preferences/fontscolors.py:556 ../preferences/fontscolors.py:562
+#: ../preferences/fontscolors.py:500 ../preferences/fontscolors.py:545
+#: ../preferences/fontscolors.py:557 ../preferences/fontscolors.py:563
 msgid "String"
 msgstr "Řetězec"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:501
+#: ../preferences/fontscolors.py:502
 msgid "Escape"
 msgstr "Únik"
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:503 ../preferences/fontscolors.py:546
-#: ../preferences/fontscolors.py:555 ../preferences/fontscolors.py:563
-#: ../preferences/fontscolors.py:577 ../snippet/builtin.py:417
+#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:547
+#: ../preferences/fontscolors.py:556 ../preferences/fontscolors.py:564
+#: ../preferences/fontscolors.py:578 ../snippet/builtin.py:417
 msgid "Comment"
 msgstr "Poznámka"
 
-#: ../preferences/fontscolors.py:511 ../preferences/lilypond.py:263
+#: ../preferences/fontscolors.py:512 ../preferences/lilypond.py:262
 #: ../scorewiz/settings.py:315
 msgid "LilyPond"
 msgstr "LilyPond"
 
-#: ../preferences/fontscolors.py:512
+#: ../preferences/fontscolors.py:513
 msgid "Pitch"
 msgstr "Výška tónu"
 
-#: ../preferences/fontscolors.py:513
+#: ../preferences/fontscolors.py:514
 msgid "Octave"
 msgstr "Oktáva"
 
-#: ../preferences/fontscolors.py:514
+#: ../preferences/fontscolors.py:515
 msgid "Duration"
 msgstr "Doba trvání"
 
-#: ../preferences/fontscolors.py:515
+#: ../preferences/fontscolors.py:516
 msgid "Accidental"
 msgstr "Posuvka"
 
-#: ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:517
 msgid "Octave Check"
 msgstr "Zastavení oktávy"
 
-#: ../preferences/fontscolors.py:517
+#: ../preferences/fontscolors.py:518
 msgid "Fingering"
 msgstr "Prstoklad"
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:519
+#: ../preferences/fontscolors.py:520
 msgid "String Number"
 msgstr "Číslo struny"
 
-#: ../preferences/fontscolors.py:520 ../quickinsert/spanners.py:171
+#: ../preferences/fontscolors.py:521 ../quickinsert/spanners.py:172
 msgid "Slur"
 msgstr "Legatový oblouček"
 
-#: ../preferences/fontscolors.py:521
+#: ../preferences/fontscolors.py:522
 msgid "Dynamic"
 msgstr "Dynamika"
 
-#: ../preferences/fontscolors.py:522
+#: ../preferences/fontscolors.py:523
 msgid "Articulation"
 msgstr "Artikulace"
 
-#: ../preferences/fontscolors.py:523
+#: ../preferences/fontscolors.py:524
 msgid "Chord"
 msgstr "Akord"
 
-#: ../preferences/fontscolors.py:524 ../quickinsert/spanners.py:173
+#: ../preferences/fontscolors.py:525 ../quickinsert/spanners.py:174
 msgid "Beam"
 msgstr "Trámec"
 
-#: ../preferences/fontscolors.py:525
+#: ../preferences/fontscolors.py:526
 msgid "Check"
 msgstr "Zastavení"
 
-#: ../preferences/fontscolors.py:526 ../snippet/builtin.py:260
+#: ../preferences/fontscolors.py:527 ../snippet/builtin.py:260
 msgid "Repeat"
 msgstr "Opakování"
 
-#: ../preferences/fontscolors.py:528 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:529 ../preferences/shortcuts.py:57
 msgid "Command"
 msgstr "Příkaz"
 
-#: ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:530
 msgid "Specifier"
 msgstr "Vymezovač"
 
-#: ../preferences/fontscolors.py:530
+#: ../preferences/fontscolors.py:531
 msgid "User Command"
 msgstr "Uživatelský příkaz"
 
-#: ../preferences/fontscolors.py:531 ../snippet/builtin.py:303
+#: ../preferences/fontscolors.py:532 ../snippet/builtin.py:303
 msgid "Markup"
 msgstr "Značení"
 
-#: ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:533
 msgid "Lyric Mode"
 msgstr "Režim slov písně"
 
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:534
 msgid "Lyric Text"
 msgstr "Text slov písně"
 
-#: ../preferences/fontscolors.py:534 ../preferences/fontscolors.py:569
+#: ../preferences/fontscolors.py:535 ../preferences/fontscolors.py:570
 msgid "Delimiter"
 msgstr "Oddělovač"
 
-#: ../preferences/fontscolors.py:535 ../scorewiz/parts/special.py:43
+#: ../preferences/fontscolors.py:536 ../scorewiz/parts/special.py:43
 msgid "Figured Bass"
 msgstr "Číslovaný bas (generální bas, basso continuo)"
 
-#: ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:537
 msgid "Figured Bass Step"
 msgstr "Krok číslovaného basu"
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:538
 msgid "Figured Bass Modifier"
 msgstr "Modifikátor číslovaného basu"
 
-#: ../preferences/fontscolors.py:538
+#: ../preferences/fontscolors.py:539
 msgid "Context"
 msgstr "Prostředí"
 
-#: ../preferences/fontscolors.py:539
+#: ../preferences/fontscolors.py:540
 msgid "Layout Object"
 msgstr "Předmět rozvržení"
 
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:541
 msgid "Property"
 msgstr "Vlastnictví"
 
-#: ../preferences/fontscolors.py:542
+#: ../preferences/fontscolors.py:543
 msgid "User Variable"
 msgstr "Uživatelská proměnná"
 
-#: ../preferences/fontscolors.py:545 ../preferences/fontscolors.py:574
+#: ../preferences/fontscolors.py:546 ../preferences/fontscolors.py:575
 msgid "Escaped Character"
 msgstr "Uprchlý znak"
 
-#: ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:550
 msgid "HTML"
 msgstr "HTML"
 
-#: ../preferences/fontscolors.py:550
+#: ../preferences/fontscolors.py:551
 msgid "Tag"
 msgstr "Značka"
 
-#: ../preferences/fontscolors.py:551
+#: ../preferences/fontscolors.py:552
 msgid "LilyPond Tag"
 msgstr "Značka LilyPondu"
 
-#: ../preferences/fontscolors.py:552 ../preferences/fontscolors.py:575
+#: ../preferences/fontscolors.py:553 ../preferences/fontscolors.py:576
 msgid "Attribute"
 msgstr "Vlastnost"
 
-#: ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:555
 msgid "Entity Reference"
 msgstr "Odkaz na entitu"
 
-#: ../preferences/fontscolors.py:558 ../preferences/fontscolors.py:559
+#: ../preferences/fontscolors.py:559 ../preferences/fontscolors.py:560
 msgid "Scheme"
 msgstr "Scheme"
 
-#: ../preferences/fontscolors.py:560
+#: ../preferences/fontscolors.py:561
 msgid "Number"
 msgstr "Číslo"
 
-#: ../preferences/fontscolors.py:561
+#: ../preferences/fontscolors.py:562
 msgid "LilyPond Environment"
 msgstr "Prostředí LilyPondu"
 
-#: ../preferences/fontscolors.py:567
+#: ../preferences/fontscolors.py:568
 msgid "Constant"
 msgstr "Stálý"
 
-#: ../preferences/fontscolors.py:568
+#: ../preferences/fontscolors.py:569
 msgid "Symbol"
 msgstr "Symbol"
 
-#: ../preferences/fontscolors.py:571
+#: ../preferences/fontscolors.py:572
 msgid "Texinfo"
 msgstr "Texinfo"
 
-#: ../preferences/fontscolors.py:573
+#: ../preferences/fontscolors.py:574
 msgid "Block"
 msgstr "Blok"
 
-#: ../preferences/fontscolors.py:576
+#: ../preferences/fontscolors.py:577
 msgid "Verbatim"
 msgstr "Podrobný"
 
@@ -4041,7 +4098,7 @@ msgstr "Žádný překlad"
 msgid "System Default Language (if available)"
 msgstr "Výchozí jazyk systému (je-li dostupný)"
 
-#: ../preferences/general.py:137 ../scorewiz/parts/percussion.py:185
+#: ../preferences/general.py:137 ../scorewiz/parts/percussion.py:186
 msgid "Style:"
 msgstr "Styl:"
 
@@ -4282,12 +4339,12 @@ msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr ""
 "Nastavit rozlišení, pokud Frescobaldi tiskne za použití rastrových obrázků."
 
-#: ../preferences/import_export.py:89
+#: ../preferences/import_export.py:91
 msgid "No theme found."
 msgstr "Nenalezen žádný motiv."
 
-#: ../preferences/import_export.py:92 ../preferences/import_export.py:175
-#: ../snippet/import_export.py:106
+#: ../preferences/import_export.py:94 ../preferences/import_export.py:177
+#: ../snippet/import_export.py:107
 #, python-brace-format
 msgid ""
 "Can't read from source:\n"
@@ -4302,19 +4359,19 @@ msgstr ""
 "\n"
 "{error}"
 
-#: ../preferences/import_export.py:172
+#: ../preferences/import_export.py:174
 msgid "No shortcuts found."
 msgstr "Nenalezeny žádné klávesové zkratky."
 
-#: ../preferences/lilypond.py:88
+#: ../preferences/lilypond.py:87
 msgid "LilyPond versions to use"
 msgstr "Verze LilyPondu k použití"
 
-#: ../preferences/lilypond.py:89 ../userguide/prefs_lilypond_autoversion.md:1
+#: ../preferences/lilypond.py:88 ../userguide/prefs_lilypond_autoversion.md:1
 msgid "Automatically choose LilyPond version from document"
 msgstr "Automaticky vybrat verzi LilyPondu z dokumentu."
 
-#: ../preferences/lilypond.py:91
+#: ../preferences/lilypond.py:90
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
@@ -4322,76 +4379,76 @@ msgstr ""
 "Je-li zaškrtnuto, verze dokumentu určuje, která verze LilyPondu se použije.\n"
 "Pro další informace se podívejte na \"Co je toto\"."
 
-#: ../preferences/lilypond.py:94
+#: ../preferences/lilypond.py:93
 #, python-brace-format
 msgid "See also {link}."
 msgstr "Podívejte se také na {link}."
 
-#: ../preferences/lilypond.py:142
+#: ../preferences/lilypond.py:141
 msgid "Set as &Default"
 msgstr "Nastavit jako &výchozí"
 
-#: ../preferences/lilypond.py:183
+#: ../preferences/lilypond.py:182
 msgid "default"
 msgstr "Výchozí"
 
-#: ../preferences/lilypond.py:256
+#: ../preferences/lilypond.py:255
 msgid "Convert-ly:"
 msgstr "Convert-ly:"
 
-#: ../preferences/lilypond.py:257
+#: ../preferences/lilypond.py:256
 msgid "LilyPond-book:"
 msgstr "LilyPond-book:"
 
-#: ../preferences/lilypond.py:258
+#: ../preferences/lilypond.py:257
 msgid "Midi2ly:"
 msgstr "Midi2ly:"
 
-#: ../preferences/lilypond.py:259
+#: ../preferences/lilypond.py:258
 msgid "MusicXML2ly:"
 msgstr "MusicXML2ly:"
 
-#: ../preferences/lilypond.py:260
+#: ../preferences/lilypond.py:259
 msgid "ABC2ly:"
 msgstr "ABC2ly:"
 
-#: ../preferences/lilypond.py:264
+#: ../preferences/lilypond.py:263
 msgid "Label:"
 msgstr "Štítek:"
 
-#: ../preferences/lilypond.py:265
+#: ../preferences/lilypond.py:264
 msgid "How this version of LilyPond will be displayed."
 msgstr "Jak se bude tato verze LilyPondu zobrazovat."
 
-#: ../preferences/lilypond.py:266
+#: ../preferences/lilypond.py:265
 msgid "LilyPond Command:"
 msgstr "Příkaz pro LilyPond:"
 
-#: ../preferences/lilypond.py:267
+#: ../preferences/lilypond.py:266
 msgid "Name or full path of the LilyPond program."
 msgstr "Název nebo úplná cesta k programu LilyPond."
 
-#: ../preferences/lilypond.py:268
+#: ../preferences/lilypond.py:267
 msgid "Include in automatic version selection"
 msgstr "Zahrnout do automatického výběru verze"
 
-#: ../preferences/lilypond.py:269
+#: ../preferences/lilypond.py:268
 msgid "General"
 msgstr "Obecné"
 
-#: ../preferences/lilypond.py:270
+#: ../preferences/lilypond.py:269
 msgid "Tool Commands"
 msgstr "Příkazy"
 
-#: ../preferences/lilypond.py:321
+#: ../preferences/lilypond.py:320
 msgid "Running LilyPond"
 msgstr "Spuštění LilyPondu"
 
-#: ../preferences/lilypond.py:322
+#: ../preferences/lilypond.py:321
 msgid "Save document if possible"
 msgstr "Uložit dokument, je-li to možné"
 
-#: ../preferences/lilypond.py:324
+#: ../preferences/lilypond.py:323
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
@@ -4399,22 +4456,22 @@ msgstr ""
 "Je-li zaškrtnuto, dokument je uložen, když je místní nebo upravený.\n"
 "Jinak je pro běh LilyPondu použit dočasný soubor."
 
-#: ../preferences/lilypond.py:328
+#: ../preferences/lilypond.py:327
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
-#: ../preferences/lilypond.py:329
+#: ../preferences/lilypond.py:328
 msgid "Embed Source Code files in publish mode"
 msgstr ""
 
-#: ../preferences/lilypond.py:331
+#: ../preferences/lilypond.py:330
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
 "when LilyPond is started in publish mode.\n"
 "This feature is available since LilyPond 2.19.39."
 msgstr ""
 
-#: ../preferences/lilypond.py:336
+#: ../preferences/lilypond.py:335
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
@@ -4422,42 +4479,42 @@ msgstr ""
 "Je-li zaškrtnuto, výstupní zprávy LilyPondu budou v anglickém jazyce.\n"
 "To může být užitečné pro hlášení o chybách."
 
-#: ../preferences/lilypond.py:338
+#: ../preferences/lilypond.py:337
 msgid "LilyPond include path:"
 msgstr "Cesta obsahující LilyPond:"
 
-#: ../preferences/lilypond.py:375
+#: ../preferences/lilypond.py:374
 msgid "Default output format"
 msgstr "Výchozí výstupní formát"
 
-#: ../preferences/lilypond.py:378
+#: ../preferences/lilypond.py:377
 msgid "Create PDF (Portable Document Format) documents by default."
 msgstr ""
 "Vytvářet dokumenty PDF (Portable Document Format - přenositelný formát "
 "dokumentu) ve výchozím nastavení."
 
-#: ../preferences/lilypond.py:381
+#: ../preferences/lilypond.py:380
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
 msgstr ""
 "Vytvářet dokumenty SVG (Scalable Vector Graphics - škálovatelná vektorová "
 "grafika) ve výchozím nastavení."
 
-#: ../preferences/lilypond.py:382
+#: ../preferences/lilypond.py:381
 msgid "Open default viewer after successful compile"
 msgstr "Po úspěšném překladu otevřít výchozí prohlížeč"
 
-#: ../preferences/lilypond.py:384
+#: ../preferences/lilypond.py:383
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
 "Ukáže, poté co je práce na překladu úspěšně dokončena, pohled na noty ve "
 "formátu PDF nebo SVG."
 
-#: ../preferences/midi.py:83
+#: ../preferences/midi.py:84
 msgid "MIDI Ports"
 msgstr "Přípojky MIDI"
 
-#: ../preferences/midi.py:85
+#: ../preferences/midi.py:86
 msgid ""
 "Note: There are no MIDI output ports available on your system. To use MIDI, "
 "please check if PortMIDI is installed on your system and that a MIDI "
@@ -4467,18 +4524,18 @@ msgstr ""
 "použití MIDI prověřte, prosím, zda je PortMIDI nainstalován ve vašem systému "
 "a že syntetizátor MIDI je dostupný nebo připojený."
 
-#: ../preferences/midi.py:88
+#: ../preferences/midi.py:89
 msgid "Player output:"
 msgstr "Výstup přehrávače:"
 
-#: ../preferences/midi.py:90
+#: ../preferences/midi.py:91
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
 "Přípojka MIDI pro přehrávání not. Pro další informace se podívejte na \"Co "
 "je toto\"."
 
-#: ../preferences/midi.py:93
+#: ../preferences/midi.py:94
 msgid ""
 "<p>This dropdown menu lists the available MIDI output ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -4492,11 +4549,11 @@ msgstr ""
 "<p>Klepněte na tlačítko pro obnovení seznamu, např. když připojíte zařízení "
 "MIDI nebo spustíte softwarový syntetizátor.</p>"
 
-#: ../preferences/midi.py:102
+#: ../preferences/midi.py:103
 msgid "Input port:"
 msgstr "Vstupní přípojka:"
 
-#: ../preferences/midi.py:104
+#: ../preferences/midi.py:105
 msgid ""
 "The MIDI port to get input from to write notes  See \"What's This\" for more "
 "information."
@@ -4504,7 +4561,7 @@ msgstr ""
 "Přípojka MIDI pro získání vstupu,  z něhož se budou zapisovat noty. Pro "
 "další informace se podívejte na \"Co je toto\"."
 
-#: ../preferences/midi.py:107
+#: ../preferences/midi.py:108
 msgid ""
 "<p>This dropdown menu lists the available MIDI input ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -4518,15 +4575,15 @@ msgstr ""
 "<p>Klepněte na tlačítko pro obnovení seznamu, např. když připojíte zařízení "
 "MIDI nebo spustíte softwarový syntetizátor.</p>"
 
-#: ../preferences/midi.py:116
+#: ../preferences/midi.py:117
 msgid "Refresh MIDI ports"
 msgstr "Obnovit přípojky MIDI"
 
-#: ../preferences/midi.py:171
+#: ../preferences/midi.py:172
 msgid "Close unused MIDI output"
 msgstr "Zavřít nepoužívaný výstup MIDI"
 
-#: ../preferences/midi.py:173
+#: ../preferences/midi.py:174
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
@@ -4534,7 +4591,7 @@ msgstr ""
 "Po jedné minutě zavře nepoužívané přípojky MIDI. Pro další informace se "
 "podívejte na \"Co je toto\"."
 
-#: ../preferences/midi.py:176
+#: ../preferences/midi.py:177
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -4552,17 +4609,17 @@ msgstr ""
 "nástroje jsou nastaveny znovu na výchozí klavír (nástroj 0). V tom případě "
 "přehrávání souboru od začátku nastaví nástroje znovu.</p>\n"
 
-#: ../preferences/midi.py:184
+#: ../preferences/midi.py:185
 msgid "Polling time for input:"
 msgstr "Čas prozkoumávání pro vstup:"
 
-#: ../preferences/midi.py:186
+#: ../preferences/midi.py:187
 msgid "Polling time for MIDI input. See \"What's This\" for more information."
 msgstr ""
 "Čas prozkoumávání pro vstup MIDI. Podívejte se na \"Co je toto\" pro další "
 "informace."
 
-#: ../preferences/midi.py:189
+#: ../preferences/midi.py:190
 #, fuzzy
 msgid ""
 "Sets the time between the polling of the MIDI input port in milliseconds. "
@@ -4577,51 +4634,51 @@ msgstr ""
 msgid "Folders containing hyphenation dictionaries"
 msgstr "Složky obsahující slovníky s dělením slov"
 
-#: ../preferences/shortcuts.py:56 ../snippet/model.py:63
+#: ../preferences/shortcuts.py:57 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr "Zkratka"
 
-#: ../preferences/shortcuts.py:100
+#: ../preferences/shortcuts.py:101
 #, python-brace-format
 msgid "Menu {name}"
 msgstr "Nabídka {name}"
 
-#: ../preferences/shortcuts.py:128
+#: ../preferences/shortcuts.py:129
 msgid "Other commands:"
 msgstr "Jiné příkazy:"
 
-#: ../preferences/shortcuts.py:189
+#: ../preferences/shortcuts.py:190
 #, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr "&Upravit zkratku pro \"{name}\""
 
-#: ../preferences/shortcuts.py:194
+#: ../preferences/shortcuts.py:195
 msgid "(no shortcut)"
 msgstr "(žádná zkratka)"
 
-#: ../preferences/shortcuts.py:335
+#: ../preferences/shortcuts.py:336
 msgid "(default)"
 msgstr "(výchozí)"
 
-#: ../preferences/tools.py:93
+#: ../preferences/tools.py:94
 msgid "Show log when a job is started"
 msgstr "Ukázat zápis při započetí s prací"
 
-#: ../preferences/tools.py:94
+#: ../preferences/tools.py:95
 msgid "Display plain log output"
 msgstr "Zobrazit prostý výstup zápisu"
 
-#: ../preferences/tools.py:96
+#: ../preferences/tools.py:97
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude zkracovat názvy souborů ve výstupu se "
 "zápisem."
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:98
 msgid "Hide automatic engraving jobs"
 msgstr "Skrýt automatické rytecké práce"
 
-#: ../preferences/tools.py:99
+#: ../preferences/tools.py:100
 msgid ""
 "If checked, Frescobaldi will not show the log for automatically\n"
 "started engraving jobs (LilyPond->Auto-engrave)."
@@ -4629,15 +4686,15 @@ msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude ukazovat záznam pro automaticky "
 "spuštěné rytecké práce (LilyPond → Vyrýt automaticky)."
 
-#: ../preferences/tools.py:165
+#: ../preferences/tools.py:166
 msgid "Music View"
 msgstr "Pohled na noty"
 
-#: ../preferences/tools.py:166
+#: ../preferences/tools.py:167
 msgid "Only load updated PDF documents"
 msgstr "Nahrát pouze aktualizované dokumenty PDF"
 
-#: ../preferences/tools.py:168
+#: ../preferences/tools.py:169
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
@@ -4645,54 +4702,54 @@ msgstr ""
 "Je-li zaškrtnuto, Frescobaldi nebude otevírat dokumenty PDF,\n"
 "jež nejsou nejnovější (to jest, že zdrojový soubor byl později změněn)."
 
-#: ../preferences/tools.py:170
+#: ../preferences/tools.py:171
 msgid "Magnifier Size:"
 msgstr "Velikost lupy:"
 
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:173
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "Velikost zvětšovacího skla (Ctrl+klepnutí v pohledu na noty)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:174
+#: ../preferences/tools.py:175
 msgid " pixels"
 msgstr " pixelů"
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:176
 msgid "Magnifier Scale:"
 msgstr "Měřítko lupy:"
 
-#: ../preferences/tools.py:177
+#: ../preferences/tools.py:178
 msgid "Magnification of the magnifier."
 msgstr "Zvětšení lupy."
 
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:179
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:180
+#: ../preferences/tools.py:181
 msgid "Kinetic Scrolling"
 msgstr "Pohybové projíždění"
 
-#: ../preferences/tools.py:181
+#: ../preferences/tools.py:182
 msgid "Show Scrollbars"
 msgstr "Ukázat posuvníky"
 
-#: ../preferences/tools.py:266
+#: ../preferences/tools.py:267
 msgid "Group documents by directory"
 msgstr "Seskupit dokumenty podle adresáře"
 
-#: ../preferences/tools.py:299
+#: ../preferences/tools.py:300
 msgid "Restores the built-in outline patterns."
 msgstr "Obnoví vestavěné vzory osnovy."
 
-#: ../preferences/tools.py:300
+#: ../preferences/tools.py:301
 msgid "Patterns to match in text that are shown in outline:"
 msgstr "Vzory k porovnání v textu, které jsou ukázány v osnově:"
 
-#: ../preferences/tools.py:326
+#: ../preferences/tools.py:327
 msgid "Enter a regular expression to match:"
 msgstr "Zadat regulární výraz k porovnání:"
 
@@ -4704,201 +4761,201 @@ msgstr "Rychlé vložení"
 msgid "Quick &Insert"
 msgstr "Rychlé v&ložení"
 
-#: ../quickinsert/articulations.py:96
+#: ../quickinsert/articulations.py:97
 msgid "Allow shorthands"
 msgstr "Povolit zkrácený zápis"
 
-#: ../quickinsert/articulations.py:98
+#: ../quickinsert/articulations.py:99
 msgid "Use short notation for some articulations like staccato."
 msgstr "Použít krátký zápis pro některé artikulace jako je staccato."
 
-#: ../quickinsert/articulations.py:100
+#: ../quickinsert/articulations.py:101
 msgid "Remove articulations etc."
 msgstr "Odstranit artikulace atd."
 
-#: ../quickinsert/articulations.py:108 ../quickinsert/articulations.py:146
+#: ../quickinsert/articulations.py:109 ../quickinsert/articulations.py:147
 #: ../userguide/quickinsert.md:16
 msgid "Articulations"
 msgstr "Artikulace"
 
-#: ../quickinsert/articulations.py:112
+#: ../quickinsert/articulations.py:113
 msgid "Different kinds of articulations and other signs."
 msgstr "Různé druhy artikulací a dalších značek."
 
-#: ../quickinsert/articulations.py:149
+#: ../quickinsert/articulations.py:150
 msgid "Accent"
 msgstr "Akcent (důraz)"
 
-#: ../quickinsert/articulations.py:150
+#: ../quickinsert/articulations.py:151
 msgid "Marcato"
 msgstr "Marcato (důrazně)"
 
-#: ../quickinsert/articulations.py:151
+#: ../quickinsert/articulations.py:152
 msgid "Staccatissimo"
 msgstr "Staccatissimo (nejkratčeji)"
 
-#: ../quickinsert/articulations.py:152
+#: ../quickinsert/articulations.py:153
 msgid "Staccato"
 msgstr "Staccato (krátce)"
 
-#: ../quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:154
 msgid "Portato"
 msgstr "Portato"
 
-#: ../quickinsert/articulations.py:154
+#: ../quickinsert/articulations.py:155
 msgid "Tenuto"
 msgstr "Tenuto (drženě)"
 
-#: ../quickinsert/articulations.py:155
+#: ../quickinsert/articulations.py:156
 msgid "Espressivo"
 msgstr "Espressivo (výrazně)"
 
-#: ../quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:161
 msgid "Ornaments"
 msgstr "Ozdoby"
 
-#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:174
+#: ../quickinsert/articulations.py:164 ../quickinsert/spanners.py:175
 msgid "Trill"
 msgstr "Trylek"
 
-#: ../quickinsert/articulations.py:164
+#: ../quickinsert/articulations.py:165
 msgid "Prall"
 msgstr "Nátryl"
 
-#: ../quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:166
 msgid "Mordent"
 msgstr "Mordent"
 
-#: ../quickinsert/articulations.py:166
+#: ../quickinsert/articulations.py:167
 msgid "Turn"
 msgstr "Obal"
 
-#: ../quickinsert/articulations.py:167
+#: ../quickinsert/articulations.py:168
 msgid "Prall prall"
 msgstr "Nátryl nátrylu"
 
-#: ../quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:169
 msgid "Prall mordent"
 msgstr "Mordent nátrylu"
 
-#: ../quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:170
 msgid "Up prall"
 msgstr "Nátryl nahoru"
 
-#: ../quickinsert/articulations.py:170
+#: ../quickinsert/articulations.py:171
 msgid "Down prall"
 msgstr "Nátryl dolů"
 
-#: ../quickinsert/articulations.py:171
+#: ../quickinsert/articulations.py:172
 msgid "Up mordent"
 msgstr "Mordent nahoru"
 
-#: ../quickinsert/articulations.py:172
+#: ../quickinsert/articulations.py:173
 msgid "Down mordent"
 msgstr "Mordent dolů"
 
-#: ../quickinsert/articulations.py:173
+#: ../quickinsert/articulations.py:174
 msgid "Prall up"
 msgstr "Nátryl nahoru"
 
-#: ../quickinsert/articulations.py:174
+#: ../quickinsert/articulations.py:175
 msgid "Prall down"
 msgstr "Nátryl dolů"
 
-#: ../quickinsert/articulations.py:175
+#: ../quickinsert/articulations.py:176
 msgid "Line prall"
 msgstr "Nátryl na lince notové osnovy"
 
-#: ../quickinsert/articulations.py:176
+#: ../quickinsert/articulations.py:177
 msgid "Reverse turn"
 msgstr "Obrátit obal"
 
 #. L10N: dynamic signs
-#: ../quickinsert/articulations.py:181 ../quickinsert/dynamics.py:142
+#: ../quickinsert/articulations.py:182 ../quickinsert/dynamics.py:143
 msgid "Signs"
 msgstr "Předznamenání"
 
-#: ../quickinsert/articulations.py:184
+#: ../quickinsert/articulations.py:185
 msgid "Fermata"
 msgstr "Koruna (fermata)"
 
-#: ../quickinsert/articulations.py:185
+#: ../quickinsert/articulations.py:186
 msgid "Short fermata"
 msgstr "Krátká koruna (~ fermata)"
 
-#: ../quickinsert/articulations.py:186
+#: ../quickinsert/articulations.py:187
 msgid "Long fermata"
 msgstr "Dlouhá koruna (~ fermata)"
 
-#: ../quickinsert/articulations.py:187
+#: ../quickinsert/articulations.py:188
 msgid "Very long fermata"
 msgstr "Velmi dlouhá koruna (~ fermata)"
 
-#: ../quickinsert/articulations.py:188
+#: ../quickinsert/articulations.py:189
 msgid "Segno"
 msgstr "Segno"
 
-#: ../quickinsert/articulations.py:189
+#: ../quickinsert/articulations.py:190
 msgid "Coda"
 msgstr "Coda"
 
-#: ../quickinsert/articulations.py:190
+#: ../quickinsert/articulations.py:191
 msgid "Varcoda"
 msgstr "Varcoda"
 
-#: ../quickinsert/articulations.py:191
+#: ../quickinsert/articulations.py:192
 msgid "Signumcongruentiae"
 msgstr "Signum congruentiae (značka pro shodu)"
 
-#: ../quickinsert/articulations.py:196
+#: ../quickinsert/articulations.py:197
 msgid "Other"
 msgstr "Jiné"
 
-#: ../quickinsert/articulations.py:199
+#: ../quickinsert/articulations.py:200
 msgid "Upbow"
 msgstr "Tah smyčcem nahoru"
 
-#: ../quickinsert/articulations.py:200
+#: ../quickinsert/articulations.py:201
 msgid "Downbow"
 msgstr "Tah smyčcem dolů"
 
-#: ../quickinsert/articulations.py:201
+#: ../quickinsert/articulations.py:202
 msgid "Snappizzicato"
 msgstr "Kvapné pizzicato"
 
-#: ../quickinsert/articulations.py:202
+#: ../quickinsert/articulations.py:203
 msgid "Open (e.g. brass)"
 msgstr "Otevřeno (např. žestě)"
 
-#: ../quickinsert/articulations.py:203
+#: ../quickinsert/articulations.py:204
 msgid "Stopped (e.g. brass)"
 msgstr "Zastaveno (např. žestě)"
 
-#: ../quickinsert/articulations.py:204
+#: ../quickinsert/articulations.py:205
 msgid "Flageolet"
 msgstr "Flažolet"
 
-#: ../quickinsert/articulations.py:205
+#: ../quickinsert/articulations.py:206
 msgid "Thumb"
 msgstr "Palec"
 
-#: ../quickinsert/articulations.py:206
+#: ../quickinsert/articulations.py:207
 msgid "Left heel"
 msgstr "Levá pata"
 
-#: ../quickinsert/articulations.py:207
+#: ../quickinsert/articulations.py:208
 msgid "Right heel"
 msgstr "Pravá pata"
 
-#: ../quickinsert/articulations.py:208
+#: ../quickinsert/articulations.py:209
 msgid "Left toe"
 msgstr "Levý prst"
 
-#: ../quickinsert/articulations.py:209
+#: ../quickinsert/articulations.py:210
 msgid "Right toe"
 msgstr "Pravý prst"
 
-#: ../quickinsert/articulations.py:210
+#: ../quickinsert/articulations.py:211
 msgid "Half open (e.g. hi-hat)"
 msgstr "Napůl otevřeno (např. hajtka)"
 
@@ -5015,140 +5072,140 @@ msgstr "Zahnuté přerušení (césura)"
 msgid "Straight Caesura"
 msgstr "Přímé přerušení (césura)"
 
-#: ../quickinsert/buttongroup.py:179
+#: ../quickinsert/buttongroup.py:180
 #, python-brace-format
 msgid "{name} ({key})"
 msgstr "{name} ({key})"
 
-#: ../quickinsert/buttongroup.py:186
+#: ../quickinsert/buttongroup.py:187
 #, python-brace-format
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr "Nastavit klávesovou zkratku ({key})"
 
-#: ../quickinsert/buttongroup.py:186 ../scorewiz/scoreproperties.py:171
+#: ../quickinsert/buttongroup.py:187 ../scorewiz/scoreproperties.py:173
 #: ../scorewiz/settings.py:215 ../snippet/edit.py:224
 msgid "None"
 msgstr "Žádný"
 
-#: ../quickinsert/dynamics.py:74 ../userguide/quickinsert.md:29
+#: ../quickinsert/dynamics.py:75 ../userguide/quickinsert.md:29
 msgid "Dynamics"
 msgstr "Dynamika"
 
-#: ../quickinsert/dynamics.py:78
+#: ../quickinsert/dynamics.py:79
 msgid "Dynamic symbols."
 msgstr "Symboly pro dynamiku."
 
-#: ../quickinsert/dynamics.py:155
+#: ../quickinsert/dynamics.py:156
 #, python-brace-format
 msgid "Dynamic sign {name}"
 msgstr "Značka dynamiky {name}"
 
-#: ../quickinsert/dynamics.py:160 ../quickinsert/spanners.py:75
-#: ../quickinsert/spanners.py:164 ../userguide/quickinsert.md:37
+#: ../quickinsert/dynamics.py:161 ../quickinsert/spanners.py:76
+#: ../quickinsert/spanners.py:165 ../userguide/quickinsert.md:37
 msgid "Spanners"
 msgstr "Natahovače"
 
-#: ../quickinsert/dynamics.py:169
+#: ../quickinsert/dynamics.py:170
 msgid "Hairpin crescendo"
 msgstr "Sponka crescenda"
 
-#: ../quickinsert/dynamics.py:170
+#: ../quickinsert/dynamics.py:171
 msgid "Crescendo"
 msgstr "Crescendo"
 
-#: ../quickinsert/dynamics.py:171
+#: ../quickinsert/dynamics.py:172
 msgid "Hairpin diminuendo"
 msgstr "Sponka diminuenda"
 
-#: ../quickinsert/dynamics.py:172
+#: ../quickinsert/dynamics.py:173
 msgid "Diminuendo"
 msgstr "Diminuendo"
 
-#: ../quickinsert/dynamics.py:173
+#: ../quickinsert/dynamics.py:174
 msgid "Decrescendo"
 msgstr "Decrescendo"
 
-#: ../quickinsert/spanners.py:79
+#: ../quickinsert/spanners.py:80
 msgid "Slurs, spanners, etcetera."
 msgstr "Legatové obloučky, natahovače atd."
 
-#: ../quickinsert/spanners.py:84
+#: ../quickinsert/spanners.py:85
 msgid "Arpeggios"
 msgstr "Arpeggia"
 
-#: ../quickinsert/spanners.py:93
+#: ../quickinsert/spanners.py:94
 msgid "Arpeggio"
 msgstr "Arpeggio"
 
-#: ../quickinsert/spanners.py:94
+#: ../quickinsert/spanners.py:95
 msgid "Arpeggio with Up Arrow"
 msgstr "Arpeggio s šipkou nahoru"
 
-#: ../quickinsert/spanners.py:95
+#: ../quickinsert/spanners.py:96
 msgid "Arpeggio with Down Arrow"
 msgstr "Arpeggio s šipkou dolů"
 
-#: ../quickinsert/spanners.py:96
+#: ../quickinsert/spanners.py:97
 msgid "Bracket Arpeggio"
 msgstr "Arpeggio v závorce"
 
-#: ../quickinsert/spanners.py:97
+#: ../quickinsert/spanners.py:98
 msgid "Parenthesis Arpeggio"
 msgstr "Arpeggio v kulaté závorce"
 
-#: ../quickinsert/spanners.py:131
+#: ../quickinsert/spanners.py:132
 msgid "Glissandos"
 msgstr "Glissanda"
 
-#: ../quickinsert/spanners.py:140
+#: ../quickinsert/spanners.py:141
 msgid "Glissando"
 msgstr "Glissando"
 
-#: ../quickinsert/spanners.py:141
+#: ../quickinsert/spanners.py:142
 msgid "Dashed Glissando"
 msgstr "Čárkované glissando"
 
-#: ../quickinsert/spanners.py:142
+#: ../quickinsert/spanners.py:143
 msgid "Dotted Glissando"
 msgstr "Tečkované glissando"
 
-#: ../quickinsert/spanners.py:143
+#: ../quickinsert/spanners.py:144
 msgid "Zigzag Glissando"
 msgstr "Klikaté glissando"
 
-#: ../quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:145
 msgid "Trill Glissando"
 msgstr "Trylkové glissando"
 
-#: ../quickinsert/spanners.py:172
+#: ../quickinsert/spanners.py:173
 msgid "Phrasing Slur"
 msgstr "Frázovací oblouček"
 
-#: ../quickinsert/spanners.py:175
+#: ../quickinsert/spanners.py:176
 msgid "Melisma"
 msgstr "Melisma"
 
-#: ../quickinsert/spanners.py:198 ../quickinsert/spanners.py:205
+#: ../quickinsert/spanners.py:199 ../quickinsert/spanners.py:206
 msgid "Grace Notes"
 msgstr "Noty ozdob"
 
-#: ../quickinsert/spanners.py:206
+#: ../quickinsert/spanners.py:207
 msgid "Grace Notes w. beaming"
 msgstr "Noty ozdob s trámci"
 
-#: ../quickinsert/spanners.py:207
+#: ../quickinsert/spanners.py:208
 msgid "Acciaccatura"
 msgstr "Acciaccatura"
 
-#: ../quickinsert/spanners.py:208
+#: ../quickinsert/spanners.py:209
 msgid "Appoggiatura"
 msgstr "Appogiatura"
 
-#: ../quickinsert/spanners.py:209
+#: ../quickinsert/spanners.py:210
 msgid "Slashed no slur"
 msgstr "Škrtnuto, bez legatového obloučku"
 
-#: ../quickinsert/spanners.py:210
+#: ../quickinsert/spanners.py:211
 msgid "After grace"
 msgstr "Po ozdobě"
 
@@ -5326,7 +5383,7 @@ msgstr "Použít rytmus"
 msgid "Enter a rhythm:"
 msgstr "Zadat rytmus:"
 
-#: ../scorewiz/__init__.py:61
+#: ../scorewiz/__init__.py:62
 msgid "Score &Wizard..."
 msgstr "&Průvodce pro notový zápis..."
 
@@ -5366,67 +5423,67 @@ msgstr "&Hlasy"
 msgid "&Score settings"
 msgstr "Nastavení &notového zápisu"
 
-#: ../scorewiz/header.py:86
+#: ../scorewiz/header.py:87
 msgid "Click to enter a value."
 msgstr "Klepněte pro zadání hodnoty."
 
-#: ../scorewiz/header.py:88
+#: ../scorewiz/header.py:89
 msgid "bottom of first page"
 msgstr "úpatí první strany"
 
-#: ../scorewiz/header.py:89
+#: ../scorewiz/header.py:90
 msgid "bottom of last page"
 msgstr "úpatí poslední strany"
 
-#: ../scorewiz/header.py:129
+#: ../scorewiz/header.py:130
 msgid "Dedication"
 msgstr "Věnování"
 
-#: ../scorewiz/header.py:130
+#: ../scorewiz/header.py:131
 msgid "Title"
 msgstr "Název"
 
-#: ../scorewiz/header.py:131
+#: ../scorewiz/header.py:132
 msgid "Subtitle"
 msgstr "Podnázev"
 
-#: ../scorewiz/header.py:132
+#: ../scorewiz/header.py:133
 msgid "Subsubtitle"
 msgstr "Podpodnázev"
 
-#: ../scorewiz/header.py:133
+#: ../scorewiz/header.py:134
 msgid "Instrument"
 msgstr "Nástroj"
 
-#: ../scorewiz/header.py:134
+#: ../scorewiz/header.py:135
 msgid "Composer"
 msgstr "Skladatel"
 
-#: ../scorewiz/header.py:135
+#: ../scorewiz/header.py:136
 msgid "Arranger"
 msgstr "Aranžér"
 
-#: ../scorewiz/header.py:136
+#: ../scorewiz/header.py:137
 msgid "Poet"
 msgstr "Básník"
 
-#: ../scorewiz/header.py:137
+#: ../scorewiz/header.py:138
 msgid "Meter"
 msgstr "Metrum"
 
-#: ../scorewiz/header.py:138
+#: ../scorewiz/header.py:139
 msgid "Piece"
 msgstr "Kus"
 
-#: ../scorewiz/header.py:139
+#: ../scorewiz/header.py:140
 msgid "Opus"
 msgstr "Dílo"
 
-#: ../scorewiz/header.py:140
+#: ../scorewiz/header.py:141
 msgid "Copyright"
 msgstr "Autorské právo"
 
-#: ../scorewiz/header.py:141
+#: ../scorewiz/header.py:142
 msgid "Tagline"
 msgstr "Heslo"
 
@@ -5442,7 +5499,7 @@ msgstr "Notový zápis:"
 msgid "&Add"
 msgstr "&Přidat"
 
-#: ../scorewiz/score.py:103 ../snippet/widget.py:194 ../widgets/listedit.py:93
+#: ../scorewiz/score.py:103 ../snippet/widget.py:195 ../widgets/listedit.py:94
 #: ../widgets/schemeselector.py:94
 msgid "&Remove"
 msgstr "&Odstranit"
@@ -5455,67 +5512,67 @@ msgstr "Přesunout nahoru"
 msgid "Move down"
 msgstr "Přesunout dolů"
 
-#: ../scorewiz/scoreproperties.py:99
+#: ../scorewiz/scoreproperties.py:101
 msgid "Key signature:"
 msgstr "Předznamenání"
 
-#: ../scorewiz/scoreproperties.py:135
+#: ../scorewiz/scoreproperties.py:137
 msgid "Time signature:"
 msgstr "Taktové označení:"
 
-#: ../scorewiz/scoreproperties.py:177
+#: ../scorewiz/scoreproperties.py:179
 msgid "Pickup measure:"
 msgstr "Předtaktí:"
 
-#: ../scorewiz/scoreproperties.py:228
+#: ../scorewiz/scoreproperties.py:230
 msgid "Metronome mark:"
 msgstr "Hodnota na metronomu:"
 
-#: ../scorewiz/scoreproperties.py:229
+#: ../scorewiz/scoreproperties.py:231
 msgid "Round tap tempo value"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:231
+#: ../scorewiz/scoreproperties.py:233
 msgid "Round the entered tap tempo to a common value."
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:260
+#: ../scorewiz/scoreproperties.py:262
 msgid "Tempo indication:"
 msgstr "Údaj o tempu:"
 
-#: ../scorewiz/scoreproperties.py:399
+#: ../scorewiz/scoreproperties.py:401
 msgid "Major"
 msgstr "Dur"
 
-#: ../scorewiz/scoreproperties.py:400
+#: ../scorewiz/scoreproperties.py:402
 msgid "Minor"
 msgstr "Moll"
 
-#: ../scorewiz/scoreproperties.py:401
+#: ../scorewiz/scoreproperties.py:403
 msgid "Ionian"
 msgstr "Jónský"
 
-#: ../scorewiz/scoreproperties.py:402
+#: ../scorewiz/scoreproperties.py:404
 msgid "Dorian"
 msgstr "Dórský"
 
-#: ../scorewiz/scoreproperties.py:403
+#: ../scorewiz/scoreproperties.py:405
 msgid "Phrygian"
 msgstr "Frýgický"
 
-#: ../scorewiz/scoreproperties.py:404
+#: ../scorewiz/scoreproperties.py:406
 msgid "Lydian"
 msgstr "Lýdický"
 
-#: ../scorewiz/scoreproperties.py:405
+#: ../scorewiz/scoreproperties.py:407
 msgid "Mixolydian"
 msgstr "Mixolýdický"
 
-#: ../scorewiz/scoreproperties.py:406
+#: ../scorewiz/scoreproperties.py:408
 msgid "Aeolian"
 msgstr "Éolský"
 
-#: ../scorewiz/scoreproperties.py:407
+#: ../scorewiz/scoreproperties.py:409
 msgid "Locrian"
 msgstr "Lokrijský"
 
@@ -5940,140 +5997,140 @@ msgstr "Cel."
 msgid "Keyboard instruments"
 msgstr "Klávesové nástroje"
 
-#: ../scorewiz/parts/percussion.py:43
+#: ../scorewiz/parts/percussion.py:44
 msgid "Timpani"
 msgstr "Kotle"
 
-#: ../scorewiz/parts/percussion.py:47
+#: ../scorewiz/parts/percussion.py:48
 msgctxt "abbreviation for Timpani"
 msgid "Tmp."
 msgstr "Kot."
 
-#: ../scorewiz/parts/percussion.py:57
+#: ../scorewiz/parts/percussion.py:58
 msgid "Xylophone"
 msgstr "Xylofon"
 
-#: ../scorewiz/parts/percussion.py:61
+#: ../scorewiz/parts/percussion.py:62
 msgctxt "abbreviation for Xylophone"
 msgid "Xyl."
 msgstr "Xyl."
 
-#: ../scorewiz/parts/percussion.py:69
+#: ../scorewiz/parts/percussion.py:70
 msgid "Marimba"
 msgstr "Marimba"
 
-#: ../scorewiz/parts/percussion.py:73
+#: ../scorewiz/parts/percussion.py:74
 msgctxt "abbreviation for Marimba"
 msgid "Mar."
 msgstr "Mar."
 
-#: ../scorewiz/parts/percussion.py:82 ../scorewiz/parts/plucked_strings.py:382
+#: ../scorewiz/parts/percussion.py:83 ../scorewiz/parts/plucked_strings.py:382
 msgid "Upper staff:"
 msgstr "Horní notová osnova:"
 
-#: ../scorewiz/parts/percussion.py:83 ../scorewiz/parts/plucked_strings.py:383
+#: ../scorewiz/parts/percussion.py:84 ../scorewiz/parts/plucked_strings.py:383
 msgid "Lower staff:"
 msgstr "Dolní notová osnova:"
 
-#: ../scorewiz/parts/percussion.py:85
+#: ../scorewiz/parts/percussion.py:86
 msgid "Set the number of voices to 0 to disable the second staff."
 msgstr "Nastavte počet hlasů na 0 pro zakázání druhé osnovy."
 
-#: ../scorewiz/parts/percussion.py:97
+#: ../scorewiz/parts/percussion.py:98
 msgid "Vibraphone"
 msgstr "Vibrafon"
 
-#: ../scorewiz/parts/percussion.py:101
+#: ../scorewiz/parts/percussion.py:102
 msgctxt "abbreviation for Vibraphone"
 msgid "Vib."
 msgstr "Vib."
 
-#: ../scorewiz/parts/percussion.py:109
+#: ../scorewiz/parts/percussion.py:110
 msgid "Tubular bells"
 msgstr "Trubkové zvony"
 
-#: ../scorewiz/parts/percussion.py:113
+#: ../scorewiz/parts/percussion.py:114
 msgctxt "abbreviation for Tubular bells"
 msgid "Tub."
 msgstr "Tru. zv."
 
-#: ../scorewiz/parts/percussion.py:121
+#: ../scorewiz/parts/percussion.py:122
 msgid "Glockenspiel"
 msgstr "Zvonková hra"
 
-#: ../scorewiz/parts/percussion.py:125
+#: ../scorewiz/parts/percussion.py:126
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
 msgstr "Zvo."
 
-#: ../scorewiz/parts/percussion.py:133
+#: ../scorewiz/parts/percussion.py:134
 msgid "Carillon"
 msgstr "Zvonkohra"
 
-#: ../scorewiz/parts/percussion.py:137
+#: ../scorewiz/parts/percussion.py:138
 msgctxt "abbreviation for Carillon"
 msgid "Car."
 msgstr "Zvon."
 
-#: ../scorewiz/parts/percussion.py:143
+#: ../scorewiz/parts/percussion.py:144
 msgid "Manual staff:"
 msgstr "Ruční osnova:"
 
-#: ../scorewiz/parts/percussion.py:144
+#: ../scorewiz/parts/percussion.py:145
 msgid "Pedal staff:"
 msgstr "Pedálová osnova:"
 
-#: ../scorewiz/parts/percussion.py:159
+#: ../scorewiz/parts/percussion.py:160
 msgid "Drums"
 msgstr "Bubny"
 
-#: ../scorewiz/parts/percussion.py:163
+#: ../scorewiz/parts/percussion.py:164
 msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr "Bub."
 
-#: ../scorewiz/parts/percussion.py:184
+#: ../scorewiz/parts/percussion.py:185
 #: ../scorewiz/parts/plucked_strings.py:318
 msgid "Voices:"
 msgstr "Pěvecké hlasy:"
 
-#: ../scorewiz/parts/percussion.py:186
+#: ../scorewiz/parts/percussion.py:187
 msgid "Remove stems"
 msgstr "Odstranit nožky not"
 
-#: ../scorewiz/parts/percussion.py:187
+#: ../scorewiz/parts/percussion.py:188
 msgid "Remove the stems from the drum notes."
 msgstr "Odstranit nožky z not pro bicí."
 
-#: ../scorewiz/parts/percussion.py:199
+#: ../scorewiz/parts/percussion.py:200
 msgid "Drums follow here."
 msgstr "Zde následují bubny."
 
-#: ../scorewiz/parts/percussion.py:224
+#: ../scorewiz/parts/percussion.py:225
 msgid "keep some distance."
 msgstr "Udržovat trochu odstup."
 
-#: ../scorewiz/parts/percussion.py:230
+#: ../scorewiz/parts/percussion.py:231
 msgid "Drums (5 lines, default)"
 msgstr "Bubny (pět linek, výchozí)"
 
-#: ../scorewiz/parts/percussion.py:231
+#: ../scorewiz/parts/percussion.py:232
 msgid "Timbales-style (2 lines)"
 msgstr "Styl timbále (dvě linky)"
 
-#: ../scorewiz/parts/percussion.py:232
+#: ../scorewiz/parts/percussion.py:233
 msgid "Congas-style (2 lines)"
 msgstr "Styl konga (dvě linky; vysoký a úzký buben, na který se hraje dlaněmi)"
 
-#: ../scorewiz/parts/percussion.py:233
+#: ../scorewiz/parts/percussion.py:234
 msgid "Bongos-style (2 lines)"
 msgstr "Styl bonga (dvě linky; buben)"
 
-#: ../scorewiz/parts/percussion.py:234
+#: ../scorewiz/parts/percussion.py:235
 msgid "Percussion-style (1 line)"
 msgstr "Styl bicí (dvě linky)"
 
-#: ../scorewiz/parts/percussion.py:240
+#: ../scorewiz/parts/percussion.py:241
 msgid "Percussion"
 msgstr "Bicí nástroje"
 
@@ -6787,47 +6844,47 @@ msgstr "Skb. z. fl."
 msgid "Woodwinds"
 msgstr "Dřevěné dechové nástroje"
 
-#: ../search/__init__.py:103
+#: ../search/__init__.py:104
 msgid "Search:"
 msgstr "Hledat:"
 
-#: ../search/__init__.py:104
+#: ../search/__init__.py:105
 msgid "&Case"
 msgstr "&Písmovka"
 
-#: ../search/__init__.py:105
+#: ../search/__init__.py:106
 msgid "Case Sensitive"
 msgstr "Rozlišovat velká/malá písmena"
 
-#: ../search/__init__.py:106
+#: ../search/__init__.py:107
 msgid "&Regex"
 msgstr "&Regulární výraz"
 
-#: ../search/__init__.py:107
+#: ../search/__init__.py:108
 msgid "Regular Expression"
 msgstr "Regulární výraz"
 
-#: ../search/__init__.py:108
+#: ../search/__init__.py:109
 msgid "The total number of matches"
 msgstr "Celkový počet shod"
 
-#: ../search/__init__.py:110
+#: ../search/__init__.py:111
 msgid "Replace:"
 msgstr "Nahradit:"
 
-#: ../search/__init__.py:111
+#: ../search/__init__.py:112
 msgid "Re&place"
 msgstr "Na&hradit"
 
-#: ../search/__init__.py:112
+#: ../search/__init__.py:113
 msgid "Replaces the next occurrence of the search term."
 msgstr "Nahradit další výskyt hledaného pojmu."
 
-#: ../search/__init__.py:113
+#: ../search/__init__.py:114
 msgid "&All"
 msgstr "&Vše"
 
-#: ../search/__init__.py:114
+#: ../search/__init__.py:115
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr "Nahradit všechny výskyty hledaného pojmu v dokumentu nebo ve výběru."
@@ -6836,7 +6893,7 @@ msgstr "Nahradit všechny výskyty hledaného pojmu v dokumentu nebo ve výběru
 msgid "Manage Sessions"
 msgstr "Spravovat sezení"
 
-#: ../sessions/dialog.py:79 ../snippet/widget.py:198
+#: ../sessions/dialog.py:79 ../snippet/widget.py:199
 #: ../widgets/schemeselector.py:96
 msgid "&Import..."
 msgstr "&Zavést..."
@@ -6845,7 +6902,7 @@ msgstr "&Zavést..."
 msgid "Opens a dialog to import a session from a file."
 msgstr "Otevře dialogové okno pro zavedení sezení ze souboru."
 
-#: ../sessions/dialog.py:81 ../snippet/widget.py:200
+#: ../sessions/dialog.py:81 ../snippet/widget.py:201
 msgid "E&xport..."
 msgstr "&Vyvést..."
 
@@ -7126,7 +7183,7 @@ msgstr "Základní vzorový list"
 msgid "Choir Hymn"
 msgstr "Sborový chvalozpěv"
 
-#: ../snippet/edit.py:126 ../snippet/insert.py:254
+#: ../snippet/edit.py:126 ../snippet/insert.py:255
 msgid "Edit Snippet"
 msgstr "Upravit úryvek"
 
@@ -7205,40 +7262,40 @@ msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
 "Vybraný text, je-li dostupný. Pokud není, ukazatel textu je přesunut sem."
 
-#: ../snippet/import_export.py:103
+#: ../snippet/import_export.py:104
 msgid "No snippets found."
 msgstr "Nenalezeny žádné úryvky."
 
-#: ../snippet/import_export.py:113 ../snippet/widget.py:301
+#: ../snippet/import_export.py:114 ../snippet/widget.py:302
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr "Zavést úryvky"
 
-#: ../snippet/import_export.py:122
+#: ../snippet/import_export.py:123
 msgid "New Snippets"
 msgstr "Nové úryvky"
 
-#: ../snippet/import_export.py:123
+#: ../snippet/import_export.py:124
 msgid "Updated Snippets"
 msgstr "Aktualizované úryvky"
 
-#: ../snippet/import_export.py:124
+#: ../snippet/import_export.py:125
 msgid "Unchanged Snippets"
 msgstr "Nezměněné úryvky"
 
-#: ../snippet/import_export.py:186
+#: ../snippet/import_export.py:187
 msgid "Import Keyboard Shortcuts"
 msgstr "Zavést klávesové zkratky"
 
-#: ../snippet/import_export.py:191
+#: ../snippet/import_export.py:192
 msgid "Choose which snippets you want to import:"
 msgstr "Vyberte, prosím, úryvky, které si přejete zavést:"
 
-#: ../snippet/import_export.py:193
+#: ../snippet/import_export.py:194
 msgid "There are no new or updated snippets in the file."
 msgstr "V souboru nejsou žádné nové nebo aktualizované úryvky."
 
-#: ../snippet/import_export.py:197
+#: ../snippet/import_export.py:198
 #, python-brace-format
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
@@ -7254,7 +7311,7 @@ msgstr ""
 "úryvků.</p>\n"
 "<p>Stávající, nezměněné úryvky nelze zavést.</p>\n"
 
-#: ../snippet/insert.py:252
+#: ../snippet/insert.py:253
 msgid "Snippet error"
 msgstr "Chyba úryvku"
 
@@ -7298,24 +7355,24 @@ msgstr "Smazané úryvky"
 msgid "Changed Snippets"
 msgstr "Změněné úryvky"
 
-#: ../snippet/template.py:41
+#: ../snippet/template.py:42
 msgid "Save as Template"
 msgstr "Uložit jako předlohu"
 
-#: ../snippet/template.py:42
+#: ../snippet/template.py:43
 msgid "Please enter a template name:"
 msgstr "Zadejte, prosím, název předlohy:"
 
-#: ../snippet/template.py:49
+#: ../snippet/template.py:50
 #, fuzzy
 msgid "Run LilyPond when creating a new document from this template"
 msgstr "Vytvořit dokument z předlohy:"
 
-#: ../snippet/template.py:95
+#: ../snippet/template.py:96
 msgid "Overwrite Template?"
 msgstr "Přepsat předlohu?"
 
-#: ../snippet/template.py:96
+#: ../snippet/template.py:97
 #, python-brace-format
 msgid ""
 "A template named \"{name}\" already exists.\n"
@@ -7326,90 +7383,90 @@ msgstr ""
 "\n"
 "Chcete ji přepsat?"
 
-#: ../snippet/tool.py:57 ../snippet/tool.py:150 ../userguide/snippets.md:1
+#: ../snippet/tool.py:58 ../snippet/tool.py:151 ../userguide/snippets.md:1
 msgid "Snippets"
 msgstr "Úryvky"
 
-#: ../snippet/tool.py:58
+#: ../snippet/tool.py:59
 msgid "&Snippets"
 msgstr "Úr&yvky"
 
-#: ../snippet/tool.py:102
+#: ../snippet/tool.py:103
 msgid "Save as Template..."
 msgstr "Uložit jako předlohu..."
 
-#: ../snippet/tool.py:103
+#: ../snippet/tool.py:104
 msgid "Copy to &Snippet..."
 msgstr "Kopírovat do ú&ryvku..."
 
-#: ../snippet/tool.py:104
+#: ../snippet/tool.py:105
 msgid "Manage Templates..."
 msgstr "Spravovat předlohy..."
 
-#: ../snippet/tool.py:105
+#: ../snippet/tool.py:106
 msgid "Manage &Snippets..."
 msgstr "Spravovat úr&yvky..."
 
-#: ../snippet/widget.py:186 ../widgets/schemeselector.py:92
+#: ../snippet/widget.py:187 ../widgets/schemeselector.py:92
 msgid "&Menu"
 msgstr "&Nabídka"
 
-#: ../snippet/widget.py:187 ../widgets/listedit.py:91
+#: ../snippet/widget.py:188 ../widgets/listedit.py:92
 #: ../widgets/schemeselector.py:93
 msgid "&Add..."
 msgstr "&Přidat..."
 
-#: ../snippet/widget.py:189
+#: ../snippet/widget.py:190
 #, python-brace-format
 msgid "Add a new snippet. ({key})"
 msgstr "Přidat nový úryvek. ({key})"
 
-#: ../snippet/widget.py:190 ../widgets/listedit.py:92
+#: ../snippet/widget.py:191 ../widgets/listedit.py:93
 msgid "&Edit..."
 msgstr "&Upravit..."
 
-#: ../snippet/widget.py:192
+#: ../snippet/widget.py:193
 #, python-brace-format
 msgid "Edit the current snippet. ({key})"
 msgstr "Upravit nynější úryvek. ({key})"
 
-#: ../snippet/widget.py:193
+#: ../snippet/widget.py:194
 msgid "Configure Keyboard &Shortcut..."
 msgstr "Nastavit klávesovou &zkratku..."
 
-#: ../snippet/widget.py:195
+#: ../snippet/widget.py:196
 msgid "Remove the selected snippets."
 msgstr "Odstranit vybrané úryvky."
 
-#: ../snippet/widget.py:196
+#: ../snippet/widget.py:197
 msgid "A&pply"
 msgstr "&Použít"
 
-#: ../snippet/widget.py:197
+#: ../snippet/widget.py:198
 msgid "Apply the current snippet."
 msgstr "Použít nynější úryvek."
 
-#: ../snippet/widget.py:199
+#: ../snippet/widget.py:200
 msgid "Import snippets from a file."
 msgstr "Zavést úryvky ze souboru."
 
-#: ../snippet/widget.py:201
+#: ../snippet/widget.py:202
 msgid "Export snippets to a file."
 msgstr "Vyvést úryvky do souboru."
 
-#: ../snippet/widget.py:202
+#: ../snippet/widget.py:203
 msgid "Restore &Built-in Snippets..."
 msgstr "Obnovit &vestavěné úryvky..."
 
-#: ../snippet/widget.py:204
+#: ../snippet/widget.py:205
 msgid "Restore deleted or changed built-in snippets."
 msgstr "Obnovit smazané nebo změněné vestavěné úryvky."
 
-#: ../snippet/widget.py:205
+#: ../snippet/widget.py:206
 msgid "&Help"
 msgstr "Nápověd&a"
 
-#: ../snippet/widget.py:207
+#: ../snippet/widget.py:208
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
@@ -7417,7 +7474,7 @@ msgstr ""
 "Zadejte text k hledání v seznamu úryvků.\n"
 "Pro další informace se podívejte na \"Co je toto\"."
 
-#: ../snippet/widget.py:210
+#: ../snippet/widget.py:211
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
@@ -7425,7 +7482,7 @@ msgstr ""
 "Zadejte text k hledání v seznamu úryvků a stiskněte klávesu Enter pro "
 "použití nyní vybraného úryvku."
 
-#: ../snippet/widget.py:212
+#: ../snippet/widget.py:213
 #, python-brace-format
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
@@ -7434,7 +7491,7 @@ msgstr ""
 "Pokud hledaný text plně odpovídá hodnotě proměnné úryvku '{name}', je vybrán "
 "tento úryvek."
 
-#: ../snippet/widget.py:214
+#: ../snippet/widget.py:215
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -7446,7 +7503,7 @@ msgstr ""
 "úryvky pak budou odpovídat, pokud hodnota dané proměnné obsahuje text po "
 "mezeře."
 
-#: ../snippet/widget.py:219
+#: ../snippet/widget.py:220
 #, python-brace-format
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
@@ -7455,7 +7512,7 @@ msgstr ""
 "Např. zadání {menu} ukáže všechny úryvky, které jsou vloženy v nabídce pro "
 "vkládání."
 
-#: ../snippet/widget.py:320
+#: ../snippet/widget.py:321
 #, python-brace-format
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
@@ -7464,12 +7521,12 @@ msgstr[0] "Vyvést {num} úryvek"
 msgstr[1] "Vyvést {num}úryvky"
 msgstr[2] "Vyvést {num}úryvků"
 
-#: ../svgview/__init__.py:53
+#: ../svgview/__init__.py:54
 msgctxt "window title"
 msgid "SVG View"
 msgstr "Pohled na SVG"
 
-#: ../svgview/__init__.py:54
+#: ../svgview/__init__.py:55
 msgid "SV&G View"
 msgstr "Pohled na SV&G"
 
@@ -7477,15 +7534,15 @@ msgstr "Pohled na SV&G"
 msgid "Page:"
 msgstr "Strana:"
 
-#: ../userguide/browser.py:80
+#: ../userguide/browser.py:81
 msgid "Toolbar"
 msgstr "Nástrojový pruh"
 
-#: ../userguide/browser.py:83
+#: ../userguide/browser.py:84
 msgid "Start"
 msgstr "Začátek"
 
-#: ../userguide/browser.py:84
+#: ../userguide/browser.py:85
 msgid "Contents"
 msgstr "Obsah"
 
@@ -7562,15 +7619,15 @@ msgstr ""
 msgid "Git Checkout Error"
 msgstr "Chyba při stahování z Gitu"
 
-#: ../widgets/keysequencewidget.py:60
+#: ../widgets/keysequencewidget.py:61
 msgid "Start recording a key sequence."
 msgstr "Začít nahrávání řady kláves."
 
-#: ../widgets/keysequencewidget.py:61
+#: ../widgets/keysequencewidget.py:62
 msgid "Clear the key sequence."
 msgstr "Smazat řadu kláves."
 
-#: ../widgets/keysequencewidget.py:118
+#: ../widgets/keysequencewidget.py:119
 msgid "Input"
 msgstr "Vstup"
 
@@ -7613,44 +7670,44 @@ msgctxt "dialog title"
 msgid "Export {name}"
 msgstr "Vyvést {name}"
 
-#: ../widgets/shortcuteditdialog.py:109
+#: ../widgets/shortcuteditdialog.py:110
 msgctxt "window title"
 msgid "Edit Shortcut"
 msgstr "Upravit zkratku"
 
-#: ../widgets/shortcuteditdialog.py:110
+#: ../widgets/shortcuteditdialog.py:111
 msgid "&No shortcut"
 msgstr "Žá&dná zkratka"
 
-#: ../widgets/shortcuteditdialog.py:111
+#: ../widgets/shortcuteditdialog.py:112
 msgid "Use a &custom shortcut:"
 msgstr "Použít &vlastní zkratku:"
 
-#: ../widgets/shortcuteditdialog.py:113
+#: ../widgets/shortcuteditdialog.py:114
 #, python-brace-format
 msgid "Alternative #{num}:"
 msgstr "Náhradní #{num}:"
 
-#: ../widgets/shortcuteditdialog.py:113
+#: ../widgets/shortcuteditdialog.py:114
 msgid "Primary shortcut:"
 msgstr "Základní zkratka:"
 
-#: ../widgets/shortcuteditdialog.py:132 ../widgets/shortcuteditdialog.py:142
+#: ../widgets/shortcuteditdialog.py:133 ../widgets/shortcuteditdialog.py:143
 #, python-brace-format
 msgid "Conflict with: {name}"
 msgstr "Střet s: {name}"
 
-#: ../widgets/shortcuteditdialog.py:155
+#: ../widgets/shortcuteditdialog.py:156
 #, python-brace-format
 msgid "Here you can edit the shortcuts for {name}"
 msgstr "Zde můžete upravit zkratky pro {name}"
 
-#: ../widgets/shortcuteditdialog.py:174
+#: ../widgets/shortcuteditdialog.py:175
 msgctxt "no keyboard shortcut"
 msgid "none"
 msgstr "Žádná"
 
-#: ../widgets/shortcuteditdialog.py:175
+#: ../widgets/shortcuteditdialog.py:176
 #, python-brace-format
 msgid "Use &default shortcut ({name})"
 msgstr "Použít &výchozí zkratku ({name})"

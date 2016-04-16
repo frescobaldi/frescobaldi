@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.18.3\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-12 13:24+0200\n"
+"POT-Creation-Date: 2016-04-16 20:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,7 @@ msgstr ""
 msgid "Version {version}"
 msgstr ""
 
-#: ../about.py:111 ../main.py:55
+#: ../about.py:111 ../main.py:56
 msgid "A LilyPond Music Editor"
 msgstr ""
 
@@ -75,7 +75,7 @@ msgstr ""
 msgid "DocBook Files"
 msgstr ""
 
-#: ../app.py:183 ../convert_ly.py:270
+#: ../app.py:183 ../convert_ly.py:271
 msgid "HTML Files"
 msgstr ""
 
@@ -87,11 +87,11 @@ msgstr ""
 msgid "Scheme Files"
 msgstr ""
 
-#: ../app.py:186 ../convert_ly.py:270 ../file_export/__init__.py:58
-#: ../file_export/__init__.py:89 ../file_import/__init__.py:55
-#: ../file_import/__init__.py:92 ../file_import/__init__.py:113
-#: ../file_import/__init__.py:134 ../sessions/dialog.py:94
-#: ../sessions/dialog.py:115 ../snippet/widget.py:300 ../snippet/widget.py:317
+#: ../app.py:186 ../convert_ly.py:271 ../file_export/__init__.py:59
+#: ../file_export/__init__.py:90 ../file_import/__init__.py:56
+#: ../file_import/__init__.py:93 ../file_import/__init__.py:114
+#: ../file_import/__init__.py:135 ../sessions/dialog.py:94
+#: ../sessions/dialog.py:115 ../snippet/widget.py:301 ../snippet/widget.py:318
 #: ../widgets/schemeselector.py:166 ../widgets/schemeselector.py:174
 msgid "All Files"
 msgstr ""
@@ -116,21 +116,21 @@ msgstr ""
 msgid "Previous Mark"
 msgstr ""
 
-#: ../browseriface.py:135
+#: ../browseriface.py:136
 msgid "Go to previous position"
 msgstr ""
 
-#: ../browseriface.py:136 ../docbrowser/__init__.py:82
-#: ../userguide/browser.py:81
+#: ../browseriface.py:137 ../docbrowser/__init__.py:83
+#: ../userguide/browser.py:82
 msgid "Back"
 msgstr ""
 
-#: ../browseriface.py:137
+#: ../browseriface.py:138
 msgid "Go to next position"
 msgstr ""
 
-#: ../browseriface.py:138 ../docbrowser/__init__.py:83
-#: ../userguide/browser.py:82
+#: ../browseriface.py:139 ../docbrowser/__init__.py:84
+#: ../userguide/browser.py:83
 msgid "Forward"
 msgstr ""
 
@@ -153,71 +153,71 @@ msgstr ""
 msgid "&Jump to definition (unknown)"
 msgstr ""
 
-#: ../convert_ly.py:129
+#: ../convert_ly.py:130
 msgid "From version:"
 msgstr ""
 
-#: ../convert_ly.py:130
+#: ../convert_ly.py:131
 msgid "To version:"
 msgstr ""
 
-#: ../convert_ly.py:131
+#: ../convert_ly.py:132
 msgid "Save convert-ly messages in document"
 msgstr ""
 
-#: ../convert_ly.py:133
+#: ../convert_ly.py:134
 msgid ""
 "If checked, the messages of convert-ly are appended as a comment to the end "
 "of the document."
 msgstr ""
 
-#: ../convert_ly.py:135
+#: ../convert_ly.py:136
 msgid "&Messages"
 msgstr ""
 
-#: ../convert_ly.py:136
+#: ../convert_ly.py:137
 msgid "&Changes"
 msgstr ""
 
-#: ../convert_ly.py:137
+#: ../convert_ly.py:138
 msgid "&Diff"
 msgstr ""
 
-#: ../convert_ly.py:138
+#: ../convert_ly.py:139
 msgid "Run Again"
 msgstr ""
 
-#: ../convert_ly.py:139
+#: ../convert_ly.py:140
 msgid "Save as file"
 msgstr ""
 
-#: ../convert_ly.py:156 ../docbrowser/browser.py:159
+#: ../convert_ly.py:157 ../docbrowser/browser.py:161
 #: ../musicview/editinplace.py:153 ../musicview/image.py:170
 msgid "<unknown>"
 msgstr ""
 
-#: ../convert_ly.py:157
+#: ../convert_ly.py:158
 #, python-brace-format
 msgid "Convert-ly from LilyPond {version}"
 msgstr ""
 
-#: ../convert_ly.py:174 ../externalchanges/widget.py:287
+#: ../convert_ly.py:175 ../externalchanges/widget.py:287
 msgid "Current Document"
 msgstr ""
 
-#: ../convert_ly.py:174
+#: ../convert_ly.py:175
 msgid "Converted Document"
 msgstr ""
 
-#: ../convert_ly.py:199
+#: ../convert_ly.py:200
 msgid "(set in document)"
 msgstr ""
 
-#: ../convert_ly.py:213
+#: ../convert_ly.py:214
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr ""
 
-#: ../convert_ly.py:252
+#: ../convert_ly.py:253
 #, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -225,16 +225,16 @@ msgid ""
 "{message}\n"
 msgstr ""
 
-#: ../convert_ly.py:261
+#: ../convert_ly.py:262
 msgid "The document has not been changed."
 msgstr ""
 
-#: ../convert_ly.py:269 ../mainwindow.py:527
+#: ../convert_ly.py:270 ../mainwindow.py:527
 msgctxt "dialog title"
 msgid "Save File"
 msgstr ""
 
-#: ../convert_ly.py:270
+#: ../convert_ly.py:271
 msgid "Text Files"
 msgstr ""
 
@@ -246,76 +246,76 @@ msgstr ""
 msgid "Please enter the name for the variable to assign the selected text to:"
 msgstr ""
 
-#: ../document.py:214 ../doclist/widget.py:129 ../snippet/edit.py:174
+#: ../document.py:215 ../doclist/widget.py:129 ../snippet/edit.py:174
 msgid "Untitled"
 msgstr ""
 
-#: ../document.py:216
+#: ../document.py:217
 #, python-brace-format
 msgid "Untitled ({num})"
 msgstr ""
 
-#: ../documentactions.py:198
+#: ../documentactions.py:199
 msgid "Cut and Assign..."
 msgstr ""
 
-#: ../documentactions.py:199
+#: ../documentactions.py:200
 msgid "Syntax &Highlighting"
 msgstr ""
 
-#: ../documentactions.py:200
+#: ../documentactions.py:201
 msgid "View File or Definition at &Cursor"
 msgstr ""
 
-#: ../documentactions.py:201
+#: ../documentactions.py:202
 msgid "&Automatic Indent"
 msgstr ""
 
-#: ../documentactions.py:202
+#: ../documentactions.py:203
 msgid "Re-&Indent"
 msgstr ""
 
-#: ../documentactions.py:203
+#: ../documentactions.py:204
 msgid "&Format"
 msgstr ""
 
-#: ../documentactions.py:204
+#: ../documentactions.py:205
 msgid "Remove Trailing &Whitespace"
 msgstr ""
 
-#: ../documentactions.py:205
+#: ../documentactions.py:206
 msgid "&Update with convert-ly..."
 msgstr ""
 
-#: ../documentactions.py:206
+#: ../documentactions.py:207
 msgid "Remove &Comments"
 msgstr ""
 
-#: ../documentactions.py:207
+#: ../documentactions.py:208
 msgid "Remove &Articulations"
 msgstr ""
 
-#: ../documentactions.py:208
+#: ../documentactions.py:209
 msgid "Remove &Ornaments"
 msgstr ""
 
-#: ../documentactions.py:209
+#: ../documentactions.py:210
 msgid "Remove &Instrument Scripts"
 msgstr ""
 
-#: ../documentactions.py:210
+#: ../documentactions.py:211
 msgid "Remove &Slurs"
 msgstr ""
 
-#: ../documentactions.py:211
+#: ../documentactions.py:212
 msgid "Remove &Dynamics"
 msgstr ""
 
-#: ../documentactions.py:212
+#: ../documentactions.py:213
 msgid "Remove &Fingerings"
 msgstr ""
 
-#: ../documentactions.py:213
+#: ../documentactions.py:214
 msgid "Remove Text &Markup (from music)"
 msgstr ""
 
@@ -340,29 +340,29 @@ msgstr ""
 msgid "Always &Engrave This Document"
 msgstr ""
 
-#: ../documentmenu.py:42
+#: ../documentmenu.py:43
 msgctxt "menu title"
 msgid "&Documents"
 msgstr ""
 
 #. L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
-#: ../documentmenu.py:109
+#: ../documentmenu.py:110
 msgid "[always engraved]"
 msgstr ""
 
-#: ../exception.py:69
+#: ../exception.py:70
 msgid "An internal error has occurred:"
 msgstr ""
 
-#: ../exception.py:70
+#: ../exception.py:71
 msgid "Internal Error"
 msgstr ""
 
-#: ../exception.py:71
+#: ../exception.py:72
 msgid "Email Bug Report..."
 msgstr ""
 
-#: ../exception.py:79
+#: ../exception.py:80
 msgid "Optionally describe below what you were doing:"
 msgstr ""
 
@@ -374,44 +374,44 @@ msgstr ""
 msgid "Command completed"
 msgstr ""
 
-#: ../globalfontdialog.py:64
+#: ../globalfontdialog.py:65
 msgid "Global Fonts"
 msgstr ""
 
-#: ../globalfontdialog.py:66
+#: ../globalfontdialog.py:67
 msgid ""
 "Please select the three global fonts to use for <code>\\roman</code>, <code>"
 "\\sans</code>, and <code>\\typewriter</code> respectively."
 msgstr ""
 
-#: ../globalfontdialog.py:69
+#: ../globalfontdialog.py:70
 msgid "Roman Font:"
 msgstr ""
 
-#: ../globalfontdialog.py:70
+#: ../globalfontdialog.py:71
 msgid "Sans Font:"
 msgstr ""
 
-#: ../globalfontdialog.py:71
+#: ../globalfontdialog.py:72
 msgid "Typewriter Font:"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../helpers.py:107 ../mainwindow.py:441 ../mainwindow.py:549
+#: ../helpers.py:108 ../mainwindow.py:441 ../mainwindow.py:549
 #: ../mainwindow.py:612 ../mainwindow.py:632 ../mainwindow.py:648
 #: ../mainwindow.py:724 ../mainwindow.py:793 ../externalchanges/widget.py:246
-#: ../externalchanges/widget.py:265 ../file_export/__init__.py:72
-#: ../file_export/__init__.py:82 ../file_import/__init__.py:66
-#: ../file_import/__init__.py:166 ../musicview/image.py:217
-#: ../preferences/fontscolors.py:281 ../preferences/fontscolors.py:505
-#: ../preferences/fontscolors.py:547 ../preferences/import_export.py:91
-#: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
+#: ../externalchanges/widget.py:265 ../file_export/__init__.py:73
+#: ../file_export/__init__.py:83 ../file_import/__init__.py:67
+#: ../file_import/__init__.py:167 ../musicview/image.py:217
+#: ../preferences/fontscolors.py:282 ../preferences/fontscolors.py:506
+#: ../preferences/fontscolors.py:548 ../preferences/import_export.py:93
+#: ../preferences/import_export.py:176 ../preferences/shortcuts.py:207
 #: ../sessions/dialog.py:109 ../sessions/dialog.py:130
-#: ../snippet/import_export.py:105 ../snippet/widget.py:327
+#: ../snippet/import_export.py:106 ../snippet/widget.py:328
 msgid "Error"
 msgstr ""
 
-#: ../helpers.py:108 ../job.py:293
+#: ../helpers.py:109 ../job.py:293
 #, python-brace-format
 msgid ""
 "Could not start {program}.\n"
@@ -458,7 +458,7 @@ msgstr ""
 msgid "Please select a language:"
 msgstr ""
 
-#: ../inputdialog.py:101
+#: ../inputdialog.py:102
 msgid "Select Color"
 msgstr ""
 
@@ -503,77 +503,77 @@ msgstr ""
 msgid "Running LilyPond, this can take some time..."
 msgstr ""
 
-#: ../lyrics.py:126
+#: ../lyrics.py:127
 msgid "&Hyphenate Lyrics Text..."
 msgstr ""
 
-#: ../lyrics.py:127
+#: ../lyrics.py:128
 msgid "&Remove hyphenation"
 msgstr ""
 
-#: ../lyrics.py:128
+#: ../lyrics.py:129
 msgid "&Copy Lyrics with hyphenation removed"
 msgstr ""
 
-#: ../main.py:58
+#: ../main.py:59
 msgid "show program's version number and exit"
 msgstr ""
 
-#: ../main.py:60
+#: ../main.py:61
 #, python-brace-format
 msgid "show version numbers of {appname} and its supporting modules and exit"
 msgstr ""
 
-#: ../main.py:62
+#: ../main.py:63
 msgid "ENC"
 msgstr ""
 
-#: ../main.py:63
+#: ../main.py:64
 msgid "Encoding to use"
 msgstr ""
 
-#: ../main.py:64 ../main.py:66
+#: ../main.py:65 ../main.py:67
 msgid "NUM"
 msgstr ""
 
-#: ../main.py:65
+#: ../main.py:66
 msgid "Line number to go to, starting at 1"
 msgstr ""
 
-#: ../main.py:67
+#: ../main.py:68
 msgid "Column to go to, starting at 0"
 msgstr ""
 
-#: ../main.py:68
+#: ../main.py:69
 msgid "NAME"
 msgstr ""
 
-#: ../main.py:69
+#: ../main.py:70
 #, python-brace-format
 msgid "Session to start ('{none}' for empty session)"
 msgstr ""
 
-#: ../main.py:72
+#: ../main.py:73
 msgid "List the session names and exit"
 msgstr ""
 
-#: ../main.py:74
+#: ../main.py:75
 msgid "Always start a new instance"
 msgstr ""
 
-#: ../main.py:75
+#: ../main.py:76
 msgid "file"
 msgstr ""
 
-#: ../main.py:76
+#: ../main.py:77
 msgid "File to be opened"
 msgstr ""
 
-#: ../main.py:172
+#: ../main.py:173
 msgid "Can't run Frescobaldi"
 msgstr ""
 
-#: ../main.py:173
+#: ../main.py:174
 #, python-brace-format
 msgid ""
 "We are sorry, but Frescobaldi can't run properly.\n"
@@ -770,7 +770,7 @@ msgstr ""
 msgid "Cu&t"
 msgstr ""
 
-#: ../mainwindow.py:1221 ../docbrowser/browser.py:249
+#: ../mainwindow.py:1221 ../docbrowser/browser.py:251
 msgid "&Copy"
 msgstr ""
 
@@ -981,7 +981,7 @@ msgstr ""
 msgid "Drag to dock/undock"
 msgstr ""
 
-#: ../panel.py:110 ../search/__init__.py:109
+#: ../panel.py:110 ../search/__init__.py:110
 msgid "Close"
 msgstr ""
 
@@ -994,70 +994,70 @@ msgstr ""
 msgid "Could not load the {name} module."
 msgstr ""
 
-#: ../popplerprint.py:79
+#: ../popplerprint.py:80
 msgid "PDF Document"
 msgstr ""
 
-#: ../popplerprint.py:98
+#: ../popplerprint.py:99
 #, python-brace-format
 msgid "Print {filename}"
 msgstr ""
 
-#: ../popplerprint.py:132 ../popplerprint.py:162
+#: ../popplerprint.py:133 ../popplerprint.py:163
 msgid "Printing Error"
 msgstr ""
 
-#: ../popplerprint.py:133 ../popplerprint.py:163
+#: ../popplerprint.py:134 ../popplerprint.py:164
 msgid "Could not send the document to the printer."
 msgstr ""
 
-#: ../popplerprint.py:154
+#: ../popplerprint.py:155
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr ""
 
-#: ../viewmanager.py:79 ../viewmanager.py:441
+#: ../viewmanager.py:80 ../viewmanager.py:442
 msgid "Split &Horizontally"
 msgstr ""
 
-#: ../viewmanager.py:82 ../viewmanager.py:442
+#: ../viewmanager.py:83 ../viewmanager.py:443
 msgid "Split &Vertically"
 msgstr ""
 
-#: ../viewmanager.py:86
+#: ../viewmanager.py:87
 msgid "&Close View"
 msgstr ""
 
-#: ../viewmanager.py:209
+#: ../viewmanager.py:210
 #, python-brace-format
 msgid "Line: {line}, Col: {column}"
 msgstr ""
 
-#: ../viewmanager.py:443
+#: ../viewmanager.py:444
 msgid "&Close Current View"
 msgstr ""
 
-#: ../viewmanager.py:444
+#: ../viewmanager.py:445
 msgid "Close &Other Views"
 msgstr ""
 
-#: ../viewmanager.py:445
+#: ../viewmanager.py:446
 msgid "&Next View"
 msgstr ""
 
-#: ../viewmanager.py:446
+#: ../viewmanager.py:447
 msgid "&Previous View"
 msgstr ""
 
-#: ../autocomplete/__init__.py:79
+#: ../autocomplete/__init__.py:80
 msgid "Automatic &Completion"
 msgstr ""
 
-#: ../autocomplete/__init__.py:80
+#: ../autocomplete/__init__.py:81
 msgid "Show C&ompletions Popup"
 msgstr ""
 
-#: ../charmap/__init__.py:40 ../preferences/tools.py:232
+#: ../charmap/__init__.py:40 ../preferences/tools.py:233
 msgid "Special Characters"
 msgstr ""
 
@@ -1065,59 +1065,59 @@ msgstr ""
 msgid "Special Charac&ters"
 msgstr ""
 
-#: ../docbrowser/__init__.py:46 ../docbrowser/__init__.py:62
+#: ../docbrowser/__init__.py:47 ../docbrowser/__init__.py:63
 #: ../preferences/documentation.py:116
 msgid "Documentation Browser"
 msgstr ""
 
-#: ../docbrowser/__init__.py:47
+#: ../docbrowser/__init__.py:48
 msgid "&Documentation Browser"
 msgstr ""
 
 #. L10N: Home page of the LilyPond manual
-#: ../docbrowser/__init__.py:85
+#: ../docbrowser/__init__.py:86
 msgid "Home"
 msgstr ""
 
-#: ../docbrowser/__init__.py:86
+#: ../docbrowser/__init__.py:87
 msgid "Print..."
 msgstr ""
 
-#: ../docbrowser/__init__.py:87
+#: ../docbrowser/__init__.py:88
 msgid "&LilyPond Documentation"
 msgstr ""
 
-#: ../docbrowser/__init__.py:88
+#: ../docbrowser/__init__.py:89
 msgid "&Contextual LilyPond Help"
 msgstr ""
 
-#: ../docbrowser/browser.py:116 ../snippet/widget.py:182
+#: ../docbrowser/browser.py:118 ../snippet/widget.py:183
 msgid "Search..."
 msgstr ""
 
-#: ../docbrowser/browser.py:156
+#: ../docbrowser/browser.py:158
 msgid "(local)"
 msgstr ""
 
-#: ../docbrowser/browser.py:158
+#: ../docbrowser/browser.py:160
 #, python-brace-format
 msgid "({hostname})"
 msgstr ""
 
-#: ../docbrowser/browser.py:230 ../userguide/browser.py:85
-#: ../userguide/browser.py:115
+#: ../docbrowser/browser.py:232 ../userguide/browser.py:86
+#: ../userguide/browser.py:116
 msgid "Print"
 msgstr ""
 
-#: ../docbrowser/browser.py:240 ../musicview/contextmenu.py:61
+#: ../docbrowser/browser.py:242 ../musicview/contextmenu.py:61
 msgid "Copy &Link"
 msgstr ""
 
-#: ../docbrowser/browser.py:243 ../musicview/contextmenu.py:55
+#: ../docbrowser/browser.py:245 ../musicview/contextmenu.py:55
 msgid "Open Link in &New Window"
 msgstr ""
 
-#: ../docbrowser/browser.py:252
+#: ../docbrowser/browser.py:254
 msgid "Open Document in &New Window"
 msgstr ""
 
@@ -1125,7 +1125,7 @@ msgstr ""
 msgid "LilyPond Source"
 msgstr ""
 
-#: ../doclist/__init__.py:39 ../preferences/tools.py:265
+#: ../doclist/__init__.py:39 ../preferences/tools.py:266
 msgid "Documents"
 msgstr ""
 
@@ -1157,40 +1157,40 @@ msgstr ""
 msgid "Close all untitled documents"
 msgstr ""
 
-#: ../engrave/__init__.py:110
+#: ../engrave/__init__.py:111
 msgid "Abort engraving job"
 msgstr ""
 
-#: ../engrave/__init__.py:111
+#: ../engrave/__init__.py:112
 msgid "Engrave (preview; press Shift for custom)"
 msgstr ""
 
-#: ../engrave/__init__.py:229 ../sessions/dialog.py:375
+#: ../engrave/__init__.py:230 ../sessions/dialog.py:375
 #: ../sessions/dialog.py:383 ../sessions/dialog.py:389
 msgid "Warning"
 msgstr ""
 
-#: ../engrave/__init__.py:230
+#: ../engrave/__init__.py:231
 #, python-brace-format
 msgid ""
 "An engrave job is running for the document \"{name}\".\n"
 "Do you want to abort the running job?"
 msgstr ""
 
-#: ../engrave/__init__.py:282
+#: ../engrave/__init__.py:283
 #, python-brace-format
 msgid "&Always Engrave [{docname}]"
 msgstr ""
 
-#: ../engrave/__init__.py:284
+#: ../engrave/__init__.py:285
 msgid "&Always Engrave This Document"
 msgstr ""
 
-#: ../engrave/__init__.py:359
+#: ../engrave/__init__.py:360
 msgid "No LilyPond installation found"
 msgstr ""
 
-#: ../engrave/__init__.py:360
+#: ../engrave/__init__.py:361
 msgid ""
 "Frescobaldi uses LilyPond to engrave music, but LilyPond is not installed in "
 "the default locations and it cannot be found in your PATH.\n"
@@ -1199,43 +1199,43 @@ msgid ""
 "Preferences dialog."
 msgstr ""
 
-#: ../engrave/__init__.py:399
+#: ../engrave/__init__.py:400
 msgid "Engrave"
 msgstr ""
 
-#: ../engrave/__init__.py:400
+#: ../engrave/__init__.py:401
 msgid "Engrave (preview; Shift-click for custom)"
 msgstr ""
 
-#: ../engrave/__init__.py:401
+#: ../engrave/__init__.py:402
 msgid "&Engrave (preview)"
 msgstr ""
 
-#: ../engrave/__init__.py:402
+#: ../engrave/__init__.py:403
 msgid "Engrave (&publish)"
 msgstr ""
 
-#: ../engrave/__init__.py:403
+#: ../engrave/__init__.py:404
 msgid "Engrave (&layout control)"
 msgstr ""
 
-#: ../engrave/__init__.py:404
+#: ../engrave/__init__.py:405
 msgid "Engrave (&custom)..."
 msgstr ""
 
-#: ../engrave/__init__.py:405
+#: ../engrave/__init__.py:406
 msgid "Abort Engraving &Job"
 msgstr ""
 
-#: ../engrave/__init__.py:406
+#: ../engrave/__init__.py:407
 msgid "Automatic E&ngrave"
 msgstr ""
 
-#: ../engrave/__init__.py:407
+#: ../engrave/__init__.py:408
 msgid "Open LilyPond &Data Directory"
 msgstr ""
 
-#: ../engrave/__init__.py:408
+#: ../engrave/__init__.py:409
 msgid "Show Available &Fonts..."
 msgstr ""
 
@@ -1275,7 +1275,7 @@ msgstr ""
 msgid "Layout Control"
 msgstr ""
 
-#: ../engrave/custom.py:146 ../preferences/lilypond.py:326
+#: ../engrave/custom.py:146 ../preferences/lilypond.py:325
 msgid "Delete intermediate output files"
 msgstr ""
 
@@ -1283,7 +1283,7 @@ msgstr ""
 msgid "Embed Source Code (LilyPond >= 2.19.39)"
 msgstr ""
 
-#: ../engrave/custom.py:148 ../preferences/lilypond.py:334
+#: ../engrave/custom.py:148 ../preferences/lilypond.py:333
 msgid "Run LilyPond with English messages"
 msgstr ""
 
@@ -1295,7 +1295,7 @@ msgstr ""
 msgid "Run LilyPond"
 msgstr ""
 
-#: ../engrave/custom.py:234 ../preferences/lilypond.py:376
+#: ../engrave/custom.py:234 ../preferences/lilypond.py:375
 msgid "PDF"
 msgstr ""
 
@@ -1307,7 +1307,7 @@ msgstr ""
 msgid "PNG"
 msgstr ""
 
-#: ../engrave/custom.py:256 ../preferences/lilypond.py:379
+#: ../engrave/custom.py:256 ../preferences/lilypond.py:378
 msgid "SVG"
 msgstr ""
 
@@ -1424,19 +1424,19 @@ msgid ""
 "Difference between the current document and the file on disk:"
 msgstr ""
 
-#: ../file_export/__init__.py:57
+#: ../file_export/__init__.py:58
 msgctxt "dialog title"
 msgid "Export MusicXML File"
 msgstr ""
 
-#: ../file_export/__init__.py:58 ../snippet/widget.py:300
-#: ../snippet/widget.py:317 ../widgets/schemeselector.py:166
+#: ../file_export/__init__.py:59 ../snippet/widget.py:301
+#: ../snippet/widget.py:318 ../widgets/schemeselector.py:166
 #: ../widgets/schemeselector.py:174
 msgid "XML Files"
 msgstr ""
 
-#: ../file_export/__init__.py:73 ../preferences/fontscolors.py:282
-#: ../preferences/shortcuts.py:207 ../snippet/widget.py:328
+#: ../file_export/__init__.py:74 ../preferences/fontscolors.py:283
+#: ../preferences/shortcuts.py:208 ../snippet/widget.py:329
 #, python-brace-format
 msgid ""
 "Can't write to destination:\n"
@@ -1446,109 +1446,109 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../file_export/__init__.py:83
+#: ../file_export/__init__.py:84
 msgid "The audio file couldn't be created. Please create midi file first"
 msgstr ""
 
-#: ../file_export/__init__.py:88
+#: ../file_export/__init__.py:89
 msgctxt "dialog title"
 msgid "Export Audio File"
 msgstr ""
 
-#: ../file_export/__init__.py:89
+#: ../file_export/__init__.py:90
 msgid "WAV Files"
 msgstr ""
 
-#: ../file_export/__init__.py:133
+#: ../file_export/__init__.py:134
 msgid "Export Music&XML..."
 msgstr ""
 
-#: ../file_export/__init__.py:134
+#: ../file_export/__init__.py:135
 msgid "Export current document as MusicXML."
 msgstr ""
 
-#: ../file_export/__init__.py:136
+#: ../file_export/__init__.py:137
 msgid "Export Audio..."
 msgstr ""
 
-#: ../file_export/__init__.py:137
+#: ../file_export/__init__.py:138
 msgid "Export to different audio formats."
 msgstr ""
 
-#: ../file_import/__init__.py:51
+#: ../file_import/__init__.py:52
 msgid "All importable formats"
 msgstr ""
 
-#: ../file_import/__init__.py:52 ../file_import/__init__.py:92
+#: ../file_import/__init__.py:53 ../file_import/__init__.py:93
 msgid "MusicXML Files"
 msgstr ""
 
-#: ../file_import/__init__.py:53 ../file_import/__init__.py:113
+#: ../file_import/__init__.py:54 ../file_import/__init__.py:114
 msgid "Midi Files"
 msgstr ""
 
-#: ../file_import/__init__.py:54 ../file_import/__init__.py:134
+#: ../file_import/__init__.py:55 ../file_import/__init__.py:135
 msgid "ABC Files"
 msgstr ""
 
-#: ../file_import/__init__.py:57
+#: ../file_import/__init__.py:58
 msgctxt "dialog title"
 msgid "Import"
 msgstr ""
 
-#: ../file_import/__init__.py:67
+#: ../file_import/__init__.py:68
 #, python-brace-format
 msgid "The file {filename} could not be converted. Wrong file type."
 msgstr ""
 
-#: ../file_import/__init__.py:93
+#: ../file_import/__init__.py:94
 msgctxt "dialog title"
 msgid "Import a MusicXML file"
 msgstr ""
 
-#: ../file_import/__init__.py:114
+#: ../file_import/__init__.py:115
 msgctxt "dialog title"
 msgid "Import a midi file"
 msgstr ""
 
-#: ../file_import/__init__.py:135
+#: ../file_import/__init__.py:136
 msgctxt "dialog title"
 msgid "Import an abc file"
 msgstr ""
 
-#: ../file_import/__init__.py:167
+#: ../file_import/__init__.py:168
 msgid "The file couldn't be converted. Error message:\n"
 msgstr ""
 
-#: ../file_import/__init__.py:220
+#: ../file_import/__init__.py:221
 msgid "Import..."
 msgstr ""
 
-#: ../file_import/__init__.py:221
+#: ../file_import/__init__.py:222
 msgid "Generic import for all LilyPond tools."
 msgstr ""
 
-#: ../file_import/__init__.py:222 ../macosx/globalmenu.py:122
+#: ../file_import/__init__.py:223 ../macosx/globalmenu.py:122
 msgid "Import MusicXML..."
 msgstr ""
 
-#: ../file_import/__init__.py:223
+#: ../file_import/__init__.py:224
 msgid "Import a MusicXML file using musicxml2ly."
 msgstr ""
 
-#: ../file_import/__init__.py:224
+#: ../file_import/__init__.py:225
 msgid "Import Midi..."
 msgstr ""
 
-#: ../file_import/__init__.py:225
+#: ../file_import/__init__.py:226
 msgid "Import a Midi file using midi2ly."
 msgstr ""
 
-#: ../file_import/__init__.py:226
+#: ../file_import/__init__.py:227
 msgid "Import abc..."
 msgstr ""
 
-#: ../file_import/__init__.py:227
+#: ../file_import/__init__.py:228
 msgid "Import an abc file using abc2ly."
 msgstr ""
 
@@ -1595,7 +1595,7 @@ msgid "Language for pitch names"
 msgstr ""
 
 #: ../file_import/musicxml.py:108 ../preferences/documentation.py:118
-#: ../preferences/general.py:138 ../preferences/tools.py:298
+#: ../preferences/general.py:138 ../preferences/tools.py:299
 #: ../scorewiz/settings.py:156 ../scorewiz/settings.py:224
 #: ../scorewiz/settings.py:319 ../scorewiz/parts/_base.py:218
 #: ../scorewiz/parts/plucked_strings.py:67 ../widgets/schemeselector.py:196
@@ -1706,7 +1706,7 @@ msgstr ""
 
 #: ../layoutcontrol/widget.py:99 ../layoutcontrol/widget.py:100
 #: ../musicview/contextmenu.py:76 ../quickinsert/widget.py:107
-#: ../userguide/browser.py:91 ../userguide/browser.py:92
+#: ../userguide/browser.py:92 ../userguide/browser.py:93
 msgid "Help"
 msgstr ""
 
@@ -1740,23 +1740,23 @@ msgstr ""
 msgid "Filename to be included"
 msgstr ""
 
-#: ../logtool/__init__.py:50 ../preferences/tools.py:91
+#: ../logtool/__init__.py:51 ../preferences/tools.py:92
 msgid "LilyPond Log"
 msgstr ""
 
-#: ../logtool/__init__.py:51
+#: ../logtool/__init__.py:52
 msgid "LilyPond &Log"
 msgstr ""
 
-#: ../logtool/__init__.py:94
+#: ../logtool/__init__.py:95
 msgid "Next Error Message"
 msgstr ""
 
-#: ../logtool/__init__.py:95
+#: ../logtool/__init__.py:96
 msgid "Previous Error Message"
 msgstr ""
 
-#: ../logtool/logwidget.py:122
+#: ../logtool/logwidget.py:123
 msgid "Click to edit this file"
 msgstr ""
 
@@ -1773,30 +1773,30 @@ msgctxt "menu title"
 msgid "&Session"
 msgstr ""
 
-#: ../midiinput/tool.py:29
+#: ../midiinput/tool.py:30
 msgid "MIDI Input"
 msgstr ""
 
-#: ../midiinput/tool.py:30
+#: ../midiinput/tool.py:31
 msgid "MIDI I&nput"
-msgstr ""
-
-#: ../midiinput/tool.py:52
-msgctxt "midi input"
-msgid "Start capturing"
 msgstr ""
 
 #: ../midiinput/tool.py:53
 msgctxt "midi input"
-msgid "Start MIDI capturing"
+msgid "Start capturing"
 msgstr ""
 
 #: ../midiinput/tool.py:54
 msgctxt "midi input"
-msgid "Stop capturing"
+msgid "Start MIDI capturing"
 msgstr ""
 
 #: ../midiinput/tool.py:55
+msgctxt "midi input"
+msgid "Stop capturing"
+msgstr ""
+
+#: ../midiinput/tool.py:56
 msgctxt "midi input"
 msgid "Stop MIDI capturing"
 msgstr ""
@@ -1931,30 +1931,30 @@ msgstr ""
 msgid "Soft pedal"
 msgstr ""
 
-#: ../miditool/__init__.py:51
+#: ../miditool/__init__.py:52
 msgid "MIDI"
 msgstr ""
 
-#: ../miditool/__init__.py:52
+#: ../miditool/__init__.py:53
 msgid "MIDI &Player"
-msgstr ""
-
-#: ../miditool/__init__.py:97
-msgctxt "midi player"
-msgid "Pause"
 msgstr ""
 
 #: ../miditool/__init__.py:98
 msgctxt "midi player"
-msgid "Play"
+msgid "Pause"
 msgstr ""
 
 #: ../miditool/__init__.py:99
 msgctxt "midi player"
-msgid "Stop"
+msgid "Play"
 msgstr ""
 
 #: ../miditool/__init__.py:100
+msgctxt "midi player"
+msgid "Stop"
+msgstr ""
+
+#: ../miditool/__init__.py:101
 msgctxt "midi player"
 msgid "Restart"
 msgstr ""
@@ -1992,20 +1992,20 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
 
-#: ../musicview/__init__.py:121
+#: ../musicview/__init__.py:122
 msgctxt "window title"
 msgid "Music View"
 msgstr ""
 
-#: ../musicview/__init__.py:122
+#: ../musicview/__init__.py:123
 msgid "&Music View"
 msgstr ""
 
-#: ../musicview/__init__.py:191
+#: ../musicview/__init__.py:192
 msgid "Print Music"
 msgstr ""
 
-#: ../musicview/__init__.py:192
+#: ../musicview/__init__.py:193
 msgid ""
 "Unfortunately, this version of Frescobaldi is unable to print PDF documents "
 "on Mac OS X due to various technical reasons.\n"
@@ -2017,114 +2017,114 @@ msgid ""
 "functionality anyway, or Cancel to cancel printing."
 msgstr ""
 
-#: ../musicview/__init__.py:338
+#: ../musicview/__init__.py:339
 msgid "Select Music View Document"
 msgstr ""
 
-#: ../musicview/__init__.py:339
+#: ../musicview/__init__.py:340
 msgid "&Print Music..."
 msgstr ""
 
-#: ../musicview/__init__.py:340 ../svgview/__init__.py:86
+#: ../musicview/__init__.py:341 ../svgview/__init__.py:87
 msgid "Zoom &In"
 msgstr ""
 
-#: ../musicview/__init__.py:341 ../svgview/__init__.py:87
+#: ../musicview/__init__.py:342 ../svgview/__init__.py:88
 msgid "Zoom &Out"
 msgstr ""
 
-#: ../musicview/__init__.py:342 ../svgview/__init__.py:88
+#: ../musicview/__init__.py:343 ../svgview/__init__.py:89
 msgid "Original &Size"
 msgstr ""
 
-#: ../musicview/__init__.py:343
+#: ../musicview/__init__.py:344
 msgid "Zoom Music"
 msgstr ""
 
-#: ../musicview/__init__.py:344
+#: ../musicview/__init__.py:345
 msgid "Fit &Width"
 msgstr ""
 
-#: ../musicview/__init__.py:345
+#: ../musicview/__init__.py:346
 msgid "Fit &Height"
 msgstr ""
 
-#: ../musicview/__init__.py:346
+#: ../musicview/__init__.py:347
 msgid "Fit &Page"
 msgstr ""
 
-#: ../musicview/__init__.py:347
+#: ../musicview/__init__.py:348
 msgid "Single Pages"
 msgstr ""
 
-#: ../musicview/__init__.py:348
+#: ../musicview/__init__.py:349
 msgid "Two Pages (first page right)"
 msgstr ""
 
-#: ../musicview/__init__.py:349
+#: ../musicview/__init__.py:350
 msgid "Two Pages (first page left)"
 msgstr ""
 
-#: ../musicview/__init__.py:350
+#: ../musicview/__init__.py:351
 msgid "&Maximize"
 msgstr ""
 
-#: ../musicview/__init__.py:351
+#: ../musicview/__init__.py:352
 msgid "&Jump to Cursor Position"
 msgstr ""
 
-#: ../musicview/__init__.py:352
+#: ../musicview/__init__.py:353
 msgid "S&ynchronize with Cursor Position"
 msgstr ""
 
-#: ../musicview/__init__.py:353
+#: ../musicview/__init__.py:354
 msgid "Copy to &Image..."
 msgstr ""
 
-#: ../musicview/__init__.py:354
+#: ../musicview/__init__.py:355
 msgid "Next Page"
 msgstr ""
 
-#: ../musicview/__init__.py:355
+#: ../musicview/__init__.py:356
 msgid "Next"
 msgstr ""
 
-#: ../musicview/__init__.py:356
+#: ../musicview/__init__.py:357
 msgid "Previous Page"
 msgstr ""
 
-#: ../musicview/__init__.py:357
+#: ../musicview/__init__.py:358
 msgid "Previous"
 msgstr ""
 
-#: ../musicview/__init__.py:358
+#: ../musicview/__init__.py:359
 msgid "&Reload"
 msgstr ""
 
-#: ../musicview/__init__.py:509
+#: ../musicview/__init__.py:510
 msgid "Choose the PDF document to display."
 msgstr ""
 
-#: ../musicview/__init__.py:511
+#: ../musicview/__init__.py:512
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
 msgstr ""
 
-#: ../musicview/__init__.py:569
+#: ../musicview/__init__.py:570
 msgid "Fit Width"
 msgstr ""
 
-#: ../musicview/__init__.py:570
+#: ../musicview/__init__.py:571
 msgid "Fit Height"
 msgstr ""
 
-#: ../musicview/__init__.py:571
+#: ../musicview/__init__.py:572
 msgid "Fit Page"
 msgstr ""
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:588
+#: ../musicview/__init__.py:589
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr ""
@@ -2203,6 +2203,11 @@ msgstr ""
 msgid "Position: {pos}"
 msgstr ""
 
+#: ../musicview/widget.py:216
+#, python-brace-format
+msgid "Page {num}"
+msgstr ""
+
 #: ../objecteditor/__init__.py:43
 msgid "Object Editor"
 msgstr ""
@@ -2211,23 +2216,23 @@ msgstr ""
 msgid "O&bject Editor"
 msgstr ""
 
-#: ../objecteditor/widget.py:113
+#: ../objecteditor/widget.py:114
 msgid "X Offset"
 msgstr ""
 
-#: ../objecteditor/widget.py:114
+#: ../objecteditor/widget.py:115
 msgid "Display the X Offset"
 msgstr ""
 
-#: ../objecteditor/widget.py:115
+#: ../objecteditor/widget.py:116
 msgid "Y Offset"
 msgstr ""
 
-#: ../objecteditor/widget.py:116
+#: ../objecteditor/widget.py:117
 msgid "Display the Y Offset"
 msgstr ""
 
-#: ../outline/__init__.py:40 ../preferences/tools.py:297
+#: ../outline/__init__.py:40 ../preferences/tools.py:298
 msgid "Outline"
 msgstr ""
 
@@ -2451,851 +2456,896 @@ msgid "What's This?"
 msgstr ""
 
 #: ../po/messages.py:51
-msgctxt "QFileDialog"
-msgid "All Files (*)"
+msgctxt "QDockWidget"
+msgid "Float"
 msgstr ""
 
 #: ../po/messages.py:52
-msgctxt "QFileDialog"
-msgid "Back"
+msgctxt "QDockWidget"
+msgid "Undocks and re-attaches the dock widget"
 msgstr ""
 
 #: ../po/messages.py:53
-msgctxt "QFileDialog"
-msgid "Change to detail view mode"
+msgctxt "QDockWidget"
+msgid "Close"
 msgstr ""
 
 #: ../po/messages.py:54
-msgctxt "QFileDialog"
-msgid "Change to list view mode"
-msgstr ""
-
-#: ../po/messages.py:55
-msgctxt "QFileDialog"
-msgid "Create a New Folder"
+msgctxt "QDockWidget"
+msgid "Closes the dock widget"
 msgstr ""
 
 #: ../po/messages.py:56
 msgctxt "QFileDialog"
-msgid "Create New Folder"
+msgid "All Files (*)"
 msgstr ""
 
 #: ../po/messages.py:57
 msgctxt "QFileDialog"
-msgid "&Delete"
+msgid "Back"
 msgstr ""
 
 #: ../po/messages.py:58
 msgctxt "QFileDialog"
-msgid "Detail View"
+msgid "Change to detail view mode"
 msgstr ""
 
 #: ../po/messages.py:59
 msgctxt "QFileDialog"
-msgid "Drive"
+msgid "Change to list view mode"
 msgstr ""
 
 #: ../po/messages.py:60
 msgctxt "QFileDialog"
-msgid "File"
+msgid "Create a New Folder"
 msgstr ""
 
 #: ../po/messages.py:61
 msgctxt "QFileDialog"
-msgid "File &name:"
+msgid "Create New Folder"
 msgstr ""
 
 #: ../po/messages.py:62
 msgctxt "QFileDialog"
-msgid "Files of type:"
+msgid "&Delete"
 msgstr ""
 
 #: ../po/messages.py:63
 msgctxt "QFileDialog"
-msgid "Find Directory"
+msgid "Detail View"
 msgstr ""
 
 #: ../po/messages.py:64
 msgctxt "QFileDialog"
-msgid "Folder"
+msgid "Drive"
 msgstr ""
 
 #: ../po/messages.py:65
 msgctxt "QFileDialog"
-msgid "Forward"
+msgid "File"
 msgstr ""
 
 #: ../po/messages.py:66
 msgctxt "QFileDialog"
-msgid "Go back"
+msgid "File &name:"
 msgstr ""
 
 #: ../po/messages.py:67
 msgctxt "QFileDialog"
-msgid "Go forward"
+msgid "Files of type:"
 msgstr ""
 
 #: ../po/messages.py:68
 msgctxt "QFileDialog"
-msgid "Go to the parent directory"
+msgid "Find Directory"
 msgstr ""
 
 #: ../po/messages.py:69
 msgctxt "QFileDialog"
-msgid "List View"
+msgid "Folder"
 msgstr ""
 
 #: ../po/messages.py:70
 msgctxt "QFileDialog"
-msgid "Look in:"
+msgid "Forward"
 msgstr ""
 
 #: ../po/messages.py:71
 msgctxt "QFileDialog"
-msgid "&New Folder"
+msgid "Go back"
 msgstr ""
 
 #: ../po/messages.py:72
 msgctxt "QFileDialog"
-msgid "&Open"
+msgid "Go forward"
 msgstr ""
 
 #: ../po/messages.py:73
 msgctxt "QFileDialog"
-msgid "Parent Directory"
+msgid "Go to the parent directory"
 msgstr ""
 
 #: ../po/messages.py:74
 msgctxt "QFileDialog"
-msgid "Remove"
+msgid "List View"
 msgstr ""
 
 #: ../po/messages.py:75
 msgctxt "QFileDialog"
-msgid "&Rename"
+msgid "Look in:"
 msgstr ""
 
 #: ../po/messages.py:76
 msgctxt "QFileDialog"
-msgid "Show "
+msgid "&New Folder"
 msgstr ""
 
 #: ../po/messages.py:77
 msgctxt "QFileDialog"
-msgid "Show &hidden files"
+msgid "&Open"
+msgstr ""
+
+#: ../po/messages.py:78
+msgctxt "QFileDialog"
+msgid "Parent Directory"
 msgstr ""
 
 #: ../po/messages.py:79
-msgctxt "QFileSystemModel"
-msgid "%1 bytes"
+msgctxt "QFileDialog"
+msgid "Remove"
 msgstr ""
 
 #: ../po/messages.py:80
-msgctxt "QFileSystemModel"
-msgid "%1 KB"
+msgctxt "QFileDialog"
+msgid "&Rename"
 msgstr ""
 
 #: ../po/messages.py:81
-msgctxt "QFileSystemModel"
-msgid "Computer"
+msgctxt "QFileDialog"
+msgid "Show "
 msgstr ""
 
 #: ../po/messages.py:82
-msgctxt "QFileSystemModel"
-msgid "Date Modified"
-msgstr ""
-
-#: ../po/messages.py:83
-msgctxt "QFileSystemModel"
-msgid "Name"
+msgctxt "QFileDialog"
+msgid "Show &hidden files"
 msgstr ""
 
 #: ../po/messages.py:84
 msgctxt "QFileSystemModel"
-msgid "Size"
+msgid "%1 bytes"
 msgstr ""
 
 #: ../po/messages.py:85
 msgctxt "QFileSystemModel"
-msgid "Type"
+msgid "%1 KB"
+msgstr ""
+
+#: ../po/messages.py:86
+msgctxt "QFileSystemModel"
+msgid "Computer"
 msgstr ""
 
 #: ../po/messages.py:87
+msgctxt "QFileSystemModel"
+msgid "Date Modified"
+msgstr ""
+
+#: ../po/messages.py:88
+msgctxt "QFileSystemModel"
+msgid "Name"
+msgstr ""
+
+#: ../po/messages.py:89
+msgctxt "QFileSystemModel"
+msgid "Size"
+msgstr ""
+
+#: ../po/messages.py:90
+msgctxt "QFileSystemModel"
+msgid "Type"
+msgstr ""
+
+#: ../po/messages.py:92
 msgctxt "QFontDatabase"
 msgid "Black"
 msgstr ""
 
-#: ../po/messages.py:88
+#: ../po/messages.py:93
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr ""
 
-#: ../po/messages.py:89
+#: ../po/messages.py:94
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
 msgstr ""
 
-#: ../po/messages.py:90
+#: ../po/messages.py:95
 msgctxt "QFontDatabase"
 msgid "Light"
 msgstr ""
 
-#: ../po/messages.py:91
+#: ../po/messages.py:96
 msgctxt "QFontDatabase"
 msgid "Oblique"
 msgstr ""
 
-#: ../po/messages.py:93
+#: ../po/messages.py:98
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr ""
 
-#: ../po/messages.py:95
+#: ../po/messages.py:100
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr ""
 
-#: ../po/messages.py:97
+#: ../po/messages.py:102
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr ""
 
-#: ../po/messages.py:99
-msgctxt "QScrollBar"
-msgid "Bottom"
-msgstr ""
-
-#: ../po/messages.py:100
-msgctxt "QScrollBar"
-msgid "Left edge"
-msgstr ""
-
-#: ../po/messages.py:101
-msgctxt "QScrollBar"
-msgid "Page down"
-msgstr ""
-
-#: ../po/messages.py:102
-msgctxt "QScrollBar"
-msgid "Page left"
-msgstr ""
-
-#: ../po/messages.py:103
-msgctxt "QScrollBar"
-msgid "Page right"
-msgstr ""
-
 #: ../po/messages.py:104
-msgctxt "QScrollBar"
-msgid "Page up"
+msgctxt "QPlatformTheme"
+msgid "Save"
 msgstr ""
 
 #: ../po/messages.py:105
-msgctxt "QScrollBar"
-msgid "Right edge"
+msgctxt "QPlatformTheme"
+msgid "Cancel"
 msgstr ""
 
 #: ../po/messages.py:106
-msgctxt "QScrollBar"
-msgid "Scroll down"
-msgstr ""
-
-#: ../po/messages.py:107
-msgctxt "QScrollBar"
-msgid "Scroll here"
+msgctxt "QPlatformTheme"
+msgid "Discard"
 msgstr ""
 
 #: ../po/messages.py:108
 msgctxt "QScrollBar"
-msgid "Scroll left"
+msgid "Bottom"
 msgstr ""
 
 #: ../po/messages.py:109
 msgctxt "QScrollBar"
-msgid "Scroll right"
+msgid "Left edge"
 msgstr ""
 
 #: ../po/messages.py:110
 msgctxt "QScrollBar"
-msgid "Scroll up"
+msgid "Page down"
 msgstr ""
 
 #: ../po/messages.py:111
 msgctxt "QScrollBar"
-msgid "Top"
+msgid "Page left"
+msgstr ""
+
+#: ../po/messages.py:112
+msgctxt "QScrollBar"
+msgid "Page right"
 msgstr ""
 
 #: ../po/messages.py:113
-msgctxt "QShortcut"
-msgid "+"
+msgctxt "QScrollBar"
+msgid "Page up"
 msgstr ""
 
 #: ../po/messages.py:114
-msgctxt "QShortcut"
-msgid "Add Favorite"
+msgctxt "QScrollBar"
+msgid "Right edge"
 msgstr ""
 
 #: ../po/messages.py:115
-msgctxt "QShortcut"
-msgid "Adjust Brightness"
+msgctxt "QScrollBar"
+msgid "Scroll down"
 msgstr ""
 
 #: ../po/messages.py:116
-msgctxt "QShortcut"
-msgid "Alt"
+msgctxt "QScrollBar"
+msgid "Scroll here"
 msgstr ""
 
 #: ../po/messages.py:117
-msgctxt "QShortcut"
-msgid "Application Left"
+msgctxt "QScrollBar"
+msgid "Scroll left"
 msgstr ""
 
 #: ../po/messages.py:118
-msgctxt "QShortcut"
-msgid "Application Right"
+msgctxt "QScrollBar"
+msgid "Scroll right"
 msgstr ""
 
 #: ../po/messages.py:119
-msgctxt "QShortcut"
-msgid "Audio Cycle Track"
+msgctxt "QScrollBar"
+msgid "Scroll up"
 msgstr ""
 
 #: ../po/messages.py:120
-msgctxt "QShortcut"
-msgid "Audio Forward"
-msgstr ""
-
-#: ../po/messages.py:121
-msgctxt "QShortcut"
-msgid "Audio Random Play"
+msgctxt "QScrollBar"
+msgid "Top"
 msgstr ""
 
 #: ../po/messages.py:122
 msgctxt "QShortcut"
-msgid "Audio Repeat"
+msgid "+"
 msgstr ""
 
 #: ../po/messages.py:123
 msgctxt "QShortcut"
-msgid "Audio Rewind"
+msgid "Add Favorite"
 msgstr ""
 
 #: ../po/messages.py:124
 msgctxt "QShortcut"
-msgid "Away"
+msgid "Adjust Brightness"
 msgstr ""
 
 #: ../po/messages.py:125
 msgctxt "QShortcut"
-msgid "Back"
+msgid "Alt"
 msgstr ""
 
 #: ../po/messages.py:126
 msgctxt "QShortcut"
-msgid "Back Forward"
+msgid "Application Left"
 msgstr ""
 
 #: ../po/messages.py:127
 msgctxt "QShortcut"
-msgid "Backspace"
+msgid "Application Right"
 msgstr ""
 
 #: ../po/messages.py:128
 msgctxt "QShortcut"
-msgid "Backtab"
+msgid "Audio Cycle Track"
 msgstr ""
 
 #: ../po/messages.py:129
 msgctxt "QShortcut"
-msgid "Bass Boost"
+msgid "Audio Forward"
 msgstr ""
 
 #: ../po/messages.py:130
 msgctxt "QShortcut"
-msgid "Bass Down"
+msgid "Audio Random Play"
 msgstr ""
 
 #: ../po/messages.py:131
 msgctxt "QShortcut"
-msgid "Bass Up"
+msgid "Audio Repeat"
 msgstr ""
 
 #: ../po/messages.py:132
 msgctxt "QShortcut"
-msgid "Battery"
+msgid "Audio Rewind"
 msgstr ""
 
 #: ../po/messages.py:133
 msgctxt "QShortcut"
-msgid "Browser"
+msgid "Away"
 msgstr ""
 
 #: ../po/messages.py:134
 msgctxt "QShortcut"
-msgid "Caps Lock"
+msgid "Back"
 msgstr ""
 
 #: ../po/messages.py:135
 msgctxt "QShortcut"
-msgid "CapsLock"
+msgid "Back Forward"
 msgstr ""
 
 #: ../po/messages.py:136
 msgctxt "QShortcut"
-msgid "Clear"
+msgid "Backspace"
 msgstr ""
 
 #: ../po/messages.py:137
 msgctxt "QShortcut"
-msgid "Clear Grab"
+msgid "Backtab"
 msgstr ""
 
 #: ../po/messages.py:138
 msgctxt "QShortcut"
-msgid "Close"
+msgid "Bass Boost"
 msgstr ""
 
 #: ../po/messages.py:139
 msgctxt "QShortcut"
-msgid "Copy"
+msgid "Bass Down"
 msgstr ""
 
 #: ../po/messages.py:140
 msgctxt "QShortcut"
-msgid "Ctrl"
+msgid "Bass Up"
 msgstr ""
 
 #: ../po/messages.py:141
 msgctxt "QShortcut"
-msgid "Cut"
+msgid "Battery"
 msgstr ""
 
 #: ../po/messages.py:142
 msgctxt "QShortcut"
-msgid "Del"
+msgid "Browser"
 msgstr ""
 
 #: ../po/messages.py:143
 msgctxt "QShortcut"
-msgid "Delete"
+msgid "Caps Lock"
 msgstr ""
 
 #: ../po/messages.py:144
 msgctxt "QShortcut"
-msgid "Display"
+msgid "CapsLock"
 msgstr ""
 
 #: ../po/messages.py:145
 msgctxt "QShortcut"
-msgid "Documents"
+msgid "Clear"
 msgstr ""
 
 #: ../po/messages.py:146
 msgctxt "QShortcut"
-msgid "Down"
+msgid "Clear Grab"
 msgstr ""
 
 #: ../po/messages.py:147
 msgctxt "QShortcut"
-msgid "Eject"
+msgid "Close"
 msgstr ""
 
 #: ../po/messages.py:148
 msgctxt "QShortcut"
-msgid "End"
+msgid "Copy"
 msgstr ""
 
 #: ../po/messages.py:149
 msgctxt "QShortcut"
-msgid "Enter"
+msgid "Ctrl"
 msgstr ""
 
 #: ../po/messages.py:150
 msgctxt "QShortcut"
-msgid "Esc"
+msgid "Cut"
 msgstr ""
 
 #: ../po/messages.py:151
 msgctxt "QShortcut"
-msgid "F%1"
+msgid "Del"
 msgstr ""
 
 #: ../po/messages.py:152
 msgctxt "QShortcut"
-msgid "Forward"
+msgid "Delete"
 msgstr ""
 
 #: ../po/messages.py:153
 msgctxt "QShortcut"
-msgid "Go"
+msgid "Display"
 msgstr ""
 
 #: ../po/messages.py:154
 msgctxt "QShortcut"
-msgid "Help"
+msgid "Documents"
 msgstr ""
 
 #: ../po/messages.py:155
 msgctxt "QShortcut"
-msgid "History"
+msgid "Down"
 msgstr ""
 
 #: ../po/messages.py:156
 msgctxt "QShortcut"
-msgid "Home Page"
+msgid "Eject"
 msgstr ""
 
 #: ../po/messages.py:157
 msgctxt "QShortcut"
-msgid "Ins"
+msgid "End"
 msgstr ""
 
 #: ../po/messages.py:158
 msgctxt "QShortcut"
-msgid "Insert"
+msgid "Enter"
 msgstr ""
 
 #: ../po/messages.py:159
 msgctxt "QShortcut"
-msgid "Left"
+msgid "Esc"
 msgstr ""
 
 #: ../po/messages.py:160
 msgctxt "QShortcut"
-msgid "Media Next"
+msgid "F%1"
 msgstr ""
 
 #: ../po/messages.py:161
 msgctxt "QShortcut"
-msgid "Media Pause"
+msgid "Forward"
 msgstr ""
 
 #: ../po/messages.py:162
 msgctxt "QShortcut"
-msgid "Media Play"
+msgid "Go"
 msgstr ""
 
 #: ../po/messages.py:163
 msgctxt "QShortcut"
-msgid "Media Previous"
+msgid "Help"
 msgstr ""
 
 #: ../po/messages.py:164
 msgctxt "QShortcut"
-msgid "Media Record"
+msgid "History"
 msgstr ""
 
 #: ../po/messages.py:165
 msgctxt "QShortcut"
-msgid "Media Stop"
+msgid "Home Page"
 msgstr ""
 
 #: ../po/messages.py:166
 msgctxt "QShortcut"
-msgid "Menu"
+msgid "Ins"
 msgstr ""
 
 #: ../po/messages.py:167
 msgctxt "QShortcut"
-msgid "Meta"
+msgid "Insert"
 msgstr ""
 
 #: ../po/messages.py:168
 msgctxt "QShortcut"
-msgid "Music"
+msgid "Left"
 msgstr ""
 
 #: ../po/messages.py:169
 msgctxt "QShortcut"
-msgid "News"
+msgid "Media Next"
 msgstr ""
 
 #: ../po/messages.py:170
 msgctxt "QShortcut"
-msgid "Number Lock"
+msgid "Media Pause"
 msgstr ""
 
 #: ../po/messages.py:171
 msgctxt "QShortcut"
-msgid "Num Lock"
+msgid "Media Play"
 msgstr ""
 
 #: ../po/messages.py:172
 msgctxt "QShortcut"
-msgid "NumLock"
+msgid "Media Previous"
 msgstr ""
 
 #: ../po/messages.py:173
 msgctxt "QShortcut"
-msgid "Open URL"
+msgid "Media Record"
 msgstr ""
 
 #: ../po/messages.py:174
 msgctxt "QShortcut"
-msgid "Option"
+msgid "Media Stop"
 msgstr ""
 
 #: ../po/messages.py:175
 msgctxt "QShortcut"
-msgid "Page Down"
+msgid "Menu"
 msgstr ""
 
 #: ../po/messages.py:176
 msgctxt "QShortcut"
-msgid "Page Up"
+msgid "Meta"
 msgstr ""
 
 #: ../po/messages.py:177
 msgctxt "QShortcut"
-msgid "Paste"
+msgid "Music"
 msgstr ""
 
 #: ../po/messages.py:178
 msgctxt "QShortcut"
-msgid "Pause"
+msgid "News"
 msgstr ""
 
 #: ../po/messages.py:179
 msgctxt "QShortcut"
-msgid "PgDown"
+msgid "Number Lock"
 msgstr ""
 
 #: ../po/messages.py:180
 msgctxt "QShortcut"
-msgid "PgUp"
+msgid "Num Lock"
 msgstr ""
 
 #: ../po/messages.py:181
 msgctxt "QShortcut"
-msgid "Refresh"
+msgid "NumLock"
 msgstr ""
 
 #: ../po/messages.py:182
 msgctxt "QShortcut"
-msgid "Reload"
+msgid "Open URL"
 msgstr ""
 
 #: ../po/messages.py:183
 msgctxt "QShortcut"
-msgid "Return"
+msgid "Option"
 msgstr ""
 
 #: ../po/messages.py:184
 msgctxt "QShortcut"
-msgid "Right"
+msgid "Page Down"
 msgstr ""
 
 #: ../po/messages.py:185
 msgctxt "QShortcut"
-msgid "Save"
+msgid "Page Up"
 msgstr ""
 
 #: ../po/messages.py:186
 msgctxt "QShortcut"
-msgid "Scroll Lock"
+msgid "Paste"
 msgstr ""
 
 #: ../po/messages.py:187
 msgctxt "QShortcut"
-msgid "ScrollLock"
+msgid "Pause"
 msgstr ""
 
 #: ../po/messages.py:188
 msgctxt "QShortcut"
-msgid "Search"
+msgid "PgDown"
 msgstr ""
 
 #: ../po/messages.py:189
 msgctxt "QShortcut"
-msgid "Select"
+msgid "PgUp"
 msgstr ""
 
 #: ../po/messages.py:190
 msgctxt "QShortcut"
-msgid "Send"
+msgid "Refresh"
 msgstr ""
 
 #: ../po/messages.py:191
 msgctxt "QShortcut"
-msgid "Shift"
+msgid "Reload"
 msgstr ""
 
 #: ../po/messages.py:192
 msgctxt "QShortcut"
-msgid "Space"
+msgid "Return"
 msgstr ""
 
 #: ../po/messages.py:193
 msgctxt "QShortcut"
-msgid "Spellchecker"
+msgid "Right"
 msgstr ""
 
 #: ../po/messages.py:194
 msgctxt "QShortcut"
-msgid "Split Screen"
+msgid "Save"
 msgstr ""
 
 #: ../po/messages.py:195
 msgctxt "QShortcut"
-msgid "Spreadsheet"
+msgid "Scroll Lock"
 msgstr ""
 
 #: ../po/messages.py:196
 msgctxt "QShortcut"
-msgid "Standby"
+msgid "ScrollLock"
 msgstr ""
 
 #: ../po/messages.py:197
 msgctxt "QShortcut"
-msgid "Stop"
+msgid "Search"
 msgstr ""
 
 #: ../po/messages.py:198
 msgctxt "QShortcut"
-msgid "Subtitle"
+msgid "Select"
 msgstr ""
 
 #: ../po/messages.py:199
 msgctxt "QShortcut"
-msgid "Support"
+msgid "Send"
 msgstr ""
 
 #: ../po/messages.py:200
 msgctxt "QShortcut"
-msgid "Suspend"
+msgid "Shift"
 msgstr ""
 
 #: ../po/messages.py:201
 msgctxt "QShortcut"
-msgid "SysReq"
+msgid "Space"
 msgstr ""
 
 #: ../po/messages.py:202
 msgctxt "QShortcut"
-msgid "Tab"
+msgid "Spellchecker"
 msgstr ""
 
 #: ../po/messages.py:203
 msgctxt "QShortcut"
-msgid "Task Panel"
+msgid "Split Screen"
 msgstr ""
 
 #: ../po/messages.py:204
 msgctxt "QShortcut"
-msgid "Terminal"
+msgid "Spreadsheet"
 msgstr ""
 
 #: ../po/messages.py:205
 msgctxt "QShortcut"
-msgid "Time"
+msgid "Standby"
 msgstr ""
 
 #: ../po/messages.py:206
 msgctxt "QShortcut"
-msgid "Toggle Media Play/Pause"
+msgid "Stop"
 msgstr ""
 
 #: ../po/messages.py:207
 msgctxt "QShortcut"
-msgid "Tools"
+msgid "Subtitle"
 msgstr ""
 
 #: ../po/messages.py:208
 msgctxt "QShortcut"
-msgid "Top Menu"
+msgid "Support"
 msgstr ""
 
 #: ../po/messages.py:209
 msgctxt "QShortcut"
-msgid "Treble Down"
+msgid "Suspend"
 msgstr ""
 
 #: ../po/messages.py:210
 msgctxt "QShortcut"
-msgid "Treble Up"
+msgid "SysReq"
 msgstr ""
 
 #: ../po/messages.py:211
 msgctxt "QShortcut"
-msgid "Up"
+msgid "Tab"
 msgstr ""
 
 #: ../po/messages.py:212
 msgctxt "QShortcut"
-msgid "Video"
+msgid "Task Panel"
 msgstr ""
 
 #: ../po/messages.py:213
 msgctxt "QShortcut"
-msgid "View"
+msgid "Terminal"
 msgstr ""
 
 #: ../po/messages.py:214
 msgctxt "QShortcut"
-msgid "Volume Down"
+msgid "Time"
 msgstr ""
 
 #: ../po/messages.py:215
 msgctxt "QShortcut"
-msgid "Volume Mute"
+msgid "Toggle Media Play/Pause"
 msgstr ""
 
 #: ../po/messages.py:216
 msgctxt "QShortcut"
-msgid "Volume Up"
+msgid "Tools"
 msgstr ""
 
 #: ../po/messages.py:217
 msgctxt "QShortcut"
-msgid "Zoom In"
+msgid "Top Menu"
 msgstr ""
 
 #: ../po/messages.py:218
 msgctxt "QShortcut"
-msgid "Zoom Out"
+msgid "Treble Down"
+msgstr ""
+
+#: ../po/messages.py:219
+msgctxt "QShortcut"
+msgid "Treble Up"
 msgstr ""
 
 #: ../po/messages.py:220
+msgctxt "QShortcut"
+msgid "Up"
+msgstr ""
+
+#: ../po/messages.py:221
+msgctxt "QShortcut"
+msgid "Video"
+msgstr ""
+
+#: ../po/messages.py:222
+msgctxt "QShortcut"
+msgid "View"
+msgstr ""
+
+#: ../po/messages.py:223
+msgctxt "QShortcut"
+msgid "Volume Down"
+msgstr ""
+
+#: ../po/messages.py:224
+msgctxt "QShortcut"
+msgid "Volume Mute"
+msgstr ""
+
+#: ../po/messages.py:225
+msgctxt "QShortcut"
+msgid "Volume Up"
+msgstr ""
+
+#: ../po/messages.py:226
+msgctxt "QShortcut"
+msgid "Zoom In"
+msgstr ""
+
+#: ../po/messages.py:227
+msgctxt "QShortcut"
+msgid "Zoom Out"
+msgstr ""
+
+#: ../po/messages.py:229
+msgctxt "QTabBar"
+msgid "Scroll Left"
+msgstr ""
+
+#: ../po/messages.py:230
+msgctxt "QTabBar"
+msgid "Scroll Right"
+msgstr ""
+
+#: ../po/messages.py:232
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr ""
 
-#: ../po/messages.py:221
+#: ../po/messages.py:233
 msgctxt "QTextControl"
 msgid "&Redo"
 msgstr ""
 
-#: ../po/messages.py:222
+#: ../po/messages.py:234
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr ""
 
-#: ../po/messages.py:223
+#: ../po/messages.py:235
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr ""
 
-#: ../po/messages.py:224
+#: ../po/messages.py:236
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr ""
 
-#: ../po/messages.py:225
+#: ../po/messages.py:237
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr ""
 
-#: ../po/messages.py:226
+#: ../po/messages.py:238
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr ""
 
-#: ../po/messages.py:228
+#: ../po/messages.py:240
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr ""
 
-#: ../preferences/__init__.py:107 ../preferences/midi.py:170
+#: ../preferences/__init__.py:107 ../preferences/midi.py:171
 #: ../userguide/preferences.md:1
 msgid "Preferences"
 msgstr ""
@@ -3358,8 +3408,8 @@ msgstr ""
 msgid "English (untranslated)"
 msgstr ""
 
-#: ../preferences/documentation.py:120 ../preferences/fontscolors.py:133
-#: ../preferences/tools.py:92 ../preferences/tools.py:233
+#: ../preferences/documentation.py:120 ../preferences/fontscolors.py:134
+#: ../preferences/tools.py:93 ../preferences/tools.py:234
 msgid "Font:"
 msgstr ""
 
@@ -3586,302 +3636,302 @@ msgstr ""
 msgid "Custom quotes (enter below)"
 msgstr ""
 
-#: ../preferences/fontscolors.py:132
+#: ../preferences/fontscolors.py:133
 msgid "Use this scheme for printing"
 msgstr ""
 
-#: ../preferences/fontscolors.py:134 ../preferences/fontscolors.py:327
+#: ../preferences/fontscolors.py:135 ../preferences/fontscolors.py:328
 msgid "Base Colors"
 msgstr ""
 
-#: ../preferences/fontscolors.py:135
+#: ../preferences/fontscolors.py:136
 msgid "Default Styles"
 msgstr ""
 
-#: ../preferences/fontscolors.py:168
+#: ../preferences/fontscolors.py:169
 #, python-brace-format
 msgid "(Inherits: {name})"
 msgstr ""
 
 #. L10N: color of Text
-#: ../preferences/fontscolors.py:389 ../preferences/fontscolors.py:464
+#: ../preferences/fontscolors.py:390 ../preferences/fontscolors.py:465
 msgid "Text"
 msgstr ""
 
 #. L10N: color of Background
-#: ../preferences/fontscolors.py:390 ../preferences/fontscolors.py:466
+#: ../preferences/fontscolors.py:391 ../preferences/fontscolors.py:467
 msgid "Background"
 msgstr ""
 
-#: ../preferences/fontscolors.py:391
+#: ../preferences/fontscolors.py:392
 msgid "Bold"
 msgstr ""
 
-#: ../preferences/fontscolors.py:392
+#: ../preferences/fontscolors.py:393
 msgid "Italic"
 msgstr ""
 
-#: ../preferences/fontscolors.py:393
+#: ../preferences/fontscolors.py:394
 msgid "Underline"
 msgstr ""
 
 #. L10N: color of Selected Text
-#: ../preferences/fontscolors.py:468
+#: ../preferences/fontscolors.py:469
 msgid "Selected Text"
 msgstr ""
 
 #. L10N: color of Selection Background
-#: ../preferences/fontscolors.py:470
+#: ../preferences/fontscolors.py:471
 msgid "Selection Background"
 msgstr ""
 
 #. L10N: color of Current Line
-#: ../preferences/fontscolors.py:472
+#: ../preferences/fontscolors.py:473
 msgid "Current Line"
 msgstr ""
 
 #. L10N: color of Marked Line (bookmark)
-#: ../preferences/fontscolors.py:474
+#: ../preferences/fontscolors.py:475
 msgid "Marked Line"
 msgstr ""
 
 #. L10N: color of line with Error
-#: ../preferences/fontscolors.py:476
+#: ../preferences/fontscolors.py:477
 msgid "Error Line"
 msgstr ""
 
 #. L10N: color of highlighted search result
-#: ../preferences/fontscolors.py:478
+#: ../preferences/fontscolors.py:479
 msgid "Search Result"
 msgstr ""
 
 #. L10N: color of characters that match (e.g. braces, parentheses)
-#: ../preferences/fontscolors.py:480
+#: ../preferences/fontscolors.py:481
 msgid "Matching Character"
 msgstr ""
 
 #. L10N: color of paper in music preview
-#: ../preferences/fontscolors.py:482
+#: ../preferences/fontscolors.py:483
 msgid "Preview Background"
 msgstr ""
 
 #. L10N: color of objects highlighting in preview
-#: ../preferences/fontscolors.py:484
+#: ../preferences/fontscolors.py:485
 msgid "Preview Highlight"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:491 ../preferences/fontscolors.py:527
-#: ../preferences/fontscolors.py:564 ../preferences/fontscolors.py:572
+#: ../preferences/fontscolors.py:492 ../preferences/fontscolors.py:528
+#: ../preferences/fontscolors.py:565 ../preferences/fontscolors.py:573
 msgid "Keyword"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:493 ../preferences/fontscolors.py:565
+#: ../preferences/fontscolors.py:494 ../preferences/fontscolors.py:566
 msgid "Function"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:495 ../preferences/fontscolors.py:541
-#: ../preferences/fontscolors.py:566
+#: ../preferences/fontscolors.py:496 ../preferences/fontscolors.py:542
+#: ../preferences/fontscolors.py:567
 msgid "Variable"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:497 ../preferences/fontscolors.py:543
-#: ../preferences/fontscolors.py:553
+#: ../preferences/fontscolors.py:498 ../preferences/fontscolors.py:544
+#: ../preferences/fontscolors.py:554
 msgid "Value"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:499 ../preferences/fontscolors.py:544
-#: ../preferences/fontscolors.py:556 ../preferences/fontscolors.py:562
+#: ../preferences/fontscolors.py:500 ../preferences/fontscolors.py:545
+#: ../preferences/fontscolors.py:557 ../preferences/fontscolors.py:563
 msgid "String"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:501
+#: ../preferences/fontscolors.py:502
 msgid "Escape"
 msgstr ""
 
 #. L10N: a basic type of input in the editor
-#: ../preferences/fontscolors.py:503 ../preferences/fontscolors.py:546
-#: ../preferences/fontscolors.py:555 ../preferences/fontscolors.py:563
-#: ../preferences/fontscolors.py:577 ../snippet/builtin.py:417
+#: ../preferences/fontscolors.py:504 ../preferences/fontscolors.py:547
+#: ../preferences/fontscolors.py:556 ../preferences/fontscolors.py:564
+#: ../preferences/fontscolors.py:578 ../snippet/builtin.py:417
 msgid "Comment"
 msgstr ""
 
-#: ../preferences/fontscolors.py:511 ../preferences/lilypond.py:263
+#: ../preferences/fontscolors.py:512 ../preferences/lilypond.py:262
 #: ../scorewiz/settings.py:315
 msgid "LilyPond"
 msgstr ""
 
-#: ../preferences/fontscolors.py:512
+#: ../preferences/fontscolors.py:513
 msgid "Pitch"
 msgstr ""
 
-#: ../preferences/fontscolors.py:513
+#: ../preferences/fontscolors.py:514
 msgid "Octave"
 msgstr ""
 
-#: ../preferences/fontscolors.py:514
+#: ../preferences/fontscolors.py:515
 msgid "Duration"
 msgstr ""
 
-#: ../preferences/fontscolors.py:515
+#: ../preferences/fontscolors.py:516
 msgid "Accidental"
 msgstr ""
 
-#: ../preferences/fontscolors.py:516
+#: ../preferences/fontscolors.py:517
 msgid "Octave Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:517
+#: ../preferences/fontscolors.py:518
 msgid "Fingering"
 msgstr ""
 
 #. L10N: For String instruments like Guitar
-#: ../preferences/fontscolors.py:519
+#: ../preferences/fontscolors.py:520
 msgid "String Number"
 msgstr ""
 
-#: ../preferences/fontscolors.py:520 ../quickinsert/spanners.py:171
+#: ../preferences/fontscolors.py:521 ../quickinsert/spanners.py:172
 msgid "Slur"
 msgstr ""
 
-#: ../preferences/fontscolors.py:521
+#: ../preferences/fontscolors.py:522
 msgid "Dynamic"
 msgstr ""
 
-#: ../preferences/fontscolors.py:522
+#: ../preferences/fontscolors.py:523
 msgid "Articulation"
 msgstr ""
 
-#: ../preferences/fontscolors.py:523
+#: ../preferences/fontscolors.py:524
 msgid "Chord"
 msgstr ""
 
-#: ../preferences/fontscolors.py:524 ../quickinsert/spanners.py:173
+#: ../preferences/fontscolors.py:525 ../quickinsert/spanners.py:174
 msgid "Beam"
 msgstr ""
 
-#: ../preferences/fontscolors.py:525
+#: ../preferences/fontscolors.py:526
 msgid "Check"
 msgstr ""
 
-#: ../preferences/fontscolors.py:526 ../snippet/builtin.py:260
+#: ../preferences/fontscolors.py:527 ../snippet/builtin.py:260
 msgid "Repeat"
 msgstr ""
 
-#: ../preferences/fontscolors.py:528 ../preferences/shortcuts.py:56
+#: ../preferences/fontscolors.py:529 ../preferences/shortcuts.py:57
 msgid "Command"
 msgstr ""
 
-#: ../preferences/fontscolors.py:529
+#: ../preferences/fontscolors.py:530
 msgid "Specifier"
 msgstr ""
 
-#: ../preferences/fontscolors.py:530
+#: ../preferences/fontscolors.py:531
 msgid "User Command"
 msgstr ""
 
-#: ../preferences/fontscolors.py:531 ../snippet/builtin.py:303
+#: ../preferences/fontscolors.py:532 ../snippet/builtin.py:303
 msgid "Markup"
 msgstr ""
 
-#: ../preferences/fontscolors.py:532
+#: ../preferences/fontscolors.py:533
 msgid "Lyric Mode"
 msgstr ""
 
-#: ../preferences/fontscolors.py:533
+#: ../preferences/fontscolors.py:534
 msgid "Lyric Text"
 msgstr ""
 
-#: ../preferences/fontscolors.py:534 ../preferences/fontscolors.py:569
+#: ../preferences/fontscolors.py:535 ../preferences/fontscolors.py:570
 msgid "Delimiter"
 msgstr ""
 
-#: ../preferences/fontscolors.py:535 ../scorewiz/parts/special.py:43
+#: ../preferences/fontscolors.py:536 ../scorewiz/parts/special.py:43
 msgid "Figured Bass"
 msgstr ""
 
-#: ../preferences/fontscolors.py:536
+#: ../preferences/fontscolors.py:537
 msgid "Figured Bass Step"
 msgstr ""
 
-#: ../preferences/fontscolors.py:537
+#: ../preferences/fontscolors.py:538
 msgid "Figured Bass Modifier"
 msgstr ""
 
-#: ../preferences/fontscolors.py:538
+#: ../preferences/fontscolors.py:539
 msgid "Context"
 msgstr ""
 
-#: ../preferences/fontscolors.py:539
+#: ../preferences/fontscolors.py:540
 msgid "Layout Object"
 msgstr ""
 
-#: ../preferences/fontscolors.py:540
+#: ../preferences/fontscolors.py:541
 msgid "Property"
 msgstr ""
 
-#: ../preferences/fontscolors.py:542
+#: ../preferences/fontscolors.py:543
 msgid "User Variable"
 msgstr ""
 
-#: ../preferences/fontscolors.py:545 ../preferences/fontscolors.py:574
+#: ../preferences/fontscolors.py:546 ../preferences/fontscolors.py:575
 msgid "Escaped Character"
 msgstr ""
 
-#: ../preferences/fontscolors.py:549
+#: ../preferences/fontscolors.py:550
 msgid "HTML"
 msgstr ""
 
-#: ../preferences/fontscolors.py:550
+#: ../preferences/fontscolors.py:551
 msgid "Tag"
 msgstr ""
 
-#: ../preferences/fontscolors.py:551
+#: ../preferences/fontscolors.py:552
 msgid "LilyPond Tag"
 msgstr ""
 
-#: ../preferences/fontscolors.py:552 ../preferences/fontscolors.py:575
+#: ../preferences/fontscolors.py:553 ../preferences/fontscolors.py:576
 msgid "Attribute"
 msgstr ""
 
-#: ../preferences/fontscolors.py:554
+#: ../preferences/fontscolors.py:555
 msgid "Entity Reference"
 msgstr ""
 
-#: ../preferences/fontscolors.py:558 ../preferences/fontscolors.py:559
+#: ../preferences/fontscolors.py:559 ../preferences/fontscolors.py:560
 msgid "Scheme"
 msgstr ""
 
-#: ../preferences/fontscolors.py:560
+#: ../preferences/fontscolors.py:561
 msgid "Number"
 msgstr ""
 
-#: ../preferences/fontscolors.py:561
+#: ../preferences/fontscolors.py:562
 msgid "LilyPond Environment"
 msgstr ""
 
-#: ../preferences/fontscolors.py:567
+#: ../preferences/fontscolors.py:568
 msgid "Constant"
 msgstr ""
 
-#: ../preferences/fontscolors.py:568
+#: ../preferences/fontscolors.py:569
 msgid "Symbol"
 msgstr ""
 
-#: ../preferences/fontscolors.py:571
+#: ../preferences/fontscolors.py:572
 msgid "Texinfo"
 msgstr ""
 
-#: ../preferences/fontscolors.py:573
+#: ../preferences/fontscolors.py:574
 msgid "Block"
 msgstr ""
 
-#: ../preferences/fontscolors.py:576
+#: ../preferences/fontscolors.py:577
 msgid "Verbatim"
 msgstr ""
 
@@ -3897,7 +3947,7 @@ msgstr ""
 msgid "System Default Language (if available)"
 msgstr ""
 
-#: ../preferences/general.py:137 ../scorewiz/parts/percussion.py:185
+#: ../preferences/general.py:137 ../scorewiz/parts/percussion.py:186
 msgid "Style:"
 msgstr ""
 
@@ -4108,12 +4158,12 @@ msgstr ""
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr ""
 
-#: ../preferences/import_export.py:89
+#: ../preferences/import_export.py:91
 msgid "No theme found."
 msgstr ""
 
-#: ../preferences/import_export.py:92 ../preferences/import_export.py:175
-#: ../snippet/import_export.py:106
+#: ../preferences/import_export.py:94 ../preferences/import_export.py:177
+#: ../snippet/import_export.py:107
 #, python-brace-format
 msgid ""
 "Can't read from source:\n"
@@ -4123,166 +4173,166 @@ msgid ""
 "{error}"
 msgstr ""
 
-#: ../preferences/import_export.py:172
+#: ../preferences/import_export.py:174
 msgid "No shortcuts found."
 msgstr ""
 
-#: ../preferences/lilypond.py:88
+#: ../preferences/lilypond.py:87
 msgid "LilyPond versions to use"
 msgstr ""
 
-#: ../preferences/lilypond.py:89 ../userguide/prefs_lilypond_autoversion.md:1
+#: ../preferences/lilypond.py:88 ../userguide/prefs_lilypond_autoversion.md:1
 msgid "Automatically choose LilyPond version from document"
 msgstr ""
 
-#: ../preferences/lilypond.py:91
+#: ../preferences/lilypond.py:90
 msgid ""
 "If checked, the document's version determines the LilyPond version to use.\n"
 "See \"What's This\" for more information."
 msgstr ""
 
-#: ../preferences/lilypond.py:94
+#: ../preferences/lilypond.py:93
 #, python-brace-format
 msgid "See also {link}."
 msgstr ""
 
-#: ../preferences/lilypond.py:142
+#: ../preferences/lilypond.py:141
 msgid "Set as &Default"
 msgstr ""
 
-#: ../preferences/lilypond.py:183
+#: ../preferences/lilypond.py:182
 msgid "default"
 msgstr ""
 
-#: ../preferences/lilypond.py:256
+#: ../preferences/lilypond.py:255
 msgid "Convert-ly:"
 msgstr ""
 
-#: ../preferences/lilypond.py:257
+#: ../preferences/lilypond.py:256
 msgid "LilyPond-book:"
 msgstr ""
 
-#: ../preferences/lilypond.py:258
+#: ../preferences/lilypond.py:257
 msgid "Midi2ly:"
 msgstr ""
 
-#: ../preferences/lilypond.py:259
+#: ../preferences/lilypond.py:258
 msgid "MusicXML2ly:"
 msgstr ""
 
-#: ../preferences/lilypond.py:260
+#: ../preferences/lilypond.py:259
 msgid "ABC2ly:"
 msgstr ""
 
-#: ../preferences/lilypond.py:264
+#: ../preferences/lilypond.py:263
 msgid "Label:"
 msgstr ""
 
-#: ../preferences/lilypond.py:265
+#: ../preferences/lilypond.py:264
 msgid "How this version of LilyPond will be displayed."
 msgstr ""
 
-#: ../preferences/lilypond.py:266
+#: ../preferences/lilypond.py:265
 msgid "LilyPond Command:"
 msgstr ""
 
-#: ../preferences/lilypond.py:267
+#: ../preferences/lilypond.py:266
 msgid "Name or full path of the LilyPond program."
 msgstr ""
 
-#: ../preferences/lilypond.py:268
+#: ../preferences/lilypond.py:267
 msgid "Include in automatic version selection"
 msgstr ""
 
-#: ../preferences/lilypond.py:269
+#: ../preferences/lilypond.py:268
 msgid "General"
 msgstr ""
 
-#: ../preferences/lilypond.py:270
+#: ../preferences/lilypond.py:269
 msgid "Tool Commands"
 msgstr ""
 
-#: ../preferences/lilypond.py:321
+#: ../preferences/lilypond.py:320
 msgid "Running LilyPond"
 msgstr ""
 
-#: ../preferences/lilypond.py:322
+#: ../preferences/lilypond.py:321
 msgid "Save document if possible"
 msgstr ""
 
-#: ../preferences/lilypond.py:324
+#: ../preferences/lilypond.py:323
 msgid ""
 "If checked, the document is saved when it is local and modified.\n"
 "Otherwise a temporary file is used to run LilyPond."
 msgstr ""
 
-#: ../preferences/lilypond.py:328
+#: ../preferences/lilypond.py:327
 msgid "If checked, LilyPond will delete intermediate PostScript files."
 msgstr ""
 
-#: ../preferences/lilypond.py:329
+#: ../preferences/lilypond.py:328
 msgid "Embed Source Code files in publish mode"
 msgstr ""
 
-#: ../preferences/lilypond.py:331
+#: ../preferences/lilypond.py:330
 msgid ""
 "If checked, the LilyPond source files will be embedded in the PDF\n"
 "when LilyPond is started in publish mode.\n"
 "This feature is available since LilyPond 2.19.39."
 msgstr ""
 
-#: ../preferences/lilypond.py:336
+#: ../preferences/lilypond.py:335
 msgid ""
 "If checked, LilyPond's output messages will be in English.\n"
 "This can be useful for bug reports."
 msgstr ""
 
-#: ../preferences/lilypond.py:338
+#: ../preferences/lilypond.py:337
 msgid "LilyPond include path:"
 msgstr ""
 
-#: ../preferences/lilypond.py:375
+#: ../preferences/lilypond.py:374
 msgid "Default output format"
 msgstr ""
 
-#: ../preferences/lilypond.py:378
+#: ../preferences/lilypond.py:377
 msgid "Create PDF (Portable Document Format) documents by default."
 msgstr ""
 
-#: ../preferences/lilypond.py:381
+#: ../preferences/lilypond.py:380
 msgid "Create SVG (Scalable Vector Graphics) documents by default."
 msgstr ""
 
-#: ../preferences/lilypond.py:382
+#: ../preferences/lilypond.py:381
 msgid "Open default viewer after successful compile"
 msgstr ""
 
-#: ../preferences/lilypond.py:384
+#: ../preferences/lilypond.py:383
 msgid ""
 "Shows the PDF or SVG music view when a compile job finishes successfully."
 msgstr ""
 
-#: ../preferences/midi.py:83
+#: ../preferences/midi.py:84
 msgid "MIDI Ports"
 msgstr ""
 
-#: ../preferences/midi.py:85
+#: ../preferences/midi.py:86
 msgid ""
 "Note: There are no MIDI output ports available on your system. To use MIDI, "
 "please check if PortMIDI is installed on your system and that a MIDI "
 "synthesizer is available or connected."
 msgstr ""
 
-#: ../preferences/midi.py:88
+#: ../preferences/midi.py:89
 msgid "Player output:"
 msgstr ""
 
-#: ../preferences/midi.py:90
+#: ../preferences/midi.py:91
 msgid ""
 "The MIDI port to play music to. See \"What's This\" for more information."
 msgstr ""
 
-#: ../preferences/midi.py:93
+#: ../preferences/midi.py:94
 msgid ""
 "<p>This dropdown menu lists the available MIDI output ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -4291,17 +4341,17 @@ msgid ""
 "or start a software synthesizer.</p>"
 msgstr ""
 
-#: ../preferences/midi.py:102
+#: ../preferences/midi.py:103
 msgid "Input port:"
 msgstr ""
 
-#: ../preferences/midi.py:104
+#: ../preferences/midi.py:105
 msgid ""
 "The MIDI port to get input from to write notes  See \"What's This\" for more "
 "information."
 msgstr ""
 
-#: ../preferences/midi.py:107
+#: ../preferences/midi.py:108
 msgid ""
 "<p>This dropdown menu lists the available MIDI input ports on your system. "
 "You can select one, or just type part of a name. In that case, the first "
@@ -4310,21 +4360,21 @@ msgid ""
 "or start a software synthesizer.</p>"
 msgstr ""
 
-#: ../preferences/midi.py:116
+#: ../preferences/midi.py:117
 msgid "Refresh MIDI ports"
 msgstr ""
 
-#: ../preferences/midi.py:171
+#: ../preferences/midi.py:172
 msgid "Close unused MIDI output"
 msgstr ""
 
-#: ../preferences/midi.py:173
+#: ../preferences/midi.py:174
 msgid ""
 "Closes unused MIDI ports after one minute. See \"What's This\" for more "
 "information."
 msgstr ""
 
-#: ../preferences/midi.py:176
+#: ../preferences/midi.py:177
 msgid ""
 "<p>If checked, Frescobaldi will close MIDI output ports that are not used "
 "for one minute.</p>\n"
@@ -4335,15 +4385,15 @@ msgid ""
 "playing the file from the beginning sets up the instruments again.</p>\n"
 msgstr ""
 
-#: ../preferences/midi.py:184
+#: ../preferences/midi.py:185
 msgid "Polling time for input:"
 msgstr ""
 
-#: ../preferences/midi.py:186
+#: ../preferences/midi.py:187
 msgid "Polling time for MIDI input. See \"What's This\" for more information."
 msgstr ""
 
-#: ../preferences/midi.py:189
+#: ../preferences/midi.py:190
 msgid ""
 "Sets the time between the polling of the MIDI input port in milliseconds. "
 "Small values lead to faster recognition of incoming MIDI events, but stress "
@@ -4354,116 +4404,116 @@ msgstr ""
 msgid "Folders containing hyphenation dictionaries"
 msgstr ""
 
-#: ../preferences/shortcuts.py:56 ../snippet/model.py:63
+#: ../preferences/shortcuts.py:57 ../snippet/model.py:63
 msgid "Shortcut"
 msgstr ""
 
-#: ../preferences/shortcuts.py:100
+#: ../preferences/shortcuts.py:101
 #, python-brace-format
 msgid "Menu {name}"
 msgstr ""
 
-#: ../preferences/shortcuts.py:128
+#: ../preferences/shortcuts.py:129
 msgid "Other commands:"
 msgstr ""
 
-#: ../preferences/shortcuts.py:189
+#: ../preferences/shortcuts.py:190
 #, python-brace-format
 msgid "&Edit Shortcut for \"{name}\""
 msgstr ""
 
-#: ../preferences/shortcuts.py:194
+#: ../preferences/shortcuts.py:195
 msgid "(no shortcut)"
 msgstr ""
 
-#: ../preferences/shortcuts.py:335
+#: ../preferences/shortcuts.py:336
 msgid "(default)"
 msgstr ""
 
-#: ../preferences/tools.py:93
+#: ../preferences/tools.py:94
 msgid "Show log when a job is started"
 msgstr ""
 
-#: ../preferences/tools.py:94
+#: ../preferences/tools.py:95
 msgid "Display plain log output"
 msgstr ""
 
-#: ../preferences/tools.py:96
+#: ../preferences/tools.py:97
 msgid "If checked, Frescobaldi will not shorten filenames in the log output."
 msgstr ""
 
-#: ../preferences/tools.py:97
+#: ../preferences/tools.py:98
 msgid "Hide automatic engraving jobs"
 msgstr ""
 
-#: ../preferences/tools.py:99
+#: ../preferences/tools.py:100
 msgid ""
 "If checked, Frescobaldi will not show the log for automatically\n"
 "started engraving jobs (LilyPond->Auto-engrave)."
 msgstr ""
 
-#: ../preferences/tools.py:165
+#: ../preferences/tools.py:166
 msgid "Music View"
 msgstr ""
 
-#: ../preferences/tools.py:166
+#: ../preferences/tools.py:167
 msgid "Only load updated PDF documents"
 msgstr ""
 
-#: ../preferences/tools.py:168
+#: ../preferences/tools.py:169
 msgid ""
 "If checked, Frescobaldi will not open PDF documents that are not\n"
 "up-to-date (i.e. the source file has been modified later)."
 msgstr ""
 
-#: ../preferences/tools.py:170
+#: ../preferences/tools.py:171
 msgid "Magnifier Size:"
 msgstr ""
 
-#: ../preferences/tools.py:172
+#: ../preferences/tools.py:173
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr ""
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../preferences/tools.py:174
+#: ../preferences/tools.py:175
 msgid " pixels"
 msgstr ""
 
-#: ../preferences/tools.py:175
+#: ../preferences/tools.py:176
 msgid "Magnifier Scale:"
 msgstr ""
 
-#: ../preferences/tools.py:177
+#: ../preferences/tools.py:178
 msgid "Magnification of the magnifier."
 msgstr ""
 
-#: ../preferences/tools.py:178
+#: ../preferences/tools.py:179
 msgctxt "percent unit sign"
 msgid "%"
 msgstr ""
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../preferences/tools.py:180
+#: ../preferences/tools.py:181
 msgid "Kinetic Scrolling"
 msgstr ""
 
-#: ../preferences/tools.py:181
+#: ../preferences/tools.py:182
 msgid "Show Scrollbars"
 msgstr ""
 
-#: ../preferences/tools.py:266
+#: ../preferences/tools.py:267
 msgid "Group documents by directory"
 msgstr ""
 
-#: ../preferences/tools.py:299
+#: ../preferences/tools.py:300
 msgid "Restores the built-in outline patterns."
 msgstr ""
 
-#: ../preferences/tools.py:300
+#: ../preferences/tools.py:301
 msgid "Patterns to match in text that are shown in outline:"
 msgstr ""
 
-#: ../preferences/tools.py:326
+#: ../preferences/tools.py:327
 msgid "Enter a regular expression to match:"
 msgstr ""
 
@@ -4475,201 +4525,201 @@ msgstr ""
 msgid "Quick &Insert"
 msgstr ""
 
-#: ../quickinsert/articulations.py:96
+#: ../quickinsert/articulations.py:97
 msgid "Allow shorthands"
 msgstr ""
 
-#: ../quickinsert/articulations.py:98
+#: ../quickinsert/articulations.py:99
 msgid "Use short notation for some articulations like staccato."
 msgstr ""
 
-#: ../quickinsert/articulations.py:100
+#: ../quickinsert/articulations.py:101
 msgid "Remove articulations etc."
 msgstr ""
 
-#: ../quickinsert/articulations.py:108 ../quickinsert/articulations.py:146
+#: ../quickinsert/articulations.py:109 ../quickinsert/articulations.py:147
 #: ../userguide/quickinsert.md:16
 msgid "Articulations"
 msgstr ""
 
-#: ../quickinsert/articulations.py:112
+#: ../quickinsert/articulations.py:113
 msgid "Different kinds of articulations and other signs."
 msgstr ""
 
-#: ../quickinsert/articulations.py:149
+#: ../quickinsert/articulations.py:150
 msgid "Accent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:150
+#: ../quickinsert/articulations.py:151
 msgid "Marcato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:151
+#: ../quickinsert/articulations.py:152
 msgid "Staccatissimo"
 msgstr ""
 
-#: ../quickinsert/articulations.py:152
+#: ../quickinsert/articulations.py:153
 msgid "Staccato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:153
+#: ../quickinsert/articulations.py:154
 msgid "Portato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:154
+#: ../quickinsert/articulations.py:155
 msgid "Tenuto"
 msgstr ""
 
-#: ../quickinsert/articulations.py:155
+#: ../quickinsert/articulations.py:156
 msgid "Espressivo"
 msgstr ""
 
-#: ../quickinsert/articulations.py:160
+#: ../quickinsert/articulations.py:161
 msgid "Ornaments"
 msgstr ""
 
-#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:174
+#: ../quickinsert/articulations.py:164 ../quickinsert/spanners.py:175
 msgid "Trill"
 msgstr ""
 
-#: ../quickinsert/articulations.py:164
+#: ../quickinsert/articulations.py:165
 msgid "Prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:165
+#: ../quickinsert/articulations.py:166
 msgid "Mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:166
+#: ../quickinsert/articulations.py:167
 msgid "Turn"
 msgstr ""
 
-#: ../quickinsert/articulations.py:167
+#: ../quickinsert/articulations.py:168
 msgid "Prall prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:168
+#: ../quickinsert/articulations.py:169
 msgid "Prall mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:169
+#: ../quickinsert/articulations.py:170
 msgid "Up prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:170
+#: ../quickinsert/articulations.py:171
 msgid "Down prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:171
+#: ../quickinsert/articulations.py:172
 msgid "Up mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:172
+#: ../quickinsert/articulations.py:173
 msgid "Down mordent"
 msgstr ""
 
-#: ../quickinsert/articulations.py:173
+#: ../quickinsert/articulations.py:174
 msgid "Prall up"
 msgstr ""
 
-#: ../quickinsert/articulations.py:174
+#: ../quickinsert/articulations.py:175
 msgid "Prall down"
 msgstr ""
 
-#: ../quickinsert/articulations.py:175
+#: ../quickinsert/articulations.py:176
 msgid "Line prall"
 msgstr ""
 
-#: ../quickinsert/articulations.py:176
+#: ../quickinsert/articulations.py:177
 msgid "Reverse turn"
 msgstr ""
 
 #. L10N: dynamic signs
-#: ../quickinsert/articulations.py:181 ../quickinsert/dynamics.py:142
+#: ../quickinsert/articulations.py:182 ../quickinsert/dynamics.py:143
 msgid "Signs"
 msgstr ""
 
-#: ../quickinsert/articulations.py:184
+#: ../quickinsert/articulations.py:185
 msgid "Fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:185
+#: ../quickinsert/articulations.py:186
 msgid "Short fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:186
+#: ../quickinsert/articulations.py:187
 msgid "Long fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:187
+#: ../quickinsert/articulations.py:188
 msgid "Very long fermata"
 msgstr ""
 
-#: ../quickinsert/articulations.py:188
+#: ../quickinsert/articulations.py:189
 msgid "Segno"
 msgstr ""
 
-#: ../quickinsert/articulations.py:189
+#: ../quickinsert/articulations.py:190
 msgid "Coda"
 msgstr ""
 
-#: ../quickinsert/articulations.py:190
+#: ../quickinsert/articulations.py:191
 msgid "Varcoda"
 msgstr ""
 
-#: ../quickinsert/articulations.py:191
+#: ../quickinsert/articulations.py:192
 msgid "Signumcongruentiae"
 msgstr ""
 
-#: ../quickinsert/articulations.py:196
+#: ../quickinsert/articulations.py:197
 msgid "Other"
 msgstr ""
 
-#: ../quickinsert/articulations.py:199
+#: ../quickinsert/articulations.py:200
 msgid "Upbow"
 msgstr ""
 
-#: ../quickinsert/articulations.py:200
+#: ../quickinsert/articulations.py:201
 msgid "Downbow"
 msgstr ""
 
-#: ../quickinsert/articulations.py:201
+#: ../quickinsert/articulations.py:202
 msgid "Snappizzicato"
 msgstr ""
 
-#: ../quickinsert/articulations.py:202
+#: ../quickinsert/articulations.py:203
 msgid "Open (e.g. brass)"
 msgstr ""
 
-#: ../quickinsert/articulations.py:203
+#: ../quickinsert/articulations.py:204
 msgid "Stopped (e.g. brass)"
 msgstr ""
 
-#: ../quickinsert/articulations.py:204
+#: ../quickinsert/articulations.py:205
 msgid "Flageolet"
 msgstr ""
 
-#: ../quickinsert/articulations.py:205
+#: ../quickinsert/articulations.py:206
 msgid "Thumb"
 msgstr ""
 
-#: ../quickinsert/articulations.py:206
+#: ../quickinsert/articulations.py:207
 msgid "Left heel"
 msgstr ""
 
-#: ../quickinsert/articulations.py:207
+#: ../quickinsert/articulations.py:208
 msgid "Right heel"
 msgstr ""
 
-#: ../quickinsert/articulations.py:208
+#: ../quickinsert/articulations.py:209
 msgid "Left toe"
 msgstr ""
 
-#: ../quickinsert/articulations.py:209
+#: ../quickinsert/articulations.py:210
 msgid "Right toe"
 msgstr ""
 
-#: ../quickinsert/articulations.py:210
+#: ../quickinsert/articulations.py:211
 msgid "Half open (e.g. hi-hat)"
 msgstr ""
 
@@ -4786,140 +4836,140 @@ msgstr ""
 msgid "Straight Caesura"
 msgstr ""
 
-#: ../quickinsert/buttongroup.py:179
+#: ../quickinsert/buttongroup.py:180
 #, python-brace-format
 msgid "{name} ({key})"
 msgstr ""
 
-#: ../quickinsert/buttongroup.py:186
+#: ../quickinsert/buttongroup.py:187
 #, python-brace-format
 msgid "Configure Keyboard Shortcut ({key})"
 msgstr ""
 
-#: ../quickinsert/buttongroup.py:186 ../scorewiz/scoreproperties.py:171
+#: ../quickinsert/buttongroup.py:187 ../scorewiz/scoreproperties.py:173
 #: ../scorewiz/settings.py:215 ../snippet/edit.py:224
 msgid "None"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:74 ../userguide/quickinsert.md:29
+#: ../quickinsert/dynamics.py:75 ../userguide/quickinsert.md:29
 msgid "Dynamics"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:78
+#: ../quickinsert/dynamics.py:79
 msgid "Dynamic symbols."
 msgstr ""
 
-#: ../quickinsert/dynamics.py:155
+#: ../quickinsert/dynamics.py:156
 #, python-brace-format
 msgid "Dynamic sign {name}"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:160 ../quickinsert/spanners.py:75
-#: ../quickinsert/spanners.py:164 ../userguide/quickinsert.md:37
+#: ../quickinsert/dynamics.py:161 ../quickinsert/spanners.py:76
+#: ../quickinsert/spanners.py:165 ../userguide/quickinsert.md:37
 msgid "Spanners"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:169
+#: ../quickinsert/dynamics.py:170
 msgid "Hairpin crescendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:170
+#: ../quickinsert/dynamics.py:171
 msgid "Crescendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:171
+#: ../quickinsert/dynamics.py:172
 msgid "Hairpin diminuendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:172
+#: ../quickinsert/dynamics.py:173
 msgid "Diminuendo"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:173
+#: ../quickinsert/dynamics.py:174
 msgid "Decrescendo"
 msgstr ""
 
-#: ../quickinsert/spanners.py:79
+#: ../quickinsert/spanners.py:80
 msgid "Slurs, spanners, etcetera."
 msgstr ""
 
-#: ../quickinsert/spanners.py:84
+#: ../quickinsert/spanners.py:85
 msgid "Arpeggios"
 msgstr ""
 
-#: ../quickinsert/spanners.py:93
+#: ../quickinsert/spanners.py:94
 msgid "Arpeggio"
 msgstr ""
 
-#: ../quickinsert/spanners.py:94
+#: ../quickinsert/spanners.py:95
 msgid "Arpeggio with Up Arrow"
 msgstr ""
 
-#: ../quickinsert/spanners.py:95
+#: ../quickinsert/spanners.py:96
 msgid "Arpeggio with Down Arrow"
 msgstr ""
 
-#: ../quickinsert/spanners.py:96
+#: ../quickinsert/spanners.py:97
 msgid "Bracket Arpeggio"
 msgstr ""
 
-#: ../quickinsert/spanners.py:97
+#: ../quickinsert/spanners.py:98
 msgid "Parenthesis Arpeggio"
 msgstr ""
 
-#: ../quickinsert/spanners.py:131
+#: ../quickinsert/spanners.py:132
 msgid "Glissandos"
 msgstr ""
 
-#: ../quickinsert/spanners.py:140
+#: ../quickinsert/spanners.py:141
 msgid "Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:141
+#: ../quickinsert/spanners.py:142
 msgid "Dashed Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:142
+#: ../quickinsert/spanners.py:143
 msgid "Dotted Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:143
+#: ../quickinsert/spanners.py:144
 msgid "Zigzag Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:145
 msgid "Trill Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:172
+#: ../quickinsert/spanners.py:173
 msgid "Phrasing Slur"
 msgstr ""
 
-#: ../quickinsert/spanners.py:175
+#: ../quickinsert/spanners.py:176
 msgid "Melisma"
 msgstr ""
 
-#: ../quickinsert/spanners.py:198 ../quickinsert/spanners.py:205
+#: ../quickinsert/spanners.py:199 ../quickinsert/spanners.py:206
 msgid "Grace Notes"
 msgstr ""
 
-#: ../quickinsert/spanners.py:206
+#: ../quickinsert/spanners.py:207
 msgid "Grace Notes w. beaming"
 msgstr ""
 
-#: ../quickinsert/spanners.py:207
+#: ../quickinsert/spanners.py:208
 msgid "Acciaccatura"
 msgstr ""
 
-#: ../quickinsert/spanners.py:208
+#: ../quickinsert/spanners.py:209
 msgid "Appoggiatura"
 msgstr ""
 
-#: ../quickinsert/spanners.py:209
+#: ../quickinsert/spanners.py:210
 msgid "Slashed no slur"
 msgstr ""
 
-#: ../quickinsert/spanners.py:210
+#: ../quickinsert/spanners.py:211
 msgid "After grace"
 msgstr ""
 
@@ -5089,7 +5139,7 @@ msgstr ""
 msgid "Enter a rhythm:"
 msgstr ""
 
-#: ../scorewiz/__init__.py:61
+#: ../scorewiz/__init__.py:62
 msgid "Score &Wizard..."
 msgstr ""
 
@@ -5129,67 +5179,67 @@ msgstr ""
 msgid "&Score settings"
 msgstr ""
 
-#: ../scorewiz/header.py:86
+#: ../scorewiz/header.py:87
 msgid "Click to enter a value."
 msgstr ""
 
-#: ../scorewiz/header.py:88
+#: ../scorewiz/header.py:89
 msgid "bottom of first page"
 msgstr ""
 
-#: ../scorewiz/header.py:89
+#: ../scorewiz/header.py:90
 msgid "bottom of last page"
 msgstr ""
 
-#: ../scorewiz/header.py:129
+#: ../scorewiz/header.py:130
 msgid "Dedication"
 msgstr ""
 
-#: ../scorewiz/header.py:130
+#: ../scorewiz/header.py:131
 msgid "Title"
 msgstr ""
 
-#: ../scorewiz/header.py:131
+#: ../scorewiz/header.py:132
 msgid "Subtitle"
 msgstr ""
 
-#: ../scorewiz/header.py:132
+#: ../scorewiz/header.py:133
 msgid "Subsubtitle"
 msgstr ""
 
-#: ../scorewiz/header.py:133
+#: ../scorewiz/header.py:134
 msgid "Instrument"
 msgstr ""
 
-#: ../scorewiz/header.py:134
+#: ../scorewiz/header.py:135
 msgid "Composer"
 msgstr ""
 
-#: ../scorewiz/header.py:135
+#: ../scorewiz/header.py:136
 msgid "Arranger"
 msgstr ""
 
-#: ../scorewiz/header.py:136
+#: ../scorewiz/header.py:137
 msgid "Poet"
 msgstr ""
 
-#: ../scorewiz/header.py:137
+#: ../scorewiz/header.py:138
 msgid "Meter"
 msgstr ""
 
-#: ../scorewiz/header.py:138
+#: ../scorewiz/header.py:139
 msgid "Piece"
 msgstr ""
 
-#: ../scorewiz/header.py:139
+#: ../scorewiz/header.py:140
 msgid "Opus"
 msgstr ""
 
-#: ../scorewiz/header.py:140
+#: ../scorewiz/header.py:141
 msgid "Copyright"
 msgstr ""
 
-#: ../scorewiz/header.py:141
+#: ../scorewiz/header.py:142
 msgid "Tagline"
 msgstr ""
 
@@ -5205,7 +5255,7 @@ msgstr ""
 msgid "&Add"
 msgstr ""
 
-#: ../scorewiz/score.py:103 ../snippet/widget.py:194 ../widgets/listedit.py:93
+#: ../scorewiz/score.py:103 ../snippet/widget.py:195 ../widgets/listedit.py:94
 #: ../widgets/schemeselector.py:94
 msgid "&Remove"
 msgstr ""
@@ -5218,67 +5268,67 @@ msgstr ""
 msgid "Move down"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:99
+#: ../scorewiz/scoreproperties.py:101
 msgid "Key signature:"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:135
+#: ../scorewiz/scoreproperties.py:137
 msgid "Time signature:"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:177
+#: ../scorewiz/scoreproperties.py:179
 msgid "Pickup measure:"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:228
+#: ../scorewiz/scoreproperties.py:230
 msgid "Metronome mark:"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:229
+#: ../scorewiz/scoreproperties.py:231
 msgid "Round tap tempo value"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:231
+#: ../scorewiz/scoreproperties.py:233
 msgid "Round the entered tap tempo to a common value."
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:260
+#: ../scorewiz/scoreproperties.py:262
 msgid "Tempo indication:"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:399
+#: ../scorewiz/scoreproperties.py:401
 msgid "Major"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:400
+#: ../scorewiz/scoreproperties.py:402
 msgid "Minor"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:401
+#: ../scorewiz/scoreproperties.py:403
 msgid "Ionian"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:402
+#: ../scorewiz/scoreproperties.py:404
 msgid "Dorian"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:403
+#: ../scorewiz/scoreproperties.py:405
 msgid "Phrygian"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:404
+#: ../scorewiz/scoreproperties.py:406
 msgid "Lydian"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:405
+#: ../scorewiz/scoreproperties.py:407
 msgid "Mixolydian"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:406
+#: ../scorewiz/scoreproperties.py:408
 msgid "Aeolian"
 msgstr ""
 
-#: ../scorewiz/scoreproperties.py:407
+#: ../scorewiz/scoreproperties.py:409
 msgid "Locrian"
 msgstr ""
 
@@ -5692,140 +5742,140 @@ msgstr ""
 msgid "Keyboard instruments"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:43
+#: ../scorewiz/parts/percussion.py:44
 msgid "Timpani"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:47
+#: ../scorewiz/parts/percussion.py:48
 msgctxt "abbreviation for Timpani"
 msgid "Tmp."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:57
+#: ../scorewiz/parts/percussion.py:58
 msgid "Xylophone"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:61
+#: ../scorewiz/parts/percussion.py:62
 msgctxt "abbreviation for Xylophone"
 msgid "Xyl."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:69
+#: ../scorewiz/parts/percussion.py:70
 msgid "Marimba"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:73
+#: ../scorewiz/parts/percussion.py:74
 msgctxt "abbreviation for Marimba"
 msgid "Mar."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:82 ../scorewiz/parts/plucked_strings.py:382
+#: ../scorewiz/parts/percussion.py:83 ../scorewiz/parts/plucked_strings.py:382
 msgid "Upper staff:"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:83 ../scorewiz/parts/plucked_strings.py:383
+#: ../scorewiz/parts/percussion.py:84 ../scorewiz/parts/plucked_strings.py:383
 msgid "Lower staff:"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:85
+#: ../scorewiz/parts/percussion.py:86
 msgid "Set the number of voices to 0 to disable the second staff."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:97
+#: ../scorewiz/parts/percussion.py:98
 msgid "Vibraphone"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:101
+#: ../scorewiz/parts/percussion.py:102
 msgctxt "abbreviation for Vibraphone"
 msgid "Vib."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:109
+#: ../scorewiz/parts/percussion.py:110
 msgid "Tubular bells"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:113
+#: ../scorewiz/parts/percussion.py:114
 msgctxt "abbreviation for Tubular bells"
 msgid "Tub."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:121
+#: ../scorewiz/parts/percussion.py:122
 msgid "Glockenspiel"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:125
+#: ../scorewiz/parts/percussion.py:126
 msgctxt "abbreviation for Glockenspiel"
 msgid "Gls."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:133
+#: ../scorewiz/parts/percussion.py:134
 msgid "Carillon"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:137
+#: ../scorewiz/parts/percussion.py:138
 msgctxt "abbreviation for Carillon"
 msgid "Car."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:143
+#: ../scorewiz/parts/percussion.py:144
 msgid "Manual staff:"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:144
+#: ../scorewiz/parts/percussion.py:145
 msgid "Pedal staff:"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:159
+#: ../scorewiz/parts/percussion.py:160
 msgid "Drums"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:163
+#: ../scorewiz/parts/percussion.py:164
 msgctxt "abbreviation for Drums"
 msgid "Dr."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:184
+#: ../scorewiz/parts/percussion.py:185
 #: ../scorewiz/parts/plucked_strings.py:318
 msgid "Voices:"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:186
+#: ../scorewiz/parts/percussion.py:187
 msgid "Remove stems"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:187
+#: ../scorewiz/parts/percussion.py:188
 msgid "Remove the stems from the drum notes."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:199
+#: ../scorewiz/parts/percussion.py:200
 msgid "Drums follow here."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:224
+#: ../scorewiz/parts/percussion.py:225
 msgid "keep some distance."
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:230
+#: ../scorewiz/parts/percussion.py:231
 msgid "Drums (5 lines, default)"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:231
+#: ../scorewiz/parts/percussion.py:232
 msgid "Timbales-style (2 lines)"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:232
+#: ../scorewiz/parts/percussion.py:233
 msgid "Congas-style (2 lines)"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:233
+#: ../scorewiz/parts/percussion.py:234
 msgid "Bongos-style (2 lines)"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:234
+#: ../scorewiz/parts/percussion.py:235
 msgid "Percussion-style (1 line)"
 msgstr ""
 
-#: ../scorewiz/parts/percussion.py:240
+#: ../scorewiz/parts/percussion.py:241
 msgid "Percussion"
 msgstr ""
 
@@ -6524,47 +6574,47 @@ msgstr ""
 msgid "Woodwinds"
 msgstr ""
 
-#: ../search/__init__.py:103
+#: ../search/__init__.py:104
 msgid "Search:"
 msgstr ""
 
-#: ../search/__init__.py:104
+#: ../search/__init__.py:105
 msgid "&Case"
 msgstr ""
 
-#: ../search/__init__.py:105
+#: ../search/__init__.py:106
 msgid "Case Sensitive"
 msgstr ""
 
-#: ../search/__init__.py:106
+#: ../search/__init__.py:107
 msgid "&Regex"
 msgstr ""
 
-#: ../search/__init__.py:107
+#: ../search/__init__.py:108
 msgid "Regular Expression"
 msgstr ""
 
-#: ../search/__init__.py:108
+#: ../search/__init__.py:109
 msgid "The total number of matches"
 msgstr ""
 
-#: ../search/__init__.py:110
+#: ../search/__init__.py:111
 msgid "Replace:"
 msgstr ""
 
-#: ../search/__init__.py:111
+#: ../search/__init__.py:112
 msgid "Re&place"
 msgstr ""
 
-#: ../search/__init__.py:112
+#: ../search/__init__.py:113
 msgid "Replaces the next occurrence of the search term."
 msgstr ""
 
-#: ../search/__init__.py:113
+#: ../search/__init__.py:114
 msgid "&All"
 msgstr ""
 
-#: ../search/__init__.py:114
+#: ../search/__init__.py:115
 msgid ""
 "Replaces all occurrences of the search term in the document or selection."
 msgstr ""
@@ -6573,7 +6623,7 @@ msgstr ""
 msgid "Manage Sessions"
 msgstr ""
 
-#: ../sessions/dialog.py:79 ../snippet/widget.py:198
+#: ../sessions/dialog.py:79 ../snippet/widget.py:199
 #: ../widgets/schemeselector.py:96
 msgid "&Import..."
 msgstr ""
@@ -6582,7 +6632,7 @@ msgstr ""
 msgid "Opens a dialog to import a session from a file."
 msgstr ""
 
-#: ../sessions/dialog.py:81 ../snippet/widget.py:200
+#: ../sessions/dialog.py:81 ../snippet/widget.py:201
 msgid "E&xport..."
 msgstr ""
 
@@ -6859,7 +6909,7 @@ msgstr ""
 msgid "Choir Hymn"
 msgstr ""
 
-#: ../snippet/edit.py:126 ../snippet/insert.py:254
+#: ../snippet/edit.py:126 ../snippet/insert.py:255
 msgid "Edit Snippet"
 msgstr ""
 
@@ -6935,40 +6985,40 @@ msgstr ""
 msgid "The selected text if available. If not, the text cursor is moved here."
 msgstr ""
 
-#: ../snippet/import_export.py:103
+#: ../snippet/import_export.py:104
 msgid "No snippets found."
 msgstr ""
 
-#: ../snippet/import_export.py:113 ../snippet/widget.py:301
+#: ../snippet/import_export.py:114 ../snippet/widget.py:302
 msgctxt "dialog title"
 msgid "Import Snippets"
 msgstr ""
 
-#: ../snippet/import_export.py:122
+#: ../snippet/import_export.py:123
 msgid "New Snippets"
 msgstr ""
 
-#: ../snippet/import_export.py:123
+#: ../snippet/import_export.py:124
 msgid "Updated Snippets"
 msgstr ""
 
-#: ../snippet/import_export.py:124
+#: ../snippet/import_export.py:125
 msgid "Unchanged Snippets"
 msgstr ""
 
-#: ../snippet/import_export.py:186
+#: ../snippet/import_export.py:187
 msgid "Import Keyboard Shortcuts"
 msgstr ""
 
-#: ../snippet/import_export.py:191
+#: ../snippet/import_export.py:192
 msgid "Choose which snippets you want to import:"
 msgstr ""
 
-#: ../snippet/import_export.py:193
+#: ../snippet/import_export.py:194
 msgid "There are no new or updated snippets in the file."
 msgstr ""
 
-#: ../snippet/import_export.py:197
+#: ../snippet/import_export.py:198
 #, python-brace-format
 msgid ""
 "<p>Here the snippets from {filename} are displayed.</p>\n"
@@ -6978,7 +7028,7 @@ msgid ""
 "<p>Existing, unchanged snippets can't be imported.</p>\n"
 msgstr ""
 
-#: ../snippet/insert.py:252
+#: ../snippet/insert.py:253
 msgid "Snippet error"
 msgstr ""
 
@@ -7019,23 +7069,23 @@ msgstr ""
 msgid "Changed Snippets"
 msgstr ""
 
-#: ../snippet/template.py:41
+#: ../snippet/template.py:42
 msgid "Save as Template"
 msgstr ""
 
-#: ../snippet/template.py:42
+#: ../snippet/template.py:43
 msgid "Please enter a template name:"
 msgstr ""
 
-#: ../snippet/template.py:49
+#: ../snippet/template.py:50
 msgid "Run LilyPond when creating a new document from this template"
 msgstr ""
 
-#: ../snippet/template.py:95
+#: ../snippet/template.py:96
 msgid "Overwrite Template?"
 msgstr ""
 
-#: ../snippet/template.py:96
+#: ../snippet/template.py:97
 #, python-brace-format
 msgid ""
 "A template named \"{name}\" already exists.\n"
@@ -7043,109 +7093,109 @@ msgid ""
 "Do you want to overwrite it?"
 msgstr ""
 
-#: ../snippet/tool.py:57 ../snippet/tool.py:150 ../userguide/snippets.md:1
+#: ../snippet/tool.py:58 ../snippet/tool.py:151 ../userguide/snippets.md:1
 msgid "Snippets"
 msgstr ""
 
-#: ../snippet/tool.py:58
+#: ../snippet/tool.py:59
 msgid "&Snippets"
 msgstr ""
 
-#: ../snippet/tool.py:102
+#: ../snippet/tool.py:103
 msgid "Save as Template..."
 msgstr ""
 
-#: ../snippet/tool.py:103
+#: ../snippet/tool.py:104
 msgid "Copy to &Snippet..."
 msgstr ""
 
-#: ../snippet/tool.py:104
+#: ../snippet/tool.py:105
 msgid "Manage Templates..."
 msgstr ""
 
-#: ../snippet/tool.py:105
+#: ../snippet/tool.py:106
 msgid "Manage &Snippets..."
 msgstr ""
 
-#: ../snippet/widget.py:186 ../widgets/schemeselector.py:92
+#: ../snippet/widget.py:187 ../widgets/schemeselector.py:92
 msgid "&Menu"
 msgstr ""
 
-#: ../snippet/widget.py:187 ../widgets/listedit.py:91
+#: ../snippet/widget.py:188 ../widgets/listedit.py:92
 #: ../widgets/schemeselector.py:93
 msgid "&Add..."
 msgstr ""
 
-#: ../snippet/widget.py:189
+#: ../snippet/widget.py:190
 #, python-brace-format
 msgid "Add a new snippet. ({key})"
 msgstr ""
 
-#: ../snippet/widget.py:190 ../widgets/listedit.py:92
+#: ../snippet/widget.py:191 ../widgets/listedit.py:93
 msgid "&Edit..."
 msgstr ""
 
-#: ../snippet/widget.py:192
+#: ../snippet/widget.py:193
 #, python-brace-format
 msgid "Edit the current snippet. ({key})"
 msgstr ""
 
-#: ../snippet/widget.py:193
+#: ../snippet/widget.py:194
 msgid "Configure Keyboard &Shortcut..."
 msgstr ""
 
-#: ../snippet/widget.py:195
+#: ../snippet/widget.py:196
 msgid "Remove the selected snippets."
 msgstr ""
 
-#: ../snippet/widget.py:196
+#: ../snippet/widget.py:197
 msgid "A&pply"
 msgstr ""
 
-#: ../snippet/widget.py:197
+#: ../snippet/widget.py:198
 msgid "Apply the current snippet."
 msgstr ""
 
-#: ../snippet/widget.py:199
+#: ../snippet/widget.py:200
 msgid "Import snippets from a file."
 msgstr ""
 
-#: ../snippet/widget.py:201
+#: ../snippet/widget.py:202
 msgid "Export snippets to a file."
 msgstr ""
 
-#: ../snippet/widget.py:202
+#: ../snippet/widget.py:203
 msgid "Restore &Built-in Snippets..."
 msgstr ""
 
-#: ../snippet/widget.py:204
+#: ../snippet/widget.py:205
 msgid "Restore deleted or changed built-in snippets."
 msgstr ""
 
-#: ../snippet/widget.py:205
+#: ../snippet/widget.py:206
 msgid "&Help"
 msgstr ""
 
-#: ../snippet/widget.py:207
+#: ../snippet/widget.py:208
 msgid ""
 "Enter text to search in the snippets list.\n"
 "See \"What's This\" for more information."
 msgstr ""
 
-#: ../snippet/widget.py:210
+#: ../snippet/widget.py:211
 msgid ""
 "Enter text to search in the snippets list, and press Enter to apply the "
 "currently selected snippet."
 msgstr ""
 
-#: ../snippet/widget.py:212
+#: ../snippet/widget.py:213
 #, python-brace-format
 msgid ""
 "If the search text fully matches the value of the '{name}' variable of a "
 "snippet, that snippet is selected."
 msgstr ""
 
-#: ../snippet/widget.py:214
+#: ../snippet/widget.py:215
 msgid ""
 "If the search text starts with a colon ':', the rest of the search text "
 "filters snippets that define the given variable. After a space a value can "
@@ -7153,14 +7203,14 @@ msgid ""
 "contains the text after the space."
 msgstr ""
 
-#: ../snippet/widget.py:219
+#: ../snippet/widget.py:220
 #, python-brace-format
 msgid ""
 "E.g. entering {menu} will show all snippets that are displayed in the insert "
 "menu."
 msgstr ""
 
-#: ../snippet/widget.py:320
+#: ../snippet/widget.py:321
 #, python-brace-format
 msgctxt "dialog title"
 msgid "Export {num} Snippet"
@@ -7168,12 +7218,12 @@ msgid_plural "Export {num} Snippets"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../svgview/__init__.py:53
+#: ../svgview/__init__.py:54
 msgctxt "window title"
 msgid "SVG View"
 msgstr ""
 
-#: ../svgview/__init__.py:54
+#: ../svgview/__init__.py:55
 msgid "SV&G View"
 msgstr ""
 
@@ -7181,15 +7231,15 @@ msgstr ""
 msgid "Page:"
 msgstr ""
 
-#: ../userguide/browser.py:80
+#: ../userguide/browser.py:81
 msgid "Toolbar"
 msgstr ""
 
-#: ../userguide/browser.py:83
+#: ../userguide/browser.py:84
 msgid "Start"
 msgstr ""
 
-#: ../userguide/browser.py:84
+#: ../userguide/browser.py:85
 msgid "Contents"
 msgstr ""
 
@@ -7257,15 +7307,15 @@ msgstr ""
 msgid "Git Checkout Error"
 msgstr ""
 
-#: ../widgets/keysequencewidget.py:60
+#: ../widgets/keysequencewidget.py:61
 msgid "Start recording a key sequence."
 msgstr ""
 
-#: ../widgets/keysequencewidget.py:61
+#: ../widgets/keysequencewidget.py:62
 msgid "Clear the key sequence."
 msgstr ""
 
-#: ../widgets/keysequencewidget.py:118
+#: ../widgets/keysequencewidget.py:119
 msgid "Input"
 msgstr ""
 
@@ -7308,44 +7358,44 @@ msgctxt "dialog title"
 msgid "Export {name}"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:109
+#: ../widgets/shortcuteditdialog.py:110
 msgctxt "window title"
 msgid "Edit Shortcut"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:110
+#: ../widgets/shortcuteditdialog.py:111
 msgid "&No shortcut"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:111
+#: ../widgets/shortcuteditdialog.py:112
 msgid "Use a &custom shortcut:"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:113
+#: ../widgets/shortcuteditdialog.py:114
 #, python-brace-format
 msgid "Alternative #{num}:"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:113
+#: ../widgets/shortcuteditdialog.py:114
 msgid "Primary shortcut:"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:132 ../widgets/shortcuteditdialog.py:142
+#: ../widgets/shortcuteditdialog.py:133 ../widgets/shortcuteditdialog.py:143
 #, python-brace-format
 msgid "Conflict with: {name}"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:155
+#: ../widgets/shortcuteditdialog.py:156
 #, python-brace-format
 msgid "Here you can edit the shortcuts for {name}"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:174
+#: ../widgets/shortcuteditdialog.py:175
 msgctxt "no keyboard shortcut"
 msgid "none"
 msgstr ""
 
-#: ../widgets/shortcuteditdialog.py:175
+#: ../widgets/shortcuteditdialog.py:176
 #, python-brace-format
 msgid "Use &default shortcut ({name})"
 msgstr ""
