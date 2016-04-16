@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-16 20:56+0200\n"
+"POT-Creation-Date: 2016-04-17 00:39+0200\n"
 "PO-Revision-Date: 2012-08-24 00:38+0400\n"
 "Last-Translator: Mikhail Iglizky <m0003r@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -199,7 +199,7 @@ msgid "Save as file"
 msgstr "Сохранить как файл"
 
 #: ../convert_ly.py:157 ../docbrowser/browser.py:161
-#: ../musicview/editinplace.py:153 ../musicview/image.py:170
+#: ../musicview/editinplace.py:153 ../musicview/image.py:179
 msgid "<unknown>"
 msgstr "<неизвестно>"
 
@@ -417,7 +417,7 @@ msgstr "Моноширинный шрифт:"
 #: ../mainwindow.py:724 ../mainwindow.py:793 ../externalchanges/widget.py:246
 #: ../externalchanges/widget.py:265 ../file_export/__init__.py:73
 #: ../file_export/__init__.py:83 ../file_import/__init__.py:67
-#: ../file_import/__init__.py:167 ../musicview/image.py:217
+#: ../file_import/__init__.py:167 ../musicview/image.py:230
 #: ../preferences/fontscolors.py:282 ../preferences/fontscolors.py:506
 #: ../preferences/fontscolors.py:548 ../preferences/import_export.py:93
 #: ../preferences/import_export.py:176 ../preferences/shortcuts.py:207
@@ -2067,35 +2067,35 @@ msgctxt "midi player"
 msgid "Restart"
 msgstr "Перезапуск"
 
-#: ../miditool/widget.py:104
+#: ../miditool/widget.py:103
 msgid "Tempo"
 msgstr "Темп"
 
-#: ../miditool/widget.py:158
+#: ../miditool/widget.py:157
 msgid "No output found!"
 msgstr "Не найдено вывода!"
 
-#: ../miditool/widget.py:235
+#: ../miditool/widget.py:240
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "ЗАГРУЖЕНО"
 
-#: ../miditool/widget.py:236
+#: ../miditool/widget.py:241
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr "ВСЕГО"
 
-#: ../miditool/widget.py:318 ../miditool/widget.py:328
+#: ../miditool/widget.py:323 ../miditool/widget.py:333
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "ВРЕМЯ"
 
-#: ../miditool/widget.py:319
+#: ../miditool/widget.py:324
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "ТЕМП"
 
-#: ../miditool/widget.py:329
+#: ../miditool/widget.py:334
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "ДОЛЯ"
@@ -2250,39 +2250,49 @@ msgstr "Редактировать на месте"
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "Редактирование строки {linenum} из «{document}» ({variable})"
 
-#: ../musicview/image.py:130
+#: ../musicview/image.py:133
 msgid "DPI:"
 msgstr ""
 
-#: ../musicview/image.py:131
+#: ../musicview/image.py:134
 msgid "Paper Color"
 msgstr "Цвет бумаги"
 
-#: ../musicview/image.py:132
+#: ../musicview/image.py:135
 msgid "Auto-crop"
 msgstr "Авто-обрезание"
 
-#: ../musicview/image.py:133
+#: ../musicview/image.py:136
 msgid "Antialias"
 msgstr "Сглаживание"
 
-#: ../musicview/image.py:134
+#: ../musicview/image.py:137
+msgid "Scale 2x"
+msgstr ""
+
+#: ../musicview/image.py:139
+msgid ""
+"Render twice as large and scale back down\n"
+"(recommended for small DPI values)."
+msgstr ""
+
+#: ../musicview/image.py:141
 msgid "Drag"
 msgstr "Перетащить"
 
-#: ../musicview/image.py:135
+#: ../musicview/image.py:142
 msgid "Drag the image as a PNG file."
 msgstr "Перетащить изображениекак PNG-файл"
 
-#: ../musicview/image.py:136
+#: ../musicview/image.py:143
 msgid "&Copy to Clipboard"
 msgstr "Скопировать в буфер"
 
-#: ../musicview/image.py:137
+#: ../musicview/image.py:144
 msgid "&Save As..."
 msgstr "Сохранить как..."
 
-#: ../musicview/image.py:140
+#: ../musicview/image.py:147
 #, no-python-format, python-brace-format
 msgid ""
 "<p>\n"
@@ -2296,16 +2306,16 @@ msgid ""
 "</p>"
 msgstr ""
 
-#: ../musicview/image.py:171
+#: ../musicview/image.py:180
 #, python-brace-format
 msgid "Image from {filename}"
 msgstr "Изображение из {filename}"
 
-#: ../musicview/image.py:214
+#: ../musicview/image.py:227
 msgid "Save Image As"
 msgstr "Сохранить изображение как"
 
-#: ../musicview/image.py:218
+#: ../musicview/image.py:231
 msgid "Could not save the image."
 msgstr "Не удалось сохранить изображение"
 
