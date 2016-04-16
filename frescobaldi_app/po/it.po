@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 2.0.17\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-16 21:09+0200\n"
+"POT-Creation-Date: 2016-04-17 00:38+0200\n"
 "PO-Revision-Date: 2015-12-27 00:00+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
@@ -198,7 +198,7 @@ msgid "Save as file"
 msgstr "Salva come file"
 
 #: ../convert_ly.py:156 ../docbrowser/browser.py:159
-#: ../musicview/editinplace.py:153 ../musicview/image.py:170
+#: ../musicview/editinplace.py:153 ../musicview/image.py:179
 msgid "<unknown>"
 msgstr "<sconosciuto>"
 
@@ -416,7 +416,7 @@ msgstr "Carattere a spaziatura fissa:"
 #: ../mainwindow.py:724 ../mainwindow.py:793 ../externalchanges/widget.py:246
 #: ../externalchanges/widget.py:265 ../file_export/__init__.py:72
 #: ../file_export/__init__.py:82 ../file_import/__init__.py:66
-#: ../file_import/__init__.py:166 ../musicview/image.py:217
+#: ../file_import/__init__.py:166 ../musicview/image.py:230
 #: ../preferences/fontscolors.py:281 ../preferences/fontscolors.py:505
 #: ../preferences/fontscolors.py:547 ../preferences/import_export.py:91
 #: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
@@ -2038,35 +2038,35 @@ msgctxt "midi player"
 msgid "Restart"
 msgstr "Riavvolgi"
 
-#: ../miditool/widget.py:104
+#: ../miditool/widget.py:103
 msgid "Tempo"
 msgstr "Tempo"
 
-#: ../miditool/widget.py:158
+#: ../miditool/widget.py:157
 msgid "No output found!"
 msgstr "Nessun output trovato!"
 
-#: ../miditool/widget.py:235
+#: ../miditool/widget.py:240
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "CARICATO"
 
-#: ../miditool/widget.py:236
+#: ../miditool/widget.py:241
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr "TOTALE"
 
-#: ../miditool/widget.py:318 ../miditool/widget.py:328
+#: ../miditool/widget.py:323 ../miditool/widget.py:333
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "DURATA"
 
-#: ../miditool/widget.py:319
+#: ../miditool/widget.py:324
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "RITMO"
 
-#: ../miditool/widget.py:329
+#: ../miditool/widget.py:334
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "TEMPO"
@@ -2228,39 +2228,49 @@ msgstr "Modifica sul posto"
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "Modifica della riga {linenum} di \"{document}\" ({variable})"
 
-#: ../musicview/image.py:130
+#: ../musicview/image.py:133
 msgid "DPI:"
 msgstr "DPI:"
 
-#: ../musicview/image.py:131
+#: ../musicview/image.py:134
 msgid "Paper Color"
 msgstr "Colore della carta"
 
-#: ../musicview/image.py:132
+#: ../musicview/image.py:135
 msgid "Auto-crop"
 msgstr "Ritaglio automatico"
 
-#: ../musicview/image.py:133
+#: ../musicview/image.py:136
 msgid "Antialias"
 msgstr "Antialias"
 
-#: ../musicview/image.py:134
+#: ../musicview/image.py:137
+msgid "Scale 2x"
+msgstr ""
+
+#: ../musicview/image.py:139
+msgid ""
+"Render twice as large and scale back down\n"
+"(recommended for small DPI values)."
+msgstr ""
+
+#: ../musicview/image.py:141
 msgid "Drag"
 msgstr "Trascina"
 
-#: ../musicview/image.py:135
+#: ../musicview/image.py:142
 msgid "Drag the image as a PNG file."
 msgstr "Trascinare l'immagine come un file PNG."
 
-#: ../musicview/image.py:136
+#: ../musicview/image.py:143
 msgid "&Copy to Clipboard"
 msgstr "&Copia negli appunti"
 
-#: ../musicview/image.py:137
+#: ../musicview/image.py:144
 msgid "&Save As..."
 msgstr "&Salva come..."
 
-#: ../musicview/image.py:140
+#: ../musicview/image.py:147
 #, no-python-format, python-brace-format
 msgid ""
 "<p>\n"
@@ -2284,16 +2294,16 @@ msgstr ""
 "ad esempio per allegarlo ad una email.\n"
 "</p>"
 
-#: ../musicview/image.py:171
+#: ../musicview/image.py:180
 #, python-brace-format
 msgid "Image from {filename}"
 msgstr "Immagine da {filename}"
 
-#: ../musicview/image.py:214
+#: ../musicview/image.py:227
 msgid "Save Image As"
 msgstr "Salva immagine come"
 
-#: ../musicview/image.py:218
+#: ../musicview/image.py:231
 msgid "Could not save the image."
 msgstr "Impossibile salvare l'immagine."
 

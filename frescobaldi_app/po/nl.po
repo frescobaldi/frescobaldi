@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-16 21:12+0200\n"
+"POT-Creation-Date: 2016-04-17 00:38+0200\n"
 "PO-Revision-Date: 2016-04-16 21:08+0200\n"
 "Last-Translator: Wilbert Berendsen <wb@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
@@ -192,7 +192,7 @@ msgid "Save as file"
 msgstr "Opslaan als bestand"
 
 #: ../convert_ly.py:156 ../docbrowser/browser.py:159
-#: ../musicview/editinplace.py:153 ../musicview/image.py:170
+#: ../musicview/editinplace.py:153 ../musicview/image.py:179
 msgid "<unknown>"
 msgstr "<onbekend>"
 
@@ -406,12 +406,12 @@ msgstr "Schrijfmachine-lettertype:"
 #: ../helpers.py:107 ../mainwindow.py:441 ../mainwindow.py:549
 #: ../mainwindow.py:612 ../mainwindow.py:632 ../mainwindow.py:648
 #: ../mainwindow.py:724 ../mainwindow.py:793 ../externalchanges/widget.py:246
-#: ../externalchanges/widget.py:265 ../file_export/__init__.py:73
-#: ../file_export/__init__.py:83 ../file_import/__init__.py:67
-#: ../file_import/__init__.py:167 ../musicview/image.py:230
-#: ../preferences/fontscolors.py:282 ../preferences/fontscolors.py:506
-#: ../preferences/fontscolors.py:548 ../preferences/import_export.py:93
-#: ../preferences/import_export.py:176 ../preferences/shortcuts.py:207
+#: ../externalchanges/widget.py:265 ../file_export/__init__.py:72
+#: ../file_export/__init__.py:82 ../file_import/__init__.py:66
+#: ../file_import/__init__.py:166 ../musicview/image.py:230
+#: ../preferences/fontscolors.py:281 ../preferences/fontscolors.py:505
+#: ../preferences/fontscolors.py:547 ../preferences/import_export.py:91
+#: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
 #: ../sessions/dialog.py:109 ../sessions/dialog.py:130
 #: ../snippet/import_export.py:105 ../snippet/widget.py:327
 msgid "Error"

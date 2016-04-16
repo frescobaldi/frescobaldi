@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-16 21:09+0200\n"
+"POT-Creation-Date: 2016-04-17 00:38+0200\n"
 "PO-Revision-Date: 2014-12-26 14:18+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -206,7 +206,7 @@ msgid "Save as file"
 msgstr "Enregistrer comme fichier"
 
 #: ../convert_ly.py:156 ../docbrowser/browser.py:159
-#: ../musicview/editinplace.py:153 ../musicview/image.py:170
+#: ../musicview/editinplace.py:153 ../musicview/image.py:179
 msgid "<unknown>"
 msgstr "<inconnu>"
 
@@ -426,7 +426,7 @@ msgstr "Police « largeur fixe » :"
 #: ../mainwindow.py:724 ../mainwindow.py:793 ../externalchanges/widget.py:246
 #: ../externalchanges/widget.py:265 ../file_export/__init__.py:72
 #: ../file_export/__init__.py:82 ../file_import/__init__.py:66
-#: ../file_import/__init__.py:166 ../musicview/image.py:217
+#: ../file_import/__init__.py:166 ../musicview/image.py:230
 #: ../preferences/fontscolors.py:281 ../preferences/fontscolors.py:505
 #: ../preferences/fontscolors.py:547 ../preferences/import_export.py:91
 #: ../preferences/import_export.py:174 ../preferences/shortcuts.py:206
@@ -2058,35 +2058,35 @@ msgctxt "midi player"
 msgid "Restart"
 msgstr "Redémarrer"
 
-#: ../miditool/widget.py:104
+#: ../miditool/widget.py:103
 msgid "Tempo"
 msgstr "Tempo :"
 
-#: ../miditool/widget.py:158
+#: ../miditool/widget.py:157
 msgid "No output found!"
 msgstr "Aucune sortie trouvée !"
 
-#: ../miditool/widget.py:235
+#: ../miditool/widget.py:240
 msgctxt "midi lcd screen"
 msgid "LOADED"
 msgstr "CHARGÉ"
 
-#: ../miditool/widget.py:236
+#: ../miditool/widget.py:241
 msgctxt "midi lcd screen"
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: ../miditool/widget.py:318 ../miditool/widget.py:328
+#: ../miditool/widget.py:323 ../miditool/widget.py:333
 msgctxt "midi lcd screen"
 msgid "TIME"
 msgstr "TEMPS"
 
-#: ../miditool/widget.py:319
+#: ../miditool/widget.py:324
 msgctxt "midi lcd screen"
 msgid "TEMPO"
 msgstr "TEMPO"
 
-#: ../miditool/widget.py:329
+#: ../miditool/widget.py:334
 msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULSATION"
@@ -2249,39 +2249,49 @@ msgstr "Éditer en ligne"
 msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "Édition de la ligne {linenum} de « {document} » ({variable})"
 
-#: ../musicview/image.py:130
+#: ../musicview/image.py:133
 msgid "DPI:"
 msgstr "DPI :"
 
-#: ../musicview/image.py:131
+#: ../musicview/image.py:134
 msgid "Paper Color"
 msgstr "Couleur de papier"
 
-#: ../musicview/image.py:132
+#: ../musicview/image.py:135
 msgid "Auto-crop"
 msgstr "Auto-rogner"
 
-#: ../musicview/image.py:133
+#: ../musicview/image.py:136
 msgid "Antialias"
 msgstr "Lissage"
 
-#: ../musicview/image.py:134
+#: ../musicview/image.py:137
+msgid "Scale 2x"
+msgstr ""
+
+#: ../musicview/image.py:139
+msgid ""
+"Render twice as large and scale back down\n"
+"(recommended for small DPI values)."
+msgstr ""
+
+#: ../musicview/image.py:141
 msgid "Drag"
 msgstr "Glisser"
 
-#: ../musicview/image.py:135
+#: ../musicview/image.py:142
 msgid "Drag the image as a PNG file."
 msgstr "Glisser l'image comme ficher PNG."
 
-#: ../musicview/image.py:136
+#: ../musicview/image.py:143
 msgid "&Copy to Clipboard"
 msgstr "Copier vers le presse-papiers"
 
-#: ../musicview/image.py:137
+#: ../musicview/image.py:144
 msgid "&Save As..."
 msgstr "Enregistrer &sous..."
 
-#: ../musicview/image.py:140
+#: ../musicview/image.py:147
 #, no-python-format, python-brace-format
 msgid ""
 "<p>\n"
@@ -2304,16 +2314,16 @@ msgstr ""
 "ce qui enverra le fichier en cours vers le disque, p. ex. pour un courriel.\n"
 "</p>"
 
-#: ../musicview/image.py:171
+#: ../musicview/image.py:180
 #, python-brace-format
 msgid "Image from {filename}"
 msgstr "Image depuis {filename}"
 
-#: ../musicview/image.py:214
+#: ../musicview/image.py:227
 msgid "Save Image As"
 msgstr "Enregistrer l'image sous"
 
-#: ../musicview/image.py:218
+#: ../musicview/image.py:231
 msgid "Could not save the image."
 msgstr "Impossible d'enregistrer l'image."
 
