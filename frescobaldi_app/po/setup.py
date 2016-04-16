@@ -99,12 +99,9 @@ def _setup():
 @app.oninit
 def _start_up():
     """Initialize GUI translations. Called op app startup."""
-    from . import qtranslator
-    # XXX TEMP qtranslator.initialize() segfaults on my system in Python3
-    import sys
-    if sys.version_info < (3, 0):
-        qtranslator.initialize()
     _setup()
+    from . import qtranslator
+    qtranslator.initialize()
 
 
 app.settingsChanged.connect(_setup)

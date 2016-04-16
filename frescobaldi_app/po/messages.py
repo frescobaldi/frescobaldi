@@ -48,6 +48,11 @@ _("QDialogButtonBox", "Save")
 
 _("QDialog", "What's This?")
 
+_('QDockWidget', 'Float')
+_('QDockWidget', 'Undocks and re-attaches the dock widget')
+_('QDockWidget', 'Close')
+_('QDockWidget', 'Closes the dock widget')
+
 _("QFileDialog", "All Files (*)")
 _("QFileDialog", "Back")
 _("QFileDialog", "Change to detail view mode")
@@ -95,6 +100,10 @@ _("QInputContext", "XIM")
 _("QLocalSocket", "%1: Invalid name")
 
 _("QMultiInputContext", "Select IM")
+
+_('QPlatformTheme', 'Save')
+_('QPlatformTheme', 'Cancel')
+_('QPlatformTheme', 'Discard')
 
 _("QScrollBar", "Bottom")
 _("QScrollBar", "Left edge")
@@ -216,6 +225,9 @@ _("QShortcut", "Volume Mute")
 _("QShortcut", "Volume Up")
 _("QShortcut", "Zoom In")
 _("QShortcut", "Zoom Out")
+
+_('QTabBar', 'Scroll Left')
+_('QTabBar', 'Scroll Right')
 
 _('QTextControl', '&Undo')
 _('QTextControl', '&Redo')
