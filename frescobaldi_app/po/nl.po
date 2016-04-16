@@ -1,20 +1,20 @@
 # translation of nl.po to Nederlands
-# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015.
+# Wilbert Berendsen <wb@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2016-04-16 20:56+0200\n"
-"PO-Revision-Date: 2015-12-08 09:27+0100\n"
-"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
+"PO-Revision-Date: 2016-04-16 21:08+0200\n"
+"Last-Translator: Wilbert Berendsen <wb@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: ../about.py:50
 #, python-brace-format
@@ -292,9 +292,8 @@ msgid "&Update with convert-ly..."
 msgstr "&Bijwerken met convert-ly..."
 
 #: ../documentactions.py:207
-#, fuzzy
 msgid "Remove &Comments"
-msgstr "&Versieringen verwijderen"
+msgstr "&Commentaar verwijderen"
 
 #: ../documentactions.py:208
 msgid "Remove &Articulations"
@@ -317,9 +316,8 @@ msgid "Remove &Dynamics"
 msgstr "&Dynamiek verwijderen"
 
 #: ../documentactions.py:213
-#, fuzzy
 msgid "Remove &Fingerings"
-msgstr "&Versieringen verwijderen"
+msgstr "Vinger&zetting verwijderen"
 
 #: ../documentactions.py:214
 msgid "Remove Text &Markup (from music)"
@@ -1206,6 +1204,8 @@ msgid ""
 "An engrave job is running for the document \"{name}\".\n"
 "Do you want to abort the running job?"
 msgstr ""
+"Een graveertaak is actief voor het document \"{name}\".\n"
+"Wilt u deze taak afbreken?"
 
 #: ../engrave/__init__.py:283
 #, python-brace-format
@@ -1315,7 +1315,7 @@ msgstr "Tussentijdse uitvoerbestanden verwijderen"
 
 #: ../engrave/custom.py:147
 msgid "Embed Source Code (LilyPond >= 2.19.39)"
-msgstr ""
+msgstr "Broncode inbedden (LilyPond >= 2.19.39)"
 
 #: ../engrave/custom.py:148 ../preferences/lilypond.py:333
 msgid "Run LilyPond with English messages"
@@ -2294,9 +2294,9 @@ msgid "Position: {pos}"
 msgstr "Positie: {pos}"
 
 #: ../musicview/widget.py:216
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Page {num}"
-msgstr "Pagina omhoog"
+msgstr "Pagina {num}"
 
 #: ../objecteditor/__init__.py:43
 msgid "Object Editor"
@@ -2571,24 +2571,22 @@ msgstr "Wat is dit?"
 #: ../po/messages.py:51
 msgctxt "QDockWidget"
 msgid "Float"
-msgstr ""
+msgstr "Losmaken"
 
 #: ../po/messages.py:52
 msgctxt "QDockWidget"
 msgid "Undocks and re-attaches the dock widget"
-msgstr ""
+msgstr "Gereedschap losmaken en weer aankoppelen"
 
 #: ../po/messages.py:53
-#, fuzzy
 msgctxt "QDockWidget"
 msgid "Close"
 msgstr "Sluiten"
 
 #: ../po/messages.py:54
-#, fuzzy
 msgctxt "QDockWidget"
 msgid "Closes the dock widget"
-msgstr "Andere documenten sluiten"
+msgstr "Het gereedschap sluiten"
 
 #: ../po/messages.py:56
 msgctxt "QFileDialog"
@@ -2801,19 +2799,16 @@ msgid "Select IM"
 msgstr "IM selecteren"
 
 #: ../po/messages.py:104
-#, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Save"
 msgstr "Opslaan"
 
 #: ../po/messages.py:105
-#, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Cancel"
 msgstr "Annuleren"
 
 #: ../po/messages.py:106
-#, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Discard"
 msgstr "Weggooien"
@@ -3414,13 +3409,11 @@ msgid "Zoom Out"
 msgstr "Uitzoomen"
 
 #: ../po/messages.py:229
-#, fuzzy
 msgctxt "QTabBar"
 msgid "Scroll Left"
 msgstr "Naar links schuiven"
 
 #: ../po/messages.py:230
-#, fuzzy
 msgctxt "QTabBar"
 msgid "Scroll Right"
 msgstr "Naar rechts schuiven"
@@ -3627,7 +3620,6 @@ msgid "Tab"
 msgstr "Tab"
 
 #: ../preferences/editor.py:199
-#, fuzzy
 msgid "Tab outside indent inserts:"
 msgstr "Tab buiten inspringruimte voegt in:"
 
@@ -4125,9 +4117,8 @@ msgid "Show Splash Screen on Startup"
 msgstr "Welkomstscherm bij opstarten tonen"
 
 #: ../preferences/general.py:145
-#, fuzzy
 msgid "Show Close Button on Document tabs"
-msgstr "Document-tabs tonen"
+msgstr "Sluitknop op document-tabs weergeven"
 
 #: ../preferences/general.py:146
 msgid "Open Files in Running Instance"
@@ -4473,9 +4464,8 @@ msgstr ""
 "verwijderen."
 
 #: ../preferences/lilypond.py:328
-#, fuzzy
 msgid "Embed Source Code files in publish mode"
-msgstr "LilyPond-bronbestanden altijd in gepubliceerde PDF inbedden"
+msgstr "LilyPond-bronbestanden inbedden in publicatie-modus"
 
 #: ../preferences/lilypond.py:330
 msgid ""
@@ -4483,6 +4473,9 @@ msgid ""
 "when LilyPond is started in publish mode.\n"
 "This feature is available since LilyPond 2.19.39."
 msgstr ""
+"Indien ingeschakeld, worden de bronbestanden in de PDF ingebed\n"
+"als LilyPond wordt gestart in publicatie-modus.\n"
+"Deze functie is beschikbaar vanaf LilyPond versie 2.19.39."
 
 #: ../preferences/lilypond.py:335
 msgid ""
@@ -5545,11 +5538,11 @@ msgstr "Metronoomgetal:"
 
 #: ../scorewiz/scoreproperties.py:231
 msgid "Round tap tempo value"
-msgstr ""
+msgstr "Tempowaarde afronden"
 
 #: ../scorewiz/scoreproperties.py:233
 msgid "Round the entered tap tempo to a common value."
-msgstr ""
+msgstr "De tempowaarde afronden naar een gebruikelijke waarde."
 
 #: ../scorewiz/scoreproperties.py:262
 msgid "Tempo indication:"
@@ -6732,14 +6725,13 @@ msgid "BCl."
 msgstr "BCl."
 
 #: ../scorewiz/parts/woodwind.py:207
-#, fuzzy
 msgid "C-Melody Sax"
-msgstr "Altsax"
+msgstr "C-Melodie Sax"
 
 #: ../scorewiz/parts/woodwind.py:211
 msgctxt "abbreviation for C-Melody Sax"
 msgid "C-Mel Sax"
-msgstr ""
+msgstr "C-Mel Sax"
 
 #: ../scorewiz/parts/woodwind.py:219
 msgid "Sopranino Sax"
@@ -7121,9 +7113,8 @@ msgid "LilyPond Version"
 msgstr "LilyPond-versie"
 
 #: ../snippet/builtin.py:264
-#, fuzzy
 msgid "Repeat unfold"
-msgstr "Eind herhaling"
+msgstr "Herhalingen uitvouwen"
 
 #: ../snippet/builtin.py:268
 msgid "Relative Music"
@@ -7388,9 +7379,8 @@ msgid "Please enter a template name:"
 msgstr "Voer een naam voor de sjabloon in:"
 
 #: ../snippet/template.py:50
-#, fuzzy
 msgid "Run LilyPond when creating a new document from this template"
-msgstr "Een document uit een sjabloon aanmaken:"
+msgstr "LilyPond starten bij het maken van een nieuw document uit dit sjabloon"
 
 #: ../snippet/template.py:96
 msgid "Overwrite Template?"
@@ -8395,27 +8385,23 @@ msgstr ""
 "bovenliggende accollades-openen niet worden gezien."
 
 #: ../userguide/prefs_lilydoc.md:3
-#, fuzzy
 msgid ""
 "Here you can add local paths or URLs pointing to LilyPond documentation."
-msgstr "Url of pad naar de LilyPond-documentatie."
+msgstr ""
+"Hier kunt lokale paden of urls naar de LilyPond-documentatie toevoegen."
 
 #: ../userguide/prefs_lilydoc.md:5
-#, fuzzy
 msgid "Local path"
-msgstr "Globale pad kopiëren"
+msgstr "Lokaal pad"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilydoc.md:7
-#, fuzzy
 msgid ""
 "A local path should point to the directory where either the `Documentation` "
 "directory lives, or the whole `share/doc/lilypond/html/offline-root` path."
 msgstr ""
-"Hier kunt u lokale bestandspaden of URLs voor LilyPond-documentatie "
-"toevoegen. Een lokaal pad moet naar een directorie wijzen waar de "
-"`Documentation` map is, of het hele `share/doc/lilypond/html/offline-root` "
-"pad."
+"Een lokaal pad moet naar een map wijzen waar de `Documentation` map is, of "
+"het hele `share/doc/lilypond/html/offline-root` pad."
 
 #: ../userguide/prefs_lilydoc.md:10
 msgid ""
@@ -8430,9 +8416,8 @@ msgstr ""
 "automatisch vindt."
 
 #: ../userguide/prefs_lilydoc.md:15
-#, fuzzy
 msgid "Remote URL"
-msgstr "Verwijderen"
+msgstr "URL"
 
 #: ../userguide/prefs_lilydoc.md:17
 msgid ""
@@ -8440,10 +8425,12 @@ msgid ""
 "computer, you can add an URL to the LilyPond website.  The URL should have "
 "the following format:"
 msgstr ""
+"Als u de LilyPond-documentatie niet op uw computer wilt opslaan, kunt u de "
+"URL naar de LilyPond website toevoegen.  De URL heeft het volgende formaat:"
 
 #: ../userguide/prefs_lilydoc.md:21
 msgid "http://www.lilypond.org/doc/VERSION/"
-msgstr ""
+msgstr "http://www.lilypond.org/doc/VERSION/"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_lilydoc.md:23
@@ -8451,12 +8438,16 @@ msgid ""
 "where *VERSION* can be either a specific release number or the latest stable "
 "or development release, as in the following examples:"
 msgstr ""
+"waar *VERSION* een specifiek versienummer is, óf de laatste stabiele of "
+"ontwikkelings-release, zoals in de volgende voorbeelden:"
 
 #: ../userguide/prefs_lilydoc.md:26
 msgid ""
 "http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
 "www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 msgstr ""
+"http://www.lilypond.org/doc/v2.18/ http://www.lilypond.org/doc/v2.19/ http://"
+"www.lilypond.org/doc/stable/ http://www.lilypond.org/doc/development/"
 
 #: ../userguide/indent_format.md:1
 msgid "Indentation and Formatting"
