@@ -30,6 +30,7 @@ Changes in 2.18.3 -- ?
     cancel the closing.
   - Tabbar and document list show in the document icon whether the last
     engraving was successful (#636)
+  - Comment and Uncomment snippets are improved and now in the Snippet menu
   - Score Wizard:
     - add C-Melody Sax (#810)
 * Bug fixes:

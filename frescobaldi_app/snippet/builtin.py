@@ -414,8 +414,13 @@ def main():
 """),
 
 
-'comment': T(_("Comment"),
-r"""-*- python; indent: no;
+'comment': T(_("snippet: add comment characters", "Comment"),
+r"""-*- python; indent: no; menu: comment;
+
+# get text before and after the selection
+import cursortools
+before, text, after = cursortools.partition(cursor)
+
 # determine state
 for s in state[::-1]:
     if s in ('lilypond', 'html', 'scheme'):
@@ -431,9 +436,17 @@ def html():
 
 def lilypond():
     if '\n' in text:
-        return '% ' + text.replace('\n', '\n% ')
+        if text.endswith('\n'):
+            return '% ' + text[:-1].replace('\n', '\n% ') + '\n'
+        elif after and not after.isspace():
+            return '%{ ' + text + '%} '
+        else:
+            return '% ' + text.replace('\n', '\n% ')
     elif text:
-        return '%{ ' + text + '%}'
+        if after and not after.isspace():
+            return '%{ ' + text + '%} '
+        else:
+            return '% ' + text + after
     else:
         return '% '
 
@@ -449,11 +462,12 @@ elif s == 'html':
     text = html()
 elif s == 'scheme':
     text = scheme()
+
 """),
 
 
-'uncomment': T(_("Uncomment"),
-r"""-*- python; indent: no;
+'uncomment': T(_("snippet: remove comment characters", "Uncomment"),
+r"""-*- python; indent: no; menu: comment;
 import re
 
 # determine state
