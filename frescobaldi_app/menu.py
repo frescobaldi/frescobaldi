@@ -83,6 +83,7 @@ class Menu(QMenu):
     def __init__(self, title_func, parent=None):
         """title_func should return the title for the menu when called."""
         super(Menu, self).__init__(parent)
+        self.setToolTipsVisible(True)
         self.title_func = title_func
         app.translateUI(self)
     
