@@ -78,18 +78,18 @@ def changeLanguage(cursor, language):
             _("(for LilyPond 2.14 and higher.)")))
 
 
-def rel2abs(cursor):
+def rel2abs(cursor, first_pitch_absolute):
     """Converts pitches from relative to absolute."""
     with qutil.busyCursor():
         c = lydocument.cursor(cursor, select_all=True)
-        ly.pitch.rel2abs.rel2abs(c)
+        ly.pitch.rel2abs.rel2abs(c, first_pitch_absolute=first_pitch_absolute)
 
 
-def abs2rel(cursor):
+def abs2rel(cursor, startpitch, first_pitch_absolute):
     """Converts pitches from absolute to relative."""
     with qutil.busyCursor():
         c = lydocument.cursor(cursor, select_all=True)
-        ly.pitch.abs2rel.abs2rel(c)
+        ly.pitch.abs2rel.abs2rel(c, startpitch=startpitch, first_pitch_absolute=first_pitch_absolute)
 
 
 def getTransposer(document, mainwindow):
@@ -194,12 +194,13 @@ def getModeShifter(document, mainwindow):
         return ly.pitch.transpose.ModeShifter(key, scale)
 
     
-def transpose(cursor, transposer, mainwindow=None):
+def transpose(cursor, transposer, mainwindow=None, relative_first_pitch_absolute=False):
     """Transpose pitches using the specified transposer."""
     c = lydocument.cursor(cursor, select_all=True)
     try:
         with qutil.busyCursor():
-            ly.pitch.transpose.transpose(c, transposer)
+            ly.pitch.transpose.transpose(c, transposer,
+                relative_first_pitch_absolute=relative_first_pitch_absolute)
     except ly.pitch.PitchNameNotAvailable as e:
         QMessageBox.critical(mainwindow, app.caption(_("Transpose")), _(
             "Can't perform the requested transposition.\n\n"
