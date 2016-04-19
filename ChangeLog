@@ -4,6 +4,8 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18.3 -- ?
 
+* Requirement changes:
+  - Frescobaldi now requires python-ly 0.9.4
 * New features:
   - Tools->Quick Remove->Remove Fingerings
   - Tools->Quick Remove->Remove Comments
@@ -15,6 +17,9 @@ Changes in 2.18.3 -- ?
     image twice as large and scale it smoothly down, which improves images at
     smaller DPI values.
 * Improvements:
+  - LilyPond 2.18+ \relative { ... } without start pitch is now supported
+  - It is possible to use no start pitch on abs->rel conversion and specify
+    the desired behaviour using two checkboxes in the tools->pitch menu.
   - Clicking a point and click link in the Music View now remembers the previous
     position
   - Autocompile was not triggered in some circumstances.
