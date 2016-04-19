@@ -52,7 +52,7 @@ Required:
         http://qt.io/
     PyQt5 (>= 5.4):
         http://www.riverbankcomputing.co.uk/software/pyqt/
-    python-ly (>= 0.9.3):
+    python-ly (>= 0.9.4):
         https://pypi.python.org/pypi/python-ly
     Poppler:
         http://poppler.freedesktop.org/
