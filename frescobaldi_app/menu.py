@@ -339,6 +339,7 @@ def menu_tools_pitch(mainwindow):
     m.addAction(ac.pitch_transpose)
     m.addAction(ac.pitch_modal_transpose)
     m.addAction(ac.pitch_mode_shift)
+    m.addAction(ac.pitch_simplify)
     return m
 
 def menu_tools_rest(mainwindow):

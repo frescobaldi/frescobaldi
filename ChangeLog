@@ -9,6 +9,7 @@ Changes in 2.18.3 -- ?
 * New features:
   - Tools->Quick Remove->Remove Fingerings
   - Tools->Quick Remove->Remove Comments
+  - Tools->Pitch->Simplify Accidentals
   - It is now configurable whether the document tabs have a close button
   - The new LilyPond feature to embed source code files in the PDF (LilyPond >=
     2.19.39) can be used in publish mode and the custom engrave dialog (#813)
