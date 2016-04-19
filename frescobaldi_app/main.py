@@ -159,7 +159,7 @@ def check_ly():
     Importing ly.pkginfo is not expensive.
     
     """
-    ly_required = (0, 9, 3)
+    ly_required = (0, 9, 4)
     try:
         import ly.pkginfo
         version = tuple(map(int, re.findall(r"\d+", ly.pkginfo.version)))
