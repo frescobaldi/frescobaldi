@@ -55,6 +55,7 @@ class Pitch(plugin.MainWindowPlugin):
         ac.pitch_transpose.triggered.connect(self.transpose)
         ac.pitch_modal_transpose.triggered.connect(self.modalTranspose)
         ac.pitch_mode_shift.triggered.connect(self.modeShift)
+        ac.pitch_simplify.triggered.connect(self.simplifyAccidentals)
         self.readSettings()
         app.aboutToQuit.connect(self.writeSettings)
     
@@ -99,6 +100,13 @@ class Pitch(plugin.MainWindowPlugin):
         if transposer:
             pitch.transpose(cursor, transposer, self.mainwindow())
     
+    def simplifyAccidentals(self):
+        from . import pitch
+        import ly.pitch.transpose
+        cursor = self.mainwindow().textCursor()
+        transposer = ly.pitch.transpose.Simplifier()
+        pitch.transpose(cursor, transposer, self.mainwindow(), self.get_absolute(cursor.document()))
+    
     def setLanguageMenu(self):
         """Called when the menu is shown; selects the correct language."""
         import documentinfo
@@ -140,6 +148,7 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_transpose = QAction(parent)
         self.pitch_modal_transpose = QAction(parent)
         self.pitch_mode_shift = QAction(parent)
+        self.pitch_simplify = QAction(parent)
         self.pitch_relative_assume_first_pitch_absolute = QAction(parent, checkable=True)
         self.pitch_relative_write_startpitch = QAction(parent, checkable=True)
 
@@ -147,6 +156,7 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_transpose.setIcon(icons.get('tools-transpose'))
         self.pitch_modal_transpose.setIcon(icons.get('tools-transpose'))
         self.pitch_mode_shift.setIcon(icons.get('tools-transpose'))
+        self.pitch_simplify.setIcon(icons.get('tools-transpose'))
         
     def translateUI(self):
         self.pitch_language.setText(_("Pitch Name &Language"))
@@ -170,6 +180,9 @@ class Actions(actioncollection.ActionCollection):
         self.pitch_mode_shift.setText(_("Mode shift..."))
         self.pitch_mode_shift.setToolTip(_(
             "Transforms all notes in the document or selection to an optional mode."))
+        self.pitch_simplify.setText(_("Simplify Accidentals"))
+        self.pitch_simplify.setToolTip(_(
+            "Replaces notes with accidentals as much as possible with natural neighbors."))
         self.pitch_relative_assume_first_pitch_absolute.setText(_(
             "First pitch in \\relative {...} is absolute"))
         self.pitch_relative_assume_first_pitch_absolute.setToolTip(_(
