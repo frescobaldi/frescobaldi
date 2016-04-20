@@ -48,8 +48,9 @@ class Search(QWidget, plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         super(Search, self).__init__(mainwindow)
         self._currentView = None
-        self._positions = None
+        self._positions = []
         self._replace = False  # are we in replace mode?
+        self._going = False    # are we moving the text cursor?
         
         mainwindow.currentViewChanged.connect(self.viewChanged)
         mainwindow.actionCollection.edit_find_next.triggered.connect(self.findNext)
@@ -128,8 +129,13 @@ class Search(QWidget, plugin.MainWindowPlugin):
     
     def setCurrentView(self, view):
         """Set the currently active View, called by showWidget()."""
+        cur = self.currentView()
+        if cur:
+            cur.selectionChanged.disconnect(self.slotSelectionChanged)
+        if view:
+            view.selectionChanged.connect(self.slotSelectionChanged)
         self._currentView = weakref.ref(view) if view else None
-        
+    
     def showWidget(self):
         """Show the search widget and connect with the active View."""
         if self.isVisible():
@@ -155,7 +161,13 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.hideWidget()
         self.setCurrentView(new)
         self.updatePositions()
-        
+    
+    def slotSelectionChanged(self):
+        """Called when the user changes the selection."""
+        self.updatePositions()
+        if self.isVisible():
+            self.highlightingOn()
+
     def slotHide(self):
         """Called when the close button is clicked."""
         view = self.currentView()
@@ -178,10 +190,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             self.adjustSize()
         cursor = self.currentView().textCursor()
         #if not visible and self.currentView():
-        if cursor.hasSelection() or not self.searchEntry.text():
-            if not cursor.hasSelection():
-                # pick current word
-                wordboundary.handler.select(cursor, QTextCursor.WordUnderCursor)
+        if cursor.hasSelection():
             word = cursor.selection().toPlainText()
             if not re.search(r'\w', word):
                 word = ""
@@ -228,7 +237,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                 # text.
                 if cursortools.contains(self._positions[index-1], cursor):
                     index -= 1
-            self.currentView().gotoTextCursor(self._positions[index])
+            self.gotoPosition(index)
 
     def highlightingOn(self, view=None):
         """Show the current search result positions."""
@@ -262,6 +271,12 @@ class Search(QWidget, plugin.MainWindowPlugin):
             except re.error:
                 pass
             else:
+                # filter out positions outside the selection
+                c = view.textCursor()
+                if not self._going and c.hasSelection():
+                    matches = [m for m in matches
+                                    if m.end() <= c.selectionEnd() and
+                                       m.start() >= c.selectionStart()]
                 for m in matches:
                     c = QTextCursor(document)
                     c.setPosition(m.end())
@@ -276,9 +291,9 @@ class Search(QWidget, plugin.MainWindowPlugin):
             positions = [c.position() for c in self._positions]
             index = bisect.bisect_right(positions, view.textCursor().position())
             if index < len(positions):
-                view.gotoTextCursor(self._positions[index])
+                self.gotoPosition(index)
             else:
-                view.gotoTextCursor(self._positions[0])
+                self.gotoPosition(0)
             view.ensureCursorVisible()
 
     def findPrevious(self):
@@ -287,8 +302,16 @@ class Search(QWidget, plugin.MainWindowPlugin):
         positions = [c.position() for c in self._positions]
         if view and positions:
             index = bisect.bisect_left(positions, view.textCursor().position()) - 1
-            view.gotoTextCursor(self._positions[index])
-            view.ensureCursorVisible()
+            self.gotoPosition(index)
+    
+    def gotoPosition(self, index):
+        """Scrolls the current View to the position in the _positions list at index."""
+        c = QTextCursor(self._positions[index])
+        #c.clearSelection()
+        self._going = True
+        self.currentView().gotoTextCursor(c)
+        self.currentView().ensureCursorVisible()
+        self._going = False
 
     def event(self, ev):
         """Reimplemented to catch F1 for help and Tab so it does not reach the View."""
