@@ -286,7 +286,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         if search:
             text = document.toPlainText()
             start = 0
-            if (self._replace or self._going) and cursor.hasSelection():
+            if (self._replace or not self._going) and cursor.hasSelection():
                 # dont search outside the selection
                 start = cursor.selectionStart()
                 text = text[start:cursor.selectionEnd()]
