@@ -28,10 +28,10 @@ import re
 import weakref
 
 from PyQt5.QtCore import QEvent, Qt
-from PyQt5.QtGui import QKeySequence, QTextCursor
+from PyQt5.QtGui import QKeySequence, QPalette, QTextCursor
 from PyQt5.QtWidgets import (
     QAction, QApplication, QCheckBox, QGridLayout, QLabel, QLineEdit,
-    QPalette, QPushButton, QStyle, QToolButton, QWidget)
+    QPushButton, QStyle, QToolButton, QWidget)
 
 import app
 import qutil
@@ -44,9 +44,9 @@ import viewhighlighter
 import widgets.borderlayout
 
 
-class Search(QWidget, plugin.MainWindowPlugin):
+class Search(plugin.MainWindowPlugin, QWidget):
     def __init__(self, mainwindow):
-        super(Search, self).__init__(mainwindow)
+        QWidget.__init__(self, mainwindow)
         self._currentView = None
         self._positions = []
         self._positionsDirty = True
