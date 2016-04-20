@@ -40,6 +40,8 @@ Changes in 2.18.3 -- ?
   - Score Wizard:
     - add C-Melody Sax (#810)
 * Bug fixes:
+  - fix #786 'Replace all' only works when run twice
+  - fix #807 search does not realize that content is changed
   - fix #793 Command autocompletion doesn’t work in figuremode
   - fix #806 MIDI file not updated in MIDI Player when using "master" variable
   - fix #808 \figuremode should be enclosed within \new FiguredBass
