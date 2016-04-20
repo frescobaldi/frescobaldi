@@ -123,12 +123,15 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.replaceEntry.setPalette(p)
          
     def currentView(self):
+        """Return the currently active View."""
         return self._currentView and self._currentView()
     
     def setCurrentView(self, view):
+        """Set the currently active View, called by showWidget()."""
         self._currentView = weakref.ref(view) if view else None
         
     def showWidget(self):
+        """Show the search widget and connect with the active View."""
         if self.isVisible():
             self.hideWidget()
         view = self.window().currentView()
@@ -138,6 +141,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.show()
         
     def hideWidget(self):
+        """Hide the widget, but remain connected with the active View."""
         view = self.currentView()
         if view:
             self.highlightingOff()
@@ -146,18 +150,21 @@ class Search(QWidget, plugin.MainWindowPlugin):
             layout.removeWidget(self)
     
     def viewChanged(self, new):
+        """Called when the user switches to another View."""
         self.setParent(None)
         self.hideWidget()
         self.setCurrentView(new)
         self.updatePositions()
         
     def slotHide(self):
+        """Called when the close button is clicked."""
         view = self.currentView()
         if view:
             self.hideWidget()
             view.setFocus()
         
     def find(self):
+        """Called by the main menu Find... command."""
         # hide replace stuff
         self.replaceLabel.hide()
         self.replaceEntry.hide()
@@ -189,6 +196,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.searchEntry.setFocus()
         
     def replace(self):
+        """Called by the main menu Find and Replace... command."""
         # show replace stuff
         self.replaceLabel.show()
         self.replaceEntry.show()
@@ -204,6 +212,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         focus.setFocus()
         
     def slotSearchChanged(self):
+        """Called on every change in the search text entry."""
         self.updatePositions()
         self.highlightingOn()
         if not self._replace and self._positions:
@@ -222,18 +231,21 @@ class Search(QWidget, plugin.MainWindowPlugin):
             self.currentView().gotoTextCursor(self._positions[index])
 
     def highlightingOn(self, view=None):
+        """Show the current search result positions."""
         if view is None:
             view = self.currentView()
         if view:
             viewhighlighter.highlighter(view).highlight("search", self._positions, 1)
     
     def highlightingOff(self, view=None):
+        """Hide the current search result positions."""
         if view is None:
             view = self.currentView()
         if view:
             viewhighlighter.highlighter(view).clear("search")
             
     def updatePositions(self):
+        """Update the search result positions."""
         search = self.searchEntry.text()
         view = self.currentView()
         document = view.document()
@@ -258,6 +270,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.countLabel.setText(format(len(self._positions)))
         
     def findNext(self):
+        """Called on menu Find Next."""
         view = self.currentView()
         if view and self._positions:
             positions = [c.position() for c in self._positions]
@@ -269,6 +282,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             view.ensureCursorVisible()
 
     def findPrevious(self):
+        """Called on menu Find Previous."""
         view = self.currentView()
         positions = [c.position() for c in self._positions]
         if view and positions:
@@ -277,6 +291,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             view.ensureCursorVisible()
 
     def event(self, ev):
+        """Reimplemented to catch F1 for help and Tab so it does not reach the View."""
         if ev == QKeySequence.HelpContents:
             userguide.show("search_replace")
             ev.accept()
@@ -296,6 +311,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         return super(Search, self).event(ev)
         
     def keyPressEvent(self, ev):
+        """Catches Up and Down to jump between search results."""
         # if in search mode, Up and Down jump between search results
         if not self._replace and self._positions and self.searchEntry.text() and not ev.modifiers():
             if ev.key() == Qt.Key_Up:
@@ -311,6 +327,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         super(Search, self).keyPressEvent(ev)
 
     def doReplace(self, cursor):
+        """Perform one replace action."""
         text = cursor.selection().toPlainText()
         search = self.searchEntry.text()
         replace = self.replaceEntry.text()
@@ -331,6 +348,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         return ok
         
     def slotReplace(self):
+        """Called when the user clicks Replace."""
         view = self.currentView()
         if view and self._positions:
             positions = [c.position() for c in self._positions]
@@ -347,6 +365,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                 view.ensureCursorVisible()
     
     def slotReplaceAll(self):
+        """Called when the user clicks Replace All."""
         view = self.currentView()
         if view:
             replaced = False
