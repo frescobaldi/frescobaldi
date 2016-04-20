@@ -49,6 +49,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         super(Search, self).__init__(mainwindow)
         self._currentView = None
         self._positions = []
+        self._positionsDirty = True
         self._replace = False  # are we in replace mode?
         self._going = False    # are we moving the text cursor?
         
@@ -132,8 +133,10 @@ class Search(QWidget, plugin.MainWindowPlugin):
         cur = self.currentView()
         if cur:
             cur.selectionChanged.disconnect(self.slotSelectionChanged)
+            cur.document().contentsChanged.disconnect(self.slotDocumentContentsChanged)
         if view:
             view.selectionChanged.connect(self.slotSelectionChanged)
+            view.document().contentsChanged.connect(self.slotDocumentContentsChanged)
         self._currentView = weakref.ref(view) if view else None
     
     def showWidget(self):
@@ -160,14 +163,23 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.setParent(None)
         self.hideWidget()
         self.setCurrentView(new)
-        self.updatePositions()
+        self.markPositionsDirty()
     
     def slotSelectionChanged(self):
         """Called when the user changes the selection."""
-        self.updatePositions()
-        if self.isVisible():
-            self.highlightingOn()
+        if not self._going:
+            self.markPositionsDirty()
+            if self.isVisible():
+                self.updatePositions()
+                self.highlightingOn()
 
+    def slotDocumentContentsChanged(self):
+        """Called when the current document changes."""
+        self.markPositionsDirty()
+        if self.isVisible():
+            self.updatePositions()
+            self.highlightingOn()
+        
     def slotHide(self):
         """Called when the close button is clicked."""
         view = self.currentView()
@@ -217,11 +229,15 @@ class Search(QWidget, plugin.MainWindowPlugin):
             self.adjustSize()
         else:
             self.showWidget()
-            self.slotSearchChanged()
+            self.markPositionsDirty()
+            self.updatePositions()
+            self.highlightingOn()
         focus.setFocus()
         
     def slotSearchChanged(self):
         """Called on every change in the search text entry."""
+        self._going = True
+        self.markPositionsDirty()
         self.updatePositions()
         self.highlightingOn()
         if not self._replace and self._positions:
@@ -238,6 +254,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
                 if cursortools.contains(self._positions[index-1], cursor):
                     index -= 1
             self.gotoPosition(index)
+        self._going = False
 
     def highlightingOn(self, view=None):
         """Show the current search result positions."""
@@ -253,17 +270,24 @@ class Search(QWidget, plugin.MainWindowPlugin):
         if view:
             viewhighlighter.highlighter(view).clear("search")
             
+    def markPositionsDirty(self):
+        """Delete positions and mark them dirty, i.e. they need updating."""
+        self._positions = []
+        self._positionsDirty = True
+    
     def updatePositions(self):
-        """Update the search result positions."""
-        search = self.searchEntry.text()
+        """Update the search result positions if necessary."""
         view = self.currentView()
+        if not view or not self._positionsDirty:
+            return
+        search = self.searchEntry.text()
         cursor = view.textCursor()
         document = view.document()
         self._positions = []
         if search:
             text = document.toPlainText()
             start = 0
-            if not self._going and cursor.hasSelection():
+            if (self._replace or self._going) and cursor.hasSelection():
                 # dont search outside the selection
                 start = cursor.selectionStart()
                 text = text[start:cursor.selectionEnd()]
@@ -283,9 +307,12 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     c.setPosition(start + m.start(), QTextCursor.KeepAnchor)
                     self._positions.append(c)
         self.countLabel.setText(format(len(self._positions)))
+        self._positionsDirty = False
         
     def findNext(self):
         """Called on menu Find Next."""
+        self._going = True
+        self.updatePositions()
         view = self.currentView()
         if view and self._positions:
             positions = [c.position() for c in self._positions]
@@ -295,23 +322,25 @@ class Search(QWidget, plugin.MainWindowPlugin):
             else:
                 self.gotoPosition(0)
             view.ensureCursorVisible()
+        self._going = False
 
     def findPrevious(self):
         """Called on menu Find Previous."""
+        self._going = True
+        self.updatePositions()
         view = self.currentView()
         positions = [c.position() for c in self._positions]
         if view and positions:
             index = bisect.bisect_left(positions, view.textCursor().position()) - 1
             self.gotoPosition(index)
+        self._going = False
     
     def gotoPosition(self, index):
         """Scrolls the current View to the position in the _positions list at index."""
         c = QTextCursor(self._positions[index])
         #c.clearSelection()
-        self._going = True
         self.currentView().gotoTextCursor(c)
         self.currentView().ensureCursorVisible()
-        self._going = False
 
     def event(self, ev):
         """Reimplemented to catch F1 for help and Tab so it does not reach the View."""
@@ -354,7 +383,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
         text = cursor.selection().toPlainText()
         search = self.searchEntry.text()
         replace = self.replaceEntry.text()
-        ok = text == self.searchEntry.text()
+        ok = text == search
         if self.regexCheck.isChecked():
             m = re.match(search, text)
             ok = False
@@ -379,13 +408,7 @@ class Search(QWidget, plugin.MainWindowPlugin):
             if index >= len(positions):
                 index = 0
             if self.doReplace(self._positions[index]):
-                self.highlightingOn(view)
-                if index < len(positions) - 1:
-                    view.gotoTextCursor(self._positions[index+1])
-                else:
-                    view.gotoTextCursor(self._positions[0])
-                del self._positions[index]
-                view.ensureCursorVisible()
+                self.findNext()
     
     def slotReplaceAll(self):
         """Called when the user clicks Replace All."""
