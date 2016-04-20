@@ -257,10 +257,16 @@ class Search(QWidget, plugin.MainWindowPlugin):
         """Update the search result positions."""
         search = self.searchEntry.text()
         view = self.currentView()
+        cursor = view.textCursor()
         document = view.document()
         self._positions = []
         if search:
             text = document.toPlainText()
+            start = 0
+            if not self._going and cursor.hasSelection():
+                # dont search outside the selection
+                start = cursor.selectionStart()
+                text = text[start:cursor.selectionEnd()]
             flags = re.MULTILINE | re.DOTALL
             if not self.caseCheck.isChecked():
                 flags |= re.IGNORECASE
@@ -271,16 +277,10 @@ class Search(QWidget, plugin.MainWindowPlugin):
             except re.error:
                 pass
             else:
-                # filter out positions outside the selection
-                c = view.textCursor()
-                if not self._going and c.hasSelection():
-                    matches = [m for m in matches
-                                    if m.end() <= c.selectionEnd() and
-                                       m.start() >= c.selectionStart()]
                 for m in matches:
                     c = QTextCursor(document)
-                    c.setPosition(m.end())
-                    c.setPosition(m.start(), QTextCursor.KeepAnchor)
+                    c.setPosition(start + m.end())
+                    c.setPosition(start + m.start(), QTextCursor.KeepAnchor)
                     self._positions.append(c)
         self.countLabel.setText(format(len(self._positions)))
         
