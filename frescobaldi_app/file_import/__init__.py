@@ -30,6 +30,7 @@ from PyQt5.QtGui import QKeySequence, QTextCursor
 from PyQt5.QtWidgets import QAction, QFileDialog, QMessageBox
 
 import app
+import icons
 import actioncollection
 import actioncollectionmanager
 import plugin
@@ -216,6 +217,8 @@ class Actions(actioncollection.ActionCollection):
         self.import_musicxml = QAction(parent)
         self.import_midi = QAction(parent)
         self.import_abc = QAction(parent)
+
+        self.import_all.setIcon(icons.get("document-import"))
 
     def translateUI(self):
         self.import_all.setText(_("Import..."))

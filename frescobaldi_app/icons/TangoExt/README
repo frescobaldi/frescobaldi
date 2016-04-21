@@ -13,6 +13,12 @@ created by Wilbert Berendsen from document-new and audio-volume-muted
 document-edit:
 http://commons.wikimedia.org/wiki/File:Edit-find-replace.svg (minus magnifiying glass)
 
+document-export:
+created by Wilbert Berendsen, based on text-x-generic and document-save
+
+document-import:
+created by Wilbert Berendsen, based on text-x-generic and document-save
+
 document-save-all:
 created by Wilbert Berendsen, based on document-save
 

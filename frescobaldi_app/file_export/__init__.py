@@ -30,6 +30,7 @@ from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QAction, QFileDialog, QMessageBox
 
 import app
+import icons
 import actioncollection
 import actioncollectionmanager
 import documentinfo
@@ -129,6 +130,9 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, parent):
         self.export_musicxml = QAction(parent)
         self.export_audio = QAction(parent)
+
+        self.export_musicxml.setIcon(icons.get("document-export"))
+        self.export_audio.setIcon(icons.get("document-export"))
 
     def translateUI(self):
         self.export_musicxml.setText(_("Export Music&XML..."))
