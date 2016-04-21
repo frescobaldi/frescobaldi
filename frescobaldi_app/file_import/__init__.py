@@ -29,6 +29,7 @@ from PyQt4.QtCore import Qt, QUrl
 from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox, QTextCursor
 
 import app
+import icons
 import actioncollection
 import actioncollectionmanager
 import plugin
@@ -215,6 +216,8 @@ class Actions(actioncollection.ActionCollection):
         self.import_musicxml = QAction(parent)
         self.import_midi = QAction(parent)
         self.import_abc = QAction(parent)
+
+        self.import_all.setIcon(icons.get("document-import"))
 
     def translateUI(self):
         self.import_all.setText(_("Import..."))
