@@ -33,6 +33,7 @@ from PyQt4.QtGui import (
     QLineEdit, QPalette, QPushButton, QStyle, QTextCursor, QToolButton, QWidget)
 
 import app
+import icons
 import qutil
 import plugin
 import userguide
@@ -60,13 +61,17 @@ class Search(QWidget, plugin.MainWindowPlugin):
         self.setFont(QApplication.font())
         self.setPalette(QApplication.palette())
         
-        grid = QGridLayout()
+        grid = QGridLayout(spacing=2)
         grid.setContentsMargins(4, 0, 4, 0)
         grid.setVerticalSpacing(0)
         self.setLayout(grid)
         
         self.searchEntry = QLineEdit(textChanged=self.slotSearchChanged)
         self.searchLabel = QLabel()
+        self.prevButton = QToolButton(autoRaise=True, focusPolicy=Qt.NoFocus, clicked=self.findPrevious)
+        self.prevButton.setIcon(icons.get('go-previous'))
+        self.nextButton = QToolButton(autoRaise=True, focusPolicy=Qt.NoFocus, clicked=self.findNext)
+        self.nextButton.setIcon(icons.get('go-next'))
         self.caseCheck = QCheckBox(checked=True, focusPolicy=Qt.NoFocus)
         self.regexCheck = QCheckBox(focusPolicy=Qt.NoFocus)
         self.countLabel = QLabel(alignment=Qt.AlignRight | Qt.AlignVCenter)
@@ -79,10 +84,12 @@ class Search(QWidget, plugin.MainWindowPlugin):
         
         grid.addWidget(self.searchLabel, 0, 0)
         grid.addWidget(self.searchEntry, 0, 1)
-        grid.addWidget(self.caseCheck, 0, 2)
-        grid.addWidget(self.regexCheck, 0, 3)
-        grid.addWidget(self.countLabel, 0, 4)
-        grid.addWidget(self.closeButton, 0, 5)
+        grid.addWidget(self.prevButton, 0, 2)
+        grid.addWidget(self.nextButton, 0, 3)
+        grid.addWidget(self.caseCheck, 0, 4)
+        grid.addWidget(self.regexCheck, 0, 5)
+        grid.addWidget(self.countLabel, 0, 6)
+        grid.addWidget(self.closeButton, 0, 7)
         
         self.caseCheck.toggled.connect(self.slotSearchChanged)
         self.regexCheck.toggled.connect(self.slotSearchChanged)
@@ -94,8 +101,8 @@ class Search(QWidget, plugin.MainWindowPlugin):
         
         grid.addWidget(self.replaceLabel, 1, 0)
         grid.addWidget(self.replaceEntry, 1, 1)
-        grid.addWidget(self.replaceButton, 1, 2)
-        grid.addWidget(self.replaceAllButton, 1, 3)
+        grid.addWidget(self.replaceButton, 1, 4)
+        grid.addWidget(self.replaceAllButton, 1, 5)
         
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
@@ -103,6 +110,8 @@ class Search(QWidget, plugin.MainWindowPlugin):
         
     def translateUI(self):
         self.searchLabel.setText(_("Search:"))
+        self.prevButton.setToolTip(_("Find Previous"))
+        self.nextButton.setToolTip(_("Find Next"))
         self.caseCheck.setText(_("&Case"))
         self.caseCheck.setToolTip(_("Case Sensitive"))
         self.regexCheck.setText(_("&Regex"))
@@ -306,6 +315,11 @@ class Search(QWidget, plugin.MainWindowPlugin):
                     c.setPosition(start + m.start(), QTextCursor.KeepAnchor)
                     self._positions.append(c)
         self.countLabel.setText(format(len(self._positions)))
+        enabled = len(self._positions) > 0
+        self.replaceButton.setEnabled(enabled)
+        self.replaceAllButton.setEnabled(enabled)
+        self.prevButton.setEnabled(enabled)
+        self.nextButton.setEnabled(enabled)
         self._positionsDirty = False
         
     def findNext(self):
