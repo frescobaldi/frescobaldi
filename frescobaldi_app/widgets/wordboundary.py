@@ -183,12 +183,7 @@ class BoundaryHandler(QObject):
             return self.keyPressEvent(obj, ev)
         elif ev.type() == QEvent.MouseButtonDblClick:
             edit = self.get_textedit(obj)
-            self._double_click_time = time.time()
             return self.mouseDoubleClickEvent(edit, ev)
-        elif ev.type() == QEvent.MouseButtonPress:
-            edit = self.get_textedit(obj)
-            if time.time() - self._double_click_time < QApplication.doubleClickInterval() / 1000.0:
-                return self.mouseTripleClickEvent(edit, ev)
         return False
     
     def keyPressEvent(self, obj, ev):
@@ -219,21 +214,11 @@ class BoundaryHandler(QObject):
     def mouseDoubleClickEvent(self, obj, ev):
         """Handles the double-click even to select a word."""
         if ev.button() == Qt.LeftButton:
+            block = obj.blockSignals(True) # prevent selectionChanged etc emitted twice
+            obj.mouseDoubleClickEvent(ev)  # otherwise triple click and drag won't work
+            obj.blockSignals(block)
             c = obj.cursorForPosition(ev.pos())
             self.select(c, QTextCursor.WordUnderCursor)
-            obj.setTextCursor(c)
-            return True
-        return False
-
-    def mouseTripleClickEvent(self, obj, ev):
-        """Handles the triple-click even to select a line."""
-        if ev.button() == Qt.LeftButton:
-            c = obj.cursorForPosition(ev.pos())
-            c.movePosition(QTextCursor.StartOfBlock)
-            if c.block().next().isValid():
-                c.movePosition(QTextCursor.NextBlock, QTextCursor.KeepAnchor)
-            else:
-                c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
             obj.setTextCursor(c)
             return True
         return False
