@@ -61,7 +61,6 @@ class View(QPlainTextEdit):
     def __init__(self, document):
         """Creates the View for the given document."""
         super(View, self).__init__()
-        self._keep_cursor_in_current_line = False
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -76,6 +75,8 @@ class View(QPlainTextEdit):
         # line wrap preference is only read on init
         wrap = QSettings().value("view_preferences/wrap_lines", False, bool)
         self.setLineWrapMode(QPlainTextEdit.WidgetWidth if wrap else QPlainTextEdit.NoWrap)
+        self.installEventFilter(homekey.handler)
+        self.installEventFilter(arrowkeys.handler)
         app.viewCreated(self)
 
     def event(self, ev):
@@ -123,10 +124,6 @@ class View(QPlainTextEdit):
         return super(View, self).event(ev)
 
     def keyPressEvent(self, ev):
-        if homekey.handle(self, ev):
-            return
-        if self._keep_cursor_in_current_line and arrowkeys.handle(self, ev):
-            return
         super(View, self).keyPressEvent(ev)
         
         if metainfo.info(self.document()).auto_indent:
@@ -204,8 +201,6 @@ class View(QPlainTextEdit):
         self.setFont(data.font)
         self.setPalette(data.palette())
         self.setTabWidth()
-        self._keep_cursor_in_current_line = QSettings().value(
-            "view_preferences/keep_cursor_in_line", False, bool)
         
     def slotDocumentClosed(self):
         if self.hasFocus():
