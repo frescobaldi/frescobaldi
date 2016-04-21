@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.18.3 -- ?
+Changes in 2.19.0 -- April 22nd, 2016
 
 * Requirement changes:
   - Frescobaldi now requires python-ly 0.9.4
