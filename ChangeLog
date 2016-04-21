@@ -17,7 +17,7 @@ Changes in 2.18.3 -- ?
   - When copying music to an image, a new option has been added to render the
     image twice as large and scale it smoothly down, which improves images at
     smaller DPI values.
-  - An option thap keeps the text cursor in the current line, when using the
+  - An option to keep the text cursor in the current line, when using the
     horizontal arrow keys (off by default) (wish #779)
 * Improvements:
   - LilyPond 2.18+ \relative { ... } without start pitch is now supported
