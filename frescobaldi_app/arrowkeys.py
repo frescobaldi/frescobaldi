@@ -22,8 +22,8 @@ Simple eventfilter that alters the behaviour of the horizontal arrow keys
 to not go to the next or previous block.
 """
 
-from PyQt5.QtCore import QEvent, QObject
-from PyQt5.QtGui import QKeySequence
+from PyQt4.QtCore import QEvent, QObject
+from PyQt4.QtGui import QKeySequence
 
 
 def handle(edit, ev):
