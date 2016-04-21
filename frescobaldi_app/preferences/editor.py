@@ -49,6 +49,7 @@ class Editor(preferences.ScrolledGroupsPage):
         layout.addWidget(ViewSettings(self))
         layout.addWidget(Highlighting(self))
         layout.addWidget(Indenting(self))
+        layout.addWidget(KeyBoard(self))
         layout.addWidget(SourceExport(self))
         layout.addWidget(TypographicalQuotes(self))
         layout.addStretch()
@@ -223,6 +224,36 @@ class Indenting(preferences.Group):
         s.setValue("tab_width", self.tabwidthBox.value())
         s.setValue("indent_spaces", self.nspacesBox.value())
         s.setValue("document_spaces", self.dspacesBox.value())
+
+
+class KeyBoard(preferences.Group):
+    def __init__(self, page):
+        super(KeyBoard, self).__init__(page)
+        
+        layout = QGridLayout(spacing=1)
+        self.setLayout(layout)
+
+        self.keepCursorInLine = QCheckBox(toggled=self.changed)
+
+        layout.addWidget(self.keepCursorInLine, 0, 0, 1, 1)
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.setTitle(_("Keyboard Preferences"))
+        self.keepCursorInLine.setText(_("Horizontal arrow keys keep cursor in current line"))
+        self.keepCursorInLine.setToolTip('<qt>' + _(
+            "If enabled, the cursor will stay in the current line when using "
+            "the horizontal arrow keys, and not wrap around to the next or previous line."))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("view_preferences")
+        self.keepCursorInLine.setChecked(s.value("keep_cursor_in_line", False, bool))
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("view_preferences")
+        s.setValue("keep_cursor_in_line", self.keepCursorInLine.isChecked())
 
 
 class SourceExport(preferences.Group):
