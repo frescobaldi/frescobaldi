@@ -22,8 +22,11 @@ Simple eventfilter that alters the behaviour of the horizontal arrow keys
 to not go to the next or previous block.
 """
 
-from PyQt4.QtCore import QEvent, QObject
+from PyQt4.QtCore import QEvent, QObject, QSettings
 from PyQt4.QtGui import QKeySequence
+
+
+import app
 
 
 def handle(edit, ev):
@@ -41,8 +44,9 @@ def handle(edit, ev):
 
 
 class Handler(QObject):
+    handle = False
     def eventFilter(self, obj, ev):
-        if ev.type() == QEvent.KeyPress:
+        if self.handle and ev.type() == QEvent.KeyPress:
             return handle(obj, ev)
         return False
 
@@ -50,3 +54,8 @@ class Handler(QObject):
 handler = Handler()
 
 
+def _setup():
+    handler.handle = QSettings().value("view_preferences/keep_cursor_in_line", False, bool)
+
+app.settingsChanged.connect(_setup)
+_setup()
