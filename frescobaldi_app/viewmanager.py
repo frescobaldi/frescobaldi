@@ -50,26 +50,24 @@ class ViewStatusBar(QWidget):
         layout.setContentsMargins(2, 1, 0, 1)
         layout.setSpacing(8)
         self.setLayout(layout)
-        self.pos = QLabel()
-        layout.addWidget(self.pos)
+        self.positionLabel = QLabel()
+        layout.addWidget(self.positionLabel)
         
-        self.state = QLabel()
-        self.state.setFixedSize(16, 16)
-        layout.addWidget(self.state)
+        self.stateLabel = QLabel()
+        self.stateLabel.setFixedSize(16, 16)
+        layout.addWidget(self.stateLabel)
         
-        self.info = QLabel(minimumWidth=10)
-        layout.addWidget(self.info, 1)
+        self.infoLabel = QLabel(minimumWidth=10)
+        layout.addWidget(self.infoLabel, 1)
         
-        self.installEventFilter(self)
-    
-    def eventFilter(self, obj, ev):
+    def event(self, ev):
         if ev.type() == QEvent.MouseButtonPress:
             if ev.button() == Qt.RightButton:
                 self.showContextMenu(ev.globalPos())
             else:
                 self.parent().activeView().setFocus()
             return True
-        return False
+        return super(ViewStatusBar, self).event(ev)
 
     def showContextMenu(self, pos):
         menu = QMenu(self)
@@ -207,16 +205,16 @@ class ViewSpace(QWidget):
             column = cur.positionInBlock()
         except AttributeError: # only in very recent PyQt5
             column = cur.position() - cur.block().position()
-        self.status.pos.setText(_("Line: {line}, Col: {column}").format(
+        self.status.positionLabel.setText(_("Line: {line}, Col: {column}").format(
             line = line, column = column))
     
     def updateModificationState(self):
         modified = self.document().isModified()
         pixmap = icons.get('document-save').pixmap(16) if modified else QPixmap()
-        self.status.state.setPixmap(pixmap)
+        self.status.stateLabel.setPixmap(pixmap)
     
     def updateDocumentName(self):
-        self.status.info.setText(self.document().documentName())
+        self.status.infoLabel.setText(self.document().documentName())
 
 
 class ViewManager(QSplitter):
