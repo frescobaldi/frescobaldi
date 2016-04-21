@@ -90,6 +90,7 @@ class MusicPosition(plugin.ViewSpacePlugin):
                 text = _("Pos: {pos}").format(
                     pos=ly.duration.format_fraction(pos)) if pos is not None else ''
             self._label.setText(text)
+            self._label.setVisible(bool(text))
 
 
 app.viewSpaceCreated.connect(MusicPosition.instance)
