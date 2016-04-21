@@ -34,6 +34,7 @@ from PyQt5.QtGui import (
 from PyQt5.QtWidgets import QApplication, QPlainTextEdit
 
 import app
+import arrowkeys
 import homekey
 import metainfo
 import textformats
@@ -60,6 +61,7 @@ class View(QPlainTextEdit):
     def __init__(self, document):
         """Creates the View for the given document."""
         super(View, self).__init__()
+        self._keep_cursor_in_current_line = False
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -122,6 +124,8 @@ class View(QPlainTextEdit):
 
     def keyPressEvent(self, ev):
         if homekey.handle(self, ev):
+            return
+        if self._keep_cursor_in_current_line and arrowkeys.handle(self, ev):
             return
         super(View, self).keyPressEvent(ev)
         
@@ -200,6 +204,8 @@ class View(QPlainTextEdit):
         self.setFont(data.font)
         self.setPalette(data.palette())
         self.setTabWidth()
+        self._keep_cursor_in_current_line = QSettings().value(
+            "view_preferences/keep_cursor_in_line", False, bool)
         
     def slotDocumentClosed(self):
         if self.hasFocus():
