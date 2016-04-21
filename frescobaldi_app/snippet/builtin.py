@@ -512,7 +512,8 @@ def main():
     elif s == 'scheme':
         text = scheme(text)
 
-    cursor.insertText(text)
+    if text != cursor.selection().toPlainText():
+        cursor.insertText(text)
 
 """),
 
