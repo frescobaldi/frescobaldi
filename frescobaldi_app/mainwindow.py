@@ -72,6 +72,9 @@ class MainWindow(QMainWindow):
     # only emitted when this is the last MainWindow to close
     aboutToCloseLast = pyqtSignal()
 
+    # emitted when all editor documents have been closed
+    allDocumentsClosed = pyqtSignal()
+
     # both signals emit (current, previous)
     currentDocumentChanged = pyqtSignal(document.Document, document.Document)
     currentViewChanged = pyqtSignal(view.View, view.View)
@@ -689,6 +692,7 @@ class MainWindow(QMainWindow):
         sessions.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
             sessions.setCurrentSession(None)
+            self.allDocumentsClosed.emit()
             self.cleanStart()
 
     def quit(self):

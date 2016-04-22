@@ -7,6 +7,8 @@ Changes in 2.19.0 -- April 22nd, 2016
 * Requirement changes:
   - Frescobaldi now requires python-ly 0.9.4
 * New features:
+  - New Manuscript viewer tool, displaying an "engraver's copy",
+    contributed by Peter Bjuhr and Urs Liska
   - Tools->Quick Remove->Remove Fingerings
   - Tools->Quick Remove->Remove Comments
   - Tools->Pitch->Simplify Accidentals
@@ -66,6 +68,7 @@ Changes in 2.18.2 -- December 26th, 2015
     #789)
   - fix TypeError: QPen(): argument 1 has unexpected type QBrush
   - fix some bugs in Quick Insert panel
+>>>>>>> origin/master
 * Translations:
   - updated: Dutch, French, Italian, Ukrainian
 
@@ -118,7 +121,7 @@ Changes in 2.18 -- March 7th, 2015
     single and double (primary and secondary) typographical quotes (issue #529)
   - The music view now can display a PDF document with two pages next to each
     other, starting with a right or left page, and in single pages (issue #575)
-  - A new pitch tool, Mode shift, which can be used to change all or selected 
+  - A new pitch tool, Mode shift, which can be used to change all or selected
     notes to a specified mode or scale.
   - Commands to convert rests to spaces or vice versa, and to convert pitched
     rests (like c'4\rest) to normal rests, contributed by Peter Bjuhr.
@@ -231,8 +234,8 @@ Changes in 2.0.16 -- June 9th, 2014
   - updated: nl, fr, it
 * New features
   - preference to automatically strip trailing whitespace on save (issue #274)
-  - in Tools -> Rhythm: new command to remove duration scalings that contain 
-    a fraction value (the action was already available for some time, but it 
+  - in Tools -> Rhythm: new command to remove duration scalings that contain
+    a fraction value (the action was already available for some time, but it
     wasn't in the menu)
   - new option to copy only the styled HTML contents to the clipboard
     wrapped in a pre tag, not a full HTML document
@@ -318,8 +321,8 @@ Changes in 2.0.14 -- March 7th, 2014
   - New barline types in the Quick Insert panel, the barlines are written
     in the correct style, depending on the LilyPond version set in the document
     (issue #365).
-  - In the output-suffix (the scheme output-suffix variable or 
-    \bookOutputSuffix), non-alphanumeric characters (except '-' and '_') are 
+  - In the output-suffix (the scheme output-suffix variable or
+    \bookOutputSuffix), non-alphanumeric characters (except '-' and '_') are
     replaced with '_', just like LilyPond itself does it (issue #373).
 * Bug fixes:
   - Fixed issue 336: TypeError on MusicXml export
@@ -329,9 +332,9 @@ Changes in 2.0.14 -- March 7th, 2014
     e.g. when a cis is transposed from c to cisis. The note is then altered,
     just like LilyPond handles this.
 * Temporarily removed feature:
-  - MusicXML export has been temporarily removed from the File->Export menu. 
-    It is still visible in the git checkout. It is also available in the ly 
-    command (in the python-ly package, and also in Frescobaldi's git checkout) 
+  - MusicXML export has been temporarily removed from the File->Export menu.
+    It is still visible in the git checkout. It is also available in the ly
+    command (in the python-ly package, and also in Frescobaldi's git checkout)
     but it needs more testing and robustness before it is usable in Frescobaldi.
 
 
@@ -365,12 +368,12 @@ Changes in 2.0.12 -- December 26th, 2013
   - updated: cs, nl, fr, es
 * New features:
   - Edit->Select Block has finally been implemented
-  - A viewer for LilyPond-generated SVG files has been added by Peter Bjuhr. 
-    This viewer (accessible via Tools->SVG Viewer) currently has one-way point 
-    and click. This only works with recent development versions of LilyPond, 
+  - A viewer for LilyPond-generated SVG files has been added by Peter Bjuhr.
+    This viewer (accessible via Tools->SVG Viewer) currently has one-way point
+    and click. This only works with recent development versions of LilyPond,
     that add the point and click information to SVG files. In the future, the
     SVG view may become a fully fledged graphical music editor.
-  - The default output format can be set in the LilyPond preferences (the 
+  - The default output format can be set in the LilyPond preferences (the
     current options are PDF or SVG, the default is PDF)
 * Improvements:
   - The indenter's handling of tabs and spaces has been improved. A tab always
@@ -390,8 +393,8 @@ Changes in 2.0.12 -- December 26th, 2013
   - Better Mac OS X icons (contributed by Davide Liessi)
   - The internal handling of manipulations like transpose, translate, and the
     various rhythm commands has become less dependent on Frescobaldi code.
-    These functionality now resides in the ly module and could be used by 
-    other applications. The commands now can work on any ly.document, which 
+    These functionality now resides in the ly module and could be used by
+    other applications. The commands now can work on any ly.document, which
     need not be a Frescobaldi document.
   - The internal help system has seen a massive overhaul: help files are now
     very easy to write in a simplified markdown-like syntax. Adding help pages
@@ -427,7 +430,7 @@ Changes in 2.0.11 -- October 16th, 2013
     contents to a new snippet
 * Improvements:
   - highlighting and auto-completion of Scheme code has been improved
-    by Nicolas Malarmey. 
+    by Nicolas Malarmey.
   - when switching documents with multiple editor views open, and one of the
     views displays the document, that view is made current, instead of changing
     the document in the current view.
@@ -779,7 +782,7 @@ Changes in 1.9.0 -- September 27th, 2011
 * All translations imported
 
 
-Changes in 1.2.1 -- 
+Changes in 1.2.1 --
 
 * Fixes:
   - Correct spacing alist names in LilyPond 2.14 in blank paper tool
@@ -1122,7 +1125,7 @@ Changes in 0.7.15 -- October 13th, 2009
   - named colors are shown in the right color
   - some often used block commands like \header now also insert the braces,
     and place the cursor between them.
-  - names of variables (like composer in the header) automagically append ' = ' 
+  - names of variables (like composer in the header) automagically append ' = '
     if the remainder of the line does not start with the '=' character.
 * New commands in the Log context menu to copy or save its contents.
 * LilyPond symbol icons are displayed white if the users color palette settings
@@ -1288,7 +1291,7 @@ Changes in 0.7.5 -- February 12th, 2009
 * In Edit-menu:
   * New command to cut a piece of text and assign it to a variable
   * New shortcut to repeat the last entered music expression
-  * New shortcut to expand a short string to user-definable pieces of LilyPond 
+  * New shortcut to expand a short string to user-definable pieces of LilyPond
     input. When no shortcut is typed a dialog is opened where shortcuts can
     be chosen and edited.
   * New shortcuts (Alt+Up and Alt+Down) to jump between blank lines, c.q.
@@ -1331,7 +1334,7 @@ Changes in 0.7.2 -- January 7th, 2009
 * Bugfixes:
   * Fix shift-up and shift-down selection in editor while PDF is visible.
   * don't say LilyPond crashes if user terminates the process
-  * End startup notification if running instance found. 
+  * End startup notification if running instance found.
 
 
 Changes in 0.7.1 -- January 3rd, 2009
@@ -1347,4 +1350,3 @@ Changes in 0.7.1 -- January 3rd, 2009
 Changes in 0.7 -- December 26th, 2008
 
 * Initial release.
-

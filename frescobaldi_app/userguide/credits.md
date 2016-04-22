@@ -16,7 +16,8 @@ The following people contributed to {appname}:
 
 !Peter Bjuhr:
 : !_(Quick Insert buttons for grace notes)_,
-   _(MusicXML, Midi and Abc im- and export)_
+   _(MusicXML, Midi and Abc im- and export)_,
+   _(Manuscript Viewer)_   
 
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
@@ -30,6 +31,7 @@ The following people contributed to {appname}:
 
 !Urs Liska:
 : !_(Layout control modes)_,
+   _(Manuscript Viewer)_,
    _(various other contributions)_
 
 !Nicolas Malarmey:
@@ -105,7 +107,7 @@ The following people contributed to {appname}:
 {lang_zh}:
 :  !Anthony Fok
 
-And of course, a big *Thank You* goes to the LilyPond developers, who create 
+And of course, a big *Thank You* goes to the LilyPond developers, who create
 such an excellent music engraver!
 
 
@@ -128,4 +130,3 @@ lang_ru     languagename ru
 lang_tr     languagename tr
 lang_uk     languagename uk
 lang_zh     languagename zh
-
