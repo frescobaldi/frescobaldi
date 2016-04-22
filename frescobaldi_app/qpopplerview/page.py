@@ -193,16 +193,12 @@ class Page(object):
         cache.generate(self)
     
     def image(self, rect, xdpi=72.0, ydpi=None, options=None):
-        """Returns a QImage of the specified rectangle (relative to our layout).
+        """Returns a QImage of the specified rectangle (relative to our top-left position).
         
         xdpi defaults to 72.0 and ydpi defaults to xdpi.
         options may be a render.RenderOptions instance that will set some document
         rendering options just before rendering the image.
         """
-        rect = rect.normalized().intersected(self.rect())
-        if not rect:
-            return
-        rect.translate(-self.pos())
         if ydpi is None:
             ydpi = xdpi
         hscale = (xdpi * self.pageSize().width()) / (72.0 * self.width())
