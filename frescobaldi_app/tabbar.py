@@ -23,7 +23,7 @@ The tab bar with the documents.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt, QUrl, pyqtSignal
+from PyQt4.QtCore import QSettings, Qt, QUrl, pyqtSignal
 from PyQt4.QtGui import QMenu, QTabBar
 
 import app
@@ -44,7 +44,6 @@ class TabBar(QTabBar):
         super(TabBar, self).__init__(parent)
         
         self.setFocusPolicy(Qt.NoFocus)
-        self.setTabsClosable(True) # TODO: make configurable
         self.setMovable(True)      # TODO: make configurable
         self.setExpanding(False)
         self.setUsesScrollButtons(True)
@@ -63,12 +62,19 @@ class TabBar(QTabBar):
         app.documentModificationChanged.connect(self.setDocumentStatus)
         app.jobStarted.connect(self.setDocumentStatus)
         app.jobFinished.connect(self.setDocumentStatus)
+        app.settingsChanged.connect(self.readSettings)
         engrave.engraver(mainwin).stickyChanged.connect(self.setDocumentStatus)
         mainwin.currentDocumentChanged.connect(self.setCurrentDocument)
         self.currentChanged.connect(self.slotCurrentChanged)
         self.tabMoved.connect(self.slotTabMoved)
         self.tabCloseRequested.connect(self.slotTabCloseRequested)
-        
+        self.readSettings()
+    
+    def readSettings(self):
+        """Called on init, and when the user changes the settings."""
+        s = QSettings()
+        self.setTabsClosable(s.value("tabs_closable", True, bool))
+    
     def documents(self):
         return list(self.docs)
         

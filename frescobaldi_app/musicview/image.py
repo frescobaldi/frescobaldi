@@ -88,6 +88,7 @@ class Dialog(QDialog):
         self.colorButton.setColor(QColor(Qt.white))
         self.crop = QCheckBox()
         self.antialias = QCheckBox(checked=True)
+        self.scaleup = QCheckBox(checked=False)
         self.dragfile = QPushButton(icons.get("image-x-generic"), None, None)
         self.fileDragger = FileDragger(self.dragfile)
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
@@ -108,6 +109,7 @@ class Dialog(QDialog):
         controls.addWidget(self.colorButton)
         controls.addWidget(self.crop)
         controls.addWidget(self.antialias)
+        controls.addWidget(self.scaleup)
         controls.addStretch()
         controls.addWidget(self.dragfile)
         layout.addWidget(widgets.Separator())
@@ -119,6 +121,7 @@ class Dialog(QDialog):
         self.dpiCombo.editTextChanged.connect(self.drawImage)
         self.colorButton.colorChanged.connect(self.drawImage)
         self.antialias.toggled.connect(self.drawImage)
+        self.scaleup.toggled.connect(self.drawImage)
         self.crop.toggled.connect(self.cropImage)
         self.buttons.rejected.connect(self.reject)
         self.copyButton.clicked.connect(self.copyToClipboard)
@@ -131,6 +134,10 @@ class Dialog(QDialog):
         self.colorButton.setToolTip(_("Paper Color"))
         self.crop.setText(_("Auto-crop"))
         self.antialias.setText(_("Antialias"))
+        self.scaleup.setText(_("Scale 2x"))
+        self.scaleup.setToolTip(_(
+            "Render twice as large and scale back down\n"
+            "(recommended for small DPI values)."))
         self.dragfile.setText(_("Drag"))
         self.dragfile.setToolTip(_("Drag the image as a PNG file."))
         self.copyButton.setText(_("&Copy to Clipboard"))
@@ -154,6 +161,7 @@ class Dialog(QDialog):
         self.colorButton.setColor(s.value("papercolor", QColor(Qt.white), QColor))
         self.crop.setChecked(s.value("autocrop", False, bool))
         self.antialias.setChecked(s.value("antialias", True, bool))
+        self.scaleup.setChecked(s.value("scaleup", False, bool))
     
     def writeSettings(self):
         s = QSettings()
@@ -162,6 +170,7 @@ class Dialog(QDialog):
         s.setValue("papercolor", self.colorButton.color())
         s.setValue("autocrop", self.crop.isChecked())
         s.setValue("antialias", self.antialias.isChecked())
+        s.setValue("scaleup", self.scaleup.isChecked())
     
     def setCaption(self):
         if self._filename:
@@ -192,7 +201,11 @@ class Dialog(QDialog):
                     popplerqt4.Poppler.Document.TextAntialiasing)
         else:
             options.setRenderHint(0)
-        self._image = self._page.image(self._rect, dpi, dpi, options)
+        m = 2 if self.scaleup.isChecked() else 1
+        i = self._page.image(self._rect, dpi * m, dpi * m , options)
+        if m == 2:
+            i = i.scaled(i.size() / 2, transformMode=Qt.SmoothTransformation)
+        self._image = i
         self.cropImage()
     
     def cropImage(self):

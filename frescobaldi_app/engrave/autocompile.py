@@ -33,6 +33,8 @@ The log is not displayed.
 
 from __future__ import unicode_literals
 
+import contextlib
+
 from PyQt4.QtCore import QSettings, Qt, QTimer
 
 import app
@@ -77,9 +79,11 @@ class AutoCompiler(plugin.MainWindowPlugin):
         if old:
             old.contentsChanged.disconnect(self.startTimer)
             old.loaded.disconnect(self.startTimer)
+            old.saved.disconnect(self.startTimer)
         if new:
             new.contentsChanged.connect(self.startTimer)
             new.loaded.connect(self.startTimer)
+            new.saved.connect(self.startTimer)
             if self._enabled:
                 self.startTimer()
     
@@ -115,7 +119,7 @@ class AutoCompiler(plugin.MainWindowPlugin):
 class AutoCompileManager(plugin.DocumentPlugin):
     def __init__(self, document):
         document.contentsChanged.connect(self.slotDocumentContentsChanged, Qt.QueuedConnection)
-        document.saved.connect(self.slotDocumentSaved)
+        document.saving.connect(self.slotDocumentSaving)
         document.loaded.connect(self.initialize)
         jobmanager.manager(document).started.connect(self.slotJobStarted)
         self.initialize()
@@ -155,13 +159,24 @@ class AutoCompileManager(plugin.DocumentPlugin):
     
     def slotDocumentContentsChanged(self):
         """Called when the user modifies the document."""
-        if self.document().isModified():    # not when a template was applied
+        doc = self.document()
+        if doc.isModified() or doc.isRedoAvailable():  # not when a template was applied
             self._dirty = True
 
-    def slotDocumentSaved(self):
-        """Called when the document is saved. Forces auto-compile once."""
-        self._dirty = True
-        self._hash = None
+    @contextlib.contextmanager
+    def slotDocumentSaving(self):
+        """Called while the document is being saved.
+        
+        Forces auto-compile once if the document was modified before saving.
+        
+        """
+        modified = self.document().isModified()
+        try:
+            yield
+        finally:
+            if modified:
+                self._dirty = True
+                self._hash = None
     
     def slotJobStarted(self):
         """Called when an engraving job is started on this document."""

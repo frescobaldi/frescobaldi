@@ -153,9 +153,10 @@ class MusicView(QWidget):
                 from . import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
             else:
+                import browseriface
                 mainwindow = self.parent().mainwindow()
                 self._clicking_link = True
-                mainwindow.setTextCursor(cursor, findOpenView=True)
+                browseriface.get(mainwindow).setTextCursor(cursor, findOpenView=True)
                 self._clicking_link = False
                 import widgets.blink
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
@@ -164,6 +165,9 @@ class MusicView(QWidget):
         elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
+        elif (isinstance(link, popplerqt4.Poppler.LinkGoto)
+              and not link.isExternal()):
+            self.view.gotoPageNumber(link.destination().pageNumber() - 1)
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
@@ -207,7 +211,13 @@ class MusicView(QWidget):
                     text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
                     text = link.url()
-            QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
+        elif isinstance(link, popplerqt4.Poppler.LinkGoto):
+            text = _("Page {num}").format(num=link.destination().pageNumber())
+            if link.isExternal():
+                text = link.fileName() + "\n" + text
+        else:
+            return
+        QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
 
     def slotCurrentViewChanged(self, view, old=None):
         self.view.surface().clearHighlight(self._highlightMusicFormat)

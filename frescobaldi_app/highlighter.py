@@ -84,7 +84,7 @@ def _reset_highlight_mapping():
 app.settingsChanged.connect(_reset_highlight_mapping, -100) # before all others
 
 
-class Highlighter(QSyntaxHighlighter, plugin.Plugin):
+class Highlighter(plugin.Plugin, QSyntaxHighlighter):
     """A QSyntaxHighlighter that can highlight a QTextDocument.
     
     It can be used for both generic QTextDocuments as well as

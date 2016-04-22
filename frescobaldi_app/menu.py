@@ -330,12 +330,16 @@ def menu_tools_pitch(mainwindow):
     
     m.addAction(ac.pitch_language)
     m.addSeparator()
+    m.addAction(ac.pitch_relative_assume_first_pitch_absolute)
+    m.addAction(ac.pitch_relative_write_startpitch)
+    m.addSeparator()
     m.addAction(ac.pitch_rel2abs)
     m.addAction(ac.pitch_abs2rel)
     m.addSeparator()
     m.addAction(ac.pitch_transpose)
     m.addAction(ac.pitch_modal_transpose)
     m.addAction(ac.pitch_mode_shift)
+    m.addAction(ac.pitch_simplify)
     return m
 
 def menu_tools_rest(mainwindow):

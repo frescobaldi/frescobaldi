@@ -4,20 +4,52 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 2.18.3 -- ?
 
+* Requirement changes:
+  - Frescobaldi now requires python-ly 0.9.4
 * New features:
   - New Manuscript viewer tool, displaying an "engraver's copy",
     contributed by Peter Bjuhr and Urs Liska
   - Tools->Quick Remove->Remove Fingerings
   - Tools->Quick Remove->Remove Comments
+  - Tools->Pitch->Simplify Accidentals
+  - It is now configurable whether the document tabs have a close button
+  - The new LilyPond feature to embed source code files in the PDF (LilyPond >=
+    2.19.39) can be used in publish mode and the custom engrave dialog (#813)
+  - Clicking a TOC item in the Music View jumps to its destination (#803)
+  - When copying music to an image, a new option has been added to render the
+    image twice as large and scale it smoothly down, which improves images at
+    smaller DPI values.
+  - An option to keep the text cursor in the current line, when using the
+    horizontal arrow keys (off by default) (wish #779)
 * Improvements:
+  - LilyPond 2.18+ \relative { ... } without start pitch is now supported
+  - It is possible to use no start pitch on abs->rel conversion and specify
+    the desired behaviour using two checkboxes in the tools->pitch menu.
+  - Clicking a point and click link in the Music View now remembers the previous
+    position
+  - Autocompile was not triggered in some circumstances.
+    Now it is also triggered:
+    * when a document is saved
+    * when undoing a change after a save (i.e. the undo would reset the 
+      "modifified" flag of the document)
   - When tapping a tempo in the Score Wizard, it is now configurable whether
     a "common" metronome value is picked, or the exact tapped BPM (#792)
   - Allow zooming to 800% in Music View (#800)
   - When closing a document that has an engrave job running, the user is warned
     and can choose whether to wait for the job to complete, to abort it, or to
     cancel the closing.
+  - Tabbar and document list show in the document icon whether the last
+    engraving was successful (#636)
+  - Comment and Uncomment snippets are improved and now in the Snippet menu
+  - Score Wizard:
+    - add C-Melody Sax (#810)
 * Bug fixes:
+  - fix #669 make click and drag working again
+  - fix #786 'Replace all' only works when run twice
   - fix #793 Command autocompletion doesn’t work in figuremode
+  - fix #806 MIDI file not updated in MIDI Player when using "master" variable
+  - fix #807 search does not realize that content is changed
+  - fix #808 \figuremode should be enclosed within \new FiguredBass
 * Translations:
   - updated: Dutch, Italian
 

@@ -34,6 +34,7 @@ from PyQt4.QtGui import (
     QTextCursor)
 
 import app
+import arrowkeys
 import homekey
 import metainfo
 import textformats
@@ -74,6 +75,8 @@ class View(QPlainTextEdit):
         # line wrap preference is only read on init
         wrap = QSettings().value("view_preferences/wrap_lines", False, bool)
         self.setLineWrapMode(QPlainTextEdit.WidgetWidth if wrap else QPlainTextEdit.NoWrap)
+        self.installEventFilter(homekey.handler)
+        self.installEventFilter(arrowkeys.handler)
         app.viewCreated(self)
 
     def event(self, ev):
@@ -121,8 +124,6 @@ class View(QPlainTextEdit):
         return super(View, self).event(ev)
 
     def keyPressEvent(self, ev):
-        if homekey.handle(self, ev):
-            return
         super(View, self).keyPressEvent(ev)
         
         if metainfo.info(self.document()).auto_indent:

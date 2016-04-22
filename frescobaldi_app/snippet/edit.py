@@ -37,6 +37,7 @@ import app
 import qutil
 import userguide
 import homekey
+import arrowkeys
 import icons
 import textformats
 import wordboundary
@@ -103,6 +104,7 @@ class Edit(QDialog):
         Matcher(self.text)
         widgets.indenter.Indenter(self.text)
         self.text.installEventFilter(homekey.handler)
+        self.text.installEventFilter(arrowkeys.handler)
         wordboundary.handler.install_textedit(self.text)
         completer.Completer(self.text)
         

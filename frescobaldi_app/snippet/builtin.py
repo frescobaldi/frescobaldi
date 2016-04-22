@@ -414,8 +414,13 @@ def main():
 """),
 
 
-'comment': T(_("Comment"),
-r"""-*- python; indent: no;
+'comment': T(_("snippet: add comment characters", "Comment"),
+r"""-*- python; indent: no; menu: comment;
+
+# get text before and after the selection
+import cursortools
+before, text, after = cursortools.partition(cursor)
+
 # determine state
 for s in state[::-1]:
     if s in ('lilypond', 'html', 'scheme'):
@@ -431,9 +436,17 @@ def html():
 
 def lilypond():
     if '\n' in text:
-        return '% ' + text.replace('\n', '\n% ')
+        if text.endswith('\n'):
+            return '% ' + text[:-1].replace('\n', '\n% ') + '\n'
+        elif after and not after.isspace():
+            return '%{ ' + text + '%} '
+        else:
+            return '% ' + text.replace('\n', '\n% ')
     elif text:
-        return '%{ ' + text + '%}'
+        if after and not after.isspace():
+            return '%{ ' + text + '%} '
+        else:
+            return '% ' + text + after
     else:
         return '% '
 
@@ -449,49 +462,59 @@ elif s == 'html':
     text = html()
 elif s == 'scheme':
     text = scheme()
+
 """),
 
 
-'uncomment': T(_("Uncomment"),
-r"""-*- python; indent: no;
+'uncomment': T(_("snippet: remove comment characters", "Uncomment"),
+r"""-*- python; indent: no; menu: comment;
 import re
 
-# determine state
-for s in state[::-1]:
-    if s in ('lilypond', 'html', 'scheme'):
-        break
-else:
-    s = 'lilypond'
-
-def html(text):
-    if text:
-        text = text.replace('<!-- ', '')
-        text = text.replace(' -->', '')
-        text = text.replace('<!--', '')
-        text = text.replace('-->', '')
-        return text
-
-def lilypond(text):
-    if text.lstrip().startswith('%{'):
-        if text.lstrip().startswith('%{ '):
-            text = text.lstrip()[3:]
-        else:
-            text = text.lstrip()[2:]
-        if text.rstrip().endswith('%}'):
-            text = text.rstrip()[:-2]
+def main():
+    text = globals()['text']
+    # determine state
+    for s in state[::-1]:
+        if s in ('lilypond', 'html', 'scheme'):
+            break
     else:
-        text = re.compile(r'^(\s*)%+ ?', re.M).sub(r'\1', text)
-    return text
+        s = 'lilypond'
+    
+    def html(text):
+        if text:
+            text = text.replace('<!-- ', '')
+            text = text.replace(' -->', '')
+            text = text.replace('<!--', '')
+            text = text.replace('-->', '')
+            return text
+    
+    def lilypond(text):
+        if text.lstrip().startswith('%{'):
+            if text.lstrip().startswith('%{ '):
+                text = text.lstrip()[3:]
+            else:
+                text = text.lstrip()[2:]
+            if text.rstrip().endswith('%}'):
+                text = text.rstrip()[:-2]
+        else:
+            if not text:
+                cursor.select(cursor.BlockUnderCursor)
+                text = cursor.selection().toPlainText()
+            text = re.compile(r'^(\s*)%+ ?', re.M).sub(r'\1', text)
+        return text
+    
+    def scheme(text):
+        return re.compile(r'^(\s*);+', re.M).sub(r'\1', text)
+    
+    if s == 'lilypond':
+        text = lilypond(text)
+    elif s == 'html':
+        text = html(text)
+    elif s == 'scheme':
+        text = scheme(text)
 
-def scheme(text):
-    return re.compile(r'^(\s*);+', re.M).sub(r'\1', text)
+    if text != cursor.selection().toPlainText():
+        cursor.insertText(text)
 
-if s == 'lilypond':
-    text = lilypond(text)
-elif s == 'html':
-    text = html(text)
-elif s == 'scheme':
-    text = scheme(text)
 """),
 
 

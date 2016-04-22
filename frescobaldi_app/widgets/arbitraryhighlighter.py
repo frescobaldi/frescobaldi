@@ -37,7 +37,7 @@ class ArbitraryHighlighter(QObject):
     """
     def __init__(self, edit):
         """Initializes ourselves with a Q(Plain)TextEdit as parent."""
-        super(ArbitraryHighlighter, self).__init__(edit)
+        QObject.__init__(self, edit)
         self._selections = {}
         self._formats = {} # store the QTextFormats
     

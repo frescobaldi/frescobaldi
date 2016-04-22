@@ -13,6 +13,12 @@ created by Wilbert Berendsen from document-new and audio-volume-muted
 document-edit:
 http://commons.wikimedia.org/wiki/File:Edit-find-replace.svg (minus magnifiying glass)
 
+document-export:
+created by Wilbert Berendsen, based on text-x-generic and document-save
+
+document-import:
+created by Wilbert Berendsen, based on text-x-generic and document-save
+
 document-save-all:
 created by Wilbert Berendsen, based on document-save
 
@@ -36,5 +42,13 @@ http://commons.wikimedia.org/wiki/File:Gnome-zoom-out.svg (GPL)
 
 zoom-original:
 http://commons.wikimedia.org/wiki/File:Gnome-zoom-original.svg (GPL)
+
+document-compile-failed:
+combination of "text-x-generic" from Tango and
+https://commons.wikimedia.org/wiki/File:Gnome-emblem-important.svg (GPL)
+
+document-compile-success:
+combination of "text-x-generic" from Tango and
+https://commons.wikimedia.org/wiki/File:Gnome-emblem-default.svg (GPL)
 
 
