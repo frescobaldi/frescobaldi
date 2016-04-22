@@ -285,8 +285,8 @@ class MusicViewPanel(panel.Panel):
         if not rect:
             return
         rect.translate(-page.pos())
-        from . import image
-        image.copy_image(self, page, rect, documents.filename(page.document()))
+        import copy2image
+        copy2image.copy_image(self, page, rect, documents.filename(page.document()))
         
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
