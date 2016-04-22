@@ -23,8 +23,8 @@ Documentation preferences.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import (QComboBox, QCompleter, QFontComboBox,
+from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtWidgets import (QComboBox, QCompleter, QFontComboBox,
     QGridLayout, QLabel, QSpinBox, QVBoxLayout)
 
 import app

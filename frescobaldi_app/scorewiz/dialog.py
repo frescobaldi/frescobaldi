@@ -23,9 +23,9 @@ The Score Wizard dialog.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import pyqtSignal, QSettings, QUrl
-from PyQt4.QtGui import (QDialog, QDialogButtonBox, QTabWidget, QVBoxLayout,
-                         QWidget)
+from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
+from PyQt5.QtWidgets import (
+    QDialog, QDialogButtonBox, QTabWidget, QVBoxLayout, QWidget)
 
 import app
 import indent

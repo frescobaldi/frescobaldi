@@ -20,8 +20,8 @@
 """
 The PDF preview panel.
 
-This file loads even if popplerqt4 is absent, although the PDF preview
-panel only shows a message about missing the popplerqt4 module.
+This file loads even if popplerqt5 is absent, although the PDF preview
+panel only shows a message about missing the popplerqt5 module.
 
 The widget module contains the real widget, the documents module a simple
 abstraction and caching of Poppler documents with their filename,
@@ -38,10 +38,11 @@ import functools
 import os
 import weakref
 
-from PyQt4.QtCore import QSettings, QTimer, Qt, pyqtSignal
-from PyQt4.QtGui import (
-    QAction, QActionGroup, QApplication, QColor, QComboBox, QLabel,
-    QKeySequence, QPalette, QSpinBox, QWidgetAction)
+from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
+from PyQt5.QtGui import QColor, QKeySequence, QPalette
+from PyQt5.QtWidgets import (
+    QAction, QActionGroup, QApplication, QComboBox, QLabel, QSpinBox,
+    QWidgetAction)
 
 import app
 import actioncollection
@@ -185,8 +186,8 @@ class MusicViewPanel(panel.Panel):
             ### temporarily disable printing on Mac OS X
             import sys
             if sys.platform.startswith('darwin'):
-                from PyQt4.QtCore import QUrl
-                from PyQt4.QtGui import QMessageBox
+                from PyQt5.QtCore import QUrl
+                from PyQt5.QtGui import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(
                     "Unfortunately, this version of Frescobaldi is unable to print "

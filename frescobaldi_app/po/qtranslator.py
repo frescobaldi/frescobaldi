@@ -26,7 +26,7 @@ The strings that are needed are in the qtmessages.py file in this directory.
 
 from __future__ import print_function
 
-from PyQt4.QtCore import QCoreApplication, QTranslator
+from PyQt5.QtCore import QCoreApplication, QTranslator
 
 import app
 
@@ -35,7 +35,7 @@ _translator = None
 
 class Translator(QTranslator):
     """Subclass of QTranslator that gets its messages via the _() function."""
-    def translate(self, context, sourceText, disambiguation=""):
+    def translate(self, context, sourceText, disambiguation="", n=-1):
         #_debug(context, sourceText)
         return _(context, sourceText)
 

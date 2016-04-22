@@ -46,8 +46,9 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import QAction, QKeySequence
+from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import QAction
 
 import app
 
@@ -195,7 +196,7 @@ class ActionCollection(ActionCollectionBase):
             try:
                 shortcuts = settings.value(name, [], QKeySequence)
             except TypeError:
-                # PyQt4 raises TypeError when an empty list was stored
+                # PyQt5 raises TypeError when an empty list was stored
                 shortcuts = []
             try:
                 self._actions[name].setShortcuts(shortcuts)
@@ -263,7 +264,7 @@ class ShortcutCollection(ActionCollectionBase):
             try:
                 shortcuts = settings.value(name, [], QKeySequence)
             except TypeError:
-                # PyQt4 raises TypeError when an empty list was stored
+                # PyQt5 raises TypeError when an empty list was stored
                 shortcuts = []
             if not shortcuts:
                 if not self.removeAction(name):

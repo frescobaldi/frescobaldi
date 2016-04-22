@@ -26,15 +26,16 @@ import collections
 import operator
 import weakref
 
-from PyQt4.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
-from PyQt4.QtGui import (
-    QApplication, QContextMenuEvent, QCursor, QPainter, QPalette,
-    QRegion, QRubberBand, QToolTip, QWidget, QColor, QBrush, QPen)
+from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt, QTimer, pyqtSignal
+from PyQt5.QtGui import (
+    QContextMenuEvent, QCursor, QPainter, QPalette, QRegion, QColor,
+    QBrush, QPen)
+from PyQt5.QtWidgets import QApplication, QRubberBand, QToolTip, QWidget
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
-    from . import popplerqt4_dummy as popplerqt4
+    from . import popplerqt5_dummy as popplerqt5
 
 from . import layout
 from . import page
@@ -94,10 +95,10 @@ class CustomRubberBand(QWidget):
 class Surface(QWidget):
     
     rightClicked = pyqtSignal(QPoint)
-    linkClicked = pyqtSignal(QEvent, page.Page, popplerqt4.Poppler.Link)
-    linkHovered = pyqtSignal(page.Page, popplerqt4.Poppler.Link)
+    linkClicked = pyqtSignal(QEvent, page.Page, popplerqt5.Poppler.Link)
+    linkHovered = pyqtSignal(page.Page, popplerqt5.Poppler.Link)
     linkLeft = pyqtSignal()
-    linkHelpRequested = pyqtSignal(QPoint, page.Page, popplerqt4.Poppler.Link)    
+    linkHelpRequested = pyqtSignal(QPoint, page.Page, popplerqt5.Poppler.Link)    
     selectionChanged = pyqtSignal(QRect)
     
     def __init__(self, view):
@@ -500,7 +501,7 @@ class Surface(QWidget):
         and emits the linkHelpRequested() signal.
         
         """
-        if self._showUrlTips and isinstance(link, popplerqt4.Poppler.LinkBrowse):
+        if self._showUrlTips and isinstance(link, popplerqt5.Poppler.LinkBrowse):
             QToolTip.showText(globalPos, link.url(), self, page.linkRect(link.linkArea()))
         self.linkHelpRequested.emit(globalPos, page, link)
         

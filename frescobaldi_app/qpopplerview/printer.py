@@ -22,8 +22,9 @@
 Printing functionality.
 """
 
-from PyQt4.QtCore import QFile, QIODevice, Qt
-from PyQt4.QtGui import QColor, QPainter, QPrinter
+from PyQt5.QtCore import QFile, QIODevice, Qt
+from PyQt5.QtGui import QColor, QPainter
+from PyQt5.QtPrintSupport import QPrinter
 
 from .locking import lock
 from . import render

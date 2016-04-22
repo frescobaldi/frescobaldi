@@ -45,7 +45,8 @@ def addButton(box, name):
     the specified help page is opened.
     
     """
-    from PyQt4.QtGui import QDialogButtonBox, QKeySequence
+    from PyQt5.QtGui import QKeySequence
+    from PyQt5.QtWidgets import QDialogButtonBox
     box.addButton(QDialogButtonBox.Help).setShortcut(QKeySequence.HelpContents)
     box.helpRequested.connect(lambda: show(name))
 

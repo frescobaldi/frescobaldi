@@ -25,10 +25,12 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import QSettings, Qt, QUrl
-from PyQt4.QtGui import (QComboBox, QKeySequence, QMenu, QPrintDialog, QPrinter,
-                         QToolBar, QVBoxLayout, QWidget)
-from PyQt4.QtWebKit import QWebPage, QWebSettings, QWebView
+from PyQt5.QtCore import QSettings, Qt, QUrl
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
+from PyQt5.QtWebKit import QWebSettings
+from PyQt5.QtWebKitWidgets import QWebPage, QWebView
+from PyQt5.QtWidgets import QComboBox, QMenu, QToolBar, QVBoxLayout, QWidget
 
 import app
 import icons

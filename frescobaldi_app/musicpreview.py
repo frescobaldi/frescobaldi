@@ -28,9 +28,9 @@ import os
 import glob
 import shutil
 
-from PyQt4.QtCore import QSettings, QSize
-from PyQt4.QtGui import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
-                         QLabel, QStackedLayout, QVBoxLayout, QWidget)
+from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
+                             QLabel, QStackedLayout, QVBoxLayout, QWidget)
 
 import ly.document
 import ly.docinfo

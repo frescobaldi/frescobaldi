@@ -35,7 +35,7 @@ from __future__ import unicode_literals
 
 import contextlib
 
-from PyQt4.QtCore import QSettings, Qt, QTimer
+from PyQt5.QtCore import QSettings, Qt, QTimer
 
 import app
 import documentinfo

@@ -23,7 +23,7 @@ Tools to edit durations of selected music.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QAction
+from PyQt5.QtWidgets import QAction
 
 import app
 import actioncollection

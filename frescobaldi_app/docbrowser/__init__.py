@@ -23,8 +23,9 @@ Help browser dockwidget.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QAction, QKeySequence
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import QAction
 
 import actioncollection
 import actioncollectionmanager

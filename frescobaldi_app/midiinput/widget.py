@@ -6,10 +6,10 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
-                         QHBoxLayout, QLabel, QRadioButton, QToolButton,
-                         QVBoxLayout, QWidget)
+from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
+                             QHBoxLayout, QLabel, QRadioButton, QToolButton,
+                             QVBoxLayout, QWidget)
 
 import app
 

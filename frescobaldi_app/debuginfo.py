@@ -51,13 +51,13 @@ def sip_version():
 
 @_catch_unknown
 def pyqt_version():
-    import PyQt4.QtCore
-    return PyQt4.QtCore.PYQT_VERSION_STR
+    import PyQt5.QtCore
+    return PyQt5.QtCore.PYQT_VERSION_STR
 
 @_catch_unknown
 def qt_version():
-    import PyQt4.QtCore
-    return PyQt4.QtCore.QT_VERSION_STR
+    import PyQt5.QtCore
+    return PyQt5.QtCore.QT_VERSION_STR
 
 @_catch_unknown
 def python_version():
@@ -76,13 +76,13 @@ def ly_version():
 
 @_catch_unknown
 def poppler_version():
-    import popplerqt4
-    return '.'.join(format(n) for n in popplerqt4.poppler_version())
+    import popplerqt5
+    return '.'.join(format(n) for n in popplerqt5.poppler_version())
 
 @_catch_unknown
 def python_poppler_version():
-    import popplerqt4
-    return '.'.join(format(n) for n in popplerqt4.version())
+    import popplerqt5
+    return '.'.join(format(n) for n in popplerqt5.version())
 
 
 def version_info_named():

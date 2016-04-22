@@ -25,7 +25,7 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import Qt, QUrl
+from PyQt5.QtCore import Qt, QUrl
 
 import icons
 import plugin

@@ -29,8 +29,8 @@ import os
 import sys
 import re
 
-from PyQt4.QtCore import QEventLoop, QSettings, QTimer
-from PyQt4.QtGui import QProgressDialog
+from PyQt5.QtCore import QEventLoop, QSettings, QTimer
+from PyQt5.QtWidgets import QProgressDialog
 
 import app
 import cachedproperty

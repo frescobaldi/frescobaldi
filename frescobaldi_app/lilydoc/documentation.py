@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import re
 
-from PyQt4.QtCore import pyqtSignal, QObject, QUrl
-from PyQt4.QtNetwork import QNetworkRequest
+from PyQt5.QtCore import pyqtSignal, QObject, QUrl
+from PyQt5.QtNetwork import QNetworkRequest
 
 from . import network
 

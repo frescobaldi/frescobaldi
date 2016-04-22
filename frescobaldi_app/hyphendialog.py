@@ -28,8 +28,8 @@ import glob
 import locale
 import os
 
-from PyQt4.QtCore import QSettings, Qt
-from PyQt4.QtGui import QDialog, QDialogButtonBox, QLabel, QListWidget, QVBoxLayout
+from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtWidgets import QDialog, QDialogButtonBox, QLabel, QListWidget, QVBoxLayout
 
 import app
 import qutil

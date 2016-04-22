@@ -28,7 +28,7 @@ import codecs
 import os
 import time
 
-from PyQt4.QtCore import QCoreApplication, QProcess, QProcessEnvironment
+from PyQt5.QtCore import QCoreApplication, QProcess, QProcessEnvironment
 
 import signals
 

@@ -29,9 +29,10 @@ import os
 import subprocess
 import sys
 
-from PyQt4.QtCore import QSettings, QSize
-from PyQt4.QtGui import (
-    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QFont, 
+from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import (
+    QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog, QHBoxLayout,
     QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
@@ -268,7 +269,7 @@ class Dialog(QDialog):
         filename = os.path.splitext(orgname)[0] + '['+tabdata.filename+']'+'.'+tabdata.ext
         caption = app.caption(_("dialog title", "Save File"))
         filetypes = '{0} (*.txt);;{1} (*.htm);;{2} (*)'.format(_("Text Files"), _("HTML Files"), _("All Files"))
-        filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)
+        filename = QFileDialog.getSaveFileName(self.mainwindow, caption, filename, filetypes)[0]
         if not filename:
             return False # cancelled
         with open(filename, 'wb') as f:

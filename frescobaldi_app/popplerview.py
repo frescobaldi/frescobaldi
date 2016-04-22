@@ -26,7 +26,7 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings
+from PyQt5.QtCore import QSettings
 
 import app
 import textformats
@@ -51,9 +51,9 @@ class View(qpopplerview.View):
     def __init__(self, parent=None):
         super(View, self).__init__(parent)
         try:
-            import popplerqt4
+            import popplerqt5
         except ImportError:
-            # surface with a "could not load popplerqt4" message
+            # surface with a "could not load popplerqt5" message
             import popplerdummy
             self.setSurface(popplerdummy.Surface(self))
         self.surface().pageLayout().setDPI(self.physicalDpiX(), self.physicalDpiY())

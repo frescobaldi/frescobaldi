@@ -23,8 +23,9 @@ KineticScrollArea widget to provide kinetic scrolling moves.
 """
 
 
-from PyQt4.QtCore import QPoint, QBasicTimer, QEvent, Qt, pyqtSignal
-from PyQt4.QtGui import QScrollArea, QApplication, QCursor, QMouseEvent
+from PyQt5.QtCore import QPoint, QBasicTimer, QEvent, Qt, pyqtSignal
+from PyQt5.QtGui import QCursor, QMouseEvent
+from PyQt5.QtWidgets import QScrollArea, QApplication
 
 from math import sqrt
 import copy
@@ -329,7 +330,16 @@ class KineticScrollArea(QScrollArea):
     def wheelEvent(self, ev):
         """Kinetic wheel movements, if enabled."""
         if self._kineticScrollingEnabled:
-            self.kineticAddDelta(ev.delta(), ev.orientation())
+            ## TODO support Qt5 the new ev.pixelDelta() and ev.angleDelta() methods
+            ## see Qt5 docs of QWheelEvent::pixelDelta
+            ## probably needs a new kind of kineticAddDelta method that supports a
+            ## QPoint instead of an int and an orientation.
+            try:
+                ev.delta
+            except AttributeError:
+                self.kineticAddDelta(ev.angleDelta().y(), Qt.Vertical)
+            else:
+                self.kineticAddDelta(ev.delta(), ev.orientation())
         else:
             super(KineticScrollArea, self).wheelEvent(ev)
 

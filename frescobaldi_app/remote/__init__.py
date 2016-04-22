@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import sys
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtNetwork import QLocalServer, QLocalSocket
+from PyQt5.QtCore import QSettings
+from PyQt5.QtNetwork import QLocalServer, QLocalSocket
 
 import app
 import appinfo

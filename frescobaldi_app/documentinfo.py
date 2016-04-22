@@ -29,7 +29,7 @@ import os
 import re
 import weakref
 
-from PyQt4.QtCore import QSettings, QUrl
+from PyQt5.QtCore import QSettings, QUrl
 
 import qsettings
 import ly.lex

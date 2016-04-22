@@ -22,7 +22,7 @@
 This is a viewer widget for anything Poppler can display (PDF).
 
 It needs the Python binding to Poppler-Qt4: python-poppler-qt4 which provides
-the popplerqt4 module.
+the popplerqt5 module.
 
 The View (see view.py) is a QScrollArea that uses a Surface (see surface.py) as
 its widget.  The Surface has a Layout (see layout.py) that positions Page

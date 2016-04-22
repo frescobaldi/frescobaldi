@@ -25,8 +25,9 @@ from __future__ import unicode_literals
 
 import os
 
-from PyQt4.QtCore import Qt, QUrl, QSize
-from PyQt4.QtGui import QAction, QFileDialog, QKeySequence, QMessageBox
+from PyQt5.QtCore import Qt, QUrl, QSize
+from PyQt5.QtGui import QKeySequence
+from PyQt5.QtWidgets import QAction, QFileDialog, QMessageBox
 
 import app
 import icons
@@ -57,7 +58,7 @@ class FileExport(plugin.MainWindowPlugin):
         filename = os.path.splitext(orgname)[0] + '.xml'
         caption = app.caption(_("dialog title", "Export MusicXML File"))
         filetypes = '{0} (*.xml);;{1} (*)'.format(_("XML Files"), _("All Files"))
-        filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)
+        filename = QFileDialog.getSaveFileName(self.mainwindow(), caption, filename, filetypes)[0]
         if not filename:
             return False # cancelled
         import ly.musicxml
@@ -88,7 +89,7 @@ class FileExport(plugin.MainWindowPlugin):
         wavfile = os.path.splitext(orgname)[0] + '.wav'
         caption = app.caption(_("dialog title", "Export Audio File"))
         filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
-        wavfile = QFileDialog.getSaveFileName(mainwin, caption, wavfile, filetypes)
+        wavfile = QFileDialog.getSaveFileName(mainwin, caption, wavfile, filetypes)[0]
         if not wavfile:
             return False # cancelled
         dlg = AudioExportDialog(mainwin, caption)

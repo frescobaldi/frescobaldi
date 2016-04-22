@@ -19,9 +19,9 @@
 
 
 """
-A dummy module containing a few of the definitions in popplerqt4.
+A dummy module containing a few of the definitions in popplerqt5.
 
-This is imported if the real popplerqt4 is not available and makes it
+This is imported if the real popplerqt5 is not available and makes it
 possible to import qpopplerview, although it can't do anything useful.
 
 It only contains class definitions that define a namespace, enums or other

@@ -24,7 +24,7 @@ Currently only list local branches, allowing one to switch to that branch.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QAction, QActionGroup, QMenu, QMessageBox
+from PyQt5.QtWidgets import QAction, QActionGroup, QMenu, QMessageBox
 
 import app
 import mainwindow
@@ -48,7 +48,7 @@ class GitMenu(QMenu):
             self.addAction(a)
             
 
-class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
+class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
     """
     Maintains a list of actions to switch the branch
     Frescobali is run from.
@@ -60,7 +60,7 @@ class GitBranchGroup(QActionGroup, plugin.MainWindowPlugin):
     
     """
     def __init__(self, mainwindow):
-        super(GitBranchGroup, self).__init__(mainwindow)
+        QActionGroup.__init__(self, mainwindow)
         self._acts = {}
         self._accels = {}
         self.setExclusive(True)

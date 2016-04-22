@@ -26,8 +26,8 @@ from __future__ import unicode_literals
 import os
 import json
 
-from PyQt4.QtCore import Qt, QSettings, QUrl
-from PyQt4.QtGui import (
+from PyQt5.QtCore import Qt, QSettings, QUrl
+from PyQt5.QtWidgets import (
     QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog, 
     QGridLayout, QGroupBox, QLabel, QListWidgetItem, QLineEdit, QMessageBox, 
     QPushButton, QVBoxLayout)
@@ -95,7 +95,7 @@ class SessionManagerDialog(QDialog):
         caption = app.caption(_("dialog title", "Import session"))
         mainwindow = self.parent()
         directory = os.path.dirname(mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
-        importfile = QFileDialog.getOpenFileName(mainwindow, caption, directory, filetypes)
+        importfile = QFileDialog.getOpenFileName(mainwindow, caption, directory, filetypes)[0]
         if not importfile:
             return # cancelled by user
         try:
@@ -116,7 +116,7 @@ class SessionManagerDialog(QDialog):
         mainwindow = self.parent()
         directory = os.path.dirname(mainwindow.currentDocument().url().toLocalFile()) or app.basedir()
         filename = os.path.join(directory, itemname + ".json")
-        filename = QFileDialog.getSaveFileName(mainwindow, caption, filename, filetypes)
+        filename = QFileDialog.getSaveFileName(mainwindow, caption, filename, filetypes)[0]
         if not filename:
             return False # cancelled
         try:

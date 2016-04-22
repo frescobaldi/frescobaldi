@@ -26,10 +26,11 @@ from __future__ import unicode_literals
 import functools
 import operator
 
-from PyQt4.QtCore import QRegExp, QSize, Qt
-from PyQt4.QtGui import (
-    QDialog, QDialogButtonBox, QGridLayout, QIcon, QLabel, QLineEdit, QPixmap,
-    QRegExpValidator, QStyle, QWidget)
+from PyQt5.QtCore import QRegExp, QSize, Qt
+from PyQt5.QtGui import QIcon, QPixmap, QRegExpValidator
+from PyQt5.QtWidgets import (
+    QDialog, QDialogButtonBox, QGridLayout, QLabel, QLineEdit, QStyle,
+    QWidget)
 
 from . import Separator
 

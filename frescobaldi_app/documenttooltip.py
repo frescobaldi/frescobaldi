@@ -23,9 +23,10 @@ Display a tooltip showing part of a Document.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSize
-from PyQt4.QtGui import (
-    QFont, QLabel, QPainter, QPixmap, QTextCursor, QTextDocument)
+from PyQt5.QtCore import QSize
+from PyQt5.QtGui import (
+    QFont, QPainter, QPixmap, QTextCursor, QTextDocument)
+from PyQt5.QtWidgets import QLabel
 
 import metainfo
 import tokeniter

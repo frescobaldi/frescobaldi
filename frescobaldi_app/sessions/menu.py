@@ -23,7 +23,7 @@ Session menu.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QActionGroup, QMenu
+from PyQt5.QtWidgets import QActionGroup, QMenu
 
 import app
 import qutil

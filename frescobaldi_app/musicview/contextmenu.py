@@ -23,8 +23,8 @@ The PDF preview panel context menu.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QApplication, QMenu
+from PyQt5.QtCore import QUrl
+from PyQt5.QtWidgets import QApplication, QMenu
 
 
 import icons
@@ -35,7 +35,7 @@ def show(position, panel, link, cursor):
     
     position: The global position to pop up
     panel: The music view panel, giving access to mainwindow and view widget
-    link: a popplerqt4 LinkBrowse instance or None
+    link: a popplerqt5 LinkBrowse instance or None
     cursor: a QTextCursor instance or None
     
     """

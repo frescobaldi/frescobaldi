@@ -28,11 +28,12 @@ import itertools
 import os
 import weakref
 
-from PyQt4.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
-from PyQt4.QtGui import QCursor, QTextCharFormat, QToolTip, QVBoxLayout, QWidget
+from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt5.QtGui import QCursor, QTextCharFormat
+from PyQt5.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
     pass
 
@@ -162,10 +163,10 @@ class MusicView(QWidget):
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
-        elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
+        elif (isinstance(link, popplerqt5.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
-        elif (isinstance(link, popplerqt4.Poppler.LinkGoto)
+        elif (isinstance(link, popplerqt5.Poppler.LinkGoto)
               and not link.isExternal()):
             self.view.gotoPageNumber(link.destination().pageNumber() - 1)
 
@@ -200,7 +201,7 @@ class MusicView(QWidget):
 
     def slotLinkHelpRequested(self, pos, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
-        if isinstance(link, popplerqt4.Poppler.LinkBrowse):
+        if isinstance(link, popplerqt5.Poppler.LinkBrowse):
             cursor = self._links.cursor(link)
             if cursor:
                 from . import tooltip
@@ -211,7 +212,7 @@ class MusicView(QWidget):
                     text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
                     text = link.url()
-        elif isinstance(link, popplerqt4.Poppler.LinkGoto):
+        elif isinstance(link, popplerqt5.Poppler.LinkGoto):
             text = _("Page {num}").format(num=link.destination().pageNumber())
             if link.isExternal():
                 text = link.fileName() + "\n" + text

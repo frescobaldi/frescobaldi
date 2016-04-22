@@ -27,7 +27,7 @@ import os
 import subprocess
 import sys
 
-from PyQt4.QtGui import (QCheckBox, QDialog, QDialogButtonBox,
+from PyQt5.QtGui import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
 import lilychooser

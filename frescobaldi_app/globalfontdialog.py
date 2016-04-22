@@ -26,8 +26,9 @@ It keeps its settings.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QFont, QFontComboBox, QGridLayout, QLabel
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QFontComboBox, QGridLayout, QLabel
 
 import app
 import qutil

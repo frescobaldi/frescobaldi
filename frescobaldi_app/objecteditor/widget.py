@@ -26,10 +26,11 @@ from __future__ import print_function
 
 import sys
 
-from PyQt4 import QtCore
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import (QDoubleSpinBox, QLabel, QPushButton, QTextCursor,
-                         QVBoxLayout, QWidget)
+from PyQt5 import QtCore
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QTextCursor
+from PyQt5.QtWidgets import (
+    QDoubleSpinBox, QLabel, QPushButton, QVBoxLayout, QWidget)
 
 import app
 import objecteditor

@@ -24,8 +24,8 @@ Manages the progress bar in the status bar of ViewSpaces.
 from __future__ import division
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt, QTimeLine, QTimer
-from PyQt4.QtGui import QProgressBar
+from PyQt5.QtCore import Qt, QTimeLine, QTimer
+from PyQt5.QtWidgets import QProgressBar
 
 import app
 import plugin

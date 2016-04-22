@@ -23,8 +23,9 @@ View widget to display PDF documents.
 """
 
 
-from PyQt4.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
-from PyQt4.QtGui import QPalette, QScrollArea, QStyle, QHelpEvent
+from PyQt5.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
+from PyQt5.QtGui import QPalette, QHelpEvent
+from PyQt5.QtWidgets import QScrollArea, QStyle
 
 from math import sqrt
 import copy
@@ -149,7 +150,7 @@ class View(KineticScrollArea):
         """Yields the visible pages."""
         rect = self.viewport().rect()
         rect.translate(-self.surface().pos())
-        rect.intersect(self.surface().rect())
+        rect &= self.surface().rect()
         return self.surface().pageLayout().pagesAt(rect)
 
     def redraw(self):
@@ -306,8 +307,8 @@ class View(KineticScrollArea):
     def wheelEvent(self, ev):
         if (self._wheelZoomEnabled and
             int(ev.modifiers()) & _SCAM == self._wheelZoomModifier):
-            factor = 1.1 ** (ev.delta() / 120)
-            if ev.delta():
+            factor = 1.1 ** (ev.angleDelta().y() / 120)
+            if ev.angleDelta().y():
                 self.zoom(self.scale() * factor, ev.pos())
         else:
             super(View, self).wheelEvent(ev)

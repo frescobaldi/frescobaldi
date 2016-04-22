@@ -32,9 +32,9 @@ from __future__ import print_function
 import os
 import sys
 
-from PyQt4 import QtCore
-from PyQt4 import QtGui
-from PyQt4 import QtWebKit
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, QSettings, QUrl
+from PyQt5.QtGui import QTextCharFormat, QTextCursor
+from PyQt5.QtWebKitWidgets import QWebView
 
 import app
 import util
@@ -56,21 +56,21 @@ def getJsScript(filename):
     return jsValue
 
 
-class View(QtWebKit.QWebView):
-    zoomFactorChanged = QtCore.pyqtSignal(float)
-    objectDragged = QtCore.pyqtSignal(float, float)
-    objectDragging = QtCore.pyqtSignal(float, float)
-    objectStartDragging = QtCore.pyqtSignal(float, float)
+class View(QWebView):
+    zoomFactorChanged = pyqtSignal(float)
+    objectDragged = pyqtSignal(float, float)
+    objectDragging = pyqtSignal(float, float)
+    objectStartDragging = pyqtSignal(float, float)
 
-    cursor = QtCore.pyqtSignal(QtGui.QTextCursor)
-    selectedObject = QtCore.pyqtSignal(str)
-    selectedUrl = QtCore.pyqtSignal(QtGui.QTextCursor)
+    cursor = pyqtSignal(QTextCursor)
+    selectedObject = pyqtSignal(str)
+    selectedUrl = pyqtSignal(QTextCursor)
     
-    defaulturl = QtCore.QUrl.fromLocalFile(os.path.join(__path__[0], 'background.html'))
+    defaulturl = QUrl.fromLocalFile(os.path.join(__path__[0], 'background.html'))
     
     def __init__(self, parent):
         super(View, self).__init__(parent)
-        self._highlightFormat = QtGui.QTextCharFormat()
+        self._highlightFormat = QTextCharFormat()
         self.jslink = JSLink(self)
         self.loadFinished.connect(self.svgLoaded)
         self.mainwindow().aboutToClose.connect(self.cleanupForClose)
@@ -102,7 +102,7 @@ class View(QtWebKit.QWebView):
         """
         doc = scratchdir.findDocument(filename)
         if not doc and load:
-            doc = app.openUrl(QtCore.QUrl.fromLocalFile(filename))
+            doc = app.openUrl(QUrl.fromLocalFile(filename))
         return doc
 
     def svgLoaded(self):
@@ -111,7 +111,7 @@ class View(QtWebKit.QWebView):
             frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
             #for now only editable in dev (git) or when the user explicitly allows experimental features
-            if vcs.app_is_git_controlled() or QtCore.QSettings().value("experimental-features", False, bool):
+            if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
                 frame.evaluateJavaScript(getJsScript('editsvg.js')) 
             
     def evalSave(self):
@@ -132,7 +132,7 @@ class View(QtWebKit.QWebView):
         filename = util.normpath(t.filename)
         doc = self.document(filename, True)
         if doc:
-            cursor = QtGui.QTextCursor(doc)
+            cursor = QTextCursor(doc)
             b = doc.findBlockByNumber(t.line - 1)
             p = b.position() + t.column
             cursor.setPosition(p)
@@ -162,7 +162,7 @@ class View(QtWebKit.QWebView):
         filename = util.normpath(t.filename)
         doc = self.document(filename, setCursor)
         if doc:
-            cursor = QtGui.QTextCursor(doc)
+            cursor = QTextCursor(doc)
             b = doc.findBlockByNumber(t.line - 1)
             p = b.position() + t.column
             cursor.setPosition(p)
@@ -218,7 +218,7 @@ class View(QtWebKit.QWebView):
             self.zoomFactorChanged.emit(self.zoomFactor())
 
 
-class JSLink(QtCore.QObject):
+class JSLink(QObject):
     """functions to be called from JavaScript
     
     using addToJavaScriptWindowObject
@@ -228,19 +228,19 @@ class JSLink(QtCore.QObject):
         super(JSLink, self).__init__()
         self.view = view
 
-    @QtCore.pyqtSlot(str)
+    @pyqtSlot(str)
     def click(self, url):
         """set cursor in source by clicked textedit link""" 
         if not self.view.doTextEdit(url, True):
             import helpers
-            helpers.openUrl(QtCore.QUrl(url))
+            helpers.openUrl(QUrl(url))
 
-    @QtCore.pyqtSlot(float, float)
+    @pyqtSlot(float, float)
     def dragged(self, offX, offY):
         """announce extra-offsets an element has been dragged to"""
         self.view.doObjectDragged(offX, offY)
         
-    @QtCore.pyqtSlot(str)
+    @pyqtSlot(str)
     def draggedObject(self, JSON_string):
         # leave the following commented code as an idea how to proceed from here
         #print("Dragged object JSON representation:")
@@ -249,36 +249,36 @@ class JSLink(QtCore.QObject):
         #print(js.decode(JSON_string))
         pass
         
-    @QtCore.pyqtSlot(str)
+    @pyqtSlot(str)
     def dragElement(self, url):
         self.view.dragElement(url)
 
-    @QtCore.pyqtSlot(float, float)
+    @pyqtSlot(float, float)
     def dragging(self, offX, offY):
         """announce extra-offsets while dragging an element"""
         self.view.doObjectDragging(offX, offY)
         
-    @QtCore.pyqtSlot(str)       
+    @pyqtSlot(str)       
     def hover(self, url):
         """actions when user set mouse over link"""
         self.view.doTextEdit(url, False)
     
-    @QtCore.pyqtSlot(str)       
+    @pyqtSlot(str)       
     def leave(self, url):
         """actions when user moves mouse off link"""
         self.view.unHighlight()
         
-    @QtCore.pyqtSlot(str)       
+    @pyqtSlot(str)       
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
         print(txt)
     
-    @QtCore.pyqtSlot(str)       
+    @pyqtSlot(str)       
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
         self.view.saveSVG(svg_string)
 
-    @QtCore.pyqtSlot(float, float)
+    @pyqtSlot(float, float)
     def startDragging(self, offX, offY):
         """announce extra-offsets when starting to drag an element"""
         self.view.doObjectStartDragging(offX, offY)

@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Some useful tools dealing with popplerqt4 (PDF) documents.
+Some useful tools dealing with popplerqt5 (PDF) documents.
 """
 
 import os
@@ -60,11 +60,11 @@ class Document(object):
         return self._document
 
     def load(self):
-        """Should load and return the popplerqt4 Document for our filename."""
+        """Should load and return the popplerqt5 Document for our filename."""
         try:
-            import popplerqt4
+            import popplerqt5
         except ImportError:
             return
-        return popplerqt4.Poppler.Document.load(self._filename)
+        return popplerqt5.Poppler.Document.load(self._filename)
 
 

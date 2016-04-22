@@ -24,11 +24,11 @@ inside a layout.
 """
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
-    from . import popplerqt4_dummy as popplerqt4
+    from . import popplerqt5_dummy as popplerqt5
 
-from PyQt4.QtCore import QRect, QRectF, QSize
+from PyQt5.QtCore import QRect, QRectF, QSize
 
 from . import cache
 from .locking import lock
@@ -50,7 +50,7 @@ class Page(object):
         self._document = document
         self._pageNumber = pageNumber
         self._pageSize = document.page(pageNumber).pageSize()
-        self._rotation = popplerqt4.Poppler.Page.Rotate0
+        self._rotation = popplerqt5.Poppler.Page.Rotate0
         self._rect = QRect()
         self._scale = 1.0
         self._visible = True
@@ -232,9 +232,9 @@ class Page(object):
         y = float(point.y()) / self.height()
         # rotate
         if self._rotation:
-            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+            if self._rotation == popplerqt5.Poppler.Page.Rotate90:
                 x, y = y, 1-x
-            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+            elif self._rotation == popplerqt5.Poppler.Page.Rotate180:
                 x, y = 1-x, 1-y
             else: # 270
                 x, y = 1-y, x
@@ -250,9 +250,9 @@ class Page(object):
         bottom = float(rect.bottom()) / self.height()
         # rotate
         if self._rotation:
-            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+            if self._rotation == popplerqt5.Poppler.Page.Rotate90:
                 left, top, right, bottom = top, 1-right, bottom, 1-left
-            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+            elif self._rotation == popplerqt5.Poppler.Page.Rotate180:
                 left, top, right, bottom = 1-right, 1-bottom, 1-left, 1-top
             else: # 270
                 left, top, right, bottom = 1-bottom, left, 1-top, right
@@ -263,9 +263,9 @@ class Page(object):
         left, top, right, bottom = linkarea.normalized().getCoords()
         # rotate
         if self._rotation:
-            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+            if self._rotation == popplerqt5.Poppler.Page.Rotate90:
                 left, top, right, bottom = 1-bottom, left, 1-top, right
-            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+            elif self._rotation == popplerqt5.Poppler.Page.Rotate180:
                 left, top, right, bottom = 1-right, 1-bottom, 1-left, 1-top
             else: # 270
                 left, top, right, bottom = top, 1-right, bottom, 1-left
@@ -284,9 +284,9 @@ class Page(object):
         right  = float(rect.right())  / self.width()  * w
         bottom = float(rect.bottom()) / self.height() * h
         if self._rotation:
-            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+            if self._rotation == popplerqt5.Poppler.Page.Rotate90:
                 left, top, right, bottom = top, w-right, bottom, w-left
-            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+            elif self._rotation == popplerqt5.Poppler.Page.Rotate180:
                 left, top, right, bottom = w-right, h-bottom, w-left, h-top
             else: # 270
                 left, top, right, bottom = h-bottom, left, h-top, right
@@ -304,9 +304,9 @@ class Page(object):
         hscale = self.width()  / float(w)
         vscale = self.height() / float(h)
         if self._rotation:
-            if self._rotation == popplerqt4.Poppler.Page.Rotate90:
+            if self._rotation == popplerqt5.Poppler.Page.Rotate90:
                 left, top, right, bottom = w-bottom, left, w-top, right
-            elif self._rotation == popplerqt4.Poppler.Page.Rotate180:
+            elif self._rotation == popplerqt5.Poppler.Page.Rotate180:
                 left, top, right, bottom = w-right, h-bottom, w-left, h-top
             else: # 270
                 left, top, right, bottom = top, h-right, bottom, h-left

@@ -31,8 +31,8 @@ from __future__ import unicode_literals
 import sys
 import os
 
-from PyQt4.QtCore import QUrl
-from PyQt4.QtGui import QAction, QFileDialog, QMenu, QMenuBar
+from PyQt5.QtCore import QUrl
+from PyQt5.QtWidgets import QAction, QFileDialog, QMenu, QMenuBar
 
 import app
 import util
@@ -174,7 +174,7 @@ def file_open():
     filetypes = app.filetypes('.ly')
     caption = app.caption(_("dialog title", "Open File"))
     directory = app.basedir()
-    files = QFileDialog.getOpenFileNames(None, caption, directory, filetypes)
+    files = QFileDialog.getOpenFileNames(None, caption, directory, filetypes)[0]
     if files:
         w = mainwindow()
         w.openUrls([QUrl.fromLocalFile(f) for f in files])

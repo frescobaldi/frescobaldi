@@ -25,8 +25,9 @@ from __future__ import unicode_literals
 
 import sys
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QTextCursor, QMessageBox
+from PyQt5.QtCore import QSettings
+from PyQt5.QtGui import QTextCursor
+from PyQt5.QtWidgets import QMessageBox
 
 import cursortools
 import tokeniter

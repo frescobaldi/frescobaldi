@@ -23,7 +23,7 @@ Resources for styling some widgets.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QDir
+from PyQt5.QtCore import QDir
 
 QDir.addSearchPath('css', __path__[0])
 

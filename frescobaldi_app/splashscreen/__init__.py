@@ -21,8 +21,9 @@
 
 import os
 
-from PyQt4.QtCore import QEventLoop, QTimer, Qt
-from PyQt4.QtGui import QApplication, QFont, QPixmap, QSplashScreen
+from PyQt5.QtCore import QEventLoop, QTimer, Qt
+from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtWidgets import QApplication, QSplashScreen
 
 import app
 import appinfo
@@ -46,7 +47,7 @@ def show():
 
     splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
     splash.show()
-    splash.repaint()
+    QApplication.processEvents()
     
     def hide():
         splash.deleteLater()

@@ -28,8 +28,8 @@ try:
 except ImportError:
     import __builtin__ as builtins # py2
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QMenu
+from PyQt5.QtCore import QSettings
+from PyQt5.QtWidgets import QMenu
 
 import app
 import icons
@@ -83,6 +83,7 @@ class Menu(QMenu):
     def __init__(self, title_func, parent=None):
         """title_func should return the title for the menu when called."""
         super(Menu, self).__init__(parent)
+        self.setToolTipsVisible(True)
         self.title_func = title_func
         app.translateUI(self)
     

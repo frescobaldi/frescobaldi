@@ -26,8 +26,8 @@ This module is imported when a contextmenu event occurs in the View (view.py).
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QTimer, QUrl
-from PyQt4.QtGui import QAction
+from PyQt5.QtCore import QTimer, QUrl
+from PyQt5.QtWidgets import QAction
 
 import icons
 import util

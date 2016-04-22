@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import time
 
-from PyQt4.QtCore import pyqtSignal
-from PyQt4.QtGui import QToolButton
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QToolButton
 
 import app
 import icons

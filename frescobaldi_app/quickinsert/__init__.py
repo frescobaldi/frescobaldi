@@ -25,8 +25,8 @@ from __future__ import unicode_literals
 
 import weakref
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QKeySequence
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
 
 import actioncollection
 import actioncollectionmanager

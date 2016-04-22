@@ -27,11 +27,11 @@ import collections
 import os
 import tempfile
 
-from PyQt4.QtCore import QSettings, QSize, Qt
-from PyQt4.QtGui import (QApplication, QBitmap, QCheckBox, QColor, QComboBox,
-                         QDialog, QDialogButtonBox, QDoubleValidator,
-                         QFileDialog, QHBoxLayout, QLabel, QMessageBox,
-                         QPushButton, QRegion, QVBoxLayout)
+from PyQt5.QtCore import QSettings, QSize, Qt
+from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QRegion
+from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
+                             QDialogButtonBox, QFileDialog, QHBoxLayout,
+                             QLabel, QMessageBox, QPushButton, QVBoxLayout)
 
 import app
 import util
@@ -43,9 +43,9 @@ import widgets.colorbutton
 import widgets.drag
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
-    popplerqt4 = None
+    popplerqt5 = None
 
 from . import documents
 
@@ -195,10 +195,10 @@ class Dialog(QDialog):
         options = qpopplerview.RenderOptions()
         options.setPaperColor(self.colorButton.color())
         if self.antialias.isChecked():
-            if popplerqt4:
+            if popplerqt5:
                 options.setRenderHint(
-                    popplerqt4.Poppler.Document.Antialiasing |
-                    popplerqt4.Poppler.Document.TextAntialiasing)
+                    popplerqt5.Poppler.Document.Antialiasing |
+                    popplerqt5.Poppler.Document.TextAntialiasing)
         else:
             options.setRenderHint(0)
         m = 2 if self.scaleup.isChecked() else 1
@@ -224,7 +224,7 @@ class Dialog(QDialog):
         else:
             filename = 'image.png'
         filename = QFileDialog.getSaveFileName(self,
-            _("Save Image As"), filename)
+            _("Save Image As"), filename)[0]
         if filename:
             if not self.imageViewer.image().save(filename):
                 QMessageBox.critical(self, _("Error"), _(

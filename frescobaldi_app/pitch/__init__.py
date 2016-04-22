@@ -23,8 +23,8 @@ Tools to edit pitch of selected music.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QSettings
-from PyQt4.QtGui import QAction, QActionGroup, QMenu
+from PyQt5.QtCore import QSettings
+from PyQt5.QtWidgets import QAction, QActionGroup, QMenu
 
 import app
 import actioncollection

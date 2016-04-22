@@ -30,7 +30,7 @@ except ImportError:
 
 import keyword
 
-from PyQt4.QtGui import QSyntaxHighlighter
+from PyQt5.QtGui import QSyntaxHighlighter
 
 import app
 import textformats

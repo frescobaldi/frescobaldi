@@ -26,8 +26,8 @@ Currently this makes only sense on Mac OS X.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QEvent, QMimeData, QObject, QPoint, Qt
-from PyQt4.QtGui import QApplication, QDrag, QStyle
+from PyQt5.QtCore import QEvent, QMimeData, QObject, QPoint, Qt
+from PyQt5.QtWidgets import QApplication, QDrag, QStyle
 
 import app
 

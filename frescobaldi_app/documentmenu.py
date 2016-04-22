@@ -23,7 +23,8 @@ The Documents menu.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QAction, QActionGroup, QIcon, QMenu
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QAction, QActionGroup, QMenu
 
 import app
 import icons
@@ -48,7 +49,7 @@ class DocumentMenu(QMenu):
             self.addAction(a)
             
 
-class DocumentActionGroup(QActionGroup, plugin.MainWindowPlugin):
+class DocumentActionGroup(plugin.MainWindowPlugin, QActionGroup):
     """Maintains a list of actions to set the current document.
     
     The actions are added to the View->Documents menu in the order
@@ -57,7 +58,7 @@ class DocumentActionGroup(QActionGroup, plugin.MainWindowPlugin):
     
     """
     def __init__(self, mainwindow):
-        super(DocumentActionGroup, self).__init__(mainwindow)
+        QActionGroup.__init__(self, mainwindow)
         self._acts = {}
         self._accels = {}
         self.setExclusive(True)
