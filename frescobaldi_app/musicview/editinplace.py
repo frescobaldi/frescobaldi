@@ -44,8 +44,7 @@ import qutil
 import textformats
 import tokeniter
 import widgets.dialog
-
-from . import tooltip
+import documenttooltip
 
 
 def edit(parent, cursor, position=None):
@@ -150,7 +149,7 @@ class Dialog(widgets.dialog.Dialog):
               _("Editing line {linenum} of \"{document}\" ({variable})").format(
                 linenum = self._range.block().blockNumber() + 1,
                 document = self._document.documentName(),
-                variable = tooltip.get_definition(self._range) or _("<unknown>"),
+                variable = documenttooltip.get_definition(self._range) or _("<unknown>"),
             ))
         else:
             self.setMessage("<no document set>") # should never appear
