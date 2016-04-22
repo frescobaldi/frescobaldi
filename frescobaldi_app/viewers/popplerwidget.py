@@ -273,8 +273,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         if isinstance(link, popplerqt5.Poppler.LinkBrowse):
             cursor = self._links.cursor(link)
             if cursor:
-                from . import tooltip
-                text = tooltip.text(cursor)
+                import documenttooltip
+                text = documenttooltip.text(cursor)
             elif link.url():
                 l = textedit.link(link.url())
                 if l:
