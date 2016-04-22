@@ -47,28 +47,17 @@ try:
 except ImportError:
     popplerqt5 = None
 
-from . import documents
 
-
-def copy(musicviewpanel):
-    """Shows the dialog."""
-    view = musicviewpanel.widget().view
-    selection = view.surface().selection()
+def copy_image(parent_widget, page, rect=None, filename=None):
+    """Shows the dialog to copy a PDF page to a raster image.
     
-    # get the largest page part that is in the selection
-    pages = list(view.surface().pageLayout().pagesAt(selection))
-    if not pages:
-        return
-        
-    def key(page):
-        size = page.rect().intersected(selection).size()
-        return size.width() + size.height()
-    page = max(pages, key = key)
-    dlg = Dialog(musicviewpanel)
+    If rect is given, only that part of the page is copied.
+    
+    """
+    dlg = Dialog(parent_widget)
     dlg.show()
-    dlg.setPage(page, selection)
+    dlg.setPage(page, rect, filename)
     dlg.finished.connect(dlg.deleteLater)
-
 
 
 class Dialog(QDialog):
@@ -180,10 +169,10 @@ class Dialog(QDialog):
         title = _("Image from {filename}").format(filename = filename)
         self.setWindowTitle(app.caption(title))
         
-    def setPage(self, page, rect):
+    def setPage(self, page, rect, filename):
         self._page = page
         self._rect = rect
-        self._filename = documents.filename(page.document())
+        self._filename = filename
         self.fileDragger.basename = os.path.splitext(os.path.basename(self._filename))[0]
         self.setCaption()
         self.drawImage()
