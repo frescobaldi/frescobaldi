@@ -51,6 +51,7 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("quickinsert.QuickInsertPanel")
         self.loadPanel("musicview.MusicViewPanel")
         self.loadPanel("svgview.SvgViewPanel")
+        self.loadPanel("viewers.manuscript.ManuscriptViewPanel")
         self.loadPanel("logtool.LogTool")
         self.loadPanel("docbrowser.HelpBrowser")
         self.loadPanel("snippet.tool.SnippetTool")
@@ -65,7 +66,6 @@ class PanelManager(plugin.MainWindowPlugin):
         # commented out for stable releases.
         if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
             self.loadPanel("objecteditor.ObjectEditor")
-        
         self.createActions()
         
         # make some default arrangements
@@ -86,7 +86,7 @@ class PanelManager(plugin.MainWindowPlugin):
         module_name, class_name = name.rsplit('.', 1)
         __import__(module_name)
         module = sys.modules[module_name]
-        attribute_name = module_name.replace('.', '')
+        attribute_name = module_name.split('.')[-1] if "viewers" in name else module_name.replace('.', '')
         cls = vars(module)[class_name]
         panel = cls(self.mainwindow())
         self._panels.append((attribute_name, panel))

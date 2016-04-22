@@ -66,6 +66,7 @@ you can also remove any error line markings manually with the option
 scorewiz
 quickinsert
 musicview
+manuscriptview
 outline
 
 #VARS
