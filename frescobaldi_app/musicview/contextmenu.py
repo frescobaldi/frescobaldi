@@ -49,7 +49,7 @@ def show(position, panel, link, cursor):
         a = m.addAction(icons.get("document-edit"), _("Edit in Place"))
         @a.triggered.connect
         def edit():
-            from . import editinplace
+            import editinplace
             editinplace.edit(panel.widget(), cursor, position)
     elif link:
         a = m.addAction(icons.get("window-new"), _("Open Link in &New Window"))

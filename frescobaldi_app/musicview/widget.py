@@ -150,7 +150,7 @@ class MusicView(QWidget):
         cursor = self._links.cursor(link, True)
         if cursor:
             if ev.modifiers() & Qt.ShiftModifier:
-                from . import editinplace
+                import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
             else:
                 import browseriface

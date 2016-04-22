@@ -59,7 +59,7 @@ class AbstractViewerContextMenu(QObject):
         a = self._menu.addAction(icons.get("document-edit"), _("Edit in Place"))
         @a.triggered.connect
         def edit():
-            from . import editinplace
+            import editinplace
             editinplace.edit(self._panel.widget(), cursor, position)
 
     def addLinkAction(self, link):

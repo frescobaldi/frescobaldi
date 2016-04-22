@@ -18,7 +18,10 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The Music View's Edit in Place dialog.
+The Edit in Place dialog.
+
+A dialog where the user can edit a short fragment of a larger document.
+
 """
 
 from __future__ import unicode_literals
@@ -48,6 +51,12 @@ import documenttooltip
 
 
 def edit(parent, cursor, position=None):
+    """Create and show a new dialog editing the cursor's block or selection.
+    
+    If the position is given, popup af the specified position.
+    After the dialog has been used it is automatically deleted.
+    
+    """
     dlg = Dialog(parent)
     dlg.finished.connect(dlg.deleteLater)
     dlg.edit(cursor)
@@ -73,7 +82,7 @@ class Dialog(widgets.dialog.Dialog):
         self.addAction(self._showPopupAction)
         # make Ctrl+Return accept the dialog
         self.button("ok").setShortcut(QKeySequence("Ctrl+Return"))
-        qutil.saveDialogSize(self, "musicview/editinplace/dialog/size")
+        qutil.saveDialogSize(self, "editinplace/dialog/size")
         
         self.accepted.connect(self.save)
         app.translateUI(self)
@@ -110,8 +119,7 @@ class Dialog(widgets.dialog.Dialog):
         # let autocomplete query the real document as if we're at the start
         # of the current block
         self.completer.document_cursor = QTextCursor(cursor.block())
-        self.completer.autoComplete = QSettings().value(
-                        "autocomplete", True) not in ('false', False)
+        self.completer.autoComplete = QSettings().value("autocomplete", True, bool)
         
         cursor = self.view.textCursor()
         cursor.setPosition(max(0, cursorpos-indentpos))
