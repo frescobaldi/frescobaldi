@@ -23,11 +23,11 @@ Base class for viewers' context menus.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import QObject, QUrl
-from PyQt4.QtGui import QApplication, QMenu, QAction, QActionGroup
-
+from PyQt5.QtCore import QObject, QUrl
+from PyQt5.QtWidgets import QApplication, QMenu, QAction, QActionGroup
 
 import icons
+
 
 class AbstractViewerContextMenu(QObject):
     """Base class for viewers' context menus.

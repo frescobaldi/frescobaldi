@@ -27,12 +27,13 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
-from PyQt4.QtGui import (QCursor, QTextCharFormat, QToolTip, QVBoxLayout,
-                         QHBoxLayout, QWidget, QToolBar)
+from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt5.QtGui import QCursor, QTextCharFormat
+from PyQt5.QtWidgets import (
+    QToolTip, QVBoxLayout, QHBoxLayout, QWidget, QToolBar)
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
     pass
 
@@ -237,7 +238,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
-        elif (isinstance(link, popplerqt4.Poppler.LinkBrowse)
+        elif (isinstance(link, popplerqt5.Poppler.LinkBrowse)
               and not link.url().startswith('textedit:')):
             helpers.openUrl(QUrl(link.url()))
 
@@ -269,7 +270,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def slotLinkHelpRequested(self, pos, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
-        if isinstance(link, popplerqt4.Poppler.LinkBrowse):
+        if isinstance(link, popplerqt5.Poppler.LinkBrowse):
             cursor = self._links.cursor(link)
             if cursor:
                 from . import tooltip

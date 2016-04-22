@@ -21,7 +21,7 @@
 Abstract base for viewer widgets
 """
 
-from PyQt4.QtGui import QWidget
+from PyQt5.QtWidgets import QWidget
 
 
 class AbstractViewWidget(QWidget):

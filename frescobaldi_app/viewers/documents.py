@@ -27,12 +27,12 @@ from __future__ import unicode_literals
 import os
 import weakref
 
-from PyQt4.QtCore import QByteArray, QSettings
+from PyQt5.QtCore import QByteArray, QSettings
 
 try:
-    import popplerqt4
+    import popplerqt5
 except ImportError:
-    popplerqt4 = None
+    popplerqt5 = None
 
 import app
 import plugin
@@ -71,7 +71,7 @@ def load(filename):
     except KeyError:
         with open(filename, 'rb') as f:
             data = QByteArray(f.read())
-        doc = popplerqt4.Poppler.Document.loadFromData(data)
+        doc = popplerqt5.Poppler.Document.loadFromData(data)
         if doc:
             _cache[key] = doc
         return doc or None
@@ -92,9 +92,9 @@ class Document(popplertools.Document):
     def load(self):
         return load(self.filename())
 
-    if popplerqt4 is None:
+    if popplerqt5 is None:
         def document(self):
-            """Returns None because popplerqt4 is not available."""
+            """Returns None because popplerqt5 is not available."""
             return None
 
 

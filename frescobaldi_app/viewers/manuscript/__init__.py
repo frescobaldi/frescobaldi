@@ -23,8 +23,8 @@ A tool to display an engraver's copy (manuscript) in a dock.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QKeySequence
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
 
 import app
 import viewers

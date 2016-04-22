@@ -24,7 +24,7 @@ Provides a consistent but configurable infrastructure for toolbars.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import (
+from PyQt5.QtWidgets import (
     QWidget,
     QToolBar,
     QHBoxLayout,
