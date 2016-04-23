@@ -45,6 +45,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.view_goto_file_or_definition.triggered.connect(self.gotoFileOrDefinition)
         ac.edit_cut_assign.triggered.connect(self.cutAssign)
+        ac.edit_move_to_include_file.triggered.connect(self.moveToIncludeFile)
         ac.view_highlighting.triggered.connect(self.toggleHighlighting)
         ac.tools_indent_auto.triggered.connect(self.toggleAuto_indent)
         ac.tools_indent_indent.triggered.connect(self.re_indent)
@@ -106,6 +107,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         import cut_assign
         cut_assign.cut_assign(self.currentView().textCursor())
         
+    def moveToIncludeFile(self):
+        import cut_assign
+        cut_assign.move_to_include_file(self.currentView().textCursor(), self.mainwindow())
+    
     def toggleAuto_indent(self):
         minfo = metainfo.info(self.currentDocument())
         minfo.auto_indent = not minfo.auto_indent
@@ -171,6 +176,7 @@ class Actions(actioncollection.ActionCollection):
     name = "documentactions"
     def createActions(self, parent):
         self.edit_cut_assign = QAction(parent)
+        self.edit_move_to_include_file = QAction(parent)
         self.view_highlighting = QAction(parent)
         self.view_highlighting.setCheckable(True)
         self.view_goto_file_or_definition = QAction(parent)
@@ -190,12 +196,14 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_markup = QAction(parent)
         
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
+        self.edit_move_to_include_file.setIcon(icons.get('edit-cut'))
 
         self.view_goto_file_or_definition.setShortcut(QKeySequence(Qt.ALT + Qt.Key_Return))
         self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
     
     def translateUI(self):
         self.edit_cut_assign.setText(_("Cut and Assign..."))
+        self.edit_move_to_include_file.setText(_("Move to Include File..."))
         self.view_highlighting.setText(_("Syntax &Highlighting"))
         self.view_goto_file_or_definition.setText(_("View File or Definition at &Cursor"))
         self.tools_indent_auto.setText(_("&Automatic Indent"))

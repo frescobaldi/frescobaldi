@@ -23,8 +23,14 @@ Cut selected text and assign it to a LilyPond variable.
 
 from __future__ import unicode_literals
 
-from PyQt4.QtGui import QTextCursor
+from PyQt4.QtGui import QFileDialog, QMessageBox, QTextCursor
 
+import os.path
+
+import app
+import util
+import fileinfo
+import documentinfo
 import cursortools
 import tokeniter
 import ly.lex.lilypond
@@ -92,5 +98,48 @@ def cut_assign(cursor):
         insert.setPosition(pos, QTextCursor.KeepAnchor)
         with cursortools.compress_undo(insert, True):
             indent.re_indent(insert)
+
+
+def move_to_include_file(cursor, parent_widget=None):
+    """Opens a dialog to save the cursor's selection to a file.
+    
+    The cursor's selection is then replaced with an \\include statement.
+    This function does its best to supply a good default filename and
+    use it correctly in a relative \\include statement.
+    
+    Of course it only works well if the document already has a filename.
+    
+    """
+    doc = cursor.document()
+    text = cursor.selection().toPlainText()
+    mode = fileinfo.textmode(text)
+    caption = app.caption(_("dialog title", "Move to include file"))
+    filetypes = app.filetypes(ly.lex.extensions[mode])
+    name, ext = os.path.splitext(os.path.basename(doc.url().path()))
+    if not ext or mode == "lilypond":
+        ext = ".ily"
+        version = documentinfo.docinfo(doc).version_string()
+        if version:
+            text = '\\version "{0}"\n\n{1}'.format(version, text)
+    docname = name + "-include" + ext
+    dirname = os.path.dirname(doc.url().toLocalFile()) or app.basedir()
+    filename = os.path.join(dirname, docname)
+    filename = QFileDialog.getSaveFileName(parent_widget, caption, filename, filetypes)[0]
+    if not filename:
+        return # cancelled
+    data = util.encode(util.platform_newlines(text))
+    try:
+        with open(filename, "wb") as f:
+            f.write(data)
+    except IOError as e:
+        msg = _("{message}\n\n{strerror} ({errno})").format(
+            message = _("Could not write to: {url}").format(url=filename),
+            strerror = e.strerror,
+            errno = e.errno)
+        QMessageBox.critical(self, app.caption(_("Error")), msg)
+        return
+    filename = os.path.relpath(filename, dirname)
+    command = '\\include "{0}"\n'.format(filename)
+    cursor.insertText(command)
 
 
