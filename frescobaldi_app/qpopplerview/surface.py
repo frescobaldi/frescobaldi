@@ -223,6 +223,24 @@ class Surface(QWidget):
         """Hides the selection rectangle."""
         self.setSelection(QRect())
         
+    def selectedPages(self):
+        """Return a list of the Page objects the selection encompasses."""
+        return list(self.pageLayout().pagesAt(self.selection()))
+    
+    def selectedPage(self):
+        """Return the Page thas is selected for the largest part, or None."""
+        pages = self.selectedPages()
+        if not pages:
+            return
+        def key(page):
+            size = page.rect().intersected(self.selection()).size()
+            return size.width() + size.height()
+        return max(pages, key = key)
+    
+    def selectedPageRect(self, page):
+        """Return the QRect on the page that falls in the selection."""
+        return self.selection().normalized().intersected(page.rect()).translated(-page.pos())
+
     def redraw(self, rect):
         """Called when the Layout wants to redraw a rectangle."""
         self.update(rect)
