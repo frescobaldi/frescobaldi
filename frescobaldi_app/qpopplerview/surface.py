@@ -211,8 +211,8 @@ class Surface(QWidget):
         """Sets the selection rectangle."""
         rect = rect.normalized()
         old, self._selection = self._selection, rect
-        self._rubberBand.setGeometry(rect)
         self._rubberBand.setVisible(bool(rect))
+        self._rubberBand.setGeometry(rect)
         if rect != old:
             self.selectionChanged.emit(rect)
         
