@@ -61,7 +61,7 @@ else:
 
 setup_extra_args = {}
 if USE_SETUPTOOLS:
-    setup_extra_args['install_requires'] = ['python-ly', 'python-poppler-qt4']
+    setup_extra_args['install_requires'] = ['python-ly', 'python-poppler-qt5']
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -90,12 +90,9 @@ classifiers = [
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: Microsoft :: Windows',
     'Operating System :: POSIX',
-    'Programming Language :: Python :: 2',
-    'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.2',
     'Programming Language :: Python :: 3.3',
     'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
     'Topic :: Multimedia :: Sound/Audio',
     'Topic :: Multimedia :: Graphics',
     'Topic :: Text Editors',
