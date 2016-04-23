@@ -31,7 +31,7 @@ import app
 import css
 import qutil
 import midihub
-import widgets.drag
+import gadgets.drag
 
 from . import midifiles
 from . import output
@@ -43,7 +43,7 @@ class Widget(QWidget):
         super(Widget, self).__init__(dockwidget)
         self._document = None
         self._fileSelector = QComboBox(editable=True, insertPolicy=QComboBox.NoInsert)
-        widgets.drag.ComboDrag(self._fileSelector).role = Qt.UserRole
+        gadgets.drag.ComboDrag(self._fileSelector).role = Qt.UserRole
         self._fileSelector.lineEdit().setReadOnly(True)
         self._fileSelector.lineEdit().setFocusPolicy(Qt.NoFocus)
         self._stopButton = QToolButton()

@@ -33,7 +33,7 @@ import app
 import userguide.util
 import icons
 import symbols
-import widgets.toolboxwheeler
+import gadgets.toolboxwheeler
 
 from . import articulations
 from . import barlines
@@ -70,7 +70,7 @@ class QuickInsert(QWidget):
         layout.addLayout(hor)
         
         self.toolbox = QToolBox(self)
-        widgets.toolboxwheeler.ToolBoxWheeler(self.toolbox)
+        gadgets.toolboxwheeler.ToolBoxWheeler(self.toolbox)
         layout.addWidget(self.toolbox)
         
         for cls in (

@@ -49,7 +49,7 @@ import icons
 import qutil
 import panel
 import listmodel
-import widgets.drag
+import gadgets.drag
 import jobattributes
 
 from . import documents
@@ -733,7 +733,7 @@ class ViewdocChooser(QComboBox):
         self.setEditable(False)
         self.setFocusPolicy(Qt.NoFocus)
         app.translateUI(self)
-        widgets.drag.ComboDrag(self).role = Qt.UserRole
+        gadgets.drag.ComboDrag(self).role = Qt.UserRole
 
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))

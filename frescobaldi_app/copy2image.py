@@ -40,7 +40,7 @@ import icons
 import qpopplerview
 import widgets.imageviewer
 import widgets.colorbutton
-import widgets.drag
+import gadgets.drag
 
 try:
     import popplerqt5
@@ -222,7 +222,7 @@ class Dialog(QDialog):
                 self.fileDragger.currentFile = filename
 
 
-class FileDragger(widgets.drag.FileDragger):
+class FileDragger(gadgets.drag.FileDragger):
     """Creates an image file on the fly as soon as a drag is started."""
     image = None
     basename = None

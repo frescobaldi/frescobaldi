@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2013 - 2014 by Wilbert Berendsen
+# Copyright (c) 2008 - 2016 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,25 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Provides better word-boundary behaviour for View and other QPlainTextEdit
-instances.
+All kinds of more or less generally usable gadgets.
 """
 
 from __future__ import unicode_literals
-
-import re
-
-from PyQt5.QtCore import QEvent, QObject, Qt
-from PyQt5.QtGui import QKeySequence, QTextCursor
-
-import app
-import gadgets.wordboundary
-
-
-class BoundaryHandler(gadgets.wordboundary.BoundaryHandler):
-    word_regexp = re.compile(r'([-^_]?\\)?\w+(-\w+)*|\\\\|^|$', re.UNICODE)
-
-handler = BoundaryHandler()
-
-app.viewCreated.connect(handler.install_textedit)
 

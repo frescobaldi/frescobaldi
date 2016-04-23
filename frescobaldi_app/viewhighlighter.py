@@ -31,7 +31,7 @@ import app
 import plugin
 import bookmarks
 import textformats
-import widgets.arbitraryhighlighter
+import gadgets.arbitraryhighlighter
 
 
 def highlighter(view):
@@ -41,10 +41,10 @@ def highlighter(view):
 app.viewCreated.connect(highlighter)
 
 
-class ViewHighlighter(plugin.Plugin, widgets.arbitraryhighlighter.ArbitraryHighlighter):
+class ViewHighlighter(plugin.Plugin, gadgets.arbitraryhighlighter.ArbitraryHighlighter):
     def __init__(self, view):
         # no need to call the plugin __init__ method
-        widgets.arbitraryhighlighter.ArbitraryHighlighter.__init__(self, view)
+        gadgets.arbitraryhighlighter.ArbitraryHighlighter.__init__(self, view)
         self._cursorFormat = QTextCharFormat()
         self._cursorFormat.setProperty(QTextFormat.FullWidthSelection, True)
         app.settingsChanged.connect(self.readSettings)

@@ -189,7 +189,7 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
         
         def add(widget):
             """Adds a widget to the side of the view."""
-            from widgets import borderlayout
+            from gadgets import borderlayout
             if QApplication.isRightToLeft():
                 side = borderlayout.RIGHT
             else:

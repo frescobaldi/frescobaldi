@@ -41,8 +41,9 @@ import arrowkeys
 import icons
 import textformats
 import wordboundary
-import widgets.indenter
-import widgets.matcher
+import gadgets.indenter
+import gadgets.matcher
+import widgets
 
 from . import model
 from . import snippets
@@ -102,7 +103,7 @@ class Edit(QDialog):
         # constructed with a parent, that's why we save it in an unused attribute.
         self._highlighter = highlight.Highlighter(self.text.document())
         Matcher(self.text)
-        widgets.indenter.Indenter(self.text)
+        gadgets.indenter.Indenter(self.text)
         self.text.installEventFilter(homekey.handler)
         self.text.installEventFilter(arrowkeys.handler)
         wordboundary.handler.install_textedit(self.text)
@@ -232,7 +233,7 @@ class ShortcutButton(QPushButton):
         self.setToolTip(_("Click to change the keyboard shortcut."))
 
 
-class Matcher(widgets.matcher.Matcher):
+class Matcher(gadgets.matcher.Matcher):
     def __init__(self, edit):
         super(Matcher, self).__init__(edit)
         self.readSettings()

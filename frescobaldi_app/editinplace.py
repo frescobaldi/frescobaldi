@@ -46,6 +46,7 @@ import metainfo
 import qutil
 import textformats
 import tokeniter
+import gadgets.arbitraryhighlighter
 import widgets.dialog
 import documenttooltip
 
@@ -202,7 +203,7 @@ class Matcher(matcher.AbstractMatcher):
         return self._highlighter
 
 
-class MatchHighlighter(widgets.arbitraryhighlighter.ArbitraryHighlighter):
+class MatchHighlighter(gadgets.arbitraryhighlighter.ArbitraryHighlighter):
     """Highlights the matches like { } or << >>."""
     def __init__(self, edit):
         super(MatchHighlighter, self).__init__(edit)
