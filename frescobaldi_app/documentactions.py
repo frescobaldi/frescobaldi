@@ -76,6 +76,7 @@ class DocumentActions(plugin.MainWindowPlugin):
     
     def updateSelectionActions(self, selection):
         self.actionCollection.edit_cut_assign.setEnabled(selection)
+        self.actionCollection.edit_move_to_include_file.setEnabled(selection)
         self.actionCollection.tools_quick_remove_comments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_articulations.setEnabled(selection)
         self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
