@@ -21,7 +21,6 @@
 QProgressBar subclasses.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QTimeLine, QTimer
 from PyQt5.QtWidgets import QProgressBar

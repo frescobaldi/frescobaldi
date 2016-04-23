@@ -21,7 +21,6 @@
 Manages a local temporary directory for a Document (e.g. unnamed or remote).
 """
 
-from __future__ import unicode_literals
 
 import os
 

@@ -21,7 +21,6 @@
 A basic Dialog class.
 """
 
-from __future__ import unicode_literals
 
 import functools
 import operator

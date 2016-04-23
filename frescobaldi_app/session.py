@@ -21,7 +21,6 @@
 Stuff dealing with the QSessionManager.
 """
 
-from __future__ import unicode_literals
 
 import os
 import sys

@@ -22,7 +22,6 @@ Simple eventfilter that makes Home and Shift+Home in text editor widgets
 go to the first non-space character of a line, instead of the very beginning.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QObject
 from PyQt5.QtGui import QKeySequence, QTextCursor

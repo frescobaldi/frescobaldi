@@ -22,7 +22,6 @@
 Information about the Frescobaldi application.
 """
 
-from __future__ import unicode_literals
 
 # these variables are also used by the distutils setup
 name = "frescobaldi"

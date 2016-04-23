@@ -20,7 +20,6 @@
 midifile.event -- simple Event namedtuple types and a default parsing handler.
 """
 
-from __future__ import unicode_literals
 
 import collections
 

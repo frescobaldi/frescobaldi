@@ -20,7 +20,6 @@
 A MIDI Player.
 """
 
-from __future__ import unicode_literals
 
 import collections
 import time

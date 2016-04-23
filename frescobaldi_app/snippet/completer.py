@@ -22,7 +22,6 @@ The completer for the snippet editing dialog.
 """
 
 
-from __future__ import unicode_literals
 
 import keyword
 import re

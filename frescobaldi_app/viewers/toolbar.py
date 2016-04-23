@@ -22,7 +22,6 @@ Abstract base class for a viewer's toolbar.
 Provides a consistent but configurable infrastructure for toolbars.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import (
     QWidget,

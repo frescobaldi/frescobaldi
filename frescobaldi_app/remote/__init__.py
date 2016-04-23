@@ -21,7 +21,6 @@
 Inter-Process Communication with already running Frescobaldi instances.
 """
 
-from __future__ import unicode_literals
 
 import os
 import sys

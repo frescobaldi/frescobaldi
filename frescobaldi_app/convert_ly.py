@@ -21,7 +21,6 @@
 Updates a document using convert-ly.
 """
 
-from __future__ import unicode_literals
 
 import difflib
 import textwrap

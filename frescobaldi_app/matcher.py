@@ -21,7 +21,6 @@
 Highlights matching tokens such as { and }, << and >> etc.
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

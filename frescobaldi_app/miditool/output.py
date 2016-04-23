@@ -21,7 +21,6 @@
 Handles output to MIDI ports.
 """
 
-from __future__ import unicode_literals
 
 
 import midifile.output

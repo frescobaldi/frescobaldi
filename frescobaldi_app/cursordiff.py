@@ -25,7 +25,6 @@ This is done by making a diff between the existing selection and the replacing
 text, and applying that diff.
 """
 
-from __future__ import unicode_literals
 
 import difflib
 

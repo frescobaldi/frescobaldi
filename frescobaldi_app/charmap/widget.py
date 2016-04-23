@@ -21,7 +21,6 @@
 The special characters tool widget.
 """
 
-from __future__ import unicode_literals
 
 import sys
 import itertools

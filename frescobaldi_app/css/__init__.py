@@ -21,7 +21,6 @@
 Resources for styling some widgets.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QDir
 

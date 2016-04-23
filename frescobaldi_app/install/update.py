@@ -21,7 +21,6 @@
 Performs upgrades in the settings structure.
 """
 
-from __future__ import unicode_literals
 
 try:
     string_types = basestring

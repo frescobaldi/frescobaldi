@@ -21,7 +21,6 @@
 The Score Wizard.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QAction

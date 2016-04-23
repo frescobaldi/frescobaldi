@@ -21,7 +21,6 @@
 The document outline tool widget.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QTimer
 from PyQt5.QtGui import QBrush, QFont, QTextCursor

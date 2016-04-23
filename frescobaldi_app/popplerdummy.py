@@ -21,7 +21,6 @@
 A dummy surface only showing a "could not load popplerqt5 module" message.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QLabel, QLayout, QVBoxLayout, QWidget
 

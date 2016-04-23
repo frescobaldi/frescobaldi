@@ -21,7 +21,6 @@
 Provides an icon for a Document.
 """
 
-from __future__ import unicode_literals
 
 import plugin
 import signals

@@ -21,7 +21,6 @@
 The documents list tool widget.
 """
 
-from __future__ import unicode_literals
 
 import os
 

@@ -23,7 +23,6 @@ Uses musicxml2ly to create ly file from xml.
 In the dialog the options of musicxml2ly can be set. 
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings, QSize
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)

@@ -21,7 +21,6 @@
 Page, a page from the Frescobaldi User Manual.
 """
 
-from __future__ import unicode_literals
 
 import re
 

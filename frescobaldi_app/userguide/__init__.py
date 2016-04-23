@@ -21,7 +21,6 @@
 The Frescobaldi User Manual.
 """
 
-from __future__ import unicode_literals
 
 
 def show(name=None):

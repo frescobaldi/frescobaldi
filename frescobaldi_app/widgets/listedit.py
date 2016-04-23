@@ -21,7 +21,6 @@
 Widgets to edit a list of items in a flexible way.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import (

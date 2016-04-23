@@ -21,7 +21,6 @@
 Container part types.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,

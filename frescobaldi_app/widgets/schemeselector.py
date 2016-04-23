@@ -21,7 +21,6 @@
 A widget that provides a scheme selector, with New and Remove buttons.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QDir, QSettings, pyqtSignal, Qt
 from PyQt5.QtWidgets import (

@@ -23,7 +23,6 @@ Uses abc2ly to create ly file from abc.
 In the dialog the options of abc2ly can be set. 
 """
 
-from __future__ import unicode_literals
 
 import os
 import subprocess

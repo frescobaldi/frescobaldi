@@ -35,7 +35,6 @@ not with portmidi directly.
 
 """
 
-from __future__ import unicode_literals
 
 
 import portmidi

@@ -21,7 +21,6 @@
 The Quick Insert panel Articulations Tool.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 

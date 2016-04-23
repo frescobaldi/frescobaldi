@@ -24,7 +24,6 @@ A dialog where the user can edit a short fragment of a larger document.
 
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings, QSize
 from PyQt5.QtGui import (QKeySequence, QTextCharFormat, QTextCursor,

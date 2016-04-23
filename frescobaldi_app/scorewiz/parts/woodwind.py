@@ -21,7 +21,6 @@
 Wood wind part types.
 """
 
-from __future__ import unicode_literals
 
 from . import _base
 from . import register

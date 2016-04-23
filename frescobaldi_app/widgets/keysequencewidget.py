@@ -24,7 +24,6 @@ Loosely based on kkeysequencewidget.cpp from KDE :-)
 
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QSize, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import QKeySequence

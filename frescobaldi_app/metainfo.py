@@ -21,7 +21,6 @@
 Store meta information about documents.
 """
 
-from __future__ import unicode_literals
 
 import time
 

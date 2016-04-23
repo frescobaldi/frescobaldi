@@ -21,7 +21,6 @@
 Generic Point and Click handling.
 """
 
-from __future__ import unicode_literals
 
 import os
 import collections

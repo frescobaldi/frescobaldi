@@ -21,7 +21,6 @@
 A widget and dialog to show an output preview of a LilyPond document.
 """
 
-from __future__ import unicode_literals
 
 
 import os

@@ -21,7 +21,6 @@
 Percussion part types.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import (
     QCheckBox, QComboBox, QGridLayout, QHBoxLayout, QLabel, QSpinBox)

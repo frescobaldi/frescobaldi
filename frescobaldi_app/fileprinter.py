@@ -21,7 +21,6 @@
 Constructs a printcommand to print a PDF file.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 import os

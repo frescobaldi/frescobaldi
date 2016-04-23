@@ -21,7 +21,6 @@
 Tools to edit durations of selected music.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QAction
 

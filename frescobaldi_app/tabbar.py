@@ -21,7 +21,6 @@
 The tab bar with the documents.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings, Qt, QUrl, pyqtSignal
 from PyQt5.QtWidgets import QMenu, QTabBar

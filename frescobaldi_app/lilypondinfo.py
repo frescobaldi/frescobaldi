@@ -21,7 +21,6 @@
 Settings stuff and handling for different LilyPond versions.
 """
 
-from __future__ import unicode_literals
 
 import glob
 import codecs

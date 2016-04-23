@@ -23,7 +23,6 @@ Implementation of the tools to edit durations of selected music.
 Durations are represented simply by lists of ly.lex.lilypond.Duration tokens.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 

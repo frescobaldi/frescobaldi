@@ -21,7 +21,6 @@
 Maintains an overview of the structure of a Document.
 """
 
-from __future__ import unicode_literals
 
 import re
 

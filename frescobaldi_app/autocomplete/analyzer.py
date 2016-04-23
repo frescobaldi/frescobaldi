@@ -21,7 +21,6 @@
 Analyze text to determine suitable completions.
 """
 
-from __future__ import unicode_literals
 
 import re
 import os

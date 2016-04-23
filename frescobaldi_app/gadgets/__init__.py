@@ -27,5 +27,4 @@ These modules only depend on PyQt.
 
 """
 
-from __future__ import unicode_literals
 

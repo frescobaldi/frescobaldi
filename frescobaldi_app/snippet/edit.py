@@ -22,7 +22,6 @@ The dialog for editing a snippet
 """
 
 
-from __future__ import unicode_literals
 
 import re
 

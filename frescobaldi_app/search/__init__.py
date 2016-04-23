@@ -21,7 +21,6 @@
 Widget for search and replace.
 """
 
-from __future__ import unicode_literals
 
 import bisect
 import re

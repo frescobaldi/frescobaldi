@@ -24,7 +24,6 @@ All use the tools in ly.rests.
 
 """
 
-from __future__ import unicode_literals
 
 import lydocument
 import ly.rests

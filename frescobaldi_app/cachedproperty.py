@@ -93,7 +93,6 @@ This module uses the signals module for the callback logic.
 
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

@@ -21,7 +21,6 @@
 Manages the Panels (Tools).
 """
 
-from __future__ import unicode_literals
 
 import sys
 

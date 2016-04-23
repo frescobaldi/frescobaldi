@@ -21,7 +21,6 @@
 The Manuscript Viewer context menu additions.
 """
 
-from __future__ import unicode_literals
 
 from viewers import contextmenu
 

@@ -29,7 +29,6 @@ Use start() to start the document watcher, and stop() to stop it if desired.
 
 """
 
-from __future__ import unicode_literals
 
 import contextlib
 import os

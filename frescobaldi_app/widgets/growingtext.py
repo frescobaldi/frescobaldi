@@ -23,7 +23,6 @@ Provides a QTextEdit subclass that grows vertically to accommodate document size
 You should set maximumHeight to restrict its vertical size.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import QPlainTextEdit, QStyle, QTextEdit

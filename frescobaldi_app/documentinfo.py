@@ -21,7 +21,6 @@
 Delivers information about a document.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 import functools

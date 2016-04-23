@@ -21,7 +21,6 @@
 Simple dialogs to ask input from the user.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtGui import QColor

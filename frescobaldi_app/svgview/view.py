@@ -25,7 +25,6 @@ that runs inside the displayed SVG file.
 
 """
 
-from __future__ import unicode_literals
 from __future__ import absolute_import
 from __future__ import print_function
 

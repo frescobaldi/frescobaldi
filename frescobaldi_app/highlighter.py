@@ -22,7 +22,6 @@ The Highlighter class provides syntax highlighting and more information
 about a document's contents.
 """
 
-from __future__ import unicode_literals
 
 
 from PyQt5.QtGui import (

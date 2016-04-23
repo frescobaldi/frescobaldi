@@ -21,7 +21,6 @@
 The window displayed when a Document is modified by an external program.
 """
 
-from __future__ import unicode_literals
 
 import os
 

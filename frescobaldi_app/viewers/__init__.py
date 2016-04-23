@@ -30,7 +30,6 @@ All the point & click stuff is handled in the pointandclick module.
 This is an abstract base class for different viewer modules.
 """
 
-from __future__ import unicode_literals
 
 import functools
 import os

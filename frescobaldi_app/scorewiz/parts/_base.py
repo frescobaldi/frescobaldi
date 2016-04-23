@@ -21,7 +21,6 @@
 Base types for parts.
 """
 
-from __future__ import unicode_literals
 
 import collections
 

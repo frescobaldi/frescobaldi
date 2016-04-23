@@ -20,7 +20,6 @@
 midifile.song -- structures MIDI file data as a song.
 """
 
-from __future__ import unicode_literals
 
 import collections
 

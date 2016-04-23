@@ -21,7 +21,6 @@
 A Log shows the output of a Job.
 """
 
-from __future__ import unicode_literals
 
 import contextlib
 

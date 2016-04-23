@@ -21,7 +21,6 @@
 Displays any widget as a tooltip.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QObject, QTimer, Qt
 from PyQt5.QtGui import QCursor

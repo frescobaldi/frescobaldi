@@ -21,7 +21,6 @@
 Base class for mode handlers.
 """
 
-from __future__ import unicode_literals
 
 from . import NORMAL, VISUAL, INSERT, REPLACE
 

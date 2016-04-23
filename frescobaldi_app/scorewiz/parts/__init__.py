@@ -21,7 +21,6 @@
 All available part types.
 """
 
-from __future__ import unicode_literals
 
 import collections
 

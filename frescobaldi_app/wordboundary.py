@@ -22,7 +22,6 @@ Provides better word-boundary behaviour for View and other QPlainTextEdit
 instances.
 """
 
-from __future__ import unicode_literals
 
 import re
 

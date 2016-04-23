@@ -29,7 +29,6 @@ yet, they can also show up.
 
 """
 
-from __future__ import unicode_literals
 
 import os
 

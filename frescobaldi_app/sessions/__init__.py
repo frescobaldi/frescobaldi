@@ -25,7 +25,6 @@ A session is a global list of open documents, with some additional preferences s
 
 """
 
-from __future__ import unicode_literals
 
 import itertools
 

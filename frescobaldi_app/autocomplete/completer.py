@@ -21,7 +21,6 @@
 The completer for Frescobaldi.
 """
 
-from __future__ import unicode_literals
 
 import re
 

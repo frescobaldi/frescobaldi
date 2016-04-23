@@ -31,7 +31,6 @@ The log is not displayed.
 
 """
 
-from __future__ import unicode_literals
 
 import contextlib
 

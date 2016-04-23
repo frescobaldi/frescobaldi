@@ -22,7 +22,6 @@ Dialog for selecting a hyphen language,
 and code for finding hyphenation dictionaries to present the user a  choice.
 """
 
-from __future__ import unicode_literals
 
 import glob
 import locale

@@ -21,7 +21,6 @@
 A dialog to view LilyPond source.
 """
 
-from __future__ import unicode_literals
 
 try:
     str = unicode

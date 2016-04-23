@@ -37,7 +37,6 @@ The quotes itself are simply unicode strings.
 
 """
 
-from __future__ import unicode_literals
 
 import collections
 

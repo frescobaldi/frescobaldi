@@ -22,7 +22,6 @@ A basic auto-indenter for a textedit widget.
 """
 
 
-from __future__ import unicode_literals
 
 import contextlib
 

@@ -21,7 +21,6 @@
 The Quick Insert panel spanners Tool.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QHBoxLayout, QToolButton

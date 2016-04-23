@@ -2,7 +2,6 @@
 
 # Do not edit, this file is generated. See generate.py.
 
-from __future__ import unicode_literals
 
 
 language_names = {

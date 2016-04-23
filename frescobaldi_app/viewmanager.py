@@ -24,7 +24,6 @@ ViewSpace is a QStackedWidget with a statusbar, capable of displaying one of
 multiple views.
 """
 
-from __future__ import unicode_literals
 
 import contextlib
 import weakref

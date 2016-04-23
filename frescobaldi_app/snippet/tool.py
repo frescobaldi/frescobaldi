@@ -21,7 +21,6 @@
 The snippets dockwindow.
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

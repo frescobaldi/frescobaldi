@@ -21,7 +21,6 @@
 A simple scrollarea that can display an image.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import pyqtSignal, QMimeData, QSize, QRect, Qt
 from PyQt5.QtGui import QColor, QDrag, QImage, QPainter, QPalette, QPixmap

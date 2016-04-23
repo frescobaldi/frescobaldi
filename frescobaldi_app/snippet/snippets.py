@@ -21,7 +21,6 @@
 Accessing the snippets data.
 """
 
-from __future__ import unicode_literals
 
 
 import collections

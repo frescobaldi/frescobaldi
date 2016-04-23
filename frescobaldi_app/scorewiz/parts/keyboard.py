@@ -21,7 +21,6 @@
 Keyboard part types.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QGridLayout, QLabel, QSpinBox
 

@@ -21,7 +21,6 @@
 Frescobaldi's extensions of ly.music.
 """
 
-from __future__ import unicode_literals
 
 
 import ly.music.items

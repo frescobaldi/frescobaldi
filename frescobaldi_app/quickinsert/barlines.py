@@ -21,7 +21,6 @@
 The Quick Insert panel barlines and breathing sings Tool.
 """
 
-from __future__ import unicode_literals
 
 import app
 import symbols

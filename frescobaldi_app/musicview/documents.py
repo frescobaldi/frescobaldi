@@ -21,7 +21,6 @@
 Code to load and manage PDF documents to view.
 """
 
-from __future__ import unicode_literals
 
 
 import os

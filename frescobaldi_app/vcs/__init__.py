@@ -21,7 +21,6 @@
 VCS interface (application and documents)
 """
 
-from __future__ import unicode_literals
 
 import sys
 import os

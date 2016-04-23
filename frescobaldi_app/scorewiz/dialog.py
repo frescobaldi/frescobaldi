@@ -21,7 +21,6 @@
 The Score Wizard dialog.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
 from PyQt5.QtWidgets import (

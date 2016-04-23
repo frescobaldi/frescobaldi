@@ -23,7 +23,6 @@ Uses midi2ly to create ly file from midi.
 In the dialog the options of midi2ly can be set. 
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings, QSize
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)

@@ -21,7 +21,6 @@
 The browser widget for the help browser.
 """
 
-from __future__ import unicode_literals
 
 import os
 

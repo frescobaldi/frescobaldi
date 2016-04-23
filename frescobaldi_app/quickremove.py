@@ -24,7 +24,6 @@ The functions are called by actions defined in the documentactions.py module.
 
 """
 
-from __future__ import unicode_literals
 
 import functools
 

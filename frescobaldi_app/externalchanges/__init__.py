@@ -27,7 +27,6 @@ if needed.
 
 """
 
-from __future__ import unicode_literals
 
 
 from PyQt5.QtCore import QSettings, QTimer

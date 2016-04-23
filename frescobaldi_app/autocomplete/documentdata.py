@@ -21,7 +21,6 @@
 Completions data harvested from a Document.
 """
 
-from __future__ import unicode_literals
 
 try:
     str = unicode

@@ -21,7 +21,6 @@
 The help browser window.
 """
 
-from __future__ import unicode_literals
 
 import os
 

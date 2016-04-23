@@ -21,7 +21,6 @@
 A button that emits a tempo(int) signal when the user clicks multiple times.
 """
 
-from __future__ import unicode_literals
 
 import time
 

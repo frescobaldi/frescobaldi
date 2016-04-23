@@ -28,7 +28,6 @@ and 'error' (marking a line containing an error).
 
 """
 
-from __future__ import unicode_literals
 
 import bisect
 import json

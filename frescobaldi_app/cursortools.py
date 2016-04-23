@@ -21,7 +21,6 @@
 Functions manipulating QTextCursors and their selections.
 """
 
-from __future__ import unicode_literals
 
 import contextlib
 import operator

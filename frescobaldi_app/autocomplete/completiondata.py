@@ -21,7 +21,6 @@
 All completions data.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 

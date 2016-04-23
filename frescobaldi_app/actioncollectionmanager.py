@@ -25,7 +25,6 @@ This makes it possible to edit actions and check whether keyboard shortcuts of
 actions conflict with other actions.
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

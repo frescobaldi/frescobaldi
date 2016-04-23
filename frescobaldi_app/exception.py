@@ -22,7 +22,6 @@ Exception dialog for unhandled Python exceptions
 (which are bugs in our program).
 """
 
-from __future__ import unicode_literals
 
 import traceback
 

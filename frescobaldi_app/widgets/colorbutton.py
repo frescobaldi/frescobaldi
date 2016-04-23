@@ -21,7 +21,6 @@
 A button to select a color.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QColor, QPainter

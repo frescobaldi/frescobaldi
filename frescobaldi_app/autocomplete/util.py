@@ -21,7 +21,6 @@
 Utility functions used in the autocomplete package.
 """
 
-from __future__ import unicode_literals
 
 import functools
 import time

@@ -21,7 +21,6 @@
 Manage access to LilyPond documentation.
 """
 
-from __future__ import unicode_literals
 
 import os
 

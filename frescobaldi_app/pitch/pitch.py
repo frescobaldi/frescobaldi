@@ -24,7 +24,6 @@ All use the tools in ly.pitch.
 
 """
 
-from __future__ import unicode_literals
 
 import re
 

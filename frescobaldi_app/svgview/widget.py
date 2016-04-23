@@ -21,7 +21,6 @@
 The SVG preview panel widget.
 """
 
-from __future__ import unicode_literals
 
 import os
 import sys

@@ -21,7 +21,6 @@
 Session menu.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QActionGroup, QMenu
 

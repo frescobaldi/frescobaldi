@@ -21,7 +21,6 @@
 The Manuscript viewer panel widget.
 """
 
-from __future__ import unicode_literals
 
 from viewers import popplerwidget
 from . import contextmenu

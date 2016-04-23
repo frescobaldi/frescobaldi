@@ -14,7 +14,6 @@ info@wilbertberendsen.nl
 License: LGPL. More info: http://python-hyphenator.googlecode.com/
 
 """
-from __future__ import unicode_literals
 from __future__ import print_function
 
 try:

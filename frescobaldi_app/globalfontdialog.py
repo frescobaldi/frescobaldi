@@ -24,7 +24,6 @@ command.
 It keeps its settings.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtGui import QFont

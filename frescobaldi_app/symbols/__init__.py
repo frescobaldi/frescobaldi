@@ -22,7 +22,6 @@ Code to use LilyPond-generated SVGs as icons.
 The default black color will be adjusted to the default Text color.
 """
 
-from __future__ import unicode_literals
 
 import os
 

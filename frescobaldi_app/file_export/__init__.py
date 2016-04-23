@@ -21,7 +21,6 @@
 Export to non-lilypond file types.
 """
 
-from __future__ import unicode_literals
 
 import os
 

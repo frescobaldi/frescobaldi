@@ -21,7 +21,6 @@
 Commands for manipulating Lyrics.
 """
 
-from __future__ import unicode_literals
 
 import re
 

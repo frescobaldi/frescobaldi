@@ -24,7 +24,6 @@ The sidebar/ manages the visibility of the folding area.
 
 """
 
-from __future__ import unicode_literals
 
 import cursortools
 import tokeniter

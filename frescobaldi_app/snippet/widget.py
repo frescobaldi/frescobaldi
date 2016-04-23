@@ -21,7 +21,6 @@
 The snippets widget.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QItemSelectionModel, QModelIndex, Qt
 from PyQt5.QtGui import QKeySequence

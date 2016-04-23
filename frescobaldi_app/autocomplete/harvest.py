@@ -21,7 +21,6 @@
 Harvest strings from document for autocompletion purposes.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 import re

@@ -21,7 +21,6 @@
 Manages cursor positions of file-references in error messages.
 """
 
-from __future__ import unicode_literals
 
 import os
 import re

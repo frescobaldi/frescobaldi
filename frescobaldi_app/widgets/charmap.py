@@ -24,7 +24,6 @@ When a character is clicked, a signal is emitted.
 
 """
 
-from __future__ import unicode_literals
 
 try:
     chr = unichr

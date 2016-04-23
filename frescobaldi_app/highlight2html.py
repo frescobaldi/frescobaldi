@@ -21,7 +21,6 @@
 Export syntax-highlighted text as HTML.
 """
 
-from __future__ import unicode_literals
 
 import lydocument
 import textformats

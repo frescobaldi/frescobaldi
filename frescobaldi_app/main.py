@@ -21,7 +21,6 @@
 Entry point of Frescobaldi.
 """
 
-from __future__ import unicode_literals
 
 import sip
 sip.setapi("QString", 2)

@@ -21,7 +21,6 @@
 Builds the LilyPond score from the settings in the Score Wizard.
 """
 
-from __future__ import unicode_literals
 
 import collections
 import fractions

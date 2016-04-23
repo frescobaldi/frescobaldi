@@ -24,7 +24,6 @@ a file is clicked in the file manager.
 Currently this makes only sense on Mac OS X.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QEvent, QObject
 from PyQt5.QtWidgets import QApplication

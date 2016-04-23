@@ -21,7 +21,6 @@
 Create a HTML diff view from two text strings.
 """
 
-from __future__ import unicode_literals
 
 import re
 import difflib

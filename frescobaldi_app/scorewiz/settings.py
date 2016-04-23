@@ -21,7 +21,6 @@
 The score settings widget.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,

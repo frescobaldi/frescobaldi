@@ -24,7 +24,6 @@ It is used to edit a Document. The ViewManager (see viewmanager.py)
 has support for showing multiple Views in a window.
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

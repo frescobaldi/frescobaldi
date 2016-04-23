@@ -21,7 +21,6 @@
 Fonts and Colors preferences page.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import pyqtSignal, QSettings, QSize, Qt
 from PyQt5.QtGui import (QBrush, QColor, QFont, QPalette, QTextCharFormat,

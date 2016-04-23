@@ -23,7 +23,6 @@ An Object Editor
 
 # Note: This is only a very first stub
 
-from __future__ import unicode_literals
 
 import sys
 

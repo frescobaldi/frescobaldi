@@ -21,7 +21,6 @@
 A chooser combobox to choose a LilyPond instance.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QComboBox
 

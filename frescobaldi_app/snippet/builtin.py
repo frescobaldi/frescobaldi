@@ -21,7 +21,6 @@
 Builtin snippets.
 """
 
-from __future__ import unicode_literals
 
 try:
     import builtins # py3

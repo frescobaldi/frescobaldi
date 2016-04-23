@@ -22,7 +22,6 @@ A context menu with actions for a Document.
 Used by the tabbar and the doclist tool.
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

@@ -32,7 +32,6 @@ All the point & click stuff is handled in the pointandclick module.
 
 """
 
-from __future__ import unicode_literals
 
 import functools
 import os

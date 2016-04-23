@@ -21,7 +21,6 @@
 The Documents menu.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QAction, QActionGroup, QMenu

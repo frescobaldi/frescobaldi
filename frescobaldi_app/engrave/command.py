@@ -21,7 +21,6 @@
 Creates the commandline or Job to engrave a music document.
 """
 
-from __future__ import unicode_literals
 
 import os, sys
 

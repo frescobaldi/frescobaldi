@@ -21,7 +21,6 @@
 Actions to engrave the music in the documents.
 """
 
-from __future__ import unicode_literals
 
 import os
 

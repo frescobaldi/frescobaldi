@@ -21,7 +21,6 @@
 Run LilyPond to get various types of output.
 """
 
-from __future__ import unicode_literals
 
 import codecs
 

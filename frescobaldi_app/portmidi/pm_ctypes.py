@@ -2,7 +2,6 @@
 # It is based on Grant Yoshida's 2007 version with some updates from
 # Christopher Arndt from 2009 with some bugs fixed and restructured a bit.
 
-from __future__ import unicode_literals
 
 import os
 import sys

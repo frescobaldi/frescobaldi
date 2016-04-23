@@ -45,7 +45,6 @@ Finally there is an AttributePlugin class, combining the Attributes and Plugin c
 
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

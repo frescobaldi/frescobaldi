@@ -21,7 +21,6 @@
 Normal ViMode.
 """
 
-from __future__ import unicode_literals
 
 import re
 

@@ -21,7 +21,6 @@
 Caches information about files, and checks the mtime upon request.
 """
 
-from __future__ import unicode_literals
 
 import os
 import weakref

@@ -21,7 +21,6 @@
 UrlRequester, a lineedit with a Browse-button.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import (

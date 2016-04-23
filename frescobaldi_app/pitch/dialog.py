@@ -21,7 +21,6 @@
 Dialog for the Mode shift functionality. 
 """
 
-from __future__ import unicode_literals
 
 from fractions import Fraction
 

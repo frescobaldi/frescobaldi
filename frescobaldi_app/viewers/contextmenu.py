@@ -21,7 +21,6 @@
 Base class for viewers' context menus.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QObject, QUrl
 from PyQt5.QtWidgets import QApplication, QMenu, QAction, QActionGroup

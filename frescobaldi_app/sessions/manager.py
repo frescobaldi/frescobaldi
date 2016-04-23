@@ -21,7 +21,6 @@
 Per-MainWindow session manager
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QAction, QActionGroup
 

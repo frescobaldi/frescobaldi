@@ -21,7 +21,6 @@
 Provides version information of important supporting modules.
 """
 
-from __future__ import unicode_literals
 
 import functools
 

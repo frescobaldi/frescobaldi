@@ -21,7 +21,6 @@
 Export the user guide to other formats and destinations.
 """
 
-from __future__ import unicode_literals
 
 import re
 

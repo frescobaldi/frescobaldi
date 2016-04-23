@@ -22,7 +22,6 @@ The Git menu.
 Currently only list local branches, allowing one to switch to that branch.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QAction, QActionGroup, QMenu, QMessageBox
 

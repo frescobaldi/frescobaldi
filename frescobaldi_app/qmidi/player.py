@@ -22,7 +22,6 @@ A MIDI player for PyQt5.
 """
 
 
-from __future__ import unicode_literals
 
 
 from PyQt5.QtCore import pyqtSignal, Qt, QThread, QTimer

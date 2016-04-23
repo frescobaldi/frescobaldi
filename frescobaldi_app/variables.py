@@ -21,7 +21,6 @@
 Infrastructure to get local variables embedded in comments in a document.
 """
 
-from __future__ import unicode_literals
 
 import re
 

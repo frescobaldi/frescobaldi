@@ -21,7 +21,6 @@
 The Quick Insert panel.
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

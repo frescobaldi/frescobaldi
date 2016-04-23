@@ -37,7 +37,6 @@ What it also could do, but not yet:
 
 """
 
-from __future__ import unicode_literals
 
 import indent
 import lydocument

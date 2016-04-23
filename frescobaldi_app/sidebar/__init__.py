@@ -21,7 +21,6 @@
 The sidebar in the editor View.
 """
 
-from __future__ import unicode_literals
 
 import sys
 

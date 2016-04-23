@@ -21,7 +21,6 @@
 Save the current document as a snippet that appears in File->New from Template.
 """
 
-from __future__ import unicode_literals
 
 import app
 import documentinfo

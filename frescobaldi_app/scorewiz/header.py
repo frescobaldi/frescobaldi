@@ -21,7 +21,6 @@
 The Header (titles) widget.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QSize, Qt, QUrl
 from PyQt5.QtGui import QPalette

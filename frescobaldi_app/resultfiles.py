@@ -21,7 +21,6 @@
 Finds out which files are created by running the engraver.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 import glob

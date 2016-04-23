@@ -21,7 +21,6 @@
 Insert snippets into a Document.
 """
 
-from __future__ import unicode_literals
 
 import sys
 

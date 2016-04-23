@@ -21,7 +21,6 @@
 Utilities to run external commands.
 """
 
-from __future__ import unicode_literals
 
 import log
 import widgets.dialog

@@ -21,7 +21,6 @@
 Manages LilyPond Documentation.
 """
 
-from __future__ import unicode_literals
 
 # languages the LilyPond documentation is translated in:
 translations = ['cs', 'de', 'es', 'fr', 'hu', 'it', 'ja', 'nl', 'zh']

@@ -2,7 +2,6 @@
 MIDI input controls
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

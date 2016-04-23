@@ -42,7 +42,6 @@ which then should call setShortcuts() to do it. The module may also query the
 currently set shortcuts for an action using shortcuts().
 """
 
-from __future__ import unicode_literals
 
 import weakref
 

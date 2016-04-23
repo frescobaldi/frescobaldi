@@ -8,7 +8,6 @@ This would cause keyword errors when the format method is called on a translated
 string.
 """
 
-from __future__ import unicode_literals
 
 import string
 import sys

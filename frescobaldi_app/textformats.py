@@ -21,7 +21,6 @@
 Loading and defaults for the different textformats used for Syntax Highlighting.
 """
 
-from __future__ import unicode_literals
 
 import os
 

@@ -21,7 +21,6 @@
 The MIDI player for Frescobaldi.
 """
 
-from __future__ import unicode_literals
 
 from midifile.event import ControllerEvent, ProgramChangeEvent
 import qmidi.player

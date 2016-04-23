@@ -21,7 +21,6 @@
 Generic import dialog. Presuppose a child instance for the specific import.
 """
 
-from __future__ import unicode_literals
 
 import os
 import subprocess

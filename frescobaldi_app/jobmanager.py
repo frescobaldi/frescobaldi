@@ -25,7 +25,6 @@ It also sends the app-wide signals jobStarted() and jobFinished().
 
 """
 
-from __future__ import unicode_literals
 
 import app
 import plugin

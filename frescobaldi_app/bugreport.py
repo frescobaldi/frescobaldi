@@ -21,7 +21,6 @@
 Functions to compose a bugreport via e-mail and to get version information.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QUrl
 

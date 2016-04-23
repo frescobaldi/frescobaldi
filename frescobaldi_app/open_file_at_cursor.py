@@ -21,7 +21,6 @@
 Opens a file the current textcursor points at (or has selected).
 """
 
-from __future__ import unicode_literals
 
 import os
 

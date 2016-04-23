@@ -21,7 +21,6 @@
 Keyboard shortcuts settings page.
 """
 
-from __future__ import unicode_literals
 
 import itertools
 

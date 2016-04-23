@@ -21,7 +21,6 @@
 Cut selected text and assign it to a LilyPond variable.
 """
 
-from __future__ import unicode_literals
 
 import os.path
 

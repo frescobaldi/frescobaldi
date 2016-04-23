@@ -11,7 +11,6 @@ which are used currently in data.py.
 
 """
 
-from __future__ import unicode_literals
 
 
 import itertools

@@ -21,7 +21,6 @@
 Functions to access the built-in and user defined templates.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtWidgets import QAction
 

@@ -27,7 +27,6 @@ On Windows, another command can be configured or bitmaps of the poppler document
 can be printed.
 """
 
-from __future__ import unicode_literals
 
 
 import os

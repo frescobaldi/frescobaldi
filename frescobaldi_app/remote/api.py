@@ -25,7 +25,6 @@ are written. Every command is a line of ASCII characters, terminated by a
 newline. Arguments are separated with spaces.
 """
 
-from __future__ import unicode_literals
 
 from PyQt5.QtCore import QUrl
 from PyQt5.QtNetwork import QLocalSocket
