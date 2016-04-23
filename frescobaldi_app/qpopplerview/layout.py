@@ -396,13 +396,18 @@ class RowLayout(AbstractLayout):
         col_widths = []
         col_offsets = []
         offset = self._margin
+        col = -1
         for col in range(cols):
             width = max(p.width() for p in pages[col::cols] if p)
             col_widths.append(width)
             col_offsets.append(offset)
             offset += width + self._spacing
+        total_width = offset + self._margin
+        if col != -1:
+            total_width -= self._spacing
         
         top = self._margin
+        x = -1
         for row in (pages[i:i + cols] for i in range(0, len(pages), cols or 1)):
             height = max(p.height() for p in row if p)
             for n, page in enumerate(row):
@@ -411,8 +416,9 @@ class RowLayout(AbstractLayout):
                     y = top + (height - page.height()) // 2
                     page.setPos(QPoint(x, y))
             top += height + self._spacing
-        total_height = top + self._margin - self._spacing
-        total_width = self._margin * 2 + self._spacing * (cols - 1) + sum(col_widths)
+        total_height = top + self._margin
+        if x != -1:
+            total_height -= self._spacing
         self.setSize(QSize(total_width, total_height))
 
 
