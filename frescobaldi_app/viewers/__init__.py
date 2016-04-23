@@ -324,22 +324,10 @@ class AbstractViewPanel(panel.Panel):
         userguide.show(self.viewerName())
 
     def copyImage(self):
-        view = self.widget().view
-        selection = view.surface().selection()
-        
-        # get the largest page part that is in the selection
-        pages = list(view.surface().pageLayout().pagesAt(selection))
-        if not pages:
+        page = self.widget().view.surface().selectedPage()
+        if not page:
             return
-            
-        def key(page):
-            size = page.rect().intersected(selection).size()
-            return size.width() + size.height()
-        page = max(pages, key = key)
-        rect = selection.normalized().intersected(page.rect())
-        if not rect:
-            return
-        rect.translate(-page.pos())
+        rect = self.widget().view.surface().selectedPageRect(page)
         import copy2image
         copy2image.copy_image(self, page, rect, documents.filename(page.document()))
 
