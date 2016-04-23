@@ -30,7 +30,7 @@ import subprocess
 import sys
 
 from PyQt5.QtCore import QSettings, QSize
-from PyQt5.QtGui import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
+from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
 
 import app
 import util
