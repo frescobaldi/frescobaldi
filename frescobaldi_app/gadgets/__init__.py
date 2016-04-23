@@ -18,7 +18,13 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-All kinds of more or less generally usable gadgets.
+All kinds of more or less generally usable Qt gadgets.
+
+Most of them interact with Qt widgets, filtering events,
+customizing behaviour etc.
+
+These modules only depend on PyQt.
+
 """
 
 from __future__ import unicode_literals

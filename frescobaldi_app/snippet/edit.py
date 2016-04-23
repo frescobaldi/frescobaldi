@@ -36,13 +36,13 @@ import actioncollectionmanager
 import app
 import qutil
 import userguide
-import homekey
 import arrowkeys
 import icons
 import textformats
 import wordboundary
 import gadgets.indenter
 import gadgets.matcher
+import gadgets.homekey
 import widgets
 
 from . import model
@@ -104,7 +104,7 @@ class Edit(QDialog):
         self._highlighter = highlight.Highlighter(self.text.document())
         Matcher(self.text)
         gadgets.indenter.Indenter(self.text)
-        self.text.installEventFilter(homekey.handler)
+        self.text.installEventFilter(gadgets.homekey.handler)
         self.text.installEventFilter(arrowkeys.handler)
         wordboundary.handler.install_textedit(self.text)
         completer.Completer(self.text)
