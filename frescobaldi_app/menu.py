@@ -161,6 +161,7 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_redo)
     m.addSeparator()
     m.addAction(documentactions.get(mainwindow).actionCollection.edit_cut_assign)
+    m.addAction(documentactions.get(mainwindow).actionCollection.edit_move_to_include_file)
     m.addAction(ac.edit_cut)
     m.addAction(ac.edit_copy)
     m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
