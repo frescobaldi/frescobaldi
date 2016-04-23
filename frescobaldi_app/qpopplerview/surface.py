@@ -211,7 +211,7 @@ class Surface(QWidget):
         """Sets the selection rectangle."""
         rect = rect.normalized()
         old, self._selection = self._selection, rect
-        self._rubberBand.setVisible(bool(rect))
+        self._rubberBand.setVisible(rect.isValid())
         self._rubberBand.setGeometry(rect)
         if rect != old:
             self.selectionChanged.emit(rect)
@@ -592,7 +592,9 @@ class Surface(QWidget):
             diff.y() if edge & _TOP    else 0,
             diff.x() if edge & _RIGHT  else 0,
             diff.y() if edge & _BOTTOM else 0)
-        self._rubberBand.setGeometry(self._selectionRect.normalized())
+        rect = self._selectionRect.normalized()
+        self._rubberBand.setVisible(rect.isValid())
+        self._rubberBand.setGeometry(rect)
         if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
             # we're dragging a corner, use correct diagonal cursor
             bdiag = (edge in (3, 12)) ^ (self._selectionRect.width() * self._selectionRect.height() >= 0)
