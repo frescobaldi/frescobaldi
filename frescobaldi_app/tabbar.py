@@ -97,7 +97,9 @@ class TabBar(QTabBar):
     def setDocumentStatus(self, doc):
         if doc in self.docs:
             index = self.docs.index(doc)
-            self.setTabText(index, doc.documentName().replace('&', '&&'))
+            text = doc.documentName().replace('&', '&&')
+            if self.tabText(index) != text:
+                self.setTabText(index, text)
             if doc.url().toLocalFile():
                 tooltip = util.homify(doc.url().toLocalFile())
             elif not doc.url().isEmpty():

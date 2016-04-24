@@ -7,6 +7,8 @@ Changes in 2.19.1 -- Mai ??, 2016
 * New features:
   - New Manuscript viewer tool, displaying an "engraver's copy",
     contributed by Peter Bjuhr and Urs Liska
+* Bug fixes:
+  - fix #716 position of open document tab bar changes on engrave
 * Translations:
   - updated: Dutch, Italian
 
