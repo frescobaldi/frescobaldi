@@ -31,7 +31,7 @@ import appinfo
 def show():
     
     message = "{0}  {1} ".format(appinfo.appname, appinfo.version)
-    pixmap = QPixmap(os.path.join(__path__[0], 'splash.png'))
+    pixmap = QPixmap(os.path.join(__path__[0], 'splash3.png'))
     if QApplication.desktop().screenGeometry().height() < 640:
         fontsize = 23
         pixmap = pixmap.scaledToHeight(240, Qt.SmoothTransformation)
