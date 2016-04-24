@@ -35,7 +35,7 @@ def get_string_list(settings, key):
     
     """
     try:
-        value = settings.value(key, [], type(""))
+        value = settings.value(key, [], str)
     except TypeError:
         value = []
     else:

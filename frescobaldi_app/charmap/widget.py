@@ -70,7 +70,7 @@ class Widget(QWidget):
         self.blockCombo.setModel(model)
         
         # load block setting
-        name = QSettings().value("charmaptool/last_block", "", type(""))
+        name = QSettings().value("charmaptool/last_block", "", str)
         if name:
             for i, b in enumerate(_blocks):
                 if b.name == name:
@@ -87,7 +87,7 @@ class Widget(QWidget):
         s = QSettings()
         s.beginGroup("charmaptool")
         font = self.font()
-        family = s.value("fontfamily", "", type(""))
+        family = s.value("fontfamily", "", str)
         if family:
             font.setFamily(family)
         self.charmap.charmap.setDisplayFont(font)

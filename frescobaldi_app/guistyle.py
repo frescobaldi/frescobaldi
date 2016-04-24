@@ -38,7 +38,7 @@ def keys():
 def setStyle():
     global _system_default
     
-    style = QSettings().value("guistyle", "", type("")).lower()
+    style = QSettings().value("guistyle", "", str).lower()
     if style not in keys():
         style = _system_default
     if style != app.qApp.style().objectName():

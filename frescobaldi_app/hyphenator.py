@@ -264,7 +264,7 @@ if __name__ == "__main__":
     import sys
     dict_file = sys.argv[1]
     word = sys.argv[2]
-    if not isinstance(word, type("")):
+    if not isinstance(word, str):
         import locale
         word = word.decode(locale.getpreferredencoding())
 

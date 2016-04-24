@@ -56,12 +56,12 @@ def loadDefaultSession():
     """
     s = QSettings()
     s.beginGroup("session")
-    start = s.value("startup", "none", type(""))
+    start = s.value("startup", "none", str)
     name = None
     if start == "lastused":
-        name = s.value("lastused", "", type(""))
+        name = s.value("lastused", "", str)
     elif start == "custom":
-        name = s.value("custom", "", type(""))
+        name = s.value("custom", "", str)
         if name not in sessionNames():
             s.setValue("startup", "none")
     if name and name in sessionNames():
@@ -76,7 +76,7 @@ def sessionGroup(name):
     session = app.settings("sessions")
     childGroups = session.childGroups()
     for group in childGroups:
-        if session.value(group + "/name", "", type("")) == name:
+        if session.value(group + "/name", "", str) == name:
             break
     else:
         for count in itertools.count(1):
@@ -89,7 +89,7 @@ def sessionGroup(name):
 
 def sessionNames():
     session = app.settings("sessions")
-    names = [session.value(group + "/name", "", type("")) for group in session.childGroups()]
+    names = [session.value(group + "/name", "", str) for group in session.childGroups()]
     names.sort(key=util.naturalsort)
     return names
     
@@ -133,7 +133,7 @@ def saveSession(name, documents, activeDocument=None):
 def deleteSession(name):
     session = app.settings("sessions")
     for group in session.childGroups():
-        if session.value(group + "/name", "", type("")) == name:
+        if session.value(group + "/name", "", str) == name:
             session.remove(group)
             break
     if name == _currentSession:

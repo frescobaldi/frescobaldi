@@ -57,7 +57,7 @@ class GitRepo(AbstractVCSRepo):
         from PyQt5.QtCore import QSettings
         s = QSettings()
         s.beginGroup("helper_applications")
-        git_cmd = s.value("git", "git", type(""))
+        git_cmd = s.value("git", "git", str)
         git_cmd = git_cmd if git_cmd else "git"
         cmd = [git_cmd, cmd]
         cmd.extend(args)

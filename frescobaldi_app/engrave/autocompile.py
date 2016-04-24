@@ -133,7 +133,7 @@ class AutoCompileManager(plugin.DocumentPlugin):
             # look for existing result files in the default output format
             s = QSettings()
             s.beginGroup("lilypond_settings")
-            if s.value("default_output_target", "pdf", type("")) == "svg":
+            if s.value("default_output_target", "pdf", str) == "svg":
                 ext = '.svg*'
             else:
                 ext = '.pdf'

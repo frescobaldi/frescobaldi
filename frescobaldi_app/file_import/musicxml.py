@@ -138,7 +138,7 @@ class Dialog(toly_dialog.ToLyDialog):
         self.settings = QSettings()
         self.settings.beginGroup('musicxml_import')
         super(Dialog, self).loadSettings()
-        lang = self.settings.value("language", "default", type(""))
+        lang = self.settings.value("language", "default", str)
         try:
             index = _langlist.index(lang)
         except ValueError:

@@ -102,7 +102,7 @@ class LogTool(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("log")
-        font = QFont(s.value("fontfamily", "monospace", type("")))
+        font = QFont(s.value("fontfamily", "monospace", str))
         font.setPointSizeF(s.value("fontsize", 9.0, float))
         with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(font)
@@ -236,7 +236,7 @@ class CharMap(preferences.Group):
         s = QSettings()
         s.beginGroup("charmaptool")
         font = self.font()
-        family = s.value("fontfamily", "", type(""))
+        family = s.value("fontfamily", "", str)
         if family:
             font.setFamily(family)
         font.setPointSizeF(s.value("fontsize", font.pointSizeF(), float))
@@ -306,7 +306,7 @@ class Outline(preferences.Group):
         s = QSettings()
         s.beginGroup("documentstructure")
         try:
-            patterns = s.value("outline_patterns", documentstructure.default_outline_patterns, type(""))
+            patterns = s.value("outline_patterns", documentstructure.default_outline_patterns, str)
         except TypeError:
             patterns = []
         self.patternList.setValue(patterns)

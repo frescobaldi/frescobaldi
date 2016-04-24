@@ -109,7 +109,7 @@ class ArbitraryHighlighter(QObject):
     def reload(self):
         """Reloads the named formats in the highlighting (e.g. in case of settings change)."""
         for key in self._selections:
-            if isinstance(key, type("")):
+            if isinstance(key, str):
                 fmt = self.textFormat(key)
                 for es in self._selections[key][1]:
                     es.format = fmt

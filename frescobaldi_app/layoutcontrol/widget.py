@@ -115,7 +115,7 @@ class Widget(QWidget):
         self.CBverbose.setChecked(s.value('verbose', False, bool))
         self.CBpointandclick.setChecked(s.value('point-and-click', True, bool))
         self.CBcustomfile.setChecked(s.value('custom-file', False, bool))
-        self.LEcustomfile.setText(s.value('custom-filename', '', type("")))
+        self.LEcustomfile.setText(s.value('custom-filename', '', str))
         
     def saveSettings(self):
         """Called on close. Save settings and checkboxes state."""

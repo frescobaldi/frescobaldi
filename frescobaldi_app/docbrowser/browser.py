@@ -98,7 +98,7 @@ class Browser(QWidget):
         s = QSettings()
         s.beginGroup("documentation")
         ws = self.webview.page().settings()
-        family = s.value("fontfamily", self.font().family(), type(""))
+        family = s.value("fontfamily", self.font().family(), str)
         size = s.value("fontsize", 16, int)
         ws.setFontFamily(QWebSettings.StandardFont, family)
         ws.setFontSize(QWebSettings.DefaultFontSize, size)

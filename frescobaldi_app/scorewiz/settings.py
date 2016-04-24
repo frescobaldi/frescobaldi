@@ -171,7 +171,7 @@ class GeneralPreferences(QGroupBox):
         self.neutdir.setChecked(s.value('smart_neutral_direction', False, bool))
         self.midi.setChecked(s.value('midi', True, bool))
         self.metro.setChecked(s.value('metronome_mark', False, bool))
-        psize = s.value('paper_size', '', type(""))
+        psize = s.value('paper_size', '', str)
         enable = bool(psize and psize in paperSizes)
         self.paper.setCurrentIndex(paperSizes.index(psize) if enable else 0)
         self.paperLandscape.setChecked(s.value('paper_landscape', False, bool))
@@ -264,12 +264,12 @@ class InstrumentNames(QGroupBox):
         s.beginGroup('scorewiz/instrumentnames')
         self.setChecked(s.value('enabled', True, bool))
         allow = ['long', 'short']
-        first = s.value('first', '', type(""))
+        first = s.value('first', '', str)
         self.firstSystem.setCurrentIndex(allow.index(first) if first in allow else 0)
         allow = ['long', 'short', 'none']
-        other = s.value('other', '', type(""))
+        other = s.value('other', '', str)
         self.otherSystems.setCurrentIndex(allow.index(other) if other in allow else 2)
-        language = s.value('language', '', type(""))
+        language = s.value('language', '', str)
         self.language.setCurrentIndex(self._langs.index(language) if language in self._langs else 0)
     
     def saveSettings(self):

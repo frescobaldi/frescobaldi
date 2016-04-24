@@ -271,7 +271,7 @@ class SessionEditor(QDialog):
     def load(self, name):
         settings = sessions.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True, bool))
-        self.basedir.setPath(settings.value("basedir", "", type("")))
+        self.basedir.setPath(settings.value("basedir", "", str))
         self.include.setValue(qsettings.get_string_list(settings, "include-path"))
         self.inclPaths.setChecked(settings.value("set-paths", False, bool))
         self.replPaths.setChecked(settings.value("repl-paths", False, bool))

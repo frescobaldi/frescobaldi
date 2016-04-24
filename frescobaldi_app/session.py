@@ -77,7 +77,7 @@ def restoreSession(key):
     """Restore a session specified by key, previously saved by the session manager."""
     settings = sessionSettings(key)
     ## restore current named session name
-    session_name = settings.value('session_name', "", type(""))
+    session_name = settings.value('session_name', "", str)
     if session_name:
         import sessions
         sessions.setCurrentSession(session_name)

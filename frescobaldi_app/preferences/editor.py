@@ -427,17 +427,17 @@ class TypographicalQuotes(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("typographical_quotes")
-        lang = s.value("language", "current", type(""))
+        lang = s.value("language", "current", str)
         try:
             index = self._langs.index(lang)
         except ValueError:
             index = 0
         self.languageCombo.setCurrentIndex(index)
         default = lasptyqu.default()
-        self.primaryLeft.setText(s.value("primary_left", default.primary.left, type("")))
-        self.primaryRight.setText(s.value("primary_right", default.primary.right, type("")))
-        self.secondaryLeft.setText(s.value("secondary_left", default.secondary.left, type("")))
-        self.secondaryRight.setText(s.value("secondary_right", default.secondary.right, type("")))
+        self.primaryLeft.setText(s.value("primary_left", default.primary.left, str))
+        self.primaryRight.setText(s.value("primary_right", default.primary.right, str))
+        self.secondaryLeft.setText(s.value("secondary_left", default.secondary.left, str))
+        self.secondaryRight.setText(s.value("secondary_right", default.secondary.right, str))
 
     def saveSettings(self):
         s = QSettings()

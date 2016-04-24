@@ -80,7 +80,7 @@ def current():
     is desired.
     
     """
-    return QSettings().value("language", "", type("")) or default() or "C"
+    return QSettings().value("language", "", str) or default() or "C"
 
 def _setup():
     """Set application language according to settings."""

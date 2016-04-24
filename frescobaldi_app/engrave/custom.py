@@ -119,7 +119,7 @@ class Dialog(QDialog):
         self.deleteCheck.setChecked(
             s.value("delete_intermediate_files", True, bool))
         
-        if s.value("default_output_target", "pdf", type("")) == "svg":
+        if s.value("default_output_target", "pdf", str) == "svg":
             self.outputCombo.setCurrentIndex(3)
         
         app.jobFinished.connect(self.slotJobFinished)

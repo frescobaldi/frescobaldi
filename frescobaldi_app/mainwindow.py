@@ -378,7 +378,7 @@ class MainWindow(QMainWindow):
         preserve stacking order, etc.
 
         """
-        name = settings.value('name', '', type(""))
+        name = settings.value('name', '', str)
         if name:
             self.setObjectName(name)
         self.restoreGeometry(settings.value('geometry', QByteArray(), QByteArray))
@@ -479,8 +479,8 @@ class MainWindow(QMainWindow):
         d = document.Document()
         self.setCurrentDocument(d)
         s = QSettings()
-        ndoc = s.value("new_document", "empty", type(""))
-        template = s.value("new_document_template", "", type(""))
+        ndoc = s.value("new_document", "empty", str)
+        template = s.value("new_document_template", "", str)
         if ndoc == "template" and template:
             from snippet import snippets, insert
             if snippets.text(template):

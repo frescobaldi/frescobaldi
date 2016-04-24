@@ -94,7 +94,7 @@ class Versions(preferences.Group):
     def loadSettings(self):
         s = settings()
         default = lilypondinfo.default()
-        self._defaultCommand = s.value("default", default.command, type(""))
+        self._defaultCommand = s.value("default", default.command, str)
         self.auto.setChecked(s.value("autoversion", False, bool))
         infos = sorted(lilypondinfo.infos(), key=lambda i: i.version())
         if not infos:
@@ -384,7 +384,7 @@ class Target(preferences.Group):
     
     def loadSettings(self):
         s = settings()
-        target = s.value("default_output_target", "pdf", type(""))
+        target = s.value("default_output_target", "pdf", str)
         if target == "svg":
             self.targetSVG.setChecked(True)
             self.targetPDF.setChecked(False)

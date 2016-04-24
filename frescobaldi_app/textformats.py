@@ -40,7 +40,7 @@ import ly.colorize
 def formatData(format_type):
     """Return a TextFormatData instance of type 'editor' or 'printer'."""
     if _currentData[format_type] is None:
-        _currentData[format_type] = TextFormatData(QSettings().value('{0}_scheme'.format(format_type), 'default', type("")))
+        _currentData[format_type] = TextFormatData(QSettings().value('{0}_scheme'.format(format_type), 'default', str))
     return _currentData[format_type]
 
 def _resetFormatData():
@@ -72,14 +72,14 @@ class TextFormatData(object):
         
         # load font
         defaultfont = "Lucida Console" if os.name == "nt" else "monospace"
-        self.font = QFont(s.value("fontfamily", defaultfont, type("")))
+        self.font = QFont(s.value("fontfamily", defaultfont, str))
         self.font.setPointSizeF(s.value("fontsize", 10.0, float))
         
         # load base colors
         s.beginGroup("basecolors")
         for name in baseColors:
             if s.contains(name):
-                self.baseColors[name] = QColor(s.value(name, "", type("")))
+                self.baseColors[name] = QColor(s.value(name, "", str))
             else:
                 self.baseColors[name] = baseColorDefaults[name]()
         s.endGroup()
@@ -226,11 +226,11 @@ class TextFormatData(object):
         if settings.contains('underline'):
             fmt.setFontUnderline(settings.value('underline', False, bool))
         if settings.contains('textColor'):
-            fmt.setForeground(QColor(settings.value('textColor', '' , type(""))))
+            fmt.setForeground(QColor(settings.value('textColor', '' , str)))
         if settings.contains('backgroundColor'):
-            fmt.setBackground(QColor(settings.value('backgroundColor', '' , type(""))))
+            fmt.setBackground(QColor(settings.value('backgroundColor', '' , str)))
         if settings.contains('underlineColor'):
-            fmt.setUnderlineColor(QColor(settings.value('underlineColor', '' , type(""))))
+            fmt.setUnderlineColor(QColor(settings.value('underlineColor', '' , str)))
 
 
 def css2fmt(d, f=None):

@@ -68,7 +68,7 @@ def defaultJob(document, args=None):
         # publish mode
         command.append('-dno-point-and-click')
     
-    if s.value("default_output_target", "pdf", type("")) == "svg":
+    if s.value("default_output_target", "pdf", str) == "svg":
         # engrave to SVG
         command.append('-dbackend=svg')
     else:

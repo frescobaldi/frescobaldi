@@ -102,7 +102,7 @@ def preferred():
     s.beginGroup("lilypond_settings")
     # find default version
     defaultCommand = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
-    userDefault = s.value("default", defaultCommand, type(""))
+    userDefault = s.value("default", defaultCommand, str)
     if userDefault != defaultCommand:
         for info in infos_:
             if info.command == userDefault:
@@ -351,17 +351,17 @@ class LilyPondInfo(object):
         May return None, if the command is not existing.
         
         """
-        cmd = settings.value("command", "", type(""))
+        cmd = settings.value("command", "", str)
         if cmd:
             info = cls(cmd)
             if info.abscommand.wait():
                 info.auto = settings.value("auto", True, bool)
-                info.name = settings.value("name", "LilyPond", type(""))
+                info.name = settings.value("name", "LilyPond", str)
                 for name in cls.ly_tool_names:
-                    info.set_ly_tool(name, settings.value(name, name, type("")))
+                    info.set_ly_tool(name, settings.value(name, name, str))
                 if int(os.path.getmtime(info.abscommand())) == int(settings.value("mtime", 0, float)):
-                    info.versionString = settings.value("version", "", type(""))
-                    datadir = settings.value("datadir", "", type(""))
+                    info.versionString = settings.value("version", "", str)
+                    datadir = settings.value("datadir", "", str)
                     if datadir and os.path.isdir(datadir):
                         info.datadir = datadir
                 return info

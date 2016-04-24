@@ -103,7 +103,7 @@ class ActionCollectionBase(object):
     def settingsGroup(self):
         """Returns settings group to load/save shortcuts from or to."""
         s = QSettings()
-        scheme = s.value("shortcut_scheme", "default", type(""))
+        scheme = s.value("shortcut_scheme", "default", str)
         s.beginGroup("shortcuts/{0}/{1}".format(scheme, self.name))
         return s
         

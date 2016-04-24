@@ -201,10 +201,10 @@ def basedir():
     import sessions
     conf = sessions.currentSessionGroup()
     if conf:
-        basedir = conf.value("basedir", "", type(""))
+        basedir = conf.value("basedir", "", str)
         if basedir:
             return basedir
-    return QSettings().value("basedir", "", type(""))
+    return QSettings().value("basedir", "", str)
 
 def settings(name):
     """Returns a QSettings object referring a file in ~/.config/frescobaldi/"""

@@ -98,13 +98,13 @@ class General(preferences.Group):
     
     def loadSettings(self):
         s = QSettings()
-        lang = s.value("language", "", type(""))
+        lang = s.value("language", "", str)
         try:
             index = self._langs.index(lang)
         except ValueError:
             index = 1
         self.lang.setCurrentIndex(index)
-        style = s.value("guistyle", "", type("")).lower()
+        style = s.value("guistyle", "", str).lower()
         styles = [name.lower() for name in QStyleFactory.keys()]
         try:
             index = styles.index(style) + 1
@@ -180,7 +180,7 @@ class StartSession(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("session")
-        startup = s.value("startup", "none", type(""))
+        startup = s.value("startup", "none", str)
         if startup ==  "lastused":
             self.lastused.setChecked(True)
         elif startup == "custom":
@@ -190,7 +190,7 @@ class StartSession(preferences.Group):
         sessionNames = sessions.sessionNames()
         self.combo.clear()
         self.combo.addItems(sessionNames)
-        custom = s.value("custom", "", type(""))
+        custom = s.value("custom", "", str)
         if custom in sessionNames:
             self.combo.setCurrentIndex(sessionNames.index(custom))
 
@@ -251,7 +251,7 @@ class SavingDocument(preferences.Group):
         self.stripwsp.setChecked(s.value("strip_trailing_whitespace", False, bool))
         self.backup.setChecked(s.value("backup_keep", False, bool))
         self.metainfo.setChecked(s.value("metainfo", True, bool))
-        self.basedir.setPath(s.value("basedir", "", type("")))
+        self.basedir.setPath(s.value("basedir", "", str))
         
     def saveSettings(self):
         s = QSettings()
@@ -302,8 +302,8 @@ class NewDocument(preferences.Group):
         
     def loadSettings(self):
         s = QSettings()
-        ndoc = s.value("new_document", "empty", type(""))
-        template = s.value("new_document_template", "", type(""))
+        ndoc = s.value("new_document", "empty", str)
+        template = s.value("new_document_template", "", str)
         if template in self._names:
             self.combo.setCurrentIndex(self._names.index(template))
         if ndoc == "template":

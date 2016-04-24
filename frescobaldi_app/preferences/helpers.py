@@ -100,7 +100,7 @@ class Apps(preferences.Group):
         s = QSettings()
         s.beginGroup("helper_applications")
         for name, title in self.items():
-            self.entries[name].setPath(s.value(name, "", type("")))
+            self.entries[name].setPath(s.value(name, "", str))
     
     def saveSettings(self):
         s= QSettings()
@@ -163,7 +163,7 @@ class Printing(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("helper_applications")
-        self.printCommand.setPath(s.value("printcommand", "", type("")))
+        self.printCommand.setPath(s.value("printcommand", "", str))
         self.printDialogCheck.setChecked(s.value("printcommand/dialog", False, bool))
         with qutil.signalsBlocked(self.resolution):
             self.resolution.setEditText(format(s.value("printcommand/dpi", 300, int)))
