@@ -22,11 +22,6 @@ A dialog to view LilyPond source.
 """
 
 
-try:
-    str = unicode
-except NameError:
-    pass
-
 from PyQt5.QtCore import QSettings, QSize, Qt
 from PyQt5.QtWidgets import QDialog, QLabel, QSizePolicy, QTextBrowser, QVBoxLayout
 

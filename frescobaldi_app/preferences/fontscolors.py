@@ -30,11 +30,6 @@ from PyQt5.QtWidgets import (QApplication, QCheckBox, QDoubleSpinBox,
                              QHBoxLayout, QLabel, QMessageBox, QStackedWidget,
                              QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
-try:
-    str = unicode
-except NameError:
-    pass
-
 import app
 import icons
 import preferences

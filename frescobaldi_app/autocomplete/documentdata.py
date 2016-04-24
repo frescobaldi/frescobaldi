@@ -22,11 +22,6 @@ Completions data harvested from a Document.
 """
 
 
-try:
-    str = unicode
-except NameError:
-    pass
-
 import itertools
 import os
 

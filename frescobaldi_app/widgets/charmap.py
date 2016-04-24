@@ -25,12 +25,6 @@ When a character is clicked, a signal is emitted.
 """
 
 
-try:
-    chr = unichr
-    str = unicode
-except NameError:
-    pass
-
 import unicodedata
 
 from PyQt5.QtCore import pyqtSignal, QEvent, QRect, QSize, Qt
