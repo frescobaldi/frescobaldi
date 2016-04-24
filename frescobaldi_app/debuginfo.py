@@ -23,6 +23,8 @@ Provides version information of important supporting modules.
 
 
 import functools
+import sys
+import os
 
 import appinfo
 
@@ -83,6 +85,18 @@ def python_poppler_version():
     import popplerqt5
     return '.'.join(format(n) for n in popplerqt5.version())
 
+if sys.platform.startswith('darwin'):
+    @_catch_unknown
+    def mac_installation_kind():
+        import macosx
+        if macosx.inside_app_bundle():
+            if os.path.islink(os.getcwd() + '/../MacOS/python'):
+                return 'lightweight app bundle'
+            else:
+                return 'standalone app bundle'
+        else:
+            return 'command line'
+
 
 def version_info_named():
     """Yield all the relevant names and their version string."""
@@ -95,6 +109,8 @@ def version_info_named():
     yield "poppler", poppler_version()
     yield "python-poppler-qt", python_poppler_version()
     yield "OS", operating_system()
+    if sys.platform.startswith('darwin'):
+        yield "installation kind", mac_installation_kind()
 
 
 def version_info_string(separator='\n'):
