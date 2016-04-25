@@ -22,11 +22,7 @@ Builtin snippets.
 """
 
 
-try:
-    import builtins # py3
-except ImportError:
-    import __builtin__ as builtins # py2
-
+import builtins
 import collections
 
 # postpone translation

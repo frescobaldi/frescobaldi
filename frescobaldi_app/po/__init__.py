@@ -21,11 +21,7 @@
 Internationalization of Frescobaldi.
 """
 
-try:
-    import builtins # py3
-except ImportError:
-    import __builtin__ as builtins # py2
-
+import builtins
 import os
 
 from . import mofile

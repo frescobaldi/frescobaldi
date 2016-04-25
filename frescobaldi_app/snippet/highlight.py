@@ -22,11 +22,7 @@ Highlighter for the snippet editor and view.
 """
 
 
-try:
-    import builtins # py3
-except ImportError:
-    import __builtin__ as builtins # py2
-
+import builtins
 import keyword
 
 from PyQt5.QtGui import QSyntaxHighlighter

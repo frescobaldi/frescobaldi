@@ -22,10 +22,7 @@ Frescobaldi main menu.
 """
 
 
-try:
-    import builtins # py3
-except ImportError:
-    import __builtin__ as builtins # py2
+import builtins
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import QMenu
