@@ -503,8 +503,6 @@ class Tree(Output):
         def __bool__(self):
             return True
         
-        __nonzero__ = __bool__      # py2 compat
-        
         def __repr__(self):
             return '<Node "{0}" {1} [{2}]>'.format(self.name, self.args, len(self))
 

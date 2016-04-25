@@ -56,8 +56,6 @@ class MidiFiles(plugin.DocumentPlugin):
     def __bool__(self):
         return bool(self._files)
     
-    __nonzero__ = __bool__      # py2 compat
-    
     def song(self, index):
         if self._files is None:
             self.update()

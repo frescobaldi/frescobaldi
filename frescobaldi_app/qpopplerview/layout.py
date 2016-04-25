@@ -103,8 +103,6 @@ class AbstractLayout(QObject):
     def __bool__(self):
         return True
     
-    __nonzero__ = __bool__      # py2 compat
-    
     def __contains__(self, page):
         return page in self._pages
     
