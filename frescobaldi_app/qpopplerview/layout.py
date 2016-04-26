@@ -367,6 +367,7 @@ class RowLayout(AbstractLayout):
         super(RowLayout, self).__init__()
         self._npages = 2
         self._npages_first = 1
+        self._fit_width_uses_all_columns = True
     
     def setPagesPerRow(self, n):
         """Set the number of pages to show per row."""
@@ -384,6 +385,32 @@ class RowLayout(AbstractLayout):
         """Return the number of pages to show in the first row."""
         return self._npages_first
     
+    def setFitWidthUsesAllColumns(self, allcols):
+        """Set "Fit Width uses all columns" to True or False.
+        
+        If True, the FitWidth view mode tries to display all columns in the
+        requested width. If False, the widest Page determines the used scale.
+        
+        The default setting is True.
+        
+        """
+        self._fit_width_uses_all_columns = allcols
+    
+    def fitFitWidthUsesAllColumns(self):
+        """Return whether the Fit Width view mode displays all columns in the
+        requested width.
+        
+        """
+        return self._fit_width_uses_all_columns
+    
+    def scaleFitWidth(self, width):
+        """Reimplemented to respect the fitFitWidthUsesAllColumns() setting."""
+        width -= self.margin() * 2
+        if self._fit_width_uses_all_columns:
+            ncols = self._npages
+            width = (width - self.spacing() * (ncols - 1)) / ncols
+        return self.widest().scaleForWidth(width)
+        
     def reLayout(self):
         pages = list(self.pages())
         cols = self._npages
