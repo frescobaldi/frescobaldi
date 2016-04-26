@@ -221,11 +221,29 @@ class AbstractLayout(QObject):
         if mode and any(self.pages()):
             scales = []
             if mode & FitWidth:
-                scales.append(self.widest().scaleForWidth(size.width() - self.margin() * 2))
+                scales.append(self.scaleFitWidth(size.width()))
             if mode & FitHeight:
-                scales.append(self.highest().scaleForHeight(size.height() - self.margin() * 2))
+                scales.append(self.scaleFitHeight(size.height()))
             self.setScale(min(scales))
+    
+    def scaleFitHeight(self, height):
+        """Return the scale this layout would need to fit in the height.
         
+        This method is called by fit().
+        The default implementation returns a suitable scale for the highest Page.
+        
+        """
+        return self.highest().scaleForHeight(height - self.margin() * 2)
+    
+    def scaleFitWidth(self, width):
+        """Return the scale this layout would need to fit in the width.
+        
+        This method is called by fit().
+        The default implementation returns a suitable scale for the widest Page.
+        
+        """
+        return self.widest().scaleForWidth(width - self.margin() * 2)
+            
     def update(self):
         """Performs the layout (positions the Pages and adjusts our size)."""
         self.reLayout()
