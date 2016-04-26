@@ -247,6 +247,7 @@ def menu_music(mainwindow):
     m.addAction(ac.music_two_pages_first_left)
     m.addSeparator()
     m.addAction(ac.music_copy_image)
+    m.addAction(ac.music_copy_text)
     m.addSeparator()
     m.addAction(ac.music_jump_to_cursor)
     m.addAction(ac.music_sync_cursor)
