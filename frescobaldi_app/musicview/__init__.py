@@ -105,6 +105,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
         ac.music_copy_image.triggered.connect(self.copyImage)
+        ac.music_copy_text.triggered.connect(self.copyText)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
@@ -151,6 +152,7 @@ class MusicViewPanel(panel.Panel):
     
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
+        self.actionCollection.music_copy_text.setEnabled(bool(rect))
     
     def updatePagerLanguage(self):
         self.actionCollection.music_pager.setPageCount(self._pager.pageCount())
@@ -275,6 +277,11 @@ class MusicViewPanel(panel.Panel):
         import copy2image
         copy2image.copy_image(self, page, rect, documents.filename(page.document()))
         
+    def copyText(self):
+        text = self.widget().view.surface().selectedText()
+        if text:
+            QApplication.clipboard().setText(text)
+    
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
         self.activate()
@@ -312,6 +319,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_jump_to_cursor = QAction(panel)
         self.music_sync_cursor = QAction(panel, checkable=True)
         self.music_copy_image = QAction(panel)
+        self.music_copy_text = QAction(panel)
         self.music_pager = PagerAction(panel)
         self.music_next_page = QAction(panel)
         self.music_prev_page = QAction(panel)
@@ -327,6 +335,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_maximize.setIcon(icons.get('view-fullscreen'))
         self.music_jump_to_cursor.setIcon(icons.get('go-jump'))
         self.music_copy_image.setIcon(icons.get('edit-copy'))
+        self.music_copy_text.setIcon(icons.get('edit-copy'))
         self.music_next_page.setIcon(icons.get('go-next'))
         self.music_prev_page.setIcon(icons.get('go-previous'))
         
@@ -355,6 +364,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
         self.music_copy_image.setText(_("Copy to &Image..."))
+        self.music_copy_text.setText(_("Copy Selected &Text"))
         self.music_next_page.setText(_("Next Page"))
         self.music_next_page.setIconText(_("Next"))
         self.music_prev_page.setText(_("Previous Page"))
