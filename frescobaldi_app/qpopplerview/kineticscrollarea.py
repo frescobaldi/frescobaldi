@@ -330,16 +330,7 @@ class KineticScrollArea(QScrollArea):
     def wheelEvent(self, ev):
         """Kinetic wheel movements, if enabled."""
         if self._kineticScrollingEnabled:
-            try:
-                ev.delta
-            except AttributeError:
-                self.kineticAddDelta(ev.angleDelta())
-            else:
-                if ev.orientation() == Qt.Vertical:
-                    d = QPoint(0, ev.delta())
-                else:
-                    d = QPoint(ev.delta(), 0)
-                self.kineticAddDelta(d)
+            self.kineticAddDelta(ev.angleDelta())
         else:
             super(KineticScrollArea, self).wheelEvent(ev)
 
