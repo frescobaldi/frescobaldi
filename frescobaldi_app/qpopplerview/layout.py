@@ -409,8 +409,8 @@ class RowLayout(AbstractLayout):
         """Reimplemented to respect the fitFitWidthUsesAllColumns() setting."""
         width -= self.margin() * 2
         if self._fit_width_uses_all_columns:
-            ncols = self._npages
-            width = (width - self.spacing() * (ncols - 1)) / ncols
+            ncols = min(self._npages, self.count())
+            width = (width - self.spacing() * (ncols - 1)) // ncols
         return self.widest().scaleForWidth(width)
         
     def reLayout(self):
