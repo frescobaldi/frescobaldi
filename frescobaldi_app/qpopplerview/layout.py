@@ -22,6 +22,8 @@
 Manages and positions a group of Page instances.
 """
 
+from __future__ import division
+
 import weakref
 
 from PyQt4.QtCore import QObject, QPoint, QRect, QSize, Qt, pyqtSignal
