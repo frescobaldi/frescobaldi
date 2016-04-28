@@ -23,10 +23,10 @@ Constant values.
 
 
 # rotation:
-#Rotate_0   = 0
-#Rotate_90  = 1
-#Rotate_180 = 2
-#Rotate_270 = 3
+Rotate_0   = 0
+Rotate_90  = 1
+Rotate_180 = 2
+Rotate_270 = 3
 
 
 # viewModes:

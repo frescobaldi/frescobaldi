@@ -22,15 +22,19 @@
 Manages and positions a group of Page instances.
 """
 
-import weakref
 
-from PyQt5.QtCore import QPointF
+from PyQt5.QtCore import QPoint, QPointF, QRect, QSize
 
 from .constants import (
     FixedScale,
     FitWidth,
     FitHeight,
     FitBoth,
+
+    Rotate_0,
+    Rotate_90,
+    Rotate_180,
+    Rotate_270,
 )
 
 
@@ -47,6 +51,7 @@ class AbstractPageLayout:
         self._spacing = 8
         self._scale = QPointF(1.0, 1.0)
         self._dpi = QPointF(72, 72)
+        self._rotation = Rotate_0
         
     def append(self, page):
         self._pages.append(page)
@@ -94,7 +99,7 @@ class AbstractPageLayout:
         return self._pages.index(page)
         
     def setSize(self, size):
-        """Set our size. Mainly done after layout."""
+        """Set our size. Normally done after layout by computeSize()."""
         self._size = size
         
     def size(self):
@@ -141,6 +146,14 @@ class AbstractPageLayout:
         """Return our scale (QPointF)."""
         return self._scale
     
+    def setRotation(self, rotation):
+        """Set the rotation (see .constants) of this layout."""
+        self._rotation = rotation
+    
+    def rotation(self):
+        """Return the rotation of this layout."""
+        return self._rotation
+    
     def pageAt(self, point):
         """Returns the page that contains the given QPoint."""
         # Specific layouts may use faster algorithms to find the page.
@@ -160,23 +173,50 @@ class AbstractPageLayout:
         Finally set our own size.
         
         You should call this after having added or deleted pages or after
-        having changed the scale.
+        having changed the scale, dpi, spacing or margins.
+        
+        This function returns True if the total size has changed.
         
         """
+        self.updatePageSizes()
+        self.updatePagePositions()
+        return self.computeSize()
+    
+    def updatePageSizes(self):
+        """Computes the correct size of every Page."""
         for page in self:
             page.computeSize(self)
-        self.reLayout()
 
-    def reLayout(self):
-        """You should implement this method to perform the layout.
+    def updatePagePositions(self):
+        """Determines the position of every Page. 
         
-        This means setting the position of all the pages and setting
-        our own size.
-        
-        If you also want to recompute the size of all pages, reimplement
-        the update() method.
+        You should implement this method to perform a meaningful layout, which 
+        means setting the position of all the pages. This positions should 
+        respect the margin (and preferably also the spacing).
         
         """
-        pass
+        top = self._margin
+        for page in self:
+            page.setPos(QPoint(self._margin, top))
+            top += page.height()
+            top += self._spacing
+    
+    def computeSize(self):
+        """Computes and sets the total size of the layout.
+        
+        In most cases the implementation of this method is sufficient: it
+        computes the bounding rectangle of all Pages and adds the margin.
+        
+        True is returned if the total size has changed.
+        
+        """
+        r = QRect()
+        for page in self:
+            r |= page.rect()
+        m = self._margin
+        size = r.adjusted(-m, -m, m, m).size()
+        changed = self._size != size
+        self.setSize(size)
+        return changed
 
 

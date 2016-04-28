@@ -25,7 +25,12 @@ A Page is responsible for drawing a page inside a PageLayout.
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF
 
 
-from .constants import *
+from .constants import (
+    Rotate_0,
+    Rotate_90,
+    Rotate_180,
+    Rotate_270,
+)
 
 
 class AbstractPage:
@@ -33,6 +38,7 @@ class AbstractPage:
         self._rect = QRect()
         self._pageSize = QSizeF()
         self._scale = QPointF(1.0, 1.0)
+        self._rotation = Rotate_0
         self._layout = lambda: None
     
     def layout(self):
@@ -97,16 +103,29 @@ class AbstractPage:
         to be in points, 1/72 of an inch.
         
         """
-        return self._pageSize()
+        return self._pageSize
 
+    def setRotation(self, rotation):
+        """Set the rotation (see .constants) of this page."""
+        self._rotation = rotation
+    
+    def rotation(self):
+        """Return the rotation of this page."""
+        return self._rotation
+    
     def computeSize(self, layout):
         """Compute and set the size() of the page.
         
         The default implementation takes into account the DPI of the layout,
-        the scale of the layout and the scale of the page.
+        the scale and rotation of the layout and the scale and rotation of the
+        page.
         
         """
-        size = self.pageSizeF() * layout.dpi() / 72.0 * layout.scale() * self_.scale
+        w = self.pageSizeF().width() * layout.dpi().x() / 72.0 * layout.scale().x() * self._scale.x()
+        h = self.pageSizeF().height() * layout.dpi().y() / 72.0 * layout.scale().y() * self._scale.y()
+        size = QSize(w, h)
+        if (self.rotation() + layout.rotation()) & 1:
+            size.transpose()
         self.setSize(size)
 
 
