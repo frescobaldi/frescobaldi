@@ -49,6 +49,7 @@ class AbstractPageLayout:
         self._size = QSize()
         self._margin = 4
         self._spacing = 8
+        self._zoomFactor = 1.0
         self._scale = QPointF(1.0, 1.0)
         self._dpi = QPointF(72, 72)
         self._rotation = Rotate_0
@@ -137,9 +138,22 @@ class AbstractPageLayout:
     def dpi(self):
         """Return our DPI as a QPointF(XDPI, YDPI)."""
         return self._dpi
-        
+    
+    def setZoomFactor(self, zoom):
+        """Set the zoom factor to enlarge or shrink the pages."""
+        self._zoomFactor = zoom
+    
+    def zoomFactor(self):
+        """Return the zoom factor (1.0 by default)."""
+        return self._zoomFactor
+    
     def setScale(self, scale):
-        """Set our scale (QPointF)."""
+        """Set our scale (QPointF). 
+        
+        Normally you'd leave the scale at QPointF(1.0, 1.0), but you can use
+        it to support displays with non-square pixels, etc.
+        
+        """
         self._scale = scale
     
     def scale(self):
@@ -168,12 +182,70 @@ class AbstractPageLayout:
             if page.rect().intersects(rect):
                 yield page
     
+    def widestPage(self):
+        """Return the widest page, if any.
+        
+        Uses the page's natural width and its scale in X-direction.
+        
+        """
+        if self.count():
+            def key(page):
+                psize = page.pageSizeF()
+                if (page.orientation() + self.orientation()) & 1:
+                    return psize.height() * page.scale().y()
+                else:
+                    return psize.width() * page.scale().x()
+            return max(self, key=key)
+    
+    def highestPage(self):
+        """Return the highest page, if any.
+        
+        Uses the page's natural height and its scals in Y-direction.
+        
+        """
+        if self.count():
+            def key(page):
+                psize = page.pageSizeF()
+                if (page.orientation() + self.orientation()) & 1:
+                    return psize.width() * page.scale().x()
+                else:
+                    return psize.height() * page.scale().y()
+            return max(self, key=key)
+    
+    def fit(self, size, mode):
+        """Fits the layout in the given ViewMode."""
+        if mode and self._pages:
+            zoomfactors = []
+            if mode & FitWidth:
+                zoomfactors.append(self.zoomFitWidth(size.width()))
+            if mode & FitHeight:
+                zoomfactors.append(self.zoomFitHeight(size.height()))
+            self.setZoomFactor(min(zoomfactors))
+    
+    def zoomFitWidth(self, width):
+        """Return the zoom factor this layout would need to fit in the width.
+        
+        This method is called by fit(). The default implementation returns a 
+        suitable zoom factor for the widest Page.
+        
+        """
+        return self.widestPage().zoomForWidth(self, width - self.margin() * 2)
+    
+    def zoomFitHeight(self, height):
+        """Return the zoom factor this layout would need to fit in the height.
+        
+        This method is called by fit(). The default implementation returns a 
+        suitable zoom factor for the highest Page.
+        
+        """
+        return self.highestPage().zoomForHeight(self, height - self.margin() * 2)
+    
     def update(self):
-        """Computes the size of all pages and updates their positions.
+        """Compute the size of all pages and updates their positions.
         Finally set our own size.
         
         You should call this after having added or deleted pages or after
-        having changed the scale, dpi, spacing or margins.
+        having changed the scale, dpi, zoom factor, spacing or margins.
         
         This function returns True if the total size has changed.
         
@@ -183,12 +255,12 @@ class AbstractPageLayout:
         return self.computeSize()
     
     def updatePageSizes(self):
-        """Computes the correct size of every Page."""
+        """Compute the correct size of every Page."""
         for page in self:
             page.computeSize(self)
 
     def updatePagePositions(self):
-        """Determines the position of every Page. 
+        """Determine the position of every Page. 
         
         You should implement this method to perform a meaningful layout, which 
         means setting the position of all the pages. This positions should 
@@ -202,7 +274,7 @@ class AbstractPageLayout:
             top += self._spacing
     
     def computeSize(self):
-        """Computes and sets the total size of the layout.
+        """Compute and set the total size of the layout.
         
         In most cases the implementation of this method is sufficient: it
         computes the bounding rectangle of all Pages and adds the margin.
@@ -218,5 +290,36 @@ class AbstractPageLayout:
         changed = self._size != size
         self.setSize(size)
         return changed
+
+
+
+class PageLayout(AbstractPageLayout):
+    """A basic layout that shows pages from right to left or top to bottom."""
+    def __init__(self):
+        super(Layout, self).__init__()
+        self._orientation = Qt.Vertical
+        
+    def setOrientation(self, orientation):
+        """Set our orientation to either Qt.Vertical or Qt.Horizontal."""
+        self._orientation = orientation
+        
+    def orientation(self):
+        """Return our orientation (either Qt.Vertical or Qt.Horizontal)."""
+        return self._orientation
+    
+    def updatePagePositions(self):
+        """Order our pages."""
+        if self._orientation == Qt.Vertical:
+            width = max((p.width() for p in self), default=0) + self._margin * 2
+            top = self._margin
+            for page in self:
+                page.setPos(QPoint((width - page.width()) / 2, top))
+                top += page.height() + self._spacing
+        else:
+            height = max((p.height() for p in self), default=0) + self._margin * 2
+            left = self._margin
+            for page in self:
+                page.setPos(QPoint(left, (height - page.height()) / 2))
+                left += page.width() + self._spacing
 
 

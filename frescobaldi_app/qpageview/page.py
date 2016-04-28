@@ -74,7 +74,14 @@ class AbstractPage:
         self._rect.setSize(size)
 
     def setScale(self, scale):
-        """Change the display scale (QPointF)."""
+        """Set our scale (QPointF). 
+        
+        Normally you'd leave the scale at QPointF(1.0, 1.0), but you can use
+        it to support pages with non-square pixels, etc.
+        
+        In all size computations, the scaling is applied *before* the rotation.
+        
+        """
         self._scale = scale
         
     def scale(self):
@@ -116,17 +123,35 @@ class AbstractPage:
     def computeSize(self, layout):
         """Compute and set the size() of the page.
         
-        The default implementation takes into account the DPI of the layout,
-        the scale and rotation of the layout and the scale and rotation of the
-        page.
+        The default implementation takes into account the DPI of the layout, 
+        the zoomfactor, scale and rotation of the layout and the scale and 
+        rotation of the page.
         
         """
-        w = self.pageSizeF().width() * layout.dpi().x() / 72.0 * layout.scale().x() * self._scale.x()
-        h = self.pageSizeF().height() * layout.dpi().y() / 72.0 * layout.scale().y() * self._scale.y()
+        w = self.pageSizeF().width() * layout.dpi().x() / 72.0 
+        w = w * layout.scale().x() * self._scale.x() * layout.zoomFactor()
+        h = self.pageSizeF().height() * layout.dpi().y() / 72.0
+        h = h * layout.scale().y() * self._scale.y() * layout.zoomFactor()
         size = QSize(w, h)
         if (self.rotation() + layout.rotation()) & 1:
             size.transpose()
         self.setSize(size)
+
+    def zoomForWidth(self, layout, width):
+        """Return the zoom we need to display ourselves at the given width."""
+        psize = QSizeF(self._pageSize)
+        if (self.rotation() + layout.rotation()) & 1:
+            psize.transpose()
+        s = width * 72.0 / layout.dpi().x() / psize.width()
+        return s / layout.scale().x() / self._scale.x()
+        
+    def zoomForHeight(self, layout, height):
+        """Return the zoom we need to display ourselves at the given height."""
+        psize = QSizeF(self._pageSize)
+        if (self.rotation() + layout.rotation()) & 1:
+            psize.transpose()
+        s = height * 72.0 / layout.dpi().y() / psize.height()
+        return s / layout.scale().y() / self._scale.y()
 
 
 
