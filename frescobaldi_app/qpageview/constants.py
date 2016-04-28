@@ -35,3 +35,8 @@ FitWidth   = 1
 FitHeight  = 2
 FitBoth    = FitHeight | FitWidth
 
+
+# orientation:
+Horizontal = 1
+Vertical   = 2
+

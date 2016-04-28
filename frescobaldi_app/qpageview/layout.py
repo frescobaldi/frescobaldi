@@ -35,6 +35,9 @@ from .constants import (
     Rotate_90,
     Rotate_180,
     Rotate_270,
+    
+    Horizontal,
+    Vertical,
 )
 
 
@@ -191,7 +194,7 @@ class AbstractPageLayout:
         if self.count():
             def key(page):
                 psize = page.pageSizeF()
-                if (page.orientation() + self.orientation()) & 1:
+                if (page.rotation() + self.rotation()) & 1:
                     return psize.height() * page.scale().y()
                 else:
                     return psize.width() * page.scale().x()
@@ -206,7 +209,7 @@ class AbstractPageLayout:
         if self.count():
             def key(page):
                 psize = page.pageSizeF()
-                if (page.orientation() + self.orientation()) & 1:
+                if (page.rotation() + self.rotation()) & 1:
                     return psize.width() * page.scale().x()
                 else:
                     return psize.height() * page.scale().y()
@@ -296,8 +299,8 @@ class AbstractPageLayout:
 class PageLayout(AbstractPageLayout):
     """A basic layout that shows pages from right to left or top to bottom."""
     def __init__(self):
-        super(Layout, self).__init__()
-        self._orientation = Qt.Vertical
+        super().__init__()
+        self._orientation = Vertical
         
     def setOrientation(self, orientation):
         """Set our orientation to either Qt.Vertical or Qt.Horizontal."""
@@ -309,7 +312,7 @@ class PageLayout(AbstractPageLayout):
     
     def updatePagePositions(self):
         """Order our pages."""
-        if self._orientation == Qt.Vertical:
+        if self._orientation == Vertical:
             width = max((p.width() for p in self), default=0) + self._margin * 2
             top = self._margin
             for page in self:
