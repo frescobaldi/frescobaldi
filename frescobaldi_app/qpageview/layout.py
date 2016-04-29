@@ -172,14 +172,14 @@ class AbstractPageLayout:
         return self._rotation
     
     def pageAt(self, point):
-        """Returns the page that contains the given QPoint."""
+        """Return the page that contains the given QPoint."""
         # Specific layouts may use faster algorithms to find the page.
         for page in self:
             if page.rect().contains(point):
                 return page
     
     def pagesAt(self, rect):
-        """Yields the pages touched by the given QRect."""
+        """Yield the pages touched by the given QRect."""
         # Specific layouts may use faster algorithms to find the pages.
         for page in self:
             if page.rect().intersects(rect):
@@ -303,11 +303,11 @@ class PageLayout(AbstractPageLayout):
         self._orientation = Vertical
         
     def setOrientation(self, orientation):
-        """Set our orientation to either Qt.Vertical or Qt.Horizontal."""
+        """Set our orientation to either Vertical or Horizontal."""
         self._orientation = orientation
         
     def orientation(self):
-        """Return our orientation (either Qt.Vertical or Qt.Horizontal)."""
+        """Return our orientation (either Vertical or Horizontal)."""
         return self._orientation
     
     def updatePagePositions(self):
