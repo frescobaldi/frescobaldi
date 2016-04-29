@@ -377,7 +377,7 @@ class RowPageLayout(AbstractPageLayout):
         return self.widestPage().zoomForWidth(self, width)
         
     def updatePagePositions(self):
-        """Reimplemented to perform our positioning algorythm."""
+        """Reimplemented to perform our positioning algorithm."""
         pages = list(self)
         cols = self._npages
         if len(pages) > cols:
