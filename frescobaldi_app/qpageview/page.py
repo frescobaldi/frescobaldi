@@ -22,8 +22,8 @@ A Page is responsible for drawing a page inside a PageLayout.
 
 """
 
-from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF
-
+from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
+from PyQt5.QtGui import QColor
 
 from .constants import (
     Rotate_0,
@@ -154,6 +154,9 @@ class AbstractPage:
         else:
             h = self._pageSize.height() / self._scale.y()
         return height * 72.0 / layout.dpi().y() / h / layout.scale().y()
-
+    
+    def paint(self, painter, layout_pos, ev_rect):
+        rect = self.rect().translated(layout_pos) & ev_rect
+        painter.fillRect(rect, QColor(Qt.white))
 
 

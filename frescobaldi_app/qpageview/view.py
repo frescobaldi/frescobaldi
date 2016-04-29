@@ -81,11 +81,18 @@ class View(QAbstractScrollArea):
         """Return the QRect of the page layout that is currently visible in the viewport."""
         return self.viewport().rect().translated(-self.layoutPosition())
     
+    def visiblePages(self):
+        """Yield the Page instances that are currently visible."""
+        return self._pageLayout.pagesAt(self.visibleRect())
+    
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
         self._updateScrollBars()
     
     def paintEvent(self, ev):
-        rect = self.visibleRect()
-        print (rect)
+        painter = QPainter(self.viewport())
+        pos = self.layoutPosition()
+        for p in self.visiblePages():
+            p.paint(painter, pos, ev.rect())
+
 
