@@ -22,8 +22,8 @@ The View, deriving from QAbstractScrollArea.
 """
 
 
-
-from PyQt5.QtGui import QPainter
+from PyQt5.QtCore import QPoint
+from PyQt5.QtGui import QPainter, QPalette
 from PyQt5.QtWidgets import QAbstractScrollArea
 
 
@@ -36,8 +36,7 @@ class View(QAbstractScrollArea):
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._pageLayout = layout.PageLayout()
-        self.horizontalScrollBar().valueChanged.connect(self.update)
-        self.verticalScrollBar().valueChanged.connect(self.update)        
+        self.viewport().setBackgroundRole(QPalette.Dark)
     
     def setPageLayout(self, layout):
         """Set our current PageLayout instance."""
@@ -50,9 +49,9 @@ class View(QAbstractScrollArea):
     def updatePageLayout(self):
         """Update layout and adjust scrollbars."""
         self._pageLayout.update()
-        self.updateScrollBars()
+        self._updateScrollBars()
     
-    def updateScrollBars(self):
+    def _updateScrollBars(self):
         """Adjust the range of the scrollbars to the layout."""
         height = self._pageLayout.height() - self.viewport().height()
         self.verticalScrollBar().setRange(0, height)
@@ -61,13 +60,32 @@ class View(QAbstractScrollArea):
         self.horizontalScrollBar().setRange(0, width)
         self.horizontalScrollBar().setPageStep(self.viewport().width())
     
+    def layoutPosition(self):
+        """Return the position of the PageLayout relative to the viewport.
+        
+        This is the top-left position of the layout, relative to the
+        top-left position of the viewport.
+        
+        If the layout is smaller than the viewport it is centered.
+        
+        """
+        lw = self._pageLayout.width()
+        vw = self.viewport().width()
+        left = -self.horizontalScrollBar().value() if lw > vw else (vw - lw) // 2
+        lh = self._pageLayout.height()
+        vh = self.viewport().height()
+        top = -self.verticalScrollBar().value() if lh > vh else (vh - lh) // 2
+        return QPoint(left, top)
+
+    def visibleRect(self):
+        """Return the QRect of the page layout that is currently visible in the viewport."""
+        return self.viewport().rect().translated(-self.layoutPosition())
+    
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
-        self.updateScrollBars()
+        self._updateScrollBars()
     
     def paintEvent(self, ev):
-        rect = self.viewport().rect().translated(
-            self.horizontalScrollBar().value(),
-            self.verticalScrollBar().value())
+        rect = self.visibleRect()
         print (rect)
 
