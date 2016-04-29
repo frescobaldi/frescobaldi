@@ -326,3 +326,83 @@ class PageLayout(AbstractPageLayout):
                 left += page.width() + self._spacing
 
 
+class RowPageLayout(AbstractPageLayout):
+    """A layout that orders pages in rows."""
+    def __init__(self):
+        super().__init__()
+        self._npages = 2
+        self._npages_first = 1
+        self._fit_width_uses_all_columns = True
+    
+    def setPagesPerRow(self, n):
+        """Set the number of pages to show per row."""
+        self._npages = n
+    
+    def pagesPerRow(self):
+        """Return the number of pages to show per row."""
+        return self._npages
+    
+    def setPagesFirstRow(self, n):
+        """Set the number of pages to show in the first row."""
+        self._npages_first = n
+    
+    def pagesFirstRow(self):
+        """Return the number of pages to show in the first row."""
+        return self._npages_first
+    
+    def setFitWidthUsesAllColumns(self, allcols):
+        """Set "Fit Width uses all columns" to True or False.
+        
+        If True, the FitWidth view mode tries to display all columns in the
+        requested width. If False, the widest Page determines the used zoom.
+        
+        The default setting is True.
+        
+        """
+        self._fit_width_uses_all_columns = allcols
+    
+    def fitFitWidthUsesAllColumns(self):
+        """Return whether the Fit Width view mode displays all columns in the
+        requested width.
+        
+        """
+        return self._fit_width_uses_all_columns
+    
+    def zoomFitWidth(self, width):
+        """Reimplemented to respect the fitFitWidthUsesAllColumns() setting."""
+        width -= self.margin() * 2
+        if self._fit_width_uses_all_columns:
+            ncols = min(self._npages, self.count())
+            width = (width - self.spacing() * (ncols - 1)) // ncols
+        return self.widestPage().zoomForWidth(self, width)
+        
+    def updatePagePositions(self):
+        """Reimplemented to perform our positioning algorythm."""
+        pages = list(self)
+        cols = self._npages
+        if len(pages) > cols:
+            ## prepend empty places if the first row should display less pages
+            pages[0:0] = [None] * ((cols - self._npages_first) % cols)
+        else:
+            cols = len(pages)
+        
+        col_widths = []
+        col_offsets = []
+        offset = self._margin
+        for col in range(cols):
+            width = max(p.width() for p in pages[col::cols] if p)
+            col_widths.append(width)
+            col_offsets.append(offset)
+            offset += width + self._spacing
+        
+        top = self._margin
+        for row in (pages[i:i + cols] for i in range(0, len(pages), cols or 1)):
+            height = max(p.height() for p in row if p)
+            for n, page in enumerate(row):
+                if page:
+                    x = col_offsets[n] + (col_widths[n] - page.width()) // 2
+                    y = top + (height - page.height()) // 2
+                    page.setPos(QPoint(x, y))
+            top += height + self._spacing
+
+
