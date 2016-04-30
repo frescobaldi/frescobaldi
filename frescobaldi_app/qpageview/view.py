@@ -22,12 +22,20 @@ The View, deriving from QAbstractScrollArea.
 """
 
 
-from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt
 from PyQt5.QtGui import QPainter, QPalette
-from PyQt5.QtWidgets import QAbstractScrollArea
+from PyQt5.QtWidgets import QAbstractScrollArea, QStyle
 
 
 from . import layout
+
+from .constants import (
+    # viewModes:
+    FixedScale,
+    FitWidth,
+    FitHeight,
+    FitBoth,
+)
 
 
 
@@ -36,8 +44,12 @@ class View(QAbstractScrollArea):
     MIN_ZOOM = 0.05
     MAX_ZOOM = 8.0
     
+    viewModeChanged = pyqtSignal(int)
+    zoomFactorChanged = pyqtSignal(float)
+
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
+        self._viewMode = FixedScale
         self._pageLayout = layout.PageLayout()
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
@@ -58,6 +70,103 @@ class View(QAbstractScrollArea):
         self._updateScrollBars()
         self.viewport().update()
     
+    def clear(self):
+        """Convenience method to clear the current layout."""
+        self._pageLayout.clear()
+        self.updatePageLayout()
+    
+    def viewMode(self):
+        """Returns the current ViewMode."""
+        return self._viewMode
+        
+    def setViewMode(self, mode):
+        """Sets the current ViewMode."""
+        if mode == self._viewMode:
+            return
+        self._viewMode = mode
+        if mode:
+            self.fit()
+        self.viewModeChanged.emit(mode)
+
+    def fit(self):
+        """(Internal). Fits the layout according to the view mode.
+        
+        Prevents scrollbar/resize loops by precalculating which scrollbars will appear.
+        
+        """
+        mode = self.viewMode()
+        if mode == FixedScale:
+            return
+        
+        maxsize = self.maximumViewportSize()
+        
+        # can vertical or horizontal scrollbars appear?
+        vcan = self.verticalScrollBarPolicy() == Qt.ScrollBarAsNeeded
+        hcan = self.horizontalScrollBarPolicy() == Qt.ScrollBarAsNeeded
+        
+        # width a scrollbar takes off the viewport size
+        framewidth = 0
+        if self.style().styleHint(QStyle.SH_ScrollView_FrameOnlyAroundContents, None, self):
+            framewidth = self.style().pixelMetric(QStyle.PM_DefaultFrameWidth) * 2
+        scrollbarextent = self.style().pixelMetric(QStyle.PM_ScrollBarExtent, None, self) + framewidth
+        
+        # remember old factor
+        zoom_factor = self.zoomFactor()
+        
+        # first try to fit full size
+        layout = self._pageLayout
+        layout.fit(maxsize, mode)
+        layout.update()
+        
+        # minimal values
+        minwidth = maxsize.width()
+        minheight = maxsize.height()
+        if vcan:
+            minwidth -= scrollbarextent
+        if hcan:
+            minheight -= scrollbarextent
+        
+        # do width and/or height fit?
+        fitw = layout.width() <= maxsize.width()
+        fith = layout.height() <= maxsize.height()
+        
+        if not fitw and not fith:
+            if vcan or hcan:
+                layout.fit(QSize(minwidth, minheight), mode)
+        elif mode & FitWidth and fitw and not fith and vcan:
+            # a vertical scrollbar will appear
+            w = minwidth
+            layout.fit(QSize(w, maxsize.height()), mode)
+            layout.update()
+            if layout.height() <= maxsize.height():
+                # now the vert. scrollbar would disappear!
+                # enlarge it as long as the vertical scrollbar would not be needed
+                while True:
+                    w += 1
+                    layout.fit(QSize(w, maxsize.height()), mode)
+                    layout.update()
+                    if layout.height() > maxsize.height():
+                        layout.fit(QSize(w - 1, maxsize.height()), mode)
+                        break
+        elif mode & FitHeight and fith and not fitw and hcan:
+            # a horizontal scrollbar will appear
+            h = minheight
+            layout.fit(QSize(maxsize.width(), h), mode)
+            layout.update()
+            if layout.width() <= maxsize.width():
+                # now the horizontal scrollbar would disappear!
+                # enlarge it as long as the horizontal scrollbar would not be needed
+                while True:
+                    h += 1
+                    layout.fit(QSize(maxsize.width(), h), mode)
+                    layout.update()
+                    if layout.width() > maxsize.width():
+                        layout.fit(QSize(maxsize.width(), h - 1), mode)
+                        break
+        self.updatePageLayout()
+        if zoom_factor != self.zoomFactor():
+            self.zoomFactorChanged.emit(self.zoomFactor())
+        
     def setZoomFactor(self, factor, pos=None):
         """Set the zoom factor (1.0 by default).
         
@@ -65,9 +174,6 @@ class View(QAbstractScrollArea):
         center if possible. If None, zooming centers around the viewport center.
         
         """
-        if self._pageLayout.empty():
-            return
-        
         factor = max(self.MIN_ZOOM, min(self.MAX_ZOOM, factor))
         if factor == self._pageLayout.zoomFactor():
             return
@@ -97,11 +203,31 @@ class View(QAbstractScrollArea):
         diff = new_pos_on_layout - pos
         self.verticalScrollBar().setValue(diff.y())
         self.horizontalScrollBar().setValue(diff.x())
+        self.setViewMode(FixedScale)
+        self.zoomFactorChanged.emit(factor)
     
     def zoomFactor(self):
         """Return the page layout's zoom factor."""
         return self._pageLayout.zoomFactor()
     
+    def zoomIn(self, pos=None, factor=1.1):
+        """Zoom in.
+        
+        If pos is given, it is the position in the viewport to keep centered.
+        Otherwise zooming centers around the viewport center.
+
+        """
+        self.setZoomFactor(self.zoomFactor() * factor, pos)
+        
+    def zoomOut(self, pos=None, factor=1.1):
+        """Zoom out.
+        
+        If pos is given, it is the position in the viewport to keep centered.
+        Otherwise zooming centers around the viewport center.
+
+        """
+        self.setZoomFactor(self.zoomFactor() / factor, pos)
+        
     def _updateScrollBars(self):
         """Adjust the range of the scrollbars to the layout."""
         height = self._pageLayout.height() - self.viewport().height()
@@ -138,6 +264,9 @@ class View(QAbstractScrollArea):
     
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
+        if self._viewMode and not self._pageLayout.empty():
+            self.fit()
+            # TODO: implement sensible repositioning
         self._updateScrollBars()
     
     def paintEvent(self, ev):
