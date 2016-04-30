@@ -50,6 +50,7 @@ class View(QAbstractScrollArea):
         """Update layout and adjust scrollbars."""
         self._pageLayout.update()
         self._updateScrollBars()
+        self.viewport().update()
     
     def _updateScrollBars(self):
         """Adjust the range of the scrollbars to the layout."""
