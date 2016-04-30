@@ -147,7 +147,7 @@ class AbstractPageLayout:
     
     def setZoomFactor(self, zoom):
         """Set the zoom factor to enlarge or shrink the pages."""
-        self._zoomFactor = zoom
+        self._zoomFactor = max(0.0, zoom)
     
     def zoomFactor(self):
         """Return the zoom factor (1.0 by default)."""

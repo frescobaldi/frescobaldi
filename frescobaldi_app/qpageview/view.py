@@ -230,12 +230,21 @@ class View(QAbstractScrollArea):
         
     def _updateScrollBars(self):
         """Adjust the range of the scrollbars to the layout."""
-        height = self._pageLayout.height() - self.viewport().height()
-        self.verticalScrollBar().setRange(0, height)
-        self.verticalScrollBar().setPageStep(self.viewport().height() * .9)
-        width = self._pageLayout.width() - self.viewport().width()
-        self.horizontalScrollBar().setRange(0, width)
-        self.horizontalScrollBar().setPageStep(self.viewport().width() * .9)
+        layout = self._pageLayout
+        maxsize = self.maximumViewportSize()
+        vbar = self.verticalScrollBar()
+        hbar = self.horizontalScrollBar()
+        
+        if layout.width() <= maxsize.width() and layout.height() <= maxsize.height():
+            vbar.setRange(0, 0)
+            hbar.setRange(0, 0)
+        else:
+            viewport = self.viewport()
+            vbar.setRange(0, layout.height() - viewport.height())
+            vbar.setPageStep(viewport.height() * .9)
+            width = self._pageLayout.width() - viewport.width()
+            hbar.setRange(0, layout.width() - viewport.width())
+            hbar.setPageStep(viewport.width() * .9)
     
     def layoutPosition(self):
         """Return the position of the PageLayout relative to the viewport.
