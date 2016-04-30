@@ -21,15 +21,22 @@
 The View, deriving from QAbstractScrollArea.
 """
 
+import contextlib
 
 from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt
 from PyQt5.QtGui import QPainter, QPalette
 from PyQt5.QtWidgets import QAbstractScrollArea, QStyle
 
-
 from . import layout
 
 from .constants import (
+
+    # rotation:
+    Rotate_0,
+    Rotate_90,
+    Rotate_180,
+    Rotate_270,
+
     # viewModes:
     FixedScale,
     FitWidth,
@@ -45,6 +52,7 @@ class View(QAbstractScrollArea):
     MAX_ZOOM = 8.0
     
     viewModeChanged = pyqtSignal(int)
+    rotationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
 
     def __init__(self, parent=None, **kwds):
@@ -75,10 +83,6 @@ class View(QAbstractScrollArea):
         self._pageLayout.clear()
         self.updatePageLayout()
     
-    def viewMode(self):
-        """Returns the current ViewMode."""
-        return self._viewMode
-        
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
         if mode == self._viewMode:
@@ -87,7 +91,31 @@ class View(QAbstractScrollArea):
         if mode:
             self._fitLayout()
         self.viewModeChanged.emit(mode)
-
+    
+    def viewMode(self):
+        """Returns the current ViewMode."""
+        return self._viewMode
+        
+    def setRotation(self, rotation):
+        """Set the current rotation."""
+        layout = self._pageLayout
+        if rotation != layout.rotation():
+            with self._keepCentered():
+                self._pageLayout.setRotation(rotation)
+            self.rotationChanged.emit(rotation)
+    
+    def rotation(self):
+        """Return the current rotation."""
+        return self._pageLayout.rotation()
+    
+    def rotateLeft(self):
+        """Rotate the pages 270 degrees."""
+        self.setRotation((self.rotation() - 1) & 3)
+    
+    def rotateRight(self):
+        """Rotate the pages 90 degrees."""
+        self.setRotation((self.rotation() + 1) & 3)
+    
     def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.
         
@@ -166,18 +194,16 @@ class View(QAbstractScrollArea):
         self.updatePageLayout()
         if zoom_factor != self.zoomFactor():
             self.zoomFactorChanged.emit(self.zoomFactor())
+    
+    @contextlib.contextmanager
+    def _keepCentered(self, pos=None, on_page=False):
+        """Context manager to keep the same spot centered while changing the layout.
         
-    def setZoomFactor(self, factor, pos=None):
-        """Set the zoom factor (1.0 by default).
-        
-        If pos is given, that position (in viewport coordinates) is kept in the
-        center if possible. If None, zooming centers around the viewport center.
+        If pos is not given, the viewport's center is used. If on_page is True, 
+        A position on a page is maintained if found. Otherwise, just the 
+        position on the layout is kept.
         
         """
-        factor = max(self.MIN_ZOOM, min(self.MAX_ZOOM, factor))
-        if factor == self._pageLayout.zoomFactor():
-            return
-        
         if pos is None:
             pos = self.viewport().rect().center()
         
@@ -186,16 +212,18 @@ class View(QAbstractScrollArea):
         layout_pos = self.layoutPosition()
         pos_on_layout = pos - layout_pos
         page = layout.pageAt(pos_on_layout)
-        if page:
+        if on_page and page:
             pos_on_page = pos_on_layout - page.pos()
             x = pos_on_page.x() / page.width()
             y = pos_on_page.y() / page.height()
         else:
             x = pos_on_layout.x() / layout.width()
             y = pos_on_layout.y() / layout.height()
-        layout.setZoomFactor(factor)
+        
+        yield
         self.updatePageLayout()
-        if page:
+        
+        if on_page and page:
             new_pos_on_page = QPoint(round(x * page.width()), round(y * page.height()))
             new_pos_on_layout = page.pos() + new_pos_on_page
         else:
@@ -203,8 +231,20 @@ class View(QAbstractScrollArea):
         diff = new_pos_on_layout - pos
         self.verticalScrollBar().setValue(diff.y())
         self.horizontalScrollBar().setValue(diff.x())
-        self.setViewMode(FixedScale)
-        self.zoomFactorChanged.emit(factor)
+
+    def setZoomFactor(self, factor, pos=None):
+        """Set the zoom factor (1.0 by default).
+        
+        If pos is given, that position (in viewport coordinates) is kept in the
+        center if possible. If None, zooming centers around the viewport center.
+        
+        """
+        factor = max(self.MIN_ZOOM, min(self.MAX_ZOOM, factor))
+        if factor != self._pageLayout.zoomFactor():
+            with self._keepCentered(pos, True):
+                self._pageLayout.setZoomFactor(factor)
+            self.setViewMode(FixedScale)
+            self.zoomFactorChanged.emit(factor)
     
     def zoomFactor(self):
         """Return the page layout's zoom factor."""
