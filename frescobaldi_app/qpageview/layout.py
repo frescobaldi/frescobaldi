@@ -86,6 +86,9 @@ class AbstractPageLayout:
     def __bool__(self):
         return True
     
+    def empty(self):
+        return len(self._pages) == 0
+    
     def __contains__(self, page):
         return page in self._pages
     
