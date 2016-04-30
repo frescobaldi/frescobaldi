@@ -85,10 +85,10 @@ class View(QAbstractScrollArea):
             return
         self._viewMode = mode
         if mode:
-            self.fit()
+            self._fitLayout()
         self.viewModeChanged.emit(mode)
 
-    def fit(self):
+    def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.
         
         Prevents scrollbar/resize loops by precalculating which scrollbars will appear.
@@ -265,9 +265,10 @@ class View(QAbstractScrollArea):
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
         if self._viewMode and not self._pageLayout.empty():
-            self.fit()
+            self._fitLayout()
             # TODO: implement sensible repositioning
-        self._updateScrollBars()
+        else:
+            self._updateScrollBars()
     
     def paintEvent(self, ev):
         layout_pos = self.layoutPosition()
