@@ -91,8 +91,11 @@ class View(QAbstractScrollArea):
     
     def paintEvent(self, ev):
         painter = QPainter(self.viewport())
-        pos = self.layoutPosition()
+        layout_pos = self.layoutPosition()
         for p in self.visiblePages():
-            p.paint(painter, pos, ev.rect())
+            origin = p.pos() +  layout_pos
+            dest_rect = p.rect().translated(layout_pos) & ev.rect()
+            source_rect = dest_rect.translated(-origin)
+            p.paint(painter, dest_rect, source_rect)
 
 

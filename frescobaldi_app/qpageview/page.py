@@ -39,11 +39,7 @@ class AbstractPage:
         self._pageSize = QSizeF()
         self._scale = QPointF(1.0, 1.0)
         self._rotation = Rotate_0
-        self._layout = lambda: None
-    
-    def layout(self):
-        """Return the Layout if we are part of one."""
-        return self._layout()
+        self._computedRotation = Rotate_0
     
     def rect(self):
         """Return our QRect(), with position and size."""
@@ -120,6 +116,16 @@ class AbstractPage:
         """Return the rotation of this page."""
         return self._rotation
     
+    def computedRotation(self):
+        """Return the real rotation used for this Page.
+        
+        This means our rotation added to the layout's rotation.
+        This value is set by the computeSize() method and used by the paint()
+        method.
+        
+        """
+        return self._computedRotation
+    
     def computeSize(self, layout):
         """Compute and set the size() of the page.
         
@@ -132,7 +138,8 @@ class AbstractPage:
         w = self._pageSize.width() * self._scale.x()
         h = self._pageSize.height() * self._scale.y()
         # handle ours and the layout's rotation in one go
-        if (self._rotation + layout.rotation()) & 1:
+        self._computedRotation = (self._rotation + layout.rotation()) & 3
+        if (self._computedRotation) & 1:
             w, h = h, w
         # now handle the layout's scale, dpi and zoom
         w = w * layout.dpi().x() / 72.0 * layout.scale().x() * layout.zoomFactor()
@@ -155,8 +162,7 @@ class AbstractPage:
             h = self._pageSize.height() / self._scale.y()
         return height * 72.0 / layout.dpi().y() / h / layout.scale().y()
     
-    def paint(self, painter, layout_pos, ev_rect):
-        rect = self.rect().translated(layout_pos) & ev_rect
-        painter.fillRect(rect, QColor(Qt.white))
-
+    def paint(self, painter, dest_rect, source_rect):
+        """Reimplement this to paint our Page."""
+        painter.fillRect(dest_rect, QColor(Qt.white))
 
