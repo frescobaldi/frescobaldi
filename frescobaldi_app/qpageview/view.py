@@ -101,7 +101,9 @@ class View(QAbstractScrollArea):
         layout = self._pageLayout
         if rotation != layout.rotation():
             with self._keepCentered():
-                self._pageLayout.setRotation(rotation)
+                layout.setRotation(rotation)
+                if self._viewMode:
+                    self._fitLayout()
             self.rotationChanged.emit(rotation)
     
     def rotation(self):
@@ -200,7 +202,7 @@ class View(QAbstractScrollArea):
         """Context manager to keep the same spot centered while changing the layout.
         
         If pos is not given, the viewport's center is used. If on_page is True, 
-        A position on a page is maintained if found. Otherwise, just the 
+        a position on a page is maintained if found. Otherwise, just the 
         position on the layout is kept.
         
         """
@@ -211,8 +213,8 @@ class View(QAbstractScrollArea):
         layout = self._pageLayout
         layout_pos = self.layoutPosition()
         pos_on_layout = pos - layout_pos
-        page = layout.pageAt(pos_on_layout)
-        if on_page and page:
+        page = layout.pageAt(pos_on_layout) if on_page else None
+        if page:
             pos_on_page = pos_on_layout - page.pos()
             x = pos_on_page.x() / page.width()
             y = pos_on_page.y() / page.height()
@@ -223,7 +225,7 @@ class View(QAbstractScrollArea):
         yield
         self.updatePageLayout()
         
-        if on_page and page:
+        if page:
             new_pos_on_page = QPoint(round(x * page.width()), round(y * page.height()))
             new_pos_on_layout = page.pos() + new_pos_on_page
         else:
