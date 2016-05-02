@@ -29,18 +29,19 @@ import popplerqt5
 from . import page
 from . import locking
 
-
-def available():
-    """Return true if popplerqt5 is available."""
-    return popplerqt5 is not None
+from .constants import (
+    Rotate_0,
+)
 
 
 class PopplerPage(page.AbstractPage):
-    def __init__(self, document, pageNumber):
+    """A Page capable of displaying one page of a Poppler.Document instance."""
+    def __init__(self, document, pageNumber, renderer=None):
         super().__init__()
         self._document = document
         self._pageNumber = pageNumber
-        self._pageSize = document.page(pageNumber).pageSize()
+        self._pageSize = document.page(pageNumber).pageSizeF()
+        self.renderer = renderer
         # TEMP
         self.image = None
         
@@ -51,11 +52,21 @@ class PopplerPage(page.AbstractPage):
     def pageNumber(self):
         """Returns the page number."""
         return self._pageNumber
-
+    
+    @classmethod
+    def createPages(cls, document, renderer=None):
+        """Convenience class method returning a list of instances of this class.
+        
+        The Page instances are created from the document, in page number order.
+        The specified Renderer is used, or else the global poppler renderer.
+        
+        """
+        return [cls(document, num, renderer) for num in range(document.numPages())]
+        
     def paint(self, painter, dest_rect, source_rect):
         # TEMP
         if not self.image or self.image.size() != self.size():
-            self.image = Renderer().image(self)
+            self.image = Renderer().render_image(self)
         painter.drawImage(dest_rect, self.image, source_rect)
         
 
@@ -68,36 +79,47 @@ class Renderer:
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     oversampleThreshold = 96
 
-    def image(self, page):
-        """Generate an image."""
-        d = page.document()
-        p = d.page(page._pageNumber)
-        s = p.pageSizeF()
+    def render_image(self, page):
+        """Generate an image for this page."""
+        doc = page.document()
+        p = doc.page(page._pageNumber)
+        s = page.pageSizeF()
         if page.computedRotation() & 1:
             s.transpose()
 
         xres = 72.0 * page.width() / s.width()
         yres = 72.0 * page.height() / s.height()
-        
         multiplier = 2 if xres < self.oversampleThreshold else 1
-        with locking.lock(d):
-            if self.renderHint is not None:
-                d.setRenderHint(int(d.renderHints()), False)
-                d.setRenderHint(self.renderHint)
-            if self.paperColor is not None:
-                d.setPaperColor(self.paperColor)
-            if self.renderBackend is not None:
-                d.setRenderBackend(self.renderBackend)
-            image = p.renderToImage(
-                        xres * multiplier,
-                        yres * multiplier,
-                        0, 0,
-                        page.width() * multiplier,
-                        page.height() * multiplier,
-                        page.computedRotation())
-        
+        image = self.render_poppler_image(doc, page.pageNumber(),
+            xres * multiplier, yres * multiplier,
+            0, 0, page.width() * multiplier, page.height() * multiplier,
+            page.computedRotation())
         if multiplier == 2:
             image = image.scaledToWidth(page.width(), Qt.SmoothTransformation)
+        image.setDotsPerMeterX(xres * 39.37)
+        image.setDotsPerMeterY(yres * 39.37)
+        return image
+    
+    def render_poppler_image(self, doc, pageNum,
+                                   xres=72.0, yres=72.0,
+                                   x=-1, y=-1, w=-1, h=-1, rotate=Rotate_0):
+        """Render an image, almost like calling page.renderToImage().
+        
+        The document is properly locked during rendering and render options
+        are set.
+        
+        """
+        with locking.lock(doc):
+            if self.renderHint is not None:
+                doc.setRenderHint(int(doc.renderHints()), False)
+                doc.setRenderHint(self.renderHint)
+            if self.paperColor is not None:
+                doc.setPaperColor(self.paperColor)
+            if self.renderBackend is not None:
+                doc.setRenderBackend(self.renderBackend)
+            image = doc.page(pageNum).renderToImage(xres, yres, x, y, w, h, rotate)
+        image.setDotsPerMeterX(xres * 39.37)
+        image.setDotsPerMeterY(yres * 39.37)
         return image
 
 
