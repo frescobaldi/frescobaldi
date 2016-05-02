@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.19.1 -- Mai ??, 2016
+Changes in 2.20.0 -- Mai ??, 2016
 
 * New features:
   - New Manuscript viewer tool, displaying an "engraver's copy",
@@ -13,7 +13,9 @@ Changes in 2.19.1 -- Mai ??, 2016
 * Bug fixes:
   - fix #716 position of open document tab bar changes on engrave
 * Translations:
-  - updated: Dutch, Italian
+  - updated Dutch by Wilbert Berendsen
+  - updated Italian by Federico Bruni
+  - updated Spanish by Francisco Vila
 
 
 Changes in 2.19.0 -- April 22nd, 2016
