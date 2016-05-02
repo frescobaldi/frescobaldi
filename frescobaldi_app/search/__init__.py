@@ -41,7 +41,7 @@ import cursortools
 import textformats
 import wordboundary
 import viewhighlighter
-import widgets.borderlayout
+import gadgets.borderlayout
 
 
 class Search(plugin.MainWindowPlugin, QWidget):
@@ -153,8 +153,8 @@ class Search(plugin.MainWindowPlugin, QWidget):
             self.hideWidget()
         view = self.window().currentView()
         self.setCurrentView(view)
-        layout = widgets.borderlayout.BorderLayout.get(view)
-        layout.addWidget(self, widgets.borderlayout.BOTTOM)
+        layout = gadgets.borderlayout.BorderLayout.get(view)
+        layout.addWidget(self, gadgets.borderlayout.BOTTOM)
         self.show()
         
     def hideWidget(self):
@@ -163,7 +163,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
         if view:
             self.highlightingOff()
             self.hide()
-            layout = widgets.borderlayout.BorderLayout.get(view)
+            layout = gadgets.borderlayout.BorderLayout.get(view)
             layout.removeWidget(self)
     
     def viewChanged(self, new):
