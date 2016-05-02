@@ -129,6 +129,7 @@ class AbstractPage:
     def computeSize(self, layout):
         """Compute and set the size() of the page.
         
+        This method is called on layout update by the updatePageSizes method.
         The default implementation takes into account our pageSizeF(), scale 
         and rotation, and then the rotation, scale, DPI and zoom factor of 
         the layout.
@@ -163,6 +164,32 @@ class AbstractPage:
         return height * 72.0 / layout.dpi().y() / h / layout.scale().y()
     
     def paint(self, painter, dest_rect, source_rect):
-        """Reimplement this to paint our Page."""
+        """Reimplement this to paint our Page.
+        
+        The View calls this method in the paint event. If it returns a non-true 
+        value, it is assumed that the painting would take too much time and 
+        that nothing or an intermediate image is painted.
+        
+        In that case, the View calls redraw(). It is expected that the page will
+        initiate a rendering job in the background and call
+        View.notifyPageRedraw when the job has finished.
+        
+        The default implementation of this method simply draws a white square.
+        
+        """
         painter.fillRect(dest_rect, QColor(Qt.white))
+        return True
+
+    def redraw(self, view):
+        """Should perform a redrawing job in the background.
+        
+        This method is called by the View in the paint event, when paint() did
+        return a non-True value. If you didn't do it already, start a background
+        job that renders the page.
+        When the job is done, call view.notifyPageRedraw(page), and the View
+        will request a paint update.
+        
+        """
+        pass
+        
 
