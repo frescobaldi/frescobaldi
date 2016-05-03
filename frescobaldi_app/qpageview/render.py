@@ -35,10 +35,21 @@ class AbstractImageRenderer:
     one global renderer in your application or more, depending on how you use
     the qpageview package.
     
-    You must inherit from this class and at least implement the render_image()
-    method.
+    You must inherit from this class and at least implement the
+    render_image_for_job() method.
     
     """
+    
+    class RenderJob:
+        def __init__(self, page):
+            self.page = page
+            self.width = page.width()
+            self.height = page.height()
+            self.rotation = page.computedRotation()
+        
+        def cache_key(self):
+            return 
+    
     def __init__(self):
         pass
     
@@ -48,18 +59,20 @@ class AbstractImageRenderer:
         Returns None if no suitable image is available.
         
         """
+        return self.image_for_job(self.job(page))
     
-    def intermediate_image(self, page):
+    def interim_image(self, page):
         """Return an image that has the right contents but the wrong size.
         
         It can be used temporarily, awaiting the rendering of the image at the
         correct size. Returns None if no usable image is available.
         
         """
+        return self.interim_image_for_job(self.job(page))
 
-    def redraw(self, page, callback):
-        """Schedules a redraw for the page, calling callback when finished."""
-    
+    def draw(self, page, callback):
+        """Schedules a (re)draw for the page, calling callback when finished."""
+        self.redraw_job(self.job(page), callback)
     
     def render_image(self, page):
         """Reimplement this method to render an image for the page.
@@ -69,4 +82,23 @@ class AbstractImageRenderer:
         """
         return QImage()
 
+    def job(self, page):
+        """Return a RenderJob instance for this page."""
+        return self.RenderJob(page)
 
+    def image_for_job(self, job):
+        """Return the image that the render job would create."""
+        return self.cache.get(job.cache_key())
+    
+    def interim_image_for_job(self, job):
+        """Return an image that has the right contents but the wrong size.
+        
+        The closest sized image is taken from the cache if available.
+        
+        """
+        return self.cache.get_interim(job.cache_key())
+    
+    def draw_job(self, job, callback):
+        """Schedule a draw job, calls callback when the job is done."""
+        
+    
