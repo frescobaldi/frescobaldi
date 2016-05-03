@@ -20,6 +20,8 @@
 """
 Interface with popplerqt5, popplerqt5-specific classes etc.
 
+Only this module depends on popplerqt5.
+
 """
 
 from PyQt5.QtCore import Qt
@@ -28,6 +30,7 @@ import popplerqt5
 
 from . import page
 from . import locking
+from . import render
 
 from .constants import (
     Rotate_0,
@@ -37,11 +40,10 @@ from .constants import (
 class PopplerPage(page.AbstractPage):
     """A Page capable of displaying one page of a Poppler.Document instance."""
     def __init__(self, document, pageNumber, renderer=None):
-        super().__init__()
+        super().__init__(renderer)
         self._document = document
         self._pageNumber = pageNumber
         self._pageSize = document.page(pageNumber).pageSizeF()
-        self.renderer = renderer
         # TEMP
         self.image = None
         
@@ -70,7 +72,7 @@ class PopplerPage(page.AbstractPage):
         painter.drawImage(dest_rect, self.image, source_rect)
         
 
-class Renderer:
+class Renderer(render.AbstractImageRenderer):
     paperColor = None
     renderHint = (
         popplerqt5.Poppler.Document.Antialiasing |

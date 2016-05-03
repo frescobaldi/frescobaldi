@@ -34,12 +34,18 @@ from .constants import (
 
 
 class AbstractPage:
-    def __init__(self):
+    
+    # the renderer can take care of rendering images in the background
+    renderer = None
+    
+    def __init__(self, renderer=None):
         self._rect = QRect()
         self._pageSize = QSizeF()
         self._scale = QPointF(1.0, 1.0)
         self._rotation = Rotate_0
         self._computedRotation = Rotate_0
+        if renderer is not None:
+            self.renderer = renderer
     
     def rect(self):
         """Return our QRect(), with position and size."""
@@ -174,7 +180,8 @@ class AbstractPage:
         initiate a rendering job in the background and call
         View.notifyPageRedraw when the job has finished.
         
-        The default implementation of this method simply draws a white square.
+        The default implementation of this method simply draws a white square
+        and returns True.
         
         """
         painter.fillRect(dest_rect, QColor(Qt.white))
@@ -189,7 +196,11 @@ class AbstractPage:
         When the job is done, call view.notifyPageRedraw(page), and the View
         will request a paint update.
         
-        """
-        pass
+        The default implementation of this method calls
+        redraw(self, view.notifyRedrawPage) on the renderer, which must be
+        present in the renderer attribute.
         
+        """
+        self.renderer.redraw(self, view.notifyRedrawPage)
+
 
