@@ -22,7 +22,7 @@ def fields(text):
     If the text contains erroneous formatting delimiters, ValueError is raised.
     
     """
-    return set(i[1] for i in _parse(text) if i[1])
+    return set(i[1] for i in _parse(text) if i[1] and i[1][0].isalpha())
 
 
 def molint(filename):
