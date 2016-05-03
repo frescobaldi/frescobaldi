@@ -86,7 +86,8 @@ The following people contributed to {appname}:
 :  !Henrik Evers,
     Georg Hennig,
     Markus W. Kropp,
-    Urs Liska
+    Urs Liska,
+    Henning Hraban Ramm
 
 {lang_cs}:
 :  !Pavel Fric
