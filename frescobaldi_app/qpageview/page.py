@@ -164,8 +164,8 @@ class AbstractPage:
         if rotation & 1:
             w, h = h, w
         # now handle dpi, scale and zoom
-        w = w * dpiX / 72.0 * zoomFactor
-        h = h * dpiY / 72.0 * zoomFactor
+        w = round(w * dpiX / 72.0 * zoomFactor)
+        h = round(h * dpiY / 72.0 * zoomFactor)
         return w, h
 
     def zoomForWidth(self, layout, width):

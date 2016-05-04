@@ -138,7 +138,7 @@ class AbstractPageLayout(list):
     
     def fit(self, size, mode):
         """Fits the layout in the given size (QSize) and ViewMode."""
-        if mode and self._pages:
+        if mode and self.count():
             zoomfactors = []
             if mode & FitWidth:
                 zoomfactors.append(self.zoomFitWidth(size.width()))
