@@ -132,13 +132,13 @@ class AbstractPage:
         """
         return self._computedRotation
     
-    def computeSizeFromLayout(self, layout):
+    def updateSizeFromLayout(self, layout):
         """Compute and set the size() of the page.
         
         This method is called on layout update by the updatePageSizes method.
         The default implementation takes into account our pageSizeF(), scale 
         and rotation, and then the rotation, scale, DPI and zoom factor of 
-        the layout.
+        the layout. It uses the computeSize() method to perform the calculation.
         
         """
         self._computedRotation = rotation = (self._rotation + layout.rotation()) & 3
@@ -210,5 +210,4 @@ class AbstractPage:
         
         """
         self.renderer.redraw(self, view.notifyRedrawPage)
-
 

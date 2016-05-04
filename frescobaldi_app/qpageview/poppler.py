@@ -80,7 +80,18 @@ class Renderer(render.AbstractImageRenderer):
     )
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     oversampleThreshold = 96
-
+    
+    def key(self, request):
+        """Reimplemented to keep a reference to the poppler document."""
+        key = super().key(request)
+        return render.cache_key(
+            request.page.document(),
+            request.page.pageNumber(),
+            key.rotation,
+            key.size)
+        
+        
+        
     def render_image(self, page):
         """Generate an image for this page."""
         doc = page.document()

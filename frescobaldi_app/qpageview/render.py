@@ -22,11 +22,43 @@ Infrastructure for rendering and caching Page images.
 """
 
 import collections
-
-
-cache_key = collections.namedtuple('cache_key', 'ref page size')
+import weakref
 
 from PyQt5.QtGui import QImage
+
+
+cache_key = collections.namedtuple('cache_key', 'group page rotation size')
+
+
+class Request:
+    """Describes a request to render a Page.
+    
+    You can instantiate a Request and use it directly, but you can also alter 
+    the `rotation` attribute and/of use the recomputeSize() method to change 
+    the size of the to be rendered image.
+    
+    """
+    def __init__(self, page):
+        self.page = page
+        self.rotation = page.computedRotation()
+        self.width = page.width()
+        self.height = page.height()
+    
+    def recomputeSize(self, dpi=None, scale=None, zoomFactor=1.0):
+        """Re-compute our width and height, using Page.computeSize().
+        
+        You can use this to base a request on a Page but alter e.g. the 
+        zoom. dpi defaults to QPointF(72.0, 72.0), scale defaults to 
+        QPointF(1.0, 1.0).
+        
+        """
+        if dpi is None:
+            dpi = QPointF(72.0, 72.0)
+        if scale is None:
+            scale = QPointF(1.0, 1.0)
+        self.width, self.height = self.page.computeSize(
+            self.rotation, dpi, scale, zoomFactor)
+
 
 
 class AbstractImageRenderer:
@@ -39,89 +71,44 @@ class AbstractImageRenderer:
     You can use a renderer for as many Page instances as you like. You can use
     one global renderer in your application or more, depending on how you use
     the qpageview package.
+
+    When rendering the image for a Page, a Request is created which can be
+    scheduled or rendered directly. You can also schedule requests for a page
+    at different sizes.
     
     You must inherit from this class and at least implement the
     render_request() method.
     
     """
-    
-    class Request:
-        """Describes a request to render a Page."""
-        def __init__(self, page):
-            self.page = page
-            self.width = page.width()
-            self.height = page.height()
-            self.rotation = page.computedRotation()
-        
-        def recomputeSize(self, dpi=None, scale=None, zoomFactor=1.0):
-            """Re-compute our width and height, using Page.computeSize().
-            
-            You can use this to base a request on a Page but alter e.g. the 
-            zoom. dpi defaults to QPointF(72.0, 72.0), scale defaults to 
-            QPointF(1.0, 1.0).
-            
-            """
-            if dpi is None:
-                dpi = QPointF(72.0, 72.0)
-            if scale is None:
-                scale = QPointF(1.0, 1.0)
-            self.width, self.height = self.page.computeSize(
-                self.rotation, dpi, scale, zoomFactor)
-            
-        def cache_key(self):
-            """Uniquely identify this rendering request or result."""
-            return cache_key(self.page, self.rotation, (self.width, self.height))
-
-
     def __init__(self):
         pass
     
-    def image(self, page):
-        """Return the image rendered at the correct size for this Page. 
+    def key(self, request):
+        """Return a cache_key instance for this request.
         
-        Returns None if no suitable image is available.
+        The cache_key is a four-tuple:
         
-        """
-        return self.image_for_job(self.job(page))
-    
-    def interim_image(self, page):
-        """Return an image that has the right contents but the wrong size.
-        
-        It can be used temporarily, awaiting the rendering of the image at the
-        correct size. Returns None if no usable image is available.
-        
-        """
-        return self.interim_image_for_job(self.job(page))
+            group       = an object a weak reference is taken to. It could be
+                          a document or some other structure the page belongs to.
+                          by default the Page object attached to the request is
+                          used.
 
-    def draw(self, page, callback):
-        """Schedules a (re)draw for the page, calling callback when finished."""
-        self.redraw_job(self.job(page), callback)
-    
-    def render_image(self, page):
-        """Reimplement this method to render an image for the page.
+            page        = None by default, but if you use group differently,
+                          you should use here a hashable object that identifies
+                          the page in the group.
+                          
+            rotation    = the rotation of the page
+            
+            size        = the (width, height) tuple of the page.
         
-        It is called in a background thread. It should return a QImage object.
-        
-        """
-        return QImage()
-
-    def job(self, page):
-        """Return a RenderJob instance for this page."""
-        return self.RenderJob(page)
-
-    def image_for_job(self, job):
-        """Return the image that the render job would create."""
-        return self.cache.get(job.cache_key())
-    
-    def interim_image_for_job(self, job):
-        """Return an image that has the right contents but the wrong size.
-        
-        The closest sized image is taken from the cache if available.
+        The cache_key is used to store requests and to cache results.
         
         """
-        return self.cache.get_interim(job.cache_key())
-    
-    def draw_job(self, job, callback):
-        """Schedule a draw job, calls callback when the job is done."""
-        
-    
+        return cache_key(
+            request.page,
+            None,
+            request.rotation,
+            (request.width, request.width))
+
+
+
