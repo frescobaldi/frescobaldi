@@ -99,16 +99,16 @@ class View(QAbstractScrollArea):
     def setRotation(self, rotation):
         """Set the current rotation."""
         layout = self._pageLayout
-        if rotation != layout.rotation():
+        if rotation != layout.rotation:
             with self._keepCentered():
-                layout.setRotation(rotation)
+                layout.rotation = rotation
                 if self._viewMode:
                     self._fitLayout()
             self.rotationChanged.emit(rotation)
     
     def rotation(self):
         """Return the current rotation."""
-        return self._pageLayout.rotation()
+        return self._pageLayout.rotation
     
     def rotateLeft(self):
         """Rotate the pages 270 degrees."""
@@ -157,8 +157,8 @@ class View(QAbstractScrollArea):
             minheight -= scrollbarextent
         
         # do width and/or height fit?
-        fitw = layout.width() <= maxsize.width()
-        fith = layout.height() <= maxsize.height()
+        fitw = layout.width <= maxsize.width()
+        fith = layout.height <= maxsize.height()
         
         if not fitw and not fith:
             if vcan or hcan:
@@ -168,14 +168,14 @@ class View(QAbstractScrollArea):
             w = minwidth
             layout.fit(QSize(w, maxsize.height()), mode)
             layout.update()
-            if layout.height() <= maxsize.height():
+            if layout.height <= maxsize.height():
                 # now the vert. scrollbar would disappear!
                 # enlarge it as long as the vertical scrollbar would not be needed
                 while True:
                     w += 1
                     layout.fit(QSize(w, maxsize.height()), mode)
                     layout.update()
-                    if layout.height() > maxsize.height():
+                    if layout.height > maxsize.height():
                         layout.fit(QSize(w - 1, maxsize.height()), mode)
                         break
         elif mode & FitHeight and fith and not fitw and hcan:
@@ -183,14 +183,14 @@ class View(QAbstractScrollArea):
             h = minheight
             layout.fit(QSize(maxsize.width(), h), mode)
             layout.update()
-            if layout.width() <= maxsize.width():
+            if layout.width <= maxsize.width():
                 # now the horizontal scrollbar would disappear!
                 # enlarge it as long as the horizontal scrollbar would not be needed
                 while True:
                     h += 1
                     layout.fit(QSize(maxsize.width(), h), mode)
                     layout.update()
-                    if layout.width() > maxsize.width():
+                    if layout.width > maxsize.width():
                         layout.fit(QSize(maxsize.width(), h - 1), mode)
                         break
         self.updatePageLayout()
@@ -219,8 +219,8 @@ class View(QAbstractScrollArea):
             x = pos_on_page.x() / page.width
             y = pos_on_page.y() / page.height
         else:
-            x = pos_on_layout.x() / layout.width()
-            y = pos_on_layout.y() / layout.height()
+            x = pos_on_layout.x() / layout.width
+            y = pos_on_layout.y() / layout.height
         
         yield
         self.updatePageLayout()
@@ -229,7 +229,7 @@ class View(QAbstractScrollArea):
             new_pos_on_page = QPoint(round(x * page.width), round(y * page.height))
             new_pos_on_layout = page.pos() + new_pos_on_page
         else:
-            new_pos_on_layout = QPoint(round(x * layout.width()), round(y * layout.height()))
+            new_pos_on_layout = QPoint(round(x * layout.width), round(y * layout.height))
         diff = new_pos_on_layout - pos
         self.verticalScrollBar().setValue(diff.y())
         self.horizontalScrollBar().setValue(diff.x())
@@ -242,15 +242,15 @@ class View(QAbstractScrollArea):
         
         """
         factor = max(self.MIN_ZOOM, min(self.MAX_ZOOM, factor))
-        if factor != self._pageLayout.zoomFactor():
+        if factor != self._pageLayout.zoomFactor:
             with self._keepCentered(pos, True):
-                self._pageLayout.setZoomFactor(factor)
+                self._pageLayout.zoomFactor = factor
             self.setViewMode(FixedScale)
             self.zoomFactorChanged.emit(factor)
     
     def zoomFactor(self):
         """Return the page layout's zoom factor."""
-        return self._pageLayout.zoomFactor()
+        return self._pageLayout.zoomFactor
     
     def zoomIn(self, pos=None, factor=1.1):
         """Zoom in.
@@ -277,15 +277,14 @@ class View(QAbstractScrollArea):
         vbar = self.verticalScrollBar()
         hbar = self.horizontalScrollBar()
         
-        if layout.width() <= maxsize.width() and layout.height() <= maxsize.height():
+        if layout.width <= maxsize.width() and layout.height <= maxsize.height():
             vbar.setRange(0, 0)
             hbar.setRange(0, 0)
         else:
             viewport = self.viewport()
-            vbar.setRange(0, layout.height() - viewport.height())
+            vbar.setRange(0, layout.height - viewport.height())
             vbar.setPageStep(viewport.height() * .9)
-            width = self._pageLayout.width() - viewport.width()
-            hbar.setRange(0, layout.width() - viewport.width())
+            hbar.setRange(0, layout.width - viewport.width())
             hbar.setPageStep(viewport.width() * .9)
     
     def layoutPosition(self):
@@ -297,10 +296,10 @@ class View(QAbstractScrollArea):
         If the layout is smaller than the viewport it is centered.
         
         """
-        lw = self._pageLayout.width()
+        lw = self._pageLayout.width
         vw = self.viewport().width()
         left = -self.horizontalScrollBar().value() if lw > vw else (vw - lw) // 2
-        lh = self._pageLayout.height()
+        lh = self._pageLayout.height
         vh = self.viewport().height()
         top = -self.verticalScrollBar().value() if lh > vh else (vh - lh) // 2
         return QPoint(left, top)

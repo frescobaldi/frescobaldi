@@ -145,11 +145,11 @@ class AbstractPage:
         the layout. It uses the computeSize() method to perform the calculation.
         
         """
-        self.computedRotation = rotation = (self.rotation + layout.rotation()) & 3
+        self.computedRotation = rotation = (self.rotation + layout.rotation) & 3
         self.width, self.height = self.computeSize(
-            rotation, layout.dpi(), layout.scale(), layout.zoomFactor())
+            rotation, layout.dpiX, layout.dpiY, layout.zoomFactor)
     
-    def computeSize(self, rotation, dpi, scale, zoomFactor):
+    def computeSize(self, rotation, dpiX, dpiY, zoomFactor):
         """Return a tuple (w, h) representing the size of the page in pixels.
         
         This size is computed based on the page's natural size, its scale and
@@ -161,25 +161,25 @@ class AbstractPage:
         if rotation & 1:
             w, h = h, w
         # now handle dpi, scale and zoom
-        w = w * dpi.x() / 72.0 * scale.x() * zoomFactor
-        h = h * dpi.y() / 72.0 * scale.y() * zoomFactor
+        w = w * dpiX / 72.0 * zoomFactor
+        h = h * dpiY / 72.0 * zoomFactor
         return w, h
 
     def zoomForWidth(self, layout, width):
         """Return the zoom we need to display ourselves at the given width."""
-        if (self.rotation + layout.rotation()) & 1:
+        if (self.rotation + layout.rotation) & 1:
             w = self.pageHeight / self.scaleY
         else:
             w = self.pageWidth / self.scaleX
-        return width * 72.0 / layout.dpi().x() / w / layout.scale().x()
+        return width * 72.0 / layout.dpiX / w
         
     def zoomForHeight(self, layout, height):
         """Return the zoom we need to display ourselves at the given height."""
-        if (self.rotation + layout.rotation()) & 1:
+        if (self.rotation + layout.rotation) & 1:
             h = self.pageWidth / self.scaleX
         else:
             h = self.pageHeight / self.scaleY
-        return height * 72.0 / layout.dpi().y() / h / layout.scale().y()
+        return height * 72.0 / layout.dpiY / h
     
     def paint(self, painter, dest_rect, source_rect):
         """Reimplement this to paint our Page.

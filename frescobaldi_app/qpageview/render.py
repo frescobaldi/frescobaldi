@@ -44,20 +44,17 @@ class Request:
         self.width = page.width
         self.height = page.height
     
-    def recomputeSize(self, dpi=None, scale=None, zoomFactor=1.0):
+    def recomputeSize(self, dpiX=72.0, dpiY=None, zoomFactor=1.0):
         """Re-compute our width and height, using Page.computeSize().
         
         You can use this to base a request on a Page but alter e.g. the 
-        zoom. dpi defaults to QPointF(72.0, 72.0), scale defaults to 
-        QPointF(1.0, 1.0).
+        zoom. dpiX defaults to 72.0 and dpiY defaults to dpiX
         
         """
-        if dpi is None:
-            dpi = QPointF(72.0, 72.0)
-        if scale is None:
-            scale = QPointF(1.0, 1.0)
+        if dpiY is None:
+            dpiY = dpiX
         self.width, self.height = self.page.computeSize(
-            self.rotation, dpi, scale, zoomFactor)
+            self.rotation, dpiX, dpiY, zoomFactor)
 
 
 
