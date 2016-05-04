@@ -38,23 +38,22 @@ from .constants import (
 
 
 class PopplerPage(page.AbstractPage):
-    """A Page capable of displaying one page of a Poppler.Document instance."""
+    """A Page capable of displaying one page of a Poppler.Document instance.
+    
+    It has two additional instance attributes:
+    
+        `document`: the Poppler.Document instance
+        `pageNumber`: the page number to render
+        
+    """
     def __init__(self, document, pageNumber, renderer=None):
         super().__init__(renderer)
-        self._document = document
-        self._pageNumber = pageNumber
-        self._pageSize = document.page(pageNumber).pageSizeF()
+        self.document = document
+        self.pageNumber = pageNumber
+        self.setPageSize(document.page(pageNumber).pageSizeF())
         # TEMP
         self.image = None
         
-    def document(self):
-        """Returns the document."""
-        return self._document
-        
-    def pageNumber(self):
-        """Returns the page number."""
-        return self._pageNumber
-    
     @classmethod
     def createPages(cls, document, renderer=None):
         """Convenience class method returning a list of instances of this class.
@@ -68,9 +67,11 @@ class PopplerPage(page.AbstractPage):
     def paint(self, painter, dest_rect, source_rect):
         # TEMP
         if not self.image or self.image.size() != self.size():
-            self.image = Renderer().render_image(self)
+            r = Renderer()
+            self.image = r.render(r.request(self))
         painter.drawImage(dest_rect, self.image, source_rect)
-        
+        return True
+
 
 class Renderer(render.AbstractImageRenderer):
     paperColor = None
@@ -94,21 +95,22 @@ class Renderer(render.AbstractImageRenderer):
         
     def render(self, request):
         """Generate an image for this request."""
-        doc = request.page.document()
-        p = doc.page(page._pageNumber)
-        s = request.page.pageSizeF()
+        doc = request.page.document
+        num = request.page.pageNumber
+        p = doc.page(num)
+        s = request.page.pageSize()
         if request.rotation & 1:
             s.transpose()
 
         xres = 72.0 * request.width / s.width()
         yres = 72.0 * request.height / s.height()
         multiplier = 2 if xres < self.oversampleThreshold else 1
-        image = self.render_poppler_image(doc, request.page.pageNumber(),
+        image = self.render_poppler_image(doc, num,
             xres * multiplier, yres * multiplier,
             0, 0, request.width * multiplier, request.height * multiplier,
             request.rotation)
         if multiplier == 2:
-            image = image.scaledToWidth(page.width(), Qt.SmoothTransformation)
+            image = image.scaledToWidth(request.page.width, Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)
         image.setDotsPerMeterY(yres * 39.37)
         return image

@@ -34,63 +34,84 @@ from .constants import (
 
 
 class AbstractPage:
+    """A Page is a rectangle that is positioned in a PageLayout.
+    
+    A Page has instance attributes...
+    
+    ...that normally do not change:
+    
+        `data`          object(s) that are understood by the renderer to render
+        `pageWidth`     the original width in points (1/72 inch)
+        `pageHeight`    the original height in points (1/72 inch)
+    
+    ... that can be modified by the user (having defaults at the class level):
+    
+        `rotation`      the rotation (Rotate_0)
+        `scaleX`        the scale in X-direction (1.0)
+        `scaleY`        the scale in Y-direction (1.0)
+        
+    ... and that are set by the layout when computing the size and positioning
+        the pages:
+    
+        `x`             the position x-coordinate
+        `y`             the position y-coordinate
+        `width`         the width in pixels
+        `height`        the height in pixels
+        `computedRotation` the rotation in which finally to render
+        
+    """
+    
+    rotation = Rotate_0
+    scaleX = 1.0
+    scaleY = 1.0
+    
     
     # the renderer can take care of rendering images in the background
     renderer = None
     
     def __init__(self, renderer=None):
-        self._rect = QRect()
-        self._pageSize = QSizeF()
-        self._scale = QPointF(1.0, 1.0)
-        self._rotation = Rotate_0
-        self._computedRotation = Rotate_0
+        self.x = 0
+        self.y = 0
+        self.width = 0
+        self.height = 0
+        self.pageWidth = 0.0
+        self.pageHeight = 0.0
+        self.computedRotation = Rotate_0
+        
         if renderer is not None:
             self.renderer = renderer
     
     def rect(self):
         """Return our QRect(), with position and size."""
-        return self._rect
-    
-    def size(self):
-        """Return our size."""
-        return self._rect.size()
-    
-    def height(self):
-        """Return our height."""
-        return self._rect.height()
-        
-    def width(self):
-        """Return our width."""
-        return self._rect.width()
-        
-    def pos(self):
-        """Return our position."""
-        return self._rect.topLeft()
+        return QRect(self.x, self.y, self.width, self.height)
     
     def setPos(self, point):
-        """Set our position (affects the Layout)."""
-        self._rect.moveTopLeft(point)
-    
-    def setSize(self, size):
-        """Set our size (QSize)."""
-        self._rect.setSize(size)
-
-    def setScale(self, scale):
-        """Set our scale (QPointF). 
+        """Set our position (QPoint).
         
-        Normally you'd leave the scale at QPointF(1.0, 1.0), but you can use
-        it to support pages with non-square pixels, etc.
-        
-        In all size computations, the scaling is applied *before* the rotation.
+        Normally this is done by the layout in the updatePagePositions() method.
         
         """
-        self._scale = scale
-        
-    def scale(self):
-        """Return our display scale (QPointF)."""
-        return self._scale
+        self.x = point.x()
+        self.y = point.y()
     
-    def setPageSizeF(self, sizef):
+    def pos(self):
+        """Return our position."""
+        return QPoint(self.x, self.y)
+    
+    def setSize(self, size):
+        """Set our size (QSize).
+        
+        Normally this is done by the layout in the updateSizeFromLayout() method.
+        
+        """
+        self.width = size.width()
+        self.height = size.height()
+
+    def size(self):
+        """Return our size (QSize)"""
+        return QSize(self.width, self.height)
+    
+    def setPageSize(self, sizef):
         """Set our natural page size (QSizeF).
         
         This value is only used in the computeSize() method, to get the size
@@ -100,9 +121,10 @@ class AbstractPage:
         to be in points, 1/72 of an inch.
         
         """
-        self._pageSize = sizef
+        self.pageWidth = sizef.width()
+        self.pageHeight = sizef.height()
     
-    def pageSizeF(self):
+    def pageSize(self):
         """Return our natural page size (QSizeF).
         
         This value is only used in the computeSize() method, to get the size
@@ -112,25 +134,7 @@ class AbstractPage:
         to be in points, 1/72 of an inch.
         
         """
-        return self._pageSize
-
-    def setRotation(self, rotation):
-        """Set the rotation (see .constants) of this page."""
-        self._rotation = rotation
-    
-    def rotation(self):
-        """Return the rotation of this page."""
-        return self._rotation
-    
-    def computedRotation(self):
-        """Return the real rotation used for this Page.
-        
-        This means our rotation added to the layout's rotation.
-        This value is set by the computeSize() method and used by the paint()
-        method.
-        
-        """
-        return self._computedRotation
+        return QSizeF(self.pageWidth, self.pageHeight)
     
     def updateSizeFromLayout(self, layout):
         """Compute and set the size() of the page.
@@ -141,9 +145,9 @@ class AbstractPage:
         the layout. It uses the computeSize() method to perform the calculation.
         
         """
-        self._computedRotation = rotation = (self._rotation + layout.rotation()) & 3
-        self.setSize(QSize(*self.computeSize(
-            rotation, layout.dpi(), layout.scale(), layout.zoomFactor())))
+        self.computedRotation = rotation = (self.rotation + layout.rotation()) & 3
+        self.width, self.height = self.computeSize(
+            rotation, layout.dpi(), layout.scale(), layout.zoomFactor())
     
     def computeSize(self, rotation, dpi, scale, zoomFactor):
         """Return a tuple (w, h) representing the size of the page in pixels.
@@ -152,8 +156,8 @@ class AbstractPage:
         the specified rotation, dpi, scale and zoomFactor.
         
         """
-        w = self._pageSize.width() * self._scale.x()
-        h = self._pageSize.height() * self._scale.y()
+        w = self.pageWidth * self.scaleX
+        h = self.pageHeight * self.scaleY
         if rotation & 1:
             w, h = h, w
         # now handle dpi, scale and zoom
@@ -163,18 +167,18 @@ class AbstractPage:
 
     def zoomForWidth(self, layout, width):
         """Return the zoom we need to display ourselves at the given width."""
-        if (self._rotation + layout.rotation()) & 1:
-            w = self._pageSize.height() / self._scale.y()
+        if (self.rotation + layout.rotation()) & 1:
+            w = self.pageHeight / self.scaleY
         else:
-            w = self._pageSize.width() / self._scale.x()
+            w = self.pageWidth / self.scaleX
         return width * 72.0 / layout.dpi().x() / w / layout.scale().x()
         
     def zoomForHeight(self, layout, height):
         """Return the zoom we need to display ourselves at the given height."""
-        if (self._rotation + layout.rotation()) & 1:
-            h = self._pageSize.width() / self._scale.x()
+        if (self.rotation + layout.rotation()) & 1:
+            h = self.pageWidth / self.scaleX
         else:
-            h = self._pageSize.height() / self._scale.y()
+            h = self.pageHeight / self.scaleY
         return height * 72.0 / layout.dpi().y() / h / layout.scale().y()
     
     def paint(self, painter, dest_rect, source_rect):

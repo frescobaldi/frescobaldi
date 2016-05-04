@@ -30,6 +30,9 @@ Pages are managed by a PageLayout.
 
 A PageLayout can be set to a View so the pages are displayed.
 
+Because the qpageview is built on Qt, we use the Qt convention
+to have camelCase method names and CamelCase class names.
+
 """
 
 from .constants import (

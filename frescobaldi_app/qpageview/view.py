@@ -216,8 +216,8 @@ class View(QAbstractScrollArea):
         page = layout.pageAt(pos_on_layout) if on_page else None
         if page:
             pos_on_page = pos_on_layout - page.pos()
-            x = pos_on_page.x() / page.width()
-            y = pos_on_page.y() / page.height()
+            x = pos_on_page.x() / page.width
+            y = pos_on_page.y() / page.height
         else:
             x = pos_on_layout.x() / layout.width()
             y = pos_on_layout.y() / layout.height()
@@ -226,7 +226,7 @@ class View(QAbstractScrollArea):
         self.updatePageLayout()
         
         if page:
-            new_pos_on_page = QPoint(round(x * page.width()), round(y * page.height()))
+            new_pos_on_page = QPoint(round(x * page.width), round(y * page.height))
             new_pos_on_layout = page.pos() + new_pos_on_page
         else:
             new_pos_on_layout = QPoint(round(x * layout.width()), round(y * layout.height()))

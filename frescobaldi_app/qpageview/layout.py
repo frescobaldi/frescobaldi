@@ -196,11 +196,11 @@ class AbstractPageLayout:
         """
         if self.count():
             def key(page):
-                psize = page.pageSizeF()
-                if (page.rotation() + self.rotation()) & 1:
-                    return psize.height() * page.scale().y()
+                psize = page.pageSize()
+                if (page.rotation + self.rotation()) & 1:
+                    return psize.height() * page.scaleY
                 else:
-                    return psize.width() * page.scale().x()
+                    return psize.width() * page.scaleX
             return max(self, key=key)
     
     def highestPage(self):
@@ -211,11 +211,11 @@ class AbstractPageLayout:
         """
         if self.count():
             def key(page):
-                psize = page.pageSizeF()
-                if (page.rotation() + self.rotation()) & 1:
-                    return psize.width() * page.scale().x()
+                psize = page.pageSize()
+                if (page.rotation + self.rotation()) & 1:
+                    return psize.width() * page.scaleX
                 else:
-                    return psize.height() * page.scale().y()
+                    return psize.height() * page.scaleY
             return max(self, key=key)
     
     def fit(self, size, mode):
@@ -276,7 +276,7 @@ class AbstractPageLayout:
         top = self._margin
         for page in self:
             page.setPos(QPoint(self._margin, top))
-            top += page.height()
+            top += page.height
             top += self._spacing
     
     def computeSize(self):
@@ -316,17 +316,17 @@ class PageLayout(AbstractPageLayout):
     def updatePagePositions(self):
         """Order our pages."""
         if self._orientation == Vertical:
-            width = max((p.width() for p in self), default=0) + self._margin * 2
+            width = max((p.width for p in self), default=0) + self._margin * 2
             top = self._margin
             for page in self:
-                page.setPos(QPoint((width - page.width()) / 2, top))
-                top += page.height() + self._spacing
+                page.setPos(QPoint((width - page.width) / 2, top))
+                top += page.height + self._spacing
         else:
-            height = max((p.height() for p in self), default=0) + self._margin * 2
+            height = max((p.height for p in self), default=0) + self._margin * 2
             left = self._margin
             for page in self:
-                page.setPos(QPoint(left, (height - page.height()) / 2))
-                left += page.width() + self._spacing
+                page.setPos(QPoint(left, (height - page.height) / 2))
+                left += page.width + self._spacing
 
 
 class RowPageLayout(AbstractPageLayout):
@@ -393,18 +393,18 @@ class RowPageLayout(AbstractPageLayout):
         col_offsets = []
         offset = self._margin
         for col in range(cols):
-            width = max(p.width() for p in pages[col::cols] if p)
+            width = max(p.width for p in pages[col::cols] if p)
             col_widths.append(width)
             col_offsets.append(offset)
             offset += width + self._spacing
         
         top = self._margin
         for row in (pages[i:i + cols] for i in range(0, len(pages), cols or 1)):
-            height = max(p.height() for p in row if p)
+            height = max(p.height for p in row if p)
             for n, page in enumerate(row):
                 if page:
-                    x = col_offsets[n] + (col_widths[n] - page.width()) // 2
-                    y = top + (height - page.height()) // 2
+                    x = col_offsets[n] + (col_widths[n] - page.width) // 2
+                    y = top + (height - page.height) // 2
                     page.setPos(QPoint(x, y))
             top += height + self._spacing
 

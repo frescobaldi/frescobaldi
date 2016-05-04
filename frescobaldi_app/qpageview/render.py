@@ -40,9 +40,9 @@ class Request:
     """
     def __init__(self, page):
         self.page = page
-        self.rotation = page.computedRotation()
-        self.width = page.width()
-        self.height = page.height()
+        self.rotation = page.computedRotation
+        self.width = page.width
+        self.height = page.height
     
     def recomputeSize(self, dpi=None, scale=None, zoomFactor=1.0):
         """Re-compute our width and height, using Page.computeSize().
@@ -77,7 +77,7 @@ class AbstractImageRenderer:
     at different sizes.
     
     You must inherit from this class and at least implement the
-    render_request() method.
+    render() method.
     
     """
     def __init__(self):
@@ -114,5 +114,7 @@ class AbstractImageRenderer:
             request.rotation,
             (request.width, request.width))
 
+    def render(self, request):
+        """Reimplement this method to generate an image for this request."""
 
 
