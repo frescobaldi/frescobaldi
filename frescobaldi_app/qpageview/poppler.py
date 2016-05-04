@@ -47,11 +47,12 @@ class PopplerPage(page.AbstractPage):
         
     """
     def __init__(self, document, pageNumber, renderer=None):
-        super().__init__(renderer)
+        super().__init__()
         self.document = document
         self.pageNumber = pageNumber
         self.setPageSize(document.page(pageNumber).pageSizeF())
         # TEMP
+        self.renderer = renderer
         self.image = None
         
     @classmethod
@@ -68,7 +69,7 @@ class PopplerPage(page.AbstractPage):
         # TEMP
         if not self.image or self.image.size() != self.size():
             r = Renderer()
-            self.image = r.render(r.request(self))
+            self.image = r.render(self)
         painter.drawImage(dest_rect, self.image, source_rect)
         return True
 
@@ -82,35 +83,33 @@ class Renderer(render.AbstractImageRenderer):
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     oversampleThreshold = 96
     
-    def key(self, request):
+    def key(self, page):
         """Reimplemented to keep a reference to the poppler document."""
-        key = super().key(request)
+        key = super().key(page)
         return render.cache_key(
-            request.page.document(),
-            request.page.pageNumber(),
+            page.document,
+            page.pageNumber,
             key.rotation,
             key.size)
         
-        
-        
-    def render(self, request):
-        """Generate an image for this request."""
-        doc = request.page.document
-        num = request.page.pageNumber
+    def render(self, page):
+        """Generate an image for this Page."""
+        doc = page.document
+        num = page.pageNumber
         p = doc.page(num)
-        s = request.page.pageSize()
-        if request.rotation & 1:
+        s = page.pageSize()
+        if page.rotation & 1:
             s.transpose()
 
-        xres = 72.0 * request.width / s.width()
-        yres = 72.0 * request.height / s.height()
+        xres = 72.0 * page.width / s.width()
+        yres = 72.0 * page.height / s.height()
         multiplier = 2 if xres < self.oversampleThreshold else 1
         image = self.render_poppler_image(doc, num,
             xres * multiplier, yres * multiplier,
-            0, 0, request.width * multiplier, request.height * multiplier,
-            request.rotation)
+            0, 0, page.width * multiplier, page.height * multiplier,
+            page.rotation)
         if multiplier == 2:
-            image = image.scaledToWidth(request.page.width, Qt.SmoothTransformation)
+            image = image.scaledToWidth(page.width, Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)
         image.setDotsPerMeterY(yres * 39.37)
         return image

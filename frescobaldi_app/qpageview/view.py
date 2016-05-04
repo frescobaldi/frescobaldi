@@ -320,7 +320,7 @@ class View(QAbstractScrollArea):
         else:
             self._updateScrollBars()
     
-    def notifyRedrawPage(self, page):
+    def repaintPage(self, page):
         """Call this when you want to redraw the specified page."""
         rect = page.rect().translated(self.layoutPosition())
         self.viewport().update(rect)
@@ -334,7 +334,7 @@ class View(QAbstractScrollArea):
             dest_rect = p.rect().translated(layout_pos) & ev.rect()
             source_rect = dest_rect.translated(-origin)
             if not p.paint(painter, dest_rect, source_rect):
-                p.redraw(self)
+                p.redraw(self.repaintPage)
         # TODO paint highlighting
         # TODO paint rubberband
         # TODO paint magnifier

@@ -30,34 +30,6 @@ from PyQt5.QtGui import QImage
 cache_key = collections.namedtuple('cache_key', 'group page rotation size')
 
 
-class Request:
-    """Describes a request to render a Page.
-    
-    You can instantiate a Request and use it directly, but you can also alter 
-    the `rotation` attribute and/of use the recomputeSize() method to change 
-    the size of the to be rendered image.
-    
-    """
-    def __init__(self, page):
-        self.page = page
-        self.rotation = page.computedRotation
-        self.width = page.width
-        self.height = page.height
-    
-    def recomputeSize(self, dpiX=72.0, dpiY=None, zoomFactor=1.0):
-        """Re-compute our width and height, using Page.computeSize().
-        
-        You can use this to base a request on a Page but alter e.g. the 
-        zoom. dpiX defaults to 72.0 and dpiY defaults to dpiX
-        
-        """
-        if dpiY is None:
-            dpiY = dpiX
-        self.width, self.height = self.page.computeSize(
-            self.rotation, dpiX, dpiY, zoomFactor)
-
-
-
 class AbstractImageRenderer:
     """Handle rendering and caching of images.
     
@@ -69,10 +41,6 @@ class AbstractImageRenderer:
     one global renderer in your application or more, depending on how you use
     the qpageview package.
 
-    When rendering the image for a Page, a Request is created which can be
-    scheduled or rendered directly. You can also schedule requests for a page
-    at different sizes.
-    
     You must inherit from this class and at least implement the
     render() method.
     
@@ -80,19 +48,14 @@ class AbstractImageRenderer:
     def __init__(self):
         pass
     
-    def request(self, page):
-        """Return a Request for the Page."""
-        return Request(page)
-    
-    def key(self, request):
-        """Return a cache_key instance for this request.
+    def key(self, page):
+        """Return a cache_key instance for this Page.
         
         The cache_key is a four-tuple:
         
             group       = an object a weak reference is taken to. It could be
                           a document or some other structure the page belongs to.
-                          by default the Page object attached to the request is
-                          used.
+                          By default the Page object itself is used.
 
             page        = None by default, but if you use group differently,
                           you should use here a hashable object that identifies
@@ -102,16 +65,18 @@ class AbstractImageRenderer:
             
             size        = the (width, height) tuple of the page.
         
-        The cache_key is used to store requests and to cache results.
+        The cache_key is used to store and find back requests and to cache 
+        results.
         
         """
         return cache_key(
-            request.page,
+            page,
             None,
-            request.rotation,
-            (request.width, request.width))
+            page.rotation,
+            (page.width, page.width))
 
-    def render(self, request):
-        """Reimplement this method to generate an image for this request."""
+    def render(self, page):
+        """Reimplement this method to generate an image for this Page."""
+        return QImage()
 
 

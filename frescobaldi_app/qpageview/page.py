@@ -21,6 +21,7 @@
 A Page is responsible for drawing a page inside a PageLayout.
 
 """
+import copy
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
 from PyQt5.QtGui import QColor
@@ -57,8 +58,14 @@ class AbstractPage:
         `width`         the width in pixels
         `height`        the height in pixels
         `computedRotation` the rotation in which finally to render
+    
+    A page is rendered by a renderer, which can live in a class
+    or instance attribute.
+    
         
     """
+    
+    renderer = None
     
     rotation = Rotate_0
     scaleX = 1.0
@@ -73,6 +80,10 @@ class AbstractPage:
         self.pageHeight = 0.0
         self.computedRotation = Rotate_0
     
+    def copy(self):
+        """Return a copy of the page with the same instance attributes."""
+        return copy.copy(self)
+        
     def rect(self):
         """Return our QRect(), with position and size."""
         return QRect(self.x, self.y, self.width, self.height)
@@ -178,11 +189,9 @@ class AbstractPage:
         
         The View calls this method in the paint event. If it returns a non-true 
         value, it is assumed that the painting would take too much time and 
-        that nothing or an intermediate image is painted.
+        that nothing or an interim image is painted.
         
-        In that case, the View calls redraw(). It is expected that the page will
-        initiate a rendering job in the background and call
-        View.notifyPageRedraw when the job has finished.
+        In that case, the View calls redraw().
         
         The default implementation of this method simply draws a white square
         and returns True.
@@ -191,19 +200,14 @@ class AbstractPage:
         painter.fillRect(dest_rect, QColor(Qt.white))
         return True
 
-    def redraw(self, view):
-        """Should perform a redrawing job in the background.
-        
-        This method is called by the View in the paint event, when paint() did
-        return a non-True value. If you didn't do it already, start a background
-        job that renders the page.
-        When the job is done, call view.notifyPageRedraw(page), and the View
-        will request a paint update.
+    def redraw(self, callback):
+        """Schedule a redraw and call the callback when that is finished.
         
         The default implementation of this method calls
-        redraw(self, view.notifyRedrawPage) on the renderer, which must be
+        redraw(self, callback) on the renderer, which must be
         present in the renderer attribute.
         
         """
-        self.renderer.redraw(self, view.notifyRedrawPage)
+        self.renderer.redraw(self, callback)
+
 
