@@ -83,6 +83,10 @@ class AbstractImageRenderer:
     def __init__(self):
         pass
     
+    def request(self, page):
+        """Return a Request for the Page."""
+        return Request(page)
+    
     def key(self, request):
         """Return a cache_key instance for this request.
         

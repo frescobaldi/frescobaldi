@@ -92,21 +92,21 @@ class Renderer(render.AbstractImageRenderer):
         
         
         
-    def render_image(self, page):
-        """Generate an image for this page."""
-        doc = page.document()
+    def render(self, request):
+        """Generate an image for this request."""
+        doc = request.page.document()
         p = doc.page(page._pageNumber)
-        s = page.pageSizeF()
-        if page.computedRotation() & 1:
+        s = request.page.pageSizeF()
+        if request.rotation & 1:
             s.transpose()
 
-        xres = 72.0 * page.width() / s.width()
-        yres = 72.0 * page.height() / s.height()
+        xres = 72.0 * request.width / s.width()
+        yres = 72.0 * request.height / s.height()
         multiplier = 2 if xres < self.oversampleThreshold else 1
-        image = self.render_poppler_image(doc, page.pageNumber(),
+        image = self.render_poppler_image(doc, request.page.pageNumber(),
             xres * multiplier, yres * multiplier,
-            0, 0, page.width() * multiplier, page.height() * multiplier,
-            page.computedRotation())
+            0, 0, request.width * multiplier, request.height * multiplier,
+            request.rotation)
         if multiplier == 2:
             image = image.scaledToWidth(page.width(), Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)
