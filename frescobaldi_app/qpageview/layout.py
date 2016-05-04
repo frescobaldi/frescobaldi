@@ -263,7 +263,7 @@ class AbstractPageLayout:
     def updatePageSizes(self):
         """Compute the correct size of every Page."""
         for page in self:
-            page.computeSize(self)
+            page.computeSizeFromLayout(self)
 
     def updatePagePositions(self):
         """Determine the position of every Page. 

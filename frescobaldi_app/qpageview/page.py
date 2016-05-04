@@ -132,7 +132,7 @@ class AbstractPage:
         """
         return self._computedRotation
     
-    def computeSize(self, layout):
+    def computeSizeFromLayout(self, layout):
         """Compute and set the size() of the page.
         
         This method is called on layout update by the updatePageSizes method.
@@ -141,17 +141,25 @@ class AbstractPage:
         the layout.
         
         """
-        # our size
+        self._computedRotation = rotation = (self._rotation + layout.rotation()) & 3
+        self.setSize(QSize(*self.computeSize(
+            rotation, layout.dpi(), layout.scale(), layout.zoomFactor())))
+    
+    def computeSize(self, rotation, dpi, scale, zoomFactor):
+        """Return a tuple (w, h) representing the size of the page in pixels.
+        
+        This size is computed based on the page's natural size, its scale and
+        the specified rotation, dpi, scale and zoomFactor.
+        
+        """
         w = self._pageSize.width() * self._scale.x()
         h = self._pageSize.height() * self._scale.y()
-        # handle ours and the layout's rotation in one go
-        self._computedRotation = (self._rotation + layout.rotation()) & 3
-        if (self._computedRotation) & 1:
+        if rotation & 1:
             w, h = h, w
-        # now handle the layout's scale, dpi and zoom
-        w = w * layout.dpi().x() / 72.0 * layout.scale().x() * layout.zoomFactor()
-        h = h * layout.dpi().y() / 72.0 * layout.scale().y() * layout.zoomFactor()
-        self.setSize(QSize(w, h))
+        # now handle dpi, scale and zoom
+        w = w * dpi.x() / 72.0 * scale.x() * zoomFactor
+        h = h * dpi.y() / 72.0 * scale.y() * zoomFactor
+        return w, h
 
     def zoomForWidth(self, layout, width):
         """Return the zoom we need to display ourselves at the given width."""

@@ -21,6 +21,11 @@
 Infrastructure for rendering and caching Page images.
 """
 
+import collections
+
+
+cache_key = collections.namedtuple('cache_key', 'ref page size')
+
 from PyQt5.QtGui import QImage
 
 
@@ -36,20 +41,38 @@ class AbstractImageRenderer:
     the qpageview package.
     
     You must inherit from this class and at least implement the
-    render_image_for_job() method.
+    render_request() method.
     
     """
     
-    class RenderJob:
+    class Request:
+        """Describes a request to render a Page."""
         def __init__(self, page):
             self.page = page
             self.width = page.width()
             self.height = page.height()
             self.rotation = page.computedRotation()
         
+        def recomputeSize(self, dpi=None, scale=None, zoomFactor=1.0):
+            """Re-compute our width and height, using Page.computeSize().
+            
+            You can use this to base a request on a Page but alter e.g. the 
+            zoom. dpi defaults to QPointF(72.0, 72.0), scale defaults to 
+            QPointF(1.0, 1.0).
+            
+            """
+            if dpi is None:
+                dpi = QPointF(72.0, 72.0)
+            if scale is None:
+                scale = QPointF(1.0, 1.0)
+            self.width, self.height = self.page.computeSize(
+                self.rotation, dpi, scale, zoomFactor)
+            
         def cache_key(self):
-            return 
-    
+            """Uniquely identify this rendering request or result."""
+            return cache_key(self.page, self.rotation, (self.width, self.height))
+
+
     def __init__(self):
         pass
     
