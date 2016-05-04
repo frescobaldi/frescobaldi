@@ -41,7 +41,7 @@ from .constants import (
 )
 
 
-class AbstractPageLayout:
+class AbstractPageLayout(list):
     """Manages page.Page instances with a list-like api.
     
     You can iterate over the layout itself, which yields all Page instances.
@@ -71,57 +71,18 @@ class AbstractPageLayout:
     width = 0
     height = 0
     
-    def __init__(self):
-        self._pages = []
-        
-    def append(self, page):
-        self._pages.append(page)
-        
-    def insert(self, position, page):
-        self._pages.insert(position, page)
-    
-    def extend(self, pages):
-        for page in pages:
-            self.append(page)
-            
-    def remove(self, page):
-        self._pages.remove(page)
-    
-    def pop(self, index=None):
-        page = self._pages.pop(index)
-        return page
-    
-    def clear(self):
-        del self[:]
-    
-    def count(self):
-        return len(self._pages)
-        
-    def __len__(self):
-        return len(self._pages)
-    
     def __bool__(self):
+        """Always return True."""
         return True
     
+    def count(self):
+        """Return the number of Page instances."""
+        return len(self)
+    
     def empty(self):
-        return len(self._pages) == 0
+        """Return True if there are zero pages."""
+        return len(self) == 0
     
-    def __contains__(self, page):
-        return page in self._pages
-    
-    def __getitem__(self, item):
-        return self._pages[item]
-        
-    def __delitem__(self, item):
-        del self._pages[item]
-    
-    def __setitem__(self, item, new):
-        self._pages[item] = new
-    
-    def index(self, page):
-        """Return the index at which the given Page can be found in our Layout."""
-        return self._pages.index(page)
-        
     def setSize(self, size):
         """Set our size. Normally done after layout by computeSize()."""
         self.width = size.width()
@@ -176,7 +137,7 @@ class AbstractPageLayout:
             return max(self, key=key)
     
     def fit(self, size, mode):
-        """Fits the layout in the given ViewMode."""
+        """Fits the layout in the given size (QSize) and ViewMode."""
         if mode and self._pages:
             zoomfactors = []
             if mode & FitWidth:
