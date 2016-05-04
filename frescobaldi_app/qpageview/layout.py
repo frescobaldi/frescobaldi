@@ -232,7 +232,8 @@ class AbstractPageLayout:
         """
         top = self.margin
         for page in self:
-            page.setPos(QPoint(self.margin, top))
+            page.x = self.margin
+            page.y = top
             top += page.height
             top += self.spacing
     

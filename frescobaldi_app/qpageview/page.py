@@ -38,9 +38,8 @@ class AbstractPage:
     
     A Page has instance attributes...
     
-    ...that normally do not change:
+    ...that normally do not change during its lifetime:
     
-        `data`          object(s) that are understood by the renderer to render
         `pageWidth`     the original width in points (1/72 inch)
         `pageHeight`    the original height in points (1/72 inch)
     
@@ -64,12 +63,8 @@ class AbstractPage:
     rotation = Rotate_0
     scaleX = 1.0
     scaleY = 1.0
-    
-    
-    # the renderer can take care of rendering images in the background
-    renderer = None
-    
-    def __init__(self, renderer=None):
+
+    def __init__(self):
         self.x = 0
         self.y = 0
         self.width = 0
@@ -77,9 +72,6 @@ class AbstractPage:
         self.pageWidth = 0.0
         self.pageHeight = 0.0
         self.computedRotation = Rotate_0
-        
-        if renderer is not None:
-            self.renderer = renderer
     
     def rect(self):
         """Return our QRect(), with position and size."""
@@ -95,7 +87,7 @@ class AbstractPage:
         self.y = point.y()
     
     def pos(self):
-        """Return our position."""
+        """Return our position (QPoint)."""
         return QPoint(self.x, self.y)
     
     def setSize(self, size):
@@ -108,7 +100,7 @@ class AbstractPage:
         self.height = size.height()
 
     def size(self):
-        """Return our size (QSize)"""
+        """Return our size (QSize)."""
         return QSize(self.width, self.height)
     
     def setPageSize(self, sizef):
