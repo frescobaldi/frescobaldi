@@ -184,7 +184,7 @@ class AbstractPage:
             h = self.pageHeight / self.scaleY
         return height * 72.0 / layout.dpiY / h
     
-    def paint(self, painter, dest_rect, source_rect):
+    def paint(self, painter, rect):
         """Reimplement this to paint our Page.
         
         The View calls this method in the paint event. If it returns a non-true 
@@ -197,7 +197,7 @@ class AbstractPage:
         and returns True.
         
         """
-        painter.fillRect(dest_rect, QColor(Qt.white))
+        painter.fillRect(rect, QColor(Qt.white))
         return True
 
     def redraw(self, callback):

@@ -340,10 +340,12 @@ class View(QAbstractScrollArea):
         # paint the pages
         for p in self._pageLayout.pagesAt(ev.rect().translated(-layout_pos)):
             origin = p.pos() + layout_pos
-            dest_rect = p.rect().translated(layout_pos) & ev.rect()
-            source_rect = dest_rect.translated(-origin)
-            if not p.paint(painter, dest_rect, source_rect):
+            rect = (p.rect().translated(layout_pos) & ev.rect()).translated(-origin)
+            painter.save()
+            painter.translate(origin)
+            if not p.paint(painter, rect):
                 p.redraw(self.repaintPage)
+            painter.restore()
         # TODO paint highlighting
         # TODO paint rubberband
         # TODO paint magnifier

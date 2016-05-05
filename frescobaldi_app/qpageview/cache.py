@@ -49,15 +49,15 @@ class ImageCache:
         """Remove all cached images."""
         self._cache.clear()
     
-    def get(self, key):
-        """Retrieve the exact image."""
-        try:
-            result = self._cache[key.group][key.page][key.size]
-        except KeyError:
-            return
-        return result.image
+    def __getitem__(self, key):
+        """Retrieve the exact image.
+        
+        Raises a KeyError when there is no cached image for the key.
+        
+        """
+        return self._cache[key.group][key.page][key.size].image
     
-    def set(self, key, image):
+    def __setitem__(self, key, image):
         """Store the image.
         
         Automatically removes the oldest cached images to keep the cache
@@ -93,14 +93,16 @@ class ImageCache:
             for group, groupd in self._cache.items()
                 for page, paged in groupd.items()
                     for size, entry in sorted(paged.items())[:1]))
-        items = reversed(items)
         
+        # now count the newest images until maxsize ...
+        items = reversed(items)
         currentsize = 0
         for time, bcount, group, page, size in items:
             currentsize += bcount
             if currentsize > self.maxsize:
                 break
         self.currentsize = currentsize
+        # ... and delete the remaining images, deleting empty dicts as well
         for time, bcount, group, page, size in items:
             del self._cache[group][page][size]
             if not self._cache[group][page]:
