@@ -64,6 +64,15 @@ class View(QAbstractScrollArea):
         self.horizontalScrollBar().setSingleStep(20)
         self.setMouseTracking(True)
     
+    def loadPdf(self, filename):
+        """Convenience method to load the specified PDF file."""
+        import popplerqt5
+        from . import poppler
+        doc = popplerqt5.Poppler.Document.load(filename)
+        renderer = poppler.Renderer()
+        self.pageLayout()[:] = poppler.PopplerPage.createPages(doc, renderer)
+        self.updatePageLayout()
+    
     def setPageLayout(self, layout):
         """Set our current PageLayout instance."""
         self._pageLayout = layout
