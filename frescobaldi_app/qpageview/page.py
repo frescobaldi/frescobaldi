@@ -184,30 +184,15 @@ class AbstractPage:
             h = self.pageHeight / self.scaleY
         return height * 72.0 / layout.dpiY / h
     
-    def paint(self, painter, rect):
+    def paint(self, painter, rect, callback=None):
         """Reimplement this to paint our Page.
         
-        The View calls this method in the paint event. If it returns a non-true 
-        value, it is assumed that the painting would take too much time and 
-        that nothing or an interim image is painted.
-        
-        In that case, the View calls redraw().
-        
-        The default implementation of this method simply draws a white square
-        and returns True.
+        The View calls this method in the paint event. If you can't paint
+        quickly, just return and schedule an image to be rendered in the
+        background. If a callback is specified, it is called when the image
+        is ready with the page as argument.
         
         """
         painter.fillRect(rect, QColor(Qt.white))
-        return True
-
-    def redraw(self, callback):
-        """Schedule a redraw and call the callback when that is finished.
-        
-        The default implementation of this method calls
-        redraw(self, callback) on the renderer, which must be
-        present in the renderer attribute.
-        
-        """
-        self.renderer.redraw(self, callback)
 
 

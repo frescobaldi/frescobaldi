@@ -338,13 +338,12 @@ class View(QAbstractScrollArea):
         layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
         # paint the pages
-        for p in self._pageLayout.pagesAt(ev.rect().translated(-layout_pos)):
-            origin = p.pos() + layout_pos
-            rect = (p.rect().translated(layout_pos) & ev.rect()).translated(-origin)
+        ev_rect = ev.rect().translated(-layout_pos)
+        for p in self._pageLayout.pagesAt(ev_rect):
+            rect = (p.rect() & ev_rect).translated(-p.pos())
             painter.save()
-            painter.translate(origin)
-            if not p.paint(painter, rect):
-                p.redraw(self.repaintPage)
+            painter.translate(p.pos() + layout_pos)
+            p.paint(painter, rect, self.repaintPage)
             painter.restore()
         # TODO paint highlighting
         # TODO paint rubberband

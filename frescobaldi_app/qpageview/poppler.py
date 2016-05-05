@@ -65,7 +65,7 @@ class PopplerPage(page.AbstractPage):
         """
         return [cls(document, num, renderer) for num in range(document.numPages())]
         
-    def paint(self, painter, rect):
+    def paint(self, painter, rect, callback=None):
         # TEMP
         key = self.renderer.key(self)
         try:
@@ -74,7 +74,6 @@ class PopplerPage(page.AbstractPage):
             image = self.renderer.render(self)
             self.renderer.cache[key] = image
         painter.drawImage(rect, image, rect)
-        return True
 
 
 class Renderer(render.AbstractImageRenderer):
