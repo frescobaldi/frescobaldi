@@ -26,6 +26,8 @@ import weakref
 
 from PyQt5.QtGui import QImage
 
+from . import cache
+
 
 cache_key = collections.namedtuple('cache_key', 'group page rotation size')
 
@@ -46,7 +48,7 @@ class AbstractImageRenderer:
     
     """
     def __init__(self):
-        pass
+        self.cache = cache.Cache()
     
     def key(self, page):
         """Return a cache_key instance for this Page.

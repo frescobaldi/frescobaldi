@@ -67,10 +67,12 @@ class PopplerPage(page.AbstractPage):
         
     def paint(self, painter, dest_rect, source_rect):
         # TEMP
-        if not self.image or self.image.size() != self.size():
-            r = Renderer()
-            self.image = r.render(self)
-        painter.drawImage(dest_rect, self.image, source_rect)
+        key = self.renderer.key(self)
+        image = self.renderer.cache.get(key)
+        if not image:
+            image = self.renderer.render(self)
+            self.renderer.cache.set(key, image)
+        painter.drawImage(dest_rect, image, source_rect)
         return True
 
 

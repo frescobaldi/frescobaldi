@@ -38,18 +38,18 @@ class Cache:
     def clear(self):
         self._cache.clear()
     
-    def get(key):
+    def get(self, key):
         try:
             result = self._cache[key.group][(key.page, key.rotation)][key.size]
         except KeyError:
             return
         return result.obj
     
-    def set(key, value):
+    def set(self, key, value):
         self._cache.setdefault(
             key.group, {}).setdefault((key.page, key.rotation), {})[key.size] = Entry(value)
 
-    def closest(key):
+    def closest(self, key):
         try:
             entries = self._cache[key.group][(key.page, key.rotation)].items()
         except KeyError:
