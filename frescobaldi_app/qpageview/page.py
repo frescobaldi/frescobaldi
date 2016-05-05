@@ -192,7 +192,9 @@ class AbstractPage:
         background. If a callback is specified, it is called when the image
         is ready with the page as argument.
         
+        By default, this method calls the renderer's paint() method.
+        
         """
-        painter.fillRect(rect, QColor(Qt.white))
+        self.renderer and self.renderer.paint(self, painter, rect, callback)
 
 

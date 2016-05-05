@@ -78,4 +78,23 @@ class AbstractImageRenderer:
         """Reimplement this method to generate an image for this Page."""
         return QImage()
 
+    def paint(self, page, painter, rect, callback=None):
+        """Paint a page.
+        
+        The Page calls this method by default in the paint() method.
+        This method tries to fetch an image from the cache and paint that.
+        If no image is available, render() is called in the background to
+        generate one. If it is ready, the callback is called with the Page
+        as argument. An interim image may be painted in the mean time (e.g.
+        scaled from another size).
+        
+        """
+        # TEMP
+        key = self.key(page)
+        try:
+            image = self.cache[key]
+        except KeyError:
+            image = self.render(page)
+            self.cache[key] = image
+        painter.drawImage(rect, image, rect)
 
