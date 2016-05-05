@@ -25,31 +25,96 @@ import weakref
 import time
 
 
-class Entry:
-    def __init__(self, obj):
-        self.obj = obj
+class ImageEntry:
+    def __init__(self, image):
+        self.image = image
+        self.bcount = image.byteCount()
         self.time = time.time()
 
 
-class Cache:
+class ImageCache:
+    """Cache generated images.
+    
+    Store and retrieve them under a key (see render.Renderer.key()).
+    
+    
+    """
+    maxsize = 104857600 # 100M
+    currentsize = 0
+
     def __init__(self):
         self._cache = weakref.WeakKeyDictionary()
     
     def clear(self):
+        """Remove all cached images."""
         self._cache.clear()
     
     def get(self, key):
+        """Retrieve the exact image."""
         try:
             result = self._cache[key.group][key.page][key.size]
         except KeyError:
             return
-        return result.obj
+        return result.image
     
-    def set(self, key, value):
-        self._cache.setdefault(
-            key.group, {}).setdefault(key.page, {})[key.size] = Entry(value)
-
+    def set(self, key, image):
+        """Store the image.
+        
+        Automatically removes the oldest cached images to keep the cache
+        under maxsize.
+        
+        """
+        try:
+            self.currentsize -= self._cache[key.group][key.page][key.size].bcount
+        except KeyError:
+            pass
+        
+        purgeneeded = self.currentsize > self.maxsize
+        
+        e = ImageEntry(image)
+        self.currentsize += e.bcount
+        
+        self._cache.setdefault(key.group, {}).setdefault(key.page, {})[key.size] = e
+        
+        if not purgeneeded:
+            return
+        
+        # purge old images if needed,
+        # cache groups may have disappaered so count all images
+        items = []
+        items.extend(sorted(
+            (entry.time, entry.bcount, group, page, size)
+            for group, groupd in self._cache.items()
+                for page, paged in groupd.items()
+                    for size, entry in sorted(paged.items())[1:]))
+        # smallest for each page last
+        items.extend(sorted(
+            (entry.time, entry.bcount, group, page, size)
+            for group, groupd in self._cache.items()
+                for page, paged in groupd.items()
+                    for size, entry in sorted(paged.items())[:1]))
+        items = reversed(items)
+        
+        currentsize = 0
+        for time, bcount, group, page, size in items:
+            currentsize += bcount
+            if currentsize > self.maxsize:
+                break
+        self.currentsize = currentsize
+        for time, bcount, group, page, size in items:
+            del self._cache[group][page][size]
+            if not self._cache[group][page]:
+                del self._cache[group][page]
+                if not self._cache[group]:
+                    del self._cache[group]
+    
     def closest(self, key):
+        """Retrieve the correct image but with a different size.
+        
+        This can be used for interim display while the real image is being
+        rendered.
+        
+        """
         try:
             entries = self._cache[key.group][key.page].items()
         except KeyError:
@@ -58,5 +123,5 @@ class Cache:
         if entries:
             width = key.size[0]
             sizes = sorted(entries, key=lambda s: abs(1 - s[0] / width))
-            return entries[sizes[0]].obj
+            return entries[sizes[0]].image
 

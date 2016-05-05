@@ -48,7 +48,7 @@ class AbstractImageRenderer:
     
     """
     def __init__(self):
-        self.cache = cache.Cache()
+        self.cache = cache.ImageCache()
     
     def key(self, page):
         """Return a cache_key instance for this Page.
@@ -72,7 +72,7 @@ class AbstractImageRenderer:
         return cache_key(
             page,
             page.computedRotation,
-            (page.width, page.width))
+            (page.width, page.height))
 
     def render(self, page):
         """Reimplement this method to generate an image for this Page."""
