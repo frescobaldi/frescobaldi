@@ -29,7 +29,7 @@ from PyQt5.QtGui import QImage
 from . import cache
 
 
-cache_key = collections.namedtuple('cache_key', 'group page rotation size')
+cache_key = collections.namedtuple('cache_key', 'group page size')
 
 
 class AbstractImageRenderer:
@@ -59,13 +59,11 @@ class AbstractImageRenderer:
                           a document or some other structure the page belongs to.
                           By default the Page object itself is used.
 
-            page        = None by default, but if you use group differently,
+            page        = the rotation by default, but if you use group differently,
                           you should use here a hashable object that identifies
                           the page in the group.
                           
-            rotation    = the rotation of the page
-            
-            size        = the (width, height) tuple of the page.
+            size        = must be the (width, height) tuple of the page.
         
         The cache_key is used to store and find back requests and to cache 
         results.
@@ -73,8 +71,7 @@ class AbstractImageRenderer:
         """
         return cache_key(
             page,
-            None,
-            page.rotation,
+            page.computedRotation,
             (page.width, page.width))
 
     def render(self, page):

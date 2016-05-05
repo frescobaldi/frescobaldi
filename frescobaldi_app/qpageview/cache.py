@@ -40,18 +40,18 @@ class Cache:
     
     def get(self, key):
         try:
-            result = self._cache[key.group][(key.page, key.rotation)][key.size]
+            result = self._cache[key.group][key.page][key.size]
         except KeyError:
             return
         return result.obj
     
     def set(self, key, value):
         self._cache.setdefault(
-            key.group, {}).setdefault((key.page, key.rotation), {})[key.size] = Entry(value)
+            key.group, {}).setdefault(key.page, {})[key.size] = Entry(value)
 
     def closest(self, key):
         try:
-            entries = self._cache[key.group][(key.page, key.rotation)].items()
+            entries = self._cache[key.group][key.page].items()
         except KeyError:
             return
         # find the closest size (assuming aspect ratio has not changed)

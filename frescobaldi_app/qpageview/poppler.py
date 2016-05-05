@@ -90,8 +90,7 @@ class Renderer(render.AbstractImageRenderer):
         key = super().key(page)
         return render.cache_key(
             page.document,
-            page.pageNumber,
-            key.rotation,
+            (page.pageNumber, page.computedRotation),
             key.size)
         
     def render(self, page):
