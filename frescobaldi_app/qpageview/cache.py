@@ -118,7 +118,7 @@ class ImageCache:
         
         """
         try:
-            entries = self._cache[key.group][key.page].items()
+            entries = self._cache[key.group][key.page]
         except KeyError:
             return
         # find the closest size (assuming aspect ratio has not changed)
