@@ -23,13 +23,33 @@ Infrastructure for rendering and caching Page images.
 
 import collections
 import weakref
+import time
 
-from PyQt5.QtGui import QImage
+from PyQt5.QtCore import QRectF, Qt, QThread
+from PyQt5.QtGui import QColor, QImage
 
 from . import cache
 
 
 cache_key = collections.namedtuple('cache_key', 'group page size')
+
+
+class Job(QThread):
+    def __init__(self, renderer, page):
+        super().__init__()
+        self.renderer = renderer
+        self.page = page
+        self.image = None
+        self.time = time.time()
+        self.finished.connect(self._slotFinished)
+        self.callbacks = set()
+        
+    def run(self):
+        self.key = self.renderer.key(self.page)
+        self.image = self.renderer.render(self.page)
+    
+    def _slotFinished(self):
+        self.renderer.finish(self)
 
 
 class AbstractImageRenderer:
@@ -49,6 +69,7 @@ class AbstractImageRenderer:
     """
     def __init__(self):
         self.cache = cache.ImageCache()
+        self._jobs = {}
     
     def key(self, page):
         """Return a cache_key instance for this Page.
@@ -89,12 +110,37 @@ class AbstractImageRenderer:
         scaled from another size).
         
         """
-        # TEMP
         key = self.key(page)
         try:
             image = self.cache[key]
         except KeyError:
-            image = self.render(page)
-            self.cache[key] = image
-        painter.drawImage(rect, image, rect)
+            image = self.cache.closest(key)
+            if image:
+                hscale = image.width() / page.width
+                vscale = image.height() / page.height
+                image_rect = QRectF(rect.x() * hscale, rect.y() * vscale,
+                                    rect.width() * hscale, rect.height() * vscale)
+                painter.drawImage(QRectF(rect), image, image_rect)
+            else:
+                painter.fillRect(rect, QColor(Qt.white))
+            self.schedule(page, painter, callback)
+        else:
+            painter.drawImage(rect, image, rect)
+
+    
+    def schedule(self, page, painter, callback):
+        """Start a new rendering job."""
+        try:
+            job = self._jobs[page]
+        except KeyError:
+            job = self._jobs[page] = Job(self, page)
+            job.start()
+        job.callbacks.add(callback)    
+        
+    def finish(self, job):
+        """Called by the job when finished."""
+        self.cache[job.key] = job.image
+        for cb in job.callbacks:
+            cb(job.page)
+        del self._jobs[job.page]
 
