@@ -80,7 +80,7 @@ class ImageCache:
             return
         
         # purge old images if needed,
-        # cache groups may have disappaered so count all images
+        # cache groups may have disappeared so count all images
         items = []
         items.extend(sorted(
             (entry.time, entry.bcount, group, page, size)
