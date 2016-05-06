@@ -39,14 +39,15 @@ class Job(QThread):
         super().__init__()
         self.renderer = renderer
         self.page = page
+        self.page_copy = page.copy()
         self.image = None
         self.time = time.time()
         self.finished.connect(self._slotFinished)
         self.callbacks = set()
         
     def run(self):
-        self.key = self.renderer.key(self.page)
-        self.image = self.renderer.render(self.page)
+        self.key = self.renderer.key(self.page_copy)
+        self.image = self.renderer.render(self.page_copy)
     
     def _slotFinished(self):
         self.renderer.finish(self)
