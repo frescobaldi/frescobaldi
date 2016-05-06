@@ -34,19 +34,28 @@ from . import cache
 cache_key = collections.namedtuple('cache_key', 'group page size')
 
 
+# the maximum number of concurrent jobs (at global level)
+maxjobs = 4
+
+# we use a global dict to keep running jobs in, so a thread is never
+# deallocated when a renderer dies.
+_jobs = {}
+
+
 class Job(QThread):
+    image = None
+    running = False
     def __init__(self, renderer, page):
         super().__init__()
         self.renderer = renderer
         self.page = page
         self.page_copy = page.copy()
-        self.image = None
+        self.key = self.renderer.key(self.page_copy)
         self.time = time.time()
         self.finished.connect(self._slotFinished)
         self.callbacks = set()
         
     def run(self):
-        self.key = self.renderer.key(self.page_copy)
         self.image = self.renderer.render(self.page_copy)
     
     def _slotFinished(self):
@@ -70,7 +79,6 @@ class AbstractImageRenderer:
     """
     def __init__(self):
         self.cache = cache.ImageCache()
-        self._jobs = {}
     
     def key(self, page):
         """Return a cache_key instance for this Page.
@@ -107,7 +115,7 @@ class AbstractImageRenderer:
         This method tries to fetch an image from the cache and paint that.
         If no image is available, render() is called in the background to
         generate one. If it is ready, the callback is called with the Page
-        as argument. An interim image may be painted in the mean time (e.g.
+        as argument. An interim image may be painted in the meantime (e.g.
         scaled from another size).
         
         """
@@ -132,16 +140,33 @@ class AbstractImageRenderer:
     def schedule(self, page, painter, callback):
         """Start a new rendering job."""
         try:
-            job = self._jobs[page]
+            job = _jobs.setdefault(self, {})[page]
         except KeyError:
-            job = self._jobs[page] = Job(self, page)
+            job = _jobs[self][page] = Job(self, page)
+        job.callbacks.add(callback)
+        self.checkstart()
+    
+    def checkstart(self):
+        """Check whether there are jobs that need to be started."""
+        try:
+            ourjobs = _jobs[self].values()
+        except KeyError:
+            return
+        # count the total number of running jobs
+        jobcount = sum(1 for jobs in _jobs.values()
+                         for j in jobs.values() if j.running)
+        waitingjobs = sorted((j for j in ourjobs if not j.running),
+                             key=lambda j: j.time, reverse=True)
+        for job in waitingjobs[:maxjobs-jobcount]:
+            job.running = True
             job.start()
-        job.callbacks.add(callback)    
         
     def finish(self, job):
         """Called by the job when finished."""
         self.cache[job.key] = job.image
         for cb in job.callbacks:
             cb(job.page)
-        del self._jobs[job.page]
-
+        del _jobs[self][job.page]
+        if not _jobs[self]:
+            del _jobs[self]
+        self.checkstart()
