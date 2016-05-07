@@ -67,6 +67,11 @@ class BasicSvgPage(page.AbstractPage):
 
 class SvgPage(BasicSvgPage):
     """Display SVG pages using a cache."""
+    def __init__(self, load_file=None, renderer=None):
+        super().__init__(load_file)
+        if renderer is not None:
+            self.renderer = renderer
+    
     def paint(self, painter, rect, callback=None):
         self.renderer.paint(self, painter, rect, callback)
 

@@ -73,6 +73,17 @@ class View(QAbstractScrollArea):
         self.pageLayout()[:] = poppler.PopplerPage.createPages(doc, renderer)
         self.updatePageLayout()
     
+    def loadSvgs(self, filenames):
+        """Convenience method to load the specified list of SVG files.
+        
+        Each SVG file is loaded in one Page.
+        
+        """
+        from . import svg
+        renderer = svg.Renderer()
+        self.pageLayout()[:] = (svg.SvgPage(f, renderer) for f in filenames)
+        self.updatePageLayout()
+    
     def setPageLayout(self, layout):
         """Set our current PageLayout instance."""
         self._pageLayout = layout
