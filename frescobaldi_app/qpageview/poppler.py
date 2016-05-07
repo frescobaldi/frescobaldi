@@ -89,7 +89,7 @@ class Renderer(render.AbstractImageRenderer):
         num = page.pageNumber
         p = doc.page(num)
         s = page.pageSize()
-        if page.rotation & 1:
+        if page.computedRotation & 1:
             s.transpose()
 
         xres = 72.0 * page.width / s.width()
@@ -98,7 +98,7 @@ class Renderer(render.AbstractImageRenderer):
         image = self.render_poppler_image(doc, num,
             xres * multiplier, yres * multiplier,
             0, 0, page.width * multiplier, page.height * multiplier,
-            page.rotation)
+            page.computedRotation)
         if multiplier == 2:
             image = image.scaledToWidth(page.width, Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)
