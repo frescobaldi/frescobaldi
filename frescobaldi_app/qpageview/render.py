@@ -50,7 +50,7 @@ class Job(QThread):
         self.renderer = renderer
         self.page = page
         self.page_copy = page.copy()
-        self.key = self.renderer.key(self.page_copy)
+        self.key = self.renderer.key(page)
         self.time = time.time()
         self.finished.connect(self._slotFinished)
         self.callbacks = set()
