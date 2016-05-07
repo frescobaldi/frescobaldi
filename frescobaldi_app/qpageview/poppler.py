@@ -51,9 +51,8 @@ class PopplerPage(page.AbstractPage):
         self.document = document
         self.pageNumber = pageNumber
         self.setPageSize(document.page(pageNumber).pageSizeF())
-        # TEMP
-        self.renderer = renderer
-        self.image = None
+        if renderer is not None:
+            self.renderer = renderer
         
     @classmethod
     def createPages(cls, document, renderer=None):
@@ -126,6 +125,11 @@ class Renderer(render.AbstractImageRenderer):
         image.setDotsPerMeterX(xres * 39.37)
         image.setDotsPerMeterY(yres * 39.37)
         return image
+
+
+
+# install a default renderer, so PopplerPage can be used directly
+PopplerPage.renderer = Renderer()
 
 
 
