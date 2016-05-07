@@ -35,21 +35,24 @@ from .constants import (
 
 from . import page
 
+
 class SvgPage(page.AbstractPage):
     """A page that can display a SVG document."""
     paperColor = QColor(Qt.white)
     
     def __init__(self, load_file=None):
-        self.renderer = QSvgRenderer()
+        self._svg_r = QSvgRenderer()
         if load_file:
             self.load(load_file)
     
     def load(self, load_file):
         """Load filename or QByteArray."""
-        if self.renderer.load(load_file):
-            self.pageWidth = self.renderer.defaultSize().width()
-            self.pageHeight = self.renderer.defaultSize().height()
-        
+        success = self._svg_r.load(load_file)
+        if success:
+            self.pageWidth = self._svg_r.defaultSize().width()
+            self.pageHeight = self._svg_r.defaultSize().height()
+        return success
+    
     def paint(self, painter, rect, callback=None):
         painter.fillRect(rect, self.paperColor)
         page = QRect(0, 0, self.width, self.height)
@@ -58,5 +61,5 @@ class SvgPage(page.AbstractPage):
         if self.computedRotation & 1:
             page.setSize(page.size().transposed())
         painter.translate(-page.center())
-        self.renderer.render(painter, QRectF(page))
+        self._svg_r.render(painter, QRectF(page))
 
