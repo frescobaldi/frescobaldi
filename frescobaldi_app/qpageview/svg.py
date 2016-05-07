@@ -53,5 +53,6 @@ class SvgPage(page.AbstractPage):
     def paint(self, painter, rect, callback=None):
         #TODO rotation
         painter.fillRect(rect, self.paperColor)
-        self.renderer.render(painter, QRectF(0, 0, self.pageWidth, self.pageHeight))
+        page = QRect(0, 0, self.width, self.height)
+        self.renderer.render(painter, QRectF(page))
 
