@@ -23,7 +23,7 @@ A page that can display a SVG document.
 """
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor,QImage, QPainter
 from PyQt5.QtSvg import QSvgRenderer
 
 from .constants import (
@@ -34,9 +34,10 @@ from .constants import (
 )
 
 from . import page
+from . import render
 
 
-class SvgPage(page.AbstractPage):
+class BasicSvgPage(page.AbstractPage):
     """A page that can display a SVG document."""
     paperColor = QColor(Qt.white)
     
@@ -63,3 +64,35 @@ class SvgPage(page.AbstractPage):
         painter.translate(-page.center())
         self._svg_r.render(painter, QRectF(page))
 
+
+class SvgPage(BasicSvgPage):
+    """Display SVG pages using a cache."""
+    def paint(self, painter, rect, callback=None):
+        self.renderer.paint(self, painter, rect, callback)
+
+
+class Renderer(render.AbstractImageRenderer):
+    """Render SVG pages."""
+    paperColor = QColor(Qt.white)
+    
+    def render(self, page):
+        """Generate an image for this Page."""
+        i = QImage(page.width, page.height, QImage.Format_ARGB32_Premultiplied)
+        i.fill(self.paperColor)
+        painter = QPainter(i)
+        rect = QRect(0, 0, page.width, page.height)
+        painter.translate(rect.center())
+        painter.rotate(page.computedRotation * 90)
+        if page.computedRotation & 1:
+            rect.setSize(rect.size().transposed())
+        painter.translate(-rect.center())
+        page._svg_r.render(painter, QRectF(rect))
+        return i
+    
+
+# install a default renderer, so PopplerPage can be used directly
+SvgPage.renderer = Renderer()
+
+
+
+    
