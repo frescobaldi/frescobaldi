@@ -51,8 +51,12 @@ class SvgPage(page.AbstractPage):
             self.pageHeight = self.renderer.defaultSize().height()
         
     def paint(self, painter, rect, callback=None):
-        #TODO rotation
         painter.fillRect(rect, self.paperColor)
         page = QRect(0, 0, self.width, self.height)
+        painter.translate(page.center())
+        painter.rotate(self.computedRotation * 90)
+        if self.computedRotation & 1:
+            page.setSize(page.size().transposed())
+        painter.translate(-page.center())
         self.renderer.render(painter, QRectF(page))
 
