@@ -99,11 +99,11 @@ class AbstractPageLayout(list):
             if page.rect().contains(point):
                 return page
     
-    def pagesAt(self, rect):
-        """Yield the pages touched by the given QRect."""
+    def pagesAt(self, r):
+        """Yield the pages touched by the given QRect or QRegion."""
         # Specific layouts may use faster algorithms to find the pages.
         for page in self:
-            if page.rect().intersects(rect):
+            if r.intersects(page.rect()):
                 yield page
     
     def widestPage(self):
