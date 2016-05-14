@@ -24,7 +24,7 @@ The Magnifier magnifies a part of the displayed document.
 
 import weakref
 
-from PyQt5.QtCore import QEvent, QPoint, QRect
+from PyQt5.QtCore import QEvent, QPoint, QRect, Qt
 from PyQt5.QtGui import QColor, QPainter, QPalette, QPen, QRegion
 from PyQt5.QtWidgets import QWidget
 
@@ -45,6 +45,7 @@ class Magnifier(QWidget):
     
     def __init__(self):
         super().__init__()
+        self._dragging = False
         self._pages = weakref.WeakKeyDictionary()
         self._scale = 3.0
         self.setAutoFillBackground(True)
@@ -76,6 +77,22 @@ class Magnifier(QWidget):
         if ev.type() == QEvent.UpdateRequest:
             self.update()
         return False
+    
+    def mousePressEvent(self, ev):
+        """Start dragging the magnifier."""
+        if ev.button() == Qt.LeftButton:
+            self._dragging = True
+            self._dragpos = ev.pos()
+    
+    def mouseMoveEvent(self, ev):
+        """Move the magnifier if we were dragging it."""
+        if self._dragging:
+            self.move(self.mapToParent(ev.pos()) - self._dragpos)
+    
+    def mouseReleaseEvent(self, ev):
+        """The button is released, stop moving ourselves."""
+        if ev.button() == Qt.LeftButton and self._dragging:
+            self._dragging = False
     
     def paintEvent(self, ev):
         """Called when paint is needed, finds out which page to magnify."""
