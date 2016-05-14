@@ -24,7 +24,7 @@ The Magnifier magnifies a part of the displayed document.
 
 import weakref
 
-from PyQt5.QtCore import QPoint, QRect
+from PyQt5.QtCore import QEvent, QPoint, QRect
 from PyQt5.QtGui import QColor, QPainter, QPalette, QPen, QRegion
 from PyQt5.QtWidgets import QWidget
 
@@ -45,9 +45,10 @@ class Magnifier(QWidget):
     
     def __init__(self):
         super().__init__()
+        self._pages = weakref.WeakKeyDictionary()
+        self._scale = 3.0
         self.setAutoFillBackground(True)
         self.setBackgroundRole(QPalette.Dark)
-        self.setScale(3.0)
         self.resize(250, 250)
         self.hide()
         
@@ -70,6 +71,12 @@ class Magnifier(QWidget):
         """Called on resize, sets our circular mask."""
         self.setMask(QRegion(self.rect(), QRegion.Ellipse))
         
+    def eventFilter(self, obj, ev):
+        """Reimplemented to update on View scroll."""
+        if ev.type() == QEvent.UpdateRequest:
+            self.update()
+        return False
+    
     def paintEvent(self, ev):
         """Called when paint is needed, finds out which page to magnify."""
         view = self.parent().parent()
@@ -85,15 +92,6 @@ class Magnifier(QWidget):
         rect.moveCenter(c)
         region = QRegion(rect, QRegion.Ellipse) # touches the Pages we need to draw
         
-        self._pages = []
-        for p in layout.pagesAt(region):
-            page = p.copy()
-            page.x *= scale
-            page.y *= scale
-            page.width *= scale
-            page.height *= scale
-            self._pages.append(page)
-        
         # our rect on the enlarged pages
         our_rect = self.rect()
         our_rect.moveCenter(QPoint(c.x() * scale, c.y() * scale))
@@ -102,7 +100,17 @@ class Magnifier(QWidget):
         ev_rect = ev.rect().translated(our_rect.topLeft())
         
         painter = QPainter(self)
-        for page in self._pages:
+        for p in layout.pagesAt(region):
+            # reuse the copy of the page if still existing
+            try:
+                page = self._pages[p]
+            except KeyError:
+                page = self._pages[p] = p.copy()
+            page.x = p.x * scale
+            page.y = p.y * scale
+            page.width = p.width * scale
+            page.height = p.height * scale
+            # now paint it
             rect = (page.rect() & ev_rect).translated(-page.pos())
             painter.save()
             painter.translate(page.pos() - our_rect.topLeft())
