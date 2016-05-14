@@ -59,6 +59,7 @@ class View(QAbstractScrollArea):
         super().__init__(parent, **kwds)
         self._viewMode = FixedScale
         self._pageLayout = layout.PageLayout()
+        self._magnifier = None
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
@@ -137,6 +138,23 @@ class View(QAbstractScrollArea):
     def rotateRight(self):
         """Rotate the pages 90 degrees."""
         self.setRotation((self.rotation() + 1) & 3)
+    
+    def setMagnifier(self, magnifier):
+        """Sets the Magnifier to use (or None to disable the magnifier).
+        
+        The viewport takes ownership of the Magnifier.
+        
+        """
+        if self._magnifier:
+            self.removeEventFilter(self._magnifier)
+            self._magnifier.setParent(None)
+        magnifier.setParent(self.viewport())
+        self._magnifier = magnifier
+        self.installEventFilter(magnifier)
+    
+    def magnifier(self):
+        """Returns the currently set magnifier."""
+        return self._magnifier
     
     def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.
@@ -358,7 +376,6 @@ class View(QAbstractScrollArea):
             painter.restore()
         # TODO paint highlighting
         # TODO paint rubberband
-        # TODO paint magnifier
 
     def wheelEvent(self, ev):
         # TEMP
