@@ -29,6 +29,7 @@ from PyQt5.QtGui import QColor, QPainter, QPalette, QPen, QRegion
 from PyQt5.QtWidgets import QWidget
 
 
+
 class Magnifier(QWidget):
     """A Magnifier is added to a View with surface.setMagnifier().
     
@@ -39,6 +40,8 @@ class Magnifier(QWidget):
     with setScale().
     
     """
+    
+    modifiers = Qt.ControlModifier
     
     # Maximum extra zoom above the View.MAX_ZOOM
     MAX_EXTRA_ZOOM = 1.25
@@ -76,6 +79,23 @@ class Magnifier(QWidget):
         """Reimplemented to update on View scroll."""
         if ev.type() == QEvent.UpdateRequest:
             self.update()
+        elif (ev.type() == QEvent.MouseButtonPress and
+              ev.modifiers() == self.modifiers and
+              ev.button() == Qt.LeftButton):
+            self._dragging = True
+            self._dragpos = self.rect().center()
+            self.moveCenter(ev.pos())
+            self.show()
+            self.setCursor(Qt.BlankCursor)
+            return True
+        elif (ev.type() == QEvent.MouseMove and
+              self._dragging):
+            self.moveCenter(ev.pos())
+        elif (ev.type() == QEvent.MouseButtonRelease and
+              self._dragging):
+            self.unsetCursor()
+            self.hide()
+            self._dragging = False
         return False
     
     def mousePressEvent(self, ev):
