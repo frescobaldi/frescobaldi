@@ -83,6 +83,7 @@ class Magnifier(QWidget):
         if ev.button() == Qt.LeftButton:
             self._dragging = True
             self._dragpos = ev.pos()
+            self.setCursor(Qt.ClosedHandCursor)
     
     def mouseMoveEvent(self, ev):
         """Move the magnifier if we were dragging it."""
@@ -93,6 +94,7 @@ class Magnifier(QWidget):
         """The button is released, stop moving ourselves."""
         if ev.button() == Qt.LeftButton and self._dragging:
             self._dragging = False
+            self.unsetCursor()
     
     def paintEvent(self, ev):
         """Called when paint is needed, finds out which page to magnify."""
