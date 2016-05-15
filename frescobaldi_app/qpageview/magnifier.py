@@ -75,27 +75,32 @@ class Magnifier(QWidget):
         """Called on resize, sets our circular mask."""
         self.setMask(QRegion(self.rect(), QRegion.Ellipse))
         
-    def eventFilter(self, obj, ev):
-        """Reimplemented to update on View scroll."""
+    def eventFilter(self, viewport, ev):
+        """Handles multiple events from the viewport.
+        
+        * update on View scroll
+        * show the magnifier on left click+modifier
+        
+        """
         if ev.type() == QEvent.UpdateRequest:
             self.update()
         elif (ev.type() == QEvent.MouseButtonPress and
               ev.modifiers() == self.modifiers and
               ev.button() == Qt.LeftButton):
             self._dragging = True
-            self._dragpos = self.rect().center()
             self.moveCenter(ev.pos())
             self.show()
-            self.setCursor(Qt.BlankCursor)
+            viewport.setCursor(Qt.BlankCursor)
             return True
-        elif (ev.type() == QEvent.MouseMove and
-              self._dragging):
-            self.moveCenter(ev.pos())
-        elif (ev.type() == QEvent.MouseButtonRelease and
-              self._dragging):
-            self.unsetCursor()
-            self.hide()
-            self._dragging = False
+        elif self._dragging:
+            if ev.type() == QEvent.MouseMove:
+                self.moveCenter(ev.pos())
+                return True
+            elif ev.type() == QEvent.MouseButtonRelease:
+                viewport.unsetCursor()
+                self.hide()
+                self._dragging = False
+                return True
         return False
     
     def mousePressEvent(self, ev):
