@@ -116,6 +116,7 @@ class Magnifier(QWidget):
                 else:
                     # just drag our center
                     self.moveCenter(ev.pos())
+                return True
             elif ev.type() == QEvent.MouseButtonRelease:
                 if ev.button() == Qt.LeftButton:
                     # left button is released, stop dragging and/or resizing, hide
@@ -127,7 +128,7 @@ class Magnifier(QWidget):
                     # right button is released, stop resizing, warp cursor to center
                     self._resizepos = None
                     QCursor.setPos(viewport.mapToGlobal(self.geometry().center()))
-            return True
+                return True
         return False
     
     def mousePressEvent(self, ev):
