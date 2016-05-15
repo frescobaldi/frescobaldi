@@ -96,7 +96,8 @@ class Magnifier(QWidget):
             if ev.type() == QEvent.MouseMove:
                 self.moveCenter(ev.pos())
                 return True
-            elif ev.type() == QEvent.MouseButtonRelease:
+            elif (ev.type() == QEvent.MouseButtonRelease and
+                  ev.button() == Qt.LeftButton):
                 viewport.unsetCursor()
                 self.hide()
                 self._dragging = False
