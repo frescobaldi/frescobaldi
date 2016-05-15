@@ -54,6 +54,7 @@ class Magnifier(QWidget):
         super().__init__()
         self._dragging = False
         self._resizepos = None
+        self._resizewidth = 0
         self._pages = weakref.WeakKeyDictionary()
         self._scale = 3.0
         self.setAutoFillBackground(True)
