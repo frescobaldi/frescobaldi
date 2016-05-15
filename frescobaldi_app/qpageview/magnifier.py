@@ -201,7 +201,11 @@ class Magnifier(QWidget):
             painter.translate(page.pos() - our_rect.topLeft())
             page.paint(painter, rect, self.repaintPage)
             painter.restore()
-        # draw a nice looking glass border
+            
+        self.drawBorder(painter)
+    
+    def drawBorder(self, painter):
+        """Draw a nice looking glass border."""
         painter.setRenderHint(QPainter.Antialiasing, True)
         painter.setPen(QPen(QColor(192, 192, 192, 128), 6))
         painter.drawEllipse(self.rect().adjusted(2, 2, -2, -2))
