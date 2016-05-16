@@ -38,14 +38,51 @@ class Magnifier(QWidget):
     """A Magnifier is added to a View with surface.setMagnifier().
     
     It is shown when a mouse button is pressed together with a modifier
-    (by default Ctrl, see view.py).
+    (by default Ctrl). It can then be resized by moving the mouse is with
+    two buttons pressed, or by wheeling with resizemodifier pressed.
     
     Its size can be changed with resize() and the scale (defaulting to 3.0)
     with setScale().
     
+    If can also be shown programatically with the show() method. In this case
+    it can be dragged with the left mouse button.
+    
+    Wheel zooming with the modifier (by default Ctrl) zooms the magnifier.
+    
+    Instance attributes:
+    
+        showmodifier: the modifier to popup (Qt.ControlModifier)
+        
+        zoommodifier: the modifier to wheel zoom (Qt.ControlModifier)
+        
+        resizemodifier: the key to press for wheel resizing (Qt.ShiftModifier)
+        
+        showbutton: the mouse button causing the magnifier to popup (by default
+                    Qt.LeftButton)
+        
+        resizebutton: the extra mouse button to be pressed when resizing the
+                    magnifier (by default Qt.RightButton)
+        
+        MAX_EXTRA_ZOOM: the maximum zoom (relative to the View's maximum zoom
+                    level)
+        
+    
     """
     
-    modifiers = Qt.ControlModifier
+    # modifier for show
+    showmodifier = Qt.ControlModifier
+    
+    # modifier for wheel zoom
+    zoommodifier = Qt.ControlModifier
+    
+    # extra modifier for wheel resize
+    resizemodifier = Qt.ShiftModifier
+    
+    # button for show
+    showbutton = Qt.LeftButton
+    
+    # extra button for resizing
+    resizebutton = Qt.RightButton
     
     # Maximum extra zoom above the View.MAX_ZOOM
     MAX_EXTRA_ZOOM = 1.25
@@ -92,8 +129,8 @@ class Magnifier(QWidget):
             self.update()
         elif (not self.isVisible() and
               ev.type() == QEvent.MouseButtonPress and
-              ev.modifiers() == self.modifiers and
-              ev.button() == Qt.LeftButton):
+              ev.modifiers() == self.showmodifier and
+              ev.button() == self.showbutton):
             # show and drag while button pressed: DRAG_SHORT
             self._dragging = DRAG_SHORT
             self.moveCenter(ev.pos())
@@ -102,7 +139,7 @@ class Magnifier(QWidget):
             return True
         elif self._dragging == DRAG_SHORT:
             if ev.type() == QEvent.MouseMove:
-                if ev.buttons() == Qt.LeftButton | Qt.RightButton:
+                if ev.buttons() == self.showbutton | self.resizebutton:
                     # DRAG_SHORT is busy, both buttons are pressed: resize!
                     if self._resizepos == None:
                         self._resizepos = ev.pos()
@@ -119,13 +156,13 @@ class Magnifier(QWidget):
                     self.moveCenter(ev.pos())
                 return True
             elif ev.type() == QEvent.MouseButtonRelease:
-                if ev.button() == Qt.LeftButton:
+                if ev.button() == self.showbutton:
                     # left button is released, stop dragging and/or resizing, hide
                     viewport.unsetCursor()
                     self.hide()
                     self._resizepos = None
                     self._dragging = False
-                elif ev.button() == Qt.RightButton:
+                elif ev.button() == self.resizebutton:
                     # right button is released, stop resizing, warp cursor to center
                     self._resizepos = None
                     QCursor.setPos(viewport.mapToGlobal(self.geometry().center()))
@@ -155,10 +192,19 @@ class Magnifier(QWidget):
     
     def wheelEvent(self, ev):
         """Implement zooming the magnifying glass."""
-        if ev.modifiers() & self.modifiers:
+        if ev.modifiers() & self.zoommodifier:
             ev.accept()
-            factor = 1.1 ** (ev.angleDelta().y() / 120)
-            self.setScale(self._scale * factor)
+            if ev.modifiers() & self.resizemodifier:
+                factor = 1.1 ** (ev.angleDelta().y() / 120)
+                g = self.geometry()
+                c = g.center()
+                g.setWidth(max(g.width() * factor, 20))
+                g.setHeight(max(g.height() * factor, 20))
+                g.moveCenter(c)
+                self.setGeometry(g)
+            else:
+                factor = 1.1 ** (ev.angleDelta().y() / 120)
+                self.setScale(self._scale * factor)
         else:
             super().wheelEvent(ev)
     
