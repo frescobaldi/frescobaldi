@@ -23,7 +23,7 @@ The View, deriving from QAbstractScrollArea.
 
 import contextlib
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt
+from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt, QTimer
 from PyQt5.QtGui import QPainter, QPalette
 from PyQt5.QtWidgets import QAbstractScrollArea, QStyle
 
@@ -65,6 +65,10 @@ class View(QAbstractScrollArea):
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
         self.setMouseTracking(True)
+        
+        ### TODO: integrate with kinetic scrolling:
+        self._scrolling = False
+        self._scrollTimer = QTimer(interval=100, timeout=self._scrollTimeout)
     
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file."""
@@ -406,4 +410,61 @@ class View(QAbstractScrollArea):
         else:
             super().wheelEvent(ev)
 
+    def scrollTo(self, pos):
+        """Scroll the View to get pos (QPoint) in the top left corner (if possible).
+        
+        Returns the actual distance moved.
+        
+        TODO: integrate this method with kinetic scrolling
+        """
+        return self.scrollBy(pos + self.layoutPosition())
+    
+    def scrollBy(self, diff):
+        """Scroll the View diff pixels (QPoint) in x and y direction.
+        
+        Returns the actual distance moved.
+        
+        TODO: integrate this method with kinetic scrolling
+        """
+        hbar = self.horizontalScrollBar()
+        vbar = self.verticalScrollBar()
+        x = hbar.value()
+        hbar.setValue(hbar.value() + diff.x())
+        x = hbar.value() - x
+        y = vbar.value()
+        vbar.setValue(vbar.value() + diff.y())
+        y = vbar.value() - y
+        return QPoint(x, y)
+        
+    def startScrolling(self, diff):
+        """Start scrolling diff (QPoint) 10 times a second.
+        
+        Stops automatically when the end is reached.
+        
+        TODO: integrate this method with kinetic scrolling
+        """
+        if diff:
+            self._scrolling = diff
+            self._scrollTimer.isActive() or self._scrollTimer.start()
+        else:
+            self.stopScrolling()
+    
+    def stopScrolling(self):
+        """Stop scrolling.
+        
+        TODO: integrate this method with kinetic scrolling
+        """
+        if self._scrolling:
+            self._scrolling = False
+            self._scrollTimer.stop()
+    
+    def _scrollTimeout(self):
+        """(Internal) Called by the _scrollTimer.
+        
+        TODO: integrate this method with kinetic scrolling
+        """
+        # change the scrollbars, but check how far they really moved.
+        if not self.scrollBy(self._scrolling):
+            self.stopScrolling()
+    
 
