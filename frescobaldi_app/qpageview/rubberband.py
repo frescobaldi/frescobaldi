@@ -135,8 +135,13 @@ class Rubberband(QWidget):
             self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
     
     def stopDrag(self):
-        """Stop dragging the rubberband"""
+        """Stop dragging the rubberband. Return True if a rectangle was drawn."""
         self._dragging = False
+        if self.width() < 8 and self.height() < 8:
+            self.unsetCursor()
+            self.hide()
+            return False
+        return True
     
     def eventFilter(self, viewport, ev):
         # TEMP
@@ -153,8 +158,7 @@ class Rubberband(QWidget):
                 self.drag(ev.pos())
                 return True
             elif ev.type() == QEvent.MouseButtonRelease:
-                self.stopDrag()
-                return True
+                return self.stopDrag() # consume event when a shape was drawn
         return False
     
     def mousePressEvent(self, ev):
