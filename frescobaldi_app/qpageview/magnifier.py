@@ -158,6 +158,8 @@ class Magnifier(QWidget):
                 else:
                     # just drag our center
                     self.moveCenter(ev.pos())
+                    view = self.parent().parent()
+                    view.scrollForDragging(ev.pos())
                 return True
             elif ev.type() == QEvent.MouseButtonRelease:
                 if ev.button() == self.showbutton:
@@ -166,6 +168,8 @@ class Magnifier(QWidget):
                     self.hide()
                     self._resizepos = None
                     self._dragging = False
+                    view = self.parent().parent()
+                    view.stopScrolling() # just if needed
                 elif ev.button() == self.resizebutton:
                     # right button is released, stop resizing, warp cursor to center
                     self._resizepos = None
@@ -185,7 +189,10 @@ class Magnifier(QWidget):
         """Move the magnifier if we were dragging it."""
         ev.ignore() # don't propagate to view
         if self._dragging == DRAG_LONG:
-            self.move(self.mapToParent(ev.pos()) - self._dragpos)
+            pos = self.mapToParent(ev.pos())
+            self.move(pos - self._dragpos)
+            view = self.parent().parent()
+            view.scrollForDragging(pos)
     
     def mouseReleaseEvent(self, ev):
         """The button is released, stop moving ourselves."""
@@ -193,6 +200,8 @@ class Magnifier(QWidget):
         if ev.button() == Qt.LeftButton and self._dragging == DRAG_LONG:
             self._dragging = False
             self.unsetCursor()
+            view = self.parent().parent()
+            view.stopScrolling() # just if needed
     
     def wheelEvent(self, ev):
         """Implement zooming the magnifying glass."""
