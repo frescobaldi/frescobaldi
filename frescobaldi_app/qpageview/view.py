@@ -55,6 +55,9 @@ class View(QAbstractScrollArea):
     rotationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
 
+    ## scroll settings TODO encapsulate in separate object
+    scrollupdatespersec = 50
+    
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._viewMode = FixedScale
@@ -69,6 +72,8 @@ class View(QAbstractScrollArea):
         ### TODO: integrate with kinetic scrolling:
         self._scrolling = False
         self._scrollTimer = QBasicTimer()
+        self._restx = 0 # TEMP
+        self._resty = 0
     
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file."""
@@ -422,15 +427,13 @@ class View(QAbstractScrollArea):
         dy = pos.y() - viewport.top() - 12
         if dy >= 0:
             dy = max(0, pos.y() - viewport.bottom() + 12)
-        # TODO: use the kinetic scroller if implemented
-        self.startScrolling(QPoint(dx, dy))
+        self.startScrolling(QPoint(dx*10, dy*10))
     
     def scrollTo(self, pos):
         """Scroll the View to get pos (QPoint) in the top left corner (if possible).
         
         Returns the actual distance moved.
         
-        TODO: integrate this method with kinetic scrolling
         """
         return self.scrollBy(pos + self.layoutPosition())
     
@@ -439,7 +442,6 @@ class View(QAbstractScrollArea):
         
         Returns the actual distance moved.
         
-        TODO: integrate this method with kinetic scrolling
         """
         hbar = self.horizontalScrollBar()
         vbar = self.verticalScrollBar()
@@ -452,7 +454,7 @@ class View(QAbstractScrollArea):
         return QPoint(x, y)
         
     def startScrolling(self, diff):
-        """Start steady scrolling diff (QPoint) pixels every 10th second.
+        """Start steady scrolling diff (QPoint) pixels per second.
         
         Stops automatically when the end is reached.
         
@@ -461,7 +463,8 @@ class View(QAbstractScrollArea):
         """
         if diff:
             self._scrolling = diff
-            self._scrollTimer.isActive() or self._scrollTimer.start(100, self)
+            if not self._scrollTimer.isActive():
+                self._scrollTimer.start(1000 / self.scrollupdatespersec, self)
         else:
             self.stopScrolling()
     
@@ -469,6 +472,7 @@ class View(QAbstractScrollArea):
         """Stop scrolling.
         
         TODO: integrate this method with kinetic scrolling
+        
         """
         if self._scrolling:
             self._scrolling = False
@@ -478,9 +482,28 @@ class View(QAbstractScrollArea):
         """Called by the _scrollTimer.
         
         TODO: integrate this method with kinetic scrolling
+        
         """
-        # change the scrollbars, but check how far they really moved.
-        if not self.scrollBy(self._scrolling):
-            self.stopScrolling()
-    
+        # the amount of pixels to scroll per second
+        x = self._scrolling.x()
+        y = self._scrolling.y()
+        
+        # how many updates per second, compute the number of pixes to scroll now
+        ups = self.scrollupdatespersec
+        dx, rx = divmod(abs(x), ups)
+        dy, ry = divmod(abs(y), ups)
+        dx1, self._restx = divmod(self._restx + rx, ups)
+        dy1, self._resty = divmod(self._resty + ry, ups)
+        dx += dx1
+        dy += dy1
+        
+        # scroll in the right direction
+        diff = QPoint(-dx if x < 0 else dx, -dy if y < 0 else dy)
+        
+        # when scrolling slowly, it might be that no redraw is needed
+        if diff:
+            # change the scrollbars, but check how far they really moved.
+            if not self.scrollBy(diff):
+                self.stopScrolling()
+
 
