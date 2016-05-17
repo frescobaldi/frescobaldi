@@ -177,7 +177,7 @@ class View(QAbstractScrollArea):
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to move the rubberband as well."""
         if self._rubberband:
-            self._rubberband.scrollBy(dx, dy)
+            self._rubberband.scrollBy(QPoint(dx, dy))
         self.viewport().update()
     
     def _fitLayout(self):
@@ -399,7 +399,6 @@ class View(QAbstractScrollArea):
             p.paint(painter, rect, self.repaintPage)
             painter.restore()
         # TODO paint highlighting
-        # TODO paint rubberband
 
     def wheelEvent(self, ev):
         # TEMP

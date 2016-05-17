@@ -130,9 +130,8 @@ class Rubberband(QWidget):
         else:
             self.unsetCursor()
     
-    def scrollBy(self, dx, dy):
+    def scrollBy(self, diff):
         """Called by the View when scrolling."""
-        diff = QPoint(dx, dy)
         if not self._dragging:
             self.move(self.pos() + diff)
         elif self._dragedge != _INSIDE:
