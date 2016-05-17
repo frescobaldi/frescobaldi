@@ -60,6 +60,7 @@ class View(QAbstractScrollArea):
         self._viewMode = FixedScale
         self._pageLayout = layout.PageLayout()
         self._magnifier = None
+        self._rubberband = None
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
@@ -148,13 +149,32 @@ class View(QAbstractScrollArea):
         if self._magnifier:
             self.removeEventFilter(self._magnifier)
             self._magnifier.setParent(None)
-        magnifier.setParent(self.viewport())
         self._magnifier = magnifier
-        self.installEventFilter(magnifier)
+        if magnifier:
+            magnifier.setParent(self.viewport())
+            self.installEventFilter(magnifier)
     
     def magnifier(self):
         """Returns the currently set magnifier."""
         return self._magnifier
+    
+    def setRubberband(self, rubberband):
+        """Sets the Rubberband to use for selections (or None to not use one)."""
+        if self._rubberband:
+            self.removeEventFilter(self._rubberband)
+            self.zoomFactorChanged.disconnect(self._rubberband.hide)
+            self._rubberband.setParent(None)
+        self._rubberband = rubberband
+        if rubberband:
+            rubberband.setParent(self.viewport())
+            self.installEventFilter(rubberband)
+            self.zoomFactorChanged.connect(rubberband.hide)
+    
+    def scrollContentsBy(self, dx, dy):
+        """Reimplemented to move the rubberband as well."""
+        if self._rubberband:
+            self._rubberband.scrollBy(dx, dy)
+        self.viewport().update()
     
     def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.

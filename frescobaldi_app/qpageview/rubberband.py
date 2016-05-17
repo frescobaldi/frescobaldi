@@ -23,7 +23,7 @@ Rubberband selection in a View.
 """
 
 
-from PyQt5.QtCore import QEvent, QPoint, QRect, Qt
+from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QColor, QCursor, QPainter, QPalette, QPen, QRegion
 from PyQt5.QtWidgets import QWidget
 
@@ -95,6 +95,15 @@ class Rubberband(QWidget):
             edge |= _BOTTOM
         return edge or _INSIDE
 
+    def scrollBy(self, dx, dy):
+        """Called by the View when scrolling."""
+        diff = QPoint(dx, dy)
+        if not self._dragging:
+            self.move(self.pos() + diff)
+        elif self._dragedge != _INSIDE:
+            self._draggeom.moveTo(self._draggeom.topLeft() + diff)
+            self.dragBy(-diff)
+        
     def startDrag(self, pos):
         """Start dragging the rubberband."""
         self._dragging = True
@@ -106,6 +115,11 @@ class Rubberband(QWidget):
         """Continue dragging the rubberband, scrolling the View if necessary."""
         diff = pos - self._dragpos
         self._dragpos = pos
+        self.dragBy(diff)
+        # TODO: scroll the View if needed
+    
+    def dragBy(self, diff):
+        """Drag by diff (QPoint)."""
         edge = self._dragedge
         self._draggeom.adjust(
             diff.x() if edge & _LEFT   else 0,
@@ -124,6 +138,25 @@ class Rubberband(QWidget):
         """Stop dragging the rubberband"""
         self._dragging = False
     
+    def eventFilter(self, viewport, ev):
+        # TEMP
+        if not self._dragging:
+            if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.RightButton:
+                self.setGeometry(QRect(ev.pos(), QSize(1, 1)))
+                self.startDrag(ev.pos())
+                self._dragedge = _RIGHT | _BOTTOM
+                self.adjustCursor(self._dragedge)
+                self.show()
+                return True
+        elif self._dragging:
+            if ev.type() == QEvent.MouseMove:
+                self.drag(ev.pos())
+                return True
+            elif ev.type() == QEvent.MouseButtonRelease:
+                self.stopDrag()
+                return True
+        return False
+    
     def mousePressEvent(self, ev):
         pos = self.mapToParent(ev.pos())
         if not self._dragging and ev.button() == Qt.LeftButton:
@@ -135,21 +168,25 @@ class Rubberband(QWidget):
             self.drag(pos)
         else:
             edge = self.edge(pos)
-            cursor = None
-            if edge in (_TOP, _BOTTOM):
-                cursor = Qt.SizeVerCursor
-            elif edge in (_LEFT, _RIGHT):
-                cursor = Qt.SizeHorCursor
-            elif edge in (_LEFT | _TOP, _RIGHT | _BOTTOM):
-                cursor = Qt.SizeFDiagCursor
-            elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
-                cursor = Qt.SizeBDiagCursor
-            elif edge is _INSIDE:
-                cursor = Qt.SizeAllCursor
-            if cursor and cursor != self.cursor():
-                self.setCursor(cursor)
-            else:
-                self.unsetCursor()
+            self.adjustCursor(edge)
+    
+    def adjustCursor(self, edge):
+        """Sets the cursor shape when we are at edge."""
+        cursor = None
+        if edge in (_TOP, _BOTTOM):
+            cursor = Qt.SizeVerCursor
+        elif edge in (_LEFT, _RIGHT):
+            cursor = Qt.SizeHorCursor
+        elif edge in (_LEFT | _TOP, _RIGHT | _BOTTOM):
+            cursor = Qt.SizeFDiagCursor
+        elif edge in (_TOP | _RIGHT, _BOTTOM | _LEFT):
+            cursor = Qt.SizeBDiagCursor
+        elif edge is _INSIDE:
+            cursor = Qt.SizeAllCursor
+        if cursor and cursor != self.cursor():
+            self.setCursor(cursor)
+        else:
+            self.unsetCursor()
     
     def mouseReleaseEvent(self, ev):
         if self._dragging and ev.button() == Qt.LeftButton:
