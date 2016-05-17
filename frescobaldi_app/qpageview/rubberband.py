@@ -152,20 +152,8 @@ class Rubberband(QWidget):
         self._dragpos = pos
         self.dragBy(diff)
         # check if we are dragging close to the edge of the view, scroll if needed
-        viewport = self.parent().rect()
-        dx = pos.x() - viewport.left() - 12
-        if dx >= 0:
-            dx = pos.x() - viewport.right() + 12
-            if dx < 0:
-                dx = 0
-        dy = pos.y() - viewport.top() - 12
-        if dy >= 0:
-            dy = pos.y() - viewport.bottom() + 12
-            if dy < 0:
-                dy = 0
-        # TODO: use the kinetic scroller if implemented
         view = self.parent().parent()
-        view.startScrolling(QPoint(dx, dy))
+        view.scrollForDragging(pos)
 
     def dragBy(self, diff):
         """Drag by diff (QPoint)."""

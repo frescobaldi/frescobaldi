@@ -408,7 +408,23 @@ class View(QAbstractScrollArea):
                 self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
         else:
             super().wheelEvent(ev)
-
+    
+    def scrollForDragging(self, pos):
+        """Slowly scroll the View if pos is close to the edge of the View.
+        
+        Can be used while dragging things.
+        
+        """
+        viewport = self.viewport().rect()
+        dx = pos.x() - viewport.left() - 12
+        if dx >= 0:
+            dx = max(0, pos.x() - viewport.right() + 12)
+        dy = pos.y() - viewport.top() - 12
+        if dy >= 0:
+            dy = max(0, pos.y() - viewport.bottom() + 12)
+        # TODO: use the kinetic scroller if implemented
+        self.startScrolling(QPoint(dx, dy))
+    
     def scrollTo(self, pos):
         """Scroll the View to get pos (QPoint) in the top left corner (if possible).
         
