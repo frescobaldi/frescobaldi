@@ -23,7 +23,7 @@ The View, deriving from QAbstractScrollArea.
 
 import contextlib
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt, QTimer
+from PyQt5.QtCore import pyqtSignal, QBasicTimer, QPoint, QSize, Qt
 from PyQt5.QtGui import QPainter, QPalette
 from PyQt5.QtWidgets import QAbstractScrollArea, QStyle
 
@@ -68,7 +68,7 @@ class View(QAbstractScrollArea):
         
         ### TODO: integrate with kinetic scrolling:
         self._scrolling = False
-        self._scrollTimer = QTimer(interval=100, timeout=self._scrollTimeout)
+        self._scrollTimer = QBasicTimer()
     
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file."""
@@ -452,15 +452,16 @@ class View(QAbstractScrollArea):
         return QPoint(x, y)
         
     def startScrolling(self, diff):
-        """Start scrolling diff (QPoint) 10 times a second.
+        """Start steady scrolling diff (QPoint) pixels every 10th second.
         
         Stops automatically when the end is reached.
         
         TODO: integrate this method with kinetic scrolling
+        
         """
         if diff:
             self._scrolling = diff
-            self._scrollTimer.isActive() or self._scrollTimer.start()
+            self._scrollTimer.isActive() or self._scrollTimer.start(100, self)
         else:
             self.stopScrolling()
     
@@ -473,8 +474,8 @@ class View(QAbstractScrollArea):
             self._scrolling = False
             self._scrollTimer.stop()
     
-    def _scrollTimeout(self):
-        """(Internal) Called by the _scrollTimer.
+    def timerEvent(self, ev):
+        """Called by the _scrollTimer.
         
         TODO: integrate this method with kinetic scrolling
         """
