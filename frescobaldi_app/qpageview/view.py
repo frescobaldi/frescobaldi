@@ -21,6 +21,7 @@
 The View, deriving from QAbstractScrollArea.
 """
 
+import math
 import contextlib
 
 from PyQt5.QtCore import pyqtSignal, QBasicTimer, QPoint, QSize, Qt
@@ -448,7 +449,21 @@ class View(QAbstractScrollArea):
         vbar.setValue(vbar.value() + diff.y())
         y = vbar.value() - y
         return QPoint(x, y)
+    
+    def kineticScrollBy(self, diff):
+        """Scroll the View diff pixels (QPoint) in x and y direction.
         
+        TODO: Returns the actual distance moved.
+        
+        """
+        if diff:
+            if not isinstance(self._scroller, KineticScroller):
+                self._scroller = KineticScroller()
+            offset = self._scroller.scrollBy(diff)
+            self.scrollBy(offset)
+            if not self._scrollTimer.isActive():
+                self._scrollTimer.start(1000 / self.scrollupdatespersec, self)
+            
     def startScrolling(self, diff):
         """Start steadily scrolling diff (QPoint) pixels per second.
         
@@ -519,5 +534,72 @@ class SteadyScroller:
     def finished(self):
         """As this scroller has a constant speed, it never stops."""
         return False
+
+
+class KineticScroller:
+    """Scrolls the View with a decreasing speed."""
+    def __init__(self):
+        self._x = 0
+        self._y = 0
+    
+    def scrollBy(self, diff):
+        """Start a new kinetic scroll of the specified amount.
+        
+        Returns the first step to scroll immediately (QPoint).
+        
+        """
+        ### logic by Richard Cognot, May 2012
+        dx = diff.x()
+        dy = diff.y()
+        
+        # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is as close as possible under delta..
+        sx = (math.sqrt(1 + 8 * abs(dx)) - 1) / 2
+        sy = (math.sqrt(1 + 8 * abs(dy)) - 1) / 2
+        
+        # compute the amount of displacement still needed because we're dealing with integer values.
+        offx = sx * (sx + 1) // 2 - abs(dx)
+        offy = sy * (sy + 1) // 2 - abs(dy)
+        
+        # Since this function is called for exact moves (not free scrolling)
+        # limit the kinetic time to 2 seconds, which means 100 ticks, 5050 pixels.
+        if sy > 100:
+            sy = 100
+            offy = 5050 - abs(dy)
+            
+        # Although it is less likely to go beyond that limit for horizontal scrolling,
+        # do it for x as well.
+        if sx > 100:
+            sx = 100
+            offx = 5050 - abs(dx)
+
+        # move left or right, up or down
+        if dx < 0:
+            sx = -sx
+            offx = -offx
+        if dy < 0:
+            sy = -sy
+            offy = -offy
+        self._x = sx
+        self._y = sy
+        return QPoint(offx, offy)
+        
+    def addDelta(self, diff):
+        """Adds a displacement (QPoint). If no scroll is active, start a new one."""
+        
+    def step(self):
+        """Return a QPoint indicating the diff to scroll in this step."""
+        ret = QPoint(self._x, self._y)
+        if self._x > 0:
+            self._x -= 1
+        elif self._x < 0:
+            self._x += 1
+        if self._y > 0:
+            self._y -= 1
+        elif self._y < 0:
+            self._y += 1
+        return ret
+    
+    def finished(self):
+        return self._x == 0 and self._y == 0
 
 
