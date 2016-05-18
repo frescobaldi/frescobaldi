@@ -571,17 +571,13 @@ class KineticScroller:
         # (TODO: adapt for other ticker speeds? WB)
         if sy > 100:
             sy = 100
-            offy = abs(dy) - 5050
-        else:
-            offy = abs(dy) - sy * (sy + 1) // 2
+        offy = abs(dy) - sy * (sy + 1) // 2
             
         # Although it is less likely to go beyond that limit for horizontal scrolling,
         # do it for x as well.
         if sx > 100:
             sx = 100
-            offx = abs(dx) - 5050
-        else:
-            offx = abs(dx) - sx * (sx + 1) // 2
+        offx = abs(dx) - sx * (sx + 1) // 2
         
         # adjust directions
         if dx < 0:
