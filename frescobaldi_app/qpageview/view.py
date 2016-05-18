@@ -416,29 +416,22 @@ class View(QAbstractScrollArea):
         """Kinetic cursor movements. TODO make configurable"""
         if ev.key() == Qt.Key_PageDown:
             self.kineticAddDelta(QPoint(0, self.verticalScrollBar().pageStep()))
-            return
         elif ev.key() == Qt.Key_PageUp:
             self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().pageStep()))
-            return
         elif ev.key() == Qt.Key_Down:
             self.kineticAddDelta(QPoint(0, self.verticalScrollBar().singleStep()))
-            return
         elif ev.key() == Qt.Key_Up:
             self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().singleStep()))
-            return
         elif ev.key() == Qt.Key_Left:
             self.kineticAddDelta(QPoint(-self.horizontalScrollBar().singleStep(), 0))
-            return
         elif ev.key() == Qt.Key_Right:
             self.kineticAddDelta(QPoint(self.horizontalScrollBar().singleStep(), 0))
-            return
         elif ev.key() == Qt.Key_Home:
             self.kineticScrollBy(QPoint(0, -self.verticalScrollBar().value()))
-            return
         elif ev.key() == Qt.Key_End:
             self.kineticScrollBy(QPoint(0, self.verticalScrollBar().maximum()-self.verticalScrollBar().value()))
-            return
-        super().keyPressEvent(ev)
+        else:
+            super().keyPressEvent(ev)
     
     def canScrollBy(self, diff):
         """Does not scroll, but return the actual distance the View would scroll.
