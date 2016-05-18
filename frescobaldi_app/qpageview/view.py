@@ -409,7 +409,36 @@ class View(QAbstractScrollArea):
             if ev.angleDelta().y():
                 self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
         else:
-            super().wheelEvent(ev)
+            self.kineticAddDelta(-ev.angleDelta())
+            #super().wheelEvent(ev)
+    
+    def keyPressEvent(self, ev):
+        """Kinetic cursor movements. TODO make configurable"""
+        if ev.key() == Qt.Key_PageDown:
+            self.kineticAddDelta(QPoint(0, self.verticalScrollBar().pageStep()))
+            return
+        elif ev.key() == Qt.Key_PageUp:
+            self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().pageStep()))
+            return
+        elif ev.key() == Qt.Key_Down:
+            self.kineticAddDelta(QPoint(0, self.verticalScrollBar().singleStep()))
+            return
+        elif ev.key() == Qt.Key_Up:
+            self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().singleStep()))
+            return
+        elif ev.key() == Qt.Key_Left:
+            self.kineticAddDelta(QPoint(-self.horizontalScrollBar().singleStep(), 0))
+            return
+        elif ev.key() == Qt.Key_Right:
+            self.kineticAddDelta(QPoint(self.horizontalScrollBar().singleStep(), 0))
+            return
+        elif ev.key() == Qt.Key_Home:
+            self.kineticScrollBy(QPoint(0, -self.verticalScrollBar().value()))
+            return
+        elif ev.key() == Qt.Key_End:
+            self.kineticScrollBy(QPoint(0, self.verticalScrollBar().maximum()-self.verticalScrollBar().value()))
+            return
+        super().keyPressEvent(ev)
     
     def canScrollBy(self, diff):
         """Does not scroll, but return the actual distance the View would scroll.
@@ -476,6 +505,17 @@ class View(QAbstractScrollArea):
             self.startScrolling(scroller)
         return ret
     
+    def kineticAddDelta(self, diff):
+        """Add diff (QPoint) to an existing kinetic scroll.
+        
+        If no scroll is active, a new one is started (like kineticScrollBy).
+        
+        """
+        if isinstance(self._scroller, KineticScroller):
+            self._scroller.addDelta(diff)
+        else:
+            self.kineticScrollBy(diff)
+
     def steadyScroll(self, diff):
         """Start steadily scrolling diff (QPoint) pixels per second.
         
@@ -592,9 +632,24 @@ class KineticScroller:
         self._offset = QPoint(offx, offy)
         
     def addDelta(self, diff):
-        """Adds a displacement (QPoint). If no scroll is active, start a new one."""
-        # TODO: implement
+        """Adds a displacement (QPoint)."""
+        def compute_speed(s, d):
+            if d:
+                # Get the remaining scroll amount.
+                currentSpeed = abs(s)
+                leftToScroll = (currentSpeed + 1) * currentSpeed // 2
+                if s < 0:
+                    leftToScroll = -leftToScroll
+                leftToScroll += d
+                
+                s = (math.sqrt(1 + 8 * abs(leftToScroll)) - 1) // 2
+                if leftToScroll < 0:
+                    s = -s
+            return s
         
+        self._x = compute_speed(self._x, diff.x())
+        self._y = compute_speed(self._y, diff.y())
+
     def step(self):
         """Return a QPoint indicating the diff to scroll in this step."""
         ret = QPoint(self._x, self._y)
