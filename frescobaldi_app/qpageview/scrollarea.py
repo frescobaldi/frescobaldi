@@ -28,7 +28,19 @@ from PyQt5.QtWidgets import QAbstractScrollArea
 
 
 class ScrollArea(QAbstractScrollArea):
-    """A scroll area that supports kinetic scrolling and other features."""
+    """A scroll area that supports kinetic scrolling and other features.
+    
+    Instance attributes:
+    
+        kineticscrolling (True): whether the wheel and pgup/pgdn keys etc use
+                                 kinetic scrolling
+        
+        scrollupdatespersec (50): how many scroll updates to draw per second
+                                 (50 is recommended).
+    
+    """
+    
+    kineticscrolling = True
     scrollupdatespersec = 50
     
     def __init__(self, parent=None, **kwds):
@@ -37,27 +49,37 @@ class ScrollArea(QAbstractScrollArea):
         self._scrollTimer = QBasicTimer()
     
     def wheelEvent(self, ev):
-        # TODO: make configurable
-        self.kineticAddDelta(-ev.angleDelta())
+        if self.kineticscrolling:
+            self.kineticAddDelta(-ev.angleDelta())
+        else:
+            super().wheelEvent(ev)
     
     def keyPressEvent(self, ev):
-        """Kinetic cursor movements. TODO make configurable"""
-        if ev.key() == Qt.Key_PageDown:
-            self.kineticAddDelta(QPoint(0, self.verticalScrollBar().pageStep()))
-        elif ev.key() == Qt.Key_PageUp:
-            self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().pageStep()))
-        elif ev.key() == Qt.Key_Down:
-            self.kineticAddDelta(QPoint(0, self.verticalScrollBar().singleStep()))
-        elif ev.key() == Qt.Key_Up:
-            self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().singleStep()))
-        elif ev.key() == Qt.Key_Left:
-            self.kineticAddDelta(QPoint(-self.horizontalScrollBar().singleStep(), 0))
-        elif ev.key() == Qt.Key_Right:
-            self.kineticAddDelta(QPoint(self.horizontalScrollBar().singleStep(), 0))
-        elif ev.key() == Qt.Key_Home:
-            self.kineticScrollBy(QPoint(0, -self.verticalScrollBar().value()))
+        """Kinetic cursor movements."""
+        hbar = self.horizontalScrollBar()
+        vbar = self.verticalScrollBar()
+        # add Home and End, even in non-kinetic mode
+        scroll = self.kineticScrollBy if self.kineticscrolling else self.scrollBy
+        if ev.key() == Qt.Key_Home:
+            scroll(QPoint(0, -vbar.value()))
         elif ev.key() == Qt.Key_End:
-            self.kineticScrollBy(QPoint(0, self.verticalScrollBar().maximum()-self.verticalScrollBar().value()))
+            scroll(QPoint(0, vbar.maximum() - vbar.value()))
+        elif self.kineticscrolling:
+            # make arrow keys and PgUp and PgDn kinetic
+            if ev.key() == Qt.Key_PageDown:
+                self.kineticAddDelta(QPoint(0, vbar.pageStep()))
+            elif ev.key() == Qt.Key_PageUp:
+                self.kineticAddDelta(QPoint(0, -vbar.pageStep()))
+            elif ev.key() == Qt.Key_Down:
+                self.kineticAddDelta(QPoint(0, vbar.singleStep()))
+            elif ev.key() == Qt.Key_Up:
+                self.kineticAddDelta(QPoint(0, -vbar.singleStep()))
+            elif ev.key() == Qt.Key_Left:
+                self.kineticAddDelta(QPoint(-hbar.singleStep(), 0))
+            elif ev.key() == Qt.Key_Right:
+                self.kineticAddDelta(QPoint(hbar.singleStep(), 0))
+            else:
+                super().keyPressEvent(ev)
         else:
             super().keyPressEvent(ev)
     
