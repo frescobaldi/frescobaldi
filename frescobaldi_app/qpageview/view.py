@@ -505,7 +505,7 @@ class View(QAbstractScrollArea):
         
         """
         if isinstance(self._scroller, KineticScroller):
-            self._scroller.addDelta(diff)
+            self._scroller.scrollBy(self._scroller.remainingDistance() + diff)
         else:
             self.kineticScrollBy(diff)
 
@@ -624,24 +624,17 @@ class KineticScroller:
         # the offset is accounted for in the first step
         self._offset = QPoint(offx, offy)
         
-    def addDelta(self, diff):
-        """Adds a displacement (QPoint)."""
-        def compute_speed(s, d):
-            if d:
-                # Get the remaining scroll amount.
-                currentSpeed = abs(s)
-                leftToScroll = (currentSpeed + 1) * currentSpeed // 2
-                if s < 0:
-                    leftToScroll = -leftToScroll
-                leftToScroll += d
-                
-                s = (math.sqrt(1 + 8 * abs(leftToScroll)) - 1) // 2
-                if leftToScroll < 0:
-                    s = -s
-            return s
-        
-        self._x = compute_speed(self._x, diff.x())
-        self._y = compute_speed(self._y, diff.y())
+    def remainingDistance(self):
+        """Return the remaining distance."""
+        sx = abs(self._x)
+        dx = sx * (sx + 1) // 2
+        if self._x < 0:
+            dx = -dx
+        sy = abs(self._y)
+        dy = sy * (sy + 1) // 2
+        if self._y < 0:
+            dy = -dy
+        return QPoint(dx, dy)
 
     def step(self):
         """Return a QPoint indicating the diff to scroll in this step."""
