@@ -40,7 +40,7 @@ class ToolBoxWheeler(QObject):
         return False
         
     def wheelEvent(self, toolbox, ev):
-        self._wheeldelta -= ev.delta()
+        self._wheeldelta -= ev.angleDelta().y()
         steps, self._wheeldelta = divmod(self._wheeldelta, 120)
         i = toolbox.currentIndex() + steps
         if 0 <= i < toolbox.count():
