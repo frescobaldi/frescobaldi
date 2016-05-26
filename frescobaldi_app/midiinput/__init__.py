@@ -16,7 +16,7 @@ TODO:
 import time
 import weakref
 
-from PyQt5.QtCore import QObject, QSettings, QThread
+from PyQt5.QtCore import QObject, QSettings, QThread, pyqtSignal
 
 import midihub
 import midifile.event
@@ -47,7 +47,7 @@ class MidiIn(object):
         self._portmidiinput = midihub.input_by_name(self._portname)
         
         self._listener = Listener(self._portmidiinput, self._pollingtime)
-        QObject.connect(self._listener, SIGNAL("caughtevent"), self.analyzeevent)
+        self._listener.NoteEventSignal.connect(self.analyzeevent)
     
     def close(self):
         # self._portmidiinput.close()
@@ -113,6 +113,7 @@ class MidiIn(object):
             cursor.insertText(' ' +  text)
     
 class Listener(QThread):
+    NoteEventSignal = pyqtSignal(midifile.event.NoteEvent)
     def __init__(self, portmidiinput, pollingtime):
         QThread.__init__(self)
         self._portmidiinput = portmidiinput
@@ -136,7 +137,7 @@ class Listener(QThread):
             s = bytearray([77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]])
             event = next(midifile.parser.parse_midi_events(s))[1]
             
-            self.emit(SIGNAL("caughtevent"), event)
+            self.NoteEventSignal.emit(event)
     
     def stop(self):
         self._capturing = False
