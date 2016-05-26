@@ -77,12 +77,25 @@ class SvgPage(BasicSvgPage):
 
 
 class Renderer(render.AbstractImageRenderer):
-    """Render SVG pages."""
+    """Render SVG pages.
+    
+    instance attributes:
+    
+        paperColor      (QColor(Qt.white)) the background color
+        
+        imageFormat     (QImage.Format_ARGB32_Premultiplied) the QImage format to use.
+    
+    """
+    
+    # background color
     paperColor = QColor(Qt.white)
+    
+    # QImage format to use
+    imageFormat = QImage.Format_ARGB32_Premultiplied
     
     def render(self, page):
         """Generate an image for this Page."""
-        i = QImage(page.width, page.height, QImage.Format_ARGB32_Premultiplied)
+        i = QImage(page.width, page.height, self.imageFormat)
         i.fill(self.paperColor)
         painter = QPainter(i)
         rect = QRect(0, 0, page.width, page.height)
