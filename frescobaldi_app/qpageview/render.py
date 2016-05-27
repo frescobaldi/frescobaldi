@@ -52,11 +52,11 @@ class Job(QThread):
         self.page = page
         self.time = time.time()
         self.callbacks = set()
+        self.finished.connect(self._slotFinished)
     
     def start(self):
         self.page_copy = self.page.copy()
         self.key = self.renderer.key(self.page)
-        self.finished.connect(self._slotFinished)
         self.running = True
         super().start()
         
@@ -181,11 +181,15 @@ class AbstractImageRenderer:
     def finish(self, job):
         """Called by the job when finished."""
         self.cache[job.key] = job.image
-        for cb in job.callbacks:
-            cb(job.page)
-        del _jobs[self][job.page]
-        if not _jobs[self]:
-            del _jobs[self]
+        # if page already was resized during rendering, immediately rerender...
+        if job.page.size() != job.page_copy.size():
+            job.start()
         else:
-            self.checkstart()
+            for cb in job.callbacks:
+                cb(job.page)
+            del _jobs[self][job.page]
+            if not _jobs[self]:
+                del _jobs[self]
+            else:
+                self.checkstart()
 
