@@ -50,11 +50,15 @@ class Job(QThread):
         super().__init__()
         self.renderer = renderer
         self.page = page
-        self.page_copy = page.copy()
-        self.key = self.renderer.key(page)
         self.time = time.time()
-        self.finished.connect(self._slotFinished)
         self.callbacks = set()
+    
+    def start(self):
+        self.page_copy = self.page.copy()
+        self.key = self.renderer.key(self.page)
+        self.finished.connect(self._slotFinished)
+        self.running = True
+        super().start()
         
     def run(self):
         self.image = self.renderer.render(self.page_copy)
@@ -138,7 +142,7 @@ class AbstractImageRenderer:
             painter.drawImage(rect, image, rect)
 
     def mutex(self, page, otherpage):
-        """Return True if page cannot be rendered when otherpage already is in the pipeline.
+        """Return True if page cannot be rendered when otherpage already is being rendered.
         
         This can be used when there is locking needed between different pages. 
         It makes sure that the last requested page is drawn first, and that 
@@ -172,7 +176,6 @@ class AbstractImageRenderer:
         for job in waitingjobs[:maxjobs-jobcount]:
             if not any(self.mutex(job.page, j.page) for j in runningjobs):
                 runningjobs.append(job)
-                job.running = True
                 job.start()
         
     def finish(self, job):
