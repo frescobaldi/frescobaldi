@@ -186,4 +186,6 @@ class AbstractImageRenderer:
         del _jobs[self][job.page]
         if not _jobs[self]:
             del _jobs[self]
-        self.checkstart()
+        else:
+            self.checkstart()
+
