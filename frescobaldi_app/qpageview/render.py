@@ -22,6 +22,7 @@ Infrastructure for rendering and caching Page images.
 """
 
 import collections
+import itertools
 import weakref
 import time
 
@@ -136,6 +137,15 @@ class AbstractImageRenderer:
         else:
             painter.drawImage(rect, image, rect)
 
+    def mutex(self, page, otherpage):
+        """Return True if page cannot be rendered when otherpage already is in the pipeline.
+        
+        This can be used when there is locking needed between different pages. 
+        It makes sure that the last requested page is drawn first, and that 
+        rendering jobs are not waiting in locks for too much time. 
+        
+        """
+        return False
     
     def schedule(self, page, painter, callback):
         """Start a new rendering job."""
@@ -153,13 +163,17 @@ class AbstractImageRenderer:
         except KeyError:
             return
         # count the total number of running jobs
-        jobcount = sum(1 for jobs in _jobs.values()
-                         for j in jobs.values() if j.running)
+        runningjobs = [j for jobs in _jobs.values()
+                         for j in jobs.values() if j.running]
         waitingjobs = sorted((j for j in ourjobs if not j.running),
                              key=lambda j: j.time, reverse=True)
+        jobcount = len(runningjobs)
+        
         for job in waitingjobs[:maxjobs-jobcount]:
-            job.running = True
-            job.start()
+            if not any(self.mutex(job.page, j.page) for j in runningjobs):
+                runningjobs.append(job)
+                job.running = True
+                job.start()
         
     def finish(self, job):
         """Called by the job when finished."""

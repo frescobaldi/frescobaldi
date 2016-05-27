@@ -81,6 +81,10 @@ class Renderer(render.AbstractImageRenderer):
             page.document,
             (page.pageNumber, page.computedRotation),
             key.size)
+    
+    def mutex(self, page, otherpage):
+        """No two pages of same Poppler document are rendered at the same time."""
+        return page.document == otherpage.document
         
     def render(self, page):
         """Generate an image for this Page."""
