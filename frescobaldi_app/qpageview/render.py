@@ -161,7 +161,12 @@ class AbstractImageRenderer:
         self.checkstart()
     
     def unschedule(self, page, callback):
-        """Unschedule a possible pending rendering job."""
+        """Unschedule a possible pending rendering job.
+        
+        A rendering job is only removed if the specified callback was the only
+        callback to call.
+        
+        """
         try:
             job = _jobs[self][page]
         except KeyError:
