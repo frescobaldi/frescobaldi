@@ -23,6 +23,8 @@ Manages and positions a group of Page instances.
 """
 
 
+import copy
+
 from PyQt5.QtCore import QPoint, QPointF, QRect, QSize
 
 from .constants import (
@@ -82,6 +84,12 @@ class AbstractPageLayout(list):
     def empty(self):
         """Return True if there are zero pages."""
         return len(self) == 0
+    
+    def copy(self):
+        """Return a copy of this layout with copies of all the pages."""
+        layout = copy.copy(self)
+        layout[:] = (p.copy() for p in self)
+        return layout
     
     def setSize(self, size):
         """Set our size. Normally done after layout by computeSize()."""

@@ -37,6 +37,10 @@ from .constants import (
 class AbstractPage:
     """A Page is a rectangle that is positioned in a PageLayout.
     
+    A Page represents one page, added to a PageLayout that is displayed in a 
+    View. Although there is no mechanism to enforce it, a Page is normally only 
+    used in one PageLayout at a time.
+    
     A Page has instance attributes...
     
     ...that normally do not change during its lifetime:
