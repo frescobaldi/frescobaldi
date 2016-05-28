@@ -160,6 +160,19 @@ class AbstractImageRenderer:
         job.callbacks.add(callback)
         self.checkstart()
     
+    def unschedule(self, page, callback):
+        """Unschedule a possible pending rendering job."""
+        try:
+            job = _jobs[self][page]
+        except KeyError:
+            return
+        if not job.running:
+            job.callbacks.discard(callback)
+            if not job.callbacks:
+                del _jobs[self][page]
+                if not _jobs[self]:
+                    del _jobs[self]
+    
     def checkstart(self):
         """Check whether there are jobs that need to be started."""
         try:

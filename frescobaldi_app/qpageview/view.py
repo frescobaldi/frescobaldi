@@ -60,6 +60,7 @@ class View(scrollarea.ScrollArea):
     
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
+        self._prev_pages_to_paint = set()
         self._viewMode = FixedScale
         self._pageLayout = layout.PageLayout()
         self._magnifier = None
@@ -389,15 +390,29 @@ class View(scrollarea.ScrollArea):
     def paintEvent(self, ev):
         layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
-        # paint the pages
+        
+        # pages to paint
         ev_rect = ev.rect().translated(-layout_pos)
-        for p in self._pageLayout.pagesAt(ev_rect):
+        pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
+        
+        # paint the pages
+        for p in pages_to_paint:
             rect = (p.rect() & ev_rect).translated(-p.pos())
             painter.save()
             painter.translate(p.pos() + layout_pos)
             p.paint(painter, rect, self.repaintPage)
             painter.restore()
+        
         # TODO paint highlighting
+        
+        # remove pending render jobs for pages that were visible, but are not
+        # visible now
+        margin = 50
+        rect = ev_rect.adjusted(-margin, -margin, margin, margin)
+        for page in self._prev_pages_to_paint - pages_to_paint:
+            if page.renderer and not rect.intersects(page.rect()):
+                page.renderer.unschedule(page, self.repaintPage)
+        self._prev_pages_to_paint = pages_to_paint
 
     def wheelEvent(self, ev):
         # TEMP
