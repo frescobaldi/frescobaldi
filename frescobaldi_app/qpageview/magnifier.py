@@ -226,7 +226,7 @@ class Magnifier(QWidget):
         view = self.parent().parent()
         layout = view.pageLayout()
         
-        scale = min(self._scale, view.MAX_ZOOM * self.MAX_EXTRA_ZOOM / layout.zoomFactor)
+        scale = max(min(self._scale, view.MAX_ZOOM * self.MAX_EXTRA_ZOOM / layout.zoomFactor), view.MIN_ZOOM / layout.zoomFactor)
         
         # the position of our center on the layout
         c = self.rect().center() + self.pos() - view.layoutPosition()
