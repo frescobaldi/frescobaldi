@@ -124,7 +124,7 @@ class AbstractPageLayout(list):
     def highestPage(self):
         """Return the highest page, if any.
         
-        Uses the page's natural height and its scals in Y-direction.
+        Uses the page's natural height and its scale in Y-direction.
         
         """
         if self.count():
