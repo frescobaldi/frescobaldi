@@ -377,8 +377,14 @@ class View(scrollarea.ScrollArea):
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
         if self._viewMode and not self._pageLayout.empty():
+            # sensible repositioning
+            vbar = self.verticalScrollBar()
+            hbar = self.horizontalScrollBar()
+            x, xm = hbar.value(), hbar.maximum()
+            y, ym = vbar.value(), vbar.maximum()
             self._fitLayout()
-            # TODO: implement sensible repositioning
+            if xm: hbar.setValue(round(x * hbar.maximum() / xm))
+            if ym: vbar.setValue(round(y * vbar.maximum() / ym))
         else:
             self._updateScrollBars()
     
