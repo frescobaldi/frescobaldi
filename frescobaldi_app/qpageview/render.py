@@ -81,7 +81,20 @@ class AbstractImageRenderer:
     You must inherit from this class and at least implement the
     render() method.
     
+    Instance attributes:
+    
+        `paperColor`    Paper color. If possible this background color is used
+                        when rendering the pages, also for temporary drawings
+                        when a page has to be rendered. If None, Qt.white is
+                        used. If a Page specifies its own paperColor, that color
+                        prevails.
+    
+    
     """
+    
+    # default paper color to use (if possible, and when drawing an empty page)
+    paperColor = QColor(Qt.white)
+    
     def __init__(self):
         self.cache = cache.ImageCache()
     
@@ -136,7 +149,8 @@ class AbstractImageRenderer:
                                     rect.width() * hscale, rect.height() * vscale)
                 painter.drawImage(QRectF(rect), image, image_rect)
             else:
-                painter.fillRect(rect, QColor(Qt.white))
+                color = page.paperColor or self.paperColor or QColor(Qt.white)
+                painter.fillRect(rect, color)
             self.schedule(page, painter, callback)
         else:
             painter.drawImage(rect, image, rect)

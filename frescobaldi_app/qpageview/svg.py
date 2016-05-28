@@ -39,8 +39,6 @@ from . import render
 
 class BasicSvgPage(page.AbstractPage):
     """A page that can display a SVG document."""
-    paperColor = QColor(Qt.white)
-    
     def __init__(self, load_file=None):
         self._svg_r = QSvgRenderer()
         if load_file:
@@ -55,7 +53,7 @@ class BasicSvgPage(page.AbstractPage):
         return success
     
     def paint(self, painter, rect, callback=None):
-        painter.fillRect(rect, self.paperColor)
+        painter.fillRect(rect, self.paperColor or QColor(Qt.white))
         page = QRect(0, 0, self.width, self.height)
         painter.translate(page.center())
         painter.rotate(self.computedRotation * 90)
@@ -79,24 +77,18 @@ class SvgPage(BasicSvgPage):
 class Renderer(render.AbstractImageRenderer):
     """Render SVG pages.
     
-    instance attributes:
-    
-        paperColor      (QColor(Qt.white)) the background color
+    Additional instance attributes:
         
         imageFormat     (QImage.Format_ARGB32_Premultiplied) the QImage format to use.
     
     """
-    
-    # background color
-    paperColor = QColor(Qt.white)
-    
     # QImage format to use
     imageFormat = QImage.Format_ARGB32_Premultiplied
     
     def render(self, page):
         """Generate an image for this Page."""
         i = QImage(page.width, page.height, self.imageFormat)
-        i.fill(self.paperColor)
+        i.fill(page.paperColor or self.paperColor or QColor(Qt.white))
         painter = QPainter(i)
         rect = QRect(0, 0, page.width, page.height)
         painter.translate(rect.center())

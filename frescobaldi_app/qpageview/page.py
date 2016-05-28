@@ -53,6 +53,8 @@ class AbstractPage:
         `rotation`      the rotation (Rotate_0)
         `scaleX`        the scale in X-direction (1.0)
         `scaleY`        the scale in Y-direction (1.0)
+        `paperColor`    the paper color (None). If None, the renderer's
+                        paperColor is used.
         
     ... and that are set by the layout when computing the size and positioning
         the pages:
@@ -74,6 +76,7 @@ class AbstractPage:
     rotation = Rotate_0
     scaleX = 1.0
     scaleY = 1.0
+    paperColor = None
 
     def __init__(self):
         self.x = 0

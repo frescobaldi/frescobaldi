@@ -66,7 +66,6 @@ class PopplerPage(page.AbstractPage):
 
 
 class Renderer(render.AbstractImageRenderer):
-    paperColor = None
     renderHint = (
         popplerqt5.Poppler.Document.Antialiasing |
         popplerqt5.Poppler.Document.TextAntialiasing
@@ -101,7 +100,7 @@ class Renderer(render.AbstractImageRenderer):
         image = self.render_poppler_image(doc, num,
             xres * multiplier, yres * multiplier,
             0, 0, page.width * multiplier, page.height * multiplier,
-            page.computedRotation)
+            page.computedRotation, page.paperColor or self.paperColor)
         if multiplier == 2:
             image = image.scaledToWidth(page.width, Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)
@@ -110,7 +109,8 @@ class Renderer(render.AbstractImageRenderer):
     
     def render_poppler_image(self, doc, pageNum,
                                    xres=72.0, yres=72.0,
-                                   x=-1, y=-1, w=-1, h=-1, rotate=Rotate_0):
+                                   x=-1, y=-1, w=-1, h=-1, rotate=Rotate_0,
+                                   paperColor=None):
         """Render an image, almost like calling page.renderToImage().
         
         The document is properly locked during rendering and render options
@@ -121,8 +121,8 @@ class Renderer(render.AbstractImageRenderer):
             if self.renderHint is not None:
                 doc.setRenderHint(int(doc.renderHints()), False)
                 doc.setRenderHint(self.renderHint)
-            if self.paperColor is not None:
-                doc.setPaperColor(self.paperColor)
+            if paperColor is not None:
+                doc.setPaperColor(paperColor)
             if self.renderBackend is not None:
                 doc.setRenderBackend(self.renderBackend)
             image = doc.page(pageNum).renderToImage(xres, yres, x, y, w, h, rotate)
