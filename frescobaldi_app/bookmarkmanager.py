@@ -81,14 +81,14 @@ class BookmarkManager(plugin.MainWindowPlugin):
         cursor = view.textCursor()
         cursor = bookmarks.bookmarks(view.document()).nextMark(cursor)
         if cursor:
-            view.setTextCursor(cursor)
+            view.gotoTextCursor(cursor)
             
     def previousMark(self):
         view = self.mainwindow().currentView()
         cursor = view.textCursor()
         cursor = bookmarks.bookmarks(view.document()).previousMark(cursor)
         if cursor:
-            view.setTextCursor(cursor)
+            view.gotoTextCursor(cursor)
 
 
 class Actions(actioncollection.ActionCollection):
