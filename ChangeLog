@@ -10,6 +10,7 @@ Changes in 2.20.0 -- Mai ??, 2016
   - Copy selected text in Music View
 * Improvements:
   - Fit Width in Music View now fits two pages in width, if in two-page mode
+  - Jump to next or previous bookmark now respects surrounding lines setting
 * Bug fixes:
   - fix #716 position of open document tab bar changes on engrave
 * Translations:
