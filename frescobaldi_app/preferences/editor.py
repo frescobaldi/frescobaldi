@@ -249,7 +249,7 @@ class KeyBoard(preferences.Group):
             "whitespace character on the line. "
             "When the cursor is on that spot, pressing Home moves the cursor "
             "to the beginning of the line."))
-        self.smartStartEnd.setText(_("Smart Up/PageUp and Down/PageDown"))
+        self.smartStartEnd.setText(_("Smart Up/PageUp and Down/PageDown keys"))
         self.smartStartEnd.setToolTip('<qt>' + _(
             "If enabled, pressing Up or PageUp in the first line will move the "
             "cursor to the beginning of the document, and pressing Down or "
