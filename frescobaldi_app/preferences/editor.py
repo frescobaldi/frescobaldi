@@ -233,12 +233,28 @@ class KeyBoard(preferences.Group):
         self.setLayout(layout)
 
         self.keepCursorInLine = QCheckBox(toggled=self.changed)
+        self.smartHome = QCheckBox(toggled=self.changed)
+        self.smartStartEnd = QCheckBox(toggled=self.changed)
 
-        layout.addWidget(self.keepCursorInLine, 0, 0, 1, 1)
+        layout.addWidget(self.smartHome, 0, 0, 1, 1)
+        layout.addWidget(self.smartStartEnd, 1, 0, 1, 1)
+        layout.addWidget(self.keepCursorInLine, 2, 0, 1, 1)
         app.translateUI(self)
 
     def translateUI(self):
         self.setTitle(_("Keyboard Preferences"))
+        self.smartHome.setText(_("Smart Home key"))
+        self.smartHome.setToolTip('<qt>' + _(
+            "If enabled, pressing Home will put the cursor at the first non-"
+            "whitespace character on the line. "
+            "When the cursor is on that spot, pressing Home moves the cursor "
+            "to the beginning of the line."))
+        self.smartStartEnd.setText(_("Smart Up/PageUp and Down/PageDown"))
+        self.smartStartEnd.setToolTip('<qt>' + _(
+            "If enabled, pressing Up or PageUp in the first line will move the "
+            "cursor to the beginning of the document, and pressing Down or "
+            "PageDown in the last line will move the cursor to the end of the "
+            "document."))
         self.keepCursorInLine.setText(_("Horizontal arrow keys keep cursor in current line"))
         self.keepCursorInLine.setToolTip('<qt>' + _(
             "If enabled, the cursor will stay in the current line when using "
@@ -247,11 +263,15 @@ class KeyBoard(preferences.Group):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("view_preferences")
+        self.smartHome.setChecked(s.value("smart_home_key", True, bool))
+        self.smartStartEnd.setChecked(s.value("smart_start_end", True, bool))
         self.keepCursorInLine.setChecked(s.value("keep_cursor_in_line", False, bool))
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("view_preferences")
+        s.setValue("smart_home_key", self.smartHome.isChecked())
+        s.setValue("smart_start_end", self.smartStartEnd.isChecked())
         s.setValue("keep_cursor_in_line", self.keepCursorInLine.isChecked())
 
 

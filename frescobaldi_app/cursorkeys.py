@@ -39,9 +39,9 @@ handler = gadgets.cursorkeys.KeyPressHandler()
 def _setup():
     s = QSettings()
     s.beginGroup("view_preferences")
-    handler.handle_home = s.value("smart_homekey", True, bool)
+    handler.handle_home = s.value("smart_home_key", True, bool)
     handler.handle_horizontal = s.value("keep_cursor_in_line", False, bool)
-    handler.handle_vertical = s.value("goto_start_end", True, bool)
+    handler.handle_vertical = s.value("smart_start_end", True, bool)
 
 app.settingsChanged.connect(_setup)
 _setup()
