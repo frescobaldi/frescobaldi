@@ -35,13 +35,12 @@ import actioncollectionmanager
 import app
 import qutil
 import userguide
-import arrowkeys
+import cursorkeys
 import icons
 import textformats
 import wordboundary
 import gadgets.indenter
 import gadgets.matcher
-import gadgets.homekey
 import widgets
 
 from . import model
@@ -103,8 +102,7 @@ class Edit(QDialog):
         self._highlighter = highlight.Highlighter(self.text.document())
         Matcher(self.text)
         gadgets.indenter.Indenter(self.text)
-        self.text.installEventFilter(gadgets.homekey.handler)
-        self.text.installEventFilter(arrowkeys.handler)
+        self.text.installEventFilter(cursorkeys.handler)
         wordboundary.handler.install_textedit(self.text)
         completer.Completer(self.text)
         

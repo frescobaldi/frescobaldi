@@ -35,6 +35,7 @@ import actioncollectionmanager
 import autocomplete.analyzer
 import autocomplete.completer
 import cursordiff
+import cursorkeys
 import cursortools
 import userguide
 import highlighter
@@ -44,9 +45,7 @@ import metainfo
 import qutil
 import textformats
 import tokeniter
-import arrowkeys
 import gadgets.arbitraryhighlighter
-import gadgets.homekey
 import widgets.dialog
 import documenttooltip
 
@@ -176,8 +175,7 @@ class View(QPlainTextEdit):
         self.setCursorWidth(2)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-        self.installEventFilter(gadgets.homekey.handler)
-        self.installEventFilter(arrowkeys.handler)
+        self.installEventFilter(cursorkeys.handler)
 
     def readSettings(self):
         data = textformats.formatData('editor')
