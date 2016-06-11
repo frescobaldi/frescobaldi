@@ -33,12 +33,11 @@ from PyQt5.QtGui import (
 from PyQt5.QtWidgets import QApplication, QPlainTextEdit
 
 import app
-import arrowkeys
 import metainfo
 import textformats
 import cursortools
 import variables
-import gadgets.homekey
+import cursorkeys
 
 
 metainfo.define('auto_indent', True)
@@ -74,8 +73,7 @@ class View(QPlainTextEdit):
         # line wrap preference is only read on init
         wrap = QSettings().value("view_preferences/wrap_lines", False, bool)
         self.setLineWrapMode(QPlainTextEdit.WidgetWidth if wrap else QPlainTextEdit.NoWrap)
-        self.installEventFilter(gadgets.homekey.handler)
-        self.installEventFilter(arrowkeys.handler)
+        self.installEventFilter(cursorkeys.handler)
         app.viewCreated(self)
 
     def event(self, ev):
