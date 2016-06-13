@@ -8414,7 +8414,7 @@ msgstr "Редактировать на месте"
 
 #: ../userguide/manuscriptview.md:36
 msgid ""
-"However, when that score should be recompiled wtih LilyPond the manuscript "
+"However, when that score should be recompiled with LilyPond the manuscript "
 "viewer won't automatically update, but this can be done manually through the "
 "context menu"
 msgstr ""
