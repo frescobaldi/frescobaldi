@@ -387,10 +387,14 @@ class AbstractViewPanel(panel.Panel):
 
     def reportMissingViewdocs(self, missing):
         """Report missing viewer document files when restoring a session."""
-        report_msg = (_('The following file/s are/is missing and could not be loaded ' +
-                     'when restoring a session:\n\n'))
-        QMessageBox.warning(self, (_("Missing files in {}".format(self.viewerPanelDisplayName()))),
-                                    report_msg + '\n'.join(missing))
+        report_msg = _(
+            "The following file is missing and could not be loaded "
+            "when restoring a session:",
+            "The following files are missing and could not be loaded "
+            "when restoring a session:",
+            len(missing))
+        QMessageBox.warning(self, _("Missing files in {name}").format(name=self.viewerPanelDisplayName()),
+                                    report_msg + '\n\n' + '\n'.join(missing))
 
 
 class ViewerActions(actioncollection.ActionCollection):

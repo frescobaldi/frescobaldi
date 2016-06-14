@@ -129,8 +129,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             type(self).__name__))
 
     def translateUI(self):
-        self.setWhatsThis(_(
-            "<p>This viewer doesn't have a What'sThis info set.</p>"))
+        self.setWhatsThis(
+            "<p>This viewer doesn't have a What'sThis info set.</p>")
 
     def connectSlots(self):
         """Connects the slots of the viewer."""
@@ -185,11 +185,12 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             dlg = widgets.dialog.Dialog(buttons=('yes', 'no'))
             dlg.setWindowTitle("Missing file")
             fn = doc.filename()
-            dlg.setMessage(_("{} is missing. Remove?".format(fn)))
+            dlg.setMessage(_("The file {filename} is missing.\n\n"
+                "Do you want to remove the filename from the list?").format(filename=fn))
             dlg.setIcon("question")
-            ttt = "Answering 'No' will give you a chance to restore the " \
-                  "file without having to re-add it."
-            dlg.setToolTip(ttt)
+            dlg.setToolTip(_(
+                "Answering 'No' will give you a chance to restore the "
+                "file without having to re-add it."))
             if dlg.exec_():
                 mds = self.actionCollection.viewer_document_select
                 mds.removeViewdoc(doc)
