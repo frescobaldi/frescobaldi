@@ -296,20 +296,27 @@ class SourceExport(preferences.Group):
         self.wrapAttribNameLabel = QLabel()
         self.wrapAttribName = QLineEdit()
         self.wrapAttribName.textEdited.connect(page.changed)
+        self.wrapperTag.setBuddy(self.wrapTagSelector)
+        self.wrapperAttribute.setBuddy(self.wrapAttribSelector)
+        self.wrapAttribNameLabel.setBuddy(self.wrapAttribName)
 
-        # left column
-        layout.addWidget(self.copyHtmlAsPlainText, 0, 0)
-        layout.addWidget(self.copyDocumentBodyOnly, 1, 0)
-        layout.addWidget(self.inlineStyleCopy, 2, 0)
-        layout.addWidget(self.inlineStyleExport, 3, 0)
-        #right column
-        layout.addWidget(self.numberLines, 0, 1, 1, 2)
-        layout.addWidget(self.wrapperTag, 1, 1)
-        layout.addWidget(self.wrapTagSelector, 1, 2)
-        layout.addWidget(self.wrapperAttribute, 2, 1)
-        layout.addWidget(self.wrapAttribSelector, 2, 2)
-        layout.addWidget(self.wrapAttribNameLabel, 3, 1)
-        layout.addWidget(self.wrapAttribName, 3, 2)
+        layout.addWidget(self.copyHtmlAsPlainText, 0, 0, 1, 2)
+        layout.addWidget(self.copyDocumentBodyOnly, 1, 0, 1, 2)
+        layout.addWidget(self.inlineStyleCopy, 2, 0, 1, 2)
+        layout.addWidget(self.inlineStyleExport, 3, 0, 1, 2)
+        layout.addWidget(self.numberLines, 4, 0, 1, 2)
+        layout.addWidget(self.wrapperTag, 5, 0)
+        layout.addWidget(self.wrapTagSelector, 5, 1)
+        layout.addWidget(self.wrapperAttribute, 6, 0)
+        layout.addWidget(self.wrapAttribSelector, 6, 1)
+        layout.addWidget(self.wrapAttribNameLabel, 7, 0)
+        layout.addWidget(self.wrapAttribName, 7, 1)
+
+        self.wrapTagSelector.addItem("pre")
+        self.wrapTagSelector.addItem("code")
+        self.wrapTagSelector.addItem("div")
+        self.wrapAttribSelector.addItem("id")
+        self.wrapAttribSelector.addItem("class")
 
         app.translateUI(self)
 
@@ -346,14 +353,9 @@ class SourceExport(preferences.Group):
         self.wrapperTag.setText(_("Tag to wrap around source:" + "  "))
         self.wrapperTag.setToolTip('<qt>' + _(
             "Choose what tag the colored HTML will be wrapped into."))
-        self.wrapTagSelector.addItem(_("pre"))
-        self.wrapTagSelector.addItem(_("code"))
-        self.wrapTagSelector.addItem(_("div"))
         self.wrapperAttribute.setText(_("Attribute type of wrapper:" + "  "))
         self.wrapperAttribute.setToolTip('<qt>' + _(
             "Choose whether the wrapper tag should be of type 'id' or 'class'"))
-        self.wrapAttribSelector.addItem(_("id"))
-        self.wrapAttribSelector.addItem(_("class"))
         self.wrapAttribNameLabel.setText(_("Name of attribute:" + "  "))
         self.wrapAttribNameLabel.setToolTip('<qt>' + _(
             "Arbitrary name for the type attribute. " +
