@@ -296,7 +296,7 @@ class Search(plugin.MainWindowPlugin, QWidget):
             text = document.toPlainText()
             start = 0
             if (self._replace or not self._going) and cursor.hasSelection():
-                # dont search outside the selection
+                # don't search outside the selection
                 start = cursor.selectionStart()
                 text = text[start:cursor.selectionEnd()]
             flags = re.MULTILINE | re.DOTALL
