@@ -40,6 +40,10 @@ class Magnifier(QWidget):
     with setScale().
     
     """
+    
+    # Maximum extra zoom above the View.MAX_ZOOM
+    MAX_EXTRA_ZOOM = 1.25
+    
     def __init__(self, parent = None):
         super(Magnifier, self).__init__(parent)
         self._page= None
@@ -80,7 +84,8 @@ class Magnifier(QWidget):
             return
         pagePos = pos - page.pos()
         
-        newPage = Page(page, self._scale)
+        max_zoom = self.parent().surface().view().MAX_ZOOM * self.MAX_EXTRA_ZOOM
+        newPage = Page(page, min(max_zoom, self._scale * page.scale()))
         if not newPage.same_page(self._page):
             if self._page:
                 self._page.magnifier = None

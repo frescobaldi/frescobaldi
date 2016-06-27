@@ -22,6 +22,8 @@
 Manages and positions a group of Page instances.
 """
 
+from __future__ import division
+
 import weakref
 
 from PyQt4.QtCore import QObject, QPoint, QRect, QSize, Qt, pyqtSignal
@@ -223,11 +225,29 @@ class AbstractLayout(QObject):
         if mode and any(self.pages()):
             scales = []
             if mode & FitWidth:
-                scales.append(self.widest().scaleForWidth(size.width() - self.margin() * 2))
+                scales.append(self.scaleFitWidth(size.width()))
             if mode & FitHeight:
-                scales.append(self.highest().scaleForHeight(size.height() - self.margin() * 2))
+                scales.append(self.scaleFitHeight(size.height()))
             self.setScale(min(scales))
+    
+    def scaleFitHeight(self, height):
+        """Return the scale this layout would need to fit in the height.
         
+        This method is called by fit().
+        The default implementation returns a suitable scale for the highest Page.
+        
+        """
+        return self.highest().scaleForHeight(height - self.margin() * 2)
+    
+    def scaleFitWidth(self, width):
+        """Return the scale this layout would need to fit in the width.
+        
+        This method is called by fit().
+        The default implementation returns a suitable scale for the widest Page.
+        
+        """
+        return self.widest().scaleForWidth(width - self.margin() * 2)
+            
     def update(self):
         """Performs the layout (positions the Pages and adjusts our size)."""
         self.reLayout()
@@ -367,6 +387,7 @@ class RowLayout(AbstractLayout):
         super(RowLayout, self).__init__()
         self._npages = 2
         self._npages_first = 1
+        self._fit_width_uses_all_columns = True
     
     def setPagesPerRow(self, n):
         """Set the number of pages to show per row."""
@@ -384,6 +405,32 @@ class RowLayout(AbstractLayout):
         """Return the number of pages to show in the first row."""
         return self._npages_first
     
+    def setFitWidthUsesAllColumns(self, allcols):
+        """Set "Fit Width uses all columns" to True or False.
+        
+        If True, the FitWidth view mode tries to display all columns in the
+        requested width. If False, the widest Page determines the used scale.
+        
+        The default setting is True.
+        
+        """
+        self._fit_width_uses_all_columns = allcols
+    
+    def fitFitWidthUsesAllColumns(self):
+        """Return whether the Fit Width view mode displays all columns in the
+        requested width.
+        
+        """
+        return self._fit_width_uses_all_columns
+    
+    def scaleFitWidth(self, width):
+        """Reimplemented to respect the fitFitWidthUsesAllColumns() setting."""
+        width -= self.margin() * 2
+        if self._fit_width_uses_all_columns:
+            ncols = min(self._npages, self.count())
+            width = (width - self.spacing() * (ncols - 1)) // ncols
+        return self.widest().scaleForWidth(width)
+        
     def reLayout(self):
         pages = list(self.pages())
         cols = self._npages
@@ -396,13 +443,18 @@ class RowLayout(AbstractLayout):
         col_widths = []
         col_offsets = []
         offset = self._margin
+        col = -1
         for col in range(cols):
             width = max(p.width() for p in pages[col::cols] if p)
             col_widths.append(width)
             col_offsets.append(offset)
             offset += width + self._spacing
+        total_width = offset + self._margin
+        if col != -1:
+            total_width -= self._spacing
         
         top = self._margin
+        x = -1
         for row in (pages[i:i + cols] for i in range(0, len(pages), cols or 1)):
             height = max(p.height() for p in row if p)
             for n, page in enumerate(row):
@@ -411,8 +463,9 @@ class RowLayout(AbstractLayout):
                     y = top + (height - page.height()) // 2
                     page.setPos(QPoint(x, y))
             top += height + self._spacing
-        total_height = top + self._margin - self._spacing
-        total_width = self._margin * 2 + self._spacing * (cols - 1) + sum(col_widths)
+        total_height = top + self._margin
+        if x != -1:
+            total_height -= self._spacing
         self.setSize(QSize(total_width, total_height))
 
 

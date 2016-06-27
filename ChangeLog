@@ -2,13 +2,22 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.19.1 -- Mai ??, 2016
+Changes in 2.20.0 -- Mai ??, 2016
 
 * New features:
   - New Manuscript viewer tool, displaying an "engraver's copy",
     contributed by Peter Bjuhr and Urs Liska
+  - Copy selected text in Music View
+* Improvements:
+  - Fit Width in Music View now fits two pages in width, if in two-page mode
+  - Jump to next or previous bookmark now respects surrounding lines setting
+* Bug fixes:
+  - fix #716 position of open document tab bar changes on engrave
 * Translations:
-  - updated: Dutch, Italian
+  - updated Dutch by Wilbert Berendsen
+  - updated Italian by Federico Bruni
+  - updated Spanish by Francisco Vila
+  - updated German by Henning Hraban Ramm
 
 
 Changes in 2.19.0 -- April 22nd, 2016
@@ -75,7 +84,6 @@ Changes in 2.18.2 -- December 26th, 2015
     #789)
   - fix TypeError: QPen(): argument 1 has unexpected type QBrush
   - fix some bugs in Quick Insert panel
->>>>>>> origin/master
 * Translations:
   - updated: Dutch, French, Italian, Ukrainian
 

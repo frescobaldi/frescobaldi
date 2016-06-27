@@ -248,29 +248,29 @@ class KineticScrollArea(QScrollArea):
         
         self.kineticStart(speed)
 
-    def kineticAddDelta(self, delta, orientation=Qt.Vertical):
-        """Add a kinetic delta to an already started kinetic move."""
-        if orientation == Qt.Vertical:
-            s = self._kineticData._speed.y()
-        else:
-            s = self._kineticData._speed.x()
+    def kineticAddDelta(self, delta):
+        """Add a kinetic delta to an already started kinetic move.
         
-        # Get the remaining scroll amount.
-        currentSpeed = abs( s )
-        leftToScroll = (currentSpeed + 1) * currentSpeed // 2
-        if s < 0:
-            leftToScroll *= -1
-        leftToScroll += delta
+        Delta is a QPoint, with respectively the changes in x and y position.
         
-        s = (sqrt(1+8*abs(leftToScroll))-1)/2
-        if leftToScroll < 0:
-            s = -s
+        """
+        def compute_speed(s, d):
+            if d:
+                # Get the remaining scroll amount.
+                currentSpeed = abs( s )
+                leftToScroll = (currentSpeed + 1) * currentSpeed // 2
+                if s < 0:
+                    leftToScroll *= -1
+                leftToScroll += d
+                
+                s = (sqrt(1+8*abs(leftToScroll))-1)/2
+                if leftToScroll < 0:
+                    s = -s
+            return s
         
-        if orientation == Qt.Vertical:
-            speed = QPoint(self._kineticData._speed.x(), s)
-        else:
-            speed = QPoint(s, self._kineticData._speed.y())
-            
+        speed_x = compute_speed(self._kineticData._speed.x(), delta.x())
+        speed_y = compute_speed(self._kineticData._speed.y(), delta.y())
+        speed = QPoint(speed_x, speed_y)
         self.kineticStart(speed)
             
     def kineticStart(self, speed):
@@ -329,7 +329,11 @@ class KineticScrollArea(QScrollArea):
     def wheelEvent(self, ev):
         """Kinetic wheel movements, if enabled."""
         if self._kineticScrollingEnabled:
-            self.kineticAddDelta(ev.delta(), ev.orientation())
+            if ev.orientation() == Qt.Vertical:
+                d = QPoint(0, ev.delta())
+            else:
+                d = QPoint(ev.delta(), 0)
+            self.kineticAddDelta(d)
         else:
             super(KineticScrollArea, self).wheelEvent(ev)
 
@@ -337,16 +341,16 @@ class KineticScrollArea(QScrollArea):
         """Kinetic cursor movements, if enabled."""
         if self._kineticScrollingEnabled:
             if ev.key() == Qt.Key_PageDown:
-                self.kineticAddDelta(-self.verticalScrollBar().pageStep())
+                self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().pageStep()))
                 return
             elif ev.key() == Qt.Key_PageUp:
-                self.kineticAddDelta(self.verticalScrollBar().pageStep())
+                self.kineticAddDelta(QPoint(0, self.verticalScrollBar().pageStep()))
                 return
             elif ev.key() == Qt.Key_Down:
-                self.kineticAddDelta(-self.verticalScrollBar().singleStep())
+                self.kineticAddDelta(QPoint(0, -self.verticalScrollBar().singleStep()))
                 return
             elif ev.key() == Qt.Key_Up:
-                self.kineticAddDelta(self.verticalScrollBar().singleStep())
+                self.kineticAddDelta(QPoint(0, self.verticalScrollBar().singleStep()))
                 return
             elif ev.key() == Qt.Key_Home:
                 self.kineticMove(0, self.verticalScrollBar().value(), 0, 0)

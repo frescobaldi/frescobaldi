@@ -241,6 +241,10 @@ class Surface(QWidget):
         """Return the QRect on the page that falls in the selection."""
         return self.selection().normalized().intersected(page.rect()).translated(-page.pos())
 
+    def selectedText(self):
+        """Return all text falling in the selection."""
+        return '\n'.join(page.text(self.selection()) for page in self.selectedPages())
+    
     def redraw(self, rect):
         """Called when the Layout wants to redraw a rectangle."""
         self.update(rect)
