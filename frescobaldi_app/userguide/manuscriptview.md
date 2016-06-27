@@ -33,7 +33,7 @@ manuscript viewer:
 * Synchronize the document cursor with the view (automatic following)
 * Edit in place
 
-However, when that score should be recompiled wtih LilyPond the manuscript viewer
+However, when that score should be recompiled with LilyPond the manuscript viewer
 won't automatically update, but this can be done manually through the context
 menu
 

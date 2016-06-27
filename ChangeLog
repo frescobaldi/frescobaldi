@@ -216,9 +216,9 @@ Changes in 2.17 -- December 26th, 2014
   - workaround a LilyPond buglet in point-and-click highlighting of quoted
     strings: although the textedit uri points to the closing quote, the string
     is correctly highlighted
-  - dont disable run button of Engrave Custom dialog for autocompile jobs
+  - don't disable run button of Engrave Custom dialog for autocompile jobs
   - let autocompile jobs finish before starting a new one (comments issue #120)
-  - dont always run autocompile job for the first opened document
+  - don't always run autocompile job for the first opened document
   - after a successful compile the default music viewer (pdf or svg) is
     activated. This can be suppressed in the LilyPond prefs (wish: issue #435)
   - the music view does not switch documents anymore when a compile is finished
@@ -359,7 +359,7 @@ Changes in 2.0.13 -- December 31st, 2013
   - updated: nl, fr
 * New features:
   - A new option LilyPond->Auto-engrave, that runs the engraver in preview mode
-    everytime the document changes
+    every time the document changes
   - An option to hide log display for automatically started engraving jobs
   - Real-time Midi capturing, contributed by Manuel Mchalwat (this was actually
     in 2.0.12, I just forgot to write it in the ChangeLog!)
@@ -752,7 +752,7 @@ Changes in 1.9.3 -- December 1st, 2011
   - don't try to load non-existing file when clicking a point-and click link
   - cursor now remains in same column while moving vertically after indent
   - add articulations etc to autocompletion
-  - dont show the log if the user aborted a job
+  - don't show the log if the user aborted a job
 
 
 Changes in 1.9.2 -- November 11th, 2011
@@ -942,7 +942,7 @@ Changes in 1.1.2 -- July 8th, 2010
 * General:
   - print and email actions have moved to the File menu
   - close button on document tabs (can be turned off in Settings->Editor Comp.)
-  - warnings and notifications have a "dont ask again" checkbox, and can be
+  - warnings and notifications have a "don't ask again" checkbox, and can be
     turned back on in the settings
   - progress indicator saves the build time in document metainfo
 * Autocompletion:
@@ -1000,7 +1000,7 @@ Changes in 1.1.0 -- March 26th, 2010
 * Repeat last expression: don't append space
 * Email files: select files with checkboxes instead of Ctrl+Click
 * Installation:
-  - byte compiling the Python modules can be supressed by adding
+  - byte compiling the Python modules can be suppressed by adding
     -DBYTECOMPILE=NO to the cmake command line
   - building the icons from SVN or out-of-source requires LilyPond 2.13.11+
 * Some workarounds for subtle SIP 4.10/KDE 4.4 garbage collection bugs
