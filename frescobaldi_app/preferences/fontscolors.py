@@ -140,9 +140,17 @@ class FontsColors(preferences.Page):
         for name in textformats.defaultStyles:
             self.defaultStyles[name].setText(0, self.defaultStyleNames[name])
         for group, styles in ly.colorize.default_mapping():
-            self.allStyles[group][0].setText(0, self.allStyleNames[group][0])
+            try:
+                n = self.allStyleNames[group][0]
+            except KeyError:
+                n = group
+            self.allStyles[group][0].setText(0, n)
             for name, base, clss in styles:
-                self.allStyles[group][1][name].setText(0, self.allStyleNames[group][1][name])
+                try:
+                    n = self.allStyleNames[group][1][name]
+                except KeyError:
+                    n = name
+                self.allStyles[group][1][name].setText(0, n)
             
     def currentItemChanged(self, item, previous):
         if item is self.baseColorsItem:
