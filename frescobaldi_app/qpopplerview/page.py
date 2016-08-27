@@ -56,6 +56,7 @@ class Page(object):
         self._visible = True
         self._layout = lambda: None
         self._waiting = True # whether image still needs to be generated
+        self._retinaFactor = 1 # Is updated when painted
         
     def document(self):
         """Returns the document."""
@@ -97,6 +98,14 @@ class Page(object):
         """Returns our width."""
         return self._rect.width()
         
+    def physWidth(self):
+        """Returns the width that the image should have."""
+        return self.width()*self._retinaFactor
+
+    def physHeight(self):
+        """Returns the height that the image should have."""
+        return self.height()*self._retinaFactor
+
     def pos(self):
         """Returns our position."""
         return self._rect.topLeft()
@@ -159,6 +168,12 @@ class Page(object):
         if not update_rect:
             return
         image_rect = QRect(update_rect.topLeft() - self.rect().topLeft(), update_rect.size())
+        # Update retinaFactor
+        self._retinaFactor = max(painter.device().devicePixelRatio(),self._retinaFactor);
+        # image_rect *= _retinaFactor
+        image_rect.moveTopLeft( image_rect.topLeft()*self._retinaFactor );
+        image_rect.setSize( image_rect.size()*self._retinaFactor );
+
         image = cache.image(self)
         self._waiting = not image
         if image:
@@ -169,8 +184,8 @@ class Page(object):
             # find suitable image to be scaled from other size
             image = cache.image(self, False)
             if image:
-                hscale = float(image.width()) / self.width()
-                vscale = float(image.height()) / self.height()
+                hscale = float(image.width()) / self.physWidth()
+                vscale = float(image.height()) / self.physHeight()
                 image_rect = QRectF(image_rect.x() * hscale, image_rect.y() * vscale,
                                     image_rect.width() * hscale, image_rect.height() * vscale)
                 painter.drawImage(QRectF(update_rect), image, image_rect)

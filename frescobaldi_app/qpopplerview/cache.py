@@ -88,7 +88,7 @@ def image(page, exact=True):
     """
     document = page.document()
     pageKey = (page.pageNumber(), page.rotation())
-    sizeKey = (page.width(), page.height())
+    sizeKey = (page.physWidth(), page.physHeight())
     
     if exact:
         try:
@@ -104,7 +104,7 @@ def image(page, exact=True):
         return
     # find the closest size (assuming aspect ratio has not changed)
     if sizes:
-        sizes = sorted(sizes, key=lambda s: abs(1 - s[0] / float(page.width())))
+        sizes = sorted(sizes, key=lambda s: abs(1 - s[0] / float(page.physWidth())))
         return _cache[document][pageKey][sizes[0]][0]
 
 
@@ -224,7 +224,7 @@ class Scheduler(object):
         
         """
         # uniquely identify the image to be generated
-        key = (page.pageNumber(), page.rotation(), page.width(), page.height())
+        key = (page.pageNumber(), page.rotation(), page.physWidth(), page.physHeight())
         try:
             job = self._jobs[key]
         except KeyError:
@@ -264,8 +264,8 @@ class Job(object):
         self.document = weakref.ref(page.document())
         self.pageNumber = page.pageNumber()
         self.rotation = page.rotation()
-        self.width = page.width()
-        self.height = page.height()
+        self.width = page.physWidth()
+        self.height = page.physHeight()
 
 
 class Runner(QThread):
