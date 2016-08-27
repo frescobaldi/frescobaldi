@@ -31,6 +31,7 @@ except ImportError:
     from . import popplerqt5_dummy as popplerqt5
 
 from PyQt5.QtCore import Qt, QThread
+from PyQt5.QtGui import QImage, QPainter, QFont
 
 from . import render
 from . import rectangles
@@ -291,7 +292,15 @@ class Runner(QThread):
             options().write(self.document)
             options(self.document).write(self.document)
             self.image = page.renderToImage(xres * multiplier, yres * multiplier, 0, 0, self.job.width * multiplier, self.job.height * multiplier, self.job.rotation)
-        if multiplier == 2:
+
+        if self.image.isNull():
+            self.image = QImage( self.job.width, self.job.height, QImage.Format_RGB32 )
+            self.image.fill( Qt.white )
+            p = QPainter(self.image)
+            p.setFont(QFont("Helvetica",self.job.height/20))
+            p.drawText(self.image.rect(), Qt.AlignCenter,
+                       _("Failed to render page") );
+        elif multiplier == 2:
             self.image = self.image.scaledToWidth(self.job.width, Qt.SmoothTransformation)
         
     def slotFinished(self):
