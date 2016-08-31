@@ -136,7 +136,8 @@ class Listener(QThread):
             s = bytearray([77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]])
             event = next(midifile.parser.parse_midi_events(s))[1]
             
-            self.emit(SIGNAL("caughtevent"), event)
+            if isinstance(event,midifile.event.NoteEvent):
+                self.emit(SIGNAL("caughtevent"), event)
     
     def stop(self):
         self._capturing = False
