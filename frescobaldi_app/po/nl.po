@@ -1,19 +1,19 @@
 # translation of nl.po to Nederlands
-# Wilbert Berendsen <wbsoft@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
+# Wilbert Berendsen <wb@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-04-22 00:43+0200\n"
-"PO-Revision-Date: 2016-04-22 00:51+0200\n"
-"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
+"POT-Creation-Date: 2016-06-14 17:22+0200\n"
+"PO-Revision-Date: 2016-09-15 08:53+0200\n"
+"Last-Translator: Wilbert Berendsen <wb@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bits\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 2.91.7\n"
 
 #: ../about.py:50
@@ -7200,7 +7200,7 @@ msgstr "Selectie of huidige regel verdubbelen"
 #: ../snippet/builtin.py:417
 msgctxt "snippet: add comment characters"
 msgid "Comment"
-msgstr "Commentaartekens invoeven"
+msgstr "Commentaartekens invoegen"
 
 #: ../snippet/builtin.py:469
 msgctxt "snippet: remove comment characters"
