@@ -155,16 +155,6 @@ class AbstractImageRenderer:
         else:
             painter.drawImage(rect, image, rect)
 
-    def mutex(self, page, otherpage):
-        """Return True if page cannot be rendered when otherpage already is being rendered.
-        
-        This can be used when there is locking needed between different pages. 
-        It makes sure that the last requested page is drawn first, and that 
-        rendering jobs are not waiting in locks for too much time. 
-        
-        """
-        return False
-    
     def schedule(self, page, painter, callback):
         """Start a new rendering job."""
         try:
@@ -206,7 +196,8 @@ class AbstractImageRenderer:
         jobcount = len(runningjobs)
         
         for job in waitingjobs[:maxjobs-jobcount]:
-            if not any(self.mutex(job.page, j.page) for j in runningjobs):
+            mutex = job.page.mutex()
+            if mutex is None or not any(mutex is j.page.mutex() for j in runningjobs):
                 runningjobs.append(job)
                 job.start()
         

@@ -204,4 +204,11 @@ class AbstractPage:
         """
         self.renderer and self.renderer.paint(self, painter, rect, callback)
 
+    def mutex(self):
+        """Return an object that should be locked when rendering the page.
+        
+        Page are guaranteed not to be rendered at the same time when they
+        return the same mutex object. By default, None is returned.
+        
+        """
 
