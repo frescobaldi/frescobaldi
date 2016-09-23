@@ -14,6 +14,7 @@ Changes in 2.20.0 -- Mai ??, 2016
 * Bug fixes:
   - fix #716 position of open document tab bar changes on engrave
 * Translations:
+  - new Swedish translation contributed by Dag Odenhall
   - updated Dutch by Wilbert Berendsen
   - updated Italian by Federico Bruni
   - updated Spanish by Francisco Vila

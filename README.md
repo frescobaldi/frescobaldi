@@ -23,8 +23,8 @@ Features:
 - Import ABC, Midi and MusicXML using the LilyPond-provided tools
 - Experimental export to MusicXML
 - Modern user interface with configurable colors, fonts and keyboard shortcuts
-- Translated into: Dutch, English, French, German, Italian, Czech, Russian,
-  Spanish, Galician, Turkish, Polish, Brazilian and Ukrainian.
+- Translated into: Dutch, English, French, German, Italian, Swedish, Czech,
+  Russian, Spanish, Galician, Turkish, Polish, Brazilian and Ukrainian.
 
 Music functions:
 
