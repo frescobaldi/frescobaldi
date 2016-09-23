@@ -89,6 +89,9 @@ The following people contributed to {appname}:
     Urs Liska,
     Henning Hraban Ramm
 
+{lang_sv}:
+:  !Dag Odenhall
+
 {lang_cs}:
 :  !Pavel Fric
 
@@ -129,5 +132,6 @@ lang_pl     languagename pl
 lang_pt_br  languagename pt_BR
 lang_ru     languagename ru
 lang_tr     languagename tr
+lang_sv     languagename sv
 lang_uk     languagename uk
 lang_zh     languagename zh
