@@ -31,6 +31,7 @@ except ImportError:
     from . import popplerqt5_dummy as popplerqt5
 
 from PyQt5.QtCore import Qt, QThread
+from PyQt5.QtGui import QImage, QPainter, QFont
 
 from . import render
 from . import rectangles
@@ -87,7 +88,7 @@ def image(page, exact=True):
     """
     document = page.document()
     pageKey = (page.pageNumber(), page.rotation())
-    sizeKey = (page.width(), page.height())
+    sizeKey = (page.physWidth(), page.physHeight())
     
     if exact:
         try:
@@ -103,7 +104,7 @@ def image(page, exact=True):
         return
     # find the closest size (assuming aspect ratio has not changed)
     if sizes:
-        sizes = sorted(sizes, key=lambda s: abs(1 - s[0] / float(page.width())))
+        sizes = sorted(sizes, key=lambda s: abs(1 - s[0] / float(page.physWidth())))
         return _cache[document][pageKey][sizes[0]][0]
 
 
@@ -223,7 +224,7 @@ class Scheduler(object):
         
         """
         # uniquely identify the image to be generated
-        key = (page.pageNumber(), page.rotation(), page.width(), page.height())
+        key = (page.pageNumber(), page.rotation(), page.physWidth(), page.physHeight())
         try:
             job = self._jobs[key]
         except KeyError:
@@ -263,8 +264,8 @@ class Job(object):
         self.document = weakref.ref(page.document())
         self.pageNumber = page.pageNumber()
         self.rotation = page.rotation()
-        self.width = page.width()
-        self.height = page.height()
+        self.width = page.physWidth()
+        self.height = page.physHeight()
 
 
 class Runner(QThread):
@@ -291,7 +292,15 @@ class Runner(QThread):
             options().write(self.document)
             options(self.document).write(self.document)
             self.image = page.renderToImage(xres * multiplier, yres * multiplier, 0, 0, self.job.width * multiplier, self.job.height * multiplier, self.job.rotation)
-        if multiplier == 2:
+
+        if self.image.isNull():
+            self.image = QImage( self.job.width, self.job.height, QImage.Format_RGB32 )
+            self.image.fill( Qt.white )
+            p = QPainter(self.image)
+            p.setFont(QFont("Helvetica",self.job.height/20))
+            p.drawText(self.image.rect(), Qt.AlignCenter,
+                       _("Failed to render page") );
+        elif multiplier == 2:
             self.image = self.image.scaledToWidth(self.job.width, Qt.SmoothTransformation)
         
     def slotFinished(self):

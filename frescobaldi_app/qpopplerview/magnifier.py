@@ -98,12 +98,14 @@ class Magnifier(QWidget):
         
         image = cache.image(self._page)
         img_rect = QRect(self.rect())
+        img_rect.setSize( img_rect.size()*self._page._retinaFactor );
+        
         if not image:
             cache.generate(self._page)
             image = cache.image(self._page, False)
             if image:
-                img_rect.setWidth(self.width() * image.width() / self._page.width())
-                img_rect.setHeight(self.height() * image.height() / self._page.height())
+                img_rect.setWidth(img_rect.width() * image.width() / self._page.physWidth())
+                img_rect.setHeight(img_rect.height() * image.height() / self._page.physHeight())
         if image:
             img_rect.moveCenter(QPoint(relx * image.width(), rely * image.height()))
             p = QPainter(self)
@@ -128,6 +130,7 @@ class Page(object):
         self._pageNumber = page.pageNumber()
         self._width = size.width() * dpix * scale / 72.0
         self._height = size.height() * dpiy * scale / 72.0
+        self._retinaFactor = page._retinaFactor
         self._rotation = page.rotation()
         self.magnifier = None
         
@@ -152,6 +155,12 @@ class Page(object):
     
     def height(self):
         return self._height
+
+    def physWidth(self):
+        return self._width*self._retinaFactor
+
+    def physHeight(self):
+        return self._height*self._retinaFactor
     
     def rotation(self):
         return self._rotation

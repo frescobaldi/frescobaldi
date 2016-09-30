@@ -26,7 +26,8 @@ Currently this makes only sense on Mac OS X.
 
 
 from PyQt5.QtCore import QEvent, QMimeData, QObject, QPoint, Qt
-from PyQt5.QtWidgets import QApplication, QDrag, QStyle
+from PyQt5.QtWidgets import QApplication, QStyle
+from PyQt5.QtGui import QDrag
 
 import app
 
