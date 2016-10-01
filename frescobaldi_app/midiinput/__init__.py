@@ -42,7 +42,7 @@ class MidiIn(object):
     
     def open(self):
         s = QSettings()
-        self._portname = s.value("midi/input_port", midihub.default_input(), str)
+        self._portname = s.value("midi/midi/input_port", midihub.default_input(), str)
         self._pollingtime = s.value("midi/polling_time", 10, int)
         self._portmidiinput = midihub.input_by_name(self._portname)
         
@@ -137,7 +137,8 @@ class Listener(QThread):
             s = bytearray([77, data[0][0][0], data[0][0][1], data[0][0][2], data[0][0][3]])
             event = next(midifile.parser.parse_midi_events(s))[1]
             
-            self.NoteEventSignal.emit(event)
+            if isinstance(event,midifile.event.NoteEvent):
+                self.NoteEventSignal.emit(event)
     
     def stop(self):
         self._capturing = False
