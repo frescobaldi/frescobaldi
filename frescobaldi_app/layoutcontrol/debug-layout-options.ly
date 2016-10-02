@@ -40,32 +40,39 @@
 
 debugLayoutOptions =
 #(define-void-function (parser location)()
+   (define (parser-include-string-comp parser str)
+       (if (let ((v (ly:version)))
+           (or (> (first  v)  2)
+                (> (second v) 19)
+                (>= (third v) 22)))
+           (ly:parser-include-string str)
+           (ly:parser-include-string parser str)))
    ;; include the optional custom file first.
    ;; This way it can for example define configuration variables.
    (if (ly:get-option 'debug-custom-file)
        ;; Add a custom file for debugging layout
-       (ly:parser-include-string parser 
+       (parser-include-string-comp parser 
          (format "\\include \"~A\"\n" (ly:get-option 'debug-custom-file))))
    ;; include preview options depending on the
    ;; presence or absence of command line switches
    (if (ly:get-option 'debug-control-points)
        ;; display control points
-       (ly:parser-include-string parser "\\include \"display-control-points.ily\""))
+       (parser-include-string-comp parser "\\include \"display-control-points.ily\""))
    (if (ly:get-option 'debug-voices)
        ;; color \voiceXXX music
-       (ly:parser-include-string parser "\\include \"color-voices.ily\""))
+       (parser-include-string-comp parser "\\include \"color-voices.ily\""))
    (if (ly:get-option 'debug-directions)
        ;; color grobs switched with \xxxUp or \xxxDown
-       (ly:parser-include-string parser "\\include \"color-directions.ily\""))
+       (parser-include-string-comp parser "\\include \"color-directions.ily\""))
    (if (ly:get-option 'debug-grob-anchors)
        ;; Add a dot for the anchor of each grob
-       (ly:parser-include-string parser "\\include \"display-grob-anchors.ily\""))
+       (parser-include-string-comp parser "\\include \"display-grob-anchors.ily\""))
    (if (ly:get-option 'debug-grob-names)
        ;; Add a dot for the anchor of each grob
-       (ly:parser-include-string parser "\\include \"display-grob-names.ily\""))
+       (parser-include-string-comp parser "\\include \"display-grob-names.ily\""))
    (if (ly:get-option 'debug-paper-columns)
        ;; Add a dot for the anchor of each grob
-       (ly:parser-include-string parser "\\include \"info-paper-columns.ily\""))
+       (parser-include-string-comp parser "\\include \"info-paper-columns.ily\""))
    (if (ly:get-option 'debug-display-skylines)
        ;; display skylines
        ;; -> this is very intrusive, so handle with care!
@@ -75,7 +82,7 @@ debugLayoutOptions =
        ;; this name clash has to be resolved!
    (if (ly:get-option 'debug-annotate-spacing)
        ;; Add a dot for the anchor of each grob
-       (ly:parser-include-string parser "\\include \"annotate-spacing.ily\"")))
+       (parser-include-string-comp parser "\\include \"annotate-spacing.ily\"")))
 
 \debugLayoutOptions
 
