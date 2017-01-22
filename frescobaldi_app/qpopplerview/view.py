@@ -25,7 +25,7 @@ View widget to display PDF documents.
 
 from PyQt5.QtCore import QPoint, QSize, QTimer, Qt, pyqtSignal
 from PyQt5.QtGui import QPalette, QHelpEvent
-from PyQt5.QtWidgets import QScrollArea, QStyle
+from PyQt5.QtWidgets import QScrollArea, QStyle, QPinchGesture, QGestureEvent
 
 from math import sqrt
 import copy
@@ -63,6 +63,9 @@ class View(KineticScrollArea):
         self._wheelZoomEnabled = True
         self._wheelZoomModifier = Qt.CTRL
         
+        self._pinchStartFactor = None
+        super(View, self).grabGesture(Qt.PinchGesture)
+
         # delayed resize
         self._centerPos = False
         self._resizeTimer = QTimer(singleShot = True, timeout = self._resizeTimeout)
@@ -346,9 +349,46 @@ class View(KineticScrollArea):
             if self.surface().handleHelpEvent(ev):
                 ev.accept()
                 return True
+        if isinstance(ev, QGestureEvent):
+            if self.gestureEvent(ev):
+                ev.accept() # Accepts all gestures in the event
+                return True
         
         return super(View, self).event(ev)
     
+    def gestureEvent(self, event):
+        """Gesture event handler. Return False if event is not accepted.
+        Currently only cares about PinchGesture. Could also handle Swipe
+        and Pan gestures."""
+        pinch = event.gesture(Qt.PinchGesture)
+        if pinch:
+            return self.pinchGesture(pinch)
+        return False
+
+    def pinchGesture( self, gesture ):
+        """Pinch gesture event handler. Return False if event is not accepted.
+        Currently only cares about ScaleFactorChanged and not
+        RotationAngleChanged."""
+
+        # Gesture start? Reset _pinchStartFactor in case we didn't
+        # catch the finish event
+        if gesture.state() == Qt.GestureStarted:
+            self._pinchStartFactor = None
+
+        changeFlags = gesture.changeFlags()
+        if changeFlags & QPinchGesture.ScaleFactorChanged:
+            factor = gesture.property("scaleFactor")
+            if not self._pinchStartFactor: # Gesture start?
+                self._pinchStartFactor = self.scale()
+            self.zoom(self._pinchStartFactor * factor,
+                      self.mapFromGlobal(gesture.hotSpot().toPoint()) )
+
+        # Gesture finished?
+        if gesture.state() in (Qt.GestureFinished, Qt.GestureCanceled):
+            self._pinchStartFactor = None
+
+        return True
+
     def currentPage(self):
         """Returns the Page currently mostly in the center, or None if there are no pages."""
         pos = self.viewport().rect().center() - self.surface().pos()
