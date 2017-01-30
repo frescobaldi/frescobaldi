@@ -136,7 +136,7 @@ def move_to_include_file(cursor, parent_widget=None):
             message = _("Could not write to: {url}").format(url=filename),
             strerror = e.strerror,
             errno = e.errno)
-        QMessageBox.critical(self, app.caption(_("Error")), msg)
+        QMessageBox.critical(parent_widget, app.caption(_("Error")), msg)
         return
     filename = os.path.relpath(filename, dirname)
     command = '\\include "{0}"\n'.format(filename)
