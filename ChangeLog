@@ -8,6 +8,7 @@ Changes in 2.20.0 -- Mai ??, 2016
   - New Manuscript viewer tool, displaying an "engraver's copy",
     contributed by Peter Bjuhr and Urs Liska
   - Copy selected text in Music View
+  - New command Edit->Move to include file...
 * Improvements:
   - Fit Width in Music View now fits two pages in width, if in two-page mode
   - Jump to next or previous bookmark now respects surrounding lines setting
