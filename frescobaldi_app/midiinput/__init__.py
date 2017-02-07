@@ -83,7 +83,8 @@ class MidiIn(object):
     
     def noteevent(self, notetype, channel, notenumber, value):
         targetchannel = self.widget().channel()
-        if channel == targetchannel or targetchannel == 0:    # '0' captures all
+        if targetchannel == 0 or channel == targetchannel-1: # '0' captures all
+            # midi channels start at 1 for humans and 0 for programs
             if notetype == 9 and value > 0:    # note on with velocity > 0
                 notemapping = elements.NoteMapping(self.widget().keysignature(), self.widget().accidentals()=='sharps')
                 note = elements.Note(notenumber, notemapping)
