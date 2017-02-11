@@ -53,11 +53,10 @@ class View(QPlainTextEdit):
     - it determines tab width from the document variables (defaulting to 8 characters)
     - it stores the cursor position in the metainfo
     - it runs the auto_indenter when enabled (also checked via metainfo)
-    - it can display a widget in the bottom using showWidget and hideWidget.
     
     """
     def __init__(self, document):
-        """Creates the View for the given document."""
+        """Create the View for the given document."""
         super(View, self).__init__()
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
@@ -77,6 +76,18 @@ class View(QPlainTextEdit):
         app.viewCreated(self)
 
     def event(self, ev):
+        """General event handler.
+        
+        This is reimplemented to:
+        
+        - prevent inserting the hard line separator, which makes no sense in
+          plain text
+        
+        - prevent handling Undo and Redo, they work better via the menu actions
+          
+        - handle Tab and Backtab to change the indent
+        
+        """
         if ev in (
                 # avoid the line separator, makes no sense in plain text
                 QKeySequence.InsertLineSeparator,
@@ -121,6 +132,13 @@ class View(QPlainTextEdit):
         return super(View, self).event(ev)
 
     def keyPressEvent(self, ev):
+        """Reimplemented to perform actions after a key has been pressed.
+        
+        Currently handles:
+        
+        - indent change on Enter, }, # or >
+        
+        """
         super(View, self).keyPressEvent(ev)
         
         if metainfo.info(self.document()).auto_indent:
@@ -194,17 +212,24 @@ class View(QPlainTextEdit):
         self.setTextCursor(cursor)
     
     def readSettings(self):
+        """Read preferences and adjust to those.
+        
+        Called on init and when app.settingsChanged fires.
+        Sets colors, font and tab width from the preferences.
+        
+        """
         data = textformats.formatData('editor')
         self.setFont(data.font)
         self.setPalette(data.palette())
         self.setTabWidth()
         
     def slotDocumentClosed(self):
+        """Store the current cursor position in a document on close"""
         if self.hasFocus():
             self.storeCursor()
             
     def restoreCursor(self):
-        """Places the cursor on the position saved in metainfo."""
+        """Place the cursor on the position saved in metainfo."""
         cursor = QTextCursor(self.document())
         cursor.setPosition(metainfo.info(self.document()).position)
         self.setTextCursor(cursor)
@@ -215,7 +240,7 @@ class View(QPlainTextEdit):
         metainfo.info(self.document()).position = self.textCursor().position()
 
     def setTabWidth(self):
-        """(Internal) Reads the tab-width variable and the font settings to set the tabStopWidth."""
+        """(Internal) Read the tab-width variable and the font settings to set the tabStopWidth."""
         tabwidth = QSettings().value("indent/tab_width", 8, int)
         tabwidth = self.fontMetrics().width(" ") * variables.get(self.document(), 'tab-width', tabwidth)
         self.setTabStopWidth(tabwidth)
