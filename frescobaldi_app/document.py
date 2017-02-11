@@ -18,7 +18,11 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A Frescobaldi (LilyPond) document.
+A Frescobaldi document.
+
+This contains the text the user can edit in Frescobaldi. In most cases it will 
+be a LilyPond source file, but other file types can be used as well.
+
 """
 
 
@@ -197,7 +201,8 @@ class Document(QTextDocument):
         self._encoding = encoding
     
     def encodedText(self):
-        """Returns the text of the document encoded in the correct encoding.
+        """Return the text of the document as a bytes string encoded in the
+        correct encoding.
         
         The line separator is '\\n' on Unix/Linux/Mac OS X, '\\r\\n' on Windows.
         
@@ -208,7 +213,12 @@ class Document(QTextDocument):
         return util.encode(text, self.encoding())
         
     def documentName(self):
-        """ Returns a suitable name for this document. """
+        """Return a suitable name for this document.
+        
+        This is only to be used for display. If the url of the document is
+        empty, something like "Untitled" or "Untitled (3)" is returned.
+        
+        """
         if self._url.isEmpty():
             if self._num == 1:
                 return _("Untitled")
