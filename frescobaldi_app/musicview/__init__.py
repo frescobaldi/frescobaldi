@@ -117,7 +117,15 @@ class MusicViewPanel(panel.Panel):
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
-                
+        
+        mode = QSettings().value("muziekview/layoutmode", "single", str)
+        if mode == "double_left":
+            ac.music_two_pages_first_left.setChecked(True)
+        elif mode == "double_right":
+            ac.music_two_pages_first_right.setChecked(True)
+        else: # mode == "single":
+            ac.music_single_pages.setChecked(True)
+        
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
@@ -128,8 +136,18 @@ class MusicViewPanel(panel.Panel):
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
-        w.view.surface().pageLayout().setPagesPerRow(1)   # default to single
-        w.view.surface().pageLayout().setPagesFirstRow(0) # pages
+        
+        # read layout mode setting before using the widget
+        layout = w.view.surface().pageLayout()
+        if self.actionCollection.music_two_pages_first_right.isChecked():
+            layout.setPagesPerRow(2)
+            layout.setPagesFirstRow(1)
+        elif self.actionCollection.music_two_pages_first_left.isChecked():
+            layout.setPagesPerRow(2)
+            layout.setPagesFirstRow(0)
+        else: # "single"
+            layout.setPagesPerRow(1)   # default to single
+            layout.setPagesFirstRow(0) # pages
         
         import qpopplerview.pager
         self._pager = p = qpopplerview.pager.Pager(w.view)
@@ -149,6 +167,31 @@ class MusicViewPanel(panel.Panel):
                     w.openDocument(selector.currentDocument())
             QTimer.singleShot(0, open)
         return w
+    
+    def setPageLayoutMode(self, mode):
+        """Change the page layout and store the setting as well.
+        
+        The mode is "single", "double_left" or "double_right".
+        
+        "single": a vertical row of single pages
+        "double_left": two pages besides each other, first page is a left page
+        "double_right": two pages, first page is a right page.
+        
+        """
+        layout = self.widget().view.surface().pageLayout()
+        if mode == "double_right":
+            layout.setPagesPerRow(2)
+            layout.setPagesFirstRow(1)
+        elif mode == "double_left":
+            layout.setPagesPerRow(2)
+            layout.setPagesFirstRow(0)
+        elif mode == "single":
+            layout.setPagesPerRow(1)
+            layout.setPagesFirstRow(0)
+        else:
+            raise ValueError("wrong mode value")
+        QSettings().setValue("muziekview/layoutmode", mode)
+        layout.update()
     
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
@@ -234,24 +277,15 @@ class MusicViewPanel(panel.Panel):
     
     @activate
     def viewSinglePages(self):
-        layout = self.widget().view.surface().pageLayout()
-        layout.setPagesPerRow(1)
-        layout.setPagesFirstRow(0)
-        layout.update()
+        self.setPageLayoutMode("single")
     
     @activate
     def viewTwoPagesFirstRight(self):
-        layout = self.widget().view.surface().pageLayout()
-        layout.setPagesPerRow(2)
-        layout.setPagesFirstRow(1)
-        layout.update()
+        self.setPageLayoutMode("double_right")
     
     @activate
     def viewTwoPagesFirstLeft(self):
-        layout = self.widget().view.surface().pageLayout()
-        layout.setPagesPerRow(2)
-        layout.setPagesFirstRow(0)
-        layout.update()
+        self.setPageLayoutMode("double_left")
     
     @activate
     def jumpToCursor(self):
