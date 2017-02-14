@@ -6,7 +6,15 @@ Changes in 3.0.0 --
 
 * Requirement changes:
   - Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5
-  
+
+* New features:
+  - Zoom with pinch gesture in Music View, contributed by David Rydh
+  - An option (enabled by default) to move the cursor to the end of the line 
+    when PageDown is pressed on the last line, and to move the cursor to the 
+    start of the first line if PageUp is pressed on the first line
+* Improvements:
+  - Retina display support in Music View, contributed by David Rydh
+
 
 Changes in 2.19.0 -- April 22nd, 2016
 
