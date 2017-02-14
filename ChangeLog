@@ -14,6 +14,7 @@ Changes in 2.20.0 -- Mai ??, 2016
   - Jump to next or previous bookmark now respects surrounding lines setting
 * Bug fixes:
   - fix #716 position of open document tab bar changes on engrave
+  - fix #857 UnicodeDecodeError on some types of \displayMusic command output
 * Translations:
   - new Swedish translation contributed by Dag Odenhall
   - updated Dutch by Wilbert Berendsen
