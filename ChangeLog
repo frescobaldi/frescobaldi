@@ -2,27 +2,11 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 2.20.0 -- Mai ??, 2016
+Changes in 3.0.0 -- 
 
-* New features:
-  - New Manuscript viewer tool, displaying an "engraver's copy",
-    contributed by Peter Bjuhr and Urs Liska
-  - Copy selected text in Music View
-  - New command Edit->Move to include file...
-* Improvements:
-  - Fit Width in Music View now fits two pages in width, if in two-page mode
-  - Jump to next or previous bookmark now respects surrounding lines setting
-* Bug fixes:
-  - fix #716 position of open document tab bar changes on engrave
-  - fix #857 UnicodeDecodeError on some types of \displayMusic command output
-* Translations:
-  - new Swedish translation contributed by Dag Odenhall
-  - updated Dutch by Wilbert Berendsen
-  - updated Italian by Federico Bruni
-  - updated Spanish by Francisco Vila
-  - updated German by Henning Hraban Ramm
-  - updated Czech by Pavel Fric
-
+* Requirement changes:
+  - Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5
+  
 
 Changes in 2.19.0 -- April 22nd, 2016
 
