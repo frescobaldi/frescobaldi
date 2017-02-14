@@ -11,6 +11,7 @@ Changes in 2.20.0 -- Mai ??, 2016
   - New command Edit->Move to include file...
 * Improvements:
   - Fit Width in Music View now fits two pages in width, if in two-page mode
+  - the Music View now remembers the page layout mode
   - Jump to next or previous bookmark now respects surrounding lines setting
 * Bug fixes:
   - fix #716 position of open document tab bar changes on engrave
@@ -18,6 +19,7 @@ Changes in 2.20.0 -- Mai ??, 2016
     * fix #797 and #853, now honour Midi input port setting
     * in Midi input, ces and bis now have the correct octave
     * fix interruption of Midi input by other events than note events
+  - Midi input now uses correct channel, fix by David Kastrup
 * Translations:
   - new Swedish translation contributed by Dag Odenhall
   - updated Dutch by Wilbert Berendsen
