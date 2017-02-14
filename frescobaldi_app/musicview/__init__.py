@@ -118,7 +118,7 @@ class MusicViewPanel(panel.Panel):
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
         
-        mode = QSettings().value("muziekview/layoutmode", "single", str)
+        mode = QSettings().value("muziekview/layoutmode", "single", type(""))
         if mode == "double_left":
             ac.music_two_pages_first_left.setChecked(True)
         elif mode == "double_right":
