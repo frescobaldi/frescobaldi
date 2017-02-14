@@ -23,9 +23,10 @@ Frescobaldi main menu.
 
 from __future__ import unicode_literals
 
-try:
+import sys
+if sys.version_info >= (3, 0):
     import builtins # py3
-except ImportError:
+else:
     import __builtin__ as builtins # py2
 
 from PyQt4.QtCore import QSettings
