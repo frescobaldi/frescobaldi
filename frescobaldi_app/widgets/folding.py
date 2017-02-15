@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2012 - 2014 by Wilbert Berendsen
+# Copyright (c) 2012 - 2017 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -184,7 +184,7 @@ class Folder(QObject):
         - are in regions that have visible sub-regions
         
         """
-        show_blocks = set()
+        show_blocks = []
         self._all_visible = True    # for now at least ...
         
         def blocks_gen():
@@ -218,7 +218,7 @@ class Folder(QObject):
                     if block.isVisible() and not level.start:
                         must_show = True
                     if must_show:
-                        show_blocks.update(invisible_blocks)
+                        show_blocks.extend(invisible_blocks)
                     elif invisible_blocks:
                         self._all_visible = False
                     return must_show, depth, block, level
@@ -233,15 +233,15 @@ class Folder(QObject):
         
         # toplevel
         for depth, block, level in blocks:
-            block.isVisible() or show_blocks.add(block)
+            block.isVisible() or show_blocks.append(block)
             while level.start:
                 must_show, depth, block, level = check_region(block, depth + sum(level))
         
         if show_blocks:
             for block in show_blocks:
                 block.setVisible(True)
-            start = min(show_blocks).position()
-            end = max(show_blocks).position()
+            start = show_blocks[0].position()
+            end = show_blocks[-1].position() + show_blocks[-1].length()
             self.document().markContentsDirty(start, end - start)
     
     def document(self):
