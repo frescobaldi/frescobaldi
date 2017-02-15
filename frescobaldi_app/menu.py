@@ -392,6 +392,8 @@ def menu_tools_quick_remove(mainwindow):
     m.addAction(ac.tools_quick_remove_ornaments)
     m.addAction(ac.tools_quick_remove_instrument_scripts)
     m.addAction(ac.tools_quick_remove_slurs)
+    m.addAction(ac.tools_quick_remove_beams)
+    m.addAction(ac.tools_quick_remove_ligatures)
     m.addAction(ac.tools_quick_remove_dynamics)
     m.addAction(ac.tools_quick_remove_fingerings)
     m.addAction(ac.tools_quick_remove_markup)

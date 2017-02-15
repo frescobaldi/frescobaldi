@@ -159,6 +159,14 @@ class DocumentActions(plugin.MainWindowPlugin):
         import quickremove
         quickremove.slurs(self.mainwindow().textCursor())
     
+    def quickRemoveBeams(self):
+        import quickremove
+        quickremove.beams(self.mainwindow().textCursor())
+    
+    def quickRemoveLigatures(self):
+        import quickremove
+        quickremove.ligatures(self.mainwindow().textCursor())
+    
     def quickRemoveDynamics(self):
         import quickremove
         quickremove.dynamics(self.mainwindow().textCursor())
@@ -191,6 +199,8 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_ornaments = QAction(parent)
         self.tools_quick_remove_instrument_scripts = QAction(parent)
         self.tools_quick_remove_slurs = QAction(parent)
+        self.tools_quick_remove_beams = QAction(parent)
+        self.tools_quick_remove_ligatures = QAction(parent)
         self.tools_quick_remove_dynamics = QAction(parent)
         self.tools_quick_remove_fingerings = QAction(parent)
         self.tools_quick_remove_markup = QAction(parent)
@@ -216,6 +226,8 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))
         self.tools_quick_remove_instrument_scripts.setText(_("Remove &Instrument Scripts"))
         self.tools_quick_remove_slurs.setText(_("Remove &Slurs"))
+        self.tools_quick_remove_beams.setText(_("Remove &Beams"))
+        self.tools_quick_remove_ligatures.setText(_("Remove &Ligatures"))
         self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))
         self.tools_quick_remove_fingerings.setText(_("Remove &Fingerings"))
         self.tools_quick_remove_markup.setText(_("Remove Text &Markup (from music)"))

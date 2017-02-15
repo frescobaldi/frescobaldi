@@ -54,6 +54,8 @@ class Spanners(tool.Tool):
         
         ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
         self.removemenu.addAction(ac.tools_quick_remove_slurs)
+        self.removemenu.addAction(ac.tools_quick_remove_beams)
+        self.removemenu.addAction(ac.tools_quick_remove_ligatures)
         
         layout = QHBoxLayout()
         layout.addWidget(self.removemenu)

@@ -131,6 +131,18 @@ def slurs(cursor):
 
 
 @remove
+def beams(cursor):
+    """Remove beams from the cursor's selection."""
+    return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Beam))
+
+
+@remove
+def ligatures(cursor):
+    """Remove ligatures from the cursor's selection."""
+    return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Ligature))
+
+
+@remove
 def dynamics(cursor):
     """Remove dynamics from the cursor's selection."""
     return find_positions(cursor, lambda t: isinstance(t, ly.lex.lilypond.Dynamic))
