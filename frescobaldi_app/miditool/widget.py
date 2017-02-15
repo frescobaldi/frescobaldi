@@ -29,6 +29,7 @@ from PyQt5.QtWidgets import (
 import app
 import css
 import qutil
+import listmodel
 import midihub
 import gadgets.drag
 
@@ -86,6 +87,7 @@ class Widget(QWidget):
         self._player.stateChanged.connect(self.slotPlayerStateChanged)
         self.slotPlayerStateChanged(False)
         dockwidget.mainwindow().currentDocumentChanged.connect(self.loadResults)
+        app.documentLoaded.connect(self.slotDocumentLoaded)
         app.jobFinished.connect(self.slotUpdatedFiles)
         app.aboutToQuit.connect(self.stop)
         midihub.aboutToRestart.connect(self.slotAboutToRestart)
@@ -208,6 +210,18 @@ class Widget(QWidget):
         if not self._timeSlider.isSliderDown():
             self._display.setTime(time)
     
+    def slotDocumentLoaded(self, document):
+        """Called when a new document is loaded.
+        
+        Only calls slotUpdatedFiles when this is the first document, as that
+        slot will be called anyway when the current document is switched. When
+        the first document is loaded, it is loaded into the existing empty
+        document, so mainwindow.currentDocumentChanged() will never be emitted.
+        
+        """
+        if len(app.documents) == 1:
+            self.slotUpdatedFiles(document)
+    
     def slotUpdatedFiles(self, document, job=None):
         """Called when there are new MIDI files."""
         mainwindow = self.parentWidget().mainwindow()
@@ -250,7 +264,7 @@ class Widget(QWidget):
     def slotDocumentClosed(self, document):
         if document == self._document:
             self._document = None
-            self._fileSelector.clear()
+            self._fileSelector.setModel(listmodel.ListModel([]))
             self._player.stop()
             self._player.clear()
             self.updateTimeSlider()
