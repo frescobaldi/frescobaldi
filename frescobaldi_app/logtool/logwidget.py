@@ -130,7 +130,15 @@ class LogWidget(log.Log):
                 # we use backslashreplace because LilyPond sometimes seems to write
                 # incorrect utf-8 to standard output in \displayMusic, \displayScheme
                 # functions etc.
-                message = message.encode('latin1').decode('utf-8', 'backslashreplace')
+                
+                # Even then, python 2.7 raises a TypeError then:
+                # TypeError: don't know how to handle UnicodeDecodeError in error callback
+                # So we catch that, and then replace the offending characters with
+                # the official U+FFFD replacement character as a last resort.
+                try:
+                    message = message.encode('latin1').decode('utf-8', 'backslashreplace')
+                except TypeError:
+                    message = message.encode('latin1').decode('utf-8', 'replace')
             super(LogWidget, self).writeMessage(message, type)
 
     def slotAnchorClicked(self, url):
