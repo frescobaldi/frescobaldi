@@ -57,6 +57,8 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_quick_remove_ornaments.triggered.connect(self.quickRemoveOrnaments)
         ac.tools_quick_remove_instrument_scripts.triggered.connect(self.quickRemoveInstrumentScripts)
         ac.tools_quick_remove_slurs.triggered.connect(self.quickRemoveSlurs)
+        ac.tools_quick_remove_beams.triggered.connect(self.quickRemoveBeams)
+        ac.tools_quick_remove_ligatures.triggered.connect(self.quickRemoveLigatures)
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
         ac.tools_quick_remove_fingerings.triggered.connect(self.quickRemoveFingerings)
         ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
