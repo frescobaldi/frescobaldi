@@ -521,7 +521,14 @@ class MainWindow(QMainWindow):
             if filename:
                 filetypes = app.filetypes(os.path.splitext(filename)[1])
             else:
-                directory = app.basedir() # default directory to save to
+                # find a suitable directory to save to
+                for d in self.historyManager.documents()[1::]:
+                    if d.url().toLocalFile():
+                        directory = os.path.dirname(d.url().toLocalFile())
+                        break
+                else:
+                    directory = app.basedir() # default directory to save to
+                
                 import documentinfo
                 import ly.lex
                 filename = os.path.join(directory, documentinfo.defaultfilename(doc))
