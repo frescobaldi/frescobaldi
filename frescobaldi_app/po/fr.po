@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 1.9.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-09-15 08:56+0200\n"
+"POT-Creation-Date: 2017-02-15 07:15+0100\n"
 "PO-Revision-Date: 2014-12-26 14:18+0100\n"
 "Last-Translator: Raphaël Doursenaud <rdoursenaud@free.fr>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -383,82 +383,92 @@ msgstr ""
 msgid "Could not write to: {url}"
 msgstr "Impossible d'écrire sur : {url}"
 
-#: ../document.py:214 ../doclist/widget.py:128 ../snippet/edit.py:174
+#: ../document.py:224 ../doclist/widget.py:128 ../snippet/edit.py:174
 msgid "Untitled"
 msgstr "Sans titre"
 
-#: ../document.py:216
+#: ../document.py:226
 #, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Sans titre ({num})"
 
-#: ../documentactions.py:206
+#: ../documentactions.py:216
 msgid "Cut and Assign..."
 msgstr "Couper et assigner..."
 
-#: ../documentactions.py:207
+#: ../documentactions.py:217
 msgid "Move to Include File..."
 msgstr ""
 
-#: ../documentactions.py:208
+#: ../documentactions.py:218
 msgid "Syntax &Highlighting"
 msgstr "Coloration syntaxique"
 
-#: ../documentactions.py:209
+#: ../documentactions.py:219
 msgid "View File or Definition at &Cursor"
 msgstr "Voir le fichier ou la définition à l'emplacement du &curseur"
 
-#: ../documentactions.py:210
+#: ../documentactions.py:220
 msgid "&Automatic Indent"
 msgstr "Indentation &automatique"
 
-#: ../documentactions.py:211
+#: ../documentactions.py:221
 msgid "Re-&Indent"
 msgstr "Ré-&indenter"
 
-#: ../documentactions.py:212
+#: ../documentactions.py:222
 msgid "&Format"
 msgstr "&Formater"
 
-#: ../documentactions.py:213
+#: ../documentactions.py:223
 msgid "Remove Trailing &Whitespace"
 msgstr "Supprimer les espaces de &fin"
 
-#: ../documentactions.py:214
+#: ../documentactions.py:224
 msgid "&Update with convert-ly..."
 msgstr "Mettre à jour avec convert-ly"
 
-#: ../documentactions.py:215
+#: ../documentactions.py:225
 #, fuzzy
 msgid "Remove &Comments"
 msgstr "Supprimer les &ornements"
 
-#: ../documentactions.py:216
+#: ../documentactions.py:226
 msgid "Remove &Articulations"
 msgstr "Supprimer les &articulations"
 
-#: ../documentactions.py:217
+#: ../documentactions.py:227
 msgid "Remove &Ornaments"
 msgstr "Supprimer les &ornements"
 
-#: ../documentactions.py:218
+#: ../documentactions.py:228
 msgid "Remove &Instrument Scripts"
 msgstr "Supprimer les scripts d'&instrument"
 
-#: ../documentactions.py:219
+#: ../documentactions.py:229
 msgid "Remove &Slurs"
 msgstr "&Supprimer les liaisons"
 
-#: ../documentactions.py:220
+#: ../documentactions.py:230
+#, fuzzy
+msgid "Remove &Beams"
+msgstr "Supprimer les hampes"
+
+#: ../documentactions.py:231
+#, fuzzy
+msgid "Remove &Ligatures"
+msgstr "&Supprimer les liaisons"
+
+#: ../documentactions.py:232
 msgid "Remove &Dynamics"
 msgstr "Supprimer les &nuances"
 
-#: ../documentactions.py:221
+#: ../documentactions.py:233
 #, fuzzy
 msgid "Remove &Fingerings"
 msgstr "Supprimer les &ornements"
 
-#: ../documentactions.py:222
+#: ../documentactions.py:234
 msgid "Remove Text &Markup (from music)"
 msgstr "Supprimer le &markup de texte (de la musique)"
 
@@ -1094,12 +1104,12 @@ msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "Suppression &rapide"
 
-#: ../menu.py:402 ../macosx/globalmenu.py:133
+#: ../menu.py:404 ../macosx/globalmenu.py:133
 msgctxt "menu title"
 msgid "&Window"
 msgstr "&Fenêtre"
 
-#: ../menu.py:422 ../macosx/globalmenu.py:150
+#: ../menu.py:424 ../macosx/globalmenu.py:150
 msgctxt "menu title"
 msgid "&Help"
 msgstr "Aide"
@@ -2197,20 +2207,20 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "PULSATION"
 
-#: ../musicview/__init__.py:122
+#: ../musicview/__init__.py:130
 msgctxt "window title"
 msgid "Music View"
 msgstr "Aperçu"
 
-#: ../musicview/__init__.py:123
+#: ../musicview/__init__.py:131
 msgid "&Music View"
 msgstr "Aperçu"
 
-#: ../musicview/__init__.py:193 ../viewers/__init__.py:235
+#: ../musicview/__init__.py:236 ../viewers/__init__.py:235
 msgid "Print Music"
 msgstr "&Imprimer la partition..."
 
-#: ../musicview/__init__.py:194 ../viewers/__init__.py:236
+#: ../musicview/__init__.py:237 ../viewers/__init__.py:236
 msgid ""
 "Unfortunately, this version of Frescobaldi is unable to print PDF documents "
 "on Mac OS X due to various technical reasons.\n"
@@ -2231,103 +2241,103 @@ msgstr ""
 "essayer la fonction d'impression de Frescobaldi, ou Annuler pour annuler "
 "l'impression."
 
-#: ../musicview/__init__.py:351 ../viewers/__init__.py:452
+#: ../musicview/__init__.py:385 ../viewers/__init__.py:452
 msgid "Select Music View Document"
 msgstr "Sélectionner le document de l'aperçu"
 
-#: ../musicview/__init__.py:352 ../viewers/__init__.py:453
+#: ../musicview/__init__.py:386 ../viewers/__init__.py:453
 msgid "&Print Music..."
 msgstr "&Imprimer la partition..."
 
-#: ../musicview/__init__.py:353 ../svgview/__init__.py:86
+#: ../musicview/__init__.py:387 ../svgview/__init__.py:86
 #: ../viewers/__init__.py:454
 msgid "Zoom &In"
 msgstr "Zoom avant"
 
-#: ../musicview/__init__.py:354 ../svgview/__init__.py:87
+#: ../musicview/__init__.py:388 ../svgview/__init__.py:87
 #: ../viewers/__init__.py:455
 msgid "Zoom &Out"
 msgstr "Zoom arrière"
 
-#: ../musicview/__init__.py:355 ../svgview/__init__.py:88
+#: ../musicview/__init__.py:389 ../svgview/__init__.py:88
 #: ../viewers/__init__.py:456
 msgid "Original &Size"
 msgstr "Taille originale"
 
-#: ../musicview/__init__.py:356 ../viewers/__init__.py:457
+#: ../musicview/__init__.py:390 ../viewers/__init__.py:457
 msgid "Zoom Music"
 msgstr "Zoom partition"
 
-#: ../musicview/__init__.py:357 ../viewers/__init__.py:458
+#: ../musicview/__init__.py:391 ../viewers/__init__.py:458
 msgid "Fit &Width"
 msgstr "Ajuster à la largeur"
 
-#: ../musicview/__init__.py:358 ../viewers/__init__.py:459
+#: ../musicview/__init__.py:392 ../viewers/__init__.py:459
 msgid "Fit &Height"
 msgstr "Ajuster à la &hauteur"
 
-#: ../musicview/__init__.py:359 ../viewers/__init__.py:460
+#: ../musicview/__init__.py:393 ../viewers/__init__.py:460
 msgid "Fit &Page"
 msgstr "Ajuster à la &page"
 
-#: ../musicview/__init__.py:360 ../viewers/__init__.py:461
+#: ../musicview/__init__.py:394 ../viewers/__init__.py:461
 msgid "Single Pages"
 msgstr "Pages simples"
 
-#: ../musicview/__init__.py:361 ../viewers/__init__.py:462
+#: ../musicview/__init__.py:395 ../viewers/__init__.py:462
 msgid "Two Pages (first page right)"
 msgstr "Deux pages (première page à droite)"
 
-#: ../musicview/__init__.py:362 ../viewers/__init__.py:463
+#: ../musicview/__init__.py:396 ../viewers/__init__.py:463
 msgid "Two Pages (first page left)"
 msgstr "Deux pages (première page à gauche)"
 
-#: ../musicview/__init__.py:363 ../viewers/__init__.py:464
+#: ../musicview/__init__.py:397 ../viewers/__init__.py:464
 msgid "&Maximize"
 msgstr "&Maximiser"
 
-#: ../musicview/__init__.py:364 ../viewers/__init__.py:465
+#: ../musicview/__init__.py:398 ../viewers/__init__.py:465
 msgid "&Jump to Cursor Position"
 msgstr "Aller à la position du curseur"
 
-#: ../musicview/__init__.py:365 ../viewers/__init__.py:466
+#: ../musicview/__init__.py:399 ../viewers/__init__.py:466
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&ynchroniser l'aperçu avec la position du curseur"
 
-#: ../musicview/__init__.py:366 ../viewers/__init__.py:467
+#: ../musicview/__init__.py:400 ../viewers/__init__.py:467
 msgid "Copy to &Image..."
 msgstr "Copier vers une image..."
 
-#: ../musicview/__init__.py:367
+#: ../musicview/__init__.py:401
 #, fuzzy
 msgid "Copy Selected &Text"
 msgstr "Texte sélectionné"
 
-#: ../musicview/__init__.py:368 ../viewers/__init__.py:469
+#: ../musicview/__init__.py:402 ../viewers/__init__.py:469
 msgid "Next Page"
 msgstr "Page suivante"
 
-#: ../musicview/__init__.py:369 ../viewers/__init__.py:470
+#: ../musicview/__init__.py:403 ../viewers/__init__.py:470
 msgid "Next"
 msgstr "Suivant :"
 
-#: ../musicview/__init__.py:370 ../viewers/__init__.py:471
+#: ../musicview/__init__.py:404 ../viewers/__init__.py:471
 msgid "Previous Page"
 msgstr "Page précédente"
 
-#: ../musicview/__init__.py:371 ../viewers/__init__.py:472
+#: ../musicview/__init__.py:405 ../viewers/__init__.py:472
 msgid "Previous"
 msgstr "Précédent"
 
-#: ../musicview/__init__.py:372 ../viewers/__init__.py:473
+#: ../musicview/__init__.py:406 ../viewers/__init__.py:473
 msgid "&Reload"
 msgstr "Recharger"
 
-#: ../musicview/__init__.py:523 ../viewers/__init__.py:742
+#: ../musicview/__init__.py:557 ../viewers/__init__.py:742
 msgid "Choose the PDF document to display."
 msgstr "Choisir le document PDF à afficher."
 
-#: ../musicview/__init__.py:525 ../viewers/__init__.py:744
+#: ../musicview/__init__.py:559 ../viewers/__init__.py:744
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2335,20 +2345,20 @@ msgstr ""
 "Choisir le document PDF à afficher ou déposer le fichier sur une autre "
 "application ou un autre emplacement."
 
-#: ../musicview/__init__.py:583 ../viewers/__init__.py:799
+#: ../musicview/__init__.py:617 ../viewers/__init__.py:799
 msgid "Fit Width"
 msgstr "Ajuster à la largeur"
 
-#: ../musicview/__init__.py:584 ../viewers/__init__.py:800
+#: ../musicview/__init__.py:618 ../viewers/__init__.py:800
 msgid "Fit Height"
 msgstr "Ajuster à la hauteur"
 
-#: ../musicview/__init__.py:585 ../viewers/__init__.py:801
+#: ../musicview/__init__.py:619 ../viewers/__init__.py:801
 msgid "Fit Page"
 msgstr "Ajuster à la page"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:602 ../viewers/__init__.py:818
+#: ../musicview/__init__.py:636 ../viewers/__init__.py:818
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} sur {total}"
@@ -4064,7 +4074,7 @@ msgstr "Doigté"
 msgid "String Number"
 msgstr "Numéro de corde"
 
-#: ../preferences/fontscolors.py:523 ../quickinsert/spanners.py:171
+#: ../preferences/fontscolors.py:523 ../quickinsert/spanners.py:173
 msgid "Slur"
 msgstr "Liaison"
 
@@ -4080,7 +4090,7 @@ msgstr "Articulation"
 msgid "Chord"
 msgstr "Accord"
 
-#: ../preferences/fontscolors.py:527 ../quickinsert/spanners.py:173
+#: ../preferences/fontscolors.py:527 ../quickinsert/spanners.py:175
 msgid "Beam"
 msgstr "Ligature"
 
@@ -4874,6 +4884,11 @@ msgstr "Repères de structure à afficher dans la structure :"
 msgid "Enter a regular expression to match:"
 msgstr "Entrer une expression régulière à rechercher :"
 
+#: ../qpopplerview/cache.py:302
+#, fuzzy
+msgid "Failed to render page"
+msgstr "Fichier à ouvrir"
+
 #: ../quickinsert/__init__.py:46 ../quickinsert/__init__.py:70
 msgid "Quick Insert"
 msgstr "Insertion rapide"
@@ -4936,7 +4951,7 @@ msgstr "Espressivo"
 msgid "Ornaments"
 msgstr "Ornements"
 
-#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:174
+#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:176
 msgid "Trill"
 msgstr "Trille"
 
@@ -5222,8 +5237,8 @@ msgstr "Symboles pour les nuances."
 msgid "Dynamic sign {name}"
 msgstr "Nuance {name}"
 
-#: ../quickinsert/dynamics.py:160 ../quickinsert/spanners.py:75
-#: ../quickinsert/spanners.py:164 ../userguide/quickinsert.md:37
+#: ../quickinsert/dynamics.py:160 ../quickinsert/spanners.py:77
+#: ../quickinsert/spanners.py:166 ../userguide/quickinsert.md:37
 msgid "Spanners"
 msgstr "Liaisons"
 
@@ -5247,87 +5262,87 @@ msgstr "Diminuendo"
 msgid "Decrescendo"
 msgstr "Decrescendo"
 
-#: ../quickinsert/spanners.py:79
+#: ../quickinsert/spanners.py:81
 msgid "Slurs, spanners, etcetera."
 msgstr "Liaisons, nuances progressives etc."
 
-#: ../quickinsert/spanners.py:84
+#: ../quickinsert/spanners.py:86
 msgid "Arpeggios"
 msgstr "Arpèges"
 
-#: ../quickinsert/spanners.py:93
+#: ../quickinsert/spanners.py:95
 msgid "Arpeggio"
 msgstr "Arpège"
 
-#: ../quickinsert/spanners.py:94
+#: ../quickinsert/spanners.py:96
 msgid "Arpeggio with Up Arrow"
 msgstr "Arpège vers le haut"
 
-#: ../quickinsert/spanners.py:95
+#: ../quickinsert/spanners.py:97
 msgid "Arpeggio with Down Arrow"
 msgstr "Arpège vers le bas"
 
-#: ../quickinsert/spanners.py:96
+#: ../quickinsert/spanners.py:98
 msgid "Bracket Arpeggio"
 msgstr "Arpège en crochet"
 
-#: ../quickinsert/spanners.py:97
+#: ../quickinsert/spanners.py:99
 msgid "Parenthesis Arpeggio"
 msgstr "Arpège en parenthèse"
 
-#: ../quickinsert/spanners.py:131
+#: ../quickinsert/spanners.py:133
 msgid "Glissandos"
 msgstr "Glissandos"
 
-#: ../quickinsert/spanners.py:140
+#: ../quickinsert/spanners.py:142
 msgid "Glissando"
 msgstr "Glissando"
 
-#: ../quickinsert/spanners.py:141
+#: ../quickinsert/spanners.py:143
 msgid "Dashed Glissando"
 msgstr "Glissando en tirets"
 
-#: ../quickinsert/spanners.py:142
+#: ../quickinsert/spanners.py:144
 msgid "Dotted Glissando"
 msgstr "Glissando en pointillés"
 
-#: ../quickinsert/spanners.py:143
+#: ../quickinsert/spanners.py:145
 msgid "Zigzag Glissando"
 msgstr "Glissando en zigzag"
 
-#: ../quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:146
 msgid "Trill Glissando"
 msgstr "Glissando en trille"
 
-#: ../quickinsert/spanners.py:172
+#: ../quickinsert/spanners.py:174
 msgid "Phrasing Slur"
 msgstr "Liaison de phrasé"
 
-#: ../quickinsert/spanners.py:175
+#: ../quickinsert/spanners.py:177
 msgid "Melisma"
 msgstr "Tenue"
 
-#: ../quickinsert/spanners.py:198 ../quickinsert/spanners.py:205
+#: ../quickinsert/spanners.py:200 ../quickinsert/spanners.py:207
 msgid "Grace Notes"
 msgstr "Appoggiatures"
 
-#: ../quickinsert/spanners.py:206
+#: ../quickinsert/spanners.py:208
 msgid "Grace Notes w. beaming"
 msgstr "Appoggiatures avec ligature"
 
-#: ../quickinsert/spanners.py:207
+#: ../quickinsert/spanners.py:209
 msgid "Acciaccatura"
 msgstr "Acciaccatura"
 
-#: ../quickinsert/spanners.py:208
+#: ../quickinsert/spanners.py:210
 msgid "Appoggiatura"
 msgstr "Appoggiature"
 
-#: ../quickinsert/spanners.py:209
+#: ../quickinsert/spanners.py:211
 msgid "Slashed no slur"
 msgstr "Barrée sans liaison"
 
-#: ../quickinsert/spanners.py:210
+#: ../quickinsert/spanners.py:212
 msgid "After grace"
 msgstr "Appoggiature \"après\""
 
@@ -10070,7 +10085,7 @@ msgid "{appname} is translated into the following languages:"
 msgstr "{appname} est traduit dans les langues suivantes :"
 
 #. NOTE: markdown formatting
-#: ../userguide/credits.md:111
+#: ../userguide/credits.md:114
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"

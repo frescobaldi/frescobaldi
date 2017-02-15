@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2016-09-15 08:56+0200\n"
+"POT-Creation-Date: 2017-02-15 07:15+0100\n"
 "PO-Revision-Date: 2016-08-16 13:46+0200\n"
 "Last-Translator: Dag Odenhall <dag.odenhall@gmail.com>\n"
 "Language-Team: dag.odenhall@gmail.com\n"
@@ -368,20 +368,20 @@ msgstr ""
 msgid "Could not write to: {url}"
 msgstr "Kunde inte skriva till: {url}"
 
-#: ../document.py:214 ../doclist/widget.py:128 ../snippet/edit.py:174
+#: ../document.py:224 ../doclist/widget.py:128 ../snippet/edit.py:174
 msgid "Untitled"
 msgstr "Namnlös"
 
-#: ../document.py:216
+#: ../document.py:226
 #, python-brace-format
 msgid "Untitled ({num})"
 msgstr "Namnlös ({num})"
 
-#: ../documentactions.py:206
+#: ../documentactions.py:216
 msgid "Cut and Assign..."
 msgstr "Klipp ut och tilldela..."
 
-#: ../documentactions.py:207
+#: ../documentactions.py:217
 msgid "Move to Include File..."
 msgstr "Flytta till fil och inkludera..."
 
@@ -392,64 +392,74 @@ msgstr "Flytta till fil och inkludera..."
 # syntaxmärkning
 # syntaxfärgkodning
 # ...
-#: ../documentactions.py:208
+#: ../documentactions.py:218
 msgid "Syntax &Highlighting"
 msgstr "Syntaxmarkering"
 
-#: ../documentactions.py:209
+#: ../documentactions.py:219
 msgid "View File or Definition at &Cursor"
 msgstr "Visa fil eller definition vid markör"
 
-#: ../documentactions.py:210
+#: ../documentactions.py:220
 msgid "&Automatic Indent"
 msgstr "&Automatiskt indrag"
 
-#: ../documentactions.py:211
+#: ../documentactions.py:221
 msgid "Re-&Indent"
 msgstr "Gör om &indrag"
 
-#: ../documentactions.py:212
+#: ../documentactions.py:222
 msgid "&Format"
 msgstr "&Formatera"
 
-#: ../documentactions.py:213
+#: ../documentactions.py:223
 msgid "Remove Trailing &Whitespace"
 msgstr "Ta bort eftersläpande blanksteg"
 
-#: ../documentactions.py:214
+#: ../documentactions.py:224
 msgid "&Update with convert-ly..."
 msgstr "&Uppdatera med convert-ly..."
 
-#: ../documentactions.py:215
+#: ../documentactions.py:225
 msgid "Remove &Comments"
 msgstr "Ta bort kommentarer"
 
-#: ../documentactions.py:216
+#: ../documentactions.py:226
 msgid "Remove &Articulations"
 msgstr "Ta bort &artikulationsbeteckningar"
 
-#: ../documentactions.py:217
+#: ../documentactions.py:227
 msgid "Remove &Ornaments"
 msgstr "Ta bort &ornament"
 
-#: ../documentactions.py:218
+#: ../documentactions.py:228
 msgid "Remove &Instrument Scripts"
 msgstr "Ta bort &instrumentspecifika tecken"
 
-#: ../documentactions.py:219
+#: ../documentactions.py:229
 msgid "Remove &Slurs"
 msgstr "Ta bort legatobågar"
 
-#: ../documentactions.py:220
+#: ../documentactions.py:230
+#, fuzzy
+msgid "Remove &Beams"
+msgstr "Ta bort &dynamik"
+
+#: ../documentactions.py:231
+#, fuzzy
+msgid "Remove &Ligatures"
+msgstr "Ta bort legatobågar"
+
+#: ../documentactions.py:232
 msgid "Remove &Dynamics"
 msgstr "Ta bort &dynamik"
 
-#: ../documentactions.py:221
+#: ../documentactions.py:233
 msgid "Remove &Fingerings"
 msgstr "Ta bort &fingersättning"
 
 # 'Markup' doesn't seem to have a translation in Swedish. We have 'märkspråk' for 'markup language' so it logically follows that 'markup' is 'märkning' but it just doesn't feel right.
-#: ../documentactions.py:222
+#: ../documentactions.py:234
 msgid "Remove Text &Markup (from music)"
 msgstr "Ta bort text&märkning (från musik)"
 
@@ -1084,12 +1094,12 @@ msgctxt "submenu title"
 msgid "&Quick Remove"
 msgstr "&Snabborttagning"
 
-#: ../menu.py:402 ../macosx/globalmenu.py:133
+#: ../menu.py:404 ../macosx/globalmenu.py:133
 msgctxt "menu title"
 msgid "&Window"
 msgstr "Fönster"
 
-#: ../menu.py:422 ../macosx/globalmenu.py:150
+#: ../menu.py:424 ../macosx/globalmenu.py:150
 msgctxt "menu title"
 msgid "&Help"
 msgstr "&Hjälp"
@@ -2175,20 +2185,20 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "SLAG"
 
-#: ../musicview/__init__.py:122
+#: ../musicview/__init__.py:130
 msgctxt "window title"
 msgid "Music View"
 msgstr "Musikvy"
 
-#: ../musicview/__init__.py:123
+#: ../musicview/__init__.py:131
 msgid "&Music View"
 msgstr "&Musikvy"
 
-#: ../musicview/__init__.py:193 ../viewers/__init__.py:235
+#: ../musicview/__init__.py:236 ../viewers/__init__.py:235
 msgid "Print Music"
 msgstr "Skriv ut musik"
 
-#: ../musicview/__init__.py:194 ../viewers/__init__.py:236
+#: ../musicview/__init__.py:237 ../viewers/__init__.py:236
 msgid ""
 "Unfortunately, this version of Frescobaldi is unable to print PDF documents "
 "on Mac OS X due to various technical reasons.\n"
@@ -2200,102 +2210,102 @@ msgid ""
 "functionality anyway, or Cancel to cancel printing."
 msgstr ""
 
-#: ../musicview/__init__.py:351 ../viewers/__init__.py:452
+#: ../musicview/__init__.py:385 ../viewers/__init__.py:452
 msgid "Select Music View Document"
 msgstr "Välj dokument för musikvy"
 
-#: ../musicview/__init__.py:352 ../viewers/__init__.py:453
+#: ../musicview/__init__.py:386 ../viewers/__init__.py:453
 msgid "&Print Music..."
 msgstr "Skriv ut musik..."
 
-#: ../musicview/__init__.py:353 ../svgview/__init__.py:86
+#: ../musicview/__init__.py:387 ../svgview/__init__.py:86
 #: ../viewers/__init__.py:454
 msgid "Zoom &In"
 msgstr "Zooma &in"
 
-#: ../musicview/__init__.py:354 ../svgview/__init__.py:87
+#: ../musicview/__init__.py:388 ../svgview/__init__.py:87
 #: ../viewers/__init__.py:455
 msgid "Zoom &Out"
 msgstr "Z&ooma ut"
 
-#: ../musicview/__init__.py:355 ../svgview/__init__.py:88
+#: ../musicview/__init__.py:389 ../svgview/__init__.py:88
 #: ../viewers/__init__.py:456
 msgid "Original &Size"
 msgstr "Ursprunglig &storlek"
 
-#: ../musicview/__init__.py:356 ../viewers/__init__.py:457
+#: ../musicview/__init__.py:390 ../viewers/__init__.py:457
 msgid "Zoom Music"
 msgstr "Zooma musik"
 
-#: ../musicview/__init__.py:357 ../viewers/__init__.py:458
+#: ../musicview/__init__.py:391 ../viewers/__init__.py:458
 msgid "Fit &Width"
 msgstr "Anpassa till bredd"
 
-#: ../musicview/__init__.py:358 ../viewers/__init__.py:459
+#: ../musicview/__init__.py:392 ../viewers/__init__.py:459
 msgid "Fit &Height"
 msgstr "Anpassa till &höjd"
 
-#: ../musicview/__init__.py:359 ../viewers/__init__.py:460
+#: ../musicview/__init__.py:393 ../viewers/__init__.py:460
 msgid "Fit &Page"
 msgstr "Anpassa till sida"
 
-#: ../musicview/__init__.py:360 ../viewers/__init__.py:461
+#: ../musicview/__init__.py:394 ../viewers/__init__.py:461
 msgid "Single Pages"
 msgstr "Enkelsidig"
 
-#: ../musicview/__init__.py:361 ../viewers/__init__.py:462
+#: ../musicview/__init__.py:395 ../viewers/__init__.py:462
 msgid "Two Pages (first page right)"
 msgstr "Dubbelsidig (första sidan till höger)"
 
-#: ../musicview/__init__.py:362 ../viewers/__init__.py:463
+#: ../musicview/__init__.py:396 ../viewers/__init__.py:463
 msgid "Two Pages (first page left)"
 msgstr "Dubbelsidig (första sidan till vänster)"
 
-#: ../musicview/__init__.py:363 ../viewers/__init__.py:464
+#: ../musicview/__init__.py:397 ../viewers/__init__.py:464
 msgid "&Maximize"
 msgstr "&Maximera"
 
-#: ../musicview/__init__.py:364 ../viewers/__init__.py:465
+#: ../musicview/__init__.py:398 ../viewers/__init__.py:465
 msgid "&Jump to Cursor Position"
 msgstr "Hoppa till markörposition"
 
-#: ../musicview/__init__.py:365 ../viewers/__init__.py:466
+#: ../musicview/__init__.py:399 ../viewers/__init__.py:466
 msgid "S&ynchronize with Cursor Position"
 msgstr "S&ynkronisera med markörpositionen"
 
-#: ../musicview/__init__.py:366 ../viewers/__init__.py:467
+#: ../musicview/__init__.py:400 ../viewers/__init__.py:467
 msgid "Copy to &Image..."
 msgstr "Kopiera till b&ild..."
 
-#: ../musicview/__init__.py:367
+#: ../musicview/__init__.py:401
 msgid "Copy Selected &Text"
 msgstr "Kopiera markerad &text"
 
-#: ../musicview/__init__.py:368 ../viewers/__init__.py:469
+#: ../musicview/__init__.py:402 ../viewers/__init__.py:469
 msgid "Next Page"
 msgstr "Nästa sida"
 
-#: ../musicview/__init__.py:369 ../viewers/__init__.py:470
+#: ../musicview/__init__.py:403 ../viewers/__init__.py:470
 msgid "Next"
 msgstr "Nästa"
 
-#: ../musicview/__init__.py:370 ../viewers/__init__.py:471
+#: ../musicview/__init__.py:404 ../viewers/__init__.py:471
 msgid "Previous Page"
 msgstr "Föregående sida"
 
-#: ../musicview/__init__.py:371 ../viewers/__init__.py:472
+#: ../musicview/__init__.py:405 ../viewers/__init__.py:472
 msgid "Previous"
 msgstr "Föregående"
 
-#: ../musicview/__init__.py:372 ../viewers/__init__.py:473
+#: ../musicview/__init__.py:406 ../viewers/__init__.py:473
 msgid "&Reload"
 msgstr "Uppdate&ra"
 
-#: ../musicview/__init__.py:523 ../viewers/__init__.py:742
+#: ../musicview/__init__.py:557 ../viewers/__init__.py:742
 msgid "Choose the PDF document to display."
 msgstr "Välj PDF-dokument att visa."
 
-#: ../musicview/__init__.py:525 ../viewers/__init__.py:744
+#: ../musicview/__init__.py:559 ../viewers/__init__.py:744
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -2303,20 +2313,20 @@ msgstr ""
 "Välj PDF-dokument att visa eller dra filen till ett annat program eller "
 "annan plats."
 
-#: ../musicview/__init__.py:583 ../viewers/__init__.py:799
+#: ../musicview/__init__.py:617 ../viewers/__init__.py:799
 msgid "Fit Width"
 msgstr "Fyll bredden"
 
-#: ../musicview/__init__.py:584 ../viewers/__init__.py:800
+#: ../musicview/__init__.py:618 ../viewers/__init__.py:800
 msgid "Fit Height"
 msgstr "Fyll höjd"
 
-#: ../musicview/__init__.py:585 ../viewers/__init__.py:801
+#: ../musicview/__init__.py:619 ../viewers/__init__.py:801
 msgid "Fit Page"
 msgstr "Fyll sidan"
 
 #. L10N: page numbering: page {num} of {total}
-#: ../musicview/__init__.py:602 ../viewers/__init__.py:818
+#: ../musicview/__init__.py:636 ../viewers/__init__.py:818
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} av {total}"
@@ -3991,7 +4001,7 @@ msgstr "Fingersättning"
 msgid "String Number"
 msgstr "Strängnummer"
 
-#: ../preferences/fontscolors.py:523 ../quickinsert/spanners.py:171
+#: ../preferences/fontscolors.py:523 ../quickinsert/spanners.py:173
 msgid "Slur"
 msgstr "Legatobåge"
 
@@ -4007,7 +4017,7 @@ msgstr "Artikulationsbeteckning"
 msgid "Chord"
 msgstr "Ackord"
 
-#: ../preferences/fontscolors.py:527 ../quickinsert/spanners.py:173
+#: ../preferences/fontscolors.py:527 ../quickinsert/spanners.py:175
 msgid "Beam"
 msgstr "Balk"
 
@@ -4730,6 +4740,11 @@ msgstr ""
 msgid "Enter a regular expression to match:"
 msgstr ""
 
+#: ../qpopplerview/cache.py:302
+#, fuzzy
+msgid "Failed to render page"
+msgstr "Filen som ska öppnas"
+
 #: ../quickinsert/__init__.py:46 ../quickinsert/__init__.py:70
 msgid "Quick Insert"
 msgstr ""
@@ -4793,7 +4808,7 @@ msgstr "Espressivo"
 msgid "Ornaments"
 msgstr "Ornament"
 
-#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:174
+#: ../quickinsert/articulations.py:163 ../quickinsert/spanners.py:176
 msgid "Trill"
 msgstr "Drill"
 
@@ -5083,8 +5098,8 @@ msgstr ""
 msgid "Dynamic sign {name}"
 msgstr ""
 
-#: ../quickinsert/dynamics.py:160 ../quickinsert/spanners.py:75
-#: ../quickinsert/spanners.py:164 ../userguide/quickinsert.md:37
+#: ../quickinsert/dynamics.py:160 ../quickinsert/spanners.py:77
+#: ../quickinsert/spanners.py:166 ../userguide/quickinsert.md:37
 msgid "Spanners"
 msgstr ""
 
@@ -5108,87 +5123,87 @@ msgstr ""
 msgid "Decrescendo"
 msgstr "Diminuendo"
 
-#: ../quickinsert/spanners.py:79
+#: ../quickinsert/spanners.py:81
 msgid "Slurs, spanners, etcetera."
 msgstr ""
 
-#: ../quickinsert/spanners.py:84
+#: ../quickinsert/spanners.py:86
 msgid "Arpeggios"
 msgstr "Arpeggion"
 
-#: ../quickinsert/spanners.py:93
+#: ../quickinsert/spanners.py:95
 msgid "Arpeggio"
 msgstr "Arpeggio"
 
-#: ../quickinsert/spanners.py:94
+#: ../quickinsert/spanners.py:96
 msgid "Arpeggio with Up Arrow"
 msgstr ""
 
-#: ../quickinsert/spanners.py:95
+#: ../quickinsert/spanners.py:97
 msgid "Arpeggio with Down Arrow"
 msgstr ""
 
-#: ../quickinsert/spanners.py:96
+#: ../quickinsert/spanners.py:98
 msgid "Bracket Arpeggio"
 msgstr ""
 
-#: ../quickinsert/spanners.py:97
+#: ../quickinsert/spanners.py:99
 msgid "Parenthesis Arpeggio"
 msgstr ""
 
-#: ../quickinsert/spanners.py:131
+#: ../quickinsert/spanners.py:133
 msgid "Glissandos"
 msgstr ""
 
-#: ../quickinsert/spanners.py:140
+#: ../quickinsert/spanners.py:142
 msgid "Glissando"
 msgstr "Glissando"
 
-#: ../quickinsert/spanners.py:141
+#: ../quickinsert/spanners.py:143
 msgid "Dashed Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:142
+#: ../quickinsert/spanners.py:144
 msgid "Dotted Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:143
+#: ../quickinsert/spanners.py:145
 msgid "Zigzag Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:144
+#: ../quickinsert/spanners.py:146
 msgid "Trill Glissando"
 msgstr ""
 
-#: ../quickinsert/spanners.py:172
+#: ../quickinsert/spanners.py:174
 msgid "Phrasing Slur"
 msgstr ""
 
-#: ../quickinsert/spanners.py:175
+#: ../quickinsert/spanners.py:177
 msgid "Melisma"
 msgstr ""
 
-#: ../quickinsert/spanners.py:198 ../quickinsert/spanners.py:205
+#: ../quickinsert/spanners.py:200 ../quickinsert/spanners.py:207
 msgid "Grace Notes"
 msgstr "Prydnadsnoter"
 
-#: ../quickinsert/spanners.py:206
+#: ../quickinsert/spanners.py:208
 msgid "Grace Notes w. beaming"
 msgstr ""
 
-#: ../quickinsert/spanners.py:207
+#: ../quickinsert/spanners.py:209
 msgid "Acciaccatura"
 msgstr "Acciaccatura"
 
-#: ../quickinsert/spanners.py:208
+#: ../quickinsert/spanners.py:210
 msgid "Appoggiatura"
 msgstr "Appoggiatura"
 
-#: ../quickinsert/spanners.py:209
+#: ../quickinsert/spanners.py:211
 msgid "Slashed no slur"
 msgstr ""
 
-#: ../quickinsert/spanners.py:210
+#: ../quickinsert/spanners.py:212
 msgid "After grace"
 msgstr ""
 
@@ -9350,7 +9365,7 @@ msgid "{appname} is translated into the following languages:"
 msgstr ""
 
 #. NOTE: markdown formatting
-#: ../userguide/credits.md:111
+#: ../userguide/credits.md:114
 msgid ""
 "And of course, a big *Thank You* goes to the LilyPond developers, who create "
 "such an excellent music engraver!"
