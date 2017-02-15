@@ -28,6 +28,7 @@ Changes in 2.20.0 -- Mai ??, 2016
   - Fit Width in Music View now fits two pages in width, if in two-page mode
   - the Music View now remembers the page layout mode
   - Jump to next or previous bookmark now respects surrounding lines setting
+  - Better default save path, looking at last edited document (#162)
 * Bug fixes:
   - fix #716 position of open document tab bar changes on engrave
   - Midi input fixes by David Rydh:
@@ -36,6 +37,7 @@ Changes in 2.20.0 -- Mai ??, 2016
     * fix interruption of Midi input by other events than note events
   - Midi input now uses correct channel, fix by David Kastrup
   - fix #857 UnicodeDecodeError on some types of \displayMusic command output
+  - fix #891 QTextBlock not hashable anymore
 * Translations:
   - new Swedish translation contributed by Dag Odenhall
   - updated Dutch by Wilbert Berendsen
