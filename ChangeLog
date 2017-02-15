@@ -24,6 +24,7 @@ Changes in 2.20.0 -- Mai ??, 2016
   - Midi input now uses correct channel, fix by David Kastrup
   - fix #857 UnicodeDecodeError on some types of \displayMusic command output
   - fix #891 QTextBlock not hashable anymore
+  - fix #862 midi not loaded on first document load
 * Translations:
   - new Swedish translation contributed by Dag Odenhall
   - updated Dutch by Wilbert Berendsen
