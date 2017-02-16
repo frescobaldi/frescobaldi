@@ -80,7 +80,7 @@ class Engraver(plugin.MainWindowPlugin):
         doc = self.stickyDocument()
         if not doc:
             doc = self.mainwindow().currentDocument()
-            if not doc.url().isEmpty():
+            if doc and not doc.url().isEmpty():
                 master = variables.get(doc, "master")
                 if master:
                     url = doc.url().resolved(QUrl(master))
