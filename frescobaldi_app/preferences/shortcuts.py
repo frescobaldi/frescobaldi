@@ -38,6 +38,7 @@ import preferences
 
 from widgets.shortcuteditdialog import ShortcutEditDialog
 from widgets.schemeselector import SchemeSelector
+from widgets.lineedit import LineEdit
 
 _lastaction = '' # last selected action name (saved during running but not on exit)
 
@@ -52,6 +53,9 @@ class Shortcuts(preferences.Page):
         
         self.scheme = SchemeSelector(self)
         layout.addWidget(self.scheme)
+        self.searchEntry = LineEdit()
+        self.searchEntry.setPlaceholderText(_("Search..."))
+        layout.addWidget(self.searchEntry)
         self.tree = QTreeWidget(self)
         self.tree.setHeaderLabels([_("Command"), _("Shortcut")])
         self.tree.setRootIsDecorated(False)
@@ -64,6 +68,7 @@ class Shortcuts(preferences.Page):
         layout.addWidget(self.edit)
         
         # signals
+        self.searchEntry.textChanged.connect(self.updateFilter)
         self.scheme.currentChanged.connect(self.slotSchemeChanged)
         self.scheme.changed.connect(self.changed)
         self.tree.currentItemChanged.connect(self.slotCurrentItemChanged)
@@ -253,7 +258,33 @@ class Shortcuts(preferences.Page):
             item.setShortcuts(shortcuts, scheme)
             self.changed.emit()
 
-        
+    def updateFilter(self):
+        """Called when the search text changes."""
+        search = self.searchEntry.text()
+        scheme = self.scheme.currentScheme()
+        def hidechildren(item):
+            hideparent = True
+            for n in range(item.childCount()):
+                c = item.child(n)
+                if c.childCount():
+                    # submenu item
+                    if hidechildren(c):
+                        c.setHidden(True)
+                    else:
+                        c.setHidden(False)
+                        c.setExpanded(True)
+                        hideparent = False
+                elif isinstance(c, ShortcutItem):
+                    # shortcut item, should be the case
+                    if c.matches(scheme, search):
+                        c.setHidden(False)
+                        hideparent = False
+                    else:
+                        c.setHidden(True)
+            return hideparent
+        hidechildren(self.tree.invisibleRootItem())
+
+
 class ShortcutItem(QTreeWidgetItem):
     def __init__(self, action, collection, name):
         QTreeWidgetItem.__init__(self)
@@ -335,5 +366,19 @@ class ShortcutItem(QTreeWidgetItem):
                 text += "  " + _("(default)")
         self.setText(1, text)
         
+    def matches(self, scheme, text):
+        """Return True if the text matches our description or shortcuts.
         
+        Shortcuts are checked in the specified scheme.
+        The match is case insensitive.
+        
+        """
+        text = text.lower()
+        if text in self.text(0).lower():
+            return True
+        for shortcut in self.shortcuts(scheme):
+            if text in shortcut.toString(QKeySequence.NativeText).lower():
+                return True
+        return False
+
 

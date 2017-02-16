@@ -10,6 +10,7 @@ Changes in 2.20.0 -- Mai ??, 2016
   - Copy selected text in Music View
   - New command Edit->Move to include file...
   - New quick remove actions to remove beams and ligatures from selected music
+  - Search tool in the keyboard shortcuts preferences page (#690)
 * Improvements:
   - Fit Width in Music View now fits two pages in width, if in two-page mode
   - the Music View now remembers the page layout mode
