@@ -81,6 +81,8 @@ class DocumentActions(plugin.MainWindowPlugin):
         self.actionCollection.tools_quick_remove_ornaments.setEnabled(selection)
         self.actionCollection.tools_quick_remove_instrument_scripts.setEnabled(selection)
         self.actionCollection.tools_quick_remove_slurs.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_beams.setEnabled(selection)
+        self.actionCollection.tools_quick_remove_ligatures.setEnabled(selection)
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
         self.actionCollection.tools_quick_remove_fingerings.setEnabled(selection)
         self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
