@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 3.0.0 -- 
+Changes in 3.0.0 -- February 17th, 2017
 
 * Requirement changes:
   - Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5
@@ -16,7 +16,7 @@ Changes in 3.0.0 --
   - Retina display support in Music View, contributed by David Rydh
 
 
-Changes in 2.20.0 -- Mai ??, 2016
+Changes in 2.20.0 -- February 17th, 2017
 
 * New features:
   - New Manuscript viewer tool, displaying an "engraver's copy",
