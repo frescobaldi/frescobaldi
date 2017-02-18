@@ -85,7 +85,7 @@ def show(cursor, pos=None, num_lines=6):
     label.setPixmap(pix)
     label.setStyleSheet("QLabel { border: 1px solid #777; }")
     label.resize(pix.size())
-    widgets.customtooltip.show(label, pos)
+    gadgets.customtooltip.show(label, pos)
 
 
 def text(cursor):
