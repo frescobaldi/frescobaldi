@@ -69,7 +69,7 @@ echo
 VERSION=`${MPPREFIX}${PYTHONBIN} -c 'import os
 os.chdir("..")
 from frescobaldi_app import appinfo
-print appinfo.version'`
+print(appinfo.version)'`
 
 if git rev-parse --git-dir > /dev/null 2>&1
 then
