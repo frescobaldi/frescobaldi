@@ -134,8 +134,7 @@ options = {
 if args.standalone:
     options.update({
         'packages': ['frescobaldi_app'],
-        'frameworks': [args.portmidi],
-        'includes': ['new']
+        'frameworks': [args.portmidi]
     })
     if args.arch:
         options.update({
