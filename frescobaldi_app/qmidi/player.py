@@ -77,6 +77,15 @@ class Player(QThread, midifile.player.Player):
             self.exit(1)
             self.wait()
     
+    def set_position(self, position, offset=0):
+        """Overridden because we can't start/stop the timer from the gui thread."""
+        playing = self.isRunning()
+        if playing:
+            self.stop()
+        super(Player, self).set_position(position, offset)
+        if playing:
+            self.start()
+    
     def timer_start(self, msec):
         """Starts the timer to fire once, the specified msec from now."""
         self._timer.start(int(msec))
