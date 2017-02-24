@@ -1,18 +1,17 @@
 # translation of it.po to Italiano
-# translation of it.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the frescobaldi package.
 #
 # .billyBoh <billyboh@gmail.com>, 2011, 2012.
 # Gianluca D'Orazio <gianluca.dorazio@gmail.com>, 2008, 2009, 2010, 2011, 2013, 2014.
-# Federico Bruni <fede@inventati.org>, 2014, 2015, 2016.
+# Federico Bruni <fede@inventati.org>, 2014, 2015, 2016, 2017.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Frescobaldi 2.0.17\n"
+"Project-Id-Version: Frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2017-02-15 07:15+0100\n"
-"PO-Revision-Date: 2016-04-21 17:15+0200\n"
+"PO-Revision-Date: 2017-02-21 16:35+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -273,7 +272,7 @@ msgid ""
 "Render twice as large and scale back down\n"
 "(recommended for small DPI values)."
 msgstr ""
-"Elabora l'immagine raddoppiando la dimensione e riducendo la qualità\n"
+"Elabora l'immagine al doppio dei DPI e poi ridimensiona\n"
 "(raccomandato per valori DPI piccoli)."
 
 #: ../copy2image.py:129
@@ -356,7 +355,7 @@ msgstr "Inserire il nome della variabile a cui assegnare il testo selezionato:"
 #: ../cut_assign.py:116
 msgctxt "dialog title"
 msgid "Move to include file"
-msgstr ""
+msgstr "Sposta per includere il file"
 
 #: ../cut_assign.py:135 ../mainwindow.py:433 ../mainwindow.py:547
 #: ../mainwindow.py:610 ../mainwindow.py:630 ../mainwindow.py:723
@@ -392,7 +391,7 @@ msgstr "Taglia e assegna..."
 
 #: ../documentactions.py:217
 msgid "Move to Include File..."
-msgstr ""
+msgstr "Sposta per includere il file..."
 
 #: ../documentactions.py:218
 msgid "Syntax &Highlighting"
@@ -443,14 +442,12 @@ msgid "Remove &Slurs"
 msgstr "Togli le &legature di portamento"
 
 #: ../documentactions.py:230
-#, fuzzy
 msgid "Remove &Beams"
-msgstr "Togli i gambi"
+msgstr "Togli le tra&vature"
 
 #: ../documentactions.py:231
-#, fuzzy
 msgid "Remove &Ligatures"
-msgstr "Togli le &legature di portamento"
+msgstr "Togli le le&gature"
 
 #: ../documentactions.py:232
 msgid "Remove &Dynamics"
@@ -458,7 +455,7 @@ msgstr "Togli le &dinamiche"
 
 #: ../documentactions.py:233
 msgid "Remove &Fingerings"
-msgstr "Togli le dite&ggiature"
+msgstr "Togli le diteggiatu&re"
 
 #: ../documentactions.py:234
 msgid "Remove Text &Markup (from music)"
@@ -2291,9 +2288,8 @@ msgid "Copy to &Image..."
 msgstr "Copia come &immagine..."
 
 #: ../musicview/__init__.py:401
-#, fuzzy
 msgid "Copy Selected &Text"
-msgstr "Selezione (testo)"
+msgstr "Copia il &testo selezionato"
 
 #: ../musicview/__init__.py:402 ../viewers/__init__.py:469
 msgid "Next Page"
@@ -2445,18 +2441,17 @@ msgstr ""
 "Trasforma tutte le note nel documento o nella selezione in un modo a scelta."
 
 #: ../pitch/__init__.py:182
-#, fuzzy
 msgid "Simplify Accidentals"
-msgstr "Alterazioni"
+msgstr "Semplifica le alterazioni"
 
 #: ../pitch/__init__.py:184
 msgid ""
 "Replaces notes with accidentals as much as possible with natural neighbors."
-msgstr ""
+msgstr "Sostituisce le note alterate con note naturali, laddove è possibile."
 
 #: ../pitch/__init__.py:186
 msgid "First pitch in \\relative {...} is absolute"
-msgstr ""
+msgstr "La prima altezza in \\relative {...} è assoluta"
 
 #: ../pitch/__init__.py:188
 msgid ""
@@ -2464,16 +2459,23 @@ msgid ""
 "expression without startpitch is absolute. Otherwise, Frescobaldi\n"
 "only assumes this when the LilyPond version >= 2.18."
 msgstr ""
+"Se spuntata, la prima altezza di un'espressione \\relative {...}\n"
+"priva di un'altezza iniziale sarà sempre considerata assoluta.\n"
+"Altrimenti Frescobaldi la considera assoluta solo quando la\n"
+"verisone di LilyPond è uguale o superiore a 2.18."
 
 #: ../pitch/__init__.py:192
 msgid "Write \\relative with startpitch"
-msgstr ""
+msgstr "Scrivi \\relative con l'altezza iniziale"
 
 #: ../pitch/__init__.py:194
 msgid ""
 "If checked, when converting absolute music to relative, a startpitch\n"
 "is added. Otherwise, no starting pitch is written."
 msgstr ""
+"Se spuntata, quando si converte la musica assoluta in musica relativa,\n"
+"viene aggiunta un'altezza iniziale di riferimento. Altrimenti non viene\n"
+"scritta alcuna altezza iniziale."
 
 #: ../pitch/dialog.py:106
 msgid "Mode Shift"
@@ -2653,24 +2655,22 @@ msgstr "Che cos'è?"
 #: ../po/messages.py:50
 msgctxt "QDockWidget"
 msgid "Float"
-msgstr ""
+msgstr "Fluttua"
 
 #: ../po/messages.py:51
 msgctxt "QDockWidget"
 msgid "Undocks and re-attaches the dock widget"
-msgstr ""
+msgstr "Sgancia e riaggancia il pannello agganciabile"
 
 #: ../po/messages.py:52
-#, fuzzy
 msgctxt "QDockWidget"
 msgid "Close"
 msgstr "Chiudi"
 
 #: ../po/messages.py:53
-#, fuzzy
 msgctxt "QDockWidget"
 msgid "Closes the dock widget"
-msgstr "Chiudi gli altri documenti"
+msgstr "Chiude il pannello agganciabile"
 
 #: ../po/messages.py:55
 msgctxt "QFileDialog"
@@ -2883,19 +2883,16 @@ msgid "Select IM"
 msgstr "Seleziona IM"
 
 #: ../po/messages.py:103
-#, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Save"
 msgstr "Salva"
 
 #: ../po/messages.py:104
-#, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Cancel"
 msgstr "Annulla"
 
 #: ../po/messages.py:105
-#, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Discard"
 msgstr "Scarta"
@@ -3496,13 +3493,11 @@ msgid "Zoom Out"
 msgstr "Diminuisci zoom"
 
 #: ../po/messages.py:228
-#, fuzzy
 msgctxt "QTabBar"
 msgid "Scroll Left"
 msgstr "Scorri a sinistra"
 
 #: ../po/messages.py:229
-#, fuzzy
 msgctxt "QTabBar"
 msgid "Scroll Right"
 msgstr "Scorri a destra"
@@ -3732,13 +3727,12 @@ msgid "{num} spaces"
 msgstr "{num} spazi"
 
 #: ../preferences/editor.py:245
-#, fuzzy
 msgid "Keyboard Preferences"
-msgstr "Impostazioni di LilyPond"
+msgstr "Preferenze tastiera"
 
 #: ../preferences/editor.py:246
 msgid "Smart Home key"
-msgstr ""
+msgstr "Tasto Inizio intelligente"
 
 #: ../preferences/editor.py:248
 msgid ""
@@ -3746,10 +3740,13 @@ msgid ""
 "character on the line. When the cursor is on that spot, pressing Home moves "
 "the cursor to the beginning of the line."
 msgstr ""
+"Se abilitata, premendo il tasto Inizio il cursore si sposterà sul primo "
+"carattere della riga che non sia uno spazio. Quando il cursore è in quel "
+"punto, premendo il tasto Inizio il cursore si sposta all'inizio della riga."
 
 #: ../preferences/editor.py:252
 msgid "Smart Up/PageUp and Down/PageDown keys"
-msgstr ""
+msgstr "Tasti Su/PaginaSu e Giù/PaginaGiù intelligenti"
 
 #: ../preferences/editor.py:254
 msgid ""
@@ -3757,16 +3754,21 @@ msgid ""
 "the beginning of the document, and pressing Down or PageDown in the last "
 "line will move the cursor to the end of the document."
 msgstr ""
+"Se abilitata, premendo Su o PaginaSu sulla prima riga il cursore si sposta "
+"all'inizio del documento, mentre premendo Giù o PaginaGiù nell'ultima riga "
+"il cursore si sposta alla fine del documento."
 
 #: ../preferences/editor.py:258
 msgid "Horizontal arrow keys keep cursor in current line"
-msgstr ""
+msgstr "I tasti freccia orizzontali mantengono il cursore nella riga corrente"
 
 #: ../preferences/editor.py:260
 msgid ""
 "If enabled, the cursor will stay in the current line when using the "
 "horizontal arrow keys, and not wrap around to the next or previous line."
 msgstr ""
+"Se abilitata, il cursore resterà nella riga corrente quando si usano i tasti "
+"delle frecce orizzontali e non salterà alla riga successiva o precedente."
 
 #: ../preferences/editor.py:324 ../userguide/prefs_editor.md:33
 msgid "Source Export Preferences"
@@ -4870,9 +4872,8 @@ msgid "Enter a regular expression to match:"
 msgstr "Inserire un'espressione regolare:"
 
 #: ../qpopplerview/cache.py:302
-#, fuzzy
 msgid "Failed to render page"
-msgstr "Nome del file da aprire"
+msgstr "Elaborazione della pagina non riuscita"
 
 #: ../quickinsert/__init__.py:46 ../quickinsert/__init__.py:70
 msgid "Quick Insert"
@@ -5530,7 +5531,7 @@ msgstr "Svuota la pagina attuale della Configurazione assistita."
 
 #: ../scorewiz/dialog.py:130
 msgid "Score Preview"
-msgstr "Anteprima spartito"
+msgstr "Anteprima partitura"
 
 #: ../scorewiz/dialog.py:164
 msgid "&Titles and Headers"
@@ -6976,14 +6977,12 @@ msgid "Search:"
 msgstr "Cerca..."
 
 #: ../search/__init__.py:113
-#, fuzzy
 msgid "Find Previous"
-msgstr "Trova prece&dente"
+msgstr "Trova precedente"
 
 #: ../search/__init__.py:114
-#, fuzzy
 msgid "Find Next"
-msgstr "Trova &successivo"
+msgstr "Trova successivo"
 
 #: ../search/__init__.py:115
 msgid "&Case"
@@ -7296,13 +7295,11 @@ msgid "Double selection or current line"
 msgstr "Selezione doppia o riga corrente"
 
 #: ../snippet/builtin.py:412
-#, fuzzy
 msgctxt "snippet: add comment characters"
 msgid "Comment"
 msgstr "Commento"
 
 #: ../snippet/builtin.py:464
-#, fuzzy
 msgctxt "snippet: remove comment characters"
 msgid "Uncomment"
 msgstr "Togli commento"
@@ -7775,50 +7772,46 @@ msgid_plural ""
 "The following files are missing and could not be loaded when restoring a "
 "session:"
 msgstr[0] ""
+"Il file seguente non è stato trovato e non è stato possibile caricarlo "
+"durante il ripristino di una sessione:"
 msgstr[1] ""
+"I file seguenti non sono stati trovati e non è stato possibile caricarli "
+"durante il ripristino di una sessione:"
 
 #: ../viewers/__init__.py:396
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Missing files in {name}"
-msgstr "Stampa {filename}"
+msgstr "File mancanti in {name}"
 
 #: ../viewers/__init__.py:447
-#, fuzzy
 msgid "Close other documents"
 msgstr "Chiudi gli altri documenti"
 
 #: ../viewers/__init__.py:448
-#, fuzzy
 msgid "Close all documents"
-msgstr "Chiudi tutti i documenti senza nome"
+msgstr "Chiudi tutti i documenti"
 
 #: ../viewers/__init__.py:451
-#, fuzzy
 msgid "Show Help"
-msgstr "Mostra "
+msgstr "Mostra l'Aiuto"
 
 #: ../viewers/__init__.py:468
-#, fuzzy
 msgid "Pager"
-msgstr "Pagina:"
+msgstr "Paginatore"
 
 #: ../viewers/__init__.py:474
-#, fuzzy
 msgid "Show toolbar"
-msgstr "Mostra le barre di scorrimento"
+msgstr "Mostra la barra degli strumenti"
 
 #: ../viewers/__init__.py:475
-#, fuzzy
 msgid "Open music document(s)"
-msgstr "Al salvataggio dei documenti"
+msgstr "Apri il documento musicale"
 
 #: ../viewers/__init__.py:476 ../viewers/manuscript/__init__.py:75
-#, fuzzy
 msgid "Open"
 msgstr "Apri"
 
 #: ../viewers/__init__.py:477
-#, fuzzy
 msgid "Close document"
 msgstr "Chiudi il documento"
 
@@ -7828,19 +7821,19 @@ msgid ""
 "{}\n"
 "Please restore if you can."
 msgstr ""
+"File non trovato:\n"
+"{}\n"
+"Se possibile, ripristinarlo."
 
 #: ../viewers/contextmenu.py:97
-#, fuzzy
 msgid "Show..."
-msgstr "Mostra "
+msgstr "Mostra..."
 
 #: ../viewers/contextmenu.py:126
-#, fuzzy
 msgid "Close..."
-msgstr "Chiudi"
+msgstr "Chiudi..."
 
 #: ../viewers/contextmenu.py:148
-#, fuzzy
 msgid "Zoom"
 msgstr "Aumenta zoom"
 
@@ -7851,60 +7844,61 @@ msgid ""
 "\n"
 "Do you want to remove the filename from the list?"
 msgstr ""
+"Manca il file {filename}.\n"
+"\n"
+"Rimuovere il nome del file dall'elenco?"
 
 #: ../viewers/popplerwidget.py:192
 msgid ""
 "Answering 'No' will give you a chance to restore the file without having to "
 "re-add it."
 msgstr ""
+"Scegliendo «No» sarà possibile ripristinare il file senza doverlo "
+"riaggiungere."
 
 #: ../viewers/manuscript/__init__.py:40 ../viewers/manuscript/__init__.py:82
-#, fuzzy
 msgid "Manuscript"
-msgstr "PostScript"
+msgstr "Manoscritto"
 
 #: ../viewers/manuscript/__init__.py:41 ../userguide/credits.md:18
 #: ../userguide/credits.md:33 ../userguide/manuscriptview.md:1
-#, fuzzy
 msgid "Manuscript Viewer"
-msgstr "Anteprima spartito"
+msgstr "Anteprima manoscritto"
 
 #: ../viewers/manuscript/__init__.py:53
 msgctxt "dialog title"
 msgid "Open Manuscript(s)"
-msgstr ""
+msgstr "Apri il manoscritto"
 
 #: ../viewers/manuscript/__init__.py:73
-#, fuzzy
 msgid "Select Manuscript Document"
-msgstr "Scegliere un documento per l'Anteprima spartito"
+msgstr "Scegli un documento manoscritto"
 
 #: ../viewers/manuscript/__init__.py:74
 msgid "Open manuscript(s)"
-msgstr ""
+msgstr "Apri il manoscritto"
 
 #: ../viewers/manuscript/__init__.py:76
 msgid "Close manuscript"
-msgstr ""
+msgstr "Chiudi il manoscritto"
 
 #: ../viewers/manuscript/__init__.py:78
-#, fuzzy
 msgid "Close other manuscripts"
-msgstr "Chiudi gli altri documenti"
+msgstr "Chiudi gli altri manoscritti"
 
 #: ../viewers/manuscript/__init__.py:79
 msgid "Close all manuscripts"
-msgstr ""
+msgstr "Chiudi tutti i manoscritti"
 
 #: ../viewers/manuscript/widget.py:37
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "<p>The Manuscript Viewer displays an original manuscript one is copying from."
 "</p>\n"
 "<p>See {link} for more information.</p>"
 msgstr ""
-"<p>Con il Panello di Inserimento veloce è possibile aggiungere vari elementi "
-"musicali alla nota attuale o a un passaggio selezionato</p>\n"
+"<p>L'Anteprima manoscritto mostra un manoscritto originale da cui copiare la "
+"musica</p>\n"
 "<p>Consultare {link} per maggiori informazioni.</p>"
 
 #: ../widgets/keysequencewidget.py:60
@@ -8393,7 +8387,7 @@ msgstr ""
 
 #: ../userguide/nomusic.md:1
 msgid "After engraving a score, the Music View does not show the music"
-msgstr "Dopo la compilazione, l'anteprima dello spartito non mostra la musica."
+msgstr "Dopo la compilazione, l'anteprima spartito non mostra la musica."
 
 #. NOTE: markdown formatting
 #: ../userguide/nomusic.md:3
@@ -9160,11 +9154,11 @@ msgstr ""
 
 #: ../userguide/musicview.md:1
 msgid "The Music View"
-msgstr "L'anteprima dello spartito"
+msgstr "Anteprima spartito"
 
 #: ../userguide/musicview.md:3
 msgid "The Music View displays the PDF document created by LilyPond."
-msgstr "L'anteprima dello spartito mostra il documento PDF creato da LilyPond."
+msgstr "L'anteprima spartito mostra il documento PDF creato da LilyPond."
 
 #: ../userguide/musicview.md:5
 msgid ""
@@ -9181,8 +9175,8 @@ msgid ""
 "The Music View uses this information to provide smart, two-way integration "
 "with the text document:"
 msgstr ""
-"L'anteprima dello spartito usa questi collegamenti per fornire "
-"un'integrazione intelligente e reciproca con il documento sorgente:"
+"L'anteprima spartito usa questi collegamenti per fornire un'integrazione "
+"intelligente e reciproca con il documento sorgente:"
 
 #: ../userguide/musicview.md:12
 msgid "Move the mouse pointer over music objects to highlight them in the text"
@@ -9329,7 +9323,7 @@ msgid ""
 "View without zooming in the whole view."
 msgstr ""
 "Premendo Ctrl e tenendo premuto il tasto sinistro del mouse permette di "
-"ingrandireuna piccola sezione dell'anteprima spartito senza aumentare "
+"ingrandire una piccola sezione dell'anteprima spartito senza aumentare "
 "l'ingrandimento dell'intera vista."
 
 #: ../userguide/getstarted.md:37
@@ -10259,6 +10253,11 @@ msgid ""
 "it can also be useful to show arbitrary documents, for example with notes or "
 "task descriptions."
 msgstr ""
+"L'*Anteprima manoscritto* permette di visualizzare documenti PDF accanto "
+"alla predefinita {music_view}. Di norma viene usato per avere il manoscritto "
+"da ricopiare aperto nella finestra di Frescobaldi (ecco a cosa deve il suo "
+"nome) ma può essere utile anche per mostrare un qualsiasi documento, per "
+"esempio degli appunti o delle descrizioni di compiti."
 
 #. NOTE: markdown formatting
 #: ../userguide/manuscriptview.md:9
@@ -10269,6 +10268,12 @@ msgid ""
 "other or all manuscripts.  The opened manuscripts are maintained in "
 "sessions, alongside the input documents."
 msgstr ""
+"Uno o più manoscritti possono essere aperti usando il pulsante *Apri*, "
+"aggiungendo nuovi file all'elenco dei manoscritti aperti. Il manoscritto "
+"corrente può essere chiuso col pulsante *Chiudi*; sono disponibili anche "
+"voci del menu contestuale che permettono di chiudere i manoscritti non "
+"aperti oppure tutti i manoscritti. I manoscritti aperti vengono conservati "
+"nelle sessioni, insieme ai documenti di input."
 
 #: ../userguide/manuscriptview.md:15
 msgid ""
@@ -10277,6 +10282,11 @@ msgid ""
 "accessible through context menu entries, including opening, closing and "
 "switching between different manuscripts."
 msgstr ""
+"La barra degli strumenti può essere nascosta tramite una voce del menu "
+"contestuale per dare più spazio alla visualizzazione del documento. La "
+"maggior parte delle funzionalità necessarie sono accessibili attraverso il "
+"menu contestuale, incluse l'apertura, la chiusura e il passaggio da un "
+"manoscritto all'altro."
 
 #: ../userguide/manuscriptview.md:20
 msgid ""
@@ -10284,6 +10294,9 @@ msgid ""
 "{music_view} tool, giving access through buttons, context menu items and "
 "mouse interaction."
 msgstr ""
+"Navigazione, zoom e stampa forniscono le stesse funzionalità "
+"dell'{music_view}, accessibili attraverso pulsanti, voci del menu "
+"contestuale e interazione del mouse."
 
 #. NOTE: markdown formatting
 #: ../userguide/manuscriptview.md:23
@@ -10293,6 +10306,10 @@ msgid ""
 "(*Ctrl-click-drag on Mac*) an excerpt from the document can be exported to a "
 "PNG file."
 msgstr ""
+"È possibile ispezionare il documento con la lente di ingrandimento con "
+"*Ctrl*-clic; disegnando un rettangolo tenendo premuto il tasto destro del "
+"mouse (*Ctrl-clic-trascina sul Mac*) una parte del documento può essere "
+"esportata come file PNG."
 
 #: ../userguide/manuscriptview.md:27
 msgid ""
@@ -10300,23 +10317,27 @@ msgid ""
 "point-and-click links several function of {music_view} also work in the "
 "manuscript viewer:"
 msgstr ""
+"Se il file aperto è una partitura in formato PDF generata da LilyPond e "
+"contenente i collegamenti punta-e-clicca, varie funzionalità "
+"dell'{music_view} funzionano anche nell'anteprima spartito:"
 
 #: ../userguide/manuscriptview.md:31
 msgid "Highlight input by selecting music or vice versa"
-msgstr ""
+msgstr "Evidenzia l'input selezionando la musica o viceversa"
 
 #: ../userguide/manuscriptview.md:32
 msgid "Move the viewer to the current cursor position"
-msgstr ""
+msgstr "Sposta l'anteprima sulla posizione corrente del cursore"
 
 #: ../userguide/manuscriptview.md:33
 msgid "Synchronize the document cursor with the view (automatic following)"
 msgstr ""
+"Sincronizza il cursore del documento con l'anteprima (continuamente mentre "
+"si sposta)"
 
 #: ../userguide/manuscriptview.md:34
-#, fuzzy
 msgid "Edit in place"
-msgstr "Modifica sul posto"
+msgstr "Modifica al posto di"
 
 #: ../userguide/manuscriptview.md:36
 msgid ""
@@ -10324,6 +10345,9 @@ msgid ""
 "viewer won't automatically update, but this can be done manually through the "
 "context menu"
 msgstr ""
+"Tuttavia, quando quella partitura deve essere ricompilata con LilyPond, "
+"l'anteprima manoscritto non si aggiornerà automaticamente, ma ciò si può "
+"fare manualmente attraverso il menu contestuale"
 
 #: ../userguide/manuscriptview.md:40
 msgid ""
@@ -10331,6 +10355,9 @@ msgid ""
 "open in an external viewer/browser. This may be practical for keeping lists "
 "of useful links around in that window."
 msgstr ""
+"Se un manoscritto contiene dei collegamenti esterni, è possibile fare clic e "
+"aprirli in un browser o visualizzatore esterno. Ciò può essere utile per "
+"avere elenchi di utili collegamenti in quella finestra."
 
 #: ../userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
