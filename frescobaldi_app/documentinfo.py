@@ -91,8 +91,16 @@ def defaultfilename(document):
     # make filenames
     for k in d:
         d[k] = re.sub(r'\W+', '-', d[k]).strip('-')
-    
-    filename = '-'.join(d[k] for k in fields if k in d)
+
+    s = QSettings()
+    if s.value("custom_default_filename", False, bool):
+        template = s.value("default_filename_template", "{composer}-{title}", str)
+        for k in fields:
+            if k not in d:
+                d[k] = "unknown"
+        filename = template.format(**d)
+    else:
+        filename = '-'.join(d[k] for k in fields if k in d)
     if not filename:
         filename = document.documentName()
     ext = ly.lex.extensions[i.mode()]
