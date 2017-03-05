@@ -56,7 +56,7 @@ msgstr "寄E-mail給維護者"
 #. L10N: Translate this sentence and fill in your own name to have it appear in the About Dialog.
 #: ../about.py:118 ../userguide/resolve.py:44
 msgid "Translated by Your Name."
-msgstr "由Shao-Wen Young（楊少文）中文化，歡迎同好參與翻譯。"
+msgstr "由Anthony Fok與Shao-Wen Young（楊少文）中文化，歡迎同好參與翻譯。"
 
 #: ../about.py:123
 #, python-brace-format
