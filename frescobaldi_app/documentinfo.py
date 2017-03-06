@@ -96,9 +96,9 @@ def defaultfilename(document):
     if s.value("custom_default_filename", False, bool):
         template = s.value("default_filename_template", "{composer}-{title}", str)
         for k in fields:
-            if k not in d:
-                d[k] = "unknown"
-        filename = template.format(**d)
+            if k in d:
+                template = str.replace(template, '{' + k + '}', d[k])
+        filename = template
     else:
         filename = '-'.join(d[k] for k in fields if k in d)
     if not filename:
