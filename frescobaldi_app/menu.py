@@ -306,6 +306,10 @@ def menu_tools(mainwindow):
     m.addAction(mainwindow.actionCollection.file_open_current_directory)
     m.addAction(mainwindow.actionCollection.file_open_command_prompt)
     m.addSeparator()
+    if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
+        import statistics
+        m.addAction(statistics.DocumentStatistics.instance(mainwindow).actionCollection.docstatistics)
+    m.addSeparator()
     panelmanager.manager(mainwindow).addActionsToMenu(m)
     return m
 
