@@ -38,6 +38,7 @@ import appinfo             # Information about our application
 import app              # Instantiate global signals etc
 import install          # Update QSettings structure etc. if needed
 import guistyle         # Setup GUI style
+import icons            # Setup icons
 import po.setup         # Setup language
 import remote           # IPC with other Frescobaldi instances
 
