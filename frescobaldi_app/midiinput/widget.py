@@ -64,7 +64,8 @@ class Widget(QWidget):
         self._capture = QToolButton()
         self._capture.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         self._capture.setDefaultAction(ac.capture_start)
-        
+        self.addAction(ac.accidental_switch)
+
         self._notemode = QLabel()
         
         layout = QVBoxLayout()
@@ -133,6 +134,12 @@ class Widget(QWidget):
             self._capture.removeAction(self._capture.actions()[0])
         self._capture.setDefaultAction(ac.capture_start)
     
+    def switchaccidental(self):
+        if self.accidentals() == 'flats':
+            self._accidentalssharps.setChecked(True)
+        else:
+            self._accidentalsflats.setChecked(True)
+
     def savesettings(self):
         s = QSettings()
         s.beginGroup("midiinputdock")
