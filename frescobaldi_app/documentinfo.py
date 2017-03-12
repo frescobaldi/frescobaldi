@@ -76,7 +76,14 @@ def defaultfilename(document):
     import ly.music.items as mus
     
     # which fields (in order) to harvest:
-    fields = ('composer', 'title')
+    s = QSettings()
+    custom = s.value("custom_default_filename", False, bool)
+    template = s.value("default_filename_template", "{composer}-{title}", str)
+    if custom:
+        # Retrieve all field names from the template string
+        fields = [m.group(1) for m in re.finditer(r'\{(.*?)\}', template)]
+    else:
+        fields = ('composer', 'title')
     
     d = {}
     for h in m.find(mus.Header):
@@ -92,12 +99,9 @@ def defaultfilename(document):
     for k in d:
         d[k] = re.sub(r'\W+', '-', d[k]).strip('-')
 
-    s = QSettings()
-    if s.value("custom_default_filename", False, bool):
-        template = s.value("default_filename_template", "{composer}-{title}", str)
+    if custom:
         for k in fields:
-            if k in d:
-                template = str.replace(template, '{' + k + '}', d[k])
+            template = str.replace(template, '{' + k + '}', d.get(k, 'unknown'))
         filename = template
     else:
         filename = '-'.join(d[k] for k in fields if k in d)
