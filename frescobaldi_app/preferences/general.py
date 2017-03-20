@@ -24,7 +24,7 @@ Keyboard shortcuts settings page.
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
-                             QLabel, QRadioButton, QStyleFactory, QVBoxLayout)
+                             QLabel, QRadioButton, QStyleFactory, QVBoxLayout, QLineEdit)
 
 import app
 import appinfo
@@ -213,6 +213,10 @@ class SavingDocument(preferences.Group):
         
         layout = QVBoxLayout()
         self.setLayout(layout)
+
+        def customchanged():
+            self.changed.emit()
+            self.filenameTemplate.setEnabled(self.customFilename.isChecked())
         
         self.stripwsp = QCheckBox(toggled=self.changed)
         self.backup = QCheckBox(toggled=self.changed)
@@ -229,6 +233,14 @@ class SavingDocument(preferences.Group):
         hbox.addWidget(self.basedirLabel)
         hbox.addWidget(self.basedir)
         self.basedir.changed.connect(self.changed)
+
+        filenameBox = QHBoxLayout()
+        layout.addLayout(filenameBox)
+
+        self.customFilename = QCheckBox(toggled=customchanged)
+        self.filenameTemplate = QLineEdit(textEdited=self.changed)
+        filenameBox.addWidget(self.customFilename)
+        filenameBox.addWidget(self.filenameTemplate)
         app.translateUI(self)
         
     def translateUI(self):
@@ -245,6 +257,10 @@ class SavingDocument(preferences.Group):
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
         self.basedirLabel.setText(_("Default directory:"))
         self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
+        self.customFilename.setText(_("Use custom default file name:"))
+        self.customFilename.setToolTip(_(
+            "If checked, Frescobaldi will use the template to generate default file name.\n"
+            "{title} and {composer} will be replaced by title and composer of that document"))
         
     def loadSettings(self):
         s = QSettings()
@@ -252,6 +268,9 @@ class SavingDocument(preferences.Group):
         self.backup.setChecked(s.value("backup_keep", False, bool))
         self.metainfo.setChecked(s.value("metainfo", True, bool))
         self.basedir.setPath(s.value("basedir", "", str))
+        self.customFilename.setChecked(s.value("custom_default_filename", False, bool))
+        self.filenameTemplate.setText(s.value("default_filename_template", "{composer}-{title}", str))
+        self.filenameTemplate.setEnabled(self.customFilename.isChecked())
         
     def saveSettings(self):
         s = QSettings()
@@ -259,6 +278,8 @@ class SavingDocument(preferences.Group):
         s.setValue("backup_keep", self.backup.isChecked())
         s.setValue("metainfo", self.metainfo.isChecked())
         s.setValue("basedir", self.basedir.path())
+        s.setValue("custom_default_filename", self.customFilename.isChecked())
+        s.setValue("default_filename_template", self.filenameTemplate.text())
 
 
 class NewDocument(preferences.Group):
