@@ -44,7 +44,7 @@ class Widget(QWidget):
         hbox.addWidget(self._accidentalssharps)
         hbox.addWidget(self._accidentalsflats)
         self._accidentalssharps.setChecked(True)
-        
+
         self._chordmode = QCheckBox()
         signals.append(self._chordmode.clicked)
         
@@ -64,14 +64,16 @@ class Widget(QWidget):
         self._capture = QToolButton()
         self._capture.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         self._capture.setDefaultAction(ac.capture_start)
-        
+        self.addAction(ac.accidental_switch)
+
         self._notemode = QLabel()
         
         layout = QVBoxLayout()
         self.setLayout(layout)
         grid = QGridLayout(spacing=0)
         layout.addLayout(grid)
-               
+        layout.addStretch()
+        
         grid.addWidget(self._labelmidichannel, 0, 0)
         grid.addWidget(self._midichannel, 0, 1)
         grid.addWidget(self._labelkeysignature, 1, 0)
@@ -86,7 +88,7 @@ class Widget(QWidget):
         grid.addWidget(self._sostenuto, 5, 1)
         grid.addWidget(self._labelsoft, 6, 0)
         grid.addWidget(self._soft, 6, 1)
-        
+
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
         hbox.addWidget(self._capture)
@@ -133,6 +135,12 @@ class Widget(QWidget):
             self._capture.removeAction(self._capture.actions()[0])
         self._capture.setDefaultAction(ac.capture_start)
     
+    def switchaccidental(self):
+        if self.accidentals() == 'flats':
+            self._accidentalssharps.setChecked(True)
+        else:
+            self._accidentalsflats.setChecked(True)
+
     def savesettings(self):
         s = QSettings()
         s.beginGroup("midiinputdock")
