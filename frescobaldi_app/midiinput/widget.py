@@ -33,7 +33,6 @@ class Widget(QWidget):
         signals.append(self._keysignature.currentIndexChanged)
         
         self._labelaccidentals = QLabel()
-        self._labelaccidentals.setFixedHeight(20)
         self._accidentalssharps = QRadioButton()
         signals.append(self._accidentalssharps.clicked)
         self._accidentalsflats = QRadioButton()
@@ -45,7 +44,7 @@ class Widget(QWidget):
         hbox.addWidget(self._accidentalssharps)
         hbox.addWidget(self._accidentalsflats)
         self._accidentalssharps.setChecked(True)
-        
+
         self._chordmode = QCheckBox()
         signals.append(self._chordmode.clicked)
         
@@ -73,9 +72,8 @@ class Widget(QWidget):
         self.setLayout(layout)
         grid = QGridLayout(spacing=0)
         layout.addLayout(grid)
+        layout.addStretch()
         
-        self.empty = QWidget();   #Empty widget expands and fills bottom
-
         grid.addWidget(self._labelmidichannel, 0, 0)
         grid.addWidget(self._midichannel, 0, 1)
         grid.addWidget(self._labelkeysignature, 1, 0)
@@ -90,7 +88,6 @@ class Widget(QWidget):
         grid.addWidget(self._sostenuto, 5, 1)
         grid.addWidget(self._labelsoft, 6, 0)
         grid.addWidget(self._soft, 6, 1)
-        grid.addWidget(self.empty, 7, 0)
 
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
