@@ -67,6 +67,11 @@ class Completer(QCompleter):
                 else:
                     self.popup().hide()
                 return True
+            elif ev.key() == Qt.Key_Tab:
+                self.popup().setCurrentIndex(self.currentIndex())
+                if not self.setCurrentRow(self.currentIndex().row() + 1):
+                    self.setCurrentRow(0)
+                return True
             elif self.isTextEvent(ev, True):
                 # deliver event and keep showing popup if necessary
                 self.widget().event(ev)
@@ -146,7 +151,7 @@ class Completer(QCompleter):
             rect.translate(-frameWidth, frameWidth + 2)
             rect.translate(-self.popup().viewport().pos())
             self.complete(rect)
-        
+
     def insertCompletion(self, index):
         """Inserts the completion at the given index.
         
