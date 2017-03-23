@@ -67,6 +67,16 @@ class Completer(QCompleter):
                 else:
                     self.popup().hide()
                 return True
+            elif ev.key() == Qt.Key_Tab:
+                string = self.partialCompletion(self.currentIndex())
+                if string != '':
+                    self.textCursor().insertText(string)
+                    self.showCompletionPopup()
+                else:
+                    self.setCurrentRow((self.currentIndex().row() + 1) %
+                                       self.completionModel().rowCount())
+                    self.popup().setCurrentIndex(self.currentIndex())
+                return True
             elif self.isTextEvent(ev, True):
                 # deliver event and keep showing popup if necessary
                 self.widget().event(ev)
@@ -146,7 +156,9 @@ class Completer(QCompleter):
             rect.translate(-frameWidth, frameWidth + 2)
             rect.translate(-self.popup().viewport().pos())
             self.complete(rect)
-        
+            self.setCurrentRow(0)
+            self.popup().setCurrentIndex(self.currentIndex())
+
     def insertCompletion(self, index):
         """Inserts the completion at the given index.
         
@@ -158,5 +170,35 @@ class Completer(QCompleter):
         text = text[len(self.completionPrefix()):]
         self.textCursor().insertText(text)
 
+    def partialCompletion(self, index):
+        """Called when a tab key is pressed. Here index in current index item selected
 
-
+        function to check for partial similar text in suggestions
+        example:
+            \sourcefileline
+            \sourcefilename
+            are suggestion
+            on tab press text change to sourcefile
+        """
+        partial = True
+        string = ''
+        rows = []
+        text_len = len(self.completionPrefix())
+        for irow in range(self.completionModel().rowCount()):
+            self.setCurrentRow(irow)
+            cell = self.completionModel().data(self.currentIndex())[text_len:]
+            rows.append(cell)
+        self.setCurrentRow(index.row())
+        for i in range(len(rows[0])):
+            if not partial:
+                break
+            ch = None
+            for j in range(len(rows)):
+                if ch is None:
+                    ch = rows[j][i]
+                elif ch != rows[j][i]:
+                    partial = False
+                    break
+                elif j == len(rows) - 1:
+                    string = string + ch
+        return string
