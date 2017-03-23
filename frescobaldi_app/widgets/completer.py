@@ -193,12 +193,12 @@ class Completer(QCompleter):
             if not partial:
                 break
             ch = None
-            for word in rows:
+            for j in range(len(rows)):
                 if ch is None:
-                    ch = word[i]
-                elif ch != word[i]:
+                    ch = rows[j][i]
+                elif ch != rows[j][i]:
                     partial = False
                     break
-                else:
+                elif j == len(rows) - 1:
                     string = string + ch
         return string
