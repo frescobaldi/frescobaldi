@@ -24,7 +24,7 @@ Completer providing completions in a Q(Plain)TextEdit.
 
 from PyQt5.QtCore import QEvent, QModelIndex, Qt
 from PyQt5.QtGui import QKeySequence, QTextCursor
-from PyQt5.QtWidgets import QCompleter
+from PyQt5.QtWidgets import QCompleter, QApplication
 
 
 class Completer(QCompleter):
@@ -48,6 +48,7 @@ class Completer(QCompleter):
     def eventFilter(self, obj, ev):
         if ev.type() != QEvent.KeyPress:
             return super(Completer, self).eventFilter(obj, ev)
+        modifier = QApplication.keyboardModifiers()
         # we can't test for self.popup() as that will recursively call
         # eventFilter during instantiation.
         popupVisible = obj != self.widget()
@@ -73,7 +74,8 @@ class Completer(QCompleter):
                     self.textCursor().insertText(string)
                     self.showCompletionPopup()
                 else:
-                    self.setCurrentRow((self.currentIndex().row() + 1) %
+                    direction = -1 if modifier == Qt.AltModifier else 1
+                    self.setCurrentRow((self.currentIndex().row() + direction) %
                                        self.completionModel().rowCount())
                     self.popup().setCurrentIndex(self.currentIndex())
                 return True
