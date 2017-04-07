@@ -72,7 +72,8 @@ class Completer(QCompleter):
             elif ev.key() == Qt.Key_Tab:
                 string = self.partialCompletion(self.currentIndex())
                 if string != '':
-                    self.textCursor().insertText(string)
+                    import cursortools
+                    cursortools.insert_select(self.textCursor(), string)
                     self.showCompletionPopup()
                 else:
                     direction = -1 if modifier == Qt.AltModifier else 1
