@@ -43,6 +43,7 @@ class Completer(QCompleter):
     
     def __init__(self, *args, **kwargs):
         super(Completer, self).__init__(*args, **kwargs)
+        self.setCaseSensitivity(Qt.CaseInsensitive)
         self.activated[QModelIndex].connect(self.insertCompletion)
         
     def eventFilter(self, obj, ev):
@@ -168,9 +169,11 @@ class Completer(QCompleter):
         and inserts that with the (already entered) completionPrefix removed.
         
         """
+        cursor = self.textCursor()
         text = self.completionModel().data(index, Qt.EditRole)
-        text = text[len(self.completionPrefix()):]
-        self.textCursor().insertText(text)
+        prefix_len = len(self.completionPrefix())
+        cursor.setPosition(cursor.position() - prefix_len, cursor.KeepAnchor)
+        cursor.insertText(text)
 
     def partialCompletion(self, index):
         """Called when a tab key is pressed. Here index in current index item selected
