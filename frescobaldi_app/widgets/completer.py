@@ -49,12 +49,12 @@ class Completer(QCompleter):
     def eventFilter(self, obj, ev):
         if ev.type() != QEvent.KeyPress:
             return super(Completer, self).eventFilter(obj, ev)
-        modifier = QApplication.keyboardModifiers()
         # we can't test for self.popup() as that will recursively call
         # eventFilter during instantiation.
         popupVisible = obj != self.widget()
         if popupVisible:
             # a key was pressed while the popup is visible
+            modifier = QApplication.keyboardModifiers()
             if ev.key() in (Qt.Key_Return, Qt.Key_Enter):
                 # insert the highlighted completion
                 self.setCurrentRow(self.popup().currentIndex().row())
