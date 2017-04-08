@@ -35,35 +35,35 @@ class Indenter(QObject):
     When instantiated it automatically installs itself
     as an event filter for the textedit, catching some
     keypresses:
-    
+
     Return:
         enters a newline and the same indent as the current line
     Tab:
         indents the current line
     Backtab:
         dedents the current line
-    
+
     These instance attributes may be set:
-    
+
     indentWidth:
         how many characters to indent (default 2)
     indentChar:
         which character to use (default " ")
-    
+
     """
 
     indentWidth = 2
     indentChar = ' '
-    
+
     def __init__(self, textedit):
         """Installs ourselves as event filter for textedit.
-        
+
         The textedit also becomes our parent.
-        
+
         """
         super(Indenter, self).__init__(textedit)
         textedit.installEventFilter(self)
-    
+
     def eventFilter(self, edit, ev):
         """Handles Return, Tab and Backtab."""
         if ev.type() == QEvent.KeyPress:
@@ -85,12 +85,12 @@ class Indenter(QObject):
         """Inserts a newline and then the same indent as the current line."""
         indent = self.get_indent(cursor)
         cursor.insertText('\n' + indent)
-    
+
     def get_indent(self, cursor):
         """Returns the whitespace with which the current line starts."""
         text = cursor.document().findBlock(cursor.selectionStart()).text()
         return text[:len(text) - len(text.lstrip())]
-        
+
     def indent(self, cursor):
         """Indents the line with the cursor or the selected lines (one step more)."""
         with compress_undo(cursor):
@@ -98,7 +98,7 @@ class Indenter(QObject):
                 cursor.setPosition(block.position())
                 cursor.setPosition(block.position() + len(self.get_indent(cursor)))
                 cursor.insertText(self.indentChar * self.indentWidth)
-    
+
     def dedent(self, cursor):
         """Dedents the line with the cursor or the selected lines (one step less)."""
         with compress_undo(cursor):

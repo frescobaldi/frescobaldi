@@ -44,9 +44,9 @@ def getText(
         complete = None,
         ):
     """Asks a string of text from the user.
-    
+
     Arguments:
-    
+
     parent: parent widget or None
     title: dialog window title (without appname)
     message: message, question
@@ -58,8 +58,8 @@ def getText(
         validation method using a QRegExpValidator.
     wordWrap: whether to word-wrap the message text (default: True).
     complete: a string list or QAbstractItemModel to provide completions.
-    
-    """    
+
+    """
     dlg = widgets.dialog.TextDialog(parent,
         title=app.caption(title), message=message, icon=icon)
     dlg.setText(text)

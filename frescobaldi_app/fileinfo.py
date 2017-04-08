@@ -89,13 +89,13 @@ def music(filename):
         import music
         c.music = music.Document(c.document)
     return c.music
-    
+
 
 def textmode(text, guess=True):
     """Returns the type of the given text ('lilypond, 'html', etc.).
-    
+
     Checks the mode variable and guesses otherwise if guess is True.
-    
+
     """
     mode = variables.variables(text).get("mode")
     if mode in ly.lex.modes:
@@ -106,20 +106,20 @@ def textmode(text, guess=True):
 
 def includefiles(dinfo, include_path=()):
     """Returns a set of filenames that are included by the DocInfo's document.
-        
-    The specified include path is used to find files. The own filename 
-    is NOT added to the set. Included files are checked recursively, 
-    relative to our file, relative to the including file, and if that 
+
+    The specified include path is used to find files. The own filename
+    is NOT added to the set. Included files are checked recursively,
+    relative to our file, relative to the including file, and if that
     still yields no file, relative to the directories in the include_path.
-    
-    If the document has no local filename, only the include_path is 
+
+    If the document has no local filename, only the include_path is
     searched for files.
-    
+
     """
     filename = dinfo.document.filename
     basedir = os.path.dirname(filename) if filename else None
     files = set()
-    
+
     def tryarg(directory, arg):
         path = os.path.realpath(os.path.join(directory, arg))
         if path not in files and os.path.isfile(path):
@@ -127,7 +127,7 @@ def includefiles(dinfo, include_path=()):
             args = docinfo(path).include_args()
             find(args, os.path.dirname(path))
             return True
-            
+
     def find(incl_args, directory):
         for arg in incl_args:
             # new, recursive, relative include
@@ -138,25 +138,25 @@ def includefiles(dinfo, include_path=()):
                     for p in include_path:
                         if tryarg(p, arg):
                             break
-    
+
     find(dinfo.include_args(), basedir)
     return files
 
 
 def basenames(dinfo, includefiles=(), filename=None, replace_suffix=True):
     """Returns the list of basenames a document is expected to create.
-    
+
     The list is created based on includefiles and the define output-suffix and
     \bookOutputName and \bookOutputSuffix commands.
     You should add '.ext' and/or '-[0-9]+.ext' to find created files.
-    
-    If filename is given, it is regarded as the filename LilyPond is run on. 
+
+    If filename is given, it is regarded as the filename LilyPond is run on.
     Otherwise, the filename of the info's document is read.
-    
-    If replace_suffix is True (the default), special characters and spaces 
-    in the suffix are replaced with underscores (in the same way as LilyPond 
+
+    If replace_suffix is True (the default), special characters and spaces
+    in the suffix are replaced with underscores (in the same way as LilyPond
     does it), using the replace_suffix_chars() function.
-    
+
     """
     basenames = []
     basepath = os.path.splitext(filename or dinfo.document.filename)[0]
@@ -164,12 +164,12 @@ def basenames(dinfo, includefiles=(), filename=None, replace_suffix=True):
 
     if basepath:
         basenames.append(basepath)
-    
+
     def args():
         yield dinfo.output_args()
         for filename in includefiles:
             yield docinfo(filename).output_args()
-                
+
     for type, arg in itertools.chain.from_iterable(args()):
         if type == "suffix":
             if replace_suffix:
@@ -184,10 +184,10 @@ def basenames(dinfo, includefiles=(), filename=None, replace_suffix=True):
 
 def replace_suffix_chars(s):
     """Replace spaces and most non-alphanumeric characters with underscores.
-    
+
     This is used to mimic the behaviour of LilyPond, which also does this,
     for the output-suffix. (See scm/lily-library.scm:223.)
-    
+
     """
     return _suffix_chars_re.sub('_', s)
 

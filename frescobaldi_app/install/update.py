@@ -33,12 +33,12 @@ import appinfo
 
 def update(version):
     """Call subroutines listed below for version upgrades."""
-    
+
     if version < 1:
         moveSettingsToNewRoot()
-    
+
     # ... add other setting updates here...
-    
+
 
 
 def moveSettingsToNewRoot():
@@ -57,4 +57,4 @@ def moveSettingsToNewRoot():
             for k in keys:
                 s.setValue(k, o.value(k))
             o.clear()
-    
+

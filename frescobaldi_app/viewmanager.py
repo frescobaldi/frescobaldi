@@ -44,21 +44,21 @@ import qutil
 class ViewStatusBar(QWidget):
     def __init__(self, parent=None):
         super(ViewStatusBar, self).__init__(parent)
-        
+
         layout = QHBoxLayout()
         layout.setContentsMargins(2, 1, 0, 1)
         layout.setSpacing(8)
         self.setLayout(layout)
         self.positionLabel = QLabel()
         layout.addWidget(self.positionLabel)
-        
+
         self.stateLabel = QLabel()
         self.stateLabel.setFixedSize(16, 16)
         layout.addWidget(self.stateLabel)
-        
+
         self.infoLabel = QLabel(minimumWidth=10)
         layout.addWidget(self.infoLabel, 1)
-        
+
     def event(self, ev):
         if ev.type() == QEvent.MouseButtonPress:
             if ev.button() == Qt.RightButton:
@@ -73,7 +73,7 @@ class ViewStatusBar(QWidget):
         menu.aboutToHide.connect(menu.deleteLater)
         viewspace = self.parent()
         manager = viewspace.manager()
-        
+
         a = QAction(icons.get('view-split-top-bottom'), _("Split &Horizontally"), menu)
         menu.addAction(a)
         a.triggered.connect(lambda: manager.splitViewSpace(viewspace, Qt.Vertical))
@@ -85,30 +85,30 @@ class ViewStatusBar(QWidget):
         a.triggered.connect(lambda: manager.closeViewSpace(viewspace))
         a.setEnabled(manager.canCloseViewSpace())
         menu.addAction(a)
-        
+
         menu.exec_(pos)
 
 
 class ViewSpace(QWidget):
     """A ViewSpace manages a stack of views, one of them is visible.
-    
+
     The ViewSpace also has a statusbar, accessible in the status attribute.
     The viewChanged(View) signal is emitted when the current view for this ViewSpace changes.
-    
+
     Also, when a ViewSpace is created (e.g. when a window is created or split), the
     app.viewSpaceCreated(space) signal is emitted.
-    
+
     You can use the app.viewSpaceCreated() and the ViewSpace.viewChanged() signals to implement
     things on a per ViewSpace basis, e.g. in the statusbar of a ViewSpace.
-    
+
     """
     viewChanged = pyqtSignal(view_.View)
-    
+
     def __init__(self, manager, parent=None):
         super(ViewSpace, self).__init__(parent)
         self.manager = weakref.ref(manager)
         self.views = []
-        
+
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
@@ -120,20 +120,20 @@ class ViewSpace(QWidget):
         layout.addWidget(self.status)
         app.languageChanged.connect(self.updateStatusBar)
         app.viewSpaceCreated(self)
-        
+
     def activeView(self):
         if self.views:
             return self.views[-1]
 
     def document(self):
         """Returns the currently active document in this space.
-        
+
         If there are no views, returns None.
-        
+
         """
         if self.views:
             return self.views[-1].document()
-    
+
     def showDocument(self, doc):
         """Shows the document, creating a View if necessary."""
         if doc is self.document():
@@ -152,7 +152,7 @@ class ViewSpace(QWidget):
         self.connectView(view)
         self.stack.setCurrentWidget(view)
         self.updateStatusBar()
-        
+
     def removeDocument(self, doc):
         active = doc is self.document()
         if active:
@@ -168,7 +168,7 @@ class ViewSpace(QWidget):
             self.connectView(self.views[-1])
             self.stack.setCurrentWidget(self.views[-1])
             self.updateStatusBar()
-    
+
     def connectView(self, view):
         view.installEventFilter(self)
         view.cursorPositionChanged.connect(self.updateCursorPosition)
@@ -181,7 +181,7 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
-    
+
     def eventFilter(self, view, ev):
         if ev.type() == QEvent.FocusIn:
             self.setActiveViewSpace()
@@ -189,14 +189,14 @@ class ViewSpace(QWidget):
 
     def setActiveViewSpace(self):
         self.manager().setActiveViewSpace(self)
-        
+
     def updateStatusBar(self):
         """Update all info in the statusbar, e.g. on document change."""
         if self.views:
             self.updateCursorPosition()
             self.updateModificationState()
             self.updateDocumentName()
-        
+
     def updateCursorPosition(self):
         cur = self.activeView().textCursor()
         line = cur.blockNumber() + 1
@@ -206,39 +206,39 @@ class ViewSpace(QWidget):
             column = cur.position() - cur.block().position()
         self.status.positionLabel.setText(_("Line: {line}, Col: {column}").format(
             line = line, column = column))
-    
+
     def updateModificationState(self):
         modified = self.document().isModified()
         pixmap = icons.get('document-save').pixmap(16) if modified else QPixmap()
         self.status.stateLabel.setPixmap(pixmap)
-    
+
     def updateDocumentName(self):
         self.status.infoLabel.setText(self.document().documentName())
 
 
 class ViewManager(QSplitter):
-    
+
     # This signal is always emitted on setCurrentDocument,
     # even if the view is the same as before.
     # use MainWindow.currentViewChanged() to be informed about
     # real View changes.
     viewChanged = pyqtSignal(view_.View)
-    
+
     # This signal is emitted when another ViewSpace becomes active.
     activeViewSpaceChanged = pyqtSignal(ViewSpace, ViewSpace)
-    
+
     def __init__(self, parent=None):
         super(ViewManager, self).__init__(parent)
         self._viewSpaces = []
-        
+
         viewspace = ViewSpace(self)
         viewspace.status.setEnabled(True)
         self.addWidget(viewspace)
         self._viewSpaces.append(viewspace)
-        
+
         self.createActions()
         app.documentClosed.connect(self.slotDocumentClosed)
-    
+
     def setCurrentDocument(self, doc, findOpenView=False):
         if doc is not self.activeViewSpace().document():
             done = False
@@ -257,10 +257,10 @@ class ViewManager(QSplitter):
             if not space.document():
                 space.showDocument(doc)
         self.focusActiveView()
-        
+
     def focusActiveView(self):
         self.activeViewSpace().activeView().setFocus()
-        
+
     def setActiveViewSpace(self, space):
         prev = self._viewSpaces[-1]
         if space is prev:
@@ -282,7 +282,7 @@ class ViewManager(QSplitter):
             for space in self._viewSpaces[:-1]:
                 if not space.document():
                     space.showDocument(activeDocument)
-            
+
     def createActions(self):
         self.actionCollection = ac = ViewActions()
         # connections
@@ -297,37 +297,37 @@ class ViewManager(QSplitter):
 
     def splitCurrentVertical(self):
         self.splitViewSpace(self.activeViewSpace(), Qt.Vertical)
-        
+
     def splitCurrentHorizontal(self):
         self.splitViewSpace(self.activeViewSpace(), Qt.Horizontal)
-        
+
     def closeCurrent(self):
         self.closeViewSpace(self.activeViewSpace())
-    
+
     def closeOthers(self):
         for space in self._viewSpaces[-2::-1]:
             self.closeViewSpace(space)
-    
+
     def nextViewSpace(self):
         self.focusNextChild()
-        
+
     def previousViewSpace(self):
         self.focusPreviousChild()
-        
+
     def activeViewSpace(self):
         return self._viewSpaces[-1]
-    
+
     def splitViewSpace(self, viewspace, orientation):
         """Split the given view.
-        
+
         If orientation == Qt.Horizontal, adds a new view to the right.
         If orientation == Qt.Vertical, adds a new view to the bottom.
-        
+
         """
         active = viewspace is self.activeViewSpace()
         splitter = viewspace.parentWidget()
         newspace = ViewSpace(self)
-        
+
         if splitter.count() == 1:
             splitter.setOrientation(orientation)
             size = splitter.sizes()[0]
@@ -353,7 +353,7 @@ class ViewManager(QSplitter):
             newspace.activeView().setFocus()
         self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
         self.actionCollection.window_close_others.setEnabled(self.canCloseViewSpace())
-        
+
     def closeViewSpace(self, viewspace):
         """Closes the given view."""
         active = viewspace is self.activeViewSpace()
@@ -388,7 +388,7 @@ class ViewManager(QSplitter):
             parent = splitter.parentWidget()
             sizes = parent.sizes()
             index = parent.indexOf(splitter)
-            
+
             if isinstance(other, ViewSpace):
                 parent.insertWidget(index, other)
             else:
@@ -404,11 +404,11 @@ class ViewManager(QSplitter):
         self._viewSpaces.remove(viewspace)
         self.actionCollection.window_close_view.setEnabled(self.canCloseViewSpace())
         self.actionCollection.window_close_others.setEnabled(self.canCloseViewSpace())
-        
+
     def canCloseViewSpace(self):
         return bool(self.count() > 1)
-        
-            
+
+
 
 
 class ViewActions(actioncollection.ActionCollection):
@@ -420,14 +420,14 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_close_others = QAction(parent)
         self.window_next_view = QAction(parent)
         self.window_previous_view = QAction(parent)
-        
+
         # icons
         self.window_split_horizontal.setIcon(icons.get('view-split-top-bottom'))
         self.window_split_vertical.setIcon(icons.get('view-split-left-right'))
         self.window_close_view.setIcon(icons.get('view-close'))
         self.window_next_view.setIcon(icons.get('go-next-view'))
         self.window_previous_view.setIcon(icons.get('go-previous-view'))
-        
+
         # shortcuts
         self.window_close_view.setShortcut(Qt.CTRL + Qt.SHIFT + Qt.Key_W)
         self.window_next_view.setShortcuts(QKeySequence.NextChild)
@@ -442,4 +442,4 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_close_others.setText(_("Close &Other Views"))
         self.window_next_view.setText(_("&Next View"))
         self.window_previous_view.setText(_("&Previous View"))
-    
+

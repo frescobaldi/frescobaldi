@@ -42,7 +42,7 @@ _word_re = re.compile(r"[^\W0-9_]+", re.UNICODE)
 
 def lyrics(mainwindow):
     return Lyrics.instance(mainwindow)
-    
+
 
 class Lyrics(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
@@ -53,11 +53,11 @@ class Lyrics(plugin.MainWindowPlugin):
         ac.lyrics_copy_dehyphenated.triggered.connect(self.copy_dehyphenated)
         mainwindow.selectionStateChanged.connect(self.updateSelection)
         self.updateSelection(mainwindow.hasSelection())
-        
+
     def updateSelection(self, selection):
         self.actionCollection.lyrics_dehyphenate.setEnabled(selection)
         self.actionCollection.lyrics_copy_dehyphenated.setEnabled(selection)
-    
+
     def hyphenate(self):
         """Hyphenates selected Lyrics text."""
         view = self.mainwindow().currentView()
@@ -95,7 +95,7 @@ class Lyrics(plugin.MainWindowPlugin):
                         hyph_word = h.inserted(word, ' -- ')
                         if word != hyph_word:
                             d[start:end] = hyph_word
-            
+
     def dehyphenate(self):
         """De-hyphenates selected Lyrics text."""
         view = self.mainwindow().currentView()
@@ -104,7 +104,7 @@ class Lyrics(plugin.MainWindowPlugin):
         if ' --' in text:
             with cursortools.keep_selection(cursor, view):
                 cursor.insertText(removehyphens(text))
-            
+
     def copy_dehyphenated(self):
         """Copies selected lyrics text to the clipboard with hyphenation removed."""
         text = self.mainwindow().textCursor().selection().toPlainText()
@@ -113,15 +113,15 @@ class Lyrics(plugin.MainWindowPlugin):
 
 class Actions(actioncollection.ActionCollection):
     name = "lyrics"
-    
+
     def createActions(self, parent=None):
-        
+
         self.lyrics_hyphenate = QAction(parent)
         self.lyrics_dehyphenate = QAction(parent)
         self.lyrics_copy_dehyphenated = QAction(parent)
-        
+
         self.lyrics_hyphenate.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_L))
-        
+
     def translateUI(self):
         self.lyrics_hyphenate.setText(_("&Hyphenate Lyrics Text..."))
         self.lyrics_dehyphenate.setText(_("&Remove hyphenation"))

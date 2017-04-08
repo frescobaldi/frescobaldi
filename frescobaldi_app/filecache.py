@@ -28,13 +28,13 @@ import weakref
 
 class FileCache(object):
     """Caches information about files, and checks the mtime upon request.
-    
+
     Has __setitem__, __getitem__, __delitem__, clear etc. methods like a dict.
-    
+
     """
     def __init__(self):
         self._cache = {}
-        
+
     def __getitem__(self, filename):
         mtime, value = self._cache[filename]
         try:
@@ -44,30 +44,30 @@ class FileCache(object):
             pass
         del self._cache[filename]
         raise KeyError
-    
+
     def __setitem__(self, filename, value):
         try:
             self._cache[filename] = (os.path.getmtime(filename), value)
         except (IOError, OSError):
             pass
-    
+
     def __delitem__(self, filename):
         del self._cache[filename]
-        
+
     def __contains__(self, filename):
         try:
             self[filename]
             return True
         except KeyError:
             return False
-    
+
     def filename(self, value):
         """Returns the filename of the cached value (if available)."""
         for filename in self.filenames():
             mtime, obj = self._cache[filename]
             if obj == value:
                 return filename
-        
+
     def filenames(self):
         """Yields filenames that are still valid in the cache."""
         for filename in list(self._cache):
@@ -76,17 +76,17 @@ class FileCache(object):
                 yield filename
             except KeyError:
                 pass
-                
+
     def clear(self):
         self._cache.clear()
 
 
 class WeakFileCache(FileCache):
     """Caches information about files like FileCache, but with a weak reference.
-    
+
     This means the object is discarded if you don't keep a reference to it
     elsewhere.
-    
+
     """
     def __getitem__(self, filename):
         mtime, valueref = self._cache[filename]
@@ -99,7 +99,7 @@ class WeakFileCache(FileCache):
                 pass
         del self._cache[filename]
         raise KeyError
-    
+
     def __setitem__(self, filename, value):
         valueref = weakref.ref(value)
         try:

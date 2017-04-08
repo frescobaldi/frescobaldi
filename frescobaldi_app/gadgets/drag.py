@@ -29,22 +29,22 @@ from PyQt5.QtWidgets import QApplication, QFileIconProvider
 
 class ComboDrag(QObject):
     """Enables dragging from a QComboBox.
-    
+
     Instantiate this with a QComboBox as parent to enable dragging the
     current item.
-    
+
     By default, drags a filename got from the current index under the
     Qt.EditRole. Change the role by changing the 'role' instance attribute.
-    
+
     """
     column = 0
     role = Qt.EditRole
-    
+
     def __init__(self, combobox):
         super(ComboDrag, self).__init__(combobox)
         self._dragpos = None
         combobox.installEventFilter(self)
-    
+
     def eventFilter(self, combobox, ev):
         if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.LeftButton:
             self._dragpos = ev.pos()
@@ -56,14 +56,14 @@ class ComboDrag(QObject):
             and ev.button() == Qt.LeftButton and not combobox.isEditable()):
             combobox.mousePressEvent(ev)
         return False
-    
+
     def mouseMoved(self, combobox, pos):
         if (self._dragpos is not None
             and (pos - self._dragpos).manhattanLength()
                 >= QApplication.startDragDistance()):
             self.startDrag(combobox)
             return True
-    
+
     def startDrag(self, combobox):
         index = combobox.model().index(combobox.currentIndex(), self.column)
         filename = combobox.model().data(index, self.role)
@@ -73,7 +73,7 @@ class ComboDrag(QObject):
 
 class Dragger(QObject):
     """Drags anything from any widget.
-    
+
     Use dragger.installEventFilter(widget) to have it drag.
 
     """
@@ -82,7 +82,7 @@ class Dragger(QObject):
         self._dragpos = None
         if parent:
             parent.installEventFilter(self)
-        
+
     def eventFilter(self, widget, ev):
         if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.LeftButton:
             self._dragpos = ev.pos()
@@ -90,14 +90,14 @@ class Dragger(QObject):
         elif ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton:
             return self.mouseMoved(widget, ev.pos()) or False
         return False
-    
+
     def mouseMoved(self, widget, pos):
         if (self._dragpos is not None
             and (pos - self._dragpos).manhattanLength()
                 >= QApplication.startDragDistance()):
             self.startDrag(widget)
             return True
-    
+
     def startDrag(self, widget):
         """Reimplement to start a drag."""
 
@@ -105,7 +105,7 @@ class Dragger(QObject):
 class FileDragger(Dragger):
     def filename(self):
         """Should return the filename to drag."""
-    
+
     def startDrag(self, widget):
         filename = self.filename()
         if filename:

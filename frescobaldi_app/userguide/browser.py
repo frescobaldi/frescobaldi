@@ -44,10 +44,10 @@ class Window(QMainWindow):
     def __init__(self):
         super(Window, self).__init__()
         self.setAttribute(Qt.WA_QuitOnClose, False)
-        
+
         self.browser = Browser(self)
         self.setCentralWidget(self.browser)
-        
+
         self._toolbar = tb = self.addToolBar('')
         self._back = tb.addAction(icons.get('go-previous'), '')
         self._forw = tb.addAction(icons.get('go-next'), '')
@@ -59,22 +59,22 @@ class Window(QMainWindow):
         self._home.triggered.connect(self.home)
         self._toc.triggered.connect(self.toc)
         self._print.triggered.connect(self.print_)
-        
+
         self.browser.sourceChanged.connect(self.slotSourceChanged)
         self.browser.historyChanged.connect(self.slotHistoryChanged)
         app.translateUI(self)
         self.loadSettings()
-    
+
     def closeEvent(self, ev):
         self.saveSettings()
         super(Window, self).closeEvent(ev)
-        
+
     def loadSettings(self):
         self.resize(QSettings().value("helpbrowser/size", QSize(400, 300), QSize))
-    
+
     def saveSettings(self):
         QSettings().setValue("helpbrowser/size", self.size())
-    
+
     def translateUI(self):
         self.setCaption()
         self._toolbar.setWindowTitle(_("Toolbar"))
@@ -83,10 +83,10 @@ class Window(QMainWindow):
         self._home.setText(_("Start"))
         self._toc.setText(_("Contents"))
         self._print.setText(_("Print"))
-        
+
     def slotSourceChanged(self):
         self.setCaption()
-    
+
     def setCaption(self):
         title = self.browser.documentTitle() or _("Help")
         self.setWindowTitle(app.caption(title) + " " + _("Help"))
@@ -94,13 +94,13 @@ class Window(QMainWindow):
     def slotHistoryChanged(self):
         self._back.setEnabled(self.browser.isBackwardAvailable())
         self._forw.setEnabled(self.browser.isForwardAvailable())
-    
+
     def home(self):
         self.displayPage('index')
-        
+
     def toc(self):
         self.displayPage('toc')
-    
+
     def displayPage(self, name=None):
         """Opens the help browser showing the specified help page."""
         if name:
@@ -108,7 +108,7 @@ class Window(QMainWindow):
         self.show()
         self.activateWindow()
         self.raise_()
-    
+
     def print_(self):
         printer = QPrinter()
         dlg = QPrintDialog(printer, self)
@@ -129,21 +129,21 @@ class Browser(QTextBrowser):
         app.settingsChanged.connect(self.reload, 1)
         self.anchorClicked.connect(self.slotAnchorClicked)
         self.setOpenLinks(False)
-        
+
     def slotAnchorClicked(self, url):
         url = self.source().resolved(url)
         if url.scheme() == "help":
             self.setSource(url)
         else:
             helpers.openUrl(url)
-        
+
     def loadResource(self, type, url):
         if type == QTextDocument.HtmlResource:
             return util.Formatter().html(url.path())
         elif type == QTextDocument.ImageResource:
             url = QUrl.fromLocalFile(os.path.join(__path__[0], url.path()))
         return super(Browser, self).loadResource(type, url)
-    
+
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Escape and int(ev.modifiers()) == 0:
             self.window().close()

@@ -50,14 +50,14 @@ class SnippetMenuBase(QMenu):
         self.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
         self.triggered.connect(self.slotTriggered)
         app.translateUI(self)
-        
+
     def mainwindow(self):
         return self.parent().window()
-    
+
     def tool(self):
         """Returns the snippets tool."""
         return panelmanager.manager(self.mainwindow()).snippettool
-    
+
     def populate(self):
         """Populates the menu with snippet actions."""
         self.clearMenu() # on some systems aboutToHide does not fire...
@@ -77,23 +77,23 @@ class SnippetMenuBase(QMenu):
                 self.insertAction(last, action)
             self.insertSeparator(last)
         qutil.addAccelerators(self.actions())
-        
+
     def insertBeforeAction(self):
         """Should return an action to insert out stuff before, or None."""
         return None
-    
+
     def snippetGroup(self, variables):
         """Should a group name if the snippet is to appear in the menu."""
-    
+
     def visitAction(self, action, variables):
         """May change the action depending on variables."""
-        
+
     def clearMenu(self):
         """Should delete the inserted actions."""
         for a in self.actions():
             self.removeAction(a)
             a.deleteLater()
-    
+
     def slotTriggered(self, action):
         """Called when an action is triggered."""
         name = action.objectName()
@@ -112,20 +112,20 @@ class SnippetMenu(SnippetMenuBase):
     def __init__(self, parent=None):
         super(SnippetMenu, self).__init__(parent)
         self.addAction(self.tool().actionCollection.snippettool_activate)
-        
+
     def translateUI(self):
         self.setTitle(_("menu title", "Sn&ippets"))
-    
+
     def insertBeforeAction(self):
         return self.actions()[-1]
-    
+
     def snippetGroup(self, variables):
         return variables.get('menu')
-    
+
     def visitAction(self, action, variables):
         if 'yes' in variables.get('selection', ''):
             action.setEnabled(self.mainwindow().hasSelection())
-    
+
     def clearMenu(self):
         """Deletes the actions on menu hide, excepts the "Snippets..." action."""
         for a in self.actions()[:-1]:
@@ -137,16 +137,16 @@ class TemplateMenu(SnippetMenuBase):
     def __init__(self, parent=None):
         super(TemplateMenu, self).__init__(parent)
         self.addAction(self.tool().actionCollection.templates_manage)
-        
+
     def translateUI(self):
         self.setTitle(_("New from &Template"))
-    
+
     def insertBeforeAction(self):
         return self.actions()[-1]
-    
+
     def snippetGroup(self, variables):
         return variables.get('template')
-    
+
     def applySnippet(self, name):
         d = app.openUrl(QUrl())
         self.mainwindow().setCurrentDocument(d)
@@ -158,7 +158,7 @@ class TemplateMenu(SnippetMenuBase):
         if 'template-run' in snippets.get(name).variables:
             import engrave
             engrave.engraver(self.mainwindow()).engrave('preview', d)
-    
+
     def clearMenu(self):
         """Deletes the actions on menu hide, except "Manage templates..."."""
         for a in self.actions()[:-1]:

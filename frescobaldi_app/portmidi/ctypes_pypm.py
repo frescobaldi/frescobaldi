@@ -1,5 +1,5 @@
 # This module provides the same api via ctypes as John Harrison's pyrex-based
-# PortMIDI binding. 
+# PortMIDI binding.
 # Don't use this module directly but via the toplevel API of this package.
 # Copyright (c) 2011 - 2014 by Wilbert Berendsen, placed in the public domain.
 
@@ -88,7 +88,7 @@ class Output(object):
             err = libpm.Pm_Close(self._midi_stream)
             _check_error(err)
             self._open = False
-    
+
     __del__ = Close
 
     def Write(self, data):
@@ -150,7 +150,7 @@ class Input(object):
             err = libpm.Pm_Close(self._midi_stream)
             _check_error(err)
             self._open = False
-        
+
     __del__ = Close
 
     def Poll(self):

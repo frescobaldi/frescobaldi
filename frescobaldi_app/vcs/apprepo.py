@@ -36,7 +36,7 @@ class AppRepo(GitRepo):
         super(AppRepo, self).__init__((os.path.normpath(
                                         os.path.join(sys.path[0], '..'))))
         self._activeBranch = self.current_branch()
-    
+
     def active_branch(self):
         """
         Returns the name of the branch that was current_branch

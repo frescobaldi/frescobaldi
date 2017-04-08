@@ -39,11 +39,11 @@ class DefineOffset():
         self.lilyObject = None
         self.lilyContext = ""
         self.pos = 0
-        
+
     def getCurrentLilyObject(self, cursor):
-        """ Use cursor from textedit link to get type of object being edited."""        
+        """ Use cursor from textedit link to get type of object being edited."""
         lycursor = lydocument.cursor(cursor)
-        self.pos = lycursor.start        
+        self.pos = lycursor.start
         node = self.docinfo.node(self.pos)
         self.node = node
         child = self.docinfo.iter_music(node)
@@ -52,16 +52,16 @@ class DefineOffset():
             return self.item2object(name)
         name = node.__class__.__name__
         return self.item2object(name)
-        
+
     def item2object(self, item):
-        """ Translate item type into name of 
+        """ Translate item type into name of
         LilyPond object.
         """
         item2objectDict = {
-            "String": { "GrobType": "TextScript" }, 
+            "String": { "GrobType": "TextScript" },
             "Markup": { "GrobType": "TextScript" },
             "Tempo": { "GrobType": "MetronomeMark",
-                       "Context" : "Score" }, 
+                       "Context" : "Score" },
             "Articulation": { "GrobType": "Script" }
             }
         try:
@@ -72,7 +72,7 @@ class DefineOffset():
         if "Context" in obj:
             self.lilyContext = obj["Context"]
         return obj["GrobType"]
-        
+
     def insertOverride(self, x, y):
         """ Insert the override command. """
         doc = lydocument.Document(self.doc)
@@ -85,7 +85,7 @@ class DefineOffset():
         cursor.insertBlock()
         cursor.endEditBlock()
         reformat.reformat(cursor)
-        
+
     def createOffsetOverride(self, x, y):
         """ Create the override command.
         Can this be created as a node?

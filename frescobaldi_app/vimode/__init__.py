@@ -37,15 +37,15 @@ class ViMode(QObject):
     """Handles a Vi-like mode for a QPlainTextEdit."""
     def __init__(self, textedit=None):
         QObject.__init__(self)
-        
+
         # init all internal variables
         self._mode = None
         self._handlers = [None] * 4
         self._textedit = None
         self._originalCursorWidth = 1
-        
+
         self.setTextEdit(textedit)
-    
+
     def setTextEdit(self, edit):
         old = self._textedit
         if edit is old:
@@ -70,7 +70,7 @@ class ViMode(QObject):
 
     def textEdit(self):
         return self._textedit
-    
+
     def setMode(self, mode):
         """Sets the mode (NORMAL, VISUAL, INSERT or REPLACE)."""
         if mode is self._mode:
@@ -83,23 +83,23 @@ class ViMode(QObject):
             self._handlers[mode] = self.createModeHandler(mode)
         self.handler().enter()
         self.updateCursorPosition()
-    
+
     def mode(self):
         """Return the current mode (NORMAL, VISUAL, INSERT or REPLACE)."""
         return self._mode
-    
+
     def isNormal(self):
         return self._mode is NORMAL
-    
+
     def isVisual(self):
         return self._mode is VISUAL
-    
+
     def isInsert(self):
         return self._mode is INSERT
-    
+
     def isReplace(self):
         return self._mode is REPLACE
-    
+
     def createModeHandler(self, mode):
         """Returns a Handler for the specified mode."""
         if mode == NORMAL:
@@ -114,15 +114,15 @@ class ViMode(QObject):
         elif mode == REPLACE:
             from . import replace
             return replace.ReplaceMode(self)
-    
+
     def handler(self):
         """Returns the current mode handler."""
         return self._handlers[self._mode]
-        
+
     def updateCursorPosition(self):
         """If in command mode, shows a square cursor on the right spot."""
         self.handler().updateCursorPosition()
-    
+
     def drawCursor(self, cursor):
         """Draws the cursor position as the selection of the specified cursor."""
         es = QTextEdit.ExtraSelection()
@@ -144,7 +144,7 @@ class ViMode(QObject):
         return False
 
 
-            
+
 def test():
     a = QApplication([])
     e = QTextEdit()

@@ -44,10 +44,10 @@ import remote           # IPC with other Frescobaldi instances
 
 def parse_commandline():
     """Parses the command line; returns options and filenames.
-    
+
     If --version, --help or invalid options were given, the application will
     exit.
-    
+
     """
     import argparse
     argparse._ = _ # let argparse use our translations
@@ -72,9 +72,9 @@ def parse_commandline():
         help=_("List the session names and exit"))
     parser.add_argument('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
-    parser.add_argument('files', metavar=_("file"), nargs='*', 
+    parser.add_argument('files', metavar=_("file"), nargs='*',
         help=_("File to be opened"))
-    
+
     # Make sure debugger options are recognized as valid. These are passed automatically
     # from PyDev in Eclipse to the inferior process.
     if "pydevd" in sys.modules:
@@ -147,17 +147,17 @@ def patch_pyqt():
 
 def check_ly():
     """Check if ly is installed and has the correct version.
-    
+
     If python-ly is not available or too old, we display a critical message
     and exit.  In the future we will probably remove this function.
     In a good software distribution this should never happen, but it can happen
     when a user leaves the old stale 'ly' package in the frescobaldi_app
     directory, or has not installed python-ly at all.
-    
+
     Because that yields unexpected behaviour and error messages, we better
     check for the availability of the 'ly' module beforehand.
     Importing ly.pkginfo is not expensive.
-    
+
     """
     ly_required = (0, 9, 4)
     try:
@@ -183,23 +183,23 @@ def check_ly():
 def main():
     """Main function."""
     args = parse_commandline()
-    
+
     if args.version_debug:
         import debuginfo
         sys.stdout.write(debuginfo.version_info_string() + '\n')
         sys.exit(0)
-    
+
     check_ly()
     patch_pyqt()
-    
+
     if args.list_sessions:
         import sessions
         for name in sessions.sessionNames():
             sys.stdout.write(name + '\n')
         sys.exit(0)
-    
+
     urls = list(map(url, args.files))
-    
+
     if not app.qApp.isSessionRestored():
         if not args.new and remote.enabled():
             api = remote.get()
@@ -207,7 +207,7 @@ def main():
                 api.command_line(args, urls)
                 api.close()
                 sys.exit(0)
-    
+
         if QSettings().value("splash_screen", True, bool):
             import splashscreen
             splashscreen.show()
@@ -215,9 +215,9 @@ def main():
     # application icon
     import icons
     QApplication.setWindowIcon(icons.get("frescobaldi"))
-    
+
     QTimer.singleShot(0, remote.setup)  # Start listening for IPC
-    
+
     import mainwindow       # contains MainWindow class
     import session          # Initialize QSessionManager support
     import sessions         # Initialize our own named session support
@@ -228,11 +228,11 @@ def main():
     import musicpos         # shows music time in statusbar
     import autocomplete     # auto-complete input
     import wordboundary     # better wordboundary behaviour for the editor
-    
+
     if sys.platform.startswith('darwin'):
         import macosx.setup
         macosx.setup.initialize()
-    
+
     if app.qApp.isSessionRestored():
         # Restore session, we are started by the session manager
         session.restoreSession(app.qApp.sessionKey())
@@ -242,19 +242,19 @@ def main():
     doc = None
     if args.session and args.session != "-":
         doc = sessions.loadSession(args.session)
-    
+
     # Just create one MainWindow
     win = mainwindow.MainWindow()
     win.show()
     win.activateWindow()
-    
+
     # load documents given as arguments
     import document
     for u in urls:
         doc = win.openUrl(u, args.encoding, ignore_errors=True)
         if not doc:
             doc = document.Document(u, args.encoding)
-    
+
     # were documents loaded?
     if not doc:
         if app.documents:
@@ -262,12 +262,12 @@ def main():
         elif not args.session:
             # no docs, load default session
             doc = sessions.loadDefaultSession()
-    
+
     if doc:
         win.setCurrentDocument(doc)
     else:
         win.cleanStart()
-    
+
     if urls and args.line is not None:
         # set the last loaded document active and apply navigation if requested
         pos = doc.findBlockByNumber(args.line - 1).position() + args.column

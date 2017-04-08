@@ -36,16 +36,16 @@ DRAG = 2
 
 
 class ImageViewer(QScrollArea):
-    
+
     actualSizeChanged = pyqtSignal(bool)
-    
+
     def __init__(self, parent=None):
         super(ImageViewer, self).__init__(parent, alignment=Qt.AlignCenter)
         self._actualsize = True
         self._image = QImage()
         self.setBackgroundRole(QPalette.Dark)
         self.setWidget(ImageWidget(self))
-        
+
     def setActualSize(self, enabled=True):
         if enabled == self._actualsize:
             return
@@ -54,10 +54,10 @@ class ImageViewer(QScrollArea):
             self.widget().resize(self._image.size())
         self._actualsize = enabled
         self.actualSizeChanged.emit(enabled)
-    
+
     def actualSize(self):
         return self._actualsize
-    
+
     def setImage(self, image):
         self._image = image
         self._pixmap = None
@@ -65,10 +65,10 @@ class ImageViewer(QScrollArea):
         if self._actualsize:
             self.widget().resize(image.size())
         self.widget().update()
-    
+
     def image(self):
         return self._image
-        
+
     def pixmap(self, size):
         """Returns (and caches) a scaled pixmap for the image."""
         if self._pixmapsize == size:
@@ -77,7 +77,7 @@ class ImageViewer(QScrollArea):
             self._image.scaled(size, Qt.KeepAspectRatio, Qt.SmoothTransformation))
         self._pixmapsize = size
         return self._pixmap
-    
+
     def startDrag(self):
         image = self.image()
         data = QMimeData()
@@ -105,7 +105,7 @@ class ImageWidget(QWidget):
         self.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Ignored)
         self._mode = None
         self._startpos = None
-    
+
     def paintEvent(self, ev):
         image = self.viewer.image()
         painter = QPainter(self)
@@ -126,7 +126,7 @@ class ImageWidget(QWidget):
             else:
                 self._mode = DRAG
             self._startpos = ev.globalPos()
-    
+
     def mouseMoveEvent(self, ev):
         diff = self._startpos - ev.globalPos()
         if self._mode == MOVE:
@@ -137,7 +137,7 @@ class ImageWidget(QWidget):
             v.setValue(v.value() + diff.y())
         elif self._mode == DRAG and diff.manhattanLength() >= QApplication.startDragDistance():
             self.viewer.startDrag()
-    
+
     def mouseReleaseEvent(self, ev):
         mode, self._mode = self._mode, None
         if (ev.button() == Qt.LeftButton and

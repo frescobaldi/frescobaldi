@@ -43,7 +43,7 @@ class BasicSvgPage(page.AbstractPage):
         self._svg_r = QSvgRenderer()
         if load_file:
             self.load(load_file)
-    
+
     def load(self, load_file):
         """Load filename or QByteArray."""
         success = self._svg_r.load(load_file)
@@ -51,7 +51,7 @@ class BasicSvgPage(page.AbstractPage):
             self.pageWidth = self._svg_r.defaultSize().width()
             self.pageHeight = self._svg_r.defaultSize().height()
         return success
-    
+
     def paint(self, painter, rect, callback=None):
         painter.fillRect(rect, self.paperColor or QColor(Qt.white))
         page = QRect(0, 0, self.width, self.height)
@@ -69,22 +69,22 @@ class SvgPage(BasicSvgPage):
         super().__init__(load_file)
         if renderer is not None:
             self.renderer = renderer
-    
+
     def paint(self, painter, rect, callback=None):
         self.renderer.paint(self, painter, rect, callback)
 
 
 class Renderer(render.AbstractImageRenderer):
     """Render SVG pages.
-    
+
     Additional instance attributes:
-        
+
         imageFormat     (QImage.Format_ARGB32_Premultiplied) the QImage format to use.
-    
+
     """
     # QImage format to use
     imageFormat = QImage.Format_ARGB32_Premultiplied
-    
+
     def render(self, page):
         """Generate an image for this Page."""
         i = QImage(page.width, page.height, self.imageFormat)
@@ -98,11 +98,11 @@ class Renderer(render.AbstractImageRenderer):
         painter.translate(-rect.center())
         page._svg_r.render(painter, QRectF(rect))
         return i
-    
+
 
 # install a default renderer, so PopplerPage can be used directly
 SvgPage.renderer = Renderer()
 
 
 
-    
+

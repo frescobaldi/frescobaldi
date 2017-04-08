@@ -337,7 +337,7 @@ class MainWindow(QMainWindow):
             else:
                 allow_close = res == QMessageBox.Discard
         return allow_close and engrave.engraver(self).queryCloseDocument(doc)
-    
+
     def createPopupMenu(self):
         """ Adds an entry to the popup menu to show/hide the tab bar. """
         menu = QMainWindow.createPopupMenu(self)
@@ -529,7 +529,7 @@ class MainWindow(QMainWindow):
                         break
                 else:
                     directory = app.basedir() # default directory to save to
-                
+
                 import documentinfo
                 import ly.lex
                 filename = os.path.join(directory, documentinfo.defaultfilename(doc))

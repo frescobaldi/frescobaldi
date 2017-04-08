@@ -27,12 +27,12 @@ from PyQt5.QtCore import QUrl
 
 def get_string_list(settings, key):
     """Makes sure a list of strings is returned for the key.
-    
+
     You can write the value with settings.setValue(key, ['bla', 'bla',]), but
     when you need to read the value with settings.value(key, [], str), things
     go wrong when an empty list was stored. So please use this function when
     reading a list of strings from QSettings.
-    
+
     """
     try:
         value = settings.value(key, [], str)
@@ -49,12 +49,12 @@ def get_string_list(settings, key):
 
 def get_url_list(settings, key):
     """Makes sure a list of QUrl instances is returned for the key.
-    
+
     You can write the value with settings.setValue(key, [url, url]), but
     when you need to read the value with settings.value(key, [], QUrl), things
     go wrong when an empty list was stored. So please use this function when
     reading a list of strings from QSettings.
-    
+
     """
     try:
         value = settings.value(key, [], QUrl)

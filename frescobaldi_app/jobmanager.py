@@ -46,13 +46,13 @@ def is_running(document):
 
 
 class JobManager(plugin.DocumentPlugin):
-    
+
     started = signals.Signal()  # Job
     finished = signals.Signal() # Job, success
-    
+
     def __init__(self, document):
         self._job = None
-        
+
     def start_job(self, job):
         """Starts a Job on our behalf."""
         if not self.is_running():
@@ -61,11 +61,11 @@ class JobManager(plugin.DocumentPlugin):
             job.start()
             self.started(job)
             app.jobStarted(self.document(), job)
-        
+
     def _finished(self, success):
         self.finished(job, success)
         app.jobFinished(self.document(), self._job, success)
-    
+
     def job(self):
         """Returns the last job if any."""
         return self._job

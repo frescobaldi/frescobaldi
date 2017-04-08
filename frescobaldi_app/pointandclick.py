@@ -40,26 +40,26 @@ class Links(object):
     def __init__(self):
         self._links = collections.defaultdict(lambda: collections.defaultdict(list))
         self._docs = {}
-       
+
     def add_link(self, filename, line, column, destination):
         """Add a link.
-        
+
         filename, line and column, describe the position in the source file.
-        
+
         destination can be any object that describes where the link points to.
-        
+
         """
         self._links[filename][(line, column)].append(destination)
-    
+
     def finish(self):
         """Call this when you are done with adding links.
-        
+
         This method tries to bind() already loaded documents and starts
         monitoring document open/close events.
-        
+
         You can also use the links as a context manager and then add links.
         On exit, finish() is automatically called.
-        
+
         """
         for filename in self._links:
             d = scratchdir.findDocument(filename)
@@ -67,30 +67,30 @@ class Links(object):
                 self.bind(filename, d)
         app.documentLoaded.connect(self.slotDocumentLoaded)
         app.documentClosed.connect(self.slotDocumentClosed)
-    
+
     def __enter__(self):
         return self
-    
+
     def __exit__(self, exc_type, exc_value, traceback):
         self.finish()
-    
+
     def bind(self, filename, doc):
         """Binds the given filename to the given document.
-        
+
         When the document disappears, the binding is removed automatically.
         While a document is bound, textedit links are stored as QTextCursors,
         so they keep their position even if the user changes the document.
-        
+
         """
         if filename not in self._docs:
             self._docs[filename] = BoundLinks(doc, self._links[filename])
-    
+
     def slotDocumentLoaded(self, doc):
         """Called when a new document is loaded, it maybe possible to bind to it."""
         filename = doc.url().toLocalFile()
         if filename in self._links:
             self.bind(filename, doc)
-    
+
     def slotDocumentClosed(self, doc):
         """Called when a document is closed, removes the bound links."""
         for filename, b in self._docs.items():
@@ -99,13 +99,13 @@ class Links(object):
         else:
             return
         del self._docs[filename]
-    
+
     def cursor(self, filename, line, column, load=False):
         """Returns the destination of a link as a QTextCursor of the destination document.
-        
+
         If load (defaulting to False) is True, the document is loaded if it is not yet loaded.
         Returns None if the document could not be loaded.
-        
+
         """
         bound = self._docs.get(filename)
         if bound:
@@ -116,7 +116,7 @@ class Links(object):
             bound = self._docs.get(filename)
             if bound:
                 return bound.cursor(line, column)
-    
+
     def boundLinks(self, doc):
         """Returns the Bound links object for the given text document."""
         for b in self._docs.values():
@@ -141,42 +141,42 @@ class BoundLinks(object):
                 c.setPosition(b.position() + column)
                 cursors.append(c)
                 destinations.append(dest)
-        
+
     def cursor(self, line, column):
         """Returns the QTextCursor for the give line/col."""
         return self._cursor_dict.get((line, column))
-    
+
     def cursors(self):
         """Return the list of cursors, sorted on cursor position."""
         return self._cursors
-        
+
     def destinations(self):
         """Return the list of destination lists.
-        
+
         Each destination corresponds with the cursor at the same index in
         the cursors() list. Each destination is a list of destination items
         that were originally added using Links.add_link, because many
         point-and-click objects can point to the same place in the text
         document.
-        
+
         """
         return self._destinations
-    
+
     def indices(self, cursor):
         """Return a Python slice object or None or False.
-        
+
         If a slice, it specifies the range of destinations (in the destinations() list)
         that the given QTextCursor points to. The cursor must of course belong to our document.
-        
+
         If None or False, it means that there is no object in the cursors neighbourhood.
         If False, it means that it is e.g. preferred to clear earlier highlighted objects.
-        
+
         This method performs quite a bit trickery: it also returns the destination when a cursor
         points to the _ending_ point of a slur, beam or phrasing slur.
-        
+
         """
         cursors = self._cursors
-        
+
         def findlink(pos):
             # binary search in list of cursors
             lo, hi = 0, len(cursors)
@@ -187,7 +187,7 @@ class BoundLinks(object):
                 else:
                     lo = mid + 1
             return lo - 1
-        
+
         if cursor.hasSelection():
             end = findlink(cursor.selectionEnd() - 1)
             if end >= 0:
@@ -197,11 +197,11 @@ class BoundLinks(object):
                 if start <= end:
                     return slice(start, end+1)
             return False
-            
+
         index = findlink(cursor.position())
         if index < 0:
             return # before all other links
-        
+
         cur2 = cursors[index]
         if cur2.position() < cursor.position():
             # is the cursor at an ending token like a slur end?
@@ -242,12 +242,12 @@ class BoundLinks(object):
 
 def positions(cursor):
     """Return a list of QTextCursors describing the grob the cursor points at.
-    
+
     When the cursor point at e.g. a slur, the returned cursors describe both
     ends of the slur.
-    
+
     The returned list may contain zero to two cursors.
-    
+
     """
     c = lydocument.cursor(cursor)
     c.end = None
@@ -256,10 +256,10 @@ def positions(cursor):
         break
     else:
         return []
-    
+
     cur = source.cursor(token, end=0)
     cursors = [cur]
-    
+
     # some heuristic to find the relevant range(s) the linked grob represents
     if isinstance(token, ly.lex.lilypond.Direction):
         # a _, - or ^ is found; find the next token
@@ -302,7 +302,7 @@ def positions(cursor):
                     break
             elif isinstance(token, ly.lex.MatchStart) and token.matchname == name:
                 nest += 1
-                
+
     cur.setPosition(end, QTextCursor.KeepAnchor)
     return cursors
 

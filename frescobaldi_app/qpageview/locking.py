@@ -34,12 +34,12 @@ _lock = threading.RLock()
 
 def lock(item):
     """Return a threading.RLock instance for the given item.
-    
+
     Use:
-    
+
     with lock(document):
         do_something
-        
+
     """
     with _lock:
         try:

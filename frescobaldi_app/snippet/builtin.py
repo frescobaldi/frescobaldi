@@ -263,7 +263,7 @@ r"""-*- menu: blocks; name: repunf; selection: strip;
 'relative': T(_("Relative Music"),
 r"""-*- name: rel;
 \relative c$CURSOR'$ANCHOR {
-""" '   $SELECTION' r"""  
+""" '   $SELECTION' r"""
 }"""),
 
 
@@ -473,7 +473,7 @@ def main():
             break
     else:
         s = 'lilypond'
-    
+
     def html(text):
         if text:
             text = text.replace('<!-- ', '')
@@ -481,7 +481,7 @@ def main():
             text = text.replace('<!--', '')
             text = text.replace('-->', '')
             return text
-    
+
     def lilypond(text):
         if text.lstrip().startswith('%{'):
             if text.lstrip().startswith('%{ '):
@@ -496,10 +496,10 @@ def main():
                 text = cursor.selection().toPlainText()
             text = re.compile(r'^(\s*)%+ ?', re.M).sub(r'\1', text)
         return text
-    
+
     def scheme(text):
         return re.compile(r'^(\s*);+', re.M).sub(r'\1', text)
-    
+
     if s == 'lilypond':
         text = lilypond(text)
     elif s == 'html':
@@ -547,7 +547,7 @@ if dlg.exec_():
 
 'last_note': T(_("Last note or chord"),
 r"""-*- python; menu: music; symbol: note_ellipsis;
-# This snippet reads back the last entered note or chord and 
+# This snippet reads back the last entered note or chord and
 # inserts it again. It removes the octave mark from a note of the first
 # note of a chord if the music is in relative mode.
 
@@ -669,7 +669,7 @@ global = {
 chordNames = \chordmode {
   \global
   c1
-  
+
 }
 
 melody = \relative c'' {
@@ -679,8 +679,8 @@ melody = \relative c'' {
 }
 
 words = \lyricmode {
-  
-  
+
+
 }
 
 \score {
@@ -713,43 +713,43 @@ global = {
 soprano = \relative c'' {
   \global
   $CURSORc4
-  
+
 }
 
 alto = \relative c' {
   \global
   c4
-  
+
 }
 
 tenor = \relative c' {
   \global
   c4
-  
+
 }
 
 bass = \relative c {
   \global
   c4
-  
+
 }
 
 verseOne = \lyricmode {
   \set stanza = "1."
   hi
-  
+
 }
 
 verseTwo = \lyricmode {
   \set stanza = "2."
   ha
-  
+
 }
 
 verseThree = \lyricmode {
   \set stanza = "3."
   ho
-  
+
 }
 
 \score {

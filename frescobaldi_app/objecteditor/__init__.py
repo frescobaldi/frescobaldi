@@ -41,7 +41,7 @@ class ObjectEditor(panel.Panel):
     def translateUI(self):
         self.setWindowTitle(_("Object Editor"))
         self.toggleViewAction().setText(_("O&bject Editor"))
-        
+
     def createWidget(self):
         from . import widget
         w = widget.Widget(self)

@@ -86,10 +86,10 @@ def names():
 
 def title(name, fallback=True):
     """Returns the title of the specified snippet or the empty string.
-    
+
     If fallback, returns a shortened display of the text if no title is
     available.
-    
+
     """
     s = settings()
     title = s.value(name+"/title")
@@ -139,35 +139,35 @@ def maketitle(text):
         return lines[start]
     else:
         return lines[start] + " ... " + lines[end]
-    
+
 
 @memoize
 def get(name):
     """Returns a tuple (text, variables) for the specified name.
-    
+
     Equivalent to parse(text(name)). See parse().
-    
+
     """
     return parse(text(name))
 
 
 def parse(text):
     """Parses a piece of text and returns a named tuple (text, variables).
-    
+
     text is the template text, with lines starting with '-*- ' removed.
     variables is a dictionary containing variables read from lines starting
     with '-*- '.
-    
+
     The syntax is as follows:
-    
+
     -*- name: value; name1: value2; (etc)
-    
+
     Names without value are also possible:
-    
+
     -*- name;
-    
+
     In that case the value is set to True.
-    
+
     """
     lines = text.split('\n')
     start = 0
@@ -200,9 +200,9 @@ def delete(name):
 
 def name(names):
     """Returns a name to be used for a new snippet..
-    
+
     names is a list of strings for which the newly returned name will be unique.
-    
+
     """
     while True:
         u = "n{0:06.0f}".format(random.random()*1000000)
@@ -242,16 +242,16 @@ def isoriginal(name):
 
 def expand(text):
     r"""Yields tuples (text, expansion) for text.
-    
+
     Parses text for expressions like '$VAR_NAME', '${other text}' or '$$'.
-    
+
     An expansion starts with a '$' and is an uppercase word (which can have
     single underscores in the middle), or other text between braces (which may
     contain a right brace escaped: '\}', those are already unescaped by this
     function).
 
     One of (text, expansion) may be an empty string.
-    
+
     """
     pos = 0
     for m in _expansions_re.finditer(text):

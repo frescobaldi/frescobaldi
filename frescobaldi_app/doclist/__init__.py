@@ -37,7 +37,7 @@ class DocumentList(panel.Panel):
     def translateUI(self):
         self.setWindowTitle(_("Documents"))
         self.toggleViewAction().setText(_("Docum&ents"))
-        
+
     def createWidget(self):
         from . import widget
         w = widget.Widget(self)

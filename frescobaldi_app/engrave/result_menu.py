@@ -40,10 +40,10 @@ class Menu(QMenu):
         app.jobFinished.connect(self.slotJobFinished)
         self.triggered.connect(self.actionTriggered)
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_("Generated &Files"))
-        
+
     def populate(self):
         self.clear()
         doc = self.parentWidget().currentDocument()
@@ -67,11 +67,11 @@ class Menu(QMenu):
                 a.setEnabled(False)
             else:
                 qutil.addAccelerators(self.actions())
-    
+
     def actionTriggered(self, action):
         import helpers
         helpers.openUrl(QUrl.fromLocalFile(action.filename))
-    
+
     def slotJobFinished(self, doc):
         if self.isVisible() and doc == self.parentWidget().currentDocument():
             self.populate()

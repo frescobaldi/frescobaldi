@@ -34,41 +34,41 @@ def available():
 
 def find(language):
     """Returns a .mo file for the given language.
-    
+
     Returns None if no suitable MO file can be found.
-    
+
     """
     filename = os.path.join(podir, language + ".mo")
     if os.path.exists(filename):
         return filename
     elif '_' in language:
         return find(language.split('_')[0])
-    
+
 def translator(mo):
     """Returns a function that can translate messages using the specified MoFile object.
-    
+
     The returned function can be called with one to four arguments:
-    
+
     - message
     - context, message
     - message, plural_message, count
     - context, message, plural_message, count
 
     In all cases a single string (the translation) is returned.
-    
+
     If mo is None, returns a dummy translator that returns strings untranslated.
-    
+
     """
     if not mo:
         mo = mofile.NullMoFile()
     funcs = (None, mo.gettext, mo.pgettext, mo.ngettext, mo.npgettext)
     return lambda *args: funcs[len(args)](*args)
-    
+
 def install(filename):
     """Installs the translations from the given .mo file.
-    
+
     If filename is None, installs a dummy translator.
-    
+
     """
     builtins._ = translator(mofile.MoFile(filename) if filename else None)
 

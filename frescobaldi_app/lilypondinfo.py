@@ -68,7 +68,7 @@ def setinfos(infos):
     """Sets the info's to the given list of LilyPondInfo instances."""
     global _infos
     _infos = infos
-    
+
 
 def saveinfos():
     """Saves the info's."""
@@ -82,10 +82,10 @@ def saveinfos():
 
 def default():
     """Returns a default LilyPondInfo instance with the default LilyPond command.
-    
+
     On Windows, the default command is "lilypond-windows.exe",
     on other platforms simply "lilypond".
-    
+
     """
     lilypond = "lilypond-windows.exe" if os.name == "nt" else "lilypond"
     return LilyPondInfo(lilypond)
@@ -115,9 +115,9 @@ def preferred():
 
 def suitable(version):
     """Return a LilyPondInfo with a suitable version if found.
-    
+
     Otherwise the most recent LilyPond version is returned.
-    
+
     """
     infos_ = [i for i in infos() if i.auto]
     if infos_:
@@ -132,9 +132,9 @@ def suitable(version):
 class CachedProperty(cachedproperty.CachedProperty):
     def wait(self, msg=None, timeout=0):
         """Returns the value for the property, waiting for it to be computed.
-        
+
         If this lasts longer than 2 seconds, a progress dialog is displayed.
-        
+
         """
         if self.get() is None:
             self.start()
@@ -143,7 +143,7 @@ class CachedProperty(cachedproperty.CachedProperty):
                     msg = _("Running LilyPond, this can take some time...")
                 qutil.waitForSignal(self.computed, msg, timeout)
         return self.get()
-    
+
     __call__ = wait
 
 
@@ -155,17 +155,17 @@ class LilyPondInfo(object):
         'midi2ly',
         'abc2ly',
     )
-    
+
     def __init__(self, command):
         self._command = command
         self.auto = True
         self.name = "LilyPond"
         self._lytools = {}
-    
+
     @property
     def command(self):
         return self._command
-    
+
     @CachedProperty.cachedproperty
     def abscommand(self):
         """The absolute path of the command."""
@@ -184,17 +184,17 @@ class LilyPondInfo(object):
         else:
             path = None
         return util.findexe(self.command, path) or False
-    
+
     @CachedProperty.cachedproperty(depends=abscommand)
     def displaycommand(self):
         """The path to the command in a format pretty to display.
-        
+
         This removes the 'out/bin/lilypond' part of custom build LilyPond
         versions, and on Mac OS X it removes the
         '/Contents/Resources/bin/lilypond' part.
-        
+
         Finally it replaces the users home directory with '~'.
-        
+
         The empty string is returned if LilyPond is not installed on the users'
         system.
         """
@@ -209,14 +209,14 @@ class LilyPondInfo(object):
             return util.homify(command)
         else:
             return self.command
-    
+
     @CachedProperty.cachedproperty(depends=abscommand)
     def versionString(self):
         if not self.abscommand():
             return ""
-        
+
         p = process.Process([self.abscommand(), '--version'])
-        
+
         @p.done.connect
         def done(success):
             if success:
@@ -225,40 +225,40 @@ class LilyPondInfo(object):
                 self.versionString = m.group() if m else ""
             else:
                 self.versionString = ""
-        
+
         _scheduler.add(p)
-    
+
     @CachedProperty.cachedproperty(depends=versionString)
     def version(self):
         if self.versionString():
             return tuple(map(int, self.versionString().split('.')))
         return ()
-    
+
     @CachedProperty.cachedproperty(depends=abscommand)
     def bindir(self):
         """Returns the directory the LilyPond command is in."""
         if self.abscommand():
             return os.path.dirname(self.abscommand())
         return False
-    
+
     @CachedProperty.cachedproperty(depends=bindir)
     def prefix(self):
         """Returns the prefix LilyPond was installed to."""
         if self.bindir():
             return os.path.dirname(self.bindir())
         return False
-        
+
     @CachedProperty.cachedproperty(depends=(prefix, versionString))
     def datadir(self):
         """Returns the datadir of this LilyPond instance.
-        
+
         Most times this is something like "/usr/share/lilypond/2.13.3/"
         If this method returns False, the datadir could not be determined.
-        
+
         """
         if not self.abscommand():
             return False
-        
+
         # First ask LilyPond itself.
         p = process.Process([self.abscommand(), '-e',
             "(display (ly:get-option 'datadir)) (newline) (exit)"])
@@ -269,7 +269,7 @@ class LilyPondInfo(object):
                 if os.path.isabs(d) and os.path.isdir(d):
                     self.datadir = d
                     return
-            
+
             # Then find out via the prefix.
             if self.prefix():
                 dirs = ['current']
@@ -282,27 +282,27 @@ class LilyPondInfo(object):
                         return
             self.datadir = False
         _scheduler.add(p)
-    
+
     def toolcommand(self, command):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
-        
+
         On Unix, the list has one element: the full path to the tool.
         On Mac OS X, the list has four elements: the system-provided Python
         interpreter called in 32 bit mode (three elements) and the tool path.
         On Windows, the list has two elements: the LilyPond-provided Python
         interpreter and the tool path.
-        
+
         This does not automatically take into account the command the user
         might have configured for the tool, use ly_tool() to get that command
         name first, then this method to get the real command to run.
-        
+
         """
         bindir = self.bindir()
         if bindir:
             toolpath = os.path.join(self.bindir(), command)
         else:
             toolpath = command
-        
+
         # on Windows the tool command is not directly executable, but
         # must be started using the LilyPond-provided Python interpreter
         if os.name == "nt":
@@ -317,7 +317,7 @@ class LilyPondInfo(object):
         else:
             command = [toolpath]
         return command
-    
+
     @CachedProperty.cachedproperty(depends=versionString)
     def prettyName(self):
         """Return a pretty-printable name for this LilyPond instance."""
@@ -325,31 +325,31 @@ class LilyPondInfo(object):
             name = self.name,
             version = self.versionString(),
             command = self.displaycommand())
-    
+
     def ly_tool(self, name):
         """Get the configured command for the ly tool (e.g. midi2ly).
-        
+
         By default this is just the name itself, relative to the directory
         the LilyPond executable is in.
-        
+
         """
         return self._lytools.get(name, name)
-    
+
     def set_ly_tool(self, name, value):
         """Set the command for the named ly tool (e.g. midi2ly).
-        
+
         By default this is just the name itself, relative to the directory
         the LilyPond executable is in.
-        
+
         """
         self._lytools[name] = value
-    
+
     @classmethod
     def read(cls, settings):
         """Returns a new LilyPondInfo instance, filled from a QSettings instance.
-        
+
         May return None, if the command is not existing.
-        
+
         """
         cmd = settings.value("command", "", str)
         if cmd:
@@ -384,10 +384,10 @@ class LilyPondInfo(object):
 
     def python(self):
         """Returns the path to the LilyPond-provided Python interpreter.
-        
+
         This is only used on Windows, where tools like convert-ly can't be
         run directly.
-        
+
         """
         if self.bindir():
             for python in ('python-windows.exe', 'pythonw.exe', 'python.exe'):

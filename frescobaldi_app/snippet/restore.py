@@ -44,18 +44,18 @@ class RestoreDialog(widgets.dialog.Dialog):
         userguide.addButton(self.buttonBox(), "snippets")
         self.tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
         self.setMainWidget(self.tree)
-        
+
         self.deletedItem = QTreeWidgetItem(self.tree)
         self.deletedItem.setFlags(Qt.ItemIsUserCheckable)
         self.changedItem = QTreeWidgetItem(self.tree)
         self.changedItem.setFlags(Qt.ItemIsUserCheckable)
         self.tree.itemChanged.connect(self.slotItemChanged)
-        
+
         app.translateUI(self)
         app.languageChanged.connect(self.populate)
         self.accepted.connect(self.updateSnippets)
         qutil.saveDialogSize(self, "snippettool/restoredialog/size")
-    
+
     def translateUI(self):
         self.setWindowTitle(
             app.caption(_("dialog title", "Restore Built-in Snippets")))
@@ -66,7 +66,7 @@ class RestoreDialog(widgets.dialog.Dialog):
         self.button("ok").setText(_("Restore Checked Snippets"))
         self.deletedItem.setText(0, _("Deleted Snippets"))
         self.changedItem.setText(0, _("Changed Snippets"))
-        
+
     def populate(self):
         """Puts the deleted/changed snippets in the tree."""
         self.deletedItem.takeChildren()
@@ -75,12 +75,12 @@ class RestoreDialog(widgets.dialog.Dialog):
         self.changedItem.takeChildren()
         self.changedItem.setExpanded(True)
         self.changedItem.setCheckState(0, Qt.Unchecked)
-        
+
         builtins = list(builtin.builtin_snippets)
         builtins.sort(key = snippets.title)
-        
+
         names = frozenset(snippets.names())
-        
+
         for name in builtins:
             if name in names:
                 if snippets.isoriginal(name):
@@ -88,23 +88,23 @@ class RestoreDialog(widgets.dialog.Dialog):
                 parent = self.changedItem
             else:
                 parent = self.deletedItem
-            
+
             item = QTreeWidgetItem(parent)
             item.name = name
             item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
             item.setCheckState(0, Qt.Unchecked)
             item.setText(0, snippets.title(name))
-        
+
         self.deletedItem.setDisabled(self.deletedItem.childCount() == 0)
         self.changedItem.setDisabled(self.changedItem.childCount() == 0)
         self.checkOkButton()
-    
+
     def slotItemChanged(self, item):
         if item in (self.deletedItem, self.changedItem):
             for i in range(item.childCount()):
                 item.child(i).setCheckState(0, item.checkState(0))
         self.checkOkButton()
-        
+
     def checkedSnippets(self):
         """Yields the names of the checked snippets."""
         for parent in (self.deletedItem, self.changedItem):
@@ -112,7 +112,7 @@ class RestoreDialog(widgets.dialog.Dialog):
                 child = parent.child(i)
                 if child.checkState(0) == Qt.Checked:
                     yield child.name
-    
+
     def updateSnippets(self):
         """Restores the checked snippets."""
         collection = self.parent().parent().snippetActions

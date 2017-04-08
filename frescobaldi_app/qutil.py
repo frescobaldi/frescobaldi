@@ -35,14 +35,14 @@ import appinfo
 
 def saveDialogSize(dialog, key, default=QSize()):
     """Makes the size of a QDialog persistent.
-    
+
     Resizes a QDialog from the setting saved in QSettings().value(key),
     defaulting to the optionally specified default size, and stores the
     size of the dialog at its finished() signal.
-    
+
     Call this method at the end of the dialog constructor, when its
     widgets are instantiated.
-    
+
     """
     size = QSettings().value(key, default, QSize)
     if size:
@@ -78,12 +78,12 @@ def deleteLater(*qobjs):
 
 def addAccelerators(actions, used=[]):
     """Adds accelerators to the list of QActions (or QLabels used as buddy).
-    
+
     Actions that have accelerators are skipped, the accelerators that they use
     are not used. This can be used for e.g. menus that are created on the fly.
-    
+
     used is a sequence of already used accelerators (in lower case).
-    
+
     """
     # filter out the actions that already have an accelerator
     todo = []
@@ -92,13 +92,13 @@ def addAccelerators(actions, used=[]):
         if a.text():
             accel = getAccelerator(a.text())
             used.add(accel) if accel else todo.append(a)
-    
+
     def finditers(action):
         """Yields two-tuples (priority, re.finditer object).
-        
+
         The finditer object finds suitable accelerator positions.
         The priority can be used if multiple actions want the same shortcut.
-        
+
         """
         text = action.text()
         if isinstance(action, QAction) and not action.shortcut().isEmpty():
@@ -109,15 +109,15 @@ def addAccelerators(actions, used=[]):
                 yield 0, re.finditer(r'\b{0:c}'.format(key), text, re.I)
         yield 1, re.finditer(r'\b\w', text)
         yield 2, re.finditer(r'\B\w', text)
-    
+
     def find(action):
         """Yields three-tuples (priority, pos, accel) from finditers()."""
         for prio, matches in finditers(action):
             for m in matches:
                 yield prio, m.start(), m.group().lower()
-    
+
     todo = [(a, find(a)) for a in todo]
-    
+
     while todo:
         # just pick the first accel for every action
         accels = {}
@@ -126,7 +126,7 @@ def addAccelerators(actions, used=[]):
                 if accel not in used:
                     accels.setdefault(accel, []).append((prio, pos, a, source))
                     break
-        
+
         # now, fore every accel, if more than one action wants the same accel,
         # pick the action with the first priority or position, and try again the
         # other actions.
@@ -141,9 +141,9 @@ def addAccelerators(actions, used=[]):
 
 def getAccelerator(text):
     """Returns the accelerator (in lower case) contained in the text, if any.
-    
+
     An accelerator is a character preceded by an ampersand &.
-    
+
     """
     m = re.search(r'&(\w)', text.replace('&&', ''))
     if m:
@@ -191,11 +191,11 @@ def mixcolor(color1, color2, mix):
 @contextlib.contextmanager
 def busyCursor(cursor=Qt.WaitCursor, processEvents=True):
     """Performs the contained code using a busy cursor.
-    
+
     The default cursor used is Qt.WaitCursor.
     If processEvents is True (the default), QApplication.processEvents()
     will be called once before the contained code is executed.
-    
+
     """
     QApplication.setOverrideCursor(cursor)
     processEvents and QApplication.processEvents()
@@ -207,13 +207,13 @@ def busyCursor(cursor=Qt.WaitCursor, processEvents=True):
 
 def waitForSignal(signal, message="", timeout=0):
     """Waits (max timeout msecs if given) for a signal to be emitted.
-    
+
     It the waiting lasts more than 2 seconds, a progress dialog is displayed
     with the message.
-    
+
     Returns True if the signal was emitted.
     Return False if the wait timed out or the dialog was canceled by the user.
-    
+
     """
     loop = QEventLoop()
     dlg = QProgressDialog(minimum=0, maximum=0, labelText=message)

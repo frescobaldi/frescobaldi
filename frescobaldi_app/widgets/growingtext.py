@@ -38,26 +38,26 @@ class _GrowingTextEditBase(object):
         self.setLineWrapMode(self.NoWrap)
         self.document().documentLayout().documentSizeChanged.connect(self.updateVerticalSize)
         self.updateVerticalSize()
-        
+
     def updateVerticalSize(self):
         # can vertical or horizontal scrollbars appear?
         vcan = self.verticalScrollBarPolicy() == Qt.ScrollBarAsNeeded
         hcan = self.horizontalScrollBarPolicy() == Qt.ScrollBarAsNeeded
-        
+
         # width a scrollbar takes off the viewport size
         framewidth = 0
         if self.style().styleHint(QStyle.SH_ScrollView_FrameOnlyAroundContents, None, self):
             framewidth = self.style().pixelMetric(QStyle.PM_DefaultFrameWidth) * 2
         scrollbarextent = self.style().pixelMetric(QStyle.PM_ScrollBarExtent, None, self) + framewidth
-        
+
         margin = framewidth + self.document().documentMargin()
         size = self.documentSize() + QSize(margin, margin)
         width = size.width()
         height = size.height()
-        
+
         max_width = self.width()
         max_height = self.maximumHeight()
-        
+
         # will scrollbars appear?
         hwill, vwill = False, False
         if hcan and width > max_width:
@@ -71,11 +71,11 @@ class _GrowingTextEditBase(object):
         if hwill:
             height += scrollbarextent
         self.resize(self.width(), min(max_height, height))
-    
+
     def documentSize(self):
         """Implemented differently for QTextEdit and QPlainTextEdit."""
         raise NotImplementedError
-    
+
     def setLineWrapMode(self, mode):
         """Reimplemented to avoid WidgetWidth wrap mode, which causes resize loops."""
         if mode == self.WidgetWidth:

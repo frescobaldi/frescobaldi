@@ -36,23 +36,23 @@ from .keysequencewidget import KeySequenceWidget
 
 class ShortcutEditDialog(QDialog):
     """A modal dialog to view and/or edit keyboard shortcuts."""
-    
+
     def __init__(self, parent=None, conflictCallback=None, *cbArgs):
         """conflictCallback is a optional method called when a shortcut is changed.
-        
+
         cbArgs is optional arguments of the conflictCallback method.
         it should return the name of the potential conflict or a null value """
-        
+
         super(ShortcutEditDialog, self).__init__(parent)
         self.conflictCallback = conflictCallback
         self.cbArgs = cbArgs
         self.setMinimumWidth(400)
         # create gui
-        
+
         layout = QVBoxLayout()
         layout.setSpacing(10)
         self.setLayout(layout)
-        
+
         top = QHBoxLayout()
         top.setSpacing(4)
         p = self.toppixmap = QLabel()
@@ -64,7 +64,7 @@ class ShortcutEditDialog(QDialog):
         grid.setSpacing(4)
         grid.setColumnStretch(1, 2)
         layout.addLayout(grid)
-        
+
         self.buttonDefault = QRadioButton(self, toggled=self.slotButtonDefaultToggled)
         self.buttonNone = QRadioButton(self)
         self.lconflictDefault = QLabel('test')
@@ -75,7 +75,7 @@ class ShortcutEditDialog(QDialog):
         grid.addWidget(self.lconflictDefault, 1, 0, 1, 2)
         grid.addWidget(self.buttonNone, 2, 0, 1, 2)
         grid.addWidget(self.buttonCustom, 3, 0, 1, 2)
-        
+
         self.keybuttons = []
         self.keylabels = []
         self.conflictlabels = []
@@ -95,28 +95,28 @@ class ShortcutEditDialog(QDialog):
             self.conflictlabels.append(lconflict)
             lconflict.setVisible(False)
             grid.addWidget(lconflict, num+5+num, 0, 1, 2, Qt.AlignHCenter)
-        
+
         layout.addWidget(Separator(self))
-        
+
         b = QDialogButtonBox(self)
         b.setStandardButtons(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         layout.addWidget(b)
         b.accepted.connect(self.accept)
         b.rejected.connect(self.reject)
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("window title", "Edit Shortcut")))
         self.buttonNone.setText(_("&No shortcut"))
         self.buttonCustom.setText(_("Use a &custom shortcut:"))
         for num in range(4):
             self.keylabels[num].setText(_("Alternative #{num}:").format(num=num) if num else _("Primary shortcut:"))
-    
+
     def slotKeySequenceChanged(self, num):
         """Called when one of the keysequence buttons has changed."""
         self.checkConflict(num)
         self.buttonCustom.setChecked(True)
-    
+
     def slotButtonDefaultToggled(self, val):
         if self.conflictCallback is not None:
             if not val:
@@ -134,7 +134,7 @@ class ShortcutEditDialog(QDialog):
                         self.lconflictDefault.setText(text)
                         self.lconflictDefault.setVisible(True)
             QTimer.singleShot(0, self.adjustSize)
-                    
+
     def checkConflict(self, num):
         if self.conflictCallback is not None:
             conflictName = self.conflictCallback(self.keybuttons[num].shortcut(), *self.cbArgs)
@@ -146,7 +146,7 @@ class ShortcutEditDialog(QDialog):
             else:
                 self.conflictlabels[num].setVisible(False)
             QTimer.singleShot(0, self.adjustSize)
-     
+
     def editAction(self, action, default=None):
         # load the action
         self._action = action
@@ -167,14 +167,14 @@ class ShortcutEditDialog(QDialog):
                     self.checkConflict(num)
             else:
                 self.buttonNone.setChecked(True)
-            
+
         if default:
             ds = "; ".join(key.toString(QKeySequence.NativeText) for key in default)
         else:
             ds = _("no keyboard shortcut", "none")
         self.buttonDefault.setText(_("Use &default shortcut ({name})").format(name=ds))
         return self.exec_()
-        
+
     def done(self, result):
         if result:
             shortcuts = []

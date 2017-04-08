@@ -40,16 +40,16 @@ def insert(name, view):
     """Insert named snippet into the view."""
     text, variables = snippets.get(name)
     cursor = view.textCursor()
-    
+
     selection = variables.get('selection', '')
     if 'yes' in selection and not cursor.hasSelection():
         return
     if 'strip' in selection:
         cursortools.strip_selection(cursor)
-    
+
     pos = cursor.selectionStart()
     with cursortools.compress_undo(cursor):
-        
+
         # insert the snippet, might return a new cursor
         if 'python' in variables:
             new = insert_python(text, cursor, name, view)
@@ -57,18 +57,18 @@ def insert(name, view):
             new = insert_macro(text, view)
         else:
             new = insert_snippet(text, cursor, variables)
-        
+
     # QTextBlocks the snippet starts and ends
     block = cursor.document().findBlock(pos)
     last = cursor.block()
-    
+
     # re-indent if not explicitly suppressed by a 'indent: no' variable
     if last != block and 'no' not in variables.get('indent', ''):
         c = QTextCursor(last)
         c.setPosition(block.position(), QTextCursor.KeepAnchor)
         with cursortools.compress_undo(c, True):
             indent.re_indent(c, True)
-    
+
     if not new and 'keep' in selection:
         end = cursor.position()
         cursor.setPosition(pos)
@@ -78,15 +78,15 @@ def insert(name, view):
 
 def insert_snippet(text, cursor, variables):
     """Inserts a normal text snippet.
-    
+
     After the insert, the cursor points to the end of the inserted snippet.
-    
+
     If this function returns a cursor it must be set as the cursor for the view
     after the snippet has been inserted.
-    
+
     """
     exp_base = expand.Expander(cursor)
-    
+
     evs = [] # make a list of events, either text or a constant
     for text, key in snippets.expand(text):
         if text:
@@ -98,7 +98,7 @@ def insert_snippet(text, cursor, variables):
             func = getattr(exp_base, key, None)
             if func:
                 evs.append(func())
-    
+
     selectionUsed = expand.SELECTION in evs
     # do the padding if 'selection: strip;' is used
     if selectionUsed and 'strip' in variables.get('selection', ''):
@@ -139,17 +139,17 @@ def insert_snippet(text, cursor, variables):
 
 def insert_python(text, cursor, name, view):
     """Regards the text as Python code, and exec it.
-    
+
     name and view are given in case an exception occurs.
-    
+
     The following variables are available:
-    
+
     - text: contains selection or '', set it to insert new text
     - state: contains simplestate for the cursor position
     - cursor: the QTextCursor
 
     After the insert, the cursor points to the end of the inserted snippet.
-    
+
     """
     namespace = {
         'cursor': QTextCursor(cursor),
@@ -194,13 +194,13 @@ def insert_python(text, cursor, name, view):
 
 
 def insert_macro(text, view):
-    """The macro snippet is a sequence of commands which are either 
+    """The macro snippet is a sequence of commands which are either
     Frescobaldi actions or other snippets.
     """
     import re
     import actioncollectionmanager
     from . import model
-    
+
     avail_snippets = {}
     for n in model.model().names():
         varname = snippets.get(n).variables.get('name')
@@ -238,9 +238,9 @@ def state(cursor):
 
 def handle_exception(name, view):
     """Called when a snippet raises a Python exception.
-    
+
     Shows the error message and offers the option to edit the offending snippet.
-    
+
     """
     import sys, traceback
     exc_type, exc_value, exc_traceback = sys.exc_info()
@@ -256,7 +256,7 @@ def handle_exception(name, view):
     dlg.setEscapeButton(QMessageBox.Cancel)
     if dlg.exec_() != QMessageBox.Ok:
         return
-    
+
     # determine line number
     if exc_type is SyntaxError:
         lineno = exc_value.lineno
@@ -264,7 +264,7 @@ def handle_exception(name, view):
         lineno = tb[0][1]
     else:
         lineno = None
-    
+
     import panelmanager
     from . import edit
     widget = panelmanager.manager(view.window()).snippettool.widget()

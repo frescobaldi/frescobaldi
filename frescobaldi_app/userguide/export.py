@@ -34,13 +34,13 @@ class Exporter(object):
     """Export userguide pages to other formats or destinations."""
     def __init__(self):
         self._pages = []
-    
+
     def add_page(self, name):
         """Add a help page. Return True if the page was not already added."""
         if name not in self._pages:
             self._pages.append(name)
             return True
-    
+
     def add_recursive(self, name):
         """Add a help page and its child pages recursively."""
         def add(name):
@@ -48,15 +48,15 @@ class Exporter(object):
                 for c in util.cache.children(name):
                     add(c)
         add(name)
-    
+
     def replace_links(self, text):
         """Alter links in the text to other help pages.
-        
+
         Calls replace_link() for every match of a HTML <a href...> construct.
-        
+
         """
         return re.sub(r'<a href="([^"])">', self.replace_link, re.I)
-    
+
     def replace_link(self, match):
         url = match.group(1)
         if '/' in url:

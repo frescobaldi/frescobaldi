@@ -58,7 +58,7 @@ def setmaxsize(maxsize):
     global _maxsize
     _maxsize = maxsize * 1048576
     purge()
-    
+
 
 def maxsize():
     """Returns the maximum cache size in Megabytes."""
@@ -80,16 +80,16 @@ def clear(document=None):
 
 def image(page, exact=True):
     """Returns a rendered image for given Page if in cache.
-    
+
     If exact is True (default), the function returns None if the exact size was
     not in the cache. If exact is False, the function may return a temporary
     rendering of the page scaled from a different size, if that was available.
-    
+
     """
     document = page.document()
     pageKey = (page.pageNumber(), page.rotation())
     sizeKey = (page.physWidth(), page.physHeight())
-    
+
     if exact:
         try:
             entry = _cache[document][pageKey][sizeKey]
@@ -125,7 +125,7 @@ def add(image, document, pageNumber, rotation, width, height):
     pageKey = (pageNumber, rotation)
     sizeKey = (width, height)
     _cache.setdefault(document, {}).setdefault(pageKey, {})[sizeKey] = [image, time.time()]
-    
+
     # maintain cache size
     global _maxsize, _currentsize
     _currentsize += image.byteCount()
@@ -135,9 +135,9 @@ def add(image, document, pageNumber, rotation, width, height):
 
 def purge():
     """Removes old images from the cache to limit the space used.
-    
+
     (Not necessary to call, as the cache will monitor its size automatically.)
-    
+
     """
     # make a list of the images, sorted on time, newest first
     images = iter(sorted((
@@ -192,9 +192,9 @@ def options(document=None):
 
 def setoptions(options, document=None):
     """Sets a RenderOptions instance for the given document or as the global one if no document is given.
-    
+
     Use None for the options to unset (delete) the options.
-    
+
     """
     global _globaloptions, _options
     if not document:
@@ -215,13 +215,13 @@ class Scheduler(object):
         self._jobs = {}         # jobs on key
         self._waiting = weakref.WeakKeyDictionary()      # jobs on page
         self._running = None
-        
+
     def schedulejob(self, page):
         """Creates or retriggers an existing Job.
-        
+
         If a Job was already scheduled for the page, it is canceled.
         The page's update() method will be called when the Job has completed.
-        
+
         """
         # uniquely identify the image to be generated
         key = (page.pageNumber(), page.rotation(), page.physWidth(), page.physHeight())
@@ -235,7 +235,7 @@ class Scheduler(object):
         self._schedule.append(job)
         self._waiting[page] = job
         self.checkStart()
-        
+
     def checkStart(self):
         """Starts a job if none is running and at least one is waiting."""
         while self._schedule and not self._running:
@@ -246,7 +246,7 @@ class Scheduler(object):
                 break
             else:
                 self.done(job)
-            
+
     def done(self, job):
         """Called when the job has completed."""
         del self._jobs[job.key]
@@ -277,7 +277,7 @@ class Runner(QThread):
         self.document = document # keep reference now so that it does not die during this thread
         self.finished.connect(self.slotFinished)
         self.start()
-        
+
     def run(self):
         """Main method of this thread, called by Qt on start()."""
         page = self.document.page(self.job.pageNumber)
@@ -302,7 +302,7 @@ class Runner(QThread):
                        _("Failed to render page") );
         elif multiplier == 2:
             self.image = self.image.scaledToWidth(self.job.width, Qt.SmoothTransformation)
-        
+
     def slotFinished(self):
         """Called when the thread has completed."""
         add(self.image, self.document, self.job.pageNumber, self.job.rotation, self.job.width, self.job.height)

@@ -56,7 +56,7 @@ shorthands = {
 
 class Articulations(tool.Tool):
     """Articulations tool in the quick insert panel toolbox.
-    
+
     """
     def __init__(self, panel):
         super(Articulations, self).__init__(panel)
@@ -66,21 +66,21 @@ class Articulations(tool.Tool):
             autoRaise=True,
             popupMode=QToolButton.InstantPopup,
             icon=icons.get('edit-clear'))
-        
+
         mainwindow = panel.parent().mainwindow()
         mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
         self.removemenu.setEnabled(mainwindow.hasSelection())
-        
+
         ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
         self.removemenu.addAction(ac.tools_quick_remove_articulations)
         self.removemenu.addAction(ac.tools_quick_remove_ornaments)
         self.removemenu.addAction(ac.tools_quick_remove_instrument_scripts)
-        
+
         layout = QHBoxLayout()
         layout.addWidget(self.shorthands)
         layout.addWidget(self.removemenu)
         layout.addStretch(1)
-        
+
         self.layout().addLayout(layout)
         for cls in (
                 ArticulationsGroup,
@@ -91,22 +91,22 @@ class Articulations(tool.Tool):
             self.layout().addWidget(cls(self))
         self.layout().addStretch(1)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.shorthands.setText(_("Allow shorthands"))
         self.shorthands.setToolTip(_(
             "Use short notation for some articulations like staccato."))
         self.removemenu.setToolTip(_(
             "Remove articulations etc."))
-    
+
     def icon(self):
         """Should return an icon for our tab."""
         return symbols.icon("articulation_prall")
-    
+
     def title(self):
         """Should return a title for our tab."""
         return _("Articulations")
-  
+
     def tooltip(self):
         """Returns a tooltip"""
         return _("Different kinds of articulations and other signs.")
@@ -144,7 +144,7 @@ class Group(buttongroup.ButtonGroup):
 class ArticulationsGroup(Group):
     def translateUI(self):
         self.setTitle(_("Articulations"))
-        
+
     def actionTexts(self):
         yield 'accent', _("Accent")
         yield 'marcato', _("Marcato")
@@ -158,7 +158,7 @@ class ArticulationsGroup(Group):
 class OrnamentsGroup(Group):
     def translateUI(self):
         self.setTitle(_("Ornaments"))
-        
+
     def actionTexts(self):
         yield 'trill', _("Trill")
         yield 'prall', _("Prall")
@@ -179,7 +179,7 @@ class OrnamentsGroup(Group):
 class SignsGroup(Group):
     def translateUI(self):
         self.setTitle(_("Signs"))
-        
+
     def actionTexts(self):
         yield 'fermata', _("Fermata")
         yield 'shortfermata', _("Short fermata")
@@ -194,7 +194,7 @@ class SignsGroup(Group):
 class OtherGroup(Group):
     def translateUI(self):
         self.setTitle(_("Other"))
-    
+
     def actionTexts(self):
         yield 'upbow', _("Upbow")
         yield 'downbow', _("Downbow")
@@ -212,10 +212,10 @@ class OtherGroup(Group):
 
 def articulation_positions(cursor):
     """Returns a list of positions where an articulation can be added.
-    
+
     Every position is given as a QTextCursor instance.
     If the cursor has a selection, all positions in the selection are returned.
-    
+
     """
     c = lydocument.cursor(cursor)
     if not cursor.hasSelection():
@@ -226,7 +226,7 @@ def articulation_positions(cursor):
     else:
         rests = False
         partial = ly.document.INSIDE
-    
+
     positions = []
     for item in ly.rhythm.music_items(c, partial):
         if not rests and item.tokens and isinstance(item.tokens[0], ly.lex.lilypond.Rest):

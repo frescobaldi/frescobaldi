@@ -35,10 +35,10 @@ class TempoButton(QToolButton):
     """A button the user can tap a tempo on.
 
     emits tempo(bpm) when the user clicks the button multiple times.
-    
+
     """
     tempo = pyqtSignal(int)
-    
+
     def __init__(self, icon=None, parent=None):
         super(TempoButton, self).__init__(parent)
         self.setIcon(icon or icons.get("media-record"))
@@ -47,7 +47,7 @@ class TempoButton(QToolButton):
         self.tapCount = 0
         self.pressed.connect(self.slotPressed)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setToolTip(_("The tempo is set as you click this button."))
         self.setWhatsThis(_(

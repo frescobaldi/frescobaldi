@@ -42,7 +42,7 @@ class Folder(widgets.folding.Folder):
                 yield widgets.folding.START
             elif isinstance(t, (ly.lex.Dedent, ly.lex.BlockCommentEnd)):
                 yield widgets.folding.STOP
-    
+
     def mark(self, block, state=None):
         if state is None:
             try:

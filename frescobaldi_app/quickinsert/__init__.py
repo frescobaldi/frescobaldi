@@ -41,11 +41,11 @@ class QuickInsertPanel(panel.Panel):
         mainwindow.addDockWidget(Qt.LeftDockWidgetArea, self)
         self.actionCollection = QuickInsertActions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(self.actionCollection)
-    
+
     def translateUI(self):
         self.setWindowTitle(_("Quick Insert"))
         self.toggleViewAction().setText(_("Quick &Insert"))
-        
+
     def createWidget(self):
         from . import widget
         return widget.QuickInsert(self)
@@ -57,7 +57,7 @@ class QuickInsertActions(actioncollection.ShortcutCollection):
     def __init__(self, panel):
         super(QuickInsertActions, self).__init__(panel.mainwindow())
         self.panel = weakref.ref(panel)
-    
+
     def createDefaultShortcuts(self):
         self.setDefaultShortcuts('staccato', [QKeySequence('Ctrl+.')])
         self.setDefaultShortcuts('spanner_slur', [QKeySequence('Ctrl+(')])
@@ -65,8 +65,8 @@ class QuickInsertActions(actioncollection.ShortcutCollection):
 
     def realAction(self, name):
         return self.panel().widget().actionForName(name)
-        
+
     def title(self):
         return _("Quick Insert")
-    
+
 

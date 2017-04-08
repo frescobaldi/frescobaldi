@@ -39,22 +39,22 @@ _INSIDE  = 15
 
 class Rubberband(QWidget):
     """A Rubberband to select a rectangular region.
-    
+
     Instance variables:
-        
+
         showbutton (Qt.RightButton), the button used to drag a new rectangle
-        
+
         dragbutton (Qt.LeftButton), the button to alter an existing rectangle
-    
+
     """
-    
+
     # the button used to drag a new rectangle
     showbutton = Qt.RightButton
-    
+
     # the button to alter an existing rectangle
     dragbutton = Qt.LeftButton
-    
-    
+
+
     def __init__(self):
         super().__init__()
         self._dragging = False
@@ -91,7 +91,7 @@ class Rubberband(QWidget):
         # Clip middles
         region += QRect(0, self.rect().height() // 2 - 10, self.rect().width(), 20)
         region += QRect(self.rect().width() // 2 - 10, 0, 20, self.rect().height())
-        
+
         # Draw thicker rectangles, clipped at corners and sides.
         painter.setClipRegion(region)
         painter.drawRect(self.rect())
@@ -129,7 +129,7 @@ class Rubberband(QWidget):
             self.setCursor(cursor)
         else:
             self.unsetCursor()
-    
+
     def scrollBy(self, diff):
         """Called by the View when scrolling."""
         if not self._dragging:
@@ -137,7 +137,7 @@ class Rubberband(QWidget):
         elif self._dragedge != _INSIDE:
             self._draggeom.moveTo(self._draggeom.topLeft() + diff)
             self.dragBy(-diff)
-        
+
     def startDrag(self, pos, button):
         """Start dragging the rubberband."""
         self._dragging = True
@@ -145,7 +145,7 @@ class Rubberband(QWidget):
         self._dragedge = self.edge(pos)
         self._draggeom = self.geometry()
         self._dragbutton = button
-    
+
     def drag(self, pos):
         """Continue dragging the rubberband, scrolling the View if necessary."""
         diff = pos - self._dragpos
@@ -170,20 +170,20 @@ class Rubberband(QWidget):
             # we're dragging a corner, use correct diagonal cursor
             bdiag = (edge in (3, 12)) ^ (self._draggeom.width() * self._draggeom.height() >= 0)
             self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
-    
+
     def stopDrag(self):
         """Stop dragging the rubberband. Return True if a rectangle was drawn."""
         self._dragging = False
         # TODO: use the kinetic scroller if implemented
         view = self.parent().parent()
         view.stopScrolling()
-        
+
         if self.width() < 8 and self.height() < 8:
             self.unsetCursor()
             self.hide()
             return False
         return True
-    
+
     def eventFilter(self, viewport, ev):
         if not self._dragging:
             if ev.type() == QEvent.MouseButtonPress and ev.button() == self.showbutton:
@@ -202,7 +202,7 @@ class Rubberband(QWidget):
                 # don't consume event when the right button was used
                 return self._dragbutton != Qt.RightButton
         return False
-    
+
     def mousePressEvent(self, ev):
         pos = self.mapToParent(ev.pos())
         if not self._dragging:
@@ -211,7 +211,7 @@ class Rubberband(QWidget):
             elif ev.button() == self.showbutton:
                 if self.showbutton != Qt.RightButton or self.edge(pos) != _INSIDE:
                     self.startDrag(pos, ev.button())
-    
+
     def mouseMoveEvent(self, ev):
         pos = self.mapToParent(ev.pos())
         if self._dragging:
@@ -219,7 +219,7 @@ class Rubberband(QWidget):
         else:
             edge = self.edge(pos)
             self.adjustCursor(edge)
-    
+
     def mouseReleaseEvent(self, ev):
         if self._dragging and ev.button() == self._dragbutton:
             self.stopDrag()

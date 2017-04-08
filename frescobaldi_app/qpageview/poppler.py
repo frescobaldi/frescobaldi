@@ -39,12 +39,12 @@ from .constants import (
 
 class PopplerPage(page.AbstractPage):
     """A Page capable of displaying one page of a Poppler.Document instance.
-    
+
     It has two additional instance attributes:
-    
+
         `document`: the Poppler.Document instance
         `pageNumber`: the page number to render
-        
+
     """
     def __init__(self, document, pageNumber, renderer=None):
         super().__init__()
@@ -53,14 +53,14 @@ class PopplerPage(page.AbstractPage):
         self.setPageSize(document.page(pageNumber).pageSizeF())
         if renderer is not None:
             self.renderer = renderer
-        
+
     @classmethod
     def createPages(cls, document, renderer=None):
         """Convenience class method returning a list of instances of this class.
-        
+
         The Page instances are created from the document, in page number order.
         The specified Renderer is used, or else the global poppler renderer.
-        
+
         """
         return [cls(document, num, renderer) for num in range(document.numPages())]
 
@@ -76,7 +76,7 @@ class Renderer(render.AbstractImageRenderer):
     )
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     oversampleThreshold = 96
-    
+
     def key(self, page):
         """Reimplemented to keep a reference to the poppler document."""
         key = super().key(page)
@@ -84,7 +84,7 @@ class Renderer(render.AbstractImageRenderer):
             page.document,
             (page.pageNumber, page.computedRotation),
             key.size)
-    
+
     def render(self, page):
         """Generate an image for this Page."""
         doc = page.document
@@ -106,16 +106,16 @@ class Renderer(render.AbstractImageRenderer):
         image.setDotsPerMeterX(xres * 39.37)
         image.setDotsPerMeterY(yres * 39.37)
         return image
-    
+
     def render_poppler_image(self, doc, pageNum,
                                    xres=72.0, yres=72.0,
                                    x=-1, y=-1, w=-1, h=-1, rotate=Rotate_0,
                                    paperColor=None):
         """Render an image, almost like calling page.renderToImage().
-        
+
         The document is properly locked during rendering and render options
         are set.
-        
+
         """
         with locking.lock(doc):
             if self.renderHint is not None:

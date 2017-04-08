@@ -36,24 +36,24 @@ import widgets
 
 
 class ToLyDialog(QDialog):
-	
+
     def __init__(self, parent=None):
         super(ToLyDialog, self).__init__(parent)
         self._info = None
         self._document = None
         self._path = None
-        
+
         mainLayout = QGridLayout()
         self.setLayout(mainLayout)
-        
+
         tabs = QTabWidget()
-        
+
         import_tab = QWidget()
         post_tab = QWidget()
-        
+
         itabLayout = QGridLayout(import_tab)
         ptabLayout = QGridLayout(post_tab)
-        
+
         tabs.addTab(import_tab, self.imp_prgm)
         tabs.addTab(post_tab, "after import")
 
@@ -66,54 +66,54 @@ class ToLyDialog(QDialog):
                            self.trimDurCheck,
                            self.removeScalesCheck,
                            self.runEngraverCheck]
-                           
+
         self.versionLabel = QLabel()
         self.lilyChooser = lilychooser.LilyChooser()
 
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
-        
+
         self.formatCheck.setObjectName("reformat")
         self.trimDurCheck.setObjectName("trim-durations")
         self.removeScalesCheck.setObjectName("remove-scaling")
         self.runEngraverCheck.setObjectName("engrave-directly")
-        
+
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         userguide.addButton(self.buttons, self.userg)
-        
+
         row = 0
         for r, w in enumerate(self.impChecks):
             row += r
             itabLayout.addWidget(w, row, 0, 1, 2)
             w.toggled.connect(self.makeCommandLine)
-        row += 1    
+        row += 1
         for r, w in enumerate(self.impExtra):
-            row += r 
+            row += r
             itabLayout.addWidget(w, row, 0, 1, 2)
-        
+
         itabLayout.addWidget(widgets.Separator(), row + 1, 0, 1, 2)
         itabLayout.addWidget(self.versionLabel, row + 2, 0, 1, 0)
         itabLayout.addWidget(self.lilyChooser, row + 3, 0, 1, 2)
         itabLayout.addWidget(widgets.Separator(), row + 4, 0, 1, 2)
         itabLayout.addWidget(self.commandLineLabel, row + 5, 0, 1, 2)
         itabLayout.addWidget(self.commandLine, row + 6, 0, 1, 2)
-        
+
         ptabLayout.addWidget(self.formatCheck, 0, 0, 1, 2)
-        ptabLayout.addWidget(self.trimDurCheck, 1, 0, 1, 2)       
+        ptabLayout.addWidget(self.trimDurCheck, 1, 0, 1, 2)
         ptabLayout.addWidget(self.removeScalesCheck, 2, 0, 1, 2)
         ptabLayout.addWidget(self.runEngraverCheck, 3, 0, 1, 2)
         ptabLayout.setRowStretch(4, 10)
-        
+
         mainLayout.addWidget(tabs, 0, 0, 9, 2)
         mainLayout.addWidget(self.buttons, 10, 0, 1, 2)
-        
+
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
-        
+
         self.lilyChooser.currentIndexChanged.connect(self.slotLilyPondVersionChanged)
         self.slotLilyPondVersionChanged()
-    
+
     def translateUI(self):
         self.versionLabel.setText(_("LilyPond version:"))
         self.commandLineLabel.setText(_("Command line:"))
@@ -121,14 +121,14 @@ class ToLyDialog(QDialog):
         self.trimDurCheck.setText(_("Trim durations (Make implicit per line)"))
         self.removeScalesCheck.setText(_("Remove fraction duration scaling"))
         self.runEngraverCheck.setText(_("Engrave directly"))
-    
+
     def setDocument(self, path):
         """Set the full path to the MusicXML document."""
         self._document = path
-        
+
     def slotLilyPondVersionChanged(self):
         self._info = self.lilyChooser.lilyPondInfo()
-    
+
     def getCmd(self, outputname='-'):
         """Returns the command line."""
         cmd = []
@@ -145,7 +145,7 @@ class ToLyDialog(QDialog):
                 cmd.append(t)
         cmd.extend(['--output', outputname])
         return cmd
-        
+
     def run_command(self):
         """Run command line."""
         cmd = self.getCmd()
@@ -172,14 +172,14 @@ class ToLyDialog(QDialog):
             stderr = subprocess.PIPE)
         stdouterr = proc.communicate()
         return stdouterr
-		
+
     def getPostSettings(self):
         """Returns settings in the post import tab."""
         post = []
         for p in self.postChecks:
             post.append(p.isChecked())
         return post
-        
+
     def loadSettings(self):
         """Get users previous settings."""
         post_default = [True, False, False, True]
@@ -187,7 +187,7 @@ class ToLyDialog(QDialog):
             i.setChecked(self.settings.value(i.objectName(), d, bool))
         for p, f in zip(self.postChecks, post_default):
             p.setChecked(self.settings.value(p.objectName(), f, bool))
-        
+
     def saveSettings(self):
         """Save users last settings."""
         for i in self.impChecks:

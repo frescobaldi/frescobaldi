@@ -44,19 +44,19 @@ class DocumentNode(ly.node.Node):
 
 def tree(urls=False):
     """Return the open documents as a tree structure.
-    
+
     Returned is a ly.node.Node instance having the toplevel documents (documents
     that are not included by other open documents) as children. The children of
     the nodes are the documents that are included by the toplevel document.
-    
+
     Every node has the Document in its document attribute.
-    
+
     If urls == True, nodes will also be generated for urls that refer to
     documents that are not yet open. They will have the QUrl in their url
     attribute.
-    
+
     It is not checked whether the referred to urls or files actually exist.
-    
+
     """
     root = ly.node.Node()
     nodes = {}

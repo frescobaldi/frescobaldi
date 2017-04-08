@@ -68,13 +68,13 @@ def convert(mainwindow):
 class Dialog(QDialog):
     def __init__(self, parent=None):
         super(Dialog, self).__init__(parent)
-        
+
         self._info = None
         self._text = ''
         self._convertedtext = ''
         self._encoding = None
         self.mainwindow = parent
-        
+
         self.fromVersionLabel = QLabel()
         self.fromVersion = QLineEdit()
         self.reason = QLabel()
@@ -87,11 +87,11 @@ class Dialog(QDialog):
         self.copyCheck = QCheckBox(checked=
             QSettings().value('convert_ly/copy_messages', True, bool))
         self.tabw = QTabWidget()
-        
+
         self.tabw.addTab(self.messages, '')
         self.tabw.addTab(self.diff, '')
         self.tabw.addTab(self.uni_diff, '')
-        
+
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Reset | QDialogButtonBox.Save |
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
@@ -99,10 +99,10 @@ class Dialog(QDialog):
         self.buttons.rejected.connect(self.reject)
         self.buttons.button(QDialogButtonBox.Reset).clicked.connect(self.run)
         self.buttons.button(QDialogButtonBox.Save).clicked.connect(self.saveFile)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         grid = QGridLayout()
         grid.addWidget(self.fromVersionLabel, 0, 0)
         grid.addWidget(self.fromVersion, 0, 1)
@@ -110,13 +110,13 @@ class Dialog(QDialog):
         grid.addWidget(self.toVersionLabel, 1, 0)
         grid.addWidget(self.toVersion, 1, 1)
         grid.addWidget(self.lilyChooser, 1, 3, 1, 2)
-        
+
         layout.addLayout(grid)
         layout.addWidget(self.tabw)
         layout.addWidget(self.copyCheck)
         layout.addWidget(widgets.Separator())
         layout.addWidget(self.buttons)
-        
+
         app.translateUI(self)
         qutil.saveDialogSize(self, 'convert_ly/dialog/size', QSize(600, 300))
         app.settingsChanged.connect(self.readSettings)
@@ -124,7 +124,7 @@ class Dialog(QDialog):
         self.finished.connect(self.saveCopyCheckSetting)
         self.lilyChooser.currentIndexChanged.connect(self.slotLilyPondVersionChanged)
         self.slotLilyPondVersionChanged()
-        
+
     def translateUI(self):
         self.fromVersionLabel.setText(_("From version:"))
         self.toVersionLabel.setText(_("To version:"))
@@ -138,20 +138,20 @@ class Dialog(QDialog):
         self.buttons.button(QDialogButtonBox.Reset).setText(_("Run Again"))
         self.buttons.button(QDialogButtonBox.Save).setText(_("Save as file"))
         self.setCaption()
-    
+
     def saveCopyCheckSetting(self):
         QSettings().setValue('convert_ly/copy_messages', self.copyCheck.isChecked())
-    
+
     def readSettings(self):
         font = textformats.formatData('editor').font
         self.diff.setFont(font)
         diffFont = QFont("Monospace")
         diffFont.setStyleHint(QFont.TypeWriter)
         self.uni_diff.setFont(diffFont)
-    
+
     def slotLilyPondVersionChanged(self):
         self.setLilyPondInfo(self.lilyChooser.lilyPondInfo())
-    
+
     def setCaption(self):
         version = self._info and self._info.versionString() or _("<unknown>")
         title = _("Convert-ly from LilyPond {version}").format(version=version)
@@ -164,7 +164,7 @@ class Dialog(QDialog):
         self.setConvertedText()
         self.setDiffText()
         self.messages.clear()
-    
+
     def setConvertedText(self, text=''):
         self._convertedtext = text
         self.buttons.button(QDialogButtonBox.Ok).setEnabled(bool(text))
@@ -175,23 +175,23 @@ class Dialog(QDialog):
                 wrapcolumn=100))
         else:
             self.diff.clear()
-            
+
     def setDiffText(self, text=''):
         if text:
             from_filename = "current"   # TODO: maybe use real filename here
             to_filename = "converted"   # but difflib can choke on non-ascii characters,
                                         # see https://github.com/wbsoft/frescobaldi/issues/674
             difflist = list(difflib.unified_diff(
-                    self._text.split('\n'), text.split('\n'), 
+                    self._text.split('\n'), text.split('\n'),
                     from_filename, to_filename))
             diffHLstr = self.diffHighl(difflist)
             self.uni_diff.setHtml(diffHLstr)
         else:
             self.uni_diff.clear()
-    
+
     def convertedText(self):
         return self._convertedtext or ''
-    
+
     def setDocument(self, doc):
         v = documentinfo.docinfo(doc).version_string()
         if v:
@@ -203,7 +203,7 @@ class Dialog(QDialog):
         self._encoding = doc.encoding() or 'UTF-8'
         self.setConvertedText()
         self.setDiffText()
-        
+
     def run(self):
         """Runs convert-ly (again)."""
         fromVersion = self.fromVersion.text()
@@ -215,7 +215,7 @@ class Dialog(QDialog):
         info = self._info
         command = info.toolcommand(info.ly_tool('convert-ly'))
         command += ['-f', fromVersion, '-t', toVersion, '-']
-        
+
         # if the user wants english messages, do it also here: LANGUAGE=C
         env = None
         if os.name == "nt":
@@ -238,7 +238,7 @@ class Dialog(QDialog):
                 env[b'LANGUAGE'] = b'C'
             else:
                 env['LANGUAGE'] = 'C'
-        
+
         with qutil.busyCursor():
             try:
                 proc = subprocess.Popen(command,
@@ -282,7 +282,7 @@ class Dialog(QDialog):
             return FileInfo('html-diff', 'html', self.diff.toHtml())
         elif index == 2:
             return FileInfo('uni-diff', 'diff', self.uni_diff.toPlainText())
-            
+
     def diffHighl(self, difflist):
         """Return highlighted version of input."""
         result = []
@@ -304,5 +304,5 @@ class FileInfo():
         self.filename = filename
         self.ext = ext
         self.text = text
-		
-		 
+
+
