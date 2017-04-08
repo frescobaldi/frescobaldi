@@ -70,6 +70,9 @@ class Completer(QCompleter):
                     self.popup().hide()
                 return True
             elif ev.key() == Qt.Key_Tab:
+                if modifier == Qt.AltModifier:
+                    self.popup().hide()
+                    return False
                 string = self.partialCompletion(self.currentIndex())
                 if string != '':
                     import cursortools
