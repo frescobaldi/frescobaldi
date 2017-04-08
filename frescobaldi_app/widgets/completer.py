@@ -29,23 +29,23 @@ from PyQt5.QtWidgets import QCompleter, QApplication
 
 class Completer(QCompleter):
     """A QCompleter providing completions in a Q(Plain)TextEdit.
-    
+
     Use setWidget() to assign the completer to a text edit.
-    
+
     You can reimplement completionCursor() to make your own, other than simple
     string-based completions.
-    
+
     Call showCompletionPopup() to force the popup to show.
-    
+
     """
     autoComplete = True
     autoCompleteLength = 2
-    
+
     def __init__(self, *args, **kwargs):
         super(Completer, self).__init__(*args, **kwargs)
         self.setCaseSensitivity(Qt.CaseInsensitive)
         self.activated[QModelIndex].connect(self.insertCompletion)
-        
+
     def eventFilter(self, obj, ev):
         if ev.type() != QEvent.KeyPress:
             return super(Completer, self).eventFilter(obj, ev)
@@ -101,46 +101,46 @@ class Completer(QCompleter):
             self.showCompletionPopup(False)
             return True
         return False
-    
+
     def isTextEvent(self, ev, visible):
         """Called when a key is pressed.
-        
+
         Should return True if the given KeyPress event 'ev' represents text that
         makes sense for showing the completions popup.
-        
+
         The 'visible' argument is True when the popup is currently visible.
-        
+
         """
         return ev.text()[-1:] > " " and ev.key() != Qt.Key_Delete
 
     def textCursor(self):
         """Returns the current text cursor of the TextEdit."""
         return self.widget().textCursor()
-        
+
     def completionCursor(self):
         """Should return a QTextCursor or None.
-        
+
         If a QTextCursor is returned, its selection is used as the completion
         prefix and its selectionStart() as the place to popup the popup.
-        
+
         This method may also alter the completion model.
-        
+
         """
         cursor = self.textCursor()
         cursor.movePosition(QTextCursor.StartOfWord, QTextCursor.KeepAnchor)
         return cursor
-    
+
     def showCompletionPopup(self, forced=True):
         """Shows the completion popup.
-        
+
         Calls completionCursor() to get the place where to popup, and that
         method may also alter the completion model.
-        
+
         If forced is True (the default) the popup is always shown (if it
         contains any entries). Otherwise it is only shown self.autoComplete is
         True and the cursor returned by completionCursor() has at least
         self.autoCompleteLength characters selected.
-        
+
         """
         cursor = self.completionCursor()
         if not cursor:
@@ -168,10 +168,10 @@ class Completer(QCompleter):
 
     def insertCompletion(self, index):
         """Inserts the completion at the given index.
-        
+
         The default implementation reads the model data under the Qt.EditRole,
         and inserts that with the (already entered) completionPrefix removed.
-        
+
         """
         cursor = self.textCursor()
         text = self.completionModel().data(index, Qt.EditRole)

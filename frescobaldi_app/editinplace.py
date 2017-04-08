@@ -52,10 +52,10 @@ import documenttooltip
 
 def edit(parent, cursor, position=None):
     """Create and show a new dialog editing the cursor's block or selection.
-    
+
     If the position is given, popup af the specified position.
     After the dialog has been used it is automatically deleted.
-    
+
     """
     dlg = Dialog(parent)
     dlg.finished.connect(dlg.deleteLater)
@@ -83,27 +83,27 @@ class Dialog(widgets.dialog.Dialog):
         # make Ctrl+Return accept the dialog
         self.button("ok").setShortcut(QKeySequence("Ctrl+Return"))
         qutil.saveDialogSize(self, "editinplace/dialog/size")
-        
+
         self.accepted.connect(self.save)
         app.translateUI(self)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-        
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Edit in Place")))
         self.updateMessage()
-    
+
     def readSettings(self):
         self._showPopupAction.setShortcut(
             actioncollectionmanager.action("autocomplete", "popup_completions").shortcut())
-        
+
     def edit(self, cursor):
         """Edit the block at the specified QTextCursor."""
         if self._document:
             self._document.closed.disconnect(self.reject)
         self._document = cursor.document()
         self._document.closed.connect(self.reject)
-        
+
         # don't change the cursor
         c = self._range = QTextCursor(cursor)
         cursorpos = c.position() - c.block().position()
@@ -111,22 +111,22 @@ class Dialog(widgets.dialog.Dialog):
         indentpos = c.position() - c.block().position()
         c.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
         self.view.setPlainText(c.selection().toPlainText())
-        
+
         self.highlighter.setInitialState(tokeniter.state(cursortools.block(cursor)))
         self.highlighter.setHighlighting(metainfo.info(cursor.document()).highlighting)
         self.highlighter.rehighlight()
-        
+
         # let autocomplete query the real document as if we're at the start
         # of the current block
         self.completer.document_cursor = QTextCursor(cursor.block())
         self.completer.autoComplete = QSettings().value("autocomplete", True, bool)
-        
+
         cursor = self.view.textCursor()
         cursor.setPosition(max(0, cursorpos-indentpos))
         self.view.setTextCursor(cursor)
-        
+
         self.updateMessage()
-        
+
     def popup(self, position):
         """Show the dialog at the specified global QPoint."""
         geom = self.geometry()
@@ -138,7 +138,7 @@ class Dialog(widgets.dialog.Dialog):
         self.setGeometry(geom)
         self.view.setFocus()
         self.show()
-    
+
     def save(self):
         """Called to perform the edits in the document."""
         cursor = QTextCursor(self._range)
@@ -149,7 +149,7 @@ class Dialog(widgets.dialog.Dialog):
         with cursortools.compress_undo(cursor, True):
             # re-indent the inserted line(s)
             indent.re_indent(cursor)
-        
+
     def updateMessage(self):
         """Called when a new cursor is set to edit, updates the message text."""
         if self._document:
@@ -161,7 +161,7 @@ class Dialog(widgets.dialog.Dialog):
             ))
         else:
             self.setMessage("<no document set>") # should never appear
-    
+
     def slotCompletionPopup(self):
         self.completer.showCompletionPopup()
 
@@ -181,11 +181,11 @@ class View(QPlainTextEdit):
         data = textformats.formatData('editor')
         self.setFont(data.font)
         self.setPalette(data.palette())
-    
+
     def sizeHint(self):
         metrics = self.fontMetrics()
         return QSize(80 * metrics.width(" "),3 * metrics.height())
-    
+
     def event(self, ev):
         """Reimplemented to avoid typing the line separator."""
         if ev == QKeySequence.InsertLineSeparator:
@@ -198,7 +198,7 @@ class Matcher(matcher.AbstractMatcher):
     def __init__(self, view):
         super(Matcher, self).__init__(view)
         self._highlighter = MatchHighlighter(view)
-    
+
     def highlighter(self):
         return self._highlighter
 
@@ -209,11 +209,11 @@ class MatchHighlighter(gadgets.arbitraryhighlighter.ArbitraryHighlighter):
         super(MatchHighlighter, self).__init__(edit)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-    
+
     def readSettings(self):
         self._baseColors = textformats.formatData('editor').baseColors
         self.reload()
-    
+
     def textFormat(self, name):
         f = QTextCharFormat()
         f.setBackground(self._baseColors[name])
@@ -222,31 +222,31 @@ class MatchHighlighter(gadgets.arbitraryhighlighter.ArbitraryHighlighter):
 
 class Completer(autocomplete.completer.Completer):
     """A Completer providing completions for the Edit in Place popup.
-    
+
     It can request information from the document specified by the
     document_cursor which can be set as an instance attribute.
-    
+
     """
     document_cursor = None
     def __init__(self, view):
         super(Completer, self).__init__()
         self.setWidget(view)
-    
+
     def analyzer(self):
         return Analyzer(self.document_cursor)
 
 
 class Analyzer(autocomplete.analyzer.Analyzer):
     """An Analyzer looking at the line of text in the Edit in Place popup.
-    
+
     It takes the document_cursor attribute on init from the Completer,
     so that the document the Edit in Place popup belongs to can be queried
     for information like defined variables, etc.
-    
+
     """
     def __init__(self, cursor):
         self._document_cursor = cursor
-    
+
     def document_cursor(self):
         """Reimplemented to return the cursor of the real document."""
         return self._document_cursor

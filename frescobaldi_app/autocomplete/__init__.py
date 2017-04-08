@@ -43,7 +43,7 @@ class CompleterManager(plugin.MainWindowPlugin):
             self.setView(mainwindow.currentView())
         complete = QSettings().value("autocomplete", True, bool)
         ac.autocomplete.setChecked(complete)
-    
+
     def setView(self, view):
         self.completer().setWidget(view)
 
@@ -55,11 +55,11 @@ class CompleterManager(plugin.MainWindowPlugin):
             self._completer = c = completer.Completer()
             c.autoComplete = self.actionCollection.autocomplete.isChecked()
             return self._completer
-    
+
     def setAutoComplete(self, enabled):
         QSettings().setValue("autocomplete", enabled)
         self.completer().autoComplete = enabled
-    
+
     def showCompletions(self):
         if self.mainwindow().currentView().hasFocus():
             self.completer().showCompletionPopup()
@@ -74,7 +74,7 @@ class Actions(actioncollection.ActionCollection):
         self.autocomplete = QAction(parent, checkable=True)
         self.popup_completions = QAction(parent)
         self.popup_completions.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Space))
-    
+
     def translateUI(self):
         self.autocomplete.setText(_("Automatic &Completion"))
         self.popup_completions.setText(_("Show C&ompletions Popup"))

@@ -62,9 +62,9 @@ jobFinished = Signal()          # (Document, Job, bool success)
 
 def activeWindow():
     """Return the currently active MainWindow.
-    
+
     Only returns None if there are no windows at all.
-    
+
     """
     if windows:
         w = QApplication.activeWindow()
@@ -74,9 +74,9 @@ def activeWindow():
 
 def openUrl(url, encoding=None):
     """Returns a Document instance for the given QUrl.
-    
+
     If there is already a document with that url, it is returned.
-    
+
     """
     d = findDocument(url)
     if not d:
@@ -98,9 +98,9 @@ def openUrl(url, encoding=None):
 
 def findDocument(url):
     """Returns a Document instance for the given QUrl if already loaded.
-    
+
     Returns None if no document with given url exists or if the url is empty.
-    
+
     """
     if not url.isEmpty():
         for d in documents:
@@ -123,13 +123,13 @@ def instantiate():
 
 def oninit(func):
     """Call specified function on QApplication instantiation.
-    
+
     If the QApplication already has been instantiated, the function is called
     directly.
-    
+
     As this function returns the specified function, you can use this as a
     decorator.
-    
+
     """
     if qApp:
         func()
@@ -152,14 +152,14 @@ def restart():
         args = [python_executable] + args
     import subprocess
     subprocess.Popen(args)
-    
+
 def translateUI(obj, priority=0):
     """Translates texts in the object.
-    
+
     Texts are translated again if the language is changed.
     The object must have a translateUI() method.  It is
     also called by this function.
-    
+
     """
     languageChanged.connect(obj.translateUI, priority)
     obj.translateUI()
@@ -170,9 +170,9 @@ def caption(title):
 
 def filetypes(extension=None):
     """Returns a list of supported filetypes.
-    
+
     If a type matches extension, it is placed first.
-    
+
     """
     have, havenot = [], []
     for patterns, name in (

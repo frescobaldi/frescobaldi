@@ -44,10 +44,10 @@ def info(document):
 
 def define(name, default, readfunc=None):
     """Define a variable and its default value to be stored in the metainfo.
-    
+
     Should be defined before it is requested or set.
     If readfunc is not given it defaults to a suitable function for bool or int types.
-    
+
     """
     if readfunc is None:
         if isinstance(default, bool):
@@ -60,7 +60,7 @@ def define(name, default, readfunc=None):
         else:
             readfunc = lambda v: v
     _defaults[name] = [default, readfunc]
-    
+
     # read this value for already loaded metainfo items
     for minfo in MetaInfo.instances():
         minfo.loadValue(name)
@@ -72,19 +72,19 @@ class MetaInfo(plugin.DocumentPlugin):
         self.load()
         document.loaded.connect(self.load, -999) # before all others
         document.closed.connect(self.save,  999) # after all others
-        
+
     def settingsGroup(self):
         url = self.document().url()
         if not url.isEmpty():
             s = app.settings('metainfo')
             s.beginGroup(url.toString().replace('\\', '_').replace('/', '_'))
             return s
-        
+
     def load(self):
         s = self.settingsGroup()
         for name in _defaults:
             self.loadValue(name, s)
-        
+
     def loadValue(self, name, settings=None):
         s = settings or self.settingsGroup()
         default, readfunc = _defaults[name]
@@ -100,7 +100,7 @@ class MetaInfo(plugin.DocumentPlugin):
             for name in _defaults:
                 value = self.__dict__[name]
                 s.remove(name) if value == _defaults[name][0] else s.setValue(name, value)
-            
+
 
 @app.aboutToQuit.connect
 def prune():

@@ -39,7 +39,7 @@ from . import ClearButton
 class KeySequenceWidget(QWidget):
 
     keySequenceChanged = pyqtSignal(int)
-    
+
     def __init__(self, parent=None, num=0):
         super(KeySequenceWidget, self).__init__(parent)
         self._num = num
@@ -47,27 +47,27 @@ class KeySequenceWidget(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(2)
         self.setLayout(layout)
-        
+
         self.button = KeySequenceButton(self)
         self.clearButton = ClearButton(self, iconSize=QSize(16, 16))
         layout.addWidget(self.button)
         layout.addWidget(self.clearButton)
-        
+
         self.clearButton.clicked.connect(self.clear)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.button.setToolTip(_("Start recording a key sequence."))
         self.clearButton.setToolTip(_("Clear the key sequence."))
-        
+
     def setShortcut(self, shortcut):
         """Sets the initial shortcut to display."""
         self.button.setKeySequence(shortcut)
-    
+
     def shortcut(self):
         """Returns the currently set key sequence."""
         return self.button.keySequence()
-        
+
     def clear(self):
         """Empties the displayed shortcut."""
         if self.button.isRecording():
@@ -78,16 +78,16 @@ class KeySequenceWidget(QWidget):
 
     def setModifierlessAllowed(self, allow):
         self.button._modifierlessAllowed = allow
-        
+
     def isModifierlessAllowed(self):
         return self.button._modifierlessAllowed
-    
+
     def num(self):
         return self._num
 
 
 class KeySequenceButton(QPushButton):
-    
+
     def __init__(self, parent=None):
         super(KeySequenceButton, self).__init__(parent)
         self.setIcon(icons.get("configure"))
@@ -107,7 +107,7 @@ class KeySequenceButton(QPushButton):
         if self._isrecording:
             self.doneRecording()
         return self._seq
-    
+
     def updateDisplay(self):
         if self._isrecording:
             s = self._recseq.toString(QKeySequence.NativeText).replace('&', '&&')
@@ -123,7 +123,7 @@ class KeySequenceButton(QPushButton):
 
     def isRecording(self):
         return self._isrecording
-        
+
     def event(self, ev):
         if self._isrecording:
             # prevent Qt from special casing Tab and Backtab
@@ -131,7 +131,7 @@ class KeySequenceButton(QPushButton):
                 self.keyPressEvent(ev)
                 return True
         return super(KeySequenceButton, self).event(ev)
-        
+
     def keyPressEvent(self, ev):
         if not self._isrecording:
             return super(KeySequenceButton, self).keyPressEvent(ev)
@@ -139,7 +139,7 @@ class KeySequenceButton(QPushButton):
             return
         modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
         ev.accept()
-        
+
         key = ev.key()
         # check if key is a modifier or a character key without modifier (and if that is allowed)
         if (
@@ -163,38 +163,38 @@ class KeySequenceButton(QPushButton):
 #                key = key | (modifiers & ~Qt.SHIFT)
             else:
                 key = key | modifiers
-            
+
             # append max. 4 keystrokes
             if self._recseq.count() < 4:
                 l = list(self._recseq)
                 l.append(key)
                 self._recseq = QKeySequence(*l)
-        
+
         self._modifiers = modifiers
         self.controlTimer()
         self.updateDisplay()
-        
+
     def keyReleaseEvent(self, ev):
         if not self._isrecording:
             return super(KeySequenceButton, self).keyReleaseEvent(ev)
         modifiers = int(ev.modifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
         ev.accept()
-        
+
         self._modifiers = modifiers
         self.controlTimer()
         self.updateDisplay()
-    
+
     def hideEvent(self, ev):
         if self._isrecording:
             self.cancelRecording()
         super(KeySequenceButton, self).hideEvent(ev)
-        
+
     def controlTimer(self):
         if self._modifiers or self._recseq.isEmpty():
             self._timer.stop()
         else:
             self._timer.start(600)
-    
+
     def startRecording(self):
         self.setFocus(True) # because of QTBUG 17810
         self.setDown(True)
@@ -204,13 +204,13 @@ class KeySequenceButton(QPushButton):
         self._modifiers = int(QApplication.keyboardModifiers() & (Qt.SHIFT | Qt.CTRL | Qt.ALT | Qt.META))
         self.grabKeyboard()
         self.updateDisplay()
-        
+
     def doneRecording(self):
         self._seq = self._recseq
         self.cancelRecording()
         self.clearFocus()
         self.parentWidget().keySequenceChanged.emit(self.parentWidget().num())
-        
+
     def cancelRecording(self):
         if not self._isrecording:
             return

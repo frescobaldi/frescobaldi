@@ -45,7 +45,7 @@ class FileImport(plugin.MainWindowPlugin):
         ac.import_musicxml.triggered.connect(self.importMusicXML)
         ac.import_midi.triggered.connect(self.importMidi)
         ac.import_abc.triggered.connect(self.importAbc)
-        
+
     def importAll(self):
         """Reads the file type and determines which import to use."""
         filetypes = ';;'.join((
@@ -67,7 +67,7 @@ class FileImport(plugin.MainWindowPlugin):
                 QMessageBox.critical(None, _("Error"),
                     _("The file {filename} could not be converted. "
                       "Wrong file type.").format(filename=imp))
-        
+
     def isImportable(self, infile):
         """Check if the file is importable."""
         ext = os.path.splitext(infile)[1]
@@ -75,10 +75,10 @@ class FileImport(plugin.MainWindowPlugin):
             return True
         else:
             return False
-            
-    def openDialog(self, infile): 
+
+    def openDialog(self, infile):
         """Check file type and open the proper dialog."""
-        self.importfile = infile   
+        self.importfile = infile
         ext = os.path.splitext(infile)[1]
         if ext == '.xml' or ext == '.mxl':
             self.openMusicxmlDialog()
@@ -97,7 +97,7 @@ class FileImport(plugin.MainWindowPlugin):
         if not self.importfile:
             return # the dialog was cancelled by user
         self.openMusicxmlDialog()
-    
+
     def openMusicxmlDialog(self):
         try:
             dlg = self._importDialog = self.mxmlDlg
@@ -107,7 +107,7 @@ class FileImport(plugin.MainWindowPlugin):
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
-        
+
     def importMidi(self):
         """Opens an midi file. Converts it to ly by using midi2ly."""
         filetypes = '{0} (*.midi *.mid);;{1} (*)'.format(
@@ -118,7 +118,7 @@ class FileImport(plugin.MainWindowPlugin):
         if not self.importfile:
             return # the dialog was cancelled by user
         self.openMidiDialog()
-    
+
     def openMidiDialog(self):
         try:
             dlg = self._importDialog = self.midDlg
@@ -128,7 +128,7 @@ class FileImport(plugin.MainWindowPlugin):
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
-        
+
     def importAbc(self):
         """Opens an abc file. Converts it to ly by using abc2ly."""
         filetypes = '{0} (*.abc);;{1} (*)'.format(
@@ -149,7 +149,7 @@ class FileImport(plugin.MainWindowPlugin):
             dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
             dlg.setWindowModality(Qt.WindowModal)
         self.runImport()
-    
+
     def runImport(self):
         """Generic execution of all import dialogs."""
         dlg = self._importDialog
@@ -180,8 +180,8 @@ class FileImport(plugin.MainWindowPlugin):
         doc.setUrl(QUrl.fromLocalFile(filename))
         doc.setModified(True)
         self.mainwindow().setCurrentDocument(doc)
-        return doc       
-        
+        return doc
+
     def postImport(self, settings, doc):
         """Adaptations of the source after running musicxml2ly
 
@@ -191,7 +191,7 @@ class FileImport(plugin.MainWindowPlugin):
         Remove duration scaling
         Engrave directly
         """
-        cursor = QTextCursor(doc)		
+        cursor = QTextCursor(doc)
         if settings[0]:
             import reformat
             reformat.reformat(cursor)
@@ -202,11 +202,11 @@ class FileImport(plugin.MainWindowPlugin):
         if settings[2]:
             cursor.select(QTextCursor.Document)
             from rhythm import rhythm
-            rhythm.rhythm_remove_fraction_scaling(cursor)       
+            rhythm.rhythm_remove_fraction_scaling(cursor)
         if settings[3]:
             import engrave
             engrave.engraver(self.mainwindow()).engrave('preview', doc, False)
-        
+
 
 
 class Actions(actioncollection.ActionCollection):

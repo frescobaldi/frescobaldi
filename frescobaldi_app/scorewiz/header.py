@@ -38,10 +38,10 @@ from . import __path__
 class HeaderWidget(QWidget):
     def __init__(self, parent):
         super(HeaderWidget, self).__init__(parent)
-        
+
         layout = QHBoxLayout()
         self.setLayout(layout)
-        
+
         # The html view with the score layout example
         t = self.htmlView = QTextBrowser()
         t.setOpenLinks(False)
@@ -49,22 +49,22 @@ class HeaderWidget(QWidget):
         t.setSearchPaths(__path__)
         t.setTextInteractionFlags(Qt.LinksAccessibleByMouse)
         t.setFocusPolicy(Qt.NoFocus)
-        
+
         # ensure that the full HTML example page is displayed
         t.setContentsMargins(2, 2, 2, 2)
         t.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         t.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         t.setMinimumSize(QSize(350, 350))
         layout.addWidget(t)
-        
+
         t.anchorClicked.connect(self.slotAnchorClicked)
-        
+
         grid = QGridLayout()
         layout.addLayout(grid)
-        
+
         grid.setVerticalSpacing(1)
         grid.setColumnMinimumWidth(1, 200)
-        
+
         self.labels = {}
         self.edits = {}
         for row, (name, desc) in enumerate(headers()):
@@ -77,11 +77,11 @@ class HeaderWidget(QWidget):
             self.edits[name] = e
             completionmodel.complete(e, "scorewiz/completion/header/"+name)
             e.completer().setCaseSensitivity(Qt.CaseInsensitive)
-        
+
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         app.translateUI(self)
-        
+
     def translateUI(self):
         msg = _("Click to enter a value.")
         self.htmlView.setHtml(titles_html.format(
@@ -102,7 +102,7 @@ class HeaderWidget(QWidget):
         p = self.htmlView.palette()
         p.setColor(QPalette.Base, textformats.formatData('editor').baseColors['paper'])
         self.htmlView.setPalette(p)
-    
+
     def slotAnchorClicked(self, url):
         try:
             e = self.edits[url.toString()]
@@ -114,14 +114,14 @@ class HeaderWidget(QWidget):
         """Empties all text entries."""
         for edit in self.edits.values():
             edit.clear()
-    
+
     def headers(self):
         """Yields two-tuples (headername, entered text) for the headers that are non-empty."""
         for name, desc in headers():
             text = self.edits[name].text().strip()
             if text:
                 yield name, text
-            
+
 
 
 def headers():

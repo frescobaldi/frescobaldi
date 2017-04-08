@@ -37,10 +37,10 @@ lpr_commands = (
 
 def lprCommand():
     """Returns a suitable 'lpr'-like command to send a file to the printer queue.
-    
+
     Returns None if no such command could be found.
     Prefers the CUPS command 'lpr' or 'lp' if it can be found.
-    
+
     """
     paths = os.environ.get("PATH", os.defpath).split(os.pathsep)
     for cmd, path in itertools.product(lpr_commands, paths):
@@ -50,21 +50,21 @@ def lprCommand():
 
 def printCommand(cmd, printer, filename):
     """Returns a commandline (list) to print a PDF file.
-    
+
     cmd:      "lpr" or "lp" (or something like that)
     printer:  a QPrinter instance
     filename: the filename of the PDF document to print.
-    
+
     """
     command = [cmd]
-    
+
     # printer name
     if cmd == "lp":
         command.append('-d')
     else:
         command.append('-P')
     command.append(printer.printerName())
-    
+
     # copies
     numCopies = 1
     try:
@@ -74,20 +74,20 @@ def printCommand(cmd, printer, filename):
             numCopies = printer.actualNumCopies()
         except AttributeError: # only in Qt >= 4.6
             numCopies = printer.numCopies()
-    
+
     if cmd == "lp":
         command.append('-n')
         command.append(format(numCopies))
     else:
         command.append('-#{0}'.format(numCopies))
-    
+
     # job name
     if cmd == "lp":
         command.append('-t')
     else:
         command.append('-J')
     command.append(printer.docName() or os.path.basename(filename))
-    
+
     # page range
     if printer.printRange() == QPrinter.PageRange:
         pageRange = "{0}-{1}".format(printer.fromPage(), printer.toPage())
@@ -97,13 +97,13 @@ def printCommand(cmd, printer, filename):
         else:
             command.append('-o')
             command.append('page-ranges=' + pageRange)
-    
+
     # duplex mode
     if printer.duplex() == QPrinter.DuplexLongSide:
         command.extend(['-o', 'sides=two-sided-long-edge'])
     elif printer.duplex() == QPrinter.DuplexShortSide:
         command.extend(['-o', 'sides=two-sided-short-edge'])
-    
+
     command.append(filename)
     return command
 

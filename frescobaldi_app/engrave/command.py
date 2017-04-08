@@ -41,19 +41,19 @@ def info(document):
 
 def defaultJob(document, args=None):
     """Return a default job for the document.
-    
+
     The 'args' argument, if given, must be a list of commandline arguments
     that are given to LilyPond, and may enable specific preview modes.
-    
+
     If args is not given, the Job will cause LilyPond to run in Publish mode,
     with point and click turned off.
-    
+
     """
     filename, includepath = documentinfo.info(document).jobinfo(True)
-    
+
     i = info(document)
     j = job.Job()
-    
+
     command = [i.abscommand() or i.command]
     s = QSettings()
     s.beginGroup("lilypond_settings")
@@ -61,13 +61,13 @@ def defaultJob(document, args=None):
         command.append('-ddelete-intermediate-files')
     else:
         command.append('-dno-delete-intermediate-files')
-    
+
     if args:
         command.extend(args)
     else:
         # publish mode
         command.append('-dno-point-and-click')
-    
+
     if s.value("default_output_target", "pdf", str) == "svg":
         # engrave to SVG
         command.append('-dbackend=svg')
@@ -79,7 +79,7 @@ def defaultJob(document, args=None):
                 command.append('-dembed-source-code')
         command.append('--pdf')
 
-        
+
     command.extend('-I' + path for path in includepath)
     j.directory = os.path.dirname(filename)
     command.append(filename)

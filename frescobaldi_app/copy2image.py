@@ -49,9 +49,9 @@ except ImportError:
 
 def copy_image(parent_widget, page, rect=None, filename=None):
     """Shows the dialog to copy a PDF page to a raster image.
-    
+
     If rect is given, only that part of the page is copied.
-    
+
     """
     dlg = Dialog(parent_widget)
     dlg.show()
@@ -71,7 +71,7 @@ class Dialog(QDialog):
         self.dpiCombo.lineEdit().setCompleter(None)
         self.dpiCombo.setValidator(QDoubleValidator(10.0, 1200.0, 4, self.dpiCombo))
         self.dpiCombo.addItems([format(i) for i in (72, 100, 200, 300, 600, 1200)])
-        
+
         self.colorButton = widgets.colorbutton.ColorButton()
         self.colorButton.setColor(QColor(Qt.white))
         self.crop = QCheckBox()
@@ -84,12 +84,12 @@ class Dialog(QDialog):
         self.copyButton.setIcon(icons.get('edit-copy'))
         self.saveButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
         self.saveButton.setIcon(icons.get('document-save'))
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         layout.addWidget(self.imageViewer)
-        
+
         controls = QHBoxLayout()
         layout.addLayout(controls)
         controls.addWidget(self.dpiLabel)
@@ -115,7 +115,7 @@ class Dialog(QDialog):
         self.copyButton.clicked.connect(self.copyToClipboard)
         self.saveButton.clicked.connect(self.saveAs)
         qutil.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
-    
+
     def translateUI(self):
         self.setCaption()
         self.dpiLabel.setText(_("DPI:"))
@@ -141,7 +141,7 @@ class Dialog(QDialog):
             "You can also drag the small picture icon in the bottom right, "
             "which drags the actual file on disk, e.g. to an e-mail message.\n"
             "</p>").format(command="\u2318"))
-        
+
     def readSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
@@ -150,7 +150,7 @@ class Dialog(QDialog):
         self.crop.setChecked(s.value("autocrop", False, bool))
         self.antialias.setChecked(s.value("antialias", True, bool))
         self.scaleup.setChecked(s.value("scaleup", False, bool))
-    
+
     def writeSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
@@ -159,7 +159,7 @@ class Dialog(QDialog):
         s.setValue("autocrop", self.crop.isChecked())
         s.setValue("antialias", self.antialias.isChecked())
         s.setValue("scaleup", self.scaleup.isChecked())
-    
+
     def setCaption(self):
         if self._filename:
             filename = os.path.basename(self._filename)
@@ -167,7 +167,7 @@ class Dialog(QDialog):
             filename = _("<unknown>")
         title = _("Image from {filename}").format(filename = filename)
         self.setWindowTitle(app.caption(title))
-        
+
     def setPage(self, page, rect, filename):
         self._page = page
         self._rect = rect
@@ -195,14 +195,14 @@ class Dialog(QDialog):
             i = i.scaled(i.size() / 2, transformMode=Qt.SmoothTransformation)
         self._image = i
         self.cropImage()
-    
+
     def cropImage(self):
         image = self._image
         if self.crop.isChecked():
             image = image.copy(autoCropRect(image))
         self.imageViewer.setImage(image)
         self.fileDragger.setImage(image)
-    
+
     def copyToClipboard(self):
         QApplication.clipboard().setImage(self.imageViewer.image())
 
@@ -226,11 +226,11 @@ class FileDragger(gadgets.drag.FileDragger):
     image = None
     basename = None
     currentFile = None
-    
+
     def setImage(self, image):
         self.image = image
         self.currentFile = None
-        
+
     def filename(self):
         if self.currentFile:
             return self.currentFile
@@ -248,9 +248,9 @@ class FileDragger(gadgets.drag.FileDragger):
 
 def autoCropRect(image):
     """Returns a QRect specifying the contents of the QImage.
-    
+
     Edges of the image are trimmed if they have the same color.
-    
+
     """
     # pick the color at most of the corners
     colors = collections.defaultdict(int)

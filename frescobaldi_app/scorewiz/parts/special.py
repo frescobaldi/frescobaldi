@@ -34,7 +34,7 @@ class Chords(_base.ChordNames, _base.Part):
     @staticmethod
     def title(_=_base.translate):
         return _("Chord names")
-    
+
 
 class BassFigures(_base.Part):
     @staticmethod
@@ -44,7 +44,7 @@ class BassFigures(_base.Part):
     def createWidgets(self, layout):
         self.extenderLines = QCheckBox()
         layout.addWidget(self.extenderLines)
-    
+
     def translateWidgets(self):
         self.extenderLines.setText(_("Use extender lines"))
 

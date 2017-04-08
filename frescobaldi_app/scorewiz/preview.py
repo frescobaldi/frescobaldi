@@ -41,10 +41,10 @@ def examplify(doc):
                     break
             stubs.append((g, a[-1]))
         else:
-            keysig = a.find_child(ly.dom.KeySignature) 
+            keysig = a.find_child(ly.dom.KeySignature)
             timesig = a.find_child(ly.dom.TimeSignature)
             partial = a.find_child(ly.dom.Partial)
-            
+
             # create a list of durations for the example notes.
             durations = []
             if partial:
@@ -57,10 +57,10 @@ def examplify(doc):
             durations += [(dur, 0)] * num
 
             globals[a.name] = (keysig, durations)
-    
+
     # other lyrics on each request
     lyrics = itertools.cycle('ha hi he ho hu'.split())
-    
+
     # fill assignment stubs with suitable example music input
     num = 10
     for g, stub in stubs:
@@ -69,13 +69,13 @@ def examplify(doc):
             num = len(durations)
         except KeyError:
             pass
-        
+
         def addItems(stub, generator):
             for dur, dots in durations:
                 node = next(generator)
                 node.append(ly.dom.Duration(dur, dots))
                 stub.append(node)
-        
+
         if isinstance(stub, ly.dom.LyricMode):
             stub.append(ly.dom.Text(' '.join(itertools.repeat(next(lyrics), num))))
         elif isinstance(stub, ly.dom.Relative):
@@ -104,14 +104,14 @@ def chordGen(startPitch):
         yield n
         for i in 1, 2, 3:
             yield ly.dom.TextDur("\\skip")
-        
+
 
 def figureGen():
     while True:
         for i in 5, 6, 3, 8, 7:
             for s in "<{0}>".format(i), "\\skip", "\\skip":
                 yield ly.dom.TextDur(s)
-            
+
 
 def drumGen():
     while True:

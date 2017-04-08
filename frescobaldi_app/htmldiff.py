@@ -29,9 +29,9 @@ import difflib
 def htmldiff(oldtext, newtext, oldtitle="", newtitle="",
              context=True, numlines=3, tabsize=8, wrapcolumn=None):
     """Return a HTML diff from oldtext to newtext.
-    
+
     See also the Python documentation for difflib.HtmlDiff().make_table().
-    
+
     """
     table = difflib.HtmlDiff(tabsize=tabsize, wrapcolumn=wrapcolumn).make_table(
         oldtext.splitlines(), newtext.splitlines(),

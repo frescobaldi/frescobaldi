@@ -25,9 +25,9 @@ using an ArbitraryHighlighter.
 from . import matcher
 
 class Matcher(matcher.Matcher):
-    
+
     priority = 0
-    
+
     def __init__(self, highlighter):
         """Initialize the Matcher; highlighter is an ArbitraryHighlighter instance."""
         super(matcher.Matcher, self).__init__(highlighter)
@@ -36,11 +36,11 @@ class Matcher(matcher.Matcher):
     def edit(self):
         """Reimplemented to return the parent of our parent:)"""
         return self.parent().parent()
-    
+
     def highlight(self, cursors):
         """Highlights the selections of the specified QTextCursor instances."""
         self.parent().highlight(self.format, cursors, self.priority, self.time)
-    
+
     def clear(self):
         """Removes the highlighting."""
         self.parent().clear(self.format)

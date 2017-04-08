@@ -45,7 +45,7 @@ class AbstractVCSRepo(object):
     @abstractmethod
     def checkout(self, branch):
         pass
-        
+
     @abstractmethod
     def current_branch(self):
         """
@@ -60,7 +60,7 @@ class AbstractVCSRepo(object):
         Checks by actually running git branch.
         """
         pass
-    
+
     @abstractmethod
     def has_remote(self, remote):
         """Returns True if the given remote name is registered."""
@@ -73,7 +73,7 @@ class AbstractVCSRepo(object):
         is tracking a remote branch.
         """
         pass
-    
+
     @abstractmethod
     def remotes(self):
         """Return a string list with registered remote names"""
@@ -89,7 +89,7 @@ class AbstractVCSRepo(object):
         Return ('local', 'local') if it doesn't track any branch.
         """
         pass
-    
+
     @abstractmethod
     def tracked_remote_label(self, branch):
         """

@@ -35,17 +35,17 @@ from . import register
 
 class PitchedPercussionPart(_base.SingleVoicePart):
     """Base class for pitched percussion types."""
-    
-    
+
+
 class Timpani(PitchedPercussionPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Timpani")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Timpani", "Tmp.")
-        
+
     midiInstrument = 'timpani'
     clef = 'bass'
     octave = -1
@@ -55,11 +55,11 @@ class Xylophone(PitchedPercussionPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Xylophone")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Xylophone", "Xyl.")
-        
+
     midiInstrument = 'xylophone'
 
 
@@ -67,17 +67,17 @@ class Marimba(_base.PianoStaffPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Marimba")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Marimba", "Mar.")
-    
+
     midiInstrument = 'marimba'
 
     def createWidgets(self, layout):
         super(Marimba, self).createWidgets(layout)
         self.lowerVoices.setMinimum(0)
-    
+
     def translateWidgets(self):
         self.upperVoicesLabel.setText(_("Upper staff:"))
         self.lowerVoicesLabel.setText(_("Lower staff:"))
@@ -95,11 +95,11 @@ class Vibraphone(Marimba):
     @staticmethod
     def title(_=_base.translate):
         return _("Vibraphone")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Vibraphone", "Vib.")
-        
+
     midiInstrument = 'vibraphone'
 
 
@@ -107,11 +107,11 @@ class TubularBells(PitchedPercussionPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Tubular bells")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Tubular bells", "Tub.")
-        
+
     midiInstrument = 'tubular bells'
 
 
@@ -119,11 +119,11 @@ class Glockenspiel(PitchedPercussionPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Glockenspiel")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Glockenspiel", "Gls.")
-        
+
     midiInstrument = 'glockenspiel'
 
 
@@ -131,18 +131,18 @@ class Carillon(_base.PianoStaffPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Carillon")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Carillon", "Car.")
-    
+
     midiInstrument = 'tubular bells' # anyone knows better?
-    
+
     def translateWidgets(self):
         super(Carillon, self).translateWidgets()
         self.upperVoicesLabel.setText(_("Manual staff:"))
         self.lowerVoicesLabel.setText(_("Pedal staff:"))
-    
+
     def build(self, data, builder):
         p = ly.dom.PianoStaff()
         builder.setInstrumentNamesFromPart(p, self, data)
@@ -157,11 +157,11 @@ class Drums(_base.Part):
     @staticmethod
     def title(_=_base.translate):
         return _("Drums")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Drums", "Dr.")
-        
+
     def createWidgets(self, layout):
         self.voicesLabel = QLabel()
         self.voices = QSpinBox(minimum=1, maximum=4, value=1)
@@ -169,7 +169,7 @@ class Drums(_base.Part):
         self.drumStyle = QComboBox()
         self.drumStyle.setModel(listmodel.ListModel(drumStyles, self.drumStyle, display=listmodel.translate))
         self.drumStems = QCheckBox()
-        
+
         box = QHBoxLayout()
         box.addWidget(self.voicesLabel)
         box.addWidget(self.voices)
@@ -179,19 +179,19 @@ class Drums(_base.Part):
         box.addWidget(self.drumStyle)
         layout.addLayout(box)
         layout.addWidget(self.drumStems)
-        
+
     def translateWidgets(self):
         self.voicesLabel.setText(_("Voices:"))
         self.drumStyleLabel.setText(_("Style:"))
         self.drumStems.setText(_("Remove stems"))
         self.drumStems.setToolTip(_("Remove the stems from the drum notes."))
         self.drumStyle.model().update()
-    
+
     def assignDrums(self, data, name = None):
         r"""Creates an empty name = \drummode assignment.
 
         Returns the assignment.
-        
+
         """
         a = data.assign(name)
         s = ly.dom.DrumMode(a)
@@ -233,7 +233,7 @@ drumStyles = (
     lambda: _("Bongos-style (2 lines)"),
     lambda: _("Percussion-style (1 line)"),
 )
-    
+
 
 
 register(

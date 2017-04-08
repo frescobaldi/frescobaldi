@@ -37,14 +37,14 @@ class ScoreWizard(plugin.MainWindowPlugin):
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.scorewiz.triggered.connect(self.showDialog)
         self._dlg = None
-    
+
     def dialog(self):
         """Return the wizard dialog, creating it if necessary."""
         if self._dlg is None:
             from . import dialog
             self._dlg = dialog.ScoreWizardDialog(self.mainwindow())
         return self._dlg
-        
+
     def showDialog(self):
         self.dialog().show()
 
@@ -56,7 +56,7 @@ class Actions(actioncollection.ActionCollection):
         self.scorewiz.setIcon(icons.get("tools-score-wizard"))
         self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
         self.scorewiz.setMenuRole(QAction.NoRole)
-        
+
     def translateUI(self):
         self.scorewiz.setText(_("Score &Wizard..."))
 

@@ -38,10 +38,10 @@ import widgets.urlrequester
 class Helpers(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(Helpers, self).__init__(dialog)
-        
+
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
-        
+
         layout.addWidget(Apps(self))
         layout.addWidget(Printing(self))
 
@@ -49,10 +49,10 @@ class Helpers(preferences.ScrolledGroupsPage):
 class Apps(preferences.Group):
     def __init__(self, page):
         super(Apps, self).__init__(page)
-        
+
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
-        
+
         self.messageLabel = QLabel(wordWrap=True)
         layout.addWidget(self.messageLabel, 0, 0, 1, 2)
         self.labels = {}
@@ -64,9 +64,9 @@ class Apps(preferences.Group):
             e.changed.connect(page.changed)
             layout.addWidget(l, row, 0)
             layout.addWidget(e, row, 1)
-            
+
         app.translateUI(self)
-    
+
     def items(self):
         """Yields (name, title) tuples for every setting in this group."""
         yield "pdf", _("PDF:")
@@ -78,7 +78,7 @@ class Apps(preferences.Group):
         yield "directory", _("File Manager:")
         yield "shell", _("Shell:")
         yield "git", _("Git:")
-        
+
     def translateUI(self):
         self.setTitle(_("Helper Applications"))
         self.messageLabel.setText(_(
@@ -95,13 +95,13 @@ class Apps(preferences.Group):
             "Command to open a Terminal or Command window."))
         self.entries["git"].setToolTip(_(
             "Command (base) to run Git versioning actions."))
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("helper_applications")
         for name, title in self.items():
             self.entries[name].setPath(s.value(name, "", str))
-    
+
     def saveSettings(self):
         s= QSettings()
         s.beginGroup("helper_applications")
@@ -112,10 +112,10 @@ class Apps(preferences.Group):
 class Printing(preferences.Group):
     def __init__(self, page):
         super(Printing, self).__init__(page)
-        
+
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
-        
+
         self.messageLabel = QLabel(wordWrap=True)
         self.printCommandLabel = QLabel()
         self.printCommand = widgets.urlrequester.UrlRequester()
@@ -133,9 +133,9 @@ class Printing(preferences.Group):
         layout.addWidget(self.printDialogCheck, 2, 0, 1, 2)
         layout.addWidget(self.resolutionLabel, 3, 0)
         layout.addWidget(self.resolution, 3, 1)
-        
+
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_("Printing Music"))
         self.messageLabel.setText(_(
@@ -159,7 +159,7 @@ class Printing(preferences.Group):
         self.resolutionLabel.setText(_("Resolution:"))
         self.resolution.setToolTip(_(
             "Set the resolution if Frescobaldi prints using raster images."))
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("helper_applications")
@@ -167,7 +167,7 @@ class Printing(preferences.Group):
         self.printDialogCheck.setChecked(s.value("printcommand/dialog", False, bool))
         with qutil.signalsBlocked(self.resolution):
             self.resolution.setEditText(format(s.value("printcommand/dpi", 300, int)))
-    
+
     def saveSettings(self):
         s= QSettings()
         s.beginGroup("helper_applications")

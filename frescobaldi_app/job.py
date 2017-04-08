@@ -51,37 +51,37 @@ ALL = OUTPUT | STATUS
 
 class Job(object):
     """Manages a process.
-    
+
     Set the command attribute to a list of strings describing the program and
     its arguments.
     Set the directory attribute to a working directory.
     The environment attribute is a dictionary; if you set an item it will be
     added to the environment for the process (the rest will be inherited from
     the system); if you set an item to None, it will be unset.
-    
+
     Call start() to start the process.
     The output() signal emits output (stderr or stdout) from the process.
     The done() signal is always emitted when the process has ended.
     The history() method returns all status messages and output so far.
-    
+
     When the process has finished, the error and success attributes are set.
     The success attribute is set to True When the process exited normally and
     successful. When the process did not exit normally and successfully, the
     error attribute is set to the QProcess.ProcessError value that occurred
     last. Before start(), error and success both are None.
-    
+
     The status messages and output all are in one of five categories:
     STDERR, STDOUT (output from the process) or NEUTRAL, FAILURE or SUCCESS
     (status messages). When displaying these messages in a log, it is advised
     to take special care for newlines, esp when a status message is displayed.
     Status messages normally have no newlines, so you must add them if needed,
     while output coming from the process may continue in the same line.
-    
+
     """
     output = signals.Signal()
     done = signals.Signal()
     title_changed = signals.Signal() # title (string)
-    
+
     def __init__(self):
         self.command = []
         self.directory = ""
@@ -97,40 +97,40 @@ class Job(object):
         self.decoder_stdout = self.create_decoder(STDOUT)
         self.decoder_stderr = self.create_decoder(STDERR)
         self.decode_errors = 'strict'  # codecs error handling
-    
+
     def create_decoder(self, channel):
         """Return a decoder for the given channel (STDOUT/STDERR).
-        
+
         This method is called from the constructor. You can re-implement this
         method to return another decoder, or you can set the decoders manually
         by setting the `decoder_stdout` and `decoder_stderr` manually after
         construction.
-        
+
         This decoder is then used to decode the 8bit bytestrings into Python
         unicode strings. The default implementation returns a 'latin1'
         decoder for both channels.
-        
+
         """
         return codecs.getdecoder('latin1')
-        
+
     def title(self):
         """Return the job title, as set with set_title().
-        
+
         The title defaults to an empty string.
-        
+
         """
         return self._title
-        
+
     def set_title(self, title):
         """Set the title.
-        
+
         If the title changed, the title_changed(title) signal is emitted.
-        
+
         """
         old, self._title = self._title, title
         if title != old:
             self.title_changed(title)
-    
+
     def start(self):
         """Starts the process."""
         self.success = None
@@ -147,15 +147,15 @@ class Job(object):
         if self.environment:
             self._update_process_environment()
         self._process.start(self.command[0], self.command[1:])
-    
+
     def start_time(self):
         """Return the time this job was started.
-        
+
         Returns 0.0 when the job has not been started yet.
-        
+
         """
         return self._starttime
-    
+
     def elapsed_time(self):
         """Return how many seconds this process has been running."""
         if self._elapsed:
@@ -173,23 +173,23 @@ class Job(object):
                 self._process.kill()
             else:
                 self._process.terminate()
-    
+
     def is_aborted(self):
         """Returns True if the job was aborted by calling abort()."""
         return self._aborted
-        
+
     def is_running(self):
         """Returns True if this job is running."""
         return bool(self._process)
-    
+
     def failed_to_start(self):
         """Return True if the process failed to start.
-        
+
         (Call this method after the process has finished.)
-        
+
         """
         return self.error == QProcess.FailedToStart
-    
+
     def set_process(self, process):
         """Sets a QProcess instance and connects the signals."""
         self._process = process
@@ -199,50 +199,50 @@ class Job(object):
         process.error.connect(self._error)
         process.readyReadStandardError.connect(self._readstderr)
         process.readyReadStandardOutput.connect(self._readstdout)
-    
+
     def _update_process_environment(self):
         """(internal) initializes the environment for the process."""
         se = QProcessEnvironment.systemEnvironment()
         for k, v in self.environment.items():
             se.remove(k) if v is None else se.insert(k, v)
         self._process.setProcessEnvironment(se)
-    
+
     def message(self, text, type=NEUTRAL):
         """Output some text as the given type (NEUTRAL, SUCCESS, FAILURE, STDOUT or STDERR)."""
         self.output(text, type)
         self._history.append((text, type))
-        
+
     def history(self, types=ALL):
         """Yield the output messages as two-tuples (text, type) since the process started.
-        
+
         If types is given, it should be an OR-ed combination of the status types
         STDERR, STDOUT, NEUTRAL, SUCCESS or FAILURE.
-        
+
         """
         for msg, type in self._history:
             if type & types:
                 yield msg, type
-        
+
     def stdout(self):
         """Return the standard output of the process as unicode text."""
         return "".join(self.history(STDOUT))
-    
+
     def stderr(self):
         """Return the standard error of the process as unicode text."""
         return "".join(self.history(STDERR))
-    
+
     def _finished(self, exitCode, exitStatus):
         """(internal) Called when the process has finished."""
         self.finish_message(exitCode, exitStatus)
         success = exitCode == 0 and exitStatus == QProcess.NormalExit
         self._bye(success)
-        
+
     def _error(self, error):
         """(internal) Called when an error occurs."""
         self.error_message(error)
         if self._process.state() == QProcess.NotRunning:
             self._bye(False)
-    
+
     def _bye(self, success):
         """(internal) Ends and emits the done() signal."""
         self._elapsed = time.time() - self._starttime
@@ -252,12 +252,12 @@ class Job(object):
         self._process.deleteLater()
         self._process = None
         self.done(success)
-        
+
     def _readstderr(self):
         """(internal) Called when STDERR can be read."""
         output = self._process.readAllStandardError()
         self.message(self.decoder_stderr(output, self.decode_errors)[0], STDERR)
-        
+
     def _readstdout(self):
         """(internal) Called when STDOUT can be read."""
         output = self._process.readAllStandardOutput()
@@ -265,27 +265,27 @@ class Job(object):
 
     def start_message(self):
         """Called by start().
-        
+
         Outputs a message that the process has started.
-        
+
         """
         name = self.title() or os.path.basename(self.command[0])
         self.message(_("Starting {job}...").format(job=name), NEUTRAL)
-    
+
     def abort_message(self):
         """Called by abort().
-        
+
         Outputs a message that the process has been aborted.
-        
+
         """
         name = self.title() or os.path.basename(self.command[0])
         self.message(_("Aborting {job}...").format(job=name), NEUTRAL)
-    
+
     def error_message(self, error):
         """Called when there is an error (by _error()).
-        
+
         Outputs a message describing the given QProcess.Error.
-        
+
         """
         if error == QProcess.FailedToStart:
             self.message(_(
@@ -298,9 +298,9 @@ class Job(object):
 
     def finish_message(self, exitCode, exitStatus):
         """Called when the process finishes (by _finished()).
-        
+
         Outputs a message on completion of the process.
-        
+
         """
         if exitCode:
             self.message(_("Exited with return code {code}.").format(code=exitCode), FAILURE)

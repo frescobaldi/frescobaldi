@@ -37,10 +37,10 @@ import variables
 
 def findexe(cmd, path=None):
     """Checks the PATH for the executable and returns the absolute path or None.
-    
+
     If path (a list or tuple of directory names) is given, it is searched as
     well when the operating system's PATH did not contain the executable.
-    
+
     """
     if os.path.isabs(cmd):
         return cmd if os.access(cmd, os.X_OK) else None
@@ -73,7 +73,7 @@ else:
     def equal_paths(p1, p2):
         """Returns True if the paths are equal."""
         return p1 == p2
-        
+
 
 # Make sure that also on Windows, directory slashes remain forward
 if os.name == 'nt':
@@ -128,17 +128,17 @@ def newer_files(files, time):
 
 def group_files(names, groups):
     """Groups the given filenames by extension.
-    
+
     names: an iterable (or list or tuple) yielding filenames.
     groups: an iterable (or list or tuple) yielding strings.
-    
+
     Each group is a string containing one or more extensions, without period,
     separated by a space. If a filename has one of the extensions in the group,
     the names is added to the list of file for that group.
     An exclamation sign at the beginning of the string negates the match.
-    
+
     Yields the same number of lists as there were group arguments.
-    
+
     """
     allgroups = []
     for group in groups:
@@ -158,9 +158,9 @@ def group_files(names, groups):
 
 def naturalsort(text):
     """Returns a key for the list.sort() method.
-    
+
     Intended to sort strings in a human way, for e.g. version numbers.
-    
+
     """
     return tuple(int(s) if s.isdigit() else s for s in re.split(r'(\d+)', text))
 
@@ -173,10 +173,10 @@ def filenamesort(filename):
 
 def next_file(filename):
     """Return a similar filename with e.g. "-1" added before the extension.
-    
+
     If there is already a "-n" before the extension, where n is a number,
     the number is increased by one.
-    
+
     """
     name, ext = os.path.splitext(filename)
     try:
@@ -191,15 +191,15 @@ def next_file(filename):
 
 def bytes_environ(encoding='latin1'):
     """Return the environment as a dictionary with bytes keys and values.
-    
+
     This can be used for subprocess, as it chokes on Windows on unicode strings
     in Python 2.x.
-    
+
     """
     return dict((s.encode(encoding) if type(s) is not type(b'') else s
                  for s in v) for v in os.environ.items())
 
-    
+
 def uniq(iterable):
     """Returns an iterable, removing duplicates. The items should be hashable."""
     s, l = set(), 0
@@ -212,12 +212,12 @@ def uniq(iterable):
 
 def get_bom(data):
     """Get the BOM mark of data, if any.
-    
-    A two-tuple is returned (encoding, data). If the data starts with a BOM 
-    mark, its encoding is determined and the BOM mark is stripped off. 
-    Otherwise, the returned encoding is None and the data is returned 
+
+    A two-tuple is returned (encoding, data). If the data starts with a BOM
+    mark, its encoding is determined and the BOM mark is stripped off.
+    Otherwise, the returned encoding is None and the data is returned
     unchanged.
-    
+
     """
     for bom, encoding in (
         (codecs.BOM_UTF8, 'utf-8'),
@@ -233,12 +233,12 @@ def get_bom(data):
 
 def decode(data, encoding=None):
     """Decode binary data, using encoding if specified.
-    
-    When the encoding can't be determined and isn't specified, it is tried to 
+
+    When the encoding can't be determined and isn't specified, it is tried to
     get the encoding from the document variables (see variables module).
-    
+
     Otherwise utf-8 and finally latin1 are tried.
-    
+
     """
     enc, data = get_bom(data)
     for e in (enc, encoding):
@@ -260,11 +260,11 @@ def decode(data, encoding=None):
 
 def encode(text, encoding=None, default_encoding='utf-8'):
     """Return the bytes representing the text, encoded.
-    
-    Looks at the specified encoding or the 'coding' variable to determine 
-    the encoding, otherwise falls back to the given default encoding, 
+
+    Looks at the specified encoding or the 'coding' variable to determine
+    the encoding, otherwise falls back to the given default encoding,
     defaulting to 'utf-8'.
-    
+
     """
     enc = encoding or variables.variables(text).get("coding")
     if enc:
@@ -282,9 +282,9 @@ def universal_newlines(text):
 
 def platform_newlines(text):
     """Convert newlines in text to the platform-specific newline.
-    
+
     On Unix/Linux/Mac OS X this is '\\n', on Windows '\\r\\n'.
-    
+
     """
     return universal_newlines(text).replace('\n', os.linesep)
 

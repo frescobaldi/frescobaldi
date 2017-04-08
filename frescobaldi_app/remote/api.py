@@ -39,7 +39,7 @@ class Remote(object):
     """Speak to the remote Frescobaldi."""
     def __init__(self, socket):
         self.socket = socket
-    
+
     def close(self):
         """Close and disconnect."""
         self.write(b'bye\n')
@@ -47,13 +47,13 @@ class Remote(object):
         self.socket.disconnectFromServer()
         if self.socket.state() == QLocalSocket.ConnectedState:
             self.socket.waitForDisconnected(5000)
-    
+
     def write(self, data):
         """Writes binary data."""
         while data:
             l = self.socket.write(data)
             data = data[l:]
-    
+
     def command_line(self, args, urls):
         """Let remote Frescobaldi handle a command line."""
         if urls:
@@ -76,12 +76,12 @@ class Incoming(object):
         self.encoding = None
         _incoming_handlers.append(self)
         socket.readyRead.connect(self.read)
-    
+
     def close(self):
         if self in _incoming_handlers:
             self.socket.deleteLater()
             _incoming_handlers.remove(self)
-    
+
     def read(self):
         """Read from the socket and let command() handle the commands."""
         self.data.extend(self.socket.readAll())
@@ -94,23 +94,23 @@ class Incoming(object):
         del self.data[:end]
         if self.socket.state() == QLocalSocket.UnconnectedState:
             self.close()
-    
+
     def command(self, command):
         """Perform one command."""
         command = command.split()
         cmd = command[0]
         args = command[1:]
-        
+
         win = app.activeWindow()
         if not win:
             import mainwindow
             win = mainwindow.MainWindow()
             win.show()
-        
+
         if cmd == b'open':
             url = QUrl.fromEncoded(args[0])
             win.openUrl(url, self.encoding)
-                
+
         elif cmd == b'encoding':
             self.encoding = str(args[0])
         elif cmd == b'activate_window':

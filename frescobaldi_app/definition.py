@@ -54,9 +54,9 @@ def target(node):
 
 def goto_definition(mainwindow, cursor=None):
     """Go to the definition of the item the mainwindow's cursor is at.
-    
+
     Return True if there was a definition.
-    
+
     """
     if cursor is None:
         cursor = mainwindow.textCursor()

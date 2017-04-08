@@ -60,16 +60,16 @@ def links(document):
 
 class Links(pointandclick.Links):
     """Stores all the links of a Poppler document sorted by URL and text position.
-    
+
     Only textedit:// urls are stored.
-    
+
     """
     def cursor(self, link, load=False):
         """Returns the destination of a link as a QTextCursor of the destination document.
-        
+
         If load (defaulting to False) is True, the document is loaded if it is not yet loaded.
         Returns None if the url was not valid or the document could not be loaded.
-        
+
         """
         import popplerqt5
         if not isinstance(link, popplerqt5.Poppler.LinkBrowse) or not link.url():

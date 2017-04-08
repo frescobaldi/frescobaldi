@@ -107,7 +107,7 @@ setup(
     maintainer_email = appinfo.maintainer_email,
     url = appinfo.url,
     license = appinfo.license,
-    
+
     scripts = scripts,
     packages = packages,
     package_data = package_data,

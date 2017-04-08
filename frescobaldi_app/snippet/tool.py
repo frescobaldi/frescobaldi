@@ -52,11 +52,11 @@ class SnippetTool(panel.Panel):
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
         mainwindow.selectionStateChanged.connect(self.updateActions)
         self.updateActions()
-        
+
     def translateUI(self):
         self.setWindowTitle(_("Snippets"))
         self.toggleViewAction().setText(_("&Snippets"))
-        
+
     def createWidget(self):
         from . import widget
         return widget.Widget(self)
@@ -68,20 +68,20 @@ class SnippetTool(panel.Panel):
         self.mainwindow().currentView().ensureCursorVisible()
         self.widget().searchEntry.setFocus()
         self.widget().searchEntry.selectAll()
-    
+
     def updateActions(self):
         self.actionCollection.copy_to_snippet.setEnabled(self.mainwindow().hasSelection())
-    
+
     def saveAsTemplate(self):
         from . import template
         template.save(self.mainwindow())
-    
+
     def copyToSnippet(self):
         text = self.mainwindow().textCursor().selection().toPlainText()
         text = '-*- menu;\n' + text
         from . import edit
         edit.Edit(self.widget(), None, text)
-    
+
     def manageTemplates(self):
         super(SnippetTool, self).activate()
         if self.isFloating():
@@ -111,7 +111,7 @@ class SnippetActions(actioncollection.ShortcutCollection):
     def __init__(self, tool):
         super(SnippetActions, self).__init__(tool.mainwindow().centralWidget())
         self.tool = weakref.ref(tool)
-    
+
     def createDefaultShortcuts(self):
         self.setDefaultShortcuts('voice1', [QKeySequence('Alt+1')])
         self.setDefaultShortcuts('voice2', [QKeySequence('Alt+2')])
@@ -135,19 +135,19 @@ class SnippetActions(actioncollection.ShortcutCollection):
         self.setDefaultShortcuts('double', [QKeySequence('Ctrl+D')])
         self.setDefaultShortcuts('comment', [QKeySequence('Ctrl+Alt+C, Ctrl+Alt+C')])
         self.setDefaultShortcuts('uncomment', [QKeySequence('Ctrl+Alt+C, Ctrl+Alt+U')])
-        
+
     def realAction(self, name):
         from . import actions, model
         if name in model.model().names():
             return actions.action(name, None, self)
-    
+
     def triggerAction(self, name):
         from . import insert, model
         if name in model.model().names():
             view = self.tool().mainwindow().currentView()
             if view.hasFocus() or self.tool().widget().searchEntry.hasFocus():
                 insert.insert(name, view)
-            
+
     def title(self):
         return _("Snippets")
 

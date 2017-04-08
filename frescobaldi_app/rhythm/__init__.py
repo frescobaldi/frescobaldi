@@ -49,7 +49,7 @@ class Rhythm(plugin.MainWindowPlugin):
         ac.rhythm_apply.triggered.connect(self.rhythm_apply)
         ac.rhythm_copy.triggered.connect(self.rhythm_copy)
         ac.rhythm_paste.triggered.connect(self.rhythm_paste)
-        
+
     def updateSelection(self, selection):
         ac = self.actionCollection
         ac.rhythm_double.setEnabled(selection)
@@ -70,62 +70,62 @@ class Rhythm(plugin.MainWindowPlugin):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_double(cursor)
-        
+
     def rhythm_halve(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_halve(cursor)
-        
+
     def rhythm_dot(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_dot(cursor)
-        
+
     def rhythm_undot(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_undot(cursor)
-        
+
     def rhythm_remove_scaling(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_remove_scaling(cursor)
-        
+
     def rhythm_remove_fraction_scaling(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_remove_fraction_scaling(cursor)
-        
+
     def rhythm_remove(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_remove(cursor)
-        
+
     def rhythm_implicit(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_implicit(cursor)
-        
+
     def rhythm_implicit_per_line(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_implicit_per_line(cursor)
-        
+
     def rhythm_explicit(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_explicit(cursor)
-        
+
     def rhythm_apply(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_apply(cursor, self.mainwindow())
-        
+
     def rhythm_copy(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
         rhythm.rhythm_copy(cursor)
-        
+
     def rhythm_paste(self):
         cursor = self.mainwindow().textCursor()
         from . import rhythm
@@ -148,7 +148,7 @@ class Actions(actioncollection.ActionCollection):
         self.rhythm_apply = QAction(parent)
         self.rhythm_copy = QAction(parent)
         self.rhythm_paste = QAction(parent)
-    
+
     def translateUI(self):
         self.rhythm_double.setText(_("&Double durations"))
         self.rhythm_double.setToolTip(_(

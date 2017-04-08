@@ -47,15 +47,15 @@ def cut_assign(cursor):
         "text to:"), regexp="[A-Za-z]+")
     if not name:
         return
-    
+
     cursortools.strip_selection(cursor)
-    
+
     # determine state at cursor
     block = cursortools.block(cursor)
     state = tokeniter.state(block)
     for t in tokeniter.partition(cursor).left:
         state.follow(t)
-    
+
     mode = ""
     for p in state.parsers():
         if isinstance(p, ly.lex.lilypond.ParseInputMode):
@@ -102,13 +102,13 @@ def cut_assign(cursor):
 
 def move_to_include_file(cursor, parent_widget=None):
     """Opens a dialog to save the cursor's selection to a file.
-    
+
     The cursor's selection is then replaced with an \\include statement.
     This function does its best to supply a good default filename and
     use it correctly in a relative \\include statement.
-    
+
     Of course it only works well if the document already has a filename.
-    
+
     """
     doc = cursor.document()
     text = cursor.selection().toPlainText()

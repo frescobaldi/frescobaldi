@@ -47,7 +47,7 @@ class Widget(QTreeWidget):
         doc = tool.mainwindow().currentDocument()
         if doc:
             self.slotCurrentDocumentChanged(doc)
-    
+
     def slotCurrentDocumentChanged(self, doc, old=None):
         """Called whenever the mainwindow changes the current document."""
         if old:
@@ -55,14 +55,14 @@ class Widget(QTreeWidget):
         if doc:
             doc.contentsChange.connect(self.slotContentsChange)
             self._timer.start(100)
-            
+
     def slotContentsChange(self, position, added, removed):
         """Updates the view on contents change."""
         if added + removed > 1000:
             self._timer.start(100)
         else:
             self._timer.start(2000)
-        
+
     def updateView(self):
         """Recreate the items in the view."""
         with qutil.signalsBlocked(self):
@@ -106,9 +106,9 @@ class Widget(QTreeWidget):
                             b = b.next()
                         else:
                             parent = last_item
-                
+
                 item = last_item = QTreeWidgetItem(parent)
-                
+
                 # set item text and display style bold if 'title' was used
                 for name, text in i.groupdict().items():
                     if text:
@@ -129,7 +129,7 @@ class Widget(QTreeWidget):
                 else:
                     text = i.group()
                 item.setText(0, text)
-                
+
                 # remember whether is was collapsed by the user
                 try:
                     collapsed = block.userData().collapsed
@@ -144,19 +144,19 @@ class Widget(QTreeWidget):
                     current_item = item
             if current_item:
                 self.scrollToItem(current_item)
-    
+
     def cursorForItem(self, item):
         """Returns a cursor for the specified item.
-        
+
         This method (as all others) assume that the item refers to the current
         Document.
-        
+
         """
         doc = self.parent().mainwindow().currentDocument()
         cursor = QTextCursor(doc)
         cursor.setPosition(item.position)
         return cursor
-        
+
     def slotItemClicked(self, item):
         """Called when the user clicks an item."""
         cursor = self.cursorForItem(item)
@@ -171,7 +171,7 @@ class Widget(QTreeWidget):
         """Called when the user collapses an item."""
         block = self.cursorForItem(item).block()
         cursortools.data(block).collapsed = True
-    
+
     def slotItemExpanded(self, item):
         """Called when the user expands an item."""
         block = self.cursorForItem(item).block()

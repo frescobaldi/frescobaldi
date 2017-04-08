@@ -73,7 +73,7 @@ block_data = """\
 # Note:   When comparing block names, casing, whitespace, hyphens,
 #         and underbars are ignored.
 #         For example, "Latin Extended-A" and "latin extended a" are equivalent.
-#         For more information on the comparison of property values, 
+#         For more information on the comparison of property values,
 #            see UAX #44: http://www.unicode.org/reports/tr44/
 #
 #  All code points not explicitly listed for Block

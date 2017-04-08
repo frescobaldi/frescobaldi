@@ -18,19 +18,19 @@ _parse = string.Formatter().parse
 
 def fields(text):
     """Returns the format field names in text as a set().
-    
+
     If the text contains erroneous formatting delimiters, ValueError is raised.
-    
+
     """
     return set(i[1] for i in _parse(text) if i[1] and i[1][0].isalpha())
 
 
 def molint(filename):
     """Checks filename for superfluous fields in the translated messages.
-    
+
     Returns True if there are no errors, otherwise prints messages to stderr
     and returns False.
-    
+
     """
     correct = True
     with open(filename, 'rb') as f:
@@ -44,10 +44,10 @@ def molint(filename):
                 s |= fields(m)
             except ValueError:
                 pass
-        
+
         if not s:
             continue
-        
+
         # collect superfluous fields in translations
         errors = []
         for t in translations:
@@ -60,7 +60,7 @@ def molint(filename):
                     errors.append((t, "Field{0} {1} not in message".format(
                         's' if len(superfluous) > 1 else '',
                         ', '.join('{{{0}}}'.format(name) for name in superfluous))))
-        
+
         # write out errors if any
         if errors:
             correct = False
@@ -69,12 +69,12 @@ def molint(filename):
                 "  Message{1}:\n".format(filename, '' if len(messages) == 1 else "s"))
             for m in messages:
                 sys.stderr.write("    {0}\n".format(m))
-            
+
             sys.stderr.write("  Offending translation{0}:\n".format('' if len(errors) == 1 else "s"))
-            
+
             for t, errmsg in errors:
                 sys.stderr.write("    {0}:\n      {1}\n".format(errmsg, t))
-    
+
     return correct
 
 

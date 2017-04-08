@@ -41,7 +41,7 @@ class LineEdit(QLineEdit):
         self.textChanged.connect(self._updateClearButton)
         self._updateLayoutDirection()
         self._updateClearButton()
-    
+
     def _updateLayoutDirection(self):
         b = self._clearButton
         if self.layoutDirection() == Qt.RightToLeft:
@@ -50,7 +50,7 @@ class LineEdit(QLineEdit):
         else:
             self.setTextMargins(0, 0, b.width(), 0)
             b.setIcon(icons.get('edit-clear-locationbar-rtl'))
-        
+
     def _updateClearButton(self):
         b = self._clearButton
         if self.text():

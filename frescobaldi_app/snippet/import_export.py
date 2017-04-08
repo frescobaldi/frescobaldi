@@ -50,21 +50,21 @@ def save(names, filename):
     root.text = '\n\n'
     root.tail = '\n'
     d = ET.ElementTree(root)
-    
+
     comment = ET.Comment(_comment.format(appinfo=appinfo))
     comment.tail = '\n\n'
     root.append(comment)
-    
+
     for name in names:
         snippet = ET.Element('snippet')
         snippet.set('id', name)
         snippet.text = '\n'
         snippet.tail = '\n\n'
-        
+
         title = ET.Element('title')
         title.text = snippets.title(name, False)
         title.tail = '\n'
-        
+
         shortcuts = ET.Element('shortcuts')
         ss = model.shortcuts(name)
         if ss:
@@ -75,11 +75,11 @@ def save(names, filename):
                 shortcut.tail = '\n'
                 shortcuts.append(shortcut)
         shortcuts.tail = '\n'
-        
+
         body = ET.Element('body')
         body.text = snippets.text(name)
         body.tail = '\n'
-        
+
         snippet.append(title)
         snippet.append(shortcuts)
         snippet.append(body)
@@ -89,12 +89,12 @@ def save(names, filename):
 
 def load(filename, widget):
     """Loads snippets from a file, displaying them in a list.
-    
+
     The user can then choose:
     - overwrite builtin snippets or not
     - overwrite own snippets with same title or not
     - select and view snippets contents.
-    
+
     """
     try:
         d = ET.parse(filename)
@@ -114,42 +114,42 @@ def load(filename, widget):
     tree = QTreeWidget(headerHidden=True, rootIsDecorated=False)
     dlg.setMainWidget(tree)
     userguide.addButton(dlg.buttonBox(), "snippet_import_export")
-    
+
     allnames = frozenset(snippets.names())
     builtins = frozenset(builtin.builtin_snippets)
     titles = dict((snippets.title(n), n) for n in allnames if n not in builtins)
-    
+
     new = QTreeWidgetItem(tree, [_("New Snippets")])
     updated = QTreeWidgetItem(tree, [_("Updated Snippets")])
     unchanged = QTreeWidgetItem(tree, [_("Unchanged Snippets")])
-    
+
     new.setFlags(Qt.ItemIsEnabled)
     updated.setFlags(Qt.ItemIsEnabled)
     unchanged.setFlags(Qt.ItemIsEnabled)
-    
+
     new.setExpanded(True)
     updated.setExpanded(True)
-    
+
     items = []
     for snip in elements:
         item = QTreeWidgetItem()
-        
+
         item.body = snip.find('body').text
         item.title = snip.find('title').text
         item.shortcuts = list(e.text for e in snip.findall('shortcuts/shortcut'))
-        
+
         title = item.title or snippets.maketitle(snippets.parse(item.body).text)
         item.setText(0, title)
-        
+
         name = snip.get('id')
         name = name if name in builtins else None
-        
-        
+
+
         # determine if new, updated or unchanged
         if not name:
             name = titles.get(title)
         item.name = name
-        
+
         if not name or name not in allnames:
             new.addChild(item)
             items.append(item)
@@ -158,7 +158,7 @@ def load(filename, widget):
         elif name:
             if (item.body != snippets.text(name)
                 or title != snippets.title(name)
-                or (item.shortcuts and item.shortcuts != 
+                or (item.shortcuts and item.shortcuts !=
                     [s.toString() for s in model.shortcuts(name) or ()])):
                 updated.addChild(item)
                 items.append(item)
@@ -174,15 +174,15 @@ def load(filename, widget):
         if i.childCount():
             i.setFlags(Qt.ItemIsEnabled | Qt.ItemIsUserCheckable)
             i.setCheckState(0, Qt.Checked)
-    
+
     def changed(item):
         if item in (new, updated):
             for i in range(item.childCount()):
                 c = item.child(i)
                 c.setCheckState(0, item.checkState(0))
-            
+
     tree.itemChanged.connect(changed)
-    
+
     importShortcuts = QTreeWidgetItem([_("Import Keyboard Shortcuts")])
     if items:
         tree.addTopLevelItem(importShortcuts)
@@ -192,7 +192,7 @@ def load(filename, widget):
     else:
         dlg.setMessage(_("There are no new or updated snippets in the file."))
         unchanged.setExpanded(True)
-    
+
     tree.setWhatsThis(_(
         "<p>Here the snippets from {filename} are displayed.</p>\n"
         "<p>If there are new or updated snippets, you can select or deselect "
@@ -200,7 +200,7 @@ def load(filename, widget):
         "Then click OK to import all the selected snippets.</p>\n"
         "<p>Existing, unchanged snippets can't be imported.</p>\n"
         ).format(filename=os.path.basename(filename)))
-        
+
     qutil.saveDialogSize(dlg, "snippettool/import/size", QSize(400, 300))
     if not dlg.exec_() or not items:
         return
@@ -218,12 +218,12 @@ def load(filename, widget):
 
 _comment = """
   Created by {appinfo.appname} {appinfo.version}.
-  
+
   Every snippet is represented by:
     title:      title text
     shortcuts:  list of shortcut elements, every shortcut is a key sequence
     body:       the snippet text
-  
+
   The snippet id attribute can be the name of a builtin snippet or a random
   name like 'n123456'. In the latter case, the title is used to determine
   whether a snippet is new or updated.

@@ -53,56 +53,56 @@ class Job(QThread):
         self.time = time.time()
         self.callbacks = set()
         self.finished.connect(self._slotFinished)
-    
+
     def start(self):
         self.page_copy = self.page.copy()
         self.key = self.renderer.key(self.page)
         self.running = True
         super().start()
-        
+
     def run(self):
         self.image = self.renderer.render(self.page_copy)
-    
+
     def _slotFinished(self):
         self.renderer.finish(self)
 
 
 class AbstractImageRenderer:
     """Handle rendering and caching of images.
-    
+
     A renderer can be assigned to the renderer attribute of a Page and takes
     care for generating, caching and updating the images needed for display
     of the Page at different sizes.
-    
+
     You can use a renderer for as many Page instances as you like. You can use
     one global renderer in your application or more, depending on how you use
     the qpageview package.
 
     You must inherit from this class and at least implement the
     render() method.
-    
+
     Instance attributes:
-    
+
         `paperColor`    Paper color. If possible this background color is used
                         when rendering the pages, also for temporary drawings
                         when a page has to be rendered. If None, Qt.white is
                         used. If a Page specifies its own paperColor, that color
                         prevails.
-    
-    
+
+
     """
-    
+
     # default paper color to use (if possible, and when drawing an empty page)
     paperColor = QColor(Qt.white)
-    
+
     def __init__(self):
         self.cache = cache.ImageCache()
-    
+
     def key(self, page):
         """Return a cache_key instance for this Page.
-        
+
         The cache_key is a four-tuple:
-        
+
             group       = an object a weak reference is taken to. It could be
                           a document or some other structure the page belongs to.
                           By default the Page object itself is used.
@@ -110,12 +110,12 @@ class AbstractImageRenderer:
             page        = the rotation by default, but if you use group differently,
                           you should use here a hashable object that identifies
                           the page in the group.
-                          
+
             size        = must be the (width, height) tuple of the page.
-        
-        The cache_key is used to store and find back requests and to cache 
+
+        The cache_key is used to store and find back requests and to cache
         results.
-        
+
         """
         return cache_key(
             page,
@@ -128,14 +128,14 @@ class AbstractImageRenderer:
 
     def paint(self, page, painter, rect, callback=None):
         """Paint a page.
-        
+
         The Page calls this method by default in the paint() method.
         This method tries to fetch an image from the cache and paint that.
         If no image is available, render() is called in the background to
         generate one. If it is ready, the callback is called with the Page
         as argument. An interim image may be painted in the meantime (e.g.
         scaled from another size).
-        
+
         """
         key = self.key(page)
         try:
@@ -163,13 +163,13 @@ class AbstractImageRenderer:
             job = _jobs[self][page] = Job(self, page)
         job.callbacks.add(callback)
         self.checkstart()
-    
+
     def unschedule(self, page, callback):
         """Unschedule a possible pending rendering job.
-        
+
         A rendering job is only removed if the specified callback was the only
         callback to call.
-        
+
         """
         try:
             job = _jobs[self][page]
@@ -181,7 +181,7 @@ class AbstractImageRenderer:
                 del _jobs[self][page]
                 if not _jobs[self]:
                     del _jobs[self]
-    
+
     def checkstart(self):
         """Check whether there are jobs that need to be started."""
         try:
@@ -194,13 +194,13 @@ class AbstractImageRenderer:
         waitingjobs = sorted((j for j in ourjobs if not j.running),
                              key=lambda j: j.time, reverse=True)
         jobcount = len(runningjobs)
-        
+
         for job in waitingjobs[:maxjobs-jobcount]:
             mutex = job.page.mutex()
             if mutex is None or not any(mutex is j.page.mutex() for j in runningjobs):
                 runningjobs.append(job)
                 job.start()
-        
+
     def finish(self, job):
         """Called by the job when finished."""
         self.cache[job.key] = job.image

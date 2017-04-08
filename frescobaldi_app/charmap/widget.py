@@ -44,11 +44,11 @@ _blocks = tuple(itertools.takewhile(
 class Widget(QWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         layout.setContentsMargins(0, 0, 0, 0)
-        
+
         self.blockCombo = QComboBox()
         self.charmap = CharMapWidget()
 
@@ -59,16 +59,16 @@ class Widget(QWidget):
         p = self.blockCombo.sizePolicy()
         p.setHorizontalPolicy(QSizePolicy.Ignored)
         self.blockCombo.setSizePolicy(p)
-        
+
         # size policy of combo popup
         p = self.blockCombo.view().sizePolicy()
         p.setHorizontalPolicy(QSizePolicy.MinimumExpanding)
         self.blockCombo.view().setSizePolicy(p)
-        
+
         model = listmodel.ListModel(_blocks,
             display = lambda b: b.name)
         self.blockCombo.setModel(model)
-        
+
         # load block setting
         name = QSettings().value("charmaptool/last_block", "", str)
         if name:
@@ -76,13 +76,13 @@ class Widget(QWidget):
                 if b.name == name:
                     self.blockCombo.setCurrentIndex(i)
                     break
-        
+
         self.blockCombo.activated[int].connect(self.updateBlock)
         self.updateBlock()
-        
+
         self.loadSettings()
         app.settingsChanged.connect(self.loadSettings)
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("charmaptool")
@@ -93,7 +93,7 @@ class Widget(QWidget):
         self.charmap.charmap.setDisplayFont(font)
         size = s.value("fontsize", font.pointSizeF(), float)
         self.charmap.charmap.setDisplayFontSizeF(size)
-    
+
     def updateBlock(self):
         i = self.blockCombo.currentIndex()
         if 0 <= i < len(_blocks):
@@ -113,7 +113,7 @@ class CharMapWidget(QScrollArea):
         # TEMP
         self.charmap.setRange(32, 1023)
         self.charmap.setColumnCount(8)
-    
+
     def resizeEvent(self, ev):
         self.charmap.setColumnCount(
             self.charmap.columnCountForWidth(ev.size().width()))

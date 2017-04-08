@@ -52,9 +52,9 @@ def reformat(cursor):
 
 def remove_trailing_whitespace(cursor):
     """Remove trailing whitespace from all lines in the selection.
-    
+
     If there is no selection, the whole document is used.
-    
+
     """
     ly.reformat.remove_trailing_whitespace(lydocument.cursor(cursor, select_all=True))
 

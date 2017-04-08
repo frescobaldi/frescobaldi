@@ -28,21 +28,21 @@ from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkReply, QNetworkReques
 
 class NetworkAccessManager(QNetworkAccessManager):
     """A QNetworkAccessManager subclass with easy registration of custom url schemes.
-    
+
     Use the registerHandler() method to add custom scheme handlers.
     The registerHtmlHandler() method is used to add a simple callable as handler that
     gets a QUrl and should return the HTML as a normal string.
-    
+
     The headers instance attribute is a dictionary (empty by default) containing
     extra headers (as key, value) that are added to outgoing requests.
-    
+
     """
-    
+
     def __init__(self, parent=None):
         QNetworkAccessManager.__init__(self, parent)
         self._dispatcher = {}
         self.headers = {}
-        
+
     def createRequest(self, operation, request, data):
         try:
             requestFunc = self._dispatcher[request.url().scheme()]
@@ -50,35 +50,35 @@ class NetworkAccessManager(QNetworkAccessManager):
             self.addHeadersToRequest(request)
             return QNetworkAccessManager.createRequest(self, operation, request, data)
         return requestFunc(self, operation, request, data)
-    
+
     def addHeadersToRequest(self, request):
         """Called on outgoing requests and should add raw headers to the request.
-        
+
         The default implementation of this method simply adds all the headers in the
         headers instance attribute.
-        
+
         """
         for name, value in self.headers.items():
             request.setRawHeader(bytearray(name, "latin_1"), bytearray(value, "latin_1"))
-    
+
     def registerHandler(self, scheme, handler):
         """Registers a handler for the given scheme.
-        
+
         The handler is called with four arguments (manager, operation, request,
         data), just like the QNetworkAccessManager.createRequest method, and
         should return a QNetworkReply instance.
-        
+
         """
         self._dispatcher[scheme] = handler
-        
+
     def registerHtmlHandler(self, scheme, handler, threaded=False, encoding="UTF-8"):
         """Registers a simple callable as the handler for the given scheme.
-        
+
         The handler only gets a GET URL (QUrl) and should return a HTML string.
         If threaded is True, the handler is called in a background thread.
         The encoding defaults to UTF-8 and is used for encoding the HTML returned
         by then handler and also set in the Content-Type header.
-        
+
         """
         cls = ThreadedHtmlReply if threaded else HtmlReply
         def createRequest(mgr, operation, request, data):
@@ -100,29 +100,29 @@ class HtmlReplyBase(QNetworkReply):
         self.setUrl(url)
         self._handler = handler
         self._encoding = encoding
-    
+
     def callHandler(self):
         self._content = self._handler(self.url()).encode(self._encoding)
-        
+
     def outputReady(self):
         self._offset = 0
         self.setHeader(QNetworkRequest.ContentTypeHeader, "text/html; charset={0}".format(self._encoding))
         self.setHeader(QNetworkRequest.ContentLengthHeader, len(self._content))
         self.open(QNetworkReply.ReadOnly | QNetworkReply.Unbuffered)
-    
+
     def emitSignals(self):
         self.readyRead.emit()
         self.finished.emit()
-    
+
     def abort(self):
         pass
-    
+
     def bytesAvailable(self):
         return len(self._content) - self._offset
-    
+
     def isSequential(self):
         return True
-    
+
     def readData(self, maxSize):
         if self._offset < len(self._content):
             end = min(self._offset + maxSize, len(self._content))
@@ -147,7 +147,7 @@ class ThreadedHtmlReply(HtmlReplyBase):
         self._thread = Thread(self.callHandler)
         self._thread.finished.connect(self.threadFinished)
         self._thread.start()
-    
+
     def threadFinished(self):
         self.outputReady()
         self.emitSignals()
@@ -158,7 +158,7 @@ class Thread(QThread):
     def __init__(self, func):
         QThread.__init__(self)
         self._func = func
-    
+
     def run(self):
         self._func()
 
