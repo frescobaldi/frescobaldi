@@ -76,7 +76,7 @@ class Completer(QCompleter):
                     cursortools.insert_select(self.textCursor(), string)
                     self.showCompletionPopup()
                 else:
-                    direction = -1 if modifier == Qt.AltModifier else 1
+                    direction = -1 if modifier == Qt.ControlModifier else 1
                     self.setCurrentRow((self.currentIndex().row() + direction) %
                                        self.completionModel().rowCount())
                     self.popup().setCurrentIndex(self.currentIndex())
