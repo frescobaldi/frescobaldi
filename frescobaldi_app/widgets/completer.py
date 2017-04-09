@@ -81,10 +81,7 @@ class Completer(QCompleter):
                     cur.clearSelection()
                     self.widget().setTextCursor(cur)
                     self.showCompletionPopup()
-                    direction = -1 if modifier == Qt.ControlModifier else 1
-                    self.setCurrentRow((self.currentIndex().row() + direction) %
-                                       self.completionModel().rowCount())
-                    self.popup().setCurrentIndex(self.currentIndex())
+                    self.gotoNextEntry()
                     return True
                 string = self.partialCompletion(self.currentIndex())
                 if string != '':
@@ -95,10 +92,7 @@ class Completer(QCompleter):
                     self.widget().setTextCursor(cur)
                     self.showCompletionPopup()
                 else:
-                    direction = -1 if modifier == Qt.ControlModifier else 1
-                    self.setCurrentRow((self.currentIndex().row() + direction) %
-                                       self.completionModel().rowCount())
-                    self.popup().setCurrentIndex(self.currentIndex())
+                    self.gotoNextEntry()
                 return True
             elif self.isTextEvent(ev, True):
                 # deliver event and keep showing popup if necessary
@@ -229,3 +223,9 @@ class Completer(QCompleter):
                 elif j == len(rows) - 1:
                     string = string + ch
         return string
+        
+    def gotoNextEntry(self):
+        direction = -1 if QApplication.keyboardModifiers() == Qt.ControlModifier else 1
+        self.setCurrentRow((self.currentIndex().row() + direction) %
+                           self.completionModel().rowCount())
+        self.popup().setCurrentIndex(self.currentIndex())
