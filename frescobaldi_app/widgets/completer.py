@@ -199,26 +199,27 @@ class Completer(QCompleter):
             cell = self.completionModel().data(self.currentIndex())[text_len:]
             rows.append(cell)
         self.setCurrentRow(index.row())
-        for i in range(len(rows[0])):
-            if not partial:
-                break
-            ch = None
-            for j in range(len(rows)):
-                if ch is None:
-                    ch = rows[j][i]
-                elif ch != rows[j][i]:
-                    partial = False
+        if rows:
+            for i in range(len(rows[0])):
+                if not partial:
                     break
-                elif j == len(rows) - 1:
-                    string = string + ch
-        
-        if string != '':
-            cur = self.textCursor()
-            pos = cur.position()
-            cur.insertText(string)
-            cur.setPosition(pos)
-            cur.setPosition(pos + len(string), cur.KeepAnchor)
-            self.widget().setTextCursor(cur)
+                ch = None
+                for j in range(len(rows)):
+                    if ch is None:
+                        ch = rows[j][i]
+                    elif ch != rows[j][i]:
+                        partial = False
+                        break
+                    elif j == len(rows) - 1:
+                        string = string + ch
+            
+            if string != '':
+                cur = self.textCursor()
+                pos = cur.position()
+                cur.insertText(string)
+                cur.setPosition(pos)
+                cur.setPosition(pos + len(string), cur.KeepAnchor)
+                self.widget().setTextCursor(cur)
         
     def gotoNextEntry(self):
         direction = -1 if QApplication.keyboardModifiers() == Qt.ControlModifier else 1
