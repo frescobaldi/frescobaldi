@@ -175,10 +175,11 @@ class Completer(QCompleter):
 
         """
         cursor = self.textCursor()
-        text = self.completionModel().data(index, Qt.EditRole)
+        sel_len = cursor.selectionEnd() - cursor.selectionStart() if cursor.hasSelection() else 0
+        cursor.setPosition(cursor.selectionEnd())
         prefix_len = len(self.completionPrefix())
-        cursor.setPosition(cursor.position() - prefix_len, cursor.KeepAnchor)
-        cursor.insertText(text)
+        cursor.setPosition(cursor.position() - sel_len - prefix_len, cursor.KeepAnchor)
+        cursor.insertText(self.completionModel().data(index, Qt.EditRole))
        
     def insertPartialCompletion(self, index):
         """Called when a tab key is pressed. Here index in current index item selected
@@ -220,6 +221,7 @@ class Completer(QCompleter):
                 cur.setPosition(pos)
                 cur.setPosition(pos + len(string), cur.KeepAnchor)
                 self.widget().setTextCursor(cur)
+                self.showCompletionPopup()
         
     def gotoNextEntry(self):
         direction = -1 if QApplication.keyboardModifiers() == Qt.ControlModifier else 1
