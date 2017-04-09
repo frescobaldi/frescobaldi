@@ -72,11 +72,27 @@ class Completer(QCompleter):
             elif ev.key() == Qt.Key_Tab:
                 if modifier == Qt.AltModifier:
                     self.popup().hide()
-                    return False
+                    return True
+                cur = self.textCursor()
+                if cur.hasSelection():
+                    # selection is partial completion of previous TAB
+                    # accept (unselect) and move to next item.
+                    cur.setPosition(cur.selectionEnd())
+                    cur.clearSelection()
+                    self.widget().setTextCursor(cur)
+                    self.showCompletionPopup()
+                    direction = -1 if modifier == Qt.ControlModifier else 1
+                    self.setCurrentRow((self.currentIndex().row() + direction) %
+                                       self.completionModel().rowCount())
+                    self.popup().setCurrentIndex(self.currentIndex())
+                    return True
                 string = self.partialCompletion(self.currentIndex())
                 if string != '':
-                    import cursortools
-                    cursortools.insert_select(self.textCursor(), string)
+                    pos = cur.position()
+                    cur.insertText(string)
+                    cur.setPosition(pos)
+                    cur.setPosition(pos + len(string), cur.KeepAnchor)
+                    self.widget().setTextCursor(cur)
                     self.showCompletionPopup()
                 else:
                     direction = -1 if modifier == Qt.ControlModifier else 1
@@ -127,6 +143,8 @@ class Completer(QCompleter):
 
         """
         cursor = self.textCursor()
+        if cursor.hasSelection():
+            cursor.setPosition(cursor.selectionEnd())
         cursor.movePosition(QTextCursor.StartOfWord, QTextCursor.KeepAnchor)
         return cursor
 
