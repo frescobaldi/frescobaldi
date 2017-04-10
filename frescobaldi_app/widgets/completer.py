@@ -56,10 +56,13 @@ class Completer(QCompleter):
             # a key was pressed while the popup is visible
             cur = self.textCursor()
             modifier = QApplication.keyboardModifiers()
-            if ev.key() in (Qt.Key_Return, Qt.Key_Enter):
+            if ev.key() in (Qt.Key_Return, Qt.Key_Enter) or ev.text() == '.':
                 # insert the highlighted completion
                 self.setCurrentRow(self.popup().currentIndex().row())
                 self.insertCompletion(self.currentIndex())
+                if ev.text() == '.':
+                    # deliver event and keep showing popup if necessary
+                    cur.insertText('.')
                 self.popup().hide()
                 return True
             elif ev.key() == Qt.Key_Backspace:

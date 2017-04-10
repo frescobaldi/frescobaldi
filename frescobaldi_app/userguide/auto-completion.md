@@ -29,6 +29,9 @@ dropdown box. Note that matching is performed case insensitively while upon
 accept the properly capitalized entry is inserted, replacing what has already
 been entered.
 
+Entering `.` (a dot) will also accept the highlighted entry and add the dot,
+which is handy to enter grob properties.
+
 {image_auto_complete_four}
 
 #VARS
