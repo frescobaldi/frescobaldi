@@ -75,14 +75,13 @@ class Completer(QCompleter):
                     self.popup().hide()
                     return True
                 if cur.hasSelection():
-                    # selection is previous partial completion
-                    cur.setPosition(cur.selectionEnd())
-                    cur.clearSelection()
-                    self.widget().setTextCursor(cur)
+                    self.acceptPartialCompletion()
                     self.showCompletionPopup()
                 self.gotoNextEntry()
                 return True
             elif self.isTextEvent(ev, True):
+                if cur.hasSelection():
+                    self.acceptPartialCompletion()
                 # deliver event and keep showing popup if necessary
                 self.widget().event(ev)
                 self.showCompletionPopup()
@@ -223,6 +222,15 @@ class Completer(QCompleter):
                 self.widget().setTextCursor(cur)
                 self.showCompletionPopup()
         
+    def acceptPartialCompletion(self):
+        # if some text is selected it's a previous partial completion
+        # "accept" by clearing selection and move cursor to the end.
+        cur = self.textCursor()
+        # selection is previous partial completion
+        cur.setPosition(cur.selectionEnd())
+        cur.clearSelection()
+        self.widget().setTextCursor(cur)
+
     def gotoNextEntry(self):
         direction = -1 if QApplication.keyboardModifiers() == Qt.ControlModifier else 1
         self.setCurrentRow((self.currentIndex().row() + direction) %
