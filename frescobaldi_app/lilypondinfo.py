@@ -184,6 +184,17 @@ class LilyPondInfo(object):
         else:
             path = None
         return util.findexe(self.command, path) or False
+
+    #NOTE/TODO:
+    # This has only been tested for downloaded and self-compiled releases on Linux so far
+    @CachedProperty.cachedproperty(depends=abscommand)
+    def libdir(self):
+        exe = self.abscommand()
+        if exe:
+            parent = os.path.dirname(os.path.dirname(exe))
+            return os.path.join(parent, 'lib')
+        else:
+            return False
     
     @CachedProperty.cachedproperty(depends=abscommand)
     def displaycommand(self):
