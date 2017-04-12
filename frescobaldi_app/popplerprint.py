@@ -50,11 +50,11 @@ _printers = weakref.WeakKeyDictionary()
 
 def print_(doc, filename=None, widget=None):
     """Prints the popplerqt5.Poppler.Document.
-    
+
     The filename is used in the dialog and print job name.
     If the filename is not given, it defaults to a translation of "PDF Document".
     The widget is a widget to use as parent for the print dialog etc.
-    
+
     """
     # Decide how we will print.
     # on Windows and Mac OS X a print command must be specified, otherwise
@@ -65,7 +65,7 @@ def print_(doc, filename=None, widget=None):
     use_dialog = s.value("printcommand/dialog", False, bool)
     resolution = s.value("printcommand/dpi", 300, int)
     linux_lpr = False
-    
+
     if os.name != 'nt' and not sys.platform.startswith('darwin'):
         # we're probably on Linux
         if not cmd:
@@ -77,7 +77,7 @@ def print_(doc, filename=None, widget=None):
 
     print_file = filename
     title = os.path.basename(filename) if filename else _("PDF Document")
-    
+
     if widget:
         try:
             printer = _printers[widget]
@@ -87,22 +87,22 @@ def print_(doc, filename=None, widget=None):
             printer.setCopyCount(1)
     else:
         printer = QPrinter()
-    
+
     printer.setDocName(title)
     printer.setPrintRange(QPrinter.AllPages)
-    
+
     if linux_lpr or use_dialog or not cmd:
         dlg = QPrintDialog(printer, widget)
         dlg.setMinMax(1, doc.numPages())
         dlg.setOption(QPrintDialog.PrintToFile, False)
         dlg.setWindowTitle(app.caption(_("Print {filename}").format(filename=title)))
-        
+
         result = dlg.exec_()
         if widget:
             dlg.deleteLater() # because it has a parent
         if not result:
             return # cancelled
-    
+
     if linux_lpr or '$ps' in cmd:
         # make a PostScript file with the desired paper size
         ps = QTemporaryFile()
@@ -114,7 +114,7 @@ def print_(doc, filename=None, widget=None):
             cmd = None # we can't cut out pages from a PDF file
         elif '$pdf' not in cmd:
             cmd += ' $pdf'
-    
+
     command = []
     if linux_lpr:
         # let all converted pages print
@@ -137,23 +137,23 @@ def print_(doc, filename=None, widget=None):
         # It is unsure if the Poppler ArthurBackend ever will be ready for
         # good rendering directly to a painter, so we'll fall back to using
         # raster images.
-        
+
         p = Printer()
         p.setDocument(doc)
         p.setPrinter(printer)
         p.setResolution(resolution)
-        
+
         d = QProgressDialog()
         d.setModal(True)
         d.setMinimumDuration(0)
         d.setRange(0, len(p.pageList()) + 1)
         d.canceled.connect(p.abort)
-        
+
         def progress(num, total, page):
             d.setValue(num)
             d.setLabelText(_("Printing page {page} ({num} of {total})...").format(
                 page=page, num=num, total=total))
-                
+
         def finished():
             p.deleteLater()
             d.deleteLater()
@@ -161,7 +161,7 @@ def print_(doc, filename=None, widget=None):
             if not p.success and not p.aborted():
                 QMessageBox.warning(widget, _("Printing Error"),
                     _("Could not send the document to the printer."))
-            
+
         p.finished.connect(finished)
         p.printing.connect(progress)
         p.start()
@@ -170,24 +170,24 @@ def print_(doc, filename=None, widget=None):
 class Printer(QThread, qpopplerview.printer.Printer):
     """Simple wrapper that prints the raster images in a background thread."""
     printing = pyqtSignal(int, int, int)
-    
+
     def __init__(self, parent=None):
         QThread.__init__(self, parent)
         qpopplerview.printer.Printer.__init__(self)
         self.success = None
-        
+
     def run(self):
         self.success = self.print_()
-        
+
     def progress(self, num, total, page):
         self.printing.emit(num, total, page)
 
 
 def printDocument(document, widget=None):
     """Prints the document described by the popplertools.Document.
-    
+
     The widget is a widget to use as parent for the print dialog etc.
-    
+
     """
     print_(document.document(), document.filename(), widget)
 

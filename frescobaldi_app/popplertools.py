@@ -30,29 +30,29 @@ class Document(object):
         self._filename = filename
         self._document = None
         self._dirty = True
-        
+
     def filename(self):
         """Returns the filename, set on init or via setFilename()."""
         return self._filename
-    
+
     def setFilename(self, filename):
         """Sets a filename.
-        
+
         The document will be reloaded next time it is requested.
-        
+
         """
         self._filename = filename
         self._dirty = True
-            
+
     def name(self):
         """Returns the filename without path."""
         return os.path.basename(self._filename)
-        
+
     def document(self):
         """Returns the PDF document the filename points to, reloading if the filename was set.
-        
+
         Can return None, in case the document failed to load.
-        
+
         """
         if self._dirty:
             self._document = self.load()

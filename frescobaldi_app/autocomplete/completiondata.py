@@ -150,7 +150,7 @@ bookpart = sorted(
     everywhere + inputmodes + markup + start_music + modes[2:] + blocks
 )
 
-    
+
 # stuff inside \book {}
 book = sorted(
     everywhere + inputmodes + markup + start_music
@@ -219,11 +219,11 @@ lilypond_toplevel = listmodel.ListModel(sorted(itertools.chain(util.make_cmds(
 lilypond_book = listmodel.ListModel(book, display = util.command)
 
 lilypond_bookpart = listmodel.ListModel(bookpart, display = util.command)
-    
+
 lilypond_score = listmodel.ListModel(score, display = util.command)
 
 lilypond_engravers = listmodel.ListModel(ly.data.engravers())
-    
+
 def lilypond_grob_properties(grob, hash_quote=True):
     display = (lambda item: "#'" + item) if hash_quote else (lambda item: item)
     return listmodel.ListModel(ly.data.grob_properties(grob),

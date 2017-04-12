@@ -46,9 +46,9 @@ unpack_int = struct.Struct(b'>i').unpack
 
 def get_chunks(s):
     """Splits a MIDI file bytes string into chunks.
-    
+
     Yields (b'Name', b'data') tuples.
-    
+
     """
     pos = 0
     while pos < len(s):
@@ -57,15 +57,15 @@ def get_chunks(s):
         yield name, s[pos+8:pos+8+size]
         pos += size + 8
 
-    
+
 def parse_midi_data(s):
     """Parses MIDI file data from the bytes string s.
-    
+
     Returns a three tuple (format_type, time_division, tracks).
     Every track is an unparsed bytes string.
-    
+
     May raise ValueError or IndexError in case of invalid MIDI data.
-    
+
     """
     chunks = get_chunks(s)
     for name, data in chunks:
@@ -79,9 +79,9 @@ def parse_midi_data(s):
 
 def read_var_len(s, pos):
     """Reads variable-length integer from byte string s starting on pos.
-    
+
     Returns the value and the new position.
-    
+
     """
     value = 0
     while True:
@@ -94,28 +94,28 @@ def read_var_len(s, pos):
 
 def parse_midi_events(s, factory=None):
     """Parses the bytes string s (typically a track) for MIDI events.
-    
+
     If factory is given, it should be an EventFactory instance that
     returns objects describing the event.
-    
+
     Yields two-tuples (delta, event).
-    
+
     Raises ValueError or IndexError on invalid MIDI data.
-    
+
     """
     if factory is None:
         factory = event.EventFactory()
-        
+
     running_status = None
-    
+
     if PY2:
         s = bytearray(s)
-    
+
     pos = 0
     while pos < len(s):
-        
+
         delta, pos = read_var_len(s, pos)
-        
+
         status = s[pos]
         if status & 0x80:
             running_status = status
@@ -124,10 +124,10 @@ def parse_midi_events(s, factory=None):
             raise ValueError("invalid running status")
         else:
             status = running_status
-        
+
         ev_type = status >> 4
         channel = status & 0x0F
-        
+
         if ev_type <= 0x0A:
             # note on, off or aftertouch
             note = s[pos]
@@ -175,10 +175,10 @@ def parse_midi_events(s, factory=None):
 
 def time_events(track, time=0):
     """Yields two-tuples (time, event).
-    
+
     The track is the generator returned by parse_midi_events,
     the time is accumulated from the given starting time (defaulting to 0).
-    
+
     """
     for delta, ev in track:
         time += delta
@@ -187,11 +187,11 @@ def time_events(track, time=0):
 
 def time_events_grouped(track, time=0):
     """Yields two-tuples (time, event_list).
-    
+
     Every event_list is a Python list of all events happening on that time.
     The track is the generator returned by parse_midi_events,
     the time is accumulated from the given starting time (defaulting to 0).
-    
+
     """
     evs = []
     for delta, ev in track:

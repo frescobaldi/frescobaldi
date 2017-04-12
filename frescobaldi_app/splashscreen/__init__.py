@@ -29,7 +29,7 @@ import app
 import appinfo
 
 def show():
-    
+
     message = "{0}  {1} ".format(appinfo.appname, appinfo.version)
     pixmap = QPixmap(os.path.join(__path__[0], 'splash3.png'))
     if QApplication.desktop().screenGeometry().height() < 640:
@@ -48,7 +48,7 @@ def show():
     splash.showMessage(message, Qt.AlignRight | Qt.AlignTop, Qt.white)
     splash.show()
     QApplication.processEvents()
-    
+
     def hide():
         splash.deleteLater()
         app.appStarted.disconnect(hide)

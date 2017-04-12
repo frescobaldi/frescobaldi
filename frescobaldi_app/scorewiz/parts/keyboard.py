@@ -39,11 +39,11 @@ class Piano(KeyboardPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Piano")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Piano", "Pno.")
-    
+
     midiInstrument = 'acoustic grand'
 
 
@@ -51,11 +51,11 @@ class Harpsichord(KeyboardPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Harpsichord")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Harpsichord", "Hs.")
-    
+
     midiInstrument = 'harpsichord'
 
 
@@ -63,11 +63,11 @@ class Clavichord(KeyboardPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Clavichord")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Clavichord", "Clv.")
-    
+
     midiInstrument = 'clav'
 
 
@@ -75,11 +75,11 @@ class Organ(KeyboardPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Organ")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Organ", "Org.")
-    
+
     midiInstrument = 'church organ'
 
     def createWidgets(self, layout):
@@ -90,13 +90,13 @@ class Organ(KeyboardPart):
         self.pedalVoicesLabel.setBuddy(self.pedalVoices)
         grid.addWidget(self.pedalVoicesLabel, 2, 0)
         grid.addWidget(self.pedalVoices)
-        
+
     def translateWidgets(self):
         super(Organ, self).translateWidgets()
         self.pedalVoicesLabel.setText(_("Pedal:"))
         self.pedalVoices.setToolTip(_(
             "Set to 0 to disable the pedal altogether."))
-    
+
     def build(self, data, builder):
         super(Organ, self).build(data, builder)
         if self.pedalVoices.value():
@@ -109,11 +109,11 @@ class Celesta(KeyboardPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Celesta")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Celesta", "Cel.")
-    
+
     midiInstrument = 'celesta'
 
 

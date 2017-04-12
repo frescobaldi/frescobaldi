@@ -36,7 +36,7 @@ class Violin(StringPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Violin")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Violin", "Vl.")
@@ -48,11 +48,11 @@ class Viola(StringPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Viola")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Viola", "Vla.")
-    
+
     midiInstrument = 'viola'
     clef = 'alto'
     octave = 0
@@ -62,11 +62,11 @@ class Cello(StringPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Cello")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Cello", "Cl.")
-    
+
     midiInstrument = 'cello'
     clef = 'bass'
     octave = -1
@@ -76,11 +76,11 @@ class Contrabass(StringPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Contrabass")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Contrabass", "Cb.")
-    
+
     midiInstrument = 'contrabass'
     clef = 'bass'
     octave = -1
@@ -90,11 +90,11 @@ class BassoContinuo(Cello):
     @staticmethod
     def title(_=_base.translate):
         return _("Basso Continuo")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Basso Continuo", "B.c.")
-    
+
     def build(self, data, builder):
         super(BassoContinuo, self).build(data, builder)
         data.assignments[0].name.name = 'bcMusic'
@@ -108,7 +108,7 @@ class BassoContinuo(Cello):
         figbass = ly.dom.FiguredBass()
         ly.dom.Identifier(a.name, figbass)
         data.nodes.append(figbass)
-    
+
 
 register(
     lambda: _("Strings"),

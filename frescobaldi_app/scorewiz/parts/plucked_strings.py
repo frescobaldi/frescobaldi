@@ -37,13 +37,13 @@ from . import register
 
 class TablaturePart(_base.Part):
     """Base class for tablature instrument part types."""
-    
+
     octave = 0
     clef = None
     transposition = None
     tunings = ()    # may contain a list of tunings.
     tabFormat = ''  # can contain a tablatureFormat value.
-    
+
     def createWidgets(self, layout):
         self.staffTypeLabel = QLabel()
         self.staffType = QComboBox()
@@ -58,7 +58,7 @@ class TablaturePart(_base.Part):
             self.createTuningWidgets(layout)
             self.staffType.activated.connect(self.slotTabEnable)
             self.slotTabEnable(0)
-        
+
     def createTuningWidgets(self, layout):
         self.tuningLabel = QLabel()
         self.tuning = QComboBox()
@@ -78,13 +78,13 @@ class TablaturePart(_base.Part):
         box.addWidget(self.tuningLabel)
         box.addWidget(self.tuning)
         layout.addWidget(self.customTuning)
-    
+
     def translateWidgets(self):
         self.staffTypeLabel.setText(_("Staff type:"))
         self.staffType.model().update()
         if self.tunings:
             self.translateTuningWidgets()
-    
+
     def translateTuningWidgets(self):
         self.tuningLabel.setText(_("Tuning:"))
         self.customTuning.setToolTip('<qt>' + _(
@@ -97,30 +97,30 @@ class TablaturePart(_base.Part):
         except AttributeError:
             pass # only in Qt 4.7+
         self.tuning.model().update()
-    
+
     def slotTabEnable(self, enable):
         """Called when the user changes the staff type.
-        
+
         Non-zero if the user wants a TabStaff.
-        
+
         """
         self.tuning.setEnabled(bool(enable))
         if enable:
             self.slotCustomTuningEnable(self.tuning.currentIndex())
         else:
             self.customTuning.setEnabled(False)
-    
+
     def slotCustomTuningEnable(self, index):
         self.customTuning.setEnabled(index > len(self.tunings))
-    
+
     def voiceCount(self):
         """Returns the number of voices.
-        
+
         Inherit to make this user-settable.
-        
+
         """
         return 1
-        
+
     def build(self, data, builder):
         # First make assignments for the voices we want to create
         numVoices = self.voiceCount()
@@ -135,10 +135,10 @@ class TablaturePart(_base.Part):
         else:
             order = 1, 2, 3, 4
             voices = [ly.util.mkid(data.name(), "voice") + ly.util.int2text(i) for i in order]
-        
+
         assignments = [data.assignMusic(name, self.octave, self.transposition)
                        for name in voices]
-        
+
         staffType = self.staffType.currentIndex()
         if staffType in (0, 2):
             # create a normal staff
@@ -152,7 +152,7 @@ class TablaturePart(_base.Part):
                 ly.dom.VoiceSeparator(mus)
             ly.dom.Identifier(assignments[-1].name, mus)
             builder.setMidiInstrument(staff, self.midiInstrument)
-        
+
         if staffType in (1, 2):
             # create a tab staff
             tabstaff = ly.dom.TabStaff()
@@ -167,7 +167,7 @@ class TablaturePart(_base.Part):
                     s = ly.dom.Seq(ly.dom.TabVoice(parent=sim))
                     ly.dom.Text('\\voice' + ly.util.int2text(num), s)
                     ly.dom.Identifier(a.name, s)
-        
+
         if staffType == 0:
             # only a normal staff
             p = staff
@@ -181,7 +181,7 @@ class TablaturePart(_base.Part):
             s = ly.dom.Sim(p)
             s.append(staff)
             s.append(tabstaff)
-        
+
         builder.setInstrumentNamesFromPart(p, self, data)
         data.nodes.append(p)
 
@@ -210,26 +210,26 @@ class Mandolin(TablaturePart):
     @staticmethod
     def title(_=_base.translate):
         return _("Mandolin")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Mandolin", "Mdl.")
-    
+
     midiInstrument = 'acoustic guitar (steel)'
     tunings = (
         ('mandolin-tuning', lambda: _("Mandolin tuning")),
     )
-    
+
 
 class Ukulele(TablaturePart):
     @staticmethod
     def title(_=_base.translate):
         return _("Ukulele")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Ukulele", "Uk.")
-    
+
     midiInstrument = 'acoustic guitar (steel)'
     tunings = (
         ('ukulele-tuning', lambda: _("Ukulele tuning")),
@@ -243,11 +243,11 @@ class Banjo(TablaturePart):
     @staticmethod
     def title(_=_base.translate):
         return _("Banjo")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Banjo", "Bj.")
-    
+
     midiInstrument = 'banjo'
     tabFormat = 'fret-number-tablature-format-banjo'
     tunings = (
@@ -257,16 +257,16 @@ class Banjo(TablaturePart):
         ('banjo-open-d-tuning', lambda: _("Open D-tuning (aDF#AD)")),
         ('banjo-open-dm-tuning', lambda: _("Open Dm-tuning (aDFAD)")),
     )
-    
+
     def createTuningWidgets(self, layout):
         super(Banjo, self).createTuningWidgets(layout)
         self.fourStrings = QCheckBox()
         layout.addWidget(self.fourStrings)
-        
+
     def translateTuningWidgets(self):
         super(Banjo, self).translateTuningWidgets()
         self.fourStrings.setText(_("Four strings (instead of five)"))
-    
+
     def setTunings(self, tab):
         i = self.tuning.currentIndex()
         if i > len(self.tunings) or not self.fourStrings.isChecked():
@@ -279,17 +279,17 @@ class Banjo(TablaturePart):
     def slotCustomTuningEnable(self, index):
         super(Banjo, self).slotCustomTuningEnable(index)
         self.fourStrings.setEnabled(index <= len(self.tunings))
-    
+
 
 class ClassicalGuitar(TablaturePart):
     @staticmethod
     def title(_=_base.translate):
         return _("Classical guitar")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Classical guitar", "Gt.")
-    
+
     midiInstrument = 'acoustic guitar (nylon)'
     clef = "treble_8"
     tunings = (
@@ -311,11 +311,11 @@ class ClassicalGuitar(TablaturePart):
         box.addWidget(self.voicesLabel)
         box.addWidget(self.voices)
         layout.addLayout(box)
-        
+
     def translateWidgets(self):
         super(ClassicalGuitar, self).translateWidgets()
         self.voicesLabel.setText(_("Voices:"))
-    
+
     def voiceCount(self):
         return self.voices.value()
 
@@ -324,11 +324,11 @@ class JazzGuitar(ClassicalGuitar):
     @staticmethod
     def title(_=_base.translate):
         return _("Jazz guitar")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Jazz guitar", "J.Gt.")
-    
+
     midiInstrument = 'electric guitar (jazz)'
 
 
@@ -336,7 +336,7 @@ class Bass(TablaturePart):
     @staticmethod
     def title(_=_base.translate):
         return _("Bass")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Bass", "Bs.") #FIXME
@@ -357,7 +357,7 @@ class ElectricBass(Bass):
     @staticmethod
     def title(_=_base.translate):
         return _("Electric bass")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Electric bass", "E.Bs.")
@@ -369,7 +369,7 @@ class Harp(_base.PianoStaffPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Harp")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Harp", "Hp.")
@@ -380,7 +380,7 @@ class Harp(_base.PianoStaffPart):
         super(Harp, self).translateWidgets()
         self.upperVoicesLabel.setText(_("Upper staff:"))
         self.lowerVoicesLabel.setText(_("Lower staff:"))
-    
+
     def build(self, data, builder):
         p = ly.dom.PianoStaff()
         builder.setInstrumentNamesFromPart(p, self, data)
@@ -390,7 +390,7 @@ class Harp(_base.PianoStaffPart):
         self.buildStaff(data, builder, 'lower', 0, self.lowerVoices.value(), s, "bass")
         data.nodes.append(p)
 
-        
+
 
 
 

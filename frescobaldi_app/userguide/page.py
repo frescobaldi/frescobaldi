@@ -41,7 +41,7 @@ class Page(object):
         self._name = None
         if name:
             self.load(name)
-    
+
     def load(self, name):
         """Parse and translate the named document."""
         self._name = name
@@ -51,20 +51,20 @@ class Page(object):
             doc, attrs = read.document('404')
         attrs.setdefault('VARS', []).append('userguide_page md `{0}`'.format(name))
         self.parse_text(doc, attrs)
-        
+
     def parse_text(self, text, attrs=None):
         """Parse and translate the document."""
         self._attrs = attrs or {}
         t = self._tree = simplemarkdown.Tree()
         read.Parser().parse(text, t)
-    
+
     def is_popup(self):
         """Return True if the helppage should be displayed as a popup."""
         try:
             return 'popup' in self._attrs['PROPERTIES']
         except KeyError:
             return False
-    
+
     def title(self):
         """Return the title"""
         if self._title is None:
@@ -73,7 +73,7 @@ class Page(object):
                 self._title = self._tree.text(heading)
                 break
         return self._title
-    
+
     def body(self):
         """Return the HTML body."""
         if self._body is None:
@@ -85,25 +85,25 @@ class Page(object):
             html = html.replace('<p></p>', '')
             self._body = html
         return self._body
-        
+
     def children(self):
         """Return the list of names of child documents."""
         return self._attrs.get("SUBDOCS") or []
-    
+
     def seealso(self):
         """Return the list of names of "see also" documents."""
         return self._attrs.get("SEEALSO") or []
-    
+
 
 class HtmlOutput(simplemarkdown.HtmlOutput):
     """Colorizes LilyPond source and replaces {variables}.
-    
+
     Put a Resolver instance in the resolver attribute before populating
     the output.
-    
+
     """
     heading_offset = 1
-    
+
     def code_start(self, code, specifier=None):
         if specifier == "lilypond":
             import highlight2html
@@ -112,13 +112,13 @@ class HtmlOutput(simplemarkdown.HtmlOutput):
             self.tag('code')
             self.tag('pre')
             self.text(code)
-    
+
     def code_end(self, code, specifier=None):
         if specifier != "lilypond":
             self.tag('/pre')
             self.tag('/code')
         self.nl()
-    
+
     def inline_text_start(self, text):
         text = self.html_escape(text)
         text = self.resolver.format(text)   # replace {variables} ...
@@ -129,10 +129,10 @@ class Resolver(object):
     """Resolves variables in help documents."""
     def __init__(self, variables=None):
         """Initialize with a list of variables from the #VARS section.
-        
+
         Every item is simply a line, where the first word is the name,
         the second the type and the rest is the contents.
-        
+
         """
         self._variables = d = {}
         if variables:
@@ -142,30 +142,30 @@ class Resolver(object):
                 except ValueError:
                     continue
                 d[name] = (type, text)
-    
+
     def format(self, text):
         """Replaces all {variable} items in the text."""
         return read._variable_re.sub(self.replace, text)
-        
+
     def replace(self, matchObj):
         """Return the replace string for the match.
-        
+
         For a match like {blabla}, self.resolve('blabla') is called, and if
         the result is not None, '{blabla}' is replaced with the result.
-        
+
         """
         result = self.resolve(matchObj.group(1))
         return matchObj.group() if result is None else result
-    
+
     def resolve(self, name):
         """Try to find the value for the named variable.
-        
+
         First, the #VARS section is searched. If that yields no result,
         the named function in the resolve module is called. If that yields
         no result either, None is returned.
-        
+
         """
-        
+
         try:
             typ, text = self._variables[name]
         except KeyError:
@@ -186,7 +186,7 @@ class Resolver(object):
     def handle_html(self, text):
         """Return text as is, it may contain HTML."""
         return text
-    
+
     def handle_text(self, text):
         """Return text escaped, it will not be represented as HTML."""
         return simplemarkdown.html_escape(text)
@@ -216,17 +216,17 @@ class Resolver(object):
         seq = action.shortcut()
         key = seq.toString(QKeySequence.NativeText) or _("(no key defined)")
         return '<span class="shortcut">{0}</span>'.format(simplemarkdown.html_escape(key))
-    
+
     def handle_menu(self, text):
         """Split the text on '->' in menu or action titles and translate them.
-        
+
         The pieces are then formatted as a nice menu path.
         When an item contains a "|", the part before the "|" is the message
         context.
-        
+
         When an item starts with "!", the accelerators are not removed (i.e.
         it is not an action or menu name).
-        
+
         """
         pieces = [name.strip() for name in text.split('->')]
         import qutil
@@ -261,10 +261,10 @@ class Resolver(object):
             if removeAccel:
                 translation = qutil.removeAccelerator(translation).strip('.')
             return translation
-            
+
         translated = [title(name) for name in pieces]
         return '<em>{0}</em>'.format(' &#8594; '.join(translated))
-        
+
     def handle_image(self, filename):
         url = simplemarkdown.html_escape(filename).replace('"', '&quot;')
         return '<img src="{0}" alt="{0}"/>'.format(url)

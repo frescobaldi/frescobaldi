@@ -38,13 +38,13 @@ class CharMap(panel.Panel):
     def translateUI(self):
         self.setWindowTitle(_("Special Characters"))
         self.toggleViewAction().setText(_("Special Charac&ters"))
-        
+
     def createWidget(self):
         from . import widget
         w = widget.Widget(self)
         w.charmap.charmap.characterClicked.connect(self.insertCharacter)
         return w
-    
+
     def insertCharacter(self, character):
         character = character.rstrip('\0')  # PyQt bug workaround
         self.mainwindow().textCursor().insertText(character)

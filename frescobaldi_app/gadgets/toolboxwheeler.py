@@ -32,13 +32,13 @@ class ToolBoxWheeler(QObject):
         super(ToolBoxWheeler, self).__init__(toolbox)
         self._wheeldelta = 0
         toolbox.installEventFilter(self)
-    
+
     def eventFilter(self, toolbox, ev):
         if ev.type() == QEvent.Wheel and ev.modifiers() & Qt.CTRL:
             self.wheelEvent(toolbox, ev)
             return True
         return False
-        
+
     def wheelEvent(self, toolbox, ev):
         self._wheeldelta -= ev.angleDelta().y()
         steps, self._wheeldelta = divmod(self._wheeldelta, 120)

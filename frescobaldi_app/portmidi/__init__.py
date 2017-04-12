@@ -34,7 +34,7 @@ import portmidi
 
 # test if portmidi really loaded:
 if portmidi.available():
-    ... enable MIDI stuff 
+    ... enable MIDI stuff
 
 # start using PortMIDI: init and quit may be used multiple times
 portmidi.init()
@@ -92,9 +92,9 @@ def available():
 
 def init():
     """Initializes the PortMIDI library for use.
-    
+
     It is safe to call this more than once.
-    
+
     """
     global _initialized
     if _setup() and not _initialized:
@@ -103,10 +103,10 @@ def init():
 
 def quit():
     """Terminates the PortMIDI library.
-    
+
     It is safe to call this more than once.
     On application exit this is also called.
-    
+
     """
     global _initialized
     if pypm and _initialized:
@@ -130,10 +130,10 @@ def get_default_output_id():
 
 def get_device_info(device_id):
     """Returns information about a midi device.
-    
+
     A five-tuple is returned:
     (interf, name, isinput, isoutput, isopen).
-    
+
     """
     _check_initialized()
     return device_info(*pypm.GetDeviceInfo(device_id))
@@ -152,7 +152,7 @@ class Input(object):
         info = get_device_info(device_id)
         if not info.isinput:
             raise MidiException("not an input device")
-        
+
         self._input = pypm.Input(device_id, buffer_size)
 
     def close(self):
@@ -185,7 +185,7 @@ class Output(object):
         info = get_device_info(device_id)
         if not info.isoutput:
             raise MidiException("not an output device")
-        
+
         self._output = pypm.Output(device_id, latency)
 
     def close(self):
@@ -196,10 +196,10 @@ class Output(object):
 
     def write(self, data):
         """Writes a list of MIDI data to the output.
-        
+
         Each element of the list should be a list[message, timestamp].
         Each message is again a list: [status, data, data, ...]
-        
+
         """
         self._output.Write(data)
 
@@ -209,9 +209,9 @@ class Output(object):
 
     def write_sys_ex(self, timestamp, message):
         """Writes a timestamped System-Exclusive MIDI message.
-        
+
         The message may be a list of integers or a bytes string.
-        
+
         """
         self._output.WriteSysEx(timestamp, message)
 
@@ -258,10 +258,10 @@ def _check_initialized():
 
 def _setup():
     """Tries to import PortMIDI in the order given in the try_order global.
-    
+
     Only one time the import is tried.
     Returns True if PortMIDI could be loaded.
-    
+
     """
     global pypm
     if pypm is None:
@@ -277,10 +277,10 @@ def _setup():
 
 def _load_module(name):
     """Loads and returns a single module.
-    
+
     The name may be dotted, but no parent modules are imported.
     Raises ImportError when the module can't be found.
-    
+
     """
     import imp
     path = None
@@ -292,9 +292,9 @@ def _load_module(name):
 # these functions try to import PortMIDI, returning the module
 def _do_import_pypm():
     """Tries to import pypm (the c binding module) directly.
-    
+
     Newer Ubuntu releases provide a python-pypm package with this module.
-    
+
     """
     import pypm
     # Reject incompatible API, such as ActiveState PyPM
@@ -305,9 +305,9 @@ def _do_import_pypm():
 
 def _do_import_pyportmidi():
     """This tries to import the c Python module from the PortMIDI distribution.
-    
+
     Unfortunately not many Linux distros also install the Python binding.
-    
+
     """
     return _load_module('pyportmidi._pyportmidi')
 

@@ -41,12 +41,12 @@ import ly.lex.lilypond
 
 def pixmap(cursor, num_lines=6, scale=0.8):
     """Return a QPixmap displaying the selected lines of the document.
-    
+
     If the cursor has no selection, num_lines are drawn.
-    
+
     By default the text is drawn 0.8 * the normal font size. You can change
     that by supplying the scale parameter.
-    
+
     """
     block = cursor.document().findBlock(cursor.selectionStart())
     c2 = QTextCursor(block)
@@ -55,7 +55,7 @@ def pixmap(cursor, num_lines=6, scale=0.8):
         c2.movePosition(QTextCursor.EndOfBlock, QTextCursor.KeepAnchor)
     else:
         c2.movePosition(QTextCursor.NextBlock, QTextCursor.KeepAnchor, num_lines)
-    
+
     data = textformats.formatData('editor')
     doc = QTextDocument()
     font = QFont(data.font)
@@ -73,12 +73,12 @@ def pixmap(cursor, num_lines=6, scale=0.8):
 
 def show(cursor, pos=None, num_lines=6):
     """Displays a tooltip showing part of the cursor's Document.
-    
+
     If the cursor has a selection, those blocks are displayed.
     Otherwise, num_lines lines are displayed.
-    
+
     If pos is not given, the global mouse position is used.
-    
+
     """
     pix = pixmap(cursor, num_lines)
     label = QLabel()
@@ -90,11 +90,11 @@ def show(cursor, pos=None, num_lines=6):
 
 def text(cursor):
     """Return basic tooltip text displaying filename, line and column information.
-    
+
     If the position is inside a music expression, the name of the variable the
     expression is assigned to is also appended on a new line. If the time
     position can be determined it is appended on a third line.
-    
+
     """
     filename = cursor.document().documentName()
     line = cursor.blockNumber() + 1
@@ -111,10 +111,10 @@ def text(cursor):
 
 def get_definition(cursor):
     """Return the variable name the cursor's music expression is assigned to.
-    
+
     If the music is in a \\score instead, "\\score" is returned.
     Returns None if no variable name can be found.
-    
+
     """
     block = cursor.block()
     while block.isValid():
@@ -130,9 +130,9 @@ def get_definition(cursor):
 
 def time_position(cursor):
     """Returns the time position of the music the cursor points at.
-    
+
     Format the value as "5/1" etc.
-    
+
     """
     import documentinfo
     pos = documentinfo.music(cursor.document()).time_position(cursor.position())

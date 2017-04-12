@@ -34,19 +34,19 @@ from . import network
 class Documentation(QObject):
     """An instance of LilyPond documentation."""
     versionLoaded = pyqtSignal(bool)
-    
+
     def __init__(self, url):
         QObject.__init__(self)
         self._url = url
         self._localFile = url.toLocalFile()
         self._versionString = None
-        
+
         # determine version
         url = self.url()
         sep = '/' if not url.path().endswith('/') else ''
         url.setPath(url.path() + sep + 'VERSION')
         self._request(url)
-    
+
     def _request(self, url):
         """Request a URL to read the version from."""
         reply = self._reply = network.get(url)
@@ -54,7 +54,7 @@ class Documentation(QObject):
             self._handleReply()
         else:
             reply.finished.connect(self._handleReply)
-    
+
     def _handleReply(self):
         self._reply.deleteLater()
         if self._reply.error():
@@ -77,10 +77,10 @@ class Documentation(QObject):
                 else:
                     self._versionString = v[:16].decode('utf-8', 'replace')
         self.versionLoaded.emit(bool(self._versionString))
-        
+
     def url(self):
         return QUrl(self._url)
-    
+
     def home(self):
         """Returns the url with 'Documentation' appended."""
         url = self.url()
@@ -91,26 +91,26 @@ class Documentation(QObject):
         else:
             url.setPath(url.path() + '/index')
         return url
-    
+
     def versionString(self):
         """Returns the version as a string.
-        
+
         If the version is not yet determined, returns None.
         If the version could not be determined, returns the empty string.
-        
+
         """
         return self._versionString
-    
+
     def version(self):
         """Returns the version as a tuple of ints.
-        
+
         If the version is not yet determined, returns None.
         If the version could not be determined, returns the empty tuple.
-        
+
         """
         if self._versionString is not None:
             return tuple(map(int, re.findall(r"\d+", self._versionString)))
-    
+
     def isLocal(self):
         """Returns True if the documentation is on the local system."""
         return bool(self._localFile)

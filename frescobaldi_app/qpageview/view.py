@@ -48,16 +48,16 @@ from .constants import (
 
 
 class View(scrollarea.ScrollArea):
-    
+
     MIN_ZOOM = 0.05
     MAX_ZOOM = 8.0
-    
+
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
 
     scrollupdatespersec = 50
-    
+
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._prev_pages_to_paint = set()
@@ -69,7 +69,7 @@ class View(scrollarea.ScrollArea):
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
         self.setMouseTracking(True)
-    
+
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file."""
         import popplerqt5
@@ -78,37 +78,37 @@ class View(scrollarea.ScrollArea):
         renderer = poppler.Renderer()
         self.pageLayout()[:] = poppler.PopplerPage.createPages(doc, renderer)
         self.updatePageLayout()
-    
+
     def loadSvgs(self, filenames):
         """Convenience method to load the specified list of SVG files.
-        
+
         Each SVG file is loaded in one Page.
-        
+
         """
         from . import svg
         renderer = svg.Renderer()
         self.pageLayout()[:] = (svg.SvgPage(f, renderer) for f in filenames)
         self.updatePageLayout()
-    
+
     def setPageLayout(self, layout):
         """Set our current PageLayout instance."""
         self._pageLayout = layout
-    
+
     def pageLayout(self):
         """Return our current PageLayout instance."""
         return self._pageLayout
-    
+
     def updatePageLayout(self):
         """Update layout and adjust scrollbars."""
         self._pageLayout.update()
         self._updateScrollBars()
         self.viewport().update()
-    
+
     def clear(self):
         """Convenience method to clear the current layout."""
         self._pageLayout.clear()
         self.updatePageLayout()
-    
+
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
         if mode == self._viewMode:
@@ -117,11 +117,11 @@ class View(scrollarea.ScrollArea):
         if mode:
             self._fitLayout()
         self.viewModeChanged.emit(mode)
-    
+
     def viewMode(self):
         """Returns the current ViewMode."""
         return self._viewMode
-        
+
     def setRotation(self, rotation):
         """Set the current rotation."""
         layout = self._pageLayout
@@ -131,24 +131,24 @@ class View(scrollarea.ScrollArea):
                 if self._viewMode:
                     self._fitLayout()
             self.rotationChanged.emit(rotation)
-    
+
     def rotation(self):
         """Return the current rotation."""
         return self._pageLayout.rotation
-    
+
     def rotateLeft(self):
         """Rotate the pages 270 degrees."""
         self.setRotation((self.rotation() - 1) & 3)
-    
+
     def rotateRight(self):
         """Rotate the pages 90 degrees."""
         self.setRotation((self.rotation() + 1) & 3)
-    
+
     def setMagnifier(self, magnifier):
         """Sets the Magnifier to use (or None to disable the magnifier).
-        
+
         The viewport takes ownership of the Magnifier.
-        
+
         """
         if self._magnifier:
             self.removeEventFilter(self._magnifier)
@@ -157,11 +157,11 @@ class View(scrollarea.ScrollArea):
         if magnifier:
             magnifier.setParent(self.viewport())
             self.installEventFilter(magnifier)
-    
+
     def magnifier(self):
         """Returns the currently set magnifier."""
         return self._magnifier
-    
+
     def setRubberband(self, rubberband):
         """Sets the Rubberband to use for selections (or None to not use one)."""
         if self._rubberband:
@@ -173,43 +173,43 @@ class View(scrollarea.ScrollArea):
             rubberband.setParent(self.viewport())
             self.installEventFilter(rubberband)
             self.zoomFactorChanged.connect(rubberband.hide)
-    
+
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to move the rubberband as well."""
         if self._rubberband:
             self._rubberband.scrollBy(QPoint(dx, dy))
         self.viewport().update()
-    
+
     def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.
-        
+
         Prevents scrollbar/resize loops by precalculating which scrollbars will appear.
-        
+
         """
         mode = self.viewMode()
         if mode == FixedScale:
             return
-        
+
         maxsize = self.maximumViewportSize()
-        
+
         # can vertical or horizontal scrollbars appear?
         vcan = self.verticalScrollBarPolicy() == Qt.ScrollBarAsNeeded
         hcan = self.horizontalScrollBarPolicy() == Qt.ScrollBarAsNeeded
-        
+
         # width a scrollbar takes off the viewport size
         framewidth = 0
         if self.style().styleHint(QStyle.SH_ScrollView_FrameOnlyAroundContents, None, self):
             framewidth = self.style().pixelMetric(QStyle.PM_DefaultFrameWidth) * 2
         scrollbarextent = self.style().pixelMetric(QStyle.PM_ScrollBarExtent, None, self) + framewidth
-        
+
         # remember old factor
         zoom_factor = self.zoomFactor()
-        
+
         # first try to fit full size
         layout = self._pageLayout
         layout.fit(maxsize, mode)
         layout.update()
-        
+
         # minimal values
         minwidth = maxsize.width()
         minheight = maxsize.height()
@@ -217,11 +217,11 @@ class View(scrollarea.ScrollArea):
             minwidth -= scrollbarextent
         if hcan:
             minheight -= scrollbarextent
-        
+
         # do width and/or height fit?
         fitw = layout.width <= maxsize.width()
         fith = layout.height <= maxsize.height()
-        
+
         if not fitw and not fith:
             if vcan or hcan:
                 layout.fit(QSize(minwidth, minheight), mode)
@@ -258,19 +258,19 @@ class View(scrollarea.ScrollArea):
         self.updatePageLayout()
         if zoom_factor != self.zoomFactor():
             self.zoomFactorChanged.emit(self.zoomFactor())
-    
+
     @contextlib.contextmanager
     def _keepCentered(self, pos=None, on_page=False):
         """Context manager to keep the same spot centered while changing the layout.
-        
-        If pos is not given, the viewport's center is used. If on_page is True, 
-        a position on a page is maintained if found. Otherwise, just the 
+
+        If pos is not given, the viewport's center is used. If on_page is True,
+        a position on a page is maintained if found. Otherwise, just the
         position on the layout is kept.
-        
+
         """
         if pos is None:
             pos = self.viewport().rect().center()
-        
+
         # find the spot on the page
         layout = self._pageLayout
         layout_pos = self.layoutPosition()
@@ -283,10 +283,10 @@ class View(scrollarea.ScrollArea):
         else:
             x = pos_on_layout.x() / layout.width
             y = pos_on_layout.y() / layout.height
-        
+
         yield
         self.updatePageLayout()
-        
+
         if page:
             new_pos_on_page = QPoint(round(x * page.width), round(y * page.height))
             new_pos_on_layout = page.pos() + new_pos_on_page
@@ -298,10 +298,10 @@ class View(scrollarea.ScrollArea):
 
     def setZoomFactor(self, factor, pos=None):
         """Set the zoom factor (1.0 by default).
-        
+
         If pos is given, that position (in viewport coordinates) is kept in the
         center if possible. If None, zooming centers around the viewport center.
-        
+
         """
         factor = max(self.MIN_ZOOM, min(self.MAX_ZOOM, factor))
         if factor != self._pageLayout.zoomFactor:
@@ -309,36 +309,36 @@ class View(scrollarea.ScrollArea):
                 self._pageLayout.zoomFactor = factor
             self.setViewMode(FixedScale)
             self.zoomFactorChanged.emit(factor)
-    
+
     def zoomFactor(self):
         """Return the page layout's zoom factor."""
         return self._pageLayout.zoomFactor
-    
+
     def zoomIn(self, pos=None, factor=1.1):
         """Zoom in.
-        
+
         If pos is given, it is the position in the viewport to keep centered.
         Otherwise zooming centers around the viewport center.
 
         """
         self.setZoomFactor(self.zoomFactor() * factor, pos)
-        
+
     def zoomOut(self, pos=None, factor=1.1):
         """Zoom out.
-        
+
         If pos is given, it is the position in the viewport to keep centered.
         Otherwise zooming centers around the viewport center.
 
         """
         self.setZoomFactor(self.zoomFactor() / factor, pos)
-        
+
     def _updateScrollBars(self):
         """Adjust the range of the scrollbars to the layout."""
         layout = self._pageLayout
         maxsize = self.maximumViewportSize()
         vbar = self.verticalScrollBar()
         hbar = self.horizontalScrollBar()
-        
+
         if layout.width <= maxsize.width() and layout.height <= maxsize.height():
             vbar.setRange(0, 0)
             hbar.setRange(0, 0)
@@ -348,15 +348,15 @@ class View(scrollarea.ScrollArea):
             vbar.setPageStep(viewport.height() * .9)
             hbar.setRange(0, layout.width - viewport.width())
             hbar.setPageStep(viewport.width() * .9)
-    
+
     def layoutPosition(self):
         """Return the position of the PageLayout relative to the viewport.
-        
+
         This is the top-left position of the layout, relative to the
         top-left position of the viewport.
-        
+
         If the layout is smaller than the viewport it is centered.
-        
+
         """
         lw = self._pageLayout.width
         vw = self.viewport().width()
@@ -369,11 +369,11 @@ class View(scrollarea.ScrollArea):
     def visibleRect(self):
         """Return the QRect of the page layout that is currently visible in the viewport."""
         return self.viewport().rect().translated(-self.layoutPosition())
-    
+
     def visiblePages(self):
         """Yield the Page instances that are currently visible."""
         return self._pageLayout.pagesAt(self.visibleRect())
-    
+
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
         if self._viewMode and not self._pageLayout.empty():
@@ -387,20 +387,20 @@ class View(scrollarea.ScrollArea):
             if ym: vbar.setValue(round(y * vbar.maximum() / ym))
         else:
             self._updateScrollBars()
-    
+
     def repaintPage(self, page):
         """Call this when you want to redraw the specified page."""
         rect = page.rect().translated(self.layoutPosition())
         self.viewport().update(rect)
-    
+
     def paintEvent(self, ev):
         layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
-        
+
         # pages to paint
         ev_rect = ev.rect().translated(-layout_pos)
         pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
-        
+
         # paint the pages
         for p in pages_to_paint:
             rect = (p.rect() & ev_rect).translated(-p.pos())
@@ -408,9 +408,9 @@ class View(scrollarea.ScrollArea):
             painter.translate(p.pos() + layout_pos)
             p.paint(painter, rect, self.repaintPage)
             painter.restore()
-        
+
         # TODO paint highlighting
-        
+
         # remove pending render jobs for pages that were visible, but are not
         # visible now
         margin = 50
@@ -428,5 +428,5 @@ class View(scrollarea.ScrollArea):
                 self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
         else:
             super().wheelEvent(ev)
-    
+
 

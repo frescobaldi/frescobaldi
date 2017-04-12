@@ -36,10 +36,10 @@ class Formatter(object):
         """Return a full userguide page HTML."""
         page = Page(name)
         from appinfo import appname, version
-        
+
         parents = cache.parents(name) if name != 'index' else []
         children = cache.children(name)
-        
+
         qt_detail = '<qt type=detail>' if page.is_popup() else ''
         title = page.title()
         nav_up = ''
@@ -61,7 +61,7 @@ class Formatter(object):
                 '\n'.join('<li>{0}</li>'.format(self.format_link(c))
                 for c in children))
         else:
-            # add navigation to next page, or if last page, to next page in 
+            # add navigation to next page, or if last page, to next page in
             # the first parent document that has a next page.
             html = []
             def sibling(parent, name):
@@ -95,16 +95,16 @@ class Formatter(object):
     def format_link(self, name):
         """Make a clickable link to the page."""
         return format_link(name)
-    
+
     def markexternal(self, text):
         """Marks http(s)/ftp(s) links as external with an arrow."""
         return markexternal(text)
-    
+
     def _html_template(self):
         """Return the userguide html template to render the html().
-        
+
         The default implementation returns _userguide_html_template.
-        
+
         """
         return _userguide_html_template
 
@@ -145,15 +145,15 @@ body {{
 
 class Cache(object):
     """Cache certain information about pages.
-    
+
     Just one instance of this is created and put in the cache global.
-    
+
     """
     def __init__(self):
         self._title = {}
         self._children = {}
         app.languageChanged.connect(lambda: self._title.clear(), -999)
-    
+
     def title(self, name):
         """Return the title of the named page."""
         try:
@@ -161,7 +161,7 @@ class Cache(object):
         except KeyError:
             t = self._title[name] = Page(name).title()
         return t
-    
+
     def children(self, name):
         """Return the list of children of the named page."""
         try:
@@ -169,7 +169,7 @@ class Cache(object):
         except KeyError:
             c = self._children[name] = Page(name).children()
         return c
-        
+
     def parents(self, name):
         """Return the list of parents (zero or more) of the named page."""
         try:
@@ -181,7 +181,7 @@ class Cache(object):
             return self._parents[name]
         except KeyError:
             return []
-    
+
     def _compute_parents(self):
         def _compute(n1):
             for n in self.children(n1):

@@ -36,11 +36,11 @@ handler = None
 
 def openUrl(url):
     """Open Url.
-    
+
     If there is an active MainWindow, the document is made the current
     document in that window. If there is no MainWindow at all, it is
     created.
-    
+
     """
     win = app.activeWindow()
     if not win:

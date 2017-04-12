@@ -47,11 +47,11 @@ python = os.path.join(sys.exec_prefix, 'pythonw.exe') # because sys.executable p
 
 def install_association():
     """Installs a file association for the LilyPond file type.
-    
+
     Sets HKEY_CLASSES_ROOT\\LilyPond\\shell\\frescobaldi to 'Open with &Frescobaldi...'
     Sets HKEY_CLASSES_ROOT\\LilyPond\\shell\\frescobaldi\\command
         to '{python} "{script}" "%1"'
-    
+
     """
     key = winreg.CreateKey(winreg.HKEY_CLASSES_ROOT, "LilyPond\\shell\\frescobaldi")
     with key:
@@ -61,9 +61,9 @@ def install_association():
 
 def remove_association():
     """Removes the file association.
-    
+
     Removes HKEY_CLASSES_ROOT\\LilyPond\\shell\\frescobaldi
-    
+
     """
     try:
         key = winreg.OpenKey(winreg.HKEY_CLASSES_ROOT, "LilyPond\\shell")
@@ -112,7 +112,7 @@ def shortcut(directory):
 def welcome():
     """Prints a nice welcome message in the installer."""
     print("\nWelcome to {0} {1}!".format(appinfo.appname, appinfo.version))
-    
+
 
 ### Main:
 if sys.argv[1] == '-install':

@@ -54,31 +54,31 @@ def bookmarks(document):
 
 class Bookmarks(plugin.DocumentPlugin):
     """Manages bookmarks (marked lines) for a Document.
-    
+
     The marks are stored in the metainfo for the Document.
-    
+
     """
     marksChanged = signals.Signal()
-    
+
     def __init__(self, document):
         """Creates the Bookmarks instance."""
         document.loaded.connect(self.load)
         document.saved.connect(self.save)
         document.closed.connect(self.save)
         self.load() # initializes self._marks
-        
+
     def marks(self, type=None):
         """Returns marks (QTextCursor instances).
-        
+
         If type is specified (one of the names in the module-global types variable),
         the list of marks of that type is returned.
         If type is None, a dictionary listing all types mapped to lists of marks
         is returned.
-        
+
         """
-        
+
         return self._marks[type] if type else self._marks
-    
+
     def setMark(self, linenum, type):
         """Marks the given line number with a mark of the given type."""
         nums = [mark.blockNumber() for mark in self._marks[type]]
@@ -93,7 +93,7 @@ class Bookmarks(plugin.DocumentPlugin):
             pass
         self._marks[type].insert(index, mark)
         self.marksChanged()
-        
+
     def unsetMark(self, linenum, type):
         """Removes a mark of the given type on the given line."""
         nums = [mark.blockNumber() for mark in self._marks[type]]
@@ -106,7 +106,7 @@ class Bookmarks(plugin.DocumentPlugin):
                 if linenum not in nums:
                     break
             self.marksChanged()
-        
+
     def toggleMark(self, linenum, type):
         """Toggles the mark of the given type on the given line."""
         nums = [mark.blockNumber() for mark in self._marks[type]]
@@ -136,7 +136,7 @@ class Bookmarks(plugin.DocumentPlugin):
                 if mark.blockNumber() == linenum:
                     return True
         return False
-        
+
     def clear(self, type=None):
         """Removes all marks, or only all marks of the given type. if specified."""
         if type is None:
@@ -160,7 +160,7 @@ class Bookmarks(plugin.DocumentPlugin):
         index = bisect.bisect_right(nums, cursor.blockNumber())
         if index < len(nums):
             return QTextCursor(marks[index].block())
-        
+
     def previousMark(self, cursor, type=None):
         """Finds the first mark before the cursor (of the type if specified)."""
         if type is None:
@@ -187,7 +187,7 @@ class Bookmarks(plugin.DocumentPlugin):
         for type in types:
             self._marks[type] = [QTextCursor(self.document().findBlockByNumber(num)) for num in d.get(type, [])]
         self.marksChanged()
-        
+
     def save(self):
         """Saves the marks to the metainfo."""
         d = {}

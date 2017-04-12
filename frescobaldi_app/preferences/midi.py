@@ -39,14 +39,14 @@ import listmodel
 class MidiPrefs(preferences.GroupsPage):
     def __init__(self, dialog):
         super(MidiPrefs, self).__init__(dialog)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         layout.addWidget(MidiPorts(self))
         layout.addWidget(Prefs(self))
         layout.addStretch(0)
-    
+
     def saveSettings(self):
         super(MidiPrefs, self).saveSettings()
         midihub.settingsChanged()
@@ -55,7 +55,7 @@ class MidiPrefs(preferences.GroupsPage):
 class MidiPorts(preferences.Group):
     def __init__(self, page):
         super(MidiPorts, self).__init__(page)
-        
+
         self._portsMessage = QLabel(wordWrap=True)
         self._playerLabel = QLabel()
         self._playerPort = QComboBox(editable=True,
@@ -63,10 +63,10 @@ class MidiPorts(preferences.Group):
         self._inputLabel = QLabel()
         self._inputPort = QComboBox(editable=True,
             editTextChanged=self.changed, insertPolicy=QComboBox.NoInsert)
-        
+
         self._reloadMidi = QPushButton(icon=icons.get('view-refresh'))
         self._reloadMidi.clicked.connect(self.refreshMidiPorts)
-        
+
         grid = QGridLayout()
         self.setLayout(grid)
         grid.addWidget(self._portsMessage, 0, 0, 1, 3)
@@ -75,10 +75,10 @@ class MidiPorts(preferences.Group):
         grid.addWidget(self._inputLabel, 2, 0)
         grid.addWidget(self._inputPort, 2, 1, 1, 2)
         grid.addWidget(self._reloadMidi, 3, 2)
-        
+
         app.translateUI(self)
         self.loadMidiPorts()
-    
+
     def translateUI(self):
         self.setTitle(_("MIDI Ports"))
         self._portsMessage.setText(_(
@@ -135,7 +135,7 @@ class MidiPorts(preferences.Group):
         s.beginGroup("midi")
         self._playerPort.setEditText(s.value("player/output_port", output_port, str))
         self._inputPort.setEditText(s.value("midi/input_port", input_port, str))
-        
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("midi")
@@ -146,26 +146,26 @@ class MidiPorts(preferences.Group):
 class Prefs(preferences.Group):
     def __init__(self, page):
         super(Prefs, self).__init__(page)
-        
+
         self._closeOutputs = QCheckBox(clicked=self.changed)
         self._pollingLabel = QLabel()
         self._pollingTime = QSpinBox()
         self._pollingTime.setRange(0, 1000)
         self._pollingTime.setSuffix(" ms")
         self._pollingTime.valueChanged.connect(self.changed)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         layout.addWidget(self._closeOutputs)
         app.translateUI(self)
-        
+
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
-        
+
         hbox.addWidget(self._pollingLabel)
         hbox.addWidget(self._pollingTime)
-    
+
     def translateUI(self):
         self.setTitle(_("Preferences"))
         self._closeOutputs.setText(_("Close unused MIDI output"))
@@ -196,7 +196,7 @@ class Prefs(preferences.Group):
             s.value("midi/close_outputs", False, bool))
         self._pollingTime.setValue(
             s.value("midi/polling_time", 10, int))
-    
+
     def saveSettings(self):
         s = QSettings()
         s.setValue("midi/close_outputs", self._closeOutputs.isChecked())

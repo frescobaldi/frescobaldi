@@ -27,16 +27,16 @@ from PyQt5.QtCore import QObject, QUrl, pyqtSignal
 
 
 class Manual(QObject):
-    
+
     loaded = pyqtSignal(bool)
-    
+
     def __init__(self, lilydoc):
         self._loaded = None
-    
+
     def isLoaded(self):
         """True: successfully loaded, False: load failed, None: load pending."""
         return self._loaded
-    
+
 
 
 class NotationManual(Manual):
@@ -45,7 +45,7 @@ class NotationManual(Manual):
 
 class LearningManual(Manual):
     """Represents the Learning Manual."""
-    
+
 
 class InternalsReference(Manual):
     """Represents the Internals Reference."""

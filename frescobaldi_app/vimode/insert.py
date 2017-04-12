@@ -28,7 +28,7 @@ from . import handlerbase
 
 
 class InsertMode(handlerbase.Handler):
-    
+
     def enter(self):
         m = self.vimode
         m.textEdit().setCursorWidth(m._originalCursorWidth)

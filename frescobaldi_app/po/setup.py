@@ -41,9 +41,9 @@ _currentlanguage = None
 
 def preferred():
     """Return a list of language codes from the operating system preferences.
-    
+
     Language- and country codes will always be separated with an underscore '_'.
-    
+
     """
     try:
         langs = QLocale().uiLanguages()
@@ -54,7 +54,7 @@ def preferred():
         # in some systems, language/country codes have '-' and not '_'
         langs = [l.replace('-', '_') for l in langs]
     if not langs:
-        try: 
+        try:
             langs.append(locale.getdefaultlocale()[0])
         except ValueError:
             pass
@@ -62,10 +62,10 @@ def preferred():
 
 def default():
     """Return the first preferred system default UI language that is available in Frescobaldi.
-    
+
     May return None, if none of the system preferred languages is available
     in Frescobaldi.
-    
+
     """
     av_langs = available()
     av_langs.append("en")
@@ -75,10 +75,10 @@ def default():
 
 def current():
     """Returns the currently active UI language code.
-    
+
     A name is always returned, which can be "C", meaning no translation
     is desired.
-    
+
     """
     return QSettings().value("language", "", str) or default() or "C"
 

@@ -47,19 +47,19 @@ class Tools(preferences.ScrolledGroupsPage):
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
-        
+
         layout.addWidget(LogTool(self))
         layout.addWidget(MusicView(self))
         layout.addWidget(CharMap(self))
         layout.addWidget(DocumentList(self))
         layout.addWidget(Outline(self))
         layout.addStretch(1)
-            
+
 
 class LogTool(preferences.Group):
     def __init__(self, page):
         super(LogTool, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
 
@@ -75,18 +75,18 @@ class LogTool(preferences.Group):
         box.addWidget(self.fontChooser, 1)
         box.addWidget(self.fontSize)
         layout.addLayout(box)
-        
+
         self.showlog = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showlog)
-        
+
         self.rawview = QCheckBox(toggled=self.changed)
         layout.addWidget(self.rawview)
-        
+
         self.hideauto = QCheckBox(toggled=self.changed)
         layout.addWidget(self.hideauto)
-        
+
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("LilyPond Log"))
         self.fontLabel.setText(_("Font:"))
@@ -98,7 +98,7 @@ class LogTool(preferences.Group):
         self.hideauto.setToolTip(_(
             "If checked, Frescobaldi will not show the log for automatically\n"
             "started engraving jobs (LilyPond->Auto-engrave)."))
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("log")
@@ -124,13 +124,13 @@ class LogTool(preferences.Group):
 class MusicView(preferences.Group):
     def __init__(self, page):
         super(MusicView, self).__init__(page)
-        
+
         layout = QGridLayout()
         self.setLayout(layout)
-        
+
         self.newerFilesOnly = QCheckBox(toggled=self.changed)
         layout.addWidget(self.newerFilesOnly, 0, 0, 1, 3)
-        
+
         self.magnifierSizeLabel = QLabel()
         self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
         self.magnifierSizeSlider.setSingleStep(50)
@@ -142,7 +142,7 @@ class MusicView(preferences.Group):
         layout.addWidget(self.magnifierSizeLabel, 1, 0)
         layout.addWidget(self.magnifierSizeSlider, 1, 1)
         layout.addWidget(self.magnifierSizeSpinBox, 1, 2)
-        
+
         self.magnifierScaleLabel = QLabel()
         self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
         self.magnifierScaleSlider.setSingleStep(50)
@@ -154,13 +154,13 @@ class MusicView(preferences.Group):
         layout.addWidget(self.magnifierScaleLabel, 2, 0)
         layout.addWidget(self.magnifierScaleSlider, 2, 1)
         layout.addWidget(self.magnifierScaleSpinBox, 2, 2)
-        
+
         self.enableKineticScrolling = QCheckBox(toggled=self.changed)
         layout.addWidget(self.enableKineticScrolling)
         self.showScrollbars = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showScrollbars)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("Music View"))
         self.newerFilesOnly.setText(_("Only load updated PDF documents"))
@@ -179,12 +179,12 @@ class MusicView(preferences.Group):
         # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
         self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
         self.showScrollbars.setText(_("Show Scrollbars"))
-            
+
     def loadSettings(self):
         s = popplerview.MagnifierSettings.load()
         self.magnifierSizeSlider.setValue(s.size)
         self.magnifierScaleSlider.setValue(s.scale)
-        
+
         s = QSettings()
         s.beginGroup("musicview")
         newerFilesOnly = s.value("newer_files_only", True, bool)
@@ -193,7 +193,7 @@ class MusicView(preferences.Group):
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
         showScrollbars = s.value("show_scrollbars", True, bool)
         self.showScrollbars.setChecked(showScrollbars)
-    
+
     def saveSettings(self):
         s = popplerview.MagnifierSettings()
         s.size = self.magnifierSizeSlider.value()
@@ -210,28 +210,28 @@ class MusicView(preferences.Group):
 class CharMap(preferences.Group):
     def __init__(self, page):
         super(CharMap, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.fontLabel = QLabel()
         self.fontChooser = QFontComboBox(currentFontChanged=self.changed)
         self.fontSize = QDoubleSpinBox(valueChanged=self.changed)
         self.fontSize.setRange(6.0, 32.0)
         self.fontSize.setSingleStep(0.5)
         self.fontSize.setDecimals(1)
-        
+
         box = QHBoxLayout()
         box.addWidget(self.fontLabel)
         box.addWidget(self.fontChooser, 1)
         box.addWidget(self.fontSize)
         layout.addLayout(box)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("Special Characters"))
         self.fontLabel.setText(_("Font:"))
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("charmaptool")
@@ -254,17 +254,17 @@ class CharMap(preferences.Group):
 class DocumentList(preferences.Group):
     def __init__(self, page):
         super(DocumentList, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         self.groupCheck = QCheckBox(toggled=self.changed)
         layout.addWidget(self.groupCheck)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("Documents"))
         self.groupCheck.setText(_("Group documents by directory"))
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("document_list")
@@ -279,7 +279,7 @@ class DocumentList(preferences.Group):
 class Outline(preferences.Group):
     def __init__(self, page):
         super(Outline, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         self.label = QLabel()
@@ -292,16 +292,16 @@ class Outline(preferences.Group):
         layout.addWidget(self.label)
         layout.addWidget(self.patternList)
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_("Outline"))
         self.defaultButton.setText(_("Default"))
         self.defaultButton.setToolTip(_("Restores the built-in outline patterns."))
         self.label.setText(_("Patterns to match in text that are shown in outline:"))
-    
+
     def reloadDefaults(self):
         self.patternList.setValue(documentstructure.default_outline_patterns)
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("documentstructure")
@@ -310,7 +310,7 @@ class Outline(preferences.Group):
         except TypeError:
             patterns = []
         self.patternList.setValue(patterns)
-    
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("documentstructure")
@@ -333,7 +333,7 @@ class OutlinePatterns(widgets.listedit.ListEdit):
             return True
         return False
 
-            
+
 def is_regex(text):
     """Return True if text is a valid regular expression."""
     try:

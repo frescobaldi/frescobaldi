@@ -20,7 +20,7 @@
 """
 A Frescobaldi document.
 
-This contains the text the user can edit in Frescobaldi. In most cases it will 
+This contains the text the user can edit in Frescobaldi. In most cases it will
 be a LilyPond source file, but other file types can be used as well.
 
 """
@@ -39,28 +39,28 @@ import signals
 
 
 class Document(QTextDocument):
-    
+
     urlChanged = signals.Signal() # new url, old url
     closed = signals.Signal()
     loaded = signals.Signal()
     saving = signals.SignalContext()
     saved = signals.Signal()
-    
+
     @classmethod
     def load_data(cls, url, encoding=None):
         """Class method to load document contents from an url.
-        
+
         This is intended to open a document without instantiating one
         if loading the contents fails.
-        
+
         This method returns the text contents of the url as decoded text,
         thus a unicode string.
-        
+
         The line separator is always '\\n'.
-        
+
         """
         filename = url.toLocalFile()
-        
+
         # currently, we do not support non-local files
         if not filename:
             raise IOError("not a local file")
@@ -68,14 +68,14 @@ class Document(QTextDocument):
             data = f.read()
         text = util.decode(data, encoding)
         return util.universal_newlines(text)
-    
+
     @classmethod
     def new_from_url(cls, url, encoding=None):
         """Create and return a new document, loaded from url.
-        
+
         This is intended to open a new Document without instantiating one
         if loading the contents fails.
-        
+
         """
         if not url.isEmpty():
             text = cls.load_data(url, encoding)
@@ -86,14 +86,14 @@ class Document(QTextDocument):
             d.loaded()
             app.documentLoaded(d)
         return d
-        
+
     def __init__(self, url=None, encoding=None):
         """Create a new Document with url and encoding.
-        
+
         Does not load the contents, you should use load() for that, or
         use the new_from_url() constructor to instantiate a new Document
         with the contents loaded.
-        
+
         """
         if url is None:
             url = QUrl()
@@ -105,7 +105,7 @@ class Document(QTextDocument):
         self.modificationChanged.connect(self.slotModificationChanged)
         app.documents.append(self)
         app.documentCreated(self)
-        
+
     def slotModificationChanged(self):
         app.documentModificationChanged(self)
 
@@ -116,15 +116,15 @@ class Document(QTextDocument):
 
     def load(self, url=None, encoding=None, keepUndo=False):
         """Load the specified or current url (if None was specified).
-        
+
         Currently only local files are supported. An IOError is raised
         when trying to load a nonlocal URL.
-        
+
         If loading succeeds and an url was specified, the url is make the
         current url (by calling setUrl() internally).
-        
+
         If keepUndo is True, the loading can be undone (with Ctrl-Z).
-        
+
         """
         if url is None:
             url = QUrl()
@@ -141,16 +141,16 @@ class Document(QTextDocument):
             self.setUrl(url)
         self.loaded()
         app.documentLoaded(self)
-            
+
     def save(self, url=None, encoding=None):
         """Saves the document to the specified or current url.
-        
+
         Currently only local files are supported. An IOError is raised
         when trying to save a nonlocal URL.
-        
+
         If saving succeeds and an url was specified, the url is made the
         current url (by calling setUrl() internally).
-        
+
         """
         if url is None:
             url = QUrl()
@@ -176,7 +176,7 @@ class Document(QTextDocument):
 
     def url(self):
         return self._url
-        
+
     def setUrl(self, url):
         """ Change the url for this document. """
         if url is None:
@@ -193,31 +193,31 @@ class Document(QTextDocument):
         if changed:
             self.urlChanged(url, old)
             app.documentUrlChanged(self, url, old)
-    
+
     def encoding(self):
         return variables.get(self, "coding") or self._encoding
-        
+
     def setEncoding(self, encoding):
         self._encoding = encoding
-    
+
     def encodedText(self):
         """Return the text of the document as a bytes string encoded in the
         correct encoding.
-        
+
         The line separator is '\\n' on Unix/Linux/Mac OS X, '\\r\\n' on Windows.
-        
+
         Useful to save to a file.
-        
+
         """
         text = util.platform_newlines(self.toPlainText())
         return util.encode(text, self.encoding())
-        
+
     def documentName(self):
         """Return a suitable name for this document.
-        
+
         This is only to be used for display. If the url of the document is
         empty, something like "Untitled" or "Untitled (3)" is returned.
-        
+
         """
         if self._url.isEmpty():
             if self._num == 1:

@@ -36,17 +36,17 @@ class Rest(plugin.MainWindowPlugin):
         ac.rest_fmrest2spacer.triggered.connect(self.fmrest2spacer)
         ac.rest_spacer2fmrest.triggered.connect(self.spacer2fmrest)
         ac.rest_restcomm2rest.triggered.connect(self.restcomm2rest)
-    
+
     def fmrest2spacer(self):
         from . import rest
         cursor = self.mainwindow().textCursor()
         rest.fmrest2spacer(cursor)
-    
+
     def spacer2fmrest(self):
         from . import rest
         cursor = self.mainwindow().textCursor()
         rest.spacer2fmrest(cursor)
-    
+
     def restcomm2rest(self):
         from . import rest
         cursor = self.mainwindow().textCursor()
@@ -59,7 +59,7 @@ class Actions(actioncollection.ActionCollection):
         self.rest_fmrest2spacer = QAction(parent)
         self.rest_spacer2fmrest = QAction(parent)
         self.rest_restcomm2rest = QAction(parent)
-        
+
     def translateUI(self):
         self.rest_fmrest2spacer.setText(_(
             "Replace full measure rests with spacer rests"))
@@ -76,4 +76,4 @@ class Actions(actioncollection.ActionCollection):
         self.rest_restcomm2rest.setToolTip(_(
             "Change all \\rest with r "
             "in this document or in the selection."))
-        
+

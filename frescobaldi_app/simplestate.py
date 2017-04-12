@@ -47,7 +47,7 @@ def state(state):
     def append(name):
         if not names or names[-1] != name:
             names.append(name)
-    
+
     for p in state.state:
         name = parserClasses.get(p.__class__)
         if name:
@@ -59,9 +59,9 @@ def state(state):
                 if isinstance(p, c):
                     append(name)
                     break
-    
+
     return names
-    
+
 
 parserClasses = {
     # lilypond
@@ -84,11 +84,11 @@ parserClasses = {
     ly.lex.lilypond.ParseMarkup: "markup",
     ly.lex.lilypond.ParseOverride: "override",
     ly.lex.lilypond.ParseString: "string",
-    
+
     # scheme
     ly.lex.scheme.ParseScheme: "scheme",
     ly.lex.scheme.ParseString: "string",
-    
+
     # html
     ly.lex.html.ParseAttr: "htmlattribute",
     ly.lex.html.ParseStringSQ: "single-quoted-string",
@@ -108,7 +108,7 @@ if __name__ == "__main__":
     @lilypond
     \relative c' {
       c d e-\markup {
-      
+
     """
     s = ly.lex.guessState(text)
     list(s.tokens(text))

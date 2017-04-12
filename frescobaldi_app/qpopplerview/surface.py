@@ -87,20 +87,20 @@ class CustomRubberBand(QWidget):
         # Clip middles
         region += QRect(0, self.rect().height() // 2 - 10, self.rect().width(), 20)
         region += QRect(self.rect().width() // 2 - 10, 0, 20, self.rect().height())
-        
+
         # Draw thicker rectangles, clipped at corners and sides.
         painter.setClipRegion(region)
         painter.drawRect(self.rect())
- 
+
 class Surface(QWidget):
-    
+
     rightClicked = pyqtSignal(QPoint)
     linkClicked = pyqtSignal(QEvent, page.Page, popplerqt5.Poppler.Link)
     linkHovered = pyqtSignal(page.Page, popplerqt5.Poppler.Link)
     linkLeft = pyqtSignal()
-    linkHelpRequested = pyqtSignal(QPoint, page.Page, popplerqt5.Poppler.Link)    
+    linkHelpRequested = pyqtSignal(QPoint, page.Page, popplerqt5.Poppler.Link)
     selectionChanged = pyqtSignal(QRect)
-    
+
     def __init__(self, view):
         super(Surface, self).__init__(view)
         self.setBackgroundRole(QPalette.Dark)
@@ -122,12 +122,12 @@ class Surface(QWidget):
         self.setLinksEnabled(True)
         self.setSelectionEnabled(True)
         self.setShowUrlTips(True)
-        
+
         self.view().cursorNeedUpdate.connect(self.updateCursor)
- 
+
     def pageLayout(self):
         return self._pageLayout
-        
+
     def setPageLayout(self, layout):
         old, self._pageLayout = self._pageLayout, layout
         if old:
@@ -135,15 +135,15 @@ class Surface(QWidget):
             old.changed.disconnect(self.updateLayout)
         layout.redraw.connect(self.redraw)
         layout.changed.connect(self.updateLayout)
-    
+
     def view(self):
         """Returns our associated View."""
         return self._view()
-    
+
     def viewportRect(self):
         """Returns the rectangle of us that is visible in the View."""
         return self.view().viewport().rect().translated(-self.pos())
-        
+
     def setSelectionEnabled(self, enabled):
         """Enables or disables selecting rectangular regions."""
         self._selectionEnabled = enabled
@@ -151,62 +151,62 @@ class Surface(QWidget):
             self.clearSelection()
             self._rubberBand.hide()
             self._selecting = False
-    
+
     def selectionEnabled(self):
         """Returns True if selecting rectangular regions is enabled."""
         return self._selectionEnabled
-        
+
     def setLinksEnabled(self, enabled):
         """Enables or disables the handling of Poppler.Links in the pages."""
         self._linksEnabled = enabled
-    
+
     def linksEnabled(self):
         """Returns True if the handling of Poppler.Links in the pages is enabled."""
         return self._linksEnabled
-    
+
     def setShowUrlTips(self, enabled):
         """Enables or disables showing the URL in a tooltip when hovering a link.
-        
+
         (Of course also setLinksEnabled(True) if you want this.)
-        
+
         """
         self._showUrlTips = enabled
-        
+
     def showUrlTips(self):
         """Returns True if URLs are shown in a tooltip when hovering a link."""
         return self._showUrlTips
-        
+
     def setMagnifier(self, magnifier):
         """Sets the Magnifier to use (or None to disable the magnifier).
-        
+
         The Surface takes ownership of the Magnifier.
-        
+
         """
         if self._magnifier:
             self._magnifier.setParent(None)
         magnifier.setParent(self.view())
         self._magnifier = magnifier
-    
+
     def magnifier(self):
         """Returns the currently set magnifier."""
         return self._magnifier
-    
+
     def setMagnifierModifiers(self, modifiers):
         """Sets the modifiers (e.g. Qt.CTRL) to show the magnifier.
-        
+
         Use None to show the magnifier always (instead of dragging).
-        
+
         """
         self._magnifierModifiers = modifiers
-    
+
     def magnifierModifiers(self):
         """Returns the currently set keyboard modifiers (e.g. Qt.CTRL) to show the magnifier."""
         return self._magnifierModifiers
-        
+
     def hasSelection(self):
         """Returns True if there is a selection."""
         return bool(self._selection)
-        
+
     def setSelection(self, rect):
         """Sets the selection rectangle."""
         rect = rect.normalized()
@@ -215,19 +215,19 @@ class Surface(QWidget):
         self._rubberBand.setGeometry(rect)
         if rect != old:
             self.selectionChanged.emit(rect)
-        
+
     def selection(self):
         """Returns the selection rectangle (normalized) or an invalid QRect()."""
         return QRect(self._selection)
-    
+
     def clearSelection(self):
         """Hides the selection rectangle."""
         self.setSelection(QRect())
-        
+
     def selectedPages(self):
         """Return a list of the Page objects the selection encompasses."""
         return list(self.pageLayout().pagesAt(self.selection()))
-    
+
     def selectedPage(self):
         """Return the Page thas is selected for the largest part, or None."""
         pages = self.selectedPages()
@@ -237,7 +237,7 @@ class Surface(QWidget):
             size = page.rect().intersected(self.selection()).size()
             return size.width() + size.height()
         return max(pages, key = key)
-    
+
     def selectedPageRect(self, page):
         """Return the QRect on the page that falls in the selection."""
         return self.selection().normalized().intersected(page.rect()).translated(-page.pos())
@@ -245,23 +245,23 @@ class Surface(QWidget):
     def selectedText(self):
         """Return all text falling in the selection."""
         return '\n'.join(page.text(self.selection()) for page in self.selectedPages())
-    
+
     def redraw(self, rect):
         """Called when the Layout wants to redraw a rectangle."""
         self.update(rect)
-        
+
     def updateLayout(self):
         """Conforms ourselves to our layout (that must already be updated.)"""
         self.clearSelection()
         self.resize(self._pageLayout.size())
         self.update()
-        
+
     def highlight(self, highlighter, areas, msec=0):
         """Highlights the list of areas using the given highlighter.
-        
+
         Every area is a two-tuple (page, rect), where rect is a rectangle inside (0, 0, 1, 1) like the
         linkArea attribute of a Poppler.Link.
-        
+
         """
         d = collections.defaultdict(list)
         for page, area in areas:
@@ -279,7 +279,7 @@ class Surface(QWidget):
         self.clearHighlight(highlighter)
         self._highlights[highlighter] = (d, t)
         self.update(sum((page.rect() for page in d), QRegion()))
-        
+
     def clearHighlight(self, highlighter):
         """Removes the highlighted areas of the given highlighter."""
         try:
@@ -288,14 +288,14 @@ class Surface(QWidget):
             return
         del self._highlights[highlighter]
         self.update(sum((page.rect() for page in d), QRegion()))
-    
+
     def paintEvent(self, ev):
         """Handle PaintEvent on the surface to highlight the selection."""
         painter = QPainter(self)
         pages = list(self.pageLayout().pagesAt(ev.rect()))
         for page in pages:
             page.paint(painter, ev.rect())
-        
+
         for highlighter, (d, t) in self._highlights.items():
             rects = []
             for page in pages:
@@ -305,19 +305,19 @@ class Surface(QWidget):
                     continue
             if rects:
                 highlighter.paintRects(painter, rects)
-    
+
     def handleMousePressEvent(self, ev):
         """Handle mouse press for various operations
             - links to source,
-            - magnifier, 
+            - magnifier,
             - selection highlight,
-            
+
             If event was used, return true to indicate processing should stop.
         """
-        
+
         # As the event comes from the view, we need to map it locally.
         pos = self.mapFromParent(ev.pos())
-               
+
         # selecting?
         if self._selectionEnabled:
             if self.hasSelection():
@@ -340,14 +340,14 @@ class Surface(QWidget):
                         self.linkClickEvent(ev, page, link)
                         return True
                 if ev.button() == Qt.RightButton or int(ev.modifiers()) & _SCAM:
-                    if not (int(ev.modifiers()) & _SCAM == self._magnifierModifiers 
+                    if not (int(ev.modifiers()) & _SCAM == self._magnifierModifiers
                             and  ev.button() == Qt.LeftButton):
                         self._selecting = True
                         self._selectionEdge = _RIGHT | _BOTTOM
                         self._selectionRect = QRect(pos, QSize(0, 0))
                         self._selectionPos = pos
                         return True
-        
+
         # link?
         if self._linksEnabled:
             page, link = self.pageLayout().linkAt(pos)
@@ -366,19 +366,19 @@ class Surface(QWidget):
             return True
 
         return False
-        
+
     def handleMouseReleaseEvent(self, ev):
         """Handle mouse release events for various operations:
             - hide magnifier,
             - selection.
-            
+
             If event was used, return true to indicate processing should stop.
         """
         consumed = False
         if self._magnifying:
             self._magnifier.hide()
             self._magnifying = False
-            self.unsetCursor() 
+            self.unsetCursor()
             consumed = True
         elif self._selecting:
             self._selecting = False
@@ -389,23 +389,23 @@ class Surface(QWidget):
                 self.setSelection(selection)
             if self._scrolling:
                 self.stopScrolling()
-            self.unsetCursor() 
+            self.unsetCursor()
             consumed = True
         if ev.button() == Qt.RightButton:
             # As the event comes from the view, we need to map it locally.
             self.rightClick(self.mapFromParent(ev.pos()))
             consumed = True
-        
+
         return consumed
-            
+
     def handleMouseMoveEvent(self, ev):
         """Handle mouse move events for various operations:
             - move magnifier,
             - selection extension.
-            
+
             If event was used, return true to indicate processing should stop.
         """
-        consumed = False 
+        consumed = False
         if self._magnifying:
             # As the event comes from the view, we need to map it locally.
             self._magnifier.moveCenter(self.mapFromParent(ev.pos()))
@@ -432,14 +432,14 @@ class Surface(QWidget):
             elif self._scrolling:
                 self.stopScrolling()
             consumed = True
-              
+
         return consumed
-        
+
     def handleMoveEvent(self, ev):
         """Handle  move events for various operations:
             - move magnifier,
             - selection extension.
-            
+
             If event was used, return true to indicate processing should stop.
         """
         consumed = False
@@ -452,7 +452,7 @@ class Surface(QWidget):
             consumed = True
 
         return consumed
-        
+
     def handleHelpEvent(self, ev):
         """Handle help event: show link if any."""
         if self._linksEnabled:
@@ -463,10 +463,10 @@ class Surface(QWidget):
 
     def updateKineticCursor(self, active):
         """Cursor handling when kinetic move starts/stops.
-        
+
         - reset the cursor and hide tooltips if visible at start,
         - update the cursor and show the appropriate tooltips at stop.
-        
+
         Used as a slot linked to the kineticStarted() signal.
         """
         if active:
@@ -481,13 +481,13 @@ class Surface(QWidget):
                     self.linkHelpEvent(QCursor.pos(), page, link)
 
     def updateCursor(self, evpos):
-        """Set the cursor to the right glyph, depending on action""" 
+        """Set the cursor to the right glyph, depending on action"""
         pos = self.mapFromGlobal(evpos)
         cursor = None
         edge = _OUTSIDE
         if self._selectionEnabled and self.hasSelection():
             edge = selectionEdge(pos, self.selection())
-            
+
         if edge is not _OUTSIDE:
             if edge in (_TOP, _BOTTOM):
                 cursor = Qt.SizeVerCursor
@@ -513,70 +513,70 @@ class Surface(QWidget):
                 self._currentLinkId = lid
                 if link:
                     self.linkHoverEnter(page, link)
-        
+
         self.setCursor(cursor) if cursor else self.unsetCursor()
-    
+
     def linkHelpEvent(self, globalPos, page, link):
         """Called when a QHelpEvent occurs on a link.
-        
+
         The default implementation shows a tooltip if showUrls() is True,
         and emits the linkHelpRequested() signal.
-        
+
         """
         if self._showUrlTips and isinstance(link, popplerqt5.Poppler.LinkBrowse):
             QToolTip.showText(globalPos, link.url(), self, page.linkRect(link.linkArea()))
         self.linkHelpRequested.emit(globalPos, page, link)
-        
+
     def rightClick(self, pos):
         """Called when the right mouse button is released.
-        
+
         (Use this instead of the contextMenuEvent as that one also
         fires when starting a right-button selection.)
         The default implementation emits the rightClicked(pos) signal and also
         sends a ContextMenu event to the View widget.
-        
+
         """
         self.rightClicked.emit(pos)
         QApplication.postEvent(self.view().viewport(), QContextMenuEvent(QContextMenuEvent.Mouse, pos + self.pos()))
-        
+
     def linkClickEvent(self, ev, page, link):
         """Called when a link is clicked.
-        
+
         The default implementation emits the linkClicked(event, page, link) signal.
-        
+
         """
         self.linkClicked.emit(ev, page, link)
-        
+
     def linkHoverEnter(self, page, link):
         """Called when the mouse hovers over a link.
-        
+
         The default implementation emits the linkHovered(page, link) signal.
-        
+
         """
         self.linkHovered.emit(page, link)
-        
+
     def linkHoverLeave(self):
         """Called when the mouse does not hover a link anymore.
-        
+
         The default implementation emits the linkLeft() signal.
-        
+
         """
         self.linkLeft.emit()
 
     def startScrolling(self, dx, dy):
         """Starts scrolling dx, dy about 10 times a second.
-        
+
         Stops automatically when the end is reached.
-        
+
         """
         self._scrolling = QPoint(dx, dy)
         self._scrollTimer.isActive() or self._scrollTimer.start()
-        
+
     def stopScrolling(self):
         """Stops scrolling."""
         self._scrolling = False
         self._scrollTimer.stop()
-        
+
     def _scrollTimeout(self):
         """(Internal) Called by the _scrollTimer."""
         # change the scrollbars, but check how far they really moved.
@@ -585,7 +585,7 @@ class Surface(QWidget):
         diff = pos - self.pos()
         if not diff:
             self.stopScrolling()
-    
+
     def _moveSelection(self, pos):
         """(Internal) Moves the dragged selection edge or corner to the given pos (QPoint)."""
         diff = pos - self._selectionPos

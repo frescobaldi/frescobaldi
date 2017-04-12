@@ -6,7 +6,8 @@ Changes in 3.0.1 --
 
 * Bug fixes:
   - fixed #895 seeking in MIDI player during playing stops sound
-
+* Improvements:
+  - Smarter behaviour of the autocompletion popup
 
 Changes in 3.0.0 -- February 17th, 2017
 

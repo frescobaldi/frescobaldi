@@ -70,10 +70,10 @@ def model():
 
 class Model(QAbstractItemModel):
     """Provides the categories and the part types contained therein as a Model.
-    
+
     Simply accesses the global 'categories' variable.
     Don't instantiate directly but use the model() global function.
-    
+
     """
     def index(self, row, column, parent):
         if not parent.isValid():
@@ -81,22 +81,22 @@ class Model(QAbstractItemModel):
         elif parent.internalPointer() is None:
             return self.createIndex(row, column, categories[parent.row()])
         return QModelIndex()
-    
+
     def parent(self, index):
         if index.internalPointer() is None:
             return QModelIndex()
         return self.createIndex(categories.index(index.internalPointer()), 0)
-            
+
     def columnCount(self, parent):
         return 1
-    
+
     def rowCount(self, parent):
         if not parent.isValid():
             return len(categories)
         elif parent.internalPointer() is None:
             return len(categories[parent.row()].items)
         return 0
-    
+
     def data(self, index, role):
         if role == Qt.DisplayRole:
             if index.internalPointer() is None:

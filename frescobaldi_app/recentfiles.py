@@ -43,7 +43,7 @@ def load():
     if _recentfiles is not None:
         return
     _recentfiles = []
-    
+
     urls = qsettings.get_url_list(QSettings(), "recent_files")
     for url in urls:
         if os.access(url.toLocalFile(), os.R_OK):
@@ -57,7 +57,7 @@ def save():
 def urls():
     load()
     return _recentfiles
-    
+
 def add(url):
     load()
     if url in _recentfiles:
@@ -69,4 +69,4 @@ def remove(url):
     load()
     if url in _recentfiles:
         _recentfiles.remove(url)
-        
+

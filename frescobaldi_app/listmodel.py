@@ -48,13 +48,13 @@ class ListModel(QAbstractListModel):
     """A simple QAbstractListModel around a Python list."""
     def __init__(self, data, parent=None, display=display, edit=None, tooltip=None, icon=None):
         """Initializes the list.
-        
+
         parent may be a parent QObject.
         display, tooltip and icon may be functions that extract the data from an item
         for the respective role (DisplayRole, ToolTipRole or DecorationRole).
-        
+
         The original data can be found in the _data attribute.
-        
+
         """
         super(ListModel, self).__init__(parent)
         self._data = data
@@ -69,22 +69,22 @@ class ListModel(QAbstractListModel):
             self._roles[Qt.ToolTipRole] = tooltip
         if icon:
             self._roles[Qt.DecorationRole] = icon
-    
+
     def setRoleFunction(self, role, function):
         """Sets a function that returns a value for a Qt.ItemDataRole.
-        
+
         The function accepts an item in the data list given on construction
         as argument. If function is None, deletes a previously set function.
-        
+
         """
         if function:
             self._roles[role] = function
         elif role in self._roles:
             del self._roles[role]
-    
+
     def rowCount(self, parent):
         return 0 if parent.isValid() else len(self._data)
-    
+
     def data(self, index, role):
         try:
             data = self._data[index.row()]
@@ -98,9 +98,9 @@ class ListModel(QAbstractListModel):
 
     def update(self):
         """Emits the dataChanged signal for all entries.
-        
+
         This can e.g. be used to request that translated strings are redisplayed.
-        
+
         """
         self.dataChanged.emit(
             self.createIndex(0, 0),

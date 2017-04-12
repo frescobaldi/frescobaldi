@@ -52,22 +52,22 @@ class TemplateDialog(widgets.dialog.TextDialog):
         layout.addWidget(e)
         layout.addWidget(c)
         e.setFocus()
-    
+
     def lineEdit(self):
         """Return the QLineEdit widget."""
         return self._lineEdit or self.mainWidget()
-    
+
     def runCheck(self):
         """Return the Run LilyPond checkbox."""
         return self._runCheck
 
 
 def save(mainwindow):
-    
+
     titles = dict((snippets.title(name), name)
                   for name in model.model().names()
                   if 'template' in snippets.get(name).variables)
-    
+
     # would it make sense to run LilyPond after creating a document from this
     # template?
     cursor = mainwindow.textCursor()
@@ -81,15 +81,15 @@ def save(mainwindow):
     c = QCompleter(sorted(titles), dlg.lineEdit())
     dlg.lineEdit().setCompleter(c)
     dlg.runCheck().setChecked(template_run)
-    
+
     result = dlg.exec_()
     dlg.deleteLater()
     if not result:
         return # cancelled
-    
+
     title = dlg.text()
     template_run = dlg.runCheck().isChecked()
-    
+
     if title in titles:
         if QMessageBox.critical(mainwindow,
             _("Overwrite Template?"),
@@ -100,15 +100,15 @@ def save(mainwindow):
         name = titles[title]
     else:
         name = None
-    
+
     # get the text and insert cursor position or selection
     text = cursor.document().toPlainText()
-    
+
     repls = [(cursor.position(), '${CURSOR}')]
     if cursor.hasSelection():
         repls.append((cursor.anchor(), '${ANCHOR}'))
         repls.sort()
-        
+
     result = []
     prev = 0
     for pos, what in repls:
@@ -117,13 +117,13 @@ def save(mainwindow):
         prev = pos
     result.append(text[prev:].replace('$', '$$'))
     text = ''.join(result)
-    
+
     # add header line, if desired enable autorun
     headerline = '-*- template; indent: no;'
     if template_run:
         headerline += ' template-run;'
     text = headerline + '\n' + text
-    
+
     # save the new snippet
     model.model().saveSnippet(name, text, title)
 

@@ -120,7 +120,7 @@ def menu_file_import(parent):
     m.setTitle(_("submenu title", "&Import"))
     m.addAction(_("Import MusicXML..."), file_import_musicxml)
     return m
-    
+
 def menu_edit(parent):
     m = QMenu(parent)
     m.setTitle(_("menu title", "&Edit"))
@@ -143,8 +143,8 @@ def menu_sessions(parent):
         a = m.addAction(name.replace('&', '&&'))
         a.setObjectName(name)
     qutil.addAccelerators(m.actions())
-    return m    
-    
+    return m
+
 def menu_help(parent):
     m = QMenu(parent)
     m.setTitle(_('menu title', '&Help'))

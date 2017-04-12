@@ -40,20 +40,20 @@ class SvgFiles(plugin.DocumentPlugin):
         self.current = 0
         document.loaded.connect(self.invalidate, -100)
         jobmanager.manager(document).finished.connect(self.invalidate, -100)
-    
+
     def invalidate(self):
         self._files = None
-        
+
     def update(self):
         files = resultfiles.results(self.document()).files('.svg*')
         self._files = files
         if files and self.current >= len(files):
             self.current = len(files) - 1
         return bool(files)
-    
+
     def __bool__(self):
         return bool(self._files)
-    
+
     def model(self):
         """Returns a model for a combobox."""
         if self._files is None:

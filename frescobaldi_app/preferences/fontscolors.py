@@ -49,13 +49,13 @@ class FontsColors(preferences.Page):
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-        
+
         self.scheme = SchemeSelector(self)
         layout.addWidget(self.scheme)
-        
+
         self.printScheme = QCheckBox()
         layout.addWidget(self.printScheme)
-        
+
         hbox = QHBoxLayout()
         self.tree = QTreeWidget(self)
         self.tree.setHeaderHidden(True)
@@ -64,7 +64,7 @@ class FontsColors(preferences.Page):
         hbox.addWidget(self.tree)
         hbox.addWidget(self.stack)
         layout.addLayout(hbox)
-        
+
         hbox = QHBoxLayout()
         self.fontLabel = QLabel()
         self.fontChooser = QFontComboBox()
@@ -76,20 +76,20 @@ class FontsColors(preferences.Page):
         hbox.addWidget(self.fontChooser, 1)
         hbox.addWidget(self.fontSize)
         layout.addLayout(hbox)
-        
+
         # add the items to our list
         self.baseColorsItem = i = QTreeWidgetItem()
         self.tree.addTopLevelItem(i)
         self.defaultStylesItem = i = QTreeWidgetItem()
         self.tree.addTopLevelItem(i)
-        
+
         self.defaultStyles = {}
         for name in textformats.defaultStyles:
             self.defaultStyles[name] = i = QTreeWidgetItem()
             self.defaultStylesItem.addChild(i)
             i.name = name
         self.defaultStylesItem.setExpanded(True)
-        
+
         self.allStyles = {}
         for group, styles in ly.colorize.default_mapping():
             i = QTreeWidgetItem()
@@ -103,14 +103,14 @@ class FontsColors(preferences.Page):
                 j.base = base
                 i.addChild(j)
                 children[name] = j
-        
+
         self.baseColorsWidget = BaseColors(self)
         self.customAttributesWidget = CustomAttributes(self)
         self.emptyWidget = QWidget(self)
         self.stack.addWidget(self.baseColorsWidget)
         self.stack.addWidget(self.customAttributesWidget)
         self.stack.addWidget(self.emptyWidget)
-        
+
         self.tree.currentItemChanged.connect(self.currentItemChanged)
         self.tree.setCurrentItem(self.baseColorsItem)
         self.scheme.currentChanged.connect(self.currentSchemeChanged)
@@ -120,18 +120,18 @@ class FontsColors(preferences.Page):
         self.fontChooser.currentFontChanged.connect(self.fontChanged)
         self.fontSize.valueChanged.connect(self.fontChanged)
         self.printScheme.clicked.connect(self.printSchemeChanged)
-        
+
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.printScheme.setText(_("Use this scheme for printing"))
         self.fontLabel.setText(_("Font:"))
         self.baseColorsItem.setText(0, _("Base Colors"))
         self.defaultStylesItem.setText(0, _("Default Styles"))
-        
+
         self.defaultStyleNames = defaultStyleNames()
         self.allStyleNames = allStyleNames()
-        
+
         for name in textformats.defaultStyles:
             self.defaultStyles[name].setText(0, self.defaultStyleNames[name])
         for group, styles in ly.colorize.default_mapping():
@@ -146,7 +146,7 @@ class FontsColors(preferences.Page):
                 except KeyError:
                     n = name
                 self.allStyles[group][1][name].setText(0, n)
-            
+
     def currentItemChanged(self, item, previous):
         if item is self.baseColorsItem:
             self.stack.setCurrentWidget(self.baseColorsWidget)
@@ -172,7 +172,7 @@ class FontsColors(preferences.Page):
                 w.setTristate(bool(inherit))
                 w.setTextFormat(data.allStyles[group][name])
             w.setTopText(toptext)
-    
+
     def currentSchemeChanged(self):
         scheme = self.scheme.currentScheme()
         if scheme not in self.data:
@@ -182,39 +182,39 @@ class FontsColors(preferences.Page):
             self.currentItemChanged(self.tree.currentItem(), None)
         with qutil.signalsBlocked(self.printScheme):
             self.printScheme.setChecked(scheme == self._printScheme)
-    
+
     def fontChanged(self):
         data = self.data[self.scheme.currentScheme()]
         data.font = self.fontChooser.currentFont()
         data.font.setPointSizeF(self.fontSize.value())
         self.updateDisplay()
         self.changed.emit()
-    
+
     def printSchemeChanged(self):
         if self.printScheme.isChecked():
             self._printScheme = self.scheme.currentScheme()
         else:
             self._printScheme = None
         self.changed.emit()
-    
+
     def addSchemeData(self, scheme, tfd):
         self.data[scheme] = tfd
-        
+
     def currentSchemeData(self):
         return self.data[self.scheme.currentScheme()]
-        
+
     def updateDisplay(self):
         data = self.data[self.scheme.currentScheme()]
-        
+
         with qutil.signalsBlocked(self.fontChooser, self.fontSize):
             self.fontChooser.setCurrentFont(data.font)
             self.fontSize.setValue(data.font.pointSizeF())
-        
+
         with qutil.signalsBlocked(self):
             # update base colors
             for name in textformats.baseColors:
                 self.baseColorsWidget.color[name].setColor(data.baseColors[name])
-        
+
         # update base colors for whole treewidget
         p = QApplication.palette()
         p.setColor(QPalette.Base, data.baseColors['background'])
@@ -222,7 +222,7 @@ class FontsColors(preferences.Page):
         p.setColor(QPalette.Highlight, data.baseColors['selectionbackground'])
         p.setColor(QPalette.HighlightedText, data.baseColors['selectiontext'])
         self.tree.setPalette(p)
-        
+
         def setItemTextFormat(item, f):
             font = QFont(data.font)
             if f.hasProperty(QTextFormat.ForegroundBrush):
@@ -237,11 +237,11 @@ class FontsColors(preferences.Page):
             font.setItalic(f.fontItalic())
             font.setUnderline(f.fontUnderline())
             item.setFont(0, font)
-            
+
         # update looks of default styles
         for name in textformats.defaultStyles:
             setItemTextFormat(self.defaultStyles[name], data.defaultStyles[name])
-        
+
         # update looks of all the specific styles
         for group, styles in ly.colorize.default_mapping():
             children = self.allStyles[group][1]
@@ -249,14 +249,14 @@ class FontsColors(preferences.Page):
                 f = QTextCharFormat(data.defaultStyles[inherit]) if inherit else QTextCharFormat()
                 f.merge(data.allStyles[group][name])
                 setItemTextFormat(children[name], f)
-        
+
     def baseColorsChanged(self, name):
         # keep data up to date with base colors
         data = self.data[self.scheme.currentScheme()]
         data.baseColors[name] = self.baseColorsWidget.color[name].color()
         self.updateDisplay()
         self.changed.emit()
-    
+
     def customAttributesChanged(self):
         item = self.tree.currentItem()
         if not item or not item.parent():
@@ -271,11 +271,11 @@ class FontsColors(preferences.Page):
             data.allStyles[group][name] = self.customAttributesWidget.textFormat()
         self.updateDisplay()
         self.changed.emit()
-        
+
     def import_(self, filename):
         from . import import_export
         import_export.importTheme(filename, self, self.scheme)
-        
+
     def export(self, name, filename):
         from . import import_export
         try:
@@ -284,12 +284,12 @@ class FontsColors(preferences.Page):
             QMessageBox.critical(self, _("Error"), _(
                 "Can't write to destination:\n\n{url}\n\n{error}").format(
                 url=filename, error=e.strerror))
-    
+
     def loadSettings(self):
         self.data = {} # holds all data with scheme as key
         self._printScheme = QSettings().value("printer_scheme", "default", str)
         self.scheme.loadSettings("editor_scheme", "editor_schemes")
-        
+
     def saveSettings(self):
         self.scheme.saveSettings("editor_scheme", "editor_schemes", "fontscolors")
         for scheme in self.scheme.schemes():
@@ -302,16 +302,16 @@ class FontsColors(preferences.Page):
 
 
 class BaseColors(QGroupBox):
-    
+
     changed = pyqtSignal(str)
-    
+
     def __init__(self, parent=None):
         super(BaseColors, self).__init__(parent)
-        
+
         grid = QGridLayout()
         grid.setSpacing(1)
         self.setLayout(grid)
-        
+
         self.color = {}
         self.labels = {}
         for name in textformats.baseColors:
@@ -322,31 +322,31 @@ class BaseColors(QGroupBox):
             row = grid.rowCount()
             grid.addWidget(l, row, 0)
             grid.addWidget(c, row, 1)
-        
+
         grid.setRowStretch(grid.rowCount(), 2)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("Base Colors"))
         names = baseColorNames()
         for name in textformats.baseColors:
             self.labels[name].setText(names[name])
-        
+
 
 class CustomAttributes(QGroupBox):
-    
+
     changed = pyqtSignal()
-    
+
     def __init__(self, parent=None):
         super(CustomAttributes, self).__init__(parent)
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         self.toplabel = QLabel()
         self.toplabel.setEnabled(False)
         self.toplabel.setAlignment(Qt.AlignCenter)
         grid.addWidget(self.toplabel, 0, 0, 1, 3)
-        
+
         self.textColor = ColorButton()
         l = self.textLabel = QLabel()
         l.setBuddy(self.textColor)
@@ -355,7 +355,7 @@ class CustomAttributes(QGroupBox):
         c = ClearButton(iconSize=QSize(16, 16))
         c.clicked.connect(self.textColor.clear)
         grid.addWidget(c, 1, 2)
-        
+
         self.backgroundColor = ColorButton()
         l = self.backgroundLabel = QLabel()
         l.setBuddy(self.backgroundColor)
@@ -364,46 +364,46 @@ class CustomAttributes(QGroupBox):
         c = ClearButton(iconSize=QSize(16, 16))
         c.clicked.connect(self.backgroundColor.clear)
         grid.addWidget(c, 2, 2)
-        
+
         self.bold = QCheckBox()
         self.italic = QCheckBox()
         self.underline = QCheckBox()
         grid.addWidget(self.bold, 3, 0)
         grid.addWidget(self.italic, 4, 0)
         grid.addWidget(self.underline, 5, 0)
-        
+
         self.underlineColor = ColorButton()
         grid.addWidget(self.underlineColor, 5, 1)
         c = ClearButton(iconSize=QSize(16, 16))
         c.clicked.connect(self.underlineColor.clear)
         grid.addWidget(c, 5, 2)
         grid.setRowStretch(6, 2)
-        
+
         self.textColor.colorChanged.connect(self.changed)
         self.backgroundColor.colorChanged.connect(self.changed)
         self.underlineColor.colorChanged.connect(self.changed)
         self.bold.stateChanged.connect(self.changed)
         self.italic.stateChanged.connect(self.changed)
         self.underline.stateChanged.connect(self.changed)
-        
+
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.textLabel.setText(_("Text"))
         self.backgroundLabel.setText(_("Background"))
         self.bold.setText(_("Bold"))
         self.italic.setText(_("Italic"))
         self.underline.setText(_("Underline"))
-    
+
     def setTopText(self, text):
         self.toplabel.setText(text)
-        
+
     def setTristate(self, enable):
         self._tristate = enable
         self.bold.setTristate(enable)
         self.italic.setTristate(enable)
         self.underline.setTristate(enable)
-    
+
     def textFormat(self):
         """Returns our settings as a QTextCharFormat object."""
         f = QTextCharFormat()
@@ -444,7 +444,7 @@ class CustomAttributes(QGroupBox):
             self.underline.setChecked(f.fontUnderline())
         else:
             self.underline.setCheckState(absent)
-        
+
         if f.hasProperty(QTextFormat.ForegroundBrush):
             self.textColor.setColor(f.foreground().color())
         else:

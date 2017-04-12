@@ -34,10 +34,10 @@ import lydocument
 
 def indent_variables(document=None):
     """Return a dictionary with indentation preferences.
-    
-    If a document (a Frescobaldi/QTextDocument) is specified, the document 
+
+    If a document (a Frescobaldi/QTextDocument) is specified, the document
     variables are also read.
-    
+
     For the variables and their default variables, see userguide/docvars.md.
 
     """
@@ -54,7 +54,7 @@ def indent_variables(document=None):
         'document-tab-width': 8 if dspaces == 0 else dspaces,
     }
     return variables.update(document, prefs) if document else prefs
-    
+
 def indenter(document=None):
     """Return a ly.indent.Indenter, setup for the document."""
     indent_vars = indent_variables(document)
@@ -62,7 +62,7 @@ def indenter(document=None):
     i.indent_width = indent_vars['indent-width']
     i.indent_tabs = indent_vars['indent-tabs']
     return i
-    
+
 def auto_indent_block(block):
     """Auto-indents the given block."""
     i = indenter(block.document())
@@ -87,10 +87,10 @@ def indentable(cursor):
 
 def increase_indent(cursor):
     """Increases the indent of the line the cursor is at (or the selected lines).
-    
+
     If there is no selection or the cursor is not in the first indent space,
     just inserts a Tab (or spaces).
-    
+
     """
     c = lydocument.cursor(cursor)
     indenter(cursor.document()).increase_indent(c)
@@ -102,11 +102,11 @@ def decrease_indent(cursor):
 
 def re_indent(cursor, indent_blank_lines=False):
     """Re-indents the selected region or the whole document.
-    
-    If indent_blank_lines is True, the indent of blank lines is made larger 
-    if necessary. If False (the default), the indent of blank lines if not 
+
+    If indent_blank_lines is True, the indent of blank lines is made larger
+    if necessary. If False (the default), the indent of blank lines if not
     changed if it is shorter than it should be.
-    
+
     """
     c = lydocument.cursor(cursor, select_all=True)
     indenter(cursor.document()).indent(c, indent_blank_lines)

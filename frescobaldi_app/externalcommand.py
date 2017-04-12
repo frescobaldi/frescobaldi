@@ -29,21 +29,21 @@ import widgets.dialog
 class ExternalCommandDialog(widgets.dialog.Dialog):
 
     """Dialog that can run an external command, displaying the output.
-    
+
     If the dialog is dismissed, the command is stopped and the cleanup()
     method is called.
-    
+
     You need to create a Job instance with the command, and call the run_job()
     method to start it. The output is displayed in the dialog.
-    
+
     When the user cancels the dialog while the command is running, cleanup() is
     called with the 'aborted' argument. When the user closes the dialog after
     the command has run, cleanup() is called with either the 'success' or
     'failure' argument, indicating whether the command exited normally.
-    
+
     You can reimplement that method to do things like removing temporary files,
     etc.
-    
+
     """
     def __init__(self, parent=None):
         super(ExternalCommandDialog, self).__init__(parent)
@@ -78,15 +78,15 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
 
     def cleanup(self, state):
         """Called when the dialog is closed.
-        
+
         state is one of three values:
         - "success": the command exited normally
         - "failure": the command exited with an error
         - "aborted": the dialog was cancelled while the command was running.
-        
+
         Reimplement this method to do anything meaningful.
-        
+
         """
         pass
-        
+
 

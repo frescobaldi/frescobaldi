@@ -35,32 +35,32 @@ from . import snippets
 
 
 class Highlighter(QSyntaxHighlighter):
-    
+
     def __init__(self, document):
         super(Highlighter, self).__init__(document)
         self.python = None
         self._fridge = slexer.Fridge()
         self.readSettings()
         app.settingsChanged.connect(self.readSettingsAgain)
-        
+
     def readSettings(self):
         self._styles = textformats.formatData('editor').defaultStyles
-        
+
     def readSettingsAgain(self):
         self.readSettings()
         self.rehighlight()
-        
+
     def setPython(self, python):
         """Force Python or generic snippet highlighting.
-        
+
         Use True for Python, False for Snippet, or None to let the highlighter
         decide based on the variable lines.
-        
+
         """
         if self.python is not python:
             self.python = python
             self.rehighlight()
-    
+
     def highlightBlock(self, text):
         prev = self.previousBlockState()
         python = self.python if self.python is not None else prev == -2
@@ -125,7 +125,7 @@ class StringEscape(Escape):
 
 class Expansion(Escape):
     rx = snippets._expansions_re.pattern
-    
+
 # Python types:
 
 class PyKeyword(Keyword):

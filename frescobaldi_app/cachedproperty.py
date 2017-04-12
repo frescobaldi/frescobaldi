@@ -77,7 +77,7 @@ class MyClass(object):
     @cachedproperty.cachedproperty
     def command(self):
         # ....
-    
+
     @cachedproperty.cachedproperty(depends=command)
     def version(self):
         cmd = self.command()
@@ -99,14 +99,14 @@ import weakref
 import signals
 
 
-class CachedProperty(object):    
+class CachedProperty(object):
     """An advanced property that can compute and cache expensive operations.
-    
+
     This can be used to e.g. run an external command and read its output.
 
     A callback when a value is computed/read is also supported, either via
     the callback() method or the computed() signal.
-    
+
     """
     # descriptor part
     @classmethod
@@ -119,7 +119,7 @@ class CachedProperty(object):
         def decorator(func):
             return cls(func, depends)
         return decorator
-    
+
     def __init__(self, func=None, depends=None):
         """Initialize the property/descriptor."""
         self._func = func
@@ -130,18 +130,18 @@ class CachedProperty(object):
         else:
             self._depends = depends
         self._state = weakref.WeakKeyDictionary()
-        
+
     def __get__(self, instance, cls=None):
         if instance is None:
             return self._func or self
         return self.bound(instance)
-    
+
     def __set__(self, instance, value):
         self.__get__(instance).set(value)
-    
+
     def __delete__(self, instance):
         self.__get__(instance).unset()
-    
+
     def bound(self, instance):
         """Returns a bound instance."""
         cls = type(self)
@@ -149,14 +149,14 @@ class CachedProperty(object):
         prop._instance = instance
         prop._property = self
         return prop
-    
+
     # instance part
     class State(object):
         signal = signals.Signal()
         def __init__(self):
             self.value = None
             self.running = False
-    
+
     def state(self):
         """Returns the state for the instance."""
         instance = self.instance()
@@ -166,21 +166,21 @@ class CachedProperty(object):
         except KeyError:
             state = d[instance] = self.State()
         return state
-    
+
     def instance(self):
         """The instance we are a property for."""
         return self._instance
-    
+
     @property
     def computed(self):
         """The signal that is emitted when the value is set."""
         return self.state().signal
-    
+
     def set(self, value):
         """Sets a value.
-        
+
         If the value is not None, the computed(value) signal is emitted.
-        
+
         """
         state = self.state()
         state.value = value
@@ -188,50 +188,50 @@ class CachedProperty(object):
         if value is not None:
             self.computed.emit(value)
             self.computed.clear()
-        
+
     def unset(self):
         """Sets the value to None, the property is considered unset."""
         self.state().value = None
-    
+
     def get(self):
         """Retrieves the value, which may be None (unset)."""
         return self.state().value
-    
+
     def __call__(self):
         """Retrieves the value, starting the computation if needed.
-        
+
         If the function immediately returns a value it is returned;
         otherwise None is returned.
-        
+
         """
         state = self.state()
         if state.value is None:
             self.start()
         return state.value
-    
+
     def name(self):
         """Returns the name of the property, if given via the function."""
         if self._property._func:
             return self._property._func.__name__
-    
+
     def isset(self):
         """Returns True if the property is set."""
         return self.state().value is not None
-    
+
     def iscomputing(self):
         """Returns True if the property is being computed."""
         return self.state().running
-        
+
     def callback(self, func):
         """Calls the specified function back with the value.
-        
+
         If the value already is known, the callback is performed immediately
         (synchronous) and this method returns True.
-        
+
         If the value yet has to be computed, the function is connected to the
         computed() signal and start() is called, so the function is called later
         with the value. In that case this method returns None.
-        
+
         """
         value = self.state().value
         if value is not None:
@@ -239,19 +239,19 @@ class CachedProperty(object):
             return True
         self.computed.connect(func)
         self.start()
-    
+
     def start(self):
         """Starts the machinery that computes the value.
-        
+
         This simply happens by calling run(), which should be reimplemented
         to perform the actual action.
-        
+
         """
         state = self.state()
         if not state.running and state.value is None:
             state.running = True
             self.checkstart()
-    
+
     def checkstart(self):
         """Starts if all dependencies are met."""
         for d in self._property._depends:
@@ -262,15 +262,15 @@ class CachedProperty(object):
                 break
         else:
             self.run()
-    
+
     def run(self):
         """Starts the computation.
-        
+
         The result must be set using self.set(value), which will automatically
         call all registered callbacks once.
-        
+
         The default implementation starts the function, if given on init.
-        
+
         """
         if self._property._func:
             result = self._property._func(self.instance())

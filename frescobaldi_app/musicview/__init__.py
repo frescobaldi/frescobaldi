@@ -65,11 +65,11 @@ from qpopplerview import FixedScale, FitWidth, FitHeight, FitBoth
 
 def activate(func):
     """Decorator for MusicViewPanel methods/slots.
-    
+
     The purpose is to first activate the widget and only perform an action
     when the event loop starts. This gives the PDF widget the chance to resize
     and position itself correctly.
-    
+
     """
     @functools.wraps(func)
     def wrapper(self):
@@ -87,7 +87,7 @@ class MusicViewPanel(panel.Panel):
         super(MusicViewPanel, self).__init__(mainwindow)
         self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+M"))
         mainwindow.addDockWidget(Qt.RightDockWidgetArea, self)
-        
+
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.music_print.triggered.connect(self.printMusic)
@@ -117,7 +117,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_reload.triggered.connect(self.reloadView)
         self.actionCollection.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
-        
+
         mode = QSettings().value("muziekview/layoutmode", "single", str)
         if mode == "double_left":
             ac.music_two_pages_first_left.setChecked(True)
@@ -125,18 +125,18 @@ class MusicViewPanel(panel.Panel):
             ac.music_two_pages_first_right.setChecked(True)
         else: # mode == "single":
             ac.music_single_pages.setChecked(True)
-        
+
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
         self.toggleViewAction().setText(_("&Music View"))
-    
+
     def createWidget(self):
         from . import widget
         w = widget.MusicView(self)
         w.zoomChanged.connect(self.slotMusicZoomChanged)
         w.updateZoomInfo()
         w.view.surface().selectionChanged.connect(self.updateSelection)
-        
+
         # read layout mode setting before using the widget
         layout = w.view.surface().pageLayout()
         if self.actionCollection.music_two_pages_first_right.isChecked():
@@ -148,17 +148,17 @@ class MusicViewPanel(panel.Panel):
         else: # "single"
             layout.setPagesPerRow(1)   # default to single
             layout.setPagesFirstRow(0) # pages
-        
+
         import qpopplerview.pager
         self._pager = p = qpopplerview.pager.Pager(w.view)
         p.pageCountChanged.connect(self.slotPageCountChanged)
         p.currentPageChanged.connect(self.slotCurrentPageChanged)
         app.languageChanged.connect(self.updatePagerLanguage)
-        
+
         selector = self.actionCollection.music_document_select
         selector.currentDocumentChanged.connect(w.openDocument)
         selector.documentClosed.connect(w.clear)
-        
+
         if selector.currentDocument():
             # open a document only after the widget has been created;
             # this prevents many superfluous resizes
@@ -167,16 +167,16 @@ class MusicViewPanel(panel.Panel):
                     w.openDocument(selector.currentDocument())
             QTimer.singleShot(0, open)
         return w
-    
+
     def setPageLayoutMode(self, mode):
         """Change the page layout and store the setting as well.
-        
+
         The mode is "single", "double_left" or "double_right".
-        
+
         "single": a vertical row of single pages
         "double_left": two pages besides each other, first page is a left page
         "double_right": two pages, first page is a right page.
-        
+
         """
         layout = self.widget().view.surface().pageLayout()
         if mode == "double_right":
@@ -192,38 +192,38 @@ class MusicViewPanel(panel.Panel):
             raise ValueError("wrong mode value")
         QSettings().setValue("muziekview/layoutmode", mode)
         layout.update()
-    
+
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
         self.actionCollection.music_copy_text.setEnabled(bool(rect))
-    
+
     def updatePagerLanguage(self):
         self.actionCollection.music_pager.setPageCount(self._pager.pageCount())
-    
+
     def slotPageCountChanged(self, total):
         self.actionCollection.music_pager.setPageCount(total)
-        
+
     def slotCurrentPageChanged(self, num):
         self.actionCollection.music_pager.setCurrentPage(num)
         self.actionCollection.music_next_page.setEnabled(num < self._pager.pageCount())
         self.actionCollection.music_prev_page.setEnabled(num > 1)
-        
+
     @activate
     def slotNextPage(self):
         self._pager.setCurrentPage(self._pager.currentPage() + 1)
-    
+
     @activate
     def slotPreviousPage(self):
         self._pager.setCurrentPage(self._pager.currentPage() - 1)
-    
+
     def setCurrentPage(self, num):
         self.activate()
         self._pager.setCurrentPage(num)
-        
+
     def updateActions(self):
         ac = self.actionCollection
         ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
-        
+
     def printMusic(self):
         doc = self.actionCollection.music_document_select.currentDocument()
         if doc and doc.document():
@@ -250,23 +250,23 @@ class MusicViewPanel(panel.Panel):
             ### end temporarily disable printing on Mac OS X
             import popplerprint
             popplerprint.printDocument(doc, self)
-    
+
     @activate
     def zoomIn(self):
         self.widget().view.zoomIn()
-    
+
     @activate
     def zoomOut(self):
         self.widget().view.zoomOut()
-    
+
     @activate
     def zoomOriginal(self):
         self.widget().view.zoom(1.0)
-    
+
     @activate
     def fitWidth(self):
         self.widget().view.setViewMode(FitWidth)
-    
+
     @activate
     def fitHeight(self):
         self.widget().view.setViewMode(FitHeight)
@@ -274,23 +274,23 @@ class MusicViewPanel(panel.Panel):
     @activate
     def fitBoth(self):
         self.widget().view.setViewMode(FitBoth)
-    
+
     @activate
     def viewSinglePages(self):
         self.setPageLayoutMode("single")
-    
+
     @activate
     def viewTwoPagesFirstRight(self):
         self.setPageLayoutMode("double_right")
-    
+
     @activate
     def viewTwoPagesFirstLeft(self):
         self.setPageLayoutMode("double_left")
-    
+
     @activate
     def jumpToCursor(self):
         self.widget().showCurrentLinks()
-    
+
     @activate
     def reloadView(self):
         d = self.mainwindow().currentDocument()
@@ -298,11 +298,11 @@ class MusicViewPanel(panel.Panel):
         if group.update() or group.update(False):
             ac = self.actionCollection
             ac.music_document_select.setCurrentDocument(d)
-    
+
     def toggleSyncCursor(self):
         QSettings().setValue("musicview/sync_cursor",
             self.actionCollection.music_sync_cursor.isChecked())
-     
+
     def copyImage(self):
         page = self.widget().view.surface().selectedPage()
         if not page:
@@ -310,12 +310,12 @@ class MusicViewPanel(panel.Panel):
         rect = self.widget().view.surface().selectedPageRect(page)
         import copy2image
         copy2image.copy_image(self, page, rect, documents.filename(page.document()))
-        
+
     def copyText(self):
         text = self.widget().view.surface().selectedText()
         if text:
             QApplication.clipboard().setText(text)
-    
+
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
         self.activate()
@@ -323,7 +323,7 @@ class MusicViewPanel(panel.Panel):
             self.widget().view.zoom(scale)
         else:
             self.widget().view.setViewMode(mode)
-    
+
     def slotMusicZoomChanged(self, mode, scale):
         """Called when the music view is changed, updates the toolbar actions."""
         ac = self.actionCollection
@@ -331,7 +331,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_fit_height.setChecked(mode == FitHeight)
         ac.music_fit_both.setChecked(mode == FitBoth)
         ac.music_zoom_combo.updateZoomInfo(mode, scale)
-        
+
 
 class Actions(actioncollection.ActionCollection):
     name = "musicview"
@@ -372,7 +372,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_copy_text.setIcon(icons.get('edit-copy'))
         self.music_next_page.setIcon(icons.get('go-next'))
         self.music_prev_page.setIcon(icons.get('go-previous'))
-        
+
         self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
         self.music_print.setShortcuts(QKeySequence.Print)
         self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
@@ -380,7 +380,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
         self.music_copy_image.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_C))
         self.music_reload.setShortcut(QKeySequence(Qt.Key_F5))
-        
+
     def translateUI(self):
         self.music_document_select.setText(_("Select Music View Document"))
         self.music_print.setText(_("&Print Music..."))
@@ -411,7 +411,7 @@ class ComboBoxAction(QWidgetAction):
     def __init__(self, panel):
         super(ComboBoxAction, self).__init__(panel)
         self.triggered.connect(self.showPopup)
-        
+
     def showPopup(self):
         """Called when our action is triggered by a keyboard shortcut."""
         # find the widget in our floating panel, if available there
@@ -424,24 +424,24 @@ class ComboBoxAction(QWidgetAction):
             if w.window() == self.parent().mainwindow():
                 w.showPopup()
                 return
-    
+
 
 class DocumentChooserAction(ComboBoxAction):
     """A ComboBoxAction that keeps track of the current text document.
-    
+
     It manages the list of generated PDF documents for every text document.
     If the mainwindow changes its current document and there are PDFs to display,
     it switches the current document.
-    
+
     It also switches to a text document if a job finished for that document,
     and it generated new PDF documents.
-    
+
     """
-    
+
     documentClosed = pyqtSignal()
     documentsChanged = pyqtSignal()
     currentDocumentChanged = pyqtSignal(documents.Document)
-    
+
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)
         self._model = None
@@ -451,20 +451,20 @@ class DocumentChooserAction(ComboBoxAction):
         self._indices = weakref.WeakKeyDictionary()
         panel.mainwindow().currentDocumentChanged.connect(self.slotDocumentChanged)
         documents.documentUpdated.connect(self.slotDocumentUpdated)
-        
+
     def createWidget(self, parent):
         w = DocumentChooser(parent)
         w.activated[int].connect(self.setCurrentIndex)
         if self._model:
             w.setModel(self._model)
         return w
-    
+
     def slotDocumentChanged(self, doc):
         """Called when the mainwindow changes its current document."""
         # only switch our document if there are PDF documents to display
         if self._document is None or documents.group(doc).documents():
             self.setCurrentDocument(doc)
-    
+
     def slotDocumentUpdated(self, doc, job):
         """Called when a Job, finished on the document, has created new PDFs."""
         # if result files of this document were already displayed, the display
@@ -477,7 +477,7 @@ class DocumentChooserAction(ComboBoxAction):
             (jobattributes.get(job).mainwindow == mainwindow and
              doc == engrave.engraver(mainwindow).document())):
             self.setCurrentDocument(doc)
-    
+
     def setCurrentDocument(self, document):
         """Displays the DocumentGroup of the given text Document in our chooser."""
         prev = self._document
@@ -489,26 +489,26 @@ class DocumentChooserAction(ComboBoxAction):
         document.loaded.connect(self.updateDocument)
         document.closed.connect(self.closeDocument)
         self.updateDocument()
-        
+
     def updateDocument(self):
         """(Re)read the output documents of the current document and show them."""
         docs = self._documents = documents.group(self._document).documents()
         self.setVisible(bool(docs))
         self.setEnabled(bool(docs))
-        
+
         # make model for the docs
         m = self._model = listmodel.ListModel([d.filename() for d in docs],
             display = os.path.basename, icon = icons.file_type)
         m.setRoleFunction(Qt.UserRole, lambda f: f)
         for w in self.createdWidgets():
             w.setModel(m)
-        
+
         index = self._indices.get(self._document, 0)
         if index < 0 or index >= len(docs):
             index = 0
         self.documentsChanged.emit()
         self.setCurrentIndex(index)
-    
+
     def closeDocument(self):
         """Called when the current document is closed by the user."""
         self._document = None
@@ -518,10 +518,10 @@ class DocumentChooserAction(ComboBoxAction):
         self.setEnabled(False)
         self.documentClosed.emit()
         self.documentsChanged.emit()
-        
+
     def documents(self):
         return self._documents
-        
+
     def setCurrentIndex(self, index):
         if self._documents:
             self._currentIndex = index
@@ -533,10 +533,10 @@ class DocumentChooserAction(ComboBoxAction):
                 w.setCurrentIndex(index)
                 w.setPalette(p)
             self.currentDocumentChanged.emit(self._documents[index])
-    
+
     def currentIndex(self):
         return self._currentIndex
-    
+
     def currentDocument(self):
         """Returns the currently selected Music document (Note: NOT the text document!)"""
         if self._documents:
@@ -552,7 +552,7 @@ class DocumentChooser(QComboBox):
         self.setFocusPolicy(Qt.NoFocus)
         app.translateUI(self)
         gadgets.drag.ComboDrag(self).role = Qt.UserRole
-        
+
     def translateUI(self):
         self.setToolTip(_("Choose the PDF document to display."))
         self.setWhatsThis(_(
@@ -562,15 +562,15 @@ class DocumentChooser(QComboBox):
 
 class ZoomerAction(ComboBoxAction):
     zoomChanged = pyqtSignal(int, float)
-    
+
     def createWidget(self, parent):
         return Zoomer(self, parent)
-    
+
     def setCurrentIndex(self, index):
         """Called when a user manipulates a Zoomer combobox.
-        
+
         Updates the other widgets and calls the corresponding method of the panel.
-        
+
         """
         for w in self.createdWidgets():
             w.setCurrentIndex(index)
@@ -582,7 +582,7 @@ class ZoomerAction(ComboBoxAction):
             self.zoomChanged.emit(FitBoth, 0)
         else:
             self.zoomChanged.emit(FixedScale, _zoomvalues[index-3] / 100.0)
-    
+
     def updateZoomInfo(self, mode, scale):
         """Connect view.viewModeChanged and layout.scaleChanged to this."""
         if mode == FixedScale:
@@ -612,23 +612,23 @@ class Zoomer(QComboBox):
         self.addItems(list(map("{0}%".format, _zoomvalues)))
         self.setMaxVisibleItems(20)
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setItemText(0, _("Fit Width"))
         self.setItemText(1, _("Fit Height"))
         self.setItemText(2, _("Fit Page"))
-        
+
 
 class PagerAction(QWidgetAction):
     def __init__(self, panel):
         super(PagerAction, self).__init__(panel)
-    
+
     def createWidget(self, parent):
         w = QSpinBox(parent, buttonSymbols=QSpinBox.NoButtons)
         w.setFocusPolicy(Qt.ClickFocus)
         w.valueChanged[int].connect(self.slotValueChanged)
         return w
-    
+
     def setPageCount(self, total):
         if total:
             self.setVisible(True)
@@ -646,14 +646,14 @@ class PagerAction(QWidgetAction):
         for w in self.createdWidgets():
             with qutil.signalsBlocked(w):
                 adjust(w)
-    
+
     def setCurrentPage(self, num):
         if num:
             for w in self.createdWidgets():
                 with qutil.signalsBlocked(w):
                     w.setValue(num)
                     w.lineEdit().deselect()
-    
+
     def slotValueChanged(self, num):
         self.parent().setCurrentPage(num)
 

@@ -39,17 +39,17 @@ class SettingsWidget(QWidget):
         super(SettingsWidget, self).__init__(parent)
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         self.scoreProperties = ScoreProperties(self)
         self.generalPreferences = GeneralPreferences(self)
         self.lilyPondPreferences = LilyPondPreferences(self)
         self.instrumentNames = InstrumentNames(self)
-        
+
         grid.addWidget(self.scoreProperties, 0, 0)
         grid.addWidget(self.generalPreferences, 0, 1)
         grid.addWidget(self.lilyPondPreferences, 1, 0)
         grid.addWidget(self.instrumentNames, 1, 1)
-    
+
     def clear(self):
         self.scoreProperties.tempo.clear()
         self.scoreProperties.keyNote.setCurrentIndex(0)
@@ -60,22 +60,22 @@ class SettingsWidget(QWidget):
 class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
     def __init__(self, parent):
         super(ScoreProperties, self).__init__(parent)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.createWidgets()
         self.layoutWidgets(layout)
-        
+
         app.translateUI(self)
-        
+
         scorewiz = self.window()
         scorewiz.pitchLanguageChanged.connect(self.setPitchLanguage)
         self.setPitchLanguage(scorewiz.pitchLanguage())
 
         self.loadSettings()
         self.window().finished.connect(self.saveSettings)
-        
+
     def translateUI(self):
         self.translateWidgets()
         self.setTitle(_("Score properties"))
@@ -94,10 +94,10 @@ class ScoreProperties(QGroupBox, scoreproperties.ScoreProperties):
 class GeneralPreferences(QGroupBox):
     def __init__(self, parent):
         super(GeneralPreferences, self).__init__(parent)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.typq = QCheckBox()
         self.tagl = QCheckBox()
         self.barnum = QCheckBox()
@@ -109,24 +109,24 @@ class GeneralPreferences(QGroupBox):
         self.paper.addItems(paperSizes)
         self.paperLandscape = QCheckBox(enabled=False)
         self.paper.activated.connect(self.slotPaperChanged)
-        
+
         layout.addWidget(self.typq)
         layout.addWidget(self.tagl)
         layout.addWidget(self.barnum)
         layout.addWidget(self.neutdir)
         layout.addWidget(self.midi)
         layout.addWidget(self.metro)
-        
+
         box = QHBoxLayout(spacing=2)
         box.addWidget(self.paperSizeLabel)
         box.addWidget(self.paper)
         box.addWidget(self.paperLandscape)
         layout.addLayout(box)
         app.translateUI(self)
-        
+
         self.loadSettings()
         self.window().finished.connect(self.saveSettings)
-        
+
     def translateUI(self):
         self.setTitle(_("General preferences"))
         self.typq.setText(_("Use typographical quotes"))
@@ -154,14 +154,14 @@ class GeneralPreferences(QGroupBox):
         self.paperSizeLabel.setText(_("Paper size:"))
         self.paper.setItemText(0, _("Default"))
         self.paperLandscape.setText(_("Landscape"))
-  
+
     def slotPaperChanged(self, index):
         self.paperLandscape.setEnabled(bool(index))
-    
+
     def getPaperSize(self):
         """Returns the configured papersize or the empty string for default."""
         return paperSizes[self.paper.currentIndex()]
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup('scorewiz/preferences')
@@ -189,14 +189,14 @@ class GeneralPreferences(QGroupBox):
         s.setValue('paper_size', paperSizes[self.paper.currentIndex()])
         s.setValue('paper_landscape', self.paperLandscape.isChecked())
 
-        
+
 class InstrumentNames(QGroupBox):
     def __init__(self, parent):
         super(InstrumentNames, self).__init__(parent, checkable=True, checked=True)
-        
+
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         self.firstSystemLabel = QLabel()
         self.firstSystem = QComboBox()
         self.firstSystemLabel.setBuddy(self.firstSystem)
@@ -213,7 +213,7 @@ class InstrumentNames(QGroupBox):
         self.otherSystems.setModel(listmodel.ListModel(
             (lambda: _("Long"), lambda: _("Short"), lambda: _("None")), self.otherSystems,
             display = listmodel.translate))
-        
+
         self._langs = l = ['','C']
         l.extend(sorted(po.available()))
         def display(lang):
@@ -223,7 +223,7 @@ class InstrumentNames(QGroupBox):
                 return _("Default")
             return language_names.languageName(lang, po.setup.current())
         self.language.setModel(listmodel.ListModel(l, self.language, display=display))
-        
+
         grid.addWidget(self.firstSystemLabel, 0, 0)
         grid.addWidget(self.firstSystem, 0, 1)
         grid.addWidget(self.otherSystemsLabel, 1, 0)
@@ -233,7 +233,7 @@ class InstrumentNames(QGroupBox):
         app.translateUI(self)
         self.loadSettings()
         self.window().finished.connect(self.saveSettings)
-        
+
     def translateUI(self):
         self.setTitle(_("Instrument names"))
         self.firstSystemLabel.setText(_("First system:"))
@@ -248,14 +248,14 @@ class InstrumentNames(QGroupBox):
         self.firstSystem.model().update()
         self.otherSystems.model().update()
         self.language.model().update()
-    
+
     def getLanguage(self):
         """Returns the language the user has set.
-        
+
         '' means:  default (use same translation as system)
         'C' means: English (untranslated)
         or a language code that is available in Frescobaldi's translation.
-        
+
         """
         return self._langs[self.language.currentIndex()]
 
@@ -271,7 +271,7 @@ class InstrumentNames(QGroupBox):
         self.otherSystems.setCurrentIndex(allow.index(other) if other in allow else 2)
         language = s.value('language', '', str)
         self.language.setCurrentIndex(self._langs.index(language) if language in self._langs else 0)
-    
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup('scorewiz/instrumentnames')
@@ -280,31 +280,31 @@ class InstrumentNames(QGroupBox):
         s.setValue('other', ('long', 'short', 'none')[self.otherSystems.currentIndex()])
         s.setValue('language', self._langs[self.language.currentIndex()])
 
-        
+
 class LilyPondPreferences(QGroupBox):
     def __init__(self, parent):
         super(LilyPondPreferences, self).__init__(parent)
-        
+
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         self.pitchLanguageLabel = QLabel()
         self.pitchLanguage = QComboBox()
         self.versionLabel = QLabel()
         self.version = QComboBox(editable=True)
-        
+
         self.pitchLanguage.addItem('')
         self.pitchLanguage.addItems([lang.title() for lang in sorted(scoreproperties.keyNames)])
         self.version.addItem(lilypondinfo.preferred().versionString())
         for v in ("2.18.0", "2.16.0", "2.14.0", "2.12.0"):
             if v != lilypondinfo.preferred().versionString():
                 self.version.addItem(v)
-        
+
         grid.addWidget(self.pitchLanguageLabel, 0, 0)
         grid.addWidget(self.pitchLanguage, 0, 1)
         grid.addWidget(self.versionLabel, 1, 0)
         grid.addWidget(self.version, 1, 1)
-        
+
         self.pitchLanguage.activated.connect(self.slotPitchLanguageChanged)
         app.translateUI(self)
         self.loadSettings()
@@ -326,7 +326,7 @@ class LilyPondPreferences(QGroupBox):
         else:
             language = self.pitchLanguage.currentText().lower()
         self.window().setPitchLanguage(language)
-        
+
     def loadSettings(self):
         language = self.window().pitchLanguage()
         languages = list(sorted(scoreproperties.keyNames))

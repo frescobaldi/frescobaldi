@@ -41,22 +41,22 @@ class Completer(widgets.completer.Completer):
         self.setParent(textedit) # otherwise PyQt5 loses us
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-    
+
     def readSettings(self):
         self.popup().setFont(textformats.formatData('editor').font)
         self.popup().setPalette(textformats.formatData('editor').palette())
- 
+
     def completionCursor(self):
         cursor = self.textCursor()
-        
+
         if self.popup().isVisible() and self._pos < cursor.position():
             cursor.setPosition(self._pos, cursor.KeepAnchor)
             return cursor
-        
+
         # alter the model
         pos = cursor.position()
         text = cursor.document().toPlainText()
-        
+
         # skip '-*- ' lines declaring variables, and check if it is python
         python = False
         block = cursor.document().firstBlock()
@@ -70,7 +70,7 @@ class Completer(widgets.completer.Completer):
             if not block.isValid():
                 break
             start = block.position()
-        
+
         # determine the word set to complete on
         if python:
             pattern = r'\w+'

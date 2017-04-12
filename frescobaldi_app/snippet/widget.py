@@ -47,22 +47,22 @@ from . import highlight
 class Widget(QWidget):
     def __init__(self, panel):
         super(Widget, self).__init__(panel)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         layout.setSpacing(0)
-        
+
         self.searchEntry = SearchLineEdit()
         self.treeView = QTreeView(contextMenuPolicy=Qt.CustomContextMenu)
         self.textView = QTextBrowser()
-        
+
         applyButton = QToolButton(autoRaise=True)
         editButton = QToolButton(autoRaise=True)
         addButton = QToolButton(autoRaise=True)
         self.menuButton = QPushButton(flat=True)
         menu = QMenu(self.menuButton)
         self.menuButton.setMenu(menu)
-        
+
         splitter = QSplitter(Qt.Vertical)
         top = QHBoxLayout()
         layout.addLayout(top)
@@ -71,14 +71,14 @@ class Widget(QWidget):
         layout.addWidget(splitter)
         splitter.setSizes([200, 100])
         splitter.setCollapsible(0, False)
-        
+
         top.addWidget(self.searchEntry)
         top.addWidget(applyButton)
         top.addSpacing(10)
         top.addWidget(addButton)
         top.addWidget(editButton)
         top.addWidget(self.menuButton)
-        
+
         # action generator for actions added to search entry
         def act(slot, icon=None):
             a = QAction(self, triggered=slot)
@@ -86,64 +86,64 @@ class Widget(QWidget):
             a.setShortcutContext(Qt.WidgetWithChildrenShortcut)
             icon and a.setIcon(icons.get(icon))
             return a
-        
+
         # hide if ESC pressed in lineedit
         a = act(self.slotEscapePressed)
         a.setShortcut(QKeySequence(Qt.Key_Escape))
-        
+
         # import action
         a = self.importAction = act(self.slotImport, 'document-open')
         menu.addAction(a)
-        
+
         # export action
         a = self.exportAction = act(self.slotExport, 'document-save-as')
         menu.addAction(a)
-        
+
         # apply button
         a = self.applyAction = act(self.slotApply, 'edit-paste')
         applyButton.setDefaultAction(a)
         menu.addSeparator()
         menu.addAction(a)
-        
+
         # add button
         a = self.addAction_ = act(self.slotAdd, 'list-add')
         a.setShortcut(QKeySequence(Qt.Key_Insert))
         addButton.setDefaultAction(a)
         menu.addSeparator()
         menu.addAction(a)
-        
+
         # edit button
         a = self.editAction = act(self.slotEdit, 'document-edit')
         a.setShortcut(QKeySequence(Qt.Key_F2))
         editButton.setDefaultAction(a)
         menu.addAction(a)
-        
+
         # set shortcut action
         a = self.shortcutAction = act(self.slotShortcut, 'preferences-desktop-keyboard-shortcuts')
         menu.addAction(a)
-        
+
         # delete action
         a = self.deleteAction = act(self.slotDelete, 'list-remove')
         a.setShortcut(QKeySequence(Qt.CTRL + Qt.Key_Delete))
         menu.addAction(a)
-        
+
         # restore action
         a = self.restoreAction = act(self.slotRestore)
         menu.addSeparator()
         menu.addAction(a)
-        
+
         # help button
         a = self.helpAction = act(self.slotHelp, 'help-contents')
         menu.addSeparator()
         menu.addAction(a)
-        
+
         self.treeView.setSelectionBehavior(QTreeView.SelectRows)
         self.treeView.setSelectionMode(QTreeView.ExtendedSelection)
         self.treeView.setRootIsDecorated(False)
         self.treeView.setAllColumnsShowFocus(True)
         self.treeView.setModel(model.model())
         self.treeView.setCurrentIndex(QModelIndex())
-        
+
         # signals
         self.searchEntry.returnPressed.connect(self.slotReturnPressed)
         self.searchEntry.textChanged.connect(self.updateFilter)
@@ -151,10 +151,10 @@ class Widget(QWidget):
         self.treeView.customContextMenuRequested.connect(self.showContextMenu)
         self.treeView.selectionModel().currentChanged.connect(self.updateText)
         self.treeView.model().dataChanged.connect(self.updateFilter)
-        
+
         # highlight text
         self.highlighter = highlight.Highlighter(self.textView.document())
-        
+
         # complete on snippet variables
         self.searchEntry.setCompleter(QCompleter([
             ':icon', ':indent', ':menu', ':name', ':python', ':selection',
@@ -172,11 +172,11 @@ class Widget(QWidget):
                 ev.accept()
                 from . import import_export
                 import_export.load(filename, self)
-        
+
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
             ev.accept()
-        
+
     def translateUI(self):
         try:
             self.searchEntry.setPlaceholderText(_("Search..."))
@@ -219,10 +219,10 @@ class Widget(QWidget):
             _("E.g. entering {menu} will show all snippets that are displayed "
               "in the insert menu.").format(menu="<code>:menu</code>"),
             ))))
-    
+
     def sizeHint(self):
         return self.parent().mainwindow().size() / 4
-        
+
     def readSettings(self):
         data = textformats.formatData('editor')
         self.textView.setFont(data.font)
@@ -231,7 +231,7 @@ class Widget(QWidget):
     def showContextMenu(self, pos):
         """Called when the user right-clicks the tree view."""
         self.menuButton.menu().popup(self.treeView.viewport().mapToGlobal(pos))
-    
+
     def slotReturnPressed(self):
         """Called when the user presses Return in the search entry. Applies current snippet."""
         name = self.currentSnippet()
@@ -245,22 +245,22 @@ class Widget(QWidget):
         """Called when the user presses ESC in the search entry. Hides the panel."""
         self.parent().hide()
         self.parent().mainwindow().currentView().setFocus()
-    
+
     def slotDoubleClicked(self, index):
         name = self.treeView.model().name(index)
         view = self.parent().mainwindow().currentView()
         insert.insert(name, view)
-        
+
     def slotAdd(self):
         """Called when the user wants to add a new snippet."""
         edit.Edit(self, None)
-        
+
     def slotEdit(self):
         """Called when the user wants to edit a snippet."""
         name = self.currentSnippet()
         if name:
             edit.Edit(self, name)
-        
+
     def slotShortcut(self):
         """Called when the user selects the Configure Shortcut action."""
         from widgets import shortcuteditdialog
@@ -272,12 +272,12 @@ class Widget(QWidget):
             mgr = actioncollectionmanager.manager(self.parent().mainwindow())
             cb = mgr.findShortcutConflict
             dlg = shortcuteditdialog.ShortcutEditDialog(self, cb, (collection, name))
-            
+
             if dlg.editAction(action, default):
                 mgr.removeShortcuts(action.shortcuts())
                 collection.setShortcuts(name, action.shortcuts())
                 self.treeView.update()
-            
+
     def slotDelete(self):
         """Called when the user wants to delete the selected rows."""
         rows = sorted(set(i.row() for i in self.treeView.selectedIndexes()), reverse=True)
@@ -287,14 +287,14 @@ class Widget(QWidget):
                 self.parent().snippetActions.setShortcuts(name, [])
                 self.treeView.model().removeRow(row)
             self.updateFilter()
-    
+
     def slotApply(self):
         """Called when the user clicks the apply button. Applies current snippet."""
         name = self.currentSnippet()
         if name:
             view = self.parent().mainwindow().currentView()
             insert.insert(name, view)
-    
+
     def slotImport(self):
         """Called when the user activates the import action."""
         filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
@@ -304,7 +304,7 @@ class Widget(QWidget):
         if filename:
             from . import import_export
             import_export.load(filename, self)
-        
+
     def slotExport(self):
         """Called when the user activates the export action."""
         allrows = [row for row in range(model.model().rowCount())
@@ -313,7 +313,7 @@ class Widget(QWidget):
                                 if i.column() == 0 and i.row() in allrows]
         names = self.treeView.model().names()
         names = [names[row] for row in selectedrows or allrows]
-        
+
         filetypes = "{0} (*.xml);;{1} (*)".format(_("XML Files"), _("All Files"))
         n = len(names)
         caption = app.caption(_("dialog title",
@@ -327,7 +327,7 @@ class Widget(QWidget):
                 QMessageBox.critical(self, _("Error"), _(
                     "Can't write to destination:\n\n{url}\n\n{error}").format(
                     url=filename, error=e.strerror))
-        
+
     def slotRestore(self):
         """Called when the user activates the Restore action."""
         from . import restore
@@ -336,11 +336,11 @@ class Widget(QWidget):
         dlg.populate()
         dlg.show()
         dlg.finished.connect(dlg.deleteLater)
-        
+
     def slotHelp(self):
         """Called when the user clicks the small help button."""
         userguide.show("snippets")
-        
+
     def currentSnippet(self):
         """Returns the name of the current snippet if it is visible."""
         row = self.treeView.currentIndex().row()
@@ -376,7 +376,7 @@ class Widget(QWidget):
                 hide = True
             self.treeView.setRowHidden(row, QModelIndex(), hide)
         self.updateText()
-            
+
     def updateText(self):
         """Called when the current snippet changes."""
         name = self.currentSnippet()
@@ -385,16 +385,16 @@ class Widget(QWidget):
             s = snippets.get(name)
             self.highlighter.setPython('python' in s.variables)
             self.textView.setPlainText(s.text)
-        
+
     def updateColumnSizes(self):
         self.treeView.resizeColumnToContents(0)
         self.treeView.resizeColumnToContents(1)
-        
+
 
 class SearchLineEdit(widgets.lineedit.LineEdit):
     def __init__(self, *args):
         super(SearchLineEdit, self).__init__(*args)
-    
+
     def event(self, ev):
         if ev.type() == QEvent.KeyPress and any(ev.matches(key) for key in (
             QKeySequence.MoveToNextLine, QKeySequence.SelectNextLine,

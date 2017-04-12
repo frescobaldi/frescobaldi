@@ -34,51 +34,51 @@ class ImageEntry:
 
 class ImageCache:
     """Cache generated images.
-    
+
     Store and retrieve them under a key (see render.Renderer.key()).
-    
-    
+
+
     """
     maxsize = 104857600 # 100M
     currentsize = 0
 
     def __init__(self):
         self._cache = weakref.WeakKeyDictionary()
-    
+
     def clear(self):
         """Remove all cached images."""
         self._cache.clear()
-    
+
     def __getitem__(self, key):
         """Retrieve the exact image.
-        
+
         Raises a KeyError when there is no cached image for the key.
-        
+
         """
         return self._cache[key.group][key.page][key.size].image
-    
+
     def __setitem__(self, key, image):
         """Store the image.
-        
+
         Automatically removes the oldest cached images to keep the cache
         under maxsize.
-        
+
         """
         try:
             self.currentsize -= self._cache[key.group][key.page][key.size].bcount
         except KeyError:
             pass
-        
+
         purgeneeded = self.currentsize > self.maxsize
-        
+
         e = ImageEntry(image)
         self.currentsize += e.bcount
-        
+
         self._cache.setdefault(key.group, {}).setdefault(key.page, {})[key.size] = e
-        
+
         if not purgeneeded:
             return
-        
+
         # purge old images if needed,
         # cache groups may have disappeared so count all images
         items = []
@@ -93,7 +93,7 @@ class ImageCache:
             for group, groupd in self._cache.items()
                 for page, paged in groupd.items()
                     for size, entry in sorted(paged.items())[:1]))
-        
+
         # now count the newest images until maxsize ...
         items = reversed(items)
         currentsize = 0
@@ -109,13 +109,13 @@ class ImageCache:
                 del self._cache[group][page]
                 if not self._cache[group]:
                     del self._cache[group]
-    
+
     def closest(self, key):
         """Retrieve the correct image but with a different size.
-        
+
         This can be used for interim display while the real image is being
         rendered.
-        
+
         """
         try:
             entries = self._cache[key.group][key.page]

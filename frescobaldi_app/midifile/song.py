@@ -29,9 +29,9 @@ from . import parser
 
 def load(filename):
     """Convenience function to instantiate a Song from a filename.
-    
+
     If the filename is a type 2 MIDI file, just returns the first track.
-    
+
     """
     with open(filename, 'rb') as midifile:
         fmt, div, tracks = parser.parse_midi_data(midifile.read())
@@ -42,9 +42,9 @@ def load(filename):
 
 def events_dict(tracks):
     """Returns all events from the track grouped per and mapped to time-step.
-    
+
     every time step has a dictionary with the events per track at that time.
-    
+
     """
     d = collections.defaultdict(dict)
     for n, track in enumerate(tracks):
@@ -56,9 +56,9 @@ def events_dict(tracks):
 
 def events_dict_together(tracks):
     """Returns all events from the track grouped per and mapped to time-step.
-    
+
     every time step has a list with all the events at that time.
-    
+
     """
     d = collections.defaultdict(list)
     for track in tracks:
@@ -99,10 +99,10 @@ def smpte_division(div):
 
 def events_iter(d):
     """Return an iterator function over the events in one value of dict d.
-    
+
     The values in d can be dicts (per-track) or lists (single track).
     Returns None if the events dictionary is empty.
-    
+
     """
     for k in d:
         return iter_events_dict if isinstance(d[k], dict) else iter
@@ -131,7 +131,7 @@ class TempoMap(object):
                         break
         if not times or times[0][0] != 0:
             times.insert(0, (0, 500000))
-        
+
     def real_time(self, midi_time):
         """Returns the real time in microseconds for the given MIDI time."""
         real_time = 0
@@ -144,7 +144,7 @@ class TempoMap(object):
         else:
             real_time += (midi_time - times[-1][0]) * times[-1][1]
         return real_time // self.division
-    
+
     def msec(self, midi_time):
         """Returns the real time in milliseconds."""
         return self.real_time(midi_time) // 1000
@@ -152,13 +152,13 @@ class TempoMap(object):
 
 def beats(d, division):
     """Yields tuples for every beat in the events dictionary d.
-    
+
     Each tuple is:
         (midi_time, beat_num, beat_total, denominator)
-    
+
     With this you can easily add measure numbers and find measure positions
     in the MIDI.
-    
+
     """
     events = events_iter(d)
     if not events:
@@ -172,19 +172,19 @@ def beats(d, division):
     if not time_sigs or time_sigs[0][0] != 0:
         # default time signature at start
         time_sigs.insert(0, (0, (4, 4, 24, 8)))
-    
+
     # now yield a tuple for every beat
     time = 0
     sigs_index = 0
     while time <= times[-1]:
-        
+
         if sigs_index < len(time_sigs) and time >= time_sigs[sigs_index][0]:
             # new time signature
             time, (num, den, clocks, n32s) = time_sigs[sigs_index]
             step = (4 * division) // (2 ** den)
             beat = 1
             sigs_index += 1
-            
+
         yield time, beat, num, den
         time += step
         beat = beat % num + 1
@@ -192,19 +192,19 @@ def beats(d, division):
 
 class Song(object):
     """A loaded MIDI file.
-    
+
     The following instance attributes are set on init:
-    
+
     division: the division set in the MIDI header
     ntracks: the number of tracks
     events: a dict mapping MIDI times to a dict with per-track lists of events.
     tempo_map: TempoMap instance that computes real time from MIDI time.
     length: the length in milliseconds of the song (same as the time of the last
             event).
-    
+
     beats: a list of tuples(msec, measnum, beat, num, den) for every beat
     music: a list of tuples(msec, d) where d is a dict mapping tracknr to events
-    
+
     """
     def __init__(self, division, tracks):
         """Initialize the Song with the given division and track chunks."""
