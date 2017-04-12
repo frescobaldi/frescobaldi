@@ -83,17 +83,6 @@ class Completer(QCompleter):
                 self.gotoNextEntry()
                 return True
             elif self.isTextEvent(ev, True):
-                if cur.hasSelection():
-                    part = cur.selectedText()
-                    if part[0] == ev.text():
-                        # overwrite next char if it matches the selection
-                        pos = cur.selectionStart() + 1
-                        cur.setPosition(cur.selectionEnd())
-                        cur.setPosition(pos, cur.KeepAnchor)
-                        self.widget().setTextCursor(cur)
-                        self.showCompletionPopup()
-                        return True
-                    self.acceptPartialCompletion()
                 # deliver event and keep showing popup if necessary
                 self.widget().event(ev)
                 self.showCompletionPopup()
