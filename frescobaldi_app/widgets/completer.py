@@ -84,6 +84,15 @@ class Completer(QCompleter):
                 return True
             elif self.isTextEvent(ev, True):
                 if cur.hasSelection():
+                    part = cur.selectedText()
+                    if part[0] == ev.text():
+                        # overwrite next char if it matches the selection
+                        pos = cur.selectionStart() + 1
+                        cur.setPosition(cur.selectionEnd())
+                        cur.setPosition(pos, cur.KeepAnchor)
+                        self.widget().setTextCursor(cur)
+                        self.showCompletionPopup()
+                        return True
                     self.acceptPartialCompletion()
                 # deliver event and keep showing popup if necessary
                 self.widget().event(ev)
@@ -177,10 +186,9 @@ class Completer(QCompleter):
 
         """
         cursor = self.textCursor()
-        sel_len = cursor.selectionEnd() - cursor.selectionStart() if cursor.hasSelection() else 0
         cursor.setPosition(cursor.selectionEnd())
         prefix_len = len(self.completionPrefix())
-        cursor.setPosition(cursor.position() - sel_len - prefix_len, cursor.KeepAnchor)
+        cursor.setPosition(cursor.position() - prefix_len, cursor.KeepAnchor)
         cursor.insertText(self.completionModel().data(index, Qt.EditRole))
        
     def insertPartialCompletion(self, index):
