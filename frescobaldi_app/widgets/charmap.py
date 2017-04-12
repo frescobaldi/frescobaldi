@@ -36,7 +36,7 @@ class CharMap(QWidget):
     """A widget displaying a table of characters."""
     characterSelected = pyqtSignal(str)
     characterClicked = pyqtSignal(str)
-    
+
     def __init__(self, parent=None):
         super(CharMap, self).__init__(parent)
         self._showToolTips = True
@@ -46,20 +46,20 @@ class CharMap(QWidget):
         self._square = 24
         self._range = (0, 0)
         self._font = QFont()
-        
+
     def setRange(self, first, last):
         self._range = (first, last)
         self._selected = -1
         self.adjustSize()
         self.update()
-    
+
     def range(self):
         return self._range
-    
+
     def square(self):
         """Returns the width of one item (determined by font size)."""
         return self._square
-    
+
     def select(self, charcode):
         """Selects the specified character (int or str)."""
         if not isinstance(charcode, int):
@@ -70,47 +70,47 @@ class CharMap(QWidget):
             self._selected = charcode
             self.characterSelected.emit(chr(charcode))
             self.update()
-    
+
     def character(self):
         """Returns the currently selected character, if any."""
         if self._selected != -1:
             return chr(self._selected)
-    
+
     def setDisplayFont(self, font):
         self._font.setFamily(font.family())
         self.update()
-    
+
     def displayFont(self):
         return QFont(self._font)
-    
+
     def setDisplayFontSize(self, size):
         self._font.setPointSize(size)
         self._square = max(24, QFontMetrics(self._font).xHeight() * 3)
         self.adjustSize()
         self.update()
-    
+
     def displayFontSize(self):
         return self._font.pointSize()
-    
+
     def setDisplayFontSizeF(self, size):
         self._font.setPointSizeF(size)
         self._square = max(24, QFontMetrics(self._font).xHeight() * 3)
         self.adjustSize()
         self.update()
-    
+
     def displayFontSizeF(self):
         return self._font.pointSizeF()
-    
+
     def setColumnCount(self, count):
         """Sets how many columns should be used."""
         count = max(1, count)
         self._column_count = count
         self.adjustSize()
         self.update()
-    
+
     def columnCount(self):
         return self._column_count
-        
+
     def sizeHint(self):
         return self.sizeForColumnCount(self._column_count)
 
@@ -119,18 +119,18 @@ class CharMap(QWidget):
         s = self._square
         rows = range(rect.top() // s, rect.bottom() // s + 1)
         cols = range(rect.left() // s, rect.right() // s + 1)
-        
+
         painter = QPainter(self)
         painter.setPen(QPen(self.palette().color(QPalette.Window)))
         painter.setFont(self._font)
         metrics = QFontMetrics(self._font)
-        
+
         # draw characters on white tiles
         tile = self.palette().color(QPalette.Base)
         selected_tile = self.palette().color(QPalette.Highlight)
         selected_tile.setAlpha(96)
         selected_box = self.palette().color(QPalette.Highlight)
-        
+
         text_pen = QPen(self.palette().text().color())
         disabled_pen = QPen(self.palette().color(QPalette.Disabled, QPalette.Text))
         selection_pen = QPen(selected_box)
@@ -155,12 +155,12 @@ class CharMap(QWidget):
             else:
                 continue
             break
-    
+
     def sizeForColumnCount(self, count):
         """Returns the size the widget would have in a certain column count.
-        
+
         This can be used in e.g. a resizable scroll area.
-        
+
         """
         first, last = self._range
         rows = ((last - first) // count) + 1
@@ -176,14 +176,14 @@ class CharMap(QWidget):
             self.select(charcode)
             if ev.button() != Qt.RightButton:
                 self.characterClicked.emit(chr(charcode))
-    
+
     def charcodeRect(self, charcode):
         """Returns the rectangular box around the given charcode, if any."""
         if self._range[0] <= charcode <= self._range[1]:
             row, col = divmod(charcode - self._range[0], self._column_count)
             s = self._square
             return QRect(col * s, row * s, s, s)
-        
+
     def charcodeAt(self, position):
         row = position.y() // self._square
         col = position.x() // self._square
@@ -219,13 +219,13 @@ class CharMap(QWidget):
                     QWhatsThis.leaveWhatsThisMode()
             return True
         return super(CharMap, self).event(ev)
-    
+
     def getToolTipText(self, charcode):
         try:
             return unicodedata.name(chr(charcode))
         except ValueError:
             pass
-    
+
     def getWhatsThisText(self, charcode):
         try:
             name = unicodedata.name(chr(charcode))
@@ -233,16 +233,16 @@ class CharMap(QWidget):
             return
         return whatsthis_html.format(
             self._font.family(), chr(charcode), name, charcode)
-    
+
     def setShowToolTips(self, enabled):
         self._showToolTips = bool(enabled)
-    
+
     def showToolTips(self):
         return self._showToolTips
 
     def setShowWhatsThis(self, enabled):
         self._showWhatsThis = bool(enabled)
-    
+
     def showWhatsThis(self):
         return self._showWhatsThis
 

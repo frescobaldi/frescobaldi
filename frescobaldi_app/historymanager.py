@@ -37,10 +37,10 @@ _setCurrentDocument = signals.Signal()  # Document
 
 class HistoryManager(object):
     """Keeps the history of document switches by the user.
-    
+
     If a document is closed, the previously active document is set active.
     If no documents remain, nothing is done.
-    
+
     """
     def __init__(self, mainwindow, othermanager=None):
         self.mainwindow = weakref.ref(mainwindow)
@@ -50,7 +50,7 @@ class HistoryManager(object):
         app.documentCreated.connect(self.addDocument, 1)
         app.documentClosed.connect(self.removeDocument, 1)
         _setCurrentDocument.connect(self._listen)
-        
+
     def addDocument(self, doc):
         self._documents.insert(-1, doc)
 
@@ -63,14 +63,14 @@ class HistoryManager(object):
                 # last document removed; listen to setCurrentDocument from others
                 self._has_current = False
         self._documents.remove(doc)
-    
+
     def setCurrentDocument(self, doc):
         self._documents.remove(doc)
         self._documents.append(doc)
         self._has_current = True
         # notify possible interested parties
         _setCurrentDocument(doc)
-    
+
     def documents(self):
         """Returns the documents in order of most recent been active."""
         return self._documents[::-1]

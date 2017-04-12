@@ -32,10 +32,10 @@ import icons
 
 def icon(doc, mainwindow=None):
     """Provides a QIcon for a Document.
-    
+
     If a MainWindow is provided, the sticky icon can be returned, if the
     Document is sticky for that main window.
-    
+
     """
     return DocumentIconProvider.instance(doc).icon(mainwindow)
 
@@ -43,16 +43,16 @@ def icon(doc, mainwindow=None):
 class DocumentIconProvider(plugin.DocumentPlugin):
     """Provides an icon for a Document."""
     iconChanged = signals.Signal()
-    
+
     def __init__(self, doc):
         doc.modificationChanged.connect(self._send_icon)
         mgr = jobmanager.manager(doc)
         mgr.started.connect(self._send_icon)
         mgr.finished.connect(self._send_icon)
-    
+
     def _send_icon(self):
         self.iconChanged()
-    
+
     def icon(self, mainwindow=None):
         doc = self.document()
         job = jobmanager.job(doc)

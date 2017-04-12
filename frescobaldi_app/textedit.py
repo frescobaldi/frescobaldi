@@ -36,14 +36,14 @@ Link = collections.namedtuple("Link", "filename line column")
 
 def link(url):
     """Return Link(filename, line, column) for the specified `textedit:` url.
-    
+
     Link is a named tuple (filename, line, column).
     If the url is not a valid textedit url, None is returned.
-    
+
     The url should be specified as a normal Python string (unicode in Python 2,
     str in Python 3); the filename is percent-decoded and converted in the
     correct filesystem encoding if necessary.
-    
+
     """
     m = textedit_match(url)
     if m:
@@ -51,9 +51,9 @@ def link(url):
 
 def readurl(match):
     """Return Link(filename, line, col) for the match object resulting from textedit_match.
-    
+
     Link is a named tuple (filename, line, column).
-    
+
     """
     return Link(readfilename(match), int(match.group(2)), int(match.group(3)))
 

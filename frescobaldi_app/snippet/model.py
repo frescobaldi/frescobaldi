@@ -50,7 +50,7 @@ class SnippetModel(QAbstractItemModel):
         self.load()
         app.settingsChanged.connect(self.slotSettingsChanged)
         app.languageChanged.connect(self.slotLanguageChanged)
-        
+
     # methods needed to be a well-behaved model
     def headerData(self, section, orientation, role=Qt.DisplayRole):
         if role == Qt.DisplayRole and orientation == Qt.Horizontal:
@@ -60,19 +60,19 @@ class SnippetModel(QAbstractItemModel):
                 return _("Description")
             else:
                 return _("Shortcut")
-    
+
     def index(self, row, column, parent=None):
         return self.createIndex(row, column)
-    
+
     def parent(self, index):
         return QModelIndex()
-    
+
     def columnCount(self, parent=QModelIndex()):
         return 3 if not parent.isValid() else 0
-    
+
     def rowCount(self, parent=QModelIndex()):
         return len(self._names) if not parent.isValid() else 0
-    
+
     def data(self, index, role=Qt.DisplayRole):
         name = self.name(index)
         if role == Qt.DisplayRole:
@@ -84,26 +84,26 @@ class SnippetModel(QAbstractItemModel):
                 return shortcut(name)
         elif role == Qt.DecorationRole and index.column() == 1:
             return snippets.icon(name)
-    
+
     # slots
     def slotSettingsChanged(self):
         """Called when settings change, e.g. when keyboard shortcuts are altered."""
         self.load()
-        
+
     def slotLanguageChanged(self):
         """Called when the user changes the language."""
         self.headerDataChanged.emit(Qt.Horizontal, 0, 2)
-        
+
     def load(self):
         self.beginResetModel()
         self._names = sorted(snippets.names(), key=snippets.title)
         self.endResetModel()
-    
+
     # interface for getting/altering snippets
     def names(self):
         """Returns the internal list of snippet names in title order. Do not alter!"""
         return self._names
-        
+
     def name(self, index):
         """The internal snippet id for the given QModelIndex."""
         return self._names[index.row()]
@@ -118,19 +118,19 @@ class SnippetModel(QAbstractItemModel):
         finally:
             self.endRemoveRows()
             return True
-        
+
     def saveSnippet(self, name, text, title):
         """Store a snippet.
-        
+
         If name is None or does not exist in names(), a new snippet is created.
         Returns the QModelIndex the snippet was stored at.
-        
+
         Title may be None.
-        
+
         """
         # first, get the old titles list
         titles = list(snippets.title(n) for n in self._names)
-        
+
         oldrow = None
         if name is None:
             name = snippets.name(self._names)
@@ -144,7 +144,7 @@ class SnippetModel(QAbstractItemModel):
         # if oldrow is not None, it is the row to be removed.
         title = snippets.title(name)
         i = bisect.bisect_right(titles, title)
-        
+
         if oldrow is None:
             # just insert new snippet
             self.beginInsertRows(QModelIndex(), i, i )

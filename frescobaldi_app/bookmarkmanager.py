@@ -46,7 +46,7 @@ class BookmarkManager(plugin.MainWindowPlugin):
         if mainwindow.currentView():
             self.slotViewChanged(mainwindow.currentView())
             self.slotDocumentChanged(mainwindow.currentDocument())
-    
+
     def slotViewChanged(self, view, prev=None):
         if prev:
             prev.cursorPositionChanged.disconnect(self.updateMarkStatus)
@@ -66,22 +66,22 @@ class BookmarkManager(plugin.MainWindowPlugin):
         view = self.mainwindow().currentView()
         lineNumber = view.textCursor().blockNumber()
         bookmarks.bookmarks(view.document()).toggleMark(lineNumber, 'mark')
-    
+
     def clearErrorMarks(self):
         doc = self.mainwindow().currentDocument()
         bookmarks.bookmarks(doc).clear('error')
-        
+
     def clearAllMarks(self):
         doc = self.mainwindow().currentDocument()
         bookmarks.bookmarks(doc).clear()
-    
+
     def nextMark(self):
         view = self.mainwindow().currentView()
         cursor = view.textCursor()
         cursor = bookmarks.bookmarks(view.document()).nextMark(cursor)
         if cursor:
             view.gotoTextCursor(cursor)
-            
+
     def previousMark(self):
         view = self.mainwindow().currentView()
         cursor = view.textCursor()

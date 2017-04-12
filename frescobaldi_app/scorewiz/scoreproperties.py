@@ -53,7 +53,7 @@ class ScoreProperties(object):
         self.createPickupWidget()
         self.createMetronomeWidget()
         self.createTempoWidget()
-        
+
     def layoutWidgets(self, layout):
         """Adds all widgets to a vertical layout."""
         self.layoutKeySignatureWidget(layout)
@@ -61,32 +61,32 @@ class ScoreProperties(object):
         self.layoutPickupWidget(layout)
         self.layoutMetronomeWidget(layout)
         self.layoutTempoWidget(layout)
-        
+
     def translateWidgets(self):
         self.translateKeySignatureWidget()
         self.translateTimeSignatureWidget()
         self.translatePickupWidget()
         self.tranlateMetronomeWidget()
         self.translateTempoWidget()
-    
+
     def ly(self, node, builder):
         """Adds appropriate LilyPond command nodes to the parent node.
-        
+
         Settings from the builder are used where that makes sense.
         All widgets must be present.
-        
+
         """
         self.lyKeySignature(node, builder)
         self.lyTimeSignature(node, builder)
         self.lyPickup(node, builder)
         self.lyTempo(node, builder)
-    
+
     def globalSection(self, builder):
         """Returns a sequential expression between { } containing the output of ly()."""
         seq = ly.dom.Seq()
         self.ly(seq, builder)
         return seq
-        
+
     # Key signature
     def createKeySignatureWidget(self):
         self.keySignatureLabel = QLabel()
@@ -95,11 +95,11 @@ class ScoreProperties(object):
         self.keyMode = QComboBox()
         self.keyMode.setModel(listmodel.ListModel(modes, self.keyMode, display=listmodel.translate_index(1)))
         self.keySignatureLabel.setBuddy(self.keyNote)
-        
+
     def translateKeySignatureWidget(self):
         self.keySignatureLabel.setText(_("Key signature:"))
         self.keyMode.model().update()
-    
+
     def layoutKeySignatureWidget(self, layout):
         """Adds our widgets to a layout, assuming it is a QVBoxLayout."""
         box = QHBoxLayout()
@@ -111,14 +111,14 @@ class ScoreProperties(object):
     def setPitchLanguage(self, language='nederlands'):
         self.keyNote.model()._data = keyNames[language or 'nederlands']
         self.keyNote.model().update()
-    
+
     def lyKeySignature(self, node, builder):
         """Adds the key signature to the ly.dom node parent."""
         note, alter = keys[self.keyNote.currentIndex()]
         alter = fractions.Fraction(alter, 2)
         mode = modes[self.keyMode.currentIndex()][0]
         ly.dom.KeySignature(note, alter, mode, node).after = 1
-        
+
     # Time signature
     def createTimeSignatureWidget(self):
         self.timeSignatureLabel = QLabel()
@@ -131,17 +131,17 @@ class ScoreProperties(object):
             icon=icons.get))
         self.timeSignature.setCompleter(None)
         self.timeSignatureLabel.setBuddy(self.timeSignature)
-    
+
     def translateTimeSignatureWidget(self):
         self.timeSignatureLabel.setText(_("Time signature:"))
-    
+
     def layoutTimeSignatureWidget(self, layout):
         """Adds our widgets to a layout, assuming it is a QVBoxLayout."""
         box = QHBoxLayout()
         box.addWidget(self.timeSignatureLabel)
         box.addWidget(self.timeSignature)
         layout.addLayout(box)
-    
+
     def lyTimeSignature(self, node, builder):
         """Adds the time signature to the ly.dom node parent."""
         sig = self.timeSignature.currentText().strip()
@@ -173,22 +173,22 @@ class ScoreProperties(object):
             icon = lambda item: symbols.icon('note_{0}'.format(item.replace('.', 'd'))) if item else None))
         self.pickup.view().setIconSize(QSize(22, 22))
         self.pickupLabel.setBuddy(self.pickup)
-        
+
     def translatePickupWidget(self):
         self.pickupLabel.setText(_("Pickup measure:"))
         self.pickup.model().update()
-        
+
     def layoutPickupWidget(self, layout):
         box = QHBoxLayout()
         box.addWidget(self.pickupLabel)
         box.addWidget(self.pickup)
         layout.addLayout(box)
-    
+
     def lyPickup(self, node, builder):
         if self.pickup.currentIndex() > 0:
             dur, dots = partialDurations[self.pickup.currentIndex() - 1]
             ly.dom.Partial(dur, dots, parent=node)
-    
+
     # Metronome value
     def createMetronomeWidget(self):
         self.metronomeLabel = QLabel()
@@ -210,7 +210,7 @@ class ScoreProperties(object):
         self.metronomeLabel.setBuddy(self.metronomeNote)
         self.metronomeRound = QCheckBox()
 
-    
+
     def layoutMetronomeWidget(self, layout):
         grid = QGridLayout()
         grid.addWidget(self.metronomeLabel, 0, 0)
@@ -224,14 +224,14 @@ class ScoreProperties(object):
 
         grid.addWidget(self.metronomeRound, 1, 1)
         layout.addLayout(grid)
-        
+
     def tranlateMetronomeWidget(self):
         self.metronomeLabel.setText(_("Metronome mark:"))
         self.metronomeRound.setText(_("Round tap tempo value"))
         self.metronomeRound.setToolTip(_(
             "Round the entered tap tempo to a common value."
             ))
-    
+
     def setMetronomeValue(self, bpm):
         """ Tap the tempo tap button """
         if  self.metronomeRound.isChecked():
@@ -278,19 +278,19 @@ class ScoreProperties(object):
     def lyMidiTempo(self, node):
         """Sets the configured tempo in the tempoWholesPerMinute variable."""
         node['tempoWholesPerMinute'] = ly.dom.Scheme(self.schemeMidiTempo())
-    
+
     def schemeMidiTempo(self):
         """Returns a string with the tempo like '(ly:make-moment 100 4)' from the settings."""
         base, mul = midiDurations[self.metronomeNote.currentIndex()]
         val = int(self.metronomeValue.currentText() or '60') * mul
         return "(ly:make-moment {0} {1})".format(val, base)
-    
+
     def lySimpleMidiTempo(self, node):
         r"""Return a simple \tempo x=y node for the currently set tempo."""
         dur = durations[self.metronomeNote.currentIndex()]
         val = self.metronomeValue.currentText() or '60'
         return ly.dom.Tempo(dur, val, node)
-        
+
 
 def metronomeValues():
     v, start = [], 40
@@ -314,7 +314,7 @@ timeSignaturePresets = (
 durations = ('16', '16.', '8', '8.', '4', '4.', '2', '2.', '1', '1.')
 midiDurations = ((16,1),(32,3),(8,1),(16,3),(4,1),(8,3),(2,1),(4,3),(1,1),(2,3))
 partialDurations = ((4,0),(4,1),(3,0),(3,1),(2,0),(2,1),(1,0),(1,1),(0,0),(0,1))
- 
+
 
 keyNames = {
     'nederlands': (

@@ -48,18 +48,18 @@ class Dynamics(tool.Tool):
             autoRaise=True,
             popupMode=QToolButton.InstantPopup,
             icon=icons.get('edit-clear'))
-        
+
         mainwindow = panel.parent().mainwindow()
         mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
         self.removemenu.setEnabled(mainwindow.hasSelection())
-        
+
         ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
         self.removemenu.addAction(ac.tools_quick_remove_dynamics)
-        
+
         layout = QHBoxLayout()
         layout.addWidget(self.removemenu)
         layout.addStretch(1)
-        
+
         self.layout().addLayout(layout)
         self.layout().addWidget(DynamicGroup(self))
         self.layout().addWidget(SpannerGroup(self))
@@ -68,11 +68,11 @@ class Dynamics(tool.Tool):
     def icon(self):
         """Should return an icon for our tab."""
         return symbols.icon("dynamic_f")
-    
+
     def title(self):
         """Should return a title for our tab."""
         return _("Dynamics")
-  
+
     def tooltip(self):
         """Returns a tooltip"""
         return _("Dynamic symbols.")
@@ -140,13 +140,13 @@ class DynamicGroup(Group):
     def translateUI(self):
         # L10N: dynamic signs
         self.setTitle(_("Signs"))
-    
+
     def actionData(self):
         """Should yield name, icon, function (may be None) for every action."""
         for m in dynamic_marks:
             name = 'dynamic_' + m
             yield name, symbols.icon(name), None
-    
+
     def actionTexts(self):
         """Should yield name, text for very action."""
         for m in dynamic_marks:
@@ -158,12 +158,12 @@ class DynamicGroup(Group):
 class SpannerGroup(Group):
     def translateUI(self):
         self.setTitle(_("Spanners"))
-    
+
     def actionData(self):
         """Should yield name, icon, function (may be None) for every action."""
         for name, title in self.actionTexts():
             yield name, symbols.icon(name), None
-    
+
     def actionTexts(self):
         """Should yield name, text for very action."""
         yield 'dynamic_hairpin_cresc', _("Hairpin crescendo")
@@ -171,7 +171,7 @@ class SpannerGroup(Group):
         yield 'dynamic_hairpin_dim', _("Hairpin diminuendo")
         yield 'dynamic_dim', _("Diminuendo")
         yield 'dynamic_decresc', _("Decrescendo")
-        
+
 
 def dynamics(cursor):
     """Returns a tuple of dynamic tokens (including _ or ^) at the cursor."""

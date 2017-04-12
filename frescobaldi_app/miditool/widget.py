@@ -53,22 +53,22 @@ class Widget(QWidget):
         self._display = Display()
         self._tempoFactor = QSlider(Qt.Vertical, minimum=-50, maximum=50,
             singleStep=1, pageStep=5)
-        
+
         grid = QGridLayout(spacing=0)
         self.setLayout(grid)
-        
+
         grid.addWidget(self._fileSelector, 0, 0, 1, 3)
         grid.addWidget(self._stopButton, 1, 0)
         grid.addWidget(self._playButton, 1, 1)
         grid.addWidget(self._timeSlider, 1, 2)
         grid.addWidget(self._display, 2, 0, 1, 3)
         grid.addWidget(self._tempoFactor, 0, 3, 3, 1)
-        
+
         # size policy of combo
         p = self._fileSelector.sizePolicy()
         p.setHorizontalPolicy(QSizePolicy.Ignored)
         self._fileSelector.setSizePolicy(p)
-        
+
         # size policy of combo popup
         p = self._fileSelector.view().sizePolicy()
         p.setHorizontalPolicy(QSizePolicy.MinimumExpanding)
@@ -102,21 +102,21 @@ class Widget(QWidget):
 
     def translateUI(self):
         self._tempoFactor.setToolTip(_("Tempo"))
-    
+
     def slotAboutToRestart(self):
         self.stop()
         self._player.set_output(None)
-    
+
     def clearMidiSettings(self):
         """Called first when settings are changed."""
         self.stop()
         self._outputCloseTimer.stop()
         self._player.set_output(None)
-        
+
     def readMidiSettings(self):
         """Called after clearMidiSettings(), and on first init."""
         pass
-            
+
     def openOutput(self):
         """Called when playing starts. Ensures an output port is opened."""
         self._outputCloseTimer.stop()
@@ -125,11 +125,11 @@ class Widget(QWidget):
             o = midihub.output_by_name(p)
             if o:
                 self._player.set_output(output.Output(o))
-    
+
     def closeOutput(self):
         """Called when the output close timer fires. Closes the output."""
         self._player.set_output(None)
-        
+
     def slotPlayerStateChanged(self, playing):
         ac = self.parentWidget().actionCollection
         # setDefaultAction also adds the action
@@ -148,7 +148,7 @@ class Widget(QWidget):
             # close the output if the preference is set
             if QSettings().value("midi/close_outputs", False, bool):
                 self._outputCloseTimer.start()
-        
+
     def play(self):
         """Starts the MIDI player, opening an output if necessary."""
         if not self._player.is_playing() and not self._player.has_events():
@@ -157,17 +157,17 @@ class Widget(QWidget):
         if not self._player.output():
             self._display.statusMessage(_("No output found!"))
         self._player.start()
-    
+
     def stop(self):
         """Stops the MIDI player."""
         self._player.stop()
-    
+
     def restart(self):
         """Restarts the MIDI player.
-        
+
         If another file is in the file selector, or the file was updated,
         the new file is loaded.
-        
+
         """
         self._player.seek(0)
         self.updateTimeSlider()
@@ -177,25 +177,25 @@ class Widget(QWidget):
             index = self._fileSelector.currentIndex()
             if files and (files.song(index) is not self._player.song()):
                 self.loadSong(index)
-        
+
     def slotTempoChanged(self, value):
         """Called when the user drags the tempo."""
         # convert -50 to 50 to 0.5 to 2.0
         factor = 2 ** (value / 50.0)
         self._player.set_tempo_factor(factor)
         self._display.setTempo("{0}%".format(int(factor * 100)))
-    
+
     def slotTimeSliderChanged(self, value):
         self._player.seek(value)
         self._display.setTime(value)
         if self._player.song():
             self._display.setBeat(*self._player.song().beat(value)[1:])
-    
+
     def slotTimeSliderMoved(self, value):
         self._display.setTime(value)
         if self._player.song():
             self._display.setBeat(*self._player.song().beat(value)[1:])
-    
+
     def updateTimeSlider(self):
         if not self._timeSlider.isSliderDown():
             with qutil.signalsBlocked(self._timeSlider):
@@ -205,23 +205,23 @@ class Widget(QWidget):
     def updateDisplayBeat(self, measnum, beat, num, den):
         if not self._timeSlider.isSliderDown():
             self._display.setBeat(measnum, beat, num, den)
-    
+
     def updateDisplayTime(self, time):
         if not self._timeSlider.isSliderDown():
             self._display.setTime(time)
-    
+
     def slotDocumentLoaded(self, document):
         """Called when a new document is loaded.
-        
+
         Only calls slotUpdatedFiles when this is the first document, as that
         slot will be called anyway when the current document is switched. When
         the first document is loaded, it is loaded into the existing empty
         document, so mainwindow.currentDocumentChanged() will never be emitted.
-        
+
         """
         if len(app.documents) == 1:
             self.slotUpdatedFiles(document)
-    
+
     def slotUpdatedFiles(self, document, job=None):
         """Called when there are new MIDI files."""
         mainwindow = self.parentWidget().mainwindow()
@@ -232,7 +232,7 @@ class Widget(QWidget):
         if job and jobattributes.get(job).mainwindow != mainwindow:
             return
         self.loadResults(document)
-    
+
     def loadResults(self, document):
         files = midifiles.MidiFiles.instance(document)
         if files.update():
@@ -241,7 +241,7 @@ class Widget(QWidget):
             self._fileSelector.setCurrentIndex(files.current)
             if not self._player.is_playing():
                 self.loadSong(files.current)
-    
+
     def loadSong(self, index):
         files = midifiles.MidiFiles.instance(self._document)
         self._player.set_song(files.song(index))
@@ -252,7 +252,7 @@ class Widget(QWidget):
         self._display.statusMessage(
             _("midi lcd screen", "LOADED"), name,
             _("midi lcd screen", "TOTAL"), "{0}:{1:02}".format(m, s))
-    
+
     def slotFileSelected(self, index):
         if self._document:
             self._player.stop()
@@ -260,7 +260,7 @@ class Widget(QWidget):
             if files:
                 files.current = index
                 self.restart()
-    
+
     def slotDocumentClosed(self, document):
         if document == self._document:
             self._document = None
@@ -285,40 +285,40 @@ class Display(QLabel):
         self._status = None
         self.reset()
         app.translateUI(self)
-    
+
     def reset(self):
         """Sets everything to 0."""
         self._time = 0
         self._beat = 0, 0, 0, 0
         self.updateDisplay()
-        
+
     def translateUI(self):
         self.updateDisplay()
-    
+
     def setTime(self, time):
         self._time = time
         self.updateDisplay()
-    
+
     def setBeat(self, measnum, beat, num, den):
         self._beat = measnum, beat, num, den
         self.updateDisplay()
-    
+
     def setTempo(self, text=None):
         self._tempo = text
         if text:
             self._tempoTimer.start()
         self.updateDisplay()
-    
+
     def statusMessage(self, *msg):
         """Status message can be multiple arguments (1 to 4)."""
         self._status = msg
         if msg:
             self._statusTimer.start()
         self.updateDisplay()
-        
+
     def updateDisplay(self):
         minutes, seconds = divmod(self._time // 1000, 60)
-        
+
         time_spec = "{0}:{1:02}".format(minutes, seconds)
         if self._status:
             items = self._status

@@ -27,38 +27,38 @@ from PyQt5.QtCore import QEvent, QObject, QPoint, QRect, QSize
 LEFT, TOP, RIGHT, BOTTOM = 0, 1, 2, 3
 
 class BorderLayout(QObject):
-    
+
     # order in which the widget spaces are filled.
     # if top and bottom are first, they get the full width.
     order = TOP, BOTTOM, LEFT, RIGHT
-    
+
     def __init__(self, scrollarea):
         super(BorderLayout, self).__init__(scrollarea)
         self._resizing = False
         self._margins = 0, 0, 0, 0
         self._widgets = ([], [], [], [])
         scrollarea.viewport().installEventFilter(self)
-    
+
     @classmethod
     def get(cls, scrollarea):
         """Gets the BorderLayout for the given scrollarea.
-        
+
         If None exists, creates and returns a new instance.
-        
+
         """
         for c in scrollarea.children():
             if type(c) is cls:
                 return c
         return cls(scrollarea)
-    
+
     def scrollarea(self):
         """Returns our scrollarea instance (our parent)."""
         return self.parent()
-    
+
     def addWidget(self, widget, side):
         """Adds a widget to our scrollarea."""
         self.insertWidget(widget, side, -1)
-        
+
     def insertWidget(self, widget, side, position):
         """Inserts a widget in a specific position."""
         assert side in (LEFT, TOP, RIGHT, BOTTOM)
@@ -78,7 +78,7 @@ class BorderLayout(QObject):
         if new:
             widget.show()
         self.updateGeometry()
-            
+
     def removeWidget(self, widget):
         """Removes the widget, it is not deleted."""
         for l in self._widgets:
@@ -87,7 +87,7 @@ class BorderLayout(QObject):
                 widget.removeEventFilter(self)
                 widget.setParent(None)
                 self.updateGeometry()
-    
+
     def setViewportMargins(self, left, top, right, bottom):
         """(Internal) Sets the viewport margins and remembers them."""
         self._margins = (left, top, right, bottom)
@@ -97,13 +97,13 @@ class BorderLayout(QObject):
             # this can happen when the scrollarea already is deleted by Python
             # because setViewportMargins is a protected method
             pass
-    
+
     def viewportGeometry(self):
         """(Internal) Returns the viewport geometry as if with 0 margins."""
         g = self.scrollarea().viewport().geometry()
         left, top, right, bottom = self._margins
         return g.adjusted(-left, -top, right, bottom)
-        
+
     def eventFilter(self, obj, ev):
         """Reimplemented to handle resizes and avoid resize loops."""
         if self._resizing:
@@ -120,7 +120,7 @@ class BorderLayout(QObject):
                     self.updateGeometry()
                     break
         return False
-    
+
     def updateGeometry(self):
         """(Internal) Positions all widgets in the scrollarea edges."""
         self._resizing = True
@@ -128,7 +128,7 @@ class BorderLayout(QObject):
         pos = g.topLeft()
         size = g.size()
         left, right, top, bottom = 0, 0, 0, 0
-        
+
         for side in self.order:
             def widgets():
                 for w in self._widgets[side][::-1]:

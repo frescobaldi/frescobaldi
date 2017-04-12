@@ -53,27 +53,27 @@ _instances = weakref.WeakKeyDictionary()
 
 class Plugin(object):
     """Base class for plugins.
-    
+
     A Plugin is coupled to another object and is automatically garbage collected
     as soon as the other object disappears.
-    
+
     Use the instance() class method to get/create the Plugin instance for an object.
-    
+
     Implement the __init__() method if you want to do some setup.
-    
+
     The instances() class method returns all living instances of this plugin type.
-    
+
     """
     def __init__(self, obj):
         """Implement this method to setup the plugin instance."""
         pass
-    
+
     @classmethod
     def instance(cls, obj):
         """Returns the instance of this plugin type for this object.
-        
+
         The plugin instance is created if it did not exist.
-        
+
         """
         try:
             return _instances[cls][obj]
@@ -83,7 +83,7 @@ class Plugin(object):
             result._parent = weakref.ref(obj)
             result.__init__(obj)
         return result
-    
+
     @classmethod
     def instances(cls):
         """Iterates over all living instances of this plugin."""
@@ -95,25 +95,25 @@ class Plugin(object):
 
 class Attributes(object):
     """Manages attributes.
-    
+
     The attributes can be set simply as instance attributes.
-    
+
     If an attribute is set, it is stored as a weak reference when possible
     If an attribute is requested but not set or its value does not exist anymore,
     None is returned.
     Deleting an attribute does not fail if it doesn't exist.
-    
+
     """
     def __init__(self):
         self._attrs = {}
-        
+
     def __getattr__(self, name):
         val = self._attrs.get(name)
         if isinstance(val, weakref.ref):
             return val()
         else:
             return val
-    
+
     def __setattr__(self, name, value):
         if name.startswith('_'):
             object.__setattr__(self, name, value)
@@ -135,12 +135,12 @@ class AttributePlugin(Plugin, Attributes):
     """Base class for a Plugin managing attributes for any object."""
     def __init__(self, obj):
         """Implement this method to setup the plugin instance.
-        
+
         For this class (AttributePlugin) you must also call this constructor if you reimplement it.
-        
+
         """
         Attributes.__init__(self)
-    
+
 
 class DocumentPlugin(Plugin):
     """Base class for plugins that live besides a Document."""

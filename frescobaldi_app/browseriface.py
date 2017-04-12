@@ -57,7 +57,7 @@ class BrowserIface(plugin.MainWindowPlugin):
         self._history = [Position()]
         self._index = 0    # the index points to the current position
         self.updateActions()
-    
+
     def goBack(self):
         """Called when the user activates the go_back action."""
         if self._index > 0:
@@ -66,7 +66,7 @@ class BrowserIface(plugin.MainWindowPlugin):
             p = self._history[self._index]
             self.mainwindow().setTextCursor(p.cursor, p.find_open_view)
             self.updateActions()
-            
+
     def goForward(self):
         """Called when the user activates the go_forward action."""
         if self._index < len(self._history) - 1:
@@ -80,17 +80,17 @@ class BrowserIface(plugin.MainWindowPlugin):
         """Move to the new cursor position and remember the current one."""
         self._remember(findOpenView)
         self.mainwindow().setTextCursor(cursor, findOpenView)
-    
+
     def setCurrentDocument(self, doc, findOpenView=None):
         """Switch to a different document and remember the current cursor position."""
         self._remember(findOpenView)
         self.mainwindow().setCurrentDocument(doc, findOpenView)
-    
+
     def updateActions(self):
         """Update the actions depending on current position in history."""
         self.actionCollection.go_back.setEnabled(self._index > 0)
         self.actionCollection.go_forward.setEnabled(self._index < len(self._history) - 1)
-    
+
     def _remember(self, findOpenView):
         """(Internal) Remember the current cursor position and whether a new view was requested."""
         pos = self._history[self._index]
@@ -100,12 +100,12 @@ class BrowserIface(plugin.MainWindowPlugin):
         del self._history[self._index:]
         self._history.append(Position())
         self.updateActions()
-    
+
     def _documentClosed(self, doc):
         """(Internal) Called when a document is closed.
-        
+
         Removes the positions in the history of that document.
-        
+
         """
         for i, pos in reversed(list(enumerate(self._history))):   # copy
             if pos.cursor and doc is pos.cursor.document():
@@ -124,13 +124,13 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, parent):
         self.go_back = QAction(parent)
         self.go_forward = QAction(parent)
-        
+
         self.go_back.setIcon(icons.get('go-previous'))
         self.go_forward.setIcon(icons.get('go-next'))
-        
+
         self.go_back.setShortcut(QKeySequence(Qt.ALT + Qt.Key_Backspace))
         self.go_forward.setShortcut(QKeySequence(Qt.ALT + Qt.Key_End))
-    
+
     def translateUI(self):
         self.go_back.setText(_("Go to previous position"))
         self.go_back.setIconText(_("Back"))

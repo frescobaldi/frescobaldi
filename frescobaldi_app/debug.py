@@ -22,9 +22,9 @@ def doc_repr(self):
     index = app.documents.index(self)
     return '<Document #{0} "{1}">'.format(index, self.url().toString())
 document.Document.__repr__ = doc_repr
-    
+
 @app.documentCreated.connect
-def f(doc): 
+def f(doc):
     print("created:", doc)
 
 @app.documentLoaded.connect
@@ -47,8 +47,8 @@ def f(doc, job, success):
 
 
 # more to add...
-    
-    
+
+
 # delete unneeded stuff
 del f, doc_repr
 

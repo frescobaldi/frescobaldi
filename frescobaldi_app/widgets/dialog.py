@@ -68,12 +68,12 @@ standardbuttons = {
 
 class Dialog(QDialog):
     """A Dialog with basic layout features:
-    
+
     a main widget,
     an icon or pixmap,
     a separator,
     buttons (provided by a QDialogButtonBox)
-    
+
     """
     def __init__(self,
                  parent = None,
@@ -88,9 +88,9 @@ class Dialog(QDialog):
                  help = None,
                  **kwargs):
         """Initializes the dialog.
-        
+
         parent = a parent widget or None.
-        
+
         The following keyword arguments are recognized:
         - message: the text to display in the message label
         - title: the window title
@@ -100,9 +100,9 @@ class Dialog(QDialog):
         - buttonOrientation: Qt.Horizontal (default) or Qt.Vertical
         - buttons: which buttons to use (default: Ok, Cancel)
         - help: function to call when a help button is clicked.
-        
+
         Other keyword arguments are passed to QDialog.
-        
+
         """
         super(Dialog, self).__init__(parent, **kwargs)
         self._icon = QIcon()
@@ -117,7 +117,7 @@ class Dialog(QDialog):
         layout = QGridLayout()
         layout.setSpacing(10)
         self.setLayout(layout)
-        
+
         # handle keyword args
         self._buttonOrientation = buttonOrientation
         self._iconSize = iconSize
@@ -132,37 +132,37 @@ class Dialog(QDialog):
         b.helpRequested.connect(help or self.helpRequest)
         self.setStandardButtons(buttons)
         self.reLayout()
-        
+
     def helpRequest(self):
         """Called when a help button is clicked."""
         pass
-    
+
     def setButtonOrientation(self, orientation):
         """Sets the button orientation.
-        
+
         Qt.Horizontal (default) puts the buttons at the bottom of the dialog
         in a horizontal row, Qt.Vertical puts the buttons at the right in a
         vertical column.
-        
+
         """
         if orientation != self._buttonOrientation:
             self._buttonOrientation = orientation
             self._buttonBox.setOrientation(orientation)
             self.reLayout()
-    
+
     def buttonOrientation(self):
         """Returns the button orientation."""
         return self._buttonOrientation
-        
+
     def setIcon(self, icon):
         """Sets the icon to display in the left area.
-        
+
         May be:
         - None or QIcon()
         - one of 'info', 'warning', 'critical', 'question'
         - a QStyle.StandardPixmap
         - a QIcon.
-        
+
         """
         if icon in standardicons:
             icon = standardicons[icon]
@@ -172,11 +172,11 @@ class Dialog(QDialog):
             icon = QIcon()
         self._icon = icon
         self.setPixmap(icon.pixmap(self._iconSize))
-    
+
     def icon(self):
         """Returns the currently set icon as a QIcon."""
         return self._icon
-        
+
     def setIconSize(self, size):
         """Sets the icon size (QSize or int)."""
         if isinstance(size, int):
@@ -185,11 +185,11 @@ class Dialog(QDialog):
         self._iconSize = size
         if changed and not self._icon.isNull():
             self.setPixmap(self._icon.pixmap(size))
-    
+
     def iconSize(self):
         """Returns the icon size (QSize)."""
         return self._iconSize
-        
+
     def setPixmap(self, pixmap):
         """Sets the pixmap to display in the left area."""
         changed = self._pixmap.isNull() != pixmap.isNull()
@@ -199,61 +199,61 @@ class Dialog(QDialog):
             self._pixmapLabel.setFixedSize(pixmap.size())
         if changed:
             self.reLayout()
-        
+
     def pixmap(self):
         """Returns the currently set pixmap."""
         return self._pixmap
-    
+
     def setMessage(self, text):
         """Sets the main text in the dialog."""
         self._messageLabel.setText(text)
-    
+
     def message(self):
         """Returns the main text."""
         return self._messageLabel.text()
-    
+
     def messageLabel(self):
         """Returns the QLabel displaying the message text."""
         return self._messageLabel
-        
+
     def buttonBox(self):
         """Returns our QDialogButtonBox instance."""
         return self._buttonBox
-    
+
     def setStandardButtons(self, buttons):
         """Convenience method to set standard buttons in the button box.
-        
+
         Accepts a sequence of string names from the standardbuttons constant,
         or a QDialogButtonBox.StandardButtons value.
-        
+
         """
         if isinstance(buttons, (set, tuple, list)):
             buttons = functools.reduce(operator.or_,
                 map(standardbuttons.get, buttons),
                 QDialogButtonBox.StandardButtons())
         self._buttonBox.setStandardButtons(buttons)
-    
+
     def button(self, button):
         """Returns the given button.
-        
+
         May be a QDialogButtonBox.StandardButton or a key from standardbuttons.
-        
+
         """
         if button in standardbuttons:
             button = standardbuttons[button]
         return self._buttonBox.button(button)
-    
+
     def setSeparator(self, enabled):
         """Sets whether to show a line between contents and buttons."""
         changed = self._separator != enabled
         self._separator = enabled
         if changed:
             self.reLayout()
-    
+
     def hasSeparator(self):
         """Returns whether a separator line is shown."""
         return self._separator
-        
+
     def setMainWidget(self, widget):
         """Sets the specified widget as our main widget."""
         old = self._mainWidget
@@ -261,17 +261,17 @@ class Dialog(QDialog):
             old.setParent(None)
         self._mainWidget = widget
         self.reLayout()
-    
+
     def mainWidget(self):
         """Returns the current main widget (an empty QWidget by default)."""
         return self._mainWidget
-    
+
     def reLayout(self):
         """(Internal) Lays out all items in this dialog."""
         layout = self.layout()
         while layout.takeAt(0):
             pass
-        
+
         if not self._pixmap.isNull():
             col = 1
             layout.addWidget(self._pixmapLabel, 0, 0, 2, 1)
@@ -279,7 +279,7 @@ class Dialog(QDialog):
             layout.setColumnStretch(1, 0)
             col = 0
         layout.setColumnStretch(col, 1)
-        self._pixmapLabel.setVisible(not self._pixmap.isNull())    
+        self._pixmapLabel.setVisible(not self._pixmap.isNull())
         layout.addWidget(self._messageLabel, 0, col)
         layout.addWidget(self._mainWidget, 1, col)
         if self._buttonOrientation == Qt.Horizontal:
@@ -300,27 +300,27 @@ class TextDialog(Dialog):
         self._validateFunction = None
         self.setMainWidget(QLineEdit())
         self.lineEdit().setFocus()
-    
+
     def lineEdit(self):
         """Returns the QLineEdit widget."""
         return self.mainWidget()
-    
+
     def setText(self, text):
         """Sets the text in the lineEdit()."""
         self.lineEdit().setText(text)
-    
+
     def text(self):
         """Returns the text in the lineEdit()."""
         return self.lineEdit().text()
-        
+
     def setValidateFunction(self, func):
         """Sets a function to run on every change in the lineEdit().
-        
+
         If the function returns True, the OK button is enabled, otherwise
         disabled.
-        
+
         If func is None, an earlier validate function will be removed.
-        
+
         """
         old = self._validateFunction
         self._validateFunction = func
@@ -331,15 +331,15 @@ class TextDialog(Dialog):
         elif old:
             self.lineEdit().textChanged.disconnect(self._validate)
             self.button('ok').setEnabled(True)
-    
+
     def setValidateRegExp(self, regexp):
         """Sets a regular expression the text must match.
-        
+
         If the regular expression matches the full text, the OK button is
         enabled, otherwise disabled.
-        
+
         If regexp is None, an earlier set regular expression is removed.
-        
+
         """
         validator = function = None
         if regexp is not None:
@@ -348,7 +348,7 @@ class TextDialog(Dialog):
             function = rx.exactMatch
         self.lineEdit().setValidator(validator)
         self.setValidateFunction(function)
-    
+
     def _validate(self, text):
         self.button('ok').setEnabled(self._validateFunction(text))
 

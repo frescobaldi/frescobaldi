@@ -37,7 +37,7 @@ class Paths(preferences.GroupsPage):
 
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         layout.addWidget(HyphenPaths(self))
         layout.addStretch(1)
 
@@ -45,25 +45,25 @@ class Paths(preferences.GroupsPage):
 class HyphenPaths(preferences.Group):
     def __init__(self, page):
         super(HyphenPaths, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.listedit = widgets.listedit.FilePathEdit()
         self.listedit.changed.connect(self.changed)
         layout.addWidget(self.listedit)
-        
+
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("Folders containing hyphenation dictionaries"))
-        
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("hyphenation")
         paths = qsettings.get_string_list(s, "paths")
         self.listedit.setValue(paths)
-        
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("hyphenation")

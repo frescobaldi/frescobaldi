@@ -29,31 +29,31 @@ from PyQt5.QtWidgets import QAbstractScrollArea
 
 class ScrollArea(QAbstractScrollArea):
     """A scroll area that supports kinetic scrolling and other features.
-    
+
     Instance attributes:
-    
+
         kineticscrolling (True): whether the wheel and pgup/pgdn keys etc use
                                  kinetic scrolling
-        
+
         scrollupdatespersec (50): how many scroll updates to draw per second
                                  (50 is recommended).
-    
+
     """
-    
+
     kineticscrolling = True
     scrollupdatespersec = 50
-    
+
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._scroller = None
         self._scrollTimer = QBasicTimer()
-    
+
     def wheelEvent(self, ev):
         if self.kineticscrolling:
             self.kineticAddDelta(-ev.angleDelta())
         else:
             super().wheelEvent(ev)
-    
+
     def keyPressEvent(self, ev):
         """Kinetic cursor movements."""
         hbar = self.horizontalScrollBar()
@@ -82,31 +82,31 @@ class ScrollArea(QAbstractScrollArea):
                 super().keyPressEvent(ev)
         else:
             super().keyPressEvent(ev)
-    
+
     def scrollOffset(self):
         """Return the current scroll offset."""
         x = self.horizontalScrollBar().value()
         y = self.verticalScrollBar().value()
         return QPoint(x, y)
-    
+
     def canScrollBy(self, diff):
         """Does not scroll, but return the actual distance the View would scroll.
-        
+
         diff is a QPoint instance.
-        
+
         """
         hbar = self.horizontalScrollBar()
         vbar = self.verticalScrollBar()
-        
+
         x = min(max(0, hbar.value() + diff.x()), hbar.maximum())
         y = min(max(0, vbar.value() + diff.y()), vbar.maximum())
         return QPoint(x - hbar.value(), y - vbar.value())
-    
+
     def scrollForDragging(self, pos):
         """Slowly scroll the View if pos is close to the edge of the viewport.
-        
+
         Can be used while dragging things.
-        
+
         """
         viewport = self.viewport().rect()
         dx = pos.x() - viewport.left() - 12
@@ -116,20 +116,20 @@ class ScrollArea(QAbstractScrollArea):
         if dy >= 0:
             dy = max(0, pos.y() - viewport.bottom() + 12)
         self.steadyScroll(QPoint(dx*10, dy*10))
-    
+
     def scrollTo(self, pos):
         """Scroll the View to get pos (QPoint) in the top left corner (if possible).
-        
+
         Returns the actual distance moved.
-        
+
         """
         return self.scrollBy(pos - self.scrollOffset())
-    
+
     def scrollBy(self, diff):
         """Scroll the View diff pixels (QPoint) in x and y direction.
-        
+
         Returns the actual distance moved.
-        
+
         """
         hbar = self.horizontalScrollBar()
         vbar = self.verticalScrollBar()
@@ -140,20 +140,20 @@ class ScrollArea(QAbstractScrollArea):
         vbar.setValue(vbar.value() + diff.y())
         y = vbar.value() - y
         return QPoint(x, y)
-    
+
     def kineticScrollTo(self, pos):
         """Scroll the View to get pos (QPoint) in the top left corner (if possible).
-        
+
         Returns the actual distance the scroll area will move.
-        
+
         """
         return self.kineticScrollBy(pos - self.scrollOffset())
-        
+
     def kineticScrollBy(self, diff):
         """Scroll the View diff pixels (QPoint) in x and y direction.
-        
+
         Returns the actual distance the scroll area will move.
-        
+
         """
         ret = self.canScrollBy(diff)
         if diff:
@@ -161,12 +161,12 @@ class ScrollArea(QAbstractScrollArea):
             scroller.scrollBy(diff)
             self.startScrolling(scroller)
         return ret
-    
+
     def kineticAddDelta(self, diff):
         """Add diff (QPoint) to an existing kinetic scroll.
-        
+
         If no scroll is active, a new one is started (like kineticScrollBy).
-        
+
         """
         if isinstance(self._scroller, KineticScroller):
             self._scroller.scrollBy(self._scroller.remainingDistance() + diff)
@@ -175,31 +175,31 @@ class ScrollArea(QAbstractScrollArea):
 
     def steadyScroll(self, diff):
         """Start steadily scrolling diff (QPoint) pixels per second.
-        
+
         Stops automatically when the end is reached.
-        
+
         """
         if diff:
             self.startScrolling(SteadyScroller(diff, self.scrollupdatespersec))
         else:
             self.stopScrolling()
-    
+
     def startScrolling(self, scroller):
         """Begin a scrolling operation using the specified scroller."""
         self._scroller = scroller
         if not self._scrollTimer.isActive():
             self._scrollTimer.start(1000 / self.scrollupdatespersec, self)
-    
+
     def stopScrolling(self):
         """Stop scrolling."""
         if self._scroller:
             self._scrollTimer.stop()
             self._scroller = None
-    
+
     def isScrolling(self):
         """Return True if a scrolling movement is active."""
         return bool(self._scroller)
-    
+
     def timerEvent(self, ev):
         """Called by the _scrollTimer."""
         diff = self._scroller.step()
@@ -212,14 +212,14 @@ class ScrollArea(QAbstractScrollArea):
 
 class Scroller:
     """Abstract base class, encapsulates scrolling behaviour.
-    
+
     A Scroller subclass must implement the step() and finished() methods and
     may define additional methods.
-    
+
     """
     def step(self):
         """Implement this method to return a QPoint for the current scrolling step."""
-        
+
     def finished(self):
         """Implement this method to return True if scrolling is finished."""
 
@@ -233,18 +233,18 @@ class SteadyScroller(Scroller):
         self._restx = 0
         self._resty = 0
         self._ups = updates_per_second
-    
+
     def step(self):
         """Return a QPoint indicating the diff to scroll in this step.
-        
+
         If this is a QPoint(0, 0) it does not indicate that scrolling has
         finished. Use finished() for that.
-        
+
         """
         # the amount of pixels to scroll per second
         x = self._x
         y = self._y
-        
+
         # how many updates per second, compute the number of pixes to scroll now
         ups = self._ups
         dx, rx = divmod(abs(x), ups)
@@ -253,7 +253,7 @@ class SteadyScroller(Scroller):
         dy1, self._resty = divmod(self._resty + ry, ups)
         dx += dx1
         dy += dy1
-        
+
         # scroll in the right direction
         diff = QPoint(-dx if x < 0 else dx, -dy if y < 0 else dy)
         return diff
@@ -269,17 +269,17 @@ class KineticScroller(Scroller):
         self._x = 0
         self._y = 0
         self._offset = None
-    
+
     def scrollBy(self, diff):
         """Start a new kinetic scroll of the specified amount."""
         ### logic by Richard Cognot, May 2012, simplified by WB
         dx = diff.x()
         dy = diff.y()
-        
+
         # solve speed*(speed+1)/2 = delta to ensure 1+2+3+...+speed is as close as possible under delta..
         sx = (math.sqrt(1 + 8 * abs(dx)) - 1) // 2
         sy = (math.sqrt(1 + 8 * abs(dy)) - 1) // 2
-        
+
         # compute the amount of displacement still needed because we're dealing with integer values.
         # Since this function is called for exact moves (not free scrolling)
         # limit the kinetic time to 2 seconds, which means 100 ticks, 5050 pixels.
@@ -287,13 +287,13 @@ class KineticScroller(Scroller):
         if sy > 100:
             sy = 100
         offy = abs(dy) - sy * (sy + 1) // 2
-            
+
         # Although it is less likely to go beyond that limit for horizontal scrolling,
         # do it for x as well.
         if sx > 100:
             sx = 100
         offx = abs(dx) - sx * (sx + 1) // 2
-        
+
         # adjust directions
         if dx < 0:
             sx = -sx
@@ -305,7 +305,7 @@ class KineticScroller(Scroller):
         self._y = sy
         # the offset is accounted for in the first step
         self._offset = QPoint(offx, offy)
-        
+
     def remainingDistance(self):
         """Return the remaining distance."""
         sx = abs(self._x)
@@ -333,7 +333,7 @@ class KineticScroller(Scroller):
         elif self._y < 0:
             self._y += 1
         return ret
-    
+
     def finished(self):
         """Return True if scrolling is done."""
         return self._x == 0 and self._y == 0

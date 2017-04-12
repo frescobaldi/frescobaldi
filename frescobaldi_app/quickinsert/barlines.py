@@ -32,7 +32,7 @@ from . import buttongroup
 
 class BarLines(tool.Tool):
     """Barlines tool in the quick insert panel toolbox.
-    
+
     """
     def __init__(self, panel):
         super(BarLines, self).__init__(panel)
@@ -43,11 +43,11 @@ class BarLines(tool.Tool):
     def icon(self):
         """Should return an icon for our tab."""
         return symbols.icon("bar_single")
-    
+
     def title(self):
         """Should return a title for our tab."""
         return _("Bar Lines")
-  
+
     def tooltip(self):
         """Returns a tooltip"""
         return _("Bar lines, breathing signs, etcetera.")
@@ -56,7 +56,7 @@ class BarLines(tool.Tool):
 class BarlinesGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Bar Lines"))
-        
+
     def barlines(self):
         yield "bar_double", "||", "||", _("Double bar line")
         yield "bar_end", "|.", "|.", _("Ending bar line")
@@ -80,17 +80,17 @@ class BarlinesGroup(buttongroup.ButtonGroup):
         yield "bar_repeat_angled_end", None, ":|]", _("Angled repeat end")
         yield "bar_repeat_angled_double", None, ":|][|:", _("Angled repeat both")
         yield "bar_kievan", None, "k", _("Kievan bar line")
-    
+
     def actionData(self):
         self._barlines = {}
         for name, ly_text, ly_text_2_18, title in self.barlines():
             yield name, symbols.icon(name), None
             self._barlines[name] = ly_text, ly_text_2_18
-        
+
     def actionTexts(self):
         for name, ly_text, ly_text_2_18, title in self.barlines():
             yield name, title
-    
+
     def actionTriggered(self, name):
         version = documentinfo.docinfo(self.mainwindow().currentDocument()).version()
         glyphs = self._barlines[name]
@@ -109,7 +109,7 @@ class BreatheGroup(buttongroup.ButtonGroup):
     def actionData(self):
         for name, title in self.actionTexts():
             yield name, symbols.icon(name), None
-            
+
     def actionTexts(self):
         yield 'breathe_rcomma', _("Default Breathing Sign")
         yield 'breathe_rvarcomma', _("Straight Breathing Sign")

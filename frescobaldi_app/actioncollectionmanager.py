@@ -39,9 +39,9 @@ def manager(mainwindow):
 
 def action(collection_name, action_name):
     """Return a QAction from the application.
-    
+
     May return None, if the named collection or action does not exist.
-    
+
     """
     for mgr in ActionCollectionManager.instances():
         return mgr.action(collection_name, action_name)
@@ -52,17 +52,17 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         """Creates the ActionCollectionManager for the given mainwindow."""
         self._actioncollections = weakref.WeakValueDictionary()
-    
+
     def addActionCollection(self, collection):
         """Add an actioncollection to our list (used for changing keyboard shortcuts).
-        
+
         Does not keep a reference to it.  If the ActionCollection gets garbage collected,
         it is removed automatically from our list.
-        
+
         """
         if collection.name not in self._actioncollections:
             self._actioncollections[collection.name] = collection
-        
+
     def removeActionCollection(self, collection):
         """Removes the given ActionCollection from our list."""
         if collection.name in self._actioncollections:
@@ -71,7 +71,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
     def actionCollections(self):
         """Iterate over the ActionCollections in our list."""
         return self._actioncollections.values()
-        
+
     def action(self, collection_name, action_name):
         """Returns the named action from the named collection."""
         collection = self._actioncollections.get(collection_name)
@@ -79,7 +79,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
             if isinstance(collection, actioncollection.ShortcutCollection):
                 return collection.realAction(action_name)
             return getattr(collection, action_name, None)
-    
+
     def iterShortcuts(self, skip=None):
         """Iter all shortcuts of all collections."""
         for collection in self.actionCollections():
@@ -87,13 +87,13 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
                 if (collection, name) != skip:
                     for shortcut in collection.shortcuts(name):
                         yield shortcut, collection, name, a
-    
+
     def findShortcutConflict(self, shortcut, skip):
         """Find the possible shortcut conflict and return the conflict name.
-        
+
         skip must be a tuple (collection, name).
         it's the action to skip (the action that is about to be changed).
-        
+
         """
         if shortcut:
             for data in self.iterShortcuts(skip):
@@ -101,7 +101,7 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
                 if s1.matches(shortcut) or shortcut.matches(s1):
                     return qutil.removeAccelerator(data[-1].text())
         return None
-    
+
     def removeShortcuts(self, shortcuts):
         """Find and remove shorcuts of the given list."""
         for data in self.iterShortcuts():
@@ -111,4 +111,4 @@ class ActionCollectionManager(plugin.MainWindowPlugin):
                     collShortcuts = collection.shortcuts(name)
                     collShortcuts.remove(s1)
                     collection.setShortcuts(name, collShortcuts)
-    
+

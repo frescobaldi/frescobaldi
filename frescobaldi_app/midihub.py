@@ -58,7 +58,7 @@ def restart():
     portmidi.quit()
     portmidi.init()
     settingsChanged()
-    
+
 def refresh_ports():
     """Refreshes the port list."""
     restart()

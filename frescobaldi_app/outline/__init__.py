@@ -38,7 +38,7 @@ class OutlinePanel(panel.Panel):
     def translateUI(self):
         self.setWindowTitle(_("Outline"))
         self.toggleViewAction().setText(_("&Outline"))
-        
+
     def createWidget(self):
         from . import widget
         w = widget.Widget(self)

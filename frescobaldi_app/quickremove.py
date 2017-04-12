@@ -35,12 +35,12 @@ import ly.lex.lilypond
 
 def remove(func):
     """Decorator turning a function yielding ranges into removing the ranges.
-    
-    Note that you should call the function with a QTextCursor as the first 
-    argument. The returned decorator converts the QTextCursor to a 
-    ly.document.Cursor, calls the function and removes the ranges returned 
+
+    Note that you should call the function with a QTextCursor as the first
+    argument. The returned decorator converts the QTextCursor to a
+    ly.document.Cursor, calls the function and removes the ranges returned
     by the function.
-    
+
     """
     @functools.wraps(func)
     def decorator(cursor, *args):
@@ -72,12 +72,12 @@ def is_instrument_script(token):
 
 def find_positions(cursor, predicate, predicate_dir=None):
     """Yields positions (start, end) for tokens predicate returns True for.
-    
+
     The tokens (gotten from the cursor's selection) may be preceded by a
     ly.lex.lilypond.Direction token.
     If predicate_dir is specified, it is used for the items following a
     Direction tokens, otherwise predicate is also used for that case.
-    
+
     """
     if predicate_dir is None:
         predicate_dir = predicate
@@ -103,7 +103,7 @@ def comments(cursor):
         if isinstance(token, ly.lex.Comment):
             yield token.pos, token.end
 
-    
+
 @remove
 def articulations(cursor):
     """Remove articulations from the cursor's selection."""
@@ -184,10 +184,10 @@ def markup(cursor):
 @remove
 def smart_delete(cursor, backspace=False):
     r"""This function intelligently deletes an item the cursor is at.
-    
+
     Basically it behaves like normal Delete (cursor.deleteChar()) or BackSpace
     (cursor.deletePreviousChar()), but it performs the following:
-    
+
     - if the item is a matching object (, ), [, ], \[, \] etc, the other item is
       deleted as well
     - if the item is an articulation it is deleted completely with direction
@@ -195,7 +195,7 @@ def smart_delete(cursor, backspace=False):
     - if the cursor is on a note, the whole notename is deleted including
       postfix stuff
     - if the cursor is on the '<' of a chord, the whole chord is deleted
-    
+
     TODO: implement
     """
     pass

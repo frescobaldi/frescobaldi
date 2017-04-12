@@ -34,17 +34,17 @@ import ly.document
 
 
 class ScoreWizardDialog(QDialog):
-    
+
     pitchLanguageChanged = pyqtSignal(str)
-    
+
     def __init__(self, mainwindow):
         super(ScoreWizardDialog, self).__init__(mainwindow)
         self.addAction(mainwindow.actionCollection.help_whatsthis)
         self._pitchLanguage = None
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.tabs = QTabWidget()
         b = self.dialogButtons = QDialogButtonBox()
         b.setStandardButtons(
@@ -58,21 +58,21 @@ class ScoreWizardDialog(QDialog):
         self.previewButton.clicked.connect(self.showPreview)
         layout.addWidget(self.tabs)
         layout.addWidget(b)
-        
+
         self.header = Header(self)
         self.tabs.addTab(self.header, '')
         self.parts = Parts(self)
         self.tabs.addTab(self.parts, '')
         self.settings = Settings(self)
         self.tabs.addTab(self.settings, '')
-        
+
         self.tabs.setCurrentIndex(0)
         self.tabs.widget(0).widget() # activate it
         self.tabs.currentChanged.connect(self.slotCurrentChanged)
         qutil.saveDialogSize(self, "scorewiz/dialog/size")
         app.translateUI(self)
         self.accepted.connect(self.slotAccepted)
-    
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
         for i in range(self.tabs.count()):
@@ -81,11 +81,11 @@ class ScoreWizardDialog(QDialog):
         self.dialogButtons.button(QDialogButtonBox.Reset).setToolTip(_(
             "Clears the current page of the Score Wizard."))
         self.previewButton.setText(_("Preview"))
-        
+
     def slotCurrentChanged(self, i):
         """Lazy-loads the tab's page if shown for the first time."""
         self.tabs.widget(i).widget()
-        
+
     def reset(self):
         self.tabs.currentWidget().widget().clear()
 
@@ -93,7 +93,7 @@ class ScoreWizardDialog(QDialog):
         if language != self._pitchLanguage:
             self._pitchLanguage = language
             self.pitchLanguageChanged.emit(language)
-    
+
     def pitchLanguage(self):
         if self._pitchLanguage is None:
             # load setting; saving occurs in .settings.py
@@ -116,7 +116,7 @@ class ScoreWizardDialog(QDialog):
         doc.setPlainText(lydoc.plaintext()) # write the text in it
         doc.setModified(False)              # make it "not modified"
         self.parent().setCurrentDocument(doc)
-    
+
     def showPreview(self):
         """Shows a preview."""
         # get the document and fill in some example music
@@ -134,15 +134,15 @@ class ScoreWizardDialog(QDialog):
 
 class Page(QWidget):
     """A Page in the tab widget.
-    
+
     Basically this is just a QWidget that loads the desired page
     as soon as the widget() is called for the first time.
-    
+
     """
     def __init__(self, dialog):
         super(Page, self).__init__(dialog)
         self._widget = None
-        
+
     def title(self):
         """Should return a title."""
 
@@ -157,7 +157,7 @@ class Page(QWidget):
 
     def createWidget(self, parent):
         """Should return the widget for this tab."""
-        
+
 
 class Header(Page):
     def title(self):
@@ -167,7 +167,7 @@ class Header(Page):
         from . import header
         return header.HeaderWidget(parent)
 
-        
+
 class Parts(Page):
     def title(self):
         return _("&Parts")
@@ -180,7 +180,7 @@ class Parts(Page):
 class Settings(Page):
     def title(self):
         return _("&Score settings")
-    
+
     def createWidget(self, parent):
         from . import settings
         return settings.SettingsWidget(parent)

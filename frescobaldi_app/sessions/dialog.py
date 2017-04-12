@@ -27,8 +27,8 @@ import json
 
 from PyQt5.QtCore import Qt, QSettings, QUrl
 from PyQt5.QtWidgets import (
-    QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog, 
-    QGridLayout, QGroupBox, QLabel, QListWidgetItem, QLineEdit, QMessageBox, 
+    QAbstractItemView, QCheckBox, QDialog, QDialogButtonBox, QFileDialog,
+    QGridLayout, QGroupBox, QLabel, QListWidgetItem, QLineEdit, QMessageBox,
     QPushButton, QVBoxLayout)
 
 import app
@@ -45,23 +45,23 @@ class SessionManagerDialog(QDialog):
         self.setWindowModality(Qt.WindowModal)
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.sessions = SessionList(self)
         layout.addWidget(self.sessions)
-        
+
         self.imp = QPushButton(self)
         self.exp = QPushButton(self)
         self.act = QPushButton(self)
         self.imp.clicked.connect(self.importSession)
         self.exp.clicked.connect(self.exportSession)
         self.act.clicked.connect(self.activateSession)
-        
+
         self.sessions.layout().addWidget(self.imp, 5, 1)
         self.sessions.layout().addWidget(self.exp, 6, 1)
         self.sessions.layout().addWidget(self.act, 7, 1)
-        
+
         layout.addWidget(widgets.Separator())
-        
+
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
         b.setStandardButtons(QDialogButtonBox.Close)
@@ -72,7 +72,7 @@ class SessionManagerDialog(QDialog):
         self.sessions.changed.connect(self.enableButtons)
         self.sessions.listBox.itemSelectionChanged.connect(self.enableButtons)
         self.enableButtons()
-        
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Manage Sessions")))
         self.imp.setText(_("&Import..."))
@@ -81,13 +81,13 @@ class SessionManagerDialog(QDialog):
         self.exp.setToolTip(_("Opens a dialog to export a session to a file."))
         self.act.setText(_("&Activate"))
         self.act.setToolTip(_("Switches to the selected session."))
-    
+
     def enableButtons(self):
         """Called when the selection in the listedit changes."""
         enabled = bool(self.sessions.listBox.currentItem())
         self.act.setEnabled(enabled)
         self.exp.setEnabled(enabled)
-        
+
     def importSession(self):
         """Called when the user clicks Import."""
         filetypes = '{0} (*.json);;{1} (*)'.format(_("JSON Files"), _("All Files"))
@@ -106,7 +106,7 @@ class SessionManagerDialog(QDialog):
                 strerror = e.strerror,
                 errno = e.errno)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
-        
+
     def exportSession(self):
         """Called when the user clicks Export."""
         itemname, jsondict = self.sessions.exportItem()
@@ -127,7 +127,7 @@ class SessionManagerDialog(QDialog):
                 strerror = e.strerror,
                 errno = e.errno)
             QMessageBox.critical(self, app.caption(_("Error")), msg)
-    
+
     def activateSession(self):
         """Called when the user clicks Activate."""
         item = self.sessions.listBox.currentItem()
@@ -161,7 +161,7 @@ class SessionList(widgets.listedit.ListEdit):
         if name:
             item.setText(name)
             return True
-            
+
     def importItem(self, data):
         """Implement importing a new session from a json data dict."""
         name = data['name']
@@ -178,12 +178,12 @@ class SessionList(widgets.listedit.ListEdit):
         names = sessions.sessionNames()
         if name in names:
             self.setCurrentRow(names.index(name))
-        
+
     def exportItem(self):
         """Implement exporting the currently selected session item to a dict.
-        
+
         Returns the dict, which can be dumped as a json data dictionary.
-        
+
         """
         jsondict = {}
         item = self.listBox.currentItem()
@@ -193,7 +193,7 @@ class SessionList(widgets.listedit.ListEdit):
                 urls = []
                 for u in s.value(key):
                     urls.append(u.toString())
-                jsondict[key] = urls 
+                jsondict[key] = urls
             else:
                 jsondict[key] = s.value(key)
         return (item.text(), jsondict)
@@ -203,50 +203,50 @@ class SessionEditor(QDialog):
     def __init__(self, parent=None):
         super(SessionEditor, self).__init__(parent)
         self.setWindowModality(Qt.WindowModal)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         grid = QGridLayout()
         layout.addLayout(grid)
-        
+
         self.name = QLineEdit()
         self.nameLabel = l = QLabel()
         l.setBuddy(self.name)
         grid.addWidget(l, 0, 0)
         grid.addWidget(self.name, 0, 1)
-        
+
         self.autosave = QCheckBox()
         grid.addWidget(self.autosave, 1, 1)
-        
+
         self.basedir = widgets.urlrequester.UrlRequester()
         self.basedirLabel = l = QLabel()
         l.setBuddy(self.basedir)
         grid.addWidget(l, 2, 0)
         grid.addWidget(self.basedir, 2, 1)
-        
+
         self.inclPaths = ip = QGroupBox(self, checkable=True, checked=False)
         ipLayout = QVBoxLayout()
         ip.setLayout(ipLayout)
-        
+
         self.replPaths = QCheckBox()
         ipLayout.addWidget(self.replPaths)
         self.replPaths.toggled.connect(self.toggleReplace)
-        
+
         self.include = widgets.listedit.FilePathEdit()
         self.include.listBox.setDragDropMode(QAbstractItemView.InternalMove)
         ipLayout.addWidget(self.include)
-        
+
         grid.addWidget(ip, 3, 1)
-        
+
         self.revt = QPushButton(self)
         self.clear = QPushButton(self)
         self.revt.clicked.connect(self.revertPaths)
         self.clear.clicked.connect(self.clearPaths)
-       
+
         self.include.layout().addWidget(self.revt, 5, 1)
         self.include.layout().addWidget(self.clear, 6, 1)
-        
+
         layout.addWidget(widgets.Separator())
         self.buttons = b = QDialogButtonBox(self)
         layout.addWidget(b)
@@ -255,7 +255,7 @@ class SessionEditor(QDialog):
         b.rejected.connect(self.reject)
         userguide.addButton(b, "sessions")
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.nameLabel.setText(_("Name:"))
         self.autosave.setText(_("Always save the list of documents in this session"))
@@ -267,7 +267,7 @@ class SessionEditor(QDialog):
         self.revt.setToolTip(_("Add and edit the path from LilyPond preferences."))
         self.clear.setText(_("Clear"))
         self.clear.setToolTip(_("Remove all paths."))
-    
+
     def load(self, name):
         settings = sessions.sessionGroup(name)
         self.autosave.setChecked(settings.value("autosave", True, bool))
@@ -279,19 +279,19 @@ class SessionEditor(QDialog):
             self.addDisabledGenPaths()
             self.revt.setEnabled(False)
         # more settings here
-        
+
     def fetchGenPaths(self):
         """Fetch paths from general preferences."""
         return qsettings.get_string_list(QSettings(),
             "lilypond_settings/include_path")
-            
+
     def addDisabledGenPaths(self):
         """Add global paths, but set as disabled."""
         genPaths = self.fetchGenPaths()
         for p in genPaths:
             i = QListWidgetItem(p, self.include.listBox)
             i.setFlags(Qt.NoItemFlags)
-            
+
     def toggleReplace(self):
         """Called when user changes setting for replace of global paths."""
         if self.replPaths.isChecked():
@@ -303,20 +303,20 @@ class SessionEditor(QDialog):
         else:
             self.addDisabledGenPaths()
             self.revt.setEnabled(False)
-            
+
     def revertPaths(self):
         """Add global paths (for edit)."""
         genPaths = self.fetchGenPaths()
         for p in genPaths:
             i = QListWidgetItem(p, self.include.listBox)
-        
+
     def clearPaths(self):
         """Remove all active paths."""
         items = self.include.items()
         for i in items:
             if i.flags() & Qt.ItemIsEnabled:
                 self.include.listBox.takeItem(self.include.listBox.row(i))
-        
+
     def save(self, name):
         settings = sessions.sessionGroup(name)
         settings.setValue("autosave", self.autosave.isChecked())
@@ -326,7 +326,7 @@ class SessionEditor(QDialog):
         path = [i.text() for i in self.include.items() if i.flags() & Qt.ItemIsEnabled]
         settings.setValue("include-path", path)
         # more settings here
-        
+
     def defaults(self):
         self.autosave.setChecked(True)
         self.basedir.setPath('')
@@ -335,7 +335,7 @@ class SessionEditor(QDialog):
         self.addDisabledGenPaths()
         self.revt.setEnabled(False)
         # more defaults here
-        
+
     def edit(self, name=None):
         self._originalName = name
         if name:
@@ -359,10 +359,10 @@ class SessionEditor(QDialog):
     def done(self, result):
         if not result or self.validate():
             super(SessionEditor, self).done(result)
-        
+
     def validate(self):
         """Checks if the input is acceptable.
-        
+
         If this method returns True, the dialog is accepted when OK is clicked.
         Otherwise a messagebox could be displayed, and the dialog will remain
         visible.
@@ -376,13 +376,13 @@ class SessionEditor(QDialog):
             if self._originalName:
                 self.name.setText(self._originalName)
             return False
-        
+
         elif name == '-':
             self.name.setFocus()
             QMessageBox.warning(self, app.caption(_("Warning")),
                 _("Please do not use the name '{name}'.".format(name="-")))
             return False
-        
+
         elif self._originalName != name and name in sessions.sessionNames():
             self.name.setFocus()
             box = QMessageBox(QMessageBox.Warning, app.caption(_("Warning")),
@@ -393,6 +393,6 @@ class SessionEditor(QDialog):
             result = box.exec_()
             if result != QMessageBox.Discard:
                 return False
-            
+
         return True
 

@@ -37,10 +37,10 @@ class NormalMode(handlerbase.Handler):
         super(NormalMode, self).__init__(vimode)
         self._command = []
         self._count = 0
-        
+
     def enter(self):
         self.vimode.textEdit().setCursorWidth(0)
-    
+
     def updateCursorPosition(self):
         cursor = self.textCursor()
         if cursor.hasSelection() and cursor.position() > cursor.anchor():
@@ -65,11 +65,11 @@ class NormalMode(handlerbase.Handler):
             else:
                 self._count = 0
             return True
-        
+
         # TEMP
         if ev.text():
             self._command.append(ev.text())
-        
+
         cmd = ''.join(self._command)
         for s, f in commands:
             if re.compile(s).match(cmd):
@@ -77,10 +77,10 @@ class NormalMode(handlerbase.Handler):
                 self._count = 0
                 self._command = []
                 return True
-        
+
         return True
-    
-    
+
+
     def command(cmds, count=True, set_cursor=True):
         def decorator(func):
             def wrapper(self):
@@ -95,21 +95,21 @@ class NormalMode(handlerbase.Handler):
             for c in cmds:
                 commands.append((c, wrapper))
         return decorator
-    
+
     @command(['h', '<left>'])
     def move_left(self, cursor):
         if cursor.position() > cursor.block().position():
             cursor.movePosition(QTextCursor.PreviousCharacter)
-    
+
     @command(['l', '<right>'])
     def move_right(self, cursor):
         if cursor.position() < cursor.block().position() + cursor.block().length() - 2:
             cursor.movePosition(QTextCursor.NextCharacter)
-    
+
     @command('i', set_cursor=False)
     def insert_mode(self, cursor):
         self.setInsertMode()
-    
-    
-        
+
+
+
 

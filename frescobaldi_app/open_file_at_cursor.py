@@ -32,9 +32,9 @@ import browseriface
 
 def filenames_at_cursor(cursor, existing=True):
     """Return a list of filenames at the cursor.
-    
+
     If existing is False, also names are returned that do not exist on disk.
-    
+
     """
     # take either the selection or the include-args found by lydocinfo
     start = cursor.document().findBlock(cursor.selectionStart()).position()
@@ -48,7 +48,7 @@ def filenames_at_cursor(cursor, existing=True):
         text = cursor.selection().toPlainText()
         if '\n' not in text.strip():
             fnames = [text]
-    
+
     # determine search path: doc dir and other include path names
     filename = cursor.document().url().toLocalFile()
     directory = os.path.dirname(filename)
@@ -57,7 +57,7 @@ def filenames_at_cursor(cursor, existing=True):
     else:
         path = []
     path.extend(dinfo.includepath())
-    
+
     # find all docs, trying all include paths
     filenames = []
     for f in fnames:
@@ -74,9 +74,9 @@ def filenames_at_cursor(cursor, existing=True):
 
 def open_file_at_cursor(mainwindow, cursor=None):
     """Open the filename(s) mentioned at the mainwindow's text cursor.
-    
+
     Return True if there were one or more filenames that were opened.
-    
+
     """
     if cursor is None:
         cursor = mainwindow.textCursor()

@@ -29,7 +29,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QWidget
 
 class Tool(QWidget):
     """Base class for a tool in the quick insert panel toolbox.
-    
+
     """
     def __init__(self, panel):
         super(Tool, self).__init__(panel)
@@ -37,15 +37,15 @@ class Tool(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
         layout.setContentsMargins(0, 0, 0, 0)
-    
+
     def panel(self):
         """Returns the panel."""
         return self._panel()
-    
+
     def icon(self):
         """Should return an icon for our tab."""
         pass
-    
+
     def title(self):
         """Should return a title for our tab."""
         pass

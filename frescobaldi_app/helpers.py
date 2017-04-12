@@ -33,26 +33,26 @@ from PyQt5.QtWidgets import QMessageBox
 
 def shell_split(cmd):
     """Split a string like the UNIX shell, returning a list.
-    
+
     Double quoted parts are kept together with the quotes removed.
-    
+
     """
     # remove double quotes, keeping quoted parts together
     # (because shlex does not yet work with unicode...)
-    return [item.replace('"', '') for item in 
+    return [item.replace('"', '') for item in
         re.findall(r'[^\s"]*"[^"]*"[^\s"]*|[^\s"]+', cmd)]
 
 
 def command(type):
     """Returns the command for the specified type as a list.
-    
+
     Returns None if no command was specified.
-    
+
     """
     cmd = QSettings().value("helper_applications/" + type, "")
     if not cmd:
         return
-    
+
     if os.path.isabs(cmd) and os.access(cmd, os.X_OK):
         return [cmd]
 
@@ -74,7 +74,7 @@ def openUrl(url, type="browser"):
             type = "image"
         elif ext in ('.midi', '.mid'):
             type = "midi"
-    
+
     # get the command
     cmd = command(type)
     if not cmd:
@@ -83,15 +83,15 @@ def openUrl(url, type="browser"):
             return
         for cmd in terminalCommands():
             break # get the first
-    
+
     prog = cmd.pop(0)
-    
+
     workdir = None
     if url.toLocalFile():
         workdir = url.toLocalFile()
         if type != "shell":
             workdir = os.path.dirname(workdir)
-    
+
     if any('$f' in a or '$u' in a for a in cmd):
         cmd = [a.replace('$u', url.toString())
                 if '$u' in a else a.replace('$f', url.toLocalFile())
@@ -100,7 +100,7 @@ def openUrl(url, type="browser"):
         cmd.append(url.toString())
     elif type != "shell":
         cmd.append(url.toLocalFile())
-    
+
     try:
         subprocess.Popen([prog] + cmd, cwd=workdir)
     except OSError:
@@ -111,9 +111,9 @@ def openUrl(url, type="browser"):
 
 def terminalCommands():
     """Yields suitable commands to open a terminal/shell window.
-    
+
     There is always yielded at least one, which is suitable as default.
-    
+
     """
     if os.name == "nt":
         yield ['cmd.exe']

@@ -49,10 +49,10 @@ class SessionMenu(QMenu):
         self.addAction(ac.session_none)
         self.addSeparator()
         self.aboutToShow.connect(self.populate)
-    
+
     def translateUI(self):
         self.setTitle(_('menu title', '&Session'))
-    
+
     def populate(self):
         ac = manager.get(self.parentWidget()).actionCollection
         ag = self._actionGroup

@@ -47,7 +47,7 @@ def hide():
         _widget.hide()
         _widget = None
         QApplication.instance().removeEventFilter(_handler)
-    
+
 def show(widget, pos=None, timeout=10000):
     """Show the widget at position."""
     if pos is None:
@@ -61,7 +61,7 @@ def show(widget, pos=None, timeout=10000):
         if _handler is None:
             _handler = EventHandler()
         QApplication.instance().installEventFilter(_handler)
-    
+
     # where to display the tooltip
     screen = QApplication.desktop().availableGeometry(pos)
     x = pos.x() + 2
@@ -78,7 +78,7 @@ def show(widget, pos=None, timeout=10000):
     if widget.windowFlags() & Qt.ToolTip != Qt.ToolTip:
         widget.setWindowFlags(Qt.ToolTip)
         widget.ensurePolished()
-    
+
     widget.show()
     _widget = widget
     _timer.start(timeout)

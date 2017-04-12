@@ -62,10 +62,10 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
         ac.tools_quick_remove_fingerings.triggered.connect(self.quickRemoveFingerings)
         ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
-        
+
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
         mainwindow.selectionStateChanged.connect(self.updateSelectionActions)
-        
+
     def updateDocActions(self, doc):
         minfo = metainfo.info(doc)
         if minfo.highlighting:
@@ -73,7 +73,7 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac = self.actionCollection
         ac.view_highlighting.setChecked(minfo.highlighting)
         ac.tools_indent_auto.setChecked(minfo.auto_indent)
-    
+
     def updateSelectionActions(self, selection):
         self.actionCollection.edit_cut_assign.setEnabled(selection)
         self.actionCollection.edit_move_to_include_file.setEnabled(selection)
@@ -87,99 +87,99 @@ class DocumentActions(plugin.MainWindowPlugin):
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
         self.actionCollection.tools_quick_remove_fingerings.setEnabled(selection)
         self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
-    
+
     def currentView(self):
         return self.mainwindow().currentView()
-    
+
     def currentDocument(self):
         return self.mainwindow().currentDocument()
-        
+
     def updateOtherDocActions(self):
         """Calls updateDocActions() in other instances that show same document."""
         doc = self.currentDocument()
         for i in self.instances():
             if i is not self and i.currentDocument() == doc:
                 i.updateDocActions(doc)
-    
+
     def gotoFileOrDefinition(self):
         import open_file_at_cursor
         result = open_file_at_cursor.open_file_at_cursor(self.mainwindow())
         if not result:
             import definition
             definition.goto_definition(self.mainwindow())
-    
+
     def cutAssign(self):
         import cut_assign
         cut_assign.cut_assign(self.currentView().textCursor())
-        
+
     def moveToIncludeFile(self):
         import cut_assign
         cut_assign.move_to_include_file(self.currentView().textCursor(), self.mainwindow())
-    
+
     def toggleAuto_indent(self):
         minfo = metainfo.info(self.currentDocument())
         minfo.auto_indent = not minfo.auto_indent
         self.updateOtherDocActions()
-    
+
     def re_indent(self):
         import indent
         indent.re_indent(self.currentView().textCursor())
-    
+
     def reFormat(self):
         import reformat
         reformat.reformat(self.currentView().textCursor())
-    
+
     def removeTrailingWhitespace(self):
         import reformat
         reformat.remove_trailing_whitespace(self.currentView().textCursor())
-    
+
     def toggleHighlighting(self):
         doc = self.currentDocument()
         minfo = metainfo.info(doc)
         minfo.highlighting = not minfo.highlighting
         highlighter.highlighter(doc).setHighlighting(minfo.highlighting)
         self.updateOtherDocActions()
-    
+
     def convertLy(self):
         import convert_ly
         convert_ly.convert(self.mainwindow())
-    
+
     def quickRemoveComments(self):
         import quickremove
         quickremove.comments(self.mainwindow().textCursor())
-    
+
     def quickRemoveArticulations(self):
         import quickremove
         quickremove.articulations(self.mainwindow().textCursor())
-    
+
     def quickRemoveOrnaments(self):
         import quickremove
         quickremove.ornaments(self.mainwindow().textCursor())
-    
+
     def quickRemoveInstrumentScripts(self):
         import quickremove
         quickremove.instrument_scripts(self.mainwindow().textCursor())
-    
+
     def quickRemoveSlurs(self):
         import quickremove
         quickremove.slurs(self.mainwindow().textCursor())
-    
+
     def quickRemoveBeams(self):
         import quickremove
         quickremove.beams(self.mainwindow().textCursor())
-    
+
     def quickRemoveLigatures(self):
         import quickremove
         quickremove.ligatures(self.mainwindow().textCursor())
-    
+
     def quickRemoveDynamics(self):
         import quickremove
         quickremove.dynamics(self.mainwindow().textCursor())
-    
+
     def quickRemoveFingerings(self):
         import quickremove
         quickremove.fingerings(self.mainwindow().textCursor())
-    
+
     def quickRemoveMarkup(self):
         import quickremove
         quickremove.markup(self.mainwindow().textCursor())
@@ -209,13 +209,13 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_dynamics = QAction(parent)
         self.tools_quick_remove_fingerings = QAction(parent)
         self.tools_quick_remove_markup = QAction(parent)
-        
+
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
         self.edit_move_to_include_file.setIcon(icons.get('edit-cut'))
 
         self.view_goto_file_or_definition.setShortcut(QKeySequence(Qt.ALT + Qt.Key_Return))
         self.edit_cut_assign.setShortcut(QKeySequence(Qt.SHIFT + Qt.CTRL + Qt.Key_X))
-    
+
     def translateUI(self):
         self.edit_cut_assign.setText(_("Cut and Assign..."))
         self.edit_move_to_include_file.setText(_("Move to Include File..."))
@@ -225,7 +225,7 @@ class Actions(actioncollection.ActionCollection):
         self.tools_indent_indent.setText(_("Re-&Indent"))
         self.tools_reformat.setText(_("&Format"))
         self.tools_remove_trailing_whitespace.setText(_("Remove Trailing &Whitespace"))
-        self.tools_convert_ly.setText(_("&Update with convert-ly...")) 
+        self.tools_convert_ly.setText(_("&Update with convert-ly..."))
         self.tools_quick_remove_comments.setText(_("Remove &Comments"))
         self.tools_quick_remove_articulations.setText(_("Remove &Articulations"))
         self.tools_quick_remove_ornaments.setText(_("Remove &Ornaments"))

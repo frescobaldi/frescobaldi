@@ -47,11 +47,11 @@ def get(url):
 
 def langs():
     """Returns a list of language codes wished for documentation.
-    
+
     If the list is empty, english (untranslated) is assumed.
     If a language code also has a country suffix, a hyphen will be used
     as separator (as required per RFC2616, Accept-Language header).
-    
+
     """
     s = QSettings()
     langs = []
@@ -62,7 +62,7 @@ def langs():
     if lang and lang != "C":
         langs.append(lang)
     langs.extend(po.setup.preferred())
-    
+
     # now fixup the list, remove dups and
     # language/country codes in Accept-Language headers must have '-' and not '_'
     result = []
@@ -85,7 +85,7 @@ class NetworkAccessManager(networkaccessmanager.NetworkAccessManager):
         super(NetworkAccessManager, self).__init__(parent)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-    
+
     def readSettings(self):
         l = langs()
         if 'en' not in l:

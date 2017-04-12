@@ -46,11 +46,11 @@ _lastaction = '' # last selected action name (saved during running but not on ex
 class Shortcuts(preferences.Page):
     def __init__(self, dialog):
         super(Shortcuts, self).__init__(dialog)
-        
+
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-        
+
         self.scheme = SchemeSelector(self)
         layout.addWidget(self.scheme)
         self.searchEntry = LineEdit()
@@ -63,10 +63,10 @@ class Shortcuts(preferences.Page):
         self.tree.setAllColumnsShowFocus(True)
         self.tree.setAnimated(True)
         layout.addWidget(self.tree)
-        
+
         self.edit = QPushButton(icons.get("preferences-desktop-keyboard-shortcuts"), '')
         layout.addWidget(self.edit)
-        
+
         # signals
         self.searchEntry.textChanged.connect(self.updateFilter)
         self.scheme.currentChanged.connect(self.slotSchemeChanged)
@@ -74,7 +74,7 @@ class Shortcuts(preferences.Page):
         self.tree.currentItemChanged.connect(self.slotCurrentItemChanged)
         self.tree.itemDoubleClicked.connect(self.editCurrentItem)
         self.edit.clicked.connect(self.editCurrentItem)
-        
+
         # make a dict of all actions with the actions as key and the names as
         # value, with the collection prepended (for loading/saving)
         win = dialog.parent()
@@ -82,10 +82,10 @@ class Shortcuts(preferences.Page):
         for collection in actioncollectionmanager.manager(win).actionCollections():
             for name, action in collection.actions().items():
                 allactions[action] = (collection, name)
-        
+
         # keep a list of actions not in the menu structure
         left = list(allactions.keys())
-        
+
         def add_actions(menuitem, actions):
             """Add actions to a QTreeWidgetItem."""
             for a in actions:
@@ -97,7 +97,7 @@ class Shortcuts(preferences.Page):
                     left.remove(a)
                     menuitem.addChild(ShortcutItem(a, *allactions[a]))
             menuitem.setFlags(Qt.ItemIsEnabled) # disable selection
-            
+
         def build_menu_item(action):
             """Return a QTreeWidgetItem with children for all the actions in the submenu."""
             menuitem = QTreeWidgetItem()
@@ -105,16 +105,16 @@ class Shortcuts(preferences.Page):
             menuitem.setText(0, _("Menu {name}").format(name=text))
             add_actions(menuitem, action.menu().actions())
             return menuitem
-        
+
         # present the actions nicely ordered as in the menus
         for a in win.menuBar().actions():
             menuitem = build_menu_item(a)
             if menuitem.childCount():
                 self.tree.addTopLevelItem(menuitem)
-        
+
         # sort leftover actions
         left.sort(key=lambda i: i.text())
-        
+
         # show actions that are left, grouped by collection
         titlegroups = {}
         for a in left[:]: # copy
@@ -128,7 +128,7 @@ class Shortcuts(preferences.Page):
                 item.addChild(ShortcutItem(a, *allactions[a]))
             self.tree.addTopLevelItem(item)
             item.setFlags(Qt.ItemIsEnabled) # disable selection
-            
+
         # show other actions that were not in the menus
         item = QTreeWidgetItem([_("Other commands:")])
         for a in left:
@@ -137,9 +137,9 @@ class Shortcuts(preferences.Page):
         if item.childCount():
             self.tree.addTopLevelItem(item)
             item.setFlags(Qt.ItemIsEnabled) # disable selection
-        
+
         self.tree.expandAll()
-        
+
         item = self.tree.topLevelItem(0).child(0)
         if _lastaction:
             # find the previously selected item
@@ -149,7 +149,7 @@ class Shortcuts(preferences.Page):
                     break
         self.tree.setCurrentItem(item)
         self.tree.resizeColumnToContents(0)
-        
+
     def items(self):
         """Yield all the items in the actions tree."""
         def children(item):
@@ -162,12 +162,12 @@ class Shortcuts(preferences.Page):
                     yield c
         for c in children(self.tree.invisibleRootItem()):
             yield c
-    
+
     def item(self, collection, name):
         for item in self.items():
             if item.collection.name == collection and item.name == name:
                 return item
-             
+
     def saveSettings(self):
         self.scheme.saveSettings("shortcut_scheme", "shortcut_schemes", "shortcuts")
         for item in self.items():
@@ -175,19 +175,19 @@ class Shortcuts(preferences.Page):
                 item.save(scheme)
             item.clearSettings()
             item.switchScheme(self.scheme.currentScheme())
-        
+
     def loadSettings(self):
         self.scheme.loadSettings("shortcut_scheme", "shortcut_schemes")
         # clear the settings in all the items
         for item in self.items():
             item.clearSettings()
             item.switchScheme(self.scheme.currentScheme())
-        
+
     def slotSchemeChanged(self):
         """Called when the Scheme combobox is changed by the user."""
         for item in self.items():
             item.switchScheme(self.scheme.currentScheme())
-        
+
     def slotCurrentItemChanged(self, item):
         if isinstance(item, ShortcutItem):
             self.edit.setText(
@@ -198,11 +198,11 @@ class Shortcuts(preferences.Page):
         else:
             self.edit.setText(_("(no shortcut)"))
             self.edit.setEnabled(False)
-        
+
     def import_(self, filename):
         from . import import_export
         import_export.importShortcut(filename, self, self.scheme)
-        
+
     def export(self, name, filename):
         from . import import_export
         try:
@@ -211,7 +211,7 @@ class Shortcuts(preferences.Page):
             QMessageBox.critical(self, _("Error"), _(
                 "Can't write to destination:\n\n{url}\n\n{error}").format(
                 url=filename, error=e.strerror))
-    
+
     def findShortcutConflict(self, shortcut):
         """Find the possible shortcut conflict and return the conflict name."""
         if shortcut:
@@ -225,8 +225,8 @@ class Shortcuts(preferences.Page):
                     for s1 in a.shortcuts():
                         if s1.matches(shortcut) or shortcut.matches(s1):
                             return qutil.removeAccelerator(a.text())
-        return None           
-    
+        return None
+
     def editCurrentItem(self):
         item = self.tree.currentItem()
         if not isinstance(item, ShortcutItem):
@@ -253,7 +253,7 @@ class Shortcuts(preferences.Page):
                             if s1.matches(s2) or s2.matches(s1):
                                 l.remove(s1)
                     i.setShortcuts(l, scheme)
-                
+
             # store the shortcut
             item.setShortcuts(shortcuts, scheme)
             self.changed.emit()
@@ -293,40 +293,40 @@ class ShortcutItem(QTreeWidgetItem):
         self.setIcon(0, action.icon())
         self.setText(0, qutil.removeAccelerator(action.text()))
         self._shortcuts = {}
-        
+
     def clearSettings(self):
         self._shortcuts.clear()
-    
+
     def action(self, scheme):
         """Returns a new QAction that represents our item.
-        
+
         The action contains the text, icon and current shortcut.
-        
+
         """
         action = QAction(self.icon(0), self.text(0).replace('&', '&&'), None)
         action.setShortcuts(self._shortcuts[scheme][0])
         return action
-    
+
     def shortcuts(self, scheme):
         """Returns the list of shortcuts currently set for scheme."""
         return list(self._shortcuts[scheme][0])
-    
+
     def isDefault(self, scheme):
         return self._shortcuts[scheme][1]
-    
+
     def setShortcuts(self, shortcuts, scheme):
         default = shortcuts == self.defaultShortcuts()
         self._shortcuts[scheme] = (shortcuts, default)
         self.display(scheme)
-        
+
     def defaultShortcuts(self):
         """Returns a (possibly empty) list of QKeySequence objects.
-        
+
         The list represents the default shortcut for this item, if any.
-        
+
         """
         return self.collection.defaults().get(self.name, [])
-        
+
     def switchScheme(self, scheme):
         if scheme not in self._shortcuts:
             s = QSettings()
@@ -342,7 +342,7 @@ class ShortcutItem(QTreeWidgetItem):
                 # default
                 self._shortcuts[scheme] = (self.defaultShortcuts(), True)
         self.display(scheme)
-    
+
     def save(self, scheme):
         try:
             shortcuts, default = self._shortcuts[scheme]
@@ -354,7 +354,7 @@ class ShortcutItem(QTreeWidgetItem):
             s.remove(key)
         else:
             s.setValue(key, shortcuts)
-            
+
     def display(self, scheme):
         text = ''
         shortcuts, default = self._shortcuts[scheme]
@@ -365,13 +365,13 @@ class ShortcutItem(QTreeWidgetItem):
             if default:
                 text += "  " + _("(default)")
         self.setText(1, text)
-        
+
     def matches(self, scheme, text):
         """Return True if the text matches our description or shortcuts.
-        
+
         Shortcuts are checked in the specified scheme.
         The match is case insensitive.
-        
+
         """
         text = text.lower()
         if text in self.text(0).lower():

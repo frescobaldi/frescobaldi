@@ -94,13 +94,13 @@ def create_outline_re():
 class DocumentStructure(plugin.DocumentPlugin):
     def __init__(self, document):
         self._outline = None
-    
+
     def invalidate(self):
         """Called when the document changes or the settings are changed."""
         self._outline = None
         app.settingsChanged.disconnect(self.invalidate)
         self.document().contentsChanged.disconnect(self.invalidate)
-    
+
     def outline(self):
         """Return the document outline as a series of match objects."""
         if self._outline is None:

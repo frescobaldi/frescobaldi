@@ -20,10 +20,10 @@
 """
 Harvest information from a ly.document.DocumentBase instance.
 
-This extends the ly.docinfo.DocInfo class with some behaviour specific to 
+This extends the ly.docinfo.DocInfo class with some behaviour specific to
 Frescobaldi, such as variables.
 
-With this module, information extracted from tokenized LilyPond source is 
+With this module, information extracted from tokenized LilyPond source is
 available to both text documents on disk and loaded Frescobaldi documents.
 
 """
@@ -37,12 +37,12 @@ import ly.docinfo
 
 class DocInfo(ly.docinfo.DocInfo):
     """Add Frescobaldi-specific stuff to ly.docinfo.DocInfo."""
-    
+
     def __init__(self, doc, variables):
         """Initialize with ly.document instance and variables dictionary."""
         super(DocInfo, self).__init__(doc)
         self.variables = variables
-    
+
     @ly.docinfo._cache
     def version_string(self):
         """Return the version, but also looks in the variables and comments."""

@@ -25,14 +25,14 @@ class MidiInputTool(panel.Panel):
         ac.accidental_switch.triggered.connect(self.slotAccidentalSwitch)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
-    
+
     def translateUI(self):
         self.setWindowTitle(_("MIDI Input"))
         self.toggleViewAction().setText(_("MIDI I&nput"))
-    
+
     def slotStartCapturing(self):
         self.widget().startcapturing()
-    
+
     def slotStopCapturing(self):
         self.widget().stopcapturing()
 
@@ -49,16 +49,16 @@ class Actions(actioncollection.ActionCollection):
         self.capture_start = QAction(parent)
         self.capture_stop = QAction(parent)
         self.accidental_switch = QAction(parent)
-        
+
         self.capture_start.setIcon(icons.get('media-record'))
         self.capture_stop.setIcon(icons.get('process-stop'))
 
         self.accidental_switch.setShortcut(QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_3))
-        
+
     def translateUI(self):
         self.capture_start.setText(_("midi input", "Start capturing"))
         self.capture_start.setToolTip(_("midi input", "Start MIDI capturing"))
         self.capture_stop.setText(_("midi input", "Stop capturing"))
         self.capture_stop.setToolTip(_("midi input", "Stop MIDI capturing"))
-        self.accidental_switch.setText(_("midi input", "Switch accidental style"))    
+        self.accidental_switch.setText(_("midi input", "Switch accidental style"))
         self.accidental_switch.setToolTip(_("midi input", "Change accidental style (flats or sharps)"))

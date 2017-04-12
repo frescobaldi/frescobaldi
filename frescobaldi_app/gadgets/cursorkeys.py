@@ -28,32 +28,32 @@ from PyQt5.QtGui import QKeySequence, QTextCursor
 
 class KeyPressHandler(QObject):
     """Handles various keypress events in a configurable way.
-    
+
     Instance attributes (default at class level):
-    
+
     handle_home (False):    handles the Home/Shift Home keys so that initial
                             whitespace is skipped
-    
+
     handle_horizontal (False): don't move to the previous or next
                             block when using the horizontal arrow keys
-    
+
     handle_vertical (False): go to the end of a block when Down or PageDown
                             is pressed in the last block, or Up or PageUp in the
                             first block.
-                            
+
     """
-    
+
     # special home/shift home behaviour
     handle_home = False
-    
+
     # stay in block on horizontal arrow keys
     handle_horizontal = False
-    
+
     # go to first character when Up or PgUp pressed in first block, or to
     # last character when Dn or PgDn is pressed in the last block.
     handle_vertical = False
-    
-    
+
+
     def eventFilter(self, obj, ev):
         """Reimplemented to dispatch keypress events to the handle() method."""
         if ev.type() == QEvent.KeyPress:
@@ -62,12 +62,12 @@ class KeyPressHandler(QObject):
 
     def handle(self, edit, ev):
         """Return True or False, handling the event if applicable.
-        
+
         This method is called by eventFilter() for KeyPress events.
-        
+
         edit: Q(Plain)TextEdit instance
         ev: the KeyPress QEvent
-        
+
         """
         result = None
         if self.handle_home:
@@ -76,16 +76,16 @@ class KeyPressHandler(QObject):
             result = self.handleHorizontal(edit, ev)
         if result is None and self.handle_vertical:
             result = self.handleVertical(edit, ev)
-        
+
         return bool(result) # None becomes False
-    
+
     def handleHome(self, edit, ev):
         """Return None, False or True.
-        
+
         None when Home was not pressed,
         True when the event was handled,
         False when the event was not handled and should be handled normally.
-        
+
         """
         home = ev == QKeySequence.MoveToStartOfLine
         s_home = ev == QKeySequence.SelectStartOfLine
@@ -100,14 +100,14 @@ class KeyPressHandler(QObject):
                 edit.setTextCursor(cursor)
                 return True
             return False
-        
+
     def handleHorizontal(self, edit, ev):
         """Return None, False or True.
-        
+
         None when no horizontal arrow key was pressed,
         True when the event was handled,
         False when the event was not handled and should be handled normally.
-        
+
         """
         if ev == QKeySequence.MoveToNextChar or ev == QKeySequence.SelectNextChar:
             return edit.textCursor().atBlockEnd()
@@ -116,11 +116,11 @@ class KeyPressHandler(QObject):
 
     def handleVertical(self, edit, ev):
         """Return None, False or True.
-        
+
         None when no horizontal arrow key was pressed,
         True when the event was handled,
         False when the event was not handled and should be handled normally.
-        
+
         """
         cursor = edit.textCursor()
         pos = cursor.position()

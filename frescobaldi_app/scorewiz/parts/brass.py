@@ -28,13 +28,13 @@ from . import register
 
 class BrassPart(_base.SingleVoicePart):
     """Base class for brass types."""
-    
-    
+
+
 class HornF(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Horn in F")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Horn in F", "Hn.F.")
@@ -47,55 +47,55 @@ class TrumpetC(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Trumpet in C")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Trumpet in C", "Tr.C.")
 
     midiInstrument = 'trumpet'
-    
-    
+
+
 class TrumpetBb(TrumpetC):
     @staticmethod
     def title(_=_base.translate):
         return _("Trumpet in Bb")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Trumpet in Bb", "Tr.Bb.")
 
     transposition = (-1, 6, -1)
-    
-    
+
+
 class CornetBb(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Cornet in Bb")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Cornet in Bb", "Crt.Bb.")
 
     transposition = (-1, 6, -1)
-    
-   
+
+
 class Flugelhorn(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Flugelhorn")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Flugelhorn", "Fgh.")
 
     midiInstrument = 'trumpet'
-   
-    
+
+
 class Mellophone(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Mellophone")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Mellophone", "Mph.")
@@ -108,7 +108,7 @@ class Trombone(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Trombone")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Trombone", "Trb.")
@@ -116,13 +116,13 @@ class Trombone(BrassPart):
     midiInstrument = 'trombone'
     clef = 'bass'
     octave = -1
-    
-    
+
+
 class Baritone(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Baritone")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Baritone", "Bar.")
@@ -130,13 +130,13 @@ class Baritone(BrassPart):
     midiInstrument = 'trombone'
     clef = 'bass'
     octave = -1
-    
+
 
 class Euphonium(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Euphonium")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Euphonium", "Euph.")
@@ -144,30 +144,30 @@ class Euphonium(BrassPart):
     midiInstrument = 'trombone'
     clef = 'bass'
     octave = -1
-    
-    
+
+
 class Tuba(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Tuba")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Tuba", "Tb.")
 
     midiInstrument = 'tuba'
     transposition = (-2, 6, -1)
-    
+
 
 class BassTuba(BrassPart):
     @staticmethod
     def title(_=_base.translate):
         return _("Bass Tuba")
-    
+
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Bass Tuba", "B.Tb.")
-    
+
     midiInstrument = 'tuba'
     clef = 'bass'
     octave = -1

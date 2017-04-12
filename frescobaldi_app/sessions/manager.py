@@ -41,15 +41,15 @@ def get(mainwindow):
 
 class SessionManager(plugin.MainWindowPlugin):
     """Per-MainWindow session manager.
-    
+
     Emits the saveSessionData(name) signal when a session wants to be saved.
     Connect to this if you only want the notification for the current MainWindow
     (the one the user initiated the action from).
-    
+
     Use app.saveSessionData(name) if you want to get the global notification.
-    
+
     """
-    
+
     # This signal is emitted when a session wants to save its data.
     saveSessionData = signals.Signal() # Session name
 
@@ -60,19 +60,19 @@ class SessionManager(plugin.MainWindowPlugin):
         ac.session_save.triggered.connect(self.saveSession)
         ac.session_manage.triggered.connect(self.manageSessions)
         ac.session_none.triggered.connect(self.noSession)
-    
+
     def newSession(self):
         from . import dialog
         name = dialog.SessionEditor(self.mainwindow()).edit()
         if name:
             sessions.setCurrentSession(name)
             self.saveCurrentSession()
-    
+
     def saveSession(self):
         if not sessions.currentSession():
             return self.newSession()
         self.saveCurrentSession()
-        
+
     def manageSessions(self):
         from . import dialog
         dialog.SessionManagerDialog(self.mainwindow()).exec_()
@@ -81,7 +81,7 @@ class SessionManager(plugin.MainWindowPlugin):
         if sessions.currentSession():
             self.saveCurrentSessionIfDesired()
             sessions.setCurrentSession(None)
-    
+
     def startSession(self, name):
         """Switches to the given session."""
         if name == sessions.currentSession():
@@ -92,7 +92,7 @@ class SessionManager(plugin.MainWindowPlugin):
                 self.mainwindow().setCurrentDocument(active)
             else:
                 self.mainwindow().cleanStart()
-        
+
     def saveCurrentSessionIfDesired(self):
         """Saves the current session if it is configured to save itself on exit."""
         cur = sessions.currentSession()
@@ -100,7 +100,7 @@ class SessionManager(plugin.MainWindowPlugin):
             s = sessions.sessionGroup(cur)
             if s.value("autosave", True, bool):
                 self.saveCurrentSession()
-    
+
     def saveCurrentSession(self):
         """Saves the current session."""
         cur = sessions.currentSession()
@@ -119,11 +119,11 @@ class SessionActions(actioncollection.ActionCollection):
         self.session_manage = QAction(parent)
         self.session_none = QAction(parent)
         self.session_none.setCheckable(True)
-        
+
         self.session_new.setIcon(icons.get('document-new'))
         self.session_save.setIcon(icons.get('document-save'))
         self.session_manage.setIcon(icons.get('view-choose'))
-        
+
     def translateUI(self):
         self.session_new.setText(_("New Session", "&New..."))
         self.session_save.setText(_("&Save"))

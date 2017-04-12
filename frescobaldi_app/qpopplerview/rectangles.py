@@ -36,28 +36,28 @@ class Rectangles(object):
     """
     Manages a list of rectangular objects and quickly finds objects at
     some point, in some rectangle or intersecting some rectangle.
-    
+
     The implementation uses four lists of the objects sorted on either
     coordinate, so retrieval is fast.
-    
+
     Bulk adding is done in the constructor or via the bulk_add() method (which
     clears the indexes, that are recreated on first search).  Single objects
     can be added and deleted, keeping the indexes, but that's slower.
-    
+
     """
     _func = lambda obj: obj.rect().normalized().getCoords()
-    
+
     def __init__(self, objects=None, func=None):
         """Initializes the Rectangles object.
-        
+
         objects should be an iterable of rectangular objects.
-        
+
         function(obj) should return a four-tuple (left, top, right, bottom)
         of the coordinates of the rectangle.  The coordinates should be normalized,
         i.e. top <= bottom and left <= right.
-        
+
         The default function is: lambda obj: obj.rect().normalized().getCoords()
-        
+
         """
         self._items = {} # maps object to the result of func(object)
         self._index = {} # maps side to indices, objects (index=coordinate of that side)
@@ -65,7 +65,7 @@ class Rectangles(object):
             self._func = func
         if objects:
             self.bulk_add(objects)
-    
+
     def add(self, obj):
         """Adds an object to our list. Keeps the index intact."""
         if obj in self._items:
@@ -75,16 +75,16 @@ class Rectangles(object):
             i = bisect.bisect_left(indices, coords[side])
             indices.insert(i, coords[side])
             objects.insert(i, obj)
-    
+
     def bulk_add(self, objects):
         """Adds many new items to the index using the function given in the constructor.
-        
+
         After this, the index is cleared and recreated on the first search operation.
-        
+
         """
         self._items.update((obj, self._func(obj)) for obj in objects)
         self._index.clear()
-        
+
     def remove(self, obj):
         """Removes an object from our list. Keeps the index intact."""
         del self._items[obj]
@@ -92,12 +92,12 @@ class Rectangles(object):
             i = objects.index(obj)
             del objects[i]
             del indices[i]
-            
+
     def clear(self):
         """Empties the list of items."""
         self._items.clear()
         self._index.clear()
-        
+
     def at(self, x, y):
         """Returns a set() of objects that are touched by the given point."""
         return self._test(
@@ -105,7 +105,7 @@ class Rectangles(object):
             (self._larger, Bottom, y),
             (self._smaller, Left, x),
             (self._larger, Right, x))
-         
+
     def inside(self, left, top, right, bottom):
         """Returns a set() of objects that are fully in the given rectangle."""
         return self._test(
@@ -113,7 +113,7 @@ class Rectangles(object):
             (self._smaller, Bottom, bottom),
             (self._larger, Left, left),
             (self._smaller, Right, right))
-    
+
     def intersecting(self, left, top, right, bottom):
         """Returns a set() of objects intersecting the given rectangle."""
         return self._test(
@@ -150,21 +150,21 @@ class Rectangles(object):
 
     def __len__(self):
         return len(self._items)
-        
+
     def __contains__(self, obj):
         return obj in self._items
-        
+
     def __bool__(self):
         return bool(self._items)
-        
+
     # private helper methods
     def _test(self, *tests):
         """Performs tests and returns objects that fulfill all of them.
-        
+
         Every test should be a three tuple(method, side, value).
         Method is either self._smaller or self._larger.
         Returns a (possibly empty) set.
-        
+
         """
         result = None
         for meth, side, value in tests:
@@ -176,7 +176,7 @@ class Rectangles(object):
             if not result:
                 break
         return result
-    
+
     def _smaller(self, side, value):
         """Returns objects for side below value."""
         indices, objects = self._sorted(side)
@@ -188,9 +188,9 @@ class Rectangles(object):
         indices, objects = self._sorted(side)
         i = bisect.bisect_left(indices, value)
         return objects[i:]
-        
+
     def _sorted(self, side):
-        """Returns a two-tuple (indices, objects) sorted on index for the given side.""" 
+        """Returns a two-tuple (indices, objects) sorted on index for the given side."""
         try:
             return self._index[side]
         except KeyError:
@@ -202,5 +202,5 @@ class Rectangles(object):
                 result = [], []
             self._index[side] = result
             return result
-            
+
 

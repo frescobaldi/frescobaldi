@@ -35,16 +35,16 @@ from . import parts
 
 class PartNode(object):
     """Represents an item with sub-items in the parts tree.
-    
+
     Sub-items of this items are are split out in two lists: the 'parts' and
     'groups' attributes.
-    
+
     Parts ('parts' attribute) are vertically stacked (instrumental parts or
     staff groups). Groups ('groups' attribute) are horizontally added (score,
     book, bookpart).
-    
+
     The Part (containing the widgets) is in the 'part' attribute.
-    
+
     """
     def __init__(self, item):
         """item is a PartItem (QTreeWidgetItem)."""
@@ -61,23 +61,23 @@ class PartNode(object):
 
 class PartData(object):
     r"""Represents what a Part wants to add to the LilyPond score.
-    
+
     A Part may append to the following instance attributes (which are lists):
-    
+
     includes:           (string) filename to be included
     codeblocks:         (ly.dom.LyNode) global blocks of code a part depends on
     assignments:        (ly.dom.Assignment) assignment of an expression to a
                         variable, most times the music stub for a part
     nodes:              (ly.dom.LyNode) the nodes a part adds to the parent \score
     afterblocks:        (ly.dom.LyNode) other blocks, appended ad the end
-    
+
     The num instance attribute is set to 0 by default but can be increased by
     the Builder, when there are more parts of the exact same type in the same
     score.
-    
+
     This is used by the builder afterwards to adjust identifiers and instrument
     names to this.
-    
+
     """
     def __init__(self, part, parent=None):
         """part is a parts._base.Part instance, parent may be another PartData."""
@@ -92,13 +92,13 @@ class PartData(object):
         self.assignments = []
         self.nodes = []
         self.afterblocks = []
-    
+
     def name(self):
         """Returns a name for this part data.
-        
+
         The name consists of the class name of the part with the value of the num
         attribute appended as a roman number.
-        
+
         """
         if self.num:
             return self._name + ly.util.int2roman(self.num)
@@ -106,20 +106,20 @@ class PartData(object):
 
     def assign(self, name=None):
         """Creates a ly.dom.Assignment.
-        
+
         name is a string name, if not given the class name is used with the
         first letter lowered.
-        
+
         A ly.dom.Reference is used as the name for the Assignment.
         The assignment is appended to our assignments and returned.
-        
+
         The Reference is in the name attribute of the assignment.
-        
+
         """
         a = ly.dom.Assignment(ly.dom.Reference(name or ly.util.mkid(self.name())))
         self.assignments.append(a)
         return a
-    
+
     def assignMusic(self, name=None, octave=0, transposition=None):
         """Creates a ly.dom.Assignment with a \\relative music stub."""
         a = self.assign(name)
@@ -145,21 +145,21 @@ class BlockData(object):
 
 class Builder(object):
     """Builds the LilyPond score from all user input in the score wizard.
-    
+
     Reads settings and other input from the dialog on construction.
     Does not need the dialog after that.
-    
+
     """
     def __init__(self, dialog):
         """Initializes ourselves from all user settings in the dialog."""
         self._includeFiles = []
         self.globalUsed = False
-        
+
         scoreProperties = dialog.settings.widget().scoreProperties
         generalPreferences = dialog.settings.widget().generalPreferences
         lilyPondPreferences = dialog.settings.widget().lilyPondPreferences
         instrumentNames = dialog.settings.widget().instrumentNames
-        
+
         # attributes the Part and Container types may read and we need later as well
         self.header = list(dialog.header.widget().headers())
         self.headerDict = dict(self.header)
@@ -177,7 +177,7 @@ class Builder(object):
         names = ['long', 'short', None]
         self.firstInstrumentName = names[instrumentNames.firstSystem.currentIndex()]
         self.otherInstrumentName = names[instrumentNames.otherSystems.currentIndex()]
-        
+
         # translator for instrument names
         self._ = _
         if instrumentNames.isChecked():
@@ -188,11 +188,11 @@ class Builder(object):
                 mofile = po.find(lang)
                 if mofile:
                     self._ = po.translator(po.mofile.MoFile(mofile))
-        
+
         # global score preferences
         self.scoreProperties = scoreProperties
         self.globalSection = scoreProperties.globalSection(self)
-        
+
         # printer that converts the ly.dom tree to text
         p = self._printer = ly.dom.Printer()
         p.indentString = "  " # will be re-indented anyway
@@ -204,36 +204,36 @@ class Builder(object):
         p.secondary_quote_right = quotes.secondary.right
         if self.pitchLanguage:
             p.language = self.pitchLanguage
-        
+
         # get the parts
         globalGroup = PartNode(dialog.parts.widget().rootPartItem())
-        
+
         # move parts down the tree to subgroups that have no parts
         assignparts(globalGroup)
-        
+
         # now prepare the different blocks
         self.usePrefix = needsPrefix(globalGroup)
         self.currentScore = 0
-        
+
         # make a part of the document (assignments, scores, backmatter) for
         # every group (book, bookpart or score) in the global group
         if globalGroup.parts:
             groups = [globalGroup]
         else:
             groups = globalGroup.groups
-        
+
         self.blocks = []
         for group in groups:
             block = BlockData()
             self.makeBlock(group, block.scores, block)
             self.blocks.append(block)
-    
+
     def makeBlock(self, group, node, block):
         """Recursively populates the Block with data from the group.
-        
+
         The group can contain parts and/or subgroups.
         ly.dom.LyNodes representing the LilyPond document are added to the node.
-        
+
         """
         if group.part:
             node = group.part.makeNode(node)
@@ -241,7 +241,7 @@ class Builder(object):
             # prefix for this block, used if necessary
             self.currentScore += 1
             prefix = 'score' + ly.util.int2letter(self.currentScore)
-            
+
             # is this a score and has it its own score properties?
             globalName = 'global'
             scoreProperties = self.scoreProperties
@@ -255,7 +255,7 @@ class Builder(object):
                     ly.dom.BlankLine(block.assignments)
             if globalName == 'global':
                 self.globalUsed = True
-            
+
             # add parts here, always in \score { }
             score = node if isinstance(node,ly.dom.Score) else ly.dom.Score(node)
             ly.dom.Layout(score)
@@ -270,33 +270,33 @@ class Builder(object):
                         scoreProperties.lyMidiTempo(ly.dom.Context('Score', midi))
             music = ly.dom.Simr()
             score.insert(0, music)
-            
+
             # a PartData subclass "knowing" the globalName and scoreProperties
             class _PartData(PartData): pass
             _PartData.globalName = globalName
             _PartData.scoreProperties = scoreProperties
-                
+
             # make the parts
             partData = self.makeParts(group.parts, _PartData)
-            
+
             # record the include files a part wants to add
             for p in partData:
                 for i in p.includes:
                     if i not in self._includeFiles:
                         self._includeFiles.append(i)
-            
+
             # collect all 'prefixable' assignments for this group
             assignments = []
             for p in partData:
                 assignments.extend(p.assignments)
-                
+
             # add the assignments to the block
             for p in partData:
                 for a in p.assignments:
                     block.assignments.append(a)
                     ly.dom.BlankLine(block.assignments)
                 block.backmatter.extend(p.afterblocks)
-                
+
             # make part assignments if there is more than one part that has assignments
             if sum(1 for p in partData if p.assignments) > 1:
                 def make(part, music):
@@ -312,27 +312,27 @@ class Builder(object):
             else:
                 def make(part, music):
                     music.extend(part.nodes)
-            
+
             def makeRecursive(parts, music):
                 for part in parts:
                     make(part, music)
                     if part.children:
                         makeRecursive(part.children, part.music)
-            
+
             parents = [p for p in partData if not p.isChild]
             makeRecursive(parents, music)
-            
+
             # add the prefix to the assignments if necessary
             if self.usePrefix:
                 for a in assignments:
                     a.name.name = ly.util.mkid(prefix, a.name.name)
-            
+
         for g in group.groups:
             self.makeBlock(g, node, block)
-    
+
     def makeParts(self, parts, partDataClass):
         """Lets the parts build the music stubs and assignments.
-        
+
         parts is a list of PartNode instances.
         partDataClass is a subclass or PartData containing some attributes:
             - globalName is either 'global' (for the global time/key signature
@@ -340,9 +340,9 @@ class Builder(object):
               own properties).
             - scoreProperties is the ScoreProperties instance currently in effect
               (the global one or a particular Score part's one).
-        
+
         Returns the list of PartData object for the parts.
-        
+
         """
         # number instances of the same type (Choir I and Choir II, etc.)
         data = {}
@@ -361,7 +361,7 @@ class Builder(object):
         # now build all the parts
         for group in allparts(parts):
             group.part.build(data[group], self)
-        
+
         # check for name collisions in assignment identifiers
         # add the part class name and a roman number if necessary
         refs = collections.defaultdict(list)
@@ -375,25 +375,25 @@ class Builder(object):
                 for ref, group in reflist:
                     # append the class name and number
                     ref.name = ly.util.mkid(ref.name, data[group].name())
-        
+
         # return all PartData instances
         return [data[group] for group in allparts(parts)]
-        
+
     def text(self, doc=None):
         """Return LilyPond formatted output. """
         return self.printer().indent(doc or self.document())
-        
+
     def printer(self):
         """Returns a ly.dom.Printer, that converts the ly.dom structure to LilyPond text. """
         return self._printer
-        
+
     def document(self):
         """Creates and returns a ly.dom tree representing the full LilyPond document."""
         doc = ly.dom.Document()
-        
+
         # version
         ly.dom.Version(self.lyVersionString, doc)
-        
+
         # language
         if self.pitchLanguage:
             if self.lyVersion >= (2, 13, 38):
@@ -407,7 +407,7 @@ class Builder(object):
             for filename in self._includeFiles:
                 ly.dom.Include(filename, doc)
             ly.dom.BlankLine(doc)
-            
+
         # general header
         h = ly.dom.Header()
         for name, value in self.header:
@@ -429,18 +429,18 @@ class Builder(object):
             ly.dom.BlankLine(doc)
 
         layout = ly.dom.Layout()
-        
+
         # remove bar numbers
         if self.removeBarNumbers:
             ly.dom.Line('\\remove "Bar_number_engraver"',
                 ly.dom.Context('Score', layout))
-        
+
         # smart neutral direction
         if self.smartNeutralDirection:
             ctxt_voice = ly.dom.Context('Voice', layout)
             ly.dom.Line('\\consists "Melody_engraver"', ctxt_voice)
             ly.dom.Line("\\override Stem #'neutral-direction = #'()", ctxt_voice)
-        
+
         if len(layout):
             doc.append(layout)
             ly.dom.BlankLine(doc)
@@ -451,7 +451,7 @@ class Builder(object):
             a.append(self.globalSection)
             doc.append(a)
             ly.dom.BlankLine(doc)
-        
+
         # add the main scores
         for block in self.blocks:
             doc.append(block.assignments)
@@ -469,10 +469,10 @@ class Builder(object):
 
     def setInstrumentNames(self, staff, longName, shortName):
         """Sets the instrument names to the staff (or group).
-        
+
         longName and shortName may either be a string or a ly.dom.LyNode object (markup)
         The settings in the score wizard are honored.
-        
+
         """
         if self.showInstrumentNames:
             staff.addInstrumentNameEngraverIfNecessary()
@@ -489,22 +489,22 @@ class Builder(object):
 
     def instrumentName(self, function, num=0):
         """Returns an instrument name.
-        
+
         The name is constructed by calling the 'function' with our translator as
         argument, and appending the number 'num' in roman literals, if num > 0.
-        
+
         """
         name = function(self._)
         if num:
             name += ' ' + ly.util.int2roman(num)
         return name
-    
+
     def setInstrumentNamesFromPart(self, node, part, data):
         """Sets the long and short instrument names for the node.
-        
+
         Calls part.title(translator) and part.short(translator) to get the
         names, appends roman literals if data.num > 0, and sets them on the node.
-        
+
         """
         longName = self.instrumentName(part.title, data.num)
         shortName = self.instrumentName(part.short, data.num)
@@ -513,11 +513,11 @@ class Builder(object):
 
 def assignparts(group):
     """Moves the parts to sub-groups that contain no parts.
-    
+
     If at least one subgroup uses the parts, the parent's parts are removed.
     This way a user can specify some parts and then multiple scores, and they will all
     use the same parts again.
-    
+
     """
     partsOfParentUsed = False
     for g in group.groups:
@@ -531,10 +531,10 @@ def assignparts(group):
 
 def itergroups(group):
     """Iterates over the group and its subgroups as an event list.
-    
+
     When a group is yielded, it means the group starts.
     When None is yielded, it means that the last started groups ends.
-    
+
     """
     yield group
     for g in group.groups:
@@ -545,9 +545,9 @@ def itergroups(group):
 
 def descendants(group):
     """Iterates over the descendants of a group (including the group itself).
-    
+
     First the group, then its children, then the grandchildren, etc.
-    
+
     """
     def _descendants(group):
         children = group.groups
@@ -564,10 +564,10 @@ def descendants(group):
 
 def needsPrefix(globalGroup):
     """Returns True if there are multiple scores in group with shared part types.
-    
+
     This means the music assignments will need a prefix (e.g. scoreAsoprano,
     scoreBsoprano, etc.)
-    
+
     """
     counter = collections.Counter()
     for group in itergroups(globalGroup):
@@ -582,4 +582,4 @@ def allparts(parts):
         yield group
         for group in allparts(group.parts):
             yield group
-        
+

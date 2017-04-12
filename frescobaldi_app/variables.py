@@ -40,10 +40,10 @@ _LINES = 5      # how many lines from top and bottom to scan for variables
 
 def get(document, varname, default=None):
     """Get a single value from the document.
-    
+
     If a default is given and the type is bool or int, the value is converted to the same type.
     If no value exists, the default is returned.
-    
+
     """
     variables = manager(document).variables()
     try:
@@ -63,8 +63,8 @@ def update(document, dictionary):
 def manager(document):
     """Returns a VariableManager for this document."""
     return VariableManager.instance(document)
-    
-    
+
+
 def variables(text):
     """Reads variables from the first and last _LINES lines of text."""
     lines = text.splitlines()
@@ -75,35 +75,35 @@ def variables(text):
         start = count - _LINES
     d.update(m.group(1, 2) for n, m in positions(lines[start:]))
     return d
-    
-    
+
+
 class VariableManager(plugin.DocumentPlugin):
     """Caches variables in the document and monitors for changes.
-    
+
     The changed() Signal is emitted some time after the list of variables has been changed.
     It is recommended to not change the document itself in response to this signal.
-    
+
     """
     changed = signals.Signal() # without argument
-    
+
     def __init__(self, document):
         self._updateTimer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._variables = self.readVariables()
         document.contentsChange.connect(self.slotContentsChange)
         document.closed.connect(self._updateTimer.stop) # just to be sure
-    
+
     def slotTimeout(self):
         variables = self.readVariables()
         if variables != self._variables:
             self._variables = variables
             self.changed()
-        
+
     def slotContentsChange(self, position, removed, added):
         """Called if the document changes."""
         if (self.document().findBlock(position).blockNumber() < _LINES or
             self.document().findBlock(position + added).blockNumber() > self.document().blockCount() - _LINES):
             self._updateTimer.start(500)
-    
+
     def variables(self):
         """Returns the document variables (cached) as a dictionary. This method is recommended."""
         if self._updateTimer.isActive():
@@ -111,7 +111,7 @@ class VariableManager(plugin.DocumentPlugin):
             self._updateTimer.stop()
             self.slotTimeout()
         return self._variables
-    
+
     def readVariables(self):
         """Reads the variables from the document and returns a dictionary. Internal."""
         count = self.document().blockCount()
@@ -127,14 +127,14 @@ class VariableManager(plugin.DocumentPlugin):
         for block in blocks:
             variables.update(m.group(1, 2) for n, m in positions(lines(block)))
         return variables
-        
+
 
 def positions(lines):
     """Lines should be an iterable returning lines of text.
-    
+
     Returns an iterable yielding tuples (lineNum, matchObj) for every variable found.
     Every matchObj has group(1) pointing to the variable name and group(2) to the value.
-    
+
     """
     commentstart = ''
     interesting = False
@@ -168,9 +168,9 @@ def positions(lines):
 
 def prepare(value, default):
     """Try to convert the value (which is a string) to the type of the default value.
-    
+
     If (for int and bool) that fails, returns the default, otherwise returns the string unchanged.
-    
+
     """
     if isinstance(default, bool):
         if value.lower() in ('true', 'yes', 'on', 't', '1'):

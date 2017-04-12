@@ -40,12 +40,12 @@ def contextmenu(view):
 
     # create the actions in the actions list
     actions = []
-    
+
     actions.extend(open_files(cursor, menu, mainwindow))
-    
+
     actions.extend(jump_to_definition(cursor, menu, mainwindow))
-    
-    
+
+
     if cursor.hasSelection():
         import panelmanager
         actions.append(mainwindow.actionCollection.edit_copy_colored_html)
@@ -54,7 +54,7 @@ def contextmenu(view):
         ac = documentactions.get(mainwindow).actionCollection
         actions.append(ac.edit_cut_assign)
         actions.append(ac.edit_move_to_include_file)
-    
+
     # now add the actions to the standard menu
     if actions:
         first_action = menu.actions()[0] if menu.actions() else None

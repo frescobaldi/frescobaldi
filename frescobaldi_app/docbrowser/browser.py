@@ -45,25 +45,25 @@ class Browser(QWidget):
     """LilyPond documentation browser widget."""
     def __init__(self, dockwidget):
         super(Browser, self).__init__(dockwidget)
-        
+
         layout = QVBoxLayout(spacing=0)
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
-        
+
         self.toolbar = tb = QToolBar()
         self.webview = QWebView(contextMenuPolicy=Qt.CustomContextMenu)
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
         self.search = SearchEntry(maximumWidth=200)
-        
+
         layout.addWidget(self.toolbar)
         layout.addWidget(self.webview)
-        
+
         ac = dockwidget.actionCollection
         ac.help_back.triggered.connect(self.webview.back)
         ac.help_forward.triggered.connect(self.webview.forward)
         ac.help_home.triggered.connect(self.showHomePage)
         ac.help_print.triggered.connect(self.slotPrint)
-        
+
         self.webview.page().setNetworkAccessManager(lilydoc.network.accessmanager())
         self.webview.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
         self.webview.page().linkClicked.connect(self.openUrl)
@@ -71,7 +71,7 @@ class Browser(QWidget):
         self.webview.page().unsupportedContent.connect(self.slotUnsupported)
         self.webview.urlChanged.connect(self.slotUrlChanged)
         self.webview.customContextMenuRequested.connect(self.slotShowContextMenu)
-        
+
         tb.addAction(ac.help_back)
         tb.addAction(ac.help_forward)
         tb.addSeparator()
@@ -80,20 +80,20 @@ class Browser(QWidget):
         tb.addSeparator()
         tb.addWidget(self.chooser)
         tb.addWidget(self.search)
-        
+
         self.chooser.activated[int].connect(self.showHomePage)
         self.search.textEdited.connect(self.slotSearchChanged)
         self.search.returnPressed.connect(self.slotSearchReturnPressed)
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
-        
+
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.loadDocumentation()
         self.showInitialPage()
         app.settingsChanged.connect(self.loadDocumentation)
         app.translateUI(self)
-    
+
     def readSettings(self):
         s = QSettings()
         s.beginGroup("documentation")
@@ -105,28 +105,28 @@ class Browser(QWidget):
         fixed = textformats.formatData('editor').font
         ws.setFontFamily(QWebSettings.FixedFont, fixed.family())
         ws.setFontSize(QWebSettings.DefaultFixedFontSize, fixed.pointSizeF() * 96 / 72)
-        
+
     def keyPressEvent(self, ev):
         if ev.text() == "/":
             self.search.setFocus()
         else:
             super(Browser, self).keyPressEvent(ev)
-        
+
     def translateUI(self):
         try:
             self.search.setPlaceholderText(_("Search..."))
         except AttributeError:
             pass # not in Qt 4.6
-    
+
     def showInitialPage(self):
         """Shows the preferred start page.
-        
+
         If a local documentation instance already has a suitable version,
         just loads it. Otherwise connects to the allLoaded signal, that is
         emitted when all the documentation instances have loaded their version
         information and then shows the start page (if another page wasn't yet
         loaded).
-        
+
         """
         if self.webview.url().isEmpty():
             docs = lilydoc.manager.docs()
@@ -146,7 +146,7 @@ class Browser(QWidget):
                 index = len(docs) - 1
             self.chooser.setCurrentIndex(index)
             self.showHomePage()
-    
+
     def loadDocumentation(self):
         """Puts the available documentation instances in the combobox."""
         i = self.chooser.currentIndex()
@@ -162,42 +162,42 @@ class Browser(QWidget):
         if not lilydoc.manager.loaded():
             lilydoc.manager.allLoaded.connect(self.loadDocumentation, -1)
             return
-        
+
     def updateToolBarSettings(self):
         mainwin = self.parentWidget().mainwindow()
         self.toolbar.setIconSize(mainwin.iconSize())
         self.toolbar.setToolButtonStyle(mainwin.toolButtonStyle())
-        
+
     def showManual(self):
         """Invoked when the user presses F1."""
         self.slotHomeFrescobaldi() # TEMP
-        
+
     def slotUrlChanged(self):
         ac = self.parentWidget().actionCollection
         ac.help_back.setEnabled(self.webview.history().canGoBack())
         ac.help_forward.setEnabled(self.webview.history().canGoForward())
-    
+
     def openUrl(self, url):
         if url.path().endswith(('.ily', '.lyi', '.ly')):
             self.sourceViewer().showReply(lilydoc.network.get(url))
         else:
             self.webview.load(url)
-    
+
     def slotUnsupported(self, reply):
         helpers.openUrl(reply.url())
-    
+
     def slotSearchChanged(self):
         text = self.search.text()
         if not text.startswith(':'):
             self.webview.page().findText(text, QWebPage.FindWrapsAroundDocument)
-    
+
     def slotSearchReturnPressed(self):
         text = self.search.text()
         if not text.startswith(':'):
             self.slotSearchChanged()
         else:
             pass # TODO: implement full doc search
-    
+
     def sourceViewer(self):
         try:
             return self._sourceviewer
@@ -205,14 +205,14 @@ class Browser(QWidget):
             from . import sourceviewer
             self._sourceviewer = sourceviewer.SourceViewer(self)
             return self._sourceviewer
-    
+
     def showHomePage(self):
         """Shows the homepage of the LilyPond documentation."""
         i = self.chooser.currentIndex()
         if i < 0:
             i = 0
         doc = lilydoc.manager.docs()[i]
-        
+
         url = doc.home()
         if doc.isLocal():
             path = url.toLocalFile()
@@ -224,14 +224,14 @@ class Browser(QWidget):
                         break
             url = QUrl.fromLocalFile(path + '.html')
         self.webview.load(url)
-    
+
     def slotPrint(self):
         printer = QPrinter()
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("Print")))
         if dlg.exec_():
             self.webview.print_(printer)
-    
+
     def slotShowContextMenu(self, pos):
         hit = self.webview.page().currentFrame().hitTestContent(pos)
         menu = QMenu()
@@ -254,7 +254,7 @@ class Browser(QWidget):
             a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(self.webview.url()))
         if menu.actions():
             menu.exec_(self.webview.mapToGlobal(pos))
-    
+
     def slotNewWindow(self, url):
         helpers.openUrl(url)
 

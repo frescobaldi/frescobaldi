@@ -35,11 +35,11 @@ class DocumentContextMenu(QMenu):
     def __init__(self, mainwindow):
         super(DocumentContextMenu, self).__init__(mainwindow)
         self._doc = lambda: None
-        
+
         self.createActions()
         app.translateUI(self)
         self.aboutToShow.connect(self.updateActions)
-    
+
     def createActions(self):
         self.doc_save = self.addAction(icons.get('document-save'), '')
         self.doc_save_as = self.addAction(icons.get('document-save-as'), '')
@@ -49,13 +49,13 @@ class DocumentContextMenu(QMenu):
         self.addSeparator()
         self.doc_toggle_sticky = self.addAction(icons.get('pushpin'), '')
         self.doc_toggle_sticky.setCheckable(True)
-        
+
         self.doc_save.triggered.connect(self.docSave)
         self.doc_save_as.triggered.connect(self.docSaveAs)
         self.doc_close.triggered.connect(self.docClose)
         self.doc_close_others.triggered.connect(self.docCloseOther)
         self.doc_toggle_sticky.triggered.connect(self.docToggleSticky)
-    
+
     def updateActions(self):
         """Called just before show."""
         doc = self._doc()
@@ -63,31 +63,31 @@ class DocumentContextMenu(QMenu):
             import engrave
             engraver = engrave.Engraver.instance(self.mainwindow())
             self.doc_toggle_sticky.setChecked(doc is engraver.stickyDocument())
-    
+
     def translateUI(self):
         self.doc_save.setText(_("&Save"))
         self.doc_save_as.setText(_("Save &As..."))
         self.doc_close.setText(_("&Close"))
         self.doc_close_others.setText(_("Close Other Documents"))
         self.doc_toggle_sticky.setText(_("Always &Engrave This Document"))
-    
+
     def mainwindow(self):
         return self.parentWidget()
-        
+
     def exec_(self, document, pos):
         self._doc = weakref.ref(document)
         super(DocumentContextMenu, self).exec_(pos)
-    
+
     def docSave(self):
         doc = self._doc()
         if doc:
             self.mainwindow().saveDocument(doc)
-    
+
     def docSaveAs(self):
         doc = self._doc()
         if doc:
             self.mainwindow().saveDocumentAs(doc)
-    
+
     def docClose(self):
         doc = self._doc()
         if doc:

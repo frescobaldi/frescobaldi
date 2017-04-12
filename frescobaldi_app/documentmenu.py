@@ -37,24 +37,24 @@ class DocumentMenu(QMenu):
         super(DocumentMenu, self).__init__(mainwindow)
         self.aboutToShow.connect(self.populate)
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_('menu title', '&Documents'))
-    
+
     def populate(self):
         self.clear()
         mainwindow = self.parentWidget()
         for a in DocumentActionGroup.instance(mainwindow).actions():
             self.addAction(a)
-            
+
 
 class DocumentActionGroup(plugin.MainWindowPlugin, QActionGroup):
     """Maintains a list of actions to set the current document.
-    
+
     The actions are added to the View->Documents menu in the order
     of the tabbar. The actions also get accelerators that are kept
     during the lifetime of a document.
-    
+
     """
     def __init__(self, mainwindow):
         QActionGroup.__init__(self, mainwindow)
@@ -72,7 +72,7 @@ class DocumentActionGroup(plugin.MainWindowPlugin, QActionGroup):
         mainwindow.currentDocumentChanged.connect(self.setCurrentDocument)
         engrave.engraver(mainwindow).stickyChanged.connect(self.setDocumentStatus)
         self.triggered.connect(self.slotTriggered)
-    
+
     def actions(self):
         return [self._acts[doc] for doc in self.mainwindow().documents()]
 
@@ -83,12 +83,12 @@ class DocumentActionGroup(plugin.MainWindowPlugin, QActionGroup):
             a.setChecked(True)
         self._acts[doc] = a
         self.setDocumentStatus(doc)
-        
+
     def removeDocument(self, doc):
         self._acts[doc].deleteLater()
         del self._acts[doc]
         del self._accels[doc]
-        
+
     def setCurrentDocument(self, doc):
         self._acts[doc].setChecked(True)
 
@@ -112,7 +112,7 @@ class DocumentActionGroup(plugin.MainWindowPlugin, QActionGroup):
         if icon.name() == "text-plain":
             icon = QIcon()
         self._acts[doc].setIcon(icon)
-    
+
     def slotTriggered(self, action):
         for doc, act in self._acts.items():
             if act == action:
