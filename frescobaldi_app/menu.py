@@ -190,6 +190,7 @@ def menu_view(mainwindow):
     m.addMenu(menu_view_folding(mainwindow))
     m.addSeparator()
     m.addAction(documentactions.get(mainwindow).actionCollection.view_goto_file_or_definition)
+    m.addAction(ac.view_goto_line)
     ac = browseriface.get(mainwindow).actionCollection
     m.addAction(ac.go_back)
     m.addAction(ac.go_forward)
