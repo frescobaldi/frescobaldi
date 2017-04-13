@@ -60,15 +60,15 @@ class AbstractMatcher(object):
             view.cursorPositionChanged.connect(self.showMatches)
         else:
             self._view = lambda: None
-    
+
     def view(self):
         """Return the current View."""
         return self._view()
-    
+
     def highlighter(self):
         """Implement to return an ArbitraryHighlighter for the current View."""
         pass
-    
+
     def showMatches(self):
         """Highlights matching tokens if the view's cursor is at such a token."""
         cursors = matches(self.view().textCursor(), self.view())
@@ -91,18 +91,18 @@ class Matcher(AbstractMatcher, plugin.MainWindowPlugin):
         view = mainwindow.currentView()
         if view:
             self.setView(view)
-        
+
     def highlighter(self):
         return viewhighlighter.highlighter(self.view())
 
     def moveto_match(self):
         """Jump to the matching token."""
         self.goto_match(False)
-        
+
     def select_match(self):
         """Select from the current to the matching token."""
         self.goto_match(True)
-        
+
     def goto_match(self, select=False):
         """Jump to the matching token, selecting the text if select is True."""
         cursor = self.view().textCursor()
@@ -126,7 +126,7 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, parent):
         self.view_matching_pair = QAction(parent)
         self.view_matching_pair_select = QAction(parent)
-    
+
     def translateUI(self):
         self.view_matching_pair.setText(_("Matching Pai&r"))
         self.view_matching_pair_select.setText(_("&Select Matching Pair"))
@@ -134,20 +134,20 @@ class Actions(actioncollection.ActionCollection):
 
 def matches(cursor, view=None):
     """Return a list of zero to two cursors specifying matching tokens.
-    
+
     If the list is empty, the cursor was not at a MatchStart/MatchEnd token,
     if the list only contains one cursor the matching token could not be found,
     if the list contains two cursors, the first is the token the cursor was at,
     and the second is the matching token.
-    
+
     If view is given, only the visible part of the document is searched.
-    
+
     """
     block = cursor.block()
     column = cursor.position() - block.position()
     tokens = lydocument.Runner(lydocument.Document(cursor.document()))
     tokens.move_to_block(block)
-    
+
     if view is not None:
         first_block = view.firstVisibleBlock()
         bottom = view.contentOffset().y() + view.viewport().height()
@@ -156,7 +156,7 @@ def matches(cursor, view=None):
     else:
         pred_forward = lambda: True
         pred_backward = lambda: True
-    
+
     source = None
     for token in tokens.forward_line():
         if token.pos <= column <= token.end:

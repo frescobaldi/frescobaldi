@@ -24,7 +24,7 @@ Keyboard shortcuts settings page.
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
-                             QLabel, QRadioButton, QStyleFactory, QVBoxLayout)
+                             QLabel, QRadioButton, QStyleFactory, QVBoxLayout, QLineEdit)
 
 import app
 import appinfo
@@ -45,7 +45,7 @@ class GeneralPrefs(preferences.ScrolledGroupsPage):
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
-        
+
         layout.addWidget(General(self))
         layout.addWidget(SavingDocument(self))
         layout.addWidget(NewDocument(self))
@@ -56,20 +56,20 @@ class GeneralPrefs(preferences.ScrolledGroupsPage):
 class General(preferences.Group):
     def __init__(self, page):
         super(General, self).__init__(page)
-        
+
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         self.langLabel = QLabel()
         self.lang = QComboBox(currentIndexChanged=self.changed)
         grid.addWidget(self.langLabel, 0, 0)
         grid.addWidget(self.lang, 0, 1)
-        
+
         self.styleLabel = QLabel()
         self.styleCombo = QComboBox(currentIndexChanged=self.changed)
         grid.addWidget(self.styleLabel, 1, 0)
         grid.addWidget(self.styleCombo, 1, 1)
-        
+
         self.systemIcons = QCheckBox(toggled=self.changed)
         grid.addWidget(self.systemIcons, 2, 0, 1, 3)
         self.tabsClosable = QCheckBox(toggled=self.changed)
@@ -78,9 +78,9 @@ class General(preferences.Group):
         grid.addWidget(self.splashScreen, 4, 0, 1, 3)
         self.allowRemote = QCheckBox(toggled=self.changed)
         grid.addWidget(self.allowRemote, 5, 0, 1, 3)
-        
+
         grid.setColumnStretch(2, 1)
-        
+
         # fill in the language combo
         self._langs = ["C", ""]
         self.lang.addItems(('', ''))
@@ -89,13 +89,13 @@ class General(preferences.Group):
         for name, lang in langnames:
             self._langs.append(lang)
             self.lang.addItem(name)
-        
+
         # fill in style combo
         self.styleCombo.addItem('')
         self.styleCombo.addItems(QStyleFactory.keys())
-        
+
         app.translateUI(self)
-    
+
     def loadSettings(self):
         s = QSettings()
         lang = s.value("language", "", str)
@@ -115,7 +115,7 @@ class General(preferences.Group):
         self.tabsClosable.setChecked(s.value("tabs_closable", True, bool))
         self.splashScreen.setChecked(s.value("splash_screen", True, bool))
         self.allowRemote.setChecked(remote.enabled())
-    
+
     def saveSettings(self):
         s = QSettings()
         s.setValue("language", self._langs[self.lang.currentIndex()])
@@ -127,7 +127,7 @@ class General(preferences.Group):
             s.remove("guistyle")
         else:
             s.setValue("guistyle", self.styleCombo.currentText())
-        
+
     def translateUI(self):
         self.setTitle(_("General Preferences"))
         self.langLabel.setText(_("Language:"))
@@ -151,32 +151,32 @@ class General(preferences.Group):
 class StartSession(preferences.Group):
     def __init__(self, page):
         super(StartSession, self).__init__(page)
-        
+
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         def changed():
             self.changed.emit()
             self.combo.setEnabled(self.custom.isChecked())
-        
+
         self.none = QRadioButton(toggled=changed)
         self.lastused = QRadioButton(toggled=changed)
         self.custom = QRadioButton(toggled=changed)
         self.combo = QComboBox(currentIndexChanged=changed)
-        
+
         grid.addWidget(self.none, 0, 0, 1, 2)
         grid.addWidget(self.lastused, 1, 0, 1, 2)
         grid.addWidget(self.custom, 2, 0, 1, 1)
         grid.addWidget(self.combo, 2, 1, 1, 1)
 
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("Session to load if Frescobaldi is started without arguments"))
         self.none.setText(_("Start with no session"))
         self.lastused.setText(_("Start with last used session"))
         self.custom.setText(_("Start with session:"))
-        
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("session")
@@ -210,27 +210,39 @@ class StartSession(preferences.Group):
 class SavingDocument(preferences.Group):
     def __init__(self, page):
         super(SavingDocument, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
+        def customchanged():
+            self.changed.emit()
+            self.filenameTemplate.setEnabled(self.customFilename.isChecked())
+
         self.stripwsp = QCheckBox(toggled=self.changed)
         self.backup = QCheckBox(toggled=self.changed)
         self.metainfo = QCheckBox(toggled=self.changed)
         layout.addWidget(self.stripwsp)
         layout.addWidget(self.backup)
         layout.addWidget(self.metainfo)
-        
+
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
-        
+
         self.basedirLabel = l = QLabel()
         self.basedir = UrlRequester()
         hbox.addWidget(self.basedirLabel)
         hbox.addWidget(self.basedir)
         self.basedir.changed.connect(self.changed)
+
+        filenameBox = QHBoxLayout()
+        layout.addLayout(filenameBox)
+
+        self.customFilename = QCheckBox(toggled=customchanged)
+        self.filenameTemplate = QLineEdit(textEdited=self.changed)
+        filenameBox.addWidget(self.customFilename)
+        filenameBox.addWidget(self.filenameTemplate)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("When saving documents"))
         self.stripwsp.setText(_("Strip trailing whitespace"))
@@ -245,45 +257,54 @@ class SavingDocument(preferences.Group):
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
         self.basedirLabel.setText(_("Default directory:"))
         self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
-        
+        self.customFilename.setText(_("Use custom default file name:"))
+        self.customFilename.setToolTip(_(
+            "If checked, Frescobaldi will use the template to generate default file name.\n"
+            "{title} and {composer} will be replaced by title and composer of that document"))
+
     def loadSettings(self):
         s = QSettings()
         self.stripwsp.setChecked(s.value("strip_trailing_whitespace", False, bool))
         self.backup.setChecked(s.value("backup_keep", False, bool))
         self.metainfo.setChecked(s.value("metainfo", True, bool))
         self.basedir.setPath(s.value("basedir", "", str))
-        
+        self.customFilename.setChecked(s.value("custom_default_filename", False, bool))
+        self.filenameTemplate.setText(s.value("default_filename_template", "{composer}-{title}", str))
+        self.filenameTemplate.setEnabled(self.customFilename.isChecked())
+
     def saveSettings(self):
         s = QSettings()
         s.setValue("strip_trailing_whitespace", self.stripwsp.isChecked())
         s.setValue("backup_keep", self.backup.isChecked())
         s.setValue("metainfo", self.metainfo.isChecked())
         s.setValue("basedir", self.basedir.path())
+        s.setValue("custom_default_filename", self.customFilename.isChecked())
+        s.setValue("default_filename_template", self.filenameTemplate.text())
 
 
 class NewDocument(preferences.Group):
     def __init__(self, page):
         super(NewDocument, self).__init__(page)
-        
+
         grid = QGridLayout()
         self.setLayout(grid)
-        
+
         def changed():
             self.changed.emit()
             self.combo.setEnabled(self.template.isChecked())
-        
+
         self.emptyDocument = QRadioButton(toggled=changed)
         self.lilyVersion = QRadioButton(toggled=changed)
         self.template = QRadioButton(toggled=changed)
         self.combo = QComboBox(currentIndexChanged=changed)
-        
+
         grid.addWidget(self.emptyDocument, 0, 0, 1, 2)
         grid.addWidget(self.lilyVersion, 1, 0, 1, 2)
         grid.addWidget(self.template, 2, 0, 1, 1)
         grid.addWidget(self.combo, 2, 1, 1, 1)
         self.loadCombo()
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("When creating new documents"))
         self.emptyDocument.setText(_("Create an empty document"))
@@ -292,14 +313,14 @@ class NewDocument(preferences.Group):
         from snippet import snippets
         for i, name in enumerate(self._names):
             self.combo.setItemText(i, snippets.title(name))
-    
+
     def loadCombo(self):
         from snippet import snippets
         self._names = [name for name in snippets.names()
                         if snippets.get(name).variables.get('template')]
         self.combo.clear()
         self.combo.addItems([''] * len(self._names))
-        
+
     def loadSettings(self):
         s = QSettings()
         ndoc = s.value("new_document", "empty", str)
@@ -327,25 +348,25 @@ class NewDocument(preferences.Group):
 class ExperimentalFeatures(preferences.Group):
     def __init__(self, page):
         super(ExperimentalFeatures, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.experimentalFeatures = QCheckBox(toggled=self.changed)
         layout.addWidget(self.experimentalFeatures)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setTitle(_("Experimental Features"))
         self.experimentalFeatures.setText(_("Enable Experimental Features"))
         self.experimentalFeatures.setToolTip('<qt>' + _(
             "If checked, features that are not yet finished are enabled.\n"
             "You need to restart Frescobaldi to see the changes."))
-    
+
     def loadSettings(self):
         s = QSettings()
         self.experimentalFeatures.setChecked(s.value("experimental-features", False, bool))
-        
+
     def saveSettings(self):
         s = QSettings()
         s.setValue("experimental-features", self.experimentalFeatures.isChecked())

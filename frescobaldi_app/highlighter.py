@@ -46,10 +46,10 @@ metainfo.define('highlighting', True)
 
 def mapping(data):
     """Return a dictionary mapping token classes from ly.lex to QTextCharFormats.
-    
+
     The QTextFormats are queried from the specified TextFormatData instance.
     The returned dictionary is a ly.colorize.Mapping instance.
-    
+
     """
     return ly.colorize.Mapper((cls, data.textFormat(mode, style.name))
                         for mode, styles in ly.colorize.default_mapping()
@@ -85,15 +85,15 @@ app.settingsChanged.connect(_reset_highlight_mapping, -100) # before all others
 
 class Highlighter(plugin.Plugin, QSyntaxHighlighter):
     """A QSyntaxHighlighter that can highlight a QTextDocument.
-    
+
     It can be used for both generic QTextDocuments as well as
     document.Document objects. In the latter case it automatically:
     - initializes whether highlighting is enabled from the document's metainfo
     - picks the mode from the variables if they specify that
-    
+
     The Highlighter automatically re-reads the highlighting settings if they
     are changed.
-    
+
     """
     def __init__(self, document):
         QSyntaxHighlighter.__init__(self, document)
@@ -103,16 +103,16 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
         self._highlighting = True
         self._mode = None
         self.initializeDocument()
-    
+
     def initializeDocument(self):
         """This method is always called by the __init__ method.
-        
+
         The default implementation does nothing for generic QTextDocuments,
         but for document.Document instances it connects to some additional
         signals to keep the mode up-to-date (reading it from the variables if
         needed) and initializes whether to enable visual highlighting from the
         document's metainfo.
-        
+
         """
         document = self.document()
         if hasattr(document, 'url'):
@@ -120,18 +120,18 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
             document.loaded.connect(self._resetHighlighting)
             self._mode = documentinfo.mode(document, False)
             variables.manager(document).changed.connect(self._variablesChange)
-        
+
     def _variablesChange(self):
         """Called whenever the variables have changed. Checks the mode."""
         mode = documentinfo.mode(self.document(), False)
         if mode != self._mode:
             self._mode = mode
             self.rehighlight()
-            
+
     def _resetHighlighting(self):
         """Switch highlighting on or off depending on saved metainfo."""
         self.setHighlighting(metainfo.info(self.document()).highlighting)
-        
+
     def highlightBlock(self, text):
         """Called by Qt when the highlighting of the current line needs updating."""
         # find the state of the previous line
@@ -144,11 +144,11 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
         # collect and save the tokens
         tokens = tuple(state.tokens(text))
         cursortools.data(self.currentBlock()).tokens = tokens
-        
+
         # if blank thus far, keep the highlighter coming back
         # because the parsing state is not yet known; else save the state
         self.setCurrentBlockState(prev - 1 if blank else self._fridge.freeze(state))
-        
+
         # apply highlighting if desired
         if self._highlighting:
             setFormat = lambda f: self.setFormat(token.pos, len(token), f)
@@ -157,32 +157,32 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
                 f = mapping[token]
                 if f:
                     setFormat(f)
-        
+
     def setHighlighting(self, enable):
         """Enable or disable highlighting."""
         changed = enable != self._highlighting
         self._highlighting = enable
         if changed:
             self.rehighlight()
-            
+
     def isHighlighting(self):
         """Return whether highlighting is active."""
         return self._highlighting
-        
+
     def state(self, block):
         """Return a thawed ly.lex.State() object at the *end* of the QTextBlock.
-        
+
         Do not use this method directly. Instead use tokeniter.state() or
         tokeniter.state_end(), because that assures the highlighter has run
         at least once.
-        
+
         """
         return self._fridge.thaw(block.userState()) or self.initialState()
 
     def setInitialState(self, state):
         """Force the initial state. Use None to enable auto-detection."""
         self._initialState = self._fridge.freeze(state) if state else None
-        
+
     def initialState(self):
         """Return the initial State for this document."""
         if self._initialState is None:
@@ -193,12 +193,12 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
 
 def html_copy(cursor, scheme='editor', number_lines=False):
     """Return a new QTextDocument with highlighting set as HTML textcharformats.
-    
-    The cursor is a cursor of a document.Document instance. If the cursor 
+
+    The cursor is a cursor of a document.Document instance. If the cursor
     has a selection, only the selection is put in the new document.
-    
+
     If number_lines is True, line numbers are added.
-    
+
     """
     data = textformats.formatData(scheme)
     doc = QTextDocument()
@@ -240,12 +240,12 @@ def html_copy(cursor, scheme='editor', number_lines=False):
 
 def highlight(document, mapping=None, state=None):
     """Highlight a generic QTextDocument once.
-    
-    mapping is an optional Mapping instance, defaulting to the current 
+
+    mapping is an optional Mapping instance, defaulting to the current
     configured editor highlighting formats (returned by highlight_mapping()).
-    state is an optional ly.lex.State instance. By default the text type is 
+    state is an optional ly.lex.State instance. By default the text type is
     guessed.
-    
+
     """
     if mapping is None:
         mapping = highlight_mapping()

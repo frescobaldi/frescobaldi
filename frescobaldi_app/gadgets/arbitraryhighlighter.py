@@ -32,25 +32,25 @@ from PyQt5.QtWidgets import QTextEdit
 
 class ArbitraryHighlighter(QObject):
     """Manages highlighting of arbitrary sections in a Q(Plain)TextEdit.
-    
+
     Stores and highlights lists of QTextCursors on a per-format basis.
-    
+
     """
     def __init__(self, edit):
         """Initializes ourselves with a Q(Plain)TextEdit as parent."""
         QObject.__init__(self, edit)
         self._selections = {}
         self._formats = {} # store the QTextFormats
-    
+
     def highlight(self, format, cursors, priority=0, msec=0):
         """Highlights the selection of an arbitrary list of QTextCursors.
-        
+
         format can be a name for a predefined text format or a QTextCharFormat;
         in the first case the textFormat() method should return a qtextformat to use.
         priority determines the order of drawing, highlighting with higher priority
         is drawn over highlighting with lower priority.
         msec, if > 0, removes the highlighting after that many milliseconds.
-        
+
         """
         if isinstance(format, QTextFormat):
             fmt = format

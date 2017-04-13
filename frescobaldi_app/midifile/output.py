@@ -28,81 +28,81 @@ from . import event
 
 class Output(object):
     """Abstract base class for a MIDI output.
-    
+
     Inherit to implement the actual writing to MIDI ports.
     The midiplayer.Player calls midi_event and all_notes_off.
-    
+
     """
-    
+
     def midi_event(self, midi):
         """Handles a list or dict of MIDI events from a Song (midisong.py)."""
         if isinstance(midi, dict):
             # dict mapping track to events?
             midi = sum(map(midi.get, sorted(midi)), [])
         self.send_events(midi)
-    
+
     def reset(self):
         """Restores the MIDI output to an initial state.
-        
+
         Sets the program to 0, the volume to 90 and sends reset_controllers
         messages to all channels.
-        
+
         """
         self.reset_controllers()
         self.set_main_volume(90)
         self.set_program_change(0)
-    
+
     def set_main_volume(self, volume, channel=-1):
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
                 send(event.ControllerEvent(c, event.MIDI_CTL_MSB_MAIN_VOLUME, volume))
-    
+
     def set_program_change(self, program, channel=-1):
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
                 send(event.ProgramChangeEvent(c, program))
-        
+
     def reset_controllers(self, channel=-1):
         """Sends an all_notes_off message to a channel.
-        
+
         If the channel is -1 (the default), sends the message to all channels.
-        
+
         """
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
                 send(event.ControllerEvent(c, event.MIDI_CTL_RESET_CONTROLLERS, 0))
-        
+
     def all_sounds_off(self, channel=-1):
         """Sends an all_notes_off message to a channel.
-        
+
         If the channel is -1 (the default), sends the message to all channels.
-        
+
         """
         channels = range(16) if channel == -1 else (channel,)
         with self.sender() as send:
             for c in channels:
                 send(event.ControllerEvent(c, event.MIDI_CTL_ALL_NOTES_OFF, 0))
                 send(event.ControllerEvent(c, event.MIDI_CTL_ALL_SOUNDS_OFF, 0))
-        
+
     def send_events(self, events):
         """Writes the list of events to the output port.
-        
+
         Each event is one of the event types in event.py
         Implement to do the actual writing.
-        
+
         """
         pass
-    
+
     @contextlib.contextmanager
     def sender(self):
         """Returns a context manager to call for each event to send.
-        
+
         When the context manager exits, the events are sent using the
         send_events() method.
-        
+
         """
         l = []
         yield l.append
@@ -112,12 +112,12 @@ class Output(object):
 
 class PortMidiOutput(Output):
     """Writes events to a PortMIDI Output instance.
-    
+
     The PortMIDI Output instance should be in the output attribute.
-    
+
     """
     output = None
-    
+
     def send_events(self, events):
         """Writes the list of events to the PortMIDI output port."""
         l = []
@@ -130,7 +130,7 @@ class PortMidiOutput(Output):
             l = l[1024:]
         if l:
             self.output.write(l)
-    
+
     def convert_event(self, e):
         """Returns a list of integers representing a MIDI message from event."""
         t = type(e)
@@ -142,7 +142,7 @@ class PortMidiOutput(Output):
             return self.convert_programchange_event(e)
         elif t is event.ControllerEvent:
             return self.convert_controller_event(e)
-    
+
     def convert_note_event(self, e):
         return [e.type * 16 + e.channel, e.note, e.value]
 

@@ -34,7 +34,7 @@ from PyQt5.QtGui import (QKeySequence, QTextCursor, QTextDocument)
 from PyQt5.QtPrintSupport import (QAbstractPrintDialog, QPrintDialog, QPrinter)
 from PyQt5.QtWidgets import (QAction, QApplication, QFileDialog, QMainWindow,
                              QMenu, QMessageBox, QPlainTextEdit, QVBoxLayout,
-                             QWhatsThis, QWidget)
+                             QWhatsThis, QWidget, QInputDialog)
 
 import app
 import backup
@@ -337,7 +337,7 @@ class MainWindow(QMainWindow):
             else:
                 allow_close = res == QMessageBox.Discard
         return allow_close and engrave.engraver(self).queryCloseDocument(doc)
-    
+
     def createPopupMenu(self):
         """ Adds an entry to the popup menu to show/hide the tab bar. """
         menu = QMainWindow.createPopupMenu(self)
@@ -529,7 +529,7 @@ class MainWindow(QMainWindow):
                         break
                 else:
                     directory = app.basedir() # default directory to save to
-                
+
                 import documentinfo
                 import ly.lex
                 filename = os.path.join(directory, documentinfo.defaultfilename(doc))
@@ -899,6 +899,15 @@ class MainWindow(QMainWindow):
         """Scroll down without moving the cursor"""
         sb = self.currentView().verticalScrollBar()
         sb.setValue(sb.value() + 1)
+    
+    def gotoLine(self):
+        """Ask for line number and go there"""
+        line_count = self.currentDocument().blockCount()
+        line, ok = QInputDialog.getInt(self, "Goto Line ...",
+            "Line Number (1-{}):".format(line_count), 1, min = 1,  max = line_count)
+        if ok:
+            cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
+            self.currentView().setTextCursor(cur)
 
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""
@@ -985,6 +994,7 @@ class MainWindow(QMainWindow):
         ac.view_wrap_lines.triggered.connect(self.toggleWrapLines)
         ac.view_scroll_up.triggered.connect(self.scrollUp)
         ac.view_scroll_down.triggered.connect(self.scrollDown)
+        ac.view_goto_line.triggered.connect(self.gotoLine)
         ac.window_new.triggered.connect(self.newWindow)
         ac.window_fullscreen.toggled.connect(self.toggleFullScreen)
         ac.help_manual.triggered.connect(self.showManual)
@@ -1104,6 +1114,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_wrap_lines = QAction(parent, checkable=True)
         self.view_scroll_up = QAction(parent)
         self.view_scroll_down = QAction(parent)
+        self.view_goto_line = QAction(parent)
 
         self.window_new = QAction(parent)
         self.window_fullscreen = QAction(parent)
@@ -1182,6 +1193,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_previous_document.setShortcuts(QKeySequence.Back)
         self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
         self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
+        self.view_goto_line.setShortcut(Qt.CTRL + Qt.ALT + Qt.Key_G)
 
         self.window_fullscreen.setShortcuts([QKeySequence(Qt.CTRL + Qt.SHIFT + Qt.Key_F), QKeySequence(Qt.Key_F11)])
 
@@ -1248,6 +1260,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.view_wrap_lines.setText(_("Wrap &Lines"))
         self.view_scroll_up.setText(_("Scroll Up"))
         self.view_scroll_down.setText(_("Scroll Down"))
+        self.view_goto_line.setText(_("&Goto Line..."))
 
         self.window_new.setText(_("New &Window"))
         self.window_fullscreen.setText(_("&Fullscreen"))

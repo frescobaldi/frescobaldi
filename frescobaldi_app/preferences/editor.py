@@ -228,7 +228,7 @@ class Indenting(preferences.Group):
 class KeyBoard(preferences.Group):
     def __init__(self, page):
         super(KeyBoard, self).__init__(page)
-        
+
         layout = QGridLayout(spacing=1)
         self.setLayout(layout)
 

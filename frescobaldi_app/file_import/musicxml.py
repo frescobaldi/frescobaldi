@@ -20,7 +20,7 @@
 """
 Import Music XML dialog.
 Uses musicxml2ly to create ly file from xml.
-In the dialog the options of musicxml2ly can be set. 
+In the dialog the options of musicxml2ly can be set.
 """
 
 
@@ -49,51 +49,51 @@ _langlist = [
 
 
 class Dialog(toly_dialog.ToLyDialog):
-	
+
     def __init__(self, parent=None):
-        
+
         self.imp_prgm = "musicxml2ly"
         self.userg = "musicxml_import"
-        
+
         self.noartCheck = QCheckBox()
         self.norestCheck = QCheckBox()
         self.nolayoutCheck = QCheckBox()
         self.nobeamCheck = QCheckBox()
         self.useAbsCheck = QCheckBox()
         self.commMidiCheck = QCheckBox()
-        
+
         self.langCombo = QComboBox()
         self.langLabel = QLabel()
-        
+
         self.impChecks = [self.noartCheck,
                           self.norestCheck,
                           self.nolayoutCheck,
                           self.nobeamCheck,
                           self.useAbsCheck,
                           self.commMidiCheck]
-        
+
         self.noartCheck.setObjectName("articulation-directions")
         self.norestCheck.setObjectName("rest-positions")
         self.nolayoutCheck.setObjectName("page-layout")
         self.nobeamCheck.setObjectName("import-beaming")
         self.useAbsCheck.setObjectName("absolute-mode")
         self.commMidiCheck.setObjectName("comment-out-midi")
-        
+
         self.langCombo.addItem('')
         self.langCombo.addItems(_langlist)
-        
+
         self.impExtra = [self.langLabel, self.langCombo]
-        
+
         super(Dialog, self).__init__(parent)
-        
+
         self.langCombo.currentIndexChanged.connect(self.makeCommandLine)
         app.translateUI(self)
         qutil.saveDialogSize(self, "musicxml_import/dialog/size", QSize(480, 260))
-        
+
         self.makeCommandLine()
-        
+
         self.loadSettings()
-        
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Import Music XML")))
         self.noartCheck.setText(_("Import articulation directions"))
@@ -102,14 +102,14 @@ class Dialog(toly_dialog.ToLyDialog):
         self.nobeamCheck.setText(_("Import beaming"))
         self.useAbsCheck.setText(_("Pitches in absolute mode"))
         self.commMidiCheck.setText(_("Comment out midi block"))
-        
+
         self.langLabel.setText(_("Language for pitch names"))
         self.langCombo.setItemText(0, _("Default"))
-        
+
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run musicxml2ly"))
-        
+
         super(Dialog, self).translateUI()
-    
+
     def makeCommandLine(self):
         """Reads the widgets and builds a command line."""
         cmd = ["$musicxml2ly"]
@@ -131,7 +131,7 @@ class Dialog(toly_dialog.ToLyDialog):
 
         cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))
-        
+
     def loadSettings(self):
         """Get users previous settings."""
         self.imp_default = [False, False, False, False, False, False]
@@ -144,7 +144,7 @@ class Dialog(toly_dialog.ToLyDialog):
         except ValueError:
             index = -1
         self.langCombo.setCurrentIndex(index + 1)
-        
+
     def saveSettings(self):
         """Save users last settings."""
         self.settings = QSettings()

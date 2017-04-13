@@ -36,22 +36,22 @@ class LilyChooser(QComboBox):
         app.translateUI(self)
         app.settingsChanged.connect(self.load)
         self.load()
-    
+
     def translateUI(self):
         self.setToolTip(_("Choose the desired LilyPond version."""))
-    
+
     def setLilyPondInfo(self, info):
         """Set the current LilyPond info (one of lilypondinfo.infos())."""
         try:
             self.setCurrentIndex(self._infos.index(info))
         except IndexError:
             pass
-    
+
     def lilyPondInfo(self):
         """Get the current LilyPond info."""
         if self._infos:
             return self._infos[self.currentIndex()]
-    
+
     def load(self):
         """Load the available LilyPond infos."""
         infos = lilypondinfo.infos() or [lilypondinfo.default()]

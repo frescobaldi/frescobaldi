@@ -63,12 +63,12 @@ app.settingsChanged.connect(clear, -100)
 
 def loaded():
     """Returns True if all Documentation are loaded (i.e. know their version).
-    
+
     If this function returns False, you can connect to the allLoaded signal
     to get a notification when all Documentation instances have loaded their
     version information. This signal will only be emitted once, after that all
     connections will be removed from the signal.
-    
+
     """
     for d in docs():
         if d.versionString() is None:
@@ -78,10 +78,10 @@ def loaded():
 
 def _check_doc_versions():
     """Checks if all documentation instances have their version loaded.
-    
+
     Emits the allLoaded signal when all are loaded, also sorts the documentation
     instances then on local/remote and then version number.
-    
+
     """
     for d in _documentations:
         if d.versionString() is None:
@@ -104,18 +104,18 @@ def _sort_docs():
 
 def urls():
     """Returns a list of QUrls where documentation can be found.
-    
+
     Remote urls (from the users settings) are not checked but simply returned.
     For user-set local directories, if the directory itself does not contain
     LilyPond documentation, all directories one level deep are searched.
-    
+
     This makes it possible to set one directory for local documentation and
     put there multiple sets of documentation in subdirectories (e.g. with the
     version number in the path name).
-    
+
     The paths in the settings are read, and also the usual system directories
     are scanned.
-    
+
     """
     user_paths = qsettings.get_string_list(QSettings(), "documentation/paths")
     system_prefixes = [p for p in (
@@ -131,7 +131,7 @@ def urls():
     for p in user_paths:
         user_prefixes.append(p) if os.path.isdir(p) else remote.append(p)
     remote.sort(key=util.naturalsort)
-    
+
     # now find all instances of LilyPond documentation in the local paths
     def paths(path):
         """Yields possible places where LilyPond documentation could live."""
@@ -139,13 +139,13 @@ def urls():
         path = os.path.join(path, 'share', 'doc', 'lilypond', 'html')
         yield path
         yield os.path.join(path, 'offline-root')
-    
+
     def find(path):
         """Finds LilyPond documentation."""
         for p in paths(path):
             if os.path.isdir(os.path.join(p, 'Documentation')):
                 return p
-    
+
     # search in the user-set directories, if no docs, scan one level deeper
     for p in user_prefixes:
         n = find(p)

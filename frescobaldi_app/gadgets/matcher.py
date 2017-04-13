@@ -29,44 +29,44 @@ from PyQt5.QtWidgets import QTextEdit
 
 class Matcher(QObject):
     """Highlights matching characters in a textedit.
-    
+
     The following attributes are available at the class level,
     and may be overridden by setting them as instance attributes:
-    
+
     matchPairs: a string of characters that match in pairs with each other
                 default: "{}()[]"
     format:     a QTextCharFormat used to highlight matching characters with
                 default: a red foreground color
     time:       how many milliseconds to show the highlighting (0=forever)
                 default: 2000
-    
+
     """
-    
+
     matchPairs = "{}()[]"
     format = QTextCharFormat()
     format.setForeground(Qt.red)
     time = 2000
-    
+
     def __init__(self, edit):
         """Initialize the Matcher; edit is a Q(Plain)TextEdit instance."""
         super(Matcher, self).__init__(edit)
         self._timer = QTimer(singleShot=True, timeout=self.clear)
         edit.cursorPositionChanged.connect(self.slotCursorPositionChanged)
-    
+
     def edit(self):
         """Returns our Q(Plain)TextEdit."""
         return self.parent()
-    
+
     def slotCursorPositionChanged(self):
         """Called whenever the cursor position changes.
-        
+
         Highlights matching characters if the cursor is at one of them.
-        
+
         """
         cursor = self.edit().textCursor()
         block = cursor.block()
         text = block.text()
-        
+
         # try both characters at the cursor
         col = cursor.position() - block.position()
         end = col + 1
@@ -78,11 +78,11 @@ class Matcher(QObject):
         else:
             self.clear()
             return
-        
+
         # the cursor is at a character from matchPairs
         i = self.matchPairs.index(c)
         cursor.setPosition(block.position() + col)
-        
+
         # find the matching character
         new = QTextCursor(cursor)
         if i & 1:
@@ -94,7 +94,7 @@ class Matcher(QObject):
             match = self.matchPairs[i+1]
             flags = QTextDocument.FindFlags()
             new.movePosition(QTextCursor.Right)
-        
+
         # search, also nesting
         rx = QRegExp(QRegExp.escape(c) + '|' + QRegExp.escape(match))
         nest = 0
@@ -106,7 +106,7 @@ class Matcher(QObject):
             nest += 1 if new.selectedText() == c else -1
         cursor.movePosition(QTextCursor.Right, QTextCursor.KeepAnchor)
         self.highlight([cursor, new])
-    
+
     def highlight(self, cursors):
         """Highlights the selections of the specified QTextCursor instances."""
         selections = []
@@ -118,7 +118,7 @@ class Matcher(QObject):
         self.edit().setExtraSelections(selections)
         if self.time and selections:
             self._timer.start(self.time)
-    
+
     def clear(self):
         """Removes the highlighting."""
         self.edit().setExtraSelections([])

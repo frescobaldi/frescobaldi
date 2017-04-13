@@ -33,17 +33,17 @@ import plugin
 
 def scratchdir(document):
     return ScratchDir.instance(document)
-    
+
 
 def findDocument(filename):
     """Like app.findDocument(), but also takes a possible scratchdir into account.
-    
+
     If the filename happens to be the scratch-filename of a document, that
     document is returned. Otherwise, the document that really has the filename
     is returned.
-    
+
     Note that, unlike app.findDocument(), a filename is specified and not a url.
-    
+
     """
     for d in app.documents:
         if d.url().toLocalFile() == filename:
@@ -54,19 +54,19 @@ def findDocument(filename):
 
 
 class ScratchDir(plugin.DocumentPlugin):
-    
+
     def __init__(self, document):
         self._directory = None
-        
+
     def create(self):
         """Creates the local temporary directory."""
         if not self._directory:
             self._directory = util.tempdir()
-    
+
     def directory(self):
         """Returns the directory if a temporary area was created, else None."""
         return self._directory
-    
+
     def path(self):
         """Returns the path the saved document text would have if a temporary area was created, else None."""
         if self._directory:
@@ -76,13 +76,13 @@ class ScratchDir(plugin.DocumentPlugin):
             if not basename:
                 basename = 'document' + ly.lex.extensions[documentinfo.mode(self.document())]
             return os.path.join(self._directory, basename)
-            
+
     def saveDocument(self):
         """Writes the text of the document to our path()."""
         if not self._directory:
             self.create()
         with open(self.path(), 'wb') as f:
             f.write(self.document().encodedText())
-            
+
 
 

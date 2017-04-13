@@ -103,11 +103,11 @@ def available():
 
 def quote_set(primary_left, primary_right, secondary_left, secondary_right):
     """Return a QuoteSet object for the specified four quote character strings.
-    
+
     This function is not needed normally, but should you ever want to create
     a custom QuoteSet object and access the attributes in the same way as with
     the predefined quote sets, this function can be used.
-    
+
     """
     return QuoteSet(
         primary=Quotes(primary_left, primary_right),
@@ -116,9 +116,9 @@ def quote_set(primary_left, primary_right, secondary_left, secondary_right):
 
 def quotes(language="C"):
     """Return a quotes set for the specified language (default C).
-    
+
     May return None, in case there are no quotes defined for the language.
-    
+
     """
     try:
         return _quotes[language]
@@ -135,19 +135,19 @@ def default():
 
 def preferred():
     """Return the quotes desired by the Frescobaldi user.
-    
+
     Always returns a quote set.
     Only this function depends on Qt and Frescobaldi.
-    
+
     """
-    
+
     from PyQt5.QtCore import QSettings
     import po.setup
 
     s = QSettings()
     s.beginGroup("typographical_quotes")
     language = s.value("language", "current", str)
-    
+
     default = _quotes["C"]
     if language == "current":
         language = po.setup.current()

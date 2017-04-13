@@ -33,18 +33,18 @@ def get(job):
 
 class JobAttributes(plugin.AttributePlugin):
     """Manages attributes of a Job.
-    
+
     The attributes can be set simply as instance attributes.
     If possible, weak references are made so the attributes do not keep
     references to the objects they refer to.
-    
+
     If an attribute is requested but not set, None is returned.
-    
+
     Usage e.g.:
-    
+
     attrs = jobattributes.get(job)
     attrs.mainwindow = mainwindow
-    
+
     """
     def job(self):
         return self._parent()

@@ -44,12 +44,12 @@ def initialize():
     # multiple documents drastically.
     from . import file_open_eventhandler
     file_open_eventhandler.initialize()
-    
+
     # handle window icon drag events
     from . import icon_drag_eventhandler
     icon_drag_eventhandler.initialize()
-    
-    # on mac os, the app should remain running, even if there is no main window 
+
+    # on mac os, the app should remain running, even if there is no main window
     # anymore. In this case, we setup a basic global menu.
     app.qApp.setQuitOnLastWindowClosed(False)
 

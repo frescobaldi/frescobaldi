@@ -44,7 +44,7 @@ class Documentation(preferences.GroupsPage):
 
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         layout.addWidget(Paths(self))
         layout.addWidget(Browser(self))
         layout.addStretch(1)
@@ -53,26 +53,26 @@ class Documentation(preferences.GroupsPage):
 class Paths(preferences.Group):
     def __init__(self, page):
         super(Paths, self).__init__(page)
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.paths = LilyDocPathsList()
         self.paths.changed.connect(self.changed)
         layout.addWidget(self.paths)
-        
+
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_("Paths to LilyPond Documentation"))
         self.paths.setToolTip(_(
             "Add paths or URLs. See \"What's This\" for more information."))
         self.paths.setWhatsThis(userguide.html("prefs_lilydoc"))
-    
+
     def loadSettings(self):
         paths = qsettings.get_string_list(QSettings(), "documentation/paths")
         self.paths.setValue(paths)
-        
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("documentation")
@@ -86,38 +86,38 @@ class Paths(preferences.Group):
 class Browser(preferences.Group):
     def __init__(self, page):
         super(Browser, self).__init__(page)
-        
+
         layout = QGridLayout()
         self.setLayout(layout)
-        
+
         self.languagesLabel = QLabel()
         self.languages = QComboBox(currentIndexChanged=self.changed)
         layout.addWidget(self.languagesLabel, 0, 0)
         layout.addWidget(self.languages, 0, 1)
-        
+
         items = ['', '']
         items.extend(language_names.languageName(l, l) for l in lilydoc.translations)
         self.languages.addItems(items)
-        
+
         self.fontLabel = QLabel()
         self.fontChooser = QFontComboBox(currentFontChanged=self.changed)
         self.fontSize = QSpinBox(valueChanged=self.changed)
         self.fontSize.setRange(6, 32)
         self.fontSize.setSingleStep(1)
-        
+
         layout.addWidget(self.fontLabel, 1, 0)
         layout.addWidget(self.fontChooser, 1, 1)
         layout.addWidget(self.fontSize, 1, 2)
-        
+
         app.translateUI(self)
-    
+
     def translateUI(self):
         self.setTitle(_("Documentation Browser"))
         self.languagesLabel.setText(_("Preferred Language:"))
         self.languages.setItemText(0, _("Default"))
         self.languages.setItemText(1, _("English (untranslated)"))
         self.fontLabel.setText(_("Font:"))
-        
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("documentation")
@@ -129,7 +129,7 @@ class Browser(preferences.Group):
         else:
             i = 0
         self.languages.setCurrentIndex(i)
-        
+
         font = self.font()
         family = s.value("fontfamily", "", str)
         if family:
@@ -150,7 +150,7 @@ class Browser(preferences.Group):
 
 class LilyDocPathsList(widgets.listedit.ListEdit):
     def openEditor(self, item):
-        
+
         dlg = widgets.dialog.Dialog(self,
             _("Please enter a local path or a URL:"),
             app.caption("LilyPond Documentation"),

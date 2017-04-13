@@ -2,7 +2,10 @@ README for developers
 =====================
 
 The Frescobaldi LilyPond sheet music editor is written in Python and uses
-Qt4 for its user interface, via the PyQt4 bindings.
+Qt for its user interface, via the PyQt bindings (Python3 with Qt5 for the
+current development from version 3 onwards, Python2/3 with Qt4 for the previous
+stable release from version 2. Any future development will be done with
+Python3 and Qt5.)
 
 All code and application data is in the frescobaldi_app/ directory. The
 frescobaldi script just imports frescobaldi_app.main.  You can simply run
@@ -31,10 +34,7 @@ This ensures the application starts up and uses the correct SIP API (2) for
 QString and QVariant. This will also install some handlers that print 
 debugging information on certain events. And it imports the most used modules.
 
-Currently Python 2.7 and Python 3.2 and newer are supported. Supporting both
-Python 2 and Python 3 requires certain care, so please test your changes with
-both, especially if your code involves string encoding/decoding and file
-operations.
+Currently Python 3.2 and newer is supported.
 
 
 How Frescobaldi is organized

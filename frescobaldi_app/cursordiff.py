@@ -33,29 +33,29 @@ import cursortools
 
 def insert_text(cursor, text):
     """Replaces selected text of a QTextCursor.
-    
+
     This is done without erasing all the other QTextCursor instances that could
     exist in the selected range. It works by making a diff between the
     existing selection and the replacement text, and applying that diff.
-    
+
     """
     if not cursor.hasSelection() or text == "":
         cursor.insertText(text)
         return
-    
+
     start = cursor.selectionStart()
     new_pos = start + len(text)
-    
+
     old = cursor.selection().toPlainText()
     diff = difflib.SequenceMatcher(None, old, text).get_opcodes()
-    
+
     # make a list of edits
     edits = sorted(
         ((start + i1, start + i2, text[j1:j2])
          for tag, i1, i2, j1, j2 in diff
          if tag != 'equal'),
         reverse = True)
-    
+
     # perform the edits
     with cursortools.compress_undo(cursor):
         for pos, end, text in edits:

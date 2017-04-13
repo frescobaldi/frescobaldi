@@ -29,49 +29,49 @@ class RenderOptions(object):
         self._renderHint = None
         self._paperColor = None
         self._oversampleThreshold = 0
-    
+
     def read(self, document):
         """Reads rendering options from the given Poppler.Document."""
         self._renderHint = document.renderHints()
         self._paperColor = document.paperColor()
-        
+
     def write(self, document):
         """Writes our rendering options to the given Poppler.Document."""
         if self._renderHint is not None:
             document.setRenderHint(int(document.renderHints()), False)
             document.setRenderHint(self._renderHint)
-        
+
         if self._paperColor is not None:
             document.setPaperColor(self._paperColor)
-        
+
     def setRenderHint(self, hint):
         """Sets the Poppler.Document.RenderHints. Use None to unset."""
         self._renderHint = hint
-    
+
     def renderHint(self):
         """Returns the currently set RenderHint(s)."""
         return self._renderHint
-        
+
     def setPaperColor(self, color):
         """Sets the paper color for rendering. Use None to unset."""
         self._paperColor = color
-        
+
     def paperColor(self):
         """Returns the currently set paper color."""
         return self._paperColor
-    
+
     def setOversampleThreshold(self, value):
         """Sets the oversample threshold resolution.
-        
+
         Below this resolution, the image will be rendered in double size
         and scaled down, to provide a smoother image. Otherwise, the horizontal
         lines may appear too thick.
-        
+
         The default value is 0, meaning no oversampling.
-        
+
         """
         self._oversampleThreshold = value
-        
+
     def oversampleThreshold(self):
         """Return the current oversample threshold resolution."""
         return self._oversampleThreshold

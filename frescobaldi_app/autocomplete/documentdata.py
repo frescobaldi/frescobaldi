@@ -75,7 +75,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
             completiondata.score,
             harvest.include_identifiers(cursor),
             harvest.names(cursor)))), display = util.command)
-    
+
     @util.keep
     def bookpartcommands(self, cursor):
         """Stuff inside \\bookpart { }. """
@@ -83,7 +83,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
             completiondata.bookpart,
             harvest.include_identifiers(cursor),
             harvest.names(cursor)))), display = util.command)
-    
+
     @util.keep
     def bookcommands(self, cursor):
         """Stuff inside \\book { }. """
@@ -91,8 +91,8 @@ class DocumentDataSource(plugin.DocumentPlugin):
             completiondata.book,
             harvest.include_identifiers(cursor),
             harvest.names(cursor)))), display = util.command)
-    
-    
+
+
     @util.keep
     def musiccommands(self, cursor):
         return listmodel.ListModel(sorted(set(itertools.chain(
@@ -115,13 +115,13 @@ class DocumentDataSource(plugin.DocumentPlugin):
 
     def includenames(self, cursor, directory=None):
         """Finds files relative to the directory of the cursor's document.
-        
+
         If the document has a local filename, looks in that directory,
         also in a subdirectory of it, if the directory argument is given.
-        
-        Then looks recursively in the user-set include paths, 
+
+        Then looks recursively in the user-set include paths,
         and finally in LilyPond's own ly/ folder.
-        
+
         """
         names = []
         # names in current dir
@@ -134,17 +134,17 @@ class DocumentDataSource(plugin.DocumentPlugin):
                     for f in get_filenames(basedir, True)))
             else:
                 names.extend(sorted(get_filenames(basedir, True)))
-        
+
         # names in specified include paths
         import documentinfo
         for basedir in documentinfo.info(self.document()).includepath():
-            
+
             # store dir relative to specified include path root
             reldir = directory if directory else ""
             # look for files in the current relative directory
             for f in sorted(get_filenames(os.path.join(basedir, reldir), True)):
                 names.append(os.path.join(reldir, f))
-        
+
         # names from LilyPond itself
         import engrave.command
         datadir = engrave.command.info(self.document()).datadir()
@@ -154,11 +154,11 @@ class DocumentDataSource(plugin.DocumentPlugin):
             names.extend(sorted(f for f in get_filenames(basedir)
                 if not f.endswith('init.ly')
                 and f.islower()))
-        
+
         # forward slashes on Windows (issue #804)
         if os.name == "nt":
             names = [name.replace('\\', '/') for name in names]
-        
+
         return listmodel.ListModel(names)
 
 

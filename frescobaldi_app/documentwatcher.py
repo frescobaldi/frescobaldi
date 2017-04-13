@@ -54,11 +54,11 @@ class DocumentWatcher(plugin.DocumentPlugin):
     """Maintains if a change was detected for a document."""
     def __init__(self, d):
         self.changed = False
-    
+
     def isdeleted(self):
         """Return True if some change has occurred, the document has a local
         filename, but the file is not existing on disk.
-        
+
         """
         if self.changed:
             filename = self.document().url().toLocalFile()
@@ -80,7 +80,7 @@ def removeUrl(url):
     if filename:
         watcher.removePath(filename)
 
-    
+
 def unchange(document):
     """Mark document as not changed (anymore)."""
     DocumentWatcher.instance(document).changed = False
@@ -95,7 +95,7 @@ def documentUrlChanged(document, url, old):
         removeUrl(old)
     addUrl(url)
 
-            
+
 def documentClosed(document):
     """Called whenever a document closes."""
     for d in app.documents:
@@ -118,7 +118,7 @@ def whileSaving(document):
     finally:
         addUrl(document.url())
 
-    
+
 def fileChanged(filename):
     """Called whenever the global filesystem watcher detects a change."""
     url = QUrl.fromLocalFile(filename)

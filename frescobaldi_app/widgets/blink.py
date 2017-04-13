@@ -28,20 +28,20 @@ from PyQt5.QtWidgets import QWidget
 
 class Blinker(QWidget):
     """Can draw a blinking region above its parent widget."""
-    
+
     finished = pyqtSignal()
-    
+
     lineWidth = 3
     radius = 3
-    
+
     @classmethod
     def blink(cls, widget, rect=None, color=None):
         """Shortly blinks a rectangular region on a widget.
-        
+
         If rect is not given, the full rect() of the widget is used.
         If color is not given, the highlight color of the widget is used.
         This method instantiates a Blinker widget and discards it after use.
-        
+
         """
         window = widget.window()
         if rect is None:
@@ -62,14 +62,14 @@ class Blinker(QWidget):
         width = metrics.boundingRect("m").width()
         rect = textedit.cursorRect().normalized().adjusted(0, 0, width, 0)
         cls.blink(textedit, rect.translated(textedit.viewport().pos()), color)
-    
+
     def __init__(self, widget):
         """Initializes ourselves to draw on the widget."""
         super(Blinker, self).__init__(widget)
         self._color = None
         self._animation = ()
         self._timer = QTimer(singleShot=True, timeout=self._updateAnimation)
-        
+
     def start(self, rect):
         """Starts blinking the specified rectangle."""
         self._blink_rect = rect
@@ -78,39 +78,39 @@ class Blinker(QWidget):
         self.show()
         self._animation = self.animateColor()
         self._updateAnimation()
-        
+
     def done(self):
         """(Internal) Called when the animation ends."""
         self.hide()
         self._animation = ()
         self.finished.emit()
-    
+
     def _updateAnimation(self):
         for delta, self._color in self._animation:
             self.update()
             self._timer.start(delta)
             return
         self.done()
-        
+
     def animateColor(self):
         """A generator yielding tuples (msec_delta, color) to animate colors.
-        
+
         When the generator exits, the animation ends.
         The color is taken from the Highlight palette value.
-        
+
         """
         color = self.palette().color(QPalette.Highlight)
         for delta, alpha in self.animateAlpha():
             color.setAlpha(alpha)
             yield delta, color
-    
+
     def animateAlpha(self):
         """A generator yielding (msec_delta, alpha) tuples."""
         for alpha in (255, 0, 255, 0, 255):
             yield 120, alpha
         for alpha in range(255, 0, -15):
             yield 40, alpha
-    
+
     def paintEvent(self, ev):
         color = self._color
         if not color or color.alpha() == 0:

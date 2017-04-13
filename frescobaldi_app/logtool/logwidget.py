@@ -59,13 +59,13 @@ class LogWidget(log.Log):
         doc = logtool.mainwindow().currentDocument()
         if doc:
             self.switchDocument(doc)
-    
+
     def readSettings(self):
         self._formats = self.logformats()
         self._rawView = QSettings().value("log/rawview", True, bool)
         if self._document():
             self.switchDocument(self._document()) # reload
-    
+
     def switchDocument(self, doc):
         """Called when the document is changed."""
         job = jobmanager.job(doc)
@@ -81,7 +81,7 @@ class LogWidget(log.Log):
             self._document = weakref.ref(doc)
             self.clear()
             self.connectJob(job)
-            
+
     def documentClosed(self, doc):
         if doc == self._document():
             self.clear()
@@ -91,14 +91,14 @@ class LogWidget(log.Log):
         self._currentErrorIndex = -1
         self.setExtraSelections([])
         super(LogWidget, self).clear()
-    
+
     def writeMessage(self, message, type):
         """This writes both status and output messages to the log.
-        
+
         For output messages also the correct encoding is re-applied:
         LilyPond writes filenames out in the system's filesystemencoding,
         while the messages are always written in UTF-8 encoding...
-        
+
         """
         if type == job.STDERR:
             # find filenames in message:
@@ -106,7 +106,7 @@ class LogWidget(log.Log):
             msg = next(parts).decode('utf-8', 'replace')
             self.cursor.insertText(msg, self.textFormat(type))
             enc = sys.getfilesystemencoding()
-            
+
             for url, path, line, col, msg in zip(*itertools.repeat(parts, 5)):
                 url = url.decode(enc)
                 path = path.decode(enc)
@@ -120,7 +120,7 @@ class LogWidget(log.Log):
                 fmt.setAnchor(True)
                 fmt.setAnchorHref(str(len(self._errors)))
                 fmt.setToolTip(_("Click to edit this file"))
-                
+
                 pos = self.cursor.position()
                 self.cursor.insertText(display_url, fmt)
                 self.cursor.insertText(msg, self.textFormat(type))
@@ -138,7 +138,7 @@ class LogWidget(log.Log):
         index = int(url.toString())
         if 0 <= index < len(self._errors):
             self.highlightError(index)
-    
+
     def gotoError(self, direction):
         """Jumps to the next (1) or previous (-1) error message."""
         if self._errors:
@@ -148,7 +148,7 @@ class LogWidget(log.Log):
             elif i >= len(self._errors):
                 i = 0
             self.highlightError(i)
-    
+
     def highlightError(self, index):
         """Hihglights the error message at the given index and jumps to its location."""
         self._currentErrorIndex = index

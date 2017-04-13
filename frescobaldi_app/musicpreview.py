@@ -56,21 +56,21 @@ class MusicPreviewJob(job.Job):
         self.document = os.path.join(self.directory, 'document.ly')
         with open(self.document, 'wb') as f:
             f.write(text.encode('utf-8'))
-            
+
         info = lilypondinfo.preferred()
         if QSettings().value("lilypond_settings/autoversion", True, bool):
             version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version()
             if version:
                 info = lilypondinfo.suitable(version)
-        
+
         lilypond = info.abscommand() or info.command
         self.command = [lilypond, '-dno-point-and-click', '--pdf', self.document]
         if title:
             self.set_title(title)
-    
+
     def resultfiles(self):
         return glob.glob(os.path.join(self.directory, '*.pdf'))
-        
+
     def cleanup(self):
         shutil.rmtree(self.directory, ignore_errors=True)
 
@@ -81,23 +81,23 @@ class MusicPreviewWidget(QWidget):
         self._lastbuildtime = 10.0
         self._running = None
         self._current = None
-        
+
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
         self._log = log.Log()
         self._view = popplerview.View()
         self._progress = widgets.progressbar.TimedProgressBar()
-        
+
         self._stack = QStackedLayout()
         self._top = QWidget()
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         layout.addWidget(self._top)
         layout.addLayout(self._stack)
         layout.addWidget(self._progress)
-        
+
         top = QHBoxLayout()
         top.setContentsMargins(0, 0, 0, 0)
         top.setSpacing(2)
@@ -105,17 +105,17 @@ class MusicPreviewWidget(QWidget):
         top.addWidget(self._chooserLabel)
         top.addWidget(self._chooser)
         top.addStretch(1)
-        
+
         self._stack.addWidget(self._log)
         self._stack.addWidget(self._view)
-        
+
         self._top.hide()
         app.aboutToQuit.connect(self.cleanup)
         app.translateUI(self)
-    
+
     def translateUI(self):
         self._chooserLabel.setText(_("Document:"))
-        
+
     def preview(self, text, title=None):
         """Runs LilyPond on the given text and shows the resulting PDF."""
         j = self._running = MusicPreviewJob(text, title)
@@ -124,7 +124,7 @@ class MusicPreviewWidget(QWidget):
         self._log.connectJob(j)
         j.start()
         self._progress.start(self._lastbuildtime)
-    
+
     def _done(self, success):
         self._progress.stop(False)
         pdfs = self._running.resultfiles()
@@ -138,7 +138,7 @@ class MusicPreviewWidget(QWidget):
             self._current.cleanup()
         self._current = self._running # keep the tempdir
         self._running = None
-        
+
     def setDocuments(self, pdfs):
         """Loads the given PDF path names in the UI."""
         self._documents = [popplertools.Document(name) for name in pdfs]
@@ -167,7 +167,7 @@ class MusicPreviewWidget(QWidget):
         self._stack.setCurrentWidget(self._log)
         self._top.hide()
         self._view.clear()
-    
+
     def print_(self):
         """Prints the currently displayed document."""
         if self._documents:
@@ -194,11 +194,11 @@ class MusicPreviewDialog(QDialog):
         self._printButton.hide()
         qutil.saveDialogSize(self, "musicpreview/dialog/size", QSize(500, 350))
         app.translateUI(self)
-    
+
     def translateUI(self):
         self._printButton.setText(_("&Print"))
         self.setWindowTitle(app.caption(_("Music Preview")))
-        
+
     def preview(self, text, title=None):
         self._widget.preview(text, title)
 

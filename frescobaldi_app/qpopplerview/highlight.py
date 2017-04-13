@@ -28,31 +28,31 @@ from PyQt5.QtWidgets import QApplication
 
 class Highlighter(object):
     """A Highlighter can draw rectangles to highlight e.g. links in a Poppler.Document.
-    
+
     An instance represents a certain type of highlighting, e.g. of a particular style.
     The paintRects() method is called with a list of rectangles that need to be drawn.
-    
+
     To implement different highlighting behaviour just inherit paintRects().
     The default implementation of paintRects() uses the color() method to get the
     color to use and the lineWidth (default: 2) and radius (default: 3) class attributes.
-    
+
     lineWidth specifies the thickness in pixels of the border drawn,
     radius specifies the distance in pixels the border is drawn (by default with rounded corners)
     around the area to be highlighted.
-    
+
     """
-    
+
     lineWidth = 2
     radius = 3
-    
+
     def color(self):
         """The default paintRects() method uses this method to return the color to use.
-        
+
         By default the application's palette highlight color is returned.
-        
+
         """
         return QApplication.palette().highlight().color()
-    
+
     def paintRects(self, painter, rects):
         """Override this method to implement different drawing behaviour."""
         pen = QPen(self.color())

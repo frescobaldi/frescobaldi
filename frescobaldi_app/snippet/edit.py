@@ -53,42 +53,42 @@ from . import completer
 
 class Edit(QDialog):
     """Dialog for editing a snippet. It is used for one edit.
-    
+
     Use None as the name to create a new snippet. In that case, text
     is set as a default in the text edit.
-    
+
     """
     def __init__(self, widget, name, text=""):
         super(Edit, self).__init__(widget)
-        
+
         self._name = name
 
         layout = QVBoxLayout()
         self.setLayout(layout)
-        
+
         self.topLabel = QLabel()
         self.text = QTextEdit(cursorWidth=2, acceptRichText=False)
         self.titleLabel = QLabel()
         self.titleEntry = QLineEdit()
         self.shortcutLabel = QLabel()
         self.shortcutButton = ShortcutButton(clicked=self.editShortcuts)
-        
+
         layout.addWidget(self.topLabel)
         layout.addWidget(self.text)
-        
+
         grid = QGridLayout()
         layout.addLayout(grid)
-        
+
         grid.addWidget(self.titleLabel, 0, 0)
         grid.addWidget(self.titleEntry, 0, 1)
         grid.addWidget(self.shortcutLabel, 1, 0)
         grid.addWidget(self.shortcutButton, 1, 1)
-        
+
         layout.addWidget(widgets.Separator())
-        
+
         b = QDialogButtonBox(accepted=self.accept, rejected=self.reject)
         layout.addWidget(b)
-        
+
         buttons = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
         if name and name in builtin.builtin_snippets:
             b.setStandardButtons(buttons | QDialogButtonBox.RestoreDefaults)
@@ -96,7 +96,7 @@ class Edit(QDialog):
         else:
             b.setStandardButtons(buttons)
         userguide.addButton(b, "snippet_editor")
-        
+
         # PyQt5.10 en sip4.14.5 delete the Highlighter, even though it is
         # constructed with a parent, that's why we save it in an unused attribute.
         self._highlighter = highlight.Highlighter(self.text.document())
@@ -105,7 +105,7 @@ class Edit(QDialog):
         self.text.installEventFilter(cursorkeys.handler)
         wordboundary.handler.install_textedit(self.text)
         completer.Completer(self.text)
-        
+
         if name:
             self.titleEntry.setText(snippets.title(name, False) or '')
             self.text.setPlainText(snippets.text(name))
@@ -114,14 +114,14 @@ class Edit(QDialog):
         else:
             self.text.setPlainText(text)
             self.setShortcuts(None)
-        
+
         app.translateUI(self)
-        
+
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
         qutil.saveDialogSize(self, "snippettool/editor/size", QSize(400, 300))
         self.show()
-        
+
     def translateUI(self):
         title = _("Edit Snippet") if self._name else _("New Snippet")
         self.setWindowTitle(app.caption(title))
@@ -129,7 +129,7 @@ class Edit(QDialog):
         self.titleLabel.setText(_("Title:"))
         self.shortcutLabel.setText(_("Shortcut:"))
         self.shortcutButton.updateText()
-    
+
     def done(self, result):
         if result:
             if not self.text.toPlainText():
@@ -156,10 +156,10 @@ class Edit(QDialog):
 
     def shortcuts(self):
         return self.shortcutButton.shortcuts()
-    
+
     def setShortcuts(self, shortcuts):
         self.shortcutButton.setShortcuts(shortcuts)
-        
+
     def editShortcuts(self):
         from widgets import shortcuteditdialog
         ac = self.parent().parent().snippetActions
@@ -173,14 +173,14 @@ class Edit(QDialog):
             default = None
             text = self.titleEntry.text() or _("Untitled")
         action.setText(text.replace('&', '&&'))
-        
+
         cb = self.actionManager().findShortcutConflict
         skip = (self.parent().parent().snippetActions, self._name)
         dlg = shortcuteditdialog.ShortcutEditDialog(self, cb, skip)
-        
+
         if dlg.editAction(action, default):
             self.setShortcuts(action.shortcuts())
-    
+
     def saveSnippet(self):
         index = model.model().saveSnippet(self._name,
             self.text.toPlainText(), self.titleEntry.text())
@@ -211,14 +211,14 @@ class ShortcutButton(QPushButton):
         super(ShortcutButton, self).__init__(**args)
         self.setIcon(icons.get("preferences-desktop-keyboard-shortcuts"))
         self._shortcuts = []
-        
+
     def shortcuts(self):
         return self._shortcuts
-    
+
     def setShortcuts(self, shortcuts):
         self._shortcuts = shortcuts or []
         self.updateText()
-        
+
     def updateText(self):
         if not self._shortcuts:
             self.setText(_("None"))
@@ -235,7 +235,7 @@ class Matcher(gadgets.matcher.Matcher):
         super(Matcher, self).__init__(edit)
         self.readSettings()
         app.settingsChanged.connect(self.readSettings)
-    
+
     def readSettings(self):
         self.format = QTextCharFormat()
         self.format.setBackground(textformats.formatData('editor').baseColors['match'])

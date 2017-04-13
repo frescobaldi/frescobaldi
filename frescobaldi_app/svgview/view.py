@@ -64,9 +64,9 @@ class View(QWebView):
     cursor = pyqtSignal(QTextCursor)
     selectedObject = pyqtSignal(str)
     selectedUrl = pyqtSignal(QTextCursor)
-    
+
     defaulturl = QUrl.fromLocalFile(os.path.join(__path__[0], 'background.html'))
-    
+
     def __init__(self, parent):
         super(View, self).__init__(parent)
         self._highlightFormat = QTextCharFormat()
@@ -76,28 +76,28 @@ class View(QWebView):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         self.load(self.defaulturl)
-    
+
     def cleanupForClose(self):
         """Called when our mainwindow is about to close.
-        
+
         Disconnects the loadFinished signal to prevent a RuntimeError
         about the QWebView already being deleted.
-        
+
         """
         self.loadFinished.disconnect(self.svgLoaded)
-    
+
     def mainwindow(self):
         return self.parent().mainwindow()
-        
+
     def currentSVG(self):
         return self.parent().getCurrent()
 
     def document(self, filename, load=False):
         """Get the document with the specified filename.
-        
+
         If load is True, the document is loaded if it wasn't already.
         Also takes scratchdir into account for unnamed or non-local documents.
-        
+
         """
         doc = scratchdir.findDocument(filename)
         if not doc and load:
@@ -111,18 +111,18 @@ class View(QWebView):
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
             #for now only editable in dev (git) or when the user explicitly allows experimental features
             if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
-                frame.evaluateJavaScript(getJsScript('editsvg.js')) 
-            
+                frame.evaluateJavaScript(getJsScript('editsvg.js'))
+
     def evalSave(self):
         frame = self.page().mainFrame()
         # to enable useful save of SVG edits to file uncomment the line below
         # frame.evaluateJavaScript(getJsScript('cleansvg.js'))
         frame.evaluateJavaScript(getJsScript('savesvg.js'))
-    
+
     def clear(self):
         """Empty the View."""
         self.load(self.defaulturl)
-    
+
     def dragElement(self, url):
         t = textedit.link(url)
         # Only process textedit links
@@ -136,14 +136,14 @@ class View(QWebView):
             p = b.position() + t.column
             cursor.setPosition(p)
         self.emitCursor(cursor)
-    
+
     def doObjectDragged(self, offsX, offsY):
         """announce extra-offsets an element has been dragged to"""
         self.objectDragged.emit(offsX, offsY)
-    
+
     def doObjectDragging(self, offsX, offsY):
         """announce extra-offsets while dragging an element"""
-        self.objectDragging.emit(offsX, offsY)    
+        self.objectDragging.emit(offsX, offsY)
 
     def doObjectStartDragging(self, offsX, offsY):
         """announce extra-offsets when starting to drag an element"""
@@ -151,7 +151,7 @@ class View(QWebView):
 
     def doTextEdit(self, url, setCursor = False):
         """Process a textedit link and either highlight
-           the corresponding source code or set the 
+           the corresponding source code or set the
            cursor to it.
         """
         t = textedit.link(url)
@@ -181,16 +181,16 @@ class View(QWebView):
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
         return True
-    
+
     def emitCursor(self, cursor):
-        self.cursor.emit(cursor)    
-    
+        self.cursor.emit(cursor)
+
     def readSettings(self):
         """Reads the settings from the user's preferences."""
         color = textformats.formatData('editor').baseColors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
-    
+
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
         with open(self.currentSVG(), 'wb') as f:
@@ -203,13 +203,13 @@ class View(QWebView):
 
     def zoomIn(self):
         self.setZoomFactor(self.zoomFactor() * 1.1)
-        
+
     def zoomOut(self):
         self.setZoomFactor(self.zoomFactor() / 1.1)
-        
+
     def zoomOriginal(self):
         self.setZoomFactor(1.0)
-    
+
     def setZoomFactor(self, value):
         changed = self.zoomFactor() != value
         super(View, self).setZoomFactor(value)
@@ -219,9 +219,9 @@ class View(QWebView):
 
 class JSLink(QObject):
     """functions to be called from JavaScript
-    
+
     using addToJavaScriptWindowObject
-    
+
     """
     def __init__(self, view):
         super(JSLink, self).__init__()
@@ -229,7 +229,7 @@ class JSLink(QObject):
 
     @pyqtSlot(str)
     def click(self, url):
-        """set cursor in source by clicked textedit link""" 
+        """set cursor in source by clicked textedit link"""
         if not self.view.doTextEdit(url, True):
             import helpers
             helpers.openUrl(QUrl(url))
@@ -238,7 +238,7 @@ class JSLink(QObject):
     def dragged(self, offX, offY):
         """announce extra-offsets an element has been dragged to"""
         self.view.doObjectDragged(offX, offY)
-        
+
     @pyqtSlot(str)
     def draggedObject(self, JSON_string):
         # leave the following commented code as an idea how to proceed from here
@@ -247,7 +247,7 @@ class JSLink(QObject):
         #js = json.JSONDecoder()
         #print(js.decode(JSON_string))
         pass
-        
+
     @pyqtSlot(str)
     def dragElement(self, url):
         self.view.dragElement(url)
@@ -256,23 +256,23 @@ class JSLink(QObject):
     def dragging(self, offX, offY):
         """announce extra-offsets while dragging an element"""
         self.view.doObjectDragging(offX, offY)
-        
-    @pyqtSlot(str)       
+
+    @pyqtSlot(str)
     def hover(self, url):
         """actions when user set mouse over link"""
         self.view.doTextEdit(url, False)
-    
-    @pyqtSlot(str)       
+
+    @pyqtSlot(str)
     def leave(self, url):
         """actions when user moves mouse off link"""
         self.view.unHighlight()
-        
-    @pyqtSlot(str)       
+
+    @pyqtSlot(str)
     def pyLog(self, txt):
         """Temporary function. Print to Python console."""
         print(txt)
-    
-    @pyqtSlot(str)       
+
+    @pyqtSlot(str)
     def saveSVG(self, svg_string):
         """Pass string from JavaScript and save to current SVG page."""
         self.view.saveSVG(svg_string)

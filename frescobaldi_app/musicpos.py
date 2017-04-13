@@ -43,7 +43,7 @@ class MusicPosition(plugin.ViewSpacePlugin):
         view = space.activeView()
         if view:
             self.slotViewChanged(view)
-    
+
     def slotViewChanged(self, view):
         old = self._view()
         if old:
@@ -51,25 +51,25 @@ class MusicPosition(plugin.ViewSpacePlugin):
         self._view = weakref.ref(view)
         self.connectView(view)
         self.startTimer()
-    
+
     def connectView(self, view):
         view.cursorPositionChanged.connect(self.startTimer)
         view.document().contentsChanged.connect(self.startWaitTimer)
-        
+
     def disconnectView(self, view):
         view.cursorPositionChanged.disconnect(self.startTimer)
         view.document().contentsChanged.disconnect(self.startWaitTimer)
-    
+
     def startWaitTimer(self):
         """Called when the document changes, waits longer to prevent stutter."""
         self._waittimer.start(900)
         self._timer.stop()
-        
+
     def startTimer(self):
         """Called when the cursor moves."""
         if not self._waittimer.isActive():
             self._timer.start(100)
-    
+
     def slotTimeout(self):
         """Called when one of the timers fires."""
         view = self._view()

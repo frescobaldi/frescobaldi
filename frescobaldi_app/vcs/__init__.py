@@ -28,11 +28,11 @@ from .gitrepo import GitError
 
 def app_is_git_controlled():
     """Return True if Frescobaldi is running from Git.
-    
+
     This is done by checking for the presence of the .git/ directory.
     The function is very cheap, the directory test is only performed on the
     first call.
-        
+
     """
     global _app_is_git_controlled
     try:
@@ -49,7 +49,7 @@ def app_is_git_controlled():
             except (GitError, OSError) as error:
                 error_type = type(error).__name__
                 from PyQt5.QtWidgets import QMessageBox
-                QMessageBox.warning(None, 
+                QMessageBox.warning(None,
                                     _("Git not found"),
                                     _("Frescobaldi is run from within a Git "
                                       "repository, but Git does not appear "
@@ -75,14 +75,14 @@ if app_is_git_controlled():
 
 def app_active_branch_window_title():
     """Return the active branch, suitable as window title.
-    
+
     If the app is not git-controlled, the empty string is returned.
-    
+
     """
     if app_is_git_controlled():
         git_branch = app_repo.active_branch()
         return '({branch} [{remote}])'.format(
-                branch=git_branch, 
+                branch=git_branch,
                 remote=app_repo.tracked_remote_label(git_branch))
     return ''
 

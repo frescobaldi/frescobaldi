@@ -62,13 +62,13 @@ class NullMoFile(object):
     """Empty "mo file", returning messages untranslated."""
     def gettext(self, message):
         return message
-    
+
     def ngettext(self, message, message_plural, n):
         return message if n == 1 else message_plural
-    
+
     def pgettext(self, context, message):
         return message
-    
+
     def npgettext(self, context, message, message_plural, n):
         return message if n == 1 else message_plural
 
@@ -84,7 +84,7 @@ class MoFile(NullMoFile):
         obj = cls.__new__(cls)
         obj._load(buf)
         return obj
-        
+
     @classmethod
     def fromStream(cls, stream):
         """Constructs the MoFile object, reading the messages from an open stream."""
@@ -94,7 +94,7 @@ class MoFile(NullMoFile):
         """The default constructor reads the messages from the given filename."""
         with open(filename, 'rb') as f:
             self._load(f.read())
-    
+
     def _load(self, buf):
         catalog = {}
         context_catalog = {}
@@ -133,69 +133,69 @@ class MoFile(NullMoFile):
         self._catalog = catalog
         self._context_catalog = context_catalog
         self._fallback = NullMoFile()
-        
+
     def set_fallback(self, fallback):
         """Sets a fallback class to return translations for messages not in this MO file.
-        
+
         If fallback is None, AttributeError is raised when translations are not found.
         By default, fallback is set to a NullMoFile instance that returns the message
         untranslated.
-        
+
         """
         self._fallback = fallback
-    
+
     def fallback(self):
         """Returns the fallback MoFile or NullMoFile object or None.
-        
+
         The fallback is called when a message is not found in our own catalog.
         By default, fallback is set to a NullMoFile instance that returns the message
         untranslated.
-        
+
         """
         return self._fallback
-    
+
     def info(self):
         """Returns the header (catalog description) from the MO-file as a dictionary.
-        
+
         The keys are the header names in lower case, the values unicode strings.
-        
+
         """
         return self._info
-    
+
     def gettext(self, message):
         """Returns the translation of the message."""
         try:
             return self._catalog[message]
         except KeyError:
             return self._fallback.gettext(message)
-    
+
     def ngettext(self, message, message_plural, n):
         """Returns the correct translation (singular or plural) depending on n."""
         try:
             return self._catalog[(message, self._plural(n))]
         except KeyError:
             return self._fallback.ngettext(message, message_plural, n)
-    
+
     def pgettext(self, context, message):
         """Returns the translation of the message in the given context."""
         try:
             return self._context_catalog[context][message]
         except KeyError:
             return self._fallback.pgettext(context, message)
-    
+
     def npgettext(self, context, message, message_plural, n):
         """Returns the correct translation (singular or plural) depending on n, in the given context."""
         try:
             return self._context_catalog[context][(message, self._plural(n))]
         except KeyError:
             return self._fallback.npgettext(context, message, message_plural, n)
-    
+
 
 def parse_mo(buf):
     """Parses the given buffer (a bytes instance) as a MO file.
-    
+
     Yields raw message/translation pairs, not decoded or handled in any other way.
-    
+
     """
     # are we LE or BE?
     magic = unpack('<I', buf[:4])[0]
@@ -207,9 +207,9 @@ def parse_mo(buf):
         ii = '>II'
     else:
         raise IOError(0, 'Invalid MO data')
-    
+
     buflen = len(buf)
-    
+
     # read the MO buffer and store all data
     for i in range(msgcount):
         mlen, moff = unpack(ii, buf[masteridx:masteridx+8])
@@ -221,18 +221,18 @@ def parse_mo(buf):
             tmsg = buf[toff:tend]
         else:
             raise IOError(0, 'Corrupt MO data')
-        
+
         yield msg, tmsg
-        
+
         masteridx += 8
         transidx += 8
 
 
 def parse_header(data):
     """Parses the "header" (the msgstr of the first, empty, msgid) and returns it as a dict.
-    
+
     The names are made lower-case.
-    
+
     """
     info = {}
     lastkey = key = None
@@ -252,12 +252,12 @@ def parse_header(data):
 
 def parse_mo_split(buf):
     """Parses the mo file and splits up all messages/translation pairs.
-    
+
     Yields three-element tuples: (context, messages, translations)
-    
+
     where context is None or bytes, and messages and translations are both lists
     of undecoded bytes objects.
-    
+
     """
     for msg, tmsg in parse_mo(buf):
         try:
@@ -288,13 +288,13 @@ expr_re = re.compile(r"\d+|>>|<<|[<>!=]=|&&|\|\||[-+*/%^&<>?:|!()n]")
 
 def parse_plural_expr(text):
     """Parses an expression such as the 'plural=<expression>' found in PO/MO files.
-    
+
     Returns a lambda function taking the 'n' argument and returning the plural number.
     Returns None if the expression could not be parsed.
-    
+
     """
     source = iter(expr_re.findall(text))
-    
+
     def _expr():
         result = []
         for token in source:
@@ -318,7 +318,7 @@ def parse_plural_expr(text):
                 elif token == ')':
                     return result
         return result
-    
+
     py_expression = ' '.join(_expr())
     if py_expression:
         code = "lambda n: int({0})".format(py_expression)

@@ -34,11 +34,11 @@ _document_split_re = re.compile(r'^#([A-Z]\w+)\s*$', re.MULTILINE)
 
 def split_document(s):
     """Split the help page text and its #SUBDOCS and other headers.
-    
+
     Returns a tuple consisting of the document text and a dictionary
     representing the #-named blocks; every value is the content of the block
     with a list of lines for every block.
-    
+
     """
     l = _document_split_re.split(s)
     i = iter(l[1:])
@@ -74,14 +74,14 @@ class Parser(simplemarkdown.Parser):
                     result.append(self.probably_translate(tx))
             if None not in result:
                 super(Parser, self).parse_inline_text(''.join(result))
-    
+
     def probably_translate(self, s):
         """Translates the string if it is a sensible translatable message.
-        
+
         The string is not translated if it does not contain any letters
         or if it is is a Python format string without any text outside the
         variable names.
-        
+
         """
         pos = 0
         for m in _variable_re.finditer(s):

@@ -93,12 +93,12 @@ def abs2rel(cursor, startpitch, first_pitch_absolute):
 
 def getTransposer(document, mainwindow):
     """Show a dialog and return the desired transposer.
-    
+
     Returns None if the dialog was cancelled.
-    
+
     """
     language = documentinfo.docinfo(document).language() or 'nederlands'
-    
+
     def readpitches(text):
         """Reads pitches from text."""
         result = []
@@ -107,29 +107,29 @@ def getTransposer(document, mainwindow):
             if r:
                 result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
         return result
-    
+
     def validate(text):
         """Returns whether the text contains exactly two pitches."""
         return len(readpitches(text)) == 2
-    
+
     text = inputdialog.getText(mainwindow, _("Transpose"), _(
         "Please enter two absolute pitches, separated by a space, "
         "using the pitch name language \"{language}\"."
         ).format(language=language), icon = icons.get('tools-transpose'),
         help = "transpose", validate = validate)
-    
+
     if text:
         return ly.pitch.transpose.Transposer(*readpitches(text))
 
 
 def getModalTransposer(document, mainwindow):
     """Show a dialog and return the desired modal transposer.
-    
+
     Returns None if the dialog was cancelled.
-    
+
     """
     language = documentinfo.docinfo(document).language() or 'nederlands'
-    
+
     def readpitches(text):
         """Reads pitches from text."""
         result = []
@@ -138,7 +138,7 @@ def getModalTransposer(document, mainwindow):
             if r:
                 result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
         return result
-    
+
     def validate(text):
         """Returns whether the text is an integer followed by the name of a key."""
         words = text.split()
@@ -150,7 +150,7 @@ def getModalTransposer(document, mainwindow):
             return True
         except ValueError:
             return False
-    
+
     text = inputdialog.getText(mainwindow, _("Transpose"), _(
         "Please enter the number of steps to alter by, followed by a key signature. (i.e. \"5 F\")"
         ), icon = icons.get('tools-transpose'),
@@ -158,16 +158,16 @@ def getModalTransposer(document, mainwindow):
     if text:
         words = text.split()
         return ly.pitch.transpose.ModalTransposer(int(words[0]), ly.pitch.transpose.ModalTransposer.getKeyIndex(words[1]))
-        
+
 
 def getModeShifter(document, mainwindow):
     """Show a dialog and return the desired mode shifter.
-    
+
     Returns None if the dialog was cancelled.
-    
+
     """
     language = documentinfo.docinfo(document).language() or 'nederlands'
-    
+
     def readpitches(text):
         """Reads pitches from text."""
         result = []
@@ -176,11 +176,11 @@ def getModeShifter(document, mainwindow):
             if r:
                 result.append(ly.pitch.Pitch(*r, octave=ly.pitch.octaveToNum(octave)))
         return result
-        
+
     def validate(text):
         """Validates text by checking if it contains a defined mode."""
         return len(readpitches(text)) == 1
-    
+
     from . import dialog
     dlg = dialog.ModeShiftDialog(mainwindow)
     dlg.addAction(mainwindow.actionCollection.help_whatsthis)
@@ -192,7 +192,7 @@ def getModeShifter(document, mainwindow):
         dlg.saveSettings()
         return ly.pitch.transpose.ModeShifter(key, scale)
 
-    
+
 def transpose(cursor, transposer, mainwindow=None, relative_first_pitch_absolute=False):
     """Transpose pitches using the specified transposer."""
     c = lydocument.cursor(cursor, select_all=True)

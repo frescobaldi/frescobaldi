@@ -30,16 +30,16 @@ from PyQt5.QtGui import QTextBlock, QTextBlockUserData, QTextCursor
 
 def block(cursor):
     """Returns the cursor's block.
-    
+
     If the cursor has a selection, returns the block the selection starts in
     (regardless of the cursor's position()).
-    
+
     """
     if cursor.hasSelection():
         return cursor.document().findBlock(cursor.selectionStart())
     return cursor.block()
 
-    
+
 def blocks(cursor):
     """Yields the block(s) containing the cursor or selection."""
     d = cursor.document()
@@ -50,7 +50,7 @@ def blocks(cursor):
         if block == end:
             break
         block = block.next()
-     
+
 
 def contains(c1, c2):
     """Returns True if cursor2's selection falls inside cursor1's."""
@@ -60,9 +60,9 @@ def contains(c1, c2):
 
 def forwards(block, until=QTextBlock()):
     """Yields the block and all following blocks.
-    
+
     If until is a valid block, yields the blocks until the specified block.
-    
+
     """
     if until.isValid():
         while block.isValid() and block <= until:
@@ -76,9 +76,9 @@ def forwards(block, until=QTextBlock()):
 
 def backwards(block, until=QTextBlock()):
     """Yields the block and all preceding blocks.
-    
+
     If until is a valid block, yields the blocks until the specified block.
-    
+
     """
     if until.isValid():
         while block.isValid() and block >= until:
@@ -89,7 +89,7 @@ def backwards(block, until=QTextBlock()):
             yield block
             block = block.previous()
 
-    
+
 def all_blocks(document):
     """Yields all blocks of the document."""
     return forwards(document.firstBlock())
@@ -97,13 +97,13 @@ def all_blocks(document):
 
 def partition(cursor):
     """Returns a three-tuple of strings (before, selection, after).
-    
+
     'before' is the text before the cursor's position or selection start,
     'after' is the text after the cursor's position or selection end,
     'selection' is the selected text.
-    
+
     before and after never contain a newline.
-    
+
     """
     start = cursor.document().findBlock(cursor.selectionStart())
     end = cursor.document().findBlock(cursor.selectionEnd())
@@ -126,14 +126,14 @@ def compress_undo(cursor, join_previous = False):
 @contextlib.contextmanager
 def keep_selection(cursor, edit=None):
     """Performs operations inside the selection and restore the selection afterwards.
-    
+
     If edit is given, call setTextCursor(cursor) on the Q(Plain)TextEdit afterwards.
-    
+
     """
     start, end, pos = cursor.selectionStart(), cursor.selectionEnd(), cursor.position()
     cur2 = QTextCursor(cursor)
     cur2.setPosition(end)
-    
+
     try:
         yield
     finally:
@@ -149,10 +149,10 @@ def keep_selection(cursor, edit=None):
 
 def strip_selection(cursor, chars=None):
     """Adjusts the selection of the cursor just like Python's strip().
-    
+
     If there is no selection or the selection would vanish completely,
     nothing is done.
-    
+
     """
     if not cursor.hasSelection():
         return
@@ -232,7 +232,7 @@ def previous_blank(block):
 
 
 def data(block):
-    """Get the block's QTextBlockUserData, creating it if necessary.""" 
+    """Get the block's QTextBlockUserData, creating it if necessary."""
     data = block.userData()
     if not data:
         data = QTextBlockUserData()

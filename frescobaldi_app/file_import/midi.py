@@ -20,7 +20,7 @@
 """
 Import Midi dialog.
 Uses midi2ly to create ly file from midi.
-In the dialog the options of midi2ly can be set. 
+In the dialog the options of midi2ly can be set.
 """
 
 
@@ -35,36 +35,36 @@ from . import toly_dialog
 
 
 class Dialog(toly_dialog.ToLyDialog):
-	
+
     def __init__(self, parent=None):
-        
+
         self.imp_prgm = "midi2ly"
         self.userg = "midi_import"
-        
+
         self.useAbsCheck = QCheckBox()
-        
+
         self.impChecks = [self.useAbsCheck]
-        
+
         self.useAbsCheck.setObjectName("absolute-mode")
-        
+
         self.impExtra = []
-        
+
         super(Dialog, self).__init__(parent)
-        
+
         app.translateUI(self)
         qutil.saveDialogSize(self, "midi_import/dialog/size", QSize(480, 260))
-        
+
         self.makeCommandLine()
-        
+
         self.loadSettings()
-        
+
     def translateUI(self):
         self.useAbsCheck.setText(_("Pitches in absolute mode"))
-        
+
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run midi2ly"))
-        
+
         super(Dialog, self).translateUI()
-    
+
     def makeCommandLine(self):
         """Reads the widgets and builds a command line."""
         cmd = ["$midi2ly"]
@@ -73,14 +73,14 @@ class Dialog(toly_dialog.ToLyDialog):
 
         cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))
-        
+
     def loadSettings(self):
         """Get users previous settings."""
         self.imp_default = [False]
         self.settings = QSettings()
         self.settings.beginGroup('midi_import')
         super(Dialog, self).loadSettings()
-        
+
     def saveSettings(self):
         """Save users last settings."""
         self.settings = QSettings()

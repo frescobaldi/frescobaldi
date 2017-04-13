@@ -31,12 +31,12 @@ _lock = threading.RLock()
 
 def lock(document):
     """Returns a threading.RLock instance for the given Poppler.Document.
-    
+
     Use:
-    
+
     with lock(document):
         do_something
-        
+
     """
     with _lock:
         try:

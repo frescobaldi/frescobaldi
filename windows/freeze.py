@@ -47,7 +47,7 @@ includes = [
     'PyQt5.QtXml',
     'popplerqt5',
     'pypm',
-    
+
     '__future__',
     'argparse',
     'bisect',

@@ -48,9 +48,9 @@ def icon(name):
 
 def pixmap(name, size, mode, state):
     """Returns a (possibly cached) pixmap of the name and size with the default text color.
-    
+
     The state argument is ignored for now.
-    
+
     """
     if mode == QIcon.Selected:
         color = QApplication.palette().highlightedText().color()
@@ -80,12 +80,12 @@ class Engine(QIconEngine):
     def __init__(self, name):
         super(Engine, self).__init__()
         self._name = name
-        
+
     def pixmap(self, size, mode, state):
         return pixmap(self._name, size, mode, state)
-        
+
     def paint(self, painter, rect, mode, state):
         p = self.pixmap(rect.size(), mode, state)
         painter.drawPixmap(rect, p)
-        
+
 

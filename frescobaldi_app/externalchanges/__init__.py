@@ -57,10 +57,10 @@ def setup():
 
 def changedDocuments():
     """Return a list of really changed Documents.
-    
+
     When a document is not modified and the file on disk is exactly the same,
     the document is not considered having been changed on disk.
-    
+
     """
     import documentwatcher
     for w in documentwatcher.DocumentWatcher.instances():

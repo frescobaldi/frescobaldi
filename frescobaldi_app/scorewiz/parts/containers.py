@@ -59,19 +59,19 @@ class StaffGroup(_base.Container):
             icon=lambda item: symbols.icon(item[1])))
         self.systemStart.setIconSize(QSize(64, 64))
         self.connectBarLines = QCheckBox(checked=True)
-        
+
         box = QHBoxLayout()
         box.addWidget(self.systemStartLabel)
         box.addWidget(self.systemStart)
         layout.addLayout(box)
         layout.addWidget(self.connectBarLines)
-    
+
     def translateWidgets(self):
         self.systemStartLabel.setText(_("Type:"))
         self.connectBarLines.setText(_("Connect Barlines"))
         self.connectBarLines.setToolTip(_("If checked, barlines are connected between the staves."))
         self.systemStart.model().update()
-    
+
     def build(self, data, builder):
         s = self.systemStart.currentIndex()
         b = self.connectBarLines.isChecked()
@@ -101,7 +101,7 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
         self.opusLabel.setBuddy(self.opus)
         self.scoreProps = QGroupBox(checkable=True, checked=False)
         scoreproperties.ScoreProperties.createWidgets(self)
-        
+
         grid = QGridLayout()
         grid.addWidget(self.pieceLabel, 0 ,0)
         grid.addWidget(self.piece, 0, 1)
@@ -112,17 +112,17 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
         layout = QVBoxLayout()
         self.scoreProps.setLayout(layout)
         scoreproperties.ScoreProperties.layoutWidgets(self, layout)
-        
+
         scorewiz = self.scoreProps.window()
         self.setPitchLanguage(scorewiz.pitchLanguage())
         scorewiz.pitchLanguageChanged.connect(self.setPitchLanguage)
-        
+
     def translateWidgets(self):
         self.pieceLabel.setText(_("Piece:"))
         self.opusLabel.setText(_("Opus:"))
         self.scoreProps.setTitle(_("Properties"))
         scoreproperties.ScoreProperties.translateWidgets(self)
-        
+
     def accepts(self):
         return (StaffGroup, _base.Part)
 
@@ -138,11 +138,11 @@ class Score(_base.Group, scoreproperties.ScoreProperties):
         if len(h):
             score.append(h)
         return score
-    
+
     def globalSection(self, builder):
         if self.scoreProps.isChecked():
             return scoreproperties.ScoreProperties.globalSection(self, builder)
-            
+
 
 
 class BookPart(_base.Group):
@@ -172,7 +172,7 @@ class Book(_base.Group):
         self.bookOutput = widgets.lineedit.LineEdit()
         self.bookOutputFileName = QRadioButton()
         self.bookOutputSuffix = QRadioButton(checked=True)
-        
+
         layout.addWidget(self.bookOutputInfo)
         grid = QGridLayout(spacing=0)
         grid.addWidget(self.bookOutputLabel, 0, 0)
@@ -180,7 +180,7 @@ class Book(_base.Group):
         grid.addWidget(self.bookOutputFileName, 1, 1)
         grid.addWidget(self.bookOutputSuffix, 1, 2)
         layout.addLayout(grid)
-    
+
     def translateWidgets(self):
         self.bookOutputInfo.setText(_(
             "<p>Here you can specify a filename or suffix (without extension) "

@@ -69,23 +69,23 @@ def state_end(block):
 
 def update(block):
     """Retokenize the given block, saving the tokens in the UserData.
-    
+
     You only need to call this if you immediately need the new tokens again,
     e.g. for more manipulations in the same moment. The tokens will
     automatically be updated when Qt re-enters the event loop.
-    
+
     """
     highlighter.highlighter(block.document()).rehighlightBlock(block)
 
 
 def cursor(block, token, start=0, end=None):
     """Returns a QTextCursor for the given token in the given block.
-    
+
     If start is given the cursor will start at position start in the token
     (from the beginning of the token). Start defaults to 0.
     If end is given, the cursor will end at that position in the token (from
     the beginning of the token). End defaults to the length of the token.
-    
+
     """
     if end is None:
         end = len(token)
@@ -97,10 +97,10 @@ def cursor(block, token, start=0, end=None):
 
 def find(text, tokens):
     """Finds text in tokens.
-    
+
     Consumes the tokens iterable until a token with text text is found.
     Returns the found token or None.
-    
+
     """
     if isinstance(tokens, (tuple, list)):
         try:
@@ -115,11 +115,11 @@ def find(text, tokens):
 
 def index(cursor):
     """Returns the index of the token at the cursor (right or overlapping).
-    
+
     The index can range from 0 (if there are no tokens or the cursor is in the
     first token) to the total count of tokens in the cursor's block (if the
     cursor is at the very end of the block).
-    
+
     """
     block = cursortools.block(cursor)
     tokens_ = tokens(block)
@@ -141,11 +141,11 @@ Partition = collections.namedtuple('Partition', 'left middle right')
 
 def partition(cursor):
     """Returns a named three-tuple (left, middle, right).
-    
+
     left is a tuple of tokens left to the cursor.
     middle is the token that overlaps the cursor at both sides (or None).
     right is a tuple of tokens right to the cursor.
-    
+
     """
     block = cursortools.block(cursor)
     t = tokens(block)

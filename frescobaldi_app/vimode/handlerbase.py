@@ -31,29 +31,29 @@ class Handler(object):
 
     def enter(self):
         """Called when the mode is entered."""
-    
+
     def leave(self):
         """Called when the mode is left."""
 
     def textCursor(self):
         """Returns the text cursor of the Q(Plain)TextEdit."""
         return self.vimode.textEdit().textCursor()
-    
+
     def setTextCursor(self, cursor):
         """Sets the text cursor of the Q(Plain)TextEdit."""
         self.vimode.textEdit().setTextCursor(cursor)
-        
+
     def handleKeyPress(self, ev):
         """Called when a key is pressed in this mode.
-        
+
         Should return True if the keypress is not to be handled anymore
         by the widget.
-        
+
         """
-    
+
     def updateCursorPosition(self):
         """Should redraw the cursor position."""
-    
+
     def setNormalMode(self):
         self.vimode.setMode(NORMAL)
 

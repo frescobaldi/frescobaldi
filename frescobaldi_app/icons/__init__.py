@@ -65,7 +65,7 @@ def file_type(name):
 
 def initialize():
     """Initialize support for the icons. Called on app startup."""
-    
+
     # find the icons in this directory, after that also search in the included
     # icon theme folders (this fallback is used if the "Use system icons"
     # setting is enabled, but the system does not provide a certain icon.
@@ -79,7 +79,7 @@ def initialize():
         if os.path.isdir(p):
             path.append(p)
     QDir.setSearchPaths("icons", path)
-    
+
     # use our icon theme (that builds on Tango) if there are no system icons
     if (not QIcon.themeName() or QIcon.themeName() == "hicolor"
         or not QSettings().value("system_icons", True, bool)):

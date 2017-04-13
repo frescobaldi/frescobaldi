@@ -53,7 +53,7 @@ def _resetFormatData():
 app.settingsChanged.connect(_resetFormatData, -100) # before all others
 _resetFormatData()
 
-    
+
 class TextFormatData(object):
     """Encapsulates all settings in the Fonts & Colors page for a scheme."""
     def __init__(self, scheme):
@@ -64,17 +64,17 @@ class TextFormatData(object):
         self.allStyles = {}
         self._inherits = {}
         self.load(scheme)
-        
+
     def load(self, scheme):
         """Load the settings for the scheme. Called on init."""
         s = QSettings()
         s.beginGroup("fontscolors/" + scheme)
-        
+
         # load font
         defaultfont = "Lucida Console" if os.name == "nt" else "monospace"
         self.font = QFont(s.value("fontfamily", defaultfont, str))
         self.font.setPointSizeF(s.value("fontsize", 10.0, float))
-        
+
         # load base colors
         s.beginGroup("basecolors")
         for name in baseColors:
@@ -83,7 +83,7 @@ class TextFormatData(object):
             else:
                 self.baseColors[name] = baseColorDefaults[name]()
         s.endGroup()
-        
+
         # get the list of supported styles from ly.colorize
         all_styles = ly.colorize.default_mapping()
         default_styles = set()
@@ -93,9 +93,9 @@ class TextFormatData(object):
                 if style.base:
                     default_styles.add(style.base)
                     d[style.name] = style.base
-        
+
         default_scheme = ly.colorize.default_scheme
-        
+
         # load default styles
         s.beginGroup("defaultstyles")
         for name in default_styles:
@@ -107,7 +107,7 @@ class TextFormatData(object):
             self.loadTextFormat(f, s)
             s.endGroup()
         s.endGroup()
-        
+
         # load specific styles
         s.beginGroup("allstyles")
         for group, styles in all_styles:
@@ -123,20 +123,20 @@ class TextFormatData(object):
                 s.endGroup()
             s.endGroup()
         s.endGroup()
-        
+
     def save(self, scheme):
         """Save the settings to the scheme."""
         s = QSettings()
         s.beginGroup("fontscolors/" + scheme)
-        
+
         # save font
         s.setValue("fontfamily", self.font.family())
         s.setValue("fontsize", self.font.pointSizeF())
-        
+
         # save base colors
         for name in baseColors:
             s.setValue("basecolors/"+name, self.baseColors[name].name())
-        
+
         # save default styles
         s.beginGroup("defaultstyles")
         for name in defaultStyles:
@@ -144,7 +144,7 @@ class TextFormatData(object):
             self.saveTextFormat(self.defaultStyles[name], s)
             s.endGroup()
         s.endGroup()
-        
+
         # save all specific styles
         s.beginGroup("allstyles")
         for group, styles in ly.colorize.default_mapping():
@@ -162,12 +162,12 @@ class TextFormatData(object):
         f = QTextCharFormat(self.defaultStyles[inherit]) if inherit else QTextCharFormat()
         f.merge(self.allStyles[group][name])
         return f
-    
+
     def css_scheme(self):
         """Return a dictionary of css dictionaries representing this scheme.
-        
+
         This can be fed to the ly.colorize.format_stylesheet() function.
-        
+
         """
         scheme = {}
         # base/default styles
@@ -180,7 +180,7 @@ class TextFormatData(object):
             for name, fmt in styles.items():
                 d[name] = fmt2css(fmt)
         return scheme
-    
+
     def palette(self):
         """Return a basic palette with text, background, selection and selection background filled in."""
         p = QApplication.palette()
@@ -189,7 +189,7 @@ class TextFormatData(object):
         p.setColor(QPalette.HighlightedText, self.baseColors['selectiontext'])
         p.setColor(QPalette.Highlight, self.baseColors['selectionbackground'])
         return p
-        
+
     def saveTextFormat(self, fmt, settings):
         """(Internal) Store one QTextCharFormat in the QSettings instance."""
         if fmt.hasProperty(QTextFormat.FontWeight):
@@ -216,7 +216,7 @@ class TextFormatData(object):
             settings.setValue('underlineColor', fmt.underlineColor().name())
         else:
             settings.remove('underlineColor')
-        
+
     def loadTextFormat(self, fmt, settings):
         """(Internal) Merge values from the QSettings instance into the QTextCharFormat."""
         if settings.contains('bold'):

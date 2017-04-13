@@ -47,20 +47,20 @@ class Spanners(tool.Tool):
             autoRaise=True,
             popupMode=QToolButton.InstantPopup,
             icon=icons.get('edit-clear'))
-        
+
         mainwindow = panel.parent().mainwindow()
         mainwindow.selectionStateChanged.connect(self.removemenu.setEnabled)
         self.removemenu.setEnabled(mainwindow.hasSelection())
-        
+
         ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
         self.removemenu.addAction(ac.tools_quick_remove_slurs)
         self.removemenu.addAction(ac.tools_quick_remove_beams)
         self.removemenu.addAction(ac.tools_quick_remove_ligatures)
-        
+
         layout = QHBoxLayout()
         layout.addWidget(self.removemenu)
         layout.addStretch(1)
-        
+
         self.layout().addLayout(layout)
         self.layout().addWidget(ArpeggioGroup(self))
         self.layout().addWidget(GlissandoGroup(self))
@@ -71,11 +71,11 @@ class Spanners(tool.Tool):
     def icon(self):
         """Should return an icon for our tab."""
         return symbols.icon("spanner_phrasingslur")
-    
+
     def title(self):
         """Should return a title for our tab."""
         return _("Spanners")
-  
+
     def tooltip(self):
         """Returns a tooltip"""
         return _("Slurs, spanners, etcetera.")
@@ -84,12 +84,12 @@ class Spanners(tool.Tool):
 class ArpeggioGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Arpeggios"))
-    
+
     def actionData(self):
         """Should yield name, icon, function (may be None) for every action."""
         for name, title in self.actionTexts():
             yield name, symbols.icon(name), None
-    
+
     def actionTexts(self):
         """Should yield name, text for very action."""
         yield 'arpeggio_normal', _("Arpeggio")
@@ -97,7 +97,7 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
         yield 'arpeggio_arrow_down', _("Arpeggio with Down Arrow")
         yield 'arpeggio_bracket', _("Bracket Arpeggio")
         yield 'arpeggio_parenthesis', _("Parenthesis Arpeggio")
-        
+
     def actionTriggered(self, name):
         # convert arpeggio_normal to arpeggioNormal, etc.
         name = _arpeggioTypes[name]
@@ -126,17 +126,17 @@ class ArpeggioGroup(buttongroup.ButtonGroup):
                     c.insertText(name + '\n' + indent)
                 # just pick the first place
                 return
-        
+
 
 class GlissandoGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Glissandos"))
-    
+
     def actionData(self):
         """Should yield name, icon, function (may be None) for every action."""
         for name, title in self.actionTexts():
             yield name, symbols.icon(name), None
-    
+
     def actionTexts(self):
         """Should yield name, text for very action."""
         yield 'glissando_normal', _("Glissando")
@@ -164,7 +164,7 @@ class GlissandoGroup(buttongroup.ButtonGroup):
 class SpannerGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Spanners"))
-    
+
     def actionData(self):
         for name, title in self.actionTexts():
             yield name, symbols.icon(name), None
@@ -198,11 +198,11 @@ class SpannerGroup(buttongroup.ButtonGroup):
 class GraceGroup(buttongroup.ButtonGroup):
     def translateUI(self):
         self.setTitle(_("Grace Notes"))
-        
+
     def actionData(self):
         for name, title in self.actionTexts():
             yield name, symbols.icon(name), None
-            
+
     def actionTexts(self):
         yield 'grace_grace', _("Grace Notes")
         yield 'grace_beam', _("Grace Notes w. beaming")
@@ -210,7 +210,7 @@ class GraceGroup(buttongroup.ButtonGroup):
         yield 'grace_appog', _("Appoggiatura")
         yield 'grace_slash', _("Slashed no slur")
         yield 'grace_after', _("After grace")
-        
+
     def actionTriggered(self, name):
         d = ['_', '', '^'][self.direction()+1]
         single = ''
@@ -234,15 +234,15 @@ class GraceGroup(buttongroup.ButtonGroup):
             outer = '\\slashedGrace { ', ' }'
         elif name == "grace_after":
             inner = d + '{ '
-            outer = '\\afterGrace ', ' }'               
+            outer = '\\afterGrace ', ' }'
 
         cursor = self.mainwindow().textCursor()
         with cursortools.compress_undo(cursor):
-            if inner:     
+            if inner:
                 for i, ci in zip(inner, spanner_positions(cursor)):
                     ci.insertText(i)
             if cursor.hasSelection():
-                ins = self.mainwindow().textCursor()      
+                ins = self.mainwindow().textCursor()
                 ins.setPosition(cursor.selectionStart())
                 ins.insertText(outer[0])
                 ins.setPosition(cursor.selectionEnd())
@@ -269,11 +269,11 @@ class GraceGroup(buttongroup.ButtonGroup):
 
 def spanner_positions(cursor):
     """Return a list with 0 to 2 QTextCursor instances.
-    
+
     At the first cursor a starting spanner item can be inserted, at the
     second an ending item.
-    
-    """   
+
+    """
     c = lydocument.cursor(cursor)
     if cursor.hasSelection():
         partial = ly.document.INSIDE
@@ -281,21 +281,21 @@ def spanner_positions(cursor):
         # just select until the end of the current line
         c.select_end_of_block()
         partial = ly.document.OUTSIDE
-    
+
     items = list(ly.rhythm.music_items(c, partial=partial))
     if cursor.hasSelection():
         del items[1:-1]
     else:
         del items[2:]
-    
+
     positions = []
     for i in items:
         c = QTextCursor(cursor.document())
         c.setPosition(i.end)
         positions.append(c)
     return positions
-        
-    
+
+
 
 
 _arpeggioTypes = {

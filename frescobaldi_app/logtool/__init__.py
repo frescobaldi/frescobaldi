@@ -45,15 +45,15 @@ class LogTool(panel.Panel):
         mainwindow.addDockWidget(Qt.BottomDockWidgetArea, self)
         app.jobStarted.connect(self.slotJobStarted)
         app.jobFinished.connect(self.slotJobFinished)
-    
+
     def translateUI(self):
         self.setWindowTitle(_("LilyPond Log"))
         self.toggleViewAction().setText(_("LilyPond &Log"))
-        
+
     def createWidget(self):
         from . import logwidget
         return logwidget.LogWidget(self)
-    
+
     def slotJobStarted(self, doc, job):
         """Called whenever job starts, decides whether to follow it and show the log."""
         import jobattributes
@@ -69,27 +69,27 @@ class LogTool(panel.Panel):
                 and not jobattributes.get(job).hidden
                 and document == self.mainwindow().currentDocument()):
             self.show()
-    
+
     def slotNextError(self):
         """Jumps to the position pointed to by the next error message."""
         self.activate()
         self.widget().gotoError(1)
-    
+
     def slotPreviousError(self):
         """Jumps to the position pointed to by the next error message."""
         self.activate()
         self.widget().gotoError(-1)
-        
+
 
 class Actions(actioncollection.ActionCollection):
     name = "logtool"
     def createActions(self, parent=None):
         self.log_next_error = QAction(parent)
         self.log_previous_error = QAction(parent)
-        
+
         self.log_next_error.setShortcut(QKeySequence("Ctrl+E"))
         self.log_previous_error.setShortcut(QKeySequence("Ctrl+Shift+E"))
-        
+
     def translateUI(self):
         self.log_next_error.setText(_("Next Error Message"))
         self.log_previous_error.setText(_("Previous Error Message"))

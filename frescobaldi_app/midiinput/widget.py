@@ -21,17 +21,17 @@ class Widget(QWidget):
         self._document = None
         self._midiin = midiinput.MidiIn(self)
         self._dockwidget = weakref.ref(dockwidget)
-        
+
         signals = list()
-        
+
         self._labelmidichannel = QLabel()
         self._midichannel = QComboBox()
         signals.append(self._midichannel.currentIndexChanged)
-        
+
         self._labelkeysignature = QLabel()
         self._keysignature = QComboBox()
         signals.append(self._keysignature.currentIndexChanged)
-        
+
         self._labelaccidentals = QLabel()
         self._accidentalssharps = QRadioButton()
         signals.append(self._accidentalssharps.clicked)
@@ -44,34 +44,36 @@ class Widget(QWidget):
         hbox.addWidget(self._accidentalssharps)
         hbox.addWidget(self._accidentalsflats)
         self._accidentalssharps.setChecked(True)
-        
+
         self._chordmode = QCheckBox()
         signals.append(self._chordmode.clicked)
-        
+
         self._relativemode = QCheckBox()
         signals.append(self._relativemode.clicked)
 
         self._labeldamper = QLabel()
         self._damper = QComboBox()
-        
+
         self._labelsostenuto = QLabel()
         self._sostenuto = QComboBox()
-        
+
         self._labelsoft = QLabel()
         self._soft = QComboBox()
-        
+
         ac = self.parentWidget().actionCollection
         self._capture = QToolButton()
         self._capture.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         self._capture.setDefaultAction(ac.capture_start)
-        
+        self.addAction(ac.accidental_switch)
+
         self._notemode = QLabel()
-        
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         grid = QGridLayout(spacing=0)
         layout.addLayout(grid)
-               
+        layout.addStretch()
+
         grid.addWidget(self._labelmidichannel, 0, 0)
         grid.addWidget(self._midichannel, 0, 1)
         grid.addWidget(self._labelkeysignature, 1, 0)
@@ -86,36 +88,36 @@ class Widget(QWidget):
         grid.addWidget(self._sostenuto, 5, 1)
         grid.addWidget(self._labelsoft, 6, 0)
         grid.addWidget(self._soft, 6, 1)
-        
+
         hbox = QHBoxLayout()
         layout.addLayout(hbox)
         hbox.addWidget(self._capture)
         hbox.addStretch()
-        
+
         app.translateUI(self)
-        
+
         self.loadsettings()
         for s in signals:
             s.connect(self.savesettings)
-    
+
     def mainwindow(self):
         return self._dockwidget().mainwindow()
-    
+
     def channel(self):
         return self._midichannel.currentIndex()
-    
+
     def keysignature(self):
         return self._keysignature.currentIndex()
-    
+
     def accidentals(self):
         if self._accidentalsflats.isChecked():
             return 'flats'
         else:
             return 'sharps'
-    
+
     def chordmode(self):
         return self._chordmode.isChecked()
-    
+
     def relativemode(self):
         return self._relativemode.isChecked()
 
@@ -125,14 +127,20 @@ class Widget(QWidget):
         while self._capture.actions():    # remove all old actions
             self._capture.removeAction(self._capture.actions()[0])
         self._capture.setDefaultAction(ac.capture_stop)
-    
+
     def stopcapturing(self):
         self._midiin.capturestop()
         ac = self.parentWidget().actionCollection
         while self._capture.actions():    # remove all old actions
             self._capture.removeAction(self._capture.actions()[0])
         self._capture.setDefaultAction(ac.capture_start)
-    
+
+    def switchaccidental(self):
+        if self.accidentals() == 'flats':
+            self._accidentalssharps.setChecked(True)
+        else:
+            self._accidentalsflats.setChecked(True)
+
     def savesettings(self):
         s = QSettings()
         s.beginGroup("midiinputdock")
@@ -144,7 +152,7 @@ class Widget(QWidget):
             s.setValue("accidentals", 'sharps')
         s.setValue("chordmode", self._chordmode.isChecked())
         s.setValue("relativemode", self._relativemode.isChecked())
-    
+
     def loadsettings(self):
         s = QSettings()
         s.beginGroup("midiinputdock")

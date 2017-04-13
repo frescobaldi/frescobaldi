@@ -37,29 +37,29 @@ class GlobalFontDialog(widgets.dialog.Dialog):
     def __init__(self, parent=None):
         super(GlobalFontDialog, self).__init__(parent)
         self._messageLabel.setWordWrap(True)
-        
+
         layout = QGridLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         self.mainWidget().setLayout(layout)
-        
+
         self.romanLabel = QLabel()
         self.romanCombo = QFontComboBox()
         self.sansLabel = QLabel()
         self.sansCombo = QFontComboBox()
         self.typewriterLabel = QLabel()
         self.typewriterCombo = QFontComboBox(fontFilters=QFontComboBox.MonospacedFonts)
-        
+
         layout.addWidget(self.romanLabel, 0, 0)
         layout.addWidget(self.romanCombo, 0, 1, 1, 2)
         layout.addWidget(self.sansLabel, 1, 0)
         layout.addWidget(self.sansCombo, 1, 1, 1, 2)
         layout.addWidget(self.typewriterLabel, 2, 0)
         layout.addWidget(self.typewriterCombo, 2, 1, 1, 2)
-        
+
         self.loadSettings()
         self.finished.connect(self.saveSettings)
         app.translateUI(self)
-        
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Global Fonts")))
         self.setMessage(_(
@@ -69,25 +69,25 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         self.romanLabel.setText(_("Roman Font:"))
         self.sansLabel.setText(_("Sans Font:"))
         self.typewriterLabel.setText(_("Typewriter Font:"))
-    
+
     def romanFont(self):
         return self.romanCombo.currentFont().family()
-    
+
     def setromanFont(self, family):
         self.romanCombo.setCurrentFont(QFont(family))
-    
+
     def sansFont(self):
         return self.sansCombo.currentFont().family()
-    
+
     def setSansFont(self, family):
         self.sansCombo.setCurrentFont(QFont(family))
-    
+
     def typewriterFont(self):
         return self.typewriterCombo.currentFont().family()
-    
+
     def settypewriterFont(self, family):
         self.typewriterCombo.setCurrentFont(QFont(family))
-    
+
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("global_font_dialog")
@@ -97,7 +97,7 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         self.sansCombo.setCurrentFont(QFont(sans))
         typewriter = s.value("typewriter", "monospace", str)
         self.typewriterCombo.setCurrentFont(QFont(typewriter))
-    
+
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("global_font_dialog")

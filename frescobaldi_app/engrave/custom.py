@@ -50,40 +50,40 @@ class Dialog(QDialog):
     def __init__(self, mainwindow):
         super(Dialog, self).__init__(mainwindow)
         self._document = None
-        
+
         layout = QGridLayout()
         self.setLayout(layout)
-        
+
         self.versionLabel = QLabel()
         self.lilyChooser = lilychooser.LilyChooser()
-        
+
         self.outputLabel = QLabel()
         self.outputCombo = QComboBox()
-        
+
         self.resolutionLabel = QLabel()
         self.resolutionCombo = QComboBox(editable=True)
-        
+
         self.antialiasLabel = QLabel()
         self.antialiasSpin = QSpinBox(minimum=1, maximum=128, value=1)
-        
+
         self.modeLabel = QLabel()
         self.modeCombo = QComboBox()
-        
+
         self.deleteCheck = QCheckBox()
         self.embedSourceCodeCheck = QCheckBox()
         self.englishCheck = QCheckBox()
-        
+
         self.commandLineLabel = QLabel()
         self.commandLine = QTextEdit(acceptRichText=False)
-        
+
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         self.buttons.button(QDialogButtonBox.Ok).setIcon(icons.get("lilypond-run"))
         userguide.addButton(self.buttons, "engrave_custom")
-        
+
         self.resolutionCombo.addItems(['100', '200', '300', '600', '1200'])
         self.resolutionCombo.setCurrentIndex(2)
-        
+
         self.modeCombo.addItems(['preview', 'publish', 'debug'])
         layout.addWidget(self.versionLabel, 0, 0)
         layout.addWidget(self.lilyChooser, 0, 1, 1, 3)
@@ -102,26 +102,26 @@ class Dialog(QDialog):
         layout.addWidget(self.commandLine, 8, 0, 1, 4)
         layout.addWidget(widgets.Separator(), 9, 0, 1, 4)
         layout.addWidget(self.buttons, 10, 0, 1, 4)
-        
+
         app.translateUI(self)
         qutil.saveDialogSize(self, "engrave/custom/dialog/size", QSize(480, 260))
         self.buttons.accepted.connect(self.accept)
         self.buttons.rejected.connect(self.reject)
-        
+
         model = listmodel.ListModel(formats, display=lambda f: f.title(),
             icon=lambda f: icons.file_type(f.type))
         self.outputCombo.setModel(model)
-        
+
         s = QSettings()
         s.beginGroup("lilypond_settings")
         self.englishCheck.setChecked(
             s.value("no_translation", False, bool))
         self.deleteCheck.setChecked(
             s.value("delete_intermediate_files", True, bool))
-        
+
         if s.value("default_output_target", "pdf", str) == "svg":
             self.outputCombo.setCurrentIndex(3)
-        
+
         app.jobFinished.connect(self.slotJobFinished)
         self.outputCombo.currentIndexChanged.connect(self.makeCommandLine)
         self.modeCombo.currentIndexChanged.connect(self.makeCommandLine)
@@ -131,7 +131,7 @@ class Dialog(QDialog):
         self.antialiasSpin.valueChanged.connect(self.makeCommandLine)
         self.makeCommandLine()
         panelmanager.manager(mainwindow).layoutcontrol.widget().optionsChanged.connect(self.makeCommandLine)
-    
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Engrave custom")))
         self.versionLabel.setText(_("LilyPond Version:"))
@@ -148,26 +148,26 @@ class Dialog(QDialog):
         self.commandLineLabel.setText(_("Command line:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
         self.outputCombo.update()
-    
+
     def slotJobFinished(self, doc):
         if doc == self._document:
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(True)
             self._document = None
-    
+
     def setDocument(self, doc):
         self.lilyChooser.setLilyPondInfo(command.info(doc))
         job = jobmanager.job(doc)
         if job and job.is_running() and not jobattributes.get(job).hidden:
             self._document = doc
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
-        
+
     def makeCommandLine(self):
         """Reads the widgets and builds a command line."""
         f = formats[self.outputCombo.currentIndex()]
         self.resolutionCombo.setEnabled('resolution' in f.widgets)
         self.antialiasSpin.setEnabled('antialias' in f.widgets)
         cmd = ["$lilypond"]
-        
+
         if self.modeCombo.currentIndex() == 0:   # preview mode
             cmd.append('-dpoint-and-click')
         elif self.modeCombo.currentIndex() == 1: # publish mode
@@ -175,15 +175,15 @@ class Dialog(QDialog):
         else:                                    # debug mode
             args = panelmanager.manager(self.parent()).layoutcontrol.widget().preview_options()
             cmd.extend(args)
-        
+
         if self.deleteCheck.isChecked():
             cmd.append('-ddelete-intermediate-files')
         else:
             cmd.append('-dno-delete-intermediate-files')
-        
+
         if self.embedSourceCodeCheck.isChecked():
             cmd.append('-dembed-source-code')
-        
+
         d = {
             'version': self.lilyChooser.lilyPondInfo().version,
             'resolution': self.resolutionCombo.currentText(),
@@ -193,7 +193,7 @@ class Dialog(QDialog):
         cmd.extend(f.options(d))
         cmd.append("$filename")
         self.commandLine.setText(' '.join(cmd))
-    
+
     def getJob(self, document):
         """Returns a Job to start."""
         filename, includepath = documentinfo.info(document).jobinfo(True)

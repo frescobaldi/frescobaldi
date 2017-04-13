@@ -27,20 +27,20 @@ from PyQt5.QtWidgets import QTreeWidget, QTreeWidgetItem
 
 class TreeWidget(QTreeWidget):
     """A QTreeWidget with some item-manipulation methods.
-    
+
     We use a widget instead of a view with a standard model because
     this lets us really have control over the items. With a standard
     model, items are recreated e.g. when dragging and this loses the
     python subclassed instances with their own parameters.
-    
+
     Calls the cleanup() method on QTreeWidgetItems as they are removed,
     but does not error out if the QTreeWidgetItem does not have a cleanup()
     method.
-    
+
     """
     def __init__(self, parent=None, **kws):
         super(TreeWidget, self).__init__(parent, **kws)
-    
+
     def items(self, parent=None):
         """Yields all items from parent or the invisibleRootItem."""
         if parent is None:
@@ -50,13 +50,13 @@ class TreeWidget(QTreeWidget):
             for i in self.items(c):
                 yield i
             yield c
-    
+
     def clear(self):
         """Removes all items, calling their cleanup() method (if available) first."""
         for item in self.items():
             self._cleanup(item)
         super(TreeWidget, self).clear()
-    
+
     def removeSelectedItems(self, item=None):
         """Removes all selected items from the specified item or the root item."""
         if item is None:
@@ -73,13 +73,13 @@ class TreeWidget(QTreeWidget):
                 self._cleanup(descendant)
             item.removeChild(child)
             self._cleanup(child)
-    
+
     def findSelectedItem(self, item=None):
         """Returns an item that has selected children, if any exists.
-        
+
         The item closest to the specified item or the root item that
         has selected children, is returned.
-        
+
         """
         if item is None:
             item = self.invisibleRootItem()
@@ -91,7 +91,7 @@ class TreeWidget(QTreeWidget):
             r = self.findSelectedItem(child)
             if r:
                 return r
-    
+
     def moveSelectedChildrenUp(self):
         item = self.findSelectedItem()
         if item:

@@ -28,19 +28,19 @@ from PyQt5.QtCore import pyqtSignal, QEvent, QTimer, QObject
 
 class Pager(QObject):
     """Provides an interface for paging in a View by page number.
-    
+
     Pages are numbered starting with 1 in this api!
-    
+
     """
     currentPageChanged = pyqtSignal(int)
     pageCountChanged = pyqtSignal(int)
-    
+
     def __init__(self, view):
         """Initializes the Pager with the View.
-        
+
         Also connects with the Surface of the View and its Layout,
         so don't interchange them after initializing the Pager.
-        
+
         """
         super(Pager, self).__init__(view)
         self._currentPage = 0
@@ -49,19 +49,19 @@ class Pager(QObject):
         self._pageNumSet = False
         self._updateTimer = QTimer(
             singleShot=True, interval=100, timeout=self._updatePageNumber)
-        
+
         # connect
         view.installEventFilter(self)
         view.surface().installEventFilter(self)
         view.surface().pageLayout().changed.connect(self._layoutChanged)
-        
+
         # Connect to the kineticScrollingEnabled signal to avoid unneeded updates.
         view.kineticScrollingActive.connect(self.blockListening)
-        
+
     def currentPage(self):
         """Returns the current page number (0 if there are no pages)."""
         return self._currentPage
-        
+
     def setCurrentPage(self, num):
         """Shows the specified page number."""
         changed, self._currentPage = self._currentPage != num, num
@@ -71,14 +71,14 @@ class Pager(QObject):
         self.blockListening(False)
         if changed:
             self.currentPageChanged.emit(self._currentPage)
-        
+
     def pageCount(self):
         """Returns the number of pages."""
         return self._pageCount
-    
+
     def view(self):
         return self.parent()
-    
+
     def _layoutChanged(self):
         """Called internally whenever the layout is updated."""
         layout = self.view().surface().pageLayout()
@@ -86,7 +86,7 @@ class Pager(QObject):
         if old != self._pageCount:
             self.pageCountChanged.emit(self._pageCount)
         self._updatePageNumber()
-    
+
     def _updatePageNumber(self):
         """Called internally on layout change or view resize or surface move."""
         self._currentPage, old = self.view().currentPageNumber() + 1, self._currentPage
@@ -99,13 +99,13 @@ class Pager(QObject):
     def blockListening(self, block):
         """Block/unblock listening to event, used to avoid multiple updates when we know lots
         of events are going to be sent to the pager.
-        
+
         Blocking can be nested, only the outermost unblock will really unblock the event processing."""
         if block:
             self._blockLevel += 1
         else:
             self._blockLevel -= 1
-        
+
         if self._blockLevel == 0:
             if self._pageNumSet:
                 self._pageNumSet = False

@@ -37,7 +37,7 @@ def keys():
 
 def setStyle():
     global _system_default
-    
+
     style = QSettings().value("guistyle", "", str).lower()
     if style not in keys():
         style = _system_default
@@ -48,7 +48,7 @@ def setStyle():
 def initialize():
     """Initializes the GUI style setup. Called op app startup."""
     global _system_default
-    
+
     _system_default = app.qApp.style().objectName()
     app.settingsChanged.connect(setStyle)
     setStyle()
