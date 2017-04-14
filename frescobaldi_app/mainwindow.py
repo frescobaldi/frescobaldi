@@ -906,8 +906,19 @@ class MainWindow(QMainWindow):
         line, ok = QInputDialog.getInt(self, "Goto Line ...",
             "Line Number (1-{}):".format(line_count), 1, min = 1,  max = line_count)
         if ok:
+            view = self.currentView()
+            scroll_bar = view.verticalScrollBar()
+            cur = view.textCursor()
+            current_block = cur.block()
+            current_line = current_block.firstLineNumber()
+            v_offset = current_line - scroll_bar.value()
+            print("Original line:", v_offset)
+            
             cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
-            self.currentView().setTextCursor(cur)
+            view.setTextCursor(cur)
+            new_block = cur.block()
+            new_line = new_block.firstLineNumber()
+            scroll_bar.setValue(new_line - v_offset)
 
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""
