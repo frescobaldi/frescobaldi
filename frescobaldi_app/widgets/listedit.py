@@ -54,14 +54,9 @@ class ListEdit(QWidget):
         layout.addWidget(self.editButton, 1, 1)
         layout.addWidget(self.removeButton, 2, 1)
 
-        def updateSelection():
-            selected = bool(self.listBox.currentItem())
-            self.editButton.setEnabled(selected)
-            self.removeButton.setEnabled(selected)
-
-        self.changed.connect(updateSelection)
-        self.listBox.itemSelectionChanged.connect(updateSelection)
-        updateSelection()
+        self.changed.connect(self.updateSelection)
+        self.listBox.itemSelectionChanged.connect(self.updateSelection)
+        self.updateSelection()
         self.connectSlots()
         app.translateUI(self)
 
@@ -91,6 +86,11 @@ class ListEdit(QWidget):
         if item:
             self.removeItem(item)
             
+    def updateSelection(self):
+        selected = bool(self.listBox.currentItem())
+        self.editButton.setEnabled(selected)
+        self.removeButton.setEnabled(selected)
+
     def itemDoubleClicked(self, item):
         item and self.editItem(item)
 
