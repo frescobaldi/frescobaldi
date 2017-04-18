@@ -907,6 +907,7 @@ class MainWindow(QMainWindow):
         cur = view.textCursor()
         current_block = cur.block()
         current_line = current_block.firstLineNumber()
+        char_pos = cur.position() - current_block.position()
         scroll_bar = view.verticalScrollBar()
         v_offset = current_line - scroll_bar.value()
         loc_pos = view.cursorRect(cur).bottomLeft()
@@ -916,16 +917,20 @@ class MainWindow(QMainWindow):
         dlg.setInputMode(QInputDialog.IntInput)
         dlg.setIntMinimum(1)
         dlg.setIntMaximum(line_count)
+        dlg.setIntValue(current_line)
         dlg.setLabelText(_("Goto Line Line Number (1-{}):".format(line_count)))
-        dlg.setIntValue(current_line + 1)
         dlg.setWindowFlags(Qt.Popup)
         dlg.move(pos)
         dlg_result = dlg.exec()
         if dlg_result:
             line = dlg.intValue()
             cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
-            view.setTextCursor(cur)
             new_block = cur.block()
+            if new_block.length() > char_pos:
+                cur.setPosition(cur.position() + char_pos)
+            else:
+                cur.setPosition(cur.position() + new_block.length() - 1)
+            view.setTextCursor(cur)
             new_line = new_block.firstLineNumber()
             scroll_bar.setValue(new_line - v_offset)
 
