@@ -903,17 +903,15 @@ class MainWindow(QMainWindow):
     def gotoLine(self):
         """Ask for line number and go there"""
         line_count = self.currentDocument().blockCount()
+        view = self.currentView()
+        cur = view.textCursor()
+        current_block = cur.block()
+        current_line = current_block.firstLineNumber()
+        scroll_bar = view.verticalScrollBar()
+        v_offset = current_line - scroll_bar.value()
         line, ok = QInputDialog.getInt(self, "Goto Line ...",
-            "Line Number (1-{}):".format(line_count), 1, min = 1,  max = line_count)
-        if ok:
-            view = self.currentView()
-            scroll_bar = view.verticalScrollBar()
-            cur = view.textCursor()
-            current_block = cur.block()
-            current_line = current_block.firstLineNumber()
-            v_offset = current_line - scroll_bar.value()
-            print("Original line:", v_offset)
-            
+            "Line Number (1-{}):".format(line_count), current_line + 1, min = 1,  max = line_count)
+        if ok:            
             cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
             view.setTextCursor(cur)
             new_block = cur.block()
