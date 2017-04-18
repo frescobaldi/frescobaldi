@@ -908,8 +908,6 @@ class MainWindow(QMainWindow):
         current_block = cur.block()
         current_line = current_block.firstLineNumber()
         char_pos = cur.position() - current_block.position()
-        scroll_bar = view.verticalScrollBar()
-        v_offset = current_line - scroll_bar.value()
         loc_pos = view.cursorRect(cur).bottomLeft()
         pos = view.viewport().mapToGlobal(loc_pos)
         
@@ -931,8 +929,7 @@ class MainWindow(QMainWindow):
             else:
                 cur.setPosition(cur.position() + new_block.length() - 1)
             view.setTextCursor(cur)
-            new_line = new_block.firstLineNumber()
-            scroll_bar.setValue(new_line - v_offset)
+            view.centerCursor()
 
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""
