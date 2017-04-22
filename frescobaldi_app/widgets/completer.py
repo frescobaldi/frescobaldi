@@ -175,9 +175,10 @@ class Completer(QCompleter):
 
         """
         cursor = self.textCursor()
+        sel_len = cursor.selectionEnd() - cursor.selectionStart() if cursor.hasSelection() else 0
         cursor.setPosition(cursor.selectionEnd())
         prefix_len = len(self.completionPrefix())
-        cursor.setPosition(cursor.position() - prefix_len, cursor.KeepAnchor)
+        cursor.setPosition(cursor.position() - prefix_len - sel_len, cursor.KeepAnchor)
         cursor.insertText(self.completionModel().data(index, Qt.EditRole))
        
     def insertPartialCompletion(self, index):
