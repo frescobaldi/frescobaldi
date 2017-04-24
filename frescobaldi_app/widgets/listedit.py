@@ -54,29 +54,6 @@ class ListEdit(QWidget):
         layout.addWidget(self.editButton, 1, 1)
         layout.addWidget(self.removeButton, 2, 1)
 
-        @self.addButton.clicked.connect
-        def addClicked():
-            item = self.createItem()
-            if self.openEditor(item):
-                self.addItem(item)
-
-        @self.editButton.clicked.connect
-        def editClicked():
-            item = self.listBox.currentItem()
-            item and self.editItem(item)
-
-        @self.removeButton.clicked.connect
-        def removeClicked():
-            item = self.listBox.currentItem()
-            if item:
-                self.removeItem(item)
-
-        @self.listBox.itemDoubleClicked.connect
-        def itemDoubleClicked(item):
-            item and self.editItem(item)
-
-        self.listBox.model().layoutChanged.connect(self.changed)
-
         def updateSelection():
             selected = bool(self.listBox.currentItem())
             self.editButton.setEnabled(selected)
@@ -85,12 +62,37 @@ class ListEdit(QWidget):
         self.changed.connect(updateSelection)
         self.listBox.itemSelectionChanged.connect(updateSelection)
         updateSelection()
+        self.connectSlots()
         app.translateUI(self)
+
+    def connectSlots(self):
+        self.addButton.clicked.connect(self.addClicked)
+        self.editButton.clicked.connect(self.editClicked)
+        self.removeButton.clicked.connect(self.removeClicked)
+        self.listBox.itemDoubleClicked.connect(self.itemDoubleClicked)
+        self.listBox.model().layoutChanged.connect(self.changed)
 
     def translateUI(self):
         self.addButton.setText(_("&Add..."))
         self.editButton.setText(_("&Edit..."))
         self.removeButton.setText(_("&Remove"))
+
+    def addClicked(self, button):
+        item = self.createItem()
+        if self.openEditor(item):
+            self.addItem(item)
+
+    def editClicked(self, button):
+        item = self.listBox.currentItem()
+        item and self.editItem(item)
+
+    def removeClicked(self, button):
+        item = self.listBox.currentItem()
+        if item:
+            self.removeItem(item)
+            
+    def itemDoubleClicked(self, item):
+        item and self.editItem(item)
 
     def createItem(self):
         return QListWidgetItem()
