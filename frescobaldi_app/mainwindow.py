@@ -903,11 +903,33 @@ class MainWindow(QMainWindow):
     def gotoLine(self):
         """Ask for line number and go there"""
         line_count = self.currentDocument().blockCount()
-        line, ok = QInputDialog.getInt(self, "Goto Line ...",
-            "Line Number (1-{}):".format(line_count), 1, min = 1,  max = line_count)
-        if ok:
+        view = self.currentView()
+        cur = view.textCursor()
+        current_block = cur.block()
+        current_line = current_block.firstLineNumber()
+        char_pos = cur.position() - current_block.position()
+        loc_pos = view.cursorRect(cur).bottomLeft()
+        pos = view.viewport().mapToGlobal(loc_pos)
+        
+        dlg = QInputDialog(self)
+        dlg.setInputMode(QInputDialog.IntInput)
+        dlg.setIntMinimum(1)
+        dlg.setIntMaximum(line_count)
+        dlg.setIntValue(current_line)
+        dlg.setLabelText(_("Goto Line Line Number (1-{}):".format(line_count)))
+        dlg.setWindowFlags(Qt.Popup)
+        dlg.move(pos)
+        dlg_result = dlg.exec()
+        if dlg_result:
+            line = dlg.intValue()
             cur = QTextCursor(self.currentDocument().findBlockByNumber(line - 1))
-            self.currentView().setTextCursor(cur)
+            new_block = cur.block()
+            if new_block.length() > char_pos:
+                cur.setPosition(cur.position() + char_pos)
+            else:
+                cur.setPosition(cur.position() + new_block.length() - 1)
+            view.setTextCursor(cur)
+            view.centerCursor()
 
     def selectFullLinesUp(self):
         """Select lines upwards, selecting full lines."""
