@@ -194,13 +194,14 @@ class Completer(QCompleter):
         partial = True
         string = ''
         rows = []
-        rem_len = None
+        rem_len = 0
         text_len = len(self.completionPrefix())
         for irow in range(self.completionModel().rowCount()):
             self.setCurrentRow(irow)
             cell = self.completionModel().data(self.currentIndex())[text_len:]
-            rows.append(cell)
-            rem_len = min(rem_len, len(cell)) if rem_len else len(cell)
+            if cell:
+                rows.append(cell)
+                rem_len = min(rem_len, len(cell)) if rem_len > 0 else len(cell)
         self.setCurrentRow(index.row())
         if rows:
             for i in range(rem_len):
