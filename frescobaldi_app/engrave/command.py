@@ -84,6 +84,7 @@ def defaultJob(document, args=None):
     j.directory = os.path.dirname(filename)
     command.append(filename)
     j.command = command
+    j.environment['LD_LIBRARY_PATH'] = i.libdir()
     if s.value("no_translation", False, bool):
         j.environment['LANG'] = 'C'
         j.environment['LC_ALL'] = 'C'

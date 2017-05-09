@@ -211,6 +211,7 @@ class Dialog(QDialog):
         j = job.Job()
         j.directory = os.path.dirname(filename)
         j.command = cmd
+        j.environment['LD_LIBRARY_PATH'] = i.libdir()
         if self.englishCheck.isChecked():
             j.environment['LANG'] = 'C'
             j.environment['LC_ALL'] = 'C'
