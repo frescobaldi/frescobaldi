@@ -422,8 +422,8 @@ class Builder(object):
         # paper size
         if self.paperSize:
             ly.dom.Scheme(
-                '(set-paper-size "{0}"{1})'.format(
-                    self.paperSize, " 'landscape" if self.paperLandscape else ""),
+                '(set-paper-size "{0}{1}")'.format(
+                    self.paperSize, "landscape" if self.paperLandscape else ""),
                 ly.dom.Paper(doc)
             ).after = 1
             ly.dom.BlankLine(doc)
