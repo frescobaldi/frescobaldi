@@ -300,6 +300,7 @@ class View(QPlainTextEdit):
             self.showTooltip(ev.globalPos())
             
     def showTooltip(self, globalPos):
+        """Check the cursor's position. Show the tooltips while it meets the conditions"""
         localPos = self.mapFromGlobal(globalPos)
         blockheight = self.fontMetrics().height()
         contentstart = self.firstVisibleBlock().blockNumber()
