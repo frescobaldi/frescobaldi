@@ -145,12 +145,9 @@ class View(QPlainTextEdit):
 
         """
         super(View, self).keyPressEvent(ev)
-        # update the tooltip info 
         if ev.key() == Qt.Key_Control:
-            import open_file_at_cursor
-            self.toolTipInfo = open_file_at_cursor.genToolTipInfo(self.textCursor()) 
-            # show the tooltip if it meets the conditions
-            self.showTooltip(QCursor.pos())
+            # trigger ToolTip
+            self.showTooltip()
         if metainfo.info(self.document()).auto_indent:
             # run the indenter on Return or when the user entered a dedent token.
             import indent
@@ -297,18 +294,21 @@ class View(QPlainTextEdit):
         super(View, self).mousePressEvent(ev)
         # only show tooltip while Ctrl is pressed
         if  ev.modifiers() == Qt.ControlModifier:
-            self.showTooltip(ev.globalPos())
+            self.showTooltip()
             
-    def showTooltip(self, globalPos):
+    def showTooltip(self):
         """Check the cursor's position. Show the tooltips while it meets the conditions"""
-        localPos = self.mapFromGlobal(globalPos)
+        import open_file_at_cursor
+        self.toolTipInfo = open_file_at_cursor.genToolTipInfo(self.textCursor())
+
+        localPos = self.mapFromGlobal(QCursor.pos())
         blockheight = self.fontMetrics().height()
         contentstart = self.firstVisibleBlock().blockNumber()
         for info in self.toolTipInfo:
             dn = blockheight * (info['num'] - contentstart)
             up = dn + blockheight
             if (localPos.y() >= dn and localPos.y() <= up):
-                QToolTip.showText(globalPos, info['content'])
+                QToolTip.showText(QCursor.pos(), info['content'])
 
     def createMimeDataFromSelection(self):
         """Reimplemented to only copy plain text."""
