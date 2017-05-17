@@ -47,11 +47,7 @@ def genToolTipInfo(cursor):
     
     # get the path of current file
     filename = cursor.document().url().toLocalFile()
-    directory = os.path.dirname(filename)
-    if filename:
-        path = [directory]
-    else:
-        path = []
+    path = [os.path.dirname(filename)] if filename else []
     path.extend(dinfo.includepath())
     
     # structure being used to store included file information
