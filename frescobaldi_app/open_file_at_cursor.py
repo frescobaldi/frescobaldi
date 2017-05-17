@@ -88,7 +88,7 @@ def genToolTipInfo(cursor):
         for f in fnames:
             for p in path:
                 name = os.path.normpath(os.path.join(p, f))
-                if os.access(name, os.R_OK):
+                if os.path.exists(name) and not os.path.isdir(name):
                     info.content = name
                     valid = True
                     break
