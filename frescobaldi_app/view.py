@@ -305,10 +305,10 @@ class View(QPlainTextEdit):
         blockheight = self.fontMetrics().height()
         contentstart = self.firstVisibleBlock().blockNumber()
         for info in self.toolTipInfo:
-            dn = blockheight * (info.num - contentstart)
+            dn = blockheight * (info['num'] - contentstart)
             up = dn + blockheight
             if (localPos.y() >= dn and localPos.y() <= up):
-                QToolTip.showText(globalPos, info.content)
+                QToolTip.showText(globalPos, info['content'])
 
     def createMimeDataFromSelection(self):
         """Reimplemented to only copy plain text."""

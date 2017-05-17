@@ -50,9 +50,6 @@ def genToolTipInfo(cursor):
     path = [os.path.dirname(filename)] if filename else []
     path.extend(dinfo.includepath())
     
-    # structure being used to store included file information
-    class ToolTipInfo:
-        pass    
     toolTipInfo = []
     
     # startIndex is the content where every find begins
@@ -76,8 +73,8 @@ def genToolTipInfo(cursor):
             continue
         
         # file information unit
-        info = ToolTipInfo()
-        info.num = block.blockNumber()
+        info = {}
+        info['num'] = block.blockNumber()
         
         # whether we can find a valid file path
         valid = False
@@ -85,11 +82,11 @@ def genToolTipInfo(cursor):
             for p in path:
                 name = os.path.normpath(os.path.join(p, f))
                 if os.path.exists(name) and not os.path.isdir(name):
-                    info.content = name
+                    info['content'] = name
                     valid = True
                     break
         if valid == False:
-            info.content = "This is an invalid include file"
+            info['content'] = "This is an invalid include file"
         toolTipInfo.append(info)
         
         # find next '\inluded'
