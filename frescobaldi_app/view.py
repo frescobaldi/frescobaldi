@@ -291,7 +291,7 @@ class View(QPlainTextEdit):
     
     def mouseMoveEvent(self, ev):
         """Track the mouse move to show the tooltip"""
-        super(View, self).mousePressEvent(ev)
+        super(View, self).mouseMoveEvent(ev)
         # only show tooltip while Ctrl is pressed
         if  ev.modifiers() == Qt.ControlModifier:
             self.showTooltip()
