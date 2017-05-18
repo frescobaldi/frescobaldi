@@ -27,6 +27,7 @@ has support for showing multiple Views in a window.
 
 import weakref
 
+import os
 from PyQt5.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import (
     QContextMenuEvent, QKeySequence, QPainter, QTextCursor, QCursor)
@@ -67,6 +68,7 @@ class View(QPlainTextEdit):
         document.loaded.connect(self.restoreCursor)
         document.loaded.connect(self.setTabWidth)
         document.closed.connect(self.slotDocumentClosed)
+        self.textChanged.connect(self.invalidateCurrentBlock)
         variables.manager(document).changed.connect(self.setTabWidth)
         self.restoreCursor()
         app.settingsChanged.connect(self.readSettings)
@@ -77,6 +79,7 @@ class View(QPlainTextEdit):
         self.installEventFilter(cursorkeys.handler)
         self.toolTipInfo = []
         self.block_at_mouse = None
+        self.include_target = []
         app.viewCreated(self)
 
     def event(self, ev):
@@ -286,32 +289,31 @@ class View(QPlainTextEdit):
             if definition.goto_definition(self.window(), clicked):
                 return
         super(View, self).mousePressEvent(ev)
-    
+
+    def invalidateCurrentBlock(self):
+        """Make sure that tooltip info is recalculated after document changes"""
+        self.block_at_mouse = None
+
     def mouseMoveEvent(self, ev):
         """Track the mouse move to show the tooltip"""
         super(View, self).mouseMoveEvent(ev)
-        pos = ev.pos()
-        cursor_at_mouse = self.cursorForPosition(pos)
+        cursor_at_mouse = self.cursorForPosition(ev.pos())
         cur_block = cursor_at_mouse.block()
-        cur_block_number = cur_block.blockNumber()
         # Only check tooltip when changing line/block
-        if not cur_block_number == self.block_at_mouse:
-            self.block_at_mouse = cur_block_number
-            self.showTooltip(cursor_at_mouse, pos)
-            
-    def showTooltip(self, cursor, mouse_pos):
-        """Check the cursor's position. Show the tooltips while it meets the conditions"""
-        import open_file_at_cursor
-        self.toolTipInfo = open_file_at_cursor.genToolTipInfo(self.textCursor())
+        if not cur_block == self.block_at_mouse:
+            self.block_at_mouse = cur_block
+            if "\include" in cur_block.text():
+                import open_file_at_cursor
+                self.include_target = open_file_at_cursor.includeTarget(cursor_at_mouse)
+                if self.include_target:
+                    self.showIncludeToolTip()
+            else:
+                self.include_target = ""
+                QToolTip.hideText()
 
-        localPos = self.mapFromGlobal(QCursor.pos())
-        blockheight = self.fontMetrics().height()
-        contentstart = self.firstVisibleBlock().blockNumber()
-        for info in self.toolTipInfo:
-            dn = blockheight * (info['num'] - contentstart)
-            up = dn + blockheight
-            if (localPos.y() >= dn and localPos.y() <= up):
-                QToolTip.showText(QCursor.pos(), info['content'])
+    def showIncludeToolTip(self):
+        """Show a tooltip with the currently determined include target"""
+        QToolTip.showText(QCursor.pos(), '\n'.join(self.include_target))
 
     def createMimeDataFromSelection(self):
         """Reimplemented to only copy plain text."""

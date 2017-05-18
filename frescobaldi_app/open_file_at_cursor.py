@@ -31,6 +31,45 @@ from PyQt5.QtCore import QUrl
 import documentinfo
 import browseriface
 
+def includeTarget(cursor):
+    """Given a cursor determine an absolute path to an include file present in the cursor's block.
+    Return path or empty string if no valid file is found.
+
+    Note that currently this still operates on the full block, i.e. considers the first \include
+    within the block. It should be narrowed down to an actual string below the mouse pointer.
+    """
+
+    # determine current block's range
+    block = cursor.block()
+    start = block.position()
+    end = start + len(block.text()) + 1
+
+    # TODO:
+    # I think this should be approached differently.
+    # There is no need to have documentinfo process the whole document.
+    # All we want is to parse the text around the cursor, which should be implemented locally.
+    # (This will also make it easier to narrow the selection down to the actual mouse pointer position)
+    dinfo = documentinfo.info(cursor.document())
+    i = dinfo.lydocinfo().range(start, end)
+    fnames = i.include_args() or i.scheme_load_args()
+    if not fnames:
+        return ""
+
+    # determine search path: doc dir and other include path names
+    filename = cursor.document().url().toLocalFile()
+    path = [os.path.dirname(filename)] if filename else []
+    path.extend(dinfo.includepath())
+
+    targets = []
+    # iterating over the search paths, find the first combination pointing to an existing file
+    for f in fnames:
+        for p in path:
+            name = os.path.normpath(os.path.join(p, f))
+            if os.path.exists(name) and not os.path.isdir(name):
+                targets.append(name)
+                continue
+    return targets
+
 def genToolTipInfo(cursor):
     """Return a list of infomation of the inlude files.
     
