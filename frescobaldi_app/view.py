@@ -281,8 +281,9 @@ class View(QPlainTextEdit):
             if cursor.selectionStart() <= clicked.position() < cursor.selectionEnd():
                 clicked = cursor
             # include files?
-            import open_file_at_cursor
-            if open_file_at_cursor.open_file_at_cursor(self.window(), clicked):
+            if self.include_target:
+                import open_file_at_cursor
+                open_file_at_cursor.open_targets(self.window(), self.include_target)
                 return
             # go to definition?
             import definition

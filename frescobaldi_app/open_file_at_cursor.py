@@ -182,9 +182,17 @@ def open_file_at_cursor(mainwindow, cursor=None):
     """
     if cursor is None:
         cursor = mainwindow.textCursor()
+    return open_targets(filenames_at_cursor(cursor))
+
+def open_targets(mainwindow, targets):
+    """Open all given files, giving focus to the last one.
+
+    Return True if there were one or more filenames that were opened.
+
+    """
     d = None
-    for name in filenames_at_cursor(cursor):
-        d = mainwindow.openUrl(QUrl.fromLocalFile(name))
+    for t in targets:
+        d = mainwindow.openUrl(QUrl.fromLocalFile(t))
     if d:
         browseriface.get(mainwindow).setCurrentDocument(d, True)
         return True
