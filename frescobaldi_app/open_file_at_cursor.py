@@ -25,11 +25,15 @@ Generate the include files' tooltips
 
 
 import os
+import re
 
 from PyQt5.QtCore import QUrl 
 
 import documentinfo
 import browseriface
+
+# regular expression for finding \include expressions
+incl_regex = re.compile('(\\include\s*\")([./\w]*)(\")')
 
 def includeTarget(cursor):
     """Given a cursor determine an absolute path to an include file present in the cursor's block.
@@ -39,25 +43,22 @@ def includeTarget(cursor):
     within the block. It should be narrowed down to an actual string below the mouse pointer.
     """
 
-    # determine current block's range
     block = cursor.block()
-    start = block.position()
-    end = start + len(block.text()) + 1
+    fnames = []
 
-    # TODO:
-    # I think this should be approached differently.
-    # There is no need to have documentinfo process the whole document.
-    # All we want is to parse the text around the cursor, which should be implemented locally.
-    # (This will also make it easier to narrow the selection down to the actual mouse pointer position)
-    dinfo = documentinfo.info(cursor.document())
-    i = dinfo.lydocinfo().range(start, end)
-    fnames = i.include_args() or i.scheme_load_args()
+    m = incl_regex.search(block.text())
+    while m:
+        #TODO: Check if cursor position is within the group(2) (+/- 1 to include the quotes)
+        fnames.append(m.group(2))
+        m = incl_regex.search(block.text(), m.span()[1])
+
     if not fnames:
         return ""
 
     # determine search path: doc dir and other include path names
     filename = cursor.document().url().toLocalFile()
     path = [os.path.dirname(filename)] if filename else []
+    dinfo = documentinfo.info(cursor.document())
     path.extend(dinfo.includepath())
 
     targets = []
