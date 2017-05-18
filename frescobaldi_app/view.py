@@ -148,6 +148,8 @@ class View(QPlainTextEdit):
 
         """
         super(View, self).keyPressEvent(ev)
+        if ev.key() == Qt.Key_Control and self.include_target:
+            self.viewport().setCursor(Qt.PointingHandCursor)
         if metainfo.info(self.document()).auto_indent:
             # run the indenter on Return or when the user entered a dedent token.
             import indent
@@ -304,9 +306,12 @@ class View(QPlainTextEdit):
             self.block_at_mouse = cur_block
             self.include_target = open_file_at_cursor.includeTarget(cursor_at_mouse)
             if self.include_target:
+                if ev.modifiers() == Qt.ControlModifier:
+                   self.viewport().setCursor(QCursor(Qt.PointingHandCursor))
                 self.showIncludeToolTip()
             else:
                 self.include_target = []
+                self.viewport().setCursor(Qt.IBeamCursor)
                 QToolTip.hideText()
 
     def showIncludeToolTip(self):
