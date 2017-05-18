@@ -27,7 +27,6 @@ has support for showing multiple Views in a window.
 
 import weakref
 
-import os
 from PyQt5.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import (
     QContextMenuEvent, QKeySequence, QPainter, QTextCursor, QCursor)
@@ -39,7 +38,7 @@ import textformats
 import cursortools
 import variables
 import cursorkeys
-
+import open_file_at_cursor
 
 metainfo.define('auto_indent', True)
 metainfo.define('position', 0)
@@ -303,13 +302,11 @@ class View(QPlainTextEdit):
         # Only check tooltip when changing line/block
         if not cur_block == self.block_at_mouse:
             self.block_at_mouse = cur_block
-            if "\include" in cur_block.text():
-                import open_file_at_cursor
-                self.include_target = open_file_at_cursor.includeTarget(cursor_at_mouse)
-                if self.include_target:
-                    self.showIncludeToolTip()
+            self.include_target = open_file_at_cursor.includeTarget(cursor_at_mouse)
+            if self.include_target:
+                self.showIncludeToolTip()
             else:
-                self.include_target = ""
+                self.include_target = []
                 QToolTip.hideText()
 
     def showIncludeToolTip(self):
