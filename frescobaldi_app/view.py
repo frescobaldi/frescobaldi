@@ -76,6 +76,7 @@ class View(QPlainTextEdit):
         self.setLineWrapMode(QPlainTextEdit.WidgetWidth if wrap else QPlainTextEdit.NoWrap)
         self.installEventFilter(cursorkeys.handler)
         self.toolTipInfo = []
+        self.block_at_mouse = None
         app.viewCreated(self)
 
     def event(self, ev):
@@ -145,9 +146,6 @@ class View(QPlainTextEdit):
 
         """
         super(View, self).keyPressEvent(ev)
-        if ev.key() == Qt.Key_Control:
-            # trigger ToolTip
-            self.showTooltip()
         if metainfo.info(self.document()).auto_indent:
             # run the indenter on Return or when the user entered a dedent token.
             import indent
@@ -292,11 +290,16 @@ class View(QPlainTextEdit):
     def mouseMoveEvent(self, ev):
         """Track the mouse move to show the tooltip"""
         super(View, self).mouseMoveEvent(ev)
-        # only show tooltip while Ctrl is pressed
-        if  ev.modifiers() == Qt.ControlModifier:
-            self.showTooltip()
+        pos = ev.pos()
+        cursor_at_mouse = self.cursorForPosition(pos)
+        cur_block = cursor_at_mouse.block()
+        cur_block_number = cur_block.blockNumber()
+        # Only check tooltip when changing line/block
+        if not cur_block_number == self.block_at_mouse:
+            self.block_at_mouse = cur_block_number
+            self.showTooltip(cursor_at_mouse, pos)
             
-    def showTooltip(self):
+    def showTooltip(self, cursor, mouse_pos):
         """Check the cursor's position. Show the tooltips while it meets the conditions"""
         import open_file_at_cursor
         self.toolTipInfo = open_file_at_cursor.genToolTipInfo(self.textCursor())
