@@ -36,20 +36,24 @@ import browseriface
 incl_regex = re.compile('(\\include\s*\")([./\w]*)(\")')
 
 def includeTarget(cursor):
-    """Given a cursor determine an absolute path to an include file present in the cursor's block.
+    """Given a cursor determine an absolute path to an include file present below the cursor.
     Return path or empty string if no valid file is found.
 
-    Note that currently this still operates on the full block, i.e. considers the first \include
-    within the block. It should be narrowed down to an actual string below the mouse pointer.
+    Note that there is still functionality related to opening all targets in the current block.
+    Once it has decided that we only want to open *one* target at a time we should change
+    from a list back to a single string (here and in view.py).
     """
 
     block = cursor.block()
+    cursor_pos = cursor.position() - block.position()
     fnames = []
 
     m = incl_regex.search(block.text())
     while m:
-        #TODO: Check if cursor position is within the group(2) (+/- 1 to include the quotes)
-        fnames.append(m.group(2))
+        start = m.span()[0] + len(m.group(1)) - 1
+        if start <= cursor_pos <= m.span()[1]:
+            fnames.append(m.group(2))
+            break
         m = incl_regex.search(block.text(), m.span()[1])
 
     if not fnames:

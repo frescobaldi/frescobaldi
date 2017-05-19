@@ -301,8 +301,8 @@ class View(QPlainTextEdit):
         super(View, self).mouseMoveEvent(ev)
         cursor_at_mouse = self.cursorForPosition(ev.pos())
         cur_block = cursor_at_mouse.block()
-        # Only check tooltip when changing line/block
-        if not cur_block == self.block_at_mouse:
+        # Only check tooltip when changing line/block or after invalidating
+        if self.include_target or not cur_block == self.block_at_mouse:
             self.block_at_mouse = cur_block
             self.include_target = open_file_at_cursor.includeTarget(cursor_at_mouse)
             if self.include_target:
@@ -311,6 +311,7 @@ class View(QPlainTextEdit):
                 self.showIncludeToolTip()
             else:
                 self.include_target = []
+                self.block_at_mouse = None
                 self.viewport().setCursor(Qt.IBeamCursor)
                 QToolTip.hideText()
 
