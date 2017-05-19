@@ -2,8 +2,10 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 3.0.1 -- 
+Changes in 3.0.1 --
 
+* New features:
+  - New "First System Only" option in Custom Engrave
 * Bug fixes:
   - fixed #895 seeking in MIDI player during playing stops sound
 * Improvements:
@@ -16,8 +18,8 @@ Changes in 3.0.0 -- February 17th, 2017
 
 * New features:
   - Zoom with pinch gesture in Music View, contributed by David Rydh
-  - An option (enabled by default) to move the cursor to the end of the line 
-    when PageDown is pressed on the last line, and to move the cursor to the 
+  - An option (enabled by default) to move the cursor to the end of the line
+    when PageDown is pressed on the last line, and to move the cursor to the
     start of the first line if PageUp is pressed on the first line
 * Improvements:
   - Retina display support in Music View, contributed by David Rydh
@@ -82,7 +84,7 @@ Changes in 2.19.0 -- April 22nd, 2016
   - Autocompile was not triggered in some circumstances.
     Now it is also triggered:
     * when a document is saved
-    * when undoing a change after a save (i.e. the undo would reset the 
+    * when undoing a change after a save (i.e. the undo would reset the
       "modifified" flag of the document)
   - When tapping a tempo in the Score Wizard, it is now configurable whether
     a "common" metronome value is picked, or the exact tapped BPM (#792)
