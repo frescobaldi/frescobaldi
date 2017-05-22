@@ -21,10 +21,11 @@
 UrlRequester, a lineedit with a Browse-button.
 """
 
+import os
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import (
-    QFileDialog, QHBoxLayout, QLineEdit, QToolButton, QWidget)
+    QFileDialog, QHBoxLayout, QLineEdit, QToolButton, QWidget, QMessageBox)
 
 import app
 import icons
@@ -46,6 +47,7 @@ class UrlRequester(QWidget):
         self._fileDialog = None
         self._dialogTitle = None
         self._fileMode = None
+        self._mustExist = False
 
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -58,7 +60,7 @@ class UrlRequester(QWidget):
         layout.addWidget(self.button)
 
         self.lineEdit.textChanged.connect(self.changed)
-        self.lineEdit.editingFinished.connect(self.editingFinished)
+        self.lineEdit.editingFinished.connect(self.slotEditingFinished)
         self.setFileMode(QFileDialog.Directory)
         app.translateUI(self)
 
@@ -92,6 +94,13 @@ class UrlRequester(QWidget):
     def fileMode(self):
         return self._fileMode
 
+    def setMustExist(self, value):
+        self._mustExist = value
+
+    def mustExist(self):
+        """Only allows editingFinished with empty or existing path"""
+        return self._mustExist
+
     def setDialogTitle(self, title):
         self._dialogTitle = title
         if self._fileDialog:
@@ -117,4 +126,23 @@ class UrlRequester(QWidget):
             self.lineEdit.setText(dlg.selectedFiles()[0])
             self.editingFinished.emit()
 
-
+    def slotEditingFinished(self):
+        """Validation after line edit has been updated.
+        If the mustExist() property is True we ensure that non-existing paths
+        are rejected. Empty paths are ignored."""
+        if self._mustExist:
+            if self._fileMode == QFileDialog.Directory:
+                check = os.path.isdir
+                t_type = (_("directory"))
+            else:
+                check = os.path.isfile
+                t_type = (_("file"))
+            valid = check(self.path())
+            if self.path() and not valid:
+                QMessageBox.warning(self, (_("Invalid {}".format(t_type))),
+                                    (_("Invalid selection.\nPlease specify an existing {} or leave empty.".format(t_type))),
+                                    QMessageBox.Cancel)
+                self.lineEdit.setFocus()
+                self.lineEdit.selectAll()
+                return
+        self.editingFinished.emit()
