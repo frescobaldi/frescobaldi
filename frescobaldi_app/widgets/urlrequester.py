@@ -23,7 +23,7 @@ UrlRequester, a lineedit with a Browse-button.
 
 import os
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt, QEvent
 from PyQt5.QtWidgets import (
     QFileDialog, QHBoxLayout, QLineEdit, QToolButton, QWidget, QMessageBox)
 
@@ -60,6 +60,7 @@ class UrlRequester(QWidget):
         layout.addWidget(self.button)
 
         self.lineEdit.textChanged.connect(self.changed)
+        self.lineEdit.textEdited.connect(self.slotTextEdited)
         self.lineEdit.editingFinished.connect(self.slotEditingFinished)
         self.setFileMode(QFileDialog.Directory)
         app.translateUI(self)
@@ -125,6 +126,27 @@ class UrlRequester(QWidget):
         if result:
             self.lineEdit.setText(dlg.selectedFiles()[0])
             self.editingFinished.emit()
+
+    def slotTextEdited(self, ev_text):
+        """Simple autocompleter for URL fields, looking at the actual file system"""
+        check = os.path.isdir if self._fileMode == QFileDialog.Directory else os.path.exists
+        text = self.lineEdit.text()
+        if text[-1] == '/':
+            parent = text
+            partial = ''
+        else:
+            parent = os.path.dirname(text) + '/'
+            partial = os.path.basename(text)
+        included_files = sorted([f for f in os.listdir(parent) if check(os.path.join(parent, f))]) \
+            if os.path.isdir(parent) else []
+        if partial:
+            for f in included_files:
+                if f != partial and f.startswith(partial):
+                    comp_len = len(partial)
+                    self.lineEdit.setText(text + f[comp_len:])
+                    self.lineEdit.setSelection(len(text), len(f) - comp_len)
+                    break
+        self.changed.emit()
 
     def slotEditingFinished(self):
         """Validation after line edit has been updated.
