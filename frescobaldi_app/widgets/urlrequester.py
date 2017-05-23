@@ -38,6 +38,7 @@ class UrlRequester(QWidget):
 
     """
     changed = pyqtSignal()
+    editingFinished = pyqtSignal()
 
     def __init__(self, parent=None):
         super(UrlRequester, self).__init__(parent)
@@ -57,6 +58,7 @@ class UrlRequester(QWidget):
         layout.addWidget(self.button)
 
         self.lineEdit.textChanged.connect(self.changed)
+        self.lineEdit.editingFinished.connect(self.editingFinished)
         self.setFileMode(QFileDialog.Directory)
         app.translateUI(self)
 
@@ -113,5 +115,6 @@ class UrlRequester(QWidget):
         result = dlg.exec_()
         if result:
             self.lineEdit.setText(dlg.selectedFiles()[0])
+            self.editingFinished.emit()
 
 
