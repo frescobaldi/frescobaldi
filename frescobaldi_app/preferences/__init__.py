@@ -34,6 +34,7 @@ import qutil
 import userguide
 import icons
 import widgets
+import vcs
 
 _prefsindex = 0 # global setting for selected prefs page but not saved on exit
 
@@ -41,6 +42,8 @@ def pageorder():
     """Yields the page item classes in order."""
     yield General
     yield LilyPond
+    if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
+        yield OpenLilyLib
     yield Midi
     yield Helpers
     yield Paths
@@ -186,6 +189,18 @@ class LilyPond(PrefsItemBase):
     def widget(self, dlg):
         from . import lilypond
         return lilypond.LilyPondPrefs(dlg)
+
+
+class OpenLilyLib(PrefsItemBase):
+    help = "prefs_openlilylib"
+    iconName = "openlilylib"
+    def translateUI(self):
+        print(self.icon())
+        self.setText(_("openLilyLib Configuration"))
+
+    def widget(self, dlg):
+        from . import openlilylib
+        return openlilylib.OpenLilyLibPrefs(dlg)
 
 
 class Midi(PrefsItemBase):

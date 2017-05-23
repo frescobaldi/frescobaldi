@@ -169,9 +169,13 @@ class DocumentInfo(plugin.DocumentPlugin):
         Currently the document does not matter.
 
         """
+        # Get openLilyLib root if available
+        s = QSettings()
+        oll_core = s.value("openlilylib_settings/oll-root", "", str)
+        include_path = [oll_core] if oll_core else []
         # get the global include path
-        include_path = qsettings.get_string_list(
-            QSettings(), "lilypond_settings/include_path")
+        include_path.extend(qsettings.get_string_list(
+            s, "lilypond_settings/include_path"))
 
         # get the session specific include path
         import sessions

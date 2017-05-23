@@ -17,6 +17,7 @@ prefs_shortcuts
 prefs_editor
 prefs_fontscolors
 prefs_tools
+prefs_openlilylib
 
 #SEEALSO
 experimental_features

@@ -14,6 +14,7 @@ This is the list of experimental features in Frescobaldi:
 * {export_musicxml} Convert LilyPond source to MusicXML (without using LilyPond)
 * {object_editor} Edit properties of objects in LilyPond output
 * Editing items in the SVG view
+* {openlilylib} support the openLilyLib package infrastructure
 
 
 #VARS
@@ -21,4 +22,5 @@ export_audio menu file -> submenu title|&Export -> Export Audio...
 export_musicxml menu file -> submenu title|&Export -> Export Music&XML...
 object_editor menu tools -> Object Editor
 prefs_general help prefs_general
+openlilylib menu edit -> Preferences -> openLilyLib
 menu_window_new menu window -> New &Window
