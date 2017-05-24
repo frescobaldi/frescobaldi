@@ -239,12 +239,13 @@ class PackageList(widgets.listedit.ListEdit):
 class PackageInfoItem(QListWidgetItem):
     def __init__(self, package):
         super(PackageInfoItem, self).__init__()
-        self._name = package.name()
+        self._package = package
         # TODO: Retrieve more data
 
     def display(self):
-        text = self._name
-        self.setText(text)
+        self.setText("{} | {}".format(self._package.name, self._package.shortDescription))
+        self.setToolTip("<nobr><strong>{}</strong></nobr><br /><br />{}</font>".format(
+            self._package.root, self._package.description))
         # TODO: Given the info object, set name, icon, short description, tooltip (long description)
         
 

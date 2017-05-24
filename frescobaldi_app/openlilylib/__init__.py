@@ -34,6 +34,7 @@ Support for openLilyLib in Frescobaldi serves two purposes:
 """
 
 import os
+import sys
 
 from PyQt5.QtCore import (
     QObject,
@@ -58,7 +59,7 @@ class OllLib(QObject):
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("openlilylib_settings")
-        self._root = s.value("oll-root", '', str)
+        self.setRoot(s.value("oll-root", '', str))
 
     def saveSettings(self):
         QSettings().setValue('openlilylib_settings/oll-root', self._root)
@@ -74,7 +75,7 @@ class OllLib(QObject):
         dirs = [d for d in os.listdir(root) if os.path.isdir(os.path.join(root, d))]
         for d in dirs:
             try:
-                packages[d] = OllPackage(os.path.join(root, d))
+                packages[d] = OllPackage(self, os.path.join(root, d))
             except:
                 # ignore directories that don't contain a valid openLilyLib package
                 continue
@@ -86,9 +87,9 @@ class OllLib(QObject):
         if self._valid is None:
             path = root if root else self.root()
             try:
-                OllPackage(os.path.join(path, 'oll-core'))
+                OllPackage(self, os.path.join(path, 'oll-core'))
                 self._valid = True
-            except:
+            except Exception as e:
                 self._valid = False
         return self._valid
 
@@ -105,6 +106,18 @@ class OllLib(QObject):
         return self._root
 
     def setRoot(self, root, mustExist = False):
+        """
+        Change the openLilyLib root directory.
+        Handle module path for including vbcl from within oll-core.
+        Invalidate cached properties.
+        """
+        if root == self._root:
+            return
+        if self._root is not None:
+            vbcl_dir_old = os.path.join(self._root, 'oll-core', 'py')
+            sys.path.remove(vbcl_dir_old)
+        vbcl_dir_new = os.path.join(root, 'oll-core', 'py')
+        sys.path.append(vbcl_dir_new)
         if mustExist and not self.valid(root):
             raise Exception(_("No valid openLilyLib installation found in {}".format(root)))
         self.invalidate()
@@ -115,21 +128,32 @@ class OLLException(Exception):
     pass
 
 class OllPackage(QObject):
-    def __init__(self, root):
-        files = os.listdir(root)
-        #TODO: This is not a final condition until the actual config file name/type has been decided
-        if not "package.cnf" in files:
-            raise OLLException(_("Directory {} does not contain a valid openLilyLib package".format(
-                os.path.basename(root))))
-        #TODO: Parse/check config file (throws exception)
-        self._root = root
-        self._name = os.path.basename(root)
+    def __init__(self, lib, root):
+        self.lib = lib
+        self.root = root
+        self.name = os.path.basename(root)
+        self.parseConfig()
 
-    def name(self):
-        return self._name
+    def parseConfig(self):
+        """
+        Parse a package's configuration file.
+        Raises an exception if anything goes wrong.
+        """
 
-    def root(self):
-        return self._root
+        # import vbcl from within oll-core
+        #TODO: Handle reloading when root has changed
+        import vbcl
+        # try to parse configuration file.
+        # May raise an exception when no 'package.cnf' is found
+        cfg_dict = vbcl.parse_file(os.path.join(self.root, 'package.cnf'))
+        self.displayName = cfg_dict['display-name']
+        self.shortDescription = cfg_dict['short-description']
+        self.description = cfg_dict['description']
+        self.dependencies = cfg_dict['dependencies']
+        self.oll_core_version = cfg_dict['oll-core']
+        self.maintainers = cfg_dict['maintainers']
+        self.version = cfg_dict['version']
+        self.license = cfg_dict['license']
 
 
 # cached object to access by openlilylib.lib
