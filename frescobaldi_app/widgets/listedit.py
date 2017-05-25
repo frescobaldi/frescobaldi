@@ -36,6 +36,7 @@ class ListEdit(QWidget):
 
     # emitted when anything changed in the listbox.
     changed = pyqtSignal()
+    itemSelectionChanged = pyqtSignal()
 
     def __init__(self, *args, **kwargs):
         QWidget.__init__(self, *args, **kwargs)
@@ -65,6 +66,7 @@ class ListEdit(QWidget):
         self.editButton.clicked.connect(self.editClicked)
         self.removeButton.clicked.connect(self.removeClicked)
         self.listBox.itemDoubleClicked.connect(self.itemDoubleClicked)
+        self.listBox.itemSelectionChanged.connect(self.itemSelectionChanged)
         self.listBox.model().layoutChanged.connect(self.changed)
 
     def translateUI(self):
