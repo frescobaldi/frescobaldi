@@ -135,12 +135,19 @@ class View(QPlainTextEdit):
         """Reimplemented to perform actions after a key has been pressed.
 
         Currently handles:
-
+        
+        - highlight the included files
+        
         - indent change on Enter, }, # or >
 
         """
         super(View, self).keyPressEvent(ev)
-
+        
+        # highlight the included files when "ctrl" is pressed  
+        if ev.key() == Qt.Key_Control:
+            import open_file_at_cursor 
+            open_file_at_cursor.hightlightIncluded(self.textCursor(), True)  
+             
         if metainfo.info(self.document()).auto_indent:
             # run the indenter on Return or when the user entered a dedent token.
             import indent
@@ -150,6 +157,19 @@ class View(QPlainTextEdit):
                 # fix subsequent vertical moves
                 cursor.setPosition(cursor.position())
                 self.setTextCursor(cursor)
+    
+    def keyReleaseEvent(self, ev):
+        """Reimplemented to perform actions after a key has been released.
+
+        Currently handles:
+        
+        - unhighlight the included files when Ctrl is released
+
+        """
+        super(View, self).keyReleaseEvent(ev)
+        if ev.key() == Qt.Key_Control:
+            import open_file_at_cursor 
+            open_file_at_cursor.hightlightIncluded(self.textCursor(), False) 
 
     def focusOutEvent(self, ev):
         """Reimplemented to store the cursor position on focus out."""
@@ -287,5 +307,3 @@ class View(QPlainTextEdit):
         m = QMimeData()
         m.setText(self.textCursor().selection().toPlainText())
         return m
-
-

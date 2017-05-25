@@ -19,16 +19,62 @@
 
 """
 Opens a file the current textcursor points at (or has selected).
+
+Highlight the included files.
 """
 
 
 import os
 
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QUrl, Qt
+from PyQt5.QtGui import QTextCharFormat, QFont, QTextCursor  
 
 import documentinfo
 import browseriface
 
+
+
+def hightlightIncluded(cursor, option):
+    """Highligtht / Unhighlight all the included files in current view.
+    
+    - When option is True, highlight the included files.
+    
+    - When option is False, unhighlight the included files.      
+    
+    """
+    # search starts from startIndex
+    startIndex = 0
+    cursor = cursor.document().find('\include', startIndex)
+    
+    # find and highlight an include file each loop
+    while not cursor.isNull():
+        block = cursor.block()
+        blockText = block.text()
+        blockHead = block.position()
+        blockTail = blockHead + block.length()
+        # update startIndex
+        startIndex = blockTail
+        dinfo = documentinfo.info(cursor.document())
+        i = dinfo.lydocinfo().range(blockHead, blockTail)
+        fnames = i.include_args() or i.scheme_load_args()
+        if not fnames:
+            continue
+        for name in fnames:
+            nameHead = blockText.find(name) + blockHead
+            nameTail = len(name) + nameHead
+            testFormat = QTextCharFormat()
+            if option:
+                # highlight the file name
+                testFormat.setFontWeight(QFont.Bold)
+                testFormat.setUnderlineStyle(QTextCharFormat.SingleUnderline)
+            else:
+                # unhighlight the file name
+                testFormat.setFontWeight(QFont.Normal)
+                testFormat.setUnderlineStyle(QTextCharFormat.NoUnderline)
+            cursor.setPosition(nameHead)
+            cursor.setPosition(nameTail, QTextCursor.KeepAnchor)
+            cursor.setCharFormat(testFormat)
+        cursor = cursor.document().find('\include', startIndex)      
 
 def filenames_at_cursor(cursor, existing=True):
     """Return a list of filenames at the cursor.
@@ -83,7 +129,8 @@ def open_file_at_cursor(mainwindow, cursor=None):
     d = None
     for name in filenames_at_cursor(cursor):
         d = mainwindow.openUrl(QUrl.fromLocalFile(name))
+    # unghlight the files before open the new document      
+    hightlightIncluded(cursor, False) 
     if d:
         browseriface.get(mainwindow).setCurrentDocument(d, True)
         return True
-
