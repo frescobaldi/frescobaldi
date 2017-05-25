@@ -35,6 +35,7 @@ Support for openLilyLib in Frescobaldi serves two purposes:
 
 import os
 import sys
+import re
 
 from PyQt5.QtCore import (
     QObject,
@@ -155,11 +156,26 @@ class OllPackage(QObject):
         self.displayName = cfg_dict['display-name']
         self.shortDescription = cfg_dict['short-description']
         self.description = cfg_dict['description']
-        self.dependencies = cfg_dict['dependencies']
+        self.dependencies = self.depify(cfg_dict['dependencies'])
         self.oll_core_version = cfg_dict['oll-core']
         self.maintainers = cfg_dict['maintainers']
         self.version = cfg_dict['version']
         self.license = cfg_dict['license']
+        self.repository = cfg_dict['repository']
+
+    def depify(self, dependencies):
+        pair = re.compile(r"^(.*):\s+(.*)$")
+        result = []
+        print(self.name)
+        print(dependencies)
+        for d in dependencies:
+            m = pair.search(d)
+            if m:
+                result.append((m.group(1), m.group(2)))
+            else:
+                result.append((d, '0.0.0'))
+        return result
+
 
     def setIcon(self):
         icon = True if 'icon.svg' in os.listdir(self.root) else False

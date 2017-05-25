@@ -21,15 +21,19 @@
 LilyPond preferences page
 """
 
+import re
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
     QHBoxLayout,
+    QGridLayout,
     QLabel,
     QListWidgetItem,
     QPushButton,
     QVBoxLayout,
     QTabWidget,
-    QFileDialog)
+    QFileDialog,
+    QWidget)
 
 import app
 import icons
@@ -60,10 +64,13 @@ class OpenLilyLibPrefs(preferences.ScrolledGroupsPage):
         
     def updatePage(self):
         valid = self.lib.valid()
+        self.packages.packages.itemSelectionChanged.disconnect(self.config.showPackage)
+        self.config.invalitatePages()
         self.packages.readPackages()
         self.packages.setEnabled(valid)
         self.config.setEnabled(valid)
-        #TODO: Load Config tabs
+        self.packages.packages.itemSelectionChanged.connect(self.config.showPackage)
+        self.config.showPackage()
 
 class OllPreferenceGroup(preferences.Group):
     """Base class for openLilyLib preference page widgets"""
@@ -178,6 +185,14 @@ class PackageList(widgets.listedit.ListEdit):
                 self.addItem(PackageInfoItem(self._packages[n]))
             self.listBox.setCurrentRow(max(0, current_row))
 
+    def selectedPackage(self):
+        """Returns OLLPackage object representing selected item."""
+        index = self.listBox.currentRow()
+        if index < 0:
+            return None
+        package = self.listBox.item(index)._package
+        return package
+
     def addClicked(self, button):
         """Download and install new openLilyLib package"""
         #TODO: Not implemented yet
@@ -242,10 +257,99 @@ class PackageInfoItem(QListWidgetItem):
         # TODO: Retrieve more data
 
     def display(self):
-        self.setText("{} | {}".format(self._package.name, self._package.shortDescription))
+        self.setText("{} | {}".format(self._package.displayName, self._package.shortDescription))
         self.setToolTip("<nobr><strong>{}</strong></nobr><br /><br />{}</font>".format(
             self._package.root, self._package.description))
         self.setIcon(self._package.icon)
+
+class PackageInfoLabel(QLabel):
+    def __init__(self, text = None):
+        super(PackageInfoLabel, self).__init__()
+        if text is not None:
+            self.setText(text)
+        self.style()
+
+    def style(self):
+        self.setAlignment(Qt.AlignTop)
+        self.setStyleSheet("font-weight: bold")
+
+class PackageInfoPage(QWidget):
+    """Page in tabwidget displaying metadata of a package"""
+    def __init__(self, package):
+        super(PackageInfoPage, self).__init__()
+        layout = QGridLayout()
+        layout.setAlignment(Qt.AlignLeft | Qt.AlignTop );
+        self.setLayout(layout)
+
+        self.display_name_label = PackageInfoLabel()
+        self.display_name = PackageInfoLabel(package.displayName)
+        self.display_name.setStyleSheet("font-weight: bold")
+
+        self.short_description = QLabel(package.shortDescription)
+        desc_text = ' '.join(package.description.split('\n'))
+        self.description = QLabel(desc_text)
+        self.description.setWordWrap(True)
+
+        self.maintainers_label = PackageInfoLabel()
+        self._maintainers = [self.linkifyEmail(m) for m in package.maintainers]
+        self.maintainers = QLabel('<br />'.join(self._maintainers))
+        self.maintainers.setWordWrap(True)
+        self.maintainers.setOpenExternalLinks(True)
+
+        self.repository_label = PackageInfoLabel()
+        repo_link = '<a href="{url}">{url}</a>'.format(url = package.repository)
+        self.repository = QLabel(repo_link)
+        self.repository.setOpenExternalLinks(True)
+
+        self.version_label = PackageInfoLabel()
+        self.version = QLabel(package.version)
+
+        self.dependencies_label = PackageInfoLabel()
+        oll_depends = "oll-core: {}".format(package.oll_core_version)
+        deps = [oll_depends]
+        for d in package.dependencies:
+            deps.append("{}: {}".format(d[0], d[1]))
+        dependencies = '<br />'.join(deps)
+        self.dependencies = QLabel(dependencies)
+
+        self.license_label = PackageInfoLabel()
+        self.license = QLabel(package.license)
+
+        layout.addWidget(self.display_name_label, 0, 0)
+        layout.addWidget(self.display_name, 0, 1)
+        layout.addWidget(self.short_description, 1, 1)
+        layout.addWidget(self.description, 2, 1)
+        layout.addWidget(self.maintainers_label, 3, 0)
+        layout.addWidget(self.maintainers, 3, 1)
+        layout.addWidget(self.repository_label, 4, 0)
+        layout.addWidget(self.repository, 4, 1)
+        layout.addWidget(self.version_label, 5, 0)
+        layout.addWidget(self.version, 5, 1)
+        layout.addWidget(self.dependencies_label, 6, 0)
+        layout.addWidget(self.dependencies, 6, 1)
+        layout.addWidget(self.license_label, 7, 0)
+        layout.addWidget(self.license, 7, 1)
+
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.display_name_label.setText(_('Package:'))
+        maintainers_label_text = (_('Maintainer:')) if len(self._maintainers) == 1 else (_('Maintainers:'))
+        self.maintainers_label.setText(maintainers_label_text)
+        self.repository_label.setText(_("Repository:"))
+        self.version_label.setText(_("Version:"))
+        self.dependencies_label.setText(_("Dependencies:"))
+        self.license_label.setText(_("License:"))
+
+    def linkifyEmail(self, maintainer):
+        """Create a mailto: link if a string contains a < > address.
+        This really doesn't check for correctness, and it's up to the package maintainer
+        to format the field correctly."""
+        email = re.compile('(.*)<(.+)>')
+        m = email.search(maintainer)
+        if m:
+            maintainer = m.group(1) + '<a href="mailto:{link}">{link}</a>'.format(link = m.group(2))
+        return maintainer
 
 
 class Config(OllPreferenceGroup):
@@ -254,16 +358,36 @@ class Config(OllPreferenceGroup):
 
         layout = QVBoxLayout()
         self.setLayout(layout)
+
+        self.packageList = self.page.packages.packages
         
         self.tabs = QTabWidget()
-        # TODO: Create tabs for each installed package
-        # If the package is explicitly supported there will be a dedicated Class
-        # Otherwise show a generic tab just showing the info
-        # (Alternative: Only show tab when package is explicitly supported and rely on the list's tooltip otherwise
-        
         layout.addWidget(self.tabs)
 
+        # Cache pages which are created when first shown
+        self.pages = {}
+
+        self.page.packages.packages.itemSelectionChanged.connect(self.showPackage)
         app.translateUI(self)
 
     def translateUI(self):
         self.setTitle(_("Package configuration"))
+
+    def invalitatePages(self):
+        self.tabs.clear()
+        self. pages = {}
+
+    def showPackage(self):
+        """Create or reload package info page(s) in tab(s)."""
+        package = self.packageList.selectedPackage()
+        if package is not None:
+            name = package.name
+            # Cached new page
+            new_page = self.pages.get(name, False)
+            if not new_page:
+                new_page = self.pages[name] = PackageInfoPage(package)
+
+            self.tabs.clear()
+            self.tabs.addTab(new_page, package.icon, package.displayName)
+            #TODO: if applicable add configuration page(s), if defined in the openlilylib module
+
