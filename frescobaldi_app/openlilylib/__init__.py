@@ -40,8 +40,10 @@ from PyQt5.QtCore import (
     QObject,
     QSettings
 )
+from PyQt5.QtGui import QIcon
 
 import app
+import icons
 
 class OllLib(QObject):
     def __init__(self):
@@ -136,7 +138,7 @@ class OllPackage(QObject):
         self.root = root
         self.name = os.path.basename(root)
         self.parseConfig()
-        self.icon = True if 'icon.svg' in os.listdir(root) else False
+        self.setIcon()
 
     def parseConfig(self):
         """
@@ -158,6 +160,13 @@ class OllPackage(QObject):
         self.maintainers = cfg_dict['maintainers']
         self.version = cfg_dict['version']
         self.license = cfg_dict['license']
+
+    def setIcon(self):
+        icon = True if 'icon.svg' in os.listdir(self.root) else False
+        if icon:
+            self.icon = QIcon(os.path.join(self.root, 'icon.svg'))
+        else:
+            self.icon = icons.get("package")
 
 
 # cached object to access by openlilylib.lib
