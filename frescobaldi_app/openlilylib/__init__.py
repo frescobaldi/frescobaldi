@@ -76,8 +76,10 @@ class OllLib(QObject):
         for d in dirs:
             try:
                 packages[d] = OllPackage(self, os.path.join(root, d))
-            except:
+            except Exception as e:
                 # ignore directories that don't contain a valid openLilyLib package
+                # Keep this around because we'll often need this while developing
+                # print(e)
                 continue
         self._packages = packages
 
@@ -90,6 +92,7 @@ class OllLib(QObject):
                 OllPackage(self, os.path.join(path, 'oll-core'))
                 self._valid = True
             except Exception as e:
+                # print(e)
                 self._valid = False
         return self._valid
 
