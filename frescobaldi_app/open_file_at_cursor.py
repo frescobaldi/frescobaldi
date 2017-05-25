@@ -50,8 +50,8 @@ def includeTarget(cursor):
 
     m = incl_regex.search(block.text())
     while m:
-        start = m.span()[0] + len(m.group(1)) - 1
-        if start <= cursor_pos <= m.span()[1]:
+        start = m.span()[0] + len(m.group(1))
+        if start <= cursor_pos <= m.span()[1] - 1:
             fnames.append(m.group(2))
             break
         m = incl_regex.search(block.text(), m.span()[1])
