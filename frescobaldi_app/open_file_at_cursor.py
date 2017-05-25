@@ -33,7 +33,7 @@ import documentinfo
 import browseriface
 
 # regular expression for finding \include expressions
-incl_regex = re.compile('(\\include\s*\")([./\w]*)(\")')
+incl_regex = re.compile('(\\include\s*\")(.*)(\")')
 
 def includeTarget(cursor):
     """Given a cursor determine an absolute path to an include file present below the cursor.
