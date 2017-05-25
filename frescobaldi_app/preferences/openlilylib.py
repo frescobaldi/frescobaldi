@@ -20,7 +20,7 @@
 """
 LilyPond preferences page
 """
-
+import os
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (
@@ -31,6 +31,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QTabWidget,
     QFileDialog)
+from PyQt5.QtGui import QIcon
 
 import app
 import icons
@@ -246,8 +247,11 @@ class PackageInfoItem(QListWidgetItem):
         self.setText("{} | {}".format(self._package.name, self._package.shortDescription))
         self.setToolTip("<nobr><strong>{}</strong></nobr><br /><br />{}</font>".format(
             self._package.root, self._package.description))
-        # TODO: Given the info object, set name, icon, short description, tooltip (long description)
-        
+        if self._package.icon:
+            self.setIcon(QIcon(os.path.join(self._package.root, 'icon.svg')))
+        else:
+            self.setIcon(icons.get("package"))
+
 
 class Config(OllPreferenceGroup):
     def __init__(self, page):

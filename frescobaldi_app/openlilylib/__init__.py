@@ -133,6 +133,7 @@ class OllPackage(QObject):
         self.root = root
         self.name = os.path.basename(root)
         self.parseConfig()
+        self.icon = True if 'icon.svg' in os.listdir(root) else False
 
     def parseConfig(self):
         """
