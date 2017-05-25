@@ -19,16 +19,61 @@
 
 """
 Opens a file the current textcursor points at (or has selected).
+
+Generate the include files' tooltips
 """
 
 
 import os
+import re
 
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QUrl 
 
 import documentinfo
 import browseriface
 
+# regular expression for finding \include expressions
+incl_regex = re.compile('(\\include\s*\")([./\w]*)(\")')
+
+def includeTarget(cursor):
+    """Given a cursor determine an absolute path to an include file present below the cursor.
+    Return path or empty string if no valid file is found.
+
+    Note that there is still functionality related to opening all targets in the current block.
+    Once it has decided that we only want to open *one* target at a time we should change
+    from a list back to a single string (here and in view.py).
+    """
+
+    block = cursor.block()
+    cursor_pos = cursor.position() - block.position()
+    fnames = []
+
+    m = incl_regex.search(block.text())
+    while m:
+        start = m.span()[0] + len(m.group(1))
+        if start <= cursor_pos <= m.span()[1] - 1:
+            fnames.append(m.group(2))
+            break
+        m = incl_regex.search(block.text(), m.span()[1])
+
+    if not fnames:
+        return ""
+
+    # determine search path: doc dir and other include path names
+    filename = cursor.document().url().toLocalFile()
+    path = [os.path.dirname(filename)] if filename else []
+    dinfo = documentinfo.info(cursor.document())
+    path.extend(dinfo.includepath())
+
+    targets = []
+    # iterating over the search paths, find the first combination pointing to an existing file
+    for f in fnames:
+        for p in path:
+            name = os.path.normpath(os.path.join(p, f))
+            if os.path.exists(name) and not os.path.isdir(name):
+                targets.append(name)
+                continue
+    return targets
 
 def filenames_at_cursor(cursor, existing=True):
     """Return a list of filenames at the cursor.
@@ -43,7 +88,7 @@ def filenames_at_cursor(cursor, existing=True):
         end = start + len(cursor.block().text()) + 1
     dinfo = documentinfo.info(cursor.document())
     i = dinfo.lydocinfo().range(start, end)
-    fnames = i.include_args() or i.scheme_load_args()
+    fnames = i.include_args() or i.scheme_load_args() 
     if not fnames and cursor.hasSelection():
         text = cursor.selection().toPlainText()
         if '\n' not in text.strip():
@@ -80,10 +125,17 @@ def open_file_at_cursor(mainwindow, cursor=None):
     """
     if cursor is None:
         cursor = mainwindow.textCursor()
+    return open_targets(filenames_at_cursor(cursor))
+
+def open_targets(mainwindow, targets):
+    """Open all given files, giving focus to the last one.
+
+    Return True if there were one or more filenames that were opened.
+
+    """
     d = None
-    for name in filenames_at_cursor(cursor):
-        d = mainwindow.openUrl(QUrl.fromLocalFile(name))
+    for t in targets:
+        d = mainwindow.openUrl(QUrl.fromLocalFile(t))
     if d:
         browseriface.get(mainwindow).setCurrentDocument(d, True)
         return True
-
