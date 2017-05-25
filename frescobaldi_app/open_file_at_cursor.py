@@ -75,68 +75,6 @@ def includeTarget(cursor):
                 continue
     return targets
 
-def genToolTipInfo(cursor):
-    """Return a list of infomation of the inlude files.
-    
-    For each include file,  generate a ToolTipInfo instance. Insert it into the list. 
-    
-    A ToolTipInfo instance has two attribute:
-    
-    - content: the content of the tooltip for this include file
-    
-    - num:     number of the block where this include file locates 
-
-    """    
-    dinfo = documentinfo.info(cursor.document()) 
-    
-    # get the path of current file
-    filename = cursor.document().url().toLocalFile()
-    path = [os.path.dirname(filename)] if filename else []
-    path.extend(dinfo.includepath())
-    
-    toolTipInfo = []
-    
-    # startIndex is the content where every find begins
-    startIndex = 0
-    
-    # find the first '\include'
-    pointCursor = cursor.document().find('\include', startIndex)
-    
-    # find an include file each loop
-    while not pointCursor.isNull():
-        block = pointCursor.block()
-        text = block.text()
-        head = block.position()
-        tail = head + block.length()
-        i = dinfo.lydocinfo().range(head, tail)
-        fnames = i.include_args() or i.scheme_load_args()
-        
-        # update startIndex
-        startIndex = tail
-        if not fnames:
-            continue
-        
-        # file information unit
-        info = {}
-        info['num'] = block.blockNumber()
-        
-        # whether we can find a valid file path
-        valid = False
-        for f in fnames:
-            for p in path:
-                name = os.path.normpath(os.path.join(p, f))
-                if os.path.exists(name) and not os.path.isdir(name):
-                    info['content'] = name
-                    valid = True
-                    break
-        if valid == False:
-            info['content'] = "This is an invalid include file"
-        toolTipInfo.append(info)
-        
-        # find next '\inluded'
-        pointCursor = cursor.document().find('\include', startIndex)
-    return toolTipInfo        
-    
 def filenames_at_cursor(cursor, existing=True):
     """Return a list of filenames at the cursor.
 
