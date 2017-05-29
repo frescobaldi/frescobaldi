@@ -195,7 +195,8 @@ class Completer(QCompleter):
         string = ''
         rows = []
         rem_len = 0
-        text_len = len(self.completionPrefix())
+        compl_prefix = self.completionPrefix()
+        text_len = len(compl_prefix)
         for irow in range(self.completionModel().rowCount()):
             self.setCurrentRow(irow)
             cell = self.completionModel().data(self.currentIndex())[text_len:]
@@ -203,7 +204,7 @@ class Completer(QCompleter):
                 rows.append(cell)
                 rem_len = min(rem_len, len(cell)) if rem_len > 0 else len(cell)
         self.setCurrentRow(index.row())
-        if rows:
+        if rows and not self.currentCompletion() == compl_prefix:
             for i in range(rem_len):
                 if not partial:
                     break
