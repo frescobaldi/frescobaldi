@@ -35,6 +35,9 @@ Support for openLilyLib in Frescobaldi serves two purposes:
 
 from . import oll_lib
 
-
 # cached object to access by openlilylib.lib
 lib = oll_lib.OllLib()
+
+def installOll(root):
+    from . import manage
+    return manage.installOll(root)

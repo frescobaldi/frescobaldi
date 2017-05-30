@@ -91,9 +91,13 @@ class OllRoot(OllPreferenceGroup):
         self.directory = widgets.urlrequester.UrlRequester()
         self.directory.setFileMode(QFileDialog.Directory)
         self.directory.editingFinished.connect(self.rootChanged)
+        self.installButton = QPushButton(icons.get('list-add'), '')
+        self.installButton.setEnabled(False)
+        self.installButton.clicked.connect(self.installOll)
         
         layout.addWidget(self.label)
         layout.addWidget(self.directory)
+        layout.addWidget(self.installButton)
 
         app.translateUI(self)
         self.loadSettings()
@@ -104,9 +108,21 @@ class OllRoot(OllPreferenceGroup):
         tt = (_("Root directory below which openLilyLib packages are installed."))
         self.label.setToolTip(tt)
         self.directory.setToolTip(tt)
+        self.installButton.setText(_('&Install...'))
+        self.installButton.setToolTip('Not implemented yet')
 
     def loadSettings(self):
         self.directory.setPath(self.lib.root())
+
+    def installOll(self):
+        """Try to install openLilyLib in the currently chosen directory"""
+        success = openlilylib.installOll(self.directory.path())
+        if success:
+            self.rootChanged()
+        else:
+            #TODO: Show message
+            pass
+
 
     def rootChanged(self):
         root = self.lib.root()
@@ -114,9 +130,7 @@ class OllRoot(OllPreferenceGroup):
             return
         self.lib.setRoot(self.directory.path())
         valid = self.lib.valid()
-        if not valid:
-            # TODO: Provide opportunity to install oll-core now
-            pass
+        self.installButton.setEnabled(not valid)
         bg = 'white' if valid or root == '' else 'yellow'
         self.directory.setStyleSheet("background-color:{};".format(bg))
         self.page.changed.emit()
