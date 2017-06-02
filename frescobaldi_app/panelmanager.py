@@ -29,7 +29,7 @@ from PyQt5.QtCore import QSettings
 import actioncollection
 import actioncollectionmanager
 import plugin
-import vcs
+import app
 
 
 def manager(mainwindow):
@@ -63,7 +63,7 @@ class PanelManager(plugin.MainWindowPlugin):
 
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
-        if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
+        if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
             self.loadPanel("objecteditor.ObjectEditor")
         self.createActions()
 

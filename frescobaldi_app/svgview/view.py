@@ -41,7 +41,6 @@ import textedit
 import textformats
 import pointandclick
 import scratchdir
-import vcs
 
 
 from . import __path__
@@ -110,7 +109,7 @@ class View(QWebView):
             frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
             frame.evaluateJavaScript(getJsScript('pointandclick.js'))
             #for now only editable in dev (git) or when the user explicitly allows experimental features
-            if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
+            if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
                 frame.evaluateJavaScript(getJsScript('editsvg.js'))
 
     def evalSave(self):
