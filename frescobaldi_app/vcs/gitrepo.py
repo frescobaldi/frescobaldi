@@ -28,12 +28,12 @@ import os
 from PyQt5.QtCore import QProcess
 
 import app
-from .abstractrepo import AbstractVCSRepo
+from . import abstractrepo
 
 class GitError(Exception):
     pass
 
-class Repo(AbstractVCSRepo):
+class Repo(abstractrepo.Repo):
     """
     Manage a git repository, be it
     the running Frescobaldi application

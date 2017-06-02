@@ -21,11 +21,12 @@
 VCS interface (application and documents)
 """
 
-import sys
-import os
 from abc import ABCMeta, abstractmethod
 
-class AbstractVCSRepo(object):
+from PyQt5.QtCore import QObject
+
+
+class Repo(QObject):
     """
     Interface for classes managing VCS repositories.
     Currently we only support Git, but this level of
