@@ -24,8 +24,10 @@ Manage a Git repository
 
 import sys
 import os
-import subprocess
 
+from PyQt5.QtCore import QProcess
+
+import app
 from .abstractrepo import AbstractVCSRepo
 
 class GitError(Exception):
@@ -47,7 +49,7 @@ class Repo(AbstractVCSRepo):
         self.rootDir = root
 
     @classmethod
-    def run_command(cls, cmd, args=[], dir=None):
+    def run_command(cls, use_cmd, args=[], dir=None):
         """
         run a git command and return its output
         as a string list.
@@ -59,23 +61,23 @@ class Repo(AbstractVCSRepo):
         """
         dir = os.path.normpath(os.path.join(sys.path[0], '..')) if dir is None else dir
         from PyQt5.QtCore import QSettings
-        s = QSettings()
-        s.beginGroup("helper_applications")
-        git_cmd = s.value("git", "git", str)
+        git_cmd = QSettings().value("helper_applications/git", "git", str)
         git_cmd = git_cmd if git_cmd else "git"
-        cmd = [git_cmd, cmd]
-        cmd.extend(args)
-        pr = subprocess.Popen(cmd, cwd=dir,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE,
-                              universal_newlines=True)
-        (out, error) = pr.communicate()
-        if error:
-            raise GitError(error)
-        result = out.split('\n')
-        if result[-1] == '':
-            result.pop()
-        return result
+        use_args = [use_cmd] + args
+
+        proc = QProcess(app.qApp)
+        proc.setWorkingDirectory(dir)
+        proc.start(git_cmd, use_args)
+        proc.waitForReadyRead()
+
+        stderr = str(proc.readAllStandardError(), 'utf-8')
+        if stderr:
+            raise GitError(stderr)
+        else:
+            stdout = str(proc.readAllStandardOutput(), 'utf-8').split('\n')
+            if not stdout[-1]:
+                stdout.pop()
+            return stdout
 
 
     @classmethod
@@ -94,11 +96,8 @@ class Repo(AbstractVCSRepo):
 
     def _run_command(self, cmd, args=[]):
         """
-        run a git command and return its output
-        as a string list.
-        Raise an exception if it returns an error.
-        - cmd is the git command (without 'git')
-        - args is a string or a list of strings
+        Run a Git command, returning the stdout result.
+        Internally dispatches to the run_command class method.
         """
         return Repo.run_command(cmd, args, self.rootDir)
 
