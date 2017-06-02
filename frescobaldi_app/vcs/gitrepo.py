@@ -31,29 +31,33 @@ from .abstractrepo import AbstractVCSRepo
 class GitError(Exception):
     pass
 
-class GitRepo(AbstractVCSRepo):
+class Repo(AbstractVCSRepo):
     """
     Manage a git repository, be it
     the running Frescobaldi application
     or a document's project.
     """
+
+    _git_available = None
+
     def __init__(self, root):
         if not os.path.isdir(os.path.join(root, '.git')):
             raise GitError(_("The given directory '{rootdir} "
                              "doesn't seem to be a Git repository.".format(rootdir=root)))
         self.rootDir = root
 
-    # #########################
-    # Internal helper functions
-
-    def _run_git_command(self, cmd, args = []):
+    @classmethod
+    def run_command(cls, cmd, args=[], dir=None):
         """
         run a git command and return its output
         as a string list.
         Raise an exception if it returns an error.
         - cmd is the git command (without 'git')
         - args is a string or a list of strings
+        If no dir is passed the running dir of
+        Frescobaldi is used as default
         """
+        dir = os.path.normpath(os.path.join(sys.path[0], '..')) if dir is None else dir
         from PyQt5.QtCore import QSettings
         s = QSettings()
         s.beginGroup("helper_applications")
@@ -61,10 +65,10 @@ class GitRepo(AbstractVCSRepo):
         git_cmd = git_cmd if git_cmd else "git"
         cmd = [git_cmd, cmd]
         cmd.extend(args)
-        pr = subprocess.Popen(cmd, cwd = self.rootDir,
-                              stdout = subprocess.PIPE,
-                              stderr = subprocess.PIPE,
-                              universal_newlines = True)
+        pr = subprocess.Popen(cmd, cwd=dir,
+                              stdout=subprocess.PIPE,
+                              stderr=subprocess.PIPE,
+                              universal_newlines=True)
         (out, error) = pr.communicate()
         if error:
             raise GitError(error)
@@ -72,6 +76,31 @@ class GitRepo(AbstractVCSRepo):
         if result[-1] == '':
             result.pop()
         return result
+
+
+    @classmethod
+    def vcs_available(cls):
+        """Return True if Git is installed on the system"""
+        if cls._git_available is None:
+            try:
+                cls.run_command('--version')
+                cls._git_available = True
+            except (GitError):
+                cls._git_available = False
+        return cls._git_available
+
+    # #########################
+    # Internal helper functions
+
+    def _run_command(self, cmd, args=[]):
+        """
+        run a git command and return its output
+        as a string list.
+        Raise an exception if it returns an error.
+        - cmd is the git command (without 'git')
+        - args is a string or a list of strings
+        """
+        return Repo.run_command(cmd, args, self.rootDir)
 
     def _branches(self, local=True):
         """
@@ -86,7 +115,7 @@ class GitRepo(AbstractVCSRepo):
 
         branches = []
         current_branch = None
-        for line in self._run_git_command('branch', args):
+        for line in self._run_command('branch', args):
             branch = line.strip()
             if branch.startswith('* '):
                 branch = branch.lstrip('* ')
@@ -113,7 +142,7 @@ class GitRepo(AbstractVCSRepo):
         Add '-q' option because git checkout will
         return its confirmation message on stderr.
         May raise a GitError exception"""
-        self._run_git_command('checkout', ['-q', branch])
+        self._run_command('checkout', ['-q', branch])
 
     def current_branch(self):
         """
@@ -143,7 +172,7 @@ class GitRepo(AbstractVCSRepo):
 
     def remotes(self):
         """Return a string list with registered remote names"""
-        return self._run_git_command('remote', ['show'])
+        return self._run_command('remote', ['show'])
 
     def tracked_remote(self, branch):
         """
@@ -156,9 +185,9 @@ class GitRepo(AbstractVCSRepo):
         if not self.has_branch(branch):
             raise GitError('Branch not found: ' + branch)
 
-        remote_name = self._run_git_command("config",
+        remote_name = self._run_command("config",
                                             ["branch." + branch + ".remote"])
-        remote_merge = self._run_git_command("config",
+        remote_merge = self._run_command("config",
                                              ["branch." + branch + ".merge"])
         if not remote_name or not remote_merge:
             return ('local', 'local')
@@ -184,4 +213,3 @@ class GitRepo(AbstractVCSRepo):
             return remote
         else:
             return remote + '/' + remote_branch
-

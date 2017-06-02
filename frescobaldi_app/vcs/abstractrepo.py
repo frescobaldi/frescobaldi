@@ -34,6 +34,13 @@ class AbstractVCSRepo(object):
     """
     __metaclass__ = ABCMeta
 
+    @classmethod
+    def vcs_available(cls):
+        """
+        Returns True if the respective VCS is installed
+        """
+        raise NotImplementedError()
+
     @abstractmethod
     def branches(self, local=True):
         """
