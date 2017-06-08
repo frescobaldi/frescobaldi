@@ -12,17 +12,17 @@ class Git():
     def run(self, args, receiver):
         unit = {}
         
-        p = QProcess()
-        p.setProgram(self._executable)
-        p.setArguments(args)
-        p.setWorkingDirectory(self._workingdirectory)
-        p.finished.connect(self._handleResult)
+        process = QProcess()
+        process.setProgram(self._executable)
+        process.setArguments(args)
+        process.setWorkingDirectory(self._workingdirectory)
+        precsss.finished.connect(self._handleResult)
         
-        unit['process'] = p
+        unit['process'] = process
         unit['receiver'] = receiver
         self._queue.append(unit)
         
-        p = None
+        process = None
         unit = None
  
         if len(self._queue) == 1:
