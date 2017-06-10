@@ -1,11 +1,18 @@
-from PyQt5.QtCore import QProcess, pyqtSignal
 import os
+
+from PyQt5.QtCore import QProcess, pyqtSignal
+
+
+
+class GitError(Exception):
+    pass
 
 class Git():
     done = pyqtSignal(bool)
 
-    def __init__(self, workingdirectory):
+    def __init__(self, workingdirectory = None):
         self._executable = 'git'
+        self._executable = self._executable if self._executable else 'git'
         self._workingdirectory = workingdirectory
         self._queue = []
 
@@ -28,16 +35,38 @@ class Git():
         if len(self._queue) == 1:
             self._queue[0]['process'].start()
 
+    def run_blocking(self, args):
+        """
+        """
+        process = QProcess()
+        process.setWorkingDirectory(self._workingdirectory)
+        process.start(self._executable, args)
+        process.waitForFinished()
+        stderr = str(process.readAllStandardError(), 'utf-8')
+        if stderr:
+            raise GitError(stderr)
+        else:
+            stdout = str(process.readAllStandardOutput(), 'utf-8').split('\n')
+            if not stdout[-1]:
+                stdout.pop()
+            return stdout
+
+
     def _handleResult(self):
-        output = ''
-        output = self._queue[0]['process'].readAllStandardOutput()
-        if output != '':
-            self._queue[0]['receiver'](output) 
-        
+        """
+        """
+        stderr = str(self._queue[0]['process'].readAllStandardOutput(), 'utf-8')
+        if stderr:
+            raise GitError(stderr)
+        else:
+            stdout = str(process.readAllStandardOutput(), 'utf-8').split('\n')
+            if not stdout[-1]:
+                stdout.pop()
+            self._queue[0]['receiver'](stdout)
         del self._queue[0]
         if self._queue:
-            self._queue[0]['process'].start()
-   
+            self._queue[0]['process'].start()    
+
     def setWorkingDirectory(self, workingdirectory):
         self._workingdirectory = workingdirectory
 
