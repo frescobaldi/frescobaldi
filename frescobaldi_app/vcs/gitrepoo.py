@@ -1,4 +1,8 @@
 import os
+import gitjob
+
+from PyQt5.QtCore import pyqtSignal
+
 
 class Repo():
     """
@@ -25,7 +29,7 @@ class Repo():
     # 18. whether git has been installed 
     # 19. use which git
     # 19. get git version
-    ############################################################################
+    ############################################################################ 
     def branches(self):
         pass
     def current_branch(self):
@@ -36,6 +40,10 @@ class Repo():
         pass 
 
     def __init__(self):
+        # update signal emits signal when git content updates
+        self._update_signal = pyqtSignal(bool)
+        # git command instance
+        self._git = gitjob.Git()
         # root path of current working directory
         self._root_path = None
         # current file/directory's relative path
@@ -90,3 +98,32 @@ class Repo():
                 path, name = os.path.split(path)
         
         return (None, None)
+    
+    def _branches(self, local=True):
+        """
+        Returns a list of branch names
+
+        Arguments:
+            local: If local is False also return 'remote' branches.
+
+        Returns: 
+            Returns a tuple.
+            The first element is the list of branch names.
+            The second element is the name of the current branch (may be None).
+        """
+        args = ['branch', '--color=never']
+        if not local:
+            args.append('-a')
+
+        branches = []
+        current_branch = None
+        for line in self._git.run_blocking(args):
+            branch = line.strip()
+            if branch.startswith('* '):
+                branch = branch.lstrip('* ')
+                current_branch = branch
+            if branch.endswith('.stgit'):
+                continue
+            branches.append(branch)
+
+        return (branches, current_branch)
