@@ -1,4 +1,5 @@
 import os
+import time
 
 from PyQt5.QtCore import QProcess, pyqtSignal
 
@@ -23,7 +24,7 @@ class Git():
         process.setProgram(self._executable)
         process.setArguments(args)
         process.setWorkingDirectory(self._workingdirectory)
-        precsss.finished.connect(self._handleResult)
+        process.finished.connect(self._handleResult)
         
         unit['process'] = process
         unit['receiver'] = receiver
@@ -55,11 +56,11 @@ class Git():
     def _handleResult(self):
         """
         """
-        stderr = str(self._queue[0]['process'].readAllStandardOutput(), 'utf-8')
+        stderr = str(self._queue[0]['process'].readAllStandardError(), 'utf-8')
         if stderr:
             raise GitError(stderr)
         else:
-            stdout = str(process.readAllStandardOutput(), 'utf-8').split('\n')
+            stdout = str(self._queue[0]['process'].readAllStandardOutput(), 'utf-8').split('\n')
             if not stdout[-1]:
                 stdout.pop()
             self._queue[0]['receiver'](stdout)
@@ -95,6 +96,21 @@ class Git():
         
     def isRunning(self):
         return len(self._queue) > 0  
+
+    def _tic(self):
+        """
+        Helper function to count how much time a git command takes
+        """
+        self._timer = time.perf_counter()
+
+    def _toc(self, args = []):
+        """
+        Helper function to count how much time a git command takes
+        """
+        if self._timer:
+            print('command git {} takes {}'.format(' '.join(args), 
+                time.perf_counter()-self._timer))
+            self._timer = None
 
 
 
