@@ -127,3 +127,93 @@ class Repo():
             branches.append(branch)
 
         return (branches, current_branch)
+
+    def branches(self, local=True):
+        """
+        Returns a string list of branch names.
+        If local is False also return 'remote' branches.
+        """
+        return self._branches(local)[0]
+
+    def checkout(self, branch):
+        """
+        Tries to checkout a branch.
+        Add '-q' option because git checkout will
+        return its confirmation message on stderr.
+        May raise a GitError exception
+        """
+        args = ['checkout', '-q', branch]
+        self._git.run_blocking(args)
+
+    def current_branch(self):
+        """
+        Returns the name of the current branch.
+        """
+        current_branch = self._branches(local=True)[1]
+        if not current_branch:
+            raise GitError('current_branch: No branch found')
+        return current_branch
+
+    def has_branch(self, branch):
+        """
+        Returns True if the given local branch exists.
+        """
+        return (branch in self.branches(local=True))
+
+    def has_remote(self, remote):
+        """Returns True if the given remote name is registered."""
+        return remote in self.remotes()
+
+    def has_remote_branch(self, branch):
+        """
+        Return True if the given branch is tracking a remote branch.
+        """
+        remote, remote_branch = self.tracked_remote(branch)
+        return (remote != "local" or remote_branch != "local")
+
+    def remotes(self):
+        """Return a string list with registered remote names"""
+        args = ['remote', 'show']
+        return self._git.run_blocking(args)
+
+    def tracked_remote(self, branch):
+        """
+        Return a tuple with the remote and branch tracked by
+        the given branch.
+        In most cases both values will be identical, but a branch
+        can also track a differently named remote branch.
+        Return ('local', 'local') if it doesn't track any branch.
+        """
+        if not self.has_branch(branch):
+            raise GitError('Branch not found: ' + branch)
+        
+        args_name = ['config', 'branch.' + branch + '.remote']
+        remote_name = self._git.run_blocking(args_name)
+
+        args_merge = ['config', 'branch.' + branch + '.merge']
+        remote_merge = self._git.run_blocking(args_merge)
+
+        if not remote_name or not remote_merge:
+            return ('local', 'local')
+
+        remote_name = remote_name[0]
+        remote_merge = remote_merge[0]
+        remote_branch = remote_merge[remote_merge.rfind('/')+1:]
+        return (remote_name, remote_branch)
+
+    def tracked_remote_label(self, branch):
+        """
+        Returns a label for the tracked branch to be used in the GUI.
+        Consists of one of
+        - 'local'
+        - the remote name
+        - remote name concatenated with the remote branch
+          (if it should differ from the local branch name).
+        """
+        remote, remote_branch = self.tracked_remote(branch)
+        if remote == 'local':
+            return 'local'
+        if branch == remote_branch:
+            return remote
+        else:
+            return remote + '/' + remote_branch
