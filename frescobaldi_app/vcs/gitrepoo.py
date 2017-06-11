@@ -128,6 +128,24 @@ class Repo():
 
         return (branches, current_branch)
 
+    def _create_tmp_file(self, dir = None, prefix = 'Frescobaldi_git_tmp_'):
+        """
+        Creates a new tmp file and return the path to it. 
+
+        CAUTION: Caller is responsible for clean up
+        
+        Arguments:
+            dir: If dir is specified, the file will be created in that directory,
+                 otherwise, a default directory is used. 
+            prefix: the prefix of new created tmp file
+
+        Returns:
+            Return a absolute pathname to the new tmp file.     
+        """
+        file, filepath = tempfile.mkstemp(prefix = prefix, dir = dir)
+        os.close(file)
+        return filepath    
+
     def branches(self, local=True):
         """
         Returns a string list of branch names.
