@@ -1,5 +1,6 @@
 import os
 import time
+import functools
 
 from PyQt5.QtCore import QProcess, pyqtSignal
 
@@ -16,15 +17,15 @@ class Git():
         self._executable = self._executable if self._executable else 'git'
         self._workingdirectory = workingdirectory
         self._queue = []
-
-    def run(self, args, receiver):
+    
+    def run(self, args, receiver, isbinary = False):
         unit = {}
         
         process = QProcess()
         process.setProgram(self._executable)
         process.setArguments(args)
         process.setWorkingDirectory(self._workingdirectory)
-        process.finished.connect(self._handleResult)
+        process.finished.connect(functools.partial(self._handleResult, isbinary))
         
         unit['process'] = process
         unit['receiver'] = receiver
@@ -36,7 +37,7 @@ class Git():
         if len(self._queue) == 1:
             self._queue[0]['process'].start()
 
-    def run_blocking(self, args):
+    def run_blocking(self, args, isbinary = False):
         """
         """
         process = QProcess()
@@ -47,22 +48,27 @@ class Git():
         if stderr:
             raise GitError(stderr)
         else:
+            if isbinary:
+                return process.readAllStandardOutput()
             stdout = str(process.readAllStandardOutput(), 'utf-8').split('\n')
             if not stdout[-1]:
                 stdout.pop()
             return stdout
 
 
-    def _handleResult(self):
+    def _handleResult(self, isbinary):
         """
         """
         stderr = str(self._queue[0]['process'].readAllStandardError(), 'utf-8')
         if stderr:
             raise GitError(stderr)
         else:
-            stdout = str(self._queue[0]['process'].readAllStandardOutput(), 'utf-8').split('\n')
-            if not stdout[-1]:
-                stdout.pop()
+            if isbinary:
+                stdout = self._queue[0]['process'].readAllStandardOutput()
+            else:
+                stdout = str(self._queue[0]['process'].readAllStandardOutput(), 'utf-8').split('\n')
+                if not stdout[-1]:
+                    stdout.pop()
             self._queue[0]['receiver'](stdout)
         del self._queue[0]
         if self._queue:
