@@ -30,14 +30,6 @@ class Repo():
     # 19. use which git
     # 19. get git version
     ############################################################################ 
-    def branches(self):
-        pass
-    def current_branch(self):
-        pass
-    def has_branch(self):
-        pass
-    def has_remote(self):
-        pass 
 
     def __init__(self):
         # update signal emits signal when git content updates
@@ -55,7 +47,7 @@ class Repo():
         Return True if giving path is git initialized.  
         """
         self._root_path, self._relative_path = self._get_work_path(path)
-        return self._root_path == None
+        return self._root_path != None
        
 
     def _is_git_path(self, path):
@@ -145,6 +137,19 @@ class Repo():
         file, filepath = tempfile.mkstemp(prefix = prefix, dir = dir)
         os.close(file)
         return filepath    
+
+    def _read_Index_file(self):
+        """
+        Returns content of the current file's corresponding file in Index.
+        """
+        args = [
+           'cat-file',
+            # smudge filters are supported with git 2.11.0+ only
+            #'--filters' # if self._git_version >= (2, 11, 0) else '-p',
+            '-p',
+            ':'+self._relative_path
+        ]
+        return self._git.run_blocking(args, isbinary = True)
 
     def branches(self, local=True):
         """
