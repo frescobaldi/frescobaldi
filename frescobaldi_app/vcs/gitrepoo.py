@@ -141,13 +141,39 @@ class Repo():
     def _read_Index_file(self):
         """
         Returns content of the current file's corresponding file in Index.
+        
+        Reference of using [tree-ish]:[relative_path] in argments list:
+            https://stackoverflow.com/questions/4044368/what-does-tree-ish-mean-in-git
+            https://www.kernel.org/pub/software/scm/git/docs/gitrevisions.html#_specifying_revisions
         """
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
-            #'--filters' # if self._git_version >= (2, 11, 0) else '-p',
-            '-p',
+            '--filters' if self._git.version() >= (2, 11, 0) else '-p',
             ':'+self._relative_path
+        ]
+        return self._git.run_blocking(args, isbinary = True)
+
+    def _read_committed_file(self, commit):
+        """
+        Read the content of the file from specific commit
+
+        Reference of using [tree-ish]:[relative_path] in argments list:
+            https://stackoverflow.com/questions/4044368/what-does-tree-ish-mean-in-git
+            https://www.kernel.org/pub/software/scm/git/docs/gitrevisions.html#_specifying_revisions
+
+        Arguments:
+            commit: the identifier of the commit to read file from
+                    E.g.  'HEAD', 'origin/master', hash id of a commit
+
+        Returns:
+            content of current's file's corresponding file in the inputed commit
+        """    
+        args = [
+           'cat-file',
+            # smudge filters are supported with git 2.11.0+ only
+            '--filters' if self._git.version() >= (2, 11, 0) else '-p',
+            commit + ':'+self._relative_path
         ]
         return self._git.run_blocking(args, isbinary = True)
 
