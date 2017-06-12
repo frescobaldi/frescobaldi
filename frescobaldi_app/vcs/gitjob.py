@@ -1,4 +1,5 @@
 import os
+import re
 import time
 import functools
 
@@ -13,11 +14,12 @@ class Git():
     done = pyqtSignal(bool)
 
     def __init__(self, workingdirectory = None):
-        self._executable = 'git'
+        self._executable = None
         self._executable = self._executable if self._executable else 'git'
         self._workingdirectory = workingdirectory
         self._queue = []
-    
+        self._version = None
+
     def run(self, args, receiver, isbinary = False):
         unit = {}
         
@@ -118,6 +120,27 @@ class Git():
                 time.perf_counter()-self._timer))
             self._timer = None
 
+
+    def version(self):
+        """
+        Return git executable version.
+
+        The version string is used to check, whether git executable exists and
+        works properly. It may also be used to enable functions with newer git
+        versions.
+
+        Returns:
+            tuple: PEP-440 conform git version (major, minor, patch)
+        """
+        args = ['--version']
+        # Query git version synchronously
+        output = self.run_blocking(args) or ''
+        # Parse version string like (git version 2.12.2.windows.1)
+        match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', output[0])
+        if match:
+            # PEP-440 conform git version (major, minor, patch)
+            self._version = tuple(int(g) for g in match.groups())
+            return self._version
 
 
 
