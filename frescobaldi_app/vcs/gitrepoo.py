@@ -37,6 +37,11 @@ class Repo():
         self._update_signal = pyqtSignal(bool)
         # git command instance
         self._git = gitjob.Git()
+        # Identifier of comparison object
+        # 'Index' for Index
+        # 'HEAD' for HEAD 
+        # commit-hash for specific commit
+        self._compare_against = 'HEAD'
         # root path of current working directory
         self._root_path = None
         # current file/directory's relative path
@@ -190,6 +195,42 @@ class Repo():
         ]
         return self._git.run_blocking(args, isbinary = True)
 
+    def _update_temp_committed_file(self):
+        """
+        Update committed temp file from the commit: self._compare_against
+        
+        ? Should we unify all the line endings here
+        ? Exception handling is left to be implemented
+        """
+        content = self._read_committed_file(self._compare_against)
+        if content:
+            # Unify all the line endings
+            # contents = contents.replace(b'\r\n', b'\n')
+            # contents = contents.replace(b'\r', b'\n')
+            # Create temp file
+            if not self._temp_committed_file:
+                self._temp_committed_file = self._create_tmp_file()
+            # Write content to temp file
+            with open(self._temp_committed_file, 'wb') as file:
+                file.write(content)
+    
+    def _update_temp_Index_file(self):
+        """
+        ? Should we unify all the line endings here
+        ? Exception handling is left to be implemented
+        """
+        content = self._read_Index_file()
+        if content:
+            # Unify all the line endings
+            # contents = contents.replace(b'\r\n', b'\n')
+            # contents = contents.replace(b'\r', b'\n')
+            # Create temp file
+            if not self._temp_Index_file:
+                self._temp_Index_file = self._create_tmp_file()
+            # Write content to temp file
+            with open(self._temp_Index_file, 'wb') as file:
+                file.write(content)
+    
     def branches(self, local=True):
         """
         Returns a string list of branch names.
