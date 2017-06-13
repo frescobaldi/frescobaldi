@@ -1,5 +1,6 @@
 import os
 import gitjob
+import tempfile
 
 from PyQt5.QtCore import pyqtSignal
 
@@ -40,6 +41,18 @@ class Repo():
         self._root_path = None
         # current file/directory's relative path
         self._relative_path = None
+        self._temp_committed_file = None 
+        self._temp_Index_file = None
+        self._temp_working_file = None  
+    
+    def __del__(self):
+        """Caller is responsible for clean up the temp files"""
+        if self._temp_committed_file:
+            os.unlink(self._temp_committed_file)
+        if self._temp_Index_file:
+            os.unlink(self._temp_Index_file)
+        if self._temp_working_file:
+            os.unlink(self._temp_working_file)
 
     def set_working_directory(self, path):
         """
