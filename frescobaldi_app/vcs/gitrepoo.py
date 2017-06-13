@@ -32,7 +32,7 @@ class Repo():
     # 19. get git version
     ############################################################################ 
 
-    def __init__(self):
+    def __init__(self, current_view = None):
         # update signal emits signal when git content updates
         self._update_signal = pyqtSignal(bool)
         # git command instance
@@ -49,6 +49,9 @@ class Repo():
         self._temp_committed_file = None 
         self._temp_Index_file = None
         self._temp_working_file = None  
+        # current file's view instance
+        # None: If the instance is not operating on a file
+        self._current_view = current_view
     
     def __del__(self):
         """Caller is responsible for clean up the temp files"""
@@ -230,7 +233,17 @@ class Repo():
             # Write content to temp file
             with open(self._temp_Index_file, 'wb') as file:
                 file.write(content)
-    
+
+    def _update_temp_working_file(self):
+        """
+        Save the current file to a temp file for diff compare
+        """
+        if not self._temp_working_file:
+                self._temp_working_file = self._create_tmp_file()
+        content = self._current_view.document().encodedText()
+        with open(self._temp_working_file, 'wb') as file:
+                file.write(content)    
+
     def branches(self, local=True):
         """
         Returns a string list of branch names.
