@@ -79,13 +79,13 @@ class Git():
     def setWorkingDirectory(self, workingdirectory):
         self._workingdirectory = workingdirectory
 
-    def workingDirectory(self, workingdirectory):
+    def workingDirectory(self):
         return self._workingdirectory
 
     def setGitExecutable(self, executable):
         self._executable = executable
 
-    def gitExecutable(self, executable):
+    def gitExecutable(self):
         return self._executable
 
     def killCurrent(self):
