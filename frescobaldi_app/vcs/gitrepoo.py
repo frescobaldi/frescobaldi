@@ -243,7 +243,31 @@ class Repo():
         content = self._current_view.document().encodedText()
         with open(self._temp_working_file, 'wb') as file:
                 file.write(content)    
+    
+    def _run_diff(self, original, current):
+        """
+        Run git diff command between two files
 
+        Arguments:
+            original: absolute path string of the original file
+            current:  absolute path string of the current file
+            
+        Note:
+            original, current nedd not locate in a git repo
+
+        Return:
+            Binary output of the git diff command         
+   
+        ? Whiteblocks handling:  wait to be implemented
+        ? Whether using 'patience' git diff algorithm
+          I found this: http://bramcohen.livejournal.com/73318.html
+          Need further investigation into it.
+        """
+        # '-U0' to generate diffs without context code (actually 0 line) 
+        # '--no-index' to generate diffs between two files outside the git repo
+        args = ['diff', '-U0', '--no-color', '--no-index', original, current]
+        return self._git.run_blocking(args, isbinary = True)
+    
     def branches(self, local=True):
         """
         Returns a string list of branch names.
