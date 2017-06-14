@@ -1,4 +1,5 @@
 import os
+import re
 import gitjob
 import tempfile
 
@@ -268,6 +269,62 @@ class Repo():
         args = ['diff', '-U0', '--no-color', '--no-index', original, current]
         return self._git.run_blocking(args, isbinary = True)
     
+    def extract_linenum_diff(self, diff_str):
+        """
+        Parse unified diff with 0 lines of context.
+
+        Hunk range info format:
+          @@ -3,2 +4,0 @@
+            Hunk originally starting at line 3, and occupying 2 lines, now
+            starts at line 4, and occupies 0 lines, i.e. it was deleted.
+          @@ -9 +10,2 @@
+            Hunk size can be omitted, and defaults to one line.
+
+        Dealing with ambiguous hunks:
+          "A\nB\n" -> "C\n"
+          Was 'A' modified, and 'B' deleted? Or 'B' modified, 'A' deleted?
+          Or both deleted? To minimize confusion, let's simply mark the
+          hunk as modified.
+
+        Arguments:
+            Note: the output of _run_diff() should be encoded before intruducing 
+            diff_str (string): The unified diff string to parse.
+
+
+        Returns:
+            tuple: (first, last, [inserted], [modified], [deleted])
+                A tuple with meta information of the diff result.
+        """
+        # first and last changed line in the view
+        first, last = 0, 0
+        # lists with inserted, modified and deleted lines
+        inserted, modified, deleted = [], [], []
+        hunk_re = r'^@@ \-(\d+), ?(\d*) \+(\d+),?(\d*) @@'
+        for hunk in re.finditer(hunk_re, diff_str, re.MULTILINE):
+            # We don't need old_start in this function
+            _, old_size, start, new_size = hunk.groups()
+            start = int(start)
+            # old_size and new_size can be null string
+            # means only 1 line has been changed
+            old_size = int(old_size or 1)
+            new_size = int(new_size or 1)
+            if first == 0:
+                first = max(1, start)
+            if not old_size:
+                # this is a new added hunk
+                last = start + new_size
+                # [start, last)
+                inserted += range(start, last)    
+            elif not new_size:
+                # the original hunk has been deleted
+                # only save the starting line number
+                last = start + 1
+                deleted.append(last)
+            else:
+                last = start + new_size
+                modified += range(start, last)
+        return (first, last, inserted, modified, deleted)        
+
     def branches(self, local=True):
         """
         Returns a string list of branch names.
