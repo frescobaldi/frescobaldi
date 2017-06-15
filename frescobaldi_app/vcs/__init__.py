@@ -37,6 +37,7 @@ _vcs_modules = {
     'git': "vcs.gitrepo"
 }
 
+
 def is_available(tool):
     """Returns True if the requested VCS software is available on the system.
 
@@ -57,47 +58,6 @@ def is_available(tool):
     return mod.Repo.vcs_available()
 
 
-def app_is_git_controlled():
-    """Return True if Frescobaldi is running from Git.
-
-    This is done by checking for the presence of the .git/ directory.
-    The function is very cheap, the directory test is only performed on the
-    first call.
-
-    """
-    global _app_is_git_controlled
-    try:
-        return _app_is_git_controlled
-    except NameError:
-        _app_is_git_controlled = True
-        if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
-            if is_available('git'):
-                from . import apprepo
-                global app_repo
-                app_repo = apprepo.Repo()
-            else:
-                from PyQt5.QtWidgets import QMessageBox
-                QMessageBox.warning(None,
-                                    _("Git not found"),
-                                    _("Frescobaldi is run from within a Git "
-                                      "repository, but Git does not appear "
-                                      "to be working. Git support will be "
-                                      "disabled. If you have Git installed, "
-                                      "you can specify its location in the "
-                                      "Preferences dialog."))
-                _app_is_git_controlled = False
-        else:
-            _app_is_git_controlled = False
-        return _app_is_git_controlled
-
-# conditionally create app_repo object
-app_is_git_controlled()
-
-if app_is_git_controlled():
-    # debugging tests, to be removed finally
-    #from . import test
-    pass
-
 def app_active_branch_window_title():
     """Return the active branch, suitable as window title.
 
@@ -111,3 +71,27 @@ def app_active_branch_window_title():
                 remote=app_repo.tracked_remote_label(git_branch))
     return ''
 
+
+def app_is_git_controlled():
+    """Return True if Frescobaldi is running from Git."""
+    global _app_is_git_controlled
+    return _app_is_git_controlled
+
+# Determine if Frescobaldi is run from Git by checking for
+# both the presence of a .git directory and the availability of Git on the system.
+_app_is_git_controlled = False
+if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
+    if is_available('git'):
+        from . import apprepo
+        app_repo = apprepo.Repo()
+        _app_is_git_controlled = True
+    else:
+        from PyQt5.QtWidgets import QMessageBox
+        QMessageBox.warning(None,
+                            _("Git not found"),
+                            _("Frescobaldi is run from within a Git "
+                              "repository, but Git does not appear "
+                              "to be working. Git support will be "
+                              "disabled. If you have Git installed, "
+                              "you can specify its location in the "
+                              "Preferences dialog."))
