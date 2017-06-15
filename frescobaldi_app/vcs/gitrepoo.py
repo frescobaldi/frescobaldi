@@ -71,7 +71,7 @@ class Repo():
         # current file/directory's relative path
         self._relative_path = None
         self._temp_committed_file = None 
-        self._temp_Index_file = None
+        self._temp_index_file = None
         self._temp_working_file = None  
         # current file's view instance
         # None: If the instance is not operating on a file
@@ -81,8 +81,8 @@ class Repo():
         """Caller is responsible for clean up the temp files"""
         if self._temp_committed_file:
             os.unlink(self._temp_committed_file)
-        if self._temp_Index_file:
-            os.unlink(self._temp_Index_file)
+        if self._temp_index_file:
+            os.unlink(self._temp_index_file)
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
 
@@ -241,7 +241,7 @@ class Repo():
             with open(self._temp_committed_file, 'wb') as file:
                 file.write(content)
     
-    def _update_temp_Index_file(self):
+    def _update_temp_index_file(self):
         """
         ? Should we unify all the line endings here
         ? Exception handling is left to be implemented
@@ -252,10 +252,10 @@ class Repo():
             # contents = contents.replace(b'\r\n', b'\n')
             # contents = contents.replace(b'\r', b'\n')
             # Create temp file
-            if not self._temp_Index_file:
-                self._temp_Index_file = self._create_tmp_file()
+            if not self._temp_index_file:
+                self._temp_index_file = self._create_tmp_file()
             # Write content to temp file
-            with open(self._temp_Index_file, 'wb') as file:
+            with open(self._temp_index_file, 'wb') as file:
                 file.write(content)
 
     def _update_temp_working_file(self):
