@@ -120,6 +120,11 @@ class Repo():
             (root path of the working proj, relative path)
             (None, None) for non-git-initilized file_path
         """
+
+        # ensure there is no trailing slash
+        sep = os.path.altsep if os.path.altsep else ''
+        sep += os.path.sep
+        ori_path = ori_path.rstrip(sep)
         if ori_path and os.path.exists(ori_path):
             if os.path.isdir(ori_path):
                 _, name = os.path.split(ori_path)
