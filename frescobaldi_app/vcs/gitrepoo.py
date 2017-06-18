@@ -318,6 +318,52 @@ class Repo():
         args = ['diff', '-U0', '--no-color', '--no-index', original, current]
         return self._git.run_blocking(args, isbinary = True)
     
+    def file_status(self):
+        """
+        Check a file's git status. 
+        The result is organized in a tuple. The first element is the status of 
+        the file in Index, the second element is the status of the working file.
+        The information in a tuple is designed to be displayed in bottom border 
+        of the editor. e.g.
+        1. Tuple: ('newly added', 'modified') 
+           Info:  newly added in Index, modified
+        2. Tuple: ('newly added', '')
+           Info:  staged in Index
+        3. Tuple: ('staged', 'modified')
+           Info:   staged in Index, modified
+        4. Tuple: ('', 'untracked')
+           Info:   untracked
+
+        Git command: 'git status --porcelain --ignored [RELATIVE_PATH]' 
+        returns many different statuses.  We only need part of them here. 
+        """
+        # only works in a repository and the given path should be a file path
+        if not self.is_repository or not self.target_is_file:
+        	return ('', '')
+       
+        # arguments to get file status
+        status_args = ['status', '--porcelain', '--ignored', self._relative_path]
+        
+        output_strs = self._git.run_blocking(status_args)
+        
+        status_dict = {
+		    'A ' : ('newly added', ''),
+		    'AM' : ('newly added', 'modified'),
+		    'AD' : ('newly added', 'deleted'),
+		    'M ' : ('staged', ''),
+		    'MM' : ('staged', 'modified'),
+		    'MD' : ('staged', 'deleted'),
+		    '??' : ('', 'untracked'),
+		    '!!' : ('', 'ignored'),
+		}
+        if not output_strs:
+            return ('', 'committed')
+        try:
+        	return status_dict[output_strs[0][:2]]
+        except KeyError:
+        	# return ('', '') when receive a status not listed in status_dict
+        	return ('', '')
+
     def extract_linenum_diff(self, diff_str):
         """
         Parse unified diff with 0 lines of context.
