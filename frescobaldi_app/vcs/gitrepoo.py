@@ -327,7 +327,7 @@ class Repo():
         of the editor. e.g.
         1. Tuple: ('newly added', 'modified') 
            Info:  newly added in Index, modified
-        2. Tuple: ('newly added', '')
+        2. Tuple: ('staged', '')
            Info:  staged in Index
         3. Tuple: ('staged', 'modified')
            Info:   staged in Index, modified
