@@ -57,6 +57,11 @@ class Repo():
     ############################################################################ 
 
     def __init__(self, current_view = None):
+        self.is_repository = False
+        # self.isfile makes sense only when self.isRepository is True
+        # True when given path is a file path
+        # False when given path is a folder path
+        self.target_is_file = False
         # update signal emits signal when git content updates
         self._update_signal = pyqtSignal(bool)
         # git command instance
@@ -88,58 +93,74 @@ class Repo():
 
     def set_working_directory(self, path):
         """
-        Set the _root_path and _relative_path
-        Return True if giving path is git initialized.  
-        """
-        self._root_path, self._relative_path = self._get_work_path(path)
-        return self._root_path != None
-       
-
-    def _is_git_path(self, path):
-        """
-        Return True if 'path' is a valid git working tree.
-        """
-        return path and os.path.exists(os.path.join(path, '.git'))
-    
-
-    def _get_work_path(self, ori_path):
-        """
-        If the giving ori_path is git initialized. 
-        Split the ori_path into the working tree part and relative path part.
-        This function handles both file pathes and directory pathes.
-
-        Note:
-            This is a local alternative to calling the git command:
-
-                git rev-parse --show-toplevel
-
+        Set the variables:
+	        self._root_path,  self._relative_path, self.is_repository, 
+	        self.target_is_file
+        
         Arguments:
-            ori_path (string): a absolute path.
+            path: path can be a folder's absolute path or a file's absolute path
 
         Returns:
-            (root path of the working proj, relative path)
-            (None, None) for non-git-initilized file_path
+            True: given path locates in a git repository
+            False: case 1. given path is not a valid path  
+                   case 2. given path does not locate in a git repository 
         """
+        def is_git_path(path):
+	        """
+	        Return True if 'path' is a valid git working tree.
+	        """
+	        return path and os.path.exists(os.path.join(path, '.git'))
+    
 
-        # ensure there is no trailing slash
-        sep = os.path.altsep if os.path.altsep else ''
-        sep += os.path.sep
-        ori_path = ori_path.rstrip(sep)
-        if ori_path and os.path.exists(ori_path):
-            if os.path.isdir(ori_path):
-                _, name = os.path.split(ori_path)
-                path = ori_path
-            else:
-                path, name = os.path.split(ori_path)    
-            
-            # files within '.git' path are not part of a work tree
-            while path and name and name != '.git':
-                if self._is_git_path(path):
-                    return (path, os.path.relpath(
-                        ori_path, path).replace('\\', '/'))
-                path, name = os.path.split(path)
+        def get_work_path(ori_path):
+	        """
+	        If the giving ori_path is git initialized. 
+	        Split the ori_path into the working tree part and relative path part.
+	        This function handles both file pathes and directory pathes.
+
+	        Note:
+	            This is a local alternative to calling the git command:
+
+	                git rev-parse --show-toplevel
+
+	        Arguments:
+	            ori_path (string): a absolute path.
+
+	        Returns:
+	            (root path of the working proj, relative path)
+	            (None, None) for non-git-initilized file_path
+	        """
+
+	        # ensure there is no trailing slash
+	        sep = os.path.altsep if os.path.altsep else ''
+	        sep += os.path.sep
+	        ori_path = ori_path.rstrip(sep)
+	        if ori_path and os.path.exists(ori_path):
+	            if os.path.isdir(ori_path):
+	                _, name = os.path.split(ori_path)
+	                path = ori_path
+	            else:
+	                path, name = os.path.split(ori_path)    
+	            
+	            # files within '.git' path are not part of a work tree
+	            while path and name and name != '.git':
+	                if is_git_path(path):
+	                    return (path, os.path.relpath(
+	                        ori_path, path).replace('\\', '/'))
+	                path, name = os.path.split(path)
+	        
+	        return (None, None)
+
+
+        self._root_path, self._relative_path = get_work_path(path)
         
-        return (None, None)
+        if self._root_path:
+        	# set the git command's working environment
+        	self._git.setWorkingDirectory(self._root_path)
+        	self.is_repository = True
+        	self.target_is_file = not os.path.isdir(path)
+            
+        return self._root_path != None 
     
     def _branches(self, local=True):
         """
