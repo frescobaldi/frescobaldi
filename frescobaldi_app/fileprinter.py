@@ -81,7 +81,12 @@ def printCommand(cmd, printer, filename):
         command.append(format(numCopies))
     else:
         command.append('-#{0}'.format(numCopies))
-    
+
+    # collate
+    if printer.collateCopies():
+        command.append('-o')
+        command.append('collate=true')
+
     # job name
     if cmd == "lp":
         command.append('-t')
