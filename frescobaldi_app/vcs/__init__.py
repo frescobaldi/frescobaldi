@@ -24,7 +24,38 @@ VCS interface (application and documents)
 
 import sys
 import os
-from .gitrepo import GitError
+import importlib
+
+class VCSError(Exception):
+    pass
+
+# dict holding references to repo modules
+# initially strings with module names,
+# after first call to is_available the values
+# point to the modules themselves.
+_vcs_modules = {
+    'git': "vcs.gitrepo"
+}
+
+def is_available(tool):
+    """Returns True if the requested VCS software is available on the system.
+
+    Supported vcs are:
+    - 'git'
+    - so far this is the only one
+
+    Any NNNrepo.py module has to implement a function vcs_available()
+    """
+    if not tool in _vcs_modules.keys():
+        raise VCSError('Invalid arguement for VCS software: {}\nSupported:\n- {}'.format(
+            tool,
+            "\n- ".join(_vcs_modules.keys())
+        ))
+    mod = _vcs_modules[tool]
+    if type(mod) == str:
+        mod = _vcs_modules[tool] = importlib.import_module(mod)
+    return mod.Repo.vcs_available()
+
 
 def app_is_git_controlled():
     """Return True if Frescobaldi is running from Git.
@@ -38,16 +69,13 @@ def app_is_git_controlled():
     try:
         return _app_is_git_controlled
     except NameError:
+        _app_is_git_controlled = True
         if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
-            try:
+            if is_available('git'):
                 from . import apprepo
                 global app_repo
-                app_repo = apprepo.AppRepo()
-                app_repo._run_git_command('--version')
-                _app_is_git_controlled = True
-                return _app_is_git_controlled
-            except (GitError, OSError) as error:
-                error_type = type(error).__name__
+                app_repo = apprepo.Repo()
+            else:
                 from PyQt5.QtWidgets import QMessageBox
                 QMessageBox.warning(None,
                                     _("Git not found"),
@@ -56,14 +84,11 @@ def app_is_git_controlled():
                                       "to be working. Git support will be "
                                       "disabled. If you have Git installed, "
                                       "you can specify its location in the "
-                                      "Preferences dialog.\n\n"
-                                      "Error message:\n\n")
-                                        + error_type + ': ' + str(error))
+                                      "Preferences dialog."))
                 _app_is_git_controlled = False
-                return _app_is_git_controlled
         else:
             _app_is_git_controlled = False
-            return _app_is_git_controlled
+        return _app_is_git_controlled
 
 # conditionally create app_repo object
 app_is_git_controlled()

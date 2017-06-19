@@ -59,7 +59,6 @@ import engrave
 import scorewiz
 import externalchanges
 import browseriface
-import vcs
 import file_import
 
 
@@ -270,7 +269,8 @@ class MainWindow(QMainWindow):
 
         window_title = app.caption(" ".join(name))
 
-        if vcs.app_is_git_controlled():
+        if app.is_git_controlled():
+            import vcs
             window_title += " " + vcs.app_active_branch_window_title()
 
         self.setWindowTitle(window_title)

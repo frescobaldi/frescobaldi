@@ -29,8 +29,8 @@ import weakref
 
 from PyQt5.QtCore import QEvent, QMimeData, QSettings, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import (
-    QContextMenuEvent, QKeySequence, QPainter, QTextCursor)
-from PyQt5.QtWidgets import QApplication, QPlainTextEdit
+    QContextMenuEvent, QKeySequence, QPainter, QTextCursor, QCursor)
+from PyQt5.QtWidgets import QApplication, QPlainTextEdit, QToolTip
 
 import app
 import metainfo
@@ -38,7 +38,7 @@ import textformats
 import cursortools
 import variables
 import cursorkeys
-
+import open_file_at_cursor
 
 metainfo.define('auto_indent', True)
 metainfo.define('position', 0)
@@ -58,6 +58,8 @@ class View(QPlainTextEdit):
     def __init__(self, document):
         """Create the View for the given document."""
         super(View, self).__init__()
+        # to enable mouseMoveEvent to display tooltip
+        super(View, self).setMouseTracking(True)
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -65,6 +67,7 @@ class View(QPlainTextEdit):
         document.loaded.connect(self.restoreCursor)
         document.loaded.connect(self.setTabWidth)
         document.closed.connect(self.slotDocumentClosed)
+        self.textChanged.connect(self.invalidateCurrentBlock)
         variables.manager(document).changed.connect(self.setTabWidth)
         self.restoreCursor()
         app.settingsChanged.connect(self.readSettings)
@@ -73,6 +76,9 @@ class View(QPlainTextEdit):
         wrap = QSettings().value("view_preferences/wrap_lines", False, bool)
         self.setLineWrapMode(QPlainTextEdit.WidgetWidth if wrap else QPlainTextEdit.NoWrap)
         self.installEventFilter(cursorkeys.handler)
+        self.toolTipInfo = []
+        self.block_at_mouse = None
+        self.include_target = []
         app.viewCreated(self)
 
     def event(self, ev):
@@ -137,10 +143,13 @@ class View(QPlainTextEdit):
         Currently handles:
 
         - indent change on Enter, }, # or >
+        
+        - update the tooltip info when Ctrl is pressed
 
         """
         super(View, self).keyPressEvent(ev)
-
+        if ev.key() == Qt.Key_Control and self.include_target:
+            self.viewport().setCursor(Qt.PointingHandCursor)
         if metainfo.info(self.document()).auto_indent:
             # run the indenter on Return or when the user entered a dedent token.
             import indent
@@ -273,8 +282,9 @@ class View(QPlainTextEdit):
             if cursor.selectionStart() <= clicked.position() < cursor.selectionEnd():
                 clicked = cursor
             # include files?
-            import open_file_at_cursor
-            if open_file_at_cursor.open_file_at_cursor(self.window(), clicked):
+            if self.include_target:
+                import open_file_at_cursor
+                open_file_at_cursor.open_targets(self.window(), self.include_target)
                 return
             # go to definition?
             import definition
@@ -282,10 +292,35 @@ class View(QPlainTextEdit):
                 return
         super(View, self).mousePressEvent(ev)
 
+    def invalidateCurrentBlock(self):
+        """Make sure that tooltip info is recalculated after document changes"""
+        self.block_at_mouse = None
+
+    def mouseMoveEvent(self, ev):
+        """Track the mouse move to show the tooltip"""
+        super(View, self).mouseMoveEvent(ev)
+        cursor_at_mouse = self.cursorForPosition(ev.pos())
+        cur_block = cursor_at_mouse.block()
+        # Only check tooltip when changing line/block or after invalidating
+        if self.include_target or not cur_block == self.block_at_mouse:
+            self.block_at_mouse = cur_block
+            self.include_target = open_file_at_cursor.includeTarget(cursor_at_mouse)
+            if self.include_target:
+                if ev.modifiers() == Qt.ControlModifier:
+                   self.viewport().setCursor(QCursor(Qt.PointingHandCursor))
+                self.showIncludeToolTip()
+            else:
+                self.include_target = []
+                self.block_at_mouse = None
+                self.viewport().setCursor(Qt.IBeamCursor)
+                QToolTip.hideText()
+
+    def showIncludeToolTip(self):
+        """Show a tooltip with the currently determined include target"""
+        QToolTip.showText(QCursor.pos(), '\n'.join(self.include_target))
+
     def createMimeDataFromSelection(self):
         """Reimplemented to only copy plain text."""
         m = QMimeData()
         m.setText(self.textCursor().selection().toPlainText())
         return m
-
-

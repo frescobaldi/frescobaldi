@@ -194,14 +194,18 @@ class Completer(QCompleter):
         partial = True
         string = ''
         rows = []
-        text_len = len(self.completionPrefix())
+        rem_len = 0
+        compl_prefix = self.completionPrefix()
+        text_len = len(compl_prefix)
         for irow in range(self.completionModel().rowCount()):
             self.setCurrentRow(irow)
             cell = self.completionModel().data(self.currentIndex())[text_len:]
-            rows.append(cell)
+            if cell:
+                rows.append(cell)
+                rem_len = min(rem_len, len(cell)) if rem_len > 0 else len(cell)
         self.setCurrentRow(index.row())
-        if rows:
-            for i in range(len(rows[0])):
+        if rows and not self.currentCompletion() == compl_prefix:
+            for i in range(rem_len):
                 if not partial:
                     break
                 ch = None

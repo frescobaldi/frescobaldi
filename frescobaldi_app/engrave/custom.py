@@ -84,7 +84,7 @@ class Dialog(QDialog):
         self.resolutionCombo.addItems(['100', '200', '300', '600', '1200'])
         self.resolutionCombo.setCurrentIndex(2)
 
-        self.modeCombo.addItems(['preview', 'publish', 'debug'])
+        self.modeCombo.addItems(['preview', 'publish', 'debug', 'incipit'])
         layout.addWidget(self.versionLabel, 0, 0)
         layout.addWidget(self.lilyChooser, 0, 1, 1, 3)
         layout.addWidget(self.outputLabel, 1, 0)
@@ -141,7 +141,8 @@ class Dialog(QDialog):
         self.modeLabel.setText(_("Engraving mode:"))
         self.modeCombo.setItemText(0, _("Preview"))
         self.modeCombo.setItemText(1, _("Publish"))
-        self.modeCombo.setItemText(2, _("Layout Control"))
+        self.modeCombo.setItemText(2, _("First System Only"))
+        self.modeCombo.setItemText(3, _("Layout Control"))
         self.deleteCheck.setText(_("Delete intermediate output files"))
         self.embedSourceCodeCheck.setText(_("Embed Source Code (LilyPond >= 2.19.39)"))
         self.englishCheck.setText(_("Run LilyPond with English messages"))
@@ -172,6 +173,8 @@ class Dialog(QDialog):
             cmd.append('-dpoint-and-click')
         elif self.modeCombo.currentIndex() == 1: # publish mode
             cmd.append('-dno-point-and-click')
+        elif self.modeCombo.currentIndex() == 2: # incipit mode
+            cmd.extend(['-dpreview', '-dno-print-pages'])
         else:                                    # debug mode
             args = panelmanager.manager(self.parent()).layoutcontrol.widget().preview_options()
             cmd.extend(args)
@@ -211,6 +214,7 @@ class Dialog(QDialog):
         j = job.Job()
         j.directory = os.path.dirname(filename)
         j.command = cmd
+        j.environment['LD_LIBRARY_PATH'] = i.libdir()
         if self.englishCheck.isChecked():
             j.environment['LANG'] = 'C'
             j.environment['LC_ALL'] = 'C'

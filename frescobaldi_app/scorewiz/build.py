@@ -172,7 +172,8 @@ class Builder(object):
         self.smartNeutralDirection = generalPreferences.neutdir.isChecked()
         self.showMetronomeMark = generalPreferences.metro.isChecked()
         self.paperSize = generalPreferences.getPaperSize()
-        self.paperLandscape = generalPreferences.paperLandscape.isChecked()
+        self.paperLandscape = generalPreferences.paperOrientationGroup.checkedId() == 1
+        self.paperRotated = generalPreferences.paperOrientationGroup.checkedId() == 2
         self.showInstrumentNames = instrumentNames.isChecked()
         names = ['long', 'short', None]
         self.firstInstrumentName = names[instrumentNames.firstSystem.currentIndex()]
@@ -422,8 +423,10 @@ class Builder(object):
         # paper size
         if self.paperSize:
             ly.dom.Scheme(
-                '(set-paper-size "{0}"{1})'.format(
-                    self.paperSize, " 'landscape" if self.paperLandscape else ""),
+                '(set-paper-size "{0}{1}"{2})'.format(
+                    self.paperSize,
+                    "landscape" if self.paperLandscape else "",
+                " 'landscape" if self.paperRotated else ""),
                 ly.dom.Paper(doc)
             ).after = 1
             ly.dom.BlankLine(doc)
