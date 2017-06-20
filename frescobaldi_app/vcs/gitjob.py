@@ -26,19 +26,19 @@ import re
 import time
 import functools
 
-from PyQt5.QtCore import QProcess, pyqtSignal
+from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
 
 
 class GitError(Exception):
     pass
 
-class Git():
+class Git(QObject):
     done = pyqtSignal(bool)
 
-    def __init__(self, workingdirectory = None):
-        self._executable = None
-        self._executable = self._executable if self._executable else 'git'
+    def __init__(self, workingdirectory = None, parent = None):
+        super(Git, self).__init__(parent)
+        self._executable = 'git'
         self._workingdirectory = workingdirectory
         self._queue = []
         self._version = None
