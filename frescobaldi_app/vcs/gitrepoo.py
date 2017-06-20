@@ -81,6 +81,8 @@ class Repo():
         # current file's view instance
         # None: If the instance is not operating on a file
         self._current_view = current_view
+        # cache git diff result 
+        self._git_diff_cache = ''
     
     def __del__(self):
         """Caller is responsible for clean up the temp files"""
@@ -316,7 +318,8 @@ class Repo():
         # '-U0' to generate diffs without context code (actually 0 line) 
         # '--no-index' to generate diffs between two files outside the git repo
         args = ['diff', '-U0', '--no-color', '--no-index', original, current]
-        return self._git.run_blocking(args, isbinary = True)
+        binary_result  = self._git.run_blocking(args, isbinary = True)
+        self._git_diff_cache = str(binary_result, 'utf-8')
     
     def file_status(self):
         """
@@ -364,7 +367,7 @@ class Repo():
         	# return ('', '') when receive a status not listed in status_dict
         	return ('', '')
 
-    def extract_linenum_diff(self, diff_str):
+    def extract_linenum_diff(self):
         """
         Parse unified diff with 0 lines of context.
 
@@ -381,21 +384,15 @@ class Repo():
           Or both deleted? To minimize confusion, let's simply mark the
           hunk as modified.
 
-        Arguments:
-            Note: the output of _run_diff() should be encoded before intruducing 
-            diff_str (string): The unified diff string to parse.
-
-
         Returns:
             tuple: (first, last, [inserted], [modified], [deleted])
-                A tuple with meta information of the diff result.
         """
         # first and last changed line in the view
         first, last = 0, 0
         # lists with inserted, modified and deleted lines
         inserted, modified, deleted = [], [], []
         hunk_re = r'^@@ \-(\d+), ?(\d*) \+(\d+),?(\d*) @@'
-        for hunk in re.finditer(hunk_re, diff_str, re.MULTILINE):
+        for hunk in re.finditer(hunk_re, self._git_diff_cache, re.MULTILINE):
             # We don't need old_start in this function
             _, old_size, start, new_size = hunk.groups()
             start = int(start)
