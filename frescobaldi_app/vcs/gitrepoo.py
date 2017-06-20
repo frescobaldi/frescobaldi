@@ -58,7 +58,7 @@ class Repo():
 
     def __init__(self, current_view = None):
         self.is_repository = False
-        # self.isfile makes sense only when self.isRepository is True
+        # self.target_is_file makes sense only when self.isRepository is True
         # True when given path is a file path
         # False when given path is a folder path
         self.target_is_file = False
