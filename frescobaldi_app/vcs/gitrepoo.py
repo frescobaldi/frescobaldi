@@ -96,8 +96,8 @@ class Repo():
     def set_working_directory(self, path):
         """
         Set the variables:
-	        self._root_path,  self._relative_path, self.is_repository, 
-	        self.target_is_file
+            self._root_path,  self._relative_path, self.is_repository, 
+            self.target_is_file
         
         Arguments:
             path: path can be a folder's absolute path or a file's absolute path
@@ -108,59 +108,59 @@ class Repo():
                    case 2. given path does not locate in a git repository 
         """
         def is_git_path(path):
-	        """
-	        Return True if 'path' is a valid git working tree.
-	        """
-	        return path and os.path.exists(os.path.join(path, '.git'))
+            """
+            Return True if 'path' is a valid git working tree.
+            """
+            return path and os.path.exists(os.path.join(path, '.git'))
     
 
         def get_work_path(ori_path):
-	        """
-	        If the giving ori_path is git initialized. 
-	        Split the ori_path into the working tree part and relative path part.
-	        This function handles both file pathes and directory pathes.
+            """
+            If the giving ori_path is git initialized. 
+            Split the ori_path into the working tree part and relative path part.
+            This function handles both file pathes and directory pathes.
 
-	        Note:
-	            This is a local alternative to calling the git command:
+            Note:
+                This is a local alternative to calling the git command:
 
-	                git rev-parse --show-toplevel
+                    git rev-parse --show-toplevel
 
-	        Arguments:
-	            ori_path (string): a absolute path.
+            Arguments:
+                ori_path (string): a absolute path.
 
-	        Returns:
-	            (root path of the working proj, relative path)
-	            (None, None) for non-git-initilized file_path
-	        """
+            Returns:
+                (root path of the working proj, relative path)
+                (None, None) for non-git-initilized file_path
+            """
 
-	        # ensure there is no trailing slash
-	        sep = os.path.altsep if os.path.altsep else ''
-	        sep += os.path.sep
-	        ori_path = ori_path.rstrip(sep)
-	        if ori_path and os.path.exists(ori_path):
-	            if os.path.isdir(ori_path):
-	                _, name = os.path.split(ori_path)
-	                path = ori_path
-	            else:
-	                path, name = os.path.split(ori_path)    
-	            
-	            # files within '.git' path are not part of a work tree
-	            while path and name and name != '.git':
-	                if is_git_path(path):
-	                    return (path, os.path.relpath(
-	                        ori_path, path).replace('\\', '/'))
-	                path, name = os.path.split(path)
-	        
-	        return (None, None)
+            # ensure there is no trailing slash
+            sep = os.path.altsep if os.path.altsep else ''
+            sep += os.path.sep
+            ori_path = ori_path.rstrip(sep)
+            if ori_path and os.path.exists(ori_path):
+                if os.path.isdir(ori_path):
+                    _, name = os.path.split(ori_path)
+                    path = ori_path
+                else:
+                    path, name = os.path.split(ori_path)    
+                
+                # files within '.git' path are not part of a work tree
+                while path and name and name != '.git':
+                    if is_git_path(path):
+                        return (path, os.path.relpath(
+                            ori_path, path).replace('\\', '/'))
+                    path, name = os.path.split(path)
+            
+            return (None, None)
 
 
         self._root_path, self._relative_path = get_work_path(path)
         
         if self._root_path:
-        	# set the git command's working environment
-        	self._git.setWorkingDirectory(self._root_path)
-        	self.is_repository = True
-        	self.target_is_file = not os.path.isdir(path)
+            # set the git command's working environment
+            self._git.setWorkingDirectory(self._root_path)
+            self.is_repository = True
+            self.target_is_file = not os.path.isdir(path)
             
         return self._root_path != None 
     
@@ -342,7 +342,7 @@ class Repo():
         """
         # only works in a repository and the given path should be a file path
         if not self.is_repository or not self.target_is_file:
-        	return ('', '')
+            return ('', '')
        
         # arguments to get file status
         status_args = ['status', '--porcelain', '--ignored', self._relative_path]
@@ -350,22 +350,22 @@ class Repo():
         output_strs = self._git.run_blocking(status_args)
         
         status_dict = {
-		    'A ' : ('newly added', ''),
-		    'AM' : ('newly added', 'modified'),
-		    'AD' : ('newly added', 'deleted'),
-		    'M ' : ('staged', ''),
-		    'MM' : ('staged', 'modified'),
-		    'MD' : ('staged', 'deleted'),
-		    '??' : ('', 'untracked'),
-		    '!!' : ('', 'ignored'),
-		}
+            'A ' : ('newly added', ''),
+            'AM' : ('newly added', 'modified'),
+            'AD' : ('newly added', 'deleted'),
+            'M ' : ('staged', ''),
+            'MM' : ('staged', 'modified'),
+            'MD' : ('staged', 'deleted'),
+            '??' : ('', 'untracked'),
+            '!!' : ('', 'ignored'),
+        }
         if not output_strs:
             return ('', 'committed')
         try:
-        	return status_dict[output_strs[0][:2]]
+            return status_dict[output_strs[0][:2]]
         except KeyError:
-        	# return ('', '') when receive a status not listed in status_dict
-        	return ('', '')
+            # return ('', '') when receive a status not listed in status_dict
+            return ('', '')
 
     def extract_linenum_diff(self):
         """
