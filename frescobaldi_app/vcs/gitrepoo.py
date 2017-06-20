@@ -350,6 +350,8 @@ class Repo():
         output_strs = self._git.run_blocking(status_args)
         
         status_dict = {
+            ' M' : ('', 'modified'),
+            ' D' : ('', 'deleted'),
             'A ' : ('newly added', ''),
             'AM' : ('newly added', 'modified'),
             'AD' : ('newly added', 'deleted'),
@@ -357,8 +359,8 @@ class Repo():
             'MM' : ('staged', 'modified'),
             'MD' : ('staged', 'deleted'),
             '??' : ('', 'untracked'),
-            '!!' : ('', 'ignored'),
-        }
+            '!!' : ('', 'ignored')
+            }
         if not output_strs:
             return ('', 'committed')
         try:
