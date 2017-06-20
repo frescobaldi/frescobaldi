@@ -23,11 +23,11 @@ Manage a Git repository
 
 import os
 import re
-import gitjob
 import tempfile
 
 from PyQt5.QtCore import pyqtSignal
 
+import gitjob
 
 class Repo():
     """
