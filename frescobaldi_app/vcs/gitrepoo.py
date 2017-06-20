@@ -179,6 +179,7 @@ class Repo():
             The first element is the list of branch names.
             The second element is the name of the current branch (may be None).
         """
+#TODO: Shouldn't this '--color=never' arg be integrated in the Git command itself?
         args = ['branch', '--color=never']
         if not local:
             args.append('-a')
@@ -616,6 +617,11 @@ class Repo():
     def current_branch(self):
         """
         Returns the name of the current branch.
+
+        ? Does it have to raise an error when no branch is found?
+          It may well be that the user is in "detached state", and Frescobaldi
+          should then not pop up a warning box or so.
+          Not clear what it should do then, though.
         """
         current_branch = self._branches(local=True)[1]
         if not current_branch:
