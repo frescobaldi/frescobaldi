@@ -57,6 +57,8 @@ class Repo():
     ############################################################################ 
 
     def __init__(self, current_view = None):
+        # local folder name of the repository
+        self.name = None
         self.is_repository = False
         # self.target_is_file makes sense only when self.isRepository is True
         # True when given path is a file path
@@ -147,6 +149,7 @@ class Repo():
                 # files within '.git' path are not part of a work tree
                 while path and name and name != '.git':
                     if is_git_path(path):
+                        _, self.name = os.path.split(path)
                         return (path, os.path.relpath(
                             ori_path, path).replace('\\', '/'))
                     path, name = os.path.split(path)
