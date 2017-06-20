@@ -214,7 +214,7 @@ class Repo():
         os.close(file)
         return filepath    
 
-    def _read_Index_file(self):
+    def _read_index_file(self):
         """
         Returns content of the current file's corresponding file in Index.
         
@@ -277,7 +277,7 @@ class Repo():
         ? Should we unify all the line endings here
         ? Exception handling is left to be implemented
         """
-        content = self._read_Index_file()
+        content = self._read_index_file()
         if content:
             # Unify all the line endings
             # contents = contents.replace(b'\r\n', b'\n')
