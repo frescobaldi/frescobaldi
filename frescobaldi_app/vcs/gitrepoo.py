@@ -353,19 +353,19 @@ class Repo():
         output_strs = self._git.run_blocking(status_args)
         
         status_dict = {
-            ' M' : ('', 'modified'),
-            ' D' : ('', 'deleted'),
-            'A ' : ('newly added', ''),
-            'AM' : ('newly added', 'modified'),
-            'AD' : ('newly added', 'deleted'),
-            'M ' : ('staged', ''),
-            'MM' : ('staged', 'modified'),
-            'MD' : ('staged', 'deleted'),
-            '??' : ('', 'untracked'),
-            '!!' : ('', 'ignored')
+            ' M' : ('', (_('modified'))),
+            ' D' : ('', (_('deleted'))),
+            'A ' : ((_('newly added')), ''),
+            'AM' : ((_('newly added')), (_('modified'))),
+            'AD' : ((_('newly added')), (_('deleted'))),
+            'M ' : ((_('staged')), ''),
+            'MM' : ((_('staged')), (_('modified'))),
+            'MD' : ((_('staged')), (_('deleted'))),
+            '??' : ('', (_('untracked'))),
+            '!!' : ('', (_('ignored')))
             }
         if not output_strs:
-            return ('', 'committed')
+            return ('', (_('committed')))
         try:
             return status_dict[output_strs[0][:2]]
         except KeyError:
