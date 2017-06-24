@@ -258,47 +258,48 @@ class Repo():
         """
         Update committed temp file from the commit: self._compare_against
         
-        ? Should we unify all the line endings here
         ? Exception handling is left to be implemented
         """
         content = self._read_committed_file(self._compare_against)
         if content:
-            # Unify all the line endings
-            # contents = contents.replace(b'\r\n', b'\n')
-            # contents = contents.replace(b'\r', b'\n')
             # Create temp file
             if not self._temp_committed_file:
                 self._temp_committed_file = self._create_tmp_file()
-            # Write content to temp file
-            with open(self._temp_committed_file, 'wb') as file:
-                file.write(content)
+            self._write_file(self._temp_committed_file, content)
     
     def _update_temp_index_file(self):
         """
-        ? Should we unify all the line endings here
+        Extract the content of the file in Index and then write it into the temp
+        file.
+        
         ? Exception handling is left to be implemented
         """
         content = self._read_index_file()
         if content:
-            # Unify all the line endings
-            # contents = contents.replace(b'\r\n', b'\n')
-            # contents = contents.replace(b'\r', b'\n')
             # Create temp file
             if not self._temp_index_file:
                 self._temp_index_file = self._create_tmp_file()
-            # Write content to temp file
-            with open(self._temp_index_file, 'wb') as file:
-                file.write(content)
+            self._write_file(self._temp_index_file, content)
 
     def _update_temp_working_file(self):
         """
         Save the current file to a temp file for diff compare
         """
         if not self._temp_working_file:
-                self._temp_working_file = self._create_tmp_file()
+            self._temp_working_file = self._create_tmp_file()
         content = self._current_view.document().encodedText()
-        with open(self._temp_working_file, 'wb') as file:
-                file.write(content)    
+        self._write_file(self._temp_working_file, content)
+        
+    def _write_file(self, path, content):
+        """
+        Write the content into the path's corresponding file.
+        """
+        with open(path, 'wb') as file:
+            file.write(content)
+            file.flush()
+            os.fsync(file.fileno()) 
+
+
     
     def _run_diff(self, original, current):
         """
