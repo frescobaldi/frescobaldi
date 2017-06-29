@@ -48,9 +48,7 @@ class Git(QObject):
     def __init__(self, owner):
         super(Git, self).__init__(owner)
         # TODO: check for preference
-        self._executable = 'git'
-        # TODO: change to a .root() method in gitrepo.Repo()
-        self._workingdirectory = owner.root_path
+        executable = 'git'
         self._version = None
         self._isbinary = False
         self._stderr = None
@@ -58,8 +56,8 @@ class Git(QObject):
 
         # Create and configure QProcess object
         self._process = process = QProcess()
-        process.setProgram(self._executable)
-        process.setWorkingDirectory(self._workingdirectory)
+        process.setProgram(executable)
+        process.setWorkingDirectory(owner._root_path) # TODO: change to a .root() method in gitrepo.Repo()
         process.errorOccured.connect(self.slotErrorOccured)
 
         # Connect QProcess's signals to our own intermediate slots or our own signals
@@ -205,41 +203,3 @@ class Git(QObject):
             # TODO: Implement this case
             pass
 
-    # Deprecated
-    # I don't think we need that. directory is set in __init__
-    def setWorkingDirectory(self, workingdirectory):
-        self._process.setWorkingDirectory(workingdirectory)
-        self._workingdirectory = workingdirectory
-
-    # Deprecated
-    # Probably we'll never need this
-    def workingDirectory(self):
-        return self._workingdirectory
-
-    # Deprecated
-    # I don't think we need that. executable is set in __init__
-    def setGitExecutable(self, executable):
-        self._process.setProgram(executable)
-        self._executable = executable
-
-    # Deprecated
-    # Probably we'll never need this
-    def gitExecutable(self):
-        return self._executable
-
-    # Deprecated
-    def killCurrent(self):
-        if self.isRunning():
-            self._queue[0]['process'].finished.disconnect()
-            # termination should be sync?
-            if os.name == "nt":
-                self._queue[0]['process'].kill()
-            else:
-                self._queue[0]['process'].terminate()
-            del self._queue[0]
-
-    # Deprecated.
-    # We don't even have a queue anymore
-    def killAll(self):
-        self.killCurrent()
-        self._queue = []
