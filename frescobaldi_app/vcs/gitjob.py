@@ -34,7 +34,6 @@ class GitError(Exception):
     pass
 
 class Git(QObject):
-    done = pyqtSignal(bool)
 
     # "custom" signals for passing on QProcess's signals
     errorOccured(QProcess.ProcessError)
