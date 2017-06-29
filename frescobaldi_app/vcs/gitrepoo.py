@@ -29,6 +29,10 @@ from PyQt5.QtCore import pyqtSignal
 
 import gitjob
 
+
+class GitError(Exception):
+    pass
+
 class Repo():
     """
     """

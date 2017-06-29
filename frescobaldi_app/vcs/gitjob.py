@@ -30,9 +30,6 @@ import time
 from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
 
-class GitError(Exception):
-    pass
-
 class Git(QObject):
 
     # "custom" signals for passing on QProcess's signals
@@ -69,8 +66,8 @@ class Git(QObject):
         """
         Internal command preparing and starting the Git process
         """
-        self._stderr = ''
-        self._stdout = ''
+        self._stderr = None
+        self._stdout = None
         self._isbinary = isbinary
         self._process.setArguments(args)
         self._process.start()
@@ -92,8 +89,7 @@ class Git(QObject):
         self._process.waitForFinished()
         self._handle_results()
         self._process.finished.connect(self._finished)
-        # ? TODO: I think we should return a (_stdout, _stderr) tuple
-        return self._stdout
+        return (self._stdout, self._stderr)
 
     def isRunning(self):
         """
@@ -140,10 +136,6 @@ class Git(QObject):
             if not self._stderr[-1]:
                 self._stderr.pop()
 
-        # TODO: Discuss this. Actually we should change this and pass the responsibility to decide to the caller
-        if self._stderr:
-            raise GitError(stderr)
-
     def _finished(self):
         """
         Called when the process has completed.
@@ -156,20 +148,25 @@ class Git(QObject):
         """
         Returns the content of the stdout output, if any.
         """
-        if self._stdout:
+        # TODO: should we check isRunning() before or can we rely on the "is not None" check?
+        # A simpler approach would be to simply return self._stdout and have the caller interpret
+        # the type of result: either None (job not completed) or a (potentially empty) string list
+        # or the binary stream
+        if self._stdout is not None:
             return self._stdout
         else:
-            # TODO: Discuss what should happen here
+            # TODO: Discuss what should happen here (job hasn't completed yet)
             return None
 
     def stderr(self):
         """
         Returns the content of the stderr output, if any.
         """
-        if self._stderr:
+        # TODO: should we check isRunning() before or can we rely on the "is not None" check?
+        if self._stderr is not none:
             return self._stderr
         else:
-            # TODO: Discuss what should happen here
+            # TODO: Discuss what should happen here (job hasn't completed yet)
             return None
 
     # TODO: is it a good place to keep this command
