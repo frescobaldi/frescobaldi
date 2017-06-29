@@ -104,6 +104,7 @@ class Git(QObject):
         if not self.isRunning():
             # Note: Qt handles the OS differences transparently
             self._process.kill()
+#TODO: will this trigger a signal? is it necessary to signal this event to anybody besides the caller?
 
     def _tic(self):
         """
