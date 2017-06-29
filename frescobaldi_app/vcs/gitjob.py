@@ -24,7 +24,6 @@ run_blocking() will return the data while run() will invoke the finished signal,
 giving the caller the opportunity to retrieve the data.
 """
 
-import os
 import re
 import time
 
