@@ -38,11 +38,16 @@ class Git(QObject):
     readyReadStandardOutput = pyqtSignal()
     started = pyqtSignal()
     stateChanged = pyqtSignal(QProcess.ProcessState)
+    
+    # emits when the receiver finish executing
+    executed = pyqtSignal(int)
 
     def __init__(self, owner):
         super(Git, self).__init__()
         # TODO: check for preference
         executable = 'git'
+        # args could be set in advance
+        self.preset_args = None 
         self._version = None
         self._isbinary = False
         self._stderr = None
@@ -70,11 +75,15 @@ class Git(QObject):
         self._process.setArguments(args)
         self._process.start()
 
-    def run(self, args, isbinary=False):
+    def run(self, args = None, isbinary=False):
         """
         Asynchronously run the command.
         Results will only be available after the _finished() slot has been executed
         """
+        if args == None:
+            args = self.preset_args
+
+        # exception: args == None    
         self._start_process(args, isbinary)
 
     def run_blocking(self, args, isbinary = False):
@@ -198,4 +207,44 @@ class Git(QObject):
         else:
             # TODO: Implement this case
             pass
+
+
+class GitJobQueue(QObject):
+
+    def __init__(self):
+        self._queue = QQueue()
+
+    def enqueue(self, gitjob):
+        """ 
+        Append 'Git instance' into the queue.
+        If the queue is empty, the 'Git instacne' will run immediately.
+        """   
+        gitjob.executed.connect(self._auto_run_next)
+        self._queue.enqueue(gitjob)
+        if self._queue.size() == 1:
+            # args of Git process has been set in advance
+            self._queue.head().run() 
+    
+    def killAll(self):
+        """
+        Kill all the process this queue contains
+        Will be used when the file has lost focus.
+        """
+        if not self._queue.isEmpty():
+            self._queue.head().kill()
+            self._queue.clear()
+
+
+    def _auto_run_next(self, execute_status):
+        """
+        To run next git process
+        Triggered by the previous Git instance's executed signal.
+        """    
+        self._queue.dequeue()
+        if not self._queue.isEmpty():
+            self._queue.head().run()
+
+ 
+
+
 
