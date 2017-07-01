@@ -33,15 +33,14 @@ from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 class Git(QObject):
 
     # "custom" signals for passing on QProcess's signals
-    errorOccured(QProcess.ProcessError)
-    finished = pyqtSignal(int, QProcess.ExitStatus)
+    finished = pyqtSignal(QObject)
     readyReadStandardError = pyqtSignal()
     readyReadStandardOutput = pyqtSignal()
     started = pyqtSignal()
     stateChanged = pyqtSignal(QProcess.ProcessState)
 
     def __init__(self, owner):
-        super(Git, self).__init__(owner)
+        super(Git, self).__init__()
         # TODO: check for preference
         executable = 'git'
         self._version = None
@@ -53,12 +52,11 @@ class Git(QObject):
         self._process = process = QProcess()
         process.setProgram(executable)
         process.setWorkingDirectory(owner._root_path) # TODO: change to a .root() method in gitrepo.Repo()
-        process.errorOccured.connect(self.slotErrorOccured)
 
         # Connect QProcess's signals to our own intermediate slots or our own signals
         process.finished.connect(self._finished)
         process.readyReadStandardError.connect(self.readyReadStandardError)
-        process.readyReadStandardOutput.connect(self.readStandardOutput)
+        process.readyReadStandardOutput.connect(self.readyReadStandardOutput)
         process.started.connect(self.started)
         process.stateChanged.connect(self.stateChanged)
 
@@ -84,11 +82,8 @@ class Git(QObject):
         Synchronously run the command.
         Results will be returned but are also available through stdout() and stderr() afterwards
         """
-        self._process.finished.disconnect()
         self._start_process(args, isbinary)
         self._process.waitForFinished()
-        self._handle_results()
-        self._process.finished.connect(self._finished)
         return (self._stdout, self._stderr)
 
     def isRunning(self):
@@ -130,20 +125,25 @@ class Git(QObject):
             self._stderr = self._process.readAllStandardError()
             self._stdout = self._process.readAllStandardOutput()
         else:
-            self._stdout = str(self._process.readAllStandardError(), 'utf-8').split('\n')
+            self._stdout = str(self._process.readAllStandardOutput(), 'utf-8').split('\n')
             if not self._stdout[-1]:
                 self._stdout.pop()
             self._stderr = str(self._process.readAllStandardError(), 'utf-8').split('\n')
             if not self._stderr[-1]:
                 self._stderr.pop()
 
-    def _finished(self):
+    def _finished(self, exitcode, exitstatus):
         """
         Called when the process has completed.
         process results and forward the signal
         """
-        self._handle_results()
-        self.finished.emit()
+        if exitstatus == QProcess.NormalExit:
+            self._handle_results()
+            self.finished.emit(self)
+        else:
+            # TODO, what to do when process crashed?
+            pass
+
 
     def stdout(self):
         """
