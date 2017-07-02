@@ -111,7 +111,7 @@ class Git(QObject):
         """
         Kills the process if it is running
         """
-        if not self.isRunning():
+        if self.isRunning():
             # Note: Qt handles the OS differences transparently
             self._process.kill()
 #TODO: will this trigger a signal? is it necessary to signal this event to anybody besides the caller?
