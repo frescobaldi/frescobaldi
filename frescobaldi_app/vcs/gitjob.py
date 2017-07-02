@@ -38,6 +38,7 @@ class Git(QObject):
     readyReadStandardOutput = pyqtSignal()
     started = pyqtSignal()
     stateChanged = pyqtSignal(QProcess.ProcessState)
+    errorOccurred = pyqtSignal(QProcess.ProcessError)
     
     # emits when the receiver finish executing
     executed = pyqtSignal(int)
@@ -64,6 +65,11 @@ class Git(QObject):
         process.readyReadStandardOutput.connect(self.readyReadStandardOutput)
         process.started.connect(self.started)
         process.stateChanged.connect(self.stateChanged)
+        try:
+            process.errorOccurred.connect(self.errorOccurred)
+        except AttributeError:
+            # errorOccurred may not be supported 
+            process.error.connect(self.errorOccurred)  
 
     def _start_process(self, args, isbinary=False):
         """
