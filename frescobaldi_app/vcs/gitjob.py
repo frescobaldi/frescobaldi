@@ -238,6 +238,8 @@ class GitJobQueue(QObject):
         """
         if self._queue:
             self._queue[0].kill()
+            for job in self._queue:
+                job.deleteLater()
             self._queue = []
 
 
@@ -246,6 +248,7 @@ class GitJobQueue(QObject):
         To run next git process
         Triggered by the previous Git instance's executed signal.
         """    
+        self._queue[0].deleteLater()    
         del self._queue[0]
         if self._queue:
             self._queue[0].run()
