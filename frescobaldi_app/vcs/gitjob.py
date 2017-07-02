@@ -43,7 +43,7 @@ class Git(QObject):
     executed = pyqtSignal(int)
 
     def __init__(self, owner):
-        super(Git, self).__init__()
+        super().__init__()
         # TODO: check for preference
         executable = 'git'
         # args could be set in advance
@@ -212,7 +212,8 @@ class Git(QObject):
 class GitJobQueue(QObject):
 
     def __init__(self):
-        self._queue = QQueue()
+        super().__init__()
+        self._queue = []
 
     def enqueue(self, gitjob):
         """ 
@@ -220,19 +221,19 @@ class GitJobQueue(QObject):
         If the queue is empty, the 'Git instacne' will run immediately.
         """   
         gitjob.executed.connect(self._auto_run_next)
-        self._queue.enqueue(gitjob)
-        if self._queue.size() == 1:
+        self._queue.append(gitjob)
+        if len(self._queue) == 1:
             # args of Git process has been set in advance
-            self._queue.head().run() 
+            self._queue[0].run() 
     
     def killAll(self):
         """
         Kill all the process this queue contains
         Will be used when the file has lost focus.
         """
-        if not self._queue.isEmpty():
-            self._queue.head().kill()
-            self._queue.clear()
+        if self._queue:
+            self._queue[0].kill()
+            self._queue = []
 
 
     def _auto_run_next(self, execute_status):
@@ -240,9 +241,9 @@ class GitJobQueue(QObject):
         To run next git process
         Triggered by the previous Git instance's executed signal.
         """    
-        self._queue.dequeue()
-        if not self._queue.isEmpty():
-            self._queue.head().run()
+        del self._queue[0]
+        if self._queue:
+            self._queue[0].run()
 
  
 
