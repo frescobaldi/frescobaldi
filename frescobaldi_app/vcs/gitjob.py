@@ -75,6 +75,8 @@ class Git(QObject):
         """
         Internal command preparing and starting the Git process
         """
+        if args == None:
+            raise Exception("Command 'args' is not specified")
         self._stderr = None
         self._stdout = None
         self._isbinary = isbinary
@@ -84,19 +86,31 @@ class Git(QObject):
     def run(self, args = None, isbinary=False):
         """
         Asynchronously run the command.
+        
+        Arguments:
+                  args([]): arguments of the Git command. 
+                            If 'args' is not given, 'preset_args' will be used.
+            isbinary(bool): True - return the binary result.
+                            False - return the 'utf-8' encoded string list.
+
         Results will only be available after the _finished() slot has been executed
         """
-        if args == None:
-            args = self.preset_args
-
-        # exception: args == None    
+        args = self.preset_args if args == None else args   
         self._start_process(args, isbinary)
 
-    def run_blocking(self, args, isbinary = False):
+    def run_blocking(self, args = None, isbinary = False):
         """
         Synchronously run the command.
+
+        Arguments:
+                  args([]): arguments of the Git command. 
+                            If 'args' is not given, 'preset_args' will be used.
+            isbinary(bool): True - return the binary result.
+                            False - return the 'utf-8' encoded string list.
+
         Results will be returned but are also available through stdout() and stderr() afterwards
         """
+        args = self.preset_args if args == None else args
         self._start_process(args, isbinary)
         self._process.waitForFinished()
         return (self._stdout, self._stderr)
