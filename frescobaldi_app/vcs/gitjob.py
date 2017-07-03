@@ -251,22 +251,34 @@ class GitJobQueue(QObject):
         Kill all the process this queue contains
         Will be used when the file has lost focus.
         """
-        if self._queue:
-            self._queue[0].kill()
-            for job in self._queue:
-                job.deleteLater()
-            self._queue = []
+        self._remove_current()
+        for job in self._queue:
+            job.deleteLater()
+        self._queue = []
 
 
     def _auto_run_next(self, execute_status):
         """
         To run next git process
         Triggered by the previous Git instance's executed signal.
-        """    
-        self._queue[0].deleteLater()    
-        del self._queue[0]
+        """
+        self._remove_current()
         if self._queue:
             self._queue[0].run()
+
+    def _remove_current(self):
+        """
+        Remove the Git() object in queue-head.
+        If the Git() object is running, terminate it by calling kill()
+        """
+        if self._queue:
+            if self._queue[0].isRunning():
+                # prevent the git errorOccurred signals being handled
+                self._queue[0].errorOccurred.disconnect()
+                self._queue[0].kill()
+            self._queue[0].deleteLater()    
+            del self._queue[0]
+
 
  
 
