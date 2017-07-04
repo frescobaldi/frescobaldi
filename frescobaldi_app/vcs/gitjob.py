@@ -182,27 +182,24 @@ class Git(QObject):
     def stdout(self):
         """
         Returns the content of the stdout output, if any.
+        
+        Returns: 
+            None: Git() is running / Git() hasn't started / Git() has crashed
+             b'': Git() has finished running and returns a binary result.
+              []: Git() has finished running and returns a string-list result.
         """
-        # TODO: should we check isRunning() before or can we rely on the "is not None" check?
-        # A simpler approach would be to simply return self._stdout and have the caller interpret
-        # the type of result: either None (job not completed) or a (potentially empty) string list
-        # or the binary stream
-        if self._stdout is not None:
-            return self._stdout
-        else:
-            # TODO: Discuss what should happen here (job hasn't completed yet)
-            return None
+        return self._stdout
 
     def stderr(self):
         """
         Returns the content of the stderr output, if any.
+
+        Returns: 
+            None: Git() is running / Git() hasn't started / Git() has crashed
+             b'': Git() has finished running and returns a binary result.
+              []: Git() has finished running and returns a string-list result.
         """
-        # TODO: should we check isRunning() before or can we rely on the "is not None" check?
-        if self._stderr is not None:
-            return self._stderr
-        else:
-            # TODO: Discuss what should happen here (job hasn't completed yet)
-            return None
+        return self._stderr
 
     # TODO: is it a good place to keep this command
     # We can assume (can we?) the Git version not to change within a session,
