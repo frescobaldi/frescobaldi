@@ -65,10 +65,15 @@ class Git(QObject):
         process.readyReadStandardOutput.connect(self.readyReadStandardOutput)
         process.started.connect(self.started)
         process.stateChanged.connect(self.stateChanged)
+
+        # Note: 
+        # Signal "errorOccurred" is listed as an attribute in QProcess in PyQt5
+        # And it is available in PyQt-5.8.2. Reference: https://stackoverflow.com/questions/44868741/is-qqueue-missing-from-pyqt-5
+        # It is still not available in our current development environment PyQt-5.5.1 
+        # So we use its obsolete version "error" 
         try:
             process.errorOccurred.connect(self.errorOccurred)
         except AttributeError:
-            # errorOccurred may not be supported 
             process.error.connect(self.errorOccurred)  
 
     def _start_process(self, args, isbinary=False):
