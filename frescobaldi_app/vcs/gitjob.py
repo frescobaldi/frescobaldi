@@ -198,7 +198,7 @@ class Git(QObject):
         Returns the content of the stderr output, if any.
         """
         # TODO: should we check isRunning() before or can we rely on the "is not None" check?
-        if self._stderr is not none:
+        if self._stderr is not None:
             return self._stderr
         else:
             # TODO: Discuss what should happen here (job hasn't completed yet)
