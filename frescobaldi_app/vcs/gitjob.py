@@ -50,8 +50,8 @@ class Git(QObject):
         executable = 'git'
         # args could be set in advance
         self.preset_args = None 
+
         self._version = None
-        self._isbinary = False
         self._stderr = None
         self._stdout = None
 
@@ -77,7 +77,7 @@ class Git(QObject):
         except AttributeError:
             process.error.connect(self.errorOccurred)  
 
-    def _start_process(self, args, isbinary=False):
+    def _start_process(self, args):
         """
         Internal command preparing and starting the Git process
         """
@@ -85,24 +85,21 @@ class Git(QObject):
             raise Exception("Command 'args' is not specified")
         self._stderr = None
         self._stdout = None
-        self._isbinary = isbinary
         self._process.setArguments(args)
         self._process.start()
 
-    def run(self, args = None, isbinary=False):
+    def run(self, args = None):
         """
         Asynchronously run the command.
         
         Arguments:
                   args([]): arguments of the Git command. 
                             If 'args' is not given, 'preset_args' will be used.
-            isbinary(bool): True - return the binary result.
-                            False - return the 'utf-8' encoded string list.
 
         Results will only be available after the _finished() slot has been executed
         """
         args = self.preset_args if args is None else args   
-        self._start_process(args, isbinary)
+        self._start_process(args)
 
     def run_blocking(self, args = None, isbinary = False):
         """
@@ -117,9 +114,9 @@ class Git(QObject):
         Results will be returned but are also available through stdout() and stderr() afterwards
         """
         args = self.preset_args if args is None else args
-        self._start_process(args, isbinary)
+        self._start_process(args)
         self._process.waitForFinished()
-        return (self._stdout, self._stderr)
+        return (self.stdout(isbinary), self.stderr(isbinary))
 
     def isRunning(self):
         """
@@ -155,16 +152,8 @@ class Git(QObject):
         will be called when the process has completed.
         Populates the result fields
         """
-        if self._isbinary:
-            self._stderr = self._process.readAllStandardError()
-            self._stdout = self._process.readAllStandardOutput()
-        else:
-            self._stdout = str(self._process.readAllStandardOutput(), 'utf-8').split('\n')
-            if not self._stdout[-1]:
-                self._stdout.pop()
-            self._stderr = str(self._process.readAllStandardError(), 'utf-8').split('\n')
-            if not self._stderr[-1]:
-                self._stderr.pop()
+        self._stderr = self._process.readAllStandardError()
+        self._stdout = self._process.readAllStandardOutput()
 
     def _finished(self, exitcode, exitstatus):
         """
@@ -179,27 +168,52 @@ class Git(QObject):
         self._handle_results()
         self.finished.emit(self, exitcode)
 
-    def stdout(self):
+    def stdout(self, isbinary = False):
         """
         Returns the content of the stdout output, if any.
         
         Returns: 
             None: Git() is running / Git() hasn't started / Git() has crashed
-             b'': Git() has finished running and returns a binary result.
-              []: Git() has finished running and returns a string-list result.
+             b'': isbinary is True.
+                  Git() has finished running and returns a binary result.
+              []: isbinary is False.
+                  Git() has finished running and returns a string-list result.
         """
-        return self._stdout
+        if self._stdout is None:
+            return None
+        
+        if isbinary:
+            return self._stdout
+        else:
+            return self._binary_to_string_list(self._stdout)
 
-    def stderr(self):
+    def stderr(self, isbinary = False):
         """
         Returns the content of the stderr output, if any.
 
         Returns: 
             None: Git() is running / Git() hasn't started / Git() has crashed
-             b'': Git() has finished running and returns a binary result.
-              []: Git() has finished running and returns a string-list result.
+             b'': isbinary is True.
+                  Git() has finished running and returns a binary result.
+              []: isbinary is False.
+                  Git() has finished running and returns a string-list result.
         """
-        return self._stderr
+        if self._stderr is None:
+            return None
+        
+        if isbinary:
+            return self._stderr
+        else:
+            return self._binary_to_string_list(self._stderr)
+
+    def _binary_to_string_list(self, binary_content):
+        """
+        Encode the binary content into a 'utf-8' string list.
+        """
+        res = str(binary_content, 'utf-8').split('\n')
+        if not res[-1]:
+            res.pop()
+        return res
 
     # TODO: is it a good place to keep this command
     # We can assume (can we?) the Git version not to change within a session,
