@@ -81,7 +81,7 @@ class Git(QObject):
         """
         Internal command preparing and starting the Git process
         """
-        if args == None:
+        if args is None:
             raise Exception("Command 'args' is not specified")
         self._stderr = None
         self._stdout = None
@@ -101,7 +101,7 @@ class Git(QObject):
 
         Results will only be available after the _finished() slot has been executed
         """
-        args = self.preset_args if args == None else args   
+        args = self.preset_args if args is None else args   
         self._start_process(args, isbinary)
 
     def run_blocking(self, args = None, isbinary = False):
@@ -116,7 +116,7 @@ class Git(QObject):
 
         Results will be returned but are also available through stdout() and stderr() afterwards
         """
-        args = self.preset_args if args == None else args
+        args = self.preset_args if args is None else args
         self._start_process(args, isbinary)
         self._process.waitForFinished()
         return (self._stdout, self._stderr)
