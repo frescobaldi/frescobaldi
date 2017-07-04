@@ -236,6 +236,8 @@ class Git(QObject):
 
 class GitJobQueue(QObject):
 
+    errorOccurred = pyqtSignal(QProcess.ProcessError)
+
     def __init__(self):
         super().__init__()
         self._queue = collections.deque()
@@ -245,7 +247,9 @@ class GitJobQueue(QObject):
         Append 'Git instance' into the queue.
         If the queue is empty, the 'Git instacne' will run immediately.
         """   
-        gitjob.executed.connect(self._auto_run_next)
+        gitjob.executed.connect(self.run_next)
+        gitjob.errorOccurred.connect(self.errorOccurred) 
+
         self._queue.append(gitjob)
         if len(self._queue) == 1:
             # args of Git process has been set in advance
