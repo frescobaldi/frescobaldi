@@ -246,6 +246,9 @@ class GitJobQueue(QObject):
         """ 
         Append 'Git instance' into the queue.
         If the queue is empty, the 'Git instacne' will run immediately.
+
+        CAUTION: 
+        enqueue a same Git() object multiple times will lead to runtime-error.
         """   
         gitjob.executed.connect(self.run_next)
         gitjob.errorOccurred.connect(self.errorOccurred) 
