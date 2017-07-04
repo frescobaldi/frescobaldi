@@ -26,6 +26,7 @@ giving the caller the opportunity to retrieve the data.
 
 import re
 import time
+import collections 
 
 from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
@@ -237,7 +238,7 @@ class GitJobQueue(QObject):
 
     def __init__(self):
         super().__init__()
-        self._queue = []
+        self._queue = collections.deque()
 
     def enqueue(self, gitjob):
         """ 
@@ -258,7 +259,7 @@ class GitJobQueue(QObject):
         self._remove_current()
         for job in self._queue:
             job.deleteLater()
-        self._queue = []
+        self._queue.clear()
 
 
     def _auto_run_next(self, execute_status):
@@ -281,7 +282,7 @@ class GitJobQueue(QObject):
                 self._queue[0].errorOccurred.disconnect()
                 self._queue[0].kill()
             self._queue[0].deleteLater()    
-            del self._queue[0]
+            self._queue.popleft()
 
 
  
