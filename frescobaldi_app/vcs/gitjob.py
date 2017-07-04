@@ -251,7 +251,7 @@ class GitJobQueue(QObject):
             # args of Git process has been set in advance
             self._queue[0].run() 
     
-    def killAll(self):
+    def kill_all(self):
         """
         Kill all the process this queue contains
         Will be used when the file has lost focus.
@@ -262,7 +262,7 @@ class GitJobQueue(QObject):
         self._queue.clear()
 
 
-    def _auto_run_next(self, execute_status):
+    def run_next(self, execute_status = 0):
         """
         To run next git process
         Triggered by the previous Git instance's executed signal.
