@@ -164,15 +164,14 @@ class Git(QObject):
         """
         Called when the process has completed.
         process results and forward the signal
-
-        If error occurrs during the execution process, signal 'errorOccurred' 
-        will be emitted. Signal 'finished' will be blocked. So this function 
-        only works when process executes successfully. 
-        """
-        # Only handles the result when process exit normaly. 
-        if exitstatus == QProcess.NormalExit:
-            self._handle_results()
-            self.finished.emit(self)
+        
+        exitcode == 0 : Process executes successfully. 
+                        Result will output to stdout().
+        exitcode == 1 : Process returns an error message.
+                        Error message will output to stderr() 
+        """ 
+        self._handle_results()
+        self.finished.emit(exitcode)
 
     def stdout(self):
         """
