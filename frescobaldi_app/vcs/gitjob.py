@@ -33,7 +33,7 @@ from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 class Git(QObject):
 
     # "custom" signals for passing on QProcess's signals
-    finished = pyqtSignal(QObject)
+    finished = pyqtSignal(QObject, int)
     readyReadStandardError = pyqtSignal()
     readyReadStandardOutput = pyqtSignal()
     started = pyqtSignal()
@@ -176,7 +176,7 @@ class Git(QObject):
                         Error message will output to stderr() 
         """ 
         self._handle_results()
-        self.finished.emit(exitcode)
+        self.finished.emit(self, exitcode)
 
     def stdout(self):
         """
