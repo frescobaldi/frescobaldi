@@ -41,7 +41,7 @@ class Git(QObject):
     stateChanged = pyqtSignal(QProcess.ProcessState)
     errorOccurred = pyqtSignal(QProcess.ProcessError)
 
-    # emits when the receiver finish executing
+    # should be emitted in the body of signal finished's slot.
     executed = pyqtSignal(int)
 
     def __init__(self, owner):
