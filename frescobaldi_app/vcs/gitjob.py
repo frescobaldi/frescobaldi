@@ -215,35 +215,6 @@ class Git(QObject):
             res.pop()
         return res
 
-    # TODO: is it a good place to keep this command
-    # We can assume (can we?) the Git version not to change within a session,
-    # so could there be a more global place where this information could be cached?
-    def version(self):
-        """
-        Return git executable version.
-
-        The version string is used to check, whether git executable exists and
-        works properly. It may also be used to enable functions with newer git
-        versions.
-
-        Returns:
-            tuple: PEP-440 conform git version (major, minor, patch)
-        """
-        if self._version:
-            return self._version
-        args = ['--version']
-        # Query git version synchronously
-        output = self.run_blocking(args) or ''
-        # Parse version string like (git version 2.12.2.windows.1)
-        match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', output[0])
-        if match:
-            # PEP-440 conform git version (major, minor, patch)
-            self._version = tuple(int(g) for g in match.groups())
-            return self._version
-        else:
-            # TODO: Implement this case
-            pass
-
 
 class GitJobQueue(QObject):
 
