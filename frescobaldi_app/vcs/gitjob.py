@@ -17,12 +17,6 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-"""
-Execute a single Git command, either blocking or non-blocking.
-The output of the command will be stored in the _stdout and _stderr fields,
-run_blocking() will return the data while run() will invoke the finished signal,
-giving the caller the opportunity to retrieve the data.
-"""
 
 import re
 import time
@@ -32,6 +26,12 @@ from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
 
 class Git(QObject):
+    """Executes a single Git command, either blocking or non-blocking.
+
+    The output of the command will be stored in the _stdout and _stderr fields,
+    run_blocking() will return the data while run() will invoke the finished 
+    signal, giving the caller the opportunity to retrieve the data.
+    """
 
     # "custom" signals for passing on QProcess's signals
     finished = pyqtSignal(QObject, int)
