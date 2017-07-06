@@ -202,6 +202,13 @@ class Git(QObject):
 
 
 class GitJobQueue(QObject):
+    """GitJobQueue is the command queue manage Git() objects
+
+    You may need this when you want to run some Git commands in order.
+    Git() objects in the queue run one after another.  When an error occurrs
+    during runing, GitJobQueue will stop running and emits an "errorOccurred"
+    signal. 
+    """
 
     errorOccurred = pyqtSignal(QProcess.ProcessError)
 
@@ -211,11 +218,11 @@ class GitJobQueue(QObject):
 
     def enqueue(self, gitjob):
         """ 
-        Append 'Git instance' into the queue.
-        If the queue is empty, the 'Git instacne' will run immediately.
+        Appends a Git() object (gitjob) into the queue.
+        If the queue is empty, the Git() object will run immediately.
 
         CAUTION: 
-        enqueue a same Git() object multiple times will lead to runtime-error.
+        enqueue a same Git() object multiple times will lead to a runtime-error.
         """   
         gitjob.executed.connect(self.run_next)
         gitjob.errorOccurred.connect(self.errorOccurred) 
@@ -227,19 +234,17 @@ class GitJobQueue(QObject):
     
     def kill_all(self):
         """
-        Kill all the process this queue contains
-        Will be used when the file has lost focus.
+        Kills and removes all the Git() objects this queue contains
         """
         self._remove_current()
         for job in self._queue:
             job.deleteLater()
         self._queue.clear()
 
-
     def run_next(self, execute_status = 0):
         """
-        To run next git process
-        Triggered by the previous Git instance's executed signal.
+        Runs next Git() object in the queue.
+        It can be triggered by the previous Git() instance's executed signal.
         """
         self._remove_current()
         if self._queue:
@@ -247,8 +252,8 @@ class GitJobQueue(QObject):
 
     def _remove_current(self):
         """
-        Remove the Git() object in queue-head.
-        If the Git() object is running, terminate it by calling kill()
+        Removes the Git() object in queue-head.
+        If the Git() object is running, terminate it by calling its kill().
         """
         if self._queue:
             if self._queue[0].isRunning():
