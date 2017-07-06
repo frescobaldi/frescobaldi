@@ -132,21 +132,6 @@ class Git(QObject):
             # Note: Qt handles the OS differences transparently
             self._process.kill()
 
-    def _tic(self):
-        """
-        Helper function to count how much time a git command takes
-        """
-        self._timer = time.perf_counter()
-
-    def _toc(self, args = []):
-        """
-        Helper function to count how much time a git command takes
-        """
-        if self._timer:
-            print('command git {} takes {}'.format(' '.join(args), 
-                time.perf_counter()-self._timer))
-            self._timer = None
-
     def _handle_results(self):
         """
         will be called when the process has completed.
