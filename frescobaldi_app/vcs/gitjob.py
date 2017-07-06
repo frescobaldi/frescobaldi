@@ -20,7 +20,7 @@
 
 import re
 import time
-import collections 
+import collections
 
 from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
@@ -29,7 +29,7 @@ class Git(QObject):
     """Executes a single Git command, either blocking or non-blocking.
 
     The output of the command will be stored in the _stdout and _stderr fields,
-    run_blocking() will return the data while run() will invoke the finished 
+    run_blocking() will return the data while run() will invoke the finished
     signal, giving the caller the opportunity to retrieve the data.
     """
 
@@ -40,7 +40,7 @@ class Git(QObject):
     started = pyqtSignal()
     stateChanged = pyqtSignal(QProcess.ProcessState)
     errorOccurred = pyqtSignal(QProcess.ProcessError)
-    
+
     # emits when the receiver finish executing
     executed = pyqtSignal(int)
 
@@ -49,7 +49,7 @@ class Git(QObject):
         # TODO: check for preference
         executable = 'git'
         # args could be set in advance
-        self.preset_args = None 
+        self.preset_args = None
 
         self._version = None
         self._stderr = None
@@ -67,15 +67,15 @@ class Git(QObject):
         process.started.connect(self.started)
         process.stateChanged.connect(self.stateChanged)
 
-        # Note: 
+        # Note:
         # Signal "errorOccurred" is listed as an attribute in QProcess in PyQt5
         # And it is available in PyQt-5.8.2. Reference: https://stackoverflow.com/questions/44868741/is-qqueue-missing-from-pyqt-5
-        # It is still not available in our current development environment PyQt-5.5.1 
-        # So we use its obsolete version "error" 
+        # It is still not available in our current development environment PyQt-5.5.1
+        # So we use its obsolete version "error"
         try:
             process.errorOccurred.connect(self.errorOccurred)
         except AttributeError:
-            process.error.connect(self.errorOccurred)  
+            process.error.connect(self.errorOccurred)
 
     def _start_process(self, args):
         """
@@ -91,14 +91,14 @@ class Git(QObject):
     def run(self, args = None):
         """
         Asynchronously run the command.
-        
+
         Arguments:
-                  args([]): arguments of the Git command. 
+                  args([]): arguments of the Git command.
                             If 'args' is not given, 'preset_args' will be used.
 
         Results will only be available after the _finished() slot has been executed
         """
-        args = self.preset_args if args is None else args   
+        args = self.preset_args if args is None else args
         self._start_process(args)
 
     def run_blocking(self, args = None, isbinary = False):
@@ -106,7 +106,7 @@ class Git(QObject):
         Synchronously run the command.
 
         Arguments:
-                  args([]): arguments of the Git command. 
+                  args([]): arguments of the Git command.
                             If 'args' is not given, 'preset_args' will be used.
             isbinary(bool): True - return the binary result.
                             False - return the 'utf-8' encoded string list.
@@ -144,20 +144,20 @@ class Git(QObject):
         """
         Called when the process has completed.
         process results and forward the signal
-        
-        exitcode == 0 : Process executes successfully. 
+
+        exitcode == 0 : Process executes successfully.
                         Result will output to stdout().
         exitcode == 1 : Process returns an error message.
-                        Error message will output to stderr() 
-        """ 
+                        Error message will output to stderr()
+        """
         self._handle_results()
         self.finished.emit(self, exitcode)
 
     def stdout(self, isbinary = False):
         """
         Returns the content of the stdout output, if any.
-        
-        Returns: 
+
+        Returns:
             None: Git() is running / Git() hasn't started / Git() has crashed
              b'': isbinary is True.
                   Git() has finished running and returns a binary result.
@@ -166,7 +166,7 @@ class Git(QObject):
         """
         if self._stdout is None:
             return None
-        
+
         if isbinary:
             return self._stdout
         else:
@@ -176,7 +176,7 @@ class Git(QObject):
         """
         Returns the content of the stderr output, if any.
 
-        Returns: 
+        Returns:
             None: Git() is running / Git() hasn't started / Git() has crashed
              b'': isbinary is True.
                   Git() has finished running and returns a binary result.
@@ -185,7 +185,7 @@ class Git(QObject):
         """
         if self._stderr is None:
             return None
-        
+
         if isbinary:
             return self._stderr
         else:
@@ -207,7 +207,7 @@ class GitJobQueue(QObject):
     You may need this when you want to run some Git commands in order.
     Git() objects in the queue run one after another.  When an error occurrs
     during runing, GitJobQueue will stop running and emits an "errorOccurred"
-    signal. 
+    signal.
     """
 
     errorOccurred = pyqtSignal(QProcess.ProcessError)
@@ -217,21 +217,21 @@ class GitJobQueue(QObject):
         self._queue = collections.deque()
 
     def enqueue(self, gitjob):
-        """ 
+        """
         Appends a Git() object (gitjob) into the queue.
         If the queue is empty, the Git() object will run immediately.
 
-        CAUTION: 
+        CAUTION:
         enqueue a same Git() object multiple times will lead to a runtime-error.
-        """   
+        """
         gitjob.executed.connect(self.run_next)
-        gitjob.errorOccurred.connect(self.errorOccurred) 
+        gitjob.errorOccurred.connect(self.errorOccurred)
 
         self._queue.append(gitjob)
         if len(self._queue) == 1:
             # args of Git process has been set in advance
-            self._queue[0].run() 
-    
+            self._queue[0].run()
+
     def kill_all(self):
         """
         Kills and removes all the Git() objects this queue contains
@@ -260,11 +260,5 @@ class GitJobQueue(QObject):
                 # prevent the git errorOccurred signals being handled
                 self._queue[0].errorOccurred.disconnect()
                 self._queue[0].kill()
-            self._queue[0].deleteLater()    
+            self._queue[0].deleteLater()
             self._queue.popleft()
-
-
- 
-
-
-
