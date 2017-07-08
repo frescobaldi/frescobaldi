@@ -43,11 +43,11 @@ class Repo():
     # 3.  update HEAD, Index, working temp files
     # 4.  run git diff command between temp files and get output
     # 5.  parse git diff output
-    # 6.  current_branch() 
+    # 6.  current_branch()
     # 7.  branches()
     # 8.  checkout()
     # 9.  has_branch()
-    # 10. has_remote() 
+    # 10. has_remote()
     # 11. has_remote_branch()
     # 12. remotes()
     # 13. tracked_remote()
@@ -55,10 +55,10 @@ class Repo():
     # 15. set_working_directory()
     # 16. whether the file is an untracked file
     # 17. whether the file is an ignored file
-    # 18. whether git has been installed 
+    # 18. whether git has been installed
     # 19. use which git
     # 19. get git version
-    ############################################################################ 
+    ############################################################################
 
     def __init__(self, current_view = None):
         # local folder name of the repository
@@ -74,22 +74,22 @@ class Repo():
         self._git = gitjob.Git()
         # Identifier of comparison object
         # 'Index' for Index
-        # 'HEAD' for HEAD 
+        # 'HEAD' for HEAD
         # commit-hash for specific commit
         self._compare_against = 'HEAD'
         # root path of current working directory
         self._root_path = None
         # current file/directory's relative path
         self._relative_path = None
-        self._temp_committed_file = None 
+        self._temp_committed_file = None
         self._temp_index_file = None
-        self._temp_working_file = None  
+        self._temp_working_file = None
         # current file's view instance
         # None: If the instance is not operating on a file
         self._current_view = current_view
-        # cache git diff result 
+        # cache git diff result
         self._git_diff_cache = ''
-    
+
     def __del__(self):
         """Caller is responsible for clean up the temp files"""
         if self._temp_committed_file:
@@ -102,27 +102,27 @@ class Repo():
     def set_working_directory(self, path):
         """
         Set the variables:
-            self._root_path,  self._relative_path, self.is_repository, 
+            self._root_path,  self._relative_path, self.is_repository,
             self.target_is_file
-        
+
         Arguments:
             path: path can be a folder's absolute path or a file's absolute path
 
         Returns:
             True: given path locates in a git repository
-            False: case 1. given path is not a valid path  
-                   case 2. given path does not locate in a git repository 
+            False: case 1. given path is not a valid path
+                   case 2. given path does not locate in a git repository
         """
         def is_git_path(path):
             """
             Return True if 'path' is a valid git working tree.
             """
             return path and os.path.exists(os.path.join(path, '.git'))
-    
+
 
         def get_work_path(ori_path):
             """
-            If the giving ori_path is git initialized. 
+            If the giving ori_path is git initialized.
             Split the ori_path into the working tree part and relative path part.
             This function handles both file pathes and directory pathes.
 
@@ -148,8 +148,8 @@ class Repo():
                     _, name = os.path.split(ori_path)
                     path = ori_path
                 else:
-                    path, name = os.path.split(ori_path)    
-                
+                    path, name = os.path.split(ori_path)
+
                 # files within '.git' path are not part of a work tree
                 while path and name and name != '.git':
                     if is_git_path(path):
@@ -157,20 +157,20 @@ class Repo():
                         return (path, os.path.relpath(
                             ori_path, path).replace('\\', '/'))
                     path, name = os.path.split(path)
-            
+
             return (None, None)
 
 
         self._root_path, self._relative_path = get_work_path(path)
-        
+
         if self._root_path:
             # set the git command's working environment
             self._git.setWorkingDirectory(self._root_path)
             self.is_repository = True
             self.target_is_file = not os.path.isdir(path)
-            
-        return self._root_path != None 
-    
+
+        return self._root_path != None
+
     def _branches(self, local=True):
         """
         Returns a list of branch names
@@ -178,7 +178,7 @@ class Repo():
         Arguments:
             local: If local is False also return 'remote' branches.
 
-        Returns: 
+        Returns:
             Returns a tuple.
             The first element is the list of branch names.
             The second element is the name of the current branch (may be None).
@@ -203,26 +203,26 @@ class Repo():
 
     def _create_tmp_file(self, dir = None, prefix = 'Frescobaldi_git_tmp_'):
         """
-        Creates a new tmp file and return the path to it. 
+        Creates a new tmp file and return the path to it.
 
         CAUTION: Caller is responsible for clean up
-        
+
         Arguments:
             dir: If dir is specified, the file will be created in that directory,
-                 otherwise, a default directory is used. 
+                 otherwise, a default directory is used.
             prefix: the prefix of new created tmp file
 
         Returns:
-            Return a absolute pathname to the new tmp file.     
+            Return a absolute pathname to the new tmp file.
         """
         file, filepath = tempfile.mkstemp(prefix = prefix, dir = dir)
         os.close(file)
-        return filepath    
+        return filepath
 
     def _read_index_file(self):
         """
         Returns content of the current file's corresponding file in Index.
-        
+
         Reference of using [tree-ish]:[relative_path] in argments list:
             https://stackoverflow.com/questions/4044368/what-does-tree-ish-mean-in-git
             https://www.kernel.org/pub/software/scm/git/docs/gitrevisions.html#_specifying_revisions
@@ -249,7 +249,7 @@ class Repo():
 
         Returns:
             content of current's file's corresponding file in the inputed commit
-        """    
+        """
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
@@ -261,7 +261,7 @@ class Repo():
     def _update_temp_committed_file(self):
         """
         Update committed temp file from the commit: self._compare_against
-        
+
         ? Exception handling is left to be implemented
         """
         content = self._read_committed_file(self._compare_against)
@@ -270,12 +270,12 @@ class Repo():
             if not self._temp_committed_file:
                 self._temp_committed_file = self._create_tmp_file()
             self._write_file(self._temp_committed_file, content)
-    
+
     def _update_temp_index_file(self):
         """
         Extract the content of the file in Index and then write it into the temp
         file.
-        
+
         ? Exception handling is left to be implemented
         """
         content = self._read_index_file()
@@ -293,7 +293,7 @@ class Repo():
             self._temp_working_file = self._create_tmp_file()
         content = self._current_view.document().encodedText()
         self._write_file(self._temp_working_file, content)
-        
+
     def _write_file(self, path, content):
         """
         Write the content into the path's corresponding file.
@@ -301,10 +301,8 @@ class Repo():
         with open(path, 'wb') as file:
             file.write(content)
             file.flush()
-            os.fsync(file.fileno()) 
+            os.fsync(file.fileno())
 
-
-    
     def _run_diff(self, original, current):
         """
         Run git diff command between two files
@@ -312,32 +310,32 @@ class Repo():
         Arguments:
             original: absolute path string of the original file
             current:  absolute path string of the current file
-            
+
         Note:
             original, current nedd not locate in a git repo
 
         Return:
-            Binary output of the git diff command         
-   
+            Binary output of the git diff command
+
         ? Whiteblocks handling:  wait to be implemented
         ? Whether using 'patience' git diff algorithm
           I found this: http://bramcohen.livejournal.com/73318.html
           Need further investigation into it.
         """
-        # '-U0' to generate diffs without context code (actually 0 line) 
+        # '-U0' to generate diffs without context code (actually 0 line)
         # '--no-index' to generate diffs between two files outside the git repo
         args = ['diff', '-U0', '--no-color', '--no-index', original, current]
         binary_result  = self._git.run_blocking(args, isbinary = True)
         self._git_diff_cache = str(binary_result, 'utf-8')
-    
+
     def file_status(self):
         """
-        Check a file's git status. 
-        The result is organized in a tuple. The first element is the status of 
+        Check a file's git status.
+        The result is organized in a tuple. The first element is the status of
         the file in Index, the second element is the status of the working file.
-        The information in a tuple is designed to be displayed in bottom border 
+        The information in a tuple is designed to be displayed in bottom border
         of the editor. e.g.
-        1. Tuple: ('newly added', 'modified') 
+        1. Tuple: ('newly added', 'modified')
            Info:  newly added in Index, modified
         2. Tuple: ('staged', '')
            Info:  staged in Index
@@ -346,18 +344,18 @@ class Repo():
         4. Tuple: ('', 'untracked')
            Info:   untracked
 
-        Git command: 'git status --porcelain --ignored [RELATIVE_PATH]' 
-        returns many different statuses.  We only need part of them here. 
+        Git command: 'git status --porcelain --ignored [RELATIVE_PATH]'
+        returns many different statuses.  We only need part of them here.
         """
         # only works in a repository and the given path should be a file path
         if not self.is_repository or not self.target_is_file:
             return ('', '')
-       
+
         # arguments to get file status
         status_args = ['status', '--porcelain', '--ignored', self._relative_path]
-        
+
         output_strs = self._git.run_blocking(status_args)
-        
+
         status_dict = {
             ' M' : ('', (_('modified'))),
             ' D' : ('', (_('deleted'))),
@@ -417,7 +415,7 @@ class Repo():
                 # this is a new added hunk
                 last = start + new_size
                 # [start, last)
-                inserted += range(start, last)    
+                inserted += range(start, last)
             elif not new_size:
                 # the original hunk has been deleted
                 # only save the starting line number
@@ -426,24 +424,24 @@ class Repo():
             else:
                 last = start + new_size
                 modified += range(start, last)
-        return (first, last, inserted, modified, deleted)        
+        return (first, last, inserted, modified, deleted)
 
     def extract_diff_hunk(self, row):
         """
-        Use cached diff result to extract the changes of the given row 
+        Use cached diff result to extract the changes of the given row
 
         Arguments:
             row (int): The row to find the diff-hunk for
 
         Returns:
-            dictionary:  
+            dictionary:
                         {
                             # a string array contains the deleted lines
                             'deleted_lines': [],
-                            
+
                             # a string array contains the added lines
                             'added_lines' : [],
-                            
+
                             # the start position of this hunk in original file
                             # -1 if failed to find the hunk
                             'old_start_pos': int,
@@ -451,7 +449,7 @@ class Repo():
                             # the number of lines of this hunk in original file
                             # -1 if failed to find the hunk
                             'old_size' : int
-                            
+
                             # the start position of this hunk in current file
                             # -1 if failed to find the hunk
                             'start_pos' : int,
@@ -462,25 +460,25 @@ class Repo():
 
                             # starting position of first hunk
                             # -1 if failed to find the hunk
-                            'first_hunk_pos' : int, 
-                            
+                            'first_hunk_pos' : int,
+
                             # starting position of next hunk
-                            # -1 if failed to find the hunk 
+                            # -1 if failed to find the hunk
                             'next_hunk_pos' : int,
-                            
+
                             # starting position of previous hunk
                             # -1 if failed to find the hunk
                             'prev_hunk_pos' : int,
-                         
+
                         }
 
         """
 
         """
         Explanation:
-        In this function we are looking for a hunk of lines that contains 
+        In this function we are looking for a hunk of lines that contains
         given row(int). And then extract its deleted lines, new added lines...
-        We mainly care about the deleted lines here. 
+        We mainly care about the deleted lines here.
 
         In git diff, a diff hunk is displayed like this:
 
@@ -491,13 +489,13 @@ class Repo():
         -import tempfile
         +# add a new line
 
-        "@@ -24,4 +24 @@ Manage a Git repository" 
-        contains the information of the starting position of this hunk. 
+        "@@ -24,4 +24 @@ Manage a Git repository"
+        contains the information of the starting position of this hunk.
         By iterating through all this kind of lines, we can locate the target hunk.
 
-        The lines begin with '-' have been deleted from the current file. 
+        The lines begin with '-' have been deleted from the current file.
         The lines begin with '+' are the new added lines in current file.
-        Then we extract the deleted lines and the added lines respectively. 
+        Then we extract the deleted lines and the added lines respectively.
         """
         hunk_re = r'^@@ \-(\d+),?(\d*) \+(\d+),?(\d*) @@'
         hunks = re.finditer(hunk_re, self._git_diff_cache, re.MULTILINE)
@@ -505,9 +503,9 @@ class Repo():
         wrap = True
         # extract the starting position of surrounding hunks
         first_hunk_pos = None
-        prev_hunk_pos  = None 
+        prev_hunk_pos  = None
         next_hunk_pos  = None
-        
+
         for hunk in hunks:
             old_start, old_size, start, size = hunk.groups()
             old_start = int(old_start)
@@ -526,7 +524,7 @@ class Repo():
             # break if the hunk is after the line
             elif row < start:
                 break
-            
+
 
             # now we have found the hunk that contains the given row
             try:
@@ -561,7 +559,7 @@ class Repo():
 
             # extract the content of the hunk
             hunk_content = self._git_diff_cache[hunk.start():hunk_end]
-            # skip first line: '@@ -[OLD_START],[OLD_SIZE] +[START],[SIZE] @@' 
+            # skip first line: '@@ -[OLD_START],[OLD_SIZE] +[START],[SIZE] @@'
             hunk_lines = hunk_content.splitlines()[1:]
             # store all deleted lines (starting with -)
             deleted_lines = [
@@ -571,13 +569,13 @@ class Repo():
             added_lines = [
                 line[1:] for line in hunk_lines if line.startswith("+")
             ]
-            
+
 
             res = {
                 'deleted_lines'  : deleted_lines,
                 'added_lines'    : added_lines,
                 'old_start_pos'  : old_start,
-                'old_size'       : old_size, 
+                'old_size'       : old_size,
                 'start_pos'      : start,
                 'size'           : size,
                 'first_hunk_pos' : first_hunk_pos,
@@ -591,16 +589,16 @@ class Repo():
             'deleted_lines'  : [],
             'added_lines'    : [],
             'old_start_pos'  : -1,
-            'old_size'       : -1, 
+            'old_size'       : -1,
             'start_pos'      : -1,
             'size'           : -1,
             'first_hunk_pos' : -1,
             'next_hunk_pos'  : -1,
             'prev_hunk_pos'  : -1
-        }    
-    
+        }
+
         return res
-    
+
 
     def branches(self, local=True):
         """
@@ -665,7 +663,7 @@ class Repo():
         """
         if not self.has_branch(branch):
             raise GitError('Branch not found: ' + branch)
-        
+
         args_name = ['config', 'branch.' + branch + '.remote']
         remote_name = self._git.run_blocking(args_name)
 
