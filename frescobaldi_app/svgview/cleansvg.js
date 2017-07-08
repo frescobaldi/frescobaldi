@@ -21,11 +21,17 @@
 //To be able to save the SVG edits without traces of the editing process
 //use this script
 
+new QWebChannel(qt.webChannelTransport, function (channel) {
+    channel.objects.pyLinks.pyLog('CleanSVG Script');
+    window.JSobject = channel.objects.pyLinks;
+});
+
 window.addEventListener('error', error, false);
 
 //write error message
 function error(e) {
-    pyLinks.pyLog(e.message);
+//    pyLinks.pyLog(e.message);
+    window.JSobject.pyLog('Log:' + e.message);
 }
 
 var svgarr = document.getElementsByTagName("svg");

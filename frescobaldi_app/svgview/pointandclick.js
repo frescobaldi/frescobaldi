@@ -19,20 +19,31 @@
 * See http://www.gnu.org/licenses/ for more information.
 */
 
+
+
+
+
+new QWebChannel(qt.webChannelTransport, function (channel) {
+            channel.objects.pyLinks.pyLog('PointAndClickScript: Page Reloaded');
+            window.JSobject = channel.objects.pyLinks;
+        });
+
 function hover(){
     var url = this.getAttribute('xlink:href');
-    pyLinks.hover(url);	
+    window.JSobject.hover(url);	
 };
 
 function leave(){
     var url = this.getAttribute('xlink:href');
-    pyLinks.leave(url);	
+    window.JSobject.leave(url);	
 };
 
 function click(){
     var url = this.getAttribute('xlink:href');
-    pyLinks.click(url);
+    window.JSobject.click(url);
 };
+
+
 
 var a = document.getElementsByTagName('a');
 //loop through all links
