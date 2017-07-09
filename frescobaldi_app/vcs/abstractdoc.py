@@ -39,27 +39,27 @@ class Document(QObject):
 
     @abstractmethod
     def diff_lines(self):
-    	"""Get current file's line-diff result
+    """Get current file's line-diff result
 
-	    Returns:
+        Returns:
             tuple: (first, last, [inserted], [modified], [deleted])
                    first: the line number of first changed line
                    last: the line number of last changed line
                    [inserted]: a list contains the numbers of inserted lines
                    [modified]: a list contains the numbers of modified lines
 
-    	"""
+        """
         pass
 
     @abstractmethod
     def diff_hunk(self, row):
-    	"""Get specific diff hunk
+        """Get specific diff hunk
 
-    	Args:
-    	    row(int): a line number.
+        Args:
+            row(int): a line number.
 
-    	Returns:
-    	    A dictionary.
+        Returns:
+            A dictionary.
 
-    	"""
+        """
         pass
