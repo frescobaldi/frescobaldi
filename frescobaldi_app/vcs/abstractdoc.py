@@ -31,6 +31,25 @@ class Document(QObject):
 
     updated = pyqtSignal()
 
+    @classmethod
+    def _create_tmp_file(cls, dir = None, prefix = 'Frescobaldi_vcs_'):
+        """Creates a new tmp file and return the path to it.
+
+        CAUTION: Caller is responsible for clean up
+
+        Args:
+            dir(string): If dir is specified, the file will be created in that
+                directory, otherwise a default directory is used.
+            prefix(string): the prefix of new created tmp file
+
+        Returns:
+            Return a absolute path to the new tmp file.
+
+        """
+        file, filepath = tempfile.mkstemp(prefix = prefix, dir = dir)
+        os.close(file)
+        return filepath
+
     @abstractmethod
     def status(cls):
         """This function returns the vcs status of current file
@@ -39,7 +58,7 @@ class Document(QObject):
 
     @abstractmethod
     def diff_lines(self):
-    """Get current file's line-diff result
+        """Get current file's line-diff result
 
         Returns:
             tuple: (first, last, [inserted], [modified], [deleted])
