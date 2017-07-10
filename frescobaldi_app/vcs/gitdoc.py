@@ -39,6 +39,63 @@ class Document(abstractdoc.Document):
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
 
+    def _update_temp_index_file(self):
+
+        def write_temp_index_file(gitprocess, exitcode):
+            if exitcode == 0:
+                # Create temp file
+                if not self._temp_index_file:
+                    self._temp_index_file = Document._create_tmp_file()
+                content = gitprocess.stdout(isbinary = True)
+                Document._write_file(self._temp_index_file, content)
+                gitprocess.executed.emit(0)
+            else:
+                # TODO
+
+        args = [
+           'cat-file',
+            # smudge filters are supported with git 2.11.0+ only
+            '--filters' if self._repo.git_ver() >= (2, 11, 0) else '-p',
+            ':'+self._relative_path
+        ]
+        git = gitjob.Git(self._repo)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(write_temp_index_file)
+        self._jobqueue.enqueue(git)
+
+    def _update_temp_working_file(self):
+        if not self._temp_working_file:
+            self._temp_working_file = Document._create_tmp_file()
+        content = self._view.document().encodedText()
+        Document._write_file(self._temp_working_file, content)
+
+    def _update_temp_committed_file(self):
+
+        def write_temp_committed_file(gitprocess, exitcode):
+            if exitcode == 0:
+                # Create temp file
+                if not self._temp_committed_file:
+                    self._temp_committed_file = Document._create_tmp_file()
+                content = gitprocess.stdout(isbinary = True)
+                Document._write_file(self._temp_committed_file, content)
+                gitprocess.executed.emit(0)
+            else:
+                # TODO
+
+        args = [
+           'cat-file',
+            # smudge filters are supported with git 2.11.0+ only
+            '--filters' if self._git.version() >= (2, 11, 0) else '-p',
+            commit + ':'+self._relative_path
+        ]
+
+        git = gitjob.Git(self._repo)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(write_temp_committed_file)
+        self._jobqueue.enqueue(git)
+
 
 
 
