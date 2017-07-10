@@ -45,7 +45,7 @@ class Document(abstractdoc.Document):
             self._update_status(blocking = True)
         return self._status
 
-    def _update_status(self, blocking = False):
+    def _update_status(self):
 
         def set_status(gitprocess, exitcode):
             if exitcode == 0:
@@ -85,10 +85,7 @@ class Document(abstractdoc.Document):
         git.preset_args = args
         # git.errorOccurred.connect()
         git.finished.connect(set_status)
-        if blocking:
-            git.run_blocking()
-        else:
-            self._jobqueue.enqueue(git)
+        self._jobqueue.enqueue(git)
 
     def _update_temp_index_file(self):
 
