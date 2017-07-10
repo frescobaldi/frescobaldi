@@ -24,6 +24,7 @@ class Document(abstractdoc.Document):
     def __init__(self, repo, view):
         self._repo = repo
         self._view = view
+        self._status = None
         self._relative_path = None
         self._temp_committed_file = None
         self._temp_index_file = None
@@ -38,6 +39,56 @@ class Document(abstractdoc.Document):
             os.unlink(self._temp_index_file)
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
+
+    def status(self):
+        if self._status is None:
+            self._update_status(blocking = True)
+        return self._status
+
+    def _update_status(self, blocking = False):
+
+        def set_status(gitprocess, exitcode):
+            if exitcode == 0:
+                output_strs = gitprocess.stdout()
+
+                status_dict = {
+                    ' M' : ('', (_('modified'))),
+                    ' D' : ('', (_('deleted'))),
+                    'A ' : ((_('newly added')), ''),
+                    'AM' : ((_('newly added')), (_('modified'))),
+                    'AD' : ((_('newly added')), (_('deleted'))),
+                    'M ' : ((_('staged')), ''),
+                    'MM' : ((_('staged')), (_('modified'))),
+                    'MD' : ((_('staged')), (_('deleted'))),
+                    '??' : ('', (_('untracked'))),
+                    '!!' : ('', (_('ignored')))
+                    }
+                if not output_strs:
+                    self._status = ('', (_('committed')))
+
+                try:
+                    self._status = status_dict[output_strs[0][:2]]
+                except KeyError:
+                # return ('', '') when receive a status not listed in status_dict
+                    self._status =  ('', '')
+
+                gitprocess.executed.emit(0)
+            else:
+                # TODO
+
+        # arguments to get file status
+        args = [
+            'status', '--porcelain', '--ignored', self._relative_path
+        ]
+
+        git = gitjob.Git(self._repo)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(set_status)
+        if blocking:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
 
     def _update_temp_index_file(self):
 
