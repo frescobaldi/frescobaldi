@@ -50,6 +50,16 @@ class Document(QObject):
         os.close(file)
         return filepath
 
+    @classmethod
+    def _write_file(cls, path, content):
+        """
+        Write the content into the path's corresponding file.
+        """
+        with open(path, 'wb') as file:
+            file.write(content)
+            file.flush()
+            os.fsync(file.fileno())
+
     @abstractmethod
     def status(cls):
         """This function returns the vcs status of current file
