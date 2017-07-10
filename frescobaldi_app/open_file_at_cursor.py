@@ -125,7 +125,7 @@ def open_file_at_cursor(mainwindow, cursor=None):
     """
     if cursor is None:
         cursor = mainwindow.textCursor()
-    return open_targets(filenames_at_cursor(cursor))
+    return open_targets(mainwindow, filenames_at_cursor(cursor))
 
 def open_targets(mainwindow, targets):
     """Open all given files, giving focus to the last one.
