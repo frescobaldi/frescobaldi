@@ -26,8 +26,11 @@ class Document(abstractdoc.Document):
         self._view = view
         self._status = None
         self._relative_path = None
+        self._temp_committed_outdated = True
         self._temp_committed_file = None
+        self._temp_index_outdated = True
         self._temp_index_file = None
+        self._temp_working_outdated = True
         self._temp_working_file = None
         self._jobqueue = gitjob.GitJobQueue()
 
