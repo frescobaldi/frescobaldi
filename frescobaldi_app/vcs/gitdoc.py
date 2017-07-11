@@ -74,8 +74,6 @@ class Document(abstractdoc.Document):
             os.unlink(self._temp_working_file)
 
     def status(self):
-        if self._status is None:
-            self._update_status(blocking = True)
         return self._status
 
     def diff_lines(self):
