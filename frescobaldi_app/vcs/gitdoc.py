@@ -17,14 +17,36 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+from enum import IntEnum
+
 from . import abstractdoc, gitjob
 
 class Document(abstractdoc.Document):
+
+    class CompareTo(IntEnum):
+        """
+
+                             Working Index Head Commit
+        WorkingToHead   10 =    1      0     1    0
+        WorkingToIndex  12 =    1      1     0    0
+        WorkingToCommit 9  =    1      0     0    1
+        IndexToHead     6  =    0      1     1    0
+        IndexToCommit   5  =    0      1     0    1
+
+        """
+        WorkingToHead   = 10
+        WorkingToIndex  = 12
+        WorkingToCommit = 9
+        IndexToHead     = 6
+        IndexToCommit   = 5
 
     def __init__(self, repo, view):
         self._repo = repo
         self._view = view
         self._status = None
+        # tuple: ([inserted], [modified], [deleted])
+        self._diff_lines = None
+        self._diff_cache = None
         self._relative_path = None
         self._temp_committed_outdated = True
         self._temp_committed_file = None
@@ -33,6 +55,14 @@ class Document(abstractdoc.Document):
         self._temp_working_outdated = True
         self._temp_working_file = None
         self._jobqueue = gitjob.GitJobQueue()
+        self._compare_to = CompareTo.WorkingToHead
+
+        # forward enum CompareTo
+        self.WorkingToHead = CompareTo.WorkingToHead
+        self.WorkingToIndex = CompareTo.WorkingToIndex
+        self.WorkingToCommit = CompareTo.WorkingToCommit
+        self.IndexToHead = CompareTo.IndexToHead
+        self.IndexToCommit = CompareTo.IndexToCommit
 
     def __del__(self):
         """Caller is responsible for clean up the temp files"""
