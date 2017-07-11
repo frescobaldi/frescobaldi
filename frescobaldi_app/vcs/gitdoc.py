@@ -79,6 +79,181 @@ class Document(abstractdoc.Document):
     def diff_lines(self):
         return self._diff_lines
 
+    def diff_hunk(self, row):
+        """
+        Use cached diff result to extract the changes of the given row.
+
+        Explanation:
+            In this function we are looking for a hunk of lines that contains
+            given row(int). And then extract its deleted lines, new added
+            lines etc. We mainly care about the deleted lines here.
+
+            In git diff, a diff hunk is displayed like this:
+
+            @@ -24,4 +24 @@ Manage a Git repository
+            -import os
+            -import re
+            -import gitjob
+            -import tempfile
+            +# add a new line
+
+            "@@ -24,4 +24 @@ Manage a Git repository"
+            contains the information of the starting position of this hunk.
+            By iterating through all this kind of lines, we can locate the
+            target hunk.
+
+            The lines begin with '-' have been deleted from the current file.
+            The lines begin with '+' are the new added lines in current file.
+            Then we extract the deleted lines and the added lines respectively.
+
+        Args:
+            row (int): The row to find the diff-hunk for
+
+        Returns:
+            dictionary:
+                        {
+                            # a string array contains the deleted lines
+                            'deleted_lines': [],
+
+                            # a string array contains the added lines
+                            'added_lines' : [],
+
+                            # the start position of this hunk in original file
+                            # -1 if failed to find the hunk
+                            'old_start_pos': int,
+
+                            # the number of lines of this hunk in original file
+                            # -1 if failed to find the hunk
+                            'old_size' : int
+
+                            # the start position of this hunk in current file
+                            # -1 if failed to find the hunk
+                            'start_pos' : int,
+
+                            # the number of lines of this hunk in current file
+                            # -1 if failed to find the hunk
+                            'size' : int,
+
+                            # starting position of first hunk
+                            # -1 if failed to find the hunk
+                            'first_hunk_pos' : int,
+
+                            # starting position of next hunk
+                            # -1 if failed to find the hunk
+                            'next_hunk_pos' : int,
+
+                            # starting position of previous hunk
+                            # -1 if failed to find the hunk
+                            'prev_hunk_pos' : int,
+
+                        }
+
+        """
+        if self._git_diff_cache is None:
+            return None
+
+        hunk_re = r'^@@ \-(\d+),?(\d*) \+(\d+),?(\d*) @@'
+        hunks = re.finditer(hunk_re, self._git_diff_cache, re.MULTILINE)
+        # wrapping the hunk list to get surrounding hunks?
+        wrap = True
+        # extract the starting position of surrounding hunks
+        first_hunk_pos = None
+        prev_hunk_pos  = None
+        next_hunk_pos  = None
+
+        for hunk in hunks:
+            old_start, old_size, start, size = hunk.groups()
+            old_start = int(old_start)
+            old_size  = int(old_size or 1)
+            start     = int(start)
+            size      = int(size or 1)
+            if first_hunk_pos is None:
+                first_hunk_pos = start
+            # special handling to also match the line below deleted content
+            if size == 0 and row == start + 1:
+                pass
+            # continue if the hunk is before the line
+            elif start + size < row:
+                prev_hunk_pos = start
+                continue
+            # break if the hunk is after the line
+            elif row < start:
+                break
+
+
+            # now we have found the hunk that contains the given row
+            try:
+                next_hunk = next(hunks)
+                hunk_end = next_hunk.start()
+                next_hunk_pos = int(next_hunk.group(3))
+            except:
+                hunk_end = len(self._git_diff_cache)
+
+            if not wrap:
+                if prev_hunk_pos  is None:
+                    prev_hunk_pos  = start
+                if next_hunk_pos is None:
+                    next_hunk_pos = start
+
+            # if prev change is None set it to the wrap around the
+            # document: prev -> last hunk, next -> first hunk
+            if prev_hunk_pos is None:
+                try:
+                    remaining_hunks = list(hunks)
+                    if remaining_hunks:
+                        last_hunk = remaining_hunks[-1]
+                        prev_hunk_pos = int(last_hunk.group(3))
+                    elif next_hunk_pos is not None:
+                        prev_hunk_pos = next_hunk_pos
+                    else:
+                        prev_hunk_pos = start
+                except:
+                    prev_hunk_pos = start
+            if  next_hunk_pos is None:
+                next_hunk_pos = first_hunk_pos
+
+            # extract the content of the hunk
+            hunk_content = self._git_diff_cache[hunk.start():hunk_end]
+            # skip first line: '@@ -[OLD_START],[OLD_SIZE] +[START],[SIZE] @@'
+            hunk_lines = hunk_content.splitlines()[1:]
+            # store all deleted lines (starting with -)
+            deleted_lines = [
+                line[1:] for line in hunk_lines if line.startswith("-")
+            ]
+            # store all added lines (starting with +)
+            added_lines = [
+                line[1:] for line in hunk_lines if line.startswith("+")
+            ]
+
+
+            res = {
+                'deleted_lines'  : deleted_lines,
+                'added_lines'    : added_lines,
+                'old_start_pos'  : old_start,
+                'old_size'       : old_size,
+                'start_pos'      : start,
+                'size'           : size,
+                'first_hunk_pos' : first_hunk_pos,
+                'next_hunk_pos'  : next_hunk_pos,
+                'prev_hunk_pos'  : prev_hunk_pos
+            }
+
+            return res
+
+        res = {
+            'deleted_lines'  : [],
+            'added_lines'    : [],
+            'old_start_pos'  : -1,
+            'old_size'       : -1,
+            'start_pos'      : -1,
+            'size'           : -1,
+            'first_hunk_pos' : -1,
+            'next_hunk_pos'  : -1,
+            'prev_hunk_pos'  : -1
+        }
+
+        return res
+
     def _update_status(self):
 
         def set_status(gitprocess, exitcode):
