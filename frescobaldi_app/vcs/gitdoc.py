@@ -120,6 +120,89 @@ class Document(abstractdoc.Document):
         git.finished.connect(set_status)
         self._jobqueue.enqueue(git)
 
+    def _update_diff_lines(self):
+
+        def result_parser(gitprocess, exitcode):
+            if exitcode == 0:
+                binary_content = gitprocess.stdout(isbinary == True)
+                self._diff_cache = binary_content
+                set_linenum_diff()
+                gitprocess.executed.emit(0)
+            else:
+                #TODO
+
+        def set_linenum_diff():
+            """
+            Parse unified diff with 0 lines of context.
+
+            Hunk range info format:
+              @@ -3,2 +4,0 @@
+                Hunk originally starting at line 3, and occupying 2 lines, now
+                starts at line 4, and occupies 0 lines, i.e. it was deleted.
+              @@ -9 +10,2 @@
+                Hunk size can be omitted, and defaults to one line.
+
+            Dealing with ambiguous hunks:
+              "A\nB\n" -> "C\n"
+              Was 'A' modified, and 'B' deleted? Or 'B' modified, 'A' deleted?
+              Or both deleted? To minimize confusion, let's simply mark the
+              hunk as modified.
+
+            """
+            # first and last changed line in the view
+            first, last = 0, 0
+            # lists with inserted, modified and deleted lines
+            inserted, modified, deleted = [], [], []
+            hunk_re = r'^@@ \-(\d+), ?(\d*) \+(\d+),?(\d*) @@'
+            for hunk in re.finditer(hunk_re, self._git_diff_cache, re.MULTILINE):
+                # We don't need old_start in this function
+                _, old_size, start, new_size = hunk.groups()
+                start = int(start)
+                # old_size and new_size can be null string
+                # means only 1 line has been changed
+                old_size = int(old_size or 1)
+                new_size = int(new_size or 1)
+                if first == 0:
+                    first = max(1, start)
+                if not old_size:
+                    # this is a new added hunk
+                    last = start + new_size
+                    # [start, last)
+                    inserted += range(start, last)
+                elif not new_size:
+                    # the original hunk has been deleted
+                    # only save the starting line number
+                    last = start + 1
+                    deleted.append(last)
+                else:
+                    last = start + new_size
+                    modified += range(start, last)
+            self._diff_lines = (inserted, modified, deleted)
+
+        if self._temp_working_outdated and self._compare_to & 8 == 8:
+            self._update_temp_working_file()
+        if self._temp_index_outdated and self._compare_to & 4 == 4:
+            self._update_temp_index_file()
+        if self._temp_committed_outdated and self._compare_to & 3 > 0:
+            self._update_temp_committed_file()
+
+        if self._compare_to & 8 == 8:
+            current = self._temp_working_file
+        else:
+            current = self._temp_index_file
+
+        if self._compare_to == self.WorkingToIndex:
+            original = self._temp_index_file
+        else:
+            original = self._temp_committed_file
+
+        args = ['diff', '-U0', '--no-color', '--no-index', original, current]
+        git = gitjob.Git(self._repo)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(result_parser)
+        self._jobqueue.enqueue(git)
+
     def _update_temp_index_file(self):
 
         def write_temp_index_file(gitprocess, exitcode):
