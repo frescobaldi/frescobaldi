@@ -73,6 +73,11 @@ class Document(abstractdoc.Document):
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
 
+    def set_compare(self, compare_to):
+        if not isinstance(compare_to, CompareTo):
+            raise TypeError("Only Document.CompareTo can be passed in")
+        self._compare_to = compare_to
+
     def status(self):
         return self._status
 
