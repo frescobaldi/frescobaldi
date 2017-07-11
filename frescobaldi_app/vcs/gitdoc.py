@@ -78,6 +78,9 @@ class Document(abstractdoc.Document):
             self._update_status(blocking = True)
         return self._status
 
+    def diff_lines(self):
+        return self._diff_lines
+
     def _update_status(self):
 
         def set_status(gitprocess, exitcode):
