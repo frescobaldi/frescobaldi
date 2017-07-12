@@ -28,7 +28,7 @@ import os
 from PyQt5.QtCore import QProcess
 
 import app
-from . import abstractrepo
+from . import abstractrepo, gitjob
 
 class GitError(Exception):
     pass
@@ -43,87 +43,50 @@ class Repo(abstractrepo.Repo):
     _git_available = None
 
     def __init__(self, root):
-        if not os.path.isdir(os.path.join(root, '.git')):
-            raise GitError(_("The given directory '{rootdir} "
-                             "doesn't seem to be a Git repository.".format(rootdir=root)))
+        self._jobqueue = gitjob.GitJobQueue()
         self.rootDir = root
+        self._local_branches = []
+        self._remote_branches = []
 
-    @classmethod
-    def run_command(cls, use_cmd, args=[], dir=None):
+    def _update_branches(self, blocking=False):
         """
-        run a git command and return its output
-        as a string list.
-        Raise an exception if it returns an error.
-        - cmd is the git command (without 'git')
-        - args is a string or a list of strings
-        If no dir is passed the running dir of
-        Frescobaldi is used as default
+        Updates self._branches and self._current_branch. Then you can access
+        them through branches(), current_branch()
+
+        Args:
+            local(bool): If local is False, it also fetch 'remote' branches.
+            blocking(bool): If blocking is True, this function will run
+                synchronously
+
         """
-        dir = os.path.normpath(os.path.join(sys.path[0], '..')) if dir is None else dir
-        from PyQt5.QtCore import QSettings
-        git_cmd = QSettings().value("helper_applications/git", "git", str)
-        git_cmd = git_cmd if git_cmd else "git"
-        use_args = [use_cmd] + args
+        def result_parser(gitprocess, exitcode):
+            if exitcode == 0:
+                self._local_branches = []
+                self._remote_branches = []
+                result_lines = gitprocess.stdout()
+                for line in result_lines:
+                    branch = line.strip()
+                    if branch.startswith('* '):
+                        branch = branch.lstrip('* ')
+                        self._current_branch = branch
+                    if branch.endswith('.stgit'):
+                        continue
+                    if branch.startswith('remotes')
+                        self._remote_branches.append(branch)
+                    else
+                        self._local_branches.append(branch)
+            else:
+                #TODO
 
-        proc = QProcess(app.qApp)
-        proc.setWorkingDirectory(dir)
-        proc.start(git_cmd, use_args)
-        proc.waitForReadyRead()
-
-        stderr = str(proc.readAllStandardError(), 'utf-8')
-        if stderr:
-            raise GitError(stderr)
+        args = ['branch', '--color=never', '-a']
+        git = gitjob.Git(self)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(result_parser)
+        if blocking == True:
+            git.run_blocking()
         else:
-            stdout = str(proc.readAllStandardOutput(), 'utf-8').split('\n')
-            if not stdout[-1]:
-                stdout.pop()
-            return stdout
-
-
-    @classmethod
-    def vcs_available(cls):
-        """Return True if Git is installed on the system"""
-        if cls._git_available is None:
-            try:
-                cls.run_command('--version')
-                cls._git_available = True
-            except (GitError):
-                cls._git_available = False
-        return cls._git_available
-
-    # #########################
-    # Internal helper functions
-
-    def _run_command(self, cmd, args=[]):
-        """
-        Run a Git command, returning the stdout result.
-        Internally dispatches to the run_command class method.
-        """
-        return Repo.run_command(cmd, args, self.rootDir)
-
-    def _branches(self, local=True):
-        """
-        Returns a tuple.
-        The first element is the list of branch names.
-        The second element is the name of the current branch (may be None).
-        If local is False also return 'remote' branches.
-        """
-        args = ['--color=never']
-        if not local:
-            args.append('-a')
-
-        branches = []
-        current_branch = None
-        for line in self._run_command('branch', args):
-            branch = line.strip()
-            if branch.startswith('* '):
-                branch = branch.lstrip('* ')
-                current_branch = branch
-            if branch.endswith('.stgit'):
-                continue
-            branches.append(branch)
-
-        return (branches, current_branch)
+            self._jobqueue.enqueue(git)
 
     # ####################
     # Public API functions
@@ -133,7 +96,11 @@ class Repo(abstractrepo.Repo):
         Returns a string list of branch names.
         If local is False also return 'remote' branches.
         """
-        return self._branches(local)[0]
+        res = []
+        res.extend(self._local_branches)
+        if not local:
+            res.extend(self._remote_branches)
+        return res
 
     def checkout(self, branch):
         """
@@ -147,16 +114,13 @@ class Repo(abstractrepo.Repo):
         """
         Returns the name of the current branch.
         """
-        current_branch = self._branches(local=True)[1]
-        if not current_branch:
-            raise GitError('current_branch: No branch found')
-        return current_branch
+        return self._current_branch
 
     def has_branch(self, branch):
         """
         Returns True if the given local branch exists.
         """
-        return (branch in self.branches(local=True))
+        return (branch in self._local_branches)
 
     def has_remote(self, remote):
         """Returns True if the given remote name is registered."""
