@@ -47,6 +47,7 @@ class Repo(abstractrepo.Repo):
         self.rootDir = root
         self._local_branches = []
         self._remote_branches = []
+        self._tracked_remotes = {}
 
     def _update_branches(self, blocking=False):
         """
@@ -75,6 +76,7 @@ class Repo(abstractrepo.Repo):
                         self._remote_branches.append(branch)
                     else
                         self._local_branches.append(branch)
+                gitprocess.executed.emit(0)
             else:
                 #TODO
 
@@ -87,6 +89,61 @@ class Repo(abstractrepo.Repo):
             git.run_blocking()
         else:
             self._jobqueue.enqueue(git)
+
+    def _update_tracked_remote_name(self, branch, blocking = False):
+        def get_remote_name(gitprocess, exitcode):
+            if exitcode == 0:
+                if not branch in self._tracked_remotes:
+                    self._tracked_remotes[branch] = {}
+                remote_name = gitprocess.stdout()
+                if remote_name:
+                    self._tracked_remotes[branch]['remote_name'] = remote_name[0]
+                else
+                    self._tracked_remotes[branch]['remote_name'] = 'local'
+
+                gitprocess.executed.emit(0)
+            else:
+                #TODO
+        args = ["config", "branch." + branch + ".remote"]
+        git = gitjob.Git(self)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(get_remote_name)
+        if blocking == True:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
+
+    def _update_tracked_remote_branch(self, branch, blocking = False):
+        def get_remote_branch(gitprocess, exitcode):
+            if exitcode == 0:
+                if not branch in self._tracked_remotes:
+                    self._tracked_remotes[branch] = {}
+                remote_branch = gitprocess.stdout()
+                if remote_branch:
+                    self._tracked_remotes[branch]['remote_branch'] = remote_branch[0]
+                else
+                    self._tracked_remotes[branch]['remote_branch'] = 'local'
+
+                gitprocess.executed.emit(0)
+            else:
+                #TODO
+        args = ["config", "branch." + branch + ".merge"]
+        git = gitjob.Git(self)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(get_remote_branch)
+        if blocking == True:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
+
+
+    def _update_tracked_remotes(self, blocking = False):
+        self._tracked_remotes = {}
+        for local_branch in self._local_branches:
+            self._update_tracked_remote_branch(branch, blocking = blocking)
+            self._update_tracked_remote_name(branch, blocking = blocking)
 
     # ####################
     # Public API functions
