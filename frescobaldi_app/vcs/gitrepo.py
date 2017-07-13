@@ -204,18 +204,7 @@ class Repo(abstractrepo.Repo):
         """
         if not self.has_branch(branch):
             raise GitError('Branch not found: ' + branch)
-
-        remote_name = self._run_command("config",
-                                            ["branch." + branch + ".remote"])
-        remote_merge = self._run_command("config",
-                                             ["branch." + branch + ".merge"])
-        if not remote_name or not remote_merge:
-            return ('local', 'local')
-
-        remote_name = remote_name[0]
-        remote_merge = remote_merge[0]
-        remote_branch = remote_merge[remote_merge.rfind('/')+1:]
-        return (remote_name, remote_branch)
+        return (self._tracked_remotes[branch]['remote_name'], self._tracked_remotes[branch]['remote_branch'])
 
     def tracked_remote_label(self, branch):
         """
