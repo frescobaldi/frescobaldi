@@ -45,6 +45,7 @@ class Repo(abstractrepo.Repo):
     def __init__(self, root):
         self._jobqueue = gitjob.GitJobQueue()
         self.rootDir = root
+        self._remotes = []
         self._local_branches = []
         self._remote_branches = []
         self._tracked_remotes = {}
@@ -144,6 +145,26 @@ class Repo(abstractrepo.Repo):
         for local_branch in self._local_branches:
             self._update_tracked_remote_branch(branch, blocking = blocking)
             self._update_tracked_remote_name(branch, blocking = blocking)
+
+    def _update_remotes(self, blocking = False):
+        def get_remote_names(gitprocess, exitcode):
+            if exitcode == 0:
+                self._remotes = gitprocess.stdout()
+                gitprocess.executed.emit(0)
+            else:
+                #TODO
+
+        args = ["remote", "show"]
+        git = gitjob.Git(self)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(get_remote_names)
+        if blocking == True:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
+
+
 
     # ####################
     # Public API functions
