@@ -115,25 +115,36 @@ class Repo(abstractrepo.Repo):
         else:
             self._jobqueue.enqueue(git)
 
-    def _update_tracked_remote_branch(self, branch, blocking = False):
-        def get_remote_branch(gitprocess, exitcode):
+    def _update_tracked_remote_branches(self, blocking = False):
+        def get_remote_branches(gitprocess, exitcode):
             if exitcode == 0:
-                if not branch in self._tracked_remotes:
-                    self._tracked_remotes[branch] = {}
-                remote_branch = gitprocess.stdout()
-                if remote_branch:
-                    self._tracked_remotes[branch]['remote_branch'] = remote_branch[0]
-                else
-                    self._tracked_remotes[branch]['remote_branch'] = 'local'
+                result_lines = gitprocess.stdout()
+                for line in result_lines:
+                    line = line.strip()
+                    if line.startswith('* '):
+                        line = line.lstrip('* ')
+                    hunks = line.split()
+                    local_branch = hunks[0]
+                    if hunks[2].startswith('['):
+                        remote_name = self._tracked_remotes[local_branch]['remote_name']
+                        start_pos = len(remote_name) + 2
+                        if hunks[2].find(':') != -1:
+                            end_pos = hunks[2].find(':')
+                        else:
+                            end_pos = len(hunks[2]) - 1
+                        self._tracked_remotes[local_branch]['remote_branch'] = hunks[2][start_pos:end_pos]
+                    else:
+                        self._tracked_remotes[local_branch]['remote_branch'] = 'local'
 
                 gitprocess.executed.emit(0)
             else:
                 #TODO
-        args = ["config", "branch." + branch + ".merge"]
+                pass
+        args = ["branch", "-vv"]
         git = gitjob.Git(self)
         git.preset_args = args
         # git.errorOccurred.connect()
-        git.finished.connect(get_remote_branch)
+        git.finished.connect(get_remote_branches)
         if blocking == True:
             git.run_blocking()
         else:
