@@ -218,7 +218,7 @@ class Repo(abstractrepo.Repo):
 
     def remotes(self):
         """Return a string list with registered remote names"""
-        return self._run_command('remote', ['show'])
+        return self._remotes
 
     def tracked_remote(self, branch):
         """
