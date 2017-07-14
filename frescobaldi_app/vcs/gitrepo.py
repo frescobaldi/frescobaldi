@@ -185,8 +185,13 @@ class Repo(abstractrepo.Repo):
         Tries to checkout a branch.
         Add '-q' option because git checkout will
         return its confirmation message on stderr.
-        May raise a GitError exception"""
-        self._run_command('checkout', ['-q', branch])
+        May raise a GitError exception
+        """
+        args = ["checkout", "-q", branch]
+        git = gitjob.Git(self)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.run_blocking()
 
     def current_branch(self):
         """
