@@ -181,6 +181,12 @@ class Repo(abstractrepo.Repo):
 
     # ####################
     # Public API functions
+    @classmethod
+    def vcs_available(cls):
+        """
+        Returns True if the respective VCS is installed
+        """
+        return True
 
     def branches(self, local=True):
         """
