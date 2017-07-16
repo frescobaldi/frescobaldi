@@ -440,7 +440,3 @@ class Document(abstractdoc.Document):
         # git.errorOccurred.connect()
         git.finished.connect(write_temp_committed_file)
         self._jobqueue.enqueue(git)
-
-
-
-
