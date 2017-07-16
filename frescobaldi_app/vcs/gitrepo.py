@@ -97,14 +97,13 @@ class Repo(abstractrepo.Repo):
                 if not branch in self._tracked_remotes:
                     self._tracked_remotes[branch] = {}
                 remote_name = gitprocess.stdout()
-                if remote_name:
-                    self._tracked_remotes[branch]['remote_name'] = remote_name[0]
-                else
-                    self._tracked_remotes[branch]['remote_name'] = 'local'
-
-                gitprocess.executed.emit(0)
+                self._tracked_remotes[branch]['remote_name'] = remote_name[0]
             else:
-                #TODO
+                if not branch in self._tracked_remotes:
+                    self._tracked_remotes[branch] = {}
+                self._tracked_remotes[branch]['remote_name'] = 'local'
+            gitprocess.executed.emit(0)
+
         args = ["config", "branch." + branch + ".remote"]
         git = gitjob.Git(self)
         git.preset_args = args
