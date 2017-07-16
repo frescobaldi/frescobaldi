@@ -61,7 +61,7 @@ class Document(QObject):
             os.fsync(file.fileno())
 
     @abstractmethod
-    def status(cls):
+    def status(self):
         """This function returns the vcs status of current file
         """
         pass
