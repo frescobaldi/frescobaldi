@@ -188,6 +188,9 @@ class Repo(abstractrepo.Repo):
         """
         return True
 
+    def root(self):
+        return self.root_path
+
     def branches(self, local=True):
         """
         Returns a string list of branch names.
