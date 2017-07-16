@@ -153,8 +153,8 @@ class Repo(abstractrepo.Repo):
     def _update_tracked_remotes(self, blocking = False):
         self._tracked_remotes = {}
         for local_branch in self._local_branches:
-            self._update_tracked_remote_branch(branch, blocking = blocking)
-            self._update_tracked_remote_name(branch, blocking = blocking)
+            self._update_tracked_remote_name(local_branch, blocking = blocking)
+        self._update_tracked_remote_branches(blocking = blocking)
 
     def _update_remotes(self, blocking = False):
         def get_remote_names(gitprocess, exitcode):
