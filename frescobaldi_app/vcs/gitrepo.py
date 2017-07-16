@@ -174,7 +174,10 @@ class Repo(abstractrepo.Repo):
         else:
             self._jobqueue.enqueue(git)
 
-
+    def _update_all_attributes(self, blocking = False):
+        self._update_branches(blocking = blocking)
+        self._update_remotes(blocking = blocking)
+        self._update_tracked_remotes(blocking = blocking)
 
     # ####################
     # Public API functions
