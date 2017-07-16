@@ -58,7 +58,7 @@ class Git(QObject):
         # Create and configure QProcess object
         self._process = process = QProcess()
         process.setProgram(executable)
-        process.setWorkingDirectory(owner._root_path) # TODO: change to a .root() method in gitrepo.Repo()
+        process.setWorkingDirectory(owner.root())
 
         # Connect QProcess's signals to our own intermediate slots or our own signals
         process.finished.connect(self._finished)
