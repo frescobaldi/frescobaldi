@@ -43,12 +43,14 @@ class Repo(abstractrepo.Repo):
     _git_available = None
 
     def __init__(self, root):
+        super().__init__()
         self._jobqueue = gitjob.GitJobQueue()
-        self.rootDir = root
+        self.root_path = root
         self._remotes = []
         self._local_branches = []
         self._remote_branches = []
         self._tracked_remotes = {}
+        self._update_all_attributes(blocking=True)
 
     def _update_branches(self, blocking=False):
         """
@@ -73,13 +75,14 @@ class Repo(abstractrepo.Repo):
                         self._current_branch = branch
                     if branch.endswith('.stgit'):
                         continue
-                    if branch.startswith('remotes')
+                    if branch.startswith('remotes'):
                         self._remote_branches.append(branch)
-                    else
+                    else:
                         self._local_branches.append(branch)
                 gitprocess.executed.emit(0)
             else:
                 #TODO
+                pass
 
         args = ['branch', '--color=never', '-a']
         git = gitjob.Git(self)
@@ -163,6 +166,7 @@ class Repo(abstractrepo.Repo):
                 gitprocess.executed.emit(0)
             else:
                 #TODO
+                pass
 
         args = ["remote", "show"]
         git = gitjob.Git(self)
