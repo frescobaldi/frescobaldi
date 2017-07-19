@@ -25,7 +25,7 @@ Manage a Git repository
 import sys
 import os
 
-from PyQt5.QtCore import QProcess
+from PyQt5.QtCore import QFileSystemWatcher, pyqtSignal
 
 import app
 from . import abstractrepo, gitjob
@@ -42,6 +42,8 @@ class Repo(abstractrepo.Repo):
 
     _git_available = None
 
+    repoChanged = pyqtSignal()
+
     def __init__(self, root):
         super().__init__()
         self._jobqueue = gitjob.GitJobQueue()
@@ -50,7 +52,34 @@ class Repo(abstractrepo.Repo):
         self._local_branches = []
         self._remote_branches = []
         self._tracked_remotes = {}
+        self._set_repo_changed_signals()
         self._update_all_attributes(blocking=True)
+
+    def _set_repo_changed_signals(self):
+        """
+        Sets a QFileSystemWatcher object to monitor this repo.
+
+        Explanation:
+            We are monitoring the ".git/index" file here.
+            Git operations like 'pull', 'merge', 'checkout', 'stage' and
+            'commit' all update the index file in .git folder.
+            Each operation only updates the index once. While '.git' folder
+            will be updated three times during a 'commit' command. So index file
+            is a good marker.
+
+        """
+        self._watcher = QFileSystemWatcher()
+        self._index_path = os.path.join(self.root_path, '.git', 'index')
+        self._watcher.addPath(self._index_path)
+        self._watcher.fileChanged.connect(self._emit_repo_changed_signal)
+
+    def _emit_repo_changed_signal(self, path):
+        """
+        Emits repoChanged signal and resets the file-watcher.
+        """
+        self.repoChanged.emit()
+        self._watcher.removePath(self._index_path)
+        self._watcher.addPath(self._index_path)
 
     def _update_branches(self, blocking=False):
         """
