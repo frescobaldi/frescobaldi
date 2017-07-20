@@ -160,10 +160,8 @@ class Repo(abstractrepo.Repo):
                     if hunks[2].startswith('['):
                         remote_name = self._tracked_remotes[local_branch]['remote_name']
                         start_pos = len(remote_name) + 2
-                        if hunks[2].find(':') != -1:
-                            end_pos = hunks[2].find(':')
-                        else:
-                            end_pos = len(hunks[2]) - 1
+                        colon_ind = hunks[2].find(':')
+                        end_pos = colon_ind if colon_ind > -1 else None
                         self._tracked_remotes[local_branch]['remote_branch'] = hunks[2][start_pos:end_pos]
                     else:
                         self._tracked_remotes[local_branch]['remote_branch'] = 'local'
