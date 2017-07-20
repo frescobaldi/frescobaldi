@@ -71,7 +71,7 @@ class Document(abstractdoc.Document):
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
 
-    def update(self, repoChanged = False, fileChanged = True):
+    def update(self, repoChanged = False, fileChanged = False):
         self._update_status()
         self._update_diff_lines(repoChanged = repoChanged, fileChanged = fileChanged)
 
@@ -291,6 +291,7 @@ class Document(abstractdoc.Document):
                 gitprocess.executed.emit(0)
             else:
                 # TODO
+                pass
 
         # arguments to get file status
         args = [
@@ -313,6 +314,7 @@ class Document(abstractdoc.Document):
                 gitprocess.executed.emit(0)
             else:
                 #TODO
+                pass
 
         def set_linenum_diff():
             """
@@ -398,6 +400,7 @@ class Document(abstractdoc.Document):
                 gitprocess.executed.emit(0)
             else:
                 # TODO
+                pass
 
         args = [
            'cat-file',
@@ -429,6 +432,7 @@ class Document(abstractdoc.Document):
                 gitprocess.executed.emit(0)
             else:
                 # TODO
+                pass
 
         args = [
            'cat-file',
