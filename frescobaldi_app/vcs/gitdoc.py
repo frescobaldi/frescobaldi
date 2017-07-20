@@ -48,14 +48,12 @@ class Document(abstractdoc.Document):
         self._diff_lines = None
         self._diff_cache = None
         self._relative_path = None
-        self._temp_committed_outdated = True
         self._temp_committed_file = None
-        self._temp_index_outdated = True
         self._temp_index_file = None
-        self._temp_working_outdated = True
         self._temp_working_file = None
         self._jobqueue = gitjob.GitJobQueue()
         self._compare_to = CompareTo.WorkingToHead
+        self.update(repoChanged = True, fileChanged = True)
 
         # forward enum CompareTo
         self.WorkingToHead = CompareTo.WorkingToHead
@@ -72,6 +70,10 @@ class Document(abstractdoc.Document):
             os.unlink(self._temp_index_file)
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
+
+    def update(self, repoChanged = False, fileChanged = True):
+        self._update_status()
+        self._update_diff_lines(repoChanged = repoChanged, fileChanged = fileChanged)
 
     def set_compare(self, compare_to):
         if not isinstance(compare_to, CompareTo):
@@ -301,7 +303,7 @@ class Document(abstractdoc.Document):
         git.finished.connect(set_status)
         self._jobqueue.enqueue(git)
 
-    def _update_diff_lines(self):
+    def _update_diff_lines(self, repoChanged, fileChanged):
 
         def result_parser(gitprocess, exitcode):
             if exitcode == 0:
@@ -360,11 +362,11 @@ class Document(abstractdoc.Document):
                     modified += range(start, last)
             self._diff_lines = (inserted, modified, deleted)
 
-        if self._temp_working_outdated and self._compare_to & 8 == 8:
+        if fileChanged and self._compare_to & 8 == 8:
             self._update_temp_working_file()
-        if self._temp_index_outdated and self._compare_to & 4 == 4:
+
+        if repoChanged:
             self._update_temp_index_file()
-        if self._temp_committed_outdated and self._compare_to & 3 > 0:
             self._update_temp_committed_file()
 
         if self._compare_to & 8 == 8:
