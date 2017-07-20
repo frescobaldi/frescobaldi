@@ -222,7 +222,7 @@ class Repo(abstractrepo.Repo):
         """
         return True
 
-    def add_document(self, relative_path, view):
+    def track_document(self, relative_path, view):
         if relative_path in self._documents:
             return
         self._documents[relative_path] = gitdoc.Document(self, view)
