@@ -298,6 +298,7 @@ class Document(abstractdoc.Document):
 
         # arguments to get file status
         args = [
+            # TODO: really? including ignored files?
             'status', '--porcelain', '--ignored', self._relative_path
         ]
 

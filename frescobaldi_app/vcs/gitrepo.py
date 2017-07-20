@@ -40,6 +40,7 @@ class Repo(abstractrepo.Repo):
     or a document's project.
     """
 
+    # Don't think we need this. gitrepo.Repo should only be instantiated if git is available.
     _git_available = None
 
     repoChanged = pyqtSignal()
@@ -218,6 +219,8 @@ class Repo(abstractrepo.Repo):
         """
         Returns True if the respective VCS is installed
         """
+        #TODO: This has to be implemented, of course
+        # because it will also tested upon application startup
         return True
 
     def track_document(self, relative_path, view):
@@ -238,6 +241,8 @@ class Repo(abstractrepo.Repo):
         If local is False also return 'remote' branches.
         """
         res = []
+        #TODO: Are you sure this works asynchronously?
+        # What happpens if this is called while the job is working?
         res.extend(self._local_branches)
         if not local:
             res.extend(self._remote_branches)
