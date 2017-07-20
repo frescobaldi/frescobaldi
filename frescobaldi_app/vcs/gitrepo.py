@@ -28,7 +28,7 @@ import os
 from PyQt5.QtCore import QFileSystemWatcher, pyqtSignal
 
 import app
-from . import abstractrepo, gitjob
+from . import abstractrepo, gitjob, gitdoc
 
 class GitError(Exception):
     pass
@@ -54,6 +54,7 @@ class Repo(abstractrepo.Repo):
         self._tracked_remotes = {}
         self._set_repo_changed_signals()
         self._update_all_attributes(blocking=True)
+        self._documents = {}
 
     def _set_repo_changed_signals(self):
         """
@@ -220,6 +221,15 @@ class Repo(abstractrepo.Repo):
         Returns True if the respective VCS is installed
         """
         return True
+
+    def add_document(self, relative_path, view):
+        if relative_path in self._documents:
+            return
+        self._documents[relative_path] = gitdoc.Document(self, view)
+        self.repoChanged.connect(
+            lambda:
+                self._documents[relative_path].update(repoChanged = True)
+            )
 
     def root(self):
         return self.root_path
