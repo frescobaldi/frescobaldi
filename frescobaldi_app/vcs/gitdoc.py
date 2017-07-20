@@ -71,6 +71,9 @@ class Document(abstractdoc.Document):
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
 
+    def view(self):
+        return self._view
+
     def update(self, repoChanged = False, fileChanged = False):
         self._update_status()
         self._update_diff_lines(repoChanged = repoChanged, fileChanged = fileChanged)
