@@ -214,7 +214,7 @@ class GitJobQueue(QObject):
 
     def __init__(self):
         super().__init__()
-        self._queue = collections.deque()
+        self._queue = []
 
     def enqueue(self, gitjob):
         """
@@ -241,12 +241,22 @@ class GitJobQueue(QObject):
             job.deleteLater()
         self._queue.clear()
 
+    def _optimize(self):
+        cmd_set = set()
+        for job in self._queue:
+            args_str = "".join(job.preset_args)
+            if args_str not in cmd_set:
+                self._queue[len(cmd_set)] = job
+                cmd_set.add(args_str)
+        self._queue = self._queue[:len(cmd_set)]
+
     def run_next(self, execute_status = 0):
         """
         Runs next Git() object in the queue.
         It can be triggered by the previous Git() instance's executed signal.
         """
         self._remove_current()
+        self._optimize()
         if self._queue:
             self._queue[0].run()
 
@@ -261,4 +271,4 @@ class GitJobQueue(QObject):
                 self._queue[0].errorOccurred.disconnect()
                 self._queue[0].kill()
             self._queue[0].deleteLater()
-            self._queue.popleft()
+            del self._queue[0]
