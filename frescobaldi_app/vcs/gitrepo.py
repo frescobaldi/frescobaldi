@@ -24,6 +24,7 @@ Manage a Git repository
 
 import sys
 import os
+import re
 
 from PyQt5.QtCore import QFileSystemWatcher, pyqtSignal
 
@@ -53,8 +54,34 @@ class Repo(abstractrepo.Repo):
         self._remote_branches = []
         self._tracked_remotes = {}
         self._set_repo_changed_signals()
+        self._update_git_version_blocking()
         self._update_all_attributes(blocking=True)
         self._documents = {}
+
+    def _update_git_version_blocking(self):
+        """
+        Get git executable's version.
+        """
+        def result_parser(gitprocess, exitcode):
+            if exitcode == 0:
+                output = gitprocess.stdout()
+                # Parse version string like (git version 2.12.2.windows.1)
+                match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', output[0])
+                if match:
+                    # PEP-440 conform git version (major, minor, patch)
+                    self._git_version = tuple(int(g) for g in match.groups())
+                else:
+                    self._git_version = None
+            else:
+                #TODO
+                pass
+
+        args = ['--version']
+        git = gitjob.Git(self)
+        git.preset_args = args
+        # git.errorOccurred.connect()
+        git.finished.connect(result_parser)
+        git.run_blocking()
 
     def _set_repo_changed_signals(self):
         """
@@ -231,6 +258,17 @@ class Repo(abstractrepo.Repo):
 
     def root(self):
         return self.root_path
+
+    def git_version(self):
+        """
+        The version string is used to check, whether git executable exists and
+        works properly. It may also be used to enable functions with newer git
+        versions.
+
+        Returns:
+            tuple: PEP-440 conform git version (major, minor, patch)
+        """
+        return self._git_version
 
     def branches(self, local=True):
         """
