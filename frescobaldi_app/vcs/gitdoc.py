@@ -356,7 +356,7 @@ class Document(abstractdoc.Document):
             # lists with inserted, modified and deleted lines
             inserted, modified, deleted = [], [], []
             hunk_re = r'^@@ \-(\d+), ?(\d*) \+(\d+),?(\d*) @@'
-            for hunk in re.finditer(hunk_re, self._git_diff_cache, re.MULTILINE):
+            for hunk in re.finditer(hunk_re, self._diff_cache, re.MULTILINE):
                 # We don't need old_start in this function
                 _, old_size, start, new_size = hunk.groups()
                 start = int(start)
@@ -393,7 +393,7 @@ class Document(abstractdoc.Document):
         else:
             current = self._temp_index_file
 
-        if self._compare_to == self.WorkingToIndex:
+        if self._compare_to == Document.WorkingToIndex:
             original = self._temp_index_file
         else:
             original = self._temp_committed_file
@@ -422,7 +422,7 @@ class Document(abstractdoc.Document):
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
-            '--filters' if self._repo.git_ver() >= (2, 11, 0) else '-p',
+            '--filters' if self._repo.git_version() >= (2, 11, 0) else '-p',
             ':'+self._relative_path
         ]
         git = gitjob.Git(self._repo)
@@ -454,7 +454,7 @@ class Document(abstractdoc.Document):
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
-            '--filters' if self._git.version() >= (2, 11, 0) else '-p',
+            '--filters' if self._repo.git_version() >= (2, 11, 0) else '-p',
             commit + ':'+self._relative_path
         ]
 
