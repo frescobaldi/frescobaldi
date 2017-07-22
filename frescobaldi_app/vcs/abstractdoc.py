@@ -22,6 +22,8 @@ VCS interface - Document() in Repo()
 """
 
 from abc import ABCMeta, abstractmethod
+import os
+import tempfile
 
 from PyQt5.QtCore import QObject, pyqtSignal
 
