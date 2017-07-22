@@ -357,7 +357,7 @@ class Document(abstractdoc.Document):
             first, last = 0, 0
             # lists with inserted, modified and deleted lines
             inserted, modified, deleted = [], [], []
-            hunk_re = r'^@@ \-(\d+), ?(\d*) \+(\d+),?(\d*) @@'
+            hunk_re = r'^@@ \-(\d+),?(\d*) \+(\d+),?(\d*) @@'
             for hunk in re.finditer(hunk_re, self._diff_cache, re.MULTILINE):
                 # We don't need old_start in this function
                 _, old_size, start, new_size = hunk.groups()
