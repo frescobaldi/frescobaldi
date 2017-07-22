@@ -283,17 +283,33 @@ class Document(abstractdoc.Document):
                     }
                 if not output_lines:
                     self._status = ('', (_('committed')))
+                else:
+                    try:
+                        self._status = status_dict[output_lines[0][:2]]
+                    except KeyError:
+                    # return ('', '') when receive a status not listed in status_dict
+                        self._status =  ('', '')
+                self.status_updated.emit(self)
 
-                try:
-                    self._status = status_dict[output_strs[0][:2]]
-                except KeyError:
-                # return ('', '') when receive a status not listed in status_dict
-                    self._status =  ('', '')
-
+                # Special case handling
+                if self._status[1] == 'ignored':
+                    self._diff_lines = ([], [], [])
+                    special_case_handle()
+                if self._status[1] == 'untracked':
+                    self._diff_lines = (list(range(1, self._view.blockCount())), [], [])
+                    special_case_handle()
+                if self._status[0] == 'added' and self._compare_to & 3 > 0:
+                    self._diff_lines = (list(range(1, self._view.blockCount())), [], [])
+                    special_case_handle()
                 gitprocess.executed.emit(0)
             else:
                 # TODO
                 pass
+
+        def special_case_handle():
+            self._diff_cache = ''
+            self._jobqueue.kill_all()
+            self.diff_updated.emit(self)
 
         # arguments to get file status
         args = [
