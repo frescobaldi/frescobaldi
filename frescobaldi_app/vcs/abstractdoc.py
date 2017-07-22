@@ -31,7 +31,8 @@ class Document(QObject):
 
     __metaclass__ = ABCMeta
 
-    updated = pyqtSignal()
+    diff_updated = pyqtSignal(QObject)
+    status_updated = pyqtSignal(QObject)
 
     @classmethod
     def _create_tmp_file(cls, dir = None, prefix = 'Frescobaldi_vcs_'):
