@@ -159,11 +159,11 @@ class Document(abstractdoc.Document):
                         }
 
         """
-        if self._git_diff_cache is None:
+        if self._diff_cache is None:
             return None
 
         hunk_re = r'^@@ \-(\d+),?(\d*) \+(\d+),?(\d*) @@'
-        hunks = re.finditer(hunk_re, self._git_diff_cache, re.MULTILINE)
+        hunks = re.finditer(hunk_re, self._diff_cache, re.MULTILINE)
         # wrapping the hunk list to get surrounding hunks?
         wrap = True
         # extract the starting position of surrounding hunks
@@ -197,7 +197,7 @@ class Document(abstractdoc.Document):
                 hunk_end = next_hunk.start()
                 next_hunk_pos = int(next_hunk.group(3))
             except:
-                hunk_end = len(self._git_diff_cache)
+                hunk_end = len(self._diff_cache)
 
             if not wrap:
                 if prev_hunk_pos  is None:
@@ -223,7 +223,7 @@ class Document(abstractdoc.Document):
                 next_hunk_pos = first_hunk_pos
 
             # extract the content of the hunk
-            hunk_content = self._git_diff_cache[hunk.start():hunk_end]
+            hunk_content = self._diff_cache[hunk.start():hunk_end]
             # skip first line: '@@ -[OLD_START],[OLD_SIZE] +[START],[SIZE] @@'
             hunk_lines = hunk_content.splitlines()[1:]
             # store all deleted lines (starting with -)
