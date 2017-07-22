@@ -26,7 +26,7 @@ import sys
 import os
 import re
 
-from PyQt5.QtCore import QFileSystemWatcher, pyqtSignal
+from PyQt5.QtCore import QFileSystemWatcher, pyqtSignal, QObject
 
 import app
 from . import abstractrepo, gitjob, gitdoc
