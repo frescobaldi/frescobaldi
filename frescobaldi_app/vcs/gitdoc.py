@@ -268,21 +268,20 @@ class Document(abstractdoc.Document):
 
         def set_status(gitprocess, exitcode):
             if exitcode == 0:
-                output_strs = gitprocess.stdout()
-
+                output_lines = gitprocess.stdout()
                 status_dict = {
                     ' M' : ('', (_('modified'))),
                     ' D' : ('', (_('deleted'))),
-                    'A ' : ((_('newly added')), ''),
-                    'AM' : ((_('newly added')), (_('modified'))),
-                    'AD' : ((_('newly added')), (_('deleted'))),
+                    'A ' : ((_('added')), ''),
+                    'AM' : ((_('added')), (_('modified'))),
+                    'AD' : ((_('added')), (_('deleted'))),
                     'M ' : ((_('staged')), ''),
                     'MM' : ((_('staged')), (_('modified'))),
                     'MD' : ((_('staged')), (_('deleted'))),
                     '??' : ('', (_('untracked'))),
                     '!!' : ('', (_('ignored')))
                     }
-                if not output_strs:
+                if not output_lines:
                     self._status = ('', (_('committed')))
 
                 try:
