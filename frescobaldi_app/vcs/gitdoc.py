@@ -451,6 +451,8 @@ class Document(abstractdoc.Document):
                 # TODO
                 pass
 
+        if self._compare_to & 2 == 2:
+            commit = 'HEAD'
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
