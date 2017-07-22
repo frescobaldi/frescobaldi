@@ -40,27 +40,27 @@ class Document(abstractdoc.Document):
         IndexToHead     = 6
         IndexToCommit   = 5
 
-    def __init__(self, repo, view):
+    WorkingToHead = CompareTo.WorkingToHead
+    WorkingToIndex = CompareTo.WorkingToIndex
+    WorkingToCommit = CompareTo.WorkingToCommit
+    IndexToHead = CompareTo.IndexToHead
+    IndexToCommit = CompareTo.IndexToCommit
+
+    def __init__(self, repo, relative_path, view):
+        super().__init__()
         self._repo = repo
         self._view = view
+        self._relative_path = relative_path
         self._status = None
         # tuple: ([inserted], [modified], [deleted])
         self._diff_lines = None
         self._diff_cache = None
-        self._relative_path = None
-        self._temp_committed_file = None
-        self._temp_index_file = None
-        self._temp_working_file = None
+        self._temp_committed_file = Document._create_tmp_file()
+        self._temp_index_file = Document._create_tmp_file()
+        self._temp_working_file = Document._create_tmp_file()
         self._jobqueue = gitjob.GitJobQueue()
-        self._compare_to = CompareTo.WorkingToHead
+        self._compare_to = Document.WorkingToHead
         self.update(repoChanged = True, fileChanged = True)
-
-        # forward enum CompareTo
-        self.WorkingToHead = CompareTo.WorkingToHead
-        self.WorkingToIndex = CompareTo.WorkingToIndex
-        self.WorkingToCommit = CompareTo.WorkingToCommit
-        self.IndexToHead = CompareTo.IndexToHead
-        self.IndexToCommit = CompareTo.IndexToCommit
 
     def __del__(self):
         """Caller is responsible for clean up the temp files"""
