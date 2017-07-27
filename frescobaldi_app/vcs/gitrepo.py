@@ -256,6 +256,12 @@ class Repo(abstractrepo.Repo):
                 self._documents[relative_path].update(repoChanged = True)
             )
 
+    def untrack_document(self, relative_path):
+        if relative_path not in self._documents:
+            return
+        tracked_doc = self._documents.pop(relative_path)
+        tracked_doc.deleteLater()
+
     def root(self):
         return self.root_path
 
