@@ -250,7 +250,7 @@ class Repo(abstractrepo.Repo):
     def track_document(self, relative_path, view):
         if relative_path in self._documents:
             return
-        self._documents[relative_path] = gitdoc.Document(self, view)
+        self._documents[relative_path] = gitdoc.Document(self, relative_path, view)
         self.repoChanged.connect(
             lambda:
                 self._documents[relative_path].update(repoChanged = True)
