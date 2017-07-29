@@ -17,6 +17,10 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+import os
+
+from PyQt5.QtCore import QObject
+
 class VCSHelper(QObject):
     @classmethod
     def _is_vcs_path(cls, path):
@@ -35,7 +39,7 @@ class VCSHelper(QObject):
             else:
                 path, name = os.path.split(ori_path)
 
-            # files within '.git' path are not part of a work tree
+            # files within meta_data_directory are not part of a work tree
             while path and name and name != cls.meta_data_directory():
                 if cls._is_vcs_path(path):
                     return (path, os.path.relpath(
