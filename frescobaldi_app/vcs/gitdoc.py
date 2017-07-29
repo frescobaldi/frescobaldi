@@ -67,6 +67,7 @@ class Document(abstractdoc.Document):
 
     def __del__(self):
         """Caller is responsible for clean up the temp files"""
+        self._jobqueue.kill_all()
         if self._temp_committed_file:
             os.unlink(self._temp_committed_file)
         if self._temp_index_file:
