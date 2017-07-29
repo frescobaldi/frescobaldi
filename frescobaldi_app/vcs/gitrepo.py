@@ -381,12 +381,16 @@ class RepoManager(QObject):
             self._repos[root_path].untrack_document(relative_path)
 
     def slotDocumentUrlChanged(self, doc, url, old):
-        old_root_path, old_relative_path = self._extract_paths(old)
-        if old_root_path is None:
-            return
-        view = self._repos[root_path].document_view(old_relative_path)
-        self._repos[root_path].untrack_document(old_relative_path)
+        if not url.isEmpty():
+            old = old.path()
+            old_root_path, old_relative_path = self._extract_paths(old)
+            if old_root_path is None:
+                return
+            view = self._repos[old_root_path].corresponding_view(old_relative_path)
+            self._repos[old_root_path].untrack_document(old_relative_path)
 
+        # TODO: Untitled file
+        url = url.path()
         new_root_path, _ = self._extract_paths(url)
         if new_root_path is None:
             return
