@@ -436,8 +436,7 @@ class RepoManager(QObject):
 
             # files within '.git' path are not part of a work tree
             while path and name and name != '.git':
-                if is_git_path(path):
-                    _, self.name = os.path.split(path)
+                if cls._is_git_path(path):
                     return (path, os.path.relpath(
                         ori_path, path).replace('\\', '/'))
                 path, name = os.path.split(path)
