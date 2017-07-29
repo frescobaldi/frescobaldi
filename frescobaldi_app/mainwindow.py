@@ -123,6 +123,12 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
+        from vcs import manager
+        self.vcsManager = manager.VCSManager()
+        app.viewCreated.connect(self.vcsManager.setCurrentDocument)
+        app.documentClosed.connect(self.vcsManager.slotDocumentClosed)
+        app.documentUrlChanged.connect(self.vcsManager.slotDocumentUrlChanged)
+
         self.createActions()
         self.createMenus()
         self.createToolBars()
@@ -899,7 +905,7 @@ class MainWindow(QMainWindow):
         """Scroll down without moving the cursor"""
         sb = self.currentView().verticalScrollBar()
         sb.setValue(sb.value() + 1)
-    
+
     def gotoLine(self):
         """Ask for line number and go there"""
         line_count = self.currentDocument().blockCount()
@@ -910,7 +916,7 @@ class MainWindow(QMainWindow):
         char_pos = cur.position() - current_block.position()
         loc_pos = view.cursorRect(cur).bottomLeft()
         pos = view.viewport().mapToGlobal(loc_pos)
-        
+
         dlg = QInputDialog(self)
         dlg.setInputMode(QInputDialog.IntInput)
         dlg.setIntMinimum(1)
