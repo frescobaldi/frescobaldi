@@ -63,6 +63,7 @@ class Document(abstractdoc.Document):
         self._jobqueue = gitjob.GitJobQueue()
         self._compare_to = Document.WorkingToHead
         self.update(repoChanged = True, fileChanged = True)
+        self._view.textChanged.connect(lambda: self.update(fileChanged = True))
 
     def __del__(self):
         """Caller is responsible for clean up the temp files"""
