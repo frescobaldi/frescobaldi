@@ -366,7 +366,9 @@ class RepoManager(QObject):
 
     def setCurrentDocument(self, view):
         doc = view.document()
-        root_path, relative_path = self._extract_paths(doc.url())
+        if doc.url().isEmpty():
+            return
+        root_path, relative_path = self._extract_paths(doc.url().path())
         if root_path not in self._repos:
             self._repos[root_path] = Repo(root_path)
         self._repos[root_path].track_document(relative_path, view)
