@@ -262,6 +262,9 @@ class Repo(abstractrepo.Repo):
         tracked_doc = self._documents.pop(relative_path)
         tracked_doc.deleteLater()
 
+    def corresponding_view(self, relative_path):
+        return self._documents[relative_path].view()
+
     def root(self):
         return self.root_path
 
