@@ -329,7 +329,8 @@ class Document(abstractdoc.Document):
     def _update_diff_lines(self, repoChanged, fileChanged):
 
         def result_parser(gitprocess, exitcode):
-            if (gitprocess.stderr()):
+            if gitprocess.stderr():
+                gitprocess.executed.emit(0)
                 # TODO
                 return
             self._diff_cache = str(gitprocess.stdout(isbinary = True), 'utf-8')
