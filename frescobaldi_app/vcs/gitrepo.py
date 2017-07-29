@@ -362,84 +362,13 @@ class Repo(abstractrepo.Repo):
 class RepoManager(QObject):
 
     def __init__(self):
+        super().__init__()
         self._repos = {}
 
-    def setCurrentDocument(self, view):
-        doc = view.document()
-        if doc.url().isEmpty():
-            return
-        root_path, relative_path = self._extract_paths(doc.url().path())
+    def track_document(self, view, root_path, relative_path):
         if root_path not in self._repos:
             self._repos[root_path] = Repo(root_path)
         self._repos[root_path].track_document(relative_path, view)
 
-    def slotDocumentClosed(self, doc):
-        if doc.url().isEmpty():
-            return
-        root_path, relative_path = self._extract_paths(doc.url().path())
-        if root_path is not None:
-            self._repos[root_path].untrack_document(relative_path)
-
-    def slotDocumentUrlChanged(self, doc, url, old):
-        if not url.isEmpty():
-            old = old.path()
-            old_root_path, old_relative_path = self._extract_paths(old)
-            if old_root_path is None:
-                return
-            view = self._repos[old_root_path].corresponding_view(old_relative_path)
-            self._repos[old_root_path].untrack_document(old_relative_path)
-
-        # TODO: Untitled file
-        url = url.path()
-        new_root_path, _ = self._extract_paths(url)
-        if new_root_path is None:
-            return
-        self.setCurrentDocument(self, view)
-
-    @classmethod
-    def _is_git_path(cls, path):
-        """
-        Return True if 'path' is a valid git working tree.
-        """
-        return path and os.path.exists(os.path.join(path, '.git'))
-
-    @classmethod
-    def _extract_paths(cls, ori_path):
-        """
-        If the giving ori_path is git initialized.
-        Split the ori_path into the working tree part and relative path part.
-        This function handles both file pathes and directory pathes.
-
-        Note:
-            This is a local alternative to calling the git command:
-
-                git rev-parse --show-toplevel
-
-        Arguments:
-            ori_path (string): a absolute path.
-
-        Returns:
-            (root path of the working proj, relative path)
-            (None, None) for non-git-initilized file_path
-        """
-
-        # ensure there is no trailing slash
-        sep = os.path.altsep if os.path.altsep else ''
-        sep += os.path.sep
-        ori_path = ori_path.rstrip(sep)
-        if ori_path and os.path.exists(ori_path):
-            if os.path.isdir(ori_path):
-                _, name = os.path.split(ori_path)
-                path = ori_path
-            else:
-                path, name = os.path.split(ori_path)
-
-            # files within '.git' path are not part of a work tree
-            while path and name and name != '.git':
-                if cls._is_git_path(path):
-                    return (path, os.path.relpath(
-                        ori_path, path).replace('\\', '/'))
-                path, name = os.path.split(path)
-
-        return (None, None)
-
+    def untrack_document(self, root_path, relative_path):
+        self._repos[root_path].untrack_document(relative_path)
