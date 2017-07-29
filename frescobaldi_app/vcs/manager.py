@@ -83,7 +83,6 @@ class VCSManager(QObject):
 
         root_path, relative_path = GitHelper.extract_git_path(url.path())
         if root_path:
-            print("is doing this ??")
             self._git_repo_manager.track_document(self._doc_view_map[doc],
                                                     root_path,
                                                     relative_path)
