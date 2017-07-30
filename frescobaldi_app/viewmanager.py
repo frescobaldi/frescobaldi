@@ -49,6 +49,16 @@ class ViewStatusBar(QWidget):
         layout.setContentsMargins(2, 1, 0, 1)
         layout.setSpacing(8)
         self.setLayout(layout)
+
+        self.vcsRepoStatusLabel = QLabel()
+        layout.addWidget(self.vcsRepoStatusLabel)
+
+        self.vcsDocStatusLabel = QLabel()
+        layout.addWidget(self.vcsDocStatusLabel)
+
+        self.vcsDocChangedLinesLabel = QLabel()
+        layout.addWidget(self.vcsDocChangedLinesLabel)
+
         self.positionLabel = QLabel()
         layout.addWidget(self.positionLabel)
 
