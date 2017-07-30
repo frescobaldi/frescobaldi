@@ -79,6 +79,9 @@ class View(QPlainTextEdit):
         self.toolTipInfo = []
         self.block_at_mouse = None
         self.include_target = []
+        self.vcsTracked = False
+        self.vcsRepoTracker = None
+        self.vcsDocTracker = None
         app.viewCreated(self)
 
     def event(self, ev):
