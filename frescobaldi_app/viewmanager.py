@@ -184,6 +184,10 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.connect(self.updateCursorPosition)
         view.modificationChanged.connect(self.updateModificationState)
         view.document().urlChanged.connect(self.updateDocumentName)
+        if view.vcsTracked:
+            view.vcsRepoTracker.repoChanged.connect(self.updateVcsRepoStatus)
+            view.vcsDocTracker.status_updated.connect(self.updateVcsDocStatus)
+            view.vcsDocTracker.diff_updated.connect(self.updateVcsDocChangedLines)
         self.viewChanged.emit(view)
 
     def disconnectView(self, view):
@@ -191,6 +195,10 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
+        if view.vcsTracked:
+            view.vcsRepoTracker.repoChanged.disconnect(self.updateVcsRepoStatus)
+            view.vcsDocTracker.status_updated.disconnect(self.updateVcsDocStatus)
+            view.vcsDocTracker.diff_updated.disconnect(self.updateVcsDocChangedLines)
 
     def eventFilter(self, view, ev):
         if ev.type() == QEvent.FocusIn:
@@ -206,7 +214,9 @@ class ViewSpace(QWidget):
             self.updateCursorPosition()
             self.updateModificationState()
             self.updateDocumentName()
-
+            self.updateVcsRepoStatus()
+            self.updateVcsDocStatus()
+            self.updateVcsDocChangedLines()
 
     def updateVcsRepoStatus(self):
         if not self.activeView().vcsTracked:
