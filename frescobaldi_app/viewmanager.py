@@ -207,6 +207,42 @@ class ViewSpace(QWidget):
             self.updateModificationState()
             self.updateDocumentName()
 
+
+    def updateVcsRepoStatus(self):
+        if not self.activeView().vcsTracked:
+            self.status.vcsRepoStatusLabel.setText("")
+            return
+        name = self.activeView().vcsRepoTracker.name()
+        branch = self.activeView().vcsRepoTracker.current_branch()
+        self.status.vcsRepoStatusLabel .setText(_("In {repo} on {branch},").format(
+            repo = name, branch = branch))
+
+    def updateVcsDocStatus(self):
+        if not self.activeView().vcsTracked or self.activeView().vcsDocTracker.status() is None:
+            self.status.vcsDocStatusLabel.setText('')
+            return
+        indexStatus, workingStatus = self.activeView().vcsDocTracker.status()
+        statusText = 'File is '
+        if indexStatus and workingStatus:
+            statusText += indexStatus + '-' + workingStatus + ', '
+        else:
+            statusText += indexStatus + workingStatus + ', '
+        self.status.vcsDocStatusLabel .setText(statusText)
+
+    def updateVcsDocChangedLines(self):
+        if not self.activeView().vcsTracked or self.activeView().vcsDocTracker.diff_lines() is None:
+            self.status.vcsDocChangedLinesLabel.setText('')
+            return
+        addedLines, modifiedLines, deletedLines = self.activeView().vcsDocTracker.diff_lines()
+        statusText = ''
+        if deletedLines:
+            statusText += str(len(deletedLines)) + '-, '
+        if addedLines:
+            statusText += str(len(addedLines)) + '+, '
+        if modifiedLines:
+            statusText += str(len(modifiedLines)) + '≠, '
+        self.status.vcsDocChangedLinesLabel .setText(statusText)
+
     def updateCursorPosition(self):
         cur = self.activeView().textCursor()
         line = cur.blockNumber() + 1
