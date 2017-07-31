@@ -44,6 +44,7 @@ class Repo(abstractrepo.Repo):
     _git_available = None
 
     repoChanged = pyqtSignal()
+    _repoChangeDetected = pyqtSignal()
 
     def __init__(self, root):
         super().__init__()
@@ -56,6 +57,7 @@ class Repo(abstractrepo.Repo):
         self._set_repo_changed_signals()
         self._update_git_version_blocking()
         self._update_all_attributes(blocking=True)
+        self._repoChangeDetected.connect(self._update_all_attributes)
         self._documents = {}
 
     def _update_git_version_blocking(self):
@@ -105,7 +107,7 @@ class Repo(abstractrepo.Repo):
         """
         Emits repoChanged signal and resets the file-watcher.
         """
-        self.repoChanged.emit()
+        self._repoChangeDetected.emit()
         self._watcher.removePath(self._index_path)
         self._watcher.addPath(self._index_path)
 
@@ -192,7 +194,7 @@ class Repo(abstractrepo.Repo):
                         self._tracked_remotes[local_branch]['remote_branch'] = hunks[2][start_pos:end_pos]
                     else:
                         self._tracked_remotes[local_branch]['remote_branch'] = 'local'
-
+                self.repoChanged.emit()
                 gitprocess.executed.emit(0)
             else:
                 #TODO
