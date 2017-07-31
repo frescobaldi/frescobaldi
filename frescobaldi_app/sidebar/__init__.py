@@ -133,6 +133,7 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
     def __init__(self, viewspace):
         self._line_numbers = False
         self._linenumberarea = None
+        self._vcsdiffarea = None
         self._folding = False
         self._foldingarea = None
         viewspace.viewChanged.connect(self.updateView)
@@ -217,6 +218,16 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
         elif self._linenumberarea:
             self._linenumberarea.deleteLater()
             self._linenumberarea = None
+
+        if view.vcsTracked:
+            if not self._vcsdiffarea:
+                from widgets import vcsdiffarea
+                self._vcsdiffarea = vcsdiffarea.VCSDiffArea()
+            add(self._vcsdiffarea)
+            self._vcsdiffarea.setTextEdit(view)
+        elif self._vcsdiffarea:
+            self._vcsdiffarea.deleteLater()
+            self._vcsdiffarea = None
 
         # display horizontal lines where text is collapsed
         if self._folding:
