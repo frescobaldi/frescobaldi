@@ -273,6 +273,10 @@ class Repo(abstractrepo.Repo):
     def root(self):
         return self.root_path
 
+    def name(self):
+        _, name = os.path.split(self.root_path)
+        return name
+
     def git_version(self):
         """
         The version string is used to check, whether git executable exists and
