@@ -253,6 +253,9 @@ class Repo(abstractrepo.Repo):
         if relative_path in self._documents:
             return
         self._documents[relative_path] = gitdoc.Document(self, relative_path, view)
+        view.vcsTracked     = True
+        view.vcsRepoTracker = self
+        view.vcsDocTracker  = self._documents[relative_path]
         self.repoChanged.connect(
             lambda:
                 self._documents[relative_path].update(repoChanged = True)
