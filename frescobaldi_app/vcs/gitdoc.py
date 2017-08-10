@@ -300,10 +300,10 @@ class Document(abstractdoc.Document):
                     self._diff_lines = ([], [], [])
                     special_case_handle()
                 if self._status[1] == 'untracked':
-                    self._diff_lines = (list(range(1, self._view.blockCount())), [], [])
+                    self._diff_lines = (list(range(1, self._view.blockCount()+1)), [], [])
                     special_case_handle()
                 if self._status[0] == 'added' and self._compare_to & 3 > 0:
-                    self._diff_lines = (list(range(1, self._view.blockCount())), [], [])
+                    self._diff_lines = (list(range(1, self._view.blockCount()+1)), [], [])
                     special_case_handle()
                 gitprocess.executed.emit(0)
             else:
