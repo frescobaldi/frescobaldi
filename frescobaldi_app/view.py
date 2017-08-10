@@ -146,7 +146,7 @@ class View(QPlainTextEdit):
         Currently handles:
 
         - indent change on Enter, }, # or >
-        
+
         - update the tooltip info when Ctrl is pressed
 
         """
