@@ -44,6 +44,15 @@ class VCSDiffArea(QWidget):
             self._width = 0
         self.update()
 
+    def mousePressEvent(self, event):
+        from .vcsdiffwindow import VCSDiffWindow
+        index = int(event.y() / QFontMetrics(self._textedit.font()).height()) + 1+ self._textedit.firstVisibleBlock().blockNumber()
+        dic = self._textedit.vcsDocTracker.diff_hunk(index)
+        self.window = VCSDiffWindow(dic)
+        self.window.move(event.globalX(), event.globalY())
+        self.window.setFixedWidth(self.parentWidget().width()-self.width())
+        self.window.show()
+
     def textEdit(self):
         """Returns our QPlainTextEdit."""
         return self._textedit
