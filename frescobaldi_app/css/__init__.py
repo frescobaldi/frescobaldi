@@ -36,3 +36,42 @@ lcd_screen = """
 }
 """
 
+diff_popup = """
+
+.highlight p {
+    margin: 0;
+}
+
+/**
+ * DIFF HIGHLIGHTING
+ *
+ * The following entries apply to the "highlight difference"
+ * mode of the popup.
+ **/
+
+/* Highlight text, that has been inserted. */
+.hi-ins {
+    color: #000000;
+    background-color: #ccffcc;
+}
+
+/* Highlight text, that has been deleted. */
+.hi-del {
+    color: #000000;
+    background-color: #ffe6e6;
+}
+
+/* Highlight text, that has been inserted and substitutes other text. */
+.hi-chg-ins {
+    color: #000000;
+    background-color: #4dff4d;
+}
+
+/* Highlight text, that has been deleted and is substituted by other text. */
+.hi-chg-del {
+    color: #000000;
+    background-color: #ff3333;
+}
+
+"""
+
