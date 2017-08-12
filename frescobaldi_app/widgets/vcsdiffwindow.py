@@ -18,8 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QVBoxLayout, QWidget, QTextEdit
-from PyQt5.QtGui import QTextDocument
+from PyQt5.QtWidgets import QHBoxLayout, QWidget, QTextEdit, QFrame, QSplitter
+from PyQt5.QtGui import QTextDocument, QPalette, QColor
 
 from . import differ
 import css
@@ -27,15 +27,38 @@ import css
 class VCSDiffWindow(QWidget):
     def __init__(self, content_dict):
         super().__init__()
-        layout = QVBoxLayout()
+        layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
-        document = QTextDocument()
-        document.setDefaultStyleSheet(css.diff_popup)
-        document.setHtml(differ.highlight_diff(content_dict['deleted_lines'], content_dict['added_lines']))
-        textEdit = QTextEdit()
-        textEdit.setDocument(document)
-        layout.addWidget(textEdit)
+        document1 = QTextDocument()
+        document1.setDefaultStyleSheet(css.diff_popup)
+        document2 = QTextDocument()
+        document2.setDefaultStyleSheet(css.diff_popup)
+        old_lines = content_dict['deleted_lines']
+        new_lines = content_dict['added_lines']
+        old_start_pos = content_dict['old_start_pos']
+        new_start_pos = content_dict['start_pos']
+        differ.absolute_index = old_start_pos
+        document1.setHtml(differ.ori_highlight_diff(old_lines, new_lines))
+        differ.absolute_index = new_start_pos
+        document2.setHtml(differ.chg_highlight_diff(old_lines, new_lines))
+
+        textEdit1 = QTextEdit()
+        textEdit1.setDocument(document1)
+        p1 = textEdit1.palette()
+        p1.setColor(QPalette.Base, QColor('#ffeef0'))
+        textEdit1.setPalette(p1)
+        textEdit1.setReadOnly(True)
+        textEdit2 = QTextEdit()
+        textEdit2.setDocument(document2)
+        p2 = textEdit2.palette()
+        p2.setColor(QPalette.Base, QColor('#e6ffed'))
+        textEdit2.setPalette(p2)
+        textEdit2.setReadOnly(True)
+        splitter1 = QSplitter(Qt.Horizontal)
+        splitter1.addWidget(textEdit1)
+        splitter1.addWidget(textEdit2)
+        layout.addWidget(splitter1)
         self.setLayout(layout)
         self.setWindowFlags(Qt.Popup)
 
