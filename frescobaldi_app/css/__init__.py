@@ -38,8 +38,20 @@ lcd_screen = """
 
 diff_popup = """
 
-.highlight p {
-    margin: 0;
+td {
+   vertical-align: top;
+}
+
+table {
+   width: 100%;
+}
+
+.border-num-chg {
+    color: #3c3b3b;
+}
+
+.border-num-ori {
+    color: #3c3b3b;
 }
 
 /**
@@ -52,25 +64,25 @@ diff_popup = """
 /* Highlight text, that has been inserted. */
 .hi-ins {
     color: #000000;
-    background-color: #ccffcc;
+    background-color: #a9efbc;
 }
 
 /* Highlight text, that has been deleted. */
 .hi-del {
     color: #000000;
-    background-color: #ffe6e6;
+    background-color: #ffdce0;
 }
 
 /* Highlight text, that has been inserted and substitutes other text. */
 .hi-chg-ins {
     color: #000000;
-    background-color: #4dff4d;
+    background-color: #a9efbc;
 }
 
 /* Highlight text, that has been deleted and is substituted by other text. */
 .hi-chg-del {
     color: #000000;
-    background-color: #ff3333;
+    background-color: #ffdce0;
 }
 
 """
