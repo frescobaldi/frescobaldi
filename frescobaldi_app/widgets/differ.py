@@ -354,17 +354,24 @@ def _chg_helper(a, alo, ahi, b, blo, bhi):
 
     yield from g
 
-def _dump_lines(tag, x, lo, hi):
+def _dump_lines(tag, x, lo, hi, state):
     """Generate comparison results for a same-tagged range."""
+    if absolute_index is None:
+        raise Exception('Need set absolute index')
+    index = lo
     for l in x[lo:hi]:
-        yield from _dump_line(tag, l)
+        yield from _dump_line(index+absolute_index, tag, l, state)
+        index += 1
 
 
-def _dump_line(tag, x):
+def _dump_line(index, tag, x, state):
     """Generate comparison results for a same-tagged range."""
-    yield '<p>'
+    yield '<tr>'
+    yield from _dump_line_num(index, state)
+    yield '<td>'
     yield from _dump_chunk(tag, x)
-    yield '<p>'
+    yield '</td>'
+    yield '</tr>'
 
 
 def _dump_chunk(tag, x):
