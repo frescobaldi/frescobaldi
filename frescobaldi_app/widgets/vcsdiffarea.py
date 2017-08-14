@@ -21,6 +21,7 @@ from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QFontMetrics, QMouseEvent, QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QWidget
 
+
 class VCSDiffArea(QWidget):
     def __init__(self, textedit=None):
         super(VCSDiffArea, self).__init__(textedit)
@@ -45,13 +46,14 @@ class VCSDiffArea(QWidget):
         self.update()
 
     def mousePressEvent(self, event):
-        index = int(event.y() / QFontMetrics(self._textedit.font()).height()) + 1+ self._textedit.firstVisibleBlock().blockNumber()
+        index = int(event.y() / QFontMetrics(
+            self._textedit.font()).height()) + 1 + self._textedit.firstVisibleBlock().blockNumber()
         dic = self._textedit.vcsDocTracker.diff_hunk(index)
         if dic['size'] > -1:
             from .vcsdiffwindow import VCSDiffWindow
             self.window = VCSDiffWindow(dic)
             self.window.move(event.globalX(), event.globalY())
-            self.window.setFixedWidth(self.parentWidget().width()-self.width())
+            self.window.setFixedWidth(self.parentWidget().width() - self.width())
             self.window.show()
 
     def textEdit(self):
@@ -77,10 +79,10 @@ class VCSDiffArea(QWidget):
             return
         painter = QPainter(self)
         painter.setFont(edit.font())
-        rect = QRect(0, 0, self.width(), QFontMetrics(edit.font()).height()+2)
+        rect = QRect(0, 0, self.width(), QFontMetrics(edit.font()).height() + 2)
         block = edit.firstVisibleBlock()
         if self._textedit.vcsDocTracker.diff_lines() is None:
-        	return
+            return
         added, modified, deleted = self._textedit.vcsDocTracker.diff_lines()
         while block.isValid():
             geom = edit.blockBoundingGeometry(block)
@@ -88,22 +90,22 @@ class VCSDiffArea(QWidget):
             if geom.top() >= ev.rect().bottom():
                 break
             if block.isVisible() and geom.bottom() > ev.rect().top() + 1:
-            	blockNumber = block.blockNumber() + 1
-            	if blockNumber in added:
-            		rect.moveTop(geom.top()-1)
-            		painter.setPen(QColor(102, 227, 0, 255))
-            		text = "✚"
-            		painter.drawText(rect, Qt.AlignRight, text)
-            	if blockNumber in modified:
-            		rect.moveTop(geom.top()-1)
-            		painter.setPen(QColor(255, 142, 0, 255))
-            		text = "◆"
-            		painter.drawText(rect, Qt.AlignRight, text)
-            	if blockNumber in deleted:
-            		rect.moveTop(geom.top()+2)
-            		painter.setPen(QColor(255, 0, 0, 255))
-            		text = "━"
-            		painter.drawText(rect, Qt.AlignRight, text)
+                blockNumber = block.blockNumber() + 1
+                if blockNumber in added:
+                    rect.moveTop(geom.top() - 1)
+                    painter.setPen(QColor(102, 227, 0, 255))
+                    text = "✚"
+                    painter.drawText(rect, Qt.AlignRight, text)
+                if blockNumber in modified:
+                    rect.moveTop(geom.top() - 1)
+                    painter.setPen(QColor(255, 142, 0, 255))
+                    text = "◆"
+                    painter.drawText(rect, Qt.AlignRight, text)
+                if blockNumber in deleted:
+                    rect.moveTop(geom.top() + 2)
+                    painter.setPen(QColor(255, 0, 0, 255))
+                    text = "━"
+                    painter.drawText(rect, Qt.AlignRight, text)
             block = block.next()
 
     def event(self, ev):
@@ -112,7 +114,7 @@ class VCSDiffArea(QWidget):
                  and ev.button() == Qt.LeftButton)
                 or (ev.type() == QEvent.MouseMove and ev.buttons() & Qt.LeftButton)):
                 new = QMouseEvent(ev.type(), QPoint(0, ev.y()),
-                    ev.button(), ev.buttons(), ev.modifiers())
+                                  ev.button(), ev.buttons(), ev.modifiers())
                 return QApplication.sendEvent(self._textedit.viewport(), new)
             elif ev.type() == QEvent.Wheel:
                 return QApplication.sendEvent(self._textedit.viewport(), ev)
