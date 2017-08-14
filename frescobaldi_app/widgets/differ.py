@@ -27,7 +27,7 @@ well.
 import difflib
 import html
 
-
+# you should valuate it with the start line number of specific hunk.
 absolute_index = None
 
 def ori_highlight_diff(old_lines, new_lines):
