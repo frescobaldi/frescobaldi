@@ -33,6 +33,9 @@ class Git(QObject):
     signal, giving the caller the opportunity to retrieve the data.
     """
 
+    # TODO: check for preference
+    executable = 'git'
+
     # "custom" signals for passing on QProcess's signals
     finished = pyqtSignal(QObject, int)
     readyReadStandardError = pyqtSignal()
@@ -46,8 +49,6 @@ class Git(QObject):
 
     def __init__(self, owner):
         super().__init__()
-        # TODO: check for preference
-        executable = 'git'
         # args could be set in advance
         self.preset_args = None
 
@@ -57,7 +58,7 @@ class Git(QObject):
 
         # Create and configure QProcess object
         self._process = process = QProcess()
-        process.setProgram(executable)
+        process.setProgram(self.executable)
         process.setWorkingDirectory(owner.root())
 
         # Connect QProcess's signals to our own intermediate slots or our own signals
