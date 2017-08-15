@@ -59,7 +59,8 @@ class Git(QObject):
         # Create and configure QProcess object
         self._process = process = QProcess()
         process.setProgram(self.executable)
-        process.setWorkingDirectory(owner.root())
+        if owner is not None:
+            process.setWorkingDirectory(owner.root())
 
         # Connect QProcess's signals to our own intermediate slots or our own signals
         process.finished.connect(self._finished)
