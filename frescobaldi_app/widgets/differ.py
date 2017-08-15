@@ -215,7 +215,7 @@ def _chg_replace(a, alo, ahi, b, blo, bhi):
     cruncher = difflib.SequenceMatcher()
     # pump out the synch point
     yield '<tr>'
-    yield from _dump_line_num(best_i+absolute_index, 'chg')
+    yield from _dump_line_num(best_j+absolute_index, 'chg')
     yield '<td>'
     if eqi is None:
         aelt, belt = a[best_i], b[best_j]
