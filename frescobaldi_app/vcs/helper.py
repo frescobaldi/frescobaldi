@@ -18,6 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 import os
+import re
 
 from PyQt5.QtCore import QObject
 
@@ -50,6 +51,42 @@ class VCSHelper(QObject):
 
 
 class GitHelper(VCSHelper):
+
+    _version = None
+    _checked = False
+
+    @classmethod
+    def git_available(cls):
+
+        def result_parser(gitprocess, exitcode):
+            output = gitprocess.stdout()
+            # Parse version string like (git version 2.12.2.windows.1)
+            match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', output[0])
+            if match:
+                # PEP-440 conform git version (major, minor, patch)
+                cls._version = tuple(int(g) for g in match.groups())
+            else:
+                cls._version = None
+
+        def error_catcher(error_code):
+            cls._version = None
+
+        if not cls._checked:
+            from . import gitjob
+            args = ['--version']
+            git = gitjob.Git(None)
+            git.preset_args = args
+            git.errorOccurred.connect(error_catcher)
+            git.finished.connect(result_parser)
+            git.run_blocking()
+            cls._checked = True
+
+        return cls.git_version() is not None
+
+    @classmethod
+    def git_version(cls):
+        return cls._version
+
     @classmethod
     def meta_data_directory(cls):
         return '.git'
@@ -59,6 +96,19 @@ class GitHelper(VCSHelper):
         return cls._extract_path(path)
 
 class HgHelper(VCSHelper):
+
+    _version = None
+    _checked = False
+
+    @classmethod
+    def hg_available(cls):
+        # TODO: implement this function
+        return cls.hg_version() is not None
+
+    @classmethod
+    def hg_version(cls):
+        return cls._version
+
     @classmethod
     def meta_data_directory(cls):
         return '.hg'
@@ -68,6 +118,19 @@ class HgHelper(VCSHelper):
         return cls._extract_path(path)
 
 class SvnHelper(VCSHelper):
+
+    _version = None
+    _checked = False
+
+    @classmethod
+    def svn_available(cls):
+        # TODO: implement this function
+        return cls.svn_version() is not None
+
+    @classmethod
+    def svn_version(cls):
+        return cls._version
+
     @classmethod
     def meta_data_directory(cls):
         return '.svn'
