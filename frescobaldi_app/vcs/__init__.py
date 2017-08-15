@@ -81,7 +81,8 @@ def app_is_git_controlled():
 # both the presence of a .git directory and the availability of Git on the system.
 _app_is_git_controlled = False
 if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
-    if is_available('git'):
+    from .helper import GitHelper
+    if GitHelper.git_available():
         from . import apprepo
         app_repo = apprepo.Repo()
         _app_is_git_controlled = True
