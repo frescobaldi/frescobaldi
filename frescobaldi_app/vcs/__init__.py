@@ -24,25 +24,32 @@ VCS interface (application and documents)
 
 import sys
 import os
-import importlib
+
+from . import helper
 
 class VCSError(Exception):
     pass
 
-def git_available():
-    """Forward the git_available function in GitHelper"""
-    from .helper import GitHelper
-    return GitHelper.git_available()
+# dict holding references to helper classes
+_vcs_helpers = {
+    'git': helper.GitHelper,
+#   'svn': helper.SvnHelper,
+#   'hg' : helper.HgHelper
+}
 
-def hg_available():
-    """Forward the hg_available function in HgHelper"""
-    from .helper import HgHelper
-    return HgHelper.hg_available()
+def is_available(tool):
+    """Returns True if the requested VCS software is available on the system.
 
-def svn_available():
-    """Forward the svn_available function in SvnHelper"""
-    from .helper import SvnHelper
-    return SvnHelper.svn_available()
+    Supported vcs are:
+    - 'git'
+    - so far this is the only one
+    """
+    if not tool in _vcs_helpers.keys():
+       raise VCSError('Invalid arguement for VCS software: {}\nSupported:\n- {}'.format(
+            tool,
+          "\n- ".join(_vcs_helpers.keys())
+       ))
+    return _vcs_helpers[tool].vcs_available()
 
 def app_active_branch_window_title():
     """Return the active branch, suitable as window title.
