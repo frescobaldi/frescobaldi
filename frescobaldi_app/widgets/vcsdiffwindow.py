@@ -21,7 +21,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QHBoxLayout, QWidget, QTextEdit, QFrame, QSplitter
 from PyQt5.QtGui import QTextDocument, QPalette, QColor
 
-from . import differ
+from vcs import differ
 import css
 
 class VCSDiffWindow(QWidget):
