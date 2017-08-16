@@ -51,6 +51,7 @@ def is_available(tool):
        ))
     return _vcs_helpers[tool].vcs_available()
 
+
 def app_active_branch_window_title():
     """Return the active branch, suitable as window title.
 
@@ -74,8 +75,7 @@ def app_is_git_controlled():
 # both the presence of a .git directory and the availability of Git on the system.
 _app_is_git_controlled = False
 if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
-    from .helper import GitHelper
-    if GitHelper.git_available():
+    if helper.GitHelper.vcs_available():
         from . import apprepo
         app_repo = apprepo.Repo()
         _app_is_git_controlled = True
