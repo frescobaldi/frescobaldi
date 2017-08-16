@@ -28,7 +28,7 @@ class VCSHelper(QObject):
         return path and os.path.exists(os.path.join(path, cls.meta_data_directory()))
 
     @classmethod
-    def _extract_path(cls, ori_path):
+    def extract_vcs_path(cls, ori_path):
         # ensure there is no trailing slash
         sep = os.path.altsep if os.path.altsep else ''
         sep += os.path.sep
@@ -49,14 +49,13 @@ class VCSHelper(QObject):
 
         return (None, None)
 
-
 class GitHelper(VCSHelper):
 
     _version = None
     _checked = False
 
     @classmethod
-    def git_available(cls):
+    def vcs_available(cls):
 
         def result_parser(gitprocess, exitcode):
             output = gitprocess.stdout()
@@ -81,19 +80,15 @@ class GitHelper(VCSHelper):
             git.run_blocking()
             cls._checked = True
 
-        return cls.git_version() is not None
+        return cls.vcs_version() is not None
 
     @classmethod
-    def git_version(cls):
+    def vcs_version(cls):
         return cls._version
 
     @classmethod
     def meta_data_directory(cls):
         return '.git'
-
-    @classmethod
-    def extract_git_path(cls, path):
-        return cls._extract_path(path)
 
 class HgHelper(VCSHelper):
 
@@ -101,21 +96,18 @@ class HgHelper(VCSHelper):
     _checked = False
 
     @classmethod
-    def hg_available(cls):
+    def vcs_available(cls):
         # TODO: implement this function
-        return cls.hg_version() is not None
+        return cls.vcs_version() is not None
 
     @classmethod
-    def hg_version(cls):
+    def vcs_version(cls):
         return cls._version
 
     @classmethod
     def meta_data_directory(cls):
         return '.hg'
 
-    @classmethod
-    def extract_hg_path(cls, path):
-        return cls._extract_path(path)
 
 class SvnHelper(VCSHelper):
 
@@ -123,19 +115,16 @@ class SvnHelper(VCSHelper):
     _checked = False
 
     @classmethod
-    def svn_available(cls):
+    def vcs_available(cls):
         # TODO: implement this function
-        return cls.svn_version() is not None
+        return cls.vcs_version() is not None
 
     @classmethod
-    def svn_version(cls):
+    def vcs_version(cls):
         return cls._version
 
     @classmethod
     def meta_data_directory(cls):
         return '.svn'
 
-    @classmethod
-    def extract_svn_path(cls, path):
-        return cls._extract_path(path)
 
