@@ -26,7 +26,7 @@ import sys
 import os
 import re
 
-from PyQt5.QtCore import QFileSystemWatcher, pyqtSignal, QObject
+from PyQt5.QtCore import QProcess, QFileSystemWatcher, pyqtSignal, QObject
 
 import app
 from . import abstractrepo, gitjob, gitdoc
@@ -40,8 +40,14 @@ class Repo(abstractrepo.Repo):
     the running Frescobaldi application
     or a document's project.
     """
-
-    _git_available = None
+    _error_message = {
+        QProcess.FailedToStart : 'Git failed to start',
+        QProcess.Crashed : 'Git crashed',
+        QProcess.Timedout : 'Time running out',
+        QProcess.ReadError : 'ReadError',
+        QProcess.WriteError : 'WriteError',
+        QProcess.UnknownError : 'UnknownError'
+    }
 
     repoChanged = pyqtSignal()
     _repoChangeDetected = pyqtSignal()
@@ -302,15 +308,33 @@ class Repo(abstractrepo.Repo):
     def checkout(self, branch):
         """
         Tries to checkout a branch.
-        Add '-q' option because git checkout will
-        return its confirmation message on stderr.
         May raise a GitError exception
         """
+        def success_tracker(gitprocess, exitcode):
+            nonlocal succeed
+            nonlocal err_msg
+            if exitcode == 0:
+                succeed = True
+            else:
+                succeed = False
+                err_msg = str(gitprocess.stderr(isbinary = True), 'utf-8')
+
+        def error_tracker(errcode):
+            nonlocal succeed
+            nonlocal err_msg
+            succeed = False
+            err_msg = 'Error: ' + self._error_message[errcode]
+
         args = ["checkout", "-q", branch]
         git = gitjob.Git(self)
         git.preset_args = args
-        # git.errorOccurred.connect()
+        git.errorOccurred.connect(error_tracker)
+        git.finished.connect(success_tracker)
+        succeed = True
+        err_msg = None
         git.run_blocking()
+        if not succeed:
+            raise GitError(err_msg)
 
     def current_branch(self):
         """
