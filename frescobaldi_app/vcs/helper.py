@@ -33,7 +33,7 @@ class VCSHelper(QObject):
         sep = os.path.altsep if os.path.altsep else ''
         sep += os.path.sep
         ori_path = ori_path.rstrip(sep)
-        if ori_path and os.path.exists(ori_path):
+        if ori_path and cls.check_path_permissions(ori_path):
             if os.path.isdir(ori_path):
                 _, name = os.path.split(ori_path)
                 path = ori_path
@@ -43,11 +43,21 @@ class VCSHelper(QObject):
             # files within meta_data_directory are not part of a work tree
             while path and name and name != cls.meta_data_directory():
                 if cls._is_vcs_path(path):
-                    return (path, os.path.relpath(
-                        ori_path, path).replace('\\', '/'))
+                    if cls.check_path_permissions(path):
+                        return (path, os.path.relpath(
+                            ori_path, path).replace('\\', '/'))
+                    else:
+                        break
                 path, name = os.path.split(path)
 
         return (None, None)
+
+    @classmethod
+    def check_path_permissions(cls, path):
+        """
+        Return True if Frescobaldi can read and write in 'path'
+        """
+        return os.access(path, os.F_OK | os.R_OK | os.W_OK)
 
 class GitHelper(VCSHelper):
 
