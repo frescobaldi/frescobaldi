@@ -74,7 +74,8 @@ def app_is_git_controlled():
 # Determine if Frescobaldi is run from Git by checking for
 # both the presence of a .git directory and the availability of Git on the system.
 _app_is_git_controlled = False
-if os.path.isdir(os.path.join(sys.path[0], '..', '.git')):
+root_path, _ = helper.GitHelper.extract_vcs_path(sys.path[0])
+if root_path is not None:
     if helper.GitHelper.vcs_available():
         from . import apprepo
         app_repo = apprepo.Repo()
