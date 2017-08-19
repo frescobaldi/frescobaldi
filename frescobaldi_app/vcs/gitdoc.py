@@ -66,14 +66,7 @@ class Document(abstractdoc.Document):
         self._view.textChanged.connect(lambda: self.update(fileChanged = True))
 
     def __del__(self):
-        """Caller is responsible for clean up the temp files"""
-        self._jobqueue.kill_all()
-        if self._temp_committed_file:
-            os.unlink(self._temp_committed_file)
-        if self._temp_index_file:
-            os.unlink(self._temp_index_file)
-        if self._temp_working_file:
-            os.unlink(self._temp_working_file)
+        self._clean_job()
 
     def _clean_job(self):
         """Do the clean job when destroy the instance or meet errors"""
