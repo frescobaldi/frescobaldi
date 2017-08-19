@@ -75,6 +75,16 @@ class Document(abstractdoc.Document):
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
 
+    def _clean_job(self):
+        """Do the clean job when destroy the instance or meet errors"""
+        self._jobqueue.kill_all()
+        if self._temp_committed_file:
+            os.unlink(self._temp_committed_file)
+        if self._temp_index_file:
+            os.unlink(self._temp_index_file)
+        if self._temp_working_file:
+            os.unlink(self._temp_working_file)
+
     def view(self):
         return self._view
 
