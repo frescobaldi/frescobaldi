@@ -206,12 +206,13 @@ class Repo(abstractrepo.Repo):
                 self.repoChanged.emit()
                 gitprocess.executed.emit(0)
             else:
-                #TODO
-                pass
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
+
         args = ["branch", "-vv"]
         git = gitjob.Git(self)
         git.preset_args = args
-        # git.errorOccurred.connect()
+        error_handler = partial(self._error_handler, '_update_tracked_remote_branches')
+        git.errorOccurred.connect(error_handler)
         git.finished.connect(get_remote_branches)
         if blocking == True:
             git.run_blocking()
