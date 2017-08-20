@@ -232,13 +232,13 @@ class Repo(abstractrepo.Repo):
                 self._remotes = gitprocess.stdout()
                 gitprocess.executed.emit(0)
             else:
-                #TODO
-                pass
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ["remote", "show"]
         git = gitjob.Git(self)
         git.preset_args = args
-        # git.errorOccurred.connect()
+        error_handler = partial(self._error_handler, '_update_tracked_remotes')
+        git.errorOccurred.connect(error_handler)
         git.finished.connect(get_remote_names)
         if blocking == True:
             git.run_blocking()
