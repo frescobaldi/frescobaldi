@@ -20,7 +20,7 @@
 import os
 import re
 
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import QObject, QProcess
 
 class VCSHelper(QObject):
     @classmethod
@@ -63,6 +63,15 @@ class GitHelper(VCSHelper):
 
     _version = None
     _checked = False
+
+    error_message = {
+        QProcess.FailedToStart : 'Git failed to start',
+        QProcess.Crashed : 'Git crashed',
+        QProcess.Timedout : 'Time running out',
+        QProcess.ReadError : 'ReadError',
+        QProcess.WriteError : 'WriteError',
+        QProcess.UnknownError : 'UnknownError'
+    }
 
     @classmethod
     def vcs_available(cls):
