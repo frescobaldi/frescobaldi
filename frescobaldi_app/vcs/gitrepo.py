@@ -29,7 +29,7 @@ import re
 from PyQt5.QtCore import QProcess, QFileSystemWatcher, pyqtSignal, QObject
 
 import app
-from . import abstractrepo, gitjob, gitdoc
+from . import abstractrepo, gitjob, gitdoc, helper
 
 class GitError(Exception):
     pass
@@ -40,15 +40,6 @@ class Repo(abstractrepo.Repo):
     the running Frescobaldi application
     or a document's project.
     """
-    _error_message = {
-        QProcess.FailedToStart : 'Git failed to start',
-        QProcess.Crashed : 'Git crashed',
-        QProcess.Timedout : 'Time running out',
-        QProcess.ReadError : 'ReadError',
-        QProcess.WriteError : 'WriteError',
-        QProcess.UnknownError : 'UnknownError'
-    }
-
     repoChanged = pyqtSignal()
     _repoChangeDetected = pyqtSignal()
 
@@ -323,7 +314,7 @@ class Repo(abstractrepo.Repo):
             nonlocal succeed
             nonlocal err_msg
             succeed = False
-            err_msg = 'Error: ' + self._error_message[errcode]
+            err_msg = 'Error: ' + helper.GitHelper.error_message[errcode]
 
         args = ["checkout", "-q", branch]
         git = gitjob.Git(self)
