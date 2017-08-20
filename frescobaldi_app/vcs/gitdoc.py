@@ -20,6 +20,7 @@
 import os
 import re
 from enum import IntEnum
+from functools import partial
 
 from . import abstractdoc, gitjob, helper
 
@@ -327,8 +328,7 @@ class Document(abstractdoc.Document):
                     special_case_handle()
                 gitprocess.executed.emit(0)
             else:
-                # TODO
-                pass
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         def special_case_handle():
             self._diff_cache = ''
@@ -342,7 +342,8 @@ class Document(abstractdoc.Document):
 
         git = gitjob.Git(self._repo)
         git.preset_args = args
-        # git.errorOccurred.connect()
+        error_handler = partial(self._error_handler, '_update_status')
+        git.errorOccurred.connect(error_handler)
         git.finished.connect(set_status)
         self._jobqueue.enqueue(git)
 
