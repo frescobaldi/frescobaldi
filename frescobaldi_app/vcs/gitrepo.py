@@ -246,6 +246,17 @@ class Repo(abstractrepo.Repo):
         """
         return True
 
+    def disable(self):
+        """Disable tracking"""
+        try: self.repoChanged.disconnect()
+        except Exception: pass
+        try: self._repoChangeDetected.disconnect()
+        except Exception: pass
+        try: self._watcher.fileChanged.disconnect()
+        except Exception: pass
+        for relative_path in self._documents:
+            self._documents[relative_path].disable()
+
     def track_document(self, relative_path, view):
         if relative_path in self._documents:
             return
