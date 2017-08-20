@@ -78,6 +78,15 @@ class Document(abstractdoc.Document):
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
 
+    def disable(self):
+        """Disable tracking"""
+        self._view.vcsTracked = False
+        try: self.diff_updated.disconnect()
+        except Exception: pass
+        try: self.status_updated.disconnect()
+        except Exception: pass
+        self._clean_job()
+
     def view(self):
         return self._view
 
