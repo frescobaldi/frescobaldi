@@ -53,7 +53,6 @@ class Repo(abstractrepo.Repo):
         self._remote_branches = []
         self._tracked_remotes = {}
         self._set_repo_changed_signals()
-        self._update_git_version_blocking()
         self._update_all_attributes(blocking=True)
         self._repoChangeDetected.connect(self._update_all_attributes)
         self._documents = {}
