@@ -57,6 +57,14 @@ class Repo(abstractrepo.Repo):
         self._repoChangeDetected.connect(self._update_all_attributes)
         self._documents = {}
 
+    def _error_handler(self, func_name, error_msg):
+        repo_name = self.name()
+        if type(error_msg) is not str:
+            error_msg = helper.GitHelper.error_message[error_msg]
+        print("Git Error occurred during running "+ func_name + " in repo "
+                    + repo_name + "\n" + error_msg)
+        self.disable()
+
     def _update_git_version_blocking(self):
         """
         Get git executable's version.
