@@ -161,6 +161,8 @@ class Repo(abstractrepo.Repo):
 
     def _update_tracked_remote_name(self, branch, blocking = False):
         def get_remote_name(gitprocess, exitcode):
+            if gitprocess.stderr():
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
             if exitcode == 0:
                 if not branch in self._tracked_remotes:
                     self._tracked_remotes[branch] = {}
@@ -175,7 +177,8 @@ class Repo(abstractrepo.Repo):
         args = ["config", "branch." + branch + ".remote"]
         git = gitjob.Git(self)
         git.preset_args = args
-        # git.errorOccurred.connect()
+        error_handler = partial(self._error_handler, '_update_tracked_remote_name')
+        git.errorOccurred.connect(error_handler)
         git.finished.connect(get_remote_name)
         if blocking == True:
             git.run_blocking()
