@@ -447,7 +447,7 @@ class Document(abstractdoc.Document):
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
-            '--filters' if self._repo.git_version() >= (2, 11, 0) else '-p',
+            '--filters' if helper.GitHelper.vcs_version() >= (2, 11, 0) else '-p',
             ':'+self._relative_path
         ]
         git = gitjob.Git(self._repo)
@@ -481,7 +481,7 @@ class Document(abstractdoc.Document):
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
-            '--filters' if self._repo.git_version() >= (2, 11, 0) else '-p',
+            '--filters' if helper.GitHelper.vcs_version() >= (2, 11, 0) else '-p',
             commit + ':'+self._relative_path
         ]
 
