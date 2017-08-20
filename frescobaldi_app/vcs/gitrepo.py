@@ -25,6 +25,7 @@ Manage a Git repository
 import sys
 import os
 import re
+from functools import partial
 
 from PyQt5.QtCore import QProcess, QFileSystemWatcher, pyqtSignal, QObject
 
@@ -145,13 +146,13 @@ class Repo(abstractrepo.Repo):
                         self._local_branches.append(branch)
                 gitprocess.executed.emit(0)
             else:
-                #TODO
-                pass
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ['branch', '--color=never', '-a']
         git = gitjob.Git(self)
         git.preset_args = args
-        # git.errorOccurred.connect()
+        error_handler = partial(self._error_handler, '_update_branches')
+        git.errorOccurred.connect(error_handler)
         git.finished.connect(result_parser)
         if blocking == True:
             git.run_blocking()
