@@ -100,8 +100,9 @@ class Document(abstractdoc.Document):
         return self._view
 
     def update(self, repoChanged = False, fileChanged = False):
-        self._update_status()
-        self._update_diff_lines(repoChanged = repoChanged, fileChanged = fileChanged)
+        if self._view.vcsTracked:
+            self._update_status()
+            self._update_diff_lines(repoChanged, fileChanged)
 
     def set_compare(self, compare_to):
         if not isinstance(compare_to, CompareTo):
