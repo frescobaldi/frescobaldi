@@ -66,31 +66,6 @@ class Repo(abstractrepo.Repo):
                     + repo_name + "\n" + error_msg)
         self.disable()
 
-    def _update_git_version_blocking(self):
-        """
-        Get git executable's version.
-        """
-        def result_parser(gitprocess, exitcode):
-            if exitcode == 0:
-                output = gitprocess.stdout()
-                # Parse version string like (git version 2.12.2.windows.1)
-                match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', output[0])
-                if match:
-                    # PEP-440 conform git version (major, minor, patch)
-                    self._git_version = tuple(int(g) for g in match.groups())
-                else:
-                    self._git_version = None
-            else:
-                #TODO
-                pass
-
-        args = ['--version']
-        git = gitjob.Git(self)
-        git.preset_args = args
-        # git.errorOccurred.connect()
-        git.finished.connect(result_parser)
-        git.run_blocking()
-
     def _set_repo_changed_signals(self):
         """
         Sets a QFileSystemWatcher object to monitor this repo.
@@ -297,17 +272,6 @@ class Repo(abstractrepo.Repo):
     def name(self):
         _, name = os.path.split(self.root_path)
         return name
-
-    def git_version(self):
-        """
-        The version string is used to check, whether git executable exists and
-        works properly. It may also be used to enable functions with newer git
-        versions.
-
-        Returns:
-            tuple: PEP-440 conform git version (major, minor, patch)
-        """
-        return self._git_version
 
     def branches(self, local=True):
         """
