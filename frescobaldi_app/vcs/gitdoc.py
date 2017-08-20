@@ -442,8 +442,7 @@ class Document(abstractdoc.Document):
                 Document._write_file(self._temp_index_file, content)
                 gitprocess.executed.emit(0)
             else:
-                # TODO
-                pass
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = [
            'cat-file',
@@ -453,7 +452,8 @@ class Document(abstractdoc.Document):
         ]
         git = gitjob.Git(self._repo)
         git.preset_args = args
-        # git.errorOccurred.connect()
+        error_handler = partial(self._error_handler, '_update_temp_index_file')
+        git.errorOccurred.connect(error_handler)
         git.finished.connect(write_temp_index_file)
         self._jobqueue.enqueue(git)
 
