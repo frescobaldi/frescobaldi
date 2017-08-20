@@ -351,8 +351,8 @@ class Document(abstractdoc.Document):
 
         def result_parser(gitprocess, exitcode):
             if gitprocess.stderr():
+                # git error is ignored here
                 gitprocess.executed.emit(0)
-                # TODO
                 return
             self._diff_cache = str(gitprocess.stdout(isbinary = True), 'utf-8')
             set_linenum_diff()
@@ -427,7 +427,6 @@ class Document(abstractdoc.Document):
         args = ['diff', '-U0', '--no-color', '--no-index', original, current]
         git = gitjob.Git(self._repo)
         git.preset_args = args
-        # git.errorOccurred.connect()
         git.finished.connect(result_parser)
         self._jobqueue.enqueue(git)
 
