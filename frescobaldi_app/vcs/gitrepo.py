@@ -227,13 +227,6 @@ class Repo(abstractrepo.Repo):
 
     # ####################
     # Public API functions
-    @classmethod
-    def vcs_available(cls):
-        """
-        Returns True if the respective VCS is installed
-        """
-        return True
-
     def disable(self):
         """Disable tracking"""
         try: self.repoChanged.disconnect()
@@ -272,6 +265,8 @@ class Repo(abstractrepo.Repo):
     def name(self):
         _, name = os.path.split(self.root_path)
         return name
+
+
 
     def branches(self, local=True):
         """
