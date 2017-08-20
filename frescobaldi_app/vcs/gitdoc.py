@@ -21,7 +21,7 @@ import os
 import re
 from enum import IntEnum
 
-from . import abstractdoc, gitjob
+from . import abstractdoc, gitjob, helper
 
 class Document(abstractdoc.Document):
 
@@ -77,6 +77,14 @@ class Document(abstractdoc.Document):
             os.unlink(self._temp_index_file)
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
+
+    def _error_handler(self, func_name, error_msg):
+        file_name = self._view.document().documentName()
+        if type(error_msg) is not str:
+            error_msg = helper.GitHelper.error_message[error_msg]
+        print("Git Error occurred during running "+ func_name + " on "
+                    + file_name + "\n" + error_msg)
+        self.disable()
 
     def disable(self):
         """Disable tracking"""
