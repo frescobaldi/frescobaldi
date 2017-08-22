@@ -52,10 +52,10 @@ class Repo(abstractrepo.Repo):
         self._local_branches = []
         self._remote_branches = []
         self._tracked_remotes = {}
+        self._documents = {}
         self._set_repo_changed_signals()
         self._update_all_attributes(blocking=True)
         self._repoChangeDetected.connect(self._update_all_attributes)
-        self._documents = {}
 
     def _error_handler(self, func_name, error_msg):
         repo_name = self.name()
