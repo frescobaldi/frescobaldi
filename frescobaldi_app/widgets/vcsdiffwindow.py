@@ -18,47 +18,64 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QHBoxLayout, QWidget, QTextEdit, QFrame, QSplitter
-from PyQt5.QtGui import QTextDocument, QPalette, QColor
+from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QWidget, QTextEdit, QFrame, QSplitter, QPushButton
+from PyQt5.QtGui import QTextDocument, QPalette, QColor, QTextCursor
 
 from vcs import differ
 import css
 
 class VCSDiffWindow(QWidget):
-    def __init__(self, content_dict):
+    def __init__(self, content_dict, view):
         super().__init__()
-        layout = QHBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
-        document1 = QTextDocument()
-        document1.setDefaultStyleSheet(css.diff_popup)
-        document2 = QTextDocument()
-        document2.setDefaultStyleSheet(css.diff_popup)
-        old_lines = content_dict['deleted_lines']
-        new_lines = content_dict['added_lines']
-        old_start_pos = content_dict['old_start_pos']
-        new_start_pos = content_dict['start_pos']
-        differ.absolute_index = old_start_pos
-        document1.setHtml(differ.ori_highlight_diff(old_lines, new_lines))
-        differ.absolute_index = new_start_pos
-        document2.setHtml(differ.chg_highlight_diff(old_lines, new_lines))
+        self._view = view
+        self._dict = content_dict
 
-        textEdit1 = QTextEdit()
-        textEdit1.setDocument(document1)
-        p1 = textEdit1.palette()
-        p1.setColor(QPalette.Base, QColor('#ffeef0'))
-        textEdit1.setPalette(p1)
-        textEdit1.setReadOnly(True)
-        textEdit2 = QTextEdit()
-        textEdit2.setDocument(document2)
-        p2 = textEdit2.palette()
-        p2.setColor(QPalette.Base, QColor('#e6ffed'))
-        textEdit2.setPalette(p2)
-        textEdit2.setReadOnly(True)
-        splitter1 = QSplitter(Qt.Horizontal)
-        splitter1.addWidget(textEdit1)
-        splitter1.addWidget(textEdit2)
-        layout.addWidget(splitter1)
-        self.setLayout(layout)
+        old_doc = QTextDocument()
+        old_doc.setDefaultStyleSheet(css.diff_popup)
+        new_doc = QTextDocument()
+        new_doc.setDefaultStyleSheet(css.diff_popup)
+        old_doc.setHtml(differ.ori_highlight_diff(content_dict['deleted_lines'],
+                                                  content_dict['added_lines'],
+                                                  content_dict['old_start_pos']))
+        new_doc.setHtml(differ.chg_highlight_diff(content_dict['deleted_lines'],
+                                                  content_dict['added_lines'],
+                                                  content_dict['start_pos']))
+
+        old_view = QTextEdit()
+        old_view.setDocument(old_doc)
+        old_view.setReadOnly(True)
+        old_plt = old_view.palette()
+        old_plt.setColor(QPalette.Base, QColor('#ffeef0'))
+        old_view.setPalette(old_plt)
+
+        new_view = QTextEdit()
+        new_view.setDocument(new_doc)
+        new_view.setReadOnly(True)
+        new_plt = new_view.palette()
+        new_plt.setColor(QPalette.Base, QColor('#e6ffed'))
+        new_view.setPalette(new_plt)
+
+        diff_splitter = QSplitter(Qt.Horizontal)
+        diff_splitter.addWidget(old_view)
+        diff_splitter.addWidget(new_view)
+
+        diff_layout = QHBoxLayout()
+        diff_layout.setContentsMargins(0, 0, 0, 0)
+        diff_layout.setSpacing(0)
+        diff_layout.addWidget(diff_splitter)
+
+        revertButton = QPushButton("revert")
+        revertButton.clicked.connect(self.revert)
+        buttons_layout = QHBoxLayout()
+        buttons_layout.addWidget(revertButton)
+
+
+        main_layout = QVBoxLayout()
+        main_layout.addLayout(diff_layout)
+        main_layout.addLayout(buttons_layout)
+        main_layout.setContentsMargins(2, 2, 2, 2)
+        main_layout.setSpacing(0)
+
+        self.setLayout(main_layout)
         self.setWindowFlags(Qt.Popup)
 
