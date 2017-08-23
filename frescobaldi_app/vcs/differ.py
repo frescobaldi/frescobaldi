@@ -27,11 +27,12 @@ well.
 import difflib
 import html
 
-# you should valuate it with the start line number of specific hunk.
 absolute_index = None
 
-def ori_highlight_diff(old_lines, new_lines):
+def ori_highlight_diff(old_lines, new_lines, index = 1):
     """Generate the html string with highlighted diff of original contents"""
+    global absolute_index
+    absolute_index = index
     return ''.join(_ori_highlight_diff(old_lines, new_lines))
 
 def _ori_highlight_diff(a, b):
@@ -52,8 +53,10 @@ def _ori_highlight_diff(a, b):
     # end of mdpopups code view
     yield '</table>'
 
-def chg_highlight_diff(old_lines, new_lines):
+def chg_highlight_diff(old_lines, new_lines, index = 1):
     """Generate the html string with highlighted diff of changed contents"""
+    global absolute_index
+    absolute_index = index
     return ''.join(_chg_highlight_diff(old_lines, new_lines))
 
 def _chg_highlight_diff(a, b):
