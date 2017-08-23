@@ -79,3 +79,50 @@ class VCSDiffWindow(QWidget):
         self.setLayout(main_layout)
         self.setWindowFlags(Qt.Popup)
 
+    def revert(self):
+        """Replace the new text with the old text in working view
+        """
+        cursor = self._view.textCursor()
+        cursor.movePosition(QTextCursor.Start)
+        new_lines = self._dict['added_lines']
+        old_lines = self._dict['deleted_lines']
+        if not new_lines:
+            # Handle "deleted" hunk
+            old_text = '\n'.join(old_lines)
+            if self._dict['start_pos'] == 0:
+                old_text = old_text + '\n'
+                cursor.insertText(old_text)
+            else:
+                cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor, self._dict['start_pos']-1)
+                cursor.movePosition(QTextCursor.EndOfBlock)
+                old_text = '\n'+old_text
+                cursor.insertText(old_text)
+        else:
+            # Handle "modified" and "added" hunk
+            cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor, self._dict['start_pos']-1)
+            if self._dict['start_pos'] == 1:
+                for line in new_lines:
+                    cursor.select(QTextCursor.BlockUnderCursor)
+                    text = cursor.selectedText()
+                    cursor.removeSelectedText()
+                    cursor.deleteChar()
+            else:
+                for line in new_lines:
+                    cursor.select(QTextCursor.BlockUnderCursor)
+                    text = cursor.selectedText()
+                    if not text:
+                        # When the block under cursor is an empty block
+                        cursor.deleteChar()
+                    else:
+                        cursor.removeSelectedText()
+                        cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor)
+            if old_lines:
+                old_text = '\n'.join(old_lines)
+                if (self._dict['start_pos'] <= self._view.blockCount()):
+                    cursor.movePosition(QTextCursor.StartOfBlock)
+                    old_text = old_text + '\n'
+                else:
+                    cursor.movePosition(QTextCursor.End)
+                    old_text = '\n'+old_text
+                cursor.insertText(old_text)
+        self.close()
