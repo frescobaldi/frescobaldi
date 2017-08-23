@@ -51,7 +51,7 @@ class VCSDiffArea(QWidget):
         dic = self._textedit.vcsDocTracker.diff_hunk(index)
         if dic['size'] > -1:
             from .vcsdiffwindow import VCSDiffWindow
-            self.window = VCSDiffWindow(dic)
+            self.window = VCSDiffWindow(dic, self._textedit)
             self.window.move(event.globalX(), event.globalY())
             self.window.setFixedWidth(self.parentWidget().width() - self.width())
             self.window.show()
