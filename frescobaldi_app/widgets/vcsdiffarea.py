@@ -19,7 +19,7 @@
 
 from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QFontMetrics, QMouseEvent, QPainter, QColor
-from PyQt5.QtWidgets import QApplication, QWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget
 
 
 class VCSDiffArea(QWidget):
@@ -52,8 +52,15 @@ class VCSDiffArea(QWidget):
         if dic['size'] > -1:
             from .vcsdiffwindow import VCSDiffWindow
             self.window = VCSDiffWindow(dic, self._textedit)
-            self.window.move(event.globalX(), event.globalY())
+            window_height = 15 * QFontMetrics(self._textedit.font()).height()
+            screen = QDesktopWidget()
+            screen_height = screen.availableGeometry(self).height()
             self.window.setFixedWidth(self.parentWidget().width() - self.width())
+            self.window.setFixedHeight(window_height)
+            if (event.globalY() + window_height > screen_height):
+                self.window.move(event.globalX(), event.globalY()-window_height)
+            else:
+                self.window.move(event.globalX(), event.globalY())
             self.window.show()
 
     def textEdit(self):
