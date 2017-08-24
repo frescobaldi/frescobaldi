@@ -29,6 +29,7 @@ class VCSDiffWindow(QWidget):
         super().__init__()
         self._view = view
         self._dict = content_dict
+        self._reverted = False
 
         old_doc = QTextDocument()
         old_doc.setDefaultStyleSheet(css.diff_popup)
@@ -82,6 +83,11 @@ class VCSDiffWindow(QWidget):
     def revert(self):
         """Replace the new text with the old text in working view
         """
+        # Revert button could be clicked more than once
+        if self._reverted:
+            return
+        else:
+            self._reverted = True
         cursor = self._view.textCursor()
         cursor.movePosition(QTextCursor.Start)
         new_lines = self._dict['added_lines']
