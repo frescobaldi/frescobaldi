@@ -92,43 +92,116 @@ class VCSDiffWindow(QWidget):
         cursor.movePosition(QTextCursor.Start)
         new_lines = self._dict['added_lines']
         old_lines = self._dict['deleted_lines']
+
         if not new_lines:
-            # Handle "deleted" hunk
+        # Handle "deleted" hunk (new_lines == [])
+        # Basically we are inserting the deleted lines in to certain position
             old_text = '\n'.join(old_lines)
+            # Special case:
+            # When we should insert at the start of the view
             if self._dict['start_pos'] == 0:
                 old_text = old_text + '\n'
                 cursor.insertText(old_text)
             else:
-                cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor, self._dict['start_pos']-1)
+            # When we insert at other positions in the view
+            # We go the the previous line of the insert position and then insert
+            # at the line's ending.
+                # Move cursor to the previous line
+                cursor.movePosition(QTextCursor.Down,
+                                    QTextCursor.MoveAnchor,
+                                    self._dict['start_pos']-1)
+                # Move cursor to this line's end
                 cursor.movePosition(QTextCursor.EndOfBlock)
-                old_text = '\n'+old_text
+                # add a '\n' at head to come into a new line
+                old_text = '\n' + old_text
+                # Special case:
+                # When we need insert at last line (cursor.pos = blockCount-2).
+                # We should handle the line ending of the last line.
+                if cursor.blockNumber() == self._view.blockCount()-2:
+                    cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor)
+                    cursor.select(QTextCursor.BlockUnderCursor)
+                    text = cursor.selectedText()
+                    # Checking whether the last line is empty
+                    if not text:
+                        # delete the last line (an empty block)
+                        cursor.removeSelectedText()
+                        cursor.deletePreviousChar()
+                        # Checking whether we need to add '\n' at the text end
+                        if not self._dict['no_newline_at_end_of_old_file']:
+                            old_text = old_text + '\n'
+                    else:
+                        # If the last line is not empty, cursor go back to
+                        # previous line. We don't need to handle the
+                        # last-line-ending Here.
+                        cursor.clearSelection()
+                        cursor.movePosition(QTextCursor.Up, QTextCursor.MoveAnchor)
+                # Insert the deleted text, so the deleted hunk is reverted
                 cursor.insertText(old_text)
         else:
-            # Handle "modified" and "added" hunk
-            cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor, self._dict['start_pos']-1)
+        # Handle "modified" and "added" hunk
+            # Move cursor to the position where we should delete new added line
+            cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor,
+                                self._dict['start_pos']-1)
+            # Special case:
+            # When we should delete the new added lines at the file-beginning
             if self._dict['start_pos'] == 1:
                 for line in new_lines:
                     cursor.select(QTextCursor.BlockUnderCursor)
                     text = cursor.selectedText()
                     cursor.removeSelectedText()
+                    # Althogh the line is removed, but the block remains.
+                    # So delete the empty block
                     cursor.deleteChar()
             else:
                 for line in new_lines:
                     cursor.select(QTextCursor.BlockUnderCursor)
                     text = cursor.selectedText()
                     if not text:
-                        # When the block under cursor is an empty block
+                        # Delete the empty block
                         cursor.deleteChar()
                     else:
                         cursor.removeSelectedText()
                         cursor.movePosition(QTextCursor.Down, QTextCursor.MoveAnchor)
-            if old_lines:
+
+                # Special case:
+                # When the new added lines are added at the end of the file
+                # To remove all the new added lines, we need to check whether
+                # the new file ends with a '\n'
+                if cursor.blockNumber() == self._view.blockCount()-1:
+                    cursor.select(QTextCursor.BlockUnderCursor)
+                    text = cursor.selectedText()
+                    if not text and not self._dict['no_newline_at_end_of_new_file']:
+                        # If so, delete the last block
+                        cursor.removeSelectedText()
+                        cursor.deletePreviousChar()
+                    cursor.clearSelection()
+
+            # Special case:
+            # When there are no old_lines, this is "added" hunk.
+            # But we may affect the last-line-ending of original file through
+            # above deleting operations. So we check it here.
+            if not old_lines and self._dict['start_pos'] > self._view.blockCount():
+                if not self._dict['no_newline_at_end_of_old_file']:
+                    old_text = '\n'
+                    cursor.insertText(old_text)
+
+            elif old_lines:
+            # Insert the old_lines into the view
                 old_text = '\n'.join(old_lines)
+                # When the contents is inserted at normal positions
                 if (self._dict['start_pos'] <= self._view.blockCount()):
                     cursor.movePosition(QTextCursor.StartOfBlock)
                     old_text = old_text + '\n'
-                else:
+                # When the contents is inserted at the end of the file
+                # We need to check whether we should add a '\n' and the end of
+                # the file.
+                elif self._dict['no_newline_at_end_of_old_file']:
                     cursor.movePosition(QTextCursor.End)
                     old_text = '\n'+old_text
+                else:
+                    cursor.movePosition(QTextCursor.End)
+                    old_text = '\n'+old_text+'\n'
+
                 cursor.insertText(old_text)
+
         self.close()
