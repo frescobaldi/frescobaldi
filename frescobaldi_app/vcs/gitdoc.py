@@ -196,6 +196,12 @@ class Document(abstractdoc.Document):
         first_hunk_pos = None
         prev_hunk_pos  = None
         next_hunk_pos  = None
+        # If the last line of the old file ends with '\n' => False
+        # If the last line of the old file ends without '\n' => True
+        no_newline_at_end_of_old_file = False
+        # If the last line of the new file ends with '\n' => False
+        # If the last line of the new file ends without '\n' => True
+        no_newline_at_end_of_new_file = False
 
         for hunk in hunks:
             old_start, old_size, start, size = hunk.groups()
@@ -252,15 +258,30 @@ class Document(abstractdoc.Document):
             hunk_content = self._diff_cache[hunk.start():hunk_end]
             # skip first line: '@@ -[OLD_START],[OLD_SIZE] +[START],[SIZE] @@'
             hunk_lines = hunk_content.splitlines()[1:]
-            # store all deleted lines (starting with -)
-            deleted_lines = [
-                line[1:] for line in hunk_lines if line.startswith("-")
-            ]
-            # store all added lines (starting with +)
-            added_lines = [
-                line[1:] for line in hunk_lines if line.startswith("+")
-            ]
+            prev_line = None
+            deleted_lines = []
+            added_lines   = []
 
+            for line in hunk_lines:
+                if line.startswith("-"):
+                    # store all added lines (starting with +)
+                    deleted_lines.append(line[1:])
+                elif line.startswith("+"):
+                    # store all deleted lines (starting with -)
+                    added_lines.append(line[1:])
+                elif line == '\\ No newline at end of file':
+                    if prev_line.startswith("-"):
+                        # '\\ No newline at end of file' is behind a deleted
+                        # line. So it means the last line of old file doesn't
+                        # end with '\n'
+                        no_newline_at_end_of_old_file = True
+                    else:
+                        # '\\ No newline at end of file' is behind a new added
+                        # line. So it means the last line of the new file
+                        # doesn't end with '\n'
+                        no_newline_at_end_of_new_file = True
+                # save the previous line
+                prev_line = line
 
             res = {
                 'deleted_lines'  : deleted_lines,
@@ -271,7 +292,9 @@ class Document(abstractdoc.Document):
                 'size'           : size,
                 'first_hunk_pos' : first_hunk_pos,
                 'next_hunk_pos'  : next_hunk_pos,
-                'prev_hunk_pos'  : prev_hunk_pos
+                'prev_hunk_pos'  : prev_hunk_pos,
+                'no_newline_at_end_of_old_file' : no_newline_at_end_of_old_file,
+                'no_newline_at_end_of_new_file' : no_newline_at_end_of_new_file
             }
 
             return res
@@ -285,7 +308,9 @@ class Document(abstractdoc.Document):
             'size'           : -1,
             'first_hunk_pos' : -1,
             'next_hunk_pos'  : -1,
-            'prev_hunk_pos'  : -1
+            'prev_hunk_pos'  : -1,
+            'no_newline_at_end_of_old_file' : False,
+            'no_newline_at_end_of_new_file' : False
         }
 
         return res
