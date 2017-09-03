@@ -4,7 +4,7 @@
 # needing to install any dependencies.
 #
 # Usage:
-# C:\Python35\Python freeze.py
+# C:\Python27\Python freeze.py
 #
 # How it works:
 # It creates, using cx_Freeze, a frescobaldi executable inside the frozen/
@@ -41,7 +41,9 @@ includes = [
     'sip',
     'PyQt5.QtCore',
     'PyQt5.QtGui',
-    'PyQt5.QtWebEngineWidgets',
+	'PyQt5.QtWebChannel',
+    'PyQt5.QtWebEngineCore',
+	'PyQt5.QtWebEngineWidgets',
     'PyQt5.QtWebEngine',
     'PyQt5.QtNetwork',
     'PyQt5.QtSvg',
@@ -51,7 +53,8 @@ includes = [
     'popplerqt5',
 	'freetype',
     'pypm',
-
+    
+    '__future__',
     'argparse',
     'bisect',
     'contextlib',
@@ -75,8 +78,6 @@ includes = [
     'weakref',
     'xml.etree.ElementTree',
 ]
-
-
 
 packages = [
     'ly',
@@ -103,7 +104,7 @@ f = Freezer(
     packages = packages,
     excludes = excludes,
     targetDir = target_dir,
-    # copyDependentFiles = True,
+    #copyDependentFiles = True,
     compress = False,
     # silent = True,
     includeMSVCR = True,
@@ -133,7 +134,7 @@ def copy_file(name):
 	file = os.path.join(path, name)
 	target = os.path.join(target_dir, name)
 	shutil.copyfile(file,target)
-  
+
 
 
 # copy Qt5 imageformat plugins
@@ -146,6 +147,17 @@ copy_plugins('iconengines')
 copy_plugins('printsupport')
 
 test=os.getcwd()
+
+# copy resources
+copy_folder('resources')
+
+# copy translations
+copy_folder('translations')
+
+
+copy_file('qt.conf')
+
+copy_file('QtWebEngineProcess.exe')
 
 # copy the frescobaldi_app directory
 subprocess.call(
