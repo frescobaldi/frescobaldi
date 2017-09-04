@@ -23,7 +23,6 @@ VCS interface (application and documents)
 
 
 import sys
-import os
 
 from . import helper
 
