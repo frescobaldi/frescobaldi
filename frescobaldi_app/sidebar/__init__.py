@@ -219,6 +219,7 @@ class ViewSpaceSideBarManager(plugin.ViewSpacePlugin):
             self._linenumberarea.deleteLater()
             self._linenumberarea = None
 
+        # add indicator for VCS diff if current document is tracked
         if view.vcsTracked:
             if not self._vcsdiffarea:
                 from widgets import vcsdiffarea
