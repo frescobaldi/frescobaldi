@@ -44,7 +44,7 @@ def is_available(tool):
     - so far this is the only one
     """
     if not tool in _vcs_helpers.keys():
-       raise VCSError('Invalid arguement for VCS software: {}\nSupported:\n- {}'.format(
+       raise VCSError('Invalid argument for VCS software: {}\nSupported:\n- {}'.format(
             tool,
           "\n- ".join(_vcs_helpers.keys())
        ))
