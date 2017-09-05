@@ -19,6 +19,7 @@
 
 from PyQt5.QtCore import QObject
 
+import vcs
 from . import gitrepo
 from .helper import GitHelper, HgHelper, SvnHelper
 
@@ -35,11 +36,12 @@ class VCSManager(QObject):
         doc_url = view.document().url()
         if doc_url.isEmpty():
             return
-        root_path, relative_path = GitHelper.extract_vcs_path(doc_url.path())
-        if root_path:
-            self._git_repo_manager.track_document(view, root_path,
-                                                    relative_path)
-            return
+        if vcs.is_available('git'):
+            root_path, relative_path = GitHelper.extract_vcs_path(doc_url.path())
+            if root_path:
+                self._git_repo_manager.track_document(view, root_path,
+                                                        relative_path)
+                return
         root_path, relative_path = HgHelper.extract_vcs_path(doc_url.path())
         if root_path:
             # TODO: Add hg support
@@ -52,10 +54,11 @@ class VCSManager(QObject):
     def slotDocumentClosed(self, doc):
         if doc.url().isEmpty():
             return
-        root_path, relative_path = GitHelper.extract_vcs_path(doc.url().path())
-        if root_path:
-            self._git_repo_manager.untrack_document(root_path, relative_path)
-            return
+        if vcs.is_available('git'):
+            root_path, relative_path = GitHelper.extract_vcs_path(doc.url().path())
+            if root_path:
+                self._git_repo_manager.untrack_document(root_path, relative_path)
+                return
         root_path, relative_path = HgHelper.extract_vcs_path(doc.url().path())
         if root_path:
             # TODO: Add hg support
