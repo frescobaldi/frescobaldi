@@ -76,7 +76,7 @@ class GitHelper(VCSHelper):
     @classmethod
     def vcs_available(cls):
 
-        def result_parser(gitprocess, exitcode):
+        def result_parser(gitprocess):
             output = gitprocess.stdout()
             # Parse version string like (git version 2.12.2.windows.1)
             match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', output[0])
