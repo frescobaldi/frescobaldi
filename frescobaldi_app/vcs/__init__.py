@@ -36,6 +36,9 @@ _vcs_helpers = {
 #   'hg' : helper.HgHelper
 }
 
+# TODO: this function is currently never called!
+# Actually this makes Frescobaldi crash when opening a
+# git controlled file when Git is not installed!
 def is_available(tool):
     """Returns True if the requested VCS software is available on the system.
 
