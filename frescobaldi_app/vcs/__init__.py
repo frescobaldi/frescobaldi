@@ -82,10 +82,10 @@ if root_path is not None:
     else:
         from PyQt5.QtWidgets import QMessageBox
         QMessageBox.warning(None,
-                            _("Git not found"),
-                            _("Frescobaldi is run from within a Git "
+                            "Git not found",
+                            "Frescobaldi is run from within a Git "
                               "repository, but Git does not appear "
                               "to be working. Git support will be "
                               "disabled. If you have Git installed, "
                               "you can specify its location in the "
-                              "Preferences dialog."))
+                              "Preferences dialog.")
