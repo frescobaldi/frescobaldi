@@ -99,7 +99,7 @@ class GitHelper(VCSHelper):
             git.run_blocking()
             cls._checked = True
 
-        return cls.vcs_version() is not None
+        return cls._version is not None
 
     @classmethod
     def vcs_version(cls):
