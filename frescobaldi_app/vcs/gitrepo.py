@@ -176,6 +176,8 @@ class Repo(abstractrepo.Repo):
                         end_pos = colon_ind if colon_ind > -1 else len(hunks[2])-1
                         self._tracked_remotes[local_branch]['remote_branch'] = hunks[2][start_pos:end_pos]
                     else:
+                        if not local_branch in self._tracked_remotes:
+                            self._tracked_remotes[local_branch] = {}
                         self._tracked_remotes[local_branch]['remote_branch'] = 'local'
                 self.repoChanged.emit()
                 gitprocess.executed.emit(0)
