@@ -43,6 +43,9 @@ class Document(abstractdoc.Document):
         IndexToHead     = 6
         IndexToCommit   = 5
 
+    # TODO: As these constants are used nowhere else I (UL) think
+    # the explicit enum class is not necessary. Or am I missing something?
+    # I'm not sure the type checking in set_compare() is that necessary.
     WorkingToHead = CompareTo.WorkingToHead
     WorkingToIndex = CompareTo.WorkingToIndex
     WorkingToCommit = CompareTo.WorkingToCommit
@@ -61,6 +64,8 @@ class Document(abstractdoc.Document):
         self._temp_committed_file = Document._create_tmp_file()
         self._temp_index_file = Document._create_tmp_file()
         self._temp_working_file = Document._create_tmp_file()
+        # TODO: do we have to add a fourth entity, the "open file"?
+        # see https://github.com/wbsoft/frescobaldi/issues/1001#issuecomment-327403474
         self._jobqueue = gitjob.GitJobQueue()
         self._compare_to = Document.WorkingToHead
         self.update(repoChanged = True, fileChanged = True)
@@ -83,6 +88,7 @@ class Document(abstractdoc.Document):
         file_name = self._view.document().documentName()
         if type(error_msg) is not str:
             error_msg = helper.GitHelper.error_message[error_msg]
+        # TODO: Discuss if printing is the proper way to report such errors
         print("Git Error occurred during running "+ func_name + " on "
                     + file_name + "\n" + error_msg)
         self.disable()
@@ -101,6 +107,8 @@ class Document(abstractdoc.Document):
 
     def update(self, repoChanged = False, fileChanged = False):
         if self._view.vcsTracked:
+            # TODO: implement a delay (e.g. 100-500 ms) like with automatic compilation
+            # so the update is not called after *every* input but only in typing pauses
             self._update_status()
             self._update_diff_lines(repoChanged, fileChanged)
 
@@ -113,6 +121,10 @@ class Document(abstractdoc.Document):
         return self._status
 
     def diff_lines(self):
+        # TODO: is it clear that when this is called there are already _diff_lines?
+        # otherwise it may be necessary to conditionally retrieve them (caching)
+        # in order to avoid uninitialized states (but I'm not fully sure if that
+        # *is* an issue at all).
         return self._diff_lines
 
     def diff_hunk(self, row):

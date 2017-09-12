@@ -38,6 +38,11 @@ lcd_screen = """
 
 diff_popup = """
 
+/* Question:
+ * Is it OK to hard-code the following two generic styles,
+ * shouldn't these rather be more specific (cascaded?) classes?
+*/
+
 td {
    vertical-align: top;
 }
@@ -53,6 +58,9 @@ table {
 .border-num-ori {
     color: #3c3b3b;
 }
+
+/* Question: shouldn't this 'headline' comment be placed earlier? */
+/* TODO (not within GSoC): make these styles configurable */
 
 /**
  * DIFF HIGHLIGHTING
