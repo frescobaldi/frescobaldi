@@ -25,6 +25,7 @@ from PyQt5.QtCore import QObject, QProcess
 class VCSHelper(QObject):
     @classmethod
     def _is_vcs_path(cls, path):
+        """Returns True if the given path points to a repo's meta data/internal directory"""
         return path and os.path.exists(os.path.join(path, cls.meta_data_directory()))
 
     @classmethod

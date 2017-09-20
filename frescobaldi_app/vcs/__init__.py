@@ -32,8 +32,8 @@ class VCSError(Exception):
 # dict holding references to helper classes
 _vcs_helpers = {
     'git': helper.GitHelper,
-#   'svn': helper.SvnHelper,
-#   'hg' : helper.HgHelper
+   'svn': helper.SvnHelper,
+   'hg' : helper.HgHelper
 }
 
 def is_available(tool):

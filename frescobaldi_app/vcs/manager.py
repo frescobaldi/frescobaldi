@@ -36,66 +36,95 @@ class VCSManager(QObject):
         doc_url = view.document().url()
         if doc_url.isEmpty():
             return
+
         if vcs.is_available('git'):
             root_path, relative_path = GitHelper.extract_vcs_path(doc_url.path())
             if root_path:
                 self._git_repo_manager.track_document(view, root_path,
                                                         relative_path)
                 return
-        root_path, relative_path = HgHelper.extract_vcs_path(doc_url.path())
-        if root_path:
-            # TODO: Add hg support
-            return
-        root_path, relative_path = SvnHelper.extract_vcs_path(doc_url.path())
-        if root_path:
-            # TODO: Add svn support
-            return
+
+        if vcs.is_available('hg'):
+            root_path, relative_path = HgHelper.extract_vcs_path(doc_url.path())
+            if root_path:
+                # TODO: Add hg support
+                return
+
+        if vcs.is_available('svn'):
+            root_path, relative_path = SvnHelper.extract_vcs_path(doc_url.path())
+            if root_path:
+                # TODO: Add svn support
+                return
 
     def slotDocumentClosed(self, doc):
         if doc.url().isEmpty():
             return
+
         if vcs.is_available('git'):
             root_path, relative_path = GitHelper.extract_vcs_path(doc.url().path())
             if root_path:
                 self._git_repo_manager.untrack_document(root_path, relative_path)
                 return
-        root_path, relative_path = HgHelper.extract_vcs_path(doc.url().path())
-        if root_path:
-            # TODO: Add hg support
-            return
-        root_path, relative_path = SvnHelper.extract_vcs_path(doc.url().path())
-        if root_path:
-            # TODO: Add svn support
-            return
 
-    def slotDocumentUrlChanged(self, doc, url, old):
-        if not old.isEmpty():
-            root_path, relative_path = GitHelper.extract_vcs_path(old.path())
-            if root_path:
-                self._git_repo_manager.untrack_document(root_path,
-                                                        relative_path)
-                return
-            root_path, relative_path = HgHelper.extract_vcs_path(old.path())
+        if vcs.is_available('hg'):
+            root_path, relative_path = HgHelper.extract_vcs_path(doc.url().path())
             if root_path:
                 # TODO: Add hg support
                 return
-            root_path, relative_path = SvnHelper.extract_vcs_path(old.path())
+
+        if vcs.is_available('svn'):
+            root_path, relative_path = SvnHelper.extract_vcs_path(doc.url().path())
             if root_path:
                 # TODO: Add svn support
                 return
 
-        root_path, relative_path = GitHelper.extract_vcs_path(url.path())
-        if root_path:
-            self._git_repo_manager.track_document(self._doc_view_map[doc],
-                                                    root_path,
-                                                    relative_path)
-            return
-        root_path, relative_path = HgHelper.extract_vcs_path(url.path())
-        if root_path:
-            # TODO: Add hg support
-            return
-        root_path, relative_path = SvnHelper.extract_vcs_path(url.path())
-        if root_path:
-            # TODO: Add svn support
-            return
+    def slotDocumentUrlChanged(self, doc, url, old):
+
+        view = self._doc_view_map[doc]
+        # TODO: Is this the right way to get to the ViewSpace?
+        view_space = view.parentWidget().parentWidget()
+
+        # Clean up view/connections for the old document (if it's not an unsaved file)
+        if not old.isEmpty():
+            if vcs.is_available('git'):
+                root_path, relative_path = GitHelper.extract_vcs_path(old.path())
+                if root_path:
+                    self._git_repo_manager.untrack_document(root_path,
+                                                            relative_path)
+
+            if vcs.is_available('hg'):
+                root_path, relative_path = HgHelper.extract_vcs_path(old.path())
+                if root_path:
+                    # TODO: Add hg support
+                    pass
+
+            if vcs.is_available('svn'):
+                root_path, relative_path = SvnHelper.extract_vcs_path(old.path())
+                if root_path:
+                    # TODO: Add svn support
+                    pass
+
+        # Ensure the new document is properly tracked
+        if vcs.is_available('git'):
+            root_path, relative_path = GitHelper.extract_vcs_path(url.path())
+            if root_path:
+                self._git_repo_manager.track_document(self._doc_view_map[doc],
+                                                        root_path,
+                                                        relative_path)
+
+        if vcs.is_available('hg'):
+            root_path, relative_path = HgHelper.extract_vcs_path(url.path())
+            if root_path:
+                # TODO: Add hg support
+                pass
+
+        if vcs.is_available('svn'):
+            root_path, relative_path = SvnHelper.extract_vcs_path(url.path())
+            if root_path:
+                # TODO: Add svn support
+                pass
+        
+        # Update view, e.g. create/destroy VCSDiffArea
+        view_space.viewChanged.emit(view)
+
 
