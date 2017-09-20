@@ -80,10 +80,6 @@ class VCSManager(QObject):
 
     def slotDocumentUrlChanged(self, doc, url, old):
 
-        view = self._doc_view_map[doc]
-        # TODO: Is this the right way to get to the ViewSpace?
-        view_space = view.parentWidget().parentWidget()
-
         # Clean up view/connections for the old document (if it's not an unsaved file)
         if not old.isEmpty():
             if vcs.is_available('git'):
@@ -125,6 +121,9 @@ class VCSManager(QObject):
                 pass
         
         # Update view, e.g. create/destroy VCSDiffArea
+        view = self._doc_view_map[doc]
+        # TODO: Is this the right way to get to the ViewSpace?
+        view_space = view.parentWidget().parentWidget()
         view_space.viewChanged.emit(view)
 
 
