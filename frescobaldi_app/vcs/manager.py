@@ -104,6 +104,8 @@ class VCSManager(QObject):
         if vcs.is_available('git'):
             root_path, relative_path = GitHelper.extract_vcs_path(url.path())
             if root_path:
+                # TODO: *and* check if the file is tracked by Git,
+                # presumably something with gitdoc._update_status()
                 self._git_repo_manager.track_document(self._doc_view_map[doc],
                                                         root_path,
                                                         relative_path)
