@@ -185,9 +185,7 @@ class ViewSpace(QWidget):
         view.modificationChanged.connect(self.updateModificationState)
         view.document().urlChanged.connect(self.updateDocumentName)
         if view.vcsTracked:
-            view.vcsRepoTracker.repoChanged.connect(self.updateVcsRepoStatus)
-            view.vcsDocTracker.status_updated.connect(self.updateVcsDocStatus)
-            view.vcsDocTracker.diff_updated.connect(self.updateVcsDocChangedLines)
+            self.connectVcsLabels(view)
         self.viewChanged.emit(view)
 
     def disconnectView(self, view):
@@ -196,9 +194,19 @@ class ViewSpace(QWidget):
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
         if view.vcsTracked:
-            view.vcsRepoTracker.repoChanged.disconnect(self.updateVcsRepoStatus)
-            view.vcsDocTracker.status_updated.disconnect(self.updateVcsDocStatus)
-            view.vcsDocTracker.diff_updated.disconnect(self.updateVcsDocChangedLines)
+            self.disconnectVcsLabels(view)
+           
+    def connectVcsLabels(self, view):
+        view.vcsRepoTracker.repoChanged.connect(self.updateVcsRepoStatus)
+        view.vcsDocTracker.status_updated.connect(self.updateVcsDocStatus)
+        view.vcsDocTracker.diff_updated.connect(self.updateVcsDocChangedLines)
+        self.updateStatusBar()
+
+    def disconnectVcsLabels(self, view):
+        view.vcsRepoTracker.repoChanged.disconnect(self.updateVcsRepoStatus)
+        view.vcsDocTracker.status_updated.disconnect(self.updateVcsDocStatus)
+        view.vcsDocTracker.diff_updated.disconnect(self.updateVcsDocChangedLines)
+        self.updateStatusBar()
 
     def eventFilter(self, view, ev):
         if ev.type() == QEvent.FocusIn:
