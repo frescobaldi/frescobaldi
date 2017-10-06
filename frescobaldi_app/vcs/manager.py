@@ -79,6 +79,9 @@ class VCSManager(QObject):
                 return
 
     def slotDocumentUrlChanged(self, doc, url, old):
+        # Update view, e.g. create/destroy VCSDiffArea
+        view = self._doc_view_map[doc]
+        is_old_tracked = view.vcsTracked
 
         # Clean up view/connections for the old document (if it's not an unsaved file)
         if not old.isEmpty():
@@ -104,11 +107,12 @@ class VCSManager(QObject):
         if vcs.is_available('git'):
             root_path, relative_path = GitHelper.extract_vcs_path(url.path())
             if root_path:
-                # TODO: *and* check if the file is tracked by Git,
-                # presumably something with gitdoc._update_status()
                 self._git_repo_manager.track_document(self._doc_view_map[doc],
                                                         root_path,
                                                         relative_path)
+            else:
+                # The new url points to an untracked file
+                view.vcsTracked = False
 
         if vcs.is_available('hg'):
             root_path, relative_path = HgHelper.extract_vcs_path(url.path())
@@ -121,11 +125,14 @@ class VCSManager(QObject):
             if root_path:
                 # TODO: Add svn support
                 pass
-        
-        # Update view, e.g. create/destroy VCSDiffArea
-        view = self._doc_view_map[doc]
+
         # TODO: Is this the right way to get to the ViewSpace?
         view_space = view.parentWidget().parentWidget()
         view_space.viewChanged.emit(view)
 
+        if not is_old_tracked and view.vcsTracked:
+            view_space.connectVcsLabels(view)
+        
+        if is_old_tracked and not view.vcsTracked:
+            view_space.disconnectVcsLabels(view)
 
