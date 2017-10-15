@@ -56,6 +56,7 @@ class Repo(abstractrepo.Repo):
         self._set_repo_changed_signals()
         self._update_all_attributes(blocking=True)
         self._repoChangeDetected.connect(self._update_all_attributes)
+        self.repoChanged.connect(self._broadcast_changed_signal)
 
     def _error_handler(self, func_name, error_msg):
         repo_name = self.name()
@@ -226,6 +227,10 @@ class Repo(abstractrepo.Repo):
         self._update_remotes(blocking = blocking)
         self._update_tracked_remotes(blocking = blocking)
 
+    def _broadcast_changed_signal(self):
+        for relative_path in self._documents:
+            self._documents[relative_path].update(repoChanged = True)
+
     # ####################
     # Public API functions
     def disable(self):
@@ -246,10 +251,6 @@ class Repo(abstractrepo.Repo):
         self._documents[relative_path] = gitdoc.Document(self, relative_path, view)
         view.vcsDocTracker  = self._documents[relative_path]
         view.vcsRepoTracker = self
-        self.repoChanged.connect(
-            lambda:
-                self._documents[relative_path].update(repoChanged = True)
-            )
 
     def untrack_document(self, relative_path):
         if relative_path not in self._documents:
