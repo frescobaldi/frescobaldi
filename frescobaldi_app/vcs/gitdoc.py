@@ -332,38 +332,60 @@ class Document(abstractdoc.Document):
         def set_status(gitprocess, exitcode):
             if exitcode == 0:
                 output_lines = gitprocess.stdout()
-                status_dict = {
-                    ' M' : ('', (_('modified'))),
-                    ' D' : ('', (_('deleted'))),
-                    'A ' : ((_('added')), ''),
-                    'AM' : ((_('added')), (_('modified'))),
-                    'AD' : ((_('added')), (_('deleted'))),
-                    'M ' : ((_('staged')), ''),
-                    'MM' : ((_('staged')), (_('modified'))),
-                    'MD' : ((_('staged')), (_('deleted'))),
-                    '??' : ('', (_('untracked'))),
-                    '!!' : ('', (_('ignored')))
-                    }
-                if not output_lines:
+                index_status_dict = {
+                    ' ' : (_('unchanged')),
+                    'M' : (_('staged')),
+                    'D' : (_('removed')),
+                    'A' : (_('added')),
+                    'R' : (_('renamed')),
+                    'C' : (_('copied')),
+                    '?' : (_('untracked')),
+                    '!' : (_('ignored'))
+                }
+                working_tree_status_dict = {
+                    ' ' : '',
+                    'M' : (_('modified')),
+                    'D' : (_('deleted')),
+                    '?' : '',
+                    '!' : ''
+                }
+                unmerged_status_dict = {
+                    'DD' : ((_('unmerged')), (_('both deleted'))),
+                    'AU' : ((_('unmerged')), (_('added by us'))),
+                    'UD' : ((_('unmerged')), (_('deleted by them'))),
+                    'UA' : ((_('unmerged')), (_('added by them'))),
+                    'DU' : ((_('unmerged')), (_('deleted_by_us'))),
+                    'AA' : ((_('unmerged')), (_('both added'))),
+                    'UU' : ((_('unmerged')), (_('both modified')))
+                }
+
+                if not os.path.exists(self._view.document().url().toLocalFile()):
+                    self._status = ((_('unlinked')), '')
+                elif not output_lines:
                     self._status = ('', (_('committed')))
                 else:
                     try:
-                        self._status = status_dict[output_lines[0][:2]]
+                        self._status = unmerged_status_dict[output_lines[0][:2]]
                     except KeyError:
-                    # return ('', '') when receive a status not listed in status_dict
-                        self._status =  ('', '')
-                self.status_updated.emit(self)
+                        self._status =  (index_status_dict[output_lines[0][0]], 
+                                         working_tree_status_dict[output_lines[0][1]])               
 
                 # Special case handling
-                if self._status[1] == 'ignored':
+                if (self._status[0] == 'ignored' or self._status[0] == 'unmerged'
+                  or self._status[1] == 'deleted'or self._status[0] == 'renamed' 
+                  or self._status[0] == 'copied' or self._status[0] == 'unlinked'):
                     self._diff_lines = ([], [], [])
                     special_case_handle()
-                if self._status[1] == 'untracked':
+                elif self._status[0] == 'untracked':
                     self._diff_lines = (list(range(1, self._view.blockCount()+1)), [], [])
                     special_case_handle()
-                if self._status[0] == 'added' and self._compare_to & 3 > 0:
+                elif self._status[0] == 'added' and self._compare_to & 3 > 0:
                     self._diff_lines = (list(range(1, self._view.blockCount()+1)), [], [])
                     special_case_handle()
+                elif self._status[0] == 'removed' and self._compare_to & 4 > 0:
+                    self._diff_lines = ([], [], [])
+                    special_case_handle()
+                self.status_updated.emit(self)
                 gitprocess.executed.emit(0)
             else:
                 error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
