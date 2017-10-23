@@ -53,30 +53,19 @@ class Document(abstractdoc.Document):
     IndexToCommit = CompareTo.IndexToCommit
 
     def __init__(self, repo, relative_path, view):
-        super().__init__()
-        self._repo = repo
-        self._view = view
-        self._relative_path = relative_path
-        self._status = None
-        # tuple: ([inserted], [modified], [deleted])
-        self._diff_lines = None
-        self._diff_cache = None
+        self._compare_to = Document.WorkingToHead
+        super().__init__(gitjob.GitJobQueue, repo, relative_path, view)
+        
+    def _create_temp_files(self):
+        """Create the necessary temporary files for Git operations."""
         self._temp_committed_file = Document._create_tmp_file()
         self._temp_index_file = Document._create_tmp_file()
         self._temp_working_file = Document._create_tmp_file()
         # TODO: do we have to add a fourth entity, the "open file"?
         # see https://github.com/wbsoft/frescobaldi/issues/1001#issuecomment-327403474
-        self._jobqueue = gitjob.GitJobQueue()
-        self._compare_to = Document.WorkingToHead
-        self.update(repoChanged = True, fileChanged = True)
-        self._view.textChanged.connect(lambda: self.update(fileChanged = True))
 
-    def __del__(self):
-        self._clean_job()
-
-    def _clean_job(self):
-        """Do the clean job when destroy the instance or meet errors"""
-        self._jobqueue.kill_all()
+    def _clean_temp_files(self):
+        """We are responsible to remove the temp files after use."""
         if self._temp_committed_file:
             os.unlink(self._temp_committed_file)
         if self._temp_index_file:
@@ -85,6 +74,8 @@ class Document(abstractdoc.Document):
             os.unlink(self._temp_working_file)
 
     def _error_handler(self, func_name, error_msg):
+        # TODO: Can this be somehow lifted to the base class
+        # or is it Git specific and should be implemented in each class?
         file_name = self._view.document().documentName()
         if type(error_msg) is not str:
             error_msg = helper.GitHelper.error_message[error_msg]
@@ -93,39 +84,10 @@ class Document(abstractdoc.Document):
                     + file_name + "\n" + error_msg)
         self.disable()
 
-    def disable(self):
-        """Disable tracking"""
-        self._view.vcsTracked = False
-        try: self.diff_updated.disconnect()
-        except Exception: pass
-        try: self.status_updated.disconnect()
-        except Exception: pass
-        self._clean_job()
-
-    def view(self):
-        return self._view
-
-    def update(self, repoChanged = False, fileChanged = False):
-        if self._view.vcsTracked:
-            # TODO: implement a delay (e.g. 100-500 ms) like with automatic compilation
-            # so the update is not called after *every* input but only in typing pauses
-            self._update_status()
-            self._update_diff_lines(repoChanged, fileChanged)
-
     def set_compare(self, compare_to):
         if not isinstance(compare_to, CompareTo):
             raise TypeError("Only Document.CompareTo can be passed in")
         self._compare_to = compare_to
-
-    def status(self):
-        return self._status
-
-    def diff_lines(self):
-        # TODO: is it clear that when this is called there are already _diff_lines?
-        # otherwise it may be necessary to conditionally retrieve them (caching)
-        # in order to avoid uninitialized states (but I'm not fully sure if that
-        # *is* an issue at all).
-        return self._diff_lines
 
     def diff_hunk(self, row):
         """
