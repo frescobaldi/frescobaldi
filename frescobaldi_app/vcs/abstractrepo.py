@@ -34,6 +34,14 @@ class Repo(QObject):
     add other VCS comparably easily.
     """
     __metaclass__ = ABCMeta
+    
+    def __init__(self, root, queue_class):
+        super(Repo, self).__init__()
+        self._jobqueue = queue_class()
+        self.root_path = root
+        self._documents = {}
+
+        
 
     @abstractmethod
     def branches(self, local=True):
@@ -98,3 +106,41 @@ class Repo(QObject):
         Either 'local', the remote name or remote/branch.
         """
         pass
+
+    # ####################
+    # Public API functions
+    def disable(self):
+        """Disable tracking"""
+        try: self.repoChanged.disconnect()
+        except Exception: pass
+        try: self._repoChangeDetected.disconnect()
+        except Exception: pass
+        try: self._watcher.fileChanged.disconnect()
+        except Exception: pass
+        for relative_path in self._documents:
+            self._documents[relative_path].disable()
+
+    def track_document(self, relative_path, view):
+        if relative_path in self._documents:
+            return
+        view.vcsTracked     = True
+        self._documents[relative_path] = self._document_class(self, relative_path, view)
+        view.vcsDocTracker  = self._documents[relative_path]
+        view.vcsRepoTracker = self
+
+    def untrack_document(self, relative_path):
+        if relative_path not in self._documents:
+            return
+        tracked_doc = self._documents.pop(relative_path)
+        tracked_doc.deleteLater()
+
+    def corresponding_view(self, relative_path):
+        return self._documents[relative_path].view()
+
+    def root(self):
+        return self.root_path
+
+    def name(self):
+        _, name = os.path.split(self.root_path)
+        return name
+
