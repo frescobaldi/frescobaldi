@@ -60,6 +60,7 @@ import scorewiz
 import externalchanges
 import browseriface
 import file_import
+import vcs
 from vcs import manager
 
 
@@ -124,10 +125,11 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
-        self.vcsManager = manager.VCSManager()
-        app.viewCreated.connect(self.vcsManager.setCurrentDocument)
-        app.documentClosed.connect(self.vcsManager.slotDocumentClosed)
-        app.documentUrlChanged.connect(self.vcsManager.slotDocumentUrlChanged)
+        if vcs.use():
+            self.vcsManager = vcs.manager.VCSManager()
+            app.viewCreated.connect(self.vcsManager.setCurrentDocument)
+            app.documentClosed.connect(self.vcsManager.slotDocumentClosed)
+            app.documentUrlChanged.connect(self.vcsManager.slotDocumentUrlChanged)
 
         self.createActions()
         self.createMenus()

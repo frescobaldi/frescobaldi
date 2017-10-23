@@ -39,6 +39,7 @@ import app
 import icons
 import view as view_
 import qutil
+import vcs
 
 
 class ViewStatusBar(QWidget):
@@ -50,14 +51,15 @@ class ViewStatusBar(QWidget):
         layout.setSpacing(8)
         self.setLayout(layout)
 
-        self.vcsRepoStatusLabel = QLabel()
-        layout.addWidget(self.vcsRepoStatusLabel)
+        if vcs.use():
+            self.vcsRepoStatusLabel = QLabel()
+            layout.addWidget(self.vcsRepoStatusLabel)
 
-        self.vcsDocStatusLabel = QLabel()
-        layout.addWidget(self.vcsDocStatusLabel)
+            self.vcsDocStatusLabel = QLabel()
+            layout.addWidget(self.vcsDocStatusLabel)
 
-        self.vcsDocChangedLinesLabel = QLabel()
-        layout.addWidget(self.vcsDocChangedLinesLabel)
+            self.vcsDocChangedLinesLabel = QLabel()
+            layout.addWidget(self.vcsDocChangedLinesLabel)
 
         self.positionLabel = QLabel()
         layout.addWidget(self.positionLabel)
@@ -184,7 +186,7 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.connect(self.updateCursorPosition)
         view.modificationChanged.connect(self.updateModificationState)
         view.document().urlChanged.connect(self.updateDocumentName)
-        if view.vcsTracked:
+        if vcs.use() and view.vcsTracked:
             self.connectVcsLabels(view)
         self.viewChanged.emit(view)
 
@@ -193,7 +195,7 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
-        if view.vcsTracked:
+        if vcs.use() and view.vcsTracked:
             self.disconnectVcsLabels(view)
            
     def connectVcsLabels(self, view):

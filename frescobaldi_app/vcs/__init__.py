@@ -50,7 +50,37 @@ def is_available(tool):
        ))
     return _vcs_helpers[tool].vcs_available()
 
+# Dict holding information about VCS to be used for documents
+_use_vcs = None
 
+def use(tool=None):
+    """Return True if the given VCS tool should be used for tracking documents.
+    So far only Git support is implemented.
+    Git support is shielded by the "experimental features" check."""
+    
+    # Cache dictionary
+    global _use_vcs
+    if _use_vcs is None:
+        _use_vcs = {
+            # TODO: This is only there for testing the use without Git
+            'git': _app_is_git_controlled or QSettings().value("experimental-features", False, bool) and is_available('git'),
+            # TODO: Implement checks for other VCS
+            'svn': False,
+            'hg': False,
+        }
+    
+    if tool is None:
+        # return True if *any* VCS is available
+        return _use_vcs['git'] or _use_vcs['hg'] or _use_vcs['svn']
+    try:
+        # return True if *the given* VCS is to be used
+        return _use_vcs[tool]
+    except KeyError:
+       raise VCSError(_('Invalid argument for VCS software: {}\nSupported:\n- {}').format(
+            tool,
+          "\n- ".join(_use_vcs.keys())
+       ))
+    
 def app_active_branch_window_title():
     """Return the active branch, suitable as window title.
 
