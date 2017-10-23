@@ -38,7 +38,7 @@ class VCSManager(QObject):
             return
 
         if vcs.is_available('git'):
-            root_path, relative_path = GitHelper.extract_vcs_path(doc_url.path())
+            root_path, relative_path = GitHelper.tracked_path(doc_url.path())
             if root_path:
                 self._git_repo_manager.track_document(view, root_path,
                                                         relative_path)
@@ -61,7 +61,7 @@ class VCSManager(QObject):
             return
 
         if vcs.is_available('git'):
-            root_path, relative_path = GitHelper.extract_vcs_path(doc.url().path())
+            root_path, relative_path = GitHelper.tracked_path(doc.url().path())
             if root_path:
                 self._git_repo_manager.untrack_document(root_path, relative_path)
                 return
@@ -86,7 +86,7 @@ class VCSManager(QObject):
         # Clean up view/connections for the old document (if it's not an unsaved file)
         if not old.isEmpty():
             if vcs.is_available('git'):
-                root_path, relative_path = GitHelper.extract_vcs_path(old.path())
+                root_path, relative_path = GitHelper.tracked_path(old.path())
                 if root_path:
                     self._git_repo_manager.untrack_document(root_path,
                                                             relative_path)
@@ -105,7 +105,7 @@ class VCSManager(QObject):
 
         # Ensure the new document is properly tracked
         if vcs.is_available('git'):
-            root_path, relative_path = GitHelper.extract_vcs_path(url.path())
+            root_path, relative_path = GitHelper.tracked_path(url.path())
             if root_path:
                 self._git_repo_manager.track_document(self._doc_view_map[doc],
                                                         root_path,

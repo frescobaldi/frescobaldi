@@ -21,6 +21,7 @@ import os
 import re
 
 from PyQt5.QtCore import QObject, QProcess
+from . import gitjob
 
 class VCSHelper(QObject):
     @classmethod
@@ -52,6 +53,12 @@ class VCSHelper(QObject):
                 path, name = os.path.split(path)
 
         return (None, None)
+
+    @classmethod
+    def tracked_path(cls, ori_path):
+        """Returns True if the given path represents a file tracked by a VCS.
+        Has to be implemented in subclasses."""
+        return False
 
     @classmethod
     def check_path_permissions(cls, path):
@@ -101,6 +108,36 @@ class GitHelper(VCSHelper):
             cls._checked = True
 
         return cls._version is not None
+
+    @classmethod
+    def tracked_path(cls, ori_path):
+        """Return True if the given path represents a tracked file.
+        First we check if the file is within a repository and only
+        if that is the case we actually call Git to determine
+        whether the file is actually tracked."""
+
+        root_path, relative_path = cls.extract_vcs_path(ori_path)
+        if not root_path:
+            return (None, None)
+
+        job = gitjob.Git(None)
+        job._process.setWorkingDirectory(root_path)
+
+        # Run Git to check a file's status
+        args = [
+            'status', '--porcelain', '--ignored', relative_path
+        ]
+        status = job.run_blocking(args)[0]
+        
+        # 'not status' => unmodified (= tracked) file
+        # Untracked files are marked with ??
+        # Ignored files are marked with !!
+        tracked = not status or status[0][0] not in ['?', '!']
+        
+        if tracked:
+            return (root_path, relative_path)
+        else:
+            return (None, None)
 
     @classmethod
     def vcs_version(cls):
