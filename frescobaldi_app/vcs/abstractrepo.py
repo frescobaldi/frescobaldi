@@ -23,6 +23,8 @@ VCS interface (application and documents)
 
 from abc import ABCMeta, abstractmethod
 
+import os
+
 from PyQt5.QtCore import QObject
 
 
