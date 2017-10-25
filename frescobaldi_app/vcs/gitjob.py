@@ -78,7 +78,20 @@ class Git(QObject):
             process.errorOccurred.connect(self.errorOccurred)
         except AttributeError:
             process.error.connect(self.errorOccurred)
-
+    
+    @classmethod
+    def version(cls):
+        """Return the Git version as a tuple or False if it is not installed"""
+        job = cls()
+        args = ['--version']
+        stdout, stderr = job.run_blocking(args)
+        match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', stdout[0])
+        if match:
+            # PEP-440 conform git version (major, minor, patch)
+            return tuple(int(g) for g in match.groups())
+        else:
+            return False
+        
     def _start_process(self, args):
         """
         Internal command preparing and starting the Git process

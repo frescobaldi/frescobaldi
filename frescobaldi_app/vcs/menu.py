@@ -63,7 +63,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
         self._acts = {}
         self._accels = {}
         self.setExclusive(True)
-        for branch in vcs.app_repo.branches():
+        for branch in vcs.App.repo.branches():
             self.addBranch(branch)
         self.triggered.connect(self.slotTriggered)
 
@@ -78,7 +78,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
         will have the same accelerator.
         """
         result = []
-        for branch in vcs.app_repo.branches():
+        for branch in vcs.App.repo.branches():
             if not branch in self._acts:
                 self.addBranch(branch)
             result.append(self._acts[branch])
@@ -87,7 +87,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
     def addBranch(self, branch):
         a = QAction(self)
         a.setCheckable(True)
-        if branch == vcs.app_repo.current_branch():
+        if branch == vcs.App.repo.current_branch():
             a.setChecked(True)
             a.setEnabled(False)
         self._acts[branch] = a
@@ -104,7 +104,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
                 break
         else:
             self._accels[branch] = ''
-        name = name + " ({0})".format(vcs.app_repo.tracked_remote_label(branch))
+        name = name + " ({0})".format(vcs.App.repo.tracked_remote_label(branch))
         self._acts[branch].setText(name)
 
     def slotTriggered(self, action):
@@ -116,7 +116,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
         if not new_branch:
             return
         try:
-            vcs.app_repo.checkout(new_branch)
+            vcs.App.repo.checkout(new_branch)
             msgBox.setText(_("Checkout Successful"))
             msgBox.setInformativeText(_("Successfully checked out branch {name}.\n"
                 "Changes will take effect after restart.\n"
@@ -129,4 +129,4 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
             msgBox.setInformativeText(str(giterror))
             msgBox.exec_()
             action.setChecked(False)
-            self._acts[vcs.app_repo.current_branch()].setChecked(True)
+            self._acts[vcs.App.repo.current_branch()].setChecked(True)

@@ -51,7 +51,7 @@ class ViewStatusBar(QWidget):
         layout.setSpacing(8)
         self.setLayout(layout)
 
-        if vcs.use():
+        if vcs.VCS.use():
             self.vcsRepoStatusLabel = QLabel()
             layout.addWidget(self.vcsRepoStatusLabel)
 
@@ -186,7 +186,7 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.connect(self.updateCursorPosition)
         view.modificationChanged.connect(self.updateModificationState)
         view.document().urlChanged.connect(self.updateDocumentName)
-        if vcs.use() and view.vcsTracked:
+        if vcs.VCS.use() and view.vcsTracked:
             self.connectVcsLabels(view)
         self.viewChanged.emit(view)
 
@@ -195,7 +195,7 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
-        if vcs.use() and view.vcsTracked:
+        if vcs.VCS.use() and view.vcsTracked:
             self.disconnectVcsLabels(view)
            
     def connectVcsLabels(self, view):

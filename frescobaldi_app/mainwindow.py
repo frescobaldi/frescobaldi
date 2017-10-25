@@ -125,7 +125,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
-        if vcs.use():
+        if vcs.VCS.use():
             self.vcsManager = vcs.manager.VCSManager()
             app.viewCreated.connect(self.vcsManager.setCurrentDocument)
             app.documentClosed.connect(self.vcsManager.slotDocumentClosed)
@@ -279,7 +279,7 @@ class MainWindow(QMainWindow):
 
         if app.is_git_controlled():
             import vcs
-            window_title += " " + vcs.app_active_branch_window_title()
+            window_title += " " + vcs.App.active_branch_window_title()
 
         self.setWindowTitle(window_title)
 

@@ -22,6 +22,7 @@ import re
 from enum import IntEnum
 from functools import partial
 
+import vcs
 from . import abstractdoc, gitjob, helper
 
 class Document(abstractdoc.Document):
@@ -484,7 +485,7 @@ class Document(abstractdoc.Document):
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
-            '--filters' if helper.GitHelper.vcs_version() >= (2, 11, 0) else '-p',
+            '--filters' if vcs.VCS.version('git') >= (2, 11, 0) else '-p',
             ':'+self._relative_path
         ]
         git = gitjob.Git(self._root_path)
@@ -518,7 +519,7 @@ class Document(abstractdoc.Document):
         args = [
            'cat-file',
             # smudge filters are supported with git 2.11.0+ only
-            '--filters' if helper.GitHelper.vcs_version() >= (2, 11, 0) else '-p',
+            '--filters' if vcs.VCS.version('git') >= (2, 11, 0) else '-p',
             commit + ':'+self._relative_path
         ]
 
