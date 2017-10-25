@@ -45,7 +45,7 @@ class Repo(abstractrepo.Repo):
     _repoChangeDetected = pyqtSignal()
 
     def __init__(self, root):
-        super().__init__(root, gitjob.GitJobQueue)
+        super().__init__(root, gitjob.JobQueue)
         self._remotes = []
         self._local_branches = []
         self._remote_branches = []
@@ -59,7 +59,7 @@ class Repo(abstractrepo.Repo):
     def _error_handler(self, func_name, error_msg):
         repo_name = self.name()
         if type(error_msg) is not str:
-            error_msg = gitjob.Git.error_messages[error_msg]
+            error_msg = gitjob.Job.error_messages[error_msg]
         print("Git Error occurred during running "+ func_name + " in repo "
                     + repo_name + "\n" + error_msg)
         self.disable()
@@ -261,7 +261,7 @@ class Repo(abstractrepo.Repo):
             nonlocal succeed
             nonlocal err_msg
             succeed = False
-            err_msg = 'Error: ' + gitjob.Git.error_messages[errcode]
+            err_msg = 'Error: ' + gitjob.Job.error_messages[errcode]
 
         args = ["checkout", "-q", branch]
         git = gitjob.Job(self.root())

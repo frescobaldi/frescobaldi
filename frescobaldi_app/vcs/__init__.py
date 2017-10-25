@@ -47,7 +47,7 @@ class VCS(object):
             'repo_manager': gitrepo.RepoManager(),
             'meta_directory': '.git',
             'document_class': gitdoc.Document,
-            'job_class': gitjob.Git,
+            'job_class': gitjob.Job,
             'version': None
         },
         'hg': {

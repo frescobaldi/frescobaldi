@@ -24,8 +24,10 @@ import collections
 
 from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
+from . import abstractjob
 
-class Job(QObject):
+
+class Job(abstractjob.Job):
     """Executes a single Git command, either blocking or non-blocking.
 
     The output of the command will be stored in the _stdout and _stderr fields,
@@ -35,17 +37,6 @@ class Job(QObject):
 
     # TODO: check for preference
     executable = 'git'
-
-    # "custom" signals for passing on QProcess's signals
-    finished = pyqtSignal(QObject, int)
-    readyReadStandardError = pyqtSignal()
-    readyReadStandardOutput = pyqtSignal()
-    started = pyqtSignal()
-    stateChanged = pyqtSignal(QProcess.ProcessState)
-    errorOccurred = pyqtSignal(QProcess.ProcessError)
-
-    # should be emitted in the body of signal finished's slot.
-    executed = pyqtSignal(int)
 
     error_messages = {
         QProcess.FailedToStart : 'Git failed to start',
@@ -225,7 +216,7 @@ class Job(QObject):
         return res
 
 
-class GitJobQueue(QObject):
+class JobQueue(abstractjob.JobQueue):
     """GitJobQueue is the command queue manage Job() objects
 
     You may need this when you want to run some Git commands in order.

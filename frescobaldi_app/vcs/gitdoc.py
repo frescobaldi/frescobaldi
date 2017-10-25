@@ -55,7 +55,7 @@ class Document(abstractdoc.Document):
 
     def __init__(self, root_path, relative_path, view):
         self._compare_to = Document.WorkingToHead
-        super(Document, self).__init__(gitjob.GitJobQueue, root_path, relative_path, view)
+        super(Document, self).__init__(gitjob.JobQueue, root_path, relative_path, view)
 
     def _create_tmp_files(self):
         self._temp_committed_file = Document._create_tmp_file()
@@ -76,7 +76,7 @@ class Document(abstractdoc.Document):
     def _error_handler(self, func_name, error_msg):
         file_name = self._view.document().documentName()
         if type(error_msg) is not str:
-            error_msg = gitjob.Git.error_messages[error_msg]
+            error_msg = gitjob.Job.error_messages[error_msg]
         # TODO: Discuss if printing is the proper way to report such errors
         print("Git Error occurred during running "+ func_name + " on "
                     + file_name + "\n" + error_msg)
