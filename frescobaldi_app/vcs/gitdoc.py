@@ -23,7 +23,7 @@ from enum import IntEnum
 from functools import partial
 
 import vcs
-from . import abstractdoc, gitjob, helper
+from . import abstractdoc, gitjob
 
 class Document(abstractdoc.Document):
 
@@ -76,7 +76,7 @@ class Document(abstractdoc.Document):
     def _error_handler(self, func_name, error_msg):
         file_name = self._view.document().documentName()
         if type(error_msg) is not str:
-            error_msg = helper.GitHelper.error_message[error_msg]
+            error_msg = gitjob.Git.error_messages[error_msg]
         # TODO: Discuss if printing is the proper way to report such errors
         print("Git Error occurred during running "+ func_name + " on "
                     + file_name + "\n" + error_msg)

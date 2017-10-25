@@ -30,7 +30,7 @@ from functools import partial
 from PyQt5.QtCore import QProcess, QFileSystemWatcher, pyqtSignal, QObject
 
 import app
-from . import abstractrepo, gitjob, gitdoc, helper
+from . import abstractrepo, gitjob, gitdoc
 
 class GitError(Exception):
     pass
@@ -59,7 +59,7 @@ class Repo(abstractrepo.Repo):
     def _error_handler(self, func_name, error_msg):
         repo_name = self.name()
         if type(error_msg) is not str:
-            error_msg = helper.GitHelper.error_message[error_msg]
+            error_msg = gitjob.Git.error_messages[error_msg]
         print("Git Error occurred during running "+ func_name + " in repo "
                     + repo_name + "\n" + error_msg)
         self.disable()
@@ -261,7 +261,7 @@ class Repo(abstractrepo.Repo):
             nonlocal succeed
             nonlocal err_msg
             succeed = False
-            err_msg = 'Error: ' + helper.GitHelper.error_message[errcode]
+            err_msg = 'Error: ' + gitjob.Git.error_messages[errcode]
 
         args = ["checkout", "-q", branch]
         git = gitjob.Git(self.root())

@@ -47,6 +47,15 @@ class Git(QObject):
     # should be emitted in the body of signal finished's slot.
     executed = pyqtSignal(int)
 
+    error_messages = {
+        QProcess.FailedToStart : 'Git failed to start',
+        QProcess.Crashed : 'Git crashed',
+        QProcess.Timedout : 'Time running out',
+        QProcess.ReadError : 'ReadError',
+        QProcess.WriteError : 'WriteError',
+        QProcess.UnknownError : 'UnknownError'
+    }
+
     def __init__(self, root_path=None):
         super().__init__()
         # args could be set in advance
