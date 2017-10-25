@@ -21,15 +21,23 @@ import os
 
 from PyQt5.QtCore import QObject
 
-import vcs
 from . import gitrepo, gitdoc
-from .helper import GitHelper, HgHelper, SvnHelper
 
 class VCSManager(QObject):
+    """
+    The VCSManager is a single object (member of mainwindow)
+    managing all (document) VCS versioning resources.
+    For each supported VCS (currently only Git) one RepoManager
+    instance manages any number of Repo instances. Each Repo
+    manages any number of tracked documents in that repository.
+    """
 
     def __init__(self):
+        # map vcs_documents to their view
         self._doc_views = {}
+        # map vcs_documents to their Repo instance.
         self._doc_trackers = {}
+        # global configuration for VCS systems.
         self._vcs_data = {
             'git': {
                 'repo_manager': gitrepo.RepoManager(),
@@ -47,13 +55,12 @@ class VCSManager(QObject):
                 'document_class': None
             }
         }
-        self._git_repo_manager = gitrepo.RepoManager()
-        self._hg_repo_manager  = None
-        self._svn_repo_manager = None
 
     def repo_root_type(self, path):
-        """Check if path points to the root of a VCS repository.
-        Return the name of the VCS if found, otherwise False."""
+        """
+        Check if path points to the root of a VCS repository.
+        Return the name of the VCS if found, otherwise False.
+        """
         if not os.path.isdir(path):
             return False
         for vcs in self._vcs_data:
@@ -64,7 +71,7 @@ class VCSManager(QObject):
     def vcs_path_info(self, full_path):
         """
         Determine if path represents a file in the working tree of a supported
-        VCS repository.
+        VCS repository. This is agnostic of whether the file is tracked or not..
         Return a tuple of vcs_type, repository_root, relative_path.
         Otherwise return a 'None' 3-tuple.
         """
@@ -78,7 +85,8 @@ class VCSManager(QObject):
         # write-protected files can't be versioned anyway
         if os.access(full_path, os.F_OK | os.W_OK):
 
-            # We are working on paths only and know that path represents a file.
+            # We are working on files only and know that path represents a file
+            # (and not a directory).
             path = os.path.split(path)[0]
 
             root_name = os.path.abspath(os.sep)
@@ -100,13 +108,15 @@ class VCSManager(QObject):
         
         if not vcs_type:
             return (None, None)
-        
-        return (vcs_type, self._vcs_data[vcs_type]['document_class'](root_path, relative_path, view))
+        doc_class = self._vcs_data[vcs_type]['document_class']
+        instance = doc_class(root_path, relative_path, view)
+        return (vcs_type, instance)
 
     def setCurrentDocument(self, view):
         """Called from mainwindow after a view has been (newly) created."""
         url = view.document().url()
         if url.isEmpty():
+            # keep a reference for use in slotDocumentUrlChanged()
             self._empty_view = view
             return
         else:
@@ -126,26 +136,43 @@ class VCSManager(QObject):
         self._doc_trackers[url.path()] = repo
 
     def slotDocumentClosed(self, doc):
+        """Called from mainwindow after a view has been closed."""
         url = doc.url()
         if url.isEmpty():
             return
         repo = self._doc_trackers.get(url.path(), None)
         if repo:
+            # repo is None if the closed document hasn't been tracked
             repo.untrack_document(url.path())
 
     def slotDocumentUrlChanged(self, doc, url, old):
+        """
+        Called from mainwindow after the Url for the current document has changed.
+        This happens
+        a) when a document is loaded into the empty first view or
+        b) when a document is saved with a new name ("Save as...")
+        'doc' is the new document.Document() instance
+        """
+        
+        # reference to the view that has changed
         view = self._doc_views[old.path()] if old.path() else self._empty_view
+        
+        # determine if the old document has been tracked and untrack it if applicable
         old_tracked = repo = self._doc_trackers.get(old.path(), None)
         if old_tracked:
             repo.untrack_document(old.path())
         
+        # handle the new document in the view
         self.setCurrentDocument(view)
+        # store information if the new document is tracked
         new_tracked = self._doc_trackers.get(url.path(), None)
         
         # TODO: Is this the right way to get to the ViewSpace?
         view_space = view.parentWidget().parentWidget()
         view_space.viewChanged.emit(view)
 
+        # Update the signals when the VCSDiffArea has been created or destroyed
+        # in the viewChanged handler.
         if not old_tracked and new_tracked:
             view_space.connectVcsLabels(view)
         
