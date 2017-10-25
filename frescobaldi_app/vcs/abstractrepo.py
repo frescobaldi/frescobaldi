@@ -40,7 +40,7 @@ class Repo(QObject):
     def __init__(self, root, queue_class):
         super(Repo, self).__init__()
         self._jobqueue = queue_class()
-        self.root_path = root
+        self._root_path = root
         self._documents = {}
 
         
@@ -122,27 +122,43 @@ class Repo(QObject):
         for relative_path in self._documents:
             self._documents[relative_path].disable()
 
-    def track_document(self, relative_path, view):
-        if relative_path in self._documents:
+    def track_document(self, vcs_doc):
+        view = vcs_doc.view()
+        path = vcs_doc.url().path()
+        if path in self._documents:
             return
         view.vcsTracked     = True
-        self._documents[relative_path] = self._document_class(self, relative_path, view)
-        view.vcsDocTracker  = self._documents[relative_path]
+        self._documents[path] = vcs_doc
+        view.vcsDocTracker  = vcs_doc
         view.vcsRepoTracker = self
 
-    def untrack_document(self, relative_path):
-        if relative_path not in self._documents:
+    def untrack_document(self, path):
+        if path not in self._documents:
             return
-        tracked_doc = self._documents.pop(relative_path)
+        tracked_doc = self._documents.pop(path)
+        tracked_doc.view().vcsTracked = False
         tracked_doc.deleteLater()
 
     def corresponding_view(self, relative_path):
         return self._documents[relative_path].view()
 
     def root(self):
-        return self.root_path
+        return self._root_path
 
     def name(self):
-        _, name = os.path.split(self.root_path)
+        _, name = os.path.split(self._root_path)
         return name
 
+
+class RepoManager(QObject):
+    """Manages all repositories of a given VCS type."""
+    def __init__(self):
+        super(RepoManager, self).__init__()
+        self._repos = {}
+
+    def track_document(self, vcs_doc):
+        root_path = vcs_doc.root()
+        if root_path not in self._repos:
+            self._repos[root_path] = self._repo_class(root_path)
+        self._repos[root_path].track_document(vcs_doc)
+        return self._repos[root_path]

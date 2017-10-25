@@ -47,7 +47,7 @@ class Git(QObject):
     # should be emitted in the body of signal finished's slot.
     executed = pyqtSignal(int)
 
-    def __init__(self, owner):
+    def __init__(self, root_path=None):
         super().__init__()
         # args could be set in advance
         self.preset_args = None
@@ -59,8 +59,8 @@ class Git(QObject):
         # Create and configure QProcess object
         self._process = process = QProcess()
         process.setProgram(self.executable)
-        if owner is not None:
-            process.setWorkingDirectory(owner.root())
+        if root_path is not None:
+            process.setWorkingDirectory(root_path)
 
         # Connect QProcess's signals to our own intermediate slots or our own signals
         process.finished.connect(self._finished)

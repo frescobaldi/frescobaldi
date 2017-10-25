@@ -52,9 +52,9 @@ class Document(abstractdoc.Document):
     IndexToHead = CompareTo.IndexToHead
     IndexToCommit = CompareTo.IndexToCommit
 
-    def __init__(self, repo, relative_path, view):
+    def __init__(self, root_path, relative_path, view):
         self._compare_to = Document.WorkingToHead
-        super(Document, self).__init__(gitjob.GitJobQueue, repo, relative_path, view)
+        super(Document, self).__init__(gitjob.GitJobQueue, root_path, relative_path, view)
 
     def _create_tmp_files(self):
         self._temp_committed_file = Document._create_tmp_file()
@@ -81,6 +81,25 @@ class Document(abstractdoc.Document):
                     + file_name + "\n" + error_msg)
         self.disable()
 
+    def is_tracked(self):
+        """
+        Test if the document is Git tracked.
+        This is not cached in order to be able to deal with external changes.
+        """
+        
+        job = gitjob.Git(self._root_path)
+
+        # Run Git to check a file's status
+        args = [
+            'status', '--porcelain', '--ignored', self._relative_path
+        ]
+        status = job.run_blocking(args)[0]
+        
+        # 'not status' => unmodified (= tracked) file
+        # Untracked files are marked with ??
+        # Ignored files are marked with !!
+        return ((not status) or (status[0][0] not in ['?', '!']))
+                
     def set_compare(self, compare_to):
         if not isinstance(compare_to, CompareTo):
             raise TypeError("Only Document.CompareTo can be passed in")
@@ -359,7 +378,7 @@ class Document(abstractdoc.Document):
             'status', '--porcelain', '--ignored', self._relative_path
         ]
 
-        git = gitjob.Git(self._repo)
+        git = gitjob.Git(self._root_path)
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_status')
         git.errorOccurred.connect(error_handler)
@@ -444,7 +463,7 @@ class Document(abstractdoc.Document):
             original = self._temp_committed_file
 
         args = ['diff', '-U0', '--no-color', '--no-index', original, current]
-        git = gitjob.Git(self._repo)
+        git = gitjob.Git(self._root_path)
         git.preset_args = args
         git.finished.connect(result_parser)
         self._jobqueue.enqueue(git)
@@ -468,7 +487,7 @@ class Document(abstractdoc.Document):
             '--filters' if helper.GitHelper.vcs_version() >= (2, 11, 0) else '-p',
             ':'+self._relative_path
         ]
-        git = gitjob.Git(self._repo)
+        git = gitjob.Git(self._root_path)
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_temp_index_file')
         git.errorOccurred.connect(error_handler)
@@ -503,7 +522,7 @@ class Document(abstractdoc.Document):
             commit + ':'+self._relative_path
         ]
 
-        git = gitjob.Git(self._repo)
+        git = gitjob.Git(self._root_path)
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_temp_committed_file')
         git.errorOccurred.connect(error_handler)

@@ -78,7 +78,7 @@ class Repo(abstractrepo.Repo):
 
         """
         self._watcher = QFileSystemWatcher()
-        self._index_path = os.path.join(self.root_path, '.git', 'index')
+        self._index_path = os.path.join(self._root_path, '.git', 'index')
         self._watcher.addPath(self._index_path)
         self._watcher.fileChanged.connect(self._emit_repo_changed_signal)
 
@@ -122,7 +122,7 @@ class Repo(abstractrepo.Repo):
                 error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ['branch', '--color=never', '-a']
-        git = gitjob.Git(self)
+        git = gitjob.Git(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_branches')
         git.errorOccurred.connect(error_handler)
@@ -148,7 +148,7 @@ class Repo(abstractrepo.Repo):
             gitprocess.executed.emit(0)
 
         args = ["config", "branch." + branch + ".remote"]
-        git = gitjob.Git(self)
+        git = gitjob.Git(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_tracked_remote_name')
         git.errorOccurred.connect(error_handler)
@@ -184,7 +184,7 @@ class Repo(abstractrepo.Repo):
                 error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ["branch", "-vv"]
-        git = gitjob.Git(self)
+        git = gitjob.Git(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_tracked_remote_branches')
         git.errorOccurred.connect(error_handler)
@@ -210,7 +210,7 @@ class Repo(abstractrepo.Repo):
                 error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ["remote", "show"]
-        git = gitjob.Git(self)
+        git = gitjob.Git(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_tracked_remotes')
         git.errorOccurred.connect(error_handler)
@@ -264,7 +264,7 @@ class Repo(abstractrepo.Repo):
             err_msg = 'Error: ' + helper.GitHelper.error_message[errcode]
 
         args = ["checkout", "-q", branch]
-        git = gitjob.Git(self)
+        git = gitjob.Git(self.root())
         git.preset_args = args
         git.errorOccurred.connect(error_tracker)
         git.finished.connect(success_tracker)
@@ -330,16 +330,8 @@ class Repo(abstractrepo.Repo):
         else:
             return remote + '/' + remote_branch
 
-class RepoManager(QObject):
-
+class RepoManager(abstractrepo.RepoManager):
+    """Class managing all Git repositories."""
     def __init__(self):
         super().__init__()
-        self._repos = {}
-
-    def track_document(self, view, root_path, relative_path):
-        if root_path not in self._repos:
-            self._repos[root_path] = Repo(root_path)
-        self._repos[root_path].track_document(relative_path, view)
-
-    def untrack_document(self, root_path, relative_path):
-        self._repos[root_path].untrack_document(relative_path)
+        self._repo_class = Repo

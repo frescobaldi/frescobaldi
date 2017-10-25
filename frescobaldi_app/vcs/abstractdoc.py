@@ -25,7 +25,7 @@ from abc import ABCMeta, abstractmethod
 import os
 import tempfile
 
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt5.QtCore import QObject, QUrl, pyqtSignal
 
 class Document(QObject):
 
@@ -53,10 +53,12 @@ class Document(QObject):
         os.close(file)
         return filepath
 
-    def __init__(self, queue_class, repo, relative_path, view):
+    def __init__(self, queue_class, root_path, relative_path, view):
         super(Document, self).__init__()
-        self._repo = repo
         self._view = view
+        self._path = os.path.join(root_path, relative_path)
+        self._url = QUrl(self._path)
+        self._root_path = root_path
         self._relative_path = relative_path
         self._status = None
         # tuple: ([inserted], [modified], [deleted])
@@ -97,6 +99,18 @@ class Document(QObject):
     def status(self):
         return self._status
 
+    def root(self):
+        return self._root_path
+    
+    def relative_path(self):
+        return self._relative_path
+
+    def path(self):
+        return self._path
+    
+    def url(self):
+        return self._url
+    
     @abstractmethod
     def status(self):
         """This function returns the vcs status of current file
@@ -141,9 +155,13 @@ class Document(QObject):
     @abstractmethod
     def _update_diff_lines(repoChanged, fileChanged):
         pass
+    
+    @abstractmethod
+    def is_tracked(self):
+        pass
 
     def update(self, repoChanged = False, fileChanged = False):
-        if self._view.vcsTracked:
+        if self.is_tracked():
             # TODO: implement a delay (e.g. 100-500 ms) like with automatic compilation
             # so the update is not called after *every* input but only in typing pauses
             self._update_status()
