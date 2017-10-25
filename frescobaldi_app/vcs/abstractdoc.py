@@ -63,60 +63,6 @@ class Document(QObject):
             file.flush()
             os.fsync(file.fileno())
 
-    def __init__(self, queue_class, repo, relative_path, view):
-        super().__init__()
-        self._repo = repo
-        self._view = view
-        self._relative_path = relative_path
-        self._status = None
-        # tuple: ([inserted], [modified], [deleted])
-        self._diff_lines = None
-        self._diff_cache = None
-        self._jobqueue = queue_class()
-        self._create_temp_files()
-        self.update(repoChanged = True, fileChanged = True)
-        self._view.textChanged.connect(lambda: self.update(fileChanged = True))
-        
-    def __del__(self):
-        self._clean_job()
-
-    def _clean_job(self):
-        """Do the clean job when destroy the instance or meet errors"""
-        self._jobqueue.kill_all()
-        self._clean_temp_files()
-
-    @abstractmethod
-    def _update_status(self):
-        pass
-    
-    def disable(self):
-        """Disable tracking"""
-        self._view.vcsTracked = False
-        try: self.diff_updated.disconnect()
-        except Exception: pass
-        try: self.status_updated.disconnect()
-        except Exception: pass
-        self._clean_job()
-
-    def view(self):
-        return self._view
-
-    def status(self):
-        return self._status
-
-    def diff_lines(self):
-        # TODO: is it clear that when this is called there are already _diff_lines?
-        # otherwise it may be necessary to conditionally retrieve them (caching)
-        # in order to avoid uninitialized states (but I'm not fully sure if that
-        # *is* an issue at all).
-        return self._diff_lines
-
-    @abstractmethod
-    def _create_temp_files(self):
-        """Create the temporary files (depending on the VCS type)
-        that will be needed to handle the versioning of the document."""
-        pass
-        
     @abstractmethod
     def status(self):
         """This function returns the vcs status of current file
@@ -149,11 +95,3 @@ class Document(QObject):
 
         """
         pass
-
-    def update(self, repoChanged = False, fileChanged = False):
-        if self._view.vcsTracked:
-            # TODO: implement a delay (e.g. 100-500 ms) like with automatic compilation
-            # so the update is not called after *every* input but only in typing pauses
-            self._update_status()
-            self._update_diff_lines(repoChanged, fileChanged)
-
