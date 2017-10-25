@@ -45,12 +45,14 @@ class Repo(abstractrepo.Repo):
     _repoChangeDetected = pyqtSignal()
 
     def __init__(self, root):
-        super().__init__(root, gitjob.GitJobQueue)
+        super().__init__()
+        self._jobqueue = gitjob.GitJobQueue()
+        self.root_path = root
         self._remotes = []
         self._local_branches = []
         self._remote_branches = []
         self._tracked_remotes = {}
-        self._document_class = gitdoc.Document
+        self._documents = {}
         self._set_repo_changed_signals()
         self._update_all_attributes(blocking=True)
         self._repoChangeDetected.connect(self._update_all_attributes)
@@ -231,6 +233,42 @@ class Repo(abstractrepo.Repo):
 
     # ####################
     # Public API functions
+    def disable(self):
+        """Disable tracking"""
+        try: self.repoChanged.disconnect()
+        except Exception: pass
+        try: self._repoChangeDetected.disconnect()
+        except Exception: pass
+        try: self._watcher.fileChanged.disconnect()
+        except Exception: pass
+        for relative_path in self._documents:
+            self._documents[relative_path].disable()
+
+    def track_document(self, relative_path, view):
+        if relative_path in self._documents:
+            return
+        view.vcsTracked     = True
+        self._documents[relative_path] = gitdoc.Document(self, relative_path, view)
+        view.vcsDocTracker  = self._documents[relative_path]
+        view.vcsRepoTracker = self
+
+    def untrack_document(self, relative_path):
+        if relative_path not in self._documents:
+            return
+        tracked_doc = self._documents.pop(relative_path)
+        tracked_doc.deleteLater()
+
+    def corresponding_view(self, relative_path):
+        return self._documents[relative_path].view()
+
+    def root(self):
+        return self.root_path
+
+    def name(self):
+        _, name = os.path.split(self.root_path)
+        return name
+
+
 
     def branches(self, local=True):
         """
