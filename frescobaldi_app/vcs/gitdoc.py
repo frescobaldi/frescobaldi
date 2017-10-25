@@ -88,7 +88,7 @@ class Document(abstractdoc.Document):
         This is not cached in order to be able to deal with external changes.
         """
         
-        job = gitjob.Git(self._root_path)
+        job = gitjob.Job(self._root_path)
 
         # Run Git to check a file's status
         args = [
@@ -379,7 +379,7 @@ class Document(abstractdoc.Document):
             'status', '--porcelain', '--ignored', self._relative_path
         ]
 
-        git = gitjob.Git(self._root_path)
+        git = gitjob.Job(self._root_path)
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_status')
         git.errorOccurred.connect(error_handler)
@@ -464,7 +464,7 @@ class Document(abstractdoc.Document):
             original = self._temp_committed_file
 
         args = ['diff', '-U0', '--no-color', '--no-index', original, current]
-        git = gitjob.Git(self._root_path)
+        git = gitjob.Job(self._root_path)
         git.preset_args = args
         git.finished.connect(result_parser)
         self._jobqueue.enqueue(git)
@@ -488,7 +488,7 @@ class Document(abstractdoc.Document):
             '--filters' if vcs.VCS.version('git') >= (2, 11, 0) else '-p',
             ':'+self._relative_path
         ]
-        git = gitjob.Git(self._root_path)
+        git = gitjob.Job(self._root_path)
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_temp_index_file')
         git.errorOccurred.connect(error_handler)
@@ -523,7 +523,7 @@ class Document(abstractdoc.Document):
             commit + ':'+self._relative_path
         ]
 
-        git = gitjob.Git(self._root_path)
+        git = gitjob.Job(self._root_path)
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_temp_committed_file')
         git.errorOccurred.connect(error_handler)

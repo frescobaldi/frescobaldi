@@ -122,7 +122,7 @@ class Repo(abstractrepo.Repo):
                 error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ['branch', '--color=never', '-a']
-        git = gitjob.Git(self.root())
+        git = gitjob.Job(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_branches')
         git.errorOccurred.connect(error_handler)
@@ -148,7 +148,7 @@ class Repo(abstractrepo.Repo):
             gitprocess.executed.emit(0)
 
         args = ["config", "branch." + branch + ".remote"]
-        git = gitjob.Git(self.root())
+        git = gitjob.Job(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_tracked_remote_name')
         git.errorOccurred.connect(error_handler)
@@ -184,7 +184,7 @@ class Repo(abstractrepo.Repo):
                 error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ["branch", "-vv"]
-        git = gitjob.Git(self.root())
+        git = gitjob.Job(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_tracked_remote_branches')
         git.errorOccurred.connect(error_handler)
@@ -210,7 +210,7 @@ class Repo(abstractrepo.Repo):
                 error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
         args = ["remote", "show"]
-        git = gitjob.Git(self.root())
+        git = gitjob.Job(self.root())
         git.preset_args = args
         error_handler = partial(self._error_handler, '_update_tracked_remotes')
         git.errorOccurred.connect(error_handler)
@@ -264,7 +264,7 @@ class Repo(abstractrepo.Repo):
             err_msg = 'Error: ' + gitjob.Git.error_messages[errcode]
 
         args = ["checkout", "-q", branch]
-        git = gitjob.Git(self.root())
+        git = gitjob.Job(self.root())
         git.preset_args = args
         git.errorOccurred.connect(error_tracker)
         git.finished.connect(success_tracker)

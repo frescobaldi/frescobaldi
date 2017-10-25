@@ -25,7 +25,7 @@ import collections
 from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
 
-class Git(QObject):
+class Job(QObject):
     """Executes a single Git command, either blocking or non-blocking.
 
     The output of the command will be stored in the _stdout and _stderr fields,
@@ -182,11 +182,11 @@ class Git(QObject):
         Returns the content of the stdout output, if any.
 
         Returns:
-            None: Git() is running / Git() hasn't started / Git() has crashed
+            None: Job() is running / Job() hasn't started / Job() has crashed
              b'': isbinary is True.
-                  Git() has finished running and returns a binary result.
+                  Job() has finished running and returns a binary result.
               []: isbinary is False.
-                  Git() has finished running and returns a string-list result.
+                  Job() has finished running and returns a string-list result.
         """
         if self._stdout is None:
             return None
@@ -201,11 +201,11 @@ class Git(QObject):
         Returns the content of the stderr output, if any.
 
         Returns:
-            None: Git() is running / Git() hasn't started / Git() has crashed
+            None: Job() is running / Job() hasn't started / Job() has crashed
              b'': isbinary is True.
-                  Git() has finished running and returns a binary result.
+                  Job() has finished running and returns a binary result.
               []: isbinary is False.
-                  Git() has finished running and returns a string-list result.
+                  Job() has finished running and returns a string-list result.
         """
         if self._stderr is None:
             return None
@@ -226,10 +226,10 @@ class Git(QObject):
 
 
 class GitJobQueue(QObject):
-    """GitJobQueue is the command queue manage Git() objects
+    """GitJobQueue is the command queue manage Job() objects
 
     You may need this when you want to run some Git commands in order.
-    Git() objects in the queue run one after another.  When an error occurrs
+    Job() objects in the queue run one after another.  When an error occurrs
     during runing, GitJobQueue will stop running and emits an "errorOccurred"
     signal.
     """
@@ -242,11 +242,11 @@ class GitJobQueue(QObject):
 
     def enqueue(self, gitjob):
         """
-        Appends a Git() object (gitjob) into the queue.
-        If the queue is empty, the Git() object will run immediately.
+        Appends a Job() object (gitjob) into the queue.
+        If the queue is empty, the Job() object will run immediately.
 
         CAUTION:
-        enqueue a same Git() object multiple times will lead to a runtime-error.
+        enqueue a same Job() object multiple times will lead to a runtime-error.
         """
         gitjob.executed.connect(self.run_next)
         gitjob.errorOccurred.connect(self.errorOccurred)
@@ -258,7 +258,7 @@ class GitJobQueue(QObject):
 
     def kill_all(self):
         """
-        Kills and removes all the Git() objects this queue contains
+        Kills and removes all the Job() objects this queue contains
         """
         self._remove_current()
         for job in self._queue:
@@ -276,8 +276,8 @@ class GitJobQueue(QObject):
 
     def run_next(self, execute_status = 0):
         """
-        Runs next Git() object in the queue.
-        It can be triggered by the previous Git() instance's executed signal.
+        Runs next Job() object in the queue.
+        It can be triggered by the previous Job() instance's executed signal.
         """
         self._remove_current()
         self._optimize()
@@ -286,8 +286,8 @@ class GitJobQueue(QObject):
 
     def _remove_current(self):
         """
-        Removes the Git() object in queue-head.
-        If the Git() object is running, terminate it by calling its kill().
+        Removes the Job() object in queue-head.
+        If the Job() object is running, terminate it by calling its kill().
         """
         if self._queue:
             if self._queue[0].isRunning():
