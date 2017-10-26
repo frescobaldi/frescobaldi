@@ -84,12 +84,16 @@ class Job(abstractjob.Job):
         """Return the Git version as a tuple or False if it is not installed"""
         job = cls()
         args = ['--version']
-        stdout, stderr = job.run_blocking(args)
+        stdout, _ = job.run_blocking(args)
+        if not stdout:
+            # obviously Git is not available
+            return False
         match = re.match(r'git version (\d+)\.(\d+)\.(\d+)', stdout[0])
         if match:
             # PEP-440 conform git version (major, minor, patch)
             return tuple(int(g) for g in match.groups())
         else:
+            # other reason for unexpected result
             return False
         
     def _start_process(self, args):
