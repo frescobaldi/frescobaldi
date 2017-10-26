@@ -19,13 +19,8 @@
 
 
 import re
-import time
-import collections
-
-from PyQt5.QtCore import QObject, QProcess, pyqtSignal
 
 from . import abstractjob
-
 
 class Job(abstractjob.Job):
     """Executes a single Git command, either blocking or non-blocking.
