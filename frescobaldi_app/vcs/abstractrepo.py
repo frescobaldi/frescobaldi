@@ -127,16 +127,19 @@ class Repo(QObject):
         path = vcs_doc.url().path()
         if path in self._documents:
             return
-        view.vcsTracked     = True
         self._documents[path] = vcs_doc
-        view.vcsDocTracker  = vcs_doc
-        view.vcsRepoTracker = self
+        view.set_vcs_document(vcs_doc)
+        view.set_vcs_repository(self)
+        view.viewSpace().connectVcsLabels(view)
 
     def untrack_document(self, path):
         if path not in self._documents:
             return
         tracked_doc = self._documents.pop(path)
-        tracked_doc.view().vcsTracked = False
+        view = tracked_doc.view()
+        view.viewSpace().disconnectVcsLabels(view)
+        view.set_vcs_document(None)
+        view.set_vcs_repository(None)
         tracked_doc.deleteLater()
 
     def corresponding_view(self, relative_path):

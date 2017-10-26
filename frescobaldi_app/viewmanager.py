@@ -186,7 +186,7 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.connect(self.updateCursorPosition)
         view.modificationChanged.connect(self.updateModificationState)
         view.document().urlChanged.connect(self.updateDocumentName)
-        if vcs.VCS.use() and view.vcsTracked:
+        if vcs.VCS.use() and view.vcs_tracked():
             self.connectVcsLabels(view)
         self.viewChanged.emit(view)
 
@@ -195,19 +195,19 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
-        if vcs.VCS.use() and view.vcsTracked:
+        if vcs.VCS.use() and view.vcs_tracked():
             self.disconnectVcsLabels(view)
            
     def connectVcsLabels(self, view):
-        view.vcsRepoTracker.repoChanged.connect(self.updateVcsRepoStatus)
-        view.vcsDocTracker.status_updated.connect(self.updateVcsDocStatus)
-        view.vcsDocTracker.diff_updated.connect(self.updateVcsDocChangedLines)
+        view.vcs_repository().repoChanged.connect(self.updateVcsRepoStatus)
+        view.vcs_document().status_updated.connect(self.updateVcsDocStatus)
+        view.vcs_document().diff_updated.connect(self.updateVcsDocChangedLines)
         self.updateStatusBar()
 
     def disconnectVcsLabels(self, view):
-        view.vcsRepoTracker.repoChanged.disconnect(self.updateVcsRepoStatus)
-        view.vcsDocTracker.status_updated.disconnect(self.updateVcsDocStatus)
-        view.vcsDocTracker.diff_updated.disconnect(self.updateVcsDocChangedLines)
+        view.vcs_repository().repoChanged.disconnect(self.updateVcsRepoStatus)
+        view.vcs_document().status_updated.disconnect(self.updateVcsDocStatus)
+        view.vcs_document().diff_updated.disconnect(self.updateVcsDocChangedLines)
         self.updateStatusBar()
 
     def eventFilter(self, view, ev):
@@ -229,31 +229,33 @@ class ViewSpace(QWidget):
             self.updateVcsDocChangedLines()
 
     def updateVcsRepoStatus(self):
-        if not self.activeView().vcsTracked:
+        if not self.activeView().vcs_tracked():
             self.status.vcsRepoStatusLabel.setText("")
             return
-        name = self.activeView().vcsRepoTracker.name()
-        branch = self.activeView().vcsRepoTracker.current_branch()
+        name = self.activeView().vcs_repository().name()
+        branch = self.activeView().vcs_repository().current_branch()
         self.status.vcsRepoStatusLabel .setText(_("In {repo} on {branch},").format(
             repo = name, branch = branch))
 
     def updateVcsDocStatus(self):
-        if not self.activeView().vcsTracked or self.activeView().vcsDocTracker.status() is None:
+        view = self.activeView()
+        if not view.vcs_tracked() or view.vcs_document().status() is None:
             self.status.vcsDocStatusLabel.setText('')
             return
-        indexStatus, workingStatus = self.activeView().vcsDocTracker.status()
+        indexStatus, workingStatus = view.vcs_document().status()
         statusText = 'File is '
         if indexStatus and workingStatus:
             statusText += indexStatus + '-' + workingStatus + ', '
         else:
             statusText += indexStatus + workingStatus + ', '
-        self.status.vcsDocStatusLabel .setText(statusText)
+        self.status.vcsDocStatusLabel.setText(statusText)
 
     def updateVcsDocChangedLines(self):
-        if not self.activeView().vcsTracked or self.activeView().vcsDocTracker.diff_lines() is None:
+        view = self.activeView()
+        if not view.vcs_tracked() or view.vcs_document().diff_lines() is None:
             self.status.vcsDocChangedLinesLabel.setText('')
             return
-        addedLines, modifiedLines, deletedLines = self.activeView().vcsDocTracker.diff_lines()
+        addedLines, modifiedLines, deletedLines = view.vcs_document().diff_lines()
         statusText = ''
         if deletedLines:
             statusText += str(len(deletedLines)) + '-, '

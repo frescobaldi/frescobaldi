@@ -34,12 +34,12 @@ class VCSDiffArea(QWidget):
         if self._textedit:
             self._textedit.updateRequest.disconnect(self.slotUpdateRequest)
             self._textedit.blockCountChanged.disconnect(self.updateWidth)
-            self._textedit.vcsDocTracker.diff_updated.disconnect(self.update)
+            self._textedit.vcs_document().diff_updated.disconnect(self.update)
         self._textedit = edit
         if edit:
             edit.updateRequest.connect(self.slotUpdateRequest)
             edit.blockCountChanged.connect(self.updateWidth)
-            edit.vcsDocTracker.diff_updated.connect(self.update)
+            edit.vcs_document().diff_updated.connect(self.update)
             self.updateWidth()
         else:
             self._width = 0
@@ -48,7 +48,7 @@ class VCSDiffArea(QWidget):
     def mousePressEvent(self, event):
         index = int(event.y() / QFontMetrics(
             self._textedit.font()).height()) + 1 + self._textedit.firstVisibleBlock().blockNumber()
-        dic = self._textedit.vcsDocTracker.diff_hunk(index)
+        dic = self._textedit.vcs_document().diff_hunk(index)
         if dic['size'] > -1:
             from .vcsdiffwindow import VCSDiffWindow
             self.window = VCSDiffWindow(dic, self._textedit)
@@ -88,9 +88,9 @@ class VCSDiffArea(QWidget):
         painter.setFont(edit.font())
         rect = QRect(0, 0, self.width(), QFontMetrics(edit.font()).height() + 2)
         block = edit.firstVisibleBlock()
-        if self._textedit.vcsDocTracker.diff_lines() is None:
+        if self._textedit.vcs_document().diff_lines() is None:
             return
-        added, modified, deleted = self._textedit.vcsDocTracker.diff_lines()
+        added, modified, deleted = self._textedit.vcs_document().diff_lines()
         while block.isValid():
             geom = edit.blockBoundingGeometry(block)
             geom.translate(edit.contentOffset())

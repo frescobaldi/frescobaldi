@@ -81,24 +81,11 @@ class VCSManager(QObject):
         view = self._doc_views[old.path()] if old.path() else self._empty_view
         
         # determine if the old document has been tracked and untrack it if applicable
-        old_tracked = repo = self._doc_trackers.get(old.path(), None)
-        if old_tracked:
+        repo = self._doc_trackers.get(old.path(), None)
+        if repo:
             repo.untrack_document(old.path())
         
         # handle the new document in the view
         self.setCurrentDocument(view)
-        # store information if the new document is tracked
-        new_tracked = self._doc_trackers.get(url.path(), None)
         
-        # TODO: Is this the right way to get to the ViewSpace?
-        view_space = view.parentWidget().parentWidget()
-        view_space.viewChanged.emit(view)
-
-        # Update the signals when the VCSDiffArea has been created or destroyed
-        # in the viewChanged handler.
-        if not old_tracked and new_tracked:
-            view_space.connectVcsLabels(view)
-        
-        if old_tracked and not new_tracked:
-            view_space.disconnectVcsLabels(view)
-
+        view.viewSpace().viewChanged.emit(view)

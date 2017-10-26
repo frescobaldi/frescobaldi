@@ -169,7 +169,6 @@ class Document(QObject):
 
     def disable(self):
         """Disable tracking"""
-        self._view.vcsTracked = False
         try: self.diff_updated.disconnect()
         except Exception: pass
         try: self.status_updated.disconnect()
