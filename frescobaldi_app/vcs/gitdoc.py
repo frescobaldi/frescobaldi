@@ -76,7 +76,7 @@ class Document(abstractdoc.Document):
     def _error_handler(self, func_name, error_msg):
         file_name = self._view.document().documentName()
         if type(error_msg) is not str:
-            error_msg = gitjob.Job.error_messages[error_msg]
+            error_msg = gitjob.Job.error(error_msg)
         # TODO: Discuss if printing is the proper way to report such errors
         print("Git Error occurred during running "+ func_name + " on "
                     + file_name + "\n" + error_msg)
