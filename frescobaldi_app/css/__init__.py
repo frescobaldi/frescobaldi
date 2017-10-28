@@ -37,40 +37,36 @@ lcd_screen = """
 """
 
 diff_popup = """
+/* TODO (not within GSoC): make these styles configurable */
 
-/* Question:
- * Is it OK to hard-code the following two generic styles,
- * shouldn't these rather be more specific (cascaded?) classes?
-*/
-
+/* Make sure the texts stay where they should be */
 td {
    vertical-align: top;
 }
 
+/* The popup window uses a table to display the code */
 table {
    width: 100%;
 }
 
+/* The line number color in changed side */
 .border-num-chg {
     color: #3c3b3b;
 }
 
+/* The line number color in original side */
 .border-num-ori {
     color: #3c3b3b;
 }
 
-/* Question: shouldn't this 'headline' comment be placed earlier? */
-/* TODO (not within GSoC): make these styles configurable */
-
-/**
- * DIFF HIGHLIGHTING
- *
- * The following entries apply to the "highlight difference"
- * mode of the popup.
- **/
-
 /* Highlight text, that has been inserted. */
 .hi-ins {
+    color: #000000;
+    background-color: #a9efbc;
+}
+
+/* Highlight text, that has been inserted and substitutes by other text. */
+.hi-chg-ins {
     color: #000000;
     background-color: #a9efbc;
 }
@@ -81,17 +77,10 @@ table {
     background-color: #ffdce0;
 }
 
-/* Highlight text, that has been inserted and substitutes other text. */
-.hi-chg-ins {
-    color: #000000;
-    background-color: #a9efbc;
-}
-
 /* Highlight text, that has been deleted and is substituted by other text. */
 .hi-chg-del {
     color: #000000;
     background-color: #ffdce0;
 }
-
 """
 

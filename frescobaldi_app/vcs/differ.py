@@ -36,7 +36,7 @@ def ori_highlight_diff(old_lines, new_lines, index = 1):
     return ''.join(_ori_highlight_diff(old_lines, new_lines))
 
 def _ori_highlight_diff(a, b):
-    yield '<table style="width:100%">'
+    yield '<table>'
     cruncher = difflib.SequenceMatcher(None, a, b, False)
     for tag, alo, ahi, blo, bhi in cruncher.get_opcodes():
         if tag == 'replace':
@@ -60,7 +60,7 @@ def chg_highlight_diff(old_lines, new_lines, index = 1):
     return ''.join(_chg_highlight_diff(old_lines, new_lines))
 
 def _chg_highlight_diff(a, b):
-    yield '<table style="width:100%">'
+    yield '<table>'
     cruncher = difflib.SequenceMatcher(None, a, b, False)
     for tag, alo, ahi, blo, bhi in cruncher.get_opcodes():
         if tag == 'replace':
@@ -80,7 +80,7 @@ def _chg_highlight_diff(a, b):
 
 def _highlight_diff(a, b):
     # begin of mdpopups code view
-    yield '<div class="highlight">'
+    yield '<div>'
     cruncher = difflib.SequenceMatcher(None, a, b, False)
     for tag, alo, ahi, blo, bhi in cruncher.get_opcodes():
         if tag == 'replace':
