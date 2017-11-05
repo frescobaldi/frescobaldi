@@ -181,6 +181,9 @@ class Repo(QObject):
 
 class RepoManager(QObject):
     """Manages all repositories of a given VCS type."""
+    
+    _repo_class = None
+    
     def __init__(self):
         super(RepoManager, self).__init__()
         self._repos = {}

@@ -334,6 +334,8 @@ class Repo(abstractrepo.Repo):
 
 class RepoManager(abstractrepo.RepoManager):
     """Class managing all Git repositories."""
+    
+    _repo_class = Repo
+    
     def __init__(self):
         super().__init__()
-        self._repo_class = Repo
