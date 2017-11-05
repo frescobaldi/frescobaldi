@@ -59,7 +59,6 @@ class Document(QObject):
         super(Document, self).__init__()
         self._view = view
         self._path = os.path.join(root_path, relative_path)
-        self._url = QUrl(self._path)
         self._root_path = root_path
         self._relative_path = relative_path
         self._status = None
@@ -114,7 +113,7 @@ class Document(QObject):
         return self._path
     
     def url(self):
-        return self._url
+        return QUrl(self._path)
     
     @abstractmethod
     def status(self):
