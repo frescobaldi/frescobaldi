@@ -35,9 +35,6 @@ class Job(abstractjob.Job):
     
     vcs_name = 'Git'
 
-    def __init__(self, root_path=None):
-        super(Job, self).__init__(root_path)
-     
     @classmethod
     def version(cls):
         """Return the Git version as a tuple or False if it is not installed"""
