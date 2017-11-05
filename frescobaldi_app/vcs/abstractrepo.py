@@ -123,16 +123,28 @@ class Repo(QObject):
             self._documents[relative_path].disable()
 
     def track_document(self, vcs_doc):
+        """
+        Attach a document tracker to the corresponding view
+        and add it to the list of tracked documents in the current
+        repository.
+        """
+        # Note: at this point there is a reference from the vcs_doc
+        # to the view but this is still independent from the tracking
+        # state.
         view = vcs_doc.view()
         path = vcs_doc.url().path()
         if path in self._documents:
             return
         self._documents[path] = vcs_doc
+        # NOW we add the *tracking* relationship
         view.set_vcs_document(vcs_doc)
         view.set_vcs_repository(self)
         view.viewSpace().connectVcsLabels(view)
 
     def untrack_document(self, path):
+        """
+        Remove the document tracker from the corresponding view.
+        """
         if path not in self._documents:
             return
         tracked_doc = self._documents.pop(path)
@@ -143,12 +155,24 @@ class Repo(QObject):
         tracked_doc.deleteLater()
 
     def corresponding_view(self, relative_path):
+        """
+        Return the view that holds a document with the given relative
+        path, or None if no such document is tracked.
+        """
+        #TODO: Consider if we need this for untracked documents
+        # in a repository as well
         return self._documents.get(relative_path, None).view()
 
     def root(self):
+        """
+        Return the absolute path to the root of the repository.
+        """
         return self._root_path
 
     def name(self):
+        """
+        Return the name (directory name) of the repository.
+        """
         _, name = os.path.split(self._root_path)
         return name
 
