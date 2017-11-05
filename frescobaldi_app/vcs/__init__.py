@@ -26,6 +26,7 @@ import os
 
 from PyQt5.QtCore import QSettings
 
+import app
 from . import (
     gitrepo, 
     apprepo, 
@@ -212,6 +213,19 @@ class VCS(object):
         instance = doc_class(root_path, relative_path, view)
         return (vcs_type, instance)
 
+    @classmethod
+    def invalidate(cls):
+        """
+        Respond to changes in settings and update the VCS subsystem accordingly.
+        """
+        # TODO: To be implemented
+        # - maybe go through all supported systems and call invalidate() on
+        #   the RepoManager instance
+        # - it is important to update the editor/view (diff area, statusbar)
+        # - maybe more ...
+        pass
+
+app.settingsChanged.connect(VCS.invalidate)
 
 class App(object):
     """
