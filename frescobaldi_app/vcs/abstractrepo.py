@@ -36,10 +36,12 @@ class Repo(QObject):
     add other VCS comparably easily.
     """
     __metaclass__ = ABCMeta
+
+    _queue_class = None
     
-    def __init__(self, root, queue_class):
+    def __init__(self, root):
         super(Repo, self).__init__()
-        self._jobqueue = queue_class()
+        self._jobqueue = self._queue_class()
         self._root_path = root
         self._documents = {}
 

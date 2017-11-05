@@ -44,13 +44,15 @@ class Repo(abstractrepo.Repo):
     repoChanged = pyqtSignal()
     _repoChangeDetected = pyqtSignal()
 
+    _document_class = gitdoc.Document
+    _queue_class = gitjob.JobQueue
+    
     def __init__(self, root):
-        super().__init__(root, gitjob.JobQueue)
+        super().__init__(root)
         self._remotes = []
         self._local_branches = []
         self._remote_branches = []
         self._tracked_remotes = {}
-        self._document_class = gitdoc.Document
         self._set_repo_changed_signals()
         self._update_all_attributes(blocking=True)
         self._repoChangeDetected.connect(self._update_all_attributes)
