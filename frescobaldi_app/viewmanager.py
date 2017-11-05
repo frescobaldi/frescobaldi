@@ -186,8 +186,6 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.connect(self.updateCursorPosition)
         view.modificationChanged.connect(self.updateModificationState)
         view.document().urlChanged.connect(self.updateDocumentName)
-        if vcs.VCS.use() and view.vcs_tracked():
-            self.connectVcsLabels(view)
         self.viewChanged.emit(view)
 
     def disconnectView(self, view):
@@ -195,8 +193,6 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
-        if vcs.VCS.use() and view.vcs_tracked():
-            self.disconnectVcsLabels(view)
            
     def connectVcsLabels(self, view):
         view.vcs_repository().repoChanged.connect(self.updateVcsRepoStatus)
