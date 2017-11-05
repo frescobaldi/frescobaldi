@@ -84,10 +84,6 @@ class VCS(object):
     def job_class(cls, vcs_type):
         return cls.meta[vcs_type]['job_class']
 
-
-        job = cls.job_class(vcs_type)()
-        return job.vcs_available()
-
     @classmethod
     def version(cls, vcs_type):
         if cls.meta[vcs_type]['version'] is None:
