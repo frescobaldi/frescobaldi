@@ -26,6 +26,13 @@ import vcs
 from . import abstractdoc, gitjob
 
 class Document(abstractdoc.Document):
+    """
+    Class representing a Git controlled document.
+    This does not contain the document content
+    but the VCS status and metadata.
+    It is attached to a View and can access the
+    document.Document instance from there.
+    """
 
     class CompareTo(IntEnum):
         """
@@ -44,9 +51,6 @@ class Document(abstractdoc.Document):
         IndexToHead     = 6
         IndexToCommit   = 5
 
-    # TODO: As these constants are used nowhere else I (UL) think
-    # the explicit enum class is not necessary. Or am I missing something?
-    # I'm not sure the type checking in set_compare() is that necessary.
     WorkingToHead = CompareTo.WorkingToHead
     WorkingToIndex = CompareTo.WorkingToIndex
     WorkingToCommit = CompareTo.WorkingToCommit
