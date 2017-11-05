@@ -61,6 +61,7 @@ class View(QPlainTextEdit):
         # to enable mouseMoveEvent to display tooltip
         super(View, self).setMouseTracking(True)
         self.setParent(app.activeWindow().viewManager.activeViewSpace())
+        self._view_space = app.activeWindow().viewManager.activeViewSpace()
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -204,8 +205,8 @@ class View(QPlainTextEdit):
                 QPainter(self.viewport()).fillRect(rect, color)
 
     def viewSpace(self):
-        """Reference to the viewManager / viewSpace holding the view."""
-        return self.parentWidget().parentWidget()
+        """Reference to the viewSpace holding the view."""
+        return self._view_space
     
     def gotoTextCursor(self, cursor, numlines=3):
         """Go to the specified cursor.
