@@ -143,7 +143,7 @@ class Repo(QObject):
         tracked_doc.deleteLater()
 
     def corresponding_view(self, relative_path):
-        return self._documents[relative_path].view()
+        return self._documents.get(relative_path, None).view()
 
     def root(self):
         return self._root_path
