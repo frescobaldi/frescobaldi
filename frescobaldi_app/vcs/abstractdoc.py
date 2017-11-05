@@ -115,12 +115,6 @@ class Document(QObject):
     def url(self):
         return QUrl(self._path)
     
-    @abstractmethod
-    def status(self):
-        """This function returns the vcs status of current file
-        """
-        pass
-
     def diff_lines(self):
         """Get current file's line-diff result
 
