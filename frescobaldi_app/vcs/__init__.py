@@ -87,7 +87,8 @@ class VCS(object):
     @classmethod
     def version(cls, vcs_type):
         if cls.meta[vcs_type]['version'] is None:
-            cls.meta[vcs_type]['version'] = cls.job_class(vcs_type).version()
+            cls.meta[vcs_type]['version'] = cls.job_class(vcs_type).version() \
+                if cls.job_class(vcs_type) is not None else False
         return cls.meta[vcs_type]['version']
 
     @classmethod
