@@ -20,6 +20,8 @@
 
 import re
 
+from PyQt5.QtCore import QSettings
+
 from . import abstractjob
 
 class Job(abstractjob.Job):
@@ -30,9 +32,11 @@ class Job(abstractjob.Job):
     signal, giving the caller the opportunity to retrieve the data.
     """
 
-    # TODO: check for preference
-    executable = 'git'
-    
+    # Check if there's an explicit path to the Git executable
+    # or fall back to 'git'
+    _exe_pref = QSettings().value("helper_applications/git", 'git', str)
+    executable = _exe_pref or 'git'
+
     vcs_name = 'Git'
 
     @classmethod
