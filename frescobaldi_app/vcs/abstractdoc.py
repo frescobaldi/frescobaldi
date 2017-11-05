@@ -67,7 +67,7 @@ class Document(QObject):
         self._jobqueue = queue_class()
         self._create_tmp_files()
         self.update(repoChanged=True, fileChanged=True)
-        self._view.textChanged.connect(lambda: self.update(fileChanged = True))
+        self._view.textChanged.connect(self._file_changed_update)
         
     def __del__(self):
         """Do the clean job when destroy the instance or meet errors"""
@@ -92,6 +92,9 @@ class Document(QObject):
             file.write(content)
             file.flush()
             os.fsync(file.fileno())
+
+    def _file_changed_update(self):
+        self.update(fileChanged = True)
 
     def view(self):
         return self._view
