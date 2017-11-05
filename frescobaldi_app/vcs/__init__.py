@@ -44,13 +44,15 @@ class VCS(object):
     # global configuration for supported VCS types
     meta = {
         'git': {
-            'repo_manager': gitrepo.RepoManager(),
+            'manager_class': gitrepo.RepoManager,
+            'repo_manager': None,
             'meta_directory': '.git',
             'document_class': gitdoc.Document,
             'job_class': gitjob.Job,
             'version': None
         },
         'hg': {
+            'manager_class': None,
             'repo_manager': None,
             'meta_directory': '.hg',
             'document_class': None,
@@ -58,6 +60,7 @@ class VCS(object):
             'version': False
         },
         'svn': {
+            'manager_class': None,
             'repo_manager': None,
             'meta_directory': 'unsupported',
             'document_class': None,
@@ -75,7 +78,11 @@ class VCS(object):
         """
         Return the RepoManager instance responsible for maintaining
         all active repositories of the given type.
-        """        
+        """
+        if not cls.is_available(vcs_type):
+            return None
+        if cls.meta[vcs_type]['repo_manager'] is None:
+            cls.meta[vcs_type]['repo_manager'] = cls.meta[vcs_type]['manager_class']()
         return cls.meta[vcs_type]['repo_manager']
     
     @classmethod
