@@ -220,9 +220,10 @@ class ViewSpace(QWidget):
             self.updateCursorPosition()
             self.updateModificationState()
             self.updateDocumentName()
-            self.updateVcsRepoStatus()
-            self.updateVcsDocStatus()
-            self.updateVcsDocChangedLines()
+            if vcs.VCS.use():
+                self.updateVcsRepoStatus()
+                self.updateVcsDocStatus()
+                self.updateVcsDocChangedLines()
 
     def updateVcsRepoStatus(self):
         if not self.activeView().vcs_tracked():
