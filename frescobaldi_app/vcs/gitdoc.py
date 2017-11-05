@@ -53,9 +53,11 @@ class Document(abstractdoc.Document):
     IndexToHead = CompareTo.IndexToHead
     IndexToCommit = CompareTo.IndexToCommit
 
+    _queue_class = gitjob.JobQueue
+    
     def __init__(self, root_path, relative_path, view):
         self._compare_to = Document.WorkingToHead
-        super(Document, self).__init__(gitjob.JobQueue, root_path, relative_path, view)
+        super(Document, self).__init__(root_path, relative_path, view)
 
     def _create_tmp_files(self):
         self._temp_committed_file = Document._create_tmp_file()

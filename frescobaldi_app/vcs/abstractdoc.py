@@ -34,6 +34,8 @@ class Document(QObject):
     diff_updated = pyqtSignal(QObject)
     status_updated = pyqtSignal(QObject)
 
+    _queue_class = None
+    
     @classmethod
     def _create_tmp_file(cls, dir = None, prefix = 'Frescobaldi_vcs_'):
         """Creates a new tmp file and return the path to it.
@@ -53,7 +55,7 @@ class Document(QObject):
         os.close(file)
         return filepath
 
-    def __init__(self, queue_class, root_path, relative_path, view):
+    def __init__(self, root_path, relative_path, view):
         super(Document, self).__init__()
         self._view = view
         self._path = os.path.join(root_path, relative_path)
@@ -64,7 +66,7 @@ class Document(QObject):
         # tuple: ([inserted], [modified], [deleted])
         self._diff_lines = None
         self._diff_cache = None
-        self._jobqueue = queue_class()
+        self._jobqueue = self._queue_class()
         self._create_tmp_files()
         self.update(repoChanged=True, fileChanged=True)
         self._view.textChanged.connect(self._file_changed_update)
