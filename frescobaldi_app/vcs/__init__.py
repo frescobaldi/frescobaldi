@@ -67,25 +67,47 @@ class VCS(object):
     }
     
     # convenience methods for cleaner access to the meta information
-    # no checks are performed for valid vcs_type arguments.
+    # no checks are performed for valid vcs_type arguments,
+    # so if asked about an unsupported VCS string (not present in the
+    # 'meta' dictionary) a KeyError will be thrown.
     @classmethod
     def repo_manager(cls, vcs_type):
+        """
+        Return the RepoManager instance responsible for maintaining
+        all active repositories of the given type.
+        """        
         return cls.meta[vcs_type]['repo_manager']
     
     @classmethod
     def meta_directory(cls, vcs_type):
+        """
+        Return the name of the meta directory whose presence indicates
+        the root directory of a repository of the given type.
+        """
         return cls.meta[vcs_type]['meta_directory']
     
     @classmethod
     def document_class(cls, vcs_type):
+        """
+        Return the class (not an object) of the VCS document responsible
+        for documents in a repository of the given type.
+        """
         return cls.meta[vcs_type]['document_class']
     
     @classmethod
     def job_class(cls, vcs_type):
+        """
+        Return the class (not an object) of the VCS Job subclass responsible
+        for the given VCS type.
+        """
         return cls.meta[vcs_type]['job_class']
 
     @classmethod
     def version(cls, vcs_type):
+        """
+        Return the installed version of the given VCS type
+        or False if it's not available.
+        """
         if cls.meta[vcs_type]['version'] is None:
             cls.meta[vcs_type]['version'] = cls.job_class(vcs_type).version() \
                 if cls.job_class(vcs_type) is not None else False
@@ -93,6 +115,12 @@ class VCS(object):
 
     @classmethod
     def is_available(cls, vcs_type=None):
+        """
+        Return True if the given VCS is installed (and found)
+        or False if not.
+        If no VCS string is given return True if *any* of the supported
+        VCSs is installed.
+        """
         if vcs_type is None:
             for v in cls.meta:
                 if cls.is_available(v):
@@ -103,10 +131,12 @@ class VCS(object):
 
     @classmethod
     def use(cls, vcs_type=None):
-        """Return True if the given VCS tool should be used for tracking documents.
+        """
+        Return True if the given VCS tool should be used for tracking documents.
         So far only Git support is implemented.
-        Git support is shielded by the "experimental features" check."""
-        
+        Git support is shielded by the "experimental features" check.
+        If no VCS type is given return True if *any* supported VCS is available.
+        """
         if not (App.is_git_controlled() or
                 QSettings().value("experimental-features", False, bool)):
             # Use of VCS is generally disabled
@@ -132,7 +162,7 @@ class VCS(object):
     def vcs_path_info(cls, full_path):
         """
         Determine if path represents a file in the working tree of a supported
-        VCS repository. This is agnostic of whether the file is tracked or not..
+        VCS repository. This is agnostic of whether the file is tracked or not.
         Return a tuple of vcs_type, repository_root, relative_path.
         Otherwise return a 'None' 3-tuple.
         """
@@ -165,6 +195,7 @@ class VCS(object):
         """
         Test if the given url represents a document in a repository.
         Return either an instance of the corresponding document class or (None, None).
+        This is independent from the tracking state of the document.
         """
         vcs_type, root_path, relative_path = VCS.vcs_path_info(url.path())
         
@@ -188,7 +219,11 @@ class App(object):
 
     @classmethod
     def is_git_controlled(cls):
-        """Return True if Frescobaldi is running from Git."""
+        """
+        Return True if Frescobaldi is running from Git.
+        If the Frescobaldi executable is within a Git repository
+        but Git is not found, display a warning and return False.
+        """
         
         if cls._is_git_controlled is None:
             frescobaldi_root = os.path.normpath(os.path.join(sys.path[0], '..'))
