@@ -37,7 +37,7 @@ class Job(abstractjob.Job):
     _exe_pref = QSettings().value("helper_applications/git", 'git', str)
     executable = _exe_pref or 'git'
 
-    vcs_name = 'Git'
+    job_name = 'Git'
 
     @classmethod
     def version(cls):

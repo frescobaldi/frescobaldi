@@ -18,6 +18,10 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 
+"""
+Generic interface for synchronously and asynchronously running shell commands.
+"""
+
 import re
 import time
 import collections
@@ -44,7 +48,7 @@ class Job(QObject):
     # should be emitted in the body of signal finished's slot.
     executed = pyqtSignal(int)
 
-    vcs_name = ''
+    job_name = ''
     
     error_messages = {
         QProcess.FailedToStart : '{} failed to start',
@@ -89,19 +93,26 @@ class Job(QObject):
 
     @classmethod
     def version(cls):
-        """Return the version of the VCS as a tuple or False if it is not installed"""
+        """
+        Return the version of the invoked shell command
+        as a tuple or False if it is not installed
+        """
         raise NotImplementedError()
     
     @classmethod
     def error(cls, reason):
-        return cls.error_messages[reason].format(cls.vcs_name)
+        """
+        Format a process's error message using the job name.
+        """
+        return cls.error_messages[reason].format(cls.job_name)
 
     def _start_process(self, args):
         """
-        Internal command preparing and starting the Git process
+        Internal command preparing and starting the process
         """
         if args is None:
-            raise Exception("Command 'args' is not specified")
+            raise Exception(_(
+                "Trying to start '{}' job without arguments".format(self.job_name)))
         self._stderr = None
         self._stdout = None
         self._process.setArguments(args)
@@ -112,8 +123,9 @@ class Job(QObject):
         Asynchronously run the command.
 
         Arguments:
-                  args([]): arguments of the Git command.
+                  args([]): arguments of the shell command.
                             If 'args' is not given, 'preset_args' will be used.
+                            The first argument is the command to be invoked.
 
         Results will only be available after the _finished() slot has been executed
         """
@@ -125,8 +137,9 @@ class Job(QObject):
         Synchronously run the command.
 
         Arguments:
-                  args([]): arguments of the Git command.
+                  args([]): arguments of the shell command.
                             If 'args' is not given, 'preset_args' will be used.
+                            The first argument is the command to be invoked.
             isbinary(bool): True - return the binary result.
                             False - return the 'utf-8' encoded string list.
 
@@ -222,11 +235,11 @@ class Job(QObject):
 
 
 class JobQueue(QObject):
-    """GitJobQueue is the command queue manage Job() objects
+    """JobQueue is the command queue managing Job() objects
 
-    You may need this when you want to run some Git commands in order.
+    You may need this when you want to run some asynchronous commands in order.
     Job() objects in the queue run one after another.  When an error occurrs
-    during runing, GitJobQueue will stop running and emits an "errorOccurred"
+    during runing, JobQueue will stop running and emits an "errorOccurred"
     signal.
     """
 
