@@ -219,10 +219,18 @@ class VCS(object):
         Respond to changes in settings and update the VCS subsystem accordingly.
         """
         # TODO: To be implemented
-        # - maybe go through all supported systems and call invalidate() on
-        #   the RepoManager instance
-        # - it is important to update the editor/view (diff area, statusbar)
-        # - maybe more ...
+        # - check if vcs.VCS.use() has changed (e.g. when experimental features
+        #   or the path to the executable have been changed).
+        # - if use() is now True:
+        #   - create a VCSManager in mainwindow
+        #   - create instances of the manager classes (in vcs.VCS)
+        #   - go through all open views and pass them to
+        #     VCSManager.setCurrentDocument()
+        # - if use() is now False:
+        #   - got through VCSManager._doc_trackers and untrack all documents
+        #   - remove repo manager instances
+        #   - remove mainwindow.vcsManager
+        # for all operations: make sure all is cleanly done.
         pass
 
 app.settingsChanged.connect(VCS.invalidate)
