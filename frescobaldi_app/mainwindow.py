@@ -126,7 +126,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.viewManager)
 
         if vcs.VCS.use():
-            self.vcsManager = vcs.manager.VCSManager()
+            self.vcsManager = vcs.manager.VCSManager(self)
             app.viewCreated.connect(self.vcsManager.setCurrentDocument)
             app.documentClosed.connect(self.vcsManager.slotDocumentClosed)
             app.documentUrlChanged.connect(self.vcsManager.slotDocumentUrlChanged)

@@ -17,10 +17,15 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+"""
+VCSManager, a single object managing all (document) VCS versioning resources.
+"""
+
 import os
 
 from PyQt5.QtCore import QObject
 
+import document
 from . import gitrepo, gitdoc, VCS
 
 class VCSManager(QObject):
@@ -29,21 +34,21 @@ class VCSManager(QObject):
     managing all (document) VCS versioning resources.
     """
 
-    def __init__(self):
+    def __init__(self, mainwindow):
+        self._mainwindow = mainwindow
         # map vcs_documents to their view
         self._doc_views = {}
         # map vcs_documents to their Repo instance.
         self._doc_trackers = {}
 
+    def mainwindow(self):
+        return self._mainwindow
+
     def setCurrentDocument(self, view):
         """Called from mainwindow after a view has been (newly) created."""
         url = view.document().url()
         if url.isEmpty():
-            # keep a reference for use in slotDocumentUrlChanged()
-            self._empty_view = view
             return
-        else:
-            self._empty_view = None
         
         # store a reference from the (editor) document to the view
         self._doc_views[url.path()] = view
@@ -58,15 +63,24 @@ class VCSManager(QObject):
         # store a pointer to the repo object that manages the document
         self._doc_trackers[url.path()] = repo
 
-    def slotDocumentClosed(self, doc):
-        """Called from mainwindow after a view has been closed."""
-        url = doc.url()
+    def slotDocumentClosed(self, doc_or_url):
+        """
+        Called from mainwindow after a view has been closed or from
+        slotDocumentUrlChanged.
+        Can be passed either a document instance or an URL.
+        The path to be untracked is determined according to the type of the arg.
+        """
+        if isinstance(doc_or_url, document.Document):
+            url = doc_or_url.url()
+        else:
+            url = doc_or_url
         if url.isEmpty():
             return
-        repo = self._doc_trackers.get(url.path(), None)
+        path = url.path()
+        repo = self._doc_trackers.get(path, None)
         if repo:
-            # repo is None if the closed document hasn't been tracked
-            repo.untrack_document(url.path())
+            # repo is not None if the closed document has been tracked
+            repo.untrack_document(path)
 
     def slotDocumentUrlChanged(self, doc, url, old):
         """
@@ -76,16 +90,7 @@ class VCSManager(QObject):
         b) when a document is saved with a new name ("Save as...")
         'doc' is the new document.Document() instance
         """
-        
-        # reference to the view that has changed
-        view = self._doc_views[old.path()] if old.path() else self._empty_view
-        
-        # determine if the old document has been tracked and untrack it if applicable
-        repo = self._doc_trackers.get(old.path(), None)
-        if repo:
-            repo.untrack_document(old.path())
-        
-        # handle the new document in the view
-        self.setCurrentDocument(view)
-        
+        view = self.mainwindow().currentView()
+        self.slotDocumentClosed(old)
+        self.setCurrentDocument(view)        
         view.viewSpace().viewChanged.emit(view)
