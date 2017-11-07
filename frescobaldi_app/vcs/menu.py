@@ -29,16 +29,34 @@ import app
 import mainwindow
 import plugin
 import vcs
+import icons
 from .gitrepo import GitError
 
-class GitMenu(QMenu):
+class VCSMenu(QMenu):
     def __init__(self, mainwindow):
-        super(GitMenu, self).__init__(mainwindow)
+        super(VCSMenu, self).__init__(mainwindow)
         self.aboutToShow.connect(self.populate)
         app.translateUI(self)
 
     def translateUI(self):
-        self.setTitle(_('menu title', '&Git'))
+        self.setTitle(_('menu title', 'Versio&n'))
+
+    def populate(self):
+        self.clear()
+        mainwindow = self.parentWidget()
+        if vcs.App.is_git_controlled():
+            self.addMenu(FrescobaldiBranchesMenu(self))
+            self.addSeparator()
+
+class FrescobaldiBranchesMenu(QMenu):
+    def __init__(self, mainwindow):
+        super(FrescobaldiBranchesMenu, self).__init__(mainwindow)
+        self.aboutToShow.connect(self.populate)
+        self.setIcon(icons.get('frescobaldi'))
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.setTitle(_('menu title', '&Frescobaldi Branches'))
 
     def populate(self):
         self.clear()
