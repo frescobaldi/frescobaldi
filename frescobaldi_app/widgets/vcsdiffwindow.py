@@ -102,7 +102,6 @@ class VCSDiffWindow(QWidget):
             # When we should insert at the start of the view
             if self._dict['start_pos'] == 0:
                 old_text = old_text + '\n'
-                print("Insert")
                 cursor.insertText(old_text)
             else:
             # When we insert at other positions in the view
@@ -138,7 +137,6 @@ class VCSDiffWindow(QWidget):
                         cursor.clearSelection()
                         cursor.movePosition(QTextCursor.Up, QTextCursor.MoveAnchor)
                 # Insert the deleted text, so the deleted hunk is reverted
-                print("Insert")
                 cursor.insertText(old_text)
         else:
         # Handle "modified" and "added" hunk
@@ -186,7 +184,6 @@ class VCSDiffWindow(QWidget):
             if not old_lines and self._dict['start_pos'] > self._view.blockCount():
                 if not self._dict['no_newline_at_end_of_old_file']:
                     old_text = '\n'
-                    print("Insert")
                     cursor.insertText(old_text)
 
             elif old_lines:
@@ -206,7 +203,6 @@ class VCSDiffWindow(QWidget):
                     cursor.movePosition(QTextCursor.End)
                     old_text = '\n'+old_text+'\n'
 
-                print("Insert")
                 cursor.insertText(old_text)
 
         cursor.endEditBlock()
