@@ -112,10 +112,12 @@ class Repo(abstractrepo.Repo):
                     branch = line.strip()
                     if branch.startswith('* '):
                         branch = branch.lstrip('* ')
+                        if branch.startswith('(HEAD'):
+                            branch = 'Detached-HEAD'
                         self._current_branch = branch
                     if branch.endswith('.stgit'):
                         continue
-                    if branch.startswith('remotes'):
+                    elif branch.startswith('remotes'):
                         self._remote_branches.append(branch)
                     else:
                         self._local_branches.append(branch)
@@ -170,7 +172,11 @@ class Repo(abstractrepo.Repo):
                         line = line.lstrip('* ')
                     hunks = line.split()
                     local_branch = hunks[0]
-                    if hunks[2].startswith('['):
+                    if local_branch.startswith('(HEAD'):
+                        self._tracked_remotes['Detached-HEAD'] = {
+                            'remote_branch': 'local'
+                        }
+                    elif hunks[2].startswith('['):
                         remote_name = self._tracked_remotes[local_branch]['remote_name']
                         start_pos = len(remote_name) + 2
                         colon_ind = hunks[2].find(':')
