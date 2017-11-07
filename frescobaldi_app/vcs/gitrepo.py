@@ -44,7 +44,7 @@ class Repo(abstractrepo.Repo):
     repoChanged = pyqtSignal()
     _repoChangeDetected = pyqtSignal()
 
-    _document_class = gitdoc.Document
+    _job_class = gitjob.Job
     _queue_class = gitjob.JobQueue
     
     def __init__(self, root):
@@ -57,14 +57,6 @@ class Repo(abstractrepo.Repo):
         self._update_all_attributes(blocking=True)
         self._repoChangeDetected.connect(self._update_all_attributes)
         self.repoChanged.connect(self._broadcast_changed_signal)
-
-    def _error_handler(self, func_name, error_msg):
-        repo_name = self.name()
-        if type(error_msg) is not str:
-            error_msg = gitjob.Job.error(error_msg)
-        print("Git Error occurred during running "+ func_name + " in repo "
-                    + repo_name + "\n" + error_msg)
-        self.disable()
 
     def _set_repo_changed_signals(self):
         """

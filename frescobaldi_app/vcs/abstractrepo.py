@@ -37,6 +37,7 @@ class Repo(QObject):
     """
     __metaclass__ = ABCMeta
 
+    _job_class = None
     _queue_class = None
     
     def __init__(self, root):
@@ -45,7 +46,13 @@ class Repo(QObject):
         self._root_path = root
         self._documents = {}
 
-        
+    def _error_handler(self, func_name, error_msg):
+        """
+        Show a warning message and disable tracking.
+        """
+        import vcs
+        vcs.VCS.error(self, func_name, error_msg)
+        self.disable()
 
     @abstractmethod
     def branches(self, local=True):
@@ -151,7 +158,13 @@ class Repo(QObject):
             return
         tracked_doc = self._documents.pop(path)
         view = tracked_doc.view()
-        view.viewSpace().disconnectVcsLabels(view)
+        try:
+            # If this is called from the VCS error _error_handler
+            # the connections may not have been made yet
+            # so we ignore an expected failure
+            view.viewSpace().disconnectVcsLabels(view)
+        except TypeError:
+            pass
         view.set_vcs_document(None)
         view.set_vcs_repository(None)
         tracked_doc.deleteLater()

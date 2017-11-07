@@ -122,6 +122,30 @@ class VCS(object):
         return cls.meta[vcs_type]['version']
 
     @classmethod
+    def error(cls, obj, func_name, error_msg):
+        from . import abstractrepo, abstractdoc
+        repo_name = obj.name() if isinstance(obj, abstractrepo.Repo) \
+            else os.path.split(obj.root())[1]
+        doc_name = obj.view().document().documentName() \
+            if isinstance(obj, abstractdoc.Document) \
+            else None
+        
+        if type(error_msg) is not str:
+            error_msg = obj._job_class.error(error_msg)
+        ##TODO: Probably this string construction is ill-suited for translation.
+        title = _("{} Error".format(obj._job_class._vcs_name))
+        msg = _("{} occured during execution of function\n    \"{}\"\n\n".format(title, func_name) +
+                 "in repository\n    \"{}\"{}{}\n".format(
+                     repo_name,
+                     "\n\nin file\n    \"{}\":\n\n".format(doc_name) if doc_name else ":\n\n",
+                     error_msg) +
+                 "Tracking will be disabled.")
+        print("Message:")
+        print(msg)
+        from PyQt5.QtWidgets import QMessageBox
+        QMessageBox.warning(None, title, msg)
+
+    @classmethod
     def is_available(cls, vcs_type=None):
         """
         Return True if the given VCS is installed (and found)

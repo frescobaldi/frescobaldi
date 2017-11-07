@@ -48,7 +48,7 @@ class Job(QObject):
     # should be emitted in the body of signal finished's slot.
     executed = pyqtSignal(int)
 
-    job_name = ''
+    _vcs_name = ''
     
     error_messages = {
         QProcess.FailedToStart : '{} failed to start',
@@ -104,7 +104,7 @@ class Job(QObject):
         """
         Format a process's error message using the job name.
         """
-        return cls.error_messages[reason].format(cls.job_name)
+        return cls.error_messages[reason].format(cls._vcs_name)
 
     def _start_process(self, args):
         """
@@ -112,7 +112,7 @@ class Job(QObject):
         """
         if args is None:
             raise Exception(_(
-                "Trying to start '{}' job without arguments".format(self.job_name)))
+                "Trying to start '{}' job without arguments".format(self._vcs_name)))
         self._stderr = None
         self._stdout = None
         self._process.setArguments(args)

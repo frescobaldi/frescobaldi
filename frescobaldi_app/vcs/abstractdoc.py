@@ -39,6 +39,7 @@ class Document(QObject):
     diff_updated = pyqtSignal(QObject)
     status_updated = pyqtSignal(QObject)
 
+    _job_class = None
     _queue_class = None
     
     def __init__(self, root_path, relative_path, view):
@@ -89,6 +90,14 @@ class Document(QObject):
             file.write(content)
             file.flush()
             os.fsync(file.fileno())
+
+    def _error_handler(self, func_name, error_msg):
+        """
+        Show a warning message and disable tracking.
+        """
+        import vcs
+        vcs.VCS.error(self, func_name, error_msg)
+        self.disable()
 
     @abstractmethod
     def _update_diff_lines(repoChanged, fileChanged):
@@ -169,6 +178,10 @@ class Document(QObject):
         try: self.status_updated.disconnect()
         except Exception: pass
         self._clean_job()
+        if self.view().vcs_repository():
+            self.view().vcs_repository().untrack_document(self.path())
+        import app
+        app.activeWindow().viewManager.activeViewSpace().viewChanged.emit(self.view())
 
     # Properties
 

@@ -57,6 +57,7 @@ class Document(abstractdoc.Document):
     IndexToHead = CompareTo.IndexToHead
     IndexToCommit = CompareTo.IndexToCommit
 
+    _job_class = gitjob.Job
     _queue_class = gitjob.JobQueue
     _compare_to = CompareTo.WorkingToHead
 
@@ -71,19 +72,13 @@ class Document(abstractdoc.Document):
         """Remove the temp files we have initially created."""
         if self._temp_committed_file:
             os.unlink(self._temp_committed_file)
+            self._temp_committed_file = None
         if self._temp_index_file:
             os.unlink(self._temp_index_file)
+            self._temp_index_file = None
         if self._temp_working_file:
             os.unlink(self._temp_working_file)
-
-    def _error_handler(self, func_name, error_msg):
-        file_name = self._view.document().documentName()
-        if type(error_msg) is not str:
-            error_msg = gitjob.Job.error(error_msg)
-        # TODO: Discuss if printing is the proper way to report such errors
-        print("Git Error occurred during running "+ func_name + " on "
-                    + file_name + "\n" + error_msg)
-        self.disable()
+            self._temp_working_file = None
 
     def is_tracked(self):
         """
