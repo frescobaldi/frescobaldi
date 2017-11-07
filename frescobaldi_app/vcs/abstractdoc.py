@@ -58,8 +58,7 @@ class Document(QObject):
         
     def __del__(self):
         """Do the clean job when destroy the instance or meet errors"""
-        self._jobqueue.kill_all()
-        self._clean_up_temp_files()
+        self._clean_job()
     
     @classmethod
     def _create_tmp_file(cls, dir = None, prefix = 'Frescobaldi_vcs_'):
@@ -113,6 +112,10 @@ class Document(QObject):
         Cleanly delete the temporary files created upon initialization.
         """
         pass
+
+    def _clean_job(self):
+        self._jobqueue.kill_all()
+        self._clean_up_temp_files()
 
     @abstractmethod
     def diff_hunk(self, row):
