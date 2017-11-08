@@ -60,14 +60,16 @@ class VCSManager(QObject):
         self._doc_views[url.path()] = view
         
         vcs_type, vcs_document = VCS.instantiate_doc(url, view)
-        if not (vcs_document and vcs_document.is_tracked()):
-            # The document is not in a repository or it is not tracked
-            return
-        
-        repo_manager = VCS.repo_manager(vcs_type)
-        repo = repo_manager.track_document(vcs_document)
-        # store a pointer to the repo object that manages the document
-        self._doc_trackers[url.path()] = repo
+        if vcs_document:
+            # The document is in a repository (but not necessarily tracked)
+            repo_manager = VCS.repo_manager(vcs_type)
+            repo = repo_manager.repo(vcs_document)
+            view.set_vcs_document(vcs_document)
+            view.set_vcs_repository(repo)
+
+            # If the document is also tracked we let the repo manager track it too
+            if vcs_document.is_tracked():
+                self._doc_trackers[url.path()] = repo_manager.track_document(vcs_document)
 
     def slotDocumentClosed(self, doc_or_url):
         """

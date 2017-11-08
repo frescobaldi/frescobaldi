@@ -137,17 +137,11 @@ class Repo(QObject):
         and add it to the list of tracked documents in the current
         repository.
         """
-        # Note: at this point there is a reference from the vcs_doc
-        # to the view but this is still independent from the tracking
-        # state.
-        view = vcs_doc.view()
         path = vcs_doc.url().path()
         if path in self._documents:
             return
         self._documents[path] = vcs_doc
-        # NOW we add the *tracking* relationship
-        view.set_vcs_document(vcs_doc)
-        view.set_vcs_repository(self)
+        view = vcs_doc.view()
         view.viewSpace().connectVcsLabels(view)
 
     def untrack_document(self, path):
@@ -201,9 +195,13 @@ class RepoManager(QObject):
         super(RepoManager, self).__init__()
         self._repos = {}
 
-    def track_document(self, vcs_doc):
+    def repo(self, vcs_doc):
         root_path = vcs_doc.root()
         if root_path not in self._repos:
             self._repos[root_path] = self._repo_class(root_path)
-        self._repos[root_path].track_document(vcs_doc)
         return self._repos[root_path]
+
+    def track_document(self, vcs_doc):
+        repo = self.repo(vcs_doc)
+        repo.track_document(vcs_doc)
+        return repo
