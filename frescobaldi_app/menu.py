@@ -48,7 +48,7 @@ import file_import
 import file_export
 import browseriface
 import vcs
-from vcs.menu import VCSMenu
+from vcs import manager
 
 
 # postpone translation
@@ -69,7 +69,7 @@ def createMenus(mainwindow):
     m.addMenu(menu_document(mainwindow))
     m.addMenu(menu_window(mainwindow))
     m.addMenu(menu_session(mainwindow))
-    m.addMenu(VCSMenu(mainwindow))
+    m.addMenu(menu_vcs(mainwindow))
     m.addMenu(menu_help(mainwindow))
 
 
@@ -420,6 +420,27 @@ def menu_session(mainwindow):
     return sessions.menu.SessionMenu(mainwindow)
 
 
+def menu_vcs(mainwindow):
+    m = Menu(_('menu title', 'Versionin&g'), mainwindow)
+    vcs_manager = mainwindow.vcsManager
+    if not vcs_manager:
+        m.setEnabled(False)
+        return m
+    ac = vcs_manager.actionCollection    
+    if vcs.App.is_git_controlled():
+        m.addMenu(vcs.App.repo.branch_menu())
+        m.addSeparator()
+    m.addAction(ac.vcs_track_doc)
+    m.addAction(ac.vcs_revert_hunk)
+    m.addAction(ac.vcs_revert_file)
+    
+    # These are temporary dummy actions, so we disable them explicitly
+    ac.vcs_track_doc.setEnabled(False)
+    ac.vcs_revert_hunk.setEnabled(False)
+    ac.vcs_revert_file.setEnabled(False)
+    return m
+    
+    
 def menu_help(mainwindow):
     m = Menu(_('menu title', '&Help'), mainwindow)
     ac = mainwindow.actionCollection

@@ -25,8 +25,12 @@ import os
 
 from PyQt5.QtCore import QObject
 
+import actioncollectionmanager
 import document
-from . import gitrepo, gitdoc, VCS
+from . import (
+    VCS,
+    actions
+)
 
 class VCSManager(QObject):
     """
@@ -40,6 +44,8 @@ class VCSManager(QObject):
         self._doc_views = {}
         # map vcs_documents to their Repo instance.
         self._doc_trackers = {}
+        self.actionCollection = ac = actions.ActionCollection(mainwindow)
+        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
 
     def mainwindow(self):
         return self._mainwindow
@@ -94,3 +100,4 @@ class VCSManager(QObject):
         self.slotDocumentClosed(old)
         self.setCurrentDocument(view)        
         view.viewSpace().viewChanged.emit(view)
+
