@@ -48,6 +48,7 @@ import file_import
 import file_export
 import browseriface
 import vcs
+from vcs.menu import VCSMenu
 
 
 # postpone translation
@@ -68,9 +69,7 @@ def createMenus(mainwindow):
     m.addMenu(menu_document(mainwindow))
     m.addMenu(menu_window(mainwindow))
     m.addMenu(menu_session(mainwindow))
-    if vcs.VCS.use():
-        from vcs.menu import VCSMenu
-        m.addMenu(VCSMenu(mainwindow))
+    m.addMenu(VCSMenu(mainwindow))
     m.addMenu(menu_help(mainwindow))
 
 

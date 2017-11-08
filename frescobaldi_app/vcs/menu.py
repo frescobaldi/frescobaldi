@@ -37,6 +37,7 @@ class VCSMenu(QMenu):
         super(VCSMenu, self).__init__(mainwindow)
         self.aboutToShow.connect(self.populate)
         app.translateUI(self)
+        self.setEnabled(vcs.VCS.use())
 
     def translateUI(self):
         self.setTitle(_('menu title', 'Versio&n'))
