@@ -21,6 +21,8 @@
 VCS actions
 """
 
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QAction
 
 import icons
@@ -38,6 +40,9 @@ class ActionCollection(actioncollection.ActionCollection):
         # icons
         # TODO: Find proper icon
         self.vcs_track_doc.setIcon(icons.get('document-new'))
+
+        # shortcuts
+        self.vcs_revert_hunk.setShortcut(QKeySequence(Qt.SHIFT+Qt.CTRL+Qt.Key_Z))
 
         # connections
         self.widget().viewManager.viewChanged.connect(self.viewChanged)
