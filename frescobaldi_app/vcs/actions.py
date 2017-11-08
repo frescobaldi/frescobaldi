@@ -39,8 +39,26 @@ class ActionCollection(actioncollection.ActionCollection):
         # TODO: Find proper icon
         self.vcs_track_doc.setIcon(icons.get('document-new'))
 
+        # connections
+        self.widget().viewManager.viewChanged.connect(self.viewChanged)
+
 
     def translateUI(self):
         self.vcs_track_doc.setText(_("action: track document", "&Track document"))
         self.vcs_revert_hunk.setText(_("action: revert hunk", "Revert current &hunk"))
         self.vcs_revert_file.setText(_("action: revert file", "Revert current &file"))
+
+    def viewChanged(self, view):
+        if view.document().url().isEmpty() or not view.vcs_document():
+            can_track = False
+            tt = ""
+        else:
+            # Configure the "Track document" action
+            can_track = not view.vcs_tracked()
+            tt = (_("Current document '{}' is not tracked\n".format(view.document().documentName()) +
+                    "in repository '{}'.\n".format(view.vcs_repository().name()) +
+                    "Start tracking this document (save and stage)." +
+                    "\n\nNOT IMPLEMENTED YET")) \
+                        if can_track else ""
+        self.vcs_track_doc.setToolTip(tt)
+        self.vcs_track_doc.setEnabled(can_track)
