@@ -126,10 +126,15 @@ class MidiIn(object):
               if notes != None :
                     start = cursor.position() + notes.start()
                     end = cursor.position() + notes.end() - 1 # -1 to compensate the space insertion
-                    cursor.setPosition(start, QTextCursor.MoveAnchor)
+                    
+                    cursor.beginEditBlock()
+                    cursor.setPosition(start)
                     cursor.setPosition(end, QTextCursor.KeepAnchor)
                     cursor.insertText(text)
+                    cursor.endEditBlock()
+
                     view.setTextCursor(cursor)
+                    
                     
         else:
               # the old style simple output 
