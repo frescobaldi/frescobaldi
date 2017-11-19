@@ -13,6 +13,9 @@ TODO:
   dynamic input
 """
 
+import re
+from PyQt4.QtGui import QTextCursor
+
 import time
 import weakref
 
@@ -104,15 +107,33 @@ class MidiIn(object):
                     self._chord = None
     
     def printwithspace(self, text):
-        cursor = self.widget().mainwindow().textCursor()
-        # check if there is a space before cursor or beginning of line
-        posinblock = cursor.position() - cursor.block().position()
-        charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
-        if charbeforecursor.isspace() or cursor.atBlockStart():
-            cursor.insertText(text)
+
+        view = self.widget().mainwindow()
+        cursor = view.textCursor()
+        doc = cursor.document()
+
+        if self.widget().repitchmode():        
+              str = doc.toPlainText()[cursor.position() : doc.characterCount()]
+              # search for the notes to replace
+              notes = re.search('<[^>]*>|[a-pt-zA-PT-Z]+[\'\,]*',str)
+              if notes != None :
+                    start = cursor.position() + notes.start()
+                    end = cursor.position() + notes.end()
+                    cursor.setPosition(start, QTextCursor.MoveAnchor)
+                    cursor.setPosition(end, QTextCursor.KeepAnchor)
+                    cursor.insertText(text)
+                    view.setTextCursor(cursor)
         else:
-            cursor.insertText(' ' +  text)
-    
+              # check if there is a space before cursor or beginning of line
+              posinblock = cursor.position() - cursor.block().position()
+              charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
+        
+              if charbeforecursor.isspace() or cursor.atBlockStart():
+                    cursor.insertText(text)
+              else:
+                    cursor.insertText(' ' +  text)
+        
+
 class Listener(QThread):
     def __init__(self, portmidiinput, pollingtime):
         QThread.__init__(self)
