@@ -112,26 +112,35 @@ class MidiIn(object):
         cursor = view.textCursor()
         doc = cursor.document()
 
-        if self.widget().repitchmode():        
-              str = doc.toPlainText()[cursor.position() : doc.characterCount()]
-              # search for the notes to replace
-              notes = re.search('<[^>]*>|[a-pt-zA-PT-Z]+[\'\,]*',str)
+        if self.widget().repitchmode():
+              rithm_str = doc.toPlainText()[cursor.position() : doc.characterCount()]
+              # Regular expressions that match lilypond music string
+              delim = '[\s\d\.\(\)\{\}\~]' # preceding symbols we don't want overwrite
+              chord_ptrn = '<[^>^]*>' # lilypond chord pattern
+              notes_ptrn = '[a-ps-zA-PS-Z]+[\'\,]*' # lilypond note pattern excludes "r" and "R" symbols to leave rests untouched
+              pitch_ptrn = delim + chord_ptrn +'|'+ delim + notes_ptrn 
+              notes = re.search(pitch_ptrn,rithm_str)
               if notes != None :
-                    start = cursor.position() + notes.start()
+                    start = cursor.position() + notes.start() + 1 # +1 for keeping unchanged the first found character
                     end = cursor.position() + notes.end()
                     cursor.setPosition(start, QTextCursor.MoveAnchor)
                     cursor.setPosition(end, QTextCursor.KeepAnchor)
                     cursor.insertText(text)
                     view.setTextCursor(cursor)
+                    
         else:
+              # the old style simple output 
+
               # check if there is a space before cursor or beginning of line
               posinblock = cursor.position() - cursor.block().position()
               charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
         
               if charbeforecursor.isspace() or cursor.atBlockStart():
-                    cursor.insertText(text)
+                   cursor.insertText(text)
               else:
-                    cursor.insertText(' ' +  text)
+                   cursor.insertText(' ' +  text)
+	
+        
         
 
 class Listener(QThread):
