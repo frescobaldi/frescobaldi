@@ -121,8 +121,8 @@ class MidiIn(object):
 
               # get the remaining document content and match pattern
               # insert the space to allow matching from very beginning (if happen no preceding symbols)
-              rithm_str = ' ' + doc.toPlainText()[cursor.position() : doc.characterCount()]
-              notes = re.search(pitch_ptrn,rithm_str)
+              rhythm_str = ' ' + doc.toPlainText()[cursor.position() : doc.characterCount()]
+              notes = re.search(pitch_ptrn,rhythm_str)
               if notes != None :
                     start = cursor.position() + notes.start()
                     end = cursor.position() + notes.end() - 1 # -1 to compensate the space insertion
