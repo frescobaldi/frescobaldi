@@ -97,35 +97,32 @@ class MidiIn(object):
                     self._chord.add(note)
                     self._activenotes += 1
                 else:
-                    self.printwithspace(note.output(self.widget().relativemode(), self._language))
+                    self.print_or_replace(note.output(self.widget().relativemode(), self._language))
             elif (notetype == 8 or (notetype == 9 and value == 0)) and self.widget().chordmode():
                 self._activenotes -= 1
                 if self._activenotes <= 0:    # activenotes could get negative under strange conditions
                     if self._chord:
-                        self.printwithspace(self._chord.output(self.widget().relativemode(), self._language))
+                        self.print_or_replace(self._chord.output(self.widget().relativemode(), self._language))
                     self._activenotes = 0    # reset in case it was negative
                     self._chord = None
     
-    def printwithspace(self, text):
+    def print_or_replace(self, text):
 
         view = self.widget().mainwindow()
         cursor = view.textCursor()
-        doc = cursor.document()
-
+        
         if self.widget().repitchmode():
-              # Regular expressions that match lilypond music string
-              delim = '[\s\d\.\~\(\)\{\}\[\]\|]' # preceding symbols we don't want overwrite
-              chord_ptrn = '<[^>^]*>' # lilypond chord pattern
-              notes_ptrn = '[a-ps-zA-PS-Z]+[\'\,]*' # lilypond note pattern excludes "r" and "R" symbols to leave rests untouched
-              pitch_ptrn = delim + chord_ptrn +'|'+ delim + notes_ptrn 
 
-              # get the remaining document content and match pattern
-              # insert the space to allow matching from very beginning (if happen no preceding symbols)
-              rhythm_str = ' ' + doc.toPlainText()[cursor.position() : doc.characterCount()]
-              notes = re.search(pitch_ptrn,rhythm_str)
+              music = cursor.document().toPlainText()[cursor.position() : ]
+
+              ly_reg_expr = '(?<![a-zA-z#_^-])[a-pq-zA-PQ-Z]{1,3}(?=[^a-zA-Z])[\'\,]*'\
+                           '|'\
+                           '(?<!<)<[^<>]*>' 
+                           
+              notes = re.search(ly_reg_expr,music)
               if notes != None :
                     start = cursor.position() + notes.start()
-                    end = cursor.position() + notes.end() - 1 # -1 to compensate the space insertion
+                    end = cursor.position() + notes.end()
                     
                     cursor.beginEditBlock()
                     cursor.setPosition(start)
@@ -135,10 +132,7 @@ class MidiIn(object):
 
                     view.setTextCursor(cursor)
                     
-                    
         else:
-              # the old style simple output 
-
               # check if there is a space before cursor or beginning of line
               posinblock = cursor.position() - cursor.block().position()
               charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
