@@ -114,10 +114,10 @@ class MidiIn(object):
         if self.widget().repitchmode():
 
               music = cursor.document().toPlainText()[cursor.position() : ]
-              
-              ly_reg_expr = r'(?<![a-zA-Z\\#_^-])[a-qs-zA-QS-Z]{1,3}(?![a-zA-Z\.])[\'\,]*'\
+
+              ly_reg_expr = r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'\
                            '|'\
-                           '(?<!<)<.*?>' 
+                           r'(?<![<\\])<[^<>]*>(?!>)' 
                            
               notes = re.search(ly_reg_expr,music)
               if notes != None :
