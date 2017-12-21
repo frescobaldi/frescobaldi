@@ -54,29 +54,29 @@ while getopts ":p:a:dh" opt; do
   esac
 done
 
-if [[ ./`basename $0` != $0 ]]
+if [[ ./$(basename $0) != $0 ]]
 then
   echo "Error: wrong working directory." 1>&2
-  echo "You must run "`basename $0`" from the macosx directory of Frescobaldi's source." 1>&2
+  echo "You must run "$(basename $0)" from the macosx directory of Frescobaldi's source." 1>&2
   exit 1
 fi
 
 echo "${INTRO}"
 echo
 
-VERSION=`${MPPREFIX}/bin/python2.7 -c 'import os
+VERSION=$(${MPPREFIX}/bin/python2.7 -c 'import os
 os.chdir("..")
 from frescobaldi_app import appinfo
-print appinfo.version'`
+print appinfo.version')
 
 if git rev-parse --git-dir > /dev/null 2>&1
 then
-  if [[ v${VERSION} != `git describe` ]]
+  if [[ v${VERSION} != $(git describe) ]]
   then
-    VERSION=${VERSION}-`git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/'`
+    VERSION=${VERSION}-$(git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/')
   fi
 else
-  echo "Warning: you are not running "`basename $0`" from the Git repository."
+  echo "Warning: you are not running "$(basename $0)" from the Git repository."
   echo "The version of the .app bundle could be wrong or incomplete if you are"
   echo "not building from the source of a tagged release."
 fi
@@ -111,9 +111,9 @@ echo
 ${MPPREFIX}/libexec/qt4/bin/macdeployqt ${APPBUNDLE}
 echo
 
-MACHO=`find ${APPBUNDLE} -type f -exec file {} + | grep Mach-O`
-NON32=`echo "${MACHO}" | grep -v i386`
-NON64=`echo "${MACHO}" | grep -v x86_64`
+MACHO=$(find ${APPBUNDLE} -type f -exec file {} + | grep Mach-O)
+NON32=$(echo "${MACHO}" | grep -v i386)
+NON64=$(echo "${MACHO}" | grep -v x86_64)
 if [[ ${NON32} == '' ]]
 then
   if [[ ${NON64} == '' ]]
