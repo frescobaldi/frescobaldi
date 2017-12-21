@@ -17,20 +17,26 @@ You can achieve this for packages installed through MacPorts with
 EOF
 
 read -d '' USAGE <<- EOF
-Usage: $0 [-p <MacPorts prefix>] [-a <architecture set>] [-d] [-h]
-  -p defaults to /opt/local
+Usage: $0 [-P <Python executable>] [-Q <root of Qt installation>]
+          [-a <architecture set>] [-d] [-h]
+  -P defaults to /opt/local/bin/python3.6
+  -Q defaults to /opt/local/libexec/qt5
   -a defaults to the architecture of the current Python binary
   -d = do not build the DMG disk image
   -h = show this help
   <architecture set> must be either i386, x86_64 or intel (= i386 + x86_64)
 EOF
 
-MPPREFIX=/opt/local
+PYTHON=/opt/local/bin/python3.6
+QTROOT=/opt/local/libexec/qt5
 
-while getopts ":p:a:dh" opt; do
+while getopts ":P:Q:a:dh" opt; do
   case ${opt} in
-    p)
-      MPPREFIX=${OPTARG}
+    P)
+      PYTHON=${OPTARG}
+      ;;
+    Q)
+      QTROOT=${OPTARG}
       ;;
     a)
       ARCH=${OPTARG}
@@ -64,10 +70,10 @@ fi
 echo "${INTRO}"
 echo
 
-VERSION=$(${MPPREFIX}/bin/python2.7 -c 'import os
+VERSION=$(${PYTHON} -c 'import os
 os.chdir("..")
 from frescobaldi_app import appinfo
-print appinfo.version')
+print(appinfo.version)')
 
 if git rev-parse --git-dir > /dev/null 2>&1
 then
@@ -92,14 +98,14 @@ echo
 # /usr/bin/strip: for architecture x86_64 object: .../dist/Frescobaldi.app/Contents/Frameworks/libgcc_s.1.dylib malformed object (unknown load command 11)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/MacOS/Frescobaldi malformed object (unknown load command 15)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/Frameworks/libstdc++.6.dylib malformed object (unknown load command 12)
-${MPPREFIX}/bin/python2.7 mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
+${PYTHON} mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
 echo
 
 APPBUNDLE=dist/Frescobaldi.app
 
 echo Copying libqsvg.dylib inside the .app bundle.
 echo
-cp ${MPPREFIX}/libexec/qt4/share/plugins/imageformats/libqsvg.dylib ${APPBUNDLE}/Contents/PlugIns/imageformats/
+cp ${QTROOT}/plugins/imageformats/libqsvg.dylib ${APPBUNDLE}/Contents/PlugIns/imageformats/
 
 echo Finalizing the .app bundle with macdeployqt.
 echo \(This step will likely give an error about the failed copy of libqsvg.dylib:
@@ -108,7 +114,7 @@ echo
 # The expected error is:
 # ERROR: file copy failed from "${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib" 
 # ERROR:  to "dist/Frescobaldi.app/Contents/PlugIns/imageformats/libqsvg.dylib" 
-${MPPREFIX}/libexec/qt4/bin/macdeployqt ${APPBUNDLE}
+${QTROOT}/bin/macdeployqt ${APPBUNDLE}
 echo
 
 MACHO=$(find ${APPBUNDLE} -type f -exec file {} + | grep Mach-O)
