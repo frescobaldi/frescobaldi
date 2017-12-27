@@ -8,7 +8,11 @@ Prerequisites:
 - Frescobaldi's dependencies installed through MacPorts with default variants,
   for the requested architecture set,
 - \$PATH contains Git, appdmg (a node.js/npm package) and OpenSSL with
-  SHA256 support.
+  SHA256 support,
+- due to a bug in py2app, PyQt5 needs to be patched by applying the patch file
+  patch-PyQt5-uic.diff in the directory lib/python3.6/site-packages/PyQt5/uic
+  of the Python.framework corresponding to the used Python, e.g., with
+    sudo patch -d/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/PyQt5/uic -p0 < patch-PyQt5-uic.diff
 
 It is strongly recommended that no Python packages are active except for
 Frescobaldi's dependencies.
