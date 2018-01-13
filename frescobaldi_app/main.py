@@ -72,7 +72,7 @@ def parse_commandline():
         help=_("List the session names and exit"))
     parser.add_argument('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
-    parser.add_argument('-p', '--python-ly', type=str, metavar=_("STR"), default="",
+    parser.add_argument('--python-ly', type=str, metavar=_("STR"), default="",
         help=_("Path to python-ly"))
     parser.add_argument('files', metavar=_("file"), nargs='*',
         help=_("File to be opened"))
@@ -85,7 +85,7 @@ def parse_commandline():
         parser.add_argument('-p', '--port')
         parser.add_argument('-f', '--file')
         parser.add_argument('-o', '--output')
-        parser.add_argument('-y', '--python-ly')
+        parser.add_argument('--python-ly')
 
 
 
