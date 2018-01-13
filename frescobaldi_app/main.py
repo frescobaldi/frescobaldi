@@ -193,7 +193,7 @@ def main():
         sys.exit(0)
 
     if args.python_ly:
-        sys.path = [args.python_ly] + sys.path
+        sys.path.insert(1, args.python_ly)
 
     check_ly()
     patch_pyqt()
