@@ -510,6 +510,39 @@ class MainWindow(QMainWindow):
         if docs:
             self.setCurrentDocument(docs[-1])
 
+    def renameDocument(self, doc):
+        if doc.url().isEmpty():
+            return self.saveDocument(doc)
+        f = doc.url().toLocalFile()
+        dirname, basename = os.path.split(f)
+
+        dlg = QInputDialog(self)
+        dlg.setInputMode(QInputDialog.TextInput)
+        dlg.setLabelText(_("Enter the new file name:"))
+        dlg.setTextValue(basename)
+        dlg_result = dlg.exec()
+        if dlg_result:
+            value = dlg.textValue()
+            if not value or value == basename:
+                return False
+            filename = '{dirname}/{basename}'.format(
+                dirname = dirname,
+                basename = value)
+            url = QUrl.fromLocalFile(filename)
+            doc.setUrl(url)
+            if self.saveDocument(doc):
+                try:
+                    os.remove(f)
+                except IOError as e:
+                    msg = _("{message}\n\n{strerror} ({errno})").format(
+                        message = _("Could not delete: {url}").format(url=f),
+                        strerror = e.strerror,
+                        errno = e.errno)
+                    QMessageBox.critical(self, app.caption(_("Error")), msg)
+                    return False
+                return True
+        return False
+
     def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
 
@@ -585,6 +618,9 @@ class MainWindow(QMainWindow):
             if not app.documents:
                 self.cleanStart()
         return close
+
+    def renameCurrentDocument(self):
+        return self.renameDocument(self.currentDocument())
 
     def saveCurrentDocument(self):
         return self.saveDocument(self.currentDocument())
@@ -985,6 +1021,7 @@ class MainWindow(QMainWindow):
         ac.file_insert_file.triggered.connect(self.insertFromFile)
         ac.file_open_current_directory.triggered.connect(self.openCurrentDirectory)
         ac.file_open_command_prompt.triggered.connect(self.openCommandPrompt)
+        ac.file_rename.triggered.connect(self.renameCurrentDocument)
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
         ac.file_save_copy_as.triggered.connect(self.saveCopyAs)
@@ -1098,6 +1135,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_insert_file = QAction(parent)
         self.file_open_current_directory = QAction(parent)
         self.file_open_command_prompt = QAction(parent)
+        self.file_rename = QAction(parent)
         self.file_save = QAction(parent)
         self.file_save_as = QAction(parent)
         self.file_save_copy_as = QAction(parent)
@@ -1153,6 +1191,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_recent.setIcon(icons.get('document-open-recent'))
         self.file_open_current_directory.setIcon(icons.get('folder-open'))
         self.file_open_command_prompt.setIcon(icons.get('utilities-terminal'))
+        self.file_rename.setIcon(icons.get('document-rename'))
         self.file_save.setIcon(icons.get('document-save'))
         self.file_save_as.setIcon(icons.get('document-save-as'))
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
@@ -1240,6 +1279,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_insert_file.setText(_("Insert from &File..."))
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
+        self.file_rename.setText(_("&Rename"))
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))

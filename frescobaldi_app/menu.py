@@ -98,6 +98,7 @@ def menu_file(mainwindow):
     m.addAction(ac.file_open_recent)
     m.addAction(ac.file_insert_file)
     m.addSeparator()
+    m.addAction(ac.file_rename)
     m.addAction(ac.file_save)
     m.addAction(ac.file_save_as)
     m.addAction(ac.file_save_copy_as)
