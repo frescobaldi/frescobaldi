@@ -939,7 +939,7 @@ class MainWindow(QMainWindow):
         """Scroll down without moving the cursor"""
         sb = self.currentView().verticalScrollBar()
         sb.setValue(sb.value() + 1)
-    
+
     def gotoLine(self):
         """Ask for line number and go there"""
         line_count = self.currentDocument().blockCount()
@@ -950,7 +950,7 @@ class MainWindow(QMainWindow):
         char_pos = cur.position() - current_block.position()
         loc_pos = view.cursorRect(cur).bottomLeft()
         pos = view.viewport().mapToGlobal(loc_pos)
-        
+
         dlg = QInputDialog(self)
         dlg.setInputMode(QInputDialog.IntInput)
         dlg.setIntMinimum(1)
@@ -1286,7 +1286,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
-        self.file_rename.setText(_("&Rename/Move File"))
+        self.file_rename.setText(_("&Rename/Move File..."))
         self.file_save_all.setText(_("Save All"))
         self.file_reload.setText(_("Re&load"))
         self.file_reload_all.setText(_("Reload All"))
