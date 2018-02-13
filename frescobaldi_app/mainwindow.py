@@ -214,15 +214,18 @@ class MainWindow(QMainWindow):
                 curd.undoAvailable.disconnect(self.updateDocActions)
                 curd.redoAvailable.disconnect(self.updateDocActions)
                 curd.modificationChanged.disconnect(self.updateWindowTitle)
+                curd.urlChanged.disconnect(self.updateFileActions)
                 curd.urlChanged.disconnect(self.updateWindowTitle)
                 curd.loaded.disconnect(self.updateDocActions)
             doc.undoAvailable.connect(self.updateDocActions)
             doc.redoAvailable.connect(self.updateDocActions)
             doc.modificationChanged.connect(self.updateWindowTitle)
+            doc.urlChanged.connect(self.updateFileActions)
             doc.urlChanged.connect(self.updateWindowTitle)
             doc.loaded.connect(self.updateDocActions)
             self.updateDocActions()
             self.updateWindowTitle()
+            self.updateFileActions()
         self.updateSelection()
         self.updateActions()
         self.currentViewChanged.emit(view, curv)
@@ -244,6 +247,17 @@ class MainWindow(QMainWindow):
         view = self.currentView()
         action = self.actionCollection.view_wrap_lines
         action.setChecked(view.lineWrapMode() == QPlainTextEdit.WidgetWidth)
+
+    def updateFileActions(self):
+        doc = self.currentDocument()
+        ac = self.actionCollection.file_rename
+        if doc:
+            if doc.url().isEmpty():
+                ac.setEnabled(False)
+            elif doc.url().toLocalFile():
+                ac.setEnabled(True)
+            else:
+                ac.setEnabled(False)
 
     def updateDocActions(self):
         doc = self.currentDocument()
@@ -511,37 +525,27 @@ class MainWindow(QMainWindow):
             self.setCurrentDocument(docs[-1])
 
     def renameDocument(self, doc):
-        if doc.url().isEmpty():
-            return self.saveDocument(doc)
-        f = doc.url().toLocalFile()
-        dirname, basename = os.path.split(f)
-
-        dlg = QInputDialog(self)
-        dlg.setInputMode(QInputDialog.TextInput)
-        dlg.setLabelText(_("Enter the new file name:"))
-        dlg.setTextValue(basename)
-        dlg_result = dlg.exec()
-        if dlg_result:
-            value = dlg.textValue()
-            if not value or value == basename:
+        filename = doc.url().toLocalFile()
+        filetypes = app.filetypes(os.path.splitext(filename)[1])
+        caption = app.caption(_("dialog title", "Rename/Move File"))
+        new_filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)[0]
+        if not new_filename or filename == new_filename:
+            return False # cancelled
+        url = QUrl.fromLocalFile(new_filename)
+        doc.setUrl(url)
+        if self.saveDocument(doc):
+            try:
+                os.remove(filename)
+            except IOError as e:
+                msg = _("{message}\n\n{strerror} ({errno})").format(
+                    message = _("Could not delete: {url}").format(url=filename),
+                    strerror = e.strerror,
+                    errno = e.errno)
+                QMessageBox.critical(self, app.caption(_("Error")), msg)
                 return False
-            filename = '{dirname}/{basename}'.format(
-                dirname = dirname,
-                basename = value)
-            url = QUrl.fromLocalFile(filename)
-            doc.setUrl(url)
-            if self.saveDocument(doc):
-                try:
-                    os.remove(f)
-                except IOError as e:
-                    msg = _("{message}\n\n{strerror} ({errno})").format(
-                        message = _("Could not delete: {url}").format(url=f),
-                        strerror = e.strerror,
-                        errno = e.errno)
-                    QMessageBox.critical(self, app.caption(_("Error")), msg)
-                    return False
-                return True
-        return False
+            return True
+        else:
+            return False
 
     def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
@@ -1021,10 +1025,10 @@ class MainWindow(QMainWindow):
         ac.file_insert_file.triggered.connect(self.insertFromFile)
         ac.file_open_current_directory.triggered.connect(self.openCurrentDirectory)
         ac.file_open_command_prompt.triggered.connect(self.openCommandPrompt)
-        ac.file_rename.triggered.connect(self.renameCurrentDocument)
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
         ac.file_save_copy_as.triggered.connect(self.saveCopyAs)
+        ac.file_rename.triggered.connect(self.renameCurrentDocument)
         ac.file_save_all.triggered.connect(self.saveAllDocuments)
         ac.file_reload.triggered.connect(self.reloadCurrentDocument)
         ac.file_reload_all.triggered.connect(self.reloadAllDocuments)
@@ -1135,10 +1139,10 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_insert_file = QAction(parent)
         self.file_open_current_directory = QAction(parent)
         self.file_open_command_prompt = QAction(parent)
-        self.file_rename = QAction(parent)
         self.file_save = QAction(parent)
         self.file_save_as = QAction(parent)
         self.file_save_copy_as = QAction(parent)
+        self.file_rename = QAction(parent)
         self.file_save_all = QAction(parent)
         self.file_reload = QAction(parent)
         self.file_reload_all = QAction(parent)
@@ -1191,10 +1195,10 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_recent.setIcon(icons.get('document-open-recent'))
         self.file_open_current_directory.setIcon(icons.get('folder-open'))
         self.file_open_command_prompt.setIcon(icons.get('utilities-terminal'))
-        self.file_rename.setIcon(icons.get('document-rename'))
         self.file_save.setIcon(icons.get('document-save'))
         self.file_save_as.setIcon(icons.get('document-save-as'))
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
+        self.file_rename.setIcon(icons.get('document-save-as'))
         self.file_save_all.setIcon(icons.get('document-save-all'))
         self.file_reload.setIcon(icons.get('reload'))
         self.file_reload_all.setIcon(icons.get('reload-all'))
@@ -1279,10 +1283,10 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_insert_file.setText(_("Insert from &File..."))
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
-        self.file_rename.setText(_("&Rename"))
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
+        self.file_rename.setText(_("&Rename/Move File"))
         self.file_save_all.setText(_("Save All"))
         self.file_reload.setText(_("Re&load"))
         self.file_reload_all.setText(_("Reload All"))
