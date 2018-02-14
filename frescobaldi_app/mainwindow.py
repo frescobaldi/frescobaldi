@@ -525,14 +525,15 @@ class MainWindow(QMainWindow):
             self.setCurrentDocument(docs[-1])
 
     def renameDocument(self, doc):
-        filename = doc.url().toLocalFile()
+        url = doc.url()
+        filename = url.toLocalFile()
         filetypes = app.filetypes(os.path.splitext(filename)[1])
         caption = app.caption(_("dialog title", "Rename/Move File"))
         new_filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)[0]
         if not new_filename or filename == new_filename:
             return False # cancelled
-        url = QUrl.fromLocalFile(new_filename)
-        doc.setUrl(url)
+        new_url = QUrl.fromLocalFile(new_filename)
+        doc.setUrl(new_url)
         if self.saveDocument(doc):
             try:
                 os.remove(filename)
@@ -543,6 +544,8 @@ class MainWindow(QMainWindow):
                     errno = e.errno)
                 QMessageBox.critical(self, app.caption(_("Error")), msg)
                 return False
+            else:
+                recentfiles.remove(url)
             return True
         else:
             return False
