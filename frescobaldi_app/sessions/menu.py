@@ -35,43 +35,71 @@ class SessionMenu(QMenu):
     def __init__(self, mainwindow):
         super(SessionMenu, self).__init__(mainwindow)
         app.translateUI(self)
-        mgr = manager.get(mainwindow)
-        ac = mgr.actionCollection
-        ag = self._actionGroup = QActionGroup(self)
-        ag.setExclusive(True)
-        ag.addAction(ac.session_none)
-        ag.triggered.connect(self.slotSessionsAction)
-        self.addAction(ac.session_new)
-        self.addAction(ac.session_save)
-        self.addSeparator()
-        self.addAction(ac.session_manage)
-        self.addSeparator()
-        self.addAction(ac.session_none)
-        self.addSeparator()
         self.aboutToShow.connect(self.populate)
 
     def translateUI(self):
         self.setTitle(_('menu title', '&Session'))
 
     def populate(self):
-        ac = manager.get(self.parentWidget()).actionCollection
-        ag = self._actionGroup
-        for a in ag.actions():
-            if a is not ac.session_none:
-                self.removeAction(a)
-                ag.removeAction(a)
-        ac.session_none.setChecked(not sessions.currentSession())
-        for name in sessions.sessionNames():
-            a = self.addAction(name.replace('&', '&&'))
+        groups = {}
+        tl_sessions = []
+
+        def add_session(menu, name, group=None):
+            name = name.replace('&', '&&')
+            fullname = group + '/' + name if group else name
+            a = menu.addAction(name)
             a.setCheckable(True)
-            if name == sessions.currentSession():
+            if fullname == sessions.currentSession():
                 a.setChecked(True)
-            a.setObjectName(name)
-            ag.addAction(a)
+                if group:
+                    menu.setTitle('* ' + menu.title())
+            a.setObjectName(fullname)
+            self._actionGroup.addAction(a)
+
+        def add_sessions():
+            for name in tl_sessions:
+                add_session(self, name)
+
+        def add_groups():
+            g_keys = [k for k in groups.keys()]
+            g_keys.sort()
+            for k in sorted(groups.keys()):
+                m = self.addMenu(k)
+                for name in groups[k]:
+                    add_session(m, name, k)
+                qutil.addAccelerators(m.actions())
+
+        def reset_menu():
+            self.clear()
+            ac = manager.get(self.parentWidget()).actionCollection
+            ac.session_none.setChecked(not sessions.currentSession())
+            ag = self._actionGroup = QActionGroup(self)
+            ag.setExclusive(True)
+            ag.addAction(ac.session_none)
+            ag.triggered.connect(self.slotSessionsAction)
+            self.addAction(ac.session_new)
+            self.addAction(ac.session_save)
+            self.addSeparator()
+            self.addAction(ac.session_manage)
+            self.addSeparator()
+            self.addAction(ac.session_none)
+            self.addSeparator()
+
+        reset_menu()
+        for name in sessions.sessionNames():
+            if '/' in name:
+                group, name = name.split('/')
+                g = groups.get(group, [])
+                if g:
+                    g.append(name)
+                else:
+                    groups[group] = [name]
+            else:
+                tl_sessions.append(name)
+        add_groups()
+        add_sessions()
         qutil.addAccelerators(self.actions())
 
     def slotSessionsAction(self, action):
         if action.objectName() in sessions.sessionNames():
             manager.get(self.parentWidget()).startSession(action.objectName())
-
-
