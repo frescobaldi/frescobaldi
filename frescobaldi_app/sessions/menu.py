@@ -87,9 +87,9 @@ class SessionMenu(QMenu):
         for name in sessions.sessionNames():
             if '/' in name:
                 group, name = name.split('/')
-                g = groups.get(group, [])
-                if g:
-                    g.append(name)
+#                g = groups.get(group, [])
+                if group in groups:
+                    groups[group].append(name)
                 else:
                     groups[group] = [name]
             else:
