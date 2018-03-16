@@ -61,8 +61,6 @@ class SessionMenu(QMenu):
                 add_session(self, name)
 
         def add_groups():
-            g_keys = [k for k in groups.keys()]
-            g_keys.sort()
             for k in sorted(groups.keys()):
                 m = self.addMenu(k)
                 for name in groups[k]:
