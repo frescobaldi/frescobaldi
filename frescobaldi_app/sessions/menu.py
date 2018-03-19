@@ -35,7 +35,21 @@ class SessionMenu(QMenu):
     def __init__(self, mainwindow):
         super(SessionMenu, self).__init__(mainwindow)
         app.translateUI(self)
+        mgr = manager.get(mainwindow)
+        ac = mgr.actionCollection
+        ag = self._actionGroup = QActionGroup(self)
+        ag.setExclusive(True)
+        ag.addAction(ac.session_none)
+        ag.triggered.connect(self.slotSessionsAction)
+        self.addAction(ac.session_new)
+        self.addAction(ac.session_save)
+        self.addSeparator()
+        self.addAction(ac.session_manage)
+        self.addSeparator()
+        self.addAction(ac.session_none)
+        self.addSeparator()
         self.aboutToShow.connect(self.populate)
+        self.groupMenus = []
 
     def translateUI(self):
         self.setTitle(_('menu title', '&Session'))
@@ -63,25 +77,22 @@ class SessionMenu(QMenu):
         def add_groups():
             for k in sorted(groups.keys()):
                 m = self.addMenu(k)
+                self.groupMenus.append(m)
                 for name in groups[k]:
                     add_session(m, name, k)
                 qutil.addAccelerators(m.actions())
 
         def reset_menu():
-            self.clear()
+            for m in self.groupMenus:
+                m.deleteLater()
+            self.groupMenus = []
             ac = manager.get(self.parentWidget()).actionCollection
+            ag = self._actionGroup
+            for a in ag.actions():
+                if a is not ac.session_none:
+                    self.removeAction(a)
+                    ag.removeAction(a)
             ac.session_none.setChecked(not sessions.currentSession())
-            ag = self._actionGroup = QActionGroup(self)
-            ag.setExclusive(True)
-            ag.addAction(ac.session_none)
-            ag.triggered.connect(self.slotSessionsAction)
-            self.addAction(ac.session_new)
-            self.addAction(ac.session_save)
-            self.addSeparator()
-            self.addAction(ac.session_manage)
-            self.addSeparator()
-            self.addAction(ac.session_none)
-            self.addSeparator()
 
         reset_menu()
         for name in sessions.sessionNames():
