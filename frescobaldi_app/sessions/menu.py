@@ -105,6 +105,8 @@ class SessionMenu(QMenu):
             else:
                 tl_sessions.append(name)
         add_groups()
+        if groups:
+            self.addSeparator()
         add_sessions()
         qutil.addAccelerators(self.actions())
 
