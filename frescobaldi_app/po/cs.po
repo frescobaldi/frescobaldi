@@ -5,13 +5,13 @@
 #  <pavelfric@seznam.cz>, 2009.
 # Pavel Fric <pavelfric@seznam.cz>, 2009.
 # Pavel Fric <pavelfric@seznam.cz>, 2009, 2011, 2012.
-# Pavel Fric <pavelfric@seznam.cz>, 2010, 2013, 2015, 2016.
+# Pavel Fric <pavelfric@seznam.cz>, 2010, 2013, 2015, 2016, 2017.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 0.7.5\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2017-02-15 07:15+0100\n"
-"PO-Revision-Date: 2016-08-09 21:41+0200\n"
+"PO-Revision-Date: 2017-05-11 13:13+0100\n"
 "Last-Translator: Pavel Fric <pavelfric@seznam.cz>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../about.py:49
 #, python-brace-format
@@ -440,14 +440,12 @@ msgid "Remove &Slurs"
 msgstr "Odstranit &legatové obloučky"
 
 #: ../documentactions.py:230
-#, fuzzy
 msgid "Remove &Beams"
-msgstr "Odstranit nožky not"
+msgstr "Odstranit &trámce"
 
 #: ../documentactions.py:231
-#, fuzzy
 msgid "Remove &Ligatures"
-msgstr "Odstranit &legatové obloučky"
+msgstr "Odstranit &ligatury"
 
 #: ../documentactions.py:232
 msgid "Remove &Dynamics"
@@ -1737,7 +1735,7 @@ msgstr "Spustit abc2ly"
 #: ../file_import/midi.py:62 ../file_import/musicxml.py:103
 #: ../userguide/musicxml_import.md:20 ../userguide/midi_import.md:16
 msgid "Pitches in absolute mode"
-msgstr "Výšky tónů v režimu naprosté (absolutní) výšku tónu"
+msgstr "Výšky tónů v režimu prosté (absolutní) výšky tónu"
 
 #: ../file_import/midi.py:64
 msgid "Run midi2ly"
@@ -2384,7 +2382,7 @@ msgstr ""
 
 #: ../pitch/__init__.py:165
 msgid "Convert Relative to &Absolute"
-msgstr "Převést poměrnou výšku tónu na &naprostou"
+msgstr "Převést poměrnou výšku tónu na &prostou"
 
 #: ../pitch/__init__.py:167
 msgid ""
@@ -2392,18 +2390,18 @@ msgid ""
 "pitch."
 msgstr ""
 "Převede noty v dokumentu nebo ve výběru z poměrné (relativní) výšky tónu na "
-"naprostou (absolutní) výšku tónu."
+"prostou (absolutní) výšku tónu."
 
 #: ../pitch/__init__.py:169
 msgid "Convert Absolute to &Relative"
-msgstr "Převést naprostou výšku tónu na &poměrnou"
+msgstr "Převést prostou výšku tónu na &poměrnou"
 
 #: ../pitch/__init__.py:171
 msgid ""
 "Converts the notes in the document or selection from absolute to relative "
 "pitch."
 msgstr ""
-"Převede noty v dokumentu nebo ve výběru z naprosté (absolutní) výšky tónu na "
+"Převede noty v dokumentu nebo ve výběru z prosté (absolutní) výšky tónu na "
 "poměrnou (relativní) výšku tónu."
 
 #: ../pitch/__init__.py:173
@@ -2443,7 +2441,7 @@ msgstr ""
 
 #: ../pitch/__init__.py:186
 msgid "First pitch in \\relative {...} is absolute"
-msgstr "První výška tónu v \\relative {...} je naprostá"
+msgstr "První výška tónu v \\relative {...} je prostá"
 
 #: ../pitch/__init__.py:188
 msgid ""
@@ -2451,16 +2449,23 @@ msgid ""
 "expression without startpitch is absolute. Otherwise, Frescobaldi\n"
 "only assumes this when the LilyPond version >= 2.18."
 msgstr ""
+"Je-li zaškrtnuto, vždy se předpokládá, že první výška tónu ve výrazu"
+" \\relative {...}\n"
+"bez počáteční výšky tónu je prostá (absolutní). Jinak to Frescobaldi\n"
+"předpokládá, jen když jde o verzi LilyPondu >= 2.18."
 
 #: ../pitch/__init__.py:192
 msgid "Write \\relative with startpitch"
-msgstr ""
+msgstr "Zapsat \\relative pomocí počáteční výšky tónu"
 
 #: ../pitch/__init__.py:194
 msgid ""
 "If checked, when converting absolute music to relative, a startpitch\n"
 "is added. Otherwise, no starting pitch is written."
 msgstr ""
+"Je-li zaškrtnuto, je při převádění prostých (absolutních) not na poměrné"
+" (relativní)\n"
+"přidána počáteční výška tónu. Jinak není zapsána žádná počáteční výška tónu."
 
 #: ../pitch/dialog.py:106
 msgid "Mode Shift"
@@ -2522,7 +2527,7 @@ msgid ""
 "Please enter two absolute pitches, separated by a space, using the pitch "
 "name language \"{language}\"."
 msgstr ""
-"Zadejte, prosím, dvě naprosté (absolutní) výšky tónů, oddělené mezerou, za "
+"Zadejte, prosím, dvě prosté (absolutní) výšky tónů, oddělené mezerou, za "
 "použití jazyka výšky tónu \"{language}\"."
 
 #: ../pitch/pitch.py:155
@@ -2645,7 +2650,7 @@ msgstr "Pohyblivá řádová čárka"
 #: ../po/messages.py:51
 msgctxt "QDockWidget"
 msgid "Undocks and re-attaches the dock widget"
-msgstr ""
+msgstr "Zruší ukotvení a znovu připojí panel"
 
 #: ../po/messages.py:52
 msgctxt "QDockWidget"
@@ -3723,10 +3728,13 @@ msgid ""
 "character on the line. When the cursor is on that spot, pressing Home moves "
 "the cursor to the beginning of the line."
 msgstr ""
+"Je-li povoleno, stisknutí klávesy Home dá ukazatel na první znak, který "
+"není prázdným místem, na řádku. Když je ukazatel na tom místě, stisknutí "
+"klávesy Home jej přesune na začátek řádku."
 
 #: ../preferences/editor.py:252
 msgid "Smart Up/PageUp and Down/PageDown keys"
-msgstr ""
+msgstr "Chytré klávesy šipka nahoru/PageUp a šipka dolů/PageDown"
 
 #: ../preferences/editor.py:254
 msgid ""
@@ -3734,16 +3742,22 @@ msgid ""
 "the beginning of the document, and pressing Down or PageDown in the last "
 "line will move the cursor to the end of the document."
 msgstr ""
+"Je-li povoleno, stisknutí klávesy šipka nahoru nebo PageUp na prvním řádku"
+"ukazatel přesune na začátek dokumentu, a stisknutí klávesy šipka dolů nebo"
+" PageDown "
+"na posledním řádku ukazatel přesune na konec dokumentu."
 
 #: ../preferences/editor.py:258
 msgid "Horizontal arrow keys keep cursor in current line"
-msgstr ""
+msgstr "Klávesy vodorovných šipek ukazatel ponechají na nynějším řádku"
 
 #: ../preferences/editor.py:260
 msgid ""
 "If enabled, the cursor will stay in the current line when using the "
 "horizontal arrow keys, and not wrap around to the next or previous line."
 msgstr ""
+"Je-li povoleno, ukazatel při použití kláves vodorovných šipek zůstane "
+"na nynějším řádku a nepřesune se na další nebo předchozí řádek."
 
 #: ../preferences/editor.py:324 ../userguide/prefs_editor.md:33
 msgid "Source Export Preferences"
@@ -3820,25 +3834,27 @@ msgstr "Značka k zabalení zdrojového textu:  "
 
 #: ../preferences/editor.py:355
 msgid "Choose what tag the colored HTML will be wrapped into."
-msgstr ""
+msgstr "Vybrat, do jaké značky bude obarvené HTML zabaleno."
 
 #: ../preferences/editor.py:356
 msgid "Attribute type of wrapper:  "
-msgstr ""
+msgstr "Typ vlastnosti baliče:  "
 
 #: ../preferences/editor.py:358
 msgid "Choose whether the wrapper tag should be of type 'id' or 'class'"
-msgstr ""
+msgstr "Vybrat, zda má být značka baliče typu  'id' nebo 'class'"
 
 #: ../preferences/editor.py:359
 msgid "Name of attribute:  "
-msgstr ""
+msgstr "Název vlastnosti: "
 
 #: ../preferences/editor.py:361
 msgid ""
 "Arbitrary name for the type attribute. This must match the CSS stylesheet if "
 "using external CSS."
 msgstr ""
+"Libovolný název pro vlastnost typu. Musí odpovídat stylu CSS, pokud používá"
+" vnější CSS."
 
 #: ../preferences/editor.py:436
 msgid "Typographical Quotes"
@@ -4538,7 +4554,7 @@ msgstr "Je-li zaškrtnuto, LilyPond smaže prostřední soubory PostScript."
 
 #: ../preferences/lilypond.py:327
 msgid "Embed Source Code files in publish mode"
-msgstr ""
+msgstr "Vložit soubory se zdrojovým kódem v režimu vydání"
 
 #: ../preferences/lilypond.py:329
 msgid ""
@@ -4546,6 +4562,9 @@ msgid ""
 "when LilyPond is started in publish mode.\n"
 "This feature is available since LilyPond 2.19.39."
 msgstr ""
+"Je-li zaškrtnuto, budou LilyPondovské zdrojové soubory vloženy do PDF,\n"
+"když je LilyPond spuštěn v režimu vydání.\n"
+"Tato vlastnost je dostupná od LilyPondu verze 2.19.39."
 
 #: ../preferences/lilypond.py:334
 msgid ""
@@ -4829,9 +4848,8 @@ msgid "Enter a regular expression to match:"
 msgstr "Zadat regulární výraz k porovnání:"
 
 #: ../qpopplerview/cache.py:302
-#, fuzzy
 msgid "Failed to render page"
-msgstr "Soubor k otevření"
+msgstr "Nepodařilo se vykreslit stránku"
 
 #: ../quickinsert/__init__.py:46 ../quickinsert/__init__.py:70
 msgid "Quick Insert"
@@ -5610,11 +5628,11 @@ msgstr "Hodnota na metronomu:"
 
 #: ../scorewiz/scoreproperties.py:230
 msgid "Round tap tempo value"
-msgstr ""
+msgstr "Zaokrouhlit hodnotu tempa z vyťukání"
 
 #: ../scorewiz/scoreproperties.py:232
 msgid "Round the entered tap tempo to a common value."
-msgstr ""
+msgstr "Zaokrouhlit zadanou rychlost zaťukání na běžnou hodnotu."
 
 #: ../scorewiz/scoreproperties.py:261
 msgid "Tempo indication:"
@@ -6232,7 +6250,7 @@ msgid ""
 "you want to use in your document (by default: \"nederlands\")."
 msgstr ""
 "Vyberte vlastní ladění v rozbalovacím seznamu a zadejte zde vlastní ladění, "
-"např. <code>e, a d g b e'</code>. Použijte naprosté (absolutní) názvy not ve "
+"např. <code>e, a d g b e'</code>. Použijte prosté (absolutní) názvy not ve "
 "stejném jazyku, který chcete použít ve svém dokumentu (ve výchozím "
 "nastavení: \"holandština\")."
 
@@ -7717,8 +7735,11 @@ msgid_plural ""
 "The following files are missing and could not be loaded when restoring a "
 "session:"
 msgstr[0] ""
+"Chybí následující soubor a nepodařilo se jej při obnovení sezení nahrát:"
 msgstr[1] ""
+"Chybí následující soubory a nepodařilo se je při obnovení sezení nahrát:"
 msgstr[2] ""
+"Chybí následující soubory a nepodařilo se je při obnovení sezení nahrát:"
 
 #: ../viewers/__init__.py:396
 #, python-brace-format
@@ -7786,12 +7807,17 @@ msgid ""
 "\n"
 "Do you want to remove the filename from the list?"
 msgstr ""
+"Chybí soubor {filename}.\n"
+"\n"
+"Chcete název souboru odstranit ze seznamu?"
 
 #: ../viewers/popplerwidget.py:192
 msgid ""
 "Answering 'No' will give you a chance to restore the file without having to "
 "re-add it."
 msgstr ""
+"Když odpovíte Ne, dá vám to možnost soubor obnovit, aniž byste jej museli"
+" znovu přidat."
 
 #: ../viewers/manuscript/__init__.py:40 ../viewers/manuscript/__init__.py:82
 msgid "Manuscript"
@@ -8030,6 +8056,8 @@ msgid ""
 "Configures how colored source code is produced when exporting to a file or "
 "copying to clipboard. Available options are:"
 msgstr ""
+"Nastaví, jak je při vyvádění do souboru nebo kopírování do schránky "
+"tvořen obarvený zdrojový kód. Dostupné volby jsou:"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:38
@@ -8064,6 +8092,12 @@ msgid ""
 "CSS available in the target document. *Note:* This option doesn't take "
 "effect when *exporting* source code."
 msgstr ""
+"`Použít vkládaný styl při kopírování zbarveného HTML` | Vloží styly CSS *do* "
+"vytvářených značek HTML. Když jsou používány nezaškrtnuté třídy CSS. "
+"*Poznámka:* Když je tato volba *nezaškrtnuta* a je *zaškrtnuto* Kopírovat "
+"pouze tělo dokumentu, nebudou vytvořeny žádné skutečné styly CSS. Pro použití "
+"této volby musí být v cílovém dokumentu dostupný vnější CSS. *Poznámka:* "
+"Tato volba nemá vliv na *vyvádění* zdrojového kódu."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:53
@@ -8071,11 +8105,14 @@ msgid ""
 "`Use inline style when exporting colored HTML` | Same as above but applies "
 "for exporting instead of copying."
 msgstr ""
+"`Použít vkládaný styl při vyvádění zbarveného HTML.` |Totéž co výše, ale"
+" použije se "
+"na vyvádění namísto při kopírování."
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:55
 msgid "`Show line numbers` | (should be self-explanatory)"
-msgstr ""
+msgstr "`Ukázat čísla řádků` | (vysvětluje se samo sebou)"
 
 #. NOTE: markdown formatting
 #: ../userguide/prefs_editor.md:57
@@ -8086,6 +8123,12 @@ msgid ""
 "generate an `<div class=\"lilypond\">` element if that is more suitable for "
 "the existing CSS."
 msgstr ""
+"`Baliči` | Ve výchozím nastavení je obarvený kód zabalen do značky `<pre"
+" id=\"document\"></"
+"pre>`, ale lze to nastavit k používání výběru balicích značek a "
+"typů vlastností a libovolného názvu vlastnosti. Takže například je to na "
+"vytvoření prvku `<div class=\"lilypond\">`, pokud je tento pro stávající CSS"
+" vhodnější."
 
 #: ../userguide/git.md:1
 msgid "Git"
@@ -8566,7 +8609,7 @@ msgstr "Toto přeloží názvy výšek tónů v celém dokumentu nebo ve výběr
 
 #: ../userguide/pitch.md:10
 msgid "Convert relative music to absolute"
-msgstr "Převést noty s poměrnou výškou tónu na noty s &naprostou"
+msgstr "Převést noty s poměrnou výškou tónu na noty s &prostou"
 
 #. NOTE: markdown formatting
 #: ../userguide/pitch.md:11
@@ -8574,12 +8617,12 @@ msgid ""
 "This converts all `\\relative` music parts to absolute pitch names. It "
 "removes, but honours, octave checks."
 msgstr ""
-"Toto převede všechny části s notami `\\relative` na názvy naprostých výšek "
+"Toto převede všechny části s notami `\\relative` na názvy prostých výšek "
 "tónů. Odstraní, ale dodrží, přerušení oktávy."
 
 #: ../userguide/pitch.md:14
 msgid "Convert absolute music to relative"
-msgstr "Převést noty s naprostou výškou tónu na noty s &poměrnou"
+msgstr "Převést noty s prostou výškou tónu na noty s &poměrnou"
 
 #. NOTE: markdown formatting
 #: ../userguide/pitch.md:15
@@ -8636,6 +8679,9 @@ msgid ""
 "computer, you can add an URL to the LilyPond website.  The URL should have "
 "the following format:"
 msgstr ""
+"Pokud na svém počítači nechcete spravovat dokumentaci k LilyPond, "
+"můžete přidat adresu (URL) internetové stránky LilyPondu.  Adresa (URL) má "
+"mít následující formát:"
 
 #: ../userguide/prefs_lilydoc.md:21
 msgid "http://www.lilypond.org/doc/VERSION/"
@@ -8647,6 +8693,8 @@ msgid ""
 "where *VERSION* can be either a specific release number or the latest stable "
 "or development release, as in the following examples:"
 msgstr ""
+"kde *VERZE* může být buď číslo určitého vydání nebo poslední stálé "
+"nebo vývojové vydání, jak je to v následujících příkladech:"
 
 #: ../userguide/prefs_lilydoc.md:26
 msgid ""
@@ -8895,7 +8943,7 @@ msgid ""
 "default."
 msgstr ""
 "Další dvě volby se dají použít, pokud dáváte přednost mít zdrojový kód v "
-"režimu naprosté (absolutní) výšku tónu, nebo upřednostňujete-li jiný jazyk "
+"režimu prosté (absolutní) výšku tónu, nebo upřednostňujete-li jiný jazyk "
 "pro názvy tónů, než je ten výchozí."
 
 #. NOTE: markdown formatting
@@ -8927,7 +8975,7 @@ msgid ""
 "distance to transpose over. The pitches may include octave marks. The "
 "pitches must be entered in the pitch name language used in the document."
 msgstr ""
-"Při transponování not je potřeba zadat dvě naprosté (absolutní) výšky tónu, "
+"Při transponování not je potřeba zadat dvě prosté (absolutní) výšky tónu, "
 "aby se určila vzdálenost, přes kterou převést. Výšky tónů mohou zahrnovat "
 "značky pro oktávu. Výšky tónů se musí zadat v jazyku, ve kterém se udává "
 "název výšky tónu, použitém v dokumentu."
@@ -8969,7 +9017,7 @@ msgid ""
 "correctly handling key signatures, chordmode and octave checks."
 msgstr ""
 "Převáděcí funkce může převádět jak poměrné (relativní výška tónu) tak "
-"naprosté (absolutní výška tónu) noty, správně zacházet s předznamenáními, "
+"prosté (absolutní výška tónu) noty, správně zacházet s předznamenáními, "
 "akordickým režimem a přerušením oktávy."
 
 #: ../userguide/midi_import.md:1
@@ -9005,7 +9053,7 @@ msgid ""
 "mode."
 msgstr ""
 "Tuto volbu lze použít, pokud dáváte přednost mít zdrojový kód v režimu "
-"naprosté (absolutní) výšku tónu."
+"prosté (absolutní) výšky tónu."
 
 #. NOTE: markdown formatting
 #: ../userguide/midi_import.md:23
@@ -10098,6 +10146,11 @@ msgid ""
 "it can also be useful to show arbitrary documents, for example with notes or "
 "task descriptions."
 msgstr ""
+"*Prohlížeč rukopisů* dokáže dokumenty PDF zobrazit vedle výchozího "
+"{music_view}. Obyčejně se toto používá na zobrazení rukopisů k okopírování, "
+"otevřených v okně Frescobaldi (odtud pochází název nástroje), ale "
+"může to být užitečné na ukázání libovolných dokumentů, například poznámky "
+"či popisy úkolů."
 
 #. NOTE: markdown formatting
 #: ../userguide/manuscriptview.md:9
@@ -10108,6 +10161,11 @@ msgid ""
 "other or all manuscripts.  The opened manuscripts are maintained in "
 "sessions, alongside the input documents."
 msgstr ""
+"Jeden nebo více rukopisů lze otevřít pomocí tlačítka *Otevřít*, nové soubory "
+"jsou přidány do seznamu otevřených rukopisů. Nynější rukopis může být zavřen "
+"tlačítkem *Zavřít*, a na zavření všeho nebo všech rukopisů jsou tu položky "
+"v související nabídce. Otevřené rukopisy jsou udržovány v sezeních, zároveň "
+"se vstupními dokumenty."
 
 #: ../userguide/manuscriptview.md:15
 msgid ""
@@ -10116,6 +10174,11 @@ msgid ""
 "accessible through context menu entries, including opening, closing and "
 "switching between different manuscripts."
 msgstr ""
+"Pruh s nástroji může být skryt přes položku v nabídce souvisejících činností, "
+"aby bylo víc místa na zobrazení dokumentu. Většina nutných funkcí je pak"
+" přístupná "
+"přes nabídky souvisejících činností, včetně otevírání, zavírání a přepínání"
+" mezi různými rukopisy."
 
 #: ../userguide/manuscriptview.md:20
 msgid ""
@@ -10123,6 +10186,11 @@ msgid ""
 "{music_view} tool, giving access through buttons, context menu items and "
 "mouse interaction."
 msgstr ""
+"Pohyb v dokumentu, jeho přibližování a oddalování a tisk poskytují tytéž"
+" funkce "
+"jako nástroj {music_view}, dávaje přístup přes tlačítka, položky v"
+" souvisejících nabídkách "
+"a práci s myší."
 
 #. NOTE: markdown formatting
 #: ../userguide/manuscriptview.md:23
@@ -10132,6 +10200,11 @@ msgid ""
 "(*Ctrl-click-drag on Mac*) an excerpt from the document can be exported to a "
 "PNG file."
 msgstr ""
+"Na dokument je možné se podívat pomocí zvětšovacího skla stisknutím zkratky"
+" *Ctrl*-"
+"klepnutí, a po nakreslení výběrového obdélníku pomocí pravého tlačítka myši "
+"(*Ctrl-klepnutí-tažení na Apple Mac*) lze z dokumentu vyvést do souboru PNG"
+" úryvek not."
 
 #: ../userguide/manuscriptview.md:27
 msgid ""
@@ -10139,18 +10212,22 @@ msgid ""
 "point-and-click links several function of {music_view} also work in the "
 "manuscript viewer:"
 msgstr ""
+"pokud je otevřený soubor notový zápis v PDF vyrytý LilyPondem a obsahující"
+" platné odkazy, "
+"na něž stačí ukázat a klepnout, v prohlížeči rukopisů pracuje i několik"
+" funkcí {music_view}:"
 
 #: ../userguide/manuscriptview.md:31
 msgid "Highlight input by selecting music or vice versa"
-msgstr ""
+msgstr "Zvýraznit vstup vybráním not nebo naopak"
 
 #: ../userguide/manuscriptview.md:32
 msgid "Move the viewer to the current cursor position"
-msgstr ""
+msgstr "Přesunout prohlížeč na nynější polohu ukazatele"
 
 #: ../userguide/manuscriptview.md:33
 msgid "Synchronize the document cursor with the view (automatic following)"
-msgstr ""
+msgstr "Seřídit ukazatel v dokumentu s pohledem (automatické sledování)"
 
 #: ../userguide/manuscriptview.md:34
 msgid "Edit in place"
@@ -10172,6 +10249,9 @@ msgid ""
 "open in an external viewer/browser. This may be practical for keeping lists "
 "of useful links around in that window."
 msgstr ""
+"Pokud rukopis obsahuje vnější odkazy, lze na ně klepnout a otevřou se ve"
+" vnějším prohlížeči. "
+"Toto může být účelné na uchování seznamů užitečných odkazů v tom okně."
 
 #: ../userguide/musicview_editinplace.md:3
 msgid "In this dialog you can edit one line of the text document."
@@ -10826,7 +10906,7 @@ msgid ""
 "[engrave_publish publish mode]."
 msgstr ""
 "Odkazy taktéž podstatně zvětšují velikost vykreslovaného souboru PDF, takže "
-"jestliže hodláte zpracovaný soubor PDF sdílete s ostatními, je lepší k tomu "
+"jestliže hodláte zpracovaný soubor PDF sdílet s ostatními, je lepší k tomu "
 "použít [engrave_publish režim vydávání]."
 
 #: ../userguide/snippet_lib.md:1

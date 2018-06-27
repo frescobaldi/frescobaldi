@@ -228,3 +228,11 @@ def displayhook(obj):
     if obj is not None:
         print(repr(obj))
 
+_is_git_controlled = None
+
+def is_git_controlled():
+    global _is_git_controlled
+    if _is_git_controlled is None:
+        import vcs
+        _is_git_controlled = vcs.app_is_git_controlled()
+    return _is_git_controlled

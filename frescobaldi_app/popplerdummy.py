@@ -39,7 +39,7 @@ class Surface(qpopplerview.Surface):
 
     def translateUI(self):
         self._msg.setText(_("Could not load the {name} module.").format(
-            name = '<a href="https://github.com/wbsoft/python-poppler-qt4">popplerqt5</a>'))
+            name = '<a href="https://github.com/wbsoft/python-poppler-qt5">popplerqt5</a>'))
 
     def paintEvent(self, ev):
         QWidget.paintEvent(self, ev)

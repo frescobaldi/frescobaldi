@@ -59,7 +59,6 @@ import engrave
 import scorewiz
 import externalchanges
 import browseriface
-import vcs
 import file_import
 
 
@@ -215,15 +214,18 @@ class MainWindow(QMainWindow):
                 curd.undoAvailable.disconnect(self.updateDocActions)
                 curd.redoAvailable.disconnect(self.updateDocActions)
                 curd.modificationChanged.disconnect(self.updateWindowTitle)
+                curd.urlChanged.disconnect(self.updateFileActions)
                 curd.urlChanged.disconnect(self.updateWindowTitle)
                 curd.loaded.disconnect(self.updateDocActions)
             doc.undoAvailable.connect(self.updateDocActions)
             doc.redoAvailable.connect(self.updateDocActions)
             doc.modificationChanged.connect(self.updateWindowTitle)
+            doc.urlChanged.connect(self.updateFileActions)
             doc.urlChanged.connect(self.updateWindowTitle)
             doc.loaded.connect(self.updateDocActions)
             self.updateDocActions()
             self.updateWindowTitle()
+            self.updateFileActions()
         self.updateSelection()
         self.updateActions()
         self.currentViewChanged.emit(view, curv)
@@ -245,6 +247,17 @@ class MainWindow(QMainWindow):
         view = self.currentView()
         action = self.actionCollection.view_wrap_lines
         action.setChecked(view.lineWrapMode() == QPlainTextEdit.WidgetWidth)
+
+    def updateFileActions(self):
+        doc = self.currentDocument()
+        ac = self.actionCollection.file_rename
+        if doc:
+            if doc.url().isEmpty():
+                ac.setEnabled(False)
+            elif doc.url().toLocalFile():
+                ac.setEnabled(True)
+            else:
+                ac.setEnabled(False)
 
     def updateDocActions(self):
         doc = self.currentDocument()
@@ -270,7 +283,8 @@ class MainWindow(QMainWindow):
 
         window_title = app.caption(" ".join(name))
 
-        if vcs.app_is_git_controlled():
+        if app.is_git_controlled():
+            import vcs
             window_title += " " + vcs.app_active_branch_window_title()
 
         self.setWindowTitle(window_title)
@@ -510,6 +524,32 @@ class MainWindow(QMainWindow):
         if docs:
             self.setCurrentDocument(docs[-1])
 
+    def renameDocument(self, doc):
+        url = doc.url()
+        filename = url.toLocalFile()
+        filetypes = app.filetypes(os.path.splitext(filename)[1])
+        caption = app.caption(_("dialog title", "Rename/Move File"))
+        new_filename = QFileDialog.getSaveFileName(self, caption, filename, filetypes)[0]
+        if not new_filename or filename == new_filename:
+            return False # cancelled
+        new_url = QUrl.fromLocalFile(new_filename)
+        doc.setUrl(new_url)
+        if self.saveDocument(doc):
+            try:
+                os.remove(filename)
+            except IOError as e:
+                msg = _("{message}\n\n{strerror} ({errno})").format(
+                    message = _("Could not delete: {url}").format(url=filename),
+                    strerror = e.strerror,
+                    errno = e.errno)
+                QMessageBox.critical(self, app.caption(_("Error")), msg)
+                return False
+            else:
+                recentfiles.remove(url)
+            return True
+        else:
+            return False
+
     def saveDocument(self, doc, save_as=False):
         """ Saves the document, asking for a name if necessary.
 
@@ -585,6 +625,9 @@ class MainWindow(QMainWindow):
             if not app.documents:
                 self.cleanStart()
         return close
+
+    def renameCurrentDocument(self):
+        return self.renameDocument(self.currentDocument())
 
     def saveCurrentDocument(self):
         return self.saveDocument(self.currentDocument())
@@ -899,7 +942,7 @@ class MainWindow(QMainWindow):
         """Scroll down without moving the cursor"""
         sb = self.currentView().verticalScrollBar()
         sb.setValue(sb.value() + 1)
-    
+
     def gotoLine(self):
         """Ask for line number and go there"""
         line_count = self.currentDocument().blockCount()
@@ -910,7 +953,7 @@ class MainWindow(QMainWindow):
         char_pos = cur.position() - current_block.position()
         loc_pos = view.cursorRect(cur).bottomLeft()
         pos = view.viewport().mapToGlobal(loc_pos)
-        
+
         dlg = QInputDialog(self)
         dlg.setInputMode(QInputDialog.IntInput)
         dlg.setIntMinimum(1)
@@ -988,6 +1031,7 @@ class MainWindow(QMainWindow):
         ac.file_save.triggered.connect(self.saveCurrentDocument)
         ac.file_save_as.triggered.connect(self.saveCurrentDocumentAs)
         ac.file_save_copy_as.triggered.connect(self.saveCopyAs)
+        ac.file_rename.triggered.connect(self.renameCurrentDocument)
         ac.file_save_all.triggered.connect(self.saveAllDocuments)
         ac.file_reload.triggered.connect(self.reloadCurrentDocument)
         ac.file_reload_all.triggered.connect(self.reloadAllDocuments)
@@ -1101,6 +1145,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save = QAction(parent)
         self.file_save_as = QAction(parent)
         self.file_save_copy_as = QAction(parent)
+        self.file_rename = QAction(parent)
         self.file_save_all = QAction(parent)
         self.file_reload = QAction(parent)
         self.file_reload_all = QAction(parent)
@@ -1156,6 +1201,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save.setIcon(icons.get('document-save'))
         self.file_save_as.setIcon(icons.get('document-save-as'))
         self.file_save_copy_as.setIcon(icons.get('document-save-as'))
+        self.file_rename.setIcon(icons.get('document-save-as'))
         self.file_save_all.setIcon(icons.get('document-save-all'))
         self.file_reload.setIcon(icons.get('reload'))
         self.file_reload_all.setIcon(icons.get('reload-all'))
@@ -1243,6 +1289,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_save.setText(_("&Save"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
+        self.file_rename.setText(_("&Rename/Move File..."))
         self.file_save_all.setText(_("Save All"))
         self.file_reload.setText(_("Re&load"))
         self.file_reload_all.setText(_("Reload All"))

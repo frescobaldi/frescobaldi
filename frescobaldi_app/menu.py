@@ -47,7 +47,6 @@ import matcher
 import file_import
 import file_export
 import browseriface
-import vcs
 
 
 # postpone translation
@@ -68,7 +67,7 @@ def createMenus(mainwindow):
     m.addMenu(menu_document(mainwindow))
     m.addMenu(menu_window(mainwindow))
     m.addMenu(menu_session(mainwindow))
-    if vcs.app_is_git_controlled():
+    if app.is_git_controlled():
         from vcs.menu import GitMenu
         m.addMenu(GitMenu(mainwindow))
     m.addMenu(menu_help(mainwindow))
@@ -102,6 +101,7 @@ def menu_file(mainwindow):
     m.addAction(ac.file_save)
     m.addAction(ac.file_save_as)
     m.addAction(ac.file_save_copy_as)
+    m.addAction(ac.file_rename)
     m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
     m.addAction(ac.file_save_all)
     m.addSeparator()
@@ -120,7 +120,7 @@ def menu_file(mainwindow):
     m.addAction(ac.file_close_all)
     m.addSeparator()
     m.addAction(ac.file_quit)
-    if vcs.app_is_git_controlled():
+    if app.is_git_controlled():
         m.addAction(ac.file_restart)
     return m
 
@@ -142,7 +142,7 @@ def menu_file_export(mainwindow):
     ac = mainwindow.actionCollection
     acfe = file_export.FileExport.instance(mainwindow).actionCollection
 
-    if vcs.app_is_git_controlled() or QSettings().value("experimental-features", False, bool):
+    if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
         m.addAction(acfe.export_audio)
         m.addAction(acfe.export_musicxml)
     m.addAction(ac.export_colored_html)
