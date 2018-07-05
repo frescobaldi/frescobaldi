@@ -99,12 +99,7 @@ class TabBar(QTabBar):
             text = doc.documentName().replace('&', '&&')
             if self.tabText(index) != text:
                 self.setTabText(index, text)
-            if doc.url().toLocalFile():
-                tooltip = util.homify(doc.url().toLocalFile())
-            elif not doc.url().isEmpty():
-                tooltip = doc.url().toString(QUrl.RemoveUserInfo)
-            else:
-                tooltip = None
+            tooltip = util.path(doc.url())
             self.setTabToolTip(index, tooltip)
             self.setTabIcon(index, documenticon.icon(doc, self.window()))
 
@@ -155,5 +150,3 @@ class TabBar(QTabBar):
             self._contextMenu = documentcontextmenu.DocumentContextMenu(
                 self.window())
         return self._contextMenu
-
-
