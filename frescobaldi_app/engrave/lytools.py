@@ -35,7 +35,7 @@ import widgets.dialog
 
 def show_available_fonts(mainwin, info):
     """Display a dialog with the available fonts of LilyPond specified by info."""
-    dlg = Dialog(mainwin)
+    dlg = ShowFontsDialog(mainwin)
     dlg.setWindowTitle(app.caption(_("Available Fonts")))
     dlg.run_command(info, ['-dshow-available-fonts'], _("Available Fonts"))
     dlg.setMessage(_(
@@ -68,3 +68,80 @@ class Dialog(widgets.dialog.Dialog):
         j.start()
 
 
+class ShowFontsDialog(widgets.dialog.Dialog):
+    """Dialog to show available fonts)"""
+
+    def __init__(self, parent):
+        super(Dialog, self).__init__(
+            parent,
+            #TODO: Add buttons to export/copy/print
+            buttons=('close',),
+        )
+        self.setWindowModality(Qt.NonModal)
+
+        # TODO: Replace Log with a new custom widget
+        self.log = log.Log(self)
+        self.setMainWidget(self.log)
+
+    def run_command(self, info, args, title=None):
+        """Run lilypond from info with the args list, and a job title."""
+        j = self.job = job.Job()
+        j.done.connect(self.show_fonts)
+        #TODO: Handle errors
+        j.decode_errors = 'replace'
+        j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
+        j.command = [info.abscommand() or info.command] + list(args)
+        if title:
+            j.set_title(title)
+        j.start()
+
+    def read_entries(self):
+        """Parse the job history list to dictionaries."""
+        self.families = {}
+        self.names = []
+        self.config_files = []
+        self.font_dirs = []
+        entries = []
+
+        # Process job history into flat string list
+        for line in self.job.history():
+            lines = line[0].split('\n')
+            for l in lines:
+                entries.append(l)
+
+        # Parse entries in the string file_insert_file
+        last_family = None
+        for e in entries:
+            if e.startswith('family'):
+                last_family = e[7:]
+                if not last_family in self.families.keys():
+                    self.families[last_family] = { 'data': [] } # TODO: Temporary
+            elif last_family:
+                self.update_family(last_family, e)
+                last_family = None
+            elif e.startswith('Config files:'):
+                self.config_files.append(e[14:])
+            elif e.startswith('Font dir:'):
+                self.font_dirs.append(e[10:])
+
+        # Store sorted reference lists.
+        self.names = sorted(self.families.keys(), key=lambda s: s.lower())
+        self.config_files = sorted(self.config_files, key=lambda s: s.lower())
+        self.font_dirs = sorted(self.font_dirs, key=lambda s: s.lower())
+
+    def show_fonts(self):
+        """Populate widget and show results."""
+        self.read_entries()
+
+        #TODO: This has to be replaced with a different widget.
+        # We will populate the widget's data model, but the widget itself
+        # has to be responsible for the interactive display.
+        for name in self.names:
+            self.log.writeMessage('{}\n'.format(name), job.STDERR)
+
+    def update_family(self, family_name, input):
+        """Parse a font family definition."""
+        family = self.families[family_name]
+        #TODO This is temporary, waiting for understanding through
+        # http://lists.gnu.org/archive/html/lilypond-user/2018-07/msg00338.html
+        family['data'].append(input.strip())
