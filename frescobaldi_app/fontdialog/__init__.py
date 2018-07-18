@@ -47,7 +47,11 @@ def show_available_fonts(mainwin, info):
     """Display a dialog with the available fonts of LilyPond specified by info."""
     dlg = ShowFontsDialog(mainwin, info)
     dlg.setWindowTitle(app.caption(_("Available Fonts")))
-    dlg.run_command(info, ['-dshow-available-fonts'], _("Available Fonts"))
+    if len(ShowFontsDialog.names) == 0:
+        dlg.run_command(info, ['-dshow-available-fonts'], _("Available Fonts"))
+    else:
+        dlg.filterEdit.setText(ShowFontsDialog.re)
+        dlg.show_results()
     qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
     dlg.setAttribute(Qt.WA_DeleteOnClose)
     dlg.show()
@@ -55,6 +59,13 @@ def show_available_fonts(mainwin, info):
 
 class ShowFontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts)"""
+
+    families = {}
+    names = []
+    config_files = []
+    config_dirs = []
+    font_dirs = []
+    re = ''
 
     def __init__(self, parent, info):
         super(ShowFontsDialog, self).__init__(
@@ -117,8 +128,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
     def populate_model(self):
         """Populate the data model to be displayed in the results"""
         root = self.treeModel.invisibleRootItem()
-        for name in self.names:
-            family = self.families[name]
+        for name in ShowFontsDialog.names:
+            family = ShowFontsDialog.families[name]
             if ((len(family.keys()) == 1) and
                 (name in family.keys()) and
                 (len(family[name]) == 1)):
@@ -152,7 +163,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
     def run_command(self, info, args, title=None):
         """Run lilypond from info with the args list, and a job title."""
         j = self.job = job.Job()
-        j.done.connect(self.show_fonts)
+        j.done.connect(self.process_results)
         #TODO: Handle errors
         j.decode_errors = 'replace'
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
@@ -166,11 +177,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def read_entries(self):
         """Parse the job history list to dictionaries."""
-        self.families = {}
-        self.names = []
-        self.config_files = []
-        self.config_dirs = []
-        self.font_dirs = []
         entries = []
 
         # Process job history into flat string list
@@ -184,48 +190,51 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         for e in entries:
             if e.startswith('family'):
                 last_family = e[7:]
-                if not last_family in self.families.keys():
-                    self.families[last_family] = {}
+                if not last_family in ShowFontsDialog.families.keys():
+                    ShowFontsDialog.families[last_family] = {}
             elif last_family:
                 self.update_family(last_family, e)
                 last_family = None
             elif e.startswith('Config files:'):
-                self.config_files.append(e[14:])
+                ShowFontsDialog.config_files.append(e[14:])
             elif e.startswith('Font dir:'):
-                self.font_dirs.append(e[10:])
+                ShowFontsDialog.font_dirs.append(e[10:])
             elif e.startswith('Config dir:'):
-                self.config_dirs.append(e[12:])
+                ShowFontsDialog.config_dirs.append(e[12:])
 
         # Store sorted reference lists.
-        self.names = sorted(self.families.keys(), key=lambda s: s.lower())
-        self.config_files = sorted(self.config_files, key=lambda s: s.lower())
-        self.config_dirs = sorted(self.config_dirs, key=lambda s: s.lower())
-        self.font_dirs = sorted(self.font_dirs, key=lambda s: s.lower())
+        ShowFontsDialog.names = sorted(ShowFontsDialog.families.keys(), key=lambda s: s.lower())
+        ShowFontsDialog.config_files = sorted(ShowFontsDialog.config_files, key=lambda s: s.lower())
+        ShowFontsDialog.config_dirs = sorted(ShowFontsDialog.config_dirs, key=lambda s: s.lower())
+        ShowFontsDialog.font_dirs = sorted(ShowFontsDialog.font_dirs, key=lambda s: s.lower())
 
 
-    def show_fonts(self):
-        """Populate widget and show results."""
+    def process_results(self):
         self.read_entries()
+        self.show_results()
+
+    def show_results(self):
+        """Populate widget and show results."""
         self.msgLabel.setText(
             _("{count} font families detected by {version}").format(
-                count=len(self.names),
+                count=len(ShowFontsDialog.names),
                 version=self.info.prettyName()))
         self.populate_model()
 
         # Display config files and directories
         title = '<p><b>{}</b></p>'.format(_("Config Directories:"))
         dirs = '<p>{}</p>'.format(
-            '\n'.join(['{}<br />'.format(file) for file in self.config_dirs]))
+            '\n'.join(['{}<br />'.format(file) for file in ShowFontsDialog.config_dirs]))
         files_title = '<p><b>{}</b></p>'.format(_("Config Files:"))
         files = '<p>{}</p></body></html>'.format(
-            '\n'.join(['{}<br />'.format(file) for file in self.config_files]))
+            '\n'.join(['{}<br />'.format(file) for file in ShowFontsDialog.config_files]))
         config_html = '<html><body>{}{}{}{}</body></html>'.format(
             title, dirs, files_title, files)
         self.configFilesEdit.setHtml(config_html)
 
         # Display font directories
         font_dir_html = '<html><body><p>{}</p></body></html>'.format(
-            '\n'.join(['{}<br />'.format(file) for file in self.font_dirs]))
+            '\n'.join(['{}<br />'.format(file) for file in ShowFontsDialog.font_dirs]))
         self.fontDirEdit.setHtml(font_dir_html)
         self.tabWidget.setCurrentIndex(1)
         self.filterEdit.setFocus()
@@ -233,7 +242,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def update_family(self, family_name, input):
         """Parse a font family definition."""
-        family = self.families[family_name]
+        family = ShowFontsDialog.families[family_name]
         input = input.strip().split(':')
         if len(input) == 2:
             names = input[0].split(',')
@@ -244,5 +253,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def update_filter(self):
         """Filter font results"""
-        self.filter.setPattern(self.filterEdit.text())
+        ShowFontsDialog.re = re = self.filterEdit.text()
+        self.filter.setPattern(re)
         self.proxy.setFilterRegExp(self.filter)
