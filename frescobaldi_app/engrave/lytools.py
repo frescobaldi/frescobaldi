@@ -26,7 +26,7 @@ import codecs
 
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (
-    QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget
+    QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget, QTextEdit
 )
 
 
@@ -104,7 +104,23 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         resultLayout.addWidget(self.resultLog)
         resultLayout.addWidget(self.filterEdit)
         self.resultWidget.setLayout(resultLayout)
-        self.tabWidget.addTab(self.resultWidget, "Results")
+        self.tabWidget.addTab(self.resultWidget, _("Font Families"))
+
+        # Widget to show config files
+        self.configFilesWidget = QWidget()
+        self.configFilesEdit = QTextEdit(self.configFilesWidget)
+        config_layout = QVBoxLayout()
+        config_layout.addWidget(self.configFilesEdit)
+        self.configFilesWidget.setLayout(config_layout)
+        self.tabWidget.addTab(self.configFilesWidget, _("Config Files"))
+
+        # Widget to show font directories
+        self.fontDirWidget = QWidget()
+        self.fontDirEdit = QTextEdit(self.fontDirWidget)
+        font_dir_layout = QVBoxLayout()
+        font_dir_layout.addWidget(self.fontDirEdit)
+        self.fontDirWidget.setLayout(font_dir_layout)
+        self.tabWidget.addTab(self.fontDirWidget, _("Font Directories"))
 
 
     def populate_model(self):
@@ -195,8 +211,14 @@ class ShowFontsDialog(widgets.dialog.Dialog):
                 count=len(self.names),
                 version=self.info.prettyName()))
         self.populate_model()
-
-
+        # Display config files
+        config_html = '<html><body><p>{}</p></body></html>'.format(
+            '\n'.join(['{}<br />'.format(file) for file in self.config_files]))
+        self.configFilesEdit.setHtml(config_html)
+        # Display font directories
+        font_dir_html = '<html><body><p>{}</p></body></html>'.format(
+            '\n'.join(['{}<br />'.format(file) for file in self.font_dirs]))
+        self.fontDirEdit.setHtml(font_dir_html)
         self.tabWidget.setCurrentIndex(1)
 
 
