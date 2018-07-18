@@ -65,64 +65,75 @@ class ShowFontsDialog(widgets.dialog.Dialog):
     re = ''
 
     def __init__(self, parent, info):
+
+        def create_log_tab():
+            # Show original log
+            self.logWidget = QWidget()
+            self.log = log.Log(self.logWidget)
+            logLayout = QVBoxLayout()
+            logLayout.addWidget(self.log)
+            self.logWidget.setLayout(logLayout)
+            self.tabWidget.addTab(self.logWidget, _("LilyPond output"))
+
+        def create_font_tab():
+            # Show Font results
+            self.fontTreeWidget = QWidget()
+            self.msgLabel = QLabel(self.fontTreeWidget)
+            self.filterEdit = QLineEdit()
+            self.fontTree = QTreeView(self.fontTreeWidget)
+            self.fontTree.setHeaderHidden(True)
+            treeLayout = QVBoxLayout()
+            treeLayout.addWidget(self.msgLabel)
+            treeLayout.addWidget(self.fontTree)
+            treeLayout.addWidget(self.filterEdit)
+            self.fontTreeWidget.setLayout(treeLayout)
+            self.tabWidget.addTab(self.fontTreeWidget, _("Fonts"))
+
+        def create_font_model():
+            self.treeModel = QStandardItemModel()
+            self.proxy = QSortFilterProxyModel()
+            self.proxy.setSourceModel(self.treeModel)
+            self.fontTree.setModel(self.proxy)
+            self.filterEdit.textChanged.connect(self.update_filter)
+            self.filter = QRegExp('', Qt.CaseInsensitive)
+
+        def create_misc_tab():
+            self.miscWidget = QWidget()
+            self.miscTree = QTreeView(self.miscWidget)
+            self.miscTree.setHeaderHidden(True)
+            miscLayout = QVBoxLayout()
+            miscLayout.addWidget(self.miscTree)
+            self.miscWidget.setLayout(miscLayout)
+            self.tabWidget.addTab(self.miscWidget, _("Miscellaneous"))
+
+        def create_misc_model():
+            self.miscModel = QStandardItemModel()
+            self.miscTree.setModel(self.miscModel)
+
         super(ShowFontsDialog, self).__init__(
             parent,
             #TODO: Add buttons to export/copy/print
             buttons=('close',),
         )
-        self.setWindowTitle(app.caption(_("Available Fonts")))
         self.setAttribute(Qt.WA_DeleteOnClose)
-        self.lilypond_info = info
         self.setWindowModality(Qt.NonModal)
+
+        self.lilypond_info = info
 
         self.tabWidget = QTabWidget(self)
         self.setMainWidget(self.tabWidget)
 
-        self.msgLabel = QLabel()
-        self.filterEdit = QLineEdit()
+        create_log_tab()
+        create_font_tab()
+        create_font_model()
+        create_misc_tab()
+        create_misc_model()
+        app.translateUI(self)
+
+
+    def translateUI(self):
+        self.setWindowTitle(app.caption(_("Available Fonts")))
         self.filterEdit.setPlaceholderText(_("Filter results (type any part of the font family name)"))
-
-        self.logWidget = QWidget()
-        self.log = log.Log(self.logWidget)
-        logLayout = QVBoxLayout()
-        logLayout.addWidget(self.log)
-        self.logWidget.setLayout(logLayout)
-        self.tabWidget.addTab(self.logWidget, _("LilyPond output"))
-
-        # Show Font results
-        self.fontTreeWidget = QWidget()
-        self.fontTree = QTreeView(self.fontTreeWidget)
-        self.fontTree.setHeaderHidden(True)
-        treeLayout =QVBoxLayout()
-        treeLayout.addWidget(self.msgLabel)
-        treeLayout.addWidget(self.fontTree)
-        treeLayout.addWidget(self.filterEdit)
-        self.fontTreeWidget.setLayout(treeLayout)
-        self.tabWidget.addTab(self.fontTreeWidget, _("Fonts"))
-
-        self.treeModel = QStandardItemModel()
-        self.proxy = QSortFilterProxyModel()
-        self.proxy.setSourceModel(self.treeModel)
-        self.fontTree.setModel(self.proxy)
-        self.filterEdit.textChanged.connect(self.update_filter)
-        self.filter = QRegExp('', Qt.CaseInsensitive)
-
-        # Widget to show config files
-        self.configFilesWidget = QWidget()
-        self.configFilesEdit = QTextEdit(self.configFilesWidget)
-        config_layout = QVBoxLayout()
-        config_layout.addWidget(self.configFilesEdit)
-        self.configFilesWidget.setLayout(config_layout)
-        self.tabWidget.addTab(self.configFilesWidget, _("Config Files"))
-
-        # Widget to show font directories
-        self.fontDirWidget = QWidget()
-        self.fontDirEdit = QTextEdit(self.fontDirWidget)
-        font_dir_layout = QVBoxLayout()
-        font_dir_layout.addWidget(self.fontDirEdit)
-        self.fontDirWidget.setLayout(font_dir_layout)
-        self.tabWidget.addTab(self.fontDirWidget, _("Font Directories"))
-
 
     def populate_widgets(self):
         """Populate widgets."""
@@ -173,21 +184,24 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
 
     def populate_misc(self):
-        # Display config files and directories
-        title = '<p><b>{}</b></p>'.format(_("Config Directories:"))
-        dirs = '<p>{}</p>'.format(
-            '\n'.join(['{}<br />'.format(file) for file in ShowFontsDialog.config_dirs]))
-        files_title = '<p><b>{}</b></p>'.format(_("Config Files:"))
-        files = '<p>{}</p></body></html>'.format(
-            '\n'.join(['{}<br />'.format(file) for file in ShowFontsDialog.config_files]))
-        config_html = '<html><body>{}{}{}{}</body></html>'.format(
-            title, dirs, files_title, files)
-        self.configFilesEdit.setHtml(config_html)
+        """Populate the data model for the "Miscellaneous" tab"""
+        root = self.miscModel.invisibleRootItem()
+        
+        conf_file_item = QStandardItem(_("Configuration Files"))
+        root.appendRow(conf_file_item)
+        for file in ShowFontsDialog.config_files:
+            conf_file_item.appendRow(QStandardItem(file))
 
-        # Display font directories
-        font_dir_html = '<html><body><p>{}</p></body></html>'.format(
-            '\n'.join(['{}<br />'.format(file) for file in ShowFontsDialog.font_dirs]))
-        self.fontDirEdit.setHtml(font_dir_html)
+        conf_dir_item = QStandardItem(_("Configuration Directories"))
+        root.appendRow(conf_dir_item)
+        for dir in ShowFontsDialog.config_dirs:
+            conf_dir_item.appendRow(QStandardItem(dir))
+
+        font_dir_item = QStandardItem(_("Font Directories"))
+        root.appendRow(font_dir_item)
+        for dir in ShowFontsDialog.font_dirs:
+            font_dir_item.appendRow(QStandardItem(dir))
+
 
     def process_results(self):
         """Callback after LilyPond has finished:"""
