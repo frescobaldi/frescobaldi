@@ -82,6 +82,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         # Show Font results
         self.fontTreeWidget = QWidget()
         self.fontTree = QTreeView(self.fontTreeWidget)
+        self.fontTree.setHeaderHidden(True)
         treeLayout =QVBoxLayout()
         treeLayout.addWidget(self.msgLabel)
         treeLayout.addWidget(self.fontTree)
