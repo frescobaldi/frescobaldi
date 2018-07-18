@@ -153,13 +153,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         root = self.treeModel.invisibleRootItem()
         for name in ShowFontsDialog.names:
             family = ShowFontsDialog.families[name]
-            if ((len(family.keys()) == 1) and
-                (name in family.keys()) and
-                (len(family[name]) == 1)):
-                # Single family, only one style
-                content = '{} ({})'.format(name, family[name][0])
-                root.appendRow(QStandardItem(content))
-            elif (len(family.keys()) == 1) and (name in family.keys()):
+            if (len(family.keys()) == 1) and (name in family.keys()):
                 # Single family, multiple styles
                 family_item = QStandardItem(name)
                 root.appendRow(family_item)
@@ -186,7 +180,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
     def populate_misc(self):
         """Populate the data model for the "Miscellaneous" tab"""
         root = self.miscModel.invisibleRootItem()
-        
+
         conf_file_item = QStandardItem(_("Configuration Files"))
         root.appendRow(conf_file_item)
         for file in ShowFontsDialog.config_files:
