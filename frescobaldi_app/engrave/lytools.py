@@ -107,6 +107,36 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.tabWidget.addTab(self.resultWidget, "Results")
 
 
+    def populate_model(self):
+        """Populate the data model to be displayed in the results"""
+        #TODO: This has to be replaced with a different widget.
+        # We will populate the widget's data model, but the widget itself
+        # has to be responsible for the interactive display.
+        # The logic of creating sub-elements in the temporary solution
+        # should be the model for later populating the data modelo.
+        for name in self.names:
+            family = self.families[name]
+            if ((len(family.keys()) == 1) and (name in family.keys()) and ( len(family[name]) == 1)):
+                self.resultLog.writeMessage(
+                    '{} ({})\n'.format(name, family[name][0]), job.STDERR)
+            elif (len(family.keys()) == 1) and (name in family.keys()):
+                self.resultLog.writeMessage('{}\n'.format(name), job.STDERR)
+                for style in sorted(family[name]):
+                    self.resultLog.writeMessage(
+                    '  - {}\n'.format(style), job.STDERR)
+            else:
+                self.resultLog.writeMessage('{}\n'.format(name), job.STDERR)
+                for weight in sorted(family.keys()):
+                    if len(family[weight]) == 1:
+                        self.resultLog.writeMessage(
+                            '  - {} ({})\n'.format(weight,family[weight][0]), job.STDERR)
+                    else:
+                        self.resultLog.writeMessage(
+                            '  - {}\n'.format(weight), job.STDERR)
+                        for style in family[weight]:
+                            self.resultLog.write(
+                                '    - {}\n'.format(style), job.STDERR)
+
     def run_command(self, info, args, title=None):
         """Run lilypond from info with the args list, and a job title."""
         j = self.job = job.Job()
@@ -164,16 +194,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             _("{count} font families detected by {version}").format(
                 count=len(self.names),
                 version=self.info.prettyName()))
+        self.populate_model()
 
-        #TODO: This has to be replaced with a different widget.
-        # We will populate the widget's data model, but the widget itself
-        # has to be responsible for the interactive display.
-        for name in self.names:
-            self.resultLog.writeMessage('{}\n'.format(name), job.STDERR)
-            family = self.families[name]
-            for weight in family:
-                weight_display = "  - {} ({})".format(weight,family[weight])
-                self.resultLog.writeMessage('{}\n'.format(weight_display), job.STDERR)
 
         self.tabWidget.setCurrentIndex(1)
 
@@ -184,4 +206,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         input = input.strip().split(':')
         if len(input) == 2:
             names = input[0].split(',')
-            family[names[-1]] = input[1][6:]
+            if not names[-1] in family.keys():
+                family[names[-1]] = []
+            family[names[-1]].append(input[1][6:])
