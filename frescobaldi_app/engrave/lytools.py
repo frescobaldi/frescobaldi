@@ -173,6 +173,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.families = {}
         self.names = []
         self.config_files = []
+        self.config_dirs = []
         self.font_dirs = []
         entries = []
 
@@ -196,10 +197,13 @@ class ShowFontsDialog(widgets.dialog.Dialog):
                 self.config_files.append(e[14:])
             elif e.startswith('Font dir:'):
                 self.font_dirs.append(e[10:])
+            elif e.startswith('Config dir:'):
+                self.config_dirs.append(e[12:])
 
         # Store sorted reference lists.
         self.names = sorted(self.families.keys(), key=lambda s: s.lower())
         self.config_files = sorted(self.config_files, key=lambda s: s.lower())
+        self.config_dirs = sorted(self.config_dirs, key=lambda s: s.lower())
         self.font_dirs = sorted(self.font_dirs, key=lambda s: s.lower())
 
 
@@ -211,10 +215,18 @@ class ShowFontsDialog(widgets.dialog.Dialog):
                 count=len(self.names),
                 version=self.info.prettyName()))
         self.populate_model()
-        # Display config files
-        config_html = '<html><body><p>{}</p></body></html>'.format(
+
+        # Display config files and directories
+        title = '<p><b>{}</b></p>'.format(_("Config Directories:"))
+        dirs = '<p>{}</p>'.format(
+            '\n'.join(['{}<br />'.format(file) for file in self.config_dirs]))
+        files_title = '<p><b>{}</b></p>'.format(_("Config Files:"))
+        files = '<p>{}</p></body></html>'.format(
             '\n'.join(['{}<br />'.format(file) for file in self.config_files]))
+        config_html = '<html><body>{}{}{}{}</body></html>'.format(
+            title, dirs, files_title, files)
         self.configFilesEdit.setHtml(config_html)
+
         # Display font directories
         font_dir_html = '<html><body><p>{}</p></body></html>'.format(
             '\n'.join(['{}<br />'.format(file) for file in self.font_dirs]))
