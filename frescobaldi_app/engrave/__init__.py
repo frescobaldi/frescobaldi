@@ -302,8 +302,8 @@ class Engraver(plugin.MainWindowPlugin):
         """Menu action Show Available Fonts."""
         from . import command
         info = command.info(self.mainwindow().currentDocument())
-        from . import lytools
-        lytools.show_available_fonts(self.mainwindow(), info)
+        import fontdialog
+        fontdialog.show_available_fonts(self.mainwindow(), info)
 
     def slotDocumentClosed(self, doc):
         """Called when the user closes a document. Aborts a running Job."""
@@ -406,5 +406,3 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_autocompile.setText(_("Automatic E&ngrave"))
         self.engrave_open_lilypond_datadir.setText(_("Open LilyPond &Data Directory"))
         self.engrave_show_available_fonts.setText(_("Show Available &Fonts..."))
-
-
