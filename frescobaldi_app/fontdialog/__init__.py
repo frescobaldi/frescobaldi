@@ -27,7 +27,10 @@ import codecs
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (
     QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget, QTextEdit,
-    QTreeWidget
+    QTreeView
+)
+from PyQt5.QtGui import(
+    QStandardItemModel, QStandardItem
 )
 
 
@@ -76,18 +79,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.logWidget.setLayout(logLayout)
         self.tabWidget.addTab(self.logWidget, _("LilyPond output"))
 
-        # TODO: Replace Log with a new custom widget
-        self.resultWidget = QWidget()
-        self.resultLog = log.Log(self.resultWidget)
-        resultLayout = QVBoxLayout()
-        #resultLayout.addWidget(self.msgLabel)
-        resultLayout.addWidget(self.resultLog)
-        self.resultWidget.setLayout(resultLayout)
-        self.tabWidget.addTab(self.resultWidget, _("Font Families"))
-
         # Show Font results
         self.fontTreeWidget = QWidget()
-        self.fontTree = QTreeWidget(self.fontTreeWidget)
+        self.fontTree = QTreeView(self.fontTreeWidget)
         treeLayout =QVBoxLayout()
         treeLayout.addWidget(self.msgLabel)
         treeLayout.addWidget(self.fontTree)
@@ -95,6 +89,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.fontTreeWidget.setLayout(treeLayout)
         self.tabWidget.addTab(self.fontTreeWidget, _("Fonts"))
 
+        self.treeModel = QStandardItemModel()
+        self.fontTree.setModel(self.treeModel)
 
         # Widget to show config files
         self.configFilesWidget = QWidget()
@@ -115,33 +111,38 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def populate_model(self):
         """Populate the data model to be displayed in the results"""
-        #TODO: This has to be replaced with a different widget.
-        # We will populate the widget's data model, but the widget itself
-        # has to be responsible for the interactive display.
-        # The logic of creating sub-elements in the temporary solution
-        # should be the model for later populating the data modelo.
+        root = self.treeModel.invisibleRootItem()
         for name in self.names:
             family = self.families[name]
-            if ((len(family.keys()) == 1) and (name in family.keys()) and ( len(family[name]) == 1)):
-                self.resultLog.writeMessage(
-                    '{} ({})\n'.format(name, family[name][0]), job.STDERR)
+            if ((len(family.keys()) == 1) and
+                (name in family.keys()) and
+                (len(family[name]) == 1)):
+                # Single family, only one style
+                content = '{} ({})'.format(name, family[name][0])
+                root.appendRow(QStandardItem(content))
             elif (len(family.keys()) == 1) and (name in family.keys()):
-                self.resultLog.writeMessage('{}\n'.format(name), job.STDERR)
+                # Single family, multiple styles
+                family_item = QStandardItem(name)
+                root.appendRow(family_item)
                 for style in sorted(family[name]):
-                    self.resultLog.writeMessage(
-                    '  - {}\n'.format(style), job.STDERR)
+                    family_item.appendRow(QStandardItem(style))
             else:
-                self.resultLog.writeMessage('{}\n'.format(name), job.STDERR)
+                # Multiple family (e.g. XX, XX Cond, XX Ext)
+                family_item = QStandardItem(name)
+                root.appendRow(family_item)
                 for weight in sorted(family.keys()):
                     if len(family[weight]) == 1:
-                        self.resultLog.writeMessage(
-                            '  - {} ({})\n'.format(weight,family[weight][0]), job.STDERR)
+                        # One style for the weight
+                        family_item.appendRow(
+                            QStandardItem(
+                                '{} ({})'.format(weight,family[weight][0])))
                     else:
-                        self.resultLog.writeMessage(
-                            '  - {}\n'.format(weight), job.STDERR)
+                        # Multiple styles for the weight
+                        weight_item = QStandardItem(weight)
+                        family_item.appendRow(weight_item)
                         for style in family[weight]:
-                            self.resultLog.write(
-                                '    - {}\n'.format(style), job.STDERR)
+                            weight_item.appendRow(QStandardItem(style))
+
 
     def run_command(self, info, args, title=None):
         """Run lilypond from info with the args list, and a job title."""
