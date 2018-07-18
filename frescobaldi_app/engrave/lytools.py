@@ -25,7 +25,10 @@ Run LilyPond to get various types of output.
 import codecs
 
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtWidgets import QLabel, QWidget, QLineEdit, QVBoxLayout
+from PyQt5.QtWidgets import (
+    QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget
+)
+
 
 import app
 import job
@@ -79,20 +82,29 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.info = info
         self.setWindowModality(Qt.NonModal)
 
+        self.tabWidget = QTabWidget(self)
+        self.setMainWidget(self.tabWidget)
+
         self.msgLabel = QLabel()
         self.filterEdit = QLineEdit()
         self.filterEdit.setPlaceholderText("Filter results (not implemented)")
 
+        self.logWidget = QWidget()
+        self.log = log.Log(self.logWidget)
+        logLayout = QVBoxLayout()
+        logLayout.addWidget(self.log)
+        self.logWidget.setLayout(logLayout)
+        self.tabWidget.addTab(self.logWidget, _("LilyPond output"))
+
         # TODO: Replace Log with a new custom widget
-        self.log = log.Log(self)
-        #self.setMainWidget(self.log)
-        layout = QVBoxLayout()
-        layout.addWidget(self.msgLabel)
-        layout.addWidget(self.log)
-        layout.addWidget(self.filterEdit)
-        self.panel = QWidget(parent)
-        self.panel.setLayout(layout)
-        self.setMainWidget(self.panel)
+        self.resultWidget = QWidget()
+        self.resultLog = log.Log(self.resultWidget)
+        resultLayout = QVBoxLayout()
+        resultLayout.addWidget(self.msgLabel)
+        resultLayout.addWidget(self.resultLog)
+        resultLayout.addWidget(self.filterEdit)
+        self.resultWidget.setLayout(resultLayout)
+        self.tabWidget.addTab(self.resultWidget, "Results")
 
 
     def run_command(self, info, args, title=None):
@@ -106,6 +118,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         if title:
             j.set_title(title)
         self.msgLabel.setText(_("Running LilyPond to list fonts ..."))
+        self.log.connectJob(j)
         j.start()
 
 
@@ -156,11 +169,13 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         # We will populate the widget's data model, but the widget itself
         # has to be responsible for the interactive display.
         for name in self.names:
-            self.log.writeMessage('{}\n'.format(name), job.STDERR)
+            self.resultLog.writeMessage('{}\n'.format(name), job.STDERR)
             family = self.families[name]
             for weight in family:
                 weight_display = "  - {} ({})".format(weight,family[weight])
-                self.log.writeMessage('{}\n'.format(weight_display), job.STDERR)
+                self.resultLog.writeMessage('{}\n'.format(weight_display), job.STDERR)
+
+        self.tabWidget.setCurrentIndex(1)
 
 
     def update_family(self, family_name, input):
