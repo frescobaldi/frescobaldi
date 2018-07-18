@@ -26,7 +26,8 @@ import codecs
 
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import (
-    QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget, QTextEdit
+    QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget, QTextEdit,
+    QTreeWidget
 )
 
 
@@ -100,11 +101,21 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.resultWidget = QWidget()
         self.resultLog = log.Log(self.resultWidget)
         resultLayout = QVBoxLayout()
-        resultLayout.addWidget(self.msgLabel)
+        #resultLayout.addWidget(self.msgLabel)
         resultLayout.addWidget(self.resultLog)
-        resultLayout.addWidget(self.filterEdit)
         self.resultWidget.setLayout(resultLayout)
         self.tabWidget.addTab(self.resultWidget, _("Font Families"))
+
+        # Show Font results
+        self.fontTreeWidget = QWidget()
+        self.fontTree = QTreeWidget(self.fontTreeWidget)
+        treeLayout =QVBoxLayout()
+        treeLayout.addWidget(self.msgLabel)
+        treeLayout.addWidget(self.fontTree)
+        treeLayout.addWidget(self.filterEdit)
+        self.fontTreeWidget.setLayout(treeLayout)
+        self.tabWidget.addTab(self.fontTreeWidget, _("Fonts"))
+
 
         # Widget to show config files
         self.configFilesWidget = QWidget()
