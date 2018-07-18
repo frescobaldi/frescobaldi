@@ -24,7 +24,7 @@ Show a dialog with available fonts.
 
 import codecs
 
-from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtCore import QSize, Qt, QSortFilterProxyModel, QRegExp
 from PyQt5.QtWidgets import (
     QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget, QTextEdit,
     QTreeView
@@ -70,7 +70,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
         self.msgLabel = QLabel()
         self.filterEdit = QLineEdit()
-        self.filterEdit.setPlaceholderText("Filter results (not implemented)")
+        self.filterEdit.setPlaceholderText(_("Filter results (type any part of the font family name)"))
 
         self.logWidget = QWidget()
         self.log = log.Log(self.logWidget)
@@ -91,7 +91,11 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.tabWidget.addTab(self.fontTreeWidget, _("Fonts"))
 
         self.treeModel = QStandardItemModel()
-        self.fontTree.setModel(self.treeModel)
+        self.proxy = QSortFilterProxyModel()
+        self.proxy.setSourceModel(self.treeModel)
+        self.fontTree.setModel(self.proxy)
+        self.filterEdit.textChanged.connect(self.update_filter)
+        self.filter = QRegExp('', Qt.CaseInsensitive)
 
         # Widget to show config files
         self.configFilesWidget = QWidget()
@@ -224,6 +228,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             '\n'.join(['{}<br />'.format(file) for file in self.font_dirs]))
         self.fontDirEdit.setHtml(font_dir_html)
         self.tabWidget.setCurrentIndex(1)
+        self.filterEdit.setFocus()
 
 
     def update_family(self, family_name, input):
@@ -235,3 +240,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             if not names[-1] in family.keys():
                 family[names[-1]] = []
             family[names[-1]].append(input[1][6:])
+
+
+    def update_filter(self):
+        """Filter font results"""
+        self.filter.setPattern(self.filterEdit.text())
+        self.proxy.setFilterRegExp(self.filter)
