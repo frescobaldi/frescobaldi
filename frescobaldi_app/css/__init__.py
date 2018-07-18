@@ -36,3 +36,51 @@ lcd_screen = """
 }
 """
 
+diff_popup = """
+/* TODO (not within GSoC): make these styles configurable */
+
+/* Make sure the texts stay where they should be */
+td {
+   vertical-align: top;
+}
+
+/* The popup window uses a table to display the code */
+table {
+   width: 100%;
+}
+
+/* The line number color in changed side */
+.border-num-chg {
+    color: #3c3b3b;
+}
+
+/* The line number color in original side */
+.border-num-ori {
+    color: #3c3b3b;
+}
+
+/* Highlight text, that has been inserted. */
+.hi-ins {
+    color: #000000;
+    background-color: #a9efbc;
+}
+
+/* Highlight text, that has been inserted and substitutes by other text. */
+.hi-chg-ins {
+    color: #000000;
+    background-color: #a9efbc;
+}
+
+/* Highlight text, that has been deleted. */
+.hi-del {
+    color: #000000;
+    background-color: #ffdce0;
+}
+
+/* Highlight text, that has been deleted and is substituted by other text. */
+.hi-chg-del {
+    color: #000000;
+    background-color: #ffdce0;
+}
+"""
+

@@ -60,6 +60,8 @@ import scorewiz
 import externalchanges
 import browseriface
 import file_import
+import vcs
+from vcs import manager
 
 
 class MainWindow(QMainWindow):
@@ -122,6 +124,12 @@ class MainWindow(QMainWindow):
         self.viewManager = viewmanager.ViewManager(self)
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
+
+        if vcs.VCS.use():
+            self.vcsManager = vcs.manager.VCSManager(self)
+            app.viewCreated.connect(self.vcsManager.setCurrentDocument)
+            app.documentClosed.connect(self.vcsManager.slotDocumentClosed)
+            app.documentUrlChanged.connect(self.vcsManager.slotDocumentUrlChanged)
 
         self.createActions()
         self.createMenus()
@@ -285,7 +293,7 @@ class MainWindow(QMainWindow):
 
         if app.is_git_controlled():
             import vcs
-            window_title += " " + vcs.app_active_branch_window_title()
+            window_title += " " + vcs.App.active_branch_window_title()
 
         self.setWindowTitle(window_title)
 

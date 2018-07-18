@@ -60,6 +60,8 @@ class View(QPlainTextEdit):
         super(View, self).__init__()
         # to enable mouseMoveEvent to display tooltip
         super(View, self).setMouseTracking(True)
+        self.setParent(app.activeWindow().viewManager.activeViewSpace())
+        self._view_space = app.activeWindow().viewManager.activeViewSpace()
         self.setDocument(document)
         self.setLineWrapMode(QPlainTextEdit.NoWrap)
         self.setCursorWidth(2)
@@ -79,6 +81,8 @@ class View(QPlainTextEdit):
         self.toolTipInfo = []
         self.block_at_mouse = None
         self.include_target = []
+        self._vcs_repository = None
+        self._vcs_document = None
         app.viewCreated(self)
 
     def event(self, ev):
@@ -143,7 +147,7 @@ class View(QPlainTextEdit):
         Currently handles:
 
         - indent change on Enter, }, # or >
-        
+
         - update the tooltip info when Ctrl is pressed
 
         """
@@ -200,6 +204,10 @@ class View(QPlainTextEdit):
                 color.setAlpha(128)
                 QPainter(self.viewport()).fillRect(rect, color)
 
+    def viewSpace(self):
+        """Reference to the viewSpace holding the view."""
+        return self._view_space
+    
     def gotoTextCursor(self, cursor, numlines=3):
         """Go to the specified cursor.
 
@@ -324,3 +332,19 @@ class View(QPlainTextEdit):
         m = QMimeData()
         m.setText(self.textCursor().selection().toPlainText())
         return m
+
+    def set_vcs_repository(self, repo):
+        """Attach a vcs repository to the view."""
+        self._vcs_repository = repo
+    
+    def vcs_repository(self):
+        return self._vcs_repository
+    
+    def set_vcs_document(self, vcs_document):
+        self._vcs_document = vcs_document
+    
+    def vcs_document(self):
+        return self._vcs_document
+    
+    def vcs_tracked(self):
+        return self._vcs_document.is_tracked() if self._vcs_document else False

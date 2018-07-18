@@ -39,6 +39,7 @@ import app
 import icons
 import view as view_
 import qutil
+import vcs
 
 
 class ViewStatusBar(QWidget):
@@ -49,6 +50,17 @@ class ViewStatusBar(QWidget):
         layout.setContentsMargins(2, 1, 0, 1)
         layout.setSpacing(8)
         self.setLayout(layout)
+
+        if vcs.VCS.use():
+            self.vcsRepoStatusLabel = QLabel()
+            layout.addWidget(self.vcsRepoStatusLabel)
+
+            self.vcsDocStatusLabel = QLabel()
+            layout.addWidget(self.vcsDocStatusLabel)
+
+            self.vcsDocChangedLinesLabel = QLabel()
+            layout.addWidget(self.vcsDocChangedLinesLabel)
+
         self.positionLabel = QLabel()
         layout.addWidget(self.positionLabel)
 
@@ -181,6 +193,18 @@ class ViewSpace(QWidget):
         view.cursorPositionChanged.disconnect(self.updateCursorPosition)
         view.modificationChanged.disconnect(self.updateModificationState)
         view.document().urlChanged.disconnect(self.updateDocumentName)
+           
+    def connectVcsLabels(self, view):
+        view.vcs_repository().repoChanged.connect(self.updateVcsRepoStatus)
+        view.vcs_document().status_updated.connect(self.updateVcsDocStatus)
+        view.vcs_document().diff_updated.connect(self.updateVcsDocChangedLines)
+        self.updateStatusBar()
+
+    def disconnectVcsLabels(self, view):
+        view.vcs_repository().repoChanged.disconnect(self.updateVcsRepoStatus)
+        view.vcs_document().status_updated.disconnect(self.updateVcsDocStatus)
+        view.vcs_document().diff_updated.disconnect(self.updateVcsDocChangedLines)
+        self.updateStatusBar()
 
     def eventFilter(self, view, ev):
         if ev.type() == QEvent.FocusIn:
@@ -196,6 +220,47 @@ class ViewSpace(QWidget):
             self.updateCursorPosition()
             self.updateModificationState()
             self.updateDocumentName()
+            if vcs.VCS.use():
+                self.updateVcsRepoStatus()
+                self.updateVcsDocStatus()
+                self.updateVcsDocChangedLines()
+
+    def updateVcsRepoStatus(self):
+        if not self.activeView().vcs_tracked():
+            self.status.vcsRepoStatusLabel.setText("")
+            return
+        name = self.activeView().vcs_repository().name()
+        branch = self.activeView().vcs_repository().current_branch()
+        self.status.vcsRepoStatusLabel .setText(_("In {repo} on {branch},").format(
+            repo = name, branch = branch))
+
+    def updateVcsDocStatus(self):
+        view = self.activeView()
+        if not view.vcs_tracked() or view.vcs_document().status() is None:
+            self.status.vcsDocStatusLabel.setText('')
+            return
+        indexStatus, workingStatus = view.vcs_document().status()
+        statusText = 'File is '
+        if indexStatus and workingStatus:
+            statusText += indexStatus + '-' + workingStatus + ', '
+        else:
+            statusText += indexStatus + workingStatus + ', '
+        self.status.vcsDocStatusLabel.setText(statusText)
+
+    def updateVcsDocChangedLines(self):
+        view = self.activeView()
+        if not view.vcs_tracked() or view.vcs_document().diff_lines() is None:
+            self.status.vcsDocChangedLinesLabel.setText('')
+            return
+        addedLines, modifiedLines, deletedLines = view.vcs_document().diff_lines()
+        statusText = ''
+        if deletedLines:
+            statusText += str(len(deletedLines)) + '-, '
+        if addedLines:
+            statusText += str(len(addedLines)) + '+, '
+        if modifiedLines:
+            statusText += str(len(modifiedLines)) + '≠, '
+        self.status.vcsDocChangedLinesLabel .setText(statusText)
 
     def updateCursorPosition(self):
         cur = self.activeView().textCursor()

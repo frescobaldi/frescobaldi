@@ -24,107 +24,210 @@ Manage a Git repository
 
 import sys
 import os
-import subprocess
+import re
+from functools import partial
 
-from .abstractrepo import AbstractVCSRepo
+from PyQt5.QtCore import QProcess, QFileSystemWatcher, pyqtSignal, QObject
+
+import app
+from . import abstractrepo, gitjob, gitdoc
 
 class GitError(Exception):
     pass
 
-class Repo(AbstractVCSRepo):
+class Repo(abstractrepo.Repo):
     """
     Manage a git repository, be it
     the running Frescobaldi application
     or a document's project.
     """
+    repoChanged = pyqtSignal()
+    _repoChangeDetected = pyqtSignal()
 
-    _git_available = None
-
+    _job_class = gitjob.Job
+    _queue_class = gitjob.JobQueue
+    
     def __init__(self, root):
-        if not os.path.isdir(os.path.join(root, '.git')):
-            raise GitError(_("The given directory '{rootdir} "
-                             "doesn't seem to be a Git repository.".format(rootdir=root)))
-        self.rootDir = root
+        super().__init__(root)
+        self._remotes = []
+        self._local_branches = []
+        self._remote_branches = []
+        self._tracked_remotes = {}
+        self._set_repo_changed_signals()
+        self._update_all_attributes(blocking=True)
+        self._repoChangeDetected.connect(self._update_all_attributes)
+        self.repoChanged.connect(self._broadcast_changed_signal)
 
-    @classmethod
-    def run_command(cls, cmd, args=[], dir=None):
+    def _set_repo_changed_signals(self):
         """
-        run a git command and return its output
-        as a string list.
-        Raise an exception if it returns an error.
-        - cmd is the git command (without 'git')
-        - args is a string or a list of strings
-        If no dir is passed the running dir of
-        Frescobaldi is used as default
+        Sets a QFileSystemWatcher object to monitor this repo.
+
+        Explanation:
+            We are monitoring the ".git/index" file here.
+            Git operations like 'pull', 'merge', 'checkout', 'stage' and
+            'commit' all update the index file in .git folder.
+            Each operation only updates the index once. While '.git' folder
+            will be updated three times during a 'commit' command. So index file
+            is a good marker.
+
         """
-        dir = os.path.normpath(os.path.join(sys.path[0], '..')) if dir is None else dir
-        from PyQt5.QtCore import QSettings
-        s = QSettings()
-        s.beginGroup("helper_applications")
-        git_cmd = s.value("git", "git", str)
-        git_cmd = git_cmd if git_cmd else "git"
-        cmd = [git_cmd, cmd]
-        cmd.extend(args)
-        pr = subprocess.Popen(cmd, cwd=dir,
-                              stdout=subprocess.PIPE,
-                              stderr=subprocess.PIPE,
-                              universal_newlines=True)
-        (out, error) = pr.communicate()
-        if error:
-            raise GitError(error)
-        result = out.split('\n')
-        if result[-1] == '':
-            result.pop()
-        return result
+        self._watcher = QFileSystemWatcher()
+        self._index_path = os.path.join(self._root_path, '.git', 'index')
+        self._watcher.addPath(self._index_path)
+        self._watcher.fileChanged.connect(self._emit_repo_changed_signal)
 
-
-    @classmethod
-    def vcs_available(cls):
-        """Return True if Git is installed on the system"""
-        if cls._git_available is None:
-            try:
-                cls.run_command('--version')
-                cls._git_available = True
-            except (GitError):
-                cls._git_available = False
-        return cls._git_available
-
-    # #########################
-    # Internal helper functions
-
-    def _run_command(self, cmd, args=[]):
+    def _emit_repo_changed_signal(self, path):
         """
-        run a git command and return its output
-        as a string list.
-        Raise an exception if it returns an error.
-        - cmd is the git command (without 'git')
-        - args is a string or a list of strings
+        Emits repoChanged signal and resets the file-watcher.
         """
-        return Repo.run_command(cmd, args, self.rootDir)
+        self._repoChangeDetected.emit()
+        self._watcher.removePath(self._index_path)
+        self._watcher.addPath(self._index_path)
 
-    def _branches(self, local=True):
+    def _update_branches(self, blocking=False):
         """
-        Returns a tuple.
-        The first element is the list of branch names.
-        The second element is the name of the current branch (may be None).
-        If local is False also return 'remote' branches.
+        Updates self._branches and self._current_branch. Then you can access
+        them through branches(), current_branch()
+
+        Args:
+            local(bool): If local is False, it also fetch 'remote' branches.
+            blocking(bool): If blocking is True, this function will run
+                synchronously
+
         """
-        args = ['--color=never']
-        if not local:
-            args.append('-a')
+        def result_parser(gitprocess, exitcode):
+            if exitcode == 0:
+                self._local_branches = []
+                self._remote_branches = []
+                result_lines = gitprocess.stdout()
+                for line in result_lines:
+                    branch = line.strip()
+                    if branch.startswith('* '):
+                        branch = branch.lstrip('* ')
+                        if branch.startswith('(HEAD'):
+                            branch = 'Detached-HEAD'
+                        self._current_branch = branch
+                    if branch.endswith('.stgit'):
+                        continue
+                    elif branch.startswith('remotes'):
+                        self._remote_branches.append(branch)
+                    else:
+                        self._local_branches.append(branch)
+                gitprocess.executed.emit(0)
+            else:
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
 
-        branches = []
-        current_branch = None
-        for line in self._run_command('branch', args):
-            branch = line.strip()
-            if branch.startswith('* '):
-                branch = branch.lstrip('* ')
-                current_branch = branch
-            if branch.endswith('.stgit'):
-                continue
-            branches.append(branch)
+        args = ['branch', '--color=never', '-a']
+        git = gitjob.Job(self.root())
+        git.preset_args = args
+        error_handler = partial(self._error_handler, '_update_branches')
+        git.errorOccurred.connect(error_handler)
+        git.finished.connect(result_parser)
+        if blocking == True:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
 
-        return (branches, current_branch)
+    def _update_tracked_remote_name(self, branch, blocking = False):
+        def get_remote_name(gitprocess, exitcode):
+            if gitprocess.stderr():
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
+            if exitcode == 0:
+                if not branch in self._tracked_remotes:
+                    self._tracked_remotes[branch] = {}
+                remote_name = gitprocess.stdout()
+                self._tracked_remotes[branch]['remote_name'] = remote_name[0]
+            else:
+                if not branch in self._tracked_remotes:
+                    self._tracked_remotes[branch] = {}
+                self._tracked_remotes[branch]['remote_name'] = 'local'
+            gitprocess.executed.emit(0)
+
+        args = ["config", "branch." + branch + ".remote"]
+        git = gitjob.Job(self.root())
+        git.preset_args = args
+        error_handler = partial(self._error_handler, '_update_tracked_remote_name')
+        git.errorOccurred.connect(error_handler)
+        git.finished.connect(get_remote_name)
+        if blocking == True:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
+
+    def _update_tracked_remote_branches(self, blocking = False):
+        def get_remote_branches(gitprocess, exitcode):
+            if exitcode == 0:
+                result_lines = gitprocess.stdout()
+                for line in result_lines:
+                    line = line.strip()
+                    if line.startswith('* '):
+                        line = line.lstrip('* ')
+                    hunks = line.split()
+                    local_branch = hunks[0]
+                    if local_branch.startswith('(HEAD'):
+                        self._tracked_remotes['Detached-HEAD'] = {
+                            'remote_branch': 'local'
+                        }
+                    elif hunks[2].startswith('['):
+                        remote_name = self._tracked_remotes[local_branch]['remote_name']
+                        start_pos = len(remote_name) + 2
+                        colon_ind = hunks[2].find(':')
+                        end_pos = colon_ind if colon_ind > -1 else len(hunks[2])-1
+                        self._tracked_remotes[local_branch]['remote_branch'] = hunks[2][start_pos:end_pos]
+                    else:
+                        if not local_branch in self._tracked_remotes:
+                            self._tracked_remotes[local_branch] = {}
+                        self._tracked_remotes[local_branch]['remote_branch'] = 'local'
+                self.repoChanged.emit()
+                gitprocess.executed.emit(0)
+            else:
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
+
+        args = ["branch", "-vv"]
+        git = gitjob.Job(self.root())
+        git.preset_args = args
+        error_handler = partial(self._error_handler, '_update_tracked_remote_branches')
+        git.errorOccurred.connect(error_handler)
+        git.finished.connect(get_remote_branches)
+        if blocking == True:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
+
+
+    def _update_tracked_remotes(self, blocking = False):
+        self._tracked_remotes = {}
+        for local_branch in self._local_branches:
+            self._update_tracked_remote_name(local_branch, blocking = blocking)
+        self._update_tracked_remote_branches(blocking = blocking)
+
+    def _update_remotes(self, blocking = False):
+        def get_remote_names(gitprocess, exitcode):
+            if exitcode == 0:
+                self._remotes = gitprocess.stdout()
+                gitprocess.executed.emit(0)
+            else:
+                error_handler(str(gitprocess.stderr(isbinary = True), 'utf-8'))
+
+        args = ["remote", "show"]
+        git = gitjob.Job(self.root())
+        git.preset_args = args
+        error_handler = partial(self._error_handler, '_update_tracked_remotes')
+        git.errorOccurred.connect(error_handler)
+        git.finished.connect(get_remote_names)
+        if blocking == True:
+            git.run_blocking()
+        else:
+            self._jobqueue.enqueue(git)
+
+    def _update_all_attributes(self, blocking = False):
+        self._update_branches(blocking = blocking)
+        self._update_remotes(blocking = blocking)
+        self._update_tracked_remotes(blocking = blocking)
+
+    def _broadcast_changed_signal(self):
+        for relative_path in self._documents:
+            self._documents[relative_path].update(repoChanged = True)
 
     # ####################
     # Public API functions
@@ -134,30 +237,54 @@ class Repo(AbstractVCSRepo):
         Returns a string list of branch names.
         If local is False also return 'remote' branches.
         """
-        return self._branches(local)[0]
+        res = []
+        res.extend(self._local_branches)
+        if not local:
+            res.extend(self._remote_branches)
+        return res
 
     def checkout(self, branch):
         """
         Tries to checkout a branch.
-        Add '-q' option because git checkout will
-        return its confirmation message on stderr.
-        May raise a GitError exception"""
-        self._run_command('checkout', ['-q', branch])
+        May raise a GitError exception
+        """
+        def success_tracker(gitprocess, exitcode):
+            nonlocal succeed
+            nonlocal err_msg
+            if exitcode == 0:
+                succeed = True
+            else:
+                succeed = False
+                err_msg = str(gitprocess.stderr(isbinary = True), 'utf-8')
+
+        def error_tracker(errcode):
+            nonlocal succeed
+            nonlocal err_msg
+            succeed = False
+            err_msg = 'Error: ' + gitjob.Job.error(errcode)
+
+        args = ["checkout", "-q", branch]
+        git = gitjob.Job(self.root())
+        git.preset_args = args
+        git.errorOccurred.connect(error_tracker)
+        git.finished.connect(success_tracker)
+        succeed = True
+        err_msg = None
+        git.run_blocking()
+        if not succeed:
+            raise GitError(err_msg)
 
     def current_branch(self):
         """
         Returns the name of the current branch.
         """
-        current_branch = self._branches(local=True)[1]
-        if not current_branch:
-            raise GitError('current_branch: No branch found')
-        return current_branch
+        return self._current_branch
 
     def has_branch(self, branch):
         """
         Returns True if the given local branch exists.
         """
-        return (branch in self.branches(local=True))
+        return (branch in self._local_branches)
 
     def has_remote(self, remote):
         """Returns True if the given remote name is registered."""
@@ -172,7 +299,7 @@ class Repo(AbstractVCSRepo):
 
     def remotes(self):
         """Return a string list with registered remote names"""
-        return self._run_command('remote', ['show'])
+        return self._remotes
 
     def tracked_remote(self, branch):
         """
@@ -184,18 +311,7 @@ class Repo(AbstractVCSRepo):
         """
         if not self.has_branch(branch):
             raise GitError('Branch not found: ' + branch)
-
-        remote_name = self._run_command("config",
-                                            ["branch." + branch + ".remote"])
-        remote_merge = self._run_command("config",
-                                             ["branch." + branch + ".merge"])
-        if not remote_name or not remote_merge:
-            return ('local', 'local')
-
-        remote_name = remote_name[0]
-        remote_merge = remote_merge[0]
-        remote_branch = remote_merge[remote_merge.rfind('/')+1:]
-        return (remote_name, remote_branch)
+        return (self._tracked_remotes[branch]['remote_name'], self._tracked_remotes[branch]['remote_branch'])
 
     def tracked_remote_label(self, branch):
         """
@@ -213,3 +329,11 @@ class Repo(AbstractVCSRepo):
             return remote
         else:
             return remote + '/' + remote_branch
+
+class RepoManager(abstractrepo.RepoManager):
+    """Class managing all Git repositories."""
+    
+    _repo_class = Repo
+    
+    def __init__(self):
+        super().__init__()

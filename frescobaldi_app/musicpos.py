@@ -37,7 +37,7 @@ class MusicPosition(plugin.ViewSpacePlugin):
         self._timer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._waittimer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._label = QLabel()
-        space.status.layout().insertWidget(1, self._label)
+        space.status.layout().insertWidget(3, self._label)
         self._view = lambda: None
         space.viewChanged.connect(self.slotViewChanged)
         view = space.activeView()
