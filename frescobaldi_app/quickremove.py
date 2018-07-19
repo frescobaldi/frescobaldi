@@ -192,6 +192,7 @@ dir_commands = {
 }
 def force_directions(cursor, direction):
     """Fort the directions to be all the same, neutral, up or down."""
+    from PyQt5.QtGui import QTextCursor
     import re
     reg = re.compile('(.*)(Up|Down|Neutral)')
     c = lydocument.cursor(cursor)
@@ -204,10 +205,10 @@ def force_directions(cursor, direction):
                 match = reg.match(t)
                 if match:
                     updated = match.groups()[0] + dir_commands[direction]
-                    # TODO: Replace token with the updated token,
-                    # making sure to use the proper techniques to preserve
-                    # point-and-click links
-                    print("Would replace {} with {}".format(t, updated))
+                    cursor.setPosition(t.pos)
+                    cursor.setPosition(t.end, QTextCursor.KeepAnchor)
+                    cursor.removeSelectedText()
+                    cursor.insertText(updated)
 
 
 
