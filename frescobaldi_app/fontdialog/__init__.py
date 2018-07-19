@@ -52,8 +52,18 @@ def show_available_fonts(mainwin, info):
     dlg.show()
 
 
+class FontFilterProxyModel(QSortFilterProxyModel):
+    """Custom proxy model that ignores child elements in filtering"""
+
+    def filterAcceptsRow(self, row, parent):
+        if parent.isValid():
+            return True
+        else:
+            return super(FontFilterProxyModel, self).filterAcceptsRow(row, parent)
+
+
 class ShowFontsDialog(widgets.dialog.Dialog):
-    """Dialog to show available fonts)"""
+    """Dialog to show available fonts"""
 
     # Cache data in class variables
     log_history = None
@@ -93,7 +103,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             tm.setColumnCount(2)
             tm.setHeaderData(0, Qt.Horizontal, _("Font"))
             tm.setHeaderData(1, Qt.Horizontal, _("Sample"))
-            self.proxy = QSortFilterProxyModel()
+            self.proxy = FontFilterProxyModel()
             self.proxy.setSourceModel(tm)
             self.fontTree.setModel(self.proxy)
             self.filterEdit.textChanged.connect(self.update_filter)
