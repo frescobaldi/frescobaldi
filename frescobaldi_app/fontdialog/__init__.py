@@ -24,7 +24,7 @@ Show a dialog with available fonts.
 
 import codecs
 
-from PyQt5.QtCore import QSize, Qt, QSortFilterProxyModel, QRegExp
+from PyQt5.QtCore import QSize, Qt, QSortFilterProxyModel, QRegExp, QSettings
 from PyQt5.QtWidgets import (
     QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget, QTextEdit,
     QTreeView
@@ -141,11 +141,23 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         create_misc_tab()
         create_misc_model()
         app.translateUI(self)
+        self.loadSettings()
+        self.finished.connect(self.saveSettings)
 
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
         self.filterEdit.setPlaceholderText(_("Filter results (type any part of the font family name)"))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup('available-fonts-dialog')
+        self.fontTree.setColumnWidth(0, int(s.value('col-width', 200)))
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup('available-fonts-dialog')
+        s.setValue('col-width', self.fontTree.columnWidth(0))
 
     def populate_widgets(self):
         """Populate widgets."""
