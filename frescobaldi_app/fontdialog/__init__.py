@@ -28,7 +28,7 @@ import re
 from PyQt5.QtCore import QSize, Qt, QSortFilterProxyModel, QRegExp, QSettings
 from PyQt5.QtWidgets import (
     QLabel, QWidget, QLineEdit, QVBoxLayout, QTabWidget, QTextEdit,
-    QTreeView
+    QTreeView, QDialogButtonBox
 )
 from PyQt5.QtGui import(
     QStandardItemModel, QStandardItem, QFont, QFontDatabase
@@ -127,8 +127,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         super(ShowFontsDialog, self).__init__(
             parent,
             #TODO: Add buttons to export/copy/print
-            buttons=('close',),
+            buttons=('restoredefaults', 'close',),
         )
+        self._buttonBox.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.reload)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
 
@@ -150,6 +151,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
         self.filterEdit.setPlaceholderText(_("Filter results (type any part of the font family name)"))
+        self._buttonBox.button(QDialogButtonBox.RestoreDefaults).setText(_("&Refresh"))
 
     def loadSettings(self):
         s = QSettings()
@@ -237,6 +239,13 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         """Callback after LilyPond has finished:"""
         self.read_entries()
         self.populate_widgets()
+
+
+    def reload(self):
+        """Refresh font list by running LilyPond"""
+        self.tabWidget.setCurrentIndex(0)
+        self.log.clear()
+        self.run_lilypond()
 
 
     def run_lilypond(self):
