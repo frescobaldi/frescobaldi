@@ -180,6 +180,37 @@ def markup(cursor):
                     continue
                 break
 
+dir_operators = {
+    'up': '^',
+    'neutral': '-',
+    'down': '_'
+}
+dir_commands = {
+    'up': 'Up',
+    'neutral': 'Neutral',
+    'down': 'Down'
+}
+def force_directions(cursor, direction):
+    """Fort the directions to be all the same, neutral, up or down."""
+    import re
+    reg = re.compile('(.*)(Up|Down|Neutral)')
+    c = lydocument.cursor(cursor)
+    source = ly.document.Source(c, None, ly.document.PARTIAL, True)
+    with c.document as d:
+        for t in source:
+            if isinstance(t, ly.lex.lilypond.Direction):
+                d[t.pos] = dir_operators[direction]
+            elif isinstance(t, ly.lex.lilypond.Command):
+                match = reg.match(t)
+                if match:
+                    updated = match.groups()[0] + dir_commands[direction]
+                    # TODO: Replace token with the updated token,
+                    # making sure to use the proper techniques to preserve
+                    # point-and-click links
+                    print("Would replace {} with {}".format(t, updated))
+
+
+
 
 @remove
 def smart_delete(cursor, backspace=False):
@@ -199,5 +230,3 @@ def smart_delete(cursor, backspace=False):
     TODO: implement
     """
     pass
-
-
