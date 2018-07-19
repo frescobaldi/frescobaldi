@@ -48,7 +48,6 @@ includes = [
     'popplerqt5',
     'pypm',
 
-    '__future__',
     'argparse',
     'bisect',
     'contextlib',

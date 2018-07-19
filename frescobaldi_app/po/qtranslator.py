@@ -24,7 +24,7 @@ The strings that are needed are in the qtmessages.py file in this directory.
 
 """
 
-from __future__ import print_function
+
 
 from PyQt5.QtCore import QCoreApplication, QTranslator
 

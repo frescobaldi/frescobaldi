@@ -1,6 +1,6 @@
 # Test file to test and demonstrate the API for the vcs module.
 
-from __future__ import print_function
+
 
 from vcs import app_repo
 

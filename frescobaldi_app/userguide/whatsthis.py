@@ -21,7 +21,7 @@
 Link help:urls in WhatsThis text to the help browser.
 """
 
-from __future__  import unicode_literals
+
 
 from PyQt5.QtCore import QEvent, QObject, QUrl
 

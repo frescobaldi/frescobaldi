@@ -21,7 +21,7 @@
 Abstract base class for a Poppler based viewer widget.
 """
 
-from __future__ import division
+
 
 import os
 import weakref

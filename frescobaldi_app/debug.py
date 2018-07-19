@@ -6,7 +6,7 @@
 # signals to debug-print functions, and imports the most important modules such
 # as app.
 
-from __future__ import print_function
+
 
 import sys
 
