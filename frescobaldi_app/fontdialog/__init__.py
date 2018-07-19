@@ -23,6 +23,7 @@ Show a dialog with available fonts.
 
 
 import codecs
+import re
 
 from PyQt5.QtCore import QSize, Qt, QSortFilterProxyModel, QRegExp, QSettings
 from PyQt5.QtWidgets import (
@@ -269,9 +270,12 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
         # Parse entries
         last_family = None
+        regexp = re.compile('(.*)\\-\\d*')
         for e in ShowFontsDialog.log_history:
             if e.startswith('family'):
-                last_family = e[7:]
+                original_family = e[7:]
+                basename = regexp.match(original_family)
+                last_family = basename.groups()[0] if basename else original_family
                 if not last_family in ShowFontsDialog.families.keys():
                     ShowFontsDialog.families[last_family] = {}
             elif last_family:
@@ -301,7 +305,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         input = input.strip().split(':')
         # This is a safeguard against improper entries
         if len(input) == 2:
-            weight = input[0].split(',')[-1]
+            weight = input[0].split(',')[-1].replace('\\-', '-')
             if not weight in family.keys():
                 family[weight] = []
             family[weight].append(input[1][6:])
