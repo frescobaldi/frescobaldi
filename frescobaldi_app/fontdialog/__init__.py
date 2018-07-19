@@ -39,6 +39,7 @@ import job
 import log
 import qutil
 import widgets.dialog
+from widgets.lineedit import LineEdit
 
 
 def show_available_fonts(mainwin, info):
@@ -89,7 +90,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             # Show Font results
             self.fontTreeWidget = QWidget()
             self.msgLabel = QLabel(self.fontTreeWidget)
-            self.filterEdit = QLineEdit()
+            self.filterEdit = LineEdit()
             self.fontTree = QTreeView(self.fontTreeWidget)
             treeLayout = QVBoxLayout()
             treeLayout.addWidget(self.msgLabel)
