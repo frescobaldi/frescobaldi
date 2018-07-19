@@ -30,7 +30,7 @@ from PyQt5.QtWidgets import (
     QTreeView
 )
 from PyQt5.QtGui import(
-    QStandardItemModel, QStandardItem
+    QStandardItemModel, QStandardItem, QFont, QFontDatabase
 )
 
 
@@ -81,7 +81,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.msgLabel = QLabel(self.fontTreeWidget)
             self.filterEdit = QLineEdit()
             self.fontTree = QTreeView(self.fontTreeWidget)
-            self.fontTree.setHeaderHidden(True)
             treeLayout = QVBoxLayout()
             treeLayout.addWidget(self.msgLabel)
             treeLayout.addWidget(self.fontTree)
@@ -90,9 +89,12 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.tabWidget.addTab(self.fontTreeWidget, _("Fonts"))
 
         def create_font_model():
-            self.treeModel = QStandardItemModel()
+            self.treeModel = tm = QStandardItemModel()
+            tm.setColumnCount(2)
+            tm.setHeaderData(0, Qt.Horizontal, _("Font"))
+            tm.setHeaderData(1, Qt.Horizontal, _("Sample"))
             self.proxy = QSortFilterProxyModel()
-            self.proxy.setSourceModel(self.treeModel)
+            self.proxy.setSourceModel(tm)
             self.fontTree.setModel(self.proxy)
             self.filterEdit.textChanged.connect(self.update_filter)
             self.filter = QRegExp('', Qt.CaseInsensitive)
@@ -150,31 +152,41 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def populate_font_tree(self):
         """Populate the data model to be displayed in the results"""
+
+        def sample(weight, available_styles, style_info):
+            """Produce a styled font sample for a given weight/style.
+            The style aliases returned by LilyPond are somewhat inconsistent
+            and don't always match a font style that PyQt can get, so we
+            have to do the lookup in the available styles reported by
+            QFontDatabase (as passed in the available_styles argument."""
+            font = QFont(weight)
+            reported_styles = style_info.split(',')
+            for style in reported_styles:
+                if style in available_styles:
+                    font.setStyleName(style)
+            item = QStandardItem(_('The quick brown fox jumps over the lazy dog'))
+            item.setFont(font)
+            return item
+
+        font_db = QFontDatabase()
         root = self.treeModel.invisibleRootItem()
         for name in ShowFontsDialog.names:
             family = ShowFontsDialog.families[name]
-            if (len(family.keys()) == 1) and (name in family.keys()):
-                # Single family, multiple styles
-                family_item = QStandardItem(name)
-                root.appendRow(family_item)
-                for style in sorted(family[name]):
-                    family_item.appendRow(QStandardItem(style))
-            else:
-                # Multiple family (e.g. XX, XX Cond, XX Ext)
-                family_item = QStandardItem(name)
-                root.appendRow(family_item)
-                for weight in sorted(family.keys()):
-                    if len(family[weight]) == 1:
-                        # One style for the weight
-                        family_item.appendRow(
-                            QStandardItem(
-                                '{} ({})'.format(weight,family[weight][0])))
-                    else:
-                        # Multiple styles for the weight
-                        weight_item = QStandardItem(weight)
-                        family_item.appendRow(weight_item)
-                        for style in family[weight]:
-                            weight_item.appendRow(QStandardItem(style))
+            family_item = QStandardItem(name)
+            root.appendRow(family_item)
+            for weight in sorted(family.keys()):
+                styles = font_db.styles(weight)
+                if len(family[weight]) == 1:
+                    family_item.appendRow(
+                        [QStandardItem(weight),
+                        sample(weight, styles, family[weight][0])])
+                else:
+                    weight_item = QStandardItem(weight)
+                    family_item.appendRow(weight_item)
+                    for style in family[weight]:
+                        weight_item.appendRow(
+                            [QStandardItem(style),
+                            sample(weight, styles, style)])
 
 
     def populate_misc(self):
@@ -264,12 +276,12 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         """Parse a font face definition."""
         family = ShowFontsDialog.families[family_name]
         input = input.strip().split(':')
-        # This is a safeguard agains improper entries
+        # This is a safeguard against improper entries
         if len(input) == 2:
-            name = input[0].split(',')[-1]
-            if not name in family.keys():
-                family[name] = []
-            family[name].append(input[1][6:])
+            weight = input[0].split(',')[-1]
+            if not weight in family.keys():
+                family[weight] = []
+            family[weight].append(input[1][6:])
 
 
     def update_filter(self):
