@@ -286,15 +286,11 @@ def menu_lilypond_generated_files(mainwindow):
 def menu_tools(mainwindow):
     m = Menu(_('menu title', '&Tools'), mainwindow)
 
-    ac = documentactions.get(mainwindow).actionCollection
-    m.addAction(ac.tools_indent_auto)
-    m.addAction(ac.tools_indent_indent)
-    m.addAction(ac.tools_reformat)
-    m.addAction(ac.tools_remove_trailing_whitespace)
-    m.addSeparator()
     ac = autocomplete.CompleterManager.instance(mainwindow).actionCollection
     m.addAction(ac.autocomplete)
     m.addAction(ac.popup_completions)
+    m.addSeparator()
+    m.addMenu(menu_tools_format(mainwindow))
     m.addSeparator()
     m.addMenu(menu_tools_pitch(mainwindow))
     m.addMenu(menu_tools_rest(mainwindow))
@@ -308,6 +304,17 @@ def menu_tools(mainwindow):
     m.addAction(mainwindow.actionCollection.file_open_command_prompt)
     m.addSeparator()
     panelmanager.manager(mainwindow).addActionsToMenu(m)
+    return m
+
+
+def menu_tools_format(mainwindow):
+    m = Menu(_('submenu title', "Code &Formatting"), mainwindow)
+    m.setIcon(icons.get('document-edit'))
+    ac = documentactions.get(mainwindow).actionCollection
+    m.addAction(ac.tools_indent_auto)
+    m.addAction(ac.tools_indent_indent)
+    m.addAction(ac.tools_reformat)
+    m.addAction(ac.tools_remove_trailing_whitespace)
     return m
 
 
@@ -434,5 +441,3 @@ def menu_help(mainwindow):
     m.addSeparator()
     m.addAction(ac.help_about)
     return m
-
-
