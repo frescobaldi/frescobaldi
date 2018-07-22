@@ -292,9 +292,9 @@ def menu_tools(mainwindow):
     m.addSeparator()
     m.addMenu(menu_tools_format(mainwindow))
     m.addMenu(menu_tools_transform(mainwindow))
+    dac = documentactions.get(mainwindow).actionCollection
+    m.addAction(dac.tools_convert_ly)
     m.addSeparator()
-    ac = documentactions.get(mainwindow).actionCollection
-    m.addAction(ac.tools_convert_ly)
     m.addAction(mainwindow.actionCollection.file_open_current_directory)
     m.addAction(mainwindow.actionCollection.file_open_command_prompt)
     m.addSeparator()
