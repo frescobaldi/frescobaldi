@@ -85,7 +85,6 @@ def parse_commandline():
         parser.add_argument('-p', '--port')
         parser.add_argument('-f', '--file')
         parser.add_argument('-o', '--output')
-        parser.add_argument('--python-ly')
 
 
 
