@@ -27,7 +27,7 @@ import os
 import tempfile
 
 from PyQt5.QtCore import QSettings, QSize, Qt
-from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QRegion
+from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QImage, QRegion
 from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
                              QDialogButtonBox, QFileDialog, QHBoxLayout,
                              QLabel, QMessageBox, QPushButton, QVBoxLayout)
@@ -74,6 +74,7 @@ class Dialog(QDialog):
 
         self.colorButton = widgets.colorbutton.ColorButton()
         self.colorButton.setColor(QColor(Qt.white))
+        self.grayscale = QCheckBox(checked=False)
         self.crop = QCheckBox()
         self.antialias = QCheckBox(checked=True)
         self.scaleup = QCheckBox(checked=False)
@@ -95,6 +96,7 @@ class Dialog(QDialog):
         controls.addWidget(self.dpiLabel)
         controls.addWidget(self.dpiCombo)
         controls.addWidget(self.colorButton)
+        controls.addWidget(self.grayscale)
         controls.addWidget(self.crop)
         controls.addWidget(self.antialias)
         controls.addWidget(self.scaleup)
@@ -108,6 +110,7 @@ class Dialog(QDialog):
         self.finished.connect(self.writeSettings)
         self.dpiCombo.editTextChanged.connect(self.drawImage)
         self.colorButton.colorChanged.connect(self.drawImage)
+        self.grayscale.toggled.connect(self.drawImage)
         self.antialias.toggled.connect(self.drawImage)
         self.scaleup.toggled.connect(self.drawImage)
         self.crop.toggled.connect(self.cropImage)
@@ -120,6 +123,8 @@ class Dialog(QDialog):
         self.setCaption()
         self.dpiLabel.setText(_("DPI:"))
         self.colorButton.setToolTip(_("Paper Color"))
+        self.grayscale.setText(_("Gray"))
+        self.grayscale.setToolTip(_("Convert image to grayscale."))
         self.crop.setText(_("Auto-crop"))
         self.antialias.setText(_("Antialias"))
         self.scaleup.setText(_("Scale 2x"))
@@ -147,6 +152,7 @@ class Dialog(QDialog):
         s.beginGroup('copy_image')
         self.dpiCombo.setEditText(s.value("dpi", "100", str))
         self.colorButton.setColor(s.value("papercolor", QColor(Qt.white), QColor))
+        self.grayscale.setChecked(s.value("grayscale", False, bool))
         self.crop.setChecked(s.value("autocrop", False, bool))
         self.antialias.setChecked(s.value("antialias", True, bool))
         self.scaleup.setChecked(s.value("scaleup", False, bool))
@@ -156,6 +162,7 @@ class Dialog(QDialog):
         s.beginGroup('copy_image')
         s.setValue("dpi", self.dpiCombo.currentText())
         s.setValue("papercolor", self.colorButton.color())
+        s.setValue("grayscale", self.grayscale.isChecked())
         s.setValue("autocrop", self.crop.isChecked())
         s.setValue("antialias", self.antialias.isChecked())
         s.setValue("scaleup", self.scaleup.isChecked())
@@ -193,6 +200,8 @@ class Dialog(QDialog):
         i = self._page.image(self._rect, dpi * m, dpi * m , options)
         if m == 2:
             i = i.scaled(i.size() / 2, transformMode=Qt.SmoothTransformation)
+        if self.grayscale.isChecked():
+            i = i.convertToFormat(QImage.Format_Grayscale8)
         self._image = i
         self.cropImage()
 

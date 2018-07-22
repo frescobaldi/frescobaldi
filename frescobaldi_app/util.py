@@ -29,7 +29,7 @@ import io
 import os
 import re
 
-from PyQt5.QtCore import QDir
+from PyQt5.QtCore import QDir, QUrl
 
 import appinfo
 import variables
@@ -90,6 +90,20 @@ def homify(path):
     if equal_paths(path[:len(homedir)+1], homedir + '/'):
         path = "~" + path[len(homedir):]
     return path
+
+
+def path(url):
+    """Returns the path, as a string, of the url to group documents.
+
+    Returns None if the document is nameless.
+
+    """
+    if url.isEmpty():
+        return None
+    elif url.toLocalFile():
+        return homify(os.path.dirname(url.toLocalFile()))
+    else:
+        return url.resolved(QUrl('.')).toString(QUrl.RemoveUserInfo)
 
 
 def tempdir():
@@ -287,5 +301,3 @@ def platform_newlines(text):
 
     """
     return universal_newlines(text).replace('\n', os.linesep)
-
-

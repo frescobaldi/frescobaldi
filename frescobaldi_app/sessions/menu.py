@@ -49,29 +49,67 @@ class SessionMenu(QMenu):
         self.addAction(ac.session_none)
         self.addSeparator()
         self.aboutToShow.connect(self.populate)
+        self.groupMenus = []
 
     def translateUI(self):
         self.setTitle(_('menu title', '&Session'))
 
     def populate(self):
-        ac = manager.get(self.parentWidget()).actionCollection
-        ag = self._actionGroup
-        for a in ag.actions():
-            if a is not ac.session_none:
-                self.removeAction(a)
-                ag.removeAction(a)
-        ac.session_none.setChecked(not sessions.currentSession())
-        for name in sessions.sessionNames():
-            a = self.addAction(name.replace('&', '&&'))
+        groups = {}
+        tl_sessions = []
+
+        def add_session(menu, name, group=None):
+            name = name.replace('&', '&&')
+            fullname = group + '/' + name if group else name
+            a = menu.addAction(name)
             a.setCheckable(True)
-            if name == sessions.currentSession():
+            if fullname == sessions.currentSession():
                 a.setChecked(True)
-            a.setObjectName(name)
-            ag.addAction(a)
+                if group:
+                    menu.setTitle('* ' + menu.title())
+            a.setObjectName(fullname)
+            self._actionGroup.addAction(a)
+
+        def add_sessions():
+            for name in tl_sessions:
+                add_session(self, name)
+
+        def add_groups():
+            for k in sorted(groups.keys()):
+                m = self.addMenu(k)
+                self.groupMenus.append(m)
+                for name in groups[k]:
+                    add_session(m, name, k)
+                qutil.addAccelerators(m.actions())
+
+        def reset_menu():
+            for m in self.groupMenus:
+                m.deleteLater()
+            self.groupMenus = []
+            ac = manager.get(self.parentWidget()).actionCollection
+            ag = self._actionGroup
+            for a in ag.actions():
+                if a is not ac.session_none:
+                    self.removeAction(a)
+                    ag.removeAction(a)
+            ac.session_none.setChecked(not sessions.currentSession())
+
+        reset_menu()
+        for name in sessions.sessionNames():
+            if '/' in name:
+                group, name = name.split('/')
+                if group in groups:
+                    groups[group].append(name)
+                else:
+                    groups[group] = [name]
+            else:
+                tl_sessions.append(name)
+        add_groups()
+        if groups:
+            self.addSeparator()
+        add_sessions()
         qutil.addAccelerators(self.actions())
 
     def slotSessionsAction(self, action):
         if action.objectName() in sessions.sessionNames():
             manager.get(self.parentWidget()).startSession(action.objectName())
-
-

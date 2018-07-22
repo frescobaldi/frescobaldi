@@ -231,7 +231,7 @@ class MusicViewPanel(panel.Panel):
             import sys
             if sys.platform.startswith('darwin'):
                 from PyQt5.QtCore import QUrl
-                from PyQt5.QtGui import QMessageBox
+                from PyQt5.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(
                     "Unfortunately, this version of Frescobaldi is unable to print "

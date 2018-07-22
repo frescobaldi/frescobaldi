@@ -1,0 +1,67 @@
+diff --git __init__.py.orig __init__.py
+index 5d7e90a..b9c9ffd 100644
+--- __init__.py.orig
++++ __init__.py
+@@ -189,10 +189,7 @@ def loadUiType(uifile, from_imports=False, resource_suffix='_rc', import_from='.
+ 
+     from PyQt5 import QtWidgets
+ 
+-    if sys.hexversion >= 0x03000000:
+-        from .port_v3.string_io import StringIO
+-    else:
+-        from .port_v2.string_io import StringIO
++    from .port_v3.string_io import StringIO
+ 
+     code_string = StringIO()
+     winfo = compiler.UICompiler().compileUi(uifile, code_string, from_imports, resource_suffix, import_from)
+diff --git properties.py.orig properties.py
+index 3b4af2a..a9a9553 100644
+--- properties.py.orig
++++ properties.py
+@@ -45,10 +45,7 @@ import sys
+ from .exceptions import NoSuchClassError, UnsupportedPropertyError
+ from .icon_cache import IconCache
+ 
+-if sys.hexversion >= 0x03000000:
+-    from .port_v3.ascii_upper import ascii_upper
+-else:
+-    from .port_v2.ascii_upper import ascii_upper
++from .port_v3.ascii_upper import ascii_upper
+ 
+ 
+ logger = logging.getLogger(__name__)
+diff --git Compiler/qobjectcreator.py.orig Compiler/qobjectcreator.py
+index d85182f..c65e628 100644
+--- Compiler/qobjectcreator.py.orig
++++ Compiler/qobjectcreator.py
+@@ -44,10 +44,7 @@ import sys
+ from .indenter import write_code
+ from .qtproxies import QtGui, QtWidgets, Literal, strict_getattr
+ 
+-if sys.hexversion >= 0x03000000:
+-    from ..port_v3.as_string import as_string
+-else:
+-    from ..port_v2.as_string import as_string
++from ..port_v3.as_string import as_string
+ 
+ 
+ logger = logging.getLogger(__name__)
+diff --git Compiler/qtproxies.py.orig Compiler/qtproxies.py
+index e5b7266..5a2870d 100644
+--- Compiler/qtproxies.py.orig
++++ Compiler/qtproxies.py
+@@ -44,12 +44,8 @@ import re
+ from .indenter import write_code
+ from .misc import Literal, moduleMember
+ 
+-if sys.hexversion >= 0x03000000:
+-    from ..port_v3.proxy_base import ProxyBase
+-    from ..port_v3.as_string import as_string
+-else:
+-    from ..port_v2.proxy_base import ProxyBase
+-    from ..port_v2.as_string import as_string
++from ..port_v3.proxy_base import ProxyBase
++from ..port_v3.as_string import as_string
+ 
+ 
+ i18n_strings = []

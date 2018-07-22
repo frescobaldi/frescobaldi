@@ -30,6 +30,7 @@ import icons
 import plugin
 import engrave
 import documenticon
+import util
 
 
 class DocumentMenu(QMenu):
@@ -37,6 +38,7 @@ class DocumentMenu(QMenu):
         super(DocumentMenu, self).__init__(mainwindow)
         self.aboutToShow.connect(self.populate)
         app.translateUI(self)
+        self.setToolTipsVisible(True)
 
     def translateUI(self):
         self.setTitle(_('menu title', '&Documents'))
@@ -108,6 +110,7 @@ class DocumentActionGroup(plugin.MainWindowPlugin, QActionGroup):
             # L10N: 'always engraved': the document is marked as 'Always Engrave' in the LilyPond menu
             name += " " + _("[always engraved]")
         self._acts[doc].setText(name)
+        self._acts[doc].setToolTip(util.path(doc.url()))
         icon = documenticon.icon(doc, self.mainwindow())
         if icon.name() == "text-plain":
             icon = QIcon()
@@ -118,5 +121,3 @@ class DocumentActionGroup(plugin.MainWindowPlugin, QActionGroup):
             if act == action:
                 self.mainwindow().setCurrentDocument(doc)
                 break
-
-

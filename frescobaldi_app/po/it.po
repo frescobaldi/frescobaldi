@@ -2023,7 +2023,7 @@ msgstr "Si bemolle maggiore (2 bemolli)"
 
 #: ../midiinput/widget.py:171
 msgid "F major (1 flat)"
-msgstr "Fa bemolle maggiore (1 bemolle)"
+msgstr "Fa maggiore (1 bemolle)"
 
 #: ../midiinput/widget.py:172
 msgid "C major"
@@ -2051,7 +2051,7 @@ msgstr "Si maggiore (5 diesis)"
 
 #: ../midiinput/widget.py:178
 msgid "F sharp major (6 sharps)"
-msgstr "Fa maggiore (6 diesis)"
+msgstr "Fa diesis maggiore (6 diesis)"
 
 #: ../midiinput/widget.py:179
 msgid "C sharp major (7 sharps)"

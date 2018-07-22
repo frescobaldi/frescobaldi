@@ -8,7 +8,11 @@ Prerequisites:
 - Frescobaldi's dependencies installed through MacPorts with default variants,
   for the requested architecture set,
 - \$PATH contains Git, appdmg (a node.js/npm package) and OpenSSL with
-  SHA256 support.
+  SHA256 support,
+- due to a bug in py2app, PyQt5 needs to be patched by applying the patch file
+  patch-PyQt5-uic.diff in the directory lib/python3.6/site-packages/PyQt5/uic
+  of the Python.framework corresponding to the used Python, e.g., with
+    sudo patch -d/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/PyQt5/uic -p0 < patch-PyQt5-uic.diff
 
 It is strongly recommended that no Python packages are active except for
 Frescobaldi's dependencies.
@@ -17,20 +21,26 @@ You can achieve this for packages installed through MacPorts with
 EOF
 
 read -d '' USAGE <<- EOF
-Usage: $0 [-p <MacPorts prefix>] [-a <architecture set>] [-d] [-h]
-  -p defaults to /opt/local
+Usage: $0 [-P <Python executable>] [-Q <root of Qt installation>]
+          [-a <architecture set>] [-d] [-h]
+  -P defaults to /opt/local/bin/python3.6
+  -Q defaults to /opt/local/libexec/qt5
   -a defaults to the architecture of the current Python binary
   -d = do not build the DMG disk image
   -h = show this help
   <architecture set> must be either i386, x86_64 or intel (= i386 + x86_64)
 EOF
 
-MPPREFIX=/opt/local
+PYTHON=/opt/local/bin/python3.6
+QTROOT=/opt/local/libexec/qt5
 
-while getopts ":p:a:dh" opt; do
+while getopts ":P:Q:a:dh" opt; do
   case ${opt} in
-    p)
-      MPPREFIX=${OPTARG}
+    P)
+      PYTHON=${OPTARG}
+      ;;
+    Q)
+      QTROOT=${OPTARG}
       ;;
     a)
       ARCH=${OPTARG}
@@ -54,29 +64,29 @@ while getopts ":p:a:dh" opt; do
   esac
 done
 
-if [[ ./`basename $0` != $0 ]]
+if [[ ./$(basename $0) != $0 ]]
 then
   echo "Error: wrong working directory." 1>&2
-  echo "You must run "`basename $0`" from the macosx directory of Frescobaldi's source." 1>&2
+  echo "You must run "$(basename $0)" from the macosx directory of Frescobaldi's source." 1>&2
   exit 1
 fi
 
 echo "${INTRO}"
 echo
 
-VERSION=`${MPPREFIX}/bin/python2.7 -c 'import os
+VERSION=$(${PYTHON} -c 'import os
 os.chdir("..")
 from frescobaldi_app import appinfo
-print appinfo.version'`
+print(appinfo.version)')
 
 if git rev-parse --git-dir > /dev/null 2>&1
 then
-  if [[ v${VERSION} != `git describe` ]]
+  if [[ v${VERSION} != $(git describe) ]]
   then
-    VERSION=${VERSION}-`git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/'`
+    VERSION=${VERSION}-$(git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/')
   fi
 else
-  echo "Warning: you are not running "`basename $0`" from the Git repository."
+  echo "Warning: you are not running "$(basename $0)" from the Git repository."
   echo "The version of the .app bundle could be wrong or incomplete if you are"
   echo "not building from the source of a tagged release."
 fi
@@ -92,14 +102,14 @@ echo
 # /usr/bin/strip: for architecture x86_64 object: .../dist/Frescobaldi.app/Contents/Frameworks/libgcc_s.1.dylib malformed object (unknown load command 11)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/MacOS/Frescobaldi malformed object (unknown load command 15)
 # /usr/bin/strip: object: .../dist/Frescobaldi.app/Contents/Frameworks/libstdc++.6.dylib malformed object (unknown load command 12)
-${MPPREFIX}/bin/python2.7 mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
+${PYTHON} mac-app.py -v ${VERSION} -a ${ARCHOPT} > /dev/null
 echo
 
 APPBUNDLE=dist/Frescobaldi.app
 
 echo Copying libqsvg.dylib inside the .app bundle.
 echo
-cp ${MPPREFIX}/libexec/qt4/share/plugins/imageformats/libqsvg.dylib ${APPBUNDLE}/Contents/PlugIns/imageformats/
+cp ${QTROOT}/plugins/imageformats/libqsvg.dylib ${APPBUNDLE}/Contents/PlugIns/imageformats/
 
 echo Finalizing the .app bundle with macdeployqt.
 echo \(This step will likely give an error about the failed copy of libqsvg.dylib:
@@ -108,12 +118,12 @@ echo
 # The expected error is:
 # ERROR: file copy failed from "${MPPREFIX}/share/qt4/plugins/imageformats/libqsvg.dylib" 
 # ERROR:  to "dist/Frescobaldi.app/Contents/PlugIns/imageformats/libqsvg.dylib" 
-${MPPREFIX}/libexec/qt4/bin/macdeployqt ${APPBUNDLE}
+${QTROOT}/bin/macdeployqt ${APPBUNDLE}
 echo
 
-MACHO=`find ${APPBUNDLE} -type f -exec file {} + | grep Mach-O`
-NON32=`echo "${MACHO}" | grep -v i386`
-NON64=`echo "${MACHO}" | grep -v x86_64`
+MACHO=$(find ${APPBUNDLE} -type f -exec file {} + | grep Mach-O)
+NON32=$(echo "${MACHO}" | grep -v i386)
+NON64=$(echo "${MACHO}" | grep -v x86_64)
 if [[ ${NON32} == '' ]]
 then
   if [[ ${NON64} == '' ]]
