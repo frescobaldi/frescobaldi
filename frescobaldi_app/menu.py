@@ -291,12 +291,7 @@ def menu_tools(mainwindow):
     m.addAction(ac.popup_completions)
     m.addSeparator()
     m.addMenu(menu_tools_format(mainwindow))
-    m.addSeparator()
-    m.addMenu(menu_tools_pitch(mainwindow))
-    m.addMenu(menu_tools_rest(mainwindow))
-    m.addMenu(menu_tools_rhythm(mainwindow))
-    m.addMenu(menu_tools_lyrics(mainwindow))
-    m.addMenu(menu_tools_quick_remove(mainwindow))
+    m.addMenu(menu_tools_transform(mainwindow))
     m.addSeparator()
     ac = documentactions.get(mainwindow).actionCollection
     m.addAction(ac.tools_convert_ly)
@@ -317,6 +312,14 @@ def menu_tools_format(mainwindow):
     m.addAction(ac.tools_remove_trailing_whitespace)
     return m
 
+def menu_tools_transform(mainwindow):
+    m = Menu(_('submenu title', "Musical &Transformations"), mainwindow)
+    m.addMenu(menu_tools_pitch(mainwindow))
+    m.addMenu(menu_tools_rest(mainwindow))
+    m.addMenu(menu_tools_rhythm(mainwindow))
+    m.addMenu(menu_tools_lyrics(mainwindow))
+    m.addMenu(menu_tools_quick_remove(mainwindow))
+    return m
 
 def menu_tools_lyrics(mainwindow):
     m = Menu(_('submenu title', "&Lyrics"), mainwindow)
