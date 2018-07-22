@@ -60,6 +60,10 @@ class PanelManager(plugin.MainWindowPlugin):
                 'menu': QMenu(_('&Structure')),
                 'panels': []
             }),
+            ('midi', {
+                'menu': QMenu(_('&MIDI')),
+                'panels': []
+            }),
             ])
 
         # add the the panel stubs here
@@ -68,14 +72,14 @@ class PanelManager(plugin.MainWindowPlugin):
         self.loadPanel("viewers.manuscript.ManuscriptViewPanel", "viewers")
         self.loadPanel("docbrowser.HelpBrowser", "viewers")
         self.loadPanel("logtool.LogTool", "viewers")
+        self.loadPanel("layoutcontrol.LayoutControlOptions", "viewers")
         self.loadPanel("quickinsert.QuickInsertPanel", "coding")
         self.loadPanel("charmap.CharMap", "coding")
         self.loadPanel("snippet.tool.SnippetTool", "coding")
         self.loadPanel("doclist.DocumentList", "structure")
         self.loadPanel("outline.OutlinePanel", "structure")
-        self.loadPanel("miditool.MidiTool")
-        self.loadPanel("midiinput.tool.MidiInputTool")
-        self.loadPanel("layoutcontrol.LayoutControlOptions")
+        self.loadPanel("miditool.MidiTool", "midi")
+        self.loadPanel("midiinput.tool.MidiInputTool", "midi")
 
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
