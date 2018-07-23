@@ -62,7 +62,9 @@ class DocumentActions(plugin.MainWindowPlugin):
         ac.tools_quick_remove_dynamics.triggered.connect(self.quickRemoveDynamics)
         ac.tools_quick_remove_fingerings.triggered.connect(self.quickRemoveFingerings)
         ac.tools_quick_remove_markup.triggered.connect(self.quickRemoveMarkup)
-
+        ac.tools_directions_force_neutral.triggered.connect(self.forceDirectionsNeutral)
+        ac.tools_directions_force_up.triggered.connect(self.forceDirectionsUp)
+        ac.tools_directions_force_down.triggered.connect(self.forceDirectionsDown)
         mainwindow.currentDocumentChanged.connect(self.updateDocActions)
         mainwindow.selectionStateChanged.connect(self.updateSelectionActions)
 
@@ -87,6 +89,9 @@ class DocumentActions(plugin.MainWindowPlugin):
         self.actionCollection.tools_quick_remove_dynamics.setEnabled(selection)
         self.actionCollection.tools_quick_remove_fingerings.setEnabled(selection)
         self.actionCollection.tools_quick_remove_markup.setEnabled(selection)
+        self.actionCollection.tools_directions_force_up.setEnabled(selection)
+        self.actionCollection.tools_directions_force_neutral.setEnabled(selection)
+        self.actionCollection.tools_directions_force_down.setEnabled(selection)
 
     def currentView(self):
         return self.mainwindow().currentView()
@@ -184,6 +189,18 @@ class DocumentActions(plugin.MainWindowPlugin):
         import quickremove
         quickremove.markup(self.mainwindow().textCursor())
 
+    def forceDirectionsUp(self):
+        import quickremove
+        quickremove.force_directions(self.mainwindow().textCursor(), 'up')
+
+    def forceDirectionsNeutral(self):
+        import quickremove
+        quickremove.force_directions(self.mainwindow().textCursor(), 'neutral')
+
+    def forceDirectionsDown(self):
+        import quickremove
+        quickremove.force_directions(self.mainwindow().textCursor(), 'down')
+
 
 class Actions(actioncollection.ActionCollection):
     name = "documentactions"
@@ -209,6 +226,10 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_dynamics = QAction(parent)
         self.tools_quick_remove_fingerings = QAction(parent)
         self.tools_quick_remove_markup = QAction(parent)
+
+        self.tools_directions_force_up = QAction(parent)
+        self.tools_directions_force_neutral = QAction(parent)
+        self.tools_directions_force_down = QAction(parent)
 
         self.edit_cut_assign.setIcon(icons.get('edit-cut'))
         self.edit_move_to_include_file.setIcon(icons.get('edit-cut'))
@@ -236,4 +257,6 @@ class Actions(actioncollection.ActionCollection):
         self.tools_quick_remove_dynamics.setText(_("Remove &Dynamics"))
         self.tools_quick_remove_fingerings.setText(_("Remove &Fingerings"))
         self.tools_quick_remove_markup.setText(_("Remove Text &Markup (from music)"))
-
+        self.tools_directions_force_up.setText(_("Force Directions &Up"))
+        self.tools_directions_force_neutral.setText(_("Make Directions &Neutral"))
+        self.tools_directions_force_down.setText(_("Force Directions &Down"))
