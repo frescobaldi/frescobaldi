@@ -91,7 +91,6 @@ class PanelManager(plugin.MainWindowPlugin):
         mainwindow.tabifyDockWidget(self.musicview, self.docbrowser)
         mainwindow.tabifyDockWidget(self.musicview, self.svgview)
 
-        print(self._submenus)
 
     def loadPanel(self, name, submenu=None):
         """Loads the named Panel.
