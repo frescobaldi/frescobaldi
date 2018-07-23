@@ -23,8 +23,10 @@ Manages the Panels (Tools).
 
 
 import sys
+import collections
 
 from PyQt5.QtCore import QSettings
+from PyQt5.QtWidgets import QMenu
 
 import actioncollection
 import actioncollectionmanager
@@ -45,33 +47,52 @@ class PanelManager(plugin.MainWindowPlugin):
 
         """
         self._panels = []
+        self._submenus = collections.OrderedDict([
+            ('viewers', {
+                'menu': QMenu(_('&Viewers')),
+                'panels': []
+            }),
+            ('coding', {
+                'menu': QMenu(_('&Coding')),
+                'panels': []
+            }),
+            ('structure', {
+                'menu': QMenu(_('&Structure')),
+                'panels': []
+            }),
+            ('midi', {
+                'menu': QMenu(_('&MIDI')),
+                'panels': []
+            }),
+            ])
 
         # add the the panel stubs here
-        self.loadPanel("quickinsert.QuickInsertPanel")
-        self.loadPanel("musicview.MusicViewPanel")
-        self.loadPanel("svgview.SvgViewPanel")
-        self.loadPanel("viewers.manuscript.ManuscriptViewPanel")
-        self.loadPanel("logtool.LogTool")
-        self.loadPanel("docbrowser.HelpBrowser")
-        self.loadPanel("snippet.tool.SnippetTool")
-        self.loadPanel("miditool.MidiTool")
-        self.loadPanel("midiinput.tool.MidiInputTool")
-        self.loadPanel("charmap.CharMap")
-        self.loadPanel("doclist.DocumentList")
-        self.loadPanel("outline.OutlinePanel")
-        self.loadPanel("layoutcontrol.LayoutControlOptions")
+        self.loadPanel("musicview.MusicViewPanel", "viewers")
+        self.loadPanel("svgview.SvgViewPanel", "viewers")
+        self.loadPanel("viewers.manuscript.ManuscriptViewPanel", "viewers")
+        self.loadPanel("docbrowser.HelpBrowser", "viewers")
+        self.loadPanel("logtool.LogTool", "viewers")
+        self.loadPanel("layoutcontrol.LayoutControlOptions", "viewers")
+        self.loadPanel("quickinsert.QuickInsertPanel", "coding")
+        self.loadPanel("charmap.CharMap", "coding")
+        self.loadPanel("snippet.tool.SnippetTool", "coding")
+        self.loadPanel("doclist.DocumentList", "structure")
+        self.loadPanel("outline.OutlinePanel", "structure")
+        self.loadPanel("miditool.MidiTool", "midi")
+        self.loadPanel("midiinput.tool.MidiInputTool", "midi")
 
         # The Object editor is highly experimental and should be
         # commented out for stable releases.
         if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
-            self.loadPanel("objecteditor.ObjectEditor")
+            self.loadPanel("objecteditor.ObjectEditor", "coding")
         self.createActions()
 
         # make some default arrangements
         mainwindow.tabifyDockWidget(self.musicview, self.docbrowser)
         mainwindow.tabifyDockWidget(self.musicview, self.svgview)
 
-    def loadPanel(self, name):
+
+    def loadPanel(self, name, submenu=None):
         """Loads the named Panel.
 
         The name consists of a module name and the class name of the Panel
@@ -90,6 +111,8 @@ class PanelManager(plugin.MainWindowPlugin):
         panel = cls(self.mainwindow())
         self._panels.append((attribute_name, panel))
         setattr(self, attribute_name, panel)
+        if submenu:
+            self._submenus[submenu]['panels'].append(panel)
 
     def createActions(self):
         self.actionCollection = Actions(self)
@@ -97,8 +120,18 @@ class PanelManager(plugin.MainWindowPlugin):
 
     def addActionsToMenu(self, menu):
         """Adds all toggleViewActions to the given menu."""
+        added_panels = []
+
+        for submenu in self._submenus:
+            sm = self._submenus[submenu]
+            for panel in sm['panels']:
+                sm['menu'].addAction(panel.toggleViewAction())
+                added_panels.append(panel)
+            menu.addMenu(sm['menu'])
+
         for name, panel in self._panels:
-            menu.addAction(panel.toggleViewAction())
+            if not panel in added_panels:
+                menu.addAction(panel.toggleViewAction())
 
     def panels_at(self, area):
         """Return the list of panels at the specified Qt.DockWidgetArea.
@@ -124,5 +157,3 @@ class Actions(actioncollection.ActionCollection):
         # add the actions for the plugins
         for name, panel in manager._panels:
             setattr(self, 'panel_' + name, panel.toggleViewAction())
-
-
