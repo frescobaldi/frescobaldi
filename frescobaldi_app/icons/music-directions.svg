@@ -9,11 +9,11 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.2"
-   width="4.6649747mm"
-   height="8.0021172mm"
-   viewBox="8.5358 0.002 2.6560001 4.5540306"
+   width="8.00212mm"
+   height="8.00212mm"
+   viewBox="8.5358 0.002 4.5560015 4.5540322"
    id="svg10"
-   sodipodi:docname="music-directions.cropped.svg"
+   sodipodi:docname="music-directions.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <metadata
      id="metadata16">
@@ -38,24 +38,24 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="922"
-     inkscape:window-height="497"
+     inkscape:window-width="1920"
+     inkscape:window-height="1019"
      id="namedview12"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="4.7054758"
-     inkscape:cx="6.5752642"
-     inkscape:cy="5.1646187"
+     inkscape:zoom="18.821903"
+     inkscape:cx="0.31407313"
+     inkscape:cy="4.9192923"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="svg10" />
   <g
      id="g827"
-     transform="translate(-0.672,3.672837e-4)">
+     transform="translate(0.36790088,-0.00763456)">
     <a
        id="a4"
        xlink:href="textedit:///home/uliska/git/lilypond/frescobaldi/frescobaldi_app/icons/music-directions.ly:23:9:10"
