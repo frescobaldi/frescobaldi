@@ -192,6 +192,10 @@ def main():
         sys.exit(0)
 
     if args.python_ly:
+        # The python-ly path has to be inserted at the *second* position
+        # because the first element in sys.path is the directory of the invoked
+        # script (an information we need in determining if Frescobaldi is run
+        # from its Git repository)
         sys.path.insert(1, args.python_ly)
 
     check_ly()
@@ -280,5 +284,3 @@ def main():
         cursor.setPosition(pos)
         win.currentView().setTextCursor(cursor)
         win.currentView().centerCursor()
-
-
