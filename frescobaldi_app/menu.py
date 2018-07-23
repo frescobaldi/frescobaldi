@@ -316,6 +316,7 @@ def menu_tools_transform(mainwindow):
     m.addMenu(menu_tools_rest(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))
     m.addMenu(menu_tools_lyrics(mainwindow))
+    m.addMenu(menu_tools_directions(mainwindow))
     m.addMenu(menu_tools_quick_remove(mainwindow))
     return m
 
@@ -384,6 +385,17 @@ def menu_tools_rhythm(mainwindow):
     m.addAction(ac.rhythm_apply)
     m.addAction(ac.rhythm_copy)
     m.addAction(ac.rhythm_paste)
+    return m
+
+
+def menu_tools_directions(mainwindow):
+    m = Menu(_('submenu title', "&Directions"), mainwindow)
+# TODO: Find/make a suitable icon
+#    m.setIcon(icons.get('edit-clear'))
+    ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
+    m.addAction(ac.tools_directions_force_up)
+    m.addAction(ac.tools_directions_force_neutral)
+    m.addAction(ac.tools_directions_force_down)
     return m
 
 

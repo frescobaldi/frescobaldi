@@ -72,6 +72,8 @@ def parse_commandline():
         help=_("List the session names and exit"))
     parser.add_argument('-n', '--new', action="store_true", default=False,
         help=_("Always start a new instance"))
+    parser.add_argument('--python-ly', type=str, metavar=_("STR"), default="",
+        help=_("Path to python-ly"))
     parser.add_argument('files', metavar=_("file"), nargs='*',
         help=_("File to be opened"))
 
@@ -189,6 +191,13 @@ def main():
         sys.stdout.write(debuginfo.version_info_string() + '\n')
         sys.exit(0)
 
+    if args.python_ly:
+        # The python-ly path has to be inserted at the *second* position
+        # because the first element in sys.path is the directory of the invoked
+        # script (an information we need in determining if Frescobaldi is run
+        # from its Git repository)
+        sys.path.insert(1, args.python_ly)
+
     check_ly()
     patch_pyqt()
 
@@ -275,5 +284,3 @@ def main():
         cursor.setPosition(pos)
         win.currentView().setTextCursor(cursor)
         win.currentView().centerCursor()
-
-
