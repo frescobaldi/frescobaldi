@@ -273,8 +273,6 @@ def menu_lilypond(mainwindow):
     m.addAction(ac.engrave_abort)
     m.addSeparator()
     m.addMenu(menu_lilypond_generated_files(mainwindow))
-    m.addSeparator()
-    m.addAction(ac.engrave_show_available_fonts)
     return m
 
 
@@ -291,6 +289,7 @@ def menu_tools(mainwindow):
     m.addSeparator()
     m.addMenu(menu_tools_format(mainwindow))
     m.addMenu(menu_tools_transform(mainwindow))
+    m.addMenu(menu_tools_text(mainwindow))
     dac = documentactions.get(mainwindow).actionCollection
     m.addAction(dac.tools_convert_ly)
     m.addSeparator()
@@ -319,6 +318,13 @@ def menu_tools_transform(mainwindow):
     m.addMenu(menu_tools_lyrics(mainwindow))
     m.addMenu(menu_tools_directions(mainwindow))
     m.addMenu(menu_tools_quick_remove(mainwindow))
+    return m
+
+def menu_tools_text(mainwindow):
+    m = Menu(_('submenu title', "Te&xt Fonts"), mainwindow)
+    m.setIcon(icons.get('preferences-desktop-font'))
+    ac = engrave.engraver(mainwindow).actionCollection
+    m.addAction(ac.engrave_show_available_fonts)
     return m
 
 def menu_tools_lyrics(mainwindow):
