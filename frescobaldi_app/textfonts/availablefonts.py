@@ -17,6 +17,7 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
+
 """
 Show a dialog with available fonts.
 """
@@ -186,6 +187,13 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             have to do the lookup in the available styles reported by
             QFontDatabase (as passed in the available_styles argument."""
             font = QFont(weight)
+            if weight.startswith("TeX"):
+                print()
+                print("Font:", weight)
+                print("Styles reported by LilyPond:")
+                print(style_info)
+                print("Styles reported by Qt:")
+                print(available_styles)
             reported_styles = style_info.split(',')
             if not available_styles:
                 # In some cases Qt does *not* report available styles.

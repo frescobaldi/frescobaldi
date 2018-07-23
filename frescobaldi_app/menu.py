@@ -47,6 +47,7 @@ import matcher
 import file_import
 import file_export
 import browseriface
+import textfonts
 
 
 # postpone translation
@@ -323,7 +324,7 @@ def menu_tools_transform(mainwindow):
 def menu_tools_text(mainwindow):
     m = Menu(_('submenu title', "Te&xt Fonts"), mainwindow)
     m.setIcon(icons.get('preferences-desktop-font'))
-    ac = engrave.engraver(mainwindow).actionCollection
+    ac = textfonts.textfonts(mainwindow).actionCollection
     m.addAction(ac.engrave_show_available_fonts)
     return m
 
