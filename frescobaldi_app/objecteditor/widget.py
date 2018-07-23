@@ -21,7 +21,7 @@
 An Object Editor widget.
 """
 
-from __future__ import print_function
+
 
 import sys
 

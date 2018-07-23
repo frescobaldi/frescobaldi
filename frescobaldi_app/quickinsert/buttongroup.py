@@ -21,7 +21,7 @@
 A QGroupBox in the Quick Insert Panel that auto-layouts its buttons.
 """
 
-from __future__ import print_function
+
 
 import weakref
 

@@ -21,7 +21,7 @@
 Manages the progress bar in the status bar of ViewSpaces.
 """
 
-from __future__ import division
+
 
 from PyQt5.QtCore import Qt, QTimeLine, QTimer
 from PyQt5.QtWidgets import QProgressBar

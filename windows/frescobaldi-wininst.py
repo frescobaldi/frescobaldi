@@ -9,7 +9,7 @@ It is called with the '-install' argument after installing, and with the
 
 """
 
-from __future__ import print_function
+
 
 import os
 import sys

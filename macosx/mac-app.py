@@ -6,7 +6,7 @@ A setup file to build Frescobaldi.app with py2app.
 
 Use the '-h' flag to see the usage notes.
 """
-from __future__ import print_function
+
 
 import argparse
 import os
