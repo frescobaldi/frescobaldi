@@ -191,7 +191,7 @@ dir_commands = {
     'down': 'Down'
 }
 def force_directions(cursor, direction):
-    """Fort the directions to be all the same, neutral, up or down."""
+    """Force the directions to be all the same, neutral, up or down."""
     from PyQt5.QtGui import QTextCursor
     import re
     reg = re.compile('(.*)(Up|Down|Neutral)')
@@ -205,12 +205,8 @@ def force_directions(cursor, direction):
                 match = reg.match(t)
                 if match:
                     updated = match.groups()[0] + dir_commands[direction]
-                    cursor.setPosition(t.pos)
-                    cursor.setPosition(t.end, QTextCursor.KeepAnchor)
-                    cursor.removeSelectedText()
-                    cursor.insertText(updated)
-
-
+                    del d[t.pos:t.end-1]
+                    d[t.pos] = updated
 
 
 @remove
