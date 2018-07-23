@@ -312,6 +312,7 @@ def menu_tools_format(mainwindow):
 
 def menu_tools_transform(mainwindow):
     m = Menu(_('submenu title', "Musical &Transformations"), mainwindow)
+    m.setIcon(icons.get('Audio-x-generic'))
     m.addMenu(menu_tools_pitch(mainwindow))
     m.addMenu(menu_tools_rest(mainwindow))
     m.addMenu(menu_tools_rhythm(mainwindow))
@@ -390,8 +391,7 @@ def menu_tools_rhythm(mainwindow):
 
 def menu_tools_directions(mainwindow):
     m = Menu(_('submenu title', "&Directions"), mainwindow)
-# TODO: Find/make a suitable icon
-#    m.setIcon(icons.get('edit-clear'))
+    m.setIcon(icons.get('music-directions'))
     ac = documentactions.DocumentActions.instance(mainwindow).actionCollection
     m.addAction(ac.tools_directions_force_up)
     m.addAction(ac.tools_directions_force_neutral)
