@@ -274,7 +274,6 @@ def menu_lilypond(mainwindow):
     m.addSeparator()
     m.addMenu(menu_lilypond_generated_files(mainwindow))
     m.addSeparator()
-    m.addAction(ac.engrave_open_lilypond_datadir)
     m.addAction(ac.engrave_show_available_fonts)
     return m
 
@@ -295,8 +294,7 @@ def menu_tools(mainwindow):
     dac = documentactions.get(mainwindow).actionCollection
     m.addAction(dac.tools_convert_ly)
     m.addSeparator()
-    m.addAction(mainwindow.actionCollection.file_open_current_directory)
-    m.addAction(mainwindow.actionCollection.file_open_command_prompt)
+    m.addMenu(menu_tools_directories(mainwindow))
     m.addSeparator()
     panelmanager.manager(mainwindow).addActionsToMenu(m)
     return m
@@ -406,6 +404,15 @@ def menu_tools_quick_remove(mainwindow):
     m.addAction(ac.tools_quick_remove_markup)
     return m
 
+def menu_tools_directories(mainwindow):
+    m = Menu(_('submenu title', "&Directories"), mainwindow)
+    m.setIcon(icons.get('folder-open'))
+    m.addAction(mainwindow.actionCollection.file_open_current_directory)
+    m.addAction(mainwindow.actionCollection.file_open_command_prompt)
+    m.addSeparator()
+    ac = engrave.engraver(mainwindow).actionCollection
+    m.addAction(ac.engrave_open_lilypond_datadir)
+    return m
 
 def menu_document(mainwindow):
     return documentmenu.DocumentMenu(mainwindow)
