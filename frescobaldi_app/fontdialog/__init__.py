@@ -187,9 +187,19 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             QFontDatabase (as passed in the available_styles argument."""
             font = QFont(weight)
             reported_styles = style_info.split(',')
-            for style in reported_styles:
-                if style in available_styles:
-                    font.setStyleName(style)
+            if not available_styles:
+                # In some cases Qt does *not* report available styles.
+                # In these cases it seems correct to use the style reported
+                # by LilyPond. In very rare cases it seems possible that
+                # LilyPond reports multiple styles for such fonts, and for Now
+                # we have to simply ignore these cases so we take the first
+                # or single style.
+                font.setStyleName(reported_styles[0])
+            else:
+                # Match LilyPond's reported styles with those reported by Qt
+                for style in reported_styles:
+                    if style in available_styles:
+                        font.setStyleName(style)
             item = QStandardItem(_('The quick brown fox jumps over the lazy dog'))
             item.setFont(font)
             return item
