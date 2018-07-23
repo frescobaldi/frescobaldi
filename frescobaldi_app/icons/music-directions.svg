@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.2"
+   width="8.00212mm"
+   height="8.00212mm"
+   viewBox="8.5358 0.002 4.5560015 4.5540322"
+   id="svg10"
+   sodipodi:docname="music-directions.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata16">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1019"
+     id="namedview12"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="18.821903"
+     inkscape:cx="0.31407313"
+     inkscape:cy="4.9192923"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <g
+     id="g827"
+     transform="translate(0.36790088,-0.00763456)">
+    <a
+       id="a4"
+       xlink:href="textedit:///home/uliska/git/lilypond/frescobaldi/frescobaldi_app/icons/music-directions.ly:23:9:10"
+       style="color:inherit">
+      <path
+         style="fill:currentColor"
+         inkscape:connector-curvature="0"
+         id="path2"
+         d="m -67,-48 c 0,37 30,67 67,67 37,0 67,-30 67,-67 0,-37 -30,-67 -67,-67 -37,0 -67,30 -67,67 z M 0,-363 c -157,0 -332,176 -332,366 0,9 10,15 19,15 9,0 17,-5 19,-18 26,-148 146,-262 294,-262 148,0 268,114 294,262 2,13 10,18 19,18 9,0 19,-6 19,-15 0,-190 -175,-366 -332,-366 z"
+         transform="matrix(0.004,0,0,-0.004,10.5358,3.104)" />
+    </a>
+    <a
+       id="a8"
+       xlink:href="textedit:///home/uliska/git/lilypond/frescobaldi/frescobaldi_app/icons/music-directions.ly:18:10:11"
+       style="color:inherit">
+      <path
+         style="fill:currentColor"
+         inkscape:connector-curvature="0"
+         id="path6"
+         d="m -67,48 c 0,37 30,67 67,67 37,0 67,-30 67,-67 0,-37 -30,-67 -67,-67 -37,0 -67,30 -67,67 z M 0,363 c 157,0 332,-176 332,-366 0,-9 -10,-15 -19,-15 -9,0 -17,5 -19,18 C 268,148 148,262 0,262 -148,262 -268,148 -294,0 c -2,-13 -10,-18 -19,-18 -9,0 -19,6 -19,15 0,190 175,366 332,366 z"
+         transform="matrix(0.004,0,0,-0.004,10.5358,1.452)" />
+    </a>
+  </g>
+</svg>

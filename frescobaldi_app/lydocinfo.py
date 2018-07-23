@@ -28,7 +28,7 @@ available to both text documents on disk and loaded Frescobaldi documents.
 
 """
 
-from __future__ import absolute_import
+
 
 import re
 

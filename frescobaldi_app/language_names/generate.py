@@ -89,7 +89,7 @@ def write_dict(langs):
     with codecs.open("data.py", "w", "utf-8") as output:
         output.write("# -*- coding: utf-8;\n\n")
         output.write("# Do not edit, this file is generated. See generate.py.\n")
-        output.write("\nfrom __future__ import unicode_literals\n")
+        output.write("\n
         output.write("\n\n")
 
         output.write("language_names = {\n")
