@@ -325,7 +325,7 @@ def menu_tools_text(mainwindow):
     m = Menu(_('submenu title', "Te&xt Fonts"), mainwindow)
     m.setIcon(icons.get('preferences-desktop-font'))
     ac = textfonts.textfonts(mainwindow).actionCollection
-    m.addAction(ac.engrave_show_available_fonts)
+    m.addAction(ac.textfonts_show_available_fonts)
     return m
 
 def menu_tools_lyrics(mainwindow):

@@ -42,16 +42,13 @@ import log
 import qutil
 import widgets.dialog
 from widgets.lineedit import LineEdit
+from . import available_fonts
 
 
 def show_available_fonts(mainwin, info):
     """Display a dialog with the available fonts of LilyPond specified by info."""
     dlg = ShowFontsDialog(mainwin, info)
     qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
-    if not ShowFontsDialog.names:
-        dlg.run_lilypond()
-    else:
-        dlg.populate_widgets()
     dlg.show()
 
 
@@ -67,15 +64,6 @@ class FontFilterProxyModel(QSortFilterProxyModel):
 
 class ShowFontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts"""
-
-    # Cache data in class variables
-    log_history = None
-    families = None
-    names = None
-    config_files = None
-    config_dirs = None
-    font_dirs = None
-    re = ''
 
     def __init__(self, parent, info):
 
@@ -103,9 +91,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
         def create_font_model():
             self.treeModel = tm = QStandardItemModel()
-            tm.setColumnCount(2)
-            tm.setHeaderData(0, Qt.Horizontal, _("Font"))
-            tm.setHeaderData(1, Qt.Horizontal, _("Sample"))
             self.proxy = FontFilterProxyModel()
             self.proxy.setSourceModel(tm)
             self.fontTree.setModel(self.proxy)
@@ -125,9 +110,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.miscModel = QStandardItemModel()
             self.miscTree.setModel(self.miscModel)
 
+
         super(ShowFontsDialog, self).__init__(
             parent,
-            #TODO: Add buttons to export/copy/print
             buttons=('restoredefaults', 'close',),
         )
         self._buttonBox.button(QDialogButtonBox.RestoreDefaults).clicked.connect(self.reload)
@@ -135,6 +120,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.setWindowModality(Qt.NonModal)
 
         self.lilypond_info = info
+        self.filter_re = ''
 
         self.tabWidget = QTabWidget(self)
         self.setMainWidget(self.tabWidget)
@@ -148,10 +134,18 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.loadSettings()
         self.finished.connect(self.saveSettings)
 
+        available_fonts.loaded.connect(self.populate_widgets)
+        if not available_fonts.is_loaded:
+            self.msgLabel.setText(_("Running LilyPond to list fonts ..."))
+            available_fonts.load_fonts(info, self.log)
+        else:
+            self.populate_widgets()
+
+
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
-        self.filterEdit.setPlaceholderText(_("Filter results (type any part of the font family name)"))
+        self.filterEdit.setPlaceholderText(_("Filter results (type any part of the font family name. Regular Expressions supported.)"))
         self._buttonBox.button(QDialogButtonBox.RestoreDefaults).setText(_("&Refresh"))
 
     def loadSettings(self):
@@ -164,16 +158,27 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         s.beginGroup('available-fonts-dialog')
         s.setValue('col-width', self.fontTree.columnWidth(0))
 
+
+    def initTreeModel(self):
+        tm = self.treeModel
+        tm.clear()
+        tm.setColumnCount(2)
+        tm.setHeaderData(0, Qt.Horizontal, _("Font"))
+        tm.setHeaderData(1, Qt.Horizontal, _("Sample"))
+        s = QSettings()
+        s.beginGroup('available-fonts-dialog')
+        self.fontTree.setColumnWidth(0, int(s.value('col-width', 200)))
+
     def populate_widgets(self):
         """Populate widgets."""
         self.msgLabel.setText(
             _("{count} font families detected by {version}").format(
-                count=len(ShowFontsDialog.names),
+                count=len(available_fonts.family_names()),
                 version=self.lilypond_info.prettyName()))
         self.populate_font_tree()
         self.populate_misc()
         self.tabWidget.setCurrentIndex(1)
-        self.filterEdit.setText(ShowFontsDialog.re)
+        self.filterEdit.setText(self.filter_re)
         self.filterEdit.setFocus()
 
 
@@ -187,13 +192,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             have to do the lookup in the available styles reported by
             QFontDatabase (as passed in the available_styles argument."""
             font = QFont(weight)
-            if weight.startswith("TeX"):
-                print()
-                print("Font:", weight)
-                print("Styles reported by LilyPond:")
-                print(style_info)
-                print("Styles reported by Qt:")
-                print(available_styles)
             reported_styles = style_info.split(',')
             if not available_styles:
                 # In some cases Qt does *not* report available styles.
@@ -213,133 +211,57 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             return item
 
         font_db = QFontDatabase()
+        self.initTreeModel()
         root = self.treeModel.invisibleRootItem()
-        for name in ShowFontsDialog.names:
-            family = ShowFontsDialog.families[name]
+        for name in available_fonts.family_names():
+            family = available_fonts.font_families()[name]
             family_item = QStandardItem(name)
             root.appendRow(family_item)
-            for weight in sorted(family.keys()):
-                styles = font_db.styles(weight)
-                if len(family[weight]) == 1:
+            for series in sorted(family.keys()):
+                shapes = font_db.styles(series)
+                if len(family[series]) == 1:
                     family_item.appendRow(
-                        [QStandardItem(weight),
-                        sample(weight, styles, family[weight][0])])
+                        [QStandardItem(series),
+                        sample(series, shapes, family[series][0])])
                 else:
-                    weight_item = QStandardItem(weight)
-                    family_item.appendRow(weight_item)
-                    for style in family[weight]:
-                        weight_item.appendRow(
-                            [QStandardItem(style),
-                            sample(weight, styles, style)])
+                    series_item = QStandardItem(series)
+                    family_item.appendRow(series_item)
+                    for shape in family[series]:
+                        series_item.appendRow(
+                            [QStandardItem(shape),
+                            sample(series, shapes, shape)])
 
 
     def populate_misc(self):
         """Populate the data model for the "Miscellaneous" tab"""
+        self.miscModel.clear()
         root = self.miscModel.invisibleRootItem()
 
         conf_file_item = QStandardItem(_("Configuration Files"))
         root.appendRow(conf_file_item)
-        for file in ShowFontsDialog.config_files:
+        for file in available_fonts.config_files():
             conf_file_item.appendRow(QStandardItem(file))
 
         conf_dir_item = QStandardItem(_("Configuration Directories"))
         root.appendRow(conf_dir_item)
-        for dir in ShowFontsDialog.config_dirs:
+        for dir in available_fonts.config_dirs():
             conf_dir_item.appendRow(QStandardItem(dir))
 
         font_dir_item = QStandardItem(_("Font Directories"))
         root.appendRow(font_dir_item)
-        for dir in ShowFontsDialog.font_dirs:
+        for dir in available_fonts.font_dirs():
             font_dir_item.appendRow(QStandardItem(dir))
-
-
-    def process_results(self):
-        """Callback after LilyPond has finished:"""
-        self.read_entries()
-        self.populate_widgets()
 
 
     def reload(self):
         """Refresh font list by running LilyPond"""
         self.tabWidget.setCurrentIndex(0)
         self.log.clear()
-        self.run_lilypond()
-
-
-    def run_lilypond(self):
-        """Run lilypond from info with the args list, and a job title."""
-        j = self.job = job.Job()
-        j.decode_errors = 'replace'
-        j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
-        j.command = [self.lilypond_info.abscommand() or self.lilypond_info.command] + ['-dshow-available-fonts']
-        j.set_title(_("Available Fonts"))
-        self.msgLabel.setText(_("Running LilyPond to list fonts ..."))
-        self.log.connectJob(j)
-        j.done.connect(self.process_results)
-        j.start()
-
-
-    def read_entries(self):
-        """Parse the job history list to dictionaries."""
-        ShowFontsDialog.log_history = []
-        ShowFontsDialog.families = {}
-        ShowFontsDialog.names = []
-        ShowFontsDialog.config_files = []
-        ShowFontsDialog.config_dirs = []
-        ShowFontsDialog.font_dirs = []
-        ShowFontsDialog.re = ''
-
-        # Process job history into flat string list
-        for line in self.job.history():
-            lines = line[0].split('\n')
-            for l in lines:
-                ShowFontsDialog.log_history.append(l)
-
-        # Parse entries
-        last_family = None
-        regexp = re.compile('(.*)\\-\\d*')
-        for e in ShowFontsDialog.log_history:
-            if e.startswith('family'):
-                original_family = e[7:]
-                basename = regexp.match(original_family)
-                last_family = basename.groups()[0] if basename else original_family
-                if not last_family in ShowFontsDialog.families.keys():
-                    ShowFontsDialog.families[last_family] = {}
-            elif last_family:
-                self.update_family(last_family, e)
-                last_family = None
-            elif e.startswith('Config files:'):
-                ShowFontsDialog.config_files.append(e[14:])
-            elif e.startswith('Font dir:'):
-                ShowFontsDialog.font_dirs.append(e[10:])
-            elif e.startswith('Config dir:'):
-                ShowFontsDialog.config_dirs.append(e[12:])
-
-        # Store sorted reference lists.
-        ShowFontsDialog.names = sorted(
-            ShowFontsDialog.families.keys(), key=lambda s: s.lower())
-        ShowFontsDialog.config_files = sorted(
-            ShowFontsDialog.config_files, key=lambda s: s.lower())
-        ShowFontsDialog.config_dirs = sorted(
-            ShowFontsDialog.config_dirs, key=lambda s: s.lower())
-        ShowFontsDialog.font_dirs = sorted(
-            ShowFontsDialog.font_dirs, key=lambda s: s.lower())
-
-
-    def update_family(self, family_name, input):
-        """Parse a font face definition."""
-        family = ShowFontsDialog.families[family_name]
-        input = input.strip().split(':')
-        # This is a safeguard against improper entries
-        if len(input) == 2:
-            weight = input[0].split(',')[-1].replace('\\-', '-')
-            if not weight in family.keys():
-                family[weight] = []
-            family[weight].append(input[1][6:])
+        available_fonts.load_fonts(self.lilypond_info, self.log)
 
 
     def update_filter(self):
         """Filter font results"""
-        ShowFontsDialog.re = re = self.filterEdit.text()
+        self.filter_re = re = self.filterEdit.text()
         self.filter.setPattern(re)
         self.proxy.setFilterRegExp(self.filter)
