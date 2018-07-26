@@ -28,6 +28,7 @@ import re
 import os
 
 from PyQt5.QtCore import (
+    QObject,
     QSortFilterProxyModel,
     Qt,
 )
@@ -91,13 +92,12 @@ class FontTreeModel(QStandardItemModel):
     fonts. Builds the tree upon first use and caches the results
     until invalidated.
     Uses a custom filter mechanism to never filter child elements."""
-    def __init__(self, parent):
-        super(FontTreeModel, self).__init__()
-        self.proxy = FontFilterProxyModel()
+    def __init__(self, parent=None):
+        super(FontTreeModel, self).__init__(parent)
+        self.proxy = FontFilterProxyModel(self)
         self.proxy.setSourceModel(self)
-        self.parent = parent
 
-    def _populate(self):
+    def populate(self, families):
         """Populate the data model to be displayed in the results"""
 
         def sample(sub_family, style):
@@ -113,9 +113,10 @@ class FontTreeModel(QStandardItemModel):
             return item
 
         self.reset()
+        family_names = sorted(families.keys(), key=lambda s: s.lower())
         root = self.invisibleRootItem()
-        for name in self.parent.family_names():
-            family = self.parent.font_families()[name]
+        for name in family_names:
+            family = families[name]
             sub_families = []
             for sub_family_name in sorted(family.keys()):
                 sub_family = family[sub_family_name]
@@ -149,10 +150,6 @@ class FontTreeModel(QStandardItemModel):
                 for f in sub_families:
                     family_item.appendRow(f)
 
-    def populate(self):
-        if not self.invisibleRootItem().hasChildren():
-            self._populate()
-
     def reset(self):
         self.clear()
         self.setColumnCount(2)
@@ -160,7 +157,36 @@ class FontTreeModel(QStandardItemModel):
         self.setHeaderData(1, Qt.Horizontal, _("Sample"))
 
 
-class Fonts(object):
+class MiscTreeModel(QStandardItemModel):
+    """Custom tree model for miscellaneous fontconfig information.
+    This model stores three top-level elements as individual fields
+    and only then appends them to the root. So they are optionally
+    available independently."""
+    def __init__(self, parent=None):
+        super(MiscTreeModel, self).__init__(parent)
+        self.reset()
+
+    def populate(self, config_files, config_dirs, font_dirs):
+        """Sort entries and construct the overall model."""
+        for file in sorted(config_files, key=lambda s: s.lower()):
+            self.config_files.appendRow(QStandardItem(file))
+        for config_dir in sorted(config_dirs, key=lambda s: s.lower()):
+            self.config_dirs.appendRow(QStandardItem(config_dir))
+        for font_dir in sorted(font_dirs, key=lambda s: s.lower()):
+            self.font_dirs.appendRow(QStandardItem(font_dir))
+
+        misc_root = self.invisibleRootItem()
+        misc_root.appendRow(self.config_files)
+        misc_root.appendRow(self.config_dirs)
+        misc_root.appendRow(self.font_dirs)
+
+    def reset(self):
+        self.config_files = QStandardItem(_("Configuration Files"))
+        self.config_dirs = QStandardItem(_("Configuration Directories"))
+        self.font_dirs = QStandardItem(_("Searched Font Directories"))
+
+
+class Fonts(QObject):
     """Provide information about available text fonts. These are exactly the
     fonts that can be seen by LilyPond.
     This is only produced upon request but then stored permanently during the
@@ -179,38 +205,20 @@ class Fonts(object):
     loaded = signals.Signal()
 
     def __init__(self):
+        super(Fonts, self).__init__()
         self.treeModel = FontTreeModel(self)
-        self._reset_storage()
+        self.miscModel = MiscTreeModel(self)
+        self._reset()
         self.job = None
 
-    def _reset_storage(self):
-        self._font_families = {}
-        self._family_names = []
+    def _reset(self):
         self._log = []
-        self._config_files = []
-        self._config_dirs = []
-        self._font_dirs = []
         self.treeModel.reset()
+        self.miscModel.reset()
         # needs to be reset for the LilyPond-dependent fonts
         self.font_db = QFontDatabase()
 
         self.is_loaded = False
-
-
-    def config_dirs(self):
-        return self._config_dirs
-
-    def config_files(self):
-        return self._config_files
-
-    def family_names(self):
-        return self._family_names
-
-    def font_dirs(self):
-        return self._font_dirs
-
-    def font_families(self):
-        return self._font_families
 
     def log(self):
         return self._log
@@ -226,7 +234,7 @@ class Fonts(object):
                 os.path.join(font_dir, lily_font)
             )
 
-    def add_style_to_family(self, family_name, input):
+    def add_style_to_family(self, families, family_name, input):
         """Parse a font face definition provided by LilyPond.
         There is some guesswork involved since there may be
         discrepancies between the fonts/styles reported by
@@ -252,9 +260,9 @@ class Fonts(object):
                 else style
             )
 
-        if not family_name in self._font_families.keys():
-            self._font_families[family_name] = {}
-        family = self._font_families[family_name]
+        if not family_name in families.keys():
+            families[family_name] = {}
+        family = families[family_name]
         input = input.strip().split(':')
         # This is a safeguard against improper entries
         if len(input) == 2:
@@ -321,7 +329,7 @@ class Fonts(object):
         be connected to the Job to provide realtime feedback on the process.
         Any caller should connect to the 'loaded' signal because this
         is an asynchronous task that takes long to complete."""
-        self._reset_storage()
+        self._reset()
         self.acknowledge_lily_fonts(info)
         self.run_lilypond(info)
         if log_widget:
@@ -333,6 +341,10 @@ class Fonts(object):
         lists and dictionaries. Parsing the actual font style
         definition is deferred to add_style_to_family()."""
         regexp = re.compile('(.*)\\-\\d*')
+        families = {}
+        config_files = []
+        config_dirs = []
+        font_dirs = []
         last_family = None
         for e in self._log:
             if e.startswith('family'):
@@ -344,30 +356,25 @@ class Fonts(object):
                 last_family = basename.groups()[0] if basename else original_family
             elif last_family:
                 # We're in the second line of a style definition
-                self.add_style_to_family(last_family, e)
+                self.add_style_to_family(families, last_family, e)
                 last_family = None
             elif e.startswith('Config files:'):
-                self._config_files.append(e[14:])
+                config_files.append(e[14:])
             elif e.startswith('Font dir:'):
-                self._font_dirs.append(e[10:])
+                font_dirs.append(e[10:])
             elif e.startswith('Config dir:'):
-                self._config_dirs.append(e[12:])
+                config_dirs.append(e[12:])
+
+        return families, config_files, config_dirs, font_dirs
 
     def process_results(self):
         """Parse the job history list to dictionaries."""
 
         self.flatten_log()
-        self.parse_entries()
+        families, config_files, config_dirs, font_dirs = self.parse_entries()
 
-        # Store sorted reference lists.
-        self._family_names = sorted(
-            self._font_families.keys(), key=lambda s: s.lower())
-        self._config_files = sorted(
-            self._config_files, key=lambda s: s.lower())
-        self._config_dirs = sorted(
-            self._config_dirs, key=lambda s: s.lower())
-        self._font_dirs = sorted(
-            self._font_dirs, key=lambda s: s.lower())
+        self.treeModel.populate(families)
+        self.miscModel.populate(config_files, config_dirs, font_dirs)
 
         self.is_loaded = True
         self.job = None
