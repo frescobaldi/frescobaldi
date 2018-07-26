@@ -27,8 +27,17 @@ be determined by running `lilypond -dshow-available-fonts`.
 import re
 import os
 
-from PyQt5.QtGui import QFontDatabase
+from PyQt5.QtCore import (
+    QSortFilterProxyModel,
+    Qt,
+)
 from PyQt5.QtWidgets import QAction
+from PyQt5.QtGui import(
+    QFont,
+    QFontDatabase,
+    QStandardItem,
+    QStandardItemModel,
+)
 
 import actioncollection
 import actioncollectionmanager
@@ -63,7 +72,92 @@ class Actions(actioncollection.ActionCollection):
         self.textfonts_show_available_fonts = QAction(parent)
 
     def translateUI(self):
-        self.textfonts_show_available_fonts.setText(_("Show Available &Fonts..."))
+        self.textfonts_show_available_fonts.setText(
+            _("Show Available &Fonts..."))
+
+
+class FontFilterProxyModel(QSortFilterProxyModel):
+    """Custom proxy model that ignores child elements in filtering"""
+
+    def filterAcceptsRow(self, row, parent):
+        if parent.isValid():
+            return True
+        else:
+            return super(FontFilterProxyModel, self).filterAcceptsRow(row, parent)
+
+
+class FontTreeModel(QStandardItemModel):
+    """Custom Item Model holding information about available
+    fonts. Builds the tree upon first use and caches the results
+    until invalidated.
+    Uses a custom filter mechanism to never filter child elements."""
+    def __init__(self, parent):
+        super(FontTreeModel, self).__init__()
+        self.proxy = FontFilterProxyModel()
+        self.proxy.setSourceModel(self)
+        self.parent = parent
+
+    def _populate(self):
+        """Populate the data model to be displayed in the results"""
+
+        def sample(sub_family, style):
+            """Produce a styled font sample for a given weight/style.
+            This is not completely reliable since the style aliases
+            returned by LilyPond are somewhat inconsistent and don't
+            always match a font style that PyQt can get."""
+            item = QStandardItem(
+                _('The quick brown fox jumps over the lazy dog'))
+            font = QFont(sub_family)
+            font.setStyleName(style)
+            item.setFont(font)
+            return item
+
+        self.reset()
+        root = self.invisibleRootItem()
+        for name in self.parent.family_names():
+            family = self.parent.font_families()[name]
+            sub_families = []
+            for sub_family_name in sorted(family.keys()):
+                sub_family = family[sub_family_name]
+                if len(sub_family) == 1:
+                    # Subfamily has only one entry, create single line
+                    style = sub_family[0]
+                    sub_families.append(
+                        [QStandardItem('{} ({})'.format(
+                            sub_family_name, style)),
+                        sample(sub_family_name, style)])
+                else:
+                    # Subfamily has multiple entries, create
+                    # container plus styled line for each style
+                    sub_family_item = QStandardItem(sub_family_name)
+                    sub_families.append(sub_family_item)
+                    for style in sorted(sub_family):
+                        sub_family_item.appendRow(
+                            [QStandardItem(style),
+                            sample(sub_family_name, style)])
+
+            # Pull up subfamily as top-level entry if
+            # - there is only one subfamily and
+            # - it is a subfamily item with children
+            if (len(sub_families) == 1
+                and isinstance(sub_families[0], QStandardItem)
+            ):
+                root.appendRow(sub_families[0])
+            else:
+                family_item = QStandardItem(name)
+                root.appendRow(family_item)
+                for f in sub_families:
+                    family_item.appendRow(f)
+
+    def populate(self):
+        if not self.invisibleRootItem().hasChildren():
+            self._populate()
+
+    def reset(self):
+        self.clear()
+        self.setColumnCount(2)
+        self.setHeaderData(0, Qt.Horizontal, _("Font"))
+        self.setHeaderData(1, Qt.Horizontal, _("Sample"))
 
 
 class Fonts(object):
@@ -85,6 +179,7 @@ class Fonts(object):
     loaded = signals.Signal()
 
     def __init__(self):
+        self.treeModel = FontTreeModel(self)
         self._reset_storage()
         self.job = None
 
@@ -95,6 +190,7 @@ class Fonts(object):
         self._config_files = []
         self._config_dirs = []
         self._font_dirs = []
+        self.treeModel.reset()
         # needs to be reset for the LilyPond-dependent fonts
         self.font_db = QFontDatabase()
 

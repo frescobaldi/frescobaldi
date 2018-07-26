@@ -31,7 +31,6 @@ from PyQt5.QtCore import (
     QSettings,
     QSize,
     Qt,
-    QSortFilterProxyModel,
 )
 from PyQt5.QtWidgets import (
     QDialogButtonBox,
@@ -56,7 +55,10 @@ import log
 import qutil
 import widgets.dialog
 from widgets.lineedit import LineEdit
-from . import available_fonts
+from . import (
+    available_fonts,
+    FontTreeModel
+)
 
 
 def show_available_fonts(mainwin, info):
@@ -64,16 +66,6 @@ def show_available_fonts(mainwin, info):
     dlg = ShowFontsDialog(mainwin, info)
     qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
     dlg.show()
-
-
-class FontFilterProxyModel(QSortFilterProxyModel):
-    """Custom proxy model that ignores child elements in filtering"""
-
-    def filterAcceptsRow(self, row, parent):
-        if parent.isValid():
-            return True
-        else:
-            return super(FontFilterProxyModel, self).filterAcceptsRow(row, parent)
 
 
 class ShowFontsDialog(widgets.dialog.Dialog):
@@ -107,10 +99,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.tabWidget.addTab(self.fontTreeTab, _("Fonts"))
 
         def create_font_model():
-            self.treeModel = tm = QStandardItemModel()
-            self.proxy = FontFilterProxyModel()
-            self.proxy.setSourceModel(tm)
-            self.fontTreeView.setModel(self.proxy)
+            self.treeModel = tm = available_fonts.treeModel
+            self.fontTreeView.setModel(tm.proxy)
             self.filterEdit.textChanged.connect(self.update_filter)
             self.filter = QRegExp('', Qt.CaseInsensitive)
 
@@ -170,23 +160,16 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def loadSettings(self):
         s = QSettings()
-        s.beginGroup('available-fonts-dialog')
-        self.fontTreeView.setColumnWidth(0, int(s.value('col-width', 200)))
+        self.load_font_tree_column_width(s)
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup('available-fonts-dialog')
         s.setValue('col-width', self.fontTreeView.columnWidth(0))
 
-    def initTreeModel(self):
-        """Initialize the tree model, which has to be redone upon
-        any reload/reset of the model."""
-        tm = self.treeModel
-        tm.clear()
-        tm.setColumnCount(2)
-        tm.setHeaderData(0, Qt.Horizontal, _("Font"))
-        tm.setHeaderData(1, Qt.Horizontal, _("Sample"))
-        s = QSettings()
+    def load_font_tree_column_width(self, s):
+        """Load column widths for fontTreeView,
+        factored out because it has to be done upon reload too."""
         s.beginGroup('available-fonts-dialog')
         self.fontTreeView.setColumnWidth(0, int(s.value('col-width', 200)))
 
@@ -196,64 +179,13 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             _("{count} font families detected by {version}").format(
                 count=len(available_fonts.family_names()),
                 version=self.lilypond_info.prettyName()))
-        self.populate_font_tree()
+        self.treeModel.populate()
+        self.load_font_tree_column_width(QSettings())
         self.populate_misc()
         self.tabWidget.setCurrentIndex(1)
         self.filterEdit.setText(ShowFontsDialog.filter_re)
         self.filterEdit.setFocus()
         self.reloadButton.setEnabled(True)
-
-    def populate_font_tree(self):
-        """Populate the data model to be displayed in the results"""
-
-        def sample(sub_family, style):
-            """Produce a styled font sample for a given weight/style.
-            This is not completely reliable since the style aliases
-            returned by LilyPond are somewhat inconsistent and don't
-            always match a font style that PyQt can get."""
-            item = QStandardItem(
-                _('The quick brown fox jumps over the lazy dog'))
-            font = QFont(sub_family)
-            font.setStyleName(style)
-            item.setFont(font)
-            return item
-
-        self.initTreeModel()
-        root = self.treeModel.invisibleRootItem()
-        for name in available_fonts.family_names():
-            family = available_fonts.font_families()[name]
-            sub_families = []
-            for sub_family_name in sorted(family.keys()):
-                sub_family = family[sub_family_name]
-                if len(sub_family) == 1:
-                    # Subfamily has only one entry, create single line
-                    style = sub_family[0]
-                    sub_families.append(
-                        [QStandardItem('{} ({})'.format(
-                            sub_family_name, style)),
-                        sample(sub_family_name, style)])
-                else:
-                    # Subfamily has multiple entries, create
-                    # container plus styled line for each style
-                    sub_family_item = QStandardItem(sub_family_name)
-                    sub_families.append(sub_family_item)
-                    for style in sorted(sub_family):
-                        sub_family_item.appendRow(
-                            [QStandardItem(style),
-                            sample(sub_family_name, style)])
-
-            # Pull up subfamily as top-level entry if
-            # - there is only one subfamily and
-            # - it is a subfamily item with children
-            if (len(sub_families) == 1
-                and isinstance(sub_families[0], QStandardItem)
-            ):
-                root.appendRow(sub_families[0])
-            else:
-                family_item = QStandardItem(name)
-                root.appendRow(family_item)
-                for f in sub_families:
-                    family_item.appendRow(f)
 
     def populate_misc(self):
         """Populate the data model for the "Miscellaneous" tab"""
@@ -286,4 +218,4 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         """Filter font results"""
         ShowFontsDialog.filter_re = re = self.filterEdit.text()
         self.filter.setPattern(re)
-        self.proxy.setFilterRegExp(self.filter)
+        self.treeModel.proxy.setFilterRegExp(self.filter)
