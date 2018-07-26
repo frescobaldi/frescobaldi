@@ -326,6 +326,7 @@ def menu_tools_text(mainwindow):
     m.setIcon(icons.get('preferences-desktop-font'))
     ac = textfonts.textfonts(mainwindow).actionCollection
     m.addAction(ac.textfonts_show_available_fonts)
+    m.addAction(ac.textfonts_set_document_fonts)
     return m
 
 def menu_tools_lyrics(mainwindow):

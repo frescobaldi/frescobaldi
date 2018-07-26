@@ -56,7 +56,22 @@ class TextFonts(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.textfonts_show_available_fonts.triggered.connect(self.showAvailableFonts)
+        ac.textfonts_show_available_fonts.triggered.connect(
+            self.showAvailableFonts)
+        ac.textfonts_set_document_fonts.triggered.connect(
+            self.setDocumentFonts)
+
+    def setDocumentFonts(self):
+        """Menu Action Set Document Fonts."""
+        from . import documentfontsdialog
+        dlg = documentfontsdialog.DocumentFontsDialog(self.mainwindow())
+        if dlg.exec_():
+            text = dlg.document_font_code()
+            # NOTE: How to translate this to the dialog context?
+            # if state[-1] != "paper":
+            text = "\\paper {{\n{0}}}\n".format(text)
+            cursor = self.mainwindow().currentView().textCursor()
+            cursor.insertText(text)
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
@@ -71,10 +86,13 @@ class Actions(actioncollection.ActionCollection):
 
     def createActions(self, parent=None):
         self.textfonts_show_available_fonts = QAction(parent)
+        self.textfonts_set_document_fonts = QAction(parent)
 
     def translateUI(self):
         self.textfonts_show_available_fonts.setText(
             _("Show Available &Fonts..."))
+        self.textfonts_set_document_fonts.setText(
+            _("Set &Document Fonts..."))
 
 
 class FontFilterProxyModel(QSortFilterProxyModel):

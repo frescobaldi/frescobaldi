@@ -33,9 +33,9 @@ import app
 import qutil
 import widgets.dialog
 
-class GlobalFontDialog(widgets.dialog.Dialog):
+class DocumentFontsDialog(widgets.dialog.Dialog):
     def __init__(self, parent=None):
-        super(GlobalFontDialog, self).__init__(parent)
+        super(DocumentFontsDialog, self).__init__(parent)
         self._messageLabel.setWordWrap(True)
 
         layout = QGridLayout()
@@ -60,6 +60,16 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         self.finished.connect(self.saveSettings)
         app.translateUI(self)
 
+        self.template = '''\
+fonts = #
+(make-pango-font-tree
+  "{roman}"
+  "{sans}"
+  "{typewriter}"
+  (/ (* staff-height pt) 2.5))
+'''
+
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Global Fonts")))
         self.setMessage(_(
@@ -70,6 +80,12 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         self.sansLabel.setText(_("Sans Font:"))
         self.typewriterLabel.setText(_("Typewriter Font:"))
 
+    def document_font_code(self):
+        return self.template.format(
+            roman = self.romanFont(),
+            sans = self.sansFont(),
+            typewriter = self.typewriterFont())
+            
     def romanFont(self):
         return self.romanCombo.currentFont().family()
 
@@ -104,5 +120,3 @@ class GlobalFontDialog(widgets.dialog.Dialog):
         s.setValue("roman", self.romanCombo.currentFont().family())
         s.setValue("sans", self.sansCombo.currentFont().family())
         s.setValue("typewriter", self.typewriterCombo.currentFont().family())
-
-
