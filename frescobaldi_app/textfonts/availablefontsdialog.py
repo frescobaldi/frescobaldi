@@ -80,7 +80,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             # Show original log
             self.logTab = QWidget()
             self.logWidget = log.Log(self.logTab)
+            self.logLabel = QLabel()
             logLayout = QVBoxLayout()
+            logLayout.addWidget(self.logLabel)
             logLayout.addWidget(self.logWidget)
             self.logTab.setLayout(logLayout)
             self.tabWidget.addTab(self.logTab, _("LilyPond output"))
@@ -97,8 +99,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             treeLayout.addWidget(self.filterEdit)
             self.fontTreeTab.setLayout(treeLayout)
             self.tabWidget.addTab(self.fontTreeTab, _("Fonts"))
-
-        def create_font_model():
             self.treeModel = tm = available_fonts.treeModel
             self.fontTreeView.setModel(tm.proxy)
             self.filterEdit.textChanged.connect(self.update_filter)
@@ -108,7 +108,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.miscTab = QWidget()
             self.miscTreeView = QTreeView(self.miscTab)
             self.miscTreeView.setHeaderHidden(True)
+            self.miscLabel = QLabel()
             miscLayout = QVBoxLayout()
+            miscLayout.addWidget(self.miscLabel)
             miscLayout.addWidget(self.miscTreeView)
             self.miscTab.setLayout(miscLayout)
             self.tabWidget.addTab(self.miscTab, _("Miscellaneous"))
@@ -136,7 +138,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
         create_log_tab()
         create_font_tab()
-        create_font_model()
         create_misc_tab()
         create_misc_model()
 
@@ -153,10 +154,12 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
+        self.reloadButton.setText(_("&Reload"))
+        self.logLabel.setText(_("LilyPond output of -dshow-available-options"))
+        self.miscLabel.setText(_("Fontconfig data:"))
         self.filterEdit.setPlaceholderText(
             _("Filter results (type any part of the font family name. "
             + "Regular Expressions supported.)"))
-        self.reloadButton.setText(_("&Reload"))
 
     def loadSettings(self):
         s = QSettings()
