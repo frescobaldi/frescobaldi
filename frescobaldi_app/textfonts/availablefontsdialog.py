@@ -36,6 +36,7 @@ from PyQt5.QtWidgets import (
     QDialogButtonBox,
     QLabel,
     QLineEdit,
+    QSplitter,
     QTabWidget,
     QTextEdit,
     QTreeView,
@@ -114,7 +115,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.logTab.setLayout(logLayout)
         self.tabWidget.addTab(self.logTab, _("LilyPond output"))
 
-        # Show Font results
+        # Show Text Font results
         self.fontTreeTab = QWidget()
         self.fontCountLabel = QLabel(self.fontTreeTab)
         self.filterEdit = LineEdit()
@@ -124,11 +125,29 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         treeLayout.addWidget(self.fontTreeView)
         treeLayout.addWidget(self.filterEdit)
         self.fontTreeTab.setLayout(treeLayout)
-        self.tabWidget.addTab(self.fontTreeTab, _("Fonts"))
+        self.tabWidget.addTab(self.fontTreeTab, _("Text Fonts"))
         self.treeModel = tm = available_fonts.treeModel
         self.fontTreeView.setModel(tm.proxy)
         self.filterEdit.textChanged.connect(self.update_filter)
         self.filter = QRegExp('', Qt.CaseInsensitive)
+
+        # Show music font results
+        self.musicFontsTab = QWidget()
+        self.musicFontsCountLabel = QLabel(self.musicFontsTab)
+        self.musicFontsSplitter = QSplitter(self.musicFontsTab)
+        self.musicFontsSplitter.setOrientation(Qt.Vertical)
+        self.musicFontsListView = QTreeView(self.musicFontsSplitter)
+        self.musicFontPreview = QTextEdit(self.musicFontsSplitter)
+        self.musicFontPreview.setHtml("Placeholder for score sample")
+        musicLayout = QVBoxLayout()
+        musicLayout.addWidget(self.musicFontsCountLabel)
+        musicLayout.addWidget(self.musicFontsSplitter)
+        self.musicFontsSplitter.addWidget(self.musicFontsListView)
+        self.musicFontsSplitter.addWidget(self.musicFontPreview)
+        self.musicFontsTab.setLayout(musicLayout)
+        self.tabWidget.addTab(self.musicFontsTab, _("Music Fonts"))
+        self.musicFontsModel = mm = available_fonts.musicFontsModel
+        self.musicFontsListView.setModel(mm)
 
         # Show various fontconfig information
         self.miscTab = QWidget()
@@ -155,10 +174,18 @@ class ShowFontsDialog(widgets.dialog.Dialog):
     def loadSettings(self):
         s = QSettings()
         self.load_font_tree_column_width(s)
+        s.beginGroup('available-fonts-dialog')
+        # TODO: The following doesn't work so we can't restore
+        # the layout of the splitter yet.
+#        self.musicFontsSplitter.restoreState(
+#            s.value('music-font-splitter-sizes').toByteArray()
+#        )
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup('available-fonts-dialog')
+        s.setValue('music-fonts-splitter-sizes',
+            self.musicFontsSplitter.saveState())
         s.setValue('col-width', self.fontTreeView.columnWidth(0))
 
     def load_font_tree_column_width(self, s):
