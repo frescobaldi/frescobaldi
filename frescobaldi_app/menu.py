@@ -322,7 +322,7 @@ def menu_tools_transform(mainwindow):
     return m
 
 def menu_tools_text(mainwindow):
-    m = Menu(_('submenu title', "Te&xt Fonts"), mainwindow)
+    m = Menu(_('submenu title', "Fo&nts"), mainwindow)
     m.setIcon(icons.get('preferences-desktop-font'))
     ac = textfonts.textfonts(mainwindow).actionCollection
     m.addAction(ac.textfonts_show_available_fonts)
