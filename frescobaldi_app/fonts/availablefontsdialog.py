@@ -201,7 +201,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def slot_music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""
-        font_family =new.indexes()[0].data()
-        self.music_tree_tab.button_remove.setEnabled(len(new.indexes()) > 0)
-        print("Selected:", font_family)
-        print("Would now create/display score example")
+        indexes = new.indexes()
+        if indexes:
+            self.music_tree_tab.show_sample(indexes[0].data())
+        self.music_tree_tab.button_remove.setEnabled(
+            self.music_tree_tab.tree_view.selectionModel().hasSelection())

@@ -28,6 +28,7 @@ import os
 import re
 from enum import Enum, auto
 from shutil import copyfile
+from pathlib import Path
 
 from PyQt5.QtCore import (
     QObject,
@@ -38,6 +39,7 @@ from PyQt5.QtGui import(
     QStandardItemModel,
 )
 from PyQt5.QtWidgets import(
+    QAbstractItemView,
     QHBoxLayout,
     QPushButton,
     QSplitter,
@@ -56,10 +58,12 @@ class MusicFontsWidget(QWidget):
 
     def __init__(self, available_fonts, parent=None):
         super(MusicFontsWidget, self).__init__(parent)
+        self.available_fonts = available_fonts
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
         br.setEnabled(False)
         self.tree_view = tv = QTreeView(self)
+        tv.setSelectionMode(QAbstractItemView.MultiSelection)
         self.musicFontPreview = fp = QTextEdit(self)
         self.musicFontPreview.setHtml("Placeholder for score sample")
         self.splitter = spl = QSplitter(self)
@@ -80,6 +84,9 @@ class MusicFontsWidget(QWidget):
         self.tree_view.setModel(available_fonts.music_fonts().item_model())
         app.translateUI(self)
 
+        self.button_remove.clicked.connect(self.remove_music_font)
+
+
     def translateUI(self):
         self.button_remove.setText(_("Remove..."))
         self.button_remove.setToolTip(_("Remove selected music font"))
@@ -87,12 +94,42 @@ class MusicFontsWidget(QWidget):
         self.button_install.setToolTip(
             _("Link fonts from a directory to the current LilyPond installation"))
 
+    def remove_music_font(self):
+        """Remove one or more font family/ies from the LilyPond installation.
+        Works only for *links*, not for *files*."""
+        text = ''
+        informative_text= ''
+        detailed_text = ''
+        try:
+            indexes = self.tree_view.selectionModel().selectedRows()
+            self.available_fonts.music_fonts().remove(indexes)
+        except MusicFontFileRemoveException as e:
+            text = _("Font family could not be removed!")
+            informative_text = _(
+                "To avoid persistent damage Frescobaldi only supports "
+                + "removing music fonts that are linked into a LilyPond "
+                + "installation. The font being removed includes real "
+                + "files and can therefore not be removed directly.")
+            detailed_text = "{}".format(e)
+        if text:
+            from PyQt5.QtWidgets import QMessageBox
+            msg_box = QMessageBox()
+            msg_box.setText(text)
+            msg_box.setInformativeText(informative_text)
+            msg_box.setDetailedText(detailed_text)
+            msg_box.exec()
+
+    def show_sample(self, family_name):
+        print("Would now show a sample of font", family_name)
 
 
 class MusicFontException(Exception):
     pass
 
 class MusicFontPermissionException(MusicFontException):
+    pass
+
+class MusicFontFileRemoveException(MusicFontException):
     pass
 
 
@@ -245,6 +282,12 @@ class MusicFontFamily(QObject):
                 font.status = MusicFontStatus.MISSING_FILE
         return font.status
 
+    def walk(self):
+        """Return entries for all registered fonts."""
+        for type in self._files:
+            for size in self._files[type]:
+                yield type, size, self._files[type][size]
+
 
 class AbstractMusicFontList(QObject):
     """Abstract class managing a list of music fonts."""
@@ -322,7 +365,6 @@ class MusicFontRepo(AbstractMusicFontList):
         super(MusicFontRepo, self).__init__()
         self.root = root
         self.installable_fonts = AbstractMusicFontList()
-        self.installable_fonts_model = None
         self.add_tree(root)
 
     def flag_for_install(self, installed):
@@ -355,7 +397,6 @@ class InstalledMusicFonts(AbstractMusicFontList):
 
     def __init__(self, lilypond_info):
         super(InstalledMusicFonts, self).__init__()
-        self.installation_changed = False
         self.lilypond_info = lilypond_info
         self.font_root = os.path.join(lilypond_info.datadir(), 'fonts')
         self.add_tree(self.font_root)
@@ -388,9 +429,33 @@ class InstalledMusicFonts(AbstractMusicFontList):
             except OSError as e:
                 raise MusicFontPermissionException(
                 _("Font installation failed:\n{}").format(e))
+        self.add_file(target)
 
-        self.add_file(font_file)
-        self.installation_changed = True
+    def remove(self, indexes):
+        """Remove one or more font family/ies from the LilyPond installation.
+        If any of the fonts includes any real files (as opposed to links)
+        abort without removing *anything* and raise an exception."""
+        for index in indexes:
+            family_name = index.data()
+            family = self.family(family_name)
+            links = []
+            files = []
+            for type, size, font in family.walk():
+                file = Path(font.file)
+                if file.is_symlink():
+                    links.append(file)
+                else:
+                    files.append(str(file))
+            if files:
+                raise MusicFontFileRemoveException(_("\n".join(files)))
+            try:
+                for link in links:
+                    link.unlink()
+            except OSError as e:
+                raise MusicFontPermissionException(
+                _("Font removal failed:\n{}").format(e))
+            self._families.pop(family_name, None)
+        self.item_model().populate(self)
 
 
 class MusicFontsModel(QStandardItemModel):
