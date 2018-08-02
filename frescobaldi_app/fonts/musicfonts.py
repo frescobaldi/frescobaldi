@@ -37,6 +37,56 @@ from PyQt5.QtGui import(
     QStandardItem,
     QStandardItemModel,
 )
+from PyQt5.QtWidgets import(
+    QHBoxLayout,
+    QPushButton,
+    QSplitter,
+    QTextEdit,
+    QTreeView,
+    QVBoxLayout,
+    QWidget,
+)
+
+import app
+
+
+class MusicFontsWidget(QWidget):
+    """Display list of installed music fonts,
+    show font preview score, install/remove fonts."""
+
+    def __init__(self, available_fonts, parent=None):
+        super(MusicFontsWidget, self).__init__(parent)
+        self.button_install = bi = QPushButton(self)
+        self.button_remove = br = QPushButton(self)
+        br.setEnabled(False)
+        self.tree_view = tv = QTreeView(self)
+        self.musicFontPreview = fp = QTextEdit(self)
+        self.musicFontPreview.setHtml("Placeholder for score sample")
+        self.splitter = spl = QSplitter(self)
+        spl.setOrientation(Qt.Vertical)
+        spl.addWidget(tv)
+        spl.addWidget(fp)
+
+        button_layout = bl = QHBoxLayout()
+        bl.addStretch()
+        bl.addWidget(br)
+        bl.addWidget(bi)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+        layout.addLayout(bl)
+        layout.addWidget(spl)
+
+        self.tree_view.setModel(available_fonts.music_fonts().item_model())
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.button_remove.setText(_("Remove..."))
+        self.button_remove.setToolTip(_("Remove selected music font"))
+        self.button_install.setText(_("Install..."))
+        self.button_install.setToolTip(
+            _("Link fonts from a directory to the current LilyPond installation"))
+
 
 
 class MusicFontException(Exception):
@@ -44,6 +94,7 @@ class MusicFontException(Exception):
 
 class MusicFontPermissionException(MusicFontException):
     pass
+
 
 class MusicFontStatus(Enum):
     """Status value enumeration for registered font files.

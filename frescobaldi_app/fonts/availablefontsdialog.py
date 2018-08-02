@@ -23,7 +23,6 @@ Show a dialog with available fonts.
 """
 
 from PyQt5.QtCore import (
-    QRegExp,
     QSettings,
     QSize,
     Qt,
@@ -31,14 +30,9 @@ from PyQt5.QtCore import (
 from PyQt5.QtWidgets import (
     QDialogButtonBox,
     QFileDialog,
-    QHBoxLayout,
     QLabel,
     QMessageBox,
-    QPushButton,
-    QSplitter,
     QTabWidget,
-    QTextEdit,
-    QTreeView,
     QVBoxLayout,
     QWidget,
 )
@@ -47,7 +41,6 @@ import app
 import log
 import qutil
 import widgets.dialog
-from widgets.lineedit import LineEdit
 import fonts
 
 from . import (
@@ -87,15 +80,13 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.loadSettings()
 
         self.connectSignals()
-        if not self.available_fonts.text_fonts().is_loaded():
+        if self.available_fonts.text_fonts().is_loaded():
+            self.populate_widgets()
+        else:
             self.font_tree_tab.display_waiting()
             self.available_fonts.text_fonts().load_fonts(self.logWidget)
-        else:
-            self.populate_widgets()
 
     def createTabs(self):
-
-        available_fonts = self.available_fonts.text_fonts()
 
         def create_log():
             # Show original log
@@ -108,36 +99,15 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.logTab.setLayout(logLayout)
             self.tabWidget.addTab(self.logTab, _("LilyPond output"))
 
-        def create_music_fonts():
-            # Show music font results
-            self.musicFontsTab = mfTab = QWidget()
-            self.musicFontsCountLabel = mfCountLabel = QLabel(mfTab)
-            self.musicFontsInstallButton = mfInstallButton = QPushButton(mfTab)
-            self.musicFontRemoveButton = mfRemoveButton = QPushButton(mfTab)
-            self.musicFontRemoveButton.setEnabled(False)
-            self.musicFontsSplitter = mfSplitter = QSplitter(mfTab)
-            mfSplitter.setOrientation(Qt.Vertical)
-            self.musicFontsView = mfView = QTreeView(mfSplitter)
-            self.musicFontPreview = QTextEdit(mfSplitter)
-            self.musicFontPreview.setHtml("Placeholder for score sample")
-            musicButtonLayout = mbl = QHBoxLayout()
-            mbl.addWidget(mfCountLabel)
-            mbl.addStretch()
-            mbl.addWidget(mfRemoveButton)
-            mbl.addWidget(mfInstallButton)
-            musicLayout = ml = QVBoxLayout()
-            ml.addLayout(mbl)
-            ml.addWidget(mfSplitter)
-            mfSplitter.addWidget(mfView)
-            mfSplitter.addWidget(self.musicFontPreview)
-            mfTab.setLayout(ml)
-            self.tabWidget.addTab(mfTab, _("Music Fonts"))
-
         create_log()
         # Show Text Font results
         self.font_tree_tab = textfonts.TextFontsWidget(self.available_fonts)
         self.tabWidget.addTab(self.font_tree_tab, _("Text Fonts"))
-        create_music_fonts()
+
+        # Show Music Font results
+        self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts)
+        self.tabWidget.addTab(self.music_tree_tab, _("Music Fonts"))
+
         # Show various fontconfig information
         self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
         self.tabWidget.addTab(self.misc_tree_tab, _("Miscellaneous"))
@@ -146,17 +116,15 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.available_fonts.text_fonts().loaded.connect(self.populate_widgets)
         self.finished.connect(self.saveSettings)
         self.reloadButton.clicked.connect(self.reload)
-        self.musicFontsInstallButton.clicked.connect(self.install_music_fonts)
+        self.music_tree_tab.button_install.clicked.connect(
+            self.install_music_fonts)
+        self.music_tree_tab.tree_view.selectionModel().selectionChanged.connect(
+            self.slot_music_fonts_selection_changed)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
         self.reloadButton.setText(_("&Reload"))
         self.logLabel.setText(_("LilyPond output of -dshow-available-options"))
-        self.musicFontRemoveButton.setText(_("Remove..."))
-        self.musicFontRemoveButton.setToolTip(_("Remove selected music font"))
-        self.musicFontsInstallButton.setText(_("Install..."))
-        self.musicFontsInstallButton.setToolTip(
-            _("Link fonts from a directory to the current LilyPond installation"))
 
     def loadSettings(self):
         s = QSettings()
@@ -172,7 +140,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         s = QSettings()
         s.beginGroup('available-fonts-dialog')
         s.setValue('music-fonts-splitter-sizes',
-            self.musicFontsSplitter.saveState())
+            self.music_tree_tab.splitter.saveState())
         s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
 
     def install_music_fonts(self):
@@ -199,7 +167,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         try:
             repo.install_flagged(installed)
         except musicfonts.MusicFontPermissionException as e:
-            # TODO: Show dialog or other handling, see #1083
             msg_box = QMessageBox()
             msg_box.setText(_("Fonts could not be installed!"))
             msg_box.setInformativeText(
@@ -223,11 +190,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.font_tree_tab.display_count()
         self.font_tree_tab.refresh_filter_edit()
         self.font_tree_tab.filter_edit.setFocus()
-        self.musicFontsModel = mfModel = self.available_fonts.music_fonts().item_model()
-        mfView = self.musicFontsView
-        mfView.setModel(mfModel)
-        mfView.selectionModel().selectionChanged.connect(
-            self.slot_music_fonts_selection_changed)
         self.reloadButton.setEnabled(True)
 
     def reload(self):
@@ -240,6 +202,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
     def slot_music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""
         font_family =new.indexes()[0].data()
-        self.musicFontRemoveButton.setEnabled(len(new.indexes()) > 0)
+        self.music_tree_tab.button_remove.setEnabled(len(new.indexes()) > 0)
         print("Selected:", font_family)
         print("Would now create/display score example")
