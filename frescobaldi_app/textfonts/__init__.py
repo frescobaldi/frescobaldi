@@ -248,6 +248,7 @@ class Fonts(QObject):
         when the fonts are not additionally installed as system fonts."""
         font_dir = os.path.join(info.datadir(), 'fonts', 'otf')
         for lily_font in os.listdir(font_dir):
+            print("Add font file", lily_font)
             self.font_db.addApplicationFont(
                 os.path.join(font_dir, lily_font)
             )
