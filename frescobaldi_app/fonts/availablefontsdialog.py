@@ -133,27 +133,14 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             mfTab.setLayout(ml)
             self.tabWidget.addTab(mfTab, _("Music Fonts"))
 
-        def create_misc():
-            # Show various fontconfig information
-            self.miscTab = QWidget()
-            self.miscTreeView = QTreeView(self.miscTab)
-            self.miscTreeView.setHeaderHidden(True)
-            self.miscLabel = QLabel()
-            miscLayout = QVBoxLayout()
-            miscLayout.addWidget(self.miscLabel)
-            miscLayout.addWidget(self.miscTreeView)
-            self.miscTab.setLayout(miscLayout)
-            self.tabWidget.addTab(self.miscTab, _("Miscellaneous"))
-            self.miscModel = available_fonts.miscModel
-            self.miscTreeView.setModel(self.miscModel)
-
         create_log()
         # Show Text Font results
         self.font_tree_tab = textfonts.TextFontsWidget(self.available_fonts)
         self.tabWidget.addTab(self.font_tree_tab, _("Text Fonts"))
-
         create_music_fonts()
-        create_misc()
+        # Show various fontconfig information
+        self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
+        self.tabWidget.addTab(self.misc_tree_tab, _("Miscellaneous"))
 
     def connectSignals(self):
         self.available_fonts.text_fonts().loaded.connect(self.populate_widgets)
@@ -165,7 +152,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.setWindowTitle(app.caption(_("Available Fonts")))
         self.reloadButton.setText(_("&Reload"))
         self.logLabel.setText(_("LilyPond output of -dshow-available-options"))
-        self.miscLabel.setText(_("Fontconfig data:"))
         self.musicFontRemoveButton.setText(_("Remove..."))
         self.musicFontRemoveButton.setToolTip(_("Remove selected music font"))
         self.musicFontsInstallButton.setText(_("Install..."))

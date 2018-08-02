@@ -99,6 +99,25 @@ class TextFontsWidget(QWidget):
         self.tree_model().proxy().setFilterRegExp(self.filter)
 
 
+class MiscFontsInfoWidget(QWidget):
+    """Display miscellaneous info about Fontconfig context."""
+    def __init__(self, available_fonts, parent=None):
+        super(MiscFontsInfoWidget, self).__init__(parent)
+        self.tree_view = QTreeView(self)
+        self.tree_view.setHeaderHidden(True)
+        self.status_label = QLabel(self)
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.status_label)
+        layout.addWidget(self.tree_view)
+        self.setLayout(layout)
+        self.tree_view.setModel(available_fonts.text_fonts().misc_model())
+
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.status_label.setText(_("Fontconfig data:"))
+
+
 class FontFilterProxyModel(QSortFilterProxyModel):
     """Custom proxy model that ignores child elements in filtering"""
 
@@ -364,6 +383,9 @@ class TextFonts(QObject):
         self.run_lilypond()
         if log_widget:
             log_widget.connectJob(self.job)
+
+    def misc_model(self):
+        return self._misc_model
 
     def model(self):
         return self._tree_model
