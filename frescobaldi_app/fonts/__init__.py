@@ -49,7 +49,7 @@ import signals
 
 from . import musicfonts
 
-def textfonts(mainwindow):
+def fonts(mainwindow):
     return TextFonts.instance(mainwindow)
 
 
@@ -58,9 +58,9 @@ class TextFonts(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.textfonts_show_available_fonts.triggered.connect(
+        ac.fonts_show_available_fonts.triggered.connect(
             self.showAvailableFonts)
-        ac.textfonts_set_document_fonts.triggered.connect(
+        ac.fonts_set_document_fonts.triggered.connect(
             self.setDocumentFonts)
 
     def setDocumentFonts(self):
@@ -84,16 +84,16 @@ class TextFonts(plugin.MainWindowPlugin):
 
 
 class Actions(actioncollection.ActionCollection):
-    name = "textfonts"
+    name = "fonts"
 
     def createActions(self, parent=None):
-        self.textfonts_show_available_fonts = QAction(parent)
-        self.textfonts_set_document_fonts = QAction(parent)
+        self.fonts_show_available_fonts = QAction(parent)
+        self.fonts_set_document_fonts = QAction(parent)
 
     def translateUI(self):
-        self.textfonts_show_available_fonts.setText(
+        self.fonts_show_available_fonts.setText(
             _("Show Available &Fonts..."))
-        self.textfonts_set_document_fonts.setText(
+        self.fonts_set_document_fonts.setText(
             _("Set &Document Fonts..."))
 
 
@@ -217,7 +217,7 @@ class Fonts(QObject):
     results have to connect to the 'loaded' signal which is emitted after
     LilyPond has completed and the results been parsed.
 
-    A Fonts() object is immediately available as textfonts.available_fonts, and
+    A Fonts() object is immediately available as fonts.available_fonts, and
     its is_loaded member can be requested to test if fonts have already been
     loaded.
     """

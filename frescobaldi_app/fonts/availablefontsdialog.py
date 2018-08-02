@@ -220,8 +220,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
         try:
             repo.install_flagged(installed)
-#            if installed.installation_changed:
-#                available_fonts.load_music_fonts()
         except musicfonts.MusicFontPermissionException as e:
             # TODO: Show dialog or other handling, see #1083
             msg_box = QMessageBox()

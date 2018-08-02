@@ -47,7 +47,7 @@ import matcher
 import file_import
 import file_export
 import browseriface
-import textfonts
+import fonts
 
 
 # postpone translation
@@ -324,9 +324,9 @@ def menu_tools_transform(mainwindow):
 def menu_tools_text(mainwindow):
     m = Menu(_('submenu title', "Fo&nts"), mainwindow)
     m.setIcon(icons.get('preferences-desktop-font'))
-    ac = textfonts.textfonts(mainwindow).actionCollection
-    m.addAction(ac.textfonts_show_available_fonts)
-    m.addAction(ac.textfonts_set_document_fonts)
+    ac = fonts.fonts(mainwindow).actionCollection
+    m.addAction(ac.fonts_show_available_fonts)
+    m.addAction(ac.fonts_set_document_fonts)
     return m
 
 def menu_tools_lyrics(mainwindow):
