@@ -22,10 +22,6 @@
 Show a dialog with available fonts.
 """
 
-
-import codecs
-import re
-
 from PyQt5.QtCore import (
     QRegExp,
     QSettings,
@@ -34,8 +30,11 @@ from PyQt5.QtCore import (
 )
 from PyQt5.QtWidgets import (
     QDialogButtonBox,
+    QFileDialog,
+    QHBoxLayout,
     QLabel,
-    QLineEdit,
+    QMessageBox,
+    QPushButton,
     QSplitter,
     QTabWidget,
     QTextEdit,
@@ -43,21 +42,16 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from PyQt5.QtGui import(
-    QFont,
-    QFontDatabase,
-    QStandardItem,
-    QStandardItemModel,
-)
 
 import app
-import job
 import log
 import qutil
 import widgets.dialog
 from widgets.lineedit import LineEdit
+
 from . import (
     available_fonts,
+    musicfonts,
     FontTreeModel
 )
 
@@ -83,7 +77,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.reloadButton = self._buttonBox.button(
             QDialogButtonBox.RestoreDefaults)
         self.reloadButton.setEnabled(False)
-        self.reloadButton.clicked.connect(self.reload)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
 
@@ -95,9 +88,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.createTabs()
         app.translateUI(self)
         self.loadSettings()
-        self.finished.connect(self.saveSettings)
 
-        available_fonts.loaded.connect(self.populate_widgets)
+        self.connectSignals()
         if not available_fonts.is_loaded:
             self.fontCountLabel.setText(_("Running LilyPond to list fonts ..."))
             available_fonts.load_fonts(info, self.logWidget)
@@ -132,22 +124,28 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.filter = QRegExp('', Qt.CaseInsensitive)
 
         # Show music font results
-        self.musicFontsTab = QWidget()
-        self.musicFontsCountLabel = QLabel(self.musicFontsTab)
-        self.musicFontsSplitter = QSplitter(self.musicFontsTab)
-        self.musicFontsSplitter.setOrientation(Qt.Vertical)
-        self.musicFontsListView = QTreeView(self.musicFontsSplitter)
-        self.musicFontPreview = QTextEdit(self.musicFontsSplitter)
+        self.musicFontsTab = mfTab = QWidget()
+        self.musicFontsCountLabel = mfCountLabel = QLabel(mfTab)
+        self.musicFontsInstallButton = mfInstallButton = QPushButton(mfTab)
+        self.musicFontRemoveButton = mfRemoveButton = QPushButton(mfTab)
+        self.musicFontRemoveButton.setEnabled(False)
+        self.musicFontsSplitter = mfSplitter = QSplitter(mfTab)
+        mfSplitter.setOrientation(Qt.Vertical)
+        self.musicFontsView = mfView = QTreeView(mfSplitter)
+        self.musicFontPreview = QTextEdit(mfSplitter)
         self.musicFontPreview.setHtml("Placeholder for score sample")
-        musicLayout = QVBoxLayout()
-        musicLayout.addWidget(self.musicFontsCountLabel)
-        musicLayout.addWidget(self.musicFontsSplitter)
-        self.musicFontsSplitter.addWidget(self.musicFontsListView)
-        self.musicFontsSplitter.addWidget(self.musicFontPreview)
-        self.musicFontsTab.setLayout(musicLayout)
-        self.tabWidget.addTab(self.musicFontsTab, _("Music Fonts"))
-        self.musicFontsModel = mm = available_fonts.musicFontsModel
-        self.musicFontsListView.setModel(mm)
+        musicButtonLayout = mbl = QHBoxLayout()
+        mbl.addWidget(mfCountLabel)
+        mbl.addStretch()
+        mbl.addWidget(mfRemoveButton)
+        mbl.addWidget(mfInstallButton)
+        musicLayout = ml = QVBoxLayout()
+        ml.addLayout(mbl)
+        ml.addWidget(mfSplitter)
+        mfSplitter.addWidget(mfView)
+        mfSplitter.addWidget(self.musicFontPreview)
+        mfTab.setLayout(ml)
+        self.tabWidget.addTab(mfTab, _("Music Fonts"))
 
         # Show various fontconfig information
         self.miscTab = QWidget()
@@ -162,6 +160,12 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.miscModel = available_fonts.miscModel
         self.miscTreeView.setModel(self.miscModel)
 
+    def connectSignals(self):
+        available_fonts.loaded.connect(self.populate_widgets)
+        self.finished.connect(self.saveSettings)
+        self.reloadButton.clicked.connect(self.reload)
+        self.musicFontsInstallButton.clicked.connect(self.install_music_fonts)
+
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
         self.reloadButton.setText(_("&Reload"))
@@ -170,6 +174,11 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.filterEdit.setPlaceholderText(
             _("Filter results (type any part of the font family name. "
             + "Regular Expressions supported.)"))
+        self.musicFontRemoveButton.setText(_("Remove..."))
+        self.musicFontRemoveButton.setToolTip(_("Remove selected music font"))
+        self.musicFontsInstallButton.setText(_("Install..."))
+        self.musicFontsInstallButton.setToolTip(
+            _("Link fonts from a directory to the current LilyPond installation"))
 
     def loadSettings(self):
         s = QSettings()
@@ -188,6 +197,43 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.musicFontsSplitter.saveState())
         s.setValue('col-width', self.fontTreeView.columnWidth(0))
 
+    def install_music_fonts(self):
+        """'Install' music fonts from a directory (structure) by
+        linking fonts into the LilyPond installation's font
+        directories (otf and svg)."""
+
+        dlg = QFileDialog(self)
+        dlg.setFileMode(QFileDialog.Directory)
+        if not dlg.exec():
+            return
+
+        root_dir = dlg.selectedFiles()[0]
+        from . import musicfonts
+        installed = available_fonts.installedMusicFonts
+        repo = musicfonts.MusicFontRepo(root_dir)
+        repo.flag_for_install(installed)
+
+        # QUESTION: Do we need a message dialog to confirm/cancel installation?
+        # repo.installable_fonts.item_model() is an item model like the one
+        # we use for the music font display, but contains only the installable
+        # font entries.
+
+        try:
+            repo.install_flagged(installed)
+#            if installed.installation_changed:
+#                available_fonts.load_music_fonts()
+        except musicfonts.MusicFontPermissionException as e:
+            # TODO: Show dialog or other handling, see #1083
+            msg_box = QMessageBox()
+            msg_box.setText(_("Fonts could not be installed!"))
+            msg_box.setInformativeText(
+            _("Installing fonts in the LilyPond installation " +
+              "appears to require administrator privileges on " +
+              "your system and can unfortunately not be handled " +
+              "by Frescobaldi,"))
+            msg_box.setDetailedText("{}".format(e))
+            msg_box.exec()
+
     def load_font_tree_column_width(self, s):
         """Load column widths for fontTreeView,
         factored out because it has to be done upon reload too."""
@@ -204,6 +250,11 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.tabWidget.setCurrentIndex(1)
         self.filterEdit.setText(ShowFontsDialog.filter_re)
         self.filterEdit.setFocus()
+        self.musicFontsModel = mfModel = available_fonts.installedMusicFonts.item_model()
+        mfView = self.musicFontsView
+        mfView.setModel(mfModel)
+        mfView.selectionModel().selectionChanged.connect(
+            self.slot_music_fonts_selection_changed)
         self.reloadButton.setEnabled(True)
 
     def reload(self):
@@ -212,6 +263,13 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.logWidget.clear()
         # We're connected to the 'loaded' signal
         available_fonts.load_fonts(self.lilypond_info, self.logWidget)
+
+    def slot_music_fonts_selection_changed(self, new, old):
+        """Show a new score example with the selected music font"""
+        font_family =new.indexes()[0].data()
+        self.musicFontRemoveButton.setEnabled(len(new.indexes()) > 0)
+        print("Selected:", font_family)
+        print("Would now create/display score example")
 
     def update_filter(self):
         """Filter font results"""

@@ -32,7 +32,7 @@ from PyQt5.QtCore import (
     QSortFilterProxyModel,
     Qt,
 )
-from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import QAction, QCheckBox
 from PyQt5.QtGui import(
     QFont,
     QFontDatabase,
@@ -46,6 +46,8 @@ import plugin
 import job
 import codecs
 import signals
+
+from . import musicfonts
 
 def textfonts(mainwindow):
     return TextFonts.instance(mainwindow)
@@ -175,61 +177,6 @@ class FontTreeModel(QStandardItemModel):
         self.setHeaderData(1, Qt.Horizontal, _("Sample"))
 
 
-class MusicFontsModel(QStandardItemModel):
-    """Data model to maintain the list of available music fonts."""
-
-    def populate(self, fonts):
-        """Populate the data model from the fonts dictionary."""
-        sizes_list = ['11', '13', '14', '16', '18', '20', '23', '26']
-        font_names = sorted(fonts.keys())
-
-        def missing_sizes(sizes):
-            """Return a (usually empty) list with missing size variants
-            for the current font."""
-            sizes = set(sizes)
-            missing = [item for item in sizes_list if item not in sizes]
-            result = _("Complete") if not missing else _("Missing: {}").format(
-                ", ".join(missing)
-            )
-            return result
-
-        def check_type(type, results):
-            """Determine the completeness of a given font"""
-            if not type in font.keys():
-                results[type]['sizes'] = _("Missing")
-                results[type]['brace'] = ""
-            else:
-                results[type]['sizes'] = missing_sizes(
-                    sorted(font[type].get('sizes', [])))
-                results[type]['brace'] = "" if font[type].get(
-                    'brace', False) else _("No brace")
-
-        self.reset()
-        for font_name in font_names:
-            font = fonts[font_name]
-            results = {
-                'otf': {},
-                'svg': {}
-            }
-            check_type('otf', results)
-            check_type('svg', results)
-            self.invisibleRootItem().appendRow(
-                [QStandardItem(font_name),
-                QStandardItem(results['otf']['sizes']),
-                QStandardItem(results['otf']['brace']),
-                QStandardItem(results['svg']['sizes']),
-                QStandardItem(results['svg']['brace'])])
-
-    def reset(self):
-        self.clear()
-        self.setColumnCount(5)
-        self.setHeaderData(0, Qt.Horizontal, _("Font"))
-        self.setHeaderData(1, Qt.Horizontal, _("OpenType"))
-        self.setHeaderData(2, Qt.Horizontal, _("(Brace)"))
-        self.setHeaderData(3, Qt.Horizontal, _("SVG"))
-        self.setHeaderData(4, Qt.Horizontal, _("(Brace)"))
-
-
 class MiscTreeModel(QStandardItemModel):
     """Custom tree model for miscellaneous fontconfig information.
     This model stores three top-level elements as individual fields
@@ -279,8 +226,8 @@ class Fonts(QObject):
 
     def __init__(self):
         super(Fonts, self).__init__()
+        self.installedMusicFonts = None
         self.treeModel = FontTreeModel(self)
-        self.musicFontsModel = MusicFontsModel(self)
         self.miscModel = MiscTreeModel(self)
         self._reset()
         self.job = None
@@ -289,7 +236,6 @@ class Fonts(QObject):
         self._log = []
         self.treeModel.reset()
         self.miscModel.reset()
-        self.musicFontsModel.reset()
         # needs to be reset for the LilyPond-dependent fonts
         self.font_db = QFontDatabase()
 
@@ -299,11 +245,11 @@ class Fonts(QObject):
         return self._log
 
 
-    def acknowledge_lily_fonts(self, info):
+    def acknowledge_lily_fonts(self):
         """Add the OpenType fonts in LilyPond's font directory
         to Qt's font database. This should be relevant (untested)
         when the fonts are not additionally installed as system fonts."""
-        font_dir = os.path.join(info.datadir(), 'fonts', 'otf')
+        font_dir = os.path.join(self.lilypond_info.datadir(), 'fonts', 'otf')
         for lily_font in os.listdir(font_dir):
             self.font_db.addApplicationFont(
                 os.path.join(font_dir, lily_font)
@@ -405,51 +351,14 @@ class Fonts(QObject):
         Any caller should connect to the 'loaded' signal because this
         is an asynchronous task that takes long to complete."""
         self._reset()
-        self.acknowledge_lily_fonts(info)
-        self.load_music_fonts(info)
-        self.run_lilypond(info)
+        self.lilypond_info = info
+        self.acknowledge_lily_fonts()
+        self.installedMusicFonts = musicfonts.InstalledMusicFonts(
+            self.lilypond_info)
+        self.run_lilypond()
         if log_widget:
             log_widget.connectJob(self.job)
         self.job.done.connect(self.process_results)
-
-    def load_music_fonts(self, info):
-        """Load a list of music fonts for the current installation."""
-        font_root = os.path.join(info.datadir(), 'fonts')
-        fonts = {}
-        re_brace = re.compile('(.*)(-brace)$')
-        re_size = re.compile('(.*)-(\d*)$')
-
-        def init_font(font_name, type):
-            if not font_name in fonts.keys():
-                fonts[font_name] = {}
-            if not type in fonts[font_name].keys():
-                fonts[font_name][type] = {}
-
-        def search_folder(type):
-            """Search folder of type "otf" or "svg" and
-            enumerate present .otf or .svg music fonts.
-            Results are stored in the fonts dict."""
-            font_dir = os.path.join(font_root, type)
-            for file in os.listdir(font_dir):
-                base, ext = os.path.splitext(os.path.basename(file))
-                if ext == '.{}'.format(type):
-                    match_brace = re_brace.match(base)
-                    if match_brace:
-                        font_name = match_brace.groups()[0]
-                        init_font(font_name, type)
-                        fonts[font_name][type]['brace'] = True
-                    match_size = re_size.match(base)
-                    if match_size:
-                        font_name = match_size.groups()[0]
-                        font_size = match_size.groups()[1]
-                        init_font(font_name, type)
-                        if not 'sizes' in fonts[font_name][type].keys():
-                            fonts[font_name][type]['sizes'] = []
-                        fonts[font_name][type]['sizes'].append(font_size)
-
-        search_folder('otf')
-        search_folder('svg')
-        self.musicFontsModel.populate(fonts)
 
     def parse_entries(self):
         """Parse the LilyPond log and push entries to the various
@@ -496,8 +405,9 @@ class Fonts(QObject):
         self.loaded.emit()
 
 
-    def run_lilypond(self, info):
+    def run_lilypond(self):
         """Run lilypond from info with the args list, and a job title."""
+        info = self.lilypond_info
         j = self.job = job.Job()
         j.decode_errors = 'replace'
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
