@@ -48,11 +48,11 @@ import log
 import qutil
 import widgets.dialog
 from widgets.lineedit import LineEdit
+import fonts
 
 from . import (
-    available_fonts,
-    musicfonts,
-    FontTreeModel
+    textfonts,
+    musicfonts
 )
 
 
@@ -66,9 +66,6 @@ def show_available_fonts(mainwin, info):
 class ShowFontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts"""
 
-    # Store the filter expression over the object's lifetime
-    filter_re = ''
-
     def __init__(self, parent, info):
         super(ShowFontsDialog, self).__init__(
             parent,
@@ -79,89 +76,87 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.reloadButton.setEnabled(False)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
-
-        self.lilypond_info = info
-
         self.tabWidget = QTabWidget(self)
         self.setMainWidget(self.tabWidget)
+
+        self.lilypond_info = info
+        self.available_fonts = fonts.available(info)
 
         self.createTabs()
         app.translateUI(self)
         self.loadSettings()
 
         self.connectSignals()
-        if not available_fonts.is_loaded:
-            self.fontCountLabel.setText(_("Running LilyPond to list fonts ..."))
-            available_fonts.load_fonts(info, self.logWidget)
+        if not self.available_fonts.text_fonts().is_loaded():
+            self.font_tree_tab.display_waiting()
+            self.available_fonts.text_fonts().load_fonts(self.logWidget)
         else:
             self.populate_widgets()
 
     def createTabs(self):
-        # Show original log
-        self.logTab = QWidget()
-        self.logWidget = log.Log(self.logTab)
-        self.logLabel = QLabel()
-        logLayout = QVBoxLayout()
-        logLayout.addWidget(self.logLabel)
-        logLayout.addWidget(self.logWidget)
-        self.logTab.setLayout(logLayout)
-        self.tabWidget.addTab(self.logTab, _("LilyPond output"))
 
+        available_fonts = self.available_fonts.text_fonts()
+
+        def create_log():
+            # Show original log
+            self.logTab = QWidget()
+            self.logWidget = log.Log(self.logTab)
+            self.logLabel = QLabel()
+            logLayout = QVBoxLayout()
+            logLayout.addWidget(self.logLabel)
+            logLayout.addWidget(self.logWidget)
+            self.logTab.setLayout(logLayout)
+            self.tabWidget.addTab(self.logTab, _("LilyPond output"))
+
+        def create_music_fonts():
+            # Show music font results
+            self.musicFontsTab = mfTab = QWidget()
+            self.musicFontsCountLabel = mfCountLabel = QLabel(mfTab)
+            self.musicFontsInstallButton = mfInstallButton = QPushButton(mfTab)
+            self.musicFontRemoveButton = mfRemoveButton = QPushButton(mfTab)
+            self.musicFontRemoveButton.setEnabled(False)
+            self.musicFontsSplitter = mfSplitter = QSplitter(mfTab)
+            mfSplitter.setOrientation(Qt.Vertical)
+            self.musicFontsView = mfView = QTreeView(mfSplitter)
+            self.musicFontPreview = QTextEdit(mfSplitter)
+            self.musicFontPreview.setHtml("Placeholder for score sample")
+            musicButtonLayout = mbl = QHBoxLayout()
+            mbl.addWidget(mfCountLabel)
+            mbl.addStretch()
+            mbl.addWidget(mfRemoveButton)
+            mbl.addWidget(mfInstallButton)
+            musicLayout = ml = QVBoxLayout()
+            ml.addLayout(mbl)
+            ml.addWidget(mfSplitter)
+            mfSplitter.addWidget(mfView)
+            mfSplitter.addWidget(self.musicFontPreview)
+            mfTab.setLayout(ml)
+            self.tabWidget.addTab(mfTab, _("Music Fonts"))
+
+        def create_misc():
+            # Show various fontconfig information
+            self.miscTab = QWidget()
+            self.miscTreeView = QTreeView(self.miscTab)
+            self.miscTreeView.setHeaderHidden(True)
+            self.miscLabel = QLabel()
+            miscLayout = QVBoxLayout()
+            miscLayout.addWidget(self.miscLabel)
+            miscLayout.addWidget(self.miscTreeView)
+            self.miscTab.setLayout(miscLayout)
+            self.tabWidget.addTab(self.miscTab, _("Miscellaneous"))
+            self.miscModel = available_fonts.miscModel
+            self.miscTreeView.setModel(self.miscModel)
+
+        create_log()
         # Show Text Font results
-        self.fontTreeTab = QWidget()
-        self.fontCountLabel = QLabel(self.fontTreeTab)
-        self.filterEdit = LineEdit()
-        self.fontTreeView = QTreeView(self.fontTreeTab)
-        treeLayout = QVBoxLayout()
-        treeLayout.addWidget(self.fontCountLabel)
-        treeLayout.addWidget(self.fontTreeView)
-        treeLayout.addWidget(self.filterEdit)
-        self.fontTreeTab.setLayout(treeLayout)
-        self.tabWidget.addTab(self.fontTreeTab, _("Text Fonts"))
-        self.treeModel = tm = available_fonts.treeModel
-        self.fontTreeView.setModel(tm.proxy)
-        self.filterEdit.textChanged.connect(self.update_filter)
-        self.filter = QRegExp('', Qt.CaseInsensitive)
+        self.font_tree_tab = textfonts.TextFontsWidget(self.available_fonts)
+        self.tabWidget.addTab(self.font_tree_tab, _("Text Fonts"))
 
-        # Show music font results
-        self.musicFontsTab = mfTab = QWidget()
-        self.musicFontsCountLabel = mfCountLabel = QLabel(mfTab)
-        self.musicFontsInstallButton = mfInstallButton = QPushButton(mfTab)
-        self.musicFontRemoveButton = mfRemoveButton = QPushButton(mfTab)
-        self.musicFontRemoveButton.setEnabled(False)
-        self.musicFontsSplitter = mfSplitter = QSplitter(mfTab)
-        mfSplitter.setOrientation(Qt.Vertical)
-        self.musicFontsView = mfView = QTreeView(mfSplitter)
-        self.musicFontPreview = QTextEdit(mfSplitter)
-        self.musicFontPreview.setHtml("Placeholder for score sample")
-        musicButtonLayout = mbl = QHBoxLayout()
-        mbl.addWidget(mfCountLabel)
-        mbl.addStretch()
-        mbl.addWidget(mfRemoveButton)
-        mbl.addWidget(mfInstallButton)
-        musicLayout = ml = QVBoxLayout()
-        ml.addLayout(mbl)
-        ml.addWidget(mfSplitter)
-        mfSplitter.addWidget(mfView)
-        mfSplitter.addWidget(self.musicFontPreview)
-        mfTab.setLayout(ml)
-        self.tabWidget.addTab(mfTab, _("Music Fonts"))
-
-        # Show various fontconfig information
-        self.miscTab = QWidget()
-        self.miscTreeView = QTreeView(self.miscTab)
-        self.miscTreeView.setHeaderHidden(True)
-        self.miscLabel = QLabel()
-        miscLayout = QVBoxLayout()
-        miscLayout.addWidget(self.miscLabel)
-        miscLayout.addWidget(self.miscTreeView)
-        self.miscTab.setLayout(miscLayout)
-        self.tabWidget.addTab(self.miscTab, _("Miscellaneous"))
-        self.miscModel = available_fonts.miscModel
-        self.miscTreeView.setModel(self.miscModel)
+        create_music_fonts()
+        create_misc()
 
     def connectSignals(self):
-        available_fonts.loaded.connect(self.populate_widgets)
+        self.available_fonts.text_fonts().loaded.connect(self.populate_widgets)
         self.finished.connect(self.saveSettings)
         self.reloadButton.clicked.connect(self.reload)
         self.musicFontsInstallButton.clicked.connect(self.install_music_fonts)
@@ -171,9 +166,6 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.reloadButton.setText(_("&Reload"))
         self.logLabel.setText(_("LilyPond output of -dshow-available-options"))
         self.miscLabel.setText(_("Fontconfig data:"))
-        self.filterEdit.setPlaceholderText(
-            _("Filter results (type any part of the font family name. "
-            + "Regular Expressions supported.)"))
         self.musicFontRemoveButton.setText(_("Remove..."))
         self.musicFontRemoveButton.setToolTip(_("Remove selected music font"))
         self.musicFontsInstallButton.setText(_("Install..."))
@@ -195,7 +187,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         s.beginGroup('available-fonts-dialog')
         s.setValue('music-fonts-splitter-sizes',
             self.musicFontsSplitter.saveState())
-        s.setValue('col-width', self.fontTreeView.columnWidth(0))
+        s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
 
     def install_music_fonts(self):
         """'Install' music fonts from a directory (structure) by
@@ -207,9 +199,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         if not dlg.exec():
             return
 
+        installed = self.available_fonts.music_fonts()
         root_dir = dlg.selectedFiles()[0]
         from . import musicfonts
-        installed = available_fonts.installedMusicFonts
         repo = musicfonts.MusicFontRepo(root_dir)
         repo.flag_for_install(installed)
 
@@ -236,19 +228,16 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         """Load column widths for fontTreeView,
         factored out because it has to be done upon reload too."""
         s.beginGroup('available-fonts-dialog')
-        self.fontTreeView.setColumnWidth(0, int(s.value('col-width', 200)))
+        self.font_tree_tab.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
 
     def populate_widgets(self):
         """Populate widgets."""
-        self.fontCountLabel.setText(
-            _("{count} font families detected by {version}").format(
-                count=self.treeModel.rowCount(),
-                version=self.lilypond_info.prettyName()))
         self.load_font_tree_column_width(QSettings())
         self.tabWidget.setCurrentIndex(1)
-        self.filterEdit.setText(ShowFontsDialog.filter_re)
-        self.filterEdit.setFocus()
-        self.musicFontsModel = mfModel = available_fonts.installedMusicFonts.item_model()
+        self.font_tree_tab.display_count()
+        self.font_tree_tab.refresh_filter_edit()
+        self.font_tree_tab.filter_edit.setFocus()
+        self.musicFontsModel = mfModel = self.available_fonts.music_fonts().item_model()
         mfView = self.musicFontsView
         mfView.setModel(mfModel)
         mfView.selectionModel().selectionChanged.connect(
@@ -260,7 +249,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.tabWidget.setCurrentIndex(0)
         self.logWidget.clear()
         # We're connected to the 'loaded' signal
-        available_fonts.load_fonts(self.lilypond_info, self.logWidget)
+        self.available_fonts.text_fonts().load_fonts(self.logWidget)
 
     def slot_music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""
@@ -268,9 +257,3 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.musicFontRemoveButton.setEnabled(len(new.indexes()) > 0)
         print("Selected:", font_family)
         print("Would now create/display score example")
-
-    def update_filter(self):
-        """Filter font results"""
-        ShowFontsDialog.filter_re = re = self.filterEdit.text()
-        self.filter.setPattern(re)
-        self.treeModel.proxy.setFilterRegExp(self.filter)
