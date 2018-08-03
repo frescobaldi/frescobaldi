@@ -27,6 +27,7 @@ from PyQt5.QtCore import (
     Qt,
 )
 from PyQt5.QtWidgets import (
+    QAbstractItemView,
     QLabel,
     QTreeView,
     QVBoxLayout,
@@ -57,7 +58,8 @@ class TextFontsWidget(QWidget):
         self.fonts = available_fonts.text_fonts()
 
         self.status_label = QLabel(self)
-        self.tree_view = QTreeView(self)
+        self.tree_view = tv = QTreeView(self)
+        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.filter_edit = LineEdit(self)
 
         layout = QVBoxLayout(self)
@@ -103,8 +105,9 @@ class MiscFontsInfoWidget(QWidget):
     """Display miscellaneous info about Fontconfig context."""
     def __init__(self, available_fonts, parent=None):
         super(MiscFontsInfoWidget, self).__init__(parent)
-        self.tree_view = QTreeView(self)
-        self.tree_view.setHeaderHidden(True)
+        self.tree_view = tv = QTreeView(self)
+        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        tv.setHeaderHidden(True)
         self.status_label = QLabel(self)
         layout = QVBoxLayout(self)
         layout.addWidget(self.status_label)

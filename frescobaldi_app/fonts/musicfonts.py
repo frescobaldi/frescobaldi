@@ -63,6 +63,7 @@ class MusicFontsWidget(QWidget):
         self.button_remove = br = QPushButton(self)
         br.setEnabled(False)
         self.tree_view = tv = QTreeView(self)
+        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setSelectionMode(QAbstractItemView.MultiSelection)
         self.musicFontPreview = fp = QTextEdit(self)
         self.musicFontPreview.setHtml("Placeholder for score sample")
