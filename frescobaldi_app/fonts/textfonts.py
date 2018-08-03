@@ -96,7 +96,7 @@ class TextFontsWidget(QWidget):
         """Filter font results"""
         TextFontsWidget.filter_re = re = self.filter_edit.text()
         self.filter.setPattern(re)
-        self.tree_model().proxy().setFilterRegExp(self.filter)
+        self.fonts.model().proxy().setFilterRegExp(self.filter)
 
 
 class MiscFontsInfoWidget(QWidget):
