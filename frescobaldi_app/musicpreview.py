@@ -75,46 +75,24 @@ class MusicPreviewJob(job.Job):
         shutil.rmtree(self.directory, ignore_errors=True)
 
 
-class MusicPreviewWidget(QWidget):
+class AbstractPreviewWidget(QWidget):
     def __init__(self, parent=None):
-        super(MusicPreviewWidget, self).__init__(parent)
+        super(AbstractPreviewWidget, self).__init__(parent)
         self._lastbuildtime = 10.0
         self._running = None
         self._current = None
 
-        self._chooserLabel = QLabel()
-        self._chooser = QComboBox(self, activated=self.selectDocument)
         self._log = log.Log()
         self._view = popplerview.View()
-        self._progress = widgets.progressbar.TimedProgressBar()
-
         self._stack = QStackedLayout()
-        self._top = QWidget()
+        self._stack.addWidget(self._log)
+        self._stack.addWidget(self._view)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        layout.addWidget(self._top)
-        layout.addLayout(self._stack)
-        layout.addWidget(self._progress)
 
-        top = QHBoxLayout()
-        top.setContentsMargins(0, 0, 0, 0)
-        top.setSpacing(2)
-        self._top.setLayout(top)
-        top.addWidget(self._chooserLabel)
-        top.addWidget(self._chooser)
-        top.addStretch(1)
-
-        self._stack.addWidget(self._log)
-        self._stack.addWidget(self._view)
-
-        self._top.hide()
         app.aboutToQuit.connect(self.cleanup)
-        app.translateUI(self)
-
-    def translateUI(self):
-        self._chooserLabel.setText(_("Document:"))
 
     def preview(self, text, title=None):
         """Runs LilyPond on the given text and shows the resulting PDF."""
@@ -123,10 +101,8 @@ class MusicPreviewWidget(QWidget):
         self._log.clear()
         self._log.connectJob(j)
         j.start()
-        self._progress.start(self._lastbuildtime)
 
     def _done(self, success):
-        self._progress.stop(False)
         pdfs = self._running.resultfiles()
         self.setDocuments(pdfs)
         if not pdfs:
@@ -175,6 +151,48 @@ class MusicPreviewWidget(QWidget):
             import popplerprint
             popplerprint.printDocument(doc, self)
 
+class SimpleMusicPreviewWidget(AbstractPreviewWidget):
+    pass
+
+class MusicPreviewWidget(AbstractPreviewWidget):
+    def __init__(self, parent=None):
+        super(MusicPreviewWidget, self).__init__(parent)
+        self._chooserLabel = QLabel()
+        self._chooser = QComboBox(self, activated=self.selectDocument)
+        self._progress = widgets.progressbar.TimedProgressBar()
+        self._top = QWidget()
+
+        layout = self.layout()
+        layout.addWidget(self._top)
+        layout.addLayout(self._stack)
+        layout.addWidget(self._progress)
+
+        self._top.hide()
+
+        top = QHBoxLayout()
+        top.setContentsMargins(0, 0, 0, 0)
+        top.setSpacing(2)
+        self._top.setLayout(top)
+        top.addWidget(self._chooserLabel)
+        top.addWidget(self._chooser)
+        top.addStretch(1)
+
+        app.translateUI(self)
+
+
+    def translateUI(self):
+        self._chooserLabel.setText(_("Document:"))
+
+
+    def _done(self, success):
+        self._progress.stop(False)
+        super(MusicPreviewWidget, self)._done(success)
+
+    def preview(self, text, title=None):
+        """Runs LilyPond on the given text and shows the resulting PDF."""
+        super(MusicPreviewWidget, self).preview(text, title)
+        self._progress.start(self._lastbuildtime)
+
 
 class MusicPreviewDialog(QDialog):
     def __init__(self, parent=None):
@@ -208,5 +226,3 @@ class MusicPreviewDialog(QDialog):
     def setEnablePrintButton(self, enable):
         """Enables or disables the print button."""
         self._printButton.setVisible(enable)
-
-

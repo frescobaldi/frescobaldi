@@ -50,7 +50,11 @@ from PyQt5.QtWidgets import(
 )
 
 import app
+import musicpreview
 
+
+class FontPreviewWidget(musicpreview.SimpleMusicPreviewWidget):
+    pass
 
 class MusicFontsWidget(QWidget):
     """Display list of installed music fonts,
@@ -65,12 +69,14 @@ class MusicFontsWidget(QWidget):
         self.tree_view = tv = QTreeView(self)
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setSelectionMode(QAbstractItemView.MultiSelection)
-        self.musicFontPreview = fp = QTextEdit(self)
-        self.musicFontPreview.setHtml("Placeholder for score sample")
+        self.preview = pv = FontPreviewWidget(self)
+        pv.preview("#(ly:set-option 'crop #t)\\paper { tagline = ##f }{ c' }")
+#        self.musicFontPreview = fp = QTextEdit(self)
+#        self.musicFontPreview.setHtml("Placeholder for score sample")
         self.splitter = spl = QSplitter(self)
         spl.setOrientation(Qt.Vertical)
         spl.addWidget(tv)
-        spl.addWidget(fp)
+        spl.addWidget(pv)
 
         button_layout = bl = QHBoxLayout()
         bl.addStretch()
