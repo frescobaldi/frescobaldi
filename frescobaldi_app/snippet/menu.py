@@ -46,8 +46,7 @@ import panelmanager
 class SnippetMenuBase(QMenu):
     def __init__(self, parent=None):
         super(SnippetMenuBase, self).__init__(parent)
-        self.aboutToShow.connect(self.populate)
-        self.aboutToHide.connect(self.clearMenu, Qt.QueuedConnection)
+        self.aboutToShow.connect(self.repopulate)
         self.triggered.connect(self.slotTriggered)
         app.translateUI(self)
 
@@ -58,9 +57,12 @@ class SnippetMenuBase(QMenu):
         """Returns the snippets tool."""
         return panelmanager.manager(self.mainwindow()).snippettool
 
-    def populate(self):
-        """Populates the menu with snippet actions."""
-        self.clearMenu() # on some systems aboutToHide does not fire...
+    def repopulate(self):
+        """Clears the menu and populates it with snippet actions."""
+        # PyQt5's aboutToHide is buggy on macOS and prevents actions
+        # from being triggered; instead of clearing the menu in aboutToHide
+        # we do it just before repopulating it
+        self.clearMenu()
         from . import model, snippets, actions
         last = self.insertBeforeAction()
         shortcuts = self.tool().snippetActions
