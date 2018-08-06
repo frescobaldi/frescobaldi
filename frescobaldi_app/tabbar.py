@@ -95,8 +95,12 @@ class TabBar(QTabBar):
 
     def setDocumentStatus(self, doc):
         if doc in self.docs:
+            print("setDocumentStatus")
             index = self.docs.index(doc)
+            print("Document name before replacing:", doc.documentName())
             text = doc.documentName().replace('&', '&&')
+            print("Document name after replacing:", text)
+            print("Current/previouso tabText:", self.tabText(index))
             if self.tabText(index) != text:
                 self.setTabText(index, text)
             tooltip = util.path(doc.url())
