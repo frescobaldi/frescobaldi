@@ -17,22 +17,22 @@
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # See http://www.gnu.org/licenses/ for more information.
 
-"""
-Handle everything around (available) text fonts.
-NOTE: "available" refers to the fonts that are available to LilyPond,
-which may be different than for arbitrary programs and can canonically
-be determined by running `lilypond -dshow-available-fonts`.
-"""
-
-import re
 import os
+import re
 
 from PyQt5.QtCore import (
     QObject,
+    QRegExp,
     QSortFilterProxyModel,
     Qt,
 )
-from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import (
+    QAbstractItemView,
+    QLabel,
+    QTreeView,
+    QVBoxLayout,
+    QWidget,
+)
 from PyQt5.QtGui import(
     QFont,
     QFontDatabase,
@@ -40,59 +40,85 @@ from PyQt5.QtGui import(
     QStandardItemModel,
 )
 
-import actioncollection
-import actioncollectionmanager
-import plugin
+import app
 import job
 import codecs
 import signals
-
-def textfonts(mainwindow):
-    return TextFonts.instance(mainwindow)
+from widgets.lineedit import LineEdit
 
 
-class TextFonts(plugin.MainWindowPlugin):
+class TextFontsWidget(QWidget):
+    """Display installed text fonts available for a given LilyPond version."""
+    # Store the filter expression over the object's lifetime
+    filter_re = ''
 
-    def __init__(self, mainwindow):
-        ac = self.actionCollection = Actions()
-        actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.textfonts_show_available_fonts.triggered.connect(
-            self.showAvailableFonts)
-        ac.textfonts_set_document_fonts.triggered.connect(
-            self.setDocumentFonts)
+    def __init__(self, available_fonts, parent=None):
+        super(TextFontsWidget, self).__init__(parent)
+        self.lilypond_info = available_fonts.lilypond_info
+        self.fonts = available_fonts.text_fonts()
 
-    def setDocumentFonts(self):
-        """Menu Action Set Document Fonts."""
-        from . import documentfontsdialog
-        dlg = documentfontsdialog.DocumentFontsDialog(self.mainwindow())
-        if dlg.exec_():
-            text = dlg.document_font_code()
-            # NOTE: How to translate this to the dialog context?
-            # if state[-1] != "paper":
-            text = "\\paper {{\n{0}}}\n".format(text)
-            cursor = self.mainwindow().currentView().textCursor()
-            cursor.insertText(text)
+        self.status_label = QLabel(self)
+        self.tree_view = tv = QTreeView(self)
+        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.filter_edit = LineEdit(self)
 
-    def showAvailableFonts(self):
-        """Menu action Show Available Fonts."""
-        from engrave import command
-        info = command.info(self.mainwindow().currentDocument())
-        from . import availablefontsdialog
-        availablefontsdialog.show_available_fonts(self.mainwindow(), info)
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.status_label)
+        layout.addWidget(self.tree_view)
+        layout.addWidget(self.filter_edit)
+        self.setLayout(layout)
 
+        self.tree_view.setModel(self.fonts.model().proxy())
+        self.filter_edit.textChanged.connect(self.update_filter)
+        self.filter = QRegExp('', Qt.CaseInsensitive)
+        app.translateUI(self)
 
-class Actions(actioncollection.ActionCollection):
-    name = "textfonts"
-
-    def createActions(self, parent=None):
-        self.textfonts_show_available_fonts = QAction(parent)
-        self.textfonts_set_document_fonts = QAction(parent)
 
     def translateUI(self):
-        self.textfonts_show_available_fonts.setText(
-            _("Show Available &Fonts..."))
-        self.textfonts_set_document_fonts.setText(
-            _("Set &Document Fonts..."))
+        self.filter_edit.setPlaceholderText(
+            _("Filter results (type any part of the font family name. "
+            + "Regular Expressions supported.)"))
+
+    def display_count(self):
+        self.status_label.setText(
+            _("{count} font families detected by {version}").format(
+                count=self.tree_view.model().rowCount(),
+                version=self.lilypond_info.prettyName()))
+
+    def display_waiting(self):
+        self.status_label.setText(_("Running LilyPond to list fonts ..."))
+
+    def refresh_filter_edit(self):
+        self.filter_edit.setText(TextFontsWidget.filter_re)
+
+    def tree_model(self):
+        return self.tree_view.model()
+
+    def update_filter(self):
+        """Filter font results"""
+        TextFontsWidget.filter_re = re = self.filter_edit.text()
+        self.filter.setPattern(re)
+        self.fonts.model().proxy().setFilterRegExp(self.filter)
+
+
+class MiscFontsInfoWidget(QWidget):
+    """Display miscellaneous info about Fontconfig context."""
+    def __init__(self, available_fonts, parent=None):
+        super(MiscFontsInfoWidget, self).__init__(parent)
+        self.tree_view = tv = QTreeView(self)
+        tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        tv.setHeaderHidden(True)
+        self.status_label = QLabel(self)
+        layout = QVBoxLayout(self)
+        layout.addWidget(self.status_label)
+        layout.addWidget(self.tree_view)
+        self.setLayout(layout)
+        self.tree_view.setModel(available_fonts.text_fonts().misc_model())
+
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.status_label.setText(_("Fontconfig data:"))
 
 
 class FontFilterProxyModel(QSortFilterProxyModel):
@@ -112,8 +138,8 @@ class FontTreeModel(QStandardItemModel):
     Uses a custom filter mechanism to never filter child elements."""
     def __init__(self, parent=None):
         super(FontTreeModel, self).__init__(parent)
-        self.proxy = FontFilterProxyModel(self)
-        self.proxy.setSourceModel(self)
+        self._proxy = FontFilterProxyModel(self)
+        self._proxy.setSourceModel(self)
 
     def populate(self, families):
         """Populate the data model to be displayed in the results"""
@@ -168,6 +194,9 @@ class FontTreeModel(QStandardItemModel):
                 for f in sub_families:
                     family_item.appendRow(f)
 
+    def proxy(self):
+        return self._proxy
+
     def reset(self):
         self.clear()
         self.setColumnCount(2)
@@ -186,6 +215,7 @@ class MiscTreeModel(QStandardItemModel):
 
     def populate(self, config_files, config_dirs, font_dirs):
         """Sort entries and construct the overall model."""
+        self.reset()
         for file in sorted(config_files, key=lambda s: s.lower()):
             self.config_files.appendRow(QStandardItem(file))
         for config_dir in sorted(config_dirs, key=lambda s: s.lower()):
@@ -199,12 +229,13 @@ class MiscTreeModel(QStandardItemModel):
         misc_root.appendRow(self.font_dirs)
 
     def reset(self):
+        self.clear()
         self.config_files = QStandardItem(_("Configuration Files"))
         self.config_dirs = QStandardItem(_("Configuration Directories"))
         self.font_dirs = QStandardItem(_("Searched Font Directories"))
 
 
-class Fonts(QObject):
+class TextFonts(QObject):
     """Provide information about available text fonts. These are exactly the
     fonts that can be seen by LilyPond.
     This is only produced upon request but then stored permanently during the
@@ -215,38 +246,38 @@ class Fonts(QObject):
     results have to connect to the 'loaded' signal which is emitted after
     LilyPond has completed and the results been parsed.
 
-    A Fonts() object is immediately available as textfonts.available_fonts, and
+    A Fonts() object is immediately available as fonts.available_fonts, and
     its is_loaded member can be requested to test if fonts have already been
     loaded.
     """
 
     loaded = signals.Signal()
 
-    def __init__(self):
-        super(Fonts, self).__init__()
-        self.treeModel = FontTreeModel(self)
-        self.miscModel = MiscTreeModel(self)
-        self._reset()
+    def __init__(self, lilypond_info):
+        super(TextFonts, self).__init__()
+        self.lilypond_info = lilypond_info
+        self._tree_model = FontTreeModel(self)
+        self._misc_model = MiscTreeModel(self)
+        self.reset()
         self.job = None
 
-    def _reset(self):
+    def reset(self):
         self._log = []
-        self.treeModel.reset()
-        self.miscModel.reset()
+        self._tree_model.reset()
+        self._misc_model.reset()
         # needs to be reset for the LilyPond-dependent fonts
         self.font_db = QFontDatabase()
 
-        self.is_loaded = False
+        self._is_loaded = False
 
     def log(self):
         return self._log
 
-
-    def acknowledge_lily_fonts(self, info):
+    def acknowledge_lily_fonts(self):
         """Add the OpenType fonts in LilyPond's font directory
         to Qt's font database. This should be relevant (untested)
         when the fonts are not additionally installed as system fonts."""
-        font_dir = os.path.join(info.datadir(), 'fonts', 'otf')
+        font_dir = os.path.join(self.lilypond_info.datadir(), 'fonts', 'otf')
         for lily_font in os.listdir(font_dir):
             print("Add font file", lily_font)
             self.font_db.addApplicationFont(
@@ -340,7 +371,10 @@ class Fonts(QObject):
             for l in lines:
                 self._log.append(l)
 
-    def load_fonts(self, info, log_widget=None):
+    def is_loaded(self):
+        return self._is_loaded
+
+    def load_fonts(self, log_widget=None):
         """Run LilyPond to retrieve a list of available fonts.
         Afterwards process_results() will parse the output and build
         info structures to be used later.
@@ -348,12 +382,17 @@ class Fonts(QObject):
         be connected to the Job to provide realtime feedback on the process.
         Any caller should connect to the 'loaded' signal because this
         is an asynchronous task that takes long to complete."""
-        self._reset()
-        self.acknowledge_lily_fonts(info)
-        self.run_lilypond(info)
+        self.reset()
+        self.acknowledge_lily_fonts()
+        self.run_lilypond()
         if log_widget:
             log_widget.connectJob(self.job)
-        self.job.done.connect(self.process_results)
+
+    def misc_model(self):
+        return self._misc_model
+
+    def model(self):
+        return self._tree_model
 
     def parse_entries(self):
         """Parse the LilyPond log and push entries to the various
@@ -392,24 +431,21 @@ class Fonts(QObject):
         self.flatten_log()
         families, config_files, config_dirs, font_dirs = self.parse_entries()
 
-        self.treeModel.populate(families)
-        self.miscModel.populate(config_files, config_dirs, font_dirs)
+        self._tree_model.populate(families)
+        self._misc_model.populate(config_files, config_dirs, font_dirs)
 
-        self.is_loaded = True
+        self._is_loaded = True
         self.job = None
         self.loaded.emit()
 
-
-    def run_lilypond(self, info):
+    def run_lilypond(self):
         """Run lilypond from info with the args list, and a job title."""
+        info = self.lilypond_info
         j = self.job = job.Job()
         j.decode_errors = 'replace'
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
         j.command = ([info.abscommand() or info.command]
             + ['-dshow-available-fonts'])
         j.set_title(_("Available Fonts"))
+        j.done.connect(self.process_results)
         j.start()
-
-
-# This Fonts() object is stored on application level, not per MainWindow
-available_fonts = Fonts()
