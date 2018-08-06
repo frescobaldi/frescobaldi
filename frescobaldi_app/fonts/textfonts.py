@@ -333,6 +333,11 @@ class TextFonts(QObject):
                 family[sub_family] = []
             qt_styles = self.font_db.styles(sub_family)
             lily_styles = input[1][6:].split(',')
+            if "Schola" in family_name:
+                print(family_name, sub_family)
+                print("Qt styles:", qt_styles)
+                print("Lily styles:", lily_styles)
+                print()
             match = ''
             if not qt_styles:
                 # In some cases Qt does *not* report available styles.
