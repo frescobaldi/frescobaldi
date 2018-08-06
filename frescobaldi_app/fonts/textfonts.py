@@ -161,6 +161,13 @@ class FontTreeModel(QStandardItemModel):
         root = self.invisibleRootItem()
         for name in family_names:
             family = families[name]
+            ###
+            if name == "TeX Gyre Schola":
+                print("Determined values:")
+                print(family)
+                print("Styles according to Qt database:")
+                print(self.parent().font_db.styles(name))
+            ###
             sub_families = []
             for sub_family_name in sorted(family.keys()):
                 sub_family = family[sub_family_name]
@@ -311,10 +318,6 @@ class TextFonts(QObject):
 
         if not family_name in families.keys():
             families[family_name] = {}
-        ###
-        if 'Schola' in family_name:
-            print('{}: {}'.format(family_name, self.font_db.styles(family_name)))
-        ###
         family = families[family_name]
         input = input.strip().split(':')
         # This is a safeguard against improper entries
