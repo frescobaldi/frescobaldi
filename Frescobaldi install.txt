@@ -1,0 +1,73 @@
+
+
+
+You will need to install the Visual Studio 2015 Community Edition in oder to 
+compile sip4.19 and PyQt5.8
+
+The following instruction shows the installation on my machine, so you might need to adapt some
+directory pathes to your needs.
+
+Basically the directories used here are:
+
+c:\python35  					=> python installation
+c:\Qt\Qt5.8.0					=> Qt installation
+C:\Users\Jones\Projects\Frescobaldi 		=> Frescobaldi sources
+
+
+
+1. Run Python-3.5.2.exe 
+	- use "custom" 
+	- install into c:\Python35
+	- Let installer add this directory to PATH
+
+2. Run qt-opensource-windows-x86-msvc2015-5.8.0
+	- install into C:\Qt\Qt5.8.0
+
+3. Copy Qt5.8 WebKit
+	- Copy Content of  qtwebkit-tp5-qt58-msvc2015-x86.zip 
+	  into C:\Qt\Qt5.8.0\5.8\msvc2015
+
+4. Add C:\Qt\Qt5.8.0\5.8\msvc2015\bin; to PATH
+
+5. Open Command Window
+	- Update pip with:
+	  python -m pip install --upgrade pip 
+	- Install python-ly with:
+	  pip install python-ly
+	- Install sip with:
+          pip install sip
+	- Install pygame
+          pip install pygame-1.9.3-cp35-cp35m-win32.whl
+	- Install PyQt5
+	  pip install PyQt5-5.8.1.1-5.8.0-cp35.cp36.cp37-none-win32.whl
+
+
+6. Compile Sip and install:
+	- Open the VisualStudion Developer Command window. You need this environment 
+	  in order to use the VisualStuio build tools (nmake). You'll find a link in the 
+	  start menu under: 
+          Start -> VisualStudio 1015 -> VisualStudio Tools -> Developer Command Prompt for VS2015
+	- Uncompress sip-4.19.2.zip and navigate with command window into this folder
+	- python configure.py
+	- nmake
+	- nmake install
+
+7. Compile PyQt5.8 and install it
+	- Uncompress PyQt5_gpl-5.8.1 and navigate with the VisualStudion Developer Command Window into it
+	- Add directory of qmake to yout PATH:
+	  PATH C:\Qt\Qt5.8.0\5.8\msvc2015\bin;%PATH%
+	- python configure.py --disable QtNfc
+	- nmake
+	- nmake install
+
+8. Install python-poppler
+	I've build a python-poppler.dll which needs to be installed into the python folder. To automate this I've generated an exe file which will do this. 
+	- Execute python-poppler-qt5-0.24.2.win32-py3.5.exe. This should install the python-poppler package to python
+
+9. Now you should be able to run frescobaldi from git
+
+10. Important concerning: DLL load failed when importing PyQt5
+
+If you are using virtual environments, make sure to copy the python3.dll into the  Scripts folder of the Environment next to the python3x.dll)
+(e.g. C:\Users\joerg.hoffmann\Envs\frescobaldi\Scripts)
+
