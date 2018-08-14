@@ -39,6 +39,13 @@ def info(document):
     return lilypondinfo.preferred()
 
 
+def paths(includepath):
+    """Ensure paths have trailing slashes for Windows compatibility."""
+    result = []
+    for path in includepath:
+        result.append('-I' + path.rstrip('/') + '/')
+
+    
 def defaultJob(document, args=None):
     """Return a default job for the document.
 
@@ -80,7 +87,7 @@ def defaultJob(document, args=None):
         command.append('--pdf')
 
 
-    command.extend('-I' + path for path in includepath)
+    command.extend(paths(includepath))
     j.directory = os.path.dirname(filename)
     command.append(filename)
     j.command = command
