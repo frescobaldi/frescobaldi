@@ -44,8 +44,9 @@ def paths(includepath):
     result = []
     for path in includepath:
         result.append('-I' + path.rstrip('/') + '/')
+    return result
 
-    
+
 def defaultJob(document, args=None):
     """Return a default job for the document.
 
