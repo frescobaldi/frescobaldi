@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2018-08-23 15:52+0200\n"
-"PO-Revision-Date: 2018-08-26 08:07+0200\n"
+"PO-Revision-Date: 2018-08-28 16:51+0200\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -474,7 +474,7 @@ msgstr "Togli il &testo (dalla musica)"
 #: ../documentactions.py:260
 #| msgid "Direction:"
 msgid "Force Directions &Up"
-msgstr "Forza le direzioni &su"
+msgstr "Forza le direzioni verso l'&alto"
 
 #: ../documentactions.py:261
 msgid "Make Directions &Neutral"
@@ -482,7 +482,7 @@ msgstr "Rendi le direzioni &neutrali"
 
 #: ../documentactions.py:262
 msgid "Force Directions &Down"
-msgstr "Forza le direzioni &giù"
+msgstr "Forza le direzioni verso il &basso"
 
 #: ../documentcontextmenu.py:68 ../mainwindow.py:1289
 #: ../sessions/manager.py:129
@@ -1227,7 +1227,7 @@ msgstr "&Visualizzatori"
 #| msgctxt "submenu title"
 #| msgid "&Folding"
 msgid "&Coding"
-msgstr "&Codice "
+msgstr "&Codice"
 
 #: ../panelmanager.py:60
 msgid "&Structure"
@@ -2878,7 +2878,7 @@ msgstr "Vai avanti"
 #: ../po/messages.py:72
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
-msgstr "Vai nella cartella genitore"
+msgstr "Vai nella cartella superiore"
 
 #: ../po/messages.py:73
 msgctxt "QFileDialog"
@@ -2903,7 +2903,7 @@ msgstr "&Apri"
 #: ../po/messages.py:77
 msgctxt "QFileDialog"
 msgid "Parent Directory"
-msgstr "Cartella genitore"
+msgstr "Cartella superiore"
 
 #: ../po/messages.py:78
 msgctxt "QFileDialog"
@@ -4423,7 +4423,7 @@ msgstr "La cartella predefinita dei documenti LilyPond (facoltativo)."
 
 #: ../preferences/general.py:260
 msgid "Use custom default file name:"
-msgstr "Usa il nome file personalizzato predefinito:"
+msgstr "Usa un nome di file predefinito personalizzato:"
 
 #: ../preferences/general.py:262
 #, python-brace-format
@@ -11616,7 +11616,7 @@ msgid ""
 "If there is an ambiguous partial match it is automatically added and "
 "selected:"
 msgstr ""
-"Una corrispondenza parziale e ambigua viene aggiunta automaticamente e "
+"Una corrispondenza parziale ambigua viene aggiunta automaticamente e "
 "selezionata:"
 
 #: ../userguide/auto-completion.md:15
