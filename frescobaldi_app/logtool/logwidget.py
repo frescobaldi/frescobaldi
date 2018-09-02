@@ -36,8 +36,8 @@ from PyQt5.QtWidgets import QTextEdit
 import app
 import log
 import job
-import jobmanager
-import jobattributes
+from job import manager as jobmanager
+from job import attributes as jobattributes
 import qutil
 
 from . import errors

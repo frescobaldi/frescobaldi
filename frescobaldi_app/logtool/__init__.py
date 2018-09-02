@@ -56,7 +56,7 @@ class LogTool(panel.Panel):
 
     def slotJobStarted(self, doc, job):
         """Called whenever job starts, decides whether to follow it and show the log."""
-        import jobattributes
+        from job import attributes as jobattributes
         jattrs = jobattributes.get(job)
         if doc == self.mainwindow().currentDocument() or self.mainwindow() == jattrs.mainwindow:
             self.widget().switchDocument(doc)
@@ -64,7 +64,7 @@ class LogTool(panel.Panel):
                 self.show()
 
     def slotJobFinished(self, document, job, success):
-        import jobattributes
+        from job import attributes as jobattributes
         if (not success and not job.is_aborted()
                 and not jobattributes.get(job).hidden
                 and document == self.mainwindow().currentDocument()):

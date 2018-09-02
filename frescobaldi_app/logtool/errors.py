@@ -33,8 +33,8 @@ import app
 import bookmarks
 import plugin
 import job
-import jobmanager
-import jobattributes
+from job import manager as jobmanager
+from job import attributes as jobattributes
 import scratchdir
 import util
 

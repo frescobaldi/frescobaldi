@@ -24,8 +24,8 @@ Provides an icon for a Document.
 
 import plugin
 import signals
-import jobmanager
-import jobattributes
+from job import manager as jobmanager
+from job import attributes as jobattributes
 import engrave
 import icons
 

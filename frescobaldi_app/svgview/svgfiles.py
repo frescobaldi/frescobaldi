@@ -29,7 +29,7 @@ from PyQt5.QtCore import Qt, QUrl
 import icons
 import plugin
 import signals
-import jobmanager
+from job import manager as jobmanager
 import resultfiles
 import listmodel
 

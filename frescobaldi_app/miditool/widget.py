@@ -228,7 +228,7 @@ class Widget(QWidget):
         import engrave
         if document not in (mainwindow.currentDocument(), engrave.engraver(mainwindow).document()):
             return
-        import jobattributes
+        from job import attributes as jobattributes
         if job and jobattributes.get(job).mainwindow != mainwindow:
             return
         self.loadResults(document)

@@ -39,8 +39,8 @@ from PyQt5.QtCore import QSettings, Qt, QTimer
 import app
 import documentinfo
 import resultfiles
-import jobattributes
-import jobmanager
+from job import attributes as jobattributes
+from job import manager as jobmanager
 import plugin
 import ly.lex
 
