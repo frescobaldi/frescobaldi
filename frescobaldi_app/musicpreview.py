@@ -65,6 +65,8 @@ class MusicPreviewJob(job.Job):
 
         lilypond = info.abscommand() or info.command
         self.command = [lilypond, '-dno-point-and-click', '--pdf', self.document]
+        self.environment['LD_LIBRARY_PATH'] = info.libdir()
+
         if title:
             self.set_title(title)
 
@@ -208,5 +210,3 @@ class MusicPreviewDialog(QDialog):
     def setEnablePrintButton(self, enable):
         """Enables or disables the print button."""
         self._printButton.setVisible(enable)
-
-
