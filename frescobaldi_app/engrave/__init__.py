@@ -31,8 +31,8 @@ from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
-import jobmanager
-import jobattributes
+from job import manager as jobmanager
+from job import attributes as jobattributes
 import plugin
 import icons
 import signals

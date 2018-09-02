@@ -49,7 +49,7 @@ import qutil
 import panel
 import listmodel
 import gadgets.drag
-import jobattributes
+from job import attributes as jobattributes
 
 from . import documents
 

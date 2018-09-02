@@ -34,8 +34,8 @@ import documentinfo
 import userguide
 import icons
 import job
-import jobmanager
-import jobattributes
+from job import manager as jobmanager
+from job import attributes as jobattributes
 import panelmanager
 import lilychooser
 import listmodel

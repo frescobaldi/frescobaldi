@@ -28,8 +28,8 @@ from PyQt5.QtWidgets import QProgressBar
 
 import app
 import plugin
-import jobmanager
-import jobattributes
+from job import manager as jobmanager
+from job import attributes as jobattributes
 import metainfo
 import widgets.progressbar
 

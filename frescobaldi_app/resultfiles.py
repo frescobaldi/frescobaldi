@@ -28,7 +28,7 @@ import os
 
 import app
 import documentinfo
-import jobmanager
+from job import manager as jobmanager
 import plugin
 import util
 
