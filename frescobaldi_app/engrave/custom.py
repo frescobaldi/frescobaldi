@@ -36,7 +36,7 @@ import job
 from job import (
     manager as jobmanager,
     attributes as jobattributes,
-    lilypondjob
+    lilypond as lilypondjob
 )
 import panelmanager
 import lilychooser
@@ -152,7 +152,7 @@ class Dialog(QDialog):
     def setDocument(self, doc):
         job = jobmanager.job(doc)
         if job:
-            self.lilyChooser.setLilyPondInfo(job.lilypondinfo)
+            self.lilyChooser.setLilyPondInfo(job.lilypond_info)
         if job and job.is_running() and not jobattributes.get(job).hidden:
             self._document = doc
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
@@ -185,7 +185,7 @@ class Dialog(QDialog):
 
         # Instantiate Job
         j = job_class(document, args)
-        j.lilypondinfo = self.lilyChooser.lilyPondInfo()
+        j.lilypond_info = self.lilyChooser.lilyPondInfo()
 
         # Configure extended command line options
         d_options['delete-intermediate-files'] = True if self.deleteCheck.isChecked() else False
@@ -195,23 +195,23 @@ class Dialog(QDialog):
 
         # Assign extended command line options
         for k in d_options:
-            j.d_options[k] = d_options[k]
+            j.set_d_option(k, d_options[k])
 
         # Determine options for the output target/backend
         d = {
-            'version': j.lilypondinfo.version,
+            'version': j.lilypond_info.version,
             'resolution': self.resolutionCombo.currentText(),
             'antialias': self.antialiasSpin.value(),
         }
-        j.backend_args.extend(f.options(d))
+        j.backend_args().extend(f.options(d))
 
         # Parse additional/custom tokens from the text edit
         for t in self.commandLine.toPlainText().split():
             if t.startswith('-d'):
-                k, v = self.parse_d_option(t)
-                j.d_options[k] = v
+                k, v = lilypondjob.parse_d_option(t)
+                j.set_d_option(k, v)
             else:
-                j.additional_args.append(t)
+                j.add_additional_arg(t)
 
         # Set environment variables for the job
         if self.englishCheck.isChecked():
@@ -221,20 +221,9 @@ class Dialog(QDialog):
             del j.environment['LANG']
             del j.environment['LC_ALL']
         j.set_title("{0} {1} [{2}]".format(
-            os.path.basename(j.lilypondinfo.command),
-                j.lilypondinfo.versionString(), document.documentName()))
+            os.path.basename(j.lilypond_info.command),
+                j.lilypond_info.versionString(), document.documentName()))
         return j
-
-    def parse_d_option(self, token):
-        """Parse a -d option into its bare name and a Boolean value.
-        '-dno-point-and-click' will be parsed into 'point-and-click' and False
-        """
-        token = token[2:]
-        value = True
-        if token.startswith('no-'):
-            token = token[3:]
-            value = False
-        return token, value
 
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Return and ev.modifiers() == Qt.ControlModifier:

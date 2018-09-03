@@ -18,8 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A Job runs LilyPond (or another process) and captures the output
-to get it later or to have a log follow it.
+The Job class and its descendants manage external processes
+and capture the output to get it later or to have a log follow it.
 """
 
 
@@ -76,6 +76,9 @@ class Job(object):
     to take special care for newlines, esp when a status message is displayed.
     Status messages normally have no newlines, so you must add them if needed,
     while output coming from the process may continue in the same line.
+
+    Jobs that run LilyPond will use objects of job.lilypond.Job or derived
+    special classes.
 
     """
     output = signals.Signal()

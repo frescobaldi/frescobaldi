@@ -25,7 +25,7 @@ Run LilyPond to get various types of output.
 from PyQt5.QtCore import QSize, Qt
 
 import app
-from job import lilypondjob
+from job import lilypond as lilypondjob
 import log
 import qutil
 import widgets.dialog

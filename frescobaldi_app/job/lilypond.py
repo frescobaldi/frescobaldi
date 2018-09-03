@@ -32,7 +32,7 @@ from . import Job
 import lilypondinfo
 
 
-def lilypondInfo(document):
+def info(document):
     """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
     version = documentinfo.docinfo(document).version()
     if version and QSettings().value("lilypond_settings/autoversion", False, bool):
@@ -40,77 +40,118 @@ def lilypondInfo(document):
     return lilypondinfo.preferred()
 
 
+def parse_d_option(token):
+    """Parse a -d option into its bare name and a Boolean value. For example
+    '-dno-point-and-click' will be parsed into 'point-and-click' and False
+    """
+    token = token[2:]
+    value = True
+    if token.startswith('no-'):
+        token = token[3:]
+        value = False
+    return token, value
+
+
+def compose_d_options(d_options, ordered=False):
+    """Compose an (un)ordered list of -d options in their actual
+    command line syntax."""
+    result = []
+    keys = sorted(d_options.keys()) if ordered else d_options.keys()
+    for key in keys:
+        result.append('-d{}{}'.format(
+            '' if d_options[key] else 'no-', key))
+    return result
+
+
 class LilyPondJob(Job):
     """Manages a LilyPond process.
 
-    This class performs basic configuration that is required
-    for any *LilyPond* job as compared to a generic job.
+    In addition to the generic functionality of the job.Job class
+    this class performs basic LilyPond-related configuration.
 
-    Options are set to default values based on Preferences,
-    if a document is passed, the respective values are set too.
+    The job always works on a *LilyPond* document, which is passed to
+    LilyPond as the last command line argument. This is different from
+    the way the generic Job class works.
+
+    LilyPond Preferences are used as default values but can be overwritten
+    before calling start().
+
+    Code using the LilyPondJob class or its descendants doesn't explicitly
+    deal with the 'command' list. Instead properties are set and options
+    added from which the command line is implicitly composed in
+    configure_command().
 
     """
 
     def __init__(self, document, args=None):
         super(LilyPondJob, self).__init__()
         self.document = document
-        self.backend_args = []
-        self.additional_args = args if args else []
+        self.lilypond_info = info(document)
+        self._d_options = {}
+        self._additional_args = args if args else []
+        self._backend_args = []
         self.filename, self.includepath = (
             documentinfo.info(document).jobinfo(True) if document
             else ('', [])
         )
-        self.lilypondinfo = lilypondInfo(document)
-        self.environment['LD_LIBRARY_PATH'] = self.lilypondinfo.libdir()
-        self.command = [self.lilypondinfo.abscommand() or self.lilypondinfo.command]
+        self.directory = os.path.dirname(self.filename)
+        self.environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
         self.decode_errors = 'replace'  # codecs error handling
-        self.d_options = {}
 
         # Set default values from Preferences
         s = QSettings()
         s.beginGroup("lilypond_settings")
-        self.d_options['delete-intermediate-files'] = s.value(
-            "delete_intermediate_files", True, bool)
+        self.set_d_option('delete-intermediate-files',
+            s.value("delete_intermediate_files", True, bool))
         self.default_output_target = s.value(
             "default_output_target", "pdf", str)
-
         self.embed_source_code = s.value("embed_source_code", False, bool)
-
         if s.value("no_translation", False, bool):
             self.environment['LANG'] = 'C'
             self.environment['LC_ALL'] = 'C'
         self.set_title("{0} {1} [{2}]".format(
-            os.path.basename(self.lilypondinfo.command),
-            self.lilypondinfo.versionString(), document.documentName()))
-        self.directory = os.path.dirname(self.filename)
+            os.path.basename(self.lilypond_info.command),
+            self.lilypond_info.versionString(), document.documentName()))
 
-    def configure_command(self):
-        """Compose the command line for a LilyPond job using all options."""
-        cmd = self.command
+    def add_additional_arg(self, arg):
+        """Append an additional command line argument if it is not
+        present already."""
+        if not arg in self._additional_args:
+            self._additional_args.append(arg)
 
-        for key in self.d_options:
-            cmd.append('-d{}{}'.format(
-                '' if self.d_options[key] else 'no-', key))
-        cmd.extend(self.additional_args)
-        cmd.extend(self.paths(self.includepath))
+    def additional_args(self):
+        """Additional (custom) arguments, will be inserted between
+        the -d options and the include paths. May for example stem
+        from the manual part of the Engrave Custom dialog."""
+        return self._additional_args
 
-        # Specify target/backend
-        if not self.backend_args:
+    def backend_args(self):
+        """Determine the target/backend type and produce appropriate args."""
+        result = []
+        if not self._backend_args:
             # no specific backend selected
             if self.default_output_target == "svg":
                 # engrave to SVG
-                self.backend_args.append('-dbackend=svg')
+                result.append('-dbackend=svg')
             else:
                 # engrave to PDF
-                if not self.additional_args:
+                if not self.additional_args():
                     # publish mode
                     if self.embed_source_code and self.lilypond_version >= (2, 19, 39):
-                        self.backend_args.append('-dembed-source-code')
-                self.backend_args.append('--pdf')
-        cmd.extend(self.backend_args)
+                        result.append('-dembed-source-code')
+                result.append('--pdf')
+        return result
 
-        # Input file
-        cmd.append(self.filename)
+    def configure_command(self):
+        """Compose the command line for a LilyPond job using all options.
+        Individual steps may be overridden in subclasses."""
+        cmd = [self.lilypond_info.abscommand() or self.lilypond_info.command]
+        cmd.extend(compose_d_options(self._d_options))
+        cmd.extend(self.additional_args())
+        cmd.extend(self.paths(self.includepath))
+        cmd.extend(self.backend_args())
+        cmd.append(self.input_file())
+        self.command = cmd
 
     def create_decoder(self, channel):
         """Return a decoder for the given channel (STDOUT/STDERR).
@@ -126,6 +167,14 @@ class LilyPondJob(Job):
         """
         return codecs.getdecoder('utf-8')
 
+    def d_option(self, key):
+        return self._d_options.get(key, None)
+
+    def input_file(self):
+        """File name of the job's document.
+        May be overridden for 'empty' jobs."""
+        return self.filename
+
     def paths(self, includepath):
         """Ensure paths have trailing slashes for Windows compatibility."""
         result = []
@@ -133,13 +182,16 @@ class LilyPondJob(Job):
             result.append('-I' + path.rstrip('/') + '/')
         return result
 
+    def set_d_option(self, key, value):
+        self._d_options[key] = value
+
 
 class PreviewJob(LilyPondJob):
     """Represents a LilyPond Job in Preview mode."""
 
     def __init__(self, document, args=None):
         super(PreviewJob, self).__init__(document, args)
-        self.d_options['point-and-click'] = True
+        self.set_d_option('point-and-click', True)
 
 
 class PublishJob(LilyPondJob):
@@ -147,7 +199,7 @@ class PublishJob(LilyPondJob):
 
     def __init__(self, document, args=None):
         super(PublishJob, self).__init__(document, args)
-        self.d_options['point-and-click'] = False
+        self.set_d_option('point-and-click', False)
 
 
 class LayoutControlJob(LilyPondJob):

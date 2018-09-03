@@ -42,7 +42,7 @@ import resultfiles
 from job import (
     attributes as jobattributes,
     manager as jobmanager,
-    lilypondjob
+    lilypond as lilypondjob
 )
 import plugin
 import ly.lex

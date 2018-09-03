@@ -34,7 +34,7 @@ import actioncollectionmanager
 from job import (
     manager as jobmanager,
     attributes as jobattributes,
-    lilypondjob
+    lilypond as lilypondjob
 )
 import plugin
 import icons
@@ -295,7 +295,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def openLilyPondDatadir(self):
         """Menu action Open LilyPond Data Directory."""
-        info = lilypondjob.lilypondInfo(self.mainwindow().currentDocument())
+        info = lilypondjob.info(self.mainwindow().currentDocument())
         datadir = info.datadir()
         if datadir:
             import helpers
@@ -303,7 +303,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
-        info = lilypondjob.lilypondInfo(self.mainwindow().currentDocument())
+        info = lilypondjob.info(self.mainwindow().currentDocument())
         from . import lytools
         lytools.show_available_fonts(self.mainwindow(), info)
 
