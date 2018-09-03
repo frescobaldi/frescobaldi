@@ -163,7 +163,7 @@ class Dialog(QDialog):
         f = formats[self.outputCombo.currentIndex()]
         self.resolutionCombo.setEnabled('resolution' in f.widgets)
         self.antialiasSpin.setEnabled('antialias' in f.widgets)
-    
+
     def getJob(self, document):
         """Returns and configures a Job to start."""
         f = formats[self.outputCombo.currentIndex()]
@@ -218,6 +218,9 @@ class Dialog(QDialog):
         if self.englishCheck.isChecked():
             j.environment['LANG'] = 'C'
             j.environment['LC_ALL'] = 'C'
+        else:
+            del j.environment['LANG']
+            del j.environment['LC_ALL']
         j.set_title("{0} {1} [{2}]".format(
             os.path.basename(j.lilypondinfo.command),
                 j.lilypondinfo.versionString(), document.documentName()))
