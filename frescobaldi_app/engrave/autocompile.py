@@ -39,14 +39,15 @@ from PyQt5.QtCore import QSettings, Qt, QTimer
 import app
 import documentinfo
 import resultfiles
-from job import attributes as jobattributes
-from job import manager as jobmanager
-from job import lilypondjob
+from job import (
+    attributes as jobattributes,
+    manager as jobmanager,
+    lilypondjob
+)
 import plugin
 import ly.lex
 
 from . import engraver
-from . import command
 
 
 class AutoCompiler(plugin.MainWindowPlugin):

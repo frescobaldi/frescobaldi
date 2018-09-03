@@ -31,9 +31,11 @@ from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
-from job import manager as jobmanager
-from job import attributes as jobattributes
-from job import lilypondjob
+from job import (
+    manager as jobmanager,
+    attributes as jobattributes,
+    lilypondjob
+)
 import plugin
 import icons
 import signals

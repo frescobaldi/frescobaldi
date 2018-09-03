@@ -30,7 +30,6 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QSpinBox, QTextEdit)
 
 import app
-import documentinfo
 import userguide
 import icons
 import job

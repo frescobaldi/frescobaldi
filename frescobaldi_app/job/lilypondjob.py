@@ -28,10 +28,8 @@ import os
 from PyQt5.QtCore import QSettings
 
 import documentinfo
-import engrave
-import job
+from . import Job
 import lilypondinfo
-import panelmanager
 
 
 def lilypondInfo(document):
@@ -42,7 +40,7 @@ def lilypondInfo(document):
     return lilypondinfo.preferred()
 
 
-class LilyPondJob(job.Job):
+class LilyPondJob(Job):
     """Manages a LilyPond process.
 
     This class performs basic configuration that is required

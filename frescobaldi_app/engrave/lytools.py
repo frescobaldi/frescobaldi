@@ -22,8 +22,6 @@ Run LilyPond to get various types of output.
 """
 
 
-import codecs
-
 from PyQt5.QtCore import QSize, Qt
 
 import app
