@@ -41,6 +41,7 @@ import documentinfo
 import resultfiles
 from job import attributes as jobattributes
 from job import manager as jobmanager
+from job import lilypondjob
 import plugin
 import ly.lex
 
@@ -110,7 +111,7 @@ class AutoCompiler(plugin.MainWindowPlugin):
                 if may_compile:
                     mgr.slotJobStarted()
         if may_compile:
-            job = command.defaultJob(doc, ['-dpoint-and-click'])
+            job = lilypondjob.LilyPondJob(doc, ['-dpoint-and-click'])
             jobattributes.get(job).hidden = True
             eng.runJob(job, doc)
 
@@ -182,5 +183,3 @@ class AutoCompileManager(plugin.DocumentPlugin):
         if self._dirty:
             self._dirty = False
             self._hash = documentinfo.docinfo(self.document()).token_hash()
-
-
