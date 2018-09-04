@@ -23,13 +23,20 @@ to get it later or to have a log follow it.
 """
 
 import codecs
+import glob
 import os
+import shutil
 
-from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import QSettings, QUrl
 
+import ly.document
+import ly.docinfo
+
+import document
 import documentinfo
 from . import Job
 import lilypondinfo
+import util
 
 
 def info(document):
@@ -208,3 +215,37 @@ class LayoutControlJob(LilyPondJob):
     def __init__(self, document, args=None):
         super(LayoutControlJob, self).__init__(document, args)
         # So far no further code is necessary
+
+
+class VolatileTextJob(PublishJob):
+    """Represents a 'volatile' LilyPond Job where the document
+    is only passed in as a string. Internally a document is created
+    in a temporary file, and options set to not use point-and-click."""
+    def __init__(self, text, title=None):
+        # Initialize default LilyPond version
+        info = lilypondinfo.preferred()
+        # Optionally infer a suitable LilyPond version from the content
+        if QSettings().value("lilypond_settings/autoversion", True, bool):
+            version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version()
+            if version:
+                info = lilypondinfo.suitable(version)
+        # Create temporary (document.Document object and file)
+        directory = util.tempdir()
+        filename = os.path.join(directory, 'document.ly')
+        with open(filename, 'wb') as f:
+            f.write(text.encode('utf-8'))
+        url = QUrl(filename)
+        url.setScheme('file')
+        doc = document.Document(url)
+        super(VolatileTextJob, self).__init__(doc)
+
+        if title:
+            self.set_title(title)
+
+    def resultfiles(self):
+        """Returns a list of resulting file(s)"""
+        #TODO: Support non-PDF compilation modes
+        return glob.glob(os.path.join(self.directory, '*.pdf'))
+
+    def cleanup(self):
+        shutil.rmtree(self.directory, ignore_errors=True)
