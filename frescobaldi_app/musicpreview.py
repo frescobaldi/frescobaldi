@@ -22,58 +22,19 @@ A widget and dialog to show an output preview of a LilyPond document.
 """
 
 
-
-import os
-import glob
-import shutil
-
-from PyQt5.QtCore import QSettings, QSize, QUrl
+from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
                              QLabel, QStackedLayout, QVBoxLayout, QWidget)
 
-import ly.document
-import ly.docinfo
-
 import app
-import codecs
 import document
 import icons
-from job import lilypondjob
+import job
 import log
-import util
 import qutil
-import lilypondinfo
 import popplerview
 import popplertools
 import widgets.progressbar
-
-
-class MusicPreviewJob(lilypondjob.LilyPondJob):
-    def __init__(self, text, title=None):
-        # Determine the version info and create document
-        # *before* initializing the object
-        info = lilypondinfo.preferred()
-        if QSettings().value("lilypond_settings/autoversion", True, bool):
-            version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version()
-            if version:
-                info = lilypondinfo.suitable(version)
-        directory = util.tempdir()
-        filename = os.path.join(directory, 'document.ly')
-        with open(filename, 'wb') as f:
-            f.write(text.encode('utf-8'))
-        url = QUrl(filename)
-        url.setScheme('file')
-        doc = document.Document(url)
-        super(MusicPreviewJob, self).__init__(doc)
-
-        if title:
-            self.set_title(title)
-
-    def resultfiles(self):
-        return glob.glob(os.path.join(self.directory, '*.pdf'))
-
-    def cleanup(self):
-        shutil.rmtree(self.directory, ignore_errors=True)
 
 
 class MusicPreviewWidget(QWidget):
@@ -119,7 +80,7 @@ class MusicPreviewWidget(QWidget):
 
     def preview(self, text, title=None):
         """Runs LilyPond on the given text and shows the resulting PDF."""
-        j = self._running = MusicPreviewJob(text, title)
+        j = self._running = job.lilypond.VolatileTextJob(text, title)
         j.done.connect(self._done)
         self._log.clear()
         self._log.connectJob(j)
