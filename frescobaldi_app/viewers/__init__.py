@@ -49,7 +49,6 @@ import qutil
 import panel
 import listmodel
 import gadgets.drag
-from job import attributes as jobattributes
 
 from . import documents
 
@@ -564,7 +563,7 @@ class ViewdocChooserAction(ComboBoxAction):
         if self._viewdoc is None or documents.group(doc).documents():
             self.setCurrentViewdoc(doc)
 
-    def slotEditdocUpdated(self, doc, job):
+    def slotEditdocUpdated(self, doc, j):
         """Called when a Job, finished on the document, has created new PDFs."""
         # if result files of this document were already displayed, the display
         # is updated. Else the current document is switched if the document was
@@ -573,7 +572,7 @@ class ViewdocChooserAction(ComboBoxAction):
         import engrave
         mainwindow = self.parent().mainwindow()
         if (doc == self._viewdoc or
-            (jobattributes.get(job).mainwindow == mainwindow and
+            (job.attributes.get(j).mainwindow == mainwindow and
              doc == engrave.engraver(mainwindow).document())):
             self.setCurrentViewdoc(doc)
 

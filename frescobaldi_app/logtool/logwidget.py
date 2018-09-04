@@ -36,8 +36,6 @@ from PyQt5.QtWidgets import QTextEdit
 import app
 import log
 import job
-from job import manager as jobmanager
-from job import attributes as jobattributes
 import qutil
 
 from . import errors
@@ -68,19 +66,19 @@ class LogWidget(log.Log):
 
     def switchDocument(self, doc):
         """Called when the document is changed."""
-        job = jobmanager.job(doc)
-        if job:
+        j = job.manager.job(doc)
+        if j:
             # do not show the messages for auto-engrave jobs if the user has disabled it
-            if jobattributes.get(job).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
+            if job.attributes.get(j).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
                 return
             prevDoc = self._document()
             if prevDoc and prevDoc != doc:
-                prevJob = jobmanager.job(prevDoc)
+                prevJob = job.manager.job(prevDoc)
                 if prevJob:
                     prevJob.output.disconnect(self.write)
             self._document = weakref.ref(doc)
             self.clear()
-            self.connectJob(job)
+            self.connectJob(j)
 
     def documentClosed(self, doc):
         if doc == self._document():
@@ -172,5 +170,3 @@ class LogWidget(log.Log):
         cursor = errors.errors(self._document()).cursor(url, True)
         if cursor:
             self.parentWidget().mainwindow().setTextCursor(cursor, findOpenView=True)
-
-

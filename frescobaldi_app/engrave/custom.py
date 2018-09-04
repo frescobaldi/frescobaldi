@@ -33,11 +33,6 @@ import app
 import userguide
 import icons
 import job
-from job import (
-    manager as jobmanager,
-    attributes as jobattributes,
-    lilypond as lilypondjob
-)
 import panelmanager
 import lilychooser
 import listmodel
@@ -150,10 +145,10 @@ class Dialog(QDialog):
             self._document = None
 
     def setDocument(self, doc):
-        job = jobmanager.job(doc)
-        if job:
-            self.lilyChooser.setLilyPondInfo(job.lilypond_info)
-        if job and job.is_running() and not jobattributes.get(job).hidden:
+        j = job.manager.job(doc)
+        if j:
+            self.lilyChooser.setLilyPondInfo(j.lilypond_info)
+        if j and j.is_running() and not job.attributes.get(j).hidden:
             self._document = doc
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
 
@@ -171,15 +166,15 @@ class Dialog(QDialog):
 
         # Configure job type, choose class
         if self.modeCombo.currentIndex() == 0:   # preview mode
-            job_class = lilypondjob.PreviewJob
+            job_class = job.lilypond.PreviewJob
         elif self.modeCombo.currentIndex() == 1: # publish mode
-            job_class = lilypondjob.PublishJob
+            job_class = job.lilypond.PublishJob
         elif self.modeCombo.currentIndex() == 2: # incipit mode
-            job_class = lilypondjob.LilyPondJob
+            job_class = job.lilypond.LilyPondJob
             d_options['preview'] = True
             d_options['print_pages'] = False
         else:                                    # debug mode
-            job_class = lilypondjob.LayoutControlJob
+            job_class = job.lilypond.LayoutControlJob
             args = panelmanager.manager(
                 self.parent()).layoutcontrol.widget().preview_options()
 
@@ -208,7 +203,7 @@ class Dialog(QDialog):
         # Parse additional/custom tokens from the text edit
         for t in self.commandLine.toPlainText().split():
             if t.startswith('-d'):
-                k, v = lilypondjob.parse_d_option(t)
+                k, v = job.lilypond.parse_d_option(t)
                 j.set_d_option(k, v)
             else:
                 j.add_additional_arg(t)
