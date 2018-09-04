@@ -85,9 +85,10 @@ class Job(object):
     done = signals.Signal()
     title_changed = signals.Signal() # title (string)
 
-    def __init__(self):
-        self.command = []
-        self.directory = ""
+    def __init__(self, command=[], directory="", environment={},
+                 title="", decode_errors='strict'):
+        self.command = command
+        self.directory = directory
         self.environment = {}
         self.success = None
         self.error = None
@@ -99,7 +100,7 @@ class Job(object):
         self._elapsed = 0.0
         self.decoder_stdout = self.create_decoder(STDOUT)
         self.decoder_stderr = self.create_decoder(STDERR)
-        self.decode_errors = 'strict'  # codecs error handling
+        self.decode_errors = decode_errors  # codecs error handling
 
     def create_decoder(self, channel):
         """Return a decoder for the given channel (STDOUT/STDERR).
