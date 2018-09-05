@@ -213,8 +213,8 @@ class Dialog(QDialog):
             j.environment['LANG'] = 'C'
             j.environment['LC_ALL'] = 'C'
         else:
-            del j.environment['LANG']
-            del j.environment['LC_ALL']
+            j.environment.pop('LANG', None)
+            j.environment.pop('LC_ALL', None)
         j.set_title("{0} {1} [{2}]".format(
             os.path.basename(j.lilypond_info.command),
                 j.lilypond_info.versionString(), document.documentName()))
