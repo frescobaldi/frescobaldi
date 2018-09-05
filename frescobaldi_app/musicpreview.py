@@ -27,7 +27,7 @@ import os
 import glob
 import shutil
 
-from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtCore import QSettings, QSize, QUrl
 from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
                              QLabel, QStackedLayout, QVBoxLayout, QWidget)
 
@@ -36,8 +36,9 @@ import ly.docinfo
 
 import app
 import codecs
+import document
 import icons
-import job
+from job import lilypondjob
 import log
 import util
 import qutil
@@ -47,25 +48,23 @@ import popplertools
 import widgets.progressbar
 
 
-class MusicPreviewJob(job.Job):
+class MusicPreviewJob(lilypondjob.LilyPondJob):
     def __init__(self, text, title=None):
-        super(MusicPreviewJob, self).__init__()
-        self.decode_errors = 'replace'
-        self.decoder_stdout = self.decoder_stderr = codecs.getdecoder('utf-8')
-        self.directory = util.tempdir()
-        self.document = os.path.join(self.directory, 'document.ly')
-        with open(self.document, 'wb') as f:
-            f.write(text.encode('utf-8'))
-
+        # Determine the version info and create document
+        # *before* initializing the object
         info = lilypondinfo.preferred()
         if QSettings().value("lilypond_settings/autoversion", True, bool):
             version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version()
             if version:
                 info = lilypondinfo.suitable(version)
-
-        lilypond = info.abscommand() or info.command
-        self.command = [lilypond, '-dno-point-and-click', '--pdf', self.document]
-        self.environment['LD_LIBRARY_PATH'] = info.libdir()
+        directory = util.tempdir()
+        filename = os.path.join(directory, 'document.ly')
+        with open(filename, 'wb') as f:
+            f.write(text.encode('utf-8'))
+        url = QUrl(filename)
+        url.setScheme('file')
+        doc = document.Document(url)
+        super(MusicPreviewJob, self).__init__(doc)
 
         if title:
             self.set_title(title)

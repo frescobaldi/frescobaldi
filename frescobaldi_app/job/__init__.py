@@ -18,8 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A Job runs LilyPond (or another process) and captures the output
-to get it later or to have a log follow it.
+The Job class and its descendants manage external processes
+and capture the output to get it later or to have a log follow it.
 """
 
 
@@ -77,6 +77,9 @@ class Job(object):
     Status messages normally have no newlines, so you must add them if needed,
     while output coming from the process may continue in the same line.
 
+    Jobs that run LilyPond will use objects of job.lilypond.Job or derived
+    special classes.
+
     """
     output = signals.Signal()
     done = signals.Signal()
@@ -133,6 +136,7 @@ class Job(object):
 
     def start(self):
         """Starts the process."""
+        self.configure_command()
         self.success = None
         self.error = None
         self._aborted = False
@@ -147,6 +151,13 @@ class Job(object):
         if self.environment:
             self._update_process_environment()
         self._process.start(self.command[0], self.command[1:])
+
+    def configure_command(self):
+        """Process the command if necessary.
+        In a LilyPondJob this is the essential part of composing
+        the command line from the job options.
+        """
+        pass
 
     def start_time(self):
         """Return the time this job was started.
@@ -317,5 +328,3 @@ class Job(object):
         if minutes:
             return "{0:.0f}'{1:.0f}\"".format(minutes, seconds)
         return '{0:.1f}"'.format(seconds)
-
-

@@ -31,8 +31,11 @@ from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
-from job import manager as jobmanager
-from job import attributes as jobattributes
+from job import (
+    manager as jobmanager,
+    attributes as jobattributes,
+    lilypond as lilypondjob
+)
 import plugin
 import icons
 import signals
@@ -182,18 +185,19 @@ class Engraver(plugin.MainWindowPlugin):
         is run" is enabled.
 
         """
+        args = None
         if mode == 'preview':
-            args = ['-dpoint-and-click']
+            job_class = lilypondjob.PreviewJob
         elif mode == 'publish':
-            args = None     # command.defaultJob() will handle publish mode
+            job_class = lilypondjob.PublishJob
         elif mode == 'layout-control':
+            job_class = lilypondjob.LayoutControlJob
             args = panelmanager.manager(
                     self.mainwindow()).layoutcontrol.widget().preview_options()
         doc = document or self.document()
         if may_save:
             self.saveDocumentIfDesired()
-        from . import command
-        self.runJob(command.defaultJob(doc, args), doc)
+        self.runJob(job_class(doc, args), doc)
 
     def engraveAbort(self):
         job = jobmanager.job(self.document())
@@ -291,8 +295,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def openLilyPondDatadir(self):
         """Menu action Open LilyPond Data Directory."""
-        from . import command
-        info = command.info(self.mainwindow().currentDocument())
+        info = lilypondjob.info(self.mainwindow().currentDocument())
         datadir = info.datadir()
         if datadir:
             import helpers
@@ -300,8 +303,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
-        from . import command
-        info = command.info(self.mainwindow().currentDocument())
+        info = lilypondjob.info(self.mainwindow().currentDocument())
         from . import lytools
         lytools.show_available_fonts(self.mainwindow(), info)
 
@@ -406,5 +408,3 @@ class Actions(actioncollection.ActionCollection):
         self.engrave_autocompile.setText(_("Automatic E&ngrave"))
         self.engrave_open_lilypond_datadir.setText(_("Open LilyPond &Data Directory"))
         self.engrave_show_available_fonts.setText(_("Show Available &Fonts..."))
-
-

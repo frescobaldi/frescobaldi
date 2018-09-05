@@ -22,12 +22,10 @@ Run LilyPond to get various types of output.
 """
 
 
-import codecs
-
 from PyQt5.QtCore import QSize, Qt
 
 import app
-import job
+from job import lilypond as lilypondjob
 import log
 import qutil
 import widgets.dialog
@@ -58,13 +56,9 @@ class Dialog(widgets.dialog.Dialog):
 
     def run_command(self, info, args, title=None):
         """Run lilypond from info with the args list, and a job title."""
-        j = self.job = job.Job()
-        j.decode_errors = 'replace'
-        j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
-        j.command = [info.abscommand() or info.command] + list(args)
+        j = self.job = lilypondjob.LilyPondJob(info)
+        j.command.extend(list(args))
         if title:
             j.set_title(title)
         self.log.connectJob(j)
         j.start()
-
-
