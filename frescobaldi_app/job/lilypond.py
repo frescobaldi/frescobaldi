@@ -51,7 +51,7 @@ def parse_d_option(token):
     return token, value
 
 
-def compose_d_options(d_options, ordered=False):
+def serialize_d_options(d_options, ordered=False):
     """Compose an (un)ordered list of -d options in their actual
     command line syntax."""
     result = []
@@ -144,7 +144,7 @@ class LilyPondJob(Job):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
         cmd = [self.lilypond_info.abscommand() or self.lilypond_info.command]
-        cmd.extend(compose_d_options(self._d_options))
+        cmd.extend(serialize_d_options(self._d_options))
         cmd.extend(self.additional_args())
         cmd.extend(self.paths(self.includepath))
         cmd.extend(self.backend_args())
