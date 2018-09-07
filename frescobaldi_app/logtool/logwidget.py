@@ -100,7 +100,10 @@ class LogWidget(log.Log):
         """
         if type == job.STDERR:
             # find filenames in message:
-            parts = iter(errors.message_re.split(message.encode('latin1')))
+            #TODO: make the various encoding parameters be read directly
+            # from the Job.
+            # But this should be reviewed in general anyway.
+            parts = iter(errors.message_re.split(message.encode('utf-8')))
             msg = next(parts).decode('utf-8', 'replace')
             self.cursor.insertText(msg, self.textFormat(type))
             enc = sys.getfilesystemencoding()
