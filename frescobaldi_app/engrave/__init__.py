@@ -94,7 +94,7 @@ class Engraver(plugin.MainWindowPlugin):
         """Returns a Job for the sticky or current document if that is running."""
         doc = self.document()
         j = job.manager.job(doc)
-        if j and j.is_running() and not j.attributes.get(j).hidden:
+        if j and j.is_running() and not job.attributes.get(j).hidden:
             return j
 
     def updateActions(self):
