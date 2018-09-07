@@ -54,10 +54,10 @@ class LogTool(panel.Panel):
         from . import logwidget
         return logwidget.LogWidget(self)
 
-    def slotJobStarted(self, doc, job):
+    def slotJobStarted(self, doc, j):
         """Called whenever job starts, decides whether to follow it and show the log."""
         import job
-        jattrs = job.attributes.get(job)
+        jattrs = job.attributes.get(j)
         if doc == self.mainwindow().currentDocument() or self.mainwindow() == jattrs.mainwindow:
             self.widget().switchDocument(doc)
             if not jattrs.hidden and QSettings().value("log/show_on_start", True, bool):
