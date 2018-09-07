@@ -39,14 +39,6 @@ import lilypondinfo
 import util
 
 
-def info(document):
-    """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
-    version = documentinfo.docinfo(document).version()
-    if version and QSettings().value("lilypond_settings/autoversion", False, bool):
-        return lilypondinfo.suitable(version)
-    return lilypondinfo.preferred()
-
-
 def parse_d_option(token):
     """Parse a -d option into its bare name and a Boolean value. For example
     '-dno-point-and-click' will be parsed into 'point-and-click' and False
@@ -93,14 +85,13 @@ class LilyPondJob(Job):
     def __init__(self, document, args=None):
         super(LilyPondJob, self).__init__()
         self.document = document
-        self.lilypond_info = info(document)
+        self.document_info = docinfo = documentinfo.info(document)
+        self.lilypond_info = docinfo.lilypondinfo()
         self._d_options = {}
         self._additional_args = args if args else []
         self._backend_args = []
         self.filename, self.includepath = (
-            documentinfo.info(document).jobinfo(True) if document
-            else ('', [])
-        )
+            docinfo.jobinfo(True) if document else ('', []))
         self.directory = os.path.dirname(self.filename)
         self.environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
         self.decode_errors = 'replace'  # codecs error handling

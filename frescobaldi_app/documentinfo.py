@@ -40,6 +40,7 @@ import cursortools
 import tokeniter
 import plugin
 import variables
+import lilypondinfo
 
 
 __all__ = ['docinfo', 'info', 'mode']
@@ -53,6 +54,11 @@ def info(document):
 def docinfo(document):
     """Return a LyDocInfo instance for the document."""
     return info(document).lydocinfo()
+
+
+def lilyinfo(document):
+    """Return a LilyPondInfo instance for the given document."""
+    return info(document).lilypondinfo()
 
 
 def music(document):
@@ -230,6 +236,14 @@ class DocumentInfo(plugin.DocumentPlugin):
         """
         return fileinfo.includefiles(self.lydocinfo(), self.includepath())
 
+    def lilypondinfo(self):
+        """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
+        version = self.lydocinfo().version()
+        if version and QSettings().value("lilypond_settings/autoversion", False, bool):
+            return lilypondinfo.suitable(version)
+        return lilypondinfo.preferred()
+
+
     def child_urls(self):
         """Return a tuple of urls included by the Document.
 
@@ -277,5 +291,3 @@ class DocumentInfo(plugin.DocumentPlugin):
             pass
 
         return []
-
-

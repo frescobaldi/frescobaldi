@@ -31,6 +31,7 @@ from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
+import documentinfo
 import job.attributes
 import job.lilypond
 import plugin
@@ -292,7 +293,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def openLilyPondDatadir(self):
         """Menu action Open LilyPond Data Directory."""
-        info = job.lilypond.info(self.mainwindow().currentDocument())
+        info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
         datadir = info.datadir()
         if datadir:
             import helpers
@@ -300,7 +301,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
-        info = job.lilypond.info(self.mainwindow().currentDocument())
+        info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
         from . import lytools
         lytools.show_available_fonts(self.mainwindow(), info)
 
