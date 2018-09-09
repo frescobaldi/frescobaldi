@@ -125,8 +125,8 @@ class LilyPondJob(Job):
 
     def backend_args(self):
         """Determine the target/backend type and produce appropriate args."""
-        result = []
-        if not self._backend_args:
+        result = self._backend_args
+        if not result:
             # no specific backend selected
             if self.default_output_target == "svg":
                 # engrave to SVG
@@ -179,6 +179,9 @@ class LilyPondJob(Job):
         for path in includepath:
             result.append('-I' + path.rstrip('/') + '/')
         return result
+
+    def set_backend_args(self, args):
+        self._backend_args = args
 
     def set_d_option(self, key, value):
         self._d_options[key] = value
