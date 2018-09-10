@@ -442,4 +442,3 @@ class ViewActions(actioncollection.ActionCollection):
         self.window_close_others.setText(_("Close &Other Views"))
         self.window_next_view.setText(_("&Next View"))
         self.window_previous_view.setText(_("&Previous View"))
-

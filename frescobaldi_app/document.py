@@ -18,10 +18,17 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A Frescobaldi document.
+A (Frescobaldi) document.
 
 This contains the text the user can edit in Frescobaldi. In most cases it will
 be a LilyPond source file, but other file types can be used as well.
+
+There are two different document Classes: Document and EditorDocument.
+Both provide a QTextDocument with additional metadata, but the EditorDocument
+provides additional handling of signals that are hooked into the Frescobaldi
+GUI environment. That means: use EditorDocument for documents open in the
+editor, Document for "abstract" documents, for example to pass a generated
+document to a job.lilypond.LilyPondJob without implicitly creating a tab.
 
 """
 
@@ -38,13 +45,13 @@ import variables
 import signals
 
 
-class Document(QTextDocument):
+class AbstractDocument(QTextDocument):
+    """Base class for a Frescobaldi document. Not intended to be instantiated.
 
-    urlChanged = signals.Signal() # new url, old url
-    closed = signals.Signal()
-    loaded = signals.Signal()
-    saving = signals.SignalContext()
-    saved = signals.Signal()
+    Objects of subclasses can be passed to the functions in documentinfo
+    or lilypondinfo etc. for additional meta information.
+
+    """
 
     @classmethod
     def load_data(cls, url, encoding=None):
@@ -83,8 +90,6 @@ class Document(QTextDocument):
         if not url.isEmpty():
             d.setPlainText(text)
             d.setModified(False)
-            d.loaded()
-            app.documentLoaded(d)
         return d
 
     def __init__(self, url=None, encoding=None):
@@ -97,22 +102,11 @@ class Document(QTextDocument):
         """
         if url is None:
             url = QUrl()
-        super(Document, self).__init__()
+        super(AbstractDocument, self).__init__()
         self.setDocumentLayout(QPlainTextDocumentLayout(self))
         self._encoding = encoding
         self._url = url # avoid urlChanged on init
         self.setUrl(url)
-        self.modificationChanged.connect(self.slotModificationChanged)
-        app.documents.append(self)
-        app.documentCreated(self)
-
-    def slotModificationChanged(self):
-        app.documentModificationChanged(self)
-
-    def close(self):
-        self.closed()
-        app.documentClosed(self)
-        app.documents.remove(self)
 
     def load(self, url=None, encoding=None, keepUndo=False):
         """Load the specified or current url (if None was specified).
@@ -120,7 +114,7 @@ class Document(QTextDocument):
         Currently only local files are supported. An IOError is raised
         when trying to load a nonlocal URL.
 
-        If loading succeeds and an url was specified, the url is make the
+        If loading succeeds and an url was specified, the url is made the
         current url (by calling setUrl() internally).
 
         If keepUndo is True, the loading can be undone (with Ctrl-Z).
@@ -139,8 +133,15 @@ class Document(QTextDocument):
         self.setModified(False)
         if not url.isEmpty():
             self.setUrl(url)
-        self.loaded()
-        app.documentLoaded(self)
+
+    def _save(self, url, filename):
+        with open(filename, "wb") as f:
+            f.write(self.encodedText())
+            f.flush()
+            os.fsync(f.fileno())
+        self.setModified(False)
+        if not url.isEmpty():
+            self.setUrl(url)
 
     def save(self, url=None, encoding=None):
         """Saves the document to the specified or current url.
@@ -150,6 +151,9 @@ class Document(QTextDocument):
 
         If saving succeeds and an url was specified, the url is made the
         current url (by calling setUrl() internally).
+
+        This method is never called directly but only from the overriding
+        subclass methods that make further specific use of the modified results.
 
         """
         if url is None:
@@ -163,16 +167,7 @@ class Document(QTextDocument):
         # would fail
         if self.url().isEmpty() and not url.isEmpty():
             self.setUrl(url)
-        with self.saving(), app.documentSaving(self):
-            with open(filename, "wb") as f:
-                f.write(self.encodedText())
-                f.flush()
-                os.fsync(f.fileno())
-            self.setModified(False)
-            if not url.isEmpty():
-                self.setUrl(url)
-        self.saved()
-        app.documentSaved(self)
+        return url, filename
 
     def url(self):
         return self._url
@@ -182,7 +177,6 @@ class Document(QTextDocument):
         if url is None:
             url = QUrl()
         old, self._url = self._url, url
-        changed = old != url
         # number for nameless documents
         if self._url.isEmpty():
             nums = [0]
@@ -190,9 +184,7 @@ class Document(QTextDocument):
             self._num = max(nums) + 1
         else:
             self._num = 0
-        if changed:
-            self.urlChanged(url, old)
-            app.documentUrlChanged(self, url, old)
+        return old
 
     def encoding(self):
         return variables.get(self, "coding") or self._encoding
@@ -228,3 +220,61 @@ class Document(QTextDocument):
             return os.path.basename(self._url.path())
 
 
+class Document(AbstractDocument):
+    """A Frescobaldi document to be used anywhere except the main editor
+    viewspace (also non-GUI jobs/operations)."""
+
+    def save(self, url=None, encoding=None):
+        url, filename = super().save(url, encoding)
+        self._save(url, filename)
+
+
+class EditorDocument(AbstractDocument):
+    """A Frescobaldi document for use in the main editor view.
+    Basically this is an AbstractDocument with signals added."""
+
+    urlChanged = signals.Signal() # new url, old url
+    closed = signals.Signal()
+    loaded = signals.Signal()
+    saving = signals.SignalContext()
+    saved = signals.Signal()
+
+    @classmethod
+    def new_from_url(cls, url, encoding=None):
+        d = super(EditorDocument, cls).new_from_url(url, encoding)
+        if not url.isEmpty():
+            d.loaded()
+            app.documentLoaded(d)
+        return d
+
+    def __init__(self, url=None, encoding=None):
+        super(EditorDocument, self).__init__(url, encoding)
+        self.modificationChanged.connect(self.slotModificationChanged)
+        app.documents.append(self)
+        app.documentCreated(self)
+
+    def slotModificationChanged(self):
+        app.documentModificationChanged(self)
+
+    def close(self):
+        self.closed()
+        app.documentClosed(self)
+        app.documents.remove(self)
+
+    def load(self, url=None, encoding=None, keepUndo=False):
+        super(EditorDocument, self).load(url, encoding, keepUndo)
+        self.loaded()
+        app.documentLoaded(self)
+
+    def save(self, url=None, encoding=None):
+        url, filename = super().save(url, encoding)
+        with self.saving(), app.documentSaving(self):
+            self._save(url, filename)
+        self.saved()
+        app.documentSaved(self)
+
+    def setUrl(self, url):
+        old = super(EditorDocument, self).setUrl(url)
+        if url != old:
+            self.urlChanged(url, old)
+            app.documentUrlChanged(self, url, old)

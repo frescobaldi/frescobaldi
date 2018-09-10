@@ -93,7 +93,7 @@ def openUrl(url, encoding=None):
                 d.load(url)
         else:
             import document
-            d = document.Document.new_from_url(url, encoding)
+            d = document.EditorDocument.new_from_url(url, encoding)
     return d
 
 def findDocument(url):

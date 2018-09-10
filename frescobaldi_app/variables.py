@@ -26,6 +26,7 @@ import re
 
 from PyQt5.QtCore import QTimer
 
+import document
 import signals
 import plugin
 
@@ -38,31 +39,31 @@ _variable_re = re.compile(r'\s*?([a-z]+(?:-[a-z]+)*):[ \t]*(.*?);')
 _LINES = 5      # how many lines from top and bottom to scan for variables
 
 
-def get(document, varname, default=None):
+def get(doc, varname, default=None):
     """Get a single value from the document.
 
     If a default is given and the type is bool or int, the value is converted to the same type.
     If no value exists, the default is returned.
 
     """
-    variables = manager(document).variables()
+    variables = manager(doc).variables()
     try:
         return prepare(variables[varname], default)
     except KeyError:
         return default
 
 
-def update(document, dictionary):
+def update(doc, dictionary):
     """Updates the given dictionary with values from the document, using present values as default."""
-    for name, value in manager(document).variables().items():
+    for name, value in manager(doc).variables().items():
         if name in dictionary:
             dictionary[name] = prepare(value, dictionary[name])
     return dictionary
 
 
-def manager(document):
+def manager(doc):
     """Returns a VariableManager for this document."""
-    return VariableManager.instance(document)
+    return VariableManager.instance(doc)
 
 
 def variables(text):
@@ -86,11 +87,12 @@ class VariableManager(plugin.DocumentPlugin):
     """
     changed = signals.Signal() # without argument
 
-    def __init__(self, document):
+    def __init__(self, doc):
         self._updateTimer = QTimer(singleShot=True, timeout=self.slotTimeout)
         self._variables = self.readVariables()
-        document.contentsChange.connect(self.slotContentsChange)
-        document.closed.connect(self._updateTimer.stop) # just to be sure
+        if doc.__class__ == document.EditorDocument:
+            doc.contentsChange.connect(self.slotContentsChange)
+            doc.closed.connect(self._updateTimer.stop) # just to be sure
 
     def slotTimeout(self):
         variables = self.readVariables()
@@ -184,5 +186,3 @@ def prepare(value, default):
         except ValueError:
             return default
     return value
-
-

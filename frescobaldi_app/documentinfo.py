@@ -30,6 +30,7 @@ import weakref
 
 from PyQt5.QtCore import QSettings, QUrl
 
+import document
 import qsettings
 import ly.lex
 import lydocinfo
@@ -46,38 +47,38 @@ import lilypondinfo
 __all__ = ['docinfo', 'info', 'mode']
 
 
-def info(document):
+def info(doc):
     """Returns a DocumentInfo instance for the given Document."""
-    return DocumentInfo.instance(document)
+    return DocumentInfo.instance(doc)
 
 
-def docinfo(document):
+def docinfo(doc):
     """Return a LyDocInfo instance for the document."""
-    return info(document).lydocinfo()
+    return info(doc).lydocinfo()
 
 
-def lilyinfo(document):
+def lilyinfo(doc):
     """Return a LilyPondInfo instance for the given document."""
-    return info(document).lilypondinfo()
+    return info(doc).lilypondinfo()
 
 
-def music(document):
+def music(doc):
     """Return a music.Document instance for the document."""
-    return info(document).music()
+    return info(doc).music()
 
 
-def mode(document, guess=True):
+def mode(doc, guess=True):
     """Returns the type of the given document. See DocumentInfo.mode()."""
-    return info(document).mode(guess)
+    return info(doc).mode(guess)
 
 
-def defaultfilename(document):
+def defaultfilename(doc):
     """Return a default filename that could be used for the document.
 
     The name is based on the score's title, composer etc.
 
     """
-    i = info(document)
+    i = info(doc)
     m = i.music()
     import ly.music.items as mus
 
@@ -112,16 +113,17 @@ def defaultfilename(document):
     else:
         filename = '-'.join(d[k] for k in fields if k in d)
     if not filename:
-        filename = document.documentName()
+        filename = doc.documentName()
     ext = ly.lex.extensions[i.mode()]
     return filename + ext
 
 
 class DocumentInfo(plugin.DocumentPlugin):
     """Computes and caches various information about a Document."""
-    def __init__(self, document):
-        document.contentsChanged.connect(self._reset)
-        document.closed.connect(self._reset)
+    def __init__(self, doc):
+        if doc.__class__ == document.EditorDocument:
+            doc.contentsChanged.connect(self._reset)
+            doc.closed.connect(self._reset)
         self._reset()
 
     def _reset(self):
