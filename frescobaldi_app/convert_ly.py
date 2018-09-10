@@ -27,6 +27,7 @@ import textwrap
 import os
 import subprocess
 import sys
+import codecs
 
 from PyQt5.QtCore import QSettings, QSize
 from PyQt5.QtGui import QFont
@@ -35,6 +36,7 @@ from PyQt5.QtWidgets import (
     QGridLayout, QLabel, QLineEdit, QTabWidget, QTextBrowser, QVBoxLayout)
 
 import app
+import job
 import util
 import qutil
 import icons
@@ -216,49 +218,34 @@ class Dialog(QDialog):
         command = info.toolcommand(info.ly_tool('convert-ly'))
         command += ['-f', fromVersion, '-t', toVersion, '-']
 
-        # if the user wants english messages, do it also here: LANGUAGE=C
-        env = None
-        if os.name == "nt":
-            # Python 2.7 subprocess on Windows chokes on unicode in env
-            env = util.bytes_environ()
-        else:
-            env = dict(os.environ)
-        if sys.platform.startswith('darwin'):
-            try:
-                del env['PYTHONHOME']
-            except KeyError:
-                pass
-            try:
-                del env['PYTHONPATH']
-            except KeyError:
-                pass
+        self.job = j = job.Job(command, encoding='utf-8')
         if QSettings().value("lilypond_settings/no_translation", False, bool):
-            if os.name == "nt":
-                # Python 2.7 subprocess on Windows chokes on unicode in env
-                env[b'LANGUAGE'] = b'C'
-            else:
-                env['LANGUAGE'] = 'C'
+            j.environment['LANG'] = 'C'
+            j.environment['LC_ALL'] = 'C'
+        else:
+            j.environment.pop('LANG', None)
+            j.environment.pop('LC_ALL', None)
 
-        with qutil.busyCursor():
-            try:
-                proc = subprocess.Popen(command,
-                    env = env,
-                    stdin = subprocess.PIPE,
-                    stdout = subprocess.PIPE,
-                    stderr = subprocess.PIPE)
-                out, err = proc.communicate(util.platform_newlines(self._text).encode(self._encoding))
-            except OSError as e:
-                self.messages.setPlainText(_(
-                    "Could not start {convert_ly}:\n\n"
-                    "{message}\n").format(convert_ly = command[0], message = e))
-                return
-            out = util.universal_newlines(out.decode('UTF-8'))
-            err = util.universal_newlines(err.decode('UTF-8'))
-            self.messages.setPlainText(err)
-            self.setConvertedText(out)
-            self.setDiffText(out)
-            if not out or self._convertedtext == self._text:
-                self.messages.append('\n' + _("The document has not been changed."))
+        j.start()
+        j.done.connect(self.slotJobDone)
+        j._process.write(self._text.encode('utf-8'))
+        j._process.closeWriteChannel()
+
+    def slotJobDone(self):
+        j = self.job
+        if not j.success and j.failed_to_start():
+            self.messages.setPlainText(_(
+                "Could not start {convert_ly}:\n\n"
+                "{message}\n").format(convert_ly = j.command[0],
+                    message = j.error))
+            return
+        out = j.stdout()
+        err = j.stderr()
+        self.messages.setPlainText(err)
+        self.setConvertedText(out)
+        self.setDiffText(out)
+        if not out or self._convertedtext == self._text:
+            self.messages.append('\n' + _("The document has not been changed."))
 
     def saveFile(self):
         """Save content in tab as file"""
@@ -304,5 +291,3 @@ class FileInfo():
         self.filename = filename
         self.ext = ext
         self.text = text
-
-

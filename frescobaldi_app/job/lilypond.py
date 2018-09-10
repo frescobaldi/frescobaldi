@@ -83,7 +83,7 @@ class LilyPondJob(Job):
     """
 
     def __init__(self, document, args=None):
-        super(LilyPondJob, self).__init__()
+        super(LilyPondJob, self).__init__(encoding='utf-8')
         self.document = document
         self.document_info = docinfo = documentinfo.info(document)
         self.lilypond_info = docinfo.lilypondinfo()
@@ -150,20 +150,6 @@ class LilyPondJob(Job):
         cmd.extend(self.backend_args())
         cmd.append(self.input_file())
         self.command = cmd
-
-    def create_decoder(self, channel):
-        """Return a decoder for the given channel (STDOUT/STDERR).
-
-        This method produces the default 'utf-8' decoders for LilyPond jobs
-        and is called from the constructor. Decoders can be set manually
-        by setting the `decoder_stdout` and `decoder_stderr` manually after
-        construction.
-
-        This decoder is then used to decode the 8bit bytestrings into Python
-        unicode strings.
-
-        """
-        return codecs.getdecoder('utf-8')
 
     def d_option(self, key):
         return self._d_options.get(key, None)
