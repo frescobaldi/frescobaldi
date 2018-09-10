@@ -237,11 +237,11 @@ class Job(object):
 
     def stdout(self):
         """Return the standard output of the process as unicode text."""
-        return "".join(self.history(STDOUT))
+        return "".join([line[0] for line  in self.history(STDOUT)])
 
     def stderr(self):
         """Return the standard error of the process as unicode text."""
-        return "".join(self.history(STDERR))
+        return "".join([line[0] for line in self.history(STDERR)])
 
     def _finished(self, exitCode, exitStatus):
         """(internal) Called when the process has finished."""
