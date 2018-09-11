@@ -25,9 +25,6 @@ Updates a document using convert-ly.
 import difflib
 import textwrap
 import os
-import subprocess
-import sys
-import codecs
 
 from PyQt5.QtCore import QSettings, QSize
 from PyQt5.QtGui import QFont
