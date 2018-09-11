@@ -150,8 +150,8 @@ def restart():
     python_executable = sys.executable
     if python_executable:
         args = [python_executable] + args
-    import subprocess
-    subprocess.Popen(args)
+    import job
+    job.Job(args).start()
 
 def translateUI(obj, priority=0):
     """Translates texts in the object.
