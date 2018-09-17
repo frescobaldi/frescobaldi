@@ -86,10 +86,11 @@ class Job(object):
     title_changed = signals.Signal() # title (string)
 
     def __init__(self, command=[], directory="", environment={},
-                 title="", decode_errors='strict'):
+                 title="", decode_errors='strict', encoding='latin1'):
         self.command = command
         self.directory = directory
         self.environment = {}
+        self._encoding = encoding
         self.success = None
         self.error = None
         self._title = ""
@@ -115,7 +116,7 @@ class Job(object):
         decoder for both channels.
 
         """
-        return codecs.getdecoder('latin1')
+        return codecs.getdecoder(self._encoding)
 
     def title(self):
         """Return the job title, as set with set_title().

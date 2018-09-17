@@ -84,11 +84,9 @@ class AbstractDocument(QTextDocument):
         if loading the contents fails.
 
         """
-        if not url.isEmpty():
-            text = cls.load_data(url, encoding)
         d = cls(url, encoding)
         if not url.isEmpty():
-            d.setPlainText(text)
+            d.setPlainText(cls.load_data(url, encoding))
             d.setModified(False)
         return d
 
