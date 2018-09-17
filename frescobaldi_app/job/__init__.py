@@ -18,8 +18,8 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A Job runs LilyPond (or another process) and captures the output
-to get it later or to have a log follow it.
+The Job class and its descendants manage external processes
+and capture the output to get it later or to have a log follow it.
 """
 
 
@@ -77,15 +77,20 @@ class Job(object):
     Status messages normally have no newlines, so you must add them if needed,
     while output coming from the process may continue in the same line.
 
+    Jobs that run LilyPond will use objects of job.lilypond.Job or derived
+    special classes.
+
     """
     output = signals.Signal()
     done = signals.Signal()
     title_changed = signals.Signal() # title (string)
 
-    def __init__(self):
-        self.command = []
-        self.directory = ""
+    def __init__(self, command=[], directory="", environment={},
+                 title="", decode_errors='strict', encoding='latin1'):
+        self.command = command
+        self.directory = directory
         self.environment = {}
+        self._encoding = encoding
         self.success = None
         self.error = None
         self._title = ""
@@ -96,7 +101,7 @@ class Job(object):
         self._elapsed = 0.0
         self.decoder_stdout = self.create_decoder(STDOUT)
         self.decoder_stderr = self.create_decoder(STDERR)
-        self.decode_errors = 'strict'  # codecs error handling
+        self.decode_errors = decode_errors  # codecs error handling
 
     def create_decoder(self, channel):
         """Return a decoder for the given channel (STDOUT/STDERR).
@@ -111,7 +116,7 @@ class Job(object):
         decoder for both channels.
 
         """
-        return codecs.getdecoder('latin1')
+        return codecs.getdecoder(self._encoding)
 
     def title(self):
         """Return the job title, as set with set_title().
@@ -133,6 +138,7 @@ class Job(object):
 
     def start(self):
         """Starts the process."""
+        self.configure_command()
         self.success = None
         self.error = None
         self._aborted = False
@@ -147,6 +153,13 @@ class Job(object):
         if self.environment:
             self._update_process_environment()
         self._process.start(self.command[0], self.command[1:])
+
+    def configure_command(self):
+        """Process the command if necessary.
+        In a LilyPondJob this is the essential part of composing
+        the command line from the job options.
+        """
+        pass
 
     def start_time(self):
         """Return the time this job was started.
@@ -225,11 +238,11 @@ class Job(object):
 
     def stdout(self):
         """Return the standard output of the process as unicode text."""
-        return "".join(self.history(STDOUT))
+        return "".join([line[0] for line  in self.history(STDOUT)])
 
     def stderr(self):
         """Return the standard error of the process as unicode text."""
-        return "".join(self.history(STDERR))
+        return "".join([line[0] for line in self.history(STDERR)])
 
     def _finished(self, exitCode, exitStatus):
         """(internal) Called when the process has finished."""
@@ -317,5 +330,3 @@ class Job(object):
         if minutes:
             return "{0:.0f}'{1:.0f}\"".format(minutes, seconds)
         return '{0:.1f}"'.format(seconds)
-
-

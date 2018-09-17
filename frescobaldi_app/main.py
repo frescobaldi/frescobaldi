@@ -262,7 +262,7 @@ def main():
     for u in urls:
         doc = win.openUrl(u, args.encoding, ignore_errors=True)
         if not doc:
-            doc = document.Document(u, args.encoding)
+            doc = document.EditorDocument(u, args.encoding)
 
     # were documents loaded?
     if not doc:

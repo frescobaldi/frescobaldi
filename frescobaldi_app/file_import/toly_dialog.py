@@ -23,8 +23,6 @@ Generic import dialog. Presuppose a child instance for the specific import.
 
 
 import os
-import subprocess
-import sys
 
 from PyQt5.QtWidgets import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
@@ -33,6 +31,7 @@ import lilychooser
 import userguide
 import util
 import widgets
+import job
 
 
 class ToLyDialog(QDialog):
@@ -146,32 +145,15 @@ class ToLyDialog(QDialog):
         cmd.extend(['--output', outputname])
         return cmd
 
-    def run_command(self):
+    def run_command(self, output_file=None):
         """Run command line."""
-        cmd = self.getCmd()
-        directory = os.path.dirname(self._document)
-        subenviron = None
-        if os.name == "nt":
-            # Python 2.7 subprocess on Windows chokes on unicode in env
-            subenviron = util.bytes_environ()
-        else:
-            subenviron = dict(os.environ)
-        if sys.platform.startswith('darwin'):
-            try:
-                del subenviron['PYTHONHOME']
-            except KeyError:
-                pass
-            try:
-                del subenviron['PYTHONPATH']
-            except KeyError:
-                pass
-        proc = subprocess.Popen(cmd, cwd=directory,
-            env = subenviron,
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            stderr = subprocess.PIPE)
-        stdouterr = proc.communicate()
-        return stdouterr
+        j = job.Job(command=self.getCmd(output_file),
+            directory=os.path.dirname(self._document),
+            encoding='utf-8')
+        j.start()
+        if not j._process.waitForFinished(3000):
+            raise OSError("Process didn't complete in time")
+        return j
 
     def getPostSettings(self):
         """Returns settings in the post import tab."""

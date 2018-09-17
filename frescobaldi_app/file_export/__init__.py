@@ -111,7 +111,6 @@ class AudioExportDialog(externalcommand.ExternalCommandDialog):
         """Run timidity to convert the MIDI to WAV."""
         self.wavfile = wavfile # we could need to clean it up...
         j = job.Job()
-        j.decode_errors = 'replace'
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
         j.command = ["timidity", midfile, "-Ow", "-o", wavfile]
         self.run_job(j)
@@ -139,4 +138,3 @@ class Actions(actioncollection.ActionCollection):
 
         self.export_audio.setText(_("Export Audio..."))
         self.export_audio.setToolTip(_("Export to different audio formats."))
-

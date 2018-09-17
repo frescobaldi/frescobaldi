@@ -47,11 +47,11 @@ import app
 import actioncollection
 import actioncollectionmanager
 import icons
+import job
 import qutil
 import panel
 import listmodel
 import gadgets.drag
-import jobattributes
 
 from . import documents
 
@@ -465,7 +465,7 @@ class DocumentChooserAction(ComboBoxAction):
         if self._document is None or documents.group(doc).documents():
             self.setCurrentDocument(doc)
 
-    def slotDocumentUpdated(self, doc, job):
+    def slotDocumentUpdated(self, doc, j):
         """Called when a Job, finished on the document, has created new PDFs."""
         # if result files of this document were already displayed, the display
         # is updated. Else the current document is switched if the document was
@@ -474,7 +474,7 @@ class DocumentChooserAction(ComboBoxAction):
         import engrave
         mainwindow = self.parent().mainwindow()
         if (doc == self._document or
-            (jobattributes.get(job).mainwindow == mainwindow and
+            (job.attributes.get(j).mainwindow == mainwindow and
              doc == engrave.engraver(mainwindow).document())):
             self.setCurrentDocument(doc)
 
@@ -656,5 +656,3 @@ class PagerAction(QWidgetAction):
 
     def slotValueChanged(self, num):
         self.parent().setCurrentPage(num)
-
-
