@@ -13,6 +13,8 @@ Changes in 3.0.1 --
   - Smarter behaviour of the autocompletion popup
   - New command File->Rename/Move... (#980)
   - Sessions can be grouped in the Sessions menu
+* Internals:
+  - Rewrite code handling external processes/jobs (#1100)
 
 Changes in 3.0.0 -- February 17th, 2017
 
