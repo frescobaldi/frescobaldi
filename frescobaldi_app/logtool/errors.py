@@ -33,8 +33,6 @@ import app
 import bookmarks
 import plugin
 import job
-from job import manager as jobmanager
-from job import attributes as jobattributes
 import scratchdir
 import util
 
@@ -52,12 +50,12 @@ class Errors(plugin.DocumentPlugin):
 
     def __init__(self, document):
         self._refs = {}
-        mgr = jobmanager.manager(document)
+        mgr = job.manager.manager(document)
         if mgr.job():
             self.connectJob(mgr.job())
         mgr.started.connect(self.connectJob)
 
-    def connectJob(self, job):
+    def connectJob(self, j):
         """Starts collecting the references of a started Job.
 
         Output already created by the Job is read and we start
@@ -65,7 +63,7 @@ class Errors(plugin.DocumentPlugin):
 
         """
         # do not collect errors for auto-engrave jobs if the user has disabled it
-        if jobattributes.get(job).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
+        if job.attributes.get(j).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
             return
         # clear earlier set error marks
         docs = {self.document()}
@@ -77,9 +75,9 @@ class Errors(plugin.DocumentPlugin):
             bookmarks.bookmarks(doc).clear("error")
         self._refs.clear()
         # take over history and connect
-        for msg, type in job.history():
+        for msg, type in j.history():
             self.slotJobOutput(msg, type)
-        job.output.connect(self.slotJobOutput)
+        j.output.connect(self.slotJobOutput)
 
     def slotJobOutput(self, message, type):
         """Called whenever the job has output.
@@ -176,5 +174,3 @@ class Reference(object):
                     pass
                 if self._cursor:
                     return self._cursor
-
-

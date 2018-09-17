@@ -27,9 +27,8 @@ from PyQt5.QtCore import Qt, QTimeLine, QTimer
 from PyQt5.QtWidgets import QProgressBar
 
 import app
+import job
 import plugin
-from job import manager as jobmanager
-from job import attributes as jobattributes
 import metainfo
 import widgets.progressbar
 
@@ -50,13 +49,13 @@ class ProgressBar(plugin.ViewSpacePlugin):
         self.showProgress(view.document())
 
     def showProgress(self, document):
-        job = jobmanager.job(document)
-        if job and job.is_running():
+        j = job.manager.job(document)
+        if j and j.is_running():
             buildtime = metainfo.info(document).buildtime
             if not buildtime:
                 buildtime = 3.0 + document.blockCount() / 20 # very arbitrary estimate...
-            self._bar.start(buildtime, job.elapsed_time())
-            if jobattributes.get(job).hidden:
+            self._bar.start(buildtime, j.elapsed_time())
+            if job.attributes.get(j).hidden:
                 self._bar.setEnabled(False)
                 self._bar.setMaximumHeight(8)
                 self._bar.setTextVisible(False)
@@ -71,11 +70,11 @@ class ProgressBar(plugin.ViewSpacePlugin):
         if document == self.viewSpace().document():
             self.showProgress(document)
 
-    def jobFinished(self, document, job, success):
+    def jobFinished(self, document, j, success):
         if document == self.viewSpace().document():
-            self._bar.stop(success and not jobattributes.get(job).hidden)
+            self._bar.stop(success and not job.attributes.get(j).hidden)
             if success:
-                metainfo.info(document).buildtime = job.elapsed_time()
+                metainfo.info(document).buildtime = j.elapsed_time()
 
 
 app.viewSpaceCreated.connect(ProgressBar.instance)

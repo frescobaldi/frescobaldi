@@ -222,14 +222,14 @@ class Widget(QWidget):
         if len(app.documents) == 1:
             self.slotUpdatedFiles(document)
 
-    def slotUpdatedFiles(self, document, job=None):
+    def slotUpdatedFiles(self, document, j=None):
         """Called when there are new MIDI files."""
         mainwindow = self.parentWidget().mainwindow()
         import engrave
         if document not in (mainwindow.currentDocument(), engrave.engraver(mainwindow).document()):
             return
-        from job import attributes as jobattributes
-        if job and jobattributes.get(job).mainwindow != mainwindow:
+        import job
+        if j and job.attributes.get(j).mainwindow != mainwindow:
             return
         self.loadResults(document)
 
@@ -384,4 +384,3 @@ _lcd_status_two = """\
 <td align=right><h2>{3}</h2></td>
 </tr>
 </table>"""
-

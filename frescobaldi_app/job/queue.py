@@ -18,61 +18,12 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A very simple wrapper around QProcess, and a scheduler to enable running
-one process at a time.
+A (multithreaded) Job queue
 """
 
-__all__ = ['Process', 'Scheduler']
-
-from PyQt5.QtCore import QObject, QProcess, pyqtSignal
-
-
-class Process(QObject):
-    """A very simple wrapper to run a QProcess.
-
-    Initialize the process with the command line (as a list) to run.
-    Then (or later) call start() to run it. At that moment the 'process'
-    attribute is available, which contains the QProcess instance managing
-    the process.
-
-    The done() signal is emitted with a boolean success value. In slots
-    connected (synchronously) the process attribute is still available.
-
-    """
-
-    done = pyqtSignal(bool)
-
-    def __init__(self, command):
-        """Sets up the command to run."""
-        QObject.__init__(self)
-        self.command = command
-
-    def start(self):
-        """Really starts a QProcess, executing the command line."""
-        self.setup()
-        self.process.start(self.command[0], self.command[1:])
-
-    def setup(self):
-        """Called on start(), sets up the QProcess in the process attribute."""
-        self.process = p = QProcess()
-        p.finished.connect(self._finished)
-        p.error.connect(self._error)
-
-    def _finished(self, exitCode):
-        self._done(exitCode == 0)
-
-    def _error(self):
-        self._done(False)
-
-    def _done(self, success):
-        self.done.emit(success)
-        self.cleanup()
-
-    def cleanup(self):
-        """Deletes the process."""
-        self.process.deleteLater()
-        del self.process
-
+#NOTE/TODO: For now this module contains only the Scheduler class that
+# had been provided by process.py. The Scheduler has to be replaced by a
+# JobQueue class, and the single use in lilypondinfo.py adjusted accordingly.
 
 class Scheduler(object):
     """A very simple scheduler that runs one Process at a time.
@@ -105,5 +56,3 @@ class Scheduler(object):
         del self._schedule[0]
         if self._schedule:
             self._schedule[0].start()
-
-

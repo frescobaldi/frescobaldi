@@ -29,7 +29,7 @@ from PyQt5.QtCore import Qt, QUrl
 import icons
 import plugin
 import signals
-from job import manager as jobmanager
+import job.manager
 import resultfiles
 import listmodel
 
@@ -39,7 +39,7 @@ class SvgFiles(plugin.DocumentPlugin):
         self._files = None
         self.current = 0
         document.loaded.connect(self.invalidate, -100)
-        jobmanager.manager(document).finished.connect(self.invalidate, -100)
+        job.manager.manager(document).finished.connect(self.invalidate, -100)
 
     def invalidate(self):
         self._files = None
@@ -74,4 +74,3 @@ class SvgFiles(plugin.DocumentPlugin):
         if self._files is None:
             self.update()
         return self._files[index]
-

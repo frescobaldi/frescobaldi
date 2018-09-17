@@ -29,7 +29,7 @@ from PyQt5.QtCore import Qt
 import icons
 import plugin
 import signals
-from job import manager as jobmanager
+import job
 import resultfiles
 import listmodel
 import midifile.song
@@ -40,7 +40,7 @@ class MidiFiles(plugin.DocumentPlugin):
         self._files = None
         self.current = 0
         document.loaded.connect(self.invalidate, -100)
-        jobmanager.manager(document).finished.connect(self.invalidate, -100)
+        job.manager.manager(document).finished.connect(self.invalidate, -100)
 
     def invalidate(self):
         self._files = None
@@ -72,5 +72,3 @@ class MidiFiles(plugin.DocumentPlugin):
             display = os.path.basename, icon = icons.file_type)
         m.setRoleFunction(Qt.UserRole, lambda f: f)
         return m
-
-

@@ -25,7 +25,7 @@ Run LilyPond to get various types of output.
 from PyQt5.QtCore import QSize, Qt
 
 import app
-from job import lilypond as lilypondjob
+import job
 import log
 import qutil
 import widgets.dialog
@@ -56,7 +56,7 @@ class Dialog(widgets.dialog.Dialog):
 
     def run_command(self, info, args, title=None):
         """Run lilypond from info with the args list, and a job title."""
-        j = self.job = lilypondjob.LilyPondJob(info)
+        j = self.job = job.lilypond.LilyPondJob(info)
         j.command.extend(list(args))
         if title:
             j.set_title(title)
