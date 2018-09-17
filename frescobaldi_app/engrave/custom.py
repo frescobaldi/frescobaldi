@@ -198,7 +198,7 @@ class Dialog(QDialog):
             'resolution': self.resolutionCombo.currentText(),
             'antialias': self.antialiasSpin.value(),
         }
-        j.backend_args().extend(f.options(d))
+        j.set_backend_args(f.options(d))
 
         # Parse additional/custom tokens from the text edit
         for t in self.commandLine.toPlainText().split():

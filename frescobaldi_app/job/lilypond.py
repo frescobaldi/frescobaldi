@@ -39,14 +39,6 @@ import lilypondinfo
 import util
 
 
-def info(document):
-    """Returns a LilyPondInfo instance that should be used by default to engrave the document."""
-    version = documentinfo.docinfo(document).version()
-    if version and QSettings().value("lilypond_settings/autoversion", False, bool):
-        return lilypondinfo.suitable(version)
-    return lilypondinfo.preferred()
-
-
 def parse_d_option(token):
     """Parse a -d option into its bare name and a Boolean value. For example
     '-dno-point-and-click' will be parsed into 'point-and-click' and False
@@ -59,7 +51,7 @@ def parse_d_option(token):
     return token, value
 
 
-def compose_d_options(d_options, ordered=False):
+def serialize_d_options(d_options, ordered=False):
     """Compose an (un)ordered list of -d options in their actual
     command line syntax."""
     result = []
@@ -93,14 +85,13 @@ class LilyPondJob(Job):
     def __init__(self, document, args=None):
         super(LilyPondJob, self).__init__()
         self.document = document
-        self.lilypond_info = info(document)
+        self.document_info = docinfo = documentinfo.info(document)
+        self.lilypond_info = docinfo.lilypondinfo()
         self._d_options = {}
         self._additional_args = args if args else []
         self._backend_args = []
         self.filename, self.includepath = (
-            documentinfo.info(document).jobinfo(True) if document
-            else ('', [])
-        )
+            docinfo.jobinfo(True) if document else ('', []))
         self.directory = os.path.dirname(self.filename)
         self.environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
         self.decode_errors = 'replace'  # codecs error handling
@@ -134,8 +125,8 @@ class LilyPondJob(Job):
 
     def backend_args(self):
         """Determine the target/backend type and produce appropriate args."""
-        result = []
-        if not self._backend_args:
+        result = self._backend_args
+        if not result:
             # no specific backend selected
             if self.default_output_target == "svg":
                 # engrave to SVG
@@ -153,7 +144,7 @@ class LilyPondJob(Job):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
         cmd = [self.lilypond_info.abscommand() or self.lilypond_info.command]
-        cmd.extend(compose_d_options(self._d_options))
+        cmd.extend(serialize_d_options(self._d_options))
         cmd.extend(self.additional_args())
         cmd.extend(self.paths(self.includepath))
         cmd.extend(self.backend_args())
@@ -188,6 +179,9 @@ class LilyPondJob(Job):
         for path in includepath:
             result.append('-I' + path.rstrip('/') + '/')
         return result
+
+    def set_backend_args(self, args):
+        self._backend_args = args
 
     def set_d_option(self, key, value):
         self._d_options[key] = value

@@ -31,6 +31,7 @@ from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
+import documentinfo
 import job.attributes
 import job.lilypond
 import plugin
@@ -132,9 +133,9 @@ class Engraver(plugin.MainWindowPlugin):
                 mgr.musicview.activate()
 
     def engraveRunner(self):
-        job = self.runningJob()
-        if job:
-            job.abort()
+        j = self.runningJob()
+        if j:
+            j.abort()
         elif QApplication.keyboardModifiers() & Qt.SHIFT:
             self.engraveCustom()
         else:
@@ -182,15 +183,18 @@ class Engraver(plugin.MainWindowPlugin):
         is run" is enabled.
 
         """
-        args = None
-        if mode == 'preview':
-            job_class = job.lilypond.PreviewJob
-        elif mode == 'publish':
-            job_class = job.lilypond.PublishJob
-        elif mode == 'layout-control':
-            job_class = job.lilypond.LayoutControlJob
-            args = panelmanager.manager(
-                    self.mainwindow()).layoutcontrol.widget().preview_options()
+        job_class = (
+            job.lilypond.PreviewJob if mode == 'preview'
+            else job.lilypond.PublishJob if mode == 'publish'
+            else job.lilypond.LayoutControlJob
+        )
+        # TODO: Try to move this argument creation into
+        # LayoutControlJob's constructor. However, somehow this has to
+        # obtain access to the mainwindow.
+        args = (
+            panelmanager.manager(
+                self.mainwindow()).layoutcontrol.widget().preview_options()
+            if mode == 'layout-control' else None)
         doc = document or self.document()
         if may_save:
             self.saveDocumentIfDesired()
@@ -292,7 +296,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def openLilyPondDatadir(self):
         """Menu action Open LilyPond Data Directory."""
-        info = job.lilypond.info(self.mainwindow().currentDocument())
+        info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
         datadir = info.datadir()
         if datadir:
             import helpers
@@ -300,7 +304,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
-        info = job.lilypond.info(self.mainwindow().currentDocument())
+        info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
         from . import lytools
         lytools.show_available_fonts(self.mainwindow(), info)
 
@@ -346,14 +350,14 @@ class Engraver(plugin.MainWindowPlugin):
         s.beginGroup("engraving")
         ac.engrave_autocompile.setChecked(s.value("autocompile", False, bool))
 
-    def checkLilyPondInstalled(self, document, job, success):
+    def checkLilyPondInstalled(self, document, j, success):
         """Called when LilyPond is run for the first time.
 
         Displays a helpful dialog if the process failed to start.
 
         """
         app.jobFinished.disconnect(self.checkLilyPondInstalled)
-        if not success and job.failed_to_start():
+        if not success and j.failed_to_start():
             QMessageBox.warning(self.mainwindow(),
                 _("No LilyPond installation found"), _(
                 "Frescobaldi uses LilyPond to engrave music, "
