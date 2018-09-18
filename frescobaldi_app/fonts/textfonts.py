@@ -440,11 +440,8 @@ class TextFonts(QObject):
     def run_lilypond(self):
         """Run lilypond from info with the args list, and a job title."""
         info = self.lilypond_info
-        j = self.job = job.Job()
-        j.decode_errors = 'replace'
-        j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
-        j.command = ([info.abscommand() or info.command]
-            + ['-dshow-available-fonts'])
+        j = self.job = job.Job(
+            [info.abscommand() or info.command] + ['-dshow-available-fonts'])
         j.set_title(_("Available Fonts"))
         j.done.connect(self.process_results)
         j.start()
