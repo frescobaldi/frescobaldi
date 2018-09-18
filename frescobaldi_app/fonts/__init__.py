@@ -62,8 +62,8 @@ class Fonts(plugin.MainWindowPlugin):
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
-        from engrave import command
-        info = command.info(self.mainwindow().currentDocument())
+        import documentinfo
+        info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
         from . import availablefontsdialog
         availablefontsdialog.show_available_fonts(self.mainwindow(), info)
 

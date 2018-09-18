@@ -490,7 +490,7 @@ class MainWindow(QMainWindow):
 
     def newDocument(self):
         """ Creates a new, empty document. """
-        d = document.Document()
+        d = document.EditorDocument()
         self.setCurrentDocument(d)
         s = QSettings()
         ndoc = s.value("new_document", "empty", str)

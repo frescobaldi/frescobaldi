@@ -155,17 +155,16 @@ class FileImport(plugin.MainWindowPlugin):
         dlg = self._importDialog
         dlg.setDocument(self.importfile)
         if dlg.exec_():
-            with qutil.busyCursor():
-                stdout, stderr = dlg.run_command()
-            if stdout: #success
+            j = dlg.run_command()
+            if j.success:
                 dlg.saveSettings()
                 lyfile = os.path.splitext(self.importfile)[0] + ".ly"
-                doc = self.createDocument(lyfile, stdout.decode('utf-8'))
+                doc = self.createDocument(lyfile, j.stdout())
                 self.postImport(dlg.getPostSettings(), doc)
                 self.mainwindow().saveDocument(doc)
             else: #failure to convert
                 QMessageBox.critical(None, _("Error"),
-                    _("The file couldn't be converted. Error message:\n") + stderr.decode('utf-8'))
+                    _("The file couldn't be converted. Error message:\n") + j.stderr())
 
     def createDocument(self, filename, contents):
         """Create a new document using the specified filename and contents.
@@ -228,4 +227,3 @@ class Actions(actioncollection.ActionCollection):
         self.import_midi.setToolTip(_("Import a Midi file using midi2ly."))
         self.import_abc.setText(_("Import abc..."))
         self.import_abc.setToolTip(_("Import an abc file using abc2ly."))
-

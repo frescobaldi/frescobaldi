@@ -28,7 +28,7 @@ import os
 
 import app
 import documentinfo
-import jobmanager
+import job.manager
 import plugin
 import util
 
@@ -77,7 +77,7 @@ class Results(plugin.DocumentPlugin):
         'Forgets' the basenames and job filename if set, but only if no job is currently running.
 
         """
-        if not jobmanager.is_running(self.document()):
+        if not job.manager.is_running(self.document()):
             self._start_time = 0.0
             self._jobfile = None
             self._basenames = None
@@ -155,5 +155,3 @@ class Results(plugin.DocumentPlugin):
         directory = os.path.dirname(self.jobfile())
         if os.path.isdir(directory):
             return directory
-
-

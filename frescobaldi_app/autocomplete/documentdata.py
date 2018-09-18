@@ -146,8 +146,7 @@ class DocumentDataSource(plugin.DocumentPlugin):
                 names.append(os.path.join(reldir, f))
 
         # names from LilyPond itself
-        import engrave.command
-        datadir = engrave.command.info(self.document()).datadir()
+        datadir = documentinfo.lilyinfo(self.document()).datadir()
         if datadir:
             basedir = os.path.join(datadir, 'ly')
             # get the filenames but avoid the -init files here
@@ -179,5 +178,3 @@ def get_filenames(path, directories = False):
         # this only happens when there are filenames in the wrong encoding,
         # but never ever bug the user about this while typing :)
         pass
-
-

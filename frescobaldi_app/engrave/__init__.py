@@ -31,8 +31,9 @@ from PyQt5.QtWidgets import QAction, QApplication, QMessageBox
 import app
 import actioncollection
 import actioncollectionmanager
-import jobmanager
-import jobattributes
+import documentinfo
+import job.attributes
+import job.lilypond
 import plugin
 import icons
 import signals
@@ -92,14 +93,14 @@ class Engraver(plugin.MainWindowPlugin):
     def runningJob(self):
         """Returns a Job for the sticky or current document if that is running."""
         doc = self.document()
-        job = jobmanager.job(doc)
-        if job and job.is_running() and not jobattributes.get(job).hidden:
-            return job
+        j = job.manager.job(doc)
+        if j and j.is_running() and not job.attributes.get(j).hidden:
+            return j
 
     def updateActions(self):
-        job = jobmanager.job(self.document())
-        running = bool(job and job.is_running())
-        visible = running and not jobattributes.get(job).hidden
+        j = job.manager.job(self.document())
+        running = bool(j and j.is_running())
+        visible = running and not job.attributes.get(j).hidden
         ac = self.actionCollection
         ac.engrave_preview.setEnabled(not visible)
         ac.engrave_publish.setEnabled(not visible)
@@ -109,14 +110,14 @@ class Engraver(plugin.MainWindowPlugin):
         ac.engrave_runner.setToolTip(_("Abort engraving job") if visible else
                     _("Engrave (preview; press Shift for custom)"))
 
-    def openDefaultView(self, document, job, success):
+    def openDefaultView(self, document, j, success):
         """Called when a job finishes.
 
         Open the default viewer for the created files if the user has the
         preference for this set.
 
         """
-        if (success and jobattributes.get(job).mainwindow is self.mainwindow()
+        if (success and job.attributes.get(j).mainwindow is self.mainwindow()
                 and QSettings().value("lilypond_settings/open_default_view", True, bool)):
 
             # which files were created by this job?
@@ -131,9 +132,9 @@ class Engraver(plugin.MainWindowPlugin):
                 mgr.musicview.activate()
 
     def engraveRunner(self):
-        job = self.runningJob()
-        if job:
-            job.abort()
+        j = self.runningJob()
+        if j:
+            j.abort()
         elif QApplication.keyboardModifiers() & Qt.SHIFT:
             self.engraveCustom()
         else:
@@ -181,23 +182,27 @@ class Engraver(plugin.MainWindowPlugin):
         is run" is enabled.
 
         """
-        if mode == 'preview':
-            args = ['-dpoint-and-click']
-        elif mode == 'publish':
-            args = None     # command.defaultJob() will handle publish mode
-        elif mode == 'layout-control':
-            args = panelmanager.manager(
-                    self.mainwindow()).layoutcontrol.widget().preview_options()
+        job_class = (
+            job.lilypond.PreviewJob if mode == 'preview'
+            else job.lilypond.PublishJob if mode == 'publish'
+            else job.lilypond.LayoutControlJob
+        )
+        # TODO: Try to move this argument creation into
+        # LayoutControlJob's constructor. However, somehow this has to
+        # obtain access to the mainwindow.
+        args = (
+            panelmanager.manager(
+                self.mainwindow()).layoutcontrol.widget().preview_options()
+            if mode == 'layout-control' else None)
         doc = document or self.document()
         if may_save:
             self.saveDocumentIfDesired()
-        from . import command
-        self.runJob(command.defaultJob(doc, args), doc)
+        self.runJob(job_class(doc, args), doc)
 
     def engraveAbort(self):
-        job = jobmanager.job(self.document())
-        if job and job.is_running():
-            job.abort()
+        j = job.manager.job(self.document())
+        if j and j.is_running():
+            j.abort()
 
     def saveDocumentIfDesired(self):
         """Saves the current document if desired and it makes sense.
@@ -221,8 +226,8 @@ class Engraver(plugin.MainWindowPlugin):
         for autocompile ("hidden") jobs).
 
         """
-        job = jobmanager.job(doc)
-        if not job or not job.is_running() or jobattributes.get(job).hidden:
+        j = job.manager.job(doc)
+        if not j or not j.is_running() or job.attributes.get(j).hidden:
             return True
         msgbox = QMessageBox(QMessageBox.Warning,
             _("Warning"),
@@ -232,19 +237,19 @@ class Engraver(plugin.MainWindowPlugin):
             self.mainwindow())
         abort_button = msgbox.button(QMessageBox.Abort)
         signal = lambda: abort_button.click()
-        job.done.connect(signal)
+        j.done.connect(signal)
         msgbox.exec_()
-        job.done.disconnect(signal)
+        j.done.disconnect(signal)
         return msgbox.clickedButton() == abort_button
 
-    def runJob(self, job, document):
+    def runJob(self, j, document):
         """Runs the engraving job on behalf of document."""
-        jobattributes.get(job).mainwindow = self.mainwindow()
+        job.attributes.get(j).mainwindow = self.mainwindow()
         # cancel running job, that would be an autocompile job
-        rjob = jobmanager.job(document)
+        rjob = job.manager.job(document)
         if rjob and rjob.is_running():
             rjob.abort()
-        jobmanager.manager(document).start_job(job)
+        job.manager.manager(document).start_job(j)
 
     def stickyToggled(self):
         """Called when the user toggles the 'Sticky' action."""
@@ -290,8 +295,7 @@ class Engraver(plugin.MainWindowPlugin):
 
     def openLilyPondDatadir(self):
         """Menu action Open LilyPond Data Directory."""
-        from . import command
-        info = command.info(self.mainwindow().currentDocument())
+        info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
         datadir = info.datadir()
         if datadir:
             import helpers
@@ -299,9 +303,9 @@ class Engraver(plugin.MainWindowPlugin):
 
     def slotDocumentClosed(self, doc):
         """Called when the user closes a document. Aborts a running Job."""
-        job = jobmanager.job(doc)
-        if job and job.is_running():
-            job.abort()
+        j = job.manager.job(doc)
+        if j and j.is_running():
+            j.abort()
 
     def slotSessionChanged(self):
         """Called when the session is changed."""
@@ -339,14 +343,14 @@ class Engraver(plugin.MainWindowPlugin):
         s.beginGroup("engraving")
         ac.engrave_autocompile.setChecked(s.value("autocompile", False, bool))
 
-    def checkLilyPondInstalled(self, document, job, success):
+    def checkLilyPondInstalled(self, document, j, success):
         """Called when LilyPond is run for the first time.
 
         Displays a helpful dialog if the process failed to start.
 
         """
         app.jobFinished.disconnect(self.checkLilyPondInstalled)
-        if not success and job.failed_to_start():
+        if not success and j.failed_to_start():
             QMessageBox.warning(self.mainwindow(),
                 _("No LilyPond installation found"), _(
                 "Frescobaldi uses LilyPond to engrave music, "

@@ -25,8 +25,6 @@ In the dialog the options of abc2ly can be set.
 
 
 import os
-import subprocess
-import sys
 
 from PyQt5.QtCore import QSettings, QSize
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
@@ -79,37 +77,19 @@ class Dialog(toly_dialog.ToLyDialog):
         self.commandLine.setText(' '.join(cmd))
 
     def run_command(self):
-        """ABC import (at least for now) needs a specific solution here."""
-        cmd = self.getCmd('document.ly')
-        directory = util.tempdir()
-        subenviron = None
-        if os.name == "nt":
-            # Python 2.7 subprocess on Windows chokes on unicode in env
-            subenviron = util.bytes_environ()
+        """ABC import needs a specific solution because it always writes
+        results to a file."""
+        j = super().run_command(output_file='document.ly')
+        if j.success:
+            temp_file = os.path.join(
+                os.path.dirname(self._document), 'document.ly')
+            with open(temp_file) as abc:
+                content = abc.read()
+            j.stdout = lambda: content
+            os.remove(temp_file)
         else:
-            subenviron = dict(os.environ)
-        if sys.platform.startswith('darwin'):
-            try:
-                del subenviron['PYTHONHOME']
-            except KeyError:
-                pass
-            try:
-                del subenviron['PYTHONPATH']
-            except KeyError:
-                pass
-        proc = subprocess.Popen(cmd, cwd=directory,
-            env = subenviron,
-            stdin = subprocess.PIPE,
-            stdout = subprocess.PIPE,
-            stderr = subprocess.PIPE)
-        stdouterr = proc.communicate()
-        if not stdouterr[0]:
-            try:
-                with open(os.path.join(directory, cmd[-1])) as abc:
-                    stdouterr = (abc.read(), stdouterr[1])
-            except IOError:
-                pass
-        return stdouterr
+            j.stdout = lambda: (_('Failed to import ABC')
+        return j
 
     def loadSettings(self):
         """Get users previous settings."""

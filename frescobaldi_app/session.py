@@ -89,7 +89,7 @@ def restoreSession(key):
         url = settings.value("url", QUrl(), QUrl)
         if url.isEmpty():
             import document
-            doc = document.Document()
+            doc = document.EditorDocument()
         else:
             try:
                 doc = app.openUrl(url)
@@ -125,5 +125,3 @@ def restoreSession(key):
 def _setup():
     # the new-style way of connecting fails on PyQt5 4.8.x...
     app.qApp.commitDataRequest.connect(commitData)
-
-

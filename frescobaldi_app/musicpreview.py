@@ -22,57 +22,19 @@ A widget and dialog to show an output preview of a LilyPond document.
 """
 
 
-
-import os
-import glob
-import shutil
-
-from PyQt5.QtCore import QSettings, QSize
+from PyQt5.QtCore import QSize
 from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
                              QLabel, QStackedLayout, QVBoxLayout, QWidget)
 
-import ly.document
-import ly.docinfo
-
 import app
-import codecs
+import document
 import icons
 import job
 import log
-import util
 import qutil
-import lilypondinfo
 import popplerview
 import popplertools
 import widgets.progressbar
-
-
-class MusicPreviewJob(job.Job):
-    def __init__(self, text, title=None):
-        super(MusicPreviewJob, self).__init__()
-        self.decode_errors = 'replace'
-        self.decoder_stdout = self.decoder_stderr = codecs.getdecoder('utf-8')
-        self.directory = util.tempdir()
-        self.document = os.path.join(self.directory, 'document.ly')
-        with open(self.document, 'wb') as f:
-            f.write(text.encode('utf-8'))
-
-        info = lilypondinfo.preferred()
-        if QSettings().value("lilypond_settings/autoversion", True, bool):
-            version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version()
-            if version:
-                info = lilypondinfo.suitable(version)
-
-        lilypond = info.abscommand() or info.command
-        self.command = [lilypond, '-dno-point-and-click', '--pdf', self.document]
-        if title:
-            self.set_title(title)
-
-    def resultfiles(self):
-        return glob.glob(os.path.join(self.directory, '*.pdf'))
-
-    def cleanup(self):
-        shutil.rmtree(self.directory, ignore_errors=True)
 
 
 class MusicPreviewWidget(QWidget):
@@ -118,7 +80,7 @@ class MusicPreviewWidget(QWidget):
 
     def preview(self, text, title=None):
         """Runs LilyPond on the given text and shows the resulting PDF."""
-        j = self._running = MusicPreviewJob(text, title)
+        j = self._running = job.lilypond.VolatileTextJob(text, title)
         j.done.connect(self._done)
         self._log.clear()
         self._log.connectJob(j)
@@ -208,5 +170,3 @@ class MusicPreviewDialog(QDialog):
     def setEnablePrintButton(self, enable):
         """Enables or disables the print button."""
         self._printButton.setVisible(enable)
-
-
