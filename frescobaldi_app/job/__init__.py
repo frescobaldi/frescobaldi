@@ -86,7 +86,8 @@ class Job(object):
     title_changed = signals.Signal() # title (string)
 
     def __init__(self, command=[], directory="", environment={},
-                 title="", decode_errors='strict', encoding='latin1'):
+                 title="", decode_errors='strict', encoding='latin1',
+                 priority=0):
         self.command = command
         self.directory = directory
         self.environment = {}
@@ -94,6 +95,7 @@ class Job(object):
         self.success = None
         self.error = None
         self._title = ""
+        self._priority = priority
         self._aborted = False
         self._process = None
         self._history = []
@@ -136,6 +138,12 @@ class Job(object):
         if title != old:
             self.title_changed(title)
 
+    def priority(self):
+        return self._priority
+
+    def set_priority(self, value):
+        self._priority = value
+        
     def start(self):
         """Starts the process."""
         self.configure_command()
