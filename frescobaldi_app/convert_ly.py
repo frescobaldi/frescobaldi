@@ -223,8 +223,8 @@ class Dialog(QDialog):
             j.environment.pop('LANG', None)
             j.environment.pop('LC_ALL', None)
 
-        j.start()
         j.done.connect(self.slotJobDone)
+        app.job_queue().add_job(j, 'generic')
         j._process.write(self._text.encode('utf-8'))
         j._process.closeWriteChannel()
 

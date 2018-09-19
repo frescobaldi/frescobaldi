@@ -27,6 +27,7 @@ import os
 from PyQt5.QtWidgets import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
+import app
 import lilychooser
 import userguide
 import util
@@ -150,7 +151,7 @@ class ToLyDialog(QDialog):
         j = job.Job(command=self.getCmd(output_file),
             directory=os.path.dirname(self._document),
             encoding='utf-8')
-        j.start()
+        app.job_queue().add_job(j, 'generic')
         if not j._process.waitForFinished(3000):
             raise OSError("Process didn't complete in time")
         return j

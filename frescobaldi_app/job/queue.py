@@ -370,9 +370,9 @@ class JobQueue(QObject):
 
     def start(self):
         """Start processing of the queue."""
-        if self.state() != QueueStatus.INACTIVE:
+        if self.started():
             raise JobQueueStateException(
-                _("Can't start Job Queue that had already been started."))
+                _("Can't 'start' an active Job Queue."))
         self._starttime = time.time()
         self._start()
 

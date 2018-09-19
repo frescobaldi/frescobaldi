@@ -236,7 +236,7 @@ class LilyPondInfo(object):
             else:
                 self.versionString = ""
 
-        app.job_queue().add_job(j)
+        app.job_queue().add_job(j, 'generic')
 
     @CachedProperty.cachedproperty(depends=versionString)
     def version(self):
@@ -293,7 +293,7 @@ class LilyPondInfo(object):
                         self.datadir = d
                         return
             self.datadir = False
-        app.job_queue().add_job(j)
+        app.job_queue().add_job(j, 'generic')
 
     def toolcommand(self, command):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
