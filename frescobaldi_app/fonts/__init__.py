@@ -30,6 +30,7 @@ from PyQt5.QtWidgets import QAction
 
 import actioncollection
 import actioncollectionmanager
+import icons
 import plugin
 
 from . import musicfonts, textfonts
@@ -71,11 +72,16 @@ class Actions(actioncollection.ActionCollection):
 
     def createActions(self, parent=None):
         self.fonts_show_available_fonts = QAction(parent)
+        self.fonts_show_available_fonts.setIcon(
+            icons.get('preferences-desktop-font'))
         self.fonts_set_document_fonts = QAction(parent)
 
     def translateUI(self):
         self.fonts_show_available_fonts.setText(
-            _("Show Available &Fonts..."))
+            _("Available &Fonts..."))
+        self.fonts_show_available_fonts.setToolTip(
+            _("Show and select text and music fonts available in the " +
+              "LilyPond version of the current document"))
         self.fonts_set_document_fonts.setText(
             _("Set &Document Fonts..."))
 

@@ -290,7 +290,9 @@ def menu_tools(mainwindow):
     m.addSeparator()
     m.addMenu(menu_tools_format(mainwindow))
     m.addMenu(menu_tools_transform(mainwindow))
-    m.addMenu(menu_tools_fonts(mainwindow))
+    fac = fonts.fonts(mainwindow).actionCollection
+    m.addAction(fac.fonts_show_available_fonts)
+    m.addAction(fac.fonts_set_document_fonts)
     dac = documentactions.get(mainwindow).actionCollection
     m.addAction(dac.tools_convert_ly)
     m.addSeparator()
@@ -319,14 +321,6 @@ def menu_tools_transform(mainwindow):
     m.addMenu(menu_tools_lyrics(mainwindow))
     m.addMenu(menu_tools_directions(mainwindow))
     m.addMenu(menu_tools_quick_remove(mainwindow))
-    return m
-
-def menu_tools_fonts(mainwindow):
-    m = Menu(_('submenu title', "Fo&nts"), mainwindow)
-    m.setIcon(icons.get('preferences-desktop-font'))
-    ac = fonts.fonts(mainwindow).actionCollection
-    m.addAction(ac.fonts_show_available_fonts)
-    m.addAction(ac.fonts_set_document_fonts)
     return m
 
 def menu_tools_lyrics(mainwindow):
