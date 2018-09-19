@@ -228,6 +228,19 @@ def displayhook(obj):
     if obj is not None:
         print(repr(obj))
 
+_job_queue = None
+
+def job_queue():
+    """Return the global JobQueue object."""
+    global _job_queue
+    if _job_queue is None:
+        import job.queue
+        #TODO: save the number of runners in the Preferences
+        #NOTE: Provide code for *changing* the number of runners
+        _job_queue = job.queue.JobQueue(num_runners=2)
+        _job_queue.start()
+    return _job_queue
+
 _is_git_controlled = None
 
 def is_git_controlled():
