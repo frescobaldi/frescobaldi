@@ -39,9 +39,6 @@ import util
 import qutil
 
 
-_scheduler = job.queue.Scheduler()
-
-
 _infos = None   # this can hold a list of configured LilyPondInfo instances
 
 
@@ -239,7 +236,7 @@ class LilyPondInfo(object):
             else:
                 self.versionString = ""
 
-        _scheduler.add(j)
+        app.job_queue().add_job(j)
 
     @CachedProperty.cachedproperty(depends=versionString)
     def version(self):
@@ -296,7 +293,7 @@ class LilyPondInfo(object):
                         self.datadir = d
                         return
             self.datadir = False
-        _scheduler.add(j)
+        app.job_queue().add_job(j)
 
     def toolcommand(self, command):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
