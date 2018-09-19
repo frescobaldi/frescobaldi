@@ -27,6 +27,7 @@ import time
 
 from PyQt5.QtCore import QObject
 
+import app
 import job
 import signals
 
@@ -386,3 +387,36 @@ class JobQueue(QObject):
 
     def state(self):
         return self._state
+
+
+class GlobalJobQueue(QObject):
+    """The application-wide Job Queue that dispatches jobs to runners
+    and subordinate queues.
+    """
+
+    def __init__(self):
+        self.load_settings()
+        self._crawler = JobQueue()
+        self._engraver = JobQueue()
+        self._generic = JobQueue()
+        self._queues = {
+            'crawl': self._crawler,
+            'engrave': self._engraver,
+            'generic': self._generic
+        }
+        app.settingsChanged.connect(self.settings_changed)
+
+    def add_job(self, j, target='engrave'):
+        """Add a job to the specified job queue."""
+        target_queue = self._queues.get(target, None)
+        if not target_queue:
+            raise ValueError(_("Invalid job queue target: {}".format(target)))
+        target_queue.add_job(j)
+
+    def load_settings(self):
+        #TODO: Load settings and create the JobQueues accordingly
+        pass
+
+    def settings_changed(self):
+        #TODO: If multicore-related settings have changed update the queues
+        pass
