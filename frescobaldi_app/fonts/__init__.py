@@ -62,10 +62,8 @@ class Fonts(plugin.MainWindowPlugin):
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
-        import documentinfo
-        info = documentinfo.lilyinfo(self.mainwindow().currentDocument())
         from . import availablefontsdialog
-        availablefontsdialog.show_available_fonts(self.mainwindow(), info)
+        availablefontsdialog.show_available_fonts(self.mainwindow())
 
 
 class Actions(actioncollection.ActionCollection):

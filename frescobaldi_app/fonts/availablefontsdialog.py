@@ -38,6 +38,7 @@ from PyQt5.QtWidgets import (
 )
 
 import app
+import documentinfo
 import log
 import qutil
 import widgets.dialog
@@ -49,9 +50,9 @@ from . import (
 )
 
 
-def show_available_fonts(mainwin, info):
+def show_available_fonts(mainwin):
     """Display a dialog with the available fonts of LilyPond specified by info."""
-    dlg = ShowFontsDialog(mainwin, info)
+    dlg = ShowFontsDialog(mainwin)
     qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
     dlg.show()
 
@@ -59,7 +60,7 @@ def show_available_fonts(mainwin, info):
 class ShowFontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts"""
 
-    def __init__(self, parent, info):
+    def __init__(self, parent):
         super(ShowFontsDialog, self).__init__(
             parent,
             buttons=('restoredefaults', 'close',),
@@ -72,7 +73,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         self.tabWidget = QTabWidget(self)
         self.setMainWidget(self.tabWidget)
 
-        self.lilypond_info = info
+        info = documentinfo.lilyinfo(parent.currentDocument())
         self.available_fonts = fonts.available(info)
 
         self.createTabs()
@@ -83,6 +84,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
         if self.available_fonts.text_fonts().is_loaded():
             self.populate_widgets()
         else:
+            self.tabWidget.insertTab(0, self.logTab, _("LilyPond output"))
+            self.tabWidget.setCurrentIndex(0)
             self.font_tree_tab.display_waiting()
             self.available_fonts.text_fonts().load_fonts(self.logWidget)
 
@@ -97,23 +100,21 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             logLayout.addWidget(self.logLabel)
             logLayout.addWidget(self.logWidget)
             self.logTab.setLayout(logLayout)
-            self.tabWidget.addTab(self.logTab, _("LilyPond output"))
 
         create_log()
         # Show Text Font results
         self.font_tree_tab = textfonts.TextFontsWidget(self.available_fonts)
-        self.tabWidget.addTab(self.font_tree_tab, _("Text Fonts"))
-
-        # Show Music Font results
-        self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts)
-        self.tabWidget.addTab(self.music_tree_tab, _("Music Fonts"))
 
         # Show various fontconfig information
         self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
         self.tabWidget.addTab(self.misc_tree_tab, _("Miscellaneous"))
 
+        # Show Music Font results
+        self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts)
+        self.tabWidget.insertTab(0, self.music_tree_tab, _("Music Fonts"))
+
     def connectSignals(self):
-        self.available_fonts.text_fonts().loaded.connect(self.populate_widgets)
+        self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
         self.finished.connect(self.saveSettings)
         self.reloadButton.clicked.connect(self.reload)
         self.music_tree_tab.button_install.clicked.connect(
@@ -185,8 +186,9 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def populate_widgets(self):
         """Populate widgets."""
+        self.tabWidget.insertTab(0, self.font_tree_tab, _("Text Fonts"))
+        self.tabWidget.setCurrentIndex(0)
         self.load_font_tree_column_width(QSettings())
-        self.tabWidget.setCurrentIndex(1)
         self.font_tree_tab.display_count()
         self.font_tree_tab.refresh_filter_edit()
         self.font_tree_tab.filter_edit.setFocus()
@@ -194,6 +196,8 @@ class ShowFontsDialog(widgets.dialog.Dialog):
 
     def reload(self):
         """Refresh font list by running LilyPond"""
+        self.tabWidget.removeTab(0)
+        self.tabWidget.insertTab(0, self.logTab, _("LilyPond output"))
         self.tabWidget.setCurrentIndex(0)
         self.logWidget.clear()
         # We're connected to the 'loaded' signal
@@ -206,3 +210,7 @@ class ShowFontsDialog(widgets.dialog.Dialog):
             self.music_tree_tab.show_sample(indexes[0].data())
         self.music_tree_tab.button_remove.setEnabled(
             self.music_tree_tab.tree_view.selectionModel().hasSelection())
+
+    def text_fonts_loaded(self):
+        self.tabWidget.removeTab(0)
+        self.populate_widgets()
