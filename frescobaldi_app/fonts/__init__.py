@@ -62,8 +62,8 @@ class Fonts(plugin.MainWindowPlugin):
 
     def showAvailableFonts(self):
         """Menu action Show Available Fonts."""
-        from . import availablefontsdialog
-        availablefontsdialog.show_available_fonts(self.mainwindow())
+        from . import dialog
+        dialog.show_fonts_dialog(self.mainwindow())
 
 
 class Actions(actioncollection.ActionCollection):

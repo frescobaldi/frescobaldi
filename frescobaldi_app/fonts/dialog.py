@@ -50,18 +50,18 @@ from . import (
 )
 
 
-def show_available_fonts(mainwin):
+def show_fonts_dialog(mainwin):
     """Display a dialog with the available fonts of LilyPond specified by info."""
-    dlg = ShowFontsDialog(mainwin)
+    dlg = FontsDialog(mainwin)
     qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
     dlg.show()
 
 
-class ShowFontsDialog(widgets.dialog.Dialog):
+class FontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts"""
 
     def __init__(self, parent):
-        super(ShowFontsDialog, self).__init__(
+        super(FontsDialog, self).__init__(
             parent,
             buttons=('restoredefaults', 'close',),
         )
