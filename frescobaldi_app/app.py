@@ -150,8 +150,11 @@ def restart():
     python_executable = sys.executable
     if python_executable:
         args = [python_executable] + args
-    import job
-    job.Job(args).start()
+    #NOTE: This deliberately uses subprocess and not job.Job
+    # It has turned out that using Job the code files are not
+    # reloaded at all.
+    import subprocess
+    subprocess.Popen(args)
 
 def translateUI(obj, priority=0):
     """Translates texts in the object.
