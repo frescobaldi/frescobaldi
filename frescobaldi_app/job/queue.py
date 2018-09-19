@@ -405,6 +405,15 @@ class GlobalJobQueue(QObject):
             'generic': self._generic
         }
         app.settingsChanged.connect(self.settings_changed)
+        app.aboutToQuit.connect(self.about_to_quit)
+
+    def about_to_quit(self):
+        #TODO:
+        # - is any queue active?
+        # - should jobs be aborted?
+        # - or only the queues be emptied?
+        # - _crawer can always be aborted immediately
+        pass
 
     def add_job(self, j, target='engrave'):
         """Add a job to the specified job queue."""
