@@ -238,7 +238,6 @@ def job_queue():
         #TODO: save the number of runners in the Preferences
         #NOTE: Provide code for *changing* the number of runners
         _job_queue = job.queue.JobQueue(num_runners=2)
-        _job_queue.start()
     return _job_queue
 
 _is_git_controlled = None

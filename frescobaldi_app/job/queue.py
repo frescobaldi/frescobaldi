@@ -238,6 +238,9 @@ class JobQueue(QObject):
         self._capacity = capacity
         self._runners = [Runner(self) for i in range(num_runners)]
 
+        if queue_mode == QueueMode.CONTINUOUS:
+            self.start()
+
     def abort(self, force=True):
         """Abort the execution of the queued jobs.
         If force=True running jobs are aborted, otherwise
