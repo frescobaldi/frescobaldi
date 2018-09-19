@@ -35,20 +35,6 @@ import documenticon
 import engrave
 
 
-def path(url):
-    """Returns the path, as a string, of the url to group documents.
-
-    Returns None if the document is nameless.
-
-    """
-    if url.isEmpty():
-        return None
-    elif url.toLocalFile():
-        return util.homify(os.path.dirname(url.toLocalFile()))
-    else:
-        return url.resolved(QUrl('.')).toString(QUrl.RemoveUserInfo)
-
-
 class Widget(QTreeWidget):
     def __init__(self, tool):
         super(Widget, self).__init__(tool, headerHidden=True)
@@ -110,7 +96,7 @@ class Widget(QTreeWidget):
         # set properties according to document
         i.setText(0, doc.documentName())
         i.setIcon(0, documenticon.icon(doc, self.parentWidget().mainwindow()))
-        i.setToolTip(0, path(doc.url()))
+        i.setToolTip(0, util.path(doc.url()))
         # handle ordering in groups if desired
         if self._group:
             self.groupDocument(doc)
@@ -120,7 +106,7 @@ class Widget(QTreeWidget):
     def groupDocument(self, doc):
         """Called, if grouping is enabled, to group the document."""
         i = self._items[doc]
-        p = path(doc.url())
+        p = util.path(doc.url())
         new_parent = self._paths.get(p)
         if new_parent is None:
             new_parent = self._paths[p] = QTreeWidgetItem(self)
@@ -210,5 +196,3 @@ class Widget(QTreeWidget):
 
         menu.exec_(ev.globalPos())
         menu.deleteLater()
-
-

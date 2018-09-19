@@ -24,8 +24,7 @@ Provides an icon for a Document.
 
 import plugin
 import signals
-import jobmanager
-import jobattributes
+import job
 import engrave
 import icons
 
@@ -46,7 +45,7 @@ class DocumentIconProvider(plugin.DocumentPlugin):
 
     def __init__(self, doc):
         doc.modificationChanged.connect(self._send_icon)
-        mgr = jobmanager.manager(doc)
+        mgr = job.manager.manager(doc)
         mgr.started.connect(self._send_icon)
         mgr.finished.connect(self._send_icon)
 
@@ -55,18 +54,17 @@ class DocumentIconProvider(plugin.DocumentPlugin):
 
     def icon(self, mainwindow=None):
         doc = self.document()
-        job = jobmanager.job(doc)
-        if job and job.is_running() and not jobattributes.get(job).hidden:
+        j = job.manager.job(doc)
+        if j and j.is_running() and not job.attributes.get(j).hidden:
             icon = 'lilypond-run'
         elif mainwindow and doc is engrave.Engraver.instance(mainwindow).stickyDocument():
             icon = 'pushpin'
         elif doc.isModified():
             icon = 'document-save'
-        elif job and not job.is_running() and not job.is_aborted() and job.success:
+        elif j and not j.is_running() and not j.is_aborted() and j.success:
             icon = 'document-compile-success'
-        elif job and not job.is_running() and not job.is_aborted():
+        elif j and not j.is_running() and not j.is_aborted():
             icon = 'document-compile-failed'
         else:
             icon = 'text-plain'
         return icons.get(icon)
-

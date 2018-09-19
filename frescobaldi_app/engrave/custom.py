@@ -30,20 +30,15 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QSpinBox, QTextEdit)
 
 import app
-import documentinfo
 import userguide
 import icons
 import job
-import jobmanager
-import jobattributes
 import panelmanager
 import lilychooser
 import listmodel
 import widgets
 import qutil
 import util
-
-from . import command
 
 
 class Dialog(QDialog):
@@ -123,14 +118,8 @@ class Dialog(QDialog):
             self.outputCombo.setCurrentIndex(3)
 
         app.jobFinished.connect(self.slotJobFinished)
-        self.outputCombo.currentIndexChanged.connect(self.makeCommandLine)
-        self.modeCombo.currentIndexChanged.connect(self.makeCommandLine)
-        self.deleteCheck.toggled.connect(self.makeCommandLine)
-        self.embedSourceCodeCheck.toggled.connect(self.makeCommandLine)
-        self.resolutionCombo.editTextChanged.connect(self.makeCommandLine)
-        self.antialiasSpin.valueChanged.connect(self.makeCommandLine)
-        self.makeCommandLine()
-        panelmanager.manager(mainwindow).layoutcontrol.widget().optionsChanged.connect(self.makeCommandLine)
+        self.outputCombo.currentIndexChanged.connect(self.updateFormatControls)
+        self.updateFormatControls()
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Engrave custom")))
@@ -146,7 +135,7 @@ class Dialog(QDialog):
         self.deleteCheck.setText(_("Delete intermediate output files"))
         self.embedSourceCodeCheck.setText(_("Embed Source Code (LilyPond >= 2.19.39)"))
         self.englishCheck.setText(_("Run LilyPond with English messages"))
-        self.commandLineLabel.setText(_("Command line:"))
+        self.commandLineLabel.setText(_("Additional Command Line Options:"))
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Run LilyPond"))
         self.outputCombo.update()
 
@@ -156,70 +145,79 @@ class Dialog(QDialog):
             self._document = None
 
     def setDocument(self, doc):
-        self.lilyChooser.setLilyPondInfo(command.info(doc))
-        job = jobmanager.job(doc)
-        if job and job.is_running() and not jobattributes.get(job).hidden:
+        j = job.manager.job(doc)
+        if j:
+            self.lilyChooser.setLilyPondInfo(j.lilypond_info)
+        if j and j.is_running() and not job.attributes.get(j).hidden:
             self._document = doc
             self.buttons.button(QDialogButtonBox.Ok).setEnabled(False)
 
-    def makeCommandLine(self):
+    def updateFormatControls(self):
         """Reads the widgets and builds a command line."""
         f = formats[self.outputCombo.currentIndex()]
         self.resolutionCombo.setEnabled('resolution' in f.widgets)
         self.antialiasSpin.setEnabled('antialias' in f.widgets)
-        cmd = ["$lilypond"]
 
+    def getJob(self, document):
+        """Returns and configures a Job to start."""
+        f = formats[self.outputCombo.currentIndex()]
+        d_options = {}
+        args = []
+
+        # Configure job type, choose class
         if self.modeCombo.currentIndex() == 0:   # preview mode
-            cmd.append('-dpoint-and-click')
+            job_class = job.lilypond.PreviewJob
         elif self.modeCombo.currentIndex() == 1: # publish mode
-            cmd.append('-dno-point-and-click')
+            job_class = job.lilypond.PublishJob
         elif self.modeCombo.currentIndex() == 2: # incipit mode
-            cmd.extend(['-dpreview', '-dno-print-pages'])
+            job_class = job.lilypond.LilyPondJob
+            d_options['preview'] = True
+            d_options['print_pages'] = False
         else:                                    # debug mode
-            args = panelmanager.manager(self.parent()).layoutcontrol.widget().preview_options()
-            cmd.extend(args)
+            job_class = job.lilypond.LayoutControlJob
+            args = panelmanager.manager(
+                self.parent()).layoutcontrol.widget().preview_options()
 
-        if self.deleteCheck.isChecked():
-            cmd.append('-ddelete-intermediate-files')
-        else:
-            cmd.append('-dno-delete-intermediate-files')
+        # Instantiate Job
+        j = job_class(document, args)
+        j.lilypond_info = self.lilyChooser.lilyPondInfo()
+
+        # Configure extended command line options
+        d_options['delete-intermediate-files'] = True if self.deleteCheck.isChecked() else False
 
         if self.embedSourceCodeCheck.isChecked():
-            cmd.append('-dembed-source-code')
+            d_options['embed-source-code'] = True
 
+        # Assign extended command line options
+        for k in d_options:
+            j.set_d_option(k, d_options[k])
+
+        # Determine options for the output target/backend
         d = {
-            'version': self.lilyChooser.lilyPondInfo().version,
+            'version': j.lilypond_info.version,
             'resolution': self.resolutionCombo.currentText(),
             'antialias': self.antialiasSpin.value(),
         }
-        cmd.append("$include")
-        cmd.extend(f.options(d))
-        cmd.append("$filename")
-        self.commandLine.setText(' '.join(cmd))
+        j.set_backend_args(f.options(d))
 
-    def getJob(self, document):
-        """Returns a Job to start."""
-        filename, includepath = documentinfo.info(document).jobinfo(True)
-        i = self.lilyChooser.lilyPondInfo()
-        cmd = []
+        # Parse additional/custom tokens from the text edit
         for t in self.commandLine.toPlainText().split():
-            if t == '$lilypond':
-                cmd.append(i.abscommand() or i.command)
-            elif t == '$filename':
-                cmd.append(filename)
-            elif t == '$include':
-                cmd.extend('-I' + path for path in includepath)
+            if t.startswith('-d'):
+                k, v = job.lilypond.parse_d_option(t)
+                j.set_d_option(k, v)
             else:
-                cmd.append(t)
-        j = job.Job()
-        j.directory = os.path.dirname(filename)
-        j.command = cmd
-        j.environment['LD_LIBRARY_PATH'] = i.libdir()
+                j.add_additional_arg(t)
+
+        # Set environment variables for the job
         if self.englishCheck.isChecked():
             j.environment['LANG'] = 'C'
             j.environment['LC_ALL'] = 'C'
+        else:
+            j.environment.pop('LANG', None)
+            j.environment.pop('LC_ALL', None)
         j.set_title("{0} {1} [{2}]".format(
-            os.path.basename(i.command), i.versionString(), document.documentName()))
+            os.path.basename(j.lilypond_info.command),
+                j.lilypond_info.versionString(), document.documentName()))
         return j
 
     def keyPressEvent(self, ev):
@@ -284,5 +282,3 @@ formats = [
         ('resolution', 'antialias'),
     ),
 ]
-
-

@@ -54,19 +54,19 @@ class LogTool(panel.Panel):
         from . import logwidget
         return logwidget.LogWidget(self)
 
-    def slotJobStarted(self, doc, job):
+    def slotJobStarted(self, doc, j):
         """Called whenever job starts, decides whether to follow it and show the log."""
-        import jobattributes
-        jattrs = jobattributes.get(job)
+        import job
+        jattrs = job.attributes.get(j)
         if doc == self.mainwindow().currentDocument() or self.mainwindow() == jattrs.mainwindow:
             self.widget().switchDocument(doc)
             if not jattrs.hidden and QSettings().value("log/show_on_start", True, bool):
                 self.show()
 
-    def slotJobFinished(self, document, job, success):
-        import jobattributes
-        if (not success and not job.is_aborted()
-                and not jobattributes.get(job).hidden
+    def slotJobFinished(self, document, j, success):
+        import job
+        if (not success and not j.is_aborted()
+                and not job.attributes.get(j).hidden
                 and document == self.mainwindow().currentDocument()):
             self.show()
 
@@ -100,4 +100,3 @@ class Actions(actioncollection.ActionCollection):
 def _log_errors(document):
     from . import errors
     errors.errors(document)
-

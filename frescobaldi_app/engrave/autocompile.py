@@ -39,13 +39,11 @@ from PyQt5.QtCore import QSettings, Qt, QTimer
 import app
 import documentinfo
 import resultfiles
-import jobattributes
-import jobmanager
+import job
 import plugin
 import ly.lex
 
 from . import engraver
-from . import command
 
 
 class AutoCompiler(plugin.MainWindowPlugin):
@@ -94,8 +92,8 @@ class AutoCompiler(plugin.MainWindowPlugin):
         """Called when the autocompile timer expires."""
         eng = engraver(self.mainwindow())
         doc = eng.document()
-        rjob = jobmanager.job(doc)
-        if rjob and rjob.is_running(): # and not jobattributes.get(rjob).hidden:
+        rjob = job.manager.job(doc)
+        if rjob and rjob.is_running(): # and not job.attributes.get(rjob).hidden:
             # a real job is running, come back when that is done
             rjob.done.connect(self.startTimer)
             return
@@ -110,9 +108,9 @@ class AutoCompiler(plugin.MainWindowPlugin):
                 if may_compile:
                     mgr.slotJobStarted()
         if may_compile:
-            job = command.defaultJob(doc, ['-dpoint-and-click'])
-            jobattributes.get(job).hidden = True
-            eng.runJob(job, doc)
+            j = job.lilypond.PreviewJob(doc)
+            job.attributes.get(j).hidden = True
+            eng.runJob(j, doc)
 
 
 class AutoCompileManager(plugin.DocumentPlugin):
@@ -120,7 +118,7 @@ class AutoCompileManager(plugin.DocumentPlugin):
         document.contentsChanged.connect(self.slotDocumentContentsChanged, Qt.QueuedConnection)
         document.saving.connect(self.slotDocumentSaving)
         document.loaded.connect(self.initialize)
-        jobmanager.manager(document).started.connect(self.slotJobStarted)
+        job.manager.manager(document).started.connect(self.slotJobStarted)
         self.initialize()
 
     def initialize(self):
@@ -182,5 +180,3 @@ class AutoCompileManager(plugin.DocumentPlugin):
         if self._dirty:
             self._dirty = False
             self._hash = documentinfo.docinfo(self.document()).token_hash()
-
-

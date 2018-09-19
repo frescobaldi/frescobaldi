@@ -28,6 +28,7 @@ from PyQt5.QtCore import QSettings, QUrl
 
 import app
 import plugin
+import document
 
 
 __all__ = ["info", "define"]
@@ -37,9 +38,9 @@ __all__ = ["info", "define"]
 _defaults = {}
 
 
-def info(document):
+def info(doc):
     """Returns a MetaInfo object for the Document."""
-    return MetaInfo.instance(document)
+    return MetaInfo.instance(doc)
 
 
 def define(name, default, readfunc=None):
@@ -68,10 +69,11 @@ def define(name, default, readfunc=None):
 
 class MetaInfo(plugin.DocumentPlugin):
     """Stores meta-information for a Document."""
-    def __init__(self, document):
+    def __init__(self, doc):
         self.load()
-        document.loaded.connect(self.load, -999) # before all others
-        document.closed.connect(self.save,  999) # after all others
+        if doc.__class__ == document.EditorDocument:
+            doc.loaded.connect(self.load, -999) # before all others
+            doc.closed.connect(self.save,  999) # after all others
 
     def settingsGroup(self):
         url = self.document().url()
@@ -110,4 +112,3 @@ def prune():
     for key in s.childGroups():
         if s.value(key + "/time", 0.0, float) < month_ago:
             s.remove(key)
-

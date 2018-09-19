@@ -34,6 +34,9 @@ from .gitrepo import GitError
 class GitMenu(QMenu):
     def __init__(self, mainwindow):
         super(GitMenu, self).__init__(mainwindow)
+        # dummy action to work around a Qt bug on macOS
+        # https://stackoverflow.com/questions/26004830/qt-change-application-qmenubar-contents-on-mac-os-x
+        self.addAction(QAction(mainwindow))
         self.aboutToShow.connect(self.populate)
         app.translateUI(self)
 

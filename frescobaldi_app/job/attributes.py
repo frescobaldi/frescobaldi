@@ -42,11 +42,9 @@ class JobAttributes(plugin.AttributePlugin):
 
     Usage e.g.:
 
-    attrs = jobattributes.get(job)
+    attrs = job.attributes.get(job)
     attrs.mainwindow = mainwindow
 
     """
     def job(self):
         return self._parent()
-
-

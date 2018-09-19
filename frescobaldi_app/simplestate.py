@@ -35,7 +35,7 @@ The first word is always the mode of the file (e.g. 'lilypond', 'html', etc.).
 
 """
 
-from __future__ import print_function
+
 
 import ly.lex.lilypond
 import ly.lex.scheme

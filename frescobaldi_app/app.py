@@ -21,7 +21,7 @@
 The global things in Frescobaldi.
 """
 
-from __future__ import print_function
+
 
 import os
 import sys
@@ -93,7 +93,7 @@ def openUrl(url, encoding=None):
                 d.load(url)
         else:
             import document
-            d = document.Document.new_from_url(url, encoding)
+            d = document.EditorDocument.new_from_url(url, encoding)
     return d
 
 def findDocument(url):
@@ -150,8 +150,8 @@ def restart():
     python_executable = sys.executable
     if python_executable:
         args = [python_executable] + args
-    import subprocess
-    subprocess.Popen(args)
+    import job
+    job.Job(args).start()
 
 def translateUI(obj, priority=0):
     """Translates texts in the object.

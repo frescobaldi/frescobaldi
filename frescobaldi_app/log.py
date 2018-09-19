@@ -56,11 +56,11 @@ class Log(QTextBrowser):
         """Return the set message types (job.ALL by default)."""
         return self._types
 
-    def connectJob(self, job):
+    def connectJob(self, j):
         """Gives us the output from the Job (past and upcoming)."""
-        for msg, type in job.history():
+        for msg, type in j.history():
             self.write(msg, type)
-        job.output.connect(self.write)
+        j.output.connect(self.write)
 
     def textFormat(self, type):
         """Returns a QTextFormat() for the given type."""
@@ -150,6 +150,3 @@ class Log(QTextBrowser):
             job.FAILURE: failure,
             'link': link,
         }
-
-
-

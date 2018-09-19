@@ -29,7 +29,7 @@ Runs with Python 2.6, 2.7 and 3.
 
 """
 
-from __future__ import print_function
+
 
 import sys
 import struct

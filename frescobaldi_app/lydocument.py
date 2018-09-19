@@ -31,7 +31,7 @@ discard it.
 
 """
 
-from __future__ import absolute_import
+
 
 from PyQt5.QtGui import QTextCursor
 

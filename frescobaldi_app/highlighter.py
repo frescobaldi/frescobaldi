@@ -34,6 +34,7 @@ import ly.colorize
 
 import app
 import cursortools
+import document
 import textformats
 import metainfo
 import plugin
@@ -57,9 +58,9 @@ def mapping(data):
                                 for cls in style.classes)
 
 
-def highlighter(document):
+def highlighter(doc):
     """Return the Highlighter for this document."""
-    return Highlighter.instance(document)
+    return Highlighter.instance(doc)
 
 
 def highlight_mapping():
@@ -95,8 +96,8 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
     are changed.
 
     """
-    def __init__(self, document):
-        QSyntaxHighlighter.__init__(self, document)
+    def __init__(self, doc):
+        QSyntaxHighlighter.__init__(self, doc)
         self._fridge = ly.lex.Fridge()
         app.settingsChanged.connect(self.rehighlight)
         self._initialState = None
@@ -108,18 +109,19 @@ class Highlighter(plugin.Plugin, QSyntaxHighlighter):
         """This method is always called by the __init__ method.
 
         The default implementation does nothing for generic QTextDocuments,
-        but for document.Document instances it connects to some additional
+        but for document.EditorDocument instances it connects to some additional
         signals to keep the mode up-to-date (reading it from the variables if
         needed) and initializes whether to enable visual highlighting from the
         document's metainfo.
 
         """
-        document = self.document()
-        if hasattr(document, 'url'):
-            self._highlighting = metainfo.info(document).highlighting
-            document.loaded.connect(self._resetHighlighting)
-            self._mode = documentinfo.mode(document, False)
-            variables.manager(document).changed.connect(self._variablesChange)
+        doc = self.document()
+        if hasattr(doc, 'url'):
+            self._highlighting = metainfo.info(doc).highlighting
+            self._mode = documentinfo.mode(doc, False)
+            if doc.__class__ == document.EditorDocument:
+                doc.loaded.connect(self._resetHighlighting)
+                variables.manager(doc).changed.connect(self._variablesChange)
 
     def _variablesChange(self):
         """Called whenever the variables have changed. Checks the mode."""
@@ -238,7 +240,7 @@ def html_copy(cursor, scheme='editor', number_lines=False):
     return doc
 
 
-def highlight(document, mapping=None, state=None):
+def highlight(doc, mapping=None, state=None):
     """Highlight a generic QTextDocument once.
 
     mapping is an optional Mapping instance, defaulting to the current
@@ -250,9 +252,9 @@ def highlight(document, mapping=None, state=None):
     if mapping is None:
         mapping = highlight_mapping()
     if state is None:
-        state = ly.lex.guessState(document.toPlainText())
-    cursor = QTextCursor(document)
-    block = document.firstBlock()
+        state = ly.lex.guessState(doc.toPlainText())
+    cursor = QTextCursor(doc)
+    block = doc.firstBlock()
     while block.isValid():
         for token in state.tokens(block.text()):
             f = mapping[token]
@@ -261,5 +263,3 @@ def highlight(document, mapping=None, state=None):
                 cursor.setPosition(block.position() + token.end, QTextCursor.KeepAnchor)
                 cursor.setCharFormat(f)
         block = block.next()
-
-
