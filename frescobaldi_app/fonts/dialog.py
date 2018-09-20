@@ -119,12 +119,15 @@ class FontsDialog(widgets.dialog.Dialog):
         self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
         self.finished.connect(self.saveSettings)
         self.reloadButton.clicked.connect(self.reload)
-        self.music_tree_tab.button_install.clicked.connect(
+        mtt = self.music_tree_tab
+        mtt.button_install.clicked.connect(
             self.install_music_fonts)
-        self.music_tree_tab.tree_view.selectionModel().selectionChanged.connect(
+        mtt.tree_view.selectionModel().selectionChanged.connect(
             self.slot_music_fonts_selection_changed)
-        self.music_tree_tab.sample_button_group.buttonClicked.connect(
+        mtt.sample_button_group.buttonClicked.connect(
             self.set_music_sample_source)
+        mtt.cb_default_sample.currentIndexChanged.connect(
+            self.slot_default_sample_changed)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
@@ -147,6 +150,10 @@ class FontsDialog(widgets.dialog.Dialog):
         id = s.value('sample-source-button', 0, int)
         self.music_tree_tab.sample_button_group.button(id).setChecked(True)
         self.set_music_sample_source()
+        default_sample = s.value('default-music-sample', '')
+        index = self.music_tree_tab.cb_default_sample.findText(default_sample)
+        if index >= 0:
+            self.music_tree_tab.cb_default_sample.setCurrentIndex(index)
         custom_sample = s.value('custom-music-sample-url', '')
         self.music_tree_tab.custom_sample_url.setPath(custom_sample)
         sample_dir = (
@@ -169,6 +176,8 @@ class FontsDialog(widgets.dialog.Dialog):
             self.music_tree_tab.splitter.saveState())
         s.setValue('sample-source-button',
             self.music_tree_tab.sample_button_group.checkedId())
+        s.setValue('default-music-sample',
+            self.music_tree_tab.cb_default_sample.currentText())
         s.setValue('custom-music-sample-url',
             self.music_tree_tab.custom_sample_url.path())
 
@@ -235,6 +244,12 @@ class FontsDialog(widgets.dialog.Dialog):
         button_id = self.music_tree_tab.sample_button_group.checkedId()
         self.music_tree_tab.cb_default_sample.setEnabled(button_id == 0)
         self.music_tree_tab.custom_sample_url.setEnabled(button_id == 1)
+
+    def slot_default_sample_changed(self):
+        indexes = self.music_tree_tab.tree_view.selectionModel().selectedIndexes()
+        if indexes:
+            self.music_tree_tab.show_sample(indexes[0].data())
+
 
     def slot_music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""
