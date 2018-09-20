@@ -88,7 +88,7 @@ class Dialog(toly_dialog.ToLyDialog):
             j.stdout = lambda: content
             os.remove(temp_file)
         else:
-            j.stdout = lambda: (_('Failed to import ABC')
+            j.stdout = lambda: (_('Failed to import ABC'))
         return j
 
     def loadSettings(self):
