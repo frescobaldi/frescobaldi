@@ -117,6 +117,10 @@ class LilyPondJob(Job):
         if not arg in self._additional_args:
             self._additional_args.append(arg)
 
+    def add_include_path(self, path):
+        """Manually add an include path to the current job."""
+        self.includepath.append(path)
+
     def additional_args(self):
         """Additional (custom) arguments, will be inserted between
         the -d options and the include paths. May for example stem
@@ -200,8 +204,10 @@ class LayoutControlJob(LilyPondJob):
 class VolatileTextJob(PublishJob):
     """Represents a 'volatile' LilyPond Job where the document
     is only passed in as a string. Internally a document is created
-    in a temporary file, and options set to not use point-and-click."""
-    def __init__(self, text, title=None):
+    in a temporary file, and options set to not use point-and-click.
+    base_dir can be used to add a 'virtual' document Directory
+    in order to use relative includes."""
+    def __init__(self, text, title=None, base_dir=None):
         # Initialize default LilyPond version
         info = lilypondinfo.preferred()
         # Optionally infer a suitable LilyPond version from the content
@@ -221,6 +227,8 @@ class VolatileTextJob(PublishJob):
 
         if title:
             self.set_title(title)
+        if base_dir:
+            self.add_include_path(base_dir)
 
     def resultfiles(self):
         """Returns a list of resulting file(s)"""

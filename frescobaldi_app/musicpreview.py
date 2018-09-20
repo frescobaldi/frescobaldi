@@ -78,9 +78,11 @@ class MusicPreviewWidget(QWidget):
     def translateUI(self):
         self._chooserLabel.setText(_("Document:"))
 
-    def preview(self, text, title=None):
+    def preview(self, text, title=None, base_dir=None):
         """Runs LilyPond on the given text and shows the resulting PDF."""
-        j = self._running = job.lilypond.VolatileTextJob(text, title)
+        j = self._running = job.lilypond.VolatileTextJob(text, title=title, base_dir=base_dir)
+        print("Preview include path")
+        print(j.includepath)
         j.done.connect(self._done)
         self._log.clear()
         self._log.connectJob(j)
