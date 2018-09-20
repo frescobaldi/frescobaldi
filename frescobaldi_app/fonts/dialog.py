@@ -123,8 +123,8 @@ class FontsDialog(widgets.dialog.Dialog):
             self.install_music_fonts)
         self.music_tree_tab.tree_view.selectionModel().selectionChanged.connect(
             self.slot_music_fonts_selection_changed)
-        self.music_tree_tab.cb_custom_sample.stateChanged.connect(
-            self.slot_custom_sample_cb_changed)
+        self.music_tree_tab.sample_button_group.buttonClicked.connect(
+            self.set_music_sample_source)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
@@ -144,9 +144,9 @@ class FontsDialog(widgets.dialog.Dialog):
 #        self.musicFontsSplitter.restoreState(
 #            s.value('music-font-splitter-sizes').toByteArray()
 #        )
-        use_custom_sample = s.value('use-custom-music-sample', False, bool)
-        self.music_tree_tab.cb_custom_sample.setChecked(use_custom_sample)
-        self.music_tree_tab.custom_sample_url.setEnabled(use_custom_sample)
+        id = s.value('sample-source-button', 0, int)
+        self.music_tree_tab.sample_button_group.button(id).setChecked(True)
+        self.set_music_sample_source()
         custom_sample = s.value('custom-music-sample-url', '')
         self.music_tree_tab.custom_sample_url.setPath(custom_sample)
         sample_dir = (
@@ -160,14 +160,15 @@ class FontsDialog(widgets.dialog.Dialog):
     def saveSettings(self):
         s = QSettings()
         s.beginGroup('available-fonts-dialog')
+
         # Text font tab
         s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
 
         # Music font tab
         s.setValue('music-fonts-splitter-sizes',
             self.music_tree_tab.splitter.saveState())
-        s.setValue('use-custom-music-sample',
-            self.music_tree_tab.cb_custom_sample.isChecked())
+        s.setValue('sample-source-button',
+            self.music_tree_tab.sample_button_group.checkedId())
         s.setValue('custom-music-sample-url',
             self.music_tree_tab.custom_sample_url.path())
 
@@ -229,10 +230,11 @@ class FontsDialog(widgets.dialog.Dialog):
         # We're connected to the 'loaded' signal
         self.available_fonts.text_fonts().load_fonts(self.logWidget)
 
-    def slot_custom_sample_cb_changed(self):
-        self.music_tree_tab.custom_sample_url.setEnabled(
-            self.music_tree_tab.cb_custom_sample.isChecked()
-        )
+    def set_music_sample_source(self):
+        """Update interface to access default samples or custom file chooser."""
+        button_id = self.music_tree_tab.sample_button_group.checkedId()
+        self.music_tree_tab.cb_default_sample.setEnabled(button_id == 0)
+        self.music_tree_tab.custom_sample_url.setEnabled(button_id == 1)
 
     def slot_music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""
@@ -243,5 +245,6 @@ class FontsDialog(widgets.dialog.Dialog):
             self.music_tree_tab.tree_view.selectionModel().hasSelection())
 
     def text_fonts_loaded(self):
+        """We don't want to keep the LilyPond log open."""
         self.tabWidget.removeTab(0)
         self.populate_widgets()

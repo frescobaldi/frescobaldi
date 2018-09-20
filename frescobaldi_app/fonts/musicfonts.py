@@ -40,10 +40,12 @@ from PyQt5.QtGui import(
 )
 from PyQt5.QtWidgets import(
     QAbstractItemView,
-    QCheckBox,
+    QButtonGroup,
+    QComboBox,
     QFileDialog,
     QHBoxLayout,
     QPushButton,
+    QRadioButton,
     QSplitter,
     QTextEdit,
     QTreeView,
@@ -62,13 +64,24 @@ class MusicFontsWidget(QWidget):
     def __init__(self, available_fonts, parent=None):
         super(MusicFontsWidget, self).__init__(parent)
         self.music_fonts = available_fonts.music_fonts()
-        self.cb_custom_sample = QCheckBox()
+
+        self.sample_button_group = sbg = QButtonGroup()
+        self.rb_default = QRadioButton()
+        self.rb_custom = QRadioButton()
+        sbg.addButton(self.rb_default, 0)
+        sbg.addButton(self.rb_custom, 1)
+
+        self.cb_default_sample = QComboBox()
+        self.populate_default_samples()
+
         self.custom_sample_url = csu = widgets.urlrequester.UrlRequester()
         csu.setFileMode(QFileDialog.ExistingFile)
         csu.changed.connect(lambda: csu.fileDialog().setDirectory(csu.path()))
+
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
         br.setEnabled(False)
+
         self.tree_view = tv = QTreeView(self)
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -80,7 +93,9 @@ class MusicFontsWidget(QWidget):
         spl.addWidget(mfp)
 
         button_layout = bl = QHBoxLayout()
-        bl.addWidget(self.cb_custom_sample)
+        bl.addWidget(self.rb_default)
+        bl.addWidget(self.cb_default_sample)
+        bl.addWidget(self.rb_custom)
         bl.addWidget(self.custom_sample_url)
         bl.addStretch()
         bl.addWidget(br)
@@ -98,9 +113,10 @@ class MusicFontsWidget(QWidget):
 
 
     def translateUI(self):
-        cbcs = self.cb_custom_sample
-        cbcs.setText(_("&Custom Sample"))
-        cbcs.setToolTip(_("Use custom sample for music font.\n" +
+        self.rb_default.setText(_("&Default"))
+        self.rb_default.setToolTip(_("Choose default music font sample"))
+        self.rb_custom.setText(_("&Custom"))
+        self.rb_custom.setToolTip(_("Use custom sample for music font.\n" +
         "NOTE: This should not include a version statement or a paper block."))
         csu = self.custom_sample_url
         csu.setDialogTitle(_("Select sample score"))
@@ -110,6 +126,10 @@ class MusicFontsWidget(QWidget):
         self.button_install.setText(_("Install..."))
         self.button_install.setToolTip(
             _("Link fonts from a directory to the current LilyPond installation"))
+
+    def populate_default_samples(self):
+        cb = self.cb_default_sample
+        cb.addItem('Default', 'musicfont-default.ly')
 
     def remove_music_font(self):
         """Remove one or more font family/ies from the LilyPond installation.
@@ -143,8 +163,9 @@ class MusicFontsWidget(QWidget):
         fontdef_file = os.path.join(template_dir, 'musicfont-paper.ily')
         custom_file = self.custom_sample_url.path()
         sample_file = (
-            custom_file if self.cb_custom_sample.checkState() and custom_file
-            else os.path.join(template_dir, 'musicfont-sample.ly')
+            custom_file
+            if self.sample_button_group.checkedId() == 1 and custom_file
+            else os.path.join(template_dir,self.cb_default_sample.currentData())
         )
         base_dir = os.path.dirname(custom_file) if custom_file else None
         family = self.music_fonts.family(family_name)
