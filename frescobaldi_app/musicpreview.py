@@ -85,6 +85,7 @@ class MusicPreviewWidget(QWidget):
         print(j.includepath)
         j.done.connect(self._done)
         self._log.clear()
+        self._stack.setCurrentWidget(self._log)
         self._log.connectJob(j)
         j.start()
         self._progress.start(self._lastbuildtime)
