@@ -130,6 +130,7 @@ class MusicFontsWidget(QWidget):
     def populate_default_samples(self):
         cb = self.cb_default_sample
         cb.addItem('Default', 'musicfont-default.ly')
+        cb.addItem('Scriabine', 'musicfont-scriabine.ly')
 
     def remove_music_font(self):
         """Remove one or more font family/ies from the LilyPond installation.
