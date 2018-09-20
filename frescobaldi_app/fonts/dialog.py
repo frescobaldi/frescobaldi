@@ -22,6 +22,8 @@
 Show a dialog with available fonts.
 """
 
+import os
+
 from PyQt5.QtCore import (
     QSettings,
     QSize,
@@ -121,6 +123,8 @@ class FontsDialog(widgets.dialog.Dialog):
             self.install_music_fonts)
         self.music_tree_tab.tree_view.selectionModel().selectionChanged.connect(
             self.slot_music_fonts_selection_changed)
+        self.music_tree_tab.cb_custom_sample.stateChanged.connect(
+            self.slot_custom_sample_cb_changed)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
@@ -129,20 +133,43 @@ class FontsDialog(widgets.dialog.Dialog):
 
     def loadSettings(self):
         s = QSettings()
-        self.load_font_tree_column_width(s)
         s.beginGroup('available-fonts-dialog')
+
+        # Text font tab
+        self.load_font_tree_column_width(s)
+
+        # Music font tab
         # TODO: The following doesn't work so we can't restore
         # the layout of the splitter yet.
 #        self.musicFontsSplitter.restoreState(
 #            s.value('music-font-splitter-sizes').toByteArray()
 #        )
+        use_custom_sample = s.value('use-custom-music-sample', False, bool)
+        self.music_tree_tab.cb_custom_sample.setChecked(use_custom_sample)
+        self.music_tree_tab.custom_sample_url.setEnabled(use_custom_sample)
+        custom_sample = s.value('custom-music-sample-url', '')
+        self.music_tree_tab.custom_sample_url.setPath(custom_sample)
+        sample_dir = (
+            os.path.dirname(custom_sample) if custom_sample
+            else os.path.dirname(
+                self.parent().currentDocument().url().toLocalFile())
+        )
+        self.music_tree_tab.custom_sample_url.fileDialog().setDirectory(
+            sample_dir)
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup('available-fonts-dialog')
+        # Text font tab
+        s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
+
+        # Music font tab
         s.setValue('music-fonts-splitter-sizes',
             self.music_tree_tab.splitter.saveState())
-        s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
+        s.setValue('use-custom-music-sample',
+            self.music_tree_tab.cb_custom_sample.isChecked())
+        s.setValue('custom-music-sample-url',
+            self.music_tree_tab.custom_sample_url.path())
 
     def install_music_fonts(self):
         """'Install' music fonts from a directory (structure) by
@@ -181,7 +208,6 @@ class FontsDialog(widgets.dialog.Dialog):
     def load_font_tree_column_width(self, s):
         """Load column widths for fontTreeView,
         factored out because it has to be done upon reload too."""
-        s.beginGroup('available-fonts-dialog')
         self.font_tree_tab.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
 
     def populate_widgets(self):
@@ -202,6 +228,11 @@ class FontsDialog(widgets.dialog.Dialog):
         self.logWidget.clear()
         # We're connected to the 'loaded' signal
         self.available_fonts.text_fonts().load_fonts(self.logWidget)
+
+    def slot_custom_sample_cb_changed(self):
+        self.music_tree_tab.custom_sample_url.setEnabled(
+            self.music_tree_tab.cb_custom_sample.isChecked()
+        )
 
     def slot_music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""

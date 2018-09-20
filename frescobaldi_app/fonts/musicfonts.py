@@ -40,6 +40,8 @@ from PyQt5.QtGui import(
 )
 from PyQt5.QtWidgets import(
     QAbstractItemView,
+    QCheckBox,
+    QFileDialog,
     QHBoxLayout,
     QPushButton,
     QSplitter,
@@ -50,7 +52,8 @@ from PyQt5.QtWidgets import(
 )
 
 import app
-
+import musicpreview
+import widgets.urlrequester
 
 class MusicFontsWidget(QWidget):
     """Display list of installed music fonts,
@@ -58,7 +61,11 @@ class MusicFontsWidget(QWidget):
 
     def __init__(self, available_fonts, parent=None):
         super(MusicFontsWidget, self).__init__(parent)
-        self.available_fonts = available_fonts
+        self.music_fonts = available_fonts.music_fonts()
+        self.cb_custom_sample = QCheckBox()
+        self.custom_sample_url = csu = widgets.urlrequester.UrlRequester()
+        csu.setFileMode(QFileDialog.ExistingFile)
+        csu.changed.connect(lambda: csu.fileDialog().setDirectory(csu.path()))
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
         br.setEnabled(False)
@@ -66,14 +73,15 @@ class MusicFontsWidget(QWidget):
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
         tv.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.musicFontPreview = fp = QTextEdit(self)
-        self.musicFontPreview.setHtml("Placeholder for score sample")
+        self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(self)
         self.splitter = spl = QSplitter(self)
         spl.setOrientation(Qt.Vertical)
         spl.addWidget(tv)
-        spl.addWidget(fp)
+        spl.addWidget(mfp)
 
         button_layout = bl = QHBoxLayout()
+        bl.addWidget(self.cb_custom_sample)
+        bl.addWidget(self.custom_sample_url)
         bl.addStretch()
         bl.addWidget(br)
         bl.addWidget(bi)
@@ -90,6 +98,13 @@ class MusicFontsWidget(QWidget):
 
 
     def translateUI(self):
+        cbcs = self.cb_custom_sample
+        cbcs.setText(_("&Custom Sample"))
+        cbcs.setToolTip(_("Use custom sample for music font.\n" +
+        "NOTE: This should not include a version statement or a paper block."))
+        csu = self.custom_sample_url
+        csu.setDialogTitle(_("Select sample score"))
+        csu.fileDialog(True).setNameFilters(['LilyPond files (*.ly)'])
         self.button_remove.setText(_("Remove..."))
         self.button_remove.setToolTip(_("Remove selected music font"))
         self.button_install.setText(_("Install..."))
@@ -104,7 +119,7 @@ class MusicFontsWidget(QWidget):
         detailed_text = ''
         try:
             indexes = self.tree_view.selectionModel().selectedRows()
-            self.available_fonts.music_fonts().remove(indexes)
+            self.music_fonts.remove(indexes)
         except MusicFontFileRemoveException as e:
             text = _("Font family could not be removed!")
             informative_text = _(
@@ -122,7 +137,28 @@ class MusicFontsWidget(QWidget):
             msg_box.exec()
 
     def show_sample(self, family_name):
-        print("Would now show a sample of font", family_name)
+        """Display a sample document for the selected notation font."""
+        import fonts
+        template_dir = os.path.join(fonts.__path__[0], 'templates')
+        fontdef_file = os.path.join(template_dir, 'musicfont-paper.ily')
+        custom_file = self.custom_sample_url.path()
+        sample_file = (
+            custom_file if self.cb_custom_sample.checkState() and custom_file
+            else os.path.join(template_dir, 'musicfont-sample.ly')
+        )
+        base_dir = os.path.dirname(custom_file) if custom_file else None
+        family = self.music_fonts.family(family_name)
+        brace_name = family_name if family.has_brace('otf') else 'emmentaler'
+        version_string = self.music_fonts.lilypond_info.versionString()
+        sample_document = '\\version "{}"\n'.format(version_string)
+        with open(fontdef_file, 'r') as f:
+            sample_document += f.read()
+        sample_document = sample_document.replace(
+            '<<<music>>>', family_name).replace(
+            '<<<brace>>>', brace_name)
+        with open(sample_file, 'r') as f:
+            sample_document += f.read()
+        self.musicFontPreview.preview(sample_document, base_dir=base_dir)
 
 
 class MusicFontException(Exception):
