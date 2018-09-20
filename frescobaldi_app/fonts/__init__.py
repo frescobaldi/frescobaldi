@@ -96,6 +96,7 @@ class AvailableFonts(QObject):
     asynchronous invocation of LilyPond)."""
 
     def __init__(self, lilypond_info):
+        super(AvailableFonts, self).__init__()
         self.lilypond_info = lilypond_info
         self._music_fonts = musicfonts.InstalledMusicFonts(
             lilypond_info)
