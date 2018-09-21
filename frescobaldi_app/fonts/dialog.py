@@ -124,7 +124,7 @@ class FontsDialog(widgets.dialog.Dialog):
             self.install_music_fonts)
         mtt.tree_view.selectionModel().selectionChanged.connect(
             self.slot_music_fonts_selection_changed)
-        mtt.sample_button_group.buttonClicked.connect(
+        mtt.sample_button_group.buttonToggled.connect(
             self.set_music_sample_source)
         mtt.cb_default_sample.currentIndexChanged.connect(
             self.slot_default_sample_changed)
