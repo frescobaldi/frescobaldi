@@ -244,20 +244,19 @@ class FontsDialog(widgets.dialog.Dialog):
         button_id = self.music_tree_tab.sample_button_group.checkedId()
         self.music_tree_tab.cb_default_sample.setEnabled(button_id == 0)
         self.music_tree_tab.custom_sample_url.setEnabled(button_id == 1)
+        if self.music_tree_tab.tree_view.selectionModel().hasSelection():
+            self.music_tree_tab.show_sample()
 
     def slot_default_sample_changed(self):
-        indexes = self.music_tree_tab.tree_view.selectionModel().selectedIndexes()
-        if indexes:
-            self.music_tree_tab.show_sample(indexes[0].data())
-
+        if self.music_tree_tab.tree_view.selectionModel().hasSelection():
+            self.music_tree_tab.show_sample()
 
     def slot_music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""
-        indexes = new.indexes()
-        if indexes:
-            self.music_tree_tab.show_sample(indexes[0].data())
-        self.music_tree_tab.button_remove.setEnabled(
-            self.music_tree_tab.tree_view.selectionModel().hasSelection())
+        has_font = self.music_tree_tab.tree_view.selectionModel().hasSelection()
+        if has_font:
+            self.music_tree_tab.show_sample()
+        self.music_tree_tab.button_remove.setEnabled(has_font)
 
     def text_fonts_loaded(self):
         """We don't want to keep the LilyPond log open."""

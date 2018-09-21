@@ -68,8 +68,10 @@ class MusicFontsWidget(QWidget):
         self.sample_button_group = sbg = QButtonGroup()
         self.rb_default = QRadioButton()
         self.rb_custom = QRadioButton()
+        self.rb_current = QRadioButton()
         sbg.addButton(self.rb_default, 0)
         sbg.addButton(self.rb_custom, 1)
+        sbg.addButton(self.rb_current, 2)
 
         self.cb_default_sample = QComboBox()
         self.populate_default_samples()
@@ -97,6 +99,7 @@ class MusicFontsWidget(QWidget):
         bl.addWidget(self.cb_default_sample)
         bl.addWidget(self.rb_custom)
         bl.addWidget(self.custom_sample_url)
+        bl.addWidget(self.rb_current)
         bl.addStretch()
         bl.addWidget(br)
         bl.addWidget(bi)
@@ -118,6 +121,12 @@ class MusicFontsWidget(QWidget):
         self.rb_custom.setText(_("&Custom"))
         self.rb_custom.setToolTip(_("Use custom sample for music font.\n" +
         "NOTE: This should not include a version statement or a paper block."))
+        self.rb_current.setText(_("C&urrent"))
+        self.rb_current.setToolTip(
+            _("Use current document as music font sample.\n" +
+            "NOTE: This is not robust if the document contains " +
+            "a \\paper { } block."
+            ))
         csu = self.custom_sample_url
         csu.setDialogTitle(_("Select sample score"))
         csu.fileDialog(True).setNameFilters(['LilyPond files (*.ly)'])
@@ -157,20 +166,48 @@ class MusicFontsWidget(QWidget):
             msg_box.setDetailedText(detailed_text)
             msg_box.exec()
 
-    def show_sample(self, family_name):
+    def show_sample(self):
         """Display a sample document for the selected notation font."""
+        try:
+            family_name = (
+                self.tree_view.selectionModel().selectedIndexes()[0].data())
+        except IndexError:
+            family_name = 'emmentaler'
+        family = self.music_fonts.family(family_name)
+        brace_name = (
+            family_name
+            if family.has_brace('otf')
+            else 'emmentaler'
+        )
+
         import fonts
         template_dir = os.path.join(fonts.__path__[0], 'templates')
         fontdef_file = os.path.join(template_dir, 'musicfont-paper.ily')
         custom_file = self.custom_sample_url.path()
-        sample_file = (
-            custom_file
-            if self.sample_button_group.checkedId() == 1 and custom_file
-            else os.path.join(template_dir,self.cb_default_sample.currentData())
-        )
-        base_dir = os.path.dirname(custom_file) if custom_file else None
-        family = self.music_fonts.family(family_name)
-        brace_name = family_name if family.has_brace('otf') else 'emmentaler'
+        base_dir = None
+        sample_content = ''
+
+        target = self.sample_button_group.checkedId()
+        if target == 1 and not custom_file:
+            # Custom file selected but no file provided
+            target = 0
+
+        if target == 2:
+            import engrave
+            current_doc = engrave.engraver(app.activeWindow()).document()
+            sample_content = current_doc.toPlainText()
+            if not current_doc.url().isEmpty():
+                base_dir = os.path.dirname(current_doc.url().toLocalFile())
+        else:
+            sample_file = (
+                custom_file if target == 1
+                else
+                os.path.join(template_dir,self.cb_default_sample.currentData()))
+            base_dir = os.path.dirname(sample_file)
+            with open(sample_file, 'r') as f:
+                sample_content = f.read()
+
+        # Compose document
         version_string = self.music_fonts.lilypond_info.versionString()
         sample_document = '\\version "{}"\n'.format(version_string)
         with open(fontdef_file, 'r') as f:
@@ -178,9 +215,11 @@ class MusicFontsWidget(QWidget):
         sample_document = sample_document.replace(
             '<<<music>>>', family_name).replace(
             '<<<brace>>>', brace_name)
-        with open(sample_file, 'r') as f:
-            sample_document += f.read()
-        self.musicFontPreview.preview(sample_document, base_dir=base_dir)
+        sample_document += sample_content
+        self.musicFontPreview.preview(
+            sample_document,
+            title='Music font preview',
+            base_dir=base_dir)
 
 
 class MusicFontException(Exception):
