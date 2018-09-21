@@ -140,6 +140,7 @@ class MusicFontsWidget(QWidget):
         cb = self.cb_default_sample
         cb.addItem(_('Default'), 'musicfont-default.ly')
         cb.addItem(_('Scriabine'), 'musicfont-scriabine.ly')
+        cb.addItem(_('Berg'), 'musicfont-berg.ly')
         cb.addItem(_('Glyphs'), 'musicfont-glyphs.ly')
 
     def remove_music_font(self):
