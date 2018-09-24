@@ -195,7 +195,6 @@ class Job(object):
             self._process.setWorkingDirectory(self.directory)
         if self.environment:
             self._update_process_environment()
-        print(self.command)
         self._process.start(self.command[0], self.command[1:])
 
     def configure_command(self):
@@ -217,7 +216,6 @@ class Job(object):
                 self.command.extend(self._output)
             else:
                 self.command.append(self._output)
-        print(self.command)
 
     def start_time(self):
         """Return the time this job was started.

@@ -91,10 +91,6 @@ class LilyPondJob(Job):
         self._backend_args = []
         self._input, self.includepath = (
             docinfo.jobinfo(True) if document else ('', []))
-        print("Document")
-        print(document)
-        print("File name")
-        print(self._input)
         self.directory = os.path.dirname(self._input)
         self.environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
         self.decode_errors = 'replace'  # codecs error handling
