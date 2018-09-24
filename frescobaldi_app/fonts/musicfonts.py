@@ -209,10 +209,18 @@ class MusicFontsWidget(QWidget):
             base_dir = os.path.dirname(sample_file)
             with open(sample_file, 'r') as f:
                 sample_content = f.read()
+        # If the sample file starts with a #(set-global-staff-size) expression
+        # we inject this in the right position *before* the paper block.
+        global_size = ''
+        match = re.match('#\(set-global-staff-size \d+\)', sample_content)
+        if match:
+            global_size = match.group(0)
+            sample_content = sample_content[len(global_size):]
 
         # Compose document
         version_string = self.music_fonts.lilypond_info.versionString()
         sample_document = '\\version "{}"\n'.format(version_string)
+        sample_document += '{}\n'.format(global_size)
         with open(fontdef_file, 'r') as f:
             sample_document += f.read()
         sample_document = sample_document.replace(

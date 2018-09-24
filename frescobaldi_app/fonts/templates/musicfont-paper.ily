@@ -5,5 +5,6 @@
     (set-global-fonts
      #:music "<<<music>>>"
      #:brace "<<<brace>>>"
+     #:factor (/ staff-height pt 20)
    ))
 }
