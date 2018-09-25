@@ -93,6 +93,7 @@ class Job(object):
         title="",
         input="",
         output="",
+        priority=1,
         decode_errors='strict',
         encoding='latin1'):
         self.command = command if type(command) == list else [command]
@@ -185,7 +186,7 @@ class Job(object):
 
     def set_priority(self, value):
         self._priority = value
-        
+
     def start(self):
         """Starts the process."""
         self.configure_command()

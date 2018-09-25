@@ -82,18 +82,28 @@ class LilyPondJob(Job):
 
     """
 
-    def __init__(self, document, args=None):
-        super(LilyPondJob, self).__init__(encoding='utf-8', args=args)
+    def __init__(self, document, args=None, title=""):
+        """Create a LilyPond job by first retrieving some context
+        from the document and feeding this into job.Job's __init__()."""
         self.document = document
         self.document_info = docinfo = documentinfo.info(document)
         self.lilypond_info = docinfo.lilypondinfo()
         self._d_options = {}
         self._backend_args = []
-        self._input, self.includepath = (
-            docinfo.jobinfo(True) if document else ('', []))
-        self.directory = os.path.dirname(self._input)
-        self.environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
-        self.decode_errors = 'replace'  # codecs error handling
+        input, self.includepath = docinfo.jobinfo(True)
+        directory = os.path.dirname(input)
+
+        super(LilyPondJob, self).__init__(
+                encoding='utf-8',
+                args=args,
+                input=input,
+                decode_errors='replace',
+                directory=directory,
+                environment={
+                    'LD_LIBRARY_PATH': self.lilypond_info.libdir()
+                },
+                title=title,
+                priority=2)
 
         # Set default values from Preferences
         s = QSettings()
@@ -166,16 +176,16 @@ class PreviewJob(LilyPondJob):
 class PublishJob(LilyPondJob):
     """Represents a LilyPond Job in Publish mode."""
 
-    def __init__(self, document, args=None):
-        super(PublishJob, self).__init__(document, args)
+    def __init__(self, document, args=None, title=""):
+        super(PublishJob, self).__init__(document, args, title)
         self.set_d_option('point-and-click', False)
 
 
 class LayoutControlJob(LilyPondJob):
     """Represents a LilyPond Job in Layout Control mode."""
 
-    def __init__(self, document, args=None):
-        super(LayoutControlJob, self).__init__(document, args)
+    def __init__(self, document, args=None, title=""):
+        super(LayoutControlJob, self).__init__(document, args, title)
         # So far no further code is necessary
 
 
@@ -183,7 +193,7 @@ class VolatileTextJob(PublishJob):
     """Represents a 'volatile' LilyPond Job where the document
     is only passed in as a string. Internally a document is created
     in a temporary file, and options set to not use point-and-click."""
-    def __init__(self, text, title=None):
+    def __init__(self, text, title=""):
         # Initialize default LilyPond version
         info = lilypondinfo.preferred()
         # Optionally infer a suitable LilyPond version from the content
@@ -199,10 +209,8 @@ class VolatileTextJob(PublishJob):
         url = QUrl(filename)
         url.setScheme('file')
         doc = document.Document(url)
-        super(VolatileTextJob, self).__init__(doc)
+        super(VolatileTextJob, self).__init__(doc, title=title)
 
-        if title:
-            self.set_title(title)
 
     def resultfiles(self):
         """Returns a list of resulting file(s)"""
