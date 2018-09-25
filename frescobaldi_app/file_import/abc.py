@@ -40,9 +40,6 @@ class Dialog(toly_dialog.ToLyDialog):
 
     def __init__(self, parent=None):
 
-        self.imp_prgm = "abc2ly"
-        self.userg = "abc_import"
-
         self.nobeamCheck = QCheckBox()
 
         self.impChecks = [self.nobeamCheck]
@@ -51,12 +48,13 @@ class Dialog(toly_dialog.ToLyDialog):
 
         self.impExtra = []
 
-        super(Dialog, self).__init__(parent)
+        super(Dialog, self).__init__(
+            parent,
+            imp_prgm='abc2ly',
+            userg='abc_import')
 
         app.translateUI(self)
         qutil.saveDialogSize(self, "abc_import/dialog/size", QSize(480, 160))
-
-        self.makeCommandLine()
 
         self.loadSettings()
 
@@ -67,29 +65,10 @@ class Dialog(toly_dialog.ToLyDialog):
 
         super(Dialog, self).translateUI()
 
-    def makeCommandLine(self):
-        """Reads the widgets and builds a command line."""
-        cmd = ["$abc2ly"]
+    def configure_job(self):
+        super(Dialog, self).configure_job()
         if self.nobeamCheck.isChecked():
-            cmd.append('-b')
-
-        cmd.append("$filename")
-        self.commandLine.setText(' '.join(cmd))
-
-    def run_command(self):
-        """ABC import needs a specific solution because it always writes
-        results to a file."""
-        j = super().run_command(output_file='document.ly')
-        if j.success:
-            temp_file = os.path.join(
-                os.path.dirname(self._document), 'document.ly')
-            with open(temp_file) as abc:
-                content = abc.read()
-            j.stdout = lambda: content
-            os.remove(temp_file)
-        else:
-            j.stdout = lambda: (_('Failed to import ABC')
-        return j
+            self._job.add_argument('-b')
 
     def loadSettings(self):
         """Get users previous settings."""
