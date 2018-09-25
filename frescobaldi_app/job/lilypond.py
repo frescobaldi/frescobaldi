@@ -120,7 +120,11 @@ class LilyPondJob(Job):
             self.environment['LC_ALL'] = 'C'
         self.set_title("{0} {1} [{2}]".format(
             os.path.basename(self.lilypond_info.command),
-            self.lilypond_info.versionString(), document.documentName()))
+            self.lilypond_info.versionString(), doc.documentName()))
+
+    def add_include_path(self, path):
+        """Add a manual entry to the document's includepath."""
+        self.includepath.append(path)
 
     def backend_args(self):
         """Determine the target/backend type and produce appropriate args."""
