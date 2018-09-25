@@ -26,7 +26,7 @@ The global things in Frescobaldi.
 import os
 import sys
 
-from PyQt5.QtCore import QSettings, QThread
+from PyQt5.QtCore import QSettings, QThread, Qt
 from PyQt5.QtWidgets import QApplication
 
 import appinfo
@@ -78,6 +78,7 @@ def openUrl(url, encoding=None):
     If there is already a document with that url, it is returned.
 
     """
+    qApp.setOverrideCursor(Qt.WaitCursor)
     d = findDocument(url)
     if not d:
         # special case if there is only one document:
@@ -92,8 +93,12 @@ def openUrl(url, encoding=None):
             if not url.isEmpty():
                 d.load(url)
         else:
+            #FIXME: Here no "time" is used, so the mouse pointer is
+            # restored prematurely. Somehow restoring should be
+            # postponed until syntax hinglighting is completed.
             import document
             d = document.EditorDocument.new_from_url(url, encoding)
+    qApp.restoreOverrideCursor()
     return d
 
 def findDocument(url):
