@@ -82,11 +82,13 @@ class LilyPondJob(Job):
 
     """
 
-    def __init__(self, document, args=None, title=""):
+    def __init__(self, doc, args=None, title=""):
         """Create a LilyPond job by first retrieving some context
         from the document and feeding this into job.Job's __init__()."""
-        self.document = document
-        self.document_info = docinfo = documentinfo.info(document)
+        if isinstance(doc, QUrl):
+            doc = document.Document(doc)
+        self.document = doc
+        self.document_info = docinfo = documentinfo.info(doc)
         self.lilypond_info = docinfo.lilypondinfo()
         self._d_options = {}
         self._backend_args = []
