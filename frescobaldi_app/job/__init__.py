@@ -83,6 +83,7 @@ class Job(object):
     """
     output = signals.Signal()
     done = signals.Signal()
+    started = signals.Signal()
     title_changed = signals.Signal() # title (string)
 
     def __init__(self,
@@ -198,6 +199,7 @@ class Job(object):
         self._starttime = time.time()
         if self._process is None:
             self.set_process(QProcess())
+        self._process.started.connect(self.started)
         self.start_message()
         if os.path.isdir(self.directory):
             self._process.setWorkingDirectory(self.directory)
