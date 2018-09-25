@@ -38,9 +38,6 @@ class Dialog(toly_dialog.ToLyDialog):
 
     def __init__(self, parent=None):
 
-        self.imp_prgm = "midi2ly"
-        self.userg = "midi_import"
-
         self.useAbsCheck = QCheckBox()
 
         self.impChecks = [self.useAbsCheck]
@@ -49,12 +46,13 @@ class Dialog(toly_dialog.ToLyDialog):
 
         self.impExtra = []
 
-        super(Dialog, self).__init__(parent)
+        super(Dialog, self).__init__(
+            parent,
+            imp_prgm='midi2ly',
+            userg='midi_import')
 
         app.translateUI(self)
         qutil.saveDialogSize(self, "midi_import/dialog/size", QSize(480, 260))
-
-        self.makeCommandLine()
 
         self.loadSettings()
 
@@ -65,14 +63,10 @@ class Dialog(toly_dialog.ToLyDialog):
 
         super(Dialog, self).translateUI()
 
-    def makeCommandLine(self):
-        """Reads the widgets and builds a command line."""
-        cmd = ["$midi2ly"]
+    def configure_job(self):
+        super(Dialog, self).configure_job()
         if self.useAbsCheck.isChecked():
-            cmd.append('-a')
-
-        cmd.append("$filename")
-        self.commandLine.setText(' '.join(cmd))
+            self._job.add_argument('-a')
 
     def loadSettings(self):
         """Get users previous settings."""

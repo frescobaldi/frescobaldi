@@ -83,16 +83,15 @@ class LilyPondJob(Job):
     """
 
     def __init__(self, document, args=None):
-        super(LilyPondJob, self).__init__(encoding='utf-8')
+        super(LilyPondJob, self).__init__(encoding='utf-8', args=args)
         self.document = document
         self.document_info = docinfo = documentinfo.info(document)
         self.lilypond_info = docinfo.lilypondinfo()
         self._d_options = {}
-        self._additional_args = args if args else []
         self._backend_args = []
-        self.filename, self.includepath = (
+        self._input, self.includepath = (
             docinfo.jobinfo(True) if document else ('', []))
-        self.directory = os.path.dirname(self.filename)
+        self.directory = os.path.dirname(self._input)
         self.environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
         self.decode_errors = 'replace'  # codecs error handling
 
@@ -111,18 +110,6 @@ class LilyPondJob(Job):
             os.path.basename(self.lilypond_info.command),
             self.lilypond_info.versionString(), document.documentName()))
 
-    def add_additional_arg(self, arg):
-        """Append an additional command line argument if it is not
-        present already."""
-        if not arg in self._additional_args:
-            self._additional_args.append(arg)
-
-    def additional_args(self):
-        """Additional (custom) arguments, will be inserted between
-        the -d options and the include paths. May for example stem
-        from the manual part of the Engrave Custom dialog."""
-        return self._additional_args
-
     def backend_args(self):
         """Determine the target/backend type and produce appropriate args."""
         result = self._backend_args
@@ -133,7 +120,7 @@ class LilyPondJob(Job):
                 result.append('-dbackend=svg')
             else:
                 # engrave to PDF
-                if not self.additional_args():
+                if not self.arguments():
                     # publish mode
                     if self.embed_source_code and self.lilypond_version >= (2, 19, 39):
                         result.append('-dembed-source-code')
@@ -143,21 +130,16 @@ class LilyPondJob(Job):
     def configure_command(self):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
-        cmd = [self.lilypond_info.abscommand() or self.lilypond_info.command]
+        self.command = cmd = (
+            [self.lilypond_info.abscommand() or self.lilypond_info.command])
         cmd.extend(serialize_d_options(self._d_options))
-        cmd.extend(self.additional_args())
+        cmd.extend(self.arguments())
         cmd.extend(self.paths(self.includepath))
         cmd.extend(self.backend_args())
-        cmd.append(self.input_file())
-        self.command = cmd
+        self.set_input_file()
 
     def d_option(self, key):
         return self._d_options.get(key, None)
-
-    def input_file(self):
-        """File name of the job's document.
-        May be overridden for 'empty' jobs."""
-        return self.filename
 
     def paths(self, includepath):
         """Ensure paths have trailing slashes for Windows compatibility."""

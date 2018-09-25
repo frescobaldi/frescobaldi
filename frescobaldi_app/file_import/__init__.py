@@ -23,9 +23,11 @@ Import non-lilypond file types.
 
 
 import os
+import importlib
+import shutil
 
-from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtGui import QKeySequence, QTextCursor
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QAction, QFileDialog, QMessageBox
 
 import app
@@ -34,19 +36,84 @@ import actioncollection
 import actioncollectionmanager
 import plugin
 import util
-import qutil
+import job.dialog
 
 
 class FileImport(plugin.MainWindowPlugin):
+
     def __init__(self, mainwindow):
+        self._import_job = None
+        self._import_dialog = None
+        self._import_file = ''
+        self._mxml_dialog = None
+        self._midi_dlg = None
+        self._abc_dlg = None
+        self.targets = {
+            '.xml': ('.musicxml', self._mxml_dialog),
+            '.mxl': ('.musicxml', self._mxml_dialog),
+            '.midi': ('.midi', self._midi_dlg),
+            '.mid': ('.midi', self._midi_dlg),
+            '.abc': ('.abc', self._abc_dlg)
+        }
+
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.import_all.triggered.connect(self.importAll)
-        ac.import_musicxml.triggered.connect(self.importMusicXML)
-        ac.import_midi.triggered.connect(self.importMidi)
-        ac.import_abc.triggered.connect(self.importAbc)
+        ac.import_any.triggered.connect(self.import_any)
+        ac.import_musicxml.triggered.connect(self.import_musicxml)
+        ac.import_midi.triggered.connect(self.import_midi)
+        ac.import_abc.triggered.connect(self.import_abc)
 
-    def importAll(self):
+    def configure_import(self, input_file):
+        """Open the configuration dialog corresponding to the file type."""
+        self._import_file = input_file
+
+        # Retrieve module and dialog corresponding to import file type
+        ext = os.path.splitext(self._import_file)[1]
+        module_name, dlg = self.targets[ext]
+        if not dlg:
+            # create dialog suitable for import file type
+            module = importlib.import_module(module_name, 'file_import')
+            dlg = module.Dialog(self.mainwindow())
+        dlg.set_input(self._import_file)
+        self._import_dialog = dlg
+
+    def do_import(self, filetypes, caption, multiple=False):
+        """Control structure for file import.
+        Can either import "any" file(s) or one file of a specific file type.
+        """
+        self._import_files = self.get_import_file(filetypes, caption, multiple)
+        for file in self._import_files:
+            # TODO: Update the file dialog to not allow "All files" anymore
+            # (probably requires the use of a QSortFilterProxyModel).
+            # Then is_importable and the following conditional can be
+            # removed.
+            if self.is_importable(file):
+                self.configure_import(file)
+                self.run_import()
+            else:
+                QMessageBox.critical(None, _("Error"),
+                    _("The file {filename} could not be converted. "
+                      "Wrong file type.").format(filename=imp))
+
+    def get_import_file(self, filetypes, caption, multiple=False):
+        """Open a File Open dialog for the requested filetype(s),
+        return a list with one or multiple existing file names
+        or an empty list in case the user has canceled the dialog."""
+        caption = app.caption(caption)
+        directory = (os.path.dirname(
+            self.mainwindow().currentDocument().url().toLocalFile())
+            or app.basedir())
+
+        if multiple:
+            result = QFileDialog.getOpenFileNames(
+                self.mainwindow(), caption, directory, filetypes)[0]
+            return result if result else []
+        else:
+            result = QFileDialog.getOpenFileName(
+                self.mainwindow(), caption, directory, filetypes)[0]
+            return [result] if result else []
+
+    def import_any(self):
         """Reads the file type and determines which import to use."""
         filetypes = ';;'.join((
             '{0} (*.xml *.mxl *.midi *.mid *.abc)'.format(_("All importable formats")),
@@ -56,132 +123,52 @@ class FileImport(plugin.MainWindowPlugin):
             '{0} (*)'.format(_("All Files")),
         ))
         caption = app.caption(_("dialog title", "Import"))
-        directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        importfiles = QFileDialog.getOpenFileNames(self.mainwindow(), caption, directory, filetypes)[0]
-        if not importfiles:
-            return # the dialog was cancelled by user
-        for imp in importfiles:
-            if self.isImportable(imp):
-                self.openDialog(imp)
-            else:
-                QMessageBox.critical(None, _("Error"),
-                    _("The file {filename} could not be converted. "
-                      "Wrong file type.").format(filename=imp))
+        self.do_import(filetypes, caption, multiple=True)
 
-    def isImportable(self, infile):
-        """Check if the file is importable."""
-        ext = os.path.splitext(infile)[1]
-        if ext in ['.xml', '.mxl', '.midi', '.mid', '.abc']:
-            return True
-        else:
-            return False
-
-    def openDialog(self, infile):
-        """Check file type and open the proper dialog."""
-        self.importfile = infile
-        ext = os.path.splitext(infile)[1]
-        if ext == '.xml' or ext == '.mxl':
-            self.openMusicxmlDialog()
-        elif ext == '.midi' or ext == '.mid':
-            self.openMidiDialog()
-        elif ext == '.abc':
-            self.openAbcDialog()
-
-    def importMusicXML(self):
+    def import_musicxml(self):
         """Opens a MusicXML file. Converts it to ly by using musicxml2ly."""
         filetypes = '{0} (*.xml *.mxl);;{1} (*)'.format(
             _("MusicXML Files"), _("All Files"))
-        caption = app.caption(_("dialog title", "Import a MusicXML file"))
-        directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)[0]
-        if not self.importfile:
-            return # the dialog was cancelled by user
-        self.openMusicxmlDialog()
+        caption = _("dialog title", "Import a MusicXML file")
+        self.do_import(filetypes, caption)
 
-    def openMusicxmlDialog(self):
-        try:
-            dlg = self._importDialog = self.mxmlDlg
-        except AttributeError:
-            from . import musicxml
-            dlg = self._importDialog = self.mxmlDlg = musicxml.Dialog(self.mainwindow())
-            dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
-            dlg.setWindowModality(Qt.WindowModal)
-        self.runImport()
-
-    def importMidi(self):
+    def import_midi(self):
         """Opens an midi file. Converts it to ly by using midi2ly."""
         filetypes = '{0} (*.midi *.mid);;{1} (*)'.format(
             _("Midi Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import a midi file"))
-        directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)[0]
-        if not self.importfile:
-            return # the dialog was cancelled by user
-        self.openMidiDialog()
+        self.do_import(filetypes, caption)
 
-    def openMidiDialog(self):
-        try:
-            dlg = self._importDialog = self.midDlg
-        except AttributeError:
-            from . import midi
-            dlg = self._importDialog = self.midDlg = midi.Dialog(self.mainwindow())
-            dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
-            dlg.setWindowModality(Qt.WindowModal)
-        self.runImport()
-
-    def importAbc(self):
+    def import_abc(self):
         """Opens an abc file. Converts it to ly by using abc2ly."""
         filetypes = '{0} (*.abc);;{1} (*)'.format(
             _("ABC Files"), _("All Files"))
         caption = app.caption(_("dialog title", "Import an abc file"))
-        directory = os.path.dirname(self.mainwindow().currentDocument().url().toLocalFile()) or app.basedir()
-        self.importfile = QFileDialog.getOpenFileName(self.mainwindow(), caption, directory, filetypes)[0]
-        if not self.importfile:
-            return # the dialog was cancelled by user
-        self.openAbcDialog()
+        self.do_import(filetypes, caption)
 
-    def openAbcDialog(self):
-        try:
-            dlg = self._importDialog = self.abcDlg
-        except AttributeError:
-            from . import abc
-            dlg = self._importDialog = self.abcDlg = abc.Dialog(self.mainwindow())
-            dlg.addAction(self.mainwindow().actionCollection.help_whatsthis)
-            dlg.setWindowModality(Qt.WindowModal)
-        self.runImport()
+    def import_done(self):
+        j = self._import_job
+        conf_dlg = self._import_dialog
+        conf_dlg.saveSettings()
+        lyfile = os.path.splitext(self._import_file)[0] + ".ly"
+        while (os.path.exists(lyfile)
+            or app.findDocument(QUrl.fromLocalFile(lyfile))):
+            lyfile = util.next_file(lyfile)
+        shutil.move(j.output_file(), lyfile)
 
-    def runImport(self):
-        """Generic execution of all import dialogs."""
-        dlg = self._importDialog
-        dlg.setDocument(self.importfile)
-        if dlg.exec_():
-            j = dlg.run_command()
-            if j.success:
-                dlg.saveSettings()
-                lyfile = os.path.splitext(self.importfile)[0] + ".ly"
-                doc = self.createDocument(lyfile, j.stdout())
-                self.postImport(dlg.getPostSettings(), doc)
-                self.mainwindow().saveDocument(doc)
-            else: #failure to convert
-                QMessageBox.critical(None, _("Error"),
-                    _("The file couldn't be converted. Error message:\n") + j.stderr())
-
-    def createDocument(self, filename, contents):
-        """Create a new document using the specified filename and contents.
-
-        Make it the current document in our mainwindow.
-
-        """
-        while os.path.exists(filename) or app.findDocument(QUrl.fromLocalFile(filename)):
-            filename = util.next_file(filename)
-        doc = app.openUrl(QUrl())
-        doc.setPlainText(contents)
-        doc.setUrl(QUrl.fromLocalFile(filename))
+        doc = app.openUrl(QUrl.fromLocalFile(lyfile))
         doc.setModified(True)
         self.mainwindow().setCurrentDocument(doc)
-        return doc
 
-    def postImport(self, settings, doc):
+        self.post_import(conf_dlg.get_post_settings(), doc)
+        self.mainwindow().saveDocument(doc)
+
+    def is_importable(self, filename):
+        """Check if the file is importable."""
+        ext = os.path.splitext(filename)[1]
+        return ext in ['.xml', '.mxl', '.midi', '.mid', '.abc']
+
+    def post_import(self, settings, doc):
         """Adaptations of the source after running musicxml2ly
 
         Present settings:
@@ -206,21 +193,29 @@ class FileImport(plugin.MainWindowPlugin):
             import engrave
             engrave.engraver(self.mainwindow()).engrave('preview', doc, False)
 
+    def run_import(self):
+        """Generic execution of all import dialogs."""
+        conf_dlg = self._import_dialog
+        if conf_dlg.exec_():
+            self._import_job = j = conf_dlg.job()
+            dlg = job.dialog.Dialog(self.mainwindow(), auto_accept=True)
+            dlg.accepted.connect(self.import_done)
+            dlg.run(j)
 
 
 class Actions(actioncollection.ActionCollection):
     name = "file_import"
     def createActions(self, parent):
-        self.import_all = QAction(parent)
+        self.import_any = QAction(parent)
         self.import_musicxml = QAction(parent)
         self.import_midi = QAction(parent)
         self.import_abc = QAction(parent)
 
-        self.import_all.setIcon(icons.get("document-import"))
+        self.import_any.setIcon(icons.get("document-import"))
 
     def translateUI(self):
-        self.import_all.setText(_("Import..."))
-        self.import_all.setToolTip(_("Generic import for all LilyPond tools."))
+        self.import_any.setText(_("Import..."))
+        self.import_any.setToolTip(_("Generic import for all LilyPond tools."))
         self.import_musicxml.setText(_("Import MusicXML..."))
         self.import_musicxml.setToolTip(_("Import a MusicXML file using musicxml2ly."))
         self.import_midi.setText(_("Import Midi..."))
