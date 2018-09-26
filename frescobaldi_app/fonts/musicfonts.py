@@ -26,7 +26,7 @@ uninstall to/from a LilyPond installation."
 
 import os
 import re
-from enum import Enum, auto
+from enum import Enum
 from shutil import copyfile
 from pathlib import Path
 
@@ -249,11 +249,11 @@ class MusicFontStatus(Enum):
     Actually the 'MISSING' and 'BROKEN' values should never
     occur since this is already checked upon the creation
     of any font object."""
-    FILE = auto()
-    MISSING_FILE = auto()
-    LINK = auto()
-    BROKEN_LINK = auto()
-    MISSING = auto()
+    FILE = 0
+    MISSING_FILE = 1
+    LINK = 2
+    BROKEN_LINK = 3
+    MISSING = 4
 
 class MusicFontFile(QObject):
     """Represents a font file within a font family."""
