@@ -82,11 +82,13 @@ class LilyPondJob(Job):
 
     """
 
-    def __init__(self, document, args=None, title=""):
+    def __init__(self, doc, args=None, title=""):
         """Create a LilyPond job by first retrieving some context
         from the document and feeding this into job.Job's __init__()."""
-        self.document = document
-        self.document_info = docinfo = documentinfo.info(document)
+        if isinstance(doc, QUrl):
+            doc = document.Document(doc)
+        self.document = doc
+        self.document_info = docinfo = documentinfo.info(doc)
         self.lilypond_info = docinfo.lilypondinfo()
         self._d_options = {}
         self._backend_args = []
@@ -118,7 +120,11 @@ class LilyPondJob(Job):
             self.environment['LC_ALL'] = 'C'
         self.set_title("{0} {1} [{2}]".format(
             os.path.basename(self.lilypond_info.command),
-            self.lilypond_info.versionString(), document.documentName()))
+            self.lilypond_info.versionString(), doc.documentName()))
+
+    def add_include_path(self, path):
+        """Add a manual entry to the document's includepath."""
+        self.includepath.append(path)
 
     def backend_args(self):
         """Determine the target/backend type and produce appropriate args."""
@@ -161,15 +167,15 @@ class LilyPondJob(Job):
     def set_backend_args(self, args):
         self._backend_args = args
 
-    def set_d_option(self, key, value):
+    def set_d_option(self, key, value=True):
         self._d_options[key] = value
 
 
 class PreviewJob(LilyPondJob):
     """Represents a LilyPond Job in Preview mode."""
 
-    def __init__(self, document, args=None):
-        super(PreviewJob, self).__init__(document, args)
+    def __init__(self, document, args=None, title=""):
+        super(PreviewJob, self).__init__(document, args, title)
         self.set_d_option('point-and-click', True)
 
 

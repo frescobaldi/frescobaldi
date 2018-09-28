@@ -32,71 +32,91 @@ import job
 import signals
 
 class RunnerBusyException(Exception):
+    """Raised when a Runner is asked to start a job (without the force=True
+    keyword argument) while having already a running job."""
     pass
 
 class Runner(QObject):
     """A Runner in the stack of a JobQueue.
 
     Responsible for executing a single job.Job instance.
-    Gets a job and the start command from the queue, reports
+    Receives a job through the start command from the queue, reports
     back about completion of the job. Any further actions are
     managed by the queue.
+
+    References are kept to the queue and the job as well as the index
+    in the queue.
     """
 
-    def __init__(self, queue):
+    def __init__(self, queue, index):
+        super(Runner, self).__init__()
         self._queue = queue
+        self._index = index
         self._job = None
         self._completed = 0
-        self._idle = True
 
     def abort(self):
-        self._job.abort()
+        """Aborts a running job if any."""
+        if self._job and self._job.is_running():
+            self._job.abort()
 
     def completed(self):
-        """Return the number of completed jobs during the Runner's lifetime."""
+        """Return the number of jobs completed during the Runner's lifetime."""
         return self._completed
 
-    def idle(self):
-        return self._idle
+    def index(self):
+        """Return the index of the Runner in the JobQueue."""
+        return self._index
 
-    def running(self):
-        return self._job.is_running()
+    def is_running(self):
+        return self._job and self._job.is_running()
+
+    def job(self):
+        return self._job
 
     def job_done(self):
-        """Count job, remove reference to Job object, notify queue."""
+        """Count job, notify queue, remove reference to Job object."""
         self._completed += 1
-        self._job = None
         self._queue.job_completed(self)
-
-    def set_idle(self):
-        """Set own state to 'idle', have the queue check its IDLE state."""
-        self._idle = True
-        self._queue.set_idle()
+        self._job = None
 
     def start(self, j, force=False):
         """Start a given job.
         If currently a job is running either abort that
         or raise an exception."""
-        if self._job and self.running():
+        if self._job and self.is_running():
             if force:
                 self.abort()
             else:
                 raise RunnerBusyException(
                     _("Job is already running. Wait for completion."))
         self._job = j
+        j.set_runner(self)
         self._idle = False
         j.done.connect(self.job_done)
         j.start()
 
 
 class AbstractQueue(QObject):
-    """Common interface for the different queue types used in the JobQueue."""
+    """Common interface for the different queue types used in the JobQueue.
+    The various queue classes are very lightweight wrappers around the
+    corresponding concepts and base objects, with the only reason to
+    provide a transparent interface for used in JobQueue."""
+
+    def __init__(self):
+        super(AbstractQueue, self).__init__()
 
     def clear(self):
         """Remove all entries from the queue."""
         raise NotImplementedError
 
+    def empty(self):
+        """Return True if there are no queued items."""
+        return self.length() == 0
+
     def length(self):
+        """Return the length of the queue. Only has to be overridden
+        when the data structure doesn't support len()."""
         return len(self._queue)
 
     def push(self, j):
@@ -107,10 +127,12 @@ class AbstractQueue(QObject):
         """Remove and return the next job."""
         raise NotImplementedError
 
-class FIFOQueue(AbstractQueue):
+
+class Queue(AbstractQueue):
     """First-in-first-out queue (default operation)."""
 
     def __init__(self):
+        super(Queue, self).__init__()
         self._queue = collections.deque()
 
     def clear(self):
@@ -123,10 +145,11 @@ class FIFOQueue(AbstractQueue):
     def pop(self):
         return self._queue.pop()
 
-class LIFOQueue(AbstractQueue):
+class Stack(AbstractQueue):
     """Last-in-first-out queue, or stack."""
 
     def __init__(self):
+        super(Stack, self).__init__()
         self._queue = collections.deque()
 
     def clear(self):
@@ -143,11 +166,12 @@ class LIFOQueue(AbstractQueue):
 class PriorityQueue(AbstractQueue):
     """Priority queue, always popping the job with the highest priority.
 
-    Uses Job's priority() property (which defaults to 0) and a transparent
+    Uses Job's priority() property (which defaults to 1) and a transparent
     insert count to determine order of popping jobs. If jobs have the same
     priority they will be served first-in-first-out."""
 
     def __init__(self):
+        super(PriorityQueue, self).__init__()
         from heapq import heappush, heappop
         self._queue = []
         self._insert_count = 0
@@ -170,10 +194,15 @@ class PriorityQueue(AbstractQueue):
 
 
 class JobQueueException(Exception):
+    """Abstract base exception for JobQueue related exceptions."""
     pass
 
+
 class JobQueueStateException(JobQueueException):
+    """Raised when an operation is not allowed in the current
+    state of the queue."""
     pass
+
 
 class QueueStatus(Enum):
     INACTIVE = 0
@@ -184,7 +213,11 @@ class QueueStatus(Enum):
     FINISHED = 5
     ABORTED = 6
 
+
 class QueueMode(Enum):
+    """Running mode of the JobQueue.
+    CONTINUOUS means that the queue can be idle, waiting for new jobs,
+    SINGLE means that it will be considered finished when running empty."""
     CONTINUOUS = 0
     SINGLE = 1
 
@@ -201,30 +234,51 @@ class JobQueue(QObject):
 
     A special case is a queue with only one runner. This can be used
     to ensure that asynchronous jobs can run in sequence, either to
-    ensure that only one such job runs at a time (e.g. to force long-running
-    stuff to the background) or to ensure subsequent jobs can use the results
-    of earlier ones.
+    ensure that only one such job runs at a time (e.g. to force
+    long-running stuff to the background) or to ensure subsequent
+    jobs can use the results of earlier ones.
 
     The queue supports pause(), resume() and abort() operations.
+    It iterates through the states
+    QueueStatus.INACTIVE
+                STARTED
+                PAUSED (remaining jobs won't be started)
+                EMPTY (no *new* jobs are queued)
+                IDLE (no new jobs available, all jobs completed)
+                FINISHED
+                ABORTED
 
+    A Queue can work in two modes: QueueMode.CONTINUOUS (default) and
+    QueueMode.SINGLE. In single mode the queue is considered finished once
+    there are no jobs available while a continuous queue switches to
+    IDLE in that case. A CONTINUOUS queue is always considered to be
+    active (idle when empty) and doesn't have to be explicitly started.
+
+    If a 'capacity' is passed to the queue it has the notion of "full",
+    otherwise an unlimited number of jobs can be enqueued.
+
+    By default an internal FIFO (First in, first out) Queue is used
+    as the underlying data structure, but Stack and PriorityQueue are
+    available through the keyword command as well.
     """
 
+    started = signals.Signal()
+    paused = signals.Signal()
+    resumed = signals.Signal()
     emptied = signals.Signal() # emitted when last job is popped
-    finished = signals.Signal()
     idle = signals.Signal() # emitted when waiting for new jobs
-
-    # behaviour when finished (wait for future jobs or finish completely)
-    #
-    # put (how to handle "block"? I'd say when 1 runner is present
-    # jobs block, otherwise not)
-    # (raise Exception)
-    # get (raise Exception)
-    # task_done
-    #
-    # event handlers (individual job done: handler in Runner, calls into queue)
+                            # after the last job has been completed
+    finished = signals.Signal()
+    aborted = signals.Signal()
+    # The following three signals emit the corresponding job as argument.
+    job_added = signals.Signal()
+    job_done = signals.Signal() # emitted when a job has been completed.
+                # When this is emitted, the queue's state has been
+                # updated (other than with the *job's* signal)
+    job_started = signals.Signal()
 
     def __init__(self,
-                 queue_class=FIFOQueue,
+                 queue_class=Queue,
                  queue_mode=QueueMode.CONTINUOUS,
                  num_runners=1,
                  tick_interval=1000,
@@ -237,7 +291,7 @@ class JobQueue(QObject):
         self._completed = 0
         self._queue = queue_class()
         self._capacity = capacity
-        self._runners = [Runner(self) for i in range(num_runners)]
+        self._runners = [Runner(self, i) for i in range(num_runners)]
 
         if queue_mode == QueueMode.CONTINUOUS:
             self.start()
@@ -246,20 +300,48 @@ class JobQueue(QObject):
         """Abort the execution of the queued jobs.
         If force=True running jobs are aborted, otherwise
         only the queue is cleared, allowing running jobs to finish."""
-        if not self.state() in [QueueStatus.STARTED, QueueStatus.PAUSED]:
+        if self.state() in [
+            QueueStatus.FINISHED,
+            QueueStatus.ABORTED]:
             raise JobQueueStateException(_("Inactive Job Queue can't be aborted"))
         self.set_state(QueueStatus.ABORTED)
         self.set_queue_mode(QueueMode.SINGLE)
         self._queue.clear()
         if force:
             for runner in self._runners:
-                runner.abort()
+                if runner:
+                    # ignore runners that have already been set to None
+                    runner.abort()
+        self.aborted.emit()
 
     def add_job(self, job):
-        self._queue.push(job)
-        if (self.state() == QueueStatus.IDLE
-            or (self.size() == 1 and self.state() == QueueStatus.STARTED)):
-            self._start()
+        """Enqueue a new job to the queue.
+
+        Some checks are made to determine the validity of adding a new job.
+        If the queue hasn't started yet or is in pause the job is simply
+        pushed to the queue, otherwise it will be determined whether an
+        idle runner is available to start with the job immediately.
+        """
+        if self.full():
+            raise IndexError(_("Job Queue full"))
+        if self.state() in [QueueStatus.FINISHED, QueueStatus.ABORTED]:
+            raise JobQueueStateException(
+            _("Can't add job to finished/aborted queue."))
+        elif self.state() in [QueueStatus.INACTIVE, QueueStatus.PAUSED]:
+            self._queue.push(job)
+            self.job_added.emit(job)
+        else:
+            runner = self.idle_runner()
+            if runner:
+                self.job_added.emit(job)
+                runner.start(job)
+                self.job_started.emit(job)
+            else:
+                self._queue.push(job)
+                self.job_added.emit(job)
+            self.set_state(
+                QueueStatus.EMPTY if self._queue.empty()
+                else QueueStatus.STARTED)
 
     def completed(self, runner=-1):
         """Return the number of completed jobs,
@@ -272,49 +354,88 @@ class JobQueue(QObject):
                 result += self._runners[i].completed()
             return result
 
-    def empty(self):
-        return self._queue.length() == 0
-
     def full(self):
+        """Returns True if a maximum capacity is set and used."""
         if not self._capacity:
             return False
         return self._queue.length() == self._capacity
 
+    def is_idle(self):
+        """Returns True if all Runners are idle."""
+        for runner in self._runners:
+            if runner.is_running():
+                return False
+        return True
+
+    def is_running(self):
+        """Return True if the queue is 'live'."""
+        return self.state() not in (
+            [QueueStatus.INACTIVE,
+            QueueStatus.FINISHED,
+            QueueStatus.ABORTED])
+
+    def idle_runner(self):
+        """Returns the first idle Runner object,
+        or None if all are busy."""
+        for runner in self._runners:
+            if not runner.is_running():
+                return runner
+        return None
+
     def job_completed(self, runner):
-        """Called by a runner once its job has completed."""
-        if self.empty():
-            if self.queue_mode() == QueueMode.CONTINUOUS:
-                runner.set_idle()
-            else:
-                # also true when ABORTED
-                self.remove_runner(runner)
-        elif self.state() == QueueStatus.STARTED:
+        """Called by a runner once its job has completed.
+
+        Manage behaviour at that point, depending on the
+        queue's state and mode.
+        """
+        if self.state() == QueueStatus.STARTED:
             runner.start(self.pop())
-        else:
-            # can (?) only happen when PAUSED
-            runner.set_idle()
+        elif self.state() == QueueStatus.PAUSED:
+            # If a SINGLE queue completes the last job while in PAUSE mode
+            # it can be considered finished.
+            if (self._queue.empty()
+                and self.is_idle()
+                and self.queue_mode() == QueueMode.SINGLE
+            ):
+                self.queue_finished()
+        elif self.is_idle():
+            # last runner has completed its job and queue is empty.
+            # Either finish queue or set to IDLE.
+            if self.queue_mode() == QueueMode.SINGLE:
+                self.queue_finished()
+            else:
+                self.set_state(QueueStatus.IDLE)
+        self.job_done.emit(runner.job())
 
     def pause(self):
         """Pauses the execution of the queue.
-        Running jobs are allowed to finish, but no new jobs are started."""
-        if not self.state() == QueueStatus.STARTED:
+        Running jobs are allowed to finish, but no new jobs will be started.
+        (The actual behaviour is implemented in job_completed().)"""
+        if self.state() in [
+            QueueStatus.INACTIVE,
+            QueueStatus.FINISHED,
+            QueueStatus.ABORTED
+        ]:
             raise JobQueueStateException(_("Non-running Job Queue can't be paused."))
         self.set_state(QueueStatus.PAUSED)
+        self.paused.emit()
 
     def pop(self):
         """Return and remove the next Job.
         Raises Exception if empty."""
-        if self.empty():
+        if self.state() == QueueStatus.EMPTY:
             raise IndexError("Job Queue is empty.")
         if self.state() != QueueStatus.STARTED:
             raise JobQueueStateException(_("Can't pop job from non-started Job Queue"))
         j = self._queue.pop()
-        if self.empty():
+        if self._queue.empty():
             self.set_state(QueueStatus.EMPTY)
             self.emptied.emit()
         return j
 
     def queue_finished(self):
+        """Called when the last job has been completed and the queue
+        is in SINGLE mode."""
         if self.state() != QueueStatus.ABORTED:
             self.set_state(QueueStatus.FINISHED)
         self.finished.emit()
@@ -322,27 +443,18 @@ class JobQueue(QObject):
     def queue_mode(self):
         return self._queue_mode
 
-    def remove_runner(self, runner):
-        """Remove a runner by setting it to None. This is done when
-        processing is finished (EMPTY and SINGLE) or after the queue
-        has been aborted."""
-        self._runners[self._runners.index(runner)] = None
-        for runner in self._runners:
-            if runner:
-                return
-        self.queue_finished()
-
     def resume(self):
         """Resume the queue from PAUSED state by trying to start
         all runners."""
         if not self.state() == QueueStatus.PAUSED:
             raise JobQueueStateException(_("Job Queue not paused, can't resume."))
         self._start()
+        self.resumed.emit()
 
     def set_idle(self):
         """Set status to IDLE if all runners are in idle mode."""
         for runner in self._runners:
-            if not runner.idle():
+            if runner.is_running():
                 return
         self.set_state(QueueStatus.IDLE)
         self.idle.emit()
@@ -358,29 +470,35 @@ class JobQueue(QObject):
         """Set the state to started and ask all runners to start."""
         if self.state() in [QueueStatus.FINISHED, QueueStatus.ABORTED]:
             raise JobQueueStateException(_("Can't (re)start a finished/aborted Job Queue."))
-        if self.empty() and self.queue_mode() == QueueMode.SINGLE:
-            raise IndexError(_("Can't start empty queue"))
-        self.set_state(QueueStatus.STARTED)
-        if self.empty():
-            return
+        elif self.state() == QueueStatus.STARTED:
+            raise JobQueueStateException(_("Queue already started."))
+        if self.state() in [
+            QueueStatus.INACTIVE,
+            QueueStatus.PAUSED]:
+            self.set_state(QueueStatus.STARTED)
+
+
+        if (self.state() == QueueStatus.EMPTY
+            and self.queue_mode() == QueueMode.SINGLE):
+            raise IndexError(_("Can't start SINGLE-mode empty queue"))
+        if self._queue.empty():
+            self.set_state(QueueStatus.IDLE)
         else:
+            self.set_state(QueueStatus.STARTED)
             for runner in self._runners:
-                if runner.idle() and not self.empty():
+                if self._queue.empty():
+                    break
+                if not runner.is_running():
                     runner.start(self.pop())
 
     def start(self):
         """Start processing of the queue."""
-        if self.started():
+        if self.is_running():
             raise JobQueueStateException(
                 _("Can't 'start' an active Job Queue."))
         self._starttime = time.time()
         self._start()
-
-    def started(self):
-        return self.state() not in (
-            [QueueStatus.INACTIVE,
-            QueueStatus.FINISHED,
-            QueueStatus.ABORTED])
+        self.started.emit()
 
     def set_state(self, state):
         self._state = state
