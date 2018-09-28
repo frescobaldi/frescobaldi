@@ -82,19 +82,30 @@ class LilyPondJob(Job):
 
     """
 
-    def __init__(self, document, args=None):
-        super(LilyPondJob, self).__init__(encoding='utf-8')
-        self.document = document
-        self.document_info = docinfo = documentinfo.info(document)
+    def __init__(self, doc, args=None, title=""):
+        """Create a LilyPond job by first retrieving some context
+        from the document and feeding this into job.Job's __init__()."""
+        if isinstance(doc, QUrl):
+            doc = document.Document(doc)
+        self.document = doc
+        self.document_info = docinfo = documentinfo.info(doc)
         self.lilypond_info = docinfo.lilypondinfo()
         self._d_options = {}
-        self._additional_args = args if args else []
         self._backend_args = []
-        self.filename, self.includepath = (
-            docinfo.jobinfo(True) if document else ('', []))
-        self.directory = os.path.dirname(self.filename)
-        self.environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
-        self.decode_errors = 'replace'  # codecs error handling
+        input, self.includepath = docinfo.jobinfo(True)
+        directory = os.path.dirname(input)
+
+        super(LilyPondJob, self).__init__(
+                encoding='utf-8',
+                args=args,
+                input=input,
+                decode_errors='replace',
+                directory=directory,
+                environment={
+                    'LD_LIBRARY_PATH': self.lilypond_info.libdir()
+                },
+                title=title,
+                priority=2)
 
         # Set default values from Preferences
         s = QSettings()
@@ -109,7 +120,7 @@ class LilyPondJob(Job):
             self.environment['LC_ALL'] = 'C'
         self.set_title("{0} {1} [{2}]".format(
             os.path.basename(self.lilypond_info.command),
-            self.lilypond_info.versionString(), document.documentName()))
+            self.lilypond_info.versionString(), doc.documentName()))
 
     def add_additional_arg(self, arg):
         """Append an additional command line argument if it is not
@@ -137,7 +148,7 @@ class LilyPondJob(Job):
                 result.append('-dbackend=svg')
             else:
                 # engrave to PDF
-                if not self.additional_args():
+                if not self.arguments():
                     # publish mode
                     if self.embed_source_code and self.lilypond_version >= (2, 19, 39):
                         result.append('-dembed-source-code')
@@ -147,21 +158,16 @@ class LilyPondJob(Job):
     def configure_command(self):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
-        cmd = [self.lilypond_info.abscommand() or self.lilypond_info.command]
+        self.command = cmd = (
+            [self.lilypond_info.abscommand() or self.lilypond_info.command])
         cmd.extend(serialize_d_options(self._d_options))
-        cmd.extend(self.additional_args())
+        cmd.extend(self.arguments())
         cmd.extend(self.paths(self.includepath))
         cmd.extend(self.backend_args())
-        cmd.append(self.input_file())
-        self.command = cmd
+        self.set_input_file()
 
     def d_option(self, key):
         return self._d_options.get(key, None)
-
-    def input_file(self):
-        """File name of the job's document.
-        May be overridden for 'empty' jobs."""
-        return self.filename
 
     def paths(self, includepath):
         """Ensure paths have trailing slashes for Windows compatibility."""
@@ -173,31 +179,31 @@ class LilyPondJob(Job):
     def set_backend_args(self, args):
         self._backend_args = args
 
-    def set_d_option(self, key, value):
+    def set_d_option(self, key, value=True):
         self._d_options[key] = value
 
 
 class PreviewJob(LilyPondJob):
     """Represents a LilyPond Job in Preview mode."""
 
-    def __init__(self, document, args=None):
-        super(PreviewJob, self).__init__(document, args)
+    def __init__(self, document, args=None, title=""):
+        super(PreviewJob, self).__init__(document, args, title)
         self.set_d_option('point-and-click', True)
 
 
 class PublishJob(LilyPondJob):
     """Represents a LilyPond Job in Publish mode."""
 
-    def __init__(self, document, args=None):
-        super(PublishJob, self).__init__(document, args)
+    def __init__(self, document, args=None, title=""):
+        super(PublishJob, self).__init__(document, args, title)
         self.set_d_option('point-and-click', False)
 
 
 class LayoutControlJob(LilyPondJob):
     """Represents a LilyPond Job in Layout Control mode."""
 
-    def __init__(self, document, args=None):
-        super(LayoutControlJob, self).__init__(document, args)
+    def __init__(self, document, args=None, title=""):
+        super(LayoutControlJob, self).__init__(document, args, title)
         # So far no further code is necessary
 
 
@@ -223,6 +229,8 @@ class VolatileTextJob(PublishJob):
         url = QUrl(filename)
         url.setScheme('file')
         doc = document.Document(url)
+        super(VolatileTextJob, self).__init__(doc, title=title)
+
         super(VolatileTextJob, self).__init__(doc)
 
         if title:

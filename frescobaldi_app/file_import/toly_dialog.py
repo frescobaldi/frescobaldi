@@ -24,9 +24,12 @@ Generic import dialog. Presuppose a child instance for the specific import.
 
 import os
 
+from PyQt5.QtCore import Qt
+
 from PyQt5.QtWidgets import (QCheckBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
 
+import app
 import lilychooser
 import userguide
 import util
@@ -35,13 +38,31 @@ import job
 
 
 class ToLyDialog(QDialog):
+    """Dialog base class for all file import jobs.
 
-    def __init__(self, parent=None):
+    Basically the whole dialog is identical for all file types, the only
+    part of the dialog that is specific is the widget with *input* options.
+    These are created in a subclass's __init__ function and added to the
+    self.impChecks list. Only then super() is called.
+    """
+
+    def __init__(self,
+                 parent=None,
+                 job_class=job.Job,
+                 imp_prgm='',
+                 input=None,
+                 userg=''):
         super(ToLyDialog, self).__init__(parent)
         self._info = None
-        self._document = None
+        self._imp_prgm = imp_prgm
+        self._userg = userg
+        self._input = input
         self._path = None
+        self._job_class = job_class
+        self._job = None
 
+        self.addAction(parent.actionCollection.help_whatsthis)
+        self.setWindowModality(Qt.WindowModal)
         mainLayout = QGridLayout()
         self.setLayout(mainLayout)
 
@@ -53,8 +74,8 @@ class ToLyDialog(QDialog):
         itabLayout = QGridLayout(import_tab)
         ptabLayout = QGridLayout(post_tab)
 
-        tabs.addTab(import_tab, self.imp_prgm)
-        tabs.addTab(post_tab, "after import")
+        tabs.addTab(import_tab, self._imp_prgm)
+        tabs.addTab(post_tab, _("After Import"))
 
         self.formatCheck = QCheckBox()
         self.trimDurCheck = QCheckBox()
@@ -69,9 +90,6 @@ class ToLyDialog(QDialog):
         self.versionLabel = QLabel()
         self.lilyChooser = lilychooser.LilyChooser()
 
-        self.commandLineLabel = QLabel()
-        self.commandLine = QTextEdit(acceptRichText=False)
-
         self.formatCheck.setObjectName("reformat")
         self.trimDurCheck.setObjectName("trim-durations")
         self.removeScalesCheck.setObjectName("remove-scaling")
@@ -79,13 +97,12 @@ class ToLyDialog(QDialog):
 
         self.buttons = QDialogButtonBox(
             QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
-        userguide.addButton(self.buttons, self.userg)
+        userguide.addButton(self.buttons, self._userg)
 
         row = 0
         for r, w in enumerate(self.impChecks):
             row += r
             itabLayout.addWidget(w, row, 0, 1, 2)
-            w.toggled.connect(self.makeCommandLine)
         row += 1
         for r, w in enumerate(self.impExtra):
             row += r
@@ -94,73 +111,68 @@ class ToLyDialog(QDialog):
         itabLayout.addWidget(widgets.Separator(), row + 1, 0, 1, 2)
         itabLayout.addWidget(self.versionLabel, row + 2, 0, 1, 0)
         itabLayout.addWidget(self.lilyChooser, row + 3, 0, 1, 2)
-        itabLayout.addWidget(widgets.Separator(), row + 4, 0, 1, 2)
-        itabLayout.addWidget(self.commandLineLabel, row + 5, 0, 1, 2)
-        itabLayout.addWidget(self.commandLine, row + 6, 0, 1, 2)
+        itabLayout.setRowStretch(row + 4, 10)
 
         ptabLayout.addWidget(self.formatCheck, 0, 0, 1, 2)
         ptabLayout.addWidget(self.trimDurCheck, 1, 0, 1, 2)
         ptabLayout.addWidget(self.removeScalesCheck, 2, 0, 1, 2)
         ptabLayout.addWidget(self.runEngraverCheck, 3, 0, 1, 2)
-        ptabLayout.setRowStretch(4, 10)
+        ptabLayout.setRowStretch(4, 6)
 
-        mainLayout.addWidget(tabs, 0, 0, 9, 2)
-        mainLayout.addWidget(self.buttons, 10, 0, 1, 2)
+        mainLayout.addWidget(tabs, 0, 0, 6, 2)
+        mainLayout.addWidget(self.buttons, 7, 0, 1, 2)
 
-        self.buttons.accepted.connect(self.accept)
+        self.buttons.accepted.connect(self.about_to_accept)
         self.buttons.rejected.connect(self.reject)
 
-        self.lilyChooser.currentIndexChanged.connect(self.slotLilyPondVersionChanged)
-        self.slotLilyPondVersionChanged()
+        self.lilyChooser.currentIndexChanged.connect(self.slot_lilypond_version_changed)
+        self.slot_lilypond_version_changed()
 
     def translateUI(self):
         self.versionLabel.setText(_("LilyPond version:"))
-        self.commandLineLabel.setText(_("Command line:"))
         self.formatCheck.setText(_("Reformat source"))
         self.trimDurCheck.setText(_("Trim durations (Make implicit per line)"))
         self.removeScalesCheck.setText(_("Remove fraction duration scaling"))
         self.runEngraverCheck.setText(_("Engrave directly"))
 
-    def setDocument(self, path):
-        """Set the full path to the MusicXML document."""
-        self._document = path
+    def about_to_accept(self):
+        """Configure the job and close the dialog."""
+        self.configure_job()
+        self.accept()
 
-    def slotLilyPondVersionChanged(self):
-        self._info = self.lilyChooser.lilyPondInfo()
-
-    def getCmd(self, outputname='-'):
-        """Returns the command line."""
-        cmd = []
-        for t in self.commandLine.toPlainText().split():
-            if t == '$musicxml2ly':
-                cmd.extend(self._info.toolcommand('musicxml2ly'))
-            elif t == '$midi2ly':
-                cmd.extend(self._info.toolcommand('midi2ly'))
-            elif t == '$abc2ly':
-                cmd.extend(self._info.toolcommand('abc2ly'))
-            elif t == '$filename':
-                cmd.append(self._document)
-            else:
-                cmd.append(t)
-        cmd.extend(['--output', outputname])
-        return cmd
-
-    def run_command(self, output_file=None):
-        """Run command line."""
-        j = job.Job(command=self.getCmd(output_file),
-            directory=os.path.dirname(self._document),
+    def configure_job(self):
+        """Create and configure the job to be run.
+        Has to be completed by the subclasses."""
+        output = os.path.splitext(
+            os.path.join(util.tempdir(), os.path.basename(self._input))
+            )[0] + '.ly'
+        self._job = j = self._job_class(
+            command=self._info.toolcommand(self._imp_prgm),
+            input=self._input,
+            output='--output={}'.format(output),
+            directory=os.path.dirname(self._input),
             encoding='utf-8')
-        j.start()
-        if not j._process.waitForFinished(3000):
-            raise OSError("Process didn't complete in time")
-        return j
+        j._output_file = output
 
-    def getPostSettings(self):
+    def get_post_settings(self):
         """Returns settings in the post import tab."""
         post = []
         for p in self.postChecks:
             post.append(p.isChecked())
         return post
+
+    def job(self):
+        """Return the current job."""
+        if not self._job:
+            self.configure_job()
+        return self._job
+
+    def set_input(self, path):
+        """Set the full path to the input document."""
+        self._input = path
+
+    def slot_lilypond_version_changed(self):
+        self._info = self.lilyChooser.lilyPondInfo()
 
     def loadSettings(self):
         """Get users previous settings."""

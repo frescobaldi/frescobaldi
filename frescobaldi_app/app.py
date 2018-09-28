@@ -150,8 +150,11 @@ def restart():
     python_executable = sys.executable
     if python_executable:
         args = [python_executable] + args
-    import job
-    job.Job(args).start()
+    #NOTE: This deliberately uses subprocess and not job.Job
+    # It has turned out that using Job the code files are not
+    # reloaded at all.
+    import subprocess
+    subprocess.Popen(args)
 
 def translateUI(obj, priority=0):
     """Translates texts in the object.
@@ -227,6 +230,18 @@ def displayhook(obj):
     """Prevent normal displayhook from overwriting __builtin__._"""
     if obj is not None:
         print(repr(obj))
+
+_job_queue = None
+
+def job_queue():
+    """Return the global JobQueue object."""
+    global _job_queue
+    if _job_queue is None:
+        import job.queue
+        #TODO: save the number of runners in the Preferences
+        #NOTE: Provide code for *changing* the number of runners
+        _job_queue = job.queue.GlobalJobQueue()
+    return _job_queue
 
 _is_git_controlled = None
 

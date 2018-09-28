@@ -83,17 +83,33 @@ class Job(object):
     """
     output = signals.Signal()
     done = signals.Signal()
+    started = signals.Signal()
     title_changed = signals.Signal() # title (string)
 
-    def __init__(self, command=[], directory="", environment={},
-                 title="", decode_errors='strict', encoding='latin1'):
-        self.command = command
+    def __init__(self,
+        command=[],
+        args=None,
+        directory="",
+        environment={},
+        title="",
+        input="",
+        output="",
+        priority=1,
+        runner=None,
+        decode_errors='strict',
+        encoding='latin1'):
+        self.command = command if type(command) == list else [command]
+        self._input = input
+        self._output = output
+        self._runner = runner
+        self._arguments = args if args else []
         self.directory = directory
         self.environment = {}
         self._encoding = encoding
         self.success = None
         self.error = None
         self._title = ""
+        self._priority = priority
         self._aborted = False
         self._process = None
         self._history = []
@@ -102,6 +118,18 @@ class Job(object):
         self.decoder_stdout = self.create_decoder(STDOUT)
         self.decoder_stderr = self.create_decoder(STDERR)
         self.decode_errors = decode_errors  # codecs error handling
+
+    def add_argument(self, arg):
+        """Append an additional command line argument if it is not
+        present already."""
+        if not arg in self._arguments:
+            self._arguments.append(arg)
+
+    def arguments(self):
+        """Additional (custom) arguments, will be inserted between
+        the -d options and the include paths. May for example stem
+        from the manual part of the Engrave Custom dialog."""
+        return self._arguments
 
     def create_decoder(self, channel):
         """Return a decoder for the given channel (STDOUT/STDERR).
@@ -117,6 +145,36 @@ class Job(object):
 
         """
         return codecs.getdecoder(self._encoding)
+
+    def filename(self):
+        """File name of the job's input document.
+        May be overridden for 'empty' jobs."""
+        return self._input
+
+    def set_input(self, filename):
+        self._input = filename
+
+    def set_input_file(self):
+        """configure the command to add an input file if one is specified."""
+        filename = self.filename()
+        if filename:
+            self.command.append(filename)
+
+    def output_argument(self):
+        return self._output
+
+    def output_file(self):
+        return self._output_file
+
+    def runner(self):
+        """Return the Runner object if the job is run within
+        a JobQueue, or None if not."""
+        return self._runner
+
+    def set_runner(self, runner):
+        """Store a reference to a Runner if the job is run within
+        a JobQueue."""
+        self._runner = runner
 
     def title(self):
         """Return the job title, as set with set_title().
@@ -136,6 +194,12 @@ class Job(object):
         if title != old:
             self.title_changed(title)
 
+    def priority(self):
+        return self._priority
+
+    def set_priority(self, value):
+        self._priority = value
+
     def start(self):
         """Starts the process."""
         self.configure_command()
@@ -147,6 +211,7 @@ class Job(object):
         self._starttime = time.time()
         if self._process is None:
             self.set_process(QProcess())
+        self._process.started.connect(self.started)
         self.start_message()
         if os.path.isdir(self.directory):
             self._process.setWorkingDirectory(self.directory)
@@ -158,8 +223,21 @@ class Job(object):
         """Process the command if necessary.
         In a LilyPondJob this is the essential part of composing
         the command line from the job options.
+        This implementation simply creates a list from the main
+        command, any present arguments, the input and the output
+        (if present).
         """
-        pass
+        self.command.extend(self._arguments)
+        if self._input:
+            if type(self._input) == list:
+                self.command.extend(self._input)
+            else:
+                self.command.append(self._input)
+        if self._output:
+            if type(self._output) == list:
+                self.command.extend(self._output)
+            else:
+                self.command.append(self._output)
 
     def start_time(self):
         """Return the time this job was started.

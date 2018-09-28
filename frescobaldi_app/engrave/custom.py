@@ -206,7 +206,7 @@ class Dialog(QDialog):
                 k, v = job.lilypond.parse_d_option(t)
                 j.set_d_option(k, v)
             else:
-                j.add_additional_arg(t)
+                j.add_argument(t)
 
         # Set environment variables for the job
         if self.englishCheck.isChecked():

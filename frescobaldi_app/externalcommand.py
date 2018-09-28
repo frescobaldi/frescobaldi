@@ -22,6 +22,7 @@ Utilities to run external commands.
 """
 
 
+import app
 import log
 import widgets.dialog
 
@@ -58,7 +59,7 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
         self.job = job
         self.log.connectJob(job)
         job.done.connect(self._done)
-        job.start()
+        app.job_queue().add_job(job, 'generic')
 
     def _done(self):
         """(internal) Called when the job has finished."""

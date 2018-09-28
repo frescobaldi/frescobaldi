@@ -87,7 +87,7 @@ class MusicPreviewWidget(QWidget):
         self._log.clear()
         self._stack.setCurrentWidget(self._log)
         self._log.connectJob(j)
-        j.start()
+        app.job_queue().add_job(j, 'generic')
         self._progress.start(self._lastbuildtime)
 
     def _done(self, success):

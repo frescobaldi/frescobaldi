@@ -130,7 +130,7 @@ def menu_file_import(mainwindow):
     m = Menu(_("submenu title", "&Import"), mainwindow)
     ac = file_import.FileImport.instance(mainwindow).actionCollection
 
-    m.addAction(ac.import_all)
+    m.addAction(ac.import_any)
     m.addSeparator()
     m.addAction(ac.import_musicxml)
     m.addAction(ac.import_midi)

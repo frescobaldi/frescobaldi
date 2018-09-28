@@ -21,6 +21,7 @@ Changes in 3.0.1 --
   - Show absolute path of include files in tooltip (#941)
   - Restructure Tools Menu (#1080)
 * Internals:
+  - Multithreaded Job Queue preparing multicore support (#1103)
   - Rewrite code handling external processes/jobs (#1100)
 
 Changes in 3.0.0 -- February 17th, 2017

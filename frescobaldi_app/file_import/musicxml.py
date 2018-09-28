@@ -29,6 +29,7 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialogButtonBox, QLabel)
 
 import app
 import qutil
+import job
 
 from . import toly_dialog
 
@@ -51,9 +52,6 @@ _langlist = [
 class Dialog(toly_dialog.ToLyDialog):
 
     def __init__(self, parent=None):
-
-        self.imp_prgm = "musicxml2ly"
-        self.userg = "musicxml_import"
 
         self.noartCheck = QCheckBox()
         self.norestCheck = QCheckBox()
@@ -84,13 +82,13 @@ class Dialog(toly_dialog.ToLyDialog):
 
         self.impExtra = [self.langLabel, self.langCombo]
 
-        super(Dialog, self).__init__(parent)
+        super(Dialog, self).__init__(
+            parent,
+            imp_prgm="musicxml2ly",
+            userg="musicxml_import")
 
-        self.langCombo.currentIndexChanged.connect(self.makeCommandLine)
         app.translateUI(self)
-        qutil.saveDialogSize(self, "musicxml_import/dialog/size", QSize(480, 260))
-
-        self.makeCommandLine()
+        qutil.saveDialogSize(self, "musicxml_import/dialog/size", QSize(480, 800))
 
         self.loadSettings()
 
@@ -110,27 +108,24 @@ class Dialog(toly_dialog.ToLyDialog):
 
         super(Dialog, self).translateUI()
 
-    def makeCommandLine(self):
-        """Reads the widgets and builds a command line."""
-        cmd = ["$musicxml2ly"]
+    def configure_job(self):
+        super(Dialog, self).configure_job()
+        j = self._job
         if self.useAbsCheck.isChecked():
-            cmd.append('-a')
+            j.add_argument('-a')
         if not self.noartCheck.isChecked():
-            cmd.append('--nd')
+            j.add_argument('--nd')
         if not self.norestCheck.isChecked():
-            cmd.append('--nrp')
+            j.add_argument('--nrp')
         if not self.nolayoutCheck.isChecked():
-            cmd.append('--npl')
+            j.add_argument('--npl')
         if not self.nobeamCheck.isChecked():
-            cmd.append('--no-beaming')
+            j.add_argument('--no-beaming')
         if not self.commMidiCheck.isChecked():
-            cmd.append('-m')
+            j.add_argument('-m')
         index = self.langCombo.currentIndex()
         if index > 0:
-            cmd.append('--language=' + _langlist[index - 1])
-
-        cmd.append("$filename")
-        self.commandLine.setText(' '.join(cmd))
+            j.add_argument('--language=' + _langlist[index - 1])
 
     def loadSettings(self):
         """Get users previous settings."""
