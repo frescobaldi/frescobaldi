@@ -161,15 +161,15 @@ class LilyPondJob(Job):
     def set_backend_args(self, args):
         self._backend_args = args
 
-    def set_d_option(self, key, value):
+    def set_d_option(self, key, value=True):
         self._d_options[key] = value
 
 
 class PreviewJob(LilyPondJob):
     """Represents a LilyPond Job in Preview mode."""
 
-    def __init__(self, document, args=None):
-        super(PreviewJob, self).__init__(document, args)
+    def __init__(self, document, args=None, title=""):
+        super(PreviewJob, self).__init__(document, args, title)
         self.set_d_option('point-and-click', True)
 
 
