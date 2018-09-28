@@ -95,11 +95,13 @@ class Job(object):
         input="",
         output="",
         priority=1,
+        runner=None,
         decode_errors='strict',
         encoding='latin1'):
         self.command = command if type(command) == list else [command]
         self._input = input
         self._output = output
+        self._runner = runner
         self._arguments = args if args else []
         self.directory = directory
         self.environment = {}
@@ -163,6 +165,16 @@ class Job(object):
 
     def output_file(self):
         return self._output_file
+
+    def runner(self):
+        """Return the Runner object if the job is run within
+        a JobQueue, or None if not."""
+        return self._runner
+
+    def set_runner(self, runner):
+        """Store a reference to a Runner if the job is run within
+        a JobQueue."""
+        self._runner = runner
 
     def title(self):
         """Return the job title, as set with set_title().
