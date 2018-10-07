@@ -77,8 +77,9 @@ class Runner(QObject):
     def job_done(self):
         """Count job, notify queue, remove reference to Job object."""
         self._completed += 1
-        self._queue.job_completed(self)
+        job = self._job
         self._job = None
+        self._queue.job_completed(self, job)
 
     def start(self, j, force=False):
         """Start a given job.
@@ -92,7 +93,6 @@ class Runner(QObject):
                     _("Job is already running. Wait for completion."))
         self._job = j
         j.set_runner(self)
-        self._idle = False
         j.done.connect(self.job_done)
         j.start()
 
@@ -382,7 +382,7 @@ class JobQueue(QObject):
                 return runner
         return None
 
-    def job_completed(self, runner):
+    def job_completed(self, runner, job):
         """Called by a runner once its job has completed.
 
         Manage behaviour at that point, depending on the
@@ -405,7 +405,8 @@ class JobQueue(QObject):
                 self.queue_finished()
             else:
                 self.set_state(QueueStatus.IDLE)
-        self.job_done.emit(runner.job())
+                self.idle.emit()
+        self.job_done.emit(job)
 
     def pause(self):
         """Pauses the execution of the queue.
