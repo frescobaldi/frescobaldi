@@ -106,11 +106,11 @@ def version_info_named():
     if app.is_git_controlled():
         import vcs
         repo = vcs.app_repo
-        yield "Git branch:", repo.active_branch()
+        yield "Git branch", repo.active_branch()
         commit = repo.run_command(
             'log',
             ['-n', '1', '--format=format:%h'])
-        yield "on commit:", commit[0]
+        yield "on commit", commit[0]
     yield "python-ly", ly_version()
     yield "Qt", qt_version()
     yield "PyQt", pyqt_version()
