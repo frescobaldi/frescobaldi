@@ -26,6 +26,7 @@ import functools
 import sys
 import os
 
+import app
 import appinfo
 
 
@@ -102,6 +103,14 @@ def version_info_named():
     """Yield all the relevant names and their version string."""
     yield appinfo.appname, appinfo.version
     yield "Python", python_version()
+    if app.is_git_controlled():
+        import vcs
+        repo = vcs.app_repo
+        yield "Git branch:", repo.active_branch()
+        commit = repo.run_command(
+            'log',
+            ['-n', '1', '--format=format:%h'])
+        yield "on commit:", commit[0]
     yield "python-ly", ly_version()
     yield "Qt", qt_version()
     yield "PyQt", pyqt_version()
@@ -116,5 +125,3 @@ def version_info_named():
 def version_info_string(separator='\n'):
     """Return all version names as a string, joint with separator."""
     return separator.join(map("{0[0]}: {0[1]}".format, version_info_named()))
-
-
