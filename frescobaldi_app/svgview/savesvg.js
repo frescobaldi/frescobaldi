@@ -18,10 +18,16 @@
 * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 * See http://www.gnu.org/licenses/ for more information.
 */
+new QWebChannel(qt.webChannelTransport, function (channel) {
+    channel.objects.pyLinks.pyLog('SaveSVG Script');
+    window.JSobject = channel.objects.pyLinks;
+});
+
 var svgarr = document.getElementsByTagName("svg");
 var svg = svgarr[0];
 	
 if (typeof(XMLSerializer) !== 'undefined') {
 	var serializer = new XMLSerializer();
-	pyLinks.saveSVG(serializer.serializeToString(svg));
+    //pyLinks.saveSVG(serializer.serializeToString(svg));
+	window.JSobject.saveSVG(serializer.serializeToString(svg));
 }

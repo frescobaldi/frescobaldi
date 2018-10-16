@@ -31,9 +31,10 @@ that runs inside the displayed SVG file.
 import os
 import sys
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, QSettings, QUrl
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, QSettings, QUrl, QFile, QIODevice
 from PyQt5.QtGui import QTextCharFormat, QTextCursor
-from PyQt5.QtWebKitWidgets import QWebView
+from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEnginePage
+from PyQt5.QtWebChannel import QWebChannel
 
 import app
 import util
@@ -43,18 +44,27 @@ import pointandclick
 import scratchdir
 
 
+
 from . import __path__
 
+qwebchannel_js = QFile(':/qtwebchannel/qwebchannel.js')
+
+if not qwebchannel_js.open(QIODevice.ReadOnly):
+    raise SystemExit(
+        'Failed to load qwebchannel.js with error: %s' %
+        qwebchannel_js.errorString())
+
+qwebchannel_js = bytes(qwebchannel_js.readAll()).decode('utf-8')
 
 def getJsScript(filename):
     """fetch the js file"""
     directory = __path__[0]
     with open(os.path.join(directory, filename), 'r') as fileObject:
-        jsValue = fileObject.read()
+        jsValue = qwebchannel_js + fileObject.read()
     return jsValue
 
 
-class View(QWebView):
+class View(QWebEngineView):
     zoomFactorChanged = pyqtSignal(float)
     objectDragged = pyqtSignal(float, float)
     objectDragging = pyqtSignal(float, float)
@@ -63,10 +73,11 @@ class View(QWebView):
     cursor = pyqtSignal(QTextCursor)
     selectedObject = pyqtSignal(str)
     selectedUrl = pyqtSignal(QTextCursor)
-
+    svgpage = QWebEnginePage()
+    channel = QWebChannel(svgpage)
     defaulturl = QUrl.fromLocalFile(os.path.join(__path__[0], 'background.html'))
 
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         super(View, self).__init__(parent)
         self._highlightFormat = QTextCharFormat()
         self.jslink = JSLink(self)
@@ -74,7 +85,12 @@ class View(QWebView):
         self.mainwindow().aboutToClose.connect(self.cleanupForClose)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
+        
+        self.setPage(self.svgpage)
         self.load(self.defaulturl)
+        self.channel =QWebChannel(self.svgpage)
+        self.channel.registerObject("pyLinks", self.jslink)
+        self.svgpage.setWebChannel(self.channel)
 
     def cleanupForClose(self):
         """Called when our mainwindow is about to close.
@@ -103,20 +119,24 @@ class View(QWebView):
             doc = app.openUrl(QUrl.fromLocalFile(filename))
         return doc
 
+    def InitWebPage(self):
+        self.jslink = JSLink(self)
+        self.setPage(self.svgpage)
+        self.channel =QWebChannel(self.svgpage)
+        self.channel.registerObject("pyLinks", self.jslink)
+        return
+
     def svgLoaded(self):
         if not self.url().isEmpty() and not self.url().path().endswith(".html"):
-            frame = self.page().mainFrame()
-            frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
-            frame.evaluateJavaScript(getJsScript('pointandclick.js'))
-            #for now only editable in dev (git) or when the user explicitly allows experimental features
-            if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
-                frame.evaluateJavaScript(getJsScript('editsvg.js'))
+            self.svgpage.runJavaScript(getJsScript('pointandclick.js'))
+            return
 
     def evalSave(self):
-        frame = self.page().mainFrame()
+        #frame = self.page().mainFrame()
         # to enable useful save of SVG edits to file uncomment the line below
         # frame.evaluateJavaScript(getJsScript('cleansvg.js'))
-        frame.evaluateJavaScript(getJsScript('savesvg.js'))
+        self.page().runJavaScript(getJsScript('cleansvg.js'))
+        self.page().runJavaScript(getJsScript('savesvg.js'))
 
     def clear(self):
         """Empty the View."""
@@ -226,6 +246,10 @@ class JSLink(QObject):
         super(JSLink, self).__init__()
         self.view = view
 
+#    @pyqtSlot(str)
+#    def print(self, text):
+#        print('From JS:', text)
+        
     @pyqtSlot(str)
     def click(self, url):
         """set cursor in source by clicked textedit link"""

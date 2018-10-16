@@ -26,6 +26,7 @@ import os
 import re
 import sys
 
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtCore import QSettings, QTimer, QUrl
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QApplication
