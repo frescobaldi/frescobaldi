@@ -11,7 +11,7 @@
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <InterpreterId>MSBuild|frescobaldi_5.8|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|frescobaldi_WebKit|$(MSBuildProjectFullPath)</InterpreterId>
     <IsWindowsApplication>False</IsWindowsApplication>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
   </PropertyGroup>
@@ -1356,10 +1356,10 @@
     <Folder Include="windows" />
   </ItemGroup>
   <ItemGroup>
-    <Interpreter Include="C:\Users\joerg.hoffmann\Envs\frescobaldi_5.8\">
-      <Id>frescobaldi_5.8</Id>
+    <Interpreter Include="C:\Users\joerg.hoffmann\Envs\frescobaldi_WebKit\">
+      <Id>frescobaldi_WebKit</Id>
       <Version>3.5</Version>
-      <Description>frescobaldi_5.8 (Python 3.5 (32-bit))</Description>
+      <Description>frescobaldi_WebKit (Python 3.5 (32-bit))</Description>
       <InterpreterPath>Scripts\python.exe</InterpreterPath>
       <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
