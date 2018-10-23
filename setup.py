@@ -9,6 +9,8 @@ except ImportError:
     from distutils.core import setup
     USE_SETUPTOOLS = False
 
+# Python 3.2 and up, excluding Python 4.
+python_requires = '~=3.2'
 
 def packagelist(directory):
     """Returns a sorted list with package names for all packages under the given directory."""
@@ -61,7 +63,7 @@ else:
 
 setup_extra_args = {}
 if USE_SETUPTOOLS:
-    setup_extra_args['install_requires'] = ['python-ly', 'python-poppler-qt5']
+    setup_extra_args['install_requires'] = ['python-ly>=0.9.4', 'python-poppler-qt5']
 
 classifiers = [
     'Development Status :: 5 - Production/Stable',
@@ -86,7 +88,7 @@ classifiers = [
     'Natural Language :: Russian',
     'Natural Language :: Spanish',
     'Natural Language :: Turkish',
-    'Natural Language :: Ukranian',
+    'Natural Language :: Ukrainian',
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: Microsoft :: Windows',
     'Operating System :: POSIX',
