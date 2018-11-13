@@ -134,7 +134,7 @@ def copy_file(name):
 	file = os.path.join(path, name)
 	target = os.path.join(target_dir, name)
 	shutil.copyfile(file,target)
-
+  
 
 
 # copy Qt5 imageformat plugins
@@ -149,15 +149,15 @@ copy_plugins('printsupport')
 test=os.getcwd()
 
 # copy resources
-copy_folder('resources')
+#copy_folder('resources')
 
 # copy translations
-copy_folder('translations')
+#copy_folder('translations')
 
 
-copy_file('qt.conf')
+#copy_file('qt.conf')
 
-copy_file('QtWebEngineProcess.exe')
+#copy_file('QtWebEngineProcess.exe')
 
 # copy the frescobaldi_app directory
 subprocess.call(

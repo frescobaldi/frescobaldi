@@ -31,17 +31,17 @@ new QWebChannel(qt.webChannelTransport, function (channel) {
 function hover(){
     var url = this.getAttribute('xlink:href');
     window.JSobject.hover(url);	
-};
+}
 
 function leave(){
     var url = this.getAttribute('xlink:href');
     window.JSobject.leave(url);	
-};
+}
 
 function click(){
     var url = this.getAttribute('xlink:href');
     window.JSobject.click(url);
-};
+}
 
 
 
