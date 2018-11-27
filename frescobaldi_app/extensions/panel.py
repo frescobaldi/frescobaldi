@@ -30,8 +30,23 @@ class ExtensionPanel(panel.Panel):
     descendants.
     """
     def __init__(self, extension):
+        self._panel_conf = extension._panel_conf
         self._extension = extension
-        super(ExtensionPanel, self).__init__(self._extension.mainwindow())
+        super(ExtensionPanel, self).__init__(extension.mainwindow())
+        self.hide()
+# TODO: How can we handle shortcuts for arbitrary extensions?
+#        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+Z"))
+        self.mainwindow().addDockWidget(self._panel_conf['dock_area'], self)
+
+    def createWidget(self):
+        """Create the panel's widget.
+        *If* an ExtensionPanel is actually instantiated it also has
+        information about it's widget class, which we use here."""
+        widget_class = self._panel_conf['widget_class']
+        return widget_class(self)
+
+    def translateUI(self):
+        self.setWindowTitle(self.extension().display_name())
 
     def extension(self):
         return self._extension

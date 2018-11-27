@@ -71,7 +71,7 @@ class Extension(QObject):
         self._action_collection =  self._action_collection_class(
             parent.mainwindow())
         self._menus = {}
-        # Create panel if defined in subclass
+        self._panel = None
         self.create_panel()
 
     def action_collection(self):
@@ -79,9 +79,15 @@ class Extension(QObject):
         return self._action_collection
 
     def create_panel(self):
-        """Override this method to expose a Tool panel.
-        self._panel must then be set to a Panel object."""
-        self._panel = None
+        """Create the Extension's Tool Panel (optional).
+
+        If a Tool Panel has been configured through the use of
+        self.set_panel_properties() in a subclass's __init__()
+        an appropriate Panel is created.
+        """
+        if hasattr(self, "_panel_conf"):
+            from . import panel
+            self._panel = panel.ExtensionPanel(self)
 
     def display_name(self):
         """Return the display name of the extension.
@@ -135,6 +141,18 @@ class Extension(QObject):
     def panel(self):
         """Return the extension's Tool panel, if available, None otherwise."""
         return self._panel
+
+    def set_panel_properties(self, widget_class, dock_area):
+        """Specify an Extension Panel to be created.
+        If this method is called in the subclass's __init__() a
+        Panel will be created.
+        The widget class and the (initial) dock area are the only
+        custom parameters of an Extension Panel, everything else
+        will be transparently generated."""
+        self._panel_conf = {
+            'widget_class': widget_class,
+            'dock_area': dock_area
+        }
 
     # Convenience functions to access elements of the application
     # and the current documents. This will be extended.
