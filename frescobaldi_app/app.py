@@ -231,6 +231,21 @@ def displayhook(obj):
     if obj is not None:
         print(repr(obj))
 
+
+_extensions = None
+
+def load_extensions(mainwindow):
+    """Called from MainWindow.__init__()"""
+    import extensions
+    global _extensions
+    _extensions = extensions.Extensions(mainwindow)
+
+def extensions():
+    """Return the global Extensions object."""
+    global _extensions
+    return _extensions
+
+
 _job_queue = None
 
 def job_queue():

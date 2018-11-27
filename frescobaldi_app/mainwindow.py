@@ -123,6 +123,7 @@ class MainWindow(QMainWindow):
         layout.addWidget(self.tabBar)
         layout.addWidget(self.viewManager)
 
+        app.load_extensions(self)
         self.createActions()
         self.createMenus()
         self.createToolBars()

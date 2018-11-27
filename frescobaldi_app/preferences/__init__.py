@@ -49,6 +49,7 @@ def pageorder():
     yield Editor
     yield FontsColors
     yield Tools
+    yield Extensions
 
 
 class PreferencesDialog(QDialog):
@@ -276,6 +277,17 @@ class Tools(PrefsItemBase):
         return tools.Tools(dlg)
 
 
+class Extensions(PrefsItemBase):
+    help = "prefs_extensions"
+    iconName = "network-plug"
+    def translateUI(self):
+        self.setText(_("Extensions"))
+
+    def widget(self, dlg):
+        from . import extensions
+        return extensions.Extensions(dlg)
+
+
 class Page(QWidget):
     """Base class for settings pages."""
     changed = pyqtSignal()
@@ -349,4 +361,3 @@ class Group(QGroupBox):
 
     def saveSettings(self):
         """Should write settings from our widget to config."""
-

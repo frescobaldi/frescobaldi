@@ -5,6 +5,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 Changes in 3.0.1 --
 
 * New features:
+  - Possibility to load external extensions
   - New "First System Only" option in Custom Engrave
   - Goto Line command (#927, feature request #676)
   - Rename file command (#1057, feature request #980)
