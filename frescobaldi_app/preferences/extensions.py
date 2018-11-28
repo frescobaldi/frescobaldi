@@ -25,11 +25,13 @@ Extensions preferences.
 import re
 
 from PyQt5.QtCore import QSettings, Qt
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QStandardItem, QStandardItemModel
+
 from PyQt5.QtWidgets import (
     QAbstractItemView, QCheckBox, QDoubleSpinBox, QFontComboBox,
     QGridLayout, QHBoxLayout, QLabel, QPushButton, QSlider, QSpinBox,
-    QVBoxLayout, QWidget)
+    QTreeView, QVBoxLayout, QWidget
+)
 
 import app
 import userguide
@@ -50,6 +52,7 @@ class Extensions(preferences.ScrolledGroupsPage):
         self.scrolledWidget.setLayout(layout)
 
         layout.addWidget(General(self))
+        layout.addWidget(Installed(self))
         layout.addStretch(1)
 
 
@@ -88,3 +91,56 @@ class General(preferences.Group):
 
     def root_changed(self):
         self.changed.emit()
+
+
+class Installed(preferences.Group):
+    """Overview of installed extensions.
+
+    At some later point the entries in the tree view will
+    show more information about the extensions (provided metadata),
+    and there should be widgets (a checkbox?) to de/activate individual
+    extensions.
+    When the currently selected extension provides a configuration widget
+    this will be shown in the third Group element (to-be-done).
+    """
+    def __init__(self, page):
+        super(Installed, self).__init__(page)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.tree = QTreeView()
+        self.tree.setModel(QStandardItemModel())
+        # We don't completely remove the headers because they will
+        # be used later.
+        self.tree.model().setHorizontalHeaderLabels([''])
+        self.populate()
+        layout.addWidget(self.tree)
+
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.setTitle(_("Installed Extensions"))
+
+    def loadSettings(self):
+        s = QSettings()
+        self.setEnabled(s.value('extensions/general/active', True, bool))
+        s.beginGroup("extensions/installed")
+        # to be continued
+
+    def populate(self):
+        """Populate the tree view with data from the installed extensions.
+        """
+        # For now we'll create a flat list but there will be child items
+        # with further metadata and configuration interface later.
+        root = self.tree.model().invisibleRootItem()
+        for ext in app.extensions().extensions():
+            item = QStandardItem(ext.display_name())
+            if ext.has_icon():
+                item.setIcon(ext.icon())
+            root.appendRow(item)
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("extensions/installed")
+        # to be continued
