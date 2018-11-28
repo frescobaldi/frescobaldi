@@ -26,6 +26,7 @@ import os
 import sys
 
 from PyQt5.QtCore import QDir, QObject, QSettings
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMenu
 
 import app
@@ -72,6 +73,8 @@ class Extension(QObject):
         self._action_collection =  self._action_collection_class(self)
         self._menus = {}
         self._panel = None
+        self._icon = None
+        self._load_icon()
         self.create_panel()
 
     def action_collection(self):
@@ -94,6 +97,22 @@ class Extension(QObject):
         Should be overridden in concrete classes,
         class name is just a fallback."""
         return self.__class__._display_name
+
+    def has_icon(self):
+        return self._icon is not None
+
+    def icon(self):
+        """Return the extension's Icon, or None."""
+        return self._icon
+
+    def _load_icon(self):
+        """Tries to load a main icon for the extension if
+        <extension-dir>/icons/extension.svg exists.
+        """
+        icon_file_name = os.path.join(
+            self.root_directory(), 'icons', 'extension.svg')
+        if os.path.exists(icon_file_name):
+            self._icon = QIcon(icon_file_name)
 
     def menu(self, target):
         """Return a submenu for use in an Extensions menu,
@@ -126,6 +145,8 @@ class Extension(QObject):
             # finally create the menu
             m = self._menus[target] = QMenu(
                 self.display_name(), self.mainwindow())
+            if self.has_icon():
+                m.setIcon(self.icon())
             if panel and target == 'tools':
                 panel.toggleViewAction().setText(_("&Tool Panel"))
                 m.addAction(panel.toggleViewAction())
