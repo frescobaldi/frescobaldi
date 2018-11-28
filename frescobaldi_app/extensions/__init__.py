@@ -258,8 +258,9 @@ class Extensions(QObject):
 
     def extensions(self):
         """Return the extensions as a list."""
-        #TODO: sort by display name, or custom ordering from Preferences
-        return [self._extensions[ext] for ext in self._extensions.keys()]
+        result = [self._extensions[ext] for ext in self._extensions.keys()]
+        result.sort(key=lambda extension: extension.display_name())
+        return result
 
     def get(self, module_name):
         """Return an Extension object for an extension with the given name,
