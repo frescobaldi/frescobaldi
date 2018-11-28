@@ -35,8 +35,9 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
 
     name = ""
 
-    def __init__(self, parent):
-        super(ExtensionActionCollection, self).__init__(parent)
+    def __init__(self, extension):
+        self._extension = extension
+        super(ExtensionActionCollection, self).__init__(extension.mainwindow())
         # Initialize menu actions.
         # By default the Tools menu entry is set to None
         # (causing all actions to be used) while those for
@@ -62,6 +63,9 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
         Calling self.set_menu_action_list(target, actions) each of the menus
         can be configured separately (see comments there)."""
         pass
+
+    def extension(self):
+        return self._extension
 
     def menu_actions(self, target):
         """Returns a list of actions for use in the extension's entry

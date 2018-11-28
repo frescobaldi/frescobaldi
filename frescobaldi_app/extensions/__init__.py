@@ -25,7 +25,7 @@ import importlib
 import os
 import sys
 
-from PyQt5.QtCore import QObject, QSettings
+from PyQt5.QtCore import QDir, QObject, QSettings
 from PyQt5.QtWidgets import QMenu
 
 import app
@@ -68,8 +68,8 @@ class Extension(QObject):
         assert issubclass(
             self._action_collection_class, actions.ExtensionActionCollection)
         super(Extension, self).__init__(parent)
-        self._action_collection =  self._action_collection_class(
-            parent.mainwindow())
+        self._name = parent._current_extension
+        self._action_collection =  self._action_collection_class(self)
         self._menus = {}
         self._panel = None
         self.create_panel()
@@ -138,9 +138,18 @@ class Extension(QObject):
                     m.addAction(entry)
         return m
 
+    def name(self):
+        """Return the extension's internal name (which actually is retrieved
+        from the directory name)."""
+        return self._name
+
     def panel(self):
         """Return the extension's Tool panel, if available, None otherwise."""
         return self._panel
+
+    def root_directory(self):
+        """Return the extension's root directory."""
+        return os.path.join(self.parent().root_directory(), self.name())
 
     def set_panel_properties(self, widget_class, dock_area):
         """Specify an Extension Panel to be created.
@@ -206,13 +215,25 @@ class Extensions(QObject):
             # TODO (maybe:) allow manual order of loading
             #               (to handle dependency issues)
             try:
+                # Try importing the module. Will fail here if there's
+                # no Python module in the subdirectory.
                 module = importlib.import_module(d)
+                # Add extension's icons dir (if present) to icon search path
+                search_paths = QDir.searchPaths('icons')
+                icon_path = os.path.join(self.root_directory(), d, 'icons')
+                if os.path.isdir(icon_path):
+                    QDir.setSearchPaths('icons', [icon_path] + search_paths)
+                # temporary reference to store the _name in the Extension
+                self._current_extension = d
+                # Instantiate the extension,
+                # this will fail if the module is no valid extension
                 self._extensions[d] = module.Extension(self)
             except AttributeError as e:
                 #TODO: Can this be logged instead of print()-ed?
                 print("Not a valid Frescobaldi extension: '{}\n'. Reason:\n".format(d))
                 print(e)
                 print()
+        del self._current_extension
 
     def extensions(self):
         """Return the extensions as a list."""
