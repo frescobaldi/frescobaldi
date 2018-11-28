@@ -53,6 +53,7 @@ class Extensions(preferences.ScrolledGroupsPage):
 
         layout.addWidget(General(self))
         layout.addWidget(Installed(self))
+        layout.addWidget(Config(self))
         layout.addStretch(1)
 
 
@@ -143,4 +144,41 @@ class Installed(preferences.Group):
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("extensions/installed")
+        # to be continued
+
+
+class Config(preferences.Group):
+    """Configuration of an extension.
+    If the currently selected extension doesn't provide a
+    config widget this will be left blank."""
+
+    def __init__(self, page):
+        super(Config, self).__init__(page)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.empty_widget = QWidget(self)
+        empty_layout = QVBoxLayout()
+        self.empty_widget.setLayout(empty_layout)
+        self.empty_label = QLabel(self)
+        empty_layout.addWidget(self.empty_label)
+
+        layout.addWidget(self.empty_widget)
+
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.setTitle(_("Extension Configuration"))
+        self.empty_label.setText(_(
+            "The selected extension does not\n"
+            "provide a configuration widget."))
+
+    def loadSettings(self):
+        s = QSettings()
+        self.setEnabled(s.value('extensions/general/active', True, bool))
+        # to be continued
+
+    def saveSettings(self):
+        s = QSettings()
         # to be continued
