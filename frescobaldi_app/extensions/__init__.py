@@ -30,6 +30,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMenu
 
 import app
+import icons
 from . import actions
 
 class Extension(QObject):
@@ -285,6 +286,7 @@ class Extensions(QObject):
         if not m:
             #TODO: Create mnemonics for the menu entries
             m = self._menus[target] = QMenu(_("&Extensions"), self.mainwindow())
+            m.setIcon(icons.get('network-plug'))
             for ext in self.extensions():
                 ext_menu = ext.menu(target)
                 if ext_menu:
