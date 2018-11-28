@@ -73,8 +73,6 @@ class General(preferences.Group):
         self.setTitle(_("General Settings"))
         self.active.setText(_("Use Extensions"))
         self.active.setToolTip(_("If unchecked don't look for extensions."))
-        # TODO: This is not respected yet.
-        self.active.setEnabled(False)
 
     def loadSettings(self):
         s = QSettings()

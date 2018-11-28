@@ -178,6 +178,7 @@ class Extensions(QObject):
         super(Extensions, self).__init__()
         self._mainwindow = mainwindow
         self._root_directory = None
+        self._active = False
 
         self._menus = {}
         self._extensions = {}
@@ -186,9 +187,13 @@ class Extensions(QObject):
         self._load_extensions()
         app.settingsChanged.connect(self.settings_changed)
 
-#        self.unload_extensions()
+    def active(self):
+        """Returns True if extensions are enabled globally."""
+        return self._active
 
     def _load_extensions(self):
+        if not self.active():
+            return
         root = self.root_directory()
         if not (root and os.path.isdir(root)):
             return
@@ -222,8 +227,8 @@ class Extensions(QObject):
     def load_settings(self):
         s = QSettings()
         s.beginGroup('extensions')
-        self._root_directory = s.value('general/root', '', str)
         self._active = s.value('general/active', True, bool)
+        self._root_directory = s.value('general/root', '', str)
 
     def mainwindow(self):
         """Reference to the main window."""
@@ -254,25 +259,11 @@ class Extensions(QObject):
     def settings_changed(self):
         s = QSettings()
         s.beginGroup('extensions')
-
-        #TODO: Handle 'active' preference
-
+        active = s.value('general/active')
         root = s.value('general/root', '', str)
-        if root != self.root_directory():
-            self.unload_extensions()
-            self._root_directory = root
-            self._load_extensions()
-            menu = self.menu('tools')
-            if not menu.isEmpty():
-                self._tools_menu.addSeparator()
-                self._tools_menu.addMenu(menu)
-
-    def unload_extensions(self):
-        self._tools_menu.removeAction(self.menu('tools').menuAction())
-        # TODO: I think the QMenu-s should explicitly be deleted?
-        self._menus = {}
-        # TODO: Probably this should be made more thorough,
-        # doing proper clean-up?
-        for ext in self._extensions.values():
-            ext.panel().close()
-        self._extensions = {}
+        if (
+            active != self.active()
+            or root != self.root_directory()
+        ):
+            from widgets.restartmessage import suggest_restart
+            suggest_restart(_('Something with the extensions'))
