@@ -111,7 +111,8 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
         self._acts[branch].setText(name)
 
     def slotTriggered(self, action):
-        msgBox = QMessageBox()
+        """Handle click on a listed branch.
+        Try to checkout the new branch and request a restart afterwards."""
         for branch, act in self._acts.items():
             if act == action:
                 new_branch = branch
@@ -120,14 +121,12 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
             return
         try:
             vcs.app_repo.checkout(new_branch)
-            msgBox.setText(_("Checkout Successful"))
-            msgBox.setInformativeText(_("Successfully checked out branch {name}.\n"
-                "Changes will take effect after restart.\n"
-                "Do you want to restart now?").format(name=new_branch))
-            msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-            if msgBox.exec_() == QMessageBox.Ok:
-                self.parent().restart()
+            from widgets.restartmessage import suggest_restart
+            suggest_restart(
+                _("Successful checkout of branch\n{}".format(new_branch)))
         except GitError as giterror:
+            msgBox = QMessageBox()
+            msgBox.setIcon(QMessageBox.Error)
             msgBox.setText(_("Git Checkout Error"))
             msgBox.setInformativeText(str(giterror))
             msgBox.exec_()
