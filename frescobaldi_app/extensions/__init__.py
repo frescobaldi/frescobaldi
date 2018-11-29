@@ -299,7 +299,7 @@ class Extensions(QObject):
     def settings_changed(self):
         s = QSettings()
         s.beginGroup('extensions')
-        active = s.value('general/active')
+        active = s.value('general/active', True, bool)
         root = s.value('general/root', '', str)
         if (
             active != self.active()
