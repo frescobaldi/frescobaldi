@@ -75,6 +75,18 @@ class Extension(QObject):
     _panel_widget_class = None
     _panel_dock_area = Qt.LeftDockWidgetArea
 
+    # Can be defined in subclasses to provide a configuration widget.
+    # If this is present it will be shown in the Preferences page.
+    # Config widgets can be any QWidget descendants, but must fulfill
+    # some requirements:
+    # - They have to  implement the loadSettings() and saveSettings() methods.
+    # - Instead of a QSettings() object they should use
+    #   extensions.ExtensionSettings() which ensures the settings are not
+    #   mixed with Frescobaldi's own settings
+    # - Any changes that have to be "applied" (i.e. that should enable
+    #   the "Apply" button) must the emit self.parent().changed signal.
+    _config_widget_class = None
+
     def __init__(self, parent):
         """Initialize (load) the extension.
         NOTE: This loading takes place at program start, so
@@ -90,6 +102,7 @@ class Extension(QObject):
         self._action_collection =  self._action_collection_class(self)
         self._menus = {}
         self._panel = None
+        self._config_widget = None
         self._icon = None
         self._load_icon()
         self.create_panel()
@@ -97,6 +110,15 @@ class Extension(QObject):
     def action_collection(self):
         """Return the extension's action collection."""
         return self._action_collection
+
+    def config_widget(self, preference_group):
+        """Return a config widget if provided by the extension, or None.
+        Do *not* use caching (this is done in the Preferences group),
+        and set the preference group as the widget's parent."""
+        if not self._config_widget_class:
+            return None
+        widget = self._config_widget_class(preference_group)
+        return widget
 
     def create_panel(self):
         """Create the Extension's Tool Panel if a widget class is provided.
@@ -273,9 +295,9 @@ class Extensions(QObject):
 
     def load_settings(self):
         s = QSettings()
-        s.beginGroup('extensions')
-        self._active = s.value('general/active', True, bool)
-        self._root_directory = s.value('general/root', '', str)
+        s.beginGroup('extension-settings')
+        self._active = s.value('active', True, bool)
+        self._root_directory = s.value('root-directory', '', str)
 
     def mainwindow(self):
         """Reference to the main window."""
@@ -306,9 +328,9 @@ class Extensions(QObject):
 
     def settings_changed(self):
         s = QSettings()
-        s.beginGroup('extensions')
-        active = s.value('general/active', True, bool)
-        root = s.value('general/root', '', str)
+        s.beginGroup('extension-settings')
+        active = s.value('active', True, bool)
+        root = s.value('root-directory', '', str)
         if (
             active != self.active()
             or root != self.root_directory()
