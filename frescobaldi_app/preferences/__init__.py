@@ -340,6 +340,14 @@ class GroupsPage(Page):
         for group in self.groups:
             group.saveSettings()
 
+    def group(self, classname):
+        """Access another group on the current page
+        by passing its class."""
+        for g in self.groups:
+            if isinstance(g, classname):
+                return g
+        raise ValueError("No Group with class \"{}\" on this Page")
+
 
 class ScrolledGroupsPage(GroupsPage, ScrolledPage):
     def __init__(self, dialog):
@@ -353,6 +361,7 @@ class Group(QGroupBox):
 
     def __init__(self, page):
         super(Group, self).__init__()
+        self._page = page
         page.groups.append(self)
         self.changed.connect(page.changed)
 
@@ -361,3 +370,11 @@ class Group(QGroupBox):
 
     def saveSettings(self):
         """Should write settings from our widget to config."""
+
+    def page(self):
+        """Return a reference to the Page the Group is on."""
+        return self._page
+
+    def siblingGroup(self, classname):
+        """Return a reference to another Group on the same page."""
+        return self.page().group(classname)
