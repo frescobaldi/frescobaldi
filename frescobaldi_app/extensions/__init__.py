@@ -33,6 +33,14 @@ import app
 import icons
 from . import actions
 
+class ExtensionSettings(QSettings):
+    """
+    Base class to be used for storing extension settings.
+    """
+    def __init__(self):
+        super(ExtensionSettings, self).__init__()
+        self.beginGroup('extensions')
+
 class Extension(QObject):
     """
     Base class for all Extension objects.
