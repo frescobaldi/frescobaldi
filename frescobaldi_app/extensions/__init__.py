@@ -25,7 +25,7 @@ import importlib
 import os
 import sys
 
-from PyQt5.QtCore import QDir, QObject, QSettings
+from PyQt5.QtCore import Qt, QDir, QObject, QSettings
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMenu
 
@@ -59,6 +59,14 @@ class Extension(QObject):
     # desired if an extension only wants to provide a Tool panel.
     _action_collection_class = actions.ExtensionActionCollection
 
+    # Can be defined in subclasses to create a Tool panel.
+    # If a class is provided for a panel widget a Tool panel is
+    # automatically created. By default the initial dock area is
+    # the left dock area, but this can also be specified by
+    # overriding the corresponding class variable.
+    _panel_widget_class = None
+    _panel_dock_area = Qt.LeftDockWidgetArea
+
     def __init__(self, parent):
         """Initialize (load) the extension.
         NOTE: This loading takes place at program start, so
@@ -83,15 +91,14 @@ class Extension(QObject):
         return self._action_collection
 
     def create_panel(self):
-        """Create the Extension's Tool Panel (optional).
-
-        If a Tool Panel has been configured through the use of
-        self.set_panel_properties() in a subclass's __init__()
-        an appropriate Panel is created.
+        """Create the Extension's Tool Panel if a widget class is provided.
         """
-        if hasattr(self, "_panel_conf"):
+        if self._panel_widget_class:
             from . import panel
-            self._panel = panel.ExtensionPanel(self)
+            self._panel = panel.ExtensionPanel(
+                self,
+                self._panel_widget_class,
+                self._panel_dock_area)
 
     def display_name(self):
         """Return the display name of the extension.
@@ -172,18 +179,6 @@ class Extension(QObject):
     def root_directory(self):
         """Return the extension's root directory."""
         return os.path.join(self.parent().root_directory(), self.name())
-
-    def set_panel_properties(self, widget_class, dock_area):
-        """Specify an Extension Panel to be created.
-        If this method is called in the subclass's __init__() a
-        Panel will be created.
-        The widget class and the (initial) dock area are the only
-        custom parameters of an Extension Panel, everything else
-        will be transparently generated."""
-        self._panel_conf = {
-            'widget_class': widget_class,
-            'dock_area': dock_area
-        }
 
     # Convenience functions to access elements of the application
     # and the current documents. This will be extended.

@@ -29,21 +29,18 @@ class ExtensionPanel(panel.Panel):
     its only purpose being to act as a bridge to ExtensionWidget and
     descendants.
     """
-    def __init__(self, extension):
-        self._panel_conf = extension._panel_conf
+    def __init__(self, extension, widget_class, dock_area):
         self._extension = extension
+        self._widget_class = widget_class
         super(ExtensionPanel, self).__init__(extension.mainwindow())
         self.hide()
-# TODO: How can we handle shortcuts for arbitrary extensions?
-#        self.toggleViewAction().setShortcut(QKeySequence("Meta+Alt+Z"))
-        self.mainwindow().addDockWidget(self._panel_conf['dock_area'], self)
+        self.mainwindow().addDockWidget(dock_area, self)
 
     def createWidget(self):
         """Create the panel's widget.
         *If* an ExtensionPanel is actually instantiated it also has
         information about it's widget class, which we use here."""
-        widget_class = self._panel_conf['widget_class']
-        return widget_class(self)
+        return self._widget_class(self)
 
     def translateUI(self):
         self.setWindowTitle(self.extension().display_name())
