@@ -140,7 +140,7 @@ class Installed(preferences.Group):
             'extension-name': _("Name"),
             'maintainers': _("Maintainer(s)"),
             'version': _("Version"),
-            'api-version' _("API version"),
+            'api-version': _("API version"),
             'license': _("License"),
             'short-description': _("Short Description"),
             'description': _("Description"),
