@@ -221,16 +221,16 @@ class Config(preferences.Group):
 
     def loadSettings(self):
         """Ask all extension configuration widgets to load their settings.
-        Configuration widgets are required to implement loadSettings()."""
+        Configuration widgets are required to implement load_settings()."""
         self.setEnabled(self.page().active())
         for widget in self.config_widgets.values():
-            widget.loadSettings()
+            widget.load_settings()
 
     def saveSettings(self):
         """Ask all extension configuration widgets to save their settings.
-        Configuration widgets are required to implement saveSettings()."""
+        Configuration widgets are required to implement save_settings()."""
         for widget in self.config_widgets.values():
-            widget.saveSettings()
+            widget.save_settings()
 
     def hide_extension(self):
         """Remove the currently displayed configuration widget."""
