@@ -53,6 +53,8 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
         self.configure_menu_actions()
         # Interface for subclasses to handle actions
         self.connect_actions()
+        # Interface for initializing actions
+        self.load_settings()
 
     def by_text(self):
         """Returns a list with all actions, sorted by the display text."""
@@ -75,6 +77,10 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
 
     def extension(self):
         return self._extension
+
+    def load_settings(self):
+        """Should be implemented to initialize the actions."""
+        pass
 
     def menu_actions(self, target):
         """Returns a list of actions for use in the extension's entry
