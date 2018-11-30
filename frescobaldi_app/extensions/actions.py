@@ -51,6 +51,8 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
         }
         # Interface for subclasses to override menus
         self.configure_menu_actions()
+        # Interface for subclasses to handle actions
+        self.connect_actions()
 
     def by_text(self):
         """Returns a list with all actions, sorted by the display text."""
@@ -62,6 +64,13 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
         """Can be used in subclasses to configure the menu action behaviour.
         Calling self.set_menu_action_list(target, actions) each of the menus
         can be configured separately (see comments there)."""
+        pass
+
+    def connect_actions(self):
+        """Should be implemented when actions have to be connected
+        globally during the extension's lifetime. Alternatively
+        the actions can also
+        """
         pass
 
     def extension(self):
