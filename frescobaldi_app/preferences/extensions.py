@@ -136,6 +136,18 @@ class Installed(preferences.Group):
 
     def translateUI(self):
         self.setTitle(_("Installed Extensions"))
+        self.config_labels = {
+            'extension-name': _("Name"),
+            'maintainers': _("Maintainer(s)"),
+            'version': _("Version"),
+            'api-version' _("API version"),
+            'license': _("License"),
+            'short-description': _("Short Description"),
+            'description': _("Description"),
+            'repository': _("Repository"),
+            'website': _("Website"),
+            'dependencies': _("Dependencies")
+        }
 
     def loadSettings(self):
         s = QSettings()

@@ -31,6 +31,7 @@ from PyQt5.QtWidgets import QMenu
 
 import app
 import icons
+import vbcl
 from . import actions
 
 class ExtensionSettings(QSettings):
@@ -104,6 +105,8 @@ class Extension(QObject):
         self._panel = None
         self._config_widget = None
         self._icon = None
+        self._metadata = None
+        self._load_metadata()
         self._load_icon()
         self.create_panel()
 
@@ -161,6 +164,45 @@ class Extension(QObject):
         if os.path.exists(icon_file_name):
             self._icon = QIcon(icon_file_name)
 
+    def _load_metadata(self):
+        # Mandatory keys in the extension.cfg file
+        mandatory_config_keys = [
+            'extension-name',
+            'maintainers',
+            'version',
+            'api-version',
+            'license'
+        ]
+        # Default values for accepted config keys
+        config_defaults = {
+            'short-description': '',
+            'description': '',
+            'repository': '',
+            'website': '',
+            'dependencies': []
+        }
+        config_file = os.path.join(self.root_directory(), 'extension.cnf')
+        try:
+            self._metadata = vbcl.parse_file(
+                config_file,
+                mandatory_keys=mandatory_config_keys,
+                defaults=config_defaults
+                )
+        except Exception as e:
+            from PyQt5.QtWidgets import QMessageBox
+            msg_box = QMessageBox()
+            msg_box.setText(
+                _("Couldn't parse VBCL for extension '{}'".format(
+                self.display_name())))
+            msg_box.setInformativeText(
+                _("The extension will be loaded anyway "
+                  "but please contact the extension maintainer "
+                  "and ask them to fix the issue"))
+            msg_box.setDetailedText(str(e))
+            msg_box.setIcon(QMessageBox.Warning)
+#            msg_box.setStandardButtons(QMessageBox.Ok)
+            msg_box.exec()
+
     def menu(self, target):
         """Return a submenu for use in an Extensions menu,
         or None if there should be no entry for the given target.
@@ -205,6 +247,11 @@ class Extension(QObject):
                 else:
                     m.addAction(entry)
         return m
+
+    def metadata(self):
+        """Return the metadata from extension.cnf as the
+        VBCL-parsed dictionary."""
+        return self._metadata
 
     def name(self):
         """Return the extension's internal name (which actually is retrieved
