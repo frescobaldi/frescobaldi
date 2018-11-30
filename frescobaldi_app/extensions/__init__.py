@@ -107,9 +107,18 @@ class Extension(QObject):
         self._load_icon()
         self.create_panel()
 
+        # Hook that can be implemented to update extension status
+        # after settings change.
+        app.settingsChanged.connect(self.app_settings_changed)
+
     def action_collection(self):
         """Return the extension's action collection."""
         return self._action_collection
+
+    def app_settings_changed(self):
+        """Implement to respond to settings changes
+        (e.g. to update GUI or action status)."""
+        pass
 
     def config_widget(self, preference_group):
         """Return a config widget if provided by the extension, or None.
