@@ -47,7 +47,8 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
         self._action_lists = {
             'tools': None,
             'editor': [],
-            'musicview': []
+            'musicview': [],
+            'manuscriptview': []
         }
         # Interface for subclasses to override menus
         self.configure_menu_actions()
