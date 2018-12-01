@@ -146,7 +146,7 @@ class Extension(QObject):
         """Return the display name of the extension.
         Should be overridden in concrete classes,
         class name is just a fallback."""
-        return self.__class__._display_name
+        return self.metadata('extension-name') or "Unnamed Extension"
 
     def has_icon(self):
         return self._icon is not None
@@ -250,7 +250,7 @@ class Extension(QObject):
     def metadata(self, key):
         """Return the metadata from extension.cnf as the
         VBCL-parsed dictionary."""
-        return self._metadata[key]
+        return self._metadata[key] if self._metadata else None
 
     def name(self):
         """Return the extension's internal name (which actually is retrieved
