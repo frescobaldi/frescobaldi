@@ -231,8 +231,6 @@ class VolatileTextJob(PublishJob):
         doc = document.Document(url)
         super(VolatileTextJob, self).__init__(doc, title=title)
 
-        super(VolatileTextJob, self).__init__(doc)
-
         if title:
             self.set_title(title)
         if base_dir:
@@ -241,7 +239,7 @@ class VolatileTextJob(PublishJob):
     def resultfiles(self):
         """Returns a list of resulting file(s)"""
         #TODO: Support non-PDF compilation modes
-        return glob.glob(os.path.join(self.directory, '*.pdf'))
+        return glob.glob(os.path.join(self.directory(), '*.pdf'))
 
     def cleanup(self):
-        shutil.rmtree(self.directory, ignore_errors=True)
+        shutil.rmtree(self.directory(), ignore_errors=True)
