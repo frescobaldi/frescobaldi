@@ -28,9 +28,20 @@ from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtGui import QFont, QStandardItem, QStandardItemModel
 
 from PyQt5.QtWidgets import (
-    QAbstractItemView, QCheckBox, QDoubleSpinBox, QFontComboBox,
-    QGridLayout, QHBoxLayout, QLabel, QPushButton, QSlider, QSpinBox,
-    QTreeView, QVBoxLayout, QWidget
+    QAbstractItemView,
+    QCheckBox,
+    QDoubleSpinBox,
+    QFontComboBox,
+    QGridLayout,
+    QHBoxLayout,
+    QHeaderView,
+    QLabel,
+    QPushButton,
+    QSlider,
+    QSpinBox,
+    QTreeView,
+    QVBoxLayout,
+    QWidget
 )
 
 import app
@@ -121,18 +132,24 @@ class Installed(preferences.Group):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
+        # This must occur before self.populate()
+        app.translateUI(self)
+
         self.tree = QTreeView()
         if page.active():
+            self.name_items = {}
+            self._selected_extension = ''
             self.tree.setModel(QStandardItemModel())
-            # We don't completely remove the headers because they will
-            # be used later.
-            self.tree.model().setHorizontalHeaderLabels([''])
+            self.tree.model().setColumnCount(2)
+            self.tree.setHeaderHidden(True)
+            #self.tree.model().setHorizontalHeaderLabels(['', ''])
+            self.tree.header().setSectionResizeMode(
+                0, QHeaderView.ResizeToContents)
             self.tree.selectionModel().selectionChanged.connect(
                 self.selection_changed)
             self.populate()
         layout.addWidget(self.tree)
 
-        app.translateUI(self)
 
     def translateUI(self):
         self.setTitle(_("Installed Extensions"))
@@ -167,11 +184,42 @@ class Installed(preferences.Group):
         # with further metadata and configuration interface later.
         root = self.tree.model().invisibleRootItem()
         for ext in self.page().extensions():
-            item = QStandardItem(ext.display_name())
-            item.extension_name = ext.name()
+            name_item = QStandardItem(ext.display_name())
+            name_item.extension_name = ext.name()
+            name_item.setCheckable(True)
+            self.name_items[ext.name()] = name_item
             if ext.has_icon():
-                item.setIcon(ext.icon())
-            root.appendRow(item)
+                name_item.setIcon(ext.icon())
+            root.appendRow([name_item])
+            for entry in [
+                'extension-name',
+                'short-description',
+                'description',
+                'version',
+                'api-version',
+                'dependencies',
+                'maintainers',
+                'repository',
+                'website',
+                'license'
+            ]:
+                label_item = QStandardItem('{}:'.format(
+                    self.config_labels[entry]))
+                label_item.setTextAlignment(Qt.AlignTop)
+                font = QFont()
+                font.setWeight(QFont.Bold)
+                label_item.setFont(font)
+                details = ext.metadata(entry)
+                if type(details) == list:
+                    details = '\n'.join(details)
+                details_item = QStandardItem(details)
+                details_item.setTextAlignment(Qt.AlignTop)
+                name_item.appendRow([label_item, details_item])
+
+    def selected_extension(self):
+        """Return the (directory) name of the extension that
+        is currently selected."""
+        return self._selected_extension
 
     def selection_changed(self, new, old):
         """Show the configuration widget for the selected extension,
@@ -179,14 +227,20 @@ class Installed(preferences.Group):
         config = self.siblingGroup(Config)
         config.hide_extension()
         if new.indexes():
-            # NOTE: The following approach may have to be modified
-            # when there will be more than one column in the model
             ext_item = self.tree.model().itemFromIndex(new.indexes()[0])
+            # NOTE: This may have to be changed if there should be
+            # more complexity in the tree model than now (a selected
+            # row is either a top-level row or its immediate child)
+            if not hasattr(ext_item, 'extension_name'):
+                ext_item = ext_item.parent()
             name = ext_item.extension_name
+            if name == self.selected_extension():
+                return
         else:
             # If nothing is selected, show the "empty" widget
             name = ""
 
+        self._selected_extension = name
         config.show_extension(name)
 
 
