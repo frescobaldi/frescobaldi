@@ -148,6 +148,13 @@ class PanelManager(plugin.MainWindowPlugin):
                 result.append((name, panel))
         return result
 
+    def panel_by_name(self, name):
+        """Return the panel with the given name."""
+        for panel_name, panel in self._panels:
+            if name == panel_name:
+                return panel
+        return None
+
 
 class Actions(actioncollection.ActionCollection):
     """Manages the keyboard shortcuts to hide/show the plugins."""

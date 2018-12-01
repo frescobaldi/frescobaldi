@@ -103,7 +103,7 @@ class Job(object):
         self._output = output
         self._runner = runner
         self._arguments = args if args else []
-        self.directory = directory
+        self._directory = directory
         self.environment = {}
         self._encoding = encoding
         self.success = None
@@ -145,6 +145,9 @@ class Job(object):
 
         """
         return codecs.getdecoder(self._encoding)
+
+    def set_directory(self, directory):
+        self._directory = directory
 
     def filename(self):
         """File name of the job's input document.
@@ -213,8 +216,8 @@ class Job(object):
             self.set_process(QProcess())
         self._process.started.connect(self.started)
         self.start_message()
-        if os.path.isdir(self.directory):
-            self._process.setWorkingDirectory(self.directory)
+        if os.path.isdir(self._directory):
+            self._process.setWorkingDirectory(self._directory)
         if self.environment:
             self._update_process_environment()
         self._process.start(self.command[0], self.command[1:])
