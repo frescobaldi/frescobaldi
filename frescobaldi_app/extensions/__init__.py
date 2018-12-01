@@ -179,7 +179,7 @@ class Extension(QObject):
             'description': '',
             'repository': '',
             'website': '',
-            'dependencies': []
+            'dependencies': '---'
         }
         config_file = os.path.join(self.root_directory(), 'extension.cnf')
         try:
@@ -200,7 +200,6 @@ class Extension(QObject):
                   "and ask them to fix the issue"))
             msg_box.setDetailedText(str(e))
             msg_box.setIcon(QMessageBox.Warning)
-#            msg_box.setStandardButtons(QMessageBox.Ok)
             msg_box.exec()
 
     def menu(self, target):
@@ -248,10 +247,10 @@ class Extension(QObject):
                     m.addAction(entry)
         return m
 
-    def metadata(self):
+    def metadata(self, key):
         """Return the metadata from extension.cnf as the
         VBCL-parsed dictionary."""
-        return self._metadata
+        return self._metadata[key]
 
     def name(self):
         """Return the extension's internal name (which actually is retrieved
