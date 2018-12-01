@@ -37,9 +37,6 @@ import struct
 from . import event
 
 
-PY2 = sys.version_info[0] == 2
-
-
 unpack_midi_header = struct.Struct(b'>hhh').unpack
 unpack_int = struct.Struct(b'>i').unpack
 
@@ -107,9 +104,6 @@ def parse_midi_events(s, factory=None):
         factory = event.EventFactory()
 
     running_status = None
-
-    if PY2:
-        s = bytearray(s)
 
     pos = 0
     while pos < len(s):
@@ -220,6 +214,3 @@ if __name__ == '__main__':
         except Exception as e:
             print('error in:', f)
             print(e)
-
-
-
