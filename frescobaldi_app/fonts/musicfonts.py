@@ -138,7 +138,6 @@ class MusicFontsWidget(QWidget):
 
     def populate_default_samples(self):
         cb = self.cb_default_sample
-        cb.addItem(_('Default'), 'musicfont-default.ly')
         cb.addItem(_('Bach'), 'musicfont-bach.ly')
         cb.addItem(_('Scriabine'), 'musicfont-scriabine.ly')
         cb.addItem(_('Berg (Clarinet and Piano)'), 'musicfont-berg.ly')
