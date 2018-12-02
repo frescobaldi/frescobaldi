@@ -83,6 +83,7 @@ class FontsDialog(widgets.dialog.Dialog):
         self.loadSettings()
 
         self.connectSignals()
+        app.qApp.setOverrideCursor(Qt.WaitCursor)
         if self.available_fonts.text_fonts().is_loaded():
             self.populate_widgets()
         else:
@@ -90,6 +91,7 @@ class FontsDialog(widgets.dialog.Dialog):
             self.tabWidget.setCurrentIndex(0)
             self.font_tree_tab.display_waiting()
             self.available_fonts.text_fonts().load_fonts(self.logWidget)
+        app.qApp.restoreOverrideCursor()
 
     def createTabs(self):
 
