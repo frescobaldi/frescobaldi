@@ -75,8 +75,8 @@ class FontsDialog(widgets.dialog.Dialog):
         self.tabWidget = QTabWidget(self)
         self.setMainWidget(self.tabWidget)
 
-        info = documentinfo.lilyinfo(parent.currentDocument())
-        self.available_fonts = fonts.available(info)
+        self.info = documentinfo.lilyinfo(parent.currentDocument())
+        self.available_fonts = fonts.available(self.info)
 
         self.createTabs()
         app.translateUI(self)
@@ -113,9 +113,10 @@ class FontsDialog(widgets.dialog.Dialog):
         self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
         self.tabWidget.addTab(self.misc_tree_tab, _("Miscellaneous"))
 
-        # Show Music Font results
-        self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts)
-        self.tabWidget.insertTab(0, self.music_tree_tab, _("Music Fonts"))
+        if self.info.version() >= (2, 19, 12):
+            # Show Music Font results
+            self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts)
+            self.tabWidget.insertTab(0, self.music_tree_tab, _("Music Fonts"))
 
     def connectSignals(self):
         self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
