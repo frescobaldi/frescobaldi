@@ -190,12 +190,11 @@ class Installed(preferences.Group):
     def populate(self):
         """Populate the tree view with data from the installed extensions.
         """
-        # For now we'll create a flat list but there will be child items
-        # with further metadata and configuration interface later.
         root = self.tree.model().invisibleRootItem()
         infos = self.page().infos()
         for ext in infos:
-            name_item = QStandardItem(infos[ext]['extension-name'])
+            ext_infos = infos[ext]
+            name_item = QStandardItem(ext_infos.get(ext, ext) if ext_infos else ext)
             name_item.extension_name = ext
             name_item.setCheckable(True)
             self.name_items[ext] = name_item
@@ -221,7 +220,7 @@ class Installed(preferences.Group):
                 font = QFont()
                 font.setWeight(QFont.Bold)
                 label_item.setFont(font)
-                details = infos[ext][entry]
+                details = ext_infos.get(entry, "") if ext_infos else ""
                 if type(details) == list:
                     details = '\n'.join(details)
                 details_item = QStandardItem(details)
@@ -313,6 +312,9 @@ class Failed(preferences.Group):
             for info in self._failed['infos']:
                 name_item = QStandardItem(info)
                 name_item.setToolTip(self.infos_tooltip)
+                icon = app.extensions().icon(info)
+                if icon:
+                    name_item.setIcon(icon)
                 details_item = QStandardItem(self._failed['infos'][info])
                 details_item.setToolTip(self.infos_tooltip)
                 self.infos_item.appendRow([name_item, details_item])
@@ -325,6 +327,9 @@ class Failed(preferences.Group):
                     else ext)
                 name_item = QStandardItem(name)
                 name_item.setToolTip(self.extensions_tooltip)
+                icon = app.extensions().icon(ext)
+                if icon:
+                    name_item.setIcon(icon)
                 # store the extension key in addition to the display name
                 name_item.extension_key = ext
                 exc_info = self._failed['extensions'][ext]
