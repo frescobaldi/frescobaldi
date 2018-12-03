@@ -398,14 +398,8 @@ class Config(preferences.Group):
         self.current_widget = self.empty_widget
         self.current_widget.hide()
 
-        if page.active():
-            # preload and reference config widgets for all extensions
-            self.config_widgets = {}
-            for ext in page.extensions():
-                widget = ext.config_widget(self)
-                if widget:
-                    widget.hide()
-                    self.config_widgets[ext.name()] = widget
+        # preload and reference config widgets for all extensions
+        self.config_widgets = app.extensions().config_widgets(self)
 
         app.translateUI(self)
 

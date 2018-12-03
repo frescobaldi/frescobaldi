@@ -240,6 +240,7 @@ class Extensions(QObject):
     def __init__(self, mainwindow):
         super(Extensions, self).__init__()
         self._mainwindow = mainwindow
+        self._config_widgets = None
         self._menus = {}
         self._icons = {}
         self._infos = {}
@@ -348,6 +349,18 @@ class Extensions(QObject):
                 self._infos[d] = self._load_infos(d)
             except Exception as e:
                 pass
+
+    def config_widgets(self, preference_group):
+        """Return a dictionary with config widgets.
+        Will be created upon first request."""
+        if self._config_widgets is None:
+            self._config_widgets = {}
+            for ext in self.extensions():
+                widget = ext.config_widget(preference_group)
+                if widget:
+                    widget.hide()
+                    self._config_widgets[ext.name()] = widget
+        return self._config_widgets
 
     def extensions(self):
         """Return the extensions as a list."""
