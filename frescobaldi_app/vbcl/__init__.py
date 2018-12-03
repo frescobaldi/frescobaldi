@@ -35,10 +35,14 @@ list_items_end = re.compile(r"^\s*\]")
 def check_mandatory_keys(d, mandatory_keys):
     """Check if all mandatory keys are present. Raise a ValueError if not."""
     if mandatory_keys:
+        missing = []
         for key in mandatory_keys:
             if not key in d.keys():
-                raise ValueError(
-                _("VBCL Error: Missing mandatory key '{}'".format(key)))
+                missing.append(key)
+        if missing:
+            raise ValueError(
+            _("VBCL Error: Missing mandatory key(s) '{}'".format(
+                ', '.join(missing))))
 
 def set_defaults(d, defaults):
     """Ensure optional properties are set to default/'empty' values."""

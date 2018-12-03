@@ -106,7 +106,6 @@ class Extension(QObject):
         self._config_widget = None
         self._icon = None
         self._metadata = None
-        self._load_metadata()
         self._load_icon()
         self.create_panel()
 
@@ -163,44 +162,6 @@ class Extension(QObject):
             self.root_directory(), 'icons', 'extension.svg')
         if os.path.exists(icon_file_name):
             self._icon = QIcon(icon_file_name)
-
-    def _load_metadata(self):
-        # Mandatory keys in the extension.cfg file
-        mandatory_config_keys = [
-            'extension-name',
-            'maintainers',
-            'version',
-            'api-version',
-            'license'
-        ]
-        # Default values for accepted config keys
-        config_defaults = {
-            'short-description': '',
-            'description': '',
-            'repository': '',
-            'website': '',
-            'dependencies': '---'
-        }
-        config_file = os.path.join(self.root_directory(), 'extension.cnf')
-        try:
-            self._metadata = vbcl.parse_file(
-                config_file,
-                mandatory_keys=mandatory_config_keys,
-                defaults=config_defaults
-                )
-        except Exception as e:
-            from PyQt5.QtWidgets import QMessageBox
-            msg_box = QMessageBox()
-            msg_box.setText(
-                _("Couldn't parse VBCL for extension '{}'".format(
-                self.display_name())))
-            msg_box.setInformativeText(
-                _("The extension will be loaded anyway "
-                  "but please contact the extension maintainer "
-                  "and ask them to fix the issue"))
-            msg_box.setDetailedText(str(e))
-            msg_box.setIcon(QMessageBox.Warning)
-            msg_box.exec()
 
     def menu(self, target):
         """Return a submenu for use in an Extensions menu,
@@ -288,54 +249,93 @@ class Extensions(QObject):
     def __init__(self, mainwindow):
         super(Extensions, self).__init__()
         self._mainwindow = mainwindow
+        self._menus = {}
+        self._infos = {}
+        self._failed_infos = {}
+        self._extensions = {}
+        self._failed_extensions = {}
+
+        # These two will be set in load_settings()
         self._root_directory = None
         self._active = False
-
-        self._menus = {}
-        self._extensions = {}
-        # TODO: Handle app.settingsChanged
         self.load_settings()
-        self._load_extensions()
         app.settingsChanged.connect(self.settings_changed)
+        self.load_infos()
+        if (self.active()
+            and self.root_directory()
+            and os.path.isdir(self.root_directory())):
+            self.load_extensions()
+        if self._failed_infos or self._failed_extensions:
+            self.report_failed()
+
 
     def active(self):
         """Returns True if extensions are enabled globally."""
         return self._active
 
-    def _load_extensions(self):
-        if not self.active():
-            return
+    def load_extensions(self):
         root = self.root_directory()
-        if not (root and os.path.isdir(root)):
-            return
-        self._extensions = {}
         if not root in sys.path:
             sys.path.append(root)
-        subdirs = os.listdir(root)
-        for d in subdirs:
+        for ext in self._infos.keys():
             # TODO: Check against a list of deactivated extensions
             # TODO (maybe:) allow manual order of loading
             #               (to handle dependency issues)
             try:
+                # temporary reference to store the _name in the Extension
+                self._current_extension = ext
                 # Try importing the module. Will fail here if there's
                 # no Python module in the subdirectory.
-                module = importlib.import_module(d)
+                module = importlib.import_module(ext)
                 # Add extension's icons dir (if present) to icon search path
                 search_paths = QDir.searchPaths('icons')
-                icon_path = os.path.join(self.root_directory(), d, 'icons')
+                icon_path = os.path.join(self.root_directory(), ext, 'icons')
                 if os.path.isdir(icon_path):
                     QDir.setSearchPaths('icons', [icon_path] + search_paths)
-                # temporary reference to store the _name in the Extension
-                self._current_extension = d
                 # Instantiate the extension,
                 # this will fail if the module is no valid extension
-                self._extensions[d] = module.Extension(self)
-            except AttributeError as e:
-                #TODO: Can this be logged instead of print()-ed?
-                print("Not a valid Frescobaldi extension: '{}\n'. Reason:\n".format(d))
-                print(e)
-                print()
-        del self._current_extension
+                self._extensions[ext] = module.Extension(self)
+            except Exception as e:
+                self._failed_extensions[ext] = sys.exc_info()
+            finally:
+                del self._current_extension
+
+    def _load_infos(self, extension_name):
+        # Mandatory keys in the extension.cfg file
+        mandatory_config_keys = [
+            'extension-name',
+            'maintainers',
+            'version',
+            'api-version',
+            'license'
+        ]
+        # Default values for accepted config keys
+        config_defaults = {
+            'short-description': '',
+            'description': '',
+            'repository': '',
+            'website': '',
+            'dependencies': '---'
+        }
+        config_file = os.path.join(
+            self.root_directory(), extension_name, 'extension.cnf')
+        try:
+            return vbcl.parse_file(
+                config_file,
+                mandatory_keys=mandatory_config_keys,
+                defaults=config_defaults)
+        except Exception as e:
+            self._failed_infos[extension_name] = str(e)
+
+    def load_infos(self):
+        root = self.root_directory()
+        subdirs = [dir for dir in os.listdir(root) if os.path.isfile(
+            os.path.join(root, dir, 'extension.cnf'))]
+        for d in subdirs:
+            try:
+                self._infos[d] = self._load_infos(d)
+            except Exception as e:
+                pass
 
     def extensions(self):
         """Return the extensions as a list."""
@@ -343,10 +343,19 @@ class Extensions(QObject):
         result.sort(key=lambda extension: extension.display_name())
         return result
 
+    def failed(self):
+        return {
+            'infos': self._failed_infos,
+            'extensions': self._failed_extensions
+        }
+
     def get(self, module_name):
         """Return an Extension object for an extension with the given name,
         or None if such a module doesn't exist."""
         return self._extensions.get(module_name, None)
+
+    def infos(self):
+        return self._infos
 
     def load_settings(self):
         s = QSettings()
@@ -372,6 +381,39 @@ class Extensions(QObject):
                 if ext_menu:
                     m.addMenu(ext_menu)
         return m
+
+    def report_failed(self):
+        """Show a warning message box if extension(s) could either not
+        be loaded or produced errors while parsing the extension infos."""
+        from PyQt5.QtWidgets import QMessageBox
+        import appinfo
+
+        msg_box = QMessageBox()
+        msg_box.setWindowTitle(appinfo.appname)
+        msg_box.setIcon(QMessageBox.Warning)
+        msg_box.setText(_('Some Extension(s) failed to load properly.'))
+        failed_infos = self._failed_infos
+        failed_extensions = self._failed_extensions
+        text = []
+        if failed_infos:
+            text.extend(
+                [_('The following extension(s) reported errors with '),
+                _('parsing the extension info file:'),
+                '',
+                '\n'.join(failed_infos.keys())
+                ])
+        if failed_extensions:
+            text.extend(
+                ['',
+                 _('The following extension could not be loaded:'),
+                 '',
+                 '\n'.join(failed_extensions.keys())])
+        text.extend(
+            ['',
+            _("For details please refer to the Preferences page")
+            ])
+        msg_box.setInformativeText('\n'.join(text))
+        msg_box.exec()
 
     def root_directory(self):
         """Root directory below which extensions are searched for."""

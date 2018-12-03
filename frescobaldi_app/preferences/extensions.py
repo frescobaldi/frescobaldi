@@ -62,13 +62,18 @@ class Extensions(preferences.ScrolledGroupsPage):
         self._active = QSettings().value(
             'extension-settingss/active', True, bool)
 
-        self._extensions = app.extensions().extensions() if self._active else None
+        extensions = app.extensions()
+        self._extensions = extensions.extensions()
+        self._infos = extensions.infos()
+        failed = self._failed = extensions.failed()
 
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
 
         layout.addWidget(General(self))
         layout.addWidget(Installed(self))
+        if failed['infos'] or failed['extensions']:
+            layout.addWidget(Failed(self))
         layout.addWidget(Config(self))
         layout.addStretch(1)
 
@@ -77,6 +82,12 @@ class Extensions(preferences.ScrolledGroupsPage):
 
     def extensions(self):
         return self._extensions
+
+    def failed(self):
+        return self._failed
+
+    def infos(self):
+        return self._infos
 
 
 class General(preferences.Group):
@@ -136,18 +147,17 @@ class Installed(preferences.Group):
         app.translateUI(self)
 
         self.tree = QTreeView()
-        if page.active():
-            self.name_items = {}
-            self._selected_extension = ''
-            self.tree.setModel(QStandardItemModel())
-            self.tree.model().setColumnCount(2)
-            self.tree.setHeaderHidden(True)
-            #self.tree.model().setHorizontalHeaderLabels(['', ''])
-            self.tree.header().setSectionResizeMode(
-                0, QHeaderView.ResizeToContents)
-            self.tree.selectionModel().selectionChanged.connect(
-                self.selection_changed)
-            self.populate()
+        self.name_items = {}
+        self._selected_extension = ''
+        self.tree.setModel(QStandardItemModel())
+        self.tree.model().setColumnCount(2)
+        self.tree.setHeaderHidden(True)
+        #self.tree.model().setHorizontalHeaderLabels(['', ''])
+        self.tree.header().setSectionResizeMode(
+            0, QHeaderView.ResizeToContents)
+        self.tree.selectionModel().selectionChanged.connect(
+            self.selection_changed)
+        self.populate()
         layout.addWidget(self.tree)
 
 
@@ -243,6 +253,111 @@ class Installed(preferences.Group):
         self._selected_extension = name
         config.show_extension(name)
 
+
+class Failed(preferences.Group):
+
+    def __init__(self, page):
+        super(Failed, self).__init__(page)
+
+        self._failed = page.failed()
+        self._failed_infos_count = len(self._failed['infos'].keys())
+        self._failed_extensions_count = len(self._failed['extensions'].keys())
+
+        bold = QFont()
+        bold.setWeight(QFont.Bold)
+        self.infos_item = QStandardItem()
+        self.infos_item.setFont(bold)
+        self.extensions_item = QStandardItem()
+        self.extensions_item.setFont(bold)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.tree = QTreeView()
+        self.tree.setModel(QStandardItemModel())
+        self.tree.model().setColumnCount(2)
+        self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tree.setHeaderHidden(True)
+        self.tree.header().setSectionResizeMode(
+            0, QHeaderView.ResizeToContents)
+
+        #TODO: Set the height of the QTreeView to 4-6 rows
+        #https://stackoverflow.com/questions/53591159/set-the-height-of-a-qtreeview-to-height-of-n-rows
+        layout.addWidget(self.tree)
+        self.tree.doubleClicked.connect(self.tree_double_clicked)
+
+        app.translateUI(self)
+        self.populate()
+
+    def translateUI(self):
+        self.setTitle(_("Failed Extensions"))
+        self.infos_item.setText(_("Invalid info:"))
+        self.infos_tooltip = (
+            _("Extensions whose extension.cnf file has errors.\n"
+              "They will be loaded nevertheless."))
+        self.infos_item.setToolTip(self.infos_tooltip)
+        self.extensions_item.setText(_("Failed to load:"))
+        self.extensions_tooltip = (
+            _("Extensions that failed to load properly.\n"
+              "Double click on name to show the stacktrace.\n"
+              "Please contact the extension maintainer."))
+        self.extensions_item.setToolTip(self.extensions_tooltip)
+
+    def populate(self):
+        root = self.tree.model().invisibleRootItem()
+        if self._failed_infos_count:
+            root.appendRow(self.infos_item)
+            for info in self._failed['infos']:
+                name_item = QStandardItem(info)
+                name_item.setToolTip(self.infos_tooltip)
+                details_item = QStandardItem(self._failed['infos'][info])
+                details_item.setToolTip(self.infos_tooltip)
+                self.infos_item.appendRow([name_item, details_item])
+        if self._failed_extensions_count:
+            root.appendRow(self.extensions_item)
+            for ext in self._failed['extensions']:
+                extension_info = app.extensions().infos()[ext]
+                name = (extension_info.get('extension-name', ext)
+                    if extension_info
+                    else ext)
+                name_item = QStandardItem(name)
+                name_item.setToolTip(self.extensions_tooltip)
+                # store the extension key in addition to the display name
+                name_item.extension_key = ext
+                exc_info = self._failed['extensions'][ext]
+                message = '{}: {}'.format(exc_info[0].__name__, exc_info[1])
+                details_item = QStandardItem(message)
+                details_item.setToolTip(self.extensions_tooltip)
+                self.extensions_item.appendRow([name_item, details_item])
+
+    def tree_double_clicked(self, index):
+        """Show the details of a failed extension in a message box."""
+        model = self.tree.model()
+        item = model.itemFromIndex(index)
+        row = item.row()
+        parent = item.parent()
+        if item and item.parent() == self.extensions_item:
+            import traceback
+            from PyQt5.QtWidgets import QMessageBox
+            import appinfo
+            name_item = parent.child(row, 0)
+            message_item = parent.child(row, 1)
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_(appinfo.appname))
+            msg_box.setIcon(QMessageBox.Information)
+            extension_name = name_item.text()
+            extension_key = name_item.extension_key
+            exception_info = self._failed['extensions'][extension_key]
+            msg_box.setText(
+                _("Extension '{}' failed to load with the given "
+                  "explanation\n\n{}".format(
+                    extension_name, message_item.text()
+                    )))
+
+            msg_box.setInformativeText(
+                ' '.join(traceback.format_exception(*exception_info)))
+            msg_box.exec()
 
 class Config(preferences.Group):
     """Configuration of an extension.
