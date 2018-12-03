@@ -149,8 +149,8 @@ class FontTreeModel(QStandardItemModel):
             This is not completely reliable since the style aliases
             returned by LilyPond are somewhat inconsistent and don't
             always match a font style that PyQt can get."""
-            item = QStandardItem(
-                _('The quick brown fox jumps over the lazy dog'))
+            #L10N Please don't translate this 'sentence' literally but use an appropriate pangram in your language - or leave it untranslated
+            item = QStandardItem(_('The quick brown fox jumps over the lazy dog'))
             font = QFont(sub_family)
             font.setStyleName(style)
             item.setFont(font)
