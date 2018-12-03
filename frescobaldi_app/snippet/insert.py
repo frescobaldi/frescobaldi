@@ -161,10 +161,7 @@ def insert_python(text, cursor, name, view):
     }
     try:
         code = compile(text, "<snippet>", "exec")
-        if sys.version_info < (3, 0):
-            exec("exec code in namespace")
-        else:
-            exec(code, namespace)
+        exec(code, namespace)
         if 'main' in namespace:
             return namespace['main']()
     except Exception:
@@ -279,5 +276,3 @@ def handle_exception(name, view):
         block = textedit.document().findBlockByNumber(lineno-1)
         if block.isValid():
             textedit.setTextCursor(QTextCursor(block))
-
-

@@ -112,41 +112,6 @@ def url(arg):
         return QUrl.fromLocalFile(os.path.abspath(arg))
 
 
-def patch_pyqt():
-    """Patch PyQt classes to strip trailing null characters on Python 2
-
-    It works around a bug triggered by Unicode characters above 0xFFFF.
-    """
-    if sys.version_info >= (3, 3):
-        return
-
-    old_toLocalFile = QUrl.toLocalFile
-    QUrl.toLocalFile = lambda url: old_toLocalFile(url).rstrip('\0')
-
-    old_toString = QUrl.toString
-    QUrl.toString = lambda *args: old_toString(*args).rstrip('\0')
-
-    old_path = QUrl.path
-    QUrl.path = lambda self: old_path(self).rstrip('\0')
-
-    old_arguments = QApplication.arguments
-    QApplication.arguments = staticmethod(
-        lambda: [arg.rstrip('\0') for arg in old_arguments()])
-
-    from PyQt5.QtWidgets import QFileDialog
-    old_getOpenFileNames = QFileDialog.getOpenFileNames
-    QFileDialog.getOpenFileNames = staticmethod(
-        lambda *args: [f.rstrip('\0') for f in old_getOpenFileNames(*args)])
-
-    old_getOpenFileName = QFileDialog.getOpenFileName
-    QFileDialog.getOpenFileName = staticmethod(
-        lambda *args: old_getOpenFileName(*args).rstrip('\0'))
-
-    old_getSaveFileName = QFileDialog.getSaveFileName
-    QFileDialog.getSaveFileName = staticmethod(
-        lambda *args: old_getSaveFileName(*args).rstrip('\0'))
-
-
 def check_ly():
     """Check if ly is installed and has the correct version.
 
@@ -198,7 +163,6 @@ def main():
         sys.path.insert(1, args.python_ly)
 
     check_ly()
-    patch_pyqt()
 
     if args.list_sessions:
         import sessions
