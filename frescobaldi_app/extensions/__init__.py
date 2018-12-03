@@ -250,6 +250,7 @@ class Extensions(QObject):
         # These two will be set in load_settings()
         self._root_directory = None
         self._active = False
+        self._inactive_extensions = []
         self.load_settings()
         app.settingsChanged.connect(self.settings_changed)
         self.load_infos()
@@ -269,8 +270,11 @@ class Extensions(QObject):
         root = self.root_directory()
         if not root in sys.path:
             sys.path.append(root)
-        for ext in self._infos.keys():
-            # TODO: Check against a list of deactivated extensions
+
+        extensions = [
+            ext for ext in self._infos.keys()
+            if not ext in self.inactive_extensions()]
+        for ext in extensions:
             # TODO (maybe:) allow manual order of loading
             #               (to handle dependency issues)
             try:
@@ -362,6 +366,9 @@ class Extensions(QObject):
         or None if such a module doesn't exist."""
         return self._extensions.get(module_name, None)
 
+    def inactive_extensions(self):
+        return self._inactive_extensions
+
     def infos(self):
         return self._infos
 
@@ -369,6 +376,7 @@ class Extensions(QObject):
         s = QSettings()
         s.beginGroup('extension-settings')
         self._active = s.value('active', True, bool)
+        self._inactive_extensions = s.value('installed/inactive', [], list)
         self._root_directory = s.value('root-directory', '', str)
 
     def mainwindow(self):
@@ -427,6 +435,9 @@ class Extensions(QObject):
         """Root directory below which extensions are searched for."""
         return self._root_directory
 
+    def set_inactive(self, inactive):
+        self._inactive_extensions = inactive
+
     def set_tools_menu(self, menu):
         """Store a reference to the global Tools menu."""
         self._tools_menu = menu
@@ -435,10 +446,21 @@ class Extensions(QObject):
         s = QSettings()
         s.beginGroup('extension-settings')
         active = s.value('active', True, bool)
+        inactive = s.value('installed/inactive', [], list)
         root = s.value('root-directory', '', str)
+        inactive_changed = False
+        if len(inactive) != len(self._inactive_extensions):
+            inactive_changed = True
+        else:
+            for ext in inactive:
+                if not ext in self._inactive_extensions:
+                    inactive_changed = True
+                    break
+        self.set_inactive(inactive)
         if (
             active != self.active()
             or root != self.root_directory()
+            or inactive_changed
         ):
             from widgets.restartmessage import suggest_restart
-            suggest_restart(_('Something with the extensions'))
+            suggest_restart(_('Extensions have changed'))

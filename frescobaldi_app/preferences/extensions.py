@@ -151,8 +151,9 @@ class Installed(preferences.Group):
         self._selected_extension = ''
         self.tree.setModel(QStandardItemModel())
         self.tree.model().setColumnCount(2)
+        self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tree.setHeaderHidden(True)
-        #self.tree.model().setHorizontalHeaderLabels(['', ''])
         self.tree.header().setSectionResizeMode(
             0, QHeaderView.ResizeToContents)
         self.tree.selectionModel().selectionChanged.connect(
@@ -180,12 +181,19 @@ class Installed(preferences.Group):
         s = QSettings()
         self.setEnabled(self.page().active())
         s.beginGroup("extension-settings/installed")
-        # to be continued if there should be anything to be stored here
+        inactive = s.value("inactive", [], list)
+        for ext in self.name_items.keys():
+            self.name_items[ext].setCheckState(
+                Qt.Checked if ext not in inactive else Qt.Unchecked)
+        self.tree.model().dataChanged.connect(self.page().changed)
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("extension-settings/installed")
-        # to be continued if there should be anything to be stored here
+        inactive = [ext for ext in self.name_items.keys() if self.name_items[ext].checkState() == Qt.Unchecked]
+        s.setValue("inactive", inactive)
+        print("Set inactive to")
+        print(inactive)
 
     def populate(self):
         """Populate the tree view with data from the installed extensions.
@@ -236,7 +244,6 @@ class Installed(preferences.Group):
         """Show the configuration widget for the selected extension,
         if available."""
         config = self.siblingGroup(Config)
-        config.hide_extension()
         if new.indexes():
             ext_item = self.tree.model().itemFromIndex(new.indexes()[0])
             # NOTE: This may have to be changed if there should be
@@ -251,6 +258,7 @@ class Installed(preferences.Group):
             # If nothing is selected, show the "empty" widget
             name = ""
 
+        config.hide_extension()
         self._selected_extension = name
         config.show_extension(name)
 
@@ -404,8 +412,9 @@ class Config(preferences.Group):
     def translateUI(self):
         self.setTitle(_("Extension Configuration"))
         self.empty_label.setText(_(
-            "The selected extension does not\n"
-            "provide a configuration widget."))
+            "The selected extension does not "
+            "provide a configuration widget "
+            "or is inactive."))
 
     def loadSettings(self):
         """Ask all extension configuration widgets to load their settings.
