@@ -193,13 +193,15 @@ class Installed(preferences.Group):
         # For now we'll create a flat list but there will be child items
         # with further metadata and configuration interface later.
         root = self.tree.model().invisibleRootItem()
-        for ext in self.page().extensions():
-            name_item = QStandardItem(ext.display_name())
-            name_item.extension_name = ext.name()
+        infos = self.page().infos()
+        for ext in infos:
+            name_item = QStandardItem(infos[ext]['extension-name'])
+            name_item.extension_name = ext
             name_item.setCheckable(True)
-            self.name_items[ext.name()] = name_item
-            if ext.has_icon():
-                name_item.setIcon(ext.icon())
+            self.name_items[ext] = name_item
+            icon = app.extensions().icon(ext)
+            if icon:
+                name_item.setIcon(icon)
             root.appendRow([name_item])
             for entry in [
                 'extension-name',
@@ -219,7 +221,7 @@ class Installed(preferences.Group):
                 font = QFont()
                 font.setWeight(QFont.Bold)
                 label_item.setFont(font)
-                details = ext.metadata(entry)
+                details = infos[ext][entry]
                 if type(details) == list:
                     details = '\n'.join(details)
                 details_item = QStandardItem(details)

@@ -106,7 +106,6 @@ class Extension(QObject):
         self._config_widget = None
         self._icon = None
         self._metadata = None
-        self._load_icon()
         self.create_panel()
 
         # Hook that can be implemented to update extension status
@@ -145,23 +144,15 @@ class Extension(QObject):
         """Return the display name of the extension.
         Should be overridden in concrete classes,
         class name is just a fallback."""
-        return self.metadata('extension-name') or "Unnamed Extension"
+        metadata = self.parent().infos()[self.name()]
+        return metadata['extension-name'] if metadata else _("Failed to load info")
 
     def has_icon(self):
-        return self._icon is not None
+        return self.icon() is not None
 
     def icon(self):
         """Return the extension's Icon, or None."""
-        return self._icon
-
-    def _load_icon(self):
-        """Tries to load a main icon for the extension if
-        <extension-dir>/icons/extension.svg exists.
-        """
-        icon_file_name = os.path.join(
-            self.root_directory(), 'icons', 'extension.svg')
-        if os.path.exists(icon_file_name):
-            self._icon = QIcon(icon_file_name)
+        return self.parent().icon(self.name())
 
     def menu(self, target):
         """Return a submenu for use in an Extensions menu,
@@ -250,6 +241,7 @@ class Extensions(QObject):
         super(Extensions, self).__init__()
         self._mainwindow = mainwindow
         self._menus = {}
+        self._icons = {}
         self._infos = {}
         self._failed_infos = {}
         self._extensions = {}
@@ -299,6 +291,22 @@ class Extensions(QObject):
                 self._failed_extensions[ext] = sys.exc_info()
             finally:
                 del self._current_extension
+
+    def _load_icon(self, name):
+        """Tries to load a main icon for the given extension if
+        <extension-dir>/icons/extension.svg exists.
+        """
+        icon_file_name = os.path.join(
+            self.root_directory(), name, 'icons', 'extension.svg')
+        self._icons[name] = (
+            QIcon(icon_file_name) if os.path.exists(icon_file_name) else None)
+
+    def icon(self, name):
+        """Return a main icon for the given extension, or None."""
+        icon = self._icons.get(name, False)
+        if icon == False: # different from None, which may be a valid result
+            self._load_icon(name)
+        return self._icons[name]
 
     def _load_infos(self, extension_name):
         # Mandatory keys in the extension.cfg file
