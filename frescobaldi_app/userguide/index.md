@@ -19,6 +19,7 @@ managing
 editing
 engraving
 preferences
+extending
 troubleshooting
 about
 toc
@@ -27,4 +28,3 @@ toc
 key_help shortcut main help_manual
 key_whatsthis shortcut main help_whatsthis
 menu_whatsthis menu help -> &What's This?
-
