@@ -196,6 +196,16 @@ class Installed(preferences.Group):
     def populate(self):
         """Populate the tree view with data from the installed extensions.
         """
+
+        def convert_api_version(ext_version):
+            """Return the api-version as a tuple"""
+            regex = re.compile('(\d+)\.(\d+)\.(\d+)')
+            match = regex.match(ext_version)
+            if not match:
+                return False
+            elements = match.groups()
+            return (int(elements[0]), int(elements[1]), int(elements[2]))
+
         root = self.tree.model().invisibleRootItem()
         infos = self.page().infos()
         for ext in infos:
@@ -229,14 +239,30 @@ class Installed(preferences.Group):
                 label_item = QStandardItem('{}:'.format(
                     self.config_labels[entry]))
                 label_item.setTextAlignment(Qt.AlignTop)
-                font = QFont()
-                font.setWeight(QFont.Bold)
-                label_item.setFont(font)
+                bold = QFont()
+                bold.setWeight(QFont.Bold)
+                label_item.setFont(bold)
                 details = ext_infos.get(entry, "") if ext_infos else ""
                 if type(details) == list:
                     details = '\n'.join(details)
                 details_item = QStandardItem(details)
                 details_item.setTextAlignment(Qt.AlignTop)
+                if entry == 'api-version':
+                    # Check for correct(ly formatted) api-version entry
+                    # and highlight it in case of mismatch
+                    api_version = app.extensions().api_version
+                    api = convert_api_version(details)
+                    if not api:
+                        details_item.setFont(bold)
+                        details_item.setText(_("Misformat: {}".format(details)))
+                    elif not api == api_version:
+                            details_item.setFont(bold)
+                            details_item.setText('{} (Frescobaldi: {})'.format(
+                                details,
+                                '{}.{}.{}'.format(
+                                    api_version[0],
+                                    api_version[1],
+                                    api_version[2])))
                 name_item.appendRow([label_item, details_item])
 
     def selected_extension(self):

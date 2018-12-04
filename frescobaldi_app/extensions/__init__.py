@@ -249,6 +249,8 @@ class Extensions(QObject):
     """Global object managing the extensions.
     Accessed with app.extensions()"""
 
+    api_version = (0, 5, 0)
+
     def __init__(self, mainwindow):
         super(Extensions, self).__init__()
         self._mainwindow = mainwindow

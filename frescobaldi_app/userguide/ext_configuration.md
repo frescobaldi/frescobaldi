@@ -1,4 +1,4 @@
-=== Configuring Extensions ===
+l=== Configuring Extensions ===
 
 {menu_preferences_extensions} provides an interface to configuring extensions,
 globally and per extension. Note that most changes done here require a restart
@@ -27,6 +27,11 @@ Selecting an extension will reveal a configuration area in the lower part of the
 page if the extension provides it. *Note*: The availability and implementation
 of extension configuration is completely in the responsibility of the extension
 maintainer(s).
+
+If the *API version* entry does not match Frescobaldi's extension API version
+its entry will be highlighted and point to the difference. Such a version
+mismatch is not *generally* considered to be an error, but it *can* cause
+problems, and this information will be helpful tracking down the problem.
 
 = Failed Extensions =
 
