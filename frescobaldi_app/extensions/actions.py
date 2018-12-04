@@ -58,9 +58,11 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
         self.load_settings()
 
     def by_text(self):
-        """Returns a list with all actions, sorted by the display text."""
+        """Returns a list with all actions, sorted by the display text,
+        ignoring the & mmemonic character."""
         result = list(self._actions.values())
-        result.sort(key=lambda action: action.text())
+        result.sort(
+            key=lambda action: ''.join(c for c in action.text() if c != "&"))
         return result
 
     def configure_menu_actions(self):
