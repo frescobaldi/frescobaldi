@@ -246,7 +246,9 @@ class Extensions(QObject):
         self._infos = {}
         self._failed_infos = {}
         self._extensions = {}
+        self._extensions_ordered = []
         self._failed_extensions = {}
+        self._failed_dependencies = []
 
         # These two will be set in load_settings()
         self._root_directory = None
@@ -258,8 +260,12 @@ class Extensions(QObject):
         if (self.active()
             and self.root_directory()
             and os.path.isdir(self.root_directory())):
-            self.load_extensions()
-        if self._failed_infos or self._failed_extensions:
+            self.check_dependencies()
+            if not self._failed_dependencies:
+                self.load_extensions()
+        if (self._failed_infos
+            or self._failed_extensions
+            or self._failed_dependencies):
             self.report_failed()
 
 
@@ -267,17 +273,89 @@ class Extensions(QObject):
         """Returns True if extensions are enabled globally."""
         return self._active
 
+    def check_dependencies(self):
+        """Check infos for unresolved or circular dependencies,
+        order etensions to be loaded in topological order."""
+        inactive = self.inactive_extensions()
+        active = [key for key in self._infos.keys() if not key in inactive]
+        inactive_dependencies = []
+        missing_dependencies = []
+        infos = self._infos
+        nodes = {}
+        incoming = {}
+        no_incoming = {}
+        result = []
+
+        # Create topological order (and check for cyclic dependencies)
+        # by Kahn's algorithm
+        for ext in self._infos.keys():
+            nodes[ext] = { 'incoming': [], 'outgoing': [] }
+        # read incoming dependencies,
+        # check for missing or deactivated dependencies.
+        for ext in self._infos.keys():
+            info = infos[ext]
+            if not info:
+                continue
+            deps = info['dependencies']
+            if deps == '---':
+                continue
+            for dep in deps:
+                if dep in self._infos.keys(): #active + inactive:
+                    nodes[dep]['incoming'].append(ext)
+                    nodes[ext]['outgoing'].append(dep)
+                    if dep in inactive:
+                        inactive_dependencies.append((ext, dep))
+                else:
+                    missing_dependencies.append((ext, dep))
+
+        # Create initial set/queue of nodes with no incoming edges
+        for n in nodes:
+            if nodes[n]['incoming']:
+                incoming[n] = nodes[n]
+            else:
+                no_incoming[n] = nodes[n]
+        nodes = None
+
+        # Process queue until empty
+        while no_incoming:
+            ext = list(no_incoming.keys())[0]
+            node = no_incoming.pop(ext)
+            result.append(ext)
+            # Process nodes ext depends on
+            for outgoing in node['outgoing']:
+                target_node = incoming[outgoing]
+                # Remove egde
+                target_node['incoming'].remove(ext)
+                # If target has no more incoming edges, move to queue
+                if not target_node['incoming']:
+                    no_incoming[outgoing] = incoming.pop(outgoing)
+
+        if missing_dependencies or inactive_dependencies or incoming:
+            message = []
+            if missing_dependencies:
+                message.append(_("\nMissing dependencies:"))
+                for dep in missing_dependencies:
+                    message.append("   {} => {}".format(dep[0], dep[1]))
+            if inactive_dependencies:
+                message.append(_("\nDeactivated dependencies:"))
+                for dep in inactive_dependencies:
+                    message.append("   {} => {}".format(dep[0], dep[1]))
+            if incoming:
+                # If there remain incoming edges we have a
+                # circular depencency (according to Kahn's algorithm)
+                message.append(_("\nCircular dependencies involving:"))
+                for ext in incoming.keys():
+                    message.append("   - {}".format(ext))
+            self._failed_dependencies = message
+        else:
+            self._extensions_ordered = reversed(result)
+
     def load_extensions(self):
         root = self.root_directory()
         if not root in sys.path:
             sys.path.append(root)
 
-        extensions = [
-            ext for ext in self._infos.keys()
-            if not ext in self.inactive_extensions()]
-        for ext in extensions:
-            # TODO (maybe:) allow manual order of loading
-            #               (to handle dependency issues)
+        for ext in self._extensions_ordered:
             try:
                 # temporary reference to store the _name in the Extension
                 self._current_extension = ext
@@ -420,28 +498,40 @@ class Extensions(QObject):
         msg_box = QMessageBox()
         msg_box.setWindowTitle(appinfo.appname)
         msg_box.setIcon(QMessageBox.Warning)
-        msg_box.setText(_('Some Extension(s) failed to load properly.'))
+        msg_box.setText(_('There were problems loading the extensions.'))
         failed_infos = self._failed_infos
         failed_extensions = self._failed_extensions
+        failed_dependencies = self._failed_dependencies
         text = []
+        details = []
         if failed_infos:
-            text.extend(
+            text.append(_("  - parsing extension info"))
+            details.extend(
                 [_('The following extension(s) reported errors with '),
                 _('parsing the extension info file:'),
                 '',
-                '\n'.join(failed_infos.keys())
-                ])
+                '\n'.join(failed_infos.keys())])
         if failed_extensions:
-            text.extend(
+            text.append(_("  - loading extensions"))
+            details.extend(
                 ['',
                  _('The following extension could not be loaded:'),
                  '',
                  '\n'.join(failed_extensions.keys())])
+        if failed_dependencies:
+            text.append(_("  - resolving dependencies"))
+            text.append(_("    (extensions will not be loaded)"))
+            details.extend(
+                ['',
+                 _('The following problems are reported with dependencies,'),
+                 '\n'.join(failed_dependencies)])
+
         text.extend(
             ['',
-            _("For details please refer to the Preferences page")
+            _("More details on the Preferences page")
             ])
         msg_box.setInformativeText('\n'.join(text))
+        msg_box.setDetailedText('\n'.join(details))
         msg_box.exec()
 
     def root_directory(self):
