@@ -40,7 +40,41 @@ class ExtensionPanel(panel.Panel):
         """Create the panel's widget.
         *If* an ExtensionPanel is actually instantiated it also has
         information about it's widget class, which we use here."""
-        return self._widget_class(self)
+        try:
+            w = self._widget_class(self)
+            return w
+        except Exception as e:
+            # If the instantiation of the widget fails we create a nice
+            # error message and return an "empty" FailedExtensionWidget instead.
+            import sys
+            import traceback
+            from PyQt5.QtWidgets import QMessageBox
+            import appinfo
+            from extensions.widget import FailedExtensionWidget
+
+            extension = self.extension()
+            info = extension.infos()
+
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(appinfo.appname)
+            msg_box.setIcon(QMessageBox.Critical)
+            msg_box.setText(_("Extension Tool Panel failed to load"))
+            info_text = _(
+                "The Tool Panel provided by the extension\n\n  {}\n\n"
+                "failed to load due to an exception. "
+                "Please contact the extension's maintainer(s)."
+            ).format(
+                extension.display_name() or extension.name())
+            maintainers = info.get('maintainers', [])
+            for m in maintainers:
+                info_text += "\n  - {}".format(m)
+            msg_box.setInformativeText(info_text)
+            exc_info = sys.exc_info()
+            msg_box.setDetailedText(
+                ' '.join(traceback.format_exception(*exc_info)))
+            msg_box.exec()
+
+            return FailedExtensionWidget(self)
 
     def translateUI(self):
         self.setWindowTitle(self.extension().display_name())

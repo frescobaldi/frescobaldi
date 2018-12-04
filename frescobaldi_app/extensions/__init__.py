@@ -156,6 +156,11 @@ class Extension(QObject):
         """Return the extension's Icon, or None."""
         return self.parent().icon(self.name())
 
+    def infos(self):
+        """Return the infos dictionary for the extension,
+        or an empty dictionary if they could not be loaded."""
+        return self.parent().infos()[self.name()] or {}
+
     def load_time(self):
         """Return the loading time for the Extension object, formatted
         as a string with milliseconds."""
@@ -205,11 +210,6 @@ class Extension(QObject):
                 else:
                     m.addAction(entry)
         return m
-
-    def metadata(self, key):
-        """Return the metadata from extension.cnf as the
-        VBCL-parsed dictionary."""
-        return self._metadata[key] if self._metadata else None
 
     def name(self):
         """Return the extension's internal name (which actually is retrieved

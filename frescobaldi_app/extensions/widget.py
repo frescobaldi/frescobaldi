@@ -21,7 +21,27 @@
 Base ExtensionWidget for extensions
 """
 
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
+
+class FailedExtensionWidget(QWidget):
+    """Simple placeholder widget that is used if an extension's
+    Tool Panel fails to instantiate."""
+    
+    def __init__(self, parent):
+        super(FailedExtensionWidget, self).__init__(parent)
+        self.label = QLabel()
+        self.label.setAlignment(Qt.AlignHCenter)
+        layout = QVBoxLayout()
+        layout.addStretch()
+        layout.addWidget(self.label)
+        layout.addStretch()
+        self.setLayout(layout)
+        self.translateUI()
+
+    def translateUI(self):
+        self.label.setText(_("Tool Panel failed to load"))
+
 
 class ExtensionWidget(QWidget):
     """Convenience base class for Panel widgets.
