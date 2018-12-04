@@ -192,8 +192,6 @@ class Installed(preferences.Group):
         s.beginGroup("extension-settings/installed")
         inactive = [ext for ext in self.name_items.keys() if self.name_items[ext].checkState() == Qt.Unchecked]
         s.setValue("inactive", inactive)
-        print("Set inactive to")
-        print(inactive)
 
     def populate(self):
         """Populate the tree view with data from the installed extensions.
@@ -202,7 +200,13 @@ class Installed(preferences.Group):
         infos = self.page().infos()
         for ext in infos:
             ext_infos = infos[ext]
-            name_item = QStandardItem(ext_infos.get(ext, ext) if ext_infos else ext)
+            display_name = ext_infos.get(ext, ext) if ext_infos else ext
+            extensions = app.extensions()
+            loaded_extension = extensions.get(ext)
+            if loaded_extension:
+                display_name += ' ({})'.format(loaded_extension.load_time())
+
+            name_item = QStandardItem(display_name)
             name_item.extension_name = ext
             name_item.setCheckable(True)
             self.name_items[ext] = name_item

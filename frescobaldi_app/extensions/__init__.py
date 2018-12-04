@@ -24,6 +24,7 @@ The extensions framework
 import importlib
 import os
 import sys
+from time import perf_counter
 
 from PyQt5.QtCore import Qt, QDir, QObject, QSettings
 from PyQt5.QtGui import QIcon
@@ -106,6 +107,7 @@ class Extension(QObject):
         self._config_widget = None
         self._icon = None
         self._metadata = None
+        self._load_time = ''
         self.create_panel()
 
         # Hook that can be implemented to update extension status
@@ -153,6 +155,11 @@ class Extension(QObject):
     def icon(self):
         """Return the extension's Icon, or None."""
         return self.parent().icon(self.name())
+
+    def load_time(self):
+        """Return the loading time for the Extension object, formatted
+        as a string with milliseconds."""
+        return self._load_time
 
     def menu(self, target):
         """Return a submenu for use in an Extensions menu,
@@ -216,6 +223,11 @@ class Extension(QObject):
     def root_directory(self):
         """Return the extension's root directory."""
         return os.path.join(self.parent().root_directory(), self.name())
+
+    def set_load_time(self, ms):
+        """Store the time needed to load the application.
+        A string with two fractional digits in 'ms'."""
+        self._load_time = ms
 
     # Convenience functions to access elements of the application
     # and the current documents. This will be extended.
@@ -357,6 +369,7 @@ class Extensions(QObject):
 
         for ext in self._extensions_ordered:
             try:
+                start = perf_counter()
                 # temporary reference to store the _name in the Extension
                 self._current_extension = ext
                 # Try importing the module. Will fail here if there's
@@ -369,7 +382,11 @@ class Extensions(QObject):
                     QDir.setSearchPaths('icons', [icon_path] + search_paths)
                 # Instantiate the extension,
                 # this will fail if the module is no valid extension
-                self._extensions[ext] = module.Extension(self)
+                extension = module.Extension(self)
+                end = perf_counter()
+                extension.set_load_time(
+                    "{:.2f} ms".format((end - start) * 1000))
+                self._extensions[ext] = extension
             except Exception as e:
                 self._failed_extensions[ext] = sys.exc_info()
             finally:
