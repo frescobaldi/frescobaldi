@@ -1,4 +1,4 @@
-l=== Configuring Extensions ===
+=== Configuring Extensions ===
 
 {menu_preferences_extensions} provides an interface to configuring extensions,
 globally and per extension. Note that most changes done here require a restart
