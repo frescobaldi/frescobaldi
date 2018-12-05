@@ -45,6 +45,7 @@ from PyQt5.QtWidgets import (
 )
 
 import app
+import appinfo
 import userguide
 import qutil
 import preferences
@@ -97,8 +98,15 @@ class General(preferences.Group):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
+        header_layout = QHBoxLayout()
         self.active = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.active)
+        header_layout.addWidget(self.active)
+
+        self.api_version = QLabel()
+        header_layout.addStretch()
+        header_layout.addWidget(self.api_version)
+
+        layout.addLayout(header_layout)
 
         self.root = urlrequester.UrlRequester()
         self.root.changed.connect(self.root_changed)
@@ -109,6 +117,8 @@ class General(preferences.Group):
     def translateUI(self):
         self.setTitle(_("General Settings"))
         self.active.setText(_("Use Extensions"))
+        self.api_version.setText(_("Extension API: {apiversion}").format(
+            apiversion=appinfo.extension_api))
         self.active.setToolTip(_("If unchecked don't look for extensions."))
 
     def loadSettings(self):
