@@ -50,6 +50,7 @@ class ExtensionSettings(QObject):
         self._extension = extension
         self._defaults = extension._settings_config
         self._data = dict(self._defaults)
+        self._modified = []
         self._load_settings()
 
     def extension(self):
@@ -73,6 +74,21 @@ class ExtensionSettings(QObject):
             default = self._defaults[key]
             self._data[key] = s.value(key, default, type(default))
 
+    def modified(self, key):
+        """Check if the given key is marked as modified"""
+        return key in self._modified
+
+    def reset_modified(self, key=None):
+        """Mark setting(s) as not modified. If no key is given
+        reset the modified flag of *all* setttings."""
+        if key:
+            try:
+                self._modified.remove(key)
+            except ValueError:
+                pass
+        else:
+            self._modified = []
+
     def set(self, key, value):
         """Set a setting and save it to disk.
         Check type before and raise an exception if necessary."""
@@ -94,6 +110,9 @@ class ExtensionSettings(QObject):
                   type_is = type(value)))
         self._data[key] = value
         QSettings(self.settings_file(), QSettings.IniFormat).setValue(key, value)
+        # Mark setting as modified
+        if not key in self._modified:
+            self._modified.append(key)
 
     def settings_file(self):
         """Return path to 'settings.conf' in the extension directory."""
