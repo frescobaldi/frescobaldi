@@ -48,7 +48,8 @@ class ExtensionSettings(QObject):
     def __init__(self, extension):
         super(ExtensionSettings, self).__init__(extension)
         self._extension = extension
-        self._defaults = self._data = extension._settings_config
+        self._defaults = extension._settings_config
+        self._data = dict(self._defaults)
         self._load_settings()
 
     def extension(self):
