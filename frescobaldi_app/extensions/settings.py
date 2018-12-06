@@ -100,7 +100,11 @@ class ExtensionSettings(QObject):
                   "in extension '{extension}'").format(
                     setting=key,
                     extension=extension_name))
-        if not type(value) == type(self._defaults[key]):
+        try:
+            value = type(self._defaults[key])(value)
+            self._data[key] = value
+            QSettings(self.settings_file(), QSettings.IniFormat).setValue(key, value)
+        except ValueError:
             raise ValueError(
                 _("Trying to store setting '{setting}' in extension "
                   "'{extension}' with type '{type}' instead of '{type_is}'").format(
@@ -108,8 +112,7 @@ class ExtensionSettings(QObject):
                   extension=extension_name,
                   type = type(self._defaults[key]),
                   type_is = type(value)))
-        self._data[key] = value
-        QSettings(self.settings_file(), QSettings.IniFormat).setValue(key, value)
+
         # Mark setting as modified
         if not key in self._modified:
             self._modified.append(key)
