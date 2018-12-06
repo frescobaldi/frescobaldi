@@ -33,15 +33,8 @@ from PyQt5.QtWidgets import QMenu
 import app
 import icons
 import vbcl
-from . import actions
+from . import actions, settings
 
-class ExtensionSettings(QSettings):
-    """
-    Base class to be used for storing extension settings.
-    """
-    def __init__(self):
-        super(ExtensionSettings, self).__init__()
-        self.beginGroup('extensions')
 
 class Extension(QObject):
     """
@@ -81,13 +74,20 @@ class Extension(QObject):
     # If this is present it will be shown in the Preferences page.
     # Config widgets can be any QWidget descendants, but must fulfill
     # some requirements:
-    # - They have to  implement the loadSettings() and saveSettings() methods.
-    # - Instead of a QSettings() object they should use
-    #   extensions.ExtensionSettings() which ensures the settings are not
-    #   mixed with Frescobaldi's own settings
+    # - They have to  implement the load_settings() and save_settings() methods.
+    # - Instead of a QSettings() object they have to interact with
+    #   a self.settings() object that is injected from this class.
     # - Any changes that have to be "applied" (i.e. that should enable
-    #   the "Apply" button) must the emit self.parent().changed signal.
+    #   the "Apply" button) must not be saved immediately but emit the
+    #   self.parent().changed signal to ensure consistent behaviour
+    #   in the Preferences dialog.
     _config_widget_class = None
+
+    # Dictionary of known settings has to be defined in subclasses.
+    # Keys are strings - the names of settings.
+    # Values are default values to be used, also defining the type, e.g.:
+    #   { 'name': 'NN', 'max-entries': 999 }
+    _settings_config = {}
 
     def __init__(self, parent):
         """Initialize (load) the extension.
@@ -101,6 +101,7 @@ class Extension(QObject):
             self._action_collection_class, actions.ExtensionActionCollection)
         super(Extension, self).__init__(parent)
         self._name = parent._current_extension
+        self._settings = settings.ExtensionSettings(self)
         self._action_collection =  self._action_collection_class(self)
         self._menus = {}
         self._panel = None
@@ -126,10 +127,13 @@ class Extension(QObject):
     def config_widget(self, preference_group):
         """Return a config widget if provided by the extension, or None.
         Do *not* use caching (this is done in the Preferences group),
-        and set the preference group as the widget's parent."""
+        set the preference group as the widget's parent,
+        inject extension() and settings() attributes."""
         if not self._config_widget_class:
             return None
         widget = self._config_widget_class(preference_group)
+        widget.extension = lambda: self
+        widget.settings = lambda: self.settings()
         return widget
 
     def create_panel(self):
@@ -228,6 +232,10 @@ class Extension(QObject):
         """Store the time needed to load the application.
         A string with two fractional digits in 'ms'."""
         self._load_time = ms
+
+    def settings(self):
+        """Reference to the extension's settings object."""
+        return self._settings
 
     # Convenience functions to access elements of the application
     # and the current documents. This will be extended.

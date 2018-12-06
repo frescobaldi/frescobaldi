@@ -27,7 +27,7 @@ from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
 class FailedExtensionWidget(QWidget):
     """Simple placeholder widget that is used if an extension's
     Tool Panel fails to instantiate."""
-    
+
     def __init__(self, parent):
         super(FailedExtensionWidget, self).__init__(parent)
         self.label = QLabel()
@@ -44,32 +44,44 @@ class FailedExtensionWidget(QWidget):
 
 
 class ExtensionWidget(QWidget):
-    """Convenience base class for Panel widgets.
-    Every Panel must provide a widget, which can be any QWidget descendant.
-    However, ExtensionWidget provides a number of additional properties
-    that are intended to simplify the creation of Frescobaldi extensions.
+    """Convenience base class for widgets in an extension.
+    Can be used as the immediate super class for a widget to be used in
+    an extension. Alternatively it can be the secondary super class if
+    another widget (e.g. a QTabWidget) is preferred.
 
-    The panel argument to the initializer provides a reference to the
-    Tool panel, and through its extension() property we can transparently
-    pipe through a number of properties of the extension itself.
+    The class provides additional attributes to directly interact with the
+    elements of an extension, such as the main Extension object, the settings,
+    the mainwindow etc.
+
+    If the 'parent' has an 'extension()' attribute (which is for example true
+    when the widget is instantiated as an extension's panel widget) this
+    is implicitly made available within the widget. Otherwise the subclass
+    must specify the '_extension_name' class variable, exactly using the
+    name matching the extension directory. This is true for additional widgets
+    that may be used *within* the panel widget or in widgets used in newly
+    created dialogs etc.
     """
 
-    def __init__(self, panel):
-        super(ExtensionWidget, self).__init__(panel)
+    _extension_name = ''
 
-    def panel(self):
-        """Return the extension's panel."""
-        return self.parent()
+    def __init__(self, parent=None):
+        super(ExtensionWidget, self).__init__(parent)
 
     def extension(self):
-        """Return the actual Extension object."""
-        return self.panel().extension()
+        """Return the actual Extension object if possible."""
+        if hasattr(self.parent(), 'extension'):
+            # The parent has access to the extension (typically the Panel)
+            return self.parent().extension()
+        elif self._extension_name:
+            return app.extensions().get(self._extension_name)
+        else:
+            raise AttributeError(_(
+                "Class '{classname}' can't access Extension object. "
+                "It should provide an _extension_name class variable."
+                ).format(classname=self.__name__))
 
-    def mainwindow(self):
-        """Return the active MainWindow."""
-        return self.extension().mainwindow()
+# More properties are accessed through the extension() property
 
-    # More properties are accessed through the extension() property
     def action_collection(self):
         """Return the extension's action collection."""
         return self.extension().action_collection()
@@ -77,3 +89,12 @@ class ExtensionWidget(QWidget):
     def current_document(self):
         """Return the current document."""
         return self.extension().current_document()
+
+    def mainwindow(self):
+        """Return the active MainWindow."""
+        return self.extension().mainwindow()
+
+    def panel(self):
+        """Return the extension's panel, or None if the widget
+        is not a Panel widget and the extension does not have a panel."""
+        return self.extension().panel()

@@ -81,3 +81,6 @@ class ExtensionPanel(panel.Panel):
 
     def extension(self):
         return self._extension
+
+    def settings(self):
+        return self.extension().settings()

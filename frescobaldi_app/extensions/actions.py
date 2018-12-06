@@ -104,3 +104,7 @@ class ExtensionActionCollection(actioncollection.ActionCollection):
         *not* get an entry in any context menu.
         """
         self._action_lists[target] = actions
+
+    def settings(self):
+        """Reference to the extension's settings() object."""
+        return self.extension().settings()
