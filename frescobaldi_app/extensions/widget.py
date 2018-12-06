@@ -21,8 +21,10 @@
 Base ExtensionWidget for extensions
 """
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QObject
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
+
+import app
 
 class FailedExtensionWidget(QWidget):
     """Simple placeholder widget that is used if an extension's
@@ -43,29 +45,24 @@ class FailedExtensionWidget(QWidget):
         self.label.setText(_("Tool Panel failed to load"))
 
 
-class ExtensionWidget(QWidget):
-    """Convenience base class for widgets in an extension.
-    Can be used as the immediate super class for a widget to be used in
-    an extension. Alternatively it can be the secondary super class if
-    another widget (e.g. a QTabWidget) is preferred.
+class ExtensionMixin(QObject):
+    """Convenience mixin class for widgets in an extension.
 
     The class provides additional attributes to directly interact with the
     elements of an extension, such as the main Extension object, the settings,
     the mainwindow etc.
 
-    If the 'parent' has an 'extension()' attribute (which is for example true
-    when the widget is instantiated as an extension's panel widget) this
-    is implicitly made available within the widget. Otherwise the subclass
-    must specify the '_extension_name' class variable, exactly using the
-    name matching the extension directory. This is true for additional widgets
-    that may be used *within* the panel widget or in widgets used in newly
+    If the 'parent' passed to `__init__(parent)` has an 'extension()' attribute
+    (which is for example true when the widget is instantiated as an
+    extension's panel widget) this is implicitly made available within the
+    widget.
+    Otherwise the used class must specify the '_extension_name' class variable,
+    exactly using the name matching the extension directory. This is true for
+    additional widgets that may be used *within* the panel widget or in newly
     created dialogs etc.
     """
 
     _extension_name = ''
-
-    def __init__(self, parent=None):
-        super(ExtensionWidget, self).__init__(parent)
 
     def extension(self):
         """Return the actual Extension object if possible."""
@@ -78,7 +75,7 @@ class ExtensionWidget(QWidget):
             raise AttributeError(_(
                 "Class '{classname}' can't access Extension object. "
                 "It should provide an _extension_name class variable."
-                ).format(classname=self.__name__))
+                ).format(classname=self.__class__.__name__))
 
 # More properties are accessed through the extension() property
 
@@ -98,3 +95,21 @@ class ExtensionWidget(QWidget):
         """Return the extension's panel, or None if the widget
         is not a Panel widget and the extension does not have a panel."""
         return self.extension().panel()
+
+    def settings(self):
+        return self.extension().settings()
+
+
+class ExtensionWidget(QWidget, ExtensionMixin):
+    """Convenience base class for widgets in an extension.
+    Can be used as the immediate super class for a widget to be used in
+    an extension that otherwise would be a QWidget. If the widget is
+    something else use ExtensionMixin as secondary super class
+    instead.
+
+    The class provides additional attributes to directly interact with the
+    elements of an extension, see the docstring for ExtensionMixin
+    for details.
+    """
+
+    pass
