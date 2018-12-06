@@ -64,7 +64,7 @@ class ExtensionSettings(QObject):
                 _("Trying to retrieve unknown setting '{setting}' "
                   "in extension '{extension}'").format(
                     setting=key,
-                    extension=extension_name))
+                    extension=self.extension().name()))
         return self._data[key]
 
     def _load_settings(self):
