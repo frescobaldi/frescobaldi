@@ -120,8 +120,12 @@ class Extension(QObject):
         return self._action_collection
 
     def app_settings_changed(self):
-        """Implement to respond to settings changes
-        (e.g. to update GUI or action status)."""
+        """Implement to respond to global settings changes
+        (e.g. to update GUI or action status).
+        This should only respond to changed settings *outside*
+        the extension (done in the Preferences dialog). Settings
+        changes of the extension itself invoke
+        Extension.settings_changed(key, old, new) instead."""
         pass
 
     def config_widget(self, preference_group):
@@ -236,6 +240,12 @@ class Extension(QObject):
     def settings(self):
         """Reference to the extension's settings object."""
         return self._settings
+
+    def settings_changed(self, key, old, new):
+        """Called when a setting *within the extension* has been changed.
+        Complements app_settings_changed.
+        Can be implemented in subclasses."""
+        pass
 
     # Convenience functions to access elements of the application
     # and the current documents. This will be extended.

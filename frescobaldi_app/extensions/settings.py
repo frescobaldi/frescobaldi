@@ -50,7 +50,6 @@ class ExtensionSettings(QObject):
         self._extension = extension
         self._defaults = extension._settings_config
         self._data = dict(self._defaults)
-        self._modified = []
         self._load_settings()
 
     def extension(self):
@@ -74,21 +73,6 @@ class ExtensionSettings(QObject):
             default = self._defaults[key]
             self._data[key] = s.value(key, default, type(default))
 
-    def modified(self, key):
-        """Check if the given key is marked as modified"""
-        return key in self._modified
-
-    def reset_modified(self, key=None):
-        """Mark setting(s) as not modified. If no key is given
-        reset the modified flag of *all* setttings."""
-        if key:
-            try:
-                self._modified.remove(key)
-            except ValueError:
-                pass
-        else:
-            self._modified = []
-
     def set(self, key, value):
         """Set a setting and save it to disk.
         Check type before and raise an exception if necessary."""
@@ -101,10 +85,15 @@ class ExtensionSettings(QObject):
                     setting=key,
                     extension=extension_name))
         try:
+            old_value = self._data[key]
             value = type(self._defaults[key])(value)
+            if value == old_value:
+                return
             self._data[key] = value
             QSettings(self.settings_file(), QSettings.IniFormat).setValue(key, value)
+            self.extension().settings_changed(key, old_value, value)
         except ValueError:
+            # type conversion failed
             raise ValueError(
                 _("Trying to store setting '{setting}' in extension "
                   "'{extension}' with type '{type}' instead of '{type_is}'").format(
@@ -112,10 +101,6 @@ class ExtensionSettings(QObject):
                   extension=extension_name,
                   type = type(self._defaults[key]),
                   type_is = type(value)))
-
-        # Mark setting as modified
-        if not key in self._modified:
-            self._modified.append(key)
 
     def settings_file(self):
         """Return path to 'settings.conf' in the extension directory."""
