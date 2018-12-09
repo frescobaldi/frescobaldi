@@ -247,6 +247,10 @@ class Extension(QObject):
         Can be implemented in subclasses."""
         pass
 
+    def widget(self):
+        """Returns the extension's Tool Panel Widget, if available. or None."""
+        return self.panel().widget() if self.panel() else None
+
     # Convenience functions to access elements of the application
     # and the current documents. This will be extended.
 
