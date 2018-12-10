@@ -42,6 +42,7 @@ class ExtensionPanel(panel.Panel):
         information about it's widget class, which we use here."""
         try:
             w = self._widget_class(self)
+            w.extension = lambda: self.extension()
             return w
         except Exception as e:
             # If the instantiation of the widget fails we create a nice
