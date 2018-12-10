@@ -267,6 +267,61 @@ class Extension(QObject):
         return self.mainwindow().textCursor()
 
 
+class ExtensionMixin(QObject):
+    """Convenience mixin class for widgets in an extension.
+
+    The class provides additional attributes to directly interact with the
+    elements of an extension, such as the main Extension object, the settings,
+    the mainwindow etc.
+
+    If the 'parent' passed to `__init__(parent)` has an 'extension()' attribute
+    (which is for example true when the widget is instantiated as an
+    extension's panel widget) this is implicitly made available within the
+    widget.
+    Otherwise the used class must specify the '_extension_name' class variable,
+    exactly using the name matching the extension directory. This is true for
+    additional widgets that may be used *within* the panel widget or in newly
+    created dialogs etc.
+    """
+
+    _extension_name = ''
+
+    def extension(self):
+        """Return the actual Extension object if possible."""
+        if hasattr(self.parent(), 'extension'):
+            # The parent has access to the extension (typically the Panel)
+            return self.parent().extension()
+        elif self._extension_name:
+            return app.extensions().get(self._extension_name)
+        else:
+            raise AttributeError(_(
+                "Class '{classname}' can't access Extension object. "
+                "It should provide an _extension_name class variable."
+                ).format(classname=self.__class__.__name__))
+
+# More properties are accessed through the extension() property
+
+    def action_collection(self):
+        """Return the extension's action collection."""
+        return self.extension().action_collection()
+
+    def current_document(self):
+        """Return the current document."""
+        return self.extension().current_document()
+
+    def mainwindow(self):
+        """Return the active MainWindow."""
+        return self.extension().mainwindow()
+
+    def panel(self):
+        """Return the extension's panel, or None if the widget
+        is not a Panel widget and the extension does not have a panel."""
+        return self.extension().panel()
+
+    def settings(self):
+        return self.extension().settings()
+
+
 class Extensions(QObject):
     """Global object managing the extensions.
     Accessed with app.extensions()"""

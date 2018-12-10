@@ -23,6 +23,8 @@ Base ExtensionPanel for extensions
 
 import panel
 
+from . import ExtensionMixin
+
 class ExtensionPanel(panel.Panel):
     """Base class for an Extension Tool Panel.
     It is a lightweight layer around the regular panel.Panel,
@@ -31,6 +33,13 @@ class ExtensionPanel(panel.Panel):
     """
     def __init__(self, extension, widget_class, dock_area):
         self._extension = extension
+        if not issubclass(widget_class, ExtensionMixin):
+            raise TypeError(_(
+                "Extension panel widget class '{}' "
+                "is not a subclass of ExtensionMixin. "
+                "Please derive either from ExtensionWidget "
+                "or add extensions.ExtensionMixin as a second base class."
+            ).format(widget_class.__name__))
         self._widget_class = widget_class
         super(ExtensionPanel, self).__init__(extension.mainwindow())
         self.hide()
@@ -39,10 +48,12 @@ class ExtensionPanel(panel.Panel):
     def createWidget(self):
         """Create the panel's widget.
         *If* an ExtensionPanel is actually instantiated it also has
-        information about it's widget class, which we use here."""
+        information about it's widget class, which we use here.
+        If the widget's class is not dre"""
         try:
             w = self._widget_class(self)
-            w.extension = lambda: self.extension()
+            if not hasattr(w, 'extension'):
+                w.extension = lambda: self.extension()
             return w
         except Exception as e:
             # If the instantiation of the widget fails we create a nice
