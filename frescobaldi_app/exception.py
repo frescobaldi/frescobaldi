@@ -99,6 +99,6 @@ class ExceptionDialog(QDialog):
             ext_header = ""
         bugreport.email(
             self._tbshort + ext_header,
-            ext_header + self._tbfull + '\n'
+            ext_intro + self._tbfull + '\n'
             + _("Optionally describe below what you were doing:"),
             recipient=rcpt)
