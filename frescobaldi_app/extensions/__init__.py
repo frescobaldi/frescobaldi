@@ -24,6 +24,7 @@ The extensions framework
 import importlib
 import os
 import sys
+import re
 from time import perf_counter
 
 from PyQt5.QtCore import Qt, QDir, QObject, QSettings
@@ -558,6 +559,28 @@ class Extensions(QObject):
 
     def infos(self):
         return self._infos
+
+    def is_extension_exception(self, traceback):
+        """Check if the given traceback points to an exception occuring
+        within an extension. If so, return a tuple with
+        - extension name (display name)
+        - first maintainer
+        - extension key.
+        If the exception is *not* from an extension return None"""
+        regex = re.compile(
+            '\s*File \"({root}){sep}(.*)\"'.format(
+            sep=os.sep,
+            root=self.root_directory()))
+        for line in traceback:
+            m = regex.match(line)
+            if m:
+                tail = m.groups()[1]
+                m = re.match('(.*){sep}.*'.format(sep=os.sep), tail)
+                extension = m.groups()[0]
+                infos = self.infos()[extension]
+                return (infos['extension-name'],
+                        infos['maintainers'][0],
+                        extension)
 
     def load_settings(self):
         s = QSettings()

@@ -41,7 +41,9 @@ class ExceptionDialog(QDialog):
         super(ExceptionDialog, self).__init__()
 
         self._tbshort = ''.join(traceback.format_exception_only(exctype, excvalue))
-        self._tbfull = ''.join(traceback.format_exception(exctype, excvalue, exctb))
+        tbfull = traceback.format_exception(exctype, excvalue, exctb)
+        self._tbfull = ''.join(tbfull)
+        self._ext_maintainer = app.extensions().is_extension_exception(tbfull)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -66,8 +68,17 @@ class ExceptionDialog(QDialog):
         self.exec_()
 
     def translateUI(self):
-        self.errorLabel.setText(_("An internal error has occurred:"))
-        self.setWindowTitle(app.caption(_("Internal Error")))
+        extension = self._ext_maintainer[0]
+        self.errorLabel.setText(
+            _("An internal error has occurred{}:").format(
+              " in extension '{}'".format(extension)
+              if extension
+              else ""))
+        title = (
+            app.caption(_("Extension Error"))
+            if extension
+            else app.caption(_("Internal Error")))
+        self.setWindowTitle(title)
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Email Bug Report..."))
 
     def done(self, result):
@@ -76,6 +87,18 @@ class ExceptionDialog(QDialog):
         super(ExceptionDialog, self).done(result)
 
     def reportBug(self):
-        bugreport.email(self._tbshort, self._tbfull + '\n' + _("Optionally describe below what you were doing:"))
-
-
+        if self._ext_maintainer:
+            rcpt = self._ext_maintainer[1]
+            ext_intro = _(
+                "\nAn error occured in extension '{ext}'\n\n'".format(
+                ext=self._ext_maintainer[0]))
+            ext_header = ' [{}]'.format(self._ext_maintainer[0])
+        else:
+            rcpt = ""
+            ext_intro = ""
+            ext_header = ""
+        bugreport.email(
+            self._tbshort + ext_header,
+            ext_header + self._tbfull + '\n'
+            + _("Optionally describe below what you were doing:"),
+            recipient=rcpt)

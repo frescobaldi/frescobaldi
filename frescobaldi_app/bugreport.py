@@ -29,14 +29,14 @@ import appinfo
 import debuginfo
 
 
-def email(subject, body):
+def email(subject, body, recipient=None):
     """Opens the e-mail composer with the given subject and body, with version information added to it."""
     subject = "[{0} {1}] {2}".format(appinfo.appname, appinfo.version, subject)
-    body = "{0}\n\n{1}\n\n".format(debuginfo.version_info_string(' -- '), body)
-    url = QUrl("mailto:" + appinfo.maintainer_email)
+    body = "{0}\n\n{1}\n\n".format(debuginfo.version_info_string('\n'), body)
+    address = recipient or appinfo.maintainer_email
+    url = QUrl("mailto:" + address)
     query = QUrlQuery()
     query.addQueryItem("subject", subject)
     query.addQueryItem("body", body)
     url.setQuery(query)
     helpers.openUrl(url, "email")
-
