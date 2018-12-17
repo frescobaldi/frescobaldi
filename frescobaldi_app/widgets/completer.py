@@ -56,7 +56,23 @@ class Completer(QCompleter):
             # a key was pressed while the popup is visible
             cur = self.textCursor()
             modifier = QApplication.keyboardModifiers()
-            if ev.key() in (Qt.Key_Return, Qt.Key_Enter) or ev.text() == '.':
+
+            # local handler functions for certain key events
+            def backspace():
+                # deliver event, hide popup if completionPrefix already none
+                self.widget().event(ev)
+                if self.completionPrefix():
+                    self.showCompletionPopup()
+                    return False
+                else:
+                    self.popup().hide()
+                    return True
+
+            def down():
+                self.gotoNextEntry(1)
+                return True
+
+            def enter():
                 # insert the highlighted completion
                 self.setCurrentRow(self.popup().currentIndex().row())
                 self.insertCompletion(self.currentIndex())
@@ -65,23 +81,37 @@ class Completer(QCompleter):
                     cur.insertText('.')
                 self.popup().hide()
                 return True
-            elif ev.key() == Qt.Key_Backspace:
-                # deliver event, hide popup if completionPrefix already none
-                self.widget().event(ev)
-                if self.completionPrefix():
-                    self.showCompletionPopup()
-                else:
-                    self.popup().hide()
-                return True
-            elif ev.key() == Qt.Key_Tab:
+
+            def tab():
                 if modifier == Qt.AltModifier:
+                    # Don't block Alt-Tab for switching applications
                     self.popup().hide()
-                    return True
+                    return False
                 if cur.hasSelection():
                     self.acceptPartialCompletion()
                     self.showCompletionPopup()
-                self.gotoNextEntry()
+                direction = -1 if modifier == Qt.ControlModifier else 1
+                self.gotoNextEntry(direction)
+                return False
+
+            def up():
+                self.gotoNextEntry(-1)
                 return True
+
+            # map keys to handler functions
+            handlers = {
+                Qt.Key_Return: enter,
+                Qt.Key_Enter: enter,
+                Qt.Key_Backspace: backspace,
+                Qt.Key_Tab: tab,
+                Qt.Key_Up: up,
+                Qt.Key_Down: down
+            }
+
+            handler = handlers.get(ev.key())
+            if handler:
+                return handler()
+
             elif self.isTextEvent(ev, True):
                 # deliver event and keep showing popup if necessary
                 self.widget().event(ev)
@@ -89,7 +119,7 @@ class Completer(QCompleter):
                 self.insertPartialCompletion(self.currentIndex())
                 return True
             elif ev.key() not in (
-                Qt.Key_Up, Qt.Key_Down, Qt.Key_PageUp, Qt.Key_PageDown,
+                Qt.Key_PageUp, Qt.Key_PageDown,
                 Qt.Key_Shift, Qt.Key_Control, Qt.Key_Alt, Qt.Key_Meta):
                 # hide on anything except navigation keys
                 self.popup().hide()
@@ -180,7 +210,7 @@ class Completer(QCompleter):
         prefix_len = len(self.completionPrefix())
         cursor.setPosition(cursor.position() - prefix_len - sel_len, cursor.KeepAnchor)
         cursor.insertText(self.completionModel().data(index, Qt.EditRole))
-       
+
     def insertPartialCompletion(self, index):
         """Called when a tab key is pressed. Here index in current index item selected
 
@@ -217,7 +247,7 @@ class Completer(QCompleter):
                         break
                     elif j == len(rows) - 1:
                         string = string + ch
-            
+
             if string != '':
                 cur = self.textCursor()
                 pos = cur.position()
@@ -226,7 +256,7 @@ class Completer(QCompleter):
                 cur.setPosition(pos + len(string), cur.KeepAnchor)
                 self.widget().setTextCursor(cur)
                 self.showCompletionPopup()
-        
+
     def acceptPartialCompletion(self):
         # if some text is selected it's a previous partial completion
         # "accept" by clearing selection and move cursor to the end.
@@ -236,8 +266,7 @@ class Completer(QCompleter):
         cur.clearSelection()
         self.widget().setTextCursor(cur)
 
-    def gotoNextEntry(self):
-        direction = -1 if QApplication.keyboardModifiers() == Qt.ControlModifier else 1
+    def gotoNextEntry(self, direction):
         self.setCurrentRow((self.currentIndex().row() + direction) %
-                           self.completionModel().rowCount())
+                           self.completionCount())
         self.popup().setCurrentIndex(self.currentIndex())

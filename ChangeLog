@@ -4,6 +4,8 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 3.0.1 --
 
+* Requirement changes:
+  - Frescobaldi now requires Python3.3+
 * New features:
   - Possibility to load external extensions
   - New "First System Only" option in Custom Engrave
