@@ -56,7 +56,7 @@ class Completer(QCompleter):
             # a key was pressed while the popup is visible
             cur = self.textCursor()
             modifier = QApplication.keyboardModifiers()
-            if ev.key() in (Qt.Key_Return, Qt.Key_Enter) or ev.text() == '.':
+            if ev.key() in (Qt.Key_Return, Qt.Key_Enter):
                 # insert the highlighted completion
                 self.setCurrentRow(self.popup().currentIndex().row())
                 self.insertCompletion(self.currentIndex())
@@ -180,7 +180,7 @@ class Completer(QCompleter):
         prefix_len = len(self.completionPrefix())
         cursor.setPosition(cursor.position() - prefix_len - sel_len, cursor.KeepAnchor)
         cursor.insertText(self.completionModel().data(index, Qt.EditRole))
-       
+
     def insertPartialCompletion(self, index):
         """Called when a tab key is pressed. Here index in current index item selected
 
@@ -217,7 +217,7 @@ class Completer(QCompleter):
                         break
                     elif j == len(rows) - 1:
                         string = string + ch
-            
+
             if string != '':
                 cur = self.textCursor()
                 pos = cur.position()
@@ -226,7 +226,7 @@ class Completer(QCompleter):
                 cur.setPosition(pos + len(string), cur.KeepAnchor)
                 self.widget().setTextCursor(cur)
                 self.showCompletionPopup()
-        
+
     def acceptPartialCompletion(self):
         # if some text is selected it's a previous partial completion
         # "accept" by clearing selection and move cursor to the end.
