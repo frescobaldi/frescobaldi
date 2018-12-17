@@ -9,8 +9,8 @@ except ImportError:
     from distutils.core import setup
     USE_SETUPTOOLS = False
 
-# Python 3.2 and up, excluding Python 4.
-python_requires = '~=3.2'
+# Python 3.3 and up, excluding Python 4.
+python_requires = '~=3.3'
 
 def packagelist(directory):
     """Returns a sorted list with package names for all packages under the given directory."""
