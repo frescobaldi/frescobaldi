@@ -289,11 +289,11 @@ class ExtensionMixin(QObject):
 
     def extension(self):
         """Return the actual Extension object if possible."""
-        if hasattr(self.parent(), 'extension'):
+        if self._extension_name:
+            return app.extensions().get(self._extension_name)
+        elif hasattr(self.parent(), 'extension'):
             # The parent has access to the extension (typically the Panel)
             return self.parent().extension()
-        elif self._extension_name:
-            return app.extensions().get(self._extension_name)
         else:
             raise AttributeError(_(
                 "Class '{classname}' can't access Extension object. "
