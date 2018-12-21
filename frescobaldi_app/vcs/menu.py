@@ -23,6 +23,7 @@ Currently only list local branches, allowing one to switch to that branch.
 """
 
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAction, QActionGroup, QMenu, QMessageBox
 
 import app
@@ -44,10 +45,12 @@ class GitMenu(QMenu):
         self.setTitle(_('menu title', '&Git'))
 
     def populate(self):
+        app.qApp.setOverrideCursor(Qt.WaitCursor)
         self.clear()
         mainwindow = self.parentWidget()
         for a in GitBranchGroup.instance(mainwindow).actions():
             self.addAction(a)
+        app.qApp.restoreOverrideCursor()
 
 
 class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
