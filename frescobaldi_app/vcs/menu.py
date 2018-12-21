@@ -129,7 +129,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
                 _("Successful checkout of branch\n{}".format(new_branch)))
         except GitError as giterror:
             msgBox = QMessageBox()
-            msgBox.setIcon(QMessageBox.Error)
+            msgBox.setIcon(QMessageBox.Critical)
             msgBox.setText(_("Git Checkout Error"))
             msgBox.setInformativeText(str(giterror))
             msgBox.exec_()
