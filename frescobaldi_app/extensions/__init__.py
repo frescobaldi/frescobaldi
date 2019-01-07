@@ -464,8 +464,8 @@ class FailedModel(QStandardItemModel):
                 inactive_item.setToolTip(dep_tooltip)
                 dep_item.appendRow(inactive_item)
                 for i in inactive:
-                    item = QStandardItem(m)
-                    item.setToolTip(dep_item)
+                    item = QStandardItem(i)
+                    item.setToolTip(dep_tooltip)
                     inactive_item.appendRow(item)
             circular = dependencies.get('circular', None)
             if circular:
@@ -666,7 +666,7 @@ class Extensions(QObject):
                     ext = dep[0]
                     if ext in result:
                         result.remove(ext)
-                    missing.append("{} => {}".format(ext, dep[1]))
+                    inactive.append("{} => {}".format(ext, dep[1]))
             if incoming:
                 # If there remain incoming edges we have a
                 # circular depencency (according to Kahn's algorithm)
