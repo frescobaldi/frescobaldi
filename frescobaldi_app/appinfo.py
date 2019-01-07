@@ -26,7 +26,7 @@ Information about the Frescobaldi application.
 # these variables are also used by the distutils setup
 name = "frescobaldi"
 version = "3.0.0"
-extension_api = "0.5.0"
+extension_api = "0.9.0"
 description = "LilyPond Music Editor"
 long_description = \
     "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. " \
