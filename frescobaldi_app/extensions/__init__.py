@@ -682,7 +682,8 @@ class Extensions(QObject):
         if not root in sys.path:
             sys.path.append(root)
 
-        for ext in self._extensions_ordered:
+        for ext in [ext for ext  in self._extensions_ordered
+            if not ext in self.inactive_extensions()]:
             try:
                 # measure loading time
                 start = perf_counter()
@@ -804,6 +805,12 @@ class Extensions(QObject):
     def infos(self, name):
         return self._infos.get(name, None)
 
+    def installed_extensions(self):
+        """Return a list of all installed extensions, independently of their
+        load status."""
+        result = list(self._infos.keys())
+        return sorted(result)
+
     def is_extension_exception(self, traceback):
         """Check if the given traceback points to an exception occuring
         within an extension. If so, return a tuple with
@@ -881,18 +888,30 @@ class Extensions(QObject):
             app.qApp.desktop().availableGeometry()))
         dlg.exec()
 
+    def reset_inactive(self, inactive):
+        """Save the list of inactive extensions."""
+        self._inactive_extensions = list(inactive)
+
     def root_directory(self):
         """Root directory below which extensions are searched for."""
         return self._root_directory
 
-    def set_inactive(self, inactive):
-        self._inactive_extensions = inactive
+    def set_inactive(self, extension, state=True):
+        """Set one extension to active/inactive"""
+        if state:
+            if not extension in self._inactive_extensions:
+                self._inactive_extensions.append(extension)
+        else:
+            if extension in self._inactive_extensions:
+                self._inactive_extensions.remove(extension)
 
     def set_tools_menu(self, menu):
         """Store a reference to the global Tools menu."""
         self._tools_menu = menu
 
     def settings_changed(self):
+        """Determine if any changes in global extension settings
+        requires a restart."""
         s = QSettings()
         s.beginGroup('extension-settings')
         active = s.value('active', True, bool)
@@ -906,7 +925,7 @@ class Extensions(QObject):
                 if not ext in self._inactive_extensions:
                     inactive_changed = True
                     break
-        self.set_inactive(inactive)
+        self.reset_inactive(inactive)
         if (
             active != self.active()
             or root != self.root_directory()

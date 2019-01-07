@@ -121,7 +121,9 @@ class Installed(preferences.Group):
     If the currently selected extension provides a configuration
     widget it is displayed in the bottom group of the page.
 
-    TODO: Add a checkbox to individually deactivate extensions.
+    With a checkbox individual extensions can be deactivated.
+    Metadata is listed for all *installed* extensions, regardless
+    of manual deactivation or load failure.
     """
 
     def __init__(self, page):
@@ -177,7 +179,8 @@ class Installed(preferences.Group):
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("extension-settings/installed")
-        inactive = [ext for ext in self.name_items.keys() if self.name_items[ext].checkState() == Qt.Unchecked]
+        inactive = [ext for ext in self.name_items.keys()
+            if self.name_items[ext].checkState() == Qt.Unchecked]
         s.setValue("inactive", inactive)
 
     def populate(self):
@@ -190,8 +193,7 @@ class Installed(preferences.Group):
 
         root = self.tree.model().invisibleRootItem()
         extensions = app.extensions()
-        for ext in extensions.extensions():
-            ext = ext.name()
+        for ext in extensions.installed_extensions():
             ext_infos = extensions.infos(ext)
             display_name = ext_infos.get(ext, ext) if ext_infos else ext.name()
             loaded_extension = extensions.get(ext)
