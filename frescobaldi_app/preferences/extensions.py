@@ -21,7 +21,6 @@
 Extensions preferences.
 """
 
-
 import re
 
 from PyQt5.QtCore import QSettings, Qt
@@ -30,15 +29,9 @@ from PyQt5.QtGui import QFont, QStandardItem, QStandardItemModel
 from PyQt5.QtWidgets import (
     QAbstractItemView,
     QCheckBox,
-    QDoubleSpinBox,
-    QFontComboBox,
-    QGridLayout,
     QHBoxLayout,
     QHeaderView,
     QLabel,
-    QPushButton,
-    QSlider,
-    QSpinBox,
     QTreeView,
     QVBoxLayout,
     QWidget
@@ -46,34 +39,25 @@ from PyQt5.QtWidgets import (
 
 import app
 import appinfo
-import userguide
-import qutil
 import preferences
-import popplerview
-import widgets.dialog
-import widgets.listedit
-import documentstructure
 from widgets import urlrequester
-
+from extensions import FailedTree
 
 class Extensions(preferences.ScrolledGroupsPage):
+    """Extensions page for Preferences"""
+
     def __init__(self, dialog):
         super(Extensions, self).__init__(dialog)
 
         self._active = QSettings().value(
             'extension-settingss/active', True, bool)
 
-        extensions = app.extensions()
-        self._extensions = extensions.extensions()
-        self._infos = extensions.infos()
-        failed = self._failed = extensions.failed()
-
         layout = QVBoxLayout()
         self.scrolledWidget.setLayout(layout)
 
         layout.addWidget(General(self))
         layout.addWidget(Installed(self))
-        if failed['infos'] or failed['extensions']:
+        if FailedTree._model:
             layout.addWidget(Failed(self))
         layout.addWidget(Config(self))
         layout.addStretch(1)
@@ -81,17 +65,10 @@ class Extensions(preferences.ScrolledGroupsPage):
     def active(self):
         return self._active
 
-    def extensions(self):
-        return self._extensions
-
-    def failed(self):
-        return self._failed
-
-    def infos(self):
-        return self._infos
-
 
 class General(preferences.Group):
+    """Application-wide settings for extensions."""
+
     def __init__(self, page):
         super(General, self).__init__(page)
 
@@ -109,7 +86,7 @@ class General(preferences.Group):
         layout.addLayout(header_layout)
 
         self.root = urlrequester.UrlRequester()
-        self.root.changed.connect(self.root_changed)
+        self.root.changed.connect(self.changed)
         layout.addWidget(self.root)
 
         app.translateUI(self)
@@ -140,20 +117,21 @@ class General(preferences.Group):
 class Installed(preferences.Group):
     """Overview of installed extensions.
 
-    At some later point the entries in the tree view will
-    show more information about the extensions (provided metadata),
-    and there should be widgets (a checkbox?) to de/activate individual
-    extensions.
-    When the currently selected extension provides a configuration widget
-    this will be shown in the third Group element (to-be-done).
+    A QTreeView lists the metadata of all installed extensions.
+    If the currently selected extension provides a configuration
+    widget it is displayed in the bottom group of the page.
+
+    TODO: Add a checkbox to individually deactivate extensions.
     """
+
     def __init__(self, page):
         super(Installed, self).__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        # This must occur before self.populate()
+        # This must be called before self.populate() because
+        # the data model relies on the labels
         app.translateUI(self)
 
         self.tree = QTreeView()
@@ -170,7 +148,6 @@ class Installed(preferences.Group):
             self.selection_changed)
         self.populate()
         layout.addWidget(self.tree)
-
 
     def translateUI(self):
         self.setTitle(_("Installed Extensions"))
@@ -207,21 +184,16 @@ class Installed(preferences.Group):
         """Populate the tree view with data from the installed extensions.
         """
 
-        def convert_api_version(ext_version):
-            """Return the api-version as a tuple"""
-            regex = re.compile('(\d+)\.(\d+)\.(\d+)')
-            match = regex.match(ext_version)
-            if not match:
-                return False
-            elements = match.groups()
-            return (int(elements[0]), int(elements[1]), int(elements[2]))
+        # TODO/Question:
+        # Would it make sense to move this to a dedicated model class
+        # complementing the FailedModel?
 
         root = self.tree.model().invisibleRootItem()
-        infos = self.page().infos()
-        for ext in infos:
-            ext_infos = infos[ext]
-            display_name = ext_infos.get(ext, ext) if ext_infos else ext
-            extensions = app.extensions()
+        extensions = app.extensions()
+        for ext in extensions.extensions():
+            ext = ext.name()
+            ext_infos = extensions.infos(ext)
+            display_name = ext_infos.get(ext, ext) if ext_infos else ext.name()
             loaded_extension = extensions.get(ext)
             if loaded_extension:
                 display_name += ' ({})'.format(loaded_extension.load_time())
@@ -230,7 +202,7 @@ class Installed(preferences.Group):
             name_item.extension_name = ext
             name_item.setCheckable(True)
             self.name_items[ext] = name_item
-            icon = app.extensions().icon(ext)
+            icon = extensions.icon(ext)
             if icon:
                 name_item.setIcon(icon)
             root.appendRow([name_item])
@@ -260,19 +232,17 @@ class Installed(preferences.Group):
                 if entry == 'api-version':
                     # Check for correct(ly formatted) api-version entry
                     # and highlight it in case of mismatch
-                    api_version = app.extensions().api_version
-                    api = convert_api_version(details)
-                    if not api:
+                    api_version = appinfo.extension_api
+                    if not details:
                         details_item.setFont(bold)
-                        details_item.setText(_("Misformat: {}".format(details)))
-                    elif not api == api_version:
+                        details_item.setText(
+                            _("Misformat: {api}").format(details))
+                    elif not details == api_version:
                             details_item.setFont(bold)
-                            details_item.setText('{} (Frescobaldi: {})'.format(
+                            details_item.setText('{} ({}: {})'.format(
                                 details,
-                                '{}.{}.{}'.format(
-                                    api_version[0],
-                                    api_version[1],
-                                    api_version[2])))
+                                appinfo.appname,
+                                api_version))
                 name_item.appendRow([label_item, details_item])
 
     def selected_extension(self):
@@ -304,115 +274,21 @@ class Installed(preferences.Group):
 
 
 class Failed(preferences.Group):
+    """Show information about extensions that failed to load properly.
+    This is only instantiated if there *are* failed extensions."""
 
     def __init__(self, page):
         super(Failed, self).__init__(page)
-
-        self._failed = page.failed()
-        self._failed_infos_count = len(self._failed['infos'].keys())
-        self._failed_extensions_count = len(self._failed['extensions'].keys())
-
-        bold = QFont()
-        bold.setWeight(QFont.Bold)
-        self.infos_item = QStandardItem()
-        self.infos_item.setFont(bold)
-        self.extensions_item = QStandardItem()
-        self.extensions_item.setFont(bold)
-
+        import extensions
         layout = QVBoxLayout()
         self.setLayout(layout)
-
-        self.tree = QTreeView()
-        self.tree.setModel(QStandardItemModel())
-        self.tree.model().setColumnCount(2)
-        self.tree.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tree.setHeaderHidden(True)
-        self.tree.header().setSectionResizeMode(
-            0, QHeaderView.ResizeToContents)
-
-        #TODO: Set the height of the QTreeView to 4-6 rows
-        #https://stackoverflow.com/questions/53591159/set-the-height-of-a-qtreeview-to-height-of-n-rows
+        self.tree = extensions.FailedTree(self)
         layout.addWidget(self.tree)
-        self.tree.doubleClicked.connect(self.tree_double_clicked)
-
         app.translateUI(self)
-        self.populate()
 
     def translateUI(self):
         self.setTitle(_("Failed Extensions"))
-        self.infos_item.setText(_("Invalid info:"))
-        self.infos_tooltip = (
-            _("Extensions whose extension.cnf file has errors.\n"
-              "They will be loaded nevertheless."))
-        self.infos_item.setToolTip(self.infos_tooltip)
-        self.extensions_item.setText(_("Failed to load:"))
-        self.extensions_tooltip = (
-            _("Extensions that failed to load properly.\n"
-              "Double click on name to show the stacktrace.\n"
-              "Please contact the extension maintainer."))
-        self.extensions_item.setToolTip(self.extensions_tooltip)
 
-    def populate(self):
-        root = self.tree.model().invisibleRootItem()
-        if self._failed_infos_count:
-            root.appendRow(self.infos_item)
-            for info in self._failed['infos']:
-                name_item = QStandardItem(info)
-                name_item.setToolTip(self.infos_tooltip)
-                icon = app.extensions().icon(info)
-                if icon:
-                    name_item.setIcon(icon)
-                details_item = QStandardItem(self._failed['infos'][info])
-                details_item.setToolTip(self.infos_tooltip)
-                self.infos_item.appendRow([name_item, details_item])
-        if self._failed_extensions_count:
-            root.appendRow(self.extensions_item)
-            for ext in self._failed['extensions']:
-                extension_info = app.extensions().infos()[ext]
-                name = (extension_info.get('extension-name', ext)
-                    if extension_info
-                    else ext)
-                name_item = QStandardItem(name)
-                name_item.setToolTip(self.extensions_tooltip)
-                icon = app.extensions().icon(ext)
-                if icon:
-                    name_item.setIcon(icon)
-                # store the extension key in addition to the display name
-                name_item.extension_key = ext
-                exc_info = self._failed['extensions'][ext]
-                message = '{}: {}'.format(exc_info[0].__name__, exc_info[1])
-                details_item = QStandardItem(message)
-                details_item.setToolTip(self.extensions_tooltip)
-                self.extensions_item.appendRow([name_item, details_item])
-
-    def tree_double_clicked(self, index):
-        """Show the details of a failed extension in a message box."""
-        model = self.tree.model()
-        item = model.itemFromIndex(index)
-        row = item.row()
-        parent = item.parent()
-        if item and item.parent() == self.extensions_item:
-            import traceback
-            from PyQt5.QtWidgets import QMessageBox
-            import appinfo
-            name_item = parent.child(row, 0)
-            message_item = parent.child(row, 1)
-            msg_box = QMessageBox()
-            msg_box.setWindowTitle(_(appinfo.appname))
-            msg_box.setIcon(QMessageBox.Information)
-            extension_name = name_item.text()
-            extension_key = name_item.extension_key
-            exception_info = self._failed['extensions'][extension_key]
-            msg_box.setText(
-                _("Extension '{}' failed to load with the given "
-                  "explanation\n\n{}".format(
-                    extension_name, message_item.text()
-                    )))
-
-            msg_box.setInformativeText(
-                ' '.join(traceback.format_exception(*exception_info)))
-            msg_box.exec()
 
 class Config(preferences.Group):
     """Configuration of an extension.

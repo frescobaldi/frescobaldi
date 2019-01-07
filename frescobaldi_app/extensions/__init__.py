@@ -27,9 +27,27 @@ import sys
 import re
 from time import perf_counter
 
-from PyQt5.QtCore import Qt, QDir, QObject, QSettings
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMenu
+from PyQt5.QtCore import (
+    QDir,
+    QObject,
+    QSettings,
+    QSize,
+    Qt
+)
+from PyQt5.QtGui import (
+    QFont,
+    QIcon,
+    QStandardItem,
+    QStandardItemModel
+)
+from PyQt5.QtWidgets import (
+    QAbstractItemView,
+    QDialog,
+    QHeaderView,
+    QMenu,
+    QStyle,
+    QTreeView
+)
 
 import app
 import icons
@@ -90,7 +108,7 @@ class Extension(QObject):
     #   { 'name': 'NN', 'max-entries': 999 }
     _settings_config = {}
 
-    def __init__(self, parent):
+    def __init__(self, parent, name):
         """Initialize (load) the extension.
         NOTE: This loading takes place at program start, so
         any concrete extension should take care to load its
@@ -101,7 +119,9 @@ class Extension(QObject):
         assert issubclass(
             self._action_collection_class, actions.ExtensionActionCollection)
         super(Extension, self).__init__(parent)
-        self._name = parent._current_extension
+        self._name = name
+        self._root_directory = os.path.join(
+            parent.root_directory(), self._name)
         self._settings = settings.ExtensionSettings(self)
         self._action_collection =  self._action_collection_class(self)
         self._menus = {}
@@ -142,8 +162,7 @@ class Extension(QObject):
         return widget
 
     def create_panel(self):
-        """Create the Extension's Tool Panel if a widget class is provided.
-        """
+        """Create the Extension's Tool Panel if a widget class is provided."""
         if self._panel_widget_class:
             from . import panel
             self._panel = panel.ExtensionPanel(
@@ -152,13 +171,12 @@ class Extension(QObject):
                 self._panel_dock_area)
 
     def display_name(self):
-        """Return the display name of the extension.
-        Should be overridden in concrete classes,
-        class name is just a fallback."""
-        metadata = self.parent().infos()[self.name()]
-        return metadata['extension-name'] if metadata else _("Failed to load info")
+        """Return the display name of the extension, or the extension
+        key if metadata has not been loaded properly."""
+        return self.infos().get('extension-name', self.name())
 
     def has_icon(self):
+        """Returns True if the extension has a custom icon."""
         return self.icon() is not None
 
     def icon(self):
@@ -168,7 +186,7 @@ class Extension(QObject):
     def infos(self):
         """Return the infos dictionary for the extension,
         or an empty dictionary if they could not be loaded."""
-        return self.parent().infos()[self.name()] or {}
+        return self.parent().infos(self.name()) or {}
 
     def load_time(self):
         """Return the loading time for the Extension object, formatted
@@ -180,26 +198,34 @@ class Extension(QObject):
         or None if there should be no entry for the given target.
         target may be 'tools' for the main Tools=>Extensions menu,
         or a known keyword for one of the context menus (see
-        __init__ for the available keys).
+        actions.ExtensionActionCollection.__init__ for the available keys).
 
         If the target is 'tools' and the extension exports a Panel
         then this will be inserted at the top of the menu, otherwise
         only the action list will be used to create the menu.
-        The various menus can be configured in the action collection,
-        by default the tools menu shows all actions, sorted by
-        display name, and context menus are empty.
+
+        actions.ExtensionActionCollection.set_menu_action_list() is used
+        to define the various menu structures that can include 'flat'
+        actions and hierarchical submenus.
         """
+
+        def add_action_or_submenu(m, entry):
+            if isinstance(entry, QMenu):
+                m.addMenu(entry)
+            else:
+                m.addAction(entry)
+
         m = self._menus.get(target, None)
         if not m:
+            # Menu is not cached already, create it
             actions = self.action_collection().menu_actions(target)
             if target != 'tools' and not actions:
                 # empty context menu
                 return None
             panel = self.panel()
-            # An extension without at least one action or panel
-            # is invalid
+            # An extension without at least one action or panel is invalid
             if not (panel or actions):
-                m = QMenu(_("Invalid extension: {}".format(
+                m = QMenu(_("Invalid extension menu: {}".format(
                     self.display_name())))
                 return m
 
@@ -214,15 +240,12 @@ class Extension(QObject):
                 if actions:
                     m.addSeparator()
             for entry in actions:
-                if isinstance(entry, QMenu):
-                    m.addMenu(entry)
-                else:
-                    m.addAction(entry)
+                add_action_or_submenu(m, entry)
         return m
 
     def name(self):
-        """Return the extension's internal name (which actually is retrieved
-        from the directory name)."""
+        """Return the extension's internal name
+        (which actually is retrieved from the directory name)."""
         return self._name
 
     def panel(self):
@@ -231,7 +254,7 @@ class Extension(QObject):
 
     def root_directory(self):
         """Return the extension's root directory."""
-        return os.path.join(self.parent().root_directory(), self.name())
+        return self._root_directory
 
     def set_load_time(self, ms):
         """Store the time needed to load the application.
@@ -320,54 +343,258 @@ class ExtensionMixin(QObject):
         return self.extension().panel()
 
     def settings(self):
+        """Return the extension's local settings object."""
         return self.extension().settings()
+
+
+class FailedModel(QStandardItemModel):
+    """Data model that is created to report about failed extensions.
+    An extension may fail due to errors in the metadata (extension is
+    loaded anyway), unresolvable dependencies, or exceptions while
+    instantiating the Extension object.
+
+    This data model is created and populated upon program start if
+    loading the extension reveals any problems. It is then stored as
+    the Extensions object's _failed_model member and reused to populate
+    various FailedTree widgets.
+    """
+
+    def __init__(self, extensions, data):
+        super(FailedModel, self).__init__()
+        self.setColumnCount(2)
+        self.extensions = extensions
+        # Store reference to parent item of failed extensions
+        self.exceptions_item = None
+        self.populate(data)
+
+    def populate(self, data):
+        """Populate the data model using the data passed
+        from the extensions object.
+
+        The data model has up to three root-level items:
+        - Invalid metadata
+        - Failed to load
+        - Failed dependencies
+        """
+
+        # font for use in various Items
+        bold = QFont()
+        bold.setWeight(QFont.Bold)
+
+        root = self.invisibleRootItem()
+        infos = data['infos']
+        if infos:
+            # Handle extensions with metadata errors
+            infos_item = QStandardItem()
+            infos_item.setFont(bold)
+            infos_item.setText(_("Invalid metadata:"))
+            infos_tooltip = (
+                _("Extensions whose extension.cnf file has errors.\n"
+                  "They will be loaded nevertheless."))
+            infos_item.setToolTip(infos_tooltip)
+
+            root.appendRow(infos_item)
+            for info in infos:
+                name_item = QStandardItem(info)
+                name_item.setToolTip(infos_tooltip)
+                icon = self.extensions.icon(info)
+                if icon:
+                    name_item.setIcon(icon)
+                details_item = QStandardItem(infos[info])
+                details_item.setToolTip(infos_tooltip)
+                infos_item.appendRow([name_item, details_item])
+
+        exceptions = data['exceptions']
+        if exceptions:
+            # Handle extensions that failed to load properly
+            import traceback
+            exceptions_item = self.exceptions_item = QStandardItem()
+            exceptions_item.setFont(bold)
+            exceptions_item.setText(_("Failed to load:"))
+            extensions_tooltip = (
+                _("Extensions that failed to load properly.\n"
+                  "Double click on name to show the stacktrace.\n"
+                  "Please contact the extension maintainer."))
+            exceptions_item.setToolTip(extensions_tooltip)
+
+            root.appendRow(exceptions_item)
+            for ext in exceptions:
+                extension_info = self.extensions.infos(ext)
+                name = (extension_info.get('extension-name', ext)
+                    if extension_info
+                    else ext)
+                name_item = QStandardItem(name)
+                name_item.setToolTip(extensions_tooltip)
+                icon = self.extensions.icon(ext)
+                if icon:
+                    name_item.setIcon(icon)
+                exc_info = exceptions[ext]
+                # store exception information in the first item
+                name_item.exception_info = exc_info
+                message = '{}: {}'.format(exc_info[0].__name__, exc_info[1])
+                details_item = QStandardItem(message)
+                details_item.setToolTip(extensions_tooltip)
+                exceptions_item.appendRow([name_item, details_item])
+
+        dependencies = data['dependencies']
+        if dependencies:
+            # Handle extensions with dependency issues
+            dep_item = QStandardItem(_("Failed dependencies:"))
+            dep_item.setFont(bold)
+            dep_tooltip = (
+                _("Extensions with failed or circular dependencies.\n"
+                  "They are not loaded."))
+            dep_item.setToolTip(dep_tooltip)
+
+            root.appendRow(dep_item)
+            missing = dependencies.get('missing', None)
+            if missing:
+                missing_item = QStandardItem(_("Missing:"))
+                missing_item.setFont(bold)
+                missing_item.setToolTip(dep_tooltip)
+                dep_item.appendRow(missing_item)
+                for m in missing:
+                    item = QStandardItem(m)
+                    item.setToolTip(dep_item)
+                    missing_item.appendRow(item)
+            inactive = dependencies.get('inactive', None)
+            if inactive:
+                inactive_item = QStandardItem(_("Inactive:"))
+                inactive_item.setFont(bold)
+                inactive_item.setToolTip(dep_tooltip)
+                dep_item.appendRow(inactive_item)
+                for i in inactive:
+                    item = QStandardItem(m)
+                    item.setToolTip(dep_item)
+                    inactive_item.appendRow(item)
+            circular = dependencies.get('circular', None)
+            if circular:
+                circular_item = QStandardItem(_("Circular:"))
+                circular_item.setFont(bold)
+                circular_item.setToolTip(dep_tooltip)
+                dep_item.appendRow(circular_item)
+                item = QStandardItem(' | '.join(circular))
+                item.setToolTip(dep_tooltip)
+                circular_item.appendRow(item)
+
+
+class FailedTree(QTreeView):
+    """QTreeView descendant to display information about failed extensions
+    in the initial message dialog and the Preferences panel.
+    The strategy is to create the QTreeView object everytime it is used
+    without having to re-populate the data model."""
+
+    # QStandardItemModel is set when any failed extensions are detected
+    # while loading extensions. So checking for this class variable can
+    # determine whether any extensions failed
+    _model = None
+
+    def __init__(self, parent=None):
+        super(FailedTree, self).__init__(parent)
+        #TODO: Set the height of the QTreeView to 4-6 rows
+        #https://stackoverflow.com/questions/53591159/set-the-height-of-a-qtreeview-to-height-of-n-rows
+        self.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.setHeaderHidden(True)
+        self.setModel(self._model)
+        self.header().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.doubleClicked.connect(self.tree_double_clicked)
+
+    def tree_double_clicked(self, index):
+        """Show the details of a failed extension in a message box."""
+        model = self.model()
+        item = model.itemFromIndex(index)
+        parent = item.parent()
+        if item and item.parent() == model.exceptions_item:
+
+            # TODO: Change this to the Exception handling message box
+            # (with option to write an email to maintainer)
+
+            import traceback
+            from PyQt5.QtWidgets import QMessageBox
+            import appinfo
+            row = item.row()
+            name_item = parent.child(row, 0)
+            message_item = parent.child(row, 1)
+            msg_box = QMessageBox()
+            msg_box.setWindowTitle(_(appinfo.appname))
+            msg_box.setIcon(QMessageBox.Information)
+            extension_name = name_item.text()
+            exception_info = name_item.exception_info
+            msg_box.setText(
+                _("Extension '{}' failed to load with the given "
+                  "explanation\n\n{}").format(
+                    extension_name, message_item.text()))
+            msg_box.setInformativeText(
+                ' '.join(traceback.format_exception(*exception_info)))
+            msg_box.exec()
 
 
 class Extensions(QObject):
     """Global object managing the extensions.
     Accessed with app.extensions()"""
 
-    api_version = (0, 5, 0)
-
     def __init__(self, mainwindow):
         super(Extensions, self).__init__()
         self._mainwindow = mainwindow
+        # Resources are handled on the global Extensions level because
+        # in a number of cases they are independent from an actually
+        # loaded Extension object (i.e. have to be functional before loading
+        # or with failed extensions too)
         self._config_widgets = None
         self._menus = {}
         self._icons = {}
         self._infos = {}
-        self._failed_infos = {}
         self._extensions = {}
         self._extensions_ordered = []
-        self._failed_extensions = {}
+        self._failed_infos = {}
         self._failed_dependencies = []
+        self._failed_extensions = {}
 
-        # These two will be set in load_settings()
+        # These will be set in load_settings():
         self._root_directory = None
         self._active = False
         self._inactive_extensions = []
         self.load_settings()
         app.settingsChanged.connect(self.settings_changed)
-        self.load_infos()
-        if (self.active()
-            and self.root_directory()
-            and os.path.isdir(self.root_directory())):
-            self.check_dependencies()
-            if not self._failed_dependencies:
-                self.load_extensions()
-        if (self._failed_infos
-            or self._failed_extensions
-            or self._failed_dependencies):
-            self.report_failed()
 
+        # Only process extensions if root directory is configured properly
+        if not (self.root_directory()
+            and os.path.isdir(self.root_directory())):
+            return
+        # Info about *installed* extensions is loaded
+        # regardless of 'active' state
+        self.load_infos()
+        if self.active():
+            self._extensions_ordered = self.check_dependencies()
+            #if not self._failed_dependencies:
+            self.load_extensions()
+            if (self._failed_infos
+                or self._failed_extensions
+                or self._failed_dependencies):
+                FailedTree._model = FailedModel(self, {
+                    'infos': self._failed_infos,
+                    'dependencies': self._failed_dependencies,
+                    'exceptions': self._failed_extensions
+                })
+                self.report_failed()
+        del self._failed_infos
+        del self._failed_dependencies
+        del self._failed_extensions
 
     def active(self):
         """Returns True if extensions are enabled globally."""
         return self._active
 
     def check_dependencies(self):
-        """Check infos for unresolved or circular dependencies,
-        order etensions to be loaded in topological order."""
+        """Check extension metadata for unresolved or circular dependencies.
+
+        Returns a list of extension keys in topological order.
+        Inactive extensions are skipped.
+        Extensions with missing dependencies are logged and skipped.
+        Circular dependencies are looged and skipped.
+        """
+
         inactive = self.inactive_extensions()
         active = [key for key in self._infos.keys() if not key in inactive]
         inactive_dependencies = []
@@ -380,6 +607,7 @@ class Extensions(QObject):
 
         # Create topological order (and check for cyclic dependencies)
         # by Kahn's algorithm
+        # https://en.wikipedia.org/wiki/Topological_sorting#Algorithms
         for ext in self._infos.keys():
             nodes[ext] = { 'incoming': [], 'outgoing': [] }
         # read incoming dependencies,
@@ -392,6 +620,7 @@ class Extensions(QObject):
             if deps == '---':
                 continue
             for dep in deps:
+                # missing and inactive dependencies are beside Kahn's algorithm
                 if dep in self._infos.keys(): #active + inactive:
                     nodes[dep]['incoming'].append(ext)
                     nodes[ext]['outgoing'].append(dep)
@@ -406,7 +635,6 @@ class Extensions(QObject):
                 incoming[n] = nodes[n]
             else:
                 no_incoming[n] = nodes[n]
-        nodes = None
 
         # Process queue until empty
         while no_incoming:
@@ -423,54 +651,60 @@ class Extensions(QObject):
                     no_incoming[outgoing] = incoming.pop(outgoing)
 
         if missing_dependencies or inactive_dependencies or incoming:
+            self._failed_dependencies = {}
             message = []
             if missing_dependencies:
-                message.append(_("\nMissing dependencies:"))
+                missing = self._failed_dependencies['missing'] = []
                 for dep in missing_dependencies:
-                    message.append("   {} => {}".format(dep[0], dep[1]))
+                    ext = dep[0]
+                    if ext in result:
+                        result.remove(ext)
+                    missing.append("{} => {}".format(ext, dep[1]))
             if inactive_dependencies:
-                message.append(_("\nDeactivated dependencies:"))
+                inactive = self._failed_dependencies['inactive'] = []
                 for dep in inactive_dependencies:
-                    message.append("   {} => {}".format(dep[0], dep[1]))
+                    ext = dep[0]
+                    if ext in result:
+                        result.remove(ext)
+                    missing.append("{} => {}".format(ext, dep[1]))
             if incoming:
                 # If there remain incoming edges we have a
                 # circular depencency (according to Kahn's algorithm)
-                message.append(_("\nCircular dependencies involving:"))
-                for ext in incoming.keys():
-                    message.append("   - {}".format(ext))
-            self._failed_dependencies = message
-        else:
-            self._extensions_ordered = reversed(result)
+                self._failed_dependencies['circular'] = [
+                    ext for ext in incoming.keys()]
+        # List of extensions with all dependencies resolved,
+        # and ordered in correct topological order
+        return reversed(result)
 
     def load_extensions(self):
+        """Load active extensions in topological order."""
         root = self.root_directory()
         if not root in sys.path:
             sys.path.append(root)
 
         for ext in self._extensions_ordered:
             try:
+                # measure loading time
                 start = perf_counter()
-                # temporary reference to store the _name in the Extension
-                self._current_extension = ext
                 # Try importing the module. Will fail here if there's
-                # no Python module in the subdirectory.
+                # no Python module in the subdirectory or loading the module
+                # produces errors
                 module = importlib.import_module(ext)
                 # Add extension's icons dir (if present) to icon search path
-                search_paths = QDir.searchPaths('icons')
                 icon_path = os.path.join(self.root_directory(), ext, 'icons')
                 if os.path.isdir(icon_path):
+                    search_paths = QDir.searchPaths('icons')
                     QDir.setSearchPaths('icons', [icon_path] + search_paths)
                 # Instantiate the extension,
                 # this will fail if the module is no valid extension
-                extension = module.Extension(self)
+                # (doesn't have an Extension class) or has other errors in it
+                extension = module.Extension(self, ext)
                 end = perf_counter()
                 extension.set_load_time(
                     "{:.2f} ms".format((end - start) * 1000))
                 self._extensions[ext] = extension
             except Exception as e:
                 self._failed_extensions[ext] = sys.exc_info()
-            finally:
-                del self._current_extension
 
     def _load_icon(self, name):
         """Tries to load a main icon for the given extension if
@@ -484,11 +718,17 @@ class Extensions(QObject):
     def icon(self, name):
         """Return a main icon for the given extension, or None."""
         icon = self._icons.get(name, False)
-        if icon == False: # different from None, which may be a valid result
+        if icon == False: # None would be a valid result indicating 'no icon'
             self._load_icon(name)
         return self._icons[name]
 
     def _load_infos(self, extension_name):
+        """Load an extension's metadata from the extension.cnf file.
+        Optional keys are assigned 'empty' default values, while
+        missing mandatory keys will cause the load to fail. Such extensions
+        will be reported as "Failed metadata", but the extension is
+        loaded anyway."""
+
         # Mandatory keys in the extension.cfg file
         mandatory_config_keys = [
             'extension-name',
@@ -514,23 +754,31 @@ class Extensions(QObject):
                 defaults=config_defaults)
         except Exception as e:
             self._failed_infos[extension_name] = str(e)
+            return None
 
     def load_infos(self):
+        """Load extension metadata from all subdirs that include an
+        extension.cnf file."""
         root = self.root_directory()
         subdirs = [dir for dir in os.listdir(root) if os.path.isfile(
             os.path.join(root, dir, 'extension.cnf'))]
         for d in subdirs:
-            try:
-                self._infos[d] = self._load_infos(d)
-            except Exception as e:
-                pass
+            self._infos[d] = self._load_infos(d)
 
     def config_widgets(self, preference_group):
         """Return a dictionary with config widgets.
-        Will be created upon first request."""
+        Will be created upon first request.
+
+        `preference_group` is a group widget in the Preferences/Extensions
+        page.
+        The config widgets will be instantiated only upon the first invocation
+        of this method.
+        """
         if self._config_widgets is None:
             self._config_widgets = {}
             for ext in self.extensions():
+                # Ask the extension to instantiate a config widget
+                # if one is defined
                 widget = ext.config_widget(preference_group)
                 if widget:
                     widget.hide()
@@ -538,27 +786,23 @@ class Extensions(QObject):
         return self._config_widgets
 
     def extensions(self):
-        """Return the extensions as a list."""
+        """Return a list of all loaded extensions, ordered by their
+        display name."""
         result = [self._extensions[ext] for ext in self._extensions.keys()]
         result.sort(key=lambda extension: extension.display_name())
         return result
 
-    def failed(self):
-        return {
-            'infos': self._failed_infos,
-            'extensions': self._failed_extensions
-        }
-
-    def get(self, module_name):
+    def get(self, name):
         """Return an Extension object for an extension with the given name,
         or None if such a module doesn't exist."""
-        return self._extensions.get(module_name, None)
+        return self._extensions.get(name, None)
 
     def inactive_extensions(self):
+        """Return a list with names of extensions marked as inactive."""
         return self._inactive_extensions
 
-    def infos(self):
-        return self._infos
+    def infos(self, name):
+        return self._infos.get(name, None)
 
     def is_extension_exception(self, traceback):
         """Check if the given traceback points to an exception occuring
@@ -577,12 +821,13 @@ class Extensions(QObject):
                 tail = m.groups()[1]
                 m = re.match('(.*){sep}.*'.format(sep=os.sep), tail)
                 extension = m.groups()[0]
-                infos = self.infos()[extension]
+                infos = self.infos(extension)
                 return (infos['extension-name'],
                         infos['maintainers'][0],
                         extension)
 
     def load_settings(self):
+        """Load application-wide settings relating to extensions."""
         s = QSettings()
         s.beginGroup('extension-settings')
         self._active = s.value('active', True, bool)
@@ -611,47 +856,30 @@ class Extensions(QObject):
     def report_failed(self):
         """Show a warning message box if extension(s) could either not
         be loaded or produced errors while parsing the extension infos."""
-        from PyQt5.QtWidgets import QMessageBox
+
+        from PyQt5.QtCore import QCoreApplication
         import appinfo
+        import qutil
+        import widgets.dialog
 
-        msg_box = QMessageBox()
-        msg_box.setWindowTitle(appinfo.appname)
-        msg_box.setIcon(QMessageBox.Warning)
-        msg_box.setText(_('There were problems loading the extensions.'))
-        failed_infos = self._failed_infos
-        failed_extensions = self._failed_extensions
-        failed_dependencies = self._failed_dependencies
-        text = []
-        details = []
-        if failed_infos:
-            text.append(_("  - parsing extension info"))
-            details.extend(
-                [_('The following extension(s) reported errors with '),
-                _('parsing the extension info file:'),
-                '',
-                '\n'.join(failed_infos.keys())])
-        if failed_extensions:
-            text.append(_("  - loading extensions"))
-            details.extend(
-                ['',
-                 _('The following extension could not be loaded:'),
-                 '',
-                 '\n'.join(failed_extensions.keys())])
-        if failed_dependencies:
-            text.append(_("  - resolving dependencies"))
-            text.append(_("    (extensions will not be loaded)"))
-            details.extend(
-                ['',
-                 _('The following problems are reported with dependencies,'),
-                 '\n'.join(failed_dependencies)])
-
-        text.extend(
-            ['',
-            _("More details on the Preferences page")
-            ])
-        msg_box.setInformativeText('\n'.join(text))
-        msg_box.setDetailedText('\n'.join(details))
-        msg_box.exec()
+        dlg = widgets.dialog.Dialog(
+            self.mainwindow(),
+            icon='warning',
+            buttons=('ok',),
+            title=appinfo.appname,
+            message=_(
+                "There were problems loading the extensions.\n"
+                "The following details are also available from the "
+                "Preferences dialog."))
+        dlg.setMainWidget(FailedTree(self.mainwindow()))
+        qutil.saveDialogSize(
+            dlg, "extensions/error-dialog/size", QSize(600, 300))
+        dlg.setGeometry(QStyle.alignedRect(
+            Qt.RightToLeft,
+            Qt.AlignCenter,
+            dlg.size(),
+            app.qApp.desktop().availableGeometry()))
+        dlg.exec()
 
     def root_directory(self):
         """Root directory below which extensions are searched for."""
