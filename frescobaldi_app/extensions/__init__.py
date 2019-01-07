@@ -541,7 +541,6 @@ class Extensions(QObject):
         # in a number of cases they are independent from an actually
         # loaded Extension object (i.e. have to be functional before loading
         # or with failed extensions too)
-        self._config_widgets = None
         self._menus = {}
         self._icons = {}
         self._infos = {}
@@ -765,26 +764,6 @@ class Extensions(QObject):
             os.path.join(root, dir, 'extension.cnf'))]
         for d in subdirs:
             self._infos[d] = self._load_infos(d)
-
-    def config_widgets(self, preference_group):
-        """Return a dictionary with config widgets.
-        Will be created upon first request.
-
-        `preference_group` is a group widget in the Preferences/Extensions
-        page.
-        The config widgets will be instantiated only upon the first invocation
-        of this method.
-        """
-        if self._config_widgets is None:
-            self._config_widgets = {}
-            for ext in self.extensions():
-                # Ask the extension to instantiate a config widget
-                # if one is defined
-                widget = ext.config_widget(preference_group)
-                if widget:
-                    widget.hide()
-                    self._config_widgets[ext.name()] = widget
-        return self._config_widgets
 
     def extensions(self):
         """Return a list of all loaded extensions, ordered by their

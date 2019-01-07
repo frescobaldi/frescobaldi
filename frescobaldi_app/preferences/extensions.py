@@ -303,6 +303,7 @@ class Config(preferences.Group):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
+        self._widgets = {}
         # Create an "empty" widget as a placeholder for
         # extensions that don't provide a config widget
         self.empty_widget = QWidget(self)
@@ -316,9 +317,6 @@ class Config(preferences.Group):
         self.current_widget = self.empty_widget
         self.current_widget.hide()
 
-        # preload and reference config widgets for all extensions
-        self.config_widgets = app.extensions().config_widgets(self)
-
         app.translateUI(self)
 
     def translateUI(self):
@@ -329,17 +327,17 @@ class Config(preferences.Group):
             "or is inactive."))
 
     def loadSettings(self):
-        """Ask all extension configuration widgets to load their settings.
-        Configuration widgets are required to implement load_settings()."""
+        """Load global settings. Any ConfigWidget class must implement
+        save_settings(), but this is called right after instantiating
+        the widget in self.widget()."""
         self.setEnabled(self.page().active())
-        for widget in self.config_widgets.values():
-            widget.load_settings()
 
     def saveSettings(self):
         """Ask all extension configuration widgets to save their settings.
         Configuration widgets are required to implement save_settings()."""
-        for widget in self.config_widgets.values():
-            widget.save_settings()
+        for widget in self._widgets.values():
+            if widget:
+                widget.save_settings()
 
     def hide_extension(self):
         """Remove the currently displayed configuration widget."""
@@ -350,7 +348,21 @@ class Config(preferences.Group):
     def show_extension(self, name):
         """Show an extension's configuration widget, or the
         empty widget if the extension does not provide one."""
-        widget = self.config_widgets.get(name, self.empty_widget)
+        #widget = self._widgets.get(name, self.empty_widget)
+        widget = self.widget(name) or self.empty_widget
         self.current_widget = widget
         self.layout().addWidget(widget)
         widget.show()
+
+    def widget(self, extension):
+        """Return a configuration widget if provided by the extension,
+        or None otherwise."""
+        widget = self._widgets.get(extension, False)
+        if widget == False:
+            ext = app.extensions().get(extension)
+            # skip non-loaded extensions
+            if ext:
+                widget = ext.config_widget(self)
+                widget.load_settings()
+            self._widgets[extension] = widget or None
+        return widget
