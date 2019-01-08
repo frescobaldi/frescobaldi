@@ -50,6 +50,7 @@ class Errors(plugin.DocumentPlugin):
 
     def __init__(self, document):
         self._refs = {}
+        self._job = None
         mgr = job.manager.manager(document)
         if mgr.job():
             self.connectJob(mgr.job())
@@ -65,6 +66,7 @@ class Errors(plugin.DocumentPlugin):
         # do not collect errors for auto-engrave jobs if the user has disabled it
         if job.attributes.get(j).hidden and QSettings().value("log/hide_auto_engrave", False, bool):
             return
+        self._job = j
         # clear earlier set error marks
         docs = {self.document()}
         for ref in self._refs.values():
@@ -88,7 +90,8 @@ class Errors(plugin.DocumentPlugin):
         """
         if type == job.STDERR:
             enc = sys.getfilesystemencoding()
-            for m in message_re.finditer(message.encode('latin1')):
+            job_enc = self._job._encoding
+            for m in message_re.finditer(message.encode(job_enc)):
                 url = m.group(1).decode(enc)
                 filename = m.group(2).decode(enc)
                 filename = util.normpath(filename)
