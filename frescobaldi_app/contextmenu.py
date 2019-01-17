@@ -28,6 +28,7 @@ This module is imported when a contextmenu event occurs in the View (view.py).
 from PyQt5.QtCore import QTimer, QUrl
 from PyQt5.QtWidgets import QAction
 
+import app
 import icons
 import util
 import browseriface
@@ -63,6 +64,10 @@ def contextmenu(view):
             menu.insertActions(first_action, actions)
         else:
             menu.addActions(actions)
+    menu.addSeparator()
+    extensions = app.extensions().menu('editor')
+    if not extensions.isEmpty():
+        menu.addMenu(extensions)
     return menu
 
 
@@ -107,4 +112,3 @@ def jump_to_definition(cursor, menu, mainwindow):
         QTimer.singleShot(0, complete)
         return [a]
     return []
-

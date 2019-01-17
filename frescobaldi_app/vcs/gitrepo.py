@@ -153,6 +153,14 @@ class Repo(AbstractVCSRepo):
             raise GitError('current_branch: No branch found')
         return current_branch
 
+    def HEAD(self, shortened=True):
+        """
+        Returns the (shortened) committish of the current commit.
+        """
+        head = self._run_command('log', ['-n', '1',
+            '--format=format:%{}'.format('h' if shortened else 'H')])
+        return head[0]
+
     def has_branch(self, branch):
         """
         Returns True if the given local branch exists.

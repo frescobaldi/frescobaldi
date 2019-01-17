@@ -26,6 +26,7 @@ from PyQt5.QtCore import QUrl
 from PyQt5.QtWidgets import QApplication, QMenu
 
 
+import app
 import icons
 
 
@@ -72,6 +73,12 @@ def show(position, panel, link, cursor):
         m.addSeparator()
         m.addAction(panel.actionCollection.music_sync_cursor)
 
+    # Context menus from extensions
+    extensions = app.extensions().menu('musicview')
+    if not extensions.isEmpty():
+        m.addSeparator()
+        m.addMenu(extensions)
+
     # help
     m.addSeparator()
     a = m.addAction(icons.get("help-contents"), _("Help"))
@@ -84,6 +91,3 @@ def show(position, panel, link, cursor):
     if m.actions():
         m.exec_(position)
     m.deleteLater()
-
-
-

@@ -110,5 +110,3 @@ class Panel(QDockWidget):
         floatbutton = self.findChild(QAbstractButton, 'qt_dockwidget_floatbutton')
         if floatbutton:
             floatbutton.setToolTip(_("Dock/Undock"))
-
-

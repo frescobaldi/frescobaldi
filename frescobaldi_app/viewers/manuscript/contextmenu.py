@@ -26,6 +26,8 @@ from viewers import contextmenu
 
 class ManuscriptViewerContextMenu(contextmenu.AbstractViewerContextMenu):
 
+    name = 'manuscriptview'
+
     def __init__(self, panel):
         super(ManuscriptViewerContextMenu, self).__init__(panel)
 
