@@ -25,6 +25,7 @@ Base class for viewers' context menus.
 from PyQt5.QtCore import QObject, QUrl
 from PyQt5.QtWidgets import QApplication, QMenu, QAction, QActionGroup
 
+import app
 import icons
 
 
@@ -32,6 +33,9 @@ class AbstractViewerContextMenu(QObject):
     """Base class for viewers' context menus.
     It provides the template method pattern to generate the menu.
     Subclasses can override individual parts of the menu this way."""
+
+    # Has to be set in subclasses, used to ask for extension menu
+    name = ""
 
     def __init__(self, panel):
         self._panel = panel
@@ -81,6 +85,10 @@ class AbstractViewerContextMenu(QObject):
             self.addEditInPlaceAction(self._cursor, self._position)
         elif self._link:
             self.addLinkAction(self._link)
+
+    def addExtensionMenu(self):
+        """Add a submenu with all actions exposed by extensions"""
+        self._menu.addMenu(app.extensions().menu(self.name))
 
     def addShowActions(self):
         """Adds a submenu giving access to the (other)
@@ -204,6 +212,7 @@ class AbstractViewerContextMenu(QObject):
             self.addZoomActions()
             self.addSynchronizeAction()
             self.addShowToolbarAction()
+            self.addExtensionMenu()
         else:
             for m in methods:
                 m()

@@ -299,6 +299,14 @@ def menu_tools(mainwindow):
     m.addMenu(menu_tools_directories(mainwindow))
     m.addSeparator()
     panelmanager.manager(mainwindow).addActionsToMenu(m)
+    extensions = app.extensions()
+    # store a reference to the Tools menu
+    extensions.set_tools_menu(m)
+    ext_menu = extensions.menu('tools')
+
+    if not ext_menu.isEmpty():
+        m.addSeparator()
+        m.addMenu(ext_menu)
     return m
 
 

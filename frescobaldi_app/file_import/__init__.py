@@ -50,6 +50,7 @@ class FileImport(plugin.MainWindowPlugin):
         self._abc_dlg = None
         self.targets = {
             '.xml': ('.musicxml', self._mxml_dialog),
+            '.musicxml': ('.musicxml', self._mxml_dialog),
             '.mxl': ('.musicxml', self._mxml_dialog),
             '.midi': ('.midi', self._midi_dlg),
             '.mid': ('.midi', self._midi_dlg),
@@ -116,8 +117,8 @@ class FileImport(plugin.MainWindowPlugin):
     def import_any(self):
         """Reads the file type and determines which import to use."""
         filetypes = ';;'.join((
-            '{0} (*.xml *.mxl *.midi *.mid *.abc)'.format(_("All importable formats")),
-            '{0} (*.xml *.mxl)'.format(_("MusicXML Files")),
+            '{0} (*.xml *.musicxml *.mxl *.midi *.mid *.abc)'.format(_("All importable formats")),
+            '{0} (*.xml *.musicxml *.mxl)'.format(_("MusicXML Files")),
             '{0} (*.midi *.mid)'.format(_("Midi Files")),
             '{0} (*.abc)'.format(_("ABC Files")),
             '{0} (*)'.format(_("All Files")),
@@ -127,7 +128,7 @@ class FileImport(plugin.MainWindowPlugin):
 
     def import_musicxml(self):
         """Opens a MusicXML file. Converts it to ly by using musicxml2ly."""
-        filetypes = '{0} (*.xml *.mxl);;{1} (*)'.format(
+        filetypes = '{0} (*.xml *.musicxml *.mxl);;{1} (*)'.format(
             _("MusicXML Files"), _("All Files"))
         caption = _("dialog title", "Import a MusicXML file")
         self.do_import(filetypes, caption)
@@ -166,7 +167,7 @@ class FileImport(plugin.MainWindowPlugin):
     def is_importable(self, filename):
         """Check if the file is importable."""
         ext = os.path.splitext(filename)[1]
-        return ext in ['.xml', '.mxl', '.midi', '.mid', '.abc']
+        return ext in ['.xml', '.musicxml', '.mxl', '.midi', '.mid', '.abc']
 
     def post_import(self, settings, doc):
         """Adaptations of the source after running musicxml2ly

@@ -1,6 +1,6 @@
 === Preferences ===
 
-In the Preferences Dialog (under {menu_edit_preferences}) you can configure 
+In the Preferences Dialog (under {menu_edit_preferences}) you can configure
 many aspects of Frescobaldi and LilyPond.
 
 #VARS
@@ -17,6 +17,7 @@ prefs_shortcuts
 prefs_editor
 prefs_fontscolors
 prefs_tools
+prefs_extensions
 
 #SEEALSO
 experimental_features
