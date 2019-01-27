@@ -817,7 +817,7 @@ class Extensions(QObject):
         s = QSettings()
         s.beginGroup('extension-settings')
         self._active = s.value('active', True, bool)
-        self._inactive_extensions = s.value('installed/inactive', [], list)
+        self._inactive_extensions = s.value('installed/inactive', [], str)
         self._root_directory = s.value('root-directory', '', str)
 
     def mainwindow(self):
