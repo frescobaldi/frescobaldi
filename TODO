@@ -4,8 +4,7 @@
         Contents of this TODO file:
 
         - Frescobaldi paradigm
-        - TODO and wishes for Frescobaldi 2.x
-        - ROADMAP for Frescobaldi 3.0
+        - TODO and “urgent” wishes
         - Other ideas/wishes
 
 
@@ -24,58 +23,33 @@ straightforward application to use.  Which means:
 See also README-development.
 
 
-TODO and wishes for Frescobaldi 2.x
-===================================
+TODO and “urgent” wishes
+========================
 
 - LilyPond context help
 
+- Parsing autocompletion/highlighting data must not block the GUI
+
 - wizard to download and unpack LilyPond documentation and/or LilyPond itself
-
-- Load .ly file specifying other encoding than UTF-8
-  (this can be done from the command line but not via the user interface)
-
-- interface for running lilypond-book
 
 - Midi input and import. Probably using a basic sequencer, allowing changes,
   corrections and quantizing touchups before putting the LilyPond representation
   in the editor.
   * mamoch is working on Midi input like the 1.x rumor did.
 
-- tool to separate out things from music and attach them to invisible rests (s)
-  in a separate expression
-
 - check or even auto-insert bar checks
 
-- editing via Music View:
+- editing via Music View or SVG view:
   * relevant context menu on right-clicking object
   * drag an object to e.g. create an \override #'extra-offset command
+  * drag an object to reattach it to a different anchor
 
 - Table of Contents support in qpopplerview
   stub: qpopplerview/toc.py
 
 
-ROADMAP for Frescobaldi 3.0
-===========================
-
-At a certain point, master will become Frescobaldi 3 and Frescobaldi 2 will
-get it's own branch "v2"
-
-1. Use Python 3 (Frescobaldi 2.0 should also run with Python 3)
-
-2. Require and make use of PyQt5 and Qt5 (recompile/update poppler-qt4)
-
-3. SVG music view and editor
-
-   Make a new music view that displays the SVG output of LilyPond and allows
-   for very fine-grained editing, both via altering the LilyPond source but
-   also editing and saving the SVG file manually to provide a final PDF
-   rendering. Probably using QGraphicsWebView.
-
-
 Other ideas/wishes
 ==================
-
-- support for Git/Hg/Svn diff/revert/commit
 
 - play from cursor: plays music to MIDI output
 
@@ -84,8 +58,6 @@ Other ideas/wishes
     * if matching brace out of view, popup a small display of it (idea:
       Francisco Vila)
     * vi-mode (stub: vimode/)
-
-- define and extend API for script snippets
 
 - make Frescobaldi API (using pydoc) browsable via the helpbrowser.
 
@@ -101,3 +73,11 @@ Other ideas/wishes
     music view.
   * Display a given measure/region in the different manuscripts
   * Provide compiled scores matching the manuscripts' line and page breaks.
+
+- Load .ly file specifying other encoding than UTF-8
+  (this can be done from the command line but not via the user interface)
+
+- interface for running lilypond-book
+
+- tool to separate out things from music and attach them to invisible rests (s)
+  in a separate expression
