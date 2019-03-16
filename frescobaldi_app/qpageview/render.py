@@ -44,6 +44,16 @@ _jobs = {}
 
 
 class Job(QThread):
+    """A simple wrapper around QThread.
+    
+    Job is instantiated with the Page to render and the Renderer to use.
+    As soon as start() is called, a copy is made of the Page object, so that
+    a change of the Page's dimensions during rendering is noticed.
+    
+    You don't need to instantiate Job objects, that is done by the schedule()
+    method of AbstractImageRenderer.
+    
+    """
     image = None
     running = False
     def __init__(self, renderer, page):
@@ -55,12 +65,14 @@ class Job(QThread):
         self.finished.connect(self._slotFinished)
 
     def start(self):
+        """Start rendering in the backrgound."""
         self.page_copy = self.page.copy()
         self.key = self.renderer.key(self.page)
         self.running = True
         super().start()
 
     def run(self):
+        """This is called in the background thread by Qt."""
         self.image = self.renderer.render(self.page_copy)
 
     def _slotFinished(self):
@@ -123,12 +135,21 @@ class AbstractImageRenderer:
             (page.width, page.height))
 
     def render(self, page):
-        """Reimplement this method to generate an image for this Page."""
+        """Reimplement this method to generate a QImage for this Page."""
         return QImage()
 
     def paint(self, page, painter, rect, callback=None):
         """Paint a page.
+        
+        page: the Page to draw
 
+        painter:  the QPainter to use to draw
+        
+        rect: the region to draw
+        
+        callback: if specified, a callable accepting the `page` argument.
+        Typically this should be used to trigger a repaint of the view.
+        
         The Page calls this method by default in the paint() method.
         This method tries to fetch an image from the cache and paint that.
         If no image is available, render() is called in the background to
@@ -156,7 +177,12 @@ class AbstractImageRenderer:
             painter.drawImage(rect, image, rect)
 
     def schedule(self, page, painter, callback):
-        """Start a new rendering job."""
+        """Schedule a new rendering job.
+        
+        If this page has already a job pending, the callback is added to the
+        pending job.
+        
+        """
         try:
             job = _jobs.setdefault(self, {})[page]
         except KeyError:
@@ -167,8 +193,7 @@ class AbstractImageRenderer:
     def unschedule(self, page, callback):
         """Unschedule a possible pending rendering job.
 
-        A rendering job is only removed if the specified callback was the only
-        callback to call.
+        If the pending job has no other callbacks left, it is removed.
 
         """
         try:
@@ -183,7 +208,13 @@ class AbstractImageRenderer:
                     del _jobs[self]
 
     def checkstart(self):
-        """Check whether there are jobs that need to be started."""
+        """Check whether there are jobs that need to be started.
+        
+        This method is called by the schedule() method, and by the finish()
+        method, when a job finishes, so that the maximum number of jobs never
+        exceeds `maxjobs`.
+        
+        """
         try:
             ourjobs = _jobs[self].values()
         except KeyError:
@@ -202,7 +233,12 @@ class AbstractImageRenderer:
                 job.start()
 
     def finish(self, job):
-        """Called by the job when finished."""
+        """Called by the job when finished.
+        
+        Puts the image in the cache and checks whether a new job needs to be
+        started.
+        
+        """
         self.cache[job.key] = job.image
         # if page already was resized during rendering, immediately rerender...
         if job.page.size() != job.page_copy.size():
