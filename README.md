@@ -55,6 +55,8 @@ Here is an idea of the basic Frescobaldi workflow:
   and click turned off (this results in a much smaller PDF file).
 
 Frescobaldi is written in Python and uses PyQt for its user interface.
-See the INSTALL file for other requirements and installation instructions.
 
-
+Installation instructions for the program and MIDI support as well as other
+information can be found in the [Wiki](https://github.com/frescobaldi/frescobaldi).
+Other requirements and installation instructions may also be found in the
+[INSTALL](INSTALL) file.
