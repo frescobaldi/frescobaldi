@@ -61,6 +61,7 @@ class Browser(QWidget):
         ac.help_back.triggered.connect(self.webview.back)
         ac.help_forward.triggered.connect(self.webview.forward)
         ac.help_home.triggered.connect(self.showHomePage)
+        ac.help_web_browser.triggered.connect(self.openWebBrowser)
         ac.help_print.triggered.connect(self.slotPrint)
 
         self.webview.urlChanged.connect(self.slotUrlChanged)
@@ -70,6 +71,7 @@ class Browser(QWidget):
         tb.addAction(ac.help_forward)
         tb.addSeparator()
         tb.addAction(ac.help_home)
+        tb.addAction(ac.help_web_browser)
         tb.addAction(ac.help_print)
         tb.addSeparator()
         tb.addWidget(self.chooser)
@@ -201,8 +203,8 @@ class Browser(QWidget):
             self._sourceviewer = sourceviewer.SourceViewer(self)
             return self._sourceviewer
 
-    def showHomePage(self):
-        """Shows the homepage of the LilyPond documentation."""
+    def getHomePageUrl(self):
+        """Returns the URL of the LilyPond documentation."""
         i = self.chooser.currentIndex()
         if i < 0:
             i = 0
@@ -218,7 +220,13 @@ class Browser(QWidget):
                         path += '.' + lang
                         break
             url = QUrl.fromLocalFile(path + '.html')
-        self.webview.load(url)
+        return url
+
+    def showHomePage(self):
+        self.webview.load(self.getHomePageUrl())
+
+    def openWebBrowser(self):
+        helpers.openUrl(self.getHomePageUrl())
 
     def slotPrint(self):
         printer = self._printer = QPrinter()
