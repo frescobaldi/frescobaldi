@@ -29,6 +29,7 @@ from PyQt5.QtWidgets import QMenu
 
 import app
 import icons
+import documentmenu
 
 
 class DocumentContextMenu(QMenu):
@@ -41,6 +42,8 @@ class DocumentContextMenu(QMenu):
         self.aboutToShow.connect(self.updateActions)
 
     def createActions(self):
+        self.addMenu(self.menu_document())
+        self.addSeparator()
         self.doc_save = self.addAction(icons.get('document-save'), '')
         self.doc_save_as = self.addAction(icons.get('document-save-as'), '')
         self.addSeparator()
@@ -77,6 +80,9 @@ class DocumentContextMenu(QMenu):
     def exec_(self, document, pos):
         self._doc = weakref.ref(document)
         super(DocumentContextMenu, self).exec_(pos)
+
+    def menu_document(self):
+        return documentmenu.DocumentMenu(self.mainwindow())
 
     def docSave(self):
         doc = self._doc()
