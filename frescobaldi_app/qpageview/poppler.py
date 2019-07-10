@@ -77,29 +77,28 @@ class Renderer(render.AbstractImageRenderer):
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     oversampleThreshold = 96
 
-    def key(self, page):
-        """Reimplemented to keep a reference to the poppler document."""
-        key = super().key(page)
-        return render.cache_key(
-            page.document,
-            (page.pageNumber, page.computedRotation),
-            key.size)
-
-    def render(self, page):
-        """Generate an image for this Page."""
+    def group(self, page):
+        return page.document
+        
+    def ident(self, page):
+        return page.pageNumber
+    
+    def render(self, key):
+        """Generate an image for the Page referred to by key."""
+        page = key.page
         doc = page.document
         num = page.pageNumber
         s = page.pageSize()
-        if page.computedRotation & 1:
+        if key.rotation & 1:
             s.transpose()
 
-        xres = 72.0 * page.width / s.width()
-        yres = 72.0 * page.height / s.height()
+        xres = 72.0 * key.width / s.width()
+        yres = 72.0 * key.height / s.height()
         multiplier = 2 if xres < self.oversampleThreshold else 1
         image = self.render_poppler_image(doc, num,
             xres * multiplier, yres * multiplier,
-            0, 0, page.width * multiplier, page.height * multiplier,
-            page.computedRotation, page.paperColor or self.paperColor)
+            0, 0, key.width * multiplier, key.height * multiplier,
+            key.rotation, page.paperColor or self.paperColor)
         if multiplier == 2:
             image = image.scaledToWidth(page.width, Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)

@@ -21,8 +21,13 @@
 Cache logic.
 """
 
+import collections
 import weakref
 import time
+
+
+cache_key = collections.namedtuple('cache_key',
+    'page group ident width height rotation')
 
 
 class ImageEntry:
@@ -49,14 +54,14 @@ class ImageCache:
     def clear(self):
         """Remove all cached images."""
         self._cache.clear()
-
+    
     def __getitem__(self, key):
         """Retrieve the exact image.
 
         Raises a KeyError when there is no cached image for the key.
 
         """
-        return self._cache[key.group][key.page][key.size].image
+        return self._cache[key.group][key.ident][key[3:]].image
 
     def __setitem__(self, key, image):
         """Store the image.
@@ -66,7 +71,7 @@ class ImageCache:
 
         """
         try:
-            self.currentsize -= self._cache[key.group][key.page][key.size].bcount
+            self.currentsize -= self._cache[key.group][key.ident][key[3:]].bcount
         except KeyError:
             pass
 
@@ -75,7 +80,7 @@ class ImageCache:
         e = ImageEntry(image)
         self.currentsize += e.bcount
 
-        self._cache.setdefault(key.group, {}).setdefault(key.page, {})[key.size] = e
+        self._cache.setdefault(key.group, {}).setdefault(key.ident, {})[key[3:]] = e
 
         if not purgeneeded:
             return
@@ -84,30 +89,30 @@ class ImageCache:
         # cache groups may have disappeared so count all images
         items = []
         items.extend(sorted(
-            (entry.time, entry.bcount, group, page, size)
+            (entry.time, entry.bcount, group, ident, size)
             for group, groupd in self._cache.items()
-                for page, paged in groupd.items()
+                for ident, paged in groupd.items()
                     for size, entry in sorted(paged.items())[1:]))
         # smallest for each page last
         items.extend(sorted(
-            (entry.time, entry.bcount, group, page, size)
+            (entry.time, entry.bcount, group, ident, size)
             for group, groupd in self._cache.items()
-                for page, paged in groupd.items()
+                for ident, paged in groupd.items()
                     for size, entry in sorted(paged.items())[:1]))
 
         # now count the newest images until maxsize ...
         items = reversed(items)
         currentsize = 0
-        for time, bcount, group, page, size in items:
+        for time, bcount, group, ident, size in items:
             currentsize += bcount
             if currentsize > self.maxsize:
                 break
         self.currentsize = currentsize
         # ... and delete the remaining images, deleting empty dicts as well
-        for time, bcount, group, page, size in items:
-            del self._cache[group][page][size]
-            if not self._cache[group][page]:
-                del self._cache[group][page]
+        for time, bcount, group, ident, size in items:
+            del self._cache[group][ident][size]
+            if not self._cache[group][ident]:
+                del self._cache[group][ident]
                 if not self._cache[group]:
                     del self._cache[group]
 
@@ -119,12 +124,12 @@ class ImageCache:
 
         """
         try:
-            entries = self._cache[key.group][key.page]
+            entries = self._cache[key.group][key.ident]
         except KeyError:
             return
         # find the closest size (assuming aspect ratio has not changed)
         if entries:
-            width = key.size[0]
+            width = key[3]
             sizes = sorted(entries, key=lambda s: abs(1 - s[0] / width))
             return entries[sizes[0]].image
 

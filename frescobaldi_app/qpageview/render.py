@@ -21,18 +21,14 @@
 Infrastructure for rendering and caching Page images.
 """
 
-import collections
 import itertools
 import weakref
 import time
 
-from PyQt5.QtCore import QRectF, Qt, QThread
+from PyQt5.QtCore import QRect, QRectF, Qt, QThread
 from PyQt5.QtGui import QColor, QImage
 
 from . import cache
-
-
-cache_key = collections.namedtuple('cache_key', 'group page size')
 
 
 # the maximum number of concurrent jobs (at global level)
@@ -56,26 +52,26 @@ class Job(QThread):
     """
     image = None
     running = False
-    def __init__(self, renderer, page):
+    def __init__(self, renderer, key):
         super().__init__()
         self.renderer = renderer
-        self.page = page
+        self.key = key
+        self.running = False
         self.time = time.time()
         self.callbacks = set()
         self.finished.connect(self._slotFinished)
 
     def start(self):
-        """Start rendering in the backrgound."""
-        self.page_copy = self.page.copy()
-        self.key = self.renderer.key(self.page)
+        """Start rendering in the background."""
         self.running = True
         super().start()
 
     def run(self):
         """This is called in the background thread by Qt."""
-        self.image = self.renderer.render(self.page_copy)
+        self.image = self.renderer.render(self.key)
 
     def _slotFinished(self):
+        self.running = False
         self.renderer.finish(self)
 
 
@@ -109,35 +105,46 @@ class AbstractImageRenderer:
 
     def __init__(self):
         self.cache = cache.ImageCache()
-
-    def key(self, page):
-        """Return a cache_key instance for this Page.
-
-        The cache_key is a four-tuple:
-
-            group       = an object a weak reference is taken to. It could be
-                          a document or some other structure the page belongs to.
-                          By default the Page object itself is used.
-
-            page        = the rotation by default, but if you use group differently,
-                          you should use here a hashable object that identifies
-                          the page in the group.
-
-            size        = must be the (width, height) tuple of the page.
-
-        The cache_key is used to store and find back requests and to cache
-        results.
-
+    
+    def group(self, page):
+        """Return the group the page belongs to.
+        
+        This could be some document structure, so that different Page objects
+        could refer to the same graphical contents, preventing double caching.
+        
+        By default, the page object itself is returned.
         """
-        return cache_key(
+        return page
+        
+    def ident(self, page):
+        """Return a value that identifies the page within the group returned
+        by group().
+        
+        By default, None is returned.
+        """
+        return None
+    
+    def key(self, page, pixelratio):
+        """Return a key under which the image for this page at the specified
+        pixel ratio can be cached.
+        
+        The key is a named tuple: page, group, ident, width, height, rotation
+        
+        """
+        return cache.cache_key(
             page,
+            self.group(page),
+            self.ident(page),
+            page.width * pixelratio,
+            page.height * pixelratio,
             page.computedRotation,
-            (page.width, page.height))
-
-    def render(self, page):
+        )
+        
+        
+    def render(self, key):
         """Reimplement this method to generate a QImage for this Page."""
         return QImage()
-
+    
     def paint(self, page, painter, rect, callback=None):
         """Paint a page.
         
@@ -161,28 +168,29 @@ class AbstractImageRenderer:
         ### TODO:
         ### * if a page is enlarged very much, use tiles to render and cache
         ###   the images
-        ### * also take into account the devicePixelRatio() of the painter's
-        ###   QPaintDevice
         
-        key = self.key(page)
+        ratio = painter.device().devicePixelRatioF()
+        key = self.key(page, ratio)
         try:
             image = self.cache[key]
         except KeyError:
             image = self.cache.closest(key)
             if image:
-                hscale = image.width() / page.width
-                vscale = image.height() / page.height
+                hscale = image.width() / key.width
+                vscale = image.height() / key.height
                 image_rect = QRectF(rect.x() * hscale, rect.y() * vscale,
                                     rect.width() * hscale, rect.height() * vscale)
                 painter.drawImage(QRectF(rect), image, image_rect)
             else:
                 color = page.paperColor or self.paperColor or QColor(Qt.white)
                 painter.fillRect(rect, color)
-            self.schedule(page, painter, callback)
+            self.schedule(key, callback)
         else:
-            painter.drawImage(rect, image, rect)
+            image_rect = QRect(rect.x() * ratio, rect.y() * ratio,
+                               rect.width() * ratio, rect.height() * ratio)
+            painter.drawImage(rect, image, image_rect)
 
-    def schedule(self, page, painter, callback):
+    def schedule(self, key, callback):
         """Schedule a new rendering job.
         
         If this page has already a job pending, the callback is added to the
@@ -190,9 +198,9 @@ class AbstractImageRenderer:
         
         """
         try:
-            job = _jobs.setdefault(self, {})[page]
+            job = _jobs.setdefault(self, {})[key.page]
         except KeyError:
-            job = _jobs[self][page] = Job(self, page)
+            job = _jobs[self][key.page] = Job(self, key)
         job.callbacks.add(callback)
         self.checkstart()
 
@@ -233,8 +241,8 @@ class AbstractImageRenderer:
         jobcount = len(runningjobs)
 
         for job in waitingjobs[:maxjobs-jobcount]:
-            mutex = job.page.mutex()
-            if mutex is None or not any(mutex is j.page.mutex() for j in runningjobs):
+            mutex = job.key.page.mutex()
+            if mutex is None or not any(mutex is j.key.page.mutex() for j in runningjobs):
                 runningjobs.append(job)
                 job.start()
 
@@ -246,15 +254,11 @@ class AbstractImageRenderer:
         
         """
         self.cache[job.key] = job.image
-        # if page already was resized during rendering, immediately rerender...
-        if job.page.size() != job.page_copy.size():
-            job.start()
+        for cb in job.callbacks:
+            cb(job.key.page)
+        del _jobs[self][job.key.page]
+        if not _jobs[self]:
+            del _jobs[self]
         else:
-            for cb in job.callbacks:
-                cb(job.page)
-            del _jobs[self][job.page]
-            if not _jobs[self]:
-                del _jobs[self]
-            else:
-                self.checkstart()
+            self.checkstart()
 
