@@ -158,6 +158,12 @@ class AbstractImageRenderer:
         scaled from another size).
 
         """
+        ### TODO:
+        ### * if a page is enlarged very much, use tiles to render and cache
+        ###   the images
+        ### * also take into account the devicePixelRatio() of the painter's
+        ###   QPaintDevice
+        
         key = self.key(page)
         try:
             image = self.cache[key]

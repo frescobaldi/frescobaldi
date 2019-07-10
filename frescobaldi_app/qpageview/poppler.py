@@ -89,7 +89,6 @@ class Renderer(render.AbstractImageRenderer):
         """Generate an image for this Page."""
         doc = page.document
         num = page.pageNumber
-        p = doc.page(num)
         s = page.pageSize()
         if page.computedRotation & 1:
             s.transpose()
@@ -126,8 +125,6 @@ class Renderer(render.AbstractImageRenderer):
             if self.renderBackend is not None:
                 doc.setRenderBackend(self.renderBackend)
             image = doc.page(pageNum).renderToImage(xres, yres, x, y, w, h, rotate)
-        image.setDotsPerMeterX(xres * 39.37)
-        image.setDotsPerMeterY(yres * 39.37)
         return image
 
 
