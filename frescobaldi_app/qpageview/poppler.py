@@ -67,6 +67,14 @@ class PopplerPage(page.AbstractPage):
     def mutex(self):
         """No two pages of same Poppler document are rendered at the same time."""
         return self.document
+    
+    def group(self):
+        """Reimplemented to return the Poppler document our page displays a page from."""
+        return self.document
+    
+    def ident(self):
+        """Reimplemented to return the page number of this page."""
+        return self.pageNumber
 
 
 class Renderer(render.AbstractImageRenderer):

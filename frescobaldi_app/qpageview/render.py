@@ -106,24 +106,6 @@ class AbstractImageRenderer:
     def __init__(self):
         self.cache = cache.ImageCache()
     
-    def group(self, page):
-        """Return the group the page belongs to.
-        
-        This could be some document structure, so that different Page objects
-        could refer to the same graphical contents, preventing double caching.
-        
-        By default, the page object itself is returned.
-        """
-        return page
-        
-    def ident(self, page):
-        """Return a value that identifies the page within the group returned
-        by group().
-        
-        By default, None is returned.
-        """
-        return None
-    
     def key(self, page, pixelratio):
         """Return a key under which the image for this page at the specified
         pixel ratio can be cached.
@@ -133,13 +115,12 @@ class AbstractImageRenderer:
         """
         return cache.cache_key(
             page,
-            self.group(page),
-            self.ident(page),
+            page.group(),
+            page.ident(),
             page.width * pixelratio,
             page.height * pixelratio,
             page.computedRotation,
         )
-        
         
     def render(self, key):
         """Reimplement this method to generate a QImage for this Page."""

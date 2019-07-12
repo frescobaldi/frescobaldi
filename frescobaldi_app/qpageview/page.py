@@ -212,3 +212,31 @@ class AbstractPage:
 
         """
 
+    def group(self):
+        """Return the group the page belongs to.
+        
+        This could be some document structure, so that different Page objects
+        could refer to the same graphical contents, preventing double caching.
+        
+        This object is used together with the value returned by ident() as a key
+        to cache the page. The idea is that the contents of the page are
+        uniquely identified by the objects returned by group() and ident().
+        
+        This way, when the same document is opened in multiple page instances,
+        only one copy resides in the (global) cache.
+        
+        By default, the page object itself is returned.
+        
+        """
+        return self
+        
+    def ident(self):
+        """Return a value that identifies the page within the group returned
+        by group().
+        
+        By default, None is returned.
+        
+        """
+        return None
+    
+
