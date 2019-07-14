@@ -40,7 +40,7 @@ class ImageCache:
     The ImageCache object can be used as a dict().
 
     """
-    maxsize = 104857600 # 100M
+    maxsize = 209715200 # 200M
     currentsize = 0
 
     def __init__(self):
