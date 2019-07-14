@@ -47,9 +47,8 @@ _jobs = collections.defaultdict(dict)
 class Job(QThread):
     """A simple wrapper around QThread.
     
-    Job is instantiated with the Page to render and the Renderer to use.
-    As soon as start() is called, a copy is made of the Page object, so that
-    a change of the Page's dimensions during rendering is noticed.
+    Job is instantiated with the Page to render, the Renderer to use, the
+    key that describes rotation, width and height, and the tile to render.
     
     You don't need to instantiate Job objects, that is done by the schedule()
     method of AbstractImageRenderer.
