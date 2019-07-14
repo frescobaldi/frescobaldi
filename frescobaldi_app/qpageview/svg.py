@@ -50,6 +50,7 @@ class BasicSvgPage(page.AbstractPage):
         if success:
             self.pageWidth = self._svg_r.defaultSize().width()
             self.pageHeight = self._svg_r.defaultSize().height()
+            self._viewBox = self._svg_r.viewBoxF()
         return success
 
     def paint(self, painter, rect, callback=None):
@@ -61,6 +62,9 @@ class BasicSvgPage(page.AbstractPage):
             page.setSize(page.size().transposed())
         painter.translate(-page.center())
         self._svg_r.render(painter, QRectF(page))
+    
+    def mutex(self):
+        return self._svg_r
 
 
 class SvgPage(BasicSvgPage):
@@ -85,18 +89,33 @@ class Renderer(render.AbstractImageRenderer):
     # QImage format to use
     imageFormat = QImage.Format_ARGB32_Premultiplied
 
-    def render(self, page):
-        """Generate an image for this Page."""
-        i = QImage(page.width, page.height, self.imageFormat)
+    def render(self, page, key, tile):
+        """Generate an image for the tile of this Page."""
+        i = QImage(tile.w, tile.h, self.imageFormat)
         i.fill(page.paperColor or self.paperColor or QColor(Qt.white))
         painter = QPainter(i)
-        rect = QRect(0, 0, page.width, page.height)
-        painter.translate(rect.center())
-        painter.rotate(page.computedRotation * 90)
-        if page.computedRotation & 1:
-            rect.setSize(rect.size().transposed())
-        painter.translate(-rect.center())
-        page._svg_r.render(painter, QRectF(rect))
+        
+        # rotate the painter accordingly
+        #rect = QRect(0, 0, tile.w, tile.h)
+        #painter.translate(rect.center())
+        #painter.rotate(key.rotation * 90)
+        #if key.rotation & 1:
+        #    rect.setSize(rect.size().transposed())
+        #painter.translate(-rect.center())
+        
+        # now determine the part to draw
+        
+        # convert tile to viewbox
+        b = page._viewBox
+        hscale = key.width / b.width()
+        vscale = key.height / b.height()
+        page._svg_r.setViewBox(QRectF(
+            tile.x / hscale + b.x(),
+            tile.y / vscale + b.y(),
+            tile.w / hscale,
+            tile.h / vscale))
+        
+        page._svg_r.render(painter)
         return i
 
 
