@@ -62,9 +62,14 @@ class Job(QThread):
         self.tile = tile
         
         self.image = None
+        self.running = False
         self.callbacks = set()
         self.finished.connect(self._slotFinished)
 
+    def start(self):
+        self.running = True
+        super().start()
+    
     def run(self):
         """This is called in the background thread by Qt."""
         self.image = self.renderer.render(self.page, self.key, self.tile)
@@ -273,7 +278,7 @@ class AbstractImageRenderer:
                         for tile, job in tiled.items()]
                 for key, tile, job in jobs:
                     job.callbacks.discard(callback)
-                    if not job.callbacks and not job.isRunning():
+                    if not job.callbacks and not job.running:
                         del d[key][tile]
                         if not d[key]:
                             del d[key]
@@ -294,12 +299,12 @@ class AbstractImageRenderer:
             for page, keys in _jobs[self].items()
                 for key, tiled in keys.items()
                     for tile, job in tiled.items()
-                        if job.isRunning()]
+                        if job.running]
         waitingjobs = sorted((job
             for page, keys in _jobs[self].items()
                 for key, tiled in keys.items()
                     for tile, job in tiled.items()
-                        if not job.isRunning()),
+                        if not job.running),
                             key=lambda j: j.time, reverse=True)
         jobcount = len(runningjobs)
         for job in waitingjobs[:maxjobs-jobcount]:
