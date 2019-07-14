@@ -128,7 +128,10 @@ class ImageCache:
         except KeyError:
             return ()
         
-        suitable = [(k[1], k[2], tileset) for k, tileset in keyd.items()]
+        suitable = [
+            (k[1], k[2], tileset)
+            for k, tileset in keyd.items()
+                if k[0] == key.rotation]
         return sorted(suitable, key=lambda s: abs(1 - s[0] / key.width))
 
 
