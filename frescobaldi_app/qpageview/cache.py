@@ -21,13 +21,8 @@
 Cache logic.
 """
 
-import collections
 import weakref
 import time
-
-
-cache_key = collections.namedtuple('cache_key',
-    'page group ident width height rotation')
 
 
 class ImageEntry:
@@ -55,81 +50,85 @@ class ImageCache:
         """Remove all cached images."""
         self._cache.clear()
     
-    def __getitem__(self, key):
-        """Retrieve the exact image.
-
-        Raises a KeyError when there is no cached image for the key.
-
-        """
-        return self._cache[key.group][key.ident][key[3:]].image
-
-    def __setitem__(self, key, image):
-        """Store the image.
-
-        Automatically removes the oldest cached images to keep the cache
-        under maxsize.
-
+    def tileset(self, key):
+        """Return a dictionary with tile-entry pairs for the key.
+        
+        If no single tile is available, an empty dict is returned.
+        
         """
         try:
-            self.currentsize -= self._cache[key.group][key.ident][key[3:]].bcount
+            return self._cache[key.group][key.ident][key[2:]]
+        except KeyError:
+            return {}
+    
+    def addtile(self, key, tile, image):
+        """Add image for the specified key and tile."""
+        d = self._cache.setdefault(key.group, {}).setdefault(key.ident, {}).setdefault(key[2:], {})
+        try:
+            self.currentsize -= d[tile].bcount
         except KeyError:
             pass
-
+        
         purgeneeded = self.currentsize > self.maxsize
 
-        e = ImageEntry(image)
+        e = d[tile] = ImageEntry(image)
         self.currentsize += e.bcount
-
-        self._cache.setdefault(key.group, {}).setdefault(key.ident, {})[key[3:]] = e
-
+    
         if not purgeneeded:
             return
 
         # purge old images if needed,
         # cache groups may have disappeared so count all images
+        
         items = []
         items.extend(sorted(
-            (entry.time, entry.bcount, group, ident, size)
-            for group, groupd in self._cache.items()
-                for ident, paged in groupd.items()
-                    for size, entry in sorted(paged.items())[1:]))
+            (entry.time, entry.bcount, group, ident, key, tile)
+            for group, identd in self._cache.items()
+                for ident, keyd in identd.items()
+                    for key, tiled in sorted(keyd.items(), key=lambda i: i[0][1])[1:]
+                        for tile, entry in tiled.items()))
         # smallest for each page last
         items.extend(sorted(
-            (entry.time, entry.bcount, group, ident, size)
-            for group, groupd in self._cache.items()
-                for ident, paged in groupd.items()
-                    for size, entry in sorted(paged.items())[:1]))
-
+            (entry.time, entry.bcount, group, ident, key, tile)
+            for group, identd in self._cache.items()
+                for ident, keyd in identd.items()
+                    for key, tiled in sorted(keyd.items(), key=lambda i: i[0][1])[:1]
+                        for tile, entry in tiled.items()))
+        
         # now count the newest images until maxsize ...
         items = reversed(items)
         currentsize = 0
-        for time, bcount, group, ident, size in items:
+        for time, bcount, group, ident, key, tile in items:
             currentsize += bcount
             if currentsize > self.maxsize:
                 break
         self.currentsize = currentsize
         # ... and delete the remaining images, deleting empty dicts as well
-        for time, bcount, group, ident, size in items:
-            del self._cache[group][ident][size]
-            if not self._cache[group][ident]:
-                del self._cache[group][ident]
-                if not self._cache[group]:
-                    del self._cache[group]
+        for time, bcount, group, ident, key, tile in items:
+            del self._cache[group][ident][key][tile]
+            if not self._cache[group][ident][key]:
+                del self._cache[group][ident][key]
+                if not self._cache[group][ident]:
+                    del self._cache[group][ident]
+                    if not self._cache[group]:
+                        del self._cache[group]
 
     def closest(self, key):
-        """Retrieve the correct image but with a different size.
-
+        """Iterate over suitable image tilesets but with a different size.
+        
+        Yields (width, height, tileset) tuples.
+        
         This can be used for interim display while the real image is being
         rendered.
 
         """
+        # group and ident must be there.
         try:
-            entries = self._cache[key.group][key.ident]
+            keyd = self._cache[key.group][key.ident]
         except KeyError:
-            return
-        # find the closest size (assuming aspect ratio has not changed)
-        if entries:
-            width = key[3]
-            sizes = sorted(entries, key=lambda s: abs(1 - s[0] / width))
-            return entries[sizes[0]].image
+            return ()
+        
+        suitable = [(k[1], k[2], tileset) for k, tileset in keyd.items()]
+        return sorted(suitable, key=lambda s: abs(1 - s[0] / key.width))
+
 

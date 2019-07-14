@@ -21,6 +21,7 @@
 The View, deriving from QAbstractScrollArea.
 """
 
+import collections
 import contextlib
 
 from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt
@@ -50,7 +51,7 @@ from .constants import (
 class View(scrollarea.ScrollArea):
 
     MIN_ZOOM = 0.05
-    MAX_ZOOM = 8.0
+    MAX_ZOOM = 16.0
 
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
@@ -76,6 +77,7 @@ class View(scrollarea.ScrollArea):
         from . import poppler
         doc = popplerqt5.Poppler.Document.load(filename)
         renderer = poppler.Renderer()
+        self._unschedulePages(self._pageLayout)
         self.pageLayout()[:] = poppler.PopplerPage.createPages(doc, renderer)
         self.updatePageLayout()
 
@@ -85,6 +87,7 @@ class View(scrollarea.ScrollArea):
         Each SVG file is loaded in one Page.
 
         """
+        self._unschedulePages(self._pageLayout)
         from . import svg
         renderer = svg.Renderer()
         self.pageLayout()[:] = (svg.SvgPage(f, renderer) for f in filenames)
@@ -92,6 +95,7 @@ class View(scrollarea.ScrollArea):
 
     def setPageLayout(self, layout):
         """Set our current PageLayout instance."""
+        self._unschedulePages(self._pageLayout)
         self._pageLayout = layout
 
     def pageLayout(self):
@@ -106,6 +110,7 @@ class View(scrollarea.ScrollArea):
 
     def clear(self):
         """Convenience method to clear the current layout."""
+        self._unschedulePages(self._pageLayout)
         self._pageLayout.clear()
         self.updatePageLayout()
 
@@ -258,6 +263,7 @@ class View(scrollarea.ScrollArea):
         self.updatePageLayout()
         if zoom_factor != self.zoomFactor():
             self.zoomFactorChanged.emit(self.zoomFactor())
+            self._unschedulePages(layout)
 
     @contextlib.contextmanager
     def _keepCentered(self, pos=None, on_page=False):
@@ -309,6 +315,7 @@ class View(scrollarea.ScrollArea):
                 self._pageLayout.zoomFactor = factor
             self.setViewMode(FixedScale)
             self.zoomFactorChanged.emit(factor)
+            self._unschedulePages(self._pageLayout)
 
     def zoomFactor(self):
         """Return the page layout's zoom factor."""
@@ -393,6 +400,22 @@ class View(scrollarea.ScrollArea):
         rect = page.rect().translated(self.layoutPosition())
         self.viewport().update(rect)
 
+    def _unschedulePages(self, pages):
+        """(Internal.)
+        Unschedule rendering of pages that are pending but not needed anymore.
+        
+        Called inside paintEvent, on zoomFactor change and some other places.
+        This prevents rendering jobs hogging the cpu for pages that are deleted
+        or out of view.
+        
+        """
+        unschedule = collections.defaultdict(set)
+        for page in pages:
+            if page.renderer:
+                unschedule[page.renderer].add(page)
+        for renderer, pages in unschedule.items():
+            renderer.unschedule(pages, self.repaintPage)
+        
     def paintEvent(self, ev):
         layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
@@ -415,9 +438,10 @@ class View(scrollarea.ScrollArea):
         # visible now
         margin = 50
         rect = ev_rect.adjusted(-margin, -margin, margin, margin)
-        for page in self._prev_pages_to_paint - pages_to_paint:
-            if page.renderer and not rect.intersects(page.rect()):
-                page.renderer.unschedule(page, self.repaintPage)
+        pages = set(page
+            for page in self._prev_pages_to_paint - pages_to_paint
+                if not rect.intersects(page.rect()))
+        self._unschedulePages(pages)
         self._prev_pages_to_paint = pages_to_paint
 
     def wheelEvent(self, ev):

@@ -21,6 +21,7 @@
 A Page is responsible for drawing a page inside a PageLayout.
 
 """
+
 import copy
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
@@ -32,6 +33,8 @@ from .constants import (
     Rotate_180,
     Rotate_270,
 )
+
+
 
 
 class AbstractPage:
@@ -239,4 +242,3 @@ class AbstractPage:
         """
         return None
     
-
