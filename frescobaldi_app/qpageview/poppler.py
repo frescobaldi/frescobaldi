@@ -101,7 +101,7 @@ class Renderer(render.AbstractImageRenderer):
             tile.x * multiplier, tile.y * multiplier, tile.w * multiplier, tile.h * multiplier,
             key.rotation, page.paperColor or self.paperColor)
         if multiplier == 2:
-            image = image.scaledToWidth(key.width, Qt.SmoothTransformation)
+            image = image.scaledToWidth(tile.w, Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)
         image.setDotsPerMeterY(yres * 39.37)
         return image
