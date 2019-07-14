@@ -103,7 +103,8 @@ class AbstractImageRenderer:
 
     """
     
-    MAX_TILE_SIZE = 5000
+    MAX_TILE_WIDTH = 3200
+    MAX_TILE_HEIGHT = 2400
     
     # default paper color to use (if possible, and when drawing an empty page)
     paperColor = QColor(Qt.white)
@@ -140,8 +141,8 @@ class AbstractImageRenderer:
 
     def tiles(self, width, height):
         """Yield four-tuples (x, y, w, h) describing the tiles to render."""
-        rowcount = height // self.MAX_TILE_SIZE
-        colcount = width  // self.MAX_TILE_SIZE
+        rowcount = height // self.MAX_TILE_HEIGHT
+        colcount = width  // self.MAX_TILE_WIDTH
         tilewidth, extrawidth = divmod(width, colcount + 1)
         tileheight, extraheight = divmod(height, rowcount + 1)
         rows = [tileheight] * rowcount + [tileheight + extraheight]
