@@ -96,25 +96,44 @@ class Renderer(render.AbstractImageRenderer):
         painter = QPainter(i)
         
         # rotate the painter accordingly
-        #rect = QRect(0, 0, tile.w, tile.h)
-        #painter.translate(rect.center())
-        #painter.rotate(key.rotation * 90)
-        #if key.rotation & 1:
-        #    rect.setSize(rect.size().transposed())
-        #painter.translate(-rect.center())
+        rect = QRect(0, 0, tile.w, tile.h)
+        painter.translate(rect.center())
+        painter.rotate(key.rotation * 90)
+        if key.rotation & 1:
+            rect.setSize(rect.size().transposed())
+        painter.translate(-rect.center())
         
         # now determine the part to draw
         
         # convert tile to viewbox
         b = page._viewBox
-        hscale = key.width / b.width()
-        vscale = key.height / b.height()
-        page._svg_r.setViewBox(QRectF(
-            tile.x / hscale + b.x(),
-            tile.y / vscale + b.y(),
-            tile.w / hscale,
-            tile.h / vscale))
         
+        if key.rotation == 0:
+            hscale = key.width / b.width()
+            vscale = key.height / b.height()
+            x = tile.x / hscale + b.x()
+            y = tile.y / vscale + b.y()
+        elif key.rotation == 1:
+            hscale = key.height / b.width()
+            vscale = key.width / b.height()
+            x = tile.y / hscale - b.y()
+            y = (key.width - tile.w - tile.x) / vscale + b.x()
+        elif key.rotation == 2:
+            hscale = key.width / b.width()
+            vscale = key.height / b.height()
+            x = (key.width - tile.w - tile.x) / hscale + b.x()
+            y = (key.height - tile.h - tile.y) / vscale + b.y()
+        else: # key.rotation == 3:
+            hscale = key.height / b.width()
+            vscale = key.width / b.height()
+            x = (key.height - tile.h - tile.y) / vscale - b.y()
+            y = tile.x / hscale - b.x()
+        # why does this work? I'd assume w and h need to be swapped 
+        # for rotation 1 and 3, but that yields strange misdrawings...
+        w = tile.w / hscale
+        h = tile.h / vscale
+            
+        page._svg_r.setViewBox(QRectF(x, y, w, h))
         page._svg_r.render(painter)
         return i
 
