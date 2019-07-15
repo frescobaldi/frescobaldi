@@ -100,7 +100,7 @@ class Magnifier(QWidget):
         self._scale = 3.0
         self.setAutoFillBackground(True)
         self.setBackgroundRole(QPalette.Dark)
-        self.resize(250, 250)
+        self.resize(350, 350)
         self.hide()
 
     def moveCenter(self, pos):
