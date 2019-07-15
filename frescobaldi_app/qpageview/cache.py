@@ -131,7 +131,7 @@ class ImageCache:
         suitable = [
             (k[1], k[2], tileset)
             for k, tileset in keyd.items()
-                if k[0] == key.rotation]
+                if k[0] == key.rotation and k[1] != key.width]
         return sorted(suitable, key=lambda s: abs(1 - s[0] / key.width))
 
 
