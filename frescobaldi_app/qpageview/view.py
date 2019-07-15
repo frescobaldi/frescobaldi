@@ -423,7 +423,6 @@ class View(scrollarea.ScrollArea):
         # pages to paint
         ev_rect = ev.rect().translated(-layout_pos)
         pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
-
         # paint the pages
         for p in pages_to_paint:
             rect = (p.rect() & ev_rect).translated(-p.pos())
@@ -436,8 +435,7 @@ class View(scrollarea.ScrollArea):
 
         # remove pending render jobs for pages that were visible, but are not
         # visible now
-        margin = 50
-        rect = ev_rect.adjusted(-margin, -margin, margin, margin)
+        rect = self.viewport().rect()
         pages = set(page
             for page in self._prev_pages_to_paint - pages_to_paint
                 if not rect.intersects(page.rect()))
