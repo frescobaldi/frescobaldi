@@ -250,6 +250,7 @@ class Magnifier(QWidget):
                 page = self._pages[p]
             except KeyError:
                 page = self._pages[p] = p.copy()
+            page.computedRotation = p.computedRotation
             page.x = p.x * scale
             page.y = p.y * scale
             page.width = p.width * scale
