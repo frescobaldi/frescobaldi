@@ -435,7 +435,7 @@ class View(scrollarea.ScrollArea):
 
         # remove pending render jobs for pages that were visible, but are not
         # visible now
-        rect = self.viewport().rect()
+        rect = self.viewport().rect().translated(-layout_pos)
         pages = set(page
             for page in self._prev_pages_to_paint - pages_to_paint
                 if not rect.intersects(page.rect()))
