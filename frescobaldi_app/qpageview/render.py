@@ -187,10 +187,13 @@ class AbstractImageRenderer:
         ratio = painter.device().devicePixelRatioF()
         key = self.key(page, ratio)
         
+        # paint rect in tile coordinates
+        trect = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
+        region = QRegion() # unpainted region in tile coordinates
         images = []
         
         # tiles to paint
-        tiles = set(t for t in self.tiles(key.width, key.height) if QRect(*t) & rect)
+        tiles = set(t for t in self.tiles(key.width, key.height) if QRect(*t) & trect)
             
         # look in cache, get a dict with tiles and their images
         tileset = self.cache.tileset(key)
@@ -200,13 +203,13 @@ class AbstractImageRenderer:
             entry = tileset.get(t)
             if entry:
                 # an image is available
-                r = QRect(*t) & rect # part of the tile that needs to be drawn
+                r = QRect(*t) & trect # part of the tile that needs to be drawn
                 x = r.x() - t.x
                 y = r.y() - t.y
                 w = r.width()
                 h = r.height()
-                image_rect = QRect(x * ratio, y * ratio, w * ratio, h * ratio)
-                images.append((r, entry.image, image_rect))
+                images.append((r, entry.image, x, y, w, h))
+                region += r
             else:
                 # an image needs to be generated
                 missing.add(t)
@@ -214,7 +217,6 @@ class AbstractImageRenderer:
         if missing:
             self.schedule(page, ratio, missing, callback)
             # find other images from cache for missing tiles
-            region = sum((QRect(*t) & rect for t in missing), QRegion())
             for width, height, tileset in self.cache.closest(key):
                 # we have a dict of tiles for an image of size iwidth x iheight
                 hscale = key.width / width
@@ -225,25 +227,32 @@ class AbstractImageRenderer:
                     y = t.y * vscale
                     w = t.w * hscale
                     h = t.h * vscale
-                    r = QRect(x, y, w, h) & rect
-                    if r and region & r:
+                    r = QRect(x, y, w, h) & trect
+                    if r and r not in region:
                         # we have an image that can be drawn in rect r
                         x = r.x() / hscale - t.x
                         y = r.y() / vscale - t.y
                         w = r.width() / hscale
                         h = r.height() / vscale
-                        image_rect = QRectF(x, y, w, h)
-                        images.append((QRectF(r), tileset[t].image, image_rect))
-                        region -= QRegion(r)
-                if not region:
-                    break
-            if region:
-                # paint background, still partly uncovered
-                color = page.paperColor or self.paperColor or QColor(Qt.white)
-                painter.fillRect(rect, color)
+                        images.append((r, tileset[t].image, x, y, w, h))
+                        region += r
+                        # stop if we have covered the whole drawing area
+                        if trect in region:
+                            break
+                else:
+                    continue
+                break
+            else:
+                if trect not in region:
+                    # paint background, still partly uncovered
+                    color = page.paperColor or self.paperColor or QColor(Qt.white)
+                    painter.fillRect(rect, color)
+        
         # draw lowest quality images first
-        for r, image, image_rect in reversed(images):
-            painter.drawImage(r, image, image_rect)
+        for (r, image, *image_rect) in reversed(images):
+            target = QRectF(r.x() / ratio, r.y() / ratio, r.width() / ratio, r.height() / ratio)
+            source = QRectF(*image_rect)
+            painter.drawImage(target, image, source)
 
     def schedule(self, page, ratio, tiles, callback):
         """Schedule a new rendering job for the specified tiles of the page.
