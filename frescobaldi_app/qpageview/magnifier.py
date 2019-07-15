@@ -217,7 +217,12 @@ class Magnifier(QWidget):
                 self.setGeometry(g)
             else:
                 factor = 1.1 ** (ev.angleDelta().y() / 120)
-                self.setScale(self._scale * factor)
+                scale = self._scale * factor
+                view = self.parent().parent()
+                layout = view.pageLayout()
+                scale = max(min(scale, view.MAX_ZOOM * self.MAX_EXTRA_ZOOM / layout.zoomFactor),
+                            view.MIN_ZOOM / layout.zoomFactor)
+                self.setScale(scale)
         else:
             super().wheelEvent(ev)
 
@@ -226,7 +231,8 @@ class Magnifier(QWidget):
         view = self.parent().parent()
         layout = view.pageLayout()
 
-        scale = max(min(self._scale, view.MAX_ZOOM * self.MAX_EXTRA_ZOOM / layout.zoomFactor), view.MIN_ZOOM / layout.zoomFactor)
+        scale = max(min(self._scale, view.MAX_ZOOM * self.MAX_EXTRA_ZOOM / layout.zoomFactor),
+                    view.MIN_ZOOM / layout.zoomFactor)
 
         # the position of our center on the layout
         c = self.rect().center() + self.pos() - view.layoutPosition()
