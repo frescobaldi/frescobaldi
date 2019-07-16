@@ -103,8 +103,8 @@ class AbstractImageRenderer:
 
     """
     
-    MAX_TILE_WIDTH = 3200
-    MAX_TILE_HEIGHT = 3200
+    MAX_TILE_WIDTH = 2400
+    MAX_TILE_HEIGHT = 1600
     
     # default paper color to use (if possible, and when drawing an empty page)
     paperColor = QColor(Qt.white)
