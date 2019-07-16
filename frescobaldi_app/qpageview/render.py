@@ -228,7 +228,7 @@ class AbstractImageRenderer:
                     w = t.w * hscale
                     h = t.h * vscale
                     r = QRect(x, y, w, h) & trect
-                    if r and r not in region:
+                    if r and QRegion(r).subtracted(region):
                         # we have an image that can be drawn in rect r
                         x = r.x() / hscale - t.x
                         y = r.y() / vscale - t.y
@@ -237,13 +237,13 @@ class AbstractImageRenderer:
                         images.append((r, tileset[t].image, x, y, w, h))
                         region += r
                         # stop if we have covered the whole drawing area
-                        if trect in region:
+                        if not QRegion(trect).subtracted(region):
                             break
                 else:
                     continue
                 break
             else:
-                if trect not in region:
+                if QRegion(trect).subtracted(region):
                     # paint background, still partly uncovered
                     color = page.paperColor or self.paperColor or QColor(Qt.white)
                     painter.fillRect(rect, color)
