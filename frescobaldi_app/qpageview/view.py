@@ -179,6 +179,10 @@ class View(scrollarea.ScrollArea):
             self.installEventFilter(rubberband)
             self.zoomFactorChanged.connect(rubberband.clearSelection)
 
+    def rubberband(self):
+        """Return the currently set rubberband."""
+        return self._rubberband
+
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to move the rubberband as well."""
         if self._rubberband:
