@@ -149,6 +149,19 @@ class Rubberband(QWidget):
         """Return our selection rectangle, relative to the view's layout position."""
         return self._selection
     
+    def selectedPages(self):
+        """Yield tuples (page, rect) describing the selection.
+        
+        Every rect is translated and to the page's position.
+        
+        """
+        rect = self.selection()
+        if rect:
+            view = self.parent().parent()
+            layout = view.pageLayout()
+            for page in layout.pagesAt(rect):
+                yield page, rect.intersected(page.rect()).translated(-page.pos())
+    
     def setSelection(self, rect):
         """Sets the selection, the rectangle should be relative to the view's layout position."""
         if rect:
