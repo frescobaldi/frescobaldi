@@ -35,7 +35,7 @@ DRAG_LONG  = 2      # remain visible and drag when picked up with the mouse
 
 
 class Magnifier(QWidget):
-    """A Magnifier is added to a View with surface.setMagnifier().
+    """A Magnifier is added to a View with view.setMagnifier().
 
     It is shown when a mouse button is pressed together with a modifier
     (by default Ctrl). It can then be resized by moving the mouse is with
