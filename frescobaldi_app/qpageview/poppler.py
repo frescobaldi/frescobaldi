@@ -24,7 +24,7 @@ Only this module depends on popplerqt5.
 
 """
 
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRectF
 
 import popplerqt5
 
@@ -34,6 +34,9 @@ from . import render
 
 from .constants import (
     Rotate_0,
+    Rotate_90,
+    Rotate_180,
+    Rotate_270,
 )
 
 
@@ -75,6 +78,26 @@ class PopplerPage(page.AbstractPage):
     def ident(self):
         """Reimplemented to return the page number of this page."""
         return self.pageNumber
+
+    def text(self, rect):
+        """Returns text inside rectangle."""
+        rect = rect.normalized()
+        w, h = self.pageSize().width(), self.pageSize().height()
+        left   = rect.left()   / self.width  * w
+        top    = rect.top()    / self.height * h
+        right  = rect.right()  / self.width  * w
+        bottom = rect.bottom() / self.height * h
+        if self.computedRotation == Rotate_90:
+            left, top, right, bottom = top, w-right, bottom, w-left
+        elif self.computedRotation == Rotate_180:
+            left, top, right, bottom = w-right, h-bottom, w-left, h-top
+        elif self.computedRotation == Rotate_270:
+            left, top, right, bottom = h-bottom, left, h-top, right
+        rect = QRectF()
+        rect.setCoords(left, top, right, bottom)
+        with locking.lock(self.document):
+            page = self.document.page(self.pageNumber)
+            return page.text(rect)
 
 
 class Renderer(render.AbstractImageRenderer):
