@@ -23,7 +23,7 @@ Rubberband selection in a View.
 """
 
 
-from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt
+from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt, pyqtSignal
 from PyQt5.QtGui import QColor, QCursor, QPainter, QPalette, QPen, QRegion
 from PyQt5.QtWidgets import QWidget
 
@@ -40,13 +40,21 @@ _INSIDE  = 15
 class Rubberband(QWidget):
     """A Rubberband to select a rectangular region.
 
+    A Rubberband is added to a View with view.setRubberband().
+    
     Instance variables:
 
         showbutton (Qt.RightButton), the button used to drag a new rectangle
 
         dragbutton (Qt.LeftButton), the button to alter an existing rectangle
+        
+        trackSelection (False), whether to continuously emit selectionChanged().
+                When True, selectionChanged() is emitted on every change, when
+                False, the signal is only emitted when the mouse button is
+                released.
 
     """
+    selectionChanged = pyqtSignal(QRect)
 
     # the button used to drag a new rectangle
     showbutton = Qt.RightButton
@@ -54,12 +62,15 @@ class Rubberband(QWidget):
     # the button to alter an existing rectangle
     dragbutton = Qt.LeftButton
 
+    # whether to continuously track the selection
+    trackSelection = False
 
     def __init__(self):
         super().__init__()
         self._dragging = False
         self._dragedge = 0
         self._dragpos = None
+        self._selection = QRect()
         self.setMouseTracking(True)
 
     def paintEvent(self, ev):
@@ -129,7 +140,46 @@ class Rubberband(QWidget):
             self.setCursor(cursor)
         else:
             self.unsetCursor()
-
+    
+    def hasSelection(self):
+        """Return True when there is a selection."""
+        return bool(self._selection)
+    
+    def selection(self):
+        """Return our selection rectangle, relative to the view's layout position."""
+        return self._selection
+    
+    def setSelection(self, rect):
+        """Sets the selection, the rectangle should be relative to the view's layout position."""
+        if rect:
+            view = self.parent().parent()
+            geom = rect.translated(view.layoutPosition())
+            self.setGeometry(geom)
+            self.show()
+            self._emitSelectionChanged(geom)
+        else:
+            self.hide()
+            self._emitSelectionChanged(QRect())
+    
+    def clearSelection(self):
+        """Hide ourselves and clear the selection."""
+        self.hide()
+        self._emitSelectionChanged(QRect())
+        
+    def _emitSelectionChanged(self, rect):
+        """(Internal) Called to emit the selectionChanged signal.
+        
+        Only emits the signal when the selection really changed.
+        The rect should be our geometry or an empty QRect().
+        
+        """
+        if rect:
+            view = self.parent().parent()
+            rect = rect.translated(-view.layoutPosition())
+        old, self._selection = self._selection, rect
+        if rect != old:
+            self.selectionChanged.emit(rect)
+        
     def scrollBy(self, diff):
         """Called by the View when scrolling."""
         if not self._dragging:
@@ -137,6 +187,8 @@ class Rubberband(QWidget):
         elif self._dragedge != _INSIDE:
             self._draggeom.moveTo(self._draggeom.topLeft() + diff)
             self.dragBy(-diff)
+        elif self.isVisible() and self.trackSelection:
+            self._emitSelectionChanged(self.geometry())
 
     def startDrag(self, pos, button):
         """Start dragging the rubberband."""
@@ -166,13 +218,15 @@ class Rubberband(QWidget):
         geom = self._draggeom.normalized()
         if geom.isValid():
             self.setGeometry(geom)
+            if self.trackSelection:
+                self._emitSelectionChanged(geom)
         if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
             # we're dragging a corner, use correct diagonal cursor
             bdiag = (edge in (3, 12)) ^ (self._draggeom.width() * self._draggeom.height() >= 0)
             self.setCursor(Qt.SizeBDiagCursor if bdiag else Qt.SizeFDiagCursor)
 
     def stopDrag(self):
-        """Stop dragging the rubberband. Return True if a rectangle was drawn."""
+        """Stop dragging the rubberband."""
         self._dragging = False
         # TODO: use the kinetic scroller if implemented
         view = self.parent().parent()
@@ -180,13 +234,16 @@ class Rubberband(QWidget):
 
         if self.width() < 8 and self.height() < 8:
             self.unsetCursor()
-            self.hide()
-            return False
-        return True
+            self._emitSelectionChanged(QRect())
+        else:
+            self._emitSelectionChanged(self.geometry())
 
     def eventFilter(self, viewport, ev):
         if not self._dragging:
             if ev.type() == QEvent.MouseButtonPress and ev.button() == self.showbutton:
+                if self.isVisible():
+                    # this cancels a previous selection if we were visible
+                    self._emitSelectionChanged(QRect())
                 self.setGeometry(QRect(ev.pos(), QSize(0, 0)))
                 self.startDrag(ev.pos(), ev.button())
                 self._dragedge = _RIGHT | _BOTTOM

@@ -171,13 +171,13 @@ class View(scrollarea.ScrollArea):
         """Sets the Rubberband to use for selections (or None to not use one)."""
         if self._rubberband:
             self.removeEventFilter(self._rubberband)
-            self.zoomFactorChanged.disconnect(self._rubberband.hide)
+            self.zoomFactorChanged.disconnect(self._rubberband.clearSelection)
             self._rubberband.setParent(None)
         self._rubberband = rubberband
         if rubberband:
             rubberband.setParent(self.viewport())
             self.installEventFilter(rubberband)
-            self.zoomFactorChanged.connect(rubberband.hide)
+            self.zoomFactorChanged.connect(rubberband.clearSelection)
 
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to move the rubberband as well."""
