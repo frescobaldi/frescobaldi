@@ -101,14 +101,22 @@ class AbstractPageLayout(list):
         return QSize(self.width, self.height)
 
     def pageAt(self, point):
-        """Return the page that contains the given QPoint."""
+        """Return the page that contains the given QPoint.
+        
+        If the point is not on any page, None is returned.
+        
+        """
         # Specific layouts may use faster algorithms to find the page.
         for page in self:
             if page.rect().contains(point):
                 return page
 
     def pagesAt(self, r):
-        """Yield the pages touched by the given QRect or QRegion."""
+        """Yield the pages touched by the given QRect or QRegion.
+        
+        The pages are in the layout's order.
+        
+        """
         # Specific layouts may use faster algorithms to find the pages.
         for page in self:
             if r.intersects(page.rect()):
