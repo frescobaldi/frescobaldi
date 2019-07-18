@@ -38,7 +38,12 @@ from . import render
 
 
 class BasicSvgPage(page.AbstractPage):
-    """A page that can display a SVG document."""
+    """A page that can display a SVG document.
+    
+    This class just paints the image every time it is requested, withoud
+    caching it, which is to slow for normal use. Use SvgPage instead.
+    
+    """
     def __init__(self, load_file=None):
         self._svg_r = QSvgRenderer()
         if load_file:
@@ -116,8 +121,8 @@ class Renderer(render.AbstractImageRenderer):
         elif key.rotation == 1:
             hscale = key.height / b.width()
             vscale = key.width / b.height()
-            x = tile.y / hscale - b.y()
-            y = (key.width - tile.w - tile.x) / vscale + b.x()
+            x = tile.y / hscale + b.x()
+            y = (key.width - tile.w - tile.x) / vscale + b.y()
         elif key.rotation == 2:
             hscale = key.width / b.width()
             vscale = key.height / b.height()
@@ -126,8 +131,8 @@ class Renderer(render.AbstractImageRenderer):
         else: # key.rotation == 3:
             hscale = key.height / b.width()
             vscale = key.width / b.height()
-            x = (key.height - tile.h - tile.y) / vscale - b.y()
-            y = tile.x / hscale - b.x()
+            x = (key.height - tile.h - tile.y) / vscale + b.x()
+            y = tile.x / hscale + b.y()
         # why does this work? I'd assume w and h need to be swapped 
         # for rotation 1 and 3, but that yields strange misdrawings...
         w = tile.w / hscale
@@ -135,6 +140,7 @@ class Renderer(render.AbstractImageRenderer):
             
         page._svg_r.setViewBox(QRectF(x, y, w, h))
         page._svg_r.render(painter)
+        page._svg_r.setViewBox(page._viewBox)
         return i
 
 
