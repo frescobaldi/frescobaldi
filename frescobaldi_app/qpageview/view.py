@@ -51,7 +51,7 @@ from .constants import (
 class View(scrollarea.ScrollArea):
 
     MIN_ZOOM = 0.05
-    MAX_ZOOM = 16.0
+    MAX_ZOOM = 32.0
 
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
@@ -76,9 +76,8 @@ class View(scrollarea.ScrollArea):
         import popplerqt5
         from . import poppler
         doc = popplerqt5.Poppler.Document.load(filename)
-        renderer = poppler.Renderer()
         self._unschedulePages(self._pageLayout)
-        self.pageLayout()[:] = poppler.PopplerPage.createPages(doc, renderer)
+        self.pageLayout()[:] = poppler.PopplerPage.createPages(doc)
         self.updatePageLayout()
 
     def loadSvgs(self, filenames):
@@ -89,8 +88,7 @@ class View(scrollarea.ScrollArea):
         """
         self._unschedulePages(self._pageLayout)
         from . import svg
-        renderer = svg.Renderer()
-        self.pageLayout()[:] = (svg.SvgPage(f, renderer) for f in filenames)
+        self.pageLayout()[:] = (svg.SvgPage(f) for f in filenames)
         self.updatePageLayout()
 
     def setPageLayout(self, layout):
