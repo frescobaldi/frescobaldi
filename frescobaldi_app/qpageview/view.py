@@ -24,7 +24,7 @@ The View, deriving from QAbstractScrollArea.
 import collections
 import contextlib
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QSize, Qt
+from PyQt5.QtCore import pyqtSignal, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QPainter, QPalette
 from PyQt5.QtWidgets import QStyle
 
@@ -56,6 +56,8 @@ class View(scrollarea.ScrollArea):
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
+    pageCountChanged = pyqtSignal(int)
+    currentPageChanged = pyqtSignal(int)
 
     scrollupdatespersec = 50
 
@@ -66,6 +68,9 @@ class View(scrollarea.ScrollArea):
         self._pageLayout = layout.PageLayout()
         self._magnifier = None
         self._rubberband = None
+        self._pageCount = 0
+        self._currentPage = 0
+        self._scrollingToPage = False   # keep track of scrolling/page numbers
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
@@ -101,10 +106,23 @@ class View(scrollarea.ScrollArea):
         return self._pageLayout
 
     def updatePageLayout(self):
-        """Update layout and adjust scrollbars."""
+        """Update layout and adjust scrollbars.
+        
+        Also correctly set the number of pages. Call this after any change
+        to the layout.
+        
+        """
         self._pageLayout.update()
         self._updateScrollBars()
         self.viewport().update()
+        # see whether the number of pages has been changed
+        n = len(self._pageLayout)
+        if n != self._pageCount:
+            self._pageCount = n
+            self.pageCountChanged.emit(n)
+            if self._currentPage > n:
+                self._currentPage = n
+                self.currentPageChanged.emit(n)
 
     def clear(self):
         """Convenience method to clear the current layout."""
@@ -181,12 +199,75 @@ class View(scrollarea.ScrollArea):
         """Return the currently set rubberband."""
         return self._rubberband
 
+    def pageAt(self, pos, margin=None):
+        """Return the Page object that is at pos.
+        
+        pos is a QPoint() in the viewport.
+        If margin is None, the margin of the layout is used.
+        May return None.
+        
+        """
+        layout = self._pageLayout
+        pos = pos - self.layoutPosition()
+        if margin is None:
+            margin = max(layout.margin, layout.spacing)
+        r = QRect(0, 0, margin, margin)
+        r.moveCenter(pos)
+        for page in layout.pagesAt(r):
+            return page
+    
+    def pageCount(self):
+        """Return the number of pages currently in view."""
+        return self._pageCount
+    
+    def currentPage(self):
+        """Return the current page number in view (starting with 1)."""
+        return self._currentPage
+    
+    def setCurrentPage(self, num):
+        """Scrolls to the specified page number (starting with 1).
+        
+        If the page is already in view, the view is not scrolled, otherwise
+        the view is scrolled to center the page. (If the page is larger than 
+        the view, the top-left corner is positioned top-left in the view.)
+        
+        """
+        if num > self._pageCount or num < 1 or num == self._currentPage:
+            return
+        page = self._pageLayout[num-1]
+        self._currentPage = num
+        self.currentPageChanged.emit(num)
+        # now move the view
+        if page.rect() in self.visibleRect():
+            return
+        margin = self._pageLayout.margin
+        pos = page.pos() - QPoint(margin, margin)
+        if not self.kineticscrolling:
+            self.scrollTo(pos)
+        else:
+            # during the scrolling the page number should not be updated.
+            self._scrollingToPage = True
+            self.kineticScrollTo(pos)
+
     def scrollContentsBy(self, dx, dy):
-        """Reimplemented to move the rubberband as well."""
+        """Reimplemented to move the rubberband; keep track of current page."""
         if self._rubberband:
             self._rubberband.scrollBy(QPoint(dx, dy))
+        if not self._scrollingToPage:
+            # what is the current page number?
+            p = self.pageAt(self.viewport().rect().center())
+            if p:
+                num = self._pageLayout.index(p) + 1
+                if num != self._currentPage:
+                    self._currentPage = num
+                    self.currentPageChanged.emit(num)
         self.viewport().update()
-
+    
+    def stopScrolling(self):
+        """Reimplemented to stop tracking a scroll initiated by setCurrentPage()."""
+        super().stopScrolling()
+        self._scrollingToPage = False
+            
     def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.
 
