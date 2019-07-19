@@ -40,8 +40,8 @@ from . import render
 class BasicSvgPage(page.AbstractPage):
     """A page that can display a SVG document.
     
-    This class just paints the image every time it is requested, withoud
-    caching it, which is to slow for normal use. Use SvgPage instead.
+    This class just paints the image every time it is requested, without
+    caching it, which is too slow for normal use. Use SvgPage instead.
     
     """
     def __init__(self, load_file=None):
