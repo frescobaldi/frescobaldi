@@ -253,14 +253,19 @@ class View(scrollarea.ScrollArea):
         """Reimplemented to move the rubberband; keep track of current page."""
         if self._rubberband:
             self._rubberband.scrollBy(QPoint(dx, dy))
-        if not self._scrollingToPage:
-            # what is the current page number?
-            p = self.pageAt(self.viewport().rect().center())
-            if p:
-                num = self._pageLayout.index(p) + 1
-                if num != self._currentPage:
-                    self._currentPage = num
-                    self.currentPageChanged.emit(num)
+        
+        # if the scroll wasn't initiated by the setCurrentPage() call, check
+        # whether the current page number needs to be updated
+        if not self._scrollingToPage and self._pageLayout.count() > 0:
+            # do nothing if current page is still fully in view
+            if self._pageLayout[self._currentPage-1].rect() not in self.visibleRect():
+                # what is the current page number?
+                p = self.pageAt(self.viewport().rect().center())
+                if p:
+                    num = self._pageLayout.index(p) + 1
+                    if num != self._currentPage:
+                        self._currentPage = num
+                        self.currentPageChanged.emit(num)
         self.viewport().update()
     
     def stopScrolling(self):
