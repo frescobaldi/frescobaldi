@@ -81,20 +81,8 @@ class PopplerPage(page.AbstractPage):
 
     def text(self, rect):
         """Returns text inside rectangle."""
-        rect = rect.normalized()
-        w, h = self.pageSize().width(), self.pageSize().height()
-        left   = rect.left()   / self.width  * w
-        top    = rect.top()    / self.height * h
-        right  = rect.right()  / self.width  * w
-        bottom = rect.bottom() / self.height * h
-        if self.computedRotation == Rotate_90:
-            left, top, right, bottom = top, w-right, bottom, w-left
-        elif self.computedRotation == Rotate_180:
-            left, top, right, bottom = w-right, h-bottom, w-left, h-top
-        elif self.computedRotation == Rotate_270:
-            left, top, right, bottom = h-bottom, left, h-top, right
-        rect = QRectF()
-        rect.setCoords(left, top, right, bottom)
+        # poppler search results have the rect in pagewidth/pageheight scale
+        rect = self.areaRectF(rect, self.pageWidth, self.pageHeight)
         with locking.lock(self.document):
             page = self.document.page(self.pageNumber)
             return page.text(rect)
