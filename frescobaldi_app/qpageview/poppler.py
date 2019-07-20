@@ -81,8 +81,7 @@ class PopplerPage(page.AbstractPage):
 
     def text(self, rect):
         """Returns text inside rectangle."""
-        # poppler search results have the rect in pagewidth/pageheight scale
-        rect = self.areaRectF(rect, self.pageWidth, self.pageHeight)
+        rect = self.page2area(rect, self.pageWidth, self.pageHeight)
         with locking.lock(self.document):
             page = self.document.page(self.pageNumber)
             return page.text(rect)
