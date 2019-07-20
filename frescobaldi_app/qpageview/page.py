@@ -242,3 +242,50 @@ class AbstractPage:
         """
         return None
     
+    def pageRect(self, rect, width=1.0, height=1.0):
+        """Return a QRect, converting an original area to page coordinates."""
+        rect = rect.normalized()
+        left, top, right, bottom = rect.getCoords()
+        hscale = self.width / width
+        vscale = self.height / height
+        if self.computedRotation:
+            if self.computedRotation == Rotate_90:
+                left, top, right, bottom = width-bottom, left, width-top, right
+            elif self.computedRotation == Rotate_180:
+                left, top, right, bottom = width-right, height-bottom, width-left, height-top
+            else: # 270
+                left, top, right, bottom = top, height-right, bottom, height-left
+        rect = QRect()
+        rect.setCoords(left * hscale, top * vscale, right * hscale, bottom * vscale)
+        return rect
+        
+    def areaRectF(self, rect, width=1.0, height=1.0):
+        """Return a QRectF(), converting a page rectangle to the original area.
+        
+        This is the opposite of pageRect().
+        
+        The specified `rect` (QRect) should be in page coordinates, and is
+        scaled into the specified width and height, and rotated so it
+        corresponds with the original page rotation.
+        
+        This way, objects like links can be correctly found in a scaled and 
+        rotated page. The returned QRectF() falls in the rect(0, 0, width,
+        height) and both width and height default to 1.0.
+        
+        """
+        rect = rect.normalized()
+        left   = rect.left()   / self.width  * width
+        top    = rect.top()    / self.height * height
+        right  = rect.right()  / self.width  * width
+        bottom = rect.bottom() / self.height * height
+        if self.computedRotation == Rotate_90:
+            left, top, right, bottom = top, width-right, bottom, width-left
+        elif self.computedRotation == Rotate_180:
+            left, top, right, bottom = width-right, height-bottom, width-left, height-top
+        elif self.computedRotation == Rotate_270:
+            left, top, right, bottom = height-bottom, left, height-top, right
+        rect = QRectF()
+        rect.setCoords(left, top, right, bottom)
+        return rect
+
+
