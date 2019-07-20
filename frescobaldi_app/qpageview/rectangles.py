@@ -127,6 +127,24 @@ class Rectangles:
             (self._smaller, Left, right),
             (self._larger, Right, left))
 
+    def width(self, obj):
+        """Return the width of the specified object.
+
+        This can be used for sorting a set returned by at(), inside() or
+        intersecting(). For example:
+
+            for r in sorted(rects.at(10, 20), key=rects.width):
+                # ...
+
+        """
+        coords = self._items[obj]
+        return coords[Right] - coords[Left]
+
+    def height(self, obj):
+        """Return the height of the specified object. See also width()."""
+        coords = self._items[obj]
+        return coords[Bottom] - coords[Top]
+
     def closest(self, obj, side):
         """Returns the object closest to the given one, going to the given side."""
         coords = self._items[obj]
