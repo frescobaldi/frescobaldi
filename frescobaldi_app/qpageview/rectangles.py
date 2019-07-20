@@ -44,33 +44,38 @@ class Rectangles:
     clears the indexes, that are recreated on first search).  Single objects
     can be added and deleted, keeping the indexes, but that's slower.
 
+    You should inherit from this class and implement the method get_coords(obj)
+    to get the rectangle of the object (x, y, x2, y2). These are requested only
+    once. x should be < x2 and y should be < y2.
+    
     """
-    _func = lambda obj: obj.rect().normalized().getCoords()
-
-    def __init__(self, objects=None, func=None):
+    def __init__(self, objects=None):
         """Initializes the Rectangles object.
 
-        objects should be an iterable of rectangular objects.
-
-        function(obj) should return a four-tuple (left, top, right, bottom)
-        of the coordinates of the rectangle.  The coordinates should be normalized,
-        i.e. top <= bottom and left <= right.
-
-        The default function is: lambda obj: obj.rect().normalized().getCoords()
-
+        objects should, if given, be an iterable of rectangular objects, and
+        bulk_add() is called on those objects.
+        
         """
         self._items = {} # maps object to the result of func(object)
         self._index = {} # maps side to indices, objects (index=coordinate of that side)
-        if func:
-            self._func = func
         if objects:
             self.bulk_add(objects)
 
+    def get_coords(self, obj):
+        """You should implement this method.
+        
+        The result should be a four-tuple with the coordinates of the rectangle
+        the object represents (x, y, x2, y2). These are requested only once.
+        x should be < x2 and y should be < y2.
+        
+        """
+        return (0, 0, 0, 0)
+    
     def add(self, obj):
         """Adds an object to our list. Keeps the index intact."""
         if obj in self._items:
             return
-        self._items[obj] = coords = self._func(obj)
+        self._items[obj] = coords = self.get_coords(obj)
         for side, (indices, objects) in self._index.items():
             i = bisect.bisect_left(indices, coords[side])
             indices.insert(i, coords[side])
@@ -82,7 +87,7 @@ class Rectangles:
         After this, the index is cleared and recreated on the first search operation.
 
         """
-        self._items.update((obj, self._func(obj)) for obj in objects)
+        self._items.update((obj, self.get_coords(obj)) for obj in objects)
         self._index.clear()
 
     def remove(self, obj):
