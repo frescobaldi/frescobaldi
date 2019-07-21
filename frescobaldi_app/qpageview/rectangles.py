@@ -189,7 +189,7 @@ class Rectangles:
         Returns a (possibly empty) set.
 
         """
-        meth, side, value = tests[:1]
+        meth, side, value = tests[0]
         result = set(meth(side, value))
         if result:
             for meth, side, value in tests[1:]:
