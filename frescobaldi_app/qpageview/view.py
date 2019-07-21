@@ -51,7 +51,7 @@ from .constants import (
 class View(scrollarea.ScrollArea):
 
     MIN_ZOOM = 0.05
-    MAX_ZOOM = 32.0
+    MAX_ZOOM = 64.0
 
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
