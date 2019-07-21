@@ -24,6 +24,8 @@ Only this module depends on popplerqt5.
 
 """
 
+import weakref
+
 from PyQt5.QtCore import Qt, QRectF
 
 import popplerqt5
@@ -31,6 +33,7 @@ import popplerqt5
 from . import page
 from . import locking
 from . import render
+from . import rectangles
 
 from .constants import (
     Rotate_0,
@@ -38,6 +41,34 @@ from .constants import (
     Rotate_180,
     Rotate_270,
 )
+
+
+
+# store the links in the page of a Poppler document as long as the document exists
+_linkscache = weakref.WeakKeyDictionary()
+
+
+def get_links(page):
+    """Return a Links object.
+    
+    The returned object is a position-searchable list of the links in a page.
+    See the rectangles documentation.
+    
+    """
+    document, pageNumber = page.document, page.pageNumber
+    try:
+        return _linkscache[document][pageNumber]
+    except KeyError:
+        with locking.lock(document):
+            links = Links(document.page(pageNumber).links())
+        _linkscache.setdefault(document, {})[pageNumber] = links
+        return links
+
+
+class Links(rectangles.Rectangles):
+    """Represents a position searchable list of links in a poppler PDF page."""
+    def get_coords(self, obj):
+        return obj.linkArea().normalized().getCoords()
 
 
 class PopplerPage(page.AbstractPage):
@@ -85,6 +116,31 @@ class PopplerPage(page.AbstractPage):
         with locking.lock(self.document):
             page = self.document.page(self.pageNumber)
             return page.text(rect)
+
+    def linksAt(self, point):
+        """Return a list() of zero or more links touched by QPoint point.
+
+        The point is in page coordinates.
+        The list is sorted with the smallest rectangle first.
+
+        """
+        # Poppler.Link objects have their linkArea() ranging
+        # in width and height from 0.0 to 1.0 ...
+        x, y = self.point2area(point.x(), point.y(), 1, 1)
+        links = get_links(self)
+        return sorted(links.at(x, y), key=links.width)
+
+    def linksIn(self, rect):
+        """Return an unordered set of links enclosed in rectangle.
+        
+        The rectangle is in page coordinates.
+        
+        """
+        return get_links(self).inside(*self.page2area(rect, 1, 1).getCoords())
+
+    def linkRect(self, link):
+        """Return a QRect encompassing the linkArea of a link in coordinates of our page."""
+        return self.area2page(link.linkArea(), 1, 1)
 
 
 class Renderer(render.AbstractImageRenderer):
