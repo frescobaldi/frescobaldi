@@ -242,14 +242,16 @@ class AbstractPage:
         """
         return None
     
-    def area2page(self, rect, width=1.0, height=1.0):
+    def area2page(self, rect, width=None, height=None):
         """Return a QRect, converting an original area to page coordinates.
         
         `rect` may be a QRect or QRectF instance. The `width` and `height`
         refer to the original (unrotated) width and height of the page's
-        contents.
+        contents, and default to pageWidth and pageHeight.
         
         """
+        if width  is None: width  = self.pageWidth
+        if height is None: height = self.pageHeight
         rect = rect.normalized()
         left, top, right, bottom = rect.getCoords()
         # first scale to a 0-1 scale
@@ -259,12 +261,7 @@ class AbstractPage:
         bottom /= height
         # then rotate
         if self.computedRotation:
-            if self.computedRotation == Rotate_90:
-                left, top, right, bottom = 1-bottom, left, 1-top, right
-            elif self.computedRotation == Rotate_180:
-                left, top, right, bottom = 1-right, 1-bottom, 1-left, 1-top
-            else: # 270
-                left, top, right, bottom = top, 1-right, bottom, 1-left
+            left, top, right, bottom = rotate_cw[self.computedRotation](left, top, right, bottom)
         # then scale to page coordinates
         rect = QRect()
         rect.setCoords(left   * self.width,
@@ -273,7 +270,7 @@ class AbstractPage:
                        bottom * self.height)
         return rect
         
-    def page2area(self, rect, width=1.0, height=1.0):
+    def page2area(self, rect, width=None, height=None):
         """Return a QRectF(), converting a page rectangle to the original area.
         
         This is the opposite of area2page().
@@ -284,9 +281,11 @@ class AbstractPage:
         
         This way, objects like links can be correctly found in a scaled and 
         rotated page. The returned QRectF() falls in the rect(0, 0, width,
-        height) and both width and height default to 1.0.
+        height) and both width and height default to pageWidth and pageHeight.
         
         """
+        if width  is None: width  = self.pageWidth
+        if height is None: height = self.pageHeight
         rect = rect.normalized()
         left, top, right, bottom = rect.getCoords()
         # first scale to a 0-1 scale
@@ -296,12 +295,7 @@ class AbstractPage:
         bottom /= self.height
         # then rotate backwards
         if self.computedRotation:
-            if self.computedRotation == Rotate_90:
-                left, top, right, bottom = top, 1-right, bottom, 1-left
-            elif self.computedRotation == Rotate_180:
-                left, top, right, bottom = 1-right, 1-bottom, 1-left, 1-top
-            else: # 270
-                left, top, right, bottom = 1-bottom, left, 1-top, right
+            left, top, right, bottom = rotate_ccw[self.computedRotation](left, top, right, bottom)
         # then scale to the original coordinates
         rect = QRectF()
         rect.setCoords(left   * width,
@@ -318,5 +312,20 @@ class AbstractPage:
         
         """
         return ""
+
+
+
+# rotation helper functions
+def _rotate_90 (left, top, right, bottom): return 1-bottom, left, 1-top, right
+def _rotate_180(left, top, right, bottom): return 1-right, 1-bottom, 1-left, 1-top
+def _rotate_270(left, top, right, bottom): return 1-bottom, left, 1-top, right
+
+rotate_cw =  { Rotate_90:  _rotate_90,
+               Rotate_180: _rotate_180,
+               Rotate_270: _rotate_270 }
+
+rotate_ccw = { Rotate_90:  _rotate_270,
+               Rotate_180: _rotate_180,
+               Rotate_270: _rotate_90  }
 
 
