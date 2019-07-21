@@ -310,4 +310,13 @@ class AbstractPage:
                        bottom * height)
         return rect
 
+    def text(self, rect):
+        """Implement this method to get the text at the specified rectangle.
+        
+        The rectangle should be in page coordinates. The default implementation
+        simply returns an empty string.
+        
+        """
+        return ""
+
 
