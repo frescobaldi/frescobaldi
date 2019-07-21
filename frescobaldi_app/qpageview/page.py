@@ -261,7 +261,7 @@ class AbstractPage:
         bottom /= height
         # then rotate
         if self.computedRotation:
-            left, top, right, bottom = rotate_cw[self.computedRotation](left, top, right, bottom)
+            left, top, right, bottom = rotate_rect_cw[self.computedRotation](left, top, right, bottom)
         # then scale to page coordinates
         rect = QRect()
         rect.setCoords(left   * self.width,
@@ -295,7 +295,7 @@ class AbstractPage:
         bottom /= self.height
         # then rotate backwards
         if self.computedRotation:
-            left, top, right, bottom = rotate_ccw[self.computedRotation](left, top, right, bottom)
+            left, top, right, bottom = rotate_rect_ccw[self.computedRotation](left, top, right, bottom)
         # then scale to the original coordinates
         rect = QRectF()
         rect.setCoords(left   * width,
@@ -303,7 +303,25 @@ class AbstractPage:
                        right  * width,
                        bottom * height)
         return rect
-
+    
+    def area2point(self, x, y, width=None, height=None):
+        """Return a tuple (x, y), converting a point on the original area to the page."""
+        if width  is None: width  = self.pageWidth
+        if height is None: height = self.pageHeight
+        x /= width
+        y /= height
+        if self.computedRotation: x, y = rotate_cw[self.computedRotation](x, y)
+        return x * self.width, y * self.height
+    
+    def point2area(self, x, y, width=None, height=None):
+        """Return a tuple (x, y), converting a point on the page to the original area."""
+        if width  is None: width  = self.pageWidth
+        if height is None: height = self.pageHeight
+        x /= self.width
+        y /= self.height
+        if self.computedRotation: x, y = rotate_ccw[self.computedRotation](x, y)
+        return x * width, y * height
+    
     def text(self, rect):
         """Implement this method to get the text at the specified rectangle.
         
@@ -315,11 +333,11 @@ class AbstractPage:
 
 
 
-# rotation helper functions
-def _rotate_90 (left, top, right, bottom): return 1-bottom, left, 1-top, right
-def _rotate_180(left, top, right, bottom): return 1-right, 1-bottom, 1-left, 1-top
-def _rotate_270(left, top, right, bottom): return 1-bottom, left, 1-top, right
-
+# rotation helper functions for a point....
+def _rotate_90 (x, y): return 1-y, x
+def _rotate_180(x, y): return 1-x, 1-y
+def _rotate_270(x, y): return y, 1-x
+    
 rotate_cw =  { Rotate_90:  _rotate_90,
                Rotate_180: _rotate_180,
                Rotate_270: _rotate_270 }
@@ -327,5 +345,18 @@ rotate_cw =  { Rotate_90:  _rotate_90,
 rotate_ccw = { Rotate_90:  _rotate_270,
                Rotate_180: _rotate_180,
                Rotate_270: _rotate_90  }
+
+# ... and for a rect
+def _rotate_rect_90 (left, top, right, bottom): return 1-bottom, left, 1-top, right
+def _rotate_rect_180(left, top, right, bottom): return 1-right, 1-bottom, 1-left, 1-top
+def _rotate_rect_270(left, top, right, bottom): return 1-bottom, left, 1-top, right
+
+rotate_rect_cw =  { Rotate_90:  _rotate_rect_90,
+                    Rotate_180: _rotate_rect_180,
+                    Rotate_270: _rotate_rect_270 }
+
+rotate_rect_ccw = { Rotate_90:  _rotate_rect_270,
+                    Rotate_180: _rotate_rect_180,
+                    Rotate_270: _rotate_rect_90  }
 
 
