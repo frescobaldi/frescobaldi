@@ -152,7 +152,8 @@ class Rubberband(QWidget):
     def selectedPages(self):
         """Yield tuples (page, rect) describing the selection.
         
-        Every rect is translated and to the page's position.
+        Every rect is intersected with the page rect and translated to the
+        page's position.
         
         """
         rect = self.selection()
@@ -162,6 +163,13 @@ class Rubberband(QWidget):
             for page in layout.pagesAt(rect):
                 yield page, rect.intersected(page.rect()).translated(-page.pos())
     
+    def selectedText(self):
+        """Return the text found in the selection, as far as the pages support it."""
+        result = []
+        for page, rect in self.selectedPages():
+            result.append(page.text(rect))
+        return '\n'.join(result)
+
     def setSelection(self, rect):
         """Sets the selection, the rectangle should be relative to the view's layout position."""
         if rect:
