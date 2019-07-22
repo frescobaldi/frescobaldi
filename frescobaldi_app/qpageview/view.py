@@ -25,7 +25,7 @@ import collections
 import contextlib
 
 from PyQt5.QtCore import pyqtSignal, QPoint, QRect, QSize, Qt
-from PyQt5.QtGui import QPainter, QPalette
+from PyQt5.QtGui import QCursor, QPainter, QPalette
 from PyQt5.QtWidgets import QStyle
 
 from . import layout
@@ -60,6 +60,7 @@ class View(scrollarea.ScrollArea):
     currentPageChanged = pyqtSignal(int)
 
     scrollupdatespersec = 50
+    linksEnabled = True
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
@@ -253,7 +254,8 @@ class View(scrollarea.ScrollArea):
         """Reimplemented to move the rubberband; keep track of current page."""
         if self._rubberband:
             self._rubberband.scrollBy(QPoint(dx, dy))
-        
+        if not self.isScrolling():
+            self.adjustCursor(self.mapFromGlobal(QCursor.pos()))
         # if the scroll wasn't initiated by the setCurrentPage() call, check
         # whether the current page number needs to be updated
         if not self._scrollingToPage and self._pageLayout.count() > 0:
@@ -272,6 +274,7 @@ class View(scrollarea.ScrollArea):
         """Reimplemented to stop tracking a scroll initiated by setCurrentPage()."""
         super().stopScrolling()
         self._scrollingToPage = False
+        self.adjustCursor(self.mapFromGlobal(QCursor.pos()))
             
     def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.
@@ -469,6 +472,33 @@ class View(scrollarea.ScrollArea):
         """Yield the Page instances that are currently visible."""
         return self._pageLayout.pagesAt(self.visibleRect())
 
+    def adjustCursor(self, pos):
+        """Sets the correct mouse cursor for the position on the page.
+        
+        If `linksEnabled` is True, calls handleLinks()
+        
+        """
+        if self.linksEnabled:
+            self.handleLinks(pos)
+    
+    def handleLinks(self, pos):
+        """Adjust the cursor for possible links at the specified position.
+        
+        Also emits signals when the cursor enters or leaves a link.
+        
+        """
+        pos = pos - self.layoutPosition()
+        page = self._pageLayout.pageAt(pos)
+        cursor = None
+        if page:
+            # TEMP: TODO: make links generic (not poppler-only)
+            if hasattr(page, 'linksAt'):
+                links = page.linksAt(pos - page.pos())
+                if links:
+                    cursor = Qt.PointingHandCursor
+                    # TODO: handle signal emission on enter/exit of links
+        self.setCursor(cursor) if cursor else self.unsetCursor()
+        
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
         if self._viewMode and not self._pageLayout.empty():
@@ -538,5 +568,9 @@ class View(scrollarea.ScrollArea):
                 self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
         else:
             super().wheelEvent(ev)
+
+    def mouseMoveEvent(self, ev):
+        self.adjustCursor(ev.pos())
+        super().mouseMoveEvent(ev)
 
 
