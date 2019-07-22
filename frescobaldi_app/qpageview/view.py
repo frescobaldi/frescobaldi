@@ -189,13 +189,13 @@ class View(scrollarea.ScrollArea):
     def setRubberband(self, rubberband):
         """Sets the Rubberband to use for selections (or None to not use one)."""
         if self._rubberband:
-            self.removeEventFilter(self._rubberband)
+            self.viewport().removeEventFilter(self._rubberband)
             self.zoomFactorChanged.disconnect(self._rubberband.clearSelection)
             self._rubberband.setParent(None)
         self._rubberband = rubberband
         if rubberband:
             rubberband.setParent(self.viewport())
-            self.installEventFilter(rubberband)
+            self.viewport().installEventFilter(rubberband)
             self.zoomFactorChanged.connect(rubberband.clearSelection)
 
     def rubberband(self):
