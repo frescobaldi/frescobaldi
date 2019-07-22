@@ -205,6 +205,8 @@ class Rubberband(QWidget):
         """Called by the View when scrolling."""
         if not self._dragging:
             self.move(self.pos() + diff)
+            # adjust the cursor
+            self.adjustCursor(self.edge(self.parent().mapFromGlobal(QCursor.pos())))
         elif self._dragedge != _INSIDE:
             self._draggeom.moveTo(self._draggeom.topLeft() + diff)
             self.dragBy(-diff)
