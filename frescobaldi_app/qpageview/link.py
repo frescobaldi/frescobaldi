@@ -23,7 +23,7 @@ Generic Link class and handling of links (clickable areas on a Page).
 
 The link area is in coordinates between 0.0 and 1.0, like Poppler does it.
 This way we can easily compute where the link area is on a page in different
-sizes.
+sizes or rotations.
 
 """
 
@@ -38,16 +38,22 @@ linkarea = collections.namedtuple("linkarea", "left top right bottom")
 class Link:
     url = ""
     tooltip = ""
-    area = ()
+    area = linkarea(0, 0, 0, 0)
 
-    def __init__(self, left, top, right, bottom, url=None):
+    def __init__(self, left, top, right, bottom, url=None, tooltip=None):
         self.area = linkarea(left, top, right, bottom)
         if url:
             self.url = url
+        if tooltip:
+            self.tooltip = tooltip
 
 
 class Links(rectangles.Rectangles):
-    """Manages a list of Link objects."""
+    """Manages a list of Link objects.
+    
+    See the rectangles documentation for how to access the links.
+    
+    """
     def get_coords(self, link):
         return link.area
 
