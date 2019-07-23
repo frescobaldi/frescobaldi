@@ -1,4 +1,4 @@
-# This file is part of the qpopplerview package.
+# This file is part of the qpageview package.
 #
 # Copyright (c) 2010 - 2019 by Wilbert Berendsen
 #
