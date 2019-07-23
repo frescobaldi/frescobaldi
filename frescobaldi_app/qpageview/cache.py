@@ -49,6 +49,7 @@ class ImageCache:
     def clear(self):
         """Remove all cached images."""
         self._cache.clear()
+        self.currentsize = 0
     
     def tileset(self, key):
         """Return a dictionary with tile-entry pairs for the key.
