@@ -26,6 +26,9 @@ import time
 
 
 class ImageEntry:
+    
+    replace = False
+    
     def __init__(self, image):
         self.image = image
         self.bcount = image.byteCount()
@@ -51,6 +54,21 @@ class ImageCache:
         self._cache.clear()
         self.currentsize = 0
     
+    def invalidate(self):
+        """Set the replace flag for all cached images to True.
+        
+        They will still be returned on request, but the renderer will reschedule
+        a rendering of a new image. This way one can update render options or
+        page contents and get a smooth redraw without flickering an empty page
+        in between.
+        
+        """
+        for identd in self._cache.values():
+            for keyd in identd.values():
+                for tiled in keyd.values():
+                    for entry in tiled.values():
+                        entry.replace = True
+
     def tileset(self, key):
         """Return a dictionary with tile-entry pairs for the key.
         

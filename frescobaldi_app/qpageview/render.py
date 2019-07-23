@@ -198,6 +198,7 @@ class AbstractImageRenderer:
         # look in cache, get a dict with tiles and their images
         tileset = self.cache.tileset(key)
         missing = set()
+        replace = set()
         
         for t in tiles:
             entry = tileset.get(t)
@@ -210,12 +211,15 @@ class AbstractImageRenderer:
                 h = r.height()
                 images.append((r, entry.image, x, y, w, h))
                 region += r
+                if entry.replace:
+                    replace.add(t)
             else:
                 # an image needs to be generated
                 missing.add(t)
         
+        if missing or replace:
+            self.schedule(page, ratio, replace | missing, callback)
         if missing:
-            self.schedule(page, ratio, missing, callback)
             # find other images from cache for missing tiles
             for width, height, tileset in self.cache.closest(key):
                 # we have a dict of tiles for an image of size iwidth x iheight
