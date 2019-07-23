@@ -59,10 +59,9 @@ class Link(link.Link):
     
     @property
     def url(self):
-        try:
+        if isinstance(self.linkobj, popplerqt5.Poppler.LinkBrowse):
             return self.linkobj.url()
-        except AttributeError:
-            return ""
+        return ""
 
 
 class PopplerPage(page.AbstractPage):
