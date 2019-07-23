@@ -331,6 +331,51 @@ class AbstractPage:
         """
         return ""
 
+    def getLinks(self):
+        """Implement this method to load our links."""
+        from . import link
+        return link.Links()
+    
+    def links(self):
+        """Return the Links object, containing Link objects.
+        
+        Every Link denotes a clickable area on a Page, in coordinates 0.0-1.0.
+        The Links object makes it possible to quickly find a link on a Page.
+        This is cached after the first request, you should implement the
+        getLinks() method to load the links.
+        
+        """
+        try:
+            return self._links
+        except AttributeError:
+            links = self.links = self.getLinks()
+        return links
+    
+    def linksAt(self, point):
+        """Return a list() of zero or more links touched by QPoint point.
+
+        The point is in page coordinates.
+        The list is sorted with the smallest rectangle first.
+
+        """
+        # Link objects have their area ranging
+        # in width and height from 0.0 to 1.0 ...
+        x, y = self.point2area(point.x(), point.y(), 1, 1)
+        links = self.links()
+        return sorted(links.at(x, y), key=links.width)
+
+    def linksIn(self, rect):
+        """Return an unordered set of links enclosed in rectangle.
+        
+        The rectangle is in page coordinates.
+        
+        """
+        return self.links().inside(*self.page2area(rect, 1, 1).getCoords())
+
+    def linkRect(self, link):
+        """Return a QRect encompassing the linkArea of a link in coordinates of our page."""
+        return self.area2page(link.area, 1, 1)
+
 
 
 # rotation helper functions for a point....
