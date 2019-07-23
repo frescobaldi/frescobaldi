@@ -170,6 +170,18 @@ class Rubberband(QWidget):
             result.append(page.text(rect))
         return '\n'.join(result)
 
+    def selectedLinks(self):
+        """Yield tuples (page, links) for every page in the selection.
+        
+        links is a non-empty set() of Link instances on that page that intersect
+        with the selection.
+        
+        """
+        for page, rect in self.selectedPages():
+            links = page.linksIn(rect)
+            if links:
+                yield page, links
+
     def setSelection(self, rect):
         """Sets the selection, the rectangle should be relative to the view's layout position."""
         if rect:
