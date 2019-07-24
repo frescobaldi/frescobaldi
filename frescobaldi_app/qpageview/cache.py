@@ -54,20 +54,32 @@ class ImageCache:
         self._cache.clear()
         self.currentsize = 0
     
-    def invalidate(self):
+    def invalidate(self, page=None):
         """Set the replace flag for all cached images to True.
         
-        They will still be returned on request, but the renderer will reschedule
-        a rendering of a new image. This way one can update render options or
-        page contents and get a smooth redraw without flickering an empty page
-        in between.
+        If the page is given, only images for that page will be set to replace.
+        
+        Images will still be returned on request, but the renderer will 
+        reschedule a rendering of a new image. This way one can update render 
+        options or page contents and get a smooth redraw without flickering an 
+        empty page in between.
         
         """
-        for identd in self._cache.values():
-            for keyd in identd.values():
-                for tiled in keyd.values():
-                    for entry in tiled.values():
-                        entry.replace = True
+        def keyds():
+            if page:
+                try:
+                    yield self._cache[page.group()][page.ident()]
+                except KeyError:
+                    return
+            else:
+                for identd in self._cache.values():
+                    for keyd in identd.values():
+                        yield keyd
+        for keyd in keyds():
+            for tiled in keyd.values():
+                for entry in tiled.values():
+                    entry.replace = True
+
 
     def tileset(self, key):
         """Return a dictionary with tile-entry pairs for the key.
@@ -150,7 +162,8 @@ class ImageCache:
         suitable = [
             (k[1], k[2], tileset)
             for k, tileset in keyd.items()
-                if k[0] == key.rotation and k[1] != key.width]
+                if k[0] == key.rotation and k[1] != key.width
+                    and not any(e.replace for e in tileset.values())]
         return sorted(suitable, key=lambda s: abs(1 - s[0] / key.width))
 
 
