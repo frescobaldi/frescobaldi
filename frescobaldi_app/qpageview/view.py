@@ -25,7 +25,7 @@ import collections
 import contextlib
 
 from PyQt5.QtCore import pyqtSignal, QPoint, QRect, QSize, Qt
-from PyQt5.QtGui import QCursor, QPainter, QPalette
+from PyQt5.QtGui import QCursor, QPainter, QPalette, QRegion
 from PyQt5.QtWidgets import QStyle
 
 from . import layout
@@ -519,6 +519,27 @@ class View(scrollarea.ScrollArea):
         """Call this when you want to redraw the specified page."""
         rect = page.rect().translated(self.layoutPosition())
         self.viewport().update(rect)
+
+    def rerender(self, page=None):
+        """Schedule the specified page or all pages for rerendering.
+        
+        Call this when you have changed render options or page contents.
+        The new image will replace the old one when rendering is finished,
+        without flicker in between.
+        
+        """
+        caches = collections.defaultdict(list)
+        pages = (page,) if page else self._pageLayout
+        region = QRegion()
+        for page in pages:
+            if page.renderer:
+                caches[page.renderer.cache].append(page)
+        for cache, pages in caches.items():
+            for page in pages:
+                cache.invalidate(page)
+                region += page.rect()
+        region.translate(self.layoutPosition())
+        self.viewport().update(region)
 
     def _unschedulePages(self, pages):
         """(Internal.)
