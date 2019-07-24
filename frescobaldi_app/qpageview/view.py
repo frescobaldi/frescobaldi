@@ -270,7 +270,7 @@ class View(scrollarea.ScrollArea):
                     if num != self._currentPage:
                         self._currentPage = num
                         self.currentPageChanged.emit(num)
-        self.viewport().update()
+        self.viewport().scroll(dx, dy)
     
     def stopScrolling(self):
         """Reimplemented to stop tracking a scroll initiated by setCurrentPage()."""
