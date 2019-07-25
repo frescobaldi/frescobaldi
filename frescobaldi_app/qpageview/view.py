@@ -29,6 +29,8 @@ from PyQt5.QtGui import QCursor, QPainter, QPalette, QRegion
 from PyQt5.QtWidgets import QStyle
 
 from . import layout
+from . import link
+from . import page
 from . import scrollarea
 
 from .constants import (
@@ -58,6 +60,8 @@ class View(scrollarea.ScrollArea):
     zoomFactorChanged = pyqtSignal(float)
     pageCountChanged = pyqtSignal(int)
     currentPageChanged = pyqtSignal(int)
+    linkHovered = pyqtSignal(page.AbstractPage, link.Link)
+    linkLeft = pyqtSignal()
 
     scrollupdatespersec = 50
     linksEnabled = True
@@ -72,6 +76,7 @@ class View(scrollarea.ScrollArea):
         self._pageCount = 0
         self._currentPage = 0
         self._scrollingToPage = False   # keep track of scrolling/page numbers
+        self._currentLinkId = None
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
@@ -493,14 +498,39 @@ class View(scrollarea.ScrollArea):
         page = self._pageLayout.pageAt(pos)
         cursor = None
         if page:
-            # TEMP: TODO: make links generic (not poppler-only)
-            if hasattr(page, 'linksAt'):
-                links = page.linksAt(pos - page.pos())
-                if links:
-                    cursor = Qt.PointingHandCursor
-                    # TODO: handle signal emission on enter/exit of links
+            links = page.linksAt(pos - page.pos())
+            if links:
+                cursor = Qt.PointingHandCursor
+                link = links[0]
+                lid = id(link)
+            else:
+                lid = None
+            if lid != self._currentLinkId:
+                if self._currentLinkId is not None:
+                    self.linkHoverLeave()
+                self._currentLinkId = lid
+                if lid is not None:
+                    self.linkHoverEnter(page, link)
         self.setCursor(cursor) if cursor else self.unsetCursor()
+
+    def linkHoverEnter(self, page, link):
+        """Called when the mouse hovers over a link.
+
+        The default implementation emits the linkHovered(page, link) signal.
+        You can reimplement this method to do something different.
         
+        """
+        self.linkHovered.emit(page, link)
+
+    def linkHoverLeave(self):
+        """Called when the mouse does not hover a link anymore.
+
+        The default implementation emits the linkLeft() signal.
+        You can reimplement this method to do something different.
+
+        """
+        self.linkLeft.emit()
+
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
         if self._viewMode and not self._pageLayout.empty():
