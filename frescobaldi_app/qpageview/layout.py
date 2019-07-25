@@ -169,7 +169,7 @@ class AbstractPageLayout(list):
         suitable zoom factor for the widest Page.
 
         """
-        return self.widestPage().zoomForWidth(self, width - self.margin * 2)
+        return self.widestPage().zoomForWidth(width - self.margin * 2, self.rotation, self.dpiX)
 
     def zoomFitHeight(self, height):
         """Return the zoom factor this layout would need to fit in the height.
@@ -178,7 +178,7 @@ class AbstractPageLayout(list):
         suitable zoom factor for the highest Page.
 
         """
-        return self.highestPage().zoomForHeight(self, height - self.margin * 2)
+        return self.highestPage().zoomForHeight(height - self.margin * 2, self.rotation, self.dpiY)
 
     def update(self):
         """Compute the size of all pages and updates their positions.
@@ -197,7 +197,9 @@ class AbstractPageLayout(list):
     def updatePageSizes(self):
         """Compute the correct size of every Page."""
         for page in self:
-            page.updateSizeFromLayout(self)
+            page.computedRotation = rotation = (page.rotation + self.rotation) & 3
+            page.width, page.height = page.computeSize(
+                rotation, self.dpiX, self.dpiY, self.zoomFactor)
 
     def updatePagePositions(self):
         """Determine the position of every Page.
@@ -283,7 +285,7 @@ class RowPageLayout(AbstractPageLayout):
         if self.fitAllColumns:
             ncols = min(self.pagesPerRow, self.count())
             width = (width - self.spacing * (ncols - 1)) // ncols
-        return self.widestPage().zoomForWidth(self, width)
+        return self.widestPage().zoomForWidth(width, self.rotation, self.dpiX)
 
     def updatePagePositions(self):
         """Reimplemented to perform our positioning algorithm."""

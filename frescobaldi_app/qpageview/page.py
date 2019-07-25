@@ -149,19 +149,6 @@ class AbstractPage:
         """
         return QSizeF(self.pageWidth, self.pageHeight)
 
-    def updateSizeFromLayout(self, layout):
-        """Compute and set the size() of the page.
-
-        This method is called on layout update by the updatePageSizes method.
-        The default implementation takes into account our pageSizeF(), scale
-        and rotation, and then the rotation, scale, DPI and zoom factor of
-        the layout. It uses the computeSize() method to perform the calculation.
-
-        """
-        self.computedRotation = rotation = (self.rotation + layout.rotation) & 3
-        self.width, self.height = self.computeSize(
-            rotation, layout.dpiX, layout.dpiY, layout.zoomFactor)
-
     def computeSize(self, rotation, dpiX, dpiY, zoomFactor):
         """Return a tuple (w, h) representing the size of the page in pixels.
 
@@ -178,21 +165,21 @@ class AbstractPage:
         h = round(h * dpiY / 72.0 * zoomFactor)
         return w, h
 
-    def zoomForWidth(self, layout, width):
+    def zoomForWidth(self, width, rotation, dpiX):
         """Return the zoom we need to display ourselves at the given width."""
-        if (self.rotation + layout.rotation) & 1:
+        if (self.rotation + rotation) & 1:
             w = self.pageHeight / self.scaleY
         else:
             w = self.pageWidth / self.scaleX
-        return width * 72.0 / layout.dpiX / w
+        return width * 72.0 / dpiX / w
 
-    def zoomForHeight(self, layout, height):
+    def zoomForHeight(self, height, rotation, dpiY):
         """Return the zoom we need to display ourselves at the given height."""
-        if (self.rotation + layout.rotation) & 1:
+        if (self.rotation + rotation) & 1:
             h = self.pageWidth / self.scaleX
         else:
             h = self.pageHeight / self.scaleY
-        return height * 72.0 / layout.dpiY / h
+        return height * 72.0 / dpiY / h
 
     def paint(self, painter, rect, callback=None):
         """Reimplement this to paint our Page.
