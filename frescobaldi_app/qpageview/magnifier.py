@@ -90,6 +90,8 @@ class Magnifier(QWidget):
     # Minimal size
     MIN_SIZE = 20
 
+    # Maximal size
+    MAX_SIZE = 640
 
     def __init__(self):
         super().__init__()
@@ -167,7 +169,7 @@ class Magnifier(QWidget):
                     else:
                         dy = (ev.pos() - self._resizepos).y()
                     g = self.geometry()
-                    w = max(self.MIN_SIZE, self._resizewidth + 2 * dy)
+                    w = min(max(self.MIN_SIZE, self._resizewidth + 2 * dy), self.MAX_SIZE)
                     self.resize(w, w)
                     self.moveCenter(g.center())
                 else:
@@ -193,15 +195,16 @@ class Magnifier(QWidget):
 
     def mousePressEvent(self, ev):
         """Start dragging the magnifier."""
-        ev.accept() # don't propagate to view
-        if self._dragging != DRAG_SHORT and ev.button() == Qt.LeftButton:
+        if self._dragging == DRAG_SHORT:
+            ev.ignore()
+        elif not self._dragging and ev.button() == Qt.LeftButton:
             self._dragging = DRAG_LONG
             self._dragpos = ev.pos()
             self.setCursor(Qt.ClosedHandCursor)
 
     def mouseMoveEvent(self, ev):
         """Move the magnifier if we were dragging it."""
-        ev.accept() # don't propagate to view
+        ev.ignore()
         if self._dragging == DRAG_LONG:
             pos = self.mapToParent(ev.pos())
             self.move(pos - self._dragpos)
@@ -210,8 +213,8 @@ class Magnifier(QWidget):
 
     def mouseReleaseEvent(self, ev):
         """The button is released, stop moving ourselves."""
-        ev.accept() # don't propagate to view
-        if ev.button() == Qt.LeftButton and self._dragging == DRAG_LONG:
+        ev.ignore()
+        if self._dragging == DRAG_LONG and ev.button() == Qt.LeftButton:
             self._dragging = False
             self.unsetCursor()
             view = self.parent().parent()
