@@ -88,7 +88,7 @@ class Magnifier(QWidget):
     MAX_EXTRA_ZOOM = 1.25
 
     # Minimal size
-    MIN_SIZE = 20
+    MIN_SIZE = 50
 
     # Maximal size
     MAX_SIZE = 640
@@ -228,8 +228,8 @@ class Magnifier(QWidget):
                 factor = 1.1 ** (ev.angleDelta().y() / 120)
                 g = self.geometry()
                 c = g.center()
-                g.setWidth(max(g.width() * factor, self.MIN_SIZE))
-                g.setHeight(max(g.height() * factor, self.MIN_SIZE))
+                g.setWidth(min(max(g.width() * factor, self.MIN_SIZE), self.MAX_SIZE))
+                g.setHeight(min(max(g.height() * factor, self.MIN_SIZE), self.MAX_SIZE))
                 g.moveCenter(c)
                 self.setGeometry(g)
             else:
