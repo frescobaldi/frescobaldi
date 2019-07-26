@@ -206,6 +206,7 @@ class Magnifier(QWidget):
         """Move the magnifier if we were dragging it."""
         ev.ignore()
         if self._dragging == DRAG_LONG:
+            ev.accept()
             pos = self.mapToParent(ev.pos())
             self.move(pos - self._dragpos)
             view = self.parent().parent()
