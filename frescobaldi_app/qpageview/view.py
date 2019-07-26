@@ -24,7 +24,7 @@ The View, deriving from QAbstractScrollArea.
 import collections
 import contextlib
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QRect, QSize, Qt
+from PyQt5.QtCore import pyqtSignal, QEvent, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QCursor, QPainter, QPalette, QRegion
 from PyQt5.QtWidgets import QStyle
 
@@ -62,6 +62,7 @@ class View(scrollarea.ScrollArea):
     currentPageChanged = pyqtSignal(int)
     linkHovered = pyqtSignal(page.AbstractPage, link.Link)
     linkLeft = pyqtSignal()
+    linkClicked = pyqtSignal(QEvent, page.AbstractPage, link.Link)
 
     scrollupdatespersec = 50
     linksEnabled = True
@@ -490,29 +491,39 @@ class View(scrollarea.ScrollArea):
         if self.linksEnabled:
             self.handleLinks(pos)
     
+    def linkAt(self, pos):
+        """If the pos (in the viewport) is over a link, return a (page, link) tuple.
+        
+        Otherwise returns (None, None).
+        
+        """
+        pos = pos - self.layoutPosition()
+        page = self._pageLayout.pageAt(pos)
+        if page:
+            links = page.linksAt(pos - page.pos())
+            if links:
+                return page, links[0]
+        return None, None
+        
     def handleLinks(self, pos):
         """Adjust the cursor for possible links at the specified position.
         
         Also emits signals when the cursor enters or leaves a link.
         
         """
-        pos = pos - self.layoutPosition()
-        page = self._pageLayout.pageAt(pos)
-        cursor = None
-        if page:
-            links = page.linksAt(pos - page.pos())
-            if links:
-                cursor = Qt.PointingHandCursor
-                link = links[0]
-                lid = id(link)
-            else:
-                lid = None
-            if lid != self._currentLinkId:
-                if self._currentLinkId is not None:
-                    self.linkHoverLeave()
-                self._currentLinkId = lid
-                if lid is not None:
-                    self.linkHoverEnter(page, link)
+        page, link = self.linkAt(pos)
+        if link:
+            cursor = Qt.PointingHandCursor
+            lid = id(link)
+        else:
+            cursor = None
+            lid = None
+        if lid != self._currentLinkId:
+            if self._currentLinkId is not None:
+                self.linkHoverLeave()
+            self._currentLinkId = lid
+            if lid is not None:
+                self.linkHoverEnter(page, link)
         self.setCursor(cursor) if cursor else self.unsetCursor()
 
     def linkHoverEnter(self, page, link):
@@ -532,6 +543,16 @@ class View(scrollarea.ScrollArea):
 
         """
         self.linkLeft.emit()
+
+    def linkClickEvent(self, ev, page, link):
+        """Called when a link is clicked.
+
+        The default implementation emits the linkClicked(event, page, link)
+        signal. The event can be used for thinks like determining which button
+        was used, and which keyboard modifiers were in effect.
+
+        """
+        self.linkClicked.emit(ev, page, link)
 
     def resizeEvent(self, ev):
         """Reimplemented to update the scrollbars."""
@@ -590,6 +611,7 @@ class View(scrollarea.ScrollArea):
             renderer.unschedule(pages, self.repaintPage)
         
     def paintEvent(self, ev):
+        """Paint the contents of the viewport."""
         layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
 
@@ -616,7 +638,7 @@ class View(scrollarea.ScrollArea):
         self._prev_pages_to_paint = pages_to_paint
 
     def wheelEvent(self, ev):
-        # TEMP
+        """Reimplemented to support wheel zooming."""
         if ev.modifiers() & Qt.CTRL:
             factor = 1.1 ** (ev.angleDelta().y() / 120)
             if ev.angleDelta().y():
@@ -624,7 +646,17 @@ class View(scrollarea.ScrollArea):
         else:
             super().wheelEvent(ev)
 
+    def mousePressEvent(self, ev):
+        """Implemented to detect clicking a link and calling linkClickEvent()."""
+        if self.handleLinks:
+            page, link = self.linkAt(ev.pos())
+            if link:
+                self.linkClickEvent(ev, page, link)
+                return
+        super().mousePressEvent(ev)
+
     def mouseMoveEvent(self, ev):
+        """Implemented to adjust the mouse cursor depending on the page contents."""
         self.adjustCursor(ev.pos())
         super().mouseMoveEvent(ev)
 
