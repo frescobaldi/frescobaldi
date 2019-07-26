@@ -46,6 +46,8 @@ class ScrollArea(QAbstractScrollArea):
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._globalPos = None
+        self._dragSpeed = None
+        self._dragTime = None
         self._scroller = None
         self._scrollTimer = QBasicTimer()
 
@@ -219,19 +221,35 @@ class ScrollArea(QAbstractScrollArea):
         """Implemented to handle dragging the document with the left button."""
         if ev.buttons() & Qt.LeftButton:
             if self._globalPos is None:
-                self._globalPos = ev.globalPos()
                 self.setCursor(Qt.SizeAllCursor)
             else:
                 diff = self._globalPos - ev.globalPos()
-                self._globalPos = ev.globalPos()
+                self._dragSpeed = (ev.timestamp() - self._dragTime, diff)
                 self.scrollBy(diff)
+            self._globalPos = ev.globalPos()
+            self._dragTime = ev.timestamp()
         super().mouseMoveEvent(ev)
 
     def mouseReleaseEvent(self, ev):
         """Implemented to handle dragging the document with the left button."""
         if ev.button() == Qt.LeftButton and self._globalPos is not None:
             self.unsetCursor()
+            if self.kineticscrolling:
+                # compute speed of last movement
+                time, speed = self._dragSpeed
+                time += ev.timestamp() - self._dragTime # add time between last mvt and release
+                speed = speed * 1000 / self.scrollupdatespersec / time
+                # compute diff to scroll
+                sx = abs(speed.x())
+                diffx = sx * (sx + 1) / 2
+                sy = abs(speed.y())
+                diffy = sy * (sy + 1) / 2
+                if speed.x() < 0: diffx = -diffx
+                if speed.y() < 0: diffy = -diffy
+                self.kineticScrollBy(QPoint(diffx, diffy))
             self._globalPos = None
+            self._dragTime = None
+            self._dragSpeed = None
         super().mouseReleaseEvent(ev)
         
 
