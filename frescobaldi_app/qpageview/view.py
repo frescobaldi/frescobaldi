@@ -485,6 +485,8 @@ class View(scrollarea.ScrollArea):
         If `linksEnabled` is True, calls handleLinks()
         
         """
+        if self._globalPos is not None:
+            return # Dragging the background is busy, see scrollarea.py.
         if self.linksEnabled:
             self.handleLinks(pos)
     

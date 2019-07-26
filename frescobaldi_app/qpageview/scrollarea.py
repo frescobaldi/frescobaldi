@@ -45,6 +45,7 @@ class ScrollArea(QAbstractScrollArea):
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
+        self._globalPos = None
         self._scroller = None
         self._scrollTimer = QBasicTimer()
 
@@ -209,6 +210,30 @@ class ScrollArea(QAbstractScrollArea):
             if not self.scrollBy(diff) or self._scroller.finished():
                 self.stopScrolling()
 
+    def mousePressEvent(self, ev):
+        """Implemented to handle dragging the document with the left button."""
+        self.stopScrolling()
+        super().mousePressEvent(ev)
+
+    def mouseMoveEvent(self, ev):
+        """Implemented to handle dragging the document with the left button."""
+        if ev.buttons() & Qt.LeftButton:
+            if self._globalPos is None:
+                self._globalPos = ev.globalPos()
+                self.setCursor(Qt.SizeAllCursor)
+            else:
+                diff = self._globalPos - ev.globalPos()
+                self._globalPos = ev.globalPos()
+                self.scrollBy(diff)
+        super().mouseMoveEvent(ev)
+
+    def mouseReleaseEvent(self, ev):
+        """Implemented to handle dragging the document with the left button."""
+        if ev.button() == Qt.LeftButton and self._globalPos is not None:
+            self.unsetCursor()
+            self._globalPos = None
+        super().mouseReleaseEvent(ev)
+        
 
 class Scroller:
     """Abstract base class, encapsulates scrolling behaviour.
