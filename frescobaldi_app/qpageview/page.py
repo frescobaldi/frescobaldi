@@ -335,7 +335,7 @@ class AbstractPage:
         try:
             return self._links
         except AttributeError:
-            links = self.links = self.getLinks()
+            links = self._links = self.getLinks()
         return links
     
     def linksAt(self, point):
