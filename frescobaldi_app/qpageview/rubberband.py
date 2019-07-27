@@ -71,6 +71,7 @@ class Rubberband(QWidget):
         self._dragedge = 0
         self._dragpos = None
         self._selection = QRect()
+        self._layoutOffset = QPoint()   # used to keep on spot during resize
         self.setMouseTracking(True)
 
     def paintEvent(self, ev):
@@ -190,6 +191,7 @@ class Rubberband(QWidget):
             view = self.parent().parent()
             geom = rect.translated(view.layoutPosition())
             self.setGeometry(geom)
+            self._layoutOffset = rect.topLeft()
             self.show()
             self._emitSelectionChanged(geom)
         else:
@@ -255,6 +257,7 @@ class Rubberband(QWidget):
         geom = self._draggeom.normalized()
         if geom.isValid():
             self.setGeometry(geom)
+            self._layoutOffset = geom.topLeft() - self.parent().parent().layoutPosition()
             if self.trackSelection:
                 self._emitSelectionChanged(geom)
         if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
@@ -276,12 +279,18 @@ class Rubberband(QWidget):
             self._emitSelectionChanged(self.geometry())
 
     def eventFilter(self, viewport, ev):
-        if not self._dragging:
+        if ev.type() == QEvent.Resize and self.isVisible():
+            view = self.parent().parent()
+            if not view.viewMode():
+                # fixed scale, try to keep ourselves in the same position on resize
+                self.move(self._layoutOffset + view.layoutPosition())
+        elif not self._dragging:
             if ev.type() == QEvent.MouseButtonPress and ev.button() == self.showbutton:
                 if self.isVisible():
                     # this cancels a previous selection if we were visible
                     self._emitSelectionChanged(QRect())
                 self.setGeometry(QRect(ev.pos(), QSize(0, 0)))
+                self._layoutOffset = ev.pos() - viewport.parent().layoutPosition()
                 self.startDrag(ev.pos(), ev.button())
                 self._dragedge = _RIGHT | _BOTTOM
                 self.adjustCursor(self._dragedge)
