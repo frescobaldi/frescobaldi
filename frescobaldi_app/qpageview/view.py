@@ -72,7 +72,7 @@ class View(scrollarea.ScrollArea):
         super().__init__(parent, **kwds)
         self._prev_pages_to_paint = set()
         self._viewMode = FixedScale
-        self._pageLayout = layout.PageLayout()
+        self._pageLayout = None
         self._magnifier = None
         self._rubberband = None
         self._pageCount = 0
@@ -84,6 +84,7 @@ class View(scrollarea.ScrollArea):
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
         self.setMouseTracking(True)
+        self.setPageLayout(layout.PageLayout())
 
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file."""
@@ -106,8 +107,17 @@ class View(scrollarea.ScrollArea):
         self.updatePageLayout()
 
     def setPageLayout(self, layout):
-        """Set our current PageLayout instance."""
-        self._unschedulePages(self._pageLayout)
+        """Set our current PageLayout instance.
+        
+        The dpiX and dpiY attributes of the layout are set to the physical
+        resolution of the widget, which should result in a natural size of 100%
+        at zoom factor 1.0
+        
+        """
+        if self._pageLayout:
+            self._unschedulePages(self._pageLayout)
+        layout.dpiX = self.physicalDpiX()
+        layout.dpiY = self.physicalDpiY()
         self._pageLayout = layout
 
     def pageLayout(self):
