@@ -23,8 +23,9 @@ The View, deriving from QAbstractScrollArea.
 
 import collections
 import contextlib
+import weakref
 
-from PyQt5.QtCore import pyqtSignal, QEvent, QPoint, QRect, QSize, Qt
+from PyQt5.QtCore import pyqtSignal, QEvent, QPoint, QRect, QSize, QTimer, Qt
 from PyQt5.QtGui import QCursor, QPainter, QPalette, QRegion
 from PyQt5.QtWidgets import QStyle
 
@@ -78,6 +79,7 @@ class View(scrollarea.ScrollArea):
         self._currentPage = 0
         self._scrollingToPage = False   # keep track of scrolling/page numbers
         self._currentLinkId = None
+        self._highlights = weakref.WeakKeyDictionary()
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
@@ -610,6 +612,41 @@ class View(scrollarea.ScrollArea):
         for renderer, pages in unschedule.items():
             renderer.unschedule(pages, self.repaintPage)
         
+    def highlight(self, highlighter, areas, msec=0):
+        """Highlight the list of areas using the given highlighter.
+
+        Every area is a two-tuple (page, rect), where rect is a QRectF()
+        inside (0, 0, 1, 1) like the area attribute of a Link.
+
+        """
+        d = collections.defaultdict(list)
+        for page, area in areas:
+            d[page].append(area)
+        d = weakref.WeakKeyDictionary(d)
+        if msec:
+            selfref=weakref.ref(self)
+            def clear():
+                self = selfref()
+                if self:
+                    self.clearHighlight(highlighter)
+            t = QTimer(singleShot = True, timeout = clear)
+            t.start(msec)
+        else:
+            t = None
+        self.clearHighlight(highlighter)
+        self._highlights[highlighter] = (d, t)
+        self.viewport().update()
+
+    def clearHighlight(self, highlighter):
+        """Removes the highlighted areas of the given highlighter."""
+        try:
+            (d, t) = self._highlights[highlighter]
+        except KeyError:
+            return
+        if t is not None: t.stop()
+        del self._highlights[highlighter]
+        self.viewport().update()
+
     def paintEvent(self, ev):
         """Paint the contents of the viewport."""
         layout_pos = self.layoutPosition()
@@ -626,7 +663,20 @@ class View(scrollarea.ScrollArea):
             p.paint(painter, rect, self.repaintPage)
             painter.restore()
 
-        # TODO paint highlighting
+        # paint highlighting
+        for highlighter, (d, t) in self._highlights.items():
+            for page in pages_to_paint:
+                rects = []
+                get_area = lambda area: page.area2page(area, 1, 1)
+                try:
+                    rects.extend(map(get_area, d[page]))
+                except KeyError:
+                    continue
+                if rects:
+                    painter.save()
+                    painter.translate(page.pos() + layout_pos)
+                    highlighter.paintRects(painter, rects)
+                    painter.restore()
 
         # remove pending render jobs for pages that were visible, but are not
         # visible now
