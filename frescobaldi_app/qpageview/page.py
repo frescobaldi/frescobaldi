@@ -95,7 +95,11 @@ class AbstractPage:
         return copy.copy(self)
 
     def rect(self):
-        """Return our QRect(), with position and size."""
+        """Return our rectangle: QRect(0, 0, width, height)."""
+        return QRect(0, 0, self.width, self.height)
+
+    def geometry(self):
+        """Return our rectangle in the layout: QRect(x, y, width, height)."""
         return QRect(self.x, self.y, self.width, self.height)
 
     def setPos(self, point):

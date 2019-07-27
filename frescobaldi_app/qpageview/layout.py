@@ -108,7 +108,7 @@ class AbstractPageLayout(list):
         """
         # Specific layouts may use faster algorithms to find the page.
         for page in self:
-            if page.rect().contains(point):
+            if page.geometry().contains(point):
                 return page
 
     def pagesAt(self, r):
@@ -119,7 +119,7 @@ class AbstractPageLayout(list):
         """
         # Specific layouts may use faster algorithms to find the pages.
         for page in self:
-            if r.intersects(page.rect()):
+            if r.intersects(page.geometry()):
                 yield page
 
     def widestPage(self):
@@ -227,7 +227,7 @@ class AbstractPageLayout(list):
         """
         r = QRect()
         for page in self:
-            r |= page.rect()
+            r |= page.geometry()
         m = self.margin
         size = r.adjusted(-m, -m, m, m).size()
         changed = self.size() != size

@@ -249,7 +249,7 @@ class View(scrollarea.ScrollArea):
         self._currentPage = num
         self.currentPageChanged.emit(num)
         # now move the view
-        if page.rect() in self.visibleRect():
+        if page.geometry() in self.visibleRect():
             return
         margin = self._pageLayout.margin
         pos = page.pos() - QPoint(margin, margin)
@@ -270,7 +270,7 @@ class View(scrollarea.ScrollArea):
         # whether the current page number needs to be updated
         if not self._scrollingToPage and self._pageLayout.count() > 0:
             # do nothing if current page is still fully in view
-            if self._pageLayout[self._currentPage-1].rect() not in self.visibleRect():
+            if self._pageLayout[self._currentPage-1].geometry() not in self.visibleRect():
                 # what is the current page number?
                 p = self.pageAt(self.viewport().rect().center())
                 if p:
@@ -572,7 +572,7 @@ class View(scrollarea.ScrollArea):
 
     def repaintPage(self, page):
         """Call this when you want to redraw the specified page."""
-        rect = page.rect().translated(self.layoutPosition())
+        rect = page.geometry().translated(self.layoutPosition())
         self.viewport().update(rect)
 
     def rerender(self, page=None):
@@ -592,7 +592,7 @@ class View(scrollarea.ScrollArea):
         for cache, pages in caches.items():
             for page in pages:
                 cache.invalidate(page)
-                region += page.rect()
+                region += page.geometry()
         region.translate(self.layoutPosition())
         self.viewport().update(region)
 
@@ -657,7 +657,7 @@ class View(scrollarea.ScrollArea):
         pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
         # paint the pages
         for p in pages_to_paint:
-            rect = (p.rect() & ev_rect).translated(-p.pos())
+            rect = (p.geometry() & ev_rect).translated(-p.pos())
             painter.save()
             painter.translate(p.pos() + layout_pos)
             p.paint(painter, rect, self.repaintPage)
@@ -681,7 +681,7 @@ class View(scrollarea.ScrollArea):
         rect = self.viewport().rect().translated(-layout_pos)
         pages = set(page
             for page in self._prev_pages_to_paint - pages_to_paint
-                if not rect.intersects(page.rect()))
+                if not rect.intersects(page.geometry()))
         self._unschedulePages(pages)
         self._prev_pages_to_paint = pages_to_paint
 

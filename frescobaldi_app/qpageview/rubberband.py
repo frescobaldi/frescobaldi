@@ -161,7 +161,7 @@ class Rubberband(QWidget):
             view = self.parent().parent()
             layout = view.pageLayout()
             for page in layout.pagesAt(rect):
-                yield page, rect.intersected(page.rect()).translated(-page.pos())
+                yield page, rect.intersected(page.geometry()).translated(-page.pos())
     
     def selectedText(self):
         """Return the text found in the selection, as far as the pages support it."""

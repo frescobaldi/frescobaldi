@@ -280,7 +280,7 @@ class Magnifier(QWidget):
             page.width = p.width * scale
             page.height = p.height * scale
             # now paint it
-            rect = (page.rect() & ev_rect).translated(-page.pos())
+            rect = (page.geometry() & ev_rect).translated(-page.pos())
             painter.save()
             painter.translate(page.pos() - our_rect.topLeft())
             page.paint(painter, rect, self.repaintPage)
