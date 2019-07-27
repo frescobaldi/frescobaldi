@@ -666,17 +666,15 @@ class View(scrollarea.ScrollArea):
         # paint highlighting
         for highlighter, (d, t) in self._highlights.items():
             for page in pages_to_paint:
-                rects = []
-                get_area = lambda area: page.area2page(area, 1, 1)
                 try:
-                    rects.extend(map(get_area, d[page]))
+                    areas = d[page]
                 except KeyError:
                     continue
-                if rects:
-                    painter.save()
-                    painter.translate(page.pos() + layout_pos)
-                    highlighter.paintRects(painter, rects)
-                    painter.restore()
+                rects = [page.area2page(area, 1, 1) for area in areas]
+                painter.save()
+                painter.translate(page.pos() + layout_pos)
+                highlighter.paintRects(painter, rects)
+                painter.restore()
 
         # remove pending render jobs for pages that were visible, but are not
         # visible now
