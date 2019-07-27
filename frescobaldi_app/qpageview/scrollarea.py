@@ -243,7 +243,7 @@ class ScrollArea(QAbstractScrollArea):
         """Implemented to handle dragging the document with the left button."""
         if self.draggingEnabled and ev.button() == Qt.LeftButton and self._globalPos is not None:
             self.unsetCursor()
-            if self.kineticscrollingEnabled:
+            if self.kineticscrollingEnabled and self._dragSpeed is not None:
                 # compute speed of last movement
                 time, speed = self._dragSpeed
                 time += ev.timestamp() - self._dragTime # add time between last mvt and release
