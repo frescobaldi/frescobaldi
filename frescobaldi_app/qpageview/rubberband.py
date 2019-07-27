@@ -86,7 +86,9 @@ class Rubberband(QWidget):
         # Thin rectangle outside.
         color.setAlpha(150)
         painter.setPen(color)
-        painter.drawRect(self.rect().adjusted(0,0,-1,-1))
+        # XXX can this adjustment be done smarter?
+        adjust = -1 / self.devicePixelRatioF()
+        painter.drawRect(self.rect().adjusted(0, 0, adjust, adjust))
 
         # Pseudo-handles at the corners and sides
         color.setAlpha(100)
