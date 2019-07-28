@@ -246,6 +246,46 @@ class AbstractPageLayout(list):
         self.setSize(size)
         return changed
 
+    def pos2offset(self, pos):
+        """Return a three-tuple (index, x, y).
+        
+        The index refers to a page in the layout, or nowhere if -1. The x and y 
+        refer to a spot on the page (or layout if empty) in the range 0..1.  
+        You can use it to store a certain position and restore it after 
+        changing the zoom e.g.
+        
+        """
+        page = self.pageAt(pos) or self._pageRects().nearest(pos.x(), pos.y())
+        if page:
+            pos = pos - page.pos()
+            w = page.width
+            h = page.height
+            i = self.index(page)
+        else:
+            w = self.width
+            h = self.height
+            i = -1
+        x = pos.x() / w
+        y = pos.y() / h
+        return (i, x, y)
+    
+    def offset2pos(self, offset):
+        """Return the pos on the layout for the specified offset.
+        
+        The offset is a three-tuple like returned by pos2offset().
+        
+        """
+        i, x, y = offset
+        if i < 0 or i >= len(self):
+            pos = QPoint(0, 0)
+            w = self.width
+            h = self.height
+        else:
+            page = self[i]
+            pos = page.pos()
+            w = page.width
+            h = page.height
+        return pos + QPoint(x * w, y * h)
 
 
 class PageLayout(AbstractPageLayout):

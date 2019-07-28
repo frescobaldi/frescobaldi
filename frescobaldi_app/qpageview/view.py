@@ -392,23 +392,12 @@ class View(scrollarea.ScrollArea):
         layout = self._pageLayout
         layout_pos = self.layoutPosition()
         pos_on_layout = pos - layout_pos
-        page = layout.pageAt(pos_on_layout) if on_page else None
-        if page:
-            pos_on_page = pos_on_layout - page.pos()
-            x = pos_on_page.x() / page.width
-            y = pos_on_page.y() / page.height
-        else:
-            x = pos_on_layout.x() / layout.width
-            y = pos_on_layout.y() / layout.height
+        offset = layout.pos2offset(pos_on_layout)
 
         yield
         self.updatePageLayout()
 
-        if page:
-            new_pos_on_page = QPoint(round(x * page.width), round(y * page.height))
-            new_pos_on_layout = page.pos() + new_pos_on_page
-        else:
-            new_pos_on_layout = QPoint(round(x * layout.width), round(y * layout.height))
+        new_pos_on_layout = layout.offset2pos(offset)
         diff = new_pos_on_layout - pos
         self.verticalScrollBar().setValue(diff.y())
         self.horizontalScrollBar().setValue(diff.x())
