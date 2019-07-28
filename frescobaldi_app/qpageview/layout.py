@@ -285,7 +285,7 @@ class AbstractPageLayout(list):
             pos = page.pos()
             w = page.width
             h = page.height
-        return pos + QPoint(x * w, y * h)
+        return pos + QPoint(round(x * w), round(y * h))
 
 
 class PageLayout(AbstractPageLayout):
