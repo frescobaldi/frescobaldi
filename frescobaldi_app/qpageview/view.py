@@ -540,12 +540,15 @@ class PagedViewMixin:
         """Return the current page number in view (starting with 1)."""
         return self._currentPage
     
-    def setCurrentPage(self, num):
+    def setCurrentPage(self, num, kinetic=True):
         """Scrolls to the specified page number (starting with 1).
         
         If the page is already in view, the view is not scrolled, otherwise
         the view is scrolled to center the page. (If the page is larger than 
         the view, the top-left corner is positioned top-left in the view.)
+        
+        If `kinetic` is set to False, the view is scrolled immediately, 
+        regardless whether kinetic scrolling is enabled or not.
         
         """
         if num > self._pageCount or num < 1 or num == self._currentPage:
@@ -558,12 +561,12 @@ class PagedViewMixin:
             return
         margin = self._pageLayout.margin
         pos = page.pos() - QPoint(margin, margin)
-        if not self.kineticscrollingEnabled:
-            self.scrollTo(pos)
-        else:
+        if kinetic and self.kineticscrollingEnabled:
             # during the scrolling the page number should not be updated.
             self._scrollingToPage = True
             self.kineticScrollTo(pos)
+        else:
+            self.scrollTo(pos)
 
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to keep track of current page."""
