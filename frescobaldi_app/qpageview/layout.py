@@ -109,7 +109,7 @@ class AbstractPageLayout(list):
         return QSize(self.width, self.height)
 
     def _pageRects(self):
-        """(Internal, returns the PageRects object for quickly finding pages."""
+        """(Internal) Return the PageRects object for quickly finding pages."""
         if self._rects:
             return self._rects
         r = self._rects = PageRects(self)

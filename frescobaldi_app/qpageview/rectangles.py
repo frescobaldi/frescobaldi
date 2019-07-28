@@ -184,8 +184,7 @@ class Rectangles:
             centerx = (right  + left) / 2
             centery = (bottom + top)  / 2
             return abs(centerx - x) + abs(centery - y)  # manhattan dist
-        for obj in sorted(self._items.keys(), key=distance):
-            return obj
+        return min(self._items.keys(), key=distance, default=None)
 
     def __len__(self):
         return len(self._items)
