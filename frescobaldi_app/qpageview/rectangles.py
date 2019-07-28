@@ -171,6 +171,22 @@ class Rectangles:
             result.sort(key=lambda r: r[1])
             return result[0][0]
 
+    def nearest(self, x, y):
+        """Return the object with the shortest center distance to the point x, y.
+        
+        The point (x, y) can be outside the object. If there are no objects,
+        None is returned. You can use this method e.g. if at() does not return
+        anything.
+        
+        """
+        def distance(obj):
+            left, top, right, bottom = self._items[obj]
+            centerx = (right  + left) / 2
+            centery = (bottom + top)  / 2
+            return abs(centerx - x) + abs(centery - y)  # manhattan dist
+        for obj in sorted(self._items.keys(), key=distance):
+            return obj
+
     def __len__(self):
         return len(self._items)
 
