@@ -27,6 +27,7 @@ import copy
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QSize
 
+from . import rectangles
 from .constants import (
     FixedScale,
     FitWidth,
@@ -41,6 +42,12 @@ from .constants import (
     Horizontal,
     Vertical,
 )
+
+
+
+class PageRects(rectangles.Rectangles):
+    def get_coords(self, page):
+        return page.geometry().getCoords()
 
 
 class AbstractPageLayout(list):
@@ -72,6 +79,7 @@ class AbstractPageLayout(list):
     rotation = Rotate_0
     width = 0
     height = 0
+    _rects = None
 
     def __bool__(self):
         """Always return True."""
@@ -100,27 +108,30 @@ class AbstractPageLayout(list):
         """Return our size as QSize()."""
         return QSize(self.width, self.height)
 
+    def _pageRects(self):
+        """(Internal, returns the PageRects object for quickly finding pages."""
+        if self._rects:
+            return self._rects
+        r = self._rects = PageRects(self)
+        return r
+    
     def pageAt(self, point):
         """Return the page that contains the given QPoint.
         
         If the point is not on any page, None is returned.
         
         """
-        # Specific layouts may use faster algorithms to find the page.
-        for page in self:
-            if page.geometry().contains(point):
-                return page
+        for page in self._pageRects().at(point.x(), point.y()):
+            return page
 
     def pagesAt(self, r):
-        """Yield the pages touched by the given QRect or QRegion.
+        """Yield the pages touched by the given QRect.
         
-        The pages are in the layout's order.
+        The pages are in undefined order.
         
         """
-        # Specific layouts may use faster algorithms to find the pages.
-        for page in self:
-            if r.intersects(page.geometry()):
-                yield page
+        for page in self._pageRects().intersecting(*r.getCoords()):
+            yield page
 
     def widestPage(self):
         """Return the widest page, if any.
@@ -190,6 +201,7 @@ class AbstractPageLayout(list):
         This function returns True if the total size has changed.
 
         """
+        self._rects = None
         self.updatePageSizes()
         self.updatePagePositions()
         return self.computeSize()

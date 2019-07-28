@@ -268,7 +268,7 @@ class Magnifier(QWidget):
         ev_rect = ev.rect().translated(our_rect.topLeft())
 
         painter = QPainter(self)
-        for p in layout.pagesAt(region):
+        for p in layout.pagesAt(region.boundingRect()):
             # reuse the copy of the page if still existing
             try:
                 page = self._pages[p]
