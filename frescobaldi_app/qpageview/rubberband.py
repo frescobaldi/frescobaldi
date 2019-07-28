@@ -192,6 +192,7 @@ class Rubberband(QWidget):
             geom = rect.translated(view.layoutPosition())
             self.setGeometry(geom)
             self._layoutOffset = rect.topLeft()
+            self._oldZoom = view.zoomFactor()
             self.show()
             self._emitSelectionChanged(geom)
         else:
@@ -278,6 +279,18 @@ class Rubberband(QWidget):
         else:
             self._emitSelectionChanged(self.geometry())
 
+    def slotZoomChanged(self, zoom):
+        """Called when the zooming in the view changes, resizes ourselves."""
+        if self.hasSelection():
+            view = self.parent().parent()
+            factor =  zoom / self._oldZoom
+            self._oldZoom = zoom
+            self._layoutOffset *= factor
+            size = self.size() * factor
+            geom = QRect(self._layoutOffset + view.layoutPosition(), size)
+            self.setGeometry(geom)
+            self._emitSelectionChanged(geom)
+    
     def eventFilter(self, viewport, ev):
         if ev.type() == QEvent.Resize and self.isVisible():
             view = self.parent().parent()
@@ -291,6 +304,7 @@ class Rubberband(QWidget):
                     self._emitSelectionChanged(QRect())
                 self.setGeometry(QRect(ev.pos(), QSize(0, 0)))
                 self._layoutOffset = ev.pos() - viewport.parent().layoutPosition()
+                self._oldZoom = viewport.parent().zoomFactor()
                 self.startDrag(ev.pos(), ev.button())
                 self._dragedge = _RIGHT | _BOTTOM
                 self.adjustCursor(self._dragedge)
