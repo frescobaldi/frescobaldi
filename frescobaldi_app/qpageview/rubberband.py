@@ -325,7 +325,7 @@ class Rubberband(QWidget):
                     # this cancels a previous selection if we were visible
                     self._emitSelectionChanged(QRect())
                 self.setGeometry(QRect(ev.pos(), QSize(0, 0)))
-                self._layoutOffset = ev.pos() - viewport.parent().layoutPosition()
+                self._setLayoutOffset(ev.pos() - viewport.parent().layoutPosition())
                 self._oldZoom = viewport.parent().zoomFactor()
                 self.startDrag(ev.pos(), ev.button())
                 self._dragedge = _RIGHT | _BOTTOM
