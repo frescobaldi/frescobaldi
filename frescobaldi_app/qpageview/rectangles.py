@@ -172,19 +172,50 @@ class Rectangles:
             return result[0][0]
 
     def nearest(self, x, y):
-        """Return the object with the shortest center distance to the point x, y.
+        """Return the object with the shortest distance to the point x, y.
         
         The point (x, y) can be outside the object. If there are no objects,
         None is returned. You can use this method e.g. if at() does not return
         anything.
         
         """
-        def distance(obj):
-            left, top, right, bottom = self._items[obj]
-            centerx = (right  + left) / 2
-            centery = (bottom + top)  / 2
-            return abs(centerx - x) + abs(centery - y)  # manhattan dist
-        return min(self._items.keys(), key=distance, default=None)
+        i = self._items
+        
+        # find objects that contain (x, y)
+        rmid = set(self._smaller(Top, y)) & set(self._larger(Bottom, y))
+        cmid = set(self._smaller(Left, x)) & set(self._larger(Right, x))
+        mid = rmid & cmid
+        if mid:
+            def center_distance(obj):
+                left, top, right, bottom = i[obj]
+                centerx = (right  + left) / 2
+                centery = (bottom + top)  / 2
+                return abs(centerx - x) + abs(centery - y)  # manhattan dist
+            return min(mid, key=center_distance)
+        
+        cleft = set(self._larger(Left, x))
+        cright = set(self._smaller(Right, x))
+        rtop = set(self._larger(Top, y))
+        rbottom = set(self._smaller(Bottom, y))
+        
+        # then find objects that have (x, y) closest at one of their sides
+        result = []
+        for objs, key in (
+            # edges
+            (cleft & rmid, lambda o: i[o][Left] - x),
+            (cright & rmid, lambda o: x - i[o][Right]),
+            (rtop & cmid, lambda o: i[o][Top] - y),
+            (rbottom & cmid, lambda o: y - i[o][Bottom]),
+            # corners
+            (cleft & rtop, lambda o: i[o][Left] - x + i[o][Top] - y),
+            (cright & rtop, lambda o: x - i[o][Right] + i[o][Top] - y),
+            (cleft & rbottom, lambda o: i[o][Left] - x + y - i[o][Bottom]),
+            (cright & rbottom, lambda o: x - i[o][Right] + y - i[o][Bottom]),
+            ):
+            if objs:
+                result.append(min((key(o), o) for o in objs))
+        if result:
+            return min(result)[1]
 
     def __len__(self):
         return len(self._items)
