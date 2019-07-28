@@ -256,7 +256,7 @@ class View(scrollarea.ScrollArea):
             return
         margin = self._pageLayout.margin
         pos = page.pos() - QPoint(margin, margin)
-        if not self.kineticscrolling:
+        if not self.kineticscrollingEnabled:
             self.scrollTo(pos)
         else:
             # during the scrolling the page number should not be updated.
@@ -573,5 +573,12 @@ class View(scrollarea.ScrollArea):
         if not self.isDragging():
             self.adjustCursor(ev.pos())
         super().mouseMoveEvent(ev)
+
+    def mousePressEvent(self, ev):
+        """Implemented to set the clicked page as current."""
+        page = self._pageLayout.pageAt(ev.pos() - self.layoutPosition())
+        if page:
+            self.setCurrentPage(self._pageLayout.index(page) + 1)
+        super().mousePressEvent(ev)
 
 
