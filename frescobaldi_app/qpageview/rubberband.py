@@ -72,6 +72,8 @@ class Rubberband(QWidget):
         self._dragpos = None
         self._selection = QRect()
         self._layoutOffset = QPoint()   # used to keep on spot during resize
+        self._offsetOnPage = None       # used to keep on spot during zoom
+        self._pageIndex = -1            # id.
         self.setMouseTracking(True)
 
     def paintEvent(self, ev):
@@ -191,7 +193,7 @@ class Rubberband(QWidget):
             view = self.parent().parent()
             geom = rect.translated(view.layoutPosition())
             self.setGeometry(geom)
-            self._layoutOffset = rect.topLeft()
+            self._setLayoutOffset(rect.topLeft())
             self._oldZoom = view.zoomFactor()
             self.show()
             self._emitSelectionChanged(geom)
@@ -217,7 +219,22 @@ class Rubberband(QWidget):
         old, self._selection = self._selection, rect
         if rect != old:
             self.selectionChanged.emit(rect)
+    
+    def _setLayoutOffset(self, pos):
+        """Store the position as offset from the layout, and also from the page
+        at that position. Used for keeping the same spot on zoom change.
         
+        """
+        layout = self.parent().parent().pageLayout()
+        self._layoutOffset = pos
+        page = layout.pageAt(pos)
+        if page:
+            self._pageIndex = layout.index(page)
+            self._offsetOnPage = pos - page.pos()
+        else:
+            self._pageIndex = -1
+            self._offsetOnPage = None
+
     def scrollBy(self, diff):
         """Called by the View when scrolling."""
         if not self._dragging:
@@ -258,7 +275,7 @@ class Rubberband(QWidget):
         geom = self._draggeom.normalized()
         if geom.isValid():
             self.setGeometry(geom)
-            self._layoutOffset = geom.topLeft() - self.parent().parent().layoutPosition()
+            self._setLayoutOffset(geom.topLeft() - self.parent().parent().layoutPosition())
             if self.trackSelection:
                 self._emitSelectionChanged(geom)
         if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
@@ -285,10 +302,15 @@ class Rubberband(QWidget):
             view = self.parent().parent()
             factor =  zoom / self._oldZoom
             self._oldZoom = zoom
-            self._layoutOffset *= factor
+            # compute offset
+            if self._pageIndex >=0 and self._pageIndex < view.pageLayout().count():
+                offset = view.pageLayout()[self._pageIndex].pos() + self._offsetOnPage * factor
+            else:
+                offset = self._layoutOffset * factor
             size = self.size() * factor
-            geom = QRect(self._layoutOffset + view.layoutPosition(), size)
+            geom = QRect(view.layoutPosition() + offset, size)
             self.setGeometry(geom)
+            self._setLayoutOffset(offset)
             self._emitSelectionChanged(geom)
     
     def eventFilter(self, viewport, ev):
