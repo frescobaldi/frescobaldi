@@ -64,6 +64,7 @@ from . import view
 class View(
         link.ViewMixin,
         highlight.ViewMixin,
+        view.PagedViewMixin,
         view.View,
     ):
     """Paged view component based on view.View, with all enhancements."""
