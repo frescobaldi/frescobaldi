@@ -22,6 +22,10 @@
 Highlight rectangular areas inside a View.
 """
 
+import collections
+import weakref
+
+from PyQt5.QtCore import QTimer
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication
 
@@ -61,5 +65,69 @@ class Highlighter:
         for r in rects:
             r.adjust(-rad, -rad, rad, rad)
             painter.drawRoundedRect(r, rad, rad)
+
+
+class ViewMixin:
+    """Mixin methods vor view.View for highlighting areas."""
+    def __init__(self, parent=None, **kwds):
+        super().__init__(parent, **kwds)
+        self._highlights = weakref.WeakKeyDictionary()
+    
+    def highlight(self, highlighter, areas, msec=0):
+        """Highlight the list of areas using the given highlighter.
+
+        Every area is a two-tuple (page, rect), where rect is a QRectF()
+        inside (0, 0, 1, 1) like the area attribute of a Link.
+
+        """
+        d = collections.defaultdict(list)
+        for page, area in areas:
+            d[page].append(area)
+        d = weakref.WeakKeyDictionary(d)
+        if msec:
+            selfref=weakref.ref(self)
+            def clear():
+                self = selfref()
+                if self:
+                    self.clearHighlight(highlighter)
+            t = QTimer(singleShot = True, timeout = clear)
+            t.start(msec)
+        else:
+            t = None
+        self.clearHighlight(highlighter)
+        self._highlights[highlighter] = (d, t)
+        self.viewport().update()
+
+    def clearHighlight(self, highlighter):
+        """Removes the highlighted areas of the given highlighter."""
+        try:
+            (d, t) = self._highlights[highlighter]
+        except KeyError:
+            return
+        if t is not None: t.stop()
+        del self._highlights[highlighter]
+        self.viewport().update()
+
+    def paintEvent(self, ev):
+        """Paint the contents of the viewport."""
+        super().paintEvent(ev)  # first paint the contents
+        layout_pos = self.layoutPosition()
+        painter = QPainter(self.viewport())
+
+        # pages to paint
+        ev_rect = ev.rect().translated(-layout_pos)
+        pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
+        # paint highlighting
+        for highlighter, (d, t) in self._highlights.items():
+            for page in pages_to_paint:
+                try:
+                    areas = d[page]
+                except KeyError:
+                    continue
+                rects = [page.area2page(area, 1, 1) for area in areas]
+                painter.save()
+                painter.translate(page.pos() + layout_pos)
+                highlighter.paintRects(painter, rects)
+                painter.restore()
 
 
