@@ -56,5 +56,12 @@ from .constants import (
 
 )
 
-from .view import View
-from .layout import PageLayout, RowPageLayout
+from . import view
+from . import link
+
+class View(link.ViewMixin, view.View):
+    """Paged view component based on view.View, with all enhancements."""
+    pass
+
+
+
