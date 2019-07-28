@@ -71,9 +71,7 @@ class Rubberband(QWidget):
         self._dragedge = 0
         self._dragpos = None
         self._selection = QRect()
-        self._layoutOffset = QPoint()   # used to keep on spot during resize
-        self._offsetOnPage = None       # used to keep on spot during zoom
-        self._pageIndex = -1            # id.
+        self._layoutOffset = None   # used to keep on spot during resize/zoom
         self.setMouseTracking(True)
 
     def paintEvent(self, ev):
@@ -193,7 +191,7 @@ class Rubberband(QWidget):
             view = self.parent().parent()
             geom = rect.translated(view.layoutPosition())
             self.setGeometry(geom)
-            self._setLayoutOffset(rect.topLeft())
+            self._setLayoutOffset(geom.topLeft())
             self._oldZoom = view.zoomFactor()
             self.show()
             self._emitSelectionChanged(geom)
@@ -225,15 +223,15 @@ class Rubberband(QWidget):
         at that position. Used for keeping the same spot on zoom change.
         
         """
-        layout = self.parent().parent().pageLayout()
-        self._layoutOffset = pos
-        page = layout.pageAt(pos)
-        if page:
-            self._pageIndex = layout.index(page)
-            self._offsetOnPage = pos - page.pos()
-        else:
-            self._pageIndex = -1
-            self._offsetOnPage = None
+        view = self.parent().parent()
+        pos = pos - view.layoutPosition()
+        self._layoutOffset = view.pageLayout().pos2offset(pos)
+    
+    def _getLayoutOffset(self):
+        """Get the stored layout offset position back, after zoom or move."""
+        view = self.parent().parent()
+        pos = view.pageLayout().offset2pos(self._layoutOffset)
+        return pos + view.layoutPosition()
 
     def scrollBy(self, diff):
         """Called by the View when scrolling."""
@@ -275,7 +273,7 @@ class Rubberband(QWidget):
         geom = self._draggeom.normalized()
         if geom.isValid():
             self.setGeometry(geom)
-            self._setLayoutOffset(geom.topLeft() - self.parent().parent().layoutPosition())
+            self._setLayoutOffset(geom.topLeft())
             if self.trackSelection:
                 self._emitSelectionChanged(geom)
         if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
@@ -302,15 +300,8 @@ class Rubberband(QWidget):
             view = self.parent().parent()
             factor =  zoom / self._oldZoom
             self._oldZoom = zoom
-            # compute offset
-            if self._pageIndex >=0 and self._pageIndex < view.pageLayout().count():
-                offset = view.pageLayout()[self._pageIndex].pos() + self._offsetOnPage * factor
-            else:
-                offset = self._layoutOffset * factor
-            size = self.size() * factor
-            geom = QRect(view.layoutPosition() + offset, size)
+            geom = QRect(self._getLayoutOffset(), self.size() * factor)
             self.setGeometry(geom)
-            self._setLayoutOffset(offset)
             self._emitSelectionChanged(geom)
     
     def eventFilter(self, viewport, ev):
@@ -318,14 +309,14 @@ class Rubberband(QWidget):
             view = self.parent().parent()
             if not view.viewMode():
                 # fixed scale, try to keep ourselves in the same position on resize
-                self.move(self._layoutOffset + view.layoutPosition())
+                self.move(self._getLayoutOffset())
         elif not self._dragging:
             if ev.type() == QEvent.MouseButtonPress and ev.button() == self.showbutton:
                 if self.isVisible():
                     # this cancels a previous selection if we were visible
                     self._emitSelectionChanged(QRect())
                 self.setGeometry(QRect(ev.pos(), QSize(0, 0)))
-                self._setLayoutOffset(ev.pos() - viewport.parent().layoutPosition())
+                self._setLayoutOffset(ev.pos())
                 self._oldZoom = viewport.parent().zoomFactor()
                 self.startDrag(ev.pos(), ev.button())
                 self._dragedge = _RIGHT | _BOTTOM
