@@ -144,7 +144,7 @@ class Renderer(render.AbstractImageRenderer):
         return i
 
 
-# install a default renderer, so PopplerPage can be used directly
+# install a default renderer, so SvgPage can be used directly
 SvgPage.renderer = Renderer()
 
 

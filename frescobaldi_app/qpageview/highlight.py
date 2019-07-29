@@ -109,7 +109,7 @@ class ViewMixin:
         self.viewport().update()
 
     def paintEvent(self, ev):
-        """Paint the contents of the viewport."""
+        """Paint the highlighted areas in the viewport."""
         super().paintEvent(ev)  # first paint the contents
         layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())

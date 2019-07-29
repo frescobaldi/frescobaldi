@@ -22,6 +22,8 @@ Interface with popplerqt5, popplerqt5-specific classes etc.
 
 Only this module depends on popplerqt5.
 
+You need this module to display PDF documents.
+
 """
 
 import weakref
