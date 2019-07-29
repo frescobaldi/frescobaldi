@@ -175,15 +175,15 @@ class Rectangles:
         """Return the object with the shortest distance to the point x, y.
         
         The point (x, y) can be outside the object. If there are no objects,
-        None is returned. You can use this method e.g. if at() does not return
-        anything.
+        None is returned. If multiple objects contain (x, y), the one that is
+        closest to the center is returned.
         
         """
         i = self._items
         
         # find objects that contain (x, y)
-        rmid = set(self._smaller(Top, y)) & set(self._larger(Bottom, y))
-        cmid = set(self._smaller(Left, x)) & set(self._larger(Right, x))
+        rmid = self._test((self._smaller, Top, y), (self._larger, Bottom, y))
+        cmid = self._test((self._smaller, Left, x), (self._larger, Right, x))
         mid = rmid & cmid
         if mid:
             def center_distance(obj):
@@ -193,27 +193,32 @@ class Rectangles:
                 return abs(centerx - x) + abs(centery - y)  # manhattan dist
             return min(mid, key=center_distance)
         
+        # make sets for objects that are at our left (cleft) or right (cright)
+        # and that are above us (rtop) or below us (rbottom)
         cleft = set(self._larger(Left, x))
         cright = set(self._smaller(Right, x))
         rtop = set(self._larger(Top, y))
         rbottom = set(self._smaller(Bottom, y))
         
+        left =        lambda o: i[o][Left] - x
+        right =       lambda o: x - i[o][Right]
+        top =         lambda o: i[o][Top] - y
+        bottom =      lambda o: y - i[o][Bottom]
+        topleft =     lambda o: top(o) + left(o)
+        topright =    lambda o: top(o) + right(o)
+        bottomleft =  lambda o: bottom(o) + left(o)
+        bottomright = lambda o: bottom(o) + right(o)
+        
         # then find objects that have (x, y) closest at one of their sides
-        result = []
-        for objs, key in (
+        result = [min((dist(o), o) for o in objs)
+            for dist, objs in (
             # edges
-            (cleft & rmid, lambda o: i[o][Left] - x),
-            (cright & rmid, lambda o: x - i[o][Right]),
-            (rtop & cmid, lambda o: i[o][Top] - y),
-            (rbottom & cmid, lambda o: y - i[o][Bottom]),
+            (left, cleft & rmid),          (right, cright & rmid),
+            (top, rtop & cmid),            (bottom, rbottom & cmid),
             # corners
-            (cleft & rtop, lambda o: i[o][Left] - x + i[o][Top] - y),
-            (cright & rtop, lambda o: x - i[o][Right] + i[o][Top] - y),
-            (cleft & rbottom, lambda o: i[o][Left] - x + y - i[o][Bottom]),
-            (cright & rbottom, lambda o: x - i[o][Right] + y - i[o][Bottom]),
-            ):
-            if objs:
-                result.append(min((key(o), o) for o in objs))
+            (topleft, cleft & rtop),       (topright, cright & rtop),
+            (bottomleft, cleft & rbottom), (bottomright, cright & rbottom),
+            ) if objs]
         if result:
             return min(result)[1]
 
