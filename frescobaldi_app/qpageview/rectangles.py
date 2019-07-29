@@ -174,51 +174,61 @@ class Rectangles:
     def nearest(self, x, y):
         """Return the object with the shortest distance to the point x, y.
         
-        The point (x, y) can be outside the object. If there are no objects,
-        None is returned. If multiple objects contain (x, y), the one that is
-        closest to the center is returned.
+        The point (x, y) is outside the object. Use at() to get objects that 
+        touch the point (x, y). If there are no objects, None is returned.
         
         """
         i = self._items
         
-        # find objects that contain (x, y)
-        rmid = self._test((self._smaller, Top, y), (self._larger, Bottom, y))
-        cmid = self._test((self._smaller, Left, x), (self._larger, Right, x))
-        mid = rmid & cmid
-        if mid:
-            def center_distance(obj):
-                left, top, right, bottom = i[obj]
-                centerx = (right  + left) / 2
-                centery = (bottom + top)  / 2
-                return abs(centerx - x) + abs(centery - y)  # manhattan dist
-            return min(mid, key=center_distance)
+        left = self._larger(Left, x)            # closest one is first
+        right = self._smaller(Right, x)         # closest one is last
+        top = self._larger(Top, y)              # closest one is first
+        bottom = self._smaller(Bottom, y)       # closest one is last
         
-        # make sets for objects that are at our left (cleft) or right (cright)
-        # and that are above us (rtop) or below us (rbottom)
-        cleft = set(self._larger(Left, x))
-        cright = set(self._smaller(Right, x))
-        rtop = set(self._larger(Top, y))
-        rbottom = set(self._smaller(Bottom, y))
+        result = []
         
-        left =        lambda o: i[o][Left] - x
-        right =       lambda o: x - i[o][Right]
-        top =         lambda o: i[o][Top] - y
-        bottom =      lambda o: y - i[o][Bottom]
-        topleft =     lambda o: top(o) + left(o)
-        topright =    lambda o: top(o) + right(o)
-        bottomleft =  lambda o: bottom(o) + left(o)
-        bottomright = lambda o: bottom(o) + right(o)
+        # first find adjacent rectangles. For each side, as soon as one is
+        # found, don't look further for that side. Only save rectangles that are
+        # closer but not adjacent, they could be closer on another side.
+        left_over = 0
+        for o in left:
+            if o not in top and o not in bottom:
+                result.append((i[o][Left] - x, o))
+                break
+            left_over += 1
+        top_over = 0
+        for o in top:
+            if o not in left and o not in right:
+                result.append((i[o][Top] - y, o))
+                break
+            top_over += 1
+        right_over = 0
+        for o in right[::-1]:
+            if o not in top and o not in bottom:
+                result.append((x - i[o][Right], o))
+                break
+            right_over -= 1
+        bottom_over = 0
+        for o in bottom[::-1]:
+            if o not in left and o not in right:
+                result.append((y - i[o][Bottom], o))
+                break
+            bottom_over -= 1
+        # at most 4 rectangles are found, the closest one on each edge.
+        # Now look for rectangles that could be closer at the corner.
+        if left_over and top_over:
+            for o in set(left[:left_over]).intersection(top[:top_over]):
+                result.append((i[o][Left] - x + i[o][Top] - y, o))
+        if top_over and right_over:
+            for o in set(top[:top_over]).intersection(right[right_over:]):
+                result.append((i[o][Top] - y + x - i[o][Right], o))
+        if left_over and bottom_over:
+            for o in set(left[:left_over]).intersection(bottom[bottom_over:]):
+                result.append((i[o][Left] - x + y - i[o][Bottom], o))
+        if bottom_over and right_over:
+            for o in set(bottom[bottom_over:]).intersection(right[right_over:]):
+                result.append((y - i[o][Bottom] + x - i[o][Right], o))
         
-        # then find objects that have (x, y) closest at one of their sides
-        result = [min((dist(o), o) for o in objs)
-            for dist, objs in (
-            # edges
-            (left, cleft & rmid),          (right, cright & rmid),
-            (top, rtop & cmid),            (bottom, rbottom & cmid),
-            # corners
-            (topleft, cleft & rtop),       (topright, cright & rtop),
-            (bottomleft, cleft & rbottom), (bottomright, cright & rbottom),
-            ) if objs]
         if result:
             return min(result)[1]
 
