@@ -556,11 +556,15 @@ class PagedViewMixin:
         page = self._pageLayout[num-1]
         self._currentPage = num
         self.currentPageChanged.emit(num)
-        # now move the view
+        # only move the view if needed
         if page.geometry() in self.visibleRect():
             return
-        margin = self._pageLayout.margin
-        pos = page.pos() - QPoint(margin, margin)
+        dx = dy = self._pageLayout.margin
+        if page.width <= self.viewport().width():
+            dx = (self.viewport().width() - page.width) / 2
+        if page.height <= self.viewport().height():
+            dy = (self.viewport().height() - page.height) / 2
+        pos = page.pos() - QPoint(dx, dy)
         if allowkinetic and self.kineticScrollingEnabled:
             # during the scrolling the page number should not be updated.
             self._scrollingToPage = True
