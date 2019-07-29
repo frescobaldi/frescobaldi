@@ -503,10 +503,10 @@ class PagedViewMixin:
     currentPageChanged = pyqtSignal(int)
     
     def __init__(self, parent=None, **kwds):
-        super().__init__(parent, **kwds)
         self._pageCount = 0
         self._currentPage = 0
         self._scrollingToPage = False   # keep track of scrolling/page numbers
+        super().__init__(parent, **kwds)
 
     def mousePressEvent(self, ev):
         """Implemented to set the clicked page as current."""

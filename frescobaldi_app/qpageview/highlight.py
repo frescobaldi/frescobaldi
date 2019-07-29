@@ -70,8 +70,8 @@ class Highlighter:
 class ViewMixin:
     """Mixin methods vor view.View for highlighting areas."""
     def __init__(self, parent=None, **kwds):
-        super().__init__(parent, **kwds)
         self._highlights = weakref.WeakKeyDictionary()
+        super().__init__(parent, **kwds)
     
     def highlight(self, highlighter, areas, msec=0):
         """Highlight the list of areas using the given highlighter.

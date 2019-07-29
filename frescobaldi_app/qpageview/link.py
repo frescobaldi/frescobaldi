@@ -70,8 +70,8 @@ class ViewMixin:
     linksEnabled = True
 
     def __init__(self, parent=None, **kwds):
-        super().__init__(parent, **kwds)
         self._currentLinkId = None
+        super().__init__(parent, **kwds)
     
     def adjustCursor(self, pos):
         """Sets the correct mouse cursor for the position on the page.
