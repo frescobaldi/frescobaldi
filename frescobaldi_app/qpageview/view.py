@@ -515,23 +515,6 @@ class PagedViewMixin:
             self.setCurrentPage(self._pageLayout.index(page) + 1)
         super().mousePressEvent(ev)
 
-    def pageAt(self, pos, margin=None):
-        """Return the Page object that is at pos.
-        
-        pos is a QPoint() in the viewport.
-        If margin is None, the margin of the layout is used.
-        May return None.
-        
-        """
-        layout = self._pageLayout
-        pos = pos - self.layoutPosition()
-        if margin is None:
-            margin = max(layout.margin, layout.spacing)
-        r = QRect(0, 0, margin, margin)
-        r.moveCenter(pos)
-        for page in layout.pagesAt(r):
-            return page
-    
     def pageCount(self):
         """Return the number of pages currently in view."""
         return self._pageCount
@@ -602,7 +585,8 @@ class PagedViewMixin:
             # do nothing if current page is still fully in view
             if self._pageLayout[self._currentPage-1].geometry() not in self.visibleRect():
                 # what is the current page number?
-                p = self.pageAt(self.viewport().rect().center())
+                pos = self.viewport().rect().center() - self.layoutPosition()
+                p = self._pageLayout.pageAt(pos) or self._pageLayout.nearestPageAt(pos)
                 if p:
                     num = self._pageLayout.index(p) + 1
                     if num != self._currentPage:
