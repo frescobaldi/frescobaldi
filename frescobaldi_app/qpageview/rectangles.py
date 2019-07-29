@@ -223,13 +223,16 @@ class Rectangles:
             return min(result)[1]
 
     def __len__(self):
+        """Return the number of objects."""
         return len(self._items)
 
     def __contains__(self, obj):
+        """Return True if the object is managed by us."""
         return obj in self._items
 
     def __bool__(self):
-        return bool(self._items)
+        """Always return True."""
+        return True
 
     # private helper methods
     def _test(self, *tests):
