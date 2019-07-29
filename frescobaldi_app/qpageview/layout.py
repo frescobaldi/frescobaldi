@@ -133,6 +133,15 @@ class AbstractPageLayout(list):
         for page in self._pageRects().intersecting(*r.getCoords()):
             yield page
 
+    def nearestPageAt(self, point):
+        """Return the page at the shortest distance from the given point.
+        
+        The returned page does not contain the point. (Use pageAt() for that.)
+        If there are no pages outside the point, None is returned.
+        
+        """
+        return self._pageRects().nearest(point.x(), point.y())
+
     def widestPage(self):
         """Return the widest page, if any.
 
@@ -255,7 +264,7 @@ class AbstractPageLayout(list):
         changing the zoom e.g.
         
         """
-        page = self.pageAt(pos) or self._pageRects().nearest(pos.x(), pos.y())
+        page = self.pageAt(pos) or self.nearestPageAt(pos)
         if page:
             pos = pos - page.pos()
             w = page.width
