@@ -184,7 +184,10 @@ class AbstractImageRenderer:
         scaled from another size).
 
         """
-        ratio = painter.device().devicePixelRatioF()
+        try:
+            ratio = painter.device().devicePixelRatioF()
+        except AttributeError:
+            ratio = painter.device().devicePixelRatio()
         key = self.key(page, ratio)
         
         # paint rect in tile coordinates
