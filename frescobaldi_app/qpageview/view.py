@@ -502,6 +502,8 @@ class PagedViewMixin:
     pageCountChanged = pyqtSignal(int)
     currentPageChanged = pyqtSignal(int)
     
+    kineticPagingEnabled = True  # whether to smoothly scroll on setCurrentPage
+    
     def __init__(self, parent=None, **kwds):
         self._pageCount = 0
         self._currentPage = 0
@@ -523,23 +525,20 @@ class PagedViewMixin:
         """Return the current page number in view (starting with 1)."""
         return self._currentPage
     
-    def setCurrentPage(self, num, allowkinetic=True):
+    def setCurrentPage(self, num):
         """Scrolls to the specified page number (starting with 1).
         
         If the page is already in view, the view is not scrolled, otherwise
         the view is scrolled to center the page. (If the page is larger than 
         the view, the top-left corner is positioned top-left in the view.)
         
-        If `allowkinetic` is set to False, the view is scrolled immediately, 
-        regardless whether kinetic scrolling is enabled or not.
-        
         """
         if num > self._pageCount or num < 1 or num == self._currentPage:
             return
-        page = self._pageLayout[num-1]
         self._currentPage = num
         self.currentPageChanged.emit(num)
         # only move the view if needed
+        page = self._pageLayout[num-1]
         if page.geometry() in self.visibleRect():
             return
         dx = dy = self._pageLayout.margin
@@ -548,34 +547,24 @@ class PagedViewMixin:
         if page.height <= self.viewport().height():
             dy = (self.viewport().height() - page.height) / 2
         pos = page.pos() - QPoint(dx, dy)
-        if allowkinetic and self.kineticScrollingEnabled:
+        if self.kineticPagingEnabled and self.kineticScrollingEnabled:
             # during the scrolling the page number should not be updated.
             self._scrollingToPage = True
             self.kineticScrollTo(pos)
         else:
             self.scrollTo(pos)
     
-    def gotoNextPage(self, allowkinetic=True):
-        """Convenience method to go to the next page.
-        
-        If `allowkinetic` is set to False, the view is scrolled immediately, 
-        regardless whether kinetic scrolling is enabled or not.
-        
-        """
+    def gotoNextPage(self):
+        """Convenience method to go to the next page."""
         num = self.currentPage()
         if num < self.pageCount():
-            self.setCurrentPage(num + 1, allowkinetic)
+            self.setCurrentPage(num + 1)
     
-    def gotoPreviousPage(self, allowkinetic=True):
-        """Convenience method to go to the previous page.
-        
-        If `allowkinetic` is set to False, the view is scrolled immediately, 
-        regardless whether kinetic scrolling is enabled or not.
-        
-        """
+    def gotoPreviousPage(self):
+        """Convenience method to go to the previous page."""
         num = self.currentPage()
         if num > 1:
-            self.setCurrentPage(num - 1, allowkinetic)
+            self.setCurrentPage(num - 1)
 
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to keep track of current page."""
