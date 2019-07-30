@@ -99,7 +99,11 @@ class AbstractImageRenderer:
                         when a page has to be rendered. If None, Qt.white is
                         used. If a Page specifies its own paperColor, that color
                         prevails.
-
+        
+        `drawThumbnail` True by default. Whether to draw temporary thumbnail
+                        images embedded in the PDF if they are available. The 
+                        thumbnail will be visible shortly, because a genuine 
+                        image will always be rendered.
 
     """
     
@@ -254,6 +258,18 @@ class AbstractImageRenderer:
                     # paint background, still partly uncovered
                     color = page.paperColor or self.paperColor or QColor(Qt.white)
                     painter.fillRect(rect, color)
+                    
+                    if self.drawThumbnail:
+                        # draw thumbnail if available
+                        thumb = page.thumbnail()
+                        if thumb and not thumb.isNull():
+                            hscale = key.width / thumb.width()
+                            vscale = key.height / thumb.height()
+                            x = trect.x() / hscale
+                            y = trect.y() / vscale
+                            w = trect.width() / hscale
+                            h = trect.height() / vscale
+                            images.append((trect, image, x, y, w, h))
         
         # draw lowest quality images first
         for (r, image, *image_rect) in reversed(images):

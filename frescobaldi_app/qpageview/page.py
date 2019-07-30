@@ -366,6 +366,15 @@ class AbstractPage:
     def linkRect(self, link):
         """Return a QRect encompassing the linkArea of a link in coordinates of our page."""
         return self.area2page(link.area, 1, 1)
+    
+    def thumbnail(self):
+        """Implement this to return a thumbnail image (QImage), if available.
+        
+        This is only used for intermediate display, awaiting rendering at the
+        right resolution. May return None, or a null QImage().
+        
+        """
+        return None
 
 
 

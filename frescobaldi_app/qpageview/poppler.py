@@ -122,6 +122,14 @@ class PopplerPage(page.AbstractPage):
                 links = link.Links(map(Link, document.page(pageNumber).links()))
             _linkscache.setdefault(document, {})[pageNumber] = links
             return links
+    
+    def thumbnail(self):
+        """Return a thumbnail image if available."""
+        with locking.lock(self.document):
+            page = self.document.page(self.pageNumber)
+            image = page.thumbnail()
+        if image and not image.isNull():
+            return image
 
 
 class Renderer(render.AbstractImageRenderer):
