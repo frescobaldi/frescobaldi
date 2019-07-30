@@ -112,6 +112,9 @@ class AbstractImageRenderer:
     
     # default paper color to use (if possible, and when drawing an empty page)
     paperColor = QColor(Qt.white)
+    
+    # whether to temporarily display embedded thumbnails if they are available
+    drawThumbnail = True
 
     def __init__(self):
         self.cache = cache.ImageCache()
