@@ -139,6 +139,8 @@ class Renderer(render.AbstractImageRenderer):
     )
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     oversampleThreshold = 96
+    
+    drawThumbnail = False   # it slows down scrolling and almost no PDF has it
 
     def render(self, page, key, tile):
         """Generate an image for the Page referred to by key."""
