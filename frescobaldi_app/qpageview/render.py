@@ -198,12 +198,12 @@ class AbstractImageRenderer:
         key = self.key(page, ratio)
         
         # paint rect in tile coordinates
-        trect = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
+        target = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
         region = QRegion() # unpainted region in tile coordinates
         images = []
         
         # tiles to paint
-        tiles = set(t for t in self.tiles(key.width, key.height) if QRect(*t) & trect)
+        tiles = set(t for t in self.tiles(key.width, key.height) if QRect(*t) & target)
             
         # look in cache, get a dict with tiles and their images
         tileset = self.cache.tileset(key)
@@ -214,12 +214,8 @@ class AbstractImageRenderer:
             entry = tileset.get(t)
             if entry:
                 # an image is available
-                r = QRect(*t) & trect # part of the tile that needs to be drawn
-                x = r.x() - t.x
-                y = r.y() - t.y
-                w = r.width()
-                h = r.height()
-                images.append((r, entry.image, x, y, w, h))
+                r = QRect(*t) & target # part of the tile that needs to be drawn
+                images.append((r, entry.image, QRectF(r.translated(-t.x, -t.y))))
                 region += r
                 if entry.replace:
                     replace.add(t)
@@ -232,32 +228,26 @@ class AbstractImageRenderer:
         if missing:
             # find other images from cache for missing tiles
             for width, height, tileset in self.cache.closest(key):
-                # we have a dict of tiles for an image of size iwidth x iheight
+                # we have a dict of tiles for an image of size width x height
                 hscale = key.width / width
                 vscale = key.height / height
                 for t in tileset:
                     # scale to our image size
-                    x = t.x * hscale
-                    y = t.y * vscale
-                    w = t.w * hscale
-                    h = t.h * vscale
-                    r = QRect(x, y, w, h) & trect
+                    r = QRect(t.x * hscale, t.y * vscale, t.w * hscale, t.h * vscale) & target
                     if r and QRegion(r).subtracted(region):
                         # we have an image that can be drawn in rect r
-                        x = r.x() / hscale - t.x
-                        y = r.y() / vscale - t.y
-                        w = r.width() / hscale
-                        h = r.height() / vscale
-                        images.append((r, tileset[t].image, x, y, w, h))
+                        source = QRectF(r.x() / hscale - t.x, r.y() / vscale - t.y,
+                                        r.width() / hscale, r.height() / vscale)
+                        images.append((r, tileset[t].image, source))
                         region += r
                         # stop if we have covered the whole drawing area
-                        if not QRegion(trect).subtracted(region):
+                        if not QRegion(target).subtracted(region):
                             break
                 else:
                     continue
                 break
             else:
-                if QRegion(trect).subtracted(region):
+                if QRegion(target).subtracted(region):
                     # paint background, still partly uncovered
                     color = page.paperColor or self.paperColor or QColor(Qt.white)
                     painter.fillRect(rect, color)
@@ -268,16 +258,13 @@ class AbstractImageRenderer:
                         if thumb and not thumb.isNull():
                             hscale = key.width / thumb.width()
                             vscale = key.height / thumb.height()
-                            x = trect.x() / hscale
-                            y = trect.y() / vscale
-                            w = trect.width() / hscale
-                            h = trect.height() / vscale
-                            images.append((trect, image, x, y, w, h))
+                            source = QRectF(target.x() / hscale, target.y() / vscale,
+                                            target.width() / hscale, target.height() / vscale)
+                            images.append((target, image, source))
         
         # draw lowest quality images first
-        for (r, image, *image_rect) in reversed(images):
+        for (r, image, source) in reversed(images):
             target = QRectF(r.x() / ratio, r.y() / ratio, r.width() / ratio, r.height() / ratio)
-            source = QRectF(*image_rect)
             painter.drawImage(target, image, source)
 
     def schedule(self, page, ratio, tiles, callback):
