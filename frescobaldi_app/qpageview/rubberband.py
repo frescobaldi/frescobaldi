@@ -183,7 +183,7 @@ class Rubberband(QWidget):
         """Returns an image of the selected part on a Page.
 
         If resolution is None, the displayed size is chosen. Otherwise, the
-        resolution is an integer, interpreted as DPI (dot per inch).
+        resolution is an integer, interpreted as DPI (dots per inch).
 
         """
         page, rect = self.selectedPage()

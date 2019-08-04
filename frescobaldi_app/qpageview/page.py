@@ -202,7 +202,7 @@ class AbstractPage:
         """Returns a QImage of the specified rectangle.
 
         The rectangle is relative to our top-left position. dpiX defaults to
-        72.0 and dpiX defaults to dpiX. The default implementation calls the
+        72.0 and dpiY defaults to dpiX. The default implementation calls the
         renderer to generate the image. The image is not cached.
 
         """
