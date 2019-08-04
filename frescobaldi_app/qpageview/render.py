@@ -171,6 +171,28 @@ class AbstractImageRenderer:
         """
         return QImage()
     
+    def images(self, key, target):
+        """Yields three-tuples (tile, valid, image) for the rect target.
+        
+        Together the tiles fill the target rect completely. valid is a bool; if 
+        true the image was available in the cache, can be drawn and is still 
+        uptodate. If false, the tile should be scheduled for re-render; if an 
+        image is there it can be drawn in the meantime.
+        
+        """
+        # tiles to paint
+        tiles = set(t for t in self.tiles(key.width, key.height) if QRect(*t) & target)
+        
+        # look in cache, get a dict with tiles and their images
+        tileset = self.cache.tileset(key)
+        
+        for t in tiles:
+            entry = tileset.get(t)
+            if entry:
+                yield t, not entry.replace, entry.image
+            else:
+                yield t, False, None
+
     def paint(self, page, painter, rect, callback=None):
         """Paint a page.
         
@@ -202,30 +224,20 @@ class AbstractImageRenderer:
         region = QRegion() # unpainted region in tile coordinates
         images = []
         
-        # tiles to paint
-        tiles = set(t for t in self.tiles(key.width, key.height) if QRect(*t) & target)
-            
-        # look in cache, get a dict with tiles and their images
-        tileset = self.cache.tileset(key)
-        missing = set()
-        replace = set()
-        
-        for t in tiles:
-            entry = tileset.get(t)
-            if entry:
-                # an image is available
+        schedule = set()
+        for t, valid, image in self.images(key, target):
+            if not valid:
+                schedule.add(t)
+            if image:
                 r = QRect(*t) & target # part of the tile that needs to be drawn
-                images.append((r, entry.image, QRectF(r.translated(-t.x, -t.y))))
+                images.append((r, image,  QRectF(r.translated(-t.x, -t.y))))
                 region += r
-                if entry.replace:
-                    replace.add(t)
-            else:
-                # an image needs to be generated
-                missing.add(t)
         
-        if missing or replace:
-            self.schedule(page, ratio, replace | missing, callback)
-        if missing:
+        # reschedule images to be generated
+        if schedule:
+            self.schedule(page, ratio, schedule, callback)
+        
+        if QRegion(target).subtracted(region):
             # find other images from cache for missing tiles
             for width, height, tileset in self.cache.closest(key):
                 # we have a dict of tiles for an image of size width x height
@@ -264,6 +276,7 @@ class AbstractImageRenderer:
         
         # draw lowest quality images first
         for (r, image, source) in reversed(images):
+            # scale the target rect back to the paint device
             target = QRectF(r.x() / ratio, r.y() / ratio, r.width() / ratio, r.height() / ratio)
             painter.drawImage(target, image, source)
 
