@@ -201,8 +201,8 @@ class AbstractPage:
     def image(self, rect, dpiX=72.0, dpiY=None):
         """Returns a QImage of the specified rectangle.
 
-        The rectangle is relative to our top-left position. xdpi defaults to
-        72.0 and ydpi defaults to xdpi. The default implementation calls the
+        The rectangle is relative to our top-left position. dpiX defaults to
+        72.0 and dpiX defaults to dpiX. The default implementation calls the
         renderer to generate the image. The image is not cached.
 
         """
