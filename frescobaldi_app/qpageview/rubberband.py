@@ -166,6 +166,33 @@ class Rubberband(QWidget):
             for page in layout.pagesAt(rect):
                 yield page, rect.intersected(page.geometry()).translated(-page.pos())
     
+    def selectedPage(self):
+        """Returns (page, rect) if there is a selection.
+
+        If the selection contains more pages, the largest intersection is chosen.
+        If no meaningful area is selected, (None, None) is returned.
+
+        """
+        selection = sorted(self.selectedPages(), key=lambda pr: pr[1].height() + pr[1].width())
+        if selection:
+            return selection[-1]
+        else:
+            return None, None
+
+    def selectedImage(self, resolution=None):
+        """Returns an image of the selected part on a Page.
+
+        If resolution is None, the displayed size is chosen. Otherwise, the
+        resolution is an integer, interpreted as DPI (dot per inch).
+
+        """
+        page, rect = self.selectedPage()
+        if page and rect:
+            if resolution is None:
+                view = self.parent().parent()
+                resolution = view.physicalDpiX() * view.zoomFactor()
+            return page.image(rect, resolution)
+
     def selectedText(self):
         """Return the text found in the selection, as far as the pages support it."""
         result = []
