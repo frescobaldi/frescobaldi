@@ -190,7 +190,11 @@ class Rubberband(QWidget):
         if page and rect:
             if resolution is None:
                 view = self.parent().parent()
-                resolution = view.physicalDpiX() * view.zoomFactor()
+                try:
+                    ratio = view.devicePixelRatioF()
+                except AttributeError:
+                    ratio = view.devicePixelRatio()
+                resolution = view.physicalDpiX() * view.zoomFactor() * ratio
             return page.image(rect, resolution)
 
     def selectedText(self):
