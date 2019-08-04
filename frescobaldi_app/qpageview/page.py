@@ -198,6 +198,33 @@ class AbstractPage:
         """
         self.renderer and self.renderer.paint(self, painter, rect, callback)
 
+    def image(self, rect, dpiX=72.0, dpiY=None):
+        """Returns a QImage of the specified rectangle.
+
+        The rectangle is relative to our top-left position. xdpi defaults to
+        72.0 and ydpi defaults to xdpi. The default implementation calls the
+        renderer to generate the image. The image is not cached.
+
+        """
+        if dpiY is None:
+            dpiY = dpiX
+
+        if self.renderer:
+            hscale = (dpiX * self.pageWidth) / (72.0 * self.width)
+            vscale = (dpiY * self.pageHeight) / (72.0 * self.height)
+
+            from . import render
+            t = render.tile(rect.x() * hscale,
+                            rect.y() * vscale,
+                            rect.width() * hscale,
+                            rect.height() * vscale)
+            k = render.key(self.group(),
+                    self.ident(),
+                    self.computedRotation,
+                    self.width * hscale,
+                    self.height * vscale)
+            return self.renderer.render(self, k, t)
+
     def mutex(self):
         """Return an object that should be locked when rendering the page.
 
