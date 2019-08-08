@@ -86,7 +86,13 @@ def initialize():
         QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
         QIcon.setThemeName("TangoExt")
 
+def update_theme():
+    """Change the theme for icon lookup after change of style preference"""
+    QIcon.setThemeName(QSettings().value("guistyle", "", str))
+    # TODO: Redraw all widgets.
+    # Currently this only takes effect after restart.
+    # Widgets have to act upon the 
 
+app.settingsChanged.connect(update_theme)
+update_theme()
 app.oninit(initialize)
-
-
