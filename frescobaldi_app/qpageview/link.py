@@ -29,7 +29,7 @@ sizes or rotations.
 
 import collections
 
-from PyQt5.QtCore import pyqtSignal, QEvent, Qt
+from PyQt5.QtCore import pyqtSignal, QEvent, QRectF, Qt
 
 from . import page
 from . import rectangles
@@ -48,6 +48,12 @@ class Link:
             self.url = url
         if tooltip:
             self.tooltip = tooltip
+
+    def rectF(self):
+        """Return the area attribute as a QRectF()."""
+        r = QRectF()
+        r.setCoords(*self.area)
+        return r
 
 
 class Links(rectangles.Rectangles):
@@ -71,8 +77,30 @@ class ViewMixin:
 
     def __init__(self, parent=None, **kwds):
         self._currentLinkId = None
+        self._linkHighlighter = None
         super().__init__(parent, **kwds)
     
+    def setLinkHighlighter(self, highlighter):
+        """Sets a Highlighter (see highlight.py) to highlight a link on hover.
+        
+        Use None to remove an active Highlighter. By default no highlighter is
+        set to highlight links on hover.
+        
+        To be able to actually *use* highlighting, be sure to also mix in the
+        ViewMixin class from the highlight module.
+        
+        """
+        self._linkHighlighter = highlighter
+    
+    def linkHighlighter(self):
+        """Return the currently set Highlighter, if any.
+        
+        By default no highlighter is set to highlight links on hover, and None
+        is returned in that case.
+        
+        """
+        return self._linkHighlighter
+
     def adjustCursor(self, pos):
         """Sets the correct mouse cursor for the position on the page.
         
@@ -122,20 +150,27 @@ class ViewMixin:
     def linkHoverEnter(self, page, link):
         """Called when the mouse hovers over a link.
 
-        The default implementation emits the linkHovered(page, link) signal.
-        You can reimplement this method to do something different.
+        The default implementation emits the linkHovered(page, link) signal,
+        and, if a Highlighter was set using setLinkHighlighter(), highlights the
+        link. You can reimplement this method to do something different.
         
         """
         self.linkHovered.emit(page, link)
+        if self._linkHighlighter:
+            self.highlight(self._linkHighlighter, [(page, link.rectF())])
 
     def linkHoverLeave(self):
         """Called when the mouse does not hover a link anymore.
 
-        The default implementation emits the linkLeft() signal.
-        You can reimplement this method to do something different.
+        The default implementation emits the linkLeft() signal, and, if a
+        Highlighter was set using setLinkHighlighter(), removes the
+        highlighting of the current link. You can reimplement this method to do
+        something different.
 
         """
         self.linkLeft.emit()
+        if self._linkHighlighter:
+            self.clearHighlight(self._linkHighlighter)
 
     def linkClickEvent(self, ev, page, link):
         """Called when a link is clicked.
