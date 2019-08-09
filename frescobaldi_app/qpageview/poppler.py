@@ -54,10 +54,7 @@ class Link(link.Link):
     """A Link that encapsulates a Poppler.Link object."""
     def __init__(self, linkobj):
         self.linkobj = linkobj
-    
-    @property
-    def area(self):
-        return self.linkobj.linkArea().normalized().getCoords()
+        self.area = link.linkarea(*linkobj.linkArea().normalized().getCoords())
     
     @property
     def url(self):
