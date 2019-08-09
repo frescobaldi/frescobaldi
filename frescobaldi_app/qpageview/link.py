@@ -49,7 +49,7 @@ class Link:
         if tooltip:
             self.tooltip = tooltip
 
-    def rectF(self):
+    def rect(self):
         """Return the area attribute as a QRectF()."""
         r = QRectF()
         r.setCoords(*self.area)
@@ -157,7 +157,7 @@ class ViewMixin:
         """
         self.linkHovered.emit(page, link)
         if self._linkHighlighter:
-            self.highlight(self._linkHighlighter, [(page, link.rectF())])
+            self.highlight(self._linkHighlighter, [(page, link.rect())], 3000)
 
     def linkHoverLeave(self):
         """Called when the mouse does not hover a link anymore.
