@@ -30,6 +30,10 @@ Pages are managed by a PageLayout.
 
 A PageLayout can be set to a View so the pages are displayed.
 
+The images from a PDF, SVG of possibly other document are cached, and rendering
+is tile-based, to support zooming in at great detail.  Also a magnifier is
+available, which by default pops up at Ctrl+click.
+
 Because the qpageview is built on Qt, we use the Qt convention
 to have camelCase method names and CamelCase class names.
 
