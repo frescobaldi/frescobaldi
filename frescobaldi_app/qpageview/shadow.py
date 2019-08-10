@@ -49,14 +49,14 @@ class ShadowViewMixin:
         The painter is already translated to the topleft corner of the Page.
         
         """
+        width = round(width)
         rect = page.rect().adjusted(width / 2, width / 2, 0, 0)
         color = QColor(Qt.black)
         pen = QPen()
         pen.setWidth(1)
         pen.setJoinStyle(Qt.MiterJoin)
-        step = 240/width
-        for i in range(round(width)):
-            color.setAlpha(240 - i * step)
+        for i in range(width):
+            color.setAlpha(255**((width-i)/width))
             pen.setColor(color)
             painter.setPen(pen)
             painter.drawRect(rect.adjusted(-i, -i, i, i))
