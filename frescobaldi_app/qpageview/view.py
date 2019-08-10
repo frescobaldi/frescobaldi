@@ -395,6 +395,27 @@ class View(scrollarea.ScrollArea):
         """Yield the Page instances that are currently visible."""
         return self._pageLayout.pagesAt(self.visibleRect())
 
+    def offsetToEnsureVisible(self, rect):
+        """Return an offset QPoint with the minimal scroll to make rect visible.
+
+        If the rect is too large, it is positioned top-left.
+
+        """
+        vrect = self.visibleRect()
+        # vertical
+        dy = 0
+        if rect.bottom() > vrect.bottom():
+            dy = rect.bottom() - vrect.bottom()
+        if rect.top() < vrect.top() + dy:
+            dy = rect.top() - vrect.top()
+        # horizontal
+        dx = 0
+        if rect.right() > vrect.right():
+            dx = rect.right() - vrect.right()
+        if rect.left() < vrect.left() + dx:
+            dx = rect.left() - vrect.left()
+        return QPoint(dx, dy)
+
     def adjustCursor(self, pos):
         """Sets the correct mouse cursor for the position on the page."""
         pass
@@ -542,18 +563,14 @@ class PagedViewMixin:
         page = self._pageLayout[num-1]
         if page.geometry() in self.visibleRect():
             return
-        dx = dy = self._pageLayout.margin
-        if page.width <= self.viewport().width():
-            dx = (self.viewport().width() - page.width) / 2
-        if page.height <= self.viewport().height():
-            dy = (self.viewport().height() - page.height) / 2
-        pos = page.pos() - QPoint(dx, dy)
+        m = self._pageLayout.margin
+        diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
         if self.kineticPagingEnabled and self.kineticScrollingEnabled:
             # during the scrolling the page number should not be updated.
             self._scrollingToPage = True
-            self.kineticScrollTo(pos)
+            self.kineticScrollBy(diff)
         else:
-            self.scrollTo(pos)
+            self.scrollBy(diff)
     
     def gotoNextPage(self):
         """Convenience method to go to the next page."""
