@@ -159,10 +159,13 @@ class ImageCache:
         except KeyError:
             return ()
         
+        # prevent returning images that are too small
+        minwidth = min(40, key.width / 2)
+
         suitable = [
             (k[1], k[2], tileset)
             for k, tileset in keyd.items()
-                if k[0] == key.rotation and k[1] != key.width
+                if k[0] == key.rotation and k[1] != key.width and k[1] > minwidth
                     and not any(e.replace for e in tileset.values())]
         return sorted(suitable, key=lambda s: abs(1 - s[0] / key.width))
 
