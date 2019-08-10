@@ -66,7 +66,7 @@ class Links(rectangles.Rectangles):
         return link.area
 
 
-class ViewMixin:
+class LinkViewMixin:
     """Mixin class to enhance view.View with link capabilities."""
     
     linkHovered = pyqtSignal(page.AbstractPage, Link)
@@ -87,7 +87,7 @@ class ViewMixin:
         set to highlight links on hover.
         
         To be able to actually *use* highlighting, be sure to also mix in the
-        ViewMixin class from the highlight module.
+        HighlightViewMixin class from the highlight module.
         
         """
         self._linkHighlighter = highlighter

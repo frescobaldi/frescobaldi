@@ -66,8 +66,8 @@ from . import view
 
 
 class View(
-        link.ViewMixin,
-        highlight.ViewMixin,
+        link.LinkViewMixin,
+        highlight.HighlightViewMixin,
         view.PagedViewMixin,
         view.View,
     ):

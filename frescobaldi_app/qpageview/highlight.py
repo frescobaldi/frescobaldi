@@ -67,7 +67,7 @@ class Highlighter:
             painter.drawRoundedRect(r, rad, rad)
 
 
-class ViewMixin:
+class HighlightViewMixin:
     """Mixin methods vor view.View for highlighting areas."""
     def __init__(self, parent=None, **kwds):
         self._highlights = weakref.WeakKeyDictionary()
