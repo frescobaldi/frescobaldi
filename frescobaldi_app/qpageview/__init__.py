@@ -62,13 +62,14 @@ from .constants import (
 
 from . import link
 from . import highlight
+from . import shadow
 from . import view
-
 
 class View(
         link.LinkViewMixin,
         highlight.HighlightViewMixin,
         view.PagedViewMixin,
+        shadow.ShadowViewMixin,
         view.View,
     ):
     """Paged view component based on view.View, with all enhancements."""
