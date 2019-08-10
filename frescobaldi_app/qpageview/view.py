@@ -287,7 +287,6 @@ class View(scrollarea.ScrollArea):
                     if layout.width > maxsize.width():
                         layout.fit(QSize(maxsize.width(), h - 1), mode)
                         break
-        self.updatePageLayout()
         if zoom_factor != self.zoomFactor():
             self.zoomFactorChanged.emit(self.zoomFactor())
             self._unschedulePages(layout)
@@ -430,6 +429,7 @@ class View(scrollarea.ScrollArea):
             x, xm = hbar.value(), hbar.maximum()
             y, ym = vbar.value(), vbar.maximum()
             self._fitLayout()
+            self.updatePageLayout()
             if xm: hbar.setValue(round(x * hbar.maximum() / xm))
             if ym: vbar.setValue(round(y * vbar.maximum() / ym))
         else:
@@ -622,17 +622,16 @@ class PagedViewMixin:
 
     def resizeEvent(self, ev):
         """Reimplemented to keep the current page in view."""
+        old, self._scrollingToPage = self._scrollingToPage, True
+        super().resizeEvent(ev)
         if self._viewMode and not self._pageLayout.empty():
-            old, self._scrollingToPage = self._scrollingToPage, True
-            self._fitLayout()
             # keep current page in view
             page = self._pageLayout[self._currentPage-1]
-            m = self._pageLayout.margin
-            diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
-            if diff:
-                self.scrollBy(diff)
-            self._scrollingToPage = old
-        else:
-            self._updateScrollBars()
+            if self.visibleRect().center() not in page.geometry():
+                m = self._pageLayout.margin
+                diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
+                if diff:
+                    self.scrollBy(diff)
+        self._scrollingToPage = old
 
 
