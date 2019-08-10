@@ -131,7 +131,8 @@ class View(scrollarea.ScrollArea):
             return
         self._viewMode = mode
         if mode:
-            self._fitLayout()
+            with self._keepCentered():
+                self._fitLayout()
         self.viewModeChanged.emit(mode)
 
     def viewMode(self):
