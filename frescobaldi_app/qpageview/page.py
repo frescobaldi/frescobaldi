@@ -171,6 +171,7 @@ class AbstractPage:
 
     def zoomForWidth(self, width, rotation, dpiX):
         """Return the zoom we need to display ourselves at the given width."""
+        width = max(width, 1)
         if (self.rotation + rotation) & 1:
             w = self.pageHeight / self.scaleY
         else:
@@ -179,6 +180,7 @@ class AbstractPage:
 
     def zoomForHeight(self, height, rotation, dpiY):
         """Return the zoom we need to display ourselves at the given height."""
+        height = max(height, 1)
         if (self.rotation + rotation) & 1:
             h = self.pageWidth / self.scaleX
         else:
