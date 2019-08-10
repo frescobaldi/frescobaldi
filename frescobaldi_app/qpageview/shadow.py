@@ -56,7 +56,8 @@ class ShadowViewMixin:
         pen.setWidth(1)
         pen.setJoinStyle(Qt.MiterJoin)
         for i in range(width):
-            color.setAlpha(255**((width-i)/width))
+            f = (width-i)/width
+            color.setAlpha(200**f + 55*f)
             pen.setColor(color)
             painter.setPen(pen)
             painter.drawRect(rect.adjusted(-i, -i, i, i))
