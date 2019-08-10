@@ -72,6 +72,7 @@ class View(scrollarea.ScrollArea):
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
         self.setMouseTracking(True)
+        self.setMinimumSize(QSize(60, 60))
         self.setPageLayout(layout.PageLayout())
 
     def loadPdf(self, filename):
