@@ -160,7 +160,7 @@ class ImageCache:
             return ()
         
         # prevent returning images that are too small
-        minwidth = min(40, key.width / 2)
+        minwidth = min(100, key.width / 2)
 
         suitable = [
             (k[1], k[2], tileset)
