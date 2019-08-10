@@ -266,7 +266,13 @@ class Magnifier(QWidget):
 
         # the virtual position of the whole scaled-up layout
         ev_rect = ev.rect().translated(our_rect.topLeft())
-
+        
+        # draw shadow border?
+        shadow = False
+        if hasattr(view, "drawDropShadow"):
+            shadow = True
+            shadow_width = layout.spacing * scale // 2
+        
         painter = QPainter(self)
         for p in layout.pagesAt(region.boundingRect()):
             # reuse the copy of the page if still existing
@@ -283,6 +289,8 @@ class Magnifier(QWidget):
             rect = (page.geometry() & ev_rect).translated(-page.pos())
             painter.save()
             painter.translate(page.pos() - our_rect.topLeft())
+            if shadow:
+                view.drawDropShadow(page, painter, shadow_width)
             page.paint(painter, rect, self.repaintPage)
             painter.restore()
 
