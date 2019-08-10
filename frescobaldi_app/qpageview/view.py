@@ -620,4 +620,19 @@ class PagedViewMixin:
                 self._currentPage = 1
                 self.currentPageChanged.emit(1)
 
+    def resizeEvent(self, ev):
+        """Reimplemented to keep the current page in view."""
+        if self._viewMode and not self._pageLayout.empty():
+            old, self._scrollingToPage = self._scrollingToPage, True
+            self._fitLayout()
+            # keep current page in view
+            page = self._pageLayout[self._currentPage-1]
+            m = self._pageLayout.margin
+            diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
+            if diff:
+                self.scrollBy(diff)
+            self._scrollingToPage = old
+        else:
+            self._updateScrollBars()
+
 
