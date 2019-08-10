@@ -1,6 +1,6 @@
 # This file is part of the qpageview package.
 #
-# Copyright (c) 2016 - 2019 by Wilbert Berendsen
+# Copyright (c) 2019 - 2019 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-The View, deriving from QAbstractScrollArea.
+Mixin class to add paging capabilities to View.
 """
 
 from PyQt5.QtCore import pyqtSignal
