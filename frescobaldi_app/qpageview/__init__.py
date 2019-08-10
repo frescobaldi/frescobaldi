@@ -64,11 +64,12 @@ from . import link
 from . import highlight
 from . import shadow
 from . import view
+from . import pagedview
 
 class View(
         link.LinkViewMixin,
         highlight.HighlightViewMixin,
-        view.PagedViewMixin,
+        pagedview.PagedViewMixin,
         shadow.ShadowViewMixin,
         view.View,
     ):
