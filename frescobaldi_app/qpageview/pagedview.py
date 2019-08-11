@@ -35,6 +35,12 @@ class PagedViewMixin:
     `pagingOnScrollEnabled` (True by default) Whether the current page number
                             is updated when the user scrolls the view.
 
+    The following signals are emitted by this class:
+    
+    `pageCountChanged`      When the number of pages changes.
+
+    `currentPageChanged`    When the current page number changes.
+
     """
     
     pageCountChanged = pyqtSignal(int)

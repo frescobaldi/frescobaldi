@@ -51,6 +51,31 @@ from .constants import (
 
 
 class View(scrollarea.ScrollArea):
+    """View is a generic scrollable widget to display Pages in a layout.
+    
+    Using setPageLayout() you can set a PageLayout to the View, and you can
+    add Pages to the layout using a list-like api. (PageLayout derives from
+    list). A simple PageLayout is set by default. Call updatePageLayout() after
+    every change to the layout (like adding or removing pages).
+    
+    You can also add a Magnifier to magnify parts of a Page, and a Rubberband
+    to enable selecting a rectangular region.
+    
+    View emits the following signals:
+    
+    `viewModeChanged`   When the user changes the view mode (one of FixedScale,
+                        FitWidth, FitHeight and FitBoth)
+
+    `rotationChanged`   When the user changes the rotation (one of Rotate_0,
+                        Rotate_90, Rotate_180, Rotate_270)
+
+    `zoomFactorChanged` When the zoomfactor changes
+    
+    `pageLayoutUpdated` When the page layout is updated (e.g. after adding
+                        or removing pages, but also zoom and rotation cause a
+                        layout update)
+
+    """
 
     MIN_ZOOM = 0.05
     MAX_ZOOM = 64.0
@@ -59,8 +84,6 @@ class View(scrollarea.ScrollArea):
     rotationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
     pageLayoutUpdated = pyqtSignal()
-
-    scrollupdatespersec = 50
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
