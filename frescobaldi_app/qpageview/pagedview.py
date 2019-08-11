@@ -25,12 +25,23 @@ from PyQt5.QtCore import pyqtSignal
 
 
 class PagedViewMixin:
-    """Mixin class to add paging capabilities to View."""
+    """Mixin class to add paging capabilities to View.
+
+    These instance variables influence the behaviour:
+
+    `kineticPagingEnabled`  (True by default) Whether to scroll smoothly when
+                            setCurrentPage() is called.
+
+    `pagingOnScrollEnabled` (True by default) Whether the current page number
+                            is updated when the user scrolls the view.
+
+    """
     
     pageCountChanged = pyqtSignal(int)
     currentPageChanged = pyqtSignal(int)
     
     kineticPagingEnabled = True  # whether to smoothly scroll on setCurrentPage
+    pagingOnScrollEnabled = True # keep track of current page while scrolling
     
     def __init__(self, parent=None, **kwds):
         self._pageCount = 0
@@ -93,7 +104,7 @@ class PagedViewMixin:
         """Reimplemented to keep track of current page."""
         # if the scroll wasn't initiated by the setCurrentPage() call, check
         # whether the current page number needs to be updated
-        if not self._scrollingToPage and self._pageLayout.count() > 0:
+        if self.pagingOnScrollEnabled and not self._scrollingToPage and self._pageLayout.count() > 0:
             # do nothing if current page is still fully in view
             if self._pageLayout[self._currentPage-1].geometry() not in self.visibleRect():
                 # what is the current page number?
