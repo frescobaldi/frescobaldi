@@ -124,13 +124,13 @@ class AbstractPageLayout(list):
         for page in self._pageRects().at(point.x(), point.y()):
             return page
 
-    def pagesAt(self, r):
+    def pagesAt(self, rect):
         """Yield the pages touched by the given QRect.
         
         The pages are in undefined order.
         
         """
-        for page in self._pageRects().intersecting(*r.getCoords()):
+        for page in self._pageRects().intersecting(*rect.getCoords()):
             yield page
 
     def nearestPageAt(self, point):
