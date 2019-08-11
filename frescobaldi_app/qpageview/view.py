@@ -58,6 +58,7 @@ class View(scrollarea.ScrollArea):
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
+    pageLayoutUpdated = pyqtSignal()
 
     scrollupdatespersec = 50
 
@@ -117,6 +118,7 @@ class View(scrollarea.ScrollArea):
         """Update layout and adjust scrollbars."""
         self._pageLayout.update()
         self._updateScrollBars()
+        self.pageLayoutUpdated.emit()
         self.viewport().update()
 
     def clear(self):
