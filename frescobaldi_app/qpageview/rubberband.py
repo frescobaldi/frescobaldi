@@ -42,6 +42,10 @@ class Rubberband(QWidget):
 
     A Rubberband is added to a View with view.setRubberband().
     
+    The Rubberband lets the user select a rectangular region. When the
+    selection is changed, the `selectionChanged` signal is emitted, having the
+    selection rectangle in layout coordinates as argument.
+
     Instance variables:
 
         showbutton (Qt.RightButton), the button used to drag a new rectangle
