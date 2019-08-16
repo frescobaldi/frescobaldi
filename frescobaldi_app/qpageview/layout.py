@@ -63,6 +63,8 @@ class AbstractPageLayout(list):
         dpiX = 72.0
         dpiY = 72.0
         rotation = Rotate_0
+        x = 0
+        y = 0
         width = 0
         height = 0
 
@@ -77,6 +79,8 @@ class AbstractPageLayout(list):
     dpiX = 72.0
     dpiY = 72.0
     rotation = Rotate_0
+    x = 0
+    y = 0
     width = 0
     height = 0
     _rects = None
@@ -98,6 +102,27 @@ class AbstractPageLayout(list):
         layout = copy.copy(self)
         layout[:] = (p.copy() for p in self)
         return layout
+
+    def setPos(self, point):
+        """Set our top-left coordinate of the visible geometry."""
+        self.x = point.x()
+        self.y = point.y()
+
+    def pos(self):
+        """Return the top-left coordinate of the visible geometry.
+        
+        Normally this is QPoint(0, 0).
+        
+        """
+        return QPoint(self.x, self.y)
+
+    def setGeometry(self, rect):
+        """Set the rectangle describing the visible part of the layout."""
+        self.x, self.y, self.width, self.height = rect.getRect()
+    
+    def geometry(self):
+        """Return the rectangle describing the visible part of the layout."""
+        return QRect(self.x, self.y, self.width, self.height)
 
     def setSize(self, size):
         """Set our size. Normally done after layout by computeSize()."""
@@ -213,7 +238,7 @@ class AbstractPageLayout(list):
         self._rects = None
         self.updatePageSizes()
         self.updatePagePositions()
-        return self.computeSize()
+        return self.computeGeometry()
 
     def updatePageSizes(self):
         """Compute the correct size of every Page."""
@@ -237,8 +262,8 @@ class AbstractPageLayout(list):
             top += page.height
             top += self.spacing
 
-    def computeSize(self):
-        """Compute and set the total size of the layout.
+    def computeGeometry(self):
+        """Compute and set the total geometry (position and size) of the layout.
 
         In most cases the implementation of this method is sufficient: it
         computes the bounding rectangle of all Pages and adds the margin.
@@ -250,9 +275,9 @@ class AbstractPageLayout(list):
         for page in self:
             r |= page.geometry()
         m = self.margin
-        size = r.adjusted(-m, -m, m, m).size()
-        changed = self.size() != size
-        self.setSize(size)
+        geometry = r.adjusted(-m, -m, m, m)
+        changed = self.geometry() != geometry
+        self.setGeometry(geometry)
         return changed
 
     def pos2offset(self, pos):

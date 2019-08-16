@@ -410,7 +410,7 @@ class View(scrollarea.ScrollArea):
         lh = self._pageLayout.height
         vh = self.viewport().height()
         top = -self.verticalScrollBar().value() if lh > vh else (vh - lh) // 2
-        return QPoint(left, top)
+        return QPoint(left, top) - self._pageLayout.pos()
 
     def visibleRect(self):
         """Return the QRect of the page layout that is currently visible in the viewport."""
