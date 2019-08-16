@@ -329,14 +329,15 @@ class View(scrollarea.ScrollArea):
 
         # find the spot on the page
         layout = self._pageLayout
-        layout_pos = self.layoutPosition() + layout.pos()
+        layout_pos = self.layoutPosition()
         pos_on_layout = pos - layout_pos
         offset = layout.pos2offset(pos_on_layout)
+        pos_on_layout -= layout.pos()   # pos() of the layout might change
 
         yield
         self.updatePageLayout()
 
-        new_pos_on_layout = layout.offset2pos(offset)
+        new_pos_on_layout = layout.offset2pos(offset) - layout.pos()
         diff = new_pos_on_layout - pos
         self.verticalScrollBar().setValue(diff.y())
         self.horizontalScrollBar().setValue(diff.x())
