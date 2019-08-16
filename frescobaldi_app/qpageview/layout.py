@@ -84,6 +84,10 @@ class AbstractPageLayout(list):
     width = 0
     height = 0
     _rects = None
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._displayPages = []
 
     def __bool__(self):
         """Always return True."""
@@ -137,7 +141,7 @@ class AbstractPageLayout(list):
         """(Internal) Return the PageRects object for quickly finding pages."""
         if self._rects:
             return self._rects
-        r = self._rects = PageRects(self)
+        r = self._rects = PageRects(self._displayPages or self)
         return r
     
     def pageAt(self, point):
@@ -272,7 +276,7 @@ class AbstractPageLayout(list):
 
         """
         r = QRect()
-        for page in self:
+        for page in self._displayPages or self:
             r |= page.geometry()
         m = self.margin
         geometry = r.adjusted(-m, -m, m, m)
