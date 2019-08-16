@@ -329,7 +329,7 @@ class View(scrollarea.ScrollArea):
 
         # find the spot on the page
         layout = self._pageLayout
-        layout_pos = self.layoutPosition()
+        layout_pos = self.layoutPosition() + layout.pos()
         pos_on_layout = pos - layout_pos
         offset = layout.pos2offset(pos_on_layout)
 
