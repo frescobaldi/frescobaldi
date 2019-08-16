@@ -24,6 +24,7 @@ Manages and positions a group of Page instances.
 
 
 import copy
+import math
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QSize
 
@@ -67,6 +68,8 @@ class AbstractPageLayout(list):
         y = 0
         width = 0
         height = 0
+        pagesPerSet = 1
+        pagesFirstSet = 0
 
     After having changes pages or layout attributes, call update() to update
     the layout.
@@ -83,12 +86,12 @@ class AbstractPageLayout(list):
     y = 0
     width = 0
     height = 0
-    _rects = None
-    
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self._displayPages = []
+    pagesPerSet = 1
+    pagesFirstSet = 0
 
+    _rects = None
+    _displayPages = None
+    
     def __bool__(self):
         """Always return True."""
         return True
@@ -236,7 +239,7 @@ class AbstractPageLayout(list):
         You should call this after having added or deleted pages or after
         having changed the scale, dpi, zoom factor, spacing or margins.
 
-        This function returns True if the total size has changed.
+        This function returns True if the total geometry has changed.
 
         """
         self._rects = None
@@ -324,6 +327,64 @@ class AbstractPageLayout(list):
             w = page.width
             h = page.height
         return pos + QPoint(round(x * w), round(y * h))
+
+    def pageSetCount(self):
+        """Return the number of page sets.
+
+        This is based on the number of pages and the settings of the
+        pagesPerSet and the pagesFirstSet attributes.
+
+        """
+        first = 1 if self.pagesFirstSet else 0
+        return first + math.ceil((len(self) - self.pagesFirstSet) / self.pagesPerSet)
+
+    def setPageSet(self, num):
+        """Enables display of the specified page set.
+
+        You should update() the layout after this.
+
+        """
+        i = self.pagesFirstSet or self.pagesPerSet
+        if num == 0:
+            self._displayPages = self[0:i]
+        else:
+            i += (num - 1) * self.pagesPerSet
+            self._displayPages = self[i:i + self.pagesPerSet]
+
+    def pageSet(self, index):
+        """Return the page set containing page at index."""
+        if self.pagesFirstSet:
+            if index < self.pagesFirstSet:
+                return 0
+            else:
+                index -= self.pagesFirstSet
+                return int(index // self.pagesPerSet) + 1
+        else:
+            return int(index // self.pagesPerSet)
+
+    def currentPageSet(self):
+        """Return the current page set.
+
+        Returns -1 if there is no current page set (i.e. all pages are
+        displayed).
+
+        """
+        if self._displayPages:
+            i = self.index(self._displayPages[0])
+            return self.pageSet(i)
+        return -1
+
+    def setContinuous(self):
+        """Enables display of all pages.
+
+        You should update() the layout after this.
+
+        """
+        self._displayPages = None
+
+    def isContinuous(self):
+        """Return True if all pages are displayed."""
+        return not self._displayPages
 
 
 class PageLayout(AbstractPageLayout):
