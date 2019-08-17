@@ -76,25 +76,23 @@ class PagedViewMixin:
         with self.dontTrackScrolling():
             super().setContinuousMode(continuous)
 
-    def displayPreviousPageSet(self):
+    def displayPageSet(self, what):
         """Reimplemented to update the current page number."""
-        self.gotoPreviousPage()
-
-    def displayNextPageSet(self):
-        """Reimplemented to update the current page number."""
-        self.gotoNextPage()
-        
-    def displayFirstPageSet(self):
-        """Reimplemented to update the current page number."""
-        self.setCurrentPageNumber(1)
-        with self.dontTrackScrolling():
-            self.verticalScrollBar().setValue(0)
-    
-    def displayLastPageSet(self):
-        """Reimplemented to update the current page number."""
-        self.setCurrentPageNumber(self.pageCount())
-        with self.dontTrackScrolling():
-            self.verticalScrollBar().setValue(self.verticalScrollBar().maximum())
+        if what == "previous":
+            self.gotoPreviousPage()
+        elif what == "next":
+            self.gotoNextPage()
+        elif what == "first":
+            self.setCurrentPageNumber(1)
+            with self.dontTrackScrolling():
+                self.verticalScrollBar().setValue(0)
+        elif what == "last":
+            self.setCurrentPageNumber(self.pageCount())
+            with self.dontTrackScrolling():
+                self.verticalScrollBar().setValue(self.verticalScrollBar().maximum())
+        else:
+            with self.dontTrackScrolling():
+                super().displayPageSet(what)
 
     def pageCount(self):
         """Return the number of pages currently in view."""
