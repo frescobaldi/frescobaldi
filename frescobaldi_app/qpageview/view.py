@@ -657,9 +657,9 @@ class View(scrollarea.ScrollArea):
             self.displayPageSet("previous")
         elif ev.key() == Qt.Key_PageDown and sb.value() == sb.maximum():
             self.displayPageSet("next")
-        elif ev.key() == Qt.Key_Home:
+        elif ev.key() == Qt.Key_Home and ev.modifiers() == Qt.ControlModifier:
             self.displayPageSet("first")
-        elif ev.key() == Qt.Key_End:
+        elif ev.key() == Qt.Key_End and ev.modifiers() == Qt.ControlModifier:
             self.displayPageSet("last")
         else:
             super().keyPressEvent(ev)
