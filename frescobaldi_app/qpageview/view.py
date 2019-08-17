@@ -642,6 +642,13 @@ class View(scrollarea.ScrollArea):
 
     def keyPressEvent(self, ev):
         """Reimplemented to go to next or previous page set if possible."""
+        # ESC clears the selection, if any.
+        if (ev.key() == Qt.Key_Escape and not ev.modifiers() 
+            and self.rubberband() and self.rubberband().hasSelection()):
+            self.rubberband().clearSelection()
+            return
+
+        # Paging through page sets?
         sb = self.verticalScrollBar()
         if ev.key() == Qt.Key_PageUp and sb.value() == 0:
             self.displayPageSet("previous")
