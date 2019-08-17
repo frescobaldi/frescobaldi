@@ -69,7 +69,7 @@ class AbstractPageLayout(list):
         width = 0
         height = 0
 
-    After having changes pages or layout attributes, call update() to update
+    After having changed pages or layout attributes, call update() to update
     the layout.
 
     """

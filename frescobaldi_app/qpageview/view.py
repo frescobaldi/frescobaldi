@@ -203,7 +203,7 @@ class View(scrollarea.ScrollArea):
         
         If True, the layout shows all pages. If False, only the page set
         containing the current page is displayed. If the pageLayout() does not
-        support the PageSetLayoutMixin methods, this method does noting.
+        support the PageSetLayoutMixin methods, this method does nothing.
         
         """
         layout = self._pageLayout
@@ -320,7 +320,9 @@ class View(scrollarea.ScrollArea):
     def stopScrolling(self):
         """Reimplemented to adjust the mouse cursor on scroll stop."""
         super().stopScrolling()
-        self.adjustCursor(self.mapFromGlobal(QCursor.pos()))
+        pos = self.mapFromGlobal(QCursor.pos())
+        if pos in self.viewport().rect() and not self.viewport().childAt(pos):
+            self.adjustCursor(pos)
             
     def _fitLayout(self):
         """(Internal). Fits the layout according to the view mode.
@@ -614,12 +616,12 @@ class View(scrollarea.ScrollArea):
         self._prev_pages_to_paint = pages_to_paint
 
     def wheelEvent(self, ev):
-        """Reimplemented to support wheel zooming."""
+        """Reimplemented to support wheel zooming and paging through page sets."""
         if ev.modifiers() & Qt.CTRL:
             factor = 1.1 ** (ev.angleDelta().y() / 120)
             if ev.angleDelta().y():
                 self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
-        else:
+        elif not ev.modifiers():
             # if scrolling is not possible, try going to next or previous pageset.
             sb = self.verticalScrollBar()
             if ev.angleDelta().y() > 0 and sb.value() == 0:
@@ -628,6 +630,8 @@ class View(scrollarea.ScrollArea):
                 self.displayPageSet("next")
             else:
                 super().wheelEvent(ev)
+        else:
+            super().wheelEvent(ev)
 
     def mouseMoveEvent(self, ev):
         """Implemented to adjust the mouse cursor depending on the page contents."""
