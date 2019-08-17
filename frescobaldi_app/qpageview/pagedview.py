@@ -122,10 +122,7 @@ class PagedViewMixin:
         page = self._pageLayout[num-1]
         # if needed switch page set
         if page not in self._pageLayout.displayPages():
-            self._pageLayout.setPageSet(self._pageLayout.pageSet(num-1))
-            if self._viewMode:
-                self._fitLayout()
-            self.updatePageLayout()
+            self.displayPageSet(self._pageLayout.pageSet(num-1))
         # only move the view if needed
         m = self._pageLayout.margin
         diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
