@@ -21,6 +21,8 @@
 Mixin class to add paging capabilities to View.
 """
 
+import contextlib
+
 from PyQt5.QtCore import pyqtSignal
 
 
@@ -52,25 +54,62 @@ class PagedViewMixin:
     def __init__(self, parent=None, **kwds):
         self._pageCount = 0
         self._currentPage = 0
-        self._scrollingToPage = False   # keep track of scrolling/page numbers
+        self._scrollingToPage = 0   # keep track of scrolling/page numbers
         super().__init__(parent, **kwds)
 
+    @contextlib.contextmanager
+    def dontTrackScrolling(self):
+        """During this context a scroll is not tracked to update the current page number."""
+        self._scrollingToPage += 1
+        yield
+        self._scrollingToPage = max(self._scrollingToPage - 1, 0)
+        
     def mousePressEvent(self, ev):
         """Implemented to set the clicked page as current."""
         page = self._pageLayout.pageAt(ev.pos() - self.layoutPosition())
         if page:
-            self.setCurrentPage(self._pageLayout.index(page) + 1)
+            self.setCurrentPageNumber(self._pageLayout.index(page) + 1)
         super().mousePressEvent(ev)
+
+    def setContinuousMode(self, continuous):
+        """Reimplemented to prevent the scrolling update the current page number."""
+        with self.dontTrackScrolling():
+            super().setContinuousMode(continuous)
+
+    def displayPreviousPageSet(self):
+        """Reimplemented to update the current page number."""
+        self.gotoPreviousPage()
+
+    def displayNextPageSet(self):
+        """Reimplemented to update the current page number."""
+        self.gotoNextPage()
+        
+    def displayFirstPageSet(self):
+        """Reimplemented to update the current page number."""
+        self.setCurrentPageNumber(1)
+        with self.dontTrackScrolling():
+            self.verticalScrollBar().setValue(0)
+    
+    def displayLastPageSet(self):
+        """Reimplemented to update the current page number."""
+        self.setCurrentPageNumber(self.pageCount())
+        with self.dontTrackScrolling():
+            self.verticalScrollBar().setValue(self.verticalScrollBar().maximum())
 
     def pageCount(self):
         """Return the number of pages currently in view."""
         return self._pageCount
     
     def currentPage(self):
+        """Reimplemented to return the page pointed to by currentPageNumber()."""
+        if self._pageLayout.count():
+            return self._pageLayout[self._currentPage-1]
+
+    def currentPageNumber(self):
         """Return the current page number in view (starting with 1)."""
         return self._currentPage
     
-    def setCurrentPage(self, num):
+    def setCurrentPageNumber(self, num):
         """Scrolls to the specified page number (starting with 1).
         
         If the page is already in view, the view is not scrolled, otherwise
@@ -82,29 +121,35 @@ class PagedViewMixin:
             return
         self._currentPage = num
         self.currentPageChanged.emit(num)
-        # only move the view if needed
         page = self._pageLayout[num-1]
+        # if needed switch page set
+        if page not in self._pageLayout.displayPages():
+            self._pageLayout.setPageSet(self._pageLayout.pageSet(num-1))
+            if self._viewMode:
+                self._fitLayout()
+            self.updatePageLayout()
+        # only move the view if needed
         m = self._pageLayout.margin
         diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
         if diff:
             if self.kineticPagingEnabled and self.kineticScrollingEnabled:
                 # during the scrolling the page number should not be updated.
-                self._scrollingToPage = True
+                self._scrollingToPage += 1
                 self.kineticScrollBy(diff)
             else:
                 self.scrollBy(diff)
     
     def gotoNextPage(self):
         """Convenience method to go to the next page."""
-        num = self.currentPage()
+        num = self.currentPageNumber()
         if num < self.pageCount():
-            self.setCurrentPage(num + 1)
+            self.setCurrentPageNumber(num + 1)
     
     def gotoPreviousPage(self):
         """Convenience method to go to the previous page."""
-        num = self.currentPage()
+        num = self.currentPageNumber()
         if num > 1:
-            self.setCurrentPage(num - 1)
+            self.setCurrentPageNumber(num - 1)
 
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to keep track of current page."""
@@ -112,10 +157,9 @@ class PagedViewMixin:
         # whether the current page number needs to be updated
         if self.pagingOnScrollEnabled and not self._scrollingToPage and self._pageLayout.count() > 0:
             # do nothing if current page is still fully in view
-            if self._pageLayout[self._currentPage-1].geometry() not in self.visibleRect():
+            if self.currentPage().geometry() not in self.visibleRect():
                 # what is the current page number?
-                pos = self.viewport().rect().center() - self.layoutPosition()
-                p = self._pageLayout.pageAt(pos) or self._pageLayout.nearestPageAt(pos)
+                p = super().currentPage()
                 if p:
                     num = self._pageLayout.index(p) + 1
                     if num != self._currentPage:
@@ -126,7 +170,7 @@ class PagedViewMixin:
     def stopScrolling(self):
         """Reimplemented to stop tracking a scroll initiated by setCurrentPage()."""
         super().stopScrolling()
-        self._scrollingToPage = False
+        self._scrollingToPage = 0
 
     def updatePageLayout(self):
         """Reimplemented to also correctly set the number of pages."""
@@ -144,16 +188,16 @@ class PagedViewMixin:
 
     def resizeEvent(self, ev):
         """Reimplemented to keep the current page in view."""
-        old, self._scrollingToPage = self._scrollingToPage, True
-        super().resizeEvent(ev)
-        if self._viewMode and not self._pageLayout.empty():
-            # keep current page in view
-            page = self._pageLayout[self._currentPage-1]
-            if self.visibleRect().center() not in page.geometry():
-                m = self._pageLayout.margin
-                diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
-                if diff:
-                    self.scrollBy(diff)
-        self._scrollingToPage = old
+        with self.dontTrackScrolling():
+            super().resizeEvent(ev)
+            if self._viewMode and not self._pageLayout.empty():
+                # keep current page in view
+                page = self.currentPage()
+                if self.visibleRect().center() not in page.geometry():
+                    m = self._pageLayout.margin
+                    diff = self.offsetToEnsureVisible(page.geometry().adjusted(-m, -m, m, m))
+                    if diff:
+                        self.scrollBy(diff)
+
 
 

@@ -75,6 +75,8 @@ class View(scrollarea.ScrollArea):
                         or removing pages, but also zoom and rotation cause a
                         layout update)
 
+    `continuousModeChanged` When the user toggle the continuousMode() setting.
+
     """
 
     MIN_ZOOM = 0.05
@@ -84,6 +86,7 @@ class View(scrollarea.ScrollArea):
     rotationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
     pageLayoutUpdated = pyqtSignal()
+    continuousModeChanged = pyqtSignal(bool)
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
@@ -150,6 +153,15 @@ class View(scrollarea.ScrollArea):
         self._pageLayout.clear()
         self.updatePageLayout()
 
+    def currentPage(self):
+        """Return the page that is in the center of the View.
+        
+        Might return None, if there are no pages.
+        
+        """
+        pos = self.viewport().rect().center() - self.layoutPosition()
+        return self._pageLayout.pageAt(pos) or self._pageLayout.nearestPageAt(pos)
+
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
         if mode == self._viewMode:
@@ -185,6 +197,102 @@ class View(scrollarea.ScrollArea):
     def rotateRight(self):
         """Rotate the pages 90 degrees."""
         self.setRotation((self.rotation() + 1) & 3)
+
+    def setContinuousMode(self, continuous):
+        """Sets whether the layout should display all pages.
+        
+        If True, the layout shows all pages. If False, only the page set
+        containing the current page is displayed. If the pageLayout() does not
+        support the PageSetLayoutMixin methods, this method does noting.
+        
+        """
+        layout = self._pageLayout
+        if hasattr(layout, "setContinuous"):
+            oldcontinuous = layout.isContinuous()
+            if continuous:
+                if not oldcontinuous:
+                    with self._keepCentered():
+                        layout.setContinuous()
+                        if self._viewMode:
+                            self._fitLayout()
+                    self.continuousModeChanged.emit(True)
+            elif oldcontinuous:
+                p = self.currentPage()
+                index = layout.index(p) if p else 0
+                with self._keepCentered():
+                    layout.setPageSet(layout.pageSet(index))
+                    if self._viewMode:
+                        self._fitLayout()
+                self.continuousModeChanged.emit(False)
+    
+    def continuousMode(self):
+        """Return True if the layout displays all pages."""
+        try:
+            return self._pageLayout.isContinuous()
+        except AttributeError:
+            return True
+
+    def displayPreviousPageSet(self):
+        """Try to display the previous page set.
+        
+        Called e.g. on page up on the first visible page, or mousewheel
+        up on the first page.
+        
+        """
+        layout = self._pageLayout
+        if hasattr(layout, "setContinuous") and not layout.isContinuous():
+            if layout.currentPageSet() > 0:
+                layout.setPageSet(layout.currentPageSet() - 1)
+                if self._viewMode:
+                    self._fitLayout()
+                self.updatePageLayout()
+                self.verticalScrollBar().setValue(self.verticalScrollBar().maximum())
+
+    def displayNextPageSet(self):
+        """Try to display the next page set.
+        
+        Called e.g. on page down on the last visible page, or mousewheel
+        down on the last page.
+        
+        """
+        layout = self._pageLayout
+        if hasattr(layout, "setContinuous") and not layout.isContinuous():
+            if layout.currentPageSet() < layout.pageSetCount():
+                layout.setPageSet(layout.currentPageSet() + 1)
+                if self._viewMode:
+                    self._fitLayout()
+                self.updatePageLayout()
+                self.verticalScrollBar().setValue(0)
+
+    def displayFirstPageSet(self):
+        """Try to display the first page set.
+        
+        Called e.g. on Home key.
+        
+        """
+        layout = self._pageLayout
+        if hasattr(layout, "setContinuous") and not layout.isContinuous():
+            if layout.currentPageSet() > 0:
+                layout.setPageSet(0)
+                if self._viewMode:
+                    self._fitLayout()
+                self.updatePageLayout()
+            self.verticalScrollBar().setValue(0)
+
+    def displayLastPageSet(self):
+        """Try to display the last page set.
+        
+        Called e.g. on End key.
+        
+        """
+        layout = self._pageLayout
+        if hasattr(layout, "setContinuous") and not layout.isContinuous():
+            if layout.currentPageSet() < layout.pageSetCount() - 1:
+                layout.setPageSet(layout.pageSetCount() - 1)
+                if self._viewMode:
+                    self._fitLayout()
+                self.updatePageLayout()
+            self.verticalScrollBar().setValue(self.verticalScrollBar().maximum())
 
     def setMagnifier(self, magnifier):
         """Sets the Magnifier to use (or None to disable the magnifier).
@@ -535,7 +643,14 @@ class View(scrollarea.ScrollArea):
             if ev.angleDelta().y():
                 self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
         else:
-            super().wheelEvent(ev)
+            # if scrolling is not possible, try going to next or previous pageset.
+            sb = self.verticalScrollBar()
+            if ev.angleDelta().y() > 0 and sb.value() == 0:
+                self.displayPreviousPageSet()
+            elif ev.angleDelta().y() < 0 and sb.value() == sb.maximum():
+                self.displayNextPageSet()
+            else:
+                super().wheelEvent(ev)
 
     def mouseMoveEvent(self, ev):
         """Implemented to adjust the mouse cursor depending on the page contents."""
@@ -543,5 +658,19 @@ class View(scrollarea.ScrollArea):
         if not self.isDragging():
             self.adjustCursor(ev.pos())
         super().mouseMoveEvent(ev)
+
+    def keyPressEvent(self, ev):
+        """Reimplemented to go to next or previous page set if possible."""
+        sb = self.verticalScrollBar()
+        if ev.key() == Qt.Key_PageUp and sb.value() == 0:
+            self.displayPreviousPageSet()
+        elif ev.key() == Qt.Key_PageDown and sb.value() == sb.maximum():
+            self.displayNextPageSet()
+        elif ev.key() == Qt.Key_Home:
+            self.displayFirstPageSet()
+        elif ev.key() == Qt.Key_End:
+            self.displayLastPageSet()
+        else:
+            super().keyPressEvent(ev)
 
 
