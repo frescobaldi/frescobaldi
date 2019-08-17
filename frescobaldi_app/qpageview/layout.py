@@ -68,8 +68,6 @@ class AbstractPageLayout(list):
         y = 0
         width = 0
         height = 0
-        pagesPerSet = 1
-        pagesFirstSet = 0
 
     After having changes pages or layout attributes, call update() to update
     the layout.
@@ -86,12 +84,9 @@ class AbstractPageLayout(list):
     y = 0
     width = 0
     height = 0
-    pagesPerSet = 1
-    pagesFirstSet = 0
 
     _rects = None
-    _displayPages = None
-    
+
     def __bool__(self):
         """Always return True."""
         return True
@@ -117,16 +112,16 @@ class AbstractPageLayout(list):
 
     def pos(self):
         """Return the top-left coordinate of the visible geometry.
-        
+
         Normally this is QPoint(0, 0).
-        
+
         """
         return QPoint(self.x, self.y)
 
     def setGeometry(self, rect):
         """Set the rectangle describing the visible part of the layout."""
         self.x, self.y, self.width, self.height = rect.getRect()
-    
+
     def geometry(self):
         """Return the rectangle describing the visible part of the layout."""
         return QRect(self.x, self.y, self.width, self.height)
@@ -144,33 +139,33 @@ class AbstractPageLayout(list):
         """(Internal) Return the PageRects object for quickly finding pages."""
         if self._rects:
             return self._rects
-        r = self._rects = PageRects(self._displayPages or self)
+        r = self._rects = PageRects(self.displayPages())
         return r
-    
+
     def pageAt(self, point):
         """Return the page that contains the given QPoint.
-        
+
         If the point is not on any page, None is returned.
-        
+
         """
         for page in self._pageRects().at(point.x(), point.y()):
             return page
 
     def pagesAt(self, rect):
         """Yield the pages touched by the given QRect.
-        
+
         The pages are in undefined order.
-        
+
         """
         for page in self._pageRects().intersecting(*rect.getCoords()):
             yield page
 
     def nearestPageAt(self, point):
         """Return the page at the shortest distance from the given point.
-        
+
         The returned page does not contain the point. (Use pageAt() for that.)
         If there are no pages outside the point, None is returned.
-        
+
         """
         return self._pageRects().nearest(point.x(), point.y())
 
@@ -279,7 +274,7 @@ class AbstractPageLayout(list):
 
         """
         r = QRect()
-        for page in self._displayPages or self:
+        for page in self.displayPages():
             r |= page.geometry()
         m = self.margin
         geometry = r.adjusted(-m, -m, m, m)
@@ -289,12 +284,12 @@ class AbstractPageLayout(list):
 
     def pos2offset(self, pos):
         """Return a three-tuple (index, x, y).
-        
-        The index refers to a page in the layout, or nowhere if -1. The x and y 
-        refer to a spot on the page (or layout if empty) in the range 0..1.  
-        You can use it to store a certain position and restore it after 
+
+        The index refers to a page in the layout, or nowhere if -1. The x and y
+        refer to a spot on the page (or layout if empty) in the range 0..1.
+        You can use it to store a certain position and restore it after
         changing the zoom e.g.
-        
+
         """
         page = self.pageAt(pos) or self.nearestPageAt(pos)
         if page:
@@ -309,12 +304,12 @@ class AbstractPageLayout(list):
         x = pos.x() / w
         y = pos.y() / h
         return (i, x, y)
-    
+
     def offset2pos(self, offset):
         """Return the pos on the layout for the specified offset.
-        
+
         The offset is a three-tuple like returned by pos2offset().
-        
+
         """
         i, x, y = offset
         if i < 0 or i >= len(self):
@@ -327,6 +322,62 @@ class AbstractPageLayout(list):
             w = page.width
             h = page.height
         return pos + QPoint(round(x * w), round(y * h))
+
+    def displayPages(self):
+        """Return the pages that are to be displayed.
+
+        The default implementation returns all pages. You can reimplement this
+        method to use other algoritms that determine the pages to display.
+
+        """
+        return self
+
+
+class PageSetLayoutMixin:
+    """Mixin class that allows displaying a subset of pages.
+
+    This class implements displayPages() so, that if a current page set is
+    selected, the layout only displays those pages. The total layout size
+    is restricted to those pages, although the pages have the same position
+    on the layout as when displaying the full layout.
+
+    This mixin adds the following instance attributes (with those defaults at
+    the class level):
+
+        pagesPerSet = 1
+        pagesFirstSet = 0
+
+    """
+
+    pagesPerSet = 1
+    pagesFirstSet = 0
+
+    _currentPageSet = -1
+
+    def displayPages(self):
+        """Return the pages that are to be displayed.
+
+        In this implementation this value depends on the currentPageSet() and
+        the values of the pagesFirstSet and pagesPerSet attributes.
+
+        You could reimplement this method to use other algoritms that determine
+        which pages to display. The page layout is the same as when displaying
+        the full document.
+
+        """
+        num = self._currentPageSet
+        count = self.pageSetCount()
+        # make sure a valid slice is returned
+        if num >= count:
+            num = self._currentPageSet = count - 1
+        if num == -1:
+            return self
+        i = self.pagesFirstSet or self.pagesPerSet
+        if num == 0:
+            return self[0:i]
+        else:
+            i += (num - 1) * self.pagesPerSet
+            return self[i:i + self.pagesPerSet]
 
     def pageSetCount(self):
         """Return the number of page sets.
@@ -341,15 +392,11 @@ class AbstractPageLayout(list):
     def setPageSet(self, num):
         """Enables display of the specified page set.
 
+        If num == -1, all pages are displayed.
         You should update() the layout after this.
 
         """
-        i = self.pagesFirstSet or self.pagesPerSet
-        if num == 0:
-            self._displayPages = self[0:i]
-        else:
-            i += (num - 1) * self.pagesPerSet
-            self._displayPages = self[i:i + self.pagesPerSet]
+        self._currentPageSet = num
 
     def pageSet(self, index):
         """Return the page set containing page at index."""
@@ -369,25 +416,23 @@ class AbstractPageLayout(list):
         displayed).
 
         """
-        if self._displayPages:
-            i = self.index(self._displayPages[0])
-            return self.pageSet(i)
-        return -1
+        return self._currentPageSet
 
     def setContinuous(self):
-        """Enables display of all pages.
+        """Enable display of all pages.
 
+        Equivalent to setPageSet(-1).
         You should update() the layout after this.
 
         """
-        self._displayPages = None
+        self.setPageSet(-1)
 
     def isContinuous(self):
         """Return True if all pages are displayed."""
-        return not self._displayPages
+        return self._currentPageSet == -1
 
 
-class PageLayout(AbstractPageLayout):
+class PageLayout(PageSetLayoutMixin, AbstractPageLayout):
     """A basic layout that shows pages from right to left or top to bottom.
 
     Additional instance attribute:
@@ -415,7 +460,7 @@ class PageLayout(AbstractPageLayout):
                 left += page.width + self.spacing
 
 
-class RowPageLayout(AbstractPageLayout):
+class RowPageLayout(PageSetLayoutMixin, AbstractPageLayout):
     """A layout that orders pages in rows.
 
     Additional instance attributes:
@@ -424,11 +469,23 @@ class RowPageLayout(AbstractPageLayout):
         `pagesFirstRow`   = 1, the number of pages to display in the first row
         `fitAllColumns`   = True, whether "fit width" uses all columns
 
+    The `pagesFirstSet` and `pagesPerSet` instance attributes are changed to
+    properties that automatically use the respective values of pagesFirstRow
+    and pagesPerRow.
+
     """
 
     pagesPerRow = 2
     pagesFirstRow = 1
     fitAllColumns = True
+
+    @property
+    def pagesPerSet(self):
+        return self.pagesPerRow
+
+    @property
+    def pagesFirstSet(self):
+        return self.pagesFirstRow
 
     def zoomFitWidth(self, width):
         """Reimplemented to respect the fitAllColumns setting."""
