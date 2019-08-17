@@ -230,7 +230,7 @@ class Rectangles:
                 result.append((y - i[o][Bottom] + x - i[o][Right], o))
         
         if result:
-            return min(result)[1]
+            return min(result, key=operator.itemgetter(0))[1]
 
     def __len__(self):
         """Return the number of objects."""
