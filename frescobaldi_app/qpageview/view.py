@@ -248,28 +248,31 @@ class View(scrollarea.ScrollArea):
         if not hasattr(layout, "setContinuous") or layout.isContinuous():
             return
         
+        sb = 0  # where to move the scrollbar after fitlayout
         if what == "first":
-            self.verticalScrollBar().setValue(0)
             what = 0
+            sb = -1     # move to the start
         elif what == "last":
-            self.verticalScrollBar().setValue(self.verticalScrollBar().maximum())
             what = layout.pageSetCount() - 1
+            sb = 1      # move to the end
         elif what == "previous":
             what = layout.currentPageSet() - 1
             if what < 0:
                 return
-            self.verticalScrollBar().setValue(self.verticalScrollBar().maximum())
+            sb = 1
         elif what == "next":
             what = layout.currentPageSet() + 1
             if what >= layout.pageSetCount():
                 return
-            self.verticalScrollBar().setValue(0)
+            sb = -1
         elif not 0 <= what < layout.pageSetCount():
             return
         layout.setPageSet(what)
         if self._viewMode:
             self._fitLayout()
         self.updatePageLayout()
+        if sb:
+            self.verticalScrollBar().setValue(0 if sb == -1 else self.verticalScrollBar().maximum())
 
     def setMagnifier(self, magnifier):
         """Sets the Magnifier to use (or None to disable the magnifier).
