@@ -65,10 +65,13 @@ class PagedViewMixin:
         self._scrollingToPage = max(self._scrollingToPage - 1, 0)
         
     def mousePressEvent(self, ev):
-        """Implemented to set the clicked page as current."""
+        """Implemented to set the clicked page as current, without moving it."""
         page = self._pageLayout.pageAt(ev.pos() - self.layoutPosition())
         if page:
-            self.setCurrentPageNumber(self._pageLayout.index(page) + 1)
+            num = self._pageLayout.index(page) + 1
+            if num != self._currentPage:
+                self._currentPage = num
+                self.currentPageChanged.emit(num)
         super().mousePressEvent(ev)
 
     def setContinuousMode(self, continuous):
