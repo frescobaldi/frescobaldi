@@ -313,11 +313,14 @@ class View(scrollarea.ScrollArea):
         return self._rubberband
 
     def scrollContentsBy(self, dx, dy):
-        """Reimplemented to move the rubberband; keep track of current page."""
+        """Reimplemented to move the rubberband and adjust the mouse cursor."""
         if self._rubberband:
             self._rubberband.scrollBy(QPoint(dx, dy))
         if not self.isScrolling():
-            self.adjustCursor(self.mapFromGlobal(QCursor.pos()))
+            # don't adjust the cursor during a kinetic scroll
+            pos = self.mapFromGlobal(QCursor.pos())
+            if pos in self.viewport().rect() and not self.viewport().childAt(pos):
+                self.adjustCursor(pos)
         self.viewport().update()
     
     def stopScrolling(self):
