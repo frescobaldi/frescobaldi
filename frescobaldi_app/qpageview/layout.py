@@ -381,9 +381,10 @@ class PageSetLayoutMixin:
         is empty, an empty list is returned.
         
         The default implementation reads the pagesFirstSet and pagesPerSet
-        attributes.
+        attributes, and returns at most three tuples.
         
-        All other pageSet methods use this method.
+        All other pageSet methods use the result of this method for their
+        computations.
         
         """
         result = []
@@ -425,9 +426,10 @@ class PageSetLayoutMixin:
         for count, length in self.pageSets():
             if s + count * length < index:
                 s += count * length
-                p += 1
+                p += count
                 continue
             return p + (index - s) // length
+        return 0    # happens with empty layout
 
     def currentPageSet(self):
         """Return the current page set.
