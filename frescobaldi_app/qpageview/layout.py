@@ -252,7 +252,10 @@ class AbstractPageLayout(list):
         self._rects = None
         self.updatePageSizes()
         self.updatePagePositions()
-        return self.computeGeometry()
+        geometry = self.computeGeometry()
+        changed = self.geometry() != geometry
+        self.setGeometry(geometry)
+        return changed
 
     def updatePageSizes(self):
         """Compute the correct size of every Page."""
@@ -277,22 +280,17 @@ class AbstractPageLayout(list):
             top += self.spacing
 
     def computeGeometry(self):
-        """Compute and set the total geometry (position and size) of the layout.
+        """Return the total geometry (position and size) of the layout.
 
         In most cases the implementation of this method is sufficient: it
         computes the bounding rectangle of all Pages and adds the margin.
-
-        True is returned if the total size has changed.
 
         """
         r = QRect()
         for page in self.displayPages():
             r |= page.geometry()
         m = self.margin
-        geometry = r.adjusted(-m, -m, m, m)
-        changed = self.geometry() != geometry
-        self.setGeometry(geometry)
-        return changed
+        return r.adjusted(-m, -m, m, m)
 
     def pos2offset(self, pos):
         """Return a three-tuple (index, x, y).
