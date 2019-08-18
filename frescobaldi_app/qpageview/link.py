@@ -196,5 +196,6 @@ class LinkViewMixin:
         if self.handleLinks and self._currentLinkId is not None:
             self.linkHoverLeave()
             self._currentLinkId = None
- 
+        super().leaveEvent(ev)
+
 
