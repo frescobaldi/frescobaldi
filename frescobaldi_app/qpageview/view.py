@@ -207,31 +207,27 @@ class View(scrollarea.ScrollArea):
         
         """
         layout = self._pageLayout
-        if hasattr(layout, "continuousMode"):
-            oldcontinuous = layout.continuousMode
-            if continuous:
-                if not oldcontinuous:
-                    with self._keepCentered():
-                        layout.continuousMode = True
-                        if self._viewMode:
-                            self._fitLayout()
-                    self.continuousModeChanged.emit(True)
-            elif oldcontinuous:
-                p = self.currentPage()
-                index = layout.index(p) if p else 0
+        oldcontinuous = layout.continuousMode
+        if continuous:
+            if not oldcontinuous:
                 with self._keepCentered():
-                    layout.continuousMode = False
-                    layout.currentPageSet = layout.pageSet(index)
+                    layout.continuousMode = True
                     if self._viewMode:
                         self._fitLayout()
-                self.continuousModeChanged.emit(False)
+                self.continuousModeChanged.emit(True)
+        elif oldcontinuous:
+            p = self.currentPage()
+            index = layout.index(p) if p else 0
+            with self._keepCentered():
+                layout.continuousMode = False
+                layout.currentPageSet = layout.pageSet(index)
+                if self._viewMode:
+                    self._fitLayout()
+            self.continuousModeChanged.emit(False)
     
     def continuousMode(self):
         """Return True if the layout displays all pages."""
-        try:
-            return self._pageLayout.continuousMode
-        except AttributeError:
-            return True
+        return self._pageLayout.continuousMode
 
     def displayPageSet(self, what):
         """Try to display a page set (if the layout is not in continuous mode).
@@ -246,9 +242,9 @@ class View(scrollarea.ScrollArea):
 
         """
         layout = self._pageLayout
-        if not hasattr(layout, "continuousMode") or layout.continuousMode:
+        if layout.continuousMode:
             return
-        
+
         sb = 0  # where to move the scrollbar after fitlayout
         if what == "first":
             what = 0

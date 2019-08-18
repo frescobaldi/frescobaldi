@@ -57,23 +57,29 @@ class AbstractPageLayout(list):
 
     The following instance attributes are used, with these defaults:
 
-        margin = 4
-        spacing = 8
+        margin = 6              # margin around whole layout
+        spacing = 8             # pixels between pages
         zoomFactor = 1.0
         dpiX = 72.0
         dpiY = 72.0
         rotation = Rotate_0
-        x = 0
+
+        x = 0                   # x, y, width and height are set by update()
         y = 0
         width = 0
         height = 0
+
+        continuousMode = True   # whether to show all pages
+        pagesPerSet = 1         # if not, how many pages per set
+        pagesFirstSet = 0       # how many pages in first set
+        currentPageSet = 0      # which page set to display
 
     After having changed pages or layout attributes, call update() to update
     the layout.
 
     """
 
-    margin = 4
+    margin = 6
     spacing = 8
     zoomFactor = 1.0
     dpiX = 72.0
@@ -83,6 +89,11 @@ class AbstractPageLayout(list):
     y = 0
     width = 0
     height = 0
+
+    continuousMode = True
+    pagesPerSet = 1
+    pagesFirstSet = 0
+    currentPageSet = 0
 
     _rects = None
 
@@ -112,7 +123,9 @@ class AbstractPageLayout(list):
     def pos(self):
         """Return the top-left coordinate of the visible geometry.
 
-        Normally this is QPoint(0, 0).
+        Normally this is QPoint(0, 0), but when a non-continuous mode is
+        used it can be different: the top-left corner of the visible page set
+        area.
 
         """
         return QPoint(self.x, self.y)
@@ -325,37 +338,11 @@ class AbstractPageLayout(list):
     def displayPages(self):
         """Return the pages that are to be displayed.
 
-        The default implementation returns all pages. You can reimplement this
-        method to use other algoritms that determine the pages to display.
+        If continuousMode is True, simply returns self, to show all pages.
+        If not, reads the currentPageSet attribute and uses the pageSets()
+        method to determine the set of pages to restrict the display to.
 
         """
-        return self
-
-
-class PageSetLayoutMixin:
-    """Mixin class that allows displaying a subset of pages.
-
-    This class implements displayPages() so, that if a current page set is
-    selected, the layout only displays those pages. The total layout size
-    is restricted to those pages, although the pages have the same position
-    on the layout as when displaying the full layout.
-
-    This mixin adds the following instance attributes (with those defaults at
-    the class level):
-
-        pagesPerSet = 1
-        pagesFirstSet = 0
-
-    """
-
-    pagesPerSet = 1
-    pagesFirstSet = 0
-
-    currentPageSet = 0
-    continuousMode = True
-
-    def displayPages(self):
-        """Return the pages that are to be displayed."""
         if not self.continuousMode:
             num = self.currentPageSet
             count = self.pageSetCount()
@@ -376,17 +363,17 @@ class PageSetLayoutMixin:
 
     def pageSets(self):
         """Return a list of (count, length) tuples.
-        
+
         Every count is the number of page sets of that length. The sum of all
         (count * length) should be the total length of the layout. If the layout
         is empty, an empty list is returned.
-        
+
         The default implementation reads the pagesFirstSet and pagesPerSet
         attributes, and returns at most three tuples.
-        
+
         All other pageSet methods use the result of this method for their
         computations.
-        
+
         """
         result = []
         left = self.count()
@@ -406,7 +393,7 @@ class PageSetLayoutMixin:
                     else:
                         result.append((1, left))
         return result
-        
+
     def pageSetCount(self):
         """Return the number of page sets."""
         return sum(count for count, length in self.pageSets())
@@ -424,7 +411,7 @@ class PageSetLayoutMixin:
         return 0    # happens with empty layout
 
 
-class PageLayout(PageSetLayoutMixin, AbstractPageLayout):
+class PageLayout(AbstractPageLayout):
     """A basic layout that shows pages from right to left or top to bottom.
 
     Additional instance attribute:
@@ -452,7 +439,7 @@ class PageLayout(PageSetLayoutMixin, AbstractPageLayout):
                 left += page.width + self.spacing
 
 
-class RowPageLayout(PageSetLayoutMixin, AbstractPageLayout):
+class RowPageLayout(AbstractPageLayout):
     """A layout that orders pages in rows.
 
     Additional instance attributes:
