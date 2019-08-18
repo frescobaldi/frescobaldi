@@ -176,7 +176,7 @@ class LinkViewMixin:
         """Called when a link is clicked.
 
         The default implementation emits the linkClicked(event, page, link)
-        signal. The event can be used for thinks like determining which button
+        signal. The event can be used for things like determining which button
         was used, and which keyboard modifiers were in effect.
 
         """
