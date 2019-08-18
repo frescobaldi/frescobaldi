@@ -351,27 +351,28 @@ class PageSetLayoutMixin:
     pagesPerSet = 1
     pagesFirstSet = 0
 
-    _currentPageSet = -1
+    currentPageSet = 0
+    continuousMode = True
 
     def displayPages(self):
         """Return the pages that are to be displayed."""
-        num = self._currentPageSet
-        count = self.pageSetCount()
-        # make sure a valid slice is returned
-        if num >= count:
-            num = self._currentPageSet = count - 1
-        if num == -1:
-            return self
-        i = 0
-        s = 0
-        for count, length in self.pageSets():
-            if i + count <= num:
-                i += count
+        if not self.continuousMode:
+            num = self.currentPageSet
+            count = self.pageSetCount()
+            # make sure a valid slice is returned
+            if num and num >= count:
+                num = self.currentPageSet = count - 1
+            p = 0
+            s = 0
+            for count, length in self.pageSets():
+                if p + count <= num:
+                    p += count
+                    s += count * length
+                    continue
+                count = num - p
                 s += count * length
-                continue
-            count = num - i
-            s += count * length
-            return self[s:s+length]
+                return self[s:s+length]
+        return self
 
     def pageSets(self):
         """Return a list of (count, length) tuples.
@@ -410,15 +411,6 @@ class PageSetLayoutMixin:
         """Return the number of page sets."""
         return sum(count for count, length in self.pageSets())
 
-    def setPageSet(self, num):
-        """Enables display of the specified page set.
-
-        If num == -1, all pages are displayed.
-        You should update() the layout after this.
-
-        """
-        self._currentPageSet = num
-
     def pageSet(self, index):
         """Return the page set containing page at index."""
         s = 0   # the index at the start of the last page set
@@ -430,28 +422,6 @@ class PageSetLayoutMixin:
                 continue
             return p + (index - s) // length
         return 0    # happens with empty layout
-
-    def currentPageSet(self):
-        """Return the current page set.
-
-        Returns -1 if there is no current page set (i.e. all pages are
-        displayed).
-
-        """
-        return self._currentPageSet
-
-    def setContinuous(self):
-        """Enable display of all pages.
-
-        Equivalent to setPageSet(-1).
-        You should update() the layout after this.
-
-        """
-        self.setPageSet(-1)
-
-    def isContinuous(self):
-        """Return True if all pages are displayed."""
-        return self._currentPageSet == -1
 
 
 class PageLayout(PageSetLayoutMixin, AbstractPageLayout):

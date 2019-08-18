@@ -207,12 +207,12 @@ class View(scrollarea.ScrollArea):
         
         """
         layout = self._pageLayout
-        if hasattr(layout, "setContinuous"):
-            oldcontinuous = layout.isContinuous()
+        if hasattr(layout, "continuousMode"):
+            oldcontinuous = layout.continuousMode
             if continuous:
                 if not oldcontinuous:
                     with self._keepCentered():
-                        layout.setContinuous()
+                        layout.continuousMode = True
                         if self._viewMode:
                             self._fitLayout()
                     self.continuousModeChanged.emit(True)
@@ -220,7 +220,8 @@ class View(scrollarea.ScrollArea):
                 p = self.currentPage()
                 index = layout.index(p) if p else 0
                 with self._keepCentered():
-                    layout.setPageSet(layout.pageSet(index))
+                    layout.continuousMode = False
+                    layout.currentPageSet = layout.pageSet(index)
                     if self._viewMode:
                         self._fitLayout()
                 self.continuousModeChanged.emit(False)
@@ -228,7 +229,7 @@ class View(scrollarea.ScrollArea):
     def continuousMode(self):
         """Return True if the layout displays all pages."""
         try:
-            return self._pageLayout.isContinuous()
+            return self._pageLayout.continuousMode
         except AttributeError:
             return True
 
@@ -245,7 +246,7 @@ class View(scrollarea.ScrollArea):
 
         """
         layout = self._pageLayout
-        if not hasattr(layout, "setContinuous") or layout.isContinuous():
+        if not hasattr(layout, "continuousMode") or layout.continuousMode:
             return
         
         sb = 0  # where to move the scrollbar after fitlayout
@@ -256,18 +257,18 @@ class View(scrollarea.ScrollArea):
             what = layout.pageSetCount() - 1
             sb = 1      # move to the end
         elif what == "previous":
-            what = layout.currentPageSet() - 1
+            what = layout.currentPageSet - 1
             if what < 0:
                 return
             sb = 1
         elif what == "next":
-            what = layout.currentPageSet() + 1
+            what = layout.currentPageSet + 1
             if what >= layout.pageSetCount():
                 return
             sb = -1
         elif not 0 <= what < layout.pageSetCount():
             return
-        layout.setPageSet(what)
+        layout.currentPageSet = what
         if self._viewMode:
             self._fitLayout()
         self.updatePageLayout()
