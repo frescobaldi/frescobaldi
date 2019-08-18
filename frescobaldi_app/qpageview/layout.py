@@ -24,7 +24,6 @@ Manages and positions a group of Page instances.
 
 
 import copy
-import math
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QSize
 
@@ -355,16 +354,7 @@ class PageSetLayoutMixin:
     _currentPageSet = -1
 
     def displayPages(self):
-        """Return the pages that are to be displayed.
-
-        In this implementation this value depends on the currentPageSet() and
-        the values of the pagesFirstSet and pagesPerSet attributes.
-
-        You could reimplement this method to use other algoritms that determine
-        which pages to display. The page layout is the same as when displaying
-        the full document.
-
-        """
+        """Return the pages that are to be displayed."""
         num = self._currentPageSet
         count = self.pageSetCount()
         # make sure a valid slice is returned
@@ -372,22 +362,52 @@ class PageSetLayoutMixin:
             num = self._currentPageSet = count - 1
         if num == -1:
             return self
-        i = self.pagesFirstSet or self.pagesPerSet
-        if num == 0:
-            return self[0:i]
-        else:
-            i += (num - 1) * self.pagesPerSet
-            return self[i:i + self.pagesPerSet]
+        i = 0
+        s = 0
+        for count, length in self.pageSets():
+            if i + count <= num:
+                i += count
+                s += count * length
+                continue
+            count = num - i
+            s += count * length
+            return self[s:s+length]
 
-    def pageSetCount(self):
-        """Return the number of page sets.
-
-        This is based on the number of pages and the settings of the
-        pagesPerSet and the pagesFirstSet attributes.
-
+    def pageSets(self):
+        """Return a list of (count, length) tuples.
+        
+        Every count is the number of page sets of that length. The sum of all
+        (count * length) should be the total length of the layout. If the layout
+        is empty, an empty list is returned.
+        
+        The default implementation reads the pagesFirstSet and pagesPerSet
+        attributes.
+        
+        All other pageSet methods use this method.
+        
         """
-        first = 1 if self.pagesFirstSet else 0
-        return first + math.ceil((len(self) - self.pagesFirstSet) / self.pagesPerSet)
+        result = []
+        left = self.count()
+        if left:
+            if self.pagesFirstSet and self.pagesFirstSet != self.pagesPerSet:
+                length = min(left, self.pagesFirstSet)
+                result.append((1, length))
+                left -= length
+            if left:
+                count, left = divmod(left, self.pagesPerSet)
+                if count:
+                    result.append((count, self.pagesPerSet))
+                if left:
+                    # merge result entries with same length
+                    if result and result[-1][1] == left:
+                        result[-1] == (result[-1][0] + 1, left)
+                    else:
+                        result.append((1, left))
+        return result
+        
+    def pageSetCount(self):
+        """Return the number of page sets."""
+        return sum(count for count, length in self.pageSets())
 
     def setPageSet(self, num):
         """Enables display of the specified page set.
@@ -400,14 +420,14 @@ class PageSetLayoutMixin:
 
     def pageSet(self, index):
         """Return the page set containing page at index."""
-        if self.pagesFirstSet:
-            if index < self.pagesFirstSet:
-                return 0
-            else:
-                index -= self.pagesFirstSet
-                return int(index // self.pagesPerSet) + 1
-        else:
-            return int(index // self.pagesPerSet)
+        s = 0   # the index at the start of the last page set
+        p = 0   # the page set
+        for count, length in self.pageSets():
+            if s + count * length < index:
+                s += count * length
+                p += 1
+                continue
+            return p + (index - s) // length
 
     def currentPageSet(self):
         """Return the current page set.
