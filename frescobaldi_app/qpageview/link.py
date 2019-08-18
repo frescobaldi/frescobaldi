@@ -134,10 +134,8 @@ class LinkViewMixin:
         """
         page, link = self.linkAt(pos)
         if link:
-            cursor = Qt.PointingHandCursor
             lid = id(link)
         else:
-            cursor = None
             lid = None
         if lid != self._currentLinkId:
             if self._currentLinkId is not None:
@@ -145,16 +143,17 @@ class LinkViewMixin:
             self._currentLinkId = lid
             if lid is not None:
                 self.linkHoverEnter(page, link)
-        self.setCursor(cursor) if cursor else self.unsetCursor()
 
     def linkHoverEnter(self, page, link):
         """Called when the mouse hovers over a link.
 
         The default implementation emits the linkHovered(page, link) signal,
-        and, if a Highlighter was set using setLinkHighlighter(), highlights the
-        link. You can reimplement this method to do something different.
+        sets a pointing hand mouse cursor, and, if a Highlighter was set using
+        setLinkHighlighter(), highlights the link. You can reimplement this
+        method to do something different.
         
         """
+        self.setCursor(Qt.PointingHandCursor)
         self.linkHovered.emit(page, link)
         if self._linkHighlighter:
             self.highlight(self._linkHighlighter, [(page, link.rect())], 3000)
@@ -162,12 +161,13 @@ class LinkViewMixin:
     def linkHoverLeave(self):
         """Called when the mouse does not hover a link anymore.
 
-        The default implementation emits the linkLeft() signal, and, if a
-        Highlighter was set using setLinkHighlighter(), removes the
-        highlighting of the current link. You can reimplement this method to do
-        something different.
+        The default implementation emits the linkLeft() signal, sets a default
+        mouse cursor, and, if a Highlighter was set using setLinkHighlighter(),
+        removes the highlighting of the current link. You can reimplement this
+        method to do something different.
 
         """
+        self.unsetCursor()
         self.linkLeft.emit()
         if self._linkHighlighter:
             self.clearHighlight(self._linkHighlighter)
@@ -191,4 +191,10 @@ class LinkViewMixin:
                 return
         super().mousePressEvent(ev)
 
+    def leaveEvent(self, ev):
+        """Implemented to leave a link, might there still be one hovered."""
+        if self.handleLinks and self._currentLinkId is not None:
+            self.linkHoverLeave()
+            self._currentLinkId = None
+ 
 
