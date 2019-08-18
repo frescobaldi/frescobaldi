@@ -25,8 +25,7 @@ to browse large documents.
 
 """
 
-import weakref
-
+from . import constants
 from . import layout
 from . import pagedview
 from . import view
@@ -50,7 +49,7 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
         super().__init__(parent, **kwds)
         self._view = None
         self.setPageLayout(layout.PageLayout())
-        self.setZoomFactor(0.1)
+        self.setViewMode(constants.FitWidth)
     
     def connectView(self, view):
         """Connects to a view, connecting some signals. """
