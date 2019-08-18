@@ -101,6 +101,7 @@ class View(scrollarea.ScrollArea):
         self.setMouseTracking(True)
         self.setMinimumSize(QSize(60, 60))
         self.setPageLayout(layout.PageLayout())
+        self._pageLayout.update()
 
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file."""
