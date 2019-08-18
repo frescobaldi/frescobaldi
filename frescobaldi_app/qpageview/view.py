@@ -110,7 +110,6 @@ class View(scrollarea.ScrollArea):
         self.setMouseTracking(True)
         self.setMinimumSize(QSize(60, 60))
         self.setPageLayout(layout.PageLayout())
-        self._pageLayout.update()
 
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file."""
@@ -145,6 +144,7 @@ class View(scrollarea.ScrollArea):
         layout.dpiX = self.physicalDpiX()
         layout.dpiY = self.physicalDpiY()
         self._pageLayout = layout
+        self.updatePageLayout()
 
     def pageLayout(self):
         """Return our current PageLayout instance."""

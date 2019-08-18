@@ -44,13 +44,12 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
     
     MAX_ZOOM = 1.0
     pagingOnScrollEnabled = False
-    wheelZoomEnabled = False
+    wheelZoomingEnabled = False
     
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._view = None
         self.setPageLayout(layout.PageLayout())
-        self._pageLayout.update()
         self.setZoomFactor(0.1)
     
     def connectView(self, view):
