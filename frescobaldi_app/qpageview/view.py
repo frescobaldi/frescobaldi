@@ -76,11 +76,20 @@ class View(scrollarea.ScrollArea):
                         layout update)
 
     `continuousModeChanged` When the user toggle the continuousMode() setting.
+    
+    
+    The following instance variables can be set, and default to:
+    
+    wheelZoomingEnabled = True      # if True, the user can zoom the View using the mouse wheel
+    MIN_ZOOM = 0.05
+    MAX_ZOOM = 64.0
 
     """
 
     MIN_ZOOM = 0.05
     MAX_ZOOM = 64.0
+
+    wheelZoomingEnabled = True
 
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
@@ -621,7 +630,7 @@ class View(scrollarea.ScrollArea):
 
     def wheelEvent(self, ev):
         """Reimplemented to support wheel zooming and paging through page sets."""
-        if ev.modifiers() & Qt.CTRL:
+        if self.wheelZoomingEnabled and ev.modifiers() & Qt.CTRL:
             factor = 1.1 ** (ev.angleDelta().y() / 120)
             if ev.angleDelta().y():
                 self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
