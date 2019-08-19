@@ -93,6 +93,7 @@ class View(scrollarea.ScrollArea):
 
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
+    orientationChanged = pyqtSignal(int)
     zoomFactorChanged = pyqtSignal(float)
     pageLayoutUpdated = pyqtSignal()
     continuousModeChanged = pyqtSignal(bool)
@@ -207,6 +208,20 @@ class View(scrollarea.ScrollArea):
     def rotateRight(self):
         """Rotate the pages 90 degrees."""
         self.setRotation((self.rotation() + 1) & 3)
+
+    def setOrientation(self, orientation):
+        """Set the orientation (Horizontal or Vertical)."""
+        layout = self._pageLayout
+        if orientation != layout.orientation:
+            with self._keepCentered():
+                layout.orientation = orientation
+                if self._viewMode:
+                    self._fitLayout()
+            self.orientationChanged.emit(orientation)
+
+    def orientation(self):
+        """Return the current orientation (Horizontal or Vertical)."""
+        return self._pageLayout.orientation
 
     def setContinuousMode(self, continuous):
         """Sets whether the layout should display all pages.
