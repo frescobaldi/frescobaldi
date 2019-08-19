@@ -330,23 +330,33 @@ class AbstractImageRenderer:
         exceeds `maxjobs`.
         
         """
+        # all running jobs (globally)
         runningjobs = [job
-            for page, keys in _jobs[self].items()
-                for key, tiled in keys.items()
-                    for tile, job in tiled.items()
-                        if job.running]
+            for renderer, paged in _jobs.items()
+                for page, keys in paged.items()
+                    for key, tiled in keys.items()
+                        for tile, job in tiled.items()
+                            if job.running]
+        # our waiting jobs
         waitingjobs = sorted((job
             for page, keys in _jobs[self].items()
                 for key, tiled in keys.items()
                     for tile, job in tiled.items()
                         if not job.running),
                             key=lambda j: j.time, reverse=True)
-        jobcount = len(runningjobs)
-        for job in waitingjobs[:maxjobs-jobcount]:
-            mutex = job.page.mutex()
-            if mutex is None or not any(mutex is j.page.mutex() for j in runningjobs):
-                runningjobs.append(job)
-                job.start()
+        
+        jobcount = maxjobs - len(runningjobs)
+        if jobcount > 0:
+            mutexes = set(j.page.mutex() for j in runningjobs)
+            mutexes.discard(None)
+            for job in waitingjobs:
+                m = job.page.mutex()
+                if m is None or m not in mutexes:
+                    mutexes.add(m)
+                    job.start()
+                    jobcount -= 1
+                    if jobcount == 0:
+                        break
 
     def finish(self, job):
         """Called by the job when finished.
