@@ -25,7 +25,7 @@ to browse large documents.
 
 """
 
-from PyQt5.QtCore import QRect, Qt
+from PyQt5.QtCore import QMargins, QRect, Qt
 from PyQt5.QtGui import QPainter
 
 from . import constants
@@ -47,22 +47,24 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
     MAX_ZOOM = 1.0
     pagingOnScrollEnabled = False
     wheelZoomingEnabled = False
-    pageNumberDistance = 6
     firstPageNumber = 1
+    pageNumberDistance = 3
     scrollupdatespersec = 100
     
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._view = None
-        self.setPageLayout(SidebarLayout())
         self.setViewMode(constants.FitWidth)
+        self.pageLayout().spacing = 1
+        self.pageLayout().setMargins(QMargins(0, 0, 0, 0))
+        self.pageLayout().setPageMargins(QMargins(4, 4, 4, 20))
         self.setLayoutFontHeight()
         self.currentPageChanged.connect(self.viewport().update)
     
     def setLayoutFontHeight(self):
-        """Reads the current font height and reserves enough spacing in the layout."""
-        height = self.fontMetrics().height()
-        self.pageLayout().spacing = height + self.pageNumberDistance + self.pageLayout().margins().bottom()
+        """Reads the current font height and reserves enough space in the layout."""
+        self.pageLayout().pageMargins().setBottom(self.fontMetrics().height())
+        self.updatePageLayout()
     
     def connectView(self, view):
         """Connects to a view, connecting some signals. """
@@ -115,14 +117,13 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
             
             ## draw selection background on current page
             if p is self.currentPage():
-                m = layout.margins()
-                bg = rect.adjusted(-m.left(), -m.top(), m.right(), layout.spacing-m.bottom())
+                bg = rect + layout.pageMargins()
                 painter.fillRect(bg, self.palette().highlight())
                 painter.setPen(self.palette().highlightedText().color())
             else:
                 painter.setPen(self.palette().text().color())
             # draw text
-            textr = QRect(rect.x(), rect.bottom(), rect.width(), layout.spacing)
+            textr = QRect(rect.x(), rect.bottom(), rect.width(), layout.pageMargins().bottom())
             painter.drawText(textr, Qt.AlignCenter, str(layout.index(p) + self.firstPageNumber))
             painter.restore()
         super().paintEvent(ev)
@@ -146,17 +147,5 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
             self.setCurrentPageNumber(1)
         else:
             super().keyPressEvent(ev)
-
-
-class SidebarLayout(layout.PageLayout):
-    """A layout that reserves space to print page numbers."""
-    _margins = (4, 4, 4, 4)
-    spacing = 20
-    def computeGeometry(self):
-        return super().computeGeometry().adjusted(0, 0, 0, self.spacing-self.margins().bottom())
-    
-    def zoomFitHeight(self, height):
-        """Reimplemented to take the extra spacing into account."""
-        return super().zoomFitHeight(height - self.spacing + self.margins().bottom())
 
 
