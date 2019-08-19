@@ -25,6 +25,8 @@ to browse large documents.
 
 """
 
+import weakref
+
 from PyQt5.QtCore import QMargins, QRect, Qt
 from PyQt5.QtGui import QPainter
 
@@ -55,6 +57,7 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._view = None
+        self._pages = weakref.WeakKeyDictionary()
         self.setOrientation(constants.Vertical)
         self.pageLayout().spacing = 1
         self.pageLayout().setMargins(QMargins(0, 0, 0, 0))
@@ -97,7 +100,14 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
     
     def slotLayoutUpdated(self):
         """Called when the layout of the connected view is updated."""
-        self.pageLayout()[:] = (p.copy() for p in self._view.pageLayout())
+        layout = self.pageLayout()
+        layout.clear()
+        for p in self._view.pageLayout():
+            try:
+                c = self._pages[p]
+            except KeyError:
+                c = self._pages[p] = p.copy()
+            layout.append(c)
         self.updatePageLayout()
 
     def slotCurrentPageChanged(self, num):
