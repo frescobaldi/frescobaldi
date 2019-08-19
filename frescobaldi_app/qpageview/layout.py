@@ -23,9 +23,10 @@ Manages and positions a group of Page instances.
 """
 
 
+import collections
 import copy
 
-from PyQt5.QtCore import QPoint, QPointF, QRect, QSize
+from PyQt5.QtCore import QMargins, QPoint, QPointF, QRect, QSize
 
 from . import rectangles
 from .constants import (
@@ -44,7 +45,6 @@ from .constants import (
 )
 
 
-
 class PageRects(rectangles.Rectangles):
     def get_coords(self, page):
         return page.geometry().getCoords()
@@ -55,9 +55,9 @@ class AbstractPageLayout(list):
 
     You can iterate over the layout itself, which yields all Page instances.
 
-    The following instance attributes are used, with these defaults:
+    The following instance attributes are used, with these class-level defaults:
 
-        margin = 6              # margin around whole layout
+        _margins = (6, 6, 6, 6) # margins around layout, access via margins()
         spacing = 8             # pixels between pages
         zoomFactor = 1.0
         dpiX = 72.0
@@ -79,7 +79,7 @@ class AbstractPageLayout(list):
 
     """
 
-    margin = 6
+    _margins = (6, 6, 6, 6)
     spacing = 8
     zoomFactor = 1.0
     dpiX = 72.0
@@ -147,6 +147,18 @@ class AbstractPageLayout(list):
         """Return our size as QSize()."""
         return QSize(self.width, self.height)
 
+    def setMargins(self, margins):
+        """Sets our margins to a QMargins object."""
+        self._m = margins
+
+    def margins(self):
+        """Return our margins as a QMargins object, intialized from _margins"""
+        try:
+            return self._m
+        except AttributeError:
+            self._m = QMargins(*self._margins)
+            return self._m
+    
     def _pageRects(self):
         """(Internal) Return the PageRects object for quickly finding pages."""
         if self._rects:
@@ -228,7 +240,8 @@ class AbstractPageLayout(list):
         suitable zoom factor for the widest Page.
 
         """
-        return self.widestPage().zoomForWidth(width - self.margin * 2, self.rotation, self.dpiX)
+        width -= self.margins().left() + self.margins().right()
+        return self.widestPage().zoomForWidth(width, self.rotation, self.dpiX)
 
     def zoomFitHeight(self, height):
         """Return the zoom factor this layout would need to fit in the height.
@@ -237,7 +250,8 @@ class AbstractPageLayout(list):
         suitable zoom factor for the highest Page.
 
         """
-        return self.highestPage().zoomForHeight(height - self.margin * 2, self.rotation, self.dpiY)
+        height -= self.margins().top() + self.margins().bottom()
+        return self.highestPage().zoomForHeight(height, self.rotation, self.dpiY)
 
     def update(self):
         """Compute the size of all pages and updates their positions.
@@ -272,9 +286,9 @@ class AbstractPageLayout(list):
         respect the margin (and preferably also the spacing).
 
         """
-        top = self.margin
+        top = self.margins().top()
         for page in self:
-            page.x = self.margin
+            page.x = self.margins().left()
             page.y = top
             top += page.height
             top += self.spacing
@@ -289,8 +303,7 @@ class AbstractPageLayout(list):
         r = QRect()
         for page in self.displayPages():
             r |= page.geometry()
-        m = self.margin
-        return r.adjusted(-m, -m, m, m)
+        return r + self.margins()
 
     def pos2offset(self, pos):
         """Return a three-tuple (index, x, y).
@@ -422,15 +435,17 @@ class PageLayout(AbstractPageLayout):
     def updatePagePositions(self):
         """Order our pages."""
         if self.orientation == Vertical:
-            width = max((p.width for p in self), default=0) + self.margin * 2
-            top = self.margin
+            width = max((p.width for p in self), default=0)
+            width += self.margins().left() + self.margins().right()
+            top = self.margins().top()
             for page in self:
                 page.x = (width - page.width) / 2
                 page.y = top
                 top += page.height + self.spacing
         else:
-            height = max((p.height for p in self), default=0) + self.margin * 2
-            left = self.margin
+            height = max((p.height for p in self), default=0)
+            height += self.margins().top() + self.margins().bottom()
+            left = self.margins().left()
             for page in self:
                 page.x = left
                 page.y = (height - page.height) / 2
@@ -466,7 +481,7 @@ class RowPageLayout(AbstractPageLayout):
 
     def zoomFitWidth(self, width):
         """Reimplemented to respect the fitAllColumns setting."""
-        width -= self.margin * 2
+        width -= self.margins().left() + self.margins().right()
         if self.fitAllColumns:
             ncols = min(self.pagesPerRow, self.count())
             width = (width - self.spacing * (ncols - 1)) // ncols
@@ -484,14 +499,14 @@ class RowPageLayout(AbstractPageLayout):
 
         col_widths = []
         col_offsets = []
-        offset = self.margin
+        offset = self.margins().left()
         for col in range(cols):
             width = max(p.width for p in pages[col::cols] if p)
             col_widths.append(width)
             col_offsets.append(offset)
             offset += width + self.spacing
 
-        top = self.margin
+        top = self.margins().top()
         for row in (pages[i:i + cols] for i in range(0, len(pages), cols or 1)):
             height = max(p.height for p in row if p)
             for n, page in enumerate(row):

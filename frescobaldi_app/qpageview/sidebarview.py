@@ -62,7 +62,7 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
     def setLayoutFontHeight(self):
         """Reads the current font height and reserves enough spacing in the layout."""
         height = self.fontMetrics().height()
-        self.pageLayout().spacing = height + self.pageNumberDistance + self.pageLayout().margin
+        self.pageLayout().spacing = height + self.pageNumberDistance + self.pageLayout().margins().bottom()
     
     def connectView(self, view):
         """Connects to a view, connecting some signals. """
@@ -115,7 +115,8 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
             
             ## draw selection background on current page
             if p is self.currentPage():
-                bg = rect.adjusted(-layout.margin, -layout.margin, layout.margin, layout.spacing-layout.margin)
+                m = layout.margins()
+                bg = rect.adjusted(-m.left(), -m.top(), m.right(), layout.spacing-m.bottom())
                 painter.fillRect(bg, self.palette().highlight())
                 painter.setPen(self.palette().highlightedText().color())
             else:
@@ -149,13 +150,13 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
 
 class SidebarLayout(layout.PageLayout):
     """A layout that reserves space to print page numbers."""
-    margin = 4
+    _margins = (4, 4, 4, 4)
     spacing = 20
     def computeGeometry(self):
-        return super().computeGeometry().adjusted(0, 0, 0, self.spacing-self.margin)
+        return super().computeGeometry().adjusted(0, 0, 0, self.spacing-self.margins().bottom())
     
     def zoomFitHeight(self, height):
         """Reimplemented to take the extra spacing into account."""
-        return super().zoomFitHeight(height - self.spacing + self.margin)
+        return super().zoomFitHeight(height - self.spacing + self.margins().bottom())
 
 
