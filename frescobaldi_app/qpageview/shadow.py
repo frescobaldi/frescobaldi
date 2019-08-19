@@ -26,11 +26,20 @@ from PyQt5.QtGui import QColor, QPainter, QPen
 
 
 class ShadowViewMixin:
-    """Mixin class that draws a drop shadow around every Page."""
+    """Mixin class that draws a drop shadow around every Page.
+
+    Drawing the drop shadow can be turned off by setting dropShadowEnabled
+    to False.
+
+    """
+
+    dropShadowEnabled = True
+
     def paintEvent(self, ev):
-        painter = QPainter(self.viewport())
-        for page, rect in self.pagesToPaint(ev, painter):
-            self.drawDropShadow(page, painter, self._pageLayout.spacing / 2)
+        if self.dropShadowEnabled:
+            painter = QPainter(self.viewport())
+            for page, rect in self.pagesToPaint(ev, painter):
+                self.drawDropShadow(page, painter, self._pageLayout.spacing / 2)
         super().paintEvent(ev)      # then draw the contents
 
     def drawDropShadow(self, page, painter, width):

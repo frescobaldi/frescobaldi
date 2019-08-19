@@ -269,7 +269,7 @@ class Magnifier(QWidget):
         
         # draw shadow border?
         shadow = False
-        if hasattr(view, "drawDropShadow"):
+        if hasattr(view, "drawDropShadow") and view.dropShadowEnabled:
             shadow = True
             shadow_width = layout.spacing * scale // 2
         
