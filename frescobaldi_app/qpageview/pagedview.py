@@ -127,7 +127,7 @@ class PagedViewMixin:
         if page not in self._pageLayout.displayPages():
             self.displayPageSet(self._pageLayout.pageSet(num-1))
         # only move the view if needed
-        m = self._pageLayout.margins()
+        m = self._pageLayout.margins() + self._pageLayout.pageMargins()
         diff = self.offsetToEnsureVisible(page.geometry() + m)
         if diff:
             if self.kineticPagingEnabled and self.kineticScrollingEnabled:
@@ -192,7 +192,7 @@ class PagedViewMixin:
                 # keep current page in view
                 page = self.currentPage()
                 if self.visibleRect().center() not in page.geometry():
-                    m = self._pageLayout.margins()
+                    m = self._pageLayout.margins() + self._pageLayout.pageMargins()
                     diff = self.offsetToEnsureVisible(page.geometry() + m)
                     if diff:
                         self.scrollBy(diff)
