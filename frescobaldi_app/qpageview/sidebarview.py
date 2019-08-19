@@ -54,13 +54,21 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._view = None
-        self.setViewMode(constants.FitWidth)
+        self.setOrientation(constants.Vertical)
         self.pageLayout().spacing = 1
         self.pageLayout().setMargins(QMargins(0, 0, 0, 0))
         self.pageLayout().setPageMargins(QMargins(4, 4, 4, 20))
         self.setLayoutFontHeight()
         self.currentPageChanged.connect(self.viewport().update)
     
+    def setOrientation(self, orientation):
+        """Reimplemented to also set the corresponding view mode."""
+        super().setOrientation(orientation)
+        if orientation == constants.Vertical:
+            self.setViewMode(constants.FitWidth)
+        else:
+            self.setViewMode(constants.FitHeight)
+
     def setLayoutFontHeight(self):
         """Reads the current font height and reserves enough space in the layout."""
         self.pageLayout().pageMargins().setBottom(self.fontMetrics().height())
