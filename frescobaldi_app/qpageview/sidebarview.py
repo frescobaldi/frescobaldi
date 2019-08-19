@@ -27,7 +27,7 @@ to browse large documents.
 
 import weakref
 
-from PyQt5.QtCore import QMargins, QRect, Qt
+from PyQt5.QtCore import QEvent, QMargins, QRect, Qt
 from PyQt5.QtGui import QPainter
 
 from . import constants
@@ -176,3 +176,11 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
                 self.setOrientation(constants.Horizontal)
             elif s.width() < s.height() and self.orientation() == constants.Horizontal:
                 self.setOrientation(constants.Vertical)
+
+    def changeEvent(self, ev):
+        """Reimplemented to set the correct font height for the page numbers."""
+        super().changeEvent(ev)
+        if ev.type() in (QEvent.ApplicationFontChange, QEvent.FontChange):
+            self.setLayoutFontHeight()
+
+
