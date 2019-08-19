@@ -235,7 +235,7 @@ class AbstractImageRenderer:
         
         # reschedule images to be generated
         if schedule:
-            self.schedule(page, ratio, schedule, callback)
+            self.schedule(page, key, schedule, callback)
         
         if QRegion(target).subtracted(region):
             # find other images from cache for missing tiles
@@ -280,14 +280,13 @@ class AbstractImageRenderer:
             target = QRectF(r.x() / ratio, r.y() / ratio, r.width() / ratio, r.height() / ratio)
             painter.drawImage(target, image, source)
 
-    def schedule(self, page, ratio, tiles, callback):
+    def schedule(self, page, key, tiles, callback):
         """Schedule a new rendering job for the specified tiles of the page.
         
         If this page has already a job pending, the callback is added to the
         pending job.
         
         """
-        key = self.key(page, ratio)
         tiled = _jobs[self].setdefault(page, {}).setdefault(key, {})
         
         for tile in tiles:
