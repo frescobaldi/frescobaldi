@@ -618,25 +618,32 @@ class View(scrollarea.ScrollArea):
         for renderer, pages in unschedule.items():
             renderer.unschedule(pages, self.repaintPage)
         
+    def pagesToPaint(self, event, painter):
+        """Yield (page, rect) to paint at the event's rectangle.
+        
+        The rect describes the part of the page actually to draw. (The full
+        rect can be found in page.rect().) Translates the painter to each page.
+        
+        """
+        layout_pos = self.layoutPosition()
+        ev_rect = event.rect().translated(-layout_pos)
+        for p in self._pageLayout.pagesAt(ev_rect):
+            painter.save()
+            painter.translate(layout_pos + p.pos())
+            yield p, (p.geometry() & ev_rect).translated(-p.pos())
+            painter.restore()
+
     def paintEvent(self, ev):
         """Paint the contents of the viewport."""
-        layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
-
-        # pages to paint
-        ev_rect = ev.rect().translated(-layout_pos)
-        pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
-        # paint the pages
-        for p in pages_to_paint:
-            rect = (p.geometry() & ev_rect).translated(-p.pos())
-            painter.save()
-            painter.translate(p.pos() + layout_pos)
-            p.paint(painter, rect, self.repaintPage)
-            painter.restore()
+        pages_to_paint = set()
+        for p, r in self.pagesToPaint(ev, painter):
+            p.paint(painter, r, self.repaintPage)
+            pages_to_paint.add(p)
 
         # remove pending render jobs for pages that were visible, but are not
         # visible now
-        rect = self.viewport().rect().translated(-layout_pos)
+        rect = self.visibleRect()
         pages = set(page
             for page in self._prev_pages_to_paint - pages_to_paint
                 if not rect.intersects(page.geometry()))

@@ -121,19 +121,9 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
 
     def paintEvent(self, ev):
         """Reimplemented to print page numbers and a selection box."""
-        layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
-
-        # pages to paint
         layout = self.pageLayout()
-        ev_rect = ev.rect().translated(-layout_pos)
-        pages_to_paint = set(layout.pagesAt(ev_rect))
-        
-        for p in pages_to_paint:
-            rect = (p.geometry() & ev_rect).translated(-p.pos())
-            painter.save()
-            painter.translate(p.pos() + layout_pos)
-            
+        for p, rect in self.pagesToPaint(ev, painter):
             ## draw selection background on current page
             if p is self.currentPage():
                 bg = rect + layout.pageMargins()
@@ -144,7 +134,6 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
             # draw text
             textr = QRect(rect.x(), rect.bottom(), rect.width(), layout.pageMargins().bottom())
             painter.drawText(textr, Qt.AlignCenter, str(layout.index(p) + self.firstPageNumber))
-            painter.restore()
         super().paintEvent(ev)
 
     def wheelEvent(self, ev):

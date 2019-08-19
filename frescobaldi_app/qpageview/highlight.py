@@ -111,23 +111,14 @@ class HighlightViewMixin:
     def paintEvent(self, ev):
         """Paint the highlighted areas in the viewport."""
         super().paintEvent(ev)  # first paint the contents
-        layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
-
-        # pages to paint
-        ev_rect = ev.rect().translated(-layout_pos)
-        pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
-        # paint highlighting
         for highlighter, (d, t) in self._highlights.items():
-            for page in pages_to_paint:
+            for page, rect in self.pagesToPaint(ev, painter):
                 try:
                     areas = d[page]
                 except KeyError:
                     continue
                 rects = [page.area2page(area, 1, 1) for area in areas]
-                painter.save()
-                painter.translate(page.pos() + layout_pos)
                 highlighter.paintRects(painter, rects)
-                painter.restore()
 
 

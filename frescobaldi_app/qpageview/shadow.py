@@ -28,19 +28,9 @@ from PyQt5.QtGui import QColor, QPainter, QPen
 class ShadowViewMixin:
     """Mixin class that draws a drop shadow around every Page."""
     def paintEvent(self, ev):
-        layout_pos = self.layoutPosition()
         painter = QPainter(self.viewport())
-        
-        # pages to paint a shadow around
-        ev_rect = ev.rect().translated(-layout_pos)
-        pages_to_paint = set(self._pageLayout.pagesAt(ev_rect))
-        # paint the shadows
-        for page in pages_to_paint:
-            painter.save()
-            painter.translate(page.pos() + self.layoutPosition())
+        for page, rect in self.pagesToPaint(ev, painter):
             self.drawDropShadow(page, painter, self._pageLayout.spacing / 2)
-            painter.restore()
-        
         super().paintEvent(ev)      # then draw the contents
 
     def drawDropShadow(self, page, painter, width):
