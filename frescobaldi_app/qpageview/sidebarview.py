@@ -48,8 +48,9 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
     pagingOnScrollEnabled = False
     wheelZoomingEnabled = False
     firstPageNumber = 1
-    pageNumberDistance = 3
     scrollupdatespersec = 100
+    
+    autoOrientationEnabled = True
     
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
@@ -156,4 +157,12 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
         else:
             super().keyPressEvent(ev)
 
-
+    def resizeEvent(self, ev):
+        """Reimplemented to auto-change the orientation if desired."""
+        super().resizeEvent(ev)
+        if self.autoOrientationEnabled:
+            s = ev.size()
+            if s.width() > s.height() and self.orientation() == constants.Vertical:
+                self.setOrientation(constants.Horizontal)
+            elif s.width() < s.height() and self.orientation() == constants.Horizontal:
+                self.setOrientation(constants.Vertical)
