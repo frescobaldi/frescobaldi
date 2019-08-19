@@ -216,11 +216,11 @@ class AbstractPage:
             vscale = (dpiY * self.pageHeight) / (72.0 * self.height)
 
             from . import render
-            t = render.tile(rect.x() * hscale,
+            t = render.Tile(rect.x() * hscale,
                             rect.y() * vscale,
                             rect.width() * hscale,
                             rect.height() * vscale)
-            k = render.key(self.group(),
+            k = render.Key(self.group(),
                     self.ident(),
                     self.computedRotation,
                     self.width * hscale,

@@ -23,7 +23,6 @@ Manages and positions a group of Page instances.
 """
 
 
-import collections
 import copy
 
 from PyQt5.QtCore import QMargins, QPoint, QPointF, QRect, QSize

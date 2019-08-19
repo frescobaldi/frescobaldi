@@ -32,8 +32,8 @@ from PyQt5.QtGui import QColor, QImage, QRegion
 from . import cache
 
 
-tile = collections.namedtuple('tile', 'x y w h')
-key = collections.namedtuple("key", "group ident rotation width height")
+Tile = collections.namedtuple('Tile', 'x y w h')
+Key = collections.namedtuple("Key", "group ident rotation width height")
 
 
 # the maximum number of concurrent jobs (at global level)
@@ -138,7 +138,7 @@ class AbstractImageRenderer:
         height      self.height * ratio
         
         """
-        return key(
+        return Key(
             page.group(),
             page.ident(),
             page.computedRotation,
@@ -158,7 +158,7 @@ class AbstractImageRenderer:
         for h in rows:
             x = 0
             for w in cols:
-                yield tile(x, y, w, h)
+                yield Tile(x, y, w, h)
                 x += w
             y += h
 

@@ -34,16 +34,16 @@ from PyQt5.QtCore import pyqtSignal, QEvent, QRectF, Qt
 from . import page
 from . import rectangles
 
-linkarea = collections.namedtuple("linkarea", "left top right bottom")
+Area = collections.namedtuple("Area", "left top right bottom")
 
 
 class Link:
     url = ""
     tooltip = ""
-    area = linkarea(0, 0, 0, 0)
+    area = Area(0, 0, 0, 0)
 
     def __init__(self, left, top, right, bottom, url=None, tooltip=None):
-        self.area = linkarea(left, top, right, bottom)
+        self.area = Area(left, top, right, bottom)
         if url:
             self.url = url
         if tooltip:
