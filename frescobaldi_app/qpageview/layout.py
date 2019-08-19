@@ -50,7 +50,7 @@ class PageRects(rectangles.Rectangles):
         return page.geometry().getCoords()
 
 
-class AbstractPageLayout(list):
+class PageLayout(list):
     """Manages page.Page instances with a list-like api.
 
     You can iterate over the layout itself, which yields all Page instances.
@@ -61,6 +61,7 @@ class AbstractPageLayout(list):
         dpiX = 72.0
         dpiY = 72.0
         rotation = Rotate_0
+        orientation = Vertical
 
     The layout has margins around each page, accessible via pageMargins(), and
     margins around the whole layout, accessible via margins(). Both have class
@@ -95,6 +96,7 @@ class AbstractPageLayout(list):
     dpiX = 72.0
     dpiY = 72.0
     rotation = Rotate_0
+    orientation = Vertical
     x = 0
     y = 0
     width = 0
@@ -305,19 +307,31 @@ class AbstractPageLayout(list):
     def updatePagePositions(self):
         """Determine the position of every Page.
 
-        You should implement this method to perform a meaningful layout, which
-        means setting the position of all the pages. This positions should
-        respect the margin (and preferably also the spacing).
+        You can reimplement this method to perform a different layout, which
+        means setting the position of all the pages. These positions should
+        respect the margins(), pageMargins(), spacing and if possible the
+        orientation.
 
         """
-        top = self.margins().top()
-        for page in self:
-            top += self.pageMargins().top()
-            page.x = self.margins().left() + self.pageMargins().left()
-            page.y = top
-            top += page.height
-            top += self.pageMargins().bottom()
-            top += self.spacing
+        m, pm = self.margins(), self.pageMargins()
+        if self.orientation == Vertical:
+            width = max((p.width for p in self), default=0)
+            width += m.left() + m.right() + pm.left() + pm.right()
+            top = m.top()
+            for page in self:
+                top += pm.top()
+                page.x = (width - page.width) / 2
+                page.y = top
+                top += page.height + pm.bottom() + self.spacing
+        else:
+            height = max((p.height for p in self), default=0)
+            height += m.top() + m.bottom() + pm.top() + pm.bottom()
+            left = m.left()
+            for page in self:
+                left += pm.left()
+                page.x = left
+                page.y = (height - page.height) / 2
+                left += page.width + pm.right() + self.spacing
 
     def computeGeometry(self):
         """Return the total geometry (position and size) of the layout.
@@ -448,40 +462,7 @@ class AbstractPageLayout(list):
         return 0    # happens with empty layout
 
 
-class PageLayout(AbstractPageLayout):
-    """A basic layout that shows pages from right to left or top to bottom.
-
-    Additional instance attribute:
-
-        `orientation`: Horizontal or Vertical (default)
-
-    """
-    orientation = Vertical
-
-    def updatePagePositions(self):
-        """Order our pages."""
-        m, pm = self.margins(), self.pageMargins()
-        if self.orientation == Vertical:
-            width = max((p.width for p in self), default=0)
-            width += m.left() + m.right() + pm.left() + pm.right()
-            top = m.top()
-            for page in self:
-                top += pm.top()
-                page.x = (width - page.width) / 2
-                page.y = top
-                top += page.height + pm.bottom() + self.spacing
-        else:
-            height = max((p.height for p in self), default=0)
-            height += m.top() + m.bottom() + pm.top() + pm.bottom()
-            left = m.left()
-            for page in self:
-                left += pm.left()
-                page.x = left
-                page.y = (height - page.height) / 2
-                left += page.width + pm.right() + self.spacing
-
-
-class RowPageLayout(AbstractPageLayout):
+class RowPageLayout(PageLayout):
     """A layout that orders pages in rows.
 
     Additional instance attributes:
@@ -493,6 +474,8 @@ class RowPageLayout(AbstractPageLayout):
     The `pagesFirstSet` and `pagesPerSet` instance attributes are changed to
     properties that automatically use the respective values of pagesFirstRow
     and pagesPerRow.
+    
+    The `orientation` attribute is ignored in this layout.
 
     """
 
