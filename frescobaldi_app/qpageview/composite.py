@@ -109,6 +109,8 @@ class CompositePage(page.AbstractPage):
 
     def image(self, rect, dpiX=72.0, dpiY=None):
         """Return a QImage of the specified rectangle, of all images combined."""
+        if dpiY is None:
+            dpiY = dpiX
         self.fitpages()
         image = self.base.image(rect, dpiX, dpiY)
         painter = QPainter(image)
@@ -126,8 +128,6 @@ class CompositePage(page.AbstractPage):
                 else:
                     ourscale = self.pageWidth * self.scaleX / self.width
                 scale = ourscale / overlayscale
-                if dpiY is None:
-                    dpiY = dpiX
                 img = p.image(overlayrect.translated(-p.pos()), dpiX * scale, dpiY * scale)
 
                 painter.save()
