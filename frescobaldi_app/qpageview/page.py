@@ -212,8 +212,11 @@ class AbstractPage:
             dpiY = dpiX
 
         if self.renderer:
-            hscale = (dpiX * self.pageWidth) / (72.0 * self.width)
-            vscale = (dpiY * self.pageHeight) / (72.0 * self.height)
+            w, h = self.pageWidth, self.pageHeight
+            if self.computedRotation & 1:
+                w, h = h, w
+            hscale = (dpiX * w) / (72.0 * self.width)
+            vscale = (dpiY * h) / (72.0 * self.height)
 
             from . import render
             t = render.Tile(rect.x() * hscale,
