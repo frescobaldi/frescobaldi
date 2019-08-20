@@ -65,6 +65,8 @@ class CompositePage(page.AbstractPage):
         self.overlay = []
         self.pageWidth = page.pageWidth
         self.pageHeight = page.pageHeight
+        self.scaleX = page.scaleX
+        self.scaleY = page.scaleY
         if renderer is not None:
             self.renderer = renderer
     
@@ -73,6 +75,8 @@ class CompositePage(page.AbstractPage):
         # base.x and y are not used
         self.base.width = self.width
         self.base.height = self.height
+        self.base.scaleX = self.scaleX
+        self.base.scaleY = self.scaleY
         self.base.computedRotation = self.computedRotation
         
     def fitoverlay(self, page):
@@ -85,7 +89,8 @@ class CompositePage(page.AbstractPage):
         """
         pageWidth = page.pageWidth * page.scaleX
         pageHeight = page.pageHeight * page.scaleY
-        if self.computedRotation & 1:
+        page.computedRotation = (page.rotation + self.computedRotation) & 3
+        if page.computedRotation & 1:
             pageWidth, pageHeight = pageHeight, pageWidth
 
         scaleX = self.width / pageWidth
@@ -95,7 +100,6 @@ class CompositePage(page.AbstractPage):
         page.height = pageHeight * scale
         page.x = (self.width - page.width) // 2
         page.y = (self.height - page.height) // 2
-        page.computedRotation = self.computedRotation
     
     def fitpages(self):
         """Calls fitbase() and fitoverlay() for all overlay pages."""
@@ -109,13 +113,27 @@ class CompositePage(page.AbstractPage):
         image = self.base.image(rect, dpiX, dpiY)
         painter = QPainter(image)
         for layer, p in enumerate(self.overlay):
-            r = rect.translated(-p.pos()) & p.rect()
-            painter.save()
-            painter.setOpacity(self.renderer.opacity[layer])
-            # TODO: compute the correct resolution
-            # which scale was used by fitoverlay()? (which may have been reimplemented)
-            painter.drawImage(r.topLeft()-rect.topLeft(), p.image(r, dpiX, dpiY))
-            painter.restore()
+            overlayrect = rect & p.geometry()
+            if overlayrect:
+                # compute the correct resolution, find out which scale was
+                # used by fitoverlay() (which may have been reimplemented)
+                if p.computedRotation & 1:
+                    overlayscale = p.pageWidth * p.scaleX / p.height
+                else:
+                    overlayscale = p.pageWidth * p.scaleX / p.width
+                if self.computedRotation & 1:
+                    ourscale = self.pageWidth * self.scaleX / self.height
+                else:
+                    ourscale = self.pageWidth * self.scaleX / self.width
+                scale = ourscale / overlayscale
+                if dpiY is None:
+                    dpiY = dpiX
+                img = p.image(overlayrect.translated(-p.pos()), dpiX * scale, dpiY * scale)
+
+                painter.save()
+                painter.setOpacity(self.renderer.opacity[layer])
+                painter.drawImage(overlayrect.topLeft() - rect.topLeft(), img)
+                painter.restore()
         painter.end()
         return image
         
@@ -206,19 +224,19 @@ class CompositeRenderer(render.AbstractImageRenderer):
         for layer, p in enumerate(page.overlay):
             # draw on a pixmap
             overlayrect = (rect & p.geometry()).translated(-p.pos())
-            pixmap = QPixmap(overlayrect.size() * ratio)
-            pixmap.setDevicePixelRatio(ratio)
-            pt = QPainter(pixmap)
-            pt.translate(-overlayrect.topLeft())
-            p.paint(pt, overlayrect, newcallback)
-            pt.end()
+            if overlayrect:
+                pixmap = QPixmap(overlayrect.size() * ratio)
+                pixmap.setDevicePixelRatio(ratio)
+                pt = QPainter(pixmap)
+                pt.translate(-overlayrect.topLeft())
+                p.paint(pt, overlayrect, newcallback)
+                pt.end()
 
-            # paint the overlay page
-            painter.save()
-            painter.translate(p.pos())
-            painter.setOpacity(self.opacity[layer])
-            painter.drawPixmap(overlayrect.topLeft(), pixmap)
-            painter.restore()
+                # paint the overlay page
+                painter.save()
+                painter.setOpacity(self.opacity[layer])
+                painter.drawPixmap(overlayrect.topLeft() + p.pos(), pixmap)
+                painter.restore()
 
     def unschedule(self, pages, callback):
         """Reimplemented to unschedule base and overlay pages."""
