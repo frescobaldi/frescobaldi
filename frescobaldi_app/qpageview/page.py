@@ -198,7 +198,8 @@ class AbstractPage:
         By default, this method calls the renderer's paint() method.
 
         """
-        self.renderer and self.renderer.paint(self, painter, rect, callback)
+        if rect and self.renderer:
+            self.renderer.paint(self, painter, rect, callback)
 
     def image(self, rect, dpiX=72.0, dpiY=None):
         """Returns a QImage of the specified rectangle.

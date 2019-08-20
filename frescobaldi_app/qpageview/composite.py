@@ -38,26 +38,26 @@ from . import render
 
 class CompositePage(page.AbstractPage):
     """A Page that can draw multiple pages over each other.
-    
+
     The page that is painted first is put in the `base` attribute on
     instantiation, the other pages are appended to the `overlay` list.
-    
+
     The base page dictates the dimensions and natural size of the
     CompositePage. The overlay pages are painted on top of the first page and
     positioned and scaled using the CompositePage.fit() method.
-    
+
     Don't replace the overlay list later, but just change it; this makes
     sure that copied pages (e.g. the SidebarView or the Magnifier) use the
     correct information.
-    
+
     A CompositePage has a renderer, but this one delegates the rendering
     to the "sub"pages, and just calls the paint() method of the sub pages. How
     those images are combined is up to the renderer.
-    
+
     You should not use a sub Page from a CompositePage independently, as the
     CompositeRenderer modifies the position and dimensions. When you also want
     to use the original Page object, make a copy first.
-    
+
     """
     def __init__(self, page, renderer=None):
         super().__init__()
@@ -69,7 +69,7 @@ class CompositePage(page.AbstractPage):
         self.scaleY = page.scaleY
         if renderer is not None:
             self.renderer = renderer
-    
+
     def fitbase(self):
         """Make sure the base page has the same size as ourselves."""
         # base.x and y are not used
@@ -78,14 +78,14 @@ class CompositePage(page.AbstractPage):
         self.base.scaleX = self.scaleX
         self.base.scaleY = self.scaleY
         self.base.computedRotation = self.computedRotation
-        
+
     def fitoverlay(self, page):
         """Fits the overlay page in our page.
-        
+
         By default this method centers the other page and scales it up
         as large as possible. The x and y coordinates of the overlay pages
         are used to specify their position relative to the base page.
-        
+
         """
         pageWidth = page.pageWidth * page.scaleX
         pageHeight = page.pageHeight * page.scaleY
@@ -100,7 +100,7 @@ class CompositePage(page.AbstractPage):
         page.height = pageHeight * scale
         page.x = (self.width - page.width) // 2
         page.y = (self.height - page.height) // 2
-    
+
     def fitpages(self):
         """Calls fitbase() and fitoverlay() for all overlay pages."""
         self.fitbase()
@@ -136,12 +136,12 @@ class CompositePage(page.AbstractPage):
                 painter.restore()
         painter.end()
         return image
-        
+
     def text(self, rect):
         """Reimplemented to return the text from the base Page."""
         self.fitbase() # make sure the rect is understood correctly
         return self.base.text(rect)
-    
+
     def links(self):
         """Reimplemented to return the links from the base Page."""
         return self.base.links()
@@ -149,22 +149,22 @@ class CompositePage(page.AbstractPage):
 
 class CompositeRenderer(render.AbstractImageRenderer):
     """Paints the pages by calling their own renderer."""
-    
+
     def __init__(self):
         super().__init__()
         self._callbacks = weakref.WeakKeyDictionary()
         self.opacity = [0.5]
-    
+
     def makecallback(self, callback, page):
         """Return a callback for the composite page, the same if possible.
-        
+
         This callback is called when rendering a base or overlay page is
         finished, and in turn it calls the original callback with the original
         composite page.
-        
+
         We cache the callback using a weak reference; this makes sure that
         unscheduling rendering jobs works correctly.
-        
+
         """
         # household: first remove dead refs from all page dicts
         deadcallbacks = [(r, page)
@@ -174,13 +174,13 @@ class CompositeRenderer(render.AbstractImageRenderer):
             del self._callbacks[page][r]
             if not self._callbacks[page]:
                 del self._callbacks[page]
-        
+
         # make a weak ref to the callback
         if type(callback) is types.MethodType:
             callbackref = weakref.WeakMethod(callback)
         else:
             callbackref = weakref.ref(callback)
-        
+
         # return the existing callback or create one
         try:
             return self._callbacks[page][callbackref]
@@ -194,20 +194,23 @@ class CompositeRenderer(render.AbstractImageRenderer):
                     callback(page)
             self._callbacks.setdefault(page, {})[callbackref] = newcallback
             return newcallback
-        
+
     def paint(self, page, painter, rect, callback=None):
         """Paint the sub pages on pixmaps, and then combine them."""
+        if not rect:
+            return  # just in case
+
         # make the call back return with the original page, not the overlay page
         newcallback = self.makecallback(callback, page) if callback else None
         # position the subpages correctly
         page.fitpages()
-        
+
         # get the device pixel ratio to paint for
         try:
             ratio = painter.device().devicePixelRatioF()
         except AttributeError:
             ratio = painter.device().devicePixelRatio()
-        
+
         # let page draw on a pixmap
         pixmap = QPixmap(rect.size() * ratio)
         pixmap.setDevicePixelRatio(ratio)
@@ -215,11 +218,11 @@ class CompositeRenderer(render.AbstractImageRenderer):
         pt.translate(-rect.topLeft())
         page.base.paint(pt, rect, newcallback)
         pt.end()
-        
+
         # first paint the base page
         painter.setOpacity(1)
         painter.drawPixmap(rect.topLeft(), pixmap)
-        
+
         # paint the overlay pages on top
         for layer, p in enumerate(page.overlay):
             # draw on a pixmap
