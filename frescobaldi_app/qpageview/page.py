@@ -212,7 +212,8 @@ class AbstractPage:
             dpiY = dpiX
 
         if self.renderer:
-            w, h = self.pageWidth, self.pageHeight
+            w = self.pageWidth * self.scaleX
+            h = self.pageHeight * self.scaleY
             if self.computedRotation & 1:
                 w, h = h, w
             hscale = (dpiX * w) / (72.0 * self.width)
