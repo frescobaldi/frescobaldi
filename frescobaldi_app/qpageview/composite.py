@@ -97,10 +97,10 @@ class CompositePage(page.AbstractPage):
         scaleX = self.width / pageWidth
         scaleY = self.height / pageHeight
         scale = min(scaleX, scaleY)
-        page.width = pageWidth * scale
-        page.height = pageHeight * scale
-        page.x = (self.width - page.width) // 2
-        page.y = (self.height - page.height) // 2
+        page.width = round(pageWidth * scale)
+        page.height = round(pageHeight * scale)
+        page.x = round((self.width - page.width) // 2)
+        page.y = round((self.height - page.height) // 2)
 
     def fitpages(self):
         """Calls fitbase() and fitoverlay() for all overlay pages."""
@@ -114,6 +114,7 @@ class CompositePage(page.AbstractPage):
             dpiY = dpiX
         self.fitpages()
         image = self.base.image(rect, dpiX, dpiY)
+        overlays = []
         
         # find out the scale used for the image, to be able to position the
         # overlay images correctly (code copied from AbstractPage.image())
@@ -123,16 +124,9 @@ class CompositePage(page.AbstractPage):
             w, h = h, w
         hscale = (dpiX * w) / (72.0 * self.width)
         vscale = (dpiY * h) / (72.0 * self.height)
-        
-        # also keep our scale to be able to compute the resolution for
-        # overlay images
-        if self.computedRotation & 1:
-            ourscale = self.pageWidth * self.scaleX / self.height
-        else:
-            ourscale = self.pageWidth * self.scaleX / self.width
+        ourscale = w / self.width
 
-        painter = QPainter(image)
-        for layer, p in enumerate(self.overlay):
+        for p in self.overlay:
             overlayrect = rect & p.geometry()
             if overlayrect:
                 # compute the correct resolution, find out which scale was
@@ -143,15 +137,11 @@ class CompositePage(page.AbstractPage):
                     overlayscale = p.pageWidth * p.scaleX / p.width
                 scale = ourscale / overlayscale
                 img = p.image(overlayrect.translated(-p.pos()), dpiX * scale, dpiY * scale)
-
-                painter.save()
-                painter.setOpacity(self.renderer.opacity[layer])
                 pos = overlayrect.topLeft() - rect.topLeft()
                 pos = QPoint(round(pos.x() * hscale), round(pos.y() * vscale))
-                painter.drawImage(pos, img)
-                painter.restore()
-        painter.end()
-        return image
+                overlays.append((pos, img))
+
+        return self.renderer.composite(image, overlays)
 
     def text(self, rect):
         """Reimplemented to return the text from the base Page."""
@@ -227,35 +217,32 @@ class CompositeRenderer(render.AbstractImageRenderer):
         except AttributeError:
             ratio = painter.device().devicePixelRatio()
 
-        # let page draw on a pixmap
-        pixmap = QPixmap(rect.size() * ratio)
-        pixmap.setDevicePixelRatio(ratio)
-        pt = QPainter(pixmap)
+        # let base page draw on a pixmap
+        bpixmap = QPixmap(rect.size() * ratio)
+        bpixmap.setDevicePixelRatio(ratio)
+        pt = QPainter(bpixmap)
         pt.translate(-rect.topLeft())
         page.base.paint(pt, rect, newcallback)
         pt.end()
+        
+        overlays = []
 
-        # first paint the base page
-        painter.setOpacity(1)
-        painter.drawPixmap(rect.topLeft(), pixmap)
-
-        # paint the overlay pages on top
-        for layer, p in enumerate(page.overlay):
-            # draw on a pixmap
+        # draw the overlay pages on pixmaps
+        for p in page.overlay:
             overlayrect = (rect & p.geometry()).translated(-p.pos())
             if overlayrect:
-                pixmap = QPixmap(overlayrect.size() * ratio)
-                pixmap.setDevicePixelRatio(ratio)
-                pt = QPainter(pixmap)
+                opixmap = QPixmap(overlayrect.size() * ratio)
+                opixmap.setDevicePixelRatio(ratio)
+                pt = QPainter(opixmap)
                 pt.translate(-overlayrect.topLeft())
                 p.paint(pt, overlayrect, newcallback)
                 pt.end()
 
-                # paint the overlay page
-                painter.save()
-                painter.setOpacity(self.opacity[layer])
-                painter.drawPixmap(overlayrect.topLeft() + p.pos(), pixmap)
-                painter.restore()
+                pos = overlayrect.topLeft() + p.pos() - rect.topLeft()
+                overlays.append((pos, opixmap))
+        
+        # draw the combined pixmap
+        painter.drawPixmap(rect.topLeft(), self.composite(bpixmap, overlays))
 
     def unschedule(self, pages, callback):
         """Reimplemented to unschedule base and overlay pages."""
@@ -277,7 +264,28 @@ class CompositeRenderer(render.AbstractImageRenderer):
                     renderers[p.renderer].append(p)
         for renderer, pages in renderers.items():
             renderer.invalidate(pages)
-
+    
+    def composite(self, base, overlays):
+        """Paints the overlays over the base image.
+        
+        overlays is an interable of tuples (pos, image). The images can be of
+        type QPixmap or QImage.
+        
+        The resulting image is returned and is of the same type as the base
+        image. The implementation may choose to paint directly on the base
+        image and return it, but the returned image can also be a new one.
+        
+        """
+        ### TODO: move compositing to a specific class and add much
+        ### more options
+        painter = QPainter(base)
+        for layer, (pos, img) in enumerate(overlays):
+            painter.setOpacity(self.opacity[layer])
+            if isinstance(img, QPixmap):
+                painter.drawPixmap(pos, img)
+            else:
+                painter.drawImage(pos, img)
+        return base
 
 
 
