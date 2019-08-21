@@ -24,20 +24,14 @@ A Page is responsible for drawing a page inside a PageLayout.
 
 import copy
 
-from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
+from PyQt5.QtCore import QPointF, QRect, QRectF, QSizeF, Qt
 from PyQt5.QtGui import QColor
 
-from .constants import (
-    Rotate_0,
-    Rotate_90,
-    Rotate_180,
-    Rotate_270,
-)
+from . import util
+from .constants import Rotate_0
 
 
-
-
-class AbstractPage:
+class AbstractPage(util.Rectangular):
     """A Page is a rectangle that is positioned in a PageLayout.
 
     A Page represents one page, added to a PageLayout that is displayed in a
@@ -82,10 +76,6 @@ class AbstractPage:
     paperColor = None
 
     def __init__(self):
-        self.x = 0
-        self.y = 0
-        self.width = 0
-        self.height = 0
         self.pageWidth = 0.0
         self.pageHeight = 0.0
         self.computedRotation = Rotate_0
@@ -93,40 +83,6 @@ class AbstractPage:
     def copy(self):
         """Return a copy of the page with the same instance attributes."""
         return copy.copy(self)
-
-    def rect(self):
-        """Return our rectangle: QRect(0, 0, width, height)."""
-        return QRect(0, 0, self.width, self.height)
-
-    def geometry(self):
-        """Return our rectangle in the layout: QRect(x, y, width, height)."""
-        return QRect(self.x, self.y, self.width, self.height)
-
-    def setPos(self, point):
-        """Set our position (QPoint).
-
-        Normally this is done by the layout in the updatePagePositions() method.
-
-        """
-        self.x = point.x()
-        self.y = point.y()
-
-    def pos(self):
-        """Return our position (QPoint)."""
-        return QPoint(self.x, self.y)
-
-    def setSize(self, size):
-        """Set our size (QSize).
-
-        Normally this is done by the layout in the updateSizeFromLayout() method.
-
-        """
-        self.width = size.width()
-        self.height = size.height()
-
-    def size(self):
-        """Return our size (QSize)."""
-        return QSize(self.width, self.height)
 
     def setPageSize(self, sizef):
         """Set our natural page size (QSizeF).
@@ -286,7 +242,8 @@ class AbstractPage:
         bottom /= height
         # then rotate
         if self.computedRotation:
-            left, top, right, bottom = rotate_rect_cw[self.computedRotation](left, top, right, bottom)
+            left, top, right, bottom = \
+                util.rotate_rect_cw[self.computedRotation](left, top, right, bottom)
         # then scale to page coordinates
         rect = QRect()
         rect.setCoords(left   * self.width,
@@ -320,7 +277,8 @@ class AbstractPage:
         bottom /= self.height
         # then rotate backwards
         if self.computedRotation:
-            left, top, right, bottom = rotate_rect_ccw[self.computedRotation](left, top, right, bottom)
+            left, top, right, bottom = \
+                util.rotate_rect_ccw[self.computedRotation](left, top, right, bottom)
         # then scale to the original coordinates
         rect = QRectF()
         rect.setCoords(left   * width,
@@ -335,7 +293,8 @@ class AbstractPage:
         if height is None: height = self.pageHeight
         x /= width
         y /= height
-        if self.computedRotation: x, y = rotate_cw[self.computedRotation](x, y)
+        if self.computedRotation:
+            x, y = util.rotate_cw[self.computedRotation](x, y)
         return x * self.width, y * self.height
     
     def point2area(self, x, y, width=None, height=None):
@@ -344,7 +303,8 @@ class AbstractPage:
         if height is None: height = self.pageHeight
         x /= self.width
         y /= self.height
-        if self.computedRotation: x, y = rotate_ccw[self.computedRotation](x, y)
+        if self.computedRotation:
+            x, y = util.rotate_ccw[self.computedRotation](x, y)
         return x * width, y * height
     
     def text(self, rect):
@@ -409,33 +369,5 @@ class AbstractPage:
         
         """
         return None
-
-
-
-# rotation helper functions for a point....
-def _rotate_90 (x, y): return 1-y, x
-def _rotate_180(x, y): return 1-x, 1-y
-def _rotate_270(x, y): return y, 1-x
-    
-rotate_cw =  { Rotate_90:  _rotate_90,
-               Rotate_180: _rotate_180,
-               Rotate_270: _rotate_270 }
-
-rotate_ccw = { Rotate_90:  _rotate_270,
-               Rotate_180: _rotate_180,
-               Rotate_270: _rotate_90  }
-
-# ... and for a rect
-def _rotate_rect_90 (left, top, right, bottom): return 1-bottom, left, 1-top, right
-def _rotate_rect_180(left, top, right, bottom): return 1-right, 1-bottom, 1-left, 1-top
-def _rotate_rect_270(left, top, right, bottom): return 1-bottom, left, 1-top, right
-
-rotate_rect_cw =  { Rotate_90:  _rotate_rect_90,
-                    Rotate_180: _rotate_rect_180,
-                    Rotate_270: _rotate_rect_270 }
-
-rotate_rect_ccw = { Rotate_90:  _rotate_rect_270,
-                    Rotate_180: _rotate_rect_180,
-                    Rotate_270: _rotate_rect_90  }
 
 

@@ -32,6 +32,7 @@ from PyQt5.QtWidgets import QStyle
 from . import layout
 from . import page
 from . import scrollarea
+from . import util
 
 from .constants import (
 
@@ -652,7 +653,7 @@ class View(scrollarea.ScrollArea):
     def wheelEvent(self, ev):
         """Reimplemented to support wheel zooming and paging through page sets."""
         if self.wheelZoomingEnabled and ev.angleDelta().y() and ev.modifiers() & Qt.CTRL:
-            factor = 1.1 ** sign(ev.angleDelta().y())
+            factor = 1.1 ** util.sign(ev.angleDelta().y())
             self.setZoomFactor(self.zoomFactor() * factor, ev.pos())
         elif not ev.modifiers():
             # if scrolling is not possible, try going to next or previous pageset.
@@ -693,11 +694,4 @@ class View(scrollarea.ScrollArea):
             self.displayPageSet("last")
         else:
             super().keyPressEvent(ev)
-
-
-# Found at: https://stackoverflow.com/questions/1986152/why-doesnt-python-have-a-sign-function
-def sign(x):
-    """Return the sign of x: -1 if x < 0, 0 if x == 0, or 1 if x > 0."""
-    return bool(x > 0) - bool(x < 0)
-
 

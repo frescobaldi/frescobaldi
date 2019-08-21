@@ -28,6 +28,7 @@ import copy
 from PyQt5.QtCore import QMargins, QPoint, QPointF, QRect, QSize
 
 from . import rectangles
+from . import util
 from .constants import (
     FixedScale,
     FitWidth,
@@ -49,7 +50,7 @@ class PageRects(rectangles.Rectangles):
         return page.geometry().getCoords()
 
 
-class PageLayout(list):
+class PageLayout(util.Rectangular, list):
     """Manages page.Page instances with a list-like api.
 
     You can iterate over the layout itself, which yields all Page instances.
@@ -96,10 +97,6 @@ class PageLayout(list):
     dpiY = 72.0
     rotation = Rotate_0
     orientation = Vertical
-    x = 0
-    y = 0
-    width = 0
-    height = 0
 
     continuousMode = True
     pagesPerSet = 1
@@ -125,38 +122,6 @@ class PageLayout(list):
         layout = copy.copy(self)
         layout[:] = (p.copy() for p in self)
         return layout
-
-    def setPos(self, point):
-        """Set our top-left coordinate of the visible geometry."""
-        self.x = point.x()
-        self.y = point.y()
-
-    def pos(self):
-        """Return the top-left coordinate of the visible geometry.
-
-        Normally this is QPoint(0, 0), but when a non-continuous mode is
-        used it can be different: the top-left corner of the visible page set
-        area.
-
-        """
-        return QPoint(self.x, self.y)
-
-    def setGeometry(self, rect):
-        """Set the rectangle describing the visible part of the layout."""
-        self.x, self.y, self.width, self.height = rect.getRect()
-
-    def geometry(self):
-        """Return the rectangle describing the visible part of the layout."""
-        return QRect(self.x, self.y, self.width, self.height)
-
-    def setSize(self, size):
-        """Set our size. Normally done after layout by computeSize()."""
-        self.width = size.width()
-        self.height = size.height()
-
-    def size(self):
-        """Return our size as QSize()."""
-        return QSize(self.width, self.height)
 
     def setMargins(self, margins):
         """Sets our margins to a QMargins object."""
