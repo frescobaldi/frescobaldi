@@ -114,6 +114,16 @@ class CompositePage(page.AbstractPage):
             dpiY = dpiX
         self.fitpages()
         image = self.base.image(rect, dpiX, dpiY)
+        
+        # find out the scale used for the image, to be able to position the
+        # overlay images correctly (code copied from AbstractPage.image())
+        w = self.pageWidth * self.scaleX
+        h = self.pageHeight * self.scaleY
+        if self.computedRotation & 1:
+            w, h = h, w
+        hscale = (dpiX * w) / (72.0 * self.width)
+        vscale = (dpiY * h) / (72.0 * self.height)
+        
         painter = QPainter(image)
         for layer, p in enumerate(self.overlay):
             overlayrect = rect & p.geometry()
@@ -133,7 +143,9 @@ class CompositePage(page.AbstractPage):
 
                 painter.save()
                 painter.setOpacity(self.renderer.opacity[layer])
-                painter.drawImage(overlayrect.topLeft() - rect.topLeft(), img)
+                pos = overlayrect.topLeft() - rect.topLeft()
+                pos = QPoint(round(pos.x() * hscale), round(pos.y() * vscale))
+                painter.drawImage(pos, img)
                 painter.restore()
         painter.end()
         return image
