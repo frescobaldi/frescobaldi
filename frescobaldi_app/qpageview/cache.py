@@ -108,23 +108,15 @@ class ImageCache:
         if not purgeneeded:
             return
 
-        # purge old images if needed,
+        # purge old images is needed,
         # cache groups may have disappeared so count all images
         
-        items = []
-        items.extend(sorted(
+        items = sorted(
             (entry.time, entry.bcount, group, ident, key, tile)
             for group, identd in self._cache.items()
                 for ident, keyd in identd.items()
-                    for key, tiled in sorted(keyd.items(), key=lambda i: i[0][1])[1:]
-                        for tile, entry in tiled.items()))
-        # smallest for each page last
-        items.extend(sorted(
-            (entry.time, entry.bcount, group, ident, key, tile)
-            for group, identd in self._cache.items()
-                for ident, keyd in identd.items()
-                    for key, tiled in sorted(keyd.items(), key=lambda i: i[0][1])[:1]
-                        for tile, entry in tiled.items()))
+                    for key, tiled in keyd.items()
+                        for tile, entry in tiled.items())
         
         # now count the newest images until maxsize ...
         items = reversed(items)
