@@ -229,17 +229,17 @@ class Rubberband(QWidget):
             self._setLayoutOffset(geom.topLeft())
             self._oldZoom = view.zoomFactor()
             self.show()
-            self._emitSelectionChanged(geom)
+            self._setSelectionFromGeometry(geom)
         else:
             self.hide()
-            self._emitSelectionChanged(QRect())
+            self._setSelectionFromGeometry(QRect())
     
     def clearSelection(self):
         """Hide ourselves and clear the selection."""
         self.hide()
-        self._emitSelectionChanged(QRect())
+        self._setSelectionFromGeometry(QRect())
         
-    def _emitSelectionChanged(self, rect):
+    def _setSelectionFromGeometry(self, rect):
         """(Internal) Called to emit the selectionChanged signal.
         
         Only emits the signal when the selection really changed.
@@ -278,7 +278,7 @@ class Rubberband(QWidget):
             self._draggeom.moveTo(self._draggeom.topLeft() + diff)
             self.dragBy(-diff)
         elif self.isVisible() and self.trackSelection:
-            self._emitSelectionChanged(self.geometry())
+            self._setSelectionFromGeometry(self.geometry())
 
     def startDrag(self, pos, button):
         """Start dragging the rubberband."""
@@ -308,9 +308,8 @@ class Rubberband(QWidget):
         geom = self._draggeom.normalized()
         if geom.isValid():
             self.setGeometry(geom)
-            self._setLayoutOffset(geom.topLeft())
             if self.trackSelection:
-                self._emitSelectionChanged(geom)
+                self._setSelectionFromGeometry(geom)
         if self.cursor().shape() in (Qt.SizeBDiagCursor, Qt.SizeFDiagCursor):
             # we're dragging a corner, use correct diagonal cursor
             bdiag = (edge in (3, 12)) ^ (self._draggeom.width() * self._draggeom.height() >= 0)
@@ -325,9 +324,10 @@ class Rubberband(QWidget):
 
         if self.width() < 8 and self.height() < 8:
             self.unsetCursor()
-            self._emitSelectionChanged(QRect())
+            self._setSelectionFromGeometry(QRect())
         else:
-            self._emitSelectionChanged(self.geometry())
+            self._setSelectionFromGeometry(self.geometry())
+            self._setLayoutOffset(self.pos())
 
     def slotZoomChanged(self, zoom):
         """Called when the zooming in the view changes, resizes ourselves."""
@@ -337,7 +337,7 @@ class Rubberband(QWidget):
             self._oldZoom = zoom
             geom = QRect(self._getLayoutOffset(), self.size() * factor)
             self.setGeometry(geom)
-            self._emitSelectionChanged(geom)
+            self._setSelectionFromGeometry(geom)
     
     def eventFilter(self, viewport, ev):
         if ev.type() == QEvent.Resize and self.isVisible():
@@ -349,7 +349,7 @@ class Rubberband(QWidget):
             if ev.type() == QEvent.MouseButtonPress and ev.button() == self.showbutton:
                 if self.isVisible():
                     # this cancels a previous selection if we were visible
-                    self._emitSelectionChanged(QRect())
+                    self._setSelectionFromGeometry(QRect())
                 self.setGeometry(QRect(ev.pos(), QSize(0, 0)))
                 self._setLayoutOffset(ev.pos())
                 self._oldZoom = viewport.parent().zoomFactor()
