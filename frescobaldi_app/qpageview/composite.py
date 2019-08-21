@@ -99,8 +99,8 @@ class CompositePage(page.AbstractPage):
         scale = min(scaleX, scaleY)
         page.width = round(pageWidth * scale)
         page.height = round(pageHeight * scale)
-        page.x = round((self.width - page.width) // 2)
-        page.y = round((self.height - page.height) // 2)
+        page.x = round((self.width - page.width) / 2)
+        page.y = round((self.height - page.height) / 2)
 
     def fitpages(self):
         """Calls fitbase() and fitoverlay() for all overlay pages."""
