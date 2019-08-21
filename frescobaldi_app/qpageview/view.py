@@ -589,16 +589,15 @@ class View(scrollarea.ScrollArea):
         without flicker in between.
         
         """
-        caches = collections.defaultdict(list)
+        renderers = collections.defaultdict(list)
         pages = (page,) if page else self._pageLayout
         region = QRegion()
         for page in pages:
             if page.renderer:
-                caches[page.renderer.cache].append(page)
-        for cache, pages in caches.items():
-            for page in pages:
-                cache.invalidate(page)
+                renderers[page.renderer].append(page)
                 region += page.geometry()
+        for renderer, pages in renderers.items():
+            renderer.invalidate(pages)
         region.translate(self.layoutPosition())
         self.viewport().update(region)
 

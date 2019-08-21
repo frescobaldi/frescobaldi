@@ -322,6 +322,17 @@ class AbstractImageRenderer:
         if not _jobs[self]:
             del _jobs[self]
 
+    def invalidate(self, pages):
+        """Invalidates the cached images for the given pages.
+        
+        The images will not be removed immediately, but their replace flag
+        will be set, and on the next paint they will be scheduled to be rendered
+        again.
+        
+        """
+        for p in pages:
+            self.cache.invalidate(p)
+
     def checkstart(self):
         """Check whether there are jobs that need to be started.
         

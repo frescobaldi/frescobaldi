@@ -25,6 +25,7 @@ the pages are done in the renderer.
 
 """
 
+import collections
 import types
 import weakref
 
@@ -251,6 +252,17 @@ class CompositeRenderer(render.AbstractImageRenderer):
             unschedule_page(page.base, newcallback)
             for p in page.overlay:
                 unschedule_page(p, newcallback)
+    
+    def invalidate(self, pages):
+        """Reimplemented to invalidate the base and overlay pages."""
+        renderers = collections.defaultdict(list)
+        for page in pages:
+            for p in [page.base] + page.overlay:
+                if p.renderer:
+                    renderers[p.renderer].append(p)
+        for renderer, pages in renderers.items():
+            renderer.invalidate(pages)
+
 
 
 
