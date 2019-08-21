@@ -124,6 +124,13 @@ class CompositePage(page.AbstractPage):
         hscale = (dpiX * w) / (72.0 * self.width)
         vscale = (dpiY * h) / (72.0 * self.height)
         
+        # also keep our scale to be able to compute the resolution for
+        # overlay images
+        if self.computedRotation & 1:
+            ourscale = self.pageWidth * self.scaleX / self.height
+        else:
+            ourscale = self.pageWidth * self.scaleX / self.width
+
         painter = QPainter(image)
         for layer, p in enumerate(self.overlay):
             overlayrect = rect & p.geometry()
@@ -134,10 +141,6 @@ class CompositePage(page.AbstractPage):
                     overlayscale = p.pageWidth * p.scaleX / p.height
                 else:
                     overlayscale = p.pageWidth * p.scaleX / p.width
-                if self.computedRotation & 1:
-                    ourscale = self.pageWidth * self.scaleX / self.height
-                else:
-                    ourscale = self.pageWidth * self.scaleX / self.width
                 scale = ourscale / overlayscale
                 img = p.image(overlayrect.translated(-p.pos()), dpiX * scale, dpiY * scale)
 
