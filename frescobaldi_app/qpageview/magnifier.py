@@ -152,6 +152,7 @@ class Magnifier(QWidget):
                 # show and drag while button pressed: DRAG_SHORT
                 self._dragging = DRAG_SHORT
                 self.moveCenter(ev.pos())
+                self.raise_()
                 self.show()
                 viewport.setCursor(Qt.BlankCursor)
                 return True
