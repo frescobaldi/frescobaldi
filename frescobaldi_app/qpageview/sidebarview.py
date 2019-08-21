@@ -86,17 +86,20 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
             self.disconnectView()
         self._view = view
         if view:
+            self.slotLayoutUpdated()
+            self.setCurrentPageNumber(view.currentPageNumber())
             self.currentPageChanged.connect(view.setCurrentPageNumber)
             view.currentPageChanged.connect(self.slotCurrentPageChanged)
             view.pageLayoutUpdated.connect(self.slotLayoutUpdated)
-            self.slotLayoutUpdated()
 
     def disconnectView(self):
         """Disconnects the current view."""
         if self._view is not None:
-            self.currentPageChanged.disconnect(view.setCurrentPageNumber)
+            self.currentPageChanged.disconnect(self._view.setCurrentPageNumber)
             self._view.currentPageChanged.disconnect(self.slotCurrentPageChanged)
             self._view.pageLayoutUpdated.disconnect(self.slotLayoutUpdated)
+            self.clear()
+        self._view = None
     
     def slotLayoutUpdated(self):
         """Called when the layout of the connected view is updated."""
