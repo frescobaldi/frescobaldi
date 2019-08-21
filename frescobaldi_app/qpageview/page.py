@@ -221,15 +221,15 @@ class AbstractPage:
             vscale = (dpiY * h) / (72.0 * self.height)
 
             from . import render
-            t = render.Tile(rect.x() * hscale,
-                            rect.y() * vscale,
-                            rect.width() * hscale,
-                            rect.height() * vscale)
+            t = render.Tile(round(rect.x() * hscale),
+                            round(rect.y() * vscale),
+                            round(rect.width() * hscale),
+                            round(rect.height() * vscale))
             k = render.Key(self.group(),
                     self.ident(),
                     self.computedRotation,
-                    self.width * hscale,
-                    self.height * vscale)
+                    round(self.width * hscale),
+                    round(self.height * vscale))
             return self.renderer.render(self, k, t)
 
     def mutex(self):
