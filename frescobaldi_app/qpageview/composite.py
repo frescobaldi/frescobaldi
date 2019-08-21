@@ -276,6 +276,9 @@ class CompositeRenderer(render.AbstractImageRenderer):
         image and return it, but the returned image can also be a new one.
         
         """
+        ### NOTE: If you return a new image, set it to the same device pixel
+        ### ratio as the original base image
+        
         ### TODO: move compositing to a specific class and add much
         ### more options
         painter = QPainter(base)
