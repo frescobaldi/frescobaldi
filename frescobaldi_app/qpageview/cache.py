@@ -26,9 +26,9 @@ import time
 
 
 class ImageEntry:
-    
+
     replace = False
-    
+
     def __init__(self, image):
         self.image = image
         self.bcount = image.byteCount()
@@ -39,7 +39,7 @@ class ImageCache:
     """Cache generated images.
 
     Store and retrieve them under a key (see render.Renderer.key()).
-    
+
     The ImageCache object can be used as a dict().
 
     """
@@ -53,17 +53,17 @@ class ImageCache:
         """Remove all cached images."""
         self._cache.clear()
         self.currentsize = 0
-    
+
     def invalidate(self, page=None):
         """Set the replace flag for all cached images to True.
-        
+
         If the page is given, only images for that page will be set to replace.
-        
-        Images will still be returned on request, but the renderer will 
-        reschedule a rendering of a new image. This way one can update render 
-        options or page contents and get a smooth redraw without flickering an 
+
+        Images will still be returned on request, but the renderer will
+        reschedule a rendering of a new image. This way one can update render
+        options or page contents and get a smooth redraw without flickering an
         empty page in between.
-        
+
         """
         def keyds():
             if page:
@@ -80,18 +80,17 @@ class ImageCache:
                 for entry in tiled.values():
                     entry.replace = True
 
-
     def tileset(self, key):
         """Return a dictionary with tile-entry pairs for the key.
-        
+
         If no single tile is available, an empty dict is returned.
-        
+
         """
         try:
             return self._cache[key.group][key.ident][key[2:]]
         except KeyError:
             return {}
-    
+
     def addtile(self, key, tile, image):
         """Add image for the specified key and tile."""
         d = self._cache.setdefault(key.group, {}).setdefault(key.ident, {}).setdefault(key[2:], {})
@@ -99,25 +98,25 @@ class ImageCache:
             self.currentsize -= d[tile].bcount
         except KeyError:
             pass
-        
+
         purgeneeded = self.currentsize > self.maxsize
 
         e = d[tile] = ImageEntry(image)
         self.currentsize += e.bcount
-    
+
         if not purgeneeded:
             return
 
         # purge old images is needed,
         # cache groups may have disappeared so count all images
-        
+
         items = sorted(
             (entry.time, entry.bcount, group, ident, key, tile)
             for group, identd in self._cache.items()
                 for ident, keyd in identd.items()
                     for key, tiled in keyd.items()
                         for tile, entry in tiled.items())
-        
+
         # now count the newest images until maxsize ...
         items = reversed(items)
         currentsize = 0
@@ -138,9 +137,9 @@ class ImageCache:
 
     def closest(self, key):
         """Iterate over suitable image tilesets but with a different size.
-        
+
         Yields (width, height, tileset) tuples.
-        
+
         This can be used for interim display while the real image is being
         rendered.
 
@@ -150,7 +149,7 @@ class ImageCache:
             keyd = self._cache[key.group][key.ident]
         except KeyError:
             return ()
-        
+
         # prevent returning images that are too small
         minwidth = min(100, key.width / 2)
 
