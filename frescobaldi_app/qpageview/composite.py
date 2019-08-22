@@ -211,14 +211,15 @@ class CompositeRenderer(render.AbstractImageRenderer):
         # position the subpages correctly
         page.fitpages()
 
+        ok = True
         if page.base.renderer and not page.base.renderer.update(page.base, device, rect, newcallback):
-            return False
+            ok = False
 
         for p in page.overlay:
             overlayrect = (rect & p.geometry()).translated(-p.pos())
             if overlayrect and p.renderer and not p.renderer.update(p, device, overlayrect, newcallback):
-                return False
-        return True
+                ok = False
+        return ok
 
     def paint(self, page, painter, rect, callback=None):
         """Paint the sub pages on pixmaps, and then combine them."""
