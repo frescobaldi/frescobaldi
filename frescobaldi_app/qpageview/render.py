@@ -172,12 +172,11 @@ class AbstractImageRenderer:
         return QImage()
     
     def images(self, key, target):
-        """Yields three-tuples (tile, valid, image) for the rect target.
+        """Yields two-tuples (tile, image) for the rect target.
         
-        Together the tiles fill the target rect completely. valid is a bool; if 
-        true the image was available in the cache, can be drawn and is still 
-        uptodate. If false, the tile should be scheduled for re-render; if an 
-        image is there it can be drawn in the meantime.
+        Together the tiles fill the target rect completely. The image can
+        be none, in case no images has been rendered yet for the tile.
+        
         
         """
         # tiles to paint
@@ -189,9 +188,9 @@ class AbstractImageRenderer:
         for t in tiles:
             entry = tileset.get(t)
             if entry:
-                yield t, not entry.replace, entry.image
+                yield t, entry.image
             else:
-                yield t, False, None
+                yield t, None
 
     def update(self, page, device, rect, callback=None):
         """Check if a page can be painted on the device without waiting.
@@ -208,7 +207,7 @@ class AbstractImageRenderer:
         
         # paint rect in tile coordinates
         target = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
-        schedule = set(t for t, valid, image in self.images(key, target) if not valid)
+        schedule = set(t for t, image in self.images(key, target) if image is None)
         if schedule:
             self.schedule(page, key, schedule, callback)
             return False
@@ -246,13 +245,13 @@ class AbstractImageRenderer:
         images = []
         
         schedule = set()
-        for t, valid, image in self.images(key, target):
-            if not valid:
-                schedule.add(t)
+        for t, image in self.images(key, target):
             if image:
                 r = QRect(*t) & target # part of the tile that needs to be drawn
                 images.append((r, image,  QRectF(r.translated(-t.x, -t.y))))
                 region += r
+            else:
+                schedule.add(t)
         
         # reschedule images to be generated
         if schedule:

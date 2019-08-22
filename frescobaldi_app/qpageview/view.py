@@ -589,12 +589,18 @@ class View(scrollarea.ScrollArea):
         have finished. This reduces flicker.
         
         """
+        pages = list(self.visiblePages())
+        if page and page in pages:
+            pages = [page]
+        
         viewport = self.viewport()
-        pages = (page,) if page else self.visiblePages()
-        for p in pages:
-            rect = self.visibleRect() & p.geometry()
-            if rect and (not p.renderer or p.renderer.update(p, viewport, rect.translated(-p.pos()), self.lazyUpdate)):
-                viewport.update(rect.translated(self.layoutPosition()))
+        if pages:
+            for p in pages:
+                rect = self.visibleRect() & p.geometry()
+                if rect and (not p.renderer or p.renderer.update(p, viewport, rect.translated(-p.pos()), self.lazyUpdate)):
+                    viewport.update(rect.translated(self.layoutPosition()))
+        else:
+            viewport.update()
 
     def rerender(self, page=None):
         """Schedule the specified page or all pages for rerendering.
