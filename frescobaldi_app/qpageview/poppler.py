@@ -119,14 +119,6 @@ class PopplerPage(page.AbstractPage):
                 links = link.Links(map(Link, document.page(pageNumber).links()))
             _linkscache.setdefault(document, {})[pageNumber] = links
             return links
-    
-    def thumbnail(self):
-        """Return a thumbnail image if available."""
-        with locking.lock(self.document):
-            page = self.document.page(self.pageNumber)
-            image = page.thumbnail()
-        if image and not image.isNull():
-            return image
 
 
 class Renderer(render.AbstractImageRenderer):
@@ -137,8 +129,6 @@ class Renderer(render.AbstractImageRenderer):
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     oversampleThreshold = 96
     
-    drawThumbnail = False   # it slows down scrolling and almost no PDF has it
-
     def render(self, page, key, tile):
         """Generate an image for the Page referred to by key."""
         doc = page.document
