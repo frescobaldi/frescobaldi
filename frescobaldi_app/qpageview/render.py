@@ -46,13 +46,13 @@ _jobs = collections.defaultdict(dict)
 
 class Job(QThread):
     """A simple wrapper around QThread.
-    
+
     Job is instantiated with the Page to render, the Renderer to use, the
     key that describes rotation, width and height, and the tile to render.
-    
+
     You don't need to instantiate Job objects, that is done by the schedule()
     method of AbstractImageRenderer.
-    
+
     """
     def __init__(self, renderer, page, key, tile):
         super().__init__()
@@ -60,7 +60,7 @@ class Job(QThread):
         self.page = page
         self.key = key
         self.tile = tile
-        
+
         self.image = None
         self.running = False
         self.callbacks = set()
@@ -69,7 +69,7 @@ class Job(QThread):
     def start(self):
         self.running = True
         super().start()
-    
+
     def run(self):
         """This is called in the background thread by Qt."""
         self.image = self.renderer.render(self.page, self.key, self.tile)
@@ -101,34 +101,34 @@ class AbstractImageRenderer:
                         prevails.
 
     """
-    
+
     MAX_TILE_WIDTH = 2400
     MAX_TILE_HEIGHT = 1600
-    
+
     # default paper color to use (if possible, and when drawing an empty page)
     paperColor = QColor(Qt.white)
-    
+
     def __init__(self):
         self.cache = cache.ImageCache()
-    
+
     @staticmethod
     def key(page, ratio):
         """Return a five-tuple describing the page.
-        
+
         The ratio is a device pixel ratio; width and height are multiplied
         with this value, to render and cache an image correctly on high-
         density displays.
-        
+
         This is used for rendering and caching. It is never stored as is.
         The cache can store the group object using a weak reference.
         The tuple contains the following values:
-        
+
         group       the object returned by group()
         ident       the value returned by ident()
         rotation    self.computedRotation
         width       self.width * ratio
         height      self.height * ratio
-        
+
         """
         return Key(
             page.group(),
@@ -156,67 +156,74 @@ class AbstractImageRenderer:
 
     def render(self, page, key, tile):
         """Reimplement this method to generate a QImage for tile of the Page.
-        
+
         The width, height and rotation to render at should be taken from the
         key, as the page could be resized or rotated in the mean time.
-        
+
         """
         return QImage()
-    
-    def images(self, key, target):
-        """Yields two-tuples (tile, image) for the rect target.
-        
-        Together the tiles fill the target rect completely. The image can
-        be none, in case no images has been rendered yet for the tile.
-        
-        
-        """
-        # tiles to paint
-        tiles = set(t for t in self.tiles(key.width, key.height) if QRect(*t) & target)
-        
-        # look in cache, get a dict with tiles and their images
-        tileset = self.cache.tileset(key)
-        
-        for t in tiles:
-            entry = tileset.get(t)
-            if entry:
-                yield t, entry.image
-            else:
-                yield t, None
 
-    def update(self, page, device, rect, callback=None):
-        """Check if a page can be painted on the device without waiting.
-        
-        Return True if that is the case. Otherwise schedules missing tiles
-        for rendering and calls the callback each time one tile if finished.
-        
+    def info(self, page, device, rect):
+        """Return a five-tuple(images, missing, key, target, ratio).
+
+        images is a list of tuples (tile, image) that are available in the
+        cache; missing is a list of Tile instances that are not available in
+        the cache; key is the Key returned by key(), describing width, height,
+        rotation and identity of the page; target is the rect multiplied by the
+        ratio; which is the devicepixelratio of the specified paint device.
+
         """
         try:
             ratio = device.devicePixelRatioF()
         except AttributeError:
             ratio = device.devicePixelRatio()
         key = self.key(page, ratio)
-        
+
         # paint rect in tile coordinates
         target = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
-        schedule = set(t for t, image in self.images(key, target) if image is None)
-        if schedule:
-            self.schedule(page, key, schedule, callback)
+
+        # tiles to paint
+        tiles = [t for t in self.tiles(key.width, key.height) if QRect(*t) & target]
+
+        # look in cache, get a dict with tiles and their images
+        tileset = self.cache.tileset(key)
+
+        images = []
+        missing = []
+        for t in tiles:
+            entry = tileset.get(t)
+            if entry:
+                images.append((t, entry.image))
+            else:
+                missing.append(t)
+
+        return images, missing, key, target, ratio
+
+    def update(self, page, device, rect, callback=None):
+        """Check if a page can be painted on the device without waiting.
+
+        Return True if that is the case. Otherwise schedules missing tiles
+        for rendering and calls the callback each time one tile if finished.
+
+        """
+        imgs, missing, key, *rest = self.info(page, device, rect)
+        if missing:
+            self.schedule(page, key, missing, callback)
             return False
         return True
-        
+
     def paint(self, page, painter, rect, callback=None):
         """Paint a page.
-        
+
         page: the Page to draw
 
         painter:  the QPainter to use to draw
-        
+
         rect: the region to draw, relative to the topleft of the page.
-        
+
         callback: if specified, a callable accepting the `page` argument.
         Typically this should be used to trigger a repaint of the view.
-        
+
         The Page calls this method by default in the paint() method.
         This method tries to fetch an image from the cache and paint that.
         If no image is available, render() is called in the background to
@@ -225,31 +232,19 @@ class AbstractImageRenderer:
         scaled from another size).
 
         """
-        try:
-            ratio = painter.device().devicePixelRatioF()
-        except AttributeError:
-            ratio = painter.device().devicePixelRatio()
-        key = self.key(page, ratio)
-        
-        # paint rect in tile coordinates
-        target = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
-        region = QRegion() # unpainted region in tile coordinates
-        images = []
-        
-        schedule = set()
-        for t, image in self.images(key, target):
-            if image:
-                r = QRect(*t) & target # part of the tile that needs to be drawn
-                images.append((r, image,  QRectF(r.translated(-t.x, -t.y))))
-                region += r
-            else:
-                schedule.add(t)
-        
-        # reschedule images to be generated
-        if schedule:
-            self.schedule(page, key, schedule, callback)
-        
-        if QRegion(target).subtracted(region):
+        images = [] # list of images to draw at end of this method
+        region = QRegion() # painted region in tile coordinates
+
+        imgs, missing, key, target, ratio = self.info(page, painter.device(), rect)
+
+        for t, image in imgs:
+            r = QRect(*t) & target # part of the tile that needs to be drawn
+            images.append((r, image,  QRectF(r.translated(-t.x, -t.y))))
+            region += r
+
+        if missing:
+            self.schedule(page, key, missing, callback)
+
             # find other images from cache for missing tiles
             for width, height, tileset in self.cache.closest(key):
                 # we have a dict of tiles for an image of size width x height
@@ -275,7 +270,7 @@ class AbstractImageRenderer:
                     # paint background, still partly uncovered
                     color = page.paperColor or self.paperColor or QColor(Qt.white)
                     painter.fillRect(rect, color)
-        
+
         # draw lowest quality images first
         for (r, image, source) in reversed(images):
             # scale the target rect back to the paint device
@@ -284,13 +279,13 @@ class AbstractImageRenderer:
 
     def schedule(self, page, key, tiles, callback):
         """Schedule a new rendering job for the specified tiles of the page.
-        
+
         If this page has already a job pending, the callback is added to the
         pending job.
-        
+
         """
         tiled = _jobs[self].setdefault(page, {}).setdefault(key, {})
-        
+
         for tile in tiles:
             try:
                 job = tiled[tile]
@@ -326,22 +321,22 @@ class AbstractImageRenderer:
 
     def invalidate(self, pages):
         """Invalidates the cached images for the given pages.
-        
+
         The images will not be removed immediately, but their replace flag
         will be set, and on the next paint they will be scheduled to be rendered
         again.
-        
+
         """
         for p in pages:
             self.cache.invalidate(p)
 
     def checkstart(self):
         """Check whether there are jobs that need to be started.
-        
+
         This method is called by the schedule() method, and by the finish()
         method, when a job finishes, so that the maximum number of jobs never
         exceeds `maxjobs`.
-        
+
         """
         # all running jobs (globally)
         runningjobs = [job
@@ -357,7 +352,7 @@ class AbstractImageRenderer:
                     for tile, job in tiled.items()
                         if not job.running),
                             key=lambda j: j.time, reverse=True)
-        
+
         jobcount = maxjobs - len(runningjobs)
         if jobcount > 0:
             mutexes = set(j.page.mutex() for j in runningjobs)
@@ -373,10 +368,10 @@ class AbstractImageRenderer:
 
     def finish(self, job):
         """Called by the job when finished.
-        
+
         Puts the image in the cache and checks whether a new job needs to be
         started.
-        
+
         """
         self.cache.addtile(job.key, job.tile, job.image)
         for cb in job.callbacks:
