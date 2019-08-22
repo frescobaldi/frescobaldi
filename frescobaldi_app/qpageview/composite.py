@@ -201,6 +201,25 @@ class CompositeRenderer(render.AbstractImageRenderer):
             self._callbacks.setdefault(page, {})[callbackref] = newcallback
             return newcallback
 
+    def update(self, page, device, rect, callback=None):
+        """Reimplemented to check/rerender (if needed) all sub pages."""
+        if not rect:
+            return  True    # just in case
+
+        # make the call back return with the original page, not the overlay page
+        newcallback = self.makecallback(callback, page) if callback else None
+        # position the subpages correctly
+        page.fitpages()
+
+        if page.base.renderer and not page.base.renderer.update(page.base, device, rect, newcallback):
+            return False
+
+        for p in page.overlay:
+            overlayrect = (rect & p.geometry()).translated(-p.pos())
+            if overlayrect and p.renderer and not p.renderer.update(p, device, overlayrect, newcallback):
+                return False
+        return True
+
     def paint(self, page, painter, rect, callback=None):
         """Paint the sub pages on pixmaps, and then combine them."""
         if not rect:
