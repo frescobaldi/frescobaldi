@@ -164,11 +164,17 @@ class Renderer(render.AbstractImageRenderer):
             if self.renderHint is not None:
                 doc.setRenderHint(int(doc.renderHints()), False)
                 doc.setRenderHint(self.renderHint)
-            if paperColor is not None:
+            if paperColor:
+                oldcolor = doc.paperColor()
                 doc.setPaperColor(paperColor)
             if self.renderBackend is not None:
                 doc.setRenderBackend(self.renderBackend)
+                oldbackend = doc.renderBackend()
             image = doc.page(pageNum).renderToImage(xres, yres, x, y, w, h, rotate)
+            if paperColor:
+                doc.setPaperColor(oldcolor)
+            if self.renderBackend is not None:
+                doc.setRenderBackend(oldbackend)
         return image
 
 
