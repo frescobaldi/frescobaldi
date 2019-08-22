@@ -610,7 +610,6 @@ class View(scrollarea.ScrollArea):
                 renderers[p.renderer].append(p)
         for renderer, pages in renderers.items():
             renderer.invalidate(pages)
-        region.translate(self.layoutPosition())
         self.lazyUpdate(page)
 
     def _unschedulePages(self, pages):
