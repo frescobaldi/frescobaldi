@@ -607,7 +607,7 @@ class View(scrollarea.ScrollArea):
         pages = (page,) if page else self._pageLayout
         for p in pages:
             if p.renderer:
-                renderers[p.renderer].append(page)
+                renderers[p.renderer].append(p)
         for renderer, pages in renderers.items():
             renderer.invalidate(pages)
         region.translate(self.layoutPosition())
