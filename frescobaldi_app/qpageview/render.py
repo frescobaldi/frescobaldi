@@ -193,6 +193,27 @@ class AbstractImageRenderer:
             else:
                 yield t, False, None
 
+    def update(self, page, device, rect, callback=None):
+        """Check if a page can be painted on the device without waiting.
+        
+        Return True if that is the case. Otherwise schedules missing tiles
+        for rendering and calls the callback each time one tile if finished.
+        
+        """
+        try:
+            ratio = device.devicePixelRatioF()
+        except AttributeError:
+            ratio = device.devicePixelRatio()
+        key = self.key(page, ratio)
+        
+        # paint rect in tile coordinates
+        target = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
+        schedule = set(t for t, valid, image in self.images(key, target) if not valid)
+        if schedule:
+            self.schedule(page, key, schedule, callback)
+            return False
+        return True
+        
     def paint(self, page, painter, rect, callback=None):
         """Paint a page.
         

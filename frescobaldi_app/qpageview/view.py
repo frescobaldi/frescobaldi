@@ -582,25 +582,36 @@ class View(scrollarea.ScrollArea):
         rect = page.geometry().translated(self.layoutPosition())
         self.viewport().update(rect)
 
+    def lazyUpdate(self, page=None):
+        """Repaint page or all visible pages, rendering the pages if needed.
+        
+        Only updates the viewport as soon as all rendering tasks for the page
+        have finished. This reduces flicker.
+        
+        """
+        viewport = self.viewport()
+        pages = (page,) if page else self.visiblePages()
+        for p in pages:
+            rect = self.visibleRect() & p.geometry()
+            if rect and (not p.renderer or p.renderer.update(p, viewport, rect.translated(-p.pos()), self.lazyUpdate)):
+                viewport.update(rect.translated(self.layoutPosition()))
+
     def rerender(self, page=None):
         """Schedule the specified page or all pages for rerendering.
         
         Call this when you have changed render options or page contents.
-        The new image will replace the old one when rendering is finished,
-        without flicker in between.
+        Repaints the page or visible pages lazily, reducing flicker.
         
         """
         renderers = collections.defaultdict(list)
         pages = (page,) if page else self._pageLayout
-        region = QRegion()
-        for page in pages:
-            if page.renderer:
-                renderers[page.renderer].append(page)
-                region += page.geometry()
+        for p in pages:
+            if p.renderer:
+                renderers[p.renderer].append(page)
         for renderer, pages in renderers.items():
             renderer.invalidate(pages)
         region.translate(self.layoutPosition())
-        self.viewport().update(region)
+        self.lazyUpdate(page)
 
     def _unschedulePages(self, pages):
         """(Internal.)
