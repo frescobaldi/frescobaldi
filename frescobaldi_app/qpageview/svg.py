@@ -44,6 +44,8 @@ class BasicSvgPage(page.AbstractPage):
     caching it, which is too slow for normal use. Use SvgPage instead.
     
     """
+    dpi = 90.0
+    
     def __init__(self, load_file=None):
         self._svg_r = QSvgRenderer()
         if load_file:

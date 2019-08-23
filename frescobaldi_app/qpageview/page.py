@@ -42,14 +42,14 @@ class AbstractPage(util.Rectangular):
 
     ...that normally do not change during its lifetime:
 
-        `pageWidth`     the original width in points (1/72 inch)
-        `pageHeight`    the original height in points (1/72 inch)
+        `pageWidth`     the original width  (by default in points, `dpi` is 72.0 
+        `pageHeight`    the original height   but can be changed at class level)
 
     ... that can be modified by the user (having defaults at the class level):
 
+        `scaleX`        the scale in X-direction of the original page (1.0)
+        `scaleY`        the scale in Y-direction of the original page (1.0)
         `rotation`      the rotation (Rotate_0)
-        `scaleX`        the scale in X-direction (1.0)
-        `scaleY`        the scale in Y-direction (1.0)
         `paperColor`    the paper color (None). If None, the renderer's
                         paperColor is used.
 
@@ -64,10 +64,12 @@ class AbstractPage(util.Rectangular):
 
     A page is rendered by a renderer, which can live in a class
     or instance attribute.
-
+    
+    The class variable `dpi` is 72.0 by default but can be set to a different
+    value depending on the page type. E.g. for Svg pages 90 or 96 makes sense.
 
     """
-
+    dpi = 72.0
     renderer = None
 
     rotation = Rotate_0
@@ -90,8 +92,8 @@ class AbstractPage(util.Rectangular):
         This value is only used in the computeSize() method, to get the size
         in pixels of the page.
 
-        By the default implementation of computeSize(), the page size is assumed
-        to be in points, 1/72 of an inch.
+        By default the page size is assumed to be in points, 1/72 of an inch.
+        You can set the `dpi` class variable to use a different unit.
 
         """
         self.pageWidth = sizef.width()
@@ -103,8 +105,8 @@ class AbstractPage(util.Rectangular):
         This value is only used in the computeSize() method, to get the size
         in pixels of the page.
 
-        By the default implementation of computeSize(), the page size is assumed
-        to be in points, 1/72 of an inch.
+        By default the page size is assumed to be in points, 1/72 of an inch.
+        You can set the `dpi` class variable to use a different unit.
 
         """
         return QSizeF(self.pageWidth, self.pageHeight)
@@ -121,8 +123,8 @@ class AbstractPage(util.Rectangular):
         if rotation & 1:
             w, h = h, w
         # now handle dpi, scale and zoom
-        w = round(w * dpiX / 72.0 * zoomFactor)
-        h = round(h * dpiY / 72.0 * zoomFactor)
+        w = round(w * dpiX / self.dpi * zoomFactor)
+        h = round(h * dpiY / self.dpi * zoomFactor)
         return w, h
 
     def zoomForWidth(self, width, rotation, dpiX):
@@ -132,7 +134,7 @@ class AbstractPage(util.Rectangular):
             w = self.pageHeight / self.scaleY
         else:
             w = self.pageWidth / self.scaleX
-        return width * 72.0 / dpiX / w
+        return width * self.dpi / dpiX / w
 
     def zoomForHeight(self, height, rotation, dpiY):
         """Return the zoom we need to display ourselves at the given height."""
@@ -141,7 +143,7 @@ class AbstractPage(util.Rectangular):
             h = self.pageWidth / self.scaleX
         else:
             h = self.pageHeight / self.scaleY
-        return height * 72.0 / dpiY / h
+        return height * self.dpi / dpiY / h
 
     def paint(self, painter, rect, callback=None):
         """Reimplement this to paint our Page.
@@ -157,14 +159,16 @@ class AbstractPage(util.Rectangular):
         if rect and self.renderer:
             self.renderer.paint(self, painter, rect, callback)
 
-    def image(self, rect, dpiX=72.0, dpiY=None):
+    def image(self, rect, dpiX=None, dpiY=None):
         """Returns a QImage of the specified rectangle.
 
         The rectangle is relative to our top-left position. dpiX defaults to
-        72.0 and dpiY defaults to dpiX. The default implementation calls the
-        renderer to generate the image. The image is not cached.
+        our default dpi and dpiY defaults to dpiX. The default implementation
+        calls the renderer to generate the image. The image is not cached.
 
         """
+        if dpiX is None:
+            dpiX = self.dpi
         if dpiY is None:
             dpiY = dpiX
 
@@ -173,8 +177,8 @@ class AbstractPage(util.Rectangular):
             h = self.pageHeight * self.scaleY
             if self.computedRotation & 1:
                 w, h = h, w
-            hscale = (dpiX * w) / (72.0 * self.width)
-            vscale = (dpiY * h) / (72.0 * self.height)
+            hscale = (dpiX * w) / (self.dpi * self.width)
+            vscale = (dpiY * h) / (self.dpi * self.height)
 
             from . import render
             t = render.Tile(round(rect.x() * hscale),

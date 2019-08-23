@@ -68,6 +68,7 @@ class CompositePage(page.AbstractPage):
         self.pageHeight = page.pageHeight
         self.scaleX = page.scaleX
         self.scaleY = page.scaleY
+        self.dpi = page.dpi
         if renderer is not None:
             self.renderer = renderer
 
@@ -108,8 +109,10 @@ class CompositePage(page.AbstractPage):
         for p in self.overlay:
             self.fitoverlay(p)
 
-    def image(self, rect, dpiX=72.0, dpiY=None):
+    def image(self, rect, dpiX=None, dpiY=None):
         """Return a QImage of the specified rectangle, of all images combined."""
+        if dpiX is None:
+            dpiX = self.dpi
         if dpiY is None:
             dpiY = dpiX
         self.fitpages()
@@ -122,8 +125,8 @@ class CompositePage(page.AbstractPage):
         h = self.pageHeight * self.scaleY
         if self.computedRotation & 1:
             w, h = h, w
-        hscale = (dpiX * w) / (72.0 * self.width)
-        vscale = (dpiY * h) / (72.0 * self.height)
+        hscale = (dpiX * w) / (self.dpi * self.width)
+        vscale = (dpiY * h) / (self.dpi * self.height)
         ourscale = w / self.width
 
         for p in self.overlay:
@@ -131,10 +134,11 @@ class CompositePage(page.AbstractPage):
             if overlayrect:
                 # compute the correct resolution, find out which scale was
                 # used by fitoverlay() (which may have been reimplemented)
+                overlaywidth = p.pageWidth * p.scaleX * self.dpi / p.dpi
                 if p.computedRotation & 1:
-                    overlayscale = p.pageWidth * p.scaleX / p.height
+                    overlayscale = overlaywidth / p.height
                 else:
-                    overlayscale = p.pageWidth * p.scaleX / p.width
+                    overlayscale = overlaywidth / p.width
                 scale = ourscale / overlayscale
                 img = p.image(overlayrect.translated(-p.pos()), dpiX * scale, dpiY * scale)
                 pos = overlayrect.topLeft() - rect.topLeft()
