@@ -60,18 +60,29 @@ class CompositePage(page.AbstractPage):
     to use the original Page object, make a copy first.
 
     """
-    def __init__(self, page, renderer=None):
+    def __init__(self, page=None, overlays=(), renderer=None):
+        """Initialize with page and overlays.
+        
+        You can also set page and overlays later using setpages().
+        
+        """
         super().__init__()
-        self.base = page
         self.overlay = []
-        self.pageWidth = page.pageWidth
-        self.pageHeight = page.pageHeight
-        self.scaleX = page.scaleX
-        self.scaleY = page.scaleY
-        self.dpi = page.dpi
         if renderer is not None:
             self.renderer = renderer
+        if page:
+            self.setpages(page, overlays)
 
+    def setpages(self, base, overlays):
+        """Sets our base page and overlay pages."""
+        self.base = base
+        self.pageWidth = base.pageWidth
+        self.pageHeight = base.pageHeight
+        self.scaleX = base.scaleX
+        self.scaleY = base.scaleY
+        self.dpi = base.dpi
+        self.overlay[:] = overlays
+        
     def fitbase(self):
         """Make sure the base page has the same size as ourselves."""
         # base.x and y are not used
