@@ -264,9 +264,8 @@ class PageLayout(util.Rectangular, list):
     def updatePageSizes(self):
         """Compute the correct size of every Page."""
         for page in self:
-            page.computedRotation = rotation = (page.rotation + self.rotation) & 3
-            page.width, page.height = page.computeSize(
-                rotation, self.dpiX, self.dpiY, self.zoomFactor)
+            page.computedRotation = (page.rotation + self.rotation) & 3
+            page.updateSize(self.dpiX, self.dpiY, self.zoomFactor)
 
     def updatePagePositions(self):
         """Determine the position of every Page.

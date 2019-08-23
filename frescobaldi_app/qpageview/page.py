@@ -89,8 +89,8 @@ class AbstractPage(util.Rectangular):
     def setPageSize(self, sizef):
         """Set our natural page size (QSizeF).
 
-        This value is only used in the computeSize() method, to get the size
-        in pixels of the page.
+        Normally this is done in the constructor, based on the page we need to
+        render.
 
         By default the page size is assumed to be in points, 1/72 of an inch.
         You can set the `dpi` class variable to use a different unit.
@@ -102,30 +102,26 @@ class AbstractPage(util.Rectangular):
     def pageSize(self):
         """Return our natural page size (QSizeF).
 
-        This value is only used in the computeSize() method, to get the size
-        in pixels of the page.
-
         By default the page size is assumed to be in points, 1/72 of an inch.
         You can set the `dpi` class variable to use a different unit.
 
         """
         return QSizeF(self.pageWidth, self.pageHeight)
 
-    def computeSize(self, rotation, dpiX, dpiY, zoomFactor):
-        """Return a tuple (w, h) representing the size of the page in pixels.
+    def updateSize(self, dpiX, dpiY, zoomFactor):
+        """Set the width and height attributes of the page.
 
-        This size is computed based on the page's natural size, its scale and
-        the specified rotation, dpi, scale and zoomFactor.
+        This size is computed based on the page's natural size, dpi, scale and
+        computedRotation attribute; and the supplied dpiX, dpiY, and zoomFactor.
 
         """
         w = self.pageWidth * self.scaleX
         h = self.pageHeight * self.scaleY
-        if rotation & 1:
+        if self.computedRotation & 1:
             w, h = h, w
         # now handle dpi, scale and zoom
-        w = round(w * dpiX / self.dpi * zoomFactor)
-        h = round(h * dpiY / self.dpi * zoomFactor)
-        return w, h
+        self.width = round(w * dpiX / self.dpi * zoomFactor)
+        self.height = round(h * dpiY / self.dpi * zoomFactor)
 
     def zoomForWidth(self, width, rotation, dpiX):
         """Return the zoom we need to display ourselves at the given width."""
