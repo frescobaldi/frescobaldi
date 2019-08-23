@@ -108,6 +108,17 @@ class AbstractPage(util.Rectangular):
         """
         return QSizeF(self.pageWidth, self.pageHeight)
 
+    def defaultSize(self):
+        """Return the pageSize() scaled and rotated (if needed).
+        
+        Based on scaleX, scaleY, and computedRotation attributes.
+        
+        """
+        s = QSizeF(self.pageWidth * self.scaleX, self.pageHeight * self.scaleY)
+        if self.computedRotation & 1:
+            s.transpose()
+        return s
+        
     def updateSize(self, dpiX, dpiY, zoomFactor):
         """Set the width and height attributes of the page.
 
@@ -115,13 +126,10 @@ class AbstractPage(util.Rectangular):
         computedRotation attribute; and the supplied dpiX, dpiY, and zoomFactor.
 
         """
-        w = self.pageWidth * self.scaleX
-        h = self.pageHeight * self.scaleY
-        if self.computedRotation & 1:
-            w, h = h, w
+        s = self.defaultSize()
         # now handle dpi, scale and zoom
-        self.width = round(w * dpiX / self.dpi * zoomFactor)
-        self.height = round(h * dpiY / self.dpi * zoomFactor)
+        self.width = round(s.width() * dpiX / self.dpi * zoomFactor)
+        self.height = round(s.height() * dpiY / self.dpi * zoomFactor)
 
     def zoomForWidth(self, width, rotation, dpiX):
         """Return the zoom we need to display ourselves at the given width."""
@@ -169,12 +177,9 @@ class AbstractPage(util.Rectangular):
             dpiY = dpiX
 
         if self.renderer:
-            w = self.pageWidth * self.scaleX
-            h = self.pageHeight * self.scaleY
-            if self.computedRotation & 1:
-                w, h = h, w
-            hscale = (dpiX * w) / (self.dpi * self.width)
-            vscale = (dpiY * h) / (self.dpi * self.height)
+            s = self.defaultSize()
+            hscale = s.width() * dpiX / self.dpi / self.width
+            vscale = s.height() * dpiY / self.dpi / self.height
 
             from . import render
             t = render.Tile(round(rect.x() * hscale),

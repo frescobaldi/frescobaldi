@@ -100,17 +100,14 @@ class CompositePage(page.AbstractPage):
         are used to specify their position relative to the base page.
 
         """
-        pageWidth = page.pageWidth * page.scaleX
-        pageHeight = page.pageHeight * page.scaleY
         page.computedRotation = (page.rotation + self.computedRotation) & 3
-        if page.computedRotation & 1:
-            pageWidth, pageHeight = pageHeight, pageWidth
+        s = page.defaultSize()
 
-        scaleX = self.width / pageWidth
-        scaleY = self.height / pageHeight
+        scaleX = self.width / s.width()
+        scaleY = self.height / s.height()
         scale = min(scaleX, scaleY)
-        page.width = round(pageWidth * scale)
-        page.height = round(pageHeight * scale)
+        page.width = round(s.width() * scale)
+        page.height = round(s.height() * scale)
         page.x = round((self.width - page.width) / 2)
         page.y = round((self.height - page.height) / 2)
 
@@ -132,13 +129,10 @@ class CompositePage(page.AbstractPage):
         
         # find out the scale used for the image, to be able to position the
         # overlay images correctly (code copied from AbstractPage.image())
-        w = self.pageWidth * self.scaleX
-        h = self.pageHeight * self.scaleY
-        if self.computedRotation & 1:
-            w, h = h, w
-        hscale = (dpiX * w) / (self.dpi * self.width)
-        vscale = (dpiY * h) / (self.dpi * self.height)
-        ourscale = w / self.width
+        s = self.defaultSize()
+        hscale = s.width() * dpiX / self.dpi / self.width
+        vscale = s.height() * dpiY / self.dpi / self.height
+        ourscale = s.width() / self.width
 
         for p in self.overlay:
             overlayrect = rect & p.geometry()
