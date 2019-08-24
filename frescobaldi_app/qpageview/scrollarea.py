@@ -140,7 +140,11 @@ class ScrollArea(QAbstractScrollArea):
         return r.translated(-pos)
         
     def _updateScrollBars(self):
-        """Internal. Adjust the range of the scrollbars to the area size."""
+        """Internal. Adjust the range of the scrollbars to the area size.
+        
+        Called in setAreaSize() and resizeEvent().
+        
+        """
         w, h = self._areaSize
         maxsize = self.maximumViewportSize()
         vbar = self.verticalScrollBar()
