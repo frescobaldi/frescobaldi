@@ -23,7 +23,7 @@ ScrollArea, that supports kinetic scrolling and other features.
 
 import math
 
-from PyQt5.QtCore import QBasicTimer, QPoint, QSize, Qt
+from PyQt5.QtCore import QBasicTimer, QPoint, QRect, QSize, Qt
 from PyQt5.QtWidgets import QAbstractScrollArea
 
 
@@ -133,6 +133,12 @@ class ScrollArea(QAbstractScrollArea):
 
         return QPoint(left, top)
     
+    def visibleArea(self):
+        """Return a rectangle describing the part of the area that is visible."""
+        pos = self.areaPos()
+        r = self.viewport().rect() & QRect(pos, self.areaSize())
+        return r.translated(-pos)
+        
     def _updateScrollBars(self):
         """Internal. Adjust the range of the scrollbars to the area size."""
         w, h = self._areaSize

@@ -509,7 +509,7 @@ class View(scrollarea.ScrollArea):
 
     def visibleRect(self):
         """Return the QRect of the page layout that is currently visible in the viewport."""
-        return self.viewport().rect().translated(-self.layoutPosition())
+        return self.visibleArea().translated(self._pageLayout.pos())
 
     def visiblePages(self):
         """Yield the Page instances that are currently visible."""
