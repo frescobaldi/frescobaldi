@@ -123,19 +123,9 @@ class PagedViewMixin:
         self._currentPage = num
         self.currentPageChanged.emit(num)
         page = self._pageLayout[num-1]
-        # if needed switch page set
-        if page not in self._pageLayout.displayPages():
-            self.displayPageSet(self._pageLayout.pageSet(num-1))
-        # only move the view if needed
-        m = self._pageLayout.margins() + self._pageLayout.pageMargins()
-        diff = self.offsetToEnsureVisible(page.geometry() + m)
-        if diff:
-            if self.kineticPagingEnabled and self.kineticScrollingEnabled:
-                # during the scrolling the page number should not be updated.
-                self._scrollingToPage += 1
-                self.kineticScrollBy(diff)
-            else:
-                self.scrollBy(diff)
+        margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
+        with self.dontTrackScrolling():
+            self.ensureVisible(page.geometry(), margins, self.kineticPagingEnabled)
     
     def gotoNextPage(self):
         """Convenience method to go to the next page."""
