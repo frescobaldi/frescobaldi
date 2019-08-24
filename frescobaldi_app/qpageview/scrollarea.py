@@ -32,6 +32,9 @@ class ScrollArea(QAbstractScrollArea):
 
     Instance attributes:
 
+        alignment (Qt.AlignCenter):
+            how to align the scrolled area if smaller than the viewport
+
         scrollupdatespersec (50):
             how many scroll updates to draw per second (50 is recommended).
 
@@ -44,8 +47,8 @@ class ScrollArea(QAbstractScrollArea):
             
     """
 
-    scrollupdatespersec = 50
     alignment = Qt.AlignCenter
+    scrollupdatespersec = 50
     kineticScrollingEnabled = True
     draggingEnabled = True
 
