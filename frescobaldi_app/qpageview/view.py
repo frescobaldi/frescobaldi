@@ -341,7 +341,7 @@ class View(scrollarea.ScrollArea):
             self._rubberband.scrollBy(QPoint(dx, dy))
         if not self.isScrolling():
             # don't adjust the cursor during a kinetic scroll
-            pos = self.mapFromGlobal(QCursor.pos())
+            pos = self.viewport().mapFromGlobal(QCursor.pos())
             if pos in self.viewport().rect() and not self.viewport().childAt(pos):
                 self.adjustCursor(pos)
         self.viewport().update()
@@ -349,7 +349,7 @@ class View(scrollarea.ScrollArea):
     def stopScrolling(self):
         """Reimplemented to adjust the mouse cursor on scroll stop."""
         super().stopScrolling()
-        pos = self.mapFromGlobal(QCursor.pos())
+        pos = self.viewport().mapFromGlobal(QCursor.pos())
         if pos in self.viewport().rect() and not self.viewport().childAt(pos):
             self.adjustCursor(pos)
             
@@ -563,7 +563,7 @@ class View(scrollarea.ScrollArea):
         
         Switches page set if needed. If allowKinetic is False, immediately
         jumps to the position, otherwise scrolls smoothly (if kinetic scrolling
-        is enabeled).
+        is enabled).
         
         For finding the page set, rect is used. When scrolling, margins is
         added if given, and should be a QMargins instance.
