@@ -602,13 +602,20 @@ class View(scrollarea.ScrollArea):
             pages = [page]
         
         viewport = self.viewport()
+        wait = False
+        updates = []
         if pages:
             for p in pages:
                 rect = self.visibleRect() & p.geometry()
-                if rect and (not p.renderer or p.renderer.update(p, viewport, rect.translated(-p.pos()), self.lazyUpdate)):
-                    viewport.update(rect.translated(self.layoutPosition()))
-        else:
+                if rect and p.renderer:
+                    if p.renderer.update(p, viewport, rect.translated(-p.pos()), self.lazyUpdate):
+                        updates.append(rect.translated(self.layoutPosition()))
+                    else:
+                        wait = True
+        if not wait:
             viewport.update()
+        elif updates:
+            viewport.update(sum(updates, QRegion()))
 
     def rerender(self, page=None):
         """Schedule the specified page or all pages for rerendering.
