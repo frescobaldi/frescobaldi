@@ -35,7 +35,7 @@ class ScrollArea(QAbstractScrollArea):
         scrollupdatespersec (50):
             how many scroll updates to draw per second (50 is recommended).
 
-        kineticscrollingEnabled (True):
+        kineticScrollingEnabled (True):
             whether the wheel and pgup/pgdn keys etc use kinetic scrolling
 
         draggingEnabled (True):
@@ -50,7 +50,7 @@ class ScrollArea(QAbstractScrollArea):
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
-        self._globalPos = None
+        self._dragPos = None
         self._dragSpeed = None
         self._dragTime = None
         self._scroller = None
@@ -210,7 +210,7 @@ class ScrollArea(QAbstractScrollArea):
     
     def isDragging(self):
         """Return True if the user is dragging the background."""
-        return self._globalPos is not None
+        return self._dragPos is not None
 
     def timerEvent(self, ev):
         """Called by the _scrollTimer."""
@@ -229,19 +229,19 @@ class ScrollArea(QAbstractScrollArea):
     def mouseMoveEvent(self, ev):
         """Implemented to handle dragging the document with the left button."""
         if self.draggingEnabled and ev.buttons() & Qt.LeftButton:
-            if self._globalPos is None:
+            if self._dragPos is None:
                 self.setCursor(Qt.SizeAllCursor)
             else:
-                diff = self._globalPos - ev.globalPos()
+                diff = self._dragPos - ev.pos()
                 self._dragSpeed = (ev.timestamp() - self._dragTime, diff)
                 self.scrollBy(diff)
-            self._globalPos = ev.globalPos()
+            self._dragPos = ev.pos()
             self._dragTime = ev.timestamp()
         super().mouseMoveEvent(ev)
 
     def mouseReleaseEvent(self, ev):
         """Implemented to handle dragging the document with the left button."""
-        if self.draggingEnabled and ev.button() == Qt.LeftButton and self._globalPos is not None:
+        if self.draggingEnabled and ev.button() == Qt.LeftButton and self._dragPos is not None:
             self.unsetCursor()
             if self.kineticScrollingEnabled and self._dragSpeed is not None:
                 # compute speed of last movement
@@ -256,7 +256,7 @@ class ScrollArea(QAbstractScrollArea):
                 if speed.x() < 0: diffx = -diffx
                 if speed.y() < 0: diffy = -diffy
                 self.kineticScrollBy(QPoint(diffx, diffy))
-            self._globalPos = None
+            self._dragPos = None
             self._dragTime = None
             self._dragSpeed = None
         super().mouseReleaseEvent(ev)
