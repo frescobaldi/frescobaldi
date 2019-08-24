@@ -155,7 +155,7 @@ class View(scrollarea.ScrollArea):
     def updatePageLayout(self):
         """Update layout and adjust scrollbars."""
         self._pageLayout.update()
-        self._updateScrollBars()
+        self.setAreaSize(self._pageLayout.size())
         self.pageLayoutUpdated.emit()
         self.viewport().update()
 
@@ -495,39 +495,17 @@ class View(scrollarea.ScrollArea):
         """
         self.setZoomFactor(self.zoomFactor() / factor, pos)
 
-    def _updateScrollBars(self):
-        """Adjust the range of the scrollbars to the layout."""
-        layout = self._pageLayout
-        maxsize = self.maximumViewportSize()
-        vbar = self.verticalScrollBar()
-        hbar = self.horizontalScrollBar()
-
-        if layout.width <= maxsize.width() and layout.height <= maxsize.height():
-            vbar.setRange(0, 0)
-            hbar.setRange(0, 0)
-        else:
-            viewport = self.viewport()
-            vbar.setRange(0, layout.height - viewport.height())
-            vbar.setPageStep(viewport.height() * .9)
-            hbar.setRange(0, layout.width - viewport.width())
-            hbar.setPageStep(viewport.width() * .9)
-
     def layoutPosition(self):
         """Return the position of the PageLayout relative to the viewport.
 
         This is the top-left position of the layout, relative to the
         top-left position of the viewport.
 
-        If the layout is smaller than the viewport it is centered.
+        If the layout is smaller than the viewport it is centered by default.
+        (See ScrollArea.alignment.)
 
         """
-        lw = self._pageLayout.width
-        vw = self.viewport().width()
-        left = -self.horizontalScrollBar().value() if lw > vw else (vw - lw) // 2
-        lh = self._pageLayout.height
-        vh = self.viewport().height()
-        top = -self.verticalScrollBar().value() if lh > vh else (vh - lh) // 2
-        return QPoint(left, top) - self._pageLayout.pos()
+        return self.areaPos() - self._pageLayout.pos()
 
     def visibleRect(self):
         """Return the QRect of the page layout that is currently visible in the viewport."""
@@ -594,7 +572,7 @@ class View(scrollarea.ScrollArea):
         pass
 
     def resizeEvent(self, ev):
-        """Reimplemented to update the scrollbars."""
+        """Reimplemented to scale the view if needed and update the scrollbars."""
         if self._viewMode and not self._pageLayout.empty():
             # sensible repositioning
             vbar = self.verticalScrollBar()
@@ -605,8 +583,7 @@ class View(scrollarea.ScrollArea):
             self.updatePageLayout()
             if xm: hbar.setValue(round(x * hbar.maximum() / xm))
             if ym: vbar.setValue(round(y * vbar.maximum() / ym))
-        else:
-            self._updateScrollBars()
+        super().resizeEvent(ev)
 
     def repaintPage(self, page):
         """Call this when you want to redraw the specified page."""

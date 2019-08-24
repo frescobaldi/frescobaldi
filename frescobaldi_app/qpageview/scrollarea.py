@@ -23,7 +23,7 @@ ScrollArea, that supports kinetic scrolling and other features.
 
 import math
 
-from PyQt5.QtCore import QBasicTimer, QPoint, Qt
+from PyQt5.QtCore import QBasicTimer, QPoint, QSize, Qt
 from PyQt5.QtWidgets import QAbstractScrollArea
 
 
@@ -45,11 +45,13 @@ class ScrollArea(QAbstractScrollArea):
     """
 
     scrollupdatespersec = 50
+    alignment = Qt.AlignCenter
     kineticScrollingEnabled = True
     draggingEnabled = True
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
+        self._areaSize = 0, 0
         self._dragPos = None
         self._dragSpeed = None
         self._dragTime = None
@@ -91,6 +93,63 @@ class ScrollArea(QAbstractScrollArea):
         else:
             super().keyPressEvent(ev)
 
+    def setAreaSize(self, size):
+        """Updates the scrollbars to be able to display an area of this size."""
+        self._areaSize = (size.width(), size.height())
+        self._updateScrollBars()
+
+    def areaSize(self):
+        """Return the size of the area as set by setAreaSize()."""
+        return QSize(*self._areaSize)
+
+    def areaPos(self):
+        """Return the position of the area relative to the viewport.
+        
+        The alignment attribute is taken into account when the area is smaller
+        than the viewport (horizontally and/or vertically).
+        
+        """
+        w, h = self._areaSize
+        vw = self.viewport().width()
+        vh = self.viewport().height()
+        
+        if w > vw:
+            left = -self.horizontalScrollBar().value()
+        elif self.alignment & Qt.AlignHCenter:
+            left = (vw - w) // 2
+        elif self.alignment & Qt.AlignRight:
+            left = vw - w
+        else:
+            left = 0
+
+        if h > vh:
+            top = -self.verticalScrollBar().value()
+        elif self.alignment & Qt.AlignVCenter:
+            top = (vh - h) // 2
+        elif self.alignment & Qt.AlignBottom:
+            top = vh - h
+        else:
+            top = 0
+
+        return QPoint(left, top)
+    
+    def _updateScrollBars(self):
+        """Internal. Adjust the range of the scrollbars to the area size."""
+        w, h = self._areaSize
+        maxsize = self.maximumViewportSize()
+        vbar = self.verticalScrollBar()
+        hbar = self.horizontalScrollBar()
+
+        if w <= maxsize.width() and h <= maxsize.height():
+            vbar.setRange(0, 0)
+            hbar.setRange(0, 0)
+        else:
+            viewport = self.viewport()
+            vbar.setRange(0, h - viewport.height())
+            vbar.setPageStep(viewport.height() * .9)
+            hbar.setRange(0, w - viewport.width())
+            hbar.setPageStep(viewport.width() * .9)
+        
     def scrollOffset(self):
         """Return the current scroll offset."""
         x = self.horizontalScrollBar().value()
@@ -220,6 +279,10 @@ class ScrollArea(QAbstractScrollArea):
             # change the scrollbars, but check how far they really moved.
             if not self.scrollBy(diff) or self._scroller.finished():
                 self.stopScrolling()
+
+    def resizeEvent(self, ev):
+        """Implemented to update the scrollbars to the aera size."""
+        self._updateScrollBars()
 
     def mousePressEvent(self, ev):
         """Implemented to handle dragging the document with the left button."""
