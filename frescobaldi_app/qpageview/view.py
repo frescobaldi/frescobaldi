@@ -558,6 +558,37 @@ class View(scrollarea.ScrollArea):
             dx = rect.left() - vrect.left()
         return QPoint(dx, dy)
 
+    def ensureVisible(self, rect, margins=None, allowKinetic=True):
+        """Performs the minimal scroll to make rect visible.
+        
+        Switches page set if needed. If allowKinetic is False, immediately
+        jumps to the position, otherwise scrolls smoothly (if kinetic scrolling
+        is enabeled).
+        
+        For finding the page set, rect is used. When scrolling, margins is
+        added if given, and should be a QMargins instance.
+        
+        """
+        if not any(self.pageLayout().pagesAt(rect)):
+            if self.continuousMode():
+                return
+            # we might need to switch page set
+            # find the rect
+            for p in layout.PageRects(self.pageLayout()).intersecting(*rect.getCoords()):
+                num = self.pageLayout().index(p)
+                self.displayPageSet(self.pageLayout().pageSet(num))
+                break
+            else:
+                return
+        if margins is not None:
+            rect = rect + margins
+        diff = self.offsetToEnsureVisible(rect)
+        if diff:
+            if allowKinetic and self.kineticScrollingEnabled:
+                self.kineticScrollBy(diff)
+            else:
+                self.scrollBy(diff)
+
     def adjustCursor(self, pos):
         """Sets the correct mouse cursor for the position on the page."""
         pass
