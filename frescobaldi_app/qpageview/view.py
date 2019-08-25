@@ -114,18 +114,21 @@ class View(scrollarea.ScrollArea):
         self.setPageLayout(layout.PageLayout())
 
     def loadPdf(self, filename):
-        """Convenience method to load the specified PDF file."""
-        import popplerqt5
+        """Convenience method to load the specified PDF file.
+
+        The filename can also be a QByteArray.
+
+        """
         from . import poppler
-        doc = popplerqt5.Poppler.Document.load(filename)
         self._unschedulePages(self._pageLayout)
-        self.pageLayout()[:] = poppler.PopplerPage.createPages(doc)
+        self.pageLayout()[:] = poppler.PopplerPage.loadDocument(filename)
         self.updatePageLayout()
 
     def loadSvgs(self, filenames):
         """Convenience method to load the specified list of SVG files.
 
-        Each SVG file is loaded in one Page.
+        Each SVG file is loaded in one Page. A filename can also be a
+        QByteArray.
 
         """
         self._unschedulePages(self._pageLayout)
@@ -138,7 +141,7 @@ class View(scrollarea.ScrollArea):
         
         The dpiX and dpiY attributes of the layout are set to the physical
         resolution of the widget, which should result in a natural size of 100%
-        at zoom factor 1.0
+        at zoom factor 1.0.
         
         """
         if self._pageLayout:

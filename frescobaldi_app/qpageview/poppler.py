@@ -90,6 +90,17 @@ class PopplerPage(page.AbstractPage):
         """
         return [cls(document, num, renderer) for num in range(document.numPages())]
 
+    @classmethod
+    def loadDocument(cls, filename, renderer=None):
+        """Load a Poppler document, and return a list of instances of this class.
+
+        The filename can also be a QByteArray.
+        The specified Renderer is used, or else the global poppler renderer.
+
+        """
+        doc = popplerqt5.Poppler.Document.load(filename)
+        return cls.createPages(doc, renderer)
+
     def mutex(self):
         """No two pages of same Poppler document are rendered at the same time."""
         return self.document
