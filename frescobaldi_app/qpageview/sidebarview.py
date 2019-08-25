@@ -32,12 +32,11 @@ from PyQt5.QtGui import QPainter
 
 from . import constants
 from . import layout
-from . import pagedview
 from . import view
 
 
 
-class SidebarView(pagedview.PagedViewMixin, view.View):
+class SidebarView(view.View):
     """A special View with miniatures to use as a sidebar for a View.
 
     Automatically displays all pages in a view in small size, and makes it
@@ -63,7 +62,7 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
         self.pageLayout().setMargins(QMargins(0, 0, 0, 0))
         self.pageLayout().setPageMargins(QMargins(4, 4, 4, 20))
         self.setLayoutFontHeight()
-        self.currentPageChanged.connect(self.viewport().update)
+        self.currentPageNumberChanged.connect(self.viewport().update)
     
     def setOrientation(self, orientation):
         """Reimplemented to also set the corresponding view mode."""
@@ -88,15 +87,15 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
         if view:
             self.slotLayoutUpdated()
             self.setCurrentPageNumber(view.currentPageNumber())
-            self.currentPageChanged.connect(view.setCurrentPageNumber)
-            view.currentPageChanged.connect(self.slotCurrentPageChanged)
+            self.currentPageNumberChanged.connect(view.setCurrentPageNumber)
+            view.currentPageNumberChanged.connect(self.slotCurrentPageNumberChanged)
             view.pageLayoutUpdated.connect(self.slotLayoutUpdated)
 
     def disconnectView(self):
         """Disconnects the current view."""
         if self._view is not None:
-            self.currentPageChanged.disconnect(self._view.setCurrentPageNumber)
-            self._view.currentPageChanged.disconnect(self.slotCurrentPageChanged)
+            self.currentPageNumberChanged.disconnect(self._view.setCurrentPageNumber)
+            self._view.currentPageNumberChanged.disconnect(self.slotCurrentPageNumberChanged)
             self._view.pageLayoutUpdated.disconnect(self.slotLayoutUpdated)
             self.clear()
         self._view = None
@@ -113,7 +112,7 @@ class SidebarView(pagedview.PagedViewMixin, view.View):
             layout.append(c)
         self.updatePageLayout()
 
-    def slotCurrentPageChanged(self, num):
+    def slotCurrentPageNumberChanged(self, num):
         """Called when the page number in the connected view changes.
         
         Does not scroll but updates the current page mark in our View.
