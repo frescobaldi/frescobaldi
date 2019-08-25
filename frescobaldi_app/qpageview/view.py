@@ -180,7 +180,7 @@ class View(scrollarea.ScrollArea):
             return
         self._viewMode = mode
         if mode:
-            with self._keepCentered():
+            with self.keepCentered():
                 self._fitLayout()
         self.viewModeChanged.emit(mode)
 
@@ -192,7 +192,7 @@ class View(scrollarea.ScrollArea):
         """Set the current rotation."""
         layout = self._pageLayout
         if rotation != layout.rotation:
-            with self._keepCentered():
+            with self.keepCentered():
                 layout.rotation = rotation
                 if self._viewMode:
                     self._fitLayout()
@@ -214,7 +214,7 @@ class View(scrollarea.ScrollArea):
         """Set the orientation (Horizontal or Vertical)."""
         layout = self._pageLayout
         if orientation != layout.orientation:
-            with self._keepCentered():
+            with self.keepCentered():
                 layout.orientation = orientation
                 if self._viewMode:
                     self._fitLayout()
@@ -236,7 +236,7 @@ class View(scrollarea.ScrollArea):
         oldcontinuous = layout.continuousMode
         if continuous:
             if not oldcontinuous:
-                with self._keepCentered():
+                with self.keepCentered():
                     layout.continuousMode = True
                     if self._viewMode:
                         self._fitLayout()
@@ -244,7 +244,7 @@ class View(scrollarea.ScrollArea):
         elif oldcontinuous:
             p = self.currentPage()
             index = layout.index(p) if p else 0
-            with self._keepCentered():
+            with self.keepCentered():
                 layout.continuousMode = False
                 layout.currentPageSet = layout.pageSet(index)
                 if self._viewMode:
@@ -433,7 +433,7 @@ class View(scrollarea.ScrollArea):
             self._unschedulePages(layout)
 
     @contextlib.contextmanager
-    def _keepCentered(self, pos=None):
+    def keepCentered(self, pos=None):
         """Context manager to keep the same spot centered while changing the layout.
 
         If pos is not given, the viewport's center is used.
@@ -467,7 +467,7 @@ class View(scrollarea.ScrollArea):
         """
         factor = max(self.MIN_ZOOM, min(self.MAX_ZOOM, factor))
         if factor != self._pageLayout.zoomFactor:
-            with self._keepCentered(pos):
+            with self.keepCentered(pos):
                 self._pageLayout.zoomFactor = factor
             self.setViewMode(FixedScale)
             self.zoomFactorChanged.emit(factor)
