@@ -147,7 +147,7 @@ class View(scrollarea.ScrollArea):
         the view, the top-left corner is positioned top-left in the view.)
         
         """
-        self.updateCurrentpageNumber(num)
+        self.updateCurrentPageNumber(num)
         page = self.currentPage()
         margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
         with self.pagingOnScrollDisabled():
@@ -155,7 +155,7 @@ class View(scrollarea.ScrollArea):
         if self.isScrolling():
             self._scrollingToPage = True
     
-    def updateCurrentpageNumber(self, num):
+    def updateCurrentPageNumber(self, num):
         """Set the current page number without scrolling the view."""
         count = self.pageCount()
         n = max(min(count, num), 1 if count else 0)
@@ -228,7 +228,7 @@ class View(scrollarea.ScrollArea):
             self._pageCount = count
             self.pageCountChanged.emit(count)
             n = max(min(count, self._currentPageNumber), 1 if count else 0)
-            self.updateCurrentpageNumber(n)
+            self.updateCurrentPageNumber(n)
 
         self.pageLayoutUpdated.emit()
         self.viewport().update()
@@ -372,7 +372,7 @@ class View(scrollarea.ScrollArea):
         if self.pagingOnScrollEnabled and not self._scrollingToPage:
             s = layout.currentPageSetSlice()
             num = s.start if pg == 0 else s.stop + pg
-            self.updateCurrentpageNumber(num + 1)
+            self.updateCurrentPageNumber(num + 1)
 
     def setMagnifier(self, magnifier):
         """Sets the Magnifier to use (or None to disable the magnifier).
@@ -444,7 +444,7 @@ class View(scrollarea.ScrollArea):
                 p = layout.pageAt(pos) or layout.nearestPageAt(pos)
                 if p:
                     num = layout.index(p) + 1
-                    self.updateCurrentpageNumber(num)
+                    self.updateCurrentPageNumber(num)
 
     def stopScrolling(self):
         """Reimplemented to adjust the mouse cursor on scroll stop."""
