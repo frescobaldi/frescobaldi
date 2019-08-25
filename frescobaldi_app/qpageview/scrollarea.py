@@ -317,7 +317,7 @@ class ScrollArea(QAbstractScrollArea):
 
     def isScrolling(self):
         """Return True if a scrolling movement is active."""
-        return bool(self._scroller)
+        return self._scroller is not None
     
     def isDragging(self):
         """Return True if the user is dragging the background."""
