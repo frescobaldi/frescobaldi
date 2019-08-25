@@ -515,38 +515,8 @@ class View(scrollarea.ScrollArea):
         """Yield the Page instances that are currently visible."""
         return self._pageLayout.pagesAt(self.visibleRect())
 
-    def offsetToEnsureVisible(self, rect):
-        """Return an offset QPoint with the minimal scroll to make rect visible.
-
-        If the rect is too large, it is positioned top-left.
-
-        """
-        vrect = self.visibleRect()
-        # vertical
-        dy = 0
-        if rect.bottom() > vrect.bottom():
-            dy = rect.bottom() - vrect.bottom()
-        if rect.top() < vrect.top() + dy:
-            dy = rect.top() - vrect.top()
-        # horizontal
-        dx = 0
-        if rect.right() > vrect.right():
-            dx = rect.right() - vrect.right()
-        if rect.left() < vrect.left() + dx:
-            dx = rect.left() - vrect.left()
-        return QPoint(dx, dy)
-
     def ensureVisible(self, rect, margins=None, allowKinetic=True):
-        """Performs the minimal scroll to make rect visible.
-        
-        Switches page set if needed. If allowKinetic is False, immediately
-        jumps to the position, otherwise scrolls smoothly (if kinetic scrolling
-        is enabled).
-        
-        For finding the page set, rect is used. When scrolling, margins is
-        added if given, and should be a QMargins instance.
-        
-        """
+        """Ensure rect is visible, switching page set if necessary."""
         if not any(self.pageLayout().pagesAt(rect)):
             if self.continuousMode():
                 return
@@ -558,14 +528,7 @@ class View(scrollarea.ScrollArea):
                 break
             else:
                 return
-        if margins is not None:
-            rect = rect + margins
-        diff = self.offsetToEnsureVisible(rect)
-        if diff:
-            if allowKinetic and self.kineticScrollingEnabled:
-                self.kineticScrollBy(diff)
-            else:
-                self.scrollBy(diff)
+        super().ensureVisible(rect, margins, allowKinetic)
 
     def adjustCursor(self, pos):
         """Sets the correct mouse cursor for the position on the page."""

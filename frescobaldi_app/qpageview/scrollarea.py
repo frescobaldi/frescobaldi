@@ -142,6 +142,45 @@ class ScrollArea(QAbstractScrollArea):
         r = self.viewport().rect() & QRect(pos, self.areaSize())
         return r.translated(-pos)
         
+    def offsetToEnsureVisible(self, rect):
+        """Return an offset QPoint with the minimal scroll to make rect visible.
+
+        If the rect is too large, it is positioned top-left.
+
+        """
+        area = self.visibleArea()
+        # vertical
+        dy = 0
+        if rect.bottom() > area.bottom():
+            dy = rect.bottom() - area.bottom()
+        if rect.top() < area.top() + dy:
+            dy = rect.top() - area.top()
+        # horizontal
+        dx = 0
+        if rect.right() > area.right():
+            dx = rect.right() - area.right()
+        if rect.left() < area.left() + dx:
+            dx = rect.left() - area.left()
+        return QPoint(dx, dy)
+
+    def ensureVisible(self, rect, margins=None, allowKinetic=True):
+        """Performs the minimal scroll to make rect visible.
+        
+        If the rect is not completely visible it is scrolled into view, adding
+        the margins if given (a QMargins instance). If allowKinetic is False,
+        immediately jumps to the position, otherwise scrolls smoothly (if
+        kinetic scrolling is enabled).
+        
+        """
+        if rect not in self.visibleArea():
+            if margins is not None:
+                rect = rect + margins
+            diff = self.offsetToEnsureVisible(rect)
+            if allowKinetic and self.kineticScrollingEnabled:
+                self.kineticScrollBy(diff)
+            else:
+                self.scrollBy(diff)
+
     def _updateScrollBars(self):
         """Internal. Adjust the range of the scrollbars to the area size.
         
