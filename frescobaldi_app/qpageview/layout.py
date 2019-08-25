@@ -350,13 +350,11 @@ class PageLayout(util.Rectangular, list):
         return pos + QPoint(round(x * w), round(y * h))
 
     def displayPages(self):
-        """Return the pages that are to be displayed.
+        """Return the pages that are to be displayed."""
+        return self[self.currentPageSetSlice()]
 
-        If continuousMode is True, simply returns self, to show all pages.
-        If not, reads the currentPageSet attribute and uses the pageSets()
-        method to determine the set of pages to restrict the display to.
-
-        """
+    def currentPageSetSlice(self):
+        """Return a slice object describing the current page set."""
         if not self.continuousMode:
             num = self.currentPageSet
             count = self.pageSetCount()
@@ -372,9 +370,9 @@ class PageLayout(util.Rectangular, list):
                     continue
                 count = num - p
                 s += count * length
-                return self[s:s+length]
-        return self
-
+                return slice(s, s + length)
+        return slice(0, self.count())
+        
     def pageSets(self):
         """Return a list of (count, length) tuples.
 
