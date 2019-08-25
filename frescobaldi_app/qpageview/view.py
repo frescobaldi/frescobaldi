@@ -64,6 +64,10 @@ class View(scrollarea.ScrollArea):
     
     View emits the following signals:
     
+    `pageCountChanged`          When the number of pages changes.
+
+    `currentPageNumberChanged`  When the current page number changes.
+
     `viewModeChanged`   When the user changes the view mode (one of FixedScale,
                         FitWidth, FitHeight and FitBoth)
 
@@ -81,7 +85,12 @@ class View(scrollarea.ScrollArea):
     
     The following instance variables can be set, and default to:
     
-    wheelZoomingEnabled = True      # if True, the user can zoom the View using the mouse wheel
+    wheelZoomingEnabled = True      # zoom the View using the mouse wheel
+    kineticPagingEnabled = True     # scroll smoothly on setCurrentPageNumber
+    pagingOnScrollEnabled = True    # keep track of current page while scrolling
+    clickToSetCurrentPageEnabled = True  # any mouseclick on a page sets it the current page
+    strictPagingEnabled = False     # PageUp, PageDown and wheel call setCurrentPageNumber i.s.o. scroll
+
     MIN_ZOOM = 0.05
     MAX_ZOOM = 64.0
 
@@ -91,7 +100,13 @@ class View(scrollarea.ScrollArea):
     MAX_ZOOM = 64.0
 
     wheelZoomingEnabled = True
+    kineticPagingEnabled = True  # scroll smoothly on setCurrentPageNumber
+    pagingOnScrollEnabled = True # keep track of current page while scrolling
+    clickToSetCurrentPageEnabled = True  # any mouseclick on a page sets it the current page
+    strictPagingEnabled = False  # PageUp and PageDown call setCurrentPageNumber i.s.o. scroll
 
+    pageCountChanged = pyqtSignal(int)
+    currentPageNumberChanged = pyqtSignal(int)
     viewModeChanged = pyqtSignal(int)
     rotationChanged = pyqtSignal(int)
     orientationChanged = pyqtSignal(int)
@@ -101,6 +116,9 @@ class View(scrollarea.ScrollArea):
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
+        self._currentPageNumber = 0
+        self._pageCount = 0
+        self._scrollingToPage = 0
         self._prev_pages_to_paint = set()
         self._viewMode = FixedScale
         self._pageLayout = None
@@ -112,6 +130,55 @@ class View(scrollarea.ScrollArea):
         self.setMouseTracking(True)
         self.setMinimumSize(QSize(60, 60))
         self.setPageLayout(layout.PageLayout())
+
+    def pageCount(self):
+        """Return the number of pages in the view."""
+        return self._pageCount
+
+    def currentPageNumber(self):
+        """Return the current page number in view (starting with 1)."""
+        return self._currentPageNumber
+    
+    def setCurrentPageNumber(self, num):
+        """Scrolls to the specified page number (starting with 1).
+        
+        If the page is already in view, the view is not scrolled, otherwise
+        the view is scrolled to center the page. (If the page is larger than 
+        the view, the top-left corner is positioned top-left in the view.)
+        
+        """
+        if self.updateCurrentpageNumber(num):
+            page = self._pageLayout[num-1]
+            margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
+            self.stopScrolling()
+            with self.pagingOnScrollDisabled():
+                self.ensureVisible(page.geometry(), margins, self.kineticPagingEnabled)
+            if self.isScrolling():
+                self._scrollingToPage = True
+    
+    def updateCurrentpageNumber(self, num):
+        """Set the current page number without scrolling the view.
+        
+        Returns True if the current page number was changed.
+        
+        """
+        if num > self.pageCount() or num < 1 or num == self.currentPageNumber():
+            return False
+        self._currentPageNumber = num
+        self.currentPageNumberChanged.emit(num)
+        return True
+
+    def gotoNextPage(self):
+        """Convenience method to go to the next page."""
+        num = self.currentPageNumber()
+        if num < self.pageCount():
+            self.setCurrentPageNumber(num + 1)
+    
+    def gotoPreviousPage(self):
+        """Convenience method to go to the previous page."""
+        num = self.currentPageNumber()
+        if num > 1:
+            self.setCurrentPageNumber(num - 1)
 
     def loadPdf(self, filename):
         """Convenience method to load the specified PDF file.
@@ -156,9 +223,18 @@ class View(scrollarea.ScrollArea):
         return self._pageLayout
 
     def updatePageLayout(self):
-        """Update layout and adjust scrollbars."""
+        """Update layout, adjust scrollbars, keep track of page count."""
         self._pageLayout.update()
         self.setAreaSize(self._pageLayout.size())
+
+        # keep track of page count
+        count = self._pageLayout.count()
+        if count != self._pageCount:
+            self._pageCount = count
+            self.pageCountChanged.emit(count)
+            n = max(min(count, self._currentPageNumber), 1 if count else 0)
+            self.updateCurrentpageNumber(n)
+
         self.pageLayoutUpdated.emit()
         self.viewport().update()
 
@@ -169,13 +245,9 @@ class View(scrollarea.ScrollArea):
         self.updatePageLayout()
 
     def currentPage(self):
-        """Return the page that is in the center of the View.
-        
-        Might return None, if there are no pages.
-        
-        """
-        pos = self.viewport().rect().center() - self.layoutPosition()
-        return self._pageLayout.pageAt(pos) or self._pageLayout.nearestPageAt(pos)
+        """return the page pointed to by currentPageNumber()."""
+        if self.pageCount() > 0:
+            return self._pageLayout[self._currentPageNumber-1]
 
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
@@ -239,7 +311,7 @@ class View(scrollarea.ScrollArea):
         oldcontinuous = layout.continuousMode
         if continuous:
             if not oldcontinuous:
-                with self.keepCentered():
+                with self.pagingOnScrollDisabled(), self.keepCentered():
                     layout.continuousMode = True
                     if self._viewMode:
                         self._fitLayout()
@@ -247,7 +319,7 @@ class View(scrollarea.ScrollArea):
         elif oldcontinuous:
             p = self.currentPage()
             index = layout.index(p) if p else 0
-            with self.keepCentered():
+            with self.pagingOnScrollDisabled(), self.keepCentered():
                 layout.continuousMode = False
                 layout.currentPageSet = layout.pageSet(index)
                 if self._viewMode:
@@ -274,23 +346,26 @@ class View(scrollarea.ScrollArea):
         if layout.continuousMode:
             return
 
-        sb = 0  # where to move the scrollbar after fitlayout
+        sb = None  # where to move the scrollbar after fitlayout
+        pg = 0  # which page is current page after page set switch (-1 is last)
         if what == "first":
             what = 0
-            sb = -1     # move to the start
+            sb = "up"   # move to the start
         elif what == "last":
             what = layout.pageSetCount() - 1
-            sb = 1      # move to the end
+            sb = "down" # move to the end
+            pg = -1
         elif what == "previous":
             what = layout.currentPageSet - 1
             if what < 0:
                 return
-            sb = 1
+            sb = "down"
+            pg = -1
         elif what == "next":
             what = layout.currentPageSet + 1
             if what >= layout.pageSetCount():
                 return
-            sb = -1
+            sb = "up"
         elif not 0 <= what < layout.pageSetCount():
             return
         layout.currentPageSet = what
@@ -298,7 +373,11 @@ class View(scrollarea.ScrollArea):
             self._fitLayout()
         self.updatePageLayout()
         if sb:
-            self.verticalScrollBar().setValue(0 if sb == -1 else self.verticalScrollBar().maximum())
+            self.verticalScrollBar().setValue(0 if sb == "up" else self.verticalScrollBar().maximum())
+        if self.pagingOnScrollEnabled and not self._scrollingToPage:
+            s = layout.currentPageSetSlice()
+            num = s.start if pg == 0 else s.stop + pg
+            self.updateCurrentpageNumber(num + 1)
 
     def setMagnifier(self, magnifier):
         """Sets the Magnifier to use (or None to disable the magnifier).
@@ -338,6 +417,15 @@ class View(scrollarea.ScrollArea):
         """Return the currently set rubberband."""
         return self._rubberband
 
+    @contextlib.contextmanager
+    def pagingOnScrollDisabled(self):
+        """During this context a scroll is not tracked to update the current page number."""
+        old, self._scrollingToPage = self._scrollingToPage, True
+        try:
+            yield
+        finally:
+            self._scrollingToPage = old
+        
     def scrollContentsBy(self, dx, dy):
         """Reimplemented to move the rubberband and adjust the mouse cursor."""
         if self._rubberband:
@@ -348,10 +436,25 @@ class View(scrollarea.ScrollArea):
             if pos in self.viewport().rect() and not self.viewport().childAt(pos):
                 self.adjustCursor(pos)
         self.viewport().update()
-    
+
+        # keep track of current page. If the scroll wasn't initiated by the 
+        # setCurrentPage() call, check # whether the current page number needs
+        # to be updated
+        if self.pagingOnScrollEnabled and not self._scrollingToPage and self.pageCount() > 0:
+            # do nothing if current page is still fully in view
+            if self.currentPage().geometry() not in self.visibleRect():
+                # find the page in the center of the view
+                layout = self._pageLayout
+                pos = self.visibleRect().center()
+                p = layout.pageAt(pos) or layout.nearestPageAt(pos)
+                if p:
+                    num = layout.index(p) + 1
+                    self.updateCurrentpageNumber(num)
+
     def stopScrolling(self):
         """Reimplemented to adjust the mouse cursor on scroll stop."""
         super().stopScrolling()
+        self._scrollingToPage = False
         pos = self.viewport().mapFromGlobal(QCursor.pos())
         if pos in self.viewport().rect() and not self.viewport().childAt(pos):
             self.adjustCursor(pos)
@@ -531,6 +634,7 @@ class View(scrollarea.ScrollArea):
                 break
             else:
                 return
+        rect = rect.translated(-self._pageLayout.pos())
         super().ensureVisible(rect, margins, allowKinetic)
 
     def adjustCursor(self, pos):
@@ -539,16 +643,17 @@ class View(scrollarea.ScrollArea):
 
     def resizeEvent(self, ev):
         """Reimplemented to scale the view if needed and update the scrollbars."""
-        if self._viewMode and not self._pageLayout.empty():
-            # sensible repositioning
-            vbar = self.verticalScrollBar()
-            hbar = self.horizontalScrollBar()
-            x, xm = hbar.value(), hbar.maximum()
-            y, ym = vbar.value(), vbar.maximum()
-            self._fitLayout()
-            self.updatePageLayout()
-            if xm: hbar.setValue(round(x * hbar.maximum() / xm))
-            if ym: vbar.setValue(round(y * vbar.maximum() / ym))
+        with self.pagingOnScrollDisabled():
+            if self._viewMode and not self._pageLayout.empty():
+                # sensible repositioning
+                vbar = self.verticalScrollBar()
+                hbar = self.horizontalScrollBar()
+                x, xm = hbar.value(), hbar.maximum()
+                y, ym = vbar.value(), vbar.maximum()
+                self._fitLayout()
+                self.updatePageLayout()
+                if xm: hbar.setValue(round(x * hbar.maximum() / xm))
+                if ym: vbar.setValue(round(y * vbar.maximum() / ym))
         super().resizeEvent(ev)
 
     def repaintPage(self, page):
@@ -655,14 +760,26 @@ class View(scrollarea.ScrollArea):
         elif not ev.modifiers():
             # if scrolling is not possible, try going to next or previous pageset.
             sb = self.verticalScrollBar()
+            sp = self.strictPagingEnabled
             if ev.angleDelta().y() > 0 and sb.value() == 0:
-                self.displayPageSet("previous")
+                self.gotoPreviousPage() if sp else self.displayPageSet("previous")
             elif ev.angleDelta().y() < 0 and sb.value() == sb.maximum():
-                self.displayPageSet("next")
+                self.gotoNextPage() if sp else self.displayPageSet("next")
             else:
                 super().wheelEvent(ev)
         else:
             super().wheelEvent(ev)
+
+    def mousePressEvent(self, ev):
+        """Implemented to set the clicked page as current, without moving it."""
+        if self.clickToSetCurrentPageEnabled:
+            page = self._pageLayout.pageAt(ev.pos() - self.layoutPosition())
+            if page:
+                num = self._pageLayout.index(page) + 1
+                if num != self._currentPageNumber:
+                    self._currentPageNumber = num
+                    self.currentPageNumberChanged.emit(num)
+        super().mousePressEvent(ev)
 
     def mouseMoveEvent(self, ev):
         """Implemented to adjust the mouse cursor depending on the page contents."""
@@ -681,14 +798,15 @@ class View(scrollarea.ScrollArea):
 
         # Paging through page sets?
         sb = self.verticalScrollBar()
+        sp = self.strictPagingEnabled
         if ev.key() == Qt.Key_PageUp and sb.value() == 0:
-            self.displayPageSet("previous")
+            self.gotoPreviousPage() if sp else self.displayPageSet("previous")
         elif ev.key() == Qt.Key_PageDown and sb.value() == sb.maximum():
-            self.displayPageSet("next")
+            self.gotoNextPage() if sp else self.displayPageSet("next")
         elif ev.key() == Qt.Key_Home and ev.modifiers() == Qt.ControlModifier:
-            self.displayPageSet("first")
+            self.setCurrentPageNumber(1) if sp else self.displayPageSet("first")
         elif ev.key() == Qt.Key_End and ev.modifiers() == Qt.ControlModifier:
-            self.displayPageSet("last")
+            self.setCurrentPageNumber(self.pageCount()) if sp else self.displayPageSet("last")
         else:
             super().keyPressEvent(ev)
 
