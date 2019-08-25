@@ -147,26 +147,21 @@ class View(scrollarea.ScrollArea):
         the view, the top-left corner is positioned top-left in the view.)
         
         """
-        if self.updateCurrentpageNumber(num):
-            page = self._pageLayout[num-1]
-            margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
-            self.stopScrolling()
-            with self.pagingOnScrollDisabled():
-                self.ensureVisible(page.geometry(), margins, self.kineticPagingEnabled)
-            if self.isScrolling():
-                self._scrollingToPage = True
+        self.updateCurrentpageNumber(num)
+        page = self.currentPage()
+        margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
+        with self.pagingOnScrollDisabled():
+            self.ensureVisible(page.geometry(), margins, self.kineticPagingEnabled)
+        if self.isScrolling():
+            self._scrollingToPage = True
     
     def updateCurrentpageNumber(self, num):
-        """Set the current page number without scrolling the view.
-        
-        Returns True if the current page number was changed.
-        
-        """
-        if num > self.pageCount() or num < 1 or num == self.currentPageNumber():
-            return False
-        self._currentPageNumber = num
-        self.currentPageNumberChanged.emit(num)
-        return True
+        """Set the current page number without scrolling the view."""
+        count = self.pageCount()
+        n = max(min(count, num), 1 if count else 0)
+        if n == num and n != self._currentPageNumber:
+            self._currentPageNumber = num
+            self.currentPageNumberChanged.emit(num)
 
     def gotoNextPage(self):
         """Convenience method to go to the next page."""
