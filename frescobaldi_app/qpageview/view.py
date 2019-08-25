@@ -591,10 +591,10 @@ class View(scrollarea.ScrollArea):
         self.viewport().update(rect)
 
     def lazyUpdate(self, page=None):
-        """Repaint page or all visible pages, rendering the pages if needed.
+        """Lazily repaint page (if visible) or all visible pages.
         
-        Only updates the viewport as soon as all rendering tasks for the page
-        have finished. This reduces flicker.
+        Defers updating the viewport for a page until all rendering tasks for
+        that page have finished. This reduces flicker.
         
         """
         pages = list(self.visiblePages())
