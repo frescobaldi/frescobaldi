@@ -342,20 +342,17 @@ class View(scrollarea.ScrollArea):
             return
 
         sb = None  # where to move the scrollbar after fitlayout
-        pg = 0  # which page is current page after page set switch (-1 is last)
         if what == "first":
             what = 0
             sb = "up"   # move to the start
         elif what == "last":
             what = layout.pageSetCount() - 1
             sb = "down" # move to the end
-            pg = -1
         elif what == "previous":
             what = layout.currentPageSet - 1
             if what < 0:
                 return
             sb = "down"
-            pg = -1
         elif what == "next":
             what = layout.currentPageSet + 1
             if what >= layout.pageSetCount():
@@ -371,7 +368,7 @@ class View(scrollarea.ScrollArea):
             self.verticalScrollBar().setValue(0 if sb == "up" else self.verticalScrollBar().maximum())
         if self.pagingOnScrollEnabled and not self._scrollingToPage:
             s = layout.currentPageSetSlice()
-            num = s.start if pg == 0 else s.stop + pg
+            num = s.stop - 1 if sb == "down" else s.start
             self.updateCurrentPageNumber(num + 1)
 
     def setMagnifier(self, magnifier):
@@ -771,9 +768,7 @@ class View(scrollarea.ScrollArea):
             page = self._pageLayout.pageAt(ev.pos() - self.layoutPosition())
             if page:
                 num = self._pageLayout.index(page) + 1
-                if num != self._currentPageNumber:
-                    self._currentPageNumber = num
-                    self.currentPageNumberChanged.emit(num)
+                self.updateCurrentPageNumber(num)
         super().mousePressEvent(ev)
 
     def mouseMoveEvent(self, ev):
