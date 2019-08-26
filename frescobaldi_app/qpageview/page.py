@@ -108,6 +108,10 @@ class AbstractPage(util.Rectangular):
         """
         return QSizeF(self.pageWidth, self.pageHeight)
 
+    def pageRect(self):
+        """Return QRectF(0, 0, pageWidth, pageHeight)."""
+        return QRectF(0, 0, self.pageWidth, self.pageHeight)
+
     def defaultSize(self):
         """Return the pageSize() scaled and rotated (if needed).
         
@@ -163,7 +167,7 @@ class AbstractPage(util.Rectangular):
         if rect and self.renderer:
             self.renderer.paint(self, painter, rect, callback)
 
-    def print(self, painter, rect):
+    def print(self, painter, rect=None):
         """Reimplement this to paint a page for printing.
 
         The difference with paint() and image() is that the rect (QRectF)
@@ -171,9 +175,12 @@ class AbstractPage(util.Rectangular):
         pageSize() and unrotated. The painter has been prepared for scale and
         rotation.
 
+        If rect is None, the full pageRect() is used.
         By default, this method calls the renderer's print() method.
 
         """
+        if rect is None:
+            rect = self.pageRect()
         if rect and self.renderer:
             self.renderer.print(self, painter, rect)
 
