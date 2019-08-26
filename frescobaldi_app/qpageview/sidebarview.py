@@ -111,7 +111,7 @@ class SidebarView(view.View):
         Does not scroll but updates the current page mark in our View.
         
         """
-        self.updateCurrentPageNumber(num)
+        self._currentPageNumber = num
         self.viewport().update()
 
     def paintEvent(self, ev):
