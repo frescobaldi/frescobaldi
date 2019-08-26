@@ -76,30 +76,23 @@ class SidebarView(view.View):
         """Reads the current font height and reserves enough space in the layout."""
         self.pageLayout().pageMargins().setBottom(self.fontMetrics().height())
         self.updatePageLayout()
-    
-    def connectView(self, view):
-        """Connects to a view, connecting some signals. """
-        if self._view is view:
-            return
-        if self._view:
-            self.disconnectView()
-        self._view = view
-        if view:
-            self.slotLayoutUpdated()
-            self.setCurrentPageNumber(view.currentPageNumber())
-            self.currentPageNumberChanged.connect(view.setCurrentPageNumber)
-            view.currentPageNumberChanged.connect(self.slotCurrentPageNumberChanged)
-            view.pageLayoutUpdated.connect(self.slotLayoutUpdated)
 
-    def disconnectView(self):
-        """Disconnects the current view."""
-        if self._view is not None:
-            self.currentPageNumberChanged.disconnect(self._view.setCurrentPageNumber)
-            self._view.currentPageNumberChanged.disconnect(self.slotCurrentPageNumberChanged)
-            self._view.pageLayoutUpdated.disconnect(self.slotLayoutUpdated)
-            self.clear()
-        self._view = None
-    
+    def setView(self, view):
+        """Connects to a View, or disconnects the current view if view is None."""
+        if view is not self._view:
+            if self._view:
+                self.currentPageNumberChanged.disconnect(self._view.setCurrentPageNumber)
+                self._view.currentPageNumberChanged.disconnect(self.slotCurrentPageNumberChanged)
+                self._view.pageLayoutUpdated.disconnect(self.slotLayoutUpdated)
+                self.clear()
+            self._view = view
+            if view:
+                self.slotLayoutUpdated()
+                self.setCurrentPageNumber(view.currentPageNumber())
+                self.currentPageNumberChanged.connect(view.setCurrentPageNumber)
+                view.currentPageNumberChanged.connect(self.slotCurrentPageNumberChanged)
+                view.pageLayoutUpdated.connect(self.slotLayoutUpdated)
+
     def slotLayoutUpdated(self):
         """Called when the layout of the connected view is updated."""
         layout = self.pageLayout()
@@ -118,7 +111,7 @@ class SidebarView(view.View):
         Does not scroll but updates the current page mark in our View.
         
         """
-        self._currentPage = num
+        self.updateCurrentPageNumber(num)
         self.viewport().update()
 
     def paintEvent(self, ev):
