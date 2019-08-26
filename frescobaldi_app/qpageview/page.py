@@ -163,6 +163,20 @@ class AbstractPage(util.Rectangular):
         if rect and self.renderer:
             self.renderer.paint(self, painter, rect, callback)
 
+    def print(self, painter, rect):
+        """Reimplement this to paint a page for printing.
+
+        The difference with paint() and image() is that the rect (QRectF)
+        supplied to print() is not in the Page coordinates, but in the original
+        pageSize() and unrotated. The painter has been prepared for scale and
+        rotation.
+
+        By default, this method calls the renderer's print() method.
+
+        """
+        if rect and self.renderer:
+            self.renderer.print(self, painter, rect)
+
     def image(self, rect, dpiX=None, dpiY=None):
         """Returns a QImage of the specified rectangle.
 

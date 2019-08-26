@@ -33,6 +33,7 @@ from .constants import (
     Rotate_270,
 )
 
+from . import locking
 from . import page
 from . import render
 
@@ -139,11 +140,27 @@ class Renderer(render.AbstractImageRenderer):
         # for rotation 1 and 3, but that yields strange misdrawings...
         w = tile.w / hscale
         h = tile.h / vscale
-            
-        page._svg_r.setViewBox(QRectF(x, y, w, h))
-        page._svg_r.render(painter)
-        page._svg_r.setViewBox(page._viewBox)
+
+        with locking.lock(page._svg_r):
+            page._svg_r.setViewBox(QRectF(x, y, w, h))
+            page._svg_r.render(painter)
+            page._svg_r.setViewBox(page._viewBox)
         return i
+
+    def print(self, page, painter, rect):
+        """Paints the desired part of the page to the painter for printing."""
+        ### compute viewbox, rect corresponds to the original size
+        hscale = page._viewBox.width() / page.pageWidth
+        vscale = page._viewBox.height() / page.pageHeight
+        x = page._viewBox.x() + rect.x() * hscale
+        y = page._viewBox.y() + rect.y() * vscale
+        w = rect.width() * hscale
+        h = rect.height() * vscale
+        with locking.lock(page._svg_r):
+            page._svg_r.setViewBox(QRectF(x, y, w, h))
+            page._svg_r.render(painter)
+            page._svg_r.setViewBox(page._viewBox)
+
 
 
 # install a default renderer, so SvgPage can be used directly

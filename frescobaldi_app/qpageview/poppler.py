@@ -138,6 +138,8 @@ class Renderer(render.AbstractImageRenderer):
         popplerqt5.Poppler.Document.TextAntialiasing
     )
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
+    printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
+
     oversampleThreshold = 96
     
     def render(self, page, key, tile):
@@ -188,6 +190,32 @@ class Renderer(render.AbstractImageRenderer):
                 doc.setRenderBackend(oldbackend)
         return image
 
+    def print(self, page, painter, rect):
+        """Print rect from the page using the printRenderBackend."""
+        doc = page.document
+        page = doc.page(page.pageNumber)
+        paperColor = page.paperColor or self.paperColor
+        with locking.lock(doc):
+            if self.renderHint is not None:
+                doc.setRenderHint(int(doc.renderHints()), False)
+                doc.setRenderHint(self.renderHint)
+            if paperColor:
+                oldcolor = doc.paperColor()
+                doc.setPaperColor(paperColor)
+            if self.printRenderBackend is not None:
+                doc.setRenderBackend(self.printRenderBackend)
+                oldbackend = doc.renderBackend()
+            if self.printRenderBackend == popplerqt5.Poppler.Document.ArthurBackend:
+                page.renderToPainter(painter, 72.0, 72.0, rect.x(), rect.y(), rect.w(), rect.h())
+            else:
+                dpi = painter.device().resolution()
+                scale = dpi / 72.0
+                img = page.renderToImage(dpi, dpi, rect.x()*scale, rect.y()*scale, rect.w()*scale, rect.h()*scale)
+                painter.drawImage(rect, img, QRectF(img.rect()))
+            if paperColor:
+                doc.setPaperColor(oldcolor)
+            if self.printRenderBackend is not None:
+                doc.setRenderBackend(oldbackend)
 
 
 # install a default renderer, so PopplerPage can be used directly
