@@ -141,6 +141,7 @@ class Renderer(render.AbstractImageRenderer):
     printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
 
     oversampleThreshold = 96
+    printResolution = 300   # (only for SplashBackend)
     
     def render(self, page, key, tile):
         """Generate an image for the Page referred to by key."""
@@ -195,7 +196,7 @@ class Renderer(render.AbstractImageRenderer):
         doc = page.document
         p = doc.page(page.pageNumber)
         paperColor = page.paperColor or self.paperColor
-        dpi = painter.device().resolution()
+        dpi = self.printResolution
         scale = dpi / 72.0
         r = QRectF(rect.x()*scale, rect.y()*scale, rect.width()*scale, rect.height()*scale)
 
