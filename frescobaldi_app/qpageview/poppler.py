@@ -193,8 +193,12 @@ class Renderer(render.AbstractImageRenderer):
     def print(self, page, painter, rect):
         """Print rect from the page using the printRenderBackend."""
         doc = page.document
-        page = doc.page(page.pageNumber)
+        p = doc.page(page.pageNumber)
         paperColor = page.paperColor or self.paperColor
+        dpi = painter.device().resolution()
+        scale = dpi / 72.0
+        r = QRectF(rect.x()*scale, rect.y()*scale, rect.width()*scale, rect.height()*scale)
+
         with locking.lock(doc):
             if self.renderHint is not None:
                 doc.setRenderHint(int(doc.renderHints()), False)
@@ -206,12 +210,10 @@ class Renderer(render.AbstractImageRenderer):
                 doc.setRenderBackend(self.printRenderBackend)
                 oldbackend = doc.renderBackend()
             if self.printRenderBackend == popplerqt5.Poppler.Document.ArthurBackend:
-                page.renderToPainter(painter, 72.0, 72.0, rect.x(), rect.y(), rect.w(), rect.h())
+                p.renderToPainter(painter, dpi, dpi, r.x(), r.y(), r.width(), r.height())
             else:
-                dpi = painter.device().resolution()
-                scale = dpi / 72.0
-                img = page.renderToImage(dpi, dpi, rect.x()*scale, rect.y()*scale, rect.w()*scale, rect.h()*scale)
-                painter.drawImage(rect, img, QRectF(img.rect()))
+                img = p.renderToImage(dpi, dpi, r.x(), r.y(), r.width(), r.height())
+                painter.drawImage(r, img, QRectF(img.rect()))
             if paperColor:
                 doc.setPaperColor(oldcolor)
             if self.printRenderBackend is not None:
