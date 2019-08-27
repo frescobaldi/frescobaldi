@@ -25,7 +25,7 @@ A Page is responsible for drawing a page inside a PageLayout.
 import copy
 
 from PyQt5.QtCore import QPointF, QRect, QRectF, QSizeF, Qt
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor, QTransform
 
 from . import util
 from .constants import Rotate_0
@@ -111,6 +111,23 @@ class AbstractPage(util.Rectangular):
     def pageRect(self):
         """Return QRectF(0, 0, pageWidth, pageHeight)."""
         return QRectF(0, 0, self.pageWidth, self.pageHeight)
+
+    def transform(self, width=None, height=None):
+        """Return a QTransform, converting an original area to page coordinates.
+
+        The `width` and `height` refer to the original (unrotated) width and
+        height of the page's contents, and default to pageWidth and pageHeight.
+
+        """
+        if width  is None: width  = self.pageWidth
+        if height is None: height = self.pageHeight
+        t = QTransform()
+        t.scale(self.width, self.height)
+        t.translate(.5, .5)
+        t.rotate(self.computedRotation * 90)
+        t.translate(-.5, -.5)
+        t.scale(1 / width, 1 / height)
+        return t
 
     def defaultSize(self):
         """Return the pageSize() scaled and rotated (if needed).
