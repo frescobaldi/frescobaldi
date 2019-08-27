@@ -266,134 +266,24 @@ class AbstractPage(util.Rectangular):
         """
         return None
     
-    def area2pageRect(self, width=None, height=None):
-        """Return a callable that converts a rect from the original area to page coordinates.
+    def mapToPage(self, width=None, height=None):
+        """Return a MapToPage object, that can map original to Page coordinates.
 
-        The returned callable accepts a QRectF or QRect and returns a QRect.
         The `width` and `height` refer to the original (unrotated) width and
         height of the page's contents, and default to pageWidth and pageHeight.
 
         """
-        t = self.transform(width, height)
-        return lambda rect: t.mapRect(QRectF(rect)).toRect()
+        return util.MapToPage(self.transform(width, height))
 
-    def page2areaRect(self, width=None, height=None):
-        """Return a callable that converts a rect from page coordinates to the original area.
+    def mapFromPage(self, width=None, height=None):
+        """Return a MapFromPage object, that can map Page to original coordinates.
 
-        The returned callable accepts a QRectF or QRect and returns a QRectF.
         The `width` and `height` refer to the original (unrotated) width and
         height of the page's contents, and default to pageWidth and pageHeight.
 
         """
-        t = self.transform(width, height).inverted()[0]
-        return lambda rect: t.mapRect(QRectF(rect))
+        return util.MapFromPage(self.transform(width, height).inverted()[0])
 
-    def area2pagePoint(self, width=None, height=None):
-        """Return a callable that converts a point from the original area to page coordinates.
-
-        The returned callable accepts a QPointF or QPoint and returns a QPoint.
-        The `width` and `height` refer to the original (unrotated) width and
-        height of the page's contents, and default to pageWidth and pageHeight.
-
-        """
-        t = self.transform(width, height)
-        return lambda point: t.map(QPointF(point)).toPoint()
-
-    def page2areaPoint(self, width=None, height=None):
-        """Return a callable that converts a point from page coordinates to the original area.
-
-        The returned callable accepts a QPointF or QPoint and returns a QPointF.
-        The `width` and `height` refer to the original (unrotated) width and
-        height of the page's contents, and default to pageWidth and pageHeight.
-
-        """
-        t = self.transform(width, height).inverted()[0]
-        return lambda point: t.map(QPointF(point))
-
-    def area2page(self, rect, width=None, height=None):
-        """Return a QRect, converting an original area to page coordinates.
-        
-        `rect` may be a QRect or QRectF instance. The `width` and `height`
-        refer to the original (unrotated) width and height of the page's
-        contents, and default to pageWidth and pageHeight.
-        
-        """
-        if width  is None: width  = self.pageWidth
-        if height is None: height = self.pageHeight
-        rect = rect.normalized()
-        left, top, right, bottom = rect.getCoords()
-        # first scale to a 0-1 scale
-        left   /= width
-        top    /= height
-        right  /= width
-        bottom /= height
-        # then rotate
-        if self.computedRotation:
-            left, top, right, bottom = \
-                util.rotate_rect_cw[self.computedRotation](left, top, right, bottom)
-        # then scale to page coordinates
-        rect = QRect()
-        rect.setCoords(left   * self.width,
-                       top    * self.height,
-                       right  * self.width,
-                       bottom * self.height)
-        return rect
-        
-    def page2area(self, rect, width=None, height=None):
-        """Return a QRectF(), converting a page rectangle to the original area.
-        
-        This is the opposite of area2page().
-        
-        The specified `rect` (QRect) should be in page coordinates, and is
-        scaled into the specified width and height, and rotated so it
-        corresponds with the original page rotation.
-        
-        This way, objects like links can be correctly found in a scaled and 
-        rotated page. The returned QRectF() falls in the rect(0, 0, width,
-        height) and both width and height default to pageWidth and pageHeight.
-        
-        """
-        if width  is None: width  = self.pageWidth
-        if height is None: height = self.pageHeight
-        rect = rect.normalized()
-        left, top, right, bottom = rect.getCoords()
-        # first scale to a 0-1 scale
-        left   /= self.width
-        top    /= self.height
-        right  /= self.width
-        bottom /= self.height
-        # then rotate backwards
-        if self.computedRotation:
-            left, top, right, bottom = \
-                util.rotate_rect_ccw[self.computedRotation](left, top, right, bottom)
-        # then scale to the original coordinates
-        rect = QRectF()
-        rect.setCoords(left   * width,
-                       top    * height,
-                       right  * width,
-                       bottom * height)
-        return rect
-    
-    def area2point(self, x, y, width=None, height=None):
-        """Return a tuple (x, y), converting a point on the original area to the page."""
-        if width  is None: width  = self.pageWidth
-        if height is None: height = self.pageHeight
-        x /= width
-        y /= height
-        if self.computedRotation:
-            x, y = util.rotate_cw[self.computedRotation](x, y)
-        return x * self.width, y * self.height
-    
-    def point2area(self, x, y, width=None, height=None):
-        """Return a tuple (x, y), converting a point on the page to the original area."""
-        if width  is None: width  = self.pageWidth
-        if height is None: height = self.pageHeight
-        x /= self.width
-        y /= self.height
-        if self.computedRotation:
-            x, y = util.rotate_ccw[self.computedRotation](x, y)
-        return x * width, y * height
-    
     def text(self, rect):
         """Implement this method to get the text at the specified rectangle.
         
@@ -432,9 +322,9 @@ class AbstractPage(util.Rectangular):
         """
         # Link objects have their area ranging
         # in width and height from 0.0 to 1.0 ...
-        x, y = self.point2area(point.x(), point.y(), 1, 1)
+        pos = self.mapFromPage(1, 1).point(point)
         links = self.links()
-        return sorted(links.at(x, y), key=links.width)
+        return sorted(links.at(pos.x(), pos.y()), key=links.width)
 
     def linksIn(self, rect):
         """Return an unordered set of links enclosed in rectangle.
@@ -442,10 +332,10 @@ class AbstractPage(util.Rectangular):
         The rectangle is in page coordinates.
         
         """
-        return self.links().inside(*self.page2area(rect, 1, 1).getCoords())
+        return self.links().inside(*self.mapFromPage(1, 1).rect(rect).getCoords())
 
     def linkRect(self, link):
         """Return a QRect encompassing the linkArea of a link in coordinates of our page."""
-        return self.area2page(link.area, 1, 1)
+        return self.mapToPage(1, 1).rect(link.area)
 
 

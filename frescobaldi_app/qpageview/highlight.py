@@ -120,8 +120,9 @@ class HighlightViewMixin:
                     areas = d[page]
                 except KeyError:
                     continue
-                rectarea = page.page2area(rect, 1, 1)
-                rects = [page.area2page(area, 1, 1) for area in areas if area & rectarea]
+                rectarea = page.mapFromPage(1, 1).rect(rect)
+                f = page.mapToPage(1, 1).rect
+                rects = [f(area) for area in areas if area & rectarea]
                 highlighter.paintRects(painter, rects)
 
 

@@ -115,7 +115,7 @@ class PopplerPage(page.AbstractPage):
 
     def text(self, rect):
         """Returns text inside rectangle."""
-        rect = self.page2area(rect, self.pageWidth, self.pageHeight)
+        rect = self.mapFromPage(self.pageWidth, self.pageHeight).rect(rect)
         with locking.lock(self.document):
             page = self.document.page(self.pageNumber)
             return page.text(rect)
