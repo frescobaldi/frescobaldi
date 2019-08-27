@@ -266,6 +266,50 @@ class AbstractPage(util.Rectangular):
         """
         return None
     
+    def area2pageRect(self, width=None, height=None):
+        """Return a callable that converts a rect from the original area to page coordinates.
+
+        The returned callable accepts a QRectF or QRect and returns a QRect.
+        The `width` and `height` refer to the original (unrotated) width and
+        height of the page's contents, and default to pageWidth and pageHeight.
+
+        """
+        t = self.transform(width, height)
+        return lambda rect: t.mapRect(QRectF(rect)).toRect()
+
+    def page2areaRect(self, width=None, height=None):
+        """Return a callable that converts a rect from page coordinates to the original area.
+
+        The returned callable accepts a QRectF or QRect and returns a QRectF.
+        The `width` and `height` refer to the original (unrotated) width and
+        height of the page's contents, and default to pageWidth and pageHeight.
+
+        """
+        t = self.transform(width, height).inverted()[0]
+        return lambda rect: t.mapRect(QRectF(rect))
+
+    def area2pagePoint(self, width=None, height=None):
+        """Return a callable that converts a point from the original area to page coordinates.
+
+        The returned callable accepts a QPointF or QPoint and returns a QPoint.
+        The `width` and `height` refer to the original (unrotated) width and
+        height of the page's contents, and default to pageWidth and pageHeight.
+
+        """
+        t = self.transform(width, height)
+        return lambda point: t.map(QPointF(point)).toPoint()
+
+    def page2areaPoint(self, width=None, height=None):
+        """Return a callable that converts a point from page coordinates to the original area.
+
+        The returned callable accepts a QPointF or QPoint and returns a QPointF.
+        The `width` and `height` refer to the original (unrotated) width and
+        height of the page's contents, and default to pageWidth and pageHeight.
+
+        """
+        t = self.transform(width, height).inverted()[0]
+        return lambda point: t.map(QPointF(point))
+
     def area2page(self, rect, width=None, height=None):
         """Return a QRect, converting an original area to page coordinates.
         
