@@ -218,17 +218,14 @@ class AbstractPage(util.Rectangular):
             s = self.defaultSize()
             hscale = s.width() * dpiX / self.dpi / self.width
             vscale = s.height() * dpiY / self.dpi / self.height
+            matrix = QTransform().scale(hscale, vscale)
 
             from . import render
-            t = render.Tile(round(rect.x() * hscale),
-                            round(rect.y() * vscale),
-                            round(rect.width() * hscale),
-                            round(rect.height() * vscale))
+            t = render.Tile(*matrix.mapRect(rect).getRect())
             k = render.Key(self.group(),
                     self.ident(),
                     self.computedRotation,
-                    round(self.width * hscale),
-                    round(self.height * vscale))
+                    *matrix.map(self.width, self.height))
             return self.renderer.render(self, k, t)
 
     def mutex(self):
