@@ -43,26 +43,36 @@ class SvgPage(page.AbstractPage):
 
     dpi = 90.0
     
-    def __init__(self, load_file=None, renderer=None):
+    def __init__(self, svgrenderer, renderer=None):
         super().__init__()
-        self._viewBox = None
-        self._svg_r = QSvgRenderer()
+        self._svg = svgrenderer
+        self.pageWidth = svgrenderer.defaultSize().width()
+        self.pageHeight = svgrenderer.defaultSize().height()
+        self._viewBox = svgrenderer.viewBoxF()
         if renderer is not None:
             self.renderer = renderer
-        if load_file:
-            self.load(load_file)
 
-    def load(self, load_file):
-        """Load filename or QByteArray."""
-        success = self._svg_r.load(load_file)
-        if success:
-            self.pageWidth = self._svg_r.defaultSize().width()
-            self.pageHeight = self._svg_r.defaultSize().height()
-            self._viewBox = self._svg_r.viewBoxF()
-        return success
+    @classmethod
+    def load(cls, filename, renderer=None):
+        """Load a SVG document from filename, which may also be a QByteArray."""
+        r = QSvgRenderer()
+        if r.load(filename):
+            return cls(r, renderer)
+
+    @classmethod
+    def loadFiles(cls, filenames, renderer=None):
+        """Yield a SvgPage for every file that successfully loads.
+
+        filenames is an iterable of files, a filename may also be a QByteArray.
+
+        """
+        for f in filenames:
+            p = cls.load(f, renderer)
+            if p:
+                yield p
 
     def mutex(self):
-        return self._svg_r
+        return self._svg
 
 
 class Renderer(render.AbstractImageRenderer):
@@ -74,12 +84,12 @@ class Renderer(render.AbstractImageRenderer):
         target = QRectF(0, 0, tile.w, tile.h)
         if key.rotation & 1:
             target.setSize(target.size().transposed())
-        with locking.lock(page._svg_r):
-            page._svg_r.setViewBox(viewbox)
+        with locking.lock(page._svg):
+            page._svg.setViewBox(viewbox)
             # we must specify the target otherwise QSvgRenderer scales to the
             # unrotated image
-            page._svg_r.render(painter, target)
-            page._svg_r.setViewBox(page._viewBox)
+            page._svg.render(painter, target)
+            page._svg.setViewBox(page._viewBox)
 
     def print(self, page, painter, rect):
         """Paints the desired part of the page to the painter for printing."""
@@ -90,10 +100,10 @@ class Renderer(render.AbstractImageRenderer):
         y = page._viewBox.y() + rect.y() * vscale
         w = rect.width() * hscale
         h = rect.height() * vscale
-        with locking.lock(page._svg_r):
-            page._svg_r.setViewBox(QRectF(x, y, w, h))
-            page._svg_r.render(painter)
-            page._svg_r.setViewBox(page._viewBox)
+        with locking.lock(page._svg):
+            page._svg.setViewBox(QRectF(x, y, w, h))
+            page._svg.render(painter)
+            page._svg.setViewBox(page._viewBox)
 
 
 

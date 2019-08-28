@@ -195,7 +195,7 @@ class View(scrollarea.ScrollArea):
         """
         self._unschedulePages(self._pageLayout)
         from . import svg
-        self.pageLayout()[:] = (svg.SvgPage(f) for f in filenames)
+        self.pageLayout()[:] = svg.SvgPage.loadFiles(filenames)
         self.updatePageLayout()
 
     def setPageLayout(self, layout):
