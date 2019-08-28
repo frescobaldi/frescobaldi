@@ -45,6 +45,7 @@ class SvgPage(page.AbstractPage):
     
     def __init__(self, load_file=None, renderer=None):
         super().__init__()
+        self._viewBox = None
         self._svg_r = QSvgRenderer()
         if renderer is not None:
             self.renderer = renderer
