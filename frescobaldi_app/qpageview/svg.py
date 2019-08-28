@@ -38,17 +38,16 @@ from . import page
 from . import render
 
 
-class BasicSvgPage(page.AbstractPage):
-    """A page that can display a SVG document.
-    
-    This class just paints the image every time it is requested, without
-    caching it, which is too slow for normal use. Use SvgPage instead.
-    
-    """
+class SvgPage(page.AbstractPage):
+    """A page that can display a SVG document."""
+
     dpi = 90.0
     
-    def __init__(self, load_file=None):
+    def __init__(self, load_file=None, renderer=None):
+        super().__init__()
         self._svg_r = QSvgRenderer()
+        if renderer is not None:
+            self.renderer = renderer
         if load_file:
             self.load(load_file)
 
@@ -61,29 +60,8 @@ class BasicSvgPage(page.AbstractPage):
             self._viewBox = self._svg_r.viewBoxF()
         return success
 
-    def paint(self, painter, rect, callback=None):
-        painter.fillRect(rect, self.paperColor or QColor(Qt.white))
-        page = QRect(0, 0, self.width, self.height)
-        painter.translate(page.center())
-        painter.rotate(self.computedRotation * 90)
-        if self.computedRotation & 1:
-            page.setSize(page.size().transposed())
-        painter.translate(-page.center())
-        self._svg_r.render(painter, QRectF(page))
-    
     def mutex(self):
         return self._svg_r
-
-
-class SvgPage(BasicSvgPage):
-    """Display SVG pages using a cache."""
-    def __init__(self, load_file=None, renderer=None):
-        super().__init__(load_file)
-        if renderer is not None:
-            self.renderer = renderer
-
-    def paint(self, painter, rect, callback=None):
-        self.renderer.paint(self, painter, rect, callback)
 
 
 class Renderer(render.AbstractImageRenderer):
