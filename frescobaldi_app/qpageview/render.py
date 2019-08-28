@@ -27,7 +27,7 @@ import weakref
 import time
 
 from PyQt5.QtCore import QRect, QRectF, Qt, QThread
-from PyQt5.QtGui import QColor, QImage, QRegion
+from PyQt5.QtGui import QColor, QImage, QPainter, QRegion, QTransform
 
 from . import cache
 
@@ -89,8 +89,8 @@ class AbstractImageRenderer:
     one global renderer in your application or more, depending on how you use
     the qpageview package.
 
-    You must inherit from this class and at least implement the
-    render() method.
+    You must inherit from this class and at least implement the render() or the
+    draw() method.
 
     Instance attributes:
 
@@ -100,6 +100,9 @@ class AbstractImageRenderer:
                         used. If a Page specifies its own paperColor, that color
                         prevails.
 
+        `imageFormat`   QImage format to use (if possible). Default is
+                        QImage.Format_ARGB32_Premultiplied
+
     """
 
     MAX_TILE_WIDTH = 2400
@@ -107,6 +110,9 @@ class AbstractImageRenderer:
 
     # default paper color to use (if possible, and when drawing an empty page)
     paperColor = QColor(Qt.white)
+
+    # QImage format to use (if possible)
+    imageFormat = QImage.Format_ARGB32_Premultiplied
 
     def __init__(self):
         self.cache = cache.ImageCache()
@@ -154,14 +160,52 @@ class AbstractImageRenderer:
                 x += w
             y += h
 
-    def render(self, page, key, tile):
-        """Reimplement this method to generate a QImage for tile of the Page.
+    def map(self, key, box):
+        """Return a QTransform converting from Key coordinates to a box.
+        
+        The box should be a QRectF or QRect, and describes the original area of
+        the page.  The returned matrix can be used to convert e.g. tile
+        coordinates to the position on the original page.
+        
+        """
+        t = QTransform()
+        t.translate(box.x(), box.y())
+        t.scale(box.width(), box.height())
+        t.translate(.5, .5)
+        t.rotate(-key.rotation * 90)
+        t.translate(-.5, -.5)
+        t.scale(1 / key.width, 1 / key.height)
+        return t
 
+    def render(self, page, key, tile):
+        """Generate a QImage for tile of the Page.
+        
         The width, height and rotation to render at should be taken from the
         key, as the page could be resized or rotated in the mean time.
-
+        
+        The default implementation prepares the image, a painter and then
+        calls draw() to actually draw the contents.
+        
         """
-        return QImage()
+        i = QImage(tile.w, tile.h, self.imageFormat)
+        i.fill(page.paperColor or self.paperColor or QColor(Qt.white))
+        painter = QPainter(i)
+        
+        # rotate the painter accordingly
+        painter.translate(tile.w / 2, tile.h / 2)
+        painter.rotate(key.rotation * 90)
+        if key.rotation & 1:
+            painter.translate(tile.h / -2, tile.w / -2)
+        else:
+            painter.translate(tile.w / -2, tile.h / -2)
+
+        # draw it on the image
+        self.draw(painter, page, key, tile)
+        return i
+
+    def draw(self, painter, page, key, tile):
+        """Draw the page contents; implement at least this method."""
+        pass
 
     def print(self, page, painter, rect):
         """Implement this method to print the rect of the page to the painter.

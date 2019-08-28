@@ -22,8 +22,8 @@ A page that can display a SVG document.
 
 """
 
-from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
-from PyQt5.QtGui import QColor, QImage, QPainter, QPicture, QTransform
+from PyQt5.QtCore import QRect, QRectF, Qt
+from PyQt5.QtGui import QColor
 from PyQt5.QtSvg import QSvgRenderer
 
 from .constants import (
@@ -87,50 +87,20 @@ class SvgPage(BasicSvgPage):
 
 
 class Renderer(render.AbstractImageRenderer):
-    """Render SVG pages.
-
-    Additional instance attributes:
-
-        imageFormat     (QImage.Format_ARGB32_Premultiplied) the QImage format to use.
-
-    """
-    # QImage format to use
-    imageFormat = QImage.Format_ARGB32_Premultiplied
-
-    def render(self, page, key, tile):
-        """Generate an image for the tile of this Page."""
-        i = QImage(tile.w, tile.h, self.imageFormat)
-        i.fill(page.paperColor or self.paperColor or QColor(Qt.white))
-        painter = QPainter(i)
-        
-        # rotate the painter accordingly
-        rect = target = QRect(0, 0, tile.w, tile.h)
+    """Render SVG pages."""
+    def draw(self, painter, page, key, tile):
+        """Draw the specified tile of the page (coordinates in key) on painter."""
+        # determine the part to draw; convert tile to viewbox
+        viewbox = self.map(key, page._viewBox).mapRect(QRectF(*tile))
+        target = QRectF(0, 0, tile.w, tile.h)
         if key.rotation & 1:
-            target = QRect(0, 0, tile.h, tile.w)
-        painter.translate(rect.center())
-        painter.rotate(key.rotation * 90)
-        painter.translate(-target.center())
-        
-        # now determine the part to draw
-        # convert tile to viewbox
-        b = page._viewBox
-        
-        t = QTransform()
-        t.translate(b.x(), b.y())
-        t.scale(b.width(), b.height())
-        t.translate(.5, .5)
-        t.rotate(-key.rotation * 90)
-        t.translate(-.5, -.5)
-        t.scale(1 / key.width, 1 / key.height)
-
-        viewbox = t.mapRect(QRectF(*tile))
+            target.setSize(target.size().transposed())
         with locking.lock(page._svg_r):
             page._svg_r.setViewBox(viewbox)
             # we must specify the target otherwise QSvgRenderer scales to the
             # unrotated image
-            page._svg_r.render(painter, QRectF(target))
+            page._svg_r.render(painter, target)
             page._svg_r.setViewBox(page._viewBox)
-        return i
 
     def print(self, page, painter, rect):
         """Paints the desired part of the page to the painter for printing."""
