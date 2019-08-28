@@ -23,7 +23,7 @@ A page that can display a SVG document.
 """
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
-from PyQt5.QtGui import QColor,QImage, QPainter
+from PyQt5.QtGui import QColor, QImage, QPainter, QPicture, QTransform
 from PyQt5.QtSvg import QSvgRenderer
 
 from .constants import (
@@ -104,46 +104,31 @@ class Renderer(render.AbstractImageRenderer):
         painter = QPainter(i)
         
         # rotate the painter accordingly
-        rect = QRect(0, 0, tile.w, tile.h)
+        rect = target = QRect(0, 0, tile.w, tile.h)
+        if key.rotation & 1:
+            target = QRect(0, 0, tile.h, tile.w)
         painter.translate(rect.center())
         painter.rotate(key.rotation * 90)
-        if key.rotation & 1:
-            rect.setSize(rect.size().transposed())
-        painter.translate(-rect.center())
+        painter.translate(-target.center())
         
         # now determine the part to draw
-        
         # convert tile to viewbox
         b = page._viewBox
         
-        if key.rotation == 0:
-            hscale = key.width / b.width()
-            vscale = key.height / b.height()
-            x = tile.x / hscale + b.x()
-            y = tile.y / vscale + b.y()
-        elif key.rotation == 1:
-            hscale = key.height / b.width()
-            vscale = key.width / b.height()
-            x = tile.y / hscale + b.x()
-            y = (key.width - tile.w - tile.x) / vscale + b.y()
-        elif key.rotation == 2:
-            hscale = key.width / b.width()
-            vscale = key.height / b.height()
-            x = (key.width - tile.w - tile.x) / hscale + b.x()
-            y = (key.height - tile.h - tile.y) / vscale + b.y()
-        else: # key.rotation == 3:
-            hscale = key.height / b.width()
-            vscale = key.width / b.height()
-            x = (key.height - tile.h - tile.y) / vscale + b.x()
-            y = tile.x / hscale + b.y()
-        # why does this work? I'd assume w and h need to be swapped 
-        # for rotation 1 and 3, but that yields strange misdrawings...
-        w = tile.w / hscale
-        h = tile.h / vscale
+        t = QTransform()
+        t.translate(-b.x(), -b.y())
+        t.scale(b.width(), b.height())
+        t.translate(.5, .5)
+        t.rotate(-key.rotation * 90)
+        t.translate(-.5, -.5)
+        t.scale(1 / key.width, 1 / key.height)
 
+        viewbox = t.mapRect(QRectF(*tile))
         with locking.lock(page._svg_r):
-            page._svg_r.setViewBox(QRectF(x, y, w, h))
-            page._svg_r.render(painter)
+            page._svg_r.setViewBox(viewbox)
+            # we must specify the target otherwise QSvgRenderer scales to the
+            # unrotated image
+            page._svg_r.render(painter, QRectF(target))
             page._svg_r.setViewBox(page._viewBox)
         return i
 
