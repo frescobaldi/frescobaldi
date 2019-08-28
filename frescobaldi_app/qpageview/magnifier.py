@@ -25,7 +25,8 @@ The Magnifier magnifies a part of the displayed document.
 import weakref
 
 from PyQt5.QtCore import QEvent, QPoint, QRect, Qt
-from PyQt5.QtGui import QColor, QCursor, QPainter, QPalette, QPen, QRegion
+from PyQt5.QtGui import (
+    QColor, QCursor, QPainter, QPalette, QPen, QRegion, QTransform)
 from PyQt5.QtWidgets import QWidget
 
 
@@ -252,18 +253,19 @@ class Magnifier(QWidget):
 
         scale = max(min(self._scale, view.MAX_ZOOM * self.MAX_EXTRA_ZOOM / layout.zoomFactor),
                     view.MIN_ZOOM / layout.zoomFactor)
+        matrix = QTransform().scale(scale, scale)
 
         # the position of our center on the layout
         c = self.geometry().center() - view.layoutPosition()
 
         # make a region scaling back to the view scale
-        rect = QRect(0, 0, self.width() / scale, self.height() / scale)
+        rect = matrix.inverted()[0].mapRect(self.rect())
         rect.moveCenter(c)
         region = QRegion(rect, QRegion.Ellipse) # touches the Pages we need to draw
 
         # our rect on the enlarged pages
         our_rect = self.rect()
-        our_rect.moveCenter(QPoint(c.x() * scale, c.y() * scale))
+        our_rect.moveCenter(matrix.map(c))
 
         # the virtual position of the whole scaled-up layout
         ev_rect = ev.rect().translated(our_rect.topLeft())
@@ -282,10 +284,7 @@ class Magnifier(QWidget):
             except KeyError:
                 page = self._pages[p] = p.copy()
             page.computedRotation = p.computedRotation
-            page.x = p.x * scale
-            page.y = p.y * scale
-            page.width = p.width * scale
-            page.height = p.height * scale
+            page.setGeometry(matrix.mapRect(p.geometry()))
             # now paint it
             rect = (page.geometry() & ev_rect).translated(-page.pos())
             painter.save()
