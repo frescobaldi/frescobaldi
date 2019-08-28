@@ -200,11 +200,19 @@ class AbstractImageRenderer:
             painter.translate(tile.w / -2, tile.h / -2)
 
         # draw it on the image
-        self.draw(painter, page, key, tile)
+        self.draw(page, painter, key, tile)
         return i
 
-    def draw(self, painter, page, key, tile):
-        """Draw the page contents; implement at least this method."""
+    def draw(self, page, painter, key, tile):
+        """Draw the page contents; implement at least this method.
+
+        The painter is already at the top-left position and the correct
+        rotation. You should convert the tile to the original area on the page,
+        you can use the map() method for that. You can draw in tile/key
+        coordinates. Don't use width, height and rotation from the Page object,
+        as it could have been resized or rotated in the mean time.
+
+        """
         pass
 
     def print(self, page, painter, rect):
