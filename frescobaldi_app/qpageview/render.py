@@ -119,7 +119,7 @@ class AbstractImageRenderer:
 
     @staticmethod
     def key(page, ratio):
-        """Return a five-tuple describing the page.
+        """Return a five-tuple Key describing the page.
 
         The ratio is a device pixel ratio; width and height are multiplied
         with this value, to render and cache an image correctly on high-
@@ -145,7 +145,7 @@ class AbstractImageRenderer:
         )
 
     def tiles(self, width, height):
-        """Yield four-tuples (x, y, w, h) describing the tiles to render."""
+        """Yield four-tuples Tile(x, y, w, h) describing the tiles to render."""
         rowcount = height // self.MAX_TILE_HEIGHT
         colcount = width  // self.MAX_TILE_WIDTH
         tilewidth, extrawidth = divmod(width, colcount + 1)
@@ -383,13 +383,7 @@ class AbstractImageRenderer:
             del _jobs[self]
 
     def invalidate(self, pages):
-        """Invalidates the cached images for the given pages.
-
-        The images will not be removed immediately, but their replace flag
-        will be set, and on the next paint they will be scheduled to be rendered
-        again.
-
-        """
+        """Delete the cached images for the given pages."""
         for p in pages:
             self.cache.invalidate(p)
 
@@ -397,7 +391,7 @@ class AbstractImageRenderer:
         """Check whether there are jobs that need to be started.
 
         This method is called by the schedule() method, and by the finish()
-        method, when a job finishes, so that the maximum number of jobs never
+        method when a job finishes, so that the number of running jobs never
         exceeds `maxjobs`.
 
         """
