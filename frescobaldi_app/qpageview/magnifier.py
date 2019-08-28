@@ -254,7 +254,7 @@ class Magnifier(QWidget):
                     view.MIN_ZOOM / layout.zoomFactor)
 
         # the position of our center on the layout
-        c = self.rect().center() + self.pos() - view.layoutPosition()
+        c = self.geometry().center() - view.layoutPosition()
 
         # make a region scaling back to the view scale
         rect = QRect(0, 0, self.width() / scale, self.height() / scale)
