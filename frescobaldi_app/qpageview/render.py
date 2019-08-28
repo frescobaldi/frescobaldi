@@ -276,7 +276,7 @@ class AbstractImageRenderer:
         return True
 
     def paint(self, page, painter, rect, callback=None):
-        """Paint a page.
+        """Paint a page, using images from the cache.
 
         page: the Page to draw
 
