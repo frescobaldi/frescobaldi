@@ -116,7 +116,7 @@ class Renderer(render.AbstractImageRenderer):
         b = page._viewBox
         
         t = QTransform()
-        t.translate(-b.x(), -b.y())
+        t.translate(b.x(), b.y())
         t.scale(b.width(), b.height())
         t.translate(.5, .5)
         t.rotate(-key.rotation * 90)
