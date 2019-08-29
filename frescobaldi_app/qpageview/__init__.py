@@ -62,10 +62,12 @@ from .constants import (
 
 from . import link
 from . import highlight
+from . import selector
 from . import shadow
 from . import view
 
 class View(
+        selector.SelectorViewMixin,
         link.LinkViewMixin,
         highlight.HighlightViewMixin,
         shadow.ShadowViewMixin,
