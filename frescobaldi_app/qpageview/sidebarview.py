@@ -32,11 +32,12 @@ from PyQt5.QtGui import QPainter
 
 from . import constants
 from . import layout
+from . import selector
 from . import view
 
 
 
-class SidebarView(view.View):
+class SidebarView(selector.SelectorViewMixin, view.View):
     """A special View with miniatures to use as a sidebar for a View.
 
     Automatically displays all pages in a view in small size, and makes it

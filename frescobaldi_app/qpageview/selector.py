@@ -26,7 +26,9 @@ Adds the capability to select or unselect Pages.
 
 import contextlib
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, QRect, Qt
+from PyQt5.QtGui import QPainter, QKeySequence
+from PyQt5.QtWidgets import QStyle, QStyleOptionButton
 
 
 class SelectorViewMixin:
@@ -48,7 +50,7 @@ class SelectorViewMixin:
     def selection(self):
         """Return the current list of selected page numbers."""
         return sorted(self._selection)
-    
+
     @contextlib.contextmanager
     def modifySelection(self):
         """Context manager that allows changing the selection.
@@ -61,8 +63,14 @@ class SelectorViewMixin:
         old = set(self._selection)
         yield self._selection
         self._checkSelection()
-        if self._selection != old:
+        diff = self._selection ^ old
+        if diff:
             self.selectionChanged.emit()
+            # repaint
+            layout = self.pageLayout()
+            visible = self.visibleRect()
+            if any(layout[n-1].geometry() & visible for n in diff):
+                self.viewport().update()
 
     def updatePageLayout(self):
         """Reimplemented to also check the selection."""
@@ -80,6 +88,11 @@ class SelectorViewMixin:
         with self.modifySelection() as s:
             s.clear()
 
+    def selectAll(self):
+        """Convenience method to select all pages."""
+        with self.modifySelection() as s:
+            s.update(range(1, self.pageCount() + 1))
+
     def toggleSelection(self, pageNumber):
         """Toggles the selected state of page number pageNumber."""
         with self.modifySelection() as s:
@@ -91,11 +104,69 @@ class SelectorViewMixin:
     def selectionMode(self):
         """Return the current selectionMode (True is enabled, False is disabled)."""
         return self._selectionMode
-    
+
     def setSelectionMode(self, mode):
         """Switch selection mode on or off (True is enabled, False is disabled)."""
         if self._selectionMode != mode:
             self._selectionMode = mode
             self.selectionModeChanged.emit(mode)
-            self.update() # repaint
+            self.viewport().update() # repaint
+
+    def paintEvent(self, ev):
+        super().paintEvent(ev)      # first draw the contents
+        if self._selectionMode:
+            painter = QPainter(self.viewport())
+            for page, rect in self.pagesToPaint(ev, painter):
+                self.drawSelection(page, painter)
+
+    def drawSelection(self, page, painter):
+        """Draws the state (selected or not) for the page."""
+        option = QStyleOptionButton()
+        option.initFrom(self)
+        option.rect = QRect(0, 0, QStyle.PM_IndicatorWidth, QStyle.PM_IndicatorHeight)
+        pageNum = self.pageLayout().index(page) + 1
+        option.state |= QStyle.State_On if pageNum in self._selection else QStyle.State_Off
+        self.style().drawPrimitive(QStyle.PE_IndicatorCheckBox, option, painter, self)
+
+    def mousePressEvent(self, ev):
+        """Reimplemented to check if a checkbox was clicked."""
+        if self._selectionMode and ev.buttons() == Qt.LeftButton:
+            pos = ev.pos() - self.layoutPosition()
+            page = self._pageLayout.pageAt(pos)
+            if page:
+                pageNum = self._pageLayout.index(page) + 1
+                pos -= page.pos()
+                if pos in QRect(0, 0, QStyle.PM_IndicatorWidth, QStyle.PM_IndicatorHeight):
+                    # the indicator has been clicked
+                    if ev.modifiers() & Qt.ControlModifier:
+                        # CTRL toggles selection of page
+                        self.toggleSelection(pageNum)
+                    elif self._selection and ev.modifiers() & Qt.ShiftModifier:
+                        # Shift extends the selection
+                        with self.modifySelection() as s:
+                            s.add(pageNum)
+                            first, last = min(self._selection), max(self._selection)
+                            s.update(range(first, last+1))
+                    else:
+                        # toggle this one and clear all the others
+                        with self.modifySelection() as s:
+                            select = pageNum not in s
+                            s.clear()
+                            if select:
+                                s.add(pageNum)
+                    return
+        super().mousePressEvent(ev)
+
+    def keyPressEvent(self, ev):
+        """Clear the selection and switch off selectionmode with ESC."""
+        if self._selectionMode:
+            if ev.key() == Qt.Key_Escape and not ev.modifiers():
+                self.clearSelection()
+                self.setSelectionMode(False)
+                return
+            elif ev.matches(QKeySequence.SelectAll):
+                self.selectAll()
+                return
+        super().keyPressEvent(ev)
+
 
