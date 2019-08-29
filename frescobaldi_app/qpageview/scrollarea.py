@@ -23,7 +23,7 @@ ScrollArea, that supports kinetic scrolling and other features.
 
 import math
 
-from PyQt5.QtCore import QBasicTimer, QPoint, QRect, QSize, Qt
+from PyQt5.QtCore import QPoint, QRect, QSize, Qt
 from PyQt5.QtWidgets import QAbstractScrollArea
 
 
@@ -59,7 +59,7 @@ class ScrollArea(QAbstractScrollArea):
         self._dragSpeed = None
         self._dragTime = None
         self._scroller = None
-        self._scrollTimer = QBasicTimer()
+        self._scrollTimer = None
 
     def wheelEvent(self, ev):
         if self.kineticScrollingEnabled:
@@ -306,14 +306,15 @@ class ScrollArea(QAbstractScrollArea):
     def startScrolling(self, scroller):
         """Begin a scrolling operation using the specified scroller."""
         self._scroller = scroller
-        if not self._scrollTimer.isActive():
-            self._scrollTimer.start(1000 / self.scrollupdatespersec, self)
+        if self._scrollTimer is None:
+            self._scrollTimer = self.startTimer(1000 / self.scrollupdatespersec)
 
     def stopScrolling(self):
         """Stop scrolling."""
         if self._scroller:
-            self._scrollTimer.stop()
+            self.killTimer(self._scrollTimer)
             self._scroller = None
+            self._scrollTimer = None
 
     def isScrolling(self):
         """Return True if a scrolling movement is active."""
@@ -324,13 +325,14 @@ class ScrollArea(QAbstractScrollArea):
         return self._dragPos is not None
 
     def timerEvent(self, ev):
-        """Called by the _scrollTimer."""
-        diff = self._scroller.step()
-        # when scrolling slowly, it might be that no redraw is needed
-        if diff:
-            # change the scrollbars, but check how far they really moved.
-            if not self.scrollBy(diff) or self._scroller.finished():
-                self.stopScrolling()
+        """Implemented to handle the scroll timer."""
+        if ev.timerId() == self._scrollTimer:
+            diff = self._scroller.step()
+            # when scrolling slowly, it might be that no redraw is needed
+            if diff:
+                # change the scrollbars, but check how far they really moved.
+                if not self.scrollBy(diff) or self._scroller.finished():
+                    self.stopScrolling()
 
     def resizeEvent(self, ev):
         """Implemented to update the scrollbars to the aera size."""
