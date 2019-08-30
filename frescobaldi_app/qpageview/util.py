@@ -102,6 +102,78 @@ class MapFromPage(MapToPage):
         return self.t.map(QPointF(point))
 
 
+class LongMousePressMixin:
+    """Mixin class to add support for long mouse press to a QWidget.
+
+    To handle a long mouse press event, implement longMousePressEvent().
+
+    The following instance variables can be altered:
+
+    longMousePressEnabled = True    # set to False to disable
+    longMousePressTolerance = 3     # number of pixels moving allowed
+    longMousePressTime = 800        # msec a mouse press is considered long
+
+    """
+
+    longMousePressEnabled = True    # set to False to disable
+    longMousePressTolerance = 3     # number of pixels moving allowed
+    longMousePressTime = 800        # msec a mouse press is considered long
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._longPressTimer = None
+        self._longPressEvent = None
+        self._longPressPos = None
+
+    def _startLongMousePressEvent(self, ev):
+        """Start the timer for a QMouseEvent mouse press event."""
+        self._cancelLongMousePressEvent()
+        self._longPressTimer = self.startTimer(self.longMousePressTime)
+        # copy the pos because Qt might reuse the event
+        self._longPressEvent = ev
+        self._longPressPos = ev.pos()
+
+    def _checkLongMousePressEvent(self, ev):
+        """Cancel the press event if the current event has moved more than 3 pixels."""
+        if self._longPressTimer is not None:
+            dist = (self._longPressPos - ev.pos()).manhattanLength()
+            if dist > self.longMousePressTolerance:
+                self._cancelLongMousePressEvent()
+
+    def _cancelLongMousePressEvent(self):
+        """Stop the timer for a long mouse press event."""
+        if self._longPressTimer is not None:
+            self.killTimer(self._longPressTimer)
+            self._longPressTimer = None
+            self._longPressEvent = None
+
+    def longMousePressEvent(self, ev):
+        """Implement this to handle a long mouse press event."""
+        pass
+
+    def timerEvent(self, ev):
+        """Implemented to check for a long mouse button press."""
+        if ev.timerId() == self._longPressTimer:
+            event = self._longPressEvent
+            self._cancelLongMousePressEvent()
+            self.longMousePressEvent(event)
+        super().timerEvent(ev)
+
+    def mousePressEvent(self, ev):
+        if self.longMousePressEnabled:
+            self._startLongMousePressEvent(ev)
+        super().mousePressEvent(ev)
+
+    def mouseMoveEvent(self, ev):
+        self._checkLongMousePressEvent(ev)
+        super().mouseMoveEvent(ev)
+
+    def mouseReleaseEvent(self, ev):
+        self._cancelLongMousePressEvent()
+        super().mouseReleaseEvent(ev)
+
+
+
 
 # Found at: https://stackoverflow.com/questions/1986152/why-doesnt-python-have-a-sign-function
 def sign(x):
