@@ -51,7 +51,7 @@ from .constants import (
 
 
 
-class View(scrollarea.ScrollArea):
+class View(util.LongMousePressMixin, scrollarea.ScrollArea):
     """View is a generic scrollable widget to display Pages in a layout.
     
     Using setPageLayout() you can set a PageLayout to the View, and you can
