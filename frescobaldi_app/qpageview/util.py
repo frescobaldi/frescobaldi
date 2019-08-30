@@ -146,6 +146,7 @@ class LongMousePressMixin:
             self.killTimer(self._longPressTimer)
             self._longPressTimer = None
             self._longPressEvent = None
+            self._longPressPos = None
 
     def longMousePressEvent(self, ev):
         """Implement this to handle a long mouse press event."""
@@ -160,15 +161,18 @@ class LongMousePressMixin:
         super().timerEvent(ev)
 
     def mousePressEvent(self, ev):
+        """Reimplemented to check for a long mouse button press."""
         if self.longMousePressEnabled:
             self._startLongMousePressEvent(ev)
         super().mousePressEvent(ev)
 
     def mouseMoveEvent(self, ev):
+        """Reimplemented to check for moves during a long press."""
         self._checkLongMousePressEvent(ev)
         super().mouseMoveEvent(ev)
 
     def mouseReleaseEvent(self, ev):
+        """Reimplemented to cancel a long press."""
         self._cancelLongMousePressEvent()
         super().mouseReleaseEvent(ev)
 
