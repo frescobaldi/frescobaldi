@@ -133,7 +133,15 @@ class SelectorViewMixin:
         option.rect = QRect(0, 0, QStyle.PM_IndicatorWidth, QStyle.PM_IndicatorHeight)
         pageNum = self.pageLayout().index(page) + 1
         option.state |= QStyle.State_On if pageNum in self._selection else QStyle.State_Off
+        scale = None
+        # in the unlikely case the checkboxes are larger than the page, scale them down
+        if option.rect not in page.rect():
+            scale = min(page.width / option.rect.width(), page.height / option.rect.height())
+            painter.save()
+            painter.scale(scale, scale)
         self.style().drawPrimitive(QStyle.PE_IndicatorCheckBox, option, painter, self)
+        if scale is not None:
+            painter.restore()
 
     def mousePressEvent(self, ev):
         """Reimplemented to check if a checkbox was clicked."""
