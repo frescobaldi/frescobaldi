@@ -37,9 +37,17 @@ class SelectorViewMixin:
     Adds the capability to select or unselect Pages.
     Pages are numbered from 1.
 
+    Instance variables:
+
+    `userChangeSelectionModeEnabled` = True:    whether the user can change
+        the selectionMode (by longpressing a page to enable selectionMode, and
+        pressing ESC to leave selectionMode.
+
     """
     selectionChanged = pyqtSignal()
     selectionModeChanged = pyqtSignal(bool)
+
+    userChangeSelectionModeEnabled = True
 
 
     def __init__(self, parent=None, **kwds):
@@ -160,7 +168,7 @@ class SelectorViewMixin:
     def keyPressEvent(self, ev):
         """Clear the selection and switch off selectionmode with ESC."""
         if self._selectionMode:
-            if ev.key() == Qt.Key_Escape and not ev.modifiers():
+            if self.userChangeSelectionModeEnabled and ev.key() == Qt.Key_Escape and not ev.modifiers():
                 self.clearSelection()
                 self.setSelectionMode(False)
                 return
@@ -168,5 +176,12 @@ class SelectorViewMixin:
                 self.selectAll()
                 return
         super().keyPressEvent(ev)
+
+    def longMousePressEvent(self, ev):
+        """Called on long mouse button press, set selectionMode on if enabled."""
+        if self.userChangeSelectionModeEnabled and not self._selectionMode:
+            self.setSelectionMode(True)
+        else:
+            super().longMousePressEvent(ev)
 
 
