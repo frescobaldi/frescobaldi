@@ -240,9 +240,14 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         self.updatePageLayout()
 
     def currentPage(self):
-        """return the page pointed to by currentPageNumber()."""
-        if self.pageCount() > 0:
+        """Return the page pointed to by currentPageNumber()."""
+        if self._pageCount:
             return self._pageLayout[self._currentPageNumber-1]
+
+    def page(self, num):
+        """Return the page at the specified number (starting at 1)."""
+        if 0 < num <= self._pageCount:
+            return self._pageLayout[num-1]
 
     def setViewMode(self, mode):
         """Sets the current ViewMode."""

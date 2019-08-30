@@ -74,10 +74,9 @@ class SelectorViewMixin:
         diff = self._selection ^ old
         if diff:
             self.selectionChanged.emit()
-            # repaint
-            layout = self.pageLayout()
+            # repaint if needed
             visible = self.visibleRect()
-            if any(layout[n-1].geometry() & visible for n in diff):
+            if any(self.page(n).geometry() & visible for n in diff):
                 self.viewport().update()
 
     def updatePageLayout(self):
