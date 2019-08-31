@@ -256,6 +256,7 @@ class AbstractImageRenderer:
         for t in tiles:
             entry = tileset.get(t)
             if entry:
+                entry.time = time.time()    # prevent aging ;-)
                 images.append((t, entry.image))
             else:
                 missing.append(t)
