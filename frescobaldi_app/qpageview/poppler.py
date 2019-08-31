@@ -222,17 +222,24 @@ class Renderer(render.AbstractImageRenderer):
             if self.printRenderBackend == popplerqt5.Poppler.Document.ArthurBackend:
                 # Poppler's Arthur backend removes the current transform from
                 # the painter (it sets a default CTM, instead of combining it
-                # with the current transform. We let Poppler draw on a QPicture,
+                # with the current transform). We let Poppler draw on a QPicture,
                 # and draw that on our painter.
                 q = QPicture()
                 p.renderToPainter(QPainter(q), page.dpi, page.dpi, source.x(), source.y(), source.width(), source.height())
                 q.play(painter)
             else:
-                # map to printer resolution
-                dpiX = painter.device().logicalDpiX()
-                dpiY = painter.device().logicalDpiY()
-                # TODO account for extra (down)scaling...
-                s = QTransform().scale(dpiX / page.dpi, dpiY / page.dpi).mapRect(source)
+                # Make an image exactly in the printer's resolution
+                m = painter.transform()
+                r = m.mapRect(source)       # see where the source ends up
+                w, h = r.width(), r.height()
+                if m.m11() == 0:
+                    w, h = h, w     # swap if rotation & 1  :-)
+                # now we know the scale from our dpi to the paintdevice's logicalDpi!
+                hscale = w / source.width()
+                vscale = h / source.height()
+                s = QTransform().scale(hscale, vscale).mapRect(source)
+                dpiX = page.dpi * hscale
+                dpiY = page.dpi * vscale
                 img = p.renderToImage(dpiX, dpiY, s.x(), s.y(), s.width(), s.height())
                 painter.drawImage(target, img, QRectF(img.rect()))
             if paperColor:
