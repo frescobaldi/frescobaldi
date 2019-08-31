@@ -91,19 +91,6 @@ class Renderer(render.AbstractImageRenderer):
             page._svg.render(painter, target)
             page._svg.setViewBox(page._viewBox)
 
-    def print(self, page, painter, rect):
-        """Paints the desired part of the page to the painter for printing."""
-        ### compute viewbox, rect corresponds to the original size
-        hscale = page._viewBox.width() / page.pageWidth
-        vscale = page._viewBox.height() / page.pageHeight
-        x = page._viewBox.x() + rect.x() * hscale
-        y = page._viewBox.y() + rect.y() * vscale
-        w = rect.width() * hscale
-        h = rect.height() * vscale
-        with locking.lock(page._svg):
-            page._svg.setViewBox(QRectF(x, y, w, h))
-            page._svg.render(painter)
-            page._svg.setViewBox(page._viewBox)
 
 
 
