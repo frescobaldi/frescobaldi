@@ -29,6 +29,7 @@ You need this module to display PDF documents.
 import weakref
 
 from PyQt5.QtCore import Qt, QRectF
+from PyQt5.QtGui import QPainter, QPicture, QTransform
 
 import popplerqt5
 
@@ -191,14 +192,22 @@ class Renderer(render.AbstractImageRenderer):
                 doc.setRenderBackend(oldbackend)
         return image
 
-    def print(self, page, painter, rect):
-        """Print rect from the page using the printRenderBackend."""
+    def draw(self, page, painter, key, tile):
+        """Draw a tile on the painter.
+
+        The painter is already at the right position and rotation.
+        For the Poppler page and renderer, draw() is only used for printing.
+        (See AbstractPage.print().)
+
+        """
+        source = self.map(key, page.pageRect()).mapRect(QRectF(*tile))
+        target = QRectF(0, 0, tile.w, tile.h)
+        if key.rotation & 1:
+            target.setSize(target.size().transposed())
+
         doc = page.document
         p = doc.page(page.pageNumber)
         paperColor = page.paperColor or self.paperColor
-        dpi = self.printResolution
-        scale = dpi / 72.0
-        r = QRectF(rect.x()*scale, rect.y()*scale, rect.width()*scale, rect.height()*scale)
 
         with locking.lock(doc):
             if self.renderHint is not None:
@@ -211,14 +220,26 @@ class Renderer(render.AbstractImageRenderer):
                 doc.setRenderBackend(self.printRenderBackend)
                 oldbackend = doc.renderBackend()
             if self.printRenderBackend == popplerqt5.Poppler.Document.ArthurBackend:
-                p.renderToPainter(painter, dpi, dpi, r.x(), r.y(), r.width(), r.height())
+                # Poppler's Arthur backend removes the current transform from
+                # the painter (it sets a default CTM, instead of combining it
+                # with the current transform. We let Poppler draw on a QPicture,
+                # and draw that on our painter.
+                q = QPicture()
+                p.renderToPainter(QPainter(q), page.dpi, page.dpi, source.x(), source.y(), source.width(), source.height())
+                q.play(painter)
             else:
-                img = p.renderToImage(dpi, dpi, r.x(), r.y(), r.width(), r.height())
-                painter.drawImage(r, img, QRectF(img.rect()))
+                # map to printer resolution
+                dpiX = painter.device().logicalDpiX()
+                dpiY = painter.device().logicalDpiY()
+                # TODO account for extra (down)scaling...
+                s = QTransform().scale(dpiX / page.dpi, dpiY / page.dpi).mapRect(source)
+                img = p.renderToImage(dpiX, dpiY, s.x(), s.y(), s.width(), s.height())
+                painter.drawImage(target, img, QRectF(img.rect()))
             if paperColor:
                 doc.setPaperColor(oldcolor)
             if self.printRenderBackend is not None:
                 doc.setRenderBackend(oldbackend)
+
 
 
 # install a default renderer, so PopplerPage can be used directly

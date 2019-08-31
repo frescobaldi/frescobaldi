@@ -44,8 +44,8 @@ def printPages(printer, pageList):
         m.translate(r.center().x(), r.center().y())
         m.scale(printer.logicalDpiX() / page.dpi, printer.logicalDpiY() / page.dpi)
         m.rotate(page.rotation * 90)
-        m.translate(page.pageWidth / -2, page.pageHeight / -2)
         m.scale(page.scaleX, page.scaleY)
+        m.translate(page.pageWidth / -2, page.pageHeight / -2)
         
         painter.setTransform(m, True)
         page.print(painter)
