@@ -220,7 +220,6 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
     def updatePageLayout(self):
         """Update layout, adjust scrollbars, keep track of page count."""
         self._pageLayout.update()
-        self.setAreaSize(self._pageLayout.size())
 
         # keep track of page count
         count = self._pageLayout.count()
@@ -230,6 +229,7 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
             n = max(min(count, self._currentPageNumber), 1 if count else 0)
             self.updateCurrentPageNumber(n)
 
+        self.setAreaSize(self._pageLayout.size())
         self.pageLayoutUpdated.emit()
         self.viewport().update()
 
