@@ -186,9 +186,13 @@ class SelectorViewMixin:
 
     def longMousePressEvent(self, ev):
         """Called on long mouse button press, set selectionMode on if enabled."""
-        if self.userChangeSelectionModeEnabled and not self._selectionMode:
-            self.setSelectionMode(True)
-        else:
-            super().longMousePressEvent(ev)
+        if self.userChangeSelectionModeEnabled:
+            if not self._selectionMode:
+                self.setSelectionMode(True)
+                return
+            elif not self._selection:
+                self.setSelectionMode(False)
+                return
+        super().longMousePressEvent(ev)
 
 
