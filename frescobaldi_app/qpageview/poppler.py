@@ -142,7 +142,6 @@ class Renderer(render.AbstractImageRenderer):
     printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
 
     oversampleThreshold = 96
-    printResolution = 300   # (only for SplashBackend)
     
     def render(self, page, key, tile):
         """Generate an image for the Page referred to by key."""
