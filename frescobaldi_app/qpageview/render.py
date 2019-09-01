@@ -215,17 +215,6 @@ class AbstractImageRenderer:
         """
         pass
 
-    def print(self, page, painter, rect):
-        """Implement this method to print the rect of the page to the painter.
-
-        The difference with paint() is that the rect (QRectF) supplied to
-        print() is not in the Page coordinates, but in the original pageSize()
-        and unrotated. Painting should occur vector-based. The painter has been
-        prepared for scale and rotation.
-
-        """
-        pass
-
     def info(self, page, device, rect):
         """Return a five-tuple(images, missing, key, target, ratio).
 
