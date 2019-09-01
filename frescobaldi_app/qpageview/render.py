@@ -177,6 +177,25 @@ class AbstractImageRenderer:
         t.scale(1 / key.width, 1 / key.height)
         return t
 
+    def image(self, page, rect, dpiX, dpiY):
+        """Returns a QImage of the specified rectangle on the Page.
+
+        The rectangle is relative to the top-left position. The image is not
+        cached.
+
+        """
+        s = page.defaultSize()
+        hscale = s.width() * dpiX / page.dpi / page.width
+        vscale = s.height() * dpiY / page.dpi / page.height
+        matrix = QTransform().scale(hscale, vscale)
+
+        tile = Tile(*matrix.mapRect(rect).getRect())
+        key = Key(page.group(),
+                  page.ident(),
+                  page.computedRotation,
+                 *matrix.map(page.width, page.height))
+        return self.render(page, key, tile)
+
     def render(self, page, key, tile):
         """Generate a QImage for tile of the Page.
         
