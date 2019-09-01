@@ -585,10 +585,11 @@ class MusicFontsModel(QStandardItemModel):
                     size_result.setText(_("Missing: {}").format(
                         ", ".join(sizes)))
             else:
-                size_result.setCheckState(True)
+                size_result.setCheckState(Qt.Checked)
 
+            has_brace = Qt.Checked if font.has_brace(type) else Qt.Unchecked
             brace_result = QStandardItem()
-            brace_result.setCheckState(font.has_brace(type))
+            brace_result.setCheckState(has_brace)
             return [size_result, brace_result]
 
         self.reset()
