@@ -223,9 +223,14 @@ class Renderer(render.AbstractImageRenderer):
                 # the painter (it sets a default CTM, instead of combining it
                 # with the current transform). We let Poppler draw on a QPicture,
                 # and draw that on our painter.
-                q = QPicture()
-                p.renderToPainter(QPainter(q), page.dpi, page.dpi, source.x(), source.y(), source.width(), source.height())
-                q.play(painter)
+                pic = QPicture()
+                p.renderToPainter(QPainter(pic), page.dpi, page.dpi, source.x(), source.y(), source.width(), source.height())
+                # our resolution could be different, scale accordingly
+                painter.save()
+                painter.scale(pic.logicalDpiX() / painter.device().logicalDpiX(),
+                              pic.logicalDpiY() / painter.device().logicalDpiY())
+                pic.play(painter)
+                painter.restore()
             else:
                 # Make an image exactly in the printer's resolution
                 m = painter.transform()
