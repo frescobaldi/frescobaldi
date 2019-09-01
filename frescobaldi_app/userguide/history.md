@@ -12,5 +12,22 @@ On Christmas 2009 version 1.0.0 was released and on Christmas 2010 version 1.2.0
 
 At that time it was decided to move away from the KDE4 libraries and just use
 Python and Qt4 which are easily available on all major computing platforms.
-Frescobaldi 2.0 is a complete rewrite from scratch. Its release date is
-targeted at Christmas 2011.
+Frescobaldi 2.0 is a complete rewrite from scratch, and was released at
+Christmas 2011.
+
+*Frescobaldi 2* had many releases from 2011 to 2017, where lots of functionality
+was added and many improvements were made. During these years, more developers
+joined initial author and core developer Wilbert Berendsen to work on
+Frescobaldi. 
+
+A great effort was done to port Frescobaldi to Python3 and Qt5, which brought more
+stability and durability, and better multilingual support. As a result,
+*Frescobaldi 3* was released in Feburary 2017.
+
+In 2017, Frescobaldi was accepted in the *Google Summer Of Code* project,
+where a number of students contributed significantly.
+
+In 2019, Frescobaldi and some supporting libraries were moved to the 
+`frescobaldi` organisation on GitHub, reflecting that Frescobaldi now really
+is a community-supported Free Software project.
+
