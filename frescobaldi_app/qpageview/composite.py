@@ -30,7 +30,7 @@ import types
 import weakref
 
 from PyQt5.QtCore import QPoint
-from PyQt5.QtGui import QPainter, QPixmap
+from PyQt5.QtGui import QPainter, QPicture, QPixmap, QTransform
 
 from . import page
 from . import render
@@ -151,6 +151,24 @@ class CompositePage(page.AbstractPage):
                 overlays.append((pos, img))
 
         return self.renderer.composite(image, overlays)
+
+    def print(self, painter, rect=None):
+        """Prints the composite page."""
+        self.fitpages()
+        
+        transform = painter.transform()
+        
+        basepict = QPicture()
+        p = QPainter(basepict)
+        p.setTransform(transform)   # now the other print routines know the underlying resolution
+        self.base.print(p, rect)
+        
+        overlays = []
+        for p in self.overlay:
+            pass #TODO print the overlay pages to QPictures
+        
+        painter.setTransform(QTransform())  # remove the transform
+        self.renderer.composite(basepict, overlays).play(painter)
 
     def text(self, rect):
         """Reimplemented to return the text from the base Page."""
@@ -315,6 +333,8 @@ class CompositeRenderer(render.AbstractImageRenderer):
             painter.setOpacity(self.opacity[layer])
             if isinstance(img, QPixmap):
                 painter.drawPixmap(pos, img)
+            elif isinstance(img, QPicture):
+                painter.drawPicture(pos, img)
             else:
                 painter.drawImage(pos, img)
         return base
