@@ -114,7 +114,6 @@ class MusicFontsWidget(QWidget):
 
         self.button_remove.clicked.connect(self.remove_music_font)
 
-
     def translateUI(self):
         self.rb_default.setText(_("&Default"))
         self.rb_default.setToolTip(_("Choose default music font sample"))
@@ -123,10 +122,11 @@ class MusicFontsWidget(QWidget):
         "NOTE: This should not include a version statement or a paper block."))
         self.rb_current.setText(_("C&urrent"))
         self.rb_current.setToolTip(
-            _("Use current document as music font sample.\n" +
-            "NOTE: This is not robust if the document contains " +
-            "a \\paper { } block."
-            ))
+            _(
+                "Use current document as music font sample.\n"
+                + "NOTE: This is not robust if the document contains "
+                + "a \\paper { } block."
+                ))
         csu = self.custom_sample_url
         csu.setDialogTitle(_("Select sample score"))
         csu.fileDialog(True).setNameFilters(['LilyPond files (*.ly)'])
@@ -147,7 +147,7 @@ class MusicFontsWidget(QWidget):
         """Remove one or more font family/ies from the LilyPond installation.
         Works only for *links*, not for *files*."""
         text = ''
-        informative_text= ''
+        informative_text = ''
         detailed_text = ''
         try:
             indexes = self.tree_view.selectionModel().selectedRows()
@@ -170,73 +170,117 @@ class MusicFontsWidget(QWidget):
 
     def show_sample(self):
         """Display a sample document for the selected notation font."""
-        try:
-            family_name = (
-                self.tree_view.selectionModel().selectedIndexes()[0].data())
-        except IndexError:
-            family_name = 'emmentaler'
-        family = self.music_fonts.family(family_name)
-        brace_name = (
-            family_name
-            if family.has_brace('otf')
-            else 'emmentaler'
-        )
-        # TODO: Make these configurable, for now
-        # simply write in LilyPond's default fonts.
-        roman_name = 'TeXGyre Schola'
-        sans_name = 'TeXGyre Heros'
-        typewriter_name = 'TeXGyre Cursor'
-
+        global_size = ''
+        fontdef_file = ''
+        base_dir = None
+        font_settings = ''
+        sample_content = ''
+        names = {}
         import fonts
         template_dir = os.path.join(fonts.__path__[0], 'templates')
         fontdef_file = os.path.join(template_dir, 'musicfont-paper.ily')
         custom_file = self.custom_sample_url.path()
-        base_dir = None
-        sample_content = ''
 
-        target = self.sample_button_group.checkedId()
-        if target == 1 and not custom_file:
-            # Custom file selected but no file provided
-            target = 0
+        def compose_font_settings():
+            """Load font-settings template and populate it with font names."""
+            nonlocal font_settings, fontdef_file, names
+            populate_font_names()
+            with open(fontdef_file, 'r') as f:
+                font_settings = f.read()
+            font_settings = font_settings.replace(
+                '<<<music>>>', names['family']).replace(
+                '<<<brace>>>', names['brace']).replace(
+                '<<<roman>>>', names['roman']).replace(
+                '<<<sans>>>', names['sans']).replace(
+                '<<<typewriter>>>', names['typewriter'])
 
-        if target == 2:
-            import engrave
-            current_doc = engrave.engraver(app.activeWindow()).document()
-            sample_content = current_doc.toPlainText()
-            if not current_doc.url().isEmpty():
-                base_dir = os.path.dirname(current_doc.url().toLocalFile())
-        else:
-            sample_file = (
-                custom_file if target == 1
-                else
-                os.path.join(template_dir,
-                    'musicfont-' + self.cb_default_sample.currentData()))
-            base_dir = os.path.dirname(sample_file)
-            with open(sample_file, 'r') as f:
-                sample_content = f.read()
-        # If the sample file starts with a #(set-global-staff-size) expression
-        # we inject this in the right position *before* the paper block.
-        global_size = ''
-        match = re.match('#\(set-global-staff-size \d+\)', sample_content)
-        if match:
-            global_size = match.group(0)
-            sample_content = sample_content[len(global_size):]
+        def handle_staff_size():
+            """
+            If the sample file *starts with* a staff-size definition
+            it will be injected *after* our paper block.
+            """
+            nonlocal sample_content, global_size
+            match = re.match('#\(set-global-staff-size \d+\)', sample_content)
+            if match:
+                global_size = match.group(0)
+                sample_content = sample_content[len(global_size):]
 
-        # Compose document
-        version_string = self.music_fonts.lilypond_info.versionString()
-        sample_document = '\\version "{}"\n'.format(version_string)
-        sample_document += '{}\n'.format(global_size)
-        with open(fontdef_file, 'r') as f:
-            sample_document += f.read()
-        sample_document = sample_document.replace(
-            '<<<music>>>', family_name).replace(
-            '<<<brace>>>', brace_name).replace(
-            '<<<roman>>>', roman_name).replace(
-            '<<<sans>>>', sans_name).replace(
-            '<<<typewriter>>>', typewriter_name)
-        sample_document += sample_content
+        def load_content():
+            """
+            Load the content to be engraved as sample,
+            either from the active editor or from a file.
+            """
+            nonlocal custom_file, sample_content, base_dir, template_dir
+            # target will be one out of
+            # 0: provided file
+            # 1: custom file
+            # 2: active document (unsaved state)
+            target = self.sample_button_group.checkedId()
+            if target == 1 and not custom_file:
+                # Custom file selected but no file provided
+                target = 0
+
+            if target == 2:
+                # Engrave active document
+                import engrave
+                current_doc = engrave.engraver(app.activeWindow()).document()
+                sample_content = current_doc.toPlainText()
+                if not current_doc.url().isEmpty():
+                    base_dir = os.path.dirname(current_doc.url().toLocalFile())
+            else:
+                # Engrave from a file
+                sample_file = (
+                    custom_file if target == 1
+                    else
+                    os.path.join(
+                        template_dir,
+                        'musicfont-' + self.cb_default_sample.currentData()))
+                base_dir = os.path.dirname(sample_file)
+                with open(sample_file, 'r') as f:
+                    sample_content = f.read()
+
+        def populate_font_names():
+            """Populate dictionary with names of music and text fonts."""
+            nonlocal names
+            try:
+                family_name = (
+                    self.tree_view.selectionModel().selectedIndexes()[0].data())
+            except IndexError:
+                family_name = 'emmentaler'
+            brace_name = (
+                family_name
+                if self.music_fonts.family(family_name).has_brace('otf')
+                else 'emmentaler'
+            )
+            names = {
+                'family': family_name,
+                'brace': brace_name,
+                # TODO: Make these configurable, for now
+                # simply write in LilyPond's default fonts.
+                'roman': 'TeXGyre Schola',
+                'sans': 'TeXGyre Heros',
+                'typewriter': 'TeXGyre Cursor'
+            }
+
+        def sample_document():
+            """
+            Steps of composing the used sample document.
+            """
+            nonlocal font_settings
+            load_content()
+            handle_staff_size()
+            compose_font_settings()
+            result = [
+                '\\version "{}"\n'.format(
+                    self.music_fonts.lilypond_info.versionString()),
+                '{}\n'.format(global_size) if global_size else '',
+                font_settings,
+                sample_content
+            ]
+            return '\n'.join(result)
+
         self.musicFontPreview.preview(
-            sample_document,
+            sample_document(),
             title='Music font preview',
             base_dir=base_dir)
 

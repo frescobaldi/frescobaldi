@@ -5,6 +5,9 @@
     (set-global-fonts
      #:music "<<<music>>>"
      #:brace "<<<brace>>>"
+     #:roman "<<<roman>>>"
+     #:sans "<<<sans>>>"
+     #:typewriter "<<<typewriter>>>"
      #:factor (/ staff-height pt 20)
    ))
 }
