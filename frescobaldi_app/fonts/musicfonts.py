@@ -181,6 +181,11 @@ class MusicFontsWidget(QWidget):
             if family.has_brace('otf')
             else 'emmentaler'
         )
+        # TODO: Make these configurable, for now
+        # simply write in LilyPond's default fonts.
+        roman_name = 'TeXGyre Schola'
+        sans_name = 'TeXGyre Heros'
+        typewriter_name = 'TeXGyre Cursor'
 
         import fonts
         template_dir = os.path.join(fonts.__path__[0], 'templates')
@@ -225,7 +230,10 @@ class MusicFontsWidget(QWidget):
             sample_document += f.read()
         sample_document = sample_document.replace(
             '<<<music>>>', family_name).replace(
-            '<<<brace>>>', brace_name)
+            '<<<brace>>>', brace_name).replace(
+            '<<<roman>>>', roman_name).replace(
+            '<<<sans>>>', sans_name).replace(
+            '<<<typewriter>>>', typewriter_name)
         sample_document += sample_content
         self.musicFontPreview.preview(
             sample_document,
