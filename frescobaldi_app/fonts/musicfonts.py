@@ -138,11 +138,10 @@ class MusicFontsWidget(QWidget):
 
     def populate_default_samples(self):
         cb = self.cb_default_sample
-        cb.addItem(_('Bach'), 'musicfont-bach.ly')
-        cb.addItem(_('Scriabine'), 'musicfont-scriabine.ly')
-        cb.addItem(_('Berg (Clarinet and Piano)'), 'musicfont-berg.ly')
-        cb.addItem(_('Berg String Quartet'), 'musicfont-berg-string-quartet.ly')
-        cb.addItem(_('Glyphs'), 'musicfont-glyphs.ly')
+        cb.addItem(_('Bach (Piano)'), 'bach.ly')
+        cb.addItem(_('Scriabine (Piano)'), 'scriabine.ly')
+        cb.addItem(_('Berg (String Quartet)'), 'berg-string-quartet.ly')
+        cb.addItem(_('Glyphs'), 'glyphs.ly')
 
     def remove_music_font(self):
         """Remove one or more font family/ies from the LilyPond installation.
@@ -205,7 +204,8 @@ class MusicFontsWidget(QWidget):
             sample_file = (
                 custom_file if target == 1
                 else
-                os.path.join(template_dir,self.cb_default_sample.currentData()))
+                os.path.join(template_dir,
+                    'musicfont-' + self.cb_default_sample.currentData()))
             base_dir = os.path.dirname(sample_file)
             with open(sample_file, 'r') as f:
                 sample_content = f.read()
