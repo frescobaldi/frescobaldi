@@ -50,6 +50,7 @@ class AbstractPage(util.Rectangular):
         `scaleX`        the scale in X-direction of the original page (1.0)
         `scaleY`        the scale in Y-direction of the original page (1.0)
         `rotation`      the rotation (Rotate_0)
+        `z`             the z-index (0) (only relevant when pages overlap)
         `paperColor`    the paper color (None). If None, the renderer's
                         paperColor is used.
 
@@ -72,6 +73,7 @@ class AbstractPage(util.Rectangular):
     dpi = 72.0
     renderer = None
 
+    z = 0
     rotation = Rotate_0
     scaleX = 1.0
     scaleY = 1.0
