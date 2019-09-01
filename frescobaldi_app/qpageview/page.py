@@ -71,18 +71,16 @@ class AbstractPage(util.Rectangular):
 
     """
     dpi = 72.0
+    pageWidth = 595.28         # default to A4
+    pageHeight = 841.89
     renderer = None
 
     z = 0
     rotation = Rotate_0
+    computedRotation = Rotate_0
     scaleX = 1.0
     scaleY = 1.0
     paperColor = None
-
-    def __init__(self):
-        self.pageWidth = 0.0
-        self.pageHeight = 0.0
-        self.computedRotation = Rotate_0
 
     def copy(self):
         """Return a copy of the page with the same instance attributes."""
