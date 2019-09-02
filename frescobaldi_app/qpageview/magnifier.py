@@ -22,8 +22,6 @@
 The Magnifier magnifies a part of the displayed document.
 """
 
-import weakref
-
 from PyQt5.QtCore import QEvent, QPoint, QRect, Qt
 from PyQt5.QtGui import (
     QColor, QCursor, QPainter, QPalette, QPen, QRegion, QTransform)
@@ -99,7 +97,6 @@ class Magnifier(QWidget):
         self._dragging = False
         self._resizepos = None
         self._resizewidth = 0
-        self._pages = weakref.WeakKeyDictionary()
         self._scale = 3.0
         self.setAutoFillBackground(True)
         self.setBackgroundRole(QPalette.Dark)
@@ -278,13 +275,8 @@ class Magnifier(QWidget):
         
         painter = QPainter(self)
         for p in layout.pagesAt(region.boundingRect()):
-            # reuse the copy of the page if still existing
-            try:
-                page = self._pages[p]
-            except KeyError:
-                page = self._pages[p] = p.copy()
-            page.computedRotation = p.computedRotation
-            page.setGeometry(matrix.mapRect(p.geometry()))
+            # get a (reused) the copy of the page
+            page = p.copy(self, matrix)
             # now paint it
             rect = (page.geometry() & ev_rect).translated(-page.pos())
             painter.save()
