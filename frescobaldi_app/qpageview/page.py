@@ -89,10 +89,11 @@ class AbstractPage(util.Rectangular):
     def copy(self, owner=None, matrix=None):
         """Return a copy of the page with the same instance attributes.
 
-        If owner is specified, the copy is cached and returned next time. (The
-        computedRotation attribute will be updated each time.) If matrix is
-        specified, it should be a QTransform, and it will be used to map the
-        geometry of the original to the (cached) copy before it is returned.
+        If owner is specified, the copy is weakly cached for that owner and
+        returned next time. All instance attribute will be updated each time.
+        If matrix is specified, it should be a QTransform, and it will be used
+        to map the geometry of the original to the (cached) copy before it is
+        returned.
 
         """
         cls = type(self)
