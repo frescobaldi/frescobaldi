@@ -22,7 +22,6 @@ A Page is responsible for drawing a page inside a PageLayout.
 
 """
 
-import copy
 import weakref
 
 from PyQt5.QtCore import QPointF, QRect, QRectF, QSizeF, Qt
@@ -93,21 +92,21 @@ class AbstractPage(util.Rectangular):
         If owner is specified, the copy is cached and returned next time. (The
         computedRotation attribute will be updated each time.) If matrix is
         specified, it should be a QTransform, and it will be used to map the
-        geometry of the original to the copy (which will also be done again on
-        the cached copy if available).
+        geometry of the original to the (cached) copy before it is returned.
 
         """
+        cls = type(self)
         if owner:
             try:
                 page = _copycache[owner][self]
             except KeyError:
-                page = _copycache.setdefault(owner, weakref.WeakKeyDictionary())[self] = copy.copy(self)
+                page = cls.__new__(cls)
+                _copycache.setdefault(owner, weakref.WeakKeyDictionary())[self] = page
             else:
-                # keep instance attributes up-to-date
                 page.__dict__.clear()
-                page.__dict__.update(self.__dict__)
         else:
-            page = copy.copy(self)
+            page = cls.__new__(cls)
+        page.__dict__.update(self.__dict__)
         if matrix:
             page.setGeometry(matrix.mapRect(self.geometry()))
         return page
