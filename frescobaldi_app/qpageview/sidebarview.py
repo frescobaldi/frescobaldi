@@ -94,6 +94,7 @@ class SidebarView(selector.SelectorViewMixin, view.View):
     def slotLayoutUpdated(self):
         """Called when the layout of the connected view is updated."""
         self.pageLayout()[:] = (p.copy(self) for p in self._view.pageLayout())
+        self.pageLayout().rotation = self._view.pageLayout().rotation
         self.updatePageLayout()
 
     def slotCurrentPageNumberChanged(self, num):
