@@ -103,7 +103,9 @@ class AbstractPage(util.Rectangular):
             except KeyError:
                 page = _copycache.setdefault(owner, weakref.WeakKeyDictionary())[self] = copy.copy(self)
             else:
-                page.computedRotation = self.computedRotation
+                # keep instance attributes up-to-date
+                page.__dict__.clear()
+                page.__dict__.update(self.__dict__)
         else:
             page = copy.copy(self)
         if matrix:
