@@ -116,6 +116,13 @@ class MultiPage(page.AbstractPage):
                 if self.opaquePages and not QRegion(rect).subtracted(covered):
                     break
 
+    def print(self, painter, rect=None):
+        """Prints our sub pages."""
+        if self.renderer:
+            if rect is None:
+                rect = self.pageRect()
+            self.renderer.print(self, painter, rect)
+
 
 class MultiPageRenderer(render.AbstractImageRenderer):
     """A renderer that interfaces with the renderers of the sub pages of a MultiPage."""
@@ -129,6 +136,22 @@ class MultiPageRenderer(render.AbstractImageRenderer):
             if p.renderer and not p.renderer.update(p, device, overlayrect.translated(-p.pos()), newcallback):
                 ok = False
         return ok
+
+    def print(self, page, painter, rect):
+        """Print the sub pages at the correct position."""
+        m = page.transform().inverted()[0]  # map pos to original page
+        for p in reversed(page.pages):
+            # find center of the page corresponding to our center
+            painter.save()
+            center = m.map(QRectF(p.geometry()).center())
+            painter.translate(center)
+            painter.scale(1 / page.scaleX, 1 / page.scaleY) # undo the scaling done in printing.py
+            painter.rotate(p.rotation * 90) # rotation relative to us
+            painter.scale(p.scaleX * p.scalePages, p.scaleY * p.scalePages)
+            painter.scale(page.dpi / p.dpi, page.dpi / p.dpi)
+            painter.translate(p.pageWidth / -2, p.pageHeight / -2)
+            p.print(painter)
+            painter.restore()
 
     def paint(self, page, painter, rect, callback=None):
         """Reimplemented to paint all the sub pages on top of each other."""
