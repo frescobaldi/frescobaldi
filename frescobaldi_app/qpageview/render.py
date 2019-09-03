@@ -96,9 +96,8 @@ class AbstractImageRenderer:
 
         `paperColor`    Paper color. If possible this background color is used
                         when rendering the pages, also for temporary drawings
-                        when a page has to be rendered. If None, Qt.white is
-                        used. If a Page specifies its own paperColor, that color
-                        prevails.
+                        when a page has to be rendered. If a Page specifies its
+                        own paperColor, that color prevails.
 
         `imageFormat`   QImage format to use (if possible). Default is
                         QImage.Format_ARGB32_Premultiplied
@@ -177,7 +176,7 @@ class AbstractImageRenderer:
         t.scale(1 / key.width, 1 / key.height)
         return t
 
-    def image(self, page, rect, dpiX, dpiY):
+    def image(self, page, rect, dpiX, dpiY, paperColor):
         """Returns a QImage of the specified rectangle on the Page.
 
         The rectangle is relative to the top-left position. The image is not
@@ -194,9 +193,9 @@ class AbstractImageRenderer:
                   page.ident(),
                   page.computedRotation,
                  *matrix.map(page.width, page.height))
-        return self.render(page, key, tile)
+        return self.render(page, key, tile, paperColor)
 
-    def render(self, page, key, tile):
+    def render(self, page, key, tile, paperColor=None):
         """Generate a QImage for tile of the Page.
         
         The width, height and rotation to render at should be taken from the
@@ -205,9 +204,16 @@ class AbstractImageRenderer:
         The default implementation prepares the image, a painter and then
         calls draw() to actually draw the contents.
         
+        If the paperColor is not specified, it will be read from the Page's
+        paperColor attribute (if not None) or else from the renderer's
+        paperColor attribute.
+        
         """
+        if paperColor is None:
+            paperColor = page.paperColor or self.paperColor
+
         i = QImage(tile.w, tile.h, self.imageFormat)
-        i.fill(page.paperColor or self.paperColor or QColor(Qt.white))
+        i.fill(paperColor)
         painter = QPainter(i)
         
         # rotate the painter accordingly
@@ -219,10 +225,10 @@ class AbstractImageRenderer:
             painter.translate(tile.w / -2, tile.h / -2)
 
         # draw it on the image
-        self.draw(page, painter, key, tile)
+        self.draw(page, painter, key, tile, paperColor)
         return i
 
-    def draw(self, page, painter, key, tile):
+    def draw(self, page, painter, key, tile, paperColor):
         """Draw the page contents; implement at least this method.
 
         The painter is already at the top-left position and the correct
@@ -340,8 +346,7 @@ class AbstractImageRenderer:
             else:
                 if QRegion(target).subtracted(region):
                     # paint background, still partly uncovered
-                    color = page.paperColor or self.paperColor or QColor(Qt.white)
-                    painter.fillRect(rect, color)
+                    painter.fillRect(rect, page.paperColor or self.paperColor)
 
         # draw lowest quality images first
         for (r, image, source) in reversed(images):

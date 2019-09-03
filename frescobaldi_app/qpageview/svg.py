@@ -77,7 +77,7 @@ class SvgPage(page.AbstractPage):
 
 class Renderer(render.AbstractImageRenderer):
     """Render SVG pages."""
-    def draw(self, page, painter, key, tile):
+    def draw(self, page, painter, key, tile, paperColor):
         """Draw the specified tile of the page (coordinates in key) on painter."""
         # determine the part to draw; convert tile to viewbox
         viewbox = self.map(key, page._viewBox).mapRect(QRectF(*tile))

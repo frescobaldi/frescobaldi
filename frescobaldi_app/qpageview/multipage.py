@@ -156,12 +156,11 @@ class MultiPageRenderer(render.AbstractImageRenderer):
             covered += overlayrect
 
         if QRegion(rect).subtracted(covered):
-            color = page.paperColor or self.paperColor or QColor(Qt.white)
-            painter.fillRect(rect, color)
+            painter.fillRect(rect, page.paperColor or self.paperColor)
 
         self.combine(painter, pixmaps)
 
-    def image(self, page, rect, dpiX=None, dpiY=None):
+    def image(self, page, rect, dpiX, dpiY, paperColor):
         """Return a QImage of the specified rectangle, of all images combined."""
 
         overlays = []
@@ -182,13 +181,13 @@ class MultiPageRenderer(render.AbstractImageRenderer):
             else:
                 overlayscale = overlaywidth / p.width
             scale = ourscale / overlayscale
-            img = p.image(overlayrect.translated(-p.pos()), dpiX * scale, dpiY * scale)
+            img = p.image(overlayrect.translated(-p.pos()), dpiX * scale, dpiY * scale, paperColor)
             pos = overlayrect.topLeft() - rect.topLeft()
             pos = QPoint(round(pos.x() * hscale), round(pos.y() * vscale))
             overlays.append((pos, img))
 
         image = QImage(rect.width() * hscale, rect.height() * vscale, self.imageFormat)
-        image.fill(page.paperColor or self.paperColor or QColor(Qt.white))
+        image.fill(paperColor or page.paperColor or self.paperColor)
         self.combine(QPainter(image), overlays)
         return image
 

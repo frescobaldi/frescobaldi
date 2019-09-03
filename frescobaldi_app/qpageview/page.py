@@ -230,7 +230,7 @@ class AbstractPage(util.Rectangular):
             t = render.Tile(*rect.normalized().getRect())
             self.renderer.draw(self, painter, k, t)
 
-    def image(self, rect, dpiX=None, dpiY=None):
+    def image(self, rect, dpiX=None, dpiY=None, paperColor=None):
         """Returns a QImage of the specified rectangle.
 
         The rectangle is relative to our top-left position. dpiX defaults to
@@ -238,13 +238,12 @@ class AbstractPage(util.Rectangular):
         calls the renderer to generate the image. The image is not cached.
 
         """
-        if dpiX is None:
-            dpiX = self.dpi
-        if dpiY is None:
-            dpiY = dpiX
-
         if self.renderer:
-            return self.renderer.image(self, rect, dpiX, dpiY)
+            if dpiX is None:
+                dpiX = self.dpi
+            if dpiY is None:
+                dpiY = dpiX
+            return self.renderer.image(self, rect, dpiX, dpiY, paperColor)
 
     def mutex(self):
         """Return an object that should be locked when rendering the page.

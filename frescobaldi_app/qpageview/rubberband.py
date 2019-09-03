@@ -183,7 +183,7 @@ class Rubberband(QWidget):
         else:
             return None, None
 
-    def selectedImage(self, resolution=None):
+    def selectedImage(self, resolution=None, paperColor=None):
         """Returns an image of the selected part on a Page.
 
         If resolution is None, the displayed size is chosen. Otherwise, the
@@ -199,7 +199,7 @@ class Rubberband(QWidget):
                 except AttributeError:
                     ratio = view.devicePixelRatio()
                 resolution = view.physicalDpiX() * view.zoomFactor() * ratio
-            return page.image(rect, resolution)
+            return page.image(rect, resolution, resolution, paperColor)
 
     def selectedText(self):
         """Return the text found in the selection, as far as the pages support it."""

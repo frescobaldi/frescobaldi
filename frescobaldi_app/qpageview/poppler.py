@@ -143,8 +143,11 @@ class Renderer(render.AbstractImageRenderer):
 
     oversampleThreshold = 96
     
-    def render(self, page, key, tile):
+    def render(self, page, key, tile, paperColor=None):
         """Generate an image for the Page referred to by key."""
+        if paperColor is None:
+            paperColor = page.paperColor or self.paperColor
+
         doc = page.document
         num = page.pageNumber
         s = page.pageSize()
@@ -157,7 +160,7 @@ class Renderer(render.AbstractImageRenderer):
         image = self.render_poppler_image(doc, num,
             xres * multiplier, yres * multiplier,
             tile.x * multiplier, tile.y * multiplier, tile.w * multiplier, tile.h * multiplier,
-            key.rotation, page.paperColor or self.paperColor)
+            key.rotation, paperColor)
         if multiplier == 2:
             image = image.scaledToWidth(tile.w, Qt.SmoothTransformation)
         image.setDotsPerMeterX(xres * 39.37)
@@ -191,7 +194,7 @@ class Renderer(render.AbstractImageRenderer):
                 doc.setRenderBackend(oldbackend)
         return image
 
-    def draw(self, page, painter, key, tile):
+    def draw(self, page, painter, key, tile, paperColor):
         """Draw a tile on the painter.
 
         The painter is already at the right position and rotation.
@@ -206,7 +209,6 @@ class Renderer(render.AbstractImageRenderer):
 
         doc = page.document
         p = doc.page(page.pageNumber)
-        paperColor = page.paperColor or self.paperColor
 
         with locking.lock(doc):
             if self.renderHint is not None:
