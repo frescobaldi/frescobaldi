@@ -176,9 +176,25 @@ class MusicFontsWidget(QWidget):
     def populate_default_samples(self):
         cb = self.cb_default_sample
         cb.addItem(_('Bach (Piano)'), 'bach.ly')
+        cb.setItemData(
+            0,
+            _("Baroque music lends itself to traditional fonts"), Qt.ToolTipRole
+        )
         cb.addItem(_('Scriabine (Piano)'), 'scriabine.ly')
+        cb.setItemData(
+            1,
+            _("Late romantic, complex piano music"), Qt.ToolTipRole
+        )
         cb.addItem(_('Berg (String Quartet)'), 'berg-string-quartet.ly')
+        cb.setItemData(
+            2,
+            _("Complex score, requires a 'clean' font"), Qt.ToolTipRole
+        )
         cb.addItem(_('Glyphs'), 'glyphs.ly')
+        cb.setItemData(
+            3,
+            "Non-comprehensive specimen sheet", Qt.ToolTipRole
+        )
 
     def remove_music_font(self):
         """Remove one or more font family/ies from the LilyPond installation.
