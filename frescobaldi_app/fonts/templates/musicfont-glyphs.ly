@@ -1,5 +1,7 @@
 \version "2.19.82"
 
+\include "lilypond-book-preamble.ly"
+
 {
   \omit Staff.StaffSymbol
   \omit Staff.TimeSignature

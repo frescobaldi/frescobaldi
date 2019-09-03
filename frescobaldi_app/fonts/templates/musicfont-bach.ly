@@ -3,6 +3,8 @@
 %%% Goldberg Variations, BWV 988 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\include "lilypond-book-preamble.ly"
+
 #(define-markup-command (fingerTieUp layout props f1 f2)
                           (string? string?)
     (interpret-markup layout props

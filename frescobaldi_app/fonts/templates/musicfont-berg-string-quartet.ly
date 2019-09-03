@@ -5,6 +5,7 @@
 %%% String Quartet, Op.3 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\include "lilypond-book-preamble.ly"
 
 pVoll = \markup {
   \dynamic p

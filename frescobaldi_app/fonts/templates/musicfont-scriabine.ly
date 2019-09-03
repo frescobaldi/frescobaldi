@@ -3,6 +3,8 @@
 %%% Piano Sonata No.10, Op.70 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\include "lilypond-book-preamble.ly"
+
 RH-A = \relative c'' {
   \time 9/16
   \set Score.currentBarNumber = #37
