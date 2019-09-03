@@ -175,26 +175,49 @@ class MusicFontsWidget(QWidget):
 
     def populate_default_samples(self):
         cb = self.cb_default_sample
-        cb.addItem(_('Bach (Piano)'), 'bach.ly')
-        cb.setItemData(
-            0,
-            _("Baroque music lends itself to traditional fonts"), Qt.ToolTipRole
-        )
-        cb.addItem(_('Scriabine (Piano)'), 'scriabine.ly')
-        cb.setItemData(
-            1,
-            _("Late romantic, complex piano music"), Qt.ToolTipRole
-        )
-        cb.addItem(_('Berg (String Quartet)'), 'berg-string-quartet.ly')
-        cb.setItemData(
-            2,
-            _("Complex score, requires a 'clean' font"), Qt.ToolTipRole
-        )
-        cb.addItem(_('Glyphs'), 'glyphs.ly')
-        cb.setItemData(
-            3,
-            "Non-comprehensive specimen sheet", Qt.ToolTipRole
-        )
+
+        def add_entry(entry):
+            cb.addItem(entry['label'], entry['file'])
+            cb.setItemData(cb.count() - 1, entry['tooltip'], Qt.ToolTipRole)
+
+        add_entry({
+            'label': _('Bach (Piano)'),
+            'file': 'bach.ly',
+            'tooltip': _(
+                "Baroque music lends itself to traditional fonts"
+            )
+        })
+        add_entry({
+            'label': _('Scriabine (Piano)'),
+            'file': 'scriabine.ly',
+            'tooltip': _(
+                "Late romantic, complex piano music"
+            )
+        })
+        add_entry({
+            'label': _('Berg (String Quartet)'),
+            'file': 'berg-string-quartet.ly',
+            'tooltip': _(
+                "Complex score, requires a 'clean' font"
+            )
+        })
+        add_entry({
+            'label': _('Real Book (Lead Sheet)'),
+            'file': 'realbook.ly',
+            'tooltip': _(
+                "Jazz-like lead sheet.\n"
+                + "NOTE: beautiful results rely on appropriate text fonts.\n"
+                + "Good choices are “lilyjazz-text” for roman and\n"
+                + "“lilyjazz-chords” for sans text fonts."
+            )
+        })
+        add_entry({
+            'label': _('Glyphs'),
+            'file': 'glyphs.ly',
+            'tooltip': _(
+                "Non-comprehensive specimen sheet"
+            )
+        })
 
     def remove_music_font(self):
         """Remove one or more font family/ies from the LilyPond installation.
