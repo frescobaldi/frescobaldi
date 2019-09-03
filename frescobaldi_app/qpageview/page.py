@@ -225,6 +225,8 @@ class AbstractPage(util.Rectangular):
         if self.renderer:
             if rect is None:
                 rect = self.pageRect()
+            else:
+                rect = rect & self.pageRect()
             from . import render
             k = render.Key(self.group(), self.ident(), 0, self.pageWidth, self.pageHeight)
             t = render.Tile(*rect.normalized().getRect())

@@ -28,8 +28,8 @@ rendering to the renderer of the embedded pages.
 
 import collections
 
-from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtGui import QColor, QImage, QPainter, QPixmap, QRegion
+from PyQt5.QtCore import QPoint, QRectF, Qt
+from PyQt5.QtGui import QColor, QImage, QPainter, QPixmap, QRegion, QTransform
 
 from . import page
 from . import render
@@ -139,17 +139,21 @@ class MultiPageRenderer(render.AbstractImageRenderer):
 
     def print(self, page, painter, rect):
         """Print the sub pages at the correct position."""
-        m = page.transform().inverted()[0]  # map pos to original page
-        for p in reversed(page.pages):
+        origmatrix = page.transform().inverted()[0]  # map pos to original page
+        for p in page.pages:
             # find center of the page corresponding to our center
+            center = origmatrix.map(QRectF(p.geometry()).center())
+            m = QTransform()    # matrix from page to subpage
+            m.translate(center.x(), center.y())
+            m.scale(1 / page.scaleX, 1 / page.scaleY) # undo the scaling done in printing.py
+            m.rotate(p.rotation * 90) # rotation relative to us
+            m.scale(
+                page.scalePages * p.scaleX * page.dpi / p.dpi,
+                page.scalePages * p.scaleY * page.dpi / p.dpi)
+            m.translate(p.pageWidth / -2, p.pageHeight / -2)
             painter.save()
-            center = m.map(QRectF(p.geometry()).center())
-            painter.translate(center)
-            painter.scale(1 / page.scaleX, 1 / page.scaleY) # undo the scaling done in printing.py
-            painter.rotate(p.rotation * 90) # rotation relative to us
-            painter.scale(p.scaleX * p.scalePages, p.scaleY * p.scalePages)
-            painter.scale(page.dpi / p.dpi, page.dpi / p.dpi)
-            painter.translate(p.pageWidth / -2, p.pageHeight / -2)
+            painter.setTransform(m, True)
+            # TODO: handle rect clipping
             p.print(painter)
             painter.restore()
 
