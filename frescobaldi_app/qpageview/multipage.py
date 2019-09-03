@@ -27,8 +27,6 @@ rendering to the renderer of the embedded pages.
 """
 
 import collections
-import types
-import weakref
 
 from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QColor, QImage, QPainter, QPixmap, QRegion
@@ -121,53 +119,10 @@ class MultiPage(page.AbstractPage):
 
 class MultiPageRenderer(render.AbstractImageRenderer):
     """A renderer that interfaces with the renderers of the sub pages of a MultiPage."""
-    def __init__(self):
-        # no need to call super init, we don't use the cache.
-        self._callbacks = weakref.WeakKeyDictionary()
-
-    def makecallback(self, callback, page):
-        """Return a callback for the MultiPage, the same if possible.
-
-        This callback is called when rendering a sub page is finished, and in
-        turn it calls the original callback with the original multi page.
-
-        We cache the callback using a weak reference; this makes sure that
-        unscheduling rendering jobs works correctly.
-
-        """
-        # household: first remove dead refs from all page dicts
-        deadcallbacks = [(r, page)
-                            for page, d in self._callbacks.items()
-                                for r in d if r() is None]
-        for r, page in deadcallbacks:
-            del self._callbacks[page][r]
-            if not self._callbacks[page]:
-                del self._callbacks[page]
-
-        # make a weak ref to the callback
-        if type(callback) is types.MethodType:
-            callbackref = weakref.WeakMethod(callback)
-        else:
-            callbackref = weakref.ref(callback)
-
-        # return the existing callback or create one
-        try:
-            return self._callbacks[page][callbackref]
-        except KeyError:
-            pageref = weakref.ref(page)
-            def newcallback(p):
-                """Called when a subpage of page has been rendered."""
-                page = pageref()
-                callback = callbackref()
-                if page is not None and callback is not None:
-                    callback(page)
-            self._callbacks.setdefault(page, {})[callbackref] = newcallback
-            return newcallback
-
     def update(self, page, device, rect, callback=None):
         """Reimplemented to check/rerender (if needed) all sub pages."""
         # make the call back return with the original page, not the overlay page
-        newcallback = self.makecallback(callback, page) if callback else None
+        newcallback = CallBack(callback, page) if callback else None
 
         ok = True
         for p, overlayrect in page.visiblePagesAt(rect):
@@ -178,7 +133,7 @@ class MultiPageRenderer(render.AbstractImageRenderer):
     def paint(self, page, painter, rect, callback=None):
         """Reimplemented to paint all the sub pages on top of each other."""
         # make the call back return with the original page, not the overlay page
-        newcallback = self.makecallback(callback, page) if callback else None
+        newcallback = CallBack(callback, page) if callback else None
 
         # get the device pixel ratio to paint for
         try:
@@ -240,7 +195,7 @@ class MultiPageRenderer(render.AbstractImageRenderer):
     def unschedule(self, pages, callback):
         """Reimplemented to unschedule all sub pages."""
         for page in pages:
-            newcallback = self.makecallback(callback, page) if callback else None
+            newcallback = CallBack(callback, page) if callback else None
             for p in page.pages:
                 if p.renderer:
                     p.renderer.unschedule((p,), newcallback)
@@ -268,6 +223,32 @@ class MultiPageRenderer(render.AbstractImageRenderer):
             else:
                 painter.drawImage(pos, image)
 
+
+class CallBack:
+    """A wrapper for a callable that is called with the original Page."""
+    def __new__(cls, origcallable, page):
+        # if the callable is already a CallBack instance, just return it. This
+        # would happen if a MultiPage has a subpage that is also a MultiPage.
+        if cls == type(origcallable):
+            return origcallable
+        cb = object.__new__(cls)
+        cb.origcallable = origcallable
+        cb.page = page
+        return cb
+
+    def __hash__(self):
+        """Return the hash of the original callable.
+
+        This way only one callback will be in the Job.callbacks attribute,
+        despite of multiple pages, and unscheduling a job with subpages still
+        works.
+
+        """
+        return hash(self.origcallable)
+
+    def __call__(self, page):
+        """Call the original callback with the original Page."""
+        self.origcallable(self.page)
 
 
 
