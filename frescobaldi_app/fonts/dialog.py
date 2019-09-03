@@ -115,7 +115,7 @@ class FontsDialog(widgets.dialog.Dialog):
 
         if self.info.version() >= (2, 19, 12):
             # Show Music Font results
-            self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts)
+            self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts, self)
             self.tabWidget.insertTab(0, self.music_tree_tab, _("Music Fonts"))
 
     def connectSignals(self):

@@ -276,7 +276,6 @@ class CachedPreviewJob(PublishJob):
         self.base_name = self.hash_name + '.ly'
         self.target_dir = target_dir or self._target_dir
         filename = os.path.join(self.target_dir, self.base_name)
-        print("Create cached job", filename)
         if os.path.exists(filename):
             self.require_compilation = False
         else:

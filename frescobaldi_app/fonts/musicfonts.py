@@ -26,6 +26,7 @@ uninstall to/from a LilyPond installation."
 
 import os
 import re
+import tempfile
 from enum import Enum
 from shutil import copyfile
 from pathlib import Path
@@ -34,11 +35,11 @@ from PyQt5.QtCore import (
     QObject,
     Qt
 )
-from PyQt5.QtGui import(
+from PyQt5.QtGui import (
     QStandardItem,
     QStandardItemModel,
 )
-from PyQt5.QtWidgets import(
+from PyQt5.QtWidgets import (
     QAbstractItemView,
     QButtonGroup,
     QComboBox,
@@ -47,23 +48,36 @@ from PyQt5.QtWidgets import(
     QPushButton,
     QRadioButton,
     QSplitter,
-    QTextEdit,
     QTreeView,
     QVBoxLayout,
     QWidget,
 )
 
 import app
+import appinfo
 import musicpreview
+import util
 import widgets.urlrequester
+
 
 class MusicFontsWidget(QWidget):
     """Display list of installed music fonts,
     show font preview score, install/remove fonts."""
 
+    # Permanently cache compilations of the provided samples
+    # TODO: Add a Preference for a persistent cache dir
+    persistent_cache_dir = os.path.join(
+        tempfile.gettempdir(),
+        appinfo.name + '-music-font-samples'
+    )
+    # Cache compilations of custom samples for Frescobaldi's lifetime only
+    temp_dir = util.tempdir()
+
     def __init__(self, available_fonts, parent=None):
         super(MusicFontsWidget, self).__init__(parent)
         self.music_fonts = available_fonts.music_fonts()
+
+        os.makedirs(self.persistent_cache_dir, 0o700, exist_ok=True)
 
         self.sample_button_group = sbg = QButtonGroup()
         self.rb_default = QRadioButton()
@@ -94,7 +108,7 @@ class MusicFontsWidget(QWidget):
         spl.addWidget(tv)
         spl.addWidget(mfp)
 
-        button_layout = bl = QHBoxLayout()
+        bl = QHBoxLayout()
         bl.addWidget(self.rb_default)
         bl.addWidget(self.cb_default_sample)
         bl.addWidget(self.rb_custom)
@@ -118,8 +132,11 @@ class MusicFontsWidget(QWidget):
         self.rb_default.setText(_("&Default"))
         self.rb_default.setToolTip(_("Choose default music font sample"))
         self.rb_custom.setText(_("&Custom"))
-        self.rb_custom.setToolTip(_("Use custom sample for music font.\n" +
-        "NOTE: This should not include a version statement or a paper block."))
+        self.rb_custom.setToolTip(_(
+            "Use custom sample for music font.\n"
+            + "NOTE: This should not include a version statement "
+            + "or a paper block."
+        ))
         self.rb_current.setText(_("C&urrent"))
         self.rb_current.setToolTip(
             _(
@@ -133,8 +150,17 @@ class MusicFontsWidget(QWidget):
         self.button_remove.setText(_("Remove..."))
         self.button_remove.setToolTip(_("Remove selected music font"))
         self.button_install.setText(_("Install..."))
-        self.button_install.setToolTip(
-            _("Link fonts from a directory to the current LilyPond installation"))
+        self.button_install.setToolTip(_(
+            "Link fonts from a directory to the current LilyPond installation"
+        ))
+
+    def music_font_family(self):
+        try:
+            family_name = (
+                self.tree_view.selectionModel().selectedIndexes()[0].data())
+        except IndexError:
+            family_name = 'emmentaler'
+        return family_name
 
     def populate_default_samples(self):
         cb = self.cb_default_sample
@@ -176,6 +202,7 @@ class MusicFontsWidget(QWidget):
         font_settings = ''
         sample_content = ''
         names = {}
+        cache_persistently = False
         import fonts
         template_dir = os.path.join(fonts.__path__[0], 'templates')
         fontdef_file = os.path.join(template_dir, 'musicfont-paper.ily')
@@ -211,14 +238,18 @@ class MusicFontsWidget(QWidget):
             either from the active editor or from a file.
             """
             nonlocal custom_file, sample_content, base_dir, template_dir
+            nonlocal cache_persistently
             # target will be one out of
-            # 0: provided file
+            # 0: provided sample file
             # 1: custom file
             # 2: active document (unsaved state)
             target = self.sample_button_group.checkedId()
             if target == 1 and not custom_file:
                 # Custom file selected but no file provided
                 target = 0
+
+            # Provided sample files will be cached persistently
+            cache_persistently = target == 0
 
             if target == 2:
                 # Engrave active document
@@ -242,11 +273,7 @@ class MusicFontsWidget(QWidget):
         def populate_font_names():
             """Populate dictionary with names of music and text fonts."""
             nonlocal names
-            try:
-                family_name = (
-                    self.tree_view.selectionModel().selectedIndexes()[0].data())
-            except IndexError:
-                family_name = 'emmentaler'
+            family_name = self.music_font_family()
             brace_name = (
                 family_name
                 if self.music_fonts.family(family_name).has_brace('otf')
@@ -279,17 +306,27 @@ class MusicFontsWidget(QWidget):
             ]
             return '\n'.join(result)
 
+        sample = sample_document()
+        temp_dir = (
+            self.persistent_cache_dir
+            if cache_persistently
+            else self.temp_dir
+        )
         self.musicFontPreview.preview(
-            sample_document(),
+            sample,
             title='Music font preview',
-            base_dir=base_dir)
+            base_dir=base_dir,
+            temp_dir=temp_dir,
+            cached=True)
 
 
 class MusicFontException(Exception):
     pass
 
+
 class MusicFontPermissionException(MusicFontException):
     pass
+
 
 class MusicFontFileRemoveException(MusicFontException):
     pass
@@ -306,8 +343,10 @@ class MusicFontStatus(Enum):
     BROKEN_LINK = 3
     MISSING = 4
 
+
 class MusicFontFile(QObject):
     """Represents a font file within a font family."""
+
     def __init__(self, file):
         self.file = file
         self.status = None
@@ -345,7 +384,6 @@ class MusicFontFamily(QObject):
             raise MusicFontException(
                 'File {} does not appear to be a valid font file'.format(file))
         return font['family'], font['type'], font['size']
-
 
     def __init__(self, file=None):
         self.family = None
@@ -387,7 +425,8 @@ class MusicFontFamily(QObject):
         for type in self._files:
             for size in self._files[type]:
                 file = self._files[type][size]
-                if (self.status(type, size)
+                if (
+                    self.status(type, size)
                     in [MusicFontStatus.FILE, MusicFontStatus.LINK]
                     and target_family.status(type, size)
                     not in [MusicFontStatus.FILE, MusicFontStatus.LINK]
@@ -403,7 +442,8 @@ class MusicFontFamily(QObject):
         if type:
             return self.has_brace(type) and not self.missing_sizes(type)
         else:
-            return (self.is_complete('otf')
+            return (
+                self.is_complete('otf')
                 and self.is_complete('svg')
                 and self.is_complete('woff')
             )
@@ -413,8 +453,10 @@ class MusicFontFamily(QObject):
         font sizes for the given type. For a complete font this
         will be an empty list, which is checked in is_complete()
         for example."""
-        return ([size for size in MusicFontFamily.sizes_list
-            if size not in self.sizes(type)])
+        return (
+            [size for size in MusicFontFamily.sizes_list
+                if size not in self.sizes(type)]
+        )
 
     def remove(self, type, size):
         """Remove a given type/size combination."""
@@ -426,7 +468,7 @@ class MusicFontFamily(QObject):
 
     def status(self, type, size):
         """Returns the status for a given type/size combination."""
-        if not size in self._files[type].keys():
+        if size not in self._files[type].keys():
             return MusicFontStatus.MISSING
 
         font = self._files[type][size]
@@ -466,7 +508,7 @@ class AbstractMusicFontList(QObject):
         (silently overwriting an existing type/size combination),
         otherwise the MusicFont object is created."""
         family, type, size = MusicFontFamily.check_file(file)
-        if not family in self._families.keys():
+        if family not in self._families.keys():
             self._families[family] = MusicFontFamily(file)
         else:
             self._families[family].add(type, size, file)
@@ -499,7 +541,7 @@ class AbstractMusicFontList(QObject):
             for file in files:
                 try:
                     self.add_file(os.path.join(dir, file))
-                except Exception as e:
+                except Exception:
                     # file is not a music font, ignore
                     pass
 
@@ -516,7 +558,10 @@ class AbstractMusicFontList(QObject):
             family = self.family(family_name)
             for type in family._files:
                 for size in family._files[type]:
-                    yield family, family_name, type, size, family._files[type][size]
+                    yield (
+                        family, family_name, type, size,
+                        family._files[type][size]
+                    )
 
 
 class MusicFontRepo(AbstractMusicFontList):
@@ -573,9 +618,11 @@ class InstalledMusicFonts(AbstractMusicFontList):
         """Install a font file in the type's directory.
         Raise an exception if this fails (typically
         lacking permissions)."""
-        target = os.path.join(self.font_root,
+        target = os.path.join(
+            self.font_root,
             self.font_dir(type),
-            os.path.basename(font_file))
+            os.path.basename(font_file)
+        )
         if copy:
             try:
                 copyfile(font_file, target)
