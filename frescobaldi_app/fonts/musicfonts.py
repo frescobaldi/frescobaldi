@@ -79,7 +79,6 @@ class MusicFontsWidget(QWidget):
     show font preview score, install/remove fonts."""
 
     # Permanently cache compilations of the provided samples
-    # TODO: Add a Preference for a persistent cache dir
     persistent_cache_dir = get_persistent_cache_dir()
     # Cache compilations of custom samples for Frescobaldi's lifetime only
     temp_dir = util.tempdir()
@@ -251,7 +250,7 @@ class MusicFontsWidget(QWidget):
         base_dir = None
         font_settings = ''
         sample_content = ''
-        names = {}
+        names = self.parent().parent().parent().selected_fonts
         cache_persistently = False
         import fonts
         template_dir = os.path.join(fonts.__path__[0], 'templates')
@@ -322,6 +321,7 @@ class MusicFontsWidget(QWidget):
 
         def populate_font_names():
             """Populate dictionary with names of music and text fonts."""
+            # TODO: Also make *text* fonts configurable
             nonlocal names
             family_name = self.music_font_family()
             brace_name = (
@@ -329,15 +329,8 @@ class MusicFontsWidget(QWidget):
                 if self.music_fonts.family(family_name).has_brace('otf')
                 else 'emmentaler'
             )
-            names = {
-                'family': family_name,
-                'brace': brace_name,
-                # TODO: Make these configurable, for now
-                # simply write in LilyPond's default fonts.
-                'roman': 'TeXGyre Schola',
-                'sans': 'TeXGyre Heros',
-                'typewriter': 'TeXGyre Cursor'
-            }
+            names['family'] = family_name
+            names['brace'] = brace_name
 
         def sample_document():
             """

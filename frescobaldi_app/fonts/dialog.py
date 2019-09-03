@@ -62,6 +62,16 @@ def show_fonts_dialog(mainwin):
 class FontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts"""
 
+    selected_fonts = {
+        'family': 'emmentaler',
+        'brace': 'emmentaler',
+        # TODO: Make these configurable, for now
+        # simply write in LilyPond's default fonts.
+        'roman': 'TeXGyre Schola',
+        'sans': 'TeXGyre Heros',
+        'typewriter': 'TeXGyre Cursor'
+    }
+
     def __init__(self, parent):
         super(FontsDialog, self).__init__(
             parent,
