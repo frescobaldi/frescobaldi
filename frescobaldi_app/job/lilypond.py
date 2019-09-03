@@ -285,6 +285,7 @@ class CachedPreviewJob(PublishJob):
         url = QUrl(filename)
         url.setScheme('file')
         super(CachedPreviewJob, self).__init__(url, title=title)
+        self.done.connect(self.remove_intermediate)
 
         if title:
             self.set_title(title)
@@ -294,6 +295,18 @@ class CachedPreviewJob(PublishJob):
     def cleanup(self):
         """Do *not* remove the generated files."""
         pass
+
+    def remove_intermediate(self):
+        """Remove all files from the compilation except
+        the (main) .pdf and the .ly files."""
+        dir = self.target_dir
+        files = os.listdir(dir)
+        hash_name = self.hash_name
+        keep = [hash_name + '.ly', hash_name + '.pdf']
+        for f in files:
+            base, ext = os.path.splitext(f)
+            if base.startswith(hash_name) and f not in keep:
+                os.remove(os.path.join(dir, f))
 
     def resultfiles(self):
         """
