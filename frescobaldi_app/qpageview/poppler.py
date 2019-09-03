@@ -194,7 +194,7 @@ class Renderer(render.AbstractImageRenderer):
                 doc.setRenderBackend(oldbackend)
         return image
 
-    def draw(self, page, painter, key, tile, paperColor):
+    def draw(self, page, painter, key, tile, paperColor=None):
         """Draw a tile on the painter.
 
         The painter is already at the right position and rotation.
