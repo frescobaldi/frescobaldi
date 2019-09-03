@@ -123,7 +123,9 @@ class FontsDialog(widgets.dialog.Dialog):
         self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
         self.tabWidget.addTab(self.misc_tree_tab, _("Miscellaneous"))
 
+        self.show_music = False
         if self.info.version() >= (2, 19, 12):
+            self.show_music = True
             # Show Music Font results
             self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts, self)
             self.tabWidget.insertTab(0, self.music_tree_tab, _("Music Fonts"))
@@ -132,15 +134,16 @@ class FontsDialog(widgets.dialog.Dialog):
         self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
         self.finished.connect(self.saveSettings)
         self.reloadButton.clicked.connect(self.reload)
-        mtt = self.music_tree_tab
-        mtt.button_install.clicked.connect(
-            self.install_music_fonts)
-        mtt.tree_view.selectionModel().selectionChanged.connect(
-            self.slot_music_fonts_selection_changed)
-        mtt.sample_button_group.buttonToggled.connect(
-            self.set_music_sample_source)
-        mtt.cb_default_sample.currentIndexChanged.connect(
-            self.slot_default_sample_changed)
+        if self.show_music:
+            mtt = self.music_tree_tab
+            mtt.button_install.clicked.connect(
+                self.install_music_fonts)
+            mtt.tree_view.selectionModel().selectionChanged.connect(
+                self.slot_music_fonts_selection_changed)
+            mtt.sample_button_group.buttonToggled.connect(
+                self.set_music_sample_source)
+            mtt.cb_default_sample.currentIndexChanged.connect(
+                self.slot_default_sample_changed)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
@@ -160,22 +163,23 @@ class FontsDialog(widgets.dialog.Dialog):
 #        self.musicFontsSplitter.restoreState(
 #            s.value('music-font-splitter-sizes').toByteArray()
 #        )
-        id = s.value('sample-source-button', 0, int)
-        self.music_tree_tab.sample_button_group.button(id).setChecked(True)
-        self.set_music_sample_source()
-        default_sample = s.value('default-music-sample', '')
-        index = self.music_tree_tab.cb_default_sample.findText(default_sample)
-        if index >= 0:
-            self.music_tree_tab.cb_default_sample.setCurrentIndex(index)
-        custom_sample = s.value('custom-music-sample-url', '')
-        self.music_tree_tab.custom_sample_url.setPath(custom_sample)
-        sample_dir = (
-            os.path.dirname(custom_sample) if custom_sample
-            else os.path.dirname(
-                self.parent().currentDocument().url().toLocalFile())
-        )
-        self.music_tree_tab.custom_sample_url.fileDialog().setDirectory(
-            sample_dir)
+        if self.show_music:
+            id = s.value('sample-source-button', 0, int)
+            self.music_tree_tab.sample_button_group.button(id).setChecked(True)
+            self.set_music_sample_source()
+            default_sample = s.value('default-music-sample', '')
+            index = self.music_tree_tab.cb_default_sample.findText(default_sample)
+            if index >= 0:
+                self.music_tree_tab.cb_default_sample.setCurrentIndex(index)
+            custom_sample = s.value('custom-music-sample-url', '')
+            self.music_tree_tab.custom_sample_url.setPath(custom_sample)
+            sample_dir = (
+                os.path.dirname(custom_sample) if custom_sample
+                else os.path.dirname(
+                    self.parent().currentDocument().url().toLocalFile())
+            )
+            self.music_tree_tab.custom_sample_url.fileDialog().setDirectory(
+                sample_dir)
 
     def saveSettings(self):
         s = QSettings()
@@ -185,14 +189,15 @@ class FontsDialog(widgets.dialog.Dialog):
         s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
 
         # Music font tab
-        s.setValue('music-fonts-splitter-sizes',
-            self.music_tree_tab.splitter.saveState())
-        s.setValue('sample-source-button',
-            self.music_tree_tab.sample_button_group.checkedId())
-        s.setValue('default-music-sample',
-            self.music_tree_tab.cb_default_sample.currentText())
-        s.setValue('custom-music-sample-url',
-            self.music_tree_tab.custom_sample_url.path())
+        if self.show_music:
+            s.setValue('music-fonts-splitter-sizes',
+                self.music_tree_tab.splitter.saveState())
+            s.setValue('sample-source-button',
+                self.music_tree_tab.sample_button_group.checkedId())
+            s.setValue('default-music-sample',
+                self.music_tree_tab.cb_default_sample.currentText())
+            s.setValue('custom-music-sample-url',
+                self.music_tree_tab.custom_sample_url.path())
 
     def install_music_fonts(self):
         """'Install' music fonts from a directory (structure) by
