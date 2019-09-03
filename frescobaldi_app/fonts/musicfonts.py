@@ -33,6 +33,7 @@ from pathlib import Path
 
 from PyQt5.QtCore import (
     QObject,
+    QSettings,
     Qt
 )
 from PyQt5.QtGui import (
@@ -60,16 +61,26 @@ import util
 import widgets.urlrequester
 
 
+def get_persistent_cache_dir():
+    """
+    Determine location for "persistent" caching of music fonts,
+    either from the Preference (persistent) or the default temporary
+    directory, which will be purged upon computer shutdown.
+    """
+    pref = QSettings()('caching/font-preview', '', str)
+    return pref or os.path.join(
+        tempfile.gettempdir(),
+        appinfo.name + '-music-font-samples'
+    )
+
+
 class MusicFontsWidget(QWidget):
     """Display list of installed music fonts,
     show font preview score, install/remove fonts."""
 
     # Permanently cache compilations of the provided samples
     # TODO: Add a Preference for a persistent cache dir
-    persistent_cache_dir = os.path.join(
-        tempfile.gettempdir(),
-        appinfo.name + '-music-font-samples'
-    )
+    persistent_cache_dir = get_persistent_cache_dir()
     # Cache compilations of custom samples for Frescobaldi's lifetime only
     temp_dir = util.tempdir()
 

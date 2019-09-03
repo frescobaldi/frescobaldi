@@ -23,12 +23,13 @@ Paths preferences page
 
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QVBoxLayout
+from PyQt5.QtWidgets import QVBoxLayout, QLabel
 
 import app
-import widgets.listedit
 import preferences
 import qsettings
+import widgets.listedit
+import widgets.urlrequester
 
 
 class Paths(preferences.GroupsPage):
@@ -39,6 +40,7 @@ class Paths(preferences.GroupsPage):
         self.setLayout(layout)
 
         layout.addWidget(HyphenPaths(self))
+        layout.addWidget(Caching(self))
         layout.addStretch(1)
 
 
@@ -74,3 +76,53 @@ class HyphenPaths(preferences.Group):
             s.remove("paths")
 
 
+class Caching(preferences.Group):
+    # TODO: There will be further options for caching multiple versions of a doc
+    def __init__(self, page):
+        super(Caching, self).__init__(page)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.caching_label = QLabel()
+        layout.addWidget(self.caching_label)
+        layout.addWidget(QLabel(""))
+        self.font_preview_label = QLabel()
+        layout.addWidget(self.font_preview_label)
+        self.font_preview_path_requester = widgets.urlrequester.UrlRequester()
+        self.font_preview_path_requester.changed.connect(self.changed)
+        layout.addWidget(self.font_preview_path_requester)
+
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.setTitle(_("Caching"))
+        self.caching_label.setText(_(
+            "If paths are set in these preferences the corresponding "
+            + "parts of Frescobaldi use (persistent) caching."
+        ))
+        self.font_preview_label.setText(_("Notation Font Previews:"))
+        self.font_preview_label.setToolTip(_(
+            "If set renderings of the provided notation font samples\n"
+            + "are cached persistently, otherwise they are cached in the\n"
+            + "operating system's temporary directory where they may be\n"
+            + "removed upon shutdown.\n"
+            + "Notation font previews from custom files or the active\n"
+            + "document are always cached temporarily and removed when\n"
+            + "closing Frescobaldi."
+        ))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("caching")
+        font_preview = s.value("font-preview", '', str)
+        self.font_preview_path_requester.setPath(font_preview)
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("caching")
+        font_preview = self.font_preview_path_requester.path()
+        if font_preview:
+            s.setValue("font-preview", font_preview)
+        else:
+            s.remove("font-preview")
