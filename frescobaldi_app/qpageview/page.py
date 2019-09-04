@@ -264,21 +264,32 @@ class AbstractPage(util.Rectangular):
             # map to the original page
             source = self.mapFromPage().rect(rect)
 
+            # scale to target size
+            w = source.width() * self.scaleX
+            h = source.height() * self.scaleY
+            if self.computedRotation & 1:
+                w, h = h, w
+            targetSize = QSizeF(w, h)
+
             pdf = QPdfWriter(filename)
             pdf.setResolution(resolution)
 
             layout = pdf.pageLayout()
             layout.setMode(layout.FullPageMode)
-            layout.setPageSize(QPageSize(source.size(), QPageSize.Point))
+            layout.setPageSize(QPageSize(targetSize * 72.0 / self.dpi, QPageSize.Point))
 
             pdf.setPageLayout(layout)
             painter = QPainter(pdf)
+
             m = QTransform()
-            #m.translate(r.center().x(), r.center().y())
             m.scale(resolution / self.dpi, resolution / self.dpi)
-            #m.rotate(page.rotation * 90)
+            m.translate(source.width() / 2, source.height() / 2)
+            m.rotate(self.computedRotation * 90)
             m.scale(self.scaleX, self.scaleY)
-            #m.translate(page.pageWidth / -2, page.pageHeight / -2)
+            if self.computedRotation & 1:
+                m.translate(source.height() / -2, source.width() / -2)
+            else:
+                m.translate(source.width() / -2, source.height() / -2)
 
             painter.setTransform(m, True)
 
