@@ -140,7 +140,8 @@ class PopplerPage(page.AbstractPage):
             # white-out surrounding, because the Arthur backend does not obey clipping
             painter.save()
             painter.translate(-rect.topLeft())
-            painter.setClipRegion(QRegion(self.pageRect().toRect()).subtracted(QRegion(rect.toRect())), Qt.IntersectClip)
+            clip = QRegion(self.pageRect().toRect()).subtracted(QRegion(rect.toRect()))
+            painter.setClipRegion(clip, Qt.IntersectClip)
             painter.fillRect(self.pageRect(), Qt.white)
             painter.restore()
 
