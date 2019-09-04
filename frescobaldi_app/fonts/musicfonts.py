@@ -83,8 +83,9 @@ class MusicFontsWidget(QWidget):
     # Cache compilations of custom samples for Frescobaldi's lifetime only
     temp_dir = util.tempdir()
 
-    def __init__(self, available_fonts, parent=None):
+    def __init__(self, available_fonts, parent):
         super(MusicFontsWidget, self).__init__(parent)
+        self.dialog = parent
         self.music_fonts = available_fonts.music_fonts()
 
         os.makedirs(self.persistent_cache_dir, 0o700, exist_ok=True)
@@ -250,7 +251,7 @@ class MusicFontsWidget(QWidget):
         base_dir = None
         font_settings = ''
         sample_content = ''
-        names = self.parent().parent().parent().selected_fonts
+        names = self.dialog.selected_fonts
         cache_persistently = False
         import fonts
         template_dir = os.path.join(fonts.__path__[0], 'templates')
@@ -671,7 +672,8 @@ class InstalledMusicFonts(AbstractMusicFontList):
                 copyfile(font_file, target)
             except OSError as e:
                 raise MusicFontPermissionException(
-                _("Font installation failed:\n{}").format(e))
+                    _("Font installation failed:\n{}").format(e)
+                )
         else:
             try:
                 os.symlink(font_file, target)

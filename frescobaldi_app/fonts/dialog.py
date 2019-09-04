@@ -48,7 +48,8 @@ import fonts
 
 from . import (
     textfonts,
-    musicfonts
+    musicfonts,
+    fontcommand
 )
 
 
@@ -118,6 +119,10 @@ class FontsDialog(widgets.dialog.Dialog):
         create_log()
         # Show Text Font results
         self.font_tree_tab = textfonts.TextFontsWidget(self.available_fonts)
+
+        # Configure the resulting font command
+        self.font_command_tab = fontcommand.FontCommandWidget(self)
+        self.tabWidget.addTab(self.font_command_tab, _("Font Command"))
 
         # Show various fontconfig information
         self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
