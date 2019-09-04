@@ -116,6 +116,27 @@ class MultiPage(page.AbstractPage):
                 if self.opaquePages and not QRegion(rect).subtracted(covered):
                     break
 
+    def printablePagesAt(self, rect):
+        """Yield (page, matrix) for all subpages that are visible in rect.
+
+        If opaquePages is True, excludes pages hidden below others. The matrix
+        (QTransform) describes the transformation from the page to the sub
+        page. Rect is in original coordinates, as with the print() method.
+
+        """
+        origmatrix = self.transform().inverted()[0] # map pos to original page
+        origmatrix.scale(self.scaleX, self.scaleY)  # undo the scaling done in printing.py
+        for p, r in self.visiblePagesAt(self.mapToPage().rect(rect)):
+            center = origmatrix.map(QRectF(p.geometry()).center())
+            m = QTransform()    # matrix from page to subpage
+            m.translate(center.x(), center.y())
+            m.rotate(p.rotation * 90) # rotation relative to us
+            m.scale(
+                self.scalePages * p.scaleX * self.dpi / p.dpi,
+                self.scalePages * p.scaleY * self.dpi / p.dpi)
+            m.translate(p.pageWidth / -2, p.pageHeight / -2)
+            yield p, m
+
     def print(self, painter, rect=None):
         """Prints our sub pages."""
         if self.renderer:
@@ -141,22 +162,14 @@ class MultiPageRenderer(render.AbstractImageRenderer):
         """Print the sub pages at the correct position."""
         painter.save()
         painter.translate(-rect.topLeft())
-        origmatrix = page.transform().inverted()[0]  # map pos to original page
-        for p in reversed(page.pages):
+        # print from bottom to top
+        for p, m in reversed(list(page.printablePagesAt(rect))):
             # find center of the page corresponding to our center
-            center = origmatrix.map(QRectF(p.geometry()).center())
-            m = QTransform()    # matrix from page to subpage
-            m.translate(center.x(), center.y())
-            m.scale(1 / page.scaleX, 1 / page.scaleY) # undo the scaling done in printing.py
-            m.rotate(p.rotation * 90) # rotation relative to us
-            m.scale(
-                page.scalePages * p.scaleX * page.dpi / p.dpi,
-                page.scalePages * p.scaleY * page.dpi / p.dpi)
-            m.translate(p.pageWidth / -2, p.pageHeight / -2)
             painter.save()
             painter.setTransform(m, True)
             # handle rect clipping
             clip = m.inverted()[0].mapRect(rect) & p.pageRect()
+            painter.fillRect(clip, Qt.white)    # draw a white background
             painter.translate(clip.topLeft())   # the page will go back...
             p.print(painter, clip)
             painter.restore()
