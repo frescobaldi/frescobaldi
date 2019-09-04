@@ -139,8 +139,10 @@ class MultiPageRenderer(render.AbstractImageRenderer):
 
     def print(self, page, painter, rect):
         """Print the sub pages at the correct position."""
+        painter.save()
+        painter.translate(-rect.topLeft())
         origmatrix = page.transform().inverted()[0]  # map pos to original page
-        for p in page.pages:
+        for p in reversed(page.pages):
             # find center of the page corresponding to our center
             center = origmatrix.map(QRectF(p.geometry()).center())
             m = QTransform()    # matrix from page to subpage
@@ -153,9 +155,12 @@ class MultiPageRenderer(render.AbstractImageRenderer):
             m.translate(p.pageWidth / -2, p.pageHeight / -2)
             painter.save()
             painter.setTransform(m, True)
-            # TODO: handle rect clipping
-            p.print(painter)
+            # handle rect clipping
+            clip = m.inverted()[0].mapRect(rect) & p.pageRect()
+            painter.translate(clip.topLeft())   # the page will go back...
+            p.print(painter, clip)
             painter.restore()
+        painter.restore()
 
     def paint(self, page, painter, rect, callback=None):
         """Reimplemented to paint all the sub pages on top of each other."""
