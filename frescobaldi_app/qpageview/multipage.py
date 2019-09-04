@@ -137,12 +137,12 @@ class MultiPage(page.AbstractPage):
             m.translate(p.pageWidth / -2, p.pageHeight / -2)
             yield p, m
 
-    def print(self, painter, rect=None):
+    def print(self, painter, rect=None, paperColor=None):
         """Prints our sub pages."""
         if self.renderer:
             if rect is None:
                 rect = self.pageRect()
-            self.renderer.print(self, painter, rect)
+            self.renderer.print(self, painter, rect, paperColor)
 
 
 class MultiPageRenderer(render.AbstractImageRenderer):
@@ -158,7 +158,7 @@ class MultiPageRenderer(render.AbstractImageRenderer):
                 ok = False
         return ok
 
-    def print(self, page, painter, rect):
+    def print(self, page, painter, rect, paperColor):
         """Print the sub pages at the correct position."""
         painter.save()
         painter.translate(-rect.topLeft())
@@ -169,7 +169,7 @@ class MultiPageRenderer(render.AbstractImageRenderer):
             painter.setTransform(m, True)
             # handle rect clipping
             clip = m.inverted()[0].mapRect(rect) & p.pageRect()
-            painter.fillRect(clip, Qt.white)    # draw a white background
+            painter.fillRect(clip, paperColor or Qt.white)    # draw a white background
             painter.translate(clip.topLeft())   # the page will go back...
             p.print(painter, clip)
             painter.restore()

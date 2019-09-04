@@ -132,9 +132,9 @@ class PopplerPage(page.AbstractPage):
             _linkscache.setdefault(document, {})[pageNumber] = links
             return links
 
-    def print(self, painter, rect=None):
+    def print(self, painter, rect=None, paperColor=None):
         """Reimplemented to white-out undesired space around the rect."""
-        super().print(painter, rect)
+        super().print(painter, rect, paperColor)
         if (self.renderer.printRenderBackend == popplerqt5.Poppler.Document.ArthurBackend
                 and rect and rect != self.pageRect()):
             # white-out surrounding, because the Arthur backend does not obey clipping
@@ -142,7 +142,7 @@ class PopplerPage(page.AbstractPage):
             painter.translate(-rect.topLeft())
             clip = QRegion(self.pageRect().toRect()).subtracted(QRegion(rect.toRect()))
             painter.setClipRegion(clip, Qt.IntersectClip)
-            painter.fillRect(self.pageRect(), Qt.white)
+            painter.fillRect(self.pageRect(), paperColor or Qt.white)
             painter.restore()
 
 

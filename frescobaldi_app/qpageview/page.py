@@ -210,7 +210,7 @@ class AbstractPage(util.Rectangular):
         if rect and self.renderer:
             self.renderer.paint(self, painter, rect, callback)
 
-    def print(self, painter, rect=None):
+    def print(self, painter, rect=None, paperColor=None):
         """Paint a page for printing.
 
         The difference with paint() and image() is that the rect (QRectF)
@@ -230,7 +230,7 @@ class AbstractPage(util.Rectangular):
             from . import render
             k = render.Key(self.group(), self.ident(), 0, self.pageWidth, self.pageHeight)
             t = render.Tile(*rect.normalized().getRect())
-            self.renderer.draw(self, painter, k, t)
+            self.renderer.draw(self, painter, k, t, paperColor)
 
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
         """Returns a QImage of the specified rectangle.
@@ -258,43 +258,39 @@ class AbstractPage(util.Rectangular):
         be used to determine the DPI for the generated rendering.
 
         """
-        if self.renderer:
-            if rect is None:
-                rect = self.rect()
-            # map to the original page
-            source = self.mapFromPage().rect(rect)
+        if rect is None:
+            rect = self.rect()
+        # map to the original page
+        source = self.mapFromPage().rect(rect)
 
-            # scale to target size
-            w = source.width() * self.scaleX
-            h = source.height() * self.scaleY
-            if self.computedRotation & 1:
-                w, h = h, w
-            targetSize = QSizeF(w, h)
+        # scale to target size
+        w = source.width() * self.scaleX
+        h = source.height() * self.scaleY
+        if self.computedRotation & 1:
+            w, h = h, w
+        targetSize = QSizeF(w, h)
 
-            pdf = QPdfWriter(filename)
-            pdf.setResolution(resolution)
+        pdf = QPdfWriter(filename)
+        pdf.setCreator("qpageview")
+        pdf.setResolution(resolution)
 
-            layout = pdf.pageLayout()
-            layout.setMode(layout.FullPageMode)
-            layout.setPageSize(QPageSize(targetSize * 72.0 / self.dpi, QPageSize.Point))
+        layout = pdf.pageLayout()
+        layout.setMode(layout.FullPageMode)
+        layout.setPageSize(QPageSize(targetSize * 72.0 / self.dpi, QPageSize.Point))
+        pdf.setPageLayout(layout)
 
-            pdf.setPageLayout(layout)
-            painter = QPainter(pdf)
+        painter = QPainter(pdf)
+        painter.scale(resolution / self.dpi, resolution / self.dpi)
+        if self.computedRotation & 1:
+            painter.translate(source.height() / 2, source.width() / 2)
+        else:
+            painter.translate(source.width() / 2, source.height() / 2)
+        painter.rotate(self.computedRotation * 90)
+        painter.translate(source.width() / -2, source.height() / -2)
+        painter.scale(self.scaleX, self.scaleY)
 
-            m = QTransform()
-            m.scale(resolution / self.dpi, resolution / self.dpi)
-            m.translate(source.width() / 2, source.height() / 2)
-            m.rotate(self.computedRotation * 90)
-            m.scale(self.scaleX, self.scaleY)
-            if self.computedRotation & 1:
-                m.translate(source.height() / -2, source.width() / -2)
-            else:
-                m.translate(source.width() / -2, source.height() / -2)
-
-            painter.setTransform(m, True)
-
-            self.print(painter, source)
-            return painter.end()
+        self.print(painter, source, paperColor)
+        return painter.end()
 
     def mutex(self):
         """Return an object that should be locked when rendering the page.
