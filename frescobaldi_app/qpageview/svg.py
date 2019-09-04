@@ -88,7 +88,10 @@ class Renderer(render.AbstractImageRenderer):
             page._svg.setViewBox(viewbox)
             # we must specify the target otherwise QSvgRenderer scales to the
             # unrotated image
+            painter.save()
+            painter.setClipRect(target, Qt.IntersectClip)
             page._svg.render(painter, target)
+            painter.restore()
             page._svg.setViewBox(page._viewBox)
 
 
