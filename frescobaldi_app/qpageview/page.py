@@ -25,7 +25,7 @@ A Page is responsible for drawing a page inside a PageLayout.
 import weakref
 
 from PyQt5.QtCore import QPointF, QRect, QRectF, QSizeF, Qt
-from PyQt5.QtGui import QColor, QTransform
+from PyQt5.QtGui import QColor, QPageSize, QPainter, QPdfWriter, QTransform
 
 from . import util
 from .constants import Rotate_0
@@ -232,7 +232,7 @@ class AbstractPage(util.Rectangular):
             t = render.Tile(*rect.normalized().getRect())
             self.renderer.draw(self, painter, k, t)
 
-    def image(self, rect, dpiX=None, dpiY=None, paperColor=None):
+    def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
         """Returns a QImage of the specified rectangle.
 
         The rectangle is relative to our top-left position. dpiX defaults to
@@ -241,11 +241,49 @@ class AbstractPage(util.Rectangular):
 
         """
         if self.renderer:
+            if rect is None:
+                rect = self.rect()
             if dpiX is None:
                 dpiX = self.dpi
             if dpiY is None:
                 dpiY = dpiX
             return self.renderer.image(self, rect, dpiX, dpiY, paperColor)
+
+    def pdf(self, filename, rect=None, resolution=72.0, paperColor=None):
+        """Create a PDF file for the selected rect or the whole page.
+
+        The filename may be a string or a QIODevice object. The rectangle is
+        relative to our top-left position. Normally vector graphics are
+        rendered, but in cases where that is not possible, the resolution will
+        be used to determine the DPI for the generated rendering.
+
+        """
+        if self.renderer:
+            if rect is None:
+                rect = self.rect()
+            # map to the original page
+            source = self.mapFromPage().rect(rect)
+
+            pdf = QPdfWriter(filename)
+            pdf.setResolution(resolution)
+
+            layout = pdf.pageLayout()
+            layout.setMode(layout.FullPageMode)
+            layout.setPageSize(QPageSize(source.size(), QPageSize.Point))
+
+            pdf.setPageLayout(layout)
+            painter = QPainter(pdf)
+            m = QTransform()
+            #m.translate(r.center().x(), r.center().y())
+            m.scale(resolution / self.dpi, resolution / self.dpi)
+            #m.rotate(page.rotation * 90)
+            m.scale(self.scaleX, self.scaleY)
+            #m.translate(page.pageWidth / -2, page.pageHeight / -2)
+
+            painter.setTransform(m, True)
+
+            self.print(painter, source)
+            return painter.end()
 
     def mutex(self):
         """Return an object that should be locked when rendering the page.
