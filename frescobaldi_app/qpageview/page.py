@@ -26,6 +26,7 @@ import weakref
 
 from PyQt5.QtCore import QPointF, QRect, QRectF, QSizeF, Qt
 from PyQt5.QtGui import QColor, QPageSize, QPainter, QPdfWriter, QTransform
+from PyQt5.QtSvg import QSvgGenerator
 
 from . import util
 from .constants import Rotate_0
@@ -280,6 +281,50 @@ class AbstractPage(util.Rectangular):
         pdf.setPageLayout(layout)
 
         painter = QPainter(pdf)
+        painter.scale(resolution / self.dpi, resolution / self.dpi)
+        if self.computedRotation & 1:
+            painter.translate(source.height() / 2, source.width() / 2)
+        else:
+            painter.translate(source.width() / 2, source.height() / 2)
+        painter.rotate(self.computedRotation * 90)
+        painter.translate(source.width() / -2, source.height() / -2)
+        painter.scale(self.scaleX, self.scaleY)
+
+        self.print(painter, source, paperColor)
+        return painter.end()
+
+    def svg(self, filename, rect=None, resolution=72.0, paperColor=None):
+        """Create a SVG file for the selected rect or the whole page.
+
+        The filename may be a string or a QIODevice object. The rectangle is
+        relative to our top-left position. Normally vector graphics are
+        rendered, but in cases where that is not possible, the resolution will
+        be used to determine the DPI for the generated rendering.
+
+        """
+        if rect is None:
+            rect = self.rect()
+        # map to the original page
+        source = self.mapFromPage().rect(rect)
+
+        # scale to target size
+        w = source.width() * self.scaleX
+        h = source.height() * self.scaleY
+        if self.computedRotation & 1:
+            w, h = h, w
+        targetSize = QSizeF(w, h) * resolution / self.dpi
+
+        svg = QSvgGenerator()
+        if isinstance(filename, str):
+            svg.setFileName(filename)
+        else:
+            svg.setOutputDevice(filename)
+        svg.setResolution(resolution)
+
+        svg.setSize(targetSize.toSize())
+        svg.setViewBox(QRectF(0, 0, targetSize.width(), targetSize.height()))
+
+        painter = QPainter(svg)
         painter.scale(resolution / self.dpi, resolution / self.dpi)
         if self.computedRotation & 1:
             painter.translate(source.height() / 2, source.width() / 2)
