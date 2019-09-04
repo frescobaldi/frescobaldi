@@ -29,7 +29,7 @@ You need this module to display PDF documents.
 import weakref
 
 from PyQt5.QtCore import Qt, QRectF
-from PyQt5.QtGui import QPainter, QPicture, QTransform
+from PyQt5.QtGui import QRegion, QPainter, QPicture, QTransform
 
 import popplerqt5
 
@@ -131,6 +131,18 @@ class PopplerPage(page.AbstractPage):
                 links = link.Links(map(Link, document.page(pageNumber).links()))
             _linkscache.setdefault(document, {})[pageNumber] = links
             return links
+
+    def print(self, painter, rect=None):
+        """Reimplemented to white-out undesired space around the rect."""
+        super().print(painter, rect)
+        if (self.renderer.printRenderBackend == popplerqt5.Poppler.Document.ArthurBackend
+                and rect and rect != self.pageRect()):
+            # white-out surrounding, because the Arthur backend does not obey clipping
+            painter.save()
+            painter.translate(-rect.topLeft())
+            painter.setClipRegion(QRegion(self.pageRect().toRect()).subtracted(QRegion(rect.toRect())), Qt.IntersectClip)
+            painter.fillRect(self.pageRect(), Qt.white)
+            painter.restore()
 
 
 class Renderer(render.AbstractImageRenderer):
