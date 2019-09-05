@@ -78,7 +78,7 @@ class Actions(actioncollection.ActionCollection):
 
     def translateUI(self):
         self.fonts_show_available_fonts.setText(
-            _("Available &Fonts..."))
+            _("&Document Fonts..."))
         self.fonts_show_available_fonts.setToolTip(
             _("Show and select text and music fonts available in the " +
               "LilyPond version of the current document"))

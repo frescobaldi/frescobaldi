@@ -168,7 +168,7 @@ class FontsDialog(widgets.dialog.Dialog):
                 self.install_music_fonts)
 
     def translateUI(self):
-        self.setWindowTitle(app.caption(_("Available Fonts")))
+        self.setWindowTitle(app.caption(_("Document Fonts")))
         self.reloadButton.setText(_("&Reload"))
         self.logLabel.setText(_("LilyPond output of -dshow-available-options"))
 
