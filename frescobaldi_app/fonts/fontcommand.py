@@ -42,9 +42,33 @@ import app
 class FontCommandWidget(QWidget):
     """Displays and manipulates a font setting command."""
 
+    # Store templates as class variablese
+    lilypond_template = """  #(define fonts
+    (set-global-fonts
+<<<fontdefinitions>>>
+     #:factor (/ staff-height pt 20)
+   ))"""
+    lilypond_paper_block = """\\paper {
+<<<command>>>
+}"""
+    oll_template = '\\useNotationFont {}"{}"'
+    oll_properties = """\\with {
+<<<properties>>>
+} """
+
     def __init__(self, parent):
         super(FontCommandWidget, self).__init__(parent)
         self.dialog = parent
+        self._cmd = {
+            'lily': '',
+            'oll': ''
+        }
+        self._full_cmd = {
+            'lily': '',
+            'oll': ''
+        }
+        self.approach = 'lily'
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         col_layout = QHBoxLayout()
@@ -137,6 +161,7 @@ class FontCommandWidget(QWidget):
         self.loadSettings()
         self.dialog.finished.connect(self.saveSettings)
         # Connect widgets that trigger re-generation of the command
+        # Map widget base classes to signal names
         signal_map = {
             QAbstractButton: 'toggled',
             QButtonGroup: 'buttonClicked',
@@ -144,6 +169,7 @@ class FontCommandWidget(QWidget):
             QLineEdit: 'editingFinished'
         }
         for w in [
+            # list all widgets that should trigger invalidation
             self.cb_roman,
             self.cb_sans,
             self.cb_typewriter,
@@ -156,10 +182,14 @@ class FontCommandWidget(QWidget):
             self.stylesheet_buttons,
             self.le_stylesheet
         ]:
+            # For the current widget determine a supported base class
+            # and connect the appropriate signal.
+            # NOTE: When a new widget is added to the list it has to be
+            # ensured it has a supported base class.
             for base_class in signal_map:
                 if isinstance(w, base_class):
                     signal = getattr(w, signal_map[base_class])
-                    signal.connect(self.generate_command)
+                    signal.connect(self.invalidate_command)
                     break
 
         app.translateUI(self)
@@ -261,5 +291,178 @@ class FontCommandWidget(QWidget):
         s.setValue('style-type', self.stylesheet_buttons.checkedId())
         s.setValue('font-stylesheet', self.le_stylesheet.text())
 
-    def generate_command(self, _=None):
-        pass
+    def command(self, approach='lily'):
+        """Return the command as shown in the Font Command tab."""
+        if not self._cmd[approach]:
+            self.invalidate_command()
+        return self._cmd[approach]
+
+    def generate_lily_command(self):
+        """
+        Generate a font setting command in the traditional LilyPond way
+        using #(define fonts ...) in a \\paper block.
+        Returns a tuple with two versions of the command:
+        - command as shown in the Font Command tab
+          => with various filters applied
+        - "full" command without the filters.
+          => as used in the Font Preview, and maybe the Document wizard
+        """
+        # Definitions are initially handled as string lists,
+        # and later joined to multiline strings.
+        fontdefs = []
+        full_fontdefs = []
+        fonts = self.dialog.selected_fonts
+        template = self.lilypond_template
+
+        def add_font_def(k, name, checked):
+            """
+            Add a font entry to the full command
+            and conditionally to the regular command.
+            """
+            font_entry = '     #:{} "{}"'.format(k, name)
+            if checked:
+                fontdefs.append(font_entry)
+            full_fontdefs.append(font_entry)
+
+        def font_defs():
+            """Compose the font definitions list."""
+            add_font_def('music', fonts['family'], self.cb_music.isChecked())
+            add_font_def('brace', fonts['brace'], self.cb_music.isChecked())
+            add_font_def('roman', fonts['roman'], self.cb_roman.isChecked())
+            add_font_def('sans', fonts['sans'], self.cb_sans.isChecked())
+            add_font_def(
+                'typewriter',
+                fonts['typewriter'],
+                self.cb_typewriter.isChecked()
+            )
+            return "\n".join(fontdefs), "\n".join(full_fontdefs)
+
+        fontdefs, full_fontdefs = font_defs()
+        cmd = template.replace('<<<fontdefinitions>>>', fontdefs)
+        full_cmd = template.replace('<<<fontdefinitions>>>', full_fontdefs)
+        if self.cb_paper_block.isChecked():
+            cmd = self.lilypond_paper_block.replace('<<<command>>>', cmd)
+        full_cmd = self.lilypond_paper_block.replace('<<<command>>>', full_cmd)
+
+        return cmd, full_cmd
+
+    def generate_oll_command(self):
+        """
+        Generate a font setting command using openLilyLib's notation-fonts
+        package.
+        Returns a tuple with two versions of the command:
+        - command as shown in the Font Command tab
+          => with various filters applied
+        - "full" command without the filters.
+          => as used in the Font Preview, and maybe the Document wizard
+        """
+        fonts = self.dialog.selected_fonts
+        # Handled initially as string lists, later joined to multiline strings
+        cmd = []
+        full_cmd = []
+        properties = []
+        full_properties = []
+
+        def add_property(k, v, checked):
+            """
+            Add a property entry to the full command
+            and conditionally to the regular command.
+            """
+            property = '  {} = {}'.format(k, v)
+            if checked:
+                properties.append(property)
+            full_properties.append(property)
+
+        # Load openLilyLib
+        oll_include = '\\include "oll-core/package.ily"'
+        full_cmd.append(oll_include)
+        if self.cb_oll.isChecked():
+            cmd.append(oll_include)
+
+        # Load the notation-fonts package
+        package_include = '\\loadPackage notation-fonts'
+        full_cmd.append(package_include)
+        if self.cb_loadpackage.isChecked():
+            cmd.append(package_include)
+
+        # TODO: Support independent explicit brace font
+        add_property('brace', '"{}"'.format(fonts['brace']), False)
+
+        # Specify text fonts
+        add_property(
+            'roman',
+            '"{}"'.format(fonts['roman']),
+            self.cb_roman.isChecked()
+        )
+        add_property(
+            'sans',
+            '"{}"'.format(fonts['sans']),
+            self.cb_sans.isChecked()
+        )
+        add_property(
+            'typewriter',
+            '"{}"'.format(fonts['typewriter']),
+            self.cb_typewriter.isChecked()
+        )
+
+        # Optionally load font extensions
+        if self.cb_extensions.isChecked():
+            add_property('extensions', '##t', True)
+
+        # Handle font stylesheet
+        style_type = self.stylesheet_buttons.checkedId()
+        # style_type == 0 => default stylesheet, doesn't have to be written
+        if style_type == 1:
+            # Don't use a stylesheet
+            add_property('style', 'none', True)
+        elif style_type == 2:
+            # Use custom stylesheet (must be findable of course)
+            add_property(
+                'style',
+                '"{}"'.format(self.le_stylesheet.text()),
+                True
+            )
+
+        # Generate the \with clause ...
+        full_properties = self.oll_properties.replace(
+            '<<<properties>>>',
+            '\n'.join(full_properties)
+        )
+        # ... conditionally for the regular command
+        if properties:
+            properties = self.oll_properties.replace(
+                '<<<properties>>>',
+                '\n'.join(properties)
+            )
+        else:
+            properties = ''
+        # Inject properties in the \useNotationFont command
+        cmd.append(self.oll_template.format(properties, fonts['family']))
+        full_cmd.append(
+            self.oll_template.format(full_properties, fonts['family'])
+        )
+
+        # Return regular and full command
+        return "\n".join(cmd), "\n".join(full_cmd)
+
+    def invalidate_command(self, _=None):
+        """
+        Regenerate both 'lily' and 'oll' versions of the regular and full
+        font commands. Display the regular command in the textedit and
+        trigger showing the sample in the music font tab.
+        """
+        self._cmd['lily'], self._full_cmd['lily'] = self.generate_lily_command()
+        self._cmd['oll'], self._full_cmd['oll'] = self.generate_oll_command()
+        self.approach = (
+            'lily' if self.approach_tab.currentIndex() == 0 else 'oll'
+        )
+        display_cmd = self._cmd[self.approach]
+        # TODO: Do syntax highlighting and use setHtml()
+        self.command_edit.setPlainText(display_cmd)
+        self.dialog.music_tree_tab.show_sample()
+
+    def full_cmd(self, approach='lily'):
+        """Return the (cached) full command for the requested approach."""
+        if not self._full_cmd[approach]:
+            self.invalidate_command()
+        return self._full_cmd[approach]

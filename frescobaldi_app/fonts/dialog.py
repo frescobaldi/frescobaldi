@@ -89,12 +89,13 @@ class FontsDialog(widgets.dialog.Dialog):
         self.info = documentinfo.lilyinfo(parent.currentDocument())
         self.available_fonts = fonts.available(self.info)
 
+        app.qApp.setOverrideCursor(Qt.WaitCursor)
         self.createTabs()
+        self.font_command_tab.invalidate_command()
         app.translateUI(self)
         self.loadSettings()
 
         self.connectSignals()
-        app.qApp.setOverrideCursor(Qt.WaitCursor)
         if self.available_fonts.text_fonts().is_loaded():
             self.populate_widgets()
         else:
@@ -143,8 +144,6 @@ class FontsDialog(widgets.dialog.Dialog):
             mtt = self.music_tree_tab
             mtt.button_install.clicked.connect(
                 self.install_music_fonts)
-            mtt.tree_view.selectionModel().selectionChanged.connect(
-                self.slot_music_fonts_selection_changed)
             mtt.sample_button_group.buttonToggled.connect(
                 self.set_music_sample_source)
             mtt.cb_default_sample.currentIndexChanged.connect(
@@ -203,6 +202,16 @@ class FontsDialog(widgets.dialog.Dialog):
                 self.music_tree_tab.cb_default_sample.currentText())
             s.setValue('custom-music-sample-url',
                 self.music_tree_tab.custom_sample_url.path())
+
+    def font_cmd(self, approach=None):
+        """Return the font setting command as shown in the Font Command tab."""
+        approach = approach or self.font_command_tab.approach
+        return self.font_command_tab.command(approach)
+
+    def font_full_cmd(self, approach=None):
+        """Return the "full" command with all properties/fonts."""
+        approach = approach or self.font_command_tab.approach
+        return self.font_command_tab.full_cmd(approach)
 
     def install_music_fonts(self):
         """'Install' music fonts from a directory (structure) by
@@ -273,13 +282,6 @@ class FontsDialog(widgets.dialog.Dialog):
     def slot_default_sample_changed(self):
         if self.music_tree_tab.tree_view.selectionModel().hasSelection():
             self.music_tree_tab.show_sample()
-
-    def slot_music_fonts_selection_changed(self, new, old):
-        """Show a new score example with the selected music font"""
-        has_font = self.music_tree_tab.tree_view.selectionModel().hasSelection()
-        if has_font:
-            self.music_tree_tab.show_sample()
-        self.music_tree_tab.button_remove.setEnabled(has_font)
 
     def text_fonts_loaded(self):
         """We don't want to keep the LilyPond log open."""

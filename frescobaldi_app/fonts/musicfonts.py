@@ -113,6 +113,7 @@ class MusicFontsWidget(QWidget):
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
         tv.setSelectionBehavior(QAbstractItemView.SelectRows)
+
         self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(self)
         self.splitter = spl = QSplitter(self)
         spl.setOrientation(Qt.Vertical)
@@ -134,7 +135,10 @@ class MusicFontsWidget(QWidget):
         layout.addLayout(bl)
         layout.addWidget(spl)
 
-        self.tree_view.setModel(available_fonts.music_fonts().item_model())
+        tv.setModel(available_fonts.music_fonts().item_model())
+        tv.selectionModel().selectionChanged.connect(
+            self.music_fonts_selection_changed
+        )
         app.translateUI(self)
 
         self.button_remove.clicked.connect(self.remove_music_font)
@@ -172,6 +176,27 @@ class MusicFontsWidget(QWidget):
         except IndexError:
             family_name = 'emmentaler'
         return family_name
+
+    def music_fonts_selection_changed(self, new, old):
+        """Show a new score example with the selected music font"""
+        names = self.dialog.selected_fonts
+        has_font = self.tree_view.selectionModel().hasSelection()
+        if has_font:
+            family_name = self.music_font_family()
+            brace_name = (
+                family_name
+                if self.music_fonts.family(family_name).has_brace('otf')
+                else 'emmentaler'
+            )
+            print("Set music font to", family_name)
+            names['family'] = family_name
+            names['brace'] = brace_name
+            self.dialog.font_command_tab.invalidate_command()
+        else:
+            names['family'] = 'emmentaler'
+            names['brace'] = 'emmentaler'
+            # TODO: Hide preview
+        self.button_remove.setEnabled(has_font)
 
     def populate_default_samples(self):
         cb = self.cb_default_sample
@@ -258,19 +283,6 @@ class MusicFontsWidget(QWidget):
         fontdef_file = os.path.join(template_dir, 'musicfont-paper.ily')
         custom_file = self.custom_sample_url.path()
 
-        def compose_font_settings():
-            """Load font-settings template and populate it with font names."""
-            nonlocal font_settings, fontdef_file, names
-            populate_font_names()
-            with open(fontdef_file, 'r') as f:
-                font_settings = f.read()
-            font_settings = font_settings.replace(
-                '<<<music>>>', names['family']).replace(
-                '<<<brace>>>', names['brace']).replace(
-                '<<<roman>>>', names['roman']).replace(
-                '<<<sans>>>', names['sans']).replace(
-                '<<<typewriter>>>', names['typewriter'])
-
         def handle_staff_size():
             """
             If the sample file *starts with* a staff-size definition
@@ -320,19 +332,6 @@ class MusicFontsWidget(QWidget):
                 with open(sample_file, 'r') as f:
                     sample_content = f.read()
 
-        def populate_font_names():
-            """Populate dictionary with names of music and text fonts."""
-            # TODO: Also make *text* fonts configurable
-            nonlocal names
-            family_name = self.music_font_family()
-            brace_name = (
-                family_name
-                if self.music_fonts.family(family_name).has_brace('otf')
-                else 'emmentaler'
-            )
-            names['family'] = family_name
-            names['brace'] = brace_name
-
         def sample_document():
             """
             Steps of composing the used sample document.
@@ -340,12 +339,15 @@ class MusicFontsWidget(QWidget):
             nonlocal font_settings
             load_content()
             handle_staff_size()
-            compose_font_settings()
             result = [
                 '\\version "{}"\n'.format(
                     self.music_fonts.lilypond_info.versionString()),
                 '{}\n'.format(global_size) if global_size else '',
-                font_settings,
+                # TODO: "Protect" this regarding openLilyLib.
+                # It would be easy to simply pass 'lily' as an argument
+                # to always use the generic approach. However, that would
+                # prevent the use of font extensions and stylesheets.
+                self.dialog.font_full_cmd(),
                 sample_content
             ]
             return '\n'.join(result)
