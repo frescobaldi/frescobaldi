@@ -103,7 +103,10 @@ class FontsPreviewWidget(QWidget):
         csu.setFileMode(QFileDialog.ExistingFile)
         csu.changed.connect(lambda: csu.fileDialog().setDirectory(csu.path()))
 
-        self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(self)
+        self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(
+            self,
+            hideWhileIdle=False,
+        )
 
         bl = QHBoxLayout()
         bl.addWidget(self.rb_default)
@@ -224,7 +227,6 @@ class FontsPreviewWidget(QWidget):
         button_id = self.sample_button_group.checkedId()
         self.cb_default_sample.setEnabled(button_id == 0)
         self.custom_sample_url.setEnabled(button_id == 1)
-        print("Show sample from set_Music_sample_source")
         self.show_sample()
 
     def show_sample(self):

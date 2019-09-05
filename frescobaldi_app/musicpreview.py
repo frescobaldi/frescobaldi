@@ -27,7 +27,6 @@ from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
                              QLabel, QStackedLayout, QVBoxLayout, QWidget)
 
 import app
-import document
 import icons
 import job
 import log
@@ -38,7 +37,13 @@ import widgets.progressbar
 
 
 class MusicPreviewWidget(QWidget):
-    def __init__(self, parent=None):
+    def __init__(
+        self,
+        parent=None,
+        hidden=False,
+        hideWhileIdle=True,
+        showFinished=3000
+    ):
         super(MusicPreviewWidget, self).__init__(parent)
         self._lastbuildtime = 10.0
         self._running = None
@@ -48,7 +53,11 @@ class MusicPreviewWidget(QWidget):
         self._chooser = QComboBox(self, activated=self.selectDocument)
         self._log = log.Log()
         self._view = popplerview.View()
-        self._progress = widgets.progressbar.TimedProgressBar()
+        self._progress = widgets.progressbar.TimedProgressBar(
+            hidden=hidden,
+            hideWhileIdle=hideWhileIdle,
+            showFinished=showFinished
+        )
 
         self._stack = QStackedLayout()
         self._top = QWidget()
@@ -107,7 +116,7 @@ class MusicPreviewWidget(QWidget):
         app.job_queue().add_job(j, 'generic')
 
     def _done(self, success):
-        self._progress.stop(True)
+        self._progress.stop()
         pdfs = self._running.resultfiles()
         self.setDocuments(pdfs)
         if not pdfs:
