@@ -38,7 +38,9 @@ metainfo.define('buildtime', 0.0, float)
 class ProgressBar(plugin.ViewSpacePlugin):
     """A Simple progress bar to show a Job is running."""
     def __init__(self, viewSpace):
-        bar = self._bar = widgets.progressbar.TimedProgressBar()
+        bar = self._bar = widgets.progressbar.TimedProgressBar(
+            hideWhileIdle=True
+        )
         viewSpace.status.layout().addWidget(bar, 0, Qt.AlignCenter)
         bar.hide()
         viewSpace.viewChanged.connect(self.viewChanged)
@@ -64,7 +66,7 @@ class ProgressBar(plugin.ViewSpacePlugin):
                 self._bar.setMaximumHeight(14)
                 self._bar.setTextVisible(True)
         else:
-            self._bar.stop(False)
+            self._bar.stop()
 
     def jobStarted(self, document, job):
         if document == self.viewSpace().document():
