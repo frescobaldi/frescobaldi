@@ -276,12 +276,15 @@ class CachedPreviewJob(PublishJob):
         self.base_name = self.hash_name + '.ly'
         self.target_dir = target_dir or self._target_dir
         filename = os.path.join(self.target_dir, self.base_name)
-        if os.path.exists(filename):
-            self.require_compilation = False
+        if os.path.exists(os.path.join(
+            self.target_dir,
+            self.hash_name + '.pdf')
+        ):
+            self._needs_compilation = False
         else:
             with open(filename, 'wb') as f:
                 f.write(text.encode('utf-8'))
-            self.require_compilation = True
+            self._needs_compilation = True
         url = QUrl(filename)
         url.setScheme('file')
         super(CachedPreviewJob, self).__init__(url, title=title)
@@ -295,6 +298,9 @@ class CachedPreviewJob(PublishJob):
     def cleanup(self):
         """Do *not* remove the generated files."""
         pass
+
+    def needs_compilation(self):
+        return self._needs_compilation
 
     def remove_intermediate(self):
         """Remove all files from the compilation except
@@ -324,10 +330,7 @@ class CachedPreviewJob(PublishJob):
 
     def start(self):
         """Override the Job start, using cached PDF if possible."""
-        if self.require_compilation:
+        if self.needs_compilation():
             super(CachedPreviewJob, self).start()
         else:
-            # FIXME: While this causes the PDF to be immediately
-            # displayed (in the music preview dialog)
-            # the compilation *still* is started.
-            self.done("Cached file")
+            self.done("cached")

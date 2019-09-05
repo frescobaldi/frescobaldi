@@ -80,31 +80,34 @@ class MusicPreviewWidget(QWidget):
 
     def preview(
         self, text, title=None, base_dir=None,
-        temp_dir='', cached=False
+        temp_dir='', cached=False, show_log=True
     ):
         """Runs LilyPond on the given text and shows the resulting PDF."""
         if cached:
-            self._running = job.lilypond.CachedPreviewJob(
+            self._running = j = job.lilypond.CachedPreviewJob(
                 text,
                 target_dir=temp_dir,
                 base_dir=base_dir,
                 title=title
             )
+            if not self._running.needs_compilation():
+                self._done(None)
+                return
         else:
-            self._running = job.lilypond.VolatileTextJob(
+            self._running = j = job.lilypond.VolatileTextJob(
                 text,
                 title=title
             )
-        j = self._running
         j.done.connect(self._done)
         self._log.clear()
-        self._stack.setCurrentWidget(self._log)
-        self._log.connectJob(j)
-        app.job_queue().add_job(j, 'generic')
+        self._log.connectJob(self._running)
+        if show_log:
+            self._stack.setCurrentWidget(self._log)
         self._progress.start(self._lastbuildtime)
+        app.job_queue().add_job(j, 'generic')
 
     def _done(self, success):
-        self._progress.stop(False)
+        self._progress.stop(True)
         pdfs = self._running.resultfiles()
         self.setDocuments(pdfs)
         if not pdfs:
@@ -114,7 +117,7 @@ class MusicPreviewWidget(QWidget):
         self._stack.setCurrentWidget(self._view)
         if self._current:
             self._current.cleanup()
-        self._current = self._running # keep the tempdir
+        self._current = self._running  # keep the tempdir
         self._running = None
 
     def setDocuments(self, pdfs):

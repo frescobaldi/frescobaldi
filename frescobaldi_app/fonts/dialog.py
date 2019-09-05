@@ -19,10 +19,8 @@
 
 
 """
-Show a dialog with available fonts.
+Show a dialog with available text and music fonts.
 """
-
-import os
 
 from PyQt5.QtCore import (
     QSettings,
@@ -34,6 +32,7 @@ from PyQt5.QtWidgets import (
     QFileDialog,
     QLabel,
     QMessageBox,
+    QSplitter,
     QTabWidget,
     QVBoxLayout,
     QWidget,
@@ -49,14 +48,19 @@ import fonts
 from . import (
     textfonts,
     musicfonts,
-    fontcommand
+    fontcommand,
+    preview
 )
 
 
 def show_fonts_dialog(mainwin):
-    """Display a dialog with the available fonts of LilyPond specified by info."""
+    """
+    Display a dialog with the available fonts of LilyPond specified by info.
+    """
     dlg = FontsDialog(mainwin)
-    qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
+    qutil.saveDialogSize(
+        dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400)
+    )
     dlg.show()
 
 
@@ -64,7 +68,7 @@ class FontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts"""
 
     selected_fonts = {
-        'family': 'emmentaler',
+        'music': 'emmentaler',
         'brace': 'emmentaler',
         # TODO: Make these configurable, for now
         # simply write in LilyPond's default fonts.
@@ -78,20 +82,34 @@ class FontsDialog(widgets.dialog.Dialog):
             parent,
             buttons=('restoredefaults', 'close',),
         )
+
+        # Info about the current document's LilyPond version
+        self.info = documentinfo.lilyinfo(parent.currentDocument())
+        self.available_fonts = fonts.available(self.info)
+
+        # Notation fonts (and preview) are limited to LilyPond >= 2.19.12
+        self.show_music = self.info.version() >= (2, 19, 12)
+
         self.reloadButton = self._buttonBox.button(
             QDialogButtonBox.RestoreDefaults)
         self.reloadButton.setEnabled(False)
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
-        self.tabWidget = QTabWidget(self)
-        self.setMainWidget(self.tabWidget)
 
-        self.info = documentinfo.lilyinfo(parent.currentDocument())
-        self.available_fonts = fonts.available(self.info)
+        self.tabWidget = QTabWidget(self)
+        self.preview_pane = preview.FontsPreviewWidget(self)
+        self.preview_pane.starting_up = True
+
+        self.splitter = QSplitter()
+        self.splitter.setOrientation(Qt.Horizontal)
+        self.splitter.addWidget(self.tabWidget)
+        if self.show_music:
+            self.splitter.addWidget(self.preview_pane)
+        self.setMainWidget(self.splitter)
 
         app.qApp.setOverrideCursor(Qt.WaitCursor)
         self.createTabs()
-        self.font_command_tab.invalidate_command()
+
         app.translateUI(self)
         self.loadSettings()
 
@@ -104,6 +122,8 @@ class FontsDialog(widgets.dialog.Dialog):
             self.font_tree_tab.display_waiting()
             self.available_fonts.text_fonts().load_fonts(self.logWidget)
         app.qApp.restoreOverrideCursor()
+        self.preview_pane.starting_up = False
+        self.preview_pane.show_sample()
 
     def createTabs(self):
 
@@ -119,22 +139,24 @@ class FontsDialog(widgets.dialog.Dialog):
 
         create_log()
         # Show Text Font results
+        # (Initially don't actually show it, only after compilation)
         self.font_tree_tab = textfonts.TextFontsWidget(self.available_fonts)
+
+        if self.show_music:
+            # Show installed notation fonts
+            self.music_tree_tab = (
+                musicfonts.MusicFontsWidget(self.available_fonts, self)
+            )
+            self.tabWidget.addTab(self.music_tree_tab, _("Music Fonts"))
 
         # Configure the resulting font command
         self.font_command_tab = fontcommand.FontCommandWidget(self)
+        self.font_command_tab.invalidate_command()
         self.tabWidget.addTab(self.font_command_tab, _("Font Command"))
 
         # Show various fontconfig information
         self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
         self.tabWidget.addTab(self.misc_tree_tab, _("Miscellaneous"))
-
-        self.show_music = False
-        if self.info.version() >= (2, 19, 12):
-            self.show_music = True
-            # Show Music Font results
-            self.music_tree_tab = musicfonts.MusicFontsWidget(self.available_fonts, self)
-            self.tabWidget.insertTab(0, self.music_tree_tab, _("Music Fonts"))
 
     def connectSignals(self):
         self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
@@ -144,10 +166,6 @@ class FontsDialog(widgets.dialog.Dialog):
             mtt = self.music_tree_tab
             mtt.button_install.clicked.connect(
                 self.install_music_fonts)
-            mtt.sample_button_group.buttonToggled.connect(
-                self.set_music_sample_source)
-            mtt.cb_default_sample.currentIndexChanged.connect(
-                self.slot_default_sample_changed)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Available Fonts")))
@@ -161,29 +179,16 @@ class FontsDialog(widgets.dialog.Dialog):
         # Text font tab
         self.load_font_tree_column_width(s)
 
+        # Preview
+        if self.show_music:
+            self.preview_pane.loadSettings()
+
         # Music font tab
         # TODO: The following doesn't work so we can't restore
         # the layout of the splitter yet.
 #        self.musicFontsSplitter.restoreState(
 #            s.value('music-font-splitter-sizes').toByteArray()
 #        )
-        if self.show_music:
-            id = s.value('sample-source-button', 0, int)
-            self.music_tree_tab.sample_button_group.button(id).setChecked(True)
-            self.set_music_sample_source()
-            default_sample = s.value('default-music-sample', '')
-            index = self.music_tree_tab.cb_default_sample.findText(default_sample)
-            if index >= 0:
-                self.music_tree_tab.cb_default_sample.setCurrentIndex(index)
-            custom_sample = s.value('custom-music-sample-url', '')
-            self.music_tree_tab.custom_sample_url.setPath(custom_sample)
-            sample_dir = (
-                os.path.dirname(custom_sample) if custom_sample
-                else os.path.dirname(
-                    self.parent().currentDocument().url().toLocalFile())
-            )
-            self.music_tree_tab.custom_sample_url.fileDialog().setDirectory(
-                sample_dir)
 
     def saveSettings(self):
         s = QSettings()
@@ -192,16 +197,12 @@ class FontsDialog(widgets.dialog.Dialog):
         # Text font tab
         s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
 
-        # Music font tab
+        # Preview
         if self.show_music:
-            s.setValue('music-fonts-splitter-sizes',
-                self.music_tree_tab.splitter.saveState())
-            s.setValue('sample-source-button',
-                self.music_tree_tab.sample_button_group.checkedId())
-            s.setValue('default-music-sample',
-                self.music_tree_tab.cb_default_sample.currentText())
-            s.setValue('custom-music-sample-url',
-                self.music_tree_tab.custom_sample_url.path())
+            self.preview_pane.saveSettings()
+
+        # Dialog layout
+        s.setValue('music-fonts-splitter-sizes', self.splitter.saveState())
 
     def font_cmd(self, approach=None):
         """Return the font setting command as shown in the Font Command tab."""
@@ -270,18 +271,6 @@ class FontsDialog(widgets.dialog.Dialog):
         self.logWidget.clear()
         # We're connected to the 'loaded' signal
         self.available_fonts.text_fonts().load_fonts(self.logWidget)
-
-    def set_music_sample_source(self):
-        """Update interface to access default samples or custom file chooser."""
-        button_id = self.music_tree_tab.sample_button_group.checkedId()
-        self.music_tree_tab.cb_default_sample.setEnabled(button_id == 0)
-        self.music_tree_tab.custom_sample_url.setEnabled(button_id == 1)
-        if self.music_tree_tab.tree_view.selectionModel().hasSelection():
-            self.music_tree_tab.show_sample()
-
-    def slot_default_sample_changed(self):
-        if self.music_tree_tab.tree_view.selectionModel().hasSelection():
-            self.music_tree_tab.show_sample()
 
     def text_fonts_loaded(self):
         """We don't want to keep the LilyPond log open."""

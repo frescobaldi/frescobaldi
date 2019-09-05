@@ -61,49 +61,14 @@ import util
 import widgets.urlrequester
 
 
-def get_persistent_cache_dir():
-    """
-    Determine location for "persistent" caching of music fonts,
-    either from the Preference (persistent) or the default temporary
-    directory, which will be purged upon computer shutdown.
-    """
-    pref = QSettings().value('caching/font-preview', '', str)
-    return pref or os.path.join(
-        tempfile.gettempdir(),
-        appinfo.name + '-music-font-samples'
-    )
-
-
 class MusicFontsWidget(QWidget):
     """Display list of installed music fonts,
     show font preview score, install/remove fonts."""
-
-    # Permanently cache compilations of the provided samples
-    persistent_cache_dir = get_persistent_cache_dir()
-    # Cache compilations of custom samples for Frescobaldi's lifetime only
-    temp_dir = util.tempdir()
 
     def __init__(self, available_fonts, parent):
         super(MusicFontsWidget, self).__init__(parent)
         self.dialog = parent
         self.music_fonts = available_fonts.music_fonts()
-
-        os.makedirs(self.persistent_cache_dir, 0o700, exist_ok=True)
-
-        self.sample_button_group = sbg = QButtonGroup()
-        self.rb_default = QRadioButton()
-        self.rb_custom = QRadioButton()
-        self.rb_current = QRadioButton()
-        sbg.addButton(self.rb_default, 0)
-        sbg.addButton(self.rb_custom, 1)
-        sbg.addButton(self.rb_current, 2)
-
-        self.cb_default_sample = QComboBox()
-        self.populate_default_samples()
-
-        self.custom_sample_url = csu = widgets.urlrequester.UrlRequester()
-        csu.setFileMode(QFileDialog.ExistingFile)
-        csu.changed.connect(lambda: csu.fileDialog().setDirectory(csu.path()))
 
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
@@ -114,18 +79,7 @@ class MusicFontsWidget(QWidget):
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
         tv.setSelectionBehavior(QAbstractItemView.SelectRows)
 
-        self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(self)
-        self.splitter = spl = QSplitter(self)
-        spl.setOrientation(Qt.Vertical)
-        spl.addWidget(tv)
-        spl.addWidget(mfp)
-
         bl = QHBoxLayout()
-        bl.addWidget(self.rb_default)
-        bl.addWidget(self.cb_default_sample)
-        bl.addWidget(self.rb_custom)
-        bl.addWidget(self.custom_sample_url)
-        bl.addWidget(self.rb_current)
         bl.addStretch()
         bl.addWidget(br)
         bl.addWidget(bi)
@@ -133,7 +87,7 @@ class MusicFontsWidget(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
         layout.addLayout(bl)
-        layout.addWidget(spl)
+        layout.addWidget(tv)
 
         tv.setModel(available_fonts.music_fonts().item_model())
         tv.selectionModel().selectionChanged.connect(
@@ -144,24 +98,6 @@ class MusicFontsWidget(QWidget):
         self.button_remove.clicked.connect(self.remove_music_font)
 
     def translateUI(self):
-        self.rb_default.setText(_("&Default"))
-        self.rb_default.setToolTip(_("Choose default music font sample"))
-        self.rb_custom.setText(_("&Custom"))
-        self.rb_custom.setToolTip(_(
-            "Use custom sample for music font.\n"
-            + "NOTE: This should not include a version statement "
-            + "or a paper block."
-        ))
-        self.rb_current.setText(_("C&urrent"))
-        self.rb_current.setToolTip(
-            _(
-                "Use current document as music font sample.\n"
-                + "NOTE: This is not robust if the document contains "
-                + "a \\paper { } block."
-                ))
-        csu = self.custom_sample_url
-        csu.setDialogTitle(_("Select sample score"))
-        csu.fileDialog(True).setNameFilters(['LilyPond files (*.ly)'])
         self.button_remove.setText(_("Remove..."))
         self.button_remove.setToolTip(_("Remove selected music font"))
         self.button_install.setText(_("Install..."))
@@ -182,67 +118,19 @@ class MusicFontsWidget(QWidget):
         names = self.dialog.selected_fonts
         has_font = self.tree_view.selectionModel().hasSelection()
         if has_font:
-            family_name = self.music_font_family()
+            music_name = self.music_font_family()
             brace_name = (
-                family_name
-                if self.music_fonts.family(family_name).has_brace('otf')
+                music_name
+                if self.music_fonts.family(music_name).has_brace('otf')
                 else 'emmentaler'
             )
-            print("Set music font to", family_name)
-            names['family'] = family_name
+            names['music'] = music_name
             names['brace'] = brace_name
-            self.dialog.font_command_tab.invalidate_command()
         else:
-            names['family'] = 'emmentaler'
+            names['music'] = 'emmentaler'
             names['brace'] = 'emmentaler'
-            # TODO: Hide preview
+        self.dialog.font_command_tab.invalidate_command()
         self.button_remove.setEnabled(has_font)
-
-    def populate_default_samples(self):
-        cb = self.cb_default_sample
-
-        def add_entry(entry):
-            cb.addItem(entry['label'], entry['file'])
-            cb.setItemData(cb.count() - 1, entry['tooltip'], Qt.ToolTipRole)
-
-        add_entry({
-            'label': _('Bach (Piano)'),
-            'file': 'bach.ly',
-            'tooltip': _(
-                "Baroque music lends itself to traditional fonts"
-            )
-        })
-        add_entry({
-            'label': _('Scriabine (Piano)'),
-            'file': 'scriabine.ly',
-            'tooltip': _(
-                "Late romantic, complex piano music"
-            )
-        })
-        add_entry({
-            'label': _('Berg (String Quartet)'),
-            'file': 'berg-string-quartet.ly',
-            'tooltip': _(
-                "Complex score, requires a 'clean' font"
-            )
-        })
-        add_entry({
-            'label': _('Real Book (Lead Sheet)'),
-            'file': 'realbook.ly',
-            'tooltip': _(
-                "Jazz-like lead sheet.\n"
-                + "NOTE: beautiful results rely on appropriate text fonts.\n"
-                + "Good choices are “lilyjazz-text” for roman and\n"
-                + "“lilyjazz-chords” for sans text fonts."
-            )
-        })
-        add_entry({
-            'label': _('Glyphs'),
-            'file': 'glyphs.ly',
-            'tooltip': _(
-                "Non-comprehensive specimen sheet"
-            )
-        })
 
     def remove_music_font(self):
         """Remove one or more font family/ies from the LilyPond installation.
@@ -268,102 +156,6 @@ class MusicFontsWidget(QWidget):
             msg_box.setInformativeText(informative_text)
             msg_box.setDetailedText(detailed_text)
             msg_box.exec()
-
-    def show_sample(self):
-        """Display a sample document for the selected notation font."""
-        global_size = ''
-        fontdef_file = ''
-        base_dir = None
-        font_settings = ''
-        sample_content = ''
-        names = self.dialog.selected_fonts
-        cache_persistently = False
-        import fonts
-        template_dir = os.path.join(fonts.__path__[0], 'templates')
-        fontdef_file = os.path.join(template_dir, 'musicfont-paper.ily')
-        custom_file = self.custom_sample_url.path()
-
-        def handle_staff_size():
-            """
-            If the sample file *starts with* a staff-size definition
-            it will be injected *after* our paper block.
-            """
-            nonlocal sample_content, global_size
-            match = re.match('#\(set-global-staff-size \d+\)', sample_content)
-            if match:
-                global_size = match.group(0)
-                sample_content = sample_content[len(global_size):]
-
-        def load_content():
-            """
-            Load the content to be engraved as sample,
-            either from the active editor or from a file.
-            """
-            nonlocal custom_file, sample_content, base_dir, template_dir
-            nonlocal cache_persistently
-            # target will be one out of
-            # 0: provided sample file
-            # 1: custom file
-            # 2: active document (unsaved state)
-            target = self.sample_button_group.checkedId()
-            if target == 1 and not custom_file:
-                # Custom file selected but no file provided
-                target = 0
-
-            # Provided sample files will be cached persistently
-            cache_persistently = target == 0
-
-            if target == 2:
-                # Engrave active document
-                import engrave
-                current_doc = engrave.engraver(app.activeWindow()).document()
-                sample_content = current_doc.toPlainText()
-                if not current_doc.url().isEmpty():
-                    base_dir = os.path.dirname(current_doc.url().toLocalFile())
-            else:
-                # Engrave from a file
-                sample_file = (
-                    custom_file if target == 1
-                    else
-                    os.path.join(
-                        template_dir,
-                        'musicfont-' + self.cb_default_sample.currentData()))
-                base_dir = os.path.dirname(sample_file)
-                with open(sample_file, 'r') as f:
-                    sample_content = f.read()
-
-        def sample_document():
-            """
-            Steps of composing the used sample document.
-            """
-            nonlocal font_settings
-            load_content()
-            handle_staff_size()
-            result = [
-                '\\version "{}"\n'.format(
-                    self.music_fonts.lilypond_info.versionString()),
-                '{}\n'.format(global_size) if global_size else '',
-                # TODO: "Protect" this regarding openLilyLib.
-                # It would be easy to simply pass 'lily' as an argument
-                # to always use the generic approach. However, that would
-                # prevent the use of font extensions and stylesheets.
-                self.dialog.font_full_cmd(),
-                sample_content
-            ]
-            return '\n'.join(result)
-
-        sample = sample_document()
-        temp_dir = (
-            self.persistent_cache_dir
-            if cache_persistently
-            else self.temp_dir
-        )
-        self.musicFontPreview.preview(
-            sample,
-            title='Music font preview',
-            base_dir=base_dir,
-            temp_dir=temp_dir,
-            cached=True)
 
 
 class MusicFontException(Exception):
