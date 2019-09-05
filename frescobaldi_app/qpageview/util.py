@@ -24,12 +24,6 @@ Small utilities and simple base classes for the qpageview module.
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize
 
-from .constants import (
-    Rotate_90,
-    Rotate_180,
-    Rotate_270,
-)
-
 
 class Rectangular:
     """Defines a Qt-inspired and -based interface for rectangular objects.
@@ -177,6 +171,20 @@ class LongMousePressMixin:
         super().mouseReleaseEvent(ev)
 
 
+def rotate(matrix, rotation, width, height):
+    """Rotates matrix inside a rectangular area of width x height.
+
+    The matrix can be a QPainter or a QTransform.
+    Rotation is 0, 1, 2 or 3, etc. (Rotate_0, Rotate_90, etc...).
+
+    """
+    if rotation & 3:
+        if rotation & 1:
+            matrix.translate(height / 2, width / 2)
+        else:
+            matrix.translate(width / 2, height / 2)
+        matrix.rotate(rotation * 90)
+        matrix.translate(width / -2, height / -2)
 
 
 # Found at: https://stackoverflow.com/questions/1986152/why-doesnt-python-have-a-sign-function

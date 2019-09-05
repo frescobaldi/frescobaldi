@@ -248,12 +248,7 @@ class AbstractPage(util.Rectangular):
             rect = self.pageRect()
         painter = QPainter(device)
         painter.scale(device.logicalDpiX() / self.dpi, device.logicalDpiY() / self.dpi)
-        if self.computedRotation & 1:
-            painter.translate(rect.height() / 2, rect.width() / 2)
-        else:
-            painter.translate(rect.width() / 2, rect.height() / 2)
-        painter.rotate(self.computedRotation * 90)
-        painter.translate(rect.width() / -2, rect.height() / -2)
+        util.rotate(painter, self.computedRotation, rect.width(), rect.height())
         painter.scale(self.scaleX, self.scaleY)
         self.print(painter, rect, paperColor)
         return painter.end()

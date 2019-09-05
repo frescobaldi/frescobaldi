@@ -217,12 +217,7 @@ class AbstractImageRenderer:
         painter = QPainter(i)
         
         # rotate the painter accordingly
-        painter.translate(tile.w / 2, tile.h / 2)
-        painter.rotate(key.rotation * 90)
-        if key.rotation & 1:
-            painter.translate(tile.h / -2, tile.w / -2)
-        else:
-            painter.translate(tile.w / -2, tile.h / -2)
+        util.rotate(painter, key.rotation, tile.w, tile.h)
 
         # draw it on the image
         self.draw(page, painter, key, tile, paperColor)
