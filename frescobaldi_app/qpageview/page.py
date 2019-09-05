@@ -233,6 +233,31 @@ class AbstractPage(util.Rectangular):
             t = render.Tile(*rect.normalized().getRect())
             self.renderer.draw(self, painter, k, t, paperColor)
 
+    def output(self, device, rect=None, paperColor=None):
+        """Paint specified rectangle (or the whole page) to the paint device.
+
+        The page is rotated and scaled, and the resolution of the paint device
+        is used in case pixelbased images need to be generated. But where
+        possible, vector painting is used.
+
+        This method uses print() to do the actual painting to the paint device.
+        If paperColor is not given, no background is printed normally.
+
+        """
+        if rect is None:
+            rect = self.pageRect()
+        painter = QPainter(device)
+        painter.scale(device.logicalDpiX() / self.dpi, device.logicalDpiY() / self.dpi)
+        if self.computedRotation & 1:
+            painter.translate(rect.height() / 2, rect.width() / 2)
+        else:
+            painter.translate(rect.width() / 2, rect.height() / 2)
+        painter.rotate(self.computedRotation * 90)
+        painter.translate(rect.width() / -2, rect.height() / -2)
+        painter.scale(self.scaleX, self.scaleY)
+        self.print(painter, rect, paperColor)
+        return painter.end()
+
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
         """Returns a QImage of the specified rectangle.
 
@@ -259,11 +284,8 @@ class AbstractPage(util.Rectangular):
         be used to determine the DPI for the generated rendering.
 
         """
-        if rect is None:
-            rect = self.rect()
         # map to the original page
-        source = self.mapFromPage().rect(rect)
-
+        source = self.pageRect() if rect is None else self.mapFromPage().rect(rect)
         # scale to target size
         w = source.width() * self.scaleX
         h = source.height() * self.scaleY
@@ -279,19 +301,7 @@ class AbstractPage(util.Rectangular):
         layout.setMode(layout.FullPageMode)
         layout.setPageSize(QPageSize(targetSize * 72.0 / self.dpi, QPageSize.Point))
         pdf.setPageLayout(layout)
-
-        painter = QPainter(pdf)
-        painter.scale(resolution / self.dpi, resolution / self.dpi)
-        if self.computedRotation & 1:
-            painter.translate(source.height() / 2, source.width() / 2)
-        else:
-            painter.translate(source.width() / 2, source.height() / 2)
-        painter.rotate(self.computedRotation * 90)
-        painter.translate(source.width() / -2, source.height() / -2)
-        painter.scale(self.scaleX, self.scaleY)
-
-        self.print(painter, source, paperColor)
-        return painter.end()
+        return self.output(pdf, source, paperColor)
 
     def svg(self, filename, rect=None, resolution=72.0, paperColor=None):
         """Create a SVG file for the selected rect or the whole page.
@@ -302,11 +312,8 @@ class AbstractPage(util.Rectangular):
         be used to determine the DPI for the generated rendering.
 
         """
-        if rect is None:
-            rect = self.rect()
         # map to the original page
-        source = self.mapFromPage().rect(rect)
-
+        source = self.pageRect() if rect is None else self.mapFromPage().rect(rect)
         # scale to target size
         w = source.width() * self.scaleX
         h = source.height() * self.scaleY
@@ -320,22 +327,9 @@ class AbstractPage(util.Rectangular):
         else:
             svg.setOutputDevice(filename)
         svg.setResolution(resolution)
-
         svg.setSize(targetSize.toSize())
         svg.setViewBox(QRectF(0, 0, targetSize.width(), targetSize.height()))
-
-        painter = QPainter(svg)
-        painter.scale(resolution / self.dpi, resolution / self.dpi)
-        if self.computedRotation & 1:
-            painter.translate(source.height() / 2, source.width() / 2)
-        else:
-            painter.translate(source.width() / 2, source.height() / 2)
-        painter.rotate(self.computedRotation * 90)
-        painter.translate(source.width() / -2, source.height() / -2)
-        painter.scale(self.scaleX, self.scaleY)
-
-        self.print(painter, source, paperColor)
-        return painter.end()
+        return self.output(svg, source, paperColor)
 
     def mutex(self):
         """Return an object that should be locked when rendering the page.
