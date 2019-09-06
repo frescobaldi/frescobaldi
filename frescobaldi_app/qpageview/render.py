@@ -341,12 +341,12 @@ class AbstractImageRenderer:
     def job(self, page, key, tile):
         """Return a new Job tailored for this tile."""
         job = backgroundjob.Job()
-        job.callbacks = set()
+        job.callbacks = callbacks = set()
         job.mutex = page.mutex()
         job.work = lambda: self.render(page, key, tile)
         def finalize(image):
             self.cache.addtile(key, tile, image)
-            for cb in job.callbacks:
+            for cb in callbacks:
                 cb(page)
             del _jobs[(key, tile)]
             self.checkstart()
