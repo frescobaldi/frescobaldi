@@ -22,7 +22,7 @@ Small utilities and simple base classes for the qpageview module.
 """
 
 
-from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize
+from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QThread
 
 
 class Rectangular:
@@ -171,8 +171,54 @@ class LongMousePressMixin:
         super().mouseReleaseEvent(ev)
 
 
+class BackgroundJob(QThread):
+    """A simple wrapper around QThread.
+
+    Before calling start() you should put the work function in the work
+    attribute, and an optional finalize function (which will be called with the
+    result) in the finalize attribute.
+
+    Or alternatively, inherit from this class and implement run() and finish()
+    yourself.
+
+    """
+    work = None
+    finalize = None
+    running = False
+    result = None
+
+    def __init__(self, parent=None):
+        """Init ourselves; the parent can be a QObject which will be our parent."""
+        super().__init__(parent)
+        self.finished.connect(self._slotFinished)
+
+    def start(self):
+        self.result = None
+        self.running = True     # this is more robust than isRunning()
+        super().start()
+
+    def run(self):
+        """Call the work function in the background thread."""
+        self.result = self.work()
+
+    def finish(self):
+        """This slot is called in the main thread when the work is done.
+
+        The default implementation calls the finalize function with the result.
+
+        """
+        if self.finalize:
+            self.finalize(self.result)
+
+    def _slotFinished(self):
+        self.running = False
+        self.finish()
+        self.work = None
+        self.finalize = None
+
+
 def rotate(matrix, rotation, width, height, dest=False):
-    """Rotates matrix inside a rectangular area of width x height.
+    """Rotate matrix inside a rectangular area of width x height.
 
     The matrix can be a QPainter or a QTransform.
     Rotation is 0, 1, 2 or 3, etc. (Rotate_0, Rotate_90, etc...).

@@ -24,10 +24,9 @@ Infrastructure for rendering and caching Page images.
 import collections
 import time
 
-from PyQt5.QtCore import QRect, QRectF, Qt, QThread
+from PyQt5.QtCore import QRect, QRectF, Qt
 from PyQt5.QtGui import QColor, QImage, QPainter, QRegion, QTransform
 
-from . import backgroundjob
 from . import cache
 from . import util
 
@@ -339,7 +338,7 @@ class AbstractImageRenderer:
 
     def job(self, page, key, tile):
         """Return a new Job tailored for this tile."""
-        job = backgroundjob.Job()
+        job = util.BackgroundJob()
         job.callbacks = callbacks = set()
         job.mutex = page.mutex()
         job.work = lambda: self.render(page, key, tile)
