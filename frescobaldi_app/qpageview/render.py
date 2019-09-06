@@ -184,7 +184,7 @@ class AbstractImageRenderer:
         painter = QPainter(i)
         
         # rotate the painter accordingly
-        util.rotate(painter, key.rotation, tile.w, tile.h)
+        util.rotate(painter, key.rotation, tile.w, tile.h, True)
 
         # draw it on the image
         self.draw(page, painter, key, tile, paperColor)

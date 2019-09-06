@@ -171,20 +171,25 @@ class LongMousePressMixin:
         super().mouseReleaseEvent(ev)
 
 
-def rotate(matrix, rotation, width, height):
+def rotate(matrix, rotation, width, height, dest=False):
     """Rotates matrix inside a rectangular area of width x height.
 
     The matrix can be a QPainter or a QTransform.
     Rotation is 0, 1, 2 or 3, etc. (Rotate_0, Rotate_90, etc...).
+    If dest is True, width and height refer to the destination, otherwise
+    to the source.
 
     """
     if rotation & 3:
-        if rotation & 1:
-            matrix.translate(height / 2, width / 2)
-        else:
+        if dest or not rotation & 1:
             matrix.translate(width / 2, height / 2)
+        else:
+            matrix.translate(height / 2, width / 2)
         matrix.rotate(rotation * 90)
-        matrix.translate(width / -2, height / -2)
+        if not dest or not rotation & 1:
+            matrix.translate(width / -2, height / -2)
+        else:
+            matrix.translate(height / -2, width / -2)
 
 
 # Found at: https://stackoverflow.com/questions/1986152/why-doesnt-python-have-a-sign-function
