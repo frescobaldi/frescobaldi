@@ -29,6 +29,7 @@ import time
 from PyQt5.QtCore import QRect, QRectF, Qt, QThread
 from PyQt5.QtGui import QColor, QImage, QPainter, QRegion, QTransform
 
+from . import backgroundjob
 from . import cache
 
 
@@ -41,41 +42,8 @@ maxjobs = 4
 
 # we use a global dict to keep running jobs in, so a thread is never
 # deallocated when a renderer dies.
-_jobs = collections.defaultdict(dict)
+_jobs = {}
 
-
-class Job(QThread):
-    """A simple wrapper around QThread.
-
-    Job is instantiated with the Page to render, the Renderer to use, the
-    key that describes rotation, width and height, and the tile to render.
-
-    You don't need to instantiate Job objects, that is done by the schedule()
-    method of AbstractImageRenderer.
-
-    """
-    def __init__(self, renderer, page, key, tile):
-        super().__init__()
-        self.renderer = renderer
-        self.page = page
-        self.key = key
-        self.tile = tile
-
-        self.image = None
-        self.running = False
-        self.callbacks = set()
-        self.finished.connect(self._slotFinished)
-
-    def start(self):
-        self.running = True
-        super().start()
-
-    def run(self):
-        """This is called in the background thread by Qt."""
-        self.image = self.renderer.render(self.page, self.key, self.tile)
-
-    def _slotFinished(self):
-        self.renderer.finish(self)
 
 
 class AbstractImageRenderer:
@@ -360,16 +328,30 @@ class AbstractImageRenderer:
         pending job.
 
         """
-        tiled = _jobs[self].setdefault(page, {}).setdefault(key, {})
-
         for tile in tiles:
             try:
-                job = tiled[tile]
+                job = _jobs[(key, tile)]
             except KeyError:
-                job = tiled[tile] = Job(self, page, key, tile)
+                # make a new Job for this tile
+                job = _jobs[(key, tile)] = self.job(page, key, tile)
             job.time = time.time()
             job.callbacks.add(callback)
         self.checkstart()
+
+    def job(self, page, key, tile):
+        """Return a new Job tailored for this tile."""
+        job = backgroundjob.Job()
+        job.callbacks = set()
+        job.mutex = page.mutex()
+        job.work = lambda: self.render(page, key, tile)
+        def finalize(image):
+            self.cache.addtile(key, tile, image)
+            for cb in job.callbacks:
+                cb(page)
+            del _jobs[(key, tile)]
+            self.checkstart()
+        job.finalize = finalize
+        return job
 
     def unschedule(self, pages, callback):
         """Unschedule a possible pending rendering job for the given pages.
@@ -378,22 +360,16 @@ class AbstractImageRenderer:
         unless it is running.
 
         """
-        for p in pages:
-            d = _jobs[self].get(p)
-            if d:
-                jobs = [(key, tile, job)
-                    for key, tiled in d.items()
-                        for tile, job in tiled.items()]
-                for key, tile, job in jobs:
-                    job.callbacks.discard(callback)
-                    if not job.callbacks and not job.running:
-                        del d[key][tile]
-                        if not d[key]:
-                            del d[key]
-                if not d:
-                    del _jobs[self][p]
-        if not _jobs[self]:
-            del _jobs[self]
+        pages = set((p.group(), p.ident()) for p in pages)
+        unschedule = []
+        for (key, tile), job in _jobs.items():
+            if key[:2] in pages and not job.running:
+                job.callbacks.discard(callback)
+                if not job.callbacks:
+                    unschedule.append((key, tile))
+        for jobkey in unschedule:
+            job = _jobs.pop(jobkey)
+            job.finalize = job.work = None
 
     def invalidate(self, pages):
         """Delete the cached images for the given pages."""
@@ -409,53 +385,21 @@ class AbstractImageRenderer:
 
         """
         # all running jobs (globally)
-        runningjobs = [job
-            for renderer, paged in _jobs.items()
-                for page, keys in paged.items()
-                    for key, tiled in keys.items()
-                        for tile, job in tiled.items()
-                            if job.running]
+        runningjobs = [job for job in _jobs.values() if job.running]
         # our waiting jobs
-        waitingjobs = sorted((job
-            for page, keys in _jobs[self].items()
-                for key, tiled in keys.items()
-                    for tile, job in tiled.items()
-                        if not job.running),
-                            key=lambda j: j.time, reverse=True)
+        waitingjobs = sorted((job for job in _jobs.values() if not job.running),
+                        key=lambda j: j.time, reverse=True)
 
         jobcount = maxjobs - len(runningjobs)
         if jobcount > 0:
-            mutexes = set(j.page.mutex() for j in runningjobs)
+            mutexes = set(j.mutex for j in runningjobs)
             mutexes.discard(None)
             for job in waitingjobs:
-                m = job.page.mutex()
+                m = job.mutex
                 if m is None or m not in mutexes:
                     mutexes.add(m)
                     job.start()
                     jobcount -= 1
                     if jobcount == 0:
                         break
-
-    def finish(self, job):
-        """Called by the job when finished.
-
-        Puts the image in the cache and checks whether a new job needs to be
-        started.
-
-        """
-        self.cache.addtile(job.key, job.tile, job.image)
-        for cb in job.callbacks:
-            cb(job.page)
-
-        del _jobs[self][job.page][job.key][job.tile]
-        if not _jobs[self][job.page][job.key]:
-            del _jobs[self][job.page][job.key]
-            if not _jobs[self][job.page]:
-                del _jobs[self][job.page]
-        if not _jobs[self]:
-            del _jobs[self]
-        else:
-            self.checkstart()
-
-
 
