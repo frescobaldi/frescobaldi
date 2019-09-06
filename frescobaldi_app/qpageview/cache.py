@@ -37,8 +37,6 @@ class ImageCache:
 
     Store and retrieve them under a key (see render.Renderer.key()).
 
-    The ImageCache object can be used as a dict().
-
     """
     maxsize = 209715200 # 200M
     currentsize = 0
