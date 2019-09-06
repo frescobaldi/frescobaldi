@@ -363,9 +363,9 @@ class AbstractImageRenderer:
         pages = set((p.group(), p.ident()) for p in pages)
         unschedule = []
         for (key, tile), job in _jobs.items():
-            if key[:2] in pages and not job.running:
+            if key[:2] in pages:
                 job.callbacks.discard(callback)
-                if not job.callbacks:
+                if not job.callbacks and not job.running:
                     unschedule.append((key, tile))
         for jobkey in unschedule:
             job = _jobs.pop(jobkey)
