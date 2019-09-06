@@ -22,8 +22,6 @@ Infrastructure for rendering and caching Page images.
 """
 
 import collections
-import itertools
-import weakref
 import time
 
 from PyQt5.QtCore import QRect, QRectF, Qt, QThread
@@ -31,6 +29,7 @@ from PyQt5.QtGui import QColor, QImage, QPainter, QRegion, QTransform
 
 from . import backgroundjob
 from . import cache
+from . import util
 
 
 Tile = collections.namedtuple('Tile', 'x y w h')
@@ -384,11 +383,9 @@ class AbstractImageRenderer:
         exceeds `maxjobs`.
 
         """
-        # all running jobs (globally)
         runningjobs = [job for job in _jobs.values() if job.running]
-        # our waiting jobs
         waitingjobs = sorted((job for job in _jobs.values() if not job.running),
-                        key=lambda j: j.time, reverse=True)
+                        key=lambda j: j.time, reverse=True)     # newest first
 
         jobcount = maxjobs - len(runningjobs)
         if jobcount > 0:
