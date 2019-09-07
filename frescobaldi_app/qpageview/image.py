@@ -24,7 +24,11 @@ without using a renderer.
 """
 
 
+from PyQt5.QtCore import QPoint, QRectF
+from PyQt5.QtGui import QImage, QPainter, QTransform
+
 from . import page
+from . import util
 
 
 class ImagePage(page.AbstractPage):
@@ -34,15 +38,43 @@ class ImagePage(page.AbstractPage):
         super().__init__()
         self._image = image
         self.setPageSize(image.size())
-        
+    
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
-        source = self.mapFromPage().rect()
-        
+        source = self.mapFromPage().rect(rect)
+        util.rotate(painter, self.computedRotation, rect.width(), rect.height(), True)
+        painter.drawImage(QRectF(rect), self._image, source)
 
     def print(self, painter, rect=None, paperColor=None):
         """Paint a page for printing."""
+        if rect is None:
+            rect = self.pageRect()
+        else:
+            rect = rect.normalized() & self.pageRect()
+        target = rect.translated(-rect.topLeft())
+        painter.drawImage(target, self._image, rect)
 
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
-        """Returns a QImage of the specified rectangle.
+        """Returns a QImage of the specified rectangle."""
+        if rect is None:
+            rect = self.rect()
+        else:
+            rect = rect & self.rect()
+        if dpiX is None:
+            dpiX = self.dpi
+        if dpiY is None:
+            dpiY = dpiX
+        s = self.defaultSize()
+        matrix = QTransform().scale(
+            s.width() * dpiX / self.dpi / self.width,
+            s.height() * dpiY / self.dpi / self.height)
+        target = matrix.mapRect(rect)
+        target.moveTopLeft(QPoint(0, 0))
+        source = self.mapFromPage().rect(rect)
+        image = QImage(target.size(), QImage.Format_ARGB32_Premultiplied)
+        painter = QPainter(image)
+        self.paint(painter, rect)
+        util.rotate(painter, self.computedRotation, target.width(), target.height(), True)
+        painter.drawImage(QRectF(target), self._image, source)
+        return image
 
