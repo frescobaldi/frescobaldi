@@ -133,7 +133,7 @@ class PopplerPage(page.AbstractPage):
             return links
 
 
-class Renderer(render.AbstractImageRenderer):
+class Renderer(render.AbstractRenderer):
     renderHint = (
         popplerqt5.Poppler.Document.Antialiasing |
         popplerqt5.Poppler.Document.TextAntialiasing

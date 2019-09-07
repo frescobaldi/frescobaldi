@@ -44,7 +44,7 @@ _jobs = {}
 
 
 
-class AbstractImageRenderer:
+class AbstractRenderer:
     """Handle rendering and caching of images.
 
     A renderer can be assigned to the renderer attribute of a Page and takes

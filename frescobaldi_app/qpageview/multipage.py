@@ -145,7 +145,7 @@ class MultiPage(page.AbstractPage):
             self.renderer.print(self, painter, rect, paperColor)
 
 
-class MultiPageRenderer(render.AbstractImageRenderer):
+class MultiPageRenderer(render.AbstractRenderer):
     """A renderer that interfaces with the renderers of the sub pages of a MultiPage."""
     def update(self, page, device, rect, callback=None):
         """Reimplemented to check/rerender (if needed) all sub pages."""
@@ -211,7 +211,7 @@ class MultiPageRenderer(render.AbstractImageRenderer):
         overlays = []
 
         # find out the scale used for the image, to be able to position the
-        # overlay images correctly (code copied from AbstractImageRenderer.image())
+        # overlay images correctly (code copied from AbstractRenderer.image())
         s = page.defaultSize()
         hscale = s.width() * dpiX / page.dpi / page.width
         vscale = s.height() * dpiY / page.dpi / page.height

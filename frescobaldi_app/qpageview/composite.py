@@ -180,7 +180,7 @@ class CompositePage(page.AbstractPage):
         return self.base.links()
 
 
-class CompositeRenderer(render.AbstractImageRenderer):
+class CompositeRenderer(render.AbstractRenderer):
     """Paints the pages by calling their own renderer."""
 
     def __init__(self):
