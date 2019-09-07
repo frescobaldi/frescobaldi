@@ -48,11 +48,13 @@ class ImagePage(page.AbstractPage):
     def print(self, painter, rect=None, paperColor=None):
         """Paint a page for printing."""
         if rect is None:
-            rect = self.pageRect()
+            image = self._image
         else:
             rect = rect.normalized() & self.pageRect()
-        target = rect.translated(-rect.topLeft())
-        painter.drawImage(target, self._image, rect)
+            # we copy the image, because QSvgGenerator otherwise includes the
+            # full image in the resulting SVG file!
+            image = self._image.copy(rect.toRect())
+        painter.drawImage(QPoint(0, 0), image)
 
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
         """Returns a QImage of the specified rectangle."""
