@@ -42,8 +42,8 @@ class ImagePage(page.AbstractPage):
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
         source = self.mapFromPage().rect(rect)
-        util.rotate(painter, self.computedRotation, rect.width(), rect.height(), True)
-        painter.drawImage(QRectF(rect), self._image, source)
+        painter.setTransform(self.transform(), True)
+        painter.drawImage(source, self._image, source)
 
     def print(self, painter, rect=None, paperColor=None):
         """Paint a page for printing."""
