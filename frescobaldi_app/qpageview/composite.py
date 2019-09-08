@@ -25,6 +25,7 @@ the pages are done in the renderer.
 
 """
 
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
 from . import multipage
@@ -59,6 +60,25 @@ class CompositeRenderer(multipage.MultiPageRenderer):
                 painter.drawPixmap(pos, image)
             else:
                 painter.drawImage(pos, image)
+
+    def print(self, page, painter, rect, paperColor):
+        """Print the sub pages at the correct position."""
+        painter.save()
+        painter.translate(-rect.topLeft())
+        # print from bottom to top
+        for layer, (p, m) in enumerate(reversed(list(page.printablePagesAt(rect)))):
+            # find center of the page corresponding to our center
+            painter.save()
+            ### TODO combine with compositing like combine()
+            painter.setOpacity(self.opacity[layer])
+            painter.setTransform(m, True)
+            # handle rect clipping
+            clip = m.inverted()[0].mapRect(rect) & p.pageRect()
+            painter.fillRect(clip, paperColor or Qt.white)    # draw a white background
+            painter.translate(clip.topLeft())   # the page will go back...
+            p.print(painter, clip)
+            painter.restore()
+        painter.restore()
 
 
 
