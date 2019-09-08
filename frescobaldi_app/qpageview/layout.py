@@ -189,11 +189,10 @@ class PageLayout(util.Rectangular, list):
         """
         if self.count():
             def key(page):
-                psize = page.pageSize()
                 if (page.rotation + self.rotation) & 1:
-                    return psize.height() * page.scaleY
+                    return page.pageHeight * page.scaleY / page.dpi
                 else:
-                    return psize.width() * page.scaleX
+                    return page.pageWidth * page.scaleX / page.dpi
             return max(self, key=key)
 
     def highestPage(self):
@@ -204,11 +203,10 @@ class PageLayout(util.Rectangular, list):
         """
         if self.count():
             def key(page):
-                psize = page.pageSize()
                 if (page.rotation + self.rotation) & 1:
-                    return psize.width() * page.scaleX
+                    return page.pageWidth * page.scaleX / page.dpi
                 else:
-                    return psize.height() * page.scaleY
+                    return page.pageHeight * page.scaleY / page.dpi
             return max(self, key=key)
 
     def fit(self, size, mode):
