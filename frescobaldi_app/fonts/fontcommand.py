@@ -28,6 +28,7 @@ from PyQt5.QtWidgets import (
     QCheckBox,
     QGroupBox,
     QHBoxLayout,
+    QLabel,
     QLineEdit,
     QRadioButton,
     QTabWidget,
@@ -69,6 +70,8 @@ class FontCommandWidget(QWidget):
         }
         self.approach = 'lily'
 
+        self.font_labels = {}
+
         layout = QVBoxLayout()
         self.setLayout(layout)
         col_layout = QHBoxLayout()
@@ -87,17 +90,32 @@ class FontCommandWidget(QWidget):
         ce.setEnabled(False)
         col_layout.addWidget(self.command_edit)
 
+        selected_fonts = self.dialog.selected_fonts
         # Which text font families to integrate?
         self.family_group = QGroupBox()
         family_layout = QVBoxLayout()
         opt_layout.addWidget(self.family_group)
         self.family_group.setLayout(family_layout)
         self.cb_roman = QCheckBox()
-        family_layout.addWidget(self.cb_roman)
+        self.font_labels['roman'] = QLabel(selected_fonts['roman'])
+        roman_layout = QHBoxLayout()
+        roman_layout.addWidget(self.cb_roman)
+        roman_layout.addWidget(self.font_labels['roman'])
+        family_layout.addLayout(roman_layout)
+
         self.cb_sans = QCheckBox()
-        family_layout.addWidget(self.cb_sans)
+        self.font_labels['sans'] = QLabel(selected_fonts['sans'])
+        sans_layout = QHBoxLayout()
+        sans_layout.addWidget(self.cb_sans)
+        sans_layout.addWidget(self.font_labels['sans'])
+        family_layout.addLayout(sans_layout)
+
         self.cb_typewriter = QCheckBox()
-        family_layout.addWidget(self.cb_typewriter)
+        self.font_labels['typewriter'] = QLabel(selected_fonts['typewriter'])
+        typewriter_layout = QHBoxLayout()
+        typewriter_layout.addWidget(self.cb_typewriter)
+        typewriter_layout.addWidget(self.font_labels['typewriter'])
+        family_layout.addLayout(typewriter_layout)
 
         # Choice between traditional and openLilyLib approach
         self.approach_group = QGroupBox()
@@ -120,7 +138,12 @@ class FontCommandWidget(QWidget):
 
         # Configure traditional approach
         self.cb_music = QCheckBox()
-        trad_layout.addWidget(self.cb_music)
+        self.font_labels['music'] = QLabel(selected_fonts['music'])
+        trad_music_layout = QHBoxLayout()
+        trad_music_layout.addWidget(self.cb_music)
+        trad_music_layout.addWidget(self.font_labels['music'])
+        trad_layout.addLayout(trad_music_layout)
+
         self.cb_paper_block = QCheckBox()
         trad_layout.addWidget(self.cb_paper_block)
         trad_layout.addStretch()
@@ -130,7 +153,11 @@ class FontCommandWidget(QWidget):
             self.cb_oll_music = QCheckBox()
             self.cb_oll_music.setChecked(True)
             self.cb_oll_music.setEnabled(False)
-            oll_layout.addWidget(self.cb_oll_music)
+            self.font_labels['oll_music'] = QLabel(selected_fonts['music'])
+            oll_music_layout = QHBoxLayout()
+            oll_music_layout.addWidget(self.cb_oll_music)
+            oll_music_layout.addWidget(self.font_labels['oll_music'])
+            oll_layout.addLayout(oll_music_layout)
             self.cb_oll = QCheckBox()
             oll_layout.addWidget(self.cb_oll)
             self.cb_loadpackage = QCheckBox()
@@ -474,6 +501,10 @@ class FontCommandWidget(QWidget):
         display_cmd = self._cmd[self.approach]
         # TODO: Do syntax highlighting and use setHtml()
         self.command_edit.setPlainText(display_cmd)
+        selected_fonts = self.dialog.selected_fonts
+        for k in self.font_labels:
+            font_key = 'music' if k == 'oll_music' else k
+            self.font_labels[k].setText(selected_fonts[font_key])
         self.dialog.preview_pane.show_sample()
 
     def full_cmd(self, approach='lily'):
