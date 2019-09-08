@@ -175,28 +175,15 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         if num > 1:
             self.setCurrentPageNumber(num - 1)
 
-    def loadPdf(self, filename):
-        """Convenience method to load the specified PDF file.
+    def currentPage(self):
+        """Return the page pointed to by currentPageNumber()."""
+        if self._pageCount:
+            return self._pageLayout[self._currentPageNumber-1]
 
-        The filename can also be a QByteArray.
-
-        """
-        from . import poppler
-        self._unschedulePages(self._pageLayout)
-        self.pageLayout()[:] = poppler.PopplerPage.loadDocument(filename)
-        self.updatePageLayout()
-
-    def loadSvgs(self, filenames):
-        """Convenience method to load the specified list of SVG files.
-
-        Each SVG file is loaded in one Page. A filename can also be a
-        QByteArray.
-
-        """
-        self._unschedulePages(self._pageLayout)
-        from . import svg
-        self.pageLayout()[:] = svg.SvgPage.loadFiles(filenames)
-        self.updatePageLayout()
+    def page(self, num):
+        """Return the page at the specified number (starting at 1)."""
+        if 0 < num <= self._pageCount:
+            return self._pageLayout[num-1]
 
     def setPageLayout(self, layout):
         """Set our current PageLayout instance.
@@ -233,21 +220,58 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         self.pageLayoutUpdated.emit()
         self.viewport().update()
 
-    def clear(self):
-        """Convenience method to clear the current layout."""
-        self._unschedulePages(self._pageLayout)
-        self._pageLayout.clear()
+    @contextlib.contextmanager
+    def modifyPages(self):
+        """Return the list of pages and enter a context to make modifications.
+
+        Note that the first page is at index 0.
+        On exit of the context the page layout is updated.
+
+        """
+        pages = list(self._pageLayout)
+        yield pages
+        self._unschedulePages(list(set(self._pageLayout) - set(pages)))
+        self._pageLayout[:] = pages
         self.updatePageLayout()
 
-    def currentPage(self):
-        """Return the page pointed to by currentPageNumber()."""
-        if self._pageCount:
-            return self._pageLayout[self._currentPageNumber-1]
+    @contextlib.contextmanager
+    def modifyPage(self, num):
+        """Return the page (numbers start with 1) and enter a context.
 
-    def page(self, num):
-        """Return the page at the specified number (starting at 1)."""
-        if 0 < num <= self._pageCount:
-            return self._pageLayout[num-1]
+        On exit of the context, the page layout is updated.
+
+        """
+        page = self.page(num)
+        yield page
+        if page:
+            self._unschedulePages((page,))
+            self.updatePageLayout()
+
+    def clear(self):
+        """Convenience method to clear the current layout."""
+        with self.modifyPages() as pages:
+            pages.clear()
+
+    def loadPdf(self, filename):
+        """Convenience method to load the specified PDF file.
+
+        The filename can also be a QByteArray.
+
+        """
+        from . import poppler
+        with self.modifyPages() as pages:
+            pages[:] = poppler.PopplerPage.loadDocument(filename)
+
+    def loadSvgs(self, filenames):
+        """Convenience method to load the specified list of SVG files.
+
+        Each SVG file is loaded in one Page. A filename can also be a
+        QByteArray.
+
+        """
+        from . import svg
+        with self.modifyPages() as pages:
+            pages[:] = svg.SvgPage.loadFiles(filenames)
 
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
