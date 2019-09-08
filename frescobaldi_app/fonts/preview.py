@@ -104,8 +104,9 @@ class FontsPreviewWidget(QWidget):
         csu.changed.connect(lambda: csu.fileDialog().setDirectory(csu.path()))
 
         self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(
-            self,
-            hideWhileIdle=False,
+            None,
+            progressHiddenWhileIdle=False,
+            showLog=False
         )
 
         bl = QHBoxLayout()
@@ -323,7 +324,6 @@ class FontsPreviewWidget(QWidget):
             title='Music font preview',
             base_dir=base_dir,
             temp_dir=temp_dir,
-            show_log=False,
             cached=True)
 
     def slot_default_sample_changed(self):

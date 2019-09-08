@@ -161,6 +161,7 @@ class FontsDialog(widgets.dialog.Dialog):
     def connectSignals(self):
         self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
         self.finished.connect(self.saveSettings)
+        self.finished.connect(self.preview_pane.musicFontPreview.cleanup)
         self.reloadButton.clicked.connect(self.reload)
         if self.show_music:
             mtt = self.music_tree_tab

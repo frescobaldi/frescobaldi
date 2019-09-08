@@ -40,9 +40,10 @@ class MusicPreviewWidget(QWidget):
     def __init__(
         self,
         parent=None,
-        hidden=False,
-        hideWhileIdle=True,
-        showFinished=3000
+        progressHidden=False,
+        progressHiddenWhileIdle=True,
+        progressShowFinished=3000,
+        showLog=True
     ):
         super(MusicPreviewWidget, self).__init__(parent)
         self._lastbuildtime = 10.0
@@ -52,11 +53,12 @@ class MusicPreviewWidget(QWidget):
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
         self._log = log.Log()
+        self._showLog = showLog
         self._view = popplerview.View()
         self._progress = widgets.progressbar.TimedProgressBar(
-            hidden=hidden,
-            hideWhileIdle=hideWhileIdle,
-            showFinished=showFinished
+            hidden=progressHidden,
+            hideWhileIdle=progressHiddenWhileIdle,
+            showFinished=progressShowFinished
         )
 
         self._stack = QStackedLayout()
@@ -89,7 +91,7 @@ class MusicPreviewWidget(QWidget):
 
     def preview(
         self, text, title=None, base_dir=None,
-        temp_dir='', cached=False, show_log=True
+        temp_dir='', cached=False
     ):
         """Runs LilyPond on the given text and shows the resulting PDF."""
         if cached:
@@ -110,7 +112,7 @@ class MusicPreviewWidget(QWidget):
         j.done.connect(self._done)
         self._log.clear()
         self._log.connectJob(self._running)
-        if show_log:
+        if self._showLog:
             self._stack.setCurrentWidget(self._log)
         self._progress.start(self._lastbuildtime)
         app.job_queue().add_job(j, 'generic')
@@ -119,7 +121,7 @@ class MusicPreviewWidget(QWidget):
         self._progress.stop()
         pdfs = self._running.resultfiles()
         self.setDocuments(pdfs)
-        if not pdfs:
+        if not pdfs and self._showLog:
             self._stack.setCurrentWidget(self._log)
             return
         self._lastbuildtime = self._running.elapsed_time()
@@ -154,7 +156,8 @@ class MusicPreviewWidget(QWidget):
         if self._current:
             self._current.cleanup()
             self._current = None
-        self._stack.setCurrentWidget(self._log)
+        if self._showLog:
+            self._stack.setCurrentWidget(self._log)
         self._top.hide()
         self._view.clear()
 
