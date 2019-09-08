@@ -24,7 +24,7 @@ without using a renderer.
 """
 
 
-from PyQt5.QtCore import QPoint, QRectF
+from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QImage, QPainter, QTransform
 
 from . import page
@@ -33,6 +33,7 @@ from . import util
 
 class ImagePage(page.AbstractPage):
     dpi = 96   # TODO: maybe this can be image dependent.
+    imageFormat = QImage.Format_ARGB32_Premultiplied
     
     def __init__(self, image):
         super().__init__()
@@ -57,7 +58,7 @@ class ImagePage(page.AbstractPage):
         painter.drawImage(QPoint(0, 0), image)
 
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
-        """Returns a QImage of the specified rectangle."""
+        """Return a QImage of the specified rectangle."""
         if rect is None:
             rect = self.rect()
         else:
@@ -66,17 +67,21 @@ class ImagePage(page.AbstractPage):
             dpiX = self.dpi
         if dpiY is None:
             dpiY = dpiX
+
         s = self.defaultSize()
-        matrix = QTransform().scale(
-            s.width() * dpiX / self.dpi / self.width,
-            s.height() * dpiY / self.dpi / self.height)
-        target = matrix.mapRect(rect)
-        target.moveTopLeft(QPoint(0, 0))
+        m = QTransform()
+        m.scale(s.width() * dpiX / self.dpi, s.height() * dpiY / self.dpi)
+        m.translate(.5, .5)
+        m.rotate(self.computedRotation * 90)
+        m.translate(-.5, -.5)
+        m.scale(1 / self.pageWidth, 1 / self.pageHeight)
+
         source = self.mapFromPage().rect(rect)
-        image = QImage(target.size(), QImage.Format_ARGB32_Premultiplied)
+        target = m.mapRect(source).toRect()
+        image = QImage(target.size(), self.imageFormat)
         painter = QPainter(image)
-        self.paint(painter, rect)
-        util.rotate(painter, self.computedRotation, target.width(), target.height(), True)
-        painter.drawImage(QRectF(target), self._image, source)
+        painter.translate(-target.topLeft())
+        painter.setTransform(m, True)
+        painter.drawImage(source, self._image, source)
         return image
 
