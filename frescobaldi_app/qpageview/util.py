@@ -213,8 +213,6 @@ class BackgroundJob(QThread):
     def _slotFinished(self):
         self.running = False
         self.finish()
-        self.work = None
-        self.finalize = None
 
 
 def rotate(matrix, rotation, width, height, dest=False):
