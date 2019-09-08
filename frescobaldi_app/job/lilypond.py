@@ -228,8 +228,8 @@ class VolatileTextJob(PublishJob):
             if version:
                 info = lilypondinfo.suitable(version)
         # Create temporary (document.Document object and file)
-        directory = util.tempdir()
-        filename = os.path.join(directory, 'document.ly')
+        self.directory = util.tempdir()
+        filename = os.path.join(self.directory, 'document.ly')
         with open(filename, 'wb') as f:
             f.write(text.encode('utf-8'))
         url = QUrl(filename)

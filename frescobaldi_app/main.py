@@ -142,7 +142,7 @@ def check_ly():
         "If you did install python-ly correctly, please remove the old\n"
         "ly package from the frescobaldi_app directory, or completely\n"
         "remove and then reinstall Frescobaldi."
-    ).format(version=".".join(format(d) for d in ly_required)))
+    ).format(version=".".join(format(d) for d in appinfo.required_python_ly_version)))
     sys.exit(1)
 
 
