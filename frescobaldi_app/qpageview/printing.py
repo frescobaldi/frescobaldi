@@ -22,35 +22,75 @@ Printing facilities for qpageview.
 """
 
 
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QPainter, QTransform
 
+from . import util
 
-def printPages(printer, pageList):
-    """TEMP. Prints pages at 100% size on printer."""
-    
-    printer.setFullPage(True)
-    painter = QPainter(printer)
-    
-    for n, page in enumerate(pageList):
-        if n:
-            printer.newPage()
-        
-        r = printer.pageRect()
-        
-        painter.save()
-        
-        m = QTransform()
-        
-        m.translate(r.center().x(), r.center().y())
-        m.scale(printer.logicalDpiX() / page.dpi, printer.logicalDpiY() / page.dpi)
-        m.rotate(page.rotation * 90)
-        m.scale(page.scaleX, page.scaleY)
-        m.translate(page.pageWidth / -2, page.pageHeight / -2)
-        
-        painter.setTransform(m, True)
-        page.print(painter)
-        painter.restore()
-        
-    return painter.end()
+
+class PrintJob(util.BackgroundJob):
+    """Performs a print job in the background.
+
+    Emits:
+
+    progress(pageNumber, num, total)        # before each Page
+    finished()                              # when done
+
+    """
+    progress = pyqtSignal(int, int, int)
+
+    aborted = False
+
+    def __init__(self, printer, pageList, parent=None):
+        """Initialize with a QPrinter object and a list of pages.
+
+        pageList may be a list of two-tuples (num, page). Otherwise, the pages
+        are numbered from 1 in the progress message. The pages are copied.
+
+        """
+        super().__init__(parent)
+        self.printer = printer
+        self.setPageList(pageList)
+
+    def setPageList(self, pageList):
+        """Set the pagelist to print.
+
+        pageList may be a list of two-tuples (num, page). Otherwise, the pages
+        are numbered from 1 in the progress message. The pages are copied.
+
+        """
+        self.pageList = []
+        for n, page in enumerate(pageList, 1):
+            if isinstance(page, tuple):
+                pageNum, page = page
+            else:
+                pageNum = n
+            self.pageList.append((pageNum, page.copy()))
+
+    def work(self):
+        """Paint the pages to the printer in the background."""
+        p = self.printer
+        p.setFullPage(True)
+        painter = QPainter(p)
+        for n, (num, page) in enumerate(self.pageList):
+            if self.isInterruptionRequested():
+                self.aborted = True
+                return p.abort()
+            self.progress.emit(num, n+1, len(self.pageList))
+            if n:
+                p.newPage()
+            painter.save()
+            # center on the page and use scale 100% (TEMP)
+            r = p.pageRect()
+            m = QTransform()
+            m.translate(r.center().x(), r.center().y())
+            m.scale(p.logicalDpiX() / page.dpi, p.logicalDpiY() / page.dpi)
+            m.rotate(page.rotation * 90)
+            m.scale(page.scaleX, page.scaleY)
+            m.translate(page.pageWidth / -2, page.pageHeight / -2)
+            painter.setTransform(m, True)
+            page.print(painter)
+            painter.restore()
+        return painter.end()
 
 
