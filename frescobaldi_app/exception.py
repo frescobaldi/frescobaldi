@@ -68,7 +68,7 @@ class ExceptionDialog(QDialog):
         self.exec_()
 
     def translateUI(self):
-        extension = self._ext_maintainer[0]
+        extension = self._ext_maintainer and self._ext_maintainer[0]
         self.errorLabel.setText(
             _("An internal error has occurred{}:").format(
               " in extension '{}'".format(extension)
