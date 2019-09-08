@@ -100,28 +100,33 @@ class MultiPage(page.AbstractRenderedPage):
             page.setGeometry(r)
 
     def visiblePagesAt(self, rect):
-        """Yield (page, rect) for all subpages that ly in rect.
+        """Yield (page, rect) for all subpages.
 
-        If opaquePages is True, excludes pages hidden below others.
+        If opaquePages is True, excludes pages outside rect or hidden below
+        others. The yielded rect is always valid in that case.
 
         """
-        covered = QRegion()
-        for p in self.pages:
-            overlayrect = rect & p.geometry()
-            if overlayrect:
-                if self.opaquePages and not QRegion(overlayrect).subtracted(covered):
+        if not self.opaquePages:
+            for p in self.pages:
+                yield p, rect & p.geometry()
+        else:
+            covered = QRegion()
+            for p in self.pages:
+                overlayrect = rect & p.geometry()
+                if not overlayrect or not QRegion(overlayrect).subtracted(covered):
                     continue    # skip if this part is hidden below the other
                 covered += overlayrect
                 yield p, overlayrect
-                if self.opaquePages and not QRegion(rect).subtracted(covered):
+                if not QRegion(rect).subtracted(covered):
                     break
 
     def printablePagesAt(self, rect):
         """Yield (page, matrix) for all subpages that are visible in rect.
 
-        If opaquePages is True, excludes pages hidden below others. The matrix
-        (QTransform) describes the transformation from the page to the sub
-        page. Rect is in original coordinates, as with the print() method.
+        If opaquePages is True, excludes pages outside rect or hidden below
+        others. The matrix (QTransform) describes the transformation from the
+        page to the sub page. Rect is in original coordinates, as with the
+        print() method.
 
         """
         origmatrix = self.transform().inverted()[0] # map pos to original page
@@ -139,10 +144,9 @@ class MultiPage(page.AbstractRenderedPage):
 
     def print(self, painter, rect=None, paperColor=None):
         """Prints our sub pages."""
-        if self.renderer:
-            if rect is None:
-                rect = self.pageRect()
-            self.renderer.print(self, painter, rect, paperColor)
+        if rect is None:
+            rect = self.pageRect()
+        self.renderer.print(self, painter, rect, paperColor)
 
 
 class MultiPageRenderer(render.AbstractRenderer):
@@ -154,7 +158,8 @@ class MultiPageRenderer(render.AbstractRenderer):
 
         ok = True
         for p, overlayrect in page.visiblePagesAt(rect):
-            if p.renderer and not p.renderer.update(p, device, overlayrect.translated(-p.pos()), newcallback):
+            if (overlayrect and p.renderer and
+                    not p.renderer.update(p, device, overlayrect.translated(-p.pos()), newcallback)):
                 ok = False
         return ok
 
@@ -191,11 +196,13 @@ class MultiPageRenderer(render.AbstractRenderer):
         for p, overlayrect in page.visiblePagesAt(rect):
             pixmap = QPixmap(overlayrect.size() * ratio)
             pixmap.setDevicePixelRatio(ratio)
-            pt = QPainter(pixmap)
-            pt.translate(p.pos() - overlayrect.topLeft())
-            p.paint(pt, overlayrect.translated(-p.pos()), newcallback)
-            pt.end()
-
+            if not pixmap.isNull():
+                pt = QPainter(pixmap)
+                pt.translate(p.pos() - overlayrect.topLeft())
+                p.paint(pt, overlayrect.translated(-p.pos()), newcallback)
+                pt.end()
+            # even an empty pixmap is appended, otherwise the layer count when
+            # compositing goes awry
             pos = overlayrect.topLeft()
             pixmaps.append((pos, pixmap))
             covered += overlayrect
