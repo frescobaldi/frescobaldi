@@ -28,7 +28,9 @@ from PyQt5.QtCore import (
 )
 from PyQt5.QtWidgets import (
     QAbstractItemView,
+    QAction,
     QLabel,
+    QMenu,
     QTreeView,
     QVBoxLayout,
     QWidget,
@@ -52,14 +54,18 @@ class TextFontsWidget(QWidget):
     # Store the filter expression over the object's lifetime
     filter_re = ''
 
-    def __init__(self, available_fonts, parent=None):
+    def __init__(self, parent):
         super(TextFontsWidget, self).__init__(parent)
+        available_fonts = parent.available_fonts
+        self.dialog = parent
         self.lilypond_info = available_fonts.lilypond_info
         self.fonts = available_fonts.text_fonts()
 
         self.status_label = QLabel(self)
         self.tree_view = tv = QTreeView(self)
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        tv.setContextMenuPolicy(Qt.CustomContextMenu)
+        tv.customContextMenuRequested.connect(self.show_context_menu)
         self.filter_edit = LineEdit(self)
 
         layout = QVBoxLayout(self)
@@ -72,7 +78,6 @@ class TextFontsWidget(QWidget):
         self.filter_edit.textChanged.connect(self.update_filter)
         self.filter = QRegExp('', Qt.CaseInsensitive)
         app.translateUI(self)
-
 
     def translateUI(self):
         self.filter_edit.setPlaceholderText(
@@ -90,6 +95,44 @@ class TextFontsWidget(QWidget):
 
     def refresh_filter_edit(self):
         self.filter_edit.setText(TextFontsWidget.filter_re)
+
+    def set_text_font(self):
+        """
+        Determine the currently selected font name
+        and set it to the given font family (roman, sans, typewriter).
+        Triggers recompilation of the example (if the font type family
+        is selected in the font command tab and the example isn't cached).
+        """
+        family = self.sender().family
+        indexes = self.tree_view.selectionModel().selectedIndexes()
+        font_name = (
+            indexes[0].data()
+            # Row with font name has been selected
+            if len(indexes) == 1 or not indexes[1].data()
+            # Row with font weight has been selected (second col has sample)
+            else indexes[0].parent().data()
+        )
+        self.dialog.selected_fonts[family] = font_name
+        self.dialog.font_command_tab.invalidate_command()
+
+    def show_context_menu(self, point):
+        """Show a context menu to set text font families."""
+        cm = QMenu(self)
+        fonts = self.dialog.selected_fonts
+        actions = {}
+        for family in ['Roman', 'Sans', 'Typewriter']:
+            f_key = family.lower()
+            actions[family] = ac = QAction()
+            ac.setText(
+                _('Set as {family} (current: {current})').format(
+                    family=family,
+                    current=fonts[f_key]
+                ))
+            ac.family = f_key
+            ac.triggered.connect(self.set_text_font)
+            cm.addAction(actions[family])
+        cm.exec_(self.tree_view.mapToGlobal(point))
+        cm.deleteLater()
 
     def tree_model(self):
         return self.tree_view.model()
@@ -150,7 +193,9 @@ class FontTreeModel(QStandardItemModel):
             returned by LilyPond are somewhat inconsistent and don't
             always match a font style that PyQt can get."""
             #L10N Please don't translate this 'sentence' literally but use an appropriate pangram in your language - or leave it untranslated
-            item = QStandardItem(_('The quick brown fox jumps over the lazy dog'))
+            item = QStandardItem(
+                _('The quick brown fox jumps over the lazy dog')
+            )
             font = QFont(sub_family)
             font.setStyleName(style)
             item.setFont(font)

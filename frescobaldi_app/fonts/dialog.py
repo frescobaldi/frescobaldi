@@ -67,17 +67,24 @@ def show_fonts_dialog(mainwin):
         mainwin.textCursor().insertText(cmd)
 
 
+_default_fonts = {
+    'music': 'emmentaler',
+    'brace': 'emmentaler',
+    'roman': 'TeXGyre Schola',
+    'sans': 'TeXGyre Heros',
+    'typewriter': 'TeXGyre Cursor'
+}
+
+
 class FontsDialog(widgets.dialog.Dialog):
     """Dialog to show available fonts"""
 
     selected_fonts = {
-        'music': 'emmentaler',
-        'brace': 'emmentaler',
-        # TODO: Make these configurable, for now
-        # simply write in LilyPond's default fonts.
-        'roman': 'TeXGyre Schola',
-        'sans': 'TeXGyre Heros',
-        'typewriter': 'TeXGyre Cursor'
+        'music': _default_fonts['music'],
+        'brace': _default_fonts['brace'],
+        'roman': _default_fonts['roman'],
+        'sans': _default_fonts['sans'],
+        'typewriter': _default_fonts['typewriter']
     }
 
     def __init__(self, parent):
@@ -130,7 +137,7 @@ class FontsDialog(widgets.dialog.Dialog):
             self.available_fonts.text_fonts().load_fonts(self.logWidget)
         app.qApp.restoreOverrideCursor()
         self.preview_pane.starting_up = False
-        self.preview_pane.show_sample()
+        self.font_command_tab.invalidate_command()
 
     def createTabs(self):
 
@@ -147,7 +154,7 @@ class FontsDialog(widgets.dialog.Dialog):
         create_log()
         # Show Text Font results
         # (Initially don't actually show it, only after compilation)
-        self.font_tree_tab = textfonts.TextFontsWidget(self.available_fonts)
+        self.font_tree_tab = textfonts.TextFontsWidget(self)
 
         if self.show_music:
             # Show installed notation fonts
@@ -194,9 +201,16 @@ class FontsDialog(widgets.dialog.Dialog):
         # Text font tab
         self.load_font_tree_column_width(s)
 
+        fonts = self.selected_fonts
+
         # Preview
         if self.show_music:
             self.preview_pane.loadSettings()
+            fonts['music'] = s.value('music-font', 'emmentaler', str)
+            fonts['brace'] = s.value('brace-font', 'emmentaler', str)
+        fonts['roman'] = s.value('roman-font', 'TeXGyre Schola', str)
+        fonts['sans'] = s.value('sans-font', 'TeXGyre Heros', str)
+        fonts['typewriter'] = s.value('typewriter-font', 'TeXGyre Cursor', str)
 
         # Music font tab
         # TODO: The following doesn't work so we can't restore
@@ -212,9 +226,15 @@ class FontsDialog(widgets.dialog.Dialog):
         # Text font tab
         s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
 
+        fonts = self.selected_fonts
         # Preview
         if self.show_music:
             self.preview_pane.saveSettings()
+            s.setValue('music-font', fonts['music'])
+            s.setValue('brace-font', fonts['brace'])
+        s.setValue('roman-font', fonts['roman'])
+        s.setValue('sans-font', fonts['sans'])
+        s.setValue('typewriter-font', fonts['typewriter'])
 
         # Dialog layout
         s.setValue('music-fonts-splitter-sizes', self.splitter.saveState())

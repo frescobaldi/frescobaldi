@@ -355,13 +355,12 @@ class FontCommandWidget(QWidget):
 
         def add_font_def(k, name, checked):
             """
-            Add a font entry to the full command
-            and conditionally to the regular command.
+            Add a font entry to the commands when applicable.
             """
             font_entry = '     #:{} "{}"'.format(k, name)
             if checked:
                 fontdefs.append(font_entry)
-            full_fontdefs.append(font_entry)
+                full_fontdefs.append(font_entry)
 
         def font_defs():
             """Compose the font definitions list."""
@@ -402,7 +401,7 @@ class FontCommandWidget(QWidget):
         properties = []
         full_properties = []
 
-        def add_property(k, v, checked):
+        def add_property(k, v, checked, force=True):
             """
             Add a property entry to the full command
             and conditionally to the regular command.
@@ -410,7 +409,8 @@ class FontCommandWidget(QWidget):
             property = '  {} = {}'.format(k, v)
             if checked:
                 properties.append(property)
-            full_properties.append(property)
+            if checked or force:
+                full_properties.append(property)
 
         # Load openLilyLib
         oll_include = '\\include "oll-core/package.ily"'
@@ -431,17 +431,20 @@ class FontCommandWidget(QWidget):
         add_property(
             'roman',
             '"{}"'.format(fonts['roman']),
-            self.cb_roman.isChecked()
+            self.cb_roman.isChecked(),
+            force=True
         )
         add_property(
             'sans',
             '"{}"'.format(fonts['sans']),
-            self.cb_sans.isChecked()
+            self.cb_sans.isChecked(),
+            force=True
         )
         add_property(
             'typewriter',
             '"{}"'.format(fonts['typewriter']),
-            self.cb_typewriter.isChecked()
+            self.cb_typewriter.isChecked(),
+            force=True
         )
 
         # Optionally load font extensions
