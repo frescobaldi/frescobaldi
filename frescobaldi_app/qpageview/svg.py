@@ -38,7 +38,7 @@ from . import page
 from . import render
 
 
-class SvgPage(page.AbstractPage):
+class SvgPage(page.AbstractRenderedPage):
     """A page that can display a SVG document."""
 
     dpi = 90.0

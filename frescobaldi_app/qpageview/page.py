@@ -68,9 +68,6 @@ class AbstractPage(util.Rectangular):
         `height`        the height in pixels
         `computedRotation` the rotation in which finally to render
 
-    A page is rendered by a renderer, which can live in a class
-    or instance attribute.
-    
     The class variable `dpi` is 72.0 by default but can be set to a different
     value depending on the page type. E.g. for Svg pages 90 or 96 makes sense.
 
@@ -78,7 +75,6 @@ class AbstractPage(util.Rectangular):
     dpi = 72.0
     pageWidth = 595.28         # default to A4
     pageHeight = 841.89
-    renderer = None
 
     z = 0
     rotation = Rotate_0
@@ -198,21 +194,18 @@ class AbstractPage(util.Rectangular):
         return height * self.dpi / dpiY / h
 
     def paint(self, painter, rect, callback=None):
-        """Reimplement this to paint our Page.
+        """Implement this to paint our Page.
 
         The View calls this method in the paint event. If you can't paint
         quickly, just return and schedule an image to be rendered in the
         background. If a callback is specified, it is called when the image
         is ready with the page as argument.
 
-        By default, this method calls the renderer's paint() method.
-
         """
-        if rect and self.renderer:
-            self.renderer.paint(self, painter, rect, callback)
+        pass
 
     def print(self, painter, rect=None, paperColor=None):
-        """Paint a page for printing.
+        """Implement this to paint a page for printing.
 
         The difference with paint() and image() is that the rect (QRectF)
         supplied to print() is not in the Page coordinates, but in the original
@@ -220,18 +213,9 @@ class AbstractPage(util.Rectangular):
         rotation.
 
         If rect is None, the full pageRect() is used.
-        By default, this method calls the renderer's draw() method.
 
         """
-        if self.renderer:
-            if rect is None:
-                rect = self.pageRect()
-            else:
-                rect = rect & self.pageRect()
-            from . import render
-            k = render.Key(self.group(), self.ident(), 0, self.pageWidth, self.pageHeight)
-            t = render.Tile(*rect.normalized().getRect())
-            self.renderer.draw(self, painter, k, t, paperColor)
+        pass
 
     def output(self, device, rect=None, paperColor=None):
         """Paint specified rectangle (or the whole page) to the paint device.
@@ -254,21 +238,13 @@ class AbstractPage(util.Rectangular):
         return painter.end()
 
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
-        """Returns a QImage of the specified rectangle.
+        """Implement this to return a QImage of the specified rectangle.
 
         The rectangle is relative to our top-left position. dpiX defaults to
-        our default dpi and dpiY defaults to dpiX. The default implementation
-        calls the renderer to generate the image. The image is not cached.
+        our default dpi and dpiY defaults to dpiX.
 
         """
-        if self.renderer:
-            if rect is None:
-                rect = self.rect()
-            if dpiX is None:
-                dpiX = self.dpi
-            if dpiY is None:
-                dpiY = dpiX
-            return self.renderer.image(self, rect, dpiX, dpiY, paperColor)
+        pass
 
     def pdf(self, filename, rect=None, resolution=72.0, paperColor=None):
         """Create a PDF file for the selected rect or the whole page.
@@ -432,5 +408,65 @@ class AbstractPage(util.Rectangular):
     def linkRect(self, link):
         """Return a QRect encompassing the linkArea of a link in coordinates of our page."""
         return self.mapToPage(1, 1).rect(link.area)
+
+
+class AbstractRenderedPage(AbstractPage):
+    """A Page that has a renderer that performs caching and painting.
+    
+    The renderer lives in the renderer attribute.
+    
+    """
+    renderer = None
+    
+    def paint(self, painter, rect, callback=None):
+        """Reimplement this to paint our Page.
+
+        The View calls this method in the paint event. If you can't paint
+        quickly, just return and schedule an image to be rendered in the
+        background. If a callback is specified, it is called when the image
+        is ready with the page as argument.
+
+        By default, this method calls the renderer's paint() method.
+
+        """
+        if rect:
+            self.renderer.paint(self, painter, rect, callback)
+
+    def print(self, painter, rect=None, paperColor=None):
+        """Paint a page for printing.
+
+        The difference with paint() and image() is that the rect (QRectF)
+        supplied to print() is not in the Page coordinates, but in the original
+        pageSize() and unrotated. The painter has been prepared for scale and
+        rotation.
+
+        If rect is None, the full pageRect() is used.
+        This method calls the renderer's draw() method.
+
+        """
+        if rect is None:
+            rect = self.pageRect()
+        else:
+            rect = rect & self.pageRect()
+        from . import render
+        k = render.Key(self.group(), self.ident(), 0, self.pageWidth, self.pageHeight)
+        t = render.Tile(*rect.normalized().getRect())
+        self.renderer.draw(self, painter, k, t, paperColor)
+
+    def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
+        """Returns a QImage of the specified rectangle.
+
+        The rectangle is relative to our top-left position. dpiX defaults to
+        our default dpi and dpiY defaults to dpiX. This implementation calls
+        the renderer to generate the image. The image is not cached.
+
+        """
+        if rect is None:
+            rect = self.rect()
+        if dpiX is None:
+            dpiX = self.dpi
+        if dpiY is None:
+            dpiY = dpiX
+        return self.renderer.image(self, rect, dpiX, dpiY, paperColor)
 
 

@@ -64,7 +64,7 @@ class Link(link.Link):
         return ""
 
 
-class PopplerPage(page.AbstractPage):
+class PopplerPage(page.AbstractRenderedPage):
     """A Page capable of displaying one page of a Poppler.Document instance.
 
     It has two additional instance attributes:

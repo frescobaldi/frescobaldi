@@ -36,7 +36,7 @@ from . import render
 
 
 
-class MultiPage(page.AbstractPage):
+class MultiPage(page.AbstractRenderedPage):
     """A special Page that has a list of embedded sub pages.
 
     The sub pages are in the pages attribute, the first one is on top.
