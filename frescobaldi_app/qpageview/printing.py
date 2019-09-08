@@ -65,7 +65,11 @@ class PrintJob(util.BackgroundJob):
                 pageNum, page = page
             else:
                 pageNum = n
-            self.pageList.append((pageNum, page.copy()))
+            page = page.copy()
+            # set zoom to 1.0 so computations based on geometry() are
+            # accurate enough
+            page.updateSize(page.dpi, page.dpi, 1.0)
+            self.pageList.append((pageNum, page))
 
     def work(self):
         """Paint the pages to the printer in the background."""
