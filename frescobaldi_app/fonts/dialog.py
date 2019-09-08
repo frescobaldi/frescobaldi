@@ -61,7 +61,10 @@ def show_fonts_dialog(mainwin):
     qutil.saveDialogSize(
         dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400)
     )
-    dlg.show()
+    dlg.exec_()
+    if dlg.result:
+        cmd = dlg.result if dlg.result[-1] == '\n' else dlg.result + '\n'
+        mainwin.textCursor().insertText(cmd)
 
 
 class FontsDialog(widgets.dialog.Dialog):
@@ -80,8 +83,10 @@ class FontsDialog(widgets.dialog.Dialog):
     def __init__(self, parent):
         super(FontsDialog, self).__init__(
             parent,
-            buttons=('restoredefaults', 'close',),
+            buttons=('restoredefaults', 'help', 'save', 'ok', 'close',),
         )
+
+        self.result = ''
 
         # Info about the current document's LilyPond version
         self.info = documentinfo.lilyinfo(parent.currentDocument())
@@ -93,6 +98,8 @@ class FontsDialog(widgets.dialog.Dialog):
         self.reloadButton = self._buttonBox.button(
             QDialogButtonBox.RestoreDefaults)
         self.reloadButton.setEnabled(False)
+        self.copyButton = self.button('ok')
+        self.insertButton = self.button('save')
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
 
@@ -161,8 +168,9 @@ class FontsDialog(widgets.dialog.Dialog):
     def connectSignals(self):
         self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
         self.finished.connect(self.saveSettings)
-        self.finished.connect(self.preview_pane.musicFontPreview.cleanup)
         self.reloadButton.clicked.connect(self.reload)
+        self.copyButton.clicked.connect(self.copy_result)
+        self.insertButton.clicked.connect(self.insert_result)
         if self.show_music:
             mtt = self.music_tree_tab
             mtt.button_install.clicked.connect(
@@ -171,6 +179,12 @@ class FontsDialog(widgets.dialog.Dialog):
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Document Fonts")))
         self.reloadButton.setText(_("&Reload"))
+        self.copyButton.setText(_("&Copy"))
+        self.copyButton.setToolTip(_("Copy font command to clipboard"))
+        self.insertButton.setText(_("&Use"))
+        self.insertButton.setToolTip(
+            _("Insert font command at the current cursor position")
+        )
         self.logLabel.setText(_("LilyPond output of -dshow-available-options"))
 
     def loadSettings(self):
@@ -205,6 +219,14 @@ class FontsDialog(widgets.dialog.Dialog):
         # Dialog layout
         s.setValue('music-fonts-splitter-sizes', self.splitter.saveState())
 
+    def copy_result(self):
+        """Copies the font command (as shown) to the clipboard."""
+        from PyQt5.QtGui import QGuiApplication
+        cmd = self.font_cmd()
+        if cmd[-1] != '\n':
+            cmd = cmd + '\n'
+        QGuiApplication.clipboard().setText(cmd)
+
     def font_cmd(self, approach=None):
         """Return the font setting command as shown in the Font Command tab."""
         approach = approach or self.font_command_tab.approach
@@ -214,6 +236,10 @@ class FontsDialog(widgets.dialog.Dialog):
         """Return the "full" command with all properties/fonts."""
         approach = approach or self.font_command_tab.approach
         return self.font_command_tab.full_cmd(approach)
+
+    def insert_result(self):
+        """Inserts the font command (as shown) at the current position"""
+        self.result = self.font_cmd()
 
     def install_music_fonts(self):
         """'Install' music fonts from a directory (structure) by
