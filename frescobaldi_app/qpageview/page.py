@@ -72,6 +72,7 @@ class AbstractPage(util.Rectangular):
     value depending on the page type. E.g. for Svg pages 90 or 96 makes sense.
 
     """
+    renderer = None
     dpi = 72.0
     pageWidth = 595.28         # default to A4
     pageHeight = 841.89
@@ -416,8 +417,6 @@ class AbstractRenderedPage(AbstractPage):
     The renderer lives in the renderer attribute.
     
     """
-    renderer = None
-    
     def paint(self, painter, rect, callback=None):
         """Reimplement this to paint our Page.
 
