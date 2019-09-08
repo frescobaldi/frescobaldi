@@ -244,10 +244,10 @@ class VolatileTextJob(PublishJob):
     def resultfiles(self):
         """Returns a list of resulting file(s)"""
         #TODO: Support non-PDF compilation modes
-        return glob.glob(os.path.join(self.directory(), '*.pdf'))
+        return glob.glob(os.path.join(self.directory, '*.pdf'))
 
     def cleanup(self):
-        shutil.rmtree(self.directory(), ignore_errors=True)
+        shutil.rmtree(self.directory, ignore_errors=True)
 
 
 class CachedPreviewJob(PublishJob):
