@@ -456,7 +456,7 @@ class TextFonts(QObject):
         """Parse the LilyPond log and push entries to the various
         lists and dictionaries. Parsing the actual font style
         definition is deferred to add_style_to_family()."""
-        regexp = re.compile('(.*)\\-\\d*')
+        regexp = re.compile('(.*)\\-\d+')
         families = {}
         config_files = []
         config_dirs = []
@@ -472,7 +472,8 @@ class TextFonts(QObject):
                 last_family = basename.groups()[0] if basename else original_family
             elif last_family:
                 # We're in the second line of a style definition
-                self.add_style_to_family(families, last_family, e)
+                if not last_family.endswith('-brace'):
+                    self.add_style_to_family(families, last_family, e)
                 last_family = None
             elif e.startswith('Config files:'):
                 config_files.append(e[14:])
