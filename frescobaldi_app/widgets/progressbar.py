@@ -51,6 +51,17 @@ class TimedProgressBar(QProgressBar):
         if not hidden and not hideWhileIdle:
             self.show()
 
+    def setHidden(self, state):
+        self._hidden = state
+        self._done()
+
+    def setHideWhileIdle(self, state):
+        self._hideWhileIdle = state
+        self._done()
+
+    def setShowFinished(self, state):
+        self._showFinished = state
+
     def start(self, total, elapsed=0.0):
         """Starts showing progress.
 

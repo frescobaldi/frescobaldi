@@ -22,9 +22,7 @@ Manages the progress bar in the status bar of ViewSpaces.
 """
 
 
-
-from PyQt5.QtCore import Qt, QTimeLine, QTimer
-from PyQt5.QtWidgets import QProgressBar
+from PyQt5.QtCore import Qt
 
 import app
 import job
@@ -37,6 +35,7 @@ metainfo.define('buildtime', 0.0, float)
 
 class ProgressBar(plugin.ViewSpacePlugin):
     """A Simple progress bar to show a Job is running."""
+
     def __init__(self, viewSpace):
         bar = self._bar = widgets.progressbar.TimedProgressBar(
             hideWhileIdle=True
@@ -55,7 +54,8 @@ class ProgressBar(plugin.ViewSpacePlugin):
         if j and j.is_running():
             buildtime = metainfo.info(document).buildtime
             if not buildtime:
-                buildtime = 3.0 + document.blockCount() / 20 # very arbitrary estimate...
+                # very arbitrary estimate...
+                buildtime = 3.0 + document.blockCount() / 20
             self._bar.start(buildtime, j.elapsed_time())
             if job.attributes.get(j).hidden:
                 self._bar.setEnabled(False)
@@ -74,7 +74,10 @@ class ProgressBar(plugin.ViewSpacePlugin):
 
     def jobFinished(self, document, j, success):
         if document == self.viewSpace().document():
-            self._bar.stop(success and not job.attributes.get(j).hidden)
+            self._bar.setShowFinished(
+                success and not job.attributes.get(j).hidden
+            )
+            self._bar.stop()
             if success:
                 metainfo.info(document).buildtime = j.elapsed_time()
 
