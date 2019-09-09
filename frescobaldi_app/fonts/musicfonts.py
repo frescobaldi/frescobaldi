@@ -26,14 +26,12 @@ uninstall to/from a LilyPond installation."
 
 import os
 import re
-import tempfile
 from enum import Enum
 from shutil import copyfile
 from pathlib import Path
 
 from PyQt5.QtCore import (
     QObject,
-    QSettings,
     Qt
 )
 from PyQt5.QtGui import (
@@ -42,23 +40,15 @@ from PyQt5.QtGui import (
 )
 from PyQt5.QtWidgets import (
     QAbstractItemView,
-    QButtonGroup,
-    QComboBox,
-    QFileDialog,
     QHBoxLayout,
     QPushButton,
-    QRadioButton,
-    QSplitter,
     QTreeView,
     QVBoxLayout,
     QWidget,
 )
 
 import app
-import appinfo
-import musicpreview
-import util
-import widgets.urlrequester
+from . import textfonts
 
 
 class MusicFontsWidget(QWidget):
@@ -402,6 +392,7 @@ class AbstractMusicFontList(QObject):
                     )
 
 
+
 class MusicFontRepo(AbstractMusicFontList):
     """Represents a repository of music fonts, typically within a
     single directory tree."""
@@ -531,7 +522,9 @@ class MusicFontsModel(QStandardItemModel):
             return [size_result, brace_result]
 
         self.reset()
+        textfonts._installed_notation_fonts = installed = []
         for family_name in fonts.families():
+            installed.append(family_name.lower())
             font = fonts.family(family_name)
             result = [QStandardItem(family_name)]
             result.extend(check_type(font, 'otf'))

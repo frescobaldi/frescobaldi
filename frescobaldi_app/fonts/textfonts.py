@@ -35,7 +35,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from PyQt5.QtGui import(
+from PyQt5.QtGui import (
     QFont,
     QFontDatabase,
     QStandardItem,
@@ -44,9 +44,12 @@ from PyQt5.QtGui import(
 
 import app
 import job
-import codecs
 import signals
 from widgets.lineedit import LineEdit
+
+
+# List of notation fonts currently installed.
+_installed_notation_fonts = []
 
 
 class TextFontsWidget(QWidget):
@@ -165,13 +168,24 @@ class MiscFontsInfoWidget(QWidget):
 
 
 class FontFilterProxyModel(QSortFilterProxyModel):
-    """Custom proxy model that ignores child elements in filtering"""
+    """
+    Custom proxy model.
+    - Child elements are never filtered.
+    - Font names that are also in the list of installed
+      notation fonts are always filtered.
+    """
 
     def filterAcceptsRow(self, row, parent):
         if parent.isValid():
             return True
         else:
-            return super(FontFilterProxyModel, self).filterAcceptsRow(row, parent)
+            index = self.sourceModel().index(row, 0, parent)
+            if index.data().lower() in _installed_notation_fonts:
+                return False
+            else:
+                return super(
+                    FontFilterProxyModel, self
+                ).filterAcceptsRow(row, parent)
 
 
 class FontTreeModel(QStandardItemModel):
