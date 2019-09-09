@@ -25,15 +25,20 @@ be determined by running `lilypond -dshow-available-fonts`.
 """
 
 
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import (
+    QObject,
+    QSize
+)
 from PyQt5.QtWidgets import QAction
 
 import actioncollection
 import actioncollectionmanager
 import icons
 import plugin
+import qutil
 
 from . import musicfonts, textfonts
+
 
 def fonts(mainwindow):
     return Fonts.instance(mainwindow)
@@ -44,46 +49,62 @@ class Fonts(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.fonts_show_available_fonts.triggered.connect(
-            self.showAvailableFonts)
-        ac.fonts_set_document_fonts.triggered.connect(
-            self.setDocumentFonts)
+        ac.fonts_document_fonts.triggered.connect(
+            self.document_fonts)
 
-    def setDocumentFonts(self):
-        """Menu Action Set Document Fonts."""
-        from . import documentfontsdialog
-        dlg = documentfontsdialog.DocumentFontsDialog(self.mainwindow())
-        if dlg.exec_():
-            text = dlg.document_font_code()
-            # NOTE: How to translate this to the dialog context?
-            # if state[-1] != "paper":
-            text = "\\paper {{\n{0}}}\n".format(text)
-            cursor = self.mainwindow().currentView().textCursor()
-            cursor.insertText(text)
+    def document_fonts(self):
+        """
+        Menu action Document Fonts.
+        Depending on the LilyPond version associated with the current document
+        show either the new or the old document font dialog.
+        """
+        mainwin = self.mainwindow()
+        view = mainwin.currentView()
+        doc = mainwin.currentDocument()
+        import documentinfo
+        info = documentinfo.lilyinfo(doc)
 
-    def showAvailableFonts(self):
-        """Menu action Show Available Fonts."""
-        from . import dialog
-        dialog.show_fonts_dialog(self.mainwindow())
+        if info.version() >= (2, 19, 12):
+            from . import dialog
+            dlg = dialog.FontsDialog(info, mainwin)
+            qutil.saveDialogSize(
+                dlg, "engrave/tools/available-fonts/dialog/size",
+                QSize(640, 400)
+            )
+            dlg.exec_()
+            if dlg.result:
+                cmd = (
+                    dlg.result
+                    if dlg.result[-1] == '\n'
+                    else dlg.result + '\n'
+                )
+                view.textCursor().insertText(cmd)
+        else:
+            from . import oldfontsdialog
+            dlg = oldfontsdialog.DocumentFontsDialog(self.mainwindow())
+            if dlg.exec_():
+                text = dlg.document_font_code()
+                # NOTE: How to translate this to the dialog context?
+                # if state[-1] != "paper":
+                text = "\\paper {{\n{0}}}\n".format(text)
+                cursor = self.mainwindow().currentView().textCursor()
+                cursor.insertText(text)
 
 
 class Actions(actioncollection.ActionCollection):
     name = "fonts"
 
     def createActions(self, parent=None):
-        self.fonts_show_available_fonts = QAction(parent)
-        self.fonts_show_available_fonts.setIcon(
+        self.fonts_document_fonts = QAction(parent)
+        self.fonts_document_fonts.setIcon(
             icons.get('preferences-desktop-font'))
-        self.fonts_set_document_fonts = QAction(parent)
 
     def translateUI(self):
-        self.fonts_show_available_fonts.setText(
+        self.fonts_document_fonts.setText(
             _("&Document Fonts..."))
-        self.fonts_show_available_fonts.setToolTip(
+        self.fonts_document_fonts.setToolTip(
             _("Show and select text and music fonts available in the " +
               "LilyPond version of the current document"))
-        self.fonts_set_document_fonts.setText(
-            _("Set &Document Fonts..."))
 
 
 class AvailableFonts(QObject):
@@ -110,8 +131,10 @@ class AvailableFonts(QObject):
 
 
 _available_fonts = {}
+
+
 def available(lilypond_info):
     key = lilypond_info.abscommand() or lilypond_info.command()
-    if not key in _available_fonts.keys():
+    if key not in _available_fonts.keys():
         _available_fonts[key] = AvailableFonts(lilypond_info)
     return _available_fonts[key]

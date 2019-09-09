@@ -71,7 +71,7 @@ fonts = #
 
 
     def translateUI(self):
-        self.setWindowTitle(app.caption(_("Global Fonts")))
+        self.setWindowTitle(app.caption(_("Global Fonts (LilyPond < 2.19.12)")))
         self.setMessage(_(
             "Please select the three global fonts to use for "
             r"<code>\roman</code>, <code>\sans</code>, and <code>\typewriter</code> "
@@ -85,7 +85,7 @@ fonts = #
             roman = self.romanFont(),
             sans = self.sansFont(),
             typewriter = self.typewriterFont())
-            
+
     def romanFont(self):
         return self.romanCombo.currentFont().family()
 

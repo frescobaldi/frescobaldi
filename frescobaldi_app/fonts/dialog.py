@@ -24,7 +24,6 @@ Show a dialog with available text and music fonts.
 
 from PyQt5.QtCore import (
     QSettings,
-    QSize,
     Qt,
 )
 from PyQt5.QtWidgets import (
@@ -39,9 +38,7 @@ from PyQt5.QtWidgets import (
 )
 
 import app
-import documentinfo
 import log
-import qutil
 import widgets.dialog
 import fonts
 
@@ -51,20 +48,6 @@ from . import (
     fontcommand,
     preview
 )
-
-
-def show_fonts_dialog(mainwin):
-    """
-    Display a dialog with the available fonts of LilyPond specified by info.
-    """
-    dlg = FontsDialog(mainwin)
-    qutil.saveDialogSize(
-        dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400)
-    )
-    dlg.exec_()
-    if dlg.result:
-        cmd = dlg.result if dlg.result[-1] == '\n' else dlg.result + '\n'
-        mainwin.textCursor().insertText(cmd)
 
 
 _default_fonts = {
@@ -87,20 +70,22 @@ class FontsDialog(widgets.dialog.Dialog):
         'typewriter': _default_fonts['typewriter']
     }
 
-    def __init__(self, parent):
+    def __init__(self, info, parent):
         super(FontsDialog, self).__init__(
             parent,
             buttons=('restoredefaults', 'help', 'save', 'ok', 'close',),
         )
 
         self.result = ''
-
-        # Info about the current document's LilyPond version
-        self.info = documentinfo.lilyinfo(parent.currentDocument())
+        self.info = info
         self.available_fonts = fonts.available(self.info)
 
         # Notation fonts (and preview) are limited to LilyPond >= 2.19.12
-        self.show_music = self.info.version() >= (2, 19, 12)
+        # At some point we may remove the old dialog altogether
+        # and instead make this dialog behave differently
+        # (i.e. hide the music font stuff and use old font selection code)
+        # self.show_music = self.info.version() >= (2, 19, 12)
+        self.show_music = True
 
         self.reloadButton = self._buttonBox.button(
             QDialogButtonBox.RestoreDefaults)

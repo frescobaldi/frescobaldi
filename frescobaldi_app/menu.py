@@ -291,8 +291,7 @@ def menu_tools(mainwindow):
     m.addMenu(menu_tools_format(mainwindow))
     m.addMenu(menu_tools_transform(mainwindow))
     fac = fonts.fonts(mainwindow).actionCollection
-    m.addAction(fac.fonts_show_available_fonts)
-    m.addAction(fac.fonts_set_document_fonts)
+    m.addAction(fac.fonts_document_fonts)
     dac = documentactions.get(mainwindow).actionCollection
     m.addAction(dac.tools_convert_ly)
     m.addSeparator()
