@@ -28,9 +28,7 @@ from PyQt5.QtCore import (
 )
 from PyQt5.QtWidgets import (
     QDialogButtonBox,
-    QFileDialog,
     QLabel,
-    QMessageBox,
     QSplitter,
     QTabWidget,
     QVBoxLayout,
@@ -162,17 +160,15 @@ class FontsDialog(widgets.dialog.Dialog):
         self.restoreButton.clicked.connect(self.restore)
         self.copyButton.clicked.connect(self.copy_result)
         self.insertButton.clicked.connect(self.insert_result)
-        if self.show_music:
-            mtt = self.music_tree_tab
-            mtt.button_install.clicked.connect(
-                self.install_music_fonts)
+        # TODO: I'm not sure this is correct, maybe fixing
+        # https://github.com/frescobaldi/frescobaldi/issues/1169
+        # will make this obsolete
         self.finished.connect(
             self.preview_pane.musicFontPreview.cleanup_running
         )
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Document Fonts")))
-        #self.restoreButton.setText(_("&Reload"))
         self.copyButton.setText(_("&Copy"))
         self.copyButton.setToolTip(_("Copy font command to clipboard"))
         self.insertButton.setText(_("&Use"))
@@ -247,40 +243,6 @@ class FontsDialog(widgets.dialog.Dialog):
     def insert_result(self):
         """Inserts the font command (as shown) at the current position"""
         self.result = self.font_cmd()
-
-    def install_music_fonts(self):
-        """'Install' music fonts from a directory (structure) by
-        linking fonts into the LilyPond installation's font
-        directories (otf and svg)."""
-
-        dlg = QFileDialog(self)
-        dlg.setFileMode(QFileDialog.Directory)
-        if not dlg.exec():
-            return
-
-        installed = self.available_fonts.music_fonts()
-        root_dir = dlg.selectedFiles()[0]
-        from . import musicfonts
-        repo = musicfonts.MusicFontRepo(root_dir)
-        repo.flag_for_install(installed)
-
-        # QUESTION: Do we need a message dialog to confirm/cancel installation?
-        # repo.installable_fonts.item_model() is an item model like the one
-        # we use for the music font display, but contains only the installable
-        # font entries.
-
-        try:
-            repo.install_flagged(installed)
-        except musicfonts.MusicFontPermissionException as e:
-            msg_box = QMessageBox()
-            msg_box.setText(_("Fonts could not be installed!"))
-            msg_box.setInformativeText(
-            _("Installing fonts in the LilyPond installation " +
-              "appears to require administrator privileges on " +
-              "your system and can unfortunately not be handled " +
-              "by Frescobaldi,"))
-            msg_box.setDetailedText("{}".format(e))
-            msg_box.exec()
 
     def load_font_tree_column_width(self, s):
         """Load column widths for fontTreeView,

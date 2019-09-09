@@ -23,7 +23,12 @@ Paths preferences page
 
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import QVBoxLayout, QLabel
+from PyQt5.QtWidgets import (
+    QCheckBox,
+    QHBoxLayout,
+    QLabel,
+    QVBoxLayout,
+)
 
 import app
 import preferences
@@ -40,7 +45,7 @@ class Paths(preferences.GroupsPage):
         self.setLayout(layout)
 
         layout.addWidget(HyphenPaths(self))
-        layout.addWidget(Caching(self))
+        layout.addWidget(MusicFonts(self))
         layout.addStretch(1)
 
 
@@ -76,53 +81,84 @@ class HyphenPaths(preferences.Group):
             s.remove("paths")
 
 
-class Caching(preferences.Group):
-    # TODO: There will be further options for caching multiple versions of a doc
+class MusicFonts(preferences.Group):
+    """Preferences regarding the handling of music/notation fonts."""
+
     def __init__(self, page):
-        super(Caching, self).__init__(page)
+        super(MusicFonts, self).__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        self.caching_label = QLabel()
-        layout.addWidget(self.caching_label)
-        layout.addWidget(QLabel(""))
-        self.font_preview_label = QLabel()
-        layout.addWidget(self.font_preview_label)
-        self.font_preview_path_requester = widgets.urlrequester.UrlRequester()
-        self.font_preview_path_requester.changed.connect(self.changed)
-        layout.addWidget(self.font_preview_path_requester)
+        font_repo_layout = QHBoxLayout()
+        self.font_repo_label = QLabel()
+        font_repo_layout.addWidget(self.font_repo_label)
+        self.font_repo_cb = QCheckBox()
+        self.font_repo_cb.toggled.connect(self.changed)
+        font_repo_layout.addWidget(self.font_repo_cb)
+        font_repo_layout.addStretch()
+        layout.addLayout(font_repo_layout)
+
+        self.font_repo_path_requester = widgets.urlrequester.UrlRequester()
+        self.font_repo_path_requester.changed.connect(self.changed)
+        layout.addWidget(self.font_repo_path_requester)
+
+        self.font_cache_label = QLabel()
+        layout.addWidget(self.font_cache_label)
+
+        self.font_cache_path_requester = widgets.urlrequester.UrlRequester()
+        self.font_cache_path_requester.changed.connect(self.changed)
+        layout.addWidget(self.font_cache_path_requester)
 
         app.translateUI(self)
 
     def translateUI(self):
-        self.setTitle(_("Caching"))
-        self.caching_label.setText(_(
-            "If paths are set in these preferences the corresponding "
-            + "parts of Frescobaldi use (persistent) caching."
+        self.setTitle(_("Music Fonts"))
+        self.font_repo_label.setText(_("Music Font Repository:"))
+        repo_tt = _(
+            "If set this directory can be used to automatically\n"
+            + "install all music fonts into a given LilyPond installation."
+        )
+        self.font_repo_label.setToolTip(repo_tt)
+        self.font_repo_path_requester.setToolTip(repo_tt)
+        self.font_repo_cb.setText(_("Auto install"))
+        self.font_repo_cb.setToolTip(_(
+            "Always install fonts from the music font repository\n"
+            "to the current LilyPond installation when opening\n"
+            "the Document Fonts dialog."
         ))
-        self.font_preview_label.setText(_("Notation Font Previews:"))
-        self.font_preview_label.setToolTip(_(
-            "If set renderings of the provided notation font samples\n"
+        self.font_cache_label.setText(_("Music Font Preview Cache:"))
+        cache_tt = _(
+            "If a writable path is set the provided notation font samples\n"
             + "are cached persistently, otherwise they are cached in the\n"
             + "operating system's temporary directory where they may be\n"
             + "removed upon shutdown.\n"
             + "Notation font previews from custom files or the active\n"
             + "document are always cached temporarily and removed when\n"
             + "closing Frescobaldi."
-        ))
+        )
+        self.font_cache_label.setToolTip(cache_tt)
+        self.font_cache_path_requester.setToolTip(cache_tt)
 
     def loadSettings(self):
         s = QSettings()
-        s.beginGroup("caching")
-        font_preview = s.value("font-preview", '', str)
-        self.font_preview_path_requester.setPath(font_preview)
+        s.beginGroup("music-fonts")
+        self.font_cache_path_requester.setPath(s.value("font-cache", '', str))
+        self.font_repo_path_requester.setPath(s.value("font-repo", '', str))
+        self.font_repo_cb.setChecked(s.value("auto-install", True, bool))
 
     def saveSettings(self):
         s = QSettings()
-        s.beginGroup("caching")
-        font_preview = self.font_preview_path_requester.path()
-        if font_preview:
-            s.setValue("font-preview", font_preview)
+        s.beginGroup("music-fonts")
+        font_cache = self.font_cache_path_requester.path()
+        if font_cache:
+            s.setValue("font-cache", font_cache)
         else:
-            s.remove("font-preview")
+            s.remove("font-cache")
+        font_repo = self.font_repo_path_requester.path()
+        print(font_repo)
+        if font_repo:
+            s.setValue("font-repo", font_repo)
+        else:
+            s.remove("font-repo")
+        s.setValue("auto-install", self.font_repo_cb.isChecked())

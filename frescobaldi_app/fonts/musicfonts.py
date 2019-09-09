@@ -32,6 +32,7 @@ from pathlib import Path
 
 from PyQt5.QtCore import (
     QObject,
+    QSettings,
     Qt
 )
 from PyQt5.QtGui import (
@@ -40,7 +41,9 @@ from PyQt5.QtGui import (
 )
 from PyQt5.QtWidgets import (
     QAbstractItemView,
+    QFileDialog,
     QHBoxLayout,
+    QMessageBox,
     QPushButton,
     QTreeView,
     QVBoxLayout,
@@ -57,35 +60,47 @@ class MusicFontsWidget(QWidget):
 
     def __init__(self, available_fonts, parent):
         super(MusicFontsWidget, self).__init__(parent)
+        s = QSettings()
+        s.beginGroup('music-fonts')
+        self._auto_install = s.value('auto-install', True, bool)
+        self._font_repo = s.value('font-repo', '', str)
+
         self.dialog = parent
         self.music_fonts = available_fonts.music_fonts()
 
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.button_auto_install = bai = QPushButton(self)
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
+        bai.setEnabled(self._font_repo and not self._auto_install)
         br.setEnabled(False)
+        self.button_auto_install.clicked.connect(self.install_button_clicked)
+        self.button_install.clicked.connect(self.install_button_clicked)
+        self.button_remove.clicked.connect(self.remove_music_font)
+        bl = QHBoxLayout()
+        bl.addStretch()
+        bl.addWidget(br)
+        bl.addWidget(bi)
+        bl.addWidget(bai)
+        layout.addLayout(bl)
+
+        # If conditions for automatic install are met do so
+        if self._font_repo and self._auto_install:
+            self.install_music_fonts('auto')
 
         self.tree_view = tv = QTreeView(self)
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
         tv.setSelectionBehavior(QAbstractItemView.SelectRows)
-
-        bl = QHBoxLayout()
-        bl.addStretch()
-        bl.addWidget(br)
-        bl.addWidget(bi)
-
-        layout = QVBoxLayout()
-        self.setLayout(layout)
-        layout.addLayout(bl)
-        layout.addWidget(tv)
-
         tv.setModel(available_fonts.music_fonts().item_model())
         tv.selectionModel().selectionChanged.connect(
             self.music_fonts_selection_changed
         )
-        app.translateUI(self)
+        layout.addWidget(tv)
 
-        self.button_remove.clicked.connect(self.remove_music_font)
+        app.translateUI(self)
 
     def translateUI(self):
         self.button_remove.setText(_("Remove..."))
@@ -94,6 +109,49 @@ class MusicFontsWidget(QWidget):
         self.button_install.setToolTip(_(
             "Link fonts from a directory to the current LilyPond installation"
         ))
+        self.button_auto_install.setText(_("Install (repo)"))
+        self.button_auto_install.setToolTip(_(
+            "Link fonts from the global music font repository\n"
+            "to the current LilyPond installation."
+        ))
+
+    def install_button_clicked(self):
+        mode = 'auto' if self.sender() == self.button_auto_install else 'dlg'
+        self.install_music_fonts(mode)
+
+    def install_music_fonts(self, mode):
+        """'Install' music fonts from a directory (structure) by
+        linking fonts into the LilyPond installation's font
+        directories (otf and svg)."""
+
+        if mode == 'auto':
+            root_dir = QSettings().value("music-fonts/font-repo", '', str)
+        else:
+            dlg = QFileDialog(self)
+            dlg.setFileMode(QFileDialog.Directory)
+            if not dlg.exec():
+                return
+            root_dir = dlg.selectedFiles()[0]
+
+        installed = self.music_fonts
+        repo = MusicFontRepo(root_dir)
+        repo.flag_for_install(installed)
+
+        try:
+            repo.install_flagged(installed)
+            if mode == 'auto':
+                self.button_auto_install.setEnabled(False)
+        except MusicFontPermissionException as e:
+            msg_box = QMessageBox()
+            msg_box.setText(_("Fonts could not be installed!"))
+            msg_box.setInformativeText(_(
+                "Installing fonts in the LilyPond installation "
+                "appears to require administrator privileges on "
+                "your system and can unfortunately not be handled "
+                "by Frescobaldi,"
+            ))
+            msg_box.setDetailedText("{}".format(e))
+            msg_box.exec()
 
     def music_font_family(self):
         try:
@@ -131,6 +189,7 @@ class MusicFontsWidget(QWidget):
         try:
             indexes = self.tree_view.selectionModel().selectedRows()
             self.music_fonts.remove(indexes)
+            self.button_auto_install.setEnabled(self._font_repo != '')
         except MusicFontFileRemoveException as e:
             text = _("Font family could not be removed!")
             informative_text = _(

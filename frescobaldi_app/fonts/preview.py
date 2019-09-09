@@ -66,7 +66,7 @@ def get_persistent_cache_dir():
     either from the Preference (persistent) or the default temporary
     directory, which will be purged upon computer shutdown.
     """
-    pref = QSettings().value('caching/font-preview', '', str)
+    pref = QSettings().value('music-fonts/font-cache', '', str)
     return pref or os.path.join(
         tempfile.gettempdir(),
         appinfo.name + '-music-font-samples'
