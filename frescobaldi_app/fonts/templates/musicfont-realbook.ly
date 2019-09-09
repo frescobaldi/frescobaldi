@@ -45,13 +45,17 @@ theNotes = \relative c' {
   \bar "[|:"
   \repeat volta 2 {
     a'4 r g r
-    f4 bes2.
+    \time 3/4
+    f4 bes2
+    \time 4/4
     \tuplet 3/2 { a4 g f } g4 a8 a~
     a2~ 8 es4 d8
     bes'4 r \tuplet 3/2 { d( c) bes }
     a8 g~ g2 f4
     a1
-    b2. e,4
+    \time 3/4
+    b2 e,4
+    \time 4/4
     \bar "||"
     \key a \major
     cis'2 e
@@ -61,7 +65,9 @@ theNotes = \relative c' {
     fis,2 gis4 a8 b~
     b a4. gis4 a
     e1~
-    2. 4
+    \time 3/4
+    2 4
+    \time 4/4
     cis'2 e4. fis8~
     4 e2 e,4
     fis2 a4. b8~
@@ -70,37 +76,38 @@ theNotes = \relative c' {
     \key f \major
     d,2 e4( f)
     g4 f es des
-    a'1(
-    c2~ 8) d,4 c8
+    a'2.( c4~
+    \time 3/4
+    c4.) d,4 c8
     \bar ":|]"
   }
 }
 theChords = \chordmode {
   s8
   f2 a:7 |
-  bes4:maj7 g2.:m7.5- |
+  bes4:maj7 g2:m7.5- |
   bes2:maj7/c c:9 |
   es:11+ d:7.9- |
   g1:m7 |
   bes:m6 |
   b:m7 |
-  e:9 |
-  a |
+  e2.:9 |
+  a1 |
   e/gis |
   fis:m |
   cis2:m/e a:9 |
   d2:maj7.9 d:6 |
   dis1:dim7 |
   e:sus4.7 |
-  e:7 |
-  a |
+  e2.:7 |
+  a1 |
   cis:m7.5- |
   d |
   d:m6/f |
   bes:maj7 |
   g:m7.5- |
   f/c |
-  bes2/c c:7 |
+  bes2/c c4:7 |
 }
 
 theWords = \lyricmode {
@@ -120,9 +127,7 @@ theWords = \lyricmode {
 \score {
   <<
     \new ChordNames \theChords
-
     \new Voice = vocalVoice \theNotes
-
     \new Lyrics \lyricsto vocalVoice \theWords
   >>
 
@@ -135,15 +140,5 @@ theWords = \lyricmode {
 
     % allow single-staff system bars
     \override Score.SystemStartBar #'collapse-height = #1
-
-    % set lyric hyphens thickness
-    \override LyricHyphen.thickness = #4
-
-    % set score volta bracket font
-    %  \override Score.VoltaBracket.font-name = #"Pea Missy with a Marker"
-  }
-
-  \midi {
-    \tempo 2 = 64
   }
 }
