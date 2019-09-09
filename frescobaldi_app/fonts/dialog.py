@@ -87,9 +87,8 @@ class FontsDialog(widgets.dialog.Dialog):
         # self.show_music = self.info.version() >= (2, 19, 12)
         self.show_music = True
 
-        self.reloadButton = self._buttonBox.button(
+        self.restoreButton = self._buttonBox.button(
             QDialogButtonBox.RestoreDefaults)
-        self.reloadButton.setEnabled(False)
         self.copyButton = self.button('ok')
         self.insertButton = self.button('save')
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -160,7 +159,7 @@ class FontsDialog(widgets.dialog.Dialog):
     def connectSignals(self):
         self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
         self.finished.connect(self.saveSettings)
-        self.reloadButton.clicked.connect(self.reload)
+        self.restoreButton.clicked.connect(self.restore)
         self.copyButton.clicked.connect(self.copy_result)
         self.insertButton.clicked.connect(self.insert_result)
         if self.show_music:
@@ -170,7 +169,7 @@ class FontsDialog(widgets.dialog.Dialog):
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Document Fonts")))
-        self.reloadButton.setText(_("&Reload"))
+        #self.restoreButton.setText(_("&Reload"))
         self.copyButton.setText(_("&Copy"))
         self.copyButton.setToolTip(_("Copy font command to clipboard"))
         self.insertButton.setText(_("&Use"))
@@ -293,16 +292,13 @@ class FontsDialog(widgets.dialog.Dialog):
         self.font_tree_tab.display_count()
         self.font_tree_tab.refresh_filter_edit()
         self.font_tree_tab.filter_edit.setFocus()
-        self.reloadButton.setEnabled(True)
 
-    def reload(self):
-        """Refresh font list by running LilyPond"""
-        self.tabWidget.removeTab(0)
-        self.tabWidget.insertTab(0, self.logTab, _("LilyPond output"))
-        self.tabWidget.setCurrentIndex(0)
-        self.logWidget.clear()
-        # We're connected to the 'loaded' signal
-        self.available_fonts.text_fonts().load_fonts(self.logWidget)
+    def restore(self):
+        """Reset fonts to defaults"""
+        fonts = self.selected_fonts
+        for name in _default_fonts:
+            fonts[name] = _default_fonts[name]
+        self.font_command_tab.invalidate_command()
 
     def text_fonts_loaded(self):
         """We don't want to keep the LilyPond log open."""

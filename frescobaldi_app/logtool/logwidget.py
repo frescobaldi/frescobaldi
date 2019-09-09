@@ -63,6 +63,14 @@ class LogWidget(log.Log):
         self._rawView = QSettings().value("log/rawview", True, bool)
         if self._document():
             self.switchDocument(self._document()) # reload
+#         w = self.widget()
+#         p = w.palette()
+#         p.setColor(w.backgroundRole(),
+#         QColor('#F35')
+# #        QColor(QSettings().value('fontscolors/default/basecolors/background'))
+#         )
+#         w.setPalette(p)
+
 
     def switchDocument(self, doc):
         """Called when the document is changed."""
