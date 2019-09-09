@@ -25,10 +25,10 @@ Printing facilities for qpageview.
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QPainter, QTransform
 
-from . import util
+from . import backgroundjob
 
 
-class PrintJob(util.BackgroundJob):
+class PrintJob(backgroundjob.Job):
     """Performs a print job in the background.
 
     Emits:
