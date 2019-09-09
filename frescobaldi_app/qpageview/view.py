@@ -28,6 +28,7 @@ import weakref
 from PyQt5.QtCore import pyqtSignal, QEvent, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QCursor, QPainter, QPalette, QRegion
 from PyQt5.QtWidgets import QStyle
+from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 
 from . import layout
 from . import page
@@ -272,6 +273,31 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         from . import svg
         with self.modifyPages() as pages:
             pages[:] = svg.SvgPage.loadFiles(filenames)
+
+    def print(self, printer=None, pageNumbers=None, showDialog=True):
+        """Print all, or speficied pages to QPrinter printer.
+
+        If given the pageNumbers should be a list containing page numbers
+        starting with 1. If showDialog is True, a print dialog is shown, and
+        printing is canceled when the user cancels the dialog.
+
+        If the QPrinter to use is not specified, a default one is created.
+
+        """
+        if printer is None:
+            printer = QPrinter()
+            printer.setResolution(300)
+        if showDialog:
+            dlg = QPrintDialog(printer, self)
+            if not dlg.exec_():
+                return  # cancelled
+        if not pageNumbers:
+            pageNumbers = list(range(1, self.pageCount() + 1))
+        # add the page objects
+        pageList = [(n, self.page(n)) for n in pageNumbers]
+        from . import printing
+        # TODO some progress indication and cancel opportunity
+        printing.PrintJob(printer, pageList).start()
 
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
