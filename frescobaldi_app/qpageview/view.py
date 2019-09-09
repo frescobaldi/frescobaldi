@@ -289,10 +289,21 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
             printer.setResolution(300)
         if showDialog:
             dlg = QPrintDialog(printer, self)
+            dlg.setMinMax(1, self.pageCount())
             if not dlg.exec_():
                 return  # cancelled
         if not pageNumbers:
-            pageNumbers = list(range(1, self.pageCount() + 1))
+            if printer.printRange() == QPrinter.CurrentPage:
+                pageNumbers = [self.currentPageNumber()]
+            else:
+                if printer.printRange() == QPrinter.PageRange:
+                    first = printer.toPage() or 1
+                    last = printer.fromPage() or self.pageCount()
+                else:
+                    first, last = 1, self.pageCount()
+                pageNumbers = list(range(first, last + 1))
+            if printer.pageOrder() == QPrinter.LastPageFirst:
+                pageNumbers.reverse()
         # add the page objects
         pageList = [(n, self.page(n)) for n in pageNumbers]
         from . import printing
