@@ -89,11 +89,21 @@ class MusicPreviewWidget(QWidget):
     def translateUI(self):
         self._chooserLabel.setText(_("Document:"))
 
+    def cleanup_running(self):
+        """Ensures no running job is left behind.
+        This *can* be called by the using dialog/widget."""
+        j = self._running
+        if j and j.is_running():
+            self._log.disconnectJob(j)
+            j.done.disconnect(self._done)
+            j.abort()
+
     def preview(
         self, text, title=None, base_dir=None,
         temp_dir='', cached=False
     ):
         """Runs LilyPond on the given text and shows the resulting PDF."""
+        self.cleanup_running()
         if cached:
             self._running = j = job.lilypond.CachedPreviewJob(
                 text,
@@ -111,7 +121,7 @@ class MusicPreviewWidget(QWidget):
             )
         j.done.connect(self._done)
         self._log.clear()
-        self._log.connectJob(self._running)
+        self._log.connectJob(j)
         if self._showLog:
             self._stack.setCurrentWidget(self._log)
         self._progress.start(self._lastbuildtime)

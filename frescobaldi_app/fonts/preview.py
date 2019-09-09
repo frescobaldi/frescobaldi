@@ -104,7 +104,7 @@ class FontsPreviewWidget(QWidget):
         csu.changed.connect(lambda: csu.fileDialog().setDirectory(csu.path()))
 
         self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(
-            None,
+            self,
             progressHiddenWhileIdle=False,
             showLog=False
         )
@@ -235,7 +235,6 @@ class FontsPreviewWidget(QWidget):
         if self.starting_up:
             return
         global_size = ''
-        fontdef_file = ''
         base_dir = None
         font_settings = ''
         sample_content = ''
@@ -302,7 +301,9 @@ class FontsPreviewWidget(QWidget):
             handle_staff_size()
             result = [
                 '\\version "{}"\n'.format(
-                    self.dialog.available_fonts.music_fonts().lilypond_info.versionString()),
+                    self.dialog.available_fonts.music_fonts(
+                    ).lilypond_info.versionString()
+                ),
                 '{}\n'.format(global_size) if global_size else '',
                 # TODO: "Protect" this regarding openLilyLib.
                 # It would be easy to simply pass 'lily' as an argument

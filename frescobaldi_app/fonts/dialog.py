@@ -166,6 +166,9 @@ class FontsDialog(widgets.dialog.Dialog):
             mtt = self.music_tree_tab
             mtt.button_install.clicked.connect(
                 self.install_music_fonts)
+        self.finished.connect(
+            self.preview_pane.musicFontPreview.cleanup_running
+        )
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Document Fonts")))
