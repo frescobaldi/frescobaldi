@@ -71,19 +71,24 @@ class MusicFontsWidget(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
+        self.button_download = bd = QPushButton(self)
+        # TODO: This hasn't been implemented yet
+        bd.setEnabled(False)
         self.button_auto_install = bai = QPushButton(self)
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
         bai.setEnabled(self._font_repo and not self._auto_install)
         br.setEnabled(False)
+        self.button_download.clicked.connect(self.download_music_fonts)
         self.button_auto_install.clicked.connect(self.install_button_clicked)
         self.button_install.clicked.connect(self.install_button_clicked)
         self.button_remove.clicked.connect(self.remove_music_font)
         bl = QHBoxLayout()
         bl.addStretch()
-        bl.addWidget(br)
-        bl.addWidget(bi)
         bl.addWidget(bai)
+        bl.addWidget(bi)
+        bl.addWidget(bd)
+        bl.addWidget(br)
         layout.addLayout(bl)
 
         # If conditions for automatic install are met do so
@@ -105,6 +110,11 @@ class MusicFontsWidget(QWidget):
     def translateUI(self):
         self.button_remove.setText(_("Remove..."))
         self.button_remove.setToolTip(_("Remove selected music font"))
+        self.button_download.setText(_("Download..."))
+        self.button_download.setToolTip(_(
+            "Download music fonts from a repository on Github.\n"
+            "NOTE: Not implemented yet."
+        ))
         self.button_install.setText(_("Install..."))
         self.button_install.setToolTip(_(
             "Link fonts from a directory to the current LilyPond installation"
@@ -114,6 +124,13 @@ class MusicFontsWidget(QWidget):
             "Link fonts from the global music font repository\n"
             "to the current LilyPond installation."
         ))
+
+    def download_music_fonts(self):
+        """Opens a dialog to download and install music fonts from Github."""
+        # TODO: implement
+        # from . import download
+        # ...
+        pass
 
     def install_button_clicked(self):
         mode = 'auto' if self.sender() == self.button_auto_install else 'dlg'
