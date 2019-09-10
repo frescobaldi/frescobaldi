@@ -28,7 +28,7 @@ rendering to the renderer of the embedded pages.
 
 import collections
 
-from PyQt5.QtCore import QPoint, QRectF, Qt
+from PyQt5.QtCore import QPoint, QRect, QRectF, Qt
 from PyQt5.QtGui import QColor, QImage, QPainter, QPixmap, QRegion, QTransform
 
 from . import page
@@ -53,11 +53,14 @@ class MultiPage(page.AbstractRenderedPage):
     The `opaquePages` instance attribute optimizes some procedures when set to
     True (i.e. it prevents rendering sub pages that are hidden below others).
 
+    By default, only links in the first sub page are handled.
+    Set `linksOnlyFirstSubPage` to False if you want links in all sub pages.
+
     """
 
     scalePages = 1.0
     opaquePages = True
-
+    linksOnlyFirstSubPage = True
 
     def __init__(self, renderer=None):
         self.pages = []
@@ -102,8 +105,9 @@ class MultiPage(page.AbstractRenderedPage):
     def visiblePagesAt(self, rect):
         """Yield (page, rect) for all subpages.
 
-        If opaquePages is True, excludes pages outside rect or hidden below
-        others. The yielded rect is always valid in that case.
+        The rect may be invalid when opaquePages is False. If opaquePages is
+        True, pages outside rect or hidden below others are exclued. The
+        yielded rect is always valid in that case.
 
         """
         if not self.opaquePages:
@@ -147,6 +151,43 @@ class MultiPage(page.AbstractRenderedPage):
         if rect is None:
             rect = self.pageRect()
         self.renderer.print(self, painter, rect, paperColor)
+
+    def text(self, rect):
+        """Reimplemented to get text from sub pages."""
+        for p, rect in self.visiblePagesAt(rect):
+            if rect:
+                text = p.text(rect.translated(-p.pos()))
+                if text:
+                    return text
+
+    def _linkPages(self, rect=None):
+        """Internal. Yield the pages allowed for links (and visible in rect if given)."""
+        for p, rect in self.visiblePagesAt(rect or self.rect()):
+            yield p, rect
+            if self.linksOnlyFirstSubPage:
+                break
+
+    def linksAt(self, point):
+        """Reimplemented to find links in sub pages."""
+        result = []
+        for p, rect in self._linkPages():
+            if point in rect:
+                result.extend(p.linksAt(point - p.pos()))
+        return result
+
+    def linksIn(self, rect):
+        """Reimplemented to find links in sub pages."""
+        result = set()
+        for p, rect in self._linkPages(rect):
+            result.update(p.linksIn(rect.translated(-p.pos())))
+        return result
+
+    def linkRect(self, link):
+        """Reimplemented to get correct area on the page the link belongs to."""
+        for p, r in self._linkPages():
+            if link in p.links():
+                return p.linkRect(link).translated(p.pos())
+        return QRect()  # just in case
 
 
 class MultiPageRenderer(render.AbstractRenderer):
