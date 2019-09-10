@@ -39,6 +39,7 @@ import app
 import log
 import widgets.dialog
 import fonts
+import userguide
 
 from . import (
     textfonts,
@@ -71,7 +72,7 @@ class FontsDialog(widgets.dialog.Dialog):
     def __init__(self, info, parent):
         super(FontsDialog, self).__init__(
             parent,
-            buttons=('restoredefaults', 'help', 'save', 'ok', 'close',),
+            buttons=('restoredefaults', 'save', 'ok', 'close',),
         )
 
         self.result = ''
@@ -89,6 +90,7 @@ class FontsDialog(widgets.dialog.Dialog):
             QDialogButtonBox.RestoreDefaults)
         self.copyButton = self.button('ok')
         self.insertButton = self.button('save')
+        userguide.addButton(self._buttonBox, "documentfonts")
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
 
