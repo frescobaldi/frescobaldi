@@ -18,7 +18,7 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Handle everything around (available) text fonts.
+Handle everything around (available) text and music fonts.
 NOTE: "available" refers to the fonts that are available to LilyPond,
 which may be different than for arbitrary programs and can canonically
 be determined by running `lilypond -dshow-available-fonts`.
@@ -27,12 +27,14 @@ be determined by running `lilypond -dshow-available-fonts`.
 
 from PyQt5.QtCore import (
     QObject,
+    QSettings,
     QSize
 )
 from PyQt5.QtWidgets import QAction
 
 import actioncollection
 import actioncollectionmanager
+import app
 import icons
 import plugin
 import qutil
@@ -45,12 +47,14 @@ def fonts(mainwindow):
 
 
 class Fonts(plugin.MainWindowPlugin):
+    """
+    The main plugin for handling font related actions.
+    """
 
     def __init__(self, mainwindow):
         ac = self.actionCollection = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.fonts_document_fonts.triggered.connect(
-            self.document_fonts)
+        ac.fonts_document_fonts.triggered.connect(self.document_fonts)
 
     def document_fonts(self):
         """
@@ -65,14 +69,16 @@ class Fonts(plugin.MainWindowPlugin):
         info = documentinfo.lilyinfo(doc)
 
         if info.version() >= (2, 19, 12):
+            # Show the new Document Fonts dialog
             from . import dialog
             dlg = dialog.FontsDialog(info, mainwin)
             qutil.saveDialogSize(
                 dlg, "engrave/tools/available-fonts/dialog/size",
-                QSize(640, 400)
+                QSize(900, 500)
             )
             dlg.exec_()
             if dlg.result:
+                # is populated when the user has clicked "Use"
                 cmd = (
                     dlg.result
                     if dlg.result[-1] == '\n'
@@ -80,6 +86,7 @@ class Fonts(plugin.MainWindowPlugin):
                 )
                 view.textCursor().insertText(cmd)
         else:
+            # Show the old "Set Document Fonts" dialog
             from . import oldfontsdialog
             dlg = oldfontsdialog.DocumentFontsDialog(self.mainwindow())
             if dlg.exec_():
@@ -130,11 +137,38 @@ class AvailableFonts(QObject):
         return self._text_fonts
 
 
+# Caches AvailableFonts objects for all LilyPond installations
+# visited at runtime
 _available_fonts = {}
 
 
 def available(lilypond_info):
+    """Returns the AvailableFonts object for a given LilyPond version."""
     key = lilypond_info.abscommand() or lilypond_info.command()
     if key not in _available_fonts.keys():
         _available_fonts[key] = AvailableFonts(lilypond_info)
     return _available_fonts[key]
+
+
+_music_fonts_repo = None
+
+
+def music_fonts_repo():
+    return _music_fonts_repo
+
+
+def set_music_fonts_repo():
+    global _music_fonts_repo
+    settings_path = QSettings().value('music-fonts/font-repo', '', str)
+    if not settings_path:
+        _music_fonts_repo = None
+    else:
+        if (
+            not _music_fonts_repo
+            or _music_fonts_repo.root() != settings_path
+        ):
+            _music_fonts_repo = musicfonts.MusicFontRepo(settings_path)
+
+
+set_music_fonts_repo()
+app.settingsChanged.connect(set_music_fonts_repo)

@@ -51,6 +51,7 @@ from PyQt5.QtWidgets import (
 )
 
 import app
+import fonts
 from . import textfonts
 
 
@@ -63,7 +64,7 @@ class MusicFontsWidget(QWidget):
         s = QSettings()
         s.beginGroup('music-fonts')
         self._auto_install = s.value('auto-install', True, bool)
-        self._font_repo = s.value('font-repo', '', str)
+        self._font_repo = fonts.music_fonts_repo()
 
         self.dialog = parent
         self.music_fonts = available_fonts.music_fonts()
@@ -77,7 +78,7 @@ class MusicFontsWidget(QWidget):
         self.button_auto_install = bai = QPushButton(self)
         self.button_install = bi = QPushButton(self)
         self.button_remove = br = QPushButton(self)
-        bai.setEnabled(self._font_repo and not self._auto_install)
+        bai.setEnabled(bool(self._font_repo and not self._auto_install))
         br.setEnabled(False)
         self.button_download.clicked.connect(self.download_music_fonts)
         self.button_auto_install.clicked.connect(self.install_button_clicked)
@@ -142,16 +143,16 @@ class MusicFontsWidget(QWidget):
         directories (otf and svg)."""
 
         if mode == 'auto':
-            root_dir = QSettings().value("music-fonts/font-repo", '', str)
+            # Use the global fonts repository
+            repo = fonts.music_fonts_repo()
         else:
             dlg = QFileDialog(self)
             dlg.setFileMode(QFileDialog.Directory)
             if not dlg.exec():
                 return
-            root_dir = dlg.selectedFiles()[0]
+            repo = MusicFontRepo(dlg.selectedFiles()[0])
 
         installed = self.music_fonts
-        repo = MusicFontRepo(root_dir)
         repo.flag_for_install(installed)
 
         try:
@@ -206,7 +207,7 @@ class MusicFontsWidget(QWidget):
         try:
             indexes = self.tree_view.selectionModel().selectedRows()
             self.music_fonts.remove(indexes)
-            self.button_auto_install.setEnabled(self._font_repo != '')
+            self.button_auto_install.setEnabled(bool(self._font_repo))
         except MusicFontFileRemoveException as e:
             text = _("Font family could not be removed!")
             informative_text = _(
@@ -468,14 +469,13 @@ class AbstractMusicFontList(QObject):
                     )
 
 
-
 class MusicFontRepo(AbstractMusicFontList):
     """Represents a repository of music fonts, typically within a
     single directory tree."""
 
     def __init__(self, root):
         super(MusicFontRepo, self).__init__()
-        self.root = root
+        self._root = root
         self.installable_fonts = AbstractMusicFontList()
         self.add_tree(root)
 
@@ -500,6 +500,9 @@ class MusicFontRepo(AbstractMusicFontList):
             target.install(type, font.file)
 
         target.item_model().populate(target)
+
+    def root(self):
+        return self._root
 
 
 class InstalledMusicFonts(AbstractMusicFontList):
