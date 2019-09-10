@@ -90,21 +90,24 @@ class DiffRenderer(multipage.MultiPageRenderer):
 
     def print(self, page, painter, rect, paperColor):
         """Print the sub pages at the correct position."""
-        painter.save()
+        # for now, use an image, as compositing seems not work work correctly
+        # when painting to PDF, a printer, or a SVG generator.
+        # Find the rectangle on the Page in page coordinates
+        target = page.mapToPage().rect(rect)
+        # Make an image exactly in the printer's resolution
+        m = painter.transform()
+        r = m.mapRect(rect)       # see where the rect ends up
+        w, h = r.width(), r.height()
+        if m.m11() == 0:
+            w, h = h, w     # swap if rotation & 1  :-)
+        # now we know the scale from our dpi to the paintdevice's logicalDpi!
+        hscale = w / rect.width()
+        vscale = h / rect.height()
+        dpiX = page.dpi * hscale
+        dpiY = page.dpi * vscale
+        image = self.image(page, target, dpiX, dpiY, paperColor)
         painter.translate(-rect.topLeft())
-        # print from bottom to top
-        for layer, (p, m) in enumerate(reversed(list(page.printablePagesAt(rect)))):
-            # find center of the page corresponding to our center
-            painter.save()
-            ### TODO implement diff like combine()
-            painter.setTransform(m, True)
-            # handle rect clipping
-            clip = m.inverted()[0].mapRect(rect) & p.pageRect()
-            painter.fillRect(clip, paperColor or Qt.white)    # draw a white background
-            painter.translate(clip.topLeft())   # the page will go back...
-            p.print(painter, clip)
-            painter.restore()
-        painter.restore()
+        painter.drawImage(rect, image)
 
 
 
