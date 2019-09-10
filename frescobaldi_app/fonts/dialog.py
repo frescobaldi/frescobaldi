@@ -27,16 +27,11 @@ from PyQt5.QtCore import (
     Qt,
 )
 from PyQt5.QtWidgets import (
-    QDialogButtonBox,
-    QLabel,
     QSplitter,
     QTabWidget,
-    QVBoxLayout,
-    QWidget,
 )
 
 import app
-import log
 import widgets.dialog
 import fonts
 import userguide
@@ -70,9 +65,10 @@ class FontsDialog(widgets.dialog.Dialog):
     }
 
     def __init__(self, info, parent):
+        app.qApp.setOverrideCursor(Qt.WaitCursor)
         super(FontsDialog, self).__init__(
             parent,
-            buttons=('restoredefaults', 'save', 'ok', 'close',),
+            buttons=('restoredefaults', 'save', 'ok', 'close')
         )
 
         self.result = ''
@@ -84,115 +80,83 @@ class FontsDialog(widgets.dialog.Dialog):
         # and instead make this dialog behave differently
         # (i.e. hide the music font stuff and use old font selection code)
         # self.show_music = self.info.version() >= (2, 19, 12)
+        #
+        # Also, it may at some point be indicated to make this
+        # dialog usable to *only* choose text fonts, e.g. from
+        # the "Fonts & Colors" Preference page.
+        #
+        # NOTE: There are some facilities that seem to handle the state
+        # of self.show_music, but in fact they do not work in any meaningful
+        # fashion. They have been left in the code because they give an
+        # initial idea for future development.
         self.show_music = True
 
-        self.restoreButton = self._buttonBox.button(
-            QDialogButtonBox.RestoreDefaults)
-        self.copyButton = self.button('ok')
-        self.insertButton = self.button('save')
-        userguide.addButton(self._buttonBox, "documentfonts")
+        # Basic dialog attributes
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
+        # Make buttons accessible as fields
+        self.restore_button = self.button('restoredefaults')
+        self.copy_button = self.button('ok')
+        self.insert_button = self.button('save')
+        # Add and connect help button
+        userguide.addButton(self._buttonBox, "documentfonts")
 
-        self.tabWidget = QTabWidget(self)
-        self.preview_pane = preview.FontsPreviewWidget(self)
-        self.preview_pane.starting_up = True
-
+        # Create a QSplitter as main widget
         self.splitter = QSplitter()
         self.splitter.setOrientation(Qt.Horizontal)
-        self.splitter.addWidget(self.tabWidget)
-        if self.show_music:
-            self.splitter.addWidget(self.preview_pane)
         self.setMainWidget(self.splitter)
 
-        app.qApp.setOverrideCursor(Qt.WaitCursor)
-        self.createTabs()
+        # Create the Qtab_widget for the dialog's left part
+        self.tab_widget = QTabWidget(self)
+        self.splitter.addWidget(self.tab_widget)
+
+        # Create the RHS score preview pane.
+        self.preview_pane = preview.FontsPreviewWidget(self)
+        self.splitter.addWidget(self.preview_pane)
+
+        # Text Fonts Tab
+        self.tab_widget.addTab(textfonts.TextFontsWidget(self), '')
+        # Music Fonts Tab
+        self.tab_widget.addTab(musicfonts.MusicFontsWidget(self), '')
+        # Show/configure the generated font setting command
+        self.font_command_tab = fontcommand.FontCommandWidget(self)
+        self.tab_widget.addTab(self.font_command_tab, '')
+        # Show various fontconfig information
+        self.tab_widget.addTab(
+            textfonts.MiscFontsInfoWidget(self.available_fonts), '')
 
         app.translateUI(self)
         self.loadSettings()
-
         self.connectSignals()
-        if self.available_fonts.text_fonts().is_loaded():
-            self.populate_widgets()
-        else:
-            self.tabWidget.insertTab(0, self.logTab, _("LilyPond output"))
-            self.tabWidget.setCurrentIndex(0)
-            self.font_tree_tab.display_waiting()
-            self.available_fonts.text_fonts().load_fonts(self.logWidget)
-        app.qApp.restoreOverrideCursor()
-        self.preview_pane.starting_up = False
+
         self.font_command_tab.invalidate_command()
-
-    def createTabs(self):
-
-        def create_log():
-            # Show original log
-            self.logTab = QWidget()
-            self.logWidget = log.Log(self.logTab)
-            self.logLabel = QLabel()
-            logLayout = QVBoxLayout()
-            logLayout.addWidget(self.logLabel)
-            logLayout.addWidget(self.logWidget)
-            self.logTab.setLayout(logLayout)
-
-        create_log()
-        # Show Text Font results
-        # (Initially don't actually show it, only after compilation)
-        self.font_tree_tab = textfonts.TextFontsWidget(self)
-
-        if self.show_music:
-            # Show installed notation fonts
-            self.music_tree_tab = (
-                musicfonts.MusicFontsWidget(self.available_fonts, self)
-            )
-            self.tabWidget.addTab(self.music_tree_tab, _("Music Fonts"))
-
-        # Configure the resulting font command
-        self.font_command_tab = fontcommand.FontCommandWidget(self)
-        self.font_command_tab.invalidate_command()
-        self.tabWidget.addTab(self.font_command_tab, _("Font Command"))
-
-        # Show various fontconfig information
-        self.misc_tree_tab = textfonts.MiscFontsInfoWidget(self.available_fonts)
-        self.tabWidget.addTab(self.misc_tree_tab, _("Miscellaneous"))
 
     def connectSignals(self):
-        self.available_fonts.text_fonts().loaded.connect(self.text_fonts_loaded)
         self.finished.connect(self.saveSettings)
-        self.restoreButton.clicked.connect(self.restore)
-        self.copyButton.clicked.connect(self.copy_result)
-        self.insertButton.clicked.connect(self.insert_result)
-        # TODO: I'm not sure this is correct, maybe fixing
-        # https://github.com/frescobaldi/frescobaldi/issues/1169
-        # will make this obsolete
-        self.finished.connect(
-            self.preview_pane.musicFontPreview.cleanup_running
-        )
+        self.restore_button.clicked.connect(self.restore)
+        self.copy_button.clicked.connect(self.copy_result)
+        self.insert_button.clicked.connect(self.insert_result)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Document Fonts")))
-        self.copyButton.setText(_("&Copy"))
-        self.copyButton.setToolTip(_("Copy font command to clipboard"))
-        self.insertButton.setText(_("&Use"))
-        self.insertButton.setToolTip(
+        self.copy_button.setText(_("&Copy"))
+        self.copy_button.setToolTip(_("Copy font command to clipboard"))
+        self.insert_button.setText(_("&Use"))
+        self.insert_button.setToolTip(
             _("Insert font command at the current cursor position")
         )
-        self.logLabel.setText(_("LilyPond output of -dshow-available-options"))
+        self.tab_widget.setTabText(0, _("Text Fonts"))
+        self.tab_widget.setTabText(1, _("Music Fonts"))
+        self.tab_widget.setTabText(2, _("Font Command"))
+        self.tab_widget.setTabText(3, _("Miscellaneous"))
 
     def loadSettings(self):
         s = QSettings()
         s.beginGroup('available-fonts-dialog')
 
-        # Text font tab
-        self.load_font_tree_column_width(s)
-
         fonts = self.selected_fonts
-
-        # Preview
-        if self.show_music:
-            self.preview_pane.loadSettings()
-            fonts['music'] = s.value('music-font', 'emmentaler', str)
-            fonts['brace'] = s.value('brace-font', 'emmentaler', str)
+        fonts['music'] = s.value('music-font', 'emmentaler', str)
+        fonts['brace'] = s.value('brace-font', 'emmentaler', str)
         fonts['roman'] = s.value('roman-font', 'TeXGyre Schola', str)
         fonts['sans'] = s.value('sans-font', 'TeXGyre Heros', str)
         fonts['typewriter'] = s.value('typewriter-font', 'TeXGyre Cursor', str)
@@ -208,15 +172,9 @@ class FontsDialog(widgets.dialog.Dialog):
         s = QSettings()
         s.beginGroup('available-fonts-dialog')
 
-        # Text font tab
-        s.setValue('col-width', self.font_tree_tab.tree_view.columnWidth(0))
-
         fonts = self.selected_fonts
-        # Preview
-        if self.show_music:
-            self.preview_pane.saveSettings()
-            s.setValue('music-font', fonts['music'])
-            s.setValue('brace-font', fonts['brace'])
+        s.setValue('music-font', fonts['music'])
+        s.setValue('brace-font', fonts['brace'])
         s.setValue('roman-font', fonts['roman'])
         s.setValue('sans-font', fonts['sans'])
         s.setValue('typewriter-font', fonts['typewriter'])
@@ -246,28 +204,9 @@ class FontsDialog(widgets.dialog.Dialog):
         """Inserts the font command (as shown) at the current position"""
         self.result = self.font_cmd()
 
-    def load_font_tree_column_width(self, s):
-        """Load column widths for fontTreeView,
-        factored out because it has to be done upon reload too."""
-        self.font_tree_tab.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
-
-    def populate_widgets(self):
-        """Populate widgets."""
-        self.tabWidget.insertTab(0, self.font_tree_tab, _("Text Fonts"))
-        self.tabWidget.setCurrentIndex(0)
-        self.load_font_tree_column_width(QSettings())
-        self.font_tree_tab.display_count()
-        self.font_tree_tab.refresh_filter_edit()
-        self.font_tree_tab.filter_edit.setFocus()
-
     def restore(self):
         """Reset fonts to defaults"""
         fonts = self.selected_fonts
         for name in _default_fonts:
             fonts[name] = _default_fonts[name]
         self.font_command_tab.invalidate_command()
-
-    def text_fonts_loaded(self):
-        """We don't want to keep the LilyPond log open."""
-        self.tabWidget.removeTab(0)
-        self.populate_widgets()

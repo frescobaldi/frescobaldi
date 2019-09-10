@@ -93,9 +93,8 @@ class Fonts(plugin.MainWindowPlugin):
                 text = dlg.document_font_code()
                 # NOTE: How to translate this to the dialog context?
                 # if state[-1] != "paper":
-                text = "\\paper {{\n{0}}}\n".format(text)
-                cursor = self.mainwindow().currentView().textCursor()
-                cursor.insertText(text)
+                cmd = "\\paper {{\n{0}}}\n".format(cmd)
+                view.textCursor().insertText(cmd)
 
 
 class Actions(actioncollection.ActionCollection):

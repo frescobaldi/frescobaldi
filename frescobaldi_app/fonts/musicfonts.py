@@ -59,7 +59,7 @@ class MusicFontsWidget(QWidget):
     """Display list of installed music fonts,
     show font preview score, install/remove fonts."""
 
-    def __init__(self, available_fonts, parent):
+    def __init__(self, parent):
         super(MusicFontsWidget, self).__init__(parent)
         s = QSettings()
         s.beginGroup('music-fonts')
@@ -67,7 +67,7 @@ class MusicFontsWidget(QWidget):
         self._font_repo = fonts.music_fonts_repo()
 
         self.dialog = parent
-        self.music_fonts = available_fonts.music_fonts()
+        self.music_fonts = parent.available_fonts.music_fonts()
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -100,7 +100,7 @@ class MusicFontsWidget(QWidget):
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setSelectionMode(QAbstractItemView.SingleSelection)
         tv.setSelectionBehavior(QAbstractItemView.SelectRows)
-        tv.setModel(available_fonts.music_fonts().item_model())
+        tv.setModel(self.music_fonts.item_model())
         tv.selectionModel().selectionChanged.connect(
             self.music_fonts_selection_changed
         )

@@ -23,6 +23,7 @@ import re
 from PyQt5.QtCore import (
     QObject,
     QRegExp,
+    QSettings,
     QSortFilterProxyModel,
     Qt,
 )
@@ -64,12 +65,12 @@ class TextFontsWidget(QWidget):
         self.lilypond_info = available_fonts.lilypond_info
         self.fonts = available_fonts.text_fonts()
 
-        self.status_label = QLabel(self)
-        self.tree_view = tv = QTreeView(self)
+        self.status_label = QLabel()
+        self.tree_view = tv = QTreeView()
+        self.filter_edit = LineEdit()
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)
         tv.setContextMenuPolicy(Qt.CustomContextMenu)
         tv.customContextMenuRequested.connect(self.show_context_menu)
-        self.filter_edit = LineEdit(self)
 
         layout = QVBoxLayout(self)
         layout.addWidget(self.status_label)
@@ -79,13 +80,31 @@ class TextFontsWidget(QWidget):
 
         self.tree_view.setModel(self.fonts.model().proxy())
         self.filter_edit.textChanged.connect(self.update_filter)
-        self.filter = QRegExp('', Qt.CaseInsensitive)
+        self.loadSettings()
+        parent.finished.connect(self.saveSettings)
         app.translateUI(self)
 
+        if self.fonts.is_loaded():
+            self.populate()
+        else:
+            self.display_waiting()
+            self.fonts.loaded.connect(self.populate)
+
     def translateUI(self):
-        self.filter_edit.setPlaceholderText(
-            _("Filter results (type any part of the font family name. "
-            + "Regular Expressions supported.)"))
+        self.filter_edit.setPlaceholderText(_(
+            "Filter results (type any part of the font family name. "
+            "Regular Expressions supported.)"
+        ))
+
+    def loadSettings(self):
+        s = QSettings('available-fonts-dialog')
+        self.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
+        self.filter = QRegExp('', Qt.CaseInsensitive)
+
+    def saveSettings(self):
+        # Text font tab
+        s = QSettings('available-fonts-dialog')
+        s.setValue('col-width', self.tree_view.columnWidth(0))
 
     def display_count(self):
         self.status_label.setText(
@@ -95,6 +114,19 @@ class TextFontsWidget(QWidget):
 
     def display_waiting(self):
         self.status_label.setText(_("Running LilyPond to list fonts ..."))
+
+    def load_font_tree_column_width(self):
+        """Load column widths for fontTreeView,
+        factored out because it has to be done upon reload too."""
+        s = QSettings('available-fonts-dialog')
+        self.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
+
+    def populate(self):
+        self.load_font_tree_column_width()
+        self.display_count()
+        self.refresh_filter_edit()
+        self.filter_edit.setFocus()
+        app.qApp.restoreOverrideCursor()
 
     def refresh_filter_edit(self):
         self.filter_edit.setText(TextFontsWidget.filter_re)
@@ -317,10 +349,10 @@ class TextFonts(QObject):
         self.lilypond_info = lilypond_info
         self._tree_model = FontTreeModel(self)
         self._misc_model = MiscTreeModel(self)
-        self.reset()
         self.job = None
+        self.load_fonts()
 
-    def reset(self):
+    def reset(self, log_widget=None):
         self._log = []
         self._tree_model.reset()
         self._misc_model.reset()
@@ -336,6 +368,10 @@ class TextFonts(QObject):
         """Add the OpenType fonts in LilyPond's font directory
         to Qt's font database. This should be relevant (untested)
         when the fonts are not additionally installed as system fonts."""
+        # TODO: Move the the filtering here.
+        # It's not correct to first add the notation fonts to the font debug
+        # only to filter them again later. Besides, there might be other valid
+        # fonts caught by the filter.
         font_dir = os.path.join(self.lilypond_info.datadir(), 'fonts', 'otf')
         for lily_font in os.listdir(font_dir):
             self.font_db.addApplicationFont(
@@ -442,9 +478,7 @@ class TextFonts(QObject):
         is an asynchronous task that takes long to complete."""
         self.reset()
         self.acknowledge_lily_fonts()
-        self.run_lilypond()
-        if log_widget:
-            log_widget.connectJob(self.job)
+        self.run_lilypond(log_widget)
 
     def misc_model(self):
         return self._misc_model
@@ -497,11 +531,14 @@ class TextFonts(QObject):
         self.job = None
         self.loaded.emit()
 
-    def run_lilypond(self):
+    def run_lilypond(self, log_widget=None):
         """Run lilypond from info with the args list, and a job title."""
+        # TODO: Use the global JobQueue
         info = self.lilypond_info
         j = self.job = job.Job(
             [info.abscommand() or info.command] + ['-dshow-available-fonts'])
         j.set_title(_("Available Fonts"))
         j.done.connect(self.process_results)
+        if log_widget:
+            log_widget.connectJob(j)
         j.start()
