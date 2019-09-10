@@ -38,6 +38,31 @@ class DiffPage(multipage.MultiPage):
     """
     opaquePages = False
 
+    def print(self, painter, rect=None, paperColor=None):
+        """Print the sub pages at the correct position."""
+        if rect is None:
+            rect = self.pageRect()
+        else:
+            rect = rect & self.pageRect()
+        # for now, use an image, as compositing seems not work work correctly
+        # when painting to PDF, a printer, or a SVG generator.
+        # Find the rectangle on the Page in page coordinates
+        target = self.mapToPage().rect(rect)
+        # Make an image exactly in the printer's resolution
+        m = painter.transform()
+        r = m.mapRect(rect)       # see where the rect ends up
+        w, h = r.width(), r.height()
+        if m.m11() == 0:
+            w, h = h, w     # swap if rotation & 1  :-)
+        # now we know the scale from our dpi to the paintdevice's logicalDpi!
+        hscale = w / rect.width()
+        vscale = h / rect.height()
+        dpiX = self.dpi * hscale
+        dpiY = self.dpi * vscale
+        image = self.image(target, dpiX, dpiY, paperColor)
+        painter.translate(-rect.topLeft())
+        painter.drawImage(rect, image)
+
 
 class DiffRenderer(multipage.MultiPageRenderer):
     """Renders the pages by calling their own renderer.
@@ -87,27 +112,6 @@ class DiffRenderer(multipage.MultiPageRenderer):
             else:
                 painter.drawImage(pos, image)
             painter.setCompositionMode(QPainter.CompositionMode_Darken)
-
-    def print(self, page, painter, rect, paperColor):
-        """Print the sub pages at the correct position."""
-        # for now, use an image, as compositing seems not work work correctly
-        # when painting to PDF, a printer, or a SVG generator.
-        # Find the rectangle on the Page in page coordinates
-        target = page.mapToPage().rect(rect)
-        # Make an image exactly in the printer's resolution
-        m = painter.transform()
-        r = m.mapRect(rect)       # see where the rect ends up
-        w, h = r.width(), r.height()
-        if m.m11() == 0:
-            w, h = h, w     # swap if rotation & 1  :-)
-        # now we know the scale from our dpi to the paintdevice's logicalDpi!
-        hscale = w / rect.width()
-        vscale = h / rect.height()
-        dpiX = page.dpi * hscale
-        dpiY = page.dpi * vscale
-        image = self.image(page, target, dpiX, dpiY, paperColor)
-        painter.translate(-rect.topLeft())
-        painter.drawImage(rect, image)
 
 
 

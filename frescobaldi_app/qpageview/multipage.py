@@ -150,7 +150,20 @@ class MultiPage(page.AbstractRenderedPage):
         """Prints our sub pages."""
         if rect is None:
             rect = self.pageRect()
-        self.renderer.print(self, painter, rect, paperColor)
+        else:
+            rect = rect & self.pageRect()
+        painter.translate(-rect.topLeft())
+        # print from bottom to top
+        for p, m in reversed(list(self.printablePagesAt(rect))):
+            # find center of the page corresponding to our center
+            painter.save()
+            painter.setTransform(m, True)
+            # handle rect clipping
+            clip = m.inverted()[0].mapRect(rect) & p.pageRect()
+            painter.fillRect(clip, paperColor or Qt.white)    # draw a white background
+            painter.translate(clip.topLeft())   # the page will go back...
+            p.print(painter, clip)
+            painter.restore()
 
     def text(self, rect):
         """Reimplemented to get text from sub pages."""
@@ -203,23 +216,6 @@ class MultiPageRenderer(render.AbstractRenderer):
                     not p.renderer.update(p, device, overlayrect.translated(-p.pos()), newcallback)):
                 ok = False
         return ok
-
-    def print(self, page, painter, rect, paperColor):
-        """Print the sub pages at the correct position."""
-        painter.save()
-        painter.translate(-rect.topLeft())
-        # print from bottom to top
-        for p, m in reversed(list(page.printablePagesAt(rect))):
-            # find center of the page corresponding to our center
-            painter.save()
-            painter.setTransform(m, True)
-            # handle rect clipping
-            clip = m.inverted()[0].mapRect(rect) & p.pageRect()
-            painter.fillRect(clip, paperColor or Qt.white)    # draw a white background
-            painter.translate(clip.topLeft())   # the page will go back...
-            p.print(painter, clip)
-            painter.restore()
-        painter.restore()
 
     def paint(self, page, painter, rect, callback=None):
         """Reimplemented to paint all the sub pages on top of each other."""
