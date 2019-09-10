@@ -65,8 +65,8 @@ class DiffRenderer(multipage.MultiPageRenderer):
     def combine(self, painter, images):
         """Paint images on the painter.
 
-        Each image is a tuple(QPoint, QPixmap), describing where to draw.
-        The image on top is first, so drawing should start with the last.
+        We draw bottom-up, using Darken composition mode, so the lower images
+        remain visible.
 
         """
         for color, (pos, image) in zip(self.colors, images):
