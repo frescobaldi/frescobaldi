@@ -27,6 +27,7 @@ from PyQt5.QtCore import (
     Qt,
 )
 from PyQt5.QtWidgets import (
+    QApplication,
     QSplitter,
     QTabWidget,
 )
@@ -65,7 +66,7 @@ class FontsDialog(widgets.dialog.Dialog):
     }
 
     def __init__(self, info, parent):
-        app.qApp.setOverrideCursor(Qt.WaitCursor)
+        QApplication.setOverrideCursor(Qt.WaitCursor)
         super(FontsDialog, self).__init__(
             parent,
             buttons=('restoredefaults', 'save', 'ok', 'close')
@@ -204,9 +205,19 @@ class FontsDialog(widgets.dialog.Dialog):
         """Inserts the font command (as shown) at the current position"""
         self.result = self.font_cmd()
 
+    def invalidate_command(self):
+        """Triggers a regeneration of the font command and new display of the
+        example (if necessary).
+        """
+        self.font_command_tab.invalidate_command()
+
     def restore(self):
         """Reset fonts to defaults"""
         fonts = self.selected_fonts
         for name in _default_fonts:
             fonts[name] = _default_fonts[name]
         self.font_command_tab.invalidate_command()
+
+    def show_sample(self):
+        """Call the preview pane to show the current sample."""
+        self.preview_pane.show_sample()

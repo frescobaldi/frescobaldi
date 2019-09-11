@@ -59,7 +59,7 @@ class FontCommandWidget(QWidget):
 
     def __init__(self, parent):
         super(FontCommandWidget, self).__init__(parent)
-        self.dialog = parent
+        self._dialog = parent
         self._cmd = {
             'lily': '',
             'oll': ''
@@ -90,7 +90,7 @@ class FontCommandWidget(QWidget):
         ce.setEnabled(False)
         col_layout.addWidget(self.command_edit)
 
-        selected_fonts = self.dialog.selected_fonts
+        selected_fonts = self.dialog().selected_fonts
         # Which text font families to integrate?
         self.family_group = QGroupBox()
         family_layout = QVBoxLayout()
@@ -130,11 +130,10 @@ class FontCommandWidget(QWidget):
         self.trad_widget.setLayout(trad_layout)
         self.approach_tab.addTab(self.trad_widget, "")
 
-        if self.dialog.show_music:
-            self.oll_widget = QWidget()
-            oll_layout = QVBoxLayout()
-            self.oll_widget.setLayout(oll_layout)
-            self.approach_tab.addTab(self.oll_widget, "")
+        self.oll_widget = QWidget()
+        oll_layout = QVBoxLayout()
+        self.oll_widget.setLayout(oll_layout)
+        self.approach_tab.addTab(self.oll_widget, "")
 
         # Configure traditional approach
         self.cb_music = QCheckBox()
@@ -149,45 +148,44 @@ class FontCommandWidget(QWidget):
         trad_layout.addStretch()
 
         # Configure openLilyLib approach
-        if self.dialog.show_music:
-            self.cb_oll_music = QCheckBox()
-            self.cb_oll_music.setChecked(True)
-            self.cb_oll_music.setEnabled(False)
-            self.font_labels['oll_music'] = QLabel(selected_fonts['music'])
-            oll_music_layout = QHBoxLayout()
-            oll_music_layout.addWidget(self.cb_oll_music)
-            oll_music_layout.addWidget(self.font_labels['oll_music'])
-            oll_layout.addLayout(oll_music_layout)
-            self.cb_oll = QCheckBox()
-            oll_layout.addWidget(self.cb_oll)
-            self.cb_loadpackage = QCheckBox()
-            oll_layout.addWidget(self.cb_loadpackage)
-            self.cb_extensions = QCheckBox()
-            oll_layout.addWidget(self.cb_extensions)
-            # Configure handling of stylesheet
-            self.stylesheet_group = QGroupBox()
-            self.stylesheet_buttons = QButtonGroup()
-            oll_layout.addWidget(self.stylesheet_group)
-            stylesheet_layout = QVBoxLayout()
-            self.stylesheet_group.setLayout(stylesheet_layout)
-            self.style_buttons = [QRadioButton() for i in range(3)]
-            for i in range(3):
-                b = self.style_buttons[i]
-                stylesheet_layout.addWidget(b)
-                self.stylesheet_buttons.addButton(b)
-                self.stylesheet_buttons.setId(b, i)
-            self.le_stylesheet = QLineEdit()
-            stylesheet_layout.addWidget(self.le_stylesheet)
-            oll_layout.addStretch()
-            # enable line edit when custom stylesheet is selected
-            self.stylesheet_buttons.buttonClicked.connect(
-                lambda: self.le_stylesheet.setEnabled(
-                    self.stylesheet_buttons.checkedId() == 2
-                )
+        self.cb_oll_music = QCheckBox()
+        self.cb_oll_music.setChecked(True)
+        self.cb_oll_music.setEnabled(False)
+        self.font_labels['oll_music'] = QLabel(selected_fonts['music'])
+        oll_music_layout = QHBoxLayout()
+        oll_music_layout.addWidget(self.cb_oll_music)
+        oll_music_layout.addWidget(self.font_labels['oll_music'])
+        oll_layout.addLayout(oll_music_layout)
+        self.cb_oll = QCheckBox()
+        oll_layout.addWidget(self.cb_oll)
+        self.cb_loadpackage = QCheckBox()
+        oll_layout.addWidget(self.cb_loadpackage)
+        self.cb_extensions = QCheckBox()
+        oll_layout.addWidget(self.cb_extensions)
+        # Configure handling of stylesheet
+        self.stylesheet_group = QGroupBox()
+        self.stylesheet_buttons = QButtonGroup()
+        oll_layout.addWidget(self.stylesheet_group)
+        stylesheet_layout = QVBoxLayout()
+        self.stylesheet_group.setLayout(stylesheet_layout)
+        self.style_buttons = [QRadioButton() for i in range(3)]
+        for i in range(3):
+            b = self.style_buttons[i]
+            stylesheet_layout.addWidget(b)
+            self.stylesheet_buttons.addButton(b)
+            self.stylesheet_buttons.setId(b, i)
+        self.le_stylesheet = QLineEdit()
+        stylesheet_layout.addWidget(self.le_stylesheet)
+        oll_layout.addStretch()
+        # enable line edit when custom stylesheet is selected
+        self.stylesheet_buttons.buttonClicked.connect(
+            lambda: self.le_stylesheet.setEnabled(
+                self.stylesheet_buttons.checkedId() == 2
             )
+        )
 
         self.loadSettings()
-        self.dialog.finished.connect(self.saveSettings)
+        self.dialog().finished.connect(self.saveSettings)
         # Connect widgets that trigger re-generation of the command
         # Map widget base classes to signal names
         signal_map = {
@@ -203,15 +201,14 @@ class FontCommandWidget(QWidget):
             self.cb_music,
             self.cb_paper_block,
         ]
-        if self.dialog.show_music:
-            trigger_widgets.extend([
-                self.approach_tab,
-                self.cb_oll,
-                self.cb_loadpackage,
-                self.cb_extensions,
-                self.stylesheet_buttons,
-                self.le_stylesheet
-            ])
+        trigger_widgets.extend([
+            self.approach_tab,
+            self.cb_oll,
+            self.cb_loadpackage,
+            self.cb_extensions,
+            self.stylesheet_buttons,
+            self.le_stylesheet
+        ])
         for w in trigger_widgets:
             # For the current widget determine a supported base class
             # and connect the appropriate signal.
@@ -236,13 +233,12 @@ class FontCommandWidget(QWidget):
         self.approach_tab.setTabToolTip(0, _(
             "Specify fonts using the setting in a \\paper block."
         ))
-        if self.dialog.show_music:
-            self.approach_tab.setTabText(1, _("openLilyLib"))
-            self.approach_tab.setTabToolTip(1, _(
-                "Specify fonts using the setting using openLilyLib.\n"
-                + "NOTE: This requires openLilyLib (oll-core)\n"
-                + "and the 'notation-fonts' openLilyLib package."
-            ))
+        self.approach_tab.setTabText(1, _("openLilyLib"))
+        self.approach_tab.setTabToolTip(1, _(
+            "Specify fonts using the setting using openLilyLib.\n"
+            + "NOTE: This requires openLilyLib (oll-core)\n"
+            + "and the 'notation-fonts' openLilyLib package."
+        ))
 
         self.cb_music.setText(_("Set music font"))
         self.cb_paper_block.setText(_("Complete \\paper block"))
@@ -251,46 +247,45 @@ class FontCommandWidget(QWidget):
             + "If unchecked generate the raw font setting command."
         ))
 
-        if self.dialog.show_music:
-            self.cb_oll_music.setText(_("Set music font"))
-            self.cb_oll_music.setToolTip(_(
-                "Specify the music font.\n"
-                + "This is a reminder only and can not be unckecked "
-                + "because the openLilyLib approach necessarily sets "
-                + "the music font."
-            ))
-            self.cb_oll.setText(_("Load openLilyLib"))
-            self.cb_oll.setToolTip(_(
-                "Load openLilyLib (oll-core) explicitly.\n"
-                + "Unckeck if oll-core is already loaded elsewhere."
-            ))
-            self.cb_loadpackage.setText(_("Load notation-fonts package"))
-            self.cb_loadpackage.setToolTip(_(
-                "Load the notation-fonts package explicitly.\n"
-                + "Unckeck if it is already loaded elsewhere."
-            ))
-            self.cb_extensions.setText(_("Load font extensions (if available)"))
-            self.cb_extensions.setToolTip(_(
-                "Ask for loading font extensions.\n"
-                + "Note that *some* fonts provide additional features\n"
-                + "(e.g. glyphs) that can be made available through an\n"
-                + "extension stylesheet if provided."
-            ))
-            self.stylesheet_group.setTitle(_("Font stylesheet"))
-            self.stylesheet_group.setToolTip(_(
-                "Select alternative stylesheet.\n"
-                + "Fonts natively supported by the notation-fonts\n"
-                + "package provide a default stylesheet to adjust\n"
-                + "LilyPond's visuals (e.g. line thicknesses) to the\n"
-                + "characteristic of the music font.\n"
-                + "Check 'No stylesheet' to avoid a preconfigured\n"
-                + "stylesheet to customize the appearance manually,\n"
-                + "or check 'Custom stylesheet' to load another stylesheet\n"
-                + "in LilyPond's search path."
-            ))
-            self.style_buttons[0].setText(_("Default stylesheet"))
-            self.style_buttons[1].setText(_("No stylesheet"))
-            self.style_buttons[2].setText(_("Custom stylesheet"))
+        self.cb_oll_music.setText(_("Set music font"))
+        self.cb_oll_music.setToolTip(_(
+            "Specify the music font.\n"
+            + "This is a reminder only and can not be unckecked "
+            + "because the openLilyLib approach necessarily sets "
+            + "the music font."
+        ))
+        self.cb_oll.setText(_("Load openLilyLib"))
+        self.cb_oll.setToolTip(_(
+            "Load openLilyLib (oll-core) explicitly.\n"
+            + "Unckeck if oll-core is already loaded elsewhere."
+        ))
+        self.cb_loadpackage.setText(_("Load notation-fonts package"))
+        self.cb_loadpackage.setToolTip(_(
+            "Load the notation-fonts package explicitly.\n"
+            + "Unckeck if it is already loaded elsewhere."
+        ))
+        self.cb_extensions.setText(_("Load font extensions (if available)"))
+        self.cb_extensions.setToolTip(_(
+            "Ask for loading font extensions.\n"
+            + "Note that *some* fonts provide additional features\n"
+            + "(e.g. glyphs) that can be made available through an\n"
+            + "extension stylesheet if provided."
+        ))
+        self.stylesheet_group.setTitle(_("Font stylesheet"))
+        self.stylesheet_group.setToolTip(_(
+            "Select alternative stylesheet.\n"
+            + "Fonts natively supported by the notation-fonts\n"
+            + "package provide a default stylesheet to adjust\n"
+            + "LilyPond's visuals (e.g. line thicknesses) to the\n"
+            + "characteristic of the music font.\n"
+            + "Check 'No stylesheet' to avoid a preconfigured\n"
+            + "stylesheet to customize the appearance manually,\n"
+            + "or check 'Custom stylesheet' to load another stylesheet\n"
+            + "in LilyPond's search path."
+        ))
+        self.style_buttons[0].setText(_("Default stylesheet"))
+        self.style_buttons[1].setText(_("No stylesheet"))
+        self.style_buttons[2].setText(_("Custom stylesheet"))
 
     def loadSettings(self):
         s = QSettings()
@@ -298,21 +293,16 @@ class FontCommandWidget(QWidget):
         self.cb_roman.setChecked(s.value('set-roman', False, bool))
         self.cb_sans.setChecked(s.value('set-sans', False, bool))
         self.cb_roman.setChecked(s.value('set-roman', False, bool))
-        self.cb_music.setChecked(
-            self.dialog.show_music
-            and s.value('set-music', True, bool)
-        )
+        self.cb_music.setChecked(s.value('set-music', True, bool))
         self.approach_tab.setCurrentIndex(s.value('approach-index', 0, int))
-        self.cb_music.setEnabled(self.dialog.show_music)
         self.cb_paper_block.setChecked(s.value('set-paper-block', True, bool))
-        if self.dialog.show_music:
-            self.cb_oll.setChecked(s.value('load-oll', True, bool))
-            self.cb_loadpackage.setChecked(s.value('load-package', True, bool))
-            self.cb_extensions.setChecked(s.value('font-extensions', False, bool))
-            style_type = s.value('style-type', 0, int)
-            self.style_buttons[style_type].setChecked(True)
-            self.le_stylesheet.setText(s.value('font-stylesheet', '', str))
-            self.le_stylesheet.setEnabled(self.style_buttons[2].isChecked())
+        self.cb_oll.setChecked(s.value('load-oll', True, bool))
+        self.cb_loadpackage.setChecked(s.value('load-package', True, bool))
+        self.cb_extensions.setChecked(s.value('font-extensions', False, bool))
+        style_type = s.value('style-type', 0, int)
+        self.style_buttons[style_type].setChecked(True)
+        self.le_stylesheet.setText(s.value('font-stylesheet', '', str))
+        self.le_stylesheet.setEnabled(self.style_buttons[2].isChecked())
 
     def saveSettings(self):
         s = QSettings()
@@ -321,20 +311,22 @@ class FontCommandWidget(QWidget):
         s.setValue('set-sans', self.cb_sans.isChecked())
         s.setValue('set-roman', self.cb_roman.isChecked())
         s.setValue('set-paper-block', self.cb_paper_block.isChecked())
-        if self.dialog.show_music:
-            s.setValue('approach-index', self.approach_tab.currentIndex())
-            s.setValue('set-music', self.cb_music.isChecked())
-            s.setValue('load-oll', self.cb_oll.isChecked())
-            s.setValue('load-package', self.cb_loadpackage.isChecked())
-            s.setValue('font-extensions', self.cb_extensions.isChecked())
-            s.setValue('style-type', self.stylesheet_buttons.checkedId())
-            s.setValue('font-stylesheet', self.le_stylesheet.text())
+        s.setValue('approach-index', self.approach_tab.currentIndex())
+        s.setValue('set-music', self.cb_music.isChecked())
+        s.setValue('load-oll', self.cb_oll.isChecked())
+        s.setValue('load-package', self.cb_loadpackage.isChecked())
+        s.setValue('font-extensions', self.cb_extensions.isChecked())
+        s.setValue('style-type', self.stylesheet_buttons.checkedId())
+        s.setValue('font-stylesheet', self.le_stylesheet.text())
 
     def command(self, approach='lily'):
         """Return the command as shown in the Font Command tab."""
         if not self._cmd[approach]:
             self.invalidate_command()
         return self._cmd[approach]
+
+    def dialog(self):
+        return self._dialog
 
     def generate_lily_command(self):
         """
@@ -350,7 +342,7 @@ class FontCommandWidget(QWidget):
         # and later joined to multiline strings.
         fontdefs = []
         full_fontdefs = []
-        fonts = self.dialog.selected_fonts
+        fonts = self.dialog().selected_fonts
         template = self.lilypond_template
 
         def add_font_def(k, name, checked):
@@ -394,7 +386,7 @@ class FontCommandWidget(QWidget):
         - "full" command without the filters.
           => as used in the Font Preview, and maybe the Document wizard
         """
-        fonts = self.dialog.selected_fonts
+        fonts = self.dialog().selected_fonts
         # Handled initially as string lists, later joined to multiline strings
         cmd = []
         full_cmd = []
@@ -494,21 +486,18 @@ class FontCommandWidget(QWidget):
         trigger showing the sample in the music font tab.
         """
         self._cmd['lily'], self._full_cmd['lily'] = self.generate_lily_command()
-        if self.dialog.show_music:
-            self._cmd['oll'], self._full_cmd['oll'] = (
-                self.generate_oll_command()
-            )
+        self._cmd['oll'], self._full_cmd['oll'] = (self.generate_oll_command())
         self.approach = (
             'lily' if self.approach_tab.currentIndex() == 0 else 'oll'
         )
         display_cmd = self._cmd[self.approach]
         # TODO: Do syntax highlighting and use setHtml()
         self.command_edit.setPlainText(display_cmd)
-        selected_fonts = self.dialog.selected_fonts
+        selected_fonts = self.dialog().selected_fonts
         for k in self.font_labels:
             font_key = 'music' if k == 'oll_music' else k
             self.font_labels[k].setText(selected_fonts[font_key])
-        self.dialog.preview_pane.show_sample()
+        self.dialog().show_sample()
 
     def full_cmd(self, approach='lily'):
         """Return the (cached) full command for the requested approach."""

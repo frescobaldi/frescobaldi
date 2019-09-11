@@ -30,6 +30,7 @@ from PyQt5.QtCore import (
 from PyQt5.QtWidgets import (
     QAbstractItemView,
     QAction,
+    QApplication,
     QLabel,
     QMenu,
     QTreeView,
@@ -58,10 +59,10 @@ class TextFontsWidget(QWidget):
     # Store the filter expression over the object's lifetime
     filter_re = ''
 
-    def __init__(self, parent):
-        super(TextFontsWidget, self).__init__(parent)
-        available_fonts = parent.available_fonts
-        self.dialog = parent
+    def __init__(self, dialog):
+        super(TextFontsWidget, self).__init__(dialog)
+        self._dialog = dialog
+        available_fonts = dialog.available_fonts
         self.lilypond_info = available_fonts.lilypond_info
         self.fonts = available_fonts.text_fonts()
 
@@ -81,7 +82,7 @@ class TextFontsWidget(QWidget):
         self.tree_view.setModel(self.fonts.model().proxy())
         self.filter_edit.textChanged.connect(self.update_filter)
         self.loadSettings()
-        parent.finished.connect(self.saveSettings)
+        dialog.finished.connect(self.saveSettings)
         app.translateUI(self)
 
         if self.fonts.is_loaded():
@@ -106,6 +107,9 @@ class TextFontsWidget(QWidget):
         s = QSettings('available-fonts-dialog')
         s.setValue('col-width', self.tree_view.columnWidth(0))
 
+    def dialog(self):
+        return self._dialog
+
     def display_count(self):
         self.status_label.setText(
             _("{count} font families detected by {version}").format(
@@ -126,7 +130,7 @@ class TextFontsWidget(QWidget):
         self.display_count()
         self.refresh_filter_edit()
         self.filter_edit.setFocus()
-        app.qApp.restoreOverrideCursor()
+        QApplication.restoreOverrideCursor()
 
     def refresh_filter_edit(self):
         self.filter_edit.setText(TextFontsWidget.filter_re)
@@ -147,13 +151,13 @@ class TextFontsWidget(QWidget):
             # Row with font weight has been selected (second col has sample)
             else indexes[0].parent().data()
         )
-        self.dialog.selected_fonts[family] = font_name
-        self.dialog.font_command_tab.invalidate_command()
+        self.dialog().selected_fonts[family] = font_name
+        self.dialog().invalidate_command()
 
     def show_context_menu(self, point):
         """Show a context menu to set text font families."""
         cm = QMenu(self)
-        fonts = self.dialog.selected_fonts
+        fonts = self.dialog().selected_fonts
         actions = {}
         for family in ['Roman', 'Sans', 'Typewriter']:
             f_key = family.lower()
