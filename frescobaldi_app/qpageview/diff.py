@@ -22,10 +22,13 @@ A Page intended to display the visual difference between other pages.
 
 """
 
+import itertools
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QColor, QPainter, QPixmap
 
 from . import multipage
+from . import page
 
 
 class DiffPage(multipage.MultiPage):
@@ -37,6 +40,29 @@ class DiffPage(multipage.MultiPage):
     
     """
     opaquePages = False
+
+    @classmethod
+    def createPages(cls, pageLists, renderer=None, pad=page.BlankPage):
+        """Reimplemented to adapt the page sizes."""
+        it = itertools.zip_longest(*pageLists) if pad else zip(*pageLists)
+        for pages in it:
+            page = cls(renderer)
+            # copy the dimensions from the first non-blank page
+            for p in pages:
+                if p:
+                    page.dpi = p.dpi
+                    page.pageWidth = p.pageWidth
+                    page.pageHeight = p.pageHeight
+                    break
+            # set that dimensions also to blank pages.
+            def padpage():
+                p = pad()
+                p.dpi = page.dpi
+                p.pageWidth = page.pageWidth
+                p.pageHeight = page.pageHeight
+                return p
+            page.pages[:] = (p if p else padpage() for p in pages)
+            yield page
 
     def print(self, painter, rect=None, paperColor=None):
         """Print the sub pages at the correct position."""
