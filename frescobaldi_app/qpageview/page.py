@@ -25,7 +25,7 @@ A Page is responsible for drawing a page inside a PageLayout.
 import weakref
 
 from PyQt5.QtCore import QPointF, QRect, QRectF, QSizeF, Qt
-from PyQt5.QtGui import QColor, QPageSize, QPainter, QPdfWriter, QTransform
+from PyQt5.QtGui import QColor, QImage, QPageSize, QPainter, QPdfWriter, QTransform
 from PyQt5.QtSvg import QSvgGenerator
 
 from . import util
@@ -467,5 +467,35 @@ class AbstractRenderedPage(AbstractPage):
         if dpiY is None:
             dpiY = dpiX
         return self.renderer.image(self, rect, dpiX, dpiY, paperColor)
+
+
+class BlankPage(AbstractPage):
+    """A blank page."""
+    def paint(self, painter, rect, callback=None):
+        """Paint blank page in the View."""
+        painter.fillRect(rect, self.paperColor or Qt.white)
+
+    def print(self, painter, rect=None, paperColor=None):
+        """Paint blank page for printing."""
+        if rect is None:
+            rect = self.pageRect()
+        else:
+            rect = rect * self.pageRect()
+        painter.fillRect(rect, self.paperColor or Qt.white)
+
+    def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
+        """Return a blank image."""
+        if rect is None:
+            rect = self.rect()
+        if dpiX is None:
+            dpiX = self.dpi
+        if dpiY is None:
+            dpiY = dpiX
+        s = self.defaultSize()
+        width = s.width() * dpiX / self.dpi
+        height = s.height() * dpiY / self.dpi
+        image = QImage(width, height, QImage.Format_ARGB32_Premultiplied)
+        image.fill(paperColor or Qt.white)
+        return image
 
 
