@@ -93,17 +93,22 @@ class UrlRequester(QWidget):
         self.changed.emit()
 
     def _editingFinished(self):
-        """
-        Emit the editingFinished signal - if the lineedit
-        did not lose the focus for the file dialog.
+        """Emit the editingFinished signal - if validation passes.
+
+        If the focus changes from the lineEdit to the fileDialog
+        no signal is emitted.
+
         If mustExist=True and the file doesn't exist, reset to the value
         before editing and suppress the signal.
+
+        Only emit the signal if the path has actually changed.
         """
         if self._browse_clicked:
             self.fileDialog().setDirectory(self.lineEdit.text())
         elif self.mustExist() and not os.path.exists(self.path()):
             self.setPath(self._originalPath)
-        else:
+        elif self.path() != self._originalPath:
+            self._originalPath = self.path()
             self.editingFinished.emit()
 
     def fileDialog(self, create=False):
@@ -165,8 +170,6 @@ class UrlRequester(QWidget):
         result = dlg.exec_()
         self._browse_clicked = False
         if result:
-            old = self.lineEdit.text()
             new = dlg.selectedFiles()[0]
-            if old != new:
-                self.lineEdit.setText(new)
-                self.editingFinished.emit()
+            self.lineEdit.setText(new)
+            self._editingFinished()
