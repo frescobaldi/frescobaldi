@@ -22,7 +22,10 @@ A widget and dialog to show an output preview of a LilyPond document.
 """
 
 
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import (
+    QSize,
+    Qt
+)
 from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
                              QLabel, QStackedLayout, QVBoxLayout, QWidget)
 
@@ -40,6 +43,8 @@ class MusicPreviewWidget(QWidget):
     def __init__(
         self,
         parent=None,
+        showProgress=True,
+        showWaitingCursor=False,
         progressHidden=False,
         progressHiddenWhileIdle=True,
         progressShowFinished=3000,
@@ -50,16 +55,15 @@ class MusicPreviewWidget(QWidget):
         self._running = None
         self._current = None
 
+        self._showLog = showLog
+        if showLog:
+            self._log = log.Log()
+        self._showProgress = showProgress
+        self._showWaitingCursor = showWaitingCursor
+
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
-        self._log = log.Log()
-        self._showLog = showLog
         self._view = popplerview.View()
-        self._progress = widgets.progressbar.TimedProgressBar(
-            hidden=progressHidden,
-            hideWhileIdle=progressHiddenWhileIdle,
-            showFinished=progressShowFinished
-        )
 
         self._stack = QStackedLayout()
         self._top = QWidget()
@@ -69,7 +73,14 @@ class MusicPreviewWidget(QWidget):
 
         layout.addWidget(self._top)
         layout.addLayout(self._stack)
-        layout.addWidget(self._progress)
+        if self._showProgress:
+            self._progress = widgets.progressbar.TimedProgressBar(
+                parent=self,
+                hidden=progressHidden,
+                hideWhileIdle=progressHiddenWhileIdle,
+                showFinished=progressShowFinished
+            )
+            layout.addWidget(self._progress)
 
         top = QHBoxLayout()
         top.setContentsMargins(0, 0, 0, 0)
@@ -79,7 +90,8 @@ class MusicPreviewWidget(QWidget):
         top.addWidget(self._chooser)
         top.addStretch(1)
 
-        self._stack.addWidget(self._log)
+        if showLog:
+            self._stack.addWidget(self._log)
         self._stack.addWidget(self._view)
 
         self._top.hide()
@@ -94,7 +106,8 @@ class MusicPreviewWidget(QWidget):
         This *can* be called by the using dialog/widget."""
         j = self._running
         if j and j.is_running():
-            self._log.disconnectJob(j)
+            if self._showLog:
+                self._log.disconnectJob(j)
             j.done.disconnect(self._done)
             j.abort()
 
@@ -120,15 +133,25 @@ class MusicPreviewWidget(QWidget):
                 title=title
             )
         j.done.connect(self._done)
-        self._log.clear()
-        self._log.connectJob(j)
         if self._showLog:
+            self._log.clear()
+            self._log.connectJob(j)
             self._stack.setCurrentWidget(self._log)
-        self._progress.start(self._lastbuildtime)
+        if self._showProgress:
+            j.started.connect(
+                lambda: self._progress.start(self._lastbuildtime)
+            )
+            self._progress.start(self._lastbuildtime)
+        if self._showWaitingCursor:
+            j.started.connect(
+                lambda: app.qApp.setOverrideCursor(Qt.WaitCursor)
+            )
         app.job_queue().add_job(j, 'generic')
 
     def _done(self, success):
-        self._progress.stop()
+        # TODO: Handle failed compilation (= no file to show)
+        if self._showProgress:
+            self._progress.stop()
         pdfs = self._running.resultfiles()
         self.setDocuments(pdfs)
         if not pdfs and self._showLog:
