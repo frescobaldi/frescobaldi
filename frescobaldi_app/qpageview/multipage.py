@@ -79,16 +79,10 @@ class MultiPage(page.AbstractRenderedPage):
         as the shortest pageList given.
 
         """
-        lengths = map(len, pageLists)
-        count = max(lengths) if pad else min(lengths)
-        def gen(pageList):
-            for p in pageList:
-                yield p
-            while True:
-                yield pad()
-        for pages in itertools.islice(zip(*map(gen, pageLists)), 0, count):
+        it = itertools.zip_longest(*pageLists) if pad else zip(*pageLists)
+        for pages in it:
             page = cls(renderer)
-            page.pages = pages
+            page.pages[:] = (p if p else pad() for p in pages)
             yield page
 
     def copy(self, owner=None, matrix=None):
