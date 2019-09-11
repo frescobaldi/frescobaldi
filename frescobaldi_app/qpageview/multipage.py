@@ -27,6 +27,7 @@ rendering to the renderer of the embedded pages.
 """
 
 import collections
+import itertools
 
 from PyQt5.QtCore import QPoint, QRect, QRectF, Qt
 from PyQt5.QtGui import QColor, QImage, QPainter, QPixmap, QRegion, QTransform
@@ -66,6 +67,29 @@ class MultiPage(page.AbstractRenderedPage):
         self.pages = []
         if renderer is not None:
             self.renderer = renderer
+
+    @classmethod
+    def createPages(cls, pageLists, renderer=None, pad=page.BlankPage):
+        """Yield pages, taking each page from every pageList.
+
+        If pad is given and is not None, it is a callable that instantiates
+        blank pages, to pad the shorter pageLists with. In that case, the
+        returned list of pages has the same length as the longest pageList
+        given. If pad is None, the returned list of pages has the same length
+        as the shortest pageList given.
+
+        """
+        lengths = map(len, pageLists)
+        count = max(lengths) if pad else min(lengths)
+        def gen(pageList):
+            for p in pageList:
+                yield p
+            while True:
+                yield pad()
+        for pages in itertools.islice(zip(*map(gen, pageLists)), 0, count):
+            page = cls(renderer)
+            page.pages = pages
+            yield page
 
     def copy(self, owner=None, matrix=None):
         """Reimplemented to also copy the sub pages."""
@@ -232,8 +256,8 @@ class MultiPageRenderer(render.AbstractRenderer):
         covered = QRegion()
         for p, overlayrect in page.visiblePagesAt(rect):
             pixmap = QPixmap(overlayrect.size() * ratio)
-            pixmap.setDevicePixelRatio(ratio)
             if not pixmap.isNull():
+                pixmap.setDevicePixelRatio(ratio)
                 pt = QPainter(pixmap)
                 pt.translate(p.pos() - overlayrect.topLeft())
                 p.paint(pt, overlayrect.translated(-p.pos()), newcallback)
