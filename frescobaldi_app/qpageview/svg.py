@@ -74,6 +74,9 @@ class SvgPage(page.AbstractRenderedPage):
     def mutex(self):
         return self._svg
 
+    def group(self):
+        return self._svg
+
 
 class Renderer(render.AbstractRenderer):
     """Render SVG pages."""
