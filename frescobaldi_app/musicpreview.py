@@ -44,7 +44,7 @@ class MusicPreviewWidget(QWidget):
         self,
         parent=None,
         showProgress=True,
-        showWaitingCursor=False,
+        showWaiting=False,
         progressHidden=False,
         progressHiddenWhileIdle=True,
         progressShowFinished=3000,
@@ -59,11 +59,16 @@ class MusicPreviewWidget(QWidget):
         if showLog:
             self._log = log.Log()
         self._showProgress = showProgress
-        self._showWaitingCursor = showWaitingCursor
 
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
         self._view = popplerview.View()
+
+        self._showWaiting = showWaiting
+        if showWaiting:
+            from widgets.waitingoverlay import Overlay
+            self._waiting = Overlay(self._view)
+            self._waiting.hide()
 
         self._stack = QStackedLayout()
         self._top = QWidget()
@@ -142,16 +147,16 @@ class MusicPreviewWidget(QWidget):
                 lambda: self._progress.start(self._lastbuildtime)
             )
             self._progress.start(self._lastbuildtime)
-        if self._showWaitingCursor:
-            j.started.connect(
-                lambda: app.qApp.setOverrideCursor(Qt.WaitCursor)
-            )
+        if self._showWaiting:
+            self._waiting.start()
         app.job_queue().add_job(j, 'generic')
 
     def _done(self, success):
         # TODO: Handle failed compilation (= no file to show)
         if self._showProgress:
             self._progress.stop()
+        if self._showWaiting:
+            self._waiting.stop()
         pdfs = self._running.resultfiles()
         self.setDocuments(pdfs)
         if not pdfs and self._showLog:
