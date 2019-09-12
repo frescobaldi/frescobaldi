@@ -21,10 +21,16 @@
 UrlRequester, a lineedit with a Browse-button.
 """
 
+import os
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import (
-    QFileDialog, QHBoxLayout, QLineEdit, QToolButton, QWidget)
+    QFileDialog,
+    QHBoxLayout,
+    QLineEdit,
+    QToolButton,
+    QWidget
+)
 
 import app
 import icons
@@ -38,13 +44,20 @@ class UrlRequester(QWidget):
 
     """
     changed = pyqtSignal()
+    editingFinished = pyqtSignal()
 
-    def __init__(self, parent=None):
+    def __init__(
+        self,
+        parent=None,
+        fileMode=QFileDialog.Directory,
+        mustExist=False
+    ):
         super(UrlRequester, self).__init__(parent)
 
         self._fileDialog = None
         self._dialogTitle = None
-        self._fileMode = None
+        self._mustExist = mustExist
+        self._originalPath = ''
 
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -56,14 +69,49 @@ class UrlRequester(QWidget):
         self.button = QToolButton(clicked=self.browse)
         layout.addWidget(self.button)
 
-        self.lineEdit.textChanged.connect(self.changed)
-        self.setFileMode(QFileDialog.Directory)
+        self.lineEdit.textChanged.connect(self._changed)
+        self.lineEdit.editingFinished.connect(self._editingFinished)
+        self._browse_clicked = False
+        self.setFileMode(fileMode)
         app.translateUI(self)
 
     def translateUI(self):
         self.button.setToolTip(_("Open file dialog"))
 
-    def fileDialog(self, create = False):
+    def _changed(self):
+        """
+        Emit the `changed` signal.
+        If the `mustExist` property is set validate the current value
+        and color the line edit.
+        """
+        if self.mustExist():
+            if os.path.exists(self.path()):
+                self.lineEdit.setStyleSheet('')
+            else:
+                # TODO: Apply the "Error" color of the current theme
+                self.lineEdit.setStyleSheet('color:red')
+        self.changed.emit()
+
+    def _editingFinished(self):
+        """Emit the editingFinished signal - if validation passes.
+
+        If the focus changes from the lineEdit to the fileDialog
+        no signal is emitted.
+
+        If mustExist=True and the file doesn't exist, reset to the value
+        before editing and suppress the signal.
+
+        Only emit the signal if the path has actually changed.
+        """
+        if self._browse_clicked:
+            self.fileDialog().setDirectory(self.lineEdit.text())
+        elif self.mustExist() and not os.path.exists(self.path()):
+            self.setPath(self._originalPath)
+        elif self.path() != self._originalPath:
+            self._originalPath = self.path()
+            self.editingFinished.emit()
+
+    def fileDialog(self, create=False):
         """Returns the QFileDialog, if already instantiated.
 
         If create is True, the dialog is instantiated anyhow.
@@ -74,6 +122,8 @@ class UrlRequester(QWidget):
         return self._fileDialog
 
     def setPath(self, path):
+        """Set the text in the lineEdit, without triggering any signals."""
+        self._originalPath = path
         self.lineEdit.setText(path)
 
     def path(self):
@@ -90,6 +140,13 @@ class UrlRequester(QWidget):
     def fileMode(self):
         return self._fileMode
 
+    def mustExist(self):
+        """If True only existing files or directories are accepted as paths."""
+        return self._mustExist
+
+    def setMustExist(self, value):
+        self._mustExist = value
+
     def setDialogTitle(self, title):
         self._dialogTitle = title
         if self._fileDialog:
@@ -100,6 +157,8 @@ class UrlRequester(QWidget):
 
     def browse(self):
         """Opens the dialog."""
+        # Suppress the editingFinished signal from the LineEdit
+        self._browse_clicked = True
         dlg = self.fileDialog(True)
         dlg.setFileMode(self._fileMode)
         if self._dialogTitle:
@@ -111,7 +170,8 @@ class UrlRequester(QWidget):
         dlg.setWindowTitle(app.caption(title))
         dlg.selectFile(self.path())
         result = dlg.exec_()
+        self._browse_clicked = False
         if result:
-            self.lineEdit.setText(dlg.selectedFiles()[0])
-
-
+            new = dlg.selectedFiles()[0]
+            self.lineEdit.setText(new)
+            self._editingFinished()
