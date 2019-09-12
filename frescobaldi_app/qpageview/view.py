@@ -478,6 +478,7 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         self._rubberband = rubberband
         if rubberband:
             rubberband.setParent(self.viewport())
+            rubberband.clearSelection()
             self.viewport().installEventFilter(rubberband)
             self.zoomFactorChanged.connect(rubberband.slotZoomChanged)
             self.rotationChanged.connect(rubberband.clearSelection)
