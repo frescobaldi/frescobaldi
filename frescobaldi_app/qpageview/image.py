@@ -21,24 +21,38 @@
 A page that can display a QImage,
 without using a renderer.
 
+ImagePages are instantiated quite fast. The image is only really loaded on first
+display.
+
 """
 
 
 from PyQt5.QtCore import QPoint, Qt
-from PyQt5.QtGui import QImage, QPainter, QTransform
+from PyQt5.QtGui import QImage, QImageReader, QPainter, QTransform
 
 from . import page
 from . import util
 
 
 class ImagePage(page.AbstractPage):
+    """A Page that displays an image in any file format supported by Qt."""
     dpi = 96   # TODO: maybe this can be image dependent.
     
-    def __init__(self, image):
+    def __init__(self, imageReader):
         super().__init__()
-        self._image = image
-        self.setPageSize(image.size())
-    
+        self._image = None
+        self._imageJob = None
+        self._imageReader = None
+        size = imageReader.size()
+        if size:
+            # normally, the size can be determined by the reader.
+            self._imageReader = imageReader
+            self.setPageSize(size)
+        else:
+            # in the unlikely case the size can't be determined, read the image
+            self._image = imageReader.read()
+            self.setPageSize(self._image.size())
+
     @classmethod
     def load(cls, filename, renderer=None):
         """Load the image and yield one ImagePage instance if loading was successful.
@@ -46,15 +60,41 @@ class ImagePage(page.AbstractPage):
         The renderer argument is not used.
 
         """
-        if isinstance(filename, str):
-            image = QImage(filename)
-        else:
-            image = QImage.fromData(filename)
-        if not image.isNull():
-            yield cls(image)
+        reader = QImageReader(filename)
+        if reader.canRead():
+            yield cls(reader)
+
+    def _materialize(self):
+        """Internal. If needed, load the image and deletes the image reader."""
+        if self._image is None:
+            self._image = self._imageReader.read()
+            self._imageReader = None
+
+    def _materializeInBackground(self, callback):
+        """Internal. Load the image in the background without blocking the main thread."""
+        job = self._imageJob
+        if job is None:
+            from . import backgroundjob
+            job = self._imageJob = backgroundjob.Job()
+            job.work = lambda: self._imageReader.read()
+            job.callbacks = callbacks = set()
+            def finalize(result):
+                self._image = result
+                self._imageJob = None
+                self._imageReader = None
+                for cb in callbacks:
+                    callback(self)
+            job.finalize = finalize
+            job.start()
+        if callback:
+            job.callbacks.add(callback)
 
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
+        if self._image is None:
+            self._materializeInBackground(callback)
+            painter.fillRect(rect, self.paperColor or Qt.white)
+            return
         source = self.mapFromPage().rect(rect)
         painter.setTransform(self.transform(), True)
         painter.setRenderHint(QPainter.SmoothPixmapTransform)
@@ -62,6 +102,7 @@ class ImagePage(page.AbstractPage):
 
     def print(self, painter, rect=None, paperColor=None):
         """Paint a page for printing."""
+        self._materialize()
         if rect is None:
             image = self._image
         else:
@@ -73,6 +114,7 @@ class ImagePage(page.AbstractPage):
 
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
         """Return a QImage of the specified rectangle."""
+        self._materialize()
         if rect is None:
             rect = self.rect()
         else:
