@@ -22,12 +22,14 @@ A widget and dialog to show an output preview of a LilyPond document.
 """
 
 
-from PyQt5.QtCore import QSize
+from PyQt5.QtCore import (
+    QSize,
+    Qt
+)
 from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
                              QLabel, QStackedLayout, QVBoxLayout, QWidget)
 
 import app
-import document
 import icons
 import job
 import log
@@ -38,17 +40,35 @@ import widgets.progressbar
 
 
 class MusicPreviewWidget(QWidget):
-    def __init__(self, parent=None):
+    def __init__(
+        self,
+        parent=None,
+        showProgress=True,
+        showWaiting=False,
+        progressHidden=False,
+        progressHiddenWhileIdle=True,
+        progressShowFinished=3000,
+        showLog=True
+    ):
         super(MusicPreviewWidget, self).__init__(parent)
         self._lastbuildtime = 10.0
         self._running = None
         self._current = None
 
+        self._showLog = showLog
+        if showLog:
+            self._log = log.Log()
+        self._showProgress = showProgress
+
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
-        self._log = log.Log()
         self._view = popplerview.View()
-        self._progress = widgets.progressbar.TimedProgressBar()
+
+        self._showWaiting = showWaiting
+        if showWaiting:
+            from widgets.waitingoverlay import Overlay
+            self._waiting = Overlay(self._view)
+            self._waiting.hide()
 
         self._stack = QStackedLayout()
         self._top = QWidget()
@@ -58,7 +78,14 @@ class MusicPreviewWidget(QWidget):
 
         layout.addWidget(self._top)
         layout.addLayout(self._stack)
-        layout.addWidget(self._progress)
+        if self._showProgress:
+            self._progress = widgets.progressbar.TimedProgressBar(
+                parent=self,
+                hidden=progressHidden,
+                hideWhileIdle=progressHiddenWhileIdle,
+                showFinished=progressShowFinished
+            )
+            layout.addWidget(self._progress)
 
         top = QHBoxLayout()
         top.setContentsMargins(0, 0, 0, 0)
@@ -68,7 +95,8 @@ class MusicPreviewWidget(QWidget):
         top.addWidget(self._chooser)
         top.addStretch(1)
 
-        self._stack.addWidget(self._log)
+        if showLog:
+            self._stack.addWidget(self._log)
         self._stack.addWidget(self._view)
 
         self._top.hide()
@@ -78,27 +106,67 @@ class MusicPreviewWidget(QWidget):
     def translateUI(self):
         self._chooserLabel.setText(_("Document:"))
 
-    def preview(self, text, title=None):
+    def abort_running(self):
+        """Ensures no running job is left behind.
+        This *can* be called by the using dialog/widget."""
+        j = self._running
+        if j and j.is_running():
+            if self._showLog:
+                self._log.disconnectJob(j)
+            j.done.disconnect(self._done)
+            j.abort()
+
+    def preview(
+        self, text, title=None, base_dir=None,
+        temp_dir='', cached=False
+    ):
         """Runs LilyPond on the given text and shows the resulting PDF."""
-        j = self._running = job.lilypond.VolatileTextJob(text, title)
+        self.abort_running()
+        if cached:
+            self._running = j = job.lilypond.CachedPreviewJob(
+                text,
+                target_dir=temp_dir,
+                base_dir=base_dir,
+                title=title
+            )
+            if not self._running.needs_compilation():
+                self._done(None)
+                return
+        else:
+            self._running = j = job.lilypond.VolatileTextJob(
+                text,
+                title=title
+            )
         j.done.connect(self._done)
-        self._log.clear()
-        self._log.connectJob(j)
+        if self._showLog:
+            self._log.clear()
+            self._log.connectJob(j)
+            self._stack.setCurrentWidget(self._log)
+        if self._showProgress:
+            j.started.connect(
+                lambda: self._progress.start(self._lastbuildtime)
+            )
+            self._progress.start(self._lastbuildtime)
+        if self._showWaiting:
+            self._waiting.start()
         app.job_queue().add_job(j, 'generic')
-        self._progress.start(self._lastbuildtime)
 
     def _done(self, success):
-        self._progress.stop(False)
+        # TODO: Handle failed compilation (= no file to show)
+        if self._showProgress:
+            self._progress.stop()
+        if self._showWaiting:
+            self._waiting.stop()
         pdfs = self._running.resultfiles()
         self.setDocuments(pdfs)
-        if not pdfs:
+        if not pdfs and self._showLog:
             self._stack.setCurrentWidget(self._log)
             return
         self._lastbuildtime = self._running.elapsed_time()
         self._stack.setCurrentWidget(self._view)
         if self._current:
             self._current.cleanup()
-        self._current = self._running # keep the tempdir
+        self._current = self._running  # keep the tempdir
         self._running = None
 
     def setDocuments(self, pdfs):
@@ -126,7 +194,8 @@ class MusicPreviewWidget(QWidget):
         if self._current:
             self._current.cleanup()
             self._current = None
-        self._stack.setCurrentWidget(self._log)
+        if self._showLog:
+            self._stack.setCurrentWidget(self._log)
         self._top.hide()
         self._view.clear()
 
