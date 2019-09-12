@@ -101,16 +101,6 @@ class MusicPreviewWidget(QWidget):
     def translateUI(self):
         self._chooserLabel.setText(_("Document:"))
 
-    def cleanup_running(self):
-        """Ensures no running job is left behind.
-        This *can* be called by the using dialog/widget."""
-        j = self._running
-        if j and j.is_running():
-            if self._showLog:
-                self._log.disconnectJob(j)
-            j.done.disconnect(self._done)
-            j.abort()
-
     def preview(
         self, text, title=None, base_dir=None,
         temp_dir='', cached=False

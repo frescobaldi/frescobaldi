@@ -127,12 +127,6 @@ class FontsPreviewWidget(QWidget):
         self.custom_sample_url.editingFinished.connect(self.show_sample)
 
         parent.finished.connect(self.saveSettings)
-        # TODO: I'm not sure this is correct, maybe fixing
-        # https://github.com/frescobaldi/frescobaldi/issues/1169
-        # will make this obsolete
-        parent.finished.connect(
-            self.musicFontPreview.cleanup_running
-        )
 
     def translateUI(self):
         self.rb_default.setText(_("&Default"))
