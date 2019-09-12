@@ -24,6 +24,7 @@ Manages and positions a group of Page instances.
 
 
 import copy
+import math
 
 from PyQt5.QtCore import QMargins, QPoint, QPointF, QRect, QSize
 
@@ -488,5 +489,70 @@ class RowPageLayout(PageLayout):
                     page.x = col_offsets[n] + (col_widths[n] - page.width) // 2
                     page.y = top + (height - page.height) // 2
             top += height + self.pageMargins().bottom() + self.spacing
+
+
+class RasterLayout(PageLayout):
+    """A layout that aligns the pages in a grid.
+
+    This layout does not zoom to fit, but changes the number of columns and rows
+    according to the available space. FitBoth is handled like FitWidth.
+
+    """
+    _h = 0
+    _w = 0
+    _mode = FixedScale
+    orientation = Horizontal
+    defaultColumnCount = 4  # how many columns to display
+
+    def fit(self, size, mode):
+        """Reimplemented."""
+        self._h = size.height()
+        self._w = size.width()
+        self._mode = mode
+
+    def updatePagePositions(self):
+        """Reimplemented."""
+        if self.empty():
+            return
+        m = self.margins()
+        pm = self.pageMargins()
+        width = self._w - m.left() - m.right()
+        height = self._h - m.top() - m.bottom()
+        w = self.widestPage().width + pm.left() + pm.right()
+        h = self.highestPage().height + pm.top() + pm.bottom()
+        if self._mode & FitHeight:
+            rows, rest = divmod(height, h)
+            if rows == 0:
+                rows = 1
+            elif rows > 1 and rest < self.spacing * (rows - 1):
+                rows -= 1
+            cols = math.ceil(self.count() / rows)
+        elif self._mode & FitWidth:
+            cols, rest = divmod(width, w)
+            if cols == 0:
+                cols = 1
+            elif cols > 1 and rest < self.spacing * (cols - 1):
+                cols -= 1
+            rows = math.ceil(self.count() / cols)
+        else:
+            cols = math.ceil(math.sqrt(self.count()))
+            rows = math.ceil(self.count() / cols)
+        def gen():
+            if self.orientation == Vertical:
+                for x in range(cols):
+                    for y in range(rows):
+                        yield x, y
+            else:
+                for y in range(rows):
+                    for x in range(cols):
+                        yield x, y
+        sx = m.left() + pm.left() + w // 2
+        sy = m.top() + pm.top() + h // 2
+        ox = w + self.spacing
+        oy = h + self.spacing
+        for page, (x, y) in zip(self, gen()):
+            g = page.geometry()
+            g.moveCenter(QPoint(sx + x * ox, sy + y * oy))
+            page.setGeometry(g)
 
 
