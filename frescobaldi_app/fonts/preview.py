@@ -111,7 +111,7 @@ class FontsPreviewWidget(QWidget):
         self.musicFontPreview = mfp = musicpreview.MusicPreviewWidget(
             parent,
             showProgress=False,
-#            progressHiddenWhileIdle=False,
+            showWaiting=True,
             showLog=False
         )
         layout.addWidget(mfp)
