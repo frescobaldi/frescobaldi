@@ -724,8 +724,8 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
 
     def resizeEvent(self, ev):
         """Reimplemented to scale the view if needed and update the scrollbars."""
-        with self.pagingOnScrollDisabled():
-            if self._viewMode and not self._pageLayout.empty():
+        if self._viewMode and not self._pageLayout.empty():
+            with self.pagingOnScrollDisabled():
                 # sensible repositioning
                 vbar = self.verticalScrollBar()
                 hbar = self.horizontalScrollBar()
