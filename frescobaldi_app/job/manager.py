@@ -74,6 +74,3 @@ class JobManager(plugin.DocumentPlugin):
         """Returns True when a job is running."""
         if self._job:
             return self._job.is_running() and not self._job.is_aborted()
-
-
-

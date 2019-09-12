@@ -146,6 +146,9 @@ class Job(object):
         """
         return codecs.getdecoder(self._encoding)
 
+    def directory(self):
+        return self._directory
+        
     def set_directory(self, directory):
         self._directory = directory
 
