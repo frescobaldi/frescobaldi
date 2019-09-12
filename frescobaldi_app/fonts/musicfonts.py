@@ -184,7 +184,6 @@ class MusicFontsWidget(QWidget):
 
     def music_fonts_selection_changed(self, new, old):
         """Show a new score example with the selected music font"""
-        names = self.dialog().selected_fonts
         has_font = self.tree_view.selectionModel().hasSelection()
         if has_font:
             music_name = self.music_font_family()
@@ -193,11 +192,11 @@ class MusicFontsWidget(QWidget):
                 if self.music_fonts.family(music_name).has_brace('otf')
                 else 'emmentaler'
             )
-            names['music'] = music_name
-            names['brace'] = brace_name
+            self.dialog().select_font('music', music_name)
+            self.dialog().select_font('brace', brace_name)
         else:
-            names['music'] = 'emmentaler'
-            names['brace'] = 'emmentaler'
+            self.dialog().select_font('emmentaler')
+            self.dialog().select_font('emmentaler')
         self.dialog().invalidate_command()
         self.button_remove.setEnabled(has_font)
 

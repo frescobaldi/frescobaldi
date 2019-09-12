@@ -156,7 +156,7 @@ class FontsPreviewWidget(QWidget):
 
     def loadSettings(self):
         s = QSettings()
-        s.beginGroup('available-fonts-dialog')
+        s.beginGroup('document-fonts-dialog')
         id = s.value('sample-source-button', 0, int)
         self.sample_button_group.button(id).setChecked(True)
         default_sample = s.value('default-music-sample', '', str)
@@ -173,7 +173,7 @@ class FontsPreviewWidget(QWidget):
 
     def saveSettings(self):
         s = QSettings()
-        s.beginGroup('available-fonts-dialog')
+        s.beginGroup('document-fonts-dialog')
         s.setValue(
             'sample-source-button', self.sample_button_group.checkedId()
         )

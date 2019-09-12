@@ -71,10 +71,10 @@ class Fonts(plugin.MainWindowPlugin):
         if info.version() >= (2, 19, 12):
             # Show the new Document Fonts dialog
             from . import dialog
-            dlg = dialog.FontsDialog(info, mainwin)
+            dlg = dialog.FontsDialog(mainwin, lilypond_info=info)
             qutil.saveDialogSize(
-                dlg, "engrave/tools/available-fonts/dialog/size",
-                QSize(900, 500)
+                dlg, "document-fonts-dialog/dialog-size",
+                QSize(1024, 700)
             )
             dlg.exec_()
             if dlg.result:

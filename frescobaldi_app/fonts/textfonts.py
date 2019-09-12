@@ -98,13 +98,13 @@ class TextFontsWidget(QWidget):
         ))
 
     def loadSettings(self):
-        s = QSettings('available-fonts-dialog')
+        s = QSettings('document-fonts-dialog')
         self.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
         self.filter = QRegExp('', Qt.CaseInsensitive)
 
     def saveSettings(self):
         # Text font tab
-        s = QSettings('available-fonts-dialog')
+        s = QSettings('document-fonts-dialog')
         s.setValue('col-width', self.tree_view.columnWidth(0))
 
     def dialog(self):
@@ -122,7 +122,7 @@ class TextFontsWidget(QWidget):
     def load_font_tree_column_width(self):
         """Load column widths for fontTreeView,
         factored out because it has to be done upon reload too."""
-        s = QSettings('available-fonts-dialog')
+        s = QSettings('document-fonts-dialog')
         self.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
 
     def populate(self):
@@ -151,13 +151,12 @@ class TextFontsWidget(QWidget):
             # Row with font weight has been selected (second col has sample)
             else indexes[0].parent().data()
         )
-        self.dialog().selected_fonts[family] = font_name
+        self.dialog().select_font(family, font_name)
         self.dialog().invalidate_command()
 
     def show_context_menu(self, point):
         """Show a context menu to set text font families."""
         cm = QMenu(self)
-        fonts = self.dialog().selected_fonts
         actions = {}
         for family in ['Roman', 'Sans', 'Typewriter']:
             f_key = family.lower()
@@ -165,7 +164,7 @@ class TextFontsWidget(QWidget):
             ac.setText(
                 _('Set as {family} (current: {current})').format(
                     family=family,
-                    current=fonts[f_key]
+                    current=self.dialog().selected_font(f_key)
                 ))
             ac.family = f_key
             ac.triggered.connect(self.set_text_font)

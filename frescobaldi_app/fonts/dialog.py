@@ -23,25 +23,30 @@ Show a dialog with available text and music fonts.
 """
 
 from PyQt5.QtCore import (
+    QByteArray,
     QSettings,
-    Qt,
+    Qt
 )
 from PyQt5.QtWidgets import (
     QApplication,
+    QDialog,
+    QDialogButtonBox,
     QSplitter,
     QTabWidget,
+    QVBoxLayout,
+    QWidget,
 )
 
 import app
-import widgets.dialog
 import fonts
 import userguide
+import widgets.dialog
 
 from . import (
-    textfonts,
-    musicfonts,
     fontcommand,
-    preview
+    musicfonts,
+    preview,
+    textfonts
 )
 
 
@@ -54,10 +59,10 @@ _default_fonts = {
 }
 
 
-class FontsDialog(widgets.dialog.Dialog):
+class FontsDialog(QDialog):
     """Dialog to show available fonts"""
 
-    selected_fonts = {
+    _selected_fonts = {
         'music': _default_fonts['music'],
         'brace': _default_fonts['brace'],
         'roman': _default_fonts['roman'],
@@ -65,55 +70,68 @@ class FontsDialog(widgets.dialog.Dialog):
         'typewriter': _default_fonts['typewriter']
     }
 
-    def __init__(self, info, parent):
+    def __init__(
+        self,
+        parent,
+        lilypond_info=None,
+        show_music=True
+    ):
         QApplication.setOverrideCursor(Qt.WaitCursor)
         super(FontsDialog, self).__init__(
             parent,
-            buttons=('restoredefaults', 'save', 'ok', 'close')
         )
+        self.info = lilypond_info
+        if not lilypond_info:
+            import documentinfo
+            self.info = documentinfo.lilyinfo(parent.currentDocument())
 
         self.result = ''
-        self.info = info
         self.available_fonts = fonts.available(self.info)
 
         # Notation fonts (and preview) are limited to LilyPond >= 2.19.12
         # At some point we may remove the old dialog altogether
         # and instead make this dialog behave differently
         # (i.e. hide the music font stuff and use old font selection code)
-        # self.show_music = self.info.version() >= (2, 19, 12)
+        # self.show_music = self.info.version() >= (2, 19, 12).
+        # For now this distinction is made by the action and simply
+        # the dialog to be used is chosen. At some point the old
+        # "Set document fonts" dialog should be dropped.
         #
         # Also, it may at some point be indicated to make this
         # dialog usable to *only* choose text fonts, e.g. from
         # the "Fonts & Colors" Preference page.
         #
-        # NOTE: There are some facilities that seem to handle the state
-        # of self.show_music, but in fact they do not work in any meaningful
-        # fashion. They have been left in the code because they give an
-        # initial idea for future development.
-        self.show_music = True
+        # NOTE: All facilities that *seemed* to support this functionality
+        # have been removed to avoid confusion.
+        self.show_music = show_music
 
         # Basic dialog attributes
         self.setAttribute(Qt.WA_DeleteOnClose)
         self.setWindowModality(Qt.NonModal)
-        # Make buttons accessible as fields
-        self.restore_button = self.button('restoredefaults')
-        self.copy_button = self.button('ok')
-        self.insert_button = self.button('save')
-        # Add and connect help button
-        userguide.addButton(self._buttonBox, "documentfonts")
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
 
         # Create a QSplitter as main widget
         self.splitter = QSplitter()
         self.splitter.setOrientation(Qt.Horizontal)
-        self.setMainWidget(self.splitter)
+        layout.addWidget(self.splitter)
 
-        # Create the Qtab_widget for the dialog's left part
-        self.tab_widget = QTabWidget(self)
-        self.splitter.addWidget(self.tab_widget)
+        # Left side layout
+        self.left_column = QWidget()
+        left_layout = QVBoxLayout()
+        self.left_column.setLayout(left_layout)
+        self.splitter.addWidget(self.left_column)
 
-        # Create the RHS score preview pane.
-        self.preview_pane = preview.FontsPreviewWidget(self)
-        self.splitter.addWidget(self.preview_pane)
+        # Status area
+        # TODO: Populate that widget with a QStackedLayout where
+        # different widgets are shown corresponding to the visible tab.
+        self.status_area = QWidget()
+        left_layout.addWidget(self.status_area)
+
+        # Create the QTabWidget for the dialog's left part
+        self.tab_widget = QTabWidget()
+        left_layout.addWidget(self.tab_widget)
 
         # Text Fonts Tab
         self.tab_widget.addTab(textfonts.TextFontsWidget(self), '')
@@ -126,17 +144,33 @@ class FontsDialog(widgets.dialog.Dialog):
         self.tab_widget.addTab(
             textfonts.MiscFontsInfoWidget(self.available_fonts), '')
 
+        # Create the RHS score preview pane.
+        self.preview_pane = preview.FontsPreviewWidget(self)
+        self.splitter.addWidget(self.preview_pane)
+
+        # Bottom area: button box
+        self._button_box = bb = QDialogButtonBox()
+        layout.addWidget(bb)
+        self.restore_button = bb.addButton(QDialogButtonBox.RestoreDefaults)
+        self.copy_button = bb.addButton(QDialogButtonBox.Save)
+        self.insert_button = bb.addButton(QDialogButtonBox.Ok)
+        self.close_button = bb.addButton(QDialogButtonBox.Close)
+        # Add and connect help button
+        userguide.addButton(self._button_box, "documentfonts")
+
         app.translateUI(self)
         self.loadSettings()
         self.connectSignals()
 
-        self.font_command_tab.invalidate_command()
+        # Trigger the generation of a preview
+        self.invalidate_command()
 
     def connectSignals(self):
         self.finished.connect(self.saveSettings)
         self.restore_button.clicked.connect(self.restore)
         self.copy_button.clicked.connect(self.copy_result)
         self.insert_button.clicked.connect(self.insert_result)
+        self.close_button.clicked.connect(self.close)
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Document Fonts")))
@@ -153,35 +187,37 @@ class FontsDialog(widgets.dialog.Dialog):
 
     def loadSettings(self):
         s = QSettings()
-        s.beginGroup('available-fonts-dialog')
+        s.beginGroup('document-fonts-dialog')
 
-        fonts = self.selected_fonts
-        fonts['music'] = s.value('music-font', 'emmentaler', str)
-        fonts['brace'] = s.value('brace-font', 'emmentaler', str)
-        fonts['roman'] = s.value('roman-font', 'TeXGyre Schola', str)
-        fonts['sans'] = s.value('sans-font', 'TeXGyre Heros', str)
-        fonts['typewriter'] = s.value('typewriter-font', 'TeXGyre Cursor', str)
+        self.select_font('music', s.value('music-font', 'emmentaler', str))
+        self.select_font('brace', s.value('brace-font', 'emmentaler', str))
+        self.select_font('roman', s.value('roman-font', 'TeXGyre Schola', str))
+        self.select_font('sans', s.value('sans-font', 'TeXGyre Heros', str))
+        self.select_font(
+            'typewriter', s.value('typewriter-font', 'TeXGyre Cursor', str)
+        )
+        self.splitter.restoreState(
+            s.value('splitter-state', QByteArray(), QByteArray)
+        )
 
-        # Music font tab
-        # TODO: The following doesn't work so we can't restore
-        # the layout of the splitter yet.
-#        self.musicFontsSplitter.restoreState(
-#            s.value('music-font-splitter-sizes').toByteArray()
-#        )
+    def select_font(self, family, name):
+        self._selected_fonts[family] = name
+
+    def selected_font(self, family):
+        return self._selected_fonts[family]
 
     def saveSettings(self):
         s = QSettings()
-        s.beginGroup('available-fonts-dialog')
+        s.beginGroup('document-fonts-dialog')
 
-        fonts = self.selected_fonts
-        s.setValue('music-font', fonts['music'])
-        s.setValue('brace-font', fonts['brace'])
-        s.setValue('roman-font', fonts['roman'])
-        s.setValue('sans-font', fonts['sans'])
-        s.setValue('typewriter-font', fonts['typewriter'])
+        s.setValue('music-font', self.selected_font('music'))
+        s.setValue('brace-font', self.selected_font('brace'))
+        s.setValue('roman-font', self.selected_font('roman'))
+        s.setValue('sans-font', self.selected_font('sans'))
+        s.setValue('typewriter-font', self.selected_font('typewriter'))
 
         # Dialog layout
-        s.setValue('music-fonts-splitter-sizes', self.splitter.saveState())
+        s.setValue('splitter-state', self.splitter.saveState())
 
     def copy_result(self):
         """Copies the font command (as shown) to the clipboard."""
@@ -190,6 +226,7 @@ class FontsDialog(widgets.dialog.Dialog):
         if cmd[-1] != '\n':
             cmd = cmd + '\n'
         QGuiApplication.clipboard().setText(cmd)
+        self.accept()
 
     def font_cmd(self, approach=None):
         """Return the font setting command as shown in the Font Command tab."""
@@ -204,6 +241,7 @@ class FontsDialog(widgets.dialog.Dialog):
     def insert_result(self):
         """Inserts the font command (as shown) at the current position"""
         self.result = self.font_cmd()
+        self.accept()
 
     def invalidate_command(self):
         """Triggers a regeneration of the font command and new display of the
@@ -213,10 +251,9 @@ class FontsDialog(widgets.dialog.Dialog):
 
     def restore(self):
         """Reset fonts to defaults"""
-        fonts = self.selected_fonts
         for name in _default_fonts:
-            fonts[name] = _default_fonts[name]
-        self.font_command_tab.invalidate_command()
+            self.select_font(name, _default_fonts[name])
+        self.invalidate_command()
 
     def show_sample(self):
         """Call the preview pane to show the current sample."""

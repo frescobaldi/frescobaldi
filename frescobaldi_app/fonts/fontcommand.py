@@ -90,28 +90,29 @@ class FontCommandWidget(QWidget):
         ce.setEnabled(False)
         col_layout.addWidget(self.command_edit)
 
-        selected_fonts = self.dialog().selected_fonts
         # Which text font families to integrate?
         self.family_group = QGroupBox()
         family_layout = QVBoxLayout()
         opt_layout.addWidget(self.family_group)
         self.family_group.setLayout(family_layout)
         self.cb_roman = QCheckBox()
-        self.font_labels['roman'] = QLabel(selected_fonts['roman'])
+        self.font_labels['roman'] = QLabel(parent.selected_font('roman'))
         roman_layout = QHBoxLayout()
         roman_layout.addWidget(self.cb_roman)
         roman_layout.addWidget(self.font_labels['roman'])
         family_layout.addLayout(roman_layout)
 
         self.cb_sans = QCheckBox()
-        self.font_labels['sans'] = QLabel(selected_fonts['sans'])
+        self.font_labels['sans'] = QLabel(parent.selected_font('sans'))
         sans_layout = QHBoxLayout()
         sans_layout.addWidget(self.cb_sans)
         sans_layout.addWidget(self.font_labels['sans'])
         family_layout.addLayout(sans_layout)
 
         self.cb_typewriter = QCheckBox()
-        self.font_labels['typewriter'] = QLabel(selected_fonts['typewriter'])
+        self.font_labels['typewriter'] = QLabel(
+            parent.selected_font('typewriter')
+        )
         typewriter_layout = QHBoxLayout()
         typewriter_layout.addWidget(self.cb_typewriter)
         typewriter_layout.addWidget(self.font_labels['typewriter'])
@@ -137,7 +138,7 @@ class FontCommandWidget(QWidget):
 
         # Configure traditional approach
         self.cb_music = QCheckBox()
-        self.font_labels['music'] = QLabel(selected_fonts['music'])
+        self.font_labels['music'] = QLabel(parent.selected_font('music'))
         trad_music_layout = QHBoxLayout()
         trad_music_layout.addWidget(self.cb_music)
         trad_music_layout.addWidget(self.font_labels['music'])
@@ -151,7 +152,7 @@ class FontCommandWidget(QWidget):
         self.cb_oll_music = QCheckBox()
         self.cb_oll_music.setChecked(True)
         self.cb_oll_music.setEnabled(False)
-        self.font_labels['oll_music'] = QLabel(selected_fonts['music'])
+        self.font_labels['oll_music'] = QLabel(parent.selected_font('music'))
         oll_music_layout = QHBoxLayout()
         oll_music_layout.addWidget(self.cb_oll_music)
         oll_music_layout.addWidget(self.font_labels['oll_music'])
@@ -289,7 +290,7 @@ class FontCommandWidget(QWidget):
 
     def loadSettings(self):
         s = QSettings()
-        s.beginGroup('available-fonts-dialog')
+        s.beginGroup('document-fonts-dialog')
         self.cb_roman.setChecked(s.value('set-roman', False, bool))
         self.cb_sans.setChecked(s.value('set-sans', False, bool))
         self.cb_roman.setChecked(s.value('set-roman', False, bool))
@@ -306,7 +307,7 @@ class FontCommandWidget(QWidget):
 
     def saveSettings(self):
         s = QSettings()
-        s.beginGroup('available-fonts-dialog')
+        s.beginGroup('document-fonts-dialog')
         s.setValue('set-roman', self.cb_roman.isChecked())
         s.setValue('set-sans', self.cb_sans.isChecked())
         s.setValue('set-roman', self.cb_roman.isChecked())
@@ -342,7 +343,6 @@ class FontCommandWidget(QWidget):
         # and later joined to multiline strings.
         fontdefs = []
         full_fontdefs = []
-        fonts = self.dialog().selected_fonts
         template = self.lilypond_template
 
         def add_font_def(k, name, checked):
@@ -356,13 +356,25 @@ class FontCommandWidget(QWidget):
 
         def font_defs():
             """Compose the font definitions list."""
-            add_font_def('music', fonts['music'], self.cb_music.isChecked())
-            add_font_def('brace', fonts['brace'], self.cb_music.isChecked())
-            add_font_def('roman', fonts['roman'], self.cb_roman.isChecked())
-            add_font_def('sans', fonts['sans'], self.cb_sans.isChecked())
+            add_font_def(
+                'music', self.dialog().selected_font('music'),
+                self.cb_music.isChecked()
+            )
+            add_font_def(
+                'brace', self.dialog().selected_font('brace'),
+                self.cb_music.isChecked()
+            )
+            add_font_def(
+                'roman', self.dialog().selected_font('roman'),
+                self.cb_roman.isChecked()
+            )
+            add_font_def(
+                'sans', self.dialog().selected_font('sans'),
+                self.cb_sans.isChecked()
+            )
             add_font_def(
                 'typewriter',
-                fonts['typewriter'],
+                self.dialog().selected_font('typewriter'),
                 self.cb_typewriter.isChecked()
             )
             return "\n".join(fontdefs), "\n".join(full_fontdefs)
@@ -386,7 +398,6 @@ class FontCommandWidget(QWidget):
         - "full" command without the filters.
           => as used in the Font Preview, and maybe the Document wizard
         """
-        fonts = self.dialog().selected_fonts
         # Handled initially as string lists, later joined to multiline strings
         cmd = []
         full_cmd = []
@@ -417,24 +428,26 @@ class FontCommandWidget(QWidget):
             cmd.append(package_include)
 
         # TODO: Support independent explicit brace font
-        add_property('brace', '"{}"'.format(fonts['brace']), False)
+        add_property(
+            'brace', '"{}"'.format(self.dialog().selected_font('brace')), False
+        )
 
         # Specify text fonts
         add_property(
             'roman',
-            '"{}"'.format(fonts['roman']),
+            '"{}"'.format(self.dialog().selected_font('roman')),
             self.cb_roman.isChecked(),
             force=True
         )
         add_property(
             'sans',
-            '"{}"'.format(fonts['sans']),
+            '"{}"'.format(self.dialog().selected_font('sans')),
             self.cb_sans.isChecked(),
             force=True
         )
         add_property(
             'typewriter',
-            '"{}"'.format(fonts['typewriter']),
+            '"{}"'.format(self.dialog().selected_font('typewriter')),
             self.cb_typewriter.isChecked(),
             force=True
         )
@@ -471,9 +484,9 @@ class FontCommandWidget(QWidget):
         else:
             properties = ''
         # Inject properties in the \useNotationFont command
-        cmd.append(self.oll_template.format(properties, fonts['music']))
+        cmd.append(self.oll_template.format(properties, self.dialog().selected_font('music')))
         full_cmd.append(
-            self.oll_template.format(full_properties, fonts['music'])
+            self.oll_template.format(full_properties, self.dialog().selected_font('music'))
         )
 
         # Return regular and full command
@@ -493,10 +506,9 @@ class FontCommandWidget(QWidget):
         display_cmd = self._cmd[self.approach]
         # TODO: Do syntax highlighting and use setHtml()
         self.command_edit.setPlainText(display_cmd)
-        selected_fonts = self.dialog().selected_fonts
         for k in self.font_labels:
             font_key = 'music' if k == 'oll_music' else k
-            self.font_labels[k].setText(selected_fonts[font_key])
+            self.font_labels[k].setText(self.dialog().selected_font(font_key))
         self.dialog().show_sample()
 
     def full_cmd(self, approach='lily'):
