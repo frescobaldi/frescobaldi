@@ -33,7 +33,6 @@ from . import util
 
 class ImagePage(page.AbstractPage):
     dpi = 96   # TODO: maybe this can be image dependent.
-    imageFormat = QImage.Format_ARGB32_Premultiplied
     
     def __init__(self, image):
         super().__init__()
@@ -93,7 +92,7 @@ class ImagePage(page.AbstractPage):
 
         source = self.mapFromPage().rect(rect)
         target = m.mapRect(source).toRect()
-        image = QImage(target.size(), self.imageFormat)
+        image = QImage(target.size(), self._image.format())
         painter = QPainter(image)
         painter.translate(-target.topLeft())
         painter.setTransform(m, True)
