@@ -671,6 +671,17 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         """
         self.setZoomFactor(self.zoomFactor() / factor, pos)
 
+    def zoomNaturalSize(self, pos=None):
+        """Zoom to the natural pixel size of the current page.
+
+        The natural pixel size zoom factor can be different than 1.0, if the
+        screen's DPI differs from the current page's DPI.
+
+        """
+        p = self.currentPage()
+        factor = p.dpi / self.physicalDpiX() if p else 1.0
+        self.setZoomFactor(factor, pos)
+
     def layoutPosition(self):
         """Return the position of the PageLayout relative to the viewport.
 
