@@ -107,7 +107,7 @@ class FontsDialog(QDialog):
 
         # Basic dialog attributes
         self.setAttribute(Qt.WA_DeleteOnClose)
-        self.setWindowModality(Qt.NonModal)
+        self.setWindowModality(Qt.WindowModal)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
