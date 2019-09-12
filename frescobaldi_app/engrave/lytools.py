@@ -31,18 +31,6 @@ import qutil
 import widgets.dialog
 
 
-def show_available_fonts(mainwin, info):
-    """Display a dialog with the available fonts of LilyPond specified by info."""
-    dlg = Dialog(mainwin)
-    dlg.setWindowTitle(app.caption(_("Available Fonts")))
-    dlg.run_command(info, ['-dshow-available-fonts'], _("Available Fonts"))
-    dlg.setMessage(_(
-        "List of fonts detected by {version}").format(version=info.prettyName()))
-    qutil.saveDialogSize(dlg, "engrave/tools/available-fonts/dialog/size", QSize(640, 400))
-    dlg.setAttribute(Qt.WA_DeleteOnClose)
-    dlg.show()
-
-
 class Dialog(widgets.dialog.Dialog):
     """Dialog to run a certain LilyPond command and simply show the log."""
     def __init__(self, parent):

@@ -521,30 +521,6 @@ if state[-1] != 'paper':
 """),
 
 
-'document_fonts': T(_("Document Fonts..."),
-r"""-*- menu: paper; name: fo; python; icon: preferences-desktop-font;
-snippet = '''\
-fonts = #
-(make-pango-font-tree
-  "{roman}"
-  "{sans}"
-  "{typewriter}"
-  (/ (* staff-height pt) 2.5))
-'''
-
-import globalfontdialog
-dlg = globalfontdialog.GlobalFontDialog(view)
-if dlg.exec_():
-    text = snippet.format(
-        roman = dlg.romanFont(),
-        sans = dlg.sansFont(),
-        typewriter = dlg.typewriterFont())
-    if state[-1] != "paper":
-        text = "\\paper {{\n{0}}}\n".format(text)
-
-"""),
-
-
 'last_note': T(_("Last note or chord"),
 r"""-*- python; menu: music; symbol: note_ellipsis;
 # This snippet reads back the last entered note or chord and
@@ -786,4 +762,3 @@ verseThree = \lyricmode {
 
 
 }
-
