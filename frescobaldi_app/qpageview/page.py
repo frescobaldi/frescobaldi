@@ -84,6 +84,24 @@ class AbstractPage(util.Rectangular):
     scaleY = 1.0
     paperColor = None
 
+    @classmethod
+    def load(cls, filename, renderer=None):
+        """Implement this to yield one or more pages by reading the file.
+
+        The renderer may be None, and not all page types use a renderer.
+        The filename may be a string or a QByteArray object containing the
+        data.
+
+        """
+        pass
+
+    @classmethod
+    def loadFiles(cls, filenames, renderer=None):
+        """Load multiple files, yielding Page instances of this type."""
+        for f in filenames:
+            for page in cls.load(f, renderer):
+                yield page
+
     def copy(self, owner=None, matrix=None):
         """Return a copy of the page with the same instance attributes.
 
@@ -417,6 +435,10 @@ class AbstractRenderedPage(AbstractPage):
     The renderer lives in the renderer attribute.
     
     """
+    def __init__(self, renderer=None):
+        if renderer is not None:
+            self.renderer = renderer
+
     def paint(self, painter, rect, callback=None):
         """Reimplement this to paint our Page.
 

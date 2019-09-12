@@ -40,6 +40,20 @@ class ImagePage(page.AbstractPage):
         self._image = image
         self.setPageSize(image.size())
     
+    @classmethod
+    def load(cls, filename, renderer=None):
+        """Load the image and yield one ImagePage instance if loading was successful.
+
+        The renderer argument is not used.
+
+        """
+        if isinstance(filename, str):
+            image = QImage(filename)
+        else:
+            image = QImage.fromData(filename)
+        if not image.isNull():
+            yield cls(image)
+
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
         source = self.mapFromPage().rect(rect)

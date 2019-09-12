@@ -253,7 +253,7 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         with self.modifyPages() as pages:
             pages.clear()
 
-    def loadPdf(self, filename):
+    def loadPdf(self, filename, renderer=None):
         """Convenience method to load the specified PDF file.
 
         The filename can also be a QByteArray.
@@ -261,9 +261,9 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         """
         from . import poppler
         with self.modifyPages() as pages:
-            pages[:] = poppler.PopplerPage.loadDocument(filename)
+            pages[:] = poppler.PopplerPage.load(filename, renderer)
 
-    def loadSvgs(self, filenames):
+    def loadSvgs(self, filenames, renderer=None):
         """Convenience method to load the specified list of SVG files.
 
         Each SVG file is loaded in one Page. A filename can also be a
@@ -272,7 +272,7 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         """
         from . import svg
         with self.modifyPages() as pages:
-            pages[:] = svg.SvgPage.loadFiles(filenames)
+            pages[:] = svg.SvgPage.loadFiles(filenames, renderer)
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Print all, or speficied pages to QPrinter printer.

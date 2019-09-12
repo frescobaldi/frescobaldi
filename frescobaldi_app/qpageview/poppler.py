@@ -74,33 +74,37 @@ class PopplerPage(page.AbstractRenderedPage):
 
     """
     def __init__(self, document, pageNumber, renderer=None):
-        super().__init__()
+        super().__init__(renderer)
         self.document = document
         self.pageNumber = pageNumber
         self.setPageSize(document.page(pageNumber).pageSizeF())
-        if renderer is not None:
-            self.renderer = renderer
 
     @classmethod
-    def createPages(cls, document, renderer=None):
-        """Convenience class method returning a list of instances of this class.
+    def loadPopplerDocument(cls, document, renderer=None, pageSlice=None):
+        """Convenience class method yielding instances of this class.
 
         The Page instances are created from the document, in page number order.
         The specified Renderer is used, or else the global poppler renderer.
+        If pageSlice is given, it should be a slice object and only those pages
+        are then loaded.
 
         """
-        return [cls(document, num, renderer) for num in range(document.numPages())]
+        it = range(document.numPages())
+        if pageSlice is not None:
+            it = it[pageSlice]
+        for num in it:
+            yield cls(document, num, renderer)
 
     @classmethod
-    def loadDocument(cls, filename, renderer=None):
-        """Load a Poppler document, and return a list of instances of this class.
+    def load(cls, filename, renderer=None):
+        """Load a Poppler document, and yield of instances of this class.
 
         The filename can also be a QByteArray.
         The specified Renderer is used, or else the global poppler renderer.
 
         """
         doc = popplerqt5.Poppler.Document.load(filename)
-        return cls.createPages(doc, renderer)
+        return cls.loadPopplerDocument(doc, renderer)
 
     def mutex(self):
         """No two pages of same Poppler document are rendered at the same time."""

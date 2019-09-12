@@ -44,32 +44,24 @@ class SvgPage(page.AbstractRenderedPage):
     dpi = 90.0
     
     def __init__(self, svgrenderer, renderer=None):
-        super().__init__()
+        super().__init__(renderer)
         self._svg = svgrenderer
         self.pageWidth = svgrenderer.defaultSize().width()
         self.pageHeight = svgrenderer.defaultSize().height()
         self._viewBox = svgrenderer.viewBoxF()
-        if renderer is not None:
-            self.renderer = renderer
 
     @classmethod
     def load(cls, filename, renderer=None):
-        """Load a SVG document from filename, which may also be a QByteArray."""
-        r = QSvgRenderer()
-        if r.load(filename):
-            return cls(r, renderer)
+        """Load a SVG document from filename, which may also be a QByteArray.
 
-    @classmethod
-    def loadFiles(cls, filenames, renderer=None):
-        """Yield a SvgPage for every file that successfully loads.
-
-        filenames is an iterable of files, a filename may also be a QByteArray.
+        Yields only one Page instance, as SVG currently supports one page per
+        file. If the file can't be loaded by the underlying QSvgRenderer,
+        no Page is yielded.
 
         """
-        for f in filenames:
-            p = cls.load(f, renderer)
-            if p:
-                yield p
+        r = QSvgRenderer()
+        if r.load(filename):
+            yield cls(r, renderer)
 
     def mutex(self):
         return self._svg
