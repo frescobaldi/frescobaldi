@@ -546,8 +546,8 @@ class RasterLayout(PageLayout):
                 for y in range(rows):
                     for x in range(cols):
                         yield x, y
-        sx = m.left() + pm.left() + w // 2
-        sy = m.top() + pm.top() + h // 2
+        sx = m.left() + w // 2
+        sy = m.top() + h // 2
         ox = w + self.spacing
         oy = h + self.spacing
         for page, (x, y) in zip(self, gen()):
