@@ -59,7 +59,6 @@ class FontCommandWidget(QWidget):
 
     def __init__(self, parent):
         super(FontCommandWidget, self).__init__(parent)
-        self._dialog = parent
         self._cmd = {
             'lily': '',
             'oll': ''
@@ -186,7 +185,7 @@ class FontCommandWidget(QWidget):
         )
 
         self.loadSettings()
-        self.dialog().finished.connect(self.saveSettings)
+        self.window().finished.connect(self.saveSettings)
         # Connect widgets that trigger re-generation of the command
         # Map widget base classes to signal names
         signal_map = {
@@ -326,9 +325,6 @@ class FontCommandWidget(QWidget):
             self.invalidate_command()
         return self._cmd[approach]
 
-    def dialog(self):
-        return self._dialog
-
     def generate_lily_command(self):
         """
         Generate a font setting command in the traditional LilyPond way
@@ -357,24 +353,24 @@ class FontCommandWidget(QWidget):
         def font_defs():
             """Compose the font definitions list."""
             add_font_def(
-                'music', self.dialog().selected_font('music'),
+                'music', self.window().selected_font('music'),
                 self.cb_music.isChecked()
             )
             add_font_def(
-                'brace', self.dialog().selected_font('brace'),
+                'brace', self.window().selected_font('brace'),
                 self.cb_music.isChecked()
             )
             add_font_def(
-                'roman', self.dialog().selected_font('roman'),
+                'roman', self.window().selected_font('roman'),
                 self.cb_roman.isChecked()
             )
             add_font_def(
-                'sans', self.dialog().selected_font('sans'),
+                'sans', self.window().selected_font('sans'),
                 self.cb_sans.isChecked()
             )
             add_font_def(
                 'typewriter',
-                self.dialog().selected_font('typewriter'),
+                self.window().selected_font('typewriter'),
                 self.cb_typewriter.isChecked()
             )
             return "\n".join(fontdefs), "\n".join(full_fontdefs)
@@ -429,25 +425,25 @@ class FontCommandWidget(QWidget):
 
         # TODO: Support independent explicit brace font
         add_property(
-            'brace', '"{}"'.format(self.dialog().selected_font('brace')), False
+            'brace', '"{}"'.format(self.window().selected_font('brace')), False
         )
 
         # Specify text fonts
         add_property(
             'roman',
-            '"{}"'.format(self.dialog().selected_font('roman')),
+            '"{}"'.format(self.window().selected_font('roman')),
             self.cb_roman.isChecked(),
             force=True
         )
         add_property(
             'sans',
-            '"{}"'.format(self.dialog().selected_font('sans')),
+            '"{}"'.format(self.window().selected_font('sans')),
             self.cb_sans.isChecked(),
             force=True
         )
         add_property(
             'typewriter',
-            '"{}"'.format(self.dialog().selected_font('typewriter')),
+            '"{}"'.format(self.window().selected_font('typewriter')),
             self.cb_typewriter.isChecked(),
             force=True
         )
@@ -484,9 +480,9 @@ class FontCommandWidget(QWidget):
         else:
             properties = ''
         # Inject properties in the \useNotationFont command
-        cmd.append(self.oll_template.format(properties, self.dialog().selected_font('music')))
+        cmd.append(self.oll_template.format(properties, self.window().selected_font('music')))
         full_cmd.append(
-            self.oll_template.format(full_properties, self.dialog().selected_font('music'))
+            self.oll_template.format(full_properties, self.window().selected_font('music'))
         )
 
         # Return regular and full command
@@ -508,8 +504,8 @@ class FontCommandWidget(QWidget):
         self.command_edit.setPlainText(display_cmd)
         for k in self.font_labels:
             font_key = 'music' if k == 'oll_music' else k
-            self.font_labels[k].setText(self.dialog().selected_font(font_key))
-        self.dialog().show_sample()
+            self.font_labels[k].setText(self.window().selected_font(font_key))
+        self.window().show_sample()
 
     def full_cmd(self, approach='lily'):
         """Return the (cached) full command for the requested approach."""

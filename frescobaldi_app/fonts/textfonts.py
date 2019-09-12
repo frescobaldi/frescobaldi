@@ -61,7 +61,6 @@ class TextFontsWidget(QWidget):
 
     def __init__(self, dialog):
         super(TextFontsWidget, self).__init__(dialog)
-        self._dialog = dialog
         available_fonts = dialog.available_fonts
         self.lilypond_info = available_fonts.lilypond_info
         self.fonts = available_fonts.text_fonts()
@@ -107,9 +106,6 @@ class TextFontsWidget(QWidget):
         s = QSettings('document-fonts-dialog')
         s.setValue('col-width', self.tree_view.columnWidth(0))
 
-    def dialog(self):
-        return self._dialog
-
     def display_count(self):
         self.status_label.setText(
             _("{count} font families detected by {version}").format(
@@ -151,8 +147,8 @@ class TextFontsWidget(QWidget):
             # Row with font weight has been selected (second col has sample)
             else indexes[0].parent().data()
         )
-        self.dialog().select_font(family, font_name)
-        self.dialog().invalidate_command()
+        self.window().select_font(family, font_name)
+        self.window().invalidate_command()
 
     def show_context_menu(self, point):
         """Show a context menu to set text font families."""
@@ -164,7 +160,7 @@ class TextFontsWidget(QWidget):
             ac.setText(
                 _('Set as {family} (current: {current})').format(
                     family=family,
-                    current=self.dialog().selected_font(f_key)
+                    current=self.window().selected_font(f_key)
                 ))
             ac.family = f_key
             ac.triggered.connect(self.set_text_font)

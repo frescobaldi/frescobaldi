@@ -167,7 +167,7 @@ class FontsPreviewWidget(QWidget):
         sample_dir = (
             os.path.dirname(custom_sample) if custom_sample
             else os.path.dirname(
-                self.dialog().parent().currentDocument().url().toLocalFile())
+                self.window().parent().currentDocument().url().toLocalFile())
         )
         self.custom_sample_url.fileDialog().setDirectory(sample_dir)
 
@@ -181,9 +181,6 @@ class FontsPreviewWidget(QWidget):
             'default-music-sample', self.cb_default_sample.currentText()
         )
         s.setValue('custom-music-sample-url', self.custom_sample_url.path())
-
-    def dialog(self):
-        return self.parent().parent()
 
     def populate_default_samples(self):
         """Populate hte default samples ComboBox.
@@ -322,7 +319,7 @@ class FontsPreviewWidget(QWidget):
             handle_staff_size()
             result = [
                 '\\version "{}"\n'.format(
-                    self.dialog().available_fonts.music_fonts(
+                    self.window().available_fonts.music_fonts(
                     ).lilypond_info.versionString()
                 ),
                 '{}\n'.format(global_size) if global_size else '',
@@ -330,7 +327,7 @@ class FontsPreviewWidget(QWidget):
                 # It would be easy to simply pass 'lily' as an argument
                 # to always use the generic approach. However, that would
                 # prevent the use of font extensions and stylesheets.
-                self.dialog().font_full_cmd(),
+                self.window().font_full_cmd(),
                 sample_content
             ]
             return '\n'.join(result)

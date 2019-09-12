@@ -61,7 +61,6 @@ class MusicFontsWidget(QWidget):
 
     def __init__(self, parent):
         super(MusicFontsWidget, self).__init__(parent)
-        self._dialog = parent
         s = QSettings()
         s.beginGroup('music-fonts')
         self._auto_install = s.value('auto-install', True, bool)
@@ -126,9 +125,6 @@ class MusicFontsWidget(QWidget):
             "to the current LilyPond installation."
         ))
 
-    def dialog(self):
-        return self._dialog
-
     def download_music_fonts(self):
         """Opens a dialog to download and install music fonts from Github."""
         # TODO: implement
@@ -192,12 +188,12 @@ class MusicFontsWidget(QWidget):
                 if self.music_fonts.family(music_name).has_brace('otf')
                 else 'emmentaler'
             )
-            self.dialog().select_font('music', music_name)
-            self.dialog().select_font('brace', brace_name)
+            self.window().select_font('music', music_name)
+            self.window().select_font('brace', brace_name)
         else:
-            self.dialog().select_font('emmentaler')
-            self.dialog().select_font('emmentaler')
-        self.dialog().invalidate_command()
+            self.window().select_font('emmentaler')
+            self.window().select_font('emmentaler')
+        self.window().invalidate_command()
         self.button_remove.setEnabled(has_font)
 
     def remove_music_font(self):
