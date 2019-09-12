@@ -274,6 +274,17 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         with self.modifyPages() as pages:
             pages[:] = svg.SvgPage.loadFiles(filenames, renderer)
 
+    def loadImages(self, filenames, renderer=None):
+        """Convenience method to load images from the specified list of files.
+
+        Each image is loaded in one Page. A filename can also be a
+        QByteArray. The renderer argument is currently not used.
+
+        """
+        from . import image
+        with self.modifyPages() as pages:
+            pages[:] = image.ImagePage.loadFiles(filenames)
+
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Print all, or speficied pages to QPrinter printer.
 
