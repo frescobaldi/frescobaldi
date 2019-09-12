@@ -329,6 +329,9 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         if mode:
             with self.keepCentered():
                 self._fitLayout()
+        else:
+            # call layout once to tell FixedScale is active
+            self.pageLayout().fit(QSize(), mode)
         self.viewModeChanged.emit(mode)
 
     def viewMode(self):
@@ -645,7 +648,8 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         if factor != self._pageLayout.zoomFactor:
             with self.keepCentered(pos):
                 self._pageLayout.zoomFactor = factor
-            self.setViewMode(FixedScale)
+            if self._pageLayout.zoomToFit:
+                self.setViewMode(FixedScale)
             self.zoomFactorChanged.emit(factor)
             self._unschedulePages(self._pageLayout)
 

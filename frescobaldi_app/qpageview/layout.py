@@ -106,6 +106,8 @@ class PageLayout(util.Rectangular, list):
 
     _rects = None
 
+    zoomToFit = True    # set to False in layout subclasses that do not zoom to fit
+
     def __bool__(self):
         """Always return True."""
         return True
@@ -498,6 +500,7 @@ class RasterLayout(PageLayout):
     according to the available space. FitBoth is handled like FitWidth.
 
     """
+    zoomToFit = False
     _h = 0
     _w = 0
     _mode = FixedScale
@@ -521,18 +524,10 @@ class RasterLayout(PageLayout):
         w = self.widestPage().width + pm.left() + pm.right()
         h = self.highestPage().height + pm.top() + pm.bottom()
         if self._mode & FitHeight:
-            rows, rest = divmod(height, h)
-            if rows == 0:
-                rows = 1
-            elif rows > 1 and rest < self.spacing * (rows - 1):
-                rows -= 1
+            rows = max((height + self.spacing) // (h + self.spacing), 1)
             cols = math.ceil(self.count() / rows)
         elif self._mode & FitWidth:
-            cols, rest = divmod(width, w)
-            if cols == 0:
-                cols = 1
-            elif cols > 1 and rest < self.spacing * (cols - 1):
-                cols -= 1
+            cols = max((width + self.spacing) // (w + self.spacing), 1)
             rows = math.ceil(self.count() / cols)
         else:
             cols = math.ceil(math.sqrt(self.count()))
@@ -546,10 +541,12 @@ class RasterLayout(PageLayout):
                 for y in range(rows):
                     for x in range(cols):
                         yield x, y
-        sx = m.left() + w // 2
-        sy = m.top() + h // 2
         ox = w + self.spacing
         oy = h + self.spacing
+        w = self.widestPage().width
+        h = self.highestPage().height
+        sx = m.left() + pm.left() + w // 2
+        sy = m.top() + pm.top() + h // 2
         for page, (x, y) in zip(self, gen()):
             g = page.geometry()
             g.moveCenter(QPoint(sx + x * ox, sy + y * oy))
