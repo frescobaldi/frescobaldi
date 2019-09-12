@@ -24,7 +24,7 @@ without using a renderer.
 """
 
 
-from PyQt5.QtCore import QPoint
+from PyQt5.QtCore import QPoint, Qt
 from PyQt5.QtGui import QImage, QPainter, QTransform
 
 from . import page
@@ -90,13 +90,6 @@ class ImagePage(page.AbstractPage):
         m.translate(-.5, -.5)
         m.scale(1 / self.pageWidth, 1 / self.pageHeight)
 
-        source = self.mapFromPage().rect(rect)
-        target = m.mapRect(source).toRect()
-        image = QImage(target.size(), self._image.format())
-        painter = QPainter(image)
-        painter.translate(-target.topLeft())
-        painter.setTransform(m, True)
-        painter.setRenderHint(QPainter.SmoothPixmapTransform)
-        painter.drawImage(source, self._image, source)
-        return image
+        source = self.transform().inverted()[0].mapRect(rect)
+        return self._image.copy(source).transformed(m, Qt.SmoothTransformation)
 
