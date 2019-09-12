@@ -58,6 +58,7 @@ class ImagePage(page.AbstractPage):
         """Paint our image in the View."""
         source = self.mapFromPage().rect(rect)
         painter.setTransform(self.transform(), True)
+        painter.setRenderHint(QPainter.SmoothPixmapTransform)
         painter.drawImage(source, self._image, source)
 
     def print(self, painter, rect=None, paperColor=None):
@@ -96,6 +97,7 @@ class ImagePage(page.AbstractPage):
         painter = QPainter(image)
         painter.translate(-target.topLeft())
         painter.setTransform(m, True)
+        painter.setRenderHint(QPainter.SmoothPixmapTransform)
         painter.drawImage(source, self._image, source)
         return image
 
