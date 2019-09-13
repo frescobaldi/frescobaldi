@@ -520,35 +520,80 @@ class RasterLayout(PageLayout):
         pm = self.pageMargins()
         width = self._w - m.left() - m.right()
         height = self._h - m.top() - m.bottom()
-        w = self.widestPage().width + pm.left() + pm.right()
-        h = self.highestPage().height + pm.top() + pm.bottom()
         if self._mode & FitHeight:
-            rows = max((height + self.spacing) // (h + self.spacing), 1)
-            cols = math.ceil(self.count() / rows)
-        elif self._mode & FitWidth:
-            cols = max((width + self.spacing) // (w + self.spacing), 1)
-            rows = math.ceil(self.count() / cols)
-        else:
-            cols = math.ceil(math.sqrt(self.count()))
-            rows = math.ceil(self.count() / cols)
-        def gen():
-            if self.orientation == Vertical:
-                for x in range(cols):
-                    for y in range(rows):
-                        yield x, y
+            h = self.highestPage().height + pm.top() + pm.bottom()
+            nrows = max((height + self.spacing) // (h + self.spacing), 1)
+            # this will fit, but try more
+            for trynrows in range(nrows + 1, self.count() + 1):
+                tryncols = math.ceil(self.count() / trynrows)
+                cw, rh = self.rasterDimensions(tryncols, trynrows)
+                if sum(rh) + self.spacing * (trynrows - 1) >= height:
+                    nrows = trynrows - 1
+                    break
             else:
-                for y in range(rows):
-                    for x in range(cols):
-                        yield x, y
-        ox = w + self.spacing
-        oy = h + self.spacing
-        w = self.widestPage().width
-        h = self.highestPage().height
-        sx = m.left() + pm.left() + w // 2
-        sy = m.top() + pm.top() + h // 2
-        for page, (x, y) in zip(self, gen()):
+                nrows = self.count()
+            ncols = math.ceil(self.count() / nrows)
+        elif self._mode & FitWidth:
+            w = self.widestPage().width + pm.left() + pm.right()
+            ncols = max((width + self.spacing) // (w + self.spacing), 1)
+            # this will fit, but try more
+            for tryncols in range(ncols + 1, self.count() + 1):
+                trynrows = math.ceil(self.count() / tryncols)
+                cw, rh = self.rasterDimensions(tryncols, trynrows)
+                if sum(cw) + self.spacing * (tryncols - 1) >= width:
+                    ncols = tryncols - 1
+                    break
+            else:
+                ncols = self.count()
+            nrows = math.ceil(self.count() / ncols)
+        else:
+            # order in a square
+            ncols = math.ceil(math.sqrt(self.count()))
+            nrows = math.ceil(self.count() / ncols)
+        # determine column widths and row heights
+        colwidths, rowheights = self.rasterDimensions(ncols, nrows)
+        # accumulate for column and row offsets, adding spacing
+        xoff = [0] + colwidths[:-1]
+        yoff = [0] + rowheights[:-1]
+        for i in range(1, ncols):
+            xoff[i] += xoff[i-1] + self.spacing
+        for i in range(1, nrows):
+            yoff[i] += yoff[i-1] + self.spacing
+        # and go for positioning!
+        sx = m.left() + pm.left()
+        sy = m.top() + pm.top()
+        for page, (col, row) in self.pagesInRaster(ncols, nrows):
+            x = sx + xoff[col] + colwidths[col] // 2
+            y = sy + yoff[row] + rowheights[row] // 2
             g = page.geometry()
-            g.moveCenter(QPoint(sx + x * ox, sy + y * oy))
+            g.moveCenter(QPoint(x, y))
             page.setGeometry(g)
 
+    def pagesInRaster(self, ncols, nrows):
+        """Yield page, (col, row) for all pages, according to the orientation."""
+        def gen():
+            if self.orientation == Vertical:
+                for col in range(ncols):
+                    for row in range(nrows):
+                        yield col, row
+            else:
+                for row in range(nrows):
+                    for col in range(ncols):
+                        yield col, row
+        return zip(self, gen())
 
+    def rasterDimensions(self, ncols, nrows):
+        """Return two lists: columnwidths and rowheights."""
+        # determine column widths and row heights
+        rowheights = [0] * nrows
+        colwidths = [0] * ncols
+        for page, (col, row) in self.pagesInRaster(ncols, nrows):
+            rowheights[row] = max(rowheights[row], page.height)
+            colwidths[col] = max(colwidths[col], page.width)
+        # add page margins
+        pm = self.pageMargins()
+        for i in range(ncols):
+            colwidths[i] += pm.left() + pm.right()
+        for i in range(nrows):
+            rowheights[i] += pm.top() + pm.bottom()
+        return colwidths, rowheights
