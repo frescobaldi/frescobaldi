@@ -12,3 +12,4 @@ rhythm
 lyrics
 docvars
 snippets
+documentfonts
