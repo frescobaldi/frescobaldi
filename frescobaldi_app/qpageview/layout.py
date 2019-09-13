@@ -522,29 +522,39 @@ class RasterLayout(PageLayout):
         height = self._h - m.top() - m.bottom()
         if self._mode & FitHeight:
             h = self.highestPage().height + pm.top() + pm.bottom()
-            nrows = max((height + self.spacing) // (h + self.spacing), 1)
-            # this will fit, but try more
-            for trynrows in range(nrows + 1, self.count() + 1):
-                tryncols = math.ceil(self.count() / trynrows)
-                cw, rh = self.rasterDimensions(tryncols, trynrows)
-                if sum(rh) + self.spacing * (trynrows - 1) >= height:
-                    nrows = trynrows - 1
-                    break
+            nrows = (height + self.spacing) // (h + self.spacing)
+            if nrows:
+                # this will fit, but try more
+                for trynrows in range(nrows + 1, self.count() + 1):
+                    tryncols = math.ceil(self.count() / trynrows)
+                    cw, rh = self.rasterDimensions(tryncols, trynrows)
+                    # compute height: row heights, spacing and page margins
+                    h = sum(rh) + self.spacing * (trynrows - 1) + (pm.top() + pm.bottom()) * trynrows
+                    if h >= height:
+                        nrows = trynrows - 1
+                        break
+                else:
+                    nrows = self.count()
             else:
-                nrows = self.count()
+                nrows = 1   # the minimum
             ncols = math.ceil(self.count() / nrows)
         elif self._mode & FitWidth:
             w = self.widestPage().width + pm.left() + pm.right()
-            ncols = max((width + self.spacing) // (w + self.spacing), 1)
-            # this will fit, but try more
-            for tryncols in range(ncols + 1, self.count() + 1):
-                trynrows = math.ceil(self.count() / tryncols)
-                cw, rh = self.rasterDimensions(tryncols, trynrows)
-                if sum(cw) + self.spacing * (tryncols - 1) >= width:
-                    ncols = tryncols - 1
-                    break
+            ncols = (width + self.spacing) // (w + self.spacing)
+            if ncols:
+                # this will fit, but try more
+                for tryncols in range(ncols + 1, self.count() + 1):
+                    trynrows = math.ceil(self.count() / tryncols)
+                    cw, rh = self.rasterDimensions(tryncols, trynrows)
+                    # compute width: column widths, spacing and page margins
+                    w = sum(cw) + self.spacing * (tryncols - 1) + (pm.left() + pm.right()) * tryncols
+                    if w >= width:
+                        ncols = tryncols - 1
+                        break
+                else:
+                    ncols = self.count()
             else:
-                ncols = self.count()
+                ncols = 1   # the minimum
             nrows = math.ceil(self.count() / ncols)
         else:
             # order in a square
@@ -556,9 +566,9 @@ class RasterLayout(PageLayout):
         xoff = [0] + colwidths[:-1]
         yoff = [0] + rowheights[:-1]
         for i in range(1, ncols):
-            xoff[i] += xoff[i-1] + self.spacing
+            xoff[i] += xoff[i-1] + self.spacing + pm.left() + pm.right()
         for i in range(1, nrows):
-            yoff[i] += yoff[i-1] + self.spacing
+            yoff[i] += yoff[i-1] + self.spacing + pm.top() + pm.bottom()
         # and go for positioning!
         sx = m.left() + pm.left()
         sy = m.top() + pm.top()
@@ -583,17 +593,15 @@ class RasterLayout(PageLayout):
         return zip(self, gen())
 
     def rasterDimensions(self, ncols, nrows):
-        """Return two lists: columnwidths and rowheights."""
+        """Return two lists: columnwidths and rowheights.
+
+        The width and height are page dimensions, without page margin.
+
+        """
         # determine column widths and row heights
         rowheights = [0] * nrows
         colwidths = [0] * ncols
         for page, (col, row) in self.pagesInRaster(ncols, nrows):
             rowheights[row] = max(rowheights[row], page.height)
             colwidths[col] = max(colwidths[col], page.width)
-        # add page margins
-        pm = self.pageMargins()
-        for i in range(ncols):
-            colwidths[i] += pm.left() + pm.right()
-        for i in range(nrows):
-            rowheights[i] += pm.top() + pm.bottom()
         return colwidths, rowheights
