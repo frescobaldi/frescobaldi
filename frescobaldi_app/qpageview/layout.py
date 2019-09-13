@@ -525,25 +525,7 @@ class RasterLayout(PageLayout):
         height = self._h - m.top() - m.bottom()
         pmh = pm.left() + pm.right()        # horizontal page margin
         pmv = pm.top() + pm.bottom()        # vertical page margin
-        if self._mode & FitHeight:
-            h = self.highestPage().height + pmv
-            nrows = (height + self.spacing) // (h + self.spacing)
-            if nrows:
-                # this will fit, but try more
-                for trynrows in range(nrows + 1, self.count() + 1):
-                    tryncols = math.ceil(self.count() / trynrows)
-                    cw, rh = self._rasterDimensions(tryncols, trynrows)
-                    # compute height: row heights, spacing and page margins
-                    h = sum(rh) + self.spacing * (trynrows - 1) + pmv * trynrows
-                    if h >= height:
-                        nrows = trynrows - 1
-                        break
-                else:
-                    nrows = self.count()
-            else:
-                nrows = 1   # the minimum
-            ncols = math.ceil(self.count() / nrows)
-        elif self._mode & FitWidth:
+        if self._mode & FitWidth:
             w = self.widestPage().width + pmh
             ncols = (width + self.spacing) // (w + self.spacing)
             if ncols:
@@ -561,6 +543,24 @@ class RasterLayout(PageLayout):
             else:
                 ncols = 1   # the minimum
             nrows = math.ceil(self.count() / ncols)
+        elif self._mode & FitHeight:
+            h = self.highestPage().height + pmv
+            nrows = (height + self.spacing) // (h + self.spacing)
+            if nrows:
+                # this will fit, but try more
+                for trynrows in range(nrows + 1, self.count() + 1):
+                    tryncols = math.ceil(self.count() / trynrows)
+                    cw, rh = self._rasterDimensions(tryncols, trynrows)
+                    # compute height: row heights, spacing and page margins
+                    h = sum(rh) + self.spacing * (trynrows - 1) + pmv * trynrows
+                    if h >= height:
+                        nrows = trynrows - 1
+                        break
+                else:
+                    nrows = self.count()
+            else:
+                nrows = 1   # the minimum
+            ncols = math.ceil(self.count() / nrows)
         else:
             # order in a square
             ncols = math.ceil(math.sqrt(self.count()))
