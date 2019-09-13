@@ -26,6 +26,8 @@ import math
 from PyQt5.QtCore import QPoint, QRect, QSize, Qt
 from PyQt5.QtWidgets import QAbstractScrollArea
 
+from . import util
+
 
 class ScrollArea(QAbstractScrollArea):
     """A scroll area that supports kinetic scrolling and other features.
@@ -115,25 +117,11 @@ class ScrollArea(QAbstractScrollArea):
         w, h = self._areaSize
         vw = self.viewport().width()
         vh = self.viewport().height()
-        
-        if w > vw:
+        left, top = util.align(w, h, vw, vh, self.alignment)
+        if left < 0:
             left = -self.horizontalScrollBar().value()
-        elif self.alignment & Qt.AlignHCenter:
-            left = (vw - w) // 2
-        elif self.alignment & Qt.AlignRight:
-            left = vw - w
-        else:
-            left = 0
-
-        if h > vh:
+        if top < 0:
             top = -self.verticalScrollBar().value()
-        elif self.alignment & Qt.AlignVCenter:
-            top = (vh - h) // 2
-        elif self.alignment & Qt.AlignBottom:
-            top = vh - h
-        else:
-            top = 0
-
         return QPoint(left, top)
     
     def visibleArea(self):

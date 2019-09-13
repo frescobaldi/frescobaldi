@@ -22,7 +22,7 @@ Small utilities and simple base classes for the qpageview module.
 """
 
 
-from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize
+from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, Qt
 
 
 class Rectangular:
@@ -190,6 +190,32 @@ def rotate(matrix, rotation, width, height, dest=False):
             matrix.translate(width / -2, height / -2)
         else:
             matrix.translate(height / -2, width / -2)
+
+
+def align(w, h, ow, oh, alignment=Qt.AlignCenter):
+    """Return (x, y) to align a rect w x h in an outer rectangle ow x oh.
+
+    The alignment can be a combination of the Qt.Alignment flags.
+    If w > ow, x = -1; and if h > oh, y = -1.
+
+    """
+    if w > ow:
+        x = -1
+    elif alignment & Qt.AlignHCenter:
+        x = (ow - w) // 2
+    elif alignment & Qt.AlignRight:
+        x = ow - w
+    else:
+        x = 0
+    if h > oh:
+        y = -1
+    elif alignment & Qt.AlignVCenter:
+        y = (oh - h) // 2
+    elif alignment & Qt.AlignBottom:
+        y = oh - h
+    else:
+        y = 0
+    return x, y
 
 
 # Found at: https://stackoverflow.com/questions/1986152/why-doesnt-python-have-a-sign-function
