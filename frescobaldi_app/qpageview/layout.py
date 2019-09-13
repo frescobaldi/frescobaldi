@@ -26,7 +26,7 @@ Manages and positions a group of Page instances.
 import copy
 import math
 
-from PyQt5.QtCore import QMargins, QPoint, QPointF, QRect, QSize
+from PyQt5.QtCore import QMargins, QPoint, QPointF, QRect, QSize, Qt
 
 from . import rectangles
 from . import util
@@ -63,6 +63,7 @@ class PageLayout(util.Rectangular, list):
         dpiY = 72.0
         rotation = Rotate_0
         orientation = Vertical
+        alignment = Qt.AlignCenter
 
     The layout has margins around each page, accessible via pageMargins(), and
     margins around the whole layout, accessible via margins(). Both have class
@@ -98,6 +99,7 @@ class PageLayout(util.Rectangular, list):
     dpiY = 72.0
     rotation = Rotate_0
     orientation = Vertical
+    alignment = Qt.AlignCenter
 
     continuousMode = True
     pagesPerSet = 1
@@ -284,7 +286,7 @@ class PageLayout(util.Rectangular, list):
             top = m.top()
             for page in self:
                 top += pm.top()
-                page.x = (width - page.width) / 2
+                page.x = util.align(page.width, 0, width, 0, self.alignment)[0]
                 page.y = top
                 top += page.height + pm.bottom() + self.spacing
         else:
@@ -294,7 +296,7 @@ class PageLayout(util.Rectangular, list):
             for page in self:
                 left += pm.left()
                 page.x = left
-                page.y = (height - page.height) / 2
+                page.y = util.align(0, page.height, 0, height, self.alignment)[1]
                 left += page.width + pm.right() + self.spacing
 
     def computeGeometry(self):
@@ -488,8 +490,9 @@ class RowPageLayout(PageLayout):
             height = max(p.height for p in row if p)
             for n, page in enumerate(row):
                 if page:
-                    page.x = col_offsets[n] + (col_widths[n] - page.width) // 2
-                    page.y = top + (height - page.height) // 2
+                    x, y = util.align(page.width, page.height, col_widths[n], height, self.alignment)
+                    page.x = col_offsets[n] + x
+                    page.y = top + y
             top += height + self.pageMargins().bottom() + self.spacing
 
 
@@ -573,11 +576,9 @@ class RasterLayout(PageLayout):
             yoff[i] += yoff[i-1] + self.spacing + pmv
         # and go for positioning!
         for page, (col, row) in self._pagesInRaster(ncols, nrows):
-            x = xoff[col] + colwidths[col] // 2
-            y = yoff[row] + rowheights[row] // 2
-            g = page.geometry()
-            g.moveCenter(QPoint(x, y))
-            page.setGeometry(g)
+            x, y = util.align(page.width, page.height, colwidths[col], rowheights[row], self.alignment)
+            page.x = xoff[col] + x
+            page.y = yoff[row] + y
 
     def _pagesInRaster(self, ncols, nrows):
         """Yield page, (col, row) for all pages, according to the orientation."""
