@@ -505,7 +505,6 @@ class RasterLayout(PageLayout):
     _w = 0
     _mode = FixedScale
     orientation = Horizontal
-    defaultColumnCount = 4  # how many columns to display
 
     def fit(self, size, mode):
         """Reimplemented."""
