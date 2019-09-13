@@ -50,8 +50,12 @@ class ImagePage(page.AbstractPage):
             self.setPageSize(size)
         else:
             # in the unlikely case the size can't be determined, read the image
-            self._image = imageReader.read()
-            self.setPageSize(self._image.size())
+            image = imageReader.read()
+            if image.isNull():
+                self.pageWidth, self.pageHeight = 100, 100
+            else:
+                self.setPageSize(image.size())
+                self._image = image
 
     @classmethod
     def load(cls, filename, renderer=None):
@@ -92,7 +96,8 @@ class ImagePage(page.AbstractPage):
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
         if self._image is None:
-            self._materializeInBackground(callback)
+            if self._imageReader:
+                self._materializeInBackground(callback)
             painter.fillRect(rect, self.paperColor or Qt.white)
             return
         source = self.mapFromPage().rect(rect)
