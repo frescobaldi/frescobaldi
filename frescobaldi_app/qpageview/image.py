@@ -36,6 +36,7 @@ from . import util
 
 class ImagePage(page.AbstractPage):
     """A Page that displays an image in any file format supported by Qt."""
+    autoTransform = True    # whether to automatically apply exif transformations
     dpi = 96   # TODO: maybe this can be image dependent.
     downScaledSize = 400
     
@@ -48,6 +49,8 @@ class ImagePage(page.AbstractPage):
         size = imageReader.size()
         if size:
             # normally, the size can be determined by the reader.
+            if self.autoTransform and imageReader.transformation() & 4:    # Rotate 90?
+                size.transpose()
             self._imageReader = imageReader
             self.setPageSize(size)
         else:
@@ -67,6 +70,7 @@ class ImagePage(page.AbstractPage):
 
         """
         reader = QImageReader(filename)
+        reader.setAutoTransform(cls.autoTransform)
         if reader.canRead():
             yield cls(reader)
 
