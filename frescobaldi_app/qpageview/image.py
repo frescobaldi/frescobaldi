@@ -27,7 +27,7 @@ display.
 """
 
 
-from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtCore import QPoint, QSize, Qt
 from PyQt5.QtGui import QImage, QImageReader, QPainter, QTransform
 
 from . import page
@@ -37,12 +37,14 @@ from . import util
 class ImagePage(page.AbstractPage):
     """A Page that displays an image in any file format supported by Qt."""
     dpi = 96   # TODO: maybe this can be image dependent.
+    downScaledSize = 400
     
     def __init__(self, imageReader):
         super().__init__()
         self._image = None
         self._imageJob = None
         self._imageReader = None
+        self._imageDownScaled = None
         size = imageReader.size()
         if size:
             # normally, the size can be determined by the reader.
@@ -93,17 +95,38 @@ class ImagePage(page.AbstractPage):
         if callback:
             job.callbacks.add(callback)
 
+    def _downScale(self):
+        """Scales the image down to save memory."""
+        w, h = self._image.width(), self._image.height()
+        if max(w, h) > self.downScaledSize:
+            self._imageDownScaled = self._image.scaled(
+                QSize(self.downScaledSize, self.downScaledSize),
+                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self._image = None
+            
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
         if self._image is None:
             if self._imageReader:
                 self._materializeInBackground(callback)
-            painter.fillRect(rect, self.paperColor or Qt.white)
-            return
-        source = self.mapFromPage().rect(rect)
-        painter.setTransform(self.transform(), True)
+                if self._imageDownScaled:
+                    image = self._imageDownScaled
+                else:
+                    # temporary background color
+                    painter.fillRect(rect, self.paperColor or Qt.white)
+                    return
+            else:
+                # image can't be loaded
+                painter.fillRect(rect, self.paperColor or Qt.white)
+                # TODO: paint some icon indicating load failure
+                return
+        else:
+            image = self._image
+        w, h = image.width(), image.height()
+        source = self.mapFromPage(w, h).rect(rect)
+        painter.setTransform(self.transform(w, h), True)
         painter.setRenderHint(QPainter.SmoothPixmapTransform)
-        painter.drawImage(source, self._image, source)
+        painter.drawImage(source, image, source)
 
     def print(self, painter, rect=None, paperColor=None):
         """Paint a page for printing."""
