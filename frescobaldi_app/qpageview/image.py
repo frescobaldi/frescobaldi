@@ -38,29 +38,15 @@ class ImagePage(page.AbstractPage):
     """A Page that displays an image in any file format supported by Qt."""
     autoTransform = True    # whether to automatically apply exif transformations
     dpi = 96   # TODO: maybe this can be image dependent.
-    downScaledSize = 400
+    downScaledSize = 200
     
-    def __init__(self, imageReader):
+    def __init__(self, filename, size, image=None):
         super().__init__()
-        self._image = None
+        self.source = filename
+        self.setPageSize(size)
+        self._image = image
         self._imageJob = None
-        self._imageReader = None
         self._imageDownScaled = None
-        size = imageReader.size()
-        if size:
-            # normally, the size can be determined by the reader.
-            if self.autoTransform and imageReader.transformation() & 4:    # Rotate 90?
-                size.transpose()
-            self._imageReader = imageReader
-            self.setPageSize(size)
-        else:
-            # in the unlikely case the size can't be determined, read the image
-            image = imageReader.read()
-            if image.isNull():
-                self.pageWidth, self.pageHeight = 100, 100
-            else:
-                self.setPageSize(image.size())
-                self._image = image
 
     @classmethod
     def load(cls, filename, renderer=None):
@@ -72,13 +58,30 @@ class ImagePage(page.AbstractPage):
         reader = QImageReader(filename)
         reader.setAutoTransform(cls.autoTransform)
         if reader.canRead():
-            yield cls(reader)
+            image = None
+            size = reader.size()
+            if size:
+                if cls.autoTransform and reader.transformation() & 4:
+                    size.transpose()
+            else:
+                # in the unlikely case the size can't be determined, read the image
+                image = reader.read()
+                if image.isNull():
+                    size = QSize(100, 100)  # prevent layout error etc
+                else:
+                    size = image.size()
+            yield cls(filename, size, image)
+
+    def _loadImage(self):
+        """Internal. Construct an image reader and return the image."""
+        reader = QImageReader(self.source)
+        reader.setAutoTransform(self.autoTransform)
+        return reader.read()
 
     def _materialize(self):
         """Internal. If needed, load the image and deletes the image reader."""
         if self._image is None:
-            self._image = self._imageReader.read()
-            self._imageReader = None
+            self._image = self._loadImage()
 
     def _materializeInBackground(self, callback):
         """Internal. Load the image in the background without blocking the main thread."""
@@ -86,12 +89,12 @@ class ImagePage(page.AbstractPage):
         if job is None:
             from . import backgroundjob
             job = self._imageJob = backgroundjob.Job()
-            job.work = lambda: self._imageReader.read()
+            job.work = self._loadImage
             job.callbacks = callbacks = set()
             def finalize(result):
                 self._image = result
                 self._imageJob = None
-                self._imageReader = None
+                self._imageDownScaled = None
                 for cb in callbacks:
                     callback(self)
             job.finalize = finalize
@@ -111,19 +114,18 @@ class ImagePage(page.AbstractPage):
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
         if self._image is None:
-            if self._imageReader:
-                self._materializeInBackground(callback)
-                if self._imageDownScaled:
-                    image = self._imageDownScaled
-                else:
-                    # temporary background color
-                    painter.fillRect(rect, self.paperColor or Qt.white)
-                    return
+            self._materializeInBackground(callback)
+            if self._imageDownScaled:
+                image = self._imageDownScaled
             else:
-                # image can't be loaded
+                # temporary background color
                 painter.fillRect(rect, self.paperColor or Qt.white)
-                # TODO: paint some icon indicating load failure
                 return
+        elif self._image.isNull():
+            # image couldn't be loaded
+            painter.fillRect(rect, self.paperColor or Qt.white)
+            # TODO: paint some icon indicating load failure
+            return
         else:
             image = self._image
         w, h = image.width(), image.height()
