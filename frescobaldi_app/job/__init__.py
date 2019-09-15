@@ -27,7 +27,11 @@ import codecs
 import os
 import time
 
-from PyQt5.QtCore import QCoreApplication, QProcess, QProcessEnvironment
+from PyQt5.QtCore import (
+    QCoreApplication,
+    QProcess,
+    QProcessEnvironment
+)
 
 import signals
 
@@ -84,9 +88,10 @@ class Job(object):
     output = signals.Signal()
     done = signals.Signal()
     started = signals.Signal()
-    title_changed = signals.Signal() # title (string)
+    title_changed = signals.Signal()  # title (string)
 
-    def __init__(self,
+    def __init__(
+        self,
         command=[],
         args=None,
         directory="",
@@ -97,7 +102,8 @@ class Job(object):
         priority=1,
         runner=None,
         decode_errors='strict',
-        encoding='latin1'):
+        encoding='latin1'
+    ):
         self.command = command if type(command) == list else [command]
         self._input = input
         self._output = output
@@ -122,7 +128,7 @@ class Job(object):
     def add_argument(self, arg):
         """Append an additional command line argument if it is not
         present already."""
-        if not arg in self._arguments:
+        if arg not in self._arguments:
             self._arguments.append(arg)
 
     def arguments(self):
@@ -148,7 +154,7 @@ class Job(object):
 
     def directory(self):
         return self._directory
-        
+
     def set_directory(self, directory):
         self._directory = directory
 
@@ -305,15 +311,20 @@ class Job(object):
         self._process.setProcessEnvironment(se)
 
     def message(self, text, type=NEUTRAL):
-        """Output some text as the given type (NEUTRAL, SUCCESS, FAILURE, STDOUT or STDERR)."""
+        """
+        Output some text as the given type
+        (NEUTRAL, SUCCESS, FAILURE, STDOUT or STDERR).
+        """
         self.output(text, type)
         self._history.append((text, type))
 
     def history(self, types=ALL):
-        """Yield the output messages as two-tuples (text, type) since the process started.
+        """
+        Yield the output messages as two-tuples (text, type)
+        since the process started.
 
-        If types is given, it should be an OR-ed combination of the status types
-        STDERR, STDOUT, NEUTRAL, SUCCESS or FAILURE.
+        If types is given, it should be an OR-ed combination of the
+        status types STDERR, STDOUT, NEUTRAL, SUCCESS or FAILURE.
 
         """
         for msg, type in self._history:
@@ -322,7 +333,7 @@ class Job(object):
 
     def stdout(self):
         """Return the standard output of the process as unicode text."""
-        return "".join([line[0] for line  in self.history(STDOUT)])
+        return "".join([line[0] for line in self.history(STDOUT)])
 
     def stderr(self):
         """Return the standard error of the process as unicode text."""
@@ -353,12 +364,16 @@ class Job(object):
     def _readstderr(self):
         """(internal) Called when STDERR can be read."""
         output = self._process.readAllStandardError()
-        self.message(self.decoder_stderr(output, self.decode_errors)[0], STDERR)
+        self.message(
+            self.decoder_stderr(output, self.decode_errors)[0], STDERR
+        )
 
     def _readstdout(self):
         """(internal) Called when STDOUT can be read."""
         output = self._process.readAllStandardOutput()
-        self.message(self.decoder_stdout(output, self.decode_errors)[0], STDOUT)
+        self.message(
+            self.decoder_stdout(output, self.decode_errors)[0], STDOUT
+        )
 
     def start_message(self):
         """Called by start().
@@ -387,7 +402,11 @@ class Job(object):
         if error == QProcess.FailedToStart:
             self.message(_(
                 "Could not start {program}.\n"
-                "Please check path and permissions.").format(program = self.command[0]), FAILURE)
+                "Please check path and permissions.").format(
+                    program=self.command[0]
+                ),
+                FAILURE
+            )
         elif error == QProcess.ReadError:
             self.message(_("Could not read from the process."), FAILURE)
         elif self._process.state() == QProcess.NotRunning:
@@ -400,12 +419,18 @@ class Job(object):
 
         """
         if exitCode:
-            self.message(_("Exited with return code {code}.").format(code=exitCode), FAILURE)
+            self.message(_(
+                "Exited with return code {code}."
+            ).format(code=exitCode), FAILURE)
         elif exitStatus:
-            self.message(_("Exited with exit status {status}.").format(status=exitStatus), FAILURE)
+            self.message(_(
+                "Exited with exit status {status}."
+            ).format(status=exitStatus), FAILURE)
         else:
             time = self.elapsed2str(self.elapsed_time())
-            self.message(_("Completed successfully in {time}.").format(time=time), SUCCESS)
+            self.message(_(
+                "Completed successfully in {time}."
+            ).format(time=time), SUCCESS)
 
     @staticmethod
     def elapsed2str(seconds):
