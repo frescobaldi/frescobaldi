@@ -210,11 +210,11 @@ class Dialog(QDialog):
 
         # Set environment variables for the job
         if self.englishCheck.isChecked():
-            j.environment['LANG'] = 'C'
-            j.environment['LC_ALL'] = 'C'
+            j.set_environment('LANG', 'C')
+            j.set_environment('LC_ALL', 'C')
         else:
-            j.environment.pop('LANG', None)
-            j.environment.pop('LC_ALL', None)
+            j.environment().pop('LANG', None)
+            j.environment().pop('LC_ALL', None)
         j.set_title("{0} {1} [{2}]".format(
             os.path.basename(j.lilypond_info.command),
                 j.lilypond_info.versionString(), document.documentName()))

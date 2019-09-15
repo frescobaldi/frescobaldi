@@ -110,7 +110,7 @@ class Job(object):
         self._runner = runner
         self._arguments = args if args else []
         self._directory = directory
-        self.environment = {}
+        self._environment = {}
         self._encoding = encoding
         self.success = None
         self.error = None
@@ -157,6 +157,23 @@ class Job(object):
 
     def set_directory(self, directory):
         self._directory = directory
+
+    def environment(self, key=None):
+        """
+        Return either one environment variable
+        or the whole dictionary (if key=None).
+        """
+        if key:
+            return self._environment[key]
+        else:
+            return self._environment
+
+    def set_environment(self, key, value):
+        """
+        Set a value in a job's environment.
+        If value is None the environment variable is removed.
+        """
+        self._environment[key] = value
 
     def filename(self):
         """File name of the job's input document.
@@ -227,7 +244,7 @@ class Job(object):
         self.start_message()
         if os.path.isdir(self._directory):
             self._process.setWorkingDirectory(self._directory)
-        if self.environment:
+        if self.environment():
             self._update_process_environment()
         self._process.start(self.command[0], self.command[1:])
 
@@ -306,7 +323,7 @@ class Job(object):
     def _update_process_environment(self):
         """(internal) initializes the environment for the process."""
         se = QProcessEnvironment.systemEnvironment()
-        for k, v in self.environment.items():
+        for k, v in self.environment().items():
             se.remove(k) if v is None else se.insert(k, v)
         self._process.setProcessEnvironment(se)
 
