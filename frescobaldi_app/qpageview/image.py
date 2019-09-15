@@ -38,6 +38,7 @@ from . import util
 
 _pool = weakref.WeakSet()
 _currentsize = 0
+_cleanupjob = None
 maxsize = 209715200
 
 
@@ -125,11 +126,10 @@ class ImagePage(page.AbstractPage):
         """Paint our image in the View."""
         self._time = time.time()        # keep track of time when last painted
         if self._image is None:
-            self._materializeInBackground(callback)
-            if self._imageDownScaled:
-                image = self._imageDownScaled
-            else:
-                # temporary background color
+            image = self._imageDownScaled
+            if not image or image.width() < self.width:
+                self._materializeInBackground(callback)
+            if not image:
                 painter.fillRect(rect, self.paperColor or Qt.white)
                 return
         elif self._image.isNull():
@@ -183,14 +183,18 @@ class ImagePage(page.AbstractPage):
 
 def manage(page):
     """Keep track of memory usage of all pages."""
-    global _pool, _currentsize, maxsize
+    global _cleanupjob, _pool, _currentsize, maxsize
     _pool.add(page)
     _currentsize += page._image.byteCount()
     if _currentsize < maxsize:
         return
     _currentsize = 0
-    from . import backgroundjob
-    backgroundjob.run(cleanup, setcurrentsize)
+    if _cleanupjob is None:
+        from . import backgroundjob
+        job = _cleanupjob = backgroundjob.Job()
+        job.work = cleanup
+        job.finalize = cleanupdone
+        job.start()
 
 
 def cleanup():
@@ -210,8 +214,8 @@ def cleanup():
     return size
 
 
-def setcurrentsize(size):
+def cleanupdone(size):
     global _currentsize
     _currentsize = size
-
+    _cleanupjob = None
 
