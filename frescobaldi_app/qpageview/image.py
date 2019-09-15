@@ -26,12 +26,19 @@ display.
 
 """
 
+import time
+import weakref
 
 from PyQt5.QtCore import QPoint, QSize, Qt
 from PyQt5.QtGui import QImage, QImageReader, QPainter, QTransform
 
 from . import page
 from . import util
+
+
+_pool = weakref.WeakSet()
+_currentsize = 0
+maxsize = 209715200
 
 
 class ImagePage(page.AbstractPage):
@@ -44,6 +51,7 @@ class ImagePage(page.AbstractPage):
         super().__init__()
         self.source = filename
         self.setPageSize(size)
+        self._time = 0
         self._image = image
         self._imageJob = None
         self._imageDownScaled = None
@@ -82,6 +90,7 @@ class ImagePage(page.AbstractPage):
         """Internal. If needed, load the image and deletes the image reader."""
         if self._image is None:
             self._image = self._loadImage()
+            manage(self)
 
     def _materializeInBackground(self, callback):
         """Internal. Load the image in the background without blocking the main thread."""
@@ -97,6 +106,7 @@ class ImagePage(page.AbstractPage):
                 self._imageDownScaled = None
                 for cb in callbacks:
                     callback(self)
+                manage(self)
             job.finalize = finalize
             job.start()
         if callback:
@@ -113,6 +123,7 @@ class ImagePage(page.AbstractPage):
             
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
+        self._time = time.time()        # keep track of time when last painted
         if self._image is None:
             self._materializeInBackground(callback)
             if self._imageDownScaled:
@@ -168,4 +179,39 @@ class ImagePage(page.AbstractPage):
 
         source = self.transform().inverted()[0].mapRect(rect)
         return self._image.copy(source).transformed(m, Qt.SmoothTransformation)
+
+
+def manage(page):
+    """Keep track of memory usage of all pages."""
+    global _pool, _currentsize, maxsize
+    _pool.add(page)
+    _currentsize += page._image.byteCount()
+    if _currentsize < maxsize:
+        return
+    _currentsize = 0
+    from . import backgroundjob
+    backgroundjob.run(cleanup, setcurrentsize)
+
+
+def cleanup():
+    """Removes large images of unused pages."""
+    global _pool, _currentsize, maxsize
+    # newest first
+    pages = iter(sorted(_pool, key = lambda page: page._time, reverse=True))
+    size = 0
+    for page in pages:
+        size += page._image.byteCount()
+        if size > maxsize:
+            break
+    pages = list(pages)
+    _pool.difference_update(pages)
+    for page in pages:
+        page._downScale()
+    return size
+
+
+def setcurrentsize(size):
+    global _currentsize
+    _currentsize = size
+
 
