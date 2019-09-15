@@ -27,7 +27,8 @@ from PyQt5.QtCore import QThread
 # as soon as a Job start()s, it is saved here, to prevent it being
 # destroyed while running
 _runningJobs = set()
-
+_pendingJobs = []
+maxjobs = 12
 
 
 class Job(QThread):
@@ -55,8 +56,11 @@ class Job(QThread):
         self.result = None
         self.running = True     # this is more robust than isRunning()
         self.done = False
-        _runningJobs.add(self)
-        super().start()
+        if len(_runningJobs) < maxjobs:
+            _runningJobs.add(self)
+            super().start()
+        else:
+            _pendingJobs.append(self)
 
     def run(self):
         """Call the work function in the background thread."""
@@ -85,6 +89,8 @@ class Job(QThread):
 
     def _slotFinished(self):
         _runningJobs.discard(self)
+        if _pendingJobs:
+            _pendingJobs.pop().start()
         self.running = False
         self.done = True
         self.finish()
