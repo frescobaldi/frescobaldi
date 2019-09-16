@@ -480,10 +480,15 @@ class FontCommandWidget(QWidget):
         else:
             properties = ''
         # Inject properties in the \useNotationFont command
-        cmd.append(self.oll_template.format(properties, self.window().selected_font('music')))
+        cmd.append(
+            self.oll_template.format(
+                properties, self.window().selected_font('music')
+            ))
         full_cmd.append(
-            self.oll_template.format(full_properties, self.window().selected_font('music'))
-        )
+            self.oll_template.format(
+                full_properties,
+                self.window().selected_font('music')
+            ))
 
         # Return regular and full command
         return "\n".join(cmd), "\n".join(full_cmd)

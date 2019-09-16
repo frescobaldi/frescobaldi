@@ -218,6 +218,14 @@ class FontsPreviewWidget(QWidget):
             )
         })
         add_entry({
+            'label': _('Schenker Diagram'),
+            'file': 'schenker.ly',
+            'tooltip': _(
+                "Schenker diagram with absolutely\n"
+                + "non-standard notation."
+            )
+        })
+        add_entry({
             'label': _('Glyphs'),
             'file': 'glyphs.ly',
             'tooltip': _(
