@@ -228,7 +228,7 @@ class LilyPondInfo(object):
 
         @j.done.connect
         def done():
-            success = j.success
+            success = j.success()
             if success:
                 output = ' '.join([line[0] for line in j.history()])
                 m = re.search(r"\d+\.\d+(.\d+)?", output)
@@ -274,7 +274,7 @@ class LilyPondInfo(object):
             "(display (ly:get-option 'datadir)) (newline) (exit)"])
         @j.done.connect
         def done():
-            success = j.success
+            success = j.success()
             if success:
                 output = [line[0] for line in j.history()]
                 d = output[1].strip('\n')

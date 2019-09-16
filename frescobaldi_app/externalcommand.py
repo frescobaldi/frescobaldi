@@ -68,10 +68,10 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
 
     def _closed(self):
         """(internal) Called when the user closes the dialog, calls cleanup()."""
-        if self.job.success is None:
+        if self.job.success() is None:
             self.job.abort()
             state = "aborted"
-        elif self.job.success:
+        elif self.job.success():
             state = "success"
         else:
             state = "failure"
@@ -89,5 +89,3 @@ class ExternalCommandDialog(widgets.dialog.Dialog):
 
         """
         pass
-
-

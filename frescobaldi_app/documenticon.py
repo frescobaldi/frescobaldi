@@ -61,7 +61,7 @@ class DocumentIconProvider(plugin.DocumentPlugin):
             icon = 'pushpin'
         elif doc.isModified():
             icon = 'document-save'
-        elif j and not j.is_running() and not j.is_aborted() and j.success:
+        elif j and not j.is_running() and not j.is_aborted() and j.success():
             icon = 'document-compile-success'
         elif j and not j.is_running() and not j.is_aborted():
             icon = 'document-compile-failed'

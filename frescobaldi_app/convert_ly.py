@@ -230,11 +230,11 @@ class Dialog(QDialog):
 
     def slotJobDone(self):
         j = self.job
-        if not j.success and j.failed_to_start():
+        if not j.success() and j.failed_to_start():
             self.messages.setPlainText(_(
                 "Could not start {convert_ly}:\n\n"
-                "{message}\n").format(convert_ly = j.command[0],
-                    message = j.error))
+                "{message}\n").format(convert_ly = j.command()[0],
+                    message = j.error()))
             return
         out = j.stdout()
         err = j.stderr()

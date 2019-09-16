@@ -63,7 +63,7 @@ class Dialog(widgets.dialog.Dialog):
         self.exec()
 
     def slot_job_done(self):
-        if self.job.success:
+        if self.job.success():
             if self.auto_accept:
                 self.accept()
             self.button('ok').setEnabled(True)

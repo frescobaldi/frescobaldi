@@ -38,7 +38,7 @@ def f(doc):
 @app.jobStarted.connect
 def f(doc, job):
     print('job started:', doc)
-    print(job.command)
+    print(' '.join(job.command()))
 
 @app.jobFinished.connect
 def f(doc, job, success):
@@ -68,5 +68,3 @@ app.appStarted()
 # be friendly and import Qt stuff
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-
-

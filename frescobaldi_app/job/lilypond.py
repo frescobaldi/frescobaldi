@@ -158,7 +158,7 @@ class LilyPondJob(Job):
     def configure_command(self):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
-        self.command = cmd = (
+        self._command = cmd = (
             [self.lilypond_info.abscommand() or self.lilypond_info.command])
         cmd.extend(serialize_d_options(self._d_options))
         cmd.extend(self.arguments())

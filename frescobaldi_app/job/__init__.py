@@ -104,15 +104,15 @@ class Job(object):
         decode_errors='strict',
         encoding='latin1'
     ):
-        self.command = command if type(command) == list else [command]
+        self._command = command if type(command) == list else [command]
         self._input = input
         self._output = output
         self._runner = runner
         self._arguments = args if args else []
         self._directory = directory
         self._environment = {}
-        self.success = None
-        self.error = None
+        self._success = None
+        self._error = None
         self._title = ""
         self._priority = priority
         self._aborted = False
@@ -136,6 +136,9 @@ class Job(object):
         the -d options and the include paths. May for example stem
         from the manual part of the Engrave Custom dialog."""
         return self._arguments
+
+    def command(self):
+        return self._command
 
     def directory(self):
         return self._directory
@@ -163,6 +166,9 @@ class Job(object):
         """
         self._environment[key] = value
 
+    def error(self):
+        return self._error
+
     def filename(self):
         """File name of the job's input document.
         May be overridden for 'empty' jobs."""
@@ -175,7 +181,7 @@ class Job(object):
         """configure the command to add an input file if one is specified."""
         filename = self.filename()
         if filename:
-            self.command.append(filename)
+            self._command.append(filename)
 
     def output_argument(self):
         return self._output
@@ -220,8 +226,8 @@ class Job(object):
     def start(self):
         """Starts the process."""
         self.configure_command()
-        self.success = None
-        self.error = None
+        self._success = None
+        self._error = None
         self._aborted = False
         self._history = []
         self._elapsed = 0.0
@@ -234,7 +240,7 @@ class Job(object):
             self._process.setWorkingDirectory(self._directory)
         if self.environment():
             self._update_process_environment()
-        self._process.start(self.command[0], self.command[1:])
+        self._process.start(self._command[0], self._command[1:])
 
     def configure_command(self):
         """Process the command if necessary.
@@ -244,17 +250,17 @@ class Job(object):
         command, any present arguments, the input and the output
         (if present).
         """
-        self.command.extend(self._arguments)
+        self._command.extend(self._arguments)
         if self._input:
             if type(self._input) == list:
-                self.command.extend(self._input)
+                self._command.extend(self._input)
             else:
-                self.command.append(self._input)
+                self._command.append(self._input)
         if self._output:
             if type(self._output) == list:
-                self.command.extend(self._output)
+                self._command.extend(self._output)
             else:
-                self.command.append(self._output)
+                self._command.append(self._output)
 
     def start_time(self):
         """Return the time this job was started.
@@ -296,7 +302,7 @@ class Job(object):
         (Call this method after the process has finished.)
 
         """
-        return self.error == QProcess.FailedToStart
+        return self._error == QProcess.FailedToStart
 
     def set_process(self, process):
         """Sets a QProcess instance and connects the signals."""
@@ -304,7 +310,7 @@ class Job(object):
         if process.parent() is None:
             process.setParent(QCoreApplication.instance())
         process.finished.connect(self._finished)
-        process.error.connect(self._error)
+        process.error.connect(self._slot_error)
         process.readyReadStandardError.connect(self._readstderr)
         process.readyReadStandardOutput.connect(self._readstdout)
 
@@ -344,13 +350,16 @@ class Job(object):
         """Return the standard error of the process as unicode text."""
         return "".join([line[0] for line in self.history(STDERR)])
 
+    def success(self):
+        return self._success
+
     def _finished(self, exitCode, exitStatus):
         """(internal) Called when the process has finished."""
         self.finish_message(exitCode, exitStatus)
         success = exitCode == 0 and exitStatus == QProcess.NormalExit
         self._bye(success)
 
-    def _error(self, error):
+    def _slot_error(self, error):
         """(internal) Called when an error occurs."""
         self.error_message(error)
         if self._process.state() == QProcess.NotRunning:
@@ -360,8 +369,8 @@ class Job(object):
         """(internal) Ends and emits the done() signal."""
         self._elapsed = time.time() - self._starttime
         if not success:
-            self.error = self._process.error()
-        self.success = success
+            self._error = self._process.error()
+        self._success = success
         self._process.deleteLater()
         self._process = None
         self.done(success)
@@ -386,7 +395,7 @@ class Job(object):
         Outputs a message that the process has started.
 
         """
-        name = self.title() or os.path.basename(self.command[0])
+        name = self.title() or os.path.basename(self._command[0])
         self.message(_("Starting {job}...").format(job=name), NEUTRAL)
 
     def abort_message(self):
@@ -395,11 +404,11 @@ class Job(object):
         Outputs a message that the process has been aborted.
 
         """
-        name = self.title() or os.path.basename(self.command[0])
+        name = self.title() or os.path.basename(self._command[0])
         self.message(_("Aborting {job}...").format(job=name), NEUTRAL)
 
     def error_message(self, error):
-        """Called when there is an error (by _error()).
+        """Called when there is an error (by _slot_error()).
 
         Outputs a message describing the given QProcess.Error.
 
@@ -408,7 +417,7 @@ class Job(object):
             self.message(_(
                 "Could not start {program}.\n"
                 "Please check path and permissions.").format(
-                    program=self.command[0]
+                    program=self._command[0]
                 ),
                 FAILURE
             )
