@@ -111,7 +111,6 @@ class Job(object):
         self._arguments = args if args else []
         self._directory = directory
         self._environment = {}
-        self._encoding = encoding
         self.success = None
         self.error = None
         self._title = ""
@@ -121,9 +120,10 @@ class Job(object):
         self._history = []
         self._starttime = 0.0
         self._elapsed = 0.0
-        self.decoder_stdout = self.create_decoder(STDOUT)
-        self.decoder_stderr = self.create_decoder(STDERR)
-        self.decode_errors = decode_errors  # codecs error handling
+        self._encoding = encoding
+        self._decoder_stderr = codecs.getdecoder(encoding)
+        self._decoder_stdout = codecs.getdecoder(encoding)
+        self._decode_errors = decode_errors  # codecs error handling
 
     def add_argument(self, arg):
         """Append an additional command line argument if it is not
@@ -137,26 +137,14 @@ class Job(object):
         from the manual part of the Engrave Custom dialog."""
         return self._arguments
 
-    def create_decoder(self, channel):
-        """Return a decoder for the given channel (STDOUT/STDERR).
-
-        This method is called from the constructor. You can re-implement this
-        method to return another decoder, or you can set the decoders manually
-        by setting the `decoder_stdout` and `decoder_stderr` manually after
-        construction.
-
-        This decoder is then used to decode the 8bit bytestrings into Python
-        unicode strings. The default implementation returns a 'latin1'
-        decoder for both channels.
-
-        """
-        return codecs.getdecoder(self._encoding)
-
     def directory(self):
         return self._directory
 
     def set_directory(self, directory):
         self._directory = directory
+
+    def encoding(self):
+        return self._encoding
 
     def environment(self, key=None):
         """
@@ -382,14 +370,14 @@ class Job(object):
         """(internal) Called when STDERR can be read."""
         output = self._process.readAllStandardError()
         self.message(
-            self.decoder_stderr(output, self.decode_errors)[0], STDERR
+            self._decoder_stderr(output, self._decode_errors)[0], STDERR
         )
 
     def _readstdout(self):
         """(internal) Called when STDOUT can be read."""
         output = self._process.readAllStandardOutput()
         self.message(
-            self.decoder_stdout(output, self.decode_errors)[0], STDOUT
+            self._decoder_stdout(output, self._decode_errors)[0], STDOUT
         )
 
     def start_message(self):

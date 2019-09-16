@@ -110,9 +110,10 @@ class AudioExportDialog(externalcommand.ExternalCommandDialog):
     def midi2wav(self, midfile, wavfile):
         """Run timidity to convert the MIDI to WAV."""
         self.wavfile = wavfile # we could need to clean it up...
-        j = job.Job()
-        j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
-        j.command = ["timidity", midfile, "-Ow", "-o", wavfile]
+        j = job.Job(
+            encoding='utf-8',
+            command=["timidity", midfile, "-Ow", "-o", wavfile]
+        )
         self.run_job(j)
 
     def cleanup(self, state):

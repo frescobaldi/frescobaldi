@@ -90,7 +90,7 @@ class Errors(plugin.DocumentPlugin):
         """
         if type == job.STDERR:
             enc = sys.getfilesystemencoding()
-            job_enc = self._job._encoding
+            job_enc = self._job.encoding()
             for m in message_re.finditer(message.encode(job_enc)):
                 url = m.group(1).decode(enc)
                 filename = m.group(2).decode(enc)
