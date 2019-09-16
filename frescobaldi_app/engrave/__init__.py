@@ -187,17 +187,10 @@ class Engraver(plugin.MainWindowPlugin):
             else job.lilypond.PublishJob if mode == 'publish'
             else job.lilypond.LayoutControlJob
         )
-        # TODO: Try to move this argument creation into
-        # LayoutControlJob's constructor. However, somehow this has to
-        # obtain access to the mainwindow.
-        args = (
-            panelmanager.manager(
-                self.mainwindow()).layoutcontrol.widget().preview_options()
-            if mode == 'layout-control' else None)
         doc = document or self.document()
         if may_save:
             self.saveDocumentIfDesired()
-        self.runJob(job_class(doc, args), doc)
+        self.runJob(job_class(doc), doc)
 
     def engraveAbort(self):
         j = job.manager.job(self.document())

@@ -24,7 +24,7 @@ The Layout Control options widget.
 
 import sys
 
-from PyQt5.QtCore import pyqtSignal, QSettings
+from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import (QCheckBox, QHBoxLayout, QLineEdit, QToolButton,
                              QVBoxLayout, QWidget)
 
@@ -37,8 +37,6 @@ import userguide
 
 class Widget(QWidget):
 
-    optionsChanged = pyqtSignal()
-
     def __init__(self, tool):
         super(Widget, self).__init__(tool)
 
@@ -46,9 +44,9 @@ class Widget(QWidget):
         self.setLayout(layout)
 
         # manual mode UI elements that need special treatment
-        self.CBverbose = QCheckBox(clicked=self.optionsChanged)
-        self.CBpointandclick = QCheckBox(clicked=self.optionsChanged)
-        self.CBcustomfile = QCheckBox(clicked=self.optionsChanged)
+        self.CBverbose = QCheckBox(clicked=self.options_changed)
+        self.CBpointandclick = QCheckBox(clicked=self.options_changed)
+        self.CBcustomfile = QCheckBox(clicked=self.options_changed)
         self.LEcustomfile = QLineEdit(enabled=False)
 
         # run Lily button
@@ -73,7 +71,8 @@ class Widget(QWidget):
         # automatically processed modes
         self.checkboxes = {}
         for mode in layoutcontrol.modelist():
-            self.checkboxes[mode] = cb = QCheckBox(clicked=self.optionsChanged)
+            self.checkboxes[mode] = cb = QCheckBox(clicked=self.options_changed)
+            cb._mode = mode
             layout.addWidget(cb)
 
         # add manual widgets
@@ -82,12 +81,11 @@ class Widget(QWidget):
         layout.addStretch(1)
 
         # connect manual widgets
-        self.CBcustomfile.toggled.connect(self.LEcustomfile.setEnabled)
-        self.LEcustomfile.textEdited.connect(self.optionsChanged)
+        self.CBcustomfile.toggled.connect(self.options_changed)
+        self.LEcustomfile.textEdited.connect(self.options_changed)
 
         app.translateUI(self)
         self.loadSettings()
-        tool.mainwindow().aboutToClose.connect(self.saveSettings)
 
     def translateUI(self):
         for mode in layoutcontrol.modelist():
@@ -131,39 +129,56 @@ class Widget(QWidget):
     def helpButtonClicked(self):
         userguide.show("engrave_layout")
 
+    def options_changed(self):
+        s = QSettings()
+        s.beginGroup('lilypond_settings')
+        element = self.sender()
+        if hasattr(element, '_mode'):
+            mode = element._mode
+        elif element == self.CBverbose:
+            mode = 'verbose'
+        elif element == self.CBpointandclick:
+            mode = 'point-and-click'
+        elif element == self.CBcustomfile:
+            mode = 'custom-file'
+            self.LEcustomfile.setEnabled(element.isChecked())
+        elif element == self.LEcustomfile:
+            s.setValue('custom-filename', element.text())
+            return
+        if element.isChecked():
+            s.setValue(mode, True)
+        else:
+            s.remove(mode)
+
     def preview_options(self):
         """Return a list of Debug Mode command line options for LilyPond."""
+        opts = {
+            'd_options': {},
+            'args': [],
+            'includepaths': []
+        }
         args = []
 
         # 'automatic' widgets
         for mode in layoutcontrol.modelist():
             if self.checkboxes[mode].isChecked():
-                args.append(layoutcontrol.option(mode))
+                opts['d_options'][layoutcontrol.option(mode)] = True
 
         # manual widgets
         if self.CBcustomfile.isChecked():
             file_to_include = self.LEcustomfile.text()
-            args.append('-ddebug-custom-file=' + file_to_include)
+            if file_to_include:
+                opts['d_options']['debug-custom-file'] = file_to_include
 
         # if at least one debug mode is used, add the directory with the
         # preview-mode files to the search path
-        if args:
-            args.insert(0, '-I' + layoutcontrol.__path__[0])
-            # File that conditionally includes different formatters
-            args.insert(1, '-dinclude-settings=debug-layout-options.ly')
+        if opts['d_options']:
+            opts['includepaths'].append(layoutcontrol.__path__[0])
+            opts['d_options']['include-settings'] = 'debug-layout-options.ly'
 
-        if self.CBpointandclick.isChecked():
-            args.insert(0, '-dpoint-and-click')
-        else:
-            args.insert(0, '-dno-point-and-click')
+        opts['d_options']['point-and-click'] = self.CBpointandclick.isChecked()
 
         if self.CBverbose.isChecked():
-            args.insert(0, '--verbose')
+            opts['args'].append('--verbose')
 
-        if self.CBcustomfile.isChecked():
-            file_to_include = self.LEcustomfile.text()
-            if file_to_include:
-                args.append('-ddebug-custom-file=' + file_to_include)
-        return args
-
-
+        return opts

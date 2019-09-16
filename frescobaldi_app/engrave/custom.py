@@ -26,14 +26,21 @@ import os
 import collections
 
 from PyQt5.QtCore import QSettings, QSize, Qt
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
-    QGridLayout, QLabel, QSpinBox, QTextEdit)
+from PyQt5.QtWidgets import (
+    QCheckBox,
+    QComboBox,
+    QDialog,
+    QDialogButtonBox,
+    QGridLayout,
+    QLabel,
+    QSpinBox,
+    QTextEdit
+)
 
 import app
 import userguide
 import icons
 import job
-import panelmanager
 import lilychooser
 import listmodel
 import widgets
@@ -42,6 +49,14 @@ import util
 
 
 class Dialog(QDialog):
+
+    job_classes = [
+        job.lilypond.PreviewJob,
+        job.lilypond.PublishJob,
+        job.lilypond.LilyPondJob,
+        job.lilypond.LayoutControlJob
+    ]
+
     def __init__(self, mainwindow):
         super(Dialog, self).__init__(mainwindow)
         self._document = None
@@ -160,65 +175,64 @@ class Dialog(QDialog):
 
     def getJob(self, document):
         """Returns and configures a Job to start."""
+        use_info = self.lilyChooser.lilyPondInfo()
         f = formats[self.outputCombo.currentIndex()]
         d_options = {}
         args = []
+        includepaths = []
 
         # Configure job type, choose class
-        if self.modeCombo.currentIndex() == 0:   # preview mode
-            job_class = job.lilypond.PreviewJob
-        elif self.modeCombo.currentIndex() == 1: # publish mode
-            job_class = job.lilypond.PublishJob
-        elif self.modeCombo.currentIndex() == 2: # incipit mode
-            job_class = job.lilypond.LilyPondJob
+        job_class = self.job_classes[self.modeCombo.currentIndex()]
+        if self.modeCombo.currentIndex() == 2:  # incipit mode
             d_options['preview'] = True
-            d_options['print_pages'] = False
-        else:                                    # debug mode
-            job_class = job.lilypond.LayoutControlJob
-            args = panelmanager.manager(
-                self.parent()).layoutcontrol.widget().preview_options()
-
-        # Instantiate Job
-        j = job_class(document, args)
-        j.lilypond_info = self.lilyChooser.lilyPondInfo()
-
-        # Configure extended command line options
-        d_options['delete-intermediate-files'] = True if self.deleteCheck.isChecked() else False
-
-        if self.embedSourceCodeCheck.isChecked():
-            d_options['embed-source-code'] = True
-
-        # Assign extended command line options
-        for k in d_options:
-            j.set_d_option(k, d_options[k])
+            d_options['print-pages'] = False
 
         # Determine options for the output target/backend
-        d = {
-            'version': j.lilypond_info.version,
+        backend_options = f.options({
+            'version': use_info.version,
             'resolution': self.resolutionCombo.currentText(),
             'antialias': self.antialiasSpin.value(),
-        }
-        j.set_backend_args(f.options(d))
+        })
+
+        # Configure extended command line options
+        d_options['delete-intermediate-files'] = (
+            True if self.deleteCheck.isChecked() else False
+        )
+        if self.embedSourceCodeCheck.isChecked():
+            d_options['embed-source-code'] = True
 
         # Parse additional/custom tokens from the text edit
         for t in self.commandLine.toPlainText().split():
             if t.startswith('-d'):
                 k, v = job.lilypond.parse_d_option(t)
-                j.set_d_option(k, v)
+                d_options[k] = v
             else:
-                j.add_argument(t)
+                args.append(t)
 
-        # Set environment variables for the job
-        if self.englishCheck.isChecked():
-            j.set_environment('LANG', 'C')
-            j.set_environment('LC_ALL', 'C')
-        else:
-            j.environment().pop('LANG', None)
-            j.environment().pop('LC_ALL', None)
-        j.set_title("{0} {1} [{2}]".format(
-            os.path.basename(j.lilypond_info.command),
-                j.lilypond_info.versionString(), document.documentName()))
-        return j
+        # LilyPond language environment settings
+        lily_lang = 'C' if self.englishCheck.isChecked() else None
+        env = {
+            'LANG': lily_lang,
+            'LC_ALL': lily_lang
+        }
+
+        title = "{0} {1} [{2}]".format(
+            os.path.basename(use_info.command),
+            use_info.versionString(),
+            document.documentName()
+        )
+
+        # Instantiate Job
+        return job_class(
+            document,
+            info=use_info,
+            args=args,
+            d_options=d_options,
+            includepaths=includepaths,
+            environment=env,
+            backend=backend_options,
+            title=title
+        )
 
     def keyPressEvent(self, ev):
         if ev.key() == Qt.Key_Return and ev.modifiers() == Qt.ControlModifier:

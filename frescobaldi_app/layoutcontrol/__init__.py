@@ -32,38 +32,38 @@ import panel
 # dictionary mapping internal option names to command line switches
 _debugmodes = {
     'annotate-spacing':
-        ('-ddebug-annotate-spacing',
+        ('debug-annotate-spacing',
         lambda: _("Annotate Spacing"),
         lambda: _("Use LilyPond's \"annotate spacing\" option to\n"
           "display measurement information")),
     'control-points':
-        ('-ddebug-control-points',
+        ('debug-control-points',
         lambda: _("Display Control Points"),
         lambda: _("Display the control points that "
           "determine curve shapes")),
     'directions':
-        ('-ddebug-directions',
+        ('debug-directions',
         lambda: _("Color explicit directions"),
         lambda: _("Highlight elements that are explicitly switched up- or downwards")),
     'grob-anchors':
-        ('-ddebug-grob-anchors',
+        ('debug-grob-anchors',
         lambda: _("Display Grob Anchors"),
         lambda: _("Display a dot at the anchor point of each grob")),
     'grob-names':
-        ('-ddebug-grob-names',
+        ('debug-grob-names',
         lambda: _("Display Grob Names"),
         lambda: _("Display the name of each grob")),
     'paper-columns':
-        ('-ddebug-paper-columns',
+        ('debug-paper-columns',
         lambda: _("Display Paper Columns"),
         lambda: _("Display info on the paper columns")),
     'skylines':
-        ('-ddebug-display-skylines',
+        ('debug-display-skylines',
         lambda: _("Display Skylines"),
         lambda: _("Display the skylines that LilyPond "
           "uses to detect collisions.")),
     'voices':
-        ('-ddebug-voices',
+        ('debug-voices',
         lambda: _("Color \\voiceXXX"),
         lambda: _("Highlight notes that are explicitly "
         "set to \\voiceXXX")),
@@ -116,5 +116,3 @@ class LayoutControlOptions(panel.Panel):
         from . import widget
         w = widget.Widget(self)
         return w
-
-

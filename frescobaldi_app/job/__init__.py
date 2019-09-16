@@ -94,10 +94,11 @@ class Job(object):
         self,
         command=[],
         args=None,
-        directory="",
+        directory=None,
         environment={},
         title="",
-        input="",
+        input=None,
+        input_file=None,
         output=None,
         output_file=None,
         priority=1,
@@ -106,16 +107,25 @@ class Job(object):
         encoding='latin1'
     ):
         self._command = command if type(command) == list else [command]
-        self._input = input
+        self._input = (
+            input if type(input) == list
+            else [input] if input is not None
+            else []
+        )
+        self._input_file = (
+            input_file if input_file is not None
+            else self._input[-1] if self._input
+            else []
+        )
         self._output = (
             output if type(output) == list
             else [output] if output is not None
-            else None
+            else []
         )
         self._output_file = (
             output_file if output_file is not None
             else self._output[-1] if self._output
-            else None
+            else []
         )
         self._runner = runner
         self._arguments = args if args else []
@@ -146,24 +156,45 @@ class Job(object):
                 self._arguments.append(v)
 
     def arguments(self):
-        """Additional (custom) arguments, will be inserted between
-        the -d options and the include paths. May for example stem
-        from the manual part of the Engrave Custom dialog."""
+        """
+        Command arguments/options list.
+        Each entry may be a string or a key-value tuple/list.
+        In the default implementation they will be inserted after the
+        command name.
+        """
         return self._arguments
 
-    def _cmd_add_input_file(self):
-        """configure the command to add an input file if one is specified."""
-        filename = self.filename()
-        if filename:
-            self._command.append(filename)
+    def _cmd_add_arguments(self):
+        """
+        Add the arguments to the command, if present.
+        Serialize tuples/lists if necessary.
+        """
+        for arg in self.arguments():
+            if type(arg) in [tuple, list]:
+                self._command.extend(arg)
+            else:
+                self._command.append(arg)
 
-    def _cmd_add_output_file(self):
-        """configure the command to add an input file if one is specified."""
-        filename = self.filename()
-        if filename:
-            self._command.append(filename)
+    def _cmd_add_input(self):
+        """
+        Add the input file or the input argument pair
+        to the command, if present.
+        """
+        self._command.extend(self._input)
+
+    def _cmd_add_output(self):
+        """
+        Add the output file or the output argument pair
+        to the command, if present.
+        """
+        self._command.extend(self._output)
 
     def command(self):
+        """
+        Return the command (as string list).
+        NOTE: Before configure_command() has been called
+        this may not return useful values.
+        """
         return self._command
 
     def directory(self):
@@ -195,15 +226,14 @@ class Job(object):
     def error(self):
         return self._error
 
-    def filename(self):
-        """File name of the job's input document.
-        May be overridden for 'empty' jobs."""
+    # TODO: Maybe the following four properties are not needed at all
+    def input(self):
         return self._input
 
-    def set_input(self, filename):
-        self._input = filename
+    def input_file(self):
+        return self._input_file
 
-    def output_argument(self):
+    def output_arg(self):
         return self._output
 
     def output_file(self):
@@ -246,6 +276,7 @@ class Job(object):
     def start(self):
         """Starts the process."""
         self.configure_command()
+        self._command
         self._success = None
         self._error = None
         self._aborted = False
@@ -256,31 +287,33 @@ class Job(object):
             self.set_process(QProcess())
         self._process.started.connect(self.started)
         self.start_message()
-        if os.path.isdir(self._directory):
-            self._process.setWorkingDirectory(self._directory)
+        if os.path.isdir(self.directory() or ''):
+            self._process.setWorkingDirectory(self.directory())
         if self.environment():
             self._update_process_environment()
         self._process.start(self._command[0], self._command[1:])
 
     def configure_command(self):
         """Process the command if necessary.
-        In a LilyPondJob this is the essential part of composing
-        the command line from the job options.
-        This implementation simply creates a list from the main
-        command, any present arguments, the input and the output
-        (if present).
+
+        Initially the command is the list given upon instantiation.
+        The default implementation is to add (if present)
+        - arguments
+        - input file
+        - output file
+        to the initial command.
+
+        To specify the command to be used it is possible to
+        - instantiate job.Job and configure arguments, input and output
+        - subclass job.Job and override the three composing functions
+        - subclass job.Job and override configure_command.
         """
-        self._command.extend(self._arguments)
-        if self._input:
-            if type(self._input) == list:
-                self._command.extend(self._input)
-            else:
-                self._command.append(self._input)
-        if self._output:
-            if type(self._output) == list:
-                self._command.extend(self._output)
-            else:
-                self._command.append(self._output)
+        # TODO: Maybe this order has to be made configurable
+        # by storing the functions in a list and calling them
+        # in a for loop - instead of requiring an override.
+        self._cmd_add_arguments()
+        self._cmd_add_input()
+        self._cmd_add_output()
 
     def start_time(self):
         """Return the time this job was started.

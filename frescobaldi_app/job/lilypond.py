@@ -18,8 +18,14 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A LilyPondJob runs LilyPond and captures the output
-to get it later or to have a log follow it.
+A LilyPondJob runs LilyPond,
+with specific subclasses
+- PreviewJob        Run LilyPond in "Preview" mode
+- PublishJob        Run LilyPond in "Publish" mode (without point-and-click)
+- LayoutControlJob  Run LilyPond in "Layout Control" mode
+- VolatileTextJob   Run LilyPond with a string as "document" input
+                    and a temporary output file
+- CachedPreviewJob  Run LilyPond with a string but cached output
 """
 
 import codecs
@@ -34,9 +40,11 @@ import ly.docinfo
 
 import document
 import documentinfo
-from . import Job
+import layoutcontrol
 import lilypondinfo
 import util
+
+from . import Job
 
 
 def parse_d_option(token):
@@ -82,18 +90,21 @@ class LilyPondJob(Job):
 
     """
 
-    def __init__(self, doc, args=None, title=""):
+    def __init__(self, doc, **kwargs):
         """Create a LilyPond job by first retrieving some context
         from the document and feeding this into job.Job's __init__()."""
         if isinstance(doc, QUrl):
             doc = document.Document(doc)
         self.document = doc
         self.document_info = docinfo = documentinfo.info(doc)
-        self.lilypond_info = docinfo.lilypondinfo()
-        self._d_options = {}
-        self._backend_args = []
-        input, self.includepath = docinfo.jobinfo(True)
+        self.lilypond_info = kwargs.get('info', docinfo.lilypondinfo())
+        self._d_options = kwargs.get('d_options', {})
+        self._backend_args = kwargs.get('backend', [])
+        input, self._includepath = docinfo.jobinfo(True)
+        self._includepath.extend(kwargs.get('includepaths', []))
         directory = os.path.dirname(input)
+        environment = kwargs.get('environment', {})
+        environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
 
         super(LilyPondJob, self).__init__(
                 encoding='utf-8',
@@ -101,46 +112,42 @@ class LilyPondJob(Job):
                     self.lilypond_info.abscommand()
                     or self.lilypond_info.command
                 ],
-                args=args,
+                args=kwargs.get('args', None),
                 input=input,
                 decode_errors='replace',
                 directory=directory,
-                environment={
-                    'LD_LIBRARY_PATH': self.lilypond_info.libdir()
-                },
-                title=title,
+                environment=environment,
+                title=kwargs.get('title', ''),
                 priority=2)
 
         # Set default values from Preferences
         s = QSettings()
         s.beginGroup("lilypond_settings")
-        self.set_d_option('delete-intermediate-files',
-            s.value("delete_intermediate_files", True, bool))
+        if not self.has_d_option('delete-intermediate-files'):
+            self.set_d_option(
+                'delete-intermediate-files',
+                (
+                    self._d_options.get('delete-intermediate-files', None)
+                    or s.value("delete_intermediate_files", True, bool)
+                )
+            )
         self.default_output_target = s.value(
             "default_output_target", "pdf", str)
-        self.embed_source_code = s.value("embed_source_code", False, bool)
-        if s.value("no_translation", False, bool):
+        if not self.has_d_option('embed-source-code'):
+            self.embed_source_code = s.value("embed_source_code", False, bool)
+        if (
+            s.value("no_translation", False, bool)
+            or environment.get('LANG', False)
+        ):
             self.set_environment('LANG', 'C')
             self.set_environment('LC_ALL', 'C')
         self.set_title("{0} {1} [{2}]".format(
             os.path.basename(self.lilypond_info.command),
             self.lilypond_info.versionString(), doc.documentName()))
 
-    def add_additional_arg(self, arg):
-        """Append an additional command line argument if it is not
-        present already."""
-        if not arg in self._additional_args:
-            self._additional_args.append(arg)
-
     def add_include_path(self, path):
         """Manually add an include path to the current job."""
-        self.includepath.append(path)
-
-    def additional_args(self):
-        """Additional (custom) arguments, will be inserted between
-        the -d options and the include paths. May for example stem
-        from the manual part of the Engrave Custom dialog."""
-        return self._additional_args
+        self._includepath.append(path)
 
     def backend_args(self):
         """Determine the target/backend type and produce appropriate args."""
@@ -154,60 +161,115 @@ class LilyPondJob(Job):
                 # engrave to PDF
                 if not self.arguments():
                     # publish mode
-                    if self.embed_source_code and self.lilypond_version >= (2, 19, 39):
+                    if (
+                        self.embed_source_code
+                        and self.lilypond_version >= (2, 19, 39)
+                    ):
                         result.append('-dembed-source-code')
                 result.append('--pdf')
         return result
 
+    def _cmd_add_backend_args(self):
+        """
+        Add the arguments defining the backend
+        to the command.
+        """
+        self._command.extend(self.backend_args())
+
+    def _cmd_add_d_options(self):
+        """
+        Compose a list of -d options
+        and add it to the command.
+        """
+        cmd = self._command
+        opts = self._d_options
+        for key in opts.keys():
+            value = opts[key]
+            cmd.append('-d{state}{key}{value}'.format(
+                state='' if value else 'no-',
+                key=key,
+                value='=' + value if type(value) != bool else ''
+            ))
+
+    def _cmd_add_includepath(self):
+        """
+        Add the include path(s) to the command.
+        """
+        self._command.extend(self.paths(self._includepath))
+
     def configure_command(self):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
-        cmd = self._command
-        cmd.extend(serialize_d_options(self._d_options))
-        cmd.extend(self.arguments())
-        cmd.extend(self.paths(self.includepath))
-        cmd.extend(self.backend_args())
-        self._cmd_add_input_file()
+        self._cmd_add_d_options()
+        self._cmd_add_arguments()
+        self._cmd_add_includepath()
+        self._cmd_add_backend_args()
+        self._cmd_add_input()
 
-    def d_option(self, key):
-        return self._d_options.get(key, None)
+    def has_d_option(self, k):
+        return k in self._d_options
 
     def paths(self, includepath):
-        """Ensure paths have trailing slashes for Windows compatibility."""
-        result = []
-        for path in includepath:
-            result.append('-I' + path.rstrip('/') + '/')
-        return result
-
-    def set_backend_args(self, args):
-        self._backend_args = args
+        """
+        Return the include paths as a string list
+        Ensure paths have trailing slashes for Windows compatibility.
+        """
+        return ['-I{}'.format(path.rstrip('/') + '/') for path in includepath]
 
     def set_d_option(self, key, value=True):
-        self._d_options[key] = value
+        if value is None:
+            self._d_options.remove(key)
+        else:
+            self._d_options[key] = value
 
 
 class PreviewJob(LilyPondJob):
     """Represents a LilyPond Job in Preview mode."""
 
-    def __init__(self, document, args=None, title=""):
-        super(PreviewJob, self).__init__(document, args, title)
+    def __init__(self, document, **kwargs):
+        super(PreviewJob, self).__init__(document, **kwargs)
         self.set_d_option('point-and-click', True)
 
 
 class PublishJob(LilyPondJob):
     """Represents a LilyPond Job in Publish mode."""
 
-    def __init__(self, document, args=None, title=""):
-        super(PublishJob, self).__init__(document, args, title)
+    def __init__(self, document, **kwargs):
+        super(PublishJob, self).__init__(document, **kwargs)
         self.set_d_option('point-and-click', False)
 
 
 class LayoutControlJob(LilyPondJob):
     """Represents a LilyPond Job in Layout Control mode."""
 
-    def __init__(self, document, args=None, title=""):
-        super(LayoutControlJob, self).__init__(document, args, title)
-        # So far no further code is necessary
+    def __init__(self, document, **kwargs):
+        super(LayoutControlJob, self).__init__(document, **kwargs)
+        self.check_options()
+
+    def check_options(self):
+        s = QSettings()
+        s.beginGroup('lilypond_settings')
+        for mode in layoutcontrol.modelist():
+            if s.value(mode, False, bool):
+                self.set_d_option(layoutcontrol.option(mode))
+
+        if s.value('custom-file', False, bool):
+            include_file = s.value('custom-filename', '', str)
+            if include_file:
+                self.set_d_option('debug-custom-file', include_file)
+
+        # if at least one debug mode is used, add the directory with the
+        # preview-mode files to the search path
+        if self._d_options:
+            self.set_d_option('include-settings', 'debug-layout-options.ly')
+            self.add_include_path(layoutcontrol.__path__[0])
+
+        self.set_d_option(
+            'point-and-click', s.value('point-and-click', True, bool)
+        )
+
+        if s.value('verbose', False, bool):
+            self.add_argument('--verbose')
 
 
 class VolatileTextJob(PublishJob):
@@ -218,7 +280,10 @@ class VolatileTextJob(PublishJob):
     in order to use relative includes.
     """
     def __init__(
-        self, text, title=None, base_dir=None):
+        self,
+        text,
+        title=None,
+        base_dir=None):
         # TODO: ???
         #       I have the impression this "info" stuff
         #       is not used at all. And *if* it is used,
@@ -227,12 +292,14 @@ class VolatileTextJob(PublishJob):
         info = lilypondinfo.preferred()
         # Optionally infer a suitable LilyPond version from the content
         if QSettings().value("lilypond_settings/autoversion", True, bool):
-            version = ly.docinfo.DocInfo(ly.document.Document(text, 'lilypond')).version()
+            version = ly.docinfo.DocInfo(
+                ly.document.Document(text, 'lilypond')
+            ).version()
             if version:
                 info = lilypondinfo.suitable(version)
         # Create temporary (document.Document object and file)
-        self.directory = util.tempdir()
-        filename = os.path.join(self.directory, 'document.ly')
+        self.set_directory(util.tempdir())
+        filename = os.path.join(self.directory(), 'document.ly')
         with open(filename, 'wb') as f:
             f.write(text.encode('utf-8'))
         url = QUrl(filename)
@@ -246,11 +313,11 @@ class VolatileTextJob(PublishJob):
 
     def resultfiles(self):
         """Returns a list of resulting file(s)"""
-        #TODO: Support non-PDF compilation modes
+        # TODO: Support non-PDF compilation modes
         return glob.glob(os.path.join(self.directory, '*.pdf'))
 
     def cleanup(self):
-        shutil.rmtree(self.directory, ignore_errors=True)
+        shutil.rmtree(self.directory(), ignore_errors=True)
 
 
 class CachedPreviewJob(PublishJob):
@@ -322,7 +389,7 @@ class CachedPreviewJob(PublishJob):
         This for example prevents system-wise files from
         lilypond-book-preamble to clutter the preview.
         """
-        #TODO: Support non-PDF compilation modes
+        # TODO: Support non-PDF compilation modes
         output_name, _ = os.path.splitext(self.base_name)
         resultfile = os.path.join(self.directory(), output_name + '.pdf')
         if os.path.exists(resultfile):
