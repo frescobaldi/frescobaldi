@@ -32,6 +32,7 @@ import weakref
 from PyQt5.QtCore import QPoint, QSize, Qt
 from PyQt5.QtGui import QImage, QImageReader, QPainter, QTransform
 
+from .locking import lock
 from . import page
 from . import util
 
@@ -56,6 +57,7 @@ class ImagePage(page.AbstractPage):
         self._image = image
         self._imageJob = None
         self._imageDownScaled = None
+        self._downScaleJob = None
 
     @classmethod
     def load(cls, filename, renderer=None):
@@ -83,9 +85,10 @@ class ImagePage(page.AbstractPage):
 
     def _loadImage(self):
         """Internal. Construct an image reader and return the image."""
-        reader = QImageReader(self.source)
-        reader.setAutoTransform(self.autoTransform)
-        return reader.read()
+        with lock(self):
+            reader = QImageReader(self.source)
+            reader.setAutoTransform(self.autoTransform)
+            return reader.read()
 
     def _materialize(self):
         """Internal. If needed, load the image and deletes the image reader."""
@@ -113,21 +116,32 @@ class ImagePage(page.AbstractPage):
         if callback:
             job.callbacks.add(callback)
 
-    def _downScale(self):
-        """Scales the image down to save memory."""
-        w, h = self._image.width(), self._image.height()
-        if max(w, h) > self.downScaledSize:
-            self._imageDownScaled = self._image.scaled(
+    def _downScaleImage(self):
+        """Return a downscaled image."""
+        return self._image.scaled(
                 QSize(self.downScaledSize, self.downScaledSize),
                 Qt.KeepAspectRatio, Qt.SmoothTransformation)
-            self._image = None
+
+    def _downScaleInBackground(self):
+        job = self._downScaleJob
+        if job is None:
+            from . import backgroundjob
+            job = self._downScaleJob = backgroundjob.Job()
+            job.work = self._downScaleImage
+            job.callbacks = callbacks = set()
+            def finalize(result):
+                self._imageDownScaled = result
+                self._downScaleJob = None
+                self._image = None
+            job.finalize = finalize
+            job.start()
             
     def paint(self, painter, rect, callback=None):
         """Paint our image in the View."""
         self._time = time.time()        # keep track of time when last painted
         if self._image is None:
             image = self._imageDownScaled
-            if not image or image.width() < self.width:
+            if not image or image.width() < (self.height if self.computedRotation & 1 else self.width):
                 self._materializeInBackground(callback)
             if not image:
                 painter.fillRect(rect, self.paperColor or Qt.white)
@@ -189,33 +203,16 @@ def manage(page):
     if _currentsize < maxsize:
         return
     _currentsize = 0
-    if _cleanupjob is None:
-        from . import backgroundjob
-        job = _cleanupjob = backgroundjob.Job()
-        job.work = cleanup
-        job.finalize = cleanupdone
-        job.start()
-
-
-def cleanup():
-    """Removes large images of unused pages."""
-    global _pool, _currentsize, maxsize
+    
     # newest first
     pages = iter(sorted(_pool, key = lambda page: page._time, reverse=True))
-    size = 0
     for page in pages:
-        size += page._image.byteCount()
-        if size > maxsize:
+        _currentsize += page._image.byteCount()
+        if _currentsize > maxsize:
             break
     pages = list(pages)
     _pool.difference_update(pages)
     for page in pages:
-        page._downScale()
-    return size
+        page._downScaleInBackground()
 
-
-def cleanupdone(size):
-    global _currentsize
-    _currentsize = size
-    _cleanupjob = None
 
