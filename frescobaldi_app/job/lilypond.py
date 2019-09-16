@@ -97,6 +97,10 @@ class LilyPondJob(Job):
 
         super(LilyPondJob, self).__init__(
                 encoding='utf-8',
+                command=[
+                    self.lilypond_info.abscommand()
+                    or self.lilypond_info.command
+                ],
                 args=args,
                 input=input,
                 decode_errors='replace',
@@ -158,13 +162,12 @@ class LilyPondJob(Job):
     def configure_command(self):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
-        self._command = cmd = (
-            [self.lilypond_info.abscommand() or self.lilypond_info.command])
+        cmd = self._command
         cmd.extend(serialize_d_options(self._d_options))
         cmd.extend(self.arguments())
         cmd.extend(self.paths(self.includepath))
         cmd.extend(self.backend_args())
-        self.set_input_file()
+        self._cmd_add_input_file()
 
     def d_option(self, key):
         return self._d_options.get(key, None)

@@ -26,8 +26,16 @@ import os
 
 from PyQt5.QtCore import Qt
 
-from PyQt5.QtWidgets import (QCheckBox, QDialog, QDialogButtonBox,
-    QGridLayout, QLabel, QTabWidget, QTextEdit, QWidget)
+from PyQt5.QtWidgets import (
+    QCheckBox,
+    QDialog,
+    QDialogButtonBox,
+    QGridLayout,
+    QLabel,
+    QTabWidget,
+    QTextEdit,
+    QWidget
+)
 
 import app
 import lilychooser
@@ -125,7 +133,9 @@ class ToLyDialog(QDialog):
         self.buttons.accepted.connect(self.about_to_accept)
         self.buttons.rejected.connect(self.reject)
 
-        self.lilyChooser.currentIndexChanged.connect(self.slot_lilypond_version_changed)
+        self.lilyChooser.currentIndexChanged.connect(
+            self.slot_lilypond_version_changed
+        )
         self.slot_lilypond_version_changed()
 
     def translateUI(self):
@@ -150,9 +160,9 @@ class ToLyDialog(QDialog):
             command=self._info.toolcommand(self._imp_prgm),
             input=self._input,
             output='--output={}'.format(output),
+            output_file=output,
             directory=os.path.dirname(self._input),
             encoding='utf-8')
-        j._output_file = output
 
     def get_post_settings(self):
         """Returns settings in the post import tab."""

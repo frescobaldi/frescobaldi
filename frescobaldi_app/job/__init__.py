@@ -98,7 +98,8 @@ class Job(object):
         environment={},
         title="",
         input="",
-        output="",
+        output=None,
+        output_file=None,
         priority=1,
         runner=None,
         decode_errors='strict',
@@ -106,7 +107,16 @@ class Job(object):
     ):
         self._command = command if type(command) == list else [command]
         self._input = input
-        self._output = output
+        self._output = (
+            output if type(output) == list
+            else [output] if output is not None
+            else None
+        )
+        self._output_file = (
+            output_file if output_file is not None
+            else self._output[-1] if self._output
+            else None
+        )
         self._runner = runner
         self._arguments = args if args else []
         self._directory = directory
@@ -127,15 +137,31 @@ class Job(object):
 
     def add_argument(self, arg):
         """Append an additional command line argument if it is not
-        present already."""
-        if arg not in self._arguments:
-            self._arguments.append(arg)
+        present already.
+        arg may either be a single string or a key-value tuple."""
+        k, v = arg if type(arg) == tuple else (arg, None)
+        if k not in self._arguments:
+            self._arguments.append(k)
+            if v:
+                self._arguments.append(v)
 
     def arguments(self):
         """Additional (custom) arguments, will be inserted between
         the -d options and the include paths. May for example stem
         from the manual part of the Engrave Custom dialog."""
         return self._arguments
+
+    def _cmd_add_input_file(self):
+        """configure the command to add an input file if one is specified."""
+        filename = self.filename()
+        if filename:
+            self._command.append(filename)
+
+    def _cmd_add_output_file(self):
+        """configure the command to add an input file if one is specified."""
+        filename = self.filename()
+        if filename:
+            self._command.append(filename)
 
     def command(self):
         return self._command
@@ -176,12 +202,6 @@ class Job(object):
 
     def set_input(self, filename):
         self._input = filename
-
-    def set_input_file(self):
-        """configure the command to add an input file if one is specified."""
-        filename = self.filename()
-        if filename:
-            self._command.append(filename)
 
     def output_argument(self):
         return self._output
