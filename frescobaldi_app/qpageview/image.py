@@ -26,7 +26,7 @@ display.
 """
 
 from PyQt5.QtCore import QPoint, QRect, Qt
-from PyQt5.QtGui import QImageReader, QPainter, QTransform
+from PyQt5.QtGui import QImageIOHandler, QImageReader, QPainter, QTransform
 
 from . import locking
 from . import page
@@ -49,23 +49,25 @@ class ImageContainer:
             reader = QImageReader(self.source)
             reader.setAutoTransform(self.autoTransform)
             if clip:
-                size = reader.size()
-                transf = reader.transformation()
-                m = QTransform()
-                m.translate(size.width() / 2, size.height() / 2)
-                if transf & 1:
-                    # horizontal mirror
-                    m.scale(-1, 1)
-                if transf & 2:
-                    # vertical mirror
-                    m.scale(1, -1)
-                if transf & 4:
-                    # rotate 90
-                    m.rotate(-90)
-                    m.translate(size.height() / -2, size.width() / -2)
-                else:
-                    m.translate(size.width() / -2, size.height() / -2)
-                reader.setClipRect(m.mapRect(clip))
+                if self.autoTransform:
+                    size = reader.size()
+                    transf = reader.transformation()
+                    m = QTransform()
+                    m.translate(size.width() / 2, size.height() / 2)
+                    if transf & QImageIOHandler.TransformationMirror:
+                        # horizontal mirror
+                        m.scale(-1, 1)
+                    if transf & QImageIOHandler.TransformationFlip:
+                        # vertical mirror
+                        m.scale(1, -1)
+                    if transf & QImageIOHandler.TransformationRotate90:
+                        # rotate 90
+                        m.rotate(-90)
+                        m.translate(size.height() / -2, size.width() / -2)
+                    else:
+                        m.translate(size.width() / -2, size.height() / -2)
+                    clip = m.mapRect(clip)
+                reader.setClipRect(clip)
             return reader.read()
 
 
