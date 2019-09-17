@@ -164,8 +164,6 @@ class MusicPreviewWidget(QWidget):
             return
         self._lastbuildtime = self._running.elapsed_time()
         self._stack.setCurrentWidget(self._view)
-        if self._current:
-            self._current.cleanup()
         self._current = self._running  # keep the tempdir
         self._running = None
 
@@ -189,10 +187,8 @@ class MusicPreviewWidget(QWidget):
     def cleanup(self):
         if self._running:
             self._running.abort()
-            self._running.cleanup()
             self._running = None
         if self._current:
-            self._current.cleanup()
             self._current = None
         if self._showLog:
             self._stack.setCurrentWidget(self._log)

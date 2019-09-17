@@ -33,7 +33,10 @@ import glob
 import os
 import shutil
 
-from PyQt5.QtCore import QSettings, QUrl
+from PyQt5.QtCore import (
+    QSettings,
+    QUrl
+)
 
 import ly.document
 import ly.docinfo
@@ -60,14 +63,12 @@ def parse_d_option(token):
 
 
 def serialize_d_options(d_options, ordered=False):
-    """Compose an (un)ordered list of -d options in their actual
+    """Compose an unordered list of -d options in their actual
     command line syntax."""
-    result = []
-    keys = sorted(d_options.keys()) if ordered else d_options.keys()
-    for key in keys:
-        result.append('-d{}{}'.format(
-            '' if d_options[key] else 'no-', key))
-    return result
+    return ['-d{}{}'.format(
+        '' if d_options[key] else 'no-',
+        key
+    ) for key in d_options.keys()]
 
 
 class LilyPondJob(Job):
@@ -76,9 +77,8 @@ class LilyPondJob(Job):
     In addition to the generic functionality of the job.Job class
     this class performs basic LilyPond-related configuration.
 
-    The job always works on a *LilyPond* document, which is passed to
-    LilyPond as the last command line argument. This is different from
-    the way the generic Job class works.
+    The job always works on a *LilyPond* document, which can be passed
+    as a document.Document instance or as a QUrl.
 
     LilyPond Preferences are used as default values but can be overwritten
     before calling start().
@@ -93,19 +93,25 @@ class LilyPondJob(Job):
     def __init__(self, doc, **kwargs):
         """Create a LilyPond job by first retrieving some context
         from the document and feeding this into job.Job's __init__()."""
+
+        # Determine the general process-related information
         if isinstance(doc, QUrl):
             doc = document.Document(doc)
         self.document = doc
         self.document_info = docinfo = documentinfo.info(doc)
         self.lilypond_info = kwargs.get('info', docinfo.lilypondinfo())
-        self._d_options = kwargs.get('d_options', {})
-        self._backend_args = kwargs.get('backend', [])
         input, self._includepath = docinfo.jobinfo(True)
-        self._includepath.extend(kwargs.get('includepaths', []))
         directory = os.path.dirname(input)
         environment = kwargs.get('environment', {})
         environment['LD_LIBRARY_PATH'] = self.lilypond_info.libdir()
+        title = kwargs.get(
+            'title',
+            '{0} {1} [{2}]'.format(
+                os.path.basename(self.lilypond_info.command),
+                self.lilypond_info.versionString(), doc.documentName()
+            ))
 
+        # initialize the Job basics
         super(LilyPondJob, self).__init__(
                 encoding='utf-8',
                 command=[
@@ -117,8 +123,13 @@ class LilyPondJob(Job):
                 decode_errors='replace',
                 directory=directory,
                 environment=environment,
-                title=kwargs.get('title', ''),
+                title=title,
                 priority=2)
+
+        # Initialize further, LilyPond-specific options from the given arguments
+        self._d_options = kwargs.get('d_options', {})
+        self._backend_args = kwargs.get('backend', [])
+        self._includepath.extend(kwargs.get('includepaths', []))
 
         # Set default values from Preferences
         s = QSettings()
@@ -126,10 +137,7 @@ class LilyPondJob(Job):
         if not self.has_d_option('delete-intermediate-files'):
             self.set_d_option(
                 'delete-intermediate-files',
-                (
-                    self._d_options.get('delete-intermediate-files', None)
-                    or s.value("delete_intermediate_files", True, bool)
-                )
+                s.value("delete_intermediate_files", True, bool)
             )
         self.default_output_target = s.value(
             "default_output_target", "pdf", str)
@@ -141,13 +149,11 @@ class LilyPondJob(Job):
         ):
             self.set_environment('LANG', 'C')
             self.set_environment('LC_ALL', 'C')
-        self.set_title("{0} {1} [{2}]".format(
-            os.path.basename(self.lilypond_info.command),
-            self.lilypond_info.versionString(), doc.documentName()))
 
     def add_include_path(self, path):
         """Manually add an include path to the current job."""
-        self._includepath.append(path)
+        if path:
+            self._includepath.append(path)
 
     def backend_args(self):
         """Determine the target/backend type and produce appropriate args."""
@@ -207,6 +213,9 @@ class LilyPondJob(Job):
         self._cmd_add_input()
 
     def has_d_option(self, k):
+        """
+        Return True if a given -d option is present.
+        """
         return k in self._d_options
 
     def paths(self, includepath):
@@ -217,6 +226,10 @@ class LilyPondJob(Job):
         return ['-I{}'.format(path.rstrip('/') + '/') for path in includepath]
 
     def set_d_option(self, key, value=True):
+        """
+        Set a -d command line option.
+        If None is given the entry is removed from the dictionary.
+        """
         if value is None:
             self._d_options.remove(key)
         else:
@@ -273,54 +286,50 @@ class LayoutControlJob(LilyPondJob):
 
 
 class VolatileTextJob(PublishJob):
-    """Represents a 'volatile' LilyPond Job where the document
-    is only passed in as a string. Internally a document is created
+    """
+    Represents a 'volatile' LilyPond Job where the document
+    is given as a string. Internally a document is created
     in a temporary file, and options set to not use point-and-click.
-    base_dir can be used to add a 'virtual' document Directory
+    Keyword arguments known to LilyPondJob will be passed on, and
+    `base_dir` can be used to add a 'virtual' document Directory
     in order to use relative includes.
     """
-    def __init__(
-        self,
-        text,
-        title=None,
-        base_dir=None):
-        # TODO: ???
-        #       I have the impression this "info" stuff
-        #       is not used at all. And *if* it is used,
-        #       shouldn't it be implemented in LilyPondJob???
-        # Initialize default LilyPond version
-        info = lilypondinfo.preferred()
-        # Optionally infer a suitable LilyPond version from the content
-        if QSettings().value("lilypond_settings/autoversion", True, bool):
-            version = ly.docinfo.DocInfo(
-                ly.document.Document(text, 'lilypond')
-            ).version()
-            if version:
-                info = lilypondinfo.suitable(version)
-        # Create temporary (document.Document object and file)
-        self.set_directory(util.tempdir())
-        filename = os.path.join(self.directory(), 'document.ly')
+
+    _target_dir = util.tempdir()
+
+    def __init__(self, text, **kwargs):
+        doc = self.create_document(text, kwargs)
+        super(VolatileTextJob, self).__init__(doc, **kwargs)
+        self.add_include_path(kwargs.get('base_dir', ''))
+        self.set_directory(self.target_dir)
+
+    def _create_document(self, text):
+        """
+        Write the given text to a temporary file
+        and create a document.Document instance.
+        """
+        filename = os.path.join(self.target_dir, self.base_name + '.ly')
         with open(filename, 'wb') as f:
             f.write(text.encode('utf-8'))
         url = QUrl(filename)
         url.setScheme('file')
-        super(VolatileTextJob, self).__init__(url, title=title)
+        return document.Document(url)
 
-        if title:
-            self.set_title(title)
-        if base_dir:
-            self.add_include_path(base_dir)
+    def create_document(self, text, kwargs):
+        """Create a document from the text.
+        kwargs is ignored in this class but not in the
+        CachedPreviewJob subclass."""
+        self.target_dir = self._target_dir
+        self.base_name = 'document'
+        return self._create_document(text)
 
     def resultfiles(self):
         """Returns a list of resulting file(s)"""
         # TODO: Support non-PDF compilation modes
-        return glob.glob(os.path.join(self.directory, '*.pdf'))
-
-    def cleanup(self):
-        shutil.rmtree(self.directory(), ignore_errors=True)
+        return glob.glob(os.path.join(self.directory(), '*.pdf'))
 
 
-class CachedPreviewJob(PublishJob):
+class CachedPreviewJob(VolatileTextJob):
     """Represents a cached example LilyPond Job where the document
     is only passed in as a string. Internally a document is created
     in a cached file, and options set to not use point-and-click.
@@ -334,53 +343,37 @@ class CachedPreviewJob(PublishJob):
     in order to use relative includes from the 'current document'.
     """
 
-    _target_dir = util.tempdir()
+    def __init__(self, text, **kwargs):
+        super(CachedPreviewJob, self).__init__(text, **kwargs)
+        self.done.connect(self.remove_intermediate)
 
-    def __init__(
-        self, text, target_dir=None, title=None, base_dir=None
-    ):
+    def create_document(self, text, kwargs):
+        """Create a document and determine the need for recompilation
+        Generate a filename by a full hash of the input file (without
+        includes) and test if the corresponding PDF file already exists.
+        """
         import hashlib
         md = hashlib.md5()
         md.update(text.encode('utf-8'))
-        self.hash_name = md.hexdigest()
-        self.base_name = self.hash_name + '.ly'
-        self.target_dir = target_dir or self._target_dir
-        filename = os.path.join(self.target_dir, self.base_name)
-        if os.path.exists(os.path.join(
-            self.target_dir,
-            self.hash_name + '.pdf')
-        ):
-            self._needs_compilation = False
+        self.base_name = md.hexdigest()
+        self.target_dir = kwargs.get('target_dir', self._target_dir)
+        self._needs_compilation = not os.path.exists(
+            os.path.join(self.target_dir, self.base_name + '.pdf')
+        )
+        if self.needs_compilation:
+            return self._create_document(text)
         else:
-            with open(filename, 'wb') as f:
-                f.write(text.encode('utf-8'))
-            self._needs_compilation = True
-        url = QUrl(filename)
-        url.setScheme('file')
-        super(CachedPreviewJob, self).__init__(url, title=title)
-        self.done.connect(self.remove_intermediate)
-
-        if title:
-            self.set_title(title)
-        if base_dir:
-            self.add_include_path(base_dir)
-
-    def cleanup(self):
-        """Do *not* remove the generated files."""
-        pass
-
-    def needs_compilation(self):
-        return self._needs_compilation
+            return document.Document()
 
     def remove_intermediate(self):
         """Remove all files from the compilation except
         the (main) .pdf and the .ly files."""
         dir = self.target_dir
         files = os.listdir(dir)
-        hash_name = self.hash_name
-        keep = [hash_name + '.ly', hash_name + '.pdf']
+        base_name = self.base_name
+        keep = [base_name + '.ly', base_name + '.pdf']
         for f in files:
-            if f.startswith(hash_name) and f not in keep:
+            if f.startswith(base_name) and f not in keep:
                 os.remove(os.path.join(dir, f))
 
     def resultfiles(self):
@@ -390,8 +383,7 @@ class CachedPreviewJob(PublishJob):
         lilypond-book-preamble to clutter the preview.
         """
         # TODO: Support non-PDF compilation modes
-        output_name, _ = os.path.splitext(self.base_name)
-        resultfile = os.path.join(self.directory(), output_name + '.pdf')
+        resultfile = os.path.join(self.directory(), self.base_name + '.pdf')
         if os.path.exists(resultfile):
             return [resultfile]
         else:
@@ -399,7 +391,7 @@ class CachedPreviewJob(PublishJob):
 
     def start(self):
         """Override the Job start, using cached PDF if possible."""
-        if self.needs_compilation():
+        if self.needs_compilation:
             super(CachedPreviewJob, self).start()
         else:
             self.done("cached")
