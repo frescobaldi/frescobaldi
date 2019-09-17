@@ -31,7 +31,7 @@ from . import multipage
 from . import page
 
 
-class DiffPage(multipage.MultiPage):
+class DiffPage(page.ImagePrintPageMixin, multipage.MultiPage):
     """A Page that shows the difference between sub pages.
 
     DiffPage inherits from MultiPage; the pages are to be added in the pages
@@ -63,31 +63,6 @@ class DiffPage(multipage.MultiPage):
                 return p
             page.pages[:] = (p if p else padpage() for p in pages)
             yield page
-
-    def print(self, painter, rect=None, paperColor=None):
-        """Print the sub pages at the correct position."""
-        if rect is None:
-            rect = self.pageRect()
-        else:
-            rect = rect & self.pageRect()
-        # for now, use an image, as compositing seems not work work correctly
-        # when painting to PDF, a printer, or a SVG generator.
-        # Find the rectangle on the Page in page coordinates
-        target = self.mapToPage().rect(rect)
-        # Make an image exactly in the printer's resolution
-        m = painter.transform()
-        r = m.mapRect(rect)       # see where the rect ends up
-        w, h = r.width(), r.height()
-        if m.m11() == 0:
-            w, h = h, w     # swap if rotation & 1  :-)
-        # now we know the scale from our dpi to the paintdevice's logicalDpi!
-        hscale = w / rect.width()
-        vscale = h / rect.height()
-        dpiX = self.dpi * hscale
-        dpiY = self.dpi * vscale
-        image = self.image(target, dpiX, dpiY, paperColor)
-        painter.translate(-rect.topLeft())
-        painter.drawImage(rect, image)
 
 
 class DiffRenderer(multipage.MultiPageRenderer):
