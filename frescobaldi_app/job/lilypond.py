@@ -86,7 +86,7 @@ class LilyPondJob(Job):
     Code using the LilyPondJob class or its descendants doesn't explicitly
     deal with the 'command' list. Instead properties are set and options
     added from which the command line is implicitly composed in
-    configure_command().
+    _configure_command().
 
     """
 
@@ -197,7 +197,7 @@ class LilyPondJob(Job):
         """
         self._command.extend(self.paths(self._includepath))
 
-    def configure_command(self):
+    def _configure_command(self):
         """Compose the command line for a LilyPond job using all options.
         Individual steps may be overridden in subclasses."""
         self._cmd_add_d_options()
