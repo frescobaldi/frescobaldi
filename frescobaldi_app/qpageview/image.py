@@ -49,8 +49,23 @@ class ImageContainer:
             reader = QImageReader(self.source)
             reader.setAutoTransform(self.autoTransform)
             if clip:
-                # TODO: really only load the clip, obeying the transformation...
-                return reader.read().copy(clip)
+                size = reader.size()
+                transf = reader.transformation()
+                m = QTransform()
+                m.translate(size.width() / 2, size.height() / 2)
+                if transf & 1:
+                    # horizontal mirror
+                    m.scale(-1, 1)
+                if transf & 2:
+                    # vertical mirror
+                    m.scale(1, -1)
+                if transf & 4:
+                    # rotate 90
+                    m.rotate(-90)
+                    m.translate(size.height() / -2, size.width() / -2)
+                else:
+                    m.translate(size.width() / -2, size.height() / -2)
+                reader.setClipRect(m.mapRect(clip))
             return reader.read()
 
 
