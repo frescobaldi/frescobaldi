@@ -62,6 +62,11 @@ class Log(QTextBrowser):
             self.write(msg, type)
         j.output.connect(self.write)
 
+    def disconnectJob(self, j):
+        """Disconnects from an aborted job
+        (to avoid calling into a destroyed log widget)."""
+        j.output.disconnect(self.write)
+
     def textFormat(self, type):
         """Returns a QTextFormat() for the given type."""
         return self._formats[type]

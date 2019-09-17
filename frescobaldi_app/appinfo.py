@@ -25,7 +25,7 @@ Information about the Frescobaldi application.
 
 # these variables are also used by the distutils setup
 name = "frescobaldi"
-version = "3.0.0"
+version = "3.0.1-git"
 extension_api = "0.9.0"
 description = "LilyPond Music Editor"
 long_description = \

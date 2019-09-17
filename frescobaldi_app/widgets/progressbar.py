@@ -27,12 +27,40 @@ from PyQt5.QtWidgets import QProgressBar
 
 class TimedProgressBar(QProgressBar):
     """A QProgressBar showing a certain time elapse."""
-    hideOnTimeout = True
-    def __init__(self, parent=None):
+
+    def __init__(
+        self,
+        parent=None,
+        hideWhileIdle=True,
+        hidden=False,
+        showFinished=3000
+    ):
         super(TimedProgressBar, self).__init__(parent, minimum=0, maximum=100)
-        self._timeline = QTimeLine(updateInterval=100, frameChanged=self.setValue)
+        self._hideWhileIdle = hideWhileIdle
+        self._hidden = hidden
+        self._showFinished = showFinished
+        self._timeline = QTimeLine(
+            updateInterval=100, frameChanged=self.setValue
+        )
         self._timeline.setFrameRange(0, 100)
-        self._hideTimer = QTimer(timeout=self._done, singleShot=True, interval=3000)
+        self._hideTimer = QTimer(
+            timeout=self._done,
+            singleShot=True,
+            interval=showFinished
+        )
+        if not hidden and not hideWhileIdle:
+            self.show()
+
+    def setHidden(self, state):
+        self._hidden = state
+        self._done()
+
+    def setHideWhileIdle(self, state):
+        self._hideWhileIdle = state
+        self._done()
+
+    def setShowFinished(self, state):
+        self._showFinished = state
 
     def start(self, total, elapsed=0.0):
         """Starts showing progress.
@@ -47,10 +75,10 @@ class TimedProgressBar(QProgressBar):
         self._timeline.setCurrentTime(elapsed * 1000)
         self.setValue(self._timeline.currentFrame())
         self._timeline.resume()
-        if self.hideOnTimeout:
+        if self._hideWhileIdle and not self._hidden:
             self.show()
 
-    def stop(self, showFinished=True):
+    def stop(self):
         """Ends the progress display.
 
         If showFinished is True (the default), 100% is shown for a few
@@ -60,14 +88,13 @@ class TimedProgressBar(QProgressBar):
         """
         self._hideTimer.stop()
         self._timeline.stop()
-        if showFinished:
+        if self._showFinished and self._hideWhileIdle and not self._hidden:
             self.setValue(100)
             self._hideTimer.start()
         else:
             self._done()
 
     def _done(self):
-        if self.hideOnTimeout:
+        if self._hideWhileIdle and not self._hidden:
             self.hide()
         self.reset()
-
