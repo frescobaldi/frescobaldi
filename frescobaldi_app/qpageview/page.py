@@ -502,8 +502,8 @@ class BlankPage(AbstractPage):
         if rect is None:
             rect = self.pageRect()
         else:
-            rect = rect * self.pageRect()
-        painter.fillRect(rect, self.paperColor or Qt.white)
+            rect = rect & self.pageRect()
+        painter.fillRect(rect, paperColor or Qt.white)
 
     def image(self, rect=None, dpiX=None, dpiY=None, paperColor=None):
         """Return a blank image."""
