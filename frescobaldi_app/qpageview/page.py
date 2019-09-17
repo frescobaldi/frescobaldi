@@ -521,3 +521,34 @@ class BlankPage(AbstractPage):
         return image
 
 
+class ImagePrintPageMixin:
+    """A Page mixin that implements print() using the image() method.
+
+    This can be used e.g. for compositing pages, which does not work well
+    when painting to a PDF, a printer or a SVG generator.
+
+    """
+    def print(self, painter, rect=None, paperColor=None):
+        """Print using the image() method."""
+        if rect is None:
+            rect = self.pageRect()
+        else:
+            rect = rect & self.pageRect()
+        # Find the rectangle on the Page in page coordinates
+        target = self.mapToPage().rect(rect)
+        # Make an image exactly in the printer's resolution
+        m = painter.transform()
+        r = m.mapRect(rect)       # see where the rect ends up
+        w, h = r.width(), r.height()
+        if m.m11() == 0:
+            w, h = h, w     # swap if rotation & 1  :-)
+        # now we know the scale from our dpi to the paintdevice's logicalDpi!
+        hscale = w / rect.width()
+        vscale = h / rect.height()
+        dpiX = self.dpi * hscale
+        dpiY = self.dpi * vscale
+        image = self.image(target, dpiX, dpiY, paperColor)
+        painter.translate(-rect.topLeft())
+        painter.drawImage(rect, image)
+
+
