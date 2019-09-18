@@ -40,6 +40,7 @@ _prefsindex = 0 # global setting for selected prefs page but not saved on exit
 def pageorder():
     """Yields the page item classes in order."""
     yield General
+    yield Multicore
     yield LilyPond
     yield Midi
     yield Helpers
@@ -176,6 +177,17 @@ class General(PrefsItemBase):
     def widget(self, dlg):
         from . import general
         return general.GeneralPrefs(dlg)
+
+
+class Multicore(PrefsItemBase):
+    help = "prefs_multicore"
+    iconName = "preferences-other"
+    def translateUI(self):
+        self.setText(_("Multicore Support"))
+
+    def widget(self, dlg):
+        from . import multicore
+        return multicore.Multicore(dlg)
 
 
 class LilyPond(PrefsItemBase):

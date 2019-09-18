@@ -26,7 +26,10 @@ The global things in Frescobaldi.
 import os
 import sys
 
-from PyQt5.QtCore import QSettings, QThread
+from PyQt5.QtCore import (
+    QSettings,
+    QThread
+)
 from PyQt5.QtWidgets import QApplication
 
 import appinfo
@@ -58,6 +61,39 @@ sessionChanged = Signal()       # (name)
 saveSessionData = Signal()      # (name)
 jobStarted = Signal()           # (Document, Job)
 jobFinished = Signal()          # (Document, Job, bool success)
+
+
+# Number of phyiscally available CPU cores (if determined)
+_cores = QThread().idealThreadCount()
+if _cores == -1:
+    _cores = None
+
+def max_cores(fallback=True):
+    """
+    Return the number of physically available CPU cores.
+    If fallback=True (and the number can't be determined)
+    return a fallback of 16.
+    """
+    return _cores or (fallback and 16)
+
+def default_cores():
+    """
+    Return a default value for available cores
+    that is used in several places as long as the
+    user hasn't stored the max cores explictly.
+    """
+    return max(max_cores() - 1, 1)
+
+_available_cores = None
+
+def available_cores():
+    """
+    Return the number of requested runners for Frescobaldi.
+    """
+    if not _available_cores:
+        s = settings('multicore')
+        return s.value('num-cores', default_cores(), int)
+    return _available_cores
 
 
 def activeWindow():

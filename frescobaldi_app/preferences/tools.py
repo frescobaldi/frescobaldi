@@ -97,6 +97,7 @@ class LogTool(preferences.Group):
         self.showJobInfo.setText(_("Show detailed job info"))
         self.showJobInfo.setToolTip(_(
             "If checked the full command and additional\n"
+            "If checked the full command and additional\n"
             "information about the job and the job queue\n"
             "is given at the beginning of the log."
         ))

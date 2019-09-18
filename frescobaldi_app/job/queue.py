@@ -18,7 +18,10 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-A (multithreaded) Job queue
+A (multithreaded) Job queue.
+
+This module manages the resources spent on external processes
+within Frescobaldi.
 """
 
 from enum import Enum
@@ -26,8 +29,7 @@ import collections
 import time
 
 from PyQt5.QtCore import (
-    QObject,
-    QThread
+    QObject
 )
 
 import app
@@ -56,11 +58,9 @@ class Runner(QObject):
     in the queue.
     """
 
-    def __init__(self, queue, index=None):
+    def __init__(self, queue, index):
         super(Runner, self).__init__(queue)
-        self._index = (
-            index if index is not None else queue.children().index(self)
-        )
+        self._index = index
         self._job = None
         self._completed = 0
 
@@ -89,7 +89,7 @@ class Runner(QObject):
             self._completed += 1
         job, self._job = self._job, None
         job.set_runner(None)
-        self.parent().job_completed(self, job)
+        job.queue().job_completed(self, job)
 
     def start(self, j, force=False):
         """Start a given job.
@@ -111,8 +111,6 @@ class Runner(QObject):
         j.set_runner(self)
         j.done.connect(self.job_done)
         j._start()
-        # Reset queue information (in case the job may be re-started later)
-        j.set_queue(self.parent().name())
 
 
 class AbstractQueue(QObject):
@@ -302,8 +300,8 @@ class JobQueue(QObject):
         title='',
         queue_class=Queue,
         queue_mode=QueueMode.CONTINUOUS,
-        num_runners=1,
-        tick_interval=1000,
+        runners=[],
+        max_shared=False,
         capacity=None
     ):
         super(JobQueue, self).__init__(parent)
@@ -316,7 +314,7 @@ class JobQueue(QObject):
         self._completed = 0
         self._queue = queue_class()
         self._capacity = capacity
-        self._runners = [Runner(self, i) for i in range(num_runners)]
+        self._runners = runners
 
         if queue_mode == QueueMode.CONTINUOUS:
             self.start()
@@ -561,22 +559,16 @@ class GlobalJobQueue(QObject):
     and subordinate queues.
     """
 
-    num_cores = QThread().idealThreadCount()
+    def __init__(self, parent=None):
+        super(GlobalJobQueue, self). __init__(parent)
 
-    def __init__(self):
-        super(GlobalJobQueue, self).__init__()
-        self._queues = {
-            'crawl': JobQueue(self, title=_('Background Crawler')),
-            'engrave': JobQueue(
-                self,
-                title=_('Engraver Queue'),
-                # TODO: This is a first shot, the overall resource
-                # distribution has to be considered.
-                num_runners=GlobalJobQueue.num_cores - 1
-            ),
-            'generic': JobQueue(self, title=_('Generic Queue'))
-        }
+        # Create the globally available runners
+        self._runners = [Runner(self, i) for i in range(app.available_cores())]
+        # assign all runners to the pool of shared runners
+        self._shared_runners = [r for r in self._runners]
+
         self.load_settings()
+        self._create_queues()
         app.settingsChanged.connect(self.settings_changed)
         app.aboutToQuit.connect(self.about_to_quit)
 
@@ -585,21 +577,105 @@ class GlobalJobQueue(QObject):
         # - is any queue active?
         # - should jobs be aborted?
         # - or only the queues be emptied?
-        # - _crawer can always be aborted immediately
+        # - _crawler can always be aborted immediately
         pass
 
     def add_job(self, j, target='engrave'):
-        """Add a job to the specified job queue."""
-        target_queue = self._queues.get(target, None)
-        if not target_queue:
-            raise ValueError(_("Invalid job queue target: {}".format(target)))
+        """
+        Add a job to the specified job queue.
+        """
+        target_queue = self.queue(target)
         target_queue.add_job(j)
+
+    def available_cores(self):
+        """
+        Returns the number of cores that are available
+        within Frescobaldi.
+        """
+        return len(self._runners)
+
+    def available_shared(self):
+        """
+        Returns the number of shared runners.
+        Must not get below 1.
+        """
+        return len(self._shared_runners)
+
+    def create_queue(self, name, title, dedicated=0, max_shared=False):
+        """Create a new queue.
+
+        TODO: This is totally preliminary while the resource sharing
+        has to be thought through:
+        - handling of shared runners must be dealt with in the queue
+        - it should be possible to change the behaviour at runtime:
+          a build tool might reserve a number of runners for a specific
+          run and give them back afterwards.
+
+        """
+
+        if name in self._queues:
+            raise Exception("Queue of that name already exists.")
+        elif self.available_shared() - dedicated < 1:
+            raise Exception("Can't assign so many dedicated runners")
+        self._queues[name] = JobQueue(
+            self,
+            title=title,
+            # This is preliminary!!! (manually share remaining runners)
+            # max_shared hasn't properly been implemented in JobQueue
+            runners=(
+                [self._runners.pop() for i in range(dedicated)]
+                + [r for r in self._runners]
+            ),
+            max_shared=max_shared
+        )
+
+    def _create_queues(self):
+        """Create the initial main queues.
+
+        Frescobaldi itself maintains three queues:
+        - 'engrave' (mainly for engraving jobs)
+        - 'generic' (for arbitrary jobs like imports or previews)
+        - 'crawler' (for background jobs)
+        Additional queues may be created by extensions.
+
+        - Has to use the settings
+
+        """
+
+        # TODO: This is an initial implementation where all three
+        # JobQueue objects share all available Runner instances.
+        # For thoughts about the distribution see the class comment in
+        # preferences.multicore.Queues
+
+        self._queues = {}
+        self.create_queue(
+            'engrave',
+            _('Engraver Queue'),
+            dedicated=0,
+            max_shared=False
+        )
+        self.create_queue(
+            'generic',
+            _('Generic Queue'),
+            dedicated=0,
+            max_shared=False
+        )
+        self.create_queue(
+            'crawl',
+            _('Background Crawler'),
+            dedicated=0,
+            max_shared=False
+        )
 
     def load_settings(self):
         # TODO: Load settings and create the JobQueues accordingly
         pass
 
     def queue(self, name):
+        """
+        Return a JobQueue of the given name.
+        Raises an exception if no such queue exists.
+        """
         try:
             return self._queues[name]
         except:
@@ -611,5 +687,16 @@ class GlobalJobQueue(QObject):
             )
 
     def settings_changed(self):
-        # TODO: If multicore-related settings have changed update the queues
-        pass
+        """Called when the application settings have been changed.
+
+        We can't handle a changed number of runners at runtime
+        and have to require a restart in that case.
+
+        """
+        s = app.settings('multicore')
+        new_cores = s.value('num-cores', app.default_cores(), int)
+        if new_cores != self.available_cores():
+            from widgets.restartmessage import suggest_restart
+            suggest_restart(_(
+                "The number of requested CPU cores has been changed. "
+            ))
