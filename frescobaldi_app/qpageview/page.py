@@ -316,7 +316,11 @@ class AbstractPage(util.Rectangular):
                     ps.setOutputFileName(filename)
                 else:
                     ps.setOutputDevice(filename)
-                #ps.setPSOptions(ps.Printing | ps.StrictMargins | ps.PrintToEPS)
+                try:
+                    ps.setPSOptions(ps.PSOption(ps.Printing | ps.StrictMargins))
+                    ps.setPSOptions(ps.PSOption(ps.Printing | ps.StrictMargins | ps.PrintToEPS))
+                except AttributeError:
+                    pass
                 ps.setVDPI(resolution)
                 ps.setHDPI(resolution)
                 return ps.convert()
