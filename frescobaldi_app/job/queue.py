@@ -113,14 +113,29 @@ class Runner(QObject):
         j._start()
 
 
+class QueueException(Exception):
+    """Base class for queue-related exceptions."""
+    pass
+
+
+class QueueFullException(QueueException):
+    """Raised when trying to push to a full queue."""
+    pass
+
+
 class AbstractQueue(QObject):
     """Common interface for the different queue types used in the JobQueue.
     The various queue classes are very lightweight wrappers around the
     corresponding concepts and base objects, with the only reason to
     provide a transparent interface for used in JobQueue."""
 
-    def __init__(self, job_queue=None):
+    def __init__(
+        self,
+        job_queue=None,
+        capacity=None
+    ):
         super(AbstractQueue, self).__init__(job_queue)
+        self._capacity = capacity
 
     def clear(self):
         """Remove all entries from the queue."""
@@ -130,14 +145,30 @@ class AbstractQueue(QObject):
         """Return True if there are no queued items."""
         return self.length() == 0
 
+    def full(self):
+        """Return True if the capacity - if set - is complete."""
+        return (
+            self._capacity is not None
+            and self.length() >= self._capacity
+        )
+
     def length(self):
         """Return the length of the queue. Only has to be overridden
         when the data structure doesn't support len()."""
         return len(self._queue)
 
-    def push(self, j):
-        """Add a job to the queue."""
+    def _push(self, j):
         raise NotImplementedError
+
+    def push(self, j):
+        """Add a job to the queue.
+
+        Tests if the queue is full and calls self._push().
+        Override _push() in subclasses.
+        """
+        if self.full():
+            raise QueueFullException(_("Trying to add item to full queue"))
+        self._push(j)
 
     def pop(self):
         """Remove and return the next job."""
@@ -147,8 +178,12 @@ class AbstractQueue(QObject):
 class AbstractStackQueue(AbstractQueue):
     """Common ancestor for LIFO and FIFO queues"""
 
-    def __init__(self, job_queue=None):
-        super(AbstractStackQueue, self).__init__(job_queue)
+    def __init__(
+        self,
+        job_queue=None,
+        capacity=None
+        ):
+        super(AbstractStackQueue, self).__init__(job_queue, capacity)
         self._queue = collections.deque()
 
     def clear(self):
@@ -162,14 +197,14 @@ class AbstractStackQueue(AbstractQueue):
 class Queue(AbstractStackQueue):
     """First-in-first-out queue (default operation)."""
 
-    def push(self, j):
+    def _push(self, j):
         self._queue.appendleft(j)
 
 
 class Stack(AbstractStackQueue):
     """Last-in-first-out queue, or stack."""
 
-    def push(self, j):
+    def _push(self, j):
         self._queue.append(j)
 
 
@@ -180,8 +215,12 @@ class PriorityQueue(AbstractQueue):
     insert count to determine order of popping jobs. If jobs have the same
     priority they will be served first-in-first-out."""
 
-    def __init__(self, job_queue=None):
-        super(PriorityQueue, self).__init__(job_queue)
+    def __init__(
+        self,
+        job_queue=None,
+        capacity=None
+    ):
+        super(PriorityQueue, self).__init__(job_queue, capacity)
         self._queue = []
         self._insert_count = 0
 
@@ -189,7 +228,7 @@ class PriorityQueue(AbstractQueue):
         """Remove all entries from the queue."""
         self._queue = []
 
-    def push(self, j):
+    def _push(self, j):
         """Add a job to the queue. retrieve the priority from the job,
         add an autoincrement value for comparing jobs with identical
         priority."""
@@ -312,8 +351,7 @@ class JobQueue(QObject):
         self._starttime = None
         self._endtime = None
         self._completed = 0
-        self._queue = queue_class()
-        self._capacity = capacity
+        self._queue = queue_class(self, capacity=capacity)
         self._runners = runners
 
         if queue_mode == QueueMode.CONTINUOUS:
@@ -356,6 +394,7 @@ class JobQueue(QObject):
             )
         elif self.state() in [QueueStatus.INACTIVE, QueueStatus.PAUSED]:
             self._queue.push(job)
+            job.set_queue(self)
             self.job_added.emit(job)
         else:
             runner = self.idle_runner()
@@ -384,9 +423,7 @@ class JobQueue(QObject):
 
     def full(self):
         """Returns True if a maximum capacity is set and used."""
-        if not self._capacity:
-            return False
-        return self._queue.length() == self._capacity
+        return self._queue.full()
 
     def is_idle(self):
         """Returns True if all Runners are idle."""
@@ -434,8 +471,7 @@ class JobQueue(QObject):
             if self.queue_mode() == QueueMode.SINGLE:
                 self.queue_finished()
             else:
-                self.set_state(QueueStatus.IDLE)
-                self.idle.emit()
+                self.set_idle()
         self.job_done.emit(job)
 
     def name(self):
@@ -526,7 +562,7 @@ class JobQueue(QObject):
         ):
             raise IndexError(_("Can't start SINGLE-mode empty queue"))
         if self._queue.empty():
-            self.set_state(QueueStatus.IDLE)
+            self.set_idle()
         else:
             self.set_state(QueueStatus.STARTED)
             for runner in self._runners:
