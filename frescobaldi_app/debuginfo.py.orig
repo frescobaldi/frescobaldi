@@ -48,7 +48,7 @@ def app_version():
 
 @_catch_unknown
 def sip_version():
-    import PyQt5.sip
+    import sip
     return sip.SIP_VERSION_STR
 
 @_catch_unknown
