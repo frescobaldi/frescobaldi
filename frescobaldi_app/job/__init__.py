@@ -29,11 +29,15 @@ import time
 
 from PyQt5.QtCore import (
     QCoreApplication,
+    QObject,
     QProcess,
-    QProcessEnvironment
+    QProcessEnvironment,
 )
 
+import app
 import signals
+
+from . import queue
 
 
 # message status:
@@ -61,23 +65,32 @@ def elapsed2str(seconds):
     return '{0:.1f}"'.format(seconds)
 
 
-class Job(object):
+class Job(QObject):
     """Manages a process.
 
     Configure the process through the key=value arguments to __init__
     or later (but before starting the job) through property setters.
 
     Call start() to start the process.
+    By default this will enqueue the job in a JobQueue held by the
+    global job queue. Only if the queue has explicitly been set to None
+    (by set_queue(None) or the `queue` init argument) the job is started
+    immediately.
+    The job queue will either enqueue the job (potentially respecting the
+    `priority` property) or immediately start the job.
+    When actually starting the job several things happen:
     - configure_command() will be called to compose the command to be used.
       By default this will list the command name, arguments, input and output
-      (if present). Subclasses should override the _cmd_add_XXX methods
-      to configure how the slices are composed or the configure_command
-      method for more fundamental changes to the way a command is created.
+      (if present). Subclasses should override
+      - the _cmd_add_XXX methods
+        to configure how the slices are composed or
+      - the configure_command method
+        for more fundamental changes to the way a command is created.
     - The output() signal emits output (stderr or stdout) from the process.
     - The done() signal is always emitted when the process has ended.
     - The history() method returns all status messages and output so far.
 
-    When the process has finished, the error and success attributes are set.
+    When the process has finished, the error() and success() properties are set.
     The success() property is set to True when the process exited normally and
     successful. When the process did not exit normally and successfully, the
     error() property is set to the QProcess.ProcessError value that occurred
@@ -101,31 +114,40 @@ class Job(object):
 
     def __init__(
         self,
+        parent=app.qApp,
         command=[],
-        args=None,
+        args=[],
         directory=None,
         environment={},
-        title="",
+        title=None,
+        show_command_info=None,
         input=None,
         input_file=None,
         output=None,
         output_file=None,
-        priority=1,
-        runner=None,
         decode_errors='strict',
-        encoding='latin1'
+        encoding='latin1',
+        priority=1,
+        queue='generic',
+        no_queue=False
     ):
         """
         The following optional arguments can be pre-set (or specified later):
+        - parent (A QObject)
         - command
           a string list with the command name as its first element,
           optionally followed by arguments
         - args
-          arguments, if not already in the command string list
+          arguments (as string list), if not already in the command string list
         - directory
           the job's working directory
         - environment
           a dictionary with enviroment variables to set/unset (value = None)
+        - title
+        - show_command_info
+          show a message with the full command and job info at the beginning
+          of a log.
+          If set to a boolean this will override the corresponding Preference
         - input
           an input statement as one out of
           - a filename
@@ -137,28 +159,38 @@ class Job(object):
           'input' option (or set to an empty string)
         - output/output_file
           corresponding to the input arguments
-        - priority
-          The priority the job will have if added to a priority job queue
-        - runner
-          A reference to a JobQueue's runner if that instantiates the job
         - decode_errors
           strategy for handling encoding issues in the communication
           with external processes
         - encoding
           encoding of the process' input and output
+        - priority
+          The priority the job will have if added to a priority job queue
+        - queue
+          the name property of a job queue (within app.job_queue()) or None
+          by default jobs are added to the 'generic' queue, the other two
+          predefined queues are 'engrave' and 'crawler'
         """
+        super(Job, self).__init__(parent)
         self._command = command if type(command) == list else [command]
         self.set_input(input)
         self.set_input_file(input_file)
         self.set_output(output)
         self.set_output_file(output_file)
-        self._runner = runner
-        self._arguments = args if args else []
+        self._arguments = args or []
         self._directory = directory
         self._environment = {}
         self._success = None
         self._error = None
-        self._title = ""
+        self._title = title
+        if show_command_info is None:
+            s = app.settings('log')
+            show_command_info = s.value(
+                'show_command_info_on_start', False, bool
+            )
+        self._show_command_info = show_command_info
+        self._runner = None
+        self._queue = queue if not no_queue else None
         self._priority = priority
         self._aborted = False
         self._process = None
@@ -180,7 +212,7 @@ class Job(object):
         Outputs a message that the process has been aborted.
 
         """
-        name = self.title() or os.path.basename(self._command[0])
+        name = self.display_title()
         self._message(_("Aborting {job}...").format(job=name), NEUTRAL)
 
     def _bye(self, success):
@@ -289,6 +321,23 @@ class Job(object):
         self.output(text, type)
         self._history.append((text, type))
 
+    def _queue_message(self, q_title):
+        """Called by set_queue().
+
+        Outputs a message that and where the job has been enqueued
+        (by JobQueue.add_job) if the queue couldn't start it immediately.
+
+        """
+        msg = _(
+            "Job '{j_title}' enqueued in queue "
+            "'{queue}' with priority {priority}."
+        ).format(
+            j_title=self.display_title(),
+            queue=q_title,
+            priority=self.priority()
+        )
+        self._message(msg, NEUTRAL)
+
     def _readstderr(self):
         """(internal) Called when STDERR can be read."""
         output = self._process.readAllStandardError()
@@ -320,13 +369,25 @@ class Job(object):
             self._bye(False)
 
     def _start_message(self):
-        """Called by start().
+        """Called by _start().
 
         Outputs a message that the process has started.
 
         """
-        name = self.title() or os.path.basename(self._command[0])
-        self._message(_("Starting {job}...").format(job=name), NEUTRAL)
+        name = self.display_title()
+        self._message(_("Starting {job}...\n").format(job=name), NEUTRAL)
+        if self._show_command_info:
+            self._message(
+                _(
+                    "Command: {cmd}\n"
+                    "Job Queue (Runner): '{queue}' ({runner})"
+                ).format(
+                    cmd=' '.join(self._command),
+                    queue=self.queue().title(),
+                    runner=self.runner().index()
+                ),
+                NEUTRAL
+            )
 
     def _update_process_environment(self):
         """(internal) initializes the environment for the process."""
@@ -372,6 +433,14 @@ class Job(object):
 
     def set_directory(self, directory):
         self._directory = directory
+
+    def display_title(self):
+        """Title to be displayed in messages.
+
+        If no title is set explicitly, return the command name.
+
+        """
+        return self._title or os.path.basename(self._command[0])
 
     def elapsed_time(self):
         """Return how many seconds this process has been running."""
@@ -461,6 +530,10 @@ class Job(object):
         """Returns True if the job was aborted by calling abort()."""
         return self._aborted
 
+    def is_queued(self):
+        """Returns True if the job is queued but hasn't started."""
+        return isinstance(self._queue, queue.JobQueue)
+
     def is_running(self):
         """Returns True if this job is running."""
         return bool(self._process)
@@ -498,14 +571,37 @@ class Job(object):
         self._priority = value
 
     def runner(self):
-        """Return the Runner object if the job is run within
-        a JobQueue, or None if not."""
+        """
+        Return the Runner object job is run within.
+        Before and after that this will return None.
+        """
         return self._runner
 
     def set_runner(self, runner):
-        """Store a reference to a Runner if the job is run within
-        a JobQueue."""
+        """
+        Store a reference to a Runner if the job is run within
+        a JobQueue.
+        """
         self._runner = runner
+
+    def queue(self):
+        """
+        Return the JobQueue this job has been queued to.
+        Before being added to a queue or after being started
+        this will return None.
+        """
+        if isinstance(self._queue, queue.JobQueue):
+            return self._queue
+
+    def set_queue(self, q):
+        """Set a queue.
+
+        Called by JobQueue.add_job and JobQueue.start.
+
+        """
+        self._queue = q
+        if isinstance(q, queue.JobQueue):
+            self._queue_message(q.title())
 
     def start_time(self):
         """Return the time this job was started.
@@ -537,7 +633,7 @@ class Job(object):
         The title defaults to an empty string.
 
         """
-        return self._title
+        return self._title or ''
 
     def set_title(self, title):
         """Set the title.
@@ -563,9 +659,7 @@ class Job(object):
             else:
                 self._process.terminate()
 
-    def start(self):
-        """Starts the process."""
-        self._configure_command()
+    def _start(self):
         self._success = None
         self._error = None
         self._aborted = False
@@ -581,3 +675,20 @@ class Job(object):
         if self.environment():
             self._update_process_environment()
         self._process.start(self._command[0], self._command[1:])
+
+    def start(self):
+        """Enqueues or starts the process.
+
+        If queue has explicitly been set to None the process
+        is started immediately, otherwise it is enqueued to
+        the corresponding queue.
+
+        """
+
+        self._configure_command()
+        if self._queue is None:
+            self._start()
+            return
+        else:
+            self._queue = app.job_queue().queue(self._queue)
+            self._queue.add_job(self)

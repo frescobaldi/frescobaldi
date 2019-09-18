@@ -535,7 +535,10 @@ class TextFonts(QObject):
         # TODO: Use the global JobQueue
         info = self.lilypond_info
         j = self.job = job.Job(
-            [info.abscommand() or info.command] + ['-dshow-available-fonts'])
+            self,
+            command=(
+                [info.abscommand() or info.command] + ['-dshow-available-fonts']
+            ))
         j.set_title(_("Available Fonts"))
         j.done.connect(self.process_results)
         if log_widget:

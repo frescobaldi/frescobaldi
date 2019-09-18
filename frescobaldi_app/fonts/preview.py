@@ -251,7 +251,6 @@ class FontsPreviewWidget(QWidget):
 
     def show_sample(self):
         """Display a sample document for the selected notation font."""
-        print("Enter show_sample")
         global_size = ''
         base_dir = None
         sample_content = ''
@@ -298,7 +297,6 @@ class FontsPreviewWidget(QWidget):
                     base_dir = os.path.dirname(current_doc.url().toLocalFile())
             else:
                 if target == 1:
-                    print("Custom file:", custom_file)
                     sample_file = custom_file
                 else:
                     # Engrave from a file

@@ -129,7 +129,7 @@ class MusicPreviewWidget(QWidget):
                 base_dir=base_dir,
                 title=title
             )
-            if not self._running.needs_compilation():
+            if not self._running.needs_compilation:
                 self._done(None)
                 return
         else:
@@ -149,7 +149,7 @@ class MusicPreviewWidget(QWidget):
             self._progress.start(self._lastbuildtime)
         if self._showWaiting:
             self._waiting.start()
-        app.job_queue().add_job(j, 'generic')
+        j.start()
 
     def _done(self, success):
         # TODO: Handle failed compilation (= no file to show)

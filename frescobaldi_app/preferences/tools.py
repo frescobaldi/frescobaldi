@@ -79,6 +79,9 @@ class LogTool(preferences.Group):
         self.showlog = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showlog)
 
+        self.showJobInfo = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.showJobInfo)
+
         self.rawview = QCheckBox(toggled=self.changed)
         layout.addWidget(self.rawview)
 
@@ -91,6 +94,12 @@ class LogTool(preferences.Group):
         self.setTitle(_("LilyPond Log"))
         self.fontLabel.setText(_("Font:"))
         self.showlog.setText(_("Show log when a job is started"))
+        self.showJobInfo.setText(_("Show detailed job info"))
+        self.showJobInfo.setToolTip(_(
+            "If checked the full command and additional\n"
+            "information about the job and the job queue\n"
+            "is given at the beginning of the log."
+        ))
         self.rawview.setText(_("Display plain log output"))
         self.rawview.setToolTip(_(
             "If checked, Frescobaldi will not shorten filenames in the log output."""))
@@ -108,6 +117,9 @@ class LogTool(preferences.Group):
             self.fontChooser.setCurrentFont(font)
             self.fontSize.setValue(font.pointSizeF())
         self.showlog.setChecked(s.value("show_on_start", True, bool))
+        self.showJobInfo.setChecked(
+            s.value("show_command_info_on_start", False, bool)
+        )
         self.rawview.setChecked(s.value("rawview", True, bool))
         self.hideauto.setChecked(s.value("hide_auto_engrave", False, bool))
 
@@ -117,6 +129,7 @@ class LogTool(preferences.Group):
         s.setValue("fontfamily", self.fontChooser.currentFont().family())
         s.setValue("fontsize", self.fontSize.value())
         s.setValue("show_on_start", self.showlog.isChecked())
+        s.setValue("show_command_info_on_start", self.showJobInfo.isChecked())
         s.setValue("rawview", self.rawview.isChecked())
         s.setValue("hide_auto_engrave", self.hideauto.isChecked())
 
@@ -341,5 +354,3 @@ def is_regex(text):
     except re.error:
         return False
     return True
-
-

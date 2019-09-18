@@ -25,15 +25,22 @@ from enum import Enum
 import collections
 import time
 
-from PyQt5.QtCore import QObject
+from PyQt5.QtCore import (
+    QObject,
+    QThread
+)
 
 import app
-import signals
+from signals import Signal
 
 
 class RunnerBusyException(Exception):
-    """Raised when a Runner is asked to start a job (without the force=True
-    keyword argument) while having already a running job."""
+    """Runner is busy
+
+    Raised when a Runner is asked to start a job (without the force=True
+    keyword argument) while having already a running job.
+
+    """
     pass
 
 
@@ -49,16 +56,17 @@ class Runner(QObject):
     in the queue.
     """
 
-    def __init__(self, queue, index):
-        super(Runner, self).__init__()
-        self._queue = queue
-        self._index = index
+    def __init__(self, queue, index=None):
+        super(Runner, self).__init__(queue)
+        self._index = (
+            index if index is not None else queue.children().index(self)
+        )
         self._job = None
         self._completed = 0
 
     def abort(self):
         """Aborts a running job if any."""
-        if self._job and self._job.is_running():
+        if self.is_running():
             self._job.abort()
 
     def completed(self):
@@ -70,32 +78,41 @@ class Runner(QObject):
         return self._index
 
     def is_running(self):
-        return self._job and self._job.is_running()
+        return bool(self._job and self._job.is_running())
 
     def job(self):
         return self._job
 
     def job_done(self):
-        """Count job, notify queue, remove reference to Job object."""
-        self._completed += 1
-        job = self._job
-        self._job = None
-        self._queue.job_completed(self, job)
+        """Count job, remove reference to Job object and notify queue."""
+        if self._job.success():
+            self._completed += 1
+        job, self._job = self._job, None
+        job.set_runner(None)
+        self.parent().job_completed(self, job)
 
     def start(self, j, force=False):
         """Start a given job.
         If currently a job is running either abort that
         or raise an exception."""
-        if self._job and self.is_running():
+        if self.is_running():
             if force:
                 self.abort()
             else:
                 raise RunnerBusyException(
-                    _("Job is already running. Wait for completion."))
+                    _(string.format(
+                        "Runner {ind} in Job Queue {q} is already running.\n"
+                        "Job: {title}",
+                        ind=self.index(),
+                        title=self._job.title(),
+                        q=self.parent().title()
+                    )))
         self._job = j
         j.set_runner(self)
         j.done.connect(self.job_done)
-        j.start()
+        j._start()
+        # Reset queue information (in case the job may be re-started later)
+        j.set_queue(self.parent().name())
 
 
 class AbstractQueue(QObject):
@@ -104,8 +121,8 @@ class AbstractQueue(QObject):
     corresponding concepts and base objects, with the only reason to
     provide a transparent interface for used in JobQueue."""
 
-    def __init__(self):
-        super(AbstractQueue, self).__init__()
+    def __init__(self, job_queue=None):
+        super(AbstractQueue, self).__init__(job_queue)
 
     def clear(self):
         """Remove all entries from the queue."""
@@ -132,8 +149,8 @@ class AbstractQueue(QObject):
 class AbstractStackQueue(AbstractQueue):
     """Common ancestor for LIFO and FIFO queues"""
 
-    def __init__(self):
-        super(AbstractStackQueue, self).__init__()
+    def __init__(self, job_queue=None):
+        super(AbstractStackQueue, self).__init__(job_queue)
         self._queue = collections.deque()
 
     def clear(self):
@@ -165,8 +182,8 @@ class PriorityQueue(AbstractQueue):
     insert count to determine order of popping jobs. If jobs have the same
     priority they will be served first-in-first-out."""
 
-    def __init__(self):
-        super(PriorityQueue, self).__init__()
+    def __init__(self, job_queue=None):
+        super(PriorityQueue, self).__init__(job_queue)
         self._queue = []
         self._insert_count = 0
 
@@ -199,6 +216,11 @@ class JobQueueStateException(JobQueueException):
     state of the queue."""
     pass
 
+
+class JobQueueNotFoundException(JobQueueException):
+    """Raised when a non-existent named JobQueue is requested
+    from the global JobQueue."""
+    pass
 
 class QueueStatus(Enum):
     INACTIVE = 0
@@ -258,28 +280,35 @@ class JobQueue(QObject):
     available through the keyword command as well.
     """
 
-    started = signals.Signal()
-    paused = signals.Signal()
-    resumed = signals.Signal()
-    emptied = signals.Signal()  # emitted when last job is popped
-    idle = signals.Signal()  # emitted when waiting for new jobs
-                             # after the last job has been completed
-    finished = signals.Signal()
-    aborted = signals.Signal()
+    started = Signal()
+    paused = Signal()
+    resumed = Signal()
+    emptied = Signal()  # emitted when last job is popped
+    idle = Signal()     # emitted when waiting for new jobs
+                        # after the last job has been completed
+    finished = Signal()
+    aborted = Signal()
     # The following three signals emit the corresponding job as argument.
-    job_added = signals.Signal()
-    job_done = signals.Signal()  # emitted when a job has been completed.
-               # When this is emitted, the queue's state has been
-               # updated (other than with the *job's* signal)
-    job_started = signals.Signal()
+    job_added = Signal()
+    job_done = Signal() # emitted when a job has been completed.
+                        # When this is emitted, the queue's state has been
+                        # updated (other than with the *job's* signal)
+    job_started = Signal()
 
-    def __init__(self,
-                 queue_class=Queue,
-                 queue_mode=QueueMode.CONTINUOUS,
-                 num_runners=1,
-                 tick_interval=1000,
-                 capacity=None):
-        super(JobQueue, self).__init__()
+    def __init__(
+        self,
+        parent=None,
+        name='',
+        title='',
+        queue_class=Queue,
+        queue_mode=QueueMode.CONTINUOUS,
+        num_runners=1,
+        tick_interval=1000,
+        capacity=None
+    ):
+        super(JobQueue, self).__init__(parent)
+        self._name = name
+        self._title = title or name
         self._state = QueueStatus.INACTIVE
         self._queue_mode = queue_mode
         self._starttime = None
@@ -338,6 +367,7 @@ class JobQueue(QObject):
                 self.job_started.emit(job)
             else:
                 self._queue.push(job)
+                job.set_queue(self)
                 self.job_added.emit(job)
             self.set_state(
                 QueueStatus.EMPTY if self._queue.empty()
@@ -409,6 +439,9 @@ class JobQueue(QObject):
                 self.set_state(QueueStatus.IDLE)
                 self.idle.emit()
         self.job_done.emit(job)
+
+    def name(self):
+        return self._name
 
     def pause(self):
         """Pauses the execution of the queue.
@@ -519,22 +552,31 @@ class JobQueue(QObject):
     def state(self):
         return self._state
 
+    def title(self):
+        return self._title
+
 
 class GlobalJobQueue(QObject):
     """The application-wide Job Queue that dispatches jobs to runners
     and subordinate queues.
     """
 
+    num_cores = QThread().idealThreadCount()
+
     def __init__(self):
-        self.load_settings()
-        self._crawler = JobQueue()
-        self._engraver = JobQueue()
-        self._generic = JobQueue()
+        super(GlobalJobQueue, self).__init__()
         self._queues = {
-            'crawl': self._crawler,
-            'engrave': self._engraver,
-            'generic': self._generic
+            'crawl': JobQueue(self, title=_('Background Crawler')),
+            'engrave': JobQueue(
+                self,
+                title=_('Engraver Queue'),
+                # TODO: This is a first shot, the overall resource
+                # distribution has to be considered.
+                num_runners=GlobalJobQueue.num_cores - 1
+            ),
+            'generic': JobQueue(self, title=_('Generic Queue'))
         }
+        self.load_settings()
         app.settingsChanged.connect(self.settings_changed)
         app.aboutToQuit.connect(self.about_to_quit)
 
@@ -556,6 +598,17 @@ class GlobalJobQueue(QObject):
     def load_settings(self):
         # TODO: Load settings and create the JobQueues accordingly
         pass
+
+    def queue(self, name):
+        try:
+            return self._queues[name]
+        except:
+            raise JobQueueNotFoundException(
+                _(
+                    "Requested non-present JobQueue '{name}' "
+                    "from the global JobQueue."
+                ).format(name=name)
+            )
 
     def settings_changed(self):
         # TODO: If multicore-related settings have changed update the queues

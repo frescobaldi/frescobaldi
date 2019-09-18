@@ -111,20 +111,24 @@ class LilyPondJob(Job):
                 self.lilypond_info.versionString(), doc.documentName()
             ))
 
+
         # initialize the Job basics
         super(LilyPondJob, self).__init__(
-                encoding='utf-8',
-                command=[
-                    self.lilypond_info.abscommand()
-                    or self.lilypond_info.command
-                ],
-                args=kwargs.get('args', None),
-                input=input,
-                decode_errors='replace',
-                directory=directory,
-                environment=environment,
-                title=title,
-                priority=2)
+            parent=kwargs.get('parent', None),
+            encoding='utf-8',
+            command=[
+                self.lilypond_info.abscommand()
+                or self.lilypond_info.command
+            ],
+            args=kwargs.get('args', None),
+            input=input,
+            decode_errors='replace',
+            directory=directory,
+            environment=environment,
+            title=title,
+            queue=kwargs.get('queue', 'engrave'),
+            priority=2
+        )
 
         # Initialize further, LilyPond-specific options from the given arguments
         self._d_options = kwargs.get('d_options', {})
@@ -357,7 +361,7 @@ class CachedPreviewJob(VolatileTextJob):
         md.update(text.encode('utf-8'))
         self.base_name = md.hexdigest()
         self.target_dir = kwargs.get('target_dir', self._target_dir)
-        self._needs_compilation = not os.path.exists(
+        self.needs_compilation = not os.path.exists(
             os.path.join(self.target_dir, self.base_name + '.pdf')
         )
         if self.needs_compilation:
