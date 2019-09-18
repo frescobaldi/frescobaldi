@@ -103,7 +103,10 @@ class PopplerPage(page.AbstractRenderedPage):
         The specified Renderer is used, or else the global poppler renderer.
 
         """
-        doc = popplerqt5.Poppler.Document.load(filename)
+        if isinstance(filename, str):
+            doc = popplerqt5.Poppler.Document.load(filename)
+        else:
+            doc = popplerqt5.Poppler.Document.loadFromData(filename)
         return cls.loadPopplerDocument(doc, renderer)
 
     def mutex(self):

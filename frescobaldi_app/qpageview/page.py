@@ -24,7 +24,7 @@ A Page is responsible for drawing a page inside a PageLayout.
 
 import weakref
 
-from PyQt5.QtCore import QPointF, QRect, QRectF, QSizeF, Qt
+from PyQt5.QtCore import QBuffer, QPointF, QRect, QRectF, QSizeF, Qt
 from PyQt5.QtGui import QColor, QImage, QPageSize, QPainter, QPdfWriter, QTransform
 from PyQt5.QtSvg import QSvgGenerator
 
@@ -292,6 +292,35 @@ class AbstractPage(util.Rectangular):
         layout.setPageSize(QPageSize(targetSize * 72.0 / self.dpi, QPageSize.Point))
         pdf.setPageLayout(layout)
         return self.output(pdf, source, paperColor)
+
+    def eps(self, filename, rect=None, resolution=72.0, paperColor=None):
+        """Create a EPS (Encapsulated Postscript) file for the selected rect or the whole page.
+
+        This needs the popplerqt5 module.
+        The filename may be a string or a QIODevice object. The rectangle is
+        relative to our top-left position. Normally vector graphics are
+        rendered, but in cases where that is not possible, the resolution will
+        be used to determine the DPI for the generated rendering.
+
+        """
+        buf = QBuffer()
+        buf.open(QBuffer.WriteOnly)
+        success = self.pdf(buf, rect, resolution, paperColor)
+        buf.close()
+        if success:
+            from . import poppler
+            for pdf in poppler.PopplerPage.load(buf.data()):
+                ps = pdf.document.psConverter()
+                ps.setPageList([pdf.pageNumber+1])
+                if isinstance(filename, str):
+                    ps.setOutputFileName(filename)
+                else:
+                    ps.setOutputDevice(filename)
+                #ps.setPSOptions(ps.Printing | ps.StrictMargins | ps.PrintToEPS)
+                ps.setVDPI(resolution)
+                ps.setHDPI(resolution)
+                return ps.convert()
+        return False
 
     def svg(self, filename, rect=None, resolution=72.0, paperColor=None):
         """Create a SVG file for the selected rect or the whole page.
