@@ -22,10 +22,6 @@ Entry point of Frescobaldi.
 """
 
 
-import sip
-sip.setapi("QString", 2)
-sip.setapi("QVariant", 2)
-
 import os
 import re
 import sys
