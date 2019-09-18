@@ -22,8 +22,6 @@ Entry point of Frescobaldi.
 """
 
 
-import PyQt5.sip as sip
-
 import os
 import re
 import sys

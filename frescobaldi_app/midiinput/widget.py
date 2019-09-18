@@ -51,6 +51,9 @@ class Widget(QWidget):
         self._relativemode = QCheckBox()
         signals.append(self._relativemode.clicked)
 
+        self._repitchmode = QCheckBox()
+        signals.append(self._repitchmode.clicked)
+
         self._labeldamper = QLabel()
         self._damper = QComboBox()
 
@@ -82,6 +85,7 @@ class Widget(QWidget):
         grid.addWidget(self._groupaccidentals, 2, 1)
         grid.addWidget(self._chordmode, 3, 0)
         grid.addWidget(self._relativemode, 3, 1)
+        grid.addWidget(self._repitchmode, 3, 2)
         grid.addWidget(self._labeldamper, 4, 0)
         grid.addWidget(self._damper, 4, 1)
         grid.addWidget(self._labelsostenuto, 5, 0)
@@ -121,6 +125,9 @@ class Widget(QWidget):
     def relativemode(self):
         return self._relativemode.isChecked()
 
+    def repitchmode(self):
+        return self._repitchmode.isChecked()
+
     def startcapturing(self):
         self._midiin.capture()
         ac = self.parentWidget().actionCollection
@@ -152,7 +159,8 @@ class Widget(QWidget):
             s.setValue("accidentals", 'sharps')
         s.setValue("chordmode", self._chordmode.isChecked())
         s.setValue("relativemode", self._relativemode.isChecked())
-
+        s.setValue("repitchmode", self._repitchmode.isChecked())
+    
     def loadsettings(self):
         s = QSettings()
         s.beginGroup("midiinputdock")
@@ -164,6 +172,7 @@ class Widget(QWidget):
             self._accidentalssharps.setChecked(True)
         self._chordmode.setChecked(s.value("chordmode", False, bool))
         self._relativemode.setChecked(s.value("relativemode", False, bool))
+        self._repitchmode.setChecked(s.value("repitchmode", False, bool))
 
     def translateUI(self):
         self._labelmidichannel.setText(_("MIDI channel"))
@@ -207,6 +216,13 @@ class Widget(QWidget):
             "Enter octaves of notes relative to the last note. "
             "This refers to the last key pressed on the MIDI keyboard, not the last note in the document."
             "Hold Shift with a note to enter an octave check."))
+        self._repitchmode.setText(_("Re-pitch mode"))
+        self._repitchmode.setToolTip(_(
+            "Enter notes keeping existing durations. "
+            "See \"What's This\" for more information."))
+        self._repitchmode.setWhatsThis(_(
+            "Enter notes keeping existing durations. "
+            "Replaces notes in existing piece of music keeping rests and durations untouched."))
         self._labeldamper.setText(_("Damper pedal"))
         self._labelsostenuto.setText(_("Sostenuto pedal"))
         self._labelsoft.setText(_("Soft pedal"))
