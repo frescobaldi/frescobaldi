@@ -23,8 +23,6 @@ Entry point of Frescobaldi.
 
 
 import PyQt5.sip as sip
-sip.setapi("QString", 2)
-sip.setapi("QVariant", 2)
 
 import os
 import re
