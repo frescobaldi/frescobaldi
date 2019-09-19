@@ -808,9 +808,10 @@ class Extensions(QObject):
                 m = re.match('(.*){sep}.*'.format(sep=os.sep), tail)
                 extension = m.groups()[0]
                 infos = self.infos(extension)
-                return (infos['extension-name'],
-                        infos['maintainers'][0],
-                        extension)
+                if infos:
+                    return (infos['extension-name'],
+                            infos['maintainers'][0],
+                            extension)
 
     def load_settings(self):
         """Load application-wide settings relating to extensions."""
