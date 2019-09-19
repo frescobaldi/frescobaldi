@@ -122,26 +122,14 @@ class Magnifier(QWidget):
         """Called on resize, sets our circular mask."""
         self.setMask(QRegion(self.rect(), QRegion.Ellipse))
 
-    def eventFilter(self, obj, ev):
-        """Handles multiple events from the viewport and the scrollarea.
+    def moveEvent(self, ev):
+        """Called on move, updates the contents."""
+        # we also update on paint events, but they are not generated if the 
+        # magnifiers fully covers the viewport
+        self.update()
 
-        * update on View scroll
-        * show the magnifier on left click+modifier
-
-        """
-        if obj is self.parent():
-            return self.handleViewportEvent(obj, ev)
-        else:
-            return self.handleViewEvent(obj, ev)
-    
-    def handleViewEvent(self, view, ev):
-        """Called by eventFilter() to handle events on the View."""
-        if ev.type() == QEvent.UpdateRequest:
-            self.update()
-        return False
-    
-    def handleViewportEvent(self, viewport, ev):
-        """Called by eventFilter() to handle events on the viewport of the View."""
+    def eventFilter(self, viewport, ev):
+        """Handle events on the viewport of the View."""
         view = viewport.parent()
         if not self.isVisible():
             if (ev.type() == QEvent.MouseButtonPress and
@@ -154,6 +142,9 @@ class Magnifier(QWidget):
                 self.show()
                 viewport.setCursor(Qt.BlankCursor)
                 return True
+        elif ev.type() == QEvent.Paint:
+            # if the viewport is painted, also update
+            self.update()
         elif self._dragging == DRAG_SHORT:
             if ev.type() == QEvent.MouseButtonPress:
                 if ev.button() == self.resizebutton:

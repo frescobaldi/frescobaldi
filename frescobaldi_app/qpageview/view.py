@@ -465,13 +465,11 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         """
         if self._magnifier:
             self.viewport().removeEventFilter(self._magnifier)
-            self.removeEventFilter(self._magnifier)
             self._magnifier.setParent(None)
         self._magnifier = magnifier
         if magnifier:
             magnifier.setParent(self.viewport())
             self.viewport().installEventFilter(magnifier)
-            self.installEventFilter(magnifier)
 
     def magnifier(self):
         """Returns the currently set magnifier."""
