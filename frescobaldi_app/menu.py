@@ -47,6 +47,7 @@ import matcher
 import file_import
 import file_export
 import browseriface
+import fonts
 
 
 # postpone translation
@@ -273,8 +274,6 @@ def menu_lilypond(mainwindow):
     m.addAction(ac.engrave_abort)
     m.addSeparator()
     m.addMenu(menu_lilypond_generated_files(mainwindow))
-    m.addSeparator()
-    m.addAction(ac.engrave_show_available_fonts)
     return m
 
 
@@ -291,6 +290,8 @@ def menu_tools(mainwindow):
     m.addSeparator()
     m.addMenu(menu_tools_format(mainwindow))
     m.addMenu(menu_tools_transform(mainwindow))
+    fac = fonts.fonts(mainwindow).actionCollection
+    m.addAction(fac.fonts_document_fonts)
     dac = documentactions.get(mainwindow).actionCollection
     m.addAction(dac.tools_convert_ly)
     m.addSeparator()

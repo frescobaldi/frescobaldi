@@ -1012,7 +1012,7 @@ msgstr "Nowe &okno"
 
 #: ../mainwindow.py:1245
 msgid "&Fullscreen"
-msgstr "Pełen &ekran"
+msgstr "Pełny &ekran"
 
 #: ../mainwindow.py:1247
 msgid "&User Guide"
@@ -1218,7 +1218,7 @@ msgstr "&Następne okno"
 
 #: ../viewmanager.py:444
 msgid "&Previous View"
-msgstr "&Poprzedni okno"
+msgstr "&Poprzednie okno"
 
 #: ../autocomplete/__init__.py:79
 msgid "Automatic &Completion"

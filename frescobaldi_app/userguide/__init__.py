@@ -66,4 +66,3 @@ def html(name):
     """Return the HTML body for the named help page."""
     from . import page
     return page.Page(name).body()
-

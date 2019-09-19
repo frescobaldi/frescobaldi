@@ -13,6 +13,9 @@ TODO:
   dynamic input
 """
 
+import re
+from PyQt5.QtGui import QTextCursor
+
 import time
 import weakref
 
@@ -94,24 +97,53 @@ class MidiIn(object):
                     self._chord.add(note)
                     self._activenotes += 1
                 else:
-                    self.printwithspace(note.output(self.widget().relativemode(), self._language))
+                    self.print_or_replace(note.output(self.widget().relativemode(), self._language))
             elif (notetype == 8 or (notetype == 9 and value == 0)) and self.widget().chordmode():
                 self._activenotes -= 1
                 if self._activenotes <= 0:    # activenotes could get negative under strange conditions
                     if self._chord:
-                        self.printwithspace(self._chord.output(self.widget().relativemode(), self._language))
+                        self.print_or_replace(self._chord.output(self.widget().relativemode(), self._language))
                     self._activenotes = 0    # reset in case it was negative
                     self._chord = None
 
-    def printwithspace(self, text):
-        cursor = self.widget().mainwindow().textCursor()
-        # check if there is a space before cursor or beginning of line
-        posinblock = cursor.position() - cursor.block().position()
-        charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
-        if charbeforecursor.isspace() or cursor.atBlockStart():
-            cursor.insertText(text)
+    def print_or_replace(self, text):
+
+        view = self.widget().mainwindow()
+        cursor = view.textCursor()
+
+        if self.widget().repitchmode():
+
+              music = cursor.document().toPlainText()[cursor.position() : ]
+
+              ly_reg_expr = r'(?<![a-zA-Z#_^\-\\])[a-ps-zA-PS-Z]{1,3}(?![a-zA-Z])[\'\,]*'\
+                           '|'\
+                           r'(?<![<\\])<[^<>]*>(?!>)'
+
+              notes = re.search(ly_reg_expr,music)
+              if notes != None :
+                    start = cursor.position() + notes.start()
+                    end = cursor.position() + notes.end()
+
+                    cursor.beginEditBlock()
+                    cursor.setPosition(start)
+                    cursor.setPosition(end, QTextCursor.KeepAnchor)
+                    cursor.insertText(text)
+                    cursor.endEditBlock()
+
+                    view.setTextCursor(cursor)
+
         else:
-            cursor.insertText(' ' +  text)
+              # check if there is a space before cursor or beginning of line
+              posinblock = cursor.position() - cursor.block().position()
+              charbeforecursor = cursor.block().text()[posinblock-1:posinblock]
+
+              if charbeforecursor.isspace() or cursor.atBlockStart():
+                   cursor.insertText(text)
+              else:
+                   cursor.insertText(' ' +  text)
+
+
+
 
 class Listener(QThread):
     NoteEventSignal = pyqtSignal(midifile.event.NoteEvent)
