@@ -46,13 +46,13 @@ class Magnifier(qpageview.magnifier.Magnifier):
         size = s.value("size", 350, int)
         if self.MIN_SIZE <= size <= self.MAX_SIZE:
             self.resize(size, size)
-        scale = s.value("scale", 3.0, float)
+        scale = s.value("scalef", 3.0, float)
         super().setScale(scale)
 
     def setScale(self, scale):
         """Reimplemented to save the scale."""
         super().setScale(scale)
-        QSettings().setValue("musicview/magnifier/scale", scale)
+        QSettings().setValue("musicview/magnifier/scalef", scale)
 
     def resizeEvent(self, ev):
         """Reimplemented to save the size."""
