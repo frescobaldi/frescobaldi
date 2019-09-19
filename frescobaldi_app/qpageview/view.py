@@ -253,6 +253,12 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         with self.modifyPages() as pages:
             pages.clear()
 
+    def loadPopplerDocument(self, document, renderer=None):
+        """Convenience method to display the loaded Poppler.Document."""
+        from . import poppler
+        with self.modifyPages() as pages:
+            pages[:] = poppler.PopplerPage.loadPopplerDocument(document, renderer)
+
     def loadPdf(self, filename, renderer=None):
         """Convenience method to load the specified PDF file.
 
