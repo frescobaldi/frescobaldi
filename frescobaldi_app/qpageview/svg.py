@@ -93,7 +93,7 @@ class SvgRenderer(render.AbstractRenderer):
 
 
 # install a default renderer, so SvgPage can be used directly
-SvgPage.renderer = Renderer()
+SvgPage.renderer = SvgRenderer()
 
 
 
