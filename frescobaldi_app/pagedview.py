@@ -90,6 +90,10 @@ class View(qpageview.View):
         if changed:
             self.rerender()
 
+    def loadPopplerDocument(self, document, renderer=None):
+        """Reimplemented to use a customized renderer by default."""
+        super().loadPopplerDocument(document, renderer or self.renderer("pdf"))
+
     def loadPdf(self, filename, renderer=None):
         """Reimplemented to use a customized renderer by default."""
         super().loadPdf(filename, renderer or self.renderer("pdf"))
