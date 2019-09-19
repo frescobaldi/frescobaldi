@@ -70,7 +70,7 @@ class SvgPage(page.AbstractRenderedPage):
         return self._svg
 
 
-class Renderer(render.AbstractRenderer):
+class SvgRenderer(render.AbstractRenderer):
     """Render SVG pages."""
     def draw(self, page, painter, key, tile, paperColor=None):
         """Draw the specified tile of the page (coordinates in key) on painter."""
