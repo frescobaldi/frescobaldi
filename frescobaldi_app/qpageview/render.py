@@ -80,8 +80,9 @@ class AbstractRenderer:
     # QImage format to use (if possible)
     imageFormat = QImage.Format_ARGB32_Premultiplied
 
-    def __init__(self):
-        self.cache = cache.ImageCache()
+    def __init__(self, cache=None):
+        if cache:
+            self.cache = cache
 
     @staticmethod
     def key(page, ratio):
@@ -399,4 +400,9 @@ class AbstractRenderer:
                     jobcount -= 1
                     if jobcount == 0:
                         break
+
+
+# install a global cache to use by default
+AbstractRenderer.cache = cache.ImageCache()
+
 
