@@ -20,6 +20,7 @@ scripts = ['frescobaldi']
 packages = packagelist('frescobaldi_app')
 package_data = {
     'frescobaldi_app.css': ['*.png'],
+    'frescobaldi_app.fonts': ['templates/*.ly'],
     'frescobaldi_app.help': ['*.png'],
     'frescobaldi_app.hyphdicts': ['*.dic'],
     'frescobaldi_app.icons': [

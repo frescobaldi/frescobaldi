@@ -71,6 +71,7 @@ class Overlay(QWidget):
         self.setInterval(interval)
         self._timer.setTimerType(Qt.PreciseTimer)
         self._timer.timeout.connect(self.next)
+        self.hide()
 
     def paintEvent(self, event):
         """Repaint the widget.
@@ -102,11 +103,6 @@ class Overlay(QWidget):
 
         painter.end()
 
-    def resizeEvent(self, event):
-        """Resize the overlay to the parent's size."""
-        self.resize(self.parent().size())
-        event.accept()
-
     def setInterval(self, value):
         """Change the timer interval (ms)."""
         self._timer.setInterval(value)
@@ -120,6 +116,7 @@ class Overlay(QWidget):
     def start(self):
         """Show the overlay and start the animation."""
         self._timer.start()
+        self.resize(self.parent().size())
         self.show()
 
     def stop(self):
