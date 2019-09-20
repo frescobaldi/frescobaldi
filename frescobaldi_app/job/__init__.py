@@ -74,7 +74,7 @@ class Job(QObject):
     Call start() to start the process.
     By default this will enqueue the job in a JobQueue held by the
     global job queue. Only if the queue has explicitly been set to None
-    (by set_queue(None) or the `queue` init argument) the job is started
+    (through the `no_queue` argument to __init__) the job is started
     immediately.
     The job queue will either enqueue the job (potentially respecting the
     `priority` property) or immediately start the job.
@@ -127,7 +127,7 @@ class Job(QObject):
         output_file=None,
         decode_errors='strict',
         encoding='latin1',
-        priority=1,
+        priority=0,
         queue='generic',
         no_queue=False
     ):
@@ -190,7 +190,8 @@ class Job(QObject):
             )
         self._show_command_info = show_command_info
         self._runner = None
-        self._queue = queue if not no_queue else None
+        self._queue = None if no_queue else app.job_queue().queue(queue)
+        self._queued = False
         self._priority = priority
         self._aborted = False
         self._process = None
@@ -217,13 +218,14 @@ class Job(QObject):
 
     def _bye(self, success):
         """(internal) Ends and emits the done() signal."""
-        self._elapsed = time.time() - self._starttime
+        self._elapsed = self.elapsed_time()
         if not success:
             self._error = self._process.error()
         self._success = success
         self._process.deleteLater()
         self._process = None
         self.done(success)
+        self._runner.job_done(self)
 
     def _cmd_add_arguments(self):
         """
@@ -321,8 +323,8 @@ class Job(QObject):
         self.output(text, type)
         self._history.append((text, type))
 
-    def _queue_message(self, q_title):
-        """Called by set_queue().
+    def _queue_message(self):
+        """
 
         Outputs a message that and where the job has been enqueued
         (by JobQueue.add_job) if the queue couldn't start it immediately.
@@ -330,10 +332,10 @@ class Job(QObject):
         """
         msg = _(
             "Job '{j_title}' enqueued in queue "
-            "'{queue}' with priority {priority}."
+            "'{queue}' with priority {priority}.\n"
         ).format(
             j_title=self.display_title(),
-            queue=q_title,
+            queue=self.queue_title(),
             priority=self.priority()
         )
         self._message(msg, NEUTRAL)
@@ -380,11 +382,12 @@ class Job(QObject):
             self._message(
                 _(
                     "Command: {cmd}\n"
-                    "Job Queue (Runner): '{queue}' ({runner})"
+                    "Job Queue: '{queue}', Runner: {runner}/{max}"
                 ).format(
                     cmd=' '.join(self._command),
-                    queue=self.queue().title(),
-                    runner=self.runner().index()
+                    queue=self.queue().title() if self._queue else '--',
+                    runner=self.runner().index() + 1 if self._queue else '--',
+                    max=app.available_cores()
                 ),
                 NEUTRAL
             )
@@ -532,7 +535,10 @@ class Job(QObject):
 
     def is_queued(self):
         """Returns True if the job is queued but hasn't started."""
-        return isinstance(self._queue, queue.JobQueue)
+        return self._queued
+
+    def set_queued(self, state):
+        self._queued = state
 
     def is_running(self):
         """Returns True if this job is running."""
@@ -586,22 +592,28 @@ class Job(QObject):
 
     def queue(self):
         """
-        Return the JobQueue this job has been queued to.
-        Before being added to a queue or after being started
-        this will return None.
+        Return the JobQueue this job has been assigned to.
         """
-        if isinstance(self._queue, queue.JobQueue):
-            return self._queue
+        return self._queue
 
-    def set_queue(self, q):
-        """Set a queue.
+    def enqueue(self):
+        """Mark and announce the job as enqueued."""
+        self._queued = True
+        self._queue_message()
 
-        Called by JobQueue.add_job and JobQueue.start.
+    def queue_name(self):
+        """Return the 'name' of the job's queue.
+
+        When the job has an actual JobQueue this is its name() property,
+        otherwise self._queue - which also may be None
+        (then return an empty string).
 
         """
-        self._queue = q
-        if isinstance(q, queue.JobQueue):
-            self._queue_message(q.title())
+        return self._queue.name()
+
+    def queue_title(self):
+        """Return the 'title' fo the job's queue, with 'name' as fallback."""
+        return self._queue.title()
 
     def start_time(self):
         """Return the time this job was started.
@@ -686,9 +698,7 @@ class Job(QObject):
         """
 
         self._configure_command()
-        if self._queue is None:
-            self._start()
-            return
-        else:
-            self._queue = app.job_queue().queue(self._queue)
+        if self._queue:
             self._queue.add_job(self)
+        else:
+            self._start()

@@ -126,8 +126,7 @@ class LilyPondJob(Job):
             directory=directory,
             environment=environment,
             title=title,
-            queue=kwargs.get('queue', 'engrave'),
-            priority=2
+            queue=kwargs.get('queue', 'engrave')
         )
 
         # Initialize further, LilyPond-specific options from the given arguments
