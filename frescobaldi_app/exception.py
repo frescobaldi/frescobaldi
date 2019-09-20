@@ -68,17 +68,15 @@ class ExceptionDialog(QDialog):
         self.exec_()
 
     def translateUI(self):
-        extension = self._ext_maintainer and self._ext_maintainer[0]
-        self.errorLabel.setText(
-            _("An internal error has occurred{}:").format(
-              " in extension '{}'".format(extension)
-              if extension
-              else ""))
-        title = (
-            app.caption(_("Extension Error"))
-            if extension
-            else app.caption(_("Internal Error")))
-        self.setWindowTitle(title)
+        if self._ext_maintainer:
+            extension = self._ext_maintainer[0]
+            text = _("An internal error has occurred in extension '{name}':").format(name=extension)
+            title = _("Extension Error")
+        else:
+            text = _("An internal error has occurred:")
+            title = _("Internal Error")
+        self.setWindowTitle(app.caption(title))
+        self.errorLabel.setText(text)
         self.buttons.button(QDialogButtonBox.Ok).setText(_("Email Bug Report..."))
 
     def done(self, result):
