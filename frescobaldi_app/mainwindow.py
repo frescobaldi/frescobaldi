@@ -1098,6 +1098,7 @@ class MainWindow(QMainWindow):
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
         t.addAction(ac.file_open)
+        t.widgetForAction(ac.file_open).setMenu(self.menu_recent_files)
         t.addAction(ac.file_save)
         t.widgetForAction(ac.file_save).addAction(ac.file_save_as)
         t.widgetForAction(ac.file_save).addAction(ac.file_save_all)

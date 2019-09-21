@@ -23,6 +23,11 @@ Provides a QTextEdit subclass that grows vertically to accommodate document size
 You should set maximumHeight to restrict its vertical size.
 """
 
+# NOTE:
+# This widget is currently not used anywhere in Frescobaldi,
+# but we'll keep it around rather than removing it, just in case
+# someone might find it useful at some point.
+# (Might be used from extensions, for example).
 
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtWidgets import QPlainTextEdit, QStyle, QTextEdit
