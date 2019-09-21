@@ -26,6 +26,7 @@ Changes in current master
   - Sessions can be grouped in the Sessions menu
   - Show absolute path of include files in tooltip (#941)
   - Restructure Tools Menu (#1080)
+  - File Open toolbar button shows recent files menu on long click
 * Internals:
   - Multithreaded Job Queue preparing multicore support (#1103)
   - Rewrite code handling external processes/jobs (#1100)
