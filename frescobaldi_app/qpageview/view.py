@@ -27,7 +27,7 @@ import weakref
 
 from PyQt5.QtCore import pyqtSignal, QEvent, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QCursor, QPainter, QPalette, QRegion
-from PyQt5.QtWidgets import QStyle
+from PyQt5.QtWidgets import QGestureEvent, QStyle
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 
 from . import layout
@@ -125,6 +125,8 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         self._pageLayout = None
         self._magnifier = None
         self._rubberband = None
+        self._pinchStartFactor = None
+        self.grabGesture(Qt.PinchGesture)
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
         self.horizontalScrollBar().setSingleStep(20)
@@ -808,6 +810,53 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
             painter.translate(layout_pos + p.pos())
             yield p, (p.geometry() & ev_rect).translated(-p.pos())
             painter.restore()
+
+    def event(self, ev):
+        """Reimplemented to get Gesture events."""
+        if isinstance(ev, QGestureEvent) and self.handleGestureEvent(ev):
+            ev.accept() # Accepts all gestures in the event
+            return True
+        return super().event(ev)
+
+    def handleGestureEvent(self, event):
+        """Gesture event handler.
+
+        Return False if event is not accepted. Currently only cares about 
+        PinchGesture. Could also handle Swipe and Pan gestures.
+
+        """
+        ## originally contributed by David Rydh, 2017
+        pinch = event.gesture(Qt.PinchGesture)
+        if pinch:
+            return self.pinchGesture(pinch)
+        return False
+
+    def pinchGesture(self, gesture):
+        """Pinch gesture event handler.
+
+        Return False if event is not accepted. Currently only cares about 
+        ScaleFactorChanged and not RotationAngleChanged.
+
+        """
+        ## originally contributed by David Rydh, 2017
+        # Gesture start? Reset _pinchStartFactor in case we didn't
+        # catch the finish event
+        if gesture.state() == Qt.GestureStarted:
+            self._pinchStartFactor = None
+
+        changeFlags = gesture.changeFlags()
+        if changeFlags & QPinchGesture.ScaleFactorChanged:
+            factor = gesture.property("scaleFactor")
+            if not self._pinchStartFactor: # Gesture start?
+                self._pinchStartFactor = self.zoomFactor()
+            self.setZoomFactor(self._pinchStartFactor * factor,
+                      self.mapFromGlobal(gesture.hotSpot().toPoint()))
+
+        # Gesture finished?
+        if gesture.state() in (Qt.GestureFinished, Qt.GestureCanceled):
+            self._pinchStartFactor = None
+
+        return True
 
     def paintEvent(self, ev):
         """Paint the contents of the viewport."""
