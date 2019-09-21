@@ -730,21 +730,6 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         """Sets the correct mouse cursor for the position on the page."""
         pass
 
-    def resizeEvent(self, ev):
-        """Reimplemented to scale the view if needed and update the scrollbars."""
-        if self._viewMode and not self._pageLayout.empty():
-            with self.pagingOnScrollDisabled():
-                # sensible repositioning
-                vbar = self.verticalScrollBar()
-                hbar = self.horizontalScrollBar()
-                x, xm = hbar.value(), hbar.maximum()
-                y, ym = vbar.value(), vbar.maximum()
-                self._fitLayout()
-                self.updatePageLayout()
-                if xm: hbar.setValue(round(x * hbar.maximum() / xm))
-                if ym: vbar.setValue(round(y * vbar.maximum() / ym))
-        super().resizeEvent(ev)
-
     def repaintPage(self, page):
         """Call this when you want to redraw the specified page."""
         rect = page.geometry().translated(self.layoutPosition())
@@ -840,6 +825,21 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
                 if not rect.intersects(page.geometry()))
         self._unschedulePages(pages)
         self._prev_pages_to_paint = pages_to_paint
+
+    def resizeEvent(self, ev):
+        """Reimplemented to scale the view if needed and update the scrollbars."""
+        if self._viewMode and not self._pageLayout.empty():
+            with self.pagingOnScrollDisabled():
+                # sensible repositioning
+                vbar = self.verticalScrollBar()
+                hbar = self.horizontalScrollBar()
+                x, xm = hbar.value(), hbar.maximum()
+                y, ym = vbar.value(), vbar.maximum()
+                self._fitLayout()
+                self.updatePageLayout()
+                if xm: hbar.setValue(round(x * hbar.maximum() / xm))
+                if ym: vbar.setValue(round(y * vbar.maximum() / ym))
+        super().resizeEvent(ev)
 
     def wheelEvent(self, ev):
         """Reimplemented to support wheel zooming and paging through page sets."""
