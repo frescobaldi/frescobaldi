@@ -28,17 +28,13 @@ centered over the parent widget.
 # Modified after
 # https://wiki.python.org/moin/PyQt/A%20full%20widget%20waiting%20indicator
 
-import math
-
 from PyQt5.QtCore import (
     Qt,
-    QTimer
 )
 from PyQt5.QtGui import (
     QBrush,
     QColor,
     QPainter,
-    QPalette,
     QPen
 )
 from PyQt5.QtWidgets import (
@@ -60,17 +56,11 @@ class Overlay(QWidget):
         interval=75,
         transparency=200
     ):
-        super(Overlay, self).__init__(parent)
-        palette = QPalette(self.palette())
-        palette.setColor(palette.Background, Qt.transparent)
-        self.setPalette(palette)
-        self.setTransparency(transparency)
+        super().__init__(parent)
         self._counter = 0
-        self._timer = QTimer()
-        self._timer.setInterval(interval)
+        self._timerId = None
+        self.setTransparency(transparency)
         self.setInterval(interval)
-        self._timer.setTimerType(Qt.PreciseTimer)
-        self._timer.timeout.connect(self.next)
         self.hide()
 
     def paintEvent(self, event):
@@ -85,9 +75,10 @@ class Overlay(QWidget):
         painter.begin(self)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.fillRect(
-            event.rect(), QBrush(QColor(255, 255, 255, self._bgcolor))
+            event.rect(), QColor(255, 255, 255, self._transparency)
         )
         painter.setPen(QPen(Qt.NoPen))
+        painter.translate(self.rect().center())
 
         for i in range(6):
             if (self._counter // 5) % 6 == i:
@@ -96,35 +87,35 @@ class Overlay(QWidget):
                 )
             else:
                 painter.setBrush(QBrush(QColor(127, 127, 127)))
-            painter.drawEllipse(
-                self.width()/2 + 30 * math.cos(2 * math.pi * i / 6.0) - 10,
-                self.height()/2 + 30 * math.sin(2 * math.pi * i / 6.0) - 10,
-                20, 20)
-
+            painter.drawEllipse(30, -10, 20, 20)
+            painter.rotate(60)
         painter.end()
 
     def setInterval(self, value):
         """Change the timer interval (ms)."""
-        self._timer.setInterval(value)
+        self._interval = value
 
     def setTransparency(self, value):
         """Set the transparency of the animation background,
         input is limited to 0-255."""
         value = max(0, min(255, value))
-        self._bgcolor = 255 - value
+        self._transparency = 255 - value
 
     def start(self):
         """Show the overlay and start the animation."""
-        self._timer.start()
+        self._timerId = self.startTimer(self._interval)
         self.resize(self.parent().size())
         self.show()
 
     def stop(self):
         """Stop the animation and hide the overlay."""
-        self._timer.stop()
+        if self._timerId is not None:
+            self.killTimer(self._timerId)
+            self._timerId = None
         self.hide()
         self._counter = 0
 
-    def next(self):
+    def timerEvent(self, ev):
         self._counter += 1
+        self.resize(self.parent().size())
         self.update()

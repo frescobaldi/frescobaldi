@@ -38,6 +38,7 @@ from PyQt5.QtWidgets import (
 )
 
 import app
+import highlighter
 
 
 class FontCommandWidget(QWidget):
@@ -86,7 +87,6 @@ class FontCommandWidget(QWidget):
         # TextEdit to display the generated command
         self.command_edit = ce = QTextEdit()
         ce.setReadOnly(True)
-        ce.setEnabled(False)
         col_layout.addWidget(self.command_edit)
 
         # Which text font families to integrate?
@@ -505,8 +505,8 @@ class FontCommandWidget(QWidget):
             'lily' if self.approach_tab.currentIndex() == 0 else 'oll'
         )
         display_cmd = self._cmd[self.approach]
-        # TODO: Do syntax highlighting and use setHtml()
         self.command_edit.setPlainText(display_cmd)
+        highlighter.highlight(self.command_edit.document())
         for k in self.font_labels:
             font_key = 'music' if k == 'oll_music' else k
             self.font_labels[k].setText(self.window().selected_font(font_key))
