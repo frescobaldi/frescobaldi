@@ -31,10 +31,10 @@ from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
 
 import app
 import icons
-import job
+import job.lilypond
 import log
 import qutil
-import popplerview
+import pagedview
 import popplertools
 import widgets.progressbar
 
@@ -62,7 +62,8 @@ class MusicPreviewWidget(QWidget):
 
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
-        self._view = popplerview.View()
+        self._view = pagedview.View()
+        self._view.setMagnifier(pagedview.Magnifier())
 
         self._showWaiting = showWaiting
         if showWaiting:
@@ -184,7 +185,7 @@ class MusicPreviewWidget(QWidget):
     def selectDocument(self, index):
         doc = self._documents[index].document()
         if doc:
-            self._view.load(doc)
+            self._view.loadPopplerDocument(doc)
 
     def cleanup(self):
         if self._running:
