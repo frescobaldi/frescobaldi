@@ -72,6 +72,7 @@ class LinkViewMixin:
     linkHovered = pyqtSignal(page.AbstractPage, Link)
     linkLeft = pyqtSignal()
     linkClicked = pyqtSignal(QEvent, page.AbstractPage, Link)
+    linkHelpRequested = pyqtSignal(QEvent, page.AbstractPage, Link)
 
     linksEnabled = True
 
@@ -181,6 +182,25 @@ class LinkViewMixin:
 
         """
         self.linkClicked.emit(ev, page, link)
+
+    def linkHelpEvent(self, ev, page, link):
+        """Called when a ToolTip or WhatsThis wants to appear.
+
+        The default implementation emits the linkHelpRequested(event, page, link)
+        signal. Using the event you can find the position, and the type of the
+        help event.
+
+        """
+        self.linkHelpRequested.emit(ev, page, link)
+
+    def event(self, ev):
+        """Reimplemented to handle HelpEvent for links."""
+        if self.handleLinks and ev.type() in (QEvent.ToolTip, QEvent.WhatsThis):
+            page, link = self.linkAt(ev.pos())
+            if link:
+                self.linkHelpEvent(ev, page, link)
+                return True
+        return super().event(ev)
 
     def mousePressEvent(self, ev):
         """Implemented to detect clicking a link and calling linkClickEvent()."""
