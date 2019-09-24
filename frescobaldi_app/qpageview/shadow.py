@@ -37,9 +37,13 @@ class ShadowViewMixin:
 
     def paintEvent(self, ev):
         if self.dropShadowEnabled:
+            width = self._pageLayout.spacing / 2
+            # make the rect slightly larger, so we "see" shadow of pages that
+            # would be outside view normally.
+            rect = ev.rect().adjusted(-width, -width, width / 2, width / 2)
             painter = QPainter(self.viewport())
-            for page, rect in self.pagesToPaint(ev.rect(), painter):
-                self.drawDropShadow(page, painter, self._pageLayout.spacing / 2)
+            for page, rect in self.pagesToPaint(rect, painter):
+                self.drawDropShadow(page, painter, width)
         super().paintEvent(ev)      # then draw the contents
 
     def drawDropShadow(self, page, painter, width):
