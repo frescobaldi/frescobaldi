@@ -796,15 +796,17 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         for renderer, pages in unschedule.items():
             renderer.unschedule(pages, self.repaintPage)
         
-    def pagesToPaint(self, event, painter):
-        """Yield (page, rect) to paint at the event's rectangle.
+    def pagesToPaint(self, rect, painter):
+        """Yield (page, rect) to paint in the specified rectangle.
         
-        The rect describes the part of the page actually to draw. (The full
-        rect can be found in page.rect().) Translates the painter to each page.
+        The specified rect is in viewport coordinates, as in the paint event.
+        The returned rect describes the part of the page actually to draw, in
+        page coordinates. (The full rect can be found in page.rect().)
+        Translates the painter to the top left of each page.
         
         """
         layout_pos = self.layoutPosition()
-        ev_rect = event.rect().translated(-layout_pos)
+        ev_rect = rect.translated(-layout_pos)
         for p in self._pageLayout.pagesAt(ev_rect):
             painter.save()
             painter.translate(layout_pos + p.pos())
@@ -862,7 +864,7 @@ class View(util.LongMousePressMixin, scrollarea.ScrollArea):
         """Paint the contents of the viewport."""
         painter = QPainter(self.viewport())
         pages_to_paint = set()
-        for p, r in self.pagesToPaint(ev, painter):
+        for p, r in self.pagesToPaint(ev.rect(), painter):
             p.paint(painter, r, self.repaintPage)
             pages_to_paint.add(p)
 

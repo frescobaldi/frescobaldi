@@ -115,7 +115,7 @@ class HighlightViewMixin:
         super().paintEvent(ev)  # first paint the contents
         painter = QPainter(self.viewport())
         for highlighter, (d, t) in self._highlights.items():
-            for page, rect in self.pagesToPaint(ev, painter):
+            for page, rect in self.pagesToPaint(ev.rect(), painter):
                 try:
                     areas = d[page]
                 except KeyError:

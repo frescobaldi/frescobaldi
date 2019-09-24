@@ -110,7 +110,7 @@ class SidebarView(selector.SelectorViewMixin, view.View):
         """Reimplemented to print page numbers and a selection box."""
         painter = QPainter(self.viewport())
         layout = self.pageLayout()
-        for p, rect in self.pagesToPaint(ev, painter):
+        for p, rect in self.pagesToPaint(ev.rect(), painter):
             ## draw selection background on current page
             if p is self.currentPage():
                 bg = rect + layout.pageMargins()

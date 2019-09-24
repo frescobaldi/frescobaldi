@@ -38,7 +38,7 @@ class ShadowViewMixin:
     def paintEvent(self, ev):
         if self.dropShadowEnabled:
             painter = QPainter(self.viewport())
-            for page, rect in self.pagesToPaint(ev, painter):
+            for page, rect in self.pagesToPaint(ev.rect(), painter):
                 self.drawDropShadow(page, painter, self._pageLayout.spacing / 2)
         super().paintEvent(ev)      # then draw the contents
 

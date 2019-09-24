@@ -123,7 +123,7 @@ class SelectorViewMixin:
         super().paintEvent(ev)      # first draw the contents
         if self._selectionMode:
             painter = QPainter(self.viewport())
-            for page, rect in self.pagesToPaint(ev, painter):
+            for page, rect in self.pagesToPaint(ev.rect(), painter):
                 self.drawSelection(page, painter)
 
     def drawSelection(self, page, painter):
