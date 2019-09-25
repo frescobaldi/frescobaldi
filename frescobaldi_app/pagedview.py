@@ -31,6 +31,7 @@ import app
 import textformats
 import qpageview
 import qpageview.magnifier
+import qpageview.widgetoverlay
 
 
 class Magnifier(qpageview.magnifier.Magnifier):
@@ -60,7 +61,7 @@ class Magnifier(qpageview.magnifier.Magnifier):
         QSettings().setValue("musicview/magnifier/size", ev.size().width())
 
 
-class View(qpageview.View):
+class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
     def __init__(self, parent=None):
         super().__init__(parent)
         app.settingsChanged.connect(self.readSettings)
