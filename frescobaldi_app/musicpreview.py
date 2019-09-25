@@ -31,7 +31,7 @@ from PyQt5.QtWidgets import (QComboBox, QDialog, QDialogButtonBox, QHBoxLayout,
 
 import app
 import icons
-import job
+import job.lilypond
 import log
 import qutil
 import pagedview
