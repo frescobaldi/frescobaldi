@@ -22,6 +22,7 @@ Infrastructure for rendering and caching Page images.
 """
 
 import collections
+import sys
 import time
 
 from PyQt5.QtCore import QRect, QRectF, Qt
@@ -343,13 +344,22 @@ class AbstractRenderer:
         job = backgroundjob.Job()
         job.callbacks = callbacks = set()
         job.mutex = page.mutex()
-        job.work = lambda: self.render(page, key, tile)
+        exception = []
+        def work():
+            try:
+                return self.render(page, key, tile)
+            except Exception:
+                exception.extend(sys.exc_info())
+                return QImage()
         def finalize(image):
             self.cache.addtile(key, tile, image)
             for cb in callbacks:
                 cb(page)
             del _jobs[(key, tile)]
             self.checkstart()
+            if exception:
+                self.exception(*exception)
+        job.work = work
         job.finalize = finalize
         return job
 
@@ -400,6 +410,16 @@ class AbstractRenderer:
                     jobcount -= 1
                     if jobcount == 0:
                         break
+
+    def exception(self, exctype, excvalue, exctb):
+        """Called when an exception has occurred in a background rendering job.
+
+        The default implementation prints a traceback to stderr.
+
+        """
+        import traceback
+        traceback.print_exception(exctype, excvalue, exctb)
+
 
 
 # install a global cache to use by default
