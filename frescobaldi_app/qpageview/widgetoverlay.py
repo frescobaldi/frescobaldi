@@ -41,7 +41,8 @@ class WidgetOverlayViewMixin:
     deleteUnusedOverlayWidgets = True
 
         If True, unused widgets are deleted using QObject.deleteLater().
-        Otherwise, only the parent is set to None.
+        Otherwise, only the parent is set to None.  A widget becomes unused if
+        the Page it was added to disappears from the page layout.
 
     """
 
@@ -100,11 +101,26 @@ class WidgetOverlayViewMixin:
         else:
             widget.setParent(None)
 
-    def widgetsForPage(self, page):
-        """Yield all widgets added to the specified page."""
-        for widget, d in self._widgets.items():
-            if d.page is page:
+    def widgets(self, page=None):
+        """Yield all widgets (for the Page if given)."""
+        if page:
+            for widget, d in self._widgets.items():
+                if d.page is page:
+                    yield widget
+        else:
+            for widget in self._widgets:
                 yield widget
+
+    def removeWidgets(self, page=None):
+        """Remove all widgets (for the Page if given)."""
+        if page:
+            for widget in list(self.widgets(page)):
+                widget.setParent(None)
+                del self._widgets[widget]
+        else:
+            for widget in self._widgets:
+                widget.setParent(None)
+            self._widgets.clear()
 
     def _updateWidget(self, widget):
         """Internal. Updates size and position of the specified widget."""
