@@ -41,7 +41,9 @@ class SelectorViewMixin:
 
     `userChangeSelectionModeEnabled` = True:    whether the user can change
         the selectionMode (by longpressing a page to enable selectionMode, and
-        pressing ESC to leave selectionMode.
+        pressing ESC to leave selectionMode. (Be sure to mix in the
+        util.LongMousePressMixin class when you want to use the long mouse press
+        event.)
 
     """
     selectionChanged = pyqtSignal()

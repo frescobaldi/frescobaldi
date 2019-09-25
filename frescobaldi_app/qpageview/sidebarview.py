@@ -32,10 +32,11 @@ from . import constants
 from . import layout
 from . import selector
 from . import view
+from . import util
 
 
 
-class SidebarView(selector.SelectorViewMixin, view.View):
+class SidebarView(selector.SelectorViewMixin, util.LongMousePressMixin, view.View):
     """A special View with miniatures to use as a sidebar for a View.
 
     Automatically displays all pages in a view in small size, and makes it

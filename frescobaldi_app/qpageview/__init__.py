@@ -64,11 +64,14 @@ from . import link
 from . import highlight
 from . import shadow
 from . import view
+from . import util
+
 
 class View(
         link.LinkViewMixin,
         highlight.HighlightViewMixin,
         shadow.ShadowViewMixin,
+        util.LongMousePressMixin,
         view.View,
     ):
     """Paged view component based on view.View, with all enhancements."""
