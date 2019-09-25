@@ -218,6 +218,23 @@ def align(w, h, ow, oh, alignment=Qt.AlignCenter):
     return x, y
 
 
+def alignrect(rect, point, alignment=Qt.AlignCenter):
+    """Align rect with point according to the alignment.
+
+    The alignment can be a combination of the Qt.Alignment flags.
+
+    """
+    rect.moveCenter(point)
+    if alignment & Qt.AlignLeft:
+        rect.moveLeft(point.x())
+    elif alignment & Qt.AlignRight:
+        rect.moveRight(point.x())
+    if alignment & Qt.AlignTop:
+        rect.moveTop(point.y())
+    elif alignment & Qt.AlignBottom:
+        rect.moveBottom(point.y())
+
+
 # Found at: https://stackoverflow.com/questions/1986152/why-doesnt-python-have-a-sign-function
 def sign(x):
     """Return the sign of x: -1 if x < 0, 0 if x == 0, or 1 if x > 0."""
