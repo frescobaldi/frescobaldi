@@ -59,8 +59,8 @@ from . import documents
 # default zoom percentages
 _zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
 
-# viewModes from qpopplerview:
-from qpopplerview import FixedScale, FitWidth, FitHeight, FitBoth
+# viewModes from qpageview:
+from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
 
 
 def activate(func):
@@ -133,26 +133,23 @@ class MusicViewPanel(panel.Panel):
     def createWidget(self):
         from . import widget
         w = widget.MusicView(self)
-        w.zoomChanged.connect(self.slotMusicZoomChanged)
-        w.updateZoomInfo()
-        w.view.surface().selectionChanged.connect(self.updateSelection)
+        w.view.zoomFactorChanged.connect(self.slotMusicZoomFactorChanged)
+        w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
+        #w.updateZoomInfo()
+        w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         # read layout mode setting before using the widget
-        layout = w.view.surface().pageLayout()
+        layout = w.view.pageLayout()
         if self.actionCollection.music_two_pages_first_right.isChecked():
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(1)
+            layout.pagesPerRow = 2 
+            layout.pagesFirstRow = 1
         elif self.actionCollection.music_two_pages_first_left.isChecked():
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(0)
+            layout.pagesPerRow = 2
+            layout.pagesFirstRow = 0
         else: # "single"
-            layout.setPagesPerRow(1)   # default to single
-            layout.setPagesFirstRow(0) # pages
+            layout.pagesPerRow = 1   # default to single
+            layout.pagesFirstRow = 0 # pages
 
-        import qpopplerview.pager
-        self._pager = p = qpopplerview.pager.Pager(w.view)
-        p.pageCountChanged.connect(self.slotPageCountChanged)
-        p.currentPageChanged.connect(self.slotCurrentPageChanged)
         app.languageChanged.connect(self.updatePagerLanguage)
 
         selector = self.actionCollection.music_document_select
@@ -178,7 +175,7 @@ class MusicViewPanel(panel.Panel):
         "double_right": two pages, first page is a right page.
 
         """
-        layout = self.widget().view.surface().pageLayout()
+        layout = self.widget().view.pageLayout()
         if mode == "double_right":
             layout.setPagesPerRow(2)
             layout.setPagesFirstRow(1)
@@ -190,35 +187,35 @@ class MusicViewPanel(panel.Panel):
             layout.setPagesFirstRow(0)
         else:
             raise ValueError("wrong mode value")
-        QSettings().setValue("muziekview/layoutmode", mode)
-        layout.update()
+        QSettings().setValue("musicview/layoutmode", mode)
+        self.widget().view.updatePageLayout()
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
         self.actionCollection.music_copy_text.setEnabled(bool(rect))
 
     def updatePagerLanguage(self):
-        self.actionCollection.music_pager.setPageCount(self._pager.pageCount())
+        self.actionCollection.music_pager.setPageCount(self.widget().view.pageCount())
 
     def slotPageCountChanged(self, total):
         self.actionCollection.music_pager.setPageCount(total)
 
     def slotCurrentPageChanged(self, num):
         self.actionCollection.music_pager.setCurrentPage(num)
-        self.actionCollection.music_next_page.setEnabled(num < self._pager.pageCount())
+        self.actionCollection.music_next_page.setEnabled(num < self.widget().view.pageCount())
         self.actionCollection.music_prev_page.setEnabled(num > 1)
 
     @activate
     def slotNextPage(self):
-        self._pager.setCurrentPage(self._pager.currentPage() + 1)
+        self.widget().view.gotoNextPage()
 
     @activate
     def slotPreviousPage(self):
-        self._pager.setCurrentPage(self._pager.currentPage() - 1)
+        self.widget().view.gotoPreviousPage()
 
     def setCurrentPage(self, num):
         self.activate()
-        self._pager.setCurrentPage(num)
+        self.widget().view.setCurrentPageNumber(num)
 
     def updateActions(self):
         ac = self.actionCollection
@@ -261,7 +258,7 @@ class MusicViewPanel(panel.Panel):
 
     @activate
     def zoomOriginal(self):
-        self.widget().view.zoom(1.0)
+        self.widget().view.setZoomFactor(1.0)
 
     @activate
     def fitWidth(self):
@@ -304,33 +301,38 @@ class MusicViewPanel(panel.Panel):
             self.actionCollection.music_sync_cursor.isChecked())
 
     def copyImage(self):
-        page = self.widget().view.surface().selectedPage()
+        page, rect = self.widget().view.rubberband().selectedPage()
         if not page:
             return
-        rect = self.widget().view.surface().selectedPageRect(page)
         import copy2image
         copy2image.copy_image(self, page, rect, documents.filename(page.document()))
 
     def copyText(self):
-        text = self.widget().view.surface().selectedText()
+        text = self.widget().view.rubberband().selectedText()
         if text:
             QApplication.clipboard().setText(text)
 
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
         self.activate()
+        self.widget().view.setViewMode(mode)
         if mode == FixedScale:
-            self.widget().view.zoom(scale)
-        else:
-            self.widget().view.setViewMode(mode)
+            self.widget().view.setZoomFactor(scale)
 
-    def slotMusicZoomChanged(self, mode, scale):
+    def slotMusicZoomFactorChanged(self, factor):
+        """Called when the music view zoom is changed, updates the toolbar actions."""
+        ac = self.actionCollection
+        mode = self.widget().view.viewMode()
+        ac.music_zoom_combo.updateZoomInfo(mode, factor)
+
+    def slotMusicViewModeChanged(self, mode):
         """Called when the music view is changed, updates the toolbar actions."""
         ac = self.actionCollection
         ac.music_fit_width.setChecked(mode == FitWidth)
         ac.music_fit_height.setChecked(mode == FitHeight)
         ac.music_fit_both.setChecked(mode == FitBoth)
-        ac.music_zoom_combo.updateZoomInfo(mode, scale)
+        factor = self.widget().view.zoomFactor()
+        ac.music_zoom_combo.updateZoomInfo(mode, factor)
 
 
 class Actions(actioncollection.ActionCollection):

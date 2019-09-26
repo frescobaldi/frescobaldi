@@ -36,7 +36,6 @@ import app
 import util
 import qutil
 import icons
-import qpopplerview
 import widgets.imageviewer
 import widgets.colorbutton
 import gadgets.drag
@@ -76,7 +75,6 @@ class Dialog(QDialog):
         self.colorButton.setColor(QColor(Qt.white))
         self.grayscale = QCheckBox(checked=False)
         self.crop = QCheckBox()
-        self.antialias = QCheckBox(checked=True)
         self.scaleup = QCheckBox(checked=False)
         self.dragfile = QPushButton(icons.get("image-x-generic"), None, None)
         self.fileDragger = FileDragger(self.dragfile)
@@ -98,7 +96,6 @@ class Dialog(QDialog):
         controls.addWidget(self.colorButton)
         controls.addWidget(self.grayscale)
         controls.addWidget(self.crop)
-        controls.addWidget(self.antialias)
         controls.addWidget(self.scaleup)
         controls.addStretch()
         controls.addWidget(self.dragfile)
@@ -111,7 +108,6 @@ class Dialog(QDialog):
         self.dpiCombo.editTextChanged.connect(self.drawImage)
         self.colorButton.colorChanged.connect(self.drawImage)
         self.grayscale.toggled.connect(self.drawImage)
-        self.antialias.toggled.connect(self.drawImage)
         self.scaleup.toggled.connect(self.drawImage)
         self.crop.toggled.connect(self.cropImage)
         self.buttons.rejected.connect(self.reject)
@@ -126,7 +122,6 @@ class Dialog(QDialog):
         self.grayscale.setText(_("Gray"))
         self.grayscale.setToolTip(_("Convert image to grayscale."))
         self.crop.setText(_("Auto-crop"))
-        self.antialias.setText(_("Antialias"))
         self.scaleup.setText(_("Scale 2x"))
         self.scaleup.setToolTip(_(
             "Render twice as large and scale back down\n"
@@ -154,7 +149,6 @@ class Dialog(QDialog):
         self.colorButton.setColor(s.value("papercolor", QColor(Qt.white), QColor))
         self.grayscale.setChecked(s.value("grayscale", False, bool))
         self.crop.setChecked(s.value("autocrop", False, bool))
-        self.antialias.setChecked(s.value("antialias", True, bool))
         self.scaleup.setChecked(s.value("scaleup", False, bool))
 
     def writeSettings(self):
@@ -164,7 +158,6 @@ class Dialog(QDialog):
         s.setValue("papercolor", self.colorButton.color())
         s.setValue("grayscale", self.grayscale.isChecked())
         s.setValue("autocrop", self.crop.isChecked())
-        s.setValue("antialias", self.antialias.isChecked())
         s.setValue("scaleup", self.scaleup.isChecked())
 
     def setCaption(self):
@@ -187,17 +180,9 @@ class Dialog(QDialog):
         dpi = float(self.dpiCombo.currentText() or '100')
         dpi = max(dpi, self.dpiCombo.validator().bottom())
         dpi = min(dpi, self.dpiCombo.validator().top())
-        options = qpopplerview.RenderOptions()
-        options.setPaperColor(self.colorButton.color())
-        if self.antialias.isChecked():
-            if popplerqt5:
-                options.setRenderHint(
-                    popplerqt5.Poppler.Document.Antialiasing |
-                    popplerqt5.Poppler.Document.TextAntialiasing)
-        else:
-            options.setRenderHint(0)
         m = 2 if self.scaleup.isChecked() else 1
-        i = self._page.image(self._rect, dpi * m, dpi * m , options)
+        paperColor = self.colorButton.color()
+        i = self._page.image(self._rect, dpi * m, dpi * m, paperColor)
         if m == 2:
             i = i.scaled(i.size() / 2, transformMode=Qt.SmoothTransformation)
         if self.grayscale.isChecked():

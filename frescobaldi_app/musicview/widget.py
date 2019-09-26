@@ -36,8 +36,11 @@ try:
 except ImportError:
     pass
 
-import qpopplerview
-import popplerview
+import qpageview
+import qpageview.layout
+import qpageview.highlight
+import qpageview.rubberband
+import pagedview
 
 import app
 import icons
@@ -53,9 +56,6 @@ from . import pointandclick
 
 class MusicView(QWidget):
     """Widget containing the qpopplerview.View."""
-
-    zoomChanged = pyqtSignal(int, float) # mode, scale
-
     def __init__(self, dockwidget):
         """Creates the Music View for the dockwidget."""
         super(MusicView, self).__init__(dockwidget)
@@ -66,7 +66,7 @@ class MusicView(QWidget):
         self._clicking_link = False
 
         self._highlightFormat = QTextCharFormat()
-        self._highlightMusicFormat = Highlighter()
+        self._highlightMusicFormat = qpageview.highlight.Highlighter()
         self._highlightRange = None
         self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
         self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
@@ -75,21 +75,19 @@ class MusicView(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
-        self.view = popplerview.View(self)
-        self.view.MAX_ZOOM = 8.0
+        self.view = pagedview.View(self)
+        self.view.setRubberband(qpageview.rubberband.Rubberband())
         layout.addWidget(self.view)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-        self.view.setViewMode(qpopplerview.FitWidth)
-        self.view.surface().setPageLayout(qpopplerview.RowLayout())
-        self.view.surface().linkClicked.connect(self.slotLinkClicked)
-        self.view.surface().linkHovered.connect(self.slotLinkHovered)
-        self.view.surface().linkLeft.connect(self.slotLinkLeft)
-        self.view.surface().setShowUrlTips(False)
-        self.view.surface().linkHelpRequested.connect(self.slotLinkHelpRequested)
+        self.view.setViewMode(qpageview.FitWidth)
+        self.view.setPageLayout(qpageview.layout.RowPageLayout())
+        self.view.linkClicked.connect(self.slotLinkClicked)
+        self.view.linkHovered.connect(self.slotLinkHovered)
+        self.view.linkLeft.connect(self.slotLinkLeft)
+        #self.view.setShowUrlTips(False)
+        self.view.linkHelpRequested.connect(self.slotLinkHelpRequested)
 
-        self.view.viewModeChanged.connect(self.updateZoomInfo)
-        self.view.surface().pageLayout().scaleChanged.connect(self.updateZoomInfo)
         self.view.setContextMenuPolicy(Qt.CustomContextMenu)
         self.view.customContextMenuRequested.connect(self.showContextMenu)
 
@@ -103,10 +101,6 @@ class MusicView(QWidget):
         """Returns the initial size the PDF (Music) View prefers."""
         return self.parent().mainwindow().size() / 2
 
-    def updateZoomInfo(self):
-        """Called when zoom and viewmode of the qpopplerview change, emit zoomChanged."""
-        self.zoomChanged.emit(self.view.viewMode(), self.view.surface().pageLayout().scale())
-
     def openDocument(self, doc):
         """Opens a documents.Document instance."""
         self.clear()
@@ -114,15 +108,15 @@ class MusicView(QWidget):
         document = doc.document()
         if document:
             self._links = pointandclick.links(document)
-            self.view.load(document)
+            self.view.loadPopplerDocument(document)
             position = self._positions.get(doc, (0, 0, 0))
-            self.view.setPosition(position, True)
+            #self.view.setPosition(position, True)
 
     def clear(self):
         """Empties the view."""
         cur = self._currentDocument
-        if cur:
-            self._positions[cur] = self.view.position()
+        #if cur:
+        #    self._positions[cur] = self.view.position()
         self._currentDocument = None
         self._links = None
         self._highlightRange = None
@@ -133,7 +127,7 @@ class MusicView(QWidget):
         """Reads the settings from the user's preferences."""
         # background and highlight colors of music view
         colors = textformats.formatData('editor').baseColors
-        self._highlightMusicFormat.setColor(colors['musichighlight'])
+        self._highlightMusicFormat.color = colors['musichighlight']
         color = colors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
@@ -145,6 +139,7 @@ class MusicView(QWidget):
         Otherwise, call the helpers module to open the destination.
 
         """
+        link = link.linkobj
         if ev.button() == Qt.RightButton:
             return
         cursor = self._links.cursor(link, True)
@@ -179,7 +174,8 @@ class MusicView(QWidget):
         off the link or when the link is clicked.
 
         """
-        self.view.surface().highlight(self._highlightMusicFormat,
+        link = link.linkobj
+        self.view.highlight(self._highlightMusicFormat,
             [(page, link.linkArea().normalized())], 2000)
         self._highlightRange = None
         cursor = self._links.cursor(link)
@@ -200,6 +196,7 @@ class MusicView(QWidget):
 
     def slotLinkHelpRequested(self, pos, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
+        link = link.linkobj
         if isinstance(link, popplerqt5.Poppler.LinkBrowse):
             cursor = self._links.cursor(link)
             if cursor:
@@ -217,10 +214,10 @@ class MusicView(QWidget):
                 text = link.fileName() + "\n" + text
         else:
             return
-        QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
+        QToolTip.showText(pos, text, self.view, page.linkRect(link.linkArea()))
 
     def slotCurrentViewChanged(self, view, old=None):
-        self.view.surface().clearHighlight(self._highlightMusicFormat)
+        self.view.clearHighlight(self._highlightMusicFormat)
         if old:
             old.cursorPositionChanged.disconnect(self.slotCursorPositionChanged)
         view.cursorPositionChanged.connect(self.slotCursorPositionChanged)
@@ -253,17 +250,14 @@ class MusicView(QWidget):
             # is enabled its speed is already set so that we can adjust the highlight timer.
             self.highlight(links.destinations(), s)
 
-
     def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""
         count = slice.stop - slice.start
         if msec is None:
-            # RC: increased timer to give some time to the kinetic scrolling to complete.
-            kineticTimeLeft = 0
-            if self.view.kineticScrollingEnabled():
-                kineticTimeLeft = 20*self.view.kineticTicksLeft()
             msec = 5000 if count > 1 else 2000 # show selections longer
-            msec += kineticTimeLeft
+            # RC: increased timer to give some time to the kinetic scrolling to complete.
+            if self.view.isScrolling():
+                msec += self.view.scrollTimeLeft()
         self._highlightRemoveTimer.start(msec)
         if self._highlightRange == slice:
             return # don't redraw if same
@@ -276,17 +270,17 @@ class MusicView(QWidget):
             self.updateHighlighting()
 
     def updateHighlighting(self):
-        """Really orders the view's surface to draw the highlighting."""
-        layout = self.view.surface().pageLayout()
+        """Really orders the view to draw the highlighting."""
+        layout = self.view.pageLayout()
         areas = [(layout[pageNum], rect)
                     for dest in self._destinations
                     for pageNum, rect in dest]
-        self.view.surface().highlight(self._highlightMusicFormat, areas)
+        self.view.highlight(self._highlightMusicFormat, areas)
 
     def clearHighlighting(self):
         """Called on timeout of the _highlightRemoveTimer."""
         self._highlightRange = None
-        self.view.surface().clearHighlight(self._highlightMusicFormat)
+        self.view.clearHighlight(self._highlightMusicFormat)
 
     def showCurrentLinks(self):
         """Scrolls the view if necessary to show objects at current text cursor."""
@@ -306,7 +300,7 @@ class MusicView(QWidget):
 
     def destinationsRect(self, destinations):
         """Return the rectangle containing all destinations."""
-        layout = self.view.surface().pageLayout()
+        layout = self.view.pageLayout()
         rect = QRect()
         for dest in destinations:
             for pageNum, r in dest:
@@ -322,26 +316,11 @@ class MusicView(QWidget):
         # mouse inside view?
         if self.view.mapFromGlobal(QCursor.pos()) in self.view.viewport().rect():
             pos = QCursor.pos()
-            pos_in_surface = self.view.surface().mapFromGlobal(pos)
-            page, link = self.view.surface().pageLayout().linkAt(pos_in_surface)
+            pos_in_viewport = self.view.viewport().mapFromGlobal(pos)
+            page, link = self.view.linkAt(pos_in_viewport)
             if link:
+                link = link.linkobj
                 cursor = self._links.cursor(link, True)
         from . import contextmenu
         contextmenu.show(pos, self.parent(), link, cursor)
-
-
-class Highlighter(qpopplerview.Highlighter):
-    """Simple version of qpopplerview.Highlighter that has the color settable.
-
-    You must set a color before using the Highlighter.
-
-    """
-    def setColor(self, color):
-        """Sets the color to use to draw highlighting rectangles."""
-        self._color = color
-
-    def color(self):
-        """Returns the color set using the setColor method."""
-        return self._color
-
 
