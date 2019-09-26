@@ -57,6 +57,7 @@ import helpers
 import panelmanager
 import engrave
 import scorewiz
+import snippet
 import externalchanges
 import browseriface
 import file_import
@@ -722,14 +723,10 @@ class MainWindow(QMainWindow):
         self.setCurrentDocument(cur, findOpenView=True)
         return True
 
-    def closeOtherDocuments(self):
-        """ Closes all documents that are not the current document.
-
-        Returns True if all documents were closed.
-
-        """
+    def _closeDocuments(self, current=True):
         cur = self.currentDocument()
-        docs = self.historyManager.documents()[1:]
+        start = 0 if current else 1
+        docs = self.historyManager.documents()[start:]
         for doc in docs:
             if not self.queryCloseDocument(doc):
                 self.setCurrentDocument(cur, findOpenView=True)
@@ -738,7 +735,22 @@ class MainWindow(QMainWindow):
             doc.close()
         return True
 
+    def closeOtherDocuments(self):
+        """ Closes all documents that are not the current document.
+
+        Returns True if all documents were closed.
+
+        """
+        return self._closeDocuments(current=False)
+
     def closeAllDocuments(self):
+        """Closes all documents and keep one new, empty document
+        within the current session."""
+        if self._closeDocuments(current=True):
+            self.allDocumentsClosed.emit()
+            self.cleanStart()
+
+    def closeAllDocumentsAndSession(self):
         """Closes all documents and keep one new, empty document."""
         sessions.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
@@ -1041,6 +1053,9 @@ class MainWindow(QMainWindow):
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.file_close_all.triggered.connect(self.closeAllDocuments)
+        ac.file_close_all_and_session.triggered.connect(
+            self.closeAllDocumentsAndSession
+        )
         ac.export_colored_html.triggered.connect(self.exportColoredHtml)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
@@ -1094,15 +1109,32 @@ class MainWindow(QMainWindow):
 
     def createToolBars(self):
         ac = self.actionCollection
+        self.file_new_menu = fnm = QMenu()
+        fnm.addAction(ac.file_new)
+        fnm.addAction(
+            scorewiz.ScoreWizard.instance(self).actionCollection.scorewiz
+        )
+        fnm.addMenu(snippet.menu.TemplateMenu(self))
         self.toolbar_main = t = self.addToolBar('')
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
+        t.widgetForAction(ac.file_new).setMenu(fnm)
         t.addAction(ac.file_open)
         t.widgetForAction(ac.file_open).setMenu(self.menu_recent_files)
         t.addAction(ac.file_save)
         t.widgetForAction(ac.file_save).addAction(ac.file_save_as)
+        t.widgetForAction(ac.file_save).addAction(ac.file_save_copy_as)
+        t.widgetForAction(ac.file_save).addAction(ac.file_rename)
+        t.widgetForAction(ac.file_save).addAction(
+            panelmanager.manager(self).snippettool.actionCollection.file_save_as_template
+        )
         t.widgetForAction(ac.file_save).addAction(ac.file_save_all)
         t.addAction(ac.file_close)
+        t.widgetForAction(ac.file_close).addAction(ac.file_close_other)
+        t.widgetForAction(ac.file_close).addAction(ac.file_close_all)
+        t.widgetForAction(ac.file_close).addAction(
+            ac.file_close_all_and_session
+        )
         t.addSeparator()
         t.addAction(browseriface.get(self).actionCollection.go_back)
         t.addAction(browseriface.get(self).actionCollection.go_forward)
@@ -1156,6 +1188,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close = QAction(parent)
         self.file_close_other = QAction(parent)
         self.file_close_all = QAction(parent)
+        self.file_close_all_and_session = QAction(parent)
         self.file_quit = QAction(parent)
         self.file_restart = QAction(parent)
 
@@ -1302,8 +1335,16 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
-        self.file_close_all.setText(_("Close All Documents and Session"))
-        self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
+        self.file_close_all.setText(_("Close All Documents"))
+        self.file_close_all.setToolTip(
+            _("Closes all documents but preserves the current session")
+        )
+        self.file_close_all_and_session.setText(
+            _("Close All Documents and Session")
+        )
+        self.file_close_all_and_session.setToolTip(
+            _("Closes all documents and leaves the current session.")
+        )
         self.file_quit.setText(_("&Quit"))
         self.file_restart.setText(_("Restart {appname}").format(appname=appinfo.appname))
 

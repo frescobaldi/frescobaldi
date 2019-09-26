@@ -119,6 +119,7 @@ def menu_file(mainwindow):
     m.addAction(ac.file_close)
     m.addAction(ac.file_close_other)
     m.addAction(ac.file_close_all)
+    m.addAction(ac.file_close_all_and_session)
     m.addSeparator()
     m.addAction(ac.file_quit)
     if app.is_git_controlled():
