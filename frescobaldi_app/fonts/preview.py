@@ -32,11 +32,10 @@ from PyQt5.QtCore import (
     Qt
 )
 from PyQt5.QtWidgets import (
-    QButtonGroup,
     QComboBox,
     QFileDialog,
     QHBoxLayout,
-    QRadioButton,
+    QLabel,
     QVBoxLayout,
     QWidget,
 )
@@ -78,18 +77,11 @@ class FontsPreviewWidget(QWidget):
         layout = QVBoxLayout(margin=0)
         self.setLayout(layout)
 
-        # Overall sample target button group
-        self.sample_button_group = sbg = QButtonGroup()
-        self.rb_default = QRadioButton()
-        self.rb_custom = QRadioButton()
-        self.rb_current = QRadioButton()
-        sbg.addButton(self.rb_default, 0)
-        sbg.addButton(self.rb_custom, 1)
-        sbg.addButton(self.rb_current, 2)
+        # Label with text "Example:"
+        self.lb_sample = QLabel()
 
-        # ComboBox for provided default samples
-        self.cb_default_sample = QComboBox()
-        self.populate_default_samples()
+        # ComboBox for provided default samples and other options
+        self.cb_samples = QComboBox()
 
         # Select custom file
         self.custom_sample_url = widgets.urlrequester.UrlRequester(
@@ -97,14 +89,19 @@ class FontsPreviewWidget(QWidget):
             mustExist=True
         )
 
+        # put the default sample in the combobox
+        self.populate_default_samples()
+        # add other actions
+        self._cb_last_sample_index = i = self.cb_samples.count()
+        self.cb_samples.insertSeparator(i)
+        self.cb_samples.addItem(_("Custom"), "<CUSTOM>")
+        self.cb_samples.addItem(_("Current Document"), "<CURRENT>")
 
         # Add sample source widgets to layout
         bl = QHBoxLayout(margin=0)
-        bl.addWidget(self.rb_default)
-        bl.addWidget(self.cb_default_sample)
-        bl.addWidget(self.rb_custom)
+        bl.addWidget(self.lb_sample)
+        bl.addWidget(self.cb_samples)
         bl.addWidget(self.custom_sample_url)
-        bl.addWidget(self.rb_current)
         layout.addLayout(bl)
 
         # The score preview widget
@@ -120,67 +117,55 @@ class FontsPreviewWidget(QWidget):
         self.loadSettings()
 
         # Trigger showing of new samples
-        sbg.buttonToggled.connect(self.set_music_sample_source)
-        self.cb_default_sample.currentIndexChanged.connect(
-            self.select_default_sample
-        )
+        self.cb_samples.currentIndexChanged.connect(self.show_sample)
         self.custom_sample_url.editingFinished.connect(self.show_sample)
-
         parent.finished.connect(self.saveSettings)
 
     def translateUI(self):
-        self.rb_default.setText(_("&Default"))
-        self.rb_default.setToolTip(_("Choose default music font sample"))
-        self.rb_custom.setText(_("&Custom"))
-        self.rb_custom.setToolTip(_(
+        self.lb_sample.setText("Example:")
+        csu = self.custom_sample_url
+        csu.setToolTip(_(
             "Use custom sample for music font.\n"
             + "NOTE: This should not include a version statement "
             + "or a paper block."
         ))
-        self.rb_current.setText(_("C&urrent"))
-        self.rb_current.setToolTip(
-            _(
-                "Use current document as music font sample.\n"
-                + "NOTE: This is not robust if the document contains "
-                + "a \\paper { } block."
-                ))
-        csu = self.custom_sample_url
         csu.setDialogTitle(_("Select sample score"))
         csu.fileDialog(True).setNameFilters(['LilyPond files (*.ly)'])
+        i = self.cb_samples.findData("<CURRENT>")
+        self.cb_samples.setItemData(i, _(
+            "Use current document as music font sample.\n"
+            + "NOTE: This is not robust if the document contains "
+            + "a \\paper { } block."
+        ), Qt.ToolTipRole)
+        i = self.cb_samples.findData("<CUSTOM>")
+        self.cb_samples.setItemData(i, csu.toolTip(), Qt.ToolTipRole)
 
     def loadSettings(self):
         s = QSettings()
         s.beginGroup('document-fonts-dialog')
-        id = s.value('sample-source-button', 0, int)
-        self.sample_button_group.button(id).setChecked(True)
-        default_sample = s.value('default-music-sample', '', str)
-        index = max(0, self.cb_default_sample.findText(default_sample))
-        self.cb_default_sample.setCurrentIndex(index)
-        custom_sample = s.value('custom-music-sample-url', '')
+        sample = s.value('default-music-sample', '', str)
+        index = max(0, self.cb_samples.findData(sample))
+        self.cb_samples.setCurrentIndex(index)
+        custom_sample = s.value('custom-music-sample-url', '', str)
         self.custom_sample_url.setPath(custom_sample)
-        sample_dir = (
-            os.path.dirname(custom_sample) if custom_sample
-            else os.path.dirname(
+        if custom_sample:
+            sample_dir = os.path.dirname(custom_sample)
+        else:
+            sample_dir = os.path.dirname(
                 self.window().parent().currentDocument().url().toLocalFile())
-        )
         self.custom_sample_url.fileDialog().setDirectory(sample_dir)
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup('document-fonts-dialog')
-        s.setValue(
-            'sample-source-button', self.sample_button_group.checkedId()
-        )
-        s.setValue(
-            'default-music-sample', self.cb_default_sample.currentText()
-        )
+        s.setValue('default-music-sample', self.cb_samples.currentData())
         s.setValue('custom-music-sample-url', self.custom_sample_url.path())
 
     def populate_default_samples(self):
         """Populate hte default samples ComboBox.
         This is just factored out to unclutter __init__.
         """
-        cb = self.cb_default_sample
+        cb = self.cb_samples
 
         def add_entry(entry):
             cb.addItem(entry['label'], entry['file'])
@@ -233,22 +218,6 @@ class FontsPreviewWidget(QWidget):
             )
         })
 
-    def select_default_sample(self):
-        """Called when a new default sample has been selected."""
-        if self.sample_button_group.checkedId() > 0:
-            self.rb_default.setChecked(True)
-            self.set_music_sample_source()
-        else:
-            self.show_sample()
-
-    def set_music_sample_source(self):
-        """
-        Update interface to access default samples or custom file chooser.
-        """
-        button_id = self.sample_button_group.checkedId()
-        self.custom_sample_url.setEnabled(button_id == 1)
-        self.show_sample()
-
     def show_sample(self):
         """Display a sample document for the selected notation font."""
         print("Enter show_sample")
@@ -256,6 +225,9 @@ class FontsPreviewWidget(QWidget):
         base_dir = None
         sample_content = ''
         cache_persistently = False
+
+        target = self.cb_samples.currentData()
+        self.custom_sample_url.setEnabled(target == "<CUSTOM>")
 
         def handle_staff_size():
             """
@@ -274,22 +246,16 @@ class FontsPreviewWidget(QWidget):
             either from the active editor or from a file.
             """
             nonlocal sample_content, base_dir
-            nonlocal cache_persistently
+            nonlocal cache_persistently, target
             custom_file = self.custom_sample_url.path()
 
-            # target will be one out of
-            # 0: provided sample file
-            # 1: custom file
-            # 2: active document (unsaved state)
-            target = self.sample_button_group.checkedId()
-            if target == 1 and not custom_file:
-                # Custom file selected but no file provided
-                target = 0
+            if target == "<CUSTOM>" and not custom_file:
+                target = self.cb_samples.itemData(0)
 
             # Provided sample files will be cached persistently
-            cache_persistently = target == 0
+            cache_persistently = target not in ("<CUSTOM>", "<CURRENT>")
 
-            if target == 2:
+            if target == "<CURRENT>":
                 # Engrave active document
                 import engrave
                 current_doc = engrave.engraver(app.activeWindow()).document()
@@ -297,7 +263,7 @@ class FontsPreviewWidget(QWidget):
                 if not current_doc.url().isEmpty():
                     base_dir = os.path.dirname(current_doc.url().toLocalFile())
             else:
-                if target == 1:
+                if target == "<CUSTOM>":
                     print("Custom file:", custom_file)
                     sample_file = custom_file
                 else:
@@ -306,7 +272,7 @@ class FontsPreviewWidget(QWidget):
                     template_dir = os.path.join(fonts.__path__[0], 'templates')
                     sample_file = os.path.join(
                         template_dir,
-                        'musicfont-' + self.cb_default_sample.currentData()
+                        'musicfont-' + target
                     )
                     print("Default:", sample_file)
                 base_dir = os.path.dirname(sample_file)
