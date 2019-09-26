@@ -23,8 +23,19 @@ Keyboard shortcuts settings page.
 
 
 from PyQt5.QtCore import QSettings
-from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QHBoxLayout,
-                             QLabel, QRadioButton, QStyleFactory, QVBoxLayout, QLineEdit)
+from PyQt5.QtWidgets import (
+    QCheckBox,
+    QComboBox,
+    QGridLayout,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QRadioButton,
+    QStyleFactory,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget
+)
 
 import app
 import appinfo
@@ -47,9 +58,7 @@ class GeneralPrefs(preferences.ScrolledGroupsPage):
         self.scrolledWidget.setLayout(layout)
 
         layout.addWidget(General(self))
-        layout.addWidget(SavingDocument(self))
-        layout.addWidget(NewDocument(self))
-        layout.addWidget(StartSession(self))
+        layout.addWidget(SessionsAndFiles(self))
         layout.addWidget(ExperimentalFeatures(self))
 
 
@@ -148,103 +157,123 @@ class General(preferences.Group):
             "application if available, instead of starting a new instance."))
 
 
-class StartSession(preferences.Group):
+class SessionsAndFiles(preferences.Group):
     def __init__(self, page):
-        super(StartSession, self).__init__(page)
-
-        grid = QGridLayout()
-        self.setLayout(grid)
-
-        def changed():
-            self.changed.emit()
-            self.combo.setEnabled(self.custom.isChecked())
-
-        self.none = QRadioButton(toggled=changed)
-        self.lastused = QRadioButton(toggled=changed)
-        self.custom = QRadioButton(toggled=changed)
-        self.combo = QComboBox(currentIndexChanged=changed)
-
-        grid.addWidget(self.none, 0, 0, 1, 2)
-        grid.addWidget(self.lastused, 1, 0, 1, 2)
-        grid.addWidget(self.custom, 2, 0, 1, 1)
-        grid.addWidget(self.combo, 2, 1, 1, 1)
-
-        app.translateUI(self)
-
-    def translateUI(self):
-        self.setTitle(_("Session to load if Frescobaldi is started without arguments"))
-        self.none.setText(_("Start with no session"))
-        self.lastused.setText(_("Start with last used session"))
-        self.custom.setText(_("Start with session:"))
-
-    def loadSettings(self):
-        s = QSettings()
-        s.beginGroup("session")
-        startup = s.value("startup", "none", str)
-        if startup ==  "lastused":
-            self.lastused.setChecked(True)
-        elif startup == "custom":
-            self.custom.setChecked(True)
-        else:
-            self.none.setChecked(True)
-        sessionNames = sessions.sessionNames()
-        self.combo.clear()
-        self.combo.addItems(sessionNames)
-        custom = s.value("custom", "", str)
-        if custom in sessionNames:
-            self.combo.setCurrentIndex(sessionNames.index(custom))
-
-    def saveSettings(self):
-        s = QSettings()
-        s.beginGroup("session")
-        s.setValue("custom", self.combo.currentText())
-        if self.custom.isChecked():
-            startup = "custom"
-        elif self.lastused.isChecked():
-            startup = "lastused"
-        else:
-            startup = "none"
-        s.setValue("startup", startup)
-
-
-class SavingDocument(preferences.Group):
-    def __init__(self, page):
-        super(SavingDocument, self).__init__(page)
+        super(SessionsAndFiles, self).__init__(page)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
+
+        def changed():
+            self.changed.emit()
+            self.new_combo.setEnabled(self.template.isChecked())
+            self.session_combo.setEnabled(self.session_custom.isChecked())
 
         def customchanged():
             self.changed.emit()
             self.filenameTemplate.setEnabled(self.customFilename.isChecked())
 
+        self.verbose_toolbuttons = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.verbose_toolbuttons)
+
+        self.tabs = QTabWidget()
+        layout.addWidget(self.tabs)
+
+        # New Documents Tab
+        self.new_tab = QWidget()
+        self.tabs.addTab(self.new_tab, "")
+        new_layout_wrap = QVBoxLayout()
+        self.new_tab.setLayout(new_layout_wrap)
+        new_layout = QGridLayout()
+        new_layout_wrap.addLayout(new_layout)
+
+        self.emptyDocument = QRadioButton(toggled=changed)
+        self.lilyVersion = QRadioButton(toggled=changed)
+        self.template = QRadioButton(toggled=changed)
+        self.new_combo = QComboBox(currentIndexChanged=changed)
+
+        new_layout.addWidget(self.emptyDocument, 0, 0, 1, 2)
+        new_layout.addWidget(self.lilyVersion, 1, 0, 1, 2)
+        new_layout.addWidget(self.template, 2, 0, 1, 1)
+        new_layout.addWidget(self.new_combo, 2, 1, 1, 1)
+        new_layout_wrap.addStretch()
+
+        # Saving Files Tab
+        self.save_tab = QWidget()
+        self.tabs.addTab(self.save_tab, "")
+        save_layout = QVBoxLayout()
+        self.save_tab.setLayout(save_layout)
+
         self.stripwsp = QCheckBox(toggled=self.changed)
         self.backup = QCheckBox(toggled=self.changed)
         self.metainfo = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.stripwsp)
-        layout.addWidget(self.backup)
-        layout.addWidget(self.metainfo)
-
-        hbox = QHBoxLayout()
-        layout.addLayout(hbox)
+        save_layout.addWidget(self.stripwsp)
+        save_layout.addWidget(self.backup)
+        save_layout.addWidget(self.metainfo)
+        basedir_layout = QHBoxLayout()
+        save_layout.addLayout(basedir_layout)
 
         self.basedirLabel = l = QLabel()
         self.basedir = UrlRequester()
-        hbox.addWidget(self.basedirLabel)
-        hbox.addWidget(self.basedir)
+        basedir_layout.addWidget(self.basedirLabel)
+        basedir_layout.addWidget(self.basedir)
         self.basedir.changed.connect(self.changed)
 
-        filenameBox = QHBoxLayout()
-        layout.addLayout(filenameBox)
+        filename_layout = QHBoxLayout()
+        save_layout.addLayout(filename_layout)
 
         self.customFilename = QCheckBox(toggled=customchanged)
         self.filenameTemplate = QLineEdit(textEdited=self.changed)
-        filenameBox.addWidget(self.customFilename)
-        filenameBox.addWidget(self.filenameTemplate)
+        filename_layout.addWidget(self.customFilename)
+        filename_layout.addWidget(self.filenameTemplate)
+
+        # Sessions Tab
+        self.session_tab = QWidget()
+        self.tabs.addTab(self.session_tab, "")
+        session_layout = QGridLayout()
+        session_layout_wrap = QVBoxLayout()
+        self.session_tab.setLayout(session_layout_wrap)
+        session_layout_wrap.addLayout(session_layout)
+
+        self.session_label = QLabel()
+        session_layout_wrap.addWidget(self.session_label)
+
+        self.session_none = QRadioButton(toggled=changed)
+        self.session_lastused = QRadioButton(toggled=changed)
+        self.session_custom = QRadioButton(toggled=changed)
+        self.session_combo = QComboBox(currentIndexChanged=changed)
+
+        session_layout.addWidget(self.session_none, 0, 0, 1, 2)
+        session_layout.addWidget(self.session_lastused, 1, 0, 1, 2)
+        session_layout.addWidget(self.session_custom, 2, 0, 1, 1)
+        session_layout.addWidget(self.session_combo, 2, 1, 1, 1)
+        session_layout_wrap.addStretch()
+
+        self.loadNewCombo()
+
         app.translateUI(self)
 
     def translateUI(self):
-        self.setTitle(_("When saving documents"))
+        self.setTitle(_("Sessions and Files"))
+        self.verbose_toolbuttons.setText(_(
+            "Add pull-down menus in main toolbar"
+        ))
+        self.verbose_toolbuttons.setToolTip("<font>{}</font>".format(
+            _("If set the file related buttons in the main toolbar will "
+            "provide pull-down menus with additional functions.")
+        ))
+
+        # New Documents Tab
+        self.tabs.setTabText(0, _("New Document"))
+        self.emptyDocument.setText(_("Create an empty document"))
+        self.lilyVersion.setText(_("Create a document that contains the LilyPond version statement"))
+        self.template.setText(_("Create a document from a template:"))
+        from snippet import snippets
+        for i, name in enumerate(self._names):
+            self.new_combo.setItemText(i, snippets.title(name))
+
+        # Saving Files Tab
+        self.tabs.setTabText(1, _("Saving"))
         self.stripwsp.setText(_("Strip trailing whitespace"))
         self.stripwsp.setToolTip(_(
             "If checked, Frescobaldi will remove unnecessary whitespace at the "
@@ -255,6 +284,7 @@ class SavingDocument(preferences.Group):
             "with a new version.\n"
             "If checked those backup copies are retained."))
         self.metainfo.setText(_("Remember cursor position, bookmarks, etc."))
+
         self.basedirLabel.setText(_("Default directory:"))
         self.basedirLabel.setToolTip(_("The default folder for your LilyPond documents (optional)."))
         self.customFilename.setText(_("Use custom default file name:"))
@@ -262,8 +292,41 @@ class SavingDocument(preferences.Group):
             "If checked, Frescobaldi will use the template to generate default file name.\n"
             "{title} and {composer} will be replaced by title and composer of that document"))
 
+        # Sessions Tab
+        self.tabs.setTabText(2, _("Sessions"))
+        self.session_label.setText(_(
+            "Session to load if Frescobaldi is started without arguments"
+        ))
+        self.session_none.setText(_("Start with no session"))
+        self.session_lastused.setText(_("Start with last used session"))
+        self.session_custom.setText(_("Start with session:"))
+
+    def loadNewCombo(self):
+        from snippet import snippets
+        self._names = [name for name in snippets.names()
+                        if snippets.get(name).variables.get('template')]
+        self.new_combo.clear()
+        self.new_combo.addItems([''] * len(self._names))
+
     def loadSettings(self):
         s = QSettings()
+        self.verbose_toolbuttons.setChecked(
+            s.value("verbose_toolbuttons", False, bool)
+        )
+
+        # New Documents Tab
+        ndoc = s.value("new_document", "empty", str)
+        template = s.value("new_document_template", "", str)
+        if template in self._names:
+            self.new_combo.setCurrentIndex(self._names.index(template))
+        if ndoc == "template":
+            self.template.setChecked(True)
+        elif ndoc == "version":
+            self.lilyVersion.setChecked(True)
+        else:
+            self.emptyDocument.setChecked(True)
+
+        # Saving Files Tab
         self.stripwsp.setChecked(s.value("strip_trailing_whitespace", False, bool))
         self.backup.setChecked(s.value("backup_keep", False, bool))
         self.metainfo.setChecked(s.value("metainfo", True, bool))
@@ -272,8 +335,36 @@ class SavingDocument(preferences.Group):
         self.filenameTemplate.setText(s.value("default_filename_template", "{composer}-{title}", str))
         self.filenameTemplate.setEnabled(self.customFilename.isChecked())
 
+        # Sessions Tab
+        s.beginGroup("session")
+        startup = s.value("startup", "none", str)
+        if startup ==  "lastused":
+            self.session_lastused.setChecked(True)
+        elif startup == "custom":
+            self.session_custom.setChecked(True)
+        else:
+            self.session_none.setChecked(True)
+        sessionNames = sessions.sessionNames()
+        self.session_combo.clear()
+        self.session_combo.addItems(sessionNames)
+        custom = s.value("custom", "", str)
+        if custom in sessionNames:
+            self.session_combo.setCurrentIndex(sessionNames.index(custom))
+
     def saveSettings(self):
         s = QSettings()
+        s.setValue("verbose_toolbuttons", self.verbose_toolbuttons.isChecked())
+
+        # New Documents Tab
+        if self._names and self.template.isChecked():
+            s.setValue("new_document", "template")
+            s.setValue("new_document_template", self._names[self.new_combo.currentIndex()])
+        elif self.lilyVersion.isChecked():
+            s.setValue("new_document", "version")
+        else:
+            s.setValue("new_document", "empty")
+
+        # Saving Files Tab
         s.setValue("strip_trailing_whitespace", self.stripwsp.isChecked())
         s.setValue("backup_keep", self.backup.isChecked())
         s.setValue("metainfo", self.metainfo.isChecked())
@@ -281,68 +372,16 @@ class SavingDocument(preferences.Group):
         s.setValue("custom_default_filename", self.customFilename.isChecked())
         s.setValue("default_filename_template", self.filenameTemplate.text())
 
-
-class NewDocument(preferences.Group):
-    def __init__(self, page):
-        super(NewDocument, self).__init__(page)
-
-        grid = QGridLayout()
-        self.setLayout(grid)
-
-        def changed():
-            self.changed.emit()
-            self.combo.setEnabled(self.template.isChecked())
-
-        self.emptyDocument = QRadioButton(toggled=changed)
-        self.lilyVersion = QRadioButton(toggled=changed)
-        self.template = QRadioButton(toggled=changed)
-        self.combo = QComboBox(currentIndexChanged=changed)
-
-        grid.addWidget(self.emptyDocument, 0, 0, 1, 2)
-        grid.addWidget(self.lilyVersion, 1, 0, 1, 2)
-        grid.addWidget(self.template, 2, 0, 1, 1)
-        grid.addWidget(self.combo, 2, 1, 1, 1)
-        self.loadCombo()
-        app.translateUI(self)
-
-    def translateUI(self):
-        self.setTitle(_("When creating new documents"))
-        self.emptyDocument.setText(_("Create an empty document"))
-        self.lilyVersion.setText(_("Create a document that contains the LilyPond version statement"))
-        self.template.setText(_("Create a document from a template:"))
-        from snippet import snippets
-        for i, name in enumerate(self._names):
-            self.combo.setItemText(i, snippets.title(name))
-
-    def loadCombo(self):
-        from snippet import snippets
-        self._names = [name for name in snippets.names()
-                        if snippets.get(name).variables.get('template')]
-        self.combo.clear()
-        self.combo.addItems([''] * len(self._names))
-
-    def loadSettings(self):
-        s = QSettings()
-        ndoc = s.value("new_document", "empty", str)
-        template = s.value("new_document_template", "", str)
-        if template in self._names:
-            self.combo.setCurrentIndex(self._names.index(template))
-        if ndoc == "template":
-            self.template.setChecked(True)
-        elif ndoc == "version":
-            self.lilyVersion.setChecked(True)
+        # Sessions Tab
+        s.beginGroup("session")
+        s.setValue("custom", self.session_combo.currentText())
+        if self.session_custom.isChecked():
+            startup = "custom"
+        elif self.session_lastused.isChecked():
+            startup = "lastused"
         else:
-            self.emptyDocument.setChecked(True)
-
-    def saveSettings(self):
-        s = QSettings()
-        if self._names and self.template.isChecked():
-            s.setValue("new_document", "template")
-            s.setValue("new_document_template", self._names[self.combo.currentIndex()])
-        elif self.lilyVersion.isChecked():
-            s.setValue("new_document", "version")
-        else:
-            s.setValue("new_document", "empty")
+            startup = "none"
+        s.setValue("startup", startup)
 
 
 class ExperimentalFeatures(preferences.Group):
@@ -370,5 +409,3 @@ class ExperimentalFeatures(preferences.Group):
     def saveSettings(self):
         s = QSettings()
         s.setValue("experimental-features", self.experimentalFeatures.isChecked())
-
-

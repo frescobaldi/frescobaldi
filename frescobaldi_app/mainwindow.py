@@ -1110,15 +1110,22 @@ class MainWindow(QMainWindow):
     def createToolBars(self):
         ac = self.actionCollection
         self.toolbar_main = t = self.addToolBar('')
+        # TODO: I don't know how the 'verbose' setting can be made to be
+        # updated when settings have changed.
+        # (Drop and rebuild the toolbar? Update the individual actions?)
+        verbose = app.settings("").value("verbose_toolbuttons", False, bool)
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
-        t.widgetForAction(ac.file_new).setMenu(menu.menu_file_new(self))
+        if verbose:
+            t.widgetForAction(ac.file_new).setMenu(menu.menu_file_new(self))
         t.addAction(ac.file_open)
         t.widgetForAction(ac.file_open).setMenu(self.menu_recent_files)
         t.addAction(ac.file_save)
-        t.widgetForAction(ac.file_save).setMenu(menu.menu_file_save(self))
+        if verbose:
+            t.widgetForAction(ac.file_save).setMenu(menu.menu_file_save(self))
         t.addAction(ac.file_close)
-        t.widgetForAction(ac.file_close).setMenu(menu.menu_file_close(self))
+        if verbose:
+            t.widgetForAction(ac.file_close).setMenu(menu.menu_file_close(self))
         t.addSeparator()
         t.addAction(browseriface.get(self).actionCollection.go_back)
         t.addAction(browseriface.get(self).actionCollection.go_forward)
