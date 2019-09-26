@@ -75,7 +75,7 @@ class FontsPreviewWidget(QWidget):
         # Create the cache directory for default samples
         os.makedirs(self.persistent_cache_dir, 0o700, exist_ok=True)
 
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(margin=0)
         self.setLayout(layout)
 
         # Overall sample target button group
@@ -99,7 +99,7 @@ class FontsPreviewWidget(QWidget):
 
 
         # Add sample source widgets to layout
-        bl = QHBoxLayout()
+        bl = QHBoxLayout(margin=0)
         bl.addWidget(self.rb_default)
         bl.addWidget(self.cb_default_sample)
         bl.addWidget(self.rb_custom)
