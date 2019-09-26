@@ -32,6 +32,7 @@ from PyQt5.QtWidgets import (
     QLabel,
     QLineEdit,
     QRadioButton,
+    QScrollArea,
     QTabWidget,
     QTextEdit,
     QVBoxLayout,
@@ -42,7 +43,7 @@ import app
 import highlighter
 
 
-class FontCommandWidget(QWidget):
+class FontCommandWidget(QScrollArea):
     """Displays and manipulates a font setting command."""
 
     # Store templates as class variablese
@@ -61,6 +62,7 @@ class FontCommandWidget(QWidget):
 
     def __init__(self, parent):
         super(FontCommandWidget, self).__init__(parent)
+
         self._cmd = {
             'lily': '',
             'oll': ''
@@ -73,15 +75,19 @@ class FontCommandWidget(QWidget):
 
         self.font_labels = {}
 
+        mainWidget = QWidget()
+        self.setWidgetResizable(True)
+        self.setWidget(mainWidget)
+        self.setFrameShape(QScrollArea.NoFrame)
         layout = QVBoxLayout()
-        self.setLayout(layout)
+        mainWidget.setLayout(layout)
         col_layout = QHBoxLayout()
         layout.addLayout(col_layout)
         layout.addStretch()
 
         # Left column holding the options
         self.option_widget = QWidget()
-        opt_layout = QVBoxLayout()
+        opt_layout = QVBoxLayout(margin=0)
         self.option_widget.setLayout(opt_layout)
         col_layout.addWidget(self.option_widget)
 
