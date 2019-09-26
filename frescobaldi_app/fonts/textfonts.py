@@ -65,7 +65,7 @@ class TextFontsWidget(QWidget):
         self.lilypond_info = available_fonts.lilypond_info
         self.fonts = available_fonts.text_fonts()
 
-        self.status_label = QLabel()
+        self.status_label = QLabel(wordWrap=True)
         self.tree_view = tv = QTreeView()
         self.filter_edit = LineEdit()
         tv.setEditTriggers(QAbstractItemView.NoEditTriggers)

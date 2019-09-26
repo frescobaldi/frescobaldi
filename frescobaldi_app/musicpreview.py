@@ -74,7 +74,7 @@ class MusicPreviewWidget(QWidget):
         self._stack = QStackedLayout()
         self._top = QWidget()
 
-        layout = QVBoxLayout()
+        layout = QVBoxLayout(margin=0)
         self.setLayout(layout)
 
         layout.addWidget(self._top)

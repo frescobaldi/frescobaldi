@@ -26,11 +26,13 @@ from PyQt5.QtWidgets import (
     QAbstractButton,
     QButtonGroup,
     QCheckBox,
+    QGridLayout,
     QGroupBox,
     QHBoxLayout,
     QLabel,
     QLineEdit,
     QRadioButton,
+    QScrollArea,
     QTabWidget,
     QTextEdit,
     QVBoxLayout,
@@ -41,7 +43,7 @@ import app
 import highlighter
 
 
-class FontCommandWidget(QWidget):
+class FontCommandWidget(QScrollArea):
     """Displays and manipulates a font setting command."""
 
     # Store templates as class variablese
@@ -60,6 +62,7 @@ class FontCommandWidget(QWidget):
 
     def __init__(self, parent):
         super(FontCommandWidget, self).__init__(parent)
+
         self._cmd = {
             'lily': '',
             'oll': ''
@@ -72,15 +75,19 @@ class FontCommandWidget(QWidget):
 
         self.font_labels = {}
 
+        mainWidget = QWidget()
+        self.setWidgetResizable(True)
+        self.setWidget(mainWidget)
+        self.setFrameShape(QScrollArea.NoFrame)
         layout = QVBoxLayout()
-        self.setLayout(layout)
+        mainWidget.setLayout(layout)
         col_layout = QHBoxLayout()
         layout.addLayout(col_layout)
         layout.addStretch()
 
         # Left column holding the options
         self.option_widget = QWidget()
-        opt_layout = QVBoxLayout()
+        opt_layout = QVBoxLayout(margin=0)
         self.option_widget.setLayout(opt_layout)
         col_layout.addWidget(self.option_widget)
 
@@ -91,31 +98,25 @@ class FontCommandWidget(QWidget):
 
         # Which text font families to integrate?
         self.family_group = QGroupBox()
-        family_layout = QVBoxLayout()
         opt_layout.addWidget(self.family_group)
+        family_layout = QGridLayout()
         self.family_group.setLayout(family_layout)
         self.cb_roman = QCheckBox()
         self.font_labels['roman'] = QLabel(parent.selected_font('roman'))
-        roman_layout = QHBoxLayout()
-        roman_layout.addWidget(self.cb_roman)
-        roman_layout.addWidget(self.font_labels['roman'])
-        family_layout.addLayout(roman_layout)
+        family_layout.addWidget(self.cb_roman, 0, 0)
+        family_layout.addWidget(self.font_labels['roman'], 0, 1)
 
         self.cb_sans = QCheckBox()
         self.font_labels['sans'] = QLabel(parent.selected_font('sans'))
-        sans_layout = QHBoxLayout()
-        sans_layout.addWidget(self.cb_sans)
-        sans_layout.addWidget(self.font_labels['sans'])
-        family_layout.addLayout(sans_layout)
+        family_layout.addWidget(self.cb_sans, 1, 0)
+        family_layout.addWidget(self.font_labels['sans'], 1, 1)
 
         self.cb_typewriter = QCheckBox()
         self.font_labels['typewriter'] = QLabel(
             parent.selected_font('typewriter')
         )
-        typewriter_layout = QHBoxLayout()
-        typewriter_layout.addWidget(self.cb_typewriter)
-        typewriter_layout.addWidget(self.font_labels['typewriter'])
-        family_layout.addLayout(typewriter_layout)
+        family_layout.addWidget(self.cb_typewriter, 2, 0)
+        family_layout.addWidget(self.font_labels['typewriter'], 2, 1)
 
         # Choice between traditional and openLilyLib approach
         self.approach_group = QGroupBox()
