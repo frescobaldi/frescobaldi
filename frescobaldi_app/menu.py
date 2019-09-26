@@ -96,7 +96,6 @@ def menu_file(mainwindow):
     m.addSeparator()
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)
-    m.addAction(ac.file_insert_file)
     m.addSeparator()
     m.addAction(ac.file_save)
     m.addMenu(menu_file_save(mainwindow))
@@ -180,13 +179,11 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_undo)
     m.addAction(ac.edit_redo)
     m.addSeparator()
-    m.addAction(documentactions.get(mainwindow).actionCollection.edit_cut_assign)
-    m.addAction(documentactions.get(mainwindow).actionCollection.edit_move_to_include_file)
     m.addAction(ac.edit_cut)
     m.addAction(ac.edit_copy)
-    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
-    m.addAction(ac.edit_copy_colored_html)
+    m.addAction(ac.file_insert_file)
     m.addAction(ac.edit_paste)
+    m.addMenu(menu_edit_cut(mainwindow))
     m.addSeparator()
     m.addAction(ac.edit_select_all)
     m.addAction(ac.edit_select_current_toplevel)
@@ -198,6 +195,16 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_replace)
     m.addSeparator()
     m.addAction(ac.edit_preferences)
+    return m
+
+
+def menu_edit_cut(mainwindow):
+    m = Menu(_("menu title", "Cut/Copy (advanced)"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(documentactions.get(mainwindow).actionCollection.edit_cut_assign)
+    m.addAction(documentactions.get(mainwindow).actionCollection.edit_move_to_include_file)
+    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
+    m.addAction(ac.edit_copy_colored_html)
     return m
 
 
