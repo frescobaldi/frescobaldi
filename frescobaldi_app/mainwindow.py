@@ -1109,32 +1109,16 @@ class MainWindow(QMainWindow):
 
     def createToolBars(self):
         ac = self.actionCollection
-        self.file_new_menu = fnm = QMenu()
-        fnm.addAction(ac.file_new)
-        fnm.addAction(
-            scorewiz.ScoreWizard.instance(self).actionCollection.scorewiz
-        )
-        fnm.addMenu(snippet.menu.TemplateMenu(self))
         self.toolbar_main = t = self.addToolBar('')
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
-        t.widgetForAction(ac.file_new).setMenu(fnm)
+        t.widgetForAction(ac.file_new).setMenu(menu.menu_file_new(self))
         t.addAction(ac.file_open)
         t.widgetForAction(ac.file_open).setMenu(self.menu_recent_files)
         t.addAction(ac.file_save)
-        t.widgetForAction(ac.file_save).addAction(ac.file_save_as)
-        t.widgetForAction(ac.file_save).addAction(ac.file_save_copy_as)
-        t.widgetForAction(ac.file_save).addAction(ac.file_rename)
-        t.widgetForAction(ac.file_save).addAction(
-            panelmanager.manager(self).snippettool.actionCollection.file_save_as_template
-        )
-        t.widgetForAction(ac.file_save).addAction(ac.file_save_all)
+        t.widgetForAction(ac.file_save).setMenu(menu.menu_file_save(self))
         t.addAction(ac.file_close)
-        t.widgetForAction(ac.file_close).addAction(ac.file_close_other)
-        t.widgetForAction(ac.file_close).addAction(ac.file_close_all)
-        t.widgetForAction(ac.file_close).addAction(
-            ac.file_close_all_and_session
-        )
+        t.widgetForAction(ac.file_close).setMenu(menu.menu_file_close(self))
         t.addSeparator()
         t.addAction(browseriface.get(self).actionCollection.go_back)
         t.addAction(browseriface.get(self).actionCollection.go_forward)
@@ -1319,6 +1303,10 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_insert_file.setText(_("Insert from &File..."))
+        self.file_insert_file.setToolTip(
+            _("Insert the content of a file\n"
+            "at the current cursor position")
+        )
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
         self.file_save.setText(_("&Save"))

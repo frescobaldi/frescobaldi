@@ -92,34 +92,25 @@ def menu_file(mainwindow):
     ac = mainwindow.actionCollection
 
     m.addAction(ac.file_new)
-    m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.scorewiz)
-    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
+    m.addMenu(menu_file_new(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)
     m.addAction(ac.file_insert_file)
     m.addSeparator()
     m.addAction(ac.file_save)
-    m.addAction(ac.file_save_as)
-    m.addAction(ac.file_save_copy_as)
-    m.addAction(ac.file_rename)
-    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
-    m.addAction(ac.file_save_all)
+    m.addMenu(menu_file_save(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_reload)
     m.addAction(ac.file_reload_all)
     m.addAction(ac.file_external_changes)
     m.addSeparator()
     m.addMenu(menu_file_import(mainwindow))
-    m.addMenu(menu_file_export(mainwindow))
     m.addSeparator()
-    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
-    m.addAction(ac.file_print_source)
+    m.addMenu(menu_file_print(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_close)
-    m.addAction(ac.file_close_other)
-    m.addAction(ac.file_close_all)
-    m.addAction(ac.file_close_all_and_session)
+    m.addMenu(menu_file_close(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_quit)
     if app.is_git_controlled():
@@ -127,27 +118,58 @@ def menu_file(mainwindow):
     return m
 
 
-def menu_file_import(mainwindow):
-    m = Menu(_("submenu title", "&Import"), mainwindow)
-    ac = file_import.FileImport.instance(mainwindow).actionCollection
-
-    m.addAction(ac.import_any)
-    m.addSeparator()
-    m.addAction(ac.import_musicxml)
-    m.addAction(ac.import_midi)
-    m.addAction(ac.import_abc)
+def menu_file_new(mainwindow):
+    m = Menu(_("submenu title", "New (advanced)"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.scorewiz)
+    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
     return m
 
 
-def menu_file_export(mainwindow):
-    m = Menu(_("submenu title", "&Export"), mainwindow)
+def menu_file_save(mainwindow):
+    m = Menu(_("submenu title", "Save (advanced)"), mainwindow)
     ac = mainwindow.actionCollection
+    m.addAction(ac.file_save_as)
+    m.addAction(ac.file_save_copy_as)
+    m.addAction(ac.file_rename)
+    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
+    m.addAction(ac.file_save_all)
+    return m
+
+
+def menu_file_close(mainwindow):
+    m = Menu(_("submenu title", "Close (advanced)"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(ac.file_close_other)
+    m.addAction(ac.file_close_all)
+    m.addAction(ac.file_close_all_and_session)
+    return m
+
+
+def menu_file_import(mainwindow):
+    m = Menu(_("submenu title", "&Import/Export"), mainwindow)
+    ac = mainwindow.actionCollection
+    acfi = file_import.FileImport.instance(mainwindow).actionCollection
     acfe = file_export.FileExport.instance(mainwindow).actionCollection
 
+    m.addAction(acfi.import_any)
+    m.addSeparator()
+    m.addAction(acfi.import_musicxml)
+    m.addAction(acfi.import_midi)
+    m.addAction(acfi.import_abc)
+    m.addSeparator()
     if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
         m.addAction(acfe.export_audio)
         m.addAction(acfe.export_musicxml)
     m.addAction(ac.export_colored_html)
+    return m
+
+
+def menu_file_print(mainwindow):
+    m = Menu(_("submenu title", "&Print"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
+    m.addAction(ac.file_print_source)
     return m
 
 
