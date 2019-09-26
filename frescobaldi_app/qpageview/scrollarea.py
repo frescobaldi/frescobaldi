@@ -308,6 +308,16 @@ class ScrollArea(QAbstractScrollArea):
         """Return True if a scrolling movement is active."""
         return self._scroller is not None
     
+    def scrollTimeLeft(self):
+        """If a kinetic scroll is active, return how many msecs the scroll wil last.
+
+        Otherwise, return 0.
+
+        """
+        if isinstance(self._scroller, KineticScroller):
+            return 1000 / self.scrollupdatespersec * self._scroller.remainingTicks()
+        return 0
+
     def isDragging(self):
         """Return True if the user is dragging the background."""
         return self._dragPos is not None
@@ -474,6 +484,10 @@ class KineticScroller(Scroller):
         if self._y < 0:
             dy = -dy
         return QPoint(dx, dy)
+
+    def remainingTicks(self):
+        """Return the remaining ticks of this scroll."""
+        return max(abs(self._x), abs(self._y))
 
     def step(self):
         """Return a QPoint indicating the diff to scroll in this step."""
