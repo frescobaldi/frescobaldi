@@ -308,7 +308,7 @@ class ScrollArea(QAbstractScrollArea):
         """Return True if a scrolling movement is active."""
         return self._scroller is not None
     
-    def scrollTimeLeft(self):
+    def remainingScrollTime(self):
         """If a kinetic scroll is active, return how many msecs the scroll wil last.
 
         Otherwise, return 0.
