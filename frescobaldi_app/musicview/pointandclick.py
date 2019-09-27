@@ -71,10 +71,10 @@ class Links(pointandclick.Links):
         Returns None if the url was not valid or the document could not be loaded.
 
         """
-        import popplerqt5
-        if not isinstance(link, popplerqt5.Poppler.LinkBrowse) or not link.url():
+        import qpageview.link
+        if not isinstance(link, qpageview.link.Link) or not link.url:
             return
-        t = textedit.link(link.url())
+        t = textedit.link(link.url)
         if t:
             filename = util.normpath(t.filename)
             return super(Links, self).cursor(filename, t.line, t.column, load)

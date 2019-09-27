@@ -110,14 +110,15 @@ class MusicView(QWidget):
         if document:
             self._links = pointandclick.links(document)
             self.view.loadPopplerDocument(document)
-            position = self._positions.get(doc, (0, 0, 0))
-            #self.view.setPosition(position, True)
+            position = self._positions.get(doc)
+            if position:
+                self.view.ensureVisible(position, allowKinetic=False)
 
     def clear(self):
         """Empties the view."""
         cur = self._currentDocument
-        #if cur:
-        #    self._positions[cur] = self.view.position()
+        if cur:
+            self._positions[cur] = self.view.visibleRect()
         self._currentDocument = None
         self._links = None
         self._highlightRange = None
@@ -140,7 +141,6 @@ class MusicView(QWidget):
         Otherwise, call the helpers module to open the destination.
 
         """
-        link = link.linkobj
         if ev.button() == Qt.RightButton:
             return
         cursor = self._links.cursor(link, True)
@@ -158,12 +158,11 @@ class MusicView(QWidget):
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
-        elif (isinstance(link, popplerqt5.Poppler.LinkBrowse)
-              and not link.url().startswith('textedit:')):
-            helpers.openUrl(QUrl(link.url()))
-        elif (isinstance(link, popplerqt5.Poppler.LinkGoto)
-              and not link.isExternal()):
-            self.view.gotoPageNumber(link.destination().pageNumber() - 1)
+        elif link.url and not link.url.startswith('textedit:'):
+            helpers.openUrl(QUrl(link.url))
+        elif (hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto)
+              and not link.linkobj.isExternal()):
+            self.view.setCurrentPageNumber(link.linkobj.destination().pageNumber())
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
@@ -175,9 +174,8 @@ class MusicView(QWidget):
         off the link or when the link is clicked.
 
         """
-        link = link.linkobj
         self.view.highlight(self._highlightMusicFormat,
-            [(page, link.linkArea().normalized())], 2000)
+            [(page, link.rect())], 2000)
         self._highlightRange = None
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
@@ -198,18 +196,18 @@ class MusicView(QWidget):
     def slotLinkHelpRequested(self, ev, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
         pos = self.view.viewport().mapToGlobal(ev.pos())
-        if isinstance(link.linkobj, popplerqt5.Poppler.LinkBrowse):
-            cursor = self._links.cursor(link.linkobj)
+        if link.url:
+            cursor = self._links.cursor(link)
             if cursor:
                 import documenttooltip
                 text = documenttooltip.text(cursor)
-            elif link.url:
+            else:
                 l = textedit.link(link.url)
                 if l:
                     text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
                     text = link.url
-        elif isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto):
+        elif hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto):
             text = _("Page {num}").format(num=link.linkobj.destination().pageNumber())
             if link.linkobj.isExternal():
                 text = link.linkobj.fileName() + "\n" + text
