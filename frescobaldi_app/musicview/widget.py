@@ -242,10 +242,7 @@ class MusicView(QWidget):
             if (not self._clicking_link
                 and self.parent().actionCollection.music_sync_cursor.isChecked()):
                 rect = self.destinationsRect(links.destinations()[s])
-                center = rect.center()
-                self.view.ensureVisible(center.x(), center.y(),
-                                        50 + rect.width() // 2,
-                                        50 + rect.height() // 2)
+                self.view.ensureVisible(rect)
 
             # perform highlighting after move has been started. This is to ensure that if kinetic scrolling is
             # is enabled its speed is already set so that we can adjust the highlight timer.
@@ -258,7 +255,7 @@ class MusicView(QWidget):
             msec = 5000 if count > 1 else 2000 # show selections longer
             # RC: increased timer to give some time to the kinetic scrolling to complete.
             if self.view.isScrolling():
-                msec += self.view.scrollTimeLeft()
+                msec += self.view.remainingScrollTime()
         self._highlightRemoveTimer.start(msec)
         if self._highlightRange == slice:
             return # don't redraw if same
@@ -296,7 +293,7 @@ class MusicView(QWidget):
         s = links.indices(view.textCursor())
         if not s:
             return
-        self.view.center(self.destinationsRect(links.destinations()[s]).center())
+        self.view.ensureVisible(self.destinationsRect(links.destinations()[s]))
         self.highlight(links.destinations(), s, 10000)
 
     def destinationsRect(self, destinations):
@@ -305,7 +302,8 @@ class MusicView(QWidget):
         rect = QRect()
         for dest in destinations:
             for pageNum, r in dest:
-                rect = rect.united(layout[pageNum].linkRect(r.normalized()))
+                page = layout[pageNum]
+                rect = rect.united(page.mapToPage(1, 1).rect(r).translated(page.pos()))
         # not larger than viewport
         rect.setSize(rect.size().boundedTo(self.view.viewport().size()))
         return rect
