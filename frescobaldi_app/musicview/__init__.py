@@ -141,7 +141,7 @@ class MusicViewPanel(panel.Panel):
         # read layout mode setting before using the widget
         layout = w.view.pageLayout()
         if self.actionCollection.music_two_pages_first_right.isChecked():
-            layout.pagesPerRow = 2 
+            layout.pagesPerRow = 2
             layout.pagesFirstRow = 1
         elif self.actionCollection.music_two_pages_first_left.isChecked():
             layout.pagesPerRow = 2
@@ -177,14 +177,14 @@ class MusicViewPanel(panel.Panel):
         """
         layout = self.widget().view.pageLayout()
         if mode == "double_right":
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(1)
+            layout.pagesPerRow = 2
+            layout.pagesFirstRow = 1
         elif mode == "double_left":
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(0)
+            layout.pagesPerRow = 2
+            layout.pagesFirstRow = 0
         elif mode == "single":
-            layout.setPagesPerRow(1)
-            layout.setPagesFirstRow(0)
+            layout.pagesPerRow = 1
+            layout.pagesFirstRow = 0
         else:
             raise ValueError("wrong mode value")
         QSettings().setValue("musicview/layoutmode", mode)
