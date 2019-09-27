@@ -195,27 +195,27 @@ class MusicView(QWidget):
         view = self.parent().mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
 
-    def slotLinkHelpRequested(self, pos, page, link):
+    def slotLinkHelpRequested(self, ev, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
-        link = link.linkobj
-        if isinstance(link, popplerqt5.Poppler.LinkBrowse):
-            cursor = self._links.cursor(link)
+        pos = self.view.viewport().mapToGlobal(ev.pos())
+        if isinstance(link.linkobj, popplerqt5.Poppler.LinkBrowse):
+            cursor = self._links.cursor(link.linkobj)
             if cursor:
                 import documenttooltip
                 text = documenttooltip.text(cursor)
-            elif link.url():
-                l = textedit.link(link.url())
+            elif link.url:
+                l = textedit.link(link.url)
                 if l:
                     text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
-                    text = link.url()
-        elif isinstance(link, popplerqt5.Poppler.LinkGoto):
-            text = _("Page {num}").format(num=link.destination().pageNumber())
-            if link.isExternal():
-                text = link.fileName() + "\n" + text
+                    text = link.url
+        elif isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto):
+            text = _("Page {num}").format(num=link.linkobj.destination().pageNumber())
+            if link.linkobj.isExternal():
+                text = link.linkobj.fileName() + "\n" + text
         else:
             return
-        QToolTip.showText(pos, text, self.view, page.linkRect(link.linkArea()))
+        QToolTip.showText(pos, text, self.view, page.linkRect(link))
 
     def slotCurrentViewChanged(self, view, old=None):
         self.view.clearHighlight(self._highlightMusicFormat)
