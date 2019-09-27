@@ -250,7 +250,7 @@ class SessionsAndFiles(preferences.Group):
         session_layout_wrap.addStretch()
 
         self.loadNewCombo()
-
+        self.page().parent().finished.connect(self.saveTabIndex)
         app.translateUI(self)
 
     def translateUI(self):
@@ -350,6 +350,10 @@ class SessionsAndFiles(preferences.Group):
         custom = s.value("custom", "", str)
         if custom in sessionNames:
             self.session_combo.setCurrentIndex(sessionNames.index(custom))
+        s.endGroup()
+        self.tabs.setCurrentIndex(
+            s.value("prefs_general_file_tab_index", 0, int)
+        )
 
     def saveSettings(self):
         s = QSettings()
@@ -383,6 +387,10 @@ class SessionsAndFiles(preferences.Group):
             startup = "none"
         s.setValue("startup", startup)
 
+    def saveTabIndex(self):
+        s = app.settings("")
+        s.setValue("prefs_general_file_tab_index", self.tabs.currentIndex())
+
 
 class ExperimentalFeatures(preferences.Group):
     def __init__(self, page):
@@ -408,4 +416,6 @@ class ExperimentalFeatures(preferences.Group):
 
     def saveSettings(self):
         s = QSettings()
-        s.setValue("experimental-features", self.experimentalFeatures.isChecked())
+        s.setValue(
+            "experimental-features", self.experimentalFeatures.isChecked()
+        )
