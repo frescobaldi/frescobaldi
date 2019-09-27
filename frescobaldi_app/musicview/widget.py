@@ -27,7 +27,7 @@ import itertools
 import os
 import weakref
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QTimer, QUrl
 from PyQt5.QtGui import QCursor, QTextCharFormat
 from PyQt5.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
@@ -242,7 +242,7 @@ class MusicView(QWidget):
             if (not self._clicking_link
                 and self.parent().actionCollection.music_sync_cursor.isChecked()):
                 rect = self.destinationsRect(links.destinations()[s])
-                self.view.ensureVisible(rect)
+                self.view.ensureVisible(rect, QMargins(20, 20, 20, 20))
 
             # perform highlighting after move has been started. This is to ensure that if kinetic scrolling is
             # is enabled its speed is already set so that we can adjust the highlight timer.
@@ -293,7 +293,8 @@ class MusicView(QWidget):
         s = links.indices(view.textCursor())
         if not s:
             return
-        self.view.ensureVisible(self.destinationsRect(links.destinations()[s]))
+        rect = self.destinationsRect(links.destinations()[s])
+        self.view.ensureVisible(rect, QMargins(20, 20, 20, 20))
         self.highlight(links.destinations(), s, 10000)
 
     def destinationsRect(self, destinations):
