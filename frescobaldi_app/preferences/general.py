@@ -233,10 +233,10 @@ class SessionsAndFiles(preferences.Group):
         session_layout = QGridLayout()
         session_layout_wrap = QVBoxLayout()
         self.session_tab.setLayout(session_layout_wrap)
-        session_layout_wrap.addLayout(session_layout)
 
         self.session_label = QLabel()
         session_layout_wrap.addWidget(self.session_label)
+        session_layout_wrap.addLayout(session_layout)
 
         self.session_none = QRadioButton(toggled=changed)
         self.session_lastused = QRadioButton(toggled=changed)
