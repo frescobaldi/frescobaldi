@@ -459,7 +459,7 @@ class AbstractPage(util.Rectangular):
 
     def linkRect(self, link):
         """Return a QRect encompassing the linkArea of a link in coordinates of our page."""
-        return self.mapToPage(1, 1).rect(link.area)
+        return self.mapToPage(1, 1).rect(link.rect())
 
 
 class AbstractRenderedPage(AbstractPage):
