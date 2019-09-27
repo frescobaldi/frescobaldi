@@ -147,6 +147,8 @@ class MainWindow(QMainWindow):
             self.setCurrentDocument(other.currentDocument())
         self.updateWindowTitle()
         app.mainwindowCreated(self)
+        app.settingsChanged.connect(self.settingsChanged)
+        self.settingsChanged()
 
     def documents(self):
         """Returns the list of documents in the order of the TabBar."""
@@ -1107,6 +1109,21 @@ class MainWindow(QMainWindow):
         self.addAction(ac.edit_select_full_lines_up)
         self.addAction(ac.edit_select_full_lines_down)
 
+    def settingsChanged(self):
+        ac = self.actionCollection
+        s = app.settings("")
+        verbose = app.settings("").value("verbose_toolbuttons", False, bool)
+        t = self.toolbar_main
+        if verbose:
+            new = menu.menu_file_new(self)
+            save = menu.menu_file_save(self)
+            close = menu.menu_file_close(self)
+        else:
+            new = save = close = None
+        t.widgetForAction(ac.file_new).setMenu(new)
+        t.widgetForAction(ac.file_save).setMenu(save)
+        t.widgetForAction(ac.file_close).setMenu(close)
+
     def createToolBars(self):
         ac = self.actionCollection
         self.toolbar_main = t = self.addToolBar('')
@@ -1116,16 +1133,10 @@ class MainWindow(QMainWindow):
         verbose = app.settings("").value("verbose_toolbuttons", False, bool)
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
-        if verbose:
-            t.widgetForAction(ac.file_new).setMenu(menu.menu_file_new(self))
         t.addAction(ac.file_open)
         t.widgetForAction(ac.file_open).setMenu(self.menu_recent_files)
         t.addAction(ac.file_save)
-        if verbose:
-            t.widgetForAction(ac.file_save).setMenu(menu.menu_file_save(self))
         t.addAction(ac.file_close)
-        if verbose:
-            t.widgetForAction(ac.file_close).setMenu(menu.menu_file_close(self))
         t.addSeparator()
         t.addAction(browseriface.get(self).actionCollection.go_back)
         t.addAction(browseriface.get(self).actionCollection.go_forward)
