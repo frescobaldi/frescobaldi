@@ -92,33 +92,21 @@ def menu_file(mainwindow):
     ac = mainwindow.actionCollection
 
     m.addAction(ac.file_new)
-    m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.scorewiz)
-    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
+    m.addMenu(menu_file_new(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)
-    m.addAction(ac.file_insert_file)
-    m.addSeparator()
+    m.addAction(ac.file_close)
+    m.addMenu(menu_file_close(mainwindow))
     m.addAction(ac.file_save)
-    m.addAction(ac.file_save_as)
-    m.addAction(ac.file_save_copy_as)
-    m.addAction(ac.file_rename)
-    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
-    m.addAction(ac.file_save_all)
+    m.addMenu(menu_file_save(mainwindow))
+    m.addSeparator()
+    m.addMenu(menu_file_import(mainwindow))
+    m.addMenu(menu_file_print(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_reload)
     m.addAction(ac.file_reload_all)
     m.addAction(ac.file_external_changes)
-    m.addSeparator()
-    m.addMenu(menu_file_import(mainwindow))
-    m.addMenu(menu_file_export(mainwindow))
-    m.addSeparator()
-    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
-    m.addAction(ac.file_print_source)
-    m.addSeparator()
-    m.addAction(ac.file_close)
-    m.addAction(ac.file_close_other)
-    m.addAction(ac.file_close_all)
     m.addSeparator()
     m.addAction(ac.file_quit)
     if app.is_git_controlled():
@@ -126,27 +114,58 @@ def menu_file(mainwindow):
     return m
 
 
-def menu_file_import(mainwindow):
-    m = Menu(_("submenu title", "&Import"), mainwindow)
-    ac = file_import.FileImport.instance(mainwindow).actionCollection
-
-    m.addAction(ac.import_any)
-    m.addSeparator()
-    m.addAction(ac.import_musicxml)
-    m.addAction(ac.import_midi)
-    m.addAction(ac.import_abc)
+def menu_file_new(mainwindow):
+    m = Menu(_("submenu title", "New (advanced)"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.scorewiz)
+    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
     return m
 
 
-def menu_file_export(mainwindow):
-    m = Menu(_("submenu title", "&Export"), mainwindow)
+def menu_file_save(mainwindow):
+    m = Menu(_("submenu title", "Save (advanced)"), mainwindow)
     ac = mainwindow.actionCollection
+    m.addAction(ac.file_save_as)
+    m.addAction(ac.file_save_copy_as)
+    m.addAction(ac.file_rename)
+    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.file_save_as_template)
+    m.addAction(ac.file_save_all)
+    return m
+
+
+def menu_file_close(mainwindow):
+    m = Menu(_("submenu title", "Close (advanced)"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(ac.file_close_other)
+    m.addAction(ac.file_close_all)
+    m.addAction(ac.file_close_all_and_session)
+    return m
+
+
+def menu_file_import(mainwindow):
+    m = Menu(_("submenu title", "&Import/Export"), mainwindow)
+    ac = mainwindow.actionCollection
+    acfi = file_import.FileImport.instance(mainwindow).actionCollection
     acfe = file_export.FileExport.instance(mainwindow).actionCollection
 
+    m.addAction(acfi.import_any)
+    m.addSeparator()
+    m.addAction(acfi.import_musicxml)
+    m.addAction(acfi.import_midi)
+    m.addAction(acfi.import_abc)
+    m.addSeparator()
     if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
         m.addAction(acfe.export_audio)
         m.addAction(acfe.export_musicxml)
     m.addAction(ac.export_colored_html)
+    return m
+
+
+def menu_file_print(mainwindow):
+    m = Menu(_("submenu title", "&Print"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(panelmanager.manager(mainwindow).musicview.actionCollection.music_print)
+    m.addAction(ac.file_print_source)
     return m
 
 
@@ -157,13 +176,11 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_undo)
     m.addAction(ac.edit_redo)
     m.addSeparator()
-    m.addAction(documentactions.get(mainwindow).actionCollection.edit_cut_assign)
-    m.addAction(documentactions.get(mainwindow).actionCollection.edit_move_to_include_file)
     m.addAction(ac.edit_cut)
     m.addAction(ac.edit_copy)
-    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
-    m.addAction(ac.edit_copy_colored_html)
     m.addAction(ac.edit_paste)
+    m.addAction(ac.file_insert_file)
+    m.addMenu(menu_edit_cut(mainwindow))
     m.addSeparator()
     m.addAction(ac.edit_select_all)
     m.addAction(ac.edit_select_current_toplevel)
@@ -175,6 +192,16 @@ def menu_edit(mainwindow):
     m.addAction(ac.edit_replace)
     m.addSeparator()
     m.addAction(ac.edit_preferences)
+    return m
+
+
+def menu_edit_cut(mainwindow):
+    m = Menu(_("menu title", "Cut/Copy (advanced)"), mainwindow)
+    ac = mainwindow.actionCollection
+    m.addAction(documentactions.get(mainwindow).actionCollection.edit_cut_assign)
+    m.addAction(documentactions.get(mainwindow).actionCollection.edit_move_to_include_file)
+    m.addAction(panelmanager.manager(mainwindow).snippettool.actionCollection.copy_to_snippet)
+    m.addAction(ac.edit_copy_colored_html)
     return m
 
 
