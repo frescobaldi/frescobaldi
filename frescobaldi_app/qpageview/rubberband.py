@@ -24,8 +24,8 @@ Rubberband selection in a View.
 
 
 from PyQt5.QtCore import QEvent, QPoint, QRect, QSize, Qt, pyqtSignal
-from PyQt5.QtGui import QColor, QCursor, QPainter, QPalette, QPen, QRegion
-from PyQt5.QtWidgets import QWidget
+from PyQt5.QtGui import QColor, QContextMenuEvent, QCursor, QPainter, QPalette, QPen, QRegion
+from PyQt5.QtWidgets import QApplication, QWidget
 
 
 # dragging/moving selection:
@@ -237,6 +237,7 @@ class Rubberband(QWidget):
     def clearSelection(self):
         """Hide ourselves and clear the selection."""
         self.hide()
+        self._dragging = False
         self._setSelectionFromGeometry(QRect())
         
     def _setSelectionFromGeometry(self, rect):
@@ -345,6 +346,10 @@ class Rubberband(QWidget):
             if not view.viewMode():
                 # fixed scale, try to keep ourselves in the same position on resize
                 self.move(self._getLayoutOffset())
+        elif (isinstance(ev, QContextMenuEvent) and ev.reason() == QContextMenuEvent.Mouse
+            and self.showbutton == Qt.RightButton):
+            # suppress context menu event if that would coincide with start selection
+            return not self.geometry()  # Suppress if we have no size
         elif not self._dragging:
             if ev.type() == QEvent.MouseButtonPress and ev.button() == self.showbutton:
                 if self.isVisible():
@@ -364,8 +369,10 @@ class Rubberband(QWidget):
                 return True
             elif ev.type() == QEvent.MouseButtonRelease and ev.button() == self._dragbutton:
                 self.stopDrag()
-                # don't consume event when the right button was used
-                return self._dragbutton != Qt.RightButton
+                if ev.button() == Qt.RightButton:
+                    QApplication.postEvent(viewport,
+                        QContextMenuEvent(QContextMenuEvent.Mouse, ev.pos() + self.pos()))
+                return True
         return False
 
     def mousePressEvent(self, ev):
