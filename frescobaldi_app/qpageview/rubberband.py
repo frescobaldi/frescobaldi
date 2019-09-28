@@ -77,6 +77,7 @@ class Rubberband(QWidget):
         self._selection = QRect()
         self._layoutOffset = None   # used to keep on spot during resize/zoom
         self.setMouseTracking(True)
+        self.setContextMenuPolicy(Qt.PreventContextMenu)
 
     def paintEvent(self, ev):
         ### Paint code contributed by Richard Cognot Jun 2012
@@ -341,15 +342,26 @@ class Rubberband(QWidget):
             self._setSelectionFromGeometry(geom)
     
     def eventFilter(self, viewport, ev):
+        """Act on events in the viewport:
+
+        - keep on the same place when the viewport resizes
+        - start dragging the selection if showbutton clicked (preventing the
+          contextmenu if the showbutton is the right button)
+        - end a drag on mousebutton release, if that button would have shown
+          the context menu, show it on button release.
+
+        """
         if ev.type() == QEvent.Resize and self.isVisible():
             view = self.parent().parent()
             if not view.viewMode():
                 # fixed scale, try to keep ourselves in the same position on resize
                 self.move(self._getLayoutOffset())
-        elif (isinstance(ev, QContextMenuEvent) and ev.reason() == QContextMenuEvent.Mouse
-            and self.showbutton == Qt.RightButton):
+        elif (self.showbutton == Qt.RightButton and isinstance(ev, QContextMenuEvent)
+              and ev.reason() == QContextMenuEvent.Mouse):
             # suppress context menu event if that would coincide with start selection
-            return not self.geometry()  # Suppress if we have no size
+            if not self._dragging or (self.geometry() and self.edge(ev.pos()) == _INSIDE):
+                return False
+            return True
         elif not self._dragging:
             if ev.type() == QEvent.MouseButtonPress and ev.button() == self.showbutton:
                 if self.isVisible():
@@ -376,6 +388,7 @@ class Rubberband(QWidget):
         return False
 
     def mousePressEvent(self, ev):
+        """Can start a new drag when we are clicked ourselves."""
         pos = self.mapToParent(ev.pos())
         if not self._dragging:
             if ev.button() == self.dragbutton:
@@ -385,6 +398,7 @@ class Rubberband(QWidget):
                     self.startDrag(pos, ev.button())
 
     def mouseMoveEvent(self, ev):
+        """Move if we are dragging; show the correct cursor shape on the edges."""
         pos = self.mapToParent(ev.pos())
         if self._dragging:
             self.drag(pos)
@@ -393,7 +407,11 @@ class Rubberband(QWidget):
             self.adjustCursor(edge)
 
     def mouseReleaseEvent(self, ev):
+        """End a self-initiated drag; if the right button was used; send a context menu event."""
         if self._dragging and ev.button() == self._dragbutton:
             self.stopDrag()
+        if ev.button() == Qt.RightButton:
+            QApplication.postEvent(self.parent(),
+                QContextMenuEvent(QContextMenuEvent.Mouse, ev.pos() + self.pos()))
 
 
