@@ -91,6 +91,13 @@ class AbstractRenderer:
         if cache:
             self.cache = cache
 
+    def copy(self):
+        """Return a copy of the renderer, with always a new cache."""
+        c = self.cache
+        if c:
+            c = type(c)()
+        return type(self)(c)
+
     @staticmethod
     def key(page, ratio):
         """Return a five-tuple Key describing the page.
