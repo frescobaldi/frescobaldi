@@ -146,7 +146,7 @@ class TemplateMenu(SnippetMenuBase):
         self.addAction(self.tool().actionCollection.templates_manage)
 
     def translateUI(self):
-        self.setTitle(_("New (advanced)"))
+        self.setTitle(_("New from &Template"))
 
     def insertBeforeAction(self):
         return self.actions()[-1]
