@@ -1115,7 +1115,8 @@ class MainWindow(QMainWindow):
         verbose = app.settings("").value("verbose_toolbuttons", False, bool)
         t = self.toolbar_main
         if verbose:
-            new = menu.menu_file_new(self)
+            import snippet.menu
+            new = snippet.menu.TemplateMenu(self)
             save = menu.menu_file_save(self)
             close = menu.menu_file_close(self)
         else:

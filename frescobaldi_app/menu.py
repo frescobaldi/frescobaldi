@@ -92,7 +92,7 @@ def menu_file(mainwindow):
     ac = mainwindow.actionCollection
 
     m.addAction(ac.file_new)
-    m.addMenu(menu_file_new(mainwindow))
+    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
     m.addSeparator()
     m.addAction(ac.file_open)
     m.addAction(ac.file_open_recent)
@@ -111,14 +111,6 @@ def menu_file(mainwindow):
     m.addAction(ac.file_quit)
     if app.is_git_controlled():
         m.addAction(ac.file_restart)
-    return m
-
-
-def menu_file_new(mainwindow):
-    m = Menu(_("submenu title", "New (advanced)"), mainwindow)
-    ac = mainwindow.actionCollection
-    m.addAction(scorewiz.ScoreWizard.instance(mainwindow).actionCollection.scorewiz)
-    m.addMenu(snippet.menu.TemplateMenu(mainwindow))
     return m
 
 
