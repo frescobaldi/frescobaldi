@@ -305,7 +305,7 @@ class MusicViewPanel(panel.Panel):
         if not page:
             return
         import copy2image
-        copy2image.copy_image(self, page, rect, documents.filename(page.document()))
+        copy2image.copy_image(self, page, rect, documents.filename(page.document))
 
     def copyText(self):
         text = self.widget().view.rubberband().selectedText()

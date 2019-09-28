@@ -169,6 +169,8 @@ class Dialog(QDialog):
         self.setWindowTitle(app.caption(title))
 
     def setPage(self, page, rect, filename):
+        page = page.copy()
+        page.updateSize(page.dpi, page.dpi, 1.0)
         self._page = page
         self._rect = rect
         self._filename = filename
