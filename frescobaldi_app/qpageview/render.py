@@ -70,6 +70,9 @@ class AbstractRenderer:
         `imageFormat`   QImage format to use (if possible). Default is
                         QImage.Format_ARGB32_Premultiplied
 
+        `antialiasing`  True by default. Whether to antialias graphics. (Most
+                        Renderers antialias anyway, even if this is False.)
+
     """
 
     MAX_TILE_WIDTH = 2400
