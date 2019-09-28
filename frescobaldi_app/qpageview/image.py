@@ -25,7 +25,7 @@ display.
 
 """
 
-from PyQt5.QtCore import QPoint, QRect, Qt
+from PyQt5.QtCore import QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QImageIOHandler, QImageReader, QPainter, QTransform
 
 from . import locking
@@ -35,9 +35,55 @@ from . import render
 
 class ImageContainer:
     """Represent an image, is shared among copies of the "same" Page."""
-    def __init__(self, source, autoTransform):
+    def __init__(self, image):
+        """Init with a QImage."""
+        self._image = image
+
+    def size(self):
+        return self._image.size()
+
+    def image(self, clip=None):
+        if clip is None:
+            return self._image
+        return self._image.copy(clip)
+
+
+class ImageLoader(ImageContainer):
+    """Represent an image loaded from a file or IO device."""
+    def __init__(self, source, autoTransform=True):
+        """Init with a filename or QIODevice.
+
+        If autoTransform is True (the default), EXIF rotation is automatically
+        applied when loading the image.
+
+        """
+        self._size = None
         self.source = source
         self.autoTransform = autoTransform
+
+    def _reader(self):
+        """Return a QImageReader for the source."""
+        reader = QImageReader(self.source)
+        reader.setAutoTransform(self.autoTransform)
+        return reader
+
+    def size(self):
+        """Return the size of the image.
+
+        If the image can't be loaded, a null size is returned. The resulting
+        value is cached.
+
+        """
+        if self._size is None:
+            self._size = QSize()
+            reader = self._reader()
+            if reader.canRead():
+                size = reader.size()
+                if size:
+                    if self.autoTransform and reader.transformation() & 4:
+                        size.transpose()
+                    self._size = size
+        return QSize(self._size)
 
     def image(self, clip=None):
         """Load and return the image.
@@ -46,8 +92,7 @@ class ImageContainer:
 
         """
         with locking.lock(self):
-            reader = QImageReader(self.source)
-            reader.setAutoTransform(self.autoTransform)
+            reader = self._reader()
             if clip:
                 if self.autoTransform:
                     size = reader.size()
@@ -76,22 +121,28 @@ class ImagePage(page.AbstractRenderedPage):
     autoTransform = True    # whether to automatically apply exif transformations
     dpi = 96   # TODO: maybe this can be image dependent.
     
-    def __init__(self, filename, size, renderer=None):
+    def __init__(self, container, renderer=None):
         super().__init__(renderer)
-        self.setPageSize(size)
-        self._ic = ImageContainer(filename, self.autoTransform)
+        self.setPageSize(container.size())
+        self._ic = container
 
     @classmethod
     def load(cls, filename, renderer=None):
         """Load the image and yield one ImagePage instance if loading was successful."""
-        reader = QImageReader(filename)
-        reader.setAutoTransform(cls.autoTransform)
-        if reader.canRead():
-            size = reader.size()
-            if size:
-                if cls.autoTransform and reader.transformation() & 4:
-                    size.transpose()
-                yield cls(filename, size, renderer)
+        loader = ImageLoader(filename, cls.autoTransform)
+        if loader.size():
+            yield cls(loader, renderer)
+
+    @classmethod
+    def fromImage(cls, image, renderer=None):
+        """Instantiate one ImagePage from the supplied QImage.
+
+        As the image is kept in memory, it is not advised to instantiate many
+        Page instances this way. Use load() for images on the filesystem.
+        The image must be valid, and have a size > 0.
+
+        """
+        return cls(ImageContainer(image), renderer)
 
     def print(self, painter, rect=None, paperColor=None):
         """Paint a page for printing."""
