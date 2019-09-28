@@ -28,7 +28,7 @@ import os
 import sys
 import weakref
 
-import qpopplerview
+import qpageview.locking
 
 import util
 import textedit
@@ -46,7 +46,7 @@ def links(document):
         l = _cache[document] = Links()
         with l:
             import popplerqt5
-            with qpopplerview.lock(document):
+            with qpageview.locking.lock(document):
                 for num in range(document.numPages()):
                     page = document.page(num)
                     for link in page.links():
