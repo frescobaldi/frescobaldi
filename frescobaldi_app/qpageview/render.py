@@ -81,6 +81,9 @@ class AbstractRenderer:
     # QImage format to use (if possible)
     imageFormat = QImage.Format_ARGB32_Premultiplied
 
+    # antialias True by default (not all renderers may support this)
+    antialiasing = True
+
     def __init__(self, cache=None):
         if cache:
             self.cache = cache
