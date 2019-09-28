@@ -170,7 +170,6 @@ class Dialog(QDialog):
 
     def setPage(self, page, rect, filename):
         page = page.copy()
-        page.updateSize(page.dpi, page.dpi, 1.0)
         self._page = page
         self._rect = rect
         self._filename = filename
