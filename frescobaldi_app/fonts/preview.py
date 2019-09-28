@@ -92,8 +92,7 @@ class FontsPreviewWidget(QWidget):
         # put the default sample in the combobox
         self.populate_default_samples()
         # add other actions
-        self._cb_last_sample_index = i = self.cb_samples.count()
-        self.cb_samples.insertSeparator(i)
+        self.cb_samples.insertSeparator(self.cb_samples.count())
         self.cb_samples.addItem(_("Custom"), "<CUSTOM>")
         self.cb_samples.addItem(_("Current Document"), "<CURRENT>")
 
