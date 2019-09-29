@@ -26,6 +26,7 @@ You need this module to display PDF documents.
 
 """
 
+import contextlib
 import weakref
 
 from PyQt5.QtCore import Qt, QRectF
@@ -141,10 +142,6 @@ class PopplerPage(page.AbstractRenderedPage):
 
 
 class PopplerRenderer(render.AbstractRenderer):
-    renderHint = (
-        popplerqt5.Poppler.Document.Antialiasing |
-        popplerqt5.Poppler.Document.TextAntialiasing
-    )
     renderBackend = popplerqt5.Poppler.Document.SplashBackend
     printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
 
@@ -174,6 +171,35 @@ class PopplerRenderer(render.AbstractRenderer):
         image.setDotsPerMeterY(yres * 39.37)
         return image
 
+    def setRenderHints(self, doc):
+        """Set the poppler render hints we want to set."""
+        if self.antialiasing:
+            doc.setRenderHint(popplerqt5.Poppler.Document.Antialiasing)
+            doc.setRenderHint(popplerqt5.Poppler.Document.TextAntialiasing)
+
+    @contextlib.contextmanager
+    def setup(self, doc, backend=None, paperColor=None):
+        """Use the poppler document in context, properly configured and locked."""
+        with locking.lock(doc):
+            oldhints = int(doc.renderHints())
+            doc.setRenderHint(oldhints, False)
+            self.setRenderHints(doc)
+            if paperColor is not None:
+                oldcolor = doc.paperColor()
+                doc.setPaperColor(paperColor)
+            if backend is not None:
+                oldbackend = doc.renderBackend()
+                doc.setRenderBackend(backend)
+            try:
+                yield
+            finally:
+                doc.setRenderHint(int(doc.renderHints()), False)
+                doc.setRenderHint(oldhints)
+                if paperColor is not None:
+                    doc.setPaperColor(oldcolor)
+                if backend is not None:
+                    doc.setRenderBackend(oldbackend)
+
     def render_poppler_image(self, doc, pageNum,
                                    xres=72.0, yres=72.0,
                                    x=-1, y=-1, w=-1, h=-1, rotate=Rotate_0,
@@ -184,22 +210,8 @@ class PopplerRenderer(render.AbstractRenderer):
         are set.
 
         """
-        with locking.lock(doc):
-            if self.renderHint is not None:
-                doc.setRenderHint(int(doc.renderHints()), False)
-                doc.setRenderHint(self.renderHint)
-            if paperColor:
-                oldcolor = doc.paperColor()
-                doc.setPaperColor(paperColor)
-            if self.renderBackend is not None:
-                doc.setRenderBackend(self.renderBackend)
-                oldbackend = doc.renderBackend()
-            image = doc.page(pageNum).renderToImage(xres, yres, x, y, w, h, rotate)
-            if paperColor:
-                doc.setPaperColor(oldcolor)
-            if self.renderBackend is not None:
-                doc.setRenderBackend(oldbackend)
-        return image
+        with self.setup(doc, self.renderBackend, paperColor):
+            return doc.page(pageNum).renderToImage(xres, yres, x, y, w, h, rotate)
 
     def draw(self, page, painter, key, tile, paperColor=None):
         """Draw a tile on the painter.
@@ -217,16 +229,7 @@ class PopplerRenderer(render.AbstractRenderer):
         doc = page.document
         p = doc.page(page.pageNumber)
 
-        with locking.lock(doc):
-            if self.renderHint is not None:
-                doc.setRenderHint(int(doc.renderHints()), False)
-                doc.setRenderHint(self.renderHint)
-            if paperColor:
-                oldcolor = doc.paperColor()
-                doc.setPaperColor(paperColor)
-            if self.printRenderBackend is not None:
-                doc.setRenderBackend(self.printRenderBackend)
-                oldbackend = doc.renderBackend()
+        with self.setup(doc, self.printRenderBackend, paperColor):
             if self.printRenderBackend == popplerqt5.Poppler.Document.ArthurBackend:
                 # Poppler's Arthur backend removes the current transform from
                 # the painter (it sets a default CTM, instead of combining it
@@ -255,10 +258,6 @@ class PopplerRenderer(render.AbstractRenderer):
                 dpiY = page.dpi * vscale
                 img = p.renderToImage(dpiX, dpiY, s.x(), s.y(), s.width(), s.height())
                 painter.drawImage(target, img, QRectF(img.rect()))
-            if paperColor:
-                doc.setPaperColor(oldcolor)
-            if self.printRenderBackend is not None:
-                doc.setRenderBackend(oldbackend)
 
 
 

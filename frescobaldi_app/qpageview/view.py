@@ -51,6 +51,8 @@ from .constants import (
 )
 
 
+Position = collections.namedtuple("Position", "pageNumber x y")
+
 
 class View(scrollarea.ScrollArea):
     """View is a generic scrollable widget to display Pages in a layout.
@@ -187,6 +189,31 @@ class View(scrollarea.ScrollArea):
         """Return the page at the specified number (starting at 1)."""
         if 0 < num <= self._pageCount:
             return self._pageLayout[num-1]
+
+    def position(self):
+        """Return a three-tuple Position(pageNumber, x, y).
+
+        The Position describes where the center of the viewport is on the layout.
+        The page is the page number (starting with 1) and x and y the position
+        on the page, in a 0..1 range. This way a position can be remembered even
+        if the zoom or orientation of the layout changes.
+
+        """
+        pos = self.viewport().rect().center()
+        i, x, y = self._pageLayout.pos2offset(pos - self.layoutPosition())
+        return Position(i + 1, x, y)
+
+    def setPosition(self, position, allowKinetic=True):
+        """Centers the view on the spot stored in the specified Position.
+
+        If allowKinetic is False, immediately jumps to the position, otherwise
+        scrolls smoothly (if kinetic scrolling is enabled).
+
+        """
+        i, x, y = position
+        rect = self.viewport().rect()
+        rect.moveCenter(self._pageLayout.offset2pos((i - 1, x, y)))
+        self.ensureVisible(rect, allowKinetic=allowKinetic)
 
     def setPageLayout(self, layout):
         """Set our current PageLayout instance.

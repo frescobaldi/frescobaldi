@@ -70,6 +70,9 @@ class AbstractRenderer:
         `imageFormat`   QImage format to use (if possible). Default is
                         QImage.Format_ARGB32_Premultiplied
 
+        `antialiasing`  True by default. Whether to antialias graphics. (Most
+                        Renderers antialias anyway, even if this is False.)
+
     """
 
     MAX_TILE_WIDTH = 2400
@@ -81,9 +84,19 @@ class AbstractRenderer:
     # QImage format to use (if possible)
     imageFormat = QImage.Format_ARGB32_Premultiplied
 
+    # antialias True by default (not all renderers may support this)
+    antialiasing = True
+
     def __init__(self, cache=None):
         if cache:
             self.cache = cache
+
+    def copy(self):
+        """Return a copy of the renderer, with always a new cache."""
+        c = self.cache
+        if c:
+            c = type(c)()
+        return type(self)(c)
 
     @staticmethod
     def key(page, ratio):
