@@ -192,7 +192,7 @@ class Dialog(QDialog):
         m = 2 if self.scaleup.isChecked() else 1
         paperColor = self.colorButton.color()
         if self._page.renderer:
-            self._page.renderer.antialias = self.antialias.isChecked()
+            self._page.renderer.antialiasing = self.antialias.isChecked()
         i = self._page.image(self._rect, dpi * m, dpi * m, paperColor)
         if m == 2:
             i = i.scaled(i.size() / 2, transformMode=Qt.SmoothTransformation)
