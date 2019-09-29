@@ -135,7 +135,8 @@ class MusicViewPanel(panel.Panel):
         w = widget.MusicView(self)
         w.view.zoomFactorChanged.connect(self.slotMusicZoomFactorChanged)
         w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
-        #w.updateZoomInfo()
+        w.view.pageCountChanged.connect(self.slotPageCountChanged)
+        w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         # read layout mode setting before using the widget
