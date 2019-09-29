@@ -115,8 +115,10 @@ class MusicViewPanel(panel.Panel):
         ac.music_prev_page.setEnabled(False)
         ac.music_single_pages.setChecked(True) # default to single pages
         ac.music_reload.triggered.connect(self.reloadView)
-        self.actionCollection.music_sync_cursor.setChecked(
+        ac.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
+        ac.music_continuous.setChecked(
+            QSettings().value("musicview/continuous", True, bool))
 
         mode = QSettings().value("muziekview/layoutmode", "single", str)
         if mode == "double_left":
@@ -150,7 +152,8 @@ class MusicViewPanel(panel.Panel):
         else: # "single"
             layout.pagesPerRow = 1   # default to single
             layout.pagesFirstRow = 0 # pages
-
+        w.view.setContinuousMode(self.actionCollection.music_continuous.isChecked())
+        self.actionCollection.music_continuous.triggered.connect(self.toggleContinuousMode)
         app.languageChanged.connect(self.updatePagerLanguage)
 
         selector = self.actionCollection.music_document_select
@@ -286,6 +289,12 @@ class MusicViewPanel(panel.Panel):
         self.setPageLayoutMode("double_left")
 
     @activate
+    def toggleContinuousMode(self):
+        continuousMode = self.actionCollection.music_continuous.isChecked()
+        self.widget().view.setContinuousMode(continuousMode)
+        QSettings().setValue("musicview/continuous", continuousMode)
+
+    @activate
     def jumpToCursor(self):
         self.widget().showCurrentLinks()
 
@@ -352,6 +361,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_single_pages = QAction(ag, checkable=True)
         self.music_two_pages_first_right = QAction(ag, checkable=True)
         self.music_two_pages_first_left = QAction(ag, checkable=True)
+        self.music_continuous = QAction(panel, checkable=True)
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
         self.music_sync_cursor = QAction(panel, checkable=True)
@@ -397,6 +407,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_single_pages.setText(_("Single Pages"))
         self.music_two_pages_first_right.setText(_("Two Pages (first page right)"))
         self.music_two_pages_first_left.setText(_("Two Pages (first page left)"))
+        self.music_continuous.setText(_("&Continuous"))
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
