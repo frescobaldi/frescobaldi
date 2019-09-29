@@ -112,13 +112,13 @@ class MusicView(QWidget):
             self.view.loadPopplerDocument(document)
             position = self._positions.get(doc)
             if position:
-                self.view.ensureVisible(position, allowKinetic=False)
+                self.view.setPosition(position, allowKinetic=False)
 
     def clear(self):
         """Empties the view."""
         cur = self._currentDocument
         if cur:
-            self._positions[cur] = self.view.visibleRect()
+            self._positions[cur] = self.view.position()
         self._currentDocument = None
         self._links = None
         self._highlightRange = None
