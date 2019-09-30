@@ -300,7 +300,7 @@ class MainWindow(QMainWindow):
             impurls = []
             for url in ev.mimeData().urls():
                 imp = file_import.FileImport.instance(self)
-                if imp.isImportable(url.toLocalFile()):
+                if imp.is_importable(url.toLocalFile()):
                     impurls.append(QDir.toNativeSeparators(url.toLocalFile()))
                 else:
                     lyurls.append(url)
@@ -308,7 +308,8 @@ class MainWindow(QMainWindow):
             if docs:
                 self.setCurrentDocument(docs[-1])
             for i in impurls:
-                imp.openDialog(i)
+                imp.configure_import(i)
+                imp.run_import()
 
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
