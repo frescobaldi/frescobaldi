@@ -328,6 +328,9 @@ class View(scrollarea.ScrollArea):
         printing is canceled when the user cancels the dialog.
 
         If the QPrinter to use is not specified, a default one is created.
+        The print job is started and returned (a printing.PrintJob instance),
+        so signals for monitoring the progress could be connected to. (If the
+        user cancels the dialog, no print job is returned.)
 
         """
         if printer is None:
@@ -353,8 +356,9 @@ class View(scrollarea.ScrollArea):
         # add the page objects
         pageList = [(n, self.page(n)) for n in pageNumbers]
         from . import printing
-        # TODO some progress indication and cancel opportunity
-        printing.PrintJob(printer, pageList).start()
+        job = printing.PrintJob(printer, pageList)
+        job.start()
+        return job
 
     def setViewMode(self, mode):
         """Sets the current ViewMode."""

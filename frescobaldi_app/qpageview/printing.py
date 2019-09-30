@@ -24,6 +24,7 @@ Printing facilities for qpageview.
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QPainter, QTransform
+from PyQt5.QtWidgets import QMessageBox, QProgressDialog
 
 from . import backgroundjob
 
@@ -96,5 +97,36 @@ class PrintJob(backgroundjob.Job):
             page.print(painter)
             painter.restore()
         return painter.end()
+
+
+class PrintProgressDialog(QProgressDialog):
+    """A simple progress dialog displaying the printing progress."""
+    def __init__(self, job, parent=None):
+        """Initializes ourselves with the print job and optional parent widget."""
+        super().__init__(parent)
+        self._job = job
+        job.progress.connect(self.showProgress)
+        job.finished.connect(self.jobFinished)
+        self.canceled.connect(job.requestInterruption)
+        self.setMinimumDuration(0)
+        self.setRange(0, len(job.pageList))
+
+    def showProgress(self, page, num, total):
+        """Called by the job when printing a page."""
+        self.setValue(num)
+        self.setLabelText("Printing page {page} ({num} of {total})...".format(
+                page=page, num=num, total=total))
+
+    def jobFinished(self):
+        """Called when the print job has finished."""
+        if not self._job.result and not self._job.aborted:
+            self.showErrorMessage()
+        del self._job
+        self.deleteLater()
+
+    def showErrorMessage(self):
+        """Reimplement to show a different or translated error message."""
+        QMessageBox.warning(self.parent(), "Printing Error",
+                    "Could not send the document to the printer.")
 
 
