@@ -24,8 +24,14 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 """
 
+import itertools
 
 from PyQt5.QtCore import QSettings, Qt
+
+try:
+    import popplerqt5
+except ImportError:
+    popplerqt5 = None
 
 import app
 import textformats
@@ -79,17 +85,44 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         self.setHorizontalScrollBarPolicy(policy)
         self.setVerticalScrollBarPolicy(policy)
 
+        # set certain preferences to the existing renderers
+        renderers = set(page.renderer for page in self.pageLayout() if page.renderer)
+        pages = set(page for page in self.pageLayout() if not page.renderer)
+        changed = False
+
         # paper color; change the existing renderer
         paperColor = textformats.formatData('editor').baseColors['paper']
         # if a page has no renderer, adjust the page itself :-)
-        rendererOrPages = set(page.renderer or page for page in self.pageLayout())
-        changed = False
-        for rp in rendererOrPages:
+        for rp in itertools.chain(renderers, pages):
             if rp.paperColor != paperColor:
                 changed = True
                 rp.paperColor = paperColor
+
+        # render backend preference
+        if popplerqt5:
+            renderBackend, printRenderBackend = self.getPopplerBackends()
+            for r in renderers:
+                if isintance(r, qpageview.poppler.PopplerRenderer):
+                    r.printRenderBackend = printRenderBackend
+                    if r.renderBackend != renderBackend:
+                        changed = True
+                        r.renderBackend = renderBackend
+
         if changed:
             self.rerender()
+
+    def getPopplerBackends(self):
+        """Return a two-tuple (renderBackend, printRenderBackend) from the prefs."""
+        import qpageview.poppler
+        if QSettings().value("musicview/arthurbackend", False, bool):
+            renderBackend = popplerqt5.Poppler.Document.ArthurBackend
+        else:
+            renderBackend = popplerqt5.Poppler.Document.SplashBackend
+        if QSettings().value("musicview/arthurbackend_print", False, bool):
+            printRenderBackend = popplerqt5.Poppler.Document.ArthurBackend
+        else:
+            printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
+        return renderBackend, printRenderBackend
 
     def loadPopplerDocument(self, document, renderer=None):
         """Reimplemented to use a customized renderer by default."""
@@ -115,6 +148,9 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         if rendertype == "pdf":
             import qpageview.poppler
             r = qpageview.poppler.PopplerRenderer()
+            renderBackend, printRenderBackend = self.getPopplerBackends()
+            r.renderBackend = renderBackend
+            r.printRenderBackend = printRenderBackend
         elif rendertype == "svg":
             import qpageview.svg
             r = qpageview.svg.SvgRenderer()
