@@ -77,7 +77,6 @@ class MusicView(QWidget):
 
         self.view = pagedview.View(self)
         self.view.setRubberband(qpageview.rubberband.Rubberband())
-        self.view.setMagnifier(pagedview.Magnifier())
         layout.addWidget(self.view)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()

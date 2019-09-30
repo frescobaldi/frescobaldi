@@ -27,6 +27,7 @@ This is used throughout Frescobaldi, to obey color settings etc.
 import itertools
 
 from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtWidgets import QMessageBox
 
 try:
     import popplerqt5
@@ -36,6 +37,7 @@ except ImportError:
 import app
 import textformats
 import qpageview
+import qpageview.printing
 import qpageview.magnifier
 import qpageview.widgetoverlay
 
@@ -70,6 +72,7 @@ class Magnifier(qpageview.magnifier.Magnifier):
 class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.setMagnifier(Magnifier())
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
 
@@ -164,5 +167,25 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             raise ValueError("unknown render type")
         r.paperColor = textformats.formatData('editor').baseColors['paper']
         return r
+
+    def print(self, printer=None, pageNumbers=None, showDialog=True):
+        """Reimplemented to add showing a progress dialog."""
+        job = super().print(printer, pageNumbers, showDialog)
+        if job:
+            PrintProgressDialog(job, self).show()
+
+
+class PrintProgressDialog(qpageview.printing.PrintProgressDialog):
+    def showProgress(self, page, num, total):
+        """Called by the job when printing a page."""
+        self.setValue(num)
+        self.setLabelText(_("Printing page {page} ({num} of {total})...").format(
+                page=page, num=num, total=total))
+
+    def showErrorMessage(self):
+        """Reimplemented to show a translated error message."""
+        QMessageBox.warning(self.parent(), _("Printing Error"),
+                    _("Could not send the document to the printer."))
+
 
 
