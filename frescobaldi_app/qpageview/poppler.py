@@ -181,24 +181,24 @@ class PopplerRenderer(render.AbstractRenderer):
     def setup(self, doc, backend=None, paperColor=None):
         """Use the poppler document in context, properly configured and locked."""
         with locking.lock(doc):
+            if backend is not None:
+                oldbackend = doc.renderBackend()
+                doc.setRenderBackend(backend)
             oldhints = int(doc.renderHints())
             doc.setRenderHint(oldhints, False)
             self.setRenderHints(doc)
             if paperColor is not None:
                 oldcolor = doc.paperColor()
                 doc.setPaperColor(paperColor)
-            if backend is not None:
-                oldbackend = doc.renderBackend()
-                doc.setRenderBackend(backend)
             try:
                 yield
             finally:
+                if backend is not None:
+                    doc.setRenderBackend(oldbackend)
                 doc.setRenderHint(int(doc.renderHints()), False)
                 doc.setRenderHint(oldhints)
                 if paperColor is not None:
                     doc.setPaperColor(oldcolor)
-                if backend is not None:
-                    doc.setRenderBackend(oldbackend)
 
     def render_poppler_image(self, doc, pageNum,
                                    xres=72.0, yres=72.0,
