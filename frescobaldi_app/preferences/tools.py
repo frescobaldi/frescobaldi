@@ -159,6 +159,12 @@ class MusicView(preferences.Group):
         layout.addWidget(self.enableKineticScrolling)
         self.showScrollbars = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showScrollbars)
+
+        self.arthurBackend = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.arthurBackend, 4, 0, 1, 3)
+        self.printArthurBackend = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.printArthurBackend, 5, 0, 1, 3)
+
         app.translateUI(self)
 
     def translateUI(self):
@@ -179,6 +185,8 @@ class MusicView(preferences.Group):
         # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
         self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
         self.showScrollbars.setText(_("Show Scrollbars"))
+        self.arthurBackend.setText(_("Use Arthur backend on screen"))
+        self.printArthurBackend.setText(_("Use Arthur backend for printing"))
 
     def loadSettings(self):
         s = popplerview.MagnifierSettings.load()
@@ -193,6 +201,10 @@ class MusicView(preferences.Group):
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
         showScrollbars = s.value("show_scrollbars", True, bool)
         self.showScrollbars.setChecked(showScrollbars)
+        useArthur = s.value("arthurbackend", False, bool)
+        self.arthurBackend.setChecked(useArthur)
+        useArthurPrint = s.value("arthurbackend_print", False, bool)
+        self.printArthurBackend.setChecked(useArthurPrint)
 
     def saveSettings(self):
         s = popplerview.MagnifierSettings()
@@ -205,6 +217,8 @@ class MusicView(preferences.Group):
         s.setValue("newer_files_only", self.newerFilesOnly.isChecked())
         s.setValue("kinetic_scrolling", self.enableKineticScrolling.isChecked())
         s.setValue("show_scrollbars", self.showScrollbars.isChecked())
+        s.setValue("arthurbackend", self.arthurBackend.isChecked())
+        s.setValue("arthurbackend_print", self.printArthurBackend.isChecked())
 
 
 class CharMap(preferences.Group):

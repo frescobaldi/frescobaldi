@@ -105,7 +105,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         if popplerqt5:
             renderBackend, printRenderBackend = self.getPopplerBackends()
             for r in renderers:
-                if isintance(r, qpageview.poppler.PopplerRenderer):
+                if isinstance(r, qpageview.poppler.PopplerRenderer):
                     r.printRenderBackend = printRenderBackend
                     if r.renderBackend != renderBackend:
                         changed = True
