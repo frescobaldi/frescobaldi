@@ -308,7 +308,8 @@ class MainWindow(QMainWindow):
             if docs:
                 self.setCurrentDocument(docs[-1])
             for i in impurls:
-                imp.openDialog(i)
+                imp.configure_import(i)
+                imp.run_import()
 
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
