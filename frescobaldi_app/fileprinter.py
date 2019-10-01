@@ -109,6 +109,10 @@ def printCommand(cmd, printer, filename):
     elif printer.duplex() == QPrinter.DuplexShortSide:
         command.extend(['-o', 'sides=two-sided-short-edge'])
 
+    # grayscale
+    if printer.colorMode() == QPrinter.GrayScale:
+        command.extend(['-o', 'print-color-mode=monochrome'])
+
     command.append(filename)
     return command
 
