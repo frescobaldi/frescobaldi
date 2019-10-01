@@ -119,6 +119,7 @@ class View(scrollarea.ScrollArea):
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
+        self._document = None
         self._currentPageNumber = 0
         self._pageCount = 0
         self._scrollingToPage = 0
@@ -279,24 +280,29 @@ class View(scrollarea.ScrollArea):
 
     def clear(self):
         """Convenience method to clear the current layout."""
+        self._document = None
         with self.modifyPages() as pages:
             pages.clear()
 
-    def loadPopplerDocument(self, document, renderer=None):
-        """Convenience method to display the loaded Poppler.Document."""
-        from . import poppler
+    def setDocument(self, document):
+        """Set the Document to display (see document.AbstractDocument)."""
+        self._document = document
         with self.modifyPages() as pages:
-            pages[:] = poppler.PopplerPage.loadPopplerDocument(document, renderer)
+            pages[:] = document.pages()
+
+    def document(self):
+        """Return the Document currently displayed (see document.AbstractDocument)."""
+        return self._document
 
     def loadPdf(self, filename, renderer=None):
         """Convenience method to load the specified PDF file.
 
-        The filename can also be a QByteArray.
+        The filename can also be a QByteArray or an already loaded
+        popplerqt5.Poppler.Document instance.
 
         """
         from . import poppler
-        with self.modifyPages() as pages:
-            pages[:] = poppler.PopplerPage.load(filename, renderer)
+        self.setDocument(poppler.PopplerDocument(filename, renderer))
 
     def loadSvgs(self, filenames, renderer=None):
         """Convenience method to load the specified list of SVG files.
@@ -306,8 +312,7 @@ class View(scrollarea.ScrollArea):
 
         """
         from . import svg
-        with self.modifyPages() as pages:
-            pages[:] = svg.SvgPage.loadFiles(filenames, renderer)
+        self.setDocument(svg.SvgDocument(filenames, renderer))
 
     def loadImages(self, filenames, renderer=None):
         """Convenience method to load images from the specified list of files.
@@ -317,8 +322,7 @@ class View(scrollarea.ScrollArea):
 
         """
         from . import image
-        with self.modifyPages() as pages:
-            pages[:] = image.ImagePage.loadFiles(filenames)
+        self.setDocument(image.ImageDocument(filenames, renderer))
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Print all, or speficied pages to QPrinter printer.
