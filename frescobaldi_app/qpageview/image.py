@@ -175,7 +175,7 @@ class ImagePage(page.AbstractRenderedPage):
         m.scale(1 / self.pageWidth, 1 / self.pageHeight)
 
         source = self.transform().inverted()[0].mapRect(rect)
-        return self._ic._image(source).transformed(m, Qt.SmoothTransformation)
+        return self._ic.image(source).transformed(m, Qt.SmoothTransformation)
 
     def group(self):
         return self._ic
