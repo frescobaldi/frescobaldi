@@ -108,7 +108,7 @@ class MusicView(QWidget):
         document = doc.document()
         if document:
             self._links = pointandclick.links(document)
-            self.view.loadPopplerDocument(document)
+            self.view.loadPdf(document)
             position = self._positions.get(doc)
             if position:
                 self.view.setPosition(position, allowKinetic=False)
