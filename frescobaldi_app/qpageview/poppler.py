@@ -34,6 +34,7 @@ from PyQt5.QtGui import QRegion, QPainter, QPicture, QTransform
 
 import popplerqt5
 
+from . import document
 from . import page
 from . import link
 from . import locking
@@ -100,11 +101,14 @@ class PopplerPage(page.AbstractRenderedPage):
     def load(cls, filename, renderer=None):
         """Load a Poppler document, and yield of instances of this class.
 
-        The filename can also be a QByteArray.
-        The specified Renderer is used, or else the global poppler renderer.
+        The filename can also be a QByteArray or a popplerqt5.Poppler.Document 
+        instance. The specified Renderer is used, or else the global poppler 
+        renderer.
 
         """
-        if isinstance(filename, str):
+        if isinstance(filename, popplerqt5.Poppler.Document):
+            doc = filename
+        elif isinstance(filename, str):
             doc = popplerqt5.Poppler.Document.load(filename)
         else:
             doc = popplerqt5.Poppler.Document.loadFromData(filename)
@@ -139,6 +143,18 @@ class PopplerPage(page.AbstractRenderedPage):
                 links = link.Links(map(Link, document.page(pageNumber).links()))
             _linkscache.setdefault(document, {})[pageNumber] = links
             return links
+
+
+class PopplerDocument(document.AbstractDocument):
+    """A lazily loaded Poppler (PDF) document."""
+    pageClass = PopplerPage
+    def __init__(self, source, renderer=None):
+        super().__init__(renderer)
+        self.setSource(source)
+
+    def createPages(self):
+        s = self.source()
+        return self.pageClass.load(, self.renderer)
 
 
 class PopplerRenderer(render.AbstractRenderer):

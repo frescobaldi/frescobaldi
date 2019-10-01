@@ -26,8 +26,9 @@ display.
 """
 
 from PyQt5.QtCore import QPoint, QRect, QSize, Qt
-from PyQt5.QtGui import QImageIOHandler, QImageReader, QPainter, QTransform
+from PyQt5.QtGui import QImage, QImageIOHandler, QImageReader, QPainter, QTransform
 
+from . import document
 from . import locking
 from . import page
 from . import render
@@ -182,6 +183,27 @@ class ImagePage(page.AbstractRenderedPage):
     
     def mutex(self):
         return self._ic
+
+
+class ImageDocument(document.AbstractDocument):
+    """A Document representing a group of images.
+
+    A source may be a filename, a QIODevice or a QImage.
+
+    """
+    pageClass = ImagePage
+    def __init__(self, sources, renderer=None):
+        super().__init__(renderer)
+        self.setSources(sources)
+
+    def createPages(self):
+        for s in self.sources():
+            if isinstance(s, QImage):
+                if not s.isNull():
+                    yield self.pageClass.fromImage(s, self.renderer)
+            else:
+                for p in self.pageClass.load(s, self.renderer):
+                    yield p
 
 
 class ImageRenderer(render.AbstractRenderer):
