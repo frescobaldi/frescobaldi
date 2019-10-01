@@ -153,8 +153,7 @@ class PopplerDocument(document.AbstractDocument):
         self.setSource(source)
 
     def createPages(self):
-        s = self.source()
-        return self.pageClass.load(, self.renderer)
+        return self.pageClass.load(self.source(), self.renderer)
 
 
 class PopplerRenderer(render.AbstractRenderer):
