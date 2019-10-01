@@ -23,6 +23,7 @@ Small utilities and simple base classes for the qpageview module.
 
 
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, Qt
+from PyQt5.QtGui import QMouseEvent
 
 
 class Rectangular:
@@ -116,15 +117,17 @@ class LongMousePressMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._longPressTimer = None
-        self._longPressEvent = None
+        self._longPressAttrs = None
         self._longPressPos = None
 
     def _startLongMousePressEvent(self, ev):
         """Start the timer for a QMouseEvent mouse press event."""
         self._cancelLongMousePressEvent()
         self._longPressTimer = self.startTimer(self.longMousePressTime)
-        # copy the pos because Qt might reuse the event
-        self._longPressEvent = ev
+        # copy the event's attributes because Qt might reuse the event
+        self._longPressAttrs = (ev.type(),
+            ev.localPos(), ev.windowPos(), ev.screenPos(),
+            ev.button(), ev.buttons(), ev.modifiers())
         self._longPressPos = ev.pos()
 
     def _checkLongMousePressEvent(self, ev):
@@ -139,7 +142,7 @@ class LongMousePressMixin:
         if self._longPressTimer is not None:
             self.killTimer(self._longPressTimer)
             self._longPressTimer = None
-            self._longPressEvent = None
+            self._longPressAttrs = None
             self._longPressPos = None
 
     def longMousePressEvent(self, ev):
@@ -149,7 +152,7 @@ class LongMousePressMixin:
     def timerEvent(self, ev):
         """Implemented to check for a long mouse button press."""
         if ev.timerId() == self._longPressTimer:
-            event = self._longPressEvent
+            event = QMouseEvent(*self._longPressAttrs)
             self._cancelLongMousePressEvent()
             self.longMousePressEvent(event)
         super().timerEvent(ev)
