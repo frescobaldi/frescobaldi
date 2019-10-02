@@ -32,6 +32,7 @@ import itertools
 from PyQt5.QtCore import QPoint, QRect, QRectF, Qt
 from PyQt5.QtGui import QColor, QImage, QPainter, QPixmap, QRegion, QTransform
 
+from . import document
 from . import page
 from . import render
 
@@ -219,6 +220,14 @@ class MultiPage(page.AbstractRenderedPage):
             if link in p.links():
                 return p.linkRect(link).translated(p.pos())
         return QRect()  # just in case
+
+
+class MultiPageDocument(document.MultiFileDocument):
+    """A Document that combines pages from different documents."""
+    pageClass = MultiPage
+    def createPages(self):
+        pageLists = [doc.pages() for doc in self.sources()]
+        return self.pageClass.createPages(pageLists, self.renderer)
 
 
 class MultiPageRenderer(render.AbstractRenderer):

@@ -101,7 +101,7 @@ def loadSvgs(filenames, renderer=None):
 
 
 def loadImages(filenames, renderer=None):
-    """Convenience method to create a Document with images from files.
+    """Convenience function to create a Document with images from files.
 
     Each image is loaded in one Page. A filename can also be a
     QByteArray.
@@ -109,5 +109,16 @@ def loadImages(filenames, renderer=None):
     """
     from . import image
     return image.ImageDocument(filenames, renderer)
+
+
+def diffDocument(documents, renderer=None):
+    """Convenience function to create a diff.DiffDocument from other documents.
+
+    The difference works best with documents that are similar and mostly black
+    and white.
+
+    """
+    from . import diff
+    return diff.DiffDocument(documents, renderer)
 
 
