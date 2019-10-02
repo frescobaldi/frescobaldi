@@ -137,7 +137,7 @@ class MultiFileDocument(AbstractFileDocument):
     def setSources(self, sources):
         """Set data objects for every page. Invalidates the document."""
         self.clear()
-        self._sources = sources
+        self._sources[:] = sources
 
     def filenames(self):
         """Return the list of file names of every page."""
