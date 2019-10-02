@@ -783,22 +783,20 @@ class View(scrollarea.ScrollArea):
         that page have finished. This reduces flicker.
         
         """
-        pages = list(self.visiblePages())
-        if page and page in pages:
-            pages = [page]
-        
         viewport = self.viewport()
-        wait = False
+        full = True
         updates = []
-        if pages:
-            for p in pages:
-                rect = self.visibleRect() & p.geometry()
-                if rect and p.renderer:
-                    if p.renderer.update(p, viewport, rect.translated(-p.pos()), self.lazyUpdate):
-                        updates.append(rect.translated(self.layoutPosition()))
-                    else:
-                        wait = True
-        if not wait:
+        for p in self.visiblePages():
+            rect = self.visibleRect() & p.geometry()
+            if rect and p.renderer:
+                imgs, missing, key, *rest = p.renderer.info(p, viewport, rect.translated(-p.pos()))
+                if missing:
+                    full = False
+                    if page is p or page is None:
+                        p.renderer.schedule(p, key, missing, self.lazyUpdate)
+                else:
+                    updates.append(rect.translated(self.layoutPosition()))
+        if full:
             viewport.update()
         elif updates:
             viewport.update(sum(updates, QRegion()))
