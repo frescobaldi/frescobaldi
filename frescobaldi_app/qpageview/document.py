@@ -23,8 +23,13 @@ Document, a simple class representing a group of pages.
 It is certainly not necessary to use a Document to handle pages in a View,
 but it might be convenient in some cases.
 
-A Document has either one filename for multiple pages, OR a filename
-for every Page.
+The Document class can be used to manually build a document consisting of
+a group of pages, that can be specified on construction or added to the list
+returned by the Document.pages() method.
+
+Then two subtypes exist, SingleFileDocument and MultiFileDocument, that can be
+subclassed into document types that either load every Page from a single file
+or, respectively, load all pages from one filename.
 
 Instead of a filename, any object can be used as data source. Depending
 on the page type, a QIODevice or QByteArray could be used.
@@ -35,7 +40,7 @@ on the page type, a QIODevice or QByteArray could be used.
 class Document:
     """A Document represents a group of pages that belong together in some way.
 
-    Add pages by manipulating the list returned by pages().
+    Add pages on creation or by manipulating the list returned by pages().
 
     """
     def __init__(self, pages=()):
@@ -55,10 +60,20 @@ class Document:
         self._pages.clear()
 
     def filename(self):
-        """Return the filename of the document."""
+        """Return the filename of the document.
+
+        The default implementation returns an empty string.
+
+        """
+        return ""
 
     def filenames(self):
-        """Return the list of filenames, for multi-file documents."""
+        """Return the list of filenames, for multi-file documents.
+
+        The default implementation returns an empty tuple.
+
+        """
+        return ()
 
 
 class AbstractFileDocument(Document):
@@ -84,6 +99,10 @@ class AbstractFileDocument(Document):
 
     def invalidate(self):
         """Delete all cached pages, except for filename(s) or source object(s)."""
+        self._pages = None
+
+    def clear(self):
+        """Delete all cached pages, and clear filename(s) or source object(s)."""
         self._pages = None
 
     def createPages(self):
@@ -118,7 +137,7 @@ class SingleFileDocument(AbstractFileDocument):
     setFilename = setSource
 
     def clear(self):
-        """Delete all caches pages, and clear filename or source object."""
+        """Delete all cached pages, and clear filename or source object."""
         self._pages = None
         self._source = None
 
@@ -146,7 +165,7 @@ class MultiFileDocument(AbstractFileDocument):
     setFilenames = setSources
 
     def clear(self):
-        """Delete all caches pages, and clear filenames or source objects."""
+        """Delete all cached pages, and clear filenames or source objects."""
         self._pages = None
         self._sources = []
 
