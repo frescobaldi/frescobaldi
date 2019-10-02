@@ -794,7 +794,7 @@ class View(scrollarea.ScrollArea):
                     full = False
                     if page is p or page is None:
                         p.renderer.schedule(p, key, missing, self.lazyUpdate)
-                else:
+                elif page is p or page is None:
                     updates.append(rect.translated(self.layoutPosition()))
         if full:
             viewport.update()
