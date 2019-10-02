@@ -70,10 +70,10 @@ class Document:
     def filenames(self):
         """Return the list of filenames, for multi-file documents.
 
-        The default implementation returns an empty tuple.
+        The default implementation returns an empty list.
 
         """
-        return ()
+        return []
 
 
 class AbstractFileDocument(Document):
