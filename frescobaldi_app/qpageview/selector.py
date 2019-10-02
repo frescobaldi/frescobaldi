@@ -81,9 +81,9 @@ class SelectorViewMixin:
             if any(self.page(n).geometry() & visible for n in diff):
                 self.viewport().update()
 
-    def updatePageLayout(self):
+    def updatePageLayout(self, lazy=False):
         """Reimplemented to also check the selection."""
-        super().updatePageLayout()
+        super().updatePageLayout(lazy)
         self._checkSelection()
 
     def _checkSelection(self):

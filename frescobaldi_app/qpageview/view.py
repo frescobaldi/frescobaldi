@@ -235,8 +235,12 @@ class View(scrollarea.ScrollArea):
         """Return our current PageLayout instance."""
         return self._pageLayout
 
-    def updatePageLayout(self):
-        """Update layout, adjust scrollbars, keep track of page count."""
+    def updatePageLayout(self, lazy=False):
+        """Update layout, adjust scrollbars, keep track of page count.
+
+        If lazy is set to True, calls lazyUpdate() to update the view.
+
+        """
         self._pageLayout.update()
 
         # keep track of page count
@@ -249,7 +253,7 @@ class View(scrollarea.ScrollArea):
 
         self.setAreaSize(self._pageLayout.size())
         self.pageLayoutUpdated.emit()
-        self.viewport().update()
+        self.lazyUpdate() if lazy else self.viewport().update()
 
     @contextlib.contextmanager
     def modifyPages(self):
@@ -263,7 +267,7 @@ class View(scrollarea.ScrollArea):
         yield pages
         self._unschedulePages(list(set(self._pageLayout) - set(pages)))
         self._pageLayout[:] = pages
-        self.updatePageLayout()
+        self.updatePageLayout(True)
 
     @contextlib.contextmanager
     def modifyPage(self, num):
@@ -276,7 +280,7 @@ class View(scrollarea.ScrollArea):
         yield page
         if page:
             self._unschedulePages((page,))
-            self.updatePageLayout()
+            self.updatePageLayout(True)
 
     def clear(self):
         """Convenience method to clear the current layout."""
