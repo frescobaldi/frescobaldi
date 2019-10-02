@@ -222,7 +222,7 @@ class MultiPage(page.AbstractRenderedPage):
         return QRect()  # just in case
 
 
-class MultiPageDocument(document.MultiFileDocument):
+class MultiPageDocument(document.MultiSourceDocument):
     """A Document that combines pages from different documents."""
     pageClass = MultiPage
     def createPages(self):

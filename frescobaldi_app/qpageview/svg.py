@@ -71,7 +71,7 @@ class SvgPage(page.AbstractRenderedPage):
         return self._svg
 
 
-class SvgDocument(document.MultiFileDocument):
+class SvgDocument(document.MultiSourceDocument):
     """A Document representing a group of SVG files."""
     pageClass = SvgPage
 

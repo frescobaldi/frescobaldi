@@ -27,7 +27,7 @@ The Document class can be used to manually build a document consisting of
 a group of pages, that can be specified on construction or added to the list
 returned by the Document.pages() method.
 
-Then two subtypes exist, SingleFileDocument and MultiFileDocument, that can be
+Then two subtypes exist, SingleSourceDocument and MultiSourceDocument, that can be
 subclassed into document types that either load every Page from a single file
 or, respectively, load all pages from one filename.
 
@@ -76,7 +76,7 @@ class Document:
         return []
 
 
-class AbstractFileDocument(Document):
+class AbstractSourceDocument(Document):
     """A Document that loads pages from external source, such as a file.
 
     The pages are loaded on first request, and invalidate can be called
@@ -115,7 +115,7 @@ class AbstractFileDocument(Document):
         return NotImplemented
 
 
-class SingleFileDocument(AbstractFileDocument):
+class SingleSourceDocument(AbstractSourceDocument):
     """A Document that loads its pages from a single file or source."""
     def __init__(self, source=None, renderer=None):
         super().__init__(renderer)
@@ -142,7 +142,7 @@ class SingleFileDocument(AbstractFileDocument):
         self._source = None
 
 
-class MultiFileDocument(AbstractFileDocument):
+class MultiSourceDocument(AbstractSourceDocument):
     """A Document that loads every page from its own file or source."""
     def __init__(self, sources=(), renderer=None):
         super().__init__(renderer)

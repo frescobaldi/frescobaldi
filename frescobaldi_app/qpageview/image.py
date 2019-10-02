@@ -185,7 +185,7 @@ class ImagePage(page.AbstractRenderedPage):
         return self._ic
 
 
-class ImageDocument(document.MultiFileDocument):
+class ImageDocument(document.MultiSourceDocument):
     """A Document representing a group of images.
 
     A source may be a filename, a QIODevice or a QImage.

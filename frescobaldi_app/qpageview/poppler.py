@@ -145,7 +145,7 @@ class PopplerPage(page.AbstractRenderedPage):
             return links
 
 
-class PopplerDocument(document.SingleFileDocument):
+class PopplerDocument(document.SingleSourceDocument):
     """A lazily loaded Poppler (PDF) document."""
     pageClass = PopplerPage
 
