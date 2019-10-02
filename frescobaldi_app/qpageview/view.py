@@ -839,13 +839,28 @@ class View(scrollarea.ScrollArea):
         page coordinates. (The full rect can be found in page.rect().)
         Translates the painter to the top left of each page.
         
+        The pages are sorted with largest area last.
+
         """
         layout_pos = self.layoutPosition()
         ev_rect = rect.translated(-layout_pos)
-        for p in self._pageLayout.pagesAt(ev_rect):
+
+        # compute the rectangle overlapping with rect, in page coordinates
+        def overlayrect(p):
+            return (p.geometry() & ev_rect).translated(-p.pos())
+
+        pagerects = [(p, overlayrect(p)) for p in self._pageLayout.pagesAt(ev_rect)]
+
+        # largest area first, so it is rendered first in pages that lock the doc
+        def key(pagerect):
+            r = pagerect[1]
+            return r.height() * r.width()
+        pagerects.sort(key=key, reverse=True)
+
+        for p, r in pagerects:
             painter.save()
             painter.translate(layout_pos + p.pos())
-            yield p, (p.geometry() & ev_rect).translated(-p.pos())
+            yield p, r
             painter.restore()
 
     def event(self, ev):
