@@ -185,16 +185,13 @@ class ImagePage(page.AbstractRenderedPage):
         return self._ic
 
 
-class ImageDocument(document.AbstractDocument):
+class ImageDocument(document.MultiFileDocument):
     """A Document representing a group of images.
 
     A source may be a filename, a QIODevice or a QImage.
 
     """
     pageClass = ImagePage
-    def __init__(self, sources, renderer=None):
-        super().__init__(renderer)
-        self.setSources(sources)
 
     def createPages(self):
         for s in self.sources():

@@ -145,12 +145,9 @@ class PopplerPage(page.AbstractRenderedPage):
             return links
 
 
-class PopplerDocument(document.AbstractDocument):
+class PopplerDocument(document.SingleFileDocument):
     """A lazily loaded Poppler (PDF) document."""
     pageClass = PopplerPage
-    def __init__(self, source, renderer=None):
-        super().__init__(renderer)
-        self.setSource(source)
 
     def createPages(self):
         return self.pageClass.load(self.source(), self.renderer)

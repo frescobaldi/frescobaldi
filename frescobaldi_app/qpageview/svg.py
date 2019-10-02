@@ -71,12 +71,9 @@ class SvgPage(page.AbstractRenderedPage):
         return self._svg
 
 
-class SvgDocument(document.AbstractDocument):
+class SvgDocument(document.MultiFileDocument):
     """A Document representing a group of SVG files."""
     pageClass = SvgPage
-    def __init__(self, sources, renderer=None):
-        super().__init__(renderer)
-        self.setSources(sources)
 
     def createPages(self):
         return self.pageClass.loadFiles(self.sources(), self.renderer)
