@@ -226,7 +226,7 @@ class MultiPageDocument(document.MultiSourceDocument):
     """A Document that combines pages from different documents."""
     pageClass = MultiPage
     def createPages(self):
-        pageLists = [doc.pages() for doc in self.sources()]
+        pageLists = [[p.copy() for p in doc.pages()] for doc in self.sources()]
         return self.pageClass.createPages(pageLists, self.renderer)
 
 
