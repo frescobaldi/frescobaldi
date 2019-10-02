@@ -285,13 +285,13 @@ class View(scrollarea.ScrollArea):
             pages.clear()
 
     def setDocument(self, document):
-        """Set the Document to display (see document.AbstractDocument)."""
+        """Set the Document to display (see document.Document)."""
         self._document = document
         with self.modifyPages() as pages:
             pages[:] = document.pages()
 
     def document(self):
-        """Return the Document currently displayed (see document.AbstractDocument)."""
+        """Return the Document currently displayed (see document.Document)."""
         return self._document
 
     def loadPdf(self, filename, renderer=None):
@@ -318,7 +318,7 @@ class View(scrollarea.ScrollArea):
         """Convenience method to load images from the specified list of files.
 
         Each image is loaded in one Page. A filename can also be a
-        QByteArray. The renderer argument is currently not used.
+        QByteArray or a QImage.
 
         """
         from . import image
