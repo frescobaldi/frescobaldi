@@ -65,6 +65,11 @@ class DiffPage(page.ImagePrintPageMixin, multipage.MultiPage):
             yield page
 
 
+class DiffDocument(multipage.MultiPageDocument):
+    """A Document showing the differences between documents, set as sources."""
+    pageClass = DiffPage
+
+
 class DiffRenderer(multipage.MultiPageRenderer):
     """Renders the pages by calling their own renderer.
     

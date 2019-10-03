@@ -235,8 +235,12 @@ class View(scrollarea.ScrollArea):
         """Return our current PageLayout instance."""
         return self._pageLayout
 
-    def updatePageLayout(self):
-        """Update layout, adjust scrollbars, keep track of page count."""
+    def updatePageLayout(self, lazy=False):
+        """Update layout, adjust scrollbars, keep track of page count.
+
+        If lazy is set to True, calls lazyUpdate() to update the view.
+
+        """
         self._pageLayout.update()
 
         # keep track of page count
@@ -249,7 +253,7 @@ class View(scrollarea.ScrollArea):
 
         self.setAreaSize(self._pageLayout.size())
         self.pageLayoutUpdated.emit()
-        self.viewport().update()
+        self.lazyUpdate() if lazy else self.viewport().update()
 
     @contextlib.contextmanager
     def modifyPages(self):
@@ -263,7 +267,7 @@ class View(scrollarea.ScrollArea):
         yield pages
         self._unschedulePages(list(set(self._pageLayout) - set(pages)))
         self._pageLayout[:] = pages
-        self.updatePageLayout()
+        self.updatePageLayout(True)
 
     @contextlib.contextmanager
     def modifyPage(self, num):
@@ -276,7 +280,7 @@ class View(scrollarea.ScrollArea):
         yield page
         if page:
             self._unschedulePages((page,))
-            self.updatePageLayout()
+            self.updatePageLayout(True)
 
     def clear(self):
         """Convenience method to clear the current layout."""
@@ -285,13 +289,13 @@ class View(scrollarea.ScrollArea):
             pages.clear()
 
     def setDocument(self, document):
-        """Set the Document to display (see document.AbstractDocument)."""
+        """Set the Document to display (see document.Document)."""
         self._document = document
         with self.modifyPages() as pages:
             pages[:] = document.pages()
 
     def document(self):
-        """Return the Document currently displayed (see document.AbstractDocument)."""
+        """Return the Document currently displayed (see document.Document)."""
         return self._document
 
     def loadPdf(self, filename, renderer=None):
@@ -318,7 +322,7 @@ class View(scrollarea.ScrollArea):
         """Convenience method to load images from the specified list of files.
 
         Each image is loaded in one Page. A filename can also be a
-        QByteArray. The renderer argument is currently not used.
+        QByteArray or a QImage.
 
         """
         from . import image
@@ -779,22 +783,20 @@ class View(scrollarea.ScrollArea):
         that page have finished. This reduces flicker.
         
         """
-        pages = list(self.visiblePages())
-        if page and page in pages:
-            pages = [page]
-        
         viewport = self.viewport()
-        wait = False
+        full = True
         updates = []
-        if pages:
-            for p in pages:
-                rect = self.visibleRect() & p.geometry()
-                if rect and p.renderer:
-                    if p.renderer.update(p, viewport, rect.translated(-p.pos()), self.lazyUpdate):
-                        updates.append(rect.translated(self.layoutPosition()))
-                    else:
-                        wait = True
-        if not wait:
+        for p in self.visiblePages():
+            rect = self.visibleRect() & p.geometry()
+            if rect and p.renderer:
+                imgs, missing, key, *rest = p.renderer.info(p, viewport, rect.translated(-p.pos()))
+                if missing:
+                    full = False
+                    if page is p or page is None:
+                        p.renderer.schedule(p, key, missing, self.lazyUpdate)
+                elif page is p or page is None:
+                    updates.append(rect.translated(self.layoutPosition()))
+        if full:
             viewport.update()
         elif updates:
             viewport.update(sum(updates, QRegion()))
@@ -839,13 +841,28 @@ class View(scrollarea.ScrollArea):
         page coordinates. (The full rect can be found in page.rect().)
         Translates the painter to the top left of each page.
         
+        The pages are sorted with largest area last.
+
         """
         layout_pos = self.layoutPosition()
         ev_rect = rect.translated(-layout_pos)
-        for p in self._pageLayout.pagesAt(ev_rect):
+
+        # compute the rectangle overlapping with rect, in page coordinates
+        def overlayrect(p):
+            return (p.geometry() & ev_rect).translated(-p.pos())
+
+        pagerects = [(p, overlayrect(p)) for p in self._pageLayout.pagesAt(ev_rect)]
+
+        # largest area first, so it is rendered first in pages that lock the doc
+        def key(pagerect):
+            r = pagerect[1]
+            return r.height() * r.width()
+        pagerects.sort(key=key, reverse=True)
+
+        for p, r in pagerects:
             painter.save()
             painter.translate(layout_pos + p.pos())
-            yield p, (p.geometry() & ev_rect).translated(-p.pos())
+            yield p, r
             painter.restore()
 
     def event(self, ev):

@@ -156,9 +156,9 @@ class WidgetOverlayViewMixin:
             for w in remove:
                 w.deleteLater()
 
-    def updatePageLayout(self):
+    def updatePageLayout(self, lazy=False):
         """Reimplemented to update the size and position of the widgets."""
-        super().updatePageLayout()
+        super().updatePageLayout(lazy)
         self._updateWidgets()
 
     def scrollContentsBy(self, dx, dy):

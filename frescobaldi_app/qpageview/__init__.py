@@ -78,4 +78,47 @@ class View(
     pass
 
 
+def loadPdf(filename, renderer=None):
+    """Convenience function to create a Document with the specified PDF file.
+
+    The filename can also be a QByteArray or an already loaded
+    popplerqt5.Poppler.Document instance.
+
+    """
+    from . import poppler
+    return poppler.PopplerDocument(filename, renderer)
+
+
+def loadSvgs(filenames, renderer=None):
+    """Convenience function to create a Document with the specified SVG files.
+
+    Each SVG file is loaded in one Page. A filename can also be a
+    QByteArray.
+
+    """
+    from . import svg
+    return svg.SvgDocument(filenames, renderer)
+
+
+def loadImages(filenames, renderer=None):
+    """Convenience function to create a Document with images from files.
+
+    Each image is loaded in one Page. A filename can also be a
+    QByteArray.
+
+    """
+    from . import image
+    return image.ImageDocument(filenames, renderer)
+
+
+def diffDocument(documents, renderer=None):
+    """Convenience function to create a diff.DiffDocument from other documents.
+
+    The difference works best with documents that are similar and mostly black
+    and white.
+
+    """
+    from . import diff
+    return diff.DiffDocument(documents, renderer)
+
 

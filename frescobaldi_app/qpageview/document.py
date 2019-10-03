@@ -23,8 +23,13 @@ Document, a simple class representing a group of pages.
 It is certainly not necessary to use a Document to handle pages in a View,
 but it might be convenient in some cases.
 
-A Document has either one filename for multiple pages, OR a filename
-for every Page.
+The Document class can be used to manually build a document consisting of
+a group of pages, that can be specified on construction or added to the list
+returned by the Document.pages() method.
+
+Then two subtypes exist, SingleSourceDocument and MultiSourceDocument, that can be
+subclassed into document types that either load every Page from a single file
+or, respectively, load all pages from one filename.
 
 Instead of a filename, any object can be used as data source. Depending
 on the page type, a QIODevice or QByteArray could be used.
@@ -32,28 +37,55 @@ on the page type, a QIODevice or QByteArray could be used.
 """
 
 
-class AbstractDocument:
+class Document:
     """A Document represents a group of pages that belong together in some way.
 
-    Inherit from this class and implement createPage() and load().
-    The type of data objects you would use depend on the type of content you
-    want to display.
+    Add pages on creation or by manipulating the list returned by pages().
 
-    A page can be loaded from a filename or a data source. Both can be set
-    using either setSource (for the whole document) or setSources (for every
-    page). setFilename and setFilenames are synomyms of the setSource and
-    setSources methods.
+    """
+    def __init__(self, pages=()):
+        self._pages = []
+        self._pages.extend(pages)
 
-    The source() and sources() methods return the sources for either the whole
-    document or every page. The filename() and filenames() do the same, but
-    instead return an empty string for non-string source objects.
+    def count(self):
+        """Return the number of pages."""
+        return len(self.pages())
+
+    def pages(self):
+        """Return the list of pages."""
+        return self._pages
+
+    def clear(self):
+        """Empties the document."""
+        self._pages.clear()
+
+    def filename(self):
+        """Return the filename of the document.
+
+        The default implementation returns an empty string.
+
+        """
+        return ""
+
+    def filenames(self):
+        """Return the list of filenames, for multi-file documents.
+
+        The default implementation returns an empty list.
+
+        """
+        return []
+
+
+class AbstractSourceDocument(Document):
+    """A Document that loads pages from external source, such as a file.
+
+    The pages are loaded on first request, and invalidate can be called
+    to trigger a reload.
 
     """
     def __init__(self, renderer=None):
-        self.renderer = None
+        self.renderer = renderer
         self._pages = None
-        self._source = None
-        self._sources = []
 
     def count(self):
         """Return the number of pages."""
@@ -65,46 +97,13 @@ class AbstractDocument:
             self._pages = list(self.createPages())
         return self._pages
 
-    def source(self):
-        """Return a data object that might be set for the whole document."""
-        return self._source
-
-    def setSource(self, source):
-        """Set the data object for the whole document. Invalidates the document."""
-        self.clear()
-        self._source = source
-
-    def sources(self):
-        """Return data objects for every page."""
-        return self._sources
-
-    def setSources(self, sources):
-        """Set data objects for every page. Invalidates the document."""
-        self.clear()
-        self._sources = sources
-
-    def filename(self):
-        """Return the file name applying to the whole document."""
-        if isinstance(self._source, str):
-            return self._source
-
-    setFilename = setSource
-
-    def filenames(self):
-        """Return the list of file names of every page."""
-        return [f if isinstance(f, str) else "" for f in self._sources]
-
-    setFilenames = setSources
-
     def invalidate(self):
-        """Delete all cached pages, except for filenames or data objects."""
+        """Delete all cached pages, except for filename(s) or source object(s)."""
         self._pages = None
 
     def clear(self):
-        """Delete all caches pages, and filenames and data objects."""
+        """Delete all cached pages, and clear filename(s) or source object(s)."""
         self._pages = None
-        self._source = None
-        self._sources = []
 
     def createPages(self):
         """Implement this method to create and yield the pages.
@@ -114,5 +113,60 @@ class AbstractDocument:
 
         """
         return NotImplemented
+
+
+class SingleSourceDocument(AbstractSourceDocument):
+    """A Document that loads its pages from a single file or source."""
+    def __init__(self, source=None, renderer=None):
+        super().__init__(renderer)
+        self._source = source
+
+    def source(self):
+        """Return a data object that might be set for the whole document."""
+        return self._source
+
+    def setSource(self, source):
+        """Set the data object for the whole document. Invalidates the document."""
+        self.clear()
+        self._source = source
+
+    def filename(self):
+        """Return the file name applying to the whole document."""
+        return self._source if isinstance(self._source, str) else ""
+
+    setFilename = setSource
+
+    def clear(self):
+        """Delete all cached pages, and clear filename or source object."""
+        self._pages = None
+        self._source = None
+
+
+class MultiSourceDocument(AbstractSourceDocument):
+    """A Document that loads every page from its own file or source."""
+    def __init__(self, sources=(), renderer=None):
+        super().__init__(renderer)
+        self._sources = []
+        self._sources.extend(sources)
+
+    def sources(self):
+        """Return data objects for every page."""
+        return self._sources
+
+    def setSources(self, sources):
+        """Set data objects for every page. Invalidates the document."""
+        self.clear()
+        self._sources[:] = sources
+
+    def filenames(self):
+        """Return the list of file names of every page."""
+        return [f if isinstance(f, str) else "" for f in self._sources]
+
+    setFilenames = setSources
+
+    def clear(self):
+        """Delete all cached pages, and clear filenames or source objects."""
+        self._pages = None
+        self._sources = []
 
 
