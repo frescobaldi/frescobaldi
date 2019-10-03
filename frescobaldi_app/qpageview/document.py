@@ -34,6 +34,11 @@ or, respectively, load all pages from one filename.
 Instead of a filename, any object can be used as data source. Depending
 on the page type, a QIODevice or QByteArray could be used.
 
+Instantiating a Document is very fast, as nothing is loaded or computed on
+instantiation. Only when pages() is called for the first time, file contents
+are loaded, which normally happens when a Document is shown in a View using
+View.setDocument().
+
 """
 
 
