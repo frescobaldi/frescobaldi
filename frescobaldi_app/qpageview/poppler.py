@@ -155,7 +155,7 @@ class PopplerDocument(document.SingleSourceDocument):
 
     def createPages(self):
         doc = self._document = load(self.source())
-        return self.pageClass.loadPopplerDocument(self.source(), self.renderer)
+        return self.pageClass.loadPopplerDocument(doc, self.renderer)
 
     def document(self):
         """Return the Poppler Document object."""
