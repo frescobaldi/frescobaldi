@@ -22,6 +22,8 @@ A widget and dialog to show an output preview of a LilyPond document.
 """
 
 
+import os
+
 from PyQt5.QtCore import (
     QSize,
     Qt
@@ -34,8 +36,8 @@ import icons
 import job.lilypond
 import log
 import qutil
+import qpageview
 import pagedview
-import popplertools
 import widgets.progressbar
 
 
@@ -172,9 +174,9 @@ class MusicPreviewWidget(QWidget):
 
     def setDocuments(self, pdfs):
         """Loads the given PDF path names in the UI."""
-        self._documents = [popplertools.Document(name) for name in pdfs]
+        self._documents = [qpageview.loadPdf(name) for name in pdfs]
         self._chooser.clear()
-        self._chooser.addItems([d.name() for d in self._documents])
+        self._chooser.addItems([os.path.basename(d.filename()) for d in self._documents])
         self._top.setVisible(len(self._documents) > 1)
         if pdfs:
             self._chooser.setCurrentIndex(0)
@@ -183,9 +185,7 @@ class MusicPreviewWidget(QWidget):
             self._view.clear()
 
     def selectDocument(self, index):
-        doc = self._documents[index].document()
-        if doc:
-            self._view.loadPopplerDocument(doc)
+        self._view.setDocument(self._documents[index])
 
     def cleanup(self):
         if self._running:
@@ -203,7 +203,8 @@ class MusicPreviewWidget(QWidget):
     def print_(self):
         """Prints the currently displayed document."""
         if self._documents:
-            doc = self._documents[self._chooser.currentIndex()]
+            d = self._documents[self._chooser.currentIndex()]
+            doc = d.pages()[0].document
             import popplerprint
             popplerprint.printDocument(doc, self)
 
