@@ -106,12 +106,7 @@ class PopplerPage(page.AbstractRenderedPage):
         renderer.
 
         """
-        if isinstance(filename, popplerqt5.Poppler.Document):
-            doc = filename
-        elif isinstance(filename, str):
-            doc = popplerqt5.Poppler.Document.load(filename)
-        else:
-            doc = popplerqt5.Poppler.Document.loadFromData(filename)
+        doc = load(filename)
         return cls.loadPopplerDocument(doc, renderer)
 
     def mutex(self):
@@ -149,8 +144,22 @@ class PopplerDocument(document.SingleSourceDocument):
     """A lazily loaded Poppler (PDF) document."""
     pageClass = PopplerPage
 
+    def __init__(self, source=None, renderer=None):
+        super().__init__(source, renderer)
+        self._document = None
+
+    def invalidate(self):
+        """Reimplemented to clear the Poppler Document reference."""
+        super().invalidate()
+        self._document = None
+
     def createPages(self):
-        return self.pageClass.load(self.source(), self.renderer)
+        doc = self._document = load(self.source())
+        return self.pageClass.loadPopplerDocument(self.source(), self.renderer)
+
+    def document(self):
+        """Return the Poppler Document object."""
+        return self._document
 
 
 class PopplerRenderer(render.AbstractRenderer):
@@ -270,6 +279,23 @@ class PopplerRenderer(render.AbstractRenderer):
                 dpiY = page.dpi * vscale
                 img = p.renderToImage(dpiX, dpiY, s.x(), s.y(), s.width(), s.height())
                 painter.drawImage(target, img, QRectF(img.rect()))
+
+
+def load(source):
+    """Load a Poppler document.
+
+    Source may be:
+        - a Poppler document, which is then simply returned :-)
+        - a filename
+        - q QByteArray instance.
+
+    """
+    if isinstance(source, popplerqt5.Poppler.Document):
+        return source
+    elif isinstance(source, str):
+        return popplerqt5.Poppler.Document.load(source)
+    else:
+        return popplerqt5.Poppler.Document.loadFromData(source)
 
 
 

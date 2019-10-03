@@ -98,12 +98,16 @@ class AbstractSourceDocument(Document):
         return self._pages
 
     def invalidate(self):
-        """Delete all cached pages, except for filename(s) or source object(s)."""
+        """Delete all cached pages, except for filename(s) or source object(s).
+
+        Also called internally by clear().
+
+        """
         self._pages = None
 
     def clear(self):
         """Delete all cached pages, and clear filename(s) or source object(s)."""
-        self._pages = None
+        self.invalidate()
 
     def createPages(self):
         """Implement this method to create and yield the pages.
@@ -138,7 +142,7 @@ class SingleSourceDocument(AbstractSourceDocument):
 
     def clear(self):
         """Delete all cached pages, and clear filename or source object."""
-        self._pages = None
+        self.invalidate()
         self._source = None
 
 
@@ -166,7 +170,7 @@ class MultiSourceDocument(AbstractSourceDocument):
 
     def clear(self):
         """Delete all cached pages, and clear filenames or source objects."""
-        self._pages = None
+        self.invalidate()
         self._sources = []
 
 
