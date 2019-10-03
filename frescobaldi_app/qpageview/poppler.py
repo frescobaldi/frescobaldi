@@ -159,7 +159,9 @@ class PopplerDocument(document.SingleSourceDocument):
     def document(self):
         """Return the Poppler Document object."""
         if self._document is None:
-            self._document = load(self.source())
+            source = self.source()
+            if source:
+                self._document = load(source)
         return self._document
 
 
