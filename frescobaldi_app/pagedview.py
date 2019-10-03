@@ -103,7 +103,8 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
         # render backend preference
         if popplerqt5:
-            renderBackend, printRenderBackend = self.getPopplerBackends()
+            import qpageview.poppler
+            renderBackend, printRenderBackend = getPopplerBackends()
             for r in renderers:
                 if isinstance(r, qpageview.poppler.PopplerRenderer):
                     r.printRenderBackend = printRenderBackend
@@ -114,55 +115,17 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         if changed:
             self.rerender()
 
-    def getPopplerBackends(self):
-        """Return a two-tuple (renderBackend, printRenderBackend) from the prefs."""
-        import qpageview.poppler
-        if QSettings().value("musicview/arthurbackend", False, bool):
-            renderBackend = popplerqt5.Poppler.Document.ArthurBackend
-        else:
-            renderBackend = popplerqt5.Poppler.Document.SplashBackend
-        if QSettings().value("musicview/arthurbackend_print", False, bool):
-            printRenderBackend = popplerqt5.Poppler.Document.ArthurBackend
-        else:
-            printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
-        return renderBackend, printRenderBackend
-
     def loadPdf(self, filename, renderer=None):
         """Reimplemented to use a customized renderer by default."""
-        super().loadPdf(filename, renderer or self.renderer("pdf"))
+        super().loadPdf(filename, renderer or getRenderer("pdf"))
 
     def loadSvgs(self, filenames, renderer=None):
         """Reimplemented to use a customized renderer by default."""
-        super().loadSvgs(filenames, renderer or self.renderer("svg"))
+        super().loadSvgs(filenames, renderer or getRenderer("svg"))
 
-    def renderer(self, rendertype):
-        """Factory to create a renderer with the paper color adjusted to the prefs.
-
-        Currently, the rendertype can be "pdf", "svg", "image" or "diff".
-
-        For image types, the paper color is not used. For diff types, it is
-        recommended to use the default white background color.
-
-        """
-        if rendertype == "pdf":
-            import qpageview.poppler
-            r = qpageview.poppler.PopplerRenderer()
-            renderBackend, printRenderBackend = self.getPopplerBackends()
-            r.renderBackend = renderBackend
-            r.printRenderBackend = printRenderBackend
-        elif rendertype == "svg":
-            import qpageview.svg
-            r = qpageview.svg.SvgRenderer()
-        elif rendertype == "image":
-            import qpageview.image
-            r = qpageview.image.ImageRenderer()
-        elif rendertype == "diff":
-            import qpageview.diff
-            r = qpageview.diff.DiffRenderer()
-        else:
-            raise ValueError("unknown render type")
-        r.paperColor = textformats.formatData('editor').baseColors['paper']
-        return r
+    def loadImages(self, filenames, renderer=None):
+        """Reimplemented to use a customized renderer by default."""
+        super().loadImages(filenames, renderer or getRenderer("image"))
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Reimplemented to add showing a progress dialog."""
@@ -183,5 +146,64 @@ class PrintProgressDialog(qpageview.printing.PrintProgressDialog):
         QMessageBox.warning(self.parent(), _("Printing Error"),
                     _("Could not send the document to the printer."))
 
+
+def getPopplerBackends():
+    """Return a two-tuple (renderBackend, printRenderBackend) from the prefs."""
+    if QSettings().value("musicview/arthurbackend", False, bool):
+        renderBackend = popplerqt5.Poppler.Document.ArthurBackend
+    else:
+        renderBackend = popplerqt5.Poppler.Document.SplashBackend
+    if QSettings().value("musicview/arthurbackend_print", False, bool):
+        printRenderBackend = popplerqt5.Poppler.Document.ArthurBackend
+    else:
+        printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
+    return renderBackend, printRenderBackend
+
+
+def getRenderer(rendertype):
+    """Factory to create a renderer with the paper color adjusted to the prefs.
+
+    Currently, the rendertype can be "pdf", "svg", "image" or "diff".
+
+    For the PDF type, the render backends are also read from the prefs.
+    For image types, the paper color is not used. For diff types, the paper-
+    color is not set.
+
+    """
+    if rendertype == "pdf":
+        if popplerqt5:
+            import qpageview.poppler
+            r = qpageview.poppler.PopplerRenderer()
+            r.renderBackend, r.printRenderBackend = getPopplerBackends()
+        else:
+            return None
+    elif rendertype == "svg":
+        import qpageview.svg
+        r = qpageview.svg.SvgRenderer()
+    elif rendertype == "image":
+        import qpageview.image
+        r = qpageview.image.ImageRenderer()
+    elif rendertype == "diff":
+        import qpageview.diff
+        return qpageview.diff.DiffRenderer()
+    else:
+        raise ValueError("unknown render type")
+    r.paperColor = textformats.formatData('editor').baseColors['paper']
+    return r
+
+
+def loadPdf(filename):
+    """Like qpageview.loadPdf(), but uses a preconfigured renderer."""
+    return qpageview.loadPdf(filename, getRenderer("pdf"))
+
+
+def loadSvgs(filenames):
+    """Like qpageview.loadSvgs(), but uses a preconfigured renderer."""
+    return qpageview.loadSvgs(filenames, getRenderer("svg"))
+
+
+def loadImages(filenames):
+    """Like qpageview.loadImages(), but uses a preconfigured renderer."""
+    return qpageview.loadImages(filenames, getRenderer("image"))
 
 

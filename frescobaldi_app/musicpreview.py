@@ -36,7 +36,6 @@ import icons
 import job.lilypond
 import log
 import qutil
-import qpageview
 import pagedview
 import widgets.progressbar
 
@@ -174,7 +173,7 @@ class MusicPreviewWidget(QWidget):
 
     def setDocuments(self, pdfs):
         """Loads the given PDF path names in the UI."""
-        self._documents = [qpageview.loadPdf(name) for name in pdfs]
+        self._documents = [pagedview.loadPdf(name) for name in pdfs]
         self._chooser.clear()
         self._chooser.addItems([os.path.basename(d.filename()) for d in self._documents])
         self._top.setVisible(len(self._documents) > 1)
