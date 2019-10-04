@@ -102,7 +102,11 @@ class MusicView(QWidget):
 
     def openDocument(self, doc):
         """Open a qpageview.Document instance."""
-        self.clear()
+        cur = self.view.document()
+        if cur:
+            self._positions[cur] = self.view.position()
+        self._links = None
+        self._highlightRange = None
         self.view.setDocument(doc)
         position = self._positions.get(doc)
         if position:
