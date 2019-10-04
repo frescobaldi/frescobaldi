@@ -101,10 +101,15 @@ class DocumentGroup(plugin.DocumentPlugin):
                         d[doc.filename()] = doc
             documents = []
             for filename in files:
-                doc = d.get(filename) or popplerqt5 and pagedview.loadPdf(filename)
+                doc = d.get(filename)
                 if doc:
-                    doc.updated = newer or results.is_newer(filename)
-                    documents.append(doc)
+                    doc.invalidate()
+                elif popplerqt5:
+                    doc = pagedview.loadPdf(filename)
+                else:
+                    continue
+                doc.updated = newer or results.is_newer(filename)
+                documents.append(doc)
             self._documents = documents
             return True
 
