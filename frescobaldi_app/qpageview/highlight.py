@@ -108,6 +108,10 @@ class HighlightViewMixin:
         del self._highlights[highlighter]
         self.viewport().update()
 
+    def isHighlighting(self, highlighter):
+        """Return True if the highlighter is active."""
+        return highlighter in self._highlights
+
     def paintEvent(self, ev):
         """Paint the highlighted areas in the viewport."""
         super().paintEvent(ev)  # first paint the contents
