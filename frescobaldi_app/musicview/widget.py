@@ -243,7 +243,7 @@ class MusicView(QWidget):
     def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""
         count = slice.stop - slice.start
-        if self._highlightRange == slice:
+        if self._highlightRange == slice and self.view.isHighlighting(self._highlightMusicFormat):
             return # don't redraw if same
         self._highlightRange = slice
         layout = self.view.pageLayout()
