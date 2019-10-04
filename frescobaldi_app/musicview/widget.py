@@ -316,7 +316,6 @@ class MusicView(QWidget):
             pos_in_viewport = self.view.viewport().mapFromGlobal(pos)
             page, link = self.view.linkAt(pos_in_viewport)
             if link:
-                link = link.linkobj
                 cursor = self._links.cursor(link, True)
         from . import contextmenu
         contextmenu.show(pos, self.parent(), link, cursor)
