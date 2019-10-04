@@ -220,53 +220,22 @@ class MusicView(QWidget):
         if not self.isVisible() or not self._links:
             return # not visible of no PDF in the viewer
 
-        view = self.parent().mainwindow().currentView()
-        links = self._links.boundLinks(view.document())
-        if not links:
+        if not self._links.boundLinks(self.parent().mainwindow().currentDocument()):
             return # the PDF contains no references to the current text document
 
-        s = links.indices(view.textCursor())
-        if s is False:
-            self.clearHighlighting()
-        elif s:
-            # move if sync is enabled and the cursor did not move as a result of
-            # clicking a link
-            if (not self._clicking_link
-                and self.parent().actionCollection.music_sync_cursor.isChecked()):
-                rect = self.destinationsRect(links.destinations()[s])
-                self.view.ensureVisible(rect, QMargins(20, 20, 20, 20))
+        self.showCurrentLinks(
+            not self._clicking_link
+            and self.parent().actionCollection.music_sync_cursor.isChecked())
 
-            # perform highlighting after move has been started. This is to ensure that if kinetic scrolling is
-            # is enabled its speed is already set so that we can adjust the highlight timer.
-            self.highlight(links.destinations(), s)
+    def showCurrentLinks(self, scroll=False, msec=None):
+        """Show objects at current text cursor.
 
-    def highlight(self, destinations, slice, msec=None):
-        """(Internal) Highlights the from the specified destinations the specified slice."""
-        count = slice.stop - slice.start
-        if self._highlightRange == slice and self.view.isHighlighting(self._highlightMusicFormat):
-            return # don't redraw if same
-        self._highlightRange = slice
-        layout = self.view.pageLayout()
-        areas = collections.defaultdict(list)
-        for dest in destinations[slice]:
-            for pageNum, rect in dest:
-                areas[layout[pageNum]].append(rect)
-        if msec is None:
-            msec = 5000 if count > 1 else 2000 # show selections longer
-        # RC: increased timer to give some time to the kinetic scrolling to complete.
-        if self.view.isScrolling():
-            msec += self.view.remainingScrollTime()
-        self.view.highlight(self._highlightMusicFormat, areas, msec)
+        If scroll is True, also scrolls the view if needed. If msec is given,
+        objects are highlighed that long. If not given, a default time is used.
 
-    def clearHighlighting(self):
-        """Clear the highlighted areas."""
-        self._highlightRange = None
-        self.view.clearHighlight(self._highlightMusicFormat)
-
-    def showCurrentLinks(self):
-        """Scrolls the view if necessary to show objects at current text cursor."""
-        if not self._links:
-            return # no PDF in viewer
+        """
+        if not self.isVisible() or not self._links:
+            return # not visible of no PDF in the viewer
 
         view = self.parent().mainwindow().currentView()
         links = self._links.boundLinks(view.document())
@@ -275,22 +244,40 @@ class MusicView(QWidget):
 
         s = links.indices(view.textCursor())
         if not s:
+            if s is False:
+                self.view.clearHighlight(self._highlightMusicFormat)
             return
-        rect = self.destinationsRect(links.destinations()[s])
-        self.view.ensureVisible(rect, QMargins(20, 20, 20, 20))
-        self.highlight(links.destinations(), s, 10000)
+        
+        if not scroll and self._highlightRange == s and self.view.isHighlighting(self._highlightMusicFormat):
+            return # don't redraw if same
+        self._highlightRange = s
 
-    def destinationsRect(self, destinations):
-        """Return the rectangle containing all destinations."""
+        # create the dict of areas
         layout = self.view.pageLayout()
-        rect = QRect()
-        for dest in destinations:
-            for pageNum, r in dest:
-                page = layout[pageNum]
-                rect = rect.united(page.mapToPage(1, 1).rect(r).translated(page.pos()))
-        # not larger than viewport
-        rect.setSize(rect.size().boundedTo(self.view.viewport().size()))
-        return rect
+        areas = collections.defaultdict(list)
+        for dest in links.destinations()[s]:
+            for pageNum, rect in dest:
+                areas[layout[pageNum]].append(rect)
+
+        if scroll:
+            # compute the bounding rect
+            boundingRect = QRect()
+            for page, rects in areas.items():
+                f = page.mapToPage(1, 1).rect
+                pbound = QRect()
+                for r in rects:
+                    pbound |= f(r)
+                boundingRect |= pbound.translated(page.pos())
+            # not larger than viewport
+            boundingRect.setSize(boundingRect.size().boundedTo(self.view.viewport().size()))
+            self.view.ensureVisible(boundingRect, QMargins(20, 20, 20, 20))
+
+        if msec is None:
+            msec = 5000 if s.stop - s.start > 1 else 2000 # show selections longer
+        # RC: increased timer to give some time to the kinetic scrolling to complete.
+        if self.view.isScrolling():
+            msec += self.view.remainingScrollTime()
+        self.view.highlight(self._highlightMusicFormat, areas, msec)
 
     def showContextMenu(self):
         """Called when the user right-clicks or presses the context menu key."""

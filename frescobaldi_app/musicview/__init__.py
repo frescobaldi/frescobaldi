@@ -296,7 +296,7 @@ class MusicViewPanel(panel.Panel):
 
     @activate
     def jumpToCursor(self):
-        self.widget().showCurrentLinks()
+        self.widget().showCurrentLinks(True, 10000)
 
     @activate
     def reloadView(self):
