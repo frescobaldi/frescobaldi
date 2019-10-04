@@ -48,6 +48,7 @@ import actioncollection
 import actioncollectionmanager
 import icons
 import job
+import qpageview.document
 import qutil
 import panel
 import listmodel
@@ -314,8 +315,9 @@ class MusicViewPanel(panel.Panel):
         page, rect = self.widget().view.rubberband().selectedPage()
         if not page:
             return
+        filename = self.widget().view.document().filename()
         import copy2image
-        copy2image.copy_image(self, page, rect, documents.filename(page.document))
+        copy2image.copy_image(self, page, rect, filename)
 
     def copyText(self):
         text = self.widget().view.rubberband().selectedText()
@@ -454,7 +456,7 @@ class DocumentChooserAction(ComboBoxAction):
 
     documentClosed = pyqtSignal()
     documentsChanged = pyqtSignal()
-    currentDocumentChanged = pyqtSignal(documents.Document)
+    currentDocumentChanged = pyqtSignal(qpageview.document.Document)
 
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)

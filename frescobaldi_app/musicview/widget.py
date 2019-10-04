@@ -62,7 +62,6 @@ class MusicView(QWidget):
         super(MusicView, self).__init__(dockwidget)
 
         self._positions = weakref.WeakKeyDictionary()
-        self._currentDocument = None
         self._links = None
         self._clicking_link = False
 
@@ -102,23 +101,21 @@ class MusicView(QWidget):
         return self.parent().mainwindow().size() / 2
 
     def openDocument(self, doc):
-        """Opens a documents.Document instance."""
+        """Open a qpageview.Document instance."""
         self.clear()
-        self._currentDocument = doc
+        self.view.setDocument(doc)
+        position = self._positions.get(doc)
+        if position:
+            self.view.setPosition(position, allowKinetic=False)
         document = doc.document()
         if document:
             self._links = pointandclick.links(document)
-            self.view.loadPdf(document)
-            position = self._positions.get(doc)
-            if position:
-                self.view.setPosition(position, allowKinetic=False)
 
     def clear(self):
         """Empties the view."""
-        cur = self._currentDocument
+        cur = self.view.document()
         if cur:
             self._positions[cur] = self.view.position()
-        self._currentDocument = None
         self._links = None
         self._highlightRange = None
         self.view.clear()
