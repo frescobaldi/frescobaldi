@@ -23,6 +23,7 @@ The PDF preview panel widget.
 
 
 
+import collections
 import itertools
 import os
 import weakref
@@ -174,7 +175,7 @@ class MusicView(QWidget):
 
         """
         self.view.highlight(self._highlightMusicFormat,
-            [(page, link.rect())], 2000)
+            {page: [link.rect()]}, 2000)
         self._highlightRange = None
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
@@ -267,9 +268,10 @@ class MusicView(QWidget):
     def updateHighlighting(self):
         """Really orders the view to draw the highlighting."""
         layout = self.view.pageLayout()
-        areas = [(layout[pageNum], rect)
-                    for dest in self._destinations
-                    for pageNum, rect in dest]
+        areas = collections.defaultdict(list)
+        for dest in self._destinations:
+            for pageNum, rect in dest:
+                areas[layout[pageNum]].append(rect)
         self.view.highlight(self._highlightMusicFormat, areas)
 
     def clearHighlighting(self):
