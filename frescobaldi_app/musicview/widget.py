@@ -28,7 +28,7 @@ import itertools
 import os
 import weakref
 
-from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QUrl
 from PyQt5.QtGui import QCursor, QTextCharFormat
 from PyQt5.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
@@ -69,8 +69,6 @@ class MusicView(QWidget):
         self._highlightFormat = QTextCharFormat()
         self._highlightMusicFormat = qpageview.highlight.Highlighter()
         self._highlightRange = None
-        self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
-        self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
 
         layout = QVBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -83,6 +81,7 @@ class MusicView(QWidget):
         self.readSettings()
         self.view.setViewMode(qpageview.FitWidth)
         self.view.setPageLayout(qpageview.layout.RowPageLayout())
+        self.view.setLinkHighlighter(qpageview.highlight.Highlighter())
         self.view.linkClicked.connect(self.slotLinkClicked)
         self.view.linkHovered.connect(self.slotLinkHovered)
         self.view.linkLeft.connect(self.slotLinkLeft)
@@ -122,7 +121,6 @@ class MusicView(QWidget):
         self._currentDocument = None
         self._links = None
         self._highlightRange = None
-        self._highlightTimer.stop()
         self.view.clear()
 
     def readSettings(self):
@@ -174,9 +172,6 @@ class MusicView(QWidget):
         off the link or when the link is clicked.
 
         """
-        self.view.highlight(self._highlightMusicFormat,
-            {page: [link.rect()]}, 2000)
-        self._highlightRange = None
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
@@ -189,7 +184,6 @@ class MusicView(QWidget):
 
     def slotLinkLeft(self):
         """Called when the mouse moves off a previously highlighted link."""
-        self.clearHighlighting()
         view = self.parent().mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
 
@@ -249,33 +243,23 @@ class MusicView(QWidget):
     def highlight(self, destinations, slice, msec=None):
         """(Internal) Highlights the from the specified destinations the specified slice."""
         count = slice.stop - slice.start
+        if self._highlightRange == slice:
+            return # don't redraw if same
+        self._highlightRange = slice
+        layout = self.view.pageLayout()
+        areas = collections.defaultdict(list)
+        for dest in destinations[slice]:
+            for pageNum, rect in dest:
+                areas[layout[pageNum]].append(rect)
         if msec is None:
             msec = 5000 if count > 1 else 2000 # show selections longer
         # RC: increased timer to give some time to the kinetic scrolling to complete.
         if self.view.isScrolling():
             msec += self.view.remainingScrollTime()
-        self._highlightRemoveTimer.start(msec)
-        if self._highlightRange == slice:
-            return # don't redraw if same
-        self._highlightRange = slice
-        self._destinations = destinations[slice]
-        if count > 100:
-            self._highlightTimer.start()
-        else:
-            self._highlightTimer.stop()
-            self.updateHighlighting()
-
-    def updateHighlighting(self):
-        """Really orders the view to draw the highlighting."""
-        layout = self.view.pageLayout()
-        areas = collections.defaultdict(list)
-        for dest in self._destinations:
-            for pageNum, rect in dest:
-                areas[layout[pageNum]].append(rect)
-        self.view.highlight(self._highlightMusicFormat, areas)
+        self.view.highlight(self._highlightMusicFormat, areas, msec)
 
     def clearHighlighting(self):
-        """Called on timeout of the _highlightRemoveTimer."""
+        """Clear the highlighted areas."""
         self._highlightRange = None
         self.view.clearHighlight(self._highlightMusicFormat)
 
