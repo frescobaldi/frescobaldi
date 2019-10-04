@@ -157,7 +157,7 @@ class LinkViewMixin:
         self.setCursor(Qt.PointingHandCursor)
         self.linkHovered.emit(page, link)
         if self._linkHighlighter:
-            self.highlight(self._linkHighlighter, [(page, link.rect())], 3000)
+            self.highlight(self._linkHighlighter, {page: [link.rect()]}, 3000)
 
     def linkHoverLeave(self):
         """Called when the mouse does not hover a link anymore.

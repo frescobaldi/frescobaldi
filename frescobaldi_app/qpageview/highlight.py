@@ -74,18 +74,16 @@ class HighlightViewMixin:
         super().__init__(parent, **kwds)
     
     def highlight(self, highlighter, areas, msec=0):
-        """Highlight the list of areas using the given highlighter.
+        """Highlight the areas dict using the given highlighter.
 
-        Every area is a two-tuple (page, rect), where rect is a QRectF()
-        inside (0, 0, 1, 1) like the area attribute of a Link.
+        The areas dict maps Page objects to lists of rectangles, where the
+        rectangle is a QRectF() inside (0, 0, 1, 1) like the area attribute of
+        a Link.
 
         If msec > 0, the highlighting will vanish after that many microseconds.
 
         """
-        d = collections.defaultdict(list)
-        for page, area in areas:
-            d[page].append(area)
-        d = weakref.WeakKeyDictionary(d)
+        d = weakref.WeakKeyDictionary(areas)
         if msec:
             selfref = weakref.ref(self)
             def clear():
