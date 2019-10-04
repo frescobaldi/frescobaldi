@@ -92,10 +92,6 @@ class AbstractSourceDocument(Document):
         self.renderer = renderer
         self._pages = None
 
-    def count(self):
-        """Return the number of pages."""
-        return len(self.pages())
-
     def pages(self):
         """Return the list of Pages, creating them at first call."""
         if self._pages is None:
