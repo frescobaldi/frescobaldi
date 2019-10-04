@@ -250,9 +250,9 @@ class MusicView(QWidget):
         count = slice.stop - slice.start
         if msec is None:
             msec = 5000 if count > 1 else 2000 # show selections longer
-            # RC: increased timer to give some time to the kinetic scrolling to complete.
-            if self.view.isScrolling():
-                msec += self.view.remainingScrollTime()
+        # RC: increased timer to give some time to the kinetic scrolling to complete.
+        if self.view.isScrolling():
+            msec += self.view.remainingScrollTime()
         self._highlightRemoveTimer.start(msec)
         if self._highlightRange == slice:
             return # don't redraw if same
