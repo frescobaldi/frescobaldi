@@ -26,7 +26,7 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 import itertools
 
-from PyQt5.QtCore import QSettings, Qt
+from PyQt5.QtCore import pyqtSignal, QSettings, Qt
 from PyQt5.QtWidgets import QMessageBox
 
 try:
@@ -37,6 +37,7 @@ except ImportError:
 import app
 import textformats
 import qpageview
+import qpageview.layout
 import qpageview.printing
 import qpageview.magnifier
 import qpageview.widgetoverlay
@@ -70,11 +71,59 @@ class Magnifier(qpageview.magnifier.Magnifier):
 
 
 class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
+    """A View based on qpageview.View.
+
+    This View has additional features and customisation needed in Frescobaldi.
+
+    A pyqtSignal is added: pageLayoutModeChanged(str), which fires when the
+    page layout mode is changed. The page layout mode is set using
+    setPageLayoutMode() and implemented by using different qpageview PageLayout
+    classes.
+
+    """
+    pageLayoutModeChanged = pyqtSignal(str)
+
     def __init__(self, parent=None):
         super().__init__(parent)
+        self._pageLayoutMode = None
+        self.setPageLayoutMode("single")
         self.setMagnifier(Magnifier())
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
+
+    def pageLayoutMode(self):
+        """Return the currently set page layout mode."""
+        return self._pageLayoutMode
+
+    def setPageLayoutMode(self, mode):
+        """Set the page layout mode.
+
+        The mode is one of:
+
+            "single"
+            "double_left"
+            "double_right"
+            "horizontal"
+            "raster"
+
+        """
+        if mode != self._pageLayoutMode:
+            if mode == "raster":
+                layout = qpageview.layout.RasterLayout()
+            elif mode in ("double_right", "double_left"):
+                layout = qpageview.RowPageLayout()
+                layout.pagesPerRow = 2
+                layout.pagesFirstRow = 1 if mode == "double_right" else 0
+            else:
+                layout = qpageview.layout.PageLayout()
+                layout.orientation = qpageview.Horizontal if mode == "horizontal" else qpageview.Vertical
+            layout.extend(self._pageLayout)
+            layout.zoomFactor = self._pageLayout.zoomFactor
+            layout.continuousMode = self._pageLayout.continuousMode
+            # TODO: switch to correct page set
+            self.setPageLayout(layout)
+            self._pageLayoutMode = mode
+            self.pageLayoutModeChanged.emit(mode)
 
     def readSettings(self):
         # kinetic scrolling
