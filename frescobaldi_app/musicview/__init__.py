@@ -143,16 +143,12 @@ class MusicViewPanel(panel.Panel):
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         # read layout mode setting before using the widget
-        layout = w.view.pageLayout()
         if self.actionCollection.music_two_pages_first_right.isChecked():
-            layout.pagesPerRow = 2
-            layout.pagesFirstRow = 1
+            w.view.setPageLayoutMode('double_right')
         elif self.actionCollection.music_two_pages_first_left.isChecked():
-            layout.pagesPerRow = 2
-            layout.pagesFirstRow = 0
+            w.view.setPageLayoutMode('double_left')
         else: # "single"
-            layout.pagesPerRow = 1   # default to single
-            layout.pagesFirstRow = 0 # pages
+            w.view.setPageLayoutMode('single')
         w.view.setContinuousMode(self.actionCollection.music_continuous.isChecked())
         self.actionCollection.music_continuous.triggered.connect(self.toggleContinuousMode)
         app.languageChanged.connect(self.updatePagerLanguage)
@@ -180,20 +176,8 @@ class MusicViewPanel(panel.Panel):
         "double_right": two pages, first page is a right page.
 
         """
-        layout = self.widget().view.pageLayout()
-        if mode == "double_right":
-            layout.pagesPerRow = 2
-            layout.pagesFirstRow = 1
-        elif mode == "double_left":
-            layout.pagesPerRow = 2
-            layout.pagesFirstRow = 0
-        elif mode == "single":
-            layout.pagesPerRow = 1
-            layout.pagesFirstRow = 0
-        else:
-            raise ValueError("wrong mode value")
+        self.widget().view.setPageLayoutMode(mode)
         QSettings().setValue("musicview/layoutmode", mode)
-        self.widget().view.updatePageLayout()
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
