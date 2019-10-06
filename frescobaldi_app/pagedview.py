@@ -25,9 +25,11 @@ This is used throughout Frescobaldi, to obey color settings etc.
 """
 
 import itertools
+import os
 
 from PyQt5.QtCore import pyqtSignal, QSettings, Qt
 from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 
 try:
     import popplerqt5
@@ -89,6 +91,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self._printer = None
         self._pageLayoutMode = None
         self.setPageLayoutMode("single")
         self.setMagnifier(Magnifier())
@@ -196,9 +199,32 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Reimplemented to add showing a progress dialog."""
-        job = super().print(printer, pageNumbers, showDialog)
+        if printer is None:
+            if self._printer is None:
+                self._printer = QPrinter()
+            printer = self._printer
+        printer.setCopyCount(1) # prevent embarrassing situations :-)
+        if self.document() and self.document().filename():
+            filename = os.path.basename(self.document().filename())
+        else:
+            filename = ""
+        printer.setDocName(filename)
+        if showDialog:
+            dlg = QPrintDialog(printer, self)
+            if filename:
+                title = app.caption(_("Print {filename}").format(filename=filename))
+            else:
+                title = app.caption(_("Print"))
+            dlg.setWindowTitle(title)
+            dlg.setMinMax(1, self.pageCount())
+            if not dlg.exec_():
+                return  # cancelled
+        # TODO: insert breakout code for printing via lpr etc
+        job = super().print(printer, pageNumbers, False)
         if job:
-            PrintProgressDialog(job, self).show()
+            progress = PrintProgressDialog(job, self)
+            progress.setWindowTitle(title)
+            progress.show()
 
 
 class PrintProgressDialog(qpageview.printing.PrintProgressDialog):

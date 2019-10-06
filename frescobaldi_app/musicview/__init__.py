@@ -213,9 +213,9 @@ class MusicViewPanel(panel.Panel):
         ac = self.actionCollection
         ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
 
+    @activate
     def printMusic(self):
-        doc = self.actionCollection.music_document_select.currentDocument()
-        if doc and doc.document():
+        if self.widget().view.pageCount():
             ### temporarily disable printing on Mac OS X
             import sys
             if sys.platform.startswith('darwin'):
@@ -237,8 +237,7 @@ class MusicViewPanel(panel.Panel):
                 elif result == QMessageBox.Cancel:
                     return
             ### end temporarily disable printing on Mac OS X
-            import popplerprint
-            popplerprint.printDocument(doc, self)
+            self.widget().view.print()
 
     @activate
     def zoomIn(self):
