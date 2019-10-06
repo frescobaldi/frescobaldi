@@ -73,13 +73,13 @@ def activate(func):
 
     """
     @functools.wraps(func)
-    def wrapper(self):
+    def wrapper(self, *args):
         instantiated = bool(super(panel.Panel, self).widget())
         self.activate()
         if instantiated:
-            func(self)
+            func(self, *args)
         else:
-            QTimer.singleShot(0, lambda: func(self))
+            QTimer.singleShot(0, lambda: func(self, *args))
     return wrapper
 
 
@@ -99,9 +99,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_fit_width.triggered.connect(self.fitWidth)
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
-        ac.music_single_pages.triggered.connect(self.viewSinglePages)
-        ac.music_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
-        ac.music_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
+        ac._music_layout_mode.triggered.connect(self.slotSetPageLayoutMode)
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
@@ -262,16 +260,14 @@ class MusicViewPanel(panel.Panel):
         self.widget().view.setViewMode(FitBoth)
 
     @activate
-    def viewSinglePages(self):
-        self.setPageLayoutMode("single")
-
-    @activate
-    def viewTwoPagesFirstRight(self):
-        self.setPageLayoutMode("double_right")
-
-    @activate
-    def viewTwoPagesFirstLeft(self):
-        self.setPageLayoutMode("double_left")
+    def slotSetPageLayoutMode(self, action):
+        """Called when one of the layout mode actions is triggered."""
+        if action == self.actionCollection.music_single_pages:
+            self.setPageLayoutMode("single")
+        elif action == self.actionCollection.music_two_pages_first_left:
+            self.setPageLayoutMode("double_left")
+        elif action == self.actionCollection.music_two_pages_first_right:
+            self.setPageLayoutMode("double_right")
 
     @activate
     def toggleContinuousMode(self):
@@ -343,7 +339,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width = QAction(panel, checkable=True)
         self.music_fit_height = QAction(panel, checkable=True)
         self.music_fit_both = QAction(panel, checkable=True)
-        self._column_mode = ag = QActionGroup(panel)
+        self._music_layout_mode = ag = QActionGroup(panel)
         self.music_single_pages = QAction(ag, checkable=True)
         self.music_two_pages_first_right = QAction(ag, checkable=True)
         self.music_two_pages_first_left = QAction(ag, checkable=True)
