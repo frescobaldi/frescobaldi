@@ -73,13 +73,13 @@ def activate(func):
 
     """
     @functools.wraps(func)
-    def wrapper(self, *args):
+    def wrapper(self):
         instantiated = bool(super(panel.Panel, self).widget())
         self.activate()
         if instantiated:
-            func(self, *args)
+            func(self)
         else:
-            QTimer.singleShot(0, lambda: func(self, *args))
+            QTimer.singleShot(0, lambda: func(self))
     return wrapper
 
 
