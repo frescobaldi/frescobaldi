@@ -130,6 +130,9 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
                     self.ensureVisible(page.geometry(), margins, False)
             self._pageLayoutMode = mode
             self.pageLayoutModeChanged.emit(mode)
+            if self.viewMode():
+                with self.keepCentered():
+                    self._fitLayout()
 
     def readSettings(self):
         # kinetic scrolling
