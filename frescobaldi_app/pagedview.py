@@ -198,10 +198,11 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         super().loadImages(filenames, renderer or getRenderer("image"))
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
-        """Reimplemented to add showing a progress dialog."""
+        """Print the contents of the View."""
         if printer is None:
             if self._printer is None:
                 self._printer = QPrinter()
+                self._printer.setResolution(QSettings().value("printcommand/dpi", 300, int))
             printer = self._printer
         printer.setCopyCount(1) # prevent embarrassing situations :-)
         if self.document() and self.document().filename():
@@ -224,6 +225,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         if job:
             progress = PrintProgressDialog(job, self)
             progress.setWindowTitle(title)
+            progress.setLabelText(_("Preparing to print..."))
             progress.show()
 
 
