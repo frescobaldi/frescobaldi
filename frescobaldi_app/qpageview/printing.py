@@ -110,6 +110,7 @@ class PrintProgressDialog(QProgressDialog):
         self.canceled.connect(job.requestInterruption)
         self.setMinimumDuration(0)
         self.setRange(0, len(job.pageList))
+        self.setLabelText("Preparing to print...")
 
     def showProgress(self, page, num, total):
         """Called by the job when printing a page."""
