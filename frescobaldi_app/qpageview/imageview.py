@@ -28,17 +28,22 @@ Clicking in the view toggles between FitBoth and NaturalSize.
 from PyQt5.QtCore import QMargins, Qt
 
 from . import constants
+from . import util
 from . import view
 
 
-class ImageView(view.View):
-    """A View, optimized for display of one Page, e.g. one image.
-    
-    Append one Page to the layout, use one of the load* methods to load
-    a single page document, or use the setImage() method to display a QImage.
-    
+class ImageViewMixin:
+    """View Mixin with a few customisations for displaying a single page/image.
+
+    Adds the instance variable:
+
+        fitNaturalSizeEnabled = True
+
+                If True, the image will not be scaled larger than its natural
+                size when FitWidth, -Height, or -Both is active.
+
     """
-    clickToSetCurrentPageEnabled = False
+    fitNaturalSizeEnabled = True
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -47,22 +52,49 @@ class ImageView(view.View):
 
     def setImage(self, image):
         """Convenience method to display a QImage."""
-        with self.modifyPages() as pages:
-            pages.clear()
-            if not image.isNull():
-                from .image import ImagePage
-                pages.append(ImagePage.fromImage(image))
-    
+        self.loadImages([image])
+
     def toggleZooming(self):
         """Toggles between FitBoth and natural size."""
         if self.viewMode() == constants.FitBoth:
+            self.setViewMode(constants.FixedScale)
             self.zoomNaturalSize()
         else:
             self.setViewMode(constants.FitBoth)
+
+    def _fitLayout(self):
+        """Reimplemented to avoid zooming-to-fit larger than naturalsize."""
+        if self.fitNaturalSizeEnabled and self.viewMode() and self.pageCount():
+            layout = self.pageLayout()
+            zoom_factor = layout.zoomFactor
+            # fit layout but prevent zoomFactorChanged from being emitted
+            with util.signalsBlocked(self):
+                super()._fitLayout()
+            # what would be the natural size?
+            p = self.page(1)
+            factor = p.dpi / self.physicalDpiX() if p else 1.0
+            # adjust if the image was scaled larger
+            if layout.zoomFactor > factor:
+                layout.zoomFactor = factor
+            if zoom_factor != layout.zoomFactor:
+                self.zoomFactorChanged.emit(factor)
+        else:
+            super()._fitLayout()
 
     def mouseReleaseEvent(self, ev):
         """Reimplemented to toggle between FitBoth and ZoomNaturalSize."""
         if not self.isDragging() and ev.button() == Qt.LeftButton:
             self.toggleZooming()
         super().mouseReleaseEvent(ev)
+
+
+class ImageView(ImageViewMixin, view.View):
+    """A View, optimized for display of one Page, e.g. one image.
+
+    Append one Page to the layout, use one of the load* methods to load
+    a single page document, or use the setImage() method to display a QImage.
+
+    """
+    clickToSetCurrentPageEnabled = False
+
 
