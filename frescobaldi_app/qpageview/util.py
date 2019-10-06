@@ -22,6 +22,9 @@ Small utilities and simple base classes for the qpageview module.
 """
 
 
+import contextlib
+
+
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, Qt
 from PyQt5.QtGui import QMouseEvent
 
@@ -242,5 +245,16 @@ def alignrect(rect, point, alignment=Qt.AlignCenter):
 def sign(x):
     """Return the sign of x: -1 if x < 0, 0 if x == 0, or 1 if x > 0."""
     return bool(x > 0) - bool(x < 0)
+
+
+@contextlib.contextmanager
+def signalsBlocked(*objs):
+    """Block the pyqtSignals of the given QObjects during the context."""
+    blocks = [obj.blockSignals(True) for obj in objs]
+    try:
+        yield
+    finally:
+        for obj, block in zip(objs, blocks):
+            obj.blockSignals(block)
 
 
