@@ -218,12 +218,6 @@ class MusicView(QWidget):
 
     def slotCursorPositionChanged(self):
         """Called when the user moves the text cursor."""
-        if not self.isVisible() or not self._links:
-            return # not visible of no PDF in the viewer
-
-        if not self._links.boundLinks(self.parent().mainwindow().currentDocument()):
-            return # the PDF contains no references to the current text document
-
         self.showCurrentLinks(
             not self._clicking_link
             and self.parent().actionCollection.music_sync_cursor.isChecked())
