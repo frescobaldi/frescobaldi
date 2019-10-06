@@ -171,11 +171,12 @@ class MusicViewPanel(panel.Panel):
     def setPageLayoutMode(self, mode):
         """Change the page layout and store the setting as well.
 
-        The mode is "single", "double_left" or "double_right".
+        The mode is "single", "double_left", "double_right" or "horizontal".
 
         "single": a vertical row of single pages
         "double_left": two pages besides each other, first page is a left page
         "double_right": two pages, first page is a right page.
+        "horizontal": a horizontal row of pages
 
         """
         self.widget().view.setPageLayoutMode(mode)
