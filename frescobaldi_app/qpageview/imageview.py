@@ -77,7 +77,7 @@ class ImageViewMixin:
             if layout.zoomFactor > factor:
                 layout.zoomFactor = factor
             if zoom_factor != layout.zoomFactor:
-                self.zoomFactorChanged.emit(factor)
+                self.zoomFactorChanged.emit(layout.zoomFactor)
         else:
             super()._fitLayout()
 
