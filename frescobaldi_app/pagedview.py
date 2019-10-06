@@ -112,6 +112,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
         """
         if mode != self._pageLayoutMode:
+            # get a suitable PageLayout
             if mode == "raster":
                 layout = qpageview.layout.RasterLayout()
             elif mode in ("double_right", "double_left"):
@@ -121,11 +122,15 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             else:
                 layout = qpageview.layout.PageLayout()
                 layout.orientation = qpageview.Horizontal if mode == "horizontal" else qpageview.Vertical
+            # add the current pages
             layout.extend(self._pageLayout)
+            # copy layout settings
             layout.zoomFactor = self._pageLayout.zoomFactor
+            layout.rotation = self._pageLayout.rotation
             layout.continuousMode = self._pageLayout.continuousMode
             layout.setMargins(self._pageLayout.margins())
             layout.setPageMargins(self._pageLayout.pageMargins())
+            # keep the current page in view
             page = self.currentPage()
             self.setPageLayout(layout)
             if page:
