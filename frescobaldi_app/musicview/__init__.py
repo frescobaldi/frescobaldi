@@ -124,6 +124,8 @@ class MusicViewPanel(panel.Panel):
             ac.music_two_pages_first_left.setChecked(True)
         elif mode == "double_right":
             ac.music_two_pages_first_right.setChecked(True)
+        elif mode == "horizontal":
+            ac.music_single_pages_horizontal.setChecked(True)
         else: # mode == "single":
             ac.music_single_pages.setChecked(True)
 
@@ -145,6 +147,8 @@ class MusicViewPanel(panel.Panel):
             w.view.setPageLayoutMode('double_right')
         elif self.actionCollection.music_two_pages_first_left.isChecked():
             w.view.setPageLayoutMode('double_left')
+        elif self.actionCollection.music_single_pages_horizontal.isChecked():
+            w.view.setPageLayoutMode('horizontal')
         else: # "single"
             w.view.setPageLayoutMode('single')
         w.view.setContinuousMode(self.actionCollection.music_continuous.isChecked())
@@ -259,15 +263,17 @@ class MusicViewPanel(panel.Panel):
     def fitBoth(self):
         self.widget().view.setViewMode(FitBoth)
 
-    @activate
     def slotSetPageLayoutMode(self, action):
         """Called when one of the layout mode actions is triggered."""
+        self.activate()
         if action == self.actionCollection.music_single_pages:
             self.setPageLayoutMode("single")
         elif action == self.actionCollection.music_two_pages_first_left:
             self.setPageLayoutMode("double_left")
         elif action == self.actionCollection.music_two_pages_first_right:
             self.setPageLayoutMode("double_right")
+        elif action == self.actionCollection.music_single_pages_horizontal:
+            self.setPageLayoutMode("horizontal")
 
     @activate
     def toggleContinuousMode(self):
@@ -343,6 +349,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_single_pages = QAction(ag, checkable=True)
         self.music_two_pages_first_right = QAction(ag, checkable=True)
         self.music_two_pages_first_left = QAction(ag, checkable=True)
+        self.music_single_pages_horizontal = QAction(ag, checkable=True)
         self.music_continuous = QAction(panel, checkable=True)
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
@@ -389,6 +396,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_single_pages.setText(_("Single Pages"))
         self.music_two_pages_first_right.setText(_("Two Pages (first page right)"))
         self.music_two_pages_first_left.setText(_("Two Pages (first page left)"))
+        self.music_single_pages_horizontal.setText(_("Horizontal"))
         self.music_continuous.setText(_("&Continuous"))
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))

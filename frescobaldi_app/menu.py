@@ -264,6 +264,7 @@ def menu_music(mainwindow):
     m.addAction(ac.music_single_pages)
     m.addAction(ac.music_two_pages_first_right)
     m.addAction(ac.music_two_pages_first_left)
+    m.addAction(ac.music_single_pages_horizontal)
     m.addAction(ac.music_continuous)
     m.addSeparator()
     m.addAction(ac.music_copy_image)
