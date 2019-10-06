@@ -75,10 +75,14 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     This View has additional features and customisation needed in Frescobaldi.
 
-    A pyqtSignal is added: pageLayoutModeChanged(str), which fires when the
-    page layout mode is changed. The page layout mode is set using
-    setPageLayoutMode() and implemented by using different qpageview PageLayout
-    classes.
+    Besides all the qpageview.View signals, this View emits the following
+    signal:
+
+    `pageLayoutModeChanged(str)`
+
+        emitted when the page layout mode is changed. The page layout mode is
+        set using setPageLayoutMode() and internally implemented by using
+        different qpageview PageLayout classes.
 
     """
     pageLayoutModeChanged = pyqtSignal(str)
