@@ -111,7 +111,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             if mode == "raster":
                 layout = qpageview.layout.RasterLayout()
             elif mode in ("double_right", "double_left"):
-                layout = qpageview.RowPageLayout()
+                layout = qpageview.layout.RowPageLayout()
                 layout.pagesPerRow = 2
                 layout.pagesFirstRow = 1 if mode == "double_right" else 0
             else:
@@ -120,8 +120,14 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             layout.extend(self._pageLayout)
             layout.zoomFactor = self._pageLayout.zoomFactor
             layout.continuousMode = self._pageLayout.continuousMode
-            # TODO: switch to correct page set
+            layout.setMargins(self._pageLayout.margins())
+            layout.setPageMargins(self._pageLayout.pageMargins())
+            page = self.currentPage()
             self.setPageLayout(layout)
+            if page:
+                margins = layout.margins() + layout.pageMargins()
+                with self.pagingOnScrollDisabled():
+                    self.ensureVisible(page.geometry(), margins, False)
             self._pageLayoutMode = mode
             self.pageLayoutModeChanged.emit(mode)
 
