@@ -119,7 +119,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_continuous.setChecked(
             QSettings().value("musicview/continuous", True, bool))
 
-        mode = QSettings().value("muziekview/layoutmode", "single", str)
+        mode = QSettings().value("musicview/layoutmode", "single", str)
         if mode == "double_left":
             ac.music_two_pages_first_left.setChecked(True)
         elif mode == "double_right":
