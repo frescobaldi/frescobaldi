@@ -20,7 +20,8 @@
 """
 Interface with popplerqt5, popplerqt5-specific classes etc.
 
-Only this module depends on popplerqt5.
+This module depends on popplerqt5, although it can be imported when
+popplerqt5 is not available.
 
 You need this module to display PDF documents.
 
@@ -32,7 +33,10 @@ import weakref
 from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtGui import QRegion, QPainter, QPicture, QTransform
 
-import popplerqt5
+try:
+    import popplerqt5
+except ImportError:
+    popplerqt5 = None
 
 from . import document
 from . import page
@@ -107,7 +111,7 @@ class PopplerPage(page.AbstractRenderedPage):
 
         """
         doc = load(filename)
-        return cls.loadPopplerDocument(doc, renderer)
+        return cls.loadPopplerDocument(doc, renderer) if doc else ()
 
     def mutex(self):
         """No two pages of same Poppler document are rendered at the same time."""
@@ -154,20 +158,30 @@ class PopplerDocument(document.SingleSourceDocument):
         self._document = None
 
     def createPages(self):
-        return self.pageClass.loadPopplerDocument(self.document(), self.renderer)
+        doc = self.document()
+        if doc:
+            return self.pageClass.loadPopplerDocument(doc, self.renderer)
+        return ()
 
     def document(self):
-        """Return the Poppler Document object."""
+        """Return the Poppler Document object.
+
+        Returns None if no source was yet set, and False if loading failed.
+
+        """
         if self._document is None:
             source = self.source()
             if source:
-                self._document = load(source)
+                self._document = load(source) or False
         return self._document
 
 
 class PopplerRenderer(render.AbstractRenderer):
-    renderBackend = popplerqt5.Poppler.Document.SplashBackend
-    printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
+    if popplerqt5:
+        renderBackend = popplerqt5.Poppler.Document.SplashBackend
+        printRenderBackend = popplerqt5.Poppler.Document.SplashBackend
+    else:
+        renderBackend = printRenderBackend = 0
 
     oversampleThreshold = 96
     
@@ -292,13 +306,17 @@ def load(source):
         - a filename
         - q QByteArray instance.
 
+    Returns None if popplerqt5 is not available or the document could not be
+    loaded.
+
     """
-    if isinstance(source, popplerqt5.Poppler.Document):
-        return source
-    elif isinstance(source, str):
-        return popplerqt5.Poppler.Document.load(source)
-    else:
-        return popplerqt5.Poppler.Document.loadFromData(source)
+    if popplerqt5:
+        if isinstance(source, popplerqt5.Poppler.Document):
+            return source
+        elif isinstance(source, str):
+            return popplerqt5.Poppler.Document.load(source)
+        else:
+            return popplerqt5.Poppler.Document.loadFromData(source)
 
 
 
