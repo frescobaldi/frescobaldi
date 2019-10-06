@@ -263,8 +263,6 @@ class MusicView(QWidget):
                 for r in rects:
                     pbound |= f(r)
                 boundingRect |= pbound.translated(page.pos())
-            # not larger than viewport
-            boundingRect.setSize(boundingRect.size().boundedTo(self.view.viewport().size()))
             self.view.ensureVisible(boundingRect, QMargins(20, 20, 20, 20))
 
         if msec is None:
