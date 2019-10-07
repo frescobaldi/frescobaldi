@@ -81,11 +81,6 @@ def printCommand(cmd, printer, filename):
     else:
         command.append('-#{0}'.format(numCopies))
 
-    # collate
-    if printer.collateCopies():
-        command.append('-o')
-        command.append('collate=true')
-
     # job name
     if cmd == "lp":
         command.append('-t')
@@ -99,22 +94,46 @@ def printCommand(cmd, printer, filename):
         if cmd == "lp":
             command.append('-P')
             command.append(pageRange)
-        else:
-            command.append('-o')
-            command.append('page-ranges=' + pageRange)
 
-    # duplex mode
-    if printer.duplex() == QPrinter.DuplexLongSide:
-        command.extend(['-o', 'sides=two-sided-long-edge'])
-    elif printer.duplex() == QPrinter.DuplexShortSide:
-        command.extend(['-o', 'sides=two-sided-short-edge'])
-
-    # grayscale
-    if printer.colorMode() == QPrinter.GrayScale:
-        command.extend(['-o', 'print-color-mode=monochrome'])
+    for option, value in cups_options(printer).items():
+        command.append('-o')
+        command.append("{0}={1}".format(option, value))
 
     command.append(filename)
     return command
 
+
+def cups_options(p):
+    """Return a dictionary with CUPS `-o` options, read from QPrinter p."""
+    o = {}
+
+    # cups options that can be set in QPrintDialog on unix
+    # I found this in qt5/qtbase/src/printsupport/kernel/qcups.cpp.
+    # Esp. options like page-set even/odd do make sense.
+    props = p.printEngine().property(0xfe00)
+    if props and isinstance(props, list) and len(props) % 2 == 0:
+        for key, value in zip(props[0::2], props[1::2]):
+            if value and isinstance(key, str) and isinstance(value, str):
+                o[key] = value
+
+    # collate
+    if p.collateCopies():
+        o['collate'] = 'true'
+
+    # page ranges
+    if p.printRange() == QPrinter.PageRange:
+        o['page-ranges'] = "{0}-{1}".format(p.fromPage(), p.toPage())
+
+    # duplex mode
+    if p.duplex() == QPrinter.DuplexLongSide:
+        o['sides'] = 'two-sided-long-edge'
+    elif p.duplex() == QPrinter.DuplexShortSide:
+        o['sides'] = 'two-sided-short-edge'
+
+    # grayscale
+    if p.colorMode() == QPrinter.GrayScale:
+        o['print-color-mode'] = 'monochrome'
+
+    return o
 
 
