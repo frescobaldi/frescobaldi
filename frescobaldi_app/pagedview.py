@@ -210,6 +210,8 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             filename = ""
         printer.setDocName(filename)
         if showDialog:
+            if printer.printEngine().property(0xfe00):
+                printer.printEngine().setProperty(0xfe00, [])
             dlg = QPrintDialog(printer, self)
             if filename:
                 title = app.caption(_("Print {filename}").format(filename=filename))
