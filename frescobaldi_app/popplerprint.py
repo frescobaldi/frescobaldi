@@ -92,6 +92,10 @@ def print_(doc, filename=None, widget=None):
     printer.setPrintRange(QPrinter.AllPages)
 
     if linux_lpr or use_dialog or not cmd:
+        # work around a bug in Qt's QPrintDialog, where the page-set even or odd
+        # setting is not removed if the user selects All Pages again.
+        # We remove all cups options, the dialog will add them correcty.
+        printer.printEngine().setProperty(0xfe00, [])
         dlg = QPrintDialog(printer, widget)
         dlg.setMinMax(1, doc.numPages())
         dlg.setOption(QPrintDialog.PrintToFile, False)
