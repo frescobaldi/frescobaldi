@@ -210,8 +210,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             filename = ""
         printer.setDocName(filename)
         if showDialog:
-            if printer.printEngine().property(0xfe00):
-                printer.printEngine().setProperty(0xfe00, [])
+            clearCupsPageSetSetting(printer)
             dlg = QPrintDialog(printer, self)
             if filename:
                 title = app.caption(_("Print {filename}").format(filename=filename))
@@ -304,5 +303,30 @@ def loadSvgs(filenames):
 def loadImages(filenames):
     """Like qpageview.loadImages(), but uses a preconfigured renderer."""
     return qpageview.loadImages(filenames, getRenderer("image"))
+
+
+def clearCupsPageSetSetting(printer):
+    """Removes page-set even/odd cups options from the printer's CUPS options.
+
+    Qt's QPrintDialog fails to reset the 'page-set' option back to 'all pages',
+    so a previous value (even or odd) could remain in the print options, even
+    if the user has selected All Pages in the dialog.
+
+    This function clears the page-set setting from the cups options. If the
+    user selects or has selected even or odd pages, it will be added again
+    by the dialog.
+
+    So call this function on a QPrinter, just before showing a QPrintDialog.
+
+    """
+    opts = printer.printEngine().properties(0xfe00)
+    if opts and isinstance(opts, list) and len(opts) % 2 == 0:
+        try:
+            i = opts.index('page-set')
+        except ValueError:
+            return
+        if i % 2 == 0:
+            del opts[i:i+2]
+            printer.printEngine().setProperty(0xfe00, opts)
 
 
