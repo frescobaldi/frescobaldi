@@ -202,7 +202,6 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         if printer is None:
             if self._printer is None:
                 self._printer = QPrinter()
-                self._printer.setResolution(QSettings().value("printcommand/dpi", 300, int))
             printer = self._printer
         printer.setCopyCount(1) # prevent embarrassing situations :-)
         if self.document() and self.document().filename():
@@ -220,6 +219,9 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             dlg.setMinMax(1, self.pageCount())
             if not dlg.exec_():
                 return  # cancelled
+        s = QSettings()
+        s.beginGroup("helper_applications")
+        printer.setResolution(s.value("printcommand/dpi", 300, int))
         # TODO: insert breakout code for printing via lpr etc
         job = super().print(printer, pageNumbers, False)
         if job:
