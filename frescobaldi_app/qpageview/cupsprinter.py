@@ -72,10 +72,7 @@ from PyQt5.QtPrintSupport import QPrinter
 
 class Handle:
     """Shared implementation of a handle that can send documents to a printer."""
-    def __init__(self, server="", port=0, user="", qprinter=None):
-        self.server = server
-        self.port = port
-        self.user = user
+    def __init__(self, qprinter=None):
         self._printer = qprinter
 
     def setPrinter(self, qprinter):
