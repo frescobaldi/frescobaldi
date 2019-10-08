@@ -208,18 +208,9 @@ class IppHandle(Handle):
             import cups
         except ImportError:
             return
-        if server:
-            cups.setServer(server)
-        else:
-            cups.setServer("")
-        if port:
-            cups.setPort(port)
-        else:
-            cups.setPort(0)
-        if user:
-            cups.setUser(user)
-        else:
-            cups.setUser("")
+        cups.setServer(server or "")
+        cups.setPort(port or 0)
+        cups.setUser(user or "")
         try:
             c = cups.Connection()
         except RuntimeError:
