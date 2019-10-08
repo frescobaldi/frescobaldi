@@ -39,7 +39,6 @@ class ServerException(DownloadException):
                 url=url
             )
         )
-        self.code = e.code
 
 
 class NotFoundException(DownloadException):
@@ -47,7 +46,7 @@ class NotFoundException(DownloadException):
     def __init__(self, url):
         # TODO: Make that translatable again after testing
         super(NotFoundException, self).__init__(
-            "404: URL not found\n{url}".format(url=url)
+            _("404: URL not found\n{url}").format(url=url)
         )
 
 
@@ -80,7 +79,6 @@ def fetch(url):
         ssl.CertificateError,
         urllib.error.URLError
     ) as e:
-        sys.exit()
         raise ServerException(e, url)
     return response
 
