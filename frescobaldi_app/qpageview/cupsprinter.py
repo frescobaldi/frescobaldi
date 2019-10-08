@@ -40,20 +40,27 @@ connection to the server can be established.
 A function `handle()` is available; that tries first to get an IppHandle and
 then a LprHandle. Usage of this module is this simple:
 
-import qpageview.cupsprinter
+    import qpageview.cupsprinter
 
-h = qpageview.cupsprinter.handle()
-if h:
-    h.printFile('/path/to/document.pdf')
+    h = qpageview.cupsprinter.handle()
+    if h:
+        h.printFile('/path/to/document.pdf')
 
 You can supply a QPrinter instance (that'd be the normal workflow :-) :
 
-h = qpageview.cupsprinter.handle(printer)
-if h:
-    h.printFile('/path/to/document.pdf')
+    h = qpageview.cupsprinter.handle(printer)
+    if h:
+        h.printFile('/path/to/document.pdf')
 
 In this case all options that are set in the QPrinter object will be used
 when sending the document to the printer.
+
+If `printFile()` returns True, printing is considered successful. If False,
+you can read the `status` and `error` attributes:
+
+    if not h.printFile('/path/to/document.pdf'):
+        QMessageBox.warning(None, "Printing failure",
+            "There was an error:\n{0} (status: {1})".format(h.error, h.status))
 
 """
 
@@ -65,10 +72,7 @@ from PyQt5.QtPrintSupport import QPrinter
 
 class Handle:
     """Shared implementation of a handle that can send documents to a printer."""
-    def __init__(self, server="", port=0, user="", qprinter=None):
-        self.server = server
-        self.port = port
-        self.user = user
+    def __init__(self, qprinter=None):
         self._printer = qprinter
 
     def setPrinter(self, qprinter):
@@ -201,18 +205,9 @@ class IppHandle(Handle):
             import cups
         except ImportError:
             return
-        if server:
-            cups.setServer(server)
-        else:
-            cups.setServer("")
-        if port:
-            cups.setPort(port)
-        else:
-            cups.setPort(0)
-        if user:
-            cups.setUser(user)
-        else:
-            cups.setUser("")
+        cups.setServer(server or "")
+        cups.setPort(port or 0)
+        cups.setUser(user or "")
         try:
             c = cups.Connection()
         except RuntimeError:
