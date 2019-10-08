@@ -21,6 +21,7 @@
 Working with Github repositories
 """
 
+
 import download
 
 from . import (
@@ -30,6 +31,58 @@ from . import (
     node,
     tree
 )
+
+class Asset(entity.Item):
+    """Represents a downloadable asset from a release."""
+
+    def raw_url(self):
+        return self._info['browser_download_url']
+
+
+class Assets(entity.ItemCollection):
+    """Represents the list of assets for a release."""
+
+    _item_class = Asset
+
+
+class Release(entity.Item):
+    """Represents a release."""
+
+    def __init__(self, info):
+        super(Release, self).__init__(info)
+        self._info['assets'] = {}
+
+    def assets(self):
+        """Return the collection of assets for this release."""
+        if not self._info['assets']:
+            self._info['assets'] = Assets(
+                Github.get_json(self._info['assets_url'])
+            )
+        return self._info['assets']
+
+    def source_url(self, format='zip'):
+        """Return the download link for the source archive,
+        either as zip or as tar.gz
+        """
+        k = 'zipball_url' if format == 'zip' else 'tarball_url'
+        return self.info(k)
+
+    def tag_name(self):
+        """The Git tag from which this release is made."""
+        return self.info('tag_name')
+
+
+class Releases(entity.ItemCollection):
+    """Represents the releases of a repository."""
+
+    _name_key = 'tag_name'
+    _item_class = Release
+
+    def __iter__(self):
+        """Iterate from newest to oldest."""
+        self._iter_items = [n for n in self._items]
+        self._iter_items.reverse()
+        return self
 
 
 class Repo(entity.Entity):
@@ -82,6 +135,7 @@ class Repo(entity.Entity):
             self.tree_url(sha=(sha + recursive))
         )
         self._tree = tree.Tree(json_data)
+        self._releases = {}
 
     def download_file(self, path, target, overwrite=False):
         """Download a file and save to disk.
@@ -102,6 +156,10 @@ class Repo(entity.Entity):
         # May raise a GithubException
         url = self.raw_file_url(path)
         return download.fetch_content(self.raw_url(path))
+
+    def name(self):
+        """The name of a repository is its `repo` property."""
+        return self.repo()
 
     def _paths(self, path=None, org=None, repo=None):
         """Process and return path, org and repo for a repository.
@@ -178,6 +236,12 @@ class Repo(entity.Entity):
 
 #
 ###
+
+    def releases(self):
+        """Return a collection of releases."""
+        if not self._releases:
+            self._releases = Releases(Github.get_json(self.url('releases')))
+        return self._releases
 
     def repository(self):
         """Return the repository name."""
