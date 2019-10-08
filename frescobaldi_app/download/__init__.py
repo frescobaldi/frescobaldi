@@ -21,6 +21,8 @@
 Everything regarding downloading and installing of resources
 """
 
+import os
+import shutil
 import ssl
 import urllib.request
 import urllib.error
@@ -44,10 +46,25 @@ class ServerException(DownloadException):
 class NotFoundException(DownloadException):
 
     def __init__(self, url):
-        # TODO: Make that translatable again after testing
         super(NotFoundException, self).__init__(
             _("404: URL not found\n{url}").format(url=url)
         )
+
+
+class FileExistsException(DownloadException):
+
+    def __init__(self, url, target):
+        super(FileExistsException, self).__init__(_(
+            "File to be downloaded from {url}\n"
+            "to {target} already exists."
+        ).format(url=url, target=target))
+
+def download(url, target, overwrite=False):
+    """Download remote content and save it to a local file."""
+    if not overwrite and os.path.exists(target):
+        raise FileExistsException(url, target)
+    with fetch(url) as response, open(target, 'wb') as out_file:
+        shutil.copyfileobj(response, out_file)
 
 
 def fetch(url):

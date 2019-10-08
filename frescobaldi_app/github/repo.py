@@ -21,6 +21,7 @@
 Working with Github repositories
 """
 
+import download
 
 from . import (
     Github,
@@ -82,12 +83,33 @@ class Repo(entity.Entity):
         )
         self._tree = tree.Tree(json_data)
 
+    def download_file(self, path, target, overwrite=False):
+        """Download a file and save to disk.
+
+        Verifies that the path is a file within the repository.
+        Setting overwrite to True will allow writing over existing files.
+        """
+        # May raise a GithubException
+        url = self.raw_file_url(path)
+        # May raise download.FileExistsException or other OS relate errors
+        download.download(url, target, overwrite=overwrite)
+
+    def fetch(self, path):
+        """Download a file and return its content.
+
+        Verifies that the path is a file within the repository.
+        """
+        # May raise a GithubException
+        url = self.raw_file_url(path)
+        return download.fetch_content(self.raw_url(path))
+
     def _paths(self, path=None, org=None, repo=None):
         """Process and return path, org and repo for a repository.
 
         Expects either path or org *and* repo to be provided.
         """
         if not (path or (org and repo)):
+            # Don't translate that as it can only point to programming errors.
             raise GithubException(
                 "Invalid repository target:\n"
                 "path: {path}"
@@ -98,6 +120,33 @@ class Repo(entity.Entity):
             return (path, *path.split('/'))
         else:
             return ("{org}/{repo}".format(org=org, repo=repo), org, repo)
+
+    def raw_file_url(self, path):
+        """Returns the absolute download URL for an existing file.
+
+        Verifies that path exists and points to a file.
+        """
+        node = self.tree().find_node(path)
+        if not node or node.is_tree():
+            raise GithubException(_(
+                "Path '{path}'\n"
+                "does not point to an existing file\n"
+                "in Github repository {repo}"
+            ).format(
+                path=path,
+                repo=self.path()
+            ))
+        return self.raw_url(path)
+
+    def raw_url(self, path):
+        """Return the absolute download URL for a resource.
+        `path` can not be empty in this case.
+        """
+        return "https://raw.githubusercontent.com/{repopath}/{sha}/{path}".format(
+            repopath=self.path(),
+            sha=self.sha(),
+            path=path
+        )
 
 ###
 #
