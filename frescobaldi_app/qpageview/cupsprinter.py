@@ -40,20 +40,27 @@ connection to the server can be established.
 A function `handle()` is available; that tries first to get an IppHandle and
 then a LprHandle. Usage of this module is this simple:
 
-import qpageview.cupsprinter
+    import qpageview.cupsprinter
 
-h = qpageview.cupsprinter.handle()
-if h:
-    h.printFile('/path/to/document.pdf')
+    h = qpageview.cupsprinter.handle()
+    if h:
+        h.printFile('/path/to/document.pdf')
 
 You can supply a QPrinter instance (that'd be the normal workflow :-) :
 
-h = qpageview.cupsprinter.handle(printer)
-if h:
-    h.printFile('/path/to/document.pdf')
+    h = qpageview.cupsprinter.handle(printer)
+    if h:
+        h.printFile('/path/to/document.pdf')
 
 In this case all options that are set in the QPrinter object will be used
 when sending the document to the printer.
+
+If `printFile()` returns True, printing is considered successful. If False,
+you can read the `status` and `error` attributes:
+
+    if not h.printFile('/path/to/document.pdf'):
+        QMessageBox.warning(None, "Printing failure",
+            "There was an error:\n{0} (status: {1})".format(h.error, h.status))
 
 """
 
