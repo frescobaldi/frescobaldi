@@ -18,22 +18,27 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Working with Github organizations and repositories
+Working with Github repositories
 """
+
 
 from . import (
     Github,
+    GithubException,
+    entity,
     node,
     tree
 )
 
 
-class Repo(object):
+class Repo(entity.Entity):
     """Represents a Github repository at a given branch or commit."""
 
     # NOTE: self._info includes rich repository metadata that can be
     # made available as properties when needed. So far only very few
     # have been implemented (e.g. description())
+
+    entity_base = 'repos/'
 
     def __init__(
         self,
@@ -54,11 +59,9 @@ class Repo(object):
         always be initialized immediately.)
 
         """
-        self._path, self._org, self._repo = Github.repo_paths(path, org, repo)
-        # This may forward various exceptions
-        # (TODO: do we have to handle them here, or should this be done
-        #  by the caller (i.e. in the GUI?)
-        self._info = Github.get_json(Github.repo_url(self, ''))
+        path, org, repo = self._paths(path, org, repo)
+        super(Repo, self).__init__(path)
+        self._org, self._repo = org, repo
         self._sha = sha
         # TODO: Not implemented yet
         # recursive = '?recursive=1' if recursive else ''
@@ -75,31 +78,26 @@ class Repo(object):
         # upon request too. This hasn't been dealt with yet!
         # NOTE: May forward various exceptions
         json_data = Github.get_json(
-            Github.repo_tree_url(self, sha + recursive)
+            self.tree_url(sha=(sha + recursive))
         )
         self._tree = tree.Tree(json_data)
 
-    def description(self):
-        """Return the repository description."""
-        return self.info('description')
+    def _paths(self, path=None, org=None, repo=None):
+        """Process and return path, org and repo for a repository.
 
-    def info(self, item=None):
+        Expects either path or org *and* repo to be provided.
         """
-        Return repository information, either the whole dataset (if item=None)
-        or a single value.
-        """
-        if item:
-            return self._info[item]
+        if not (path or (org and repo)):
+            raise GithubException(
+                "Invalid repository target:\n"
+                "path: {path}"
+                "org: {org}"
+                "repo: {repo}".format(path=path, org=org, repo=repo)
+            )
+        if path:
+            return (path, *path.split('/'))
         else:
-            return self._info
-
-    def organization(self):
-        """Return the organization (string) this repository belongs to."""
-        return self._org
-
-    def path(self):
-        """Return the full <org>/<repo> path to the repository."""
-        return self._path
+            return ("{org}/{repo}".format(org=org, repo=repo), org, repo)
 
 ###
 #
@@ -118,7 +116,7 @@ class Repo(object):
         recursive=False
     ):
         result = {}
-        data = Github.get_json(Github.repo_tree_url(self, sha=sha, path=path))
+        data = Github.get_json(self.tree_url(sha=sha, path=path))
         for element in data['tree']:
             new_node = node.Node(path, element)
             if new_node.is_tree():
@@ -143,3 +141,16 @@ class Repo(object):
     def tree(self):
         """Return the directory tree instance (Tree object)."""
         return self._tree
+
+    def tree_url(self, path=None, sha=None):
+        """Returns the URL for an object in the repository tree.
+
+        If `sha` is not provided the base SHA from which the repository
+        has been loaded.
+        If `path` is given (as a forward-slash-separated string) the URL
+        of the corresponding element in the tree is retrieved,
+        the root of the tree otherwise.
+        """
+        base = "git/trees/" + (sha or self.sha())
+        path = base + "/" + path if path else base
+        return self.url(path)
