@@ -158,6 +158,9 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         self.setHorizontalScrollBarPolicy(policy)
         self.setVerticalScrollBarPolicy(policy)
 
+        if not self.pageCount():
+            return
+
         # set certain preferences to the existing renderers
         renderers = set(page.renderer for page in self.pageLayout() if page.renderer)
         pages = set(page for page in self.pageLayout() if not page.renderer)
@@ -172,7 +175,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
                 rp.paperColor = paperColor
 
         # render backend preference
-        if popplerqt5:
+        if renderers and popplerqt5:
             import qpageview.poppler
             renderBackend, printRenderBackend = getPopplerBackends()
             for r in renderers:
