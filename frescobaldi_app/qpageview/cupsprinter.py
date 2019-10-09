@@ -273,7 +273,7 @@ def clearPageSetSetting(qprinter):
 
     """
     # see qt5/qtbase/src/printsupport/kernel/qcups.cpp
-    opts = qprinter.printEngine().properties(0xfe00)
+    opts = qprinter.printEngine().property(0xfe00)
     if opts and isinstance(opts, list) and len(opts) % 2 == 0:
         try:
             i = opts.index('page-set')
