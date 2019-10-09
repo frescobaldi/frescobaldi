@@ -201,11 +201,8 @@ class MusicPreviewWidget(QWidget):
 
     def print_(self):
         """Prints the currently displayed document."""
-        if self._documents:
-            d = self._documents[self._chooser.currentIndex()]
-            doc = d.pages()[0].document
-            import popplerprint
-            popplerprint.printDocument(doc, self)
+        if self._view.document():
+            self._view.print()
 
 
 class MusicPreviewDialog(QDialog):
