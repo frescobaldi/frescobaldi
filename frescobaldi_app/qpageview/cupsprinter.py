@@ -28,12 +28,12 @@ present. The cups module can be found in the pycups package at[1]
 
 There are two methods to send a document to a printer:
 
-1. Using the `lpr` shell command
+1. Using the `lp` shell command
 2. Using the cups module, which uses libcups to directly contact the server.
 
 This module provides both possibilities.
 
-Use `LprHandle.create()` to get a LprHandle, if `lpr` is available, or use
+Use `CmdHandle.create()` to get a CmdHandle, if `lp` is available, or use
 `IppHandle.create()` to get a IppHandle, if the cups module is available and a
 connection to the server can be established.
 
@@ -62,6 +62,8 @@ you can read the `status` and `error` attributes:
         QMessageBox.warning(None, "Printing failure",
             "There was an error:\n{0} (status: {1})".format(h.error, h.status))
 
+To print a list of files in one job, use `printFiles()`.
+
 """
 
 import os
@@ -69,6 +71,7 @@ import shutil
 import subprocess
 
 from PyQt5.QtPrintSupport import QPrinter
+
 
 class Handle:
     """Shared implementation of a handle that can send documents to a printer."""
@@ -117,8 +120,25 @@ class Handle:
 
         return o
 
+    def title(self, filenames):
+        """Return a sensible job title based on the list of filenames.
+
+        This method is called when the user did not specify a job title.
+
+        """
+        maxlen = 5
+        titles = [os.path.basename(f) for f in filenames[:maxlen]]
+        more = len(filenames) - maxlen
+        if more > 0:
+            titles.append("(+{0} more)".format(more))
+        return ", ".join(titles)
+
     def printFile(self, filename, title=None, options=None):
-        """Print the file.
+        """Print the file."""
+        return self.printFiles([filename], title, options)
+
+    def printFiles(self, filenames, title=None, options=None):
+        """Print a list of files.
 
         If the title is None, the basename of the filename is used. Options may
         be a dictionary of CUPS options.  All keys and values should be
@@ -129,19 +149,23 @@ class Handle:
         contain the returncode of the operation and the error message.
 
         """
-        if not filename or filename.isspace() or filename.startswith('-'):
-            self.status, self.error = 2, "Not a valid filename"
+        if not filenames:
+            self.status, self.error = 2, "No filenames specified"
             return False
+        for filename in filenames:
+            if not filename or filename.isspace() or filename == "-":
+                self.status, self.error = 2, "Not a valid filename"
+                return False
         if not title:
-            title = os.path.basename(filename)
+            title = self.title(filenames)
         o = self.options()
         if options:
             o.update(options)
         printerName = self.printer().printerName()
-        self.status, self.error = self._doPrintFile(printerName, filename, title, o)
+        self.status, self.error = self._doPrintFiles(printerName, filenames, title, o)
         return bool(self.status == 0)
 
-    def _doPrintFile(self, printerName, filename, title, options):
+    def _doPrintFiles(self, printerName, filenames, title, options):
         """Implement this to perform the printing.
 
         Should return a tuple (status, error). If status is 0, the operation is
@@ -152,8 +176,8 @@ class Handle:
         return 0, ""
 
 
-class LprHandle(Handle):
-    """Print a document using the `lpr` shell command."""
+class CmdHandle(Handle):
+    """Print a document using the `lp` shell command."""
     def __init__(self, command, server="", port=0, user="", qprinter=None):
         self._command = command
         self._server = server
@@ -162,30 +186,32 @@ class LprHandle(Handle):
         super().__init__(qprinter)
 
     @classmethod
-    def create(cls, qprinter=None, server="", port=0, user="", cmd="lpr"):
-        """Create a handle to print using LPR, if available."""
+    def create(cls, qprinter=None, server="", port=0, user="", cmd="lp"):
+        """Create a handle to print using a shell command, if available."""
         cmd = shutil.which(cmd)
         if cmd:
             return cls(cmd, server, port, user, qprinter)
 
-    def _doPrintFile(self, printerName, filename, title, options):
-        """Print a document using the `lpr` shell command."""
+    def _doPrintFiles(self, printerName, filenames, title, options):
+        """Print filenames using the `lp` shell command."""
         cmd = [self._command]
         if self._server:
             if self._port:
-                cmd.extend(['-H', "{0}:{1}".format(self._server, self._port)])
+                cmd.extend(['-h', "{0}:{1}".format(self._server, self._port)])
             else:
-                cmd.extend(['-H', self._server])
+                cmd.extend(['-h', self._server])
         if self._user:
             cmd.extend(['-U', self._user])
-        cmd.extend(['-P', printerName])
-        cmd.extend(['-J', title])
+        cmd.extend(['-d', printerName])
+        cmd.extend(['-t', title])
         if options:
             for option, value in options.items():
                 cmd.extend(['-o', '{0}={1}'.format(option, value)])
-        cmd.append(filename)
+        if any(f.startswith('-') for f in filenames):
+            cmd.append('--')
+        cmd.extend(filenames)
         try:
-            p = subprocess.Popen(cmd, stderr=subprocess.PIPE)
+            p = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stderr=subprocess.PIPE)
         except OSError as e:
             return e.errno, e.strerror
         message = p.communicate()[1].decode('UTF-8', 'replace')
@@ -216,11 +242,11 @@ class IppHandle(Handle):
         if h.printer().printerName() in c.getPrinters():
             return h
 
-    def _doPrintFile(self, printerName, filename, title, options):
-        """Print a document using a connection to the CUPS server."""
+    def _doPrintFiles(self, printerName, filenames, title, options):
+        """Print filenames using a connection to the CUPS server."""
         import cups
         try:
-            self._connection.printFile(printerName, filename, title, options)
+            self._connection.printFiles(printerName, filenames, title, options)
             return 0, ""
         except cups.IPPError as err:
             return err.args
@@ -229,7 +255,7 @@ class IppHandle(Handle):
 def handle(qprinter=None, server="", port=0, user=""):
     """Return the first available handle to print a document to a CUPS server."""
     return (IppHandle.create(qprinter, server, port, user) or
-            LprHandle.create(qprinter, server, port, user))
+            CmdHandle.create(qprinter, server, port, user))
 
 
 def clearPageSetSetting(qprinter):
