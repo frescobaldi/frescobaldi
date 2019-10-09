@@ -199,6 +199,9 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     def print(self, printer=None, pageNumbers=None, showDialog=True):
         """Print the contents of the View."""
+        import qpageview.poppler
+        import qpageview.cupsprinter
+
         if printer is None:
             if self._printer is None:
                 self._printer = QPrinter()
@@ -210,7 +213,7 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             filename = ""
         printer.setDocName(filename)
         if showDialog:
-            clearCupsPageSetSetting(printer)
+            qpageview.cupsprinter.clearPageSetSetting(printer)
             dlg = QPrintDialog(printer, self)
             if filename:
                 title = app.caption(_("Print {filename}").format(filename=filename))
@@ -221,9 +224,19 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             if not dlg.exec_():
                 return  # cancelled
         s = QSettings()
-        s.beginGroup("helper_applications")
-        printer.setResolution(s.value("printcommand/dpi", 300, int))
-        # TODO: insert breakout code for printing via lpr etc
+        printer.setResolution(s.value("printing/dpi", 300, int))
+
+        # is it possible and preferred to print a PDF directly with cups?
+        if (s.value("printing/directcups", True, bool)
+            and isinstance(self.document(), qpageview.poppler.PopplerDocument)
+            and os.path.isfile(self.document().filename())):
+            h = qpageview.cupsprinter.handle(printer)
+            if h:
+                if not h.printFile(self.document().filename()):
+                    QMessageBox.warning(self, _("Printing Error"),
+                        _("An error occured (code: {num}):\n{message}".format(
+                            message=h.error, num=h.status)))
+                return
         job = super().print(printer, pageNumbers, False)
         if job:
             progress = PrintProgressDialog(job, self)
@@ -303,30 +316,5 @@ def loadSvgs(filenames):
 def loadImages(filenames):
     """Like qpageview.loadImages(), but uses a preconfigured renderer."""
     return qpageview.loadImages(filenames, getRenderer("image"))
-
-
-def clearCupsPageSetSetting(printer):
-    """Removes page-set even/odd cups options from the printer's CUPS options.
-
-    Qt's QPrintDialog fails to reset the 'page-set' option back to 'all pages',
-    so a previous value (even or odd) could remain in the print options, even
-    if the user has selected All Pages in the dialog.
-
-    This function clears the page-set setting from the cups options. If the
-    user selects or has selected even or odd pages, it will be added again
-    by the dialog.
-
-    So call this function on a QPrinter, just before showing a QPrintDialog.
-
-    """
-    opts = printer.printEngine().properties(0xfe00)
-    if opts and isinstance(opts, list) and len(opts) % 2 == 0:
-        try:
-            i = opts.index('page-set')
-        except ValueError:
-            return
-        if i % 2 == 0:
-            del opts[i:i+2]
-            printer.printEngine().setProperty(0xfe00, opts)
 
 
