@@ -245,11 +245,16 @@ class IppHandle(Handle):
     def _doPrintFiles(self, printerName, filenames, title, options):
         """Print filenames using a connection to the CUPS server."""
         import cups
-        try:
-            self._connection.printFiles(printerName, filenames, title, options)
-            return 0, ""
-        except cups.IPPError as err:
-            return err.args
+        # cups.Connection.printFiles() behaves flaky: version 1.9.74 can
+        # silently fail (without returning an error), and after having fixed
+        # that, there are strange error messages on some options.
+        # Therefore we use cups.printFile() for every file.
+        for filename in filenames:
+            try:
+                self._connection.printFile(printerName, filename, title, options)
+            except cups.IPPError as err:
+                return err.args
+        return 0, ""
 
 
 def handle(qprinter=None, server="", port=0, user=""):
