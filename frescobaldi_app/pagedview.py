@@ -229,7 +229,8 @@ class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         # is it possible and preferred to print a PDF directly with cups?
         if (s.value("printing/directcups", True, bool)
             and isinstance(self.document(), qpageview.poppler.PopplerDocument)
-            and os.path.isfile(self.document().filename())):
+            and os.path.isfile(self.document().filename())
+            and not printer.outputFileName()):
             h = qpageview.cupsprinter.handle(printer)
             if h:
                 if not h.printFile(self.document().filename()):
