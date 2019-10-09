@@ -113,22 +113,17 @@ class MusicViewPanel(panel.Panel):
         self.slotPageCountChanged(0)
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
-        ac.music_single_pages.setChecked(True) # default to single pages
         ac.music_reload.triggered.connect(self.reloadView)
         ac.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
         ac.music_continuous.setChecked(
             QSettings().value("musicview/continuous", True, bool))
 
-        mode = QSettings().value("musicview/layoutmode", "single", str)
-        if mode == "double_left":
-            ac.music_two_pages_first_left.setChecked(True)
-        elif mode == "double_right":
-            ac.music_two_pages_first_right.setChecked(True)
-        elif mode == "horizontal":
-            ac.music_single_pages_horizontal.setChecked(True)
-        else: # mode == "single":
-            ac.music_single_pages.setChecked(True)
+        mode = self.pageLayoutMode()
+        ac.music_two_pages_first_left.setChecked(mode == "double_left")
+        ac.music_two_pages_first_right.setChecked(mode == "double_right")
+        ac.music_single_pages_horizontal.setChecked(mode == "horizontal")
+        ac.music_single_pages.setChecked(mode == "single")
 
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -144,14 +139,7 @@ class MusicViewPanel(panel.Panel):
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         # read layout mode setting before using the widget
-        if self.actionCollection.music_two_pages_first_right.isChecked():
-            w.view.setPageLayoutMode('double_right')
-        elif self.actionCollection.music_two_pages_first_left.isChecked():
-            w.view.setPageLayoutMode('double_left')
-        elif self.actionCollection.music_single_pages_horizontal.isChecked():
-            w.view.setPageLayoutMode('horizontal')
-        else: # "single"
-            w.view.setPageLayoutMode('single')
+        w.view.setPageLayoutMode(self.pageLayoutMode())
         w.view.setContinuousMode(self.actionCollection.music_continuous.isChecked())
         self.actionCollection.music_continuous.triggered.connect(self.toggleContinuousMode)
         app.languageChanged.connect(self.updatePagerLanguage)
@@ -169,6 +157,13 @@ class MusicViewPanel(panel.Panel):
             QTimer.singleShot(0, open)
         return w
 
+    def pageLayoutMode(self):
+        """Return the current page layout mode from the prefs."""
+        mode = QSettings().value("musicview/layoutmode", "single", str)
+        if mode in ("single", "double_left", "double_right", "horizontal"):
+            return mode
+        return "single"
+
     def setPageLayoutMode(self, mode):
         """Change the page layout and store the setting as well.
 
@@ -180,8 +175,9 @@ class MusicViewPanel(panel.Panel):
         "horizontal": a horizontal row of pages
 
         """
-        self.widget().view.setPageLayoutMode(mode)
         QSettings().setValue("musicview/layoutmode", mode)
+        if self.instantiated():
+            self.widget().view.setPageLayoutMode(mode)
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
