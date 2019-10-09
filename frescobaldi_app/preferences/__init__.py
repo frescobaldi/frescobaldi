@@ -180,7 +180,7 @@ class General(PrefsItemBase):
 
 
 class MusicViewers(PrefsItemBase):
-    help = "prefs_musicviewers" #TODO: add this page
+    help = "prefs_musicviewers"
     iconName = "Audio-x-generic"
     def translateUI(self):
         self.setText(_("Music Preferences"))
