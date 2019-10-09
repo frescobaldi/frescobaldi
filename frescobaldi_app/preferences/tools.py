@@ -27,15 +27,13 @@ import re
 from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import (
-    QAbstractItemView, QCheckBox, QDoubleSpinBox, QFontComboBox,
-    QGridLayout, QHBoxLayout, QLabel, QPushButton, QSlider, QSpinBox,
-    QVBoxLayout, QWidget)
+    QAbstractItemView, QCheckBox, QDoubleSpinBox, QFontComboBox, QHBoxLayout,
+    QLabel, QPushButton, QVBoxLayout, QWidget)
 
 import app
 import userguide
 import qutil
 import preferences
-import popplerview
 import widgets.dialog
 import widgets.listedit
 import documentstructure
@@ -125,46 +123,11 @@ class MusicView(preferences.Group):
     def __init__(self, page):
         super(MusicView, self).__init__(page)
 
-        layout = QGridLayout()
+        layout = QVBoxLayout()
         self.setLayout(layout)
 
         self.newerFilesOnly = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.newerFilesOnly, 0, 0, 1, 3)
-
-        self.magnifierSizeLabel = QLabel()
-        self.magnifierSizeSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
-        self.magnifierSizeSlider.setSingleStep(50)
-        self.magnifierSizeSlider.setRange(*popplerview.MagnifierSettings.sizeRange)
-        self.magnifierSizeSpinBox = QSpinBox()
-        self.magnifierSizeSpinBox.setRange(*popplerview.MagnifierSettings.sizeRange)
-        self.magnifierSizeSpinBox.valueChanged.connect(self.magnifierSizeSlider.setValue)
-        self.magnifierSizeSlider.valueChanged.connect(self.magnifierSizeSpinBox.setValue)
-        layout.addWidget(self.magnifierSizeLabel, 1, 0)
-        layout.addWidget(self.magnifierSizeSlider, 1, 1)
-        layout.addWidget(self.magnifierSizeSpinBox, 1, 2)
-
-        self.magnifierScaleLabel = QLabel()
-        self.magnifierScaleSlider = QSlider(Qt.Horizontal, valueChanged=self.changed)
-        self.magnifierScaleSlider.setSingleStep(50)
-        self.magnifierScaleSlider.setRange(*popplerview.MagnifierSettings.scaleRange)
-        self.magnifierScaleSpinBox = QSpinBox()
-        self.magnifierScaleSpinBox.setRange(*popplerview.MagnifierSettings.scaleRange)
-        self.magnifierScaleSpinBox.valueChanged.connect(self.magnifierScaleSlider.setValue)
-        self.magnifierScaleSlider.valueChanged.connect(self.magnifierScaleSpinBox.setValue)
-        layout.addWidget(self.magnifierScaleLabel, 2, 0)
-        layout.addWidget(self.magnifierScaleSlider, 2, 1)
-        layout.addWidget(self.magnifierScaleSpinBox, 2, 2)
-
-        self.enableKineticScrolling = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.enableKineticScrolling)
-        self.showScrollbars = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.showScrollbars)
-
-        self.arthurBackend = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.arthurBackend, 4, 0, 1, 3)
-        self.printArthurBackend = QCheckBox(toggled=self.changed)
-        layout.addWidget(self.printArthurBackend, 5, 0, 1, 3)
-
+        layout.addWidget(self.newerFilesOnly)
         app.translateUI(self)
 
     def translateUI(self):
@@ -173,61 +136,17 @@ class MusicView(preferences.Group):
         self.newerFilesOnly.setToolTip(_(
             "If checked, Frescobaldi will not open PDF documents that are not\n"
             "up-to-date (i.e. the source file has been modified later)."))
-        self.magnifierSizeLabel.setText(_("Magnifier Size:"))
-        self.magnifierSizeLabel.setToolTip(_(
-            "Size of the magnifier glass (Ctrl+Click in the Music View)."))
-        # L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-        self.magnifierSizeSpinBox.setSuffix(_(" pixels"))
-        self.magnifierScaleLabel.setText(_("Magnifier Scale:"))
-        self.magnifierScaleLabel.setToolTip(_(
-            "Magnification of the magnifier."))
-        self.magnifierScaleSpinBox.setSuffix(_("percent unit sign", "%"))
-        # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-        self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
-        self.showScrollbars.setText(_("Show Scrollbars"))
-        self.arthurBackend.setText(_("Use Arthur backend for rendering PDF documents on screen"))
-        self.arthurBackend.setToolTip(_(
-            "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
-            "library for PDF rendering on screen. The Arthur backend is faster\n"
-            "than the default Splash backend, but more experimental."))
-        self.printArthurBackend.setText(_("Use Arthur backend for printing PDF documents"))
-        self.printArthurBackend.setToolTip(_(
-            "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
-            "library for printing PDFdocuments. A big advantage of the Arthur backend\n"
-            "is that it is vector-based, in contrast to the default Splash backend,\n"
-            "which is raster-based. But Arthur is more experimental."))
 
     def loadSettings(self):
-        s = popplerview.MagnifierSettings.load()
-        self.magnifierSizeSlider.setValue(s.size)
-        self.magnifierScaleSlider.setValue(s.scale)
-
         s = QSettings()
         s.beginGroup("musicview")
         newerFilesOnly = s.value("newer_files_only", True, bool)
         self.newerFilesOnly.setChecked(newerFilesOnly)
-        kineticScrollingActive = s.value("kinetic_scrolling", True, bool)
-        self.enableKineticScrolling.setChecked(kineticScrollingActive)
-        showScrollbars = s.value("show_scrollbars", True, bool)
-        self.showScrollbars.setChecked(showScrollbars)
-        useArthur = s.value("arthurbackend", False, bool)
-        self.arthurBackend.setChecked(useArthur)
-        useArthurPrint = s.value("arthurbackend_print", False, bool)
-        self.printArthurBackend.setChecked(useArthurPrint)
 
     def saveSettings(self):
-        s = popplerview.MagnifierSettings()
-        s.size = self.magnifierSizeSlider.value()
-        s.scale = self.magnifierScaleSlider.value()
-        s.save()
-
         s = QSettings()
         s.beginGroup("musicview")
         s.setValue("newer_files_only", self.newerFilesOnly.isChecked())
-        s.setValue("kinetic_scrolling", self.enableKineticScrolling.isChecked())
-        s.setValue("show_scrollbars", self.showScrollbars.isChecked())
-        s.setValue("arthurbackend", self.arthurBackend.isChecked())
-        s.setValue("arthurbackend_print", self.printArthurBackend.isChecked())
 
 
 class CharMap(preferences.Group):
