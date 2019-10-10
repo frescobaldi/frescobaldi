@@ -90,35 +90,7 @@ class Handle:
 
     def options(self):
         """Return the dict of CUPS options read from the printer object."""
-        o = {}
-        p = self.printer()
-        if not p:
-            return o
-
-        # cups options that can be set in QPrintDialog on unix
-        # I found this in qt5/qtbase/src/printsupport/kernel/qcups.cpp.
-        # Esp. options like page-set even/odd do make sense.
-        props = p.printEngine().property(0xfe00)
-        if props and isinstance(props, list) and len(props) % 2 == 0:
-            for key, value in zip(props[0::2], props[1::2]):
-                if value and isinstance(key, str) and isinstance(value, str):
-                    o[key] = value
-
-        o['copies'] = format(p.copyCount())
-        if p.collateCopies():
-            o['collate'] = 'true'
-
-        # TODO: in Qt5 >= 5.11 page-ranges support is more fine-grained!
-        if p.printRange() == QPrinter.PageRange:
-            o['page-ranges'] = "{0}-{1}".format(p.fromPage(), p.toPage())
-        if p.duplex() == QPrinter.DuplexLongSide:
-            o['sides'] = 'two-sided-long-edge'
-        elif p.duplex() == QPrinter.DuplexShortSide:
-            o['sides'] = 'two-sided-short-edge'
-        if p.colorMode() == QPrinter.GrayScale:
-            o['print-color-mode'] = 'monochrome'
-
-        return o
+        return options(self.printer())
 
     def title(self, filenames):
         """Return a sensible job title based on the list of filenames.
@@ -149,21 +121,20 @@ class Handle:
         contain the returncode of the operation and the error message.
 
         """
-        if not filenames:
-            self.status, self.error = 2, "No filenames specified"
-            return False
-        for filename in filenames:
-            if not filename or filename.isspace() or filename == "-":
+        if filenames:
+            if all(f and not f.isspace() and f != "-" for f in filenames):
+                if not title:
+                    title = self.title(filenames)
+                o = self.options()
+                if options:
+                    o.update(options)
+                printerName = self.printer().printerName()
+                self.status, self.error = self._doPrintFiles(printerName, filenames, title, o)
+            else:
                 self.status, self.error = 2, "Not a valid filename"
-                return False
-        if not title:
-            title = self.title(filenames)
-        o = self.options()
-        if options:
-            o.update(options)
-        printerName = self.printer().printerName()
-        self.status, self.error = self._doPrintFiles(printerName, filenames, title, o)
-        return bool(self.status == 0)
+        else:
+            self.status, self.error = 2, "No filenames specified"
+        return self.status == 0
 
     def _doPrintFiles(self, printerName, filenames, title, options):
         """Implement this to perform the printing.
@@ -261,6 +232,37 @@ def handle(qprinter=None, server="", port=0, user=""):
     """Return the first available handle to print a document to a CUPS server."""
     return (IppHandle.create(qprinter, server, port, user) or
             CmdHandle.create(qprinter, server, port, user))
+
+
+def options(qprinter):
+    """Return the dict of CUPS options read from the QPrinter object."""
+    o = {}
+    p = qprinter
+
+    # cups options that can be set in QPrintDialog on unix
+    # I found this in qt5/qtbase/src/printsupport/kernel/qcups.cpp.
+    # Esp. options like page-set even/odd do make sense.
+    props = p.printEngine().property(0xfe00)
+    if props and isinstance(props, list) and len(props) % 2 == 0:
+        for key, value in zip(props[0::2], props[1::2]):
+            if value and isinstance(key, str) and isinstance(value, str):
+                o[key] = value
+
+    o['copies'] = format(p.copyCount())
+    if p.collateCopies():
+        o['collate'] = 'true'
+
+    # TODO: in Qt5 >= 5.11 page-ranges support is more fine-grained!
+    if p.printRange() == QPrinter.PageRange:
+        o['page-ranges'] = "{0}-{1}".format(p.fromPage(), p.toPage())
+    if p.duplex() == QPrinter.DuplexLongSide:
+        o['sides'] = 'two-sided-long-edge'
+    elif p.duplex() == QPrinter.DuplexShortSide:
+        o['sides'] = 'two-sided-short-edge'
+    if p.colorMode() == QPrinter.GrayScale:
+        o['print-color-mode'] = 'monochrome'
+
+    return o
 
 
 def clearPageSetSetting(qprinter):
