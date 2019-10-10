@@ -103,16 +103,27 @@ class LinkViewMixin:
         return self._linkHighlighter
 
     def adjustCursor(self, pos):
-        """Sets the correct mouse cursor for the position on the page.
-        
-        If `linksEnabled` is True, calls handleLinks()
-        
+        """Adjust the cursor if pos is on a link (and linksEnabled is True).
+
+        Also emits signals when the cursor enters or leaves a link.
+
         """
-        if self.isDragging():
-            return # Dragging the background is busy, see scrollarea.py.
         if self.linksEnabled:
-            self.handleLinks(pos)
-    
+            page, link = self.linkAt(pos)
+            if link:
+                lid = id(link)
+            else:
+                lid = None
+            if lid != self._currentLinkId:
+                if self._currentLinkId is not None:
+                    self.linkHoverLeave()
+                self._currentLinkId = lid
+                if lid is not None:
+                    self.linkHoverEnter(page, link)
+            if link:
+                return # do not call super() if we are on a link
+        super().adjustCursor(pos)
+
     def linkAt(self, pos):
         """If the pos (in the viewport) is over a link, return a (page, link) tuple.
         
@@ -133,17 +144,6 @@ class LinkViewMixin:
         Also emits signals when the cursor enters or leaves a link.
         
         """
-        page, link = self.linkAt(pos)
-        if link:
-            lid = id(link)
-        else:
-            lid = None
-        if lid != self._currentLinkId:
-            if self._currentLinkId is not None:
-                self.linkHoverLeave()
-            self._currentLinkId = lid
-            if lid is not None:
-                self.linkHoverEnter(page, link)
 
     def linkHoverEnter(self, page, link):
         """Called when the mouse hovers over a link.
@@ -195,7 +195,7 @@ class LinkViewMixin:
 
     def event(self, ev):
         """Reimplemented to handle HelpEvent for links."""
-        if self.handleLinks and ev.type() in (QEvent.ToolTip, QEvent.WhatsThis):
+        if self.linksEnabled and ev.type() in (QEvent.ToolTip, QEvent.WhatsThis):
             page, link = self.linkAt(ev.pos())
             if link:
                 self.linkHelpEvent(ev, page, link)
@@ -204,7 +204,7 @@ class LinkViewMixin:
 
     def mousePressEvent(self, ev):
         """Implemented to detect clicking a link and calling linkClickEvent()."""
-        if self.handleLinks:
+        if self.linksEnabled:
             page, link = self.linkAt(ev.pos())
             if link:
                 self.linkClickEvent(ev, page, link)
@@ -213,7 +213,7 @@ class LinkViewMixin:
 
     def leaveEvent(self, ev):
         """Implemented to leave a link, might there still be one hovered."""
-        if self.handleLinks and self._currentLinkId is not None:
+        if self.linksEnabled and self._currentLinkId is not None:
             self.linkHoverLeave()
             self._currentLinkId = None
         super().leaveEvent(ev)
