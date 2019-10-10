@@ -138,13 +138,6 @@ class LinkViewMixin:
                 return page, links[0]
         return None, None
         
-    def handleLinks(self, pos):
-        """Adjust the cursor for possible links at the specified position.
-        
-        Also emits signals when the cursor enters or leaves a link.
-        
-        """
-
     def linkHoverEnter(self, page, link):
         """Called when the mouse hovers over a link.
 
