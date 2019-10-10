@@ -70,17 +70,17 @@ import os
 import shutil
 import subprocess
 
-from PyQt5.QtPrintSupport import QPrinter
+from PyQt5.QtPrintSupport import QPrintEngine, QPrinter
 
 
 class Handle:
     """Shared implementation of a handle that can send documents to a printer."""
-    def __init__(self, qprinter=None):
-        self._printer = qprinter
+    def __init__(self, printer=None):
+        self._printer = printer
 
-    def setPrinter(self, qprinter):
+    def setPrinter(self, printer):
         """Use the specified QPrinter."""
-        self._printer = qprinter
+        self._printer = printer
 
     def printer(self):
         """Return the QPrinter given on init, or a new default QPrinter instance."""
@@ -149,19 +149,19 @@ class Handle:
 
 class CmdHandle(Handle):
     """Print a document using the `lp` shell command."""
-    def __init__(self, command, server="", port=0, user="", qprinter=None):
+    def __init__(self, command, server="", port=0, user="", printer=None):
         self._command = command
         self._server = server
         self._port = port
         self._user = user
-        super().__init__(qprinter)
+        super().__init__(printer)
 
     @classmethod
-    def create(cls, qprinter=None, server="", port=0, user="", cmd="lp"):
+    def create(cls, printer=None, server="", port=0, user="", cmd="lp"):
         """Create a handle to print using a shell command, if available."""
         cmd = shutil.which(cmd)
         if cmd:
-            return cls(cmd, server, port, user, qprinter)
+            return cls(cmd, server, port, user, printer)
 
     def _doPrintFiles(self, printerName, filenames, title, options):
         """Print filenames using the `lp` shell command."""
@@ -191,12 +191,12 @@ class CmdHandle(Handle):
 
 class IppHandle(Handle):
     """Print a document using a connection to the CUPS server."""
-    def __init__(self, connection, qprinter=None):
-        super().__init__(qprinter)
+    def __init__(self, connection, printer=None):
+        super().__init__(printer)
         self._connection = connection
 
     @classmethod
-    def create(cls, qprinter=None, server="", port=0, user=""):
+    def create(cls, printer=None, server="", port=0, user=""):
         """Return a handle to print using a connection to the (local) CUPS server, if available."""
         try:
             import cups
@@ -209,7 +209,7 @@ class IppHandle(Handle):
             c = cups.Connection()
         except RuntimeError:
             return
-        h = cls(c, qprinter)
+        h = cls(c, printer)
         if h.printer().printerName() in c.getPrinters():
             return h
 
@@ -228,44 +228,83 @@ class IppHandle(Handle):
         return 0, ""
 
 
-def handle(qprinter=None, server="", port=0, user=""):
+def handle(printer=None, server="", port=0, user=""):
     """Return the first available handle to print a document to a CUPS server."""
-    return (IppHandle.create(qprinter, server, port, user) or
-            CmdHandle.create(qprinter, server, port, user))
+    return (IppHandle.create(printer, server, port, user) or
+            CmdHandle.create(printer, server, port, user))
 
 
-def options(qprinter):
+def options(printer):
     """Return the dict of CUPS options read from the QPrinter object."""
     o = {}
-    p = qprinter
 
     # cups options that can be set in QPrintDialog on unix
     # I found this in qt5/qtbase/src/printsupport/kernel/qcups.cpp.
     # Esp. options like page-set even/odd do make sense.
-    props = p.printEngine().property(0xfe00)
+    props = printer.printEngine().property(0xfe00)
     if props and isinstance(props, list) and len(props) % 2 == 0:
         for key, value in zip(props[0::2], props[1::2]):
             if value and isinstance(key, str) and isinstance(value, str):
                 o[key] = value
 
-    o['copies'] = format(p.copyCount())
-    if p.collateCopies():
+    o['copies'] = format(printer.copyCount())
+    if printer.collateCopies():
         o['collate'] = 'true'
 
     # TODO: in Qt5 >= 5.11 page-ranges support is more fine-grained!
-    if p.printRange() == QPrinter.PageRange:
-        o['page-ranges'] = "{0}-{1}".format(p.fromPage(), p.toPage())
-    if p.duplex() == QPrinter.DuplexLongSide:
-        o['sides'] = 'two-sided-long-edge'
-    elif p.duplex() == QPrinter.DuplexShortSide:
-        o['sides'] = 'two-sided-short-edge'
-    if p.colorMode() == QPrinter.GrayScale:
+    if printer.printRange() == QPrinter.PageRange:
+        o['page-ranges'] = '{0}-{1}'.format(printer.fromPage(), printer.toPage())
+
+    # page order
+    if printer.pageOrder() == QPrinter.LastPageFirst:
+        o['outputorder'] = 'reverse'
+
+    # media size
+    media = []
+    size = printer.paperSize()
+    if size == QPrinter.Custom:
+        media.append('Custom.{0}x{1}mm'.format(printer.heightMM(), printer.widthMM()))
+    elif size in PAGE_SIZES:
+        media.append(PAGE_SIZES[size])
+
+    # media source
+    source = printer.paperSource()
+    if source in PAPER_SOURCES:
+        media.append(PAPER_SOURCES[source])
+
+    if media:
+        o['media'] = ','.join(media)
+
+    # page margins
+    if printer.printEngine().property(QPrintEngine.PPK_PageMargins):
+        left, top, right, bottom = printer.getPageMargins(QPrinter.Point)
+        o['page-left'] = format(left)
+        o['page-top'] = format(top)
+        o['page-right'] = format(right)
+        o['page-bottom'] = format(bottom)
+
+    # orientation
+    landscape = printer.orientation() == QPrinter.Landscape
+    if landscape:
+        o['landscape'] = 'true'
+
+    # double sided
+    duplex = printer.duplex()
+    o['sides'] = (
+        'two-sided-long-edge' if duplex == QPrinter.DuplexLongSide or
+                        (duplex == QPrinter.DuplexAuto and not landscape) else
+        'two-sided-short-edge' if duplex == QPrinter.DuplexShortSide or
+                        (duplex == QPrinter.DuplexAuto and landscape) else
+        'one-sided')
+
+    # grayscale
+    if printer.colorMode() == QPrinter.GrayScale:
         o['print-color-mode'] = 'monochrome'
 
     return o
 
 
-def clearPageSetSetting(qprinter):
+def clearPageSetSetting(printer):
     """Remove 'page-set' even/odd cups options from the printer's CUPS options.
 
     Qt's QPrintDialog fails to reset the 'page-set' option back to 'all pages',
@@ -280,7 +319,7 @@ def clearPageSetSetting(qprinter):
 
     """
     # see qt5/qtbase/src/printsupport/kernel/qcups.cpp
-    opts = qprinter.printEngine().property(0xfe00)
+    opts = printer.printEngine().property(0xfe00)
     if opts and isinstance(opts, list) and len(opts) % 2 == 0:
         try:
             i = opts.index('page-set')
@@ -288,5 +327,55 @@ def clearPageSetSetting(qprinter):
             return
         if i % 2 == 0:
             del opts[i:i+2]
-            qprinter.printEngine().setProperty(0xfe00, opts)
+            printer.printEngine().setProperty(0xfe00, opts)
+
+
+PAGE_SIZES = {
+    QPrinter.A0: "A0",
+    QPrinter.A1: "A1",
+    QPrinter.A2: "A2",
+    QPrinter.A3: "A3",
+    QPrinter.A4: "A4",
+    QPrinter.A5: "A5",
+    QPrinter.A6: "A6",
+    QPrinter.A7: "A7",
+    QPrinter.A8: "A8",
+    QPrinter.A9: "A9",
+    QPrinter.B0: "B0",
+    QPrinter.B1: "B1",
+    QPrinter.B10: "B10",
+    QPrinter.B2: "B2",
+    QPrinter.B3: "B3",
+    QPrinter.B4: "B4",
+    QPrinter.B5: "B5",
+    QPrinter.B6: "B6",
+    QPrinter.B7: "B7",
+    QPrinter.B8: "B8",
+    QPrinter.B9: "B9",
+    QPrinter.C5E: "C5",         # Correct Translation?
+    QPrinter.Comm10E: "Comm10", # Correct Translation?
+    QPrinter.DLE: "DL",         # Correct Translation?
+    QPrinter.Executive: "Executive",
+    QPrinter.Folio: "Folio",
+    QPrinter.Ledger: "Ledger",
+    QPrinter.Legal: "Legal",
+    QPrinter.Letter: "Letter",
+    QPrinter.Tabloid: "Tabloid",
+}
+
+PAPER_SOURCES = {
+    QPrinter.Cassette: "Cassette",
+    QPrinter.Envelope: "Envelope",
+    QPrinter.EnvelopeManual: "EnvelopeManual",
+    QPrinter.FormSource: "FormSource",
+    QPrinter.LargeCapacity: "LargeCapacity",
+    QPrinter.LargeFormat: "LargeFormat",
+    QPrinter.Lower: "Lower",
+    QPrinter.MaxPageSource: "MaxPageSource",
+    QPrinter.Middle: "Middle",
+    QPrinter.Manual: "Manual",
+    QPrinter.OnlyOne: "OnlyOne",
+    QPrinter.Tractor: "Tractor",
+    QPrinter.SmallFormat: "SmallFormat",
+}
 
