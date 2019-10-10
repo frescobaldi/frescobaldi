@@ -72,7 +72,7 @@ class Magnifier(qpageview.magnifier.Magnifier):
         QSettings().setValue("musicview/magnifier/size", ev.size().width())
 
 
-class View(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
+class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
     """A View based on qpageview.View.
 
     This View has additional features and customisation needed in Frescobaldi.

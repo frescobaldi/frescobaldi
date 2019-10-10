@@ -63,7 +63,7 @@ class MusicPreviewWidget(QWidget):
 
         self._chooserLabel = QLabel()
         self._chooser = QComboBox(self, activated=self.selectDocument)
-        self._view = pagedview.View()
+        self._view = pagedview.PagedView()
         self._view.setMagnifier(pagedview.Magnifier())
 
         self._showWaiting = showWaiting

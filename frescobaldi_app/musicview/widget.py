@@ -73,7 +73,7 @@ class MusicView(QWidget):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(layout)
 
-        self.view = pagedview.View(self)
+        self.view = pagedview.PagedView(self)
         self.view.setRubberband(qpageview.rubberband.Rubberband())
         layout.addWidget(self.view)
         app.settingsChanged.connect(self.readSettings)
