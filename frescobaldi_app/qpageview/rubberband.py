@@ -383,7 +383,7 @@ class Rubberband(QWidget):
                 self.stopDrag()
                 if ev.button() == Qt.RightButton:
                     QApplication.postEvent(viewport,
-                        QContextMenuEvent(QContextMenuEvent.Mouse, ev.pos() + self.pos()))
+                        QContextMenuEvent(QContextMenuEvent.Mouse, ev.pos()))
                 return True
         return False
 
