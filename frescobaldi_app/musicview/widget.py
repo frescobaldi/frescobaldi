@@ -26,7 +26,6 @@ The PDF preview panel widget.
 import collections
 import itertools
 import os
-import weakref
 
 from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QUrl
 from PyQt5.QtGui import QCursor, QTextCharFormat
@@ -61,7 +60,6 @@ class MusicView(QWidget):
         """Creates the Music View for the dockwidget."""
         super(MusicView, self).__init__(dockwidget)
 
-        self._positions = weakref.WeakKeyDictionary()
         self._links = None
         self._clicking_link = False
 
@@ -101,24 +99,15 @@ class MusicView(QWidget):
 
     def openDocument(self, doc):
         """Open a qpageview.Document instance."""
-        cur = self.view.document()
-        if cur:
-            self._positions[cur] = self.view.position()
         self._links = None
         self._highlightRange = None
         self.view.setDocument(doc)
-        position = self._positions.get(doc)
-        if position:
-            self.view.setPosition(position, allowKinetic=False)
         document = doc.document()
         if document:
             self._links = pointandclick.links(document)
 
     def clear(self):
         """Empties the view."""
-        cur = self.view.document()
-        if cur:
-            self._positions[cur] = self.view.position()
         self._links = None
         self._highlightRange = None
         self.view.clear()

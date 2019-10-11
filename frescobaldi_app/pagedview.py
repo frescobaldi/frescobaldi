@@ -26,6 +26,7 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 import itertools
 import os
+import weakref
 
 from PyQt5.QtCore import pyqtSignal, QSettings, Qt
 from PyQt5.QtWidgets import QMessageBox
@@ -77,7 +78,14 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     This View has additional features and customisation needed in Frescobaldi.
 
-    Besides all the qpageview.View signals, this View emits the following
+    In addition to the qpageview.View attributes, the following attribute
+    can be used:
+
+    `rememberDocumentPosition = True`
+
+        If True, the position of documents in the PagedView is remembered.
+
+    Besides all the qpageview.View signals, this PagedView emits the following
     signal:
 
     `pageLayoutModeChanged(str)`
@@ -87,10 +95,13 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         different qpageview PageLayout classes.
 
     """
+    rememberDocumentPosition = True
+
     pageLayoutModeChanged = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self._positions = weakref.WeakKeyDictionary()
         self._printer = None
         self._pageLayoutMode = None
         self.setPageLayoutMode("single")
@@ -187,6 +198,22 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
         if changed:
             self.rerender()
+
+    def clear(self):
+        """Reimplemented to remember the position of the current document."""
+        if self.rememberDocumentPosition and self.document():
+            self._positions[self.document()] = self.position()
+        super().clear()
+
+    def setDocument(self, document):
+        """Reimplemented to remember the position of the current document."""
+        if self.rememberDocumentPosition and self.document():
+            self._positions[self.document()] = self.position()
+        super().setDocument(document)
+        if self.rememberDocumentPosition:
+            pos = self._positions.get(document)
+            if pos:
+                self.setPosition(pos, False)
 
     def loadPdf(self, filename, renderer=None):
         """Reimplemented to use a customized renderer by default."""
