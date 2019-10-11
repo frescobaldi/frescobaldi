@@ -244,6 +244,10 @@ class Rectangles:
         """Always return True."""
         return True
 
+    def __iter__(self):
+        """Iterate over the objects in undefined order."""
+        return iter(self._items)
+
     # private helper methods
     def _test(self, *tests):
         """Performs tests and returns objects that fulfill all of them.
