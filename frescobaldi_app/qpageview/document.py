@@ -80,6 +80,26 @@ class Document:
         """
         return []
 
+    def urls(self):
+        """Return a dict, mapping URLs (str) to areas on pages.
+
+        This method queries the links of all pages, and if they have a URL, the
+        area attribute of that link is added to a list for every page, and
+        every unique URL is mapped to a dict, that maps page number to the list
+        of areas on that page (page numbers start with 0).
+
+        In the returned dict you can quickly find the areas in which a URL
+        appears in a link.
+
+        """
+        urls = {}
+        for n, p in enumerate(self.pages()):
+            for link in p.links():
+                url = link.url
+                if url:
+                    urls.setdefault(url, {}).setdefault(n, []).append(link.area)
+        return urls
+
 
 class AbstractSourceDocument(Document):
     """A Document that loads pages from external source, such as a file.
@@ -91,6 +111,7 @@ class AbstractSourceDocument(Document):
     def __init__(self, renderer=None):
         self.renderer = renderer
         self._pages = None
+        self._urls = None
 
     def pages(self):
         """Return the list of Pages, creating them at first call."""
@@ -105,6 +126,7 @@ class AbstractSourceDocument(Document):
 
         """
         self._pages = None
+        self._urls = None
 
     def clear(self):
         """Delete all cached pages, and clear filename(s) or source object(s)."""
@@ -118,6 +140,12 @@ class AbstractSourceDocument(Document):
 
         """
         return NotImplemented
+
+    def urls(self):
+        """Reimplemented to cache the urls returned by Document.urls()."""
+        if self._urls == None:
+            self._urls = super().urls()
+        return self._urls
 
 
 class SingleSourceDocument(AbstractSourceDocument):
