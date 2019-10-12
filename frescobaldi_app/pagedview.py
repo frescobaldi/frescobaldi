@@ -103,8 +103,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         super().__init__(parent)
         self._positions = weakref.WeakKeyDictionary()
         self._printer = None
-        self._pageLayoutMode = None
-        self.setPageLayoutMode("single")
+        self._pageLayoutMode = "single"
         self.setMagnifier(Magnifier())
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
