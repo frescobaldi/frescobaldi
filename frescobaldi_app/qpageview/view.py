@@ -263,10 +263,12 @@ class View(scrollarea.ScrollArea):
 
         """
         pages = list(self._pageLayout)
+        lazy = bool(pages)
         yield pages
+        lazy &= bool(pages)
         self._unschedulePages(list(set(self._pageLayout) - set(pages)))
         self._pageLayout[:] = pages
-        self.updatePageLayout(True)
+        self.updatePageLayout(lazy)
 
     @contextlib.contextmanager
     def modifyPage(self, num):
