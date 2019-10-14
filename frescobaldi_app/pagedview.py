@@ -125,24 +125,18 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
         """
         if mode != self._pageLayoutMode:
-            # get a suitable PageLayout
+            # get a suitable LayoutEngine
+            layout = self._pageLayout
             if mode == "raster":
-                layout = qpageview.layout.RasterLayout()
+                layout.engine = qpageview.layout.RasterLayoutEngine()
+                layout.orientation = qpageview.Horizontal
             elif mode in ("double_right", "double_left"):
-                layout = qpageview.layout.RowPageLayout()
-                layout.pagesPerRow = 2
-                layout.pagesFirstRow = 1 if mode == "double_right" else 0
+                layout.engine = qpageview.layout.RowLayoutEngine()
+                layout.engine.pagesPerRow = 2
+                layout.engine.pagesFirstRow = 1 if mode == "double_right" else 0
             else:
-                layout = qpageview.layout.PageLayout()
+                layout.engine = qpageview.layout.LayoutEngine()
                 layout.orientation = qpageview.Horizontal if mode == "horizontal" else qpageview.Vertical
-            # add the current pages
-            layout.extend(self._pageLayout)
-            # copy layout settings
-            layout.zoomFactor = self._pageLayout.zoomFactor
-            layout.rotation = self._pageLayout.rotation
-            layout.continuousMode = self._pageLayout.continuousMode
-            layout.setMargins(self._pageLayout.margins())
-            layout.setPageMargins(self._pageLayout.pageMargins())
             # keep the current page in view
             page = self.currentPage()
             self.setPageLayout(layout)
