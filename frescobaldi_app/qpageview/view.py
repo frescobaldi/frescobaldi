@@ -692,7 +692,7 @@ class View(scrollarea.ScrollArea):
         if factor != self._pageLayout.zoomFactor:
             with self.keepCentered(pos):
                 self._pageLayout.zoomFactor = factor
-            if self._pageLayout.zoomToFit:
+            if self._pageLayout.zoomsToFit():
                 self.setViewMode(FixedScale)
             self.zoomFactorChanged.emit(factor)
             self._unschedulePages(self._pageLayout)

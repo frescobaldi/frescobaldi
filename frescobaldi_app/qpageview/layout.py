@@ -24,6 +24,7 @@ Manages and positions a group of Page instances.
 
 
 import copy
+import itertools
 import math
 
 from PyQt5.QtCore import QMargins, QPoint, QPointF, QRect, QSize, Qt
@@ -82,12 +83,10 @@ class PageLayout(util.Rectangular, list):
         height = 0
 
         continuousMode = True   # whether to show all pages
-        pagesPerSet = 1         # if not, how many pages per set
-        pagesFirstSet = 0       # how many pages in first set
-        currentPageSet = 0      # which page set to display
 
-    After having changed pages or layout attributes, call update() to update
-    the layout.
+    The actual layout is done by a LayoutEngine in the engine attribute.
+    After having changed pages, engine or layout attributes, call update() to
+    update the layout.
 
     """
 
@@ -102,13 +101,9 @@ class PageLayout(util.Rectangular, list):
     alignment = Qt.AlignCenter
 
     continuousMode = True
-    pagesPerSet = 1
-    pagesFirstSet = 0
-    currentPageSet = 0
+    currentPageSet = 0  # used in non-continuous mode
 
     _rects = None
-
-    zoomToFit = True    # set to False in layout subclasses that do not zoom to fit
 
     def __bool__(self):
         """Always return True."""
@@ -121,12 +116,6 @@ class PageLayout(util.Rectangular, list):
     def empty(self):
         """Return True if there are zero pages."""
         return len(self) == 0
-
-    def copy(self):
-        """Return a copy of this layout with copies of all the pages."""
-        layout = copy.copy(self)
-        layout[:] = (p.copy() for p in self)
-        return layout
 
     def setMargins(self, margins):
         """Sets our margins to a QMargins object."""
@@ -186,65 +175,37 @@ class PageLayout(util.Rectangular, list):
         """
         return self._pageRects().nearest(point.x(), point.y())
 
+    def defaultWidth(self, page):
+        """Return the default width of the page."""
+        if (page.rotation + self.rotation) & 1:
+            return page.pageHeight * page.scaleY / page.dpi
+        else:
+            return page.pageWidth * page.scaleX / page.dpi
+
+    def defaultHeight(self, page):
+        """Return the default height of the page."""
+        if (page.rotation + self.rotation) & 1:
+            return page.pageWidth * page.scaleX / page.dpi
+        else:
+            return page.pageHeight * page.scaleY / page.dpi
+
     def widestPage(self):
-        """Return the widest page, if any.
-
-        Uses the page's natural width and its scale in X-direction.
-
-        """
+        """Return the page with the largest default width, if any."""
         if self.count():
-            def key(page):
-                if (page.rotation + self.rotation) & 1:
-                    return page.pageHeight * page.scaleY / page.dpi
-                else:
-                    return page.pageWidth * page.scaleX / page.dpi
-            return max(self, key=key)
+            return max(self, key=self.defaultWidth)
 
-    def highestPage(self):
-        """Return the highest page, if any.
-
-        Uses the page's natural height and its scale in Y-direction.
-
-        """
+    def heighestPage(self):
+        """Return the page with the largest default height, if any."""
         if self.count():
-            def key(page):
-                if (page.rotation + self.rotation) & 1:
-                    return page.pageWidth * page.scaleX / page.dpi
-                else:
-                    return page.pageHeight * page.scaleY / page.dpi
-            return max(self, key=key)
+            return max(self, key=self.defaultHeight)
 
     def fit(self, size, mode):
         """Fits the layout in the given size (QSize) and ViewMode."""
-        if mode and self.count():
-            zoomfactors = []
-            if mode & FitWidth:
-                zoomfactors.append(self.zoomFitWidth(size.width()))
-            if mode & FitHeight:
-                zoomfactors.append(self.zoomFitHeight(size.height()))
-            self.zoomFactor = min(zoomfactors)
+        self.engine.fit(self, size, mode)
 
-    def zoomFitWidth(self, width):
-        """Return the zoom factor this layout would need to fit in the width.
-
-        This method is called by fit(). The default implementation returns a
-        suitable zoom factor for the widest Page.
-
-        """
-        m, p = self.margins(), self.pageMargins()
-        width -= m.left() + m.right() + p.left() + p.right()
-        return self.widestPage().zoomForWidth(width, self.rotation, self.dpiX)
-
-    def zoomFitHeight(self, height):
-        """Return the zoom factor this layout would need to fit in the height.
-
-        This method is called by fit(). The default implementation returns a
-        suitable zoom factor for the highest Page.
-
-        """
-        m, p = self.margins(), self.pageMargins()
-        height -= m.top() + m.bottom() + p.top() + p.bottom()
-        return self.highestPage().zoomForHeight(height, self.rotation, self.dpiY)
+    def zoomsToFit(self):
+        """Return True if the layout engine changes the zoomFactor to fit."""
+        return self.engine.zoomToFit
 
     def update(self):
         """Compute the size of all pages and updates their positions.
@@ -258,7 +219,8 @@ class PageLayout(util.Rectangular, list):
         """
         self._rects = None
         self.updatePageSizes()
-        self.updatePagePositions()
+        if self.count():
+            self.engine.updatePagePositions(self)
         geometry = self.computeGeometry()
         changed = self.geometry() != geometry
         self.setGeometry(geometry)
@@ -269,35 +231,6 @@ class PageLayout(util.Rectangular, list):
         for page in self:
             page.computedRotation = (page.rotation + self.rotation) & 3
             page.updateSize(self.dpiX, self.dpiY, self.zoomFactor)
-
-    def updatePagePositions(self):
-        """Determine the position of every Page.
-
-        You can reimplement this method to perform a different layout, which
-        means setting the position of all the pages. These positions should
-        respect the margins(), pageMargins(), spacing and if possible the
-        orientation.
-
-        """
-        m, pm = self.margins(), self.pageMargins()
-        if self.orientation == Vertical:
-            width = max((p.width for p in self), default=0)
-            width += m.left() + m.right() + pm.left() + pm.right()
-            top = m.top()
-            for page in self:
-                top += pm.top()
-                page.x = util.align(page.width, 0, width, 0, self.alignment)[0]
-                page.y = top
-                top += page.height + pm.bottom() + self.spacing
-        else:
-            height = max((p.height for p in self), default=0)
-            height += m.top() + m.bottom() + pm.top() + pm.bottom()
-            left = m.left()
-            for page in self:
-                left += pm.left()
-                page.x = left
-                page.y = util.align(0, page.height, 0, height, self.alignment)[1]
-                left += page.width + pm.right() + self.spacing
 
     def computeGeometry(self):
         """Return the total geometry (position and size) of the layout.
@@ -379,35 +312,11 @@ class PageLayout(util.Rectangular, list):
     def pageSets(self):
         """Return a list of (count, length) tuples.
 
-        Every count is the number of page sets of that length. The sum of all
-        (count * length) should be the total length of the layout. If the layout
-        is empty, an empty list is returned.
-
-        The default implementation reads the pagesFirstSet and pagesPerSet
-        attributes, and returns at most three tuples.
-
-        All other pageSet methods use the result of this method for their
-        computations.
+        Every count is the number of page sets of that length. The list is
+        created by the LayoutEngine.pageSets() method.
 
         """
-        result = []
-        left = self.count()
-        if left:
-            if self.pagesFirstSet and self.pagesFirstSet != self.pagesPerSet:
-                length = min(left, self.pagesFirstSet)
-                result.append((1, length))
-                left -= length
-            if left:
-                count, left = divmod(left, self.pagesPerSet)
-                if count:
-                    result.append((count, self.pagesPerSet))
-                if left:
-                    # merge result entries with same length
-                    if result and result[-1][1] == left:
-                        result[-1] == (result[-1][0] + 1, left)
-                    else:
-                        result.append((1, left))
-        return result
+        return self.engine.pageSets(self.count())
 
     def pageSetCount(self):
         """Return the number of page sets."""
@@ -426,8 +335,148 @@ class PageLayout(util.Rectangular, list):
         return 0    # happens with empty layout
 
 
-class RowPageLayout(PageLayout):
-    """A layout that orders pages in rows.
+class LayoutEngine:
+    """A LayoutEngine takes care of the actual layout process.
+
+    A PageLayout has its LayoutEngine in the `engine` attribute.  Putting this
+    functionality in a separate object makes it easier to alter the behaviour
+    of a layout without changing all the user-set options and added Pages.
+
+    The default implementation of LayoutEngine puts pages in a horizontal
+    or vertical row.
+
+    You can override grid() to implement a different behaviour, and you
+    can override pageSets() to get a different behaviour in non-continuous mode.
+
+    If there are multiple rows or columns, every row is as heigh as the
+    heighest page it contains, and every column is as wide as its widest page.
+    You can set the attributes evenWidths and/or evenHeights to True if you
+    want all columns to have the same width, and/or respectively, the rows the
+    same height.
+
+    """
+
+    zoomToFit = True        # True means: engine changes the zoomFactor to fit
+    orientation = None      # None means: use layout orientation
+
+    evenWidths = False
+    evenHeights = False
+
+    def grid(self, layout):
+        """Return a three-tuple (ncols, nrows, prepend).
+
+        ncols is the number of columns the layout will contain, nrows the
+        number of rows; and prepend if the number of empty positions that the
+        layout wants, when the first row has less pages.
+
+        """
+        if layout.orientation == Vertical:
+            return 1, layout.count(), 0
+        else:
+            return layout.count(), 1, 0
+
+    def pages(self, layout, ncols, nrows, prepend=0):
+        """Yield the layout's pages in a grid: (page, (x, y)).
+
+        If prepend > 0, that number of first grid positions will remain unused.
+        This can be used for layouts that have less pages in the first row.
+
+        """
+        if (self.orientation or layout.orientation) == Vertical:
+            gen = ((col, row) for col in range(ncols) for row in range(nrows))
+        else:
+            gen = ((col, row) for row in range(nrows) for col in range(ncols))
+        if prepend:
+            for i in itertools.islice(gen, prepend):
+                pass # skip unused positions
+        return zip(layout, gen)
+
+    def dimensions(self, layout, ncols, nrows, prepend=0):
+        """Return two lists: columnwidths and rowheights.
+
+        The width and height are page dimensions, without page margin.
+
+        """
+        colwidths = [0] * ncols
+        rowheights = [0] * nrows
+        for page, (col, row) in self.pages(layout, ncols, nrows, prepend):
+            colwidths[col] = max(colwidths[col], page.width)
+            rowheights[row] = max(rowheights[row], page.height)
+        if self.evenWidths:
+            colwidths = [max(colwidths)] * ncols
+        if self.evenHeights:
+            rowheights = [max(rowheights)] * nrows
+        return colwidths, rowheights
+
+    def updatePagePositions(self, layout):
+        """Performs the positioning of the pages. Don't call on empty layout."""
+        ncols, nrows, prepend = self.grid(layout)
+        colwidths, rowheights = self.dimensions(layout, ncols, nrows, prepend)
+
+        m = layout.margins()
+        pm = layout.pageMargins()
+        pmh = pm.left() + pm.right()        # horizontal page margin
+        pmv = pm.top() + pm.bottom()        # vertical page margin
+
+        # accumulate for column and row offsets, adding spacing
+        xoff = [m.left() + pm.left()] + colwidths[:-1]
+        yoff = [m.top() + pm.top()] + rowheights[:-1]
+        for i in range(1, ncols):
+            xoff[i] += xoff[i-1] + layout.spacing + pmh
+        for i in range(1, nrows):
+            yoff[i] += yoff[i-1] + layout.spacing + pmv
+        # and go for positioning!
+        for page, (col, row) in self.pages(layout, ncols, nrows, prepend):
+            x, y = util.align(page.width, page.height, colwidths[col], rowheights[row], layout.alignment)
+            page.x = xoff[col] + x
+            page.y = yoff[row] + y
+
+    def fit(self, layout, size, mode):
+        """Called by PageLayout.fit()."""
+        if mode and layout.count():
+            zoomfactors = []
+            if mode & FitWidth:
+                zoomfactors.append(self.zoomFitWidth(layout, size.width()))
+            if mode & FitHeight:
+                zoomfactors.append(self.zoomFitHeight(layout, size.height()))
+            layout.zoomFactor = min(zoomfactors)
+
+    def zoomFitWidth(self, layout, width):
+        """Return the zoom factor this layout would need to fit in the width.
+
+        This method is called by fit(). The default implementation returns a
+        suitable zoom factor for the widest Page.
+
+        """
+        m, p = layout.margins(), layout.pageMargins()
+        width -= m.left() + m.right() + p.left() + p.right()
+        return layout.widestPage().zoomForWidth(width, layout.rotation, layout.dpiX)
+
+    def zoomFitHeight(self, layout, height):
+        """Return the zoom factor this layout would need to fit in the height.
+
+        This method is called by fit(). The default implementation returns a
+        suitable zoom factor for the highest Page.
+
+        """
+        m, p = layout.margins(), layout.pageMargins()
+        height -= m.top() + m.bottom() + p.top() + p.bottom()
+        return layout.highestPage().zoomForHeight(height, layout.rotation, layout.dpiY)
+
+    def pageSets(self, count):
+        """Return a list of (count, length) tuples.
+
+        Every count is the number of page sets of that length. When the layout
+        is in non-continuous mode, it displays only a single page set at a time.
+        For most layout engines, a page set is just one Page, but for column-
+        based layouts other values make sense.
+
+        """
+        return [(count, 1)] if count else []
+
+
+class RowLayoutEngine(LayoutEngine):
+    """A layout engine that orders pages in rows.
 
     Additional instance attributes:
 
@@ -435,11 +484,9 @@ class RowPageLayout(PageLayout):
         `pagesFirstRow`   = 1, the number of pages to display in the first row
         `fitAllColumns`   = True, whether "fit width" uses all columns
 
-    The `pagesFirstSet` and `pagesPerSet` instance attributes are changed to
-    properties that automatically use the respective values of pagesFirstRow
-    and pagesPerRow.
-    
-    The `orientation` attribute is ignored in this layout.
+    In non-continuous mode, this layout engine displayes a row of pages
+    together. The `orientation` layout attribute is ignored in this layout
+    engine.
 
     """
 
@@ -447,57 +494,70 @@ class RowPageLayout(PageLayout):
     pagesFirstRow = 1
     fitAllColumns = True
 
-    @property
-    def pagesPerSet(self):
-        return self.pagesPerRow
+    orientation = Horizontal    # do not change
 
-    @property
-    def pagesFirstSet(self):
-        return self.pagesFirstRow
+    def pageSets(self, count):
+        """Return a list of (count, length) tuples respecting our column settings."""
+        result = []
+        left = count
+        if left:
+            if self.pagesFirstRow and self.pagesFirstRow != self.pagesPerRow:
+                length = min(left, self.pagesFirstRow)
+                result.append((1, length))
+                left -= length
+            if left:
+                count, left = divmod(left, self.pagesPerRow)
+                if count:
+                    result.append((count, self.pagesPerRow))
+                if left:
+                    # merge result entries with same length
+                    if result and result[-1][1] == left:
+                        result[-1] == (result[-1][0] + 1, left)
+                    else:
+                        result.append((1, left))
+        return result
 
-    def zoomFitWidth(self, width):
-        """Reimplemented to respect the fitAllColumns setting."""
-        m, p = self.margins(), self.pageMargins()
-        width -= m.left() + m.right() + p.left() + p.right()
-        if self.fitAllColumns:
-            ncols = min(self.pagesPerRow, self.count())
-            width = (width - self.spacing * (ncols - 1)) // ncols
-        return self.widestPage().zoomForWidth(width, self.rotation, self.dpiX)
+    def grid(self, layout):
+        """Return (ncols, nrows, prepend).
 
-    def updatePagePositions(self):
-        """Reimplemented to perform our positioning algorithm."""
-        pages = list(self)
-        cols = self.pagesPerRow
-        if len(pages) > cols:
-            ## prepend empty places if the first row should display less pages
-            pages[0:0] = [None] * ((cols - self.pagesFirstRow) % cols)
+        Takes into account the pagesPerRow and pagesFirstRow instance
+        variables. If desired, prepends empty positions so the first row
+        contains less pages than the column width.
+
+        """
+        ncols = self.pagesPerRow
+        if layout.count() > ncols:
+            prepend = (ncols - self.pagesFirstRow) % ncols
         else:
-            cols = len(pages)
+            ncols = layout.count()
+        nrows = math.ceil((layout.count() + prepend) / ncols)
+        return ncols, nrows, prepend
 
-        col_widths = []
-        col_offsets = []
-        offset = self.margins().left()
-        for col in range(cols):
-            offset += self.pageMargins().left()
-            width = max(p.width for p in pages[col::cols] if p)
-            col_widths.append(width)
-            col_offsets.append(offset)
-            offset += width + self.spacing + self.pageMargins().right()
+    def zoomFitWidth(self, layout, width):
+        """Reimplemented to respect the fitAllColumns setting."""
+        if not self.fitAllColumns or self.pagesPerRow == 1 or layout.count() < 2:
+            return super().zoomFitWidth(layout, width)
+        ncols, nrows, prepend = self.grid(layout)
+        m, p = layout.margins(), layout.pageMargins()
+        width -= m.left() + m.right() + (p.left() + p.right()) * ncols
+        width -= layout.spacing * (ncols - 1)
+        if self.evenWidths:
+            return super().zoomFitWidth(layout, width // ncols)
+        # find the default width of the columns
+        cols = [[] for n in range(ncols)]
+        for page, (col, row) in self.pages(layout, ncols, nrows, prepend):
+            cols[col].append(page)
+        # widest page of every column
+        widestpages = [max(col, key=layout.defaultWidth) for col in cols]
+        totalDefaultWidth = sum(map(layout.defaultWidth, widestpages))
+        return min(page.zoomForWidth(
+                     width * layout.defaultWidth(page) // totalDefaultWidth,
+                     layout.rotation, layout.dpiX)
+            for page in widestpages)
 
-        top = self.margins().top()
-        for row in (pages[i:i + cols] for i in range(0, len(pages), cols or 1)):
-            top += self.pageMargins().top()
-            height = max(p.height for p in row if p)
-            for n, page in enumerate(row):
-                if page:
-                    x, y = util.align(page.width, page.height, col_widths[n], height, self.alignment)
-                    page.x = col_offsets[n] + x
-                    page.y = top + y
-            top += height + self.pageMargins().bottom() + self.spacing
 
-
-class RasterLayout(PageLayout):
-    """A layout that aligns the pages in a grid.
+class RasterLayoutEngine(LayoutEngine):
+    """A layout engine that aligns the pages in a grid.
 
     This layout does not zoom to fit, but changes the number of columns and rows
     according to the available space. FitBoth is handled like FitWidth.
@@ -507,101 +567,63 @@ class RasterLayout(PageLayout):
     _h = 0
     _w = 0
     _mode = FixedScale
-    orientation = Horizontal
 
-    def fit(self, size, mode):
+    def fit(self, layout, size, mode):
         """Reimplemented."""
         self._h = size.height()
         self._w = size.width()
         self._mode = mode
 
-    def updatePagePositions(self):
-        """Reimplemented."""
-        if self.empty():
-            return
-        m = self.margins()
-        pm = self.pageMargins()
+    def grid(self, layout):
+        """Return a grid that would fit in the layout."""
+        m, p = layout.margins(), layout.pageMargins()
         width = self._w - m.left() - m.right()
         height = self._h - m.top() - m.bottom()
-        pmh = pm.left() + pm.right()        # horizontal page margin
-        pmv = pm.top() + pm.bottom()        # vertical page margin
+        pmh = p.left() + p.right()        # horizontal page margin
+        pmv = p.top() + p.bottom()        # vertical page margin
+
         if self._mode & FitWidth:
-            w = self.widestPage().width + pmh
-            ncols = (width + self.spacing) // (w + self.spacing)
+            w = layout.widestPage().width + pmh
+            ncols = (width + layout.spacing) // (w + layout.spacing)
             if ncols:
                 # this will fit, but try more
-                for tryncols in range(ncols + 1, self.count() + 1):
-                    trynrows = math.ceil(self.count() / tryncols)
-                    cw, rh = self._rasterDimensions(tryncols, trynrows)
+                for tryncols in range(ncols + 1, layout.count() + 1):
+                    trynrows = math.ceil(layout.count() / tryncols)
+                    cw, rh = self.dimensions(layout, tryncols, trynrows)
                     # compute width: column widths, spacing and page margins
-                    w = sum(cw) + self.spacing * (tryncols - 1) + pmh * tryncols
+                    w = sum(cw) + layout.spacing * (tryncols - 1) + pmh * tryncols
                     if w >= width:
                         ncols = tryncols - 1
                         break
                 else:
-                    ncols = self.count()
+                    ncols = layout.count()
             else:
                 ncols = 1   # the minimum
-            nrows = math.ceil(self.count() / ncols)
+            nrows = math.ceil(layout.count() / ncols)
         elif self._mode & FitHeight:
-            h = self.highestPage().height + pmv
-            nrows = (height + self.spacing) // (h + self.spacing)
+            h = layout.highestPage().height + pmv
+            nrows = (height + layout.spacing) // (h + layout.spacing)
             if nrows:
                 # this will fit, but try more
-                for trynrows in range(nrows + 1, self.count() + 1):
-                    tryncols = math.ceil(self.count() / trynrows)
-                    cw, rh = self._rasterDimensions(tryncols, trynrows)
+                for trynrows in range(nrows + 1, layout.count() + 1):
+                    tryncols = math.ceil(layout.count() / trynrows)
+                    cw, rh = self.dimensions(layout, tryncols, trynrows)
                     # compute height: row heights, spacing and page margins
-                    h = sum(rh) + self.spacing * (trynrows - 1) + pmv * trynrows
+                    h = sum(rh) + layout.spacing * (trynrows - 1) + pmv * trynrows
                     if h >= height:
                         nrows = trynrows - 1
                         break
                 else:
-                    nrows = self.count()
+                    nrows = layout.count()
             else:
                 nrows = 1   # the minimum
-            ncols = math.ceil(self.count() / nrows)
+            ncols = math.ceil(layout.count() / nrows)
         else:
-            # order in a square
-            ncols = math.ceil(math.sqrt(self.count()))
-            nrows = math.ceil(self.count() / ncols)
-        # determine column widths and row heights
-        colwidths, rowheights = self._rasterDimensions(ncols, nrows)
-        # accumulate for column and row offsets, adding spacing
-        xoff = [m.left() + pm.left()] + colwidths[:-1]
-        yoff = [m.top() + pm.top()] + rowheights[:-1]
-        for i in range(1, ncols):
-            xoff[i] += xoff[i-1] + self.spacing + pmh
-        for i in range(1, nrows):
-            yoff[i] += yoff[i-1] + self.spacing + pmv
-        # and go for positioning!
-        for page, (col, row) in self._pagesInRaster(ncols, nrows):
-            x, y = util.align(page.width, page.height, colwidths[col], rowheights[row], self.alignment)
-            page.x = xoff[col] + x
-            page.y = yoff[row] + y
+            ncols = math.ceil(math.sqrt(layout.count()))
+            nrows = math.ceil(layout.count() / ncols)
+        return ncols, nrows, 0
 
-    def _pagesInRaster(self, ncols, nrows):
-        """Yield page, (col, row) for all pages, according to the orientation."""
-        def gen():
-            if self.orientation == Vertical:
-                for col in range(ncols):
-                    for row in range(nrows):
-                        yield col, row
-            else:
-                for row in range(nrows):
-                    for col in range(ncols):
-                        yield col, row
-        return zip(self, gen())
 
-    def _rasterDimensions(self, ncols, nrows):
-        """Return two lists: columnwidths and rowheights.
+# install a default layout engine at the class level
+PageLayout.engine = LayoutEngine()
 
-        The width and height are page dimensions, without page margin.
-
-        """
-        rowheights = [0] * nrows
-        colwidths = [0] * ncols
-        for page, (col, row) in self._pagesInRaster(ncols, nrows):
-            rowheights[row] = max(rowheights[row], page.height)
-            colwidths[col] = max(colwidths[col], page.width)
-        return colwidths, rowheights
