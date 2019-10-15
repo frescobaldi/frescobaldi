@@ -258,7 +258,7 @@ class MusicView(QWidget):
         # RC: increased timer to give some time to the kinetic scrolling to complete.
         if self.view.isScrolling():
             msec += self.view.remainingScrollTime()
-        self.view.highlight(self._highlightMusicFormat, areas, msec)
+        self.view.highlight(areas, self._highlightMusicFormat, msec)
 
     def showContextMenu(self):
         """Called when the user right-clicks or presses the context menu key."""
