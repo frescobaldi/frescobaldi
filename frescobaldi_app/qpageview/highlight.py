@@ -72,8 +72,19 @@ class HighlightViewMixin:
     def __init__(self, parent=None, **kwds):
         self._highlights = weakref.WeakKeyDictionary()
         super().__init__(parent, **kwds)
-    
-    def highlight(self, highlighter, areas, msec=0):
+
+    def highlightRect(self, areas):
+        """Return the bounding rect of the areas."""
+        boundingRect = QRect()
+        for page, rects in areas.items():
+            f = page.mapToPage(1, 1).rect
+            pbound = QRect()
+            for r in rects:
+                pbound |= f(r)
+            boundingRect |= pbound.translated(page.pos())
+        return boundingRect
+
+    def highlight(self, highlighter, areas, msec=0, scroll=False, margins=None, allowKinetic=True):
         """Highlight the areas dict using the given highlighter.
 
         The areas dict maps Page objects to lists of rectangles, where the
@@ -82,7 +93,16 @@ class HighlightViewMixin:
 
         If msec > 0, the highlighting will vanish after that many microseconds.
 
+        If scroll is True, the View will be scrolled to show the areas to
+        highlight if needed, using View.ensureVisible(bounding rect of areas,
+        margins, allowKinetic).
+
         """
+        if scroll:
+            self.ensureVisible(self.highlightRect(areas), margins, allowKinetic)
+            if msec:
+                msec += self.remainingScrollTime()
+
         d = weakref.WeakKeyDictionary(areas)
         if msec:
             selfref = weakref.ref(self)
