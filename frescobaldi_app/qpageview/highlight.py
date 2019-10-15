@@ -71,7 +71,18 @@ class HighlightViewMixin:
     """Mixin methods vor view.View for highlighting areas."""
     def __init__(self, parent=None, **kwds):
         self._highlights = weakref.WeakKeyDictionary()
+        self._defaultHighlighter = None
         super().__init__(parent, **kwds)
+
+    def defaultHighlighter(self):
+        """Return a default highlighter, creating it if necessary."""
+        if self._defaultHighlighter is None:
+            self._defaultHighlighter = Highlighter()
+        return self._defaultHighlighter
+
+    def setDefaultHighlighter(self, highlighter):
+        """Set a Highlighter to use as the default highlighter."""
+        self._defaultHighlighter = highlighter
 
     def highlightRect(self, areas):
         """Return the bounding rect of the areas."""
@@ -84,12 +95,15 @@ class HighlightViewMixin:
             boundingRect |= pbound.translated(page.pos())
         return boundingRect
 
-    def highlight(self, highlighter, areas, msec=0, scroll=False, margins=None, allowKinetic=True):
-        """Highlight the areas dict using the given highlighter.
+    def highlight(self, areas, highlighter=None, msec=0, scroll=False, margins=None, allowKinetic=True):
+        """Highlight the areas dict using the given or default highlighter.
 
         The areas dict maps Page objects to lists of rectangles, where the
         rectangle is a QRectF() inside (0, 0, 1, 1) like the area attribute of
         a Link.
+
+        If the highlighter is not specified, the default highlighter will be
+        used.
 
         If msec > 0, the highlighting will vanish after that many microseconds.
 
@@ -98,6 +112,9 @@ class HighlightViewMixin:
         margins, allowKinetic).
 
         """
+        if highlighter is None:
+            highlighter = self.defaultHighlighter()
+
         if scroll:
             self.ensureVisible(self.highlightRect(areas), margins, allowKinetic)
             if msec:
@@ -118,8 +135,10 @@ class HighlightViewMixin:
         self._highlights[highlighter] = (d, t)
         self.viewport().update()
 
-    def clearHighlight(self, highlighter):
-        """Removes the highlighted areas of the given highlighter."""
+    def clearHighlight(self, highlighter=None):
+        """Removes the highlighted areas of the given or default highlighter."""
+        if highlighter is None:
+            highlighter = self.defaultHighlighter()
         try:
             (d, t) = self._highlights[highlighter]
         except KeyError:
@@ -128,20 +147,23 @@ class HighlightViewMixin:
         del self._highlights[highlighter]
         self.viewport().update()
 
-    def isHighlighting(self, highlighter):
-        """Return True if the highlighter is active."""
+    def isHighlighting(self, highlighter=None):
+        """Return True if the given or default highlighter is active."""
+        if highlighter is None:
+            highlighter = self.defaultHighlighter()
         return highlighter in self._highlights
 
-    def highlightUrls(self, highlighter, urls, msec=0, scroll=False, margins=None, allowKinetic=True):
+    def highlightUrls(self, urls, highlighter=None, msec=0, scroll=False, margins=None, allowKinetic=True):
         """Convenience method highlighting the specified urls in the Document.
 
-        This method highlights the areas returned for the urls by
+        The urls argument is a list of urls (str); the other arguments are used
+        for calling highlight() on the areas returned for the urls by
         getUrlHighlightAreas().
 
         """
         areas = self.getUrlHighlightAreas(urls)
         if areas:
-            self.highlight(highlighter, areas, msec, scroll, margins, allowKinetic)
+            self.highlight(areas, highlighter, msec, scroll, margins, allowKinetic)
 
     def getUrlHighlightAreas(self, urls):
         """Return the areas to highlight all occurrences of the specified URLs.
