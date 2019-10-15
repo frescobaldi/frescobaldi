@@ -25,7 +25,7 @@ Highlight rectangular areas inside a View.
 import collections
 import weakref
 
-from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QRect, QRectF, QTimer
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtWidgets import QApplication
 
@@ -131,6 +131,43 @@ class HighlightViewMixin:
     def isHighlighting(self, highlighter):
         """Return True if the highlighter is active."""
         return highlighter in self._highlights
+
+    def highlightUrls(self, highlighter, urls, msec=0, scroll=False, margins=None, allowKinetic=True):
+        """Convenience method highlighting the specified urls in the Document.
+
+        This method highlights the areas returned for the urls by
+        getUrlHighlightAreas().
+
+        """
+        areas = self.getUrlHighlightAreas(urls)
+        if areas:
+            self.highlight(highlighter, areas, msec, scroll, margins, allowKinetic)
+
+    def getUrlHighlightAreas(self, urls):
+        """Return the areas to highlight all occurrences of the specified URLs.
+
+        The areas are found in the dictionary returned by document().urls().
+        URLs that are not in that dictionary are silently skipped.
+        If there is no document set this method returns nothing.
+
+        """
+        doc = self.document()
+        if doc:
+            u = doc.urls()
+            if u:
+                pages = doc.pages()
+                areas = collections.defaultdict(list)
+                for url in urls:
+                    d = u.get(url)
+                    if d:
+                        for n, linkareas in d.items():
+                            rects = []
+                            for a in linkareas:
+                                r = QRectF()
+                                r.setCoords(*a)
+                                rects.append(r)
+                            areas[pages[n]].extend(rects)
+                return areas
 
     def paintEvent(self, ev):
         """Paint the highlighted areas in the viewport."""
