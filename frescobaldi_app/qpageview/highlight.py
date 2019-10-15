@@ -68,7 +68,20 @@ class Highlighter:
 
 
 class HighlightViewMixin:
-    """Mixin methods vor view.View for highlighting areas."""
+    """Mixin methods vor view.View for highlighting areas.
+
+    This mixin allows for highlighting rectangular areas on pages. You
+    can highlight different sets of areas independently, using different
+    Highlighter instances.
+
+    Highlighting can be set to stay on forever or to disappear after a
+    certain amount of microseconds.
+
+    If desired, the View can be scrolled to show the highlighted areas.
+    How the highlighting is drawn is determined by the paintRects() method
+    of Highlighter.
+
+    """
     def __init__(self, parent=None, **kwds):
         self._highlights = weakref.WeakKeyDictionary()
         self._defaultHighlighter = None
@@ -108,7 +121,7 @@ class HighlightViewMixin:
         If msec > 0, the highlighting will vanish after that many microseconds.
 
         If scroll is True, the View will be scrolled to show the areas to
-        highlight if needed, using View.ensureVisible(bounding rect of areas,
+        highlight if needed, using View.ensureVisible(highlightRect(areas),
         margins, allowKinetic).
 
         """
@@ -156,9 +169,9 @@ class HighlightViewMixin:
     def highlightUrls(self, urls, highlighter=None, msec=0, scroll=False, margins=None, allowKinetic=True):
         """Convenience method highlighting the specified urls in the Document.
 
-        The urls argument is a list of urls (str); the other arguments are used
-        for calling highlight() on the areas returned for the urls by
-        getUrlHighlightAreas().
+        The urls argument is a list of urls (str); the other arguments
+        are used for calling highlight() on the areas returned by
+        getUrlHighlightAreas(urls).
 
         """
         areas = self.getUrlHighlightAreas(urls)
