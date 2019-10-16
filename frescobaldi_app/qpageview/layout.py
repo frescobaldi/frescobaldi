@@ -194,7 +194,7 @@ class PageLayout(util.Rectangular, list):
         if self.count():
             return max(self, key=self.defaultWidth)
 
-    def heighestPage(self):
+    def highestPage(self):
         """Return the page with the largest default height, if any."""
         if self.count():
             return max(self, key=self.defaultHeight)
@@ -349,7 +349,7 @@ class LayoutEngine:
     can override pageSets() to get a different behaviour in non-continuous mode.
 
     If there are multiple rows or columns, every row is as heigh as the
-    heighest page it contains, and every column is as wide as its widest page.
+    highest page it contains, and every column is as wide as its widest page.
     You can set the attributes evenWidths and/or evenHeights to True if you
     want all columns to have the same width, and/or respectively, the rows the
     same height.
