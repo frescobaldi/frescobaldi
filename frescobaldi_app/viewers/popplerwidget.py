@@ -57,7 +57,7 @@ from . import pointandclick
 
 
 class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
-    """Widget containing the qpopplerview.View."""
+    """Widget containing the qpageview.View."""
 
     # TODO: As much as possible should be moved to the base class.
 
