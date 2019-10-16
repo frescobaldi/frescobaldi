@@ -30,9 +30,9 @@ without arguments, or by using Dreampie or IPython) and then enter:
 
 from frescobaldi_app.debug import *
 
-This ensures the application starts up and uses the correct SIP API (2) for 
-QString and QVariant. This will also install some handlers that print 
-debugging information on certain events. And it imports the most used modules.
+This ensures the application starts up and also installs some handlers that
+print debugging information on certain events. And it imports the most used
+modules.
 
 Currently Python 3.2 and newer is supported.
 
@@ -88,7 +88,7 @@ symbols:        Provides icons of LilyPond-generated SVG files that draw
 Some completely generic modules (don't have anything to do with Frescobaldi or
 LilyPond):
 
-qpopplerview:   PDF viewer widget using the popplerqt4 binding to Poppler-Qt4
+qpageview:      PDF viewer widget using the popplerqt5 binding to Poppler-Qt5
 signals:        An alternative to Qt signals that allows for connections to have
                 priorities, and objects don't have to be Qt objects
 cachedproperty: Caches properties that can be asynchronously computed
