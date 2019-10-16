@@ -764,7 +764,7 @@ class ZoomerAction(ComboBoxAction):
                 index = 0
             elif mode == FitHeight:
                 index = 1
-            else: # qpopplerview.FitBoth:
+            else: # FitBoth:
                 index = 2
             for w in self.createdWidgets():
                 w.setCurrentIndex(index)
