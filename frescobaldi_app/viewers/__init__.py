@@ -45,6 +45,8 @@ import app
 import actioncollection
 import actioncollectionmanager
 import icons
+import pagedview
+import qpageview.document
 import qutil
 import panel
 import listmodel
@@ -56,8 +58,8 @@ from . import documents
 # default zoom percentages
 _zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
 
-# viewModes from qpopplerview:
-from qpopplerview import FixedScale, FitWidth, FitHeight, FitBoth
+# viewModes from qpageview:
+from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
 
 
 def activate(func):
@@ -149,16 +151,12 @@ class AbstractViewPanel(panel.Panel):
 
         w = self._createConcreteWidget()
 
-        w.zoomChanged.connect(self.slotViewerZoomChanged)
-        w.updateZoomInfo()
-        w.view.surface().selectionChanged.connect(self.updateSelection)
-        w.view.surface().pageLayout().setPagesPerRow(1)   # default to single
-        w.view.surface().pageLayout().setPagesFirstRow(0) # pages
+        w.view.zoomFactorChanged.connect(self.slotMusicZoomFactorChanged)
+        w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
+        w.view.pageCountChanged.connect(self.slotPageCountChanged)
+        w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
+        w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
-        import qpopplerview.pager
-        self._pager = p = qpopplerview.pager.Pager(w.view)
-        p.pageCountChanged.connect(self.slotPageCountChanged)
-        p.currentPageChanged.connect(self.slotCurrentPageChanged)
         app.languageChanged.connect(self.updatePagerLanguage)
 
         selector = self.actionCollection.viewer_document_select
@@ -197,35 +195,34 @@ class AbstractViewPanel(panel.Panel):
     def updatePagerLanguage(self):
         """Called when the application lanugage has changed.
         Update the pager to implicitly update the language."""
-        self.actionCollection.viewer_pager.setPageCount(self._pager.pageCount())
+        self.actionCollection.viewer_pager.setPageCount(self.widget().view.pageCount())
 
     def slotPageCountChanged(self, total):
         self.actionCollection.viewer_pager.setPageCount(total)
 
     def slotCurrentPageChanged(self, num):
         self.actionCollection.viewer_pager.setCurrentPage(num)
-        self.actionCollection.viewer_next_page.setEnabled(num < self._pager.pageCount())
+        self.actionCollection.viewer_next_page.setEnabled(num < self.widget().view.pageCount())
         self.actionCollection.viewer_prev_page.setEnabled(num > 1)
 
     @activate
     def slotNextPage(self):
-        self._pager.setCurrentPage(self._pager.currentPage() + 1)
+        self.widget().view.gotoNextPage()
 
     @activate
     def slotPreviousPage(self):
-        self._pager.setCurrentPage(self._pager.currentPage() - 1)
+        self.widget().view.gotoPreviousPage()
 
     def setCurrentPage(self, num):
         self.activate()
-        self._pager.setCurrentPage(num)
+        self.widget().view.setCurrentPageNumber(num)
 
     def updateActions(self):
         ac = self.actionCollection
         ac.viewer_print.setEnabled(bool(ac.viewer_document_select.viewdocs()))
 
     def printMusic(self):
-        doc = self.actionCollection.viewer_document_select.currentViewdoc()
-        if doc and doc.document():
+        if self.widget().view.pageCount():
             ### temporarily disable printing on Mac OS X
             import sys
             if sys.platform.startswith('darwin'):
@@ -246,8 +243,7 @@ class AbstractViewPanel(panel.Panel):
                 elif result == QMessageBox.Cancel:
                     return
             ### end temporarily disable printing on Mac OS X
-            import popplerprint
-            popplerprint.printDocument(doc, self)
+            self.widget().view.print()
 
     @activate
     def zoomIn(self):
@@ -259,7 +255,7 @@ class AbstractViewPanel(panel.Panel):
 
     @activate
     def zoomOriginal(self):
-        self.widget().view.zoom(1.0)
+        self.widget().view.setZoomFactor(1.0)
 
     @activate
     def fitWidth(self):
@@ -275,28 +271,19 @@ class AbstractViewPanel(panel.Panel):
 
     @activate
     def viewSinglePages(self):
-        layout = self.widget().view.surface().pageLayout()
-        layout.setPagesPerRow(1)
-        layout.setPagesFirstRow(0)
-        layout.update()
+        self.widget().view.setPageLayoutMode("single")
 
     @activate
     def viewTwoPagesFirstRight(self):
-        layout = self.widget().view.surface().pageLayout()
-        layout.setPagesPerRow(2)
-        layout.setPagesFirstRow(1)
-        layout.update()
+        self.widget().view.setPageLayoutMode("double_right")
 
     @activate
     def viewTwoPagesFirstLeft(self):
-        layout = self.widget().view.surface().pageLayout()
-        layout.setPagesPerRow(2)
-        layout.setPagesFirstRow(0)
-        layout.update()
+        self.widget().view.setPageLayoutMode("double_left")
 
     @activate
     def jumpToCursor(self):
-        self.widget().showCurrentLinks()
+        self.widget().showCurrentLinks(True, 10000)
 
     @activate
     def reloadView(self):
@@ -322,28 +309,34 @@ class AbstractViewPanel(panel.Panel):
         userguide.show(self.viewerName())
 
     def copyImage(self):
-        page = self.widget().view.surface().selectedPage()
+        page, rect = self.widget().view.rubberband().selectedPage()
         if not page:
             return
-        rect = self.widget().view.surface().selectedPageRect(page)
+        filename = self.widget().view.document().filename()
         import copy2image
-        copy2image.copy_image(self, page, rect, documents.filename(page.document()))
+        copy2image.copy_image(self, page, rect, filename)
 
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
         self.activate()
+        self.widget().view.setViewMode(mode)
         if mode == FixedScale:
-            self.widget().view.zoom(scale)
-        else:
-            self.widget().view.setViewMode(mode)
+            self.widget().view.setZoomFactor(scale)
 
-    def slotViewerZoomChanged(self, mode, scale):
+    def slotMusicZoomFactorChanged(self, factor):
+        """Called when the music view zoom is changed, updates the toolbar actions."""
+        ac = self.actionCollection
+        mode = self.widget().view.viewMode()
+        ac.viewer_zoom_combo.updateZoomInfo(mode, factor)
+
+    def slotMusicViewModeChanged(self, mode):
         """Called when the music view is changed, updates the toolbar actions."""
         ac = self.actionCollection
         ac.viewer_fit_width.setChecked(mode == FitWidth)
         ac.viewer_fit_height.setChecked(mode == FitHeight)
         ac.viewer_fit_both.setChecked(mode == FitBoth)
-        ac.viewer_zoom_combo.updateZoomInfo(mode, scale)
+        factor = self.widget().view.zoomFactor()
+        ac.viewer_zoom_combo.updateZoomInfo(mode, factor)
 
     def slotShowViewdoc(self):
         """Bring the document to front that was selected from the context menu"""
@@ -531,7 +524,7 @@ class ViewdocChooserAction(ComboBoxAction):
 
     viewdocClosed = pyqtSignal()
     viewdocsChanged = pyqtSignal()
-    currentViewdocChanged = pyqtSignal(documents.Document)
+    currentViewdocChanged = pyqtSignal(qpageview.document.Document)
     viewdocsMissing = pyqtSignal(list)
 
     def __init__(self, panel):
@@ -647,13 +640,8 @@ class ViewdocChooserAction(ComboBoxAction):
     def setCurrentIndex(self, index):
         if self._viewdocs:
             self._currentIndex = index
-            p = QApplication.palette()
-            if not self._viewdocs[index].updated:
-                color = qutil.mixcolor(QColor(Qt.red), p.color(QPalette.Base), 0.3)
-                p.setColor(QPalette.Base, color)
             for w in self.createdWidgets():
                 w.setCurrentIndex(index)
-                w.setPalette(p)
             self.currentViewdocChanged.emit(self._viewdocs[index])
 
     def currentIndex(self):
@@ -693,7 +681,7 @@ class ViewdocChooserAction(ComboBoxAction):
         viewdocs = []
         for f in files:
             if not f in self._viewdocFiles():
-                doc = documents.Document(f)
+                doc = pagedview.loadPdf(f)
                 viewdocs.append(doc)
         self.loadViewdocs(viewdocs, files[-1], sort)
 

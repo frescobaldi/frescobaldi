@@ -36,8 +36,11 @@ try:
 except ImportError:
     pass
 
-import qpopplerview
-import popplerview
+import qpageview
+import qpageview.layout
+import qpageview.highlight
+import qpageview.rubberband
+import pagedview
 
 import app
 import helpers
@@ -85,8 +88,6 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def createProtectedFields(self):
         """Create the empty protected fields that will hold actual data."""
-        self._positions = weakref.WeakKeyDictionary()
-        self._currentViewdoc = None
         self._links = None
         self._clicking_link = False
         self._toolbar = None
@@ -103,22 +104,16 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def createHighlighters(self):
         self._highlightFormat = QTextCharFormat()
-        self._highlightMusicFormat = Highlighter()
+        self._highlightMusicFormat = qpageview.highlight.Highlighter()
         self._highlightRange = None
-        self._highlightTimer = QTimer(singleShot=True, interval= 250, timeout=self.updateHighlighting)
-        self._highlightRemoveTimer = QTimer(singleShot=True, timeout=self.clearHighlighting)
 
     def createView(self):
         """Creates the actual View instance."""
-        self.view = popplerview.View(self)
+        self.view = pagedview.PagedView(self)
+        self.view.setRubberband(qpageview.rubberband.Rubberband())
         self._main_layout.addWidget(self.view)
-        self.view.setViewMode(qpopplerview.FitWidth)
-        surface = self.view.surface()
-        surface.setShowUrlTips(False)
-        surface.setPageLayout(qpopplerview.RowLayout())
+        self.view.setViewMode(qpageview.FitWidth)
 
-        self.view.viewModeChanged.connect(self.updateZoomInfo)
-        surface.pageLayout().scaleChanged.connect(self.updateZoomInfo)
         self.view.setContextMenuPolicy(Qt.CustomContextMenu)
         self.view.customContextMenuRequested.connect(self.showContextMenu)
 
@@ -144,11 +139,10 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         if view:
             self.slotCurrentViewChanged(view)
 
-        surface = self.view.surface()
-        surface.linkClicked.connect(self.slotLinkClicked)
-        surface.linkHovered.connect(self.slotLinkHovered)
-        surface.linkLeft.connect(self.slotLinkLeft)
-        surface.linkHelpRequested.connect(self.slotLinkHelpRequested)
+        self.view.linkClicked.connect(self.slotLinkClicked)
+        self.view.linkHovered.connect(self.slotLinkHovered)
+        self.view.linkLeft.connect(self.slotLinkLeft)
+        self.view.linkHelpRequested.connect(self.slotLinkHelpRequested)
 
     def viewerName(self):
         """Return the viewerName() attribute of the panel."""
@@ -160,26 +154,18 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         """Returns the initial size the PDF (Music) View prefers."""
         return self.parent().mainwindow().size() / 2
 
-    def updateZoomInfo(self):
-        """Called when zoom and viewmode of the qpopplerview change, emit zoomChanged."""
-        self.zoomChanged.emit(self.view.viewMode(), self.view.surface().pageLayout().scale())
-
     def currentViewdoc(self):
         """Returns the current Document or None."""
-        return self._currentViewdoc
+        return self.view.document()
 
     def openViewdoc(self, doc):
-        """Opens a documents.Document instance."""
+        """Opens a qpageview.Document instance."""
         try:
-            self.clear()
-            self._currentViewdoc = doc
+            self.view.setDocument(doc)
             document = doc.document()
             doc.ispresent = True
             if document:
                 self._links = pointandclick.links(document)
-                self.view.load(document)
-                position = self._positions.get(doc, (0, 0, 0))
-                self.view.setPosition(position, True)
         except OSError:
             # the file is not found on the given path
             dlg = widgets.dialog.Dialog(buttons=('yes', 'no'))
@@ -199,28 +185,25 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def clear(self):
         """Empties the view."""
-        cur = self._currentViewdoc
-        if cur:
-            self._positions[cur] = self.view.position()
-        self._currentViewdoc = None
         self._links = None
         self._highlightRange = None
-        self._highlightTimer.stop()
         self.view.clear()
 
     def readSettings(self):
         """Reads the settings from the user's preferences."""
         # background and highlight colors of music view
         colors = textformats.formatData('editor').baseColors
-        self._highlightMusicFormat.setColor(colors['musichighlight'])
+        self._highlightMusicFormat.color = colors['musichighlight']
         color = colors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
 
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.
+
         If the links is a textedit link, opens the document and puts the cursor there.
         Otherwise, call the helpers module to open the destination.
+
         """
         if ev.button() == Qt.RightButton:
             return
@@ -230,28 +213,31 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 import editinplace
                 editinplace.edit(self, cursor, ev.globalPos())
             else:
+                import browseriface
                 mainwindow = self.parent().mainwindow()
                 self._clicking_link = True
-                mainwindow.setTextCursor(cursor, findOpenView=True)
+                browseriface.get(mainwindow).setTextCursor(cursor, findOpenView=True)
                 self._clicking_link = False
                 import widgets.blink
                 widgets.blink.Blinker.blink_cursor(mainwindow.currentView())
                 mainwindow.activateWindow()
                 mainwindow.currentView().setFocus()
-        elif (isinstance(link, popplerqt5.Poppler.LinkBrowse)
-              and not link.url().startswith('textedit:')):
-            helpers.openUrl(QUrl(link.url()))
+        elif link.url and not link.url.startswith('textedit:'):
+            helpers.openUrl(QUrl(link.url))
+        elif (hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto)
+              and not link.linkobj.isExternal()):
+            self.view.setCurrentPageNumber(link.linkobj.destination().pageNumber())
 
     def slotLinkHovered(self, page, link):
         """Called when the mouse hovers a link.
+
         If the links points to the current editor document, the token(s) it points
         at are highlighted using a transparent selection color.
+
         The highlight shows for a few seconds but disappears when the mouse moves
         off the link or when the link is clicked.
+
         """
-        self.view.surface().highlight(self._highlightMusicFormat,
-            [(page, link.linkArea().normalized())], 2000)
-        self._highlightRange = None
         cursor = self._links.cursor(link)
         if not cursor or cursor.document() != self.parent().mainwindow().currentDocument():
             return
@@ -264,24 +250,30 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
 
     def slotLinkLeft(self):
         """Called when the mouse moves off a previously highlighted link."""
-        self.clearHighlighting()
         view = self.parent().mainwindow().currentView()
         viewhighlighter.highlighter(view).clear(self._highlightFormat)
 
-    def slotLinkHelpRequested(self, pos, page, link):
+    def slotLinkHelpRequested(self, ev, page, link):
         """Called when a ToolTip wants to appear above the hovered link."""
-        if isinstance(link, popplerqt5.Poppler.LinkBrowse):
+        pos = self.view.viewport().mapToGlobal(ev.pos())
+        if link.url:
             cursor = self._links.cursor(link)
             if cursor:
                 import documenttooltip
                 text = documenttooltip.text(cursor)
-            elif link.url():
-                l = textedit.link(link.url())
+            else:
+                l = textedit.link(link.url)
                 if l:
                     text = "{0} ({1}:{2})".format(os.path.basename(l.filename), l.line, l.column)
                 else:
-                    text = link.url()
-            QToolTip.showText(pos, text, self.view.surface(), page.linkRect(link.linkArea()))
+                    text = link.url
+        elif hasattr(link, "linkobj") and isinstance(link.linkobj, popplerqt5.Poppler.LinkGoto):
+            text = _("Page {num}").format(num=link.linkobj.destination().pageNumber())
+            if link.linkobj.isExternal():
+                text = link.linkobj.fileName() + "\n" + text
+        else:
+            return
+        QToolTip.showText(pos, text, self.view, page.linkRect(link))
 
     def slotSessionChanged(self, name):
         """Called whenever the current session is changed
@@ -301,9 +293,9 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 for v in session.value(files_key, ""):
                     filename = v[0]
                     position = v[1]
-                    doc = documents.Document(filename)
+                    doc = pagedview.loadPdf(filename)
                     viewdocs.append(doc)
-                    self._positions[doc] = position
+                    self.view._positions[doc] = position
                     if not os.path.isfile(filename):
                         doc.ispresent = False
                 # Temporary hack to suppress the resize event that
@@ -320,22 +312,23 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         import sessions
         g = sessions.currentSessionGroup()
         if g:
+            # TODO: cleanup for multi-file documents later
             files_key = "{}-files".format(self.viewerName())
             active_file_key = "{}-active-file".format(self.viewerName())
             docs = self.actionCollection.viewer_document_select.viewdocs()
             if docs:
-                current_viewdoc = self.currentViewdoc()
-                current_file = current_viewdoc.filename()
-                g.setValue(active_file_key, current_file)
+                current_file = self.currentViewdoc() and self.currentViewdoc().filename()
+                if current_file:
+                    g.setValue(active_file_key, current_file)
                 pos = []
                 for d in docs:
-                    if d.filename() == current_file:
+                    if current_file and d.filename() == current_file:
                         # retrieve the position of the current document directly
                         # from the view because the entry in _positions may not
                         # be set in all cases
                         p = self.view.position()
                     else:
-                        p = self._positions.get(d, (0, 0, 0))
+                        p = self.view._positions.get(d, (0, 0, 0))
                     pos.append((d.filename(), p))
                 g.setValue(files_key, pos)
             else:
@@ -343,13 +336,24 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 g.remove(files_key)
 
     def slotCurrentViewChanged(self, view, old=None):
-        self.view.surface().clearHighlight(self._highlightMusicFormat)
+        self.view.clearHighlight(self._highlightMusicFormat)
         if old:
             old.cursorPositionChanged.disconnect(self.slotCursorPositionChanged)
         view.cursorPositionChanged.connect(self.slotCursorPositionChanged)
 
     def slotCursorPositionChanged(self):
         """Called when the user moves the text cursor."""
+        self.showCurrentLinks(
+            not self._clicking_link
+            and self.parent().actionCollection.music_sync_cursor.isChecked())
+
+    def showCurrentLinks(self, scroll=False, msec=None):
+        """Show objects at current text cursor.
+
+        If scroll is True, also scrolls the view if needed. If msec is given,
+        objects are highlighed that long. If not given, a default time is used.
+
+        """
         if not self.isVisible() or not self._links:
             return # not visible of no PDF in the viewer
 
@@ -359,84 +363,39 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
             return # the PDF contains no references to the current text document
 
         s = links.indices(view.textCursor())
-        if s is False:
-            self.clearHighlighting()
-        elif s:
-            # move if sync is enabled and the cursor did not move as a result of
-            # clicking a link
-            if (not self._clicking_link
-                and self.parent().actionCollection.viewer_sync_cursor.isChecked()):
-                rect = self.destinationsRect(links.destinations()[s])
-                center = rect.center()
-                self.view.ensureVisible(center.x(), center.y(),
-                                        50 + rect.width() // 2,
-                                        50 + rect.height() // 2)
-
-            # perform highlighting after move has been started. This is to ensure that if kinetic scrolling is
-            # is enabled its speed is already set so that we can adjust the highlight timer.
-            self.highlight(links.destinations(), s)
-
-
-    def highlight(self, destinations, slice, msec=None):
-        """(Internal) Highlights the from the specified destinations the specified slice."""
-        count = slice.stop - slice.start
-        if msec is None:
-            # RC: increased timer to give some time to the kinetic scrolling to complete.
-            kineticTimeLeft = 0
-            if self.view.kineticScrollingEnabled():
-                kineticTimeLeft = 20*self.view.kineticTicksLeft()
-            msec = 5000 if count > 1 else 2000 # show selections longer
-            msec += kineticTimeLeft
-        self._highlightRemoveTimer.start(msec)
-        if self._highlightRange == slice:
-            return # don't redraw if same
-        self._highlightRange = slice
-        self._destinations = destinations[slice]
-        if count > 100:
-            self._highlightTimer.start()
-        else:
-            self._highlightTimer.stop()
-            self.updateHighlighting()
-
-    def updateHighlighting(self):
-        """Really orders the view's surface to draw the highlighting."""
-        layout = self.view.surface().pageLayout()
-        areas = [(layout[pageNum], rect)
-                    for dest in self._destinations
-                    for pageNum, rect in dest]
-        self.view.surface().highlight(self._highlightMusicFormat, areas)
-
-    def clearHighlighting(self):
-        """Called on timeout of the _highlightRemoveTimer."""
-        self._highlightRange = None
-        self.view.surface().clearHighlight(self._highlightMusicFormat)
-
-    def showCurrentLinks(self):
-        """Scrolls the view if necessary to show objects at current text cursor."""
-        if not self._links:
-            return # no PDF in viewer
-
-        view = self.parent().mainwindow().currentView()
-        links = self._links.boundLinks(view.document())
-        if not links:
-            return # the PDF contains no references to the current text document
-
-        s = links.indices(view.textCursor())
         if not s:
+            if s is False:
+                self.view.clearHighlight(self._highlightMusicFormat)
             return
-        self.view.center(self.destinationsRect(links.destinations()[s]).center())
-        self.highlight(links.destinations(), s, 10000)
+        
+        if not scroll and self._highlightRange == s and self.view.isHighlighting(self._highlightMusicFormat):
+            return # don't redraw if same
+        self._highlightRange = s
 
-    def destinationsRect(self, destinations):
-        """Return the rectangle containing all destinations."""
-        layout = self.view.surface().pageLayout()
-        rect = QRect()
-        for dest in destinations:
-            for pageNum, r in dest:
-                rect = rect.united(layout[pageNum].linkRect(r.normalized()))
-        # not larger than viewport
-        rect.setSize(rect.size().boundedTo(self.view.viewport().size()))
-        return rect
+        # create the dict of areas
+        layout = self.view.pageLayout()
+        areas = collections.defaultdict(list)
+        for dest in links.destinations()[s]:
+            for pageNum, rect in dest:
+                areas[layout[pageNum]].append(rect)
+
+        if scroll:
+            # compute the bounding rect
+            boundingRect = QRect()
+            for page, rects in areas.items():
+                f = page.mapToPage(1, 1).rect
+                pbound = QRect()
+                for r in rects:
+                    pbound |= f(r)
+                boundingRect |= pbound.translated(page.pos())
+            self.view.ensureVisible(boundingRect, QMargins(20, 20, 20, 20))
+
+        if msec is None:
+            msec = 5000 if s.stop - s.start > 1 else 2000 # show selections longer
+        # RC: increased timer to give some time to the kinetic scrolling to complete.
+        if self.view.isScrolling():
+            msec += self.view.remainingScrollTime()
+        self.view.highlight(areas, self._highlightMusicFormat, msec)
 
     def showContextMenu(self):
         """Called when the user right-clicks or presses the context menu key."""
@@ -445,8 +404,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         # mouse inside view?
         if self.view.mapFromGlobal(QCursor.pos()) in self.view.viewport().rect():
             pos = QCursor.pos()
-            pos_in_surface = self.view.surface().mapFromGlobal(pos)
-            page, link = self.view.surface().pageLayout().linkAt(pos_in_surface)
+            pos_in_viewport = self.view.viewport().mapFromGlobal(pos)
+            page, link = self.view.linkAt(pos_in_viewport)
             if link:
                 cursor = self._links.cursor(link, True)
         self._contextMenu.show(pos, link, cursor)
@@ -456,14 +415,3 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         return self._toolbar
 
 
-class Highlighter(qpopplerview.Highlighter):
-    """Simple version of qpopplerview.Highlighter that has the color settable.
-    You must set a color before using the Highlighter.
-    """
-    def setColor(self, color):
-        """Sets the color to use to draw highlighting rectangles."""
-        self._color = color
-
-    def color(self):
-        """Returns the color set using the setColor method."""
-        return self._color

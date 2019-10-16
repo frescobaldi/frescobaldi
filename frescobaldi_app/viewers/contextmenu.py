@@ -21,6 +21,7 @@
 Base class for viewers' context menus.
 """
 
+import os
 
 from PyQt5.QtCore import QObject, QUrl
 from PyQt5.QtWidgets import QApplication, QMenu, QAction, QActionGroup
@@ -40,13 +41,7 @@ class AbstractViewerContextMenu(QObject):
     def __init__(self, panel):
         self._panel = panel
         self._actionCollection = panel.actionCollection
-        self._surface = None
         self._menu = QMenu(self._panel)
-
-    def surface(self):
-        """Return the (cached) surface"""
-        result = self._surface or self._panel.widget().view.surface()
-        return result
 
     def addSeparator(self):
         """Add a separator to the menu."""
@@ -54,7 +49,7 @@ class AbstractViewerContextMenu(QObject):
 
     def addCopyImageAction(self):
         """Add action to copy image if available"""
-        if self.surface().hasSelection():
+        if self._panel.widget().view.rubberband().hasSelection():
             self._menu.addAction(self._actionCollection.viewer_copy_image)
 
     def addEditInPlaceAction(self, cursor, position):
@@ -72,18 +67,18 @@ class AbstractViewerContextMenu(QObject):
         @a.triggered.connect
         def open_in_browser():
             import helpers
-            helpers.openUrl(QUrl(link.url()))
+            helpers.openUrl(QUrl(link.url))
 
         a = m.addAction(icons.get("edit-copy"), _("Copy &Link"))
         @a.triggered.connect
         def copy_link():
-            QApplication.clipboard().setText(link.url())
+            QApplication.clipboard().setText(link.url)
 
     def addCursorLinkActions(self):
         """Add actions if on a textedit or arbitrary link"""
         if self._cursor:
             self.addEditInPlaceAction(self._cursor, self._position)
-        elif self._link:
+        elif self._link and self._link.url:
             self.addLinkAction(self._link)
 
     def addExtensionMenu(self):
@@ -109,7 +104,7 @@ class AbstractViewerContextMenu(QObject):
 
         for d in docs:
             action = QAction(sm)
-            action.setText(d.name())
+            action.setText(os.path.basename(d.filename()))
             action._document_filename = d.filename()
             # TODO: Tooltips aren't shown by Qt (it seems)
             action.setToolTip(d.filename())
