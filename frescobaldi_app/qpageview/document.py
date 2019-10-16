@@ -100,6 +100,22 @@ class Document:
                     urls.setdefault(url, {}).setdefault(n, []).append(link.area)
         return urls
 
+    def addUrls(self, urls):
+        """Read the dict (such as returned by urls()) and make clickable links.
+
+        This can be used to add url-links to a document from another document,
+        e.g. when a document represents the same content, but has no clickable
+        links (e.g. images). Links on pages with a higher number than our number
+        of pages are skipped.
+
+        """
+        from .link import Link
+        for url, dests in urls.items():
+            for n, areas in dests.items():
+                if 0 <= n < self.count():
+                    links = self.pages()[n].links()
+                    links.bulk_add(Link(*area, url=url) for area in areas)
+
 
 class AbstractSourceDocument(Document):
     """A Document that loads pages from external source, such as a file.
