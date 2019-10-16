@@ -345,7 +345,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         """Called when the user moves the text cursor."""
         self.showCurrentLinks(
             not self._clicking_link
-            and self.parent().actionCollection.music_sync_cursor.isChecked())
+            and self.parent().actionCollection.viewer_sync_cursor.isChecked())
 
     def showCurrentLinks(self, scroll=False, msec=None):
         """Show objects at current text cursor.
