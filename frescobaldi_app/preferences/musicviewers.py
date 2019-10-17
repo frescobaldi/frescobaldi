@@ -35,6 +35,7 @@ import app
 import qutil
 import preferences
 import pagedview
+import qpageview.cupsprinter
 
 
 class MusicViewers(preferences.ScrolledGroupsPage):
@@ -160,6 +161,9 @@ class Printing(preferences.Group):
         layout.addWidget(self.resolution, 1, 1)
 
         app.translateUI(self)
+
+        if not qpageview.cupsprinter.handle():
+            self.useCups.setEnabled(False)
 
     def translateUI(self):
         self.setTitle(_("Printing of Music"))
