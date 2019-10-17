@@ -58,7 +58,7 @@ from . import documents
 
 
 # default zoom percentages
-_zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
+_zoomvalues = [50, 75, 100, 125, 150, 200, 300, 800, 2400, 6400]
 
 # viewModes from qpageview:
 from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
