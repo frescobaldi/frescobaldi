@@ -96,12 +96,12 @@ class MusicView(preferences.Group):
         # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
         self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
         self.showScrollbars.setText(_("Show Scrollbars"))
-        self.arthurBackend.setText(_("Use Arthur backend for rendering PDF documents on screen"))
+        self.arthurBackend.setText(_("Use vector based backend (Arthur) for rendering PDF documents on screen (experimental!)"))
         self.arthurBackend.setToolTip(_(
             "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
             "library for PDF rendering on screen. The Arthur backend is faster\n"
             "than the default Splash backend, but more experimental."))
-        self.printArthurBackend.setText(_("Use Arthur backend for printing PDF documents"))
+        self.printArthurBackend.setText(_("Use vector based backend (Arthur) for printing PDF documents"))
         self.printArthurBackend.setToolTip(_(
             "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
             "library for printing PDFdocuments. A big advantage of the Arthur backend\n"
