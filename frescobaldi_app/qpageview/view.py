@@ -748,9 +748,19 @@ class View(scrollarea.ScrollArea):
         """Return the QRect of the page layout that is currently visible in the viewport."""
         return self.visibleArea().translated(self._pageLayout.pos())
 
-    def visiblePages(self):
-        """Yield the Page instances that are currently visible."""
-        return self._pageLayout.pagesAt(self.visibleRect())
+    def visiblePages(self, rect=None):
+        """Yield the Page instances that are currently visible.
+
+        If rect is not given, the visibleRect() is used.  The pages are sorted
+        so that the pages with the largest visible part come first.
+
+        """
+        if rect is None:
+            rect = self.visibleRect()
+        def key(page):
+            overlayrect = rect & page.geometry()
+            return overlayrect.width() * overlayrect.height()
+        return sorted(self._pageLayout.pagesAt(rect), key=key, reverse=True)
 
     def ensureVisible(self, rect, margins=None, allowKinetic=True):
         """Ensure rect is visible, switching page set if necessary."""
@@ -847,20 +857,8 @@ class View(scrollarea.ScrollArea):
         """
         layout_pos = self.layoutPosition()
         ev_rect = rect.translated(-layout_pos)
-
-        # compute the rectangle overlapping with rect, in page coordinates
-        def overlayrect(p):
-            return (p.geometry() & ev_rect).translated(-p.pos())
-
-        pagerects = [(p, overlayrect(p)) for p in self._pageLayout.pagesAt(ev_rect)]
-
-        # largest area first, so it is rendered first in pages that lock the doc
-        def key(pagerect):
-            r = pagerect[1]
-            return r.height() * r.width()
-        pagerects.sort(key=key, reverse=True)
-
-        for p, r in pagerects:
+        for p in self.visiblePages(ev_rect):
+            r = (p.geometry() & ev_rect).translated(-p.pos())
             painter.save()
             painter.translate(layout_pos + p.pos())
             yield p, r
