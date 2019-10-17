@@ -49,6 +49,9 @@ class FileExport(plugin.MainWindowPlugin):
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
         ac.export_musicxml.triggered.connect(self.exportMusicXML)
         ac.export_audio.triggered.connect(self.exportAudio)
+        app.jobFinished.connect(self.set_export_audio)
+        # TODO: Also connect to a signal that is emitted
+        # whenever the current document has changed.
 
     def exportMusicXML(self):
         """ Convert the current document to MusicXML """
@@ -78,13 +81,8 @@ class FileExport(plugin.MainWindowPlugin):
         """ Convert the current document to Audio """
         mainwin = self.mainwindow()
         doc = mainwin.currentDocument()
-        midfiles = resultfiles.results(doc).files('.mid*')
-        if not midfiles:
-            QMessageBox.critical(None, _("Error"),
-                    _("The audio file couldn't be created. Please create midi file first"))
-            return False
         orgname = doc.url().toLocalFile()
-        midifile = midfiles[0]
+        midifile = resultfiles.results(doc).files('.mid*')[0]
         wavfile = os.path.splitext(orgname)[0] + '.wav'
         caption = app.caption(_("dialog title", "Export Audio File"))
         filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
@@ -95,6 +93,41 @@ class FileExport(plugin.MainWindowPlugin):
         dlg.setAttribute(Qt.WA_DeleteOnClose) # we use it only once
         dlg.midi2wav(midifile, wavfile)
         dlg.show()
+
+    def set_export_audio(self, doc):
+        """Enable/Disable the export_audio action.
+
+        The action will be enabled if
+        - at least one tool is avaibable AND
+        - the current document has existing MIDI file(s)
+        """
+        midfiles = resultfiles.results(doc).files('.mid*')
+        action = self.actionCollection.export_audio
+        enabled = True if midfiles and audio_available(True) else False
+        action.setEnabled(enabled)
+        action.setToolTip(self.set_audio_tooltip(action, midfiles))
+
+    def set_audio_tooltip(self, action, midfiles):
+        """Generate the tooltip for the export_audio action.
+
+        This has to be done "live" to reflect the availability
+        of converters and the state of the current document.
+        """
+        result = []
+        result.append(_("Export to different audio formats if a"))
+        result.append(_("supported converter is available and the"))
+        result.append(_("current document has produced MIDI file(s)."))
+        result.append(_("Available exporters:"))
+        available = audio_available()
+        for supported in _supported_tools:
+            result.append("- {tool}: {available}".format(
+                tool=supported,
+                available=_("Yes") if supported in available else _("No")
+            ))
+        result.append(_("Document has MIDI file(s): {midi}").format(
+            midi=_("Yes") if midfiles else _("No")
+        ))
+        return '\n'.join(result)
 
 
 class AudioExportDialog(externalcommand.ExternalCommandDialog):
@@ -137,4 +170,24 @@ class Actions(actioncollection.ActionCollection):
         self.export_musicxml.setToolTip(_("Export current document as MusicXML."))
 
         self.export_audio.setText(_("Export Audio..."))
-        self.export_audio.setToolTip(_("Export to different audio formats."))
+
+
+_supported_tools = ['timidity']
+_available_tools = None
+
+def audio_available(force=False):
+    """Return a list of supported audio export tools.
+
+    This is cached by default but rechecking can be forced.
+    For example when populating the export menu it is always reloaded
+    because typically a user will install a tool if it missing and
+    does *not* want to restart Frescobaldi afterwards.."""
+
+    global _available_tools
+    if force or _available_tools is None:
+        from shutil import which
+        _audio_available = []
+        for tool in _supported_tools:
+            if which(tool) is not None:
+                _audio_available.append(tool)
+    return _audio_available
