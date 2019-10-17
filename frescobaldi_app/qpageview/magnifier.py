@@ -118,6 +118,38 @@ class Magnifier(QWidget):
         """Returns the scale, defaulting to 3.0 (=300%)."""
         return self._scale
 
+    def startShortDrag(self, pos):
+        """Start a short drag (e.g. on ctrl+click)."""
+        viewport = self.parent()
+        self._dragging = DRAG_SHORT
+        self.moveCenter(pos)
+        self.raise_()
+        self.show()
+        viewport.setCursor(Qt.BlankCursor)
+
+    def endShortDrag(self):
+        """End a short drag."""
+        viewport = self.parent()
+        view = viewport.parent()
+        viewport.unsetCursor()
+        self.hide()
+        self._resizepos = None
+        self._dragging = False
+        view.stopScrolling() # just if needed
+
+    def startLongDrag(self, pos):
+        """Start a long drag (when we are already visible and then dragged)."""
+        self._dragging = DRAG_LONG
+        self._dragpos = pos
+        self.setCursor(Qt.ClosedHandCursor)
+
+    def endLongDrag(self):
+        """End a long drag."""
+        self._dragging = False
+        self.unsetCursor()
+        view = self.parent().parent()
+        view.stopScrolling() # just if needed
+
     def resizeEvent(self, ev):
         """Called on resize, sets our circular mask."""
         self.setMask(QRegion(self.rect(), QRegion.Ellipse))
@@ -136,11 +168,7 @@ class Magnifier(QWidget):
                 ev.modifiers() == self.showmodifier and
                 ev.button() == self.showbutton):
                 # show and drag while button pressed: DRAG_SHORT
-                self._dragging = DRAG_SHORT
-                self.moveCenter(ev.pos())
-                self.raise_()
-                self.show()
-                viewport.setCursor(Qt.BlankCursor)
+                self.startShortDrag(ev.pos())
                 return True
         elif ev.type() == QEvent.Paint:
             # if the viewport is painted, also update
@@ -170,17 +198,15 @@ class Magnifier(QWidget):
             elif ev.type() == QEvent.MouseButtonRelease:
                 if ev.button() == self.showbutton:
                     # left button is released, stop dragging and/or resizing, hide
-                    viewport.unsetCursor()
-                    self.hide()
-                    self._resizepos = None
-                    self._dragging = False
-                    view.stopScrolling() # just if needed
+                    self.endShortDrag()
                 elif ev.button() == self.resizebutton:
                     # right button is released, stop resizing, warp cursor to center
                     self._resizepos = None
                     QCursor.setPos(viewport.mapToGlobal(self.geometry().center()))
                     ev.accept()
                 return True
+            elif ev.type() == QEvent.ContextMenu:
+                self.endShortDrag()
         return False
 
     def mousePressEvent(self, ev):
@@ -188,9 +214,7 @@ class Magnifier(QWidget):
         if self._dragging == DRAG_SHORT:
             ev.ignore()
         elif not self._dragging and ev.button() == Qt.LeftButton:
-            self._dragging = DRAG_LONG
-            self._dragpos = ev.pos()
-            self.setCursor(Qt.ClosedHandCursor)
+            self.startLongDrag(ev.pos())
 
     def mouseMoveEvent(self, ev):
         """Move the magnifier if we were dragging it."""
@@ -206,10 +230,7 @@ class Magnifier(QWidget):
         """The button is released, stop moving ourselves."""
         ev.ignore()
         if self._dragging == DRAG_LONG and ev.button() == Qt.LeftButton:
-            self._dragging = False
-            self.unsetCursor()
-            view = self.parent().parent()
-            view.stopScrolling() # just if needed
+            self.endLongDrag()
 
     def wheelEvent(self, ev):
         """Implement zooming the magnifying glass."""
