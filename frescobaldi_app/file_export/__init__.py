@@ -83,15 +83,26 @@ class FileExport(plugin.MainWindowPlugin):
         doc = mainwin.currentDocument()
         orgname = doc.url().toLocalFile()
         midifile = resultfiles.results(doc).files('.mid*')[0]
-        wavfile = os.path.splitext(orgname)[0] + '.wav'
+        outfile = os.path.splitext(orgname)[0]
         caption = app.caption(_("dialog title", "Export Audio File"))
-        filetypes = '{0} (*.wav);;{1} (*)'.format(_("WAV Files"), _("All Files"))
-        wavfile = QFileDialog.getSaveFileName(mainwin, caption, wavfile, filetypes)[0]
-        if not wavfile:
+        filetypes = []
+        seen_exts = []
+        for tool in audio_available():
+            for fmt in _supported_tools[tool]['formats']:
+                if fmt not in seen_exts:
+                    f_fmt = _file_formats[fmt]
+                    filetypes.append(
+                        '{} (*.{})'.format(f_fmt[0], f_fmt[1])
+                    )
+                    seen_exts.append(fmt)
+        filetypes.append(_("All Files (*.*)"))
+        filetypes = ';;'.join(filetypes)
+        outfile = QFileDialog.getSaveFileName(mainwin, caption, outfile, filetypes)[0]
+        if not outfile:
             return False # cancelled
         dlg = AudioExportDialog(mainwin, caption)
         dlg.setAttribute(Qt.WA_DeleteOnClose) # we use it only once
-        dlg.midi2wav(midifile, wavfile)
+        dlg.midi2wav(midifile, outfile)
         dlg.show()
 
     def set_export_audio(self, doc):
@@ -140,18 +151,18 @@ class AudioExportDialog(externalcommand.ExternalCommandDialog):
         self.setWindowTitle(caption)
         qutil.saveDialogSize(self, "audio_export/dialog/size", QSize(640, 400))
 
-    def midi2wav(self, midfile, wavfile):
+    def midi2wav(self, midfile, outfile):
         """Run timidity to convert the MIDI to WAV."""
-        self.wavfile = wavfile # we could need to clean it up...
+        self.outfile = outfile # we could need to clean it up...
         j = job.Job()
         j.decoder_stdout = j.decoder_stderr = codecs.getdecoder('utf-8')
-        j.command = ["timidity", midfile, "-Ow", "-o", wavfile]
+        j.command = ["timidity", midfile, "-Ow", "-o", outfile]
         self.run_job(j)
 
     def cleanup(self, state):
         if state == "aborted":
             try:
-                os.remove(self.wavfile)
+                os.remove(self.outfile)
             except OSError:
                 pass
 
@@ -172,7 +183,28 @@ class Actions(actioncollection.ActionCollection):
         self.export_audio.setText(_("Export Audio..."))
 
 
-_supported_tools = ['timidity']
+# Names and extensions of all supported audio export formats
+_file_formats = {
+    'aif': (_("AIFF Files"), "aif *.aiff"),
+    'au': (_("Sun Audio Files"), "au"),
+    'flac': (_("Flac Files"), "flac"),
+    'mp3': (_("MP3 Files"), "mp3"),
+    'ogg': (_("OGG Vorbis Files"), "ogg"),
+    'wav': (_("WAV Files"), "wav"),
+}
+
+_supported_tools = {
+    'timidity': {
+        'formats': ['wav', 'flac', 'ogg', 'au', 'aif']
+    },
+    'fluidsynth': {
+        'formats': ['wav', 'flac', 'aif']
+    },
+    'lame': {
+        'formats': ['mp3']
+    }
+}
+
 _available_tools = None
 
 def audio_available(force=False):
@@ -187,7 +219,7 @@ def audio_available(force=False):
     if force or _available_tools is None:
         from shutil import which
         _audio_available = []
-        for tool in _supported_tools:
+        for tool in _supported_tools.keys():
             if which(tool) is not None:
                 _audio_available.append(tool)
     return _audio_available
