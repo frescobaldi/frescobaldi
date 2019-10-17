@@ -50,8 +50,8 @@ class FileExport(plugin.MainWindowPlugin):
         ac.export_musicxml.triggered.connect(self.exportMusicXML)
         ac.export_audio.triggered.connect(self.exportAudio)
         app.jobFinished.connect(self.set_export_audio)
-        # TODO: Also connect to a signal that is emitted
-        # whenever the current document has changed.
+        app.documentCreated.connect(self.set_export_audio)
+        mainwindow.currentDocumentChanged.connect(self.set_export_audio)
 
     def exportMusicXML(self):
         """ Convert the current document to MusicXML """
