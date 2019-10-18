@@ -288,12 +288,16 @@ class View(scrollarea.ScrollArea):
         self._document = None
         with self.modifyPages() as pages:
             pages.clear()
+        if self.rubberband() and self.rubberband().hasSelection()):
+            self.rubberband().clearSelection()
 
     def setDocument(self, document):
         """Set the Document to display (see document.Document)."""
         self._document = document
         with self.modifyPages() as pages:
             pages[:] = document.pages()
+        if self.rubberband() and self.rubberband().hasSelection()):
+            self.rubberband().clearSelection()
 
     def document(self):
         """Return the Document currently displayed (see document.Document)."""
