@@ -61,6 +61,8 @@ class MusicView(preferences.Group):
         layout.addWidget(self.enableKineticScrolling, 0, 0)
         self.showScrollbars = QCheckBox(toggled=self.changed)
         layout.addWidget(self.showScrollbars, 0, 1)
+        self.showShadow = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.showShadow, 0, 2)
 
         self.arthurBackend = QCheckBox(toggled=self.changed)
         layout.addWidget(self.arthurBackend, 1, 0, 1, 3)
@@ -97,6 +99,9 @@ class MusicView(preferences.Group):
         # L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
         self.enableKineticScrolling.setText(_("Kinetic Scrolling"))
         self.showScrollbars.setText(_("Show Scrollbars"))
+        self.showShadow.setText(_("Shadow"))
+        self.showShadow.setToolTip(_(
+            "If checked, Frescobaldi draws a shadow around the pages."))
         self.arthurBackend.setText(_("Use vector based backend (Arthur) for rendering PDF documents on screen (experimental!)"))
         self.arthurBackend.setToolTip(_(
             "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
@@ -126,6 +131,8 @@ class MusicView(preferences.Group):
         self.enableKineticScrolling.setChecked(kineticScrollingActive)
         showScrollbars = s.value("show_scrollbars", True, bool)
         self.showScrollbars.setChecked(showScrollbars)
+        shadow = s.value("shadow", True, bool)
+        self.showShadow.setChecked(shadow)
         useArthur = s.value("arthurbackend", False, bool)
         self.arthurBackend.setChecked(useArthur)
         useArthurPrint = s.value("arthurbackend_print", True, bool)
@@ -138,6 +145,7 @@ class MusicView(preferences.Group):
         s.beginGroup("musicview")
         s.setValue("kinetic_scrolling", self.enableKineticScrolling.isChecked())
         s.setValue("show_scrollbars", self.showScrollbars.isChecked())
+        s.setValue("shadow", self.showShadow.isChecked())
         s.setValue("arthurbackend", self.arthurBackend.isChecked())
         s.setValue("arthurbackend_print", self.printArthurBackend.isChecked())
         s.setValue("magnifier/size", self.magnifierSizeSlider.value())

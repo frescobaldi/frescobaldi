@@ -28,7 +28,7 @@ import itertools
 import os
 import weakref
 
-from PyQt5.QtCore import pyqtSignal, QSettings, Qt
+from PyQt5.QtCore import pyqtSignal, QMargins, QSettings, Qt
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 
@@ -151,6 +151,12 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
                     self._fitLayout()
 
     def readSettings(self):
+        # shadow/margin
+        shadow = QSettings().value("musicview/shadow", True, bool)
+        oldshadow, self.dropShadowEnabled = self.dropShadowEnabled, shadow
+        self.pageLayout().setMargins(QMargins(6, 6, 6, 6) if shadow else QMargins(1, 1, 1, 1))
+        changed = shadow != oldshadow
+
         # kinetic scrolling
         kinetic = QSettings().value("musicview/kinetic_scrolling", True, bool)
         self.kineticPagingEnabled = kinetic
@@ -159,11 +165,21 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         # scrollbar visibility
         scrollbars = QSettings().value("musicview/show_scrollbars", True, bool)
         policy = Qt.ScrollBarAsNeeded if scrollbars else Qt.ScrollBarAlwaysOff
+        oldpolicy = self.horizontalScrollBarPolicy()
         self.setHorizontalScrollBarPolicy(policy)
         self.setVerticalScrollBarPolicy(policy)
+        if policy != oldpolicy:
+            changed = True
 
         if not self.pageCount():
             return
+
+        # if margin or scrollbar visibility was changed, relayout
+        if changed:
+            if self._viewMode:
+                self._fitLayout()
+            self.updatePageLayout()
+
 
         # set certain preferences to the existing renderers
         renderers = set(page.renderer for page in self.pageLayout() if page.renderer)
