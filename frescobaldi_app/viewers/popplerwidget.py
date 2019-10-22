@@ -26,7 +26,7 @@ Abstract base class for a Poppler based viewer widget.
 import os
 import weakref
 
-from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl
+from PyQt5.QtCore import pyqtSignal, QPoint, QRect, Qt, QTimer, QUrl, QStringList
 from PyQt5.QtGui import QCursor, QTextCharFormat
 from PyQt5.QtWidgets import (
     QToolTip, QVBoxLayout, QHBoxLayout, QWidget, QToolBar)
@@ -298,7 +298,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 ds.removeAllViewdocs(update = False)
                 self.clear()
                 viewdocs = []
-                for v in session.value(files_key, ""):
+                for v in session.value(files_key, [], QStringList):
                     filename = v[0]
                     position = v[1]
                     doc = documents.Document(filename)
