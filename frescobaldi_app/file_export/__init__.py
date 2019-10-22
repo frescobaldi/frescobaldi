@@ -185,8 +185,6 @@ class Actions(actioncollection.ActionCollection):
 
 # Names and extensions of all supported audio export formats
 _file_formats = {
-    'aif': (_("AIFF Files"), "aif *.aiff"),
-    'au': (_("Sun Audio Files"), "au"),
     'flac': (_("Flac Files"), "flac"),
     'mp3': (_("MP3 Files"), "mp3"),
     'ogg': (_("OGG Vorbis Files"), "ogg"),
@@ -195,13 +193,13 @@ _file_formats = {
 
 _supported_tools = {
     'timidity': {
-        'formats': ['wav', 'flac', 'ogg', 'au', 'aif']
+        'formats': ['wav', 'flac', 'ogg']
     },
     'fluidsynth': {
-        'formats': ['wav', 'flac', 'aif']
+        'formats': ['wav', 'flac']
     },
-    'lame': {
-        'formats': ['mp3']
+    'vlc': {
+        'formats': ['wav', 'flac', 'ogg', 'mp3']
     }
 }
 
