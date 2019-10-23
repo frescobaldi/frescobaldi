@@ -103,7 +103,6 @@ class Panel(QDockWidget):
 
     def _setToolTips(self):
         """Generic tool tips are set here."""
-        self.setToolTip(_("Drag to dock/undock"))
         closebutton = self.findChild(QAbstractButton, 'qt_dockwidget_closebutton')
         if closebutton:
             closebutton.setToolTip(_("Close"))

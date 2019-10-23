@@ -57,6 +57,7 @@ import helpers
 import panelmanager
 import engrave
 import scorewiz
+import snippet
 import externalchanges
 import browseriface
 import file_import
@@ -146,6 +147,8 @@ class MainWindow(QMainWindow):
             self.setCurrentDocument(other.currentDocument())
         self.updateWindowTitle()
         app.mainwindowCreated(self)
+        app.settingsChanged.connect(self.settingsChanged)
+        self.settingsChanged()
 
     def documents(self):
         """Returns the list of documents in the order of the TabBar."""
@@ -297,7 +300,7 @@ class MainWindow(QMainWindow):
             impurls = []
             for url in ev.mimeData().urls():
                 imp = file_import.FileImport.instance(self)
-                if imp.isImportable(url.toLocalFile()):
+                if imp.is_importable(url.toLocalFile()):
                     impurls.append(QDir.toNativeSeparators(url.toLocalFile()))
                 else:
                     lyurls.append(url)
@@ -305,7 +308,8 @@ class MainWindow(QMainWindow):
             if docs:
                 self.setCurrentDocument(docs[-1])
             for i in impurls:
-                imp.openDialog(i)
+                imp.configure_import(i)
+                imp.run_import()
 
     def dragEnterEvent(self, ev):
         if not ev.source() and ev.mimeData().hasUrls():
@@ -722,14 +726,10 @@ class MainWindow(QMainWindow):
         self.setCurrentDocument(cur, findOpenView=True)
         return True
 
-    def closeOtherDocuments(self):
-        """ Closes all documents that are not the current document.
-
-        Returns True if all documents were closed.
-
-        """
+    def _closeDocuments(self, current=True):
         cur = self.currentDocument()
-        docs = self.historyManager.documents()[1:]
+        start = 0 if current else 1
+        docs = self.historyManager.documents()[start:]
         for doc in docs:
             if not self.queryCloseDocument(doc):
                 self.setCurrentDocument(cur, findOpenView=True)
@@ -738,7 +738,22 @@ class MainWindow(QMainWindow):
             doc.close()
         return True
 
+    def closeOtherDocuments(self):
+        """ Closes all documents that are not the current document.
+
+        Returns True if all documents were closed.
+
+        """
+        return self._closeDocuments(current=False)
+
     def closeAllDocuments(self):
+        """Closes all documents and keep one new, empty document
+        within the current session."""
+        if self._closeDocuments(current=True):
+            self.allDocumentsClosed.emit()
+            self.cleanStart()
+
+    def closeAllDocumentsAndSession(self):
         """Closes all documents and keep one new, empty document."""
         sessions.manager.get(self).saveCurrentSessionIfDesired()
         if self.queryClose():
@@ -1041,6 +1056,9 @@ class MainWindow(QMainWindow):
         ac.file_close.triggered.connect(self.closeCurrentDocument)
         ac.file_close_other.triggered.connect(self.closeOtherDocuments)
         ac.file_close_all.triggered.connect(self.closeAllDocuments)
+        ac.file_close_all_and_session.triggered.connect(
+            self.closeAllDocumentsAndSession
+        )
         ac.export_colored_html.triggered.connect(self.exportColoredHtml)
         ac.edit_undo.triggered.connect(self.undo)
         ac.edit_redo.triggered.connect(self.redo)
@@ -1092,16 +1110,34 @@ class MainWindow(QMainWindow):
         self.addAction(ac.edit_select_full_lines_up)
         self.addAction(ac.edit_select_full_lines_down)
 
+    def settingsChanged(self):
+        ac = self.actionCollection
+        s = app.settings("")
+        verbose = app.settings("").value("verbose_toolbuttons", False, bool)
+        t = self.toolbar_main
+        if verbose:
+            import snippet.menu
+            new = snippet.menu.TemplateMenu(self)
+            save = menu.menu_file_save(self)
+            close = menu.menu_file_close(self)
+        else:
+            new = save = close = None
+        t.widgetForAction(ac.file_new).setMenu(new)
+        t.widgetForAction(ac.file_save).setMenu(save)
+        t.widgetForAction(ac.file_close).setMenu(close)
+
     def createToolBars(self):
         ac = self.actionCollection
         self.toolbar_main = t = self.addToolBar('')
+        # TODO: I don't know how the 'verbose' setting can be made to be
+        # updated when settings have changed.
+        # (Drop and rebuild the toolbar? Update the individual actions?)
+        verbose = app.settings("").value("verbose_toolbuttons", False, bool)
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
         t.addAction(ac.file_open)
         t.widgetForAction(ac.file_open).setMenu(self.menu_recent_files)
         t.addAction(ac.file_save)
-        t.widgetForAction(ac.file_save).addAction(ac.file_save_as)
-        t.widgetForAction(ac.file_save).addAction(ac.file_save_all)
         t.addAction(ac.file_close)
         t.addSeparator()
         t.addAction(browseriface.get(self).actionCollection.go_back)
@@ -1156,6 +1192,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close = QAction(parent)
         self.file_close_other = QAction(parent)
         self.file_close_all = QAction(parent)
+        self.file_close_all_and_session = QAction(parent)
         self.file_quit = QAction(parent)
         self.file_restart = QAction(parent)
 
@@ -1286,6 +1323,10 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_insert_file.setText(_("Insert from &File..."))
+        self.file_insert_file.setToolTip(
+            _("Insert the content of a file\n"
+            "at the current cursor position")
+        )
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
         self.file_save.setText(_("&Save"))
@@ -1302,8 +1343,16 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close"))
         self.file_close_other.setText(_("Close Other Documents"))
-        self.file_close_all.setText(_("Close All Documents and Session"))
-        self.file_close_all.setToolTip(_("Closes all documents and leaves the current session."))
+        self.file_close_all.setText(_("Close All Documents"))
+        self.file_close_all.setToolTip(
+            _("Closes all documents but preserves the current session")
+        )
+        self.file_close_all_and_session.setText(
+            _("Close All Documents and Session")
+        )
+        self.file_close_all_and_session.setToolTip(
+            _("Closes all documents and leaves the current session.")
+        )
         self.file_quit.setText(_("&Quit"))
         self.file_restart.setText(_("Restart {appname}").format(appname=appinfo.appname))
 
