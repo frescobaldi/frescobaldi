@@ -282,6 +282,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         session object and load them in the viewer."""
         if name:
             import sessions
+            import qsettings
             session = sessions.sessionGroup(name)
             if session.contains("urls"): # the session is not new
                 files_key = "{}-files".format(self.viewerName())
@@ -290,7 +291,7 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                 ds.removeAllViewdocs(update = False)
                 self.clear()
                 viewdocs = []
-                for v in session.value(files_key, ""):
+                for v in qsettings.get_string_list(session, files_key):
                     filename = v[0]
                     position = v[1]
                     doc = pagedview.loadPdf(filename)
