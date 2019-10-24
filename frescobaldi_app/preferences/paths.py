@@ -37,13 +37,14 @@ import widgets.listedit
 import widgets.urlrequester
 
 
-class Paths(preferences.GroupsPage):
+class Paths(preferences.ScrolledGroupsPage):
     def __init__(self, dialog):
         super(Paths, self).__init__(dialog)
 
         layout = QVBoxLayout()
-        self.setLayout(layout)
+        self.scrolledWidget.setLayout(layout)
 
+        layout.addWidget(TemplatePaths(self))
         layout.addWidget(HyphenPaths(self))
         layout.addWidget(MusicFonts(self))
         layout.addStretch(1)
@@ -56,7 +57,7 @@ class HyphenPaths(preferences.Group):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        self.listedit = widgets.listedit.FilePathEdit()
+        self.listedit = widgets.listedit.FilePathEdit(visibleRows=3)
         self.listedit.changed.connect(self.changed)
         layout.addWidget(self.listedit)
 
@@ -74,6 +75,38 @@ class HyphenPaths(preferences.Group):
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("hyphenation")
+        paths = self.listedit.value()
+        if paths:
+            s.setValue("paths", paths)
+        else:
+            s.remove("paths")
+
+
+class TemplatePaths(preferences.Group):
+    def __init__(self, page):
+        super(TemplatePaths, self).__init__(page)
+
+        layout = QVBoxLayout()
+        self.setLayout(layout)
+
+        self.listedit = widgets.listedit.FilePathEdit(visibleRows=3)
+        self.listedit.changed.connect(self.changed)
+        layout.addWidget(self.listedit)
+
+        app.translateUI(self)
+
+    def translateUI(self):
+        self.setTitle(_("Folders containing templates libraries"))
+
+    def loadSettings(self):
+        s = QSettings()
+        s.beginGroup("templates")
+        paths = qsettings.get_string_list(s, "paths")
+        self.listedit.setValue(paths)
+
+    def saveSettings(self):
+        s = QSettings()
+        s.beginGroup("templates")
         paths = self.listedit.value()
         if paths:
             s.setValue("paths", paths)
