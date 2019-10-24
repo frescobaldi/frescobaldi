@@ -129,7 +129,6 @@ class InfoList(widgets.listedit.ListEdit):
         self.defaultButton = QPushButton()
         super(InfoList, self).__init__(group)
         self.layout().addWidget(self.defaultButton, 3, 1)
-        self.layout().addWidget(self.listBox, 0, 0, 5, 1)
         self.listBox.itemSelectionChanged.connect(self._selectionChanged)
 
     def _selectionChanged(self):

@@ -56,9 +56,9 @@ class SessionManagerDialog(QDialog):
         self.exp.clicked.connect(self.exportSession)
         self.act.clicked.connect(self.activateSession)
 
-        self.sessions.layout().addWidget(self.imp, 5, 1)
-        self.sessions.layout().addWidget(self.exp, 6, 1)
-        self.sessions.layout().addWidget(self.act, 7, 1)
+        self.sessions.layout().addWidget(self.imp, 3, 1)
+        self.sessions.layout().addWidget(self.exp, 4, 1)
+        self.sessions.layout().addWidget(self.act, 5, 1)
 
         layout.addWidget(widgets.Separator())
 

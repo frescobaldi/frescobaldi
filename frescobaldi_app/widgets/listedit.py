@@ -22,7 +22,7 @@ Widgets to edit a list of items in a flexible way.
 """
 
 
-from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtWidgets import (
     QFileDialog, QGridLayout, QListWidget, QListWidgetItem, QPushButton,
     QWidget)
@@ -38,6 +38,10 @@ class ListEdit(QWidget):
     changed = pyqtSignal()
 
     def __init__(self, *args, **kwargs):
+        # if visibleRows is given the height of the list box will be fixed
+        # to a multiple of the buttons' heights
+        # (minimum value: 3 so the box can't be less high than the default buttons)
+        self.visibleRows = kwargs.pop('visibleRows', None)
         QWidget.__init__(self, *args, **kwargs)
         layout = QGridLayout(self)
         self.setLayout(layout)
@@ -47,6 +51,7 @@ class ListEdit(QWidget):
         self.removeButton = QPushButton(icons.get('list-remove'), '')
         self.listBox = QListWidget()
 
+        self.setBoxHeight()
         layout.setContentsMargins(1, 1, 1, 1)
         layout.setSpacing(0)
         layout.addWidget(self.listBox, 0, 0, 8, 1)
@@ -66,6 +71,7 @@ class ListEdit(QWidget):
         self.removeButton.clicked.connect(self.removeClicked)
         self.listBox.itemDoubleClicked.connect(self.itemDoubleClicked)
         self.listBox.model().layoutChanged.connect(self.changed)
+        app.settingsChanged.connect(self.setBoxHeight)
 
     def translateUI(self):
         self.addButton.setText(_("&Add..."))
@@ -85,7 +91,21 @@ class ListEdit(QWidget):
         item = self.listBox.currentItem()
         if item:
             self.removeItem(item)
-            
+    
+    def setBoxHeight(self, rows=None):
+        """Adjust height of the list box in "rows"
+        with the height of the buttons.
+        This is either called implicitly or can be used to change
+        the visible height.
+        """
+        if rows:
+            self.visibleRows = rows
+        if self.visibleRows:
+            # may not be less high than the three buttons
+            visibleRows = max(3, self.visibleRows)
+            buttonHeight = self.addButton.sizeHint().height()
+            self.listBox.setFixedHeight(visibleRows * buttonHeight + visibleRows - 1)
+
     def updateSelection(self):
         selected = bool(self.listBox.currentItem())
         self.editButton.setEnabled(selected)
