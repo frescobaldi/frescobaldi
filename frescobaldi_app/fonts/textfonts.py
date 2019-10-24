@@ -97,13 +97,15 @@ class TextFontsWidget(QWidget):
         ))
 
     def loadSettings(self):
-        s = QSettings('document-fonts-dialog')
+        s = QSettings()
+        s.beginGroup('document-fonts-dialog')
         self.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
         self.filter = QRegExp('', Qt.CaseInsensitive)
 
     def saveSettings(self):
         # Text font tab
-        s = QSettings('document-fonts-dialog')
+        s = QSettings()
+        s.beginGroup('document-fonts-dialog')
         s.setValue('col-width', self.tree_view.columnWidth(0))
 
     def display_count(self):
@@ -118,7 +120,8 @@ class TextFontsWidget(QWidget):
     def load_font_tree_column_width(self):
         """Load column widths for fontTreeView,
         factored out because it has to be done upon reload too."""
-        s = QSettings('document-fonts-dialog')
+        s = QSettings()
+        s.beginGroup('document-fonts-dialog')
         self.tree_view.setColumnWidth(0, int(s.value('col-width', 200)))
 
     def populate(self):
