@@ -43,7 +43,6 @@ class Helpers(preferences.ScrolledGroupsPage):
         self.scrolledWidget.setLayout(layout)
 
         layout.addWidget(Apps(self))
-        layout.addWidget(Printing(self))
 
 
 class Apps(preferences.Group):
@@ -107,72 +106,5 @@ class Apps(preferences.Group):
         s.beginGroup("helper_applications")
         for name, title in self.items():
             s.setValue(name, self.entries[name].path())
-
-
-class Printing(preferences.Group):
-    def __init__(self, page):
-        super(Printing, self).__init__(page)
-
-        layout = QGridLayout(spacing=1)
-        self.setLayout(layout)
-
-        self.messageLabel = QLabel(wordWrap=True)
-        self.printCommandLabel = QLabel()
-        self.printCommand = widgets.urlrequester.UrlRequester()
-        self.printCommand.setFileMode(QFileDialog.ExistingFile)
-        self.printCommand.changed.connect(page.changed)
-        self.printDialogCheck = QCheckBox(toggled=page.changed)
-        self.resolutionLabel = QLabel()
-        self.resolution = QComboBox(editable=True, editTextChanged=page.changed)
-        self.resolution.addItems("300 600 1200".split())
-        self.resolution.lineEdit().setInputMask("9000")
-
-        layout.addWidget(self.messageLabel, 0, 0, 1, 2)
-        layout.addWidget(self.printCommandLabel, 1, 0)
-        layout.addWidget(self.printCommand, 1, 1)
-        layout.addWidget(self.printDialogCheck, 2, 0, 1, 2)
-        layout.addWidget(self.resolutionLabel, 3, 0)
-        layout.addWidget(self.resolution, 3, 1)
-
-        app.translateUI(self)
-
-    def translateUI(self):
-        self.setTitle(_("Printing Music"))
-        self.messageLabel.setText(_(
-            "Here you can enter a command to print a PDF or PostScript file. "
-            "See the Help page for more information about printing music."))
-        self.printCommandLabel.setText(_("Printing command:"))
-        self.printCommand.setToolTip('<qt>' + _(
-            "The printing command is used to print a PostScript or PDF file. "
-            "On Linux you don't need this, but on Windows and Mac OS X you can "
-            "provide a command to avoid that PDF documents are being printed "
-            "using raster images, which is less optimal.\n"
-            "<code>$pdf</code> gets replaced with the PDF filename, or alternatively, "
-            "<code>$ps</code> is replaced with the PostScript filename. "
-            "<code>$printer</code> is replaced with the printer's name to use."))
-        self.printDialogCheck.setText(_("Use Frescobaldi's print dialog"))
-        self.printDialogCheck.setToolTip('<qt>' + _(
-            "If enabled, Frescobaldi will show the print dialog and create a "
-            "PDF or PostScript document containing only the selected pages "
-            "to print. Otherwise, the command is called directly and is expected "
-            "to show a print dialog itself."))
-        self.resolutionLabel.setText(_("Resolution:"))
-        self.resolution.setToolTip(_(
-            "Set the resolution if Frescobaldi prints using raster images."))
-
-    def loadSettings(self):
-        s = QSettings()
-        s.beginGroup("helper_applications")
-        self.printCommand.setPath(s.value("printcommand", "", str))
-        self.printDialogCheck.setChecked(s.value("printcommand/dialog", False, bool))
-        with qutil.signalsBlocked(self.resolution):
-            self.resolution.setEditText(format(s.value("printcommand/dpi", 300, int)))
-
-    def saveSettings(self):
-        s= QSettings()
-        s.beginGroup("helper_applications")
-        s.setValue("printcommand", self.printCommand.path())
-        s.setValue("printcommand/dialog", self.printDialogCheck.isChecked())
-        s.setValue("printcommand/dpi", int(self.resolution.currentText()))
 
 

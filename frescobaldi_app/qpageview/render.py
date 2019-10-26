@@ -1,6 +1,6 @@
 # This file is part of the qpageview package.
 #
-# Copyright (c) 2016 - 2016 by Wilbert Berendsen
+# Copyright (c) 2016 - 2019 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -22,17 +22,19 @@ Infrastructure for rendering and caching Page images.
 """
 
 import collections
-import itertools
-import weakref
+import sys
 import time
 
-from PyQt5.QtCore import QRectF, Qt, QThread
-from PyQt5.QtGui import QColor, QImage
+from PyQt5.QtCore import QRect, QRectF, Qt
+from PyQt5.QtGui import QColor, QImage, QPainter, QRegion, QTransform
 
+from . import backgroundjob
 from . import cache
+from . import util
 
 
-cache_key = collections.namedtuple('cache_key', 'group page size')
+Tile = collections.namedtuple('Tile', 'x y w h')
+Key = collections.namedtuple("Key", "group ident rotation width height")
 
 
 # the maximum number of concurrent jobs (at global level)
@@ -43,31 +45,8 @@ maxjobs = 4
 _jobs = {}
 
 
-class Job(QThread):
-    image = None
-    running = False
-    def __init__(self, renderer, page):
-        super().__init__()
-        self.renderer = renderer
-        self.page = page
-        self.time = time.time()
-        self.callbacks = set()
-        self.finished.connect(self._slotFinished)
 
-    def start(self):
-        self.page_copy = self.page.copy()
-        self.key = self.renderer.key(self.page)
-        self.running = True
-        super().start()
-
-    def run(self):
-        self.image = self.renderer.render(self.page_copy)
-
-    def _slotFinished(self):
-        self.renderer.finish(self)
-
-
-class AbstractImageRenderer:
+class AbstractRenderer:
     """Handle rendering and caching of images.
 
     A renderer can be assigned to the renderer attribute of a Page and takes
@@ -78,56 +57,231 @@ class AbstractImageRenderer:
     one global renderer in your application or more, depending on how you use
     the qpageview package.
 
-    You must inherit from this class and at least implement the
-    render() method.
+    You must inherit from this class and at least implement the render() or the
+    draw() method.
 
     Instance attributes:
 
         `paperColor`    Paper color. If possible this background color is used
                         when rendering the pages, also for temporary drawings
-                        when a page has to be rendered. If None, Qt.white is
-                        used. If a Page specifies its own paperColor, that color
-                        prevails.
+                        when a page has to be rendered. If a Page specifies its
+                        own paperColor, that color prevails.
 
+        `imageFormat`   QImage format to use (if possible). Default is
+                        QImage.Format_ARGB32_Premultiplied
+
+        `antialiasing`  True by default. Whether to antialias graphics. (Most
+                        Renderers antialias anyway, even if this is False.)
 
     """
+
+    MAX_TILE_WIDTH = 2400
+    MAX_TILE_HEIGHT = 1600
 
     # default paper color to use (if possible, and when drawing an empty page)
     paperColor = QColor(Qt.white)
 
-    def __init__(self):
-        self.cache = cache.ImageCache()
+    # QImage format to use (if possible)
+    imageFormat = QImage.Format_ARGB32_Premultiplied
 
-    def key(self, page):
-        """Return a cache_key instance for this Page.
+    # antialias True by default (not all renderers may support this)
+    antialiasing = True
 
-        The cache_key is a four-tuple:
+    def __init__(self, cache=None):
+        if cache:
+            self.cache = cache
 
-            group       = an object a weak reference is taken to. It could be
-                          a document or some other structure the page belongs to.
-                          By default the Page object itself is used.
+    def copy(self):
+        """Return a copy of the renderer, with always a new cache."""
+        c = self.cache
+        if c:
+            c = type(c)()
+        return type(self)(c)
 
-            page        = the rotation by default, but if you use group differently,
-                          you should use here a hashable object that identifies
-                          the page in the group.
+    @staticmethod
+    def key(page, ratio):
+        """Return a five-tuple Key describing the page.
 
-            size        = must be the (width, height) tuple of the page.
+        The ratio is a device pixel ratio; width and height are multiplied
+        with this value, to render and cache an image correctly on high-
+        density displays.
 
-        The cache_key is used to store and find back requests and to cache
-        results.
+        This is used for rendering and caching. It is never stored as is.
+        The cache can store the group object using a weak reference.
+        The tuple contains the following values:
+
+        group       the object returned by group()
+        ident       the value returned by ident()
+        rotation    self.computedRotation
+        width       self.width * ratio
+        height      self.height * ratio
 
         """
-        return cache_key(
-            page,
+        return Key(
+            page.group(),
+            page.ident(),
             page.computedRotation,
-            (page.width, page.height))
+            int(page.width * ratio),
+            int(page.height * ratio),
+        )
 
-    def render(self, page):
-        """Reimplement this method to generate an image for this Page."""
-        return QImage()
+    def tiles(self, width, height):
+        """Yield four-tuples Tile(x, y, w, h) describing the tiles to render."""
+        rowcount = height // self.MAX_TILE_HEIGHT
+        colcount = width  // self.MAX_TILE_WIDTH
+        tilewidth, extrawidth = divmod(width, colcount + 1)
+        tileheight, extraheight = divmod(height, rowcount + 1)
+        rows = [tileheight] * rowcount + [tileheight + extraheight]
+        cols = [tilewidth] * colcount + [tilewidth + extrawidth]
+        y = 0
+        for h in rows:
+            x = 0
+            for w in cols:
+                yield Tile(x, y, w, h)
+                x += w
+            y += h
+
+    def map(self, key, box):
+        """Return a QTransform converting from Key coordinates to a box.
+        
+        The box should be a QRectF or QRect, and describes the original area of
+        the page.  The returned matrix can be used to convert e.g. tile
+        coordinates to the position on the original page.
+        
+        """
+        t = QTransform()
+        t.translate(box.x(), box.y())
+        t.scale(box.width(), box.height())
+        t.translate(.5, .5)
+        t.rotate(-key.rotation * 90)
+        t.translate(-.5, -.5)
+        t.scale(1 / key.width, 1 / key.height)
+        return t
+
+    def image(self, page, rect, dpiX, dpiY, paperColor):
+        """Returns a QImage of the specified rectangle on the Page.
+
+        The rectangle is relative to the top-left position. The image is not
+        cached.
+
+        """
+        s = page.defaultSize()
+        hscale = s.width() * dpiX / page.dpi / page.width
+        vscale = s.height() * dpiY / page.dpi / page.height
+        matrix = QTransform().scale(hscale, vscale)
+
+        tile = Tile(*matrix.mapRect(rect).getRect())
+        key = Key(page.group(),
+                  page.ident(),
+                  page.computedRotation,
+                 *matrix.map(page.width, page.height))
+        return self.render(page, key, tile, paperColor)
+
+    def render(self, page, key, tile, paperColor=None):
+        """Generate a QImage for tile of the Page.
+        
+        The width, height and rotation to render at should be taken from the
+        key, as the page could be resized or rotated in the mean time.
+        
+        The default implementation prepares the image, a painter and then
+        calls draw() to actually draw the contents.
+        
+        If the paperColor is not specified, it will be read from the Page's
+        paperColor attribute (if not None) or else from the renderer's
+        paperColor attribute.
+        
+        """
+        if paperColor is None:
+            paperColor = page.paperColor or self.paperColor
+
+        i = QImage(tile.w, tile.h, self.imageFormat)
+        i.fill(paperColor)
+        painter = QPainter(i)
+        
+        # rotate the painter accordingly
+        util.rotate(painter, key.rotation, tile.w, tile.h, True)
+
+        # draw it on the image
+        self.draw(page, painter, key, tile, paperColor)
+        return i
+
+    def draw(self, page, painter, key, tile, paperColor=None):
+        """Draw the page contents; implement at least this method.
+
+        The painter is already at the top-left position and the correct
+        rotation. You should convert the tile to the original area on the page,
+        you can use the map() method for that. You can draw in tile/key
+        coordinates. Don't use width, height and rotation from the Page object,
+        as it could have been resized or rotated in the mean time.
+
+        The paperColor can be speficied, but it is not needed to paint it: by
+        default the render() method already fills the image, and when drawing on
+        a printer, painting the background is normally not desired.
+
+        """
+        pass
+
+    def info(self, page, device, rect):
+        """Return a five-tuple(images, missing, key, target, ratio).
+
+        images is a list of tuples (tile, image) that are available in the
+        cache; missing is a list of Tile instances that are not available in
+        the cache; key is the Key returned by key(), describing width, height,
+        rotation and identity of the page; target is the rect multiplied by the
+        ratio; which is the devicepixelratio of the specified paint device.
+
+        """
+        try:
+            ratio = device.devicePixelRatioF()
+        except AttributeError:
+            ratio = device.devicePixelRatio()
+        key = self.key(page, ratio)
+
+        # paint rect in tile coordinates
+        target = QRect(rect.x() * ratio, rect.y() * ratio, rect.width() * ratio, rect.height() * ratio)
+
+        # tiles to paint
+        tiles = [t for t in self.tiles(key.width, key.height) if QRect(*t) & target]
+
+        # look in cache, get a dict with tiles and their images
+        tileset = self.cache.tileset(key)
+
+        images = []
+        missing = []
+        for t in tiles:
+            entry = tileset.get(t)
+            if entry:
+                entry.time = time.time()    # prevent aging ;-)
+                images.append((t, entry.image))
+            else:
+                missing.append(t)
+
+        return images, missing, key, target, ratio
+
+    def update(self, page, device, rect, callback=None):
+        """Check if a page can be painted on the device without waiting.
+
+        Return True if that is the case. Otherwise schedules missing tiles
+        for rendering and calls the callback each time one tile if finished.
+
+        """
+        imgs, missing, key, *rest = self.info(page, device, rect)
+        if missing:
+            self.schedule(page, key, missing, callback)
+            return False
+        return True
 
     def paint(self, page, painter, rect, callback=None):
-        """Paint a page.
+        """Paint a page, using images from the cache.
+
+        page: the Page to draw
+
+        painter:  the QPainter to use to draw
+
+        rect: the region to draw, relative to the topleft of the page.
+
+        callback: if specified, a callable accepting the `page` argument.
+        Typically this should be used to trigger a repaint of the view.
 
         The Page calls this method by default in the paint() method.
         This method tries to fetch an image from the cache and paint that.
@@ -137,82 +291,151 @@ class AbstractImageRenderer:
         scaled from another size).
 
         """
-        key = self.key(page)
-        try:
-            image = self.cache[key]
-        except KeyError:
-            image = self.cache.closest(key)
-            if image:
-                hscale = image.width() / page.width
-                vscale = image.height() / page.height
-                image_rect = QRectF(rect.x() * hscale, rect.y() * vscale,
-                                    rect.width() * hscale, rect.height() * vscale)
-                painter.drawImage(QRectF(rect), image, image_rect)
+        images = [] # list of images to draw at end of this method
+        region = QRegion() # painted region in tile coordinates
+
+        imgs, missing, key, target, ratio = self.info(page, painter.device(), rect)
+
+        for t, image in imgs:
+            r = QRect(*t) & target # part of the tile that needs to be drawn
+            images.append((r, image,  QRectF(r.translated(-t.x, -t.y))))
+            region += r
+
+        if missing:
+            self.schedule(page, key, missing, callback)
+
+            # find other images from cache for missing tiles
+            for width, height, tileset in self.cache.closest(key):
+                # we have a dict of tiles for an image of size width x height
+                hscale = key.width / width
+                vscale = key.height / height
+                for t in tileset:
+                    # scale to our image size
+                    r = QRect(t.x * hscale, t.y * vscale, t.w * hscale, t.h * vscale) & target
+                    if r and QRegion(r).subtracted(region):
+                        # we have an image that can be drawn in rect r
+                        source = QRectF(r.x() / hscale - t.x, r.y() / vscale - t.y,
+                                        r.width() / hscale, r.height() / vscale)
+                        images.append((r, tileset[t].image, source))
+                        region += r
+                        # stop if we have covered the whole drawing area
+                        if not QRegion(target).subtracted(region):
+                            break
+                else:
+                    continue
+                break
             else:
-                color = page.paperColor or self.paperColor or QColor(Qt.white)
-                painter.fillRect(rect, color)
-            self.schedule(page, painter, callback)
-        else:
-            painter.drawImage(rect, image, rect)
+                if QRegion(target).subtracted(region):
+                    # paint background, still partly uncovered
+                    painter.fillRect(rect, page.paperColor or self.paperColor)
 
-    def schedule(self, page, painter, callback):
-        """Start a new rendering job."""
-        try:
-            job = _jobs.setdefault(self, {})[page]
-        except KeyError:
-            job = _jobs[self][page] = Job(self, page)
-        job.callbacks.add(callback)
-        self.checkstart()
+        # draw lowest quality images first
+        for (r, image, source) in reversed(images):
+            # scale the target rect back to the paint device
+            target = QRectF(r.x() / ratio, r.y() / ratio, r.width() / ratio, r.height() / ratio)
+            painter.drawImage(target, image, source)
 
-    def unschedule(self, page, callback):
-        """Unschedule a possible pending rendering job.
+    def schedule(self, page, key, tiles, callback):
+        """Schedule a new rendering job for the specified tiles of the page.
 
-        A rendering job is only removed if the specified callback was the only
-        callback to call.
+        If this page has already a job pending, the callback is added to the
+        pending job.
 
         """
-        try:
-            job = _jobs[self][page]
-        except KeyError:
-            return
-        if not job.running:
-            job.callbacks.discard(callback)
-            if not job.callbacks:
-                del _jobs[self][page]
-                if not _jobs[self]:
-                    del _jobs[self]
+        for tile in tiles:
+            try:
+                job = _jobs[(key, tile)]
+            except KeyError:
+                # make a new Job for this tile
+                job = _jobs[(key, tile)] = self.job(page, key, tile)
+            job.time = time.time()
+            job.callbacks.add(callback)
+        self.checkstart()
+
+    def job(self, page, key, tile):
+        """Return a new Job tailored for this tile."""
+        job = backgroundjob.Job()
+        job.callbacks = callbacks = set()
+        job.mutex = page.mutex()
+        exception = []
+        def work():
+            try:
+                return self.render(page, key, tile)
+            except Exception:
+                exception.extend(sys.exc_info())
+                return QImage()
+        def finalize(image):
+            self.cache.addtile(key, tile, image)
+            for cb in callbacks:
+                cb(page)
+            del _jobs[(key, tile)]
+            self.checkstart()
+            if exception:
+                self.exception(*exception)
+        job.work = work
+        job.finalize = finalize
+        return job
+
+    def unschedule(self, pages, callback):
+        """Unschedule a possible pending rendering job for the given pages.
+
+        If the pending job has no other callbacks left, it is removed,
+        unless it is running.
+
+        """
+        pages = set((p.group(), p.ident()) for p in pages)
+        unschedule = []
+        for (key, tile), job in _jobs.items():
+            if key[:2] in pages:
+                job.callbacks.discard(callback)
+                if not job.callbacks and not job.running:
+                    unschedule.append((key, tile))
+        for jobkey in unschedule:
+            job = _jobs.pop(jobkey)
+            job.finalize = job.work = None
+
+    def invalidate(self, pages):
+        """Delete the cached images for the given pages."""
+        for p in pages:
+            self.cache.invalidate(p)
 
     def checkstart(self):
-        """Check whether there are jobs that need to be started."""
-        try:
-            ourjobs = _jobs[self].values()
-        except KeyError:
-            return
-        # count the total number of running jobs
-        runningjobs = [j for jobs in _jobs.values()
-                         for j in jobs.values() if j.running]
-        waitingjobs = sorted((j for j in ourjobs if not j.running),
-                             key=lambda j: j.time, reverse=True)
-        jobcount = len(runningjobs)
+        """Check whether there are jobs that need to be started.
 
-        for job in waitingjobs[:maxjobs-jobcount]:
-            mutex = job.page.mutex()
-            if mutex is None or not any(mutex is j.page.mutex() for j in runningjobs):
-                runningjobs.append(job)
-                job.start()
+        This method is called by the schedule() method, and by the finish()
+        method when a job finishes, so that the number of running jobs never
+        exceeds `maxjobs`.
 
-    def finish(self, job):
-        """Called by the job when finished."""
-        self.cache[job.key] = job.image
-        # if page already was resized during rendering, immediately rerender...
-        if job.page.size() != job.page_copy.size():
-            job.start()
-        else:
-            for cb in job.callbacks:
-                cb(job.page)
-            del _jobs[self][job.page]
-            if not _jobs[self]:
-                del _jobs[self]
-            else:
-                self.checkstart()
+        """
+        runningjobs = [job for job in _jobs.values() if job.running]
+        waitingjobs = sorted((job for job in _jobs.values() if not job.running),
+                        key=lambda j: j.time, reverse=True)     # newest first
+
+        jobcount = maxjobs - len(runningjobs)
+        if jobcount > 0:
+            mutexes = set(j.mutex for j in runningjobs)
+            mutexes.discard(None)
+            for job in waitingjobs:
+                m = job.mutex
+                if m is None or m not in mutexes:
+                    mutexes.add(m)
+                    job.start()
+                    jobcount -= 1
+                    if jobcount == 0:
+                        break
+
+    def exception(self, exctype, excvalue, exctb):
+        """Called when an exception has occurred in a background rendering job.
+
+        The default implementation prints a traceback to stderr.
+
+        """
+        import traceback
+        traceback.print_exception(exctype, excvalue, exctb)
+
+
+
+# install a global cache to use by default
+AbstractRenderer.cache = cache.ImageCache()
+
 

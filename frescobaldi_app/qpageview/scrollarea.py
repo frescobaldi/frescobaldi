@@ -1,6 +1,6 @@
 # This file is part of the qpageview package.
 #
-# Copyright (c) 2016 - 2016 by Wilbert Berendsen
+# Copyright (c) 2016 - 2019 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -23,8 +23,10 @@ ScrollArea, that supports kinetic scrolling and other features.
 
 import math
 
-from PyQt5.QtCore import QBasicTimer, QPoint, Qt
+from PyQt5.QtCore import QPoint, QRect, QSize, Qt
 from PyQt5.QtWidgets import QAbstractScrollArea
+
+from . import util
 
 
 class ScrollArea(QAbstractScrollArea):
@@ -32,24 +34,37 @@ class ScrollArea(QAbstractScrollArea):
 
     Instance attributes:
 
-        kineticscrolling (True): whether the wheel and pgup/pgdn keys etc use
-                                 kinetic scrolling
+        alignment (Qt.AlignCenter):
+            how to align the scrolled area if smaller than the viewport
 
-        scrollupdatespersec (50): how many scroll updates to draw per second
-                                 (50 is recommended).
+        scrollupdatespersec (50):
+            how many scroll updates to draw per second (50 is recommended).
 
+        kineticScrollingEnabled (True):
+            whether the wheel and pgup/pgdn keys etc use kinetic scrolling
+
+        draggingEnabled (True):
+            If enabled, the user can drag the contents of the scrollarea to
+            move it with the mouse.
+            
     """
 
-    kineticscrolling = True
+    alignment = Qt.AlignCenter
     scrollupdatespersec = 50
+    kineticScrollingEnabled = True
+    draggingEnabled = True
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
+        self._areaSize = 0, 0
+        self._dragPos = None
+        self._dragSpeed = None
+        self._dragTime = None
         self._scroller = None
-        self._scrollTimer = QBasicTimer()
+        self._scrollTimer = None
 
     def wheelEvent(self, ev):
-        if self.kineticscrolling:
+        if self.kineticScrollingEnabled:
             self.kineticAddDelta(-ev.angleDelta())
         else:
             super().wheelEvent(ev)
@@ -59,12 +74,12 @@ class ScrollArea(QAbstractScrollArea):
         hbar = self.horizontalScrollBar()
         vbar = self.verticalScrollBar()
         # add Home and End, even in non-kinetic mode
-        scroll = self.kineticScrollBy if self.kineticscrolling else self.scrollBy
+        scroll = self.kineticScrollBy if self.kineticScrollingEnabled else self.scrollBy
         if ev.key() == Qt.Key_Home:
             scroll(QPoint(0, -vbar.value()))
         elif ev.key() == Qt.Key_End:
             scroll(QPoint(0, vbar.maximum() - vbar.value()))
-        elif self.kineticscrolling:
+        elif self.kineticScrollingEnabled:
             # make arrow keys and PgUp and PgDn kinetic
             if ev.key() == Qt.Key_PageDown:
                 self.kineticAddDelta(QPoint(0, vbar.pageStep()))
@@ -83,6 +98,98 @@ class ScrollArea(QAbstractScrollArea):
         else:
             super().keyPressEvent(ev)
 
+    def setAreaSize(self, size):
+        """Updates the scrollbars to be able to display an area of this size."""
+        self._areaSize = (size.width(), size.height())
+        self._updateScrollBars()
+
+    def areaSize(self):
+        """Return the size of the area as set by setAreaSize()."""
+        return QSize(*self._areaSize)
+
+    def areaPos(self):
+        """Return the position of the area relative to the viewport.
+        
+        The alignment attribute is taken into account when the area is smaller
+        than the viewport (horizontally and/or vertically).
+        
+        """
+        w, h = self._areaSize
+        vw = self.viewport().width()
+        vh = self.viewport().height()
+        left, top = util.align(w, h, vw, vh, self.alignment)
+        if left < 0:
+            left = -self.horizontalScrollBar().value()
+        if top < 0:
+            top = -self.verticalScrollBar().value()
+        return QPoint(left, top)
+    
+    def visibleArea(self):
+        """Return a rectangle describing the part of the area that is visible."""
+        pos = self.areaPos()
+        r = self.viewport().rect() & QRect(pos, self.areaSize())
+        return r.translated(-pos)
+        
+    def offsetToEnsureVisible(self, rect):
+        """Return an offset QPoint with the minimal scroll to make rect visible.
+
+        If the rect is too large, it is positioned top-left.
+
+        """
+        area = self.visibleArea()
+        # vertical
+        dy = 0
+        if rect.bottom() > area.bottom():
+            dy = rect.bottom() - area.bottom()
+        if rect.top() < area.top() + dy:
+            dy = rect.top() - area.top()
+        # horizontal
+        dx = 0
+        if rect.right() > area.right():
+            dx = rect.right() - area.right()
+        if rect.left() < area.left() + dx:
+            dx = rect.left() - area.left()
+        return QPoint(dx, dy)
+
+    def ensureVisible(self, rect, margins=None, allowKinetic=True):
+        """Performs the minimal scroll to make rect visible.
+        
+        If the rect is not completely visible it is scrolled into view, adding
+        the margins if given (a QMargins instance). If allowKinetic is False,
+        immediately jumps to the position, otherwise scrolls smoothly (if
+        kinetic scrolling is enabled).
+        
+        """
+        if rect not in self.visibleArea():
+            if margins is not None:
+                rect = rect + margins
+            diff = self.offsetToEnsureVisible(rect)
+            if allowKinetic and self.kineticScrollingEnabled:
+                self.kineticScrollBy(diff)
+            else:
+                self.scrollBy(diff)
+
+    def _updateScrollBars(self):
+        """Internal. Adjust the range of the scrollbars to the area size.
+        
+        Called in setAreaSize() and resizeEvent().
+        
+        """
+        w, h = self._areaSize
+        maxsize = self.maximumViewportSize()
+        vbar = self.verticalScrollBar()
+        hbar = self.horizontalScrollBar()
+
+        if w <= maxsize.width() and h <= maxsize.height():
+            vbar.setRange(0, 0)
+            hbar.setRange(0, 0)
+        else:
+            viewport = self.viewport()
+            vbar.setRange(0, h - viewport.height())
+            vbar.setPageStep(viewport.height() * .9)
+            hbar.setRange(0, w - viewport.width())
+            hbar.setPageStep(viewport.width() * .9)
+        
     def scrollOffset(self):
         """Return the current scroll offset."""
         x = self.horizontalScrollBar().value()
@@ -187,28 +294,88 @@ class ScrollArea(QAbstractScrollArea):
     def startScrolling(self, scroller):
         """Begin a scrolling operation using the specified scroller."""
         self._scroller = scroller
-        if not self._scrollTimer.isActive():
-            self._scrollTimer.start(1000 / self.scrollupdatespersec, self)
+        if self._scrollTimer is None:
+            self._scrollTimer = self.startTimer(1000 / self.scrollupdatespersec)
 
     def stopScrolling(self):
         """Stop scrolling."""
         if self._scroller:
-            self._scrollTimer.stop()
+            self.killTimer(self._scrollTimer)
             self._scroller = None
+            self._scrollTimer = None
 
     def isScrolling(self):
         """Return True if a scrolling movement is active."""
-        return bool(self._scroller)
+        return self._scroller is not None
+    
+    def remainingScrollTime(self):
+        """If a kinetic scroll is active, return how many msecs the scroll wil last.
+
+        Otherwise, return 0.
+
+        """
+        if isinstance(self._scroller, KineticScroller):
+            return 1000 / self.scrollupdatespersec * self._scroller.remainingTicks()
+        return 0
+
+    def isDragging(self):
+        """Return True if the user is dragging the background."""
+        return self._dragPos is not None
 
     def timerEvent(self, ev):
-        """Called by the _scrollTimer."""
-        diff = self._scroller.step()
-        # when scrolling slowly, it might be that no redraw is needed
-        if diff:
-            # change the scrollbars, but check how far they really moved.
-            if not self.scrollBy(diff) or self._scroller.finished():
-                self.stopScrolling()
+        """Implemented to handle the scroll timer."""
+        if ev.timerId() == self._scrollTimer:
+            diff = self._scroller.step()
+            # when scrolling slowly, it might be that no redraw is needed
+            if diff:
+                # change the scrollbars, but check how far they really moved.
+                if not self.scrollBy(diff) or self._scroller.finished():
+                    self.stopScrolling()
 
+    def resizeEvent(self, ev):
+        """Implemented to update the scrollbars to the aera size."""
+        self._updateScrollBars()
+
+    def mousePressEvent(self, ev):
+        """Implemented to handle dragging the document with the left button."""
+        self.stopScrolling()
+        super().mousePressEvent(ev)
+
+    def mouseMoveEvent(self, ev):
+        """Implemented to handle dragging the document with the left button."""
+        if self.draggingEnabled and ev.buttons() & Qt.LeftButton:
+            if self._dragPos is None:
+                self.setCursor(Qt.SizeAllCursor)
+            else:
+                diff = self._dragPos - ev.pos()
+                self._dragSpeed = (ev.timestamp() - self._dragTime, diff)
+                self.scrollBy(diff)
+            self._dragPos = ev.pos()
+            self._dragTime = ev.timestamp()
+        super().mouseMoveEvent(ev)
+
+    def mouseReleaseEvent(self, ev):
+        """Implemented to handle dragging the document with the left button."""
+        if self.draggingEnabled and ev.button() == Qt.LeftButton and self._dragPos is not None:
+            self.unsetCursor()
+            if self.kineticScrollingEnabled and self._dragSpeed is not None:
+                # compute speed of last movement
+                time, speed = self._dragSpeed
+                time += ev.timestamp() - self._dragTime # add time between last mvt and release
+                speed = speed * 1000 / self.scrollupdatespersec / time
+                # compute diff to scroll
+                sx = abs(speed.x())
+                diffx = sx * (sx + 1) / 2
+                sy = abs(speed.y())
+                diffy = sy * (sy + 1) / 2
+                if speed.x() < 0: diffx = -diffx
+                if speed.y() < 0: diffy = -diffy
+                self.kineticScrollBy(QPoint(diffx, diffy))
+            self._dragPos = None
+            self._dragTime = None
+            self._dragSpeed = None
+        super().mouseReleaseEvent(ev)
+        
 
 class Scroller:
     """Abstract base class, encapsulates scrolling behaviour.
@@ -317,6 +484,10 @@ class KineticScroller(Scroller):
         if self._y < 0:
             dy = -dy
         return QPoint(dx, dy)
+
+    def remainingTicks(self):
+        """Return the remaining ticks of this scroll."""
+        return max(abs(self._x), abs(self._y))
 
     def step(self):
         """Return a QPoint indicating the diff to scroll in this step."""

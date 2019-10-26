@@ -1,6 +1,6 @@
 # This file is part of the qpageview package.
 #
-# Copyright (c) 2016 - 2016 by Wilbert Berendsen
+# Copyright (c) 2016 - 2019 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -22,8 +22,8 @@ A page that can display a SVG document.
 
 """
 
-from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, QSizeF, Qt
-from PyQt5.QtGui import QColor,QImage, QPainter
+from PyQt5.QtCore import QRect, QRectF, Qt
+from PyQt5.QtGui import QColor, QPainter
 from PyQt5.QtSvg import QSvgRenderer
 
 from .constants import (
@@ -33,75 +33,83 @@ from .constants import (
     Rotate_270,
 )
 
+from . import document
+from . import locking
 from . import page
 from . import render
 
 
-class BasicSvgPage(page.AbstractPage):
+class SvgPage(page.AbstractRenderedPage):
     """A page that can display a SVG document."""
-    def __init__(self, load_file=None):
-        self._svg_r = QSvgRenderer()
-        if load_file:
-            self.load(load_file)
 
-    def load(self, load_file):
-        """Load filename or QByteArray."""
-        success = self._svg_r.load(load_file)
-        if success:
-            self.pageWidth = self._svg_r.defaultSize().width()
-            self.pageHeight = self._svg_r.defaultSize().height()
-        return success
+    dpi = 90.0
+    
+    def __init__(self, svgrenderer, renderer=None):
+        super().__init__(renderer)
+        self._svg = svgrenderer
+        self.pageWidth = svgrenderer.defaultSize().width()
+        self.pageHeight = svgrenderer.defaultSize().height()
+        self._viewBox = svgrenderer.viewBoxF()
 
-    def paint(self, painter, rect, callback=None):
-        painter.fillRect(rect, self.paperColor or QColor(Qt.white))
-        page = QRect(0, 0, self.width, self.height)
-        painter.translate(page.center())
-        painter.rotate(self.computedRotation * 90)
-        if self.computedRotation & 1:
-            page.setSize(page.size().transposed())
-        painter.translate(-page.center())
-        self._svg_r.render(painter, QRectF(page))
+    @classmethod
+    def load(cls, filename, renderer=None):
+        """Load a SVG document from filename, which may also be a QByteArray.
 
+        Yields only one Page instance, as SVG currently supports one page per
+        file. If the file can't be loaded by the underlying QSvgRenderer,
+        no Page is yielded.
 
-class SvgPage(BasicSvgPage):
-    """Display SVG pages using a cache."""
-    def __init__(self, load_file=None, renderer=None):
-        super().__init__(load_file)
-        if renderer is not None:
-            self.renderer = renderer
+        """
+        r = QSvgRenderer()
+        if r.load(filename):
+            yield cls(r, renderer)
 
-    def paint(self, painter, rect, callback=None):
-        self.renderer.paint(self, painter, rect, callback)
+    def mutex(self):
+        return self._svg
+
+    def group(self):
+        return self._svg
 
 
-class Renderer(render.AbstractImageRenderer):
-    """Render SVG pages.
+class SvgDocument(document.MultiSourceDocument):
+    """A Document representing a group of SVG files."""
+    pageClass = SvgPage
 
-    Additional instance attributes:
-
-        imageFormat     (QImage.Format_ARGB32_Premultiplied) the QImage format to use.
-
-    """
-    # QImage format to use
-    imageFormat = QImage.Format_ARGB32_Premultiplied
-
-    def render(self, page):
-        """Generate an image for this Page."""
-        i = QImage(page.width, page.height, self.imageFormat)
-        i.fill(page.paperColor or self.paperColor or QColor(Qt.white))
-        painter = QPainter(i)
-        rect = QRect(0, 0, page.width, page.height)
-        painter.translate(rect.center())
-        painter.rotate(page.computedRotation * 90)
-        if page.computedRotation & 1:
-            rect.setSize(rect.size().transposed())
-        painter.translate(-rect.center())
-        page._svg_r.render(painter, QRectF(rect))
-        return i
+    def createPages(self):
+        return self.pageClass.loadFiles(self.sources(), self.renderer)
 
 
-# install a default renderer, so PopplerPage can be used directly
-SvgPage.renderer = Renderer()
+class SvgRenderer(render.AbstractRenderer):
+    """Render SVG pages."""
+    def setRenderHints(self, painter):
+        """Sets the renderhints for the painter we want to use."""
+        painter.setRenderHint(QPainter.Antialiasing, self.antialiasing)
+        painter.setRenderHint(QPainter.TextAntialiasing, self.antialiasing)
+
+    def draw(self, page, painter, key, tile, paperColor=None):
+        """Draw the specified tile of the page (coordinates in key) on painter."""
+        # determine the part to draw; convert tile to viewbox
+        viewbox = self.map(key, page._viewBox).mapRect(QRectF(*tile))
+        target = QRectF(0, 0, tile.w, tile.h)
+        if key.rotation & 1:
+            target.setSize(target.size().transposed())
+        with locking.lock(page._svg):
+            page._svg.setViewBox(viewbox)
+            # we must specify the target otherwise QSvgRenderer scales to the
+            # unrotated image
+            painter.save()
+            painter.setClipRect(target, Qt.IntersectClip)
+            # QSvgRenderer seems to set antialiasing always on anyway... :-)
+            self.setRenderHints(painter)
+            page._svg.render(painter, target)
+            painter.restore()
+            page._svg.setViewBox(page._viewBox)
+
+
+
+
+# install a default renderer, so SvgPage can be used directly
+SvgPage.renderer = SvgRenderer()
 
 
 

@@ -41,6 +41,7 @@ def pageorder():
     """Yields the page item classes in order."""
     yield General
     yield LilyPond
+    yield MusicViewers
     yield Midi
     yield Helpers
     yield Paths
@@ -176,6 +177,17 @@ class General(PrefsItemBase):
     def widget(self, dlg):
         from . import general
         return general.GeneralPrefs(dlg)
+
+
+class MusicViewers(PrefsItemBase):
+    help = "prefs_musicviewers"
+    iconName = "Audio-x-generic"
+    def translateUI(self):
+        self.setText(_("Music Preferences"))
+
+    def widget(self, dlg):
+        from . import musicviewers
+        return musicviewers.MusicViewers(dlg)
 
 
 class LilyPond(PrefsItemBase):

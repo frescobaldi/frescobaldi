@@ -9,6 +9,7 @@ menu_edit_preferences menu edit -> Pr&eferences...
 #SUBDOCS
 prefs_general
 prefs_lilypond
+prefs_musicviewers
 prefs_midi
 prefs_helpers
 prefs_paths

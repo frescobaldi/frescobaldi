@@ -1,6 +1,6 @@
-# This file is part of the qpopplerview package.
+# This file is part of the qpageview package.
 #
-# Copyright (c) 2010 - 2014 by Wilbert Berendsen
+# Copyright (c) 2010 - 2019 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -32,7 +32,7 @@ Right  = 2
 Bottom = 3
 
 
-class Rectangles(object):
+class Rectangles:
     """
     Manages a list of rectangular objects and quickly finds objects at
     some point, in some rectangle or intersecting some rectangle.
@@ -44,33 +44,38 @@ class Rectangles(object):
     clears the indexes, that are recreated on first search).  Single objects
     can be added and deleted, keeping the indexes, but that's slower.
 
+    You should inherit from this class and implement the method get_coords(obj)
+    to get the rectangle of the object (x, y, x2, y2). These are requested only
+    once. x should be < x2 and y should be < y2.
+    
     """
-    _func = lambda obj: obj.rect().normalized().getCoords()
-
-    def __init__(self, objects=None, func=None):
+    def __init__(self, objects=None):
         """Initializes the Rectangles object.
 
-        objects should be an iterable of rectangular objects.
-
-        function(obj) should return a four-tuple (left, top, right, bottom)
-        of the coordinates of the rectangle.  The coordinates should be normalized,
-        i.e. top <= bottom and left <= right.
-
-        The default function is: lambda obj: obj.rect().normalized().getCoords()
-
+        objects should, if given, be an iterable of rectangular objects, and
+        bulk_add() is called on those objects.
+        
         """
         self._items = {} # maps object to the result of func(object)
         self._index = {} # maps side to indices, objects (index=coordinate of that side)
-        if func:
-            self._func = func
         if objects:
             self.bulk_add(objects)
 
+    def get_coords(self, obj):
+        """You should implement this method.
+        
+        The result should be a four-tuple with the coordinates of the rectangle
+        the object represents (x, y, x2, y2). These are requested only once.
+        x should be < x2 and y should be < y2.
+        
+        """
+        return (0, 0, 0, 0)
+    
     def add(self, obj):
         """Adds an object to our list. Keeps the index intact."""
         if obj in self._items:
             return
-        self._items[obj] = coords = self._func(obj)
+        self._items[obj] = coords = self.get_coords(obj)
         for side, (indices, objects) in self._index.items():
             i = bisect.bisect_left(indices, coords[side])
             indices.insert(i, coords[side])
@@ -82,7 +87,7 @@ class Rectangles(object):
         After this, the index is cleared and recreated on the first search operation.
 
         """
-        self._items.update((obj, self._func(obj)) for obj in objects)
+        self._items.update((obj, self.get_coords(obj)) for obj in objects)
         self._index.clear()
 
     def remove(self, obj):
@@ -122,6 +127,24 @@ class Rectangles(object):
             (self._smaller, Left, right),
             (self._larger, Right, left))
 
+    def width(self, obj):
+        """Return the width of the specified object.
+
+        This can be used for sorting a set returned by at(), inside() or
+        intersecting(). For example:
+
+            for r in sorted(rects.at(10, 20), key=rects.width):
+                # ...
+
+        """
+        coords = self._items[obj]
+        return coords[Right] - coords[Left]
+
+    def height(self, obj):
+        """Return the height of the specified object. See also width()."""
+        coords = self._items[obj]
+        return coords[Bottom] - coords[Top]
+
     def closest(self, obj, side):
         """Returns the object closest to the given one, going to the given side."""
         coords = self._items[obj]
@@ -148,14 +171,82 @@ class Rectangles(object):
             result.sort(key=lambda r: r[1])
             return result[0][0]
 
+    def nearest(self, x, y):
+        """Return the object with the shortest distance to the point x, y.
+        
+        The point (x, y) is outside the object. Use at() to get objects that 
+        touch the point (x, y). If there are no objects, None is returned.
+        
+        """
+        i = self._items
+        
+        left = self._larger(Left, x)            # closest one is first
+        right = self._smaller(Right, x)         # closest one is last
+        top = self._larger(Top, y)              # closest one is first
+        bottom = self._smaller(Bottom, y)       # closest one is last
+        
+        result = []
+        
+        # first find adjacent rectangles. For each side, as soon as one is
+        # found, don't look further for that side. Only save rectangles that are
+        # closer but not adjacent, they could be closer on another side.
+        left_over = 0
+        for o in left:
+            if o not in top and o not in bottom:
+                result.append((i[o][Left] - x, o))
+                break
+            left_over += 1
+        top_over = 0
+        for o in top:
+            if o not in left and o not in right:
+                result.append((i[o][Top] - y, o))
+                break
+            top_over += 1
+        right_over = 0
+        for o in right[::-1]:
+            if o not in top and o not in bottom:
+                result.append((x - i[o][Right], o))
+                break
+            right_over -= 1
+        bottom_over = 0
+        for o in bottom[::-1]:
+            if o not in left and o not in right:
+                result.append((y - i[o][Bottom], o))
+                break
+            bottom_over -= 1
+        # at most 4 rectangles are found, the closest one on each edge.
+        # Now look for rectangles that could be closer at the corner.
+        if left_over and top_over:
+            for o in set(left[:left_over]).intersection(top[:top_over]):
+                result.append((i[o][Left] - x + i[o][Top] - y, o))
+        if top_over and right_over:
+            for o in set(top[:top_over]).intersection(right[right_over:]):
+                result.append((i[o][Top] - y + x - i[o][Right], o))
+        if left_over and bottom_over:
+            for o in set(left[:left_over]).intersection(bottom[bottom_over:]):
+                result.append((i[o][Left] - x + y - i[o][Bottom], o))
+        if bottom_over and right_over:
+            for o in set(bottom[bottom_over:]).intersection(right[right_over:]):
+                result.append((y - i[o][Bottom] + x - i[o][Right], o))
+        
+        if result:
+            return min(result, key=operator.itemgetter(0))[1]
+
     def __len__(self):
+        """Return the number of objects."""
         return len(self._items)
 
     def __contains__(self, obj):
+        """Return True if the object is managed by us."""
         return obj in self._items
 
     def __bool__(self):
-        return bool(self._items)
+        """Always return True."""
+        return True
+
+    def __iter__(self):
+        """Iterate over the objects in undefined order."""
+        return iter(self._items)
 
     # private helper methods
     def _test(self, *tests):
@@ -166,15 +257,13 @@ class Rectangles(object):
         Returns a (possibly empty) set.
 
         """
-        result = None
-        for meth, side, value in tests:
-            objects = meth(side, value)
-            if not result:
-                result = set(objects)
-            else:
-                result &= set(objects)
-            if not result:
-                break
+        meth, side, value = tests[0]
+        result = set(meth(side, value))
+        if result:
+            for meth, side, value in tests[1:]:
+                result &= set(meth(side, value))
+                if not result:
+                    break
         return result
 
     def _smaller(self, side, value):

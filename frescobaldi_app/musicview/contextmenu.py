@@ -42,8 +42,8 @@ def show(position, panel, link, cursor):
     m = QMenu(panel)
 
     # selection? -> Copy
-    if panel.widget().view.surface().hasSelection():
-        if panel.widget().view.surface().selectedText():
+    if panel.widget().view.rubberband().hasSelection():
+        if panel.widget().view.rubberband().selectedText():
             m.addAction(panel.actionCollection.music_copy_text)
         m.addAction(panel.actionCollection.music_copy_image)
 

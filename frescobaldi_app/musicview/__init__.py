@@ -48,6 +48,7 @@ import actioncollection
 import actioncollectionmanager
 import icons
 import job
+import qpageview.document
 import qutil
 import panel
 import listmodel
@@ -57,10 +58,10 @@ from . import documents
 
 
 # default zoom percentages
-_zoomvalues = [50, 75, 100, 125, 150, 175, 200, 250, 300]
+_zoomvalues = [50, 75, 100, 125, 150, 200, 300, 800, 2400, 6400]
 
-# viewModes from qpopplerview:
-from qpopplerview import FixedScale, FitWidth, FitHeight, FitBoth
+# viewModes from qpageview:
+from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
 
 
 def activate(func):
@@ -98,9 +99,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_fit_width.triggered.connect(self.fitWidth)
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
-        ac.music_single_pages.triggered.connect(self.viewSinglePages)
-        ac.music_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
-        ac.music_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
+        ac._music_layout_mode.triggered.connect(self.slotSetPageLayoutMode)
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
@@ -108,23 +107,23 @@ class MusicViewPanel(panel.Panel):
         ac.music_copy_text.triggered.connect(self.copyText)
         ac.music_document_select.documentsChanged.connect(self.updateActions)
         ac.music_copy_image.setEnabled(False)
+        ac.music_copy_text.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
         self.slotPageCountChanged(0)
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
-        ac.music_single_pages.setChecked(True) # default to single pages
         ac.music_reload.triggered.connect(self.reloadView)
-        self.actionCollection.music_sync_cursor.setChecked(
+        ac.music_sync_cursor.setChecked(
             QSettings().value("musicview/sync_cursor", False, bool))
+        ac.music_continuous.setChecked(
+            QSettings().value("musicview/continuous", True, bool))
 
-        mode = QSettings().value("muziekview/layoutmode", "single", str)
-        if mode == "double_left":
-            ac.music_two_pages_first_left.setChecked(True)
-        elif mode == "double_right":
-            ac.music_two_pages_first_right.setChecked(True)
-        else: # mode == "single":
-            ac.music_single_pages.setChecked(True)
+        mode = self.pageLayoutMode()
+        ac.music_two_pages_first_left.setChecked(mode == "double_left")
+        ac.music_two_pages_first_right.setChecked(mode == "double_right")
+        ac.music_single_pages_horizontal.setChecked(mode == "horizontal")
+        ac.music_single_pages.setChecked(mode == "single")
 
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -133,26 +132,16 @@ class MusicViewPanel(panel.Panel):
     def createWidget(self):
         from . import widget
         w = widget.MusicView(self)
-        w.zoomChanged.connect(self.slotMusicZoomChanged)
-        w.updateZoomInfo()
-        w.view.surface().selectionChanged.connect(self.updateSelection)
+        w.view.zoomFactorChanged.connect(self.slotMusicZoomFactorChanged)
+        w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
+        w.view.pageCountChanged.connect(self.slotPageCountChanged)
+        w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
+        w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         # read layout mode setting before using the widget
-        layout = w.view.surface().pageLayout()
-        if self.actionCollection.music_two_pages_first_right.isChecked():
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(1)
-        elif self.actionCollection.music_two_pages_first_left.isChecked():
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(0)
-        else: # "single"
-            layout.setPagesPerRow(1)   # default to single
-            layout.setPagesFirstRow(0) # pages
-
-        import qpopplerview.pager
-        self._pager = p = qpopplerview.pager.Pager(w.view)
-        p.pageCountChanged.connect(self.slotPageCountChanged)
-        p.currentPageChanged.connect(self.slotCurrentPageChanged)
+        w.view.setPageLayoutMode(self.pageLayoutMode())
+        w.view.setContinuousMode(self.actionCollection.music_continuous.isChecked())
+        self.actionCollection.music_continuous.triggered.connect(self.toggleContinuousMode)
         app.languageChanged.connect(self.updatePagerLanguage)
 
         selector = self.actionCollection.music_document_select
@@ -168,65 +157,62 @@ class MusicViewPanel(panel.Panel):
             QTimer.singleShot(0, open)
         return w
 
+    def pageLayoutMode(self):
+        """Return the current page layout mode from the prefs."""
+        mode = QSettings().value("musicview/layoutmode", "single", str)
+        if mode in ("single", "double_left", "double_right", "horizontal"):
+            return mode
+        return "single"
+
     def setPageLayoutMode(self, mode):
         """Change the page layout and store the setting as well.
 
-        The mode is "single", "double_left" or "double_right".
+        The mode is "single", "double_left", "double_right" or "horizontal".
 
         "single": a vertical row of single pages
         "double_left": two pages besides each other, first page is a left page
         "double_right": two pages, first page is a right page.
+        "horizontal": a horizontal row of pages
 
         """
-        layout = self.widget().view.surface().pageLayout()
-        if mode == "double_right":
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(1)
-        elif mode == "double_left":
-            layout.setPagesPerRow(2)
-            layout.setPagesFirstRow(0)
-        elif mode == "single":
-            layout.setPagesPerRow(1)
-            layout.setPagesFirstRow(0)
-        else:
-            raise ValueError("wrong mode value")
-        QSettings().setValue("muziekview/layoutmode", mode)
-        layout.update()
+        QSettings().setValue("musicview/layoutmode", mode)
+        if self.instantiated():
+            self.widget().view.setPageLayoutMode(mode)
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
         self.actionCollection.music_copy_text.setEnabled(bool(rect))
 
     def updatePagerLanguage(self):
-        self.actionCollection.music_pager.setPageCount(self._pager.pageCount())
+        self.actionCollection.music_pager.setPageCount(self.widget().view.pageCount())
 
     def slotPageCountChanged(self, total):
         self.actionCollection.music_pager.setPageCount(total)
 
     def slotCurrentPageChanged(self, num):
         self.actionCollection.music_pager.setCurrentPage(num)
-        self.actionCollection.music_next_page.setEnabled(num < self._pager.pageCount())
+        self.actionCollection.music_next_page.setEnabled(num < self.widget().view.pageCount())
         self.actionCollection.music_prev_page.setEnabled(num > 1)
 
     @activate
     def slotNextPage(self):
-        self._pager.setCurrentPage(self._pager.currentPage() + 1)
+        self.widget().view.gotoNextPage()
 
     @activate
     def slotPreviousPage(self):
-        self._pager.setCurrentPage(self._pager.currentPage() - 1)
+        self.widget().view.gotoPreviousPage()
 
     def setCurrentPage(self, num):
         self.activate()
-        self._pager.setCurrentPage(num)
+        self.widget().view.setCurrentPageNumber(num)
 
     def updateActions(self):
         ac = self.actionCollection
         ac.music_print.setEnabled(bool(ac.music_document_select.documents()))
 
+    @activate
     def printMusic(self):
-        doc = self.actionCollection.music_document_select.currentDocument()
-        if doc and doc.document():
+        if self.widget().view.pageCount():
             ### temporarily disable printing on Mac OS X
             import sys
             if sys.platform.startswith('darwin'):
@@ -248,8 +234,7 @@ class MusicViewPanel(panel.Panel):
                 elif result == QMessageBox.Cancel:
                     return
             ### end temporarily disable printing on Mac OS X
-            import popplerprint
-            popplerprint.printDocument(doc, self)
+            self.widget().view.print()
 
     @activate
     def zoomIn(self):
@@ -261,7 +246,7 @@ class MusicViewPanel(panel.Panel):
 
     @activate
     def zoomOriginal(self):
-        self.widget().view.zoom(1.0)
+        self.widget().view.setZoomFactor(1.0)
 
     @activate
     def fitWidth(self):
@@ -275,21 +260,27 @@ class MusicViewPanel(panel.Panel):
     def fitBoth(self):
         self.widget().view.setViewMode(FitBoth)
 
-    @activate
-    def viewSinglePages(self):
-        self.setPageLayoutMode("single")
+    def slotSetPageLayoutMode(self, action):
+        """Called when one of the layout mode actions is triggered."""
+        self.activate()
+        if action == self.actionCollection.music_single_pages:
+            self.setPageLayoutMode("single")
+        elif action == self.actionCollection.music_two_pages_first_left:
+            self.setPageLayoutMode("double_left")
+        elif action == self.actionCollection.music_two_pages_first_right:
+            self.setPageLayoutMode("double_right")
+        elif action == self.actionCollection.music_single_pages_horizontal:
+            self.setPageLayoutMode("horizontal")
 
     @activate
-    def viewTwoPagesFirstRight(self):
-        self.setPageLayoutMode("double_right")
-
-    @activate
-    def viewTwoPagesFirstLeft(self):
-        self.setPageLayoutMode("double_left")
+    def toggleContinuousMode(self):
+        continuousMode = self.actionCollection.music_continuous.isChecked()
+        self.widget().view.setContinuousMode(continuousMode)
+        QSettings().setValue("musicview/continuous", continuousMode)
 
     @activate
     def jumpToCursor(self):
-        self.widget().showCurrentLinks()
+        self.widget().showCurrentLinks(True, 10000)
 
     @activate
     def reloadView(self):
@@ -304,33 +295,39 @@ class MusicViewPanel(panel.Panel):
             self.actionCollection.music_sync_cursor.isChecked())
 
     def copyImage(self):
-        page = self.widget().view.surface().selectedPage()
+        page, rect = self.widget().view.rubberband().selectedPage()
         if not page:
             return
-        rect = self.widget().view.surface().selectedPageRect(page)
+        filename = self.widget().view.document().filename()
         import copy2image
-        copy2image.copy_image(self, page, rect, documents.filename(page.document()))
+        copy2image.copy_image(self, page, rect, filename)
 
     def copyText(self):
-        text = self.widget().view.surface().selectedText()
+        text = self.widget().view.rubberband().selectedText()
         if text:
             QApplication.clipboard().setText(text)
 
     def slotZoomChanged(self, mode, scale):
         """Called when the combobox is changed, changes view zoom."""
         self.activate()
+        self.widget().view.setViewMode(mode)
         if mode == FixedScale:
-            self.widget().view.zoom(scale)
-        else:
-            self.widget().view.setViewMode(mode)
+            self.widget().view.setZoomFactor(scale)
 
-    def slotMusicZoomChanged(self, mode, scale):
+    def slotMusicZoomFactorChanged(self, factor):
+        """Called when the music view zoom is changed, updates the toolbar actions."""
+        ac = self.actionCollection
+        mode = self.widget().view.viewMode()
+        ac.music_zoom_combo.updateZoomInfo(mode, factor)
+
+    def slotMusicViewModeChanged(self, mode):
         """Called when the music view is changed, updates the toolbar actions."""
         ac = self.actionCollection
         ac.music_fit_width.setChecked(mode == FitWidth)
         ac.music_fit_height.setChecked(mode == FitHeight)
         ac.music_fit_both.setChecked(mode == FitBoth)
-        ac.music_zoom_combo.updateZoomInfo(mode, scale)
+        factor = self.widget().view.zoomFactor()
+        ac.music_zoom_combo.updateZoomInfo(mode, factor)
 
 
 class Actions(actioncollection.ActionCollection):
@@ -345,10 +342,12 @@ class Actions(actioncollection.ActionCollection):
         self.music_fit_width = QAction(panel, checkable=True)
         self.music_fit_height = QAction(panel, checkable=True)
         self.music_fit_both = QAction(panel, checkable=True)
-        self._column_mode = ag = QActionGroup(panel)
+        self._music_layout_mode = ag = QActionGroup(panel)
         self.music_single_pages = QAction(ag, checkable=True)
         self.music_two_pages_first_right = QAction(ag, checkable=True)
         self.music_two_pages_first_left = QAction(ag, checkable=True)
+        self.music_single_pages_horizontal = QAction(ag, checkable=True)
+        self.music_continuous = QAction(panel, checkable=True)
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
         self.music_sync_cursor = QAction(panel, checkable=True)
@@ -394,6 +393,8 @@ class Actions(actioncollection.ActionCollection):
         self.music_single_pages.setText(_("Single Pages"))
         self.music_two_pages_first_right.setText(_("Two Pages (first page right)"))
         self.music_two_pages_first_left.setText(_("Two Pages (first page left)"))
+        self.music_single_pages_horizontal.setText(_("Horizontal"))
+        self.music_continuous.setText(_("&Continuous"))
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
@@ -440,7 +441,7 @@ class DocumentChooserAction(ComboBoxAction):
 
     documentClosed = pyqtSignal()
     documentsChanged = pyqtSignal()
-    currentDocumentChanged = pyqtSignal(documents.Document)
+    currentDocumentChanged = pyqtSignal(qpageview.document.Document)
 
     def __init__(self, panel):
         super(DocumentChooserAction, self).__init__(panel)

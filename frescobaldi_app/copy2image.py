@@ -36,7 +36,6 @@ import app
 import util
 import qutil
 import icons
-import qpopplerview
 import widgets.imageviewer
 import widgets.colorbutton
 import gadgets.drag
@@ -111,9 +110,9 @@ class Dialog(QDialog):
         self.dpiCombo.editTextChanged.connect(self.drawImage)
         self.colorButton.colorChanged.connect(self.drawImage)
         self.grayscale.toggled.connect(self.drawImage)
-        self.antialias.toggled.connect(self.drawImage)
         self.scaleup.toggled.connect(self.drawImage)
         self.crop.toggled.connect(self.cropImage)
+        self.antialias.toggled.connect(self.drawImage)
         self.buttons.rejected.connect(self.reject)
         self.copyButton.clicked.connect(self.copyToClipboard)
         self.saveButton.clicked.connect(self.saveAs)
@@ -176,6 +175,9 @@ class Dialog(QDialog):
         self.setWindowTitle(app.caption(title))
 
     def setPage(self, page, rect, filename):
+        page = page.copy()
+        if page.renderer:
+            page.renderer = page.renderer.copy()
         self._page = page
         self._rect = rect
         self._filename = filename
@@ -187,17 +189,11 @@ class Dialog(QDialog):
         dpi = float(self.dpiCombo.currentText() or '100')
         dpi = max(dpi, self.dpiCombo.validator().bottom())
         dpi = min(dpi, self.dpiCombo.validator().top())
-        options = qpopplerview.RenderOptions()
-        options.setPaperColor(self.colorButton.color())
-        if self.antialias.isChecked():
-            if popplerqt5:
-                options.setRenderHint(
-                    popplerqt5.Poppler.Document.Antialiasing |
-                    popplerqt5.Poppler.Document.TextAntialiasing)
-        else:
-            options.setRenderHint(0)
         m = 2 if self.scaleup.isChecked() else 1
-        i = self._page.image(self._rect, dpi * m, dpi * m , options)
+        paperColor = self.colorButton.color()
+        if self._page.renderer:
+            self._page.renderer.antialiasing = self.antialias.isChecked()
+        i = self._page.image(self._rect, dpi * m, dpi * m, paperColor)
         if m == 2:
             i = i.scaled(i.size() / 2, transformMode=Qt.SmoothTransformation)
         if self.grayscale.isChecked():
