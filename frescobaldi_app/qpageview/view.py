@@ -263,12 +263,21 @@ class View(scrollarea.ScrollArea):
 
         """
         pages = list(self._pageLayout)
+        if self.rubberband():
+            selectedpages = set(p for p, r in self.rubberband().selectedPages())
+        else:
+            selectedpages = set()
         lazy = bool(pages)
-        yield pages
-        lazy &= bool(pages)
-        self._unschedulePages(list(set(self._pageLayout) - set(pages)))
-        self._pageLayout[:] = pages
-        self.updatePageLayout(lazy)
+        try:
+            yield pages
+        finally:
+            lazy &= bool(pages)
+            removedpages = set(self._pageLayout) - set(pages)
+            self._unschedulePages(removedpages)
+            self._pageLayout[:] = pages
+            self.updatePageLayout(lazy)
+            if selectedpages & removedpages:
+                self.rubberband().clearSelection() # rubberband'll always be there
 
     @contextlib.contextmanager
     def modifyPage(self, num):
@@ -288,16 +297,12 @@ class View(scrollarea.ScrollArea):
         self._document = None
         with self.modifyPages() as pages:
             pages.clear()
-        if self.rubberband() and self.rubberband().hasSelection():
-            self.rubberband().clearSelection()
 
     def setDocument(self, document):
         """Set the Document to display (see document.Document)."""
         self._document = document
         with self.modifyPages() as pages:
             pages[:] = document.pages()
-        if self.rubberband() and self.rubberband().hasSelection():
-            self.rubberband().clearSelection()
 
     def document(self):
         """Return the Document currently displayed (see document.Document)."""
