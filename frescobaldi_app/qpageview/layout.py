@@ -530,6 +530,7 @@ class RowLayoutEngine(LayoutEngine):
             prepend = (ncols - self.pagesFirstRow) % ncols
         else:
             ncols = layout.count()
+            prepend = 0
         nrows = math.ceil((layout.count() + prepend) / ncols)
         return ncols, nrows, prepend
 
