@@ -148,7 +148,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             self.pageLayoutModeChanged.emit(mode)
             if self.viewMode():
                 with self.keepCentered():
-                    self._fitLayout()
+                    self.fitPageLayout()
 
     def readSettings(self):
         # shadow/margin
@@ -177,7 +177,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         # if margin or scrollbar visibility was changed, relayout
         if changed:
             if self._viewMode:
-                self._fitLayout()
+                self.fitPageLayout()
             self.updatePageLayout()
 
 
