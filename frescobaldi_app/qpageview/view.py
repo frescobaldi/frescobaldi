@@ -273,11 +273,16 @@ class View(scrollarea.ScrollArea):
         finally:
             lazy &= bool(pages)
             removedpages = set(self._pageLayout) - set(pages)
-            self._unschedulePages(removedpages)
-            self._pageLayout[:] = pages
-            self.updatePageLayout(lazy)
             if selectedpages & removedpages:
                 self.rubberband().clearSelection() # rubberband'll always be there
+            self._unschedulePages(removedpages)
+            self._pageLayout[:] = pages
+            if self._viewMode:
+                zoomFactor = self._pageLayout.zoomFactor
+                self.fitPageLayout()
+                if zoomFactor != self._pageLayout.zoomFactor:
+                    lazy = False
+            self.updatePageLayout(lazy)
 
     @contextlib.contextmanager
     def modifyPage(self, num):
