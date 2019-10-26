@@ -385,7 +385,7 @@ class View(scrollarea.ScrollArea):
         self._viewMode = mode
         if mode:
             with self.keepCentered():
-                self._fitLayout()
+                self.fitPageLayout()
         else:
             # call layout once to tell FixedScale is active
             self.pageLayout().fit(QSize(), mode)
@@ -401,8 +401,7 @@ class View(scrollarea.ScrollArea):
         if rotation != layout.rotation:
             with self.keepCentered():
                 layout.rotation = rotation
-                if self._viewMode:
-                    self._fitLayout()
+                self.fitPageLayout()
             self.rotationChanged.emit(rotation)
 
     def rotation(self):
@@ -423,8 +422,7 @@ class View(scrollarea.ScrollArea):
         if orientation != layout.orientation:
             with self.keepCentered():
                 layout.orientation = orientation
-                if self._viewMode:
-                    self._fitLayout()
+                self.fitPageLayout()
             self.orientationChanged.emit(orientation)
 
     def orientation(self):
@@ -445,8 +443,7 @@ class View(scrollarea.ScrollArea):
             if not oldcontinuous:
                 with self.pagingOnScrollDisabled(), self.keepCentered():
                     layout.continuousMode = True
-                    if self._viewMode:
-                        self._fitLayout()
+                    self.fitPageLayout()
                 self.continuousModeChanged.emit(True)
         elif oldcontinuous:
             p = self.currentPage()
@@ -454,8 +451,7 @@ class View(scrollarea.ScrollArea):
             with self.pagingOnScrollDisabled(), self.keepCentered():
                 layout.continuousMode = False
                 layout.currentPageSet = layout.pageSet(index)
-                if self._viewMode:
-                    self._fitLayout()
+                self.fitPageLayout()
             self.continuousModeChanged.emit(False)
     
     def continuousMode(self):
@@ -498,8 +494,7 @@ class View(scrollarea.ScrollArea):
         elif not 0 <= what < layout.pageSetCount():
             return
         layout.currentPageSet = what
-        if self._viewMode:
-            self._fitLayout()
+        self.fitPageLayout()
         self.updatePageLayout()
         if sb:
             self.verticalScrollBar().setValue(0 if sb == "up" else self.verticalScrollBar().maximum())
@@ -587,10 +582,11 @@ class View(scrollarea.ScrollArea):
         if pos in self.viewport().rect() and not self.viewport().childAt(pos):
             self.adjustCursor(pos)
             
-    def _fitLayout(self):
-        """(Internal). Fits the layout according to the view mode.
+    def fitPageLayout(self):
+        """Fit the layout according to the view mode.
 
-        Prevents scrollbar/resize loops by precalculating which scrollbars will appear.
+        Does nothing in FixedScale mode. Prevents scrollbar/resize loops by
+        precalculating which scrollbars will appear.
 
         """
         mode = self.viewMode()
@@ -946,7 +942,7 @@ class View(scrollarea.ScrollArea):
                 hbar = self.horizontalScrollBar()
                 x, xm = hbar.value(), hbar.maximum()
                 y, ym = vbar.value(), vbar.maximum()
-                self._fitLayout()
+                self.fitPageLayout()
                 self.updatePageLayout()
                 if xm: hbar.setValue(round(x * hbar.maximum() / xm))
                 if ym: vbar.setValue(round(y * vbar.maximum() / ym))
