@@ -136,6 +136,7 @@ class MusicViewPanel(panel.Panel):
         w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
         w.view.pageCountChanged.connect(self.slotPageCountChanged)
         w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
+        w.view.continuousModeChanged.connect(self.slotContinuousModeChanged)
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         # read layout mode setting before using the widget
@@ -193,6 +194,9 @@ class MusicViewPanel(panel.Panel):
         self.actionCollection.music_pager.setCurrentPage(num)
         self.actionCollection.music_next_page.setEnabled(num < self.widget().view.pageCount())
         self.actionCollection.music_prev_page.setEnabled(num > 1)
+
+    def slotContinuousModeChanged(self, continuousMode):
+        self.actionCollection.music_continuous.setChecked(continuousMode)
 
     @activate
     def slotNextPage(self):
