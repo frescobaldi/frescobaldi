@@ -480,6 +480,10 @@ class View(scrollarea.ScrollArea):
         job.start()
         return job
 
+    def properties(self):
+        """Return an uninitialized ViewProperties object."""
+        return ViewProperties()
+
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
         if mode == self._viewMode:
@@ -1105,4 +1109,116 @@ class View(scrollarea.ScrollArea):
             self.setCurrentPageNumber(self.pageCount()) if sp else self.displayPageSet("last")
         else:
             super().keyPressEvent(ev)
+
+
+class ViewProperties:
+    """Simple class encapsulating certain settings of a View.
+
+    The settings can be set to and got from a View, and saved to or loaded
+    from a QSettings group.
+
+    Class attributes serve as default values.
+    All methods return self, so operations can easily be chained.
+
+    """
+    position = None
+    rotation = Rotate_0
+    zoomFactor = 1.0
+    viewMode = FixedScale
+    orientation = None
+    continuousMode = None
+
+    def get(self, view):
+        """Get the properties of a View."""
+        self.position = view.position()
+        self.rotation = view.rotation()
+        self.orientation = view.orientation()
+        self.viewMode = view.viewMode()
+        self.zoomFactor = view.zoomFactor()
+        self.continuousMode = view.continuousMode()
+        return self
+
+    def set(self, view):
+        """Set all our properties that are not None to a View."""
+        if self.rotation is not None:
+            view.setRotation(self.rotation)
+        if self.orientation is not None:
+            view.setOrientation(self.orientation)
+        if self.continuousMode is not None:
+            view.setContinuousMode(self.continuousMode)
+        if self.viewMode is not None:
+            view.setViewMode(self.viewMode)
+        if self.zoomFactor is not None:
+            if self.viewMode is FixedScale or not view.pageLayout().zoomsToFit():
+                view.setZoomFactor(self.zoomFactor)
+        if self.position is not None:
+            view.setPosition(self.position, False)
+        return self
+
+    def mask(self, props):
+        """Set the properties named in the iterable props to None."""
+        for attr in props:
+            if getattr(self, attr, None) is not None:
+                setattr(self, attr, None)
+        return self
+
+    def save(self, settings):
+        """Save the properties that are not None to a QSettings group."""
+        if self.rotation is not None:
+            settings.setValue("rotation", self.rotation)
+        else:
+            settings.remove("rotation")
+        if self.orientation is not None:
+            settings.setValue("orientation", self.orientation)
+        else:
+            settings.remove("orientation")
+        if self.continuousMode is not None:
+            settings.setValue("continuousMode", self.continuousMode)
+        else:
+            settings.remove("continuousMode")
+        if self.viewMode is not None:
+            settings.setValue("viewMode", self.viewMode)
+        else:
+            settings.remove("viewMode")
+        if self.zoomFactor is not None:
+            settings.setValue("zoomFactor", self.zoomFactor)
+        else:
+            settings.remove("zoomFactor")
+        if self.position is not None:
+            settings.setValue("position/pageNumber", self.position.pageNumber)
+            settings.setValue("position/x", self.position.x)
+            settings.setValue("position/y", self.position.y)
+        else:
+            settings.remove("position")
+        return self
+
+    def load(self, settings):
+        """Load the properties from a QSettings group."""
+        if settings.contains("rotation"):
+            v = settings.value("rotation", -1, int)
+            if v in (Rotate_0, Rotate_90, Rotate_180, Rotate_270):
+                self.rotation = v
+        if settings.contains("orientation"):
+            v = settings.value("orientation", 0, int)
+            if v in (Horizontal, Vertical):
+                self.orientation = v
+        if settings.contains("continuousMode"):
+            v = settings.value("continuousMode", True, bool)
+            self.continuousMode = v
+        if settings.contains("viewMode"):
+            v = settings.value("viewMode", -1, int)
+            if v in (FixedScale, FitHeight, FitWidth, FitBoth):
+                self.viewMode = v
+        if settings.contains("zoomFactor"):
+            v = settings.value("zoomFactor", 0, float)
+            if v:
+                self.zoomFactor = v
+        if settings.contains("position"):
+            pageNumber = settings.value("position/pageNumber", -1, int)
+            if pageNumber != -1:
+                x = settings.value("position/x", 0.0, float)
+                y = settings.value("position/y", 0.0, float)
+                self.position = Position(pageNumber, x, y)
+        return self
+
 
