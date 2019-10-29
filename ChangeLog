@@ -13,6 +13,7 @@ Changes in current master
   - New "First System Only" option in Custom Engrave
   - Goto Line command (#927, feature request #676)
   - Rename file command (#1057, feature request #980)
+  - Music view: Horizontal layout mode and (non-)continuous layout mode
 * Bug fixes:
   - fixed #895 seeking in MIDI player during playing stops sound
   - fixed #768, now paper orientation is properly handled in New Score Wizard
@@ -30,6 +31,11 @@ Changes in current master
 * Internals:
   - Multithreaded Job Queue preparing multicore support (#1103)
   - Rewrite code handling external processes/jobs (#1100)
+  - Music (pre)views could previously only display PDF documents; this has been
+    rewritten so that many more formats can be displayed like SVG and images,
+    which will open up new possibilities for the music view and the manuscript
+    viewer (#1202)
+
 
 Changes in 3.0.0 -- February 17th, 2017
 

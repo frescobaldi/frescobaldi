@@ -190,6 +190,7 @@ class MusicViewPanel(panel.Panel):
 
     def slotPageCountChanged(self, total):
         self.actionCollection.music_pager.setPageCount(total)
+        self.actionCollection.music_next_page.setEnabled(self.widget().view.currentPageNumber() < total)
 
     def slotCurrentPageChanged(self, num):
         self.actionCollection.music_pager.setCurrentPage(num)

@@ -199,6 +199,7 @@ class AbstractViewPanel(panel.Panel):
 
     def slotPageCountChanged(self, total):
         self.actionCollection.viewer_pager.setPageCount(total)
+        self.actionCollection.viewer_next_page.setEnabled(self.widget().view.currentPageNumber() < total)
 
     def slotCurrentPageChanged(self, num):
         self.actionCollection.viewer_pager.setCurrentPage(num)
