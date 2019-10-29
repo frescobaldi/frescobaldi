@@ -1160,7 +1160,13 @@ class DocumentPropertyStore:
         self._properties[document] = view.properties().get(view)
 
     def properties(self, view, document):
-        """Return the stored or an empty ViewProperties object for the documment."""
+        """Return the stored or an empty ViewProperties object for the document.
+
+        This object remains stored for the document, so it can be used to save
+        or load View preferences for the document e.g. using QSettings, and
+        have the View use them as soon as the document is displayed.
+
+        """
         try:
             p = self._properties[document]
         except KeyError:
