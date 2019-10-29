@@ -100,22 +100,12 @@ class View(scrollarea.ScrollArea):
     pagingOnScrollEnabled = True    # keep track of current page while scrolling
     clickToSetCurrentPageEnabled = True  # any mouseclick on a page sets it the current page
     strictPagingEnabled = False     # PageUp, PageDown and wheel call setCurrentPageNumber i.s.o. scroll
-    storeDocumentPropertiesEnabled = True # whether to store certain View settings per document
 
-    The storedDocumentProperties attribute is a dictionary of properties with
-    their default values that can be stored for each Document, and restored
-    when that document is displayed again. This class-level dictionary serves
-    as default, on __init__(), a copy is made as View instance attribute, so if
-    desired, you can set the properties to store in the View instance.
+    documentPropertyStore
 
-    storedDocumentProperties = {
-        'position': None,
-        'rotation': Rotate_0,
-        'zoomFactor': 1.0,
-        'viewMode': None,       # FixedScale,
-        'orientation': None,    # Vertical,
-        'continuousMode': None, # True,
-    }
+        can be set to a DocumentPropertyStore object. If set, the object is
+        used to store certain View settings on a per-document basis.
+        (This happens in the clear() and setDocument() methods.)
 
     """
 
@@ -127,16 +117,8 @@ class View(scrollarea.ScrollArea):
     pagingOnScrollEnabled = True # keep track of current page while scrolling
     clickToSetCurrentPageEnabled = True  # any mouseclick on a page sets it the current page
     strictPagingEnabled = False  # PageUp and PageDown call setCurrentPageNumber i.s.o. scroll
-    storeDocumentPropertiesEnabled = True # whether to store certain View settings per document
 
-    storedDocumentProperties = {
-        'position': None,
-        'rotation': Rotate_0,
-        'zoomFactor': 1.0,
-        'viewMode': None,       # FixedScale,
-        'orientation': None,    # Vertical,
-        'continuousMode': None, # True,
-    }
+    documentPropertyStore = None
 
     pageCountChanged = pyqtSignal(int)
     currentPageNumberChanged = pyqtSignal(int)
@@ -150,7 +132,6 @@ class View(scrollarea.ScrollArea):
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._document = None
-        self._documentProperties = weakref.WeakKeyDictionary()
         self._currentPageNumber = 0
         self._pageCount = 0
         self._scrollingToPage = 0
@@ -160,7 +141,6 @@ class View(scrollarea.ScrollArea):
         self._magnifier = None
         self._rubberband = None
         self._pinchStartFactor = None
-        self.storedDocumentProperties = dict(self.storedDocumentProperties) # copy
         self.grabGesture(Qt.PinchGesture)
         self.viewport().setBackgroundRole(QPalette.Dark)
         self.verticalScrollBar().setSingleStep(20)
@@ -332,83 +312,26 @@ class View(scrollarea.ScrollArea):
 
     def clear(self):
         """Convenience method to clear the current layout."""
-        if self.storeDocumentPropertiesEnabled and self._document:
-            self.rememberDocumentProperties(self._document)
+        if self.documentPropertyStore and self._document:
+            self.documentPropertyStore.remember(self, self._document)
         self._document = None
         with self.modifyPages() as pages:
             pages.clear()
 
     def setDocument(self, document):
         """Set the Document to display (see document.Document)."""
-        store = self.storeDocumentPropertiesEnabled and self._document is not document
+        store = self.documentPropertyStore and self._document is not document
         if store and self._document:
-            self.rememberDocumentProperties(self._document)
+            self.documentPropertyStore.remember(self, self._document)
         self._document = document
         with self.modifyPages() as pages:
             pages[:] = document.pages()
         if store:
-            self.restoreDocumentProperties(document)
+            self.documentPropertyStore.restore(self, document)
 
     def document(self):
         """Return the Document currently displayed (see document.Document)."""
         return self._document
-
-    def rememberDocumentProperties(self, document):
-        """Save the current View settings for the specified document.
-
-        Which settings are remembered is determined by the
-        storedDocumentProperties attribute.  This method is called by clear()
-        and setDocument().
-
-        The properties are stored using a weak reference to the document.
-        If the document is discarded, the stored properties are garbage
-        collected as well.
-
-        """
-        self._documentProperties[document] = {
-            'position': self.position(),
-            'rotation': self.rotation(),
-            'zoomFactor': self.zoomFactor(),
-            'viewMode': self.viewMode(),
-            'orientation': self.orientation(),
-            'continuousMode': self.continuousMode(),
-        }
-
-    def restoreDocumentProperties(self, document):
-        """Changes the View settings to the values saved for the specified document.
-
-        Which settings are remembered is determined by the
-        storedDocumentProperties attribute.  This method is called by
-        setDocument().
-
-        If there are no stored properties for the document yet, and the default
-        value of a property is not None, the default value is used to set that
-        setting of the View.
-
-        """
-        d = {}
-        props = self._documentProperties.get(document, {})
-        for key, default in self.storedDocumentProperties.items():
-            d[key] = props.get(key, default)
-        position = d.get('position')
-        rotation = d.get('rotation')
-        zoomFactor = d.get('zoomFactor')
-        viewMode = d.get('viewMode')
-        orientation = d.get('orientation')
-        continuousMode = d.get('continuousMode')
-        if rotation in (Rotate_0, Rotate_90, Rotate_180, Rotate_270):
-            self.setRotation(rotation)
-        if orientation in (Horizontal, Vertical):
-            self.setOrientation(orientation)
-        if continuousMode in (True, False):
-            self.setContinuousMode(continuousMode)
-        if viewMode in (FixedScale, FitWidth, FitHeight, FitBoth):
-            self.setViewMode(viewMode)
-        if isinstance(zoomFactor, (int, float)):
-            if viewMode is FixedScale or not self.pageLayout().zoomsToFit():
-                self.setZoomFactor(zoomFactor)
-        if isinstance(position, Position):
-            self.setPosition(position, False)
 
     def loadPdf(self, filename, renderer=None):
         """Convenience method to load the specified PDF file.
@@ -1155,7 +1078,7 @@ class ViewProperties:
             view.setPosition(self.position, False)
         return self
 
-    def mask(self, props):
+    def unset(self, props):
         """Set the properties named in the iterable props to None."""
         for attr in props:
             if getattr(self, attr, None) is not None:
@@ -1220,5 +1143,28 @@ class ViewProperties:
                 y = settings.value("position/y", 0.0, float)
                 self.position = Position(pageNumber, x, y)
         return self
+
+
+class DocumentPropertyStore:
+    """Store ViewProperties (settings) on a per-Document basis."""
+    def __init__(self):
+        self._properties = weakref.WeakKeyDictionary()
+
+    def restore(self, view, document):
+        """Sets the properties stored for document (or default) to the View."""
+        props = self._properties.get(document) or view.properties()
+        props.set(view)
+
+    def remember(self, view, document):
+        """Stores the properties of the View for the document."""
+        self._properties[document] = view.properties().get(view)
+
+    def properties(self, view, document):
+        """Return the stored or an empty ViewProperties object for the documment."""
+        try:
+            p = self._properties[document]
+        except KeyError:
+            p = self._properties[document] = view.properties()
+        return p
 
 
