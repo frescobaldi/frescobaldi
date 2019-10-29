@@ -134,6 +134,7 @@ class MusicViewPanel(panel.Panel):
         w = widget.MusicView(self)
         w.view.zoomFactorChanged.connect(self.slotMusicZoomFactorChanged)
         w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
+        self.actionCollection.music_zoom_combo.updateZoomInfo(w.view.viewMode(), w.view.zoomFactor())
         w.view.pageCountChanged.connect(self.slotPageCountChanged)
         w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
         w.view.continuousModeChanged.connect(self.slotContinuousModeChanged)

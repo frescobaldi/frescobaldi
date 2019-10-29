@@ -111,7 +111,7 @@ class View(scrollarea.ScrollArea):
     storedDocumentProperties = {
         'position': None,
         'rotation': Rotate_0,
-        'zoomFactor': None,     # 1.0,
+        'zoomFactor': 1.0,
         'viewMode': None,       # FixedScale,
         'orientation': None,    # Vertical,
         'continuousMode': None, # True,
@@ -132,7 +132,7 @@ class View(scrollarea.ScrollArea):
     storedDocumentProperties = {
         'position': None,
         'rotation': Rotate_0,
-        'zoomFactor': None,     # 1.0,
+        'zoomFactor': 1.0,
         'viewMode': None,       # FixedScale,
         'orientation': None,    # Vertical,
         'continuousMode': None, # True,

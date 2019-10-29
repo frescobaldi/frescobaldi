@@ -76,7 +76,6 @@ class MusicView(QWidget):
         layout.addWidget(self.view)
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-        self.view.setViewMode(qpageview.FitWidth)
         self.view.setLinkHighlighter(qpageview.highlight.Highlighter())
         self.view.linkClicked.connect(self.slotLinkClicked)
         self.view.linkHovered.connect(self.slotLinkHovered)
