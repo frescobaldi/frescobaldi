@@ -85,7 +85,6 @@ class AbstractViewPanel(panel.Panel):
         self.hide()
         ac = self.actionCollection = self._createConcreteActions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        self.slotPageCountChanged(0)
         self.configureActions()
         self.connectActions()
 
@@ -94,6 +93,7 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_copy_image.setEnabled(False)
         ac.viewer_next_page.setEnabled(False)
         ac.viewer_prev_page.setEnabled(False)
+        ac.viewer_pager.setPageCount(0)
         ac.viewer_single_pages.setChecked(True) # default to single pages
         ac.viewer_sync_cursor.setChecked(False)
         sync_cursor = QSettings().value("{}/sync-cursor".format(self.viewerName()), False, bool)

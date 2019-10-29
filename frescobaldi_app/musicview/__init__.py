@@ -110,7 +110,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_copy_text.setEnabled(False)
         ac.music_next_page.triggered.connect(self.slotNextPage)
         ac.music_prev_page.triggered.connect(self.slotPreviousPage)
-        self.slotPageCountChanged(0)
+        ac.music_pager.setPageCount(0)
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
         ac.music_reload.triggered.connect(self.reloadView)
