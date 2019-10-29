@@ -39,6 +39,7 @@ except ImportError:
 import app
 import textformats
 import qpageview
+import qpageview.view
 import qpageview.layout
 import qpageview.printing
 import qpageview.magnifier
@@ -94,6 +95,7 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         super().__init__(parent)
         self._printer = None
         self._pageLayoutMode = "single"
+        self.documentPropertyStore = qpageview.view.DocumentPropertyStore()
         self.setMagnifier(Magnifier())
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
