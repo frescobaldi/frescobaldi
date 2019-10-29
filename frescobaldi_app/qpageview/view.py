@@ -1171,6 +1171,9 @@ class DocumentPropertyStore:
             p = self._properties[document]
         except KeyError:
             p = self._properties[document] = view.properties()
+        # get current view settings if document is currently displayed
+        if document is view.document():
+            p.get(view)
         return p
 
 
