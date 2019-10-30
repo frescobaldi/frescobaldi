@@ -95,14 +95,22 @@ class View(scrollarea.ScrollArea):
     MIN_ZOOM = 0.05
     MAX_ZOOM = 64.0
 
-    wheelZoomingEnabled = True      # zoom the View using the mouse wheel
-    kineticPagingEnabled = True     # scroll smoothly on setCurrentPageNumber
-    pagingOnScrollEnabled = True    # keep track of current page while scrolling
-    clickToSetCurrentPageEnabled = True  # any mouseclick on a page sets it the current page
-    strictPagingEnabled = False     # PageUp, PageDown and wheel call setCurrentPageNumber i.s.o. scroll
+    wheelZoomingEnabled = True
+        zoom the View using the mouse wheel
+
+    kineticPagingEnabled = True
+        scroll smoothly on setCurrentPageNumber
+
+    pagingOnScrollEnabled = True
+        keep track of current page while scrolling
+
+    clickToSetCurrentPageEnabled = True
+        any mouseclick on a page sets it the current page
+
+    strictPagingEnabled = False
+        PageUp, PageDown and wheel call setCurrentPageNumber i.s.o. scroll
 
     documentPropertyStore
-
         can be set to a DocumentPropertyStore object. If set, the object is
         used to store certain View settings on a per-document basis.
         (This happens in the clear() and setDocument() methods.)
@@ -128,6 +136,8 @@ class View(scrollarea.ScrollArea):
     zoomFactorChanged = pyqtSignal(float)
     pageLayoutUpdated = pyqtSignal()
     continuousModeChanged = pyqtSignal(bool)
+
+    ViewProperties = None   # the ViewProperties class to use (filled in below)
 
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
@@ -320,14 +330,14 @@ class View(scrollarea.ScrollArea):
 
     def setDocument(self, document):
         """Set the Document to display (see document.Document)."""
-        store = self.documentPropertyStore and self._document is not document
+        store = self._document is not document and self.documentPropertyStore
         if store and self._document:
-            self.documentPropertyStore.set(self._document, self.properties().get(self))
+            store.set(self._document, self.properties().get(self))
         self._document = document
         with self.modifyPages() as pages:
             pages[:] = document.pages()
         if store:
-            (self.documentPropertyStore.get(document) or self.properties()).set(self)
+            (store.get(document) or store.default or self.properties()).set(self)
 
     def document(self):
         """Return the Document currently displayed (see document.Document)."""
@@ -1035,13 +1045,18 @@ class View(scrollarea.ScrollArea):
 
 
 class ViewProperties:
-    """Simple class encapsulating certain settings of a View.
+    """Simple helper class encapsulating certain settings of a View.
 
     The settings can be set to and got from a View, and saved to or loaded
     from a QSettings group.
 
     Class attributes serve as default values.
     All methods return self, so operations can easily be chained.
+
+    If you inherit from a View and add more settings, you can also add
+    properties to this class by inheriting from it. Reimplement
+    View.properties() to return an instance of your new ViewProperties
+    subclass.
 
     """
     position = None
@@ -1146,13 +1161,28 @@ class ViewProperties:
 
 
 class DocumentPropertyStore:
-    """Store ViewProperties (settings) on a per-Document basis."""
+    """Store ViewProperties (settings) on a per-Document basis.
+
+    If you create a DocumentPropertyStorem and install it in the
+    documentPropertyStore attribute of a View, the View will automatically
+    remember its settings for earlier displayed Document instances.
+
+    """
+
+    default = None
+
     def __init__(self):
         self._properties = weakref.WeakKeyDictionary()
 
     def get(self, document):
-        """Get the View properties stored for document, if available."""
-        return self._properties.get(document)
+        """Get the View properties stored for the document, if available.
+
+        If a ViewProperties instance is stored in the `default` attribute,
+        it is returned when no properties were available. Otherwise, None
+        is returned.
+
+        """
+        return self._properties.get(document, self.default)
 
     def set(self, document, properties):
         """Store the View properties for the document."""
