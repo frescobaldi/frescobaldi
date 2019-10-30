@@ -100,6 +100,10 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
 
+    def properties(self):
+        """Reimplemented to return a ViewProperties instance."""
+        return ViewProperties()
+
     def pageLayoutMode(self):
         """Return the currently set page layout mode."""
         return self._pageLayoutMode
@@ -259,6 +263,32 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             progress.setWindowTitle(title)
             progress.setLabelText(_("Preparing to print..."))
             progress.show()
+
+
+class ViewProperties(qpageview.view.ViewProperties):
+    """Inherited from to add pageLayoutMode."""
+
+    pageLayoutMode = None
+
+    def get(self, view):
+        self.pageLayoutMode = view.pageLayoutMode()
+        return super().get(view)
+
+    def set(self, view):
+        if self.pageLayoutMode is not None:
+            view.setPageLayoutMode(self.pageLayoutMode)
+        return super().set(view)
+
+    def load(self, settings):
+        v = settings.value("pageLayoutMode", "noop", str)
+        if v in ("single", "double_left", "double_right", "horizontal", "raster"):
+            self.pageLayoutMode = v
+        return super().load(settings)
+
+    def save(self, settings):
+        if self.pageLayoutMode is not None:
+            settings.setValue("pageLayoutMode", self.pageLayoutMode)
+        return super().save(settings)
 
 
 class PrintProgressDialog(qpageview.printing.PrintProgressDialog):
