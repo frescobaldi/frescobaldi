@@ -313,7 +313,7 @@ class View(scrollarea.ScrollArea):
     def clear(self):
         """Convenience method to clear the current layout."""
         if self.documentPropertyStore and self._document:
-            self.documentPropertyStore.remember(self, self._document)
+            self.documentPropertyStore.set(self._document, self.properties().get(self))
         self._document = None
         with self.modifyPages() as pages:
             pages.clear()
@@ -322,12 +322,12 @@ class View(scrollarea.ScrollArea):
         """Set the Document to display (see document.Document)."""
         store = self.documentPropertyStore and self._document is not document
         if store and self._document:
-            self.documentPropertyStore.remember(self, self._document)
+            self.documentPropertyStore.set(self._document, self.properties().get(self))
         self._document = document
         with self.modifyPages() as pages:
             pages[:] = document.pages()
         if store:
-            self.documentPropertyStore.restore(self, document)
+            (self.documentPropertyStore.get(document) or self.properties()).set(self)
 
     def document(self):
         """Return the Document currently displayed (see document.Document)."""
@@ -1150,30 +1150,11 @@ class DocumentPropertyStore:
     def __init__(self):
         self._properties = weakref.WeakKeyDictionary()
 
-    def restore(self, view, document):
-        """Sets the properties stored for document (or default) to the View."""
-        props = self._properties.get(document) or view.properties()
-        props.set(view)
+    def get(self, document):
+        """Get the View properties stored for document, if available."""
+        return self._properties.get(document)
 
-    def remember(self, view, document):
-        """Stores the properties of the View for the document."""
-        self._properties[document] = view.properties().get(view)
-
-    def properties(self, view, document):
-        """Return the stored or an empty ViewProperties object for the document.
-
-        This object remains stored for the document, so it can be used to save
-        or load View preferences for the document e.g. using QSettings, and
-        have the View use them as soon as the document is displayed.
-
-        """
-        try:
-            p = self._properties[document]
-        except KeyError:
-            p = self._properties[document] = view.properties()
-        # get current view settings if document is currently displayed
-        if document is view.document():
-            p.get(view)
-        return p
-
+    def set(self, document, properties):
+        """Store the View properties for the document."""
+        self._properties[document] = properties
 
