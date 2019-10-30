@@ -417,6 +417,25 @@ class View(scrollarea.ScrollArea):
         """Return an uninitialized ViewProperties object."""
         return ViewProperties()
 
+    def readProperties(self, settings):
+        """Read View settings from the QSettings object.
+
+        If a documentPropertyStore is set, the settings are also set
+        as default for the DocumentPropertyStore.
+
+        """
+        props = self.properties().load(settings)
+        props.position = None   # storing the position makes no sense
+        props.set(self)
+        if self.documentPropertyStore:
+            self.documentPropertyStore.default = props
+
+    def writeProperties(self, settings):
+        """Write the current View settings to the QSettings object."""
+        props = self.properties().get(self)
+        props.position = None   # storing the position makes no sense
+        props.save(settings)
+
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
         if mode == self._viewMode:
@@ -1091,13 +1110,6 @@ class ViewProperties:
                 view.setZoomFactor(self.zoomFactor)
         if self.position is not None:
             view.setPosition(self.position, False)
-        return self
-
-    def unset(self, props):
-        """Set the properties named in the iterable props to None."""
-        for attr in props:
-            if getattr(self, attr, None) is not None:
-                setattr(self, attr, None)
         return self
 
     def save(self, settings):
