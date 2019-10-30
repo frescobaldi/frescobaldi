@@ -1175,7 +1175,7 @@ class ViewProperties:
 class DocumentPropertyStore:
     """Store ViewProperties (settings) on a per-Document basis.
 
-    If you create a DocumentPropertyStorem and install it in the
+    If you create a DocumentPropertyStore and install it in the
     documentPropertyStore attribute of a View, the View will automatically
     remember its settings for earlier displayed Document instances.
 
