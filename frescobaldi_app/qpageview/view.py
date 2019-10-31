@@ -89,7 +89,11 @@ class View(scrollarea.ScrollArea):
 
     `continuousModeChanged` When the user toggle the continuousMode() setting.
     
-    
+    `pageLayoutModeChanged` When the page layout mode is changed. The page
+                            layout mode is set using setPageLayoutMode() and
+                            internally implemented by using different qpageview
+                            LayoutEngine classes.
+
     The following instance variables can be set, and default to:
     
     MIN_ZOOM = 0.05
@@ -136,6 +140,7 @@ class View(scrollarea.ScrollArea):
     zoomFactorChanged = pyqtSignal(float)
     pageLayoutUpdated = pyqtSignal()
     continuousModeChanged = pyqtSignal(bool)
+    pageLayoutModeChanged = pyqtSignal(str)
 
     ViewProperties = None   # the ViewProperties class to use (filled in below)
 
@@ -158,6 +163,8 @@ class View(scrollarea.ScrollArea):
         self.setMouseTracking(True)
         self.setMinimumSize(QSize(60, 60))
         self.setPageLayout(layout.PageLayout())
+        self._pageLayoutMode = "single"
+        self.pageLayout().engine = self.pageLayoutModes()["single"]()
 
     def pageCount(self):
         """Return the number of pages in the view."""
@@ -256,6 +263,64 @@ class View(scrollarea.ScrollArea):
     def pageLayout(self):
         """Return our current PageLayout instance."""
         return self._pageLayout
+
+    def pageLayoutModes(self):
+        """Return a dictionary mapping names to callables.
+
+        The callable returns a configured LayoutEngine that is set to the
+        page layout. You can reimplement this method to returns more layout
+        modes, but it is required that the name "single" exists.
+
+        """
+        def single():
+            return layout.LayoutEngine()
+
+        def raster():
+            return layout.RasterLayoutEngine()
+
+        def double_left():
+            engine = layout.RowLayoutEngine()
+            engine.pagesPerRow = 2
+            engine.pagesFirstRow = 0
+            return engine
+
+        def double_right():
+            engine = double_left()
+            engine.pagesFirstRow = 1
+            return engine
+
+        return locals()
+
+    def pageLayoutMode(self):
+        """Return the currently set page layout mode."""
+        return self._pageLayoutMode
+
+    def setPageLayoutMode(self, mode):
+        """Set the page layout mode.
+
+        The mode is one of the names returned by pageLayoutModes().
+        The mode name "single" is guaranteed to exist.
+
+        """
+        if mode != self._pageLayoutMode:
+            # get a suitable LayoutEngine
+            try:
+                engine = self.pageLayoutModes()[mode]()
+            except KeyError:
+                return
+            self._pageLayout.engine = engine
+            # keep the current page in view
+            page = self.currentPage()
+            self.updatePageLayout()
+            if page:
+                margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
+                with self.pagingOnScrollDisabled():
+                    self.ensureVisible(page.geometry(), margins, False)
+            self._pageLayoutMode = mode
+            self.pageLayoutModeChanged.emit(mode)
+            if self.viewMode():
+                with self.keepCentered():
+                    self.fitPageLayout()
 
     def updatePageLayout(self, lazy=False):
         """Update layout, adjust scrollbars, keep track of page count.
@@ -1084,6 +1149,7 @@ class ViewProperties:
     viewMode = FixedScale
     orientation = None
     continuousMode = None
+    pageLayoutMode = None
 
     def get(self, view):
         """Get the properties of a View."""
@@ -1093,10 +1159,13 @@ class ViewProperties:
         self.viewMode = view.viewMode()
         self.zoomFactor = view.zoomFactor()
         self.continuousMode = view.continuousMode()
+        self.pageLayoutMode = view.pageLayoutMode()
         return self
 
     def set(self, view):
         """Set all our properties that are not None to a View."""
+        if self.pageLayoutMode is not None:
+            view.setPageLayoutMode(self.pageLayoutMode)
         if self.rotation is not None:
             view.setRotation(self.rotation)
         if self.orientation is not None:
@@ -1114,6 +1183,8 @@ class ViewProperties:
 
     def save(self, settings):
         """Save the properties that are not None to a QSettings group."""
+        if self.pageLayoutMode is not None:
+            settings.setValue("pageLayoutMode", self.pageLayoutMode)
         if self.rotation is not None:
             settings.setValue("rotation", self.rotation)
         else:
@@ -1144,6 +1215,10 @@ class ViewProperties:
 
     def load(self, settings):
         """Load the properties from a QSettings group."""
+        if settings.contains("pageLayoutMode"):
+            v = settings.value("pageLayoutMode", "", str)
+            if v:
+                self.pageLayoutMode = v
         if settings.contains("rotation"):
             v = settings.value("rotation", -1, int)
             if v in (Rotate_0, Rotate_90, Rotate_180, Rotate_270):

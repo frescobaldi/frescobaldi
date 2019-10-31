@@ -78,73 +78,16 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
 
     This View has additional features and customisation needed in Frescobaldi.
 
-    Besides all the qpageview.View signals, this PagedView emits the following
-    signal:
-
-    `pageLayoutModeChanged(str)`
-
-        emitted when the page layout mode is changed. The page layout mode is
-        set using setPageLayoutMode() and internally implemented by using
-        different qpageview PageLayout classes.
-
     """
 
-    pageLayoutModeChanged = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self._printer = None
-        self._pageLayoutMode = "single"
         self.documentPropertyStore = qpageview.view.DocumentPropertyStore()
         self.setMagnifier(Magnifier())
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
-
-    def properties(self):
-        """Reimplemented to return a ViewProperties instance."""
-        return ViewProperties()
-
-    def pageLayoutMode(self):
-        """Return the currently set page layout mode."""
-        return self._pageLayoutMode
-
-    def setPageLayoutMode(self, mode):
-        """Set the page layout mode.
-
-        The mode is one of:
-
-            "single"
-            "double_left"
-            "double_right"
-            "horizontal"
-            "raster"
-
-        """
-        if mode != self._pageLayoutMode:
-            # get a suitable LayoutEngine
-            layout = self._pageLayout
-            if mode == "raster":
-                layout.engine = qpageview.layout.RasterLayoutEngine()
-                layout.orientation = qpageview.Horizontal
-            elif mode in ("double_right", "double_left"):
-                layout.engine = qpageview.layout.RowLayoutEngine()
-                layout.engine.pagesPerRow = 2
-                layout.engine.pagesFirstRow = 1 if mode == "double_right" else 0
-            else:
-                layout.engine = qpageview.layout.LayoutEngine()
-                layout.orientation = qpageview.Horizontal if mode == "horizontal" else qpageview.Vertical
-            # keep the current page in view
-            page = self.currentPage()
-            self.setPageLayout(layout)
-            if page:
-                margins = layout.margins() + layout.pageMargins()
-                with self.pagingOnScrollDisabled():
-                    self.ensureVisible(page.geometry(), margins, False)
-            self._pageLayoutMode = mode
-            self.pageLayoutModeChanged.emit(mode)
-            if self.viewMode():
-                with self.keepCentered():
-                    self.fitPageLayout()
 
     def readSettings(self):
         # shadow/margin
@@ -263,32 +206,6 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             progress.setWindowTitle(title)
             progress.setLabelText(_("Preparing to print..."))
             progress.show()
-
-
-class ViewProperties(qpageview.view.ViewProperties):
-    """Inherited from to add pageLayoutMode."""
-
-    pageLayoutMode = None
-
-    def get(self, view):
-        self.pageLayoutMode = view.pageLayoutMode()
-        return super().get(view)
-
-    def set(self, view):
-        if self.pageLayoutMode is not None:
-            view.setPageLayoutMode(self.pageLayoutMode)
-        return super().set(view)
-
-    def load(self, settings):
-        v = settings.value("pageLayoutMode", "noop", str)
-        if v in ("single", "double_left", "double_right", "horizontal", "raster"):
-            self.pageLayoutMode = v
-        return super().load(settings)
-
-    def save(self, settings):
-        if self.pageLayoutMode is not None:
-            settings.setValue("pageLayoutMode", self.pageLayoutMode)
-        return super().save(settings)
 
 
 class PrintProgressDialog(qpageview.printing.PrintProgressDialog):
