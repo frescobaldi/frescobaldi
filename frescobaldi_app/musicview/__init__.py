@@ -62,6 +62,7 @@ _zoomvalues = [50, 75, 100, 125, 150, 200, 300, 800, 2400, 6400]
 
 # viewModes from qpageview:
 from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
+from qpageview import Horizontal, Vertical
 
 
 def activate(func):
@@ -100,6 +101,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_fit_height.triggered.connect(self.fitHeight)
         ac.music_fit_both.triggered.connect(self.fitBoth)
         ac._music_layout_mode.triggered.connect(self.slotSetPageLayoutMode)
+        ac._music_orientation.triggered.connect(self.slotSetOrientation)
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
@@ -118,7 +120,7 @@ class MusicViewPanel(panel.Panel):
             QSettings().value("musicview/sync_cursor", False, bool))
         ac.music_continuous.setChecked(
             QSettings().value("musicview/continuous", True, bool))
-
+        ac.music_vertical.setChecked(True) # TEMP, will use ViewProperties
         mode = self.pageLayoutMode()
         ac.music_two_pages_first_left.setChecked(mode == "double_left")
         ac.music_two_pages_first_right.setChecked(mode == "double_right")
@@ -138,6 +140,7 @@ class MusicViewPanel(panel.Panel):
         w.view.pageCountChanged.connect(self.slotPageCountChanged)
         w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
         w.view.continuousModeChanged.connect(self.slotContinuousModeChanged)
+        w.view.orientationChanged.connect(self.slotOrientationChanged)
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         # read layout mode setting before using the widget
@@ -199,6 +202,10 @@ class MusicViewPanel(panel.Panel):
 
     def slotContinuousModeChanged(self, continuousMode):
         self.actionCollection.music_continuous.setChecked(continuousMode)
+
+    def slotOrientationChanged(self, orientation):
+        self.actionCollection.music_horizontal.setChecked(orientation == Horizontal)
+        self.actionCollection.music_vertical.setChecked(orientation == Vertical)
 
     @activate
     def slotNextPage(self):
@@ -278,6 +285,15 @@ class MusicViewPanel(panel.Panel):
         elif action == self.actionCollection.music_raster:
             self.setPageLayoutMode("raster")
 
+    def slotSetOrientation(self, action):
+        """Called when one of Horizontal/Vertical orientation is triggered."""
+        self.activate()
+        if action == self.actionCollection.music_horizontal:
+            orientation = Horizontal
+        else:
+            orientation = Vertical
+        self.widget().view.setOrientation(orientation)
+
     @activate
     def toggleContinuousMode(self):
         continuousMode = self.actionCollection.music_continuous.isChecked()
@@ -353,6 +369,9 @@ class Actions(actioncollection.ActionCollection):
         self.music_two_pages_first_right = QAction(ag, checkable=True)
         self.music_two_pages_first_left = QAction(ag, checkable=True)
         self.music_raster = QAction(ag, checkable=True)
+        self._music_orientation = ag = QActionGroup(panel)
+        self.music_horizontal = QAction(ag, checkable=True)
+        self.music_vertical = QAction(ag, checkable=True)
         self.music_continuous = QAction(panel, checkable=True)
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
@@ -400,6 +419,8 @@ class Actions(actioncollection.ActionCollection):
         self.music_two_pages_first_right.setText(_("Two Pages (first page right)"))
         self.music_two_pages_first_left.setText(_("Two Pages (first page left)"))
         self.music_raster.setText(_("Raster"))
+        self.music_horizontal.setText(_("Horizontal"))
+        self.music_vertical.setText(_("Vertical"))
         self.music_continuous.setText(_("&Continuous"))
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
