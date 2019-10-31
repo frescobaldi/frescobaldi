@@ -122,7 +122,7 @@ class MusicViewPanel(panel.Panel):
         mode = self.pageLayoutMode()
         ac.music_two_pages_first_left.setChecked(mode == "double_left")
         ac.music_two_pages_first_right.setChecked(mode == "double_right")
-        ac.music_single_pages_horizontal.setChecked(mode == "horizontal")
+        ac.music_raster.setChecked(mode == "raster")
         ac.music_single_pages.setChecked(mode == "single")
 
     def translateUI(self):
@@ -162,7 +162,7 @@ class MusicViewPanel(panel.Panel):
     def pageLayoutMode(self):
         """Return the current page layout mode from the prefs."""
         mode = QSettings().value("musicview/layoutmode", "single", str)
-        if mode in ("single", "double_left", "double_right", "horizontal"):
+        if mode in ("single", "double_left", "double_right", "raster"):
             return mode
         return "single"
 
@@ -275,8 +275,8 @@ class MusicViewPanel(panel.Panel):
             self.setPageLayoutMode("double_left")
         elif action == self.actionCollection.music_two_pages_first_right:
             self.setPageLayoutMode("double_right")
-        elif action == self.actionCollection.music_single_pages_horizontal:
-            self.setPageLayoutMode("horizontal")
+        elif action == self.actionCollection.music_raster:
+            self.setPageLayoutMode("raster")
 
     @activate
     def toggleContinuousMode(self):
@@ -352,7 +352,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_single_pages = QAction(ag, checkable=True)
         self.music_two_pages_first_right = QAction(ag, checkable=True)
         self.music_two_pages_first_left = QAction(ag, checkable=True)
-        self.music_single_pages_horizontal = QAction(ag, checkable=True)
+        self.music_raster = QAction(ag, checkable=True)
         self.music_continuous = QAction(panel, checkable=True)
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
@@ -399,7 +399,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_single_pages.setText(_("Single Pages"))
         self.music_two_pages_first_right.setText(_("Two Pages (first page right)"))
         self.music_two_pages_first_left.setText(_("Two Pages (first page left)"))
-        self.music_single_pages_horizontal.setText(_("Horizontal"))
+        self.music_raster.setText(_("Raster"))
         self.music_continuous.setText(_("&Continuous"))
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
