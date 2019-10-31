@@ -13,7 +13,11 @@ Changes in current master
   - New "First System Only" option in Custom Engrave
   - Goto Line command (#927, feature request #676)
   - Rename file command (#1057, feature request #980)
-  - Music view: Horizontal layout mode and (non-)continuous layout mode
+  - Music view:
+    - New preference Horizontal / Vertical
+    - New preference Continuous / non-continuous (displays only current page(s))
+    - New raster layout mode (displays as many pages as fit in a View)
+    - View settings are remembered per-document
 * Bug fixes:
   - fixed #895 seeking in MIDI player during playing stops sound
   - fixed #768, now paper orientation is properly handled in New Score Wizard
