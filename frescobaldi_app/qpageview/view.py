@@ -142,8 +142,6 @@ class View(scrollarea.ScrollArea):
     continuousModeChanged = pyqtSignal(bool)
     pageLayoutModeChanged = pyqtSignal(str)
 
-    ViewProperties = None   # the ViewProperties class to use (filled in below)
-
     def __init__(self, parent=None, **kwds):
         super().__init__(parent, **kwds)
         self._document = None
@@ -163,8 +161,12 @@ class View(scrollarea.ScrollArea):
         self.setMouseTracking(True)
         self.setMinimumSize(QSize(60, 60))
         self.setPageLayout(layout.PageLayout())
-        self._pageLayoutMode = "single"
-        self.pageLayout().engine = self.pageLayoutModes()["single"]()
+        props = self.properties().setdefaults()
+        self._viewMode = props.viewMode
+        self._pageLayout.continuousMode = props.continuousMode
+        self._pageLayout.orientation = props.orientation
+        self._pageLayoutMode = props.pageLayoutMode
+        self.pageLayout().engine = self.pageLayoutModes()[props.pageLayoutMode]()
 
     def pageCount(self):
         """Return the number of pages in the view."""
@@ -478,7 +480,8 @@ class View(scrollarea.ScrollArea):
         job.start()
         return job
 
-    def properties(self):
+    @staticmethod
+    def properties():
         """Return an uninitialized ViewProperties object."""
         return ViewProperties()
 
@@ -496,10 +499,17 @@ class View(scrollarea.ScrollArea):
             self.documentPropertyStore.default = props
 
     def writeProperties(self, settings):
-        """Write the current View settings to the QSettings object."""
+        """Write the current View settings to the QSettings object.
+
+        If a documentPropertyStore is set, the settings are also set
+        as default for the DocumentPropertyStore.
+
+        """
         props = self.properties().get(self)
         props.position = None   # storing the position makes no sense
         props.save(settings)
+        if self.documentPropertyStore:
+            self.documentPropertyStore.default = props
 
     def setViewMode(self, mode):
         """Sets the current ViewMode."""
@@ -1134,7 +1144,7 @@ class ViewProperties:
     The settings can be set to and got from a View, and saved to or loaded
     from a QSettings group.
 
-    Class attributes serve as default values.
+    Class attributes serve as default values, None means: no change.
     All methods return self, so operations can easily be chained.
 
     If you inherit from a View and add more settings, you can also add
@@ -1150,6 +1160,13 @@ class ViewProperties:
     orientation = None
     continuousMode = None
     pageLayoutMode = None
+
+    def setdefaults(self):
+        """Set all properties to default values. Also used by View on init."""
+        self.orientation = Vertical
+        self.continuousMode = True
+        self.pageLayoutMode = "single"
+        return self
 
     def get(self, view):
         """Get the properties of a View."""
