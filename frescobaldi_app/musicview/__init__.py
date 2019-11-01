@@ -125,13 +125,9 @@ class MusicViewPanel(panel.Panel):
         s.beginGroup("musicview")
         ac.music_sync_cursor.setChecked(s.value("sync_cursor", False, bool))
         props = pagedview.PagedView.properties().setdefaults().load(s)
-        ac.music_continuous.setChecked(props.continuousMode)
-        ac.music_vertical.setChecked(props.orientation == Vertical)
-        ac.music_horizontal.setChecked(props.orientation == Horizontal)
-        ac.music_two_pages_first_left.setChecked(props.pageLayoutMode == "double_left")
-        ac.music_two_pages_first_right.setChecked(props.pageLayoutMode == "double_right")
-        ac.music_raster.setChecked(props.pageLayoutMode == "raster")
-        ac.music_single_pages.setChecked(props.pageLayoutMode == "single")
+        self.slotContinuousModeChanged(props.continuousMode)
+        self.slotOrientationChanged(props.orientation)
+        self.slotPageLayoutModeChanged(props.pageLayoutMode)
 
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -150,6 +146,7 @@ class MusicViewPanel(panel.Panel):
         w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
         w.view.continuousModeChanged.connect(self.slotContinuousModeChanged)
         w.view.orientationChanged.connect(self.slotOrientationChanged)
+        w.view.pageLayoutModeChanged.connect(self.slotPageLayoutModeChanged)
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
         app.languageChanged.connect(self.updatePagerLanguage)
@@ -196,6 +193,12 @@ class MusicViewPanel(panel.Panel):
     def slotOrientationChanged(self, orientation):
         self.actionCollection.music_horizontal.setChecked(orientation == Horizontal)
         self.actionCollection.music_vertical.setChecked(orientation == Vertical)
+
+    def slotPageLayoutModeChanged(self, mode):
+        self.actionCollection.music_two_pages_first_left.setChecked(mode == "double_left")
+        self.actionCollection.music_two_pages_first_right.setChecked(mode == "double_right")
+        self.actionCollection.music_raster.setChecked(mode == "raster")
+        self.actionCollection.music_single_pages.setChecked(mode == "single")
 
     @activate
     def slotNextPage(self):
@@ -277,12 +280,16 @@ class MusicViewPanel(panel.Panel):
             return
         self.activate()
         self.widget().view.setPageLayoutMode(mode)
+        if mode in ("double_left", "double_right"):
+            self.widget().view.setOrientation(Vertical)
 
     def slotSetOrientation(self, action):
         """Called when one of Horizontal/Vertical orientation is triggered."""
         self.activate()
         if action == self.actionCollection.music_horizontal:
             orientation = Horizontal
+            if self.widget().view.pageLayoutMode() in ("double_left", "double_right"):
+                self.widget().view.setPageLayoutMode("single")
         else:
             orientation = Vertical
         self.widget().view.setOrientation(orientation)
