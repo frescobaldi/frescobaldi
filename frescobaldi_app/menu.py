@@ -277,6 +277,7 @@ def menu_music(mainwindow):
     m.addAction(ac.music_sync_cursor)
     m.addSeparator()
     m.addAction(ac.music_maximize)
+    m.addAction(ac.music_save_settings)
     return m
 
 

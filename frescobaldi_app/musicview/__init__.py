@@ -48,6 +48,7 @@ import actioncollection
 import actioncollectionmanager
 import icons
 import job
+import pagedview
 import qpageview.document
 import qutil
 import panel
@@ -102,6 +103,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_fit_both.triggered.connect(self.fitBoth)
         ac._music_layout_mode.triggered.connect(self.slotSetPageLayoutMode)
         ac._music_orientation.triggered.connect(self.slotSetOrientation)
+        ac.music_save_settings.triggered.connect(self.writeSettings)
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
         ac.music_sync_cursor.triggered.connect(self.toggleSyncCursor)
@@ -116,16 +118,20 @@ class MusicViewPanel(panel.Panel):
         ac.music_next_page.setEnabled(False)
         ac.music_prev_page.setEnabled(False)
         ac.music_reload.triggered.connect(self.reloadView)
-        ac.music_sync_cursor.setChecked(
-            QSettings().value("musicview/sync_cursor", False, bool))
-        ac.music_continuous.setChecked(
-            QSettings().value("musicview/continuous", True, bool))
-        ac.music_vertical.setChecked(True) # TEMP, will use ViewProperties
-        mode = self.pageLayoutMode()
-        ac.music_two_pages_first_left.setChecked(mode == "double_left")
-        ac.music_two_pages_first_right.setChecked(mode == "double_right")
-        ac.music_raster.setChecked(mode == "raster")
-        ac.music_single_pages.setChecked(mode == "single")
+        ac.music_continuous.triggered.connect(self.toggleContinuousMode)
+
+        # load the state of the actions from the preferences
+        s = QSettings()
+        s.beginGroup("musicview")
+        ac.music_sync_cursor.setChecked(s.value("sync_cursor", False, bool))
+        props = pagedview.PagedView.properties().setdefaults().load(s)
+        ac.music_continuous.setChecked(props.continuousMode)
+        ac.music_vertical.setChecked(props.orientation == Vertical)
+        ac.music_horizontal.setChecked(props.orientation == Horizontal)
+        ac.music_two_pages_first_left.setChecked(props.pageLayoutMode == "double_left")
+        ac.music_two_pages_first_right.setChecked(props.pageLayoutMode == "double_right")
+        ac.music_raster.setChecked(props.pageLayoutMode == "raster")
+        ac.music_single_pages.setChecked(props.pageLayoutMode == "single")
 
     def translateUI(self):
         self.setWindowTitle(_("window title", "Music View"))
@@ -134,6 +140,9 @@ class MusicViewPanel(panel.Panel):
     def createWidget(self):
         from . import widget
         w = widget.MusicView(self)
+        s = QSettings()
+        s.beginGroup("musicview")
+        w.view.readProperties(s)
         w.view.zoomFactorChanged.connect(self.slotMusicZoomFactorChanged)
         w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
         self.actionCollection.music_zoom_combo.updateZoomInfo(w.view.viewMode(), w.view.zoomFactor())
@@ -143,10 +152,6 @@ class MusicViewPanel(panel.Panel):
         w.view.orientationChanged.connect(self.slotOrientationChanged)
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
 
-        # read layout mode setting before using the widget
-        w.view.setPageLayoutMode(self.pageLayoutMode())
-        w.view.setContinuousMode(self.actionCollection.music_continuous.isChecked())
-        self.actionCollection.music_continuous.triggered.connect(self.toggleContinuousMode)
         app.languageChanged.connect(self.updatePagerLanguage)
 
         selector = self.actionCollection.music_document_select
@@ -162,27 +167,12 @@ class MusicViewPanel(panel.Panel):
             QTimer.singleShot(0, open)
         return w
 
-    def pageLayoutMode(self):
-        """Return the current page layout mode from the prefs."""
-        mode = QSettings().value("musicview/layoutmode", "single", str)
-        if mode in ("single", "double_left", "double_right", "raster"):
-            return mode
-        return "single"
-
-    def setPageLayoutMode(self, mode):
-        """Change the page layout and store the setting as well.
-
-        The mode is "single", "double_left", "double_right" or "horizontal".
-
-        "single": a vertical row of single pages
-        "double_left": two pages besides each other, first page is a left page
-        "double_right": two pages, first page is a right page.
-        "horizontal": a horizontal row of pages
-
-        """
-        QSettings().setValue("musicview/layoutmode", mode)
+    def writeSettings(self):
+        """Save the current view properties as default."""
         if self.instantiated():
-            self.widget().view.setPageLayoutMode(mode)
+            s = QSettings()
+            s.beginGroup("musicview")
+            self.widget().view.writeProperties(s)
 
     def updateSelection(self, rect):
         self.actionCollection.music_copy_image.setEnabled(bool(rect))
@@ -275,15 +265,18 @@ class MusicViewPanel(panel.Panel):
 
     def slotSetPageLayoutMode(self, action):
         """Called when one of the layout mode actions is triggered."""
-        self.activate()
         if action == self.actionCollection.music_single_pages:
-            self.setPageLayoutMode("single")
+            mode = "single"
         elif action == self.actionCollection.music_two_pages_first_left:
-            self.setPageLayoutMode("double_left")
+            mode = "double_left"
         elif action == self.actionCollection.music_two_pages_first_right:
-            self.setPageLayoutMode("double_right")
+            mode = "double_right"
         elif action == self.actionCollection.music_raster:
-            self.setPageLayoutMode("raster")
+            mode = "raster"
+        else:
+            return
+        self.activate()
+        self.widget().view.setPageLayoutMode(mode)
 
     def slotSetOrientation(self, action):
         """Called when one of Horizontal/Vertical orientation is triggered."""
@@ -298,7 +291,6 @@ class MusicViewPanel(panel.Panel):
     def toggleContinuousMode(self):
         continuousMode = self.actionCollection.music_continuous.isChecked()
         self.widget().view.setContinuousMode(continuousMode)
-        QSettings().setValue("musicview/continuous", continuousMode)
 
     @activate
     def jumpToCursor(self):
@@ -373,6 +365,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_horizontal = QAction(ag, checkable=True)
         self.music_vertical = QAction(ag, checkable=True)
         self.music_continuous = QAction(panel, checkable=True)
+        self.music_save_settings = QAction(panel)
         self.music_maximize = QAction(panel)
         self.music_jump_to_cursor = QAction(panel)
         self.music_sync_cursor = QAction(panel, checkable=True)
@@ -422,6 +415,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_horizontal.setText(_("Horizontal"))
         self.music_vertical.setText(_("Vertical"))
         self.music_continuous.setText(_("&Continuous"))
+        self.music_save_settings.setText(_("Save current View settings as default"))
         self.music_maximize.setText(_("&Maximize"))
         self.music_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.music_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
