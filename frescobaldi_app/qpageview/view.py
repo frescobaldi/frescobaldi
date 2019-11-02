@@ -1168,6 +1168,21 @@ class ViewProperties:
         self.pageLayoutMode = "single"
         return self
 
+    def mask(self, names):
+        """Set properties not listed in names to None."""
+        for name in (
+            'position',
+            'rotation',
+            'zoomFactor',
+            'viewMode',
+            'orientation',
+            'continuousMode',
+            'pageLayoutMode',
+        ):
+            if name in names and getattr(self, name) is not None:
+                setattr(self, name, None)
+        return self
+
     def get(self, view):
         """Get the properties of a View."""
         self.position = view.position()
@@ -1274,6 +1289,7 @@ class DocumentPropertyStore:
     """
 
     default = None
+    mask = None
 
     def __init__(self):
         self._properties = weakref.WeakKeyDictionary()
@@ -1289,6 +1305,13 @@ class DocumentPropertyStore:
         return self._properties.get(document, self.default)
 
     def set(self, document, properties):
-        """Store the View properties for the document."""
+        """Store the View properties for the document.
+
+        If the `mask` attribute is set to a list or tuple of names, only the
+        listed properties are remembered.
+
+        """
+        if self.mask:
+            properties.mask(self.mask)
         self._properties[document] = properties
 
