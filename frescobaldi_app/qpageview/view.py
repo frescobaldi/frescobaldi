@@ -1168,6 +1168,13 @@ class ViewProperties:
         self.pageLayoutMode = "single"
         return self
 
+    def copy(self):
+        """Return a copy or ourselves."""
+        cls = type(self)
+        props = cls.__new__(cls)
+        props.__dict__.update(self.__dict__)
+        return props
+
     def names(self):
         """Return a tuple with all the property names we support."""
         return (
@@ -1306,7 +1313,13 @@ class DocumentPropertyStore:
         is returned.
 
         """
-        return self._properties.get(document, self.default)
+        props = self._properties.get(document)
+        if props is None:
+            if self.default:
+                props = self.default
+                if self.mask:
+                    props = props.copy().mask(self.mask)
+        return props
 
     def set(self, document, properties):
         """Store the View properties for the document.
