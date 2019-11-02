@@ -128,6 +128,9 @@ class MusicView(preferences.Group):
 
         self.newerFilesOnly = QCheckBox(toggled=self.changed)
         layout.addWidget(self.newerFilesOnly)
+
+        self.documentProperties = QCheckBox(toggled=self.changed)
+        layout.addWidget(self.documentProperties)
         app.translateUI(self)
 
     def translateUI(self):
@@ -136,17 +139,23 @@ class MusicView(preferences.Group):
         self.newerFilesOnly.setToolTip(_(
             "If checked, Frescobaldi will not open PDF documents that are not\n"
             "up-to-date (i.e. the source file has been modified later)."))
+        self.documentProperties.setText(_("Remember View settings per-document"))
+        self.documentProperties.setToolTip(_(
+            "If checked, every document in the Music View will remember its\n"
+            "own layout setting, zoom factor, etc. If unchecked, the View will\n"
+            "not change its settings when a different document is displayed."))
 
     def loadSettings(self):
         s = QSettings()
         s.beginGroup("musicview")
-        newerFilesOnly = s.value("newer_files_only", True, bool)
-        self.newerFilesOnly.setChecked(newerFilesOnly)
+        self.newerFilesOnly.setChecked(s.value("newer_files_only", True, bool))
+        self.documentProperties.setChecked(s.value("document_properties", True, bool))
 
     def saveSettings(self):
         s = QSettings()
         s.beginGroup("musicview")
         s.setValue("newer_files_only", self.newerFilesOnly.isChecked())
+        s.setValue("document_properties", self.documentProperties.isChecked())
 
 
 class CharMap(preferences.Group):

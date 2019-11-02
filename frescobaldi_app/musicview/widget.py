@@ -27,7 +27,7 @@ import collections
 import itertools
 import os
 
-from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, Qt, QUrl
+from PyQt5.QtCore import pyqtSignal, QMargins, QPoint, QRect, QSettings, Qt, QUrl
 from PyQt5.QtGui import QCursor, QTextCharFormat
 from PyQt5.QtWidgets import QToolTip, QVBoxLayout, QWidget
 
@@ -119,6 +119,10 @@ class MusicView(QWidget):
         color = colors['selectionbackground']
         color.setAlpha(128)
         self._highlightFormat.setBackground(color)
+        if QSettings().value("musicview/document_properties", True, bool):
+            self.view.documentPropertyStore.mask = None
+        else:
+            self.view.documentPropertyStore.mask = ('position')
 
     def slotLinkClicked(self, ev, page, link):
         """Called when the use clicks a link.
