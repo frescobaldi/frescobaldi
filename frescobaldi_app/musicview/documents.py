@@ -21,6 +21,7 @@
 Code to load and manage PDF documents to view.
 """
 
+import itertools
 
 from PyQt5.QtCore import QSettings
 
@@ -91,16 +92,11 @@ class DocumentGroup(plugin.DocumentPlugin):
         if files:
             # reuse the older Document objects, they will probably be displaying
             # (about) the same documents, and so the viewer will remember their position.
-            d = {}
-            if self._documents:
-                for doc in self._documents:
-                    if doc.filename() in files:
-                        d[doc.filename()] = doc
             documents = []
-            for filename in files:
-                doc = d.get(filename)
+            for filename, doc in zip(files, itertools.chain(
+                    self._documents or (), itertools.repeat(None))):
                 if doc:
-                    doc.invalidate()
+                    doc.setSource(filename)
                 elif popplerqt5:
                     doc = pagedview.loadPdf(filename)
                 else:
