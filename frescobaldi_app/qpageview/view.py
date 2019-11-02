@@ -1168,9 +1168,9 @@ class ViewProperties:
         self.pageLayoutMode = "single"
         return self
 
-    def mask(self, names):
-        """Set properties not listed in names to None."""
-        for name in (
+    def names(self):
+        """Return a tuple with all the property names we support."""
+        return (
             'position',
             'rotation',
             'zoomFactor',
@@ -1178,8 +1178,12 @@ class ViewProperties:
             'orientation',
             'continuousMode',
             'pageLayoutMode',
-        ):
-            if name in names and getattr(self, name) is not None:
+        )
+
+    def mask(self, names):
+        """Set properties not listed in names to None."""
+        for name in self.names():
+            if name not in names and getattr(self, name) is not None:
                 setattr(self, name, None)
         return self
 
