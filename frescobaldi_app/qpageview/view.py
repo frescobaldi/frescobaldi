@@ -410,6 +410,13 @@ class View(scrollarea.ScrollArea):
         """Return the Document currently displayed (see document.Document)."""
         return self._document
 
+    def reload(self):
+        """If a Document was set, invalidate()s it and then reloads it."""
+        if self._document:
+            self._document.invalidate()
+            with self.modifyPages() as pages:
+                pages[:] = self._document.pages()
+
     def loadPdf(self, filename, renderer=None):
         """Convenience method to load the specified PDF file.
 

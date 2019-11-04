@@ -323,7 +323,7 @@ class ViewActions(QObject):
     def slotReload(self):
         view = self.view()
         if view:
-            pass
+            view.reload()
 
     def slotPreviousPage(self):
         view = self.view()
