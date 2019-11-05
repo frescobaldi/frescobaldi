@@ -490,11 +490,15 @@ class PagerAction(QWidgetAction):
                 prefix, suffix = self._displayFormat.split('{num}', 1)
             else:
                 prefix, suffix = "", ""
+            widget.setSpecialValueText("")
             widget.setRange(1, self._pageCount)
             widget.setSuffix(suffix.format(total=self._pageCount))
             widget.setPrefix(prefix.format(total=self._pageCount))
         else:
+            widget.setSpecialValueText(" ")
             widget.setRange(0, 0)
+            widget.setSuffix("")
+            widget.setPrefix("")
             widget.clear()
 
     def _updateDisplay(self):
