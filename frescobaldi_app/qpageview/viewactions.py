@@ -74,7 +74,7 @@ class ViewActions(QObject):
         are removed from that View.
 
         """
-        old = self.view()
+        old = self._view()
         if old == view:
             return
         if old:
@@ -183,8 +183,8 @@ class ViewActions(QObject):
         if properties.pageLayoutMode is not None:
             self.updatePageLayoutModeActions(properties.pageLayoutMode)
         if properties.orientation is not None:
-            self.vertical.setChecked(orientation == Vertical)
-            self.horizontal.setChecked(orientation == Horizontal)
+            self.vertical.setChecked(properties.orientation == Vertical)
+            self.horizontal.setChecked(properties.orientation == Horizontal)
         if properties.continuousMode is not None:
             self.continuous.setChecked(properties.continuousMode)
         if properties.zoomFactor is not None:
