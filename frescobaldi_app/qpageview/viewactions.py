@@ -226,6 +226,7 @@ class ViewActions(QObject):
         self.horizontal.setChecked(view.orientation() == Horizontal)
         self.continuous.setChecked(view.continuousMode())
         self.magnifier.setEnabled(bool(view.magnifier()))
+        self.magnifier.setChecked(bool(view.magnifier() and view.magnifier().isVisible()))
 
     def updatePageLayoutModeActions(self, mode):
         """Update the state of the layout mode actions."""
