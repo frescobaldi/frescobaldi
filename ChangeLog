@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in current master
+Changes in 3.1 -- December 27th, 2019
 
 * Requirement changes:
   - Frescobaldi now requires Python3.3+
@@ -14,6 +14,7 @@ Changes in current master
   - Goto Line command (#927, feature request #676)
   - Rename file command (#1057, feature request #980)
   - Music view:
+    - New toolbar button to show/hide the magnifier
     - New preference Horizontal / Vertical
     - New preference Continuous / non-continuous (displays only current page(s))
     - New raster layout mode (displays as many pages as fit in a View)
