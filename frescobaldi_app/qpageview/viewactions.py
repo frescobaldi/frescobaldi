@@ -141,6 +141,7 @@ class ViewActions(QObject):
             'previous_page',
             'next_page',
             'pager',
+            'magnifier',
         )
 
     def createActions(self):
@@ -178,6 +179,8 @@ class ViewActions(QObject):
         self.next_page = QAction(self)
         self.pager = PagerAction(self)
 
+        self.magnifier = QAction(self, checkable=True)
+
     def updateFromProperties(self, properties):
         """Set the actions to the state stored in the given ViewProperties."""
         if properties.pageLayoutMode is not None:
@@ -211,6 +214,7 @@ class ViewActions(QObject):
         self.previous_page.triggered.connect(self.slotPreviousPage)
         self.next_page.triggered.connect(self.slotNextPage)
         self.pager.currentPageNumberChanged.connect(self.slotSetPageNumber)
+        self.magnifier.triggered.connect(self.slotMagnifier)
 
     def updateActions(self):
         """Update the state of the actions not handled in the other update methods."""
@@ -221,6 +225,7 @@ class ViewActions(QObject):
         self.vertical.setChecked(view.orientation() == Vertical)
         self.horizontal.setChecked(view.orientation() == Horizontal)
         self.continuous.setChecked(view.continuousMode())
+        self.magnifier.setEnabled(bool(view.magnifier()))
 
     def updatePageLayoutModeActions(self, mode):
         """Update the state of the layout mode actions."""
@@ -288,6 +293,7 @@ class ViewActions(QObject):
         self.previous_page.setIconText(_("Previous"))
         self.next_page.setText(_("Next Page"))
         self.next_page.setIconText(_("Next"))
+        self.magnifier.setText(_("Magnifier"))
 
     def setActionIcons(self):
         """Implement this method to set icons to the actions."""
@@ -398,6 +404,11 @@ class ViewActions(QObject):
         view = self.view()
         if view:
             view.setCurrentPageNumber(num)
+
+    def slotMagnifier(self):
+        view = self._view() # do not trigger creation
+        if view and view.magnifier():
+            view.magnifier().setVisible(self.magnifier.isChecked())
 
 
 class PagerAction(QWidgetAction):
