@@ -34,7 +34,22 @@ from .constants import *
 
 
 class ViewActions(QObject):
-    """ViewActions provides QActions to control a View."""
+    """ViewActions provides QActions to control a View.
+
+    Use setView() to connect the actions with a View. If no View is connected,
+    and an action is used; the viewRequested signal is emitted. You can connect
+    this signal and call setView() in the called slot; the action is then
+    performed on the View.
+
+    The attribute `smartLayoutOrientationEnabled` (defaulting to True) enables
+    some intuitive behaviour: if set to True, for layout modes that do not make
+    sense in horizontal mode the orientation is automatically set to Vertical;
+    and when the user chooses Horizontal orientation in such modes, the layout
+    mode is set to "single".
+
+    """
+
+    smartLayoutOrientationEnabled = True
 
     viewRequested = pyqtSignal()
 
@@ -302,7 +317,7 @@ class ViewActions(QObject):
         view = self.view()
         if view:
             view.setViewMode(mode)
-    
+
     def slotZoomFactor(self, factor):
         view = self.view()
         if view:
@@ -327,11 +342,20 @@ class ViewActions(QObject):
                    "raster"
             view.setPageLayoutMode(mode)
 
+            if self.smartLayoutOrientationEnabled:
+                if mode in ("double_left", "double_right"):
+                    view.setOrientation(Vertical)
+
     def slotOrientation(self, action):
         view = self.view()
         if view:
             orientation = Vertical if action == self.vertical else Horizontal
             view.setOrientation(orientation)
+
+            if self.smartLayoutOrientationEnabled:
+                if orientation == Horizontal and \
+                        view.pageLayoutMode() in ("double_left", "double_right"):
+                    view.setPageLayoutMode("single")
 
     def slotContinuousMode(self):
         view = self.view()
