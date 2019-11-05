@@ -232,6 +232,7 @@ class ViewActions(qpageview.viewactions.ViewActions):
     def translateUI(self):
         """Translate our actions correctly."""
         self.setActionTexts(_)
+        self.pager.setDisplayFormat(_("{num} of {total}"))
 
     def setActionIcons(self):
         """Set icons to our actions."""
