@@ -80,7 +80,7 @@ class ViewActions(QObject):
         if old:
             old.viewModeChanged.disconnect(self.updateViewModeActions)
             old.zoomFactorChanged.disconnect(self.updateZoomActions)
-            old.pageLayoutModeChanged.disconnect(self.updateActions)
+            old.pageLayoutModeChanged.disconnect(self.updatePageLayoutModeActions)
             old.orientationChanged.disconnect(self.updateActions)
             old.continuousModeChanged.disconnect(self.updateActions)
             old.currentPageNumberChanged.disconnect(self.updatePagerActions)
@@ -89,7 +89,7 @@ class ViewActions(QObject):
         if view:
             view.viewModeChanged.connect(self.updateViewModeActions)
             view.zoomFactorChanged.connect(self.updateZoomActions)
-            view.pageLayoutModeChanged.connect(self.updateActions)
+            view.pageLayoutModeChanged.connect(self.updatePageLayoutModeActions)
             view.orientationChanged.connect(self.updateActions)
             view.continuousModeChanged.connect(self.updateActions)
             view.currentPageNumberChanged.connect(self.updatePagerActions)
@@ -178,6 +178,20 @@ class ViewActions(QObject):
         self.next_page = QAction(self)
         self.pager = PagerAction(self)
 
+    def updateFromProperties(self, properties):
+        """Set the actions to the state stored in the given ViewProperties."""
+        if properties.pageLayoutMode is not None:
+            self.updatePageLayoutModeActions(properties.pageLayoutMode)
+        if properties.orientation is not None:
+            self.vertical.setChecked(orientation == Vertical)
+            self.horizontal.setChecked(orientation == Horizontal)
+        if properties.continuousMode is not None:
+            self.continuous.setChecked(properties.continuousMode)
+        if properties.zoomFactor is not None:
+            self.updateZoomActions(properties.zoomFactor)
+        if properties.viewMode is not None:
+            self.updateViewModeActions(properties.viewMode)
+
     def connectActions(self):
         """Connect our actions with our methods. Called by __init__()."""
         self.print.triggered.connect(self.slotPrint)
@@ -199,18 +213,21 @@ class ViewActions(QObject):
         self.pager.currentPageNumberChanged.connect(self.slotSetPageNumber)
 
     def updateActions(self):
-        """Update the state of most actions."""
+        """Update the state of the actions not handled in the other update methods."""
         view = self.view()
         if not view:
             return
         self.print.setEnabled(view.pageCount() > 0)
-        self.layout_single.setChecked(view.pageLayoutMode() == "single")
-        self.layout_double_left.setChecked(view.pageLayoutMode() == "double_left")
-        self.layout_double_right.setChecked(view.pageLayoutMode() == "double_right")
-        self.layout_raster.setChecked(view.pageLayoutMode() == "raster")
         self.vertical.setChecked(view.orientation() == Vertical)
         self.horizontal.setChecked(view.orientation() == Horizontal)
         self.continuous.setChecked(view.continuousMode())
+
+    def updatePageLayoutModeActions(self, mode):
+        """Update the state of the layout mode actions."""
+        self.layout_single.setChecked(mode == "single")
+        self.layout_double_left.setChecked(mode == "double_left")
+        self.layout_double_right.setChecked(mode == "double_right")
+        self.layout_raster.setChecked(mode == "raster")
 
     def updateViewModeActions(self, mode):
         """Update the state of view mode related actions."""
