@@ -1161,6 +1161,7 @@ class MainWindow(QMainWindow):
         t.addAction(ma.music_zoom_in)
         t.addAction(ma.music_zoom_combo)
         t.addAction(ma.music_zoom_out)
+        t.addAction(ma.music_magnifier)
         t.addSeparator()
         t.addAction(ma.music_prev_page)
         t.addAction(ma.music_pager)

@@ -238,6 +238,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_pager = va.pager
         self.music_next_page = va.next_page
         self.music_prev_page = va.previous_page
+        self.music_magnifier = va.magnifier
         self.music_reload = QAction(panel)
 
         self.music_maximize.setIcon(icons.get('view-fullscreen'))
