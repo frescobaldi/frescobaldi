@@ -37,12 +37,14 @@ except ImportError:
     popplerqt5 = None
 
 import app
+import icons
 import textformats
 import qpageview
 import qpageview.view
 import qpageview.layout
 import qpageview.printing
 import qpageview.magnifier
+import qpageview.viewactions
 import qpageview.widgetoverlay
 
 
@@ -219,6 +221,30 @@ class PrintProgressDialog(qpageview.printing.PrintProgressDialog):
         """Reimplemented to show a translated error message."""
         QMessageBox.warning(self.parent(), _("Printing Error"),
                     _("Could not send the document to the printer."))
+
+
+class ViewActions(qpageview.viewactions.ViewActions):
+    """View actions with translated texts and icons."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        app.translateUI(self)
+
+    def translateUI(self):
+        """Translate our actions correctly."""
+        self.setActionTexts(_)
+
+    def setActionIcons(self):
+        """Set icons to our actions."""
+        self.print.setIcon(icons.get('document-print'))
+        self.zoom_in.setIcon(icons.get('zoom-in'))
+        self.zoom_out.setIcon(icons.get('zoom-out'))
+        self.zoom_original.setIcon(icons.get('zoom-original'))
+        self.fit_width.setIcon(icons.get('zoom-fit-width'))
+        self.fit_height.setIcon(icons.get('zoom-fit-height'))
+        self.fit_both.setIcon(icons.get('zoom-fit-best'))
+        self.next_page.setIcon(icons.get('go-next'))
+        self.previous_page.setIcon(icons.get('go-previous'))
+        self.reload.setIcon(icons.get('view-refresh'))
 
 
 def getPopplerBackends():
