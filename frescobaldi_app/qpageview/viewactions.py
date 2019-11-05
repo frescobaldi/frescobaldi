@@ -49,6 +49,8 @@ class ViewActions(QObject):
         self.createActions()
         self.connectActions()
         self.setActionTexts()
+        self.setActionIcons()
+        self.setActionShortcuts()
 
     def setView(self, view):
         """Connects all the actions to the View.
@@ -232,6 +234,14 @@ class ViewActions(QObject):
         self.zoom_original.setText(_("Original &Size"))
         self.zoom_in.setText(_("Zoom &In"))
         self.zoom_out.setText(_("Zoom &Out"))
+        self.zoomer.setViewModes((
+            # L10N: "Width" as in "Fit Width" (display in zoom menu)
+            (FitWidth, _("Width")),
+            # L10N: "Height" as in "Fit Height" (display in zoom menu)
+            (FitHeight, _("Height")),
+            # L10N: "Page" as in "Fit Page" (display in zoom menu)
+            (FitBoth, _("Page")),
+        ))
         self.rotate_left.setText(_("Rotate &Left"))
         self.rotate_right.setText(_("Rotate &Right"))
         self.layout_single.setText(_("Single Pages"))
@@ -246,6 +256,14 @@ class ViewActions(QObject):
         self.previous_page.setIconText(_("Previous"))
         self.next_page.setText(_("Next Page"))
         self.next_page.setIconText(_("Next"))
+
+    def setActionIcons(self):
+        """Implement this method to set icons to the actions."""
+        pass
+
+    def setActionShortcuts(self):
+        """Implement this method to set keyboard shortcuts to the actions."""
+        pass
 
     def slotPrint(self):
         view = self.view()
