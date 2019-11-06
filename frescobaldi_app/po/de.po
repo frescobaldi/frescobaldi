@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2019-11-06 07:25+0100\n"
+"POT-Creation-Date: 2019-11-06 11:37+0100\n"
 "PO-Revision-Date: 2016-05-03 15:53+0600\n"
 "Last-Translator: Henning Hraban Ramm <hraban@fiee.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -484,20 +484,20 @@ msgstr ""
 msgid "Force Directions &Down"
 msgstr ""
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1333
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1331
 #: ../sessions/manager.py:129
 msgid "&Save"
 msgstr "&Speichern"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1334
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1332
 msgid "Save &As..."
 msgstr "Speichern &unter..."
 
-#: ../documentcontextmenu.py:73 ../mainwindow.py:1345
+#: ../documentcontextmenu.py:73 ../mainwindow.py:1343
 msgid "&Close"
 msgstr "Schlie&ßen"
 
-#: ../documentcontextmenu.py:74 ../mainwindow.py:1346
+#: ../documentcontextmenu.py:74 ../mainwindow.py:1344
 msgid "Close Other Documents"
 msgstr "Andere Doku&mente schließen"
 
@@ -552,14 +552,10 @@ msgstr "Interner Fehler"
 msgid "Email Bug Report..."
 msgstr "Fehlerbericht per E-Mail senden..."
 
-#: ../exception.py:91
-#, python-brace-format
-msgid ""
-"\n"
-"An error occured in extension '{ext}'\n"
-"\n"
-"'"
-msgstr ""
+#: ../exception.py:92
+#, fuzzy, python-brace-format
+msgid "An error occurred in extension '{name}'"
+msgstr "Ein interner Fehler ist aufgetreten:"
 
 #: ../exception.py:101
 msgid "Optionally describe below what you were doing:"
@@ -813,7 +809,8 @@ msgid "Export as HTML"
 msgstr "Als HTML exportieren"
 
 #: ../mainwindow.py:978
-msgid "Goto Line Line Number (1-{}):"
+#, python-brace-format
+msgid "Goto Line Number (1-{num}):"
 msgstr ""
 
 #: ../mainwindow.py:1027
@@ -854,45 +851,44 @@ msgid "Insert from &File..."
 msgstr "Aus Datei ein&fügen..."
 
 #: ../mainwindow.py:1328
-msgid ""
-"Insert the content of a file\n"
-"at the current cursor position"
-msgstr ""
+#, fuzzy
+msgid "Insert the contents of a file at the current cursor position."
+msgstr "Schließe alle Dokumente und beende die Sitzung."
 
-#: ../mainwindow.py:1331
+#: ../mainwindow.py:1329
 msgid "Open Current Directory"
 msgstr "Öffne &aktuellen Ordner"
 
-#: ../mainwindow.py:1332
+#: ../mainwindow.py:1330
 msgid "Open Command Prompt"
 msgstr "&Befehlszeile/Shell öffnen"
 
-#: ../mainwindow.py:1335
+#: ../mainwindow.py:1333
 msgid "Save Copy or Selection As..."
 msgstr "Speichere &Kopie oder Auswahl unter..."
 
-#: ../mainwindow.py:1336
+#: ../mainwindow.py:1334
 #, fuzzy
 msgid "&Rename/Move File..."
 msgstr "Umbenennen..."
 
-#: ../mainwindow.py:1337 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1335 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles s&peichern"
 
-#: ../mainwindow.py:1338
+#: ../mainwindow.py:1336
 msgid "Re&load"
 msgstr "Neu la&den"
 
-#: ../mainwindow.py:1339 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1337 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alle neu &laden"
 
-#: ../mainwindow.py:1340
+#: ../mainwindow.py:1338
 msgid "Check for External Changes..."
 msgstr "Auf externe &Änderungen überprüfen"
 
-#: ../mainwindow.py:1342
+#: ../mainwindow.py:1340
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -900,150 +896,150 @@ msgstr ""
 "Öffnet ein Fenster um zu überprüfen, ob Dokumente von anderen Programmen "
 "verändert oder gelöscht wurden."
 
-#: ../mainwindow.py:1344
+#: ../mainwindow.py:1342
 msgid "Print Source..."
 msgstr "&Quelltext drucken..."
 
-#: ../mainwindow.py:1347
+#: ../mainwindow.py:1345
 #, fuzzy
 msgid "Close All Documents"
 msgstr "Alle unbenannten Dokumente schließen"
 
-#: ../mainwindow.py:1349
+#: ../mainwindow.py:1347
 #, fuzzy
-msgid "Closes all documents but preserves the current session"
+msgid "Closes all documents but preserves the current session."
 msgstr "Schließe alle Dokumente und beende die Sitzung."
 
-#: ../mainwindow.py:1352
+#: ../mainwindow.py:1350
 msgid "Close All Documents and Session"
 msgstr "Alle Dokumente und Sitzung schließen"
 
-#: ../mainwindow.py:1355
+#: ../mainwindow.py:1353
 msgid "Closes all documents and leaves the current session."
 msgstr "Schließe alle Dokumente und beende die Sitzung."
 
-#: ../mainwindow.py:1357 ../macosx/globalmenu.py:82
+#: ../mainwindow.py:1355 ../macosx/globalmenu.py:82
 msgid "&Quit"
 msgstr "&Beenden"
 
-#: ../mainwindow.py:1358
+#: ../mainwindow.py:1356
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "{appname} neu starten"
 
-#: ../mainwindow.py:1360
+#: ../mainwindow.py:1358
 msgid "Export Source as Colored &HTML..."
 msgstr "Quelltext als farbiges &HTML exportieren..."
 
-#: ../mainwindow.py:1362
+#: ../mainwindow.py:1360
 msgid "&Undo"
 msgstr "Rück&gängig"
 
-#: ../mainwindow.py:1363
+#: ../mainwindow.py:1361
 msgid "Re&do"
 msgstr "Wieder&herstellen"
 
-#: ../mainwindow.py:1364
+#: ../mainwindow.py:1362
 msgid "Cu&t"
 msgstr "Auss&chneiden"
 
-#: ../mainwindow.py:1365 ../docbrowser/browser.py:250 ../fonts/dialog.py:177
+#: ../mainwindow.py:1363 ../docbrowser/browser.py:250 ../fonts/dialog.py:177
 msgid "&Copy"
 msgstr "&Kopieren"
 
-#: ../mainwindow.py:1366
+#: ../mainwindow.py:1364
 msgid "Copy as Colored &HTML"
 msgstr "Als farbiges HTM&L kopieren"
 
-#: ../mainwindow.py:1367
+#: ../mainwindow.py:1365
 msgid "&Paste"
 msgstr "Ein&fügen"
 
-#: ../mainwindow.py:1368
+#: ../mainwindow.py:1366
 msgid "Select &All"
 msgstr "&Alles auswählen"
 
-#: ../mainwindow.py:1369
+#: ../mainwindow.py:1367
 msgid "Select &Block"
 msgstr "&Block auswählen"
 
-#: ../mainwindow.py:1370
+#: ../mainwindow.py:1368
 msgid "Select &None"
 msgstr "&Nichts auswählen"
 
-#: ../mainwindow.py:1371
+#: ../mainwindow.py:1369
 msgid "Select Whole Lines Up"
 msgstr "Alle Zeile oberhalb auswählen"
 
-#: ../mainwindow.py:1372
+#: ../mainwindow.py:1370
 msgid "Select Whole Lines Down"
 msgstr "Alle Zeilen unterhalb auswählen"
 
-#: ../mainwindow.py:1373
+#: ../mainwindow.py:1371
 msgid "&Find..."
 msgstr "&Suchen..."
 
-#: ../mainwindow.py:1374
+#: ../mainwindow.py:1372
 msgid "Find Ne&xt"
 msgstr "N&ächstes finden"
 
-#: ../mainwindow.py:1375
+#: ../mainwindow.py:1373
 msgid "Find Pre&vious"
 msgstr "V&orheriges finden"
 
-#: ../mainwindow.py:1376
+#: ../mainwindow.py:1374
 msgid "&Replace..."
 msgstr "E&rsetzen..."
 
-#: ../mainwindow.py:1377 ../macosx/globalmenu.py:128
+#: ../mainwindow.py:1375 ../macosx/globalmenu.py:128
 msgid "Pr&eferences..."
 msgstr "&Einstellungen..."
 
-#: ../mainwindow.py:1379
+#: ../mainwindow.py:1377
 msgid "&Next Document"
 msgstr "&Nächstes Dokument"
 
-#: ../mainwindow.py:1380
+#: ../mainwindow.py:1378
 msgid "&Previous Document"
 msgstr "&Vorheriges Dokument"
 
-#: ../mainwindow.py:1381
+#: ../mainwindow.py:1379
 msgid "Wrap &Lines"
 msgstr "Zeilen &umbrechen"
 
-#: ../mainwindow.py:1382
+#: ../mainwindow.py:1380
 msgid "Scroll Up"
 msgstr "Hochscrollen"
 
-#: ../mainwindow.py:1383
+#: ../mainwindow.py:1381
 msgid "Scroll Down"
 msgstr "Herunterscrollen"
 
-#: ../mainwindow.py:1384
+#: ../mainwindow.py:1382
 msgid "&Goto Line..."
 msgstr ""
 
-#: ../mainwindow.py:1386 ../macosx/globalmenu.py:134
+#: ../mainwindow.py:1384 ../macosx/globalmenu.py:134
 msgid "New &Window"
 msgstr "&Neues Fenster"
 
-#: ../mainwindow.py:1387
+#: ../mainwindow.py:1385
 msgid "&Fullscreen"
 msgstr "V&ollbild"
 
-#: ../mainwindow.py:1389
+#: ../mainwindow.py:1387
 msgid "&User Guide"
 msgstr "&Handbuch"
 
-#: ../mainwindow.py:1390
+#: ../mainwindow.py:1388
 msgid "&What's This?"
 msgstr "&Was ist das?"
 
-#: ../mainwindow.py:1391
+#: ../mainwindow.py:1389
 msgid "Report a &Bug..."
 msgstr "Programmfehler mel&den..."
 
-#: ../mainwindow.py:1392 ../macosx/globalmenu.py:152
+#: ../mainwindow.py:1390 ../macosx/globalmenu.py:152
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "Ü&ber {appname}..."
@@ -1209,32 +1205,33 @@ msgstr "Drucke {filename}"
 msgid "Print"
 msgstr "Drucken"
 
-#: ../pagedview.py:201 ../pagedview.py:222
+#: ../pagedview.py:202 ../pagedview.py:224
 msgid "Printing Error"
 msgstr "Druckerfehler"
 
-#: ../pagedview.py:202
-#, python-brace-format
-msgid ""
-"An error occured (code: {num}):\n"
-"{message}"
+#: ../pagedview.py:204
+#, fuzzy, python-brace-format
+msgid "An error occurred (code: {num}):"
 msgstr ""
+"Ein Fehler ist aufgetreten:\n"
+"\n"
+"%1"
 
-#: ../pagedview.py:209
+#: ../pagedview.py:211
 msgid "Preparing to print..."
 msgstr ""
 
-#: ../pagedview.py:217
+#: ../pagedview.py:219
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Drucke Seite {page} ({num} von {total})..."
 
-#: ../pagedview.py:223
+#: ../pagedview.py:225
 msgid "Could not send the document to the printer."
 msgstr "Konnte das Dokument nicht zum Drucker senden."
 
 #. L10N: page numbering: page {num} of {total}
-#: ../pagedview.py:235 ../viewers/__init__.py:806
+#: ../pagedview.py:237 ../viewers/__init__.py:806
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} von {total}"
@@ -1568,7 +1565,7 @@ msgstr "PostScript"
 msgid "PNG"
 msgstr "PNG"
 
-#: ../engrave/custom.py:257 ../fonts/musicfonts.py:618
+#: ../engrave/custom.py:257 ../fonts/musicfonts.py:617
 #: ../preferences/lilypond.py:377
 msgid "SVG"
 msgstr "SVG"
@@ -1594,8 +1591,9 @@ msgid "No files available"
 msgstr "Keine Dateien verfügbar"
 
 #: ../extensions/__init__.py:228
-msgid "Invalid extension menu: {}"
-msgstr ""
+#, fuzzy, python-brace-format
+msgid "Invalid extension menu: {name}"
+msgstr "Bearbeite Sitzung: {name}"
 
 #: ../extensions/__init__.py:238
 #, fuzzy
@@ -1642,7 +1640,7 @@ msgid ""
 "They are not loaded."
 msgstr ""
 
-#: ../extensions/__init__.py:452
+#: ../extensions/__init__.py:452 ../fonts/musicfonts.py:590
 #, fuzzy
 msgid "Missing:"
 msgstr "Stimmen:"
@@ -1656,10 +1654,8 @@ msgid "Circular:"
 msgstr ""
 
 #: ../extensions/__init__.py:525
-msgid ""
-"Extension '{}' failed to load with the given explanation\n"
-"\n"
-"{}"
+#, python-brace-format
+msgid "Extension '{name}' failed to load with the given explanation:"
 msgstr ""
 
 #: ../extensions/__init__.py:835
@@ -1679,8 +1675,10 @@ msgid "Extensions have changed"
 msgstr "Erweiterungsmanager"
 
 #: ../extensions/panel.py:38
+#, python-brace-format
 msgid ""
-"Extension panel widget class '{}' is not a subclass of ExtensionMixin. "
+"Extension panel widget class '{classname}' is not a subclass of "
+"ExtensionMixin.\n"
 "Please derive either from ExtensionWidget or add extensions.ExtensionMixin "
 "as a second base class."
 msgstr ""
@@ -1690,10 +1688,11 @@ msgid "Extension Tool Panel failed to load"
 msgstr ""
 
 #: ../extensions/panel.py:75
+#, python-brace-format
 msgid ""
 "The Tool Panel provided by the extension\n"
 "\n"
-"  {}\n"
+"  {name}\n"
 "\n"
 "failed to load due to an exception. Please contact the extension's "
 "maintainer(s)."
@@ -2268,44 +2267,37 @@ msgid ""
 "includes real files and can therefore not be removed directly."
 msgstr ""
 
-#: ../fonts/musicfonts.py:537 ../fonts/musicfonts.py:547
+#: ../fonts/musicfonts.py:537 ../fonts/musicfonts.py:546
 #, fuzzy
-msgid ""
-"Font installation failed:\n"
-"{}"
+msgid "Font installation failed:"
 msgstr "Keine Git-Installation gefunden"
 
-#: ../fonts/musicfonts.py:566
+#: ../fonts/musicfonts.py:565
 msgid "\n"
 msgstr ""
 
-#: ../fonts/musicfonts.py:572
-msgid ""
-"Font removal failed:\n"
-"{}"
-msgstr ""
+#: ../fonts/musicfonts.py:571
+#, fuzzy
+msgid "Font removal failed:"
+msgstr "Keine Git-Installation gefunden"
 
-#: ../fonts/musicfonts.py:591
-msgid "Missing: {}"
-msgstr ""
-
-#: ../fonts/musicfonts.py:615 ../fonts/textfonts.py:296
+#: ../fonts/musicfonts.py:614 ../fonts/textfonts.py:296
 #, fuzzy
 msgid "Font"
 msgstr "Schriftsatz:"
 
-#: ../fonts/musicfonts.py:616
+#: ../fonts/musicfonts.py:615
 #, fuzzy
 msgid "OpenType"
 msgstr "&Öffnen"
 
-#: ../fonts/musicfonts.py:617 ../fonts/musicfonts.py:619
-#: ../fonts/musicfonts.py:621
+#: ../fonts/musicfonts.py:616 ../fonts/musicfonts.py:618
+#: ../fonts/musicfonts.py:620
 #, fuzzy
 msgid "(Brace)"
 msgstr "Geschweifte Klammer"
 
-#: ../fonts/musicfonts.py:620
+#: ../fonts/musicfonts.py:619
 msgid "WOFF"
 msgstr ""
 
@@ -2341,7 +2333,7 @@ msgstr "Eigener Modus"
 #: ../fonts/preview.py:127
 msgid ""
 "Use custom sample for music font.\n"
-"NOTE: This should not include a version statement or a paper block."
+"NOTE: This should not include a version statement or a \\paper {...} block."
 msgstr ""
 
 #: ../fonts/preview.py:131
@@ -2352,7 +2344,7 @@ msgstr "Verzeichnis auswählen"
 #: ../fonts/preview.py:135
 msgid ""
 "Use current document as music font sample.\n"
-"NOTE: This is not robust if the document contains a \\paper { } block."
+"NOTE: This is not robust if the document contains a \\paper {...} block."
 msgstr ""
 
 #: ../fonts/preview.py:174
@@ -2547,7 +2539,8 @@ msgid "Can't 'start' an active Job Queue."
 msgstr ""
 
 #: ../job/queue.py:553
-msgid "Invalid job queue target: {}"
+#, python-brace-format
+msgid "Invalid job queue target: {name}"
 msgstr ""
 
 #: ../layoutcontrol/__init__.py:36 ../userguide/engrave_layout.md:90
@@ -14409,15 +14402,6 @@ msgstr ""
 
 #~ msgid "Unpacking failed."
 #~ msgstr "Entpacken fehlgeschlagen."
-
-#~ msgid ""
-#~ "An error occurred:\n"
-#~ "\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Ein Fehler ist aufgetreten:\n"
-#~ "\n"
-#~ "%1"
 
 #~ msgid ""
 #~ "This is the list of defined expansions.\n"

@@ -1,12 +1,12 @@
 # translation of nl.po to Nederlands
-# Wilbert Berendsen <wb@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017.
+# Wilbert Berendsen <wb@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2019-11-06 07:25+0100\n"
-"PO-Revision-Date: 2017-02-15 07:28+0100\n"
+"POT-Creation-Date: 2019-11-06 11:37+0100\n"
+"PO-Revision-Date: 2019-11-06 11:32+0100\n"
 "Last-Translator: Wilbert Berendsen <wb@xs4all.nl>\n"
 "Language-Team: Nederlands <>\n"
 "Language: nl\n"
@@ -252,12 +252,11 @@ msgstr "Papierkleur"
 
 #: ../copy2image.py:125
 msgid "Gray"
-msgstr ""
+msgstr "Grijs"
 
 #: ../copy2image.py:126
-#, fuzzy
 msgid "Convert image to grayscale."
-msgstr "Relatief naar &absoluut omzetten"
+msgstr "Afbeelding naar grijswaarden omzetten."
 
 #: ../copy2image.py:127
 msgid "Auto-crop"
@@ -466,32 +465,31 @@ msgid "Remove Text &Markup (from music)"
 msgstr "&Markup verwijderen (uit muziek)"
 
 #: ../documentactions.py:260
-#, fuzzy
 msgid "Force Directions &Up"
-msgstr "Richting:"
+msgstr "Richting &omhoog"
 
 #: ../documentactions.py:261
 msgid "Make Directions &Neutral"
-msgstr ""
+msgstr "Richting &neutraal"
 
 #: ../documentactions.py:262
 msgid "Force Directions &Down"
-msgstr ""
+msgstr "Richting oml&aag"
 
-#: ../documentcontextmenu.py:71 ../mainwindow.py:1333
+#: ../documentcontextmenu.py:71 ../mainwindow.py:1331
 #: ../sessions/manager.py:129
 msgid "&Save"
 msgstr "Op&slaan"
 
-#: ../documentcontextmenu.py:72 ../mainwindow.py:1334
+#: ../documentcontextmenu.py:72 ../mainwindow.py:1332
 msgid "Save &As..."
 msgstr "Opslaan &als..."
 
-#: ../documentcontextmenu.py:73 ../mainwindow.py:1345
+#: ../documentcontextmenu.py:73 ../mainwindow.py:1343
 msgid "&Close"
 msgstr "&Sluiten"
 
-#: ../documentcontextmenu.py:74 ../mainwindow.py:1346
+#: ../documentcontextmenu.py:74 ../mainwindow.py:1344
 msgid "Close Other Documents"
 msgstr "Andere documenten sluiten"
 
@@ -525,14 +523,13 @@ msgid "Editing line {linenum} of \"{document}\" ({variable})"
 msgstr "Bewerken regel {linenum} van \"{document}\" ({variable})"
 
 #: ../exception.py:73
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "An internal error has occurred in extension '{name}':"
-msgstr "Er is een interne fout opgetreden:"
+msgstr "Er is een interne fout opgetreden in de extensie '{name}':"
 
 #: ../exception.py:74
-#, fuzzy
 msgid "Extension Error"
-msgstr "Interne fout"
+msgstr "Fout in extensie"
 
 #: ../exception.py:76
 msgid "An internal error has occurred:"
@@ -546,14 +543,12 @@ msgstr "Interne fout"
 msgid "Email Bug Report..."
 msgstr "Bugrapport emailen..."
 
-#: ../exception.py:91
-#, python-brace-format
-msgid ""
-"\n"
-"An error occured in extension '{ext}'\n"
-"\n"
-"'"
+#: ../exception.py:92
+#, fuzzy, python-brace-format
+msgid "An error occurred in extension '{name}'"
 msgstr ""
+"\n"
+"Er is een fout opgetreden in extensie '{ext}'"
 
 #: ../exception.py:101
 msgid "Optionally describe below what you were doing:"
@@ -689,11 +684,11 @@ msgstr "Altijd een nieuw proces starten"
 
 #: ../main.py:71
 msgid "STR"
-msgstr ""
+msgstr "STR"
 
 #: ../main.py:72
 msgid "Path to python-ly"
-msgstr ""
+msgstr "Pad naar python-ly"
 
 #: ../main.py:73
 msgid "file"
@@ -767,15 +762,14 @@ msgid "Open File"
 msgstr "Bestand openen"
 
 #: ../mainwindow.py:536
-#, fuzzy
 msgctxt "dialog title"
 msgid "Rename/Move File"
-msgstr "Bestand opslaan"
+msgstr "Bestand hernoemen/verplaatsen"
 
 #: ../mainwindow.py:547
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Could not delete: {url}"
-msgstr "Kan niet schrijven naar: {url}"
+msgstr "Kan niet verwijderen: {url}"
 
 #: ../mainwindow.py:650
 msgctxt "dialog title"
@@ -806,7 +800,8 @@ msgid "Export as HTML"
 msgstr "Exporteren als HTML"
 
 #: ../mainwindow.py:978
-msgid "Goto Line Line Number (1-{}):"
+#, python-brace-format
+msgid "Goto Line Number (1-{num}):"
 msgstr ""
 
 #: ../mainwindow.py:1027
@@ -847,45 +842,43 @@ msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
 #: ../mainwindow.py:1328
-msgid ""
-"Insert the content of a file\n"
-"at the current cursor position"
-msgstr ""
+#, fuzzy
+msgid "Insert the contents of a file at the current cursor position."
+msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: ../mainwindow.py:1331
+#: ../mainwindow.py:1329
 msgid "Open Current Directory"
 msgstr "Huidige map openen"
 
-#: ../mainwindow.py:1332
+#: ../mainwindow.py:1330
 msgid "Open Command Prompt"
 msgstr "Commandoregel openen"
 
-#: ../mainwindow.py:1335
+#: ../mainwindow.py:1333
 msgid "Save Copy or Selection As..."
 msgstr "Kopie of selectie opslaan als..."
 
-#: ../mainwindow.py:1336
-#, fuzzy
+#: ../mainwindow.py:1334
 msgid "&Rename/Move File..."
-msgstr "Her&noemen..."
+msgstr "Bestand her&noemen/verplaatsen..."
 
-#: ../mainwindow.py:1337 ../externalchanges/widget.py:117
+#: ../mainwindow.py:1335 ../externalchanges/widget.py:117
 msgid "Save All"
 msgstr "Alles opslaan"
 
-#: ../mainwindow.py:1338
+#: ../mainwindow.py:1336
 msgid "Re&load"
 msgstr "Her&laden"
 
-#: ../mainwindow.py:1339 ../externalchanges/widget.py:108
+#: ../mainwindow.py:1337 ../externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "Alles herladen"
 
-#: ../mainwindow.py:1340
+#: ../mainwindow.py:1338
 msgid "Check for External Changes..."
 msgstr "Controleren op externe wijzigingen..."
 
-#: ../mainwindow.py:1342
+#: ../mainwindow.py:1340
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
@@ -893,150 +886,149 @@ msgstr ""
 "Opent een venster om te controleren of open documenten werden gewijzigd of "
 "verwijderd door andere programma's."
 
-#: ../mainwindow.py:1344
+#: ../mainwindow.py:1342
 msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
-#: ../mainwindow.py:1347
-#, fuzzy
+#: ../mainwindow.py:1345
 msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
-#: ../mainwindow.py:1349
+#: ../mainwindow.py:1347
 #, fuzzy
-msgid "Closes all documents but preserves the current session"
-msgstr "Sluit alle documenten en verlaat de huidige sessie."
+msgid "Closes all documents but preserves the current session."
+msgstr "Sluit alle documenten maar blijft in de huidige sessie"
 
-#: ../mainwindow.py:1352
+#: ../mainwindow.py:1350
 msgid "Close All Documents and Session"
 msgstr "Alle documenten en sessie sluiten"
 
-#: ../mainwindow.py:1355
+#: ../mainwindow.py:1353
 msgid "Closes all documents and leaves the current session."
 msgstr "Sluit alle documenten en verlaat de huidige sessie."
 
-#: ../mainwindow.py:1357 ../macosx/globalmenu.py:82
+#: ../mainwindow.py:1355 ../macosx/globalmenu.py:82
 msgid "&Quit"
 msgstr "Afslui&ten"
 
-#: ../mainwindow.py:1358
+#: ../mainwindow.py:1356
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "{appname} herstarten"
 
-#: ../mainwindow.py:1360
+#: ../mainwindow.py:1358
 msgid "Export Source as Colored &HTML..."
 msgstr "Bron als gekleurde &HTML exporteren..."
 
-#: ../mainwindow.py:1362
+#: ../mainwindow.py:1360
 msgid "&Undo"
 msgstr "&Ongedaan maken"
 
-#: ../mainwindow.py:1363
+#: ../mainwindow.py:1361
 msgid "Re&do"
 msgstr "Opnie&uw"
 
-#: ../mainwindow.py:1364
+#: ../mainwindow.py:1362
 msgid "Cu&t"
 msgstr "&Knippen"
 
-#: ../mainwindow.py:1365 ../docbrowser/browser.py:250 ../fonts/dialog.py:177
+#: ../mainwindow.py:1363 ../docbrowser/browser.py:250 ../fonts/dialog.py:177
 msgid "&Copy"
 msgstr "&Kopiëren"
 
-#: ../mainwindow.py:1366
+#: ../mainwindow.py:1364
 msgid "Copy as Colored &HTML"
 msgstr "Als gekleurde HTML kopiëren"
 
-#: ../mainwindow.py:1367
+#: ../mainwindow.py:1365
 msgid "&Paste"
 msgstr "&Plakken"
 
-#: ../mainwindow.py:1368
+#: ../mainwindow.py:1366
 msgid "Select &All"
 msgstr "&Alles selecteren"
 
-#: ../mainwindow.py:1369
+#: ../mainwindow.py:1367
 msgid "Select &Block"
 msgstr "&Blok selecteren"
 
-#: ../mainwindow.py:1370
+#: ../mainwindow.py:1368
 msgid "Select &None"
 msgstr "&Niets selecteren"
 
-#: ../mainwindow.py:1371
+#: ../mainwindow.py:1369
 msgid "Select Whole Lines Up"
 msgstr "Volledige regels omhoog selecteren"
 
-#: ../mainwindow.py:1372
+#: ../mainwindow.py:1370
 msgid "Select Whole Lines Down"
 msgstr "Volledige regels omlaag selecteren"
 
-#: ../mainwindow.py:1373
+#: ../mainwindow.py:1371
 msgid "&Find..."
 msgstr "&Zoeken..."
 
-#: ../mainwindow.py:1374
+#: ../mainwindow.py:1372
 msgid "Find Ne&xt"
 msgstr "&Volgende zoeken"
 
-#: ../mainwindow.py:1375
+#: ../mainwindow.py:1373
 msgid "Find Pre&vious"
 msgstr "V&orige zoeken"
 
-#: ../mainwindow.py:1376
+#: ../mainwindow.py:1374
 msgid "&Replace..."
 msgstr "Ve&rvangen"
 
-#: ../mainwindow.py:1377 ../macosx/globalmenu.py:128
+#: ../mainwindow.py:1375 ../macosx/globalmenu.py:128
 msgid "Pr&eferences..."
 msgstr "Voork&euren..."
 
-#: ../mainwindow.py:1379
+#: ../mainwindow.py:1377
 msgid "&Next Document"
 msgstr "&Volgende document"
 
-#: ../mainwindow.py:1380
+#: ../mainwindow.py:1378
 msgid "&Previous Document"
 msgstr "V&orige document"
 
-#: ../mainwindow.py:1381
+#: ../mainwindow.py:1379
 msgid "Wrap &Lines"
 msgstr "Rege&ls afbreken"
 
-#: ../mainwindow.py:1382
+#: ../mainwindow.py:1380
 msgid "Scroll Up"
 msgstr "Omhoog schuiven"
 
-#: ../mainwindow.py:1383
+#: ../mainwindow.py:1381
 msgid "Scroll Down"
 msgstr "Omlaag schuiven"
 
-#: ../mainwindow.py:1384
+#: ../mainwindow.py:1382
 msgid "&Goto Line..."
-msgstr ""
+msgstr "&Ga naar regel..."
 
-#: ../mainwindow.py:1386 ../macosx/globalmenu.py:134
+#: ../mainwindow.py:1384 ../macosx/globalmenu.py:134
 msgid "New &Window"
 msgstr "Nieuw &venster"
 
-#: ../mainwindow.py:1387
+#: ../mainwindow.py:1385
 msgid "&Fullscreen"
 msgstr "Volledig &scherm"
 
-#: ../mainwindow.py:1389
+#: ../mainwindow.py:1387
 msgid "&User Guide"
 msgstr "&Handleiding"
 
-#: ../mainwindow.py:1390
+#: ../mainwindow.py:1388
 msgid "&What's This?"
 msgstr "&Wat is dit?"
 
-#: ../mainwindow.py:1391
+#: ../mainwindow.py:1389
 msgid "Report a &Bug..."
 msgstr "&Bug rapporteren..."
 
-#: ../mainwindow.py:1392 ../macosx/globalmenu.py:152
+#: ../mainwindow.py:1390 ../macosx/globalmenu.py:152
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "&Over {appname}..."
@@ -1057,22 +1049,19 @@ msgstr "&Bestand"
 #: ../menu.py:118
 msgctxt "submenu title"
 msgid "Save (advanced)"
-msgstr ""
+msgstr "Opslaan (geavanceerd)"
 
 #: ../menu.py:129
-#, fuzzy
 msgctxt "submenu title"
 msgid "Close (advanced)"
-msgstr "Document sluiten"
+msgstr "Sluiten (geavanceerd)"
 
 #: ../menu.py:138
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Import/Export"
-msgstr "&Importeren"
+msgstr "&Importeren/Exporteren"
 
 #: ../menu.py:157
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Print"
 msgstr "&Afdrukken"
@@ -1085,7 +1074,7 @@ msgstr "Be&werken"
 #: ../menu.py:191
 msgctxt "menu title"
 msgid "Cut/Copy (advanced)"
-msgstr ""
+msgstr "Knippen/kopiëren (geavanceerd)"
 
 #: ../menu.py:201
 msgctxt "menu title"
@@ -1113,15 +1102,14 @@ msgid "&Tools"
 msgstr "&Gereedschap"
 
 #: ../menu.py:338
-#, fuzzy
 msgctxt "submenu title"
 msgid "Code &Formatting"
-msgstr "Inspringen en opmaken"
+msgstr "&Code-opmaak"
 
 #: ../menu.py:348
 msgctxt "submenu title"
 msgid "Musical &Transformations"
-msgstr ""
+msgstr "Muzikale be&werkingen"
 
 #: ../menu.py:359
 msgctxt "submenu title"
@@ -1144,10 +1132,9 @@ msgid "&Rhythm"
 msgstr "&Ritme"
 
 #: ../menu.py:427
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Directions"
-msgstr "Richting:"
+msgstr "&Richting"
 
 #: ../menu.py:437
 msgctxt "submenu title"
@@ -1155,10 +1142,9 @@ msgid "&Quick Remove"
 msgstr "&Snel verwijderen"
 
 #: ../menu.py:454
-#, fuzzy
 msgctxt "submenu title"
 msgid "&Directories"
-msgstr "Richting:"
+msgstr "&Mappen"
 
 #: ../menu.py:468 ../macosx/globalmenu.py:133
 msgctxt "menu title"
@@ -1202,32 +1188,33 @@ msgstr "{filename} afdrukken"
 msgid "Print"
 msgstr "Afdrukken"
 
-#: ../pagedview.py:201 ../pagedview.py:222
+#: ../pagedview.py:202 ../pagedview.py:224
 msgid "Printing Error"
 msgstr "Printfout"
 
-#: ../pagedview.py:202
-#, python-brace-format
-msgid ""
-"An error occured (code: {num}):\n"
-"{message}"
+#: ../pagedview.py:204
+#, fuzzy, python-brace-format
+msgid "An error occurred (code: {num}):"
 msgstr ""
+"Er is een fout opgetreden:\n"
+"\n"
+"%1"
 
-#: ../pagedview.py:209
+#: ../pagedview.py:211
 msgid "Preparing to print..."
-msgstr ""
+msgstr "Afdrukken voorbereiden..."
 
-#: ../pagedview.py:217
+#: ../pagedview.py:219
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "Afdrukken pagina {page} ({num} van {total})..."
 
-#: ../pagedview.py:223
+#: ../pagedview.py:225
 msgid "Could not send the document to the printer."
 msgstr "Kan het document niet naar de printer verzenden."
 
 #. L10N: page numbering: page {num} of {total}
-#: ../pagedview.py:235 ../viewers/__init__.py:806
+#: ../pagedview.py:237 ../viewers/__init__.py:806
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "{num} van {total}"
@@ -1242,23 +1229,20 @@ msgid "Dock/Undock"
 msgstr "Koppelen/Losmaken"
 
 #: ../panelmanager.py:52
-#, fuzzy
 msgid "&Viewers"
-msgstr "B&eeld"
+msgstr "&Weergave"
 
 #: ../panelmanager.py:56
-#, fuzzy
 msgid "&Coding"
-msgstr "Invou&wen"
+msgstr "&Programmeren"
 
 #: ../panelmanager.py:60
 msgid "&Structure"
-msgstr ""
+msgstr "&Structuur"
 
 #: ../panelmanager.py:64
-#, fuzzy
 msgid "&MIDI"
-msgstr "MIDI"
+msgstr "&MIDI"
 
 #: ../viewmanager.py:77 ../viewmanager.py:439
 msgid "Split &Horizontally"
@@ -1517,9 +1501,8 @@ msgid "Publish"
 msgstr "Publiceren"
 
 #: ../engrave/custom.py:133
-#, fuzzy
 msgid "First System Only"
-msgstr "Eerste systeem:"
+msgstr "Alleen eerste systeem"
 
 #: ../engrave/custom.py:134
 msgid "Layout Control"
@@ -1538,9 +1521,8 @@ msgid "Run LilyPond with English messages"
 msgstr "LilyPond starten met Engelstalige uitvoerberichten"
 
 #: ../engrave/custom.py:138
-#, fuzzy
 msgid "Additional Command Line Options:"
-msgstr "Instellingen voor de editor"
+msgstr "Overige commandoregel-opties:"
 
 #: ../engrave/custom.py:139
 msgid "Run LilyPond"
@@ -1558,7 +1540,7 @@ msgstr "PostScript"
 msgid "PNG"
 msgstr "PNG"
 
-#: ../engrave/custom.py:257 ../fonts/musicfonts.py:618
+#: ../engrave/custom.py:257 ../fonts/musicfonts.py:617
 #: ../preferences/lilypond.py:377
 msgid "SVG"
 msgstr "SVG"
@@ -1584,8 +1566,9 @@ msgid "No files available"
 msgstr "Geen bestanden beschikbaar"
 
 #: ../extensions/__init__.py:228
-msgid "Invalid extension menu: {}"
-msgstr ""
+#, fuzzy, python-brace-format
+msgid "Invalid extension menu: {name}"
+msgstr "Sessie bewerken: {name}"
 
 #: ../extensions/__init__.py:238
 #, fuzzy
@@ -1632,7 +1615,7 @@ msgid ""
 "They are not loaded."
 msgstr ""
 
-#: ../extensions/__init__.py:452
+#: ../extensions/__init__.py:452 ../fonts/musicfonts.py:590
 #, fuzzy
 msgid "Missing:"
 msgstr "Stemmen:"
@@ -1646,10 +1629,8 @@ msgid "Circular:"
 msgstr ""
 
 #: ../extensions/__init__.py:525
-msgid ""
-"Extension '{}' failed to load with the given explanation\n"
-"\n"
-"{}"
+#, python-brace-format
+msgid "Extension '{name}' failed to load with the given explanation:"
 msgstr ""
 
 #: ../extensions/__init__.py:835
@@ -1669,8 +1650,10 @@ msgid "Extensions have changed"
 msgstr "Snelteksten beheren"
 
 #: ../extensions/panel.py:38
+#, python-brace-format
 msgid ""
-"Extension panel widget class '{}' is not a subclass of ExtensionMixin. "
+"Extension panel widget class '{classname}' is not a subclass of "
+"ExtensionMixin.\n"
 "Please derive either from ExtensionWidget or add extensions.ExtensionMixin "
 "as a second base class."
 msgstr ""
@@ -1680,10 +1663,11 @@ msgid "Extension Tool Panel failed to load"
 msgstr ""
 
 #: ../extensions/panel.py:75
+#, python-brace-format
 msgid ""
 "The Tool Panel provided by the extension\n"
 "\n"
-"  {}\n"
+"  {name}\n"
 "\n"
 "failed to load due to an exception. Please contact the extension's "
 "maintainer(s)."
@@ -1997,9 +1981,8 @@ msgid "Run musicxml2ly"
 msgstr "Musicxml2ly starten"
 
 #: ../file_import/toly_dialog.py:78
-#, fuzzy
 msgid "After Import"
-msgstr "Importeren"
+msgstr "Na het importeren"
 
 #: ../file_import/toly_dialog.py:132
 msgid "LilyPond version:"
@@ -2022,9 +2005,8 @@ msgid "Engrave directly"
 msgstr "Direct graveren"
 
 #: ../fonts/__init__.py:110
-#, fuzzy
 msgid "&Document Fonts..."
-msgstr "Document-lettertypen..."
+msgstr "Document-&lettertypen..."
 
 #: ../fonts/__init__.py:112
 msgid ""
@@ -2261,44 +2243,37 @@ msgid ""
 "includes real files and can therefore not be removed directly."
 msgstr ""
 
-#: ../fonts/musicfonts.py:537 ../fonts/musicfonts.py:547
+#: ../fonts/musicfonts.py:537 ../fonts/musicfonts.py:546
 #, fuzzy
-msgid ""
-"Font installation failed:\n"
-"{}"
+msgid "Font installation failed:"
 msgstr "Geen Git-installatie gevonden"
 
-#: ../fonts/musicfonts.py:566
+#: ../fonts/musicfonts.py:565
 msgid "\n"
 msgstr ""
 
-#: ../fonts/musicfonts.py:572
-msgid ""
-"Font removal failed:\n"
-"{}"
-msgstr ""
+#: ../fonts/musicfonts.py:571
+#, fuzzy
+msgid "Font removal failed:"
+msgstr "Geen Git-installatie gevonden"
 
-#: ../fonts/musicfonts.py:591
-msgid "Missing: {}"
-msgstr ""
-
-#: ../fonts/musicfonts.py:615 ../fonts/textfonts.py:296
+#: ../fonts/musicfonts.py:614 ../fonts/textfonts.py:296
 #, fuzzy
 msgid "Font"
 msgstr "Lettertype:"
 
-#: ../fonts/musicfonts.py:616
+#: ../fonts/musicfonts.py:615
 #, fuzzy
 msgid "OpenType"
 msgstr "Openen"
 
-#: ../fonts/musicfonts.py:617 ../fonts/musicfonts.py:619
-#: ../fonts/musicfonts.py:621
+#: ../fonts/musicfonts.py:616 ../fonts/musicfonts.py:618
+#: ../fonts/musicfonts.py:620
 #, fuzzy
 msgid "(Brace)"
 msgstr "Accolade"
 
-#: ../fonts/musicfonts.py:620
+#: ../fonts/musicfonts.py:619
 msgid "WOFF"
 msgstr ""
 
@@ -2334,7 +2309,7 @@ msgstr "Aangepaste modus"
 #: ../fonts/preview.py:127
 msgid ""
 "Use custom sample for music font.\n"
-"NOTE: This should not include a version statement or a paper block."
+"NOTE: This should not include a version statement or a \\paper {...} block."
 msgstr ""
 
 #: ../fonts/preview.py:131
@@ -2345,7 +2320,7 @@ msgstr "Selecteer een map"
 #: ../fonts/preview.py:135
 msgid ""
 "Use current document as music font sample.\n"
-"NOTE: This is not robust if the document contains a \\paper { } block."
+"NOTE: This is not robust if the document contains a \\paper {...} block."
 msgstr ""
 
 #: ../fonts/preview.py:174
@@ -2429,7 +2404,7 @@ msgstr ""
 
 #: ../fonts/textfonts.py:245
 msgid "The quick brown fox jumps over the lazy dog"
-msgstr ""
+msgstr "The quick brown fox jumps over the lazy dog"
 
 #: ../fonts/textfonts.py:297
 msgid "Sample"
@@ -2540,7 +2515,8 @@ msgid "Can't 'start' an active Job Queue."
 msgstr ""
 
 #: ../job/queue.py:553
-msgid "Invalid job queue target: {}"
+#, python-brace-format
+msgid "Invalid job queue target: {name}"
 msgstr ""
 
 #: ../layoutcontrol/__init__.py:36 ../userguide/engrave_layout.md:90
@@ -4259,9 +4235,8 @@ msgid "General Preferences"
 msgstr "Algemene voorkeuren"
 
 #: ../preferences/__init__.py:186 ../userguide/prefs_musicviewers.md:1
-#, fuzzy
 msgid "Music Preferences"
-msgstr "Weergave-voorkeuren"
+msgstr "Muziek-voorkeuren"
 
 #: ../preferences/__init__.py:197 ../userguide/prefs_lilypond.md:1
 msgid "LilyPond Preferences"
@@ -4301,9 +4276,8 @@ msgid "Tools"
 msgstr "Gereedschap"
 
 #: ../preferences/__init__.py:296 ../userguide/prefs_extensions.md:1
-#, fuzzy
 msgid "Extensions"
-msgstr "Sessies"
+msgstr "Extensies"
 
 #: ../preferences/documentation.py:67
 msgid "Paths to LilyPond Documentation"
@@ -4608,9 +4582,8 @@ msgid "Custom quotes (enter below)"
 msgstr "Aangepaste aanhalingstekens (hieronder invoeren)"
 
 #: ../preferences/extensions.py:95 ../userguide/ext_configuration.md:7
-#, fuzzy
 msgid "General Settings"
-msgstr "Rumor instellingen"
+msgstr "Algemene instellingen"
 
 #: ../preferences/extensions.py:96
 #, fuzzy
@@ -16652,15 +16625,6 @@ msgstr ""
 
 #~ msgid "Unpacking failed."
 #~ msgstr "Het uitpakken is mislukt."
-
-#~ msgid ""
-#~ "An error occurred:\n"
-#~ "\n"
-#~ "%1"
-#~ msgstr ""
-#~ "Er is een fout opgetreden:\n"
-#~ "\n"
-#~ "%1"
 
 #~ msgid ""
 #~ "This is the list of defined expansions.\n"
