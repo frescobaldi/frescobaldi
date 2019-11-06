@@ -52,6 +52,7 @@ from PyQt5.QtWidgets import (
 import app
 import icons
 import vbcl
+import qsettings
 from . import actions, settings
 
 
@@ -818,7 +819,7 @@ class Extensions(QObject):
         s = QSettings()
         s.beginGroup('extension-settings')
         self._active = s.value('active', True, bool)
-        self._inactive_extensions = s.value('installed/inactive', [], str)
+        self._inactive_extensions = qsettings.get_string_list(s, 'installed/inactive')
         self._root_directory = s.value('root-directory', '', str)
 
     def mainwindow(self):
