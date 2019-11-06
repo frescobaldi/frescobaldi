@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  temp1.pot (frescobaldi 3.1)  #-#-#-#-#\n"
 "Project-Id-Version: frescobaldi 3.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2019-11-06 11:37+0100\n"
+"POT-Creation-Date: 2019-11-06 16:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1521,81 +1521,81 @@ msgstr ""
 msgid "No files available"
 msgstr ""
 
-#: ../extensions/__init__.py:228
+#: ../extensions/__init__.py:229
 #, python-brace-format
 msgid "Invalid extension menu: {name}"
 msgstr ""
 
-#: ../extensions/__init__.py:238
+#: ../extensions/__init__.py:239
 msgid "&Tool Panel"
 msgstr ""
 
-#: ../extensions/__init__.py:322
+#: ../extensions/__init__.py:323
 #, python-brace-format
 msgid ""
 "Class '{classname}' can't access Extension object. It should provide an "
 "_extension_name class variable."
 msgstr ""
 
-#: ../extensions/__init__.py:390
+#: ../extensions/__init__.py:391
 msgid "Invalid metadata:"
 msgstr ""
 
-#: ../extensions/__init__.py:392
+#: ../extensions/__init__.py:393
 msgid ""
 "Extensions whose extension.cnf file has errors.\n"
 "They will be loaded nevertheless."
 msgstr ""
 
-#: ../extensions/__init__.py:413
+#: ../extensions/__init__.py:414
 msgid "Failed to load:"
 msgstr ""
 
-#: ../extensions/__init__.py:415
+#: ../extensions/__init__.py:416
 msgid ""
 "Extensions that failed to load properly.\n"
 "Double click on name to show the stacktrace.\n"
 "Please contact the extension maintainer."
 msgstr ""
 
-#: ../extensions/__init__.py:442
+#: ../extensions/__init__.py:443
 msgid "Failed dependencies:"
 msgstr ""
 
-#: ../extensions/__init__.py:445
+#: ../extensions/__init__.py:446
 msgid ""
 "Extensions with failed or circular dependencies.\n"
 "They are not loaded."
 msgstr ""
 
-#: ../extensions/__init__.py:452 ../fonts/musicfonts.py:590
+#: ../extensions/__init__.py:453 ../fonts/musicfonts.py:590
 msgid "Missing:"
 msgstr ""
 
-#: ../extensions/__init__.py:462
+#: ../extensions/__init__.py:463
 msgid "Inactive:"
 msgstr ""
 
-#: ../extensions/__init__.py:472
+#: ../extensions/__init__.py:473
 msgid "Circular:"
 msgstr ""
 
-#: ../extensions/__init__.py:525
+#: ../extensions/__init__.py:526
 #, python-brace-format
 msgid "Extension '{name}' failed to load with the given explanation:"
 msgstr ""
 
-#: ../extensions/__init__.py:835
+#: ../extensions/__init__.py:836
 msgid "&Extensions"
 msgstr ""
 
-#: ../extensions/__init__.py:858
+#: ../extensions/__init__.py:859
 msgid ""
 "There were problems loading the extensions.\n"
 "The following details are also available from the Preferences dialog."
 msgstr ""
 
-#: ../extensions/__init__.py:915
+#: ../extensions/__init__.py:916
 msgid "Extensions have changed"
 msgstr ""
 
@@ -2814,20 +2814,20 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr ""
 
-#: ../musicview/__init__.py:117
+#: ../musicview/__init__.py:113
 msgctxt "window title"
 msgid "Music View"
 msgstr ""
 
-#: ../musicview/__init__.py:118
+#: ../musicview/__init__.py:114
 msgid "&Music View"
 msgstr ""
 
-#: ../musicview/__init__.py:165 ../viewers/__init__.py:232
+#: ../musicview/__init__.py:161 ../viewers/__init__.py:232
 msgid "Print Music"
 msgstr ""
 
-#: ../musicview/__init__.py:166 ../viewers/__init__.py:233
+#: ../musicview/__init__.py:162 ../viewers/__init__.py:233
 msgid ""
 "Unfortunately, this version of Frescobaldi is unable to print PDF documents "
 "on Mac OS X due to various technical reasons.\n"
@@ -2839,51 +2839,51 @@ msgid ""
 "functionality anyway, or Cancel to cancel printing."
 msgstr ""
 
-#: ../musicview/__init__.py:258 ../viewers/__init__.py:445
+#: ../musicview/__init__.py:255 ../viewers/__init__.py:445
 msgid "Select Music View Document"
 msgstr ""
 
-#: ../musicview/__init__.py:259 ../viewers/__init__.py:446
+#: ../musicview/__init__.py:256 ../viewers/__init__.py:446
 msgid "&Print Music..."
 msgstr ""
 
-#: ../musicview/__init__.py:260 ../viewers/__init__.py:450
+#: ../musicview/__init__.py:257 ../viewers/__init__.py:450
 msgid "Zoom Music"
 msgstr ""
 
-#: ../musicview/__init__.py:261
+#: ../musicview/__init__.py:258
 msgid "Save current View settings as default"
 msgstr ""
 
-#: ../musicview/__init__.py:262 ../viewers/__init__.py:457
+#: ../musicview/__init__.py:259 ../viewers/__init__.py:457
 msgid "&Maximize"
 msgstr ""
 
-#: ../musicview/__init__.py:263 ../viewers/__init__.py:458
+#: ../musicview/__init__.py:260 ../viewers/__init__.py:458
 msgid "&Jump to Cursor Position"
 msgstr ""
 
-#: ../musicview/__init__.py:264 ../viewers/__init__.py:459
+#: ../musicview/__init__.py:261 ../viewers/__init__.py:459
 msgid "S&ynchronize with Cursor Position"
 msgstr ""
 
-#: ../musicview/__init__.py:265 ../viewers/__init__.py:460
+#: ../musicview/__init__.py:262 ../viewers/__init__.py:460
 msgid "Copy to &Image..."
 msgstr ""
 
-#: ../musicview/__init__.py:266
+#: ../musicview/__init__.py:263
 msgid "Copy Selected &Text"
 msgstr ""
 
-#: ../musicview/__init__.py:267 ../viewers/__init__.py:466
+#: ../musicview/__init__.py:264 ../viewers/__init__.py:466
 msgid "&Reload"
 msgstr ""
 
-#: ../musicview/__init__.py:418 ../viewers/__init__.py:730
+#: ../musicview/__init__.py:415 ../viewers/__init__.py:730
 msgid "Choose the PDF document to display."
 msgstr ""
 
-#: ../musicview/__init__.py:420 ../viewers/__init__.py:732
+#: ../musicview/__init__.py:417 ../viewers/__init__.py:732
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -8309,7 +8309,8 @@ msgid "See also:"
 msgstr ""
 
 #: ../vbcl/__init__.py:44
-msgid "VBCL Error: Missing mandatory key(s) '{}'"
+#, python-brace-format
+msgid "VBCL Error: Missing mandatory key(s) '{keys}'"
 msgstr ""
 
 #: ../vcs/__init__.py:81
@@ -8334,9 +8335,7 @@ msgid "&Git"
 msgstr ""
 
 #: ../vcs/menu.py:129
-msgid ""
-"Successful checkout of branch\n"
-"{}"
+msgid "Successful checkout of branch:"
 msgstr ""
 
 #: ../vcs/menu.py:133

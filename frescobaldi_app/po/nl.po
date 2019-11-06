@@ -1,20 +1,20 @@
 # translation of nl.po to Nederlands
-# Wilbert Berendsen <wb@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019.
 #
+# Wilbert Berendsen <wb@xs4all.nl>, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019.
 msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2019-11-06 11:37+0100\n"
-"PO-Revision-Date: 2019-11-06 11:32+0100\n"
-"Last-Translator: Wilbert Berendsen <wb@xs4all.nl>\n"
-"Language-Team: Nederlands <>\n"
+"POT-Creation-Date: 2019-11-06 16:15+0100\n"
+"PO-Revision-Date: 2019-11-06 16:23+0100\n"
+"Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
+"Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../about.py:49
 #, python-brace-format
@@ -544,11 +544,9 @@ msgid "Email Bug Report..."
 msgstr "Bugrapport emailen..."
 
 #: ../exception.py:92
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "An error occurred in extension '{name}'"
-msgstr ""
-"\n"
-"Er is een fout opgetreden in extensie '{ext}'"
+msgstr "Er is een fout opgetreden in extensie '{name}'"
 
 #: ../exception.py:101
 msgid "Optionally describe below what you were doing:"
@@ -802,7 +800,7 @@ msgstr "Exporteren als HTML"
 #: ../mainwindow.py:978
 #, python-brace-format
 msgid "Goto Line Number (1-{num}):"
-msgstr ""
+msgstr "Ga naar regel (1-{num}):"
 
 #: ../mainwindow.py:1027
 msgid ""
@@ -842,9 +840,8 @@ msgid "Insert from &File..."
 msgstr "&Invoegen uit bestand..."
 
 #: ../mainwindow.py:1328
-#, fuzzy
 msgid "Insert the contents of a file at the current cursor position."
-msgstr "Sluit alle documenten en verlaat de huidige sessie."
+msgstr "De inhoud van een bestand invoegen op de cursorpositie."
 
 #: ../mainwindow.py:1329
 msgid "Open Current Directory"
@@ -895,9 +892,8 @@ msgid "Close All Documents"
 msgstr "Alle documenten sluiten"
 
 #: ../mainwindow.py:1347
-#, fuzzy
 msgid "Closes all documents but preserves the current session."
-msgstr "Sluit alle documenten maar blijft in de huidige sessie"
+msgstr "Sluit alle documenten maar blijft in de huidige sessie."
 
 #: ../mainwindow.py:1350
 msgid "Close All Documents and Session"
@@ -1193,12 +1189,9 @@ msgid "Printing Error"
 msgstr "Printfout"
 
 #: ../pagedview.py:204
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "An error occurred (code: {num}):"
-msgstr ""
-"Er is een fout opgetreden:\n"
-"\n"
-"%1"
+msgstr "Er is een fout opgetreden (code: {num}):"
 
 #: ../pagedview.py:211
 msgid "Preparing to print..."
@@ -1565,86 +1558,91 @@ msgstr "Aange&maakte bestanden"
 msgid "No files available"
 msgstr "Geen bestanden beschikbaar"
 
-#: ../extensions/__init__.py:228
-#, fuzzy, python-brace-format
+#: ../extensions/__init__.py:229
+#, python-brace-format
 msgid "Invalid extension menu: {name}"
-msgstr "Sessie bewerken: {name}"
+msgstr "Ongeldig extensie-menu: {name}"
 
-#: ../extensions/__init__.py:238
-#, fuzzy
+#: ../extensions/__init__.py:239
 msgid "&Tool Panel"
-msgstr "Taakbalk"
+msgstr "&Gereedschap paneel"
 
-#: ../extensions/__init__.py:322
+#: ../extensions/__init__.py:323
 #, python-brace-format
 msgid ""
 "Class '{classname}' can't access Extension object. It should provide an "
 "_extension_name class variable."
 msgstr ""
+"De class '{classname}' kan het Extension object niet benaderen. Het object"
+" moet een _extension_name class-variable bevatten."
 
-#: ../extensions/__init__.py:390
-#, fuzzy
+#: ../extensions/__init__.py:391
 msgid "Invalid metadata:"
-msgstr "%1: Ongeldige naam"
+msgstr "Ongeldige metadata:"
 
-#: ../extensions/__init__.py:392
+#: ../extensions/__init__.py:393
 msgid ""
 "Extensions whose extension.cnf file has errors.\n"
 "They will be loaded nevertheless."
 msgstr ""
+"Extensies waarvan het extension.cnf bestand fouten bevat. \n"
+"Deze extensies worden wel geladen."
 
-#: ../extensions/__init__.py:413
-#, fuzzy
+#: ../extensions/__init__.py:414
 msgid "Failed to load:"
-msgstr "Guile scripts om te laden:"
+msgstr "Konden niet laden:"
 
-#: ../extensions/__init__.py:415
+#: ../extensions/__init__.py:416
 msgid ""
 "Extensions that failed to load properly.\n"
 "Double click on name to show the stacktrace.\n"
 "Please contact the extension maintainer."
 msgstr ""
+"Extensies die niet correct geladen konden worden.\n"
+"Dubbelklik een naam om de stacktrace weer te geven.\n"
+"Neem indien gewenst contact op met de extensie maintainer."
 
-#: ../extensions/__init__.py:442
+#: ../extensions/__init__.py:443
 msgid "Failed dependencies:"
-msgstr ""
+msgstr "Mislukte afhankelijkheden:"
 
-#: ../extensions/__init__.py:445
+#: ../extensions/__init__.py:446
 msgid ""
 "Extensions with failed or circular dependencies.\n"
 "They are not loaded."
 msgstr ""
+"Extensies met ontbrekende of circulaire afhankelijkheden.\n"
+"Deze worden niet geladen."
 
-#: ../extensions/__init__.py:452 ../fonts/musicfonts.py:590
-#, fuzzy
+#: ../extensions/__init__.py:453 ../fonts/musicfonts.py:590
 msgid "Missing:"
-msgstr "Stemmen:"
+msgstr "Ontbrekend:"
 
-#: ../extensions/__init__.py:462
+#: ../extensions/__init__.py:463
 msgid "Inactive:"
-msgstr ""
+msgstr "Inactief:"
 
-#: ../extensions/__init__.py:472
+#: ../extensions/__init__.py:473
 msgid "Circular:"
-msgstr ""
+msgstr "Circulair:"
 
-#: ../extensions/__init__.py:525
+#: ../extensions/__init__.py:526
 #, python-brace-format
 msgid "Extension '{name}' failed to load with the given explanation:"
 msgstr ""
 
-#: ../extensions/__init__.py:835
+#: ../extensions/__init__.py:836
 #, fuzzy
 msgid "&Extensions"
 msgstr "Sessie exporteren"
 
-#: ../extensions/__init__.py:858
+#: ../extensions/__init__.py:859
 msgid ""
 "There were problems loading the extensions.\n"
 "The following details are also available from the Preferences dialog."
 msgstr ""
 
-#: ../extensions/__init__.py:915
+#: ../extensions/__init__.py:916
 #, fuzzy
 msgid "Extensions have changed"
 msgstr "Snelteksten beheren"
@@ -2934,20 +2932,20 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "MAAT"
 
-#: ../musicview/__init__.py:117
+#: ../musicview/__init__.py:113
 msgctxt "window title"
 msgid "Music View"
 msgstr "Muziekweergave"
 
-#: ../musicview/__init__.py:118
+#: ../musicview/__init__.py:114
 msgid "&Music View"
 msgstr "&Muziekweergave"
 
-#: ../musicview/__init__.py:165 ../viewers/__init__.py:232
+#: ../musicview/__init__.py:161 ../viewers/__init__.py:232
 msgid "Print Music"
 msgstr "Muziek afdrukken"
 
-#: ../musicview/__init__.py:166 ../viewers/__init__.py:233
+#: ../musicview/__init__.py:162 ../viewers/__init__.py:233
 msgid ""
 "Unfortunately, this version of Frescobaldi is unable to print PDF documents "
 "on Mac OS X due to various technical reasons.\n"
@@ -2968,52 +2966,52 @@ msgstr ""
 "Kies Ja als u dat wilt, Nee als u de ingebouwde printfunctionaliteit toch "
 "wilt gebruiken, of Annuleren om het afdrukken te annuleren."
 
-#: ../musicview/__init__.py:258 ../viewers/__init__.py:445
+#: ../musicview/__init__.py:255 ../viewers/__init__.py:445
 msgid "Select Music View Document"
 msgstr "Weer te geven document selecteren"
 
-#: ../musicview/__init__.py:259 ../viewers/__init__.py:446
+#: ../musicview/__init__.py:256 ../viewers/__init__.py:446
 msgid "&Print Music..."
 msgstr "&Muziek afdrukken..."
 
-#: ../musicview/__init__.py:260 ../viewers/__init__.py:450
+#: ../musicview/__init__.py:257 ../viewers/__init__.py:450
 msgid "Zoom Music"
 msgstr "Muziek zoomen"
 
-#: ../musicview/__init__.py:261
+#: ../musicview/__init__.py:258
 #, fuzzy
 msgid "Save current View settings as default"
 msgstr "Deze instelling opslaan en standaard gebruiken."
 
-#: ../musicview/__init__.py:262 ../viewers/__init__.py:457
+#: ../musicview/__init__.py:259 ../viewers/__init__.py:457
 msgid "&Maximize"
 msgstr "&Maximaliseren"
 
-#: ../musicview/__init__.py:263 ../viewers/__init__.py:458
+#: ../musicview/__init__.py:260 ../viewers/__init__.py:458
 msgid "&Jump to Cursor Position"
 msgstr "Naar cursor &springen"
 
-#: ../musicview/__init__.py:264 ../viewers/__init__.py:459
+#: ../musicview/__init__.py:261 ../viewers/__init__.py:459
 msgid "S&ynchronize with Cursor Position"
 msgstr "Met cursor s&ynchroniseren"
 
-#: ../musicview/__init__.py:265 ../viewers/__init__.py:460
+#: ../musicview/__init__.py:262 ../viewers/__init__.py:460
 msgid "Copy to &Image..."
 msgstr "Naar afbeeld&ing kopiëren..."
 
-#: ../musicview/__init__.py:266
+#: ../musicview/__init__.py:263
 msgid "Copy Selected &Text"
 msgstr "Geselecteerde &tekst kopiëren"
 
-#: ../musicview/__init__.py:267 ../viewers/__init__.py:466
+#: ../musicview/__init__.py:264 ../viewers/__init__.py:466
 msgid "&Reload"
 msgstr "He&rladen"
 
-#: ../musicview/__init__.py:418 ../viewers/__init__.py:730
+#: ../musicview/__init__.py:415 ../viewers/__init__.py:730
 msgid "Choose the PDF document to display."
 msgstr "Kies het weer te geven PDF-document."
 
-#: ../musicview/__init__.py:420 ../viewers/__init__.py:732
+#: ../musicview/__init__.py:417 ../viewers/__init__.py:732
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
 "or location."
@@ -8701,7 +8699,8 @@ msgid "See also:"
 msgstr "Zie ook:"
 
 #: ../vbcl/__init__.py:44
-msgid "VBCL Error: Missing mandatory key(s) '{}'"
+#, python-brace-format
+msgid "VBCL Error: Missing mandatory key(s) '{keys}'"
 msgstr ""
 
 #: ../vcs/__init__.py:81
@@ -8733,9 +8732,7 @@ msgid "&Git"
 msgstr "&Git"
 
 #: ../vcs/menu.py:129
-msgid ""
-"Successful checkout of branch\n"
-"{}"
+msgid "Successful checkout of branch:"
 msgstr ""
 
 #: ../vcs/menu.py:133
