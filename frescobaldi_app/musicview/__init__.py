@@ -57,10 +57,6 @@ import gadgets.drag
 
 from . import documents
 
-
-# default zoom percentages
-_zoomvalues = [50, 75, 100, 125, 150, 200, 300, 800, 2400, 6400]
-
 # viewModes from qpageview:
 from qpageview import FixedScale, FitWidth, FitHeight, FitBoth
 from qpageview import Horizontal, Vertical
@@ -93,12 +89,7 @@ class MusicViewPanel(panel.Panel):
 
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-
-        # for the time being, we use our own print function...
         ac.music_print.triggered.connect(self.printMusic)
-        # ...so we disconnect the one provided by the view actions
-        ac.music_print.triggered.disconnect(ac._viewActions.slotPrint)
-
         ac.music_save_settings.triggered.connect(self.writeSettings)
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
@@ -219,7 +210,7 @@ class Actions(actioncollection.ActionCollection):
     def createActions(self, panel):
         self._viewActions = va = pagedview.ViewActions()
         self.music_document_select = DocumentChooserAction(panel)
-        self.music_print = va.print
+        self.music_print = QAction(panel)
         self.music_zoom_in = va.zoom_in
         self.music_zoom_out = va.zoom_out
         self.music_zoom_original = va.zoom_original
@@ -246,6 +237,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_magnifier = va.magnifier
         self.music_reload = QAction(panel)
 
+        self.music_print.setIcon(icons.get('document-print'))
         self.music_maximize.setIcon(icons.get('view-fullscreen'))
         self.music_jump_to_cursor.setIcon(icons.get('go-jump'))
         self.music_copy_image.setIcon(icons.get('edit-copy'))
