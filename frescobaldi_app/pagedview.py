@@ -198,9 +198,11 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
             h = qpageview.cupsprinter.handle(printer)
             if h:
                 if not h.printFile(self.document().filename()):
-                    QMessageBox.warning(self, _("Printing Error"),
-                        _("An error occured (code: {num}):\n{message}".format(
-                            message=h.error, num=h.status)))
+                    QMessageBox.warning(self,
+                        _("Printing Error"),
+                        "{0}\n{1}".format(
+                            _("An error occurred (code: {num}):").format(num=h.status),
+                            h.error))
                 return
         job = super().print(printer, pageNumbers, False)
         if job:

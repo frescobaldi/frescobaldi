@@ -126,7 +126,7 @@ class FontsPreviewWidget(QWidget):
         csu.setToolTip(_(
             "Use custom sample for music font.\n"
             + "NOTE: This should not include a version statement "
-            + "or a paper block."
+            + "or a \\paper {...} block."
         ))
         csu.setDialogTitle(_("Select sample score"))
         csu.fileDialog(True).setNameFilters(['LilyPond files (*.ly)'])
@@ -134,7 +134,7 @@ class FontsPreviewWidget(QWidget):
         self.cb_samples.setItemData(i, _(
             "Use current document as music font sample.\n"
             + "NOTE: This is not robust if the document contains "
-            + "a \\paper { } block."
+            + "a \\paper {...} block."
         ), Qt.ToolTipRole)
         i = self.cb_samples.findData("<CUSTOM>")
         self.cb_samples.setItemData(i, csu.toolTip(), Qt.ToolTipRole)

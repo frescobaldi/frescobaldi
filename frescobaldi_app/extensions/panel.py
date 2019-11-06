@@ -35,11 +35,11 @@ class ExtensionPanel(panel.Panel):
         self._extension = extension
         if not issubclass(widget_class, ExtensionMixin):
             raise TypeError(_(
-                "Extension panel widget class '{}' "
-                "is not a subclass of ExtensionMixin. "
+                "Extension panel widget class '{classname}' "
+                "is not a subclass of ExtensionMixin.\n"
                 "Please derive either from ExtensionWidget "
                 "or add extensions.ExtensionMixin as a second base class."
-            ).format(widget_class.__name__))
+            ).format(classname=widget_class.__name__))
         self._widget_class = widget_class
         super(ExtensionPanel, self).__init__(extension.mainwindow())
         self.hide()
@@ -72,11 +72,10 @@ class ExtensionPanel(panel.Panel):
             msg_box.setIcon(QMessageBox.Critical)
             msg_box.setText(_("Extension Tool Panel failed to load"))
             info_text = _(
-                "The Tool Panel provided by the extension\n\n  {}\n\n"
+                "The Tool Panel provided by the extension\n\n  {name}\n\n"
                 "failed to load due to an exception. "
                 "Please contact the extension's maintainer(s)."
-            ).format(
-                extension.display_name() or extension.name())
+            ).format(name=extension.display_name() or extension.name())
             maintainers = info.get('maintainers', [])
             for m in maintainers:
                 info_text += "\n  - {}".format(m)

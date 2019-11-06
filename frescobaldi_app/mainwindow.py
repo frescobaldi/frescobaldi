@@ -975,7 +975,7 @@ class MainWindow(QMainWindow):
         dlg.setIntMinimum(1)
         dlg.setIntMaximum(line_count)
         dlg.setIntValue(current_line)
-        dlg.setLabelText(_("Goto Line Line Number (1-{}):".format(line_count)))
+        dlg.setLabelText(_("Goto Line Number (1-{num}):".format(num=line_count)))
         dlg.setWindowFlags(Qt.Popup)
         dlg.move(pos)
         dlg_result = dlg.exec()
@@ -1325,9 +1325,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_insert_file.setText(_("Insert from &File..."))
         self.file_insert_file.setToolTip(
-            _("Insert the content of a file\n"
-            "at the current cursor position")
-        )
+            _("Insert the contents of a file at the current cursor position."))
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
         self.file_save.setText(_("&Save"))
@@ -1346,7 +1344,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(
-            _("Closes all documents but preserves the current session")
+            _("Closes all documents but preserves the current session.")
         )
         self.file_close_all_and_session.setText(
             _("Close All Documents and Session")

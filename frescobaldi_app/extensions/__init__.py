@@ -225,8 +225,8 @@ class Extension(QObject):
             panel = self.panel()
             # An extension without at least one action or panel is invalid
             if not (panel or actions):
-                m = QMenu(_("Invalid extension menu: {}".format(
-                    self.display_name())))
+                m = QMenu(_("Invalid extension menu: {name}".format(
+                    name=self.display_name())))
                 return m
 
             # finally create the menu
@@ -521,10 +521,10 @@ class FailedTree(QTreeView):
             msg_box.setIcon(QMessageBox.Information)
             extension_name = name_item.text()
             exception_info = name_item.exception_info
-            msg_box.setText(
-                _("Extension '{}' failed to load with the given "
-                  "explanation\n\n{}").format(
-                    extension_name, message_item.text()))
+            msg_box.setText("{}\n\n{}".format(
+                _("Extension '{name}' failed to load with the given explanation:").format(
+                    name=extension_name),
+                message_item.text()))
             msg_box.setInformativeText(
                 ' '.join(traceback.format_exception(*exception_info)))
             msg_box.exec()

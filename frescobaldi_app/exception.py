@@ -86,10 +86,10 @@ class ExceptionDialog(QDialog):
 
     def reportBug(self):
         if self._ext_maintainer:
+            extension = self._ext_maintainer[0]
             rcpt = self._ext_maintainer[1]
-            ext_intro = _(
-                "\nAn error occured in extension '{ext}'\n\n'".format(
-                ext=self._ext_maintainer[0]))
+            ext_intro = '\n{}\n\n'.format(
+                _("An error occurred in extension '{name}'").format(name=extension))
             ext_header = ' [{}]'.format(self._ext_maintainer[0])
         else:
             rcpt = ""

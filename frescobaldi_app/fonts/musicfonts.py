@@ -281,11 +281,11 @@ class MusicFontFamily(QObject):
         MusicFontException otherwise."""
         if not os.path.exists(file):
             raise MusicFontException(
-                '{} does not point to an existing file or link'.format(file))
+                'Not an existing file or link: {name}'.format(name=file))
         font = cls.parse_filename(file)
         if not font:
             raise MusicFontException(
-                'File {} does not appear to be a valid font file'.format(file))
+                'File {name} does not appear to be a valid font file'.format(name=file))
         return font['family'], font['type'], font['size']
 
     def __init__(self, file=None):
@@ -313,8 +313,8 @@ class MusicFontFamily(QObject):
         family, type, size = MusicFontFamily.check_file(file)
         if self.family and self.family != family:
             raise MusicFontException(
-                'File {} does not belong to font family {}'.format(
-                    file, self.family))
+                'File {name} does not belong to font family {family}'.format(
+                    name=file, family=self.family))
         if not self.family:
             self.family = family
         self.add(type, size, file)
@@ -534,8 +534,7 @@ class InstalledMusicFonts(AbstractMusicFontList):
                 copyfile(font_file, target)
             except OSError as e:
                 raise MusicFontPermissionException(
-                    _("Font installation failed:\n{}").format(e)
-                )
+                    _("Font installation failed:") + "\n{}".format(e))
         else:
             try:
                 os.symlink(font_file, target)
@@ -544,7 +543,7 @@ class InstalledMusicFonts(AbstractMusicFontList):
                 self.install(type, font_file, copy=True)
             except OSError as e:
                 raise MusicFontPermissionException(
-                _("Font installation failed:\n{}").format(e))
+                    _("Font installation failed:") + "\n{}".format(e))
         self.add_file(target)
 
     def remove(self, indexes):
@@ -569,7 +568,7 @@ class InstalledMusicFonts(AbstractMusicFontList):
                     link.unlink()
             except OSError as e:
                 raise MusicFontPermissionException(
-                _("Font removal failed:\n{}").format(e))
+                    _("Font removal failed:") + "\n{}".format(e))
             self._families.pop(family_name, None)
         self.item_model().populate(self)
 
@@ -588,7 +587,7 @@ class MusicFontsModel(QStandardItemModel):
                     size_result.setCheckState(False)
                 else:
                     size_result.setCheckState(Qt.PartiallyChecked)
-                    size_result.setText(_("Missing: {}").format(
+                    size_result.setText(_("Missing:") + " {}".format(
                         ", ".join(sizes)))
             else:
                 size_result.setCheckState(Qt.Checked)
