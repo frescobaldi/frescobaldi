@@ -244,9 +244,6 @@ class Actions(actioncollection.ActionCollection):
         self.music_copy_text.setIcon(icons.get('edit-copy'))
 
         self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
-        self.music_print.setShortcuts(QKeySequence.Print)
-        self.music_zoom_in.setShortcuts(QKeySequence.ZoomIn)
-        self.music_zoom_out.setShortcuts(QKeySequence.ZoomOut)
         self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
         self.music_copy_image.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_C))
         self.music_reload.setShortcut(QKeySequence(Qt.Key_F5))

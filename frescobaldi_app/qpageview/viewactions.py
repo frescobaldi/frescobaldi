@@ -25,6 +25,7 @@ ViewActions provides QActions to control a View.
 import weakref
 
 from PyQt5.QtCore import pyqtSignal, QObject, Qt
+from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import (
     QAction, QActionGroup, QApplication, QComboBox, QLabel, QSpinBox,
     QWidgetAction)
@@ -302,7 +303,10 @@ class ViewActions(QObject):
 
     def setActionShortcuts(self):
         """Implement this method to set keyboard shortcuts to the actions."""
-        pass
+        self.print.setShortcuts(QKeySequence.Print)
+        self.zoom_in.setShortcuts(QKeySequence.ZoomIn)
+        self.zoom_out.setShortcuts(QKeySequence.ZoomOut)
+        self.reload.setShortcut(QKeySequence(Qt.Key_F5))
 
     def slotPrint(self):
         view = self.view()
