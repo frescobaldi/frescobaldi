@@ -152,8 +152,7 @@ class General(preferences.Group):
         self.systemIcons.setText(_("Use System Icons"))
         self.systemIcons.setToolTip(_(
             "If checked, icons of the desktop icon theme "
-            "will be used instead of the bundled icons.\n"
-            "This setting takes effect on the next start of {appname}.").format(appname=appinfo.appname))
+            "will be used instead of the bundled icons."))
         self.splashScreen.setText(_("Show Splash Screen on Startup"))
         self.tabsClosable.setText(_("Show Close Button on Document tabs"))
         self.allowRemote.setText(_("Open Files in Running Instance"))
