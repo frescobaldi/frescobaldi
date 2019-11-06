@@ -75,6 +75,14 @@ class Parser(userguide.read.Parser):
 
 def md2pot(filename, md_files):
     with open(filename, 'wb') as f:
+        f.write(
+r"""msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+""".encode('utf8'))
         p = Parser(f)
         for name in md_files:
             p.make_translation_strings(name)
