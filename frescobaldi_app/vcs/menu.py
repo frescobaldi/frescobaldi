@@ -126,7 +126,7 @@ class GitBranchGroup(plugin.MainWindowPlugin, QActionGroup):
             vcs.app_repo.checkout(new_branch)
             from widgets.restartmessage import suggest_restart
             suggest_restart(
-                _("Successful checkout of branch\n{}".format(new_branch)))
+                _("Successful checkout of branch:") + "\n{}".format(new_branch))
         except GitError as giterror:
             msgBox = QMessageBox()
             msgBox.setIcon(QMessageBox.Critical)

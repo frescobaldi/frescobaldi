@@ -41,8 +41,8 @@ def check_mandatory_keys(d, mandatory_keys):
                 missing.append(key)
         if missing:
             raise ValueError(
-            _("VBCL Error: Missing mandatory key(s) '{}'".format(
-                ', '.join(missing))))
+            _("VBCL Error: Missing mandatory key(s) '{keys}'").format(
+                keys=', '.join(missing)))
 
 def set_defaults(d, defaults):
     """Ensure optional properties are set to default/'empty' values."""
