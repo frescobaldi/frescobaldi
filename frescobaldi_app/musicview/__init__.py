@@ -93,7 +93,12 @@ class MusicViewPanel(panel.Panel):
 
         ac = self.actionCollection = Actions(self)
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
+
+        # for the time being, we use our own print function...
         ac.music_print.triggered.connect(self.printMusic)
+        # ...so we disconnect the one provided by the view actions
+        ac.music_print.triggered.disconnect(ac._viewActions.slotPrint)
+
         ac.music_save_settings.triggered.connect(self.writeSettings)
         ac.music_maximize.triggered.connect(self.maximize)
         ac.music_jump_to_cursor.triggered.connect(self.jumpToCursor)
@@ -125,8 +130,6 @@ class MusicViewPanel(panel.Panel):
         w.view.readProperties(s)
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
         self.actionCollection._viewActions.setView(w.view)
-        # we already have our own printMusic slot (for the time being)
-        self.actionCollection._viewActions.print.triggered.disconnect(self.actionCollection._viewActions.slotPrint)
         selector = self.actionCollection.music_document_select
         selector.currentDocumentChanged.connect(w.openDocument)
         selector.documentClosed.connect(w.clear)
