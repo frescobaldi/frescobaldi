@@ -126,7 +126,7 @@ class MusicViewPanel(panel.Panel):
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
         self.actionCollection._viewActions.setView(w.view)
         # we already have our own printMusic slot (for the time being)
-        self.actionCollection._viewActions.print.triggered.disconnect(w.view.print)
+        self.actionCollection._viewActions.print.triggered.disconnect(self.actionCollection._viewActions.slotPrint)
         selector = self.actionCollection.music_document_select
         selector.currentDocumentChanged.connect(w.openDocument)
         selector.documentClosed.connect(w.clear)
