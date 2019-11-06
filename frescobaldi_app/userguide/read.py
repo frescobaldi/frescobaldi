@@ -51,7 +51,7 @@ def split_lines(s):
 def document(filename):
     if not filename.endswith('.md'):
         filename += '.md'
-    if not os.path.isabs(filename):
+    if not os.path.dirname(filename):
         from . import __path__
         filename = os.path.join(__path__[0], filename)
     with open(filename, 'rb') as f:
