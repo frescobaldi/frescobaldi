@@ -44,7 +44,38 @@ as a comment in the POT file.
 
 If translatable strings need arguments, you should use named variables, e.g:
 
-_("About {appname}").format(appname = ...)
+    _("About {appname}").format(appname = ...)
+
+Always use full text sentences, without whitespace around it.
+
+Use:        _("The file '{name}' can't be found.")
+and not:    _("The file '") + name + _("' can't be found.")
+
+Use:        _("The command exited with an error message:") + "\n\n" + errmsg
+and not:    _("The command exited with an error message:\n\n") + errmsg
+
+(You could write:
+
+    _("The command exited with an error message:\n\n{msg}").format(msg=errmsg)
+
+in the last case.)
+
+Don't use empty or numbered format braces, always have a meaningful variable name.
+
+Use:        _("Printing page {num} of {total}...").format(num=num, total=count)
+and not:    _("Printing page {} of {}...").format(num, count)
+
+In other languages the order of the arguments could be different.
+
+Be sure the string is translated first, then formatted. The following won't 
+work, although syntactically correct, because the formatted string can't be 
+found in the translation database:
+
+    _("Can't find file: '{name}'".format(name=filename))
+
+Instead, you should write:
+
+    _("Can't find file: '{name}'").format(name=filename)
 
 
 For translators:
