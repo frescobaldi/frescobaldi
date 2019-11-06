@@ -69,6 +69,7 @@ def initialize():
     # find the icons in this directory, after that also search in the included
     # icon theme folders (this fallback is used if the "Use system icons"
     # setting is enabled, but the system does not provide a certain icon.
+    QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
     d = __path__[0]
     path = []
     path.extend(__path__)
@@ -80,19 +81,17 @@ def initialize():
             path.append(p)
     QDir.setSearchPaths("icons", path)
 
-    # use our icon theme (that builds on Tango) if there are no system icons
-    if (not QIcon.themeName() or QIcon.themeName() == "hicolor"
-        or not QSettings().value("system_icons", True, bool)):
-        QIcon.setThemeSearchPaths(QIcon.themeSearchPaths() + __path__)
-        QIcon.setThemeName("TangoExt")
+    update_theme()
+
 
 def update_theme():
     """Change the theme for icon lookup after change of style preference"""
-    QIcon.setThemeName(QSettings().value("guistyle", "", str))
-    # TODO: Redraw all widgets.
-    # Currently this only takes effect after restart.
-    # Widgets have to act upon the 
+    s = QSettings()
+    if s.value("system_icons", True, bool):
+        QIcon.setThemeName(s.value("guistyle", "", str))
+    else:
+        QIcon.setThemeName("TangoExt") # Our icon theme
+
 
 app.settingsChanged.connect(update_theme)
-update_theme()
 app.oninit(initialize)

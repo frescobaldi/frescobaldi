@@ -24,6 +24,7 @@ Keyboard shortcuts settings page.
 
 from PyQt5.QtCore import QSettings
 from PyQt5.QtWidgets import (
+    QApplication,
     QCheckBox,
     QComboBox,
     QGridLayout,
@@ -136,6 +137,10 @@ class General(preferences.Group):
             s.remove("guistyle")
         else:
             s.setValue("guistyle", self.styleCombo.currentText())
+        # update all top-level windows, so icon changes are picked up
+        for w in QApplication.topLevelWidgets():
+            if w.isVisible():
+                w.update()
 
     def translateUI(self):
         self.setTitle(_("General Preferences"))
