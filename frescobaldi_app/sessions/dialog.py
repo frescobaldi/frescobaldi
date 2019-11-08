@@ -380,7 +380,7 @@ class SessionEditor(QDialog):
         elif name == '-':
             self.name.setFocus()
             QMessageBox.warning(self, app.caption(_("Warning")),
-                _("Please do not use the name '{name}'.".format(name="-")))
+                _("Please do not use the name '{name}'.").format(name="-"))
             return False
 
         elif self._originalName != name and name in sessions.sessionNames():

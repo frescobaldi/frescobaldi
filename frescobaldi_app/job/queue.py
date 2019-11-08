@@ -550,7 +550,7 @@ class GlobalJobQueue(QObject):
         """Add a job to the specified job queue."""
         target_queue = self._queues.get(target, None)
         if not target_queue:
-            raise ValueError(_("Invalid job queue target: {name}".format(name=target)))
+            raise ValueError(_("Invalid job queue target: {name}").format(name=target))
         target_queue.add_job(j)
 
     def load_settings(self):

@@ -44,7 +44,7 @@ import icons
 import preferences
 import sessions
 import util
-import po
+import i18n
 import remote
 import language_names
 
@@ -94,7 +94,7 @@ class General(preferences.Group):
         # fill in the language combo
         self._langs = ["C", ""]
         self.lang.addItems(('', ''))
-        langnames = [(language_names.languageName(lang, lang), lang) for lang in po.available()]
+        langnames = [(language_names.languageName(lang, lang), lang) for lang in i18n.available()]
         langnames.sort()
         for name, lang in langnames:
             self._langs.append(lang)

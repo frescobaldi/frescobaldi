@@ -24,6 +24,14 @@ message "ImportError: No module named frescobaldi_app.main", try:
 
     python3 setup.py install --install-layout=deb
 
+If you checked out Frescobaldi from Git, generate the message object files in
+frescobaldi_app/i18n using:
+
+    make -C i18n
+
+Those message object (*.mo) files contain the translated texts in Frescobaldi's
+GUI and built-in user guide.
+
 See the distutils documentation for more install options.
 
 NOTE: Since 2.18, Frescobaldi depends on the python-ly module, which needs to

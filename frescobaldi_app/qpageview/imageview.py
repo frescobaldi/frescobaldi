@@ -62,14 +62,14 @@ class ImageViewMixin:
         else:
             self.setViewMode(constants.FitBoth)
 
-    def _fitLayout(self):
+    def fitPageLayout(self):
         """Reimplemented to avoid zooming-to-fit larger than naturalsize."""
         if self.fitNaturalSizeEnabled and self.viewMode() and self.pageCount():
             layout = self.pageLayout()
             zoom_factor = layout.zoomFactor
             # fit layout but prevent zoomFactorChanged from being emitted
             with util.signalsBlocked(self):
-                super()._fitLayout()
+                super().fitPageLayout()
             # what would be the natural size?
             p = self.page(1)
             factor = p.dpi / self.physicalDpiX() if p else 1.0
@@ -79,7 +79,7 @@ class ImageViewMixin:
             if zoom_factor != layout.zoomFactor:
                 self.zoomFactorChanged.emit(layout.zoomFactor)
         else:
-            super()._fitLayout()
+            super().fitPageLayout()
 
     def mouseReleaseEvent(self, ev):
         """Reimplemented to toggle between FitBoth and ZoomNaturalSize."""

@@ -25,7 +25,7 @@ from PyQt5.QtCore import QSettings
 from PyQt5.QtNetwork import QNetworkReply, QNetworkRequest
 
 import app
-import po
+import i18n
 import networkaccessmanager
 
 
@@ -61,7 +61,7 @@ def langs():
         lang = s.value("language", "", str)
     if lang and lang != "C":
         langs.append(lang)
-    langs.extend(po.setup.preferred())
+    langs.extend(i18n.setup.preferred())
 
     # now fixup the list, remove dups and
     # language/country codes in Accept-Language headers must have '-' and not '_'

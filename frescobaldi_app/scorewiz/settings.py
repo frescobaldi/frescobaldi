@@ -28,7 +28,7 @@ from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
                              QButtonGroup, QRadioButton)
 
 import app
-import po.setup
+import i18n.setup
 import language_names
 import listmodel
 import lilypondinfo
@@ -242,13 +242,13 @@ class InstrumentNames(QGroupBox):
             display = listmodel.translate))
 
         self._langs = l = ['','C']
-        l.extend(sorted(po.available()))
+        l.extend(sorted(i18n.available()))
         def display(lang):
             if lang == 'C':
                 return _("English (untranslated)")
             elif not lang:
                 return _("Default")
-            return language_names.languageName(lang, po.setup.current())
+            return language_names.languageName(lang, i18n.setup.current())
         self.language.setModel(listmodel.ListModel(l, self.language, display=display))
 
         grid.addWidget(self.firstSystemLabel, 0, 0)

@@ -975,7 +975,7 @@ class MainWindow(QMainWindow):
         dlg.setIntMinimum(1)
         dlg.setIntMaximum(line_count)
         dlg.setIntValue(current_line)
-        dlg.setLabelText(_("Goto Line Number (1-{num}):".format(num=line_count)))
+        dlg.setLabelText(_("Goto Line Number (1-{num}):").format(num=line_count))
         dlg.setWindowFlags(Qt.Popup)
         dlg.move(pos)
         dlg_result = dlg.exec()

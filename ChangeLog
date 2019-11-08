@@ -40,6 +40,10 @@ Changes in 3.1 -- December 27th, 2019
     rewritten so that many more formats can be displayed like SVG and images,
     which will open up new possibilities for the music view and the manuscript
     viewer (#1202)
+* Translations:
+  - Userguide now has its own PO files. PO files for userguide and Frescobaldi
+    both are in 'i18n/xx_CC' directories, see README-translations
+  - updated nl translation by Wilbert Berendsen
 
 
 Changes in 3.0.0 -- February 17th, 2017

@@ -226,8 +226,8 @@ class Extension(QObject):
             panel = self.panel()
             # An extension without at least one action or panel is invalid
             if not (panel or actions):
-                m = QMenu(_("Invalid extension menu: {name}".format(
-                    name=self.display_name())))
+                m = QMenu(_("Invalid extension menu: {name}").format(
+                    name=self.display_name()))
                 return m
 
             # finally create the menu

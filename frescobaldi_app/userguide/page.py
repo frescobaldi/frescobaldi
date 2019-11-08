@@ -271,7 +271,7 @@ class Resolver(object):
 
     def handle_languagename(self, code):
         """Return a language name in the current language."""
-        import po.setup
+        import i18n.setup
         import language_names
-        return language_names.languageName(code, po.setup.current())
+        return language_names.languageName(code, i18n.setup.current())
 
