@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+
+"""
+
+This small script creates a POT file ('frescobaldi.pot') for the translations 
+by extracting all messages from Python source files.
+
+It also creates a POT file ('userguide.pot') for the translation of all 
+paragraphs of the user guide.
+
+The userguide.pot does not contain translatable strings that also appear in
+frescobaldi.pot.
+
+"""
+
+# Usage:
+# python update-pot.py
+
+
+import glob
+import os
+import subprocess
+import sys
+
+frescobaldi_app = "../frescobaldi_app"
+sys.path[0:0] = [frescobaldi_app, '.']
+
+import appinfo
+import md2pot
+
+# 1. create a POT file for the messages, harvested from the source code
+command = [
+    'xgettext',
+    '--language=python',
+    '--output=frescobaldi.pot',
+    '--package-name={0}'.format(appinfo.name),
+    '--package-version={0}'.format(appinfo.version),
+    '--msgid-bugs-address={0}'.format(appinfo.maintainer_email),
+    '--keyword',                # empty the default keyword list
+    '--keyword=_:1c,2,3,4t',    # context, message, plural, count
+    '--keyword=_:1,2,3t',       # message, plural, count
+    '--keyword=_:1c,2,2t',      # context, message
+    '--keyword=_:1,1t',         # message
+    '--add-comments=L10N',
+]
+
+for root, dirs, files in sorted(os.walk(frescobaldi_app)):
+    for f in sorted(files):
+        if f.endswith('.py') and f[0] != '.':
+            command.append(os.path.join(root, f))
+command.append('messages.py')   # dummy messages file with some Qt i18n strings
+result = subprocess.call(command)
+
+# 2. create a POT file for the user guide
+userguide = sorted(glob.glob(os.path.join(frescobaldi_app, 'userguide', '*.md')))
+md2pot.md2pot('temp1.pot', userguide)
+
+# 3. uniq that one
+subprocess.call('msguniq -t UTF-8 -o temp2.pot temp1.pot'.split())
+os.remove('temp1.pot')
+
+# 4. remove dups with frescobaldi.pot from user guide
+subprocess.call('msgcat --more-than=1 -o common.pot frescobaldi.pot temp2.pot'.split())
+subprocess.call('msgcat --less-than=2 -o userguide.pot common.pot temp2.pot'.split())
+os.remove('common.pot')
+os.remove('temp2.pot')
+
+# now we have frescobaldi.pot, and userguide.pot which does not
+# contain double messages from frescobaldi.pot

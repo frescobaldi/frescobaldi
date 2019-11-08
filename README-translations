@@ -3,10 +3,16 @@ README for developers and translators
 
 Frescobaldi is translated using GNU Gettext.
 
-The translations (in PO files) and the template file ('frescobaldi.pot') live in
-the frescobaldi_app/po directory. The 'update-pot.py' script creates a POT file
-from all the Python source files. This script must be run if new translatable
-strings are added to Frescobaldi.
+The translations (in PO files) and the template file ('frescobaldi.pot') live
+in the i18n directory. The user guide has its own template file
+('userguide.pot').
+
+The 'update-pot.py' script creates both template files from all Python source
+files in 'frescobaldi_app' and from the userguide pages in
+'frescobaldi_app/userguide'. Those pages are in a simple MarkDown format.
+
+This script must be run if new translatable strings are added to Frescobaldi.
+
 
 
 For developers:
@@ -38,9 +44,9 @@ message.
 E.g. _("The music view, noun", "View") can return something like "Weergave",
 while _("Command to view the music, verb", "View") should return "Weergeven".
 
-Additionally, when you write a comment starting with L10N (short for localisation),
-just before the line containing the string to be translated, it will be included
-as a comment in the POT file.
+Additionally, when you write a comment starting with L10N (short for
+localisation), just before the line containing the string to be translated, it
+will be included as a comment in the POT file.
 
 If translatable strings need arguments, you should use named variables, e.g:
 
@@ -58,17 +64,16 @@ and not:    _("The command exited with an error message:\n\n") + errmsg
 
     _("The command exited with an error message:\n\n{msg}").format(msg=errmsg)
 
-in the last case.)
+in the last case, but the first solution is the preferred one.)
 
-Don't use empty or numbered format braces, always have a meaningful variable name.
+Don't use empty or numbered format braces; always have a meaningful variable
+name, because in other languages the order of the arguments could be different.
 
 Use:        _("Printing page {num} of {total}...").format(num=num, total=count)
 and not:    _("Printing page {} of {}...").format(num, count)
 
-In other languages the order of the arguments could be different.
-
-Be sure the string is translated first, then formatted. The following won't 
-work, although syntactically correct, because the formatted string can't be 
+Be sure the string is translated first, then formatted. The following won't
+work, although syntactically correct, because the formatted string can't be
 found in the translation database:
 
     _("Can't find file: '{name}'".format(name=filename))
@@ -78,31 +83,34 @@ Instead, you should write:
     _("Can't find file: '{name}'").format(name=filename)
 
 
+
 For translators:
 ================
 
 You should create or update a PO file for your language.
 
-If you want to translate Frescobaldi to your current locale, simply enter:
+To translate Frescobaldi and/or its user guide to the language 'xx_CC', enter:
 
-$ cd frescobaldi_app/po/
-$ msginit -i frescobaldi.pot
+$ cd i18n
+$ msginit -i frescobaldi.pot -l xx_CC -o xx_CC/frescobaldi.po
+$ msginit -i userguide.pot -l xx_CC -o xx_CC/userguide.po
 
-otherwise specify the desired language with:
+where 'xx_CC' is your language, e.g. 'nl_NL' (or simply 'nl').
 
-$ msginit -i frescobaldi.pot -l xx_CC
+Now you can edit the frescobaldi.po and/or userguide.po file in your language's
+directory with a tool like Lokalize. If done, you can send the translated po
+file(s) to the Frescobaldi author if you like, to contribute it to the
+Frescobaldi project.
 
-where 'xx_CC' is e.g. 'nl_NL' (or simply 'nl').
+Variable names between brackets in the messages like "Viewing page {number} of
+{total}" should not be translated but exactly copied to the translation.
 
-Now you can edit the xx.po file with a tool like Lokalize. If done, you can send
-the translated po file to the Frescobaldi author if you like, to contribute it
-to the Frescobaldi project.
+If you finished editing the PO file(s), you can simply run 'make' in the i18n
+directory. This will run the 'msgfmt' program to create a MO (Message Object)
+file that Frescobaldi can read. Additionally the MO file will be checked for
+wrong variable names in translated messages. The generated MO file contains the
+translations from both the frescobaldi.po file and the userguide.po file.
 
-Variables between brackets in the messages like "Viewing page {number} of {total}"
-should not be translated but exactly copied to the translation.
-
-If you finished editing the PO file, you can simply run 'make' in the po directory.
-This will run the 'msgfmt' program to create a MO file that Frescobaldi can read.
-Additionally the MO file will be checked for wrong variable names in translated
-messages.
+The generated MO files are placed in the 'frescobaldi_app/i18n/' directory, so
+they are packaged and installed along with Frescobaldi.
 
