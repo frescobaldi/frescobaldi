@@ -36,7 +36,7 @@ import userguide
 import language_names
 import widgets
 import hyphenator
-import po.setup
+import i18n.setup
 
 # If the folder was completely removed by a distributor
 try:
@@ -122,7 +122,7 @@ class HyphenDialog(QDialog):
         self.topLabel.setText(_("Please select a language:"))
 
     def load(self):
-        current = po.setup.current()
+        current = i18n.setup.current()
         self._langs = [(language_names.languageName(lang, current), lang, dic)
                        for lang, dic in findDicts().items()]
         self._langs.sort()
@@ -133,7 +133,7 @@ class HyphenDialog(QDialog):
             lastused = settings().value("lastused", "", str)
             if lastused:
                 yield lastused
-            lang = po.setup.preferred()[0]
+            lang = i18n.setup.preferred()[0]
             yield lang
             yield lang.split('_')[0]
 

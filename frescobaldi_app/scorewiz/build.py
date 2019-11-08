@@ -27,7 +27,7 @@ import fractions
 import re
 
 import ly.dom
-import po.mofile
+import i18n.mofile
 import lasptyqu
 
 from . import parts
@@ -184,11 +184,11 @@ class Builder(object):
         if instrumentNames.isChecked():
             lang = instrumentNames.getLanguage()
             if lang == 'C':
-                self._ = po.translator(None)
+                self._ = i18n.translator(None)
             elif lang:
-                mofile = po.find(lang)
+                mofile = i18n.find(lang)
                 if mofile:
-                    self._ = po.translator(po.mofile.MoFile(mofile))
+                    self._ = i18n.translator(i18n.mofile.MoFile(mofile))
 
         # global score preferences
         self.scoreProperties = scoreProperties

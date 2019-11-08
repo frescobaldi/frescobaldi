@@ -142,7 +142,7 @@ def preferred():
     """
 
     from PyQt5.QtCore import QSettings
-    import po.setup
+    import i18n.setup
 
     s = QSettings()
     s.beginGroup("typographical_quotes")
@@ -150,7 +150,7 @@ def preferred():
 
     default = _quotes["C"]
     if language == "current":
-        language = po.setup.current()
+        language = i18n.setup.current()
     elif language == "custom":
         return QuoteSet(
             primary = Quotes(

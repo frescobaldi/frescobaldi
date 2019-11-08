@@ -16,7 +16,7 @@
 PYTHON = python3
 
 # directory where the MO files should go:
-modir = ../frescobaldi_app/po/
+modir = ../frescobaldi_app/i18n
 
 potfile = frescobaldi.pot
 userguidepotfile = userguide.pot

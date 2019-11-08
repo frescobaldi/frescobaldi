@@ -32,7 +32,7 @@ import util
 import qutil
 import icons
 import lasptyqu
-import po.setup
+import i18n.setup
 import language_names
 import preferences
 import widgets.urlrequester
@@ -437,7 +437,7 @@ class TypographicalQuotes(preferences.Group):
         self.languageLabel.setText(_("Quotes to use:"))
         self.primaryLabel.setText(_("Primary (double) quotes:"))
         self.secondaryLabel.setText(_("Secondary (single) quotes:"))
-        curlang = po.setup.current()
+        curlang = i18n.setup.current()
         qformat = "{0}   {1.primary.left} {1.primary.right}    {1.secondary.left} {1.secondary.right}"
         self.languageCombo.setItemText(0, qformat.format(
             _("Current language"), lasptyqu.quotes(curlang) or lasptyqu.default()))
