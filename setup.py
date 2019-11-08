@@ -33,7 +33,7 @@ package_data = {
         'TangoExt/scalable/*.svg',
     ],
     'frescobaldi_app.layoutcontrol': ['*.ly', '*.ily'],
-    'frescobaldi_app.po': ['*.mo'],
+    'frescobaldi_app.i18n': ['*.mo'],
     'frescobaldi_app.scorewiz': ['*.png'],
     'frescobaldi_app.splashscreen': ['*.png'],
     'frescobaldi_app.svgview': ['*.js', '*.html'],
