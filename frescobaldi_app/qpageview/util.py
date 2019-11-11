@@ -22,11 +22,12 @@ Small utilities and simple base classes for the qpageview module.
 """
 
 
+import collections
 import contextlib
 
-
 from PyQt5.QtCore import QPoint, QPointF, QRect, QRectF, QSize, Qt
-from PyQt5.QtGui import QMouseEvent
+from PyQt5.QtGui import QBitmap, QMouseEvent, QRegion
+from PyQt5.QtWidgets import QApplication
 
 
 class Rectangular:
@@ -257,4 +258,37 @@ def signalsBlocked(*objs):
         for obj, block in zip(objs, blocks):
             obj.blockSignals(block)
 
+
+def autoCropRect(image):
+    """Return a QRect specifying the contents of the QImage.
+
+    Edges of the image are trimmed if they have the same color.
+
+    """
+    # pick the color at most of the corners
+    colors = collections.defaultdict(int)
+    w, h = image.width(), image.height()
+    for x, y in (0, 0), (w - 1, 0), (w - 1, h - 1), (0, h - 1):
+        colors[image.pixel(x, y)] += 1
+    most = max(colors, key=colors.get)
+    # let Qt do the masking work
+    mask = image.createMaskFromColor(most)
+    return QRegion(QBitmap.fromImage(mask)).boundingRect()
+
+
+def tempdir():
+    """Return a temporary directory that is erased on app quit."""
+    import tempfile
+    global _tempdir
+    try:
+        _tempdir
+    except NameError:
+        name = QApplication.applicationName().translate({ord('/'): None}) or 'qpageview'
+        _tempdir = tempfile.mkdtemp(prefix=name + '-')
+        import atexit
+        import shutil
+        @atexit.register
+        def remove():
+            shutil.rmtree(_tempdir, ignore_errors=True)
+    return tempfile.mkdtemp(dir=_tempdir)
 
