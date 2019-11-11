@@ -30,7 +30,7 @@ from . import poppler
 from . import util
 
 
-class Exporter:
+class AbstractExporter:
     """Base class to export a rectangular area of a Page to a file.
 
     Specialized subclasses implement each format.
@@ -88,7 +88,9 @@ class Exporter:
 
         if self.forceVector and self.wantsVector and isinstance(page, poppler.PopplerPage):
             self._page.renderer = page.renderer.copy()
-            self._page.renderer.printRenderBackend = popplerqt5.Poppler.Document.ArthurBackend
+            if poppler.popplerqt5:
+                self._page.renderer.printRenderBackend = \
+                    poppler.popplerqt5.Poppler.Document.ArthurBackend
 
     def autoCroppedRect(self):
         """Return the rect, autocropped if desired."""
@@ -97,7 +99,10 @@ class Exporter:
         p = self._page
         dpiX = p.width / p.defaultSize().width() * p.dpi
         dpiY = p.height / p.defaultSize().height() * p.dpi
-        rect = util.autoCropRect(p.image(self._rect, dpiX, dpiY))
+        image = p.image(self._rect, dpiX, dpiY)
+        rect = util.autoCropRect(image)
+        # add one pixel to prevent loosing small joins or curves etc
+        rect = image.rect() & rect.adjusted(-1, -1, 1, 1)
         if self._rect is not None:
             rect.translate(self._rect.topLeft())
         return rect
@@ -106,7 +111,7 @@ class Exporter:
         """Perform the export, based on the settings, and return the exported data object."""
 
     def successful(self):
-        """Return True when export was succesful."""
+        """Return True when export was successful."""
         return self.data() is not None
 
     def data(self):
@@ -160,7 +165,7 @@ class Exporter:
         QGuiApplication.clipboard().setMimeData(self.tempFileMimeData())
 
 
-class ImageExporter(Exporter):
+class ImageExporter(AbstractExporter):
     """Export a rectangular area of a Page (or the whole page) to an image."""
     wantsVector = False
     defaultBasename = "image"
@@ -199,7 +204,7 @@ class ImageExporter(Exporter):
         self.image().save(filename)
 
 
-class SvgExporter(Exporter):
+class SvgExporter(AbstractExporter):
     """Export a rectangular area of a Page (or the whole page) to a SVG file."""
     mimeType = "image/svg"
     supportsGrayscale = False
@@ -225,7 +230,7 @@ class SvgExporter(Exporter):
         return doc
 
 
-class PdfExporter(Exporter):
+class PdfExporter(AbstractExporter):
     """Export a rectangular area of a Page (or the whole page) to a PDF file."""
     mimeType = "application/pdf"
     supportsGrayscale = False
@@ -250,7 +255,7 @@ class PdfExporter(Exporter):
         return doc
 
 
-class EpsExporter(Exporter):
+class EpsExporter(AbstractExporter):
     """Export a rectangular area of a Page (or the whole page) to an EPS file."""
     mimeType = "application/postscript"
     supportsGrayscale = False
