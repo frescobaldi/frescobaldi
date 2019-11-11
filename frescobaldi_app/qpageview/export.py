@@ -85,6 +85,8 @@ class AbstractExporter:
         self._rect = rect
         self._result = None   # where the exported object is stored
         self._tempFile = None
+        self._autoCropRect = None
+        self._document = None
 
         if self.forceVector and self.wantsVector and isinstance(page, poppler.PopplerPage):
             self._page.renderer = page.renderer.copy()
@@ -96,16 +98,18 @@ class AbstractExporter:
         """Return the rect, autocropped if desired."""
         if not self.autocrop:
             return self._rect
-        p = self._page
-        dpiX = p.width / p.defaultSize().width() * p.dpi
-        dpiY = p.height / p.defaultSize().height() * p.dpi
-        image = p.image(self._rect, dpiX, dpiY)
-        rect = util.autoCropRect(image)
-        # add one pixel to prevent loosing small joins or curves etc
-        rect = image.rect() & rect.adjusted(-1, -1, 1, 1)
-        if self._rect is not None:
-            rect.translate(self._rect.topLeft())
-        return rect
+        if self._autoCropRect is None:
+            p = self._page
+            dpiX = p.width / p.defaultSize().width() * p.dpi
+            dpiY = p.height / p.defaultSize().height() * p.dpi
+            image = p.image(self._rect, dpiX, dpiY)
+            rect = util.autoCropRect(image)
+            # add one pixel to prevent loosing small joins or curves etc
+            rect = image.rect() & rect.adjusted(-1, -1, 1, 1)
+            if self._rect is not None:
+                rect.translate(self._rect.topLeft())
+            self._autoCropRect = rect
+        return self._autoCropRect
 
     def export(self):
         """Perform the export, based on the settings, and return the exported data object."""
@@ -121,7 +125,22 @@ class AbstractExporter:
         return self._result
 
     def document(self):
-        """Return a one-page Document to display the image to export."""
+        """Return a one-page Document to display the image to export.
+
+        Internally calls createDocument(), and caches the result, setting the
+        papercolor to the papercolor attribute if the exporter supports
+        papercolor.
+
+        """
+        if self._document is None:
+            doc = self._document = self.createDocument()
+            if self.supportsPaperColor and self.paperColor is not None:
+                for p in doc.pages():
+                    p.paperColor = self.paperColor
+        return self._document
+
+    def createDocument(self):
+        """Create and return a one-page Document to display the image to export."""
 
     def renderer(self):
         """Return a renderer for the document(). By default, None is returned."""
@@ -188,7 +207,7 @@ class ImageExporter(AbstractExporter):
     def image(self):
         return self.data()
 
-    def document(self):
+    def createDocument(self):
         from . import image
         return image.ImageDocument([self.image()], self.renderer())
 
@@ -221,13 +240,9 @@ class SvgExporter(AbstractExporter):
         if success:
             return buf.data()
 
-    def document(self):
+    def createDocument(self):
         from . import svg
-        buf = QBuffer(self.data())
-        buf.open(QBuffer.ReadOnly)
-        doc = svg.SvgDocument([buf], self.renderer())
-        buf.close()
-        return doc
+        return svg.SvgDocument([self.data()], self.renderer())
 
 
 class PdfExporter(AbstractExporter):
@@ -246,13 +261,9 @@ class PdfExporter(AbstractExporter):
         if success:
             return buf.data()
 
-    def document(self):
+    def createDocument(self):
         from . import poppler
-        buf = QBuffer(self.data())
-        buf.open(QBuffer.ReadOnly)
-        doc = poppler.PopplerDocument(buf, self.renderer())
-        buf.close()
-        return doc
+        return poppler.PopplerDocument(self.data(), self.renderer())
 
 
 class EpsExporter(AbstractExporter):
@@ -271,16 +282,14 @@ class EpsExporter(AbstractExporter):
         if success:
             return buf.data()
 
-    def document(self):
+    def createDocument(self):
         from . import poppler
+        rect = self.autoCroppedRect()
         buf = QBuffer()
         buf.open(QBuffer.WriteOnly)
         success = self._page.pdf(buf, rect, self.resolution, self.paperColor)
         buf.close()
-        buf.open(QBuffer.ReadOnly)
-        doc = poppler.PopplerDocument(buf, self.renderer())
-        buf.close()
-        return doc
+        return poppler.PopplerDocument(buf.data(), self.renderer())
 
 
 def pdf(filename, pageList, resolution=72, paperColor=None):
