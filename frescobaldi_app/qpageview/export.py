@@ -24,7 +24,7 @@ Export Pages to different file formats.
 import os
 
 from PyQt5.QtCore import QBuffer, QIODevice, QMimeData, QSizeF, Qt, QUrl
-from PyQt5.QtGui import QGuiApplication, QPageSize, QPdfWriter
+from PyQt5.QtGui import QGuiApplication, QImage, QPageSize, QPdfWriter
 
 from . import poppler
 from . import util
@@ -170,6 +170,23 @@ class AbstractExporter:
         """Save the exported image to a file."""
         with open(filename, "wb") as f:
             f.write(self.data())
+
+    def suggestedFilename(self):
+        """Return a suggested file name for the file to export.
+
+        The name is based on the filename (if set) and also contains the
+        directory path. But the name will never be the same as the filename
+        set in the filename attribute.
+
+        """
+        if self.filename:
+            base = os.path.splitext(self.filename)[0]
+            name = base + self.defaultExt
+            if name == filename:
+                name = base + "-export" + self.defaultExt
+        else:
+            name = self.defaultBasename + self.defaultExt
+        return name
 
     def tempFilename(self):
         """Save data() to a tempfile and returns the filename."""
