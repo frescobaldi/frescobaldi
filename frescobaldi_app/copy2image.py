@@ -1,6 +1,6 @@
 # This file is part of the Frescobaldi project, http://www.frescobaldi.org/
 #
-# Copyright (c) 2008 - 2014 by Wilbert Berendsen
+# Copyright (c) 2008 - 2019 by Wilbert Berendsen
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -28,22 +28,19 @@ import tempfile
 
 from PyQt5.QtCore import QSettings, QSize, Qt
 from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QImage, QRegion
-from PyQt5.QtWidgets import (QApplication, QCheckBox, QComboBox, QDialog,
-                             QDialogButtonBox, QFileDialog, QHBoxLayout,
-                             QLabel, QMessageBox, QPushButton, QVBoxLayout)
+from PyQt5.QtWidgets import (
+    QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog,
+    QGridLayout, QHBoxLayout, QLabel, QMessageBox, QPushButton, QVBoxLayout)
 
 import app
 import util
 import qutil
 import icons
-import widgets.imageviewer
+import qpageview.backgroundjob
+import qpageview.imageview
+import qpageview.export
 import widgets.colorbutton
 import gadgets.drag
-
-try:
-    import popplerqt5
-except ImportError:
-    popplerqt5 = None
 
 
 def copy_image(parent_widget, page, rect=None, filename=None):
@@ -64,7 +61,12 @@ class Dialog(QDialog):
         self._filename = None
         self._page = None
         self._rect = None
-        self.imageViewer = widgets.imageviewer.ImageViewer()
+        self._exporter = None
+        self.runJob = qpageview.backgroundjob.SingleRun()
+        self.imageViewer = qpageview.imageview.ImageView()
+        self.typeLabel = QLabel()
+        self.typeCombo = QComboBox()
+        self.typeCombo.addItems([''] * len(self.exportTypes()))
         self.dpiLabel = QLabel()
         self.dpiCombo = QComboBox(insertPolicy=QComboBox.NoInsert, editable=True)
         self.dpiCombo.lineEdit().setCompleter(None)
@@ -88,31 +90,37 @@ class Dialog(QDialog):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        layout.addWidget(self.imageViewer)
+        hlayout = QHBoxLayout()
+        hlayout.addWidget(self.imageViewer)
 
-        controls = QHBoxLayout()
-        layout.addLayout(controls)
-        controls.addWidget(self.dpiLabel)
-        controls.addWidget(self.dpiCombo)
-        controls.addWidget(self.colorButton)
-        controls.addWidget(self.grayscale)
-        controls.addWidget(self.crop)
-        controls.addWidget(self.antialias)
-        controls.addWidget(self.scaleup)
-        controls.addStretch()
-        controls.addWidget(self.dragfile)
+        controls = QGridLayout()
+        hlayout.addLayout(controls)
+        controls.addWidget(self.typeLabel, 0, 0)
+        controls.addWidget(self.typeCombo, 0, 1)
+        controls.addWidget(self.dpiLabel, 1, 0)
+        controls.addWidget(self.dpiCombo, 1, 1)
+        controls.addWidget(self.colorButton, 2, 1)
+        controls.addWidget(self.grayscale, 3, 0, 1, 2)
+        controls.addWidget(self.crop, 4, 0, 1, 2)
+        controls.addWidget(self.antialias, 5, 0, 1, 2)
+        controls.addWidget(self.scaleup, 6, 0, 1, 2)
+        controls.addWidget(self.dragfile, 8, 0, 1, 2)
+        controls.setRowStretch(7, 1)
+
+        layout.addLayout(hlayout)
         layout.addWidget(widgets.Separator())
         layout.addWidget(self.buttons)
 
         app.translateUI(self)
         self.readSettings()
         self.finished.connect(self.writeSettings)
-        self.dpiCombo.editTextChanged.connect(self.drawImage)
-        self.colorButton.colorChanged.connect(self.drawImage)
-        self.grayscale.toggled.connect(self.drawImage)
-        self.scaleup.toggled.connect(self.drawImage)
-        self.crop.toggled.connect(self.cropImage)
-        self.antialias.toggled.connect(self.drawImage)
+        self.typeCombo.currentIndexChanged.connect(self.updateExport)
+        self.dpiCombo.editTextChanged.connect(self.updateExport)
+        self.colorButton.colorChanged.connect(self.updateExport)
+        self.grayscale.toggled.connect(self.updateExport)
+        self.scaleup.toggled.connect(self.updateExport)
+        self.crop.toggled.connect(self.updateExport)
+        self.antialias.toggled.connect(self.updateExport)
         self.buttons.rejected.connect(self.reject)
         self.copyButton.clicked.connect(self.copyToClipboard)
         self.saveButton.clicked.connect(self.saveAs)
@@ -120,6 +128,9 @@ class Dialog(QDialog):
 
     def translateUI(self):
         self.setCaption()
+        self.typeLabel.setText(_("Type:"))
+        for n, t in enumerate(self.exportTypes()):
+            self.typeCombo.setItemText(n, t[1])
         self.dpiLabel.setText(_("DPI:"))
         self.colorButton.setToolTip(_("Paper Color"))
         self.grayscale.setText(_("Gray"))
@@ -149,6 +160,11 @@ class Dialog(QDialog):
     def readSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
+        exportType = s.value("type", "svg", str)
+        for n, t in enumerate(self.exportTypes()):
+            if t[0] == exportType:
+                self.typeCombo.setCurrentIndex(n)
+                break
         self.dpiCombo.setEditText(s.value("dpi", "100", str))
         self.colorButton.setColor(s.value("papercolor", QColor(Qt.white), QColor))
         self.grayscale.setChecked(s.value("grayscale", False, bool))
@@ -159,12 +175,23 @@ class Dialog(QDialog):
     def writeSettings(self):
         s = QSettings()
         s.beginGroup('copy_image')
+        s.setValue("type", self.exportTypes()[self.typeCombo.currentIndex()][0])
         s.setValue("dpi", self.dpiCombo.currentText())
         s.setValue("papercolor", self.colorButton.color())
         s.setValue("grayscale", self.grayscale.isChecked())
         s.setValue("autocrop", self.crop.isChecked())
         s.setValue("antialias", self.antialias.isChecked())
         s.setValue("scaleup", self.scaleup.isChecked())
+
+    def exportTypes(self):
+        """Return the list of types that can be exported and their names."""
+        return [
+            ('svg', _("SVG"), qpageview.export.SvgExporter),
+            ('pdf', _("PDF"), qpageview.export.PdfExporter),
+            ('eps', _("EPS"), qpageview.export.EpsExporter),
+            ('png', _("PNG"), qpageview.export.ImageExporter),
+            ('jpg', _("JPG"), qpageview.export.ImageExporter),
+        ]
 
     def setCaption(self):
         if self._filename:
@@ -183,39 +210,59 @@ class Dialog(QDialog):
         self._filename = filename
         self.fileDragger.basename = os.path.splitext(os.path.basename(self._filename))[0]
         self.setCaption()
-        self.drawImage()
+        self.updateExport()
 
-    def drawImage(self):
-        dpi = float(self.dpiCombo.currentText() or '100')
-        dpi = max(dpi, self.dpiCombo.validator().bottom())
-        dpi = min(dpi, self.dpiCombo.validator().top())
-        m = 2 if self.scaleup.isChecked() else 1
-        paperColor = self.colorButton.color()
-        if self._page.renderer:
-            self._page.renderer.antialiasing = self.antialias.isChecked()
-        i = self._page.image(self._rect, dpi * m, dpi * m, paperColor)
-        if m == 2:
-            i = i.scaled(i.size() / 2, transformMode=Qt.SmoothTransformation)
-        if self.grayscale.isChecked():
-            i = i.convertToFormat(QImage.Format_Grayscale8)
-        self._image = i
-        self.cropImage()
+    def updateExport(self):
+        exportType, name, cls = self.exportTypes()[self.typeCombo.currentIndex()]
+        e = self._exporter = cls(self._page, self._rect)
+        e.forceVector = False   # we default to Arthur for printing anyway
+        e.filename = self._filename
+        if exportType == "jpg":
+            e.defaultExt = "jpg"
 
-    def cropImage(self):
-        image = self._image
-        if self.crop.isChecked():
-            image = image.copy(autoCropRect(image))
-        self.imageViewer.setImage(image)
-        self.fileDragger.setImage(image)
+        # update the enabled state of buttons
+        self.dpiCombo.setEnabled(e.supportsResolution)
+        self.colorButton.setEnabled(e.supportsPaperColor)
+        self.grayscale.setEnabled(e.supportsGrayscale)
+        self.crop.setEnabled(e.supportsAutocrop)
+        self.antialias.setEnabled(e.supportsAntialiasing)
+        self.scaleup.setEnabled(e.supportsOversample)
+
+        # update the preferences of the exporter
+        if e.supportsResolution:
+            e.resolution = float(self.dpiCombo.currentText() or '100')
+        if e.supportsPaperColor:
+            e.paperColor = self.colorButton.color()
+        if e.supportsGrayscale:
+            e.grayscale = self.grayscale.isChecked()
+        if e.supportsAntialiasing:
+            e.antialiasing = self.antialias.isChecked()
+        if e.supportsAutocrop:
+            e.autocrop = self.crop.isChecked()
+        if e.supportsOversample:
+            e.oversample = 2 if self.scaleup.isChecked() else 1
+
+        # disable button actions
+        self.dragfile.setEnabled(False)
+        self.saveButton.setEnabled(False)
+        self.copyButton.setEnabled(False)
+
+        # run the export job in a background thread
+        self.runJob(lambda: e.document(), self.exportDone)
+
+    def exportDone(self, document):
+        self.imageViewer.setDocument(document)
+        self.fileDragger.setExporter(self._exporter)
+        # re-enable button actions
+        self.dragfile.setEnabled(True)
+        self.saveButton.setEnabled(True)
+        self.copyButton.setEnabled(True)
 
     def copyToClipboard(self):
-        QApplication.clipboard().setImage(self.imageViewer.image())
+        self._exporter.copyData()
 
     def saveAs(self):
-        if self._filename and not self.imageViewer.image().isNull():
-            filename = os.path.splitext(self._filename)[0] + ".png"
-        else:
-            filename = 'image.png'
+        filename = self._exporter.suggestedFilename()
         filename = QFileDialog.getSaveFileName(self,
             _("Save Image As"), filename)[0]
         if filename:
@@ -228,43 +275,22 @@ class Dialog(QDialog):
 
 class FileDragger(gadgets.drag.FileDragger):
     """Creates an image file on the fly as soon as a drag is started."""
-    image = None
+    exporter = None
     basename = None
     currentFile = None
 
-    def setImage(self, image):
-        self.image = image
+    def setExporter(self, exporter):
+        self.exporter = exporter
         self.currentFile = None
 
     def filename(self):
         if self.currentFile:
             return self.currentFile
-        elif not self.image:
+        elif not self.exporter:
             return
-        # save the image as a PNG file
-        d = util.tempdir()
-        basename = self.basename or 'image'
-        basename += '.png'
-        filename = os.path.join(d, basename)
-        self.image.save(filename)
+        # save the exported file
+        filename = self.exporter.tempFilename()
         self.currentFile = filename
         return filename
-
-
-def autoCropRect(image):
-    """Returns a QRect specifying the contents of the QImage.
-
-    Edges of the image are trimmed if they have the same color.
-
-    """
-    # pick the color at most of the corners
-    colors = collections.defaultdict(int)
-    w, h = image.width(), image.height()
-    for x, y in (0, 0), (w - 1, 0), (w - 1, h - 1), (0, h - 1):
-        colors[image.pixel(x, y)] += 1
-    most = max(colors, key=colors.get)
-    # let Qt do the masking work
-    mask = image.createMaskFromColor(most)
-    return QRegion(QBitmap.fromImage(mask)).boundingRect()
 
 
