@@ -58,6 +58,7 @@ class AbstractExporter:
     """
     # user settings:
     resolution = 300
+    antialiasing = True
     autocrop = False
     oversample = 1
     grayscale = False
@@ -67,6 +68,7 @@ class AbstractExporter:
     # properties of exporter:
     wantsVector = True
     supportsResolution = True
+    supportsAntialiasing = True
     supportsAutocrop = True
     supportsOversample = True
     supportsGrayscale = True
@@ -82,6 +84,8 @@ class AbstractExporter:
 
     def setPage(self, page, rect=None):
         self._page = page.copy()
+        if self._page.renderer:
+            self._page.renderer = page.renderer.copy()
         self._rect = rect
         self._result = None   # where the exported object is stored
         self._tempFile = None
@@ -89,10 +93,16 @@ class AbstractExporter:
         self._document = None
 
         if self.forceVector and self.wantsVector and isinstance(page, poppler.PopplerPage):
-            self._page.renderer = page.renderer.copy()
             if poppler.popplerqt5:
                 self._page.renderer.printRenderBackend = \
                     poppler.popplerqt5.Poppler.Document.ArthurBackend
+
+    def page(self):
+        """Return our page, setting the renderer to our preferences."""
+        p = self._page
+        if p.renderer:
+            p.renderer.antialiasing = self.antialiasing
+        return p
 
     def autoCroppedRect(self):
         """Return the rect, autocropped if desired."""
@@ -195,7 +205,7 @@ class ImageExporter(AbstractExporter):
         res = self.resolution
         if self.oversample != 1:
             res *= self.oversample
-        i = self._page.image(self._rect, res, res, self.paperColor)
+        i = self.page().image(self._rect, res, res, self.paperColor)
         if self.oversample != 1:
             i = i.scaled(i.size() / self.oversample, transformMode=Qt.SmoothTransformation)
         if self.grayscale:
@@ -235,7 +245,7 @@ class SvgExporter(AbstractExporter):
         rect = self.autoCroppedRect()
         buf = QBuffer()
         buf.open(QBuffer.WriteOnly)
-        success = self._page.svg(buf, rect, self.resolution, self.paperColor)
+        success = self.page().svg(buf, rect, self.resolution, self.paperColor)
         buf.close()
         if success:
             return buf.data()
@@ -256,7 +266,7 @@ class PdfExporter(AbstractExporter):
         rect = self.autoCroppedRect()
         buf = QBuffer()
         buf.open(QBuffer.WriteOnly)
-        success = self._page.pdf(buf, rect, self.resolution, self.paperColor)
+        success = self.page().pdf(buf, rect, self.resolution, self.paperColor)
         buf.close()
         if success:
             return buf.data()
@@ -277,7 +287,7 @@ class EpsExporter(AbstractExporter):
         rect = self.autoCroppedRect()
         buf = QBuffer()
         buf.open(QBuffer.WriteOnly)
-        success = self._page.eps(buf, rect, self.resolution, self.paperColor)
+        success = self.page().eps(buf, rect, self.resolution, self.paperColor)
         buf.close()
         if success:
             return buf.data()
@@ -287,7 +297,7 @@ class EpsExporter(AbstractExporter):
         rect = self.autoCroppedRect()
         buf = QBuffer()
         buf.open(QBuffer.WriteOnly)
-        success = self._page.pdf(buf, rect, self.resolution, self.paperColor)
+        success = self.page().pdf(buf, rect, self.resolution, self.paperColor)
         buf.close()
         return poppler.PopplerDocument(buf.data(), self.renderer())
 
