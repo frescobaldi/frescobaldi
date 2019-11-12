@@ -96,6 +96,39 @@ class Job(QThread):
         self.finish()
 
 
+class SingleRun:
+    """Run a function in a background thread.
+
+    The outcome is silently discarded if another function is called before the
+    old one finishes.
+
+    """
+    def __init__(self):
+        self._job = None
+
+    def cancel(self):
+        """Forgets the running job.
+
+        The job is not terminated but the callback is not called.
+
+        """
+        j = self._job
+        if j:
+            j.finalize = None
+            self._job = None
+
+    def __call__(self, func, callback=None):
+        self.cancel()
+        j = self._job = Job()
+        j.work = func
+        def finalize(result):
+            self.cancel()
+            if callback:
+                callback(result)
+        j.finalize = finalize
+        j.start()
+
+
 def run(func, callback=None):
     """Run specified function in a background thread.
     
