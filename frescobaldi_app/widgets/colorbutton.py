@@ -82,5 +82,7 @@ class ColorButton(QPushButton):
             dy = style.pixelMetric(QStyle.PM_ButtonShiftVertical, opt, self)
             r.translate(dx, dy)
         p = QPainter(self)
+        if not self.isEnabled():
+            p.setOpacity(0.5)
         qDrawShadeRect(p, r, self.palette(), True, 1, 0, self._color)
 
