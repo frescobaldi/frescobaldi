@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2019-11-08 13:58+0100\n"
+"POT-Creation-Date: 2019-11-13 11:40+0100\n"
 "PO-Revision-Date: 2016-05-03 15:53+0600\n"
 "Last-Translator: Henning Hraban Ramm <hraban@fiee.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -204,7 +204,7 @@ msgstr "Nochmal ausführen"
 msgid "Save as file"
 msgstr "Als Datei speichern"
 
-#: ../frescobaldi_app/convert_ly.py:155 ../frescobaldi_app/copy2image.py:173
+#: ../frescobaldi_app/convert_ly.py:155 ../frescobaldi_app/copy2image.py:230
 #: ../frescobaldi_app/editinplace.py:160
 #: ../frescobaldi_app/docbrowser/browser.py:160
 msgid "<unknown>"
@@ -257,36 +257,46 @@ msgstr "Datei speichern"
 msgid "Text Files"
 msgstr "Textdateien"
 
-#: ../frescobaldi_app/copy2image.py:123
+#: ../frescobaldi_app/copy2image.py:143
+#: ../frescobaldi_app/scorewiz/parts/containers.py:70
+msgid "Type:"
+msgstr "Art:"
+
+#: ../frescobaldi_app/copy2image.py:146
 msgid "DPI:"
 msgstr "DPI:"
 
-#: ../frescobaldi_app/copy2image.py:124
+#: ../frescobaldi_app/copy2image.py:147
+#, fuzzy
+msgid "Background:"
+msgstr "Hintergrund"
+
+#: ../frescobaldi_app/copy2image.py:148
 msgid "Paper Color"
 msgstr "Papier-Farbe"
 
-#: ../frescobaldi_app/copy2image.py:125
+#: ../frescobaldi_app/copy2image.py:149
 msgid "Gray"
 msgstr ""
 
-#: ../frescobaldi_app/copy2image.py:126
+#: ../frescobaldi_app/copy2image.py:150
 #, fuzzy
 msgid "Convert image to grayscale."
 msgstr "Relative in &absolute Tonhöhen umwandeln"
 
-#: ../frescobaldi_app/copy2image.py:127
+#: ../frescobaldi_app/copy2image.py:151
 msgid "Auto-crop"
 msgstr "Automatisches zuschneiden"
 
-#: ../frescobaldi_app/copy2image.py:128
+#: ../frescobaldi_app/copy2image.py:152
 msgid "Antialias"
 msgstr "Kantenglättung"
 
-#: ../frescobaldi_app/copy2image.py:129
+#: ../frescobaldi_app/copy2image.py:153
 msgid "Scale 2x"
 msgstr "Doppelte Größe"
 
-#: ../frescobaldi_app/copy2image.py:131
+#: ../frescobaldi_app/copy2image.py:155
 msgid ""
 "Render twice as large and scale back down\n"
 "(recommended for small DPI values)."
@@ -294,23 +304,31 @@ msgstr ""
 "In doppelter Größe rendern und wieder verkleinern\n"
 "(empfohlen bei niedrigen DPI-Werten)."
 
-#: ../frescobaldi_app/copy2image.py:133
+#: ../frescobaldi_app/copy2image.py:157
 msgid "Drag"
 msgstr "Ziehen"
 
-#: ../frescobaldi_app/copy2image.py:134
-msgid "Drag the image as a PNG file."
-msgstr "Ziehe das Bild als PNG-Datei."
+#: ../frescobaldi_app/copy2image.py:158
+#, fuzzy
+msgid "Drag File"
+msgstr "Datei speichern"
 
-#: ../frescobaldi_app/copy2image.py:135
-msgid "&Copy to Clipboard"
-msgstr "In die Zwischenanlage &kopieren"
+#: ../frescobaldi_app/copy2image.py:159 ../frescobaldi_app/mainwindow.py:1363
+#: ../frescobaldi_app/docbrowser/browser.py:250
+#: ../frescobaldi_app/fonts/dialog.py:177
+msgid "&Copy"
+msgstr "&Kopieren"
 
-#: ../frescobaldi_app/copy2image.py:136
+#: ../frescobaldi_app/copy2image.py:160
+#, fuzzy
+msgid "Copy &File"
+msgstr "Kopiere L&ink"
+
+#: ../frescobaldi_app/copy2image.py:161
 msgid "&Save As..."
 msgstr "&Speichern unter..."
 
-#: ../frescobaldi_app/copy2image.py:139
+#: ../frescobaldi_app/copy2image.py:164
 #, no-python-format, python-brace-format
 msgid ""
 "<p>\n"
@@ -333,17 +351,64 @@ msgstr ""
 "die tatsächlich gespeicherte Datei zieht, z. B. in eine Email-Nachricht.\n"
 "</p>"
 
-#: ../frescobaldi_app/copy2image.py:174
+#: ../frescobaldi_app/copy2image.py:182
+#, fuzzy, python-brace-format
+msgid "Drag the {png} image data."
+msgstr "Ziehe das Bild als PNG-Datei."
+
+#: ../frescobaldi_app/copy2image.py:183
+#, fuzzy, python-brace-format
+msgid "Drag the image as a {png} file."
+msgstr "Ziehe das Bild als PNG-Datei."
+
+#: ../frescobaldi_app/copy2image.py:184
+#, fuzzy, python-brace-format
+msgid "Copy the {png} image data to Clipboard."
+msgstr "In die Zwischenanlage &kopieren"
+
+#: ../frescobaldi_app/copy2image.py:185
+#, fuzzy, python-brace-format
+msgid "Copy the {png} file to Clipboard."
+msgstr "In die Zwischenanlage &kopieren"
+
+#: ../frescobaldi_app/copy2image.py:219
+#: ../frescobaldi_app/engrave/custom.py:257
+#: ../frescobaldi_app/fonts/musicfonts.py:617
+#: ../frescobaldi_app/preferences/lilypond.py:377
+msgid "SVG"
+msgstr "SVG"
+
+#: ../frescobaldi_app/copy2image.py:220
+#: ../frescobaldi_app/engrave/custom.py:235
+#: ../frescobaldi_app/preferences/lilypond.py:374
+msgid "PDF"
+msgstr "PDF"
+
+#: ../frescobaldi_app/copy2image.py:221
+msgid "EPS"
+msgstr ""
+
+#: ../frescobaldi_app/copy2image.py:222
+#: ../frescobaldi_app/engrave/custom.py:247
+msgid "PNG"
+msgstr "PNG"
+
+#: ../frescobaldi_app/copy2image.py:223
+#, fuzzy
+msgid "JPG"
+msgstr "PNG"
+
+#: ../frescobaldi_app/copy2image.py:231
 #, python-brace-format
 msgid "Image from {filename}"
 msgstr "Bild von {filename}"
 
-#: ../frescobaldi_app/copy2image.py:220
+#: ../frescobaldi_app/copy2image.py:315
 msgid "Save Image As"
 msgstr "Speichere &Bild unter"
 
 #. L10N: a basic type of input in the editor
-#: ../frescobaldi_app/copy2image.py:223 ../frescobaldi_app/cut_assign.py:139
+#: ../frescobaldi_app/copy2image.py:320 ../frescobaldi_app/cut_assign.py:139
 #: ../frescobaldi_app/helpers.py:107 ../frescobaldi_app/mainwindow.py:462
 #: ../frescobaldi_app/mainwindow.py:550 ../frescobaldi_app/mainwindow.py:604
 #: ../frescobaldi_app/mainwindow.py:670 ../frescobaldi_app/mainwindow.py:690
@@ -367,7 +432,7 @@ msgstr "Speichere &Bild unter"
 msgid "Error"
 msgstr "Fehler"
 
-#: ../frescobaldi_app/copy2image.py:224
+#: ../frescobaldi_app/copy2image.py:321
 msgid "Could not save the image."
 msgstr "Konnte das Bild nicht speichern."
 
@@ -983,12 +1048,6 @@ msgstr "Wieder&herstellen"
 #: ../frescobaldi_app/mainwindow.py:1362
 msgid "Cu&t"
 msgstr "Auss&chneiden"
-
-#: ../frescobaldi_app/mainwindow.py:1363
-#: ../frescobaldi_app/docbrowser/browser.py:250
-#: ../frescobaldi_app/fonts/dialog.py:177
-msgid "&Copy"
-msgstr "&Kopieren"
 
 #: ../frescobaldi_app/mainwindow.py:1364
 msgid "Copy as Colored &HTML"
@@ -1614,24 +1673,9 @@ msgstr "Einstellungen der Editor-Komponente"
 msgid "Run LilyPond"
 msgstr "LilyPond starten"
 
-#: ../frescobaldi_app/engrave/custom.py:235
-#: ../frescobaldi_app/preferences/lilypond.py:374
-msgid "PDF"
-msgstr "PDF"
-
 #: ../frescobaldi_app/engrave/custom.py:241
 msgid "PostScript"
 msgstr "PostScript"
-
-#: ../frescobaldi_app/engrave/custom.py:247
-msgid "PNG"
-msgstr "PNG"
-
-#: ../frescobaldi_app/engrave/custom.py:257
-#: ../frescobaldi_app/fonts/musicfonts.py:617
-#: ../frescobaldi_app/preferences/lilypond.py:377
-msgid "SVG"
-msgstr "SVG"
 
 #: ../frescobaldi_app/engrave/custom.py:263
 msgid "PDF (EPS Backend)"
@@ -3082,62 +3126,62 @@ msgstr ""
 "Druckfunktion trotzdem ausprobieren möchten,\n"
 "oder Abbruch, um das Drucken abzubrechen."
 
-#: ../frescobaldi_app/musicview/__init__.py:255
+#: ../frescobaldi_app/musicview/__init__.py:252
 #: ../frescobaldi_app/viewers/__init__.py:445
 msgid "Select Music View Document"
 msgstr "Wähle Dokument für Notenansicht"
 
-#: ../frescobaldi_app/musicview/__init__.py:256
+#: ../frescobaldi_app/musicview/__init__.py:253
 #: ../frescobaldi_app/viewers/__init__.py:446
 msgid "&Print Music..."
 msgstr "Noten &drucken..."
 
-#: ../frescobaldi_app/musicview/__init__.py:257
+#: ../frescobaldi_app/musicview/__init__.py:254
 #: ../frescobaldi_app/viewers/__init__.py:450
 msgid "Zoom Music"
 msgstr "Noten vergrößern"
 
-#: ../frescobaldi_app/musicview/__init__.py:258
+#: ../frescobaldi_app/musicview/__init__.py:255
 #, fuzzy
 msgid "Save current View settings as default"
 msgstr "Speichere diese Einstellungen als Standard-Einstellung."
 
-#: ../frescobaldi_app/musicview/__init__.py:259
+#: ../frescobaldi_app/musicview/__init__.py:256
 #: ../frescobaldi_app/viewers/__init__.py:457
 msgid "&Maximize"
 msgstr "&Maximieren"
 
-#: ../frescobaldi_app/musicview/__init__.py:260
+#: ../frescobaldi_app/musicview/__init__.py:257
 #: ../frescobaldi_app/viewers/__init__.py:458
 msgid "&Jump to Cursor Position"
 msgstr "Springe zur &Cursorposition"
 
-#: ../frescobaldi_app/musicview/__init__.py:261
+#: ../frescobaldi_app/musicview/__init__.py:258
 #: ../frescobaldi_app/viewers/__init__.py:459
 msgid "S&ynchronize with Cursor Position"
 msgstr "Mit Cursorposition s&ynchronisieren"
 
-#: ../frescobaldi_app/musicview/__init__.py:262
+#: ../frescobaldi_app/musicview/__init__.py:259
 #: ../frescobaldi_app/viewers/__init__.py:460
 msgid "Copy to &Image..."
 msgstr "Als &Bild exportieren..."
 
-#: ../frescobaldi_app/musicview/__init__.py:263
+#: ../frescobaldi_app/musicview/__init__.py:260
 #, fuzzy
 msgid "Copy Selected &Text"
 msgstr "Ausgewählter Text"
 
-#: ../frescobaldi_app/musicview/__init__.py:264
+#: ../frescobaldi_app/musicview/__init__.py:261
 #: ../frescobaldi_app/viewers/__init__.py:466
 msgid "&Reload"
 msgstr "&Neu laden"
 
-#: ../frescobaldi_app/musicview/__init__.py:415
+#: ../frescobaldi_app/musicview/__init__.py:412
 #: ../frescobaldi_app/viewers/__init__.py:730
 msgid "Choose the PDF document to display."
 msgstr "Wählen Sie das anzuzeigende PDF-Dokument aus."
 
-#: ../frescobaldi_app/musicview/__init__.py:417
+#: ../frescobaldi_app/musicview/__init__.py:414
 #: ../frescobaldi_app/viewers/__init__.py:732
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
@@ -4872,133 +4916,133 @@ msgstr "Text-Patterns, die in der Dokumentstruktur angezeigt werden sollen:"
 msgid "Enter a regular expression to match:"
 msgstr "Geben Sie einen regulären Ausdruck ein:"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:267
+#: ../frescobaldi_app/qpageview/viewactions.py:268
 #, fuzzy
 msgid "&Print..."
 msgstr "Drucken..."
 
-#: ../frescobaldi_app/qpageview/viewactions.py:268
+#: ../frescobaldi_app/qpageview/viewactions.py:269
 #: ../frescobaldi_app/viewers/__init__.py:451
 msgid "Fit &Width"
 msgstr "An &Breite anpassen"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:269
+#: ../frescobaldi_app/qpageview/viewactions.py:270
 #: ../frescobaldi_app/viewers/__init__.py:452
 msgid "Fit &Height"
 msgstr "An &Höhe anpassen"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:270
+#: ../frescobaldi_app/qpageview/viewactions.py:271
 #: ../frescobaldi_app/viewers/__init__.py:453
 msgid "Fit &Page"
 msgstr "An &Seite anpassen"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:271
+#: ../frescobaldi_app/qpageview/viewactions.py:272
 #, fuzzy
 msgid "&Natural Size"
 msgstr "Notenzeilen-Größe"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:272
+#: ../frescobaldi_app/qpageview/viewactions.py:273
 #: ../frescobaldi_app/svgview/__init__.py:88
 #: ../frescobaldi_app/viewers/__init__.py:449
 msgid "Original &Size"
 msgstr "&Originalgröße"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:273
+#: ../frescobaldi_app/qpageview/viewactions.py:274
 #: ../frescobaldi_app/svgview/__init__.py:86
 #: ../frescobaldi_app/viewers/__init__.py:447
 msgid "Zoom &In"
 msgstr "Ver&größern"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:274
+#: ../frescobaldi_app/qpageview/viewactions.py:275
 #: ../frescobaldi_app/svgview/__init__.py:87
 #: ../frescobaldi_app/viewers/__init__.py:448
 msgid "Zoom &Out"
 msgstr "Ver&kleinern"
 
 #. L10N: "Width" as in "Fit Width" (display in zoom menu)
-#: ../frescobaldi_app/qpageview/viewactions.py:277
+#: ../frescobaldi_app/qpageview/viewactions.py:278
 #, fuzzy
 msgid "Width"
 msgstr "An Breite anpassen"
 
 #. L10N: "Height" as in "Fit Height" (display in zoom menu)
-#: ../frescobaldi_app/qpageview/viewactions.py:279
+#: ../frescobaldi_app/qpageview/viewactions.py:280
 #, fuzzy
 msgid "Height"
 msgstr "An &Höhe anpassen"
 
 #. L10N: "Page" as in "Fit Page" (display in zoom menu)
-#: ../frescobaldi_app/qpageview/viewactions.py:281
+#: ../frescobaldi_app/qpageview/viewactions.py:282
 #, fuzzy
 msgid "Page"
 msgstr "Seite:"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:283
+#: ../frescobaldi_app/qpageview/viewactions.py:284
 msgid "Rotate &Left"
 msgstr ""
 
-#: ../frescobaldi_app/qpageview/viewactions.py:284
+#: ../frescobaldi_app/qpageview/viewactions.py:285
 #, fuzzy
 msgid "Rotate &Right"
 msgstr "Seite rechts"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:285
+#: ../frescobaldi_app/qpageview/viewactions.py:286
 #: ../frescobaldi_app/viewers/__init__.py:454
 msgid "Single Pages"
 msgstr "Einzelseiten"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:286
 #: ../frescobaldi_app/qpageview/viewactions.py:287
+#: ../frescobaldi_app/qpageview/viewactions.py:288
 #: ../frescobaldi_app/viewers/__init__.py:455
 msgid "Two Pages (first page right)"
 msgstr "Doppelseiten (erste Seite rechts)"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:288
+#: ../frescobaldi_app/qpageview/viewactions.py:289
 #, fuzzy
 msgid "Raster"
 msgstr "Einfügen"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:289
+#: ../frescobaldi_app/qpageview/viewactions.py:290
 #, fuzzy
 msgid "Vertical"
 msgstr "&Vertikal teilen"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:290
+#: ../frescobaldi_app/qpageview/viewactions.py:291
 #, fuzzy
 msgid "Horizontal"
 msgstr "&Horizontal teilen"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:291
+#: ../frescobaldi_app/qpageview/viewactions.py:292
 #, fuzzy
 msgid "&Continuous"
 msgstr "Container"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:292
+#: ../frescobaldi_app/qpageview/viewactions.py:293
 #, fuzzy
 msgid "Re&load View"
 msgstr "Neu la&den"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:293
+#: ../frescobaldi_app/qpageview/viewactions.py:294
 #: ../frescobaldi_app/viewers/__init__.py:464
 msgid "Previous Page"
 msgstr "Vorherige Seite"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:294
+#: ../frescobaldi_app/qpageview/viewactions.py:295
 #: ../frescobaldi_app/viewers/__init__.py:465
 msgid "Previous"
 msgstr "Vorige"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:295
+#: ../frescobaldi_app/qpageview/viewactions.py:296
 #: ../frescobaldi_app/viewers/__init__.py:462
 msgid "Next Page"
 msgstr "Nächste Seite"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:296
+#: ../frescobaldi_app/qpageview/viewactions.py:297
 #: ../frescobaldi_app/viewers/__init__.py:463
 msgid "Next"
 msgstr "Nächstes:"
 
-#: ../frescobaldi_app/qpageview/viewactions.py:297
+#: ../frescobaldi_app/qpageview/viewactions.py:298
 #, fuzzy
 msgid "Magnifier"
 msgstr "Vergrößerungsstufe:"
@@ -6167,10 +6211,6 @@ msgstr "Runde Klammer"
 #: ../frescobaldi_app/scorewiz/parts/containers.py:57
 msgid "Square"
 msgstr "Eckige Klammer"
-
-#: ../frescobaldi_app/scorewiz/parts/containers.py:70
-msgid "Type:"
-msgstr "Art:"
 
 #: ../frescobaldi_app/scorewiz/parts/containers.py:71
 msgid "Connect Barlines"

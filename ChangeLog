@@ -14,6 +14,7 @@ Changes in 3.1 -- December 27th, 2019
   - Goto Line command (#927, feature request #676)
   - Rename file command (#1057, feature request #980)
   - Music view:
+    - Copy to Image can copy/export to SVG, PDF and EPS in addtion to PNG/JPG
     - New toolbar button to show/hide the magnifier
     - New preference Horizontal / Vertical
     - New preference Continuous / non-continuous (displays only current page(s))
