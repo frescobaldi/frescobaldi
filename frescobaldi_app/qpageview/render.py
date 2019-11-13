@@ -96,7 +96,10 @@ class AbstractRenderer:
         c = self.cache
         if c:
             c = type(c)()
-        return type(self)(c)
+            c.__dict__.update(self.cache.__dict__)
+        r = type(self)(c)
+        r.__dict__.update(self.__dict__)
+        return r
 
     @staticmethod
     def key(page, ratio):
