@@ -93,16 +93,16 @@ class AbstractExporter:
         self._document = None
         self._pixmap = None
 
-        if self.forceVector and self.wantsVector and isinstance(page, poppler.PopplerPage):
-            if poppler.popplerqt5:
-                self._page.renderer.printRenderBackend = \
-                    poppler.popplerqt5.Poppler.Document.ArthurBackend
-
     def page(self):
         """Return our page, setting the renderer to our preferences."""
-        p = self._page
-        if p.renderer:
+        p = self._page.copy()
+        if self._page.renderer:
+            p.renderer = self._page.renderer.copy()
             p.renderer.antialiasing = self.antialiasing
+            if self.forceVector and self.wantsVector and \
+                    isinstance(p, poppler.PopplerPage) and poppler.popplerqt5:
+                p.renderer.printRenderBackend = \
+                    poppler.popplerqt5.Poppler.Document.ArthurBackend
         return p
 
     def autoCroppedRect(self):
