@@ -146,7 +146,10 @@ class AbstractExporter:
 
         """
         if self._document is None:
-            self._document = self.createDocument()
+            doc = self._document = self.createDocument()
+            if self.paperColor and self.paperColor.isValid():
+                for p in doc.pages():
+                    p.paperColor = self.paperColor
         return self._document
 
     def createDocument(self):
