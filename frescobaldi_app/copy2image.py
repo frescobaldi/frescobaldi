@@ -218,7 +218,7 @@ class Dialog(QDialog):
         e.forceVector = False   # we default to Arthur for printing anyway
         e.filename = self._filename
         if exportType == "jpg":
-            e.defaultExt = "jpg"
+            e.defaultExt = ".jpg"
 
         # update the enabled state of buttons
         self.dpiCombo.setEnabled(e.supportsResolution)

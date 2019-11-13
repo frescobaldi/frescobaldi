@@ -182,7 +182,7 @@ class AbstractExporter:
         if self.filename:
             base = os.path.splitext(self.filename)[0]
             name = base + self.defaultExt
-            if name == filename:
+            if name == self.filename:
                 name = base + "-export" + self.defaultExt
         else:
             name = self.defaultBasename + self.defaultExt
