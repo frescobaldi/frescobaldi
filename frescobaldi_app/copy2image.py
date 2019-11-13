@@ -244,7 +244,6 @@ class Dialog(QDialog):
     def updateExport(self):
         exportType, name, cls = self.exportTypes()[self.typeCombo.currentIndex()]
         e = self._exporter = cls(self._page, self._rect)
-        e.forceVector = False   # we default to Arthur for printing anyway
         e.filename = self._filename
         if exportType == "jpg":
             e.defaultExt = ".jpg"
