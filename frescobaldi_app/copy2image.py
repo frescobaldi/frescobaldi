@@ -252,6 +252,7 @@ class Dialog(QDialog):
 
     def exportDone(self, document):
         self.imageViewer.setDocument(document)
+        self.imageViewer.zoomNaturalSize()
         self.fileDragger.setExporter(self._exporter)
         # re-enable button actions
         self.dragfile.setEnabled(True)
