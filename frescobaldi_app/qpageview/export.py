@@ -23,8 +23,8 @@ Export Pages to different file formats.
 
 import os
 
-from PyQt5.QtCore import QBuffer, QIODevice, QMimeData, QSizeF, Qt, QUrl
-from PyQt5.QtGui import QGuiApplication, QImage, QPageSize, QPdfWriter
+from PyQt5.QtCore import QBuffer, QIODevice, QMimeData, QPoint, QSizeF, Qt, QUrl
+from PyQt5.QtGui import QDrag, QGuiApplication, QImage, QPageSize, QPdfWriter
 
 from . import poppler
 from . import util
@@ -214,10 +214,26 @@ class AbstractExporter:
     def pixmap(self, size=100):
         """Return a small pixmap to use for dragging etc."""
         if self._pixmap is None:
-            paperColor = self.paperColor is self.supportsPaperColor else None
+            paperColor = self.paperColor if self.supportsPaperColor else None
             page = self.document().pages()[0]
             self._pixmap = page.pixmap(paperColor=paperColor)
         return self._pixmap
+
+    def drag(self, parent, mimeData):
+        """Called by dragFile and dragData. Execs a QDrag on the mime data."""
+        d = QDrag(parent)
+        d.setMimeData(mimeData)
+        d.setPixmap(self.pixmap())
+        d.setHotSpot(QPoint(-10, -10))
+        return d.exec_(Qt.CopyAction)
+
+    def dragData(self, parent):
+        """Start dragging the data. Parent can be any QObject."""
+        return self.drag(parent, self.mimeData())
+
+    def dragFile(self, parent):
+        """Start dragging the data. Parent can be any QObject."""
+        return self.drag(parent, self.tempFileMimeData())
 
 
 class ImageExporter(AbstractExporter):
@@ -256,7 +272,8 @@ class ImageExporter(AbstractExporter):
         return data
 
     def save(self, filename):
-        self.image().save(filename)
+        if not self.image().save(filename):
+            raise OSError("Could not save image")
 
 
 class SvgExporter(AbstractExporter):
