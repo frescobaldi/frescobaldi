@@ -26,7 +26,7 @@ import collections
 import os
 import tempfile
 
-from PyQt5.QtCore import QSettings, QSize, Qt
+from PyQt5.QtCore import QEvent, QSettings, QSize, QTimer, Qt
 from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QImage, QRegion
 from PyQt5.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog,
@@ -40,7 +40,6 @@ import qpageview.backgroundjob
 import qpageview.imageview
 import qpageview.export
 import widgets.colorbutton
-import gadgets.drag
 
 
 def copy_image(parent_widget, page, rect=None, filename=None):
@@ -73,6 +72,7 @@ class Dialog(QDialog):
         self.dpiCombo.setValidator(QDoubleValidator(10.0, 1200.0, 4, self.dpiCombo))
         self.dpiCombo.addItems([format(i) for i in (72, 100, 200, 300, 600, 1200)])
 
+        self.colorCheck = QCheckBox(checked=False)
         self.colorButton = widgets.colorbutton.ColorButton()
         self.colorButton.setColor(QColor(Qt.white))
         self.grayscale = QCheckBox(checked=False)
@@ -80,10 +80,10 @@ class Dialog(QDialog):
         self.antialias = QCheckBox(checked=True)
         self.scaleup = QCheckBox(checked=False)
         self.dragfile = QPushButton(icons.get("image-x-generic"), None, None)
-        self.fileDragger = FileDragger(self.dragfile)
+        self.copyfile = QPushButton(icons.get('edit-copy'), None, None)
+        self.dragdata = QPushButton(icons.get("image-x-generic"), None, None)
+        self.copydata = QPushButton(icons.get('edit-copy'), None, None)
         self.buttons = QDialogButtonBox(QDialogButtonBox.Close)
-        self.copyButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
-        self.copyButton.setIcon(icons.get('edit-copy'))
         self.saveButton = self.buttons.addButton('', QDialogButtonBox.ApplyRole)
         self.saveButton.setIcon(icons.get('document-save'))
 
@@ -99,12 +99,18 @@ class Dialog(QDialog):
         controls.addWidget(self.typeCombo, 0, 1)
         controls.addWidget(self.dpiLabel, 1, 0)
         controls.addWidget(self.dpiCombo, 1, 1)
-        controls.addWidget(self.colorButton, 2, 1)
+        colorLayout = QHBoxLayout(margin=0)
+        colorLayout.addWidget(self.colorCheck)
+        colorLayout.addWidget(self.colorButton)
+        controls.addLayout(colorLayout, 2, 0, 1, 2)
         controls.addWidget(self.grayscale, 3, 0, 1, 2)
         controls.addWidget(self.crop, 4, 0, 1, 2)
         controls.addWidget(self.antialias, 5, 0, 1, 2)
         controls.addWidget(self.scaleup, 6, 0, 1, 2)
-        controls.addWidget(self.dragfile, 8, 0, 1, 2)
+        controls.addWidget(self.copydata, 8, 0, 1, 2)
+        controls.addWidget(self.copyfile, 9, 0, 1, 2)
+        controls.addWidget(self.dragdata, 10, 0, 1, 2)
+        controls.addWidget(self.dragfile, 11, 0, 1, 2)
         controls.setRowStretch(7, 1)
 
         layout.addLayout(hlayout)
@@ -116,13 +122,19 @@ class Dialog(QDialog):
         self.finished.connect(self.writeSettings)
         self.typeCombo.currentIndexChanged.connect(self.updateExport)
         self.dpiCombo.editTextChanged.connect(self.updateExport)
+        self.colorCheck.toggled.connect(self.updateExport)
         self.colorButton.colorChanged.connect(self.updateExport)
         self.grayscale.toggled.connect(self.updateExport)
         self.scaleup.toggled.connect(self.updateExport)
         self.crop.toggled.connect(self.updateExport)
         self.antialias.toggled.connect(self.updateExport)
         self.buttons.rejected.connect(self.reject)
-        self.copyButton.clicked.connect(self.copyToClipboard)
+        self.copydata.clicked.connect(self.copyDataToClipboard)
+        self.copyfile.clicked.connect(self.copyFileToClipboard)
+        self.dragdata.installEventFilter(self)
+        self.dragfile.installEventFilter(self)
+        self.dragdata.setFocusPolicy(Qt.NoFocus)
+        self.dragfile.setFocusPolicy(Qt.NoFocus)
         self.saveButton.clicked.connect(self.saveAs)
         qutil.saveDialogSize(self, "copy_image/dialog/size", QSize(480, 320))
 
@@ -132,6 +144,7 @@ class Dialog(QDialog):
         for n, t in enumerate(self.exportTypes()):
             self.typeCombo.setItemText(n, t[1])
         self.dpiLabel.setText(_("DPI:"))
+        self.colorCheck.setText(_("Background:"))
         self.colorButton.setToolTip(_("Paper Color"))
         self.grayscale.setText(_("Gray"))
         self.grayscale.setToolTip(_("Convert image to grayscale."))
@@ -141,9 +154,10 @@ class Dialog(QDialog):
         self.scaleup.setToolTip(_(
             "Render twice as large and scale back down\n"
             "(recommended for small DPI values)."))
-        self.dragfile.setText(_("Drag"))
-        self.dragfile.setToolTip(_("Drag the image as a PNG file."))
-        self.copyButton.setText(_("&Copy to Clipboard"))
+        self.dragdata.setText(_("Drag"))
+        self.dragfile.setText(_("Drag File"))
+        self.copydata.setText(_("&Copy"))
+        self.copyfile.setText(_("Copy &File"))
         self.saveButton.setText(_("&Save As..."))
         self.imageViewer.setWhatsThis(_(
             #xgettext:no-python-format
@@ -156,6 +170,19 @@ class Dialog(QDialog):
             "You can also drag the small picture icon in the bottom right, "
             "which drags the actual file on disk, e.g. to an e-mail message.\n"
             "</p>").format(command="\u2318"))
+        self.updateFileTypeUITexts()
+
+    def updateFileTypeUITexts(self):
+        """Update the texts in buttons that carry file type information.
+
+        Called from translateUI() and from updateExport().
+
+        """
+        filetype = self.exportTypes()[self.typeCombo.currentIndex()][1]
+        self.dragdata.setToolTip(_("Drag the {png} image data.").format(png=filetype))
+        self.dragfile.setToolTip(_("Drag the image as a {png} file.").format(png=filetype))
+        self.copydata.setToolTip(_("Copy the {png} image data to Clipboard.").format(png=filetype))
+        self.copyfile.setToolTip(_("Copy the {png} file to Clipboard.").format(png=filetype))
 
     def readSettings(self):
         s = QSettings()
@@ -166,7 +193,9 @@ class Dialog(QDialog):
                 self.typeCombo.setCurrentIndex(n)
                 break
         self.dpiCombo.setEditText(s.value("dpi", "100", str))
-        self.colorButton.setColor(s.value("papercolor", QColor(Qt.white), QColor))
+        color = s.value("papercolor", QColor(), QColor)
+        self.colorButton.setColor(color if color.isValid() else Qt.white)
+        self.colorCheck.setChecked(color.isValid())
         self.grayscale.setChecked(s.value("grayscale", False, bool))
         self.crop.setChecked(s.value("autocrop", False, bool))
         self.antialias.setChecked(s.value("antialias", True, bool))
@@ -177,7 +206,8 @@ class Dialog(QDialog):
         s.beginGroup('copy_image')
         s.setValue("type", self.exportTypes()[self.typeCombo.currentIndex()][0])
         s.setValue("dpi", self.dpiCombo.currentText())
-        s.setValue("papercolor", self.colorButton.color())
+        color = self.colorButton.color() if self.colorCheck.isChecked() else QColor()
+        s.setValue("papercolor", color)
         s.setValue("grayscale", self.grayscale.isChecked())
         s.setValue("autocrop", self.crop.isChecked())
         s.setValue("antialias", self.antialias.isChecked())
@@ -208,7 +238,6 @@ class Dialog(QDialog):
         self._page = page
         self._rect = rect
         self._filename = filename
-        self.fileDragger.basename = os.path.splitext(os.path.basename(self._filename))[0]
         self.setCaption()
         self.updateExport()
 
@@ -222,7 +251,8 @@ class Dialog(QDialog):
 
         # update the enabled state of buttons
         self.dpiCombo.setEnabled(e.supportsResolution)
-        self.colorButton.setEnabled(e.supportsPaperColor)
+        self.colorCheck.setEnabled(e.supportsPaperColor)
+        self.colorButton.setEnabled(e.supportsPaperColor and self.colorCheck.isChecked())
         self.grayscale.setEnabled(e.supportsGrayscale)
         self.crop.setEnabled(e.supportsAutocrop)
         self.antialias.setEnabled(e.supportsAntialiasing)
@@ -231,7 +261,7 @@ class Dialog(QDialog):
         # update the preferences of the exporter
         if e.supportsResolution:
             e.resolution = float(self.dpiCombo.currentText() or '100')
-        if e.supportsPaperColor:
+        if e.supportsPaperColor and self.colorCheck.isChecked():
             e.paperColor = self.colorButton.color()
         if e.supportsGrayscale:
             e.grayscale = self.grayscale.isChecked()
@@ -244,54 +274,58 @@ class Dialog(QDialog):
 
         # disable button actions
         self.dragfile.setEnabled(False)
+        self.copyfile.setEnabled(False)
+        self.dragdata.setEnabled(False)
+        self.copydata.setEnabled(False)
         self.saveButton.setEnabled(False)
-        self.copyButton.setEnabled(False)
+
+        # set filetype info in button tooltips
+        self.updateFileTypeUITexts()
 
         # run the export job in a background thread
-        self.runJob(lambda: e.document(), self.exportDone)
+        self.runJob(e.document, self.exportDone)
+        self.setCursor(Qt.WaitCursor)
 
     def exportDone(self, document):
+        self.unsetCursor()
         self.imageViewer.setDocument(document)
         self.imageViewer.zoomNaturalSize()
-        self.fileDragger.setExporter(self._exporter)
         # re-enable button actions
         self.dragfile.setEnabled(True)
+        self.copyfile.setEnabled(True)
+        self.dragdata.setEnabled(True)
+        self.copydata.setEnabled(True)
         self.saveButton.setEnabled(True)
-        self.copyButton.setEnabled(True)
 
-    def copyToClipboard(self):
+    def copyDataToClipboard(self):
         self._exporter.copyData()
+
+    def copyFileToClipboard(self):
+        self._exporter.copyFile()
+
+    def dragData(self):
+        self._exporter.dragData(self)
+
+    def dragFile(self):
+        self._exporter.dragFile(self)
 
     def saveAs(self):
         filename = self._exporter.suggestedFilename()
         filename = QFileDialog.getSaveFileName(self,
             _("Save Image As"), filename)[0]
         if filename:
-            if not self.imageViewer.image().save(filename):
+            try:
+                self._exporter.save(filename)
+            except OSError:
                 QMessageBox.critical(self, _("Error"), _(
                     "Could not save the image."))
-            else:
-                self.fileDragger.currentFile = filename
 
-
-class FileDragger(gadgets.drag.FileDragger):
-    """Creates an image file on the fly as soon as a drag is started."""
-    exporter = None
-    basename = None
-    currentFile = None
-
-    def setExporter(self, exporter):
-        self.exporter = exporter
-        self.currentFile = None
-
-    def filename(self):
-        if self.currentFile:
-            return self.currentFile
-        elif not self.exporter:
-            return
-        # save the exported file
-        filename = self.exporter.tempFilename()
-        self.currentFile = filename
-        return filename
-
+    def eventFilter(self, obj, ev):
+        """Implemented to catch button press on drag buttons."""
+        if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.LeftButton:
+            if obj == self.dragfile:
+                QTimer.singleShot(0, self.dragFile)
+            elif obj == self.dragdata:
+                QTimer.singleShot(0, self.dragData)
+        return False
 
