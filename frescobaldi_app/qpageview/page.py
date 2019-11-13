@@ -25,7 +25,8 @@ A Page is responsible for drawing a page inside a PageLayout.
 import weakref
 
 from PyQt5.QtCore import QBuffer, QPointF, QRect, QRectF, QSizeF, Qt
-from PyQt5.QtGui import QColor, QImage, QPageSize, QPainter, QPdfWriter, QTransform
+from PyQt5.QtGui import (
+    QColor, QImage, QPageSize, QPainter, QPdfWriter, QPixmap, QTransform)
 from PyQt5.QtSvg import QSvgGenerator
 
 from . import util
@@ -353,6 +354,22 @@ class AbstractPage(util.Rectangular):
         svg.setSize(targetSize.toSize())
         svg.setViewBox(QRectF(0, 0, targetSize.width(), targetSize.height()))
         return self.output(svg, source, paperColor)
+
+    def pixmap(self, rect=None, size=100, paperColor=None):
+        """Return a QPixmap, scaled so that width or height doesn't exceed size.
+
+        Uses the image() method to get the image, and converts that to a
+        QPixmap.
+
+        """
+        s = self.defaultSize()
+        w, h = s.width(), s.height()
+        if rect is not None:
+            w *= rect.width() / self.width
+            h *= rect.height() / self.height
+        l = max(w, h)
+        dpi = size / l * self.dpi
+        return QPixmap.fromImage(self.image(rect, dpi, dpi, paperColor))
 
     def mutex(self):
         """Return an object that should be locked when rendering the page.

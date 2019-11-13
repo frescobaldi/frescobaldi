@@ -91,6 +91,7 @@ class AbstractExporter:
         self._tempFile = None
         self._autoCropRect = None
         self._document = None
+        self._pixmap = None
 
         if self.forceVector and self.wantsVector and isinstance(page, poppler.PopplerPage):
             if poppler.popplerqt5:
@@ -209,6 +210,14 @@ class AbstractExporter:
     def copyFile(self):
         """Save the exported image to a temp file and copy its name to the clipboard."""
         QGuiApplication.clipboard().setMimeData(self.tempFileMimeData())
+
+    def pixmap(self, size=100):
+        """Return a small pixmap to use for dragging etc."""
+        if self._pixmap is None:
+            paperColor = self.paperColor is self.supportsPaperColor else None
+            page = self.document().pages()[0]
+            self._pixmap = page.pixmap(paperColor=paperColor)
+        return self._pixmap
 
 
 class ImageExporter(AbstractExporter):
