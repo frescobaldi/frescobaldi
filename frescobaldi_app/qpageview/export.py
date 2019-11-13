@@ -96,8 +96,10 @@ class AbstractExporter:
     def page(self):
         """Return our page, setting the renderer to our preferences."""
         p = self._page.copy()
+        p.paperColor = self.paperColor
         if self._page.renderer:
             p.renderer = self._page.renderer.copy()
+            p.renderer.paperColor = self.paperColor
             p.renderer.antialiasing = self.antialiasing
             if self.forceVector and self.wantsVector and \
                     isinstance(p, poppler.PopplerPage) and poppler.popplerqt5:
@@ -144,10 +146,7 @@ class AbstractExporter:
 
         """
         if self._document is None:
-            doc = self._document = self.createDocument()
-            if self.supportsPaperColor and self.paperColor is not None:
-                for p in doc.pages():
-                    p.paperColor = self.paperColor
+            self._document = self.createDocument()
         return self._document
 
     def createDocument(self):
