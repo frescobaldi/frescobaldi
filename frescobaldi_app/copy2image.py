@@ -26,7 +26,7 @@ import collections
 import os
 import tempfile
 
-from PyQt5.QtCore import QEvent, QSettings, QSize, QTimer, Qt
+from PyQt5.QtCore import QEvent, QSettings, QSize, Qt
 from PyQt5.QtGui import QBitmap, QColor, QDoubleValidator, QImage, QRegion
 from PyQt5.QtWidgets import (
     QApplication, QCheckBox, QComboBox, QDialog, QDialogButtonBox, QFileDialog,
@@ -131,8 +131,8 @@ class Dialog(QDialog):
         self.buttons.rejected.connect(self.reject)
         self.copydata.clicked.connect(self.copyDataToClipboard)
         self.copyfile.clicked.connect(self.copyFileToClipboard)
-        self.dragdata.installEventFilter(self)
-        self.dragfile.installEventFilter(self)
+        self.dragdata.pressed.connect(self.dragData)
+        self.dragfile.pressed.connect(self.dragFile)
         self.dragdata.setFocusPolicy(Qt.NoFocus)
         self.dragfile.setFocusPolicy(Qt.NoFocus)
         self.saveButton.clicked.connect(self.saveAs)
@@ -305,9 +305,11 @@ class Dialog(QDialog):
 
     def dragData(self):
         self._exporter.dragData(self)
+        self.dragdata.setDown(False)
 
     def dragFile(self):
         self._exporter.dragFile(self)
+        self.dragfile.setDown(False)
 
     def saveAs(self):
         filename = self._exporter.suggestedFilename()
@@ -320,12 +322,4 @@ class Dialog(QDialog):
                 QMessageBox.critical(self, _("Error"), _(
                     "Could not save the image."))
 
-    def eventFilter(self, obj, ev):
-        """Implemented to catch button press on drag buttons."""
-        if ev.type() == QEvent.MouseButtonPress and ev.button() == Qt.LeftButton:
-            if obj == self.dragfile:
-                QTimer.singleShot(0, self.dragFile)
-            elif obj == self.dragdata:
-                QTimer.singleShot(0, self.dragData)
-        return False
 
