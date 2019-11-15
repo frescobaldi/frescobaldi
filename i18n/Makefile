@@ -38,11 +38,11 @@ mo: $(mofiles)
 
 $(pofiles): $(potfile)
 	-msgmerge -U $@ $<
-	touch $@
+	sed -i '/^#: /{ s, ../, ../../,g; s, messages, ../messages,g;}' $@
 
 $(userguidepofiles): $(userguidepotfile)
 	-msgmerge -U $@ $<
-	touch $@
+	sed -i '/^#: /{ s, ../, ../../,g; s, messages, ../messages,g;}' $@
 
 # one MO file is created from both the frescobaldi.po and userguide.po
 $(mofiles): $(modir)/%.mo: %/frescobaldi.po %/userguide.po
