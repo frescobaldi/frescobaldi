@@ -50,7 +50,8 @@ class Browser(QWidget):
         self.setLayout(layout)
 
         self.toolbar = tb = QToolBar()
-        self.webview = QWebEngineView(contextMenuPolicy=Qt.CustomContextMenu)
+        self.webview = QWebEngineView(self, contextMenuPolicy=Qt.CustomContextMenu)
+        self.webview.setPage(WebEnginePage(self.webview))
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
         self.search = SearchEntry(maximumWidth=200)
 
@@ -221,11 +222,14 @@ class Browser(QWidget):
         self.webview.load(url)
 
     def slotPrint(self):
-        printer = QPrinter()
+        printer = self._printer = QPrinter()
         dlg = QPrintDialog(printer, self)
         dlg.setWindowTitle(app.caption(_("Print")))
         if dlg.exec_():
-            self.webview.print_(printer)
+            self.webview.page().print(printer, self.slotPrintingDone)
+
+    def slotPrintingDone(self, success):
+        del self._printer
 
     def slotShowContextMenu(self, pos):
         d = self.webview.page().contextMenuData()
@@ -272,5 +276,14 @@ class SearchEntry(widgets.lineedit.LineEdit):
             webview.keyPressEvent(ev)
         else:
             super(SearchEntry, self).keyPressEvent(ev)
+
+
+class WebEnginePage(QWebEnginePage):
+    """QWebEnginePage that shows LY files using the source viewer."""
+    def acceptNavigationRequest(self, url, type, isMainFrame):
+        if url.path().endswith(('.ily', '.lyi', '.ly')):
+            self.view().parent().sourceViewer().showReply(lilydoc.network.get(url))
+            return False
+        return super().acceptNavigationRequest(url, type, isMainFrame)
 
 
