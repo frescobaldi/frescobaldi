@@ -288,7 +288,8 @@ class Dialog(QDialog):
     def exportDone(self, document):
         self.unsetCursor()
         self.imageViewer.setDocument(document)
-        self.imageViewer.zoomNaturalSize()
+        if self.imageViewer.viewMode() is not qpageview.FitBoth:
+            self.imageViewer.zoomNaturalSize()
         # re-enable button actions
         self.dragfile.setEnabled(True)
         self.copyfile.setEnabled(True)
