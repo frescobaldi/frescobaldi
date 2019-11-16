@@ -26,8 +26,14 @@ The global things in Frescobaldi.
 import os
 import sys
 
-from PyQt5.QtCore import QSettings, QThread
+from PyQt5.QtCore import QSettings, Qt, QThread
 from PyQt5.QtWidgets import QApplication
+
+### needed for QWebEngine
+### it wants those two things be done before constructing QApplication()
+import PyQt5.QtWebEngineWidgets
+QApplication.setAttribute(Qt.AA_ShareOpenGLContexts, True)
+### end needed for QWebEngine
 
 import appinfo
 

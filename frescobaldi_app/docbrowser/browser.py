@@ -27,8 +27,7 @@ import os
 from PyQt5.QtCore import QSettings, Qt, QUrl
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtPrintSupport import QPrintDialog, QPrinter
-from PyQt5.QtWebKit import QWebSettings
-from PyQt5.QtWebKitWidgets import QWebPage, QWebView
+from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView, QWebEngineSettings
 from PyQt5.QtWidgets import QComboBox, QMenu, QToolBar, QVBoxLayout, QWidget
 
 import app
@@ -51,7 +50,7 @@ class Browser(QWidget):
         self.setLayout(layout)
 
         self.toolbar = tb = QToolBar()
-        self.webview = QWebView(contextMenuPolicy=Qt.CustomContextMenu)
+        self.webview = QWebEngineView(contextMenuPolicy=Qt.CustomContextMenu)
         self.chooser = QComboBox(sizeAdjustPolicy=QComboBox.AdjustToContents)
         self.search = SearchEntry(maximumWidth=200)
 
@@ -64,11 +63,6 @@ class Browser(QWidget):
         ac.help_home.triggered.connect(self.showHomePage)
         ac.help_print.triggered.connect(self.slotPrint)
 
-        self.webview.page().setNetworkAccessManager(lilydoc.network.accessmanager())
-        self.webview.page().setLinkDelegationPolicy(QWebPage.DelegateAllLinks)
-        self.webview.page().linkClicked.connect(self.openUrl)
-        self.webview.page().setForwardUnsupportedContent(True)
-        self.webview.page().unsupportedContent.connect(self.slotUnsupported)
         self.webview.urlChanged.connect(self.slotUrlChanged)
         self.webview.customContextMenuRequested.connect(self.slotShowContextMenu)
 
@@ -82,7 +76,7 @@ class Browser(QWidget):
         tb.addWidget(self.search)
 
         self.chooser.activated[int].connect(self.showHomePage)
-        self.search.textEdited.connect(self.slotSearchChanged)
+        self.search.textChanged.connect(self.slotSearchChanged)
         self.search.returnPressed.connect(self.slotSearchReturnPressed)
         dockwidget.mainwindow().iconSizeChanged.connect(self.updateToolBarSettings)
         dockwidget.mainwindow().toolButtonStyleChanged.connect(self.updateToolBarSettings)
@@ -100,11 +94,11 @@ class Browser(QWidget):
         ws = self.webview.page().settings()
         family = s.value("fontfamily", self.font().family(), str)
         size = s.value("fontsize", 16, int)
-        ws.setFontFamily(QWebSettings.StandardFont, family)
-        ws.setFontSize(QWebSettings.DefaultFontSize, size)
+        ws.setFontFamily(QWebEngineSettings.StandardFont, family)
+        ws.setFontSize(QWebEngineSettings.DefaultFontSize, size)
         fixed = textformats.formatData('editor').font
-        ws.setFontFamily(QWebSettings.FixedFont, fixed.family())
-        ws.setFontSize(QWebSettings.DefaultFixedFontSize, fixed.pointSizeF() * 96 / 72)
+        ws.setFontFamily(QWebEngineSettings.FixedFont, fixed.family())
+        ws.setFontSize(QWebEngineSettings.DefaultFixedFontSize, fixed.pointSizeF() * 96 / 72)
 
     def keyPressEvent(self, ev):
         if ev.text() == "/":
@@ -189,7 +183,7 @@ class Browser(QWidget):
     def slotSearchChanged(self):
         text = self.search.text()
         if not text.startswith(':'):
-            self.webview.page().findText(text, QWebPage.FindWrapsAroundDocument)
+            self.webview.page().findText(text)
 
     def slotSearchReturnPressed(self):
         text = self.search.text()
@@ -233,19 +227,19 @@ class Browser(QWidget):
             self.webview.print_(printer)
 
     def slotShowContextMenu(self, pos):
-        hit = self.webview.page().currentFrame().hitTestContent(pos)
+        d = self.webview.page().contextMenuData()
         menu = QMenu()
-        if hit.linkUrl().isValid():
-            a = self.webview.pageAction(QWebPage.CopyLinkToClipboard)
+        if d.linkUrl().isValid():
+            a = self.webview.pageAction(QWebEnginePage.CopyLinkToClipboard)
             a.setIcon(icons.get("edit-copy"))
             a.setText(_("Copy &Link"))
             menu.addAction(a)
             menu.addSeparator()
             a = menu.addAction(icons.get("window-new"), _("Open Link in &New Window"))
-            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(hit.linkUrl()))
+            a.triggered.connect((lambda url: lambda: self.slotNewWindow(url))(d.linkUrl()))
         else:
-            if hit.isContentSelected():
-                a = self.webview.pageAction(QWebPage.Copy)
+            if d.selectedText():
+                a = self.webview.pageAction(QWebEnginePage.Copy)
                 a.setIcon(icons.get("edit-copy"))
                 a.setText(_("&Copy"))
                 menu.addAction(a)
