@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2019-11-13 11:40+0100\n"
+"POT-Creation-Date: 2019-11-17 18:39+0100\n"
 "PO-Revision-Date: 2014-08-21 14:03-0200\n"
 "Last-Translator: Arnaldo Russo\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-doc@kde.org>\n"
@@ -68,31 +68,31 @@ msgstr ""
 msgid "Licensed under the {gpl}."
 msgstr "Sob a Licença {gpl}."
 
-#: ../../frescobaldi_app/app.py:179
+#: ../../frescobaldi_app/app.py:185
 msgid "LilyPond Files"
 msgstr "Arquivo LilyPond"
 
-#: ../../frescobaldi_app/app.py:180
+#: ../../frescobaldi_app/app.py:186
 msgid "LaTeX Files"
 msgstr "Arquivo LaTex"
 
-#: ../../frescobaldi_app/app.py:181
+#: ../../frescobaldi_app/app.py:187
 msgid "DocBook Files"
 msgstr "Arquivo DocBook"
 
-#: ../../frescobaldi_app/app.py:182 ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/app.py:188 ../../frescobaldi_app/convert_ly.py:254
 msgid "HTML Files"
 msgstr "Arquivo HTML "
 
-#: ../../frescobaldi_app/app.py:183
+#: ../../frescobaldi_app/app.py:189
 msgid "Texinfo Files"
 msgstr "Arquivo Texinfo"
 
-#: ../../frescobaldi_app/app.py:184
+#: ../../frescobaldi_app/app.py:190
 msgid "Scheme Files"
 msgstr "Arquivo Scheme"
 
-#: ../../frescobaldi_app/app.py:185 ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/app.py:191 ../../frescobaldi_app/convert_ly.py:254
 #: ../../frescobaldi_app/file_export/__init__.py:59
 #: ../../frescobaldi_app/file_export/__init__.py:90
 #: ../../frescobaldi_app/file_import/__init__.py:124
@@ -212,7 +212,7 @@ msgstr "Salvar Arquivo"
 
 #: ../../frescobaldi_app/convert_ly.py:155 ../../frescobaldi_app/copy2image.py:230
 #: ../../frescobaldi_app/editinplace.py:160
-#: ../../frescobaldi_app/docbrowser/browser.py:160
+#: ../../frescobaldi_app/docbrowser/browser.py:156
 msgid "<unknown>"
 msgstr "<unknown>"
 
@@ -319,7 +319,7 @@ msgid "Drag File"
 msgstr "Salvar Arquivo"
 
 #: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1363
-#: ../../frescobaldi_app/docbrowser/browser.py:250
+#: ../../frescobaldi_app/docbrowser/browser.py:249
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
 msgstr "&Copiar"
@@ -399,12 +399,12 @@ msgstr "PNG"
 msgid "Image from {filename}"
 msgstr "imagem de {filename}"
 
-#: ../../frescobaldi_app/copy2image.py:315
+#: ../../frescobaldi_app/copy2image.py:317
 msgid "Save Image As"
 msgstr "Salvar Imagem Como"
 
 #. L10N: a basic type of input in the editor
-#: ../../frescobaldi_app/copy2image.py:320 ../../frescobaldi_app/cut_assign.py:139
+#: ../../frescobaldi_app/copy2image.py:322 ../../frescobaldi_app/cut_assign.py:139
 #: ../../frescobaldi_app/helpers.py:107 ../../frescobaldi_app/mainwindow.py:462
 #: ../../frescobaldi_app/mainwindow.py:550 ../../frescobaldi_app/mainwindow.py:604
 #: ../../frescobaldi_app/mainwindow.py:670 ../../frescobaldi_app/mainwindow.py:690
@@ -428,7 +428,7 @@ msgstr "Salvar Imagem Como"
 msgid "Error"
 msgstr "Erro"
 
-#: ../../frescobaldi_app/copy2image.py:321
+#: ../../frescobaldi_app/copy2image.py:323
 msgid "Could not save the image."
 msgstr "Não foi possível salvar a imagem."
 
@@ -1321,7 +1321,7 @@ msgid "Print {filename}"
 msgstr "Imprimir {filename}"
 
 #: ../../frescobaldi_app/pagedview.py:185
-#: ../../frescobaldi_app/docbrowser/browser.py:231
+#: ../../frescobaldi_app/docbrowser/browser.py:227
 #: ../../frescobaldi_app/userguide/browser.py:85
 #: ../../frescobaldi_app/userguide/browser.py:115
 msgid "Print"
@@ -1462,34 +1462,34 @@ msgstr "Documentação &LilyPond"
 msgid "&Contextual LilyPond Help"
 msgstr "Ajuda LilyPond &Contextual"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:117
+#: ../../frescobaldi_app/docbrowser/browser.py:113
 #: ../../frescobaldi_app/preferences/shortcuts.py:57
 #: ../../frescobaldi_app/snippet/widget.py:182
 msgid "Search..."
 msgstr "Pesquisar..."
 
-#: ../../frescobaldi_app/docbrowser/browser.py:157
+#: ../../frescobaldi_app/docbrowser/browser.py:153
 msgid "(local)"
 msgstr "(local)"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:159
+#: ../../frescobaldi_app/docbrowser/browser.py:155
 #, python-brace-format
 msgid "({hostname})"
 msgstr "({hostname})"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:241
+#: ../../frescobaldi_app/docbrowser/browser.py:240
 #: ../../frescobaldi_app/musicview/contextmenu.py:63
 #: ../../frescobaldi_app/viewers/contextmenu.py:72
 msgid "Copy &Link"
 msgstr "Copiar &Link"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:244
+#: ../../frescobaldi_app/docbrowser/browser.py:243
 #: ../../frescobaldi_app/musicview/contextmenu.py:57
 #: ../../frescobaldi_app/viewers/contextmenu.py:66
 msgid "Open Link in &New Window"
 msgstr "Abrir Link em &Nova Janela"
 
-#: ../../frescobaldi_app/docbrowser/browser.py:253
+#: ../../frescobaldi_app/docbrowser/browser.py:252
 msgid "Open Document in &New Window"
 msgstr "Abrir Documento em &Nova Janela"
 
@@ -7499,6 +7499,11 @@ msgstr "Folha de Estilo"
 #: ../../frescobaldi_app/snippet/builtin.py:675
 msgid "Choir Hymn"
 msgstr "Hino Coral"
+
+#: ../../frescobaldi_app/snippet/builtin.py:764
+#, fuzzy
+msgid "Blank Music Sheet"
+msgstr "Folha de Estilo"
 
 #: ../../frescobaldi_app/snippet/edit.py:126
 #: ../../frescobaldi_app/snippet/insert.py:251

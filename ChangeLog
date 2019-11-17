@@ -34,6 +34,7 @@ Changes in 3.1 -- December 27th, 2019
   - Show absolute path of include files in tooltip (#941)
   - Restructure Tools Menu (#1080)
   - File Open toolbar button shows recent files menu on long click
+  - Added "Blank Sheet Music" template snippet (#1139)
 * Internals:
   - Multithreaded Job Queue preparing multicore support (#1103)
   - Rewrite code handling external processes/jobs (#1100)
