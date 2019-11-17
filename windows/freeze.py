@@ -4,7 +4,7 @@
 # needing to install any dependencies.
 #
 # Usage:
-# C:\Python35\Python freeze.py
+# C:\Python27\Python freeze.py
 #
 # How it works:
 # It creates, using cx_Freeze, a frescobaldi executable inside the frozen/
@@ -14,7 +14,7 @@
 # Finally, an installer is created using the Inno Setup console-mode compiler.
 
 # the Inno Setup console-mode compiler
-iscc = 'C:\Program Files (x86)\Inno Setup 5\ISCC'
+iscc = 'c:\\Program Files\\Inno Setup 5\\ISCC'
 
 # where to build the frozen program folder
 target_dir = 'frozen'
@@ -41,20 +41,13 @@ includes = [
     'sip',
     'PyQt5.QtCore',
     'PyQt5.QtGui',
-	'PyQt5.QtWebChannel',
-    'PyQt5.QtWebEngineCore',
-	'PyQt5.QtWebEngineWidgets',
-    'PyQt5.QtWebEngine',
+    'PyQt5.QtWebKit',
     'PyQt5.QtNetwork',
     'PyQt5.QtSvg',
     'PyQt5.QtXml',
-    'PyQt5.QtWidgets',
-    'PyQt5.QtPrintSupport',
     'popplerqt5',
-	'freetype',
     'pypm',
-    
-    '__future__',
+
     'argparse',
     'bisect',
     'contextlib',
@@ -92,10 +85,9 @@ shutil.rmtree(target_dir, ignore_errors = True)
 
 frescobaldi = Executable(
     '../frescobaldi',
-	base = 'Win32GUI', # no console
     icon = '../frescobaldi_app/icons/frescobaldi.ico',
-#    appendScriptToExe = True,
-
+    appendScriptToExe = True,
+    base = 'Win32GUI', # no console
 )
 
 f = Freezer(
@@ -104,60 +96,26 @@ f = Freezer(
     packages = packages,
     excludes = excludes,
     targetDir = target_dir,
-    #copyDependentFiles = True,
+    copyDependentFiles = True,
     compress = False,
     # silent = True,
-    includeMSVCR = True,
 )
 
 f.Freeze()
 
 def copy_plugins(name):
-    """Copies a folder from the Qt5 plugins directory."""
+    """Copies a folder from the Qt4 plugins directory."""
     path = imp.find_module('PyQt5')[1]
-    folder = os.path.join(path, 'qt/plugins', name)
+    folder = os.path.join(path, 'plugins', name)
     target = os.path.join(target_dir, name)
     shutil.rmtree(target, ignore_errors = True)
     shutil.copytree(folder, target)
 
-def copy_folder(name):
-    """Copies a folder from the Qt5 plugins directory."""
-    path = '../'
-    folder = os.path.join(path, name)
-    target = os.path.join(target_dir, name)
-    shutil.rmtree(target, ignore_errors = True)
-    shutil.copytree(folder, target)
-
-def copy_file(name):
-	"""Copies a folder from the Qt5 plugins directory."""	
-	path = '../'
-	file = os.path.join(path, name)
-	target = os.path.join(target_dir, name)
-	shutil.copyfile(file,target)
-  
-
-
-# copy Qt5 imageformat plugins
+# copy Qt4 imageformat plugins
 copy_plugins('imageformats')
 
-# copy Qt5 iconengine plugins
+# copy Qt4 iconengine plugins
 copy_plugins('iconengines')
-
-# copy Qt5 iconengine plugins
-copy_plugins('printsupport')
-
-test=os.getcwd()
-
-# copy resources
-#copy_folder('resources')
-
-# copy translations
-#copy_folder('translations')
-
-
-#copy_file('qt.conf')
-
-#copy_file('QtWebEngineProcess.exe')
 
 # copy the frescobaldi_app directory
 subprocess.call(
@@ -165,4 +123,63 @@ subprocess.call(
      '--build-lib', os.path.join('windows', target_dir), '--compile'],
     cwd="..")
 
-subprocess.run([iscc, "/Dhomepage="+appinfo.url , "/Dversion="+appinfo.version , "/Dauthor="+appinfo.maintainer , "/Dcomments="+appinfo.description, "/Dtarget="+target_dir, "setup.iss" ])
+# make an Inno Setup installer
+inno_script = b'''
+[Setup]
+AppName=Frescobaldi
+AppVersion={version}
+AppVerName=Frescobaldi {version}
+AppPublisher={author}
+AppPublisherURL={homepage}
+AppComments={comments}
+
+DefaultDirName={{pf}}\\Frescobaldi
+DefaultGroupName=Frescobaldi
+UninstallDisplayIcon={{app}}\\frescobaldi.exe
+Compression=lzma2
+SolidCompression=yes
+
+SourceDir={target}\\
+OutputDir=..\\..\\dist\\
+OutputBaseFilename="Frescobaldi Setup {version}"
+SetupIconFile=frescobaldi_app\\icons\\frescobaldi.ico
+LicenseFile=..\\..\\COPYING
+WizardImageFile=..\\frescobaldi-wininst.bmp
+WizardImageStretch=no
+
+[InstallDelete]
+Type: filesandordirs; Name: "{{app}}\\frescobaldi_app"
+
+[Files]
+Source: "*.*"; DestDir: "{{app}}"; Flags: recursesubdirs;
+
+[Icons]
+Name: "{{group}}\Frescobaldi"; Filename: "{{app}}\\frescobaldi.exe";
+
+[Tasks]
+Name: assocly; Description: "{{cm:AssocFileExtension,Frescobaldi,.ly}}";
+
+[Registry]
+Root: HKCR; Subkey: "LilyPond\\shell\\frescobaldi";\
+ ValueType: string; ValueName: ""; ValueData: "Edit with &Frescobaldi...";\
+ Flags: uninsdeletekey
+Root: HKCR; Subkey: "LilyPond\\shell\\frescobaldi\\command";\
+ ValueType: string; ValueName: ""; ValueData: """{{app}}\\frescobaldi.exe"" ""%1"""
+Tasks: assocly; Root: HKCR; Subkey: "LilyPond\\shell";\
+ ValueType: string; ValueName: ""; ValueData: "frescobaldi";
+
+[Run]
+Filename: "{{app}}\\frescobaldi.exe";\
+ Description: {{cm:LaunchProgram,Frescobaldi}};\
+ Flags: postinstall nowait skipifsilent;
+
+'''.format(
+    version=appinfo.version,
+    homepage=appinfo.url,
+    author=appinfo.maintainer,
+    comments=appinfo.description,
+    target=target_dir,
+)
+
+subprocess.Popen([iscc, '-'], stdin=subprocess.PIPE).communicate(inno_script)
+

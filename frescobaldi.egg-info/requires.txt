@@ -1,2 +1,0 @@
-python-ly
-python-poppler-qt5
