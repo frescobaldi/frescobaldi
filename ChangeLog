@@ -42,8 +42,8 @@ Changes in 3.1 -- December 27th, 2019
     rewritten so that many more formats can be displayed like SVG and images,
     which will open up new possibilities for the music view and the manuscript
     viewer (#1202)
-  - The LilyPond documentation browser now uses QtWebEngine instead of the
-    deprecated QtWebKit
+  - The SVG view and the LilyPond documentation browser now use QtWebEngine
+    instead of the deprecated QtWebKit
 * Translations:
   - Userguide now has its own PO files. PO files for userguide and Frescobaldi
     both are in 'i18n/xx_CC' directories, see README-translations
