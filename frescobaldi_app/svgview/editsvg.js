@@ -1,4 +1,4 @@
-/*************************************************************************** 
+/***************************************************************************
  * This file is part of the Frescobaldi project, http://www.frescobaldi.org/
  *
  * Copyright (c) 2008 - 2012 by Wilbert Berendsen
@@ -45,11 +45,12 @@ var clone, delNode;
 ///////////////////////////////////////////////
 
 //mouse position
+
+/**
+ * Retrieves the mouse position of an event
+ * and translates it to useful coordinates
+ */
 function mousePos(event) {
-    this.__doc__ = 
-    "Retrieves the mouse position of an event" +
-    "and translates it to useful coordinates";
-    
     var svgPoint = svg.createSVGPoint();
     svgPoint.x = event.clientX;
     svgPoint.y = event.clientY;
@@ -57,11 +58,11 @@ function mousePos(event) {
     return svgPoint;
 }
 
+/**
+ * Return the coordinates and the transform object
+ * from a given SVG element if it has the right type.
+ */
 function getTranslPos(elem) {
-    this.__doc__ =
-    "Return the coordinates and the transform object" +
-    "from a given SVG element if it has the right type.";
-    
     var tr = elem.transform.baseVal.getItem(0);
     if (tr.type == SVGTransform.SVG_TRANSFORM_TRANSLATE) {
         return {
@@ -72,20 +73,20 @@ function getTranslPos(elem) {
     }
 }
 
+/**
+ * set the precision of the given float
+ * to a given number of digits.
+ */
 function round(digits, number) {
-    this.__doc__ =
-    "set the precision of the given float" +
-    "to a given number of digits.";
-    
     var factor = Math.pow(10, digits)
     return Math.round(number * factor) / factor
 }
 
+/**
+ * Enable the event handlers for a given SVG element.
+ * This is sometimes necessary as a cleanup after operations.
+ */
 function enableMouseEvents(elem) {
-    this.__doc__ =
-    "Enable the event handlers for a given SVG element." +
-    "This is sometimes necessary as a cleanup after operations.";
-    
     elem.onmousedown = MouseDown;
     elem.onmousemove = MouseMove;
     elem.onmouseup = MouseUp;
@@ -106,9 +107,9 @@ function enableTranslPositioning(node) {
 //insert node in between parent and children
 //used when grouping elements
 function insertGroupNode(oldParent, newParent){
-    
+
     var remNode;
-    
+
     while(oldParent.firstChild){
         remNode = oldParent.removeChild(oldParent.firstChild);
         if(remNode.nodeType == 1 && remNode.hasAttribute("fill")){
@@ -116,16 +117,16 @@ function insertGroupNode(oldParent, newParent){
         }
         newParent.appendChild(remNode);
     }
-    
+
     oldParent.appendChild(newParent);
 
 }
 
 //Count number of nodes. Used for grouping
 function countNodes(childArr){
-    
+
     var count = 0;
-    
+
     for(var d=0; d < childArr.length; ++d){
         if(childArr[d].nodeType == 1){
             count++;
@@ -135,11 +136,11 @@ function countNodes(childArr){
 }
 
 //write error message
+/**
+ * Event handler for errors of the SVG window.
+ * For now simply write to the console.
+ */
 function error(e) {
-    this.__doc__ =
-    "Event handler for errors of the SVG window." +
-    "For now simply write to the console."
-    
     pyLinks.pyLog(e.message);
 }
 
@@ -147,25 +148,26 @@ function error(e) {
 // Worker functions
 ///////////////////////////////////////////////
 
+/**
+ * Iterates over draggable elements and prepares them for editing.
+ * All elements having a 'transform' attribute are enabled for dragging.
+ * Groups of elements (such as e.g. results from a \tempo command
+ * are collected into groups so they can be dragged together.
+ */
 function collectElements(){
-    this.__doc__ =
-    "Iterates over draggable elements and prepares them for editing." +
-    "All elements having a 'transform' attribute are enabled for dragging." +
-    "Groups of elements (such as e.g. results from a \tempo command" +
-    "are collected into groups so they can be dragged together.";
-    
+
     var NS = "http://www.w3.org/2000/svg";
-    
+
     for (var t = 0; t < draggable.length; ++t) {
-    
+
         // enable dragging for links with transform attribute
         if (draggable[t].hasAttribute("transform")) {
             enableTranslPositioning(draggable[t])
         }
-        
+
         //check number of (real) childNodes
         var children = countNodes(draggable[t].childNodes);
-    
+
         // if more than one child, group elements together
         if (children > 1) {
             groupNode = document.createElementNS(NS, "g");
@@ -178,7 +180,7 @@ function collectElements(){
         }else{ //enable dragging of all children with the transform attribute
             var node = draggable[t].firstChild;
             while (node) {
-                if (node.nodeType == 1 && node.hasAttribute("transform")) {    
+                if (node.nodeType == 1 && node.hasAttribute("transform")) {
                     enableTranslPositioning(node);
                 }
                 node = node.nextSibling;
@@ -216,22 +218,22 @@ function Point(x, y) {
 }
 
 // Class representing a draggable (text?) element
+/**
+ * A draggable SVG object.
+ * The class stores the necessary positioning values
+ * and is able to calculate the remaining values.
+ * Instantiate it by passing the SVG elements 'elem'
+ * and the mouse event 'e'.
+ * For recalculating values call 'updatePositions()'
+ * with a mouse event.
+ * Properties return Point() instances but the X and Y
+ * coordinates can be accessed directly too.
+ * A JSON representation is implemented as a draft.
+ */
 function DraggableObject(elem, e) {
-    
-    this.__doc__ =
-    "A draggable SVG object." +
-    "The class stores the necessary positioning values " +
-    "and is able to calculate the remaining values. " +
-    "Instantiate it by passing the SVG elements 'elem' " +
-    "and the mouse event 'e'. " +
-    "For recalculating values call 'updatePositions()' " +
-    "with a mouse event. " +
-    "Properties return Point() instances but the X and Y " +
-    "coordinates can be accessed directly too. " +
-    "A JSON representation is implemented as a draft.";
-    
+
     this.target = e.target;
-    
+
     this.textedit = elem.parentNode.getAttribute('xlink:href');
 
     // Reference points for dragging operation
@@ -241,7 +243,7 @@ function DraggableObject(elem, e) {
     this.currDragX = this.currDragY = 0;
 
     // original (LilyPond's) position of the object
-    //TODO: Currently this gives wrong results when there already is an 
+    //TODO: Currently this gives wrong results when there already is an
     // extra-offset override in the LilyPond source
     this.initX = parseFloat(elem.getAttribute("init-x"));
     this.initY = parseFloat(elem.getAttribute("init-y"));
@@ -259,10 +261,10 @@ function DraggableObject(elem, e) {
         this.currOffY = this.startOffY;
     }
 
-    // Properties, implemented as privileged methods    
-    
+    // Properties, implemented as privileged methods
+
     this.currDrag = function () {
-        // current dragging offset, 
+        // current dragging offset,
         // calculated from initial and current mouse position.
 
         return new Point(this.currDragX, this.currDragY);
@@ -271,14 +273,14 @@ function DraggableObject(elem, e) {
     this.currOffset = function () {
         // current offset,
         // = current relative to initial position
-        
+
         return new Point(this.currOffX, this.currOffY);
     };
 
     this.currPos = function () {
         // current object position,
         // calculated from starting position and current drag offset
-        
+
         return new Point(this.currX, this.currY);
     };
 
@@ -288,10 +290,10 @@ function DraggableObject(elem, e) {
 
         return new Point(initX, initY);
     };
-    
+
     this.JSONified = function() {
         // return a JSON string representing relevant information on the object
-        
+
         return JSON.stringify(this,
             ["textedit",
              "initX",
@@ -301,7 +303,7 @@ function DraggableObject(elem, e) {
              "currX",
              "currY"]);
     };
-    
+
     this.modified = function() {
         // determine if an object is changed compared to the initial position.
         return (round(2, this.currX) != round(2, this.initX)) || (round(2, this.currY) != round(2, this.initY))
@@ -311,7 +313,7 @@ function DraggableObject(elem, e) {
         // position at the start of the dragging operation
         return new Point(this.startX, this.startY);
     };
-    
+
     this.translate = function() {
         this.transform.setTranslate(this.currX, this.currY);
     };
@@ -325,9 +327,9 @@ function DraggableObject(elem, e) {
         this.currY = this.startY + this.currDragY;
         this.currOffX = this.startOffX + this.currDragX;
         this.currOffY = this.startOffY - this.currDragY;
-        
+
         this.translate();
-        
+
     };
 }
 
@@ -335,15 +337,16 @@ function DraggableObject(elem, e) {
 // Event handlers
 ///////////////////////////////////////////////
 
+/**
+ * Creates an object representing the dragged SVG object
+ * and triggers a number of signals.
+ * Makes a clone of the SVG object and copies it
+ * to the end of the tree so it will always be on top.
+ */
 function MouseDown(e) {
-    this.__doc__ =
-    "Creates an object representing the dragged SVG object " +
-    "and triggers a number of signals. " +
-    "Makes a clone of the SVG object and copies it " +
-    "to the end of the tree so it will always be on top.";
-    
+
     e.stopPropagation();
-    
+
     draggedObject = new DraggableObject(this, e);
 
     // send signals
@@ -352,7 +355,7 @@ function MouseDown(e) {
     pyLinks.startDragging(draggedObject.currOffX, draggedObject.currOffY);
     pyLinks.draggedObject(draggedObject.JSONified());
 
-    // create a clone of the dragged SVG object so the 
+    // create a clone of the dragged SVG object so the
     // dragged object will always be over other elements.
     clone = this.cloneNode(true);
     this.parent = this.parentNode;
@@ -367,27 +370,27 @@ function MouseDown(e) {
     clone.setAttribute("opacity", "0.3");
 }
 
+/**
+ * Only respond to events from a dragged element.
+ * Update the properties of the object by passing the mouse event
+ * and move the object (or its group) to the appropriate new position.
+ */
 function MouseMove(e) {
-    this.__doc__ =
-    "Only respond to events from a dragged element. " +
-    "Update the properties of the object by passing the mouse event " +
-    "and move the object (or its group) to the appropriate new position.";
-    
     e.stopPropagation();
 
     if (draggedObject && e.target == draggedObject.target) {
         draggedObject.updatePositions(e);
 
         pyLinks.dragging(draggedObject.currOffX, draggedObject.currOffY);
-        
+
     }
 }
 
+/**
+ * Replace the cloned object with the original and
+ * determine if the object has been modified and color it.
+ */
 function MouseUp(e) {
-    this.__doc__ =
-    "Replace the cloned object with the original and " +
-    "determine if the object has been modified and color it.";    
-
     e.stopPropagation();
     if (draggedObject && e.target == draggedObject.target) {
 
@@ -396,7 +399,7 @@ function MouseUp(e) {
         cloneTransform.setTranslate(draggedObject.currX, draggedObject.currY);
 
         clone.removeAttribute("opacity");
-        
+
         // I think this should be moved to a function
         // because there will be more cases to cover.
         if (draggedObject.modified()) {
