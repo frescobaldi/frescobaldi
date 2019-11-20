@@ -32,6 +32,7 @@ function leave(){
 function click(){
     var url = this.getAttribute('xlink:href');
     pyLinks.click(url);
+    return false    // cancel further navigation
 };
 
 var a = document.getElementsByTagName('a');

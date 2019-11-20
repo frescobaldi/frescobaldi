@@ -31,9 +31,10 @@ that runs inside the displayed SVG file.
 import os
 import sys
 
-from PyQt5.QtCore import pyqtSignal, pyqtSlot, QObject, QSettings, QUrl
+from PyQt5.QtCore import pyqtSignal, pyqtSlot, QFile, QIODevice, QObject, QSettings, QUrl
 from PyQt5.QtGui import QTextCharFormat, QTextCursor
-from PyQt5.QtWebKitWidgets import QWebView
+from PyQt5.QtWebChannel import QWebChannel
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 import app
 import util
@@ -54,7 +55,7 @@ def getJsScript(filename):
     return jsValue
 
 
-class View(QWebView):
+class View(QWebEngineView):
     zoomFactorChanged = pyqtSignal(float)
     objectDragged = pyqtSignal(float, float)
     objectDragging = pyqtSignal(float, float)
@@ -70,6 +71,9 @@ class View(QWebView):
         super(View, self).__init__(parent)
         self._highlightFormat = QTextCharFormat()
         self.jslink = JSLink(self)
+        channel = QWebChannel(self)
+        channel.registerObject("pyLinks", self.jslink)
+        self.page().setWebChannel(channel)
         self.loadFinished.connect(self.svgLoaded)
         self.mainwindow().aboutToClose.connect(self.cleanupForClose)
         app.settingsChanged.connect(self.readSettings)
@@ -103,20 +107,34 @@ class View(QWebView):
             doc = app.openUrl(QUrl.fromLocalFile(filename))
         return doc
 
+    def initJavaScript(self):
+        """Return a string containing all JavaScript to run in a page."""
+        try:
+            return self._initJavaScript
+        except AttributeError:
+            js = []
+            qwebchannel_js = QFile(':/qtwebchannel/qwebchannel.js')
+            qwebchannel_js.open(QIODevice.ReadOnly)
+            js.append(bytes(qwebchannel_js.readAll()).decode('utf-8'))
+            js.append("new QWebChannel(qt.webChannelTransport, function (channel) {\n"
+                      " window.pyLinks = channel.objects.pyLinks;\n"
+                      "});\n")
+            js.append(getJsScript('pointandclick.js'))
+            # for now only editable in dev (git) or when the user explicitly allows experimental features
+            if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
+                js.append(getJsScript('editsvg.js'))
+            self._initJavaScript = '\n'.join(js)
+        return self._initJavaScript
+
     def svgLoaded(self):
         if not self.url().isEmpty() and not self.url().path().endswith(".html"):
-            frame = self.page().mainFrame()
-            frame.addToJavaScriptWindowObject("pyLinks", self.jslink)
-            frame.evaluateJavaScript(getJsScript('pointandclick.js'))
-            #for now only editable in dev (git) or when the user explicitly allows experimental features
-            if app.is_git_controlled() or QSettings().value("experimental-features", False, bool):
-                frame.evaluateJavaScript(getJsScript('editsvg.js'))
+            # initialize the js module
+            self.page().runJavaScript(self.initJavaScript())
 
     def evalSave(self):
-        frame = self.page().mainFrame()
         # to enable useful save of SVG edits to file uncomment the line below
-        # frame.evaluateJavaScript(getJsScript('cleansvg.js'))
-        frame.evaluateJavaScript(getJsScript('savesvg.js'))
+        # self.page().runJavaScript(getJsScript('cleansvg.js'))
+        self.page().runJavaScript(getJsScript('savesvg.js'))
 
     def clear(self):
         """Empty the View."""
