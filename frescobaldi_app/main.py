@@ -206,15 +206,17 @@ def main():
         session.restoreSession(app.qApp.sessionKey())
         return
 
-    # load specified session?
-    doc = None
-    if args.session and args.session != "-":
-        doc = sessions.loadSession(args.session)
-
     # Just create one MainWindow
     win = mainwindow.MainWindow()
     win.show()
     win.activateWindow()
+    # make sure all dock tools are initialized and resized
+    app.qApp.processEvents()
+
+    # load specified session?
+    doc = None
+    if args.session and args.session != "-":
+        doc = sessions.loadSession(args.session)
 
     # load documents given as arguments
     import document

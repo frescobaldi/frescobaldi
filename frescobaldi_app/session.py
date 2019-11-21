@@ -107,6 +107,7 @@ def restoreSession(key):
             win = mainwindow.MainWindow()
             win.readSessionSettings(settings)
             win.show()
+            app.qApp.processEvents()    # init (re)size dock tools
             u = settings.value("active_document", QUrl(), QUrl)
             # we don't use app.findDocument because it does not allow empty url
             for d in app.documents:
@@ -119,6 +120,7 @@ def restoreSession(key):
     else:
         win = mainwindow.MainWindow()
         win.show()
+        app.qApp.processEvents()    # init (re)size dock tools
 
 
 @app.oninit
