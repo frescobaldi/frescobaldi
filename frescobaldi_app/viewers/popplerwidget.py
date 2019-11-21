@@ -283,27 +283,28 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         if name:
             import sessions
             import qsettings
-            session = sessions.sessionGroup(name)
-            if session.contains("urls"): # the session is not new
-                files_key = "{}-files".format(self.viewerName())
-                active_file_key = "{}-active-file".format(self.viewerName())
+            g = sessions.sessionGroup(name)
+            if g.contains("urls"): # the session is not new
                 ds = self.actionCollection.viewer_document_select
                 ds.removeAllViewdocs(update = False)
                 self.clear()
                 viewdocs = []
-                for v in qsettings.get_string_list(session, files_key):
-                    filename = v[0]
-                    position = v[1]
-                    doc = pagedview.loadPdf(filename)
-                    viewdocs.append(doc)
-                    self.view._positions[doc] = position
-                    if not os.path.isfile(filename):
-                        doc.ispresent = False
-                # Temporary hack to suppress the resize event that
-                # clears the position of the current document
-                self.view._centerPos = None
+                files_key = "{}-documents".format(self.viewerName())
+                active_file = ""
+                for i in range(g.beginReadArray(files_key)):
+                    g.setArrayIndex(i)
+                    filename = g.value("filename", "", str)
+                    if filename:
+                        doc = pagedview.loadPdf(filename)
+                        viewdocs.append(doc)
+                        if not os.path.isfile(filename):
+                            doc.ispresent = False
+                        if g.value("isactive", False, bool):
+                            active_file = filename
+                        props = self.view.properties().load(g)
+                        self.view.documentPropertyStore.set(doc, props)
                 ds.loadViewdocs(viewdocs,
-                    active_viewdoc = session.value(active_file_key, ""),
+                    active_viewdoc = active_file,
                     sort = False) # may be replaced by a Preference
 
     def slotSaveSessionData(self):
@@ -314,26 +315,23 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
         g = sessions.currentSessionGroup()
         if g:
             # TODO: cleanup for multi-file documents later
-            files_key = "{}-files".format(self.viewerName())
-            active_file_key = "{}-active-file".format(self.viewerName())
+            files_key = "{}-documents".format(self.viewerName())
             docs = self.actionCollection.viewer_document_select.viewdocs()
             if docs:
-                current_file = self.currentViewdoc() and self.currentViewdoc().filename()
-                if current_file:
-                    g.setValue(active_file_key, current_file)
-                pos = []
-                for d in docs:
-                    if current_file and d.filename() == current_file:
-                        # retrieve the position of the current document directly
-                        # from the view because the entry in _positions may not
-                        # be set in all cases
-                        p = self.view.position()
-                    else:
-                        p = self.view._positions.get(d, (0, 0, 0))
-                    pos.append((d.filename(), p))
-                g.setValue(files_key, pos)
+                current = self.currentViewdoc()
+                g.beginWriteArray(files_key, len(docs))
+                for i, doc in enumerate(docs):
+                    g.setArrayIndex(i)
+                    g.setValue("filename", doc.filename())
+                    g.setValue("isactive", doc is current)
+                    if doc is current:
+                        self.view.documentPropertyStore.set(doc,
+                            self.view.properties().get(self.view))
+                    props = self.view.documentPropertyStore.get(doc)
+                    if props:
+                        props.save(g)
+                g.endArray()
             else:
-                g.remove(active_file_key)
                 g.remove(files_key)
 
     def slotCurrentViewChanged(self, view, old=None):
