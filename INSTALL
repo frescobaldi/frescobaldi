@@ -54,22 +54,27 @@ module from pygame; or, as a last resort, embedding the PortMidi C-library via
 ctypes. MIDI is optional.
 
 Required:
-    Python (>= 3.2):
+    Python (>= 3.3):
         http://www.python.org/
-    Qt5 (>= 5.4):
+    Qt5 (>= 5.9):
         http://qt.io/
-    PyQt5 (>= 5.4):
+        Qt modules used by Frescobaldi:
+            QtCore, QtGui, QtNetwork, QtPrintSupport, QtSvg, QtWebChannel,
+            QtWebEngineWidgets, QtWidgets
+    PyQt5 (>= 5.9):
         http://www.riverbankcomputing.co.uk/software/pyqt/
-    python-ly (>= 0.9.4):
+    python-ly (>= 0.9.5):
         https://pypi.python.org/pypi/python-ly
-    Poppler:
+    Poppler (>= 0.82.0):
         http://poppler.freedesktop.org/
     python-poppler-qt5:
         https://github.com/wbsoft/python-poppler-qt5
 
 Optional but recommended:
-    PortMidi:
+    PortMidi: (for MIDI input and playback)
         http://portmedia.sourceforge.net/portmidi/
+    pycups: (on UNIX, for printing to a local CUPS server)
+        https://pypi.org/project/pycups/
 
 Suggested:
     LilyPond:
