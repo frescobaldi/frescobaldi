@@ -1235,6 +1235,8 @@ class ViewProperties:
         """Save the properties that are not None to a QSettings group."""
         if self.pageLayoutMode is not None:
             settings.setValue("pageLayoutMode", self.pageLayoutMode)
+        else:
+            settings.remove("pageLayoutMode")
         if self.rotation is not None:
             settings.setValue("rotation", self.rotation)
         else:
