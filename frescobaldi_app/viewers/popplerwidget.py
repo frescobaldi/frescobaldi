@@ -22,7 +22,7 @@ Abstract base class for a Poppler based viewer widget.
 """
 
 
-
+import collections
 import os
 import weakref
 
