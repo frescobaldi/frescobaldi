@@ -1290,7 +1290,7 @@ class ViewProperties:
             v = settings.value("zoomFactor", 0, float)
             if v:
                 self.zoomFactor = v
-        if settings.contains("position"):
+        if settings.contains("position/pageNumber"):
             pageNumber = settings.value("position/pageNumber", -1, int)
             if pageNumber != -1:
                 x = settings.value("position/x", 0.0, float)
