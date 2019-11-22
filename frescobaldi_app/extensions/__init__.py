@@ -896,7 +896,7 @@ class Extensions(QObject):
         s = QSettings()
         s.beginGroup('extension-settings')
         active = s.value('active', True, bool)
-        inactive = s.value('installed/inactive', [], list)
+        inactive = qsettings.get_string_list(s, 'installed/inactive')
         root = s.value('root-directory', '', str)
         inactive_changed = False
         if len(inactive) != len(self._inactive_extensions):
