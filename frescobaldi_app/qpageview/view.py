@@ -186,11 +186,12 @@ class View(scrollarea.ScrollArea):
         """
         self.updateCurrentPageNumber(num)
         page = self.currentPage()
-        margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
-        with self.pagingOnScrollDisabled():
-            self.ensureVisible(page.geometry(), margins, self.kineticPagingEnabled)
-        if self.isScrolling():
-            self._scrollingToPage = True
+        if page:
+            margins = self._pageLayout.margins() + self._pageLayout.pageMargins()
+            with self.pagingOnScrollDisabled():
+                self.ensureVisible(page.geometry(), margins, self.kineticPagingEnabled)
+            if self.isScrolling():
+                self._scrollingToPage = True
     
     def updateCurrentPageNumber(self, num):
         """Set the current page number without scrolling the view."""
