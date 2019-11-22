@@ -115,7 +115,7 @@ def menu_file(mainwindow):
 
 
 def menu_file_save(mainwindow):
-    m = Menu(_("submenu title", "Save (advanced)"), mainwindow)
+    m = Menu(_("submenu title", "Save"), mainwindow)
     ac = mainwindow.actionCollection
     m.addAction(ac.file_save_as)
     m.addAction(ac.file_save_copy_as)
@@ -126,7 +126,7 @@ def menu_file_save(mainwindow):
 
 
 def menu_file_close(mainwindow):
-    m = Menu(_("submenu title", "Close (advanced)"), mainwindow)
+    m = Menu(_("submenu title", "Close"), mainwindow)
     ac = mainwindow.actionCollection
     m.addAction(ac.file_close_other)
     m.addAction(ac.file_close_all)

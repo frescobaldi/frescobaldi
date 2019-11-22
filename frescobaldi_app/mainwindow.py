@@ -1320,7 +1320,7 @@ class ActionCollection(actioncollection.ActionCollection):
                 self.help_about.setMenuRole(QAction.NoRole)
 
     def translateUI(self):
-        self.file_new.setText(_("action: new document", "&New"))
+        self.file_new.setText(_("action: new document", "&New Document"))
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_insert_file.setText(_("Insert from &File..."))
@@ -1328,7 +1328,7 @@ class ActionCollection(actioncollection.ActionCollection):
             _("Insert the contents of a file at the current cursor position."))
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
-        self.file_save.setText(_("&Save"))
+        self.file_save.setText(_("&Save Document"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
         self.file_rename.setText(_("&Rename/Move File..."))
@@ -1340,7 +1340,7 @@ class ActionCollection(actioncollection.ActionCollection):
             "Opens a window to check whether open documents were changed or "
             "deleted by other programs."))
         self.file_print_source.setText(_("Print Source..."))
-        self.file_close.setText(_("&Close"))
+        self.file_close.setText(_("&Close Document"))
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(
