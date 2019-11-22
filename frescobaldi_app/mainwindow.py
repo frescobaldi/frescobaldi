@@ -1112,10 +1112,8 @@ class MainWindow(QMainWindow):
 
     def settingsChanged(self):
         ac = self.actionCollection
-        s = app.settings("")
-        verbose = app.settings("").value("verbose_toolbuttons", False, bool)
         t = self.toolbar_main
-        if verbose:
+        if QSettings().value("verbose_toolbuttons", False, bool):
             import snippet.menu
             new = snippet.menu.TemplateMenu(self)
             save = menu.menu_file_save(self)
@@ -1129,10 +1127,6 @@ class MainWindow(QMainWindow):
     def createToolBars(self):
         ac = self.actionCollection
         self.toolbar_main = t = self.addToolBar('')
-        # TODO: I don't know how the 'verbose' setting can be made to be
-        # updated when settings have changed.
-        # (Drop and rebuild the toolbar? Update the individual actions?)
-        verbose = app.settings("").value("verbose_toolbuttons", False, bool)
         t.setObjectName('toolbar_main')
         t.addAction(ac.file_new)
         t.addAction(ac.file_open)
@@ -1321,6 +1315,7 @@ class ActionCollection(actioncollection.ActionCollection):
 
     def translateUI(self):
         self.file_new.setText(_("action: new document", "&New Document"))
+        self.file_new.setIconText(_("action: new document", "New"))
         self.file_open.setText(_("&Open..."))
         self.file_open_recent.setText(_("Open &Recent"))
         self.file_insert_file.setText(_("Insert from &File..."))
@@ -1329,6 +1324,7 @@ class ActionCollection(actioncollection.ActionCollection):
         self.file_open_current_directory.setText(_("Open Current Directory"))
         self.file_open_command_prompt.setText(_("Open Command Prompt"))
         self.file_save.setText(_("&Save Document"))
+        self.file_save.setIconText(_("Save"))
         self.file_save_as.setText(_("Save &As..."))
         self.file_save_copy_as.setText(_("Save Copy or Selection As..."))
         self.file_rename.setText(_("&Rename/Move File..."))
@@ -1341,6 +1337,7 @@ class ActionCollection(actioncollection.ActionCollection):
             "deleted by other programs."))
         self.file_print_source.setText(_("Print Source..."))
         self.file_close.setText(_("&Close Document"))
+        self.file_close.setIconText(_("Close"))
         self.file_close_other.setText(_("Close Other Documents"))
         self.file_close_all.setText(_("Close All Documents"))
         self.file_close_all.setToolTip(
