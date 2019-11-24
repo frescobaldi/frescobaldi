@@ -28,6 +28,7 @@ Changes in 3.1 -- December 27th, 2019
   - fixed #1094, includepaths on Windows (#1095)
   - fixed #1121, NameError: name 'widgets' is not defined
 * Improvements:
+  - Score Wizard: Titles and Headers are shown in preview (#1216)
   - Smarter behaviour of the autocompletion popup (#918, #922)
   - New command File->Rename/Move... (#980)
   - Sessions can be grouped in the Sessions menu

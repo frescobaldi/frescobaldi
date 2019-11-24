@@ -77,19 +77,14 @@ class HeaderWidget(QWidget):
             self.edits[name] = e
             completionmodel.complete(e, "scorewiz/completion/header/"+name)
             e.completer().setCaseSensitivity(Qt.CaseInsensitive)
+            e.textChanged.connect(self.setPreviewTexts)
 
         app.settingsChanged.connect(self.readSettings)
         self.readSettings()
         app.translateUI(self)
 
     def translateUI(self):
-        msg = _("Click to enter a value.")
-        self.htmlView.setHtml(titles_html.format(
-            copyrightmsg = _("bottom of first page"),
-            taglinemsg = _("bottom of last page"),
-            imgurl = QUrl.fromLocalFile(__path__[0]).toString(),
-            **dict((name, "<a title='{0}' href='{1}'>{2}</a>".format(msg, name, desc))
-                    for name, desc in headers())))
+        self.setPreviewTexts()
         for name, desc in headers():
             self.labels[name].setText(desc + ":")
         # add accelerators to names, avoiding the tab names
@@ -97,6 +92,16 @@ class HeaderWidget(QWidget):
         used = filter(None, (qutil.getAccelerator(tabwidget.widget(i).title())
                              for i in range(tabwidget.count())))
         qutil.addAccelerators([self.labels[name] for name, desc in headers()], used)
+
+    def setPreviewTexts(self):
+        msg = _("Click to enter a value.")
+        self.htmlView.setHtml(titles_html.format(
+            copyrightmsg = _("bottom of first page"),
+            taglinemsg = _("bottom of last page"),
+            imgurl = QUrl.fromLocalFile(__path__[0]).toString(),
+            **dict((name, "<a title='{0}' href='{1}'>{2}</a>".format(msg, name,
+                    self.edits[name].text().strip() or desc))
+                    for name, desc in headers())))
 
     def readSettings(self):
         p = self.htmlView.palette()
