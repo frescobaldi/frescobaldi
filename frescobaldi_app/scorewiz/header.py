@@ -21,6 +21,7 @@
 The Header (titles) widget.
 """
 
+import html
 
 from PyQt5.QtCore import QSize, Qt, QUrl
 from PyQt5.QtGui import QPalette
@@ -100,7 +101,7 @@ class HeaderWidget(QWidget):
             taglinemsg = _("bottom of last page"),
             imgurl = QUrl.fromLocalFile(__path__[0]).toString(),
             **dict((name, "<a title='{0}' href='{1}'>{2}</a>".format(msg, name,
-                    self.edits[name].text().strip() or desc))
+                    html.escape(self.edits[name].text().strip()) or desc))
                     for name, desc in headers())))
 
     def readSettings(self):
