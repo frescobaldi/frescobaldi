@@ -95,14 +95,30 @@ class HeaderWidget(QWidget):
         qutil.addAccelerators([self.labels[name] for name, desc in headers()], used)
 
     def setPreviewTexts(self):
+        textColor = defaultColor = self.htmlView.palette().color(QPalette.Text)
+        # If anything is entered, make the default color somewhat lighter
+        for name, desc in headers():
+            if self.edits[name].text().strip():
+                baseColor = self.htmlView.palette().color(QPalette.Base)
+                defaultColor = qutil.mixcolor(textColor, baseColor, 0.6)
+                break
+        textCssColor = textColor.name()
+        defaultCssColor = defaultColor.name()
         msg = _("Click to enter a value.")
+        def my_headers():
+            for name, desc in headers():
+                t = self.edits[name].text().strip()
+                if t:
+                    yield textCssColor, name, html.escape(t)
+                else:
+                    yield defaultCssColor, name, html.escape(desc)
         self.htmlView.setHtml(titles_html.format(
             copyrightmsg = _("bottom of first page"),
             taglinemsg = _("bottom of last page"),
             imgurl = QUrl.fromLocalFile(__path__[0]).toString(),
-            **dict((name, "<a title='{0}' href='{1}'>{2}</a>".format(msg, name,
-                    html.escape(self.edits[name].text().strip()) or desc))
-                    for name, desc in headers())))
+            **{name: '<a style="color: {0};" title="{1}" href="{2}">{3}</a>'.format(
+                        color, msg, name, text)
+                    for color, name, text in my_headers()}))
 
     def readSettings(self):
         p = self.htmlView.palette()
@@ -158,8 +174,8 @@ a {{
 </style></head>
 <body><table width='100%' style='font-family:serif;'>
 <tr><td colspan=3 align=center>{dedication}</td></tr>
-<tr><td colspan=3 align=center style='font-size:20pt;'><b>{title}</b></td></tr>
-<tr><td colspan=3 align=center style='font-size:12pt;'><b>{subtitle}</b></td></tr>
+<tr><td colspan=3 align=center style='font-size:16pt;'><b>{title}</b></td></tr>
+<tr><td colspan=3 align=center style='font-size:11pt;'><b>{subtitle}</b></td></tr>
 <tr><td colspan=3 align=center><b>{subsubtitle}</b></td></tr>
 <tr>
     <td align=left width='25%'>{poet}</td>
