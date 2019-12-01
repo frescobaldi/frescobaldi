@@ -100,6 +100,7 @@ class GeneralPreferences(QGroupBox):
         self.setLayout(layout)
 
         self.typq = QCheckBox()
+        self.relpitch = QCheckBox()
         self.tagl = QCheckBox()
         self.barnum = QCheckBox()
         self.neutdir = QCheckBox()
@@ -132,6 +133,7 @@ class GeneralPreferences(QGroupBox):
         self.paperOrientationBox.setLayout(orientationBox)
 
         layout.addWidget(self.typq)
+        layout.addWidget(self.relpitch)
         layout.addWidget(self.tagl)
         layout.addWidget(self.barnum)
         layout.addWidget(self.neutdir)
@@ -150,6 +152,9 @@ class GeneralPreferences(QGroupBox):
         self.typq.setText(_("Use typographical quotes"))
         self.typq.setToolTip(_(
             "Replace normal quotes in titles with nice typographical quotes."))
+        self.relpitch.setText(_("Use \\relative with pitch"))
+        self.relpitch.setToolTip(_(
+            "Write a default pitch after the \\relative command."))
         self.tagl.setText(_("Remove default tagline"))
         self.tagl.setToolTip(_(
             "Suppress the default tagline output by LilyPond."))
@@ -192,6 +197,7 @@ class GeneralPreferences(QGroupBox):
         s = QSettings()
         s.beginGroup('scorewiz/preferences')
         self.typq.setChecked(s.value('typographical_quotes', True, bool))
+        self.relpitch.setChecked(s.value('relative_pitch', True, bool))
         self.tagl.setChecked(s.value('remove_tagline', False, bool))
         self.barnum.setChecked(s.value('remove_barnumbers', False, bool))
         self.neutdir.setChecked(s.value('smart_neutral_direction', False, bool))
@@ -208,6 +214,7 @@ class GeneralPreferences(QGroupBox):
         s = QSettings()
         s.beginGroup('scorewiz/preferences')
         s.setValue('typographical_quotes', self.typq.isChecked())
+        s.setValue('relative_pitch', self.relpitch.isChecked())
         s.setValue('remove_tagline', self.tagl.isChecked())
         s.setValue('remove_barnumbers', self.barnum.isChecked())
         s.setValue('smart_neutral_direction', self.neutdir.isChecked())

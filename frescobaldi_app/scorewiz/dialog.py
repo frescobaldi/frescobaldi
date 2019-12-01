@@ -31,6 +31,7 @@ import indent
 import qutil
 import userguide
 import ly.document
+import ly.dom
 
 
 class ScoreWizardDialog(QDialog):
@@ -108,7 +109,13 @@ class ScoreWizardDialog(QDialog):
         """Makes the score and puts it in the editor."""
         from . import build
         builder = build.Builder(self)       # get the builder
-        text = builder.text()               # get the source text
+        doc = builder.document()            # get the ly.dom document tree
+        if not self.settings.widget().generalPreferences.relpitch.isChecked():
+            # remove pitches from \relative commands
+            for n in doc.find(ly.dom.Relative):
+                for n1 in n.find(ly.dom.Pitch, 1):
+                    n.remove(n1)
+        text = builder.text(doc)            # convert to LilyPond source text
         lydoc = ly.document.Document(text)  # temporarily store it in a lydoc
         cursor = ly.document.Cursor(lydoc)  # make a cursor selecting it
         indent.indenter().indent(cursor)    # indent it according to user prefs
