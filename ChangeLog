@@ -30,6 +30,7 @@ Changes in 3.1 -- December 27th, 2019
 * Improvements:
   - Score Wizard: Titles and Headers are shown in preview (#1216)
   - Score Wizard: checkbox to write/omit pitches after \relative command
+  - Score Wizard: allow "none" for instrument names on first system (#1141)
   - Smarter behaviour of the autocompletion popup (#918, #922)
   - New command File->Rename/Move... (#980)
   - Sessions can be grouped in the Sessions menu

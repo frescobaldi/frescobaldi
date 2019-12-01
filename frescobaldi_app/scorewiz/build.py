@@ -480,8 +480,10 @@ class Builder(object):
         if self.showInstrumentNames:
             staff.addInstrumentNameEngraverIfNecessary()
             w = staff.getWith()
-            first = longName if self.firstInstrumentName == 'long' else shortName
-            w['instrumentName'] = first
+            first = None
+            if self.firstInstrumentName:
+                first = longName if self.firstInstrumentName == 'long' else shortName
+                w['instrumentName'] = first
             if self.otherInstrumentName:
                 other = longName if self.otherInstrumentName == 'long' else shortName
                 # If these are markup objects, copy them otherwise the assignment

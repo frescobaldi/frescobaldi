@@ -230,7 +230,7 @@ class InstrumentNames(QGroupBox):
         self.languageLabel.setBuddy(self.language)
 
         self.firstSystem.setModel(listmodel.ListModel(
-            (lambda: _("Long"), lambda: _("Short")), self.firstSystem,
+            (lambda: _("Long"), lambda: _("Short"), lambda: _("None")), self.firstSystem,
             display = listmodel.translate))
         self.otherSystems.setModel(listmodel.ListModel(
             (lambda: _("Long"), lambda: _("Short"), lambda: _("None")), self.otherSystems,
@@ -285,10 +285,9 @@ class InstrumentNames(QGroupBox):
         s = QSettings()
         s.beginGroup('scorewiz/instrumentnames')
         self.setChecked(s.value('enabled', True, bool))
-        allow = ['long', 'short']
+        allow = ['long', 'short', 'none']
         first = s.value('first', '', str)
         self.firstSystem.setCurrentIndex(allow.index(first) if first in allow else 0)
-        allow = ['long', 'short', 'none']
         other = s.value('other', '', str)
         self.otherSystems.setCurrentIndex(allow.index(other) if other in allow else 2)
         language = s.value('language', '', str)
@@ -298,7 +297,7 @@ class InstrumentNames(QGroupBox):
         s = QSettings()
         s.beginGroup('scorewiz/instrumentnames')
         s.setValue('enable', self.isChecked())
-        s.setValue('first', ('long', 'short')[self.firstSystem.currentIndex()])
+        s.setValue('first', ('long', 'short', 'none')[self.firstSystem.currentIndex()])
         s.setValue('other', ('long', 'short', 'none')[self.otherSystems.currentIndex()])
         s.setValue('language', self._langs[self.language.currentIndex()])
 
