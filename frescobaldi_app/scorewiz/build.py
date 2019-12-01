@@ -172,8 +172,8 @@ class Builder(object):
         self.smartNeutralDirection = generalPreferences.neutdir.isChecked()
         self.showMetronomeMark = generalPreferences.metro.isChecked()
         self.paperSize = generalPreferences.getPaperSize()
-        self.paperLandscape = generalPreferences.paperOrientationGroup.checkedId() == 1
-        self.paperRotated = generalPreferences.paperOrientationGroup.checkedId() == 2
+        self.paperLandscape = generalPreferences.paperOrientation.currentIndex() == 1
+        self.paperRotated = generalPreferences.paperOrientation.currentIndex() == 2
         self.showInstrumentNames = instrumentNames.isChecked()
         names = ['long', 'short', None]
         self.firstInstrumentName = names[instrumentNames.firstSystem.currentIndex()]

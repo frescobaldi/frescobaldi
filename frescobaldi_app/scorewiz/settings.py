@@ -22,7 +22,7 @@ The score settings widget.
 """
 
 
-from PyQt5.QtCore import QSettings
+from PyQt5.QtCore import QSettings, Qt
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QGridLayout, QGroupBox,
                              QHBoxLayout, QLabel, QVBoxLayout, QWidget,
                              QButtonGroup, QRadioButton)
@@ -96,7 +96,7 @@ class GeneralPreferences(QGroupBox):
     def __init__(self, parent):
         super(GeneralPreferences, self).__init__(parent)
 
-        layout = QVBoxLayout()
+        layout = QGridLayout()
         self.setLayout(layout)
 
         self.typq = QCheckBox()
@@ -112,35 +112,23 @@ class GeneralPreferences(QGroupBox):
         self.paper = QComboBox()
         self.paper.addItems(paperSizes)
         self.paper.activated.connect(self.slotPaperChanged)
-        paperSizeBox = QHBoxLayout(spacing=2)
-        paperSizeBox.addWidget(self.paperSizeLabel)
-        paperSizeBox.addWidget(self.paper)
 
         # paper orientation
-        self.paperRegularBtn = QRadioButton(self)
-        self.paperLandscapeBtn = QRadioButton(self)
-        self.paperRotatedBtn = QRadioButton(self)
-        self.paperOrientationBox = QGroupBox()
-        pg = self.paperOrientationGroup = QButtonGroup()
-        pg.setExclusive(True)
-        pg.addButton(self.paperRegularBtn, 0)
-        pg.addButton(self.paperLandscapeBtn, 1)
-        pg.addButton(self.paperRotatedBtn, 2)
-        orientationBox = QHBoxLayout()
-        orientationBox.addWidget(self.paperRegularBtn)
-        orientationBox.addWidget(self.paperLandscapeBtn)
-        orientationBox.addWidget(self.paperRotatedBtn)
-        self.paperOrientationBox.setLayout(orientationBox)
+        self.paperOrientationLabel = QLabel()
+        self.paperOrientation = QComboBox()
+        self.paperOrientation.addItems([''] * 3)
 
-        layout.addWidget(self.typq)
-        layout.addWidget(self.relpitch)
-        layout.addWidget(self.tagl)
-        layout.addWidget(self.barnum)
-        layout.addWidget(self.neutdir)
-        layout.addWidget(self.midi)
-        layout.addWidget(self.metro)
-        layout.addLayout(paperSizeBox)
-        layout.addWidget(self.paperOrientationBox)
+        layout.addWidget(self.typq, 0, 0, 1, 2)
+        layout.addWidget(self.relpitch, 1, 0, 1, 2)
+        layout.addWidget(self.tagl, 2, 0, 1, 2)
+        layout.addWidget(self.barnum, 3, 0, 1, 2)
+        layout.addWidget(self.neutdir, 4, 0, 1, 2)
+        layout.addWidget(self.midi, 5, 0, 1, 2)
+        layout.addWidget(self.metro, 6, 0, 1, 2)
+        layout.addWidget(self.paperSizeLabel, 7, 0)
+        layout.addWidget(self.paper, 7, 1)
+        layout.addWidget(self.paperOrientationLabel, 8, 0)
+        layout.addWidget(self.paperOrientation, 8, 1)
 
         app.translateUI(self)
 
@@ -176,18 +164,18 @@ class GeneralPreferences(QGroupBox):
         # paper size and orientation:
         self.paperSizeLabel.setText(_("Paper size:"))
         self.paper.setItemText(0, _("Default"))
-        self.paperOrientationBox.setTitle(_("Orientation:"))
-        self.paperRegularBtn.setText(_("Regular"))
-        self.paperRegularBtn.setToolTip(_("Regular portrait orientation."))
-        self.paperLandscapeBtn.setText(_("Landscape"))
-        self.paperLandscapeBtn.setToolTip(_(
-            "Set paper orientation to landscape while keeping upright printing orientation."))
-        self.paperRotatedBtn.setText(_("Rotated"))
-        self.paperRotatedBtn.setToolTip(_(
-            "Rotate print on regular paper."))
+        self.paperOrientationLabel.setText(_("Orientation:"))
+        self.paperOrientation.setItemText(0, _("Regular"))
+        self.paperOrientation.setItemText(1, _("Landscape"))
+        self.paperOrientation.setItemText(2, _("Rotated"))
+        self.paperOrientation.setItemData(0, _("Regular portrait orientation."), Qt.ToolTipRole)
+        self.paperOrientation.setItemData(1, _(
+            "Set paper orientation to landscape while keeping upright printing orientation."),
+            Qt.ToolTipRole)
+        self.paperOrientation.setItemData(2, _("Rotate print on regular paper."), Qt.ToolTipRole)
 
     def slotPaperChanged(self, index):
-        self.paperOrientationBox.setEnabled(bool(index))
+        self.paperOrientation.setEnabled(bool(index))
 
     def getPaperSize(self):
         """Returns the configured papersize or the empty string for default."""
@@ -207,8 +195,8 @@ class GeneralPreferences(QGroupBox):
         enable = bool(psize and psize in paperSizes)
         self.paper.setCurrentIndex(paperSizes.index(psize) if enable else 0)
         orientation = s.value('paper_rotation', 0, int)
-        self.paperOrientationGroup.button(orientation).setChecked(True)
-        self.paperOrientationBox.setEnabled(enable)
+        self.paperOrientation.setCurrentIndex(orientation)
+        self.paperOrientation.setEnabled(enable)
 
     def saveSettings(self):
         s = QSettings()
@@ -221,7 +209,7 @@ class GeneralPreferences(QGroupBox):
         s.setValue('midi', self.midi.isChecked())
         s.setValue('metronome_mark', self.metro.isChecked())
         s.setValue('paper_size', paperSizes[self.paper.currentIndex()])
-        s.setValue('paper_rotation', self.paperOrientationGroup.checkedId())
+        s.setValue('paper_rotation', self.paperOrientation.currentIndex())
 
 
 class InstrumentNames(QGroupBox):
