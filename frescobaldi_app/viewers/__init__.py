@@ -91,32 +91,22 @@ class AbstractViewPanel(panel.Panel):
     def configureActions(self):
         ac = self.actionCollection
         ac.viewer_copy_image.setEnabled(False)
-        ac.viewer_next_page.setEnabled(False)
-        ac.viewer_prev_page.setEnabled(False)
-        ac.viewer_pager.setPageCount(0)
-        ac.viewer_single_pages.setChecked(True) # default to single pages
         ac.viewer_sync_cursor.setChecked(False)
-        sync_cursor = QSettings().value("{}/sync-cursor".format(self.viewerName()), False, bool)
-        ac.viewer_sync_cursor.setChecked(sync_cursor)
-        show_toolbar = QSettings().value("{}/show-toolbar".format(self.viewerName()), True, bool)
-        ac.viewer_show_toolbar.setChecked(show_toolbar)
+
+        # load the state of the actions from the preferences
+        s = QSettings()
+        s.beginGroup(self.viewerName())
+        ac.viewer_sync_cursor.setChecked(s.value("sync-cursor", False, bool))
+        ac.viewer_show_toolbar.setChecked(s.value("show-toolbar", True, bool))
+        props = pagedview.PagedView.properties().setdefaults().load(s)
+        ac._viewActions.updateFromProperties(props)
+        ac._viewActions.viewRequested.connect(self.widget)   # force creation
 
     def connectActions(self):
         ac = self.actionCollection
         ac.viewer_help.triggered.connect(self.slotShowHelp)
         ac.viewer_print.triggered.connect(self.printMusic)
-        # Zooming actions
-        ac.viewer_zoom_in.triggered.connect(self.zoomIn)
-        ac.viewer_zoom_out.triggered.connect(self.zoomOut)
-        ac.viewer_zoom_original.triggered.connect(self.zoomOriginal)
-        ac.viewer_zoom_combo.zoomChanged.connect(self.slotZoomChanged)
-        ac.viewer_fit_width.triggered.connect(self.fitWidth)
-        ac.viewer_fit_height.triggered.connect(self.fitHeight)
-        ac.viewer_fit_both.triggered.connect(self.fitBoth)
         # Page display actions
-        ac.viewer_single_pages.triggered.connect(self.viewSinglePages)
-        ac.viewer_two_pages_first_right.triggered.connect(self.viewTwoPagesFirstRight)
-        ac.viewer_two_pages_first_left.triggered.connect(self.viewTwoPagesFirstLeft)
         ac.viewer_maximize.triggered.connect(self.maximize)
         # File handling actions
         ac.viewer_document_select.viewdocsChanged.connect(self.updateActions)
@@ -127,8 +117,6 @@ class AbstractViewPanel(panel.Panel):
         ac.viewer_reload.triggered.connect(self.reloadView)
         ac.viewer_document_select.viewdocsMissing.connect(self.reportMissingViewdocs)
         # Navigation actions
-        ac.viewer_next_page.triggered.connect(self.slotNextPage)
-        ac.viewer_prev_page.triggered.connect(self.slotPreviousPage)
         ac.viewer_copy_image.triggered.connect(self.copyImage)
         # Miscellaneous actions
         ac.viewer_jump_to_cursor.triggered.connect(self.jumpToCursor)
@@ -150,15 +138,11 @@ class AbstractViewPanel(panel.Panel):
         """Creates and configures the widget for the panel."""
 
         w = self._createConcreteWidget()
-
-        w.view.zoomFactorChanged.connect(self.slotMusicZoomFactorChanged)
-        w.view.viewModeChanged.connect(self.slotMusicViewModeChanged)
-        w.view.pageCountChanged.connect(self.slotPageCountChanged)
-        w.view.currentPageNumberChanged.connect(self.slotCurrentPageChanged)
+        s = QSettings()
+        s.beginGroup(self.viewerName())
+        w.view.readProperties(s)
         w.view.rubberband().selectionChanged.connect(self.updateSelection)
-
-        app.languageChanged.connect(self.updatePagerLanguage)
-
+        self.actionCollection._viewActions.setView(w.view)
         selector = self.actionCollection.viewer_document_select
         selector.currentViewdocChanged.connect(w.openViewdoc)
         selector.viewdocClosed.connect(w.clear)
@@ -192,36 +176,11 @@ class AbstractViewPanel(panel.Panel):
         Update copy-image action according to selection state."""
         self.actionCollection.viewer_copy_image.setEnabled(bool(rect))
 
-    def updatePagerLanguage(self):
-        """Called when the application lanugage has changed.
-        Update the pager to implicitly update the language."""
-        self.actionCollection.viewer_pager.setPageCount(self.widget().view.pageCount())
-
-    def slotPageCountChanged(self, total):
-        self.actionCollection.viewer_pager.setPageCount(total)
-        self.actionCollection.viewer_next_page.setEnabled(self.widget().view.currentPageNumber() < total)
-
-    def slotCurrentPageChanged(self, num):
-        self.actionCollection.viewer_pager.setCurrentPage(num)
-        self.actionCollection.viewer_next_page.setEnabled(num < self.widget().view.pageCount())
-        self.actionCollection.viewer_prev_page.setEnabled(num > 1)
-
-    @activate
-    def slotNextPage(self):
-        self.widget().view.gotoNextPage()
-
-    @activate
-    def slotPreviousPage(self):
-        self.widget().view.gotoPreviousPage()
-
-    def setCurrentPage(self, num):
-        self.activate()
-        self.widget().view.setCurrentPageNumber(num)
-
     def updateActions(self):
         ac = self.actionCollection
         ac.viewer_print.setEnabled(bool(ac.viewer_document_select.viewdocs()))
 
+    @activate
     def printMusic(self):
         if self.widget().view.pageCount():
             ### temporarily disable printing on Mac OS X
@@ -245,42 +204,6 @@ class AbstractViewPanel(panel.Panel):
                     return
             ### end temporarily disable printing on Mac OS X
             self.widget().view.print()
-
-    @activate
-    def zoomIn(self):
-        self.widget().view.zoomIn()
-
-    @activate
-    def zoomOut(self):
-        self.widget().view.zoomOut()
-
-    @activate
-    def zoomOriginal(self):
-        self.widget().view.setZoomFactor(1.0)
-
-    @activate
-    def fitWidth(self):
-        self.widget().view.setViewMode(FitWidth)
-
-    @activate
-    def fitHeight(self):
-        self.widget().view.setViewMode(FitHeight)
-
-    @activate
-    def fitBoth(self):
-        self.widget().view.setViewMode(FitBoth)
-
-    @activate
-    def viewSinglePages(self):
-        self.widget().view.setPageLayoutMode("single")
-
-    @activate
-    def viewTwoPagesFirstRight(self):
-        self.widget().view.setPageLayoutMode("double_right")
-
-    @activate
-    def viewTwoPagesFirstLeft(self):
-        self.widget().view.setPageLayoutMode("double_left")
 
     @activate
     def jumpToCursor(self):
@@ -316,28 +239,6 @@ class AbstractViewPanel(panel.Panel):
         filename = self.widget().view.document().filename()
         import copy2image
         copy2image.copy_image(self, page, rect, filename)
-
-    def slotZoomChanged(self, mode, scale):
-        """Called when the combobox is changed, changes view zoom."""
-        self.activate()
-        self.widget().view.setViewMode(mode)
-        if mode == FixedScale:
-            self.widget().view.setZoomFactor(scale)
-
-    def slotMusicZoomFactorChanged(self, factor):
-        """Called when the music view zoom is changed, updates the toolbar actions."""
-        ac = self.actionCollection
-        mode = self.widget().view.viewMode()
-        ac.viewer_zoom_combo.updateZoomInfo(mode, factor)
-
-    def slotMusicViewModeChanged(self, mode):
-        """Called when the music view is changed, updates the toolbar actions."""
-        ac = self.actionCollection
-        ac.viewer_fit_width.setChecked(mode == FitWidth)
-        ac.viewer_fit_height.setChecked(mode == FitHeight)
-        ac.viewer_fit_both.setChecked(mode == FitBoth)
-        factor = self.widget().view.zoomFactor()
-        ac.viewer_zoom_combo.updateZoomInfo(mode, factor)
 
     def slotShowViewdoc(self):
         """Bring the document to front that was selected from the context menu"""
@@ -393,27 +294,27 @@ class AbstractViewPanel(panel.Panel):
 class ViewerActions(actioncollection.ActionCollection):
     name = "abstractviewpanel"
     def createActions(self, panel):
+        self._viewActions = va = pagedview.ViewActions()
         self.viewer_help = QAction(panel)
         self.viewer_document_select = self._createViewdocChooserAction(panel)
         self.viewer_print = QAction(panel)
-        self.viewer_zoom_in = QAction(panel)
-        self.viewer_zoom_out = QAction(panel)
-        self.viewer_zoom_original = QAction(panel)
-        self.viewer_zoom_combo = ZoomerAction(panel)
-        self.viewer_fit_width = QAction(panel, checkable=True)
-        self.viewer_fit_height = QAction(panel, checkable=True)
-        self.viewer_fit_both = QAction(panel, checkable=True)
-        self._column_mode = ag = QActionGroup(panel)
-        self.viewer_single_pages = QAction(ag, checkable=True)
-        self.viewer_two_pages_first_right = QAction(ag, checkable=True)
-        self.viewer_two_pages_first_left = QAction(ag, checkable=True)
+        self.viewer_zoom_in = va.zoom_in
+        self.viewer_zoom_out = va.zoom_out
+        self.viewer_zoom_original = va.zoom_original
+        self.viewer_zoom_combo = va.zoomer
+        self.viewer_fit_width = va.fit_width
+        self.viewer_fit_height = va.fit_height
+        self.viewer_fit_both = va.fit_both
+        self.viewer_single_pages = va.layout_single
+        self.viewer_two_pages_first_right = va.layout_double_right
+        self.viewer_two_pages_first_left = va.layout_double_left
         self.viewer_maximize = QAction(panel)
         self.viewer_jump_to_cursor = QAction(panel)
         self.viewer_sync_cursor = QAction(panel, checkable=True)
         self.viewer_copy_image = QAction(panel)
-        self.viewer_pager = PagerAction(panel)
-        self.viewer_next_page = QAction(panel)
-        self.viewer_prev_page = QAction(panel)
+        self.viewer_pager = va.pager
+        self.viewer_next_page = va.next_page
+        self.viewer_prev_page = va.previous_page
         self.viewer_reload = QAction(panel)
         self.viewer_show_toolbar = QAction(panel, checkable=True)
         self.viewer_open = QAction(panel)
@@ -423,52 +324,30 @@ class ViewerActions(actioncollection.ActionCollection):
 
         self.viewer_help.setIcon(icons.get('help-contents'))
         self.viewer_print.setIcon(icons.get('document-print'))
-        self.viewer_zoom_in.setIcon(icons.get('zoom-in'))
-        self.viewer_zoom_out.setIcon(icons.get('zoom-out'))
-        self.viewer_zoom_original.setIcon(icons.get('zoom-original'))
-        self.viewer_fit_width.setIcon(icons.get('zoom-fit-width'))
-        self.viewer_fit_height.setIcon(icons.get('zoom-fit-height'))
-        self.viewer_fit_both.setIcon(icons.get('zoom-fit-best'))
         self.viewer_maximize.setIcon(icons.get('view-fullscreen'))
         self.viewer_jump_to_cursor.setIcon(icons.get('go-jump'))
         self.viewer_copy_image.setIcon(icons.get('edit-copy'))
-        self.viewer_next_page.setIcon(icons.get('go-next'))
-        self.viewer_prev_page.setIcon(icons.get('go-previous'))
         self.viewer_reload.setIcon(icons.get('reload'))
         self.viewer_open.setIcon(icons.get('document-open'))
         self.viewer_close.setIcon(icons.get('document-close'))
-        self.viewer_close_other.setText(_("Close other documents"))
-        self.viewer_close_all.setText(_("Close all documents"))
 
     def translateUI(self):
         self.viewer_help.setText(_("Show Help"))
         self.viewer_document_select.setText(_("Select Music View Document"))
         self.viewer_print.setText(_("&Print Music..."))
-        self.viewer_zoom_in.setText(_("Zoom &In"))
-        self.viewer_zoom_out.setText(_("Zoom &Out"))
-        self.viewer_zoom_original.setText(_("Original &Size"))
         self.viewer_zoom_combo.setText(_("Zoom Music"))
-        self.viewer_fit_width.setText(_("Fit &Width"))
-        self.viewer_fit_height.setText(_("Fit &Height"))
-        self.viewer_fit_both.setText(_("Fit &Page"))
-        self.viewer_single_pages.setText(_("Single Pages"))
-        self.viewer_two_pages_first_right.setText(_("Two Pages (first page right)"))
-        self.viewer_two_pages_first_left.setText(_("Two Pages (first page left)"))
         self.viewer_maximize.setText(_("&Maximize"))
         self.viewer_jump_to_cursor.setText(_("&Jump to Cursor Position"))
         self.viewer_sync_cursor.setText(_("S&ynchronize with Cursor Position"))
         self.viewer_copy_image.setText(_("Copy to &Image..."))
-        self.viewer_pager.setText(_("Pager"))
-        self.viewer_next_page.setText(_("Next Page"))
-        self.viewer_next_page.setIconText(_("Next"))
-        self.viewer_prev_page.setText(_("Previous Page"))
-        self.viewer_prev_page.setIconText(_("Previous"))
         self.viewer_reload.setText(_("&Reload"))
         self.viewer_show_toolbar.setText(_("Show toolbar"))
         self.viewer_open.setText(_("Open music document(s)"))
         self.viewer_open.setIconText(_("Open"))
         self.viewer_close.setText(_("Close document"))
         self.viewer_close.setIconText(_("Close"))
+        self.viewer_close_other.setText(_("Close other documents"))
+        self.viewer_close_all.setText(_("Close all documents"))
 
     def _createViewdocChooserAction(self, panel):
         """Create the document chooser action.
@@ -733,96 +612,3 @@ class ViewdocChooser(QComboBox):
             "to another application or location."))
 
 
-class ZoomerAction(ComboBoxAction):
-    zoomChanged = pyqtSignal(int, float)
-
-    def _createWidget(self, parent):
-        return Zoomer(self, parent)
-
-    def setCurrentIndex(self, index):
-        """Called when a user manipulates a Zoomer combobox.
-        Updates the other widgets and calls the corresponding method of the panel.
-        """
-        for w in self.createdWidgets():
-            w.setCurrentIndex(index)
-        if index == 0:
-            self.zoomChanged.emit(FitWidth, 0)
-        elif index == 1:
-            self.zoomChanged.emit(FitHeight, 0)
-        elif index == 2:
-            self.zoomChanged.emit(FitBoth, 0)
-        else:
-            self.zoomChanged.emit(FixedScale, _zoomvalues[index-3] / 100.0)
-
-    def updateZoomInfo(self, mode, scale):
-        """Connect view.viewModeChanged and layout.scaleChanged to this."""
-        if mode == FixedScale:
-            text = "{0:.0f}%".format(round(scale * 100.0))
-            for w in self.createdWidgets():
-                w.setEditText(text)
-        else:
-            if mode == FitWidth:
-                index = 0
-            elif mode == FitHeight:
-                index = 1
-            else: # FitBoth:
-                index = 2
-            for w in self.createdWidgets():
-                w.setCurrentIndex(index)
-
-
-class Zoomer(QComboBox):
-    def __init__(self, action, parent):
-        super(Zoomer, self).__init__(parent)
-        self.setSizeAdjustPolicy(QComboBox.AdjustToContents)
-        self.setEditable(False)
-        self.setFocusPolicy(Qt.NoFocus)
-        self.activated[int].connect(action.setCurrentIndex)
-        self.addItems(['']*3)
-        self.addItems(list(map("{0}%".format, _zoomvalues)))
-        self.setMaxVisibleItems(20)
-        app.translateUI(self)
-
-    def translateUI(self):
-        self.setItemText(0, _("Fit Width"))
-        self.setItemText(1, _("Fit Height"))
-        self.setItemText(2, _("Fit Page"))
-
-
-class PagerAction(QWidgetAction):
-    def __init__(self, panel):
-        super(PagerAction, self).__init__(panel)
-
-    def createWidget(self, parent):
-        w = QSpinBox(parent, buttonSymbols=QSpinBox.NoButtons)
-        w.setFocusPolicy(Qt.ClickFocus)
-        w.valueChanged[int].connect(self.slotValueChanged)
-        return w
-
-    def setPageCount(self, total):
-        if total:
-            self.setVisible(True)
-            # L10N: page numbering: page {num} of {total}
-            prefix, suffix = _("{num} of {total}").split('{num}')
-            def adjust(w):
-                w.setRange(1, total)
-                w.setSuffix(suffix.format(total=total))
-                w.setPrefix(prefix.format(total=total))
-        else:
-            self.setVisible(False)
-            def adjust(w):
-                w.setRange(0, 0)
-                w.clear()
-        for w in self.createdWidgets():
-            with qutil.signalsBlocked(w):
-                adjust(w)
-
-    def setCurrentPage(self, num):
-        if num:
-            for w in self.createdWidgets():
-                with qutil.signalsBlocked(w):
-                    w.setValue(num)
-                    w.lineEdit().deselect()
-
-    def slotValueChanged(self, num):
-        self.parent().setCurrentPage(num)
