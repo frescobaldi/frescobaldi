@@ -18,6 +18,7 @@ Changes in 3.1 -- December 27th, 2019
     - New toolbar button to show/hide the magnifier
     - New preference Horizontal / Vertical
     - New preference Continuous / non-continuous (displays only current page(s))
+    - New commands to rotate left / right
     - New raster layout mode (displays as many pages as fit in a View)
     - View settings are remembered per-document
 * Bug fixes:

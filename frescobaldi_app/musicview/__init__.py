@@ -215,6 +215,8 @@ class Actions(actioncollection.ActionCollection):
         self.music_zoom_out = va.zoom_out
         self.music_zoom_original = va.zoom_original
         self.music_zoom_combo = va.zoomer
+        self.music_rotate_left = va.rotate_left
+        self.music_rotate_right = va.rotate_right
         self.music_fit_width = va.fit_width
         self.music_fit_height = va.fit_height
         self.music_fit_both = va.fit_both
