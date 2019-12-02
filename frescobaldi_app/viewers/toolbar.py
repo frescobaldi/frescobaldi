@@ -90,6 +90,8 @@ class AbstractViewerToolbar(QWidget):
             self.addZoomActions()
             self.addSeparator()
             self.addPagerActions()
+            self.addSeparator()
+            self.addRotationActions()
         else:
             # process the given order of actions
             for m in methods:
@@ -138,3 +140,10 @@ class AbstractViewerToolbar(QWidget):
         t.addAction(ac.viewer_prev_page)
         t.addAction(ac.viewer_pager)
         t.addAction(ac.viewer_next_page)
+
+    def addRotationActions(self):
+        """Add rotation actions."""
+        t = self.main_toolbar
+        ac = self.actionCollection
+        t.addAction(ac.viewer_rotate_left)
+        t.addAction(ac.viewer_rotate_right)

@@ -302,6 +302,8 @@ class ViewerActions(actioncollection.ActionCollection):
         self.viewer_zoom_out = va.zoom_out
         self.viewer_zoom_original = va.zoom_original
         self.viewer_zoom_combo = va.zoomer
+        self.viewer_rotate_left = va.rotate_left
+        self.viewer_rotate_right = va.rotate_right
         self.viewer_fit_width = va.fit_width
         self.viewer_fit_height = va.fit_height
         self.viewer_fit_both = va.fit_both
