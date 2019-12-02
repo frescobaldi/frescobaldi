@@ -23,6 +23,7 @@ Changes in 3.1 -- December 27th, 2019
     - View settings are remembered per-document
   - Manuscript viewer:
     - Toolbar buttons to rotate the pages left / right
+    - New toolbar button to show/hide the magnifier
 * Bug fixes:
   - fixed #895 seeking in MIDI player during playing stops sound
   - fixed #768, now paper orientation is properly handled in New Score Wizard

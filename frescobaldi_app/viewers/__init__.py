@@ -317,6 +317,7 @@ class ViewerActions(actioncollection.ActionCollection):
         self.viewer_pager = va.pager
         self.viewer_next_page = va.next_page
         self.viewer_prev_page = va.previous_page
+        self.viewer_magnifier = va.magnifier
         self.viewer_reload = QAction(panel)
         self.viewer_show_toolbar = QAction(panel, checkable=True)
         self.viewer_open = QAction(panel)

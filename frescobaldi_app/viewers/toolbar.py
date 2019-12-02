@@ -132,6 +132,7 @@ class AbstractViewerToolbar(QWidget):
         t.addAction(ac.viewer_zoom_in)
         t.addAction(ac.viewer_zoom_combo)
         t.addAction(ac.viewer_zoom_out)
+        t.addAction(ac.viewer_magnifier)
 
     def addPagerActions(self):
         """Add navigational actions."""
