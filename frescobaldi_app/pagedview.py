@@ -245,6 +245,8 @@ class ViewActions(qpageview.viewactions.ViewActions):
         self.fit_width.setIcon(icons.get('zoom-fit-width'))
         self.fit_height.setIcon(icons.get('zoom-fit-height'))
         self.fit_both.setIcon(icons.get('zoom-fit-best'))
+        self.rotate_left.setIcon(icons.get('rotate-left'))
+        self.rotate_right.setIcon(icons.get('rotate-right'))
         self.next_page.setIcon(icons.get('go-next'))
         self.previous_page.setIcon(icons.get('go-previous'))
         self.magnifier.setIcon(icons.get('zoom-magnifier'))
