@@ -127,11 +127,6 @@ class LogWidget(log.Log):
                 self.cursor.insertText(msg, self.textFormat(type))
                 self._errors.append((pos, self.cursor.position(), url))
         else:
-            if type == job.STDOUT:
-                # we use backslashreplace because LilyPond sometimes seems to write
-                # incorrect utf-8 to standard output in \displayMusic, \displayScheme
-                # functions etc.
-                message = message.encode('latin1').decode('utf-8', 'backslashreplace')
             super(LogWidget, self).writeMessage(message, type)
 
     def slotAnchorClicked(self, url):
