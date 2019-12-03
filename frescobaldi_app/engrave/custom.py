@@ -29,6 +29,8 @@ from PyQt5.QtCore import QSettings, QSize, Qt
 from PyQt5.QtWidgets import (QCheckBox, QComboBox, QDialog, QDialogButtonBox,
     QGridLayout, QLabel, QSpinBox, QTextEdit)
 
+import ly.xml
+
 import app
 import userguide
 import icons
@@ -197,6 +199,7 @@ class Dialog(QDialog):
             'version': j.lilypond_info.version,
             'resolution': self.resolutionCombo.currentText(),
             'antialias': self.antialiasSpin.value(),
+            'xml_export_init': os.path.join(ly.xml.__path__[0], 'xml-export-init.ly'),
         }
         j.set_backend_args(f.options(d))
 
@@ -280,5 +283,11 @@ formats = [
             '-danti-alias-factor={antialias}'.format(**d),
         ],
         ('resolution', 'antialias'),
+    ),
+    Format(
+        "xml",
+        lambda: _("XML (test ly.xml module)"),
+        lambda d: ['--init', d['xml_export_init'], '-dxml-export=-'],
+        (),
     ),
 ]
