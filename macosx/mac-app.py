@@ -45,7 +45,7 @@ parser.add_argument('-f', '--force', action = 'store_true', \
   help = 'force execution even if SCRIPT does not exist')
 parser.add_argument('-v', '--version', \
   help = 'version string for the application bundle, \
-  visible e.g. in \'Get Info\' and in \'Open with...\'', default = appinfo.version)
+  visible e.g. in \'Get Info\' and in \'Open with...\'', default = appinfo.running_version())
 parser.add_argument('-s', '--script', \
   help = 'path of {0}\'s main script; you should use an absolute path, \
   so that the application bundle can be moved to another \

@@ -106,7 +106,7 @@ class Version(QTextBrowser):
 def html():
     """Returns a HTML string for the about dialog."""
     appname = appinfo.appname
-    version = _("Version {version}").format(version = appinfo.version)
+    version = _("Version {version}").format(version = appinfo.running_version())
     description = _("A LilyPond Music Editor")
     copyright = _("Copyright (c) {year} by {author}").format(
         year = "2008-2019",

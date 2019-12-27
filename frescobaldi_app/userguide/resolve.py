@@ -34,7 +34,7 @@ def appname():
     return appinfo.appname
 
 def version():
-    return appinfo.version
+    return appinfo.running_version()
 
 def author():
     return appinfo.maintainer

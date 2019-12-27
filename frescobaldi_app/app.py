@@ -119,7 +119,7 @@ def instantiate():
     args = list(map(os.fsencode, [os.path.abspath(sys.argv[0])] + sys.argv[1:]))
     qApp = QApplication(args)
     QApplication.setApplicationName(appinfo.name)
-    QApplication.setApplicationVersion(appinfo.version)
+    QApplication.setApplicationVersion(appinfo.running_version())
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
     appInstantiated()

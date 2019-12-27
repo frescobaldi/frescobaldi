@@ -41,3 +41,11 @@ required_python_ly_version = (0, 9, 4)
 
 # this one is used everywhere in the application
 appname = "Frescobaldi"
+
+def running_version():
+    import app
+    if app.is_git_controlled():
+        return "{}-git".format(version)
+    else:
+        return version
+    
