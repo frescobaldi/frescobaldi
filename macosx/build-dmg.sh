@@ -91,9 +91,9 @@ then
     VERSION=${VERSION}-$(git log -1 --format=%ci | sed -E 's/^(....)-(..)-(..).*$/\1\2\3/')
   fi
 else
-  echo "Warning: you are not running "$(basename $0)" from the Git repository."
-  echo "The version of the .app bundle could be wrong or incomplete if you are"
-  echo "not building from the source of a tagged release."
+  echo "Warning: you are not running "$(basename $0)" from the Git repository." 1>&2
+  echo "The version of the .app bundle could be wrong or incomplete if you are" 1>&2
+  echo "not building from the source of a tagged release." 1>&2
 fi
 
 echo The version of the .app bundle will be ${VERSION}.
