@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-PYTHON_VERSION=3.6
+PYTHON_VERSION=3.7
 PYTHON="/opt/local/bin/python${PYTHON_VERSION}"
 QTROOT='/opt/local/libexec/qt5'
 
