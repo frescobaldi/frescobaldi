@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2019-12-18 23:35+0100\n"
-"PO-Revision-Date: 2019-11-06 16:23+0100\n"
+"PO-Revision-Date: 2019-12-27 08:42+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
@@ -264,9 +264,8 @@ msgid "DPI:"
 msgstr "DPI:"
 
 #: ../../frescobaldi_app/copy2image.py:147
-#, fuzzy
 msgid "Background:"
-msgstr "Achtergrond"
+msgstr "Achtergrond:"
 
 #: ../../frescobaldi_app/copy2image.py:148
 msgid "Paper Color"
@@ -305,9 +304,8 @@ msgid "Drag"
 msgstr "Slepen"
 
 #: ../../frescobaldi_app/copy2image.py:158
-#, fuzzy
 msgid "Drag File"
-msgstr "PDF-bestanden"
+msgstr "Bestand slepen"
 
 #: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1360
 #: ../../frescobaldi_app/docbrowser/browser.py:249
@@ -316,9 +314,8 @@ msgid "&Copy"
 msgstr "&Kopiëren"
 
 #: ../../frescobaldi_app/copy2image.py:160
-#, fuzzy
 msgid "Copy &File"
-msgstr "Koppeling &kopiëren"
+msgstr "Bestand &kopiëren"
 
 #: ../../frescobaldi_app/copy2image.py:161
 msgid "&Save As..."
@@ -348,24 +345,24 @@ msgstr ""
 "</p>"
 
 #: ../../frescobaldi_app/copy2image.py:182
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Drag the {png} image data."
-msgstr "De afbeelding als PNG-bestand slepen."
+msgstr "De afbeelding als {png}-bestand slepen."
 
 #: ../../frescobaldi_app/copy2image.py:183
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Drag the image as a {png} file."
-msgstr "De afbeelding als PNG-bestand slepen."
+msgstr "De afbeelding als een {png}-bestand slepen."
 
 #: ../../frescobaldi_app/copy2image.py:184
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Copy the {png} image data to Clipboard."
-msgstr "Naar klembord &kopiëren"
+msgstr "De {png}-data naar het klembord kopiëren."
 
 #: ../../frescobaldi_app/copy2image.py:185
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Copy the {png} file to Clipboard."
-msgstr "Naar klembord &kopiëren"
+msgstr "Het {png}-bestand naar het klembord kopiëren."
 
 #: ../../frescobaldi_app/copy2image.py:219
 #: ../../frescobaldi_app/engrave/custom.py:260
@@ -382,7 +379,7 @@ msgstr "PDF"
 
 #: ../../frescobaldi_app/copy2image.py:221
 msgid "EPS"
-msgstr ""
+msgstr "EPS"
 
 #: ../../frescobaldi_app/copy2image.py:222
 #: ../../frescobaldi_app/engrave/custom.py:250
@@ -390,9 +387,8 @@ msgid "PNG"
 msgstr "PNG"
 
 #: ../../frescobaldi_app/copy2image.py:223
-#, fuzzy
 msgid "JPG"
-msgstr "PNG"
+msgstr "JPG"
 
 #: ../../frescobaldi_app/copy2image.py:231
 #, python-brace-format
@@ -921,13 +917,11 @@ msgid "Music View Toolbar"
 msgstr "Muziekweergave-werkbalk"
 
 #: ../../frescobaldi_app/mainwindow.py:1317
-#, fuzzy
 msgctxt "action: new document"
 msgid "&New Document"
-msgstr "Nieuw document"
+msgstr "&Nieuw document"
 
 #: ../../frescobaldi_app/mainwindow.py:1318
-#, fuzzy
 msgctxt "action: new document"
 msgid "New"
 msgstr "Nieuw"
@@ -959,9 +953,8 @@ msgid "Open Command Prompt"
 msgstr "Commandoregel openen"
 
 #: ../../frescobaldi_app/mainwindow.py:1326
-#, fuzzy
 msgid "&Save Document"
-msgstr "&Volgende document"
+msgstr "Document op&slaan"
 
 #: ../../frescobaldi_app/mainwindow.py:1327
 #: ../../frescobaldi_app/externalchanges/widget.py:113
@@ -1007,9 +1000,8 @@ msgid "Print Source..."
 msgstr "Brontekst afdrukken..."
 
 #: ../../frescobaldi_app/mainwindow.py:1339
-#, fuzzy
 msgid "&Close Document"
-msgstr "Document sluiten"
+msgstr "Do&cument sluiten"
 
 #: ../../frescobaldi_app/mainwindow.py:1340 ../../frescobaldi_app/panel.py:108
 #: ../../frescobaldi_app/search/__init__.py:120
@@ -1174,13 +1166,11 @@ msgid "&File"
 msgstr "&Bestand"
 
 #: ../../frescobaldi_app/menu.py:118
-#, fuzzy
 msgctxt "submenu title"
 msgid "Save"
 msgstr "Opslaan"
 
 #: ../../frescobaldi_app/menu.py:129
-#, fuzzy
 msgctxt "submenu title"
 msgid "Close"
 msgstr "Sluiten"
@@ -1679,7 +1669,7 @@ msgstr "PNG (EPS-backend)"
 
 #: ../../frescobaldi_app/engrave/custom.py:289
 msgid "XML (test ly.xml module)"
-msgstr ""
+msgstr "XML (test ly.xml module)"
 
 #: ../../frescobaldi_app/engrave/result_menu.py:45
 msgid "Generated &Files"
@@ -1764,9 +1754,8 @@ msgid "Extension '{name}' failed to load with the given explanation:"
 msgstr ""
 
 #: ../../frescobaldi_app/extensions/__init__.py:836
-#, fuzzy
 msgid "&Extensions"
-msgstr "Sessie exporteren"
+msgstr "&Extensies"
 
 #: ../../frescobaldi_app/extensions/__init__.py:859
 msgid ""
@@ -1775,9 +1764,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/extensions/__init__.py:916
-#, fuzzy
 msgid "Extensions have changed"
-msgstr "Snelteksten beheren"
+msgstr "Extensies zijn veranderd"
 
 #: ../../frescobaldi_app/extensions/panel.py:38
 #, python-brace-format
@@ -2152,79 +2140,73 @@ msgid ""
 "Show and select text and music fonts available in the LilyPond version of "
 "the current document"
 msgstr ""
+"Muziek- en tekstlettertypen die in de LilyPond-versie van het document"
+" beschikbaar zijn bekijken en selecteren"
 
 #: ../../frescobaldi_app/fonts/dialog.py:176
-#, fuzzy
 msgid "Document Fonts"
-msgstr "Document-lettertypen..."
+msgstr "Document-lettertypen"
 
 #: ../../frescobaldi_app/fonts/dialog.py:178
-#, fuzzy
 msgid "Copy font command to clipboard"
-msgstr "Naar klembord &kopiëren"
+msgstr "Font-commando naar klembord kopiëren"
 
 #: ../../frescobaldi_app/fonts/dialog.py:179
 msgid "&Use"
-msgstr ""
+msgstr "Gebr&uiken"
 
 #: ../../frescobaldi_app/fonts/dialog.py:181
 msgid "Insert font command at the current cursor position"
-msgstr ""
+msgstr "Font-commando op huidige cursorpositie invoegen"
 
 #: ../../frescobaldi_app/fonts/dialog.py:183
-#, fuzzy
 msgid "Text Fonts"
-msgstr "Tekstbestanden"
+msgstr "Tekstlettertypen"
 
 #: ../../frescobaldi_app/fonts/dialog.py:184
 #: ../../frescobaldi_app/preferences/paths.py:116
-#, fuzzy
 msgid "Music Fonts"
-msgstr "MusicXML-bestanden"
+msgstr "Muziek-lettertypen"
 
 #: ../../frescobaldi_app/fonts/dialog.py:185
-#, fuzzy
 msgid "Font Command"
-msgstr "Commando"
+msgstr "Font-commando"
 
 #: ../../frescobaldi_app/fonts/dialog.py:186
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Overig"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:227
 msgid "Set font families"
-msgstr ""
+msgstr "Lettertype-families instellen"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:228
-#, fuzzy
 msgid "Roman"
-msgstr "Schreef-lettertype:"
+msgstr "Romaans"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:229
 msgid "Sans"
-msgstr ""
+msgstr "Schreefloos"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:230
-#, fuzzy
 msgid "Typewriter"
-msgstr "Schrijfmachine-lettertype:"
+msgstr "Schrijfmachine-lettertype"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:232
 msgid "Configure command generation"
-msgstr ""
+msgstr "Commando configureren"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:233
-#, fuzzy
 msgid "Traditional"
-msgstr "Duur"
+msgstr "Traditioneel"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:235
 msgid "Specify fonts using the setting in a \\paper block."
-msgstr ""
+msgstr "Lettertype in het \\paper blok aangeven."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:237
 msgid "openLilyLib"
-msgstr ""
+msgstr "openLilyLib"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:239
 msgid ""
@@ -2232,22 +2214,26 @@ msgid ""
 "NOTE: This requires openLilyLib (oll-core)\n"
 "and the 'notation-fonts' openLilyLib package."
 msgstr ""
+"Lettertypen instellen via openLilyLib.\n"
+"NB: Dit vereist openLilyLib (oll-core)\n"
+"en het 'notation-fonts' openLilyLib pakket."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:244
 #: ../../frescobaldi_app/fonts/fontcommand.py:251
-#, fuzzy
 msgid "Set music font"
-msgstr "Muziekdocument(en) openen"
+msgstr "Muzieklettertype instellen"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:245
 msgid "Complete \\paper block"
-msgstr ""
+msgstr "Volledige \\paper blok"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:247
 msgid ""
 "Wrap setting in a complete \\paper block.\n"
 "If unchecked generate the raw font setting command."
 msgstr ""
+"Indien geselecteerd, wordt de instelling in een volledig \\paper blok"
+" geplaatst."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:253
 msgid ""
@@ -2255,30 +2241,37 @@ msgid ""
 "This is a reminder only and can not be unckecked because the openLilyLib "
 "approach necessarily sets the music font."
 msgstr ""
+"Het muzieklettertype instellen\n"
+"(Kan niet worden uitgeschakeld omdat de openLilyLib altijd het"
+" muzieklettertype instelt.)"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:258
 msgid "Load openLilyLib"
-msgstr ""
+msgstr "Laden van openLilyLib"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:260
 msgid ""
 "Load openLilyLib (oll-core) explicitly.\n"
 "Unckeck if oll-core is already loaded elsewhere."
 msgstr ""
+"openLilyLib (oll-core) expliciet laden.\n"
+"Uitschakelen als oll-core elders al geladen wordt."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:263
 msgid "Load notation-fonts package"
-msgstr ""
+msgstr "Notation-fonts pakket laden"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:265
 msgid ""
 "Load the notation-fonts package explicitly.\n"
 "Unckeck if it is already loaded elsewhere."
 msgstr ""
+"Het notation-fonts pakket expliciet laden.\n"
+"Uitschakelen als het elders al geladen wordt."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:268
 msgid "Load font extensions (if available)"
-msgstr ""
+msgstr "Lettertype-uitbreidingen laden (indien beschikbaar)"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:270
 msgid ""
@@ -2287,10 +2280,14 @@ msgid ""
 "(e.g. glyphs) that can be made available through an\n"
 "extension stylesheet if provided."
 msgstr ""
+"Vragen naar het laden van lettertype-uitbreidingen.\n"
+"NB: sommige lettertypen hebben additionele mogelijkheden\n"
+"(bijv. glyphs) die beschikbaar kunnen worden gemaakt via een\n"
+"uitbreidings-stylesheet."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:275
 msgid "Font stylesheet"
-msgstr ""
+msgstr "Lettertype-stylesheet"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:277
 msgid ""
@@ -2306,27 +2303,24 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:287
-#, fuzzy
 msgid "Default stylesheet"
-msgstr "Standaardstijlen"
+msgstr "Standaard stylesheet"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:288
 msgid "No stylesheet"
-msgstr ""
+msgstr "Geen stylesheet"
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:289
 msgid "Custom stylesheet"
-msgstr ""
+msgstr "Aangepast stylesheet"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:111
-#, fuzzy
 msgid "Remove..."
-msgstr "Verwijderen"
+msgstr "Verwijderen..."
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:112
-#, fuzzy
 msgid "Remove selected music font"
-msgstr "Geselecteerde muziek herhalen"
+msgstr "Geselecteerde muziek-lettertype verwijderen"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:113
 msgid "Download..."
@@ -2339,18 +2333,16 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:118
-#, fuzzy
 msgid "Install..."
-msgstr "Installeren"
+msgstr "Installeren..."
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:120
 msgid "Link fonts from a directory to the current LilyPond installation"
 msgstr ""
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:122
-#, fuzzy
 msgid "Install (repo)"
-msgstr "Installeren in:"
+msgstr "Installeren (repo)"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:124
 msgid ""
@@ -2399,25 +2391,22 @@ msgstr "Geen Git-installatie gevonden"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:614
 #: ../../frescobaldi_app/fonts/textfonts.py:296
-#, fuzzy
 msgid "Font"
-msgstr "Lettertype:"
+msgstr "Lettertype"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:615
-#, fuzzy
 msgid "OpenType"
-msgstr "Openen"
+msgstr "OpenType"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:616
 #: ../../frescobaldi_app/fonts/musicfonts.py:618
 #: ../../frescobaldi_app/fonts/musicfonts.py:620
-#, fuzzy
 msgid "(Brace)"
-msgstr "Accolade"
+msgstr "(Accolade)"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:619
 msgid "WOFF"
-msgstr ""
+msgstr "WOFF"
 
 #: ../../frescobaldi_app/fonts/oldfontsdialog.py:74
 msgid "Global Fonts (LilyPond < 2.19.12)"
@@ -2444,9 +2433,8 @@ msgid "Typewriter Font:"
 msgstr "Schrijfmachine-lettertype:"
 
 #: ../../frescobaldi_app/fonts/preview.py:96
-#, fuzzy
 msgid "Custom"
-msgstr "Aangepaste modus"
+msgstr "Aangepast"
 
 #: ../../frescobaldi_app/fonts/preview.py:127
 msgid ""
@@ -2455,9 +2443,8 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/fonts/preview.py:131
-#, fuzzy
 msgid "Select sample score"
-msgstr "Selecteer een map"
+msgstr "Voorbeeldpartituur selecteren"
 
 #: ../../frescobaldi_app/fonts/preview.py:135
 msgid ""
@@ -2513,7 +2500,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/fonts/preview.py:213
 msgid "Glyphs"
-msgstr ""
+msgstr "Glyphs"
 
 #: ../../frescobaldi_app/fonts/preview.py:216
 msgid "Non-comprehensive specimen sheet"
@@ -2550,7 +2537,7 @@ msgstr "The quick brown fox jumps over the lazy dog"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:297
 msgid "Sample"
-msgstr ""
+msgstr "Voorbeeld"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:326
 #, fuzzy
@@ -2851,10 +2838,9 @@ msgid "Stop MIDI capturing"
 msgstr "MIDI opname stoppen"
 
 #: ../../frescobaldi_app/midiinput/tool.py:63
-#, fuzzy
 msgctxt "midi input"
 msgid "Switch accidental style"
-msgstr "Voortekens vereenvoudigen"
+msgstr "Voortekenstijl wisselen"
 
 #: ../../frescobaldi_app/midiinput/tool.py:64
 msgctxt "midi input"
@@ -3777,9 +3763,9 @@ msgid "Use Extensions"
 msgstr "Extender-lijnen gebruiken"
 
 #: ../../frescobaldi_app/preferences/extensions.py:97
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Extension API: {apiversion}"
-msgstr "Versie {version}"
+msgstr "Extensie-API: {apiversion}"
 
 #: ../../frescobaldi_app/preferences/extensions.py:99
 msgid "If unchecked don't look for extensions."
@@ -3801,18 +3787,16 @@ msgid "Maintainer(s)"
 msgstr "Containers"
 
 #: ../../frescobaldi_app/preferences/extensions.py:160
-#, fuzzy
 msgid "API version"
-msgstr "versie"
+msgstr "API-versie"
 
 #: ../../frescobaldi_app/preferences/extensions.py:161
 msgid "License"
-msgstr ""
+msgstr "Licentie"
 
 #: ../../frescobaldi_app/preferences/extensions.py:162
-#, fuzzy
 msgid "Short Description"
-msgstr "Omschrijving"
+msgstr "Beknopte omschrijving"
 
 #: ../../frescobaldi_app/preferences/extensions.py:163
 #: ../../frescobaldi_app/snippet/model.py:60
@@ -3821,15 +3805,15 @@ msgstr "Omschrijving"
 
 #: ../../frescobaldi_app/preferences/extensions.py:164
 msgid "Repository"
-msgstr ""
+msgstr "Depot"
 
 #: ../../frescobaldi_app/preferences/extensions.py:165
 msgid "Website"
-msgstr ""
+msgstr "Website"
 
 #: ../../frescobaldi_app/preferences/extensions.py:166
 msgid "Dependencies"
-msgstr ""
+msgstr "Afhankelijkheden"
 
 #: ../../frescobaldi_app/preferences/extensions.py:241
 #, python-brace-format
