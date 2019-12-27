@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+PYTHON_VERSION=3.6
+PYTHON="/opt/local/bin/python${PYTHON_VERSION}"
+QTROOT='/opt/local/libexec/qt5'
+
+PYTHON_PREFIX=$(${PYTHON} -c 'import sys; print(sys.prefix)')
+PYTHON_DIR_TO_PATCH="lib/python${PYTHON_VERSION}/site-packages/PyQt5/uic"
+PYTHON_PATCH_FILE='patch-PyQt5-uic.diff'
+
 read -d '' INTRO <<- EOF
 Build a standalone Mac application bundle for Frescobaldi
 and wrap it into a distributable DMG disk image.
@@ -10,9 +18,9 @@ Prerequisites:
 - \$PATH contains Git, appdmg (a node.js/npm package) and OpenSSL with
   SHA256 support,
 - due to a bug in py2app, PyQt5 needs to be patched by applying the patch file
-  patch-PyQt5-uic.diff in the directory lib/python3.6/site-packages/PyQt5/uic
+  ${PYTHON_PATCH_FILE} in the directory ${PYTHON_DIR_TO_PATCH}
   of the Python.framework corresponding to the used Python, e.g., with
-    sudo patch -d/opt/local/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/PyQt5/uic -p0 < patch-PyQt5-uic.diff
+    sudo patch -d${PYTHON_PREFIX}/${PYTHON_DIR_TO_PATCH} -p0 < ${PYTHON_PATCH_FILE}
 
 It is strongly recommended that no Python packages are active except for
 Frescobaldi's dependencies.
@@ -23,16 +31,13 @@ EOF
 read -d '' USAGE <<- EOF
 Usage: $0 [-P <Python executable>] [-Q <root of Qt installation>]
           [-a <architecture set>] [-d] [-h]
-  -P defaults to /opt/local/bin/python3.6
-  -Q defaults to /opt/local/libexec/qt5
+  -P defaults to ${PYTHON}
+  -Q defaults to ${QTROOT}
   -a defaults to the architecture of the current Python binary
   -d = do not build the DMG disk image
   -h = show this help
   <architecture set> must be either i386, x86_64 or intel (= i386 + x86_64)
 EOF
-
-PYTHON=/opt/local/bin/python3.6
-QTROOT=/opt/local/libexec/qt5
 
 while getopts ":P:Q:a:dh" opt; do
   case ${opt} in
