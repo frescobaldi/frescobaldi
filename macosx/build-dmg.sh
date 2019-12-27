@@ -219,9 +219,9 @@ fi
 
 echo "The .app bundle is ready: ${APPBUNDLE}"
 
-if [[ ${NODMG} == 1 ]]
+if [[ "${NODMG}" == 1 ]]
 then
-  exit
+  exit 0
 fi
 echo
 
@@ -232,12 +232,18 @@ sed -e '/INSTALL/d' ../README.md > README.txt
 cp ../ChangeLog ChangeLog.txt
 cp ../COPYING COPYING.txt
 appdmg --quiet appdmg/appdmg.json dist/${DMGNAME}
+APPDMG_EXITSTATUS=$?
+if [[ "${APPDMG_EXITSTATUS}" != 0 ]]
+then
+  exit 1
+fi
 cd dist
 openssl sha256 ${DMGNAME} > ${DMGNAME}.sha256
 cd ..
 rm {README,ChangeLog,COPYING}.txt
 
-if [[ $? == 0 ]]
+if [[ "${APPDMG_EXITSTATUS}" == 0 ]]
 then
   echo "The disk image is ready: dist/${DMGNAME}"
+  exit 0
 fi
