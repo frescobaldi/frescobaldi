@@ -126,67 +126,97 @@ echo
 ${QTROOT}/bin/macdeployqt ${APPBUNDLE}
 echo
 
-MACHO=$(find ${APPBUNDLE} -type f -exec file {} + | grep Mach-O)
-NON32=$(echo "${MACHO}" | grep -v i386)
-NON64=$(echo "${MACHO}" | grep -v x86_64)
-if [[ ${NON32} == '' ]]
-then
-  if [[ ${NON64} == '' ]]
+check_fix_appbundle () {
+  # $1 string: path to .app bundle
+  # $2 string: requested architecture, if any, or empty string
+  # $3 boolean: propose to fix mixedintel?
+  local MACHO=$(find $1 -type f -exec file {} + | grep Mach-O)
+  local NON32=$(echo "${MACHO}" | grep -v i386)
+  local NON64=$(echo "${MACHO}" | grep -v x86_64)
+  local MIXEDINTEL=''
+  if [[ "${NON32}" == '' ]]
   then
-    APPARCH=intel
-  else
-    APPARCH=i386
-    if [[ ${NON64} != ${MACHO} ]]
+    if [[ "${NON64}" == '' ]]
     then
-      MIXEDINTEL=1
-    fi
-  fi
-else
-  if [[ ${NON64} == '' ]]
-  then
-    APPARCH=x86_64
-    if [[ ${NON32} != ${MACHO} ]]
-    then
-      MIXEDINTEL=1
+      APPARCH=intel
+    else
+      APPARCH=i386
+      if [[ "${NON64}" != "${MACHO}" ]]
+      then
+        MIXEDINTEL=1
+      fi
     fi
   else
-    APPARCH=unknown
+    if [[ "${NON64}" == '' ]]
+    then
+      APPARCH=x86_64
+      if [[ "${NON32}" != "${MACHO}" ]]
+      then
+        MIXEDINTEL=1
+      fi
+    else
+      APPARCH=unknown
+    fi
   fi
-fi
-if [[ ${APPARCH} == unknown ]]
+  if [[ "${APPARCH}" == unknown ]]
+  then
+    echo "Error: unknown binary architecture set." 1>&2
+    echo "The .app bundle might be broken." 1>&2
+    return 1
+  else
+    if [[ "$2" != '' && "$2" != "${APPARCH}" ]]
+    then
+      if [[ "${APPARCH}" == intel && ( "$2" == i386 || "$2" == x86_64 ) ]]
+      then
+        echo "Warning: binary architecture set mismatch." 1>&2
+        echo "The requested architecture $2 is included in the application bundle," 1>&2
+        echo "but you are probably including a lot more than it is necessary." 1>&2
+        echo "The apparent architecture set of the .app bundle is ${APPARCH}." 1>&2
+      else
+        echo "Error: binary architecture set mismatch." 1>&2
+        echo "You requested $2, but the apparent architecture set is ${APPARCH}." 1>&2
+        return 1
+      fi
+    else
+      if [[ "$2" != '' ]]
+      then
+        ASREQUESTED=", as requested"
+      fi
+      if [[ "${MIXEDINTEL}" == 1 ]]
+      then
+        echo "Warning: mixed binary architecture." 1>&2
+        echo "The apparent architecture set of the .app bundle is ${APPARCH}${ASREQUESTED}," 1>&2
+        echo "but some Mach-O files contain both i386 and x86_64 code." 1>&2
+        if [[ "$3" ]]
+        then
+          echo
+          echo "Do you want to fix the .app bundle by keeping only the ${APPARCH} code?"
+          local FIX_APPBUNDLE=''
+          echo -n "Type y or Y for yes, anything else for no: "
+          read FIX_APPBUNDLE
+          echo
+          if [[ "$FIX_APPBUNDLE" == 'y' || "$FIX_APPBUNDLE" == 'Y' ]]
+          then
+            mv $1 $1.mixedintel
+            ditto --arch ${APPARCH} $1.mixedintel $1
+            rm -r $1.mixedintel
+            check_fix_appbundle "$1" "$2" ''
+          fi
+        fi
+      else
+        echo "The apparent architecture set of the .app bundle is ${APPARCH}${ASREQUESTED}."
+      fi
+    fi
+  fi
+}
+
+check_fix_appbundle "${APPBUNDLE}" "${ARCH}" 1
+
+if [[ $? != 0 ]]
 then
-  echo "Error: unknown binary architecture set." 1>&2
-  echo "The .app bundle might be broken." 1>&2
   exit 1
-else
-  if [[ ${ARCH} != '' && ${ARCH} != ${APPARCH} ]]
-  then
-    if [[ ${APPARCH} == intel && ( ${ARCH} == i386 || ${ARCH} == x86_64 ) ]]
-    then
-      echo "Warning: binary architecture set mismatch." 1>&2
-      echo "The requested architecture ${ARCH} is included in the application bundle," 1>&2
-      echo "but you are probably including a lot more than it is necessary." 1>&2
-      echo "The apparent architecture set of the .app bundle is ${APPARCH}." 1>&2
-    else
-      echo "Error: binary architecture set mismatch." 1>&2
-      echo "You requested ${ARCH}, but the apparent architecture set is ${APPARCH}." 1>&2
-      exit 1
-    fi
-  else
-    if [[ ${ARCH} != '' ]]
-    then
-      ASREQUESTED=", as requested"
-    fi
-    if [[ ${MIXEDINTEL} == 1 ]]
-    then
-      echo "Warning: mixed binary architecture." 1>&2
-      echo "The apparent architecture set of the .app bundle is ${APPARCH}${ASREQUESTED}," 1>&2
-      echo "but some Mach-O files contain both i386 and x86_64 code." 1>&2
-    else
-      echo "The apparent architecture set of the .app bundle is ${APPARCH}${ASREQUESTED}."
-    fi
-  fi
 fi
+
 echo "The .app bundle is ready: ${APPBUNDLE}"
 
 if [[ ${NODMG} == 1 ]]
