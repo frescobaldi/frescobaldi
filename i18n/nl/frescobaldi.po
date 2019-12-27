@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2019-12-18 23:35+0100\n"
-"PO-Revision-Date: 2019-12-27 08:42+0100\n"
+"PO-Revision-Date: 2019-12-27 08:53+0100\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
@@ -4225,7 +4225,6 @@ msgid ""
 msgstr ""
 
 #: ../../frescobaldi_app/preferences/general.py:271
-#, fuzzy
 msgid "New Document"
 msgstr "Nieuw document"
 
@@ -7695,7 +7694,6 @@ msgid "Sn&ippets"
 msgstr "Kn&ipsels"
 
 #: ../../frescobaldi_app/snippet/menu.py:149
-#, fuzzy
 msgid "New"
 msgstr "Nieuw"
 
