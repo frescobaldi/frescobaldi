@@ -2,6 +2,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 3.1.1 -- January 3rd, 2020
+
+* Bug fixes:
+  - fixed #1231, NameError: 'doc' is not defined (when printing on Mac OSX)
+
+
 Changes in 3.1 -- December 27th, 2019
 
 * Requirement changes:

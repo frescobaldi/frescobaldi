@@ -167,6 +167,7 @@ class MusicViewPanel(panel.Panel):
                     "printing functionality anyway, or Cancel to cancel printing."),
                     QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
                 if result == QMessageBox.Yes:
+                    doc = self.widget().view.document()
                     import helpers
                     helpers.openUrl(QUrl.fromLocalFile(doc.filename()), "pdf")
                     return
