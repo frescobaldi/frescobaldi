@@ -27,7 +27,7 @@ import weakref
 
 from PyQt5.QtCore import pyqtSignal, QEvent, QPoint, QRect, QSize, Qt
 from PyQt5.QtGui import QCursor, QPainter, QPalette, QRegion
-from PyQt5.QtWidgets import QGestureEvent, QStyle
+from PyQt5.QtWidgets import QGestureEvent, QPinchGesture, QStyle
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 
 from . import layout
