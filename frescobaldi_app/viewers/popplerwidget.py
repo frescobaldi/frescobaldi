@@ -297,8 +297,8 @@ class AbstractPopplerWidget(abstractviewwidget.AbstractViewWidget):
                     if filename:
                         doc = pagedview.loadPdf(filename)
                         viewdocs.append(doc)
-                        if not os.path.isfile(filename):
-                            doc.ispresent = False
+                        # can it load?
+                        doc.ispresent = os.path.isfile(filename)
                         if g.value("isactive", False, bool):
                             active_file = filename
                         props = self.view.properties().load(g)

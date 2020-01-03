@@ -2,10 +2,11 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 3.1.1 -- January 3rd, 2020
+Changes in 3.1.1 -- January 4th, 2020
 
 * Bug fixes:
-  - fixed #1234, NameError: 'QPinchGesture' is not defined (pich in music view)
+  - fixed #1242, AttributeError: 'PopplerDocument' has no attribute 'ispresent'
+  - fixed #1234, NameError: 'QPinchGesture' is not defined (pinch in music view)
   - fixed #1231, NameError: 'doc' is not defined (when printing on Mac OSX)
 
 

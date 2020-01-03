@@ -565,6 +565,7 @@ class ViewdocChooserAction(ComboBoxAction):
         for f in files:
             if not f in self._viewdocFiles():
                 doc = pagedview.loadPdf(f)
+                doc.ispresent = os.path.isfile(f)
                 viewdocs.append(doc)
         self.loadViewdocs(viewdocs, files[-1], sort)
 
