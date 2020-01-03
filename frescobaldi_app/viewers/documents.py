@@ -22,6 +22,7 @@ Code to load and manage PDF documents to view.
 """
 
 
+import os
 
 from PyQt5.QtCore import QSettings
 
