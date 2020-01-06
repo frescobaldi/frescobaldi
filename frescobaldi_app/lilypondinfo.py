@@ -178,6 +178,7 @@ class LilyPondInfo(object):
             path = [
                 os.path.join('/Applications', 'LilyPond.app', 'Contents', 'Resources', 'bin'),
                 os.path.join('/opt', 'local', 'bin'),
+                os.path.join('/opt', 'lilypond', 'bin'),
             ]
         else:
             path = None
