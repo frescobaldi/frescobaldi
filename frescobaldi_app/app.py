@@ -25,6 +25,8 @@ The global things in Frescobaldi.
 
 import os
 import sys
+import platform
+
 
 from PyQt5.QtCore import QSettings, Qt, QThread
 from PyQt5.QtWidgets import QApplication
@@ -117,8 +119,9 @@ def instantiate():
     """Instantiate the global QApplication object."""
     global qApp
     args = list(map(os.fsencode, [os.path.abspath(sys.argv[0])] + sys.argv[1:]))
-    args.append("-platform") 
-    args.append("windows:fontengine=freetype") 
+    if platform.system() == "Windows":
+        args.append("-platform") 
+        args.append("windows:fontengine=freetype") 
     qApp = QApplication(args) 
     QApplication.setApplicationName(appinfo.name)
     QApplication.setApplicationVersion(appinfo.version)
