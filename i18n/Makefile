@@ -22,8 +22,8 @@ potfile = frescobaldi.pot
 userguidepotfile = userguide.pot
 
 languages = $(wildcard [a-z][a-z]) $(wildcard [a-z][a-z]_[A-Z][A-Z])
-pofiles = $(patsubst %,%/frescobaldi.po,$(languages))
-userguidepofiles = $(patsubst %,%/userguide.po,$(languages))
+pofiles = $(patsubst %,frescobaldi/%.po,$(languages))
+userguidepofiles = $(patsubst %,userguide/%.po,$(languages))
 
 mofiles = $(patsubst %,$(modir)/%.mo,$(languages))
 
@@ -44,8 +44,8 @@ $(userguidepofiles): $(userguidepotfile)
 	-msgmerge -U $@ $<
 	sed -i '/^#: /{ s, ../, ../../,g; s, messages, ../messages,g;}' $@
 
-# one MO file is created from both the frescobaldi.po and userguide.po
-$(mofiles): $(modir)/%.mo: %/frescobaldi.po %/userguide.po
+# one MO file is created from both the frescobaldi/LL.po and userguide/LL.po
+$(mofiles): $(modir)/%.mo: frescobaldi/%.po userguide/%.po
 	msgcat -o - $^ | msgfmt -o $@ -
 	$(PYTHON) molint.py $@
 

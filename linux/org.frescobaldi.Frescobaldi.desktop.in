@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Frescobaldi
+GenericName=Frescobaldi
+Comment=LilyPond Music Editor
+MimeType=text/x-lilypond;
+Exec=frescobaldi %F
+X-KDE-StartupNotify=true
+Icon=frescobaldi
+Type=Application
+Terminal=false
+InitialPreference=8
+Categories=Qt;AudioVideo;Music;Utility;TextEditor;
+Keywords=lilypond;editor;sheet music;

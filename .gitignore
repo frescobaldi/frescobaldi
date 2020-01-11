@@ -3,3 +3,5 @@
 *.mo
 build/
 dist/
+linux/org.frescobaldi.Frescobaldi.desktop
+linux/org.frescobaldi.Frescobaldi.metainfo.xml

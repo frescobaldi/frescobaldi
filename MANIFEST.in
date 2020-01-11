@@ -1,5 +1,4 @@
 include README* COPYING THANKS INSTALL TODO ChangeLog
-include frescobaldi.desktop
 include frescobaldi.1
 include frescobaldi.png
 include *.py
@@ -10,6 +9,7 @@ recursive-include frescobaldi_app *.mo
 recursive-include frescobaldi_app *.dic
 recursive-include frescobaldi_app *.js
 recursive-include frescobaldi_app *.md
+recursive-include linux org.frescobaldi.Frescobaldi* Makefile
 recursive-include macosx *.svg *.icns *.py *.strings *.sh *.png *.json *.diff
 recursive-include windows *.bmp *.py
 recursive-include i18n *.pot *.po Makefile
