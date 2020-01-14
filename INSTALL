@@ -33,14 +33,17 @@ frescobaldi_app/i18n using:
 Those message object (*.mo) files contain the translated texts in Frescobaldi's
 GUI and built-in user guide.
 
-Then generate the desktop file:
+You should also generate the desktop and AppStream metainfo files, as the
+repository contains only the template without translations:
 
     make -C linux
 
-and install it manually in the prefix you chose during install. For example:
+The setup.cfg file contains a few default install options.
+It ensures that some important files (icon, desktop, appstream, man page)
+are installed in the install prefix. It also generates a file listing all
+the installed files, which is useful to uninstall:
 
-    desktop-file-install --dir=$HOME/.local/share/applications \
-    linux/org.frescobaldi.Frescobaldi.desktop
+    cat installed.txt | xargs rm
 
 See the distutils documentation for more install options.
 
