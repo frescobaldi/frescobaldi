@@ -56,8 +56,8 @@ if sys.platform.startswith('win'):
 else:
     data_files = [
         ('share/icons/hicolor/scalable/apps', ['frescobaldi_app/icons/org.frescobaldi.Frescobaldi.svg']),
-        ('share/applications', ['data/org.frescobaldi.Frescobaldi.desktop']),
-        ('share/metainfo', ['data/org.frescobaldi.Frescobaldi.metainfo.xml']),
+        ('share/applications', ['linux/org.frescobaldi.Frescobaldi.desktop']),
+        ('share/metainfo', ['linux/org.frescobaldi.Frescobaldi.metainfo.xml']),
         ('share/man/man1', ['frescobaldi.1']),
     ]
 
