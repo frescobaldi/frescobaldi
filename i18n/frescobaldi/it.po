@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-01-13 22:52+0100\n"
+"POT-Creation-Date: 2020-01-16 23:08+0100\n"
 "PO-Revision-Date: 2020-01-12 22:50+0100\n"
 "Last-Translator: Federico Bruni <fede@inventati.org>\n"
 "Language-Team: Italian <>\n"
@@ -9323,8 +9323,8 @@ msgid "LilyPond Music Editor"
 msgstr "Editor musicale per LilyPond"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:9
-msgid "frescobaldi"
-msgstr "frescobaldi"
+msgid "org.frescobaldi.Frescobaldi"
+msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:14
 msgid "lilypond;editor;sheet music;"
@@ -9622,3 +9622,6 @@ msgstr ""
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:140
 msgid "Retina display support in Music View."
 msgstr ""
+
+#~ msgid "frescobaldi"
+#~ msgstr "frescobaldi"
