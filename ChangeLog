@@ -2,6 +2,12 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 3.1.2 -- ?
+
+* Bug fixes:
+  - fixed #1255, AttributeError: 'NoneType' object has no attribute 'cursor'
+
+
 Changes in 3.1.1 -- January 4th, 2020
 
 * Bug fixes:
