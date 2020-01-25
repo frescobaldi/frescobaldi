@@ -100,10 +100,10 @@ class MusicView(QWidget):
         """Open a qpageview.Document instance."""
         self._links = None
         self._highlightRange = None
-        self.view.setDocument(doc)
         document = doc.document()
         if document:
             self._links = pointandclick.links(document)
+        self.view.setDocument(doc)
 
     def clear(self):
         """Empties the view."""
@@ -233,7 +233,7 @@ class MusicView(QWidget):
             if s is False:
                 self.view.clearHighlight(self._highlightMusicFormat)
             return
-        
+
         if not scroll and self._highlightRange == s and self.view.isHighlighting(self._highlightMusicFormat):
             return # don't redraw if same
         self._highlightRange = s
