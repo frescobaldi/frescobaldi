@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-01-16 23:08+0100\n"
+"POT-Creation-Date: 2020-01-28 23:47+0100\n"
 "PO-Revision-Date: 2017-02-28 01:04+0900\n"
 "Last-Translator: Shao-Wen Young <swyoung.tw@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -9005,7 +9005,6 @@ msgid "Features:"
 msgstr "調號："
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:16
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:50
 msgid "Powerful text editor with syntax highlighting and automatic completion"
 msgstr ""
 
@@ -9068,7 +9067,7 @@ msgid ""
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:38
-msgid "Text editor and music view with two-way Point &amp; Click"
+msgid "Text editor and music view"
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:42
@@ -9077,6 +9076,10 @@ msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:46
 msgid "Zoom with the magnifier glass"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:50
+msgid "Syntax highlighting and automatic completion"
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:54
@@ -9093,21 +9096,23 @@ msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:74
 msgid ""
-"Fixed #1242, AttributeError: 'PopplerDocument' has no attribute 'ispresent'."
+"Fixed the error AttributeError: 'PopplerDocument' has no attribute "
+"'ispresent'."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:75
 msgid ""
-"Fixed #1234, NameError: 'QPinchGesture' is not defined (pinch in music view)."
+"Fixed the error NameError: 'QPinchGesture' is not defined (pinch in music "
+"view)."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:76
 msgid ""
-"Fixed #1231, NameError: 'doc' is not defined (when printing on Mac OSX)."
+"Fixed the error NameError: 'doc' is not defined (when printing on Mac OSX)."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:82
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:129
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:123
 msgid "Requirement changes:"
 msgstr ""
 
@@ -9116,7 +9121,7 @@ msgid "Frescobaldi now requires Python3.3+"
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:86
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:133
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:127
 #, fuzzy
 msgid "New features:"
 msgstr "新名稱"
@@ -9137,148 +9142,135 @@ msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
 #, fuzzy
-msgid "Goto Line command."
-msgstr "列印指令："
+msgid "New \"Goto Line\" and \"Rename file\" commands."
+msgstr "其他指令："
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:92
-#, fuzzy
-msgid "Rename file command."
-msgstr "其他指令："
+msgid "Music View: view settings are remembered per-document."
+msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:93
 msgid ""
-"Music View: copy to Image can copy/export to SVG, PDF and EPS in addtion to "
+"Music View: copy to Image can copy/export to SVG, PDF and EPS in addition to "
 "PNG/JPG."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:94
-msgid "Music View: new toolbar button to show/hide the magnifier."
+msgid ""
+"Music View: new commands to rotate left/right; new toolbar button to show/"
+"hide the magnifier."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:95
-msgid "Music View: new preference Horizontal/Vertical."
+msgid ""
+"Music View: new preferences Horizontal/Vertical and Continuous/non-"
+"continuous."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:96
 msgid ""
-"Music View: new preference Continuous / non-continuous (displays only "
-"current page(s))."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:97
-msgid "Music View: new commands to rotate left/right."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:98
-msgid ""
 "Music View: new raster layout mode (displays as many pages as fit in a View)."
 msgstr ""
 
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:97
+msgid ""
+"Manuscript viewer: new toolbar buttons to rotate the pages left/right and to "
+"show/hide the magnifier."
+msgstr ""
+
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:99
-msgid "Music View: view settings are remembered per-document."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:100
-msgid "Manuscript viewer: toolbar buttons to rotate the pages left/right."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:101
-msgid "Manuscript viewer: new toolbar button to show/hide the magnifier."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:103
 msgid "Bug fixes:"
 msgstr ""
 
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:101
+msgid "Fixed seeking in MIDI player during playing stops sound."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:102
+msgid "Paper orientation is now properly handled in New Score Wizard."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:103
+msgid ""
+"Fixed discrepancy of LilyPond vs. system version of GhostScript on Linux."
+msgstr ""
+
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:105
-msgid "Fixed #895 seeking in MIDI player during playing stops sound."
+msgid "Fixed includepaths on Windows."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:106
-msgid ""
-"Fixed #768, now paper orientation is properly handled in New Score Wizard."
+msgid "Fixed the error NameError: name 'widgets' is not defined."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:107
-msgid ""
-"Fixed #705, discrepancy of LilyPond vs. system version of GhostScript on "
-"Linux."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:109
-msgid "Fixed #1094, includepaths on Windows."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:110
-msgid "Fixed #1121, NameError: name 'widgets' is not defined."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:112
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:138
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:108
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:132
 #, fuzzy
 msgid "Improvements:"
 msgstr "移除註解(&C)"
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:114
-msgid "Score Wizard: Titles and Headers are shown in preview (#1216)."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:115
-msgid "Score Wizard: checkbox to write/omit pitches after \\relative command."
-msgstr ""
-
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:116
-#, fuzzy
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:110
 msgid ""
-"Score Wizard: allow \"none\" for instrument names on first system (#1141)."
-msgstr "第一行前面顯示樂部的長或短名稱。"
+"Score Wizard: Titles and Headers are now shown in preview; new checkbox to "
+"write/omit pitches after \\relative command; allow \"none\" for instrument "
+"names on first system."
+msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:117
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:111
 msgid "Smarter behaviour of the autocompletion popup (#918, #922)."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:118
-msgid "New command File-&gt;Rename/Move... (#980)."
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:112
+msgid "New command File-&gt;Rename/Move."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:119
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:113
 msgid "Sessions can be grouped in the Sessions menu."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:120
-msgid "Show absolute path of include files in tooltip (#941)."
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:114
+msgid "Show absolute path of include files in tooltip."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:121
-msgid "Restructure Tools Menu (#1080)."
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:115
+msgid "Restructure Tools Menu."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:122
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:116
 msgid "File Open toolbar button shows recent files menu on long click."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:123
-msgid "Added \"Blank Sheet Music\" template snippet (#1139)."
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:117
+msgid "Added \"Blank Sheet Music\" template snippet."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:131
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:125
 msgid "Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:135
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:129
 msgid "Zoom with pinch gesture in Music View."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:136
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:130
 msgid ""
 "An option (enabled by default) to move the cursor to the end of the line "
 "when PageDown is pressed on the last line, and to move the cursor to the "
 "start of the first line if PageUp is pressed on the first line."
 msgstr ""
 
-#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:140
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:134
 msgid "Retina display support in Music View."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Goto Line command."
+#~ msgstr "列印指令："
+
+#, fuzzy
+#~ msgid ""
+#~ "Score Wizard: allow \"none\" for instrument names on first system (#1141)."
+#~ msgstr "第一行前面顯示樂部的長或短名稱。"
 
 #, fuzzy
 #~ msgctxt "submenu title"
