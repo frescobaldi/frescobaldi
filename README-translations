@@ -8,8 +8,8 @@ in the i18n directory. The user guide has its own template file
 ('userguide.pot').
 
 The 'update-pot.py' script creates both template files from all Python source
-files in 'frescobaldi_app' and from the userguide pages in
-'frescobaldi_app/userguide'. Those pages are in a simple MarkDown format.
+files in 'frescobaldi_app', from a couple of files in 'linux' and from the
+userguide pages in MarkDown format located in 'frescobaldi_app/userguide'.
 
 This script must be run if new translatable strings are added to Frescobaldi.
 
@@ -87,30 +87,48 @@ Instead, you should write:
 For translators:
 ================
 
-You should create or update a PO file for your language.
-
-To translate Frescobaldi and/or its user guide to the language 'xx_CC', enter:
+If your language is not present already, you should create the PO files.
+The translation of the userguide, separated from the main application, is
+optional but recommended. In order to add the language 'xx_CC', enter:
 
 $ cd i18n
-$ msginit -i frescobaldi.pot -l xx_CC -o xx_CC/frescobaldi.po
-$ msginit -i userguide.pot -l xx_CC -o xx_CC/userguide.po
+$ msginit -i frescobaldi.pot -l xx_CC -o frescobaldi/xx_CC.po
+$ msginit -i userguide.pot -l xx_CC -o userguide/xx_CC.po
 
 where 'xx_CC' is your language, e.g. 'nl_NL' (or simply 'nl').
+Then add your 'xx_CC' language code to the respective LINGUAS file in
+each subdirectory.
 
-Now you can edit the frescobaldi.po and/or userguide.po file in your language's
-directory with a tool like Lokalize. If done, you can send the translated po
-file(s) to the Frescobaldi author if you like, to contribute it to the
+Now you can edit the xx_CC.po files in each directory with a tool like
+Lokalize or Poedit. When done, you can send the translated po file(s)
+to the Frescobaldi author or open a PR on Github, to contribute it to the
 Frescobaldi project.
 
 Variable names between brackets in the messages like "Viewing page {number} of
 {total}" should not be translated but exactly copied to the translation.
 
-If you finished editing the PO file(s), you can simply run 'make' in the i18n
-directory. This will run the 'msgfmt' program to create a MO (Message Object)
-file that Frescobaldi can read. Additionally the MO file will be checked for
-wrong variable names in translated messages. The generated MO file contains the
-translations from both the frescobaldi.po file and the userguide.po file.
+Updating an existing translation requires updating the template files (.pot)
+and then the .po files.  While the 'make' command without argoments will do
+this for all the available languages, you'll probably want to update only
+your language files:
 
-The generated MO files are placed in the 'frescobaldi_app/i18n/' directory, so
-they are packaged and installed along with Frescobaldi.
+$ cd i18n
+$ make pot
+$ make frescobaldi/xx_CC.po
+$ make userguide/xx_CC.po
+
+You can now update the .po files.
+
+Finally you may want to see how your changes look in the application.
+You should generate a MO (Message Object) file that Frescobaldi can read.
+Simply run:
+
+$ make ../frescobaldi_app/i18n/xx_CC.mo
+
+The generated MO file contains the translations from both the application
+and the userguide. It will be checked for wrong variable names in translated
+messages.
+
+MO files are placed in the 'frescobaldi_app/i18n/' directory, so they
+are packaged and installed along with Frescobaldi.
 

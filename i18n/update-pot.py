@@ -31,17 +31,24 @@ import md2pot
 # 1. create a POT file for the messages, harvested from the source code
 command = [
     'xgettext',
-    '--language=python',
     '--output=frescobaldi.pot',
     '--package-name={0}'.format(appinfo.name),
     '--package-version={0}'.format(appinfo.version),
     '--msgid-bugs-address={0}'.format(appinfo.maintainer_email),
-    '--keyword',                # empty the default keyword list
+    '--add-comments=L10N',
+    # Empty the default keyword list
+    '--keyword',
+    # Custom keywords for python files.
     '--keyword=_:1c,2,3,4t',    # context, message, plural, count
     '--keyword=_:1,2,3t',       # message, plural, count
     '--keyword=_:1c,2,2t',      # context, message
     '--keyword=_:1,1t',         # message
-    '--add-comments=L10N',
+    # Default keywords for .desktop file
+    '--keyword=Name',
+    '--keyword=GenericName',
+    '--keyword=Comment',
+    '--keyword=Icon',
+    '--keyword=Keywords',
 ]
 
 for root, dirs, files in sorted(os.walk(frescobaldi_app)):
@@ -49,6 +56,7 @@ for root, dirs, files in sorted(os.walk(frescobaldi_app)):
         if f.endswith('.py') and f[0] != '.':
             command.append(os.path.join(root, f))
 command.append('messages.py')   # dummy messages file with some Qt i18n strings
+command.extend(['../linux/org.frescobaldi.Frescobaldi.desktop.in', '../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in'])
 result = subprocess.call(command)
 
 # 2. create a POT file for the user guide

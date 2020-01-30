@@ -7,9 +7,10 @@ You can run Frescobaldi without installing. Just unpack and then run:
 
 The Frescobaldi package is based on distutils. No build process is needed as
 Frescobaldi is fully written in the interpreted Python language. To install in
-the default location:
+the default locations:
 
-    sudo python3 setup.py install
+    sudo python3 setup.py install    # install to /usr/local
+    python3 setup.py install --user  # install to ~/.local
 
 To run Frescobaldi, then simply type
 
@@ -17,7 +18,7 @@ To run Frescobaldi, then simply type
 
 If you want to install into /usr instead of /usr/local:
 
-    python3 setup.py install --prefix=/usr
+    sudo python3 setup.py install --prefix=/usr
 
 If you have a Debian-based system such as Ubuntu, and you get the error
 message "ImportError: No module named frescobaldi_app.main", try:
@@ -31,6 +32,18 @@ frescobaldi_app/i18n using:
 
 Those message object (*.mo) files contain the translated texts in Frescobaldi's
 GUI and built-in user guide.
+
+You should also generate the desktop and AppStream metainfo files, as the
+repository contains only the template without translations:
+
+    make -C linux
+
+The setup.cfg file contains a few default install options.
+It ensures that some important files (icon, desktop, appstream, man page)
+are installed in the install prefix. It also generates a file listing all
+the installed files, which is useful to uninstall:
+
+    cat installed.txt | xargs rm
 
 See the distutils documentation for more install options.
 
