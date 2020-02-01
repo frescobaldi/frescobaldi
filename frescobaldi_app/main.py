@@ -27,7 +27,7 @@ import re
 import sys
 
 from PyQt5.QtCore import QSettings, QTimer, QUrl
-from PyQt5.QtGui import QTextCursor
+from PyQt5.QtGui import QTextCursor, QGuiApplication
 from PyQt5.QtWidgets import QApplication
 
 import appinfo          # Information about our application
@@ -36,6 +36,9 @@ import install          # Update QSettings structure etc. if needed
 import guistyle         # Setup GUI style
 import i18n.setup       # Setup language
 import remote           # IPC with other Frescobaldi instances
+
+# It's needed by Qt Wayland backend. Requires Qt>=5.7.0
+QGuiApplication.setDesktopFileName("org.frescobaldi.Frescobaldi.desktop")
 
 
 def parse_commandline():
