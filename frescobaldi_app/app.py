@@ -125,8 +125,9 @@ def instantiate():
         args.append("-platform") 
         args.append("windows:fontengine=freetype") 
     qApp = QApplication(args) 
-    QApplication.setApplicationName(appinfo.name)
+    QApplication.setApplicationName(appinfo.rdns_name)
     QApplication.setApplicationVersion(appinfo.version)
+    QApplication.setDesktopFileName(appinfo.rdns_name)
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
     if sys.platform.startswith('darwin'):

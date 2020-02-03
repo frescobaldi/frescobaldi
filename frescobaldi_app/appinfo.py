@@ -25,6 +25,7 @@ Information about the Frescobaldi application.
 
 # these variables are also used by the distutils setup
 name = "frescobaldi"
+rdns_name = "org.frescobaldi.Frescobaldi"
 version = "3.2"
 extension_api = "0.9.0"
 description = "LilyPond Music Editor"
