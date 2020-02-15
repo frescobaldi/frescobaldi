@@ -24,7 +24,7 @@ Help browser dockwidget.
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
-from PyQt5.QtWidgets import QAction
+from PyQt5.QtWidgets import QAction, QLabel
 
 import actioncollection
 import actioncollectionmanager
@@ -47,7 +47,10 @@ class HelpBrowser(panel.Panel):
         self.toggleViewAction().setText(_("&Documentation Browser"))
 
     def createWidget(self):
-        from . import browser
+        try:
+            from . import browser
+        except ImportError as err:
+            return QLabel(str(err),self) # Display error as widget
         return browser.Browser(self)
 
     def activate(self):
