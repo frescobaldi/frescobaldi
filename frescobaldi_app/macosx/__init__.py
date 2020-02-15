@@ -86,5 +86,5 @@ def system_python():
         python = '/System/Library/Frameworks/Python.framework/Versions/2.' + v
         python += '/bin/python2.' + v
         if os.path.exists(python):
-            return ['/usr/bin/arch', '-i386', python]
+            return ['/usr/bin/arch', '-i386', python, '-E']
 
