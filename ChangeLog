@@ -7,6 +7,7 @@ Changes in 3.1.2 -- ?
 * Bug fixes:
   - fixed #1255, AttributeError: 'NoneType' object has no attribute 'cursor'
   - fixed "Two Pages (first page right)" for both modes, other should be "left"
+  - fixed pinch gesture zoom in music view on Mac
 
 
 Changes in 3.1.1 -- January 4th, 2020

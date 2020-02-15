@@ -1045,7 +1045,7 @@ class View(scrollarea.ScrollArea):
 
         changeFlags = gesture.changeFlags()
         if changeFlags & QPinchGesture.ScaleFactorChanged:
-            factor = gesture.property("scaleFactor")
+            factor = gesture.property("totalScaleFactor")
             if not self._pinchStartFactor: # Gesture start?
                 self._pinchStartFactor = self.zoomFactor()
             self.setZoomFactor(self._pinchStartFactor * factor,
