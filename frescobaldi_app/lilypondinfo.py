@@ -296,7 +296,7 @@ class LilyPondInfo(object):
             self.datadir = False
         app.job_queue().add_job(j, 'generic')
 
-    def toolcommand(self, command):
+    def toolcommand(self, command, use_ly_tool=True):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
 
         On Unix, the list has one element: the full path to the tool.
@@ -305,11 +305,14 @@ class LilyPondInfo(object):
         On Windows, the list has two elements: the LilyPond-provided Python
         interpreter and the tool path.
 
-        This does not automatically take into account the command the user
-        might have configured for the tool, use ly_tool() to get that command
-        name first, then this method to get the real command to run.
+        If use_ly_tool is True, this takes into account the command the user
+        might have configured for the tool, using ly_tool() to get that command
+        name first.
 
         """
+        if use_ly_tool:
+            command = self.ly_tool(command)
+
         bindir = self.bindir()
         if bindir:
             toolpath = os.path.join(self.bindir(), command)

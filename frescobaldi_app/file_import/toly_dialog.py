@@ -147,7 +147,7 @@ class ToLyDialog(QDialog):
             os.path.join(util.tempdir(), os.path.basename(self._input))
             )[0] + '.ly'
         self._job = j = self._job_class(
-            command=self._info.toolcommand(self._info.ly_tool(self._imp_prgm)),
+            command=self._info.toolcommand(self._imp_prgm),
             input=self._input,
             output='--output={}'.format(output),
             directory=os.path.dirname(self._input),

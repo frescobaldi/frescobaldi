@@ -212,7 +212,7 @@ class Dialog(QDialog):
                 "Both 'from' and 'to' versions need to be set."))
             return
         info = self._info
-        command = info.toolcommand(info.ly_tool('convert-ly'))
+        command = info.toolcommand('convert-ly')
         command += ['-f', fromVersion, '-t', toVersion, '-']
 
         self.job = j = job.Job(command, encoding='utf-8')
