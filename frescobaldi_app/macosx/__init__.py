@@ -56,7 +56,23 @@ def use_osx_menu_roles():
         _use_roles = inside_app_bundle()
     return _use_roles
 
-def system_python():
+def midi_so_arch(lilypondinfo):
+    """Find the midi.so library of the selected LilyPond installation,
+    if it exists, and return its architecture; otherwise return None.
+
+    """
+    import subprocess
+    for d in [lilypondinfo.versionString(), 'current']:
+        midi_so = os.path.abspath(lilypondinfo.bindir() + '/../lib/lilypond/' + d + '/python/midi.so')
+        if os.access(midi_so, os.R_OK):
+            s = subprocess.run(['/usr/bin/file', midi_so], capture_output = True)
+            if b'x86_64' in s.stdout:
+                return 'x86_64'
+            else:
+                return 'i386'
+    return None
+
+def system_python(arch):
     """Return a list containing the command line to run the system Python.
 
     (One of) the system-provided Python interpreter(s) is selected to run
@@ -70,21 +86,32 @@ def system_python():
       moreover if Frescobaldi is launched as an application bundle,
       the PATH variable is not set;
     - the interpreter included in Frescobaldi's application bundle,
-      when present, lacks some modules.
+      when present, lacks some modules; moreover, Frescobaldi now uses
+      Python 3, while LilyPond's tools are written in Python 2.
 
-    The earliest Python version >= 2.4 is called in 32 bit mode, for
-    compatibility with midi2ly and lilysong, although Frescobaldi does not
-    currently support the latter.
-    In particular:
-    - midi.so is 32-bit only;
+    The earliest Python 2 version >= 2.4 is called, possibly avoiding
+    the following:
     - Python >= 2.5 gives a "C API version mismatch" RuntimeWarning
       on `import midi`;
     - Python >= 2.6 gives a DeprecationWarning on `import popen2`.
+    A Python 2 interpreter is always available (as of macOS 10.15 Catalina).
+
+    In LilyPond <= 2.19.54 midi2ly depends on the binary library midi.so
+    (replaced in 2.19.55 by a Python module), which is 32 bit in the app
+    bundle distributed by LilyPond and might be in other cases as well.
+    Thus, the selected Python interpreter is called with the corresponding
+    architecture.
+    If 32 bit architecture is required but the system Pythons do not
+    support it (as is the case on macOS >= 10.15 Catalina), return None.
 
     """
+    import platform
+    mac_ver = platform.mac_ver()
+    if (arch == 'i386') and (int(mac_ver[0].split('.')[1]) >= 15):
+        return None
     for v in ['4', '5', '6', '7']:
         python = '/System/Library/Frameworks/Python.framework/Versions/2.' + v
         python += '/bin/python2.' + v
         if os.path.exists(python):
-            return ['/usr/bin/arch', '-i386', python, '-E']
+            return ['/usr/bin/arch', '-' + arch, python, '-E']
 

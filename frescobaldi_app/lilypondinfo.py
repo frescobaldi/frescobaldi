@@ -296,12 +296,20 @@ class LilyPondInfo(object):
             self.datadir = False
         app.job_queue().add_job(j, 'generic')
 
-    def toolcommand(self, command, use_ly_tool=True):
+    def toolcommand(self, original_command, use_ly_tool=True):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
 
         On Unix, the list has one element: the full path to the tool.
-        On Mac OS X, the list has four elements: the system-provided Python
-        interpreter called in 32 bit mode (three elements) and the tool path.
+
+        On macOS, the list has four elements: the system-provided
+        Python 2 interpreter called in 32 or 64 bit mode (three elements)
+        and the tool path.
+        The 32 bit mode is required for midi2ly in the distributed app
+        bundle of LilyPond <= 2.19.54 and might be in other cases as well.
+        On macOS >= 10.15 Catalina, the system Python cannot be run in 32
+        bit mode, so None is returned.
+        See macosx.system_python for some more details.
+
         On Windows, the list has two elements: the LilyPond-provided Python
         interpreter and the tool path.
 
@@ -311,7 +319,9 @@ class LilyPondInfo(object):
 
         """
         if use_ly_tool:
-            command = self.ly_tool(command)
+            command = self.ly_tool(original_command)
+        else:
+            command = original_command
 
         bindir = self.bindir()
         if bindir:
@@ -328,8 +338,15 @@ class LilyPondInfo(object):
         # on Mac the system-provided Python interpreter must be called
         elif sys.platform.startswith('darwin'):
             import macosx
-            command = macosx.system_python()
-            command.append(toolpath)
+            if (original_command == 'midi2ly') and (self.version() <= (2, 19, 54)) and macosx.midi_so_arch(self):
+                arch = macosx.midi_so_arch(self)
+            else:
+                arch = 'x86_64'
+            command = macosx.system_python(arch)
+            if not command:
+                return None
+            else:
+                command.append(toolpath)
         else:
             command = [toolpath]
         return command

@@ -17,6 +17,7 @@ Changes in 3.1.2 -- ?
     - end of line: cmd+right
   - fixed #1087, File names in document tabs are not shown correctly on Mac
   - fixed #1272, Global menu with no windows on Mac is not working
+  - fixed #1232, Error using convert-ly in Frescobaldi 3.1 Mac app
 
 
 Changes in 3.1.1 -- January 4th, 2020
