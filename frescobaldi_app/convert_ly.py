@@ -79,7 +79,7 @@ class Dialog(QDialog):
         self.reason = QLabel()
         self.toVersionLabel = QLabel()
         self.toVersion = QLineEdit()
-        self.lilyChooser = lilychooser.LilyChooser()
+        self.lilyChooser = lilychooser.LilyChooser(toolcommand='convert-ly')
         self.messages = QTextBrowser()
         self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
         self.uni_diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
@@ -157,6 +157,8 @@ class Dialog(QDialog):
         self.setWindowTitle(app.caption(title))
 
     def setLilyPondInfo(self, info):
+        if not info:
+            return
         self._info = info
         self.setCaption()
         self.toVersion.setText(info.versionString())

@@ -30,9 +30,10 @@ import icons
 
 
 class LilyChooser(QComboBox):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, toolcommand=None):
         super(LilyChooser, self).__init__(parent)
         self._infos = []
+        self._toolcommand = toolcommand
         app.translateUI(self)
         app.settingsChanged.connect(self.load)
         self.load()
@@ -55,6 +56,8 @@ class LilyChooser(QComboBox):
     def load(self):
         """Load the available LilyPond infos."""
         infos = lilypondinfo.infos() or [lilypondinfo.default()]
+        if self._toolcommand:
+            infos = [info for info in infos if info.toolcommand(self._toolcommand)]
         infos.sort(key = lambda i: i.version() or (999,))
         cur = self._infos[self.currentIndex()] if self._infos else lilypondinfo.preferred()
         self._infos = infos

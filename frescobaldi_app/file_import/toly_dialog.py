@@ -88,7 +88,7 @@ class ToLyDialog(QDialog):
                            self.runEngraverCheck]
 
         self.versionLabel = QLabel()
-        self.lilyChooser = lilychooser.LilyChooser()
+        self.lilyChooser = lilychooser.LilyChooser(toolcommand=self._imp_prgm)
 
         self.formatCheck.setObjectName("reformat")
         self.trimDurCheck.setObjectName("trim-durations")
