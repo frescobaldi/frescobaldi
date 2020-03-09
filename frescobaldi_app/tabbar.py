@@ -22,6 +22,8 @@ The tab bar with the documents.
 """
 
 
+import sys
+
 from PyQt5.QtCore import QSettings, Qt, QUrl, pyqtSignal
 from PyQt5.QtWidgets import QMenu, QTabBar
 
@@ -68,6 +70,49 @@ class TabBar(QTabBar):
         self.tabMoved.connect(self.slotTabMoved)
         self.tabCloseRequested.connect(self.slotTabCloseRequested)
         self.readSettings()
+
+        style = """
+QTabBar::tab {
+    background: white;
+    border-style: solid;
+    border-width: 1px 0px;
+    border-color: #ACACAC;
+    min-width: 8ex;
+    padding: 2px 4px 2px 2px;
+}
+
+QTabBar::tab:selected:active {
+    border-color: #045FFF;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #69B1FA, stop: 1 #0C80FF);
+    color: white;
+}
+
+QTabBar::tab:selected:!active {
+    background: #E5E5E5;
+}
+
+QTabBar::tab:first,
+QTabBar::tab:only-one {
+    border-left-width: 1px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+QTabBar::tab:!first:!selected:!previous-selected {
+    border-left-color: #E5E5E5;
+    border-left-width: 1px;
+}
+
+QTabBar::tab:last,
+QTabBar::tab:only-one {
+    border-right-width: 1px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+"""
+        if sys.platform.startswith('darwin'):
+            self.setStyleSheet(style)
 
     def readSettings(self):
         """Called on init, and when the user changes the settings."""
