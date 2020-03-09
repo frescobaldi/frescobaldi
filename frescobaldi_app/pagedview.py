@@ -26,6 +26,7 @@ This is used throughout Frescobaldi, to obey color settings etc.
 
 import itertools
 import os
+import sys
 
 from PyQt5.QtCore import pyqtSignal, QMargins, QSettings, Qt
 from PyQt5.QtWidgets import QMessageBox
@@ -191,7 +192,11 @@ class PagedView(qpageview.widgetoverlay.WidgetOverlayViewMixin, qpageview.View):
         printer.setResolution(s.value("printing/dpi", 300, int))
 
         # is it possible and preferred to print a PDF directly with cups?
-        if (s.value("printing/directcups", True, bool)
+        # on Mac, when printing directly with cups, the system print window is shown
+        # but its settings are ignored and any choice (including opening the PDF)
+        # results in printing to cups' default printer
+        if (s.value("printing/directcups",
+                    False if sys.platform.startswith('darwin') else True, bool)
             and isinstance(self.document(), qpageview.poppler.PopplerDocument)
             and os.path.isfile(self.document().filename())
             and not printer.outputFileName()):

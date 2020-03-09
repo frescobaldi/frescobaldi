@@ -33,6 +33,7 @@ This is an abstract base class for different viewer modules.
 
 import functools
 import os
+import sys
 import weakref
 
 from PyQt5.QtCore import QSettings, QTimer, Qt, pyqtSignal
@@ -183,26 +184,25 @@ class AbstractViewPanel(panel.Panel):
     @activate
     def printMusic(self):
         if self.widget().view.pageCount():
-            ### temporarily disable printing on Mac OS X
-            import sys
-            if sys.platform.startswith('darwin'):
+            # warn about printing directly with cups on Mac
+            s = QSettings()
+            if (s.value("printing/directcups",
+                       False if sys.platform.startswith('darwin') else True, bool)
+                and sys.platform.startswith('darwin')):
                 from PyQt5.QtCore import QUrl
+                from PyQt5.QtWidgets import QMessageBox
                 result =  QMessageBox.warning(self.mainwindow(),
                     _("Print Music"), _(
-                    "Unfortunately, this version of Frescobaldi is unable to print "
-                    "PDF documents on Mac OS X due to various technical reasons.\n\n"
-                    "Do you want to open the file in the default viewer for printing instead? "
-                    "(remember to close it again to avoid access problems)\n\n"
-                    "Choose Yes if you want that, No if you want to try the built-in "
-                    "printing functionality anyway, or Cancel to cancel printing."),
-                    QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel)
-                if result == QMessageBox.Yes:
-                    import helpers
-                    helpers.openUrl(QUrl.fromLocalFile(doc.filename()), "pdf")
+                    "As per your settings, you are about to print the file "
+                    "directly to CUPS.\n"
+                    "This is discouraged on macOS, since in this case the "
+                    "settings of the system print window are ignored.\n\n"
+                    "Do you really want to print to CUPS?\n\n"
+                    "(If you are unsure, cancel this print and change the "
+                    "corresponding setting in Music Preferences.)"),
+                    QMessageBox.Yes | QMessageBox.No)
+                if result == QMessageBox.No:
                     return
-                elif result == QMessageBox.Cancel:
-                    return
-            ### end temporarily disable printing on Mac OS X
             self.widget().view.print()
 
     @activate
