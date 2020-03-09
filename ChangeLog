@@ -9,6 +9,12 @@ Changes in 3.1.2 -- ?
   - fixed "Two Pages (first page right)" for both modes, other should be "left"
   - fixed pinch gesture zoom in music view on Mac
   - fixed #30, Printing score under Mac OS X
+  - fixed #860, OSX: Frescobaldi overrides critical cursor navigation keyboard shortcuts;
+    new shortcuts:
+    - next document: ctrl+tab
+    - previous document: ctrl+shift+tab
+    - start of line: cmd+left
+    - end of line: cmd+right
 
 
 Changes in 3.1.1 -- January 4th, 2020

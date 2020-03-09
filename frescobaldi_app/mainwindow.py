@@ -1291,8 +1291,12 @@ class ActionCollection(actioncollection.ActionCollection):
         self.edit_replace.setShortcuts(QKeySequence.Replace)
         self.edit_preferences.setShortcuts(QKeySequence.Preferences)
 
-        self.view_next_document.setShortcuts(QKeySequence.Forward)
-        self.view_previous_document.setShortcuts(QKeySequence.Back)
+        if sys.platform.startswith('darwin'):
+            self.view_next_document.setShortcut(Qt.META + Qt.Key_Tab)
+            self.view_previous_document.setShortcut(Qt.META + Qt.SHIFT + Qt.Key_Tab)
+        else:
+            self.view_next_document.setShortcuts(QKeySequence.Forward)
+            self.view_previous_document.setShortcuts(QKeySequence.Back)
         self.view_scroll_up.setShortcut(Qt.CTRL + Qt.Key_Up)
         self.view_scroll_down.setShortcut(Qt.CTRL + Qt.Key_Down)
         self.view_goto_line.setShortcut(Qt.CTRL + Qt.ALT + Qt.Key_G)
