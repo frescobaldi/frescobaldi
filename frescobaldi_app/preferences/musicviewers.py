@@ -183,7 +183,7 @@ class Printing(preferences.Group):
 
     def loadSettings(self):
         s = QSettings()
-        useArthurPrint = s.value("musicview/arthurbackend_print", True, bool)
+        useArthurPrint = s.value("printing/arthurbackend_print", True, bool)
         self.printArthurBackend.setChecked(useArthurPrint)
         # see comment in pagedview and warning messages in musicview/__init__
         # and viewers/__init__ for the rationale for the default value
@@ -195,6 +195,6 @@ class Printing(preferences.Group):
 
     def saveSettings(self):
         s = QSettings()
-        s.setValue("musicview/arthurbackend_print", self.printArthurBackend.isChecked())
+        s.setValue("printing/arthurbackend_print", self.printArthurBackend.isChecked())
         s.setValue("printing/directcups", self.useCups.isChecked())
         s.setValue("printing/dpi", int(self.resolution.currentText()))
