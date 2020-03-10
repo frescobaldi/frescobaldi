@@ -196,10 +196,10 @@ class AbstractViewPanel(panel.Panel):
                     "As per your settings, you are about to print the file "
                     "directly to CUPS.\n"
                     "This is discouraged on macOS, since in this case the "
-                    "settings of the system print window are ignored.\n\n"
+                    "settings of the system print window are ignored.\n"
+                    "You can disable it in Music Preferences.\n\n"
                     "Do you really want to print to CUPS?\n\n"
-                    "(If you are unsure, cancel this print and change the "
-                    "corresponding setting in Music Preferences.)"),
+                    "(If you are unsure, the answer is likely no.)"),
                     QMessageBox.Yes | QMessageBox.No)
                 if result == QMessageBox.No:
                     return
