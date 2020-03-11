@@ -66,7 +66,7 @@ class FileExport(plugin.MainWindowPlugin):
         xml = writer.musicxml()
         # put the Frescobaldi version in the xml file
         software = xml.root.find('.//encoding/software')
-        software.text = "{0} {1}".format(appinfo.appname, appinfo.version)
+        software.text = "{0} {1}".format(appinfo.appname, appinfo.running_version())
         try:
             xml.write(filename)
         except (IOError, OSError) as err:

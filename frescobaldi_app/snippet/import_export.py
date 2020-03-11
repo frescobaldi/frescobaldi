@@ -217,7 +217,7 @@ def load(filename, widget):
 
 
 _comment = """
-  Created by {appinfo.appname} {appinfo.version}.
+  Created by {appinfo.appname} {appinfo.running_version()}.
 
   Every snippet is represented by:
     title:      title text

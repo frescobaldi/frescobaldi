@@ -124,7 +124,7 @@ def instantiate():
         args.append("windows:fontengine=freetype") 
     qApp = QApplication(args) 
     QApplication.setApplicationName(appinfo.name)
-    QApplication.setApplicationVersion(appinfo.version)
+    QApplication.setApplicationVersion(appinfo.running_version())
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
     appInstantiated()

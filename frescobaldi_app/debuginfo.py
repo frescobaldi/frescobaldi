@@ -44,7 +44,7 @@ def _catch_unknown(f):
 @_catch_unknown
 def app_version():
     import appinfo
-    return appinfo.version
+    return appinfo.running_version()
 
 @_catch_unknown
 def sip_version():
@@ -104,7 +104,7 @@ if sys.platform.startswith('darwin'):
 
 def version_info_named():
     """Yield all the relevant names and their version string."""
-    yield appinfo.appname, appinfo.version
+    yield appinfo.appname, appinfo.running_version()
     yield "Extension API", appinfo.extension_api
     yield "Python", python_version()
     if app.is_git_controlled():

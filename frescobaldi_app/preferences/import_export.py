@@ -249,5 +249,5 @@ def indentXml(elem, level=0, tab=2):
 
 
 _comment = """
-  Created by {appinfo.appname} {appinfo.version}.
+  Created by {appinfo.appname} {appinfo.running_version()}.
 """

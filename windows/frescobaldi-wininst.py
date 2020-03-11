@@ -111,7 +111,7 @@ def shortcut(directory):
 
 def welcome():
     """Prints a nice welcome message in the installer."""
-    print("\nWelcome to {0} {1}!".format(appinfo.appname, appinfo.version))
+    print("\nWelcome to {0} {1}!".format(appinfo.appname, appinfo.running_version()))
 
 
 ### Main:

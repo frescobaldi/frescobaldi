@@ -174,7 +174,7 @@ Filename: "{{app}}\\frescobaldi.exe";\
  Flags: postinstall nowait skipifsilent;
 
 '''.format(
-    version=appinfo.version,
+    version=appinfo.running_version(),
     homepage=appinfo.url,
     author=appinfo.maintainer,
     comments=appinfo.description,

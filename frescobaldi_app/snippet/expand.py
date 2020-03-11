@@ -82,7 +82,7 @@ class Expander(object):
 
     @_("The version of Frescobaldi.")
     def FRESCOBALDI_VERSION(self):
-        return appinfo.version
+        return appinfo.running_version()
 
     @_("The URL of the current document.")
     def URL(self):

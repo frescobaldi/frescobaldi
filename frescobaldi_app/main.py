@@ -50,7 +50,7 @@ def parse_commandline():
     parser = argparse.ArgumentParser(conflict_handler="resolve",
         description = _("A LilyPond Music Editor"))
     parser.add_argument('-v', '--version', action="version",
-        version="{0} {1}".format(appinfo.appname, appinfo.version),
+        version="{0} {1}".format(appinfo.appname, appinfo.running_version()),
         help=_("show program's version number and exit"))
     parser.add_argument('-V', '--version-debug', action="store_true", default=False,
         help=_("show version numbers of {appname} and its supporting modules "
