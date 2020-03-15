@@ -93,11 +93,10 @@ if sys.platform.startswith('darwin'):
     @_catch_unknown
     def mac_installation_kind():
         import macosx
-        if macosx.inside_app_bundle():
-            if os.path.islink(os.getcwd() + '/../MacOS/python'):
-                return 'lightweight app bundle'
-            else:
-                return 'standalone app bundle'
+        if macosx.inside_lightweight_app_bundle():
+            return 'lightweight .app bundle'
+        elif macosx.inside_app_bundle():
+            return 'standalone .app bundle'
         else:
             return 'command line'
 

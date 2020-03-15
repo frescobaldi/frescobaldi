@@ -39,6 +39,14 @@ def inside_app_bundle():
     return (getattr(sys, 'frozen', '') == 'macosx_app' or
         '.app/Contents/MacOS' in os.path.abspath(sys.argv[0]))
 
+def inside_lightweight_app_bundle():
+    """Return True if we are inside a lightweight .app bundle."""
+    # A lightweight .app bundle (created with macosx/mac-app.py without
+    # the standalone option) contains a symlink to the Python interpreter
+    # instead of a copy.
+    return (inside_app_bundle()
+            and os.path.islink(os.getcwd() + '/../MacOS/python'))
+
 def use_osx_menu_roles():
     """Return True if Mac OS X-specific menu roles are to be used."""
     global _use_roles
