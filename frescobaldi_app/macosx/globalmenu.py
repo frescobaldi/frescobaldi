@@ -44,27 +44,22 @@ from . import use_osx_menu_roles
 
 def setup():
     """Create the global menu bar, and switch to no-session."""
-    global _menubar
-    _menubar = menubar()
+    menubar(app.qApp._menubar)
     import sessions
     sessions.setCurrentSession(None)
 
 @app.mainwindowCreated.connect
 def delete():
     """Delete the global menu bar."""
-    global _menubar
-    _menubar.deleteLater()
-    _menubar = None
+    app.qApp._menubar.clear()
 
-def menubar():
+def menubar(m):
     """Return a newly created parent-less menu bar that's used when there is no main window."""
-    m = QMenuBar()
     m.addMenu(menu_file(m))
     m.addMenu(menu_edit(m))
     m.addMenu(menu_window(m))
     m.addMenu(menu_sessions(m))
     m.addMenu(menu_help(m))
-    return m
 
 def menu_file(parent):
     m = QMenu(parent)

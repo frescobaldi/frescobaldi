@@ -30,7 +30,7 @@ import importlib.util
 
 
 from PyQt5.QtCore import QSettings, Qt, QThread
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QMenuBar
 
 ### needed for QWebEngine
 ### it wants those two things be done before constructing QApplication()
@@ -129,6 +129,8 @@ def instantiate():
     QApplication.setApplicationVersion(appinfo.version)
     QApplication.setOrganizationName(appinfo.name)
     QApplication.setOrganizationDomain(appinfo.domain)
+    if sys.platform.startswith('darwin'):
+        qApp._menubar = QMenuBar()
     appInstantiated()
 
 def oninit(func):

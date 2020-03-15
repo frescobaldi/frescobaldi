@@ -16,6 +16,7 @@ Changes in 3.1.2 -- ?
     - start of line: cmd+left
     - end of line: cmd+right
   - fixed #1087, File names in document tabs are not shown correctly on Mac
+  - fixed #1272, Global menu with no windows on Mac is not working
 
 
 Changes in 3.1.1 -- January 4th, 2020
