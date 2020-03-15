@@ -126,6 +126,13 @@ echo
 ${QTROOT}/bin/macdeployqt ${APPBUNDLE}
 echo
 
+echo Removing PyQtWebEngine as a temporary workaround for \#1244.
+echo
+rm -r ${APPBUNDLE}/Contents/Frameworks/QtWebEngine*
+rm ${APPBUNDLE}/Contents/Resources/lib/python3.7/lib-dynload/PyQt5/QtWebEngine*
+zip -d ${APPBUNDLE}/Contents/Resources/lib/python37.zip "PyQt5/QtWebEngine*"
+echo
+
 check_fix_appbundle () {
   # $1 string: path to .app bundle
   # $2 string: requested architecture, if any, or empty string
