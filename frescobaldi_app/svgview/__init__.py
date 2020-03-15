@@ -25,6 +25,8 @@ This previews a SVG-file with initial editing abilities.
 """
 
 
+import importlib.util
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QKeySequence
 from PyQt5.QtWidgets import QAction
@@ -54,6 +56,9 @@ class SvgViewPanel(panel.Panel):
         self.toggleViewAction().setText(_("SV&G View"))
 
     def createWidget(self):
+        if not importlib.util.find_spec('PyQt5.QtWebEngineWidgets'):
+            import webenginedummy
+            return webenginedummy.WebEngineDummy(self)
         from . import widget
         w = widget.SvgView(self)
         return w
