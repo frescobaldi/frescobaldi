@@ -264,7 +264,7 @@ def getPopplerBackends():
         renderBackend = popplerqt5.Poppler.Document.ArthurBackend
     else:
         renderBackend = popplerqt5.Poppler.Document.SplashBackend
-    if QSettings().value("musicview/arthurbackend_print", True, bool):
+    if QSettings().value("printing/arthurbackend_print", True, bool):
         printRenderBackend = popplerqt5.Poppler.Document.ArthurBackend
     else:
         printRenderBackend = popplerqt5.Poppler.Document.SplashBackend

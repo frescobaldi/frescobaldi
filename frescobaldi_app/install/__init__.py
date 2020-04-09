@@ -28,7 +28,7 @@ import app
 
 # increase this number by one whenever something needs to be done, installed
 # or updated concerning the application settings.
-SETTINGS_VERSION = 1
+SETTINGS_VERSION = 2
 
 
 def update_settings():
