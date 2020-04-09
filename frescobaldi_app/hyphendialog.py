@@ -148,7 +148,7 @@ class HyphenDialog(QDialog):
     def hyphenator(self):
         if self.exec_() and self._langs:
             lang, dic = self._langs[self.listWidget.currentRow()][1:]
-            result = hyphenator.Hyphenator(dic)
+            result = hyphenator.Hyphenator(dic, left=1, right=1)
             settings().setValue("lastused", lang)
         else:
             result = None
