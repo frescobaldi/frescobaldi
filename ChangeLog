@@ -2,7 +2,7 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
-Changes in 3.1.2 -- ?
+Changes in 3.1.2 -- Easter 2020
 
 * Bug fixes:
   - fixed #1255, AttributeError: 'NoneType' object has no attribute 'cursor'
@@ -18,6 +18,8 @@ Changes in 3.1.2 -- ?
   - fixed #1087, File names in document tabs are not shown correctly on Mac
   - fixed #1272, Global menu with no windows on Mac is not working
   - fixed #1232, Error using convert-ly in Frescobaldi 3.1 Mac app
+* Improvements:
+  - add DE hyphen patterns and copyright info (#1275)
 
 
 Changes in 3.1.1 -- January 4th, 2020
