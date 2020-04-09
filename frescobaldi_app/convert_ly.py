@@ -79,7 +79,7 @@ class Dialog(QDialog):
         self.reason = QLabel()
         self.toVersionLabel = QLabel()
         self.toVersion = QLineEdit()
-        self.lilyChooser = lilychooser.LilyChooser()
+        self.lilyChooser = lilychooser.LilyChooser(toolcommand='convert-ly')
         self.messages = QTextBrowser()
         self.diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
         self.uni_diff = QTextBrowser(lineWrapMode=QTextBrowser.NoWrap)
@@ -157,6 +157,8 @@ class Dialog(QDialog):
         self.setWindowTitle(app.caption(title))
 
     def setLilyPondInfo(self, info):
+        if not info:
+            return
         self._info = info
         self.setCaption()
         self.toVersion.setText(info.versionString())
@@ -212,7 +214,7 @@ class Dialog(QDialog):
                 "Both 'from' and 'to' versions need to be set."))
             return
         info = self._info
-        command = info.toolcommand(info.ly_tool('convert-ly'))
+        command = info.toolcommand('convert-ly')
         command += ['-f', fromVersion, '-t', toVersion, '-']
 
         self.job = j = job.Job(command, encoding='utf-8')
