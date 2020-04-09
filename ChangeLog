@@ -20,6 +20,7 @@ Changes in 3.1.2 -- Easter 2020
   - fixed #1232, Error using convert-ly in Frescobaldi 3.1 Mac app
 * Improvements:
   - add DE hyphen patterns and copyright info (#1275)
+  - hyphenation: allow initial and final one-letter syllables (#1276)
 
 
 Changes in 3.1.1 -- January 4th, 2020
