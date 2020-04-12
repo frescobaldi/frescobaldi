@@ -1,5 +1,5 @@
-# #-#-#-#-#  common.pot (frescobaldi 3.1.1)  #-#-#-#-#
-# #-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.1)  #-#-#-#-#
+# #-#-#-#-#  common.pot (frescobaldi 3.1.2)  #-#-#-#-#
+# #-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.2)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the frescobaldi package.
@@ -8,11 +8,11 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"#-#-#-#-#  common.pot (frescobaldi 3.1.1)  #-#-#-#-#\n"
-"#-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.1)  #-#-#-#-#\n"
-"Project-Id-Version: frescobaldi 3.1.1\n"
+"#-#-#-#-#  common.pot (frescobaldi 3.1.2)  #-#-#-#-#\n"
+"#-#-#-#-#  frescobaldi.pot (frescobaldi 3.1.2)  #-#-#-#-#\n"
+"Project-Id-Version: frescobaldi 3.1.2\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-02-10 16:31+0100\n"
+"POT-Creation-Date: 2020-04-12 17:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
