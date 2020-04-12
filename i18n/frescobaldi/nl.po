@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2020-04-12 17:51+0200\n"
-"PO-Revision-Date: 2020-04-12 18:26+0200\n"
+"PO-Revision-Date: 2020-04-12 21:19+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
@@ -1092,7 +1092,7 @@ msgstr "V&orige zoeken"
 
 #: ../../frescobaldi_app/mainwindow.py:1375
 msgid "&Replace..."
-msgstr "Ve&rvangen"
+msgstr "Ve&rvangen..."
 
 #: ../../frescobaldi_app/mainwindow.py:1376
 #: ../../frescobaldi_app/macosx/globalmenu.py:123
@@ -2027,7 +2027,7 @@ msgstr "Importeren..."
 
 #: ../../frescobaldi_app/file_import/__init__.py:219
 msgid "Generic import for all LilyPond tools."
-msgstr "Algemene importeerfunctie voor alle LilyPond hulpprogramma's"
+msgstr "Algemene importeerfunctie voor alle LilyPond hulpprogramma's."
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
 #: ../../frescobaldi_app/macosx/globalmenu.py:116
@@ -2259,7 +2259,7 @@ msgid ""
 "Load openLilyLib (oll-core) explicitly.\n"
 "Unckeck if oll-core is already loaded elsewhere."
 msgstr ""
-"openLilyLib (oll-core) expliciet laden.\n"
+"OpenLilyLib (oll-core) expliciet laden.\n"
 "Uitschakelen als oll-core elders al geladen wordt."
 
 #: ../../frescobaldi_app/fonts/fontcommand.py:263
@@ -2377,7 +2377,7 @@ msgid ""
 msgstr ""
 "Het installeren van lettertypen in de LilyPond-installatie heeft beheerdersrechten "
 "nodig op uw systeem en kan daardoor helaas niet door Frescobaldi worden "
-"afgehandeld."
+"afgehandeld,"
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:210
 msgid "Font family could not be removed!"
@@ -2389,6 +2389,9 @@ msgid ""
 "linked into a LilyPond installation. The font being removed includes real files "
 "and can therefore not be removed directly."
 msgstr ""
+"Om schade te voorkomen kan Frescobaldi alleen muzieklettertypen verwijderen die "
+"verbonden zijn aan een LilyPond-installatie. Het te verwijderen lettertype bevat "
+"werkelijke bestanden en kan daarom niet rechtstreeks worden verwijderd."
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:537
 #: ../../frescobaldi_app/fonts/musicfonts.py:546
@@ -2424,7 +2427,7 @@ msgstr "WOFF"
 
 #: ../../frescobaldi_app/fonts/oldfontsdialog.py:74
 msgid "Global Fonts (LilyPond < 2.19.12)"
-msgstr ""
+msgstr "Algemene lettertypen (LilyPond < 2.19.12)"
 
 #: ../../frescobaldi_app/fonts/oldfontsdialog.py:76
 msgid ""
@@ -2455,6 +2458,8 @@ msgid ""
 "Use custom sample for music font.\n"
 "NOTE: This should not include a version statement or a \\paper {...} block."
 msgstr ""
+"Een eigen voorbeeld voor muzieklettertype gebruiken:\n"
+"NB: Dit moet geen \\version-statement of \\paper {...} blok bevatten."
 
 #: ../../frescobaldi_app/fonts/preview.py:131
 msgid "Select sample score"
@@ -2465,34 +2470,36 @@ msgid ""
 "Use current document as music font sample.\n"
 "NOTE: This is not robust if the document contains a \\paper {...} block."
 msgstr ""
+"Gebruik het huidige document als muzieklettertype voorbeeld.\n"
+"NB: Dit werkt niet goed als het document een \\paper {...} blok bevat."
 
 #: ../../frescobaldi_app/fonts/preview.py:174
 msgid "Bach (Piano)"
-msgstr ""
+msgstr "Bach (Piano)"
 
 #: ../../frescobaldi_app/fonts/preview.py:177
 msgid "Baroque music lends itself to traditional fonts"
-msgstr ""
+msgstr "Barokmuziek is geschikt voor traditionele lettertypen"
 
 #: ../../frescobaldi_app/fonts/preview.py:181
 msgid "Scriabine (Piano)"
-msgstr ""
+msgstr "Scriabine (Piano)"
 
 #: ../../frescobaldi_app/fonts/preview.py:184
 msgid "Late romantic, complex piano music"
-msgstr ""
+msgstr "Laat-romantiek, complexe pianomuziek"
 
 #: ../../frescobaldi_app/fonts/preview.py:188
 msgid "Berg (String Quartet)"
-msgstr ""
+msgstr "Berg (Strijkkwartet)"
 
 #: ../../frescobaldi_app/fonts/preview.py:191
 msgid "Complex score, requires a 'clean' font"
-msgstr ""
+msgstr "Complexe partituur, vereist een 'clean' lettertype"
 
 #: ../../frescobaldi_app/fonts/preview.py:195
 msgid "Real Book (Lead Sheet)"
-msgstr ""
+msgstr "Real Book (Leadsheet)"
 
 #: ../../frescobaldi_app/fonts/preview.py:198
 msgid ""
@@ -2501,16 +2508,20 @@ msgid ""
 "Good choices are \"lilyjazz-text\" for roman and\n"
 "\"lilyjazz-chords\" for sans text fonts."
 msgstr ""
+"Jazz-achtig lead sheet.\n"
+"NB: fraaie resultaten hangen af van goede tekst-lettertypen.\n"
+"Een goede keuze is bijvoorbeeld \"lilyjazz-text\" voor roman, en\n"
+"\"lilyjazz-chords\" voor schreefloze tekst."
 
 #: ../../frescobaldi_app/fonts/preview.py:205
 msgid "Schenker Diagram"
-msgstr ""
+msgstr "Schenker-diagram"
 
 #: ../../frescobaldi_app/fonts/preview.py:208
 msgid ""
 "Schenker diagram with absolutely\n"
 "non-standard notation."
-msgstr ""
+msgstr "Schenker-diagram met volledig non-standaard notatie."
 
 #: ../../frescobaldi_app/fonts/preview.py:213
 msgid "Glyphs"
@@ -2518,13 +2529,15 @@ msgstr "Glyphs"
 
 #: ../../frescobaldi_app/fonts/preview.py:216
 msgid "Non-comprehensive specimen sheet"
-msgstr ""
+msgstr "Niet-compleet voorbeeldblad"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:95
 msgid ""
 "Filter results (type any part of the font family name. Regular Expressions "
 "supported.)"
 msgstr ""
+"Resultaten filteren (typ een willekeurig deel van de lettertypefamilienaam. "
+"(Reguliere expressies zijn ook mogelijk.)"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:113
 #, python-brace-format
@@ -2538,11 +2551,11 @@ msgstr "LilyPond wordt gestart voor de lijst van lettertypen..."
 #: ../../frescobaldi_app/fonts/textfonts.py:164
 #, python-brace-format
 msgid "Set as {family} (current: {current})"
-msgstr ""
+msgstr "Instellen als {family} (huidig: {current})"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:201
 msgid "Fontconfig data:"
-msgstr ""
+msgstr "Fontconfig-gegevens:"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:245
 msgid "The quick brown fox jumps over the lazy dog"
@@ -2558,7 +2571,7 @@ msgstr "Configuratiebestanden"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:327
 msgid "Configuration Directories"
-msgstr ""
+msgstr "Configuratiemappen"
 
 #: ../../frescobaldi_app/fonts/textfonts.py:328
 msgid "Searched Font Directories"
@@ -2607,56 +2620,56 @@ msgstr "Extern commando starten"
 
 #: ../../frescobaldi_app/job/dialog.py:71
 msgid "Job failed! Please inspect log"
-msgstr ""
+msgstr "Taak mislukt! Bekijk de logweergave"
 
 #: ../../frescobaldi_app/job/queue.py:94
 msgid "Job is already running. Wait for completion."
-msgstr ""
+msgstr "De taak is al actief, wacht op voltooiing."
 
 #: ../../frescobaldi_app/job/queue.py:304
 msgid "Inactive Job Queue can't be aborted"
-msgstr ""
+msgstr "Een niet-actieve taak-rij kan niet worden afgebroken"
 
 #: ../../frescobaldi_app/job/queue.py:325
 msgid "Job Queue full"
-msgstr ""
+msgstr "Wachtrij vol"
 
 #: ../../frescobaldi_app/job/queue.py:328
 msgid "Can't add job to finished/aborted queue."
-msgstr ""
+msgstr "Kan geen taak aan een gestopte/afgebroken rij toevoegen."
 
 #: ../../frescobaldi_app/job/queue.py:423
 msgid "Non-running Job Queue can't be paused."
-msgstr ""
+msgstr "Kan niet-actieve taak niet pauzeren."
 
 #: ../../frescobaldi_app/job/queue.py:435
 msgid "Can't pop job from non-started Job Queue"
-msgstr ""
+msgstr "Kan geen taak van een niet-gestarte wachtrij poppen."
 
 #: ../../frescobaldi_app/job/queue.py:458
 msgid "Job Queue not paused, can't resume."
-msgstr ""
+msgstr "Wachtrij niet gepauzeerd, kan niet verdergaan."
 
 #: ../../frescobaldi_app/job/queue.py:482
 msgid "Can't (re)start a finished/aborted Job Queue."
-msgstr ""
+msgstr "Kan een voltooide/afgebroken wachtrij niet (her)starten."
 
 #: ../../frescobaldi_app/job/queue.py:485
 msgid "Queue already started."
-msgstr ""
+msgstr "Wachtrij reeds gestart."
 
 #: ../../frescobaldi_app/job/queue.py:496
 msgid "Can't start SINGLE-mode empty queue"
-msgstr ""
+msgstr "Kan een SINGLE-mode lege wachtrij niet starten"
 
 #: ../../frescobaldi_app/job/queue.py:511
 msgid "Can't 'start' an active Job Queue."
-msgstr ""
+msgstr "Kan een actieve wachtrij niet 'starten'."
 
 #: ../../frescobaldi_app/job/queue.py:553
 #, python-brace-format
 msgid "Invalid job queue target: {name}"
-msgstr ""
+msgstr "Ongeldige wachtrij-target: {name}"
 
 #: ../../frescobaldi_app/layoutcontrol/__init__.py:36
 msgid "Annotate Spacing"
@@ -2854,7 +2867,7 @@ msgstr "Voortekenstijl wisselen"
 #: ../../frescobaldi_app/midiinput/tool.py:64
 msgctxt "midi input"
 msgid "Change accidental style (flats or sharps)"
-msgstr ""
+msgstr "Voortekenstijl aanpassen (mollen of kruisen)"
 
 #: ../../frescobaldi_app/midiinput/widget.py:178
 msgid "MIDI channel"
@@ -3000,6 +3013,8 @@ msgid ""
 "Enter notes keeping existing durations. Replaces notes in existing piece of music "
 "keeping rests and durations untouched."
 msgstr ""
+"Voer noten in waarbij bestaande tijdsduren worden bewaard. Vervangt noten in "
+"bestaande muziek, waarbij rusten en tijdsduren niet worden aangepast."
 
 #: ../../frescobaldi_app/midiinput/widget.py:226
 msgid "Damper pedal"
@@ -3101,6 +3116,14 @@ msgid ""
 "\n"
 "(If you are unsure, the answer is likely no.)"
 msgstr ""
+"Volgens uw instellingen wordt het bestand regelrecht naar CUPS afgedrukt.\n"
+"Dit wordt niet aanbevolen op macOS, omdat de instellingen in het printvenster dan "
+"niet allemaal worden gehonoreerd.\n"
+"U kunt dit uitschakelen in de Muziek voorkeuren.\n"
+"\n"
+"Wilt u werkelijk afdrukken naar CUPS?\n"
+"\n"
+"(Indien onzeker, kies Nee.)"
 
 #: ../../frescobaldi_app/musicview/__init__.py:253
 #: ../../frescobaldi_app/viewers/__init__.py:339
@@ -3697,7 +3720,7 @@ msgstr "Kies in welke HTML-tag de gekleurde HTML moet worden geplaatst."
 
 #: ../../frescobaldi_app/preferences/editor.py:356
 msgid "Attribute type of wrapper:  "
-msgstr "Attribute-type van tag:"
+msgstr "Attribute-type van wrapper: "
 
 #: ../../frescobaldi_app/preferences/editor.py:358
 msgid "Choose whether the wrapper tag should be of type 'id' or 'class'"
@@ -3705,7 +3728,7 @@ msgstr "Kies of de tag een attribute 'id' of 'class' moet hebben"
 
 #: ../../frescobaldi_app/preferences/editor.py:359
 msgid "Name of attribute:  "
-msgstr "Naam van attribuut:"
+msgstr "Naam van attribuut: "
 
 #: ../../frescobaldi_app/preferences/editor.py:361
 msgid ""
@@ -3754,7 +3777,7 @@ msgstr "Extensie-API: {apiversion}"
 
 #: ../../frescobaldi_app/preferences/extensions.py:99
 msgid "If unchecked don't look for extensions."
-msgstr ""
+msgstr "Indien niet geselecteerd, zoek niet naar extensies."
 
 #: ../../frescobaldi_app/preferences/extensions.py:155
 msgid "Installed Extensions"
@@ -3801,11 +3824,11 @@ msgstr "Afhankelijkheden"
 #: ../../frescobaldi_app/preferences/extensions.py:241
 #, python-brace-format
 msgid "Misformat: {api}"
-msgstr ""
+msgstr "Onjuist formaat: {api}"
 
 #: ../../frescobaldi_app/preferences/extensions.py:292
 msgid "Failed Extensions"
-msgstr ""
+msgstr "Gefaalde extensies"
 
 #: ../../frescobaldi_app/preferences/extensions.py:323
 msgid "Extension Configuration"
@@ -3815,6 +3838,7 @@ msgstr "Configuratie van extensie"
 msgid ""
 "The selected extension does not provide a configuration widget or is inactive."
 msgstr ""
+"De geselecteerde uitbreiding bevat geen configuratiewidget of is niet actief."
 
 #: ../../frescobaldi_app/preferences/fontscolors.py:127
 msgid "Use this scheme for printing"
@@ -4194,13 +4218,15 @@ msgstr "Sessies en bestanden"
 
 #: ../../frescobaldi_app/preferences/general.py:263
 msgid "Add pull-down menus in main toolbar"
-msgstr ""
+msgstr "Menus in hoofdwerkbalk toevoegen"
 
 #: ../../frescobaldi_app/preferences/general.py:266
 msgid ""
 "If set the file related buttons in the main toolbar will provide pull-down menus "
 "with additional functions."
 msgstr ""
+"Indien geselecteerd, zullen de bestands-knoppen in de hoofdwerkbalk menus bevatten "
+"met extra functionaliteit."
 
 #: ../../frescobaldi_app/preferences/general.py:271
 msgid "New Document"
@@ -4220,7 +4246,7 @@ msgstr "Een document uit een sjabloon aanmaken:"
 
 #: ../../frescobaldi_app/preferences/general.py:280
 msgid "Saving"
-msgstr ""
+msgstr "Opslaan"
 
 #: ../../frescobaldi_app/preferences/general.py:281
 msgid "Strip trailing whitespace"
@@ -4269,6 +4295,10 @@ msgid ""
 "If checked, Frescobaldi will use the template to generate default file name.\n"
 "{title} and {composer} will be replaced by title and composer of that document"
 msgstr ""
+"Indien geselecteerd, zal Frescobaldi het sjabloon gebruiken om een "
+"standaardbestandsnaam te bedenken.\n"
+"{title} en {composer} worden vervangen door de titel en de componist van het "
+"document"
 
 #: ../../frescobaldi_app/preferences/general.py:300
 msgid "Sessions"
@@ -4670,7 +4700,7 @@ msgstr "Schuifbalken weergeven"
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:101
 msgid "Shadow"
-msgstr ""
+msgstr "Schaduw"
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:103
 msgid "If checked, Frescobaldi draws a shadow around the pages."
@@ -4681,6 +4711,8 @@ msgid ""
 "Use vector based backend (Arthur) for rendering PDF documents on screen "
 "(experimental!)"
 msgstr ""
+"Gebruik het vectorgebaseerde Arthurbackend voor het weergeven van PDF-documenten "
+"op het scherm (experimenteel!)"
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:106
 msgid ""
@@ -4688,6 +4720,9 @@ msgid ""
 "library for PDF rendering on screen. The Arthur backend is faster\n"
 "than the default Splash backend, but more experimental."
 msgstr ""
+"Indien geselecteerd, zal Frescobaldi het Arthur-backend van de Poppler-\n"
+"bibliotheek gebruiken voor PDF-weergave op het scherm. Het Arthur-backend\n"
+"is sneller dan het standaard Splash-backend, maar nog experimenteler."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:109
 msgid "Display of Music"
@@ -4726,6 +4761,7 @@ msgstr "Afdrukken van muziek"
 #: ../../frescobaldi_app/preferences/musicviewers.py:170
 msgid "Use vector based backend (Arthur) for printing PDF documents"
 msgstr ""
+"Gebruik het vectorgebaseerde Arthurbackend voor het afdrukken van PDF-documenten"
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:172
 msgid ""
@@ -4734,10 +4770,15 @@ msgid ""
 "is that it is vector-based, in contrast to the default Splash backend,\n"
 "which is raster-based. But Arthur is more experimental."
 msgstr ""
+"Indien geselecteerd, zal Frescobaldi het Arthur-backend van de Poppler-\n"
+"bibliotheek gebruiken voor het afdrukken van PDF-documenten. Een groot\n"
+"voordeel van dit backend is dat het vectorgebaseerd is, in afwijking van het\n"
+"standaard Splash-backend, dat rastergebaseerd is. Maar Arthur is nog\n"
+"experimenteel."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:176
 msgid "Print PDF documents directly to CUPS if available."
-msgstr ""
+msgstr "PDF-documenten direct naar CUPS afdrukken indien beschikbaar."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:178
 msgid ""
@@ -4757,7 +4798,7 @@ msgstr "Mappen met afbreekbestanden"
 
 #: ../../frescobaldi_app/preferences/paths.py:117
 msgid "Music Font Repository:"
-msgstr ""
+msgstr "Muzieklettertype-depot:"
 
 #: ../../frescobaldi_app/preferences/paths.py:119
 msgid ""
@@ -4862,7 +4903,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/preferences/tools.py:142
 msgid "Remember View settings per-document"
-msgstr ""
+msgstr "Weergave-instellingen per document onthouden"
 
 #: ../../frescobaldi_app/preferences/tools.py:144
 msgid ""
@@ -4870,6 +4911,9 @@ msgid ""
 "own layout setting, zoom factor, etc. If unchecked, the View will\n"
 "not change its settings when a different document is displayed."
 msgstr ""
+"Indien geselecteerd, zal elk document in de Muziekweergave zijn eigen\n"
+"layout-instellingen, zoomfacter etc. onthouden. Indien niet geselecteerd,\n"
+"zal de weergave zijn instellingen niet veranderen bij het wisselen van document."
 
 #: ../../frescobaldi_app/preferences/tools.py:217
 msgid "Group documents by directory"
@@ -5854,7 +5898,7 @@ msgstr "Bij \\relative starttoonhoogte vermelden"
 
 #: ../../frescobaldi_app/scorewiz/settings.py:145
 msgid "Write a default pitch after the \\relative command."
-msgstr ""
+msgstr "Schrijf een standaard toonhoogte na het \\relative-commando."
 
 #: ../../frescobaldi_app/scorewiz/settings.py:146
 msgid "Remove default tagline"
@@ -5912,7 +5956,7 @@ msgstr "Orientatie:"
 
 #: ../../frescobaldi_app/scorewiz/settings.py:168
 msgid "Regular"
-msgstr ""
+msgstr "Normaal"
 
 #: ../../frescobaldi_app/scorewiz/settings.py:169
 msgid "Landscape"
@@ -5924,16 +5968,16 @@ msgstr "Gedraaid"
 
 #: ../../frescobaldi_app/scorewiz/settings.py:171
 msgid "Regular portrait orientation."
-msgstr ""
+msgstr "Normaal (portret) orientatie."
 
 #: ../../frescobaldi_app/scorewiz/settings.py:173
 msgid ""
 "Set paper orientation to landscape while keeping upright printing orientation."
-msgstr ""
+msgstr "Stel het papier in op landscape, terwijl gewoon rechtop geprint wordt."
 
 #: ../../frescobaldi_app/scorewiz/settings.py:175
 msgid "Rotate print on regular paper."
-msgstr ""
+msgstr "Gedraaid afdrukken op normaal papier."
 
 #: ../../frescobaldi_app/scorewiz/settings.py:233
 #: ../../frescobaldi_app/scorewiz/settings.py:236
@@ -7880,7 +7924,7 @@ msgstr "Zie ook:"
 #: ../../frescobaldi_app/vbcl/__init__.py:44
 #, python-brace-format
 msgid "VBCL Error: Missing mandatory key(s) '{keys}'"
-msgstr ""
+msgstr "VBCL-fout: vereiste sleutel(s) ontbrekend '{keys}'"
 
 #: ../../frescobaldi_app/vcs/__init__.py:81
 msgid "Git not found"
@@ -7908,7 +7952,7 @@ msgstr "&Git"
 
 #: ../../frescobaldi_app/vcs/menu.py:129
 msgid "Successful checkout of branch:"
-msgstr ""
+msgstr "Succesvolle checkout van branch:"
 
 #: ../../frescobaldi_app/vcs/menu.py:133
 msgid "Git Checkout Error"
@@ -8073,6 +8117,15 @@ msgid ""
 "Do you want to restart now?\n"
 "You can also save open files first and restart manually."
 msgstr ""
+"Deze bewerking vereist een herstart van Frescobaldi:\n"
+"\n"
+"   {}\n"
+"\n"
+"Bepaalde nieuwe functies komen beschikbaar maar het programma zou instabiel kunnen "
+"zijn.\n"
+"\n"
+"Wilt u nu herstarten?\n"
+"U kunt ook de open documenten eerst opslaan en dan handmatig herstarten."
 
 #: ../../frescobaldi_app/widgets/schemeselector.py:90
 msgid "Scheme:"
@@ -9177,17 +9230,19 @@ msgstr "Muziek-editor voor LilyPond"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:9
 msgid "org.frescobaldi.Frescobaldi"
-msgstr ""
+msgstr "org.frescobaldi.Frescobaldi"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:14
 msgid "lilypond;editor;sheet music;"
-msgstr ""
+msgstr "lilypond;editor;sheet music;bladmuziek;"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:10
 msgid ""
 "Frescobaldi is an advanced text editor to edit LilyPond sheet music files. It aims "
 "to be powerful, yet lightweight and easy to use."
 msgstr ""
+"Frescobaldi is een geavanceerde teksteditor om LilyPond muziekbestanden te "
+"bewerken. Het wil krachtig zijn, maar lichtgewicht en gemakkelijk te gebruiken."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:14
 msgid "Features:"
@@ -9195,19 +9250,19 @@ msgstr "Mogelijkheden:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:16
 msgid "Powerful text editor with syntax highlighting and automatic completion"
-msgstr ""
+msgstr "Krachtige tekst-editor met syntaxis-accentuering en automatisch aanvullen"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:17
 msgid "Music view with advanced Point &amp; Click"
-msgstr ""
+msgstr "Muziekweergave met geavanceerde Point&amp;Click"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:18
 msgid "Midi player to proof-listen LilyPond-generated MIDI files"
-msgstr ""
+msgstr "Midi-speler om door LilyPond gemaakte MIDI-bestanden af te luisteren"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:19
 msgid "Midi capturing to enter music"
-msgstr ""
+msgstr "MIDI-input om muziek in te voeren"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:20
 msgid "Powerful Score Wizard to quickly setup a music score"
@@ -9215,19 +9270,19 @@ msgstr "Krachtige Score Wizard om snel een partituur om te zetten"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:21
 msgid "Snippet Manager to store and apply text snippets, templates or scripts"
-msgstr ""
+msgstr "Knipselmanager om stukken tekst, sjablonen of scripts te bewaren en bewerken"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:22
 msgid "Use multiple versions of LilyPond, automatically selects the correct version"
-msgstr ""
+msgstr "Gebruik meerdere versies van LilyPond, kies automatisch de juiste versie"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:23
 msgid "Built-in LilyPond documentation browser and built-in User Guide"
-msgstr ""
+msgstr "Ingebouwde LilyPond documentatie-browser en ingebouwde handleiding"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:24
 msgid "Smart layout-control functions like coloring specific objects in the PDF"
-msgstr ""
+msgstr "Slimme layout-controle functies, zoals specifieke objecten kleuren in de PDF"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:25
 msgid "MusicXML, Midi and ABC import"
@@ -9235,7 +9290,7 @@ msgstr "MusicXML, Midi en ABC im- en export"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:26
 msgid "Modern user interface with configurable colors, fonts and keyboard shortcuts"
-msgstr ""
+msgstr "Moderne gebruiksinterface met instelbare kleuren, lettertypen en sneltoetsen"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:27
 msgid ""
@@ -9243,6 +9298,9 @@ msgid ""
 "Czech, Russian, Spanish, Galician, Turkish, Polish, Brazillian Portugese and "
 "Ukrainian."
 msgstr ""
+"Vertaald in de volgende talen: Nederlands, Engels, Frans, Duits, Italiaans, "
+"Tsjechisch, Russisch, Spaans, Galicisch, Turks, Pools, Braziliaans Portugees en "
+"Ukraïns."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:29
 msgid ""
@@ -9250,18 +9308,22 @@ msgid ""
 "MS Windows). It is named after Girolamo Frescobaldi (1583-1643), an Italian "
 "composer of keyboard music in the late Renaissance and early Baroque period."
 msgstr ""
+"Frescobaldi is ontworpen om op alle belangrijke besturingssystemen te kunnen "
+"werken (Linux, Mac OS X en MS Windows). Het is genoemd naar Girolamo Frescobaldi "
+"(1583-1643), een Italiaanse componist van muziek voor o.a. orgel en clavecymbel "
+"uit de late Renaissance en vroege Barok."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:38
 msgid "Text editor and music view"
-msgstr ""
+msgstr "Tekst editor en muziekweergave"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:42
 msgid "Change the input without leaving the music view"
-msgstr ""
+msgstr "Verander de invoer zonder de muziekweergave te verlaten"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:46
 msgid "Zoom with the magnifier glass"
-msgstr ""
+msgstr "Inzoomen met het vergrootglas"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:50
 msgid "Syntax highlighting and automatic completion"
@@ -9277,26 +9339,32 @@ msgstr "Score Wizard om snel een partituur op te zetten"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:72
 msgid "Bugfixes:"
-msgstr ""
+msgstr "Bugfixes:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:74
 msgid ""
 "Fixed the error AttributeError: 'PopplerDocument' has no attribute 'ispresent'."
 msgstr ""
+"De fout \"AttributeError: 'PopplerDocument' has no attribute 'ispresent'\" is "
+"verholpen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:75
 msgid ""
 "Fixed the error NameError: 'QPinchGesture' is not defined (pinch in music view)."
 msgstr ""
+"De fout \"NameError: 'QPinchGesture' is not defined\" (pinch in muziekweergave) is "
+"verholpen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:76
 msgid "Fixed the error NameError: 'doc' is not defined (when printing on Mac OSX)."
 msgstr ""
+"De foutmelding \"NameError: 'doc' is not defined\" bij het printen op Mac OS X is "
+"verholpen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:82
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:123
 msgid "Requirement changes:"
-msgstr ""
+msgstr "Aanpassingen in vereisten:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:84
 msgid "Frescobaldi now requires Python3.3+"
@@ -9312,14 +9380,16 @@ msgid ""
 "New \"Document Fonts\" dialog supporting text and music fonts and providing a font "
 "sample previewer."
 msgstr ""
+"Nieuwe \"Documentlettertypen\" dialoog met tekst- en muzieklettertypen, met "
+"voorbeeldweergave."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:89
 msgid "Possibility to load external extensions."
-msgstr ""
+msgstr "Mogelijkheid om externe extensies te laden."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:90
 msgid "New \"First System Only\" option in Custom Engrave."
-msgstr ""
+msgstr "Nieuwe optie \"Eerste systeem alleen\" in Aangepast graveren."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
 msgid "New \"Goto Line\" and \"Rename file\" commands."
@@ -9327,58 +9397,67 @@ msgstr "Nieuwe commando's \"Ga naar regel\" en \"Bestand hernoemen\"."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:92
 msgid "Music View: view settings are remembered per-document."
-msgstr ""
+msgstr "Muziekweergave: instellingen kunnen per-document worden onthouden."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:93
 msgid ""
 "Music View: copy to Image can copy/export to SVG, PDF and EPS in addition to PNG/"
 "JPG."
 msgstr ""
+"Muziekweergave: de optie \"Kopieren naar afbeelding\" kan kopiëren/exporteren naar "
+"SVG, PDF en EPS, naast de gebruikelijke PNG/JPG."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:94
 msgid ""
 "Music View: new commands to rotate left/right; new toolbar button to show/hide the "
 "magnifier."
 msgstr ""
+"Muziekweergave: nieuwe commando's: draai links/rechts, nieuwe knop om het "
+"vergrootglas te tonen/verbergen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:95
 msgid ""
 "Music View: new preferences Horizontal/Vertical and Continuous/non-continuous."
-msgstr ""
+msgstr "Muziekweergave: nieuwe keuzes Horizontaal/Verticaal en wel/niet doorlopend."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:96
 msgid "Music View: new raster layout mode (displays as many pages as fit in a View)."
 msgstr ""
+"Muziekweergave: nieuwe raster-layout modues (toont zoveel mogelijk pagina's "
+"tegelijk)."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:97
 msgid ""
 "Manuscript viewer: new toolbar buttons to rotate the pages left/right and to show/"
 "hide the magnifier."
 msgstr ""
+"Manuscriptweergave: nieuwe werkbalkknoppen om de pagina's links/rechts te draaien "
+"en het vergrootglas te tonen/verbergen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:99
 msgid "Bug fixes:"
-msgstr ""
+msgstr "Bug-fixes:"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:101
 msgid "Fixed seeking in MIDI player during playing stops sound."
-msgstr ""
+msgstr "De fout \"Zoeken in MIDI-speler stopt het geluid\" is verholpen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:102
 msgid "Paper orientation is now properly handled in New Score Wizard."
-msgstr ""
+msgstr "Orientatie van het papier in de Score Wizard werkt nu goed."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:103
 msgid "Fixed discrepancy of LilyPond vs. system version of GhostScript on Linux."
 msgstr ""
+"De verwarring tussen GhostScript van LilyPond of het Linux-systeem is verholpen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:105
 msgid "Fixed includepaths on Windows."
-msgstr ""
+msgstr "Het \"include-pad\" werkt nu ook in Windows goed."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:106
 msgid "Fixed the error NameError: name 'widgets' is not defined."
-msgstr ""
+msgstr "De foutmelding \"NameError: name 'widgets' is not defined\" is verholpen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:108
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:132
@@ -9391,34 +9470,37 @@ msgid ""
 "omit pitches after \\relative command; allow \"none\" for instrument names on "
 "first system."
 msgstr ""
+"Score Wizard: titels en koppen worden nu ook zichtbaar in het voorbeeld; nieuwe "
+"keuzeknop om toonhoogtes na het \\relative-commando te plaatsen; en de "
+"instrumentnamen bij het eerste systeem kunnen worden weggelaten."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:111
 msgid "Smarter behaviour of the autocompletion popup (#918, #922)."
-msgstr ""
+msgstr "Slimmer gedrag van de automatisch-aanvullen popup (#918, #922)."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:112
 msgid "New command File-&gt;Rename/Move."
-msgstr ""
+msgstr "Nieuw commando Bestand-&gt;Hernoemen/Verplaatsen."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:113
 msgid "Sessions can be grouped in the Sessions menu."
-msgstr ""
+msgstr "Sessies in het sessiemenu kunnen worden gegroepeerd."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:114
 msgid "Show absolute path of include files in tooltip."
-msgstr ""
+msgstr "Toon het absolute pad van include-bestanden in een tooltip."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:115
 msgid "Restructure Tools Menu."
-msgstr ""
+msgstr "Het gereedschap-menu is geherstructureerd."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:116
 msgid "File Open toolbar button shows recent files menu on long click."
-msgstr ""
+msgstr "Werkbalk-knop Open toont nu recente bestanden bij lang-klikken."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:117
 msgid "Added \"Blank Sheet Music\" template snippet."
-msgstr ""
+msgstr "Een \"blanco muziekpapier\" sjabloon is toegevoegd."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:125
 msgid "Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5."
@@ -9426,7 +9508,7 @@ msgstr "Frescobaldi vereist Python3.2+, Qt5, PyQt5, python-poppler-qt5."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:129
 msgid "Zoom with pinch gesture in Music View."
-msgstr ""
+msgstr "Zoomen kan nu met knijpgebaar in Muziekweergave"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:130
 msgid ""
