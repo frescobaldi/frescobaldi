@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.18.1\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-02-10 16:31+0100\n"
+"POT-Creation-Date: 2020-04-12 17:51+0200\n"
 "PO-Revision-Date: 2017-05-30 23:15+0800\n"
 "Last-Translator: Yuning Zhang <codeworm96@outlook.com>\n"
 "Language-Team: Chinese <codeworm96@outlook.com>\n"
@@ -65,31 +65,31 @@ msgstr "由 Anthony Fok, Zhang Yuning 初步汉化，欢迎同好参与翻译。
 msgid "Licensed under the {gpl}."
 msgstr "本软件以 {gpl} 授权发行。"
 
-#: ../../frescobaldi_app/app.py:190
+#: ../../frescobaldi_app/app.py:194
 msgid "LilyPond Files"
 msgstr "LilyPond 文件"
 
-#: ../../frescobaldi_app/app.py:191
+#: ../../frescobaldi_app/app.py:195
 msgid "LaTeX Files"
 msgstr "LaTeX 文件"
 
-#: ../../frescobaldi_app/app.py:192
+#: ../../frescobaldi_app/app.py:196
 msgid "DocBook Files"
 msgstr "DocBook 文件"
 
-#: ../../frescobaldi_app/app.py:193 ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/app.py:197 ../../frescobaldi_app/convert_ly.py:256
 msgid "HTML Files"
 msgstr "HTML 文件"
 
-#: ../../frescobaldi_app/app.py:194
+#: ../../frescobaldi_app/app.py:198
 msgid "Texinfo Files"
 msgstr "Texinfo 文件"
 
-#: ../../frescobaldi_app/app.py:195
+#: ../../frescobaldi_app/app.py:199
 msgid "Scheme Files"
 msgstr "Scheme 文件"
 
-#: ../../frescobaldi_app/app.py:196 ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/app.py:200 ../../frescobaldi_app/convert_ly.py:256
 #: ../../frescobaldi_app/file_export/__init__.py:59
 #: ../../frescobaldi_app/file_export/__init__.py:90
 #: ../../frescobaldi_app/file_import/__init__.py:124
@@ -130,7 +130,7 @@ msgid "Go to previous position"
 msgstr "到上一个位置"
 
 #: ../../frescobaldi_app/browseriface.py:136
-#: ../../frescobaldi_app/docbrowser/__init__.py:82
+#: ../../frescobaldi_app/docbrowser/__init__.py:87
 #: ../../frescobaldi_app/userguide/browser.py:81
 msgid "Back"
 msgstr "后退"
@@ -140,7 +140,7 @@ msgid "Go to next position"
 msgstr "到下一个位置"
 
 #: ../../frescobaldi_app/browseriface.py:138
-#: ../../frescobaldi_app/docbrowser/__init__.py:83
+#: ../../frescobaldi_app/docbrowser/__init__.py:88
 #: ../../frescobaldi_app/userguide/browser.py:82
 msgid "Forward"
 msgstr "前进"
@@ -215,25 +215,25 @@ msgstr "<未知>"
 msgid "Convert-ly from LilyPond {version}"
 msgstr "Convert-ly 从 LilyPond {version}"
 
-#: ../../frescobaldi_app/convert_ly.py:173
+#: ../../frescobaldi_app/convert_ly.py:175
 #: ../../frescobaldi_app/externalchanges/widget.py:286
 #: ../../frescobaldi_app/fonts/preview.py:97
 msgid "Current Document"
 msgstr "当前文档"
 
-#: ../../frescobaldi_app/convert_ly.py:173
+#: ../../frescobaldi_app/convert_ly.py:175
 msgid "Converted Document"
 msgstr "转换后的文档"
 
-#: ../../frescobaldi_app/convert_ly.py:198
+#: ../../frescobaldi_app/convert_ly.py:200
 msgid "(set in document)"
 msgstr "(在文档中设置)"
 
-#: ../../frescobaldi_app/convert_ly.py:212
+#: ../../frescobaldi_app/convert_ly.py:214
 msgid "Both 'from' and 'to' versions need to be set."
 msgstr "“从版本”和“至版本”都需要设置。"
 
-#: ../../frescobaldi_app/convert_ly.py:235
+#: ../../frescobaldi_app/convert_ly.py:237
 #, python-brace-format
 msgid ""
 "Could not start {convert_ly}:\n"
@@ -244,16 +244,16 @@ msgstr ""
 "\n"
 "{message}\n"
 
-#: ../../frescobaldi_app/convert_ly.py:245
+#: ../../frescobaldi_app/convert_ly.py:247
 msgid "The document has not been changed."
 msgstr "这个文档未被改变。"
 
-#: ../../frescobaldi_app/convert_ly.py:253 ../../frescobaldi_app/mainwindow.py:582
+#: ../../frescobaldi_app/convert_ly.py:255 ../../frescobaldi_app/mainwindow.py:582
 msgctxt "dialog title"
 msgid "Save File"
 msgstr "保存文件"
 
-#: ../../frescobaldi_app/convert_ly.py:254
+#: ../../frescobaldi_app/convert_ly.py:256
 msgid "Text Files"
 msgstr "Text 文件"
 
@@ -313,7 +313,7 @@ msgstr "拖拽"
 msgid "Drag File"
 msgstr "保存文件"
 
-#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1360
+#: ../../frescobaldi_app/copy2image.py:159 ../../frescobaldi_app/mainwindow.py:1364
 #: ../../frescobaldi_app/docbrowser/browser.py:249
 #: ../../frescobaldi_app/fonts/dialog.py:177
 msgid "&Copy"
@@ -577,7 +577,7 @@ msgid "&Save"
 msgstr "保存(&S)"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:72
-#: ../../frescobaldi_app/mainwindow.py:1328
+#: ../../frescobaldi_app/mainwindow.py:1332
 msgid "Save &As..."
 msgstr "另存为(&A)..."
 
@@ -586,7 +586,7 @@ msgid "&Close"
 msgstr "关闭(&C)"
 
 #: ../../frescobaldi_app/documentcontextmenu.py:74
-#: ../../frescobaldi_app/mainwindow.py:1341
+#: ../../frescobaldi_app/mainwindow.py:1345
 msgid "Close Other Documents"
 msgstr "关闭其他文档"
 
@@ -712,7 +712,7 @@ msgstr "请选择语言："
 msgid "Select Color"
 msgstr "选取颜色"
 
-#: ../../frescobaldi_app/lilychooser.py:41
+#: ../../frescobaldi_app/lilychooser.py:42
 msgid "Choose the desired LilyPond version."
 msgstr "选择想要的 LilyPond 版本。"
 
@@ -855,7 +855,7 @@ msgid "Could not read:"
 msgstr "不能读取："
 
 #: ../../frescobaldi_app/mainwindow.py:525
-#: ../../frescobaldi_app/macosx/globalmenu.py:174
+#: ../../frescobaldi_app/macosx/globalmenu.py:169
 msgctxt "dialog title"
 msgid "Open File"
 msgstr "打开文件"
@@ -925,244 +925,244 @@ msgstr "主工具栏"
 msgid "Music View Toolbar"
 msgstr "乐谱视图工具栏"
 
-#: ../../frescobaldi_app/mainwindow.py:1317
+#: ../../frescobaldi_app/mainwindow.py:1321
 #, fuzzy
 msgctxt "action: new document"
 msgid "&New Document"
 msgstr "新文档"
 
-#: ../../frescobaldi_app/mainwindow.py:1318
+#: ../../frescobaldi_app/mainwindow.py:1322
 #, fuzzy
 msgctxt "action: new document"
 msgid "New"
 msgstr "新建(&N)"
 
-#: ../../frescobaldi_app/mainwindow.py:1319
-#: ../../frescobaldi_app/macosx/globalmenu.py:76
+#: ../../frescobaldi_app/mainwindow.py:1323
+#: ../../frescobaldi_app/macosx/globalmenu.py:71
 msgid "&Open..."
 msgstr "打开(&O)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1320
-#: ../../frescobaldi_app/macosx/globalmenu.py:107
+#: ../../frescobaldi_app/mainwindow.py:1324
+#: ../../frescobaldi_app/macosx/globalmenu.py:102
 msgid "Open &Recent"
 msgstr "打开最近使用的(&R)"
 
-#: ../../frescobaldi_app/mainwindow.py:1321
+#: ../../frescobaldi_app/mainwindow.py:1325
 msgid "Insert from &File..."
 msgstr "从文件插入(&F)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1323
+#: ../../frescobaldi_app/mainwindow.py:1327
 #, fuzzy
 msgid "Insert the contents of a file at the current cursor position."
 msgstr "关闭所有文档并离开当前会话。"
 
-#: ../../frescobaldi_app/mainwindow.py:1324
+#: ../../frescobaldi_app/mainwindow.py:1328
 msgid "Open Current Directory"
 msgstr "打开当前目录"
 
-#: ../../frescobaldi_app/mainwindow.py:1325
+#: ../../frescobaldi_app/mainwindow.py:1329
 msgid "Open Command Prompt"
 msgstr "打开命令行"
 
-#: ../../frescobaldi_app/mainwindow.py:1326
+#: ../../frescobaldi_app/mainwindow.py:1330
 #, fuzzy
 msgid "&Save Document"
 msgstr "下一个文档(&N)"
 
-#: ../../frescobaldi_app/mainwindow.py:1327
+#: ../../frescobaldi_app/mainwindow.py:1331
 #: ../../frescobaldi_app/externalchanges/widget.py:113
 msgid "Save"
 msgstr "保存"
 
-#: ../../frescobaldi_app/mainwindow.py:1329
+#: ../../frescobaldi_app/mainwindow.py:1333
 msgid "Save Copy or Selection As..."
 msgstr "另存复本或选择的内容为..."
 
-#: ../../frescobaldi_app/mainwindow.py:1330
+#: ../../frescobaldi_app/mainwindow.py:1334
 #, fuzzy
 msgid "&Rename/Move File..."
 msgstr "重命名(&N)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1331
+#: ../../frescobaldi_app/mainwindow.py:1335
 #: ../../frescobaldi_app/externalchanges/widget.py:117
 msgid "Save All"
 msgstr "全部保存"
 
-#: ../../frescobaldi_app/mainwindow.py:1332
+#: ../../frescobaldi_app/mainwindow.py:1336
 msgid "Re&load"
 msgstr "重新载入(&L)"
 
-#: ../../frescobaldi_app/mainwindow.py:1333
+#: ../../frescobaldi_app/mainwindow.py:1337
 #: ../../frescobaldi_app/externalchanges/widget.py:108
 msgid "Reload All"
 msgstr "全部重新载入"
 
-#: ../../frescobaldi_app/mainwindow.py:1334
+#: ../../frescobaldi_app/mainwindow.py:1338
 msgid "Check for External Changes..."
 msgstr "检查外部更改..."
 
-#: ../../frescobaldi_app/mainwindow.py:1336
+#: ../../frescobaldi_app/mainwindow.py:1340
 msgid ""
 "Opens a window to check whether open documents were changed or deleted by "
 "other programs."
 msgstr "打开一个窗口来检查打开的文档是否被别的程序修改或删除了。"
 
-#: ../../frescobaldi_app/mainwindow.py:1338
+#: ../../frescobaldi_app/mainwindow.py:1342
 msgid "Print Source..."
 msgstr "打印源文件..."
 
-#: ../../frescobaldi_app/mainwindow.py:1339
+#: ../../frescobaldi_app/mainwindow.py:1343
 #, fuzzy
 msgid "&Close Document"
 msgstr "关闭文档"
 
-#: ../../frescobaldi_app/mainwindow.py:1340 ../../frescobaldi_app/panel.py:108
+#: ../../frescobaldi_app/mainwindow.py:1344 ../../frescobaldi_app/panel.py:108
 #: ../../frescobaldi_app/search/__init__.py:120
 #: ../../frescobaldi_app/viewers/__init__.py:351
 #: ../../frescobaldi_app/viewers/manuscript/__init__.py:77
 msgid "Close"
 msgstr "关闭"
 
-#: ../../frescobaldi_app/mainwindow.py:1342
+#: ../../frescobaldi_app/mainwindow.py:1346
 #, fuzzy
 msgid "Close All Documents"
 msgstr "关闭所有文档"
 
-#: ../../frescobaldi_app/mainwindow.py:1344
+#: ../../frescobaldi_app/mainwindow.py:1348
 #, fuzzy
 msgid "Closes all documents but preserves the current session."
 msgstr "关闭所有文档并离开当前会话。"
 
-#: ../../frescobaldi_app/mainwindow.py:1347
+#: ../../frescobaldi_app/mainwindow.py:1351
 msgid "Close All Documents and Session"
 msgstr "关闭所有文档和会话"
 
-#: ../../frescobaldi_app/mainwindow.py:1350
+#: ../../frescobaldi_app/mainwindow.py:1354
 msgid "Closes all documents and leaves the current session."
 msgstr "关闭所有文档并离开当前会话。"
 
-#: ../../frescobaldi_app/mainwindow.py:1352
-#: ../../frescobaldi_app/macosx/globalmenu.py:82
+#: ../../frescobaldi_app/mainwindow.py:1356
+#: ../../frescobaldi_app/macosx/globalmenu.py:77
 msgid "&Quit"
 msgstr "退出(&Q)"
 
-#: ../../frescobaldi_app/mainwindow.py:1353
+#: ../../frescobaldi_app/mainwindow.py:1357
 #, python-brace-format
 msgid "Restart {appname}"
 msgstr "重新打开 {appname}"
 
-#: ../../frescobaldi_app/mainwindow.py:1355
+#: ../../frescobaldi_app/mainwindow.py:1359
 msgid "Export Source as Colored &HTML..."
 msgstr "导出源文件为高亮的HTML(&H)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1357
+#: ../../frescobaldi_app/mainwindow.py:1361
 msgid "&Undo"
 msgstr "撤销(&U)"
 
-#: ../../frescobaldi_app/mainwindow.py:1358
+#: ../../frescobaldi_app/mainwindow.py:1362
 msgid "Re&do"
 msgstr "重做(&D)"
 
-#: ../../frescobaldi_app/mainwindow.py:1359
+#: ../../frescobaldi_app/mainwindow.py:1363
 msgid "Cu&t"
 msgstr "剪切(&T)"
 
-#: ../../frescobaldi_app/mainwindow.py:1361
+#: ../../frescobaldi_app/mainwindow.py:1365
 msgid "Copy as Colored &HTML"
 msgstr "复制为高亮的HTML(&H)"
 
-#: ../../frescobaldi_app/mainwindow.py:1362
+#: ../../frescobaldi_app/mainwindow.py:1366
 msgid "&Paste"
 msgstr "粘贴(&P)"
 
-#: ../../frescobaldi_app/mainwindow.py:1363
+#: ../../frescobaldi_app/mainwindow.py:1367
 msgid "Select &All"
 msgstr "全选(&A)"
 
-#: ../../frescobaldi_app/mainwindow.py:1364
+#: ../../frescobaldi_app/mainwindow.py:1368
 msgid "Select &Block"
 msgstr "选取区块(&B)"
 
-#: ../../frescobaldi_app/mainwindow.py:1365
+#: ../../frescobaldi_app/mainwindow.py:1369
 msgid "Select &None"
 msgstr "取消选取(&N)"
 
-#: ../../frescobaldi_app/mainwindow.py:1366
+#: ../../frescobaldi_app/mainwindow.py:1370
 msgid "Select Whole Lines Up"
 msgstr "选择上面全部行"
 
-#: ../../frescobaldi_app/mainwindow.py:1367
+#: ../../frescobaldi_app/mainwindow.py:1371
 msgid "Select Whole Lines Down"
 msgstr "选择下面全部行"
 
-#: ../../frescobaldi_app/mainwindow.py:1368
+#: ../../frescobaldi_app/mainwindow.py:1372
 msgid "&Find..."
 msgstr "查找(&F)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1369
+#: ../../frescobaldi_app/mainwindow.py:1373
 msgid "Find Ne&xt"
 msgstr "查找下一个(&X)"
 
-#: ../../frescobaldi_app/mainwindow.py:1370
+#: ../../frescobaldi_app/mainwindow.py:1374
 msgid "Find Pre&vious"
 msgstr "查找上一个(&V)"
 
-#: ../../frescobaldi_app/mainwindow.py:1371
+#: ../../frescobaldi_app/mainwindow.py:1375
 msgid "&Replace..."
 msgstr "替换(&R)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1372
-#: ../../frescobaldi_app/macosx/globalmenu.py:128
+#: ../../frescobaldi_app/mainwindow.py:1376
+#: ../../frescobaldi_app/macosx/globalmenu.py:123
 msgid "Pr&eferences..."
 msgstr "首选项(&E)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1374
+#: ../../frescobaldi_app/mainwindow.py:1378
 msgid "&Next Document"
 msgstr "下一个文档(&N)"
 
-#: ../../frescobaldi_app/mainwindow.py:1375
+#: ../../frescobaldi_app/mainwindow.py:1379
 msgid "&Previous Document"
 msgstr "上一个文档(&P)"
 
-#: ../../frescobaldi_app/mainwindow.py:1376
+#: ../../frescobaldi_app/mainwindow.py:1380
 msgid "Wrap &Lines"
 msgstr "自动换行(&L)"
 
-#: ../../frescobaldi_app/mainwindow.py:1377
+#: ../../frescobaldi_app/mainwindow.py:1381
 msgid "Scroll Up"
 msgstr "向上卷"
 
-#: ../../frescobaldi_app/mainwindow.py:1378
+#: ../../frescobaldi_app/mainwindow.py:1382
 msgid "Scroll Down"
 msgstr "向下卷"
 
-#: ../../frescobaldi_app/mainwindow.py:1379
+#: ../../frescobaldi_app/mainwindow.py:1383
 msgid "&Goto Line..."
 msgstr ""
 
-#: ../../frescobaldi_app/mainwindow.py:1381
-#: ../../frescobaldi_app/macosx/globalmenu.py:134
+#: ../../frescobaldi_app/mainwindow.py:1385
+#: ../../frescobaldi_app/macosx/globalmenu.py:129
 msgid "New &Window"
 msgstr "新增窗口(&W)"
 
-#: ../../frescobaldi_app/mainwindow.py:1382
+#: ../../frescobaldi_app/mainwindow.py:1386
 msgid "&Fullscreen"
 msgstr "全屏(&F)"
 
-#: ../../frescobaldi_app/mainwindow.py:1384
+#: ../../frescobaldi_app/mainwindow.py:1388
 msgid "&User Guide"
 msgstr "使用手册(&U)"
 
-#: ../../frescobaldi_app/mainwindow.py:1385
+#: ../../frescobaldi_app/mainwindow.py:1389
 msgid "&What's This?"
 msgstr "这是什么？(&W)"
 
-#: ../../frescobaldi_app/mainwindow.py:1386
+#: ../../frescobaldi_app/mainwindow.py:1390
 msgid "Report a &Bug..."
 msgstr "报告缺陷(&B)..."
 
-#: ../../frescobaldi_app/mainwindow.py:1387
-#: ../../frescobaldi_app/macosx/globalmenu.py:152
+#: ../../frescobaldi_app/mainwindow.py:1391
+#: ../../frescobaldi_app/macosx/globalmenu.py:147
 #, python-brace-format
 msgid "&About {appname}..."
 msgstr "关于 {appname} (&A)..."
@@ -1175,7 +1175,7 @@ msgstr "匹配对(&r)"
 msgid "&Select Matching Pair"
 msgstr "选择匹配对(&S)"
 
-#: ../../frescobaldi_app/menu.py:91 ../../frescobaldi_app/macosx/globalmenu.py:71
+#: ../../frescobaldi_app/menu.py:91 ../../frescobaldi_app/macosx/globalmenu.py:66
 msgctxt "menu title"
 msgid "&File"
 msgstr "文件(&F)"
@@ -1204,7 +1204,7 @@ msgctxt "submenu title"
 msgid "&Print"
 msgstr "打印(&P)"
 
-#: ../../frescobaldi_app/menu.py:165 ../../frescobaldi_app/macosx/globalmenu.py:126
+#: ../../frescobaldi_app/menu.py:165 ../../frescobaldi_app/macosx/globalmenu.py:121
 msgctxt "menu title"
 msgid "&Edit"
 msgstr "编辑(&E)"
@@ -1287,12 +1287,12 @@ msgctxt "submenu title"
 msgid "&Directories"
 msgstr "方向："
 
-#: ../../frescobaldi_app/menu.py:471 ../../frescobaldi_app/macosx/globalmenu.py:133
+#: ../../frescobaldi_app/menu.py:471 ../../frescobaldi_app/macosx/globalmenu.py:128
 msgctxt "menu title"
 msgid "&Window"
 msgstr "窗口(&W)"
 
-#: ../../frescobaldi_app/menu.py:491 ../../frescobaldi_app/macosx/globalmenu.py:150
+#: ../../frescobaldi_app/menu.py:491 ../../frescobaldi_app/macosx/globalmenu.py:145
 msgctxt "menu title"
 msgid "&Help"
 msgstr "帮助(&H)"
@@ -1319,41 +1319,41 @@ msgstr "打印(&P)"
 msgid "Music Preview"
 msgstr "乐谱预览"
 
-#: ../../frescobaldi_app/pagedview.py:183
+#: ../../frescobaldi_app/pagedview.py:184
 #, python-brace-format
 msgid "Print {filename}"
 msgstr "打印 {filename}"
 
-#: ../../frescobaldi_app/pagedview.py:185
+#: ../../frescobaldi_app/pagedview.py:186
 #: ../../frescobaldi_app/docbrowser/browser.py:227
 #: ../../frescobaldi_app/userguide/browser.py:85
 #: ../../frescobaldi_app/userguide/browser.py:115
 msgid "Print"
 msgstr "打印"
 
-#: ../../frescobaldi_app/pagedview.py:202 ../../frescobaldi_app/pagedview.py:224
+#: ../../frescobaldi_app/pagedview.py:207 ../../frescobaldi_app/pagedview.py:229
 msgid "Printing Error"
 msgstr "打印错误"
 
-#: ../../frescobaldi_app/pagedview.py:204
+#: ../../frescobaldi_app/pagedview.py:209
 #, python-brace-format
 msgid "An error occurred (code: {num}):"
 msgstr ""
 
-#: ../../frescobaldi_app/pagedview.py:211
+#: ../../frescobaldi_app/pagedview.py:216
 msgid "Preparing to print..."
 msgstr ""
 
-#: ../../frescobaldi_app/pagedview.py:219
+#: ../../frescobaldi_app/pagedview.py:224
 #, python-brace-format
 msgid "Printing page {page} ({num} of {total})..."
 msgstr "打印页{page} (第{num}页，共{total}页)..."
 
-#: ../../frescobaldi_app/pagedview.py:225
+#: ../../frescobaldi_app/pagedview.py:230
 msgid "Could not send the document to the printer."
 msgstr "不能将文档发送到打印机。"
 
-#: ../../frescobaldi_app/pagedview.py:237
+#: ../../frescobaldi_app/pagedview.py:242
 #, python-brace-format
 msgid "{num} of {total}"
 msgstr "第{num}，总{total}"
@@ -1414,6 +1414,21 @@ msgstr "下一个视图(&N)"
 msgid "&Previous View"
 msgstr "上一个视图(&P)"
 
+#: ../../frescobaldi_app/webenginedummy.py:47
+#, python-brace-format
+msgid "<b>Could not load PyQtWebEngine, so the {tool} cannot be loaded.</b>"
+msgstr ""
+
+#: ../../frescobaldi_app/webenginedummy.py:56
+#, python-brace-format
+msgid ""
+"PyQtWebEngine has been intentionally excluded from the application bundle: "
+"at the moment, including it results in a faulty application.<br><br>For more "
+"details, see <a href=\"{issue}\">issue #1244</a> on Frescobaldi's GitHub "
+"page.<br>For more information on alternative ways of running Frescobaldi, "
+"see the <a href=\"{wiki}\">relevant Wiki page</a> on GitHub."
+msgstr ""
+
 #: ../../frescobaldi_app/autocomplete/__init__.py:79
 msgid "Automatic &Completion"
 msgstr "自动补全(&C)"
@@ -1431,30 +1446,30 @@ msgstr "特殊字符"
 msgid "Special Charac&ters"
 msgstr "特殊字符(&t)"
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:46
-#: ../../frescobaldi_app/docbrowser/__init__.py:62
+#: ../../frescobaldi_app/docbrowser/__init__.py:48
+#: ../../frescobaldi_app/docbrowser/__init__.py:67
 #: ../../frescobaldi_app/preferences/documentation.py:115
 msgid "Documentation Browser"
 msgstr "说明文档浏览器"
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:47
+#: ../../frescobaldi_app/docbrowser/__init__.py:49
 msgid "&Documentation Browser"
 msgstr "说明文档浏览器(&D)"
 
 #. L10N: Home page of the LilyPond manual
-#: ../../frescobaldi_app/docbrowser/__init__.py:85
+#: ../../frescobaldi_app/docbrowser/__init__.py:90
 msgid "Home"
 msgstr "主页"
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:86
+#: ../../frescobaldi_app/docbrowser/__init__.py:91
 msgid "Print..."
 msgstr "打印..."
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:87
+#: ../../frescobaldi_app/docbrowser/__init__.py:92
 msgid "&LilyPond Documentation"
 msgstr "LilyPond 说明文档(&L)"
 
-#: ../../frescobaldi_app/docbrowser/__init__.py:88
+#: ../../frescobaldi_app/docbrowser/__init__.py:93
 msgid "&Contextual LilyPond Help"
 msgstr "上下文相关的 LilyPond 帮助(&C)"
 
@@ -1625,7 +1640,7 @@ msgid "Output Format:"
 msgstr "输出格式："
 
 #: ../../frescobaldi_app/engrave/custom.py:130
-#: ../../frescobaldi_app/preferences/musicviewers.py:182
+#: ../../frescobaldi_app/preferences/musicviewers.py:180
 msgid "Resolution:"
 msgstr "分辨率："
 
@@ -2034,7 +2049,7 @@ msgid "Generic import for all LilyPond tools."
 msgstr "对所有 LilyPond 工具的通用导入。"
 
 #: ../../frescobaldi_app/file_import/__init__.py:220
-#: ../../frescobaldi_app/macosx/globalmenu.py:121
+#: ../../frescobaldi_app/macosx/globalmenu.py:116
 msgid "Import MusicXML..."
 msgstr "导入 MusicXML..."
 
@@ -2791,25 +2806,25 @@ msgstr "上一个错误信息"
 msgid "Click to edit this file"
 msgstr "点击编辑本文件"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:72
+#: ../../frescobaldi_app/macosx/globalmenu.py:67
 msgctxt "action: new document"
 msgid "&New"
 msgstr "新建(&N)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:74
+#: ../../frescobaldi_app/macosx/globalmenu.py:69
 msgid "New Score with &Wizard..."
 msgstr "用向导新建乐谱(&W)..."
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:87
+#: ../../frescobaldi_app/macosx/globalmenu.py:82
 msgid "New from &Template"
 msgstr "从模板生成新文件"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:120
+#: ../../frescobaldi_app/macosx/globalmenu.py:115
 msgctxt "submenu title"
 msgid "&Import"
 msgstr "导入(&I)"
 
-#: ../../frescobaldi_app/macosx/globalmenu.py:139
+#: ../../frescobaldi_app/macosx/globalmenu.py:134
 #: ../../frescobaldi_app/sessions/menu.py:55
 msgctxt "menu title"
 msgid "&Session"
@@ -3068,94 +3083,87 @@ msgctxt "midi lcd screen"
 msgid "BEAT"
 msgstr "节拍"
 
-#: ../../frescobaldi_app/musicview/__init__.py:113
+#: ../../frescobaldi_app/musicview/__init__.py:114
 msgctxt "window title"
 msgid "Music View"
 msgstr "乐谱视图"
 
-#: ../../frescobaldi_app/musicview/__init__.py:114
+#: ../../frescobaldi_app/musicview/__init__.py:115
 msgid "&Music View"
 msgstr "乐谱视图(&M)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:161
-#: ../../frescobaldi_app/viewers/__init__.py:191
+#: ../../frescobaldi_app/musicview/__init__.py:164
+#: ../../frescobaldi_app/viewers/__init__.py:195
 msgid "Print Music"
 msgstr "打印乐谱"
 
-#: ../../frescobaldi_app/musicview/__init__.py:162
-#: ../../frescobaldi_app/viewers/__init__.py:192
+#: ../../frescobaldi_app/musicview/__init__.py:165
+#: ../../frescobaldi_app/viewers/__init__.py:196
 msgid ""
-"Unfortunately, this version of Frescobaldi is unable to print PDF documents "
-"on Mac OS X due to various technical reasons.\n"
+"As per your settings, you are about to print the file directly to CUPS.\n"
+"This is discouraged on macOS, since in this case the settings of the system "
+"print window are ignored.\n"
+"You can disable it in Music Preferences.\n"
 "\n"
-"Do you want to open the file in the default viewer for printing instead? "
-"(remember to close it again to avoid access problems)\n"
+"Do you really want to print to CUPS?\n"
 "\n"
-"Choose Yes if you want that, No if you want to try the built-in printing "
-"functionality anyway, or Cancel to cancel printing."
+"(If you are unsure, the answer is likely no.)"
 msgstr ""
-"非常不幸，在 Mac OS X 中，由于各种技术原因，本版 Frescobaldi 不能打印 PDF 文"
-"档。\n"
-"\n"
-"作为替代，你想在缺省的阅览器中打开本文件吗？(记住再次关闭它来避免访问问题)\n"
-"\n"
-"选是如果你想这样，选不如果你无论如何都想试试内置的打印功能，或者选取消来取消"
-"打印。"
 
-#: ../../frescobaldi_app/musicview/__init__.py:255
+#: ../../frescobaldi_app/musicview/__init__.py:253
 #: ../../frescobaldi_app/viewers/__init__.py:339
 msgid "Select Music View Document"
 msgstr "选择乐谱视图文档"
 
-#: ../../frescobaldi_app/musicview/__init__.py:256
+#: ../../frescobaldi_app/musicview/__init__.py:254
 #: ../../frescobaldi_app/viewers/__init__.py:340
 msgid "&Print Music..."
 msgstr "打印乐谱(&P)..."
 
-#: ../../frescobaldi_app/musicview/__init__.py:257
+#: ../../frescobaldi_app/musicview/__init__.py:255
 #: ../../frescobaldi_app/viewers/__init__.py:341
 msgid "Zoom Music"
 msgstr "缩放乐谱"
 
-#: ../../frescobaldi_app/musicview/__init__.py:258
+#: ../../frescobaldi_app/musicview/__init__.py:256
 msgid "Save current View settings as default"
 msgstr ""
 
-#: ../../frescobaldi_app/musicview/__init__.py:259
+#: ../../frescobaldi_app/musicview/__init__.py:257
 #: ../../frescobaldi_app/viewers/__init__.py:342
 msgid "&Maximize"
 msgstr "最大化(&M)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:260
+#: ../../frescobaldi_app/musicview/__init__.py:258
 #: ../../frescobaldi_app/viewers/__init__.py:343
 msgid "&Jump to Cursor Position"
 msgstr "跳到光标位置(&J)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:261
+#: ../../frescobaldi_app/musicview/__init__.py:259
 #: ../../frescobaldi_app/viewers/__init__.py:344
 msgid "S&ynchronize with Cursor Position"
 msgstr "与光标位置同步(&y)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:262
+#: ../../frescobaldi_app/musicview/__init__.py:260
 #: ../../frescobaldi_app/viewers/__init__.py:345
 msgid "Copy to &Image..."
 msgstr "复制到图像(&I)..."
 
-#: ../../frescobaldi_app/musicview/__init__.py:263
+#: ../../frescobaldi_app/musicview/__init__.py:261
 msgid "Copy Selected &Text"
 msgstr "复制选中的文字(&T)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:264
+#: ../../frescobaldi_app/musicview/__init__.py:262
 #: ../../frescobaldi_app/viewers/__init__.py:346
 msgid "&Reload"
 msgstr "重新载入(&R)"
 
-#: ../../frescobaldi_app/musicview/__init__.py:415
+#: ../../frescobaldi_app/musicview/__init__.py:413
 #: ../../frescobaldi_app/viewers/__init__.py:613
 msgid "Choose the PDF document to display."
 msgstr "选择要显示的PDF文档。"
 
-#: ../../frescobaldi_app/musicview/__init__.py:417
+#: ../../frescobaldi_app/musicview/__init__.py:415
 #: ../../frescobaldi_app/viewers/__init__.py:615
 msgid ""
 "Choose the PDF document to display or drag the file to another application "
@@ -4611,95 +4619,95 @@ msgstr ""
 "MIDI 事件，但会给CPU 更大压力。10ms 应该是个好的值。"
 
 #. L10N: "Kinetic Scrolling" is a checkbox label, as in "Enable Kinetic Scrolling"
-#: ../../frescobaldi_app/preferences/musicviewers.py:100
+#: ../../frescobaldi_app/preferences/musicviewers.py:99
 msgid "Kinetic Scrolling"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:101
+#: ../../frescobaldi_app/preferences/musicviewers.py:100
 msgid "Show Scrollbars"
 msgstr "显示滚动条"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:102
+#: ../../frescobaldi_app/preferences/musicviewers.py:101
 msgid "Shadow"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:104
+#: ../../frescobaldi_app/preferences/musicviewers.py:103
 #, fuzzy
 msgid "If checked, Frescobaldi draws a shadow around the pages."
 msgstr "如选中，Frescobaldi 将不会缩短日志输出中的文件名。"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:105
+#: ../../frescobaldi_app/preferences/musicviewers.py:104
 msgid ""
 "Use vector based backend (Arthur) for rendering PDF documents on screen "
 "(experimental!)"
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:107
+#: ../../frescobaldi_app/preferences/musicviewers.py:106
 msgid ""
 "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
 "library for PDF rendering on screen. The Arthur backend is faster\n"
 "than the default Splash backend, but more experimental."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:110
-msgid "Use vector based backend (Arthur) for printing PDF documents"
-msgstr ""
-
-#: ../../frescobaldi_app/preferences/musicviewers.py:112
-msgid ""
-"If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
-"library for printing PDFdocuments. A big advantage of the Arthur backend\n"
-"is that it is vector-based, in contrast to the default Splash backend,\n"
-"which is raster-based. But Arthur is more experimental."
-msgstr ""
-
-#: ../../frescobaldi_app/preferences/musicviewers.py:116
+#: ../../frescobaldi_app/preferences/musicviewers.py:109
 #, fuzzy
 msgid "Display of Music"
 msgstr "显示"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:117
+#: ../../frescobaldi_app/preferences/musicviewers.py:110
 msgid "Magnifier Size:"
 msgstr "放大镜大小："
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:119
+#: ../../frescobaldi_app/preferences/musicviewers.py:112
 msgid "Size of the magnifier glass (Ctrl+Click in the Music View)."
 msgstr "放大镜的大小(在乐谱视图中 Ctrl+点击)."
 
 #. L10N: as in "400 pixels", appended after number in spinbox, note the leading space
-#: ../../frescobaldi_app/preferences/musicviewers.py:121
+#: ../../frescobaldi_app/preferences/musicviewers.py:114
 msgid " pixels"
 msgstr " 像素"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:122
+#: ../../frescobaldi_app/preferences/musicviewers.py:115
 msgid "Magnifier Scale:"
 msgstr "放大镜倍率："
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:124
+#: ../../frescobaldi_app/preferences/musicviewers.py:117
 msgid "Magnification of the magnifier."
 msgstr "放大镜的放大率。"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:125
+#: ../../frescobaldi_app/preferences/musicviewers.py:118
 msgctxt "percent unit sign"
 msgid "%"
 msgstr "%"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:177
+#: ../../frescobaldi_app/preferences/musicviewers.py:169
 #, fuzzy
 msgid "Printing of Music"
 msgstr "打印乐谱"
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:178
+#: ../../frescobaldi_app/preferences/musicviewers.py:170
+msgid "Use vector based backend (Arthur) for printing PDF documents"
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/musicviewers.py:172
+msgid ""
+"If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
+"library for printing PDF documents. A big advantage of the Arthur backend\n"
+"is that it is vector-based, in contrast to the default Splash backend,\n"
+"which is raster-based. But Arthur is more experimental."
+msgstr ""
+
+#: ../../frescobaldi_app/preferences/musicviewers.py:176
 msgid "Print PDF documents directly to CUPS if available."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:180
+#: ../../frescobaldi_app/preferences/musicviewers.py:178
 msgid ""
 "If checked, Frescobaldi tries to print a PDF document direcly using\n"
 "the CUPS server, if available."
 msgstr ""
 
-#: ../../frescobaldi_app/preferences/musicviewers.py:184
+#: ../../frescobaldi_app/preferences/musicviewers.py:182
 msgid "Set the resolution if Frescobaldi prints using raster images."
 msgstr "设置 Frescobaldi 如果要用光栅化图片打印时的分辨率。"
 
@@ -4860,17 +4868,17 @@ msgid "&Natural Size"
 msgstr ""
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:273
-#: ../../frescobaldi_app/svgview/__init__.py:88
+#: ../../frescobaldi_app/svgview/__init__.py:93
 msgid "Original &Size"
 msgstr "原始大小(&S)"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:274
-#: ../../frescobaldi_app/svgview/__init__.py:86
+#: ../../frescobaldi_app/svgview/__init__.py:91
 msgid "Zoom &In"
 msgstr "放大(&I)"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:275
-#: ../../frescobaldi_app/svgview/__init__.py:87
+#: ../../frescobaldi_app/svgview/__init__.py:92
 msgid "Zoom &Out"
 msgstr "缩小(&O)"
 
@@ -7758,12 +7766,12 @@ msgid "Export {num} Snippet"
 msgid_plural "Export {num} Snippets"
 msgstr[0] "导出 {num} 片段"
 
-#: ../../frescobaldi_app/svgview/__init__.py:53
+#: ../../frescobaldi_app/svgview/__init__.py:55
 msgctxt "window title"
 msgid "SVG View"
 msgstr "SVG 视图"
 
-#: ../../frescobaldi_app/svgview/__init__.py:54
+#: ../../frescobaldi_app/svgview/__init__.py:56
 msgid "SV&G View"
 msgstr "SV&G 视图"
 
@@ -9211,17 +9219,197 @@ msgstr "片段错误"
 msgid "Score Wizard to quickly setup a music score"
 msgstr ""
 
-#, fuzzy
-#~ msgid "New features:"
-#~ msgstr "新名称："
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:72
+msgid "Bugfixes:"
+msgstr ""
 
-#, fuzzy
-#~ msgid "New \"Goto Line\" and \"Rename file\" commands."
-#~ msgstr "其他命令："
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:74
+msgid ""
+"Fixed the error AttributeError: 'PopplerDocument' has no attribute "
+"'ispresent'."
+msgstr ""
 
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:75
+msgid ""
+"Fixed the error NameError: 'QPinchGesture' is not defined (pinch in music "
+"view)."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:76
+msgid ""
+"Fixed the error NameError: 'doc' is not defined (when printing on Mac OSX)."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:82
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:123
+msgid "Requirement changes:"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:84
+msgid "Frescobaldi now requires Python3.3+"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:86
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:127
 #, fuzzy
-#~ msgid "Improvements:"
-#~ msgstr "移除注释(&C)"
+msgid "New features:"
+msgstr "新名称："
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:88
+msgid ""
+"New \"Document Fonts\" dialog supporting text and music fonts and providing "
+"a font sample previewer."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:89
+msgid "Possibility to load external extensions."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:90
+msgid "New \"First System Only\" option in Custom Engrave."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
+#, fuzzy
+msgid "New \"Goto Line\" and \"Rename file\" commands."
+msgstr "其他命令："
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:92
+msgid "Music View: view settings are remembered per-document."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:93
+msgid ""
+"Music View: copy to Image can copy/export to SVG, PDF and EPS in addition to "
+"PNG/JPG."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:94
+msgid ""
+"Music View: new commands to rotate left/right; new toolbar button to show/"
+"hide the magnifier."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:95
+msgid ""
+"Music View: new preferences Horizontal/Vertical and Continuous/non-"
+"continuous."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:96
+msgid ""
+"Music View: new raster layout mode (displays as many pages as fit in a View)."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:97
+msgid ""
+"Manuscript viewer: new toolbar buttons to rotate the pages left/right and to "
+"show/hide the magnifier."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:99
+msgid "Bug fixes:"
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:101
+msgid "Fixed seeking in MIDI player during playing stops sound."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:102
+msgid "Paper orientation is now properly handled in New Score Wizard."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:103
+msgid ""
+"Fixed discrepancy of LilyPond vs. system version of GhostScript on Linux."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:105
+msgid "Fixed includepaths on Windows."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:106
+msgid "Fixed the error NameError: name 'widgets' is not defined."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:108
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:132
+#, fuzzy
+msgid "Improvements:"
+msgstr "移除注释(&C)"
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:110
+msgid ""
+"Score Wizard: Titles and Headers are now shown in preview; new checkbox to "
+"write/omit pitches after \\relative command; allow \"none\" for instrument "
+"names on first system."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:111
+msgid "Smarter behaviour of the autocompletion popup (#918, #922)."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:112
+msgid "New command File-&gt;Rename/Move."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:113
+msgid "Sessions can be grouped in the Sessions menu."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:114
+msgid "Show absolute path of include files in tooltip."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:115
+msgid "Restructure Tools Menu."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:116
+msgid "File Open toolbar button shows recent files menu on long click."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:117
+msgid "Added \"Blank Sheet Music\" template snippet."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:125
+msgid "Frescobaldi now requires Python3.2+, Qt5, PyQt5, python-poppler-qt5."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:129
+msgid "Zoom with pinch gesture in Music View."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:130
+msgid ""
+"An option (enabled by default) to move the cursor to the end of the line "
+"when PageDown is pressed on the last line, and to move the cursor to the "
+"start of the first line if PageUp is pressed on the first line."
+msgstr ""
+
+#: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:134
+msgid "Retina display support in Music View."
+msgstr ""
+
+#~ msgid ""
+#~ "Unfortunately, this version of Frescobaldi is unable to print PDF "
+#~ "documents on Mac OS X due to various technical reasons.\n"
+#~ "\n"
+#~ "Do you want to open the file in the default viewer for printing instead? "
+#~ "(remember to close it again to avoid access problems)\n"
+#~ "\n"
+#~ "Choose Yes if you want that, No if you want to try the built-in printing "
+#~ "functionality anyway, or Cancel to cancel printing."
+#~ msgstr ""
+#~ "非常不幸，在 Mac OS X 中，由于各种技术原因，本版 Frescobaldi 不能打印 PDF "
+#~ "文档。\n"
+#~ "\n"
+#~ "作为替代，你想在缺省的阅览器中打开本文件吗？(记住再次关闭它来避免访问问"
+#~ "题)\n"
+#~ "\n"
+#~ "选是如果你想这样，选不如果你无论如何都想试试内置的打印功能，或者选取消来取"
+#~ "消打印。"
 
 #, fuzzy
 #~ msgid "Goto Line command."
