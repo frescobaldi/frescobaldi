@@ -5,21 +5,22 @@
 # .billyBoh <billyboh@gmail.com>, 2011, 2012.
 # Gianluca D'Orazio <gianluca.dorazio@gmail.com>, 2008, 2009, 2010, 2011, 2013, 2014.
 # Federico Bruni <fede@inventati.org>, 2014-2020.
+# Davide Liessi <davide.liessi@gmail.com>, 2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Frescobaldi 3.0.0\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2020-04-12 17:51+0200\n"
-"PO-Revision-Date: 2020-01-12 22:50+0100\n"
-"Last-Translator: Federico Bruni <fede@inventati.org>\n"
+"PO-Revision-Date: 2020-04-12 23:36+0200\n"
+"Last-Translator: Davide Liessi <davide.liessi@gmail.com>\n"
 "Language-Team: Italian <>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 3.34.0\n"
+"X-Generator: Poedit 2.3\n"
 
 #: ../../frescobaldi_app/about.py:49
 #, python-brace-format
@@ -364,12 +365,12 @@ msgstr "Trascina l'immagine come un file {png}."
 #: ../../frescobaldi_app/copy2image.py:184
 #, python-brace-format
 msgid "Copy the {png} image data to Clipboard."
-msgstr "Copia i dati dell'immagine {png} negli appunti"
+msgstr "Copia i dati dell'immagine {png} negli appunti."
 
 #: ../../frescobaldi_app/copy2image.py:185
 #, python-brace-format
 msgid "Copy the {png} file to Clipboard."
-msgstr "Copia il file {png} negli appunti"
+msgstr "Copia il file {png} negli appunti."
 
 #: ../../frescobaldi_app/copy2image.py:219
 #: ../../frescobaldi_app/engrave/custom.py:260
@@ -515,7 +516,7 @@ msgstr "Elimina gli spazi a fine riga"
 
 #: ../../frescobaldi_app/documentactions.py:249
 msgid "&Update with convert-ly..."
-msgstr "&Aggiorna con convert-ly"
+msgstr "&Aggiorna con convert-ly..."
 
 #: ../../frescobaldi_app/documentactions.py:250
 msgid "Remove &Comments"
@@ -719,7 +720,7 @@ msgstr "LilyPond è in esecuzione, attendere per favore..."
 
 #: ../../frescobaldi_app/lyrics.py:126
 msgid "&Hyphenate Lyrics Text..."
-msgstr "&Dividi in sillabe le parole"
+msgstr "&Dividi in sillabe le parole..."
 
 #: ../../frescobaldi_app/lyrics.py:127
 msgid "&Remove hyphenation"
@@ -1129,7 +1130,7 @@ msgstr "Scorri in basso"
 
 #: ../../frescobaldi_app/mainwindow.py:1383
 msgid "&Goto Line..."
-msgstr "&Vai alla riga"
+msgstr "&Vai alla riga..."
 
 #: ../../frescobaldi_app/mainwindow.py:1385
 #: ../../frescobaldi_app/macosx/globalmenu.py:129
@@ -1209,7 +1210,7 @@ msgstr "&Visualizza"
 #: ../../frescobaldi_app/menu.py:236
 msgctxt "submenu title"
 msgid "&Folding"
-msgstr "&Raggruppamento "
+msgstr "&Raggruppamento"
 
 #: ../../frescobaldi_app/menu.py:251
 msgctxt "menu title"
@@ -1399,6 +1400,8 @@ msgstr "Riquadro &precedente"
 #, python-brace-format
 msgid "<b>Could not load PyQtWebEngine, so the {tool} cannot be loaded.</b>"
 msgstr ""
+"<b>Non è stato possibile caricare PyQtWebEngine, per cui {tool} non può "
+"essere caricato.</b>"
 
 #: ../../frescobaldi_app/webenginedummy.py:56
 #, python-brace-format
@@ -1409,6 +1412,12 @@ msgid ""
 "page.<br>For more information on alternative ways of running Frescobaldi, "
 "see the <a href=\"{wiki}\">relevant Wiki page</a> on GitHub."
 msgstr ""
+"PyQtWebEngine è stato intenzionalmente esclusa dall'application bundle: al "
+"momento includerlo risulta ina un'applicazione malfunzionante.<br><br>Per "
+"maggiori dettagli, vedi la <a href=\"{issue}\">issue #1244</a> nella pagina "
+"GitHub di Frescobaldi.<br>Per maggiori informazioni su modi alternativi per "
+"eseguire Frescobaldi, vedi la <a href=\"{wiki}\">pagina relativa nella Wiki</"
+"a> in GitHub."
 
 #: ../../frescobaldi_app/autocomplete/__init__.py:79
 msgid "Automatic &Completion"
@@ -2404,7 +2413,7 @@ msgid ""
 "to the current LilyPond installation."
 msgstr ""
 "Crea un collegamento ai caratteri di un repository globale di caratteri "
-"musicali per l'installazione corrente di LilyPond"
+"musicali per l'installazione corrente di LilyPond."
 
 #: ../../frescobaldi_app/fonts/musicfonts.py:163
 msgid "Fonts could not be installed!"
@@ -3168,6 +3177,15 @@ msgid ""
 "\n"
 "(If you are unsure, the answer is likely no.)"
 msgstr ""
+"In accordo con le tue impostazioni, stai per mandare il file in stampa "
+"direttamente a CUPS.\n"
+"Ciò non è raccomandato in macOS, perché in tal caso le impostazioni della "
+"finestra di stampa di sistema vengono ignorate.\n"
+"Puoi disabilitare questa impostazione nelle Preferenze spartito.\n"
+"\n"
+"Vuoi davvero mandare la stampa direttamente a CUPS?\n"
+"\n"
+"(Se non sei sicuro, probabilmente la risposta è no.)"
 
 #: ../../frescobaldi_app/musicview/__init__.py:253
 #: ../../frescobaldi_app/viewers/__init__.py:339
@@ -3510,7 +3528,7 @@ msgstr "Estensioni"
 
 #: ../../frescobaldi_app/preferences/documentation.py:67
 msgid "Paths to LilyPond Documentation"
-msgstr "Percorsi alla documentazione LilyPond:"
+msgstr "Percorsi alla documentazione LilyPond"
 
 #: ../../frescobaldi_app/preferences/documentation.py:69
 msgid "Add paths or URLs. See \"What's This\" for more information."
@@ -4831,7 +4849,6 @@ msgid "Use vector based backend (Arthur) for printing PDF documents"
 msgstr "Usa il backend vettoriale (Arthur) per la stampa dei documenti PDF"
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:172
-#, fuzzy
 msgid ""
 "If checked, Frescobaldi will use the Arthur backend of the Poppler\n"
 "library for printing PDF documents. A big advantage of the Arthur backend\n"
@@ -4970,7 +4987,7 @@ msgstr "Anteprima spartito"
 
 #: ../../frescobaldi_app/preferences/tools.py:138
 msgid "Only load updated PDF documents"
-msgstr "Carica solo i PDF aggiornati."
+msgstr "Carica solo i PDF aggiornati"
 
 #: ../../frescobaldi_app/preferences/tools.py:140
 msgid ""
@@ -5080,7 +5097,6 @@ msgid "Two Pages (first page right)"
 msgstr "Due pagine (prima pagina a destra)"
 
 #: ../../frescobaldi_app/qpageview/viewactions.py:288
-#, fuzzy
 msgid "Two Pages (first page left)"
 msgstr "Due pagine (prima pagina a destra)"
 
@@ -5764,7 +5780,7 @@ msgstr "Inserire uno schema ritmico:"
 
 #: ../../frescobaldi_app/scorewiz/__init__.py:61
 msgid "Score &Wizard..."
-msgstr "Con&figurazione assistita di un nuovo spartito"
+msgstr "Con&figurazione assistita di un nuovo spartito..."
 
 #: ../../frescobaldi_app/scorewiz/build.py:133
 msgid "Music follows here."
@@ -6228,7 +6244,7 @@ msgstr "Flicorno soprano"
 #: ../../frescobaldi_app/scorewiz/parts/brass.py:89
 msgctxt "abbreviation for Flugelhorn"
 msgid "Fgh."
-msgstr "Flic"
+msgstr "Flic."
 
 #: ../../frescobaldi_app/scorewiz/parts/brass.py:97
 msgid "Mellophone"
@@ -7280,7 +7296,7 @@ msgstr "Fiati"
 
 #: ../../frescobaldi_app/search/__init__.py:112
 msgid "Search:"
-msgstr "Cerca..."
+msgstr "Cerca:"
 
 #: ../../frescobaldi_app/search/__init__.py:113
 msgid "Find Previous"
@@ -7785,7 +7801,7 @@ msgstr "Nuovo"
 #: ../../frescobaldi_app/snippet/restore.py:61
 msgctxt "dialog title"
 msgid "Restore Built-in Snippets"
-msgstr "Ripristinare i frammenti predefiniti."
+msgstr "Ripristinare i frammenti predefiniti"
 
 #: ../../frescobaldi_app/snippet/restore.py:63
 msgid ""
@@ -9336,7 +9352,7 @@ msgstr "Editor musicale per LilyPond"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:9
 msgid "org.frescobaldi.Frescobaldi"
-msgstr ""
+msgstr "org.frescobaldi.Frescobaldi"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.desktop.in:14
 msgid "lilypond;editor;sheet music;"
@@ -9358,49 +9374,61 @@ msgstr "Funzionalità:"
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:16
 msgid "Powerful text editor with syntax highlighting and automatic completion"
 msgstr ""
+"Editor di testo potente con colorazione della sintassi e completamento "
+"automatico"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:17
 msgid "Music view with advanced Point &amp; Click"
-msgstr ""
+msgstr "Anteprima dello spartito con punta-e-clicca avanzato"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:18
 msgid "Midi player to proof-listen LilyPond-generated MIDI files"
-msgstr ""
+msgstr "Player MIDI per la revisione dei file MIDI generati da LilyPond"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:19
 msgid "Midi capturing to enter music"
-msgstr ""
+msgstr "Acquisizione MIDI per inserire la musica"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:20
 msgid "Powerful Score Wizard to quickly setup a music score"
 msgstr ""
+"Configurazione assistita potente per impostare rapidamente una partitura"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:21
 msgid "Snippet Manager to store and apply text snippets, templates or scripts"
 msgstr ""
+"Gestore dei frammenti per memorizzare e applicare frammenti di testo, "
+"modelli o script"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:22
 msgid ""
 "Use multiple versions of LilyPond, automatically selects the correct version"
 msgstr ""
+"Uso di versione multiple di LilyPond, con selezione automatica della "
+"versione corretta"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:23
 msgid "Built-in LilyPond documentation browser and built-in User Guide"
 msgstr ""
+"Navigatore della documentazione di LilyPond e guida di Frescobaldi integrati"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:24
 msgid ""
 "Smart layout-control functions like coloring specific objects in the PDF"
 msgstr ""
+"Funzioni intelligenti di controllo del layout come la colorazione di oggetti "
+"specifici nel PDF"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:25
 msgid "MusicXML, Midi and ABC import"
-msgstr ""
+msgstr "Importazione di MusicXML, MIDI e ABC"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:26
 msgid ""
 "Modern user interface with configurable colors, fonts and keyboard shortcuts"
 msgstr ""
+"Interfaccia utente moderna con colori, caratteri e scorciatoie da tastiera "
+"configurabili"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:27
 msgid ""
@@ -9408,6 +9436,9 @@ msgid ""
 "Italian, Czech, Russian, Spanish, Galician, Turkish, Polish, Brazillian "
 "Portugese and Ukrainian."
 msgstr ""
+"Tradotto nelle lingue seguenti: olandese, inglese, francese, tedesco, "
+"italiano, ceco, russo, spagnolo, galiziano, turco, polacco, portoghese "
+"brasiliano e ucraino."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:29
 msgid ""
@@ -9416,31 +9447,34 @@ msgid ""
 "Italian composer of keyboard music in the late Renaissance and early Baroque "
 "period."
 msgstr ""
+"Frescobaldi è progettato per funzionare in tutto i principali sistemi "
+"operativi (Linux, Mac OS X e MS Windows). Il suo nome deriva da Giacomo "
+"Frescobaldi (1583-1643), un compositore italiano di musica per tastiera del "
+"tardo Rinascimento e primo Barocco."
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:38
 msgid "Text editor and music view"
-msgstr ""
+msgstr "Editor di testo e anteprima dello spartito"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:42
 msgid "Change the input without leaving the music view"
-msgstr ""
+msgstr "Modifica l'input senza lasciare l'anteprima dello spartito"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:46
 msgid "Zoom with the magnifier glass"
-msgstr ""
+msgstr "Ingrandisci con la lente"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:50
 msgid "Syntax highlighting and automatic completion"
-msgstr ""
+msgstr "Colorazione della sintassi e completamento automatico"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:54
-#, fuzzy
 msgid "Snippet manager and editor"
-msgstr "Errore del frammento"
+msgstr "Gestore e editor dei frammenti"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:58
 msgid "Score Wizard to quickly setup a music score"
-msgstr ""
+msgstr "Configurazione assistita per impostare rapidamente una nuova partitura"
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:72
 msgid "Bugfixes:"
@@ -9474,9 +9508,8 @@ msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:86
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:127
-#, fuzzy
 msgid "New features:"
-msgstr "Nuovo nome:"
+msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:88
 msgid ""
@@ -9493,14 +9526,12 @@ msgid "New \"First System Only\" option in Custom Engrave."
 msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:91
-#, fuzzy
 msgid "New \"Goto Line\" and \"Rename file\" commands."
-msgstr "Esegui comando esterno"
+msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:92
-#, fuzzy
 msgid "Music View: view settings are remembered per-document."
-msgstr "Ricorda le impostazioni della vista per ciascun documento"
+msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:93
 msgid ""
@@ -9558,9 +9589,8 @@ msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:108
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:132
-#, fuzzy
 msgid "Improvements:"
-msgstr "Togli i &commenti"
+msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:110
 msgid ""
