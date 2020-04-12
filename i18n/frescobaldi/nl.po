@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: frescobaldi 2.0.4\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
 "POT-Creation-Date: 2020-04-12 17:51+0200\n"
-"PO-Revision-Date: 2020-04-12 21:19+0200\n"
+"PO-Revision-Date: 2020-04-13 00:21+0200\n"
 "Last-Translator: Wilbert Berendsen <wbsoft@xs4all.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "Language: nl\n"
@@ -1792,7 +1792,7 @@ msgstr ""
 
 #: ../../frescobaldi_app/extensions/panel.py:73
 msgid "Extension Tool Panel failed to load"
-msgstr ""
+msgstr "Extensie gereedschapspaneel kon niet laden"
 
 #: ../../frescobaldi_app/extensions/panel.py:75
 #, python-brace-format
@@ -1803,16 +1803,26 @@ msgid ""
 "\n"
 "failed to load due to an exception. Please contact the extension's maintainer(s)."
 msgstr ""
+"Het gereedschapspaneel van de extensie\n"
+"\n"
+"  {name}\n"
+"\n"
+"werd niet geladen door een foutmelding. Zoek contact met de maintainer(s) van de "
+"extensie."
 
 #: ../../frescobaldi_app/extensions/settings.py:63
 #, python-brace-format
 msgid "Trying to retrieve unknown setting '{setting}' in extension '{extension}'"
 msgstr ""
+"Bezig te proberen onbekende instelling '{setting}' te verkrijgen in extensie "
+"'{extension}'"
 
 #: ../../frescobaldi_app/extensions/settings.py:83
 #, python-brace-format
 msgid "Trying to store unknown setting '{setting}' in extension '{extension}'"
 msgstr ""
+"Bezig te proberen onbekende instelling '{setting}' te op te slaan in extensie "
+"'{extension}'"
 
 #: ../../frescobaldi_app/extensions/settings.py:98
 #, python-brace-format
@@ -1820,6 +1830,8 @@ msgid ""
 "Trying to store setting '{setting}' in extension '{extension}' with type '{type}' "
 "instead of '{type_is}'"
 msgstr ""
+"Bezig te proberen onbekende instelling '{setting}' te op te slaan in extensie "
+"'{extension}' met type '{type}' in plaats van '{type_is}'"
 
 #: ../../frescobaldi_app/extensions/widget.py:47
 msgid "Tool Panel failed to load"
@@ -4785,6 +4797,8 @@ msgid ""
 "If checked, Frescobaldi tries to print a PDF document direcly using\n"
 "the CUPS server, if available."
 msgstr ""
+"Indien geselecteerd, zal Frescobaldi een PDF-document direct afdrukken via de CUPS "
+"server, indien beschikbaar."
 
 #: ../../frescobaldi_app/preferences/musicviewers.py:182
 msgid "Set the resolution if Frescobaldi prints using raster images."
@@ -4805,6 +4819,8 @@ msgid ""
 "If set this directory can be used to automatically\n"
 "install all music fonts into a given LilyPond installation."
 msgstr ""
+"Indien ingesteld, kan deze directory worden gebruikt om automatisch alle "
+"muzieklettertypen te installeren in een gegeven LilyPond-installatie."
 
 #: ../../frescobaldi_app/preferences/paths.py:124
 msgid "Auto install"
@@ -4816,6 +4832,9 @@ msgid ""
 "to the current LilyPond installation when opening\n"
 "the Document Fonts dialog."
 msgstr ""
+"Altijd alle lettertypen uit het muzieklettertypen-depot\n"
+"in de huidige LilyPond-installatie installeren bij het openen van de\n"
+"Documentlettertypen-dialoog."
 
 #: ../../frescobaldi_app/preferences/paths.py:130
 msgid "Music Font Preview Cache:"
@@ -9519,7 +9538,7 @@ msgstr ""
 
 #: ../../linux/org.frescobaldi.Frescobaldi.metainfo.xml.in:134
 msgid "Retina display support in Music View."
-msgstr ""
+msgstr "Ondersteuning voor Retina schermen in de muziekweergave."
 
 #~ msgid ""
 #~ "Unfortunately, this version of Frescobaldi is unable to print PDF documents on "
