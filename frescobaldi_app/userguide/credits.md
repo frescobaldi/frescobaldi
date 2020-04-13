@@ -17,7 +17,7 @@ The following people contributed to {appname}:
 !Peter Bjuhr:
 : !_(Quick Insert buttons for grace notes)_,
    _(MusicXML, Midi and Abc im- and export)_,
-   _(Manuscript Viewer)_   
+   _(Manuscript Viewer)_
 
 !Richard Cognot:
 : Kinetic Scrolling for the Music View
@@ -80,7 +80,8 @@ The following people contributed to {appname}:
 
 {lang_it}:
 :  !Gianluca D'Orazio,
-    Federico Bruni
+    Federico Bruni,
+    Davide Liessi
 
 {lang_de}:
 :  !Henrik Evers,
