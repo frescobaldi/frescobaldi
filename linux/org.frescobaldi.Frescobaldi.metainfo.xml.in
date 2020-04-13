@@ -67,6 +67,36 @@
   <translation type="gettext">frescobaldi</translation>
 
   <releases>
+    <release version="3.1.2" date="2020-04-13">
+      <description>
+        <p>Bug fixes:</p>
+        <ul>
+          <li>Fixed the error "AttributeError: 'NoneType' object has no attribute 'cursor'"</li>
+          <li>Fixed the "Two Pages (first page right)" mode</li>
+          <li>Fixed pinch gesture zooming in Music View on Mac OS X</li>
+          <li>Fixed printing the music score on Mac OS X</li>
+          <li>Fixed cursor nagivation keyboard shortcuts on Mac OS X; new shortcuts:</li>
+          <ul>
+            <li>next document: ctrl+tab</li>
+            <li>previous document: ctrl+shift+tab</li>
+            <li>start of line: cmd+left</li>
+            <li>end of line: cmd+right</li>
+          </ul>
+          <li>Fixed the display of filenames in document tabs on Mac OS X</li>
+          <li>Fixed the global menu with no windows open on Mac OS X</li>
+          <li>Fixed the error with convert-ly on in the Mac app bundle</li>
+        </ul>
+        <p>Improvements:</p>
+        <ul>
+          <li>German hyphenation patterns were added</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>Dutch translation updated by Wilbert Berendsen</li>
+          <li>Italian translation updated by Davide Liessi</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.1.1" date="2020-01-04">
       <description>
         <p>Bugfixes:</p>
