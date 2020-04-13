@@ -30,7 +30,7 @@ from PyQt5.QtCore import QSettings, QTimer, QUrl
 from PyQt5.QtGui import QTextCursor
 from PyQt5.QtWidgets import QApplication
 
-import appinfo             # Information about our application
+import appinfo          # Information about our application
 import app              # Instantiate global signals etc
 import install          # Update QSettings structure etc. if needed
 import guistyle         # Setup GUI style
@@ -108,6 +108,10 @@ def url(arg):
         return QUrl.fromLocalFile(os.path.abspath(arg))
 
 
+## it would be nice if the LY check could move to checks and be performed
+## earlier, before parsing the arguments.  That would mean that the --python-ly
+## option be removed, and the PYTHONPATH is used to point Frescobaldi to another
+## ly module location (or just use a symlink) -- WB
 def check_ly():
     """Check if ly is installed and has the correct version.
 

@@ -37,7 +37,10 @@ domain = "frescobaldi.org"
 url = "http://www.{0}/".format(domain)
 license = "GPL"
 
-required_python_ly_version = (0, 9, 4)
-
 # this one is used everywhere in the application
 appname = "Frescobaldi"
+
+
+# required versions of important dependencies
+required_python_version = (3, 3)
+required_python_ly_version = (0, 9, 4)
