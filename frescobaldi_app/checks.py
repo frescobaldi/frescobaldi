@@ -90,6 +90,15 @@ if not importlib.find_loader('popplerqt5'):
         "Frescobaldi can run, but cannot display PDF documents.", True)
 
 
+# Check qpageview availability
+if not importlib.find_loader('qpageview'):
+    error("The 'qpageview' module can't be found.",
+        "Frescobaldi can't find the 'qpageview' module. This module is "
+        "required for the Music View and other viewers inside Frescobaldi, "
+        "and can be downloaded from http://github.com/frescobaldi/qpageview."
+        "\n\n"
+        "Unfortunately, Frescobaldi cannot run without it.")
+
 
 # The python-ly check could also move where, but we don't do it now, because
 # the --python-ly option could point to another path, and the startup arguments

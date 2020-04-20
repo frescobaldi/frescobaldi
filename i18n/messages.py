@@ -18,8 +18,44 @@
 # See http://www.gnu.org/licenses/ for more information.
 
 """
-Dummy file containing messages that are part of some Python modules or Qt and used in our application.
+Dummy file containing messages that are part of external Python modules or Qt
+and used in our application.
+
 """
+
+# qpageview, viewactions module:
+_("&Print...")
+_("Fit &Width")
+_("Fit &Height")
+_("Fit &Page")
+_("&Natural Size")
+_("Original &Size")
+_("Zoom &In")
+_("Zoom &Out")
+
+# L10N: "Width" as in "Fit Width" (display in zoom menu)
+_("Width")
+# L10N: "Height" as in "Fit Height" (display in zoom menu)
+_("Height")
+# L10N: "Page" as in "Fit Page" (display in zoom menu)
+_("Page")
+
+_("Rotate &Left")
+_("Rotate &Right")
+_("Single Pages")
+_("Two Pages (first page right)")
+_("Two Pages (first page left)")
+# L10N: "Raster", a layout type (like grid)
+_("Raster")
+_("Vertical")
+_("Horizontal")
+_("&Continuous")
+_("Re&load View")
+_("Previous Page")
+_("Previous")
+_("Next Page")
+_("Next")
+_("Magnifier")
 
 
 # Python, argparse:
@@ -27,6 +63,7 @@ _("usage: ")
 _("positional arguments")
 _("optional arguments")
 _("show this help message and exit")
+
 
 # Qt
 _("CloseButton", "Close Tab")
