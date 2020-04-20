@@ -80,6 +80,11 @@ def ly_version():
     return ly.pkginfo.version
 
 @_catch_unknown
+def qpageview_version():
+    import qpageview
+    return qpageview.version_string
+
+@_catch_unknown
 def poppler_version():
     import popplerqt5
     return '.'.join(format(n) for n in popplerqt5.poppler_version())
@@ -118,6 +123,7 @@ def version_info_named():
     yield "Qt", qt_version()
     yield "PyQt", pyqt_version()
     yield "sip", sip_version()
+    yield "qpageview", qpageview_version()
     yield "poppler", poppler_version()
     yield "python-poppler-qt", python_poppler_version()
     yield "OS", operating_system()
