@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: frescobaldi 2.0.16\n"
 "Report-Msgid-Bugs-To: info@frescobaldi.org\n"
-"POT-Creation-Date: 2020-04-13 08:04+0200\n"
+"POT-Creation-Date: 2020-04-23 12:26+0200\n"
 "PO-Revision-Date: 2016-05-03 15:53+0600\n"
 "Last-Translator: Henning Hraban Ramm <hraban@fiee.net>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -800,11 +800,11 @@ msgstr "Datei\t"
 msgid "File to be opened"
 msgstr "Zu öffnende Datei"
 
-#: ../../frescobaldi_app/main.py:134
+#: ../../frescobaldi_app/main.py:138
 msgid "Can't run Frescobaldi"
 msgstr "Kann Frescobaldi nicht ausführen"
 
-#: ../../frescobaldi_app/main.py:135
+#: ../../frescobaldi_app/main.py:139
 #, python-brace-format
 msgid ""
 "We are sorry, but Frescobaldi can't run properly.\n"
@@ -4944,128 +4944,6 @@ msgstr "Text-Patterns, die in der Dokumentstruktur angezeigt werden sollen:"
 msgid "Enter a regular expression to match:"
 msgstr "Geben Sie einen regulären Ausdruck ein:"
 
-#: ../../frescobaldi_app/qpageview/viewactions.py:268
-#, fuzzy
-msgid "&Print..."
-msgstr "Drucken..."
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:269
-msgid "Fit &Width"
-msgstr "An &Breite anpassen"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:270
-msgid "Fit &Height"
-msgstr "An &Höhe anpassen"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:271
-msgid "Fit &Page"
-msgstr "An &Seite anpassen"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:272
-#, fuzzy
-msgid "&Natural Size"
-msgstr "Notenzeilen-Größe"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:273
-#: ../../frescobaldi_app/svgview/__init__.py:93
-msgid "Original &Size"
-msgstr "&Originalgröße"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:274
-#: ../../frescobaldi_app/svgview/__init__.py:91
-msgid "Zoom &In"
-msgstr "Ver&größern"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:275
-#: ../../frescobaldi_app/svgview/__init__.py:92
-msgid "Zoom &Out"
-msgstr "Ver&kleinern"
-
-#. L10N: "Width" as in "Fit Width" (display in zoom menu)
-#: ../../frescobaldi_app/qpageview/viewactions.py:278
-#, fuzzy
-msgid "Width"
-msgstr "An Breite anpassen"
-
-#. L10N: "Height" as in "Fit Height" (display in zoom menu)
-#: ../../frescobaldi_app/qpageview/viewactions.py:280
-#, fuzzy
-msgid "Height"
-msgstr "An &Höhe anpassen"
-
-#. L10N: "Page" as in "Fit Page" (display in zoom menu)
-#: ../../frescobaldi_app/qpageview/viewactions.py:282
-#, fuzzy
-msgid "Page"
-msgstr "Seite:"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:284
-msgid "Rotate &Left"
-msgstr ""
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:285
-#, fuzzy
-msgid "Rotate &Right"
-msgstr "Seite rechts"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:286
-msgid "Single Pages"
-msgstr "Einzelseiten"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:287
-msgid "Two Pages (first page right)"
-msgstr "Doppelseiten (erste Seite rechts)"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:288
-msgid "Two Pages (first page left)"
-msgstr "Doppelseiten (erste Seite links)"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:289
-#, fuzzy
-msgid "Raster"
-msgstr "Einfügen"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:290
-#, fuzzy
-msgid "Vertical"
-msgstr "&Vertikal teilen"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:291
-#, fuzzy
-msgid "Horizontal"
-msgstr "&Horizontal teilen"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:292
-#, fuzzy
-msgid "&Continuous"
-msgstr "Container"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:293
-#, fuzzy
-msgid "Re&load View"
-msgstr "Neu la&den"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:294
-msgid "Previous Page"
-msgstr "Vorherige Seite"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:295
-msgid "Previous"
-msgstr "Vorige"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:296
-msgid "Next Page"
-msgstr "Nächste Seite"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:297
-msgid "Next"
-msgstr "Nächstes:"
-
-#: ../../frescobaldi_app/qpageview/viewactions.py:298
-#, fuzzy
-msgid "Magnifier"
-msgstr "Vergrößerungsstufe:"
-
 #: ../../frescobaldi_app/quickinsert/__init__.py:46
 #: ../../frescobaldi_app/quickinsert/__init__.py:70
 msgid "Quick Insert"
@@ -7907,6 +7785,18 @@ msgstr "SVG-Ansicht"
 msgid "SV&G View"
 msgstr "SV&G-Ansicht"
 
+#: ../../frescobaldi_app/svgview/__init__.py:91 ../messages.py:33
+msgid "Zoom &In"
+msgstr "Ver&größern"
+
+#: ../../frescobaldi_app/svgview/__init__.py:92 ../messages.py:34
+msgid "Zoom &Out"
+msgstr "Ver&kleinern"
+
+#: ../../frescobaldi_app/svgview/__init__.py:93 ../messages.py:32
+msgid "Original &Size"
+msgstr "&Originalgröße"
+
 #: ../../frescobaldi_app/svgview/widget.py:98
 msgid "Page:"
 msgstr "Seite:"
@@ -8252,1005 +8142,1202 @@ msgstr "Verzeichnis auswählen"
 msgid "Select a file"
 msgstr "Datei auswählen"
 
-#: ../messages.py:26
+#: ../messages.py:27
+#, fuzzy
+msgid "&Print..."
+msgstr "Drucken..."
+
+#: ../messages.py:28
+msgid "Fit &Width"
+msgstr "An &Breite anpassen"
+
+#: ../messages.py:29
+msgid "Fit &Height"
+msgstr "An &Höhe anpassen"
+
+#: ../messages.py:30
+msgid "Fit &Page"
+msgstr "An &Seite anpassen"
+
+#: ../messages.py:31
+#, fuzzy
+msgid "&Natural Size"
+msgstr "Notenzeilen-Größe"
+
+#. L10N: "Width" as in "Fit Width" (display in zoom menu)
+#: ../messages.py:37
+#, fuzzy
+msgid "Width"
+msgstr "An Breite anpassen"
+
+#. L10N: "Height" as in "Fit Height" (display in zoom menu)
+#: ../messages.py:39
+#, fuzzy
+msgid "Height"
+msgstr "An &Höhe anpassen"
+
+#. L10N: "Page" as in "Fit Page" (display in zoom menu)
+#: ../messages.py:41
+#, fuzzy
+msgid "Page"
+msgstr "Seite:"
+
+#: ../messages.py:43
+msgid "Rotate &Left"
+msgstr ""
+
+#: ../messages.py:44
+#, fuzzy
+msgid "Rotate &Right"
+msgstr "Seite rechts"
+
+#: ../messages.py:45
+msgid "Single Pages"
+msgstr "Einzelseiten"
+
+#: ../messages.py:46
+msgid "Two Pages (first page right)"
+msgstr "Doppelseiten (erste Seite rechts)"
+
+#: ../messages.py:47
+msgid "Two Pages (first page left)"
+msgstr "Doppelseiten (erste Seite links)"
+
+#. L10N: "Raster", a layout type (like grid)
+#: ../messages.py:49
+#, fuzzy
+msgid "Raster"
+msgstr "Einfügen"
+
+#: ../messages.py:50
+#, fuzzy
+msgid "Vertical"
+msgstr "&Vertikal teilen"
+
+#: ../messages.py:51
+#, fuzzy
+msgid "Horizontal"
+msgstr "&Horizontal teilen"
+
+#: ../messages.py:52
+#, fuzzy
+msgid "&Continuous"
+msgstr "Container"
+
+#: ../messages.py:53
+#, fuzzy
+msgid "Re&load View"
+msgstr "Neu la&den"
+
+#: ../messages.py:54
+msgid "Previous Page"
+msgstr "Vorherige Seite"
+
+#: ../messages.py:55
+msgid "Previous"
+msgstr "Vorige"
+
+#: ../messages.py:56
+msgid "Next Page"
+msgstr "Nächste Seite"
+
+#: ../messages.py:57
+msgid "Next"
+msgstr "Nächstes:"
+
+#: ../messages.py:58
+#, fuzzy
+msgid "Magnifier"
+msgstr "Vergrößerungsstufe:"
+
+#: ../messages.py:62
 msgid "usage: "
 msgstr "Verwendung: "
 
-#: ../messages.py:27
+#: ../messages.py:63
 msgid "positional arguments"
 msgstr "Positionale Parameter"
 
-#: ../messages.py:28
+#: ../messages.py:64
 msgid "optional arguments"
 msgstr "Optionale Parameter"
 
-#: ../messages.py:29
+#: ../messages.py:65
 msgid "show this help message and exit"
 msgstr "Hilfenachricht zeigen und verlassen"
 
-#: ../messages.py:32
+#: ../messages.py:69
 msgctxt "CloseButton"
 msgid "Close Tab"
 msgstr "Reiter schließen"
 
-#: ../messages.py:34
+#: ../messages.py:71
 msgctxt "QDialogButtonBox"
 msgid "Apply"
 msgstr "Anwenden"
 
-#: ../messages.py:35
+#: ../messages.py:72
 msgctxt "QDialogButtonBox"
 msgid "&Cancel"
 msgstr "Abbre&chen"
 
-#: ../messages.py:36
+#: ../messages.py:73
 msgctxt "QDialogButtonBox"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../messages.py:37
+#: ../messages.py:74
 msgctxt "QDialogButtonBox"
 msgid "Close"
 msgstr "Schließen"
 
-#: ../messages.py:38
+#: ../messages.py:75
 msgctxt "QDialogButtonBox"
 msgid "Close without Saving"
 msgstr "Schließen ohne Speichern"
 
-#: ../messages.py:39
+#: ../messages.py:76
 msgctxt "QDialogButtonBox"
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: ../messages.py:40
+#: ../messages.py:77
 msgctxt "QDialogButtonBox"
 msgid "Help"
 msgstr "Hilfe"
 
-#: ../messages.py:41
+#: ../messages.py:78
 msgctxt "QDialogButtonBox"
 msgid "&OK"
 msgstr "&OK"
 
-#: ../messages.py:42
+#: ../messages.py:79
 msgctxt "QDialogButtonBox"
 msgid "OK"
 msgstr "OK"
 
-#: ../messages.py:43
+#: ../messages.py:80
 msgctxt "QDialogButtonBox"
 msgid "Open"
 msgstr "&Öffnen"
 
-#: ../messages.py:44
+#: ../messages.py:81
 msgctxt "QDialogButtonBox"
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: ../messages.py:45
+#: ../messages.py:82
 msgctxt "QDialogButtonBox"
 msgid "&Save"
 msgstr "&Speichern"
 
-#: ../messages.py:46
+#: ../messages.py:83
 msgctxt "QDialogButtonBox"
 msgid "Save"
 msgstr "Speichern"
 
-#: ../messages.py:48
+#: ../messages.py:85
 msgctxt "QDialog"
 msgid "What's This?"
 msgstr "Was ist das?"
 
-#: ../messages.py:50
+#: ../messages.py:87
 msgctxt "QDockWidget"
 msgid "Float"
 msgstr ""
 
-#: ../messages.py:51
+#: ../messages.py:88
 msgctxt "QDockWidget"
 msgid "Undocks and re-attaches the dock widget"
 msgstr ""
 
-#: ../messages.py:52
+#: ../messages.py:89
 #, fuzzy
 msgctxt "QDockWidget"
 msgid "Close"
 msgstr "Schlie&ßen"
 
-#: ../messages.py:53
+#: ../messages.py:90
 #, fuzzy
 msgctxt "QDockWidget"
 msgid "Closes the dock widget"
 msgstr "Andere Doku&mente schließen"
 
-#: ../messages.py:55
+#: ../messages.py:92
 msgctxt "QFileDialog"
 msgid "All Files (*)"
 msgstr "Alle Dateien (*)"
 
-#: ../messages.py:56
+#: ../messages.py:93
 msgctxt "QFileDialog"
 msgid "Back"
 msgstr "Zurück"
 
-#: ../messages.py:57
+#: ../messages.py:94
 msgctxt "QFileDialog"
 msgid "Change to detail view mode"
 msgstr "Zur Detailansicht wechseln"
 
-#: ../messages.py:58
+#: ../messages.py:95
 msgctxt "QFileDialog"
 msgid "Change to list view mode"
 msgstr "Zur Listenansicht wechseln"
 
-#: ../messages.py:59
+#: ../messages.py:96
 msgctxt "QFileDialog"
 msgid "Create a New Folder"
 msgstr "Erzeuge einen neuen Ordner"
 
-#: ../messages.py:60
+#: ../messages.py:97
 msgctxt "QFileDialog"
 msgid "Create New Folder"
 msgstr "Neuen Ordner erstellen"
 
-#: ../messages.py:61
+#: ../messages.py:98
 msgctxt "QFileDialog"
 msgid "&Delete"
 msgstr "&Löschen"
 
-#: ../messages.py:62
+#: ../messages.py:99
 msgctxt "QFileDialog"
 msgid "Detail View"
 msgstr "Detailansicht"
 
-#: ../messages.py:63
+#: ../messages.py:100
 msgctxt "QFileDialog"
 msgid "Drive"
 msgstr "Laufwerk"
 
-#: ../messages.py:64
+#: ../messages.py:101
 msgctxt "QFileDialog"
 msgid "File"
 msgstr "Datei"
 
-#: ../messages.py:65
+#: ../messages.py:102
 msgctxt "QFileDialog"
 msgid "File &name:"
 msgstr "Datei&name:"
 
-#: ../messages.py:66
+#: ../messages.py:103
 msgctxt "QFileDialog"
 msgid "Files of type:"
 msgstr "Dateien des Typs:"
 
-#: ../messages.py:67
+#: ../messages.py:104
 msgctxt "QFileDialog"
 msgid "Find Directory"
 msgstr "Ordner finden"
 
-#: ../messages.py:68
+#: ../messages.py:105
 msgctxt "QFileDialog"
 msgid "Folder"
 msgstr "Ordner"
 
-#: ../messages.py:69
+#: ../messages.py:106
 msgctxt "QFileDialog"
 msgid "Forward"
 msgstr "Vorwärts"
 
-#: ../messages.py:70
+#: ../messages.py:107
 msgctxt "QFileDialog"
 msgid "Go back"
 msgstr "Zurück"
 
-#: ../messages.py:71
+#: ../messages.py:108
 msgctxt "QFileDialog"
 msgid "Go forward"
 msgstr "Gehe vorwärts"
 
-#: ../messages.py:72
+#: ../messages.py:109
 msgctxt "QFileDialog"
 msgid "Go to the parent directory"
 msgstr "In das übergeordnete Verzeichnis wechseln"
 
-#: ../messages.py:73
+#: ../messages.py:110
 msgctxt "QFileDialog"
 msgid "List View"
 msgstr "Listenansicht"
 
-#: ../messages.py:74
+#: ../messages.py:111
 msgctxt "QFileDialog"
 msgid "Look in:"
 msgstr "Suche in:"
 
-#: ../messages.py:75
+#: ../messages.py:112
 msgctxt "QFileDialog"
 msgid "&New Folder"
 msgstr "&Neuer Ordner"
 
-#: ../messages.py:76
+#: ../messages.py:113
 msgctxt "QFileDialog"
 msgid "&Open"
 msgstr "&Öffnen"
 
-#: ../messages.py:77
+#: ../messages.py:114
 msgctxt "QFileDialog"
 msgid "Parent Directory"
 msgstr "&Übergeordneter Ordner"
 
-#: ../messages.py:78
+#: ../messages.py:115
 msgctxt "QFileDialog"
 msgid "Remove"
 msgstr "Entfernen"
 
-#: ../messages.py:79
+#: ../messages.py:116
 msgctxt "QFileDialog"
 msgid "&Rename"
 msgstr "&Umbenennen"
 
-#: ../messages.py:80
+#: ../messages.py:117
 msgctxt "QFileDialog"
 msgid "Show "
 msgstr "Zeigen "
 
-#: ../messages.py:81
+#: ../messages.py:118
 msgctxt "QFileDialog"
 msgid "Show &hidden files"
 msgstr "Zeige &versteckte Dateien"
 
-#: ../messages.py:83
+#: ../messages.py:120
 msgctxt "QFileSystemModel"
 msgid "%1 bytes"
 msgstr "%1 Byte"
 
-#: ../messages.py:84
+#: ../messages.py:121
 msgctxt "QFileSystemModel"
 msgid "%1 KB"
 msgstr "%1 KB"
 
-#: ../messages.py:85
+#: ../messages.py:122
 msgctxt "QFileSystemModel"
 msgid "Computer"
 msgstr "Computer"
 
-#: ../messages.py:86
+#: ../messages.py:123
 msgctxt "QFileSystemModel"
 msgid "Date Modified"
 msgstr "Änderungsdatum"
 
-#: ../messages.py:87
+#: ../messages.py:124
 msgctxt "QFileSystemModel"
 msgid "Name"
 msgstr "Name"
 
-#: ../messages.py:88
+#: ../messages.py:125
 msgctxt "QFileSystemModel"
 msgid "Size"
 msgstr "Größe"
 
-#: ../messages.py:89
+#: ../messages.py:126
 msgctxt "QFileSystemModel"
 msgid "Type"
 msgstr "Typ"
 
-#: ../messages.py:91
+#: ../messages.py:128
 msgctxt "QFontDatabase"
 msgid "Black"
 msgstr "Schwarz"
 
-#: ../messages.py:92
+#: ../messages.py:129
 msgctxt "QFontDatabase"
 msgid "Bold"
 msgstr "Fett"
 
-#: ../messages.py:93
+#: ../messages.py:130
 msgctxt "QFontDatabase"
 msgid "Demi Bold"
 msgstr "Halbfett"
 
-#: ../messages.py:94
+#: ../messages.py:131
 msgctxt "QFontDatabase"
 msgid "Light"
 msgstr "Dünn"
 
-#: ../messages.py:95
+#: ../messages.py:132
 msgctxt "QFontDatabase"
 msgid "Oblique"
 msgstr "Schräg"
 
-#: ../messages.py:97
+#: ../messages.py:133
+#, fuzzy
+msgctxt "QFontDatabase"
+msgid "Normal"
+msgstr "Normale Notenzeilen"
+
+#: ../messages.py:135
+#, fuzzy
+msgctxt "QGnomeTheme"
+msgid "&OK"
+msgstr "&OK"
+
+#: ../messages.py:136
+#, fuzzy
+msgctxt "QGnomeTheme"
+msgid "&Cancel"
+msgstr "Abbre&chen"
+
+#: ../messages.py:137
+#, fuzzy
+msgctxt "QGnomeTheme"
+msgid "&Save"
+msgstr "&Speichern"
+
+#: ../messages.py:138
+#, fuzzy
+msgctxt "QGnomeTheme"
+msgid "&Close"
+msgstr "Schlie&ßen"
+
+#: ../messages.py:140
 msgctxt "QInputContext"
 msgid "XIM"
 msgstr "XIM"
 
-#: ../messages.py:99
+#: ../messages.py:142
 msgctxt "QLocalSocket"
 msgid "%1: Invalid name"
 msgstr "%1: ungültiger Name"
 
-#: ../messages.py:101
+#: ../messages.py:144
 #, fuzzy
 msgctxt "QMultiInputContext"
 msgid "Select IM"
 msgstr "EM auswählen"
 
-#: ../messages.py:103
+#: ../messages.py:146
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "OK"
+msgstr "OK"
+
+#: ../messages.py:147
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Help"
+msgstr "Hilfe"
+
+#: ../messages.py:148
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Apply"
+msgstr "Anwenden"
+
+#: ../messages.py:149
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+#: ../messages.py:150
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Open"
+msgstr "&Öffnen"
+
+#: ../messages.py:151
 #, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Save"
 msgstr "Speichern"
 
-#: ../messages.py:104
+#: ../messages.py:152
 #, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../messages.py:105
+#: ../messages.py:153
 #, fuzzy
 msgctxt "QPlatformTheme"
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: ../messages.py:107
+#: ../messages.py:154
+#, fuzzy
+msgctxt "QPlatformTheme"
+msgid "Restore Defaults"
+msgstr "Als &Standardeinstellung setzen"
+
+#: ../messages.py:156
 msgctxt "QScrollBar"
 msgid "Bottom"
 msgstr "Unten"
 
-#: ../messages.py:108
+#: ../messages.py:157
 msgctxt "QScrollBar"
 msgid "Left edge"
 msgstr "Linke Kante"
 
-#: ../messages.py:109
+#: ../messages.py:158
 msgctxt "QScrollBar"
 msgid "Page down"
 msgstr "Seite hinunter"
 
-#: ../messages.py:110
+#: ../messages.py:159
 msgctxt "QScrollBar"
 msgid "Page left"
 msgstr "Seite links"
 
-#: ../messages.py:111
+#: ../messages.py:160
 msgctxt "QScrollBar"
 msgid "Page right"
 msgstr "Seite rechts"
 
-#: ../messages.py:112
+#: ../messages.py:161
 msgctxt "QScrollBar"
 msgid "Page up"
 msgstr "Seite hoch"
 
-#: ../messages.py:113
+#: ../messages.py:162
 msgctxt "QScrollBar"
 msgid "Right edge"
 msgstr "Rechte Kante"
 
-#: ../messages.py:114
+#: ../messages.py:163
 msgctxt "QScrollBar"
 msgid "Scroll down"
 msgstr "Herunterscrollen"
 
-#: ../messages.py:115
+#: ../messages.py:164
 msgctxt "QScrollBar"
 msgid "Scroll here"
 msgstr "Hierhin scrollen"
 
-#: ../messages.py:116
+#: ../messages.py:165
 msgctxt "QScrollBar"
 msgid "Scroll left"
 msgstr "Nach links scrollen"
 
-#: ../messages.py:117
+#: ../messages.py:166
 msgctxt "QScrollBar"
 msgid "Scroll right"
 msgstr "Nach rechts scrollen"
 
-#: ../messages.py:118
+#: ../messages.py:167
 msgctxt "QScrollBar"
 msgid "Scroll up"
 msgstr "Hochscrollen"
 
-#: ../messages.py:119
+#: ../messages.py:168
 msgctxt "QScrollBar"
 msgid "Top"
 msgstr "Oben"
 
-#: ../messages.py:121
+#: ../messages.py:170
 msgctxt "QShortcut"
 msgid "+"
 msgstr "+"
 
-#: ../messages.py:122
+#: ../messages.py:171
 msgctxt "QShortcut"
 msgid "Add Favorite"
 msgstr "Lesezeichen hinzufügen"
 
-#: ../messages.py:123
+#: ../messages.py:172
 msgctxt "QShortcut"
 msgid "Adjust Brightness"
 msgstr "Helligkeit einstellen"
 
-#: ../messages.py:124
+#: ../messages.py:173
 msgctxt "QShortcut"
 msgid "Alt"
 msgstr "Alt"
 
-#: ../messages.py:125
+#: ../messages.py:174
 msgctxt "QShortcut"
 msgid "Application Left"
 msgstr "Anwendung links"
 
-#: ../messages.py:126
+#: ../messages.py:175
 msgctxt "QShortcut"
 msgid "Application Right"
 msgstr "Anwendung rechts"
 
-#: ../messages.py:127
+#: ../messages.py:176
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Audio Cycle Track"
 msgstr "Endlos"
 
-#: ../messages.py:128
+#: ../messages.py:177
 msgctxt "QShortcut"
 msgid "Audio Forward"
 msgstr "Vorspulen"
 
-#: ../messages.py:129
+#: ../messages.py:178
 msgctxt "QShortcut"
 msgid "Audio Random Play"
 msgstr "Zufällig abspielen"
 
-#: ../messages.py:130
+#: ../messages.py:179
 msgctxt "QShortcut"
 msgid "Audio Repeat"
 msgstr "Wiederholen"
 
-#: ../messages.py:131
+#: ../messages.py:180
 msgctxt "QShortcut"
 msgid "Audio Rewind"
 msgstr "Zurückspulen"
 
-#: ../messages.py:132
+#: ../messages.py:181
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Away"
 msgstr "Unterwegs"
 
-#: ../messages.py:133
+#: ../messages.py:182
 msgctxt "QShortcut"
 msgid "Back"
 msgstr "Zurück"
 
-#: ../messages.py:134
+#: ../messages.py:183
 msgctxt "QShortcut"
 msgid "Back Forward"
 msgstr "Rückspulen"
 
-#: ../messages.py:135
+#: ../messages.py:184
 msgctxt "QShortcut"
 msgid "Backspace"
 msgstr "Löschen"
 
-#: ../messages.py:136
+#: ../messages.py:185
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Backtab"
 msgstr "Zurück"
 
-#: ../messages.py:137
+#: ../messages.py:186
 msgctxt "QShortcut"
 msgid "Bass Boost"
 msgstr "Bassverstärkung"
 
-#: ../messages.py:138
+#: ../messages.py:187
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Down"
 msgstr "Tiefen runter"
 
-#: ../messages.py:139
+#: ../messages.py:188
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Bass Up"
 msgstr "Tiefen rauf"
 
-#: ../messages.py:140
+#: ../messages.py:189
 msgctxt "QShortcut"
 msgid "Battery"
 msgstr "Akku"
 
-#: ../messages.py:141
+#: ../messages.py:190
 msgctxt "QShortcut"
 msgid "Browser"
 msgstr "Browser"
 
-#: ../messages.py:142
+#: ../messages.py:191
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../messages.py:192
 msgctxt "QShortcut"
 msgid "Caps Lock"
 msgstr "Feststelltaste"
 
-#: ../messages.py:143
+#: ../messages.py:193
 msgctxt "QShortcut"
 msgid "CapsLock"
 msgstr "Feststelltaste"
 
-#: ../messages.py:144
+#: ../messages.py:194
 msgctxt "QShortcut"
 msgid "Clear"
 msgstr "Löschen"
 
-#: ../messages.py:145
+#: ../messages.py:195
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Clear Grab"
 msgstr "Grab(?) Löschen"
 
-#: ../messages.py:146
+#: ../messages.py:196
 msgctxt "QShortcut"
 msgid "Close"
 msgstr "Schließen"
 
-#: ../messages.py:147
+#: ../messages.py:197
 msgctxt "QShortcut"
 msgid "Copy"
 msgstr "Kopieren"
 
-#: ../messages.py:148
+#: ../messages.py:198
 msgctxt "QShortcut"
 msgid "Ctrl"
 msgstr "Strg"
 
-#: ../messages.py:149
+#: ../messages.py:199
 msgctxt "QShortcut"
 msgid "Cut"
 msgstr "Ausschneiden"
 
-#: ../messages.py:150
+#: ../messages.py:200
 msgctxt "QShortcut"
 msgid "Del"
 msgstr "Entf"
 
-#: ../messages.py:151
+#: ../messages.py:201
 msgctxt "QShortcut"
 msgid "Delete"
 msgstr "Entfernen"
 
-#: ../messages.py:152
+#: ../messages.py:202
 msgctxt "QShortcut"
 msgid "Display"
 msgstr "Anzeige"
 
-#: ../messages.py:153
+#: ../messages.py:203
 msgctxt "QShortcut"
 msgid "Documents"
 msgstr "Dokumente"
 
-#: ../messages.py:154
+#: ../messages.py:204
 msgctxt "QShortcut"
 msgid "Down"
 msgstr "Nach unten"
 
-#: ../messages.py:155
+#: ../messages.py:205
 msgctxt "QShortcut"
 msgid "Eject"
 msgstr "Auswerfen"
 
-#: ../messages.py:156
+#: ../messages.py:206
 msgctxt "QShortcut"
 msgid "End"
 msgstr "Ende"
 
-#: ../messages.py:157
+#: ../messages.py:207
 msgctxt "QShortcut"
 msgid "Enter"
 msgstr "Enter"
 
-#: ../messages.py:158
+#: ../messages.py:208
 msgctxt "QShortcut"
 msgid "Esc"
 msgstr "Esc"
 
-#: ../messages.py:159
+#: ../messages.py:209
+msgctxt "QShortcut"
+msgid "Exit"
+msgstr ""
+
+#: ../messages.py:210
 msgctxt "QShortcut"
 msgid "F%1"
 msgstr "F%1"
 
-#: ../messages.py:160
+#: ../messages.py:211
 msgctxt "QShortcut"
 msgid "Forward"
 msgstr "Vorwärts"
 
-#: ../messages.py:161
+#: ../messages.py:212
 msgctxt "QShortcut"
 msgid "Go"
 msgstr "Los"
 
-#: ../messages.py:162
+#: ../messages.py:213
 msgctxt "QShortcut"
 msgid "Help"
 msgstr "Hilfe"
 
-#: ../messages.py:163
+#: ../messages.py:214
 msgctxt "QShortcut"
 msgid "History"
 msgstr "Historie"
 
-#: ../messages.py:164
+#: ../messages.py:215
 msgctxt "QShortcut"
 msgid "Home Page"
 msgstr "Startseite"
 
-#: ../messages.py:165
+#: ../messages.py:216
 msgctxt "QShortcut"
 msgid "Ins"
 msgstr "Einfügen"
 
-#: ../messages.py:166
+#: ../messages.py:217
 msgctxt "QShortcut"
 msgid "Insert"
 msgstr "Einfügen"
 
-#: ../messages.py:167
+#: ../messages.py:218
 msgctxt "QShortcut"
 msgid "Left"
 msgstr "Links"
 
-#: ../messages.py:168
+#: ../messages.py:219
 msgctxt "QShortcut"
 msgid "Media Next"
 msgstr "Nächste"
 
-#: ../messages.py:169
+#: ../messages.py:220
 msgctxt "QShortcut"
 msgid "Media Pause"
 msgstr "Pause"
 
-#: ../messages.py:170
+#: ../messages.py:221
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Media Play"
 msgstr "Play"
 
-#: ../messages.py:171
+#: ../messages.py:222
 msgctxt "QShortcut"
 msgid "Media Previous"
 msgstr "Vorige"
 
-#: ../messages.py:172
+#: ../messages.py:223
 msgctxt "QShortcut"
 msgid "Media Record"
 msgstr "Aufnahme"
 
-#: ../messages.py:173
+#: ../messages.py:224
 msgctxt "QShortcut"
 msgid "Media Stop"
 msgstr "Stop"
 
-#: ../messages.py:174
+#: ../messages.py:225
 msgctxt "QShortcut"
 msgid "Menu"
 msgstr "Menü"
 
-#: ../messages.py:175
+#: ../messages.py:226
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Meta"
 msgstr "Meta"
 
-#: ../messages.py:176
+#: ../messages.py:227
 msgctxt "QShortcut"
 msgid "Music"
 msgstr "Musik"
 
-#: ../messages.py:177
+#: ../messages.py:228
 msgctxt "QShortcut"
 msgid "News"
 msgstr "Nachrichten"
 
-#: ../messages.py:178
+#: ../messages.py:229
 msgctxt "QShortcut"
 msgid "Number Lock"
 msgstr "Feststelltaste"
 
-#: ../messages.py:179
+#: ../messages.py:230
 msgctxt "QShortcut"
 msgid "Num Lock"
 msgstr "Feststelltaste"
 
-#: ../messages.py:180
+#: ../messages.py:231
 msgctxt "QShortcut"
 msgid "NumLock"
 msgstr "Feststelltaste"
 
-#: ../messages.py:181
+#: ../messages.py:232
 msgctxt "QShortcut"
 msgid "Open URL"
 msgstr "URL öffnen"
 
-#: ../messages.py:182
+#: ../messages.py:233
 msgctxt "QShortcut"
 msgid "Option"
 msgstr "Optionen"
 
-#: ../messages.py:183
+#: ../messages.py:234
 msgctxt "QShortcut"
 msgid "Page Down"
 msgstr "Bild ab"
 
-#: ../messages.py:184
+#: ../messages.py:235
 msgctxt "QShortcut"
 msgid "Page Up"
 msgstr "Bild auf"
 
-#: ../messages.py:185
+#: ../messages.py:236
 msgctxt "QShortcut"
 msgid "Paste"
 msgstr "Einfügen"
 
-#: ../messages.py:186
+#: ../messages.py:237
 msgctxt "QShortcut"
 msgid "Pause"
 msgstr "Pause"
 
-#: ../messages.py:187
+#: ../messages.py:238
 msgctxt "QShortcut"
 msgid "PgDown"
 msgstr "Bild ab"
 
-#: ../messages.py:188
+#: ../messages.py:239
 msgctxt "QShortcut"
 msgid "PgUp"
 msgstr "Bild auf"
 
-#: ../messages.py:189
+#: ../messages.py:240
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Play"
+msgstr "Abspielen"
+
+#: ../messages.py:241
 msgctxt "QShortcut"
 msgid "Refresh"
 msgstr "Aktualisieren"
 
-#: ../messages.py:190
+#: ../messages.py:242
 msgctxt "QShortcut"
 msgid "Reload"
 msgstr "Neu laden"
 
-#: ../messages.py:191
+#: ../messages.py:243
 msgctxt "QShortcut"
 msgid "Return"
 msgstr "Eingabe"
 
-#: ../messages.py:192
+#: ../messages.py:244
 msgctxt "QShortcut"
 msgid "Right"
 msgstr "Rechts"
 
-#: ../messages.py:193
+#: ../messages.py:245
 msgctxt "QShortcut"
 msgid "Save"
 msgstr "Speichern"
 
-#: ../messages.py:194
+#: ../messages.py:246
 msgctxt "QShortcut"
 msgid "Scroll Lock"
 msgstr "Rollen-Taste"
 
-#: ../messages.py:195
+#: ../messages.py:247
 msgctxt "QShortcut"
 msgid "ScrollLock"
 msgstr "Rollen-Taste"
 
-#: ../messages.py:196
+#: ../messages.py:248
 msgctxt "QShortcut"
 msgid "Search"
 msgstr "Suchen"
 
-#: ../messages.py:197
+#: ../messages.py:249
 msgctxt "QShortcut"
 msgid "Select"
 msgstr "Auswählen"
 
-#: ../messages.py:198
+#: ../messages.py:250
 msgctxt "QShortcut"
 msgid "Send"
 msgstr "Senden"
 
-#: ../messages.py:199
+#: ../messages.py:251
 msgctxt "QShortcut"
 msgid "Shift"
 msgstr "Umschalten"
 
-#: ../messages.py:200
+#: ../messages.py:252
 msgctxt "QShortcut"
 msgid "Space"
 msgstr "Leertaste"
 
-#: ../messages.py:201
+#: ../messages.py:253
 msgctxt "QShortcut"
 msgid "Spellchecker"
 msgstr "Rechtschreibkorrektur"
 
-#: ../messages.py:202
+#: ../messages.py:254
 msgctxt "QShortcut"
 msgid "Split Screen"
 msgstr "Fenster teilen"
 
-#: ../messages.py:203
+#: ../messages.py:255
 msgctxt "QShortcut"
 msgid "Spreadsheet"
 msgstr "Tabelle"
 
-#: ../messages.py:204
+#: ../messages.py:256
 msgctxt "QShortcut"
 msgid "Standby"
 msgstr "Standby"
 
-#: ../messages.py:205
+#: ../messages.py:257
 msgctxt "QShortcut"
 msgid "Stop"
 msgstr "Stop"
 
-#: ../messages.py:206
+#: ../messages.py:258
 msgctxt "QShortcut"
 msgid "Subtitle"
 msgstr "Untertitel"
 
-#: ../messages.py:207
+#: ../messages.py:259
 msgctxt "QShortcut"
 msgid "Support"
 msgstr "Unterstützung"
 
-#: ../messages.py:208
+#: ../messages.py:260
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Suspend"
 msgstr "Schlafmodus"
 
-#: ../messages.py:209
+#: ../messages.py:261
 msgctxt "QShortcut"
 msgid "SysReq"
 msgstr "SysReq"
 
-#: ../messages.py:210
+#: ../messages.py:262
 msgctxt "QShortcut"
 msgid "Tab"
 msgstr "Tabulator"
 
-#: ../messages.py:211
+#: ../messages.py:263
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Task Panel"
 msgstr "Task Panel"
 
-#: ../messages.py:212
+#: ../messages.py:264
 msgctxt "QShortcut"
 msgid "Terminal"
 msgstr "Terminal"
 
-#: ../messages.py:213
+#: ../messages.py:265
 msgctxt "QShortcut"
 msgid "Time"
 msgstr "Zeit"
 
-#: ../messages.py:214
+#: ../messages.py:266
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Toggle Media Play/Pause"
 msgstr "Play/Pause"
 
-#: ../messages.py:215
+#: ../messages.py:267
 msgctxt "QShortcut"
 msgid "Tools"
 msgstr "Werkzeuge"
 
-#: ../messages.py:216
+#: ../messages.py:268
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Top Menu"
 msgstr "Hauptmenü"
 
-#: ../messages.py:217
+#: ../messages.py:269
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Treble Down"
 msgstr "Höhen runter"
 
-#: ../messages.py:218
+#: ../messages.py:270
 #, fuzzy
 msgctxt "QShortcut"
 msgid "Treble Up"
 msgstr "Höhen rauf"
 
-#: ../messages.py:219
+#: ../messages.py:271
 msgctxt "QShortcut"
 msgid "Up"
 msgstr "Nach oben"
 
-#: ../messages.py:220
+#: ../messages.py:272
 msgctxt "QShortcut"
 msgid "Video"
 msgstr "Video"
 
-#: ../messages.py:221
+#: ../messages.py:273
 msgctxt "QShortcut"
 msgid "View"
 msgstr "Ansicht"
 
-#: ../messages.py:222
+#: ../messages.py:274
 msgctxt "QShortcut"
 msgid "Volume Down"
 msgstr "Leiser"
 
-#: ../messages.py:223
+#: ../messages.py:275
 msgctxt "QShortcut"
 msgid "Volume Mute"
 msgstr "Stumm"
 
-#: ../messages.py:224
+#: ../messages.py:276
 msgctxt "QShortcut"
 msgid "Volume Up"
 msgstr "Lauter"
 
-#: ../messages.py:225
+#: ../messages.py:277
+#, fuzzy
+msgctxt "QShortcut"
+msgid "Zoom"
+msgstr "Vergrößern"
+
+#: ../messages.py:278
 msgctxt "QShortcut"
 msgid "Zoom In"
 msgstr "Vergrößern"
 
-#: ../messages.py:226
+#: ../messages.py:279
 msgctxt "QShortcut"
 msgid "Zoom Out"
 msgstr "Verkleinern"
 
-#: ../messages.py:228
+#: ../messages.py:281
 #, fuzzy
 msgctxt "QTabBar"
 msgid "Scroll Left"
 msgstr "Nach links scrollen"
 
-#: ../messages.py:229
+#: ../messages.py:282
 #, fuzzy
 msgctxt "QTabBar"
 msgid "Scroll Right"
 msgstr "Nach rechts scrollen"
 
-#: ../messages.py:231
+#: ../messages.py:284
 msgctxt "QTextControl"
 msgid "&Undo"
 msgstr "&Rückgängig"
 
-#: ../messages.py:232
+#: ../messages.py:285
 msgctxt "QTextControl"
 msgid "&Redo"
 msgstr "&Wiederholen"
 
-#: ../messages.py:233
+#: ../messages.py:286
 msgctxt "QTextControl"
 msgid "Cu&t"
 msgstr "A&usschneiden"
 
-#: ../messages.py:234
+#: ../messages.py:287
 msgctxt "QTextControl"
 msgid "&Copy"
 msgstr "&Kopieren"
 
-#: ../messages.py:235
+#: ../messages.py:288
 msgctxt "QTextControl"
 msgid "&Paste"
 msgstr "Ein&fügen"
 
-#: ../messages.py:236
+#: ../messages.py:289
 msgctxt "QTextControl"
 msgid "Delete"
 msgstr "Entfernen"
 
-#: ../messages.py:237
+#: ../messages.py:290
 msgctxt "QTextControl"
 msgid "Select All"
 msgstr "Alles auswählen"
 
-#: ../messages.py:239
+#: ../messages.py:292
 msgctxt "QWhatsThisAction"
 msgid "What's This?"
 msgstr "Was ist das?"
