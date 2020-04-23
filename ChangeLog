@@ -9,7 +9,10 @@ Changes in 3.2 -- current
     because of its generic nature, a separate project at
     http://github.com/frescobaldi/qpageview . This package needs to be
     installed for Frescobaldi to work; it is used by the Music View and other
-    viewers iside Frescobaldi.
+    viewers inside Frescobaldi.
+* Translations:
+  - some missing strings from Qt dialogs were added (WB, #1224)
+  - updated nl translation by Wilbert Berendsen
 
 
 Changes in 3.1.2 -- Easter 2020
