@@ -1,3 +1,17 @@
+Version 3.2
+~~~~~~~~~~~
+Released: 2020-xx-xx
+
+Notes:
+ - The qpageview module, because of its generic nature, is now a separate project
+   at http://github.com/frescobaldi/qpageview. This package, used by the Music
+   View and other viewers, needs to be installed for Frescobaldi to work.
+
+Translations:
+ - Some missing strings from Qt dialogs were added.
+ - Updated translations: dutch.
+
+
 Version 3.1.2
 ~~~~~~~~~~~~~
 Released: 2020-04-13
