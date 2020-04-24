@@ -265,7 +265,7 @@ NEWS file (which replaced the old ChangeLog file).
 
 When code is ready for a new release, you should set the expected release
 date in the NEWS file, possibly one week later, to give translators the
-chance to update trsnslations.  Then run `make news` in the top directory.
+chance to update translations.  Then run `make news` in the top directory.
 This will launch the `appstreamcli news-to-metainfo` script, which parses
 the NEWS file and copies the new release notes to the AppStream metainfo
 file (used by Linux software centers).  Last step is updating the PO
