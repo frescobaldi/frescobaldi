@@ -130,7 +130,7 @@ To use the script you need argparse (included in Python >= 2.7) and py2app.
 
 A macosx/build-dmg.sh script is provided to build the **fully** standalone
 application bundle and wrap it in a distributable DMG disk image along with
-the README, ChangeLog and COPYING files.
+the README, NEWS and COPYING files.
 The script assumes a specific system configuration (for details run the script
 with the '-h' option), but can be easily adapted to other configurations.
 
