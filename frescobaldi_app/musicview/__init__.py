@@ -101,6 +101,7 @@ class MusicViewPanel(panel.Panel):
         ac.music_copy_image.setEnabled(False)
         ac.music_copy_text.setEnabled(False)
         ac.music_reload.triggered.connect(self.reloadView)
+        ac.music_clear.triggered.connect(self.clearView)
 
         # load the state of the actions from the preferences
         s = QSettings()
@@ -186,6 +187,14 @@ class MusicViewPanel(panel.Panel):
             ac = self.actionCollection
             ac.music_document_select.setCurrentDocument(d)
 
+    def clearView(self):
+        """Clear the music view and 'forget' the compiled documents."""
+        if self.instantiated():
+            d = self.mainwindow().currentDocument()
+            documents.group(d).clear()
+            self.actionCollection.music_document_select.setCurrentDocument(d)
+            self.widget().clear()
+
     def toggleSyncCursor(self):
         QSettings().setValue("musicview/sync_cursor",
             self.actionCollection.music_sync_cursor.isChecked())
@@ -237,12 +246,14 @@ class Actions(actioncollection.ActionCollection):
         self.music_prev_page = va.previous_page
         self.music_magnifier = va.magnifier
         self.music_reload = QAction(panel)
+        self.music_clear = QAction(panel)
 
         self.music_print.setIcon(icons.get('document-print'))
         self.music_maximize.setIcon(icons.get('view-fullscreen'))
         self.music_jump_to_cursor.setIcon(icons.get('go-jump'))
         self.music_copy_image.setIcon(icons.get('edit-copy'))
         self.music_copy_text.setIcon(icons.get('edit-copy'))
+        self.music_clear.setIcon(icons.get('edit-clear'))
 
         self.music_document_select.setShortcut(QKeySequence(Qt.SHIFT | Qt.CTRL | Qt.Key_O))
         self.music_jump_to_cursor.setShortcut(QKeySequence(Qt.CTRL | Qt.Key_J))
@@ -260,6 +271,7 @@ class Actions(actioncollection.ActionCollection):
         self.music_copy_image.setText(_("Copy to &Image..."))
         self.music_copy_text.setText(_("Copy Selected &Text"))
         self.music_reload.setText(_("&Reload"))
+        self.music_clear.setText(_("Clear"))
 
 
 class ComboBoxAction(QWidgetAction):
