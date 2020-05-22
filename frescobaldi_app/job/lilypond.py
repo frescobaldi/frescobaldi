@@ -150,7 +150,7 @@ class LilyPondJob(Job):
                 # engrave to PDF
                 if not self.arguments():
                     # publish mode
-                    if self.embed_source_code and self.lilypond_version >= (2, 19, 39):
+                    if self.embed_source_code and self.lilypond_info.version >= (2, 19, 39):
                         result.append('-dembed-source-code')
                 result.append('--pdf')
         return result
