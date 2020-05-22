@@ -106,4 +106,8 @@ class DocumentGroup(plugin.DocumentPlugin):
             self._documents = documents
             return True
 
+    def clear(self):
+        """'Forgets' the list of PDF documents."""
+        if self._documents:
+            self._documents.clear()
 

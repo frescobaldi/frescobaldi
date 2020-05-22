@@ -252,6 +252,7 @@ def menu_music(mainwindow):
     ac = panelmanager.manager(mainwindow).musicview.actionCollection
 
     m.addAction(ac.music_reload)
+    m.addAction(ac.music_clear)
     m.addSeparator()
     m.addAction(ac.music_zoom_in)
     m.addAction(ac.music_zoom_out)

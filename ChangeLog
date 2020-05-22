@@ -2,6 +2,20 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 =====================================================
 
 
+Changes in 3.2 -- current
+
+* Dependencies change:
+  - the qpageview module, thus far in frescobaldi_app/qpageview, is now,
+    because of its generic nature, a separate project at
+    http://github.com/frescobaldi/qpageview . This package needs to be
+    installed for Frescobaldi to work; it is used by the Music View and other
+    viewers inside Frescobaldi.
+* Implemented wish #1235 Clear music view
+* Translations:
+  - some missing strings from Qt dialogs were added (WB, #1224)
+  - updated nl translation by Wilbert Berendsen
+
+
 Changes in 3.1.2 -- Easter 2020
 
 * Bug fixes:
