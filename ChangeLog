@@ -10,10 +10,15 @@ Changes in 3.2 -- current
     http://github.com/frescobaldi/qpageview . This package needs to be
     installed for Frescobaldi to work; it is used by the Music View and other
     viewers inside Frescobaldi.
-* Implemented wish #1235 Clear music view
 * Translations:
   - some missing strings from Qt dialogs were added (WB, #1224)
   - updated nl translation by Wilbert Berendsen
+
+
+Changes in 3.1.3 --
+
+* New features:
+  - new Clear music view button and menu action (wish #1235)
 
 
 Changes in 3.1.2 -- Easter 2020
