@@ -83,18 +83,18 @@ class FileImport(plugin.MainWindowPlugin):
         Can either import "any" file(s) or one file of a specific file type.
         """
         self._import_files = self.get_import_file(filetypes, caption, multiple)
-        for file in self._import_files:
+        for filename in self._import_files:
             # TODO: Update the file dialog to not allow "All files" anymore
             # (probably requires the use of a QSortFilterProxyModel).
             # Then is_importable and the following conditional can be
             # removed.
-            if self.is_importable(file):
-                self.configure_import(file)
+            if self.is_importable(filename):
+                self.configure_import(filename)
                 self.run_import()
             else:
                 QMessageBox.critical(None, _("Error"),
                     _("The file {filename} could not be converted. "
-                      "Wrong file type.").format(filename=imp))
+                      "Wrong file type.").format(filename=filename))
 
     def get_import_file(self, filetypes, caption, multiple=False):
         """Open a File Open dialog for the requested filetype(s),

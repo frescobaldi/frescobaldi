@@ -19,6 +19,8 @@ Changes in 3.1.3 --
 
 * New features:
   - new Clear music view button and menu action (wish #1235)
+* Bug fixes:
+  - fixed #1311 "NameError: name 'imp' is not defined" when importing
 
 
 Changes in 3.1.2 -- Easter 2020
