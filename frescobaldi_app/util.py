@@ -28,6 +28,7 @@ import itertools
 import io
 import os
 import re
+import unicodedata
 
 from PyQt5.QtCore import QDir, QUrl
 
@@ -127,11 +128,17 @@ def files(basenames, extension = '.*'):
     def source():
         for name in basenames:
             name = name.replace('[', '[[]').replace('?', '[?]').replace('*', '[*]')
+            # macOS's HFS+ filesystem stores file names in NFD
+            # other file systems do not, so check both name and nfd_name
+            nfd_name = unicodedata.normalize('NFD', name)
             if name.endswith(('/', '\\')):
                 yield glob.iglob(name + '*' + extension)
+                yield glob.iglob(nfd_name + '*' + extension)
             else:
                 yield glob.iglob(name + extension)
+                yield glob.iglob(nfd_name + extension)
                 yield glob.iglob(name + '-*[0-9]' + extension)
+                yield glob.iglob(nfd_name + '-*[0-9]' + extension)
     return sorted(uniq(itertools.chain.from_iterable(source())), key=filenamesort)
 
 
