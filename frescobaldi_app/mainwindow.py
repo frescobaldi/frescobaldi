@@ -93,6 +93,13 @@ class MainWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.setAttribute(Qt.WA_DeleteOnClose)
 
+        # Add option to nest docks (useful on large screens)
+        self.setDockOptions(
+            QMainWindow.AllowNestedDocks |
+            QMainWindow.AnimatedDocks |
+             QMainWindow.AllowTabbedDocks
+        )
+
         # this could be made configurable
         self.setCorner(Qt.TopLeftCorner, Qt.LeftDockWidgetArea)
         self.setCorner(Qt.BottomLeftCorner, Qt.LeftDockWidgetArea)
@@ -149,6 +156,7 @@ class MainWindow(QMainWindow):
         app.mainwindowCreated(self)
         app.settingsChanged.connect(self.settingsChanged)
         self.settingsChanged()
+
 
     def documents(self):
         """Returns the list of documents in the order of the TabBar."""
