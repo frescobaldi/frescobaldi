@@ -145,10 +145,12 @@ def best_python(lilypondinfo, tool):
     If the selected LilyPond installation is provided by MacPorts,
     the #! line of LilyPond's tools is already set correctly, so
     no command needs to be prepended.
+    The use of the #! line can be forced in the settings of the
+    individual LilyPond installations.
     Otherwise a suitable system Python is searched.
 
     """
-    if lilypond_from_macports(lilypondinfo):
+    if lilypond_from_macports(lilypondinfo) or lilypondinfo.alwaysUseShebang:
         return []
     if (tool == 'midi2ly') and (lilypondinfo.version() <= (2, 19, 54)) and midi_so_arch(lilypondinfo):
         arch = midi_so_arch(lilypondinfo)
