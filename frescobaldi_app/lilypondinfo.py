@@ -301,14 +301,14 @@ class LilyPondInfo(object):
 
         On Unix, the list has one element: the full path to the tool.
 
-        On macOS, the list has four elements: the system-provided
-        Python 2 interpreter called in 32 or 64 bit mode (three elements)
-        and the tool path.
+        On macOS, the list may have up to four elements: the system-provided
+        Python 2 interpreter called in 32 or 64 bit mode (if needed; up to
+        three elements) and the tool path.
         The 32 bit mode is required for midi2ly in the distributed app
         bundle of LilyPond <= 2.19.54 and might be in other cases as well.
         On macOS >= 10.15 Catalina, the system Python cannot be run in 32
         bit mode, so None is returned.
-        See macosx.system_python for some more details.
+        See macosx.best_python and macosx.system_python for more details.
 
         On Windows, the list has two elements: the LilyPond-provided Python
         interpreter and the tool path.
@@ -335,19 +335,10 @@ class LilyPondInfo(object):
             if not os.access(toolpath, os.R_OK) and not toolpath.endswith('.py'):
                 toolpath += '.py'
             command = [self.python(), toolpath]
-        # on Mac the system-provided Python interpreter must be called
         elif sys.platform.startswith('darwin'):
             import macosx
-            if (original_command == 'midi2ly') and (self.version() <= (2, 19, 54)) and macosx.midi_so_arch(self):
-                arch = macosx.midi_so_arch(self)
-            else:
-                arch = 'x86_64'
-            if self.version() >= (2, 21, 0):
-                major = 3
-            else:
-                major = 2
-            command = macosx.system_python(major, arch)
-            if not command:
+            command = macosx.best_python(self, original_command)
+            if command is None:
                 return None
             else:
                 command.append(toolpath)

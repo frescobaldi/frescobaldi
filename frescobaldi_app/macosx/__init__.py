@@ -72,13 +72,27 @@ def midi_so_arch(lilypondinfo):
                 return 'i386'
     return None
 
+def lilypond_from_macports(lilypondinfo):
+    """Return True if the selected LilyPond installation is provided by
+    MacPorts.
+
+    """
+    import subprocess
+    portbin = os.path.abspath(lilypondinfo.bindir() + '/port')
+    if os.path.isfile(portbin) and os.access(portbin, os.X_OK):
+        s = subprocess.run([portbin, 'provides', lilypondinfo.abscommand()], capture_output = True)
+        if b'is provided by: lilypond' in s.stdout:
+            return True
+    return False
+
 def system_python(major, arch):
     """Return a list containing the command line to run the system Python.
 
     (One of) the system-provided Python interpreter(s) is selected to run
     the tools included in LilyPond, e.g. convert-ly.
 
-    The system-provided Python interpreter must be explicitly called:
+    Unless LilyPond is provided by MacPorts, the system-provided Python
+    interpreter must be explicitly called:
     - the LilyPond-provided interpreter lacks many modules (and is
       difficult to run properly from outside the application bundle);
     - searching for the interpreter in the path is unreliable, since it
@@ -122,4 +136,27 @@ def system_python(major, arch):
         python += '/bin/python' + version
         if os.path.exists(python):
             return ['/usr/bin/arch', '-' + arch, python, '-E']
+
+def best_python(lilypondinfo, tool):
+    """Return a list containing the Python command required to run
+    LilyPond's tools (the list may be empty), or None if no suitable
+    Python is found.
+
+    If the selected LilyPond installation is provided by MacPorts,
+    the #! line of LilyPond's tools is already set correctly, so
+    no command needs to be prepended.
+    Otherwise a suitable system Python is searched.
+
+    """
+    if lilypond_from_macports(lilypondinfo):
+        return []
+    if (tool == 'midi2ly') and (lilypondinfo.version() <= (2, 19, 54)) and midi_so_arch(lilypondinfo):
+        arch = midi_so_arch(lilypondinfo)
+    else:
+        arch = 'x86_64'
+    if lilypondinfo.version() >= (2, 21, 0):
+        major = 3
+    else:
+        major = 2
+    return system_python(major, arch)
 
