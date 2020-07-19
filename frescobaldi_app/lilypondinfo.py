@@ -342,7 +342,11 @@ class LilyPondInfo(object):
                 arch = macosx.midi_so_arch(self)
             else:
                 arch = 'x86_64'
-            command = macosx.system_python(arch)
+            if self.version() >= (2, 21, 0):
+                major = 3
+            else:
+                major = 2
+            command = macosx.system_python(major, arch)
             if not command:
                 return None
             else:
