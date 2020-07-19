@@ -159,6 +159,8 @@ class LilyPondInfo(object):
         self.auto = True
         self.name = "LilyPond"
         self._lytools = {}
+        if sys.platform.startswith('darwin'):
+            self.alwaysUseShebang = False
 
     @property
     def command(self):
@@ -392,6 +394,8 @@ class LilyPondInfo(object):
                     datadir = settings.value("datadir", "", str)
                     if datadir and os.path.isdir(datadir):
                         info.datadir = datadir
+                if sys.platform.startswith('darwin'):
+                    info.alwaysUseShebang = settings.value("always_use_shebang", False, bool)
                 return info
 
     def write(self, settings):
@@ -409,6 +413,8 @@ class LilyPondInfo(object):
                 settings.remove(name)
             else:
                 settings.setValue(name, value)
+        if sys.platform.startswith('darwin'):
+            settings.setValue("always_use_shebang", self.alwaysUseShebang)
 
     def python(self):
         """Returns the path to the LilyPond-provided Python interpreter.
