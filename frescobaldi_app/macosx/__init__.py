@@ -72,7 +72,7 @@ def midi_so_arch(lilypondinfo):
                 return 'i386'
     return None
 
-def system_python(arch):
+def system_python(major, arch):
     """Return a list containing the command line to run the system Python.
 
     (One of) the system-provided Python interpreter(s) is selected to run
@@ -87,14 +87,17 @@ def system_python(arch):
       the PATH variable is not set;
     - the interpreter included in Frescobaldi's application bundle,
       when present, lacks some modules; moreover, Frescobaldi now uses
-      Python 3, while LilyPond's tools are written in Python 2.
+      Python 3, while LilyPond's tools prior to version 2.21.0 are written
+      in Python 2.
 
-    The earliest Python 2 version >= 2.4 is called, possibly avoiding
-    the following:
+    If Python 2 is requested, the earliest Python 2 version >= 2.4 is
+    called, possibly avoiding the following:
     - Python >= 2.5 gives a "C API version mismatch" RuntimeWarning
       on `import midi`;
     - Python >= 2.6 gives a DeprecationWarning on `import popen2`.
     A Python 2 interpreter is always available (as of macOS 10.15 Catalina).
+    If Python 3 is requested, the earliest Python 3 version >= 3.5 is
+    called.
 
     In LilyPond <= 2.19.54 midi2ly depends on the binary library midi.so
     (replaced in 2.19.55 by a Python module), which is 32 bit in the app
@@ -109,9 +112,14 @@ def system_python(arch):
     mac_ver = platform.mac_ver()
     if (arch == 'i386') and (int(mac_ver[0].split('.')[1]) >= 15):
         return None
-    for v in ['4', '5', '6', '7']:
-        python = '/System/Library/Frameworks/Python.framework/Versions/2.' + v
-        python += '/bin/python2.' + v
+    if major == 2:
+        minors = list(range(4, 8))
+    elif major == 3:
+        minors = list(range(5, 9))
+    for minor in minors:
+        version = str(major) + '.' + str(minor)
+        python = '/System/Library/Frameworks/Python.framework/Versions/' + version
+        python += '/bin/python' + version
         if os.path.exists(python):
             return ['/usr/bin/arch', '-' + arch, python, '-E']
 
