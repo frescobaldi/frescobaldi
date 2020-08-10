@@ -150,7 +150,7 @@ def best_python(lilypondinfo, tool):
     Otherwise a suitable system Python is searched.
 
     """
-    if lilypond_from_macports(lilypondinfo) or lilypondinfo.alwaysUseShebang:
+    if lilypond_from_macports(lilypondinfo) or lilypondinfo.useshebang:
         return []
     if (tool == 'midi2ly') and (lilypondinfo.version() <= (2, 19, 54)) and midi_so_arch(lilypondinfo):
         arch = midi_so_arch(lilypondinfo)

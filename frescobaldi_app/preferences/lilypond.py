@@ -238,8 +238,8 @@ class InfoDialog(QDialog):
             self.ly_tool_widgets[name] = (l, w)
 
         if sys.platform.startswith('darwin'):
-            self.alwaysUseShebang = QCheckBox()
-            grid.addWidget(self.alwaysUseShebang, row, 0, 1, 2)
+            self.useshebang = QCheckBox()
+            grid.addWidget(self.useshebang, row, 0, 1, 2)
 
         layout.addWidget(self.tab)
         layout.addWidget(widgets.Separator())
@@ -273,7 +273,7 @@ class InfoDialog(QDialog):
         for name, gui in self.toolnames():
             self.ly_tool_widgets[name][0].setText(gui)
         if sys.platform.startswith('darwin'):
-            self.alwaysUseShebang.setText(_("Always use the tool's #! line"))
+            self.useshebang.setText(_("Force use of the tools' #! lines"))
 
     def loadInfo(self, info):
         """Takes over settings for the dialog from the LilyPondInfo object."""
@@ -283,7 +283,7 @@ class InfoDialog(QDialog):
         for name, gui in self.toolnames():
             self.ly_tool_widgets[name][1].setText(info.ly_tool(name))
         if sys.platform.startswith('darwin'):
-            self.alwaysUseShebang.setChecked(info.alwaysUseShebang)
+            self.useshebang.setChecked(info.useshebang)
 
     def newInfo(self):
         """Returns a new LilyPondInfo instance for our settings."""
@@ -298,7 +298,7 @@ class InfoDialog(QDialog):
         for name, gui in self.toolnames():
             info.set_ly_tool(name, self.ly_tool_widgets[name][1].text())
         if sys.platform.startswith('darwin'):
-            info.alwaysUseShebang = self.alwaysUseShebang.isChecked()
+            info.useshebang = self.useshebang.isChecked()
         return info
 
 

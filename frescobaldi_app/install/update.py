@@ -40,6 +40,9 @@ def update(version):
     if version < 2:
         moveArthurbackendPrint()
 
+    if version < 3:
+        renameUseshebang()
+
     # ... add other setting updates here...
 
 
@@ -69,3 +72,19 @@ def moveArthurbackendPrint():
     if s.contains(oldk):
         s.setValue(newk, s.value(oldk))
         s.remove(oldk)
+
+def renameUseshebang():
+    s = QSettings()
+    l = s.beginReadArray("lilypondinfo")
+    old = []
+    for i in range(l):
+        s.setArrayIndex(i)
+        old.append(s.value("always_use_shebang", None))
+    s.endArray()
+    s.beginWriteArray("lilypondinfo")
+    for i in range(l):
+        s.setArrayIndex(i)
+        if old[i] is not None:
+            s.setValue("useshebang", old[i])
+            s.remove("always_use_shebang")
+    s.endArray()
