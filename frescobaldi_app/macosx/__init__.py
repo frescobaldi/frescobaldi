@@ -72,19 +72,6 @@ def midi_so_arch(lilypondinfo):
                 return 'i386'
     return None
 
-def lilypond_from_macports(lilypondinfo):
-    """Return True if the selected LilyPond installation is provided by
-    MacPorts.
-
-    """
-    import subprocess
-    portbin = os.path.abspath(lilypondinfo.bindir() + '/port')
-    if os.path.isfile(portbin) and os.access(portbin, os.X_OK):
-        s = subprocess.run([portbin, 'provides', lilypondinfo.abscommand()], capture_output = True)
-        if b'is provided by: lilypond' in s.stdout:
-            return True
-    return False
-
 def system_python(major, arch):
     """Return a list containing the command line to run the system Python.
 
@@ -150,7 +137,7 @@ def best_python(lilypondinfo, tool):
     Otherwise a suitable system Python is searched.
 
     """
-    if lilypond_from_macports(lilypondinfo) or lilypondinfo.useshebang:
+    if lilypondinfo.frommacports() or lilypondinfo.useshebang:
         return []
     if (tool == 'midi2ly') and (lilypondinfo.version() <= (2, 19, 54)) and midi_so_arch(lilypondinfo):
         arch = midi_so_arch(lilypondinfo)
