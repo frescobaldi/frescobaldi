@@ -298,6 +298,18 @@ class LilyPondInfo(object):
             self.datadir = False
         app.job_queue().add_job(j, 'generic')
 
+    @CachedProperty.cachedproperty(depends=(abscommand, bindir))
+    def frommacports(self):
+        """Return True if this LilyPond is provided by MacPorts."""
+        if sys.platform.startswith('darwin'):
+            import subprocess
+            portbin = os.path.abspath(self.bindir() + '/port')
+            if os.path.isfile(portbin) and os.access(portbin, os.X_OK):
+                s = subprocess.run([portbin, 'provides', self.abscommand()], capture_output = True)
+                if b'is provided by: lilypond' in s.stdout:
+                    return True
+        return False
+
     def toolcommand(self, original_command, use_ly_tool=True):
         """Return a list containing the commandline to run a tool, e.g. convert-ly.
 
