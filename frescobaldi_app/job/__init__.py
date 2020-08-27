@@ -104,7 +104,7 @@ class Job(object):
         self._runner = runner
         self._arguments = args if args else []
         self._directory = directory
-        self.environment = {}
+        self.environment = environment
         self._encoding = encoding
         self.success = None
         self.error = None
