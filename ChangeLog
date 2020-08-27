@@ -27,6 +27,7 @@ Changes in 3.1.3 --
     - support MacPorts' LilyPond tools
     - add option to allow forcing the use of the tools' #! lines
       (useful for self-compiled or other nonstandard LilyPond installations)
+  - fixed #1305 Ghostscript error on Mac with MacPorts' LilyPond 2.21.x
 
 
 Changes in 3.1.2 -- Easter 2020
