@@ -176,6 +176,13 @@ class SynthLead(SynthPart):
     def short(_=_base.translate):
         return _("abbreviation for Synth lead", "Syn.Ld.")
 
+    def createWidgets(self, layout):
+        super(SynthLead, self).createWidgets(layout)
+
+        # This is intended primarily for monophonic parts in treble clef,
+        # so omit lower voices by default
+        self.lowerVoices.setValue(0)
+
     midiInstrument = 'lead 1 (square)'
 
 
@@ -199,6 +206,13 @@ class SynthBass(SynthPart):
     @staticmethod
     def short(_=_base.translate):
         return _("abbreviation for Synth bass", "Syn.Bass")
+
+    def createWidgets(self, layout):
+        super(SynthBass, self).createWidgets(layout)
+
+        # This is intended primarily for monophonic parts in bass clef,
+        # so omit upper voices by default
+        self.upperVoices.setValue(0)
 
     midiInstrument = 'synth bass 1'
 
