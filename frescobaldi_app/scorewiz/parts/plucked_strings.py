@@ -320,6 +320,30 @@ class ClassicalGuitar(TablaturePart):
         return self.voices.value()
 
 
+class AcousticGuitar(ClassicalGuitar):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Acoustic guitar")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Acoustic guitar", "A.Gt.")
+
+    midiInstrument = 'acoustic guitar (steel)'
+
+
+class ElectricGuitar(ClassicalGuitar):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Electric guitar")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Electric guitar", "E.Gt.")
+
+    midiInstrument = 'electric guitar (clean)'
+
+
 class JazzGuitar(ClassicalGuitar):
     @staticmethod
     def title(_=_base.translate):
@@ -401,6 +425,8 @@ register(
         Banjo,
         Ukulele,
         ClassicalGuitar,
+        AcousticGuitar,
+        ElectricGuitar,
         JazzGuitar,
         Bass,
         ElectricBass,
