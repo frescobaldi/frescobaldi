@@ -47,6 +47,18 @@ class Piano(KeyboardPart):
     midiInstrument = 'acoustic grand'
 
 
+class ElectricPiano(KeyboardPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Electric piano")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Electric piano", "E.Pno.")
+
+    midiInstrument = 'electric piano 1'
+
+
 class Harpsichord(KeyboardPart):
     @staticmethod
     def title(_=_base.translate):
@@ -117,14 +129,80 @@ class Celesta(KeyboardPart):
     midiInstrument = 'celesta'
 
 
+class SynthLead(KeyboardPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth lead")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth lead", "Syn.Ld.")
+
+    midiInstrument = 'lead 1 (square)'
+
+
+class SynthPad(KeyboardPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth pad")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth pad", "Syn.Pad")
+
+    midiInstrument = 'pad 2 (warm)'
+
+
+class SynthBass(KeyboardPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth bass")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth bass", "Syn.Bass")
+
+    midiInstrument = 'synth bass 1'
+
+
+class SynthStrings(KeyboardPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth strings")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth strings", "Syn.Str.")
+
+    midiInstrument = 'synthstrings 1'
+
+
+class SynthBrass(KeyboardPart):
+    @staticmethod
+    def title(_=_base.translate):
+        return _("Synth brass")
+
+    @staticmethod
+    def short(_=_base.translate):
+        return _("abbreviation for Synth brass", "Syn.Br.")
+
+    midiInstrument = 'synthbrass 1'
+
+
 register(
     lambda: _("Keyboard instruments"),
     [
         Piano,
+        ElectricPiano,
         Harpsichord,
         Clavichord,
         Organ,
         Celesta,
+        SynthLead,
+        SynthPad,
+        SynthBass,
+        SynthStrings,
+        SynthBrass,
     ])
 
 
