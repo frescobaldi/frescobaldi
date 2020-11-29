@@ -356,14 +356,14 @@ class JazzGuitar(ClassicalGuitar):
     midiInstrument = 'electric guitar (jazz)'
 
 
-class Bass(TablaturePart):
+class AcousticBass(TablaturePart):
     @staticmethod
     def title(_=_base.translate):
-        return _("Bass")
+        return _("Acoustic bass")
 
     @staticmethod
     def short(_=_base.translate):
-        return _("abbreviation for Bass", "Bs.") #FIXME
+        return _("abbreviation for Acoustic bass", "A.Bs.") #FIXME
 
     midiInstrument = 'acoustic bass'
     clef = 'bass_8'
@@ -377,7 +377,7 @@ class Bass(TablaturePart):
     )
 
 
-class ElectricBass(Bass):
+class ElectricBass(AcousticBass):
     @staticmethod
     def title(_=_base.translate):
         return _("Electric bass")
@@ -428,7 +428,7 @@ register(
         AcousticGuitar,
         ElectricGuitar,
         JazzGuitar,
-        Bass,
+        AcousticBass,
         ElectricBass,
         Harp,
     ])
