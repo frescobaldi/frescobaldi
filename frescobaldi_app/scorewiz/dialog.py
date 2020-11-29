@@ -77,9 +77,6 @@ class ScoreWizardDialog(QDialog):
         app.translateUI(self)
         self.accepted.connect(self.slotAccepted)
 
-        # For processing existing documents
-        self.existingAssignments = []
-
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
         for i in range(self.tabs.count()):
@@ -94,11 +91,9 @@ class ScoreWizardDialog(QDialog):
         self.tabs.widget(i).widget()
 
     def reset(self):
-        del self.existingAssignments[:]
         self.tabs.currentWidget().widget().clear()
 
     def resetAll(self):
-        del self.existingAssignments[:]
         for tab in self.header, self.parts, self.settings:
             tab.widget().clear()
 
@@ -166,8 +161,6 @@ class ScoreWizardDialog(QDialog):
                     self.settings.readFromMusicItem(item)
                 elif name.endswith('Part'):
                     self.parts.readFromMusicItem(item)
-                else:
-                    self.existingAssignments.append(item)
 
 
 class Page(QWidget):
