@@ -321,8 +321,6 @@ def menu_tools(mainwindow):
     m.addMenu(menu_tools_transform(mainwindow))
     fac = fonts.fonts(mainwindow).actionCollection
     m.addAction(fac.fonts_document_fonts)
-    sac = scorewiz.ScoreWizard.instance(app.activeWindow()).actionCollection
-    m.addAction(sac.scorewizEdit)
     dac = documentactions.get(mainwindow).actionCollection
     m.addAction(dac.tools_convert_ly)
     m.addSeparator()

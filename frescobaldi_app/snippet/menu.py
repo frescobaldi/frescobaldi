@@ -139,10 +139,13 @@ class TemplateMenu(SnippetMenuBase):
     def __init__(self, parent=None):
         super(TemplateMenu, self).__init__(parent)
         import scorewiz
-        self._scorewizAction =  scorewiz.ScoreWizard.instance(
+        sac = scorewiz.ScoreWizard.instance(
             app.activeWindow()
-        ).actionCollection.scorewizNew
+        ).actionCollection
+        self._scorewizAction = sac.scorewiz
+        self._scorewizFromCurrentAction = sac.scorewizFromCurrent
         self.addAction(self._scorewizAction)
+        self.addAction(self._scorewizFromCurrentAction)
         self.addAction(self.tool().actionCollection.templates_manage)
 
     def translateUI(self):
@@ -169,9 +172,10 @@ class TemplateMenu(SnippetMenuBase):
     def clearMenu(self):
         """Deletes the actions on menu hide, except "Manage templates..."
         Also removes the "Score Wizard" action, but without deleting it."""
-        for a in self.actions()[1:-1]:
+        for a in self.actions()[2:-1]:
             self.removeAction(a)
             a.deleteLater()
+        self.removeAction(self.actions()[1])
         self.removeAction(self.actions()[0])
 
     def repopulate(self):
@@ -179,4 +183,5 @@ class TemplateMenu(SnippetMenuBase):
         super(TemplateMenu, self).repopulate()
         start = self.actions()[0]
         self.insertAction(start, self._scorewizAction)
+        self.insertAction(start, self._scorewizFromCurrentAction)
         self.insertSeparator(start)
