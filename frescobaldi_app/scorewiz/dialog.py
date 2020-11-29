@@ -78,7 +78,7 @@ class ScoreWizardDialog(QDialog):
         self.accepted.connect(self.slotAccepted)
 
         # For processing existing documents
-        self.assignments = []
+        self.existingAssignments = []
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
@@ -94,7 +94,13 @@ class ScoreWizardDialog(QDialog):
         self.tabs.widget(i).widget()
 
     def reset(self):
+        del self.existingAssignments[:]
         self.tabs.currentWidget().widget().clear()
+
+    def resetAll(self):
+        del self.existingAssignments[:]
+        for tab in self.header, self.parts, self.settings:
+            tab.widget().clear()
 
     def setPitchLanguage(self, language):
         if language != self._pitchLanguage:
@@ -146,30 +152,22 @@ class ScoreWizardDialog(QDialog):
 
     def readScore(self):
         """Read the score of an existing document."""
+        self.resetAll()
         cursor = self.mainwindow.textCursor()
         text = cursor.document().toPlainText()
-
         # Parse the music
         music = ly.music.document(ly.document.Document(text))
         for item in music:
             if isinstance(item, ly.music.items.Header):
                 self.header.readFromMusicItem(item)
-
             elif isinstance(item, ly.music.items.Assignment):
-                if item.name() == "global":
+                name = item.name()
+                if name == 'global':
                     self.settings.readFromMusicItem(item)
-
-                elif item.name().endswith("Part"):
+                elif name.endswith('Part'):
                     self.parts.readFromMusicItem(item)
-
                 else:
-                    # FIXME: This is here temporarily for debugging
-                    print(" =>", item)
-                    self.assignments.append(item)
-
-            else:
-                # FIXME: This is here temporarily for debugging
-                print(" =>", item)
+                    self.existingAssignments.append(item)
 
 
 class Page(QWidget):
