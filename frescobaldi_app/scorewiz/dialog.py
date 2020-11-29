@@ -153,6 +153,15 @@ class ScoreWizardDialog(QDialog):
         for item in music:
             if isinstance(item, ly.music.items.Header):
                 self.header.readFromMusicItem(item)
+
+            elif isinstance(item, ly.music.items.Assignment):
+                if item.name() == "global":
+                    self.settings.readFromMusicItem(item)
+                else:
+                    # FIXME: This is here temporarily for debugging
+                    print(" =>", item)
+                    self.assignments.append(item)
+
             else:
                 # FIXME: This is here temporarily for debugging
                 print(" =>", item)
@@ -219,5 +228,45 @@ class Settings(Page):
     def createWidget(self, parent):
         from . import settings
         return settings.SettingsWidget(parent)
+
+    def readFromMusicItem(self, assignment):
+        """Read settings from an ly.music.items.Assignment."""
+        from . import scoreproperties
+        widget = self.widget()
+        sp = widget.scoreProperties
+        for item in assignment.value():
+            if isinstance(item, ly.music.items.KeySignature):
+                pitch = item.pitch()
+                # pitch.alter is a fractions.Fraction
+                key = (pitch.note, pitch.alter.numerator)
+                if key in scoreproperties.keys:
+                    sp.keyNote.setCurrentIndex(scoreproperties.keys.index(key))
+                for mode, translation in scoreproperties.modes:
+                    if mode == item.mode():
+                        sp.keyMode.setCurrentText(translation())
+                        break
+            elif isinstance(item, ly.music.items.Partial):
+                length = item.partial_length()
+                midiDuration = (length.denominator, length.numerator)
+                if midiDuration in scoreproperties.midiDurations:
+                    # index 0 is "None"
+                    sp.pickup.setCurrentIndex(
+                        scoreproperties.midiDurations.index(midiDuration) + 1
+                    )
+            elif isinstance(item, ly.music.items.Tempo):
+                fraction = item.fraction()
+                midiDuration = (fraction.denominator, fraction.numerator)
+                if midiDuration in scoreproperties.midiDurations:
+                    sp.metronomeNote.setCurrentIndex(
+                        scoreproperties.midiDurations.index(midiDuration)
+                    )
+                tempo = item.tempo()
+                sp.metronomeValue.setCurrentText(str(tempo[0]))
+                sp.tempo.setText(item.text().plaintext())
+            elif isinstance(item, ly.music.items.TimeSignature):
+                # Note item.fraction().numerator is always 1
+                fraction = "{0}/{1}".format(item.numerator(),
+                                            item.fraction().denominator)
+                sp.timeSignature.setCurrentText(fraction)
 
 
