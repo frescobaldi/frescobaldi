@@ -35,7 +35,8 @@ class ScoreWizard(plugin.MainWindowPlugin):
     def __init__(self, mainwindow):
         self.actionCollection = ac = Actions()
         actioncollectionmanager.manager(mainwindow).addActionCollection(ac)
-        ac.scorewiz.triggered.connect(self.showDialog)
+        ac.scorewizNew.triggered.connect(self.showNewDialog)
+        ac.scorewizEdit.triggered.connect(self.showEditDialog)
         self._dlg = None
 
     def dialog(self):
@@ -45,19 +46,30 @@ class ScoreWizard(plugin.MainWindowPlugin):
             self._dlg = dialog.ScoreWizardDialog(self.mainwindow())
         return self._dlg
 
-    def showDialog(self):
+    def showNewDialog(self):
+        """Show the dialog for creating a new score."""
         self.dialog().show()
+
+    def showEditDialog(self):
+        """Show the dialog for editing an existing score."""
+        self.dialog().show()
+        self.dialog().readScore()
 
 
 class Actions(actioncollection.ActionCollection):
     name = 'scorewiz'
     def createActions(self, parent=None):
-        self.scorewiz = QAction(parent)
-        self.scorewiz.setIcon(icons.get("tools-score-wizard"))
-        self.scorewiz.setShortcut(QKeySequence("Ctrl+Shift+N"))
-        self.scorewiz.setMenuRole(QAction.NoRole)
+        self.scorewizNew = QAction(parent)
+        self.scorewizNew.setIcon(icons.get("tools-score-wizard"))
+        self.scorewizNew.setShortcut(QKeySequence("Ctrl+Shift+N"))
+        self.scorewizNew.setMenuRole(QAction.NoRole)
+
+        self.scorewizEdit = QAction(parent)
+        self.scorewizEdit.setIcon(icons.get("tools-score-wizard"))
+        self.scorewizEdit.setMenuRole(QAction.NoRole)
 
     def translateUI(self):
-        self.scorewiz.setText(_("Score &Wizard..."))
+        self.scorewizNew.setText(_("Score &Wizard..."))
+        self.scorewizEdit.setText(_("Score S&etup Wizard..."))
 
 

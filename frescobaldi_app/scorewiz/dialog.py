@@ -32,6 +32,7 @@ import qutil
 import userguide
 import ly.document
 import ly.dom
+import ly.music
 
 
 class ScoreWizardDialog(QDialog):
@@ -42,6 +43,7 @@ class ScoreWizardDialog(QDialog):
         super(ScoreWizardDialog, self).__init__(mainwindow)
         self.addAction(mainwindow.actionCollection.help_whatsthis)
         self._pitchLanguage = None
+        self.mainwindow = mainwindow
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -73,6 +75,9 @@ class ScoreWizardDialog(QDialog):
         qutil.saveDialogSize(self, "scorewiz/dialog/size")
         app.translateUI(self)
         self.accepted.connect(self.slotAccepted)
+
+        # For processing existing documents
+        self.assignments = []
 
     def translateUI(self):
         self.setWindowTitle(app.caption(_("Score Setup Wizard")))
@@ -138,6 +143,20 @@ class ScoreWizardDialog(QDialog):
         dlg.exec_()
         dlg.cleanup()
 
+    def readScore(self):
+        """Read the score of an existing document."""
+        cursor = self.mainwindow.textCursor()
+        text = cursor.document().toPlainText()
+
+        # Parse the music
+        music = ly.music.document(ly.document.Document(text))
+        for item in music:
+            if isinstance(item, ly.music.items.Header):
+                self.header.readFromMusicItem(item)
+            else:
+                # FIXME: This is here temporarily for debugging
+                print(" =>", item)
+
 
 class Page(QWidget):
     """A Page in the tab widget.
@@ -173,6 +192,15 @@ class Header(Page):
     def createWidget(self, parent):
         from . import header
         return header.HeaderWidget(parent)
+
+    def readFromMusicItem(self, headerBlock):
+        """Read an existing header block as a ly.music.items.Header."""
+        widget = self.widget()
+        for item in headerBlock:
+            name = item.name()
+            value = item.value()
+            if name in widget.edits:
+                widget.edits[name].setText(value.plaintext())
 
 
 class Parts(Page):

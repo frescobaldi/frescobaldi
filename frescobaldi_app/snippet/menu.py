@@ -141,7 +141,7 @@ class TemplateMenu(SnippetMenuBase):
         import scorewiz
         self._scorewizAction =  scorewiz.ScoreWizard.instance(
             app.activeWindow()
-        ).actionCollection.scorewiz
+        ).actionCollection.scorewizNew
         self.addAction(self._scorewizAction)
         self.addAction(self.tool().actionCollection.templates_manage)
 
