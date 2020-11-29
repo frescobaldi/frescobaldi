@@ -24,7 +24,7 @@ The Score Wizard dialog.
 
 from PyQt5.QtCore import pyqtSignal, QSettings, QUrl
 from PyQt5.QtWidgets import (
-    QDialog, QDialogButtonBox, QTabWidget, QVBoxLayout, QWidget)
+    QDialog, QDialogButtonBox, QGroupBox, QTabWidget, QVBoxLayout, QWidget)
 
 import app
 import indent
@@ -33,6 +33,7 @@ import userguide
 import ly.document
 import ly.dom
 import ly.music
+import ly.util
 
 
 class ScoreWizardDialog(QDialog):
@@ -157,6 +158,10 @@ class ScoreWizardDialog(QDialog):
             elif isinstance(item, ly.music.items.Assignment):
                 if item.name() == "global":
                     self.settings.readFromMusicItem(item)
+
+                elif item.name().endswith("Part"):
+                    self.parts.readFromMusicItem(item)
+
                 else:
                     # FIXME: This is here temporarily for debugging
                     print(" =>", item)
@@ -213,12 +218,45 @@ class Header(Page):
 
 
 class Parts(Page):
+    def __init__(self, dialog):
+        super(Parts, self).__init__(dialog)
+        # Directory mapping assignment identifiers to the corresponding
+        # Part class. For example: self._partTypes['jazzGuitar'] == JazzGuitar
+        self._partTypes = {}
+
     def title(self):
         return _("&Parts")
 
     def createWidget(self, parent):
         from . import score
         return score.ScorePartsWidget(parent)
+
+    def readFromMusicItem(self, assignment):
+        """Read a part definition from an ly.music.items.Assignment."""
+        from . import score
+        widget = self.widget()
+        if not self._partTypes:
+            # This is only needed when reading from an existing score,
+            # so generate it the first time it is used.
+            from . import build, parts
+            for category in parts.categories:
+                for item in category.items:
+                    self._partTypes[ly.util.mkid(item.__name__)] = item
+        name = assignment.name()
+        # Make sure this is, in fact, a part definition before proceeding.
+        # We already check this in ScoreWizardDialog.readScore(), but it never
+        # hurts to be safe...
+        if name.endswith('Part'):
+            try:
+                # TODO: Handle containers
+                parent = widget.scoreView
+                part = self._partTypes[name[:-4]]
+                box = QGroupBox(widget.partSettings)
+                item = score.PartItem(parent, part, box)
+            except KeyError:
+                # Unrecognized part type; fall back on a piano staff since
+                # they can hold almost anything.
+                partType = self._partTypes['piano']
 
 
 class Settings(Page):
