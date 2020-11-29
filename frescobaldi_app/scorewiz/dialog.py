@@ -299,8 +299,10 @@ class Settings(Page):
                         scoreproperties.midiDurations.index(midiDuration)
                     )
                 tempo = item.tempo()
-                sp.metronomeValue.setCurrentText(str(tempo[0]))
-                sp.tempo.setText(item.text().plaintext())
+                if tempo:
+                    sp.metronomeValue.setCurrentText(str(tempo[0]))
+                if item.text():
+                    sp.tempo.setText(item.text().plaintext())
             elif isinstance(item, ly.music.items.TimeSignature):
                 # Note item.fraction().numerator is always 1
                 fraction = "{0}/{1}".format(item.numerator(),
