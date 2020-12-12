@@ -73,7 +73,8 @@ The following people contributed to {appname}:
 :  !Francisco Vila
 
 {lang_ru}:
-:  !Sergey Poltavski,
+:  !Olesya Gerasimenko,
+    Sergey Poltavski,
     Artem Zolochevskiy,
     Mikhail Iglizky,
     Pavel Roskin
