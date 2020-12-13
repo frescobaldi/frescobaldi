@@ -85,7 +85,7 @@ class ListEdit(QWidget):
         item = self.listBox.currentItem()
         if item:
             self.removeItem(item)
-            
+
     def updateSelection(self):
         selected = bool(self.listBox.currentItem())
         self.editButton.setEnabled(selected)
@@ -190,3 +190,13 @@ class FilePathEdit(ListEdit):
             return True
         return False
 
+    def setFileMode(self, mode):
+        modes = {
+            'directory': QFileDialog.Directory,
+            QFileDialog.Directory: QFileDialog.Directory,
+            'file': QFileDialog.ExistingFile,
+            QFileDialog.ExistingFile: QFileDialog.ExistingFile,
+            'anyfile': QFileDialog.AnyFile,
+            QFileDialog.AnyFile: QFileDialog.AnyFile
+        }
+        self.fileDialog().setFileMode(modes[mode])
