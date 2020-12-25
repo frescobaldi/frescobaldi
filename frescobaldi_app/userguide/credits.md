@@ -50,6 +50,10 @@ The following people contributed to {appname}:
 !Alex Schreiber:
 : Relative mode for MIDI capturing
 
+!Benjamin Johnson:
+: !_(Score Wizard improvements)_,
+  _(Score Wizard From Current Document)_
+
 
 {appname} is translated into the following languages:
 

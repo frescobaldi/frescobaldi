@@ -4,6 +4,10 @@ ChangeLog of Frescobaldi, http://www.frescobaldi.org/
 
 Changes in 3.2 -- current
 
+* Improvements to the Score Wizard, contributed by Benjamin Johnson (#1343):
+  - Various new instruments, mostly guitar, synth and bass related
+  - New command File->New->Score Wizard from current document, which reads some
+    properties and score setup from the current document.
 * Dependencies change:
   - the qpageview module, thus far in frescobaldi_app/qpageview, is now,
     because of its generic nature, a separate project at
